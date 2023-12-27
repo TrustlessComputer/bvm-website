@@ -4,7 +4,7 @@ import { Box, Container, Stack, Text } from '@chakra-ui/react';
 
 const Footer = () => {
   return (
-    <Box>
+    <Box bgColor={'black'}>
       <Container
         as={Stack}
         maxW={'2xl'}

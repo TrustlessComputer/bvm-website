@@ -1,38 +1,31 @@
 'use client';
-
 import {
   Box,
   Button,
   Collapse,
   Flex,
   IconButton,
-  useBreakpointValue,
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
-
 import { CDN_URL_ICONS } from '@/config';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { DesktopNav } from './components/DesktopNav';
 import { MobileNav } from './components/MobileNav';
+import SvgInset from '@/components/SvgInset';
+import s from './style.module.scss';
 
 const Header = () => {
   const { isOpen, onToggle } = useDisclosure();
   // const isMobile = useBreakpointValue({ base: true, md: false }) as boolean;
   // console.log('TEST   isMobile  ', isMobile);
   return (
-    <Box position={'sticky'} top={0}>
+    <Box position={'absolute'} top={0} left={0} right={0} zIndex={9999}>
       <Flex
-        // bg={useColorModeValue('white', 'gray.800')}
-        bg={'black'}
-        color={useColorModeValue('gray.600', 'white')}
         minH={'60px'}
         py={{ base: 2 }}
-        px={{ base: 12, md: 24, lg: 36 }}
-        borderBottom={1}
-        borderStyle={'solid'}
+        px={{ base: 8, md: 24, lg: 36 }}
         display={'flex'}
-        // borderColor={'black'}
         align={'center'}
       >
         {/* Left View */}
@@ -44,7 +37,13 @@ const Header = () => {
           }}
         >
           <Button as="a" href="/" variant={'link'}>
-            <img src={`${CDN_URL_ICONS}/logo.png`} width={35} height={35} />
+            <SvgInset
+              svgUrl={`${CDN_URL_ICONS}/logo_bvm.svg`}
+              size={200}
+              style={{
+                filter: 'invert(1)',
+              }}
+            />
           </Button>
         </Flex>
 

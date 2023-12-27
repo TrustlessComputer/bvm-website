@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { NavItem } from '../config';
+import { NavItem } from '../menuConfig';
 
 export const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   return (

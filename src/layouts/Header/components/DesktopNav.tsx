@@ -13,12 +13,11 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-import { NAV_ITEMS } from '../config';
+import { NAV_ITEMS } from '../menuConfig';
 import { DesktopSubNav } from './DesktopSubNav';
+import s from './style.module.scss';
 
 export const DesktopNav = () => {
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800');
-
   return (
     <Stack direction={'row'} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
@@ -28,20 +27,16 @@ export const DesktopNav = () => {
               <Link
                 p={2}
                 href={navItem.href ?? '#'}
-                fontSize={'sm'}
+                fontSize={'lg'}
                 fontWeight={500}
-                color={'white'}
-                _hover={{
-                  textDecoration: 'solid underline',
-                  textUnderlineOffset: 4,
-                  opacity: 0.6,
-                }}
+                color={'#fff'}
+                _hover={{}}
               >
                 {navItem.label}
               </Link>
             </PopoverTrigger>
 
-            {navItem.children && (
+            {/* {navItem.children && (
               <PopoverContent
                 border={0}
                 boxShadow={'xl'}
@@ -57,7 +52,7 @@ export const DesktopNav = () => {
                   ))}
                 </Stack>
               </PopoverContent>
-            )}
+            )} */}
           </Popover>
         </Box>
       ))}

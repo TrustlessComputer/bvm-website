@@ -8,7 +8,7 @@ export interface NavItem {
 
 export const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'BLOCKCHAINS',
+    label: 'Blockchains',
     children: [
       {
         label: 'Explore Design Work',
@@ -24,7 +24,7 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'BUILDING BLOCKS',
+    label: 'Building Blocks',
     children: [
       {
         label: 'Job Board',
@@ -40,12 +40,12 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'DEVELOPERS',
+    label: 'Developers',
     href: '#',
     isHide: false,
   },
   {
-    label: 'WHITE PAPER',
+    label: 'Whitepapers',
     href: '#',
     isHide: false,
   },
