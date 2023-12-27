@@ -1,31 +1,66 @@
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 
-const BandeinsSans = localFont({
+const RobotoMonoFontConfig = localFont({
   src: [
     {
-      path: '../../public/fonts/BandeinsSans-Light.woff2',
+      path: '../../public/fonts/RobotoMono-Light.ttf',
       weight: '300',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/BandeinsSans-Regular.woff2',
+      path: '../../public/fonts/RobotoMono-Regular.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/BandeinsSans-Medium.woff2',
+      path: '../../public/fonts/RobotoMono-Medium.ttf',
       weight: '500',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/BandeinsSans-SemiBold.woff2',
+      path: '../../public/fonts/RobotoMono-SemiBold.ttf',
       weight: '600',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/BandeinsSans-Bold.woff2',
+      path: '../../public/fonts/RobotoMono-Bold.ttf',
       weight: '700',
+      style: 'normal',
+    },
+  ],
+});
+
+const OpenSansFontConfig = localFont({
+  src: [
+    {
+      path: '../../public/fonts/OpenSans-Light.ttf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/OpenSans-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/OpenSans-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/OpenSans-SemiBold.ttf',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/OpenSans-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/OpenSans-ExtraBold.ttf',
+      weight: '800',
       style: 'normal',
     },
   ],
@@ -33,14 +68,4 @@ const BandeinsSans = localFont({
 
 const InterFontConfig = Inter({ subsets: ['latin'] });
 
-// const somethingFont = localFont({
-//   src: [
-//     {
-//       path: "../../public/fonts/BandeinsSans-Regular.woff2",
-//       weight: "400",
-//       style: "normal",
-//     },
-//   ],
-// });
-
-export { BandeinsSans, InterFontConfig };
+export { InterFontConfig, RobotoMonoFontConfig, OpenSansFontConfig };
