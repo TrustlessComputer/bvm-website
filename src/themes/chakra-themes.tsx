@@ -16,6 +16,9 @@ const chakraThemes = extendTheme({
       },
     },
   },
+  fonts: {
+    color: 'white',
+  },
 });
 
 export default chakraThemes;

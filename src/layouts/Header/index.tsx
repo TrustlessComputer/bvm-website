@@ -6,16 +6,14 @@ import {
   Collapse,
   Flex,
   IconButton,
-  Text,
-  useBreakpointValue,
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
 
-import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
-import { MobileNav } from './components/MobileNav';
-import SvgInset from '@/components/SvgInset';
 import { CDN_URL_ICONS } from '@/config';
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { DesktopNav } from './components/DesktopNav';
+import { MobileNav } from './components/MobileNav';
 
 const Header = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -28,42 +26,45 @@ const Header = () => {
         color={useColorModeValue('gray.600', 'white')}
         minH={'60px'}
         py={{ base: 2 }}
-        px={{ base: 4, md: 20, lg: 32 }}
+        px={{ base: 12, md: 24, lg: 36 }}
         borderBottom={1}
         borderStyle={'solid'}
         display={'flex'}
-        borderColor={'black'}
+        // borderColor={'black'}
         align={'center'}
       >
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          {/* <Text
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}
-          >
-            <Button as="a" href="/" variant={'link'}>
-              Logo
-            </Button>
-          </Text> */}
+        {/* Left View */}
+        <Flex
+          flex={{ base: 1 }}
+          justify={'left'}
+          _hover={{
+            cursor: 'pointer',
+          }}
+        >
+          <Button as="a" href="/" variant={'link'}>
+            <img src={`${CDN_URL_ICONS}/logo.png`} width={35} height={35} />
+          </Button>
+        </Flex>
 
-          <SvgInset svgUrl={`${CDN_URL_ICONS}/logo.svg`} size={32} />
-
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            {/* <DesktopNav /> */}
+        {/* Right View */}
+        <Flex flex={1} justify={{ base: 'flex-end' }}>
+          <Flex display={{ base: 'flex', md: 'none' }} ml={10}>
+            <IconButton
+              onClick={onToggle}
+              icon={
+                isOpen ? (
+                  <CloseIcon w={3} h={3} />
+                ) : (
+                  <HamburgerIcon w={5} h={5} />
+                )
+              }
+              aria-label={'Toggle Navigation'}
+            />
           </Flex>
         </Flex>
-        <Flex
-          flex={{ base: 1, md: 'auto' }}
-          display={{ base: 'flex' }}
-          justify={{ base: 'flex-end', md: 'auto' }}
-        >
-          <IconButton
-            onClick={onToggle}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-            }
-            aria-label={'Toggle Navigation'}
-          />
+
+        <Flex display={{ base: 'none', md: 'flex' }}>
+          <DesktopNav />
         </Flex>
       </Flex>
 

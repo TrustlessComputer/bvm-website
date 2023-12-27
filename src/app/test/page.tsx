@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import s from './style.module.scss';
+import MainLayout from '@/layouts/MainLayout';
 
 const TestPage = () => {
   useEffect(() => {
@@ -9,9 +10,11 @@ const TestPage = () => {
   }, []);
 
   return (
-    <div className={s.container}>
-      <p>TestPage Content.....</p>
-    </div>
+    <MainLayout>
+      <div className={s.container}>
+        <p>TestPage Content.....</p>
+      </div>
+    </MainLayout>
   );
 };
 

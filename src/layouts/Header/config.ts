@@ -3,11 +3,12 @@ export interface NavItem {
   subLabel?: string;
   children?: Array<NavItem>;
   href?: string;
+  isHide?: boolean;
 }
 
 export const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Inspiration',
+    label: 'BLOCKCHAINS',
     children: [
       {
         label: 'Explore Design Work',
@@ -20,9 +21,10 @@ export const NAV_ITEMS: Array<NavItem> = [
         href: '#',
       },
     ],
+    isHide: false,
   },
   {
-    label: 'Find Work',
+    label: 'BUILDING BLOCKS',
     children: [
       {
         label: 'Job Board',
@@ -35,13 +37,16 @@ export const NAV_ITEMS: Array<NavItem> = [
         href: '#',
       },
     ],
+    isHide: false,
   },
   {
-    label: 'Learn Design',
+    label: 'DEVELOPERS',
     href: '#',
+    isHide: false,
   },
   {
-    label: 'Hire Designers',
+    label: 'WHITE PAPER',
     href: '#',
+    isHide: false,
   },
 ];
