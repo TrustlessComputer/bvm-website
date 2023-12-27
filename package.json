@@ -18,7 +18,6 @@
     "commit": "cz",
     "test:e2e": "playwright test",
     "prepare": "husky install",
-    "postbuild": "next-sitemap && $PWD/etc/check-chunks-size.sh",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {

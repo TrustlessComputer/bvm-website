@@ -6,6 +6,7 @@ import {
   Collapse,
   Flex,
   IconButton,
+  useBreakpointValue,
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -17,7 +18,8 @@ import { MobileNav } from './components/MobileNav';
 
 const Header = () => {
   const { isOpen, onToggle } = useDisclosure();
-
+  // const isMobile = useBreakpointValue({ base: true, md: false }) as boolean;
+  // console.log('TEST   isMobile  ', isMobile);
   return (
     <Box position={'sticky'} top={0}>
       <Flex

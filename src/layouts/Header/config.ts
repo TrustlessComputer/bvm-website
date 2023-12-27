@@ -49,4 +49,4 @@ export const NAV_ITEMS: Array<NavItem> = [
     href: '#',
     isHide: false,
   },
-];
+].filter((item) => !item.isHide);
