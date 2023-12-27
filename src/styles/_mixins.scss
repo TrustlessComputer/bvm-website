@@ -1,0 +1,637 @@
+// CSS CALCULATE UNIT MIXINS
+
+@function rem($px, $base: $font_size_rem) {
+  @if  unitless($px) {
+    $px: $px * 1px;
+  }
+
+  @if  unitless($base) {
+    $base: $base * 1px;
+  }
+
+  @return ($px / $base) * 1rem;
+}
+
+@function em($px, $base: 16px) {
+  @if  unitless($px) {
+    $px: $px * 1px;
+  }
+
+  @if  unitless($base) {
+    $base: $base * 1px;
+  }
+
+  @return ($px / $base) * 1em;
+}
+
+@function vh($px, $base: 1080px) {
+  @return ($px / $base) * 100vh;
+}
+
+@function vw($px, $base: 1920px) {
+  @return ($px / $base) * 100vw;
+}
+
+@mixin w-from-to($from, $to) {
+  @media screen and (min-width: $from) and (max-width: $to) {
+    @content;
+  }
+}
+
+@mixin w-min($to) {
+  @media screen and (min-width: $to) {
+    @content;
+  }
+}
+
+@mixin w-max($to) {
+  @media screen and (max-width: $to) {
+    @content;
+  }
+}
+
+@function px($val) {
+  @return $val * 1px;
+}
+
+@function fcLineHeight($line, $font_size) {
+  @return $line/$font_size;
+}
+
+@mixin lineHeight($line, $font_size) {
+  line-height: fclineheight($line, $font_size);
+}
+
+@mixin bg-classes($name, $color) {
+  .bg-#{$name} {
+    background: $color;
+  }
+}
+
+@mixin color-classes($name, $color) {
+  .color-#{$name} {
+    color: $color;
+  }
+}
+
+@mixin fill-classes($name, $color) {
+  .fill-#{$name} {
+    fill: $color;
+  }
+}
+
+@mixin stroke-classes($name, $color) {
+  .stroke-#{$name} {
+    stroke: $color;
+  }
+}
+
+@mixin classes-ultils($colors) {
+  @each $key, $color in $colors {
+    @include color-classes($key, $color);
+    @include bg-classes($key, $color);
+    @include fill-classes($key, $color);
+    @include stroke-classes($key, $color);
+  }
+}
+
+@mixin render-custom-cols($wrap-col, $ofCols) {
+  @for $i from 1 through $wrap-col {
+    .col-#{$i} {
+      flex: 0 0 ((($i / $ofCols) * ($ofCols/$wrap-col)) * 100%);
+      max-width: ((($i / $ofCols) * ($ofCols/$wrap-col)) * 100%);
+    }
+    .offset-#{$i} {
+      margin-left: ((($i / $ofCols) * ($ofCols/$wrap-col)) * 100%);
+    }
+  }
+}
+
+// MEDIA QUERY MIXINS
+
+@mixin min-aspect-ratio-tablet {
+  @media (min-aspect-ratio: 2/3) {
+    @content;
+  }
+}
+
+@mixin max-aspect-ratio-tablet {
+  @media (max-aspect-ratio: 2/3) {
+    @content;
+  }
+}
+
+// query xs
+@mixin min-xs {
+  @media (min-width: #{$screen-xs}) {
+    @content;
+  }
+}
+
+@mixin max-xs {
+  @media (max-width: #{$screen-xs}) {
+    @content;
+  }
+}
+
+// query sm
+@mixin min-sm {
+  @media (min-width: #{$screen-sm}) {
+    @content;
+  }
+}
+
+@mixin max-sm {
+  @media (max-width: #{$screen-sm}) {
+    @content;
+  }
+}
+
+@mixin max-sm-ios {
+  @media not all and (min-resolution: 0.001dpcm) {
+    @media (max-width: #{$screen-sm}) {
+      @content;
+    }
+  }
+}
+
+// query md
+
+@mixin max-md {
+  @media (max-width: #{$screen-md}) {
+    @content;
+  }
+}
+
+@mixin min-md {
+  @media (min-width: #{$screen-md}) {
+    @content;
+  }
+}
+
+// query lg
+
+@mixin max-lg {
+  @media (max-width: #{$screen-lg}) {
+    @content;
+  }
+}
+
+@mixin min-lg {
+  @media (min-width: #{$screen-lg}) {
+    @content;
+  }
+}
+
+// query ml
+
+@mixin max-ml {
+  @media (max-width: #{$screen-ml}) {
+    @content;
+  }
+}
+
+@mixin min-ml {
+  @media (min-width: #{$screen-ml + 1px}) {
+    @content;
+  }
+}
+
+// query xl
+
+@mixin max-xl {
+  @media (max-width: #{$screen-xl}) {
+    @content;
+  }
+}
+
+@mixin min-xl {
+  @media (min-width: #{$screen-xl}) {
+    @content;
+  }
+}
+
+// query xxl
+
+@mixin max-xxl {
+  @media (max-width: #{$screen-xxl}) {
+    @content;
+  }
+}
+
+@mixin min-xxl {
+  @media (min-width: #{$screen-xxl}) {
+    @content;
+  }
+}
+
+// query xxl
+
+@mixin max-xxxl {
+  @media (max-width: #{$screen-xxxl}) {
+    @content;
+  }
+}
+
+@mixin min-xxxl {
+  @media (min-width: #{$screen-xxxl}) {
+    @content;
+  }
+}
+
+// md to lg and md to ml
+
+@mixin md-to-lg {
+  @media (min-width: #{$screen-md}) and (max-width: #{$screen-lg}) {
+    @content;
+  }
+}
+
+@mixin md-to-ml {
+  @media (min-width: #{$screen-md}) and (max-width: #{$screen-ml}) {
+    @content;
+  }
+}
+
+// lg to ml
+
+@mixin lg-to-ml {
+  @media (min-width: #{$screen-lg}) and (max-width: #{$screen-ml}) {
+    @content;
+  }
+}
+
+// dynamic media query
+
+@mixin min-size($size) {
+  @media (min-width: #{$size}) {
+    @content;
+  }
+}
+
+@mixin max-size($size) {
+  @media (max-width: #{$size}) {
+    @content;
+  }
+}
+
+// TYPE MIXINS
+$mixin-heading-h1-font-size: rem(48px);
+$mixin-heading-h2-font-size: rem(42px);
+$mixin-heading-h3-font-size: rem(32px);
+$mixin-heading-h3a-font-size: rem(28px);
+$mixin-heading-h4-font-size: rem(26px);
+$mixin-heading-h5-font-size: rem(20px);
+$mixin-heading-h6-font-size: rem(18px);
+$mixin-heading-font-weight: 500;
+$mixin-heading-font-weight-book: 400;
+
+@mixin h1 {
+  font-size: $mixin-heading-h1-font-size;
+  line-height: calc(#{$mixin-heading-h1-font-size} + 10px);
+  font-weight: $mixin-heading-font-weight;
+  letter-spacing: 0.2px;
+}
+
+@mixin h2 {
+  font-size: $mixin-heading-h2-font-size;
+  line-height: calc(#{$mixin-heading-h2-font-size} + 10px);
+  font-weight: $mixin-heading-font-weight;
+  letter-spacing: 0.2px;
+}
+
+@mixin h3 {
+  font-size: $mixin-heading-h3-font-size;
+  line-height: calc(#{$mixin-heading-h3-font-size} + 10px);
+}
+
+@mixin h3a {
+  font-size: $mixin-heading-h3a-font-size;
+  line-height: calc(#{$mixin-heading-h3a-font-size} + 10px);
+}
+
+@mixin h4 {
+  font-size: $mixin-heading-h4-font-size;
+  line-height: calc(#{$mixin-heading-h4-font-size} + 10px);
+}
+
+@mixin h5 {
+  font-size: $mixin-heading-h5-font-size;
+  line-height: calc(#{$mixin-heading-h5-font-size} + 10px);
+  font-weight: $mixin-heading-font-weight;
+  letter-spacing: 0.2px;
+}
+
+@mixin h6 {
+  font-size: $mixin-heading-h6-font-size;
+  line-height: calc(#{$mixin-heading-h6-font-size} + 10px);
+  font-weight: $mixin-heading-font-weight;
+  letter-spacing: 0.2px;
+}
+
+$mixin-heading-display-1-font-size: rem(128px);
+
+@mixin display-128 {
+  font-size: $mixin-heading-display-1-font-size;
+  line-height: calc(#{$mixin-heading-display-1-font-size} + 10px);
+  font-weight: $heading-font-weight;
+  letter-spacing: 0.1px;
+}
+
+@mixin display-128-book {
+  font-size: $mixin-heading-display-1-font-size;
+  line-height: calc(#{$mixin-heading-display-1-font-size} + 10px);
+  font-weight: $mixin-heading-font-weight-book;
+  letter-spacing: 0.1px;
+}
+
+$mixin-heading-display-2-font-size: rem(96px);
+
+@mixin display-96 {
+  font-size: $mixin-heading-display-2-font-size;
+  line-height: calc(#{$mixin-heading-display-2-font-size} + 10px);
+  font-weight: $heading-font-weight;
+  letter-spacing: 0.1px;
+}
+
+@mixin display-96-book {
+  font-size: $mixin-heading-display-2-font-size;
+  line-height: calc(#{$mixin-heading-display-2-font-size} + 10px);
+  font-weight: $mixin-heading-font-weight-book;
+  letter-spacing: 0.1px;
+}
+
+$mixin-heading-display-3-font-size: rem(64px);
+
+@mixin display-64 {
+  font-size: $mixin-heading-display-3-font-size;
+  line-height: calc(#{$mixin-heading-display-3-font-size} + 10px);
+  font-weight: $heading-font-weight;
+  letter-spacing: 0.1px;
+}
+
+@mixin display-64-book {
+  font-size: $mixin-heading-display-3-font-size;
+  line-height: calc(#{$mixin-heading-display-3-font-size} + 10px);
+  font-weight: $mixin-heading-font-weight-book;
+  letter-spacing: 0.1px;
+}
+
+// text
+
+$mixin-text-subtitle_16-font-size: rem(16px);
+
+@mixin subtitle-16 {
+  font-size: $mixin-text-subtitle_16-font-size;
+  line-height: calc(#{$mixin-text-subtitle_16-font-size} + 10px);
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+
+$mixin-text-subtitle_14-font-size: rem(14px);
+
+@mixin subtitle-14 {
+  font-size: $mixin-text-subtitle_14-font-size;
+  line-height: calc(#{$mixin-text-subtitle_14-font-size} + 10px);
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+
+$mixin-text-body_16-font-size: rem(16px);
+
+@mixin body-16 {
+  font-size: $mixin-text-body_16-font-size;
+  line-height: calc(#{$mixin-text-body_16-font-size} + 10px);
+  font-weight: 400;
+  letter-spacing: 0.1px;
+}
+
+$mixin-text-body_14-font-size: rem(14px);
+
+@mixin body-14 {
+  font-size: $mixin-text-body_14-font-size;
+  line-height: calc(#{$mixin-text-body_14-font-size} + 10px);
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+
+$mixin-text-small_1-font-size: rem(12px);
+
+@mixin small-1 {
+  font-size: $mixin-text-small_1-font-size;
+  line-height: calc(#{$mixin-text-small_1-font-size} + 6px);
+  font-weight: 500;
+}
+
+$mixin-text-small_2-font-size: rem(12px);
+
+@mixin small-2 {
+  font-size: $mixin-text-small_2-font-size;
+  line-height: calc(#{$mixin-text-small_2-font-size} + 4px);
+  font-weight: 400;
+}
+
+$mixin-text-small_3-font-size: rem(11px);
+
+@mixin small-3 {
+  font-size: $mixin-text-small_3-font-size;
+  line-height: calc(#{$mixin-text-small_3-font-size} + 5px);
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+
+$mixin-text-button_16-font-size: rem(16px);
+
+@mixin button-16 {
+  font-size: $mixin-text-button_16-font-size;
+  line-height: calc(#{$mixin-text-button_16-font-size} + 5px);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+$mixin-text-button_14-font-size: rem(14px);
+
+@mixin button-14 {
+  font-size: $mixin-text-button_14-font-size;
+  line-height: calc(#{$mixin-text-button_14-font-size} + 5px);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+$mixin-text-p-font-size: rem(16px);
+$mixin-text-p-font-size-18: rem(18px);
+$mixin-text-p-book-font-size: rem(14px);
+
+@mixin p {
+  font-size: $mixin-text-p-font-size;
+  line-height: calc(#{$mixin-text-p-font-size} + 10px);
+  font-weight: 400;
+}
+
+@mixin p-18 {
+  font-size: $mixin-text-p-font-size;
+  line-height: calc(#{$mixin-text-p-font-size-18} + 10px);
+  font-weight: 400;
+}
+
+@mixin p-book {
+  font-size: $mixin-text-p-book-font-size;
+  line-height: calc(#{$mixin-text-p-book-font-size} + 10px);
+  font-weight: 300;
+}
+
+@mixin mb-32 {
+  margin-bottom: rem(32);
+
+  @include max-md {
+    margin-bottom: rem(24);
+  }
+}
+
+@mixin mb-24 {
+  margin-bottom: rem(24px);
+
+  @include max-md {
+    margin-bottom: rem(18px);
+  }
+}
+
+@mixin mb-12 {
+  margin-bottom: rem(12px);
+}
+
+@mixin is-pc-wide {
+  @include w-min(1920px) {
+    @content;
+  }
+}
+
+@mixin is-pc {
+  @include w-min(1200px) {
+    @content;
+  }
+}
+
+@mixin not-pc {
+  @include w-max(1199px) {
+    @content;
+  }
+}
+
+@mixin is-tablet {
+  @include w-from-to(768px, 1199px) {
+    @content;
+  }
+}
+
+@mixin is-min-tableWide {
+  @include w-min(1024px) {
+    @content;
+  }
+}
+
+@mixin is-min-table {
+  @include w-min(768px) {
+    @content;
+  }
+}
+
+@mixin is-mobile {
+  @include w-max(767px) {
+    @content;
+  }
+}
+
+@mixin btnRadius {
+  border-radius: rem(6);
+
+  @include w-max(767px) {
+    border-radius: 0;
+  }
+}
+
+@mixin globalRadius {
+  border-radius: rem(12);
+
+  @include w-max(767px) {
+    border-radius: 0;
+  }
+}
+
+@mixin cardRadius {
+  @include globalRadius;
+
+  overflow: hidden;
+}
+
+@mixin btnShop {
+  background-color: $blue;
+  color: $white;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: rem(16px);
+  line-height: 150%;
+  padding: 0 rem(20px);
+  height: rem(42px);
+  text-decoration: none !important;
+  transition: background-color 0.2s ease-in-out;
+
+  @include btnRadius;
+
+  @include is-pc {
+    padding: 0 rem(24px);
+    height: rem(50px);
+  }
+
+  &:hover {
+    color: $white;
+    background-color: $deep-blue;
+  }
+}
+
+@mixin on-circle($item-count, $circle-size, $item-size) {
+  //position: relative;
+  width: $circle-size;
+  height: $circle-size;
+  padding: 0;
+  border-radius: 50%;
+  list-style: none;
+
+  > * {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $item-size;
+    height: $item-size;
+    margin: -($item-size / 2);
+
+    $angle: (360 / $item-count);
+    $rot: 0;
+
+    @for $i from 1 through $item-count {
+      &:nth-of-type(#{$i}) {
+        transform: rotate($rot * 1deg)
+        translate($circle-size / 2)
+        rotate($rot * -1deg);
+      }
+
+      $rot: $rot + $angle;
+    }
+
+    > div > img {
+      width: $item-size;
+      height: $item-size;
+    }
+  }
+}
+
+@mixin fixTextLargeLen($len: 150px) {
+  max-width: $len;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

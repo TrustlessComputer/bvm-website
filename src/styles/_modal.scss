@@ -1,0 +1,12 @@
+body {
+  .chakra-modal__content {
+    background: #292929;
+    min-height: auto;
+  }
+  .chakra-modal__close-btn {
+    svg,
+    path {
+      fill: #fff;
+    }
+  }
+}

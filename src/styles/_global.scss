@@ -1,0 +1,39 @@
+body,
+body[data-theme='light'] {
+  --theme-bg: #fcfcfc;
+  --theme-hover-bg: #f6f6f6;
+  --theme-text: #1f2937;
+  --theme-bc: #e5e7eb;
+}
+
+body[data-theme='dark'] {
+  --theme-bg: #181818;
+  --theme-hover-bg: #2d2d2d;
+  --theme-text: #f3f4f6;
+  --theme-bc: #2d2d2d;
+}
+
+html,
+body {
+  overscroll-behavior: none;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+  background: #000000;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  appearance: textfield;
+}
+p {
+  margin-bottom: 0;
+}

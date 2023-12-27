@@ -1,0 +1,50 @@
+{
+  "name": "bvm-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "cp ./envs/.env.develop .env && next dev",
+    "ld": "export PORT=3001 && cp ./envs/.env.develop .env  && rm -rf .next && next dev",
+    "ls": "export PORT=3002 && cp ./envs/.env.staging .env  && rm -rf .next && next dev",
+    "lp": "export PORT=3003 && cp ./envs/.env.production .env  && rm -rf .next && next dev",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "build-stats": "cross-env ANALYZE=true npm run build",
+    "clean": "rimraf .next .swc out coverage",
+    "lint": "next lint",
+    "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore",
+    "check-types": "tsc --noEmit --pretty",
+    "test": "jest",
+    "commit": "cz",
+    "test:e2e": "playwright test",
+    "prepare": "husky install",
+    "postbuild": "next-sitemap && $PWD/etc/check-chunks-size.sh",
+    "analyze": "ANALYZE=true next build"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/react": "^2.8.2",
+    "@commitlint/cli": "^18.4.3",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "framer-motion": "^10.16.16",
+    "next": "14.0.4",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-player": "^2.14.1",
+    "react-svg": "^16.1.32",
+    "sass": "^1.69.5"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@commitlint/cz-commitlint": "^18.4.3",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "husky": "^8.0.3",
+    "typescript": "^5"
+  }
+}
