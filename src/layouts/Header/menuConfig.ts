@@ -2,6 +2,7 @@ export interface NavItem {
   label: string;
   subLabel?: string;
   children?: Array<NavItem>;
+  isNewWindow?: boolean;
   href?: string;
   isHide?: boolean;
 }
@@ -9,44 +10,26 @@ export interface NavItem {
 export const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Blockchains',
-    children: [
-      {
-        label: 'Explore Design Work',
-        subLabel: 'Trending Design to inspire you',
-        href: '#',
-      },
-      {
-        label: 'New & Noteworthy',
-        subLabel: 'Up-and-coming Designers',
-        href: '#',
-      },
-    ],
+    href: '/tc',
+    isNewWindow: false,
     isHide: false,
   },
   {
     label: 'Building Blocks',
-    children: [
-      {
-        label: 'Job Board',
-        subLabel: 'Find your dream design job',
-        href: '#',
-      },
-      {
-        label: 'Freelance Projects',
-        subLabel: 'An exclusive list for contract work',
-        href: '#',
-      },
-    ],
+    href: '/tc',
+    isNewWindow: false,
     isHide: false,
   },
   {
     label: 'Developers',
-    href: '#',
+    href: '/tc',
+    isNewWindow: false,
     isHide: false,
   },
   {
     label: 'Whitepapers',
-    href: '#',
+    href: '/tc',
+    isNewWindow: false,
     isHide: false,
   },
 ].filter((item) => !item.isHide);

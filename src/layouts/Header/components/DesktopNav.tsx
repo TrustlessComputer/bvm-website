@@ -1,21 +1,8 @@
 'use client';
 
-import {
-  Box,
-  Link,
-  Popover,
-  PopoverArrow,
-  PopoverContent,
-  PopoverTrigger,
-  Stack,
-  useBreakpoint,
-  useBreakpointValue,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Box, Link, Popover, PopoverTrigger, Stack } from '@chakra-ui/react';
 
 import { NAV_ITEMS } from '../menuConfig';
-import { DesktopSubNav } from './DesktopSubNav';
-import s from './style.module.scss';
 
 export const DesktopNav = () => {
   return (
@@ -27,7 +14,7 @@ export const DesktopNav = () => {
               <Link
                 p={2}
                 href={navItem.href ?? '#'}
-                fontSize={'lg'}
+                fontSize={'16px'}
                 fontWeight={500}
                 color={'#fff'}
                 _hover={{}}
@@ -35,24 +22,6 @@ export const DesktopNav = () => {
                 {navItem.label}
               </Link>
             </PopoverTrigger>
-
-            {/* {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow={'xl'}
-                bg={popoverContentBgColor}
-                p={4}
-                rounded={'xl'}
-                minW={'sm'}
-              >
-                <PopoverArrow />
-                <Stack>
-                  {navItem.children.map((child) => (
-                    <DesktopSubNav key={child.label} {...child} />
-                  ))}
-                </Stack>
-              </PopoverContent>
-            )} */}
           </Popover>
         </Box>
       ))}
