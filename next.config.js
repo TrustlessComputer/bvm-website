@@ -48,11 +48,6 @@ const nextConfig = {
       return config;
     }
 
-    if (!isServer) {
-      // We're in the browser build, so we can safely exclude the sharp module
-      config.externals.push('sharp');
-    }
-
     // shader support
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,
@@ -61,9 +56,14 @@ const nextConfig = {
     });
 
     config.module.rules.push({
-      test: /\.svg$/i,
-      use: ['@svgr/webpack'],
+      test: /\.svg$/,
+      use: ['@svgr/webpack', 'url-loader'],
     });
+
+    if (!isServer) {
+      // We're in the browser build, so we can safely exclude the sharp module
+      config.externals.push('sharp');
+    }
 
     // var isProduction = config.mode === 'production';
 

@@ -14,7 +14,7 @@ const Footer = () => {
         justify={{ base: 'center', md: 'center' }}
         align={{ base: 'center', md: 'center' }}
       >
-        <Text>OPEN-SOURCE SOFTWARE. MADE WITH ❤️ ON BITCOIN.</Text>
+        {/* <Text>OPEN-SOURCE SOFTWARE. MADE WITH ❤️ ON BITCOIN.</Text> */}
         {/* <Stack direction={'row'} spacing={6}></Stack> */}
       </Container>
     </Box>

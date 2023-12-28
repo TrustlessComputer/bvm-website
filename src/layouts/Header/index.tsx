@@ -20,12 +20,24 @@ const Header = () => {
   // const isMobile = useBreakpointValue({ base: true, md: false }) as boolean;
   // console.log('TEST   isMobile  ', isMobile);
   return (
-    <Box position={'absolute'} top={0} left={0} right={0} zIndex={9999}>
+    <Box
+      position={'absolute'}
+      display={'flex'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      top={0}
+      left={0}
+      right={0}
+      zIndex={9999}
+    >
       <Flex
         minH={'60px'}
+        maxWidth={'1600px'}
+        alignSelf={'center'}
         py={{ base: 2 }}
-        px={{ base: 8, md: 24, lg: 36 }}
+        px={[4, null]}
         display={'flex'}
+        flex={1}
         align={'center'}
       >
         {/* Left View */}
@@ -49,7 +61,7 @@ const Header = () => {
 
         {/* Right View */}
         <Flex flex={1} justify={{ base: 'flex-end' }}>
-          <Flex display={{ base: 'flex', md: 'none' }} ml={10}>
+          <Flex display={{ base: 'flex', md: 'none' }}>
             <IconButton
               onClick={onToggle}
               icon={

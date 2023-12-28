@@ -1,63 +1,116 @@
 'use client';
 
-import { CDN_URL_ICONS } from '@/config';
+import { isMobile, isTablet } from 'react-device-detect';
+import s from './styles.module.scss';
+
 import {
-  AbsoluteCenter,
   Box,
   Button,
-  ButtonGroup,
   Card,
   CardBody,
   CardFooter,
   Divider,
-  Flex,
   HStack,
-  Heading,
   Image,
-  SimpleGrid,
   Stack,
   Text,
+  Flex,
+  useBreakpointValue,
 } from '@chakra-ui/react';
-import { DataList } from './config';
+
+const SliderSlick = dynamic(
+  () => import('react-slick').then((m) => m.default),
+  {
+    ssr: false,
+  },
+);
+
+import dynamic from 'next/dynamic';
+import { DataList, SlideItemType } from './config';
 
 const Section_2 = () => {
-  const renderCard = (item: any) => {
+  // const isMobile = useBreakpointValue({ base: true, md: false }) as boolean;
+  const numberSlide = isMobile ? 1 : isTablet ? 2 : 3;
+  const renderCard = (item: SlideItemType) => {
     return (
-      <Card>
-        <CardBody>
-          <Image
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Green double couch with wooden legs"
-            borderRadius="lg"
-          />
-          <Stack mt="6" spacing="3">
-            <Heading size="md">Living room Sofa</Heading>
-            <Text>
-              This sofa is perfect for modern tropical spaces, baroque inspired
-              spaces, earthy toned spaces and for people who love a chic design
-              with a sprinkle of vintage design.
-            </Text>
-            <Text color="blue.600" fontSize="2xl">
-              $450
-            </Text>
-          </Stack>
-        </CardBody>
-        <Divider />
-        <CardFooter>
-          <ButtonGroup spacing="2">
-            <Button variant="solid" colorScheme="blue">
-              Buy now
-            </Button>
-            <Button variant="ghost" colorScheme="blue">
-              Add to cart
-            </Button>
-          </ButtonGroup>
-        </CardFooter>
-      </Card>
+      <Box p={[2]} key={item.key}>
+        <Card key={item.key} bgColor={'#fff'}>
+          <CardBody>
+            <Image src={item.srcImg} alt="thumb image" borderRadius="lg" />
+            <Box height={'20px'} />
+            <HStack align={'center'} justify={'space-between'}>
+              <Text
+                fontSize={['16px', '24px']}
+                fontWeight={400}
+                lineHeight={'110%'}
+                textAlign={'center'}
+                color={'#000'}
+              >
+                {item.title}
+              </Text>
+              <Button
+                borderRadius={100}
+                bgColor={'#fff'}
+                fontSize={['13px', '16px']}
+                display={'flex'}
+                justifyContent={'center'}
+                fontWeight={400}
+                alignItems={'center'}
+                boxShadow={'0px 0px 20px -6px rgba(0, 0, 0, 0.2)'}
+                rightIcon={
+                  <Image
+                    src={'/icons/view_project_ic.svg'}
+                    alt="thumb image"
+                    w={'24px'}
+                    h={'24px'}
+                    borderRadius={100}
+                    bgColor={'#00C250'}
+                  />
+                }
+              >
+                View Project
+              </Button>
+            </HStack>
+          </CardBody>
+          {item.childrentList && (
+            <>
+              <Divider w={'92%'} alignSelf={'center'} />
+              <CardFooter>
+                <Stack spacing={'20px'}>
+                  {item.childrentList.map((children) => (
+                    <HStack>
+                      <Image
+                        src={children.icon}
+                        alt="Green double couch with wooden legs"
+                        borderRadius="lg"
+                      />
+                      <Text
+                        fontSize={['13px', '16px']}
+                        fontWeight={400}
+                        lineHeight={'140%'}
+                        color={'#000'}
+                      >
+                        {children.desc}
+                      </Text>
+                    </HStack>
+                  ))}
+                </Stack>
+              </CardFooter>
+            </>
+          )}
+        </Card>
+      </Box>
     );
   };
   return (
-    <Flex bgColor={'#fff'} flexDir={'column'} display={'flex'} p={[8, 24, 32]}>
+    <Box
+      bgColor={'#F3F1E8'}
+      flexDir={'column'}
+      display={'flex'}
+      flex={1}
+      overflow={'hidden'}
+      p={[8, 24, 32]}
+    >
       <Text
         textAlign={'left'}
         fontSize={['24px', '48px']}
@@ -66,11 +119,46 @@ const Section_2 = () => {
       >
         {`The Bitcoin Superchain`}
       </Text>
-      <Box height={'40px'} />
-      <SimpleGrid minChildWidth="120px" spacing={['12px', '36px']}>
-        {DataList.map((item) => renderCard(item))}
-      </SimpleGrid>
-    </Flex>
+
+      <div className={s.sliderContainer}>
+        <SliderSlick
+          prevArrow={
+            <Image
+              src={'/icons/left_circle_ic.svg'}
+              borderRadius={100}
+              width={isMobile ? 25 : 50}
+              height={isMobile ? 25 : 50}
+              alignSelf={'center'}
+              position={'absolute'}
+              zIndex={999}
+              left={[-5, -20]}
+            />
+          }
+          nextArrow={
+            <Image
+              src={'/icons/right_circle_ic.svg'}
+              borderRadius={100}
+              width={isMobile ? 25 : 50}
+              height={isMobile ? 25 : 50}
+              alignSelf={'center'}
+              position={'absolute'}
+              zIndex={999}
+              right={[-5, -20]}
+            />
+          }
+          infinite={true}
+          swipe={true}
+          speed={1000}
+          autoplaySpeed={3000}
+          slidesToShow={numberSlide}
+          slidesToScroll={numberSlide}
+          autoplay={true}
+          centerPadding={'45px'}
+        >
+          {DataList.map(renderCard)}
+        </SliderSlick>
+      </div>
+    </Box>
   );
 };
 

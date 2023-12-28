@@ -5,6 +5,7 @@ import {
   AbsoluteCenter,
   Box,
   Button,
+  Center,
   Flex,
   HStack,
   Image,
@@ -52,15 +53,33 @@ const Section_1 = () => {
           <Button
             bgColor={'#0BF269'}
             borderRadius={100}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
             px={'24px'}
             py={'10px'}
           >
-            <Text color={'#000'} fontSize={16} fontWeight={400}>
-              {`Join the Allowlist`}
-            </Text>
+            <Center>
+              <Text color={'#000'} fontSize={'16px'} fontWeight={400}>
+                {`Join the Allowlist`}
+              </Text>
+            </Center>
           </Button>
-          <Button bgColor={'#fff'} borderRadius={100} px={'24px'} py={'10px'}>
-            <Text color={'#000'} fontSize={16} fontWeight={400}>
+          <Button
+            bgColor={'#fff'}
+            borderRadius={100}
+            px={'24px'}
+            py={'10px'}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+          >
+            <Text
+              color={'#000'}
+              fontSize={'16px'}
+              fontWeight={400}
+              lineHeight={17}
+            >
               {`Get started for free`}
             </Text>
           </Button>
