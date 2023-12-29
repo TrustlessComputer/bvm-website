@@ -3,6 +3,7 @@
 import IframeTC from '@/modules/iframe-tc';
 import MainLayout from '@/layouts/MainLayout';
 import { DOMAIN_URL, isProduction } from '@/config';
+import { createPortal } from 'react-dom';
 
 const MAIN_PATH = '/trustless-computers-iframe/';
 // const IframeURLExtend = DOMAIN_URL + MAIN_PATH;
@@ -18,7 +19,9 @@ const TCPage = () => {
         bgColor: 'white',
       }}
     >
-      <IframeTC iframeURL={IframeURLExtend} />
+      {typeof document !== 'undefined' ? (
+        <IframeTC iframeURL={IframeURLExtend} />
+      ) : null}
     </MainLayout>
   );
 };

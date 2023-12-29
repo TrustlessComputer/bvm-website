@@ -10,20 +10,21 @@ interface IProps {
 
 const IframeTC = (props: IProps) => {
   const { heightWidth } = useWindowSize();
-  const elmHeader = document.getElementById('header');
+  const elmHeader = document?.getElementById('header');
 
   useEffect(() => {
     window.focus();
     function blur(e: any) {
-      const elmHeader = document.getElementById('header-hidden');
+      const elmHeader = document?.getElementById('header-hidden');
       if (elmHeader) {
         elmHeader.click();
       }
     }
     window.addEventListener('blur', blur);
     return () => window.removeEventListener('blur', blur);
-  }, []);
+  }, [document]);
 
+  if (!document) return <></>;
   return (
     <div
       className={s.container}
