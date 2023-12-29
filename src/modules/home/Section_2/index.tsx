@@ -78,7 +78,7 @@ const Section_2 = () => {
               <CardFooter>
                 <Stack spacing={'20px'}>
                   {item.childrentList.map((children) => (
-                    <HStack>
+                    <HStack key={children.desc}>
                       <Image
                         src={children.icon}
                         alt="Green double couch with wooden legs"
@@ -111,53 +111,55 @@ const Section_2 = () => {
       overflow={'hidden'}
       p={[8, 24, 32]}
     >
-      <Text
-        textAlign={'left'}
-        fontSize={['24px', '48px']}
-        lineHeight={'110%'}
-        color={'#000'}
-      >
-        {`The Bitcoin Superchain`}
-      </Text>
-
-      <div className={s.sliderContainer}>
-        <SliderSlick
-          prevArrow={
-            <Image
-              src={'/icons/left_circle_ic.svg'}
-              borderRadius={100}
-              width={isMobile ? 25 : 50}
-              height={isMobile ? 25 : 50}
-              alignSelf={'center'}
-              position={'absolute'}
-              zIndex={999}
-              left={[-5, -20]}
-            />
-          }
-          nextArrow={
-            <Image
-              src={'/icons/right_circle_ic.svg'}
-              borderRadius={100}
-              width={isMobile ? 25 : 50}
-              height={isMobile ? 25 : 50}
-              alignSelf={'center'}
-              position={'absolute'}
-              zIndex={999}
-              right={[-5, -20]}
-            />
-          }
-          infinite={true}
-          swipe={true}
-          speed={1000}
-          autoplaySpeed={3000}
-          slidesToShow={numberSlide}
-          slidesToScroll={numberSlide}
-          autoplay={true}
-          centerPadding={'45px'}
+      <Box className="maxWidth">
+        <Text
+          textAlign={'left'}
+          fontSize={['24px', '48px']}
+          lineHeight={'110%'}
+          color={'#000'}
         >
-          {DataList.map(renderCard)}
-        </SliderSlick>
-      </div>
+          {`The Bitcoin Superchain`}
+        </Text>
+
+        <div className={s.sliderContainer}>
+          <SliderSlick
+            prevArrow={
+              <Image
+                src={'/icons/left_circle_ic.svg'}
+                borderRadius={100}
+                width={isMobile ? 25 : 50}
+                height={isMobile ? 25 : 50}
+                alignSelf={'center'}
+                position={'absolute'}
+                zIndex={999}
+                left={[-5, -20]}
+              />
+            }
+            nextArrow={
+              <Image
+                src={'/icons/right_circle_ic.svg'}
+                borderRadius={100}
+                width={isMobile ? 25 : 50}
+                height={isMobile ? 25 : 50}
+                alignSelf={'center'}
+                position={'absolute'}
+                zIndex={999}
+                right={[-5, -20]}
+              />
+            }
+            infinite={true}
+            swipe={true}
+            speed={1000}
+            autoplaySpeed={3000}
+            slidesToShow={numberSlide}
+            slidesToScroll={numberSlide}
+            autoplay={true}
+            centerPadding={'45px'}
+          >
+            {DataList.map(renderCard)}
+          </SliderSlick>
+        </div>
+      </Box>
     </Box>
   );
 };

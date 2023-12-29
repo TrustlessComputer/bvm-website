@@ -59,7 +59,7 @@ const Header = (props: HeaderProps) => {
       >
         <Flex
           minH={'60px'}
-          maxWidth={'1600px'}
+          className="maxWidth"
           alignSelf={'center'}
           py={{ base: 2 }}
           px={[4, null]}

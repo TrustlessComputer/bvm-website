@@ -20,7 +20,7 @@ const Section_1 = () => {
       bgSize={'cover'}
       bgColor={'#006440'}
       bgImg={`${CDN_URL_ICONS}/lego_bg.svg`}
-      h={'100vh'}
+      h={'90vh'}
       display={'flex'}
     >
       <AbsoluteCenter>
@@ -31,8 +31,7 @@ const Section_1 = () => {
           wordBreak={'break-word'}
           whiteSpace="pre-line"
         >
-          {`Bitcoin 
-            Virtual Machine`}
+          {`Bitcoin Virtual Machine`}
         </Text>
 
         <Text

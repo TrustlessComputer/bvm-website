@@ -10,7 +10,7 @@ const BuildingBlockModule = () => {
   return (
     <Box className={s.container}>
       <Flex
-        maxW={'1600px'}
+        className="maxWidth"
         w={'100%'}
         h={'100%'}
         marginTop={'120px'}
