@@ -1,0 +1,17 @@
+name: Docker Alpha staging build
+
+on:
+  push:
+    branches:
+      - 'staging'
+
+jobs:
+  build-bvm-website-staging:
+    uses: TrustlessComputer/tc-github-action-templates/.github/workflows/docker-build-and-push.yaml@main
+    with:
+      DOCKER_IMAGE_NAME: bvm-website
+      DOCKERFILE_NAME: Dockerfile
+      CONCURRENCY_GROUP: docker_build_staging_alpha
+      RUNNER_TAG: ubuntu-latest
+    secrets:
+      GCLOUD_DEV_SERVICE_ACCOUNT_JSON: ${{ secrets.GCLOUD_DEV_SERVICE_ACCOUNT_JSON }}
