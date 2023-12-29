@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "local": "cp ./envs/.env.local .env && next dev",
     "dev": "cp ./envs/.env.develop .env && next dev",
     "ld": "export PORT=3001 && cp ./envs/.env.develop .env  && rm -rf .next && next dev",
     "ls": "export PORT=3002 && cp ./envs/.env.staging .env  && rm -rf .next && next dev",

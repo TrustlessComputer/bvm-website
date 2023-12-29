@@ -40,6 +40,21 @@ const nextConfig = {
                   `,
   },
 
+  async redirects() {
+    return [
+      {
+        source: '/trustless-computers',
+        destination: '/tc',
+        permanent: false,
+      },
+      {
+        source: '/tc/dashboard',
+        destination: '/tc/computers',
+        permanent: false,
+      },
+    ];
+  },
+
   webpack: (config, { isServer, dev }) => {
     // Note: we provide webpack above so you should not `require` it
     // Perform customizations to webpack config
