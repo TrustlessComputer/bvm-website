@@ -16,19 +16,19 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'Building Blocks',
-    href: '/tc',
+    href: '/building-blocks',
     isNewWindow: false,
     isHide: false,
   },
   {
     label: 'Developers',
-    href: '/tc',
+    href: '/developers',
     isNewWindow: false,
     isHide: false,
   },
   {
     label: 'Whitepapers',
-    href: '/tc',
+    href: '/whitepapers',
     isNewWindow: false,
     isHide: false,
   },

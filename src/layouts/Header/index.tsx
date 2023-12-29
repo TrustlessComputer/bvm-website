@@ -17,8 +17,14 @@ import {
 } from '@chakra-ui/react';
 import { DesktopNav } from './components/DesktopNav';
 import { MobileNav } from './components/MobileNav';
+import Link from 'next/link';
 
-const Header = () => {
+export type HeaderProps = {
+  primaryColor?: 'black' | 'white';
+};
+
+const Header = (props: HeaderProps) => {
+  const primaryColor = props.primaryColor || 'white';
   const { isOpen, onToggle } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false }) as boolean;
 
@@ -33,7 +39,7 @@ const Header = () => {
           bgColor: 'transparent',
         }}
         style={{
-          filter: 'invert(1)',
+          filter: primaryColor === 'white' ? 'invert(1)' : 'none',
         }}
       />
     );
@@ -69,20 +75,24 @@ const Header = () => {
               cursor: 'pointer',
             }}
           >
-            <Button as="a" href="/" variant={'link'}>
+            <Link href="/">
               <SvgInset
                 svgUrl={`${CDN_URL_ICONS}/logo_bvm.svg`}
                 size={200}
                 style={{
-                  filter: 'invert(1)',
+                  filter: primaryColor === 'white' ? 'invert(1)' : 'black',
                 }}
               />
-            </Button>
+            </Link>
           </Flex>
 
           {/* Right View */}
           <Flex flex={1} justify={'right'}>
-            {isMobile ? renderMenuButton() : <DesktopNav />}
+            {isMobile ? (
+              renderMenuButton()
+            ) : (
+              <DesktopNav primaryColor={primaryColor} />
+            )}
           </Flex>
         </Flex>
       </Box>

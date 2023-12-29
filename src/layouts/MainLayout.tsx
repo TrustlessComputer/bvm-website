@@ -1,24 +1,27 @@
 'use client';
 
 import Footer from '@/layouts/Footer';
-import Header from '@/layouts/Header';
+import Header, { HeaderProps } from '@/layouts/Header';
 import s from './styles.module.scss';
 
 type IMainProps = {
   hideHeader?: boolean;
   hideFooter?: boolean;
   children?: React.ReactNode;
+
+  headerProps?: HeaderProps;
 };
 
 const MainLayout = ({
   hideHeader = false,
   hideFooter = false,
+  headerProps,
   children,
 }: IMainProps) => (
   <div className={s.container}>
-    {!hideHeader && <Header />}
+    {!hideHeader && <Header {...headerProps} />}
     {children}
-    {!hideFooter && <Footer />}
+    {/* {!hideFooter && <Footer />} */}
   </div>
 );
 

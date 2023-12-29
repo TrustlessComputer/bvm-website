@@ -1,30 +1,35 @@
 'use client';
 
-import { Box, Link, Popover, PopoverTrigger, Stack } from '@chakra-ui/react';
+import { HStack, Text } from '@chakra-ui/react';
 
+import Link from 'next/link';
 import { NAV_ITEMS } from '../menuConfig';
 
-export const DesktopNav = () => {
+type Props = {
+  primaryColor?: 'black' | 'white';
+};
+
+export const DesktopNav = (props: Props) => {
   return (
-    <Stack direction={'row'} spacing={4}>
+    <HStack direction={'row'} spacing={6}>
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label}>
-          <Popover trigger={'hover'} placement={'bottom'}>
-            <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize={'16px'}
-                fontWeight={500}
-                color={'#fff'}
-                _hover={{}}
-              >
-                {navItem.label}
-              </Link>
-            </PopoverTrigger>
-          </Popover>
-        </Box>
+        <Link
+          key={navItem.label}
+          href={navItem.href ?? '#'}
+          color={props?.primaryColor || 'white'}
+        >
+          <Text
+            textAlign={'center'}
+            fontSize={['14px', '16px']}
+            lineHeight={'110%'}
+            fontWeight={500}
+            color={props.primaryColor || 'black'}
+            _hover={{}}
+          >
+            {navItem.label}
+          </Text>
+        </Link>
       ))}
-    </Stack>
+    </HStack>
   );
 };

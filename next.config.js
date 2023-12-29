@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 
 const path = require('path');
-const { fileURLToPath } = require('url');
 const withPlugins = require('next-compose-plugins');
 const withSvgr = require('next-plugin-svgr');
 const withBundleAnalyzer = require('@next/bundle-analyzer');
@@ -48,6 +47,12 @@ const nextConfig = {
       return config;
     }
 
+    var isProduction = config.mode === 'production';
+
+    if (!isProduction) {
+      return config;
+    }
+
     // shader support
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,
@@ -57,19 +62,13 @@ const nextConfig = {
 
     config.module.rules.push({
       test: /\.svg$/,
-      use: ['@svgr/webpack', 'url-loader'],
+      use: ['@svgr/webpack', 'url-loader', 'svg-react-loader'],
     });
 
     if (!isServer) {
       // We're in the browser build, so we can safely exclude the sharp module
       config.externals.push('sharp');
     }
-
-    // var isProduction = config.mode === 'production';
-
-    // if (!isProduction) {
-    //   return config;
-    // }
 
     config.optimization.splitChunks.maxAsyncRequests = 8;
     config.optimization.splitChunks.maxInitialRequests = 8;

@@ -6,7 +6,7 @@ import Section1 from './Section_1';
 import Section2 from './Section_2';
 import Section3 from './Section_3';
 
-const HomePage = () => {
+const HomeModule = () => {
   return (
     <div className={s.container}>
       <Section1 />
@@ -16,4 +16,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default HomeModule;

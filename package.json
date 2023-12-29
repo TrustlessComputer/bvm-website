@@ -37,8 +37,11 @@
     "react-player": "^2.14.1",
     "react-slick": "^0.29.0",
     "react-svg": "^16.1.32",
+    "resolve-url-loader": "^5.0.0",
     "sass": "^1.69.5",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "svg-react-loader": "^0.4.6",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
