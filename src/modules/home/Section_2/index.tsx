@@ -110,6 +110,8 @@ const Section_2 = () => {
       flex={1}
       overflow={'hidden'}
       p={[8, 24, 32]}
+      justifyContent={'center'}
+      alignContent={'center'}
     >
       <Box className="maxWidth">
         <Text
