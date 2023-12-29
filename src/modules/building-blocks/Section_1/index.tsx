@@ -4,17 +4,18 @@ import { Flex, Box, Text } from '@chakra-ui/react';
 
 const Section1 = () => {
   return (
-    <Flex w={'100%'}>
+    <Flex w={'100%'} flexDir={['column', 'row']}>
       <Text
         flex={1}
         fontSize={['28px', '48px']}
         fontWeight={400}
         lineHeight={'110%'}
+        textAlign={['center', 'left']}
         color={'#000'}
       >
         Building Blocks
       </Text>
-      <Box w={['200px', null]} />
+      <Box boxSize={['20px', null]} />
       <Text
         maxW={'650px'}
         fontSize={['14px', '22px']}
