@@ -4,13 +4,9 @@ import { useEffect } from 'react';
 import s from './style.module.scss';
 
 const NotFoundPage = () => {
-  useEffect(() => {
-    console.log('NotFoundPage EFFECT ');
-  }, []);
-
   return (
     <div className={s.container}>
-      <p>Page Not Found...</p>
+      <p>404: Page Not Found...</p>
     </div>
   );
 };

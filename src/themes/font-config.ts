@@ -1,36 +1,6 @@
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 
-const RobotoMonoFontConfig = localFont({
-  src: [
-    {
-      path: '../../public/fonts/RobotoMono-Light.ttf',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/RobotoMono-Regular.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/RobotoMono-Medium.ttf',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/RobotoMono-SemiBold.ttf',
-      weight: '600',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/RobotoMono-Bold.ttf',
-      weight: '700',
-      style: 'normal',
-    },
-  ],
-});
-
 const OpenSansFontConfig = localFont({
   src: [
     {
@@ -66,6 +36,41 @@ const OpenSansFontConfig = localFont({
   ],
 });
 
+const HelveticaNeueFontConfig = localFont({
+  src: [
+    {
+      path: '../../public/fonts/HelveticaNeueThin.otf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/HelveticaNeueLight.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/HelveticaNeueMedium.otf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/HelveticaNeueBold.otf',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/HelveticaNeueHeavy.otf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/HelveticaNeueBlack.otf',
+      weight: '800',
+      style: 'normal',
+    },
+  ],
+});
+
 const InterFontConfig = Inter({ subsets: ['latin'] });
 
-export { InterFontConfig, RobotoMonoFontConfig, OpenSansFontConfig };
+export { InterFontConfig, OpenSansFontConfig, HelveticaNeueFontConfig };

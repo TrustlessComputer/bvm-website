@@ -4,7 +4,7 @@ import { Box, Container, Stack, Text } from '@chakra-ui/react';
 
 const Footer = () => {
   return (
-    <Box>
+    <Box bgColor={'black'}>
       <Container
         as={Stack}
         maxW={'2xl'}
@@ -14,7 +14,7 @@ const Footer = () => {
         justify={{ base: 'center', md: 'center' }}
         align={{ base: 'center', md: 'center' }}
       >
-        <Text>OPEN-SOURCE SOFTWARE. MADE WITH ❤️ ON BITCOIN.</Text>
+        {/* <Text>OPEN-SOURCE SOFTWARE. MADE WITH ❤️ ON BITCOIN.</Text> */}
         {/* <Stack direction={'row'} spacing={6}></Stack> */}
       </Container>
     </Box>

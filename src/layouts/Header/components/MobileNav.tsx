@@ -1,20 +1,29 @@
 'use client';
 
-import { Stack, useColorModeValue } from '@chakra-ui/react';
-
-import { NAV_ITEMS } from '../config';
-import { MobileNavItem } from './MobileNavItem';
+import { Button, Link, StackDivider, Text, VStack } from '@chakra-ui/react';
+import { NAV_ITEMS } from '../menuConfig';
 
 export const MobileNav = () => {
   return (
-    <Stack
-      // bg={useColorModeValue('white', 'gray.800')}
-      p={4}
-      display={{ md: 'none' }}
+    <VStack
+      divider={<StackDivider borderColor="gray.200" />}
+      spacing={10}
+      alignItems={'flex-start'}
+      px={'24px'}
+      py={'60px'}
     >
-      {NAV_ITEMS.map((navItem) => (
-        <MobileNavItem key={navItem.label} {...navItem} />
+      {NAV_ITEMS.map((item) => (
+        <Link
+          p={2}
+          href={item.href ?? '#'}
+          fontSize={'16px'}
+          fontWeight={500}
+          color={'#000'}
+          _hover={{}}
+        >
+          {item.label}
+        </Link>
       ))}
-    </Stack>
+    </VStack>
   );
 };

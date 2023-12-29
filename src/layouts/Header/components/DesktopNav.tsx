@@ -1,66 +1,35 @@
 'use client';
 
-import {
-  Box,
-  Link,
-  Popover,
-  PopoverArrow,
-  PopoverContent,
-  PopoverTrigger,
-  Stack,
-  useBreakpoint,
-  useBreakpointValue,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { HStack, Text } from '@chakra-ui/react';
 
-import { NAV_ITEMS } from '../config';
-import { DesktopSubNav } from './DesktopSubNav';
+import Link from 'next/link';
+import { NAV_ITEMS } from '../menuConfig';
 
-export const DesktopNav = () => {
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800');
+type Props = {
+  primaryColor?: 'black' | 'white';
+};
 
+export const DesktopNav = (props: Props) => {
   return (
-    <Stack direction={'row'} spacing={4}>
+    <HStack direction={'row'} spacing={6}>
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label}>
-          <Popover trigger={'hover'} placement={'bottom'}>
-            <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize={'sm'}
-                fontWeight={500}
-                color={'white'}
-                _hover={{
-                  textDecoration: 'solid underline',
-                  textUnderlineOffset: 4,
-                  opacity: 0.6,
-                }}
-              >
-                {navItem.label}
-              </Link>
-            </PopoverTrigger>
-
-            {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow={'xl'}
-                bg={popoverContentBgColor}
-                p={4}
-                rounded={'xl'}
-                minW={'sm'}
-              >
-                <PopoverArrow />
-                <Stack>
-                  {navItem.children.map((child) => (
-                    <DesktopSubNav key={child.label} {...child} />
-                  ))}
-                </Stack>
-              </PopoverContent>
-            )}
-          </Popover>
-        </Box>
+        <Link
+          key={navItem.label}
+          href={navItem.href ?? '#'}
+          color={props?.primaryColor || 'white'}
+        >
+          <Text
+            textAlign={'center'}
+            fontSize={['14px', '16px']}
+            lineHeight={'110%'}
+            fontWeight={500}
+            color={props.primaryColor || 'black'}
+            _hover={{}}
+          >
+            {navItem.label}
+          </Text>
+        </Link>
       ))}
-    </Stack>
+    </HStack>
   );
 };
