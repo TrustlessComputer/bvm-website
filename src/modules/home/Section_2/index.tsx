@@ -55,6 +55,7 @@ const Section_2 = () => {
                 display={'flex'}
                 justifyContent={'center'}
                 fontWeight={400}
+                color={'black'}
                 alignItems={'center'}
                 boxShadow={'0px 0px 20px -6px rgba(0, 0, 0, 0.2)'}
                 rightIcon={
