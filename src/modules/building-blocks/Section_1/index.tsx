@@ -24,9 +24,9 @@ const Section1 = () => {
         wordBreak={'break-word'}
         color={'#000'}
       >
-        Lorem ipsum dolor sit amet consectetur. Gravida est vehicula fringilla
+        {/* Lorem ipsum dolor sit amet consectetur. Gravida est vehicula fringilla
         ut pulvinar. Varius egestas aliquet blandit morbi integer dui. Blandit
-        semper id aliquam vitae ut dui fusce risus.
+        semper id aliquam vitae ut dui fusce risus. */}
       </Text>
     </Flex>
   );
