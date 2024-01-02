@@ -99,7 +99,14 @@ const Header = (props: HeaderProps) => {
                 }}
               /> */}
 
-              <Image src={'/icons/bvm-logo-short-orange.svg'} />
+              {primaryColor === 'white' ? (
+                <Image src={'/icons/bvm-logo-long-orange.png'} w={[100, 300]} />
+              ) : (
+                <Image
+                  src={'/icons/bvm-logo-long-orange-on-white.png'}
+                  w={[100, 300]}
+                />
+              )}
             </Link>
           </Flex>
 
