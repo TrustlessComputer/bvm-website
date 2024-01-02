@@ -1,12 +1,12 @@
 'use client';
 
-import { DOMAIN_URL, isDevelop } from '@/config';
+import { DOMAIN_URL, isDevelop, isLocal } from '@/config';
 import MainLayout from '@/layouts/MainLayout';
 import dynamic from 'next/dynamic';
 
 const pathUrl = '/bvm-website-sats-iframe/computers';
 
-const iframeDomain = isDevelop ? 'http://localhost:6009' : DOMAIN_URL;
+const iframeL2ServicesDomain = isLocal ? 'http://localhost:6009' : DOMAIN_URL;
 
 const IframeTCDynamic = dynamic(
   () => import('@/modules/iframe-tc').then((m) => m.default),
@@ -24,7 +24,7 @@ const TCPage = () => {
         bgColor: '#F3F1E8',
       }}
     >
-      <IframeTCDynamic iframeURL={`${iframeDomain}${pathUrl}`} />
+      <IframeTCDynamic iframeURL={`${iframeL2ServicesDomain}${pathUrl}`} />
     </MainLayout>
   );
 };
