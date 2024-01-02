@@ -22,45 +22,40 @@ const IframeTC = (props: IProps) => {
         elmHeader.click();
       }
     }
-    setIframeLoading(false);
     return () => window.removeEventListener('blur', blur);
   }, [document]);
 
   if (!document) {
     return <></>;
   }
-  if (iframeLoading) {
-    return (
-      <Flex
-        flex={1}
-        minHeight={'100%'}
-        justify={'center'}
-        align={'center'}
-        bgColor={'white'}
-      >
-        <Spinner color={'black'}></Spinner>
-      </Flex>
-    );
-  }
   return (
-    <div
-      className={s.container}
-      style={{
-        height:
-          heightWidth -
-          (elmHeader && elmHeader.offsetHeight ? elmHeader.offsetHeight : 80),
-      }}
-    >
+    <div className={s.container} style={{}}>
       <iframe
         id="TC_PAGE_IFRAME"
         src={props.iframeURL}
-        width="100%"
-        style={{ border: 'none' }}
-        onLoadedData={() => {}}
+        width={'100%'}
+        height={'100%'}
+        style={{ border: 'none', opacity: iframeLoading ? 0 : 1 }}
         onLoad={() => {
           setIframeLoading(false);
         }}
       />
+      {iframeLoading && (
+        <Flex
+          flex={1}
+          pos={'absolute'}
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          minHeight={'100vh'}
+          justify={'center'}
+          align={'center'}
+          bgColor={'#F3F1E8'}
+        >
+          <Spinner color={'black'}></Spinner>
+        </Flex>
+      )}
     </div>
   );
 };

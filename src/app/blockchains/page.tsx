@@ -30,7 +30,7 @@ const TCPage = () => {
       headerProps={{
         color: 'black',
         position: 'relative',
-        bgColor: 'white',
+        bgColor: '#F3F1E8',
       }}
     >
       <IframeTCDynamic iframeURL={`${iframeDomain}${pathUrl}`} />
