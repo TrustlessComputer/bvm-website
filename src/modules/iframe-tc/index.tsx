@@ -1,14 +1,16 @@
 'use client';
 
 import useWindowSize from '@/hooks/useWindowSize';
+import { Flex, Spinner } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import s from './styles.module.scss';
-import { useEffect } from 'react';
 
 interface IProps {
   iframeURL: string;
 }
 
 const IframeTC = (props: IProps) => {
+  const [iframeLoading, setIframeLoading] = useState(true);
   const { heightWidth } = useWindowSize();
   const elmHeader = document?.getElementById('header');
 
@@ -20,11 +22,26 @@ const IframeTC = (props: IProps) => {
         elmHeader.click();
       }
     }
-    window.addEventListener('blur', blur);
+    setIframeLoading(false);
     return () => window.removeEventListener('blur', blur);
   }, [document]);
 
-  if (!document) return <></>;
+  if (!document) {
+    return <></>;
+  }
+  if (iframeLoading) {
+    return (
+      <Flex
+        flex={1}
+        minHeight={'100%'}
+        justify={'center'}
+        align={'center'}
+        bgColor={'white'}
+      >
+        <Spinner color={'black'}></Spinner>
+      </Flex>
+    );
+  }
   return (
     <div
       className={s.container}
@@ -39,6 +56,10 @@ const IframeTC = (props: IProps) => {
         src={props.iframeURL}
         width="100%"
         style={{ border: 'none' }}
+        onLoadedData={() => {}}
+        onLoad={() => {
+          setIframeLoading(false);
+        }}
       />
     </div>
   );

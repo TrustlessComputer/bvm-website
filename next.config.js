@@ -48,8 +48,8 @@ const nextConfig = {
         permanent: false,
       },
       {
-        source: '/blockchains/dashboard',
-        destination: '/blockchains/computers',
+        source: '/blockchains/computers',
+        destination: '/blockchains',
         permanent: false,
       },
     ];
