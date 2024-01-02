@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 
-const APP_NAME = 'APP_NAME_TO_DO';
-const APP_DEFAULT_TITLE = 'APP_DEFAULT_TITLE_TO_DO';
-const APP_TITLE_TEMPLATE = '%s - [App name]';
-const APP_DESCRIPTION = 'APP_DESCRIPTION_TO_DO';
+const APP_NAME = 'Bitcoin Virtual Machine';
+const APP_DEFAULT_TITLE = 'Bitcoin Virtual Machine';
+const APP_TITLE_TEMPLATE = '%s - Bitcoin Virtual Machine';
+const APP_DESCRIPTION = 'Bitcoin Virtual Machine Description';
 
 const metadataConfig: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_DOMAIN_URL}`),
