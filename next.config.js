@@ -44,12 +44,17 @@ const nextConfig = {
     return [
       {
         source: '/trustless-computers',
-        destination: '/blockchains',
+        destination: '/blockchains/computers',
         permanent: false,
       },
       {
-        source: '/blockchains/dashboard',
+        source: '/bvm-website-sats',
         destination: '/blockchains/computers',
+        permanent: false,
+      },
+      {
+        source: '/blockchains/computers',
+        destination: '/blockchains',
         permanent: false,
       },
     ];
