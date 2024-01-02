@@ -83,13 +83,23 @@ const Header = (props: HeaderProps) => {
             }}
           >
             <Link href="/">
-              <SvgInset
+              {/* <SvgInset
                 svgUrl={`${CDN_URL_ICONS}/logo_bvm.svg`}
                 size={200}
                 style={{
                   filter: primaryColor === 'white' ? 'invert(1)' : 'black',
                 }}
-              />
+              /> */}
+
+              {/* <SvgInset
+                svgUrl={`/bvm-logo-short-orange.svg`}
+                size={200}
+                style={{
+                  filter: primaryColor === 'white' ? 'invert(1)' : 'black',
+                }}
+              /> */}
+
+              <Image src={'/icons/bvm-logo-short-orange.svg'} />
             </Link>
           </Flex>
 

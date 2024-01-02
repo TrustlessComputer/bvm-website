@@ -155,7 +155,7 @@ const Section_2 = () => {
             autoplaySpeed={3000}
             slidesToShow={numberSlide}
             slidesToScroll={numberSlide}
-            autoplay={true}
+            autoplay={false}
             centerPadding={'45px'}
           >
             {DataList.map(renderCard)}

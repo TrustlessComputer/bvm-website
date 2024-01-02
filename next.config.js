@@ -44,13 +44,22 @@ const nextConfig = {
     return [
       {
         source: '/trustless-computers',
-        destination: '/tc',
+        destination: '/blockchains',
         permanent: false,
       },
       {
-        source: '/tc/dashboard',
-        destination: '/tc/computers',
+        source: '/blockchains/dashboard',
+        destination: '/blockchains/computers',
         permanent: false,
+      },
+    ];
+  },
+
+  async rewrites() {
+    return [
+      {
+        source: '/tc',
+        destination: '/blockchains',
       },
     ];
   },
