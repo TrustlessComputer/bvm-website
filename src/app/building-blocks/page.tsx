@@ -7,7 +7,7 @@ const BuildingBlocksPage = () => {
   return (
     <MainLayout
       headerProps={{
-        primaryColor: 'black',
+        color: 'black',
       }}
     >
       <BuildingBlockModule />

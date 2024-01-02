@@ -10,7 +10,7 @@ const BuildingBlockModule = () => {
   return (
     <Box className={s.container}>
       <Flex
-        maxW={'1600px'}
+        className="maxWidth"
         w={'100%'}
         h={'100%'}
         marginTop={'120px'}
@@ -22,7 +22,7 @@ const BuildingBlockModule = () => {
         alignSelf={'center'}
       >
         <Section1 />
-        <Box height={'80px'} />
+        <Box h={['30px', '80px']} />
         <Section2 />
       </Flex>
     </Box>

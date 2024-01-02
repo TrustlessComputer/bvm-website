@@ -20,11 +20,16 @@ import { MobileNav } from './components/MobileNav';
 import Link from 'next/link';
 
 export type HeaderProps = {
-  primaryColor?: 'black' | 'white';
+  color?: 'black' | 'white';
+  position?: 'absolute' | 'relative';
+  bgColor?: string;
 };
 
 const Header = (props: HeaderProps) => {
-  const primaryColor = props.primaryColor || 'white';
+  const primaryColor = props.color || 'white';
+  const position = props.position || 'absolute';
+  const bgColor = props.bgColor || 'transparent';
+
   const { isOpen, onToggle } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false }) as boolean;
 
@@ -48,7 +53,8 @@ const Header = (props: HeaderProps) => {
   return (
     <>
       <Box
-        position={'absolute'}
+        position={position === 'absolute' ? 'absolute' : 'relative'}
+        bgColor={bgColor}
         display={'flex'}
         justifyContent={'center'}
         alignItems={'center'}
@@ -59,13 +65,14 @@ const Header = (props: HeaderProps) => {
       >
         <Flex
           minH={'60px'}
-          maxWidth={'1600px'}
+          className="maxWidth"
           alignSelf={'center'}
           py={{ base: 2 }}
           px={[4, null]}
           display={'flex'}
           flex={1}
           align={'center'}
+          id="header"
         >
           {/* Left View */}
           <Flex
@@ -76,13 +83,23 @@ const Header = (props: HeaderProps) => {
             }}
           >
             <Link href="/">
-              <SvgInset
+              {/* <SvgInset
                 svgUrl={`${CDN_URL_ICONS}/logo_bvm.svg`}
                 size={200}
                 style={{
                   filter: primaryColor === 'white' ? 'invert(1)' : 'black',
                 }}
-              />
+              /> */}
+
+              {/* <SvgInset
+                svgUrl={`/bvm-logo-short-orange.svg`}
+                size={200}
+                style={{
+                  filter: primaryColor === 'white' ? 'invert(1)' : 'black',
+                }}
+              /> */}
+
+              <Image src={'/icons/bvm-logo-short-orange.svg'} />
             </Link>
           </Flex>
 

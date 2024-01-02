@@ -40,6 +40,30 @@ const nextConfig = {
                   `,
   },
 
+  async redirects() {
+    return [
+      {
+        source: '/trustless-computers',
+        destination: '/blockchains',
+        permanent: false,
+      },
+      {
+        source: '/blockchains/dashboard',
+        destination: '/blockchains/computers',
+        permanent: false,
+      },
+    ];
+  },
+
+  async rewrites() {
+    return [
+      {
+        source: '/tc',
+        destination: '/blockchains',
+      },
+    ];
+  },
+
   webpack: (config, { isServer, dev }) => {
     // Note: we provide webpack above so you should not `require` it
     // Perform customizations to webpack config
