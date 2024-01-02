@@ -3,6 +3,7 @@
 import { isProduction } from '@/config';
 import MainLayout from '@/layouts/MainLayout';
 import IframeTC from '@/modules/iframe-tc';
+import dynamic from 'next/dynamic';
 
 const pathUrl = '/bvm-website-sats-iframe/computers';
 const IframeURLExtend =
@@ -16,6 +17,13 @@ const iframeDomain = isProduction
   ? 'https://bvm.network'
   : 'https://dev.bvm.network';
 
+const IframeTCDynamic = dynamic(
+  () => import('@/modules/iframe-tc').then((m) => m.default),
+  {
+    ssr: false,
+  },
+);
+
 const TCPage = () => {
   return (
     <MainLayout
@@ -25,7 +33,7 @@ const TCPage = () => {
         bgColor: 'white',
       }}
     >
-      <IframeTC iframeURL={`${iframeDomain}${pathUrl}`} />
+      <IframeTCDynamic iframeURL={`${iframeDomain}${pathUrl}`} />
     </MainLayout>
   );
 };
