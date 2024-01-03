@@ -35,7 +35,12 @@ const IframeTC = (props: IProps) => {
         src={props.iframeURL}
         width={'100%'}
         height={'100%'}
-        style={{ border: 'none', opacity: iframeLoading ? 0 : 1 }}
+        style={{
+          border: 'none',
+          opacity: iframeLoading ? 0 : 1,
+          marginTop: '70px',
+          paddingBottom: '60px',
+        }}
         onLoad={() => {
           setIframeLoading(false);
         }}

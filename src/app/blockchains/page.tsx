@@ -20,7 +20,6 @@ const TCPage = () => {
     <MainLayout
       headerProps={{
         color: 'black',
-        position: 'relative',
         bgColor: '#F3F1E8',
       }}
     >

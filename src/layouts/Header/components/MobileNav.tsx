@@ -16,7 +16,7 @@ export const MobileNav = () => {
         <Link
           p={2}
           href={item.href ?? '#'}
-          fontSize={'16px'}
+          fontSize={['16px', '16px']}
           fontWeight={500}
           color={'#000'}
           _hover={{}}

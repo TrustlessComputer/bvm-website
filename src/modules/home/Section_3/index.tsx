@@ -71,7 +71,7 @@ const Section_3 = () => {
         <Box height={[2]} />
         <Text
           textAlign={'center'}
-          fontSize={[36, 60, 90]}
+          fontSize={[36, 60]}
           lineHeight={'110%'}
           wordBreak={'break-word'}
           whiteSpace="pre-line"

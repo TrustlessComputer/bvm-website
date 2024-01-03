@@ -39,12 +39,8 @@ const Header = (props: HeaderProps) => {
         onClick={onToggle}
         icon={<Image src={'/icons/menu_ic.svg'} w={'24px'} h={'24px'} />}
         aria-label={'Toggle Menu'}
-        bgColor={'transparent'}
         _hover={{
           bgColor: 'transparent',
-        }}
-        style={{
-          filter: primaryColor === 'white' ? 'invert(1)' : 'none',
         }}
       />
     );
@@ -53,22 +49,23 @@ const Header = (props: HeaderProps) => {
   return (
     <>
       <Box
-        position={position === 'absolute' ? 'absolute' : 'relative'}
+        position={position}
         bgColor={bgColor}
         display={'flex'}
         justifyContent={'center'}
         alignItems={'center'}
+        py={['20px', '20px']}
+        px={['160px', '160px']}
         top={0}
         left={0}
         right={0}
         zIndex={2}
       >
         <Flex
-          minH={'60px'}
+          minH={['40px', '40px']}
+          w={['311px', '311px']}
           className="maxWidth"
           alignSelf={'center'}
-          py={{ base: 2 }}
-          px={[4, null]}
           display={'flex'}
           flex={1}
           align={'center'}
@@ -83,29 +80,10 @@ const Header = (props: HeaderProps) => {
             }}
           >
             <Link href="/">
-              {/* <SvgInset
-                svgUrl={`${CDN_URL_ICONS}/logo_bvm.svg`}
-                size={200}
-                style={{
-                  filter: primaryColor === 'white' ? 'invert(1)' : 'black',
-                }}
-              /> */}
-
-              {/* <SvgInset
-                svgUrl={`/bvm-logo-short-orange.svg`}
-                size={200}
-                style={{
-                  filter: primaryColor === 'white' ? 'invert(1)' : 'black',
-                }}
-              /> */}
-
               {primaryColor === 'white' ? (
-                <Image src={'/icons/bvm-logo-long-orange.png'} w={[100, 300]} />
+                <Image src={`${CDN_URL_ICONS}/ic-bvm-logo-white.svg`} />
               ) : (
-                <Image
-                  src={'/icons/bvm-logo-long-orange-on-white.png'}
-                  w={[100, 300]}
-                />
+                <Image src={`${CDN_URL_ICONS}/ic-bvm-logo-black.svg`} />
               )}
             </Link>
           </Flex>

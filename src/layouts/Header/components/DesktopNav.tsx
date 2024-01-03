@@ -11,7 +11,7 @@ type Props = {
 
 export const DesktopNav = (props: Props) => {
   return (
-    <HStack direction={'row'} spacing={6}>
+    <HStack direction={'row'} spacing={['40px', '40px']}>
       {NAV_ITEMS.map((navItem) => (
         <Link
           key={navItem.label}

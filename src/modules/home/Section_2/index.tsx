@@ -114,7 +114,7 @@ const Section_2 = () => {
       justifyContent={'center'}
       alignContent={'center'}
     >
-      <Box className="maxWidth">
+      <Box className="maxWidth" alignSelf={'center'}>
         <Text
           textAlign={'left'}
           fontSize={['24px', '48px']}

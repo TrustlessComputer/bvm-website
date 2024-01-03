@@ -11,6 +11,6 @@ export const isProduction: boolean = APP_ENV === 'production';
 export const isDevelop: boolean = APP_ENV === 'develop';
 export const isLocal: boolean = APP_ENV === 'local';
 
-export const CDN_URL_ICONS: string = CDN_URL + '/nbc/icons';
+export const CDN_URL_ICONS: string = CDN_URL + '/nbc/icons/bvm-icons';
 
 export { MetadataConfig, ViewportConfig };
