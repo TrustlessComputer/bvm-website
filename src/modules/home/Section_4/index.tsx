@@ -3,9 +3,11 @@
 import {
   Box,
   Center,
+  Divider,
   Flex,
   HStack,
   Image,
+  StackDivider,
   Text,
   VStack,
 } from '@chakra-ui/react';
@@ -37,45 +39,54 @@ const CONTENTS = [
 const Section_4 = () => {
   const renderContent = (item: IContent, index: number) => {
     return (
-      <HStack key={item.title}>
-        <Text fontSize={['20px']} fontWeight={500} color={'#000'}>
-          {index + 1}
+      <VStack key={item.title} spacing={['16px']} alignItems={'flex-start'}>
+        <Text fontSize={['16px']} fontWeight={700} color={'#00C250'}>
+          {`0${index + 1}.`}
         </Text>
-        <Box>
-          <Text fontSize={['22px']} fontWeight={500} color={'#000'}>
-            {item.title}
-          </Text>
-          <Text fontSize={['20px']} color={'#000'}>
-            {item.description}
-          </Text>
-        </Box>
-      </HStack>
+        <Text fontSize={['20px']} fontWeight={500} color={'#000'}>
+          {item.title}
+        </Text>
+        <Text fontSize={['16px']} fontWeight={400} color={'#000'}>
+          {item.description}
+        </Text>
+      </VStack>
     );
   };
   return (
-    <Box bgColor={'#F3F1E8'} display={'flex'} flexDirection={'column'}>
+    <Box
+      bgColor={'#fff'}
+      display={'flex'}
+      flexDirection={'column'}
+      py={['120px']}
+      px={['160px']}
+    >
       <HStack
         display={'flex'}
         flexDirection={'row'}
         className="maxWidth"
         alignSelf={'center'}
-        bgColor={'lightcyan'}
-        spacing={['50px']}
+        spacing={['70px']}
       >
-        <Flex flex={1}>
-          <Image src="/images/image_section_3.png" />
-        </Flex>
         <Flex flex={1} flexDirection={'column'}>
-          <Text fontSize={['38px']} color={'#000'}>
-            A no-code tool for building a full-featured Bitcoin L2 blockchain.
+          <Text fontSize={['48px']} color={'#000'}>
+            <Text fontSize={['48px']} color={'#00C250'} as="span">
+              A no-code tool
+            </Text>{' '}
+            for building a full-featured Bitcoin L2 blockchain.
           </Text>
+          <Box height={['20px']}></Box>
           <VStack
             display={'flex'}
             justifyContent={'flex-start'}
             alignItems={'flex-start'}
+            spacing={['20px']}
+            divider={<StackDivider borderColor="gray.200" />}
           >
             {CONTENTS.map(renderContent)}
           </VStack>
+        </Flex>
+        <Flex flex={1}>
+          <Image src="/images/image_section_3.png" />
         </Flex>
       </HStack>
     </Box>
