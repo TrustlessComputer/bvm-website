@@ -16,7 +16,6 @@ const BuildingBlockModule = () => {
         marginTop={'120px'}
         paddingBottom={'120px'}
         height={'100%'}
-        px={[4, null]}
         flexDirection={'column'}
         alignItems={'flex-start'}
         alignSelf={'center'}

@@ -55,7 +55,6 @@ const Header = (props: HeaderProps) => {
         justifyContent={'center'}
         alignItems={'center'}
         py={['20px', '20px']}
-        px={['160px', '160px']}
         top={0}
         left={0}
         right={0}
