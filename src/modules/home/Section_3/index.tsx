@@ -19,7 +19,7 @@ const Section_3 = () => {
       bgRepeat="no-repeat"
       bgSize={'cover'}
       bgColor={'#000'}
-      bgImg={`${CDN_URL_ICONS}/lego_bg_footer.svg`}
+      bgImg={`${CDN_URL_ICONS}/lego-bg-footer.svg`}
       display={'flex'}
       flexDirection={'column'}
     >
@@ -52,18 +52,18 @@ const Section_3 = () => {
 
         <Box height={[3]} />
         <Flex display={'flex'} align="center" justify="center">
-          <HStack>
-            <Text color={'#fff'} fontSize={16} fontWeight={700}>
+          <HStack display={'flex'} align="center">
+            <Text color={'#fff'} fontSize={['20px']} fontWeight={700}>
               {`1,025 `}
             </Text>
             <Text
               color={'rgba(255, 255, 255, 0.70)'}
-              fontSize={16}
+              fontSize={['20px']}
               fontWeight={400}
             >
               {`people on the allowlist.`}
             </Text>
-            <Text color={'#FFD600'} fontSize={16} fontWeight={700}>
+            <Text color={'#FFD600'} fontSize={['20px']} fontWeight={700}>
               {`14h : 30m : 59s`}
             </Text>
           </HStack>
@@ -71,30 +71,26 @@ const Section_3 = () => {
         <Box height={[2]} />
         <Text
           textAlign={'center'}
-          fontSize={[36, 60]}
+          fontSize={['34px', '68px']}
           lineHeight={'110%'}
           wordBreak={'break-word'}
           whiteSpace="pre-line"
         >
           {`Bitcoin Virtual Machine`}
         </Text>
-        <Box height={[2]} />
+        <Box height={['32px']} />
         <HStack align="center" justify="center">
           <Button
             bgColor={'#0BF269'}
             borderRadius={100}
             px={'24px'}
             py={'10px'}
+            color={'#000'}
+            fontSize={['16px']}
+            fontWeight={400}
           >
-            <Text color={'#000'} fontSize={16} fontWeight={400}>
-              {`Join the Allowlist`}
-            </Text>
+            {`Join the Allowlist`}
           </Button>
-          {/* <Button bgColor={'#fff'} borderRadius={100} px={'24px'} py={'10px'}>
-          <Text color={'#000'} fontSize={16} fontWeight={400}>
-            {`Get started for free`}
-          </Text>
-        </Button> */}
         </HStack>
         <Box height={[12, 24]} />
       </Flex>

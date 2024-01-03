@@ -3,7 +3,7 @@ import '@/styles/index.scss';
 import { Metadata, Viewport } from 'next';
 
 import { MetadataConfig, ViewportConfig } from '@/config';
-import chakraThemes from '@/themes/chakra-themes';
+import chakraThemes, { ChakraFontsFace } from '@/themes/chakra-themes';
 import { HelveticaNeueFontConfig } from '@/themes/font-config';
 import { ChakraProvider } from '@chakra-ui/react';
 
@@ -17,8 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={HelveticaNeueFontConfig.className}>
-        <ChakraProvider theme={chakraThemes}>{children}</ChakraProvider>
+      <body>
+        <ChakraProvider theme={chakraThemes}>
+          <ChakraFontsFace />
+          {children}
+        </ChakraProvider>
       </body>
     </html>
   );

@@ -10,6 +10,7 @@ import {
   HStack,
   Image,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 
 const Section_1 = () => {
@@ -20,13 +21,14 @@ const Section_1 = () => {
       bgSize={'cover'}
       bgColor={'#006440'}
       bgImg={`${CDN_URL_ICONS}/lego_bg.svg`}
-      h={'90vh'}
       display={'flex'}
+      justifyContent={'center'}
+      alignContent={'center'}
     >
-      <AbsoluteCenter>
+      <Box w={['450px', '1000px']} my={['135px', '193px']} className="maxWidth">
         <Text
           textAlign={'center'}
-          fontSize={[36, 60, 90]}
+          fontSize={['36px', '100px']}
           lineHeight={'110%'}
           wordBreak={'break-word'}
           whiteSpace="pre-line"
@@ -36,19 +38,21 @@ const Section_1 = () => {
 
         <Text
           textAlign={'center'}
-          fontSize={[16, 18, 22]}
+          fontSize={['16px', '22px']}
           lineHeight={'140%'}
+          fontWeight={400}
           wordBreak={'break-word'}
           whiteSpace="pre-line"
         >
-          {`Bitcoin Virtual Machine is a metaprotocol that lets developers
-            launch their own lighting-fast and low-cost blockchain, backed by Bitcoin security, in a
-            few clicks and start building decentralized applications on Bitcoin`}
+          Bitcoin Virtual Machine is a metaprotocol that lets developers launch
+          their own lighting-fast and low-cost blockchain, backed by Bitcoin
+          security, in a few clicks and start building decentralized
+          applications on Bitcoin
         </Text>
 
         <Box height={'32px'} />
 
-        <HStack align="center" justify="center">
+        <HStack align="center" justify="center" spacing={['6px', '12px']}>
           <Button
             bgColor={'#0BF269'}
             borderRadius={100}
@@ -57,12 +61,10 @@ const Section_1 = () => {
             alignItems={'center'}
             px={'24px'}
             py={'10px'}
+            fontWeight={400}
+            fontSize={'16px'}
           >
-            <Center>
-              <Text color={'#000'} fontSize={'16px'} fontWeight={400}>
-                {`Join the Allowlist`}
-              </Text>
-            </Center>
+            {`Join the Allowlist`}
           </Button>
           <Button
             bgColor={'#fff'}
@@ -72,15 +74,10 @@ const Section_1 = () => {
             display={'flex'}
             justifyContent={'center'}
             alignItems={'center'}
+            fontWeight={400}
+            fontSize={'16px'}
           >
-            <Text
-              color={'#000'}
-              fontSize={'16px'}
-              fontWeight={400}
-              lineHeight={17}
-            >
-              {`Get started for free`}
-            </Text>
+            {`Get started for free`}
           </Button>
         </HStack>
 
@@ -116,23 +113,23 @@ const Section_1 = () => {
         <Box height={'12px'} />
 
         <Flex display={'flex'} align="center" justify="center">
-          <HStack>
-            <Text color={'#fff'} fontSize={16} fontWeight={700}>
+          <HStack display={'flex'} align="center">
+            <Text color={'#fff'} fontSize={['20px']} fontWeight={700}>
               {`1,025 `}
             </Text>
             <Text
               color={'rgba(255, 255, 255, 0.70)'}
-              fontSize={16}
+              fontSize={['20px']}
               fontWeight={400}
             >
               {`people on the allowlist.`}
             </Text>
-            <Text color={'#FFD600'} fontSize={16} fontWeight={700}>
+            <Text color={'#FFD600'} fontSize={['20px']} fontWeight={700}>
               {`14h : 30m : 59s`}
             </Text>
           </HStack>
         </Flex>
-      </AbsoluteCenter>
+      </Box>
     </Box>
   );
 };
