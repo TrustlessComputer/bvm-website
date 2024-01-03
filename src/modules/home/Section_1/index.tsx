@@ -55,6 +55,7 @@ const Section_1 = () => {
         <HStack align="center" justify="center" spacing={['6px', '12px']}>
           <Button
             bgColor={'#0BF269'}
+            color={'#000'}
             borderRadius={100}
             display={'flex'}
             justifyContent={'center'}
@@ -68,6 +69,7 @@ const Section_1 = () => {
           </Button>
           <Button
             bgColor={'#fff'}
+            color={'#000'}
             borderRadius={100}
             px={'24px'}
             py={'10px'}
