@@ -45,7 +45,7 @@ const Section2 = () => {
             lineHeight={'100%'}
             fontWeight={500}
           >
-            {item.logoStack?.length || 1}
+            {item.networkList?.length || 1}
           </Text>
         </Flex>
         {!item.isLastItem && (
@@ -75,25 +75,35 @@ const Section2 = () => {
     );
   };
 
-  const renderStackIcons = (logoURLStack?: string[]) => {
+  const renderNetworkList = (
+    item?: {
+      logoUrl: string;
+      name: string;
+    }[],
+  ) => {
     return (
       <HStack spacing={['5px', '5px']} overflowX={'auto'}>
-        {logoURLStack &&
-          logoURLStack.map((url, index) => (
+        {item &&
+          item.map((obj, index) => (
             <Flex
               display={'flex'}
               align={'center'}
               justify={'center'}
+              flexDir={'column'}
               borderRadius={'8px'}
               p={['24px']}
               bgColor={'#fff'}
             >
               <Image
-                key={`${url}-${index}`}
-                src={url}
+                key={`${obj.logoUrl}-${index}`}
+                src={obj.logoUrl}
                 borderRadius={100}
                 boxSize={['32px', '72px']}
               />
+              <Box height={'4px'}></Box>
+              <Text fontSize={['12px']} fontWeight={400} color={'#000'}>
+                {obj.name || ''}
+              </Text>
             </Flex>
           ))}
       </HStack>
@@ -104,7 +114,7 @@ const Section2 = () => {
     return (
       <HStack key={item.key} w={'100%'} minH={['120px']} zIndex={item.zIndex}>
         {renderLabelData(item)}
-        {renderStackIcons(item.logoStack)}
+        {renderNetworkList(item.networkList)}
       </HStack>
     );
   };
