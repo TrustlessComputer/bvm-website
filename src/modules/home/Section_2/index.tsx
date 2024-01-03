@@ -124,6 +124,7 @@ const Section_2 = () => {
           {`The Bitcoin Superchain`}
         </Text>
 
+        <Box height={['40px']}></Box>
         <div className={s.sliderContainer}>
           <SliderSlick
             prevArrow={
