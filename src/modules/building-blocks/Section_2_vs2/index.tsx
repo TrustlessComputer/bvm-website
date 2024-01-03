@@ -1,1 +1,119 @@
-export default () => <></>;
+'use client';
+
+import {
+  AbsoluteCenter,
+  Box,
+  Flex,
+  HStack,
+  Image,
+  StackDivider,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
+import { BlockDataList, BlockItemType } from './config';
+
+const Section2 = () => {
+  const renderLabelData = (item: BlockItemType) => {
+    return (
+      <Flex
+        position={'relative'}
+        direction={'row'}
+        minW={['180px', '375px']}
+        h={'100%'}
+        alignItems={'center'}
+        justify={'space-between'}
+        borderRadius={'8px'}
+        py={['40px']}
+        px={['32px']}
+        bgColor={item.bgColor}
+      >
+        <Text fontSize={['12px', '24px']} color={'#fff'} fontWeight={500}>
+          {`${item.label || ''}`}
+        </Text>
+        <Box w={'8px'}></Box>
+        <Flex
+          boxSize={['37px', '37px']}
+          borderRadius={100}
+          display={'flex'}
+          align={'center'}
+          justify={'center'}
+          bgColor={item.bgCircle}
+        >
+          <Text
+            fontSize={['12px', '20px']}
+            color={'#fff'}
+            lineHeight={'100%'}
+            fontWeight={500}
+          >
+            {item.logoStack?.length || 1}
+          </Text>
+        </Flex>
+        {!item.isLastItem && (
+          <Flex
+            position={'absolute'}
+            left={0}
+            right={0}
+            bottom={'-18px'}
+            padding={['15px']}
+            height={'40px'}
+            display={'flex'}
+            justify={'center'}
+            align={'center'}
+            zIndex={-1}
+          >
+            <Box
+              borderWidth={'5px'}
+              borderColor={'#fff'}
+              bgColor={item.bgColor}
+              w={'47px'}
+              h={'47px'}
+              borderRadius={100}
+            ></Box>
+          </Flex>
+        )}
+      </Flex>
+    );
+  };
+
+  const renderStackIcons = (logoURLStack?: string[]) => {
+    return (
+      <HStack spacing={['5px', '5px']} overflowX={'auto'}>
+        {logoURLStack &&
+          logoURLStack.map((url, index) => (
+            <Flex
+              display={'flex'}
+              align={'center'}
+              justify={'center'}
+              borderRadius={'8px'}
+              p={['24px']}
+              bgColor={'#fff'}
+            >
+              <Image
+                key={`${url}-${index}`}
+                src={url}
+                borderRadius={100}
+                boxSize={['32px', '72px']}
+              />
+            </Flex>
+          ))}
+      </HStack>
+    );
+  };
+
+  const renderItem = (item: BlockItemType) => {
+    return (
+      <HStack key={item.key} w={'100%'} minH={['120px']} zIndex={item.zIndex}>
+        {renderLabelData(item)}
+        {renderStackIcons(item.logoStack)}
+      </HStack>
+    );
+  };
+
+  return (
+    <VStack w={'100%'} spacing={['5px', '5px']}>
+      {BlockDataList.map(renderItem)}
+    </VStack>
+  );
+};
+
+export default Section2;
