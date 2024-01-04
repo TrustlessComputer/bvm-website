@@ -5,6 +5,7 @@ export interface NavItem {
   isNewWindow?: boolean;
   href?: string;
   isHide?: boolean;
+  isTwitter?: boolean;
 }
 
 export const NAV_ITEMS: Array<NavItem> = [
@@ -27,13 +28,14 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Whitepapers',
+    label: 'Whitepaper',
     href: 'https://_blank',
     isNewWindow: true,
     isHide: false,
   },
   {
     label: 'Twitter',
+    isTwitter: true,
     href: 'https://twitter.com/bvmnetwork',
     isNewWindow: true,
     isHide: false,

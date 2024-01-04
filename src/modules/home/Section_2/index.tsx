@@ -83,7 +83,7 @@ const Section_2 = () => {
                   )
                 }
               >
-                {`${item.isComminSoon ? 'Comming soon' : 'View Project'}`}
+                {`${item.isComminSoon ? 'Coming soon' : 'View Project'}`}
               </Button>
             </HStack>
           </CardBody>
