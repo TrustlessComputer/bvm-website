@@ -127,19 +127,19 @@ export const BlockDataList: BlockItemType[] = [
     networkList: [
       {
         logoUrl: '/icons/btc_logo.svg',
-        name: 'Bitcoin Bridge',
+        name: 'Bitcoin',
       },
       {
         logoUrl: '/icons/brc20_logo.svg',
-        name: 'BRC20 Bridge',
+        name: 'BRC20',
       },
       {
         logoUrl: '/icons/eth_logo.svg',
-        name: 'Ethereum Bridge',
+        name: 'Ethereum',
       },
       {
         logoUrl: '/icons/sol_logo.svg',
-        name: 'Solana Bridge',
+        name: 'Solana',
       },
     ],
     bgColor: '#FF5C5C',
