@@ -93,7 +93,11 @@ const Section_6 = () => {
       >
         <Flex flex={1} flexDirection={'column'} justify={'center'}>
           <Text fontSize={['48px']} color={'#000'} textAlign={'center'}>
-            Scalable infrastructure for Bitcoin
+            Scalable infrastructure for
+            <Text fontSize={['48px']} color={'#FF7E21'} as="span">
+              {' '}
+              Bitcoin{' '}
+            </Text>{' '}
           </Text>
           <Box height={['16px']} />
           <Text

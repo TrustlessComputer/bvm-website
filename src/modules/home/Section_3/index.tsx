@@ -81,7 +81,7 @@ const Section_3 = () => {
         <Box height={['32px']} />
         <HStack align="center" justify="center">
           <Button
-            bgColor={'#0BF269'}
+            bgColor={'#FF7E21'}
             borderRadius={100}
             px={'24px'}
             py={'10px'}

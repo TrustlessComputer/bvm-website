@@ -21,7 +21,7 @@ const Section_1 = () => {
       bgPosition="center"
       bgRepeat="no-repeat"
       bgSize={'cover'}
-      bgColor={'#006440'}
+      bgColor={'#FF7E21'}
       bgImg={`${CDN_URL_ICONS}/lego_bg.svg`}
       display={'flex'}
       justifyContent={'center'}
@@ -59,7 +59,7 @@ const Section_1 = () => {
 
         <HStack align="center" justify="center" spacing={['6px', '12px']}>
           <Button
-            bgColor={'#0BF269'}
+            bgColor={'#fff'}
             color={'#000'}
             borderRadius={100}
             display={'flex'}
@@ -78,8 +78,8 @@ const Section_1 = () => {
             {`START BUILDING`}
           </Button>
           <Button
-            bgColor={'#fff'}
-            color={'#000'}
+            bgColor={'#FFA564'}
+            color={'#fff'}
             borderRadius={100}
             px={'24px'}
             py={'10px'}

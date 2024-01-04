@@ -78,7 +78,7 @@ const Section_2 = () => {
                       w={'24px'}
                       h={'24px'}
                       borderRadius={100}
-                      bgColor={'#00C250'}
+                      bgColor={'#FF7E21'}
                     />
                   )
                 }
@@ -153,7 +153,7 @@ const Section_2 = () => {
           color={'#000'}
         >
           {`Welcome to the future of Bitcoin. Say hello to the first `}
-          <Text fontSize={['48px']} color={'#00C250'} as="span">
+          <Text fontSize={['48px']} color={'#FF7E21'} as="span">
             {`Bitcoin L2 blockchains.`}
           </Text>{' '}
         </Text>

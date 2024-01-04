@@ -6,10 +6,10 @@ import {
   Divider,
   Flex,
   HStack,
+  VStack,
   Image,
   StackDivider,
   Text,
-  VStack,
 } from '@chakra-ui/react';
 
 interface IContent {
@@ -39,17 +39,35 @@ const CONTENTS = [
 const Section_4 = () => {
   const renderContent = (item: IContent, index: number) => {
     return (
-      <VStack key={item.title} spacing={['16px']} alignItems={'flex-start'}>
-        <Text fontSize={['16px']} fontWeight={700} color={'#00C250'}>
-          {`0${index + 1}.`}
-        </Text>
-        <Text fontSize={['20px']} fontWeight={500} color={'#000'}>
-          {item.title}
-        </Text>
-        <Text fontSize={['16px']} fontWeight={400} color={'#000'}>
-          {item.description}
-        </Text>
-      </VStack>
+      <Flex key={item.title} alignItems={'center'}>
+        <Box
+          w={'40px'}
+          h={'40px'}
+          display={'flex'}
+          alignItems={'center'}
+          justifyContent={'center'}
+          fontSize={['18px']}
+          fontWeight={700}
+          bgColor={'#FF7E21'}
+          borderRadius={100}
+        >
+          {`${index + 1}`}
+        </Box>
+        <Box w={'20px'}></Box>
+        <VStack alignItems={'flex-start'}>
+          <Text fontSize={['24px']} fontWeight={500} color={'#000'}>
+            {item.title}
+          </Text>
+          <Text
+            fontSize={['18px']}
+            fontWeight={400}
+            color={'#000'}
+            opacity={0.7}
+          >
+            {item.description}
+          </Text>
+        </VStack>
+      </Flex>
     );
   };
   return (
@@ -68,12 +86,12 @@ const Section_4 = () => {
       >
         <Flex flex={1} flexDirection={'column'}>
           <Text fontSize={['48px']} color={'#000'}>
-            <Text fontSize={['48px']} color={'#00C250'} as="span">
+            <Text fontSize={['48px']} color={'#FF7E21'} as="span">
               A no-code tool
             </Text>{' '}
             for building a full-featured Bitcoin L2 blockchain.
           </Text>
-          <Box height={['20px']}></Box>
+          <Box height={['40px']}></Box>
           <VStack
             display={'flex'}
             justifyContent={'flex-start'}

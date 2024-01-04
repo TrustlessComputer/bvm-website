@@ -38,7 +38,7 @@ const Section_5 = () => {
         <Flex flex={1} flexDirection={'column'}>
           <Text fontSize={['48px']} color={'#000'}>
             Why launch
-            <Text fontSize={['48px']} color={'#00C250'} as="span">
+            <Text fontSize={['48px']} color={'#FF7E21'} as="span">
               {' '}
               your own blockchain?{' '}
             </Text>{' '}
@@ -50,9 +50,9 @@ const Section_5 = () => {
           </Text>
           <Box height={['32px']} />
           <Box
-            bgColor={'#F2FCF6'}
+            bgColor={'#FFF9F4'}
             padding={['24px']}
-            border={'1px solid #C2F0D5'}
+            border={'1px solid #FFE0CA'}
             color={'#000'}
           >
             <List spacing={['20px']}>
@@ -67,7 +67,7 @@ const Section_5 = () => {
                     w={'8px'}
                     h={'8px'}
                     borderRadius={100}
-                    bgColor={'#00C250'}
+                    bgColor={'#FF7E21'}
                     marginRight={'12px'}
                   ></Box>
                   {item || ''}
