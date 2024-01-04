@@ -27,12 +27,12 @@ const Section2 = () => {
         px={['32px']}
         bgColor={item.bgColor}
       >
-        <Text fontSize={['12px', '24px']} color={'#fff'} fontWeight={500}>
+        <Text fontSize={['12px', '20px']} color={'#fff'} fontWeight={500}>
           {`${item.label || ''}`}
         </Text>
         <Box w={'8px'}></Box>
         <Flex
-          boxSize={['37px', '37px']}
+          boxSize={['37px', '30px']}
           borderRadius={100}
           display={'flex'}
           align={'center'}
@@ -40,7 +40,7 @@ const Section2 = () => {
           bgColor={item.bgCircle}
         >
           <Text
-            fontSize={['12px', '20px']}
+            fontSize={['12px', '16px']}
             color={'#fff'}
             lineHeight={'100%'}
             fontWeight={500}
@@ -65,8 +65,8 @@ const Section2 = () => {
               borderWidth={'5px'}
               borderColor={'#fff'}
               bgColor={item.bgColor}
-              w={'47px'}
-              h={'47px'}
+              w={'38px'}
+              h={'38px'}
               borderRadius={100}
             ></Box>
           </Flex>
@@ -82,23 +82,25 @@ const Section2 = () => {
     }[],
   ) => {
     return (
-      <HStack spacing={['5px', '5px']} overflowX={'auto'}>
+      <HStack spacing={['5px', '5px']} overflowX={'auto'} maxH={['100px']}>
         {item &&
           item.map((obj, index) => (
             <Flex
+              key={`${obj.name + index}`}
               display={'flex'}
               align={'center'}
               justify={'center'}
               flexDir={'column'}
               borderRadius={'8px'}
-              p={['24px']}
+              minW={[100]}
+              minH={[100]}
               bgColor={'#fff'}
             >
               <Image
                 key={`${obj.logoUrl}-${index}`}
                 src={obj.logoUrl}
                 borderRadius={100}
-                boxSize={['32px', '72px']}
+                boxSize={['32px', '48px']}
               />
               <Box height={'4px'}></Box>
               <Text fontSize={['12px']} fontWeight={400} color={'#000'}>
@@ -112,7 +114,7 @@ const Section2 = () => {
 
   const renderItem = (item: BlockItemType) => {
     return (
-      <HStack key={item.key} w={'100%'} minH={['120px']} zIndex={item.zIndex}>
+      <HStack key={item.key} w={'100%'} maxH={['100px']} zIndex={item.zIndex}>
         {renderLabelData(item)}
         {renderNetworkList(item.networkList)}
       </HStack>
