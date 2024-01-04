@@ -79,6 +79,7 @@ const Section2 = () => {
     item?: {
       logoUrl: string;
       name: string;
+      isComingSoon?: boolean;
     }[],
   ) => {
     return (
@@ -103,7 +104,12 @@ const Section2 = () => {
                 boxSize={['32px', '48px']}
               />
               <Box height={'4px'}></Box>
-              <Text fontSize={['12px']} fontWeight={400} color={'#000'}>
+              <Text
+                fontSize={['12px']}
+                fontWeight={400}
+                opacity={obj.isComingSoon ? 0.4 : 1}
+                color={`#000`}
+              >
                 {obj.name || ''}
               </Text>
             </Flex>

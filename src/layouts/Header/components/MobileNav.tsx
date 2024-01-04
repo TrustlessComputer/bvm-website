@@ -19,6 +19,7 @@ export const MobileNav = () => {
           fontSize={['16px', '16px']}
           fontWeight={500}
           color={'#000'}
+          target={item.isNewWindow ? '_blank' : '_self'}
           _hover={{}}
         >
           {item.label}

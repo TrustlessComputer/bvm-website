@@ -12,8 +12,10 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 
 const Section_1 = () => {
+  const router = useRouter();
   return (
     <Box
       bgPosition="center"
@@ -25,10 +27,13 @@ const Section_1 = () => {
       justifyContent={'center'}
       alignContent={'center'}
     >
-      <Box w={['450px', '1000px']} my={['135px', '193px']} className="maxWidth">
+      <Box
+        p={['20px', '120px', '180px', '240px', '320px']}
+        className="maxWidth"
+      >
         <Text
           textAlign={'center'}
-          fontSize={['36px', '100px']}
+          fontSize={[26, 32, 48, 72, 100]}
           lineHeight={'110%'}
           wordBreak={'break-word'}
           whiteSpace="pre-line"
@@ -38,8 +43,8 @@ const Section_1 = () => {
 
         <Text
           textAlign={'center'}
-          fontSize={['16px', '22px']}
-          lineHeight={'140%'}
+          fontSize={[12, 15, 18, 22, 26]}
+          lineHeight={'120%'}
           fontWeight={400}
           wordBreak={'break-word'}
           whiteSpace="pre-line"
@@ -62,10 +67,14 @@ const Section_1 = () => {
             alignItems={'center'}
             px={'24px'}
             py={'10px'}
+            minW={['180px']}
             fontWeight={400}
             fontSize={'16px'}
+            onClick={() => {
+              router.push('/blockchains/computers');
+            }}
           >
-            {`Join the Allowlist`}
+            {`Start Building`}
           </Button>
           <Button
             bgColor={'#fff'}
@@ -73,19 +82,23 @@ const Section_1 = () => {
             borderRadius={100}
             px={'24px'}
             py={'10px'}
+            minW={['180px']}
             display={'flex'}
             justifyContent={'center'}
             alignItems={'center'}
             fontWeight={400}
             fontSize={'16px'}
+            onClick={() =>
+              window.open('https://docs.trustless.computer/', '_blank')
+            }
           >
-            {`Get started for free`}
+            {`Read Docs`}
           </Button>
         </HStack>
 
         <Box height={'32px'} />
 
-        <Flex display={'flex'} align="center" justify="center">
+        {/* <Flex display={'flex'} align="center" justify="center">
           <HStack
             padding={'6px'}
             spacing={'0px'}
@@ -110,10 +123,8 @@ const Section_1 = () => {
             />
             <Image src="/images/user_4.png" boxSize={'48px'} />
           </HStack>
-        </Flex>
-
-        <Box height={'12px'} />
-
+        </Flex> */}
+        {/* 
         <Flex display={'flex'} align="center" justify="center">
           <HStack display={'flex'} align="center">
             <Text color={'#fff'} fontSize={['20px']} fontWeight={700}>
@@ -130,7 +141,7 @@ const Section_1 = () => {
               {`14h : 30m : 59s`}
             </Text>
           </HStack>
-        </Flex>
+        </Flex> */}
       </Box>
     </Box>
   );

@@ -16,6 +16,7 @@ export const DesktopNav = (props: Props) => {
         <Link
           key={navItem.label}
           href={navItem.href ?? '#'}
+          target={navItem.isNewWindow ? '_blank' : '_self'}
           color={props?.primaryColor || 'white'}
         >
           <Text

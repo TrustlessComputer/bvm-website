@@ -22,14 +22,14 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'Developers',
-    href: '/developers',
-    isNewWindow: false,
+    href: 'https://docs.trustless.computer',
+    isNewWindow: true,
     isHide: false,
   },
   {
     label: 'Whitepapers',
-    href: '/whitepapers',
-    isNewWindow: false,
+    href: 'https://_blank',
+    isNewWindow: true,
     isHide: false,
   },
 ].filter((item) => !item.isHide);

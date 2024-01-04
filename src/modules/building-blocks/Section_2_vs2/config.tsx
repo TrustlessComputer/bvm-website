@@ -4,6 +4,7 @@ export type BlockItemType = {
   networkList?: {
     logoUrl: string;
     name: string;
+    isComingSoon?: boolean;
   }[];
   bgColor?: string;
   bgCircle?: string;
@@ -36,10 +37,12 @@ export const BlockDataList: BlockItemType[] = [
       {
         logoUrl: '/icons/avail_logo.svg',
         name: 'Avail',
+        isComingSoon: true,
       },
       {
         logoUrl: '/icons/near_logo.svg',
         name: 'NearDA',
+        isComingSoon: true,
       },
     ],
     bgColor: '#7069DC',
@@ -74,18 +77,22 @@ export const BlockDataList: BlockItemType[] = [
       {
         logoUrl: '/icons/polygon_logo.svg',
         name: 'Polygon ZKEVM',
+        isComingSoon: true,
       },
       {
         logoUrl: '/icons/zksync_logo.svg',
         name: 'ZKSync ZKVM',
+        isComingSoon: true,
       },
       {
         logoUrl: '/icons/arbitrum_logo.svg',
         name: 'Arbitrum',
+        isComingSoon: true,
       },
       {
         logoUrl: '/icons/starknet_logo.svg',
         name: 'Starknet',
+        isComingSoon: true,
       },
     ],
     bgColor: '#F7931A',
@@ -105,6 +112,7 @@ export const BlockDataList: BlockItemType[] = [
       {
         logoUrl: '/icons/rollkit_logo.svg',
         name: 'Rollkit',
+        isComingSoon: true,
       },
     ],
     bgColor: '#25C0EF',
