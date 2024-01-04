@@ -52,21 +52,6 @@ export const BlockDataList: BlockItemType[] = [
     isHide: false,
   },
   {
-    key: 'Settlement',
-    label: 'Settlement',
-    networkList: [
-      {
-        logoUrl: '/icons/btc_logo.svg',
-        name: 'Bitcoin',
-      },
-    ],
-    bgColor: '#29892A',
-    bgCircle: '#54A155',
-    zIndex: 9,
-    isLastItem: false,
-    isHide: false,
-  },
-  {
     key: 'Execution',
     label: 'Execution',
     networkList: [
@@ -97,7 +82,7 @@ export const BlockDataList: BlockItemType[] = [
     ],
     bgColor: '#F7931A',
     bgCircle: '#F9A948',
-    zIndex: 7,
+    zIndex: 8,
     isLastItem: false,
     isHide: false,
   },
@@ -117,7 +102,7 @@ export const BlockDataList: BlockItemType[] = [
     ],
     bgColor: '#25C0EF',
     bgCircle: '#51CDF2',
-    zIndex: 6,
+    zIndex: 7,
     isLastItem: false,
     isHide: false,
   },
@@ -144,6 +129,21 @@ export const BlockDataList: BlockItemType[] = [
     ],
     bgColor: '#FF5C5C',
     bgCircle: '#FF7D7D',
+    zIndex: 6,
+    isLastItem: false,
+    isHide: false,
+  },
+  {
+    key: 'Settlement',
+    label: 'Settlement',
+    networkList: [
+      {
+        logoUrl: '/icons/btc_logo.svg',
+        name: 'Bitcoin',
+      },
+    ],
+    bgColor: '#29892A',
+    bgCircle: '#54A155',
     zIndex: 5,
     isLastItem: true,
     isHide: false,

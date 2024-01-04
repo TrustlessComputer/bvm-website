@@ -79,9 +79,9 @@ const Header = (props: HeaderProps) => {
           >
             <Link href="/">
               {primaryColor === 'white' ? (
-                <Image src={`${CDN_URL_ICONS}/ic-bvm-logo-white.svg`} />
+                <Image src={`/icons/logo_white.svg`} />
               ) : (
-                <Image src={`${CDN_URL_ICONS}/ic-bvm-logo-black.svg`} />
+                <Image src={`/icons/logo_black.svg`} />
               )}
             </Link>
           </Flex>

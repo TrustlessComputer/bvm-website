@@ -33,7 +33,7 @@ const Section_1 = () => {
       >
         <Text
           textAlign={'center'}
-          fontSize={[26, 32, 48, 72, 100]}
+          fontSize={[26, 32, 48, 72]}
           lineHeight={'110%'}
           wordBreak={'break-word'}
           whiteSpace="pre-line"
@@ -41,18 +41,18 @@ const Section_1 = () => {
           {`Bitcoin Virtual Machine`}
         </Text>
 
+        <Box height={'16px'} />
         <Text
           textAlign={'center'}
-          fontSize={[12, 15, 18, 22, 26]}
-          lineHeight={'120%'}
+          fontSize={[12, 15, 18, 20]}
+          lineHeight={'140%'}
           fontWeight={400}
           wordBreak={'break-word'}
           whiteSpace="pre-line"
         >
-          Bitcoin Virtual Machine is a metaprotocol that lets developers launch
-          their own lighting-fast and low-cost blockchain, backed by Bitcoin
-          security, in a few clicks and start building decentralized
-          applications on Bitcoin
+          BVM is a metaprotocol that lets developers launch their own
+          lightning-fast and low-cost Bitcoin L2 blockchain in a few clicks and
+          start building decentralized applications on Bitcoin.
         </Text>
 
         <Box height={'32px'} />
@@ -70,12 +70,12 @@ const Section_1 = () => {
             minW={['180px']}
             height={'48px'}
             fontWeight={400}
-            fontSize={'16px'}
+            fontSize={'14px'}
             onClick={() => {
               router.push('/blockchains/computers');
             }}
           >
-            {`Start Building`}
+            {`START BUILDING`}
           </Button>
           <Button
             bgColor={'#fff'}
@@ -89,12 +89,12 @@ const Section_1 = () => {
             justifyContent={'center'}
             alignItems={'center'}
             fontWeight={400}
-            fontSize={'16px'}
+            fontSize={'14px'}
             onClick={() =>
               window.open('https://docs.trustless.computer/', '_blank')
             }
           >
-            {`Read Docs`}
+            {`READ DOCS`}
           </Button>
         </HStack>
 

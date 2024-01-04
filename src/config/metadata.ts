@@ -5,7 +5,7 @@ const APP_NAME = 'Bitcoin Virtual Machine';
 const APP_DEFAULT_TITLE = 'Bitcoin Virtual Machine';
 const APP_TITLE_TEMPLATE = 'Bitcoin Virtual Machine';
 const APP_DESCRIPTION =
-  'A metaprotocol that lets developers launch their own L2 blockchain and build dapps on Bitcoin';
+  'BVM is a metaprotocol that lets developers launch their own lightning-fast and low-cost Bitcoin L2 blockchain in a few clicks and start building decentralized applications on Bitcoin.';
 // const APP_THUMBNAIL = `${CDN_URL_ICONS}/metadata.jpg`;
 
 const metadataConfig: Metadata = {

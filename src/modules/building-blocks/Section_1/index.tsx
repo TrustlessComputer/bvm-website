@@ -13,7 +13,7 @@ const Section1 = () => {
         textAlign={['center', 'left']}
         color={'#000'}
       >
-        Building Blocks
+        Modular Blocks
       </Text>
       <Box boxSize={['20px', null]} />
       <Text

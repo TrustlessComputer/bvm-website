@@ -9,13 +9,13 @@ export interface NavItem {
 
 export const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Blockchains',
+    label: 'Bitcoin L2s',
     href: '/blockchains/computers',
     isNewWindow: false,
     isHide: false,
   },
   {
-    label: 'Building Blocks',
+    label: 'Modular Blocks',
     href: '/building-blocks',
     isNewWindow: false,
     isHide: false,
@@ -33,7 +33,7 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Contact',
+    label: 'Twitter',
     href: 'https://twitter.com/bvmnetwork',
     isNewWindow: true,
     isHide: false,
