@@ -79,7 +79,6 @@ const Section_4 = () => {
             justifyContent={'flex-start'}
             alignItems={'flex-start'}
             spacing={['20px']}
-            divider={<StackDivider borderColor="gray.200" />}
           >
             {CONTENTS.map(renderContent)}
           </VStack>

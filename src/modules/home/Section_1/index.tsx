@@ -68,6 +68,7 @@ const Section_1 = () => {
             px={'24px'}
             py={'10px'}
             minW={['180px']}
+            height={'48px'}
             fontWeight={400}
             fontSize={'16px'}
             onClick={() => {
@@ -84,6 +85,7 @@ const Section_1 = () => {
             py={'10px'}
             minW={['180px']}
             display={'flex'}
+            height={'48px'}
             justifyContent={'center'}
             alignItems={'center'}
             fontWeight={400}

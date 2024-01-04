@@ -120,7 +120,13 @@ const Section2 = () => {
 
   const renderItem = (item: BlockItemType) => {
     return (
-      <HStack key={item.key} w={'100%'} maxH={['100px']} zIndex={item.zIndex}>
+      <HStack
+        key={item.key}
+        w={'100%'}
+        maxH={['100px']}
+        zIndex={item.zIndex}
+        spacing={['5px', '5px']}
+      >
         {renderLabelData(item)}
         {renderNetworkList(item.networkList)}
       </HStack>

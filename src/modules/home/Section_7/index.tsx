@@ -45,7 +45,6 @@ const Section_7 = () => {
             <Image
               src={item.imageUrl}
               alt="thumb image"
-              borderRadius="lg"
               width={'100%'}
               maxH={['265px']}
               objectFit={'cover'}

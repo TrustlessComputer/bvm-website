@@ -21,8 +21,9 @@ const BuildingBlockModule = () => {
         alignItems={'flex-start'}
         alignSelf={'center'}
       >
+        <Box h={['20px', '40px']} />
         <Section1 />
-        <Box h={['30px', '80px']} />
+        <Box h={['20px', '40px']} />
         <Section2 />
       </Flex>
     </Box>

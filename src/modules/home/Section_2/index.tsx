@@ -34,9 +34,9 @@ const Section_2 = () => {
   const renderCard = (item: SlideItemType) => {
     return (
       <Box p={[2]} key={item.key}>
-        <Card key={item.key} bgColor={'#fff'}>
+        <Card key={item.key} bgColor={'#fff'} borderRadius={0}>
           <CardBody>
-            <Image src={item.srcImg} alt="thumb image" borderRadius="lg" />
+            <Image src={item.srcImg} alt="thumb image" />
             <Box height={'20px'} />
             <HStack align={'center'} justify={'space-between'}>
               <Text
@@ -75,7 +75,7 @@ const Section_2 = () => {
           </CardBody>
           {item.childrentList && (
             <>
-              <Divider w={'92%'} alignSelf={'center'} />
+              <Divider w={'92%'} alignSelf={'center'} color={'#ECECEC'} />
               <CardFooter>
                 <Stack spacing={'20px'}>
                   {item.childrentList.map((children) => (
