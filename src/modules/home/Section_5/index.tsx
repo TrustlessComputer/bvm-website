@@ -56,8 +56,9 @@ const Section_5 = () => {
             color={'#000'}
           >
             <List spacing={['20px']}>
-              {News.content.map((item) => (
+              {News.content.map((item, index) => (
                 <ListItem
+                  key={`${item + index}`}
                   flexDir={'row'}
                   display={'flex'}
                   alignItems={'center'}
