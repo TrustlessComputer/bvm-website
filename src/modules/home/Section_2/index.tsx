@@ -110,11 +110,10 @@ const Section_2 = () => {
       display={'flex'}
       flex={1}
       overflow={'hidden'}
-      p={[8, 24, 32]}
       justifyContent={'center'}
       alignContent={'center'}
     >
-      <Box className="maxWidth" alignSelf={'center'}>
+      <Box className="maxWidth" alignSelf={'center'} py={['120px']}>
         <Text
           textAlign={'left'}
           fontSize={['24px', '48px']}
@@ -136,7 +135,7 @@ const Section_2 = () => {
                 alignSelf={'center'}
                 position={'absolute'}
                 zIndex={999}
-                left={[-5, -20]}
+                left={[-5, -12]}
               />
             }
             nextArrow={
@@ -148,7 +147,7 @@ const Section_2 = () => {
                 alignSelf={'center'}
                 position={'absolute'}
                 zIndex={999}
-                right={[-5, -20]}
+                right={[-5, -12]}
               />
             }
             infinite={true}

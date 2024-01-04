@@ -58,7 +58,6 @@ const Section_4 = () => {
       display={'flex'}
       flexDirection={'column'}
       py={['120px']}
-      px={['160px']}
     >
       <HStack
         display={'flex'}

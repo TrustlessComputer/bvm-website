@@ -41,7 +41,7 @@ const Section_7 = () => {
         }}
       >
         <Card bgColor={'#000'}>
-          <CardBody>
+          <CardBody p={[0]} paddingRight={['20px']}>
             <Image
               src={item.imageUrl}
               alt="thumb image"
@@ -99,7 +99,7 @@ const Section_7 = () => {
                 alignSelf={'center'}
                 position={'absolute'}
                 zIndex={999}
-                left={[-5, -20]}
+                left={[-5, -14]}
               />
             }
             nextArrow={
@@ -111,7 +111,7 @@ const Section_7 = () => {
                 alignSelf={'center'}
                 position={'absolute'}
                 zIndex={999}
-                right={[-5, -20]}
+                right={[-5, -12]}
               />
             }
             infinite={true}

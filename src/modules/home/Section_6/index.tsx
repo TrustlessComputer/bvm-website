@@ -107,7 +107,7 @@ const Section_6 = () => {
             own Bitcoin L2 blockchain.
           </Text>
           <Box height={['40px']} />
-          <Flex padding={['24px']} gap={['36px']}>
+          <Flex py={['24px']} gap={['36px']}>
             {CONTENTS.map(renderItem)}
           </Flex>
         </Flex>
