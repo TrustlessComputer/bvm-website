@@ -32,4 +32,10 @@ export const NAV_ITEMS: Array<NavItem> = [
     isNewWindow: true,
     isHide: false,
   },
+  {
+    label: 'Contact',
+    href: 'https://twitter.com/bvmnetwork',
+    isNewWindow: true,
+    isHide: false,
+  },
 ].filter((item) => !item.isHide);

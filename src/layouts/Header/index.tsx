@@ -62,7 +62,6 @@ const Header = (props: HeaderProps) => {
       >
         <Flex
           minH={['40px', '40px']}
-          w={['311px', '311px']}
           className="maxWidth"
           alignSelf={'center'}
           display={'flex'}

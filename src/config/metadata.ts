@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
-import { CDN_URL_ICONS } from '.';
+import { CDN_URL_ICONS } from '../config';
 
 const APP_NAME = 'Bitcoin Virtual Machine';
 const APP_DEFAULT_TITLE = 'Bitcoin Virtual Machine';
-const APP_TITLE_TEMPLATE = '%s - Bitcoin Virtual Machine';
+const APP_TITLE_TEMPLATE = 'Bitcoin Virtual Machine';
 const APP_DESCRIPTION =
-  'A metaprotocol that lets developers launch their own blockchain and build dapps on Bitcoin';
-const APP_THUMBNAIL = `${CDN_URL_ICONS}/metadata.jpg`;
+  'A metaprotocol that lets developers launch their own L2 blockchain and build dapps on Bitcoin';
+// const APP_THUMBNAIL = `${CDN_URL_ICONS}/metadata.jpg`;
 
 const metadataConfig: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_DOMAIN_URL}`),
@@ -35,7 +35,7 @@ const metadataConfig: Metadata = {
     description: APP_DESCRIPTION,
     images: [
       {
-        url: APP_THUMBNAIL,
+        url: 'https://cdn.newbitcoincity.com//nbc/icons/bvm-icons/metadata.jpg',
         width: 1200,
         height: 630,
         alt: APP_NAME,
