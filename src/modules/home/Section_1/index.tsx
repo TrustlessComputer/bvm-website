@@ -123,8 +123,7 @@ const Section_1 = () => {
             wordBreak={'break-word'}
             whiteSpace="pre-line"
           >
-            Powered by 10+ blockchain building blocks, with more added all the
-            time
+            Powered by blockchain building blocks
           </Text>
           <Box height={'20px'}></Box>
           <Flex

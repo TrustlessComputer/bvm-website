@@ -19,6 +19,8 @@ export const NEW_BITCOIN_CITY = isProduction
   : 'https://dev.newbitcoincity.com/';
 export const BUY_TC_URL = NEW_BITCOIN_CITY + '/topup';
 
-export const PDF_DOC_URL = DOMAIN_URL + '/bvm.pdf';
+// export const PDF_DOC_URL = DOMAIN_URL + '/bvm.pdf';
+
+export const PDF_DOC_URL = 'https://bvm.network/bvm.pdf';
 
 export { MetadataConfig, ViewportConfig };

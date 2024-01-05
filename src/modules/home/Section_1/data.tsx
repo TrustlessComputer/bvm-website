@@ -4,6 +4,10 @@ export type BlockchainsType = {
 };
 export const BlockchainsList: BlockchainsType[] = [
   {
+    logoUrl: '/images/lego_bitcoin.svg',
+    title: 'BITCOIN',
+  },
+  {
     logoUrl: '/images/lego_optimism.svg',
     title: 'OPTIMISM',
   },
