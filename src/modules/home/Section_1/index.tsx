@@ -23,7 +23,7 @@ const Section_1 = () => {
       bgPosition="center"
       bgRepeat="no-repeat"
       bgSize={'cover'}
-      bgImg={`/images/lego_bg.png`}
+      bgImg={`/images/lego_bg_vs2.png`}
       display={'flex'}
       justifyContent={'center'}
       alignContent={'center'}
@@ -126,7 +126,7 @@ const Section_1 = () => {
             Powered by blockchain building blocks
           </Text>
           <Box height={'20px'}></Box>
-          <Flex
+          {/* <Flex
             display={'flex'}
             alignItems={'center'}
             justify={'center'}
@@ -156,6 +156,13 @@ const Section_1 = () => {
                 </Flex>
               );
             })}
+          </Flex> */}
+          <Flex display={'flex'} alignItems={'center'} justify={'center'}>
+            <Image
+              src={'/images/legos_list.png'}
+              h={['50px', '60px', '80px', '100px', '124px']}
+              w={['220px', '280px', '384px', '480px', '600px']}
+            ></Image>
           </Flex>
         </Flex>
       </Box>
