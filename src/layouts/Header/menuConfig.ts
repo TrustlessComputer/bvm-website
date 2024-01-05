@@ -1,3 +1,5 @@
+import { PDF_DOC_URL } from '@/config';
+
 export interface NavItem {
   label: string;
   subLabel?: string;
@@ -16,14 +18,20 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Modular Blocks',
+    label: 'Building Blocks',
     href: '/building-blocks',
     isNewWindow: false,
     isHide: false,
   },
   {
+    label: '$BVM',
+    href: '/bvm',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
     label: 'Developers',
-    href: 'https://docs.trustless.computer',
+    href: PDF_DOC_URL,
     isNewWindow: true,
     isHide: false,
   },

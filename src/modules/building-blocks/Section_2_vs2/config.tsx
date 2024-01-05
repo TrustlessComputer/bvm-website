@@ -19,28 +19,28 @@ export const BlockDataList: BlockItemType[] = [
     label: 'Data Availability',
     networkList: [
       {
-        logoUrl: '/icons/btc_logo.svg',
+        logoUrl: '/images/lego_bitcoin.svg',
         name: 'Bitcoin',
       },
       {
-        logoUrl: '/icons/polygon_logo.svg',
+        logoUrl: '/images/lego_polygon.svg',
         name: 'Polygon',
       },
       {
-        logoUrl: '/icons/celestia_logo.svg',
+        logoUrl: '/images/lego_celestia.svg',
         name: 'Celestia',
       },
       {
-        logoUrl: '/icons/eigen_logo.svg',
+        logoUrl: '/images/lego_eigen.svg',
         name: 'Eigen',
       },
       {
-        logoUrl: '/icons/avail_logo.svg',
+        logoUrl: '/images/lego_avail.svg',
         name: 'Avail',
         isComingSoon: true,
       },
       {
-        logoUrl: '/icons/near_logo.svg',
+        logoUrl: '/images/lego_near.svg',
         name: 'NearDA',
         isComingSoon: true,
       },
@@ -56,26 +56,26 @@ export const BlockDataList: BlockItemType[] = [
     label: 'Execution',
     networkList: [
       {
-        logoUrl: '/icons/op_logo.svg',
+        logoUrl: '/images/lego_optimism.svg',
         name: 'Optimism',
       },
       {
-        logoUrl: '/icons/polygon_logo.svg',
+        logoUrl: '/images/lego_polygon.svg',
         name: 'Polygon ZKEVM',
         isComingSoon: true,
       },
       {
-        logoUrl: '/icons/zksync_logo.svg',
+        logoUrl: '/images/lego_zksync_zkvm.svg',
         name: 'ZKSync ZKVM',
         isComingSoon: true,
       },
       {
-        logoUrl: '/icons/arbitrum_logo.svg',
+        logoUrl: '/images/lego_arbitrum.svg',
         name: 'Arbitrum',
         isComingSoon: true,
       },
       {
-        logoUrl: '/icons/starknet_logo.svg',
+        logoUrl: '/images/lego_starknet.svg',
         name: 'Starknet',
         isComingSoon: true,
       },
@@ -91,11 +91,11 @@ export const BlockDataList: BlockItemType[] = [
     label: 'Rollup Framework',
     networkList: [
       {
-        logoUrl: '/icons/op_logo.svg',
+        logoUrl: '/images/lego_optimism.svg',
         name: 'Optimism',
       },
       {
-        logoUrl: '/icons/rollkit_logo.svg',
+        logoUrl: '/images/lego_rollkit.svg',
         name: 'Rollkit',
         isComingSoon: true,
       },
@@ -111,19 +111,19 @@ export const BlockDataList: BlockItemType[] = [
     label: 'Interop',
     networkList: [
       {
-        logoUrl: '/icons/btc_logo.svg',
+        logoUrl: '/images/lego_bitcoin.svg',
         name: 'Bitcoin',
       },
       {
-        logoUrl: '/icons/brc20_logo.svg',
+        logoUrl: '/images/lego_brc20.svg',
         name: 'BRC20',
       },
       {
-        logoUrl: '/icons/eth_logo.svg',
+        logoUrl: '/images/lego_eth.svg',
         name: 'Ethereum',
       },
       {
-        logoUrl: '/icons/sol_logo.svg',
+        logoUrl: '/images/lego_solana.svg',
         name: 'Solana',
       },
     ],
@@ -138,7 +138,7 @@ export const BlockDataList: BlockItemType[] = [
     label: 'Settlement',
     networkList: [
       {
-        logoUrl: '/icons/btc_logo.svg',
+        logoUrl: '/images/lego_bitcoin.svg',
         name: 'Bitcoin',
       },
     ],

@@ -17,6 +17,7 @@ import {
   Flex,
   useBreakpointValue,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 
 const SliderSlick = dynamic(
   () => import('react-slick').then((m) => m.default),
@@ -29,6 +30,7 @@ import dynamic from 'next/dynamic';
 import { DataList, SlideItemType } from './config';
 
 const Section_2 = () => {
+  const router = useRouter();
   // const isMobile = useBreakpointValue({ base: true, md: false }) as boolean;
   const numberSlide = isMobile ? 1 : isTablet ? 2 : 3;
   const renderCard = (item: SlideItemType) => {
@@ -145,18 +147,43 @@ const Section_2 = () => {
       alignContent={'center'}
     >
       <Box className="maxWidth" alignSelf={'center'} py={['120px']}>
-        <Text
-          textAlign={'left'}
-          fontSize={['24px', '48px']}
-          maxW={'907px'}
-          lineHeight={'110%'}
-          color={'#000'}
-        >
-          {`Welcome to the future of Bitcoin. Say hello to the first `}
-          <Text fontSize={['48px']} color={'#FF7E21'} as="span">
-            {`Bitcoin L2 blockchains.`}
-          </Text>{' '}
-        </Text>
+        <Flex display={'flex'} alignItems={'center'} justify={'space-between'}>
+          <Text
+            textAlign={'left'}
+            fontSize={['24px', '48px']}
+            maxW={'907px'}
+            lineHeight={'110%'}
+            color={'#000'}
+          >
+            {`Say hello to the first `}
+            <Text fontSize={['48px']} color={'#FF7E21'} as="span">
+              {`Bitcoin L2 blockchains.`}
+            </Text>{' '}
+          </Text>
+
+          <Button
+            bgColor={'#FF7E21'}
+            color={'#fff'}
+            borderRadius={100}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            px={'24px'}
+            py={'10px'}
+            minW={['180px']}
+            height={'48px'}
+            fontWeight={400}
+            fontSize={'20px'}
+            onClick={() => {
+              router.push('/blockchains/computers');
+            }}
+            _hover={{
+              opacity: 0.8,
+            }}
+          >
+            {`Build your Bitcoin L2`}
+          </Button>
+        </Flex>
 
         <Box height={['40px']}></Box>
         <div className={s.sliderContainer}>

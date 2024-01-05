@@ -27,10 +27,10 @@ const Section2 = () => {
         px={['32px']}
         bgColor={item.bgColor}
       >
-        <Text fontSize={['12px', '20px']} color={'#fff'} fontWeight={500}>
+        <Text fontSize={['16px', '24px']} color={'#fff'} fontWeight={500}>
           {`${item.label || ''}`}
         </Text>
-        <Box w={'8px'}></Box>
+        {/* <Box w={'8px'}></Box>
         <Flex
           boxSize={['37px', '30px']}
           borderRadius={100}
@@ -47,8 +47,8 @@ const Section2 = () => {
           >
             {item.networkList?.length || 1}
           </Text>
-        </Flex>
-        {!item.isLastItem && (
+        </Flex> */}
+        {/* {!item.isLastItem && (
           <Flex
             position={'absolute'}
             left={0}
@@ -70,7 +70,7 @@ const Section2 = () => {
               borderRadius={100}
             ></Box>
           </Flex>
-        )}
+        )} */}
       </Flex>
     );
   };
@@ -83,7 +83,7 @@ const Section2 = () => {
     }[],
   ) => {
     return (
-      <HStack spacing={['5px', '5px']} overflowX={'auto'} maxH={['100px']}>
+      <HStack spacing={['5px', '5px']} overflowX={'auto'} height={'100%'}>
         {item &&
           item.map((obj, index) => (
             <Flex
@@ -92,17 +92,14 @@ const Section2 = () => {
               align={'center'}
               justify={'center'}
               flexDir={'column'}
-              borderRadius={'8px'}
+              borderRadius={['8px']}
               minW={[100]}
               minH={[100]}
+              p={['16px']}
               bgColor={'#fff'}
+              height={'100%'}
             >
-              <Image
-                key={`${obj.logoUrl}-${index}`}
-                src={obj.logoUrl}
-                borderRadius={100}
-                boxSize={['32px', '48px']}
-              />
+              <Image key={`${obj.logoUrl}-${index}`} src={obj.logoUrl} />
               <Box height={'4px'}></Box>
               <Text
                 fontSize={['12px']}
@@ -123,7 +120,6 @@ const Section2 = () => {
       <HStack
         key={item.key}
         w={'100%'}
-        maxH={['100px']}
         zIndex={item.zIndex}
         spacing={['5px', '5px']}
       >
