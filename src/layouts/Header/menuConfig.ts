@@ -1,4 +1,4 @@
-import { PDF_DOC_URL } from '@/config';
+import { DEVELOPERS_DOC_URL, WHITEPAPER_DOC_URL } from '@/config';
 
 export interface NavItem {
   label: string;
@@ -31,13 +31,13 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'Developers',
-    href: PDF_DOC_URL,
+    href: DEVELOPERS_DOC_URL,
     isNewWindow: true,
     isHide: false,
   },
   {
     label: 'Whitepaper',
-    href: 'https://_blank',
+    href: WHITEPAPER_DOC_URL,
     isNewWindow: true,
     isHide: false,
   },

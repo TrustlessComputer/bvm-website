@@ -21,6 +21,7 @@ export const BUY_TC_URL = NEW_BITCOIN_CITY + '/topup';
 
 // export const PDF_DOC_URL = DOMAIN_URL + '/bvm.pdf';
 
-export const PDF_DOC_URL = 'https://bvm.network/bvm.pdf';
+export const DEVELOPERS_DOC_URL = 'https://docs.bvm.network/';
+export const WHITEPAPER_DOC_URL = 'https://bvm.network/bvm.pdf/';
 
 export { MetadataConfig, ViewportConfig };

@@ -1,6 +1,6 @@
 'use client';
 
-import { CDN_URL_ICONS, PDF_DOC_URL } from '@/config';
+import { CDN_URL_ICONS, DEVELOPERS_DOC_URL } from '@/config';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import {
   AbsoluteCenter,
@@ -94,7 +94,7 @@ const Section_1 = () => {
             }}
             onClick={() => {
               // window.open('https://docs.bvm.network/', '_blank')
-              window.open(PDF_DOC_URL, '_blank');
+              window.open(DEVELOPERS_DOC_URL, '_blank');
             }}
           >
             {`Explore the docs`}
