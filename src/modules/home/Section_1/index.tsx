@@ -37,6 +37,7 @@ const Section_1 = () => {
           direction={'column'}
           display={'flex'}
           position={'relative'}
+          alignItems={'center'}
         >
           <Text
             textAlign={'center'}
@@ -51,7 +52,8 @@ const Section_1 = () => {
           <Text
             textAlign={'center'}
             fontSize={[14, 18, 24, 32]}
-            lineHeight={'140%'}
+            w={['100%', '90%', '80%', '70%', '60%']}
+            lineHeight={'120%'}
             fontWeight={400}
             wordBreak={'break-word'}
             whiteSpace="pre-line"
