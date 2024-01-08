@@ -57,15 +57,16 @@ const Section_2 = () => {
 
   return (
     <Box bgColor={'#F3F1E8'} display={'flex'} flexDirection={'column'}>
-      <HStack
-        display={'flex'}
-        flexDirection={'row'}
-        className="maxWidth"
+      <Flex
+        flexDirection={{
+          base: 'column',
+          lg: 'row',
+        }}
         alignSelf={'center'}
-        spacing={['30px']}
+        gap={['30px']}
       >
         {Contents.map(renderItem)}
-      </HStack>
+      </Flex>
     </Box>
   );
 };

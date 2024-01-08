@@ -10,21 +10,28 @@ const Section_1 = () => {
   return (
     <Flex
       w={'100%'}
-      flexDir={'row'}
+      flexDir={{
+        base: 'column',
+        lg: 'row',
+      }}
       align={'center'}
-      justify={'space-between'}
-      // bgColor={'#F7F9FB'}
       bgColor={'#fff'}
       px={['60px']}
       py={['30px']}
       minH={['300px']}
       borderRadius={'8px'}
-      className="maxWidth"
+      gap={{
+        base: '40px',
+        '2xl': '0px',
+      }}
     >
       <Flex
         flexDir={'column'}
         flex={1}
-        alignItems={'flex-start'}
+        alignItems={{
+          base: 'center',
+          lg: 'flex-start',
+        }}
         gap={['18px']}
       >
         <Text fontSize={['16px', '40px']} fontWeight={500} color={'#000'}>
@@ -63,9 +70,9 @@ const Section_1 = () => {
         <Image
           alignSelf={'center'}
           maxWidth="380"
-          color={'#1C1C1C'}
-          stroke={'#1C1C1C'}
           src={`/images/what_is_bvm.png`}
+          w={'100%'}
+          h="auto"
           // src={`${CDN_URL}/nbc/images/token_banner.svg`}
         />
       </Flex>

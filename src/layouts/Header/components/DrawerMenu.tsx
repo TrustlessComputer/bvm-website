@@ -12,12 +12,17 @@ import { MobileNav } from './MobileNav';
 
 export type HeaderProps = {
   isOpen: boolean;
+  onToggle: any;
 };
 
 const DrawerMobileMenu = (props: HeaderProps) => {
-  const { isOpen, onToggle } = useDisclosure();
   return (
-    <Drawer isOpen={isOpen} placement="right" onClose={onToggle} size={'sm'}>
+    <Drawer
+      isOpen={props.isOpen}
+      placement="right"
+      onClose={props.onToggle}
+      size={'sm'}
+    >
       <DrawerOverlay />
       <DrawerContent zIndex={3}>
         <DrawerBody bgColor={'#F3F1E8'}>{<MobileNav />}</DrawerBody>
@@ -33,7 +38,7 @@ const DrawerMobileMenu = (props: HeaderProps) => {
             width={50}
             height={50}
             alignSelf={'center'}
-            onClick={onToggle}
+            onClick={props.onToggle}
           />
         </DrawerFooter>
       </DrawerContent>

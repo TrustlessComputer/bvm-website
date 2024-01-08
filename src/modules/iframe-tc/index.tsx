@@ -4,6 +4,7 @@ import useWindowSize from '@/hooks/useWindowSize';
 import { Flex, Spinner } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import s from './styles.module.scss';
+import BoxContent from '@/layouts/BoxContent';
 
 interface IProps {
   iframeURL: string;
@@ -29,7 +30,7 @@ const IframeTC = (props: IProps) => {
     return <></>;
   }
   return (
-    <div className={s.container} style={{}}>
+    <div className={s.container}>
       <iframe
         id="TC_PAGE_IFRAME"
         src={props.iframeURL}
@@ -39,7 +40,6 @@ const IframeTC = (props: IProps) => {
           border: 'none',
           opacity: iframeLoading ? 0 : 1,
           marginTop: '70px',
-          paddingBottom: '60px',
         }}
         onLoad={() => {
           setIframeLoading(false);

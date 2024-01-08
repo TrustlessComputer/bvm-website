@@ -72,8 +72,21 @@ const Header = (props: HeaderProps) => {
                 <IconButton
                   onClick={onToggle}
                   icon={
-                    <Image src={'/icons/menu_ic.svg'} w={'24px'} h={'24px'} />
+                    <Image
+                      src={'/icons/menu_ic.svg'}
+                      w={'24px'}
+                      h={'24px'}
+                      color={'white'}
+                      // filter={{
+                      //   base: 'invert(0)',
+                      //   lg: 'invert(100)',
+                      // }}
+                      filter={
+                        primaryColor === 'white' ? 'invert(100)' : 'invert(0)'
+                      }
+                    />
                   }
+                  color={'white'}
                   aria-label={'Toggle Menu'}
                   _hover={{
                     bgColor: 'transparent',
@@ -86,7 +99,7 @@ const Header = (props: HeaderProps) => {
           </Flex>
         </BoxContent>
       </Box>
-      <DrawerMobileMenu isOpen={isOpen} />
+      <DrawerMobileMenu isOpen={isOpen} onToggle={onToggle} />
     </>
   );
 };

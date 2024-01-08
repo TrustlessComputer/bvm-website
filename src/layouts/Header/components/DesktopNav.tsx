@@ -38,9 +38,7 @@ export const DesktopNav = (props: Props) => {
                 window.open(navItem.href, '_blank');
               }}
             >
-              <IcTW
-                fillColor={props?.primaryColor === 'white' ? 'white' : 'black'}
-              />
+              <IcTW fillColor={props?.primaryColor} />
             </Box>
           ) : (
             <Text

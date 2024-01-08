@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation';
 
 export enum IframeEventName {
   topup = 'topup',
-  create_gamefi_wallet = 'create_gamefi_wallet',
-  import_gamefi_wallet = 'import_gamefi_wallet',
+  create_wallet = 'create_wallet',
+  import_wallet = 'import_wallet',
   hide_sidebar = 'hide_sidebar',
   open_sidebar = 'open_sidebar',
   trustless_computer_change_route = 'trustless-computer-change-route',
