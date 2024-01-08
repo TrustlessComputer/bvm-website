@@ -56,7 +56,7 @@ const Section_1 = () => {
             opacity: 0.8,
           }}
         >
-          {`Build your Bitcoin L2`}
+          {`Get BVM`}
         </Button>
       </Flex>
       <Flex flex={1} justify={'flex-end'}>

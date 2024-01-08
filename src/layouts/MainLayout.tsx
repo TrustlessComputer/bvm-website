@@ -8,7 +8,6 @@ type IMainProps = {
   hideHeader?: boolean;
   hideFooter?: boolean;
   children?: React.ReactNode;
-
   headerProps?: HeaderProps;
 };
 

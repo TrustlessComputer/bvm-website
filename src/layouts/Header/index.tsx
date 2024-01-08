@@ -1,23 +1,16 @@
 'use client';
-import SvgInset from '@/components/SvgInset';
-import { CDN_URL_ICONS } from '@/config';
 import {
   Box,
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerFooter,
-  DrawerOverlay,
   Flex,
   IconButton,
   Image,
   useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react';
-import { DesktopNav } from './components/DesktopNav';
-import { MobileNav } from './components/MobileNav';
 import Link from 'next/link';
+import BoxContent from '../BoxContent';
+import { DesktopNav } from './components/DesktopNav';
+import DrawerMobileMenu from './components/DrawerMenu';
 
 export type HeaderProps = {
   color?: 'black' | 'white';
@@ -33,22 +26,10 @@ const Header = (props: HeaderProps) => {
   const { isOpen, onToggle } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false }) as boolean;
 
-  const renderMenuButton = () => {
-    return (
-      <IconButton
-        onClick={onToggle}
-        icon={<Image src={'/icons/menu_ic.svg'} w={'24px'} h={'24px'} />}
-        aria-label={'Toggle Menu'}
-        _hover={{
-          bgColor: 'transparent',
-        }}
-      />
-    );
-  };
-
   return (
     <>
       <Box
+        id="HEADER_VIEW"
         position={position}
         bgColor={bgColor}
         display={'flex'}
@@ -60,63 +41,52 @@ const Header = (props: HeaderProps) => {
         right={0}
         zIndex={2}
       >
-        <Flex
-          minH={['40px', '40px']}
-          className="maxWidth"
-          alignSelf={'center'}
-          display={'flex'}
-          flex={1}
-          align={'center'}
-          id="header"
-        >
-          {/* Left View */}
+        <BoxContent id="HEADER_CONTENT">
           <Flex
-            flex={1}
-            justify={'left'}
-            _hover={{
-              cursor: 'pointer',
-            }}
-          >
-            <Link href="/">
-              {primaryColor === 'white' ? (
-                <Image src={`/icons/logo_white.svg`} />
-              ) : (
-                <Image src={`/icons/logo_black.svg`} />
-              )}
-            </Link>
-          </Flex>
-
-          {/* Right View */}
-          <Flex flex={1} justify={'right'}>
-            {isMobile ? (
-              renderMenuButton()
-            ) : (
-              <DesktopNav primaryColor={primaryColor} />
-            )}
-          </Flex>
-        </Flex>
-      </Box>
-      <Drawer isOpen={isOpen} placement="right" onClose={onToggle} size={'sm'}>
-        <DrawerOverlay />
-        <DrawerContent zIndex={3}>
-          <DrawerBody bgColor={'#F3F1E8'}>{<MobileNav />}</DrawerBody>
-          <DrawerFooter
-            bgColor={'#F3F1E8'}
-            justifyContent={'center'}
+            display={'flex'}
+            flexDir={'row'}
+            w={'100%'}
             alignItems={'center'}
-            padding={'40px'}
+            minH={['40px', '40px']}
           >
-            <Image
-              src={'/icons/close_ic.svg'}
-              borderRadius={100}
-              width={50}
-              height={50}
-              alignSelf={'center'}
-              onClick={onToggle}
-            />
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+            {/* Left View */}
+            <Flex
+              flex={1}
+              justify={'left'}
+              _hover={{
+                cursor: 'pointer',
+              }}
+            >
+              <Link href="/">
+                {primaryColor === 'white' ? (
+                  <Image src={`/icons/logo_white.svg`} />
+                ) : (
+                  <Image src={`/icons/logo_black.svg`} />
+                )}
+              </Link>
+            </Flex>
+
+            {/* Right View */}
+            <Flex flex={1} justify={'right'}>
+              {isMobile ? (
+                <IconButton
+                  onClick={onToggle}
+                  icon={
+                    <Image src={'/icons/menu_ic.svg'} w={'24px'} h={'24px'} />
+                  }
+                  aria-label={'Toggle Menu'}
+                  _hover={{
+                    bgColor: 'transparent',
+                  }}
+                />
+              ) : (
+                <DesktopNav primaryColor={primaryColor} />
+              )}
+            </Flex>
+          </Flex>
+        </BoxContent>
+      </Box>
+      <DrawerMobileMenu isOpen={isOpen} />
     </>
   );
 };
