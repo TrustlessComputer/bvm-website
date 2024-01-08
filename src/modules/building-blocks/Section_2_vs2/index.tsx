@@ -18,16 +18,20 @@ const Section2 = () => {
       <Flex
         position={'relative'}
         direction={'row'}
-        minW={['180px', '375px']}
+        minW={['180px', '340px']}
         h={'100%'}
-        alignItems={'center'}
+        alignItems={'flex-start'}
         justify={'space-between'}
         borderRadius={'8px'}
         py={['40px']}
-        px={['32px']}
         bgColor={item.bgColor}
       >
-        <Text fontSize={['16px', '24px']} color={'#fff'} fontWeight={500}>
+        <Text
+          fontSize={['16px', '24px']}
+          color={'#000'}
+          fontWeight={500}
+          textAlign={'left'}
+        >
           {`${item.label || ''}`}
         </Text>
         {/* <Box w={'8px'}></Box>
@@ -96,7 +100,7 @@ const Section2 = () => {
               minW={[100]}
               minH={[100]}
               p={['16px']}
-              bgColor={'#fff'}
+              bgColor={'transparent'}
               height={'100%'}
             >
               <Image key={`${obj.logoUrl}-${index}`} src={obj.logoUrl} />

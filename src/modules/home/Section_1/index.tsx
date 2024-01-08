@@ -23,7 +23,8 @@ const Section_1 = () => {
       bgPosition="center"
       bgRepeat="no-repeat"
       bgSize={'cover'}
-      bgImg={`/images/lego_bg_vs2.png`}
+      bgImg={`/images/lego_bg_vs3.png`}
+      bgColor={'#EE550C'}
       display={'flex'}
       justifyContent={'center'}
       alignContent={'center'}
