@@ -52,11 +52,16 @@ const nextConfig = {
         destination: '/blockchains/computers',
         permanent: false,
       },
-      {
-        source: '/blockchains/computers',
-        destination: '/blockchains',
-        permanent: false,
-      },
+      // {
+      //   source: '/blockchains/computers',
+      //   destination: '/blockchains',
+      //   permanent: false,
+      // },
+      // {
+      //   source: '/blockchains/customize',
+      //   destination: '/blockchains/customize',
+      //   permanent: false,
+      // },
     ];
   },
 

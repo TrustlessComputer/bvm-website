@@ -78,7 +78,7 @@ const Section_1 = () => {
               fontWeight={400}
               fontSize={'20px'}
               onClick={() => {
-                router.push('/blockchains/computers');
+                router.push('/blockchains/customize');
               }}
             >
               {`Build your Bitcoin L2`}

@@ -175,7 +175,7 @@ const Section_2 = () => {
             fontWeight={400}
             fontSize={'20px'}
             onClick={() => {
-              router.push('/blockchains/computers');
+              router.push('/blockchains/customize');
             }}
             _hover={{
               opacity: 0.8,
