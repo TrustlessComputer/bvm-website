@@ -6,6 +6,7 @@ import { MetadataConfig, ViewportConfig } from '@/config';
 import chakraThemes, { ChakraFontsFace } from '@/themes/chakra-themes';
 import { HelveticaNeueFontConfig } from '@/themes/font-config';
 import { ChakraProvider } from '@chakra-ui/react';
+import Hydrated from '@/components/Hydrated';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -20,7 +21,7 @@ export default function RootLayout({
       <body>
         <ChakraProvider theme={chakraThemes}>
           <ChakraFontsFace />
-          {children}
+          <Hydrated>{children}</Hydrated>
         </ChakraProvider>
       </body>
     </html>
