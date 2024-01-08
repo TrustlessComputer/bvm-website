@@ -21,8 +21,8 @@ export default function RootLayout({
       <body>
         <ChakraProvider theme={chakraThemes}>
           <ChakraFontsFace />
-          {/* <Hydrated>{children}</Hydrated> */}
-          {children}
+          <Hydrated>{children}</Hydrated>
+          {/* {children} */}
         </ChakraProvider>
       </body>
     </html>

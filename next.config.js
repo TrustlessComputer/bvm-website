@@ -49,7 +49,17 @@ const nextConfig = {
       },
       {
         source: '/bvm-website-sats',
-        destination: '/blockchains/computers',
+        destination: '/blockchains',
+        permanent: false,
+      },
+      {
+        source: '/blockchains/computers',
+        destination: '/blockchains',
+        permanent: false,
+      },
+      {
+        source: '/blockchains/buy',
+        destination: '/blockchains/customize',
         permanent: false,
       },
     ];
