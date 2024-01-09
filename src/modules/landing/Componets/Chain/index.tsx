@@ -35,7 +35,7 @@ const DATA_CHAINS = [
     ],
 
     bgTop: '35CCA6',
-    bgBottom: '20A785',
+    bgBottom: '007659',
   },
   {
     img: chain_2,
@@ -64,7 +64,7 @@ const DATA_CHAINS = [
       },
     ],
     bgTop: 'FFD73B',
-    bgBottom: 'A07300',
+    bgBottom: 'A05700',
   },
   {
     img: chain_3,
@@ -93,7 +93,7 @@ const DATA_CHAINS = [
       },
     ],
     bgTop: '98DCF5',
-    bgBottom: '007AC5',
+    bgBottom: '0074BB',
   },
 ];
 

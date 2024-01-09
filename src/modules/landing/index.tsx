@@ -5,8 +5,8 @@ import Intro from './Componets/Intro';
 export default function Landing() {
   return (
     <div>
-      {/* <Intro /> */}
-      {/* <Hero /> */}
+      <Intro />
+      <Hero />
       <Chain />
     </div>
   );
