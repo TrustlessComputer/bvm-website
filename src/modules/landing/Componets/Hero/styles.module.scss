@@ -1,9 +1,3 @@
-.listHero {
-  display: flex;
-  flex-direction: row;
-  gap: 3px;
-}
-
 .hero {
   height: 100svh;
   width: 100vw;
@@ -24,7 +18,7 @@
   }
 
   &_heading {
-    color: #FFF;
+    color: #fff;
     font-size: 68px;
     font-style: normal;
     font-weight: 300;
