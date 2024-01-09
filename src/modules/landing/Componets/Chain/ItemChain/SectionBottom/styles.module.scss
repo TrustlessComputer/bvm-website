@@ -1,0 +1,51 @@
+.sectionBottom {
+  padding: 51px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &_title {
+    font-size: 24px;
+    color: #fff;
+    font-weight: 500;
+    line-height: 26.4px;
+  }
+  &_listInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    &_item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      &__left {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+
+        &_text {
+          font-size: 18px;
+          line-height: 25.2px;
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+      &__right {
+        font-size: 18px;
+        line-height: 25.2px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  &__20A785 {
+    background: #20a785;
+  }
+  &__A07300 {
+    background: #a07300;
+  }
+  &__007AC5 {
+    background: #007ac5;
+  }
+}
