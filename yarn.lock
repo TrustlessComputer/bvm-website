@@ -5712,7 +5712,7 @@ spdx-license-ids@^3.0.0:
 
 split-type@^0.3.4:
   version "0.3.4"
-  resolved "https://registry.yarnpkg.com/split-type/-/split-type-0.3.4.tgz#48b963ab0c65b168d8d03a162ebd4142755c5b55"
+  resolved "https://registry.npmjs.org/split-type/-/split-type-0.3.4.tgz"
   integrity sha512-otEk9vnD8qwfLsk3Lx0gz+qRkNIJCx0mlyL47ImP/DjMuV39d75Lpfwjn9fHteDRz0aoOblSzQjSNT9+Sswxcg==
 
 split2@^3.0.0:
