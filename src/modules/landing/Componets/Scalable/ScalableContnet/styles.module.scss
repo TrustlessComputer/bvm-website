@@ -1,0 +1,28 @@
+.scalableContent {
+  flex: 0 0 auto;
+  width: 445px;
+  position: relative;
+  padding-top: 16px;
+
+  &_heading {
+    color: #FFF;
+    text-align: center;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 26.4px */
+    margin-bottom: 40px;
+    position: absolute;
+    top: -54px;
+    width: 100%;
+  }
+
+  &_content {
+    color: #FFF;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px; /* 144.444% */
+  }
+}
