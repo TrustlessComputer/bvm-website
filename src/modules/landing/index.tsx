@@ -1,4 +1,4 @@
-export default Landing function(){
+export default function Landing (){
 
 
   return <div>
