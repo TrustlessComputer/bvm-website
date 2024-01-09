@@ -105,15 +105,20 @@ const DATA_CHAINS = [
 function Chain() {
   return (
     <div className={s.chain}>
-      <div className='container'>
-
+      <div className="container">
         <h2 className={s.chain_heading}>
           <Chars>
             Say hello to the first <b>Bitcoin L2 blockchains.</b>
           </Chars>
         </h2>
-        <HStack align='center' justify={'center'} spacing={['6px', '18px']} mt={['20px']} mb={['60px']}>
-          <Fade delay={.6}>
+        <HStack
+          align="center"
+          justify={'center'}
+          spacing={['6px', '18px']}
+          mt={['20px']}
+          mb={['60px']}
+        >
+          <Fade delay={0.6}>
             <Button
               bgColor={'#EF601B'}
               color={'#fff'}
