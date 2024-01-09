@@ -1,39 +1,21 @@
 .itemHero {
   position: relative;
-  width: 88px;
+  width: 100px;
   aspect-ratio: 1;
   display: flex;
-  align-items: center;
   justify-content: center;
-
-  &_frame {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 1;
+  background-color: #ffffff33;
+  padding-top: 20.85px;
+  padding-bottom: 12.54px;
+  &_img {
+    height: 42px;
+    width: auto;
   }
-
-  &_stud {
-    position: absolute;
-    z-index: 1;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
-    left: 100%;
-    width: 10.72px;
-    height: 29.77px;
-    top: 50%;
-    background-color: #ffffff33;
-    transform: translateY(-50%);
-  }
-
   &_content {
     display: flex;
     flex-direction: column;
     z-index: 2;
-    gap: 3px;
+    gap: 8px;
 
     &_title {
       font-size: 11.37px;

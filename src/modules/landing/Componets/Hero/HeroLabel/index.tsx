@@ -15,21 +15,20 @@ const DATA_HERO = [
     title: 'Polygon',
   },
   {
-    icon: '/landing/svg/lego_celestia.svg',
-    title: 'Celestia',
-  },
-  {
     icon: '/landing/svg/logo_eigen.svg',
     title: 'Eigen',
   },
+  {
+    icon: '/landing/svg/lego_celestia.svg',
+    title: 'Celestia',
+  },
 ];
 export default function HeroLabel() {
-
-  return (<div className={s.listHero}>
-    {DATA_HERO.map((item, index) => {
-      return (
-        <ItemHero delay={.4 + (index / 10)} data={{ index, length: DATA_HERO.length - 1, ...item }} />
-      );
-    })}
-  </div>);
+  return (
+    <div className={s.listHero}>
+      {DATA_HERO.map((item, index) => {
+        return <ItemHero delay={0.4 + index / 10} data={item} />;
+      })}
+    </div>
+  );
 }
