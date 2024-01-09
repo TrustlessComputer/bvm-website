@@ -16,6 +16,7 @@ const BuildingBlockModule = () => {
         <Section1 />
         <Box h={['20px', '40px']} />
         <Section2 />
+        <Box h={['20px', '40px']} />
       </BoxContent>
     </Box>
   );

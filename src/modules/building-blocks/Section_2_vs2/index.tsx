@@ -87,7 +87,12 @@ const Section2 = () => {
     }[],
   ) => {
     return (
-      <HStack spacing={['5px', '5px']} overflowX={'auto'} height={'100%'}>
+      <HStack
+        spacing={['5px', '8px']}
+        overflowX={'auto'}
+        height={'100%'}
+        minH={'100px'}
+      >
         {item &&
           item.map((obj, index) => (
             <Flex
@@ -100,7 +105,7 @@ const Section2 = () => {
               minW={[100]}
               minH={[100]}
               p={['16px']}
-              bgColor={'transparent'}
+              bgColor={'white'}
               height={'100%'}
             >
               <Image key={`${obj.logoUrl}-${index}`} src={obj.logoUrl} />
@@ -121,20 +126,29 @@ const Section2 = () => {
 
   const renderItem = (item: BlockItemType) => {
     return (
-      <HStack
+      <VStack
         key={item.key}
         w={'100%'}
         zIndex={item.zIndex}
-        spacing={['5px', '5px']}
+        alignItems={'flex-start'}
+        spacing={['10px', '16px']}
       >
-        {renderLabelData(item)}
+        {/* {renderLabelData(item)} */}
+        <Text
+          fontSize={['16px', '20px']}
+          color={'#000'}
+          fontWeight={400}
+          textAlign={'left'}
+        >
+          {`${item.label || ''}`}
+        </Text>
         {renderNetworkList(item.networkList)}
-      </HStack>
+      </VStack>
     );
   };
 
   return (
-    <VStack w={'100%'} spacing={['5px', '5px']}>
+    <VStack w={'100%'} spacing={['10px', '28px']}>
       {BlockDataList.map(renderItem)}
     </VStack>
   );
