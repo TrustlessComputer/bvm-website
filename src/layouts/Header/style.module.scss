@@ -2,3 +2,15 @@
   background-color: transparent !important;
   background: transparent !important;
 }
+
+
+.isHome {
+  transform: translateY(-100%);
+  opacity: 0;
+
+  &.play {
+    transition: all .8s var(--easeOutQuart);
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}

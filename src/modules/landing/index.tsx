@@ -1,10 +1,9 @@
 import Hero from './Componets/Hero';
-import Intro from './Componets/Intro';
+import s from './styles.module.scss';
 
 export default function Landing() {
   return (
-    <div>
-      <Intro />
+    <div className={s.landing}>
       <Hero />
     </div>
   );

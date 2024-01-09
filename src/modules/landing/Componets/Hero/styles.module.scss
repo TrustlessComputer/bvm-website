@@ -1,7 +1,35 @@
 .listHero {
   display: flex;
   flex-direction: row;
-  gap: 3.14px;
-  margin-left: 20vw;
-  margin-top: 50vh;
+  gap: 3px;
+}
+
+.hero {
+  height: 100svh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+
+  &_inner {
+    position: absolute;
+    bottom: 60px;
+    z-index: 2;
+    width: 100%;
+
+    &_rows {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &_heading {
+    color: #FFF;
+    font-size: 68px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 100%;
+    border-bottom: 1px solid rgba(white, .1);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
 }

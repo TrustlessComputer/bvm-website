@@ -8,3 +8,5 @@ const useAnimationStore =create<IProp>((set) => ({
   play: false,
   setPlay: () => set({ play: true }),
 }))
+
+export default useAnimationStore;

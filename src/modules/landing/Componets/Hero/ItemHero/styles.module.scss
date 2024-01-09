@@ -15,6 +15,7 @@
     overflow: hidden;
     z-index: 1;
   }
+
   &_stud {
     position: absolute;
     z-index: 1;
@@ -27,11 +28,13 @@
     background-color: #ffffff33;
     transform: translateY(-50%);
   }
+
   &_content {
     display: flex;
     flex-direction: column;
     z-index: 2;
     gap: 3px;
+
     &_title {
       font-size: 11.37px;
       line-height: 15.92px;

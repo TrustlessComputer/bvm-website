@@ -1,37 +1,29 @@
-import ItemHero from './ItemHero';
 import s from './styles.module.scss';
+import Intro from '@/modules/landing/Componets/Intro';
+import BgHero from '@/modules/landing/Componets/Hero/Bg';
+import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
+import HeroContent from '@/modules/landing/Componets/Hero/Content';
+import cn from 'classnames';
+import RandomText from '@/interactive/RandomText';
+import Chars from '@/interactive/Chars';
 
-const DATA_HERO = [
-  {
-    icon: '/landing/svg/lego_coin.svg',
-    title: 'Bitcoin',
-  },
-  {
-    icon: '/landing/svg/lego_optimism.svg',
-    title: 'Optimism',
-  },
-  {
-    icon: '/landing/svg/lego_polygon.svg',
-    title: 'Polygon',
-  },
-  {
-    icon: '/landing/svg/lego_celestia.svg',
-    title: 'Celestia',
-  },
-  {
-    icon: '/landing/svg/logo_eigen.svg',
-    title: 'Eigen',
-  },
-];
 
 export default function Hero() {
   return (
-    <div className={s.listHero}>
-      {DATA_HERO.map((item, index) => {
-        return (
-          <ItemHero data={{ index, length: DATA_HERO.length - 1, ...item }} />
-        );
-      })}
+    <div className={s.hero}>
+      <BgHero />
+      <div className={s.hero_inner}>
+        <div className={cn(s.hero_inner_container, 'container')}>
+          <Chars delay={.1}>
+            <h1 className={s.hero_heading}>Bitcoin Virtual Machine</h1>
+          </Chars>
+          <div className={s.hero_inner_rows}>
+            <HeroContent />
+            <HeroLabel />
+          </div>
+        </div>
+      </div>
+      <Intro />
     </div>
   );
 }
