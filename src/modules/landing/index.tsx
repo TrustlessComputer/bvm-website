@@ -1,7 +1,10 @@
-export default function Landing (){
+import Hero from './Componets/Hero';
 
-
-  return <div>
-    <h1>LANDING</h1>
-  </div>
+export default function Landing() {
+  return (
+    <div>
+      <h1>LANDING</h1>
+      <Hero />
+    </div>
+  );
 }
