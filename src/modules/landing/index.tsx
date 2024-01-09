@@ -1,9 +1,10 @@
 import Hero from './Componets/Hero';
+import Intro from './Componets/Intro';
 
 export default function Landing() {
   return (
     <div>
-      <h1>LANDING</h1>
+      <Intro />
       <Hero />
     </div>
   );
