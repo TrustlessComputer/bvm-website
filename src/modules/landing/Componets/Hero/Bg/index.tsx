@@ -4,6 +4,6 @@ import Image from 'next/image';
 export default function BgHero() {
 
   return <div className={s.bgHero}>
-    <Image src={'/landing/hero-bg.jpg?v=12'} width={1920} height={1080} />
+    <Image src={'/landing/hero-bg.jpg?v=1'} width={1920} height={1080} />
   </div>;
 }

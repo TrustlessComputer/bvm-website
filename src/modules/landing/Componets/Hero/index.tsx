@@ -16,13 +16,13 @@ export default function Hero() {
       <BgHero />
       <div className={s.hero_inner}>
         <div className={cn(s.hero_inner_container, 'container')}>
-          <Chars delay={.1}>
-            <h1 className={s.hero_heading}>
+          <h1 className={s.hero_heading}>
+            <Chars delay={.1}>
               Bitcoin Virtual Machine
-            </h1>
-          </Chars>
+            </Chars>
+          </h1>
           <BorderLine delay={.1} />
-          <Box mt={20} />
+          <Box mt={'20px'} />
           <div className={s.hero_inner_rows}>
             <HeroContent />
             <HeroLabel />

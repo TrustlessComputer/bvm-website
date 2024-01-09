@@ -2,10 +2,16 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1.315;
+
+  &_wrap {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+  }
+
   &_img {
-    top: 50%;
-    transform: translateY(-50%);
-    position: absolute;
+    object-fit: contain;
     width: 100%;
     height: auto;
   }
@@ -18,6 +24,7 @@
     justify-content: space-evenly;
     width: 100%;
     height: 50px;
+
     &_item {
       width: 64.44px;
       height: 31px;
@@ -26,12 +33,15 @@
     }
   }
 }
+
 .bg__FFD73B {
   background: #ffd73b;
 }
+
 .bg__35CCA6 {
   background: #35cca6;
 }
+
 .bg__98DCF5 {
   background: #98dcf5;
 }

@@ -5,6 +5,11 @@ import s from './styles.module.scss';
 import chain_1 from 'public/landing/images/chain_1.png';
 import chain_2 from 'public/landing/images/chain_2.png';
 import chain_3 from 'public/landing/images/chain_3.png';
+import Chars from '@/interactive/Chars';
+import Fade from '@/interactive/Fade';
+import { Button, HStack } from '@chakra-ui/react';
+import { DEVELOPERS_DOC_URL } from '@/config';
+import { ChevronRightIcon } from '@chakra-ui/icons';
 
 const DATA_CHAINS = [
   {
@@ -99,10 +104,43 @@ const DATA_CHAINS = [
 
 function Chain() {
   return (
-    <div className={s.listChains}>
-      {DATA_CHAINS.map((item) => {
-        return <ItemChain key={item.title} data={item} />;
-      })}
+    <div className={s.chain}>
+      <div className='container'>
+
+        <h2 className={s.chain_heading}>
+          <Chars>
+            Say hello to the first <b>Bitcoin L2 blockchains.</b>
+          </Chars>
+        </h2>
+        <HStack align='center' justify={'center'} spacing={['6px', '18px']} mt={['20px']} mb={['60px']}>
+          <Fade delay={.6}>
+            <Button
+              bgColor={'#EF601B'}
+              color={'#fff'}
+              borderRadius={0}
+              display={'flex'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              px={'24px'}
+              py={'10px'}
+              minW={['180px']}
+              height={'48px'}
+              fontWeight={400}
+              fontSize={'20px'}
+              onClick={() => {
+                router.push('/blockchains/customize');
+              }}
+            >
+              {`Build your Bitcoin L2`}
+            </Button>
+          </Fade>
+        </HStack>
+        <div className={s.listChains}>
+          {DATA_CHAINS.map((item, index) => {
+            return <ItemChain delay={index / 6} key={item.title} data={item} />;
+          })}
+        </div>
+      </div>
     </div>
   );
 }

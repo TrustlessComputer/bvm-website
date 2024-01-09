@@ -24,7 +24,7 @@ export default function useAnimation({
   const refObserver = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-     initAnimation();
+     setTimeout(initAnimation, 100);
   }, [initAnimation]);
 
   useEffect(() => {

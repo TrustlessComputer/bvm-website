@@ -16,16 +16,17 @@ export default function Lines({ children, delay, from, to }: IProp) {
   const initAnimation = useCallback(() => {
     if (!refContent.current) return;
     const text = new SplitType(refContent.current, { types: 'lines,words' });
-    gsap.set(text.lines, {...{ opacity: 0, y: 30 },...from});
+    gsap.set(text.lines, { ...{ opacity: 0, y: '100%' }, ...from });
     refWords.current = text.lines;
-
   }, []);
 
   const playAnimation = useCallback(() => {
-    refWords.current && gsap.to(refWords.current, {...{
-      delay,
-      opacity: 1, y: 0, ease: 'power3.out', duration: .8, stagger: .1,
-    },...to});
+    refWords.current && gsap.to(refWords.current, {
+      ...{
+        delay,
+        opacity: 1, y: '0%', ease: 'power3.out', duration: .8, stagger: .05,
+      }, ...to,
+    });
   }, []);
 
   useAnimation({

@@ -10,15 +10,16 @@ export default function HeroContent() {
 
   const router = useRouter();
   return <div className={s.heroContent}>
-    <Lines delay={.2}>
-      <div className={s.heroContent_content}>
+
+    <div className={s.heroContent_content}>
+      <Lines delay={.2}>
         BVM is a metaprotocol that lets developers launch their own lightning-fast and low-cost Bitcoin L2 blockchain in
         a
         few clicks and start building decentralized applications on Bitcoin.
-      </div>
-    </Lines>
+      </Lines>
+    </div>
     <HStack align='center' spacing={['6px', '18px']} mt={['24px']}>
-      <Fade delay={.3}>
+      <Fade delay={.6}>
         <Button
           bgColor={'#EF601B'}
           color={'#fff'}
@@ -39,7 +40,7 @@ export default function HeroContent() {
           {`Build your Bitcoin L2`}
         </Button>
       </Fade>
-      <Fade delay={.4}>
+      <Fade delay={.7}>
         <Button
           // bgColor={'#FFA564'}
           bgColor={'transparent'}

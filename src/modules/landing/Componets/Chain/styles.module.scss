@@ -1,7 +1,26 @@
 .listChains {
-  margin: 20vw 0;
-  padding: 0 160px;
   display: flex;
   flex-direction: row;
   gap: 36px;
+}
+
+
+.chain {
+  padding: 100px 0;
+  background: #F6F6F6;
+
+  &_heading {
+
+    text-align: center;
+    color: #000;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+
+    b {
+      font-weight: 400;
+      color: #FA4E0E;
+    }
+  }
 }

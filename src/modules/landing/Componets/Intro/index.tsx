@@ -21,7 +21,7 @@ export default function Intro() {
     refActions.current.isComplete = true;
     document.body.style.overflow = 'auto';
     gsap.fromTo(refContent.current, { pointerEvents: 'none' }, {
-      opacity: 0, scale: .8, delay: .4, ease: 'power3.inOut', onComplete: () => {
+      opacity: 0, scale: 1.2, delay: .4, ease: 'power3.inOut', onComplete: () => {
         if (refContent.current)
           refContent.current.style.display = 'none';
       },
