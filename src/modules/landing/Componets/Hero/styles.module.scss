@@ -19,6 +19,7 @@
     &_rows {
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
   }
 
@@ -28,8 +29,7 @@
     font-style: normal;
     font-weight: 300;
     line-height: 100%;
-    border-bottom: 1px solid rgba(white, .1);
     padding-bottom: 20px;
-    margin-bottom: 20px;
+    width: 100%;
   }
 }
