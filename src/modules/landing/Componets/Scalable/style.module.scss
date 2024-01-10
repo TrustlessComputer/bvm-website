@@ -1,13 +1,18 @@
 .scalable {
-  background: #1A67E3;
-  height: 100vh;
-  width: 100vw;
   position: relative;
+  height: 250vh;
+
+  &_wrap {
+    height: 100vh;
+    width: 100vw;
+    position: sticky;
+    top: 0;
+  }
 
   &_top {
     position: absolute;
     top: 100px;
-    z-index: 2;
+    z-index: 3;
     left: 0;
     width: 100%;
 
@@ -52,6 +57,12 @@
   &_inner {
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
     position: relative;
   }
+}
+
+
+.target {
+  height: 50vh;
 }
