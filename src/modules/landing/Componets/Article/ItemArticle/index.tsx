@@ -8,7 +8,7 @@ type TArticle = {
   description: string;
 };
 
-function ItemArticle({ data }: { data: TArticle }) {
+export default function ItemArticle({ data }: { data: TArticle }) {
   return (
     <div className={s.itemArticle}>
       <Image
@@ -24,5 +24,3 @@ function ItemArticle({ data }: { data: TArticle }) {
     </div>
   );
 }
-
-export default ItemArticle;

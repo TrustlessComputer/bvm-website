@@ -25,7 +25,7 @@ const DATA_CONTENT = [
   },
 ];
 
-function Tool() {
+export default function Tool() {
   return (
     <section className={s.tool}>
       <div className="container">
@@ -74,5 +74,3 @@ function Tool() {
     </section>
   );
 }
-
-export default Tool;

@@ -14,10 +14,10 @@ const DATA_COMMUNITY = [
   'Complete control over gas fee, gas block limit, and withdrawal periods',
 ];
 
-function Comunity() {
+export default function Comunity() {
   return (
     <div className={s.community}>
-      <div className="container">
+      <div className='container'>
         <div className={s.community_inner}>
           <div className={s.community_left}>
             <h3 className={s.community_inner_top_heading}>
@@ -30,7 +30,7 @@ function Comunity() {
                 src={community_img}
                 width={community_img.width}
                 height={community_img.height}
-                alt="coommunity"
+                alt='coommunity'
                 className={s.community_inner_bottom_img}
               />
             </Scale>
@@ -55,4 +55,3 @@ function Comunity() {
   );
 }
 
-export default Comunity;
