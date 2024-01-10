@@ -9,7 +9,6 @@ import Chars from '@/interactive/Chars';
 import BorderLine from '@/interactive/BorderLine';
 import { Box } from '@chakra-ui/react';
 
-
 export default function Hero() {
   return (
     <div className={s.hero}>
@@ -17,11 +16,9 @@ export default function Hero() {
       <div className={s.hero_inner}>
         <div className={cn(s.hero_inner_container, 'container')}>
           <h1 className={s.hero_heading}>
-            <Chars delay={.1}>
-              Bitcoin Virtual Machine
-            </Chars>
+            <Chars delay={0.1}>Bitcoin Virtual Machine</Chars>
           </h1>
-          <BorderLine delay={.1} />
+          <BorderLine delay={0.1} />
           <Box mt={'20px'} />
           <div className={s.hero_inner_rows}>
             <HeroContent />

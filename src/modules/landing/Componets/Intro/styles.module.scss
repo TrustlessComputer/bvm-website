@@ -8,12 +8,12 @@
   top: 0;
   left: 0;
   z-index: 9;
-  background: rgba(black, .8);
+  background: rgba(black, 0.8);
   backdrop-filter: blur(10px);
-
+  overflow: hidden;
   &_inner {
     &_content {
-      color: #FFF;
+      color: #fff;
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
@@ -28,12 +28,13 @@
   position: relative;
   margin-top: 16px;
   justify-content: space-between;
-  border: 1px solid rgba(255, 255, 255, 0.20);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   font-size: 0;
   line-height: 0;
   padding: 4px;
 
-  svg, img {
+  svg,
+  img {
     -webkit-user-drag: none;
     user-select: none;
     user-focus: none;
@@ -63,10 +64,13 @@
     --bg: 0%;
     z-index: 2;
     pointer-events: none;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 1) var(--bg), rgba(171, 171, 171, 0) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 1) var(--bg),
+      rgba(171, 171, 171, 0) 100%
+    );
   }
 }
-
 
 .mood {
   flex: 0 0 auto;

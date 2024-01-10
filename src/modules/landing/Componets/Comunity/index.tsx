@@ -16,24 +16,26 @@ function Comunity() {
     <div className={s.community}>
       <div className="container">
         <div className={s.community_inner}>
-          <Image
-            src={community_img}
-            width={community_img.width}
-            height={community_img.height}
-            alt="coommunity"
-          />
-          <div className={s.community_inner_right}>
-            <div className={s.community_inner_right_heading}>
-              <h3 className={s.community_inner_right_heading_main}>
-                Why launch <span>your own blockchain?</span>
-              </h3>
-              <p className={s.community_inner_right_heading_des}>
-                Whatever your vision — a dapp, a fully onchain game, a DEX, or
-                an ecosystem — there are many benefits of running your own
-                blockchain.
-              </p>
-            </div>
-            <div className={s.community_inner_right_content}>
+          <div className={s.community_inner_top}>
+            <h3 className={s.community_inner_top_heading}>
+              Why launch <span>your own blockchain?</span>
+            </h3>
+            <p className={s.community_inner_top_text}>
+              Whatever your vision — a dapp, a fully onchain game, a DEX, or an
+              ecosystem — there are many benefits of running your own
+              blockchain.
+            </p>
+          </div>
+
+          <div className={s.community_inner_bottom}>
+            <Image
+              src={community_img}
+              width={community_img.width}
+              height={community_img.height}
+              alt="coommunity"
+              className={s.community_inner_bottom_img}
+            />
+            <div className={s.community_inner_bottom_content}>
               {DATA_COMMUNITY.map((item) => {
                 return <ItemCommunity content={item} />;
               })}

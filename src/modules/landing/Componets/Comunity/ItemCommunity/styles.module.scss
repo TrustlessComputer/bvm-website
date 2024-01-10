@@ -4,7 +4,6 @@
   width: 100%;
   align-items: center;
   height: 74px;
-  border: 1px solid #ff7e214d;
   &_lego {
     background: #6abd00;
     width: 74px;
@@ -35,11 +34,20 @@
     padding-left: 24px;
     display: flex;
     align-items: center;
-    font-size: 20px;
+    font-size: 18px;
     height: 100%;
     line-height: 26px;
     font-weight: 400;
-    background-color: #ff7e210f;
+    // background-color: #ff7e210f;
     flex: 1;
+    position: relative;
+    &_frame {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      svg {
+        height: 100%;
+      }
+    }
   }
 }

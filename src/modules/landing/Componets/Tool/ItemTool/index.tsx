@@ -16,13 +16,13 @@ function ItemTool({ data }: { data: TItemTool }) {
 
   const svgUrl = isFrist
     ? '/landing/svg/frame_tool_fill.svg'
-    : isLast
-    ? '/landing/svg/frame_tool.svg'
     : '/landing/svg/frame_tool_mid.svg';
+
   return (
     <div className={s.itemTool}>
       <div className={s.itemTool_step}>
         <SvgInset svgUrl={svgUrl} />
+        {!isLast && <span className={s.itemTool_step_stud}></span>}
         <p className={s.itemTool_step_text}>{data.step}</p>
       </div>
       <div className={s.itemTool_content}>

@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './styles.module.scss';
+import SvgInset from '@/components/SvgInset';
 
 function ItemCommunity({ content }: { content: string }) {
   return (
@@ -19,7 +20,13 @@ function ItemCommunity({ content }: { content: string }) {
         </svg>
         <span className={s.itemCommunity_lego_stud}></span>
       </div>
-      <p className={s.itemCommunity_content}>{content}</p>
+      <p className={s.itemCommunity_content}>
+        {content}
+        <SvgInset
+          className={s.itemCommunity_content_frame}
+          svgUrl="/landing/svg/frame_community.svg"
+        />
+      </p>
     </div>
   );
 }
