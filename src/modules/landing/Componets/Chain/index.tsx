@@ -136,7 +136,10 @@ function Chain() {
               minW={['180px']}
               height={'48px'}
               fontWeight={400}
-              fontSize={'20px'}
+              fontSize={'16px'}
+              _hover={{
+                bgColor: '#000',
+              }}
               onClick={() => {
                 router.push('/blockchains/customize');
               }}
