@@ -3,7 +3,7 @@
   padding-top: 100px;
   &_heading {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     gap: 24px;
     &_text {
@@ -12,6 +12,7 @@
       font-size: 48px;
       display: flex;
       flex-direction: column;
+      width: 567px;
       &_hightlight {
         color: #fa4e0e;
       }

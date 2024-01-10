@@ -45,7 +45,7 @@ const DATA_CHAINS = [
   {
     img: chain_2,
     title: 'Naka Chain',
-    stud: 3,
+    stud: 2,
     data: [
       {
         left: 'Use Case',
@@ -74,7 +74,7 @@ const DATA_CHAINS = [
   {
     img: chain_3,
     title: 'AI Chain',
-    stud: 2,
+    stud: 3,
     data: [
       {
         left: 'Use Case',

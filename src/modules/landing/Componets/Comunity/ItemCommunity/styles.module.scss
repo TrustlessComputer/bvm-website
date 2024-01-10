@@ -1,0 +1,44 @@
+.itemCommunity {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  height: 74px;
+  &_lego {
+    background: #6abd00;
+    width: 74px;
+    height: 74px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    &_stud {
+      position: absolute;
+      left: 100%;
+      background-color: #6abd00;
+      width: 9px;
+      height: 25px;
+      top: 50%;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+
+      transform: translateY(-50%);
+    }
+    svg {
+      width: 18.92px;
+      height: 15.5px;
+    }
+  }
+  &_content {
+    padding-left: 24px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    height: 100%;
+    line-height: 26px;
+    font-weight: 400;
+    background-color: #f6f6f6;
+    flex: 1;
+  }
+}

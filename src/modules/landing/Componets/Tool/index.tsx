@@ -27,6 +27,16 @@ function Tool() {
     <section className={s.tool}>
       <div className="container">
         <div className={s.tool_heading}>
+          <h2 className={s.tool_heading_text}>
+            <span>
+              <span className={s.tool_heading_text_hightlight}>
+                A no-code tool
+              </span>
+              &nbsp;for
+            </span>
+            <span>building a full-featured</span>
+            <span> Bitcoin L2 blockchain.</span>
+          </h2>
           <Image
             className={s.tool_heading_img}
             src={tool_img}
@@ -34,15 +44,6 @@ function Tool() {
             height={tool_img.height}
             alt="tool"
           />
-          <h2 className={s.tool_heading_text}>
-            <span>
-              <span className={s.tool_heading_text_hightlight}>
-                A no-code tool
-              </span>
-              &nbsp;for building a
-            </span>
-            <span>full-featured Bitcoin L2 blockchain.</span>
-          </h2>
         </div>
         <div className={s.tool_content}>
           {DATA_CONTENT.map((item) => {
