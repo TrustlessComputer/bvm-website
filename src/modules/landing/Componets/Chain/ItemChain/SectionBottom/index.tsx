@@ -15,7 +15,7 @@ type TSectionBottom = {
   bgBottom: string;
 };
 
-function SectionBottom({
+export default function SectionBottom({
   data,
   delay,
 }: {
@@ -57,5 +57,3 @@ function SectionBottom({
     </div>
   );
 }
-
-export default SectionBottom;

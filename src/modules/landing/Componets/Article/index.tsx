@@ -38,7 +38,7 @@ const DATA_ARTICLE = {
   ],
 };
 
-function Article() {
+export default function Article() {
   return (
     <div className={s.article}>
       <div className="container">
@@ -96,5 +96,3 @@ function Article() {
     </div>
   );
 }
-
-export default Article;

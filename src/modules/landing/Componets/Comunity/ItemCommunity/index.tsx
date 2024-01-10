@@ -3,7 +3,7 @@ import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 import Fade from '@/interactive/Fade';
 
-function ItemCommunity({ content, delay }: { content: string, delay:number }) {
+export default function ItemCommunity({ content, delay }: { content: string, delay:number }) {
   return (
     <div className={s.itemCommunity}>
       <Fade delay={delay}>
@@ -35,5 +35,3 @@ function ItemCommunity({ content, delay }: { content: string, delay:number }) {
     </div>
   );
 }
-
-export default ItemCommunity;

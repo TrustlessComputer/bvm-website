@@ -19,7 +19,7 @@ type TItemChain = {
   bgBottom: string;
 };
 
-function ItemChain({ data, delay }: { data: TItemChain; delay: number }) {
+export default function ItemChain({ data, delay }: { data: TItemChain; delay: number }) {
   const { img, bgTop, stud, ...dataSectionBottom } = data;
   return (
     <div className={s.itemChain}>
@@ -30,5 +30,3 @@ function ItemChain({ data, delay }: { data: TItemChain; delay: number }) {
     </div>
   );
 }
-
-export default ItemChain;

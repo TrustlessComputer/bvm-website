@@ -12,7 +12,7 @@ type TSectionTop = {
   delay: number;
 };
 
-function SectionTop({ img, color, stud, delay }: TSectionTop) {
+export default function SectionTop({ img, color, stud, delay }: TSectionTop) {
   const listStud = Array.from({ length: stud }, () => 0);
 
   return (
@@ -42,4 +42,3 @@ function SectionTop({ img, color, stud, delay }: TSectionTop) {
   );
 }
 
-export default SectionTop;

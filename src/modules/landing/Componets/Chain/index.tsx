@@ -106,7 +106,7 @@ const DATA_CHAINS = [
   },
 ];
 
-function Chain() {
+export default function Chain() {
   const router = useRouter();
   return (
     <div className={s.chain}>
@@ -157,5 +157,3 @@ function Chain() {
     </div>
   );
 }
-
-export default Chain;
