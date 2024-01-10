@@ -10,8 +10,8 @@ type TItemHero = {
 
 function ItemHero({ data, delay }: { data: TItemHero; delay: number }) {
   return (
-    <Fade from={{ x: 20 }} to={{ x: 0 }} delay={delay}>
-      <div className={s.itemHero}>
+    <div className={s.itemHero}>
+      <Fade from={{ x: 20 }} to={{ x: 0 }} delay={delay}>
         <div className={s.itemHero_content}>
           <Image
             className={s.itemHero_img}
@@ -22,8 +22,8 @@ function ItemHero({ data, delay }: { data: TItemHero; delay: number }) {
           />
           <p className={s.itemHero_content_title}>{data.title}</p>
         </div>
-      </div>
-    </Fade>
+      </Fade>
+    </div>
   );
 }
 

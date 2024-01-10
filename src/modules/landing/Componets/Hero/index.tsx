@@ -7,9 +7,10 @@ import cn from 'classnames';
 import Chars from '@/interactive/Chars';
 import BorderLine from '@/interactive/BorderLine';
 import { Box } from '@chakra-ui/react';
+import useWindowSize from '@/hooks/useWindowSize';
 
 export default function Hero() {
-
+  const { mobileScreen } = useWindowSize();
   return (
     <div className={s.hero}>
       <BgHero />
@@ -22,7 +23,7 @@ export default function Hero() {
           <Box mt={'20px'} />
           <div className={s.hero_inner_rows}>
             <HeroContent />
-            <HeroLabel />
+            {!mobileScreen && <HeroLabel />}
           </div>
         </div>
       </div>
