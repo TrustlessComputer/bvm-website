@@ -15,7 +15,7 @@ export default function Intro() {
   const refActions = useRef({ isDown: false, isComplete: false, current: 0 });
   const quickTo = useRef<gsap.QuickToFunc>();
   const quickFillter = useRef<gsap.QuickToFunc>();
-  const { setPlay } = useAnimationStore();
+  const { setPlay, setPlayed } = useAnimationStore();
 
   useEffect(() => {
     if (typeof document !== undefined) {
@@ -34,6 +34,7 @@ export default function Intro() {
     gsap.fromTo(refContent.current, { pointerEvents: 'none' }, {
       opacity: 0, scale: 1.2, delay: .4, ease: 'power3.inOut', onComplete: () => {
         document.body.style.overflow = 'auto';
+        setPlayed();
         if (refContent.current)
           refContent.current.style.display = 'none';
       },
