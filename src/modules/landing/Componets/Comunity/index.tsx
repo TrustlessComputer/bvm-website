@@ -1,5 +1,5 @@
 import React from 'react';
-import community_img from '@/public/landing/images/community_img.jpg';
+import community_img from '@/public/landing/why-launch.jpg';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import ItemCommunity from './ItemCommunity';
