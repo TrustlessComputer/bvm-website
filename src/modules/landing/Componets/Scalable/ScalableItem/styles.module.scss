@@ -7,10 +7,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  clip-path: var(--clipPath);
 
   img {
     object-fit: contain;
     max-width: 100%;
     max-height: 100%;
+  }
+
+  &__1 {
+    background: #1A67E3;
+  }
+
+  &__2 {
+    background: #2AA848;
+  }
+
+  &__3 {
+    background: #DD9910;
   }
 }
