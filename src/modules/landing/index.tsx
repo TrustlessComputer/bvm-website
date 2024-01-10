@@ -1,10 +1,11 @@
-import Article from './Componets/Article';
+// import Article from './Componets/Article';
 import Chain from './Componets/Chain';
 import Comunity from './Componets/Comunity';
 import Hero from './Componets/Hero';
 import Tool from './Componets/Tool';
 import s from './styles.module.scss';
 import Scalable from '@/modules/landing/Componets/Scalable';
+import Section_7 from '@/modules/landing/Componets/Section_7';
 
 export default function Landing() {
   return (
@@ -14,7 +15,7 @@ export default function Landing() {
       <Tool />
       <Comunity />
       <Scalable />
-      <Article />
+      <Section_7 />
     </div>
   );
 }

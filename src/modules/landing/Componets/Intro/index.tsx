@@ -2,6 +2,8 @@ import s from './styles.module.scss';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import useAnimationStore from '@/stores/useAnimationStore';
+import Image from 'next/image';
+import { MathMap } from '@/utils/mathUtils';
 
 export default function Intro() {
 
@@ -9,17 +11,29 @@ export default function Intro() {
   const refWrap = useRef<HTMLDivElement>(null);
   const gradientRef = useRef<HTMLDivElement>(null);
   const refContent = useRef<HTMLDivElement>(null);
+  const refThumb = useRef<HTMLDivElement>(null);
   const refActions = useRef({ isDown: false, isComplete: false, current: 0 });
   const quickTo = useRef<gsap.QuickToFunc>();
+  const quickFillter = useRef<gsap.QuickToFunc>();
   const { setPlay } = useAnimationStore();
 
   useEffect(() => {
-    quickTo.current = gsap.quickTo(refBtn.current, 'x', { duration: .2 });
+    if (typeof document !== undefined) {
+      document.body.style.overflow = 'hidden';
+    }
+    quickTo.current = gsap.quickTo(refBtn.current, 'x', {
+      duration: .2,
+    });
+
+    quickFillter.current = gsap.quickTo(refThumb.current, '--clipPath', {
+      duration: .2,
+    });
   }, []);
   const completed = () => {
     refActions.current.isComplete = true;
     gsap.fromTo(refContent.current, { pointerEvents: 'none' }, {
       opacity: 0, scale: 1.2, delay: .4, ease: 'power3.inOut', onComplete: () => {
+        document.body.style.overflow = 'auto';
         if (refContent.current)
           refContent.current.style.display = 'none';
       },
@@ -39,9 +53,11 @@ export default function Intro() {
       refActions.current.current = 0;
       completed();
       quickTo.current && quickTo.current(dis);
+      quickFillter.current &&  quickFillter.current(100);
     } else {
       refActions.current.current = 0;
       quickTo.current && quickTo.current(0);
+      quickFillter.current &&  quickFillter.current(0);
       gsap.to(gradientRef.current, { opacity: 1, ease: 'power3.out', duration: .6 });
     }
   };
@@ -62,18 +78,26 @@ export default function Intro() {
     refActions.current.current = (e.clientX - (rectWrap.left) - rectBtn.width / 2);
     refActions.current.current = Math.max(Math.min(refActions.current.current, (rectWrap.width - rectBtn.width)), 0);
 
+    const x = MathMap(refActions.current.current, 0, (rectWrap.width - rectBtn.width), 0, 100);
     quickTo.current && quickTo.current(refActions.current.current);
+    quickFillter.current &&  quickFillter.current(x);
+
     if (refActions.current.current > rectWrap.width / 2) {
       const dis = rectWrap.width - rectBtn.width;
       refActions.current.current = 0;
       completed();
       quickTo.current && quickTo.current(dis);
+      quickFillter.current &&  quickFillter.current(100);
     }
   };
 
   return <div ref={refContent} className={s.intro}>
     <div className={s.intro_inner}>
-      <p className={s.intro_inner_content}>Drag & hold to enter Bitcoin Virtual Machine </p>
+      <div className={s.intro_inner_thumbnail} ref={refThumb}>
+        <Image className={s.real} src={'/landing/preload.png'} alt={'preload'} width={226} height={200} />
+        <Image className={s.clone} src={'/landing/preload.png'} alt={'preload'} width={226} height={200} />
+      </div>
+      <p className={s.intro_inner_content}>Hold & Drag to enter Bitcoin Virtual Machine</p>
       <div className={s.drag} onMouseMove={onMouse}>
         <div ref={gradientRef} className={s.drag_line}>
           <svg xmlns='http://www.w3.org/2000/svg' width='162' height='2' viewBox='0 0 162 2' fill='none'>

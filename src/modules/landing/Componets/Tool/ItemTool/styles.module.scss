@@ -1,5 +1,5 @@
 .itemTool {
-  width: 33.333%;
+  flex: 1;
   border-top: 1px solid #3d3d3d;
   &_step {
     padding: 17.5px 0;
@@ -19,7 +19,7 @@
     }
     &_stud {
       position: absolute;
-      left: 100%;
+      left: calc(100% - 1px);
       width: 8px;
       height: 25px;
       top: 50%;

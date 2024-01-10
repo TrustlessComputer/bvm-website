@@ -31,7 +31,7 @@ function Tool() {
       <div className="container">
         <div className={s.tool_heading}>
           <h2 className={s.tool_heading_text}>
-            <Chars delay={0.1}>
+            <Chars>
               <span>
                 <span className={s.tool_heading_text_hightlight}>
                   A no-code tool
@@ -43,7 +43,7 @@ function Tool() {
             </Chars>
           </h2>
           <Fade from={{ x: 50 }} to={{ x: 0 }} delay={0.3}>
-            <Scale delay={0.5}>
+            <Scale delay={0.2}>
               <Image
                 className={s.tool_heading_img}
                 src={tool_img}
@@ -54,19 +54,22 @@ function Tool() {
             </Scale>
           </Fade>
         </div>
-        <div className={s.tool_content}>
-          {DATA_CONTENT.map((item, index) => {
-            return (
-              <ItemTool
-                data={{
-                  index: index,
-                  length: 2,
-                  ...item,
-                }}
-              />
-            );
-          })}
-        </div>
+        <Fade delay={.4}>
+          <div className={s.tool_content}>
+            {DATA_CONTENT.map((item, index) => {
+              return (
+                <ItemTool
+                  delay={ .5 + index / 5}
+                  data={{
+                    index: index,
+                    length: 2,
+                    ...item,
+                  }}
+                />
+              );
+            })}
+          </div>
+        </Fade>
       </div>
     </section>
   );

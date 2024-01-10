@@ -1,9 +1,11 @@
 .itemCommunity {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-  height: 74px;
+  &_inner{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    height: 74px;
+  }
   &_lego {
     background: #6abd00;
     width: 74px;
