@@ -4,6 +4,7 @@
   width: 100%;
   align-items: center;
   height: 74px;
+  border: 1px solid #ff7e214d;
   &_lego {
     background: #6abd00;
     width: 74px;
@@ -38,7 +39,7 @@
     height: 100%;
     line-height: 26px;
     font-weight: 400;
-    background-color: #f6f6f6;
+    background-color: #ff7e210f;
     flex: 1;
   }
 }

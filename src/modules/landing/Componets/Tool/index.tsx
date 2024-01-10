@@ -46,8 +46,16 @@ function Tool() {
           />
         </div>
         <div className={s.tool_content}>
-          {DATA_CONTENT.map((item) => {
-            return <ItemTool data={item} />;
+          {DATA_CONTENT.map((item, index) => {
+            return (
+              <ItemTool
+                data={{
+                  index: index,
+                  length: 2,
+                  ...item,
+                }}
+              />
+            );
           })}
         </div>
       </div>

@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: row;
     gap: 84px;
-
+    padding-left: 40px;
     &_right {
       color: #000;
       display: flex;
@@ -33,7 +33,7 @@
       &_content {
         display: flex;
         flex-direction: column;
-        gap: 28px;
+        gap: 20px;
       }
     }
   }

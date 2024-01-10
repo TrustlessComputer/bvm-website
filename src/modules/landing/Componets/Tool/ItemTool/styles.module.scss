@@ -1,13 +1,29 @@
 .itemTool {
   width: 33.333%;
+  border-top: 1px solid #3d3d3d;
   &_step {
-    background-color: #ffffff26;
     padding: 17.5px 0;
     padding-left: 32px;
     font-size: 18px;
+    height: 60px;
     color: #fa4e0e;
     font-weight: 500;
     line-height: 25.2px;
+    position: relative;
+    z-index: 1;
+
+    &_text {
+      position: absolute;
+      left: 32px;
+      z-index: 3;
+    }
+    svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      width: calc(100% + 6px);
+    }
   }
 
   &_content {
