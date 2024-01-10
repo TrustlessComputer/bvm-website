@@ -6,6 +6,7 @@ import ItemTool from './ItemTool';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
 import Scale from '@/interactive/Scale';
+import useWindowSize from '@/hooks/useWindowSize';
 
 const DATA_CONTENT = [
   {
@@ -26,20 +27,32 @@ const DATA_CONTENT = [
 ];
 
 function Tool() {
+  const { mobileScreen } = useWindowSize();
   return (
     <section className={s.tool}>
       <div className="container">
         <div className={s.tool_heading}>
           <h2 className={s.tool_heading_text}>
             <Chars delay={0.1}>
-              <span>
-                <span className={s.tool_heading_text_hightlight}>
-                  A no-code tool
-                </span>
-                &nbsp;for
-              </span>
-              <span>building a full-featured</span>
-              <span> Bitcoin L2 blockchain.</span>
+              {mobileScreen ? (
+                <>
+                  <span className={s.tool_heading_text_hightlight}>
+                    A no-code tool
+                  </span>
+                  &nbsp; for building a full-featured Bitcoin L2 blockchain.
+                </>
+              ) : (
+                <>
+                  <span>
+                    <span className={s.tool_heading_text_hightlight}>
+                      A no-code tool
+                    </span>
+                    &nbsp;for
+                  </span>
+                  <span>building a full-featured</span>
+                  <span> Bitcoin L2 blockchain.</span>
+                </>
+              )}
             </Chars>
           </h2>
           <Fade from={{ x: 50 }} to={{ x: 0 }} delay={0.3}>

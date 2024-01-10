@@ -1,11 +1,19 @@
 .community {
   padding: 140px 0;
   background-color: #fff;
+
+  @include is-mobile {
+    padding: 40px 0;
+  }
   &_inner {
     display: flex;
     flex-direction: column;
     gap: 60px;
     justify-content: space-between;
+
+    @include is-mobile {
+      gap: 24px;
+    }
     &_bottom {
       color: #000;
       gap: 128px;
@@ -14,12 +22,20 @@
 
       &_img {
         width: 50%;
+
+        @include is-mobile {
+          display: none;
+        }
       }
       &_content {
         display: flex;
         flex-direction: column;
         gap: 20px;
         width: 50%;
+
+        @include is-mobile {
+          width: 100%;
+        }
       }
     }
     &_top {
@@ -27,6 +43,11 @@
       flex-direction: row;
       align-items: start;
       gap: 128px;
+
+      @include is-mobile {
+        gap: 12px;
+        flex-direction: column;
+      }
       &_heading {
         color: #000;
         gap: 16px;
@@ -35,6 +56,12 @@
         line-height: 57.6px;
         flex-shrink: 0;
         width: 736px;
+
+        @include is-mobile {
+          width: 100%;
+          font-size: 28px;
+          line-height: 39.2px;
+        }
         span {
           color: #fa4e0e;
         }
@@ -45,6 +72,12 @@
         line-height: 36px;
         font-weight: 400;
         width: 50%;
+
+        @include is-mobile {
+          font-size: 16px;
+          line-height: 24px;
+          width: 100%;
+        }
       }
     }
   }

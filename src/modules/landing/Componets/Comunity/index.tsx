@@ -36,8 +36,8 @@ function Comunity() {
               className={s.community_inner_bottom_img}
             />
             <div className={s.community_inner_bottom_content}>
-              {DATA_COMMUNITY.map((item) => {
-                return <ItemCommunity content={item} />;
+              {DATA_COMMUNITY.map((item, index) => {
+                return <ItemCommunity content={item} key={index} />;
               })}
             </div>
           </div>

@@ -4,6 +4,15 @@
   width: 100%;
   align-items: center;
   height: 74px;
+
+  @include is-mobile {
+    border: 1px solid #ff7e214d;
+    background-color: #ff7e210f;
+    height: auto;
+    padding: 12px 0;
+    padding-left: 10px;
+    align-items: start;
+  }
   &_lego {
     background: #6abd00;
     width: 74px;
@@ -13,6 +22,11 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    @include is-mobile {
+      background-color: transparent;
+      width: 20px;
+      height: 20px;
+    }
     &_stud {
       position: absolute;
       left: 99%;
@@ -22,12 +36,21 @@
       top: 50%;
       border-top-right-radius: 6px;
       border-bottom-right-radius: 6px;
-
       transform: translateY(-50%);
+
+      @include is-mobile {
+        background-color: transparent;
+      }
     }
+
     svg {
       width: 18.92px;
       height: 15.5px;
+      path {
+        @include is-mobile {
+          fill: #6abd00;
+        }
+      }
     }
   }
   &_content {
@@ -38,9 +61,11 @@
     height: 100%;
     line-height: 26px;
     font-weight: 400;
-    // background-color: #ff7e210f;
     flex: 1;
     position: relative;
+    @include is-mobile {
+      padding-left: 10px;
+    }
     &_frame {
       position: absolute;
       left: 0;

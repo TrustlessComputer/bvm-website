@@ -7,6 +7,14 @@
   background-color: #ffffff33;
   padding-top: 20.85px;
   padding-bottom: 12.54px;
+
+  @include is-mobile {
+    background-color: #f6f6f6;
+    width: calc(33vw - 30px);
+    align-items: center;
+    aspect-ratio: 1;
+    flex-grow: 1;
+  }
   &_img {
     height: 42px;
     width: auto;
@@ -22,6 +30,11 @@
       line-height: 15.92px;
       font-weight: 400;
       text-align: center;
+      color: #fff;
+
+      @include is-mobile {
+        color: #000;
+      }
     }
   }
 }

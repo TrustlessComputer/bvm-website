@@ -1,8 +1,10 @@
 import React from 'react';
 import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
+import useWindowSize from '@/hooks/useWindowSize';
 
 function ItemCommunity({ content }: { content: string }) {
+  const { mobileScreen } = useWindowSize();
   return (
     <div className={s.itemCommunity}>
       <div className={s.itemCommunity_lego}>
@@ -22,10 +24,12 @@ function ItemCommunity({ content }: { content: string }) {
       </div>
       <p className={s.itemCommunity_content}>
         {content}
-        <SvgInset
-          className={s.itemCommunity_content_frame}
-          svgUrl="/landing/svg/frame_community.svg"
-        />
+        {!mobileScreen && (
+          <SvgInset
+            className={s.itemCommunity_content_frame}
+            svgUrl="/landing/svg/frame_community.svg"
+          />
+        )}
       </p>
     </div>
   );
