@@ -27,7 +27,7 @@ export default function Fade({ children, delay, from, to }: IProps) {
     threshold: 30,
   });
 
-  return <div ref={refContent} className={s.fade}>
+  return <div ref={refContent} className={`${s.fade} fade`}>
     {children}
   </div>;
 }

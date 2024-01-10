@@ -26,7 +26,7 @@ export default function Scale({children, delay}: IProp) {
         }
     )
 
-    return <div ref={refContent}>
+    return <div ref={refContent} className={'anim-scale'}>
         {children}
     </div>
 }

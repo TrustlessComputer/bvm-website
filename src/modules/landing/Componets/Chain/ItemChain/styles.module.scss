@@ -5,7 +5,13 @@
   background-color: #fff;
   width: 33.333%;
 
+
   :global {
+
+    .fade {
+      width: 100%;
+    }
+
     .sectionTop_img {
       transition: transform .4s var(--easeOutQuart);
     }
