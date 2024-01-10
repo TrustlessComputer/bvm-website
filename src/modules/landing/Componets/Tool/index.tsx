@@ -26,7 +26,7 @@ const DATA_CONTENT = [
   },
 ];
 
-function Tool() {
+export default function Tool() {
   const { mobileScreen } = useWindowSize();
   return (
     <section className={s.tool}>
@@ -56,7 +56,7 @@ function Tool() {
             </Chars>
           </h2>
           <Fade from={{ x: 50 }} to={{ x: 0 }} delay={0.3}>
-            <Scale delay={0.5}>
+            <Scale delay={0.2}>
               <Image
                 className={s.tool_heading_img}
                 src={tool_img}
@@ -67,22 +67,23 @@ function Tool() {
             </Scale>
           </Fade>
         </div>
-        <div className={s.tool_content}>
-          {DATA_CONTENT.map((item, index) => {
-            return (
-              <ItemTool
-                data={{
-                  index: index,
-                  length: 2,
-                  ...item,
-                }}
-              />
-            );
-          })}
-        </div>
+        <Fade delay={0.4}>
+          <div className={s.tool_content}>
+            {DATA_CONTENT.map((item, index) => {
+              return (
+                <ItemTool
+                  delay={0.5 + index / 5}
+                  data={{
+                    index: index,
+                    length: 2,
+                    ...item,
+                  }}
+                />
+              );
+            })}
+          </div>
+        </Fade>
       </div>
     </section>
   );
 }
-
-export default Tool;

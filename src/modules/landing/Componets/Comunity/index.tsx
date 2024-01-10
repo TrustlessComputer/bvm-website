@@ -1,8 +1,11 @@
 import React from 'react';
-import community_img from '@/public/landing/images/community_img.jpg';
+import community_img from '@/public/landing/why-launch.jpg';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import ItemCommunity from './ItemCommunity';
+import Chars from '@/interactive/Chars';
+import Lines from '@/interactive/Lines';
+import Scale from '@/interactive/Scale';
 
 const DATA_COMMUNITY = [
   'Earn sequencer fees',
@@ -11,33 +14,40 @@ const DATA_COMMUNITY = [
   'Complete control over gas fee, gas block limit, and withdrawal periods',
 ];
 
-function Comunity() {
+export default function Comunity() {
   return (
     <div className={s.community}>
       <div className="container">
         <div className={s.community_inner}>
-          <div className={s.community_inner_top}>
+          <div className={s.community_left}>
             <h3 className={s.community_inner_top_heading}>
-              Why launch <span>your own blockchain?</span>
+              <Chars>
+                Why launch <span>your own blockchain?</span>
+              </Chars>
             </h3>
-            <p className={s.community_inner_top_text}>
-              Whatever your vision — a dapp, a fully onchain game, a DEX, or an
-              ecosystem — there are many benefits of running your own
-              blockchain.
-            </p>
+            <Scale>
+              <Image
+                src={community_img}
+                width={community_img.width}
+                height={community_img.height}
+                alt="coommunity"
+                className={s.community_inner_bottom_img}
+              />
+            </Scale>
           </div>
-
-          <div className={s.community_inner_bottom}>
-            <Image
-              src={community_img}
-              width={community_img.width}
-              height={community_img.height}
-              alt="coommunity"
-              className={s.community_inner_bottom_img}
-            />
+          <div className={s.community_right}>
+            <p className={s.community_inner_top_text}>
+              <Lines delay={0.2}>
+                Whatever your vision — a dapp, a fully onchain game, a DEX, or
+                an ecosystem — there are many benefits of running your own
+                blockchain.
+              </Lines>
+            </p>
             <div className={s.community_inner_bottom_content}>
               {DATA_COMMUNITY.map((item, index) => {
-                return <ItemCommunity content={item} key={index} />;
+                return (
+                  <ItemCommunity delay={0.4 + index / 10} content={item} />
+                );
               })}
             </div>
           </div>
@@ -46,5 +56,3 @@ function Comunity() {
     </div>
   );
 }
-
-export default Comunity;

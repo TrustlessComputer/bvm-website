@@ -4,7 +4,6 @@
   width: 100%;
   align-items: center;
   height: 74px;
-
   @include is-mobile {
     border: 1px solid #ff7e214d;
     background-color: #ff7e210f;
@@ -13,6 +12,18 @@
     padding-left: 10px;
     align-items: start;
   }
+  &_inner {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    height: 74px;
+
+    @include is-mobile {
+      height: auto;
+    }
+  }
+
   &_lego {
     background: #6abd00;
     width: 74px;

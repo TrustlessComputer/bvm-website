@@ -1,6 +1,8 @@
 import React from 'react';
 import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
+import Fade from '@/interactive/Fade';
+import Chars from '@/interactive/Chars';
 import useWindowSize from '@/hooks/useWindowSize';
 
 type TItemTool = {
@@ -11,11 +13,10 @@ type TItemTool = {
   length: number;
 };
 
-function ItemTool({ data }: { data: TItemTool }) {
-  const { mobileScreen } = useWindowSize();
+function ItemTool({ data, delay }: { data: TItemTool; delay: number }) {
   const isFrist = data.index === 0;
   const isLast = data.index === data.length;
-
+  const { mobileScreen } = useWindowSize();
   const svgUrl = isFrist
     ? '/landing/svg/frame_tool_fill.svg'
     : '/landing/svg/frame_tool_mid.svg';

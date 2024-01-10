@@ -11,13 +11,37 @@
   background: rgba(black, 0.8);
   backdrop-filter: blur(10px);
   overflow: hidden;
+
   &_inner {
+
+    &_thumbnail {
+      display: flex;
+      margin-bottom: 24px;
+      justify-content: center;
+      position: relative;
+      --clipPath: 0%;
+
+      .clone {
+        position: absolute;
+        filter: grayscale(100%);
+        opacity: .4;
+      }
+
+      .real {
+        position: relative;
+        z-index: 2;
+        clip-path: inset(calc(100% - var(--clipPath)) 0% 0% 0%);
+      }
+    }
+
     &_content {
       color: #fff;
-      font-size: 16px;
+      font-size: 14px;
       font-style: normal;
       font-weight: 400;
-      line-height: 140%; /* 22.4px */
+      line-height: 140%;
+      text-align: center;
+      text-transform: uppercase;
     }
   }
 }
@@ -28,10 +52,16 @@
   position: relative;
   margin-top: 16px;
   justify-content: space-between;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   font-size: 0;
   line-height: 0;
   padding: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(
+                  -90deg,
+                  rgba(225, 225, 225, .07) 0,
+                  rgba(225, 225, 225, 0) 100%
+  );
 
   svg,
   img {
@@ -44,7 +74,7 @@
   &_inner {
     position: absolute;
     z-index: 3;
-    width: calc(100% - 62px);
+    width: calc(100% - 54px);
   }
 
   &_line {
@@ -65,9 +95,9 @@
     z-index: 2;
     pointer-events: none;
     background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 1) var(--bg),
-      rgba(171, 171, 171, 0) 100%
+                    90deg,
+                    rgba(0, 0, 0, 1) var(--bg),
+                    rgba(171, 171, 171, 0) 100%
     );
   }
 }

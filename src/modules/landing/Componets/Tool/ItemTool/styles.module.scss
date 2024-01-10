@@ -1,5 +1,5 @@
 .itemTool {
-  width: 33.333%;
+  flex: 1;
   border-top: 1px solid #3d3d3d;
   border-bottom: 1px solid #3d3d3d;
   @include is-mobile {
@@ -28,8 +28,8 @@
     }
     &_stud {
       position: absolute;
-      left: 99.8%;
-      width: 10px;
+      left: calc(100% - 1px);
+      width: 8px;
       height: 25px;
       top: 50%;
       transform: translateY(-50%);

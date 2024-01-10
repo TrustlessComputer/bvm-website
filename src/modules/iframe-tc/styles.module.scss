@@ -5,4 +5,8 @@
   justify-content: flex-start;
   min-height: 100dvh;
   background-color: #F3F1E8;
+
+  iframe{
+    height: calc(100dvh - 70px);
+  }
 }

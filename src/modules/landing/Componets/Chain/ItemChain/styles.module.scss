@@ -4,6 +4,7 @@
   padding: 20px;
   background-color: #fff;
   width: 33.333%;
+  cursor: pointer;
 
   @include is-mobile {
     width: 90vw;
@@ -13,6 +14,11 @@
   }
 
   :global {
+
+    .fade {
+      width: 100%;
+    }
+
     .sectionTop_img {
       transition: transform 0.4s var(--easeOutQuart);
     }

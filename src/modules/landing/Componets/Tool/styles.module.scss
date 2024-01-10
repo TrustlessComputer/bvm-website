@@ -47,6 +47,8 @@
     border-top: none;
     border-bottom: none;
     @include is-mobile {
+      margin-top: 24px;
+
       flex-direction: column;
       gap: 24px;
       border: none;

@@ -1,6 +1,12 @@
 .community {
   padding: 140px 0;
   background-color: #fff;
+  &_left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
   @include is-mobile {
     padding: 40px 0;
@@ -8,7 +14,16 @@
   &_inner {
     display: flex;
     flex-direction: column;
-    gap: 60px;
+    justify-content: space-between;
+  }
+
+  &_right {
+    flex: 1;
+  }
+
+  &_inner {
+    display: flex;
+    gap: 127px;
     justify-content: space-between;
 
     @include is-mobile {
@@ -28,6 +43,7 @@
         }
       }
       &_content {
+        color: #000;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -35,9 +51,11 @@
 
         @include is-mobile {
           width: 100%;
+          padding-top: 24px;
         }
       }
     }
+
     &_top {
       display: flex;
       flex-direction: row;
@@ -66,13 +84,13 @@
           color: #fa4e0e;
         }
       }
+
       &_text {
         font-size: 24px;
         color: #000;
         line-height: 36px;
         font-weight: 400;
         width: 50%;
-
         @include is-mobile {
           font-size: 16px;
           line-height: 24px;

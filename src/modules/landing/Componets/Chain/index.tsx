@@ -2,14 +2,12 @@ import React from 'react';
 import ItemChain from './ItemChain';
 import s from './styles.module.scss';
 
-import chain_1 from 'public/landing/images/chain_1.png';
-import chain_2 from 'public/landing/images/chain_2.png';
-import chain_3 from 'public/landing/images/chain_3.png';
+import chain_1 from 'public/landing/app-chain.png';
+import chain_2 from 'public/landing/naka-chain.png';
+import chain_3 from 'public/landing/ai-chain.png';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
 import { Button, HStack } from '@chakra-ui/react';
-import { DEVELOPERS_DOC_URL } from '@/config';
-import { ChevronRightIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/navigation';
 import useWindowSize from '@/hooks/useWindowSize';
 import HeroLabel from '../Hero/HeroLabel';
@@ -20,6 +18,7 @@ const DATA_CHAINS = [
     title: 'Alpha Chain',
     subTitle: '',
     stud: 1,
+    link: 'https://alpha.wtf',
     data: [
       {
         left: 'Use Case',
@@ -108,7 +107,7 @@ const DATA_CHAINS = [
   },
 ];
 
-function Chain() {
+export default function Chain() {
   const router = useRouter();
   const { mobileScreen } = useWindowSize();
   return (
@@ -145,7 +144,10 @@ function Chain() {
                 minW={['180px']}
                 height={'48px'}
                 fontWeight={400}
-                fontSize={'20px'}
+                fontSize={'16px'}
+                _hover={{
+                  bgColor: '#000',
+                }}
                 className={s.chain_btn}
                 onClick={() => {
                   router.push('/blockchains/customize');
@@ -167,5 +169,3 @@ function Chain() {
     </div>
   );
 }
-
-export default Chain;

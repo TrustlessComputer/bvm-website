@@ -4,12 +4,12 @@ import BgHero from '@/modules/landing/Componets/Hero/Bg';
 import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 import HeroContent from '@/modules/landing/Componets/Hero/Content';
 import cn from 'classnames';
-import RandomText from '@/interactive/RandomText';
 import Chars from '@/interactive/Chars';
 import BorderLine from '@/interactive/BorderLine';
 import { Box } from '@chakra-ui/react';
 
 export default function Hero() {
+
   return (
     <div className={s.hero}>
       <BgHero />
