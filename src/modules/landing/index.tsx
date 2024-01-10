@@ -1,3 +1,4 @@
+import Article from './Componets/Article';
 import Chain from './Componets/Chain';
 import Comunity from './Componets/Comunity';
 import Hero from './Componets/Hero';
@@ -13,6 +14,7 @@ export default function Landing() {
       <Tool />
       <Comunity />
       <Scalable />
+      <Article />
     </div>
   );
 }
