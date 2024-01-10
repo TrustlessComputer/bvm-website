@@ -38,13 +38,8 @@
   }
 
   &_content {
-    border: solid 1px #3d3d3d;
-    border-top: none;
-    border-bottom: none;
-    padding-bottom: 100px;
+    padding: 32px;
     &_inner {
-      padding-top: 32px;
-      padding-left: 32px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -60,6 +55,12 @@
         font-size: 18px;
         color: rgba(255, 255, 255, 0.7);
       }
+    }
+
+    &__midItem {
+      border: solid 1px #3d3d3d;
+      border-top: none;
+      border-bottom: none;
     }
   }
 }

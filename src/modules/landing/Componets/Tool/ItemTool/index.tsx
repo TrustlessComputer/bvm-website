@@ -25,7 +25,11 @@ function ItemTool({ data }: { data: TItemTool }) {
         {!isLast && <span className={s.itemTool_step_stud}></span>}
         <p className={s.itemTool_step_text}>{data.step}</p>
       </div>
-      <div className={s.itemTool_content}>
+      <div
+        className={`${s.itemTool_content} ${
+          data.index === 1 && s[`itemTool_content__midItem`]
+        }`}
+      >
         <div className={s.itemTool_content_inner}>
           <p className={s.itemTool_content_inner_title}>{data.title}</p>
           <p className={s.itemTool_content_inner_description}>

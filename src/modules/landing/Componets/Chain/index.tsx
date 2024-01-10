@@ -10,11 +10,13 @@ import Fade from '@/interactive/Fade';
 import { Button, HStack } from '@chakra-ui/react';
 import { DEVELOPERS_DOC_URL } from '@/config';
 import { ChevronRightIcon } from '@chakra-ui/icons';
+import { useRouter } from 'next/navigation';
 
 const DATA_CHAINS = [
   {
     img: chain_1,
     title: 'Alpha Chain',
+    subTitle: '',
     stud: 1,
     data: [
       {
@@ -45,6 +47,7 @@ const DATA_CHAINS = [
   {
     img: chain_2,
     title: 'Naka Chain',
+    subTitle: 'Coming soon',
     stud: 2,
     data: [
       {
@@ -74,6 +77,7 @@ const DATA_CHAINS = [
   {
     img: chain_3,
     title: 'AI Chain',
+    subTitle: 'Coming soon',
     stud: 3,
     data: [
       {
@@ -103,6 +107,7 @@ const DATA_CHAINS = [
 ];
 
 function Chain() {
+  const router = useRouter();
   return (
     <div className={s.chain}>
       <div className="container">

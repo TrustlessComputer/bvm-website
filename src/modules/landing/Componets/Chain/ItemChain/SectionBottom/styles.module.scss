@@ -5,10 +5,22 @@
   gap: 24px;
 
   &_title {
-    font-size: 24px;
-    color: #fff;
-    font-weight: 500;
-    line-height: 26.4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &_main {
+      font-size: 24px;
+      color: #fff;
+      font-weight: 500;
+      line-height: 26.4px;
+    }
+
+    &_sub {
+      line-height: 25.2px;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.7);
+    }
   }
   &_listInfo {
     display: flex;
