@@ -1,0 +1,29 @@
+.hero {
+  height: 100svh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+
+  &_inner {
+    position: absolute;
+    bottom: 60px;
+    z-index: 2;
+    width: 100%;
+
+    &_rows {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &_heading {
+    color: #fff;
+    font-size: 68px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 100%;
+    padding-bottom: 20px;
+    width: 100%;
+  }
+}

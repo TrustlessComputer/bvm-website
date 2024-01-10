@@ -1,0 +1,47 @@
+.sectionTop {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.315;
+
+  &_wrap {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &_img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+
+  &_studs {
+    position: absolute;
+    top: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 50px;
+
+    &_item {
+      width: 64.44px;
+      height: 31px;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+    }
+  }
+}
+
+.bg__FFD73B {
+  background: #ffd73b;
+}
+
+.bg__35CCA6 {
+  background: #35cca6;
+}
+
+.bg__98DCF5 {
+  background: #98dcf5;
+}

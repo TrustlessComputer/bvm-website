@@ -11,6 +11,11 @@ import Link from 'next/link';
 import BoxContent from '../BoxContent';
 import { DesktopNav } from './components/DesktopNav';
 import DrawerMobileMenu from './components/DrawerMenu';
+import useAnimationStore from '@/stores/useAnimationStore';
+import { useMemo } from 'react';
+import { usePathname } from 'next/navigation';
+import cn from 'classnames';
+import s from './style.module.scss';
 
 export type HeaderProps = {
   color?: 'black' | 'white';
@@ -22,14 +27,19 @@ const Header = (props: HeaderProps) => {
   const primaryColor = props.color || 'white';
   const position = props.position || 'absolute';
   const bgColor = props.bgColor || 'transparent';
+  const pathName = usePathname();
 
   const { isOpen, onToggle } = useDisclosure();
+  const { play } = useAnimationStore();
+  const isHome = useMemo(() => {
+    return pathName === '/';
+  }, [pathName]);
   const isMobile = useBreakpointValue({ base: true, md: false }) as boolean;
 
   return (
     <>
       <Box
-        id="HEADER_VIEW"
+        id='HEADER_VIEW'
         position={position}
         bgColor={bgColor}
         display={'flex'}
@@ -40,8 +50,9 @@ const Header = (props: HeaderProps) => {
         left={0}
         right={0}
         zIndex={2}
+        className={cn(isHome ? s.isHome : '', play ? s.play : '')}
       >
-        <BoxContent id="HEADER_CONTENT">
+        <BoxContent id='HEADER_CONTENT'>
           <Flex
             display={'flex'}
             flexDir={'row'}
@@ -49,7 +60,6 @@ const Header = (props: HeaderProps) => {
             alignItems={'center'}
             minH={['40px', '40px']}
           >
-            {/* Left View */}
             <Flex
               flex={1}
               justify={'left'}
@@ -57,7 +67,7 @@ const Header = (props: HeaderProps) => {
                 cursor: 'pointer',
               }}
             >
-              <Link href="/">
+              <Link href='/'>
                 {primaryColor === 'white' ? (
                   <Image src={`/icons/logo_white.svg`} />
                 ) : (
@@ -66,7 +76,6 @@ const Header = (props: HeaderProps) => {
               </Link>
             </Flex>
 
-            {/* Right View */}
             <Flex flex={1} justify={'right'}>
               {isMobile ? (
                 <IconButton
@@ -77,10 +86,6 @@ const Header = (props: HeaderProps) => {
                       w={'24px'}
                       h={'24px'}
                       color={'white'}
-                      // filter={{
-                      //   base: 'invert(0)',
-                      //   lg: 'invert(100)',
-                      // }}
                       filter={
                         primaryColor === 'white' ? 'invert(100)' : 'invert(0)'
                       }

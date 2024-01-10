@@ -1,8 +1,8 @@
 'use client';
 
-import Footer from '@/layouts/Footer';
+// import Footer from '@/layouts/Footer';
 import Header, { HeaderProps } from '@/layouts/Header';
-import s from './styles.module.scss';
+// import s from './styles.module.scss';
 
 type IMainProps = {
   hideHeader?: boolean;
@@ -17,11 +17,10 @@ const MainLayout = ({
   headerProps,
   children,
 }: IMainProps) => (
-  <div className={s.container}>
-    {!hideHeader && <Header {...headerProps} />}
-    {children}
-    {/* {!hideFooter && <Footer />} */}
-  </div>
+   <>
+     {!hideHeader && <Header {...headerProps} />}
+     {children}
+   </>
 );
 
 export default MainLayout;

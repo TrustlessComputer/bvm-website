@@ -1,0 +1,110 @@
+.intro {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  background: rgba(black, 0.8);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+
+  &_inner {
+
+    &_thumbnail {
+      display: flex;
+      margin-bottom: 24px;
+      justify-content: center;
+      position: relative;
+      --clipPath: 0%;
+
+      .clone {
+        position: absolute;
+        filter: grayscale(100%);
+        opacity: .4;
+      }
+
+      .real {
+        position: relative;
+        z-index: 2;
+        clip-path: inset(calc(100% - var(--clipPath)) 0% 0% 0%);
+      }
+    }
+
+    &_content {
+      color: #fff;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.drag {
+  width: 310px;
+  display: flex;
+  position: relative;
+  margin-top: 16px;
+  justify-content: space-between;
+  font-size: 0;
+  line-height: 0;
+  padding: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(
+                  -90deg,
+                  rgba(225, 225, 225, .07) 0,
+                  rgba(225, 225, 225, 0) 100%
+  );
+
+  svg,
+  img {
+    -webkit-user-drag: none;
+    user-select: none;
+    user-focus: none;
+    pointer-events: none;
+  }
+
+  &_inner {
+    position: absolute;
+    z-index: 3;
+    width: calc(100% - 54px);
+  }
+
+  &_line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  &_gradient {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    --bg: 0%;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+                    90deg,
+                    rgba(0, 0, 0, 1) var(--bg),
+                    rgba(171, 171, 171, 0) 100%
+    );
+  }
+}
+
+.mood {
+  flex: 0 0 auto;
+  margin-left: auto;
+  position: relative;
+  z-index: 3;
+}

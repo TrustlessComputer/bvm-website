@@ -1,0 +1,27 @@
+.itemHero {
+  position: relative;
+  width: 100px;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff33;
+  padding-top: 20.85px;
+  padding-bottom: 12.54px;
+  &_img {
+    height: 42px;
+    width: auto;
+  }
+  &_content {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    gap: 8px;
+
+    &_title {
+      font-size: 11.37px;
+      line-height: 15.92px;
+      font-weight: 400;
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.tool {
+  background: #000;
+  padding: 100px 0;
+  &_heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    &_text {
+      font-weight: 400;
+      line-height: 57.6px;
+      font-size: 48px;
+      display: flex;
+      flex-direction: column;
+      width: 567px;
+      &_hightlight {
+        color: #fa4e0e;
+      }
+    }
+  }
+  &_content {
+    margin-top: 48px;
+    width: 100%;
+    flex-direction: row;
+    display: flex;
+    border: solid 1px #3d3d3d;
+    border-top: none;
+  }
+}

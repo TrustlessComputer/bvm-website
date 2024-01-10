@@ -1,0 +1,21 @@
+.itemChain {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #fff;
+  width: 33.333%;
+
+  :global {
+    .sectionTop_img {
+      transition: transform .4s var(--easeOutQuart);
+    }
+  }
+
+  &:hover {
+    :global {
+      .sectionTop_img {
+        transform: scale(1.2);
+      }
+    }
+  }
+}

@@ -42,6 +42,7 @@
     "sass": "^1.69.5",
     "sharp": "^0.33.1",
     "slick-carousel": "^1.8.1",
+    "split-type": "^0.3.4",
     "svg-react-loader": "^0.4.6",
     "url-loader": "^4.1.1"
   },
