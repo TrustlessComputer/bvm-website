@@ -16,6 +16,7 @@ const DATA_CHAINS = [
     title: 'Alpha Chain',
     subTitle: '',
     stud: 1,
+    link: 'https://alpha.wtf',
     data: [
       {
         left: 'Use Case',

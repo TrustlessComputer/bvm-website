@@ -6,8 +6,12 @@ import Tool from './Componets/Tool';
 import s from './styles.module.scss';
 import Scalable from '@/modules/landing/Componets/Scalable';
 import Section_7 from '@/modules/landing/Componets/Section_7';
+import { useEffect } from 'react';
 
 export default function Landing() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className={s.landing}>
       <Hero />

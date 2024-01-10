@@ -6,7 +6,7 @@ import Fade from '@/interactive/Fade';
 
 type TSectionBottom = {
   title: string;
-  subTitle: string;
+  link?: string;
   data: {
     left: string;
     right: string;
@@ -31,7 +31,7 @@ export default function SectionBottom({
           <Chars delay={delay}>{data.title}</Chars>
         </h6>
         <p className={s.sectionBottom_title_sub}>
-          <Chars delay={delay}>{data.subTitle}</Chars>
+          <Chars delay={delay}>{!data?.link && 'Coming soon'}</Chars>
         </p>
       </div>
 
