@@ -21,6 +21,11 @@ input[type='number'] {
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
+
+  @include is-mobile {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 .anim-scale {

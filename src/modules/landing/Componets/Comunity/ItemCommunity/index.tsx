@@ -2,11 +2,19 @@ import React from 'react';
 import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 import Fade from '@/interactive/Fade';
+import useWindowSize from '@/hooks/useWindowSize';
 
-export default function ItemCommunity({ content, delay }: { content: string, delay:number }) {
+export default function ItemCommunity({
+  content,
+  delay,
+}: {
+  content: string;
+  delay: number;
+}) {
+  const { mobileScreen } = useWindowSize();
   return (
-    <div className={s.itemCommunity}>
-      <Fade delay={delay}>
+    <Fade delay={delay}>
+      <div className={s.itemCommunity}>
         <div className={s.itemCommunity_inner}>
           <div className={s.itemCommunity_lego}>
             <svg
@@ -25,13 +33,15 @@ export default function ItemCommunity({ content, delay }: { content: string, del
           </div>
           <p className={s.itemCommunity_content}>
             {content}
-            <SvgInset
-              className={s.itemCommunity_content_frame}
-              svgUrl="/landing/svg/frame_community.svg"
-            />
+            {!mobileScreen && (
+              <SvgInset
+                className={s.itemCommunity_content_frame}
+                svgUrl="/landing/svg/frame_community.svg"
+              />
+            )}
           </p>
         </div>
-      </Fade>
-    </div>
+      </div>
+    </Fade>
   );
 }

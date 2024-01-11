@@ -2,15 +2,48 @@
   display: flex;
   flex-direction: row;
   gap: 36px;
+
+  @include is-mobile {
+    width: 100%;
+    padding: 0 20px;
+    overflow: hidden;
+    overflow-x: scroll;
+    gap: 8px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 
-
 .chain {
-  padding: 100px 0;
-  background: #F6F6F6;
+  background: #f6f6f6;
+
+  @include is-mobile {
+    background: #fff;
+  }
+  &_label {
+    padding-top: 24px;
+    padding-bottom: 40px;
+  }
+  &_inner {
+    background: #f6f6f6;
+    padding: 100px 0;
+
+    @include is-mobile {
+      position: relative;
+      overflow: hidden;
+      left: -20px;
+      width: calc(100% + 40px);
+      padding-top: 32px;
+      padding-bottom: 30px;
+    }
+  }
+  &_label {
+    background: #fff;
+  }
 
   &_heading {
-
     text-align: center;
     color: #000;
     font-size: 48px;
@@ -18,9 +51,15 @@
     font-weight: 400;
     line-height: 120%;
 
+    @include is-mobile {
+      text-align: left;
+      font-size: 28px;
+      padding-left: 20px;
+    }
+
     b {
       font-weight: 400;
-      color: #FA4E0E;
+      color: #fa4e0e;
     }
   }
 }

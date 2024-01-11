@@ -1,6 +1,11 @@
 .itemTool {
   flex: 1;
   border-top: 1px solid #3d3d3d;
+  border-bottom: 1px solid #3d3d3d;
+  @include is-mobile {
+    width: 100%;
+    border: 1px solid #3d3d3d;
+  }
   &_step {
     padding: 17.5px 0;
     padding-left: 32px;
@@ -11,6 +16,10 @@
     line-height: 25.2px;
     position: relative;
     z-index: 1;
+
+    @include is-mobile {
+      background-color: #262626;
+    }
 
     &_text {
       position: absolute;
@@ -27,6 +36,10 @@
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
       background: #262626;
+
+      @include is-mobile {
+        display: none;
+      }
     }
     svg {
       position: absolute;
@@ -39,6 +52,10 @@
 
   &_content {
     padding: 32px;
+
+    @include is-mobile {
+      padding: 16px;
+    }
     &_inner {
       display: flex;
       flex-direction: column;
@@ -48,12 +65,23 @@
         font-weight: 500;
         font-size: 24px;
         line-height: 33.6px;
+
+        @include is-mobile {
+          font-size: 16px;
+          line-height: 22.4px;
+        }
       }
       &_description {
         font-weight: 400;
         line-height: 25.2px;
         font-size: 18px;
         color: rgba(255, 255, 255, 0.7);
+
+        @include is-mobile {
+          font-size: 14px;
+          line-height: 19.6px;
+          width: 70%;
+        }
       }
     }
 
@@ -61,6 +89,10 @@
       border: solid 1px #3d3d3d;
       border-top: none;
       border-bottom: none;
+
+      @include is-mobile {
+        border: none;
+      }
     }
   }
 }

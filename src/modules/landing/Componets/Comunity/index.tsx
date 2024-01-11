@@ -17,7 +17,7 @@ const DATA_COMMUNITY = [
 export default function Comunity() {
   return (
     <div className={s.community}>
-      <div className='container'>
+      <div className="container">
         <div className={s.community_inner}>
           <div className={s.community_left}>
             <h3 className={s.community_inner_top_heading}>
@@ -30,22 +30,24 @@ export default function Comunity() {
                 src={community_img}
                 width={community_img.width}
                 height={community_img.height}
-                alt='coommunity'
+                alt="coommunity"
                 className={s.community_inner_bottom_img}
               />
             </Scale>
           </div>
           <div className={s.community_right}>
             <p className={s.community_inner_top_text}>
-              <Lines delay={.2}>
-                Whatever your vision — a dapp, a fully onchain game, a DEX, or an
-                ecosystem — there are many benefits of running your own
+              <Lines delay={0.2}>
+                Whatever your vision — a dapp, a fully onchain game, a DEX, or
+                an ecosystem — there are many benefits of running your own
                 blockchain.
               </Lines>
             </p>
             <div className={s.community_inner_bottom_content}>
               {DATA_COMMUNITY.map((item, index) => {
-                return <ItemCommunity delay={.4 + index / 10} content={item} />;
+                return (
+                  <ItemCommunity delay={0.4 + index / 10} content={item} />
+                );
               })}
             </div>
           </div>
@@ -54,4 +56,3 @@ export default function Comunity() {
     </div>
   );
 }
-

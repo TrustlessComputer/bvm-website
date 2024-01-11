@@ -6,6 +6,13 @@
   width: 33.333%;
   cursor: pointer;
 
+  @include is-mobile {
+    width: 90vw;
+    flex-shrink: 0;
+    padding: 7.64px;
+    flex-grow: 1;
+  }
+
   :global {
 
     .fade {
@@ -13,7 +20,7 @@
     }
 
     .sectionTop_img {
-      transition: transform .4s var(--easeOutQuart);
+      transition: transform 0.4s var(--easeOutQuart);
     }
   }
 

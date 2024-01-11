@@ -43,19 +43,19 @@ export default function Article() {
     <div className={s.article}>
       <div className="container">
         <div className={s.article_inner}>
-          <div className={s.article_inner_heading}>
+          <h3 className={s.article_inner_heading}>
             Oh, and the <span>press loves us too!</span>
-          </div>
+          </h3>
           <div className={s.article_inner_content}>
             <div className={s.article_inner_content_top}>
-              {DATA_ARTICLE.top.map((item) => {
-                return <ItemArticle data={item} />;
+              {DATA_ARTICLE.top.map((item, index) => {
+                return <ItemArticle data={item} key={index} />;
               })}
             </div>
             <div className={s.article_inner_content_divide}></div>
             <div className={s.article_inner_content_bottom}>
-              {DATA_ARTICLE.bottom.map((item) => {
-                return <ItemArticle data={item} />;
+              {DATA_ARTICLE.bottom.map((item, index) => {
+                return <ItemArticle data={item} key={index} />;
               })}
             </div>
           </div>
