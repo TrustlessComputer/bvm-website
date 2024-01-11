@@ -8,18 +8,37 @@
   top: 0;
   left: 0;
   z-index: 9;
-  background: rgba(black, 0.8);
-  backdrop-filter: blur(10px);
   overflow: hidden;
+  background: url("/landing/banner-bg.jpg?v=2");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:after {
+    content: '';
+    display: block;
+    background: url("/landing/noise.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99;
+    pointer-events: none;
+  }
 
   &_inner {
+    position: relative;
+    z-index: 3;
 
     &_thumbnail {
       display: flex;
-      margin-bottom: 24px;
+      margin-bottom: 50px;
       justify-content: center;
       position: relative;
       --clipPath: 0%;
+
 
       .clone {
         position: absolute;
@@ -42,12 +61,16 @@
       line-height: 140%;
       text-align: center;
       text-transform: uppercase;
+
+      span {
+        color: #FA4E0E;
+      }
     }
   }
 }
 
 .drag {
-  width: 310px;
+  width: 242px;
   display: flex;
   position: relative;
   margin-top: 16px;
@@ -107,4 +130,9 @@
   margin-left: auto;
   position: relative;
   z-index: 3;
+}
+
+.grid {
+  position: absolute;
+  bottom: -30%;
 }

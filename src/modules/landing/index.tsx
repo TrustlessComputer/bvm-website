@@ -5,10 +5,11 @@ import Hero from './Componets/Hero';
 import ScaleableMobile from './Componets/Scalable/ScaleableMobile';
 import Tool from './Componets/Tool';
 import s from './styles.module.scss';
-import Scalable from '@/modules/landing/Componets/Scalable';
 import Section_7 from '@/modules/landing/Componets/Section_7';
 import { useEffect } from 'react';
+import ScalableSlide from '@/modules/landing/Componets/ScalableSlide';
 import Section7Mobile from './Componets/Section_7/Section_7_Mobile';
+import Scalable from './Componets/Scalable';
 
 export default function Landing() {
   const { mobileScreen, tabletScreen } = useWindowSize();
@@ -21,7 +22,13 @@ export default function Landing() {
       <Chain />
       <Tool />
       <Comunity />
-      {mobileScreen ? <ScaleableMobile /> : <Scalable />}
+      {mobileScreen ? (
+        <ScaleableMobile />
+      ) : tabletScreen ? (
+        <Scalable />
+      ) : (
+        <ScalableSlide />
+      )}
       {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
     </div>
   );

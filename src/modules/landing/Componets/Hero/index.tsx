@@ -8,8 +8,10 @@ import Chars from '@/interactive/Chars';
 import BorderLine from '@/interactive/BorderLine';
 import { Box } from '@chakra-ui/react';
 import useWindowSize from '@/hooks/useWindowSize';
+import useAnimationStore from '@/stores/useAnimationStore';
 
 export default function Hero() {
+  const { played } = useAnimationStore();
   const { mobileScreen } = useWindowSize();
   return (
     <div className={s.hero}>
