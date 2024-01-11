@@ -12,7 +12,7 @@ import useAnimationStore from '@/stores/useAnimationStore';
 
 export default function Hero() {
   const { played } = useAnimationStore();
-  const { mobileScreen } = useWindowSize();
+  const { mobileScreen, tabletScreen } = useWindowSize();
   return (
     <div className={s.hero}>
       <BgHero />
@@ -32,7 +32,7 @@ export default function Hero() {
           <Box mt={'20px'} />
           <div className={s.hero_inner_rows}>
             <HeroContent />
-            {!mobileScreen && <HeroLabel />}
+            {!mobileScreen && !tabletScreen && <HeroLabel />}
           </div>
         </div>
       </div>

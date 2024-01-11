@@ -11,7 +11,7 @@ type TScale = {
   subContent: string;
 };
 
-function ItemScaleableMobile({ data }: { data: TScale }) {
+export default function ItemScaleableMobile({ data }: { data: TScale }) {
   return (
     <div className={`${s.itemScale} ${s[`itemScale__${data.bg}`]}`}>
       {data.title && (
@@ -34,5 +34,3 @@ function ItemScaleableMobile({ data }: { data: TScale }) {
     </div>
   );
 }
-
-export default ItemScaleableMobile;

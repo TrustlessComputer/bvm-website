@@ -10,7 +10,13 @@ type TItemTool = {
   length: number;
 };
 
-function ItemTool({ data, delay }: { data: TItemTool; delay: number }) {
+export default function ItemTool({
+  data,
+  delay,
+}: {
+  data: TItemTool;
+  delay: number;
+}) {
   const isFrist = data.index === 0;
   const isLast = data.index === data.length;
   const { mobileScreen, tabletScreen } = useWindowSize();
@@ -41,5 +47,3 @@ function ItemTool({ data, delay }: { data: TItemTool; delay: number }) {
     </div>
   );
 }
-
-export default ItemTool;

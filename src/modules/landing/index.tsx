@@ -22,7 +22,7 @@ export default function Landing() {
       <Chain />
       <Tool />
       <Comunity />
-      {mobileScreen ? <ScaleableMobile /> : <ScalableSlide />}
+      {mobileScreen || tabletScreen ? <ScaleableMobile /> : <ScalableSlide />}
       {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
     </div>
   );

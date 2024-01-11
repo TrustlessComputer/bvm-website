@@ -3,6 +3,14 @@
   &_top {
     padding: 0 20px;
     padding-top: 32px;
+
+    @include is-tablet{
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
     &_heading {
       font-size: 28px;
       font-weight: 400;
@@ -21,10 +29,22 @@
     height: auto;
     // position: absolute;
     padding-top: 24px;
+
+    @include is-tablet {
+      width: 50vw;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
   &_bottom {
     padding: 0 20px;
     padding-bottom: 24px;
+
+    @include is-tablet{
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     &_content {
       font-size: 18px;

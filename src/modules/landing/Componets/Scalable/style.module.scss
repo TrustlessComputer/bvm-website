@@ -21,13 +21,13 @@
     left: 0;
     width: 100%;
 
-    @include is-tablet {
-      padding: 0 20px;
-    }
     &_inner {
       max-width: 985px;
       margin-left: auto;
       margin-right: auto;
+      @include is-tablet {
+        max-width: 520px;
+      }
     }
   }
 

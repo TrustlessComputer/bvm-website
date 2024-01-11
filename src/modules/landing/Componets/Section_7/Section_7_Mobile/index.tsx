@@ -5,7 +5,7 @@ import s from './styles.module.scss';
 import ItemArticle from '../../Article/ItemArticle';
 import { BLOGS } from '../constant';
 
-function Section7Mobile() {
+export default function Section7Mobile() {
   return (
     <div className={s.wrapper}>
       <div className="container">
@@ -21,5 +21,3 @@ function Section7Mobile() {
     </div>
   );
 }
-
-export default Section7Mobile;

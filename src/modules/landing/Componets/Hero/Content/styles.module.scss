@@ -7,6 +7,12 @@
     font-size: 16px;
     line-height: 150%;
   }
+  @include is-tablet {
+    max-width: unset;
+    width: 100%;
+    text-align: center;
+  }
+
   &_content {
     color: #fff;
     font-size: 24px;

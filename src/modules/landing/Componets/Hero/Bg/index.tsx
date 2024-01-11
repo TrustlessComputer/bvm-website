@@ -11,7 +11,7 @@ export default function BgHero() {
     if (play) refVideo.current?.play();
   }, [play]);
   return <div className={s.bgHero}>
-    <video ref={refVideo} src='landing/banner-2-compress.mp4' muted playsInline width={1920} height={1080}
+    <video ref={refVideo} src='landing/banner-4k-compress.mp4' muted playsInline width={1920} height={1080}
            preload={'auto'}></video>
   </div>;
 }

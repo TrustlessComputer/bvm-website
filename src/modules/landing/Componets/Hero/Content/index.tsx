@@ -8,7 +8,7 @@ import Fade from '@/interactive/Fade';
 import useWindowSize from '@/hooks/useWindowSize';
 
 export default function HeroContent() {
-  const { mobileScreen } = useWindowSize();
+  const { mobileScreen, tabletScreen } = useWindowSize();
   const router = useRouter();
   return (
     <div className={s.heroContent}>
@@ -29,7 +29,7 @@ export default function HeroContent() {
         align="center"
         spacing={['6px', '18px']}
         mt={'24px'}
-        flexDirection={mobileScreen ? 'column' : 'row'}
+        flexDirection={mobileScreen || tabletScreen ? 'column' : 'row'}
       >
         <Fade delay={0.6}>
           <Button

@@ -3,6 +3,9 @@
   flex-direction: column;
   gap: 20px;
 
+  @include is-tablet {
+    margin: 0 auto;
+  }
   &_content {
     display: flex;
     flex-direction: row;
