@@ -21,6 +21,12 @@
     height: auto;
     // position: absolute;
     padding-top: 24px;
+
+    @include is-tablet {
+      width: 40%;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
   &_bottom {
     padding: 0 20px;
