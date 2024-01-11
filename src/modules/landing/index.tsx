@@ -2,7 +2,7 @@ import useWindowSize from '@/hooks/useWindowSize';
 import Chain from './Componets/Chain';
 import Comunity from './Componets/Comunity';
 import Hero from './Componets/Hero';
-import ScaleableMobile from './Componets/Scalable/ScaleableMobile';
+import ScaleableMobile from './Componets/ScaleableMobile';
 import Tool from './Componets/Tool';
 import s from './styles.module.scss';
 import Section_7 from '@/modules/landing/Componets/Section_7';
