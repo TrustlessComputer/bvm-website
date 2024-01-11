@@ -96,7 +96,8 @@ export default function Intro() {
     const rectBtn = refBtn.current.getBoundingClientRect();
     const rectWrap = refWrap.current.getBoundingClientRect();
 
-    refActions.current.current = (e.touches[0].clientX || e.clientX) - rectWrap.left - rectBtn.width / 2;
+    const xx = (e?.touches?.length && e?.touches[0]) ? e?.touches[0]?.clientX : e.clientX;
+    refActions.current.current = (xx) - rectWrap.left - rectBtn.width / 2;
     refActions.current.current = Math.max(
       Math.min(refActions.current.current, rectWrap.width - rectBtn.width),
       0,
