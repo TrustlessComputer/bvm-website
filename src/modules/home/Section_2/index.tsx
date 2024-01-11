@@ -162,7 +162,7 @@ const Section_2 = () => {
           </Text>
 
           <Button
-            bgColor={'#FF7E21'}
+            bgColor={'#EF601B'}
             color={'#fff'}
             borderRadius={100}
             display={'flex'}
