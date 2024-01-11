@@ -109,15 +109,15 @@ const DATA_CHAINS = [
 
 export default function Chain() {
   const router = useRouter();
-  const { mobileScreen } = useWindowSize();
+  const { mobileScreen, tabletScreen } = useWindowSize();
   return (
     <div className={s.chain}>
-      <div className='container'>
-        {
-          mobileScreen && <section className={s.chain_label}>
+      <div className="container">
+        {(mobileScreen || tabletScreen) && (
+          <section className={s.chain_label}>
             <HeroLabel />
           </section>
-        }
+        )}
         <section className={s.chain_inner}>
           <h2 className={s.chain_heading}>
             <Chars>

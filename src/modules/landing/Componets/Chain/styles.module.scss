@@ -33,6 +33,10 @@
       padding-top: 24px;
       padding-bottom: 40px;
     }
+    @include is-tablet {
+      padding-top: 24px;
+      padding-bottom: 40px;
+    }
   }
   &_inner {
     background: #f6f6f6;
