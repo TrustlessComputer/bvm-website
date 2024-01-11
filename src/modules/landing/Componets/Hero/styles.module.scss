@@ -46,6 +46,11 @@
       font-size: 44px;
       line-height: 120%;
       padding: 0;
+      text-align: center;
+    }
+
+    @include is-tablet{
+      text-align: center;
     }
   }
 }
