@@ -39,6 +39,11 @@
       position: relative;
       --clipPath: 0%;
 
+      :global {
+        .dotlottie-container {
+          width: 150px;
+        }
+      }
 
       .clone {
         position: absolute;
