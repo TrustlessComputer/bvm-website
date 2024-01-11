@@ -83,6 +83,7 @@
     position: relative;
     @include is-mobile {
       padding-left: 10px;
+      font-size: 14px;
     }
     &_frame {
       position: absolute;

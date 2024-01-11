@@ -24,7 +24,7 @@ export default function Comunity() {
                 Why launch <span>your own blockchain?</span>
               </Chars>
             </h3>
-            <Scale scale={0.8}>
+            <Scale scale={1.2}>
               <Image
                 src={community_img}
                 width={community_img.width}

@@ -7,6 +7,11 @@
     width: 100vw;
     position: sticky;
     top: 0;
+
+    @include is-tablet {
+      overflow: hidden;
+      width: 100%;
+    }
   }
 
   &_top {
@@ -24,7 +29,7 @@
   }
 
   &_heading {
-    color: #FFF;
+    color: #fff;
     text-align: center;
     font-size: 48px;
     font-style: normal;
@@ -34,7 +39,7 @@
   }
 
   &_content {
-    color: #FFF;
+    color: #fff;
     text-align: center;
     font-size: 24px;
     font-style: normal;
@@ -52,7 +57,13 @@
     position: absolute;
     z-index: 2;
     left: 0;
-    border-top: 1px solid rgba(white, .2);
+    border-top: 1px solid rgba(white, 0.2);
+
+    @include is-tablet {
+      flex-wrap: nowrap;
+      flex-direction: row;
+      gap: unset;
+    }
 
     &_po {
       width: 0;
