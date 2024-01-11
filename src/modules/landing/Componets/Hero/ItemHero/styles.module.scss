@@ -1,23 +1,28 @@
 .itemHero {
   position: relative;
-  width: 100px;
-  aspect-ratio: 1;
-  display: flex;
-  justify-content: center;
-  background-color: #ffffff33;
-  padding-top: 20.85px;
-  padding-bottom: 12.54px;
 
-  @include is-mobile {
-    background-color: #f6f6f6;
-    width: calc(33vw - 30px);
-    align-items: center;
+  &_inner {
+    width: 100px;
     aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff33;
+    padding-top: 20.85px;
+    padding-bottom: 12.54px;
+
+    @include is-mobile {
+      background-color: #f6f6f6;
+      width: calc(33vw - 30px);
+      align-items: center;
+      aspect-ratio: 1;
+    }
   }
+
   &_img {
     height: 42px;
     width: auto;
   }
+
   &_content {
     display: flex;
     flex-direction: column;

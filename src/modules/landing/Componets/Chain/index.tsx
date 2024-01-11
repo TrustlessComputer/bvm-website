@@ -112,11 +112,12 @@ export default function Chain() {
   const { mobileScreen } = useWindowSize();
   return (
     <div className={s.chain}>
-      <div className="container">
-        <section className={s.chain_label}>
-          {mobileScreen && <HeroLabel />}
-        </section>
-
+      <div className='container'>
+        {
+          mobileScreen && <section className={s.chain_label}>
+            <HeroLabel />
+          </section>
+        }
         <section className={s.chain_inner}>
           <h2 className={s.chain_heading}>
             <Chars>

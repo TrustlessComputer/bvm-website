@@ -4,9 +4,10 @@ import Comunity from './Componets/Comunity';
 import Hero from './Componets/Hero';
 import Tool from './Componets/Tool';
 import s from './styles.module.scss';
-import Scalable from '@/modules/landing/Componets/Scalable';
+// import Scalable from '@/modules/landing/Componets/Scalable';
 import Section_7 from '@/modules/landing/Componets/Section_7';
 import { useEffect } from 'react';
+import ScalableSlide from '@/modules/landing/Componets/ScalableSlide';
 
 export default function Landing() {
   useEffect(() => {
@@ -18,7 +19,7 @@ export default function Landing() {
       <Chain />
       <Tool />
       <Comunity />
-      <Scalable />
+      <ScalableSlide />
       <Section_7 />
     </div>
   );
