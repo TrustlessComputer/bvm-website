@@ -13,7 +13,7 @@ export default function ItemArticle({ data }: { data: IBlog }) {
         src={data.imageUrl}
         alt={data.title}
         width={'100%'}
-        height={mobileScreen ? 'auto' : '300px'}
+        height={mobileScreen ? 'auto' : '250px'}
       />
       <div className={s.itemArticle_content}>
         <h5 className={s.itemArticle_content_title}>{data.title}</h5>
