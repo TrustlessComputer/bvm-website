@@ -28,6 +28,9 @@
   @include is-mobile {
     background: #fff;
   }
+  @include is-tablet {
+    background: #fff;
+  }
   &_label {
     @include is-mobile {
       padding-top: 24px;
