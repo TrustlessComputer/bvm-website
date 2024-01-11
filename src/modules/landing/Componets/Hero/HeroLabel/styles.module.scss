@@ -20,7 +20,9 @@
     }
 
     @include is-tablet {
-      justify-content: flex-start;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
     }
     &_text {
       font-size: 24px;
@@ -33,6 +35,9 @@
         font-size: 16px;
         line-height: 24px;
       }
+      @include is-tablet {
+        color: #000;
+      }
     }
   }
   &_listHero {
@@ -41,6 +46,12 @@
     gap: 4px;
 
     @include is-mobile {
+      flex-wrap: wrap;
+      gap: 17.5px;
+      align-items: center;
+    }
+
+    @include is-tablet {
       flex-wrap: wrap;
       gap: 17.5px;
       align-items: center;

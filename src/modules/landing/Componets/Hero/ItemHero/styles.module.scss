@@ -16,6 +16,13 @@
       align-items: center;
       aspect-ratio: 1;
     }
+
+    @include is-tablet {
+      background-color: #f6f6f6;
+      width: calc(33vw - 30px);
+      align-items: center;
+      aspect-ratio: 1;
+    }
   }
 
   &_img {
@@ -37,6 +44,9 @@
       color: #fff;
 
       @include is-mobile {
+        color: #000;
+      }
+      @include is-tablet {
         color: #000;
       }
     }

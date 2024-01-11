@@ -20,7 +20,9 @@
     z-index: 3;
     left: 0;
     width: 100%;
-
+    @include is-tablet {
+      max-width: 520px;
+    }
     &_inner {
       max-width: 985px;
       margin-left: auto;
