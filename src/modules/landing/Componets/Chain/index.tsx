@@ -2,9 +2,9 @@ import React from 'react';
 import ItemChain from './ItemChain';
 import s from './styles.module.scss';
 
-import chain_1 from 'public/landing/app-chain.png';
-import chain_2 from 'public/landing/naka-chain.png';
-import chain_3 from 'public/landing/ai-chain.png';
+import chain_1 from 'public/landing/compress/app-chain.png';
+import chain_2 from 'public/landing/compress/naka-chain.png';
+import chain_3 from 'public/landing/compress/ai-chain.png';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
 import { Button, HStack } from '@chakra-ui/react';
