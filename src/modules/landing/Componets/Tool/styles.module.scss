@@ -17,6 +17,7 @@
       align-items: start;
     }
     @include is-tablet {
+      flex-direction: column-reverse;
       align-items: start;
     }
 
@@ -36,7 +37,10 @@
       }
       @include is-tablet {
         display: inline;
+        width: 100%;
+        text-align: center;
       }
+
       &_hightlight {
         color: #fa4e0e;
         width: max-content;
@@ -48,6 +52,11 @@
 
       @include is-mobile {
         width: 50%;
+      }
+      @include is-tablet {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
       }
     }
   }
