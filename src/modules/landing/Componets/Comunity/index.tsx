@@ -1,11 +1,10 @@
-import React from 'react';
-import community_img from '@/public/landing/why-launch.jpg';
-import s from './styles.module.scss';
-import Image from 'next/image';
-import ItemCommunity from './ItemCommunity';
 import Chars from '@/interactive/Chars';
 import Lines from '@/interactive/Lines';
 import Scale from '@/interactive/Scale';
+import community_img from '@/public/landing/why-launch.jpg';
+import Image from 'next/image';
+import ItemCommunity from './ItemCommunity';
+import s from './styles.module.scss';
 
 const DATA_COMMUNITY = [
   'Earn sequencer fees',
@@ -25,7 +24,7 @@ export default function Comunity() {
                 Why launch <span>your own blockchain?</span>
               </Chars>
             </h3>
-            <Scale>
+            <Scale scale={0.8}>
               <Image
                 src={community_img}
                 width={community_img.width}
@@ -36,17 +35,21 @@ export default function Comunity() {
             </Scale>
           </div>
           <div className={s.community_right}>
-            <p className={s.community_inner_top_text}>
-              <Lines delay={0.2}>
+            <Lines delay={0.2}>
+              <p className={s.community_inner_top_text}>
                 Whatever your vision — a dapp, a fully onchain game, a DEX, or
                 an ecosystem — there are many benefits of running your own
                 blockchain.
-              </Lines>
-            </p>
+              </p>
+            </Lines>
             <div className={s.community_inner_bottom_content}>
               {DATA_COMMUNITY.map((item, index) => {
                 return (
-                  <ItemCommunity delay={0.4 + index / 10} content={item} />
+                  <ItemCommunity
+                    key={index}
+                    delay={0.4 + index / 10}
+                    content={item}
+                  />
                 );
               })}
             </div>

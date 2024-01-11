@@ -27,51 +27,60 @@ const DATA_CONTENT = [
 ];
 
 export default function Tool() {
-  const { mobileScreen } = useWindowSize();
+  const { mobileScreen, tabletScreen } = useWindowSize();
   return (
     <section className={s.tool}>
       <div className="container">
         <div className={s.tool_heading}>
           <h2 className={s.tool_heading_text}>
-            <Chars delay={0.1}>
-              {mobileScreen ? (
-                <>
+            {mobileScreen || tabletScreen ? (
+              <>
+                <span className={s.tool_heading_text_hightlight}>
+                  A no-code tool
+                </span>
+                &nbsp;for building a full-featured Bitcoin L2 blockchain.
+              </>
+            ) : (
+              <>
+                <Chars delay={0.1}>
                   <span className={s.tool_heading_text_hightlight}>
                     A no-code tool
                   </span>
-                  &nbsp; for building a full-featured Bitcoin L2 blockchain.
-                </>
-              ) : (
-                <>
-                  <span>
-                    <span className={s.tool_heading_text_hightlight}>
-                      A no-code tool
-                    </span>
-                    &nbsp;for
-                  </span>
+                  &nbsp;for
                   <span>building a full-featured</span>
                   <span> Bitcoin L2 blockchain.</span>
-                </>
-              )}
-            </Chars>
+                </Chars>
+              </>
+            )}
           </h2>
-          <Fade from={{ x: 50 }} to={{ x: 0 }} delay={0.3}>
-            <Scale delay={0.2}>
-              <Image
-                className={s.tool_heading_img}
-                src={tool_img}
-                width={tool_img.width}
-                height={tool_img.height}
-                alt="tool"
-              />
-            </Scale>
-          </Fade>
+          {mobileScreen || tabletScreen ? (
+            <Image
+              className={s.tool_heading_img}
+              src={tool_img}
+              width={tool_img.width}
+              height={tool_img.height}
+              alt="tool"
+            />
+          ) : (
+            <Fade from={{ x: 50 }} to={{ x: 0 }} delay={0.3}>
+              <Scale delay={0.2}>
+                <Image
+                  className={s.tool_heading_img}
+                  src={tool_img}
+                  width={tool_img.width}
+                  height={tool_img.height}
+                  alt="tool"
+                />
+              </Scale>
+            </Fade>
+          )}
         </div>
         <Fade delay={0.4}>
           <div className={s.tool_content}>
             {DATA_CONTENT.map((item, index) => {
               return (
                 <ItemTool
+                  key={index}
                   delay={0.5 + index / 5}
                   data={{
                     index: index,

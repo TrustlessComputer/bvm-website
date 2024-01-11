@@ -1,9 +1,6 @@
-import React from 'react';
-import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
-import Fade from '@/interactive/Fade';
-import Chars from '@/interactive/Chars';
 import useWindowSize from '@/hooks/useWindowSize';
+import s from './styles.module.scss';
 
 type TItemTool = {
   step: string;
@@ -16,7 +13,8 @@ type TItemTool = {
 function ItemTool({ data, delay }: { data: TItemTool; delay: number }) {
   const isFrist = data.index === 0;
   const isLast = data.index === data.length;
-  const { mobileScreen } = useWindowSize();
+  const { mobileScreen, tabletScreen } = useWindowSize();
+
   const svgUrl = isFrist
     ? '/landing/svg/frame_tool_fill.svg'
     : '/landing/svg/frame_tool_mid.svg';
@@ -24,7 +22,7 @@ function ItemTool({ data, delay }: { data: TItemTool; delay: number }) {
   return (
     <div className={s.itemTool}>
       <div className={s.itemTool_step}>
-        {!mobileScreen && <SvgInset svgUrl={svgUrl} />}
+        {!mobileScreen && !tabletScreen && <SvgInset svgUrl={svgUrl} />}
         {!isLast && <span className={s.itemTool_step_stud}></span>}
         <p className={s.itemTool_step_text}>{data.step}</p>
       </div>

@@ -22,6 +22,11 @@ input[type='number'] {
   margin-left: auto;
   margin-right: auto;
 
+  @include is-tablet {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   @include is-mobile {
     padding-left: 20px;
     padding-right: 20px;

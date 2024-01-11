@@ -11,15 +11,13 @@
     @include is-mobile {
       gap: unset;
     }
+    @include is-tablet {
+      gap: 32px;
+    }
   }
 
   @include is-mobile {
     padding: 40px 0;
-  }
-  &_inner {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
 
   &_right {
@@ -37,6 +35,10 @@
     @include is-mobile {
       gap: 24px;
       flex-direction: column;
+    }
+    @include is-tablet {
+      flex-direction: column;
+      gap: 40px;
     }
     &_bottom {
       color: #000;
@@ -60,6 +62,9 @@
 
         @include is-mobile {
           padding-top: 24px;
+        }
+        @include is-tablet {
+          padding-top: 32px;
         }
       }
     }

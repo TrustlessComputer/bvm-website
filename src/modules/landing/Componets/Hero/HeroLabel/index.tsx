@@ -43,7 +43,7 @@ export default function HeroLabel() {
       </Fade>
       <div className={s.heroLabel_listHero}>
         {DATA_HERO.map((item, index) => {
-          return <ItemHero delay={0.4 + index / 10} data={item} />;
+          return <ItemHero key={index} delay={0.4 + index / 10} data={item} />;
         })}
       </div>
     </div>

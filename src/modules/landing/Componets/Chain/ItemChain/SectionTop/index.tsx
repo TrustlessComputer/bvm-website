@@ -29,11 +29,11 @@ export default function SectionTop({ img, color, stud, delay }: TSectionTop) {
         </Scale>
       </div>
       <div className={s.sectionTop_studs}>
-        {listStud.map((item) => {
+        {listStud.map((item, index) => {
           return (
             <div
               className={`${s.sectionTop_studs_item} ${s[`bg__${color}`]}`}
-              key={item}
+              key={index}
             ></div>
           );
         })}
@@ -41,4 +41,3 @@ export default function SectionTop({ img, color, stud, delay }: TSectionTop) {
     </figure>
   );
 }
-
