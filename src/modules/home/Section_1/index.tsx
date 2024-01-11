@@ -86,7 +86,7 @@ const Section_1 = () => {
               {`Build your Bitcoin L2`}
             </Button>
             <Button
-              // bgColor={'#FFA564'}
+              // bgColor={'#EF601B'}
               bgColor={'transparent'}
               color={'#fff'}
               borderRadius={100}
