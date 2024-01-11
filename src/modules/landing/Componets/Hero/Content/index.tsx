@@ -58,7 +58,7 @@ export default function HeroContent() {
         </Fade>
         <Fade delay={0.7}>
           <Button
-            // bgColor={'#FFA564'}
+            // bgColor={'#EF601B'}
             bgColor={'transparent'}
             color={'#fff'}
             borderRadius={0}
