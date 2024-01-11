@@ -129,7 +129,7 @@ export default function Chain() {
             align={'center'}
             paddingLeft={mobileScreen ? '20px' : ''}
             spacing={['6px', '18px']}
-            mt={!mobileScreen ? ['20px'] : ['12px']}
+            mt={!mobileScreen ? ['20px'] : ['24px']}
             mb={!mobileScreen ? ['60px'] : ['24px']}
           >
             <Fade delay={0.6}>
@@ -160,9 +160,7 @@ export default function Chain() {
           </HStack>
           <div className={s.listChains}>
             {DATA_CHAINS.map((item, index) => {
-              return (
-                <ItemChain delay={index / 6} key={item.title} data={item} />
-              );
+              return <ItemChain delay={index / 6} key={index} data={item} />;
             })}
           </div>
         </section>

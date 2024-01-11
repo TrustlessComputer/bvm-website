@@ -1,22 +1,46 @@
 .itemArticle {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 24px;
+
+  @include is-mobile {
+    gap: 20px;
+  }
+  &_img {
+    width: 100%;
+    height: auto;
+  }
   &_content {
     display: flex;
     flex-direction: column;
     gap: 16px;
+
+    @include is-mobile {
+      gap: 12px;
+    }
     &_title {
       font-size: 24px;
       line-height: 31.2px;
       font-weight: 400;
       color: #000;
+      @include is-mobile {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 130%;
+      }
     }
     &_description {
       font-size: 16px;
       font-weight: 400;
       color: #4d4d4d;
       line-height: 22.4px;
+
+      @include is-mobile {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+      }
     }
   }
 }

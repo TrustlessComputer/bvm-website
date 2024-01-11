@@ -30,15 +30,18 @@ export default function SectionBottom({
         <h6 className={s.sectionBottom_title_main}>
           <Chars delay={delay}>{data.title}</Chars>
         </h6>
-        <p className={s.sectionBottom_title_sub}>
-          <Chars delay={delay}>{!data?.link && 'Coming soon'}</Chars>
-        </p>
+
+        <Chars delay={delay}>
+          <p className={s.sectionBottom_title_sub}>
+            {!data?.link && 'Coming soon'}
+          </p>
+        </Chars>
       </div>
 
       <ul className={s.sectionBottom_listInfo}>
         {data.data.map((item, index) => {
           return (
-            <Fade delay={delay + 0.1 + index / 10}>
+            <Fade key={index} delay={delay + 0.1 + index / 10}>
               <li className={s.sectionBottom_listInfo_item}>
                 <span className={s.sectionBottom_listInfo_item__left}>
                   <Image src={item.icon} alt="icon" width={24} height={24} />

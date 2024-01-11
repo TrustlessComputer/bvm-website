@@ -1,25 +1,23 @@
 import React from 'react';
 import s from './styles.module.scss';
-import Image, { StaticImageData } from 'next/image';
+import { IBlog } from '../../Section_7/constant';
+import { Image } from '@chakra-ui/react';
+import useWindowSize from '@/hooks/useWindowSize';
 
-type TArticle = {
-  title: string;
-  img: StaticImageData;
-  description: string;
-};
-
-export default function ItemArticle({ data }: { data: TArticle }) {
+export default function ItemArticle({ data }: { data: IBlog }) {
+  const { mobileScreen } = useWindowSize();
   return (
     <div className={s.itemArticle}>
       <Image
-        src={data.img}
+        className={s.itemArticle_img}
+        src={data.imageUrl}
         alt={data.title}
-        width={data.img.width}
-        height={data.img.height}
+        width={'100%'}
+        height={mobileScreen ? 'auto' : '300px'}
       />
       <div className={s.itemArticle_content}>
         <h5 className={s.itemArticle_content_title}>{data.title}</h5>
-        <p className={s.itemArticle_content_description}>{data.description}</p>
+        <p className={s.itemArticle_content_description}>{data.desc}</p>
       </div>
     </div>
   );

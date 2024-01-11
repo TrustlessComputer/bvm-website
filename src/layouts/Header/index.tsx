@@ -16,6 +16,7 @@ import { useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import cn from 'classnames';
 import s from './style.module.scss';
+import useWindowSize from '@/hooks/useWindowSize';
 
 export type HeaderProps = {
   color?: 'black' | 'white';
@@ -35,11 +36,11 @@ const Header = (props: HeaderProps) => {
     return pathName === '/';
   }, [pathName]);
   const isMobile = useBreakpointValue({ base: true, md: false }) as boolean;
-
+  const { tabletScreen } = useWindowSize();
   return (
     <>
       <Box
-        id='HEADER_VIEW'
+        id="HEADER_VIEW"
         position={position}
         bgColor={bgColor}
         display={'flex'}
@@ -52,7 +53,7 @@ const Header = (props: HeaderProps) => {
         zIndex={2}
         className={cn(isHome ? s.isHome : '', play ? s.play : '')}
       >
-        <BoxContent id='HEADER_CONTENT'>
+        <BoxContent id="HEADER_CONTENT">
           <Flex
             display={'flex'}
             flexDir={'row'}
@@ -61,13 +62,13 @@ const Header = (props: HeaderProps) => {
             minH={['40px', '40px']}
           >
             <Flex
-              flex={1}
+              flex={tabletScreen ? '' : 1}
               justify={'left'}
               _hover={{
                 cursor: 'pointer',
               }}
             >
-              <Link href='/'>
+              <Link href="/">
                 {primaryColor === 'white' ? (
                   <Image src={`/icons/logo_white.svg`} />
                 ) : (

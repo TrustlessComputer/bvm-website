@@ -46,7 +46,7 @@ const Section_7 = () => {
           <CardBody p={[0]} paddingRight={['20px']}>
             <Image
               src={item.imageUrl}
-              alt='thumb image'
+              alt="thumb image"
               width={'100%'}
               height={200}
               objectFit={'cover'}
@@ -83,7 +83,7 @@ const Section_7 = () => {
       <Box
         display={'flex'}
         flexDirection={'column'}
-        className='maxWidth'
+        className="maxWidth"
         alignSelf={'center'}
       >
         <Text className={s.heading} fontSize={['48px']} color={'#000'}>
@@ -92,7 +92,7 @@ const Section_7 = () => {
           </Chars>
         </Text>
         <Box height={['40px']} />
-        <Fade delay={.2}>
+        <Fade delay={0.2}>
           <div className={s.sliderContainer}>
             <SliderSlick
               prevArrow={

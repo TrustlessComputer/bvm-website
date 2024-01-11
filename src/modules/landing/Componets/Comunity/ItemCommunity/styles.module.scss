@@ -12,6 +12,9 @@
     padding-left: 10px;
     align-items: start;
   }
+  @include is-tablet {
+    height: 100%;
+  }
   &_inner {
     display: flex;
     flex-direction: row;
@@ -21,6 +24,9 @@
 
     @include is-mobile {
       height: auto;
+    }
+    @include is-tablet {
+      height: 100%;
     }
   }
 
@@ -38,6 +44,7 @@
       width: 20px;
       height: 20px;
     }
+
     &_stud {
       position: absolute;
       left: 99%;

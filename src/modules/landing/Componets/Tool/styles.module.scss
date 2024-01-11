@@ -14,7 +14,12 @@
 
     @include is-mobile {
       flex-direction: column-reverse;
+      align-items: start;
     }
+    @include is-tablet {
+      align-items: start;
+    }
+
     &_text {
       font-weight: 400;
       line-height: 57.6px;
@@ -29,13 +34,21 @@
         line-height: 39.2px;
         display: inline;
       }
+      @include is-tablet {
+        display: inline;
+      }
       &_hightlight {
         color: #fa4e0e;
+        width: max-content;
       }
     }
 
     &_img {
-      width: 50%;
+      width: 100%;
+
+      @include is-mobile {
+        width: 50%;
+      }
     }
   }
   &_content {
@@ -48,7 +61,12 @@
     border-bottom: none;
     @include is-mobile {
       margin-top: 24px;
+      flex-direction: column;
+      gap: 24px;
+      border: none;
+    }
 
+    @include is-tablet {
       flex-direction: column;
       gap: 24px;
       border: none;

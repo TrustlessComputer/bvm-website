@@ -3,6 +3,7 @@ import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 import Fade from '@/interactive/Fade';
 import useWindowSize from '@/hooks/useWindowSize';
+import Image from 'next/image';
 
 export default function ItemCommunity({
   content,

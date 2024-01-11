@@ -1,3 +1,5 @@
-.chars{
-
+.fade {
+  @include is-mobile {
+    width: 100%;
+  }
 }

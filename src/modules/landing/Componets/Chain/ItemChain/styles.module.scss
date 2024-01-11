@@ -13,8 +13,11 @@
     flex-grow: 1;
   }
 
-  :global {
+  @include is-tablet {
+    width: calc(50% - 30px);
+  }
 
+  :global {
     .fade {
       width: 100%;
     }

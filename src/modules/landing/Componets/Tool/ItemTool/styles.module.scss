@@ -6,6 +6,9 @@
     width: 100%;
     border: 1px solid #3d3d3d;
   }
+  @include is-tablet {
+    width: 100%;
+  }
   &_step {
     padding: 17.5px 0;
     padding-left: 32px;
@@ -19,12 +22,32 @@
 
     @include is-mobile {
       background-color: #262626;
+      padding: 12px 0;
+      padding-left: 12px;
+      height: 44px;
     }
-
+    @include is-tablet {
+      background-color: #262626;
+      padding: 12px 0;
+      padding-left: 12px;
+      height: 60px;
+    }
     &_text {
       position: absolute;
       left: 32px;
       z-index: 3;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 140%; /* 25.2px */
+      letter-spacing: 0.18px;
+      @include is-mobile {
+        left: 16px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 140%; /* 19.6px */
+        letter-spacing: 0.14px;
+      }
     }
     &_stud {
       position: absolute;
@@ -38,6 +61,9 @@
       background: #262626;
 
       @include is-mobile {
+        display: none;
+      }
+      @include is-tablet {
         display: none;
       }
     }
