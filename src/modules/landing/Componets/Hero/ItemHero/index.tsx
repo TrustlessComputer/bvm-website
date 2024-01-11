@@ -8,7 +8,13 @@ type TItemHero = {
   title: string;
 };
 
-function ItemHero({ data, delay }: { data: TItemHero; delay: number }) {
+export default function ItemHero({
+  data,
+  delay,
+}: {
+  data: TItemHero;
+  delay: number;
+}) {
   return (
     <div className={s.itemHero}>
       <Fade from={{ x: 20 }} to={{ x: 0 }} delay={delay}>
@@ -28,5 +34,3 @@ function ItemHero({ data, delay }: { data: TItemHero; delay: number }) {
     </div>
   );
 }
-
-export default ItemHero;

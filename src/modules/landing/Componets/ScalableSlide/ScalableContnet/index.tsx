@@ -8,17 +8,14 @@ interface IProp extends PropsWithChildren {
 }
 
 export default function ScalableContent({
-                                          title,
-                                          children,
-                                          indexActive,
-                                        }: IProp) {
-
-  return <div className={cn(s.scalableContent, indexActive && s.indexActive)}>
-    <h3 className={s.scalableContent_heading}>
-      {title}
-    </h3>
-    <div className={s.scalableContent_content}>
-      {children}
+  title,
+  children,
+  indexActive,
+}: IProp) {
+  return (
+    <div className={cn(s.scalableContent, indexActive && s.indexActive)}>
+      <h3 className={s.scalableContent_heading}>{title}</h3>
+      <div className={s.scalableContent_content}>{children}</div>
     </div>
-  </div>;
+  );
 }

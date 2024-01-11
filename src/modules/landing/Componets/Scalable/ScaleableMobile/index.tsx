@@ -36,7 +36,7 @@ const DATA_MOBILE = [
   },
 ];
 
-function ScaleableMobile() {
+export default function ScaleableMobile() {
   return (
     <div className={s.scalebleMobile}>
       {DATA_MOBILE.map((item, index) => {
@@ -45,5 +45,3 @@ function ScaleableMobile() {
     </div>
   );
 }
-
-export default ScaleableMobile;
