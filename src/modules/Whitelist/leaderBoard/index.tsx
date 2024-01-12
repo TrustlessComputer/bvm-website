@@ -474,7 +474,7 @@ const LeaderBoard = () => {
       <Box className={styles.timeLine}>
         <Box>
           {renderTimeLine({
-            content: <p>Public sale starting <span>Jan 24</span></p>
+            content: <p>Public sale starting soon</p>
           })}
           {count !== undefined && (
             renderTimeLine({
