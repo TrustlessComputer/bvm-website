@@ -275,7 +275,7 @@ const LeaderBoard = () => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.content_point, 0, 0)}
+                  {formatCurrency(data?.point, 0, 0)}
                 </Text>
                 {data.need_active ?
                   <Tooltip
