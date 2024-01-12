@@ -124,11 +124,12 @@
 
     &_action {
       width: 180px;
+      min-width: 180px !important;
       height: 48px !important;
       padding: 16px 40px;
       background: #FA4E0E !important;
       color: #FFFFFF !important;
-      border-radius: 0;
+      border-radius: 0 !important;
     }
 
     &_stud {
