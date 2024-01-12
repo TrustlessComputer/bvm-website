@@ -6,6 +6,10 @@ import ecosystem3 from '@/public/landing/images/ecosystem3.png';
 import ecosystem4 from '@/public/landing/images/ecosystem4.png';
 
 import ItemChain from '../Chain/ItemChain';
+import HeadingSection from '@/modules/landing/Componets/HeadingSection';
+import ContentSection from '@/modules/landing/Componets/ContentSection';
+import Chars from '@/interactive/Chars';
+import Lines from '@/interactive/Lines';
 
 const DATA_ECOSYSTEM = [
   {
@@ -42,14 +46,18 @@ export default function Ecosystem() {
     <div className={s.ecosystem}>
       <div className="container">
         <div className={s.ecosystem_heading}>
-          <h3 className={s.ecosystem_heading_title}>
-            Why launch your own <span>Bitcoin L2 blockchain</span>?
-          </h3>
-          <p className={s.ecosystem_heading_description}>
-            Whatever your vision — a dapp, a fully onchain game, a DEX, or an
-            ecosystem — there are many benefits of running your own Bitcoin L2
-            blockchain.
-          </p>
+          <HeadingSection className={s.ecosystem_heading_title}>
+           <Chars>
+             Why launch your own <span>Bitcoin L2 blockchain</span>?
+           </Chars>
+          </HeadingSection>
+          <ContentSection className={s.ecosystem_heading_description}>
+            <Lines deylay={.2}>
+              Whatever your vision — a dapp, a fully onchain game, a DEX, or an
+              ecosystem — there are many benefits of running your own Bitcoin L2
+              blockchain.
+            </Lines>
+          </ContentSection>
         </div>
 
         <div className={s.ecosystem_content}>

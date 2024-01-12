@@ -41,17 +41,19 @@ export default function ItemChain({
       }}
     >
       <Fade from={{ x: 50 }} to={{ x: 0 }} delay={delay}>
-        <SectionTop delay={delay + 0.1} img={img} color={bgTop} stud={stud} />
+        <div className={s.itemChain_inner}>
+          <SectionTop delay={delay + 0.1} img={img} color={bgTop} stud={stud} />
 
-        {isLaunch ? (
-          <SectionBottom
-            delay={delay + 0.2}
-            isLaunch={isLaunch}
-            data={dataSectionBottom}
-          />
-        ) : (
-          <SectionBottom delay={delay + 0.2} data={dataSectionBottom} />
-        )}
+          {isLaunch ? (
+            <SectionBottom
+              delay={delay + 0.2}
+              isLaunch={isLaunch}
+              data={dataSectionBottom}
+            />
+          ) : (
+            <SectionBottom delay={delay + 0.2} data={dataSectionBottom} />
+          )}
+        </div>
       </Fade>
     </div>
   );

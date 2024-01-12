@@ -23,10 +23,10 @@ export default function Landing() {
       <Hero />
       <Chain />
       <Lego />
+      <BitEth />
       <Ecosystem />
-      {/* <BitEth />
       {mobileScreen || tabletScreen ? <ScaleableMobile /> : <ScalableSlide />}
-      {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />} */}
+      {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
     </div>
   );
 }

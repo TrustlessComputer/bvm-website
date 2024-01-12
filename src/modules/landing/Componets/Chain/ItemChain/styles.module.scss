@@ -1,11 +1,14 @@
 .itemChain {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background-color: #fff;
   width: fit-content;
   flex: 1;
   cursor: pointer;
+
+  &_inner{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #fff;
+  }
 
   @include is-mobile {
     width: 90vw;
@@ -50,4 +53,11 @@
 .itemLaunch:nth-child(3n) {
   grid-column: span 2;
   grid-column-start: 2;
+  @include is-tablet{
+    grid-column-start: 1;
+  }
+
+  @include is-mobile{
+    grid-column-start: 1;
+  }
 }
