@@ -3,7 +3,6 @@
   justify-content: space-between;
   gap: 8px;
   padding: 12px 20px;
-  background-color: #000;
   p {
     font-style: normal;
     font-weight: 600;
@@ -19,8 +18,8 @@
   .title1 {
     font-size: 24px;
     font-weight: 600;
-    letter-spacing: 0em;
-    color: #FFFFFF;
+    letter-spacing: 0;
+    color: black;
     text-transform: uppercase;
 
     @include w-max(768px) {

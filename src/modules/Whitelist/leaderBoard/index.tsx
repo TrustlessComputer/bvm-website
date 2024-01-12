@@ -132,7 +132,7 @@ const LeaderBoard = () => {
       },
       {
         id: 'player',
-        label: 'User',
+        label: 'X User',
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -190,7 +190,7 @@ const LeaderBoard = () => {
               paddingRight: '8px',
             }}
           >
-            Boost
+            Multiplier
           </Flex>
         ),
         labelConfig: {
@@ -464,7 +464,7 @@ const LeaderBoard = () => {
           </div>
         </div>
       </div> */}
-      <Box w="100%" bg="#171820" height="76dvh" p="8px">
+      <Box w="100%" bg="rgba(255, 255, 255, 0.30)" height="76dvh" p="8px">
         <ScrollWrapper
           onFetch={() => {
             refParams.current = {
