@@ -5,7 +5,6 @@ import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { getTopLeaderBoards } from '@/services/leaderboard';
 import { formatCurrency, formatName } from '@/utils/format';
-import { getUrlAvatarTwitter, shortCryptoAddress } from '@/utils/helpers';
 import { compareString } from '@/utils/string';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import remove from 'lodash/remove';
@@ -13,9 +12,10 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import clsx from 'classnames';
 import AppLoading from '@/components/AppLoading';
-import { validateEVMAddress } from '@/utils/validate';
 import { Tooltip } from '@chakra-ui/react';
-import { CDN_URL_ICONS } from '@/configs';
+import { CDN_URL_ICONS } from '@/config';
+import { shortCryptoAddress } from '@/utils/address';
+import { getUrlAvatarTwitter } from '@/utils/twitter';
 // import Countdown from 'react-countdown';
 // import dayjs from 'dayjs';
 
@@ -26,12 +26,7 @@ const valueToClassName: any = {
   '1': 'boost_1',
 };
 
-interface ILeaderBoard {
-  addressL2?: string;
-}
-
-const LeaderBoard = (props: ILeaderBoard) => {
-  const { addressL2 } = props;
+const LeaderBoard = () => {
 
   const [data, setData] = useState<ILeaderBoardPoint[]>([]);
   const [isFetching, setIsFetching] = useState(true);
@@ -45,12 +40,11 @@ const LeaderBoard = (props: ILeaderBoard) => {
   const refInitial = useRef(false);
 
   useEffect(() => {
-    if (!addressL2 || validateEVMAddress(addressL2))
       fetchData(true);
-  }, [addressL2]);
+  }, []);
 
   const removeOwnerRecord = (arr: ILeaderBoardPoint[] = []) => {
-    return remove(arr, v => !compareString(v.address, addressL2));
+    return remove(arr, v => !compareString(v.address, 'TESTTTTT'));
   };
 
   const fetchData = async (isNew?: boolean) => {
@@ -161,9 +155,9 @@ const LeaderBoard = (props: ILeaderBoard) => {
                     data?.twitter_avatar as string,
                     'normal'
                   )}
-                  address={data?.address}
+                  address={data?.address || ''}
                   width={36}
-                  name={data?.twitter_username}
+                  name={data?.twitter_username || ''}
                 />
                 <Flex width={'100%'} gap={'0px'} direction={'column'}>
                   {data?.twitter_name ? (
