@@ -11,7 +11,7 @@ type TItemChain = {
   title: string;
   stud: number;
   link?: string;
-  data: {
+  data?: {
     left: string;
     right: string;
     icon: string;
@@ -20,16 +20,40 @@ type TItemChain = {
   bgBottom: string;
 };
 
-export default function ItemChain({ data, delay }: { data: TItemChain; delay: number }) {
+export default function ItemChain({
+  data,
+  delay,
+  isLaunch,
+}: {
+  data: TItemChain;
+  delay: number;
+  isLaunch?: boolean;
+}) {
   const { img, bgTop, stud, ...dataSectionBottom } = data;
-  const {show, hide} = useCursorStore();
+  const { show, hide } = useCursorStore();
   return (
-    <div onMouseEnter={show} onMouseLeave={hide} className={s.itemChain} onClick={() => {
-      data.link && window.open(data.link, '_blank');
-    }}>
+    <div
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      className={`${s.itemChain} ${isLaunch && s.itemLaunch}`}
+      onClick={() => {
+        data.link && window.open(data.link, '_blank');
+      }}
+    >
       <Fade from={{ x: 50 }} to={{ x: 0 }} delay={delay}>
-        <SectionTop delay={delay + 0.1} img={img} color={bgTop} stud={stud} />
-        <SectionBottom delay={delay + 0.2} data={dataSectionBottom} />
+        <div className={s.itemChain_inner}>
+          <SectionTop delay={delay + 0.1} img={img} color={bgTop} stud={stud} />
+
+          {isLaunch ? (
+            <SectionBottom
+              delay={delay + 0.2}
+              isLaunch={isLaunch}
+              data={dataSectionBottom}
+            />
+          ) : (
+            <SectionBottom delay={delay + 0.2} data={dataSectionBottom} />
+          )}
+        </div>
       </Fade>
     </div>
   );

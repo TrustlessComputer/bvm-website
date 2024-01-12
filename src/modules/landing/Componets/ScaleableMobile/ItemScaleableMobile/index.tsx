@@ -1,6 +1,8 @@
 import Image, { StaticImageData } from 'next/image';
 import React from 'react';
 import s from './styles.module.scss';
+import HeadingSection from '@/modules/landing/Componets/HeadingSection';
+import ContentSection from '@/modules/landing/Componets/ContentSection';
 
 type TScale = {
   title: string;
@@ -16,8 +18,8 @@ export default function ItemScaleableMobile({ data }: { data: TScale }) {
     <div className={`${s.itemScale} ${s[`itemScale__${data.bg}`]}`}>
       {data.title && (
         <div className={s.itemScale_top}>
-          <h3 className={s.itemScale_top_heading}>{data.title}</h3>
-          <p className={s.itemScale_top_description}>{data.description}</p>
+          <HeadingSection className={s.itemScale_top_heading}>{data.title}</HeadingSection>
+          <ContentSection className={s.itemScale_top_description}>{data.description}</ContentSection>
         </div>
       )}
       <Image

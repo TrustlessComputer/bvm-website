@@ -10,6 +10,7 @@
   @include is-tablet {
     width: 100%;
   }
+
   &_inner {
     position: absolute;
     bottom: 60px;
@@ -39,18 +40,43 @@
     font-style: normal;
     font-weight: 300;
     line-height: 100%;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
     width: 100%;
 
     @include is-mobile {
       font-size: 44px;
       line-height: 120%;
       padding: 0;
-      text-align: center;
+    }
+  }
+
+  &_headingSub {
+    font-size: 32px;
+    font-style: normal;
+    color: #fff;
+    font-weight: 400;
+    line-height: 36px;
+    padding-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    @include is-mobile {
+      padding-bottom: 10px;
     }
 
     @include is-tablet {
-      text-align: center;
+      padding-bottom: 10px;
+    }
+
+    b {
+      color: #f7931a;
+      font-weight: normal;
+      line-height: 1;
+    }
+
+    @include is-mobile {
+      font-size: 24px;
     }
   }
 }

@@ -27,9 +27,9 @@ export default function HeroContent() {
       )}
       <HStack
         align="center"
-        spacing={['6px', '18px']}
+        spacing={['12px', '18px']}
         mt={'24px'}
-        flexDirection={mobileScreen || tabletScreen ? 'column' : 'row'}
+        flexDirection={mobileScreen ? 'column' : 'row'}
       >
         <Fade delay={0.6}>
           <Button
@@ -53,34 +53,28 @@ export default function HeroContent() {
               router.push('/blockchains/customize');
             }}
           >
-            {`Build your Bitcoin L2`}
+            Join the allowlist
           </Button>
         </Fade>
-        <Fade delay={0.7}>
-          <Button
-            // bgColor={'#FFA564'}
-            bgColor={'transparent'}
-            color={'#fff'}
-            borderRadius={0}
-            px={'24px'}
-            py={'10px'}
-            height={'48px'}
-            fontWeight={400}
-            width={mobileScreen ? '100%' : ''}
-            fontSize={'16px'}
-            _hover={{
-              bgColor: 'transparent',
-              textDecoration: 'underline',
-            }}
-            onClick={() => {
-              // window.open('https://docs.bvm.network/', '_blank')
-              window.open(DEVELOPERS_DOC_URL, '_blank');
-            }}
-          >
-            {`Explore the docs`}
-            <ChevronRightIcon width={'20px'} height={'20px'} mt={'2px'} />
-          </Button>
-        </Fade>
+        <ul className={s.heroContent_lists}>
+          <Fade>
+            <li className={s.heroContent_itemSub}>
+              <span className={s.heroContent_itemSub_hightLight}>
+                Public sale starting&nbsp;
+              </span>
+              Jan 24
+            </li>
+          </Fade>
+          <Fade>
+            <li className={s.heroContent_itemSub}>
+              5,321&nbsp;
+              <span className={s.heroContent_itemSub_hightLight}>
+                people are on the allowlist
+              </span>
+            </li>
+          </Fade>
+        </ul>
+        <Fade delay={0.7}></Fade>
       </HStack>
     </div>
   );

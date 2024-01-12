@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import useWindowSize from '@/hooks/useWindowSize';
 import HeroLabel from '../Hero/HeroLabel';
 import Cursor from '@/modules/landing/Componets/Chain/Cursor';
+import HeadingSection from '../HeadingSection';
 
 const DATA_CHAINS = [
   {
@@ -21,6 +22,11 @@ const DATA_CHAINS = [
     stud: 1,
     link: 'https://alpha.wtf',
     data: [
+      {
+        left: 'Currency',
+        right: 'BVM',
+        icon: '/landing/svg/lego_icon_flat.svg',
+      },
       {
         left: 'Use Case',
         right: 'SocialFi',
@@ -51,7 +57,13 @@ const DATA_CHAINS = [
     title: 'Naka Chain',
     subTitle: 'Coming soon',
     stud: 2,
+    link: 'https://nakachain.xyz/',
     data: [
+      {
+        left: 'Currency',
+        right: 'BTC',
+        icon: '/landing/svg/lego_icon_flat.svg',
+      },
       {
         left: 'Use Case',
         right: 'DeFi',
@@ -78,10 +90,16 @@ const DATA_CHAINS = [
   },
   {
     img: chain_3,
-    title: 'AI Chain',
+    title: 'Arcade Chain',
     subTitle: 'Coming soon',
     stud: 3,
+    link: 'https://bitcoinarcade.xyz/',
     data: [
+      {
+        left: 'Currency',
+        right: 'Game',
+        icon: '/landing/svg/lego_icon_flat.svg',
+      },
       {
         left: 'Use Case',
         right: 'AI',
@@ -89,7 +107,7 @@ const DATA_CHAINS = [
       },
       {
         left: 'Rollups',
-        right: 'Optimistic, Sovereign',
+        right: 'GameFi',
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
@@ -103,7 +121,7 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
-    bgTop: '98DCF5',
+    bgTop: '4DBDE0',
     bgBottom: '0074BB',
   },
 ];
@@ -114,27 +132,28 @@ export default function Chain() {
   return (
     <Cursor>
       <div className={s.chain}>
-        <div className='container'>
+        <div className="container">
           {(mobileScreen || tabletScreen) && (
             <section className={s.chain_label}>
               <HeroLabel />
             </section>
           )}
           <section className={s.chain_inner}>
-            <h2 className={s.chain_heading}>
+            <p className={s.chain_case}>Case studies</p>
+            <HeadingSection className={s.chain_heading}>
               <Chars>
                 Say hello to the first <b>Bitcoin L2 blockchains.</b>
               </Chars>
-            </h2>
-            <HStack
-              justify={!mobileScreen ? 'center' : ''}
-              align={'center'}
-              paddingLeft={mobileScreen ? '20px' : ''}
-              spacing={['6px', '18px']}
-              mt={!mobileScreen ? ['20px'] : ['24px']}
-              mb={!mobileScreen ? ['60px'] : ['24px']}
-            >
-              <Fade delay={0.6}>
+            </HeadingSection>
+            <Fade delay={0.6}>
+              <HStack
+                justify={'center'}
+                align={'center'}
+                paddingLeft={mobileScreen ? '20px' : ''}
+                spacing={['6px', '18px']}
+                mt={!mobileScreen ? ['20px'] : ['24px']}
+                mb={!mobileScreen ? ['60px'] : ['24px']}
+              >
                 <Button
                   bgColor={'#EF601B'}
                   color={'#fff'}
@@ -158,8 +177,8 @@ export default function Chain() {
                 >
                   {`Build your Bitcoin L2`}
                 </Button>
-              </Fade>
-            </HStack>
+              </HStack>
+            </Fade>
             <div className={s.listChains}>
               {DATA_CHAINS.map((item, index) => {
                 return <ItemChain delay={index / 6} key={index} data={item} />;

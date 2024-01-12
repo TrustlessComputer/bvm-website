@@ -1,0 +1,37 @@
+.ecosystem {
+  padding: 140px 0;
+  background: #eee;
+
+  @include is-mobile{
+    padding: 80px 0;
+  }
+
+  &_heading {
+    &_title {
+      color: #000;
+      text-align: left;
+    }
+
+    &_description {
+      max-width: 850px;
+      text-align: left !important;
+      color: #000;
+    }
+  }
+
+  &_content {
+    padding-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 36px;
+
+    @include is-mobile{
+      padding-top: 24px;
+      grid-template-columns: repeat(1, 1fr);
+    }
+    @include is-tablet{
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

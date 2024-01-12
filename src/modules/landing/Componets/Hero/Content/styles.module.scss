@@ -6,12 +6,10 @@
     width: 100%;
     font-size: 16px;
     line-height: 150%;
-    text-align: center;
   }
   @include is-tablet {
     max-width: unset;
     width: 100%;
-    text-align: center;
   }
 
   &_content {
@@ -24,6 +22,28 @@
     @include is-mobile {
       font-size: 16px;
       line-height: 150%;
+    }
+  }
+  &_lists {
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  &_itemSub {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #fff;
+
+    &::before {
+      margin-left: -4px;
+      content: '';
+    }
+
+    &_hightLight {
+      color: rgba(255, 255, 255, 0.7);
     }
   }
 }
