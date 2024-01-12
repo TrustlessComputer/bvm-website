@@ -1,0 +1,65 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #F3F1E8;
+    max-width: 1000px;
+    align-self: center;
+
+    .title {
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-align: center;
+      color: black;
+      @include w-max(768px) {
+            font-size: 42px;
+        }
+    }
+
+    .desc {
+      color: #000;
+      text-align: center;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+      margin-top: 16px;
+
+      span {
+          color: #BA98FF;
+      }
+
+      @include w-max(768px) {
+          font-size: 18px;
+          max-width: 24em;
+          line-height: 28px;
+      }
+    }
+
+    .tokenSection {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 80px;
+        margin-top: 16px;
+        margin-bottom: 48px;
+        width: 100%;
+        max-width: rem(940);
+
+        @include w-max(768px) {
+            grid-template-columns: 1fr;
+            margin-top: 12px;
+        }
+    }
+
+    .roadmapSection {
+        margin-top: 70px;
+
+        @include w-max(768px) {
+            margin-top: 30px;
+        }
+    }
+
+}
