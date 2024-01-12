@@ -157,10 +157,6 @@ export function formatString(
   return str;
 }
 
-export function calculateTimeAgo(targetTime: string) {
-  const targetMoment = dayjs(targetTime);
-  return targetMoment.fromNow();
-}
 
 export const zeroPad = (num: number, places: number) =>
   String(num).padStart(places, '0');

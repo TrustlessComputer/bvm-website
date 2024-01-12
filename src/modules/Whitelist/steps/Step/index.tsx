@@ -54,7 +54,7 @@ export default function ItemCommunity({
           <span className={s.itemCommunity_lego_stud}></span>
         </div>
         <p className={s.itemCommunity_content}>
-          <Flex justifyContent={"space-between"} alignItems={"center"} w={"100%"}>
+          <Flex justifyContent={"space-between"} alignItems={"center"} w={"100%"} gap="24px">
             <Flex direction={"column"}>
               <div className={s.itemCommunity_content_title}>{content?.title}</div>
               {

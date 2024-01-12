@@ -8,7 +8,7 @@ const apiClient = createAxiosInstance({
 });
 
 // set authorization token
-export const setBearerToken = (token: string | string[]) => {
+export const setBearerToken = (token: string) => {
   if (token && apiClient) {
     apiClient.interceptors.request.use(
       (config) => {
@@ -22,7 +22,7 @@ export const setBearerToken = (token: string | string[]) => {
   }
 };
 
-setBearerToken(AuthenStorage.getAuthenKey());
+setBearerToken(AuthenStorage.getAuthenKey() as string);
 
 export const getTopLeaderBoards = async (params: {
   page?: number;

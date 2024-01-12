@@ -51,7 +51,8 @@ const LeaderBoard = () => {
   }, [needReload]);
 
   const removeOwnerRecord = (arr: ILeaderBoardPoint[] = []) => {
-    return remove(arr, v => !compareString(v.address, 'TESTTTTT'));
+    // return remove(arr, v => !compareString(v.address, 'TESTTTTT'));
+    return arr;
   };
 
   const fetchData = async (isNew?: boolean) => {
