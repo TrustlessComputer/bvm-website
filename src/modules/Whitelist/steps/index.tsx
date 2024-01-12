@@ -32,10 +32,10 @@ const Steps = () => {
     const res: any = await requestAuthenByShareCode();
     setAuthenCode(res);
 
-    const shareUrl = " https://bvm.network";//getLink('');
+    const shareUrl = getLink('');
     let content = '';
 
-    content = `Welcome to the future of Bitcoin with @bvmnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks.\n\n$BVM public sale starting soon\n\n#${res?.public_code}\n\nJoin the allowlist`;
+    content = `Welcome to the future of Bitcoin with @bvmnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon\n\n#${res?.public_code}\n\nJoin the allowlist`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
