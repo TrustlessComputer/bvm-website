@@ -1,7 +1,7 @@
 'use client';
 
 import Header, { HeaderProps } from '@/layouts/Header';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import useAnimationStore from '@/stores/useAnimationStore';
 
