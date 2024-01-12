@@ -2,6 +2,7 @@
 
 import MainLayout from '@/layouts/MainLayout';
 import WhitelistModule from '@/modules/Whitelist';
+import styles from './styles.module.scss';
 
 const Whitelist = () => {
   return (
@@ -11,7 +12,9 @@ const Whitelist = () => {
         bgColor: '#F3F1E8',
       }}
     >
-      <WhitelistModule/>
+      <div className={styles.container}>
+        <WhitelistModule/>
+      </div>
     </MainLayout>
   );
 };

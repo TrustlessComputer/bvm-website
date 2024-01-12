@@ -5,6 +5,8 @@
     align-items: center;
     justify-content: center;
     background-color: #F3F1E8;
+    max-width: 1000px;
+    align-self: center;
 
     .title {
       font-size: 52px;
@@ -12,7 +14,6 @@
       letter-spacing: 0;
       text-align: center;
       color: black;
-      max-width: 1000px;
       @include w-max(768px) {
             font-size: 42px;
         }
@@ -42,14 +43,14 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 80px;
-        margin-top: 44px;
+        margin-top: 16px;
         margin-bottom: 48px;
         width: 100%;
         max-width: rem(940);
 
         @include w-max(768px) {
             grid-template-columns: 1fr;
-            margin-top: 32px;
+            margin-top: 12px;
         }
     }
 
