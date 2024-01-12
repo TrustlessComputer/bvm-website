@@ -19,8 +19,8 @@ export default function Landing() {
   }, []);
   return (
     <div className={s.landing}>
-      {/* <Hero />
-      <Chain /> */}
+      <Hero />
+      <Chain />
       <Lego />
       <Tool />
       <Comunity />
