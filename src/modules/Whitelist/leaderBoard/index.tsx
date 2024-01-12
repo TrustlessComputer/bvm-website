@@ -6,7 +6,7 @@ import { getTopLeaderBoards } from '@/services/leaderboard';
 import { formatCurrency, formatName } from '@/utils/format';
 import { compareString } from '@/utils/string';
 import { Box, Flex, Text } from '@chakra-ui/react';
-import remove from 'lodash/remove';
+import orderBy from 'lodash/orderBy';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import clsx from 'classnames';
@@ -57,6 +57,10 @@ const LeaderBoard = () => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
+
+      const sortList = (arr: ILeaderBoardPoint[]) => {
+        return orderBy(arr, item => Number(item.need_active || false), 'desc')
+      }
       const { data: response, count } = await getTopLeaderBoards({
         ...refParams.current,
       });
@@ -72,10 +76,10 @@ const LeaderBoard = () => {
         };
         const reArr = removeOwnerRecord(response);
 
-        setData(response2.concat(reArr));
+        setData(sortList(response2.concat(reArr)));
       } else {
         const reArr = removeOwnerRecord(response);
-        setData(_data => [..._data, ...reArr]);
+        setData(_data => sortList([..._data, ...reArr]));
       }
     } catch (error) {
     } finally {

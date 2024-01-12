@@ -3,11 +3,13 @@ import ItemStep from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
 import { getLink } from '@/utils/helpers';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
 import { setBearerToken } from '@/services/leaderboard';
+import ConnectModal from '@/components/ConnectModal';
+import useToggle from '@/hooks/useToggle';
 
 interface IAuthenCode {
   public_code: string;
@@ -20,6 +22,7 @@ const Steps = () => {
   const [submitting, setSubmitting] = useState(false);
   const dispatch = useDispatch();
   const token = AuthenStorage.getAuthenKey();
+  const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle()
 
   const currentStep = useMemo(() => {
     if(!!token) {
@@ -117,8 +120,6 @@ const Steps = () => {
     }
   };
 
-  const handleConnectWallet = () => {
-  }
 
   const DATA_COMMUNITY = useMemo(() => {
     return (
@@ -139,7 +140,7 @@ const Steps = () => {
         //   title: 'Verify your Bitcoin wallet',
         //   desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
         //   actionText: 'Connect Wallet',
-        //   actionHandle: handleConnectWallet,
+        //   actionHandle: onToggleConnect,
         // },
         // {
         //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
@@ -164,6 +165,7 @@ const Steps = () => {
           />
         );
       })}
+      <ConnectModal isShow={isShowConnect} onHide={onToggleConnect}/>
     </Flex>
   );
 };
