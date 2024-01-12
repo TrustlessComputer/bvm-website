@@ -27,9 +27,9 @@ export default function HeroContent() {
       )}
       <HStack
         align="center"
-        spacing={['6px', '18px']}
+        spacing={['12px', '18px']}
         mt={'24px'}
-        flexDirection={mobileScreen || tabletScreen ? 'column' : 'row'}
+        flexDirection={mobileScreen ? 'column' : 'row'}
       >
         <Fade delay={0.6}>
           <Button

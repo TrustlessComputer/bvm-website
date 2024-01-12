@@ -47,11 +47,6 @@
       font-size: 44px;
       line-height: 120%;
       padding: 0;
-      text-align: center;
-    }
-
-    @include is-tablet {
-      text-align: center;
     }
   }
 
@@ -62,18 +57,26 @@
     font-weight: 400;
     line-height: 36px;
     padding-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    @include is-mobile {
+      padding-bottom: 10px;
+    }
+
+    @include is-tablet {
+      padding-bottom: 10px;
+    }
 
     b {
       color: #f7931a;
       font-weight: normal;
+      line-height: 1;
     }
 
-    @include is-tablet {
-      text-align: center;
-    }
     @include is-mobile {
       font-size: 24px;
-      text-align: center;
     }
   }
 }

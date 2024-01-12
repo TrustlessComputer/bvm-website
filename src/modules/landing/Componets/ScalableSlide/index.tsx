@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 import Chars from '@/interactive/Chars';
 import Lines from '@/interactive/Lines';
 import { useIsInViewport } from '@/hooks/useIsInViewport';
+import HeadingSection from '@/modules/landing/Componets/HeadingSection';
+import ContentSection from '@/modules/landing/Componets/ContentSection';
 
 export default function ScalableSlide() {
   const refContent = useRef<HTMLDivElement>(null);
@@ -115,16 +117,16 @@ export default function ScalableSlide() {
       <div className={s.scalable_wrap}>
         <div className={s.scalable_top}>
           <div className={s.scalable_top_inner}>
-            <h2 className={s.scalable_heading}>
+            <HeadingSection className={s.scalable_heading}>
               <Chars>Scalable infrastructure for Bitcoin</Chars>
-            </h2>
-            <div className={s.scalable_content}>
+            </HeadingSection>
+            <ContentSection className={s.scalable_content}>
               <Lines delay={0.1}>
                 If Ethereum is the world’s computer, Bitcoin is the world’s
                 supercomputer. With Bitcoin Virtual Machine, anyone can launch
                 their own Bitcoin L2 blockchain.
               </Lines>
-            </div>
+            </ContentSection>
           </div>
         </div>
         <div className={s.scalable_inner}>

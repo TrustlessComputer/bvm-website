@@ -15,6 +15,7 @@ export default function HeadingTextV2({ headings, className, children }: IProp) 
   const refNext = useRef(-1);
   const refLoop = useRef<any>();
   const refTime = useRef<any>();
+  const refMask = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (!refCOntent.current) return;
@@ -30,6 +31,8 @@ export default function HeadingTextV2({ headings, className, children }: IProp) 
       refNext.current = 0;
     }
 
+
+    refMask.current && gsap.to(refMask.current, {width: list.current[refNext.current].scrollWidth, ease: 'power3.out', duration: .6});
     gsap.to(list.current[old], { yPercent: -100, ease: 'power3.out', duration: .6 });
     gsap.fromTo(list.current[refNext.current], { yPercent: 100 }, { yPercent: 0, ease: 'power3.out', duration: .6 });
 
@@ -47,8 +50,9 @@ export default function HeadingTextV2({ headings, className, children }: IProp) 
 
   return (
     <div ref={refCOntent} className={`${className} ${s.heading}`}>
-      {children}
-      <span className={s.heading_mask}>
+     <span>{children}</span>
+      {' '}
+      <span className={s.heading_mask} ref={refMask}>
           {
             headings.map((h, index) => {
               return <b key={h}

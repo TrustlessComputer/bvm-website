@@ -30,25 +30,10 @@
 
   &_heading {
     color: #fff;
-    text-align: center;
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%; /* 57.6px */
-    margin-bottom: 16px;
   }
 
   &_content {
     color: #fff;
-    text-align: center;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 36px;
-
-    @include is-tablet {
-      padding: 0 20px;
-    }
   }
 
   &_bottom {
