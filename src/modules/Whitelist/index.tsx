@@ -5,6 +5,7 @@ import s from './styles.module.scss';
 import useElementHeight from '@/hooks/useElementHeight';
 import { HEADER_ID } from '@/layouts/Header';
 import px2rem from '@/utils/px2rem';
+import Steps from '@/modules/Whitelist/steps';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
@@ -23,6 +24,7 @@ const Whitelist = () => {
       <p className={s.title}>Allowlist</p>
       <p style={{marginTop: '8px'}} className={s.desc}>Rewards tokens to active users and early adopters via Airdrop Points<br/>Liquidity providers, trading, engaging, and promoting NakaChain on X to receive points</p>
       <p style={{marginTop: '12px', marginBottom: '4px'}} className={s.desc}>Season 1 release date: 31 Mar 2024, Total $N4KA Season 1: 168,000</p>
+      <Steps />
       <div className={s.tokenSection}>
         <LeaderBoard />
       </div>
