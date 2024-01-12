@@ -30,6 +30,12 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
+    label: 'Roadmap',
+    href: '/roadmap',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
     label: 'Developers',
     href: DEVELOPERS_DOC_URL,
     isNewWindow: true,
