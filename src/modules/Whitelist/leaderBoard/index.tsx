@@ -241,7 +241,7 @@ const LeaderBoard = () => {
                 </Flex>
               }
             >
-              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/ic-information-wh.svg`}/>
+              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
             </Tooltip>
           </Flex>
         ),
@@ -432,15 +432,17 @@ const LeaderBoard = () => {
   //   }
   // };
 
+  const renderTimeLine = (params: { content: React.ReactNode }) => {
+    return (
+      <Flex gap="6px" alignItems="center" width="fit-content">
+        <img style={{ width: 4, height: 4 }} src={`${CDN_URL_ICONS}/ic-dot.svg`} alt="ic-dot"/>
+        {params.content}
+      </Flex>
+    )
+  }
+
   return (
     <Box className={styles.container}>
-      <Flex direction="column" alignItems="center" mb="32px" gap="2px">
-        <Text className={styles.title1}>
-          Rolling 24h leaderboard
-        </Text>
-        <div className={styles.indicator} />
-      </Flex>
-
       {/* <div className={styles.banner}>
         <div className={styles.countDown}>
           <div className={styles.countDown_left}>Rolling 24h leaderboard</div>
@@ -456,6 +458,16 @@ const LeaderBoard = () => {
           </div>
         </div>
       </div> */}
+      <Box className={styles.timeLine}>
+        <Box>
+          {renderTimeLine({
+            content: <p>Public sale starting <span>Jan 24</span></p>
+          })}
+          {renderTimeLine({
+            content: <p><span>5,321</span> people are on the allowlist</p>
+          })}
+        </Box>
+      </Box>
       <Box w="100%" bg="rgba(255, 255, 255, 0.30)" height="76dvh" p="8px">
         <ScrollWrapper
           onFetch={() => {

@@ -235,3 +235,22 @@ table {
   cursor: pointer;
   opacity: 0.7;
 }
+
+.timeLine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: rgba(1, 1, 1, 0.7);
+  margin-bottom: rem(32);
+  span {
+    color: rgb(1, 1, 1);
+    font-weight: 500;
+  }
+
+  p {
+    width: fit-content;
+  }
+  .content {
+  }
+}
