@@ -14,13 +14,10 @@ export const getUuid = (): string => {
 export const getLink = (referralCode?: string) => {
   const referral = getReferralSearchURL(referralCode);
 
-  if (referralCode) {
-    if (APP_ENV === 'production') {
-      return `https://app.alpha.wtf${referral}`;
-    }
-    return `${window.location.origin}${referral}`;
+  if (APP_ENV === 'production') {
+    return `https://bvm.network${referral}`;
   }
-  return '';
+  return `${window.location.origin}${referral}`;
 };
 
 

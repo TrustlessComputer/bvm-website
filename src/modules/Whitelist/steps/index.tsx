@@ -35,7 +35,21 @@ const Steps = () => {
     const shareUrl = getLink('');
     let content = '';
 
-    content = `I’ve joined @bvmnetwork, and I’m having a blast!\n\nThe features are top-notch and interface is simply intuitive. Plus, there are countless cool tools to build your community.\n\nI’m happy to hook you up right here:\n\n#${res?.public_code}\n\n`;
+    content = `I've recently discover the future of Bitcoin @bvmnetwork\n\nBVM is the first modular blockchain meta protocol\n\nPublic sale starting soon. Join the allowlist now\n\n#${res?.public_code}\n\n`;
+
+    window.open(
+      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+        content,
+      )}`,
+      '_blank',
+    );
+  }
+
+  const handleShareTwMore = async () => {
+    const shareUrl = getLink('');
+    let content = '';
+
+    content = `I've recently discover the future of Bitcoin @bvmnetwork\n\nBVM is the first modular blockchain meta protocol\n\nPublic sale starting soon. Join the allowlist now\n\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -112,8 +126,14 @@ const Steps = () => {
         {
           title: 'Share posts on X',
           desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to upgrade your multiplier.',
-          actionText: currentStep > 0 ? 'Share More' : 'Share',
+          actionText: 'Share',
           actionHandle: handleShareTw,
+        },
+        {
+          title: 'Share posts on X',
+          desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to upgrade your multiplier.',
+          actionText: 'Share More',
+          actionHandle: handleShareTwMore,
         },
         // {
         //   title: 'Verify your Bitcoin wallet',

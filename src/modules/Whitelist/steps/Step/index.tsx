@@ -19,8 +19,6 @@ export default function ItemCommunity({
   isLoading?: boolean;
   currentStep: number;
 }) {
-  const { mobileScreen } = useWindowSize();
-
   const isRunning = useMemo(() => {
     return currentStep === index;
   }, [currentStep, index]);
@@ -30,7 +28,7 @@ export default function ItemCommunity({
   }, [currentStep, index]);
 
   return (
-    <div className={cx(s.itemCommunity, /*isRunning ? '' : s.isDone*/)}>
+    <div className={cx(s.itemCommunity, isRunning ? '' : s.isDone)}>
       <div className={s.itemCommunity_inner}>
         <div className={s.itemCommunity_lego}>
           {
@@ -70,12 +68,6 @@ export default function ItemCommunity({
             }
           </Flex>
           <span className={s.itemCommunity_content_stud}></span>
-          {/*{!mobileScreen && (
-            <SvgInset
-              className={s.itemCommunity_content_frame}
-              svgUrl="/landing/svg/frame_community.svg"
-            />
-          )}*/}
         </p>
       </div>
     </div>
