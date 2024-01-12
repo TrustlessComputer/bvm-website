@@ -30,7 +30,7 @@ export default function ItemCommunity({
   }, [currentStep, index]);
 
   return (
-    <div className={cx(s.itemCommunity, isRunning ? '' : s.isDone)}>
+    <div className={cx(s.itemCommunity, /*isRunning ? '' : s.isDone*/)}>
       <div className={s.itemCommunity_inner}>
         <div className={s.itemCommunity_lego}>
           {
@@ -54,7 +54,7 @@ export default function ItemCommunity({
           <span className={s.itemCommunity_lego_stud}></span>
         </div>
         <p className={s.itemCommunity_content}>
-          <Flex justifyContent={"space-between"} alignItems={"center"} w={"100%"} gap="24px">
+          <Flex direction={["column", "row"]}  justifyContent={"space-between"} alignItems={["flex-start", "center"]} w={"100%"} gap={['12px', '24px']}>
             <Flex direction={"column"}>
               <div className={s.itemCommunity_content_title}>{content?.title}</div>
               {

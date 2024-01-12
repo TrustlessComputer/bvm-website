@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import ItemCommunity from './Step';
+import ItemStep from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
 import { getLink } from '@/utils/helpers';
@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
+import { setBearerToken } from '@/services/leaderboard';
 
 interface IAuthenCode {
   public_code: string;
@@ -64,10 +65,11 @@ const Steps = () => {
         const twitterToken = AuthenStorage.getAuthenKey();
         if (!twitterToken || twitterToken !== result?.token) {
           AuthenStorage.setAuthenKey(result?.token);
+          setBearerToken(result?.token);
         }
+        setSubmitting(false);
         dispatch(requestReload());
         // setHasLinkTwitter(true);
-        setSubmitting(false);
         // setShowTrouble && setShowTrouble(false);
 
         // if (twProfile?.issued) {
@@ -102,24 +104,29 @@ const Steps = () => {
   };
 
   const handleConnectWallet = () => {
-
   }
 
-  const DATA_COMMUNITY = [
-    {
-      title: 'Share posts on X',
-      desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to upgrade your multiplier.',
-      actionText: 'Share',
-      actionHandle: handleShareTw,
-    },
-    {
-      title: 'Verify your Bitcoin wallet',
-      desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
-      actionText: 'Connect Wallet',
-      actionHandle: handleConnectWallet,
-    },
-    {title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!', },
-  ];
+  const DATA_COMMUNITY = useMemo(() => {
+    return (
+      [
+        {
+          title: 'Share posts on X',
+          desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to upgrade your multiplier.',
+          actionText: currentStep > 0 ? 'Share More' : 'Share',
+          actionHandle: handleShareTw,
+        },
+        // {
+        //   title: 'Verify your Bitcoin wallet',
+        //   desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
+        //   actionText: 'Connect Wallet',
+        //   actionHandle: handleConnectWallet,
+        // },
+        // {
+        //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
+        // },
+      ]
+    )
+  }, [currentStep]);
 
   console.log('currentStep', currentStep);
 
@@ -127,7 +134,7 @@ const Steps = () => {
     <Flex className={s.container} direction={"column"} gap={5} mt={4}>
       {DATA_COMMUNITY.map((item, index) => {
         return (
-          <ItemCommunity
+          <ItemStep
             key={index}
             index={index}
             delay={0.4 + index / 10}
