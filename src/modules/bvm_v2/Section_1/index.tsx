@@ -30,7 +30,7 @@ const Section_1 = () => {
         Whatever your vision — a dapp, a fully onchain game, a DEX, or an
         ecosystem — there are many benefits of running your own blockchain.
       </Text>
-      <Button
+      {/* <Button
         bgColor={'#FA4E0E'}
         color={'#fff'}
         minW={['66px']}
@@ -48,7 +48,7 @@ const Section_1 = () => {
         }}
       >
         {`Get BVM`}
-      </Button>
+      </Button> */}
     </Flex>
   );
 };

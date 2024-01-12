@@ -3,13 +3,20 @@ import '@/styles/index.scss';
 import { Metadata, Viewport } from 'next';
 
 import { MetadataConfig, ViewportConfig } from '@/config';
-import chakraThemes, { ChakraFontsFace } from '@/themes/chakra-themes';
-import { HelveticaNeueFontConfig } from '@/themes/font-config';
+import chakraThemes from '@/themes/chakra-themes';
 import { ChakraProvider } from '@chakra-ui/react';
 import Hydrated from '@/components/Hydrated';
+import dynamic from 'next/dynamic';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
+
+const ChakraFontsFace = dynamic(
+  () => import('@/themes/chakra-font').then((m) => m.default),
+  {
+    ssr: false,
+  },
+);
 
 export default function RootLayout({
   children,
