@@ -104,7 +104,7 @@ export const XVerseProvider: React.FC<PropsWithChildren> = ({
       while (runs < MAX_RUNS) {
         try {
           await getCapabilities({
-            onFinish(response) {
+            onFinish(response: any) {
               setCapabilities(new Set(response));
               setCapabilityState('loaded');
             },

@@ -19,7 +19,7 @@ export const UnisatProvider: React.FC<PropsWithChildren> = ({
 }: PropsWithChildren): React.ReactElement => {
 
   const checkUnisatInstalled = () => {
-    const installed = !!window.unisat;
+    const installed = !!(window as any)?.unisat;
     if (!installed) {
       window.open('https://unisat.io/download', '_blank');
     }
@@ -28,7 +28,7 @@ export const UnisatProvider: React.FC<PropsWithChildren> = ({
 
   const onConnect = async () => {
     try {
-      const unisat = window.unisat;
+      const unisat = (window as any)?.unisat;
       const installed = checkUnisatInstalled();
       if (!installed) return;
       await unisat.requestAccounts();

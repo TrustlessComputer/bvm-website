@@ -39,7 +39,7 @@ const useConnect = () => {
       await onConnect(type);
       switch (type) {
         case WalletType.unisat: {
-          const unisat = window.unisat;
+          const unisat = (window as any)?.unisat;
           if (unisat) {
             const accounts = await unisat.getAccounts();
             if (!!accounts.length) {
