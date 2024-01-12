@@ -16,7 +16,6 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
   instance.interceptors.request.use(
     (config) => {
       const token = AuthenStorage.getAuthenKey();
-      console.log('SANG TEST: ', token);
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

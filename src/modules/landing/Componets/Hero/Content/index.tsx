@@ -6,10 +6,30 @@ import { useRouter } from 'next/navigation';
 import Lines from '@/interactive/Lines';
 import Fade from '@/interactive/Fade';
 import useWindowSize from '@/hooks/useWindowSize';
+import React from 'react';
+import { getTopLeaderBoards } from '@/services/leaderboard';
+import { formatCurrency } from '@/utils/format';
 
 export default function HeroContent() {
   const { mobileScreen, tabletScreen } = useWindowSize();
   const router = useRouter();
+
+  const [count, setCount] = React.useState('');
+
+  const getCount = async () => {
+    try {
+      const response = await getTopLeaderBoards({ page: 1, limit: 20 });
+      setCount(response.count)
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+
+  React.useEffect(() => {
+    getCount()
+  }, [])
+
   return (
     <div className={s.heroContent}>
       {mobileScreen ? (
@@ -66,14 +86,14 @@ export default function HeroContent() {
           </Fade>
           <Fade>
             <li className={s.heroContent_itemSub}>
-              5,321&nbsp;
+              {formatCurrency(count, 0, 0)}&nbsp;
               <span className={s.heroContent_itemSub_hightLight}>
                 people are on the allowlist
               </span>
             </li>
           </Fade>
         </ul>
-        <Fade delay={0.7}></Fade>
+        <Fade delay={0.7}/>
       </HStack>
     </div>
   );
