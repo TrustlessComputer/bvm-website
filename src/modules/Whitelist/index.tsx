@@ -20,9 +20,8 @@ const Whitelist = () => {
 
   return (
     <Flex className={s.container} id={CONTAINER_ID}>
-      <p className={s.title}>Allowlist</p>
-      <p style={{marginTop: '8px'}} className={s.desc}>Rewards tokens to active users and early adopters via Airdrop Points<br/>Liquidity providers, trading, engaging, and promoting NakaChain on X to receive points</p>
-      <p style={{marginTop: '12px', marginBottom: '4px'}} className={s.desc}>Season 1 release date: 31 Mar 2024, Total $N4KA Season 1: 168,000</p>
+      <p className={s.title}>BVM Allowlist Dashboard</p>
+      <p className={s.desc}>You’re almost there!<br/>Complete the tasks below to upgrade your multiplier!</p>
       <div className={s.tokenSection}>
         <LeaderBoard />
       </div>
