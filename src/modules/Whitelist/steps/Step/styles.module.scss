@@ -96,6 +96,8 @@
       padding-left: 10px;
       font-size: 14px;
       line-height: 20px;
+      background: none;
+      border: none;
     }
     &_frame {
       position: absolute;
@@ -143,6 +145,7 @@
 
       @include is-mobile {
         background-color: transparent;
+        border: none;
       }
     }
   }

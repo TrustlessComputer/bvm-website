@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import ItemCommunity from './Step';
+import ItemStep from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
 import { getLink } from '@/utils/helpers';
@@ -135,7 +135,7 @@ const Steps = () => {
     <Flex className={s.container} direction={"column"} gap={5} mt={4}>
       {DATA_COMMUNITY.map((item, index) => {
         return (
-          <ItemCommunity
+          <ItemStep
             key={index}
             index={index}
             delay={0.4 + index / 10}
