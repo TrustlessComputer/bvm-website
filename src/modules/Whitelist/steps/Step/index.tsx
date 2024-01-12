@@ -30,7 +30,7 @@ export default function ItemCommunity({
   }, [currentStep, index]);
 
   return (
-    <div className={cx(s.itemCommunity, isRunning ? '' : s.isDone)}>
+    <div className={cx(s.itemCommunity, /*isRunning ? '' : s.isDone*/)}>
       <div className={s.itemCommunity_inner}>
         <div className={s.itemCommunity_lego}>
           {

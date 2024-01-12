@@ -107,21 +107,27 @@ const Steps = () => {
 
   }
 
-  const DATA_COMMUNITY = [
-    {
-      title: 'Share posts on X',
-      desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to upgrade your multiplier.',
-      actionText: 'Share',
-      actionHandle: handleShareTw,
-    },
-    {
-      title: 'Verify your Bitcoin wallet',
-      desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
-      actionText: 'Connect Wallet',
-      actionHandle: handleConnectWallet,
-    },
-    {title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!', },
-  ];
+  const DATA_COMMUNITY = useMemo(() => {
+    return (
+      [
+        {
+          title: 'Share posts on X',
+          desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to upgrade your multiplier.',
+          actionText: currentStep > 0 ? 'Share More' : 'Share',
+          actionHandle: handleShareTw,
+        },
+        // {
+        //   title: 'Verify your Bitcoin wallet',
+        //   desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
+        //   actionText: 'Connect Wallet',
+        //   actionHandle: handleConnectWallet,
+        // },
+        // {
+        //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
+        // },
+      ]
+    )
+  }, [currentStep]);
 
   console.log('currentStep', currentStep);
 
