@@ -56,7 +56,6 @@ const LeaderBoard = () => {
         const response2 = await getTopLeaderBoards({
           page: 1,
           limit: 0,
-          address: addressL2 as string,
         });
         refParams.current = {
           ...refParams.current,
@@ -97,17 +96,18 @@ const LeaderBoard = () => {
   };
 
   const labelConfig = {
-    color: '#898989',
-    fontSize: '14px',
+    color: 'rgba(1, 1, 0, 0.7)',
+    fontSize: '12px',
     letterSpacing: '-0.5px',
     borderBottom: '1px solid #FFFFFF33',
+    textTransform: 'uppercase'
   };
 
   const columns: ColumnProp[] = useMemo(() => {
     return [
       {
         id: 'player',
-        label: <Box pl={'8px'}>Rank</Box>,
+        label: <Box pl={'8px'}>RANK</Box>,
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -132,7 +132,7 @@ const LeaderBoard = () => {
       },
       {
         id: 'player',
-        label: 'X User',
+        label: 'X USER',
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -182,24 +182,19 @@ const LeaderBoard = () => {
       },
       {
         id: 'boost',
+        labelConfig,
         label: (
           <Flex
             style={{
               justifyContent: 'center',
               width: '100%',
               paddingRight: '8px',
+              textTransform: 'uppercase'
             }}
           >
             Multiplier
           </Flex>
         ),
-        labelConfig: {
-          color: '#898989',
-          fontSize: '14px',
-          borderBottom: '1px solid #FFFFFF33',
-          textAlign: 'right',
-          letterSpacing: '-0.5px',
-        },
         config: {
           borderBottom: 'none',
           fontSize: '16px',
@@ -236,7 +231,7 @@ const LeaderBoard = () => {
               gap: '4px',
             }}
           >
-            <p>Content Points</p>
+            <p style={{ textTransform:'uppercase' }}>Content Points</p>
             <Tooltip
               minW="220px"
               bg="#000000"
@@ -294,82 +289,78 @@ const LeaderBoard = () => {
           );
         },
       },
-      {
-        id: 'swap',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              alignSelf: 'center',
-              width: '100%',
-            }}
-          >
-            Swap Points
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '16px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex
-              gap={3}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
-            >
-              <Flex alignItems={'center'} gap={2}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.point_swap_inday, 0, 0)}
-                </Text>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'feature',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              alignSelf: 'center',
-              width: '100%',
-            }}
-          >
-            Portfolio Points
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '16px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex
-              gap={3}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
-            >
-              <Flex alignItems={'center'} gap={2}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.point_portfolio_inday, 0, 0)}
-                </Text>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
+      // {
+      //   id: 'swap',
+      //   label: (
+      //     <Flex style={{ textTransform: 'uppercase' }}>
+      //       BVM OG
+      //     </Flex>
+      //   ),
+      //   labelConfig,
+      //   config: {
+      //     borderBottom: 'none',
+      //     fontSize: '16px',
+      //     fontWeight: 500,
+      //     verticalAlign: 'middle',
+      //     letterSpacing: '-0.5px',
+      //     textTransform: 'uppercase'
+      //   },
+      //   render(data: ILeaderBoardPoint) {
+      //     return (
+      //       <Flex
+      //         gap={3}
+      //         alignItems={'center'}
+      //         width={'100%'}
+      //         justifyContent={'center'}
+      //       >
+      //         <Flex alignItems={'center'} gap={2}>
+      //           <Text className={styles.title}>
+      //             {formatCurrency(data?.point_swap_inday, 0, 0)}
+      //           </Text>
+      //         </Flex>
+      //       </Flex>
+      //     );
+      //   },
+      // },
+      // {
+      //   id: 'feature',
+      //   label: (
+      //     <Flex
+      //       style={{
+      //         justifyContent: 'center',
+      //         alignSelf: 'center',
+      //         width: '100%',
+      //         textTransform: 'uppercase'
+      //       }}
+      //     >
+      //       Gas Spent
+      //     </Flex>
+      //   ),
+      //   labelConfig,
+      //   config: {
+      //     borderBottom: 'none',
+      //     fontSize: '16px',
+      //     fontWeight: 500,
+      //     verticalAlign: 'middle',
+      //     letterSpacing: '-0.5px',
+      //   },
+      //   render(data: ILeaderBoardPoint) {
+      //     return (
+      //       <Flex
+      //         gap={3}
+      //         alignItems={'center'}
+      //         width={'100%'}
+      //         justifyContent={'center'}
+      //       >
+      //         <Flex alignItems={'center'} gap={2}>
+      //           <Text className={styles.title}>
+      //             {formatCurrency(data?.point_portfolio_inday, 0, 0)}
+      //           </Text>
+      //         </Flex>
+      //       </Flex>
+      //     );
+      //   },
+      // },
       {
         id: 'point',
         label: (
@@ -378,9 +369,10 @@ const LeaderBoard = () => {
               justifyContent: 'center',
               alignSelf: 'center',
               width: '100%',
+              textTransform: 'uppercase'
             }}
           >
-            Total
+            Total points
           </Flex>
         ),
         labelConfig,
