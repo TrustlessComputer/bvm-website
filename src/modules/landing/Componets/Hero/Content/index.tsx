@@ -60,9 +60,8 @@ export default function HeroContent() {
           <Fade>
             <li className={s.heroContent_itemSub}>
               <span className={s.heroContent_itemSub_hightLight}>
-                Public sale starting&nbsp;
+                Public sale starting soon
               </span>
-              Jan 24
             </li>
           </Fade>
           <Fade>
