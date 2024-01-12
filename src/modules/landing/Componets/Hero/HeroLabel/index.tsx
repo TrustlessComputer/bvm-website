@@ -13,16 +13,16 @@ const DATA_HERO = [
     title: 'Optimism',
   },
   {
+    icon: '/landing/svg/lego_celestia.svg',
+    title: 'Celestia',
+  },
+  {
     icon: '/landing/svg/lego_polygon.svg',
     title: 'Polygon',
   },
   {
-    icon: '/landing/svg/logo_eigen.svg',
-    title: 'Eigen',
-  },
-  {
-    icon: '/landing/svg/lego_celestia.svg',
-    title: 'Celestia',
+    icon: '/landing/uni.svg',
+    title: 'Uniswap',
   },
 ];
 export default function HeroLabel() {
