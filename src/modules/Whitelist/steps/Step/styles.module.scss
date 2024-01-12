@@ -4,6 +4,11 @@
   width: 100%;
   align-items: center;
   height: 74px;
+
+  &.isDone {
+    opacity: 40%;
+  }
+
   @include is-mobile {
     border: 1px solid #ff7e214d;
     background-color: #ff7e210f;
