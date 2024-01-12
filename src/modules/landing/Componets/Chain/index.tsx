@@ -132,13 +132,14 @@ export default function Chain() {
   return (
     <Cursor>
       <div className={s.chain}>
-        <div className='container'>
+        <div className="container">
           {(mobileScreen || tabletScreen) && (
             <section className={s.chain_label}>
               <HeroLabel />
             </section>
           )}
           <section className={s.chain_inner}>
+            <p className={s.chain_case}>Case studies</p>
             <HeadingSection className={s.chain_heading}>
               <Chars>
                 Say hello to the first <b>Bitcoin L2 blockchains.</b>
