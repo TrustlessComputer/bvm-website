@@ -3,7 +3,8 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-
+  min-height: 142px;
+  justify-content: center;
   &_title {
     display: flex;
     flex-direction: row;
@@ -14,6 +15,11 @@
       color: #fff;
       font-weight: 500;
       line-height: 26.4px;
+
+      &_isLaunch {
+        padding: 0 40px;
+        text-align: center;
+      }
 
       @include is-mobile {
         font-size: 18px;
@@ -67,7 +73,7 @@
           line-height: 19.6px;
         }
 
-        @include is-tablet{
+        @include is-tablet {
           font-size: 16px;
         }
       }
@@ -82,5 +88,15 @@
   }
   &__0074BB {
     background: #0074bb;
+  }
+
+  &__EBEFF7 {
+    background: #ebeff7;
+  }
+  &__303030 {
+    background: #303030;
+  }
+  &__7D8AA7 {
+    background: #7d8aa7;
   }
 }

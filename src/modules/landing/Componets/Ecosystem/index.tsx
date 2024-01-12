@@ -1,19 +1,61 @@
 import React from 'react';
 import s from './styles.module.scss';
+import ecosystem1 from '@/public/landing/images/ecosystem1.png';
+import ecosystem2 from '@/public/landing/images/ecosystem2.png';
+import ecosystem3 from '@/public/landing/images/ecosystem3.png';
+import ecosystem4 from '@/public/landing/images/ecosystem4.png';
 
+import ItemChain from '../Chain/ItemChain';
+
+const DATA_ECOSYSTEM = [
+  {
+    img: ecosystem1,
+    title: 'Have 100% dedicated throughput',
+    stud: 2,
+    bgTop: 'FFD73B',
+    bgBottom: 'A05700',
+  },
+  {
+    img: ecosystem2,
+    title: 'Have 100% dedicated throughput',
+    stud: 2,
+    bgTop: 'B4EDFF',
+    bgBottom: '0074BB',
+  },
+  {
+    img: ecosystem3,
+    title: 'Customize specifically for your use case',
+    stud: 2,
+    bgTop: '000',
+    bgBottom: '303030',
+  },
+  {
+    img: ecosystem4,
+    title: 'Receive airdrop from BVM builder reward programs',
+    stud: 2,
+    bgTop: 'EBEFF7',
+    bgBottom: '7D8AA7',
+  },
+];
 export default function Ecosystem() {
   return (
     <div className={s.ecosystem}>
       <div className="container">
         <div className={s.ecosystem_heading}>
           <h3 className={s.ecosystem_heading_title}>
-            Why launch your own <span>Bitcoin L2 blockchain?</span>
+            Why launch your own <span>Bitcoin L2 blockchain</span>?
           </h3>
           <p className={s.ecosystem_heading_description}>
             Whatever your vision — a dapp, a fully onchain game, a DEX, or an
             ecosystem — there are many benefits of running your own Bitcoin L2
             blockchain.
           </p>
+        </div>
+
+        <div className={s.ecosystem_content}>
+          {DATA_ECOSYSTEM.map((item, index) => {
+            return <ItemChain delay={index / 6} data={item} isLaunch={true} />;
+          })}
         </div>
       </div>
     </div>

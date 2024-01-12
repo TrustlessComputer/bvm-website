@@ -36,3 +36,16 @@
     }
   }
 }
+
+.itemLaunch {
+  width: 100%;
+  gap: unset;
+}
+.itemLaunch:first-child {
+  grid-column: span 2;
+  grid-column-start: 1;
+}
+.itemLaunch:nth-child(3n) {
+  grid-column: span 2;
+  grid-column-start: 2;
+}
