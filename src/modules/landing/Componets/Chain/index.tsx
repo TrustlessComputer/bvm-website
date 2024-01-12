@@ -4,7 +4,7 @@ import s from './styles.module.scss';
 
 import chain_1 from 'public/landing/compress/app-chain.png';
 import chain_2 from 'public/landing/compress/naka-chain.png';
-import chain_3 from 'public/landing/compress/ai-chain.png';
+import chain_3 from 'public/landing/images/arcade-chain.jpg';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
 import { Button, HStack } from '@chakra-ui/react';
@@ -55,7 +55,6 @@ const DATA_CHAINS = [
   {
     img: chain_2,
     title: 'Naka Chain',
-    subTitle: 'Coming soon',
     stud: 2,
     link: 'https://nakachain.xyz/',
     data: [
@@ -91,7 +90,6 @@ const DATA_CHAINS = [
   {
     img: chain_3,
     title: 'Arcade Chain',
-    subTitle: 'Coming soon',
     stud: 3,
     link: 'https://bitcoinarcade.xyz/',
     data: [

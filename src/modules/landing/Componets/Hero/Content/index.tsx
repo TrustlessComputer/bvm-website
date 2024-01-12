@@ -50,7 +50,7 @@ export default function HeroContent() {
               bgColor: '#000',
             }}
             onClick={() => {
-              router.push('/blockchains/customize');
+              router.push('/allowlist');
             }}
           >
             Join the allowlist

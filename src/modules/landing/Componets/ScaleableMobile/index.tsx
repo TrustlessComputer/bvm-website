@@ -7,7 +7,7 @@ import ItemScaleableMobile from './ItemScaleableMobile';
 
 const DATA_MOBILE = [
   {
-    title: 'Scalable infrastructure for Bitcoin',
+    title: 'Welcome to the future of Bitcoin.',
     description:
       'If Ethereum is the world’s computer, Bitcoin is the world’s supercomputer. With Bitcoin Virtual Machine, anyone can launch their own Bitcoin L2 blockchain.',
     img: img1,
