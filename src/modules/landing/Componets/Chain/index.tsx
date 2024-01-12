@@ -89,7 +89,7 @@ const DATA_CHAINS = [
   },
   {
     img: chain_3,
-    title: 'AI Chain',
+    title: 'Arcade Chain',
     subTitle: 'Coming soon',
     stud: 3,
     link: 'https://bitcoinarcade.xyz/',
