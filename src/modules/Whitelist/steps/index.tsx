@@ -130,8 +130,8 @@ const Steps = () => {
           actionHandle: handleShareTw,
         },
         {
-          title: 'Share posts on X',
-          desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to upgrade your multiplier.',
+          title: 'The more you post, the more points you earn.',
+          desc: 'The number of posts is unlimited. All you need to do is create a post on X, tag @bvmnetwork, and earn more points to upgrade your multiplier.',
           actionText: 'Share More',
           actionHandle: handleShareTwMore,
         },
