@@ -44,15 +44,15 @@ const DATA_ECOSYSTEM = [
 export default function Ecosystem() {
   return (
     <div className={s.ecosystem}>
-      <div className="container">
+      <div className='container'>
         <div className={s.ecosystem_heading}>
           <HeadingSection className={s.ecosystem_heading_title}>
-           <Chars>
-             Why launch your own <span>Bitcoin L2 blockchain</span>?
-           </Chars>
+            <Chars>
+              Why launch your own <b>Bitcoin L2 blockchain</b>?
+            </Chars>
           </HeadingSection>
           <ContentSection className={s.ecosystem_heading_description}>
-            <Lines deylay={.2}>
+            <Lines delay={.2}>
               Whatever your vision — a dapp, a fully onchain game, a DEX, or an
               ecosystem — there are many benefits of running your own Bitcoin L2
               blockchain.
