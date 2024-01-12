@@ -1,0 +1,39 @@
+.Wrapper {
+  color: white;
+  display: grid;
+  place-items: center;
+
+  .SignInView_Wrapper {
+    // width: 80vw;
+    width: 100%;
+    border-radius: 12px;
+    background: #292929;
+  }
+
+  .troubleText {
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .cta {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+    button {
+      background-color: #fff;
+      border-radius: 1000px;
+      padding: 10px 0;
+      border: none;
+    }
+
+    .cta_content {
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // padding: 10px 0;
+      gap: 4px;
+      width: 100%;
+    }
+  }
+}
