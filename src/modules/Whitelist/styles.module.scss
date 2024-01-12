@@ -51,6 +51,7 @@
         @include w-max(768px) {
             grid-template-columns: 1fr;
             margin-top: 12px;
+          gap: 40px;
         }
     }
 
