@@ -9,26 +9,27 @@ const Section_1 = () => {
       w={'100%'}
       flexDir={'column'}
       bgColor={'transparent'}
-      gap={['16px']}
-      alignItems={'flex-start'}
+      gap={{ base: '12px', md: '16px' }}
+      alignItems={'center'}
     >
       <Text
-        fontSize={['16px', '40px']}
-        lineHeight={'48px'}
+        fontSize={['28px', '40px']}
+        lineHeight={{ base: '140%', md: '120%' }}
         fontWeight={400}
         color={'#000'}
       >
-        What is BVM?
+        $BVM
       </Text>
       <Text
-        fontSize={['14px', '20px']}
-        lineHeight={'36px'}
+        fontSize={['16px', '20px']}
+        lineHeight={['24px', '36px']}
+        textAlign={'center'}
         fontWeight={400}
         color={'#000'}
         maxW={'709px'}
       >
-        Whatever your vision — a dapp, a fully onchain game, a DEX, or an
-        ecosystem — there are many benefits of running your own blockchain.
+        BVM is the native cryptocurrency used within the BVM ecosystem to
+        empower building the future of Bitcoin.
       </Text>
       {/* <Button
         bgColor={'#FA4E0E'}

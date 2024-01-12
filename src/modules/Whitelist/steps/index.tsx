@@ -35,7 +35,7 @@ const Steps = () => {
     const shareUrl = getLink('');
     let content = '';
 
-    content = `I've recently discover the future of Bitcoin @bvmnetwork\n\nBVM is the first modular blockchain meta protocol\n\nPublic sale starting soon. Join the allowlist now\n\n#${res?.public_code}\n\n`;
+    content = `I've discover the future of Bitcoin: @bvmnetwork\n\nBVM is the 1st modular blockchain meta protocol. And its public sale is starting soon.\n\nJoin the allowlist today!\n\n#${res?.public_code}\n\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -49,7 +49,7 @@ const Steps = () => {
     const shareUrl = getLink('');
     let content = '';
 
-    content = `I've recently discover the future of Bitcoin @bvmnetwork\n\nBVM is the first modular blockchain meta protocol\n\nPublic sale starting soon. Join the allowlist now\n\n`;
+    content = `I've discover the future of Bitcoin: @bvmnetwork\n\nBVM is the 1st modular blockchain meta protocol. And its public sale is starting soon.\n\nJoin the allowlist today!\n\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -125,7 +125,7 @@ const Steps = () => {
       [
         {
           title: 'Share posts on X',
-          desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to upgrade your multiplier.',
+          desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to unlock your starting multiplier.',
           actionText: 'Share',
           actionHandle: handleShareTw,
         },

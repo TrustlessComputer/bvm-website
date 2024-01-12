@@ -14,20 +14,20 @@ export interface IContent {
 
 const Contents: Array<IContent> = [
   {
-    title: 'The lifeblood of Bitcoin dapps',
-    desc: 'BVM fuels Bitcoin dapps, facilitating the payment of transaction fees for all dapp activities on Bitcoin.',
+    title: 'The lifeblood of Bitcoin L2s',
+    desc: 'BVM fuels Bitcoin L2s, facilitating the payment of block production fees for all Bitcoin L2s.',
     img: `/images/bvm_image1.png`,
     bgColor: '#007659',
   },
   {
-    title: 'Uses for BVM grow every day',
-    desc: 'As Bitcoin Virtual Machine enables programmability on Bitcoin, developers have the free to utilize BVM in numerous ways, such as DeFi, GameFi, DEX, DAO, and more.',
+    title: 'Uses for $BVM grow every day',
+    desc: 'As BVM enables programmability and scalability on Bitcoin, developers can utilize the BVM network to create various applications — DeFi, GameFi, AI, and more.',
     img: `/images/bvm_image2.png`,
     bgColor: '#0B5509',
   },
   {
-    title: 'Scale Bitcoin and earn BVM',
-    desc: 'Bitcoin Virtual Machines aid in scaling Bitcoin with high throughput and low latency, while also enabling new utilities beyond simple money transfers. In return, they receive the transaction fees collected in BVM.',
+    title: 'Co-own and co-run the network',
+    desc: 'BVM is the BVM ecosystem’s governance token, allowing BVM holders to participate in key governance votes and shape the future of the BVM ecosystem.',
     img: `/images/bvm_image3.png`,
     bgColor: '#A05700',
   },
