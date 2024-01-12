@@ -249,7 +249,7 @@ const LeaderBoard = () => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>Content Points are calculated based on the performance of your posts on X, including Views, Likes, Reposts, and Quotes.
-                    Note: To be qualified, you must tag: <br/><strong>@bvmnetwork</strong></p>
+                    Note: To be qualified, you must tag: <strong>@bvmnetwork</strong></p>
                 </Flex>
               }
             >
@@ -471,7 +471,7 @@ const LeaderBoard = () => {
           </div>
         </div>
       </div> */}
-      <Box className={styles.timeLine}>
+      {/*<Box className={styles.timeLine}>
         <Box>
           {renderTimeLine({
             content: <p>Public sale starting soon</p>
@@ -483,7 +483,7 @@ const LeaderBoard = () => {
           )}
 
         </Box>
-      </Box>
+      </Box>*/}
       <Box w="100%" bg="rgba(255, 255, 255, 0.30)" height="76dvh" p="8px">
         <ScrollWrapper
           onFetch={() => {
