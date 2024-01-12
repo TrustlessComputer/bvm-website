@@ -4,9 +4,11 @@ import { Button } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
 import { useRouter } from 'next/navigation';
 import useWindowSize from '@/hooks/useWindowSize';
-import Chars from '@/interactive/Chars';
 import Scale from '@/interactive/Scale';
 import Lines from '@/interactive/Lines';
+import HeadingSection from '../HeadingSection';
+import Chars from '@/interactive/Chars';
+import ContentSection from '@/modules/landing/Componets/ContentSection';
 
 export default function BitEth() {
 
@@ -20,17 +22,17 @@ export default function BitEth() {
           <Image className={s.thumb} src={'landing/biteth.svg'} alt={'biteth.svg'} width={250} height={80}
                  loading={'eager'} />
         </Scale>
-        <h2 className={s.heading}>
+        <HeadingSection className={s.heading}>
           <Chars delay={.2}>
             Zero effort to migrate from Ethereum
           </Chars>
-        </h2>
-        <div className={s.content}>
+        </HeadingSection>
+        <ContentSection className={s.content}>
           <Lines delay={.3}>
             Whatever your vision — a dapp, a fully onchain game, a DEX, or an ecosystem — there are many benefits of
             running your own blockchain.
           </Lines>
-        </div>
+        </ContentSection>
         <div className={s.actions}>
           <Fade delay={0.5}>
             <Button
