@@ -22,6 +22,11 @@ const DATA_CHAINS = [
     link: 'https://alpha.wtf',
     data: [
       {
+        left: 'Currency',
+        right: 'BVM',
+        icon: '/landing/svg/lego_icon_flat.svg',
+      },
+      {
         left: 'Use Case',
         right: 'SocialFi',
         icon: '/landing/svg/lego_icon_rect.svg',
@@ -54,6 +59,11 @@ const DATA_CHAINS = [
     link: 'https://nakachain.xyz/',
     data: [
       {
+        left: 'Currency',
+        right: 'BTC',
+        icon: '/landing/svg/lego_icon_flat.svg',
+      },
+      {
         left: 'Use Case',
         right: 'DeFi',
         icon: '/landing/svg/lego_icon_rect.svg',
@@ -85,13 +95,18 @@ const DATA_CHAINS = [
     link: 'https://bitcoinarcade.xyz/',
     data: [
       {
+        left: 'Currency',
+        right: 'Game',
+        icon: '/landing/svg/lego_icon_flat.svg',
+      },
+      {
         left: 'Use Case',
         right: 'AI',
         icon: '/landing/svg/lego_icon_rect.svg',
       },
       {
         left: 'Rollups',
-        right: 'Optimistic, Sovereign',
+        right: 'GameFi',
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
