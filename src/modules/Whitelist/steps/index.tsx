@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
+import { setBearerToken } from '@/services/leaderboard';
 
 interface IAuthenCode {
   public_code: string;
@@ -64,10 +65,11 @@ const Steps = () => {
         const twitterToken = AuthenStorage.getAuthenKey();
         if (!twitterToken || twitterToken !== result?.token) {
           AuthenStorage.setAuthenKey(result?.token);
+          setBearerToken(result?.token);
         }
+        setSubmitting(false);
         dispatch(requestReload());
         // setHasLinkTwitter(true);
-        setSubmitting(false);
         // setShowTrouble && setShowTrouble(false);
 
         // if (twProfile?.issued) {
