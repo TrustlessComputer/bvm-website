@@ -21,10 +21,17 @@ export default function Cursor({ children }: IProp) {
 
   useEffect(() => {
 
-    const quickX = gsap.quickTo(refCursor.current, 'x', { duration: 0.4, ease: "power3" });
-    const quickY = gsap.quickTo(refCursor.current, 'y', { duration: 0.4, ease: "power3" });
+    const quickX = gsap.quickTo(refCursor.current, 'x', { duration: 0.4, ease: 'power3' });
+    const quickY = gsap.quickTo(refCursor.current, 'y', { duration: 0.4, ease: 'power3' });
+
+    if (refContent.current) {
+      const rectWrap = refContent.current.getBoundingClientRect();
+      quickY(rectWrap.height / 2);
+      quickX(rectWrap.width / 2);
+    }
+
     const onMouseMove = (e: MouseEvent) => {
-      if(!refContent.current) return ;
+      if (!refContent.current) return;
 
       const rectWrap = refContent.current.getBoundingClientRect();
       const disX = e.clientX - rectWrap.left + 10;

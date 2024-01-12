@@ -51,6 +51,7 @@ const DATA_CHAINS = [
     title: 'Naka Chain',
     subTitle: 'Coming soon',
     stud: 2,
+    link: 'https://nakachain.xyz/',
     data: [
       {
         left: 'Use Case',
@@ -81,6 +82,7 @@ const DATA_CHAINS = [
     title: 'AI Chain',
     subTitle: 'Coming soon',
     stud: 3,
+    link: 'https://bitcoinarcade.xyz/',
     data: [
       {
         left: 'Use Case',
