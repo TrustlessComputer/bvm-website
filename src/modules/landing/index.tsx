@@ -24,9 +24,9 @@ export default function Landing() {
       <Chain />
       <Lego />
       <Ecosystem />
-      {/* <BitEth />
+      <BitEth />
       {mobileScreen || tabletScreen ? <ScaleableMobile /> : <ScalableSlide />}
-      {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />} */}
+      {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
     </div>
   );
 }

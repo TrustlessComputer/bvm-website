@@ -12,7 +12,6 @@
   }
 
   @include is-tablet {
-
     gap: 20px;
     justify-content: center;
   }
@@ -26,6 +25,16 @@
   }
   @include is-tablet {
     background: #fff;
+  }
+
+  &_case {
+    color: #000;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+    padding-bottom: 16px;
   }
 
   &_label {
