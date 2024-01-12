@@ -24,6 +24,8 @@ export type HeaderProps = {
   bgColor?: string;
 };
 
+export const HEADER_ID = 'HEADER_VIEW';
+
 const Header = (props: HeaderProps) => {
   const primaryColor = props.color || 'white';
   const position = props.position || 'absolute';
@@ -40,7 +42,7 @@ const Header = (props: HeaderProps) => {
   return (
     <>
       <Box
-        id="HEADER_VIEW"
+        id={HEADER_ID}
         position={position}
         bgColor={bgColor}
         display={'flex'}
