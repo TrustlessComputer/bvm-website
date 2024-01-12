@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-import { KEY_TWITTER_TOKEN } from '@/constants/storage-key';
-import LocalStorageUtil from '@/utils/localstorage';
+import AuthenStorage from '@/utils/storage/authen.storage';
 
 export const TIMEOUT = 5 * 60000;
 export const HEADERS = { 'Content-Type': 'application/json' };
@@ -17,7 +15,7 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
 
   instance.interceptors.request.use(
     (config) => {
-      const token = LocalStorageUtil.get(KEY_TWITTER_TOKEN);
+      const token = AuthenStorage.getAuthenKey();
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

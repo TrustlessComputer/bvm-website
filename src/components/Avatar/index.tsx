@@ -11,14 +11,12 @@ import React, {
   useState,
 } from 'react';
 
-import { getAvatarName } from '@/utils/helpers';
 import { Box, Center, Text } from '@chakra-ui/react';
 
-import { CDN_URL_IMAGES } from '@/config';
-import { compareString } from '@/utils/string';
-import { last } from 'lodash';
-import SvgInset from '../SvgInset';
 import styles from './styles.module.scss';
+import last from 'lodash/last';
+import SvgInset from '../SvgInset';
+import { compareString, getAvatarName } from '@/utils/string';
 
 interface IAvatarProps {
   className?: string;
@@ -31,6 +29,7 @@ interface IAvatarProps {
   imgStyles?: React.CSSProperties;
   circle?: boolean;
   onLoaded?: () => void;
+  hideDefault?: boolean;
 }
 
 const gradientColor = [
@@ -51,12 +50,14 @@ const DefaultAvatar = ({
   address,
   placeHolderStyles,
   fontSize,
+  hideDefault,
 }: {
-  name?: string;
-  address?: string;
+  name?: string | undefined;
+  address?: string | undefined;
   placeHolderStyles: any;
   width: any;
-  fontSize?: number;
+  fontSize?: number | undefined;
+  hideDefault?: boolean | undefined;
 }) => {
   if (name) {
     let numColor = 0;
@@ -93,14 +94,18 @@ const DefaultAvatar = ({
   }
 
   return (
-    <Box style={placeHolderStyles} className={'imgError'}>
-      <Image
-        src={`${CDN_URL_IMAGES}/icDefaultAvatar.svg`}
+    <Box style={{
+      ...placeHolderStyles,
+      alignItems: 'center',
+      justifyContent: 'center',
+      display: 'flex',
+    }} className={'imgError'}>
+      {!hideDefault && <Image
+        src="icons/icDefaultAvatar.svg"
         alt="default avatar"
         width="44"
         height="44"
-      />
-      {/* <IcDefaultAvatar /> */}
+      />}
     </Box>
   );
 };
@@ -115,16 +120,17 @@ const Avatar: React.FC<IAvatarProps> = ({
   fontSize,
   imgStyles,
   circle = false,
+  hideDefault,
   onLoaded = () => {},
 }: IAvatarProps) => {
-  const targetRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef<HTMLDivElement | null>(null);
 
   const imgSrc = useMemo(() => url, [url]);
 
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!url) {
+    if (!url && onLoaded) {
       onLoaded();
     }
   }, [url]);
@@ -170,10 +176,7 @@ const Avatar: React.FC<IAvatarProps> = ({
 
   const isSVG = useMemo(() => {
     if (imgSrc) {
-      if (compareString(last(imgSrc?.split('.')), 'svg')) {
-        return true;
-      }
-      return false;
+      return compareString(last(imgSrc?.split('.')), 'svg');
     }
     return undefined;
   }, [imgSrc]);
@@ -193,6 +196,7 @@ const Avatar: React.FC<IAvatarProps> = ({
           address={address}
           width={width}
           fontSize={fontSize}
+          hideDefault={hideDefault}
         />
       </Center>
     );
@@ -207,11 +211,7 @@ const Avatar: React.FC<IAvatarProps> = ({
     >
       <>
         {isSVG ? (
-          <SvgInset
-            style={imgStyles}
-            size={imgStyles?.width as any}
-            svgUrl={imgSrc}
-          />
+          <SvgInset size={imgStyles?.width as any} svgUrl={imgSrc} />
         ) : (
           <Image
             loader={loader}
@@ -226,7 +226,7 @@ const Avatar: React.FC<IAvatarProps> = ({
             onError={onError}
             onLoadStart={onLoadStart}
             style={imgStyles}
-            onLoad={onLoaded}
+            onLoadingComplete={onLoaded}
           />
         )}
 
@@ -237,6 +237,7 @@ const Avatar: React.FC<IAvatarProps> = ({
             address={address}
             width={width}
             fontSize={fontSize}
+            hideDefault={hideDefault}
           />
         )}
       </>
