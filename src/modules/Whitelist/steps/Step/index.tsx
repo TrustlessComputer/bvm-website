@@ -1,15 +1,16 @@
 import SvgInset from '@/components/SvgInset';
 import useWindowSize from '@/hooks/useWindowSize';
-import Fade from '@/interactive/Fade';
 import s from './styles.module.scss';
 import { Button, Flex } from '@chakra-ui/react';
 
 export default function ItemCommunity({
   content,
   delay,
+  isLoading
 }: {
   content: any;
   delay: number;
+  isLoading?: boolean
 }) {
   const { mobileScreen } = useWindowSize();
   return (
@@ -34,11 +35,15 @@ export default function ItemCommunity({
           <Flex justifyContent={"space-between"} alignItems={"center"} w={"100%"}>
             <Flex direction={"column"}>
               <div className={s.itemCommunity_content_title}>{content?.title}</div>
-              <div className={s.itemCommunity_content_desc}>{content?.desc}</div>
+              {
+                content?.desc && (
+                  <div className={s.itemCommunity_content_desc}>{content?.desc}</div>
+                )
+              }
             </Flex>
             {
               content?.actionText && (
-                <Button className={s.itemCommunity_content_action} onClick={content?.actionHandle}>{content?.actionText}</Button>
+                <Button className={s.itemCommunity_content_action} onClick={content?.actionHandle} isLoading={isLoading}>{content?.actionText}</Button>
               )
             }
           </Flex>
