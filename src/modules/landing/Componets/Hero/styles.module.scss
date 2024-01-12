@@ -10,6 +10,7 @@
   @include is-tablet {
     width: 100%;
   }
+
   &_inner {
     position: absolute;
     bottom: 60px;
@@ -53,6 +54,7 @@
       text-align: center;
     }
   }
+
   &_headingSub {
     font-size: 32px;
     font-style: normal;
@@ -60,8 +62,10 @@
     font-weight: 400;
     line-height: 36px;
     padding-bottom: 28px;
-    span {
-      color: #fa4e0e;
+
+    b {
+      color: #f7931a;
+      font-weight: normal;
     }
 
     @include is-tablet {

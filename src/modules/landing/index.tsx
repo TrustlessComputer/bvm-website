@@ -22,8 +22,6 @@ export default function Landing() {
       <Hero />
       <Chain />
       <Lego />
-      <Tool />
-      <Comunity />
       <BitEth />
       {mobileScreen || tabletScreen ? <ScaleableMobile /> : <ScalableSlide />}
       {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}

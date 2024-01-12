@@ -1,0 +1,22 @@
+.heading {
+  display: flex;
+  gap: 7px;
+
+  &_mask {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    flex: 1;
+
+    &_el:not(:first-child) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: max-content;
+    }
+
+    &_el {
+      display: block;
+    }
+  }
+}
