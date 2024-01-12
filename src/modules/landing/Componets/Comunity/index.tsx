@@ -7,7 +7,7 @@ import ItemCommunity from './ItemCommunity';
 import s from './styles.module.scss';
 
 const DATA_COMMUNITY = [
-  'Earn sequencer fees',
+  ' Earn sequencer fees',
   'Offer low transaction fees to your users',
   'Have dedicated throughput',
   'Complete control over gas fee, gas block limit, and withdrawal periods',

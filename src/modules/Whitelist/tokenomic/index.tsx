@@ -1,8 +1,8 @@
-import { CDN_URL_IMAGES } from '@/configs';
 import { Flex } from '@chakra-ui/react';
 import React from 'react';
 import s from './styles.module.scss';
 import cn from 'classnames';
+import { CDN_URL_IMAGES } from '@/config';
 
 const Tokenomic = () => {
   return (

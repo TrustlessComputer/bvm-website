@@ -18,7 +18,7 @@ export const isLocal: boolean = APP_ENV === 'local';
 
 export const CDN_URL_ICONS: string = CDN_URL + '/nbc/icons/bvm-icons';
 export const CDN_APP_ICON_URL: string = CDN_URL + '/l2aas/icons';
-export const CDN_URL_IMAGES: string = CDN_URL + '/nbc/images';
+export const CDN_URL_IMAGES: string = CDN_URL + '/l2aas/images';
 
 export const NEW_BITCOIN_CITY = isProduction
   ? 'https://newbitcoincity.com/'

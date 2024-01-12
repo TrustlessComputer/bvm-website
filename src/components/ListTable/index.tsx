@@ -17,12 +17,14 @@ import React, { Fragment, ReactNode, memo, useEffect, useState } from 'react';
 import EmptyList from '@/components/ListTable/EmptyList';
 import Pagination from '@/components/ListTable/Pagination';
 
-import { IMarketSortType } from '@/services/interfaces/token';
-import { commonSelector } from '@/store/states/common/selector';
+import { commonSelector } from '@/stores/states/common/selector';
 import { compareString } from '@/utils/string';
 import cx from 'classnames';
 import AppLoading from '../AppLoading';
 import styles from './styles.module.scss';
+import { IMarketSortType } from '@/services/interfaces/whitelist';
+import { apiClient } from '@/services';
+import { useAppSelector } from '@/stores/hooks';
 
 export interface ColumnProp {
   id: string;

@@ -7,6 +7,7 @@ import chakraThemes from '@/themes/chakra-themes';
 import { ChakraProvider } from '@chakra-ui/react';
 import Hydrated from '@/components/Hydrated';
 import dynamic from 'next/dynamic';
+import StoreProvider from '@/Providers/StoreProvider';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -26,11 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+      <StoreProvider>
         <ChakraProvider theme={chakraThemes}>
           <ChakraFontsFace />
           <Hydrated>{children}</Hydrated>
           {/* {children} */}
         </ChakraProvider>
+      </StoreProvider>
       </body>
     </html>
   );
