@@ -1,4 +1,3 @@
-// import { CDN_URL_IMAGES } from '@/configs';
 
 import { isProduction } from '@/config';
 
