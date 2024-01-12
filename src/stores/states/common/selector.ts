@@ -1,3 +1,3 @@
-import { RootState } from '@/store';
+import { RootState } from '@/stores';
 
 export const commonSelector = (state: RootState) => state.common;

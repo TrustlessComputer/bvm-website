@@ -43,7 +43,7 @@ table {
   &.tableContainer {
     :global {
       .isActiveRow {
-        background-color: rgba(255, 255, 255, 1) !important;
+        background-color: #F5EADE !important;
 
         tbody {
           tr {
@@ -109,7 +109,7 @@ table {
       font-size: 14px;
       line-height: 140%;
 
-      color: var(--naka-text);
+      color: black;
 
       max-width: 100px;
       overflow: hidden;
@@ -135,7 +135,7 @@ table {
       // width: 60px;
       display: flex;
       align-items: center;
-      
+
       p {
         font-weight: 500;
         font-size: 14px;
@@ -252,5 +252,38 @@ table {
     width: fit-content;
   }
   .content {
+  }
+}
+
+.multiplier {
+  background: black;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  &.boost_30 {
+    background: linear-gradient(90deg, #007659 0%, #35CCA6 100%);
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &.boost_20 {
+    background: linear-gradient(90deg, #FFD73B 0%, #A05700 100%);
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }

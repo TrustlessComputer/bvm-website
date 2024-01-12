@@ -21,32 +21,25 @@ export const setBearerToken = (token: string | string[]) => {
     );
   }
 };
+
 setBearerToken(AuthenStorage.getAuthenKey());
 
 export const getTopLeaderBoards = async (params: {
   page?: number;
   limit?: number;
-  address?: string;
-}): Promise<ILeaderBoardPoint[]> => {
-  const res: ILeaderBoardPoint[] = await apiClient.get(`/users/leaderboards`, {
+}): Promise<{ data: ILeaderBoardPoint[], count: string }> => {
+  const res = (await apiClient.get(`/bvm/leaderboards`, {
     params,
-  });
+  })) as any;
 
-  return res;
-};
+  const data: ILeaderBoardPoint[] = res?.data
+  const count: string = res?.count
 
-export const spreadToFaucet = async (address: string): Promise<any> => {
-  try {
-    const res = await apiClient.post(`/users/spread-to-faucet`, { address });
-    return res;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const getFaucetHistory = async (address: string): Promise<any[]> => {
-  const res: any[] = await apiClient.get(
-    `users/faucet/histories?network=naka&address=${address}`,
-  );
-  return res;
+  return {
+    data: (data || []).map(item => ({
+      ...item,
+      boost: Number(item.boost || '0').toString(),
+    })),
+    count: count
+  };
 };

@@ -30,7 +30,10 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
     (res) => {
       const result = res?.data?.data || res?.data?.result;
       if (res?.data?.count !== undefined) {
-        result.count = res.data.count;
+        return Promise.resolve({
+          data: result,
+          count: res.data.count
+        } as any);
       }
       const error = res?.data?.error;
       if (error && Object.keys(error).length) {

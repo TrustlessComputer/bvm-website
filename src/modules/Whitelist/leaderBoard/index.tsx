@@ -1,4 +1,3 @@
-// import AppLoading from '@/components/AppLoading';
 import Avatar from '@/components/Avatar';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
@@ -14,23 +13,31 @@ import clsx from 'classnames';
 import AppLoading from '@/components/AppLoading';
 import { Tooltip } from '@chakra-ui/react';
 import { CDN_URL_ICONS } from '@/config';
-import { shortCryptoAddress } from '@/utils/address';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
+import cs from 'clsx';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
 // import Countdown from 'react-countdown';
 // import dayjs from 'dayjs';
 
 const valueToClassName: any = {
-  '2.5': 'boost_25',
-  '2': 'boost_2',
-  '1.5': 'boost_15',
-  '1': 'boost_1',
+  '10': 'boost_10',
+  '20': 'boost_20',
+  '30': 'boost_30',
+};
+
+const valueToImage: any = {
+  '10': 'flash_normal.svg',
+  '20': 'flash_fast.svg',
+  '30': 'flash_supper.svg',
 };
 
 const LeaderBoard = () => {
-
   const [data, setData] = useState<ILeaderBoardPoint[]>([]);
   const [isFetching, setIsFetching] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [count, setCount] = useState<string | undefined>(undefined);
+  const needReload = useAppSelector(commonSelector).needReload;
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -41,7 +48,7 @@ const LeaderBoard = () => {
 
   useEffect(() => {
       fetchData(true);
-  }, []);
+  }, [needReload]);
 
   const removeOwnerRecord = (arr: ILeaderBoardPoint[] = []) => {
     return remove(arr, v => !compareString(v.address, 'TESTTTTT'));
@@ -49,11 +56,12 @@ const LeaderBoard = () => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
-      const response = await getTopLeaderBoards({
+      const { data: response, count } = await getTopLeaderBoards({
         ...refParams.current,
       });
+      setCount(count)
       if (isNew) {
-        const response2 = await getTopLeaderBoards({
+        const { data: response2 } = await getTopLeaderBoards({
           page: 1,
           limit: 0,
         });
@@ -103,6 +111,7 @@ const LeaderBoard = () => {
     textTransform: 'uppercase'
   };
 
+
   const columns: ColumnProp[] = useMemo(() => {
     return [
       {
@@ -115,6 +124,7 @@ const LeaderBoard = () => {
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
+          color: 'black !important'
         },
         render(data: ILeaderBoardPoint) {
           return (
@@ -125,7 +135,7 @@ const LeaderBoard = () => {
               justifyContent={'space-between'}
               paddingLeft={'16px'}
             >
-              <Text>{data.ranking}</Text>
+              <Text >{data.ranking}</Text>
             </Flex>
           );
         },
@@ -155,24 +165,20 @@ const LeaderBoard = () => {
                     data?.twitter_avatar as string,
                     'normal'
                   )}
-                  address={data?.address || ''}
+                  address={''}
                   width={36}
                   name={data?.twitter_username || ''}
                 />
                 <Flex width={'100%'} gap={'0px'} direction={'column'}>
-                  {data?.twitter_name ? (
+                  {data?.twitter_name && (
                     <>
                       <Text className={styles.title}>
                         {formatName(data?.twitter_name as string, 50)}
                       </Text>
-                      <Text className={styles.subTitle}>
-                        {shortCryptoAddress(data?.address as string, 8)}
-                      </Text>
+                      {/*<Text className={styles.subTitle}>*/}
+                      {/*  {shortCryptoAddress(data?.address as string, 8)}*/}
+                      {/*</Text>*/}
                     </>
-                  ) : (
-                    <Text className={styles.title}>
-                      {shortCryptoAddress(data?.address as string, 8)}
-                    </Text>
                   )}
                 </Flex>
               </Flex>
@@ -206,14 +212,15 @@ const LeaderBoard = () => {
           return (
             <Flex justifyContent="center" alignItems="center">
               <Flex
-                flexDirection={'column'}
+                flexDirection="row"
+                gap="4px"
+                alignItems="center"
                 className={clsx(
                   styles.tagBoost,
-                  styles[valueToClassName[`${data?.boost}`]],
-                  valueToClassName[`${data?.boost}`]
                 )}
               >
-                <Text className={styles.title}>{data?.boost || 0}x</Text>
+                <img style={{ width: 20 }} src={`${CDN_URL_ICONS}/${valueToImage?.[data?.boost] || 'flash_normal.svg'}`}/>
+                <Text className={cs(styles.title, styles.multiplier, styles[valueToClassName[`${data?.boost}`]])}>{data?.boost || 0}%</Text>
               </Flex>
             </Flex>
           );
@@ -234,10 +241,14 @@ const LeaderBoard = () => {
             <p style={{ textTransform:'uppercase' }}>Content Points</p>
             <Tooltip
               minW="220px"
-              bg="#000000"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
               label={
-                <Flex direction="column" color="#ffffff">
-                  <p>Content Points are calculated based on the performance of your activities on X, including Views, Likes, Replies, and Reposts.</p>
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>Content Points are calculated based on the performance of your activities on X, including Views, Likes, Replies, Mentions, and Reposts.
+                    Note: To be qualified, you must tag <strong>@bvmnetwork</strong></p>
                 </Flex>
               }
             >
@@ -262,26 +273,27 @@ const LeaderBoard = () => {
               justifyContent={'center'}
             >
               <Flex alignItems={'center'} gap={'4px'}>
-                <Box w="16px" />
                 <Text className={styles.title}>
-                  {formatCurrency(data?.point_spread_inday, 0, 0)}
+                  {formatCurrency(data?.content_point, 0, 0)}
                 </Text>
-                {data.need_active ? 
+                {data.need_active ?
                   <Tooltip
-                    minW="100px"
-                    bg="#000000"
+                    minW="220px"
+                    bg="white"
+                    boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                    borderRadius="4px"
+                    padding="8px"
                     label={
-                      <Flex direction="column" color="#ffffff">
-                        <p>Shard: {data.shard}</p>
-                        <p>View: {data.num_view}</p>
-                        <p>Reply: {data.num_reply}</p>
-                        <p>Retweet: {data.num_retweet}</p>
-                        <p>Like: {data.num_like}</p>
-                        <p>Quote: {data.num_quote}</p>
+                      <Flex direction="column" color="black" opacity={0.7}>
+                        <p>View: {data.num_view || '0'}</p>
+                        <p>Retweet: {data.num_retweet || '0'}</p>
+                        <p>Like: {data.num_like || '0'}</p>
+                        <p>Quote: {data.num_quote || '0'}</p>
+                        <p>Quote: {data.num_post || '0'}</p>
                       </Flex>
                     }
                   >
-                    <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/ic-information-bl.svg`}/>
+                    <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
                   </Tooltip>
                 : <Box w="16px" />}
               </Flex>
@@ -393,7 +405,7 @@ const LeaderBoard = () => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.total_point_inday, 0, 0)}
+                  {formatCurrency(data.point, 0, 0)}
                 </Text>
               </Flex>
             </Flex>
@@ -463,9 +475,12 @@ const LeaderBoard = () => {
           {renderTimeLine({
             content: <p>Public sale starting <span>Jan 24</span></p>
           })}
-          {renderTimeLine({
-            content: <p><span>5,321</span> people are on the allowlist</p>
-          })}
+          {count !== undefined && (
+            renderTimeLine({
+              content: <p><span>{formatCurrency(count, 0)}</span> people are on the allowlist</p>
+            })
+          )}
+
         </Box>
       </Box>
       <Box w="100%" bg="rgba(255, 255, 255, 0.30)" height="76dvh" p="8px">
