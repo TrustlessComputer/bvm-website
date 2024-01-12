@@ -32,10 +32,10 @@ const Steps = () => {
     const res: any = await requestAuthenByShareCode();
     setAuthenCode(res);
 
-    const shareUrl = getLink('');
+    const shareUrl = " https://bvm.network";//getLink('');
     let content = '';
 
-    content = `I've discover the future of Bitcoin: @bvmnetwork\n\nBVM is the 1st modular blockchain meta protocol. And its public sale is starting soon.\n\nJoin the allowlist today!\n\n#${res?.public_code}\n\n`;
+    content = `Welcome to the future of Bitcoin with @bvmnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks.\n\n$BVM public sale starting soon\n\n#${res?.public_code}\n\nJoin the allowlist`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -49,7 +49,7 @@ const Steps = () => {
     const shareUrl = getLink('');
     let content = '';
 
-    content = `I've discover the future of Bitcoin: @bvmnetwork\n\nBVM is the 1st modular blockchain meta protocol. And its public sale is starting soon.\n\nJoin the allowlist today!\n\n`;
+    content = `Welcome to the future of Bitcoin with @bvmnetwork.\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks.\n\n$BVM public sale starting soon.\n\nJoin the allowlist:`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -124,15 +124,15 @@ const Steps = () => {
     return (
       [
         {
-          title: 'Share posts on X',
-          desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to unlock your starting multiplier.',
-          actionText: 'Share',
+          title: 'Get your initial multiplier',
+          desc: 'Post anything on X and tag @bvmnetwork',
+          actionText: 'Post',
           actionHandle: handleShareTw,
         },
         {
-          title: 'The more you post, the more points you earn.',
-          desc: 'The number of posts is unlimited. All you need to do is create a post on X, tag @bvmnetwork, earn more points with higher post engagement to upgrade your multiplier.',
-          actionText: 'Share More',
+          title: 'Level up your multiplier',
+          desc: 'The more you post, the bigger multiplier you’ll get.',
+          actionText: 'Post',
           actionHandle: handleShareTwMore,
         },
         // {
