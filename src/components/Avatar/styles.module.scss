@@ -1,0 +1,21 @@
+.container {
+  position: relative;
+  background-color: #6a6a6a;
+  border-radius: 100px;
+  overflow: hidden;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__circle {
+    border-radius: 100px;
+  }
+  .imgError {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

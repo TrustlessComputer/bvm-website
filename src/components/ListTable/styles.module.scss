@@ -1,0 +1,102 @@
+.container {
+  :global .chakra-table {
+    thead {
+      tr {
+        th {
+          padding-top: 16px;
+          text-transform: capitalize;
+          letter-spacing: 0;
+          font-weight: 500;
+          //font-family: "InterTight";
+          //.sort {
+          //  justify-content: flex-end;
+          //}
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        &.isActiveRow {
+          background-color: rgba(255, 255, 255, 0.15);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+      }
+    }
+
+    th,
+    td {
+      padding: 8px;
+    }
+
+    tbody,
+    tfoot {
+      :global {
+        .notOnTdRow {
+          &:last-child {
+            td {
+              border-bottom-color: transparent;
+            }
+          }
+        }
+
+        .onTdRow {
+          &:last-child {
+            tr {
+              &:last-child {
+                td {
+                  border-bottom-color: transparent;
+                }
+              }
+            }
+          }
+
+          tr {
+            &:first-child {
+              td {
+                border-bottom-color: transparent;
+              }
+            }
+          }
+        }
+
+        .pagingContainer {
+          p {
+            font-size: rem(14);
+          }
+
+          button {
+            width: 30px;
+            height: 30px;
+
+            svg {
+              font-size: rem(22);
+              color: black;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.loading {
+  align-self: center;
+}
+
+.item {
+  vertical-align: top;
+  .emptyLabel {
+    color: var(--naka-chakraContent) !important;
+  }
+
+  .modalText {
+    color: var(--naka-chakraContent);
+  }
+
+  :global {
+    .chakra-text {
+      color: var(--naka-notiChakra);
+    }
+  }
+}

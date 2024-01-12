@@ -1,0 +1,63 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .title {
+        font-size: 52px;
+        font-weight: 700;
+        letter-spacing: 0em;
+        text-align: center;
+        color: #FFFFFF;
+
+        @include w-max(768px) {
+            font-size: 42px;
+        }
+    }
+
+    .desc {
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        text-align: center;
+        color: #FFFFFF;
+        max-width: 42em;
+        line-height: 34px;
+
+        span {
+            color: #BA98FF;
+        }
+
+        @include w-max(768px) {
+            font-size: 18px;
+            max-width: 24em;
+            line-height: 28px;
+        }
+    }
+
+    .tokenSection {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 80px;
+        margin-top: 44px;
+        margin-bottom: 48px;
+        width: 100%;
+        max-width: rem(940);
+
+        @include w-max(768px) {
+            grid-template-columns: 1fr;
+            margin-top: 32px;
+        }
+    }
+
+    .roadmapSection {
+        margin-top: 70px;
+
+        @include w-max(768px) {
+            margin-top: 30px;
+        }
+    }
+
+}
