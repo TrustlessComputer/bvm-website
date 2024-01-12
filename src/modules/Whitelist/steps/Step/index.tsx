@@ -69,13 +69,13 @@ export default function ItemCommunity({
               )
             }
           </Flex>
-
-          {!mobileScreen && (
+          <span className={s.itemCommunity_content_stud}></span>
+          {/*{!mobileScreen && (
             <SvgInset
               className={s.itemCommunity_content_frame}
               svgUrl="/landing/svg/frame_community.svg"
             />
-          )}
+          )}*/}
         </p>
       </div>
     </div>
