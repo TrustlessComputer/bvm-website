@@ -11,6 +11,7 @@ import { Button, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import useWindowSize from '@/hooks/useWindowSize';
 import HeroLabel from '../Hero/HeroLabel';
+import Cursor from '@/modules/landing/Componets/Chain/Cursor';
 
 const DATA_CHAINS = [
   {
@@ -111,60 +112,62 @@ export default function Chain() {
   const router = useRouter();
   const { mobileScreen, tabletScreen } = useWindowSize();
   return (
-    <div className={s.chain}>
-      <div className="container">
-        {(mobileScreen || tabletScreen) && (
-          <section className={s.chain_label}>
-            <HeroLabel />
+    <Cursor>
+      <div className={s.chain}>
+        <div className='container'>
+          {(mobileScreen || tabletScreen) && (
+            <section className={s.chain_label}>
+              <HeroLabel />
+            </section>
+          )}
+          <section className={s.chain_inner}>
+            <h2 className={s.chain_heading}>
+              <Chars>
+                Say hello to the first <b>Bitcoin L2 blockchains.</b>
+              </Chars>
+            </h2>
+            <HStack
+              justify={!mobileScreen ? 'center' : ''}
+              align={'center'}
+              paddingLeft={mobileScreen ? '20px' : ''}
+              spacing={['6px', '18px']}
+              mt={!mobileScreen ? ['20px'] : ['24px']}
+              mb={!mobileScreen ? ['60px'] : ['24px']}
+            >
+              <Fade delay={0.6}>
+                <Button
+                  bgColor={'#EF601B'}
+                  color={'#fff'}
+                  borderRadius={0}
+                  display={'flex'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  px={'24px'}
+                  py={'10px'}
+                  minW={['180px']}
+                  height={'48px'}
+                  fontWeight={400}
+                  fontSize={'16px'}
+                  _hover={{
+                    bgColor: '#000',
+                  }}
+                  className={s.chain_btn}
+                  onClick={() => {
+                    router.push('/blockchains/customize');
+                  }}
+                >
+                  {`Build your Bitcoin L2`}
+                </Button>
+              </Fade>
+            </HStack>
+            <div className={s.listChains}>
+              {DATA_CHAINS.map((item, index) => {
+                return <ItemChain delay={index / 6} key={index} data={item} />;
+              })}
+            </div>
           </section>
-        )}
-        <section className={s.chain_inner}>
-          <h2 className={s.chain_heading}>
-            <Chars>
-              Say hello to the first <b>Bitcoin L2 blockchains.</b>
-            </Chars>
-          </h2>
-          <HStack
-            justify={!mobileScreen ? 'center' : ''}
-            align={'center'}
-            paddingLeft={mobileScreen ? '20px' : ''}
-            spacing={['6px', '18px']}
-            mt={!mobileScreen ? ['20px'] : ['24px']}
-            mb={!mobileScreen ? ['60px'] : ['24px']}
-          >
-            <Fade delay={0.6}>
-              <Button
-                bgColor={'#EF601B'}
-                color={'#fff'}
-                borderRadius={0}
-                display={'flex'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                px={'24px'}
-                py={'10px'}
-                minW={['180px']}
-                height={'48px'}
-                fontWeight={400}
-                fontSize={'16px'}
-                _hover={{
-                  bgColor: '#000',
-                }}
-                className={s.chain_btn}
-                onClick={() => {
-                  router.push('/blockchains/customize');
-                }}
-              >
-                {`Build your Bitcoin L2`}
-              </Button>
-            </Fade>
-          </HStack>
-          <div className={s.listChains}>
-            {DATA_CHAINS.map((item, index) => {
-              return <ItemChain delay={index / 6} key={index} data={item} />;
-            })}
-          </div>
-        </section>
+        </div>
       </div>
-    </div>
+    </Cursor>
   );
 }

@@ -4,6 +4,7 @@ import s from './styles.module.scss';
 import SectionTop from './SectionTop';
 import SectionBottom from './SectionBottom';
 import Fade from '@/interactive/Fade';
+import useCursorStore from '@/modules/landing/Componets/Chain/Cursor/useCursorStore';
 
 type TItemChain = {
   img: StaticImageData;
@@ -21,8 +22,9 @@ type TItemChain = {
 
 export default function ItemChain({ data, delay }: { data: TItemChain; delay: number }) {
   const { img, bgTop, stud, ...dataSectionBottom } = data;
+  const {show, hide} = useCursorStore();
   return (
-    <div className={s.itemChain} onClick={() => {
+    <div onMouseEnter={show} onMouseLeave={hide} className={s.itemChain} onClick={() => {
       data.link && window.open(data.link, '_blank');
     }}>
       <Fade from={{ x: 50 }} to={{ x: 0 }} delay={delay}>
