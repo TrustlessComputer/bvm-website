@@ -5,6 +5,7 @@ import s from './styles.module.scss';
 import useElementHeight from '@/hooks/useElementHeight';
 import { HEADER_ID } from '@/layouts/Header';
 import px2rem from '@/utils/px2rem';
+import Steps from '@/modules/Whitelist/steps';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
@@ -22,6 +23,7 @@ const Whitelist = () => {
     <Flex className={s.container} id={CONTAINER_ID}>
       <p className={s.title}>BVM Allowlist Dashboard</p>
       <p className={s.desc}>You’re almost there!<br/>Complete the tasks below to upgrade your multiplier!</p>
+      <Steps />
       <div className={s.tokenSection}>
         <LeaderBoard />
       </div>
