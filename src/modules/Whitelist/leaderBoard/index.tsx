@@ -4,21 +4,16 @@ import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { getTopLeaderBoards } from '@/services/leaderboard';
 import { formatCurrency, formatName } from '@/utils/format';
-import { compareString } from '@/utils/string';
-import { Box, Flex, Text } from '@chakra-ui/react';
-import remove from 'lodash/remove';
+import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import clsx from 'classnames';
 import AppLoading from '@/components/AppLoading';
-import { Tooltip } from '@chakra-ui/react';
 import { CDN_URL_ICONS } from '@/config';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-// import Countdown from 'react-countdown';
-// import dayjs from 'dayjs';
 
 const valueToClassName: any = {
   '10': 'boost_10',
