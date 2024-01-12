@@ -1,6 +1,8 @@
 import React from 'react';
 import s from './styles.module.scss';
 import Chars from '@/interactive/Chars';
+import Fade from '@/interactive/Fade';
+import { Button } from '@chakra-ui/react';
 
 export default function Lego() {
   return (
@@ -17,6 +19,27 @@ export default function Lego() {
           dapps like Uniswap, Compound, and DAO. It’s a new way to build
           blockchain.
         </p>
+        <Fade delay={0.5}>
+          <Button
+            bgColor={'#EF601B'}
+            color={'#fff'}
+            borderRadius={0}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            px={'24px'}
+            py={'10px'}
+            minW={['180px']}
+            height={'48px'}
+            fontWeight={400}
+            fontSize={'16px'}
+            _hover={{
+              bgColor: '#000',
+            }}
+          >
+            {`Launch your Bitcoin L2`}
+          </Button>
+        </Fade>
       </div>
     </div>
   );
