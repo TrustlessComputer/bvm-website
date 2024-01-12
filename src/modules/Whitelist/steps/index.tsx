@@ -125,7 +125,7 @@ const Steps = () => {
       [
         {
           title: 'Share posts on X',
-          desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to upgrade your multiplier.',
+          desc: 'Follow @bvmnetwork, share valuable content, and tag @bvmnetwork on X to unlock your starting multiplier.',
           actionText: 'Share',
           actionHandle: handleShareTw,
         },
