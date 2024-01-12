@@ -4,21 +4,19 @@ import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { getTopLeaderBoards } from '@/services/leaderboard';
 import { formatCurrency, formatName } from '@/utils/format';
-import { compareString } from '@/utils/string';
-import { Box, Flex, Text } from '@chakra-ui/react';
 import orderBy from 'lodash/orderBy';
+import uniqBy from 'lodash/uniqBy';
+import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import clsx from 'classnames';
 import AppLoading from '@/components/AppLoading';
-import { Tooltip } from '@chakra-ui/react';
 import { CDN_URL_ICONS } from '@/config';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-// import Countdown from 'react-countdown';
-// import dayjs from 'dayjs';
+import uniqueBy from '@popperjs/core/lib/utils/uniqueBy';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -59,7 +57,7 @@ const LeaderBoard = () => {
     try {
 
       const sortList = (arr: ILeaderBoardPoint[]) => {
-        return orderBy(arr, item => Number(item.need_active || false), 'desc')
+        return uniqBy(orderBy(arr, item => Number(item.need_active || false), 'desc'), (item: ILeaderBoardPoint) => item.twitter_id)
       }
       const { data: response, count } = await getTopLeaderBoards({
         ...refParams.current,
@@ -253,7 +251,7 @@ const LeaderBoard = () => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>Content Points are calculated based on the performance of your posts on X, including Views, Likes, Reposts, and Quotes.
-                    Note: To be qualified, you must tag: <br/><strong>@bvmnetwork</strong></p>
+                    Note: To be qualified, you must tag: <strong>@bvmnetwork</strong></p>
                 </Flex>
               }
             >
@@ -475,7 +473,7 @@ const LeaderBoard = () => {
           </div>
         </div>
       </div> */}
-      <Box className={styles.timeLine}>
+      {/*<Box className={styles.timeLine}>
         <Box>
           {renderTimeLine({
             content: <p>Public sale starting soon</p>
@@ -487,7 +485,7 @@ const LeaderBoard = () => {
           )}
 
         </Box>
-      </Box>
+      </Box>*/}
       <Box w="100%" bg="rgba(255, 255, 255, 0.30)" height="76dvh" p="8px">
         <ScrollWrapper
           onFetch={() => {
