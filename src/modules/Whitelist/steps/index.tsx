@@ -18,6 +18,7 @@ const Steps = () => {
   const timer = useRef<any>();
   const [submitting, setSubmitting] = useState(false);
   const dispatch = useDispatch();
+  const token = AuthenStorage.getAuthenKey();
 
   const handleShareTw = async () => {
     const res: any = await requestAuthenByShareCode();
@@ -120,9 +121,11 @@ const Steps = () => {
         return (
           <ItemCommunity
             key={index}
+            index={index}
             delay={0.4 + index / 10}
             content={item}
             isLoading={index === 0 && submitting}
+            isDone={true}
           />
         );
       })}
