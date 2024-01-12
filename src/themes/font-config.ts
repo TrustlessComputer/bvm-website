@@ -71,6 +71,8 @@ const HelveticaNeueFontConfig = localFont({
   ],
 });
 
+const a = 'a';
+
 const InterFontConfig = Inter({ subsets: ['latin'] });
 
 export { InterFontConfig, OpenSansFontConfig, HelveticaNeueFontConfig };
