@@ -39,7 +39,7 @@
     font-style: normal;
     font-weight: 300;
     line-height: 100%;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
     width: 100%;
 
     @include is-mobile {
@@ -50,6 +50,25 @@
     }
 
     @include is-tablet {
+      text-align: center;
+    }
+  }
+  &_headingSub {
+    font-size: 32px;
+    font-style: normal;
+    color: #fff;
+    font-weight: 400;
+    line-height: 36px;
+    padding-bottom: 28px;
+    span {
+      color: #fa4e0e;
+    }
+
+    @include is-tablet {
+      text-align: center;
+    }
+    @include is-mobile {
+      font-size: 24px;
       text-align: center;
     }
   }

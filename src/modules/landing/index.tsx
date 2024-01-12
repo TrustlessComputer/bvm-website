@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import ScalableSlide from '@/modules/landing/Componets/ScalableSlide';
 import Section7Mobile from './Componets/Section_7/Section_7_Mobile';
 import Scalable from './Componets/Scalable';
+import Lego from './Componets/Lego';
 
 export default function Landing() {
   const { mobileScreen, tabletScreen } = useWindowSize();
@@ -18,8 +19,9 @@ export default function Landing() {
   }, []);
   return (
     <div className={s.landing}>
-      <Hero />
-      <Chain />
+      {/* <Hero />
+      <Chain /> */}
+      <Lego />
       <Tool />
       <Comunity />
       {mobileScreen || tabletScreen ? <ScaleableMobile /> : <ScalableSlide />}

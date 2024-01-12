@@ -19,15 +19,11 @@ export default function Hero() {
       <div className={s.hero_inner}>
         <div className={cn(s.hero_inner_container, 'container')}>
           <h1 className={s.hero_heading}>
-            {mobileScreen ? (
-              <>
-                <Chars delay={0.1}>Bitcoin </Chars>
-                <Chars delay={0.1}>Virtual Machine</Chars>
-              </>
-            ) : (
-              <Chars delay={0.1}>Bitcoin Virtual Machine</Chars>
-            )}
+            <Chars delay={0.1}>$BVM</Chars>
           </h1>
+          <h6 className={s.hero_headingSub}>
+            Welcome to <span>the future of Bitcoin.</span>
+          </h6>
           {!mobileScreen && <BorderLine delay={0.1} />}
           <Box mt={'20px'} />
           <div className={s.hero_inner_rows}>

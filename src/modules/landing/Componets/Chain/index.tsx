@@ -103,7 +103,7 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
-    bgTop: '98DCF5',
+    bgTop: '4DBDE0',
     bgBottom: '0074BB',
   },
 ];
@@ -114,7 +114,7 @@ export default function Chain() {
   return (
     <Cursor>
       <div className={s.chain}>
-        <div className='container'>
+        <div className="container">
           {(mobileScreen || tabletScreen) && (
             <section className={s.chain_label}>
               <HeroLabel />
