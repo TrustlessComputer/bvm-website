@@ -248,8 +248,8 @@ const LeaderBoard = () => {
               padding="8px"
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Content Points are calculated based on the performance of your activities on X, including Views, Likes, Replies, Mentions, and Reposts.
-                    Note: To be qualified, you must tag <strong>@bvmnetwork</strong></p>
+                  <p>Content Points are calculated based on the performance of your posts on X, including Views, Likes, Reposts, and Quotes.
+                    Note: To be qualified, you must tag: <br/><strong>@bvmnetwork</strong></p>
                 </Flex>
               }
             >
@@ -286,11 +286,11 @@ const LeaderBoard = () => {
                     padding="8px"
                     label={
                       <Flex direction="column" color="black" opacity={0.7}>
+                        <p>Post: {data.num_post || '0'}</p>
                         <p>View: {data.num_view || '0'}</p>
-                        <p>Retweet: {data.num_retweet || '0'}</p>
                         <p>Like: {data.num_like || '0'}</p>
+                        <p>Repost: {data.num_retweet || '0'}</p>
                         <p>Quote: {data.num_quote || '0'}</p>
-                        <p>Quote: {data.num_post || '0'}</p>
                       </Flex>
                     }
                   >

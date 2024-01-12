@@ -102,7 +102,6 @@ const Steps = () => {
   };
 
   const handleConnectWallet = () => {
-
   }
 
   const DATA_COMMUNITY = [
