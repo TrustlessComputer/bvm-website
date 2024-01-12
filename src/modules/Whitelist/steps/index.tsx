@@ -3,7 +3,7 @@ import ItemCommunity from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
 import { getLink } from '@/utils/helpers';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
@@ -19,6 +19,13 @@ const Steps = () => {
   const [submitting, setSubmitting] = useState(false);
   const dispatch = useDispatch();
   const token = AuthenStorage.getAuthenKey();
+
+  const currentStep = useMemo(() => {
+    if(!!token) {
+      return 1;
+    }
+    return 0;
+  }, [token]);
 
   const handleShareTw = async () => {
     const res: any = await requestAuthenByShareCode();
@@ -114,6 +121,7 @@ const Steps = () => {
     {title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!', },
   ];
 
+  console.log('currentStep', currentStep);
 
   return (
     <Flex className={s.container} direction={"column"} gap={5} mt={4}>
@@ -125,7 +133,7 @@ const Steps = () => {
             delay={0.4 + index / 10}
             content={item}
             isLoading={index === 0 && submitting}
-            isDone={true}
+            currentStep={currentStep}
           />
         );
       })}

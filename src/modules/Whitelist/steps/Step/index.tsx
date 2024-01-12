@@ -4,23 +4,33 @@ import s from './styles.module.scss';
 import { Button, Flex, Text } from '@chakra-ui/react';
 import px2rem from '@/utils/px2rem';
 import cx from 'clsx';
+import { useMemo } from 'react';
 
 export default function ItemCommunity({
   index,
   content,
   delay,
   isLoading,
-  isDone,
+  currentStep,
 }: {
   index: number;
   content: any;
   delay: number;
   isLoading?: boolean;
-  isDone?: boolean;
+  currentStep: number;
 }) {
   const { mobileScreen } = useWindowSize();
+
+  const isRunning = useMemo(() => {
+    return currentStep === index;
+  }, [currentStep, index]);
+
+  const isDone = useMemo(() => {
+    return currentStep > index;
+  }, [currentStep, index]);
+
   return (
-    <div className={cx(s.itemCommunity, s.isDone)}>
+    <div className={cx(s.itemCommunity, isRunning ? '' : s.isDone)}>
       <div className={s.itemCommunity_inner}>
         <div className={s.itemCommunity_lego}>
           {
