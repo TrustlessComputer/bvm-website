@@ -37,7 +37,7 @@ export default function HeroLabel() {
             height={32}
           />
           <p className={s.heroLabel_content_text}>
-            Powered by blockchain building blocks
+            Powered by modular building blocks
           </p>
         </div>
       </Fade>

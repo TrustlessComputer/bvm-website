@@ -34,15 +34,11 @@ export default function HeroContent() {
     <div className={s.heroContent}>
       {mobileScreen ? (
         <p>
-          BVM is a metaprotocol that lets developers launch their own
-          lightning-fast and low-cost Bitcoin L2 blockchain in a few clicks and
-          start building decentralized applications on Bitcoin.
+          The first modular blockchain metaprotocol that lets you customize and launch your own Bitcoin L2 blockchain protocol in a few clicks.
         </p>
       ) : (
         <Lines delay={0.2}>
-          BVM is a metaprotocol that lets developers launch their own
-          lightning-fast and low-cost Bitcoin L2 blockchain in a few clicks and
-          start building decentralized applications on Bitcoin.
+          The first modular blockchain metaprotocol that lets you customize and launch your own Bitcoin L2 blockchain protocol in a few clicks.
         </Lines>
       )}
       <HStack

@@ -79,7 +79,7 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
-        left: 'Data Availability',
+        left: 'Celestia',
         right: 'Polygon',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
@@ -95,7 +95,7 @@ const DATA_CHAINS = [
     data: [
       {
         left: 'Currency',
-        right: 'Game',
+        right: 'GAME',
         icon: '/landing/svg/lego_icon_flat.svg',
       },
       {
@@ -105,7 +105,7 @@ const DATA_CHAINS = [
       },
       {
         left: 'Rollups',
-        right: 'GameFi',
+        right: 'Optimistic, Sovereign',
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
@@ -114,7 +114,7 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
-        left: 'Data Availability',
+        left: 'EigenDA',
         right: 'Celestia',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
@@ -140,7 +140,7 @@ export default function Chain() {
             <p className={s.chain_case}>Case studies</p>
             <HeadingSection className={s.chain_heading}>
               <Chars>
-                Say hello to the first <b>Bitcoin L2 blockchains.</b>
+                Say hello to the first EVM-compatible <b>Bitcoin L2 blockchains powered by BVM.</b>
               </Chars>
             </HeadingSection>
             <Fade delay={0.6}>

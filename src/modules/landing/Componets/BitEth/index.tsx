@@ -24,13 +24,13 @@ export default function BitEth() {
         </Scale>
         <HeadingSection className={s.heading}>
           <Chars delay={.2}>
-            Zero effort to migrate from Ethereum
+            Minimal effort to migrate from Ethereum to Bitcoin.
           </Chars>
         </HeadingSection>
         <ContentSection className={s.content}>
           <Lines delay={.3}>
-            Whatever your vision — a dapp, a fully onchain game, a DEX, or an ecosystem — there are many benefits of
-            running your own blockchain.
+            BVM is EVM equivalent. It allows Ethereum developers to migrate their Solidity smart contracts and dapps
+            from Ethereum to Bitcoin with minimal or no modifications.
           </Lines>
         </ContentSection>
         <div className={s.actions}>
@@ -53,10 +53,11 @@ export default function BitEth() {
                 bgColor: '#000',
               }}
               onClick={() => {
-                router.push('/blockchains/customize');
+                window.open('https://docs.bvm.network', '_blank');
+                // router.push('/blockchains/customize');
               }}
             >
-              {`Build your Bitcoin L2`}
+              {`Read developer docs`}
             </Button>
           </Fade>
         </div>
