@@ -79,7 +79,7 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
-        left: 'Celestia',
+        left: 'Data Availability Celestia',
         right: 'Polygon',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
@@ -114,7 +114,7 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
-        left: 'EigenDA',
+        left: 'Data Availability EigeDA',
         right: 'Celestia',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
