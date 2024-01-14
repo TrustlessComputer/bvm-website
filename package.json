@@ -42,7 +42,6 @@
     "ethers": "5.7.2",
     "framer-motion": "^10.16.16",
     "gsap": "^3.12.4",
-    "js-sha256": "^0.10.1",
     "next": "14.0.4",
     "next-compose-plugins": "^2.2.1",
     "next-plugin-svgr": "^1.1.10",
