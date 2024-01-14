@@ -2,7 +2,7 @@ import Avatar from '@/components/Avatar';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
-import { getTopLeaderBoards } from '@/services/leaderboard';
+import { getTopLeaderBoards } from '@/services/whitelist';
 import { formatCurrency, formatName } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';

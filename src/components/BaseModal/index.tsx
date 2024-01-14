@@ -28,8 +28,6 @@ const BaseModal = (props: PropsWithChildren<IBaseModalProps>): React.ReactNode =
     headerClassName,
   } = props;
 
-  console.log('isShow: ', isShow);
-
   return (
       <Modal
         isOpen={isShow}

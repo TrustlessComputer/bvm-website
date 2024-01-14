@@ -7,7 +7,7 @@ import Lines from '@/interactive/Lines';
 import Fade from '@/interactive/Fade';
 import useWindowSize from '@/hooks/useWindowSize';
 import React from 'react';
-import { getTopLeaderBoards } from '@/services/leaderboard';
+import { getTopLeaderBoards } from '@/services/whitelist';
 import { formatCurrency } from '@/utils/format';
 
 export default function HeroContent() {

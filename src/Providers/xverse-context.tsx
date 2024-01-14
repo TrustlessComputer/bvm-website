@@ -9,16 +9,23 @@ import {
   GetAddressOptions,
   BitcoinNetworkType,
   Capability,
-  getCapabilities
+  getCapabilities,
 } from 'sats-connect';
 import { IConnectedInfo } from '@/interfaces/wallet';
+
+interface ISignMessageParams {
+  address: string;
+  message: string;
+}
 
 export interface IXVerseContext {
   onConnect: () => Promise<unknown>;
   capabilityMessage?: string | undefined;
   capabilityState: TypeCapabilityState;
   openInstall: () => void;
+  onSignMessage: (_: ISignMessageParams) => Promise<string>
 }
+
 
 type TypeCapabilityState = 'loading' | 'loaded' | 'missing' | 'cancelled';
 
@@ -27,6 +34,7 @@ const initialValue: IXVerseContext = {
   capabilityMessage: undefined,
   capabilityState: 'loading',
   openInstall: () => undefined,
+  onSignMessage: (_: ISignMessageParams) =>  new Promise(() => ''),
 };
 
 export const XVerseContext = React.createContext<IXVerseContext>(initialValue);
@@ -73,12 +81,9 @@ export const XVerseProvider: React.FC<PropsWithChildren> = ({
             return reject('Connect to xverse failed.');
           }
 
-          const address = addresses[0].address;
-
-
           resolve({
-            address: address,
-            publicKey: addresses[0].publicKey,
+            address: addresses.map(item => item.address),
+            publicKey: addresses.map(item => item.publicKey),
           });
         },
         onCancel: () => reject('User rejected the request.'),
@@ -86,12 +91,27 @@ export const XVerseProvider: React.FC<PropsWithChildren> = ({
     });
   };
 
+  const onSignMessage = (p: ISignMessageParams) => {
+    return new Promise<string>((resolve, reject) => {
+      signMessage({
+        payload: {
+          network: {
+            type: 'Mainnet',
+          },
+          address: p.address,
+          message: p.message,
+        } as any,
+        onFinish: signature => {
+          resolve(signature as string);
+        },
+        onCancel: () => reject('User rejected the request.'),
+      } as SignMessageOptions);
+    });
+  };
+
   const onConnect = async () => {
-    try {
-    } catch (error) {
-      const { message } = getError(error);
-      toast.error(message);
-    }
+    const response = await connect();
+    return response;
   };
 
   React.useEffect(() => {
@@ -135,6 +155,7 @@ export const XVerseProvider: React.FC<PropsWithChildren> = ({
       capabilityMessage,
       capabilityState,
       openInstall,
+      onSignMessage,
     };
   }, [onConnect, capabilityMessage]);
 

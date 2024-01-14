@@ -24,7 +24,7 @@ export const setBearerToken = (token: string) => {
 
 setBearerToken(AuthenStorage.getAuthenKey() as string);
 
-export const getTopLeaderBoards = async (params: {
+const getTopLeaderBoards = async (params: {
   page?: number;
   limit?: number;
 }): Promise<{ data: ILeaderBoardPoint[], count: string }> => {
@@ -43,3 +43,18 @@ export const getTopLeaderBoards = async (params: {
     count: count
   };
 };
+
+const verifySignature = async (params: {
+  address: string,
+  message: string,
+  signature: string,
+  pubKey: string,
+}) => {
+  const res = (await apiClient.post(`/bvm/verify-btc-address`, params)) as any;
+  return res
+}
+
+export {
+  getTopLeaderBoards,
+  verifySignature
+}

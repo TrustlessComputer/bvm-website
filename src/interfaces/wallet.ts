@@ -9,6 +9,6 @@ export const WalletName = {
 };
 
 export interface IConnectedInfo {
-  address: string;
-  publicKey: string;
+  address: string[];
+  publicKey: string[];
 }

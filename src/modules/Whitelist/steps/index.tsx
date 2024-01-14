@@ -7,13 +7,21 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
-import { setBearerToken } from '@/services/leaderboard';
+import { setBearerToken } from '@/services/whitelist';
 import ConnectModal from '@/components/ConnectModal';
 import useToggle from '@/hooks/useToggle';
 
 interface IAuthenCode {
   public_code: string;
   secret_code: string;
+}
+
+interface IItem {
+  title: string,
+  desc: string,
+  actionText: string,
+  actionHandle: any,
+  isOpen?: boolean
 }
 
 const Steps = () => {
@@ -121,7 +129,7 @@ const Steps = () => {
   };
 
 
-  const DATA_COMMUNITY = useMemo(() => {
+  const DATA_COMMUNITY = useMemo<IItem[]>(() => {
     return (
       [
         {
@@ -141,13 +149,14 @@ const Steps = () => {
         //   desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
         //   actionText: 'Connect Wallet',
         //   actionHandle: onToggleConnect,
+        //   isOpen: !!token
         // },
         // {
         //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
         // },
       ]
     )
-  }, [currentStep]);
+  }, [currentStep, token]);
 
   console.log('currentStep', currentStep);
 
@@ -162,6 +171,7 @@ const Steps = () => {
             content={item}
             isLoading={index === 0 && submitting}
             currentStep={currentStep}
+            isOpen={!!item.isOpen}
           />
         );
       })}

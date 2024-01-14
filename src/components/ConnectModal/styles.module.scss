@@ -3,6 +3,10 @@
   flex-direction: column;
   gap: rem(16);
   margin-bottom: rem(16);
+
+  &__loading {
+    opacity: 0.6;
+  }
   .modalItem {
     display: flex;
     padding: 4px 16px 4px 4px;
@@ -35,4 +39,12 @@
       opacity: 0.7;
     }
   }
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }

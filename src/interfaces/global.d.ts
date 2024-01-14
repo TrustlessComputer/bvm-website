@@ -3,7 +3,7 @@ interface IUniSat {
   getAccounts: () => Promise<string[]>;
   getNetwork: () => Promise<'livenet' | 'testnet'>;
   getPublicKey: () => Promise<string>;
-  signMessage: (_: string, __: string) => Promise<string>;
+  signMessage: (_: string, __?: string) => Promise<string>;
 }
 
 declare global {
