@@ -100,7 +100,7 @@ const DATA_CHAINS = [
       },
       {
         left: 'Use Case',
-        right: 'AI',
+        right: 'GameFi',
         icon: '/landing/svg/lego_icon_rect.svg',
       },
       {
@@ -115,7 +115,7 @@ const DATA_CHAINS = [
       },
       {
         left: 'Data Availability',
-        right: 'EigeDA',
+        right: 'EigenDA',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
