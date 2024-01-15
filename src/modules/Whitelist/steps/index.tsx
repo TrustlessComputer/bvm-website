@@ -170,6 +170,7 @@ const Steps = () => {
             content={item}
             isLoading={index === 0 && submitting}
             isActive={!!item.isActive}
+            isDone={!!item.isDone}
           />
         );
       })}
