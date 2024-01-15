@@ -103,8 +103,8 @@ const useConnect = () => {
       try {
         await verifySignature({
           ...params
-        })
-        await AllowListStorage.setStorage({
+        });
+        AllowListStorage.setStorage({
           address: params.address,
           pubKey: params.pubKey,
           walletType: WalletType.xverse
