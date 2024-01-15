@@ -81,7 +81,7 @@ export default function ItemCommunity({
           </p>
         </div>
       </div>
-      {step === MultiplierStep.signMessage && isDone && (
+      {step === MultiplierStep.signMessage && (
         <HistoryMessage />
       )}
     </>
