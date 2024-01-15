@@ -14,3 +14,13 @@
     opacity: 1;
   }
 }
+
+
+.logo {
+  @include is-pc{
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

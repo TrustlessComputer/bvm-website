@@ -1,0 +1,57 @@
+.dropMenu {
+  position: relative;
+  color: white;
+
+  &_label {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    img, svg {
+      transform: translateY(.05em);
+    }
+  }
+
+  &:hover {
+    .dropMenu_list {
+      opacity: 1;
+    }
+  }
+
+  &_list {
+    opacity: 0;
+    width: 240px;
+    background: white;
+    position: absolute;
+    right: 0;
+    list-style: none;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+.listItem {
+
+  a {
+    color: #000000 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    svg * {
+      transition: fill .4s var(--easeOutQuart);
+    }
+
+    &:hover {
+      rect {
+        fill: red;
+      }
+
+      path {
+        fill: white
+      }
+    }
+  }
+}
