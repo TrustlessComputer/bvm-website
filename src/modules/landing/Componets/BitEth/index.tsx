@@ -19,12 +19,12 @@ export default function BitEth() {
     <div className={`${s.bitEth_inner} container`}>
       <div className={s.bitEth_content}>
         <Scale>
-          <Image className={s.thumb} src={'landing/biteth.svg'} alt={'biteth.svg'} width={250} height={80}
+          <Image className={s.thumb} quality={100} src={'/landing/biteth.png'} alt={'biteth.svg'} width={251} height={80}
                  loading={'eager'} />
         </Scale>
         <HeadingSection className={s.heading}>
           <Chars delay={.2}>
-            Minimal effort to migrate from Ethereum to Bitcoin.
+            <b>Minimal effort</b> to migrate from Ethereum to Bitcoin.
           </Chars>
         </HeadingSection>
         <ContentSection className={s.content}>
