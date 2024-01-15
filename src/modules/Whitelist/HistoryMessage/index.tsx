@@ -3,7 +3,6 @@ import styles from './styles.module.scss';
 import { CDN_URL_ICONS } from '@/config';
 import React from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
-import AllowListStorage from '@/utils/storage/allowlist.storage';
 import { getSignatureStatus } from '@/services/whitelist';
 import { SignatureStatus } from '@/interfaces/whitelist';
 import BigNumber from 'bignumber.js';
@@ -35,9 +34,8 @@ const HistoryMessage = () => {
 
   React.useEffect(() => {
     const authenKey = AuthenStorage.getAuthenKey();
-    const allowlist = AllowListStorage.getStorage();
 
-    if (!authenKey || !allowlist) return;
+    if (!authenKey) return;
     if (interval) {
       clearInterval(interval);
       interval = undefined
