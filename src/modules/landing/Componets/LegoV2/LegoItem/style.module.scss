@@ -1,9 +1,12 @@
 .legoItem {
-  padding: 48px;
-  transition: background .4s var(--easeOutQuart);
 
-  &:hover {
-    background: #eeeeee;
+  &_inner {
+    padding: 48px;
+    transition: background .4s var(--easeOutQuart);
+
+    &:hover {
+      background: #eeeeee;
+    }
   }
 
   &_title {

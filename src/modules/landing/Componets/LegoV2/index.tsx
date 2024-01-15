@@ -20,32 +20,32 @@ const DATA_ECOSYSTEM = [
   {
     img: lego1,
     title: 'Data Availability',
-    icons: [10,2,6,7,8,9]
+    icons: [10, 2, 6, 7, 8, 9],
   },
   {
     img: lego2,
     title: 'Execution',
-    icons: [1,2,3,4,5]
+    icons: [1, 2, 3, 4, 5],
   },
   {
     img: lego3,
     title: 'Rollup Framework',
-    icons: [1,11]
+    icons: [1, 11],
   },
   {
     img: lego4,
     title: 'Cross-chain bridges',
-    icons: [2,13,14]
+    icons: [2, 13, 14],
   },
   {
     img: lego5,
     title: 'Settlement',
-    icons: [10]
+    icons: [10],
   },
   {
     img: lego6,
     title: 'Applications',
-    icons: [15,16,17]
+    icons: [15, 16, 17],
   },
 ];
 export default function LegoV2() {
@@ -100,7 +100,7 @@ export default function LegoV2() {
 
         <div className={s.lego_content}>
           {DATA_ECOSYSTEM.map((item, index) => {
-            return <LegoItem data={item} />;
+            return <LegoItem data={item} delay={index / 10} />;
           })}
         </div>
       </div>

@@ -4,12 +4,14 @@ import ImagePlaceholder from '@/components/ImagePlaceholder';
 
 import Image from 'next/image';
 import { gsap } from 'gsap';
+import Fade from '@/interactive/Fade';
 
 interface IProp {
   data: any;
+  delay: number
 }
 
-export default function LegoItem({ data }: IProp): ReactElement {
+export default function LegoItem({ data, delay }: IProp): ReactElement {
 
   const refContent = useRef<HTMLDivElement>(null);
 
@@ -35,22 +37,24 @@ export default function LegoItem({ data }: IProp): ReactElement {
     gsap.to(box, { y: 30, delay: .05, opacity: 0, ease: 'power3.out', duration: .4 });
   };
   return <div className={s.legoItem} ref={refContent} onMouseEnter={onHover} onMouseLeave={onLeave}>
-    <div className={s.legoItem_inner}>
-      <div className={s.legoItem_thumbnail}>
-        <ImagePlaceholder src={data.img} alt={data.title} width={509} height={471} />
+    <Fade delay={delay}>
+      <div className={s.legoItem_inner}>
+        <div className={s.legoItem_thumbnail}>
+          <ImagePlaceholder src={data.img} alt={data.title} width={509} height={471} />
+        </div>
+        <div className={s.boxWrapper}>
+          <ul className={`${s.boxs} js-box`}>
+            {data.icons.map((src:any) => {
+              return <li className={'js-item'}>
+                <Image src={`/landing/images/box-image-${src}.png`} width={48} height={48} alt={'bxImg1'} />
+              </li>;
+            })}
+          </ul>
+        </div>
+        <h4 className={s.legoItem_title}>
+          {data.title}
+        </h4>
       </div>
-      <div className={s.boxWrapper}>
-        <ul className={`${s.boxs} js-box`}>
-          {data.icons.map((src:any) => {
-            return <li className={'js-item'}>
-              <Image src={`/landing/images/box-image-${src}.png`} width={48} height={48} alt={'bxImg1'} />
-            </li>;
-          })}
-        </ul>
-      </div>
-      <h4 className={s.legoItem_title}>
-        {data.title}
-      </h4>
-    </div>
+    </Fade>
   </div>;
 }
