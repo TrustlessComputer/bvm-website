@@ -10,6 +10,7 @@ const ToastOverlay = () => {
         bottom: 20,
         right: 20,
         zIndex: 9999999999999,
+        backgroundColor:"transparent"
       }}
       toastOptions={{
         success: {

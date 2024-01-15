@@ -12,6 +12,7 @@ export interface IContent {
   isShow: boolean;
   href: string;
   isShowViewUpdate: boolean;
+  isComingSoon: boolean;
   zIndex: number;
 }
 
@@ -25,6 +26,7 @@ const Contents: Array<IContent> = [
     href: 'https://twitter.com/punk3700/status/1650524119136628736',
     isShow: true,
     isShowViewUpdate: true,
+    isComingSoon: false,
     zIndex: 10,
   },
   {
@@ -36,6 +38,7 @@ const Contents: Array<IContent> = [
     href: 'https://twitter.com/punk3700/status/1657478010696798208',
     isShow: true,
     isShowViewUpdate: true,
+    isComingSoon: false,
     zIndex: 9,
   },
   {
@@ -47,6 +50,7 @@ const Contents: Array<IContent> = [
     href: 'https://twitter.com/punk3700/status/1654532883388977158',
     isShow: true,
     isShowViewUpdate: true,
+    isComingSoon: false,
     zIndex: 8,
   },
   {
@@ -58,6 +62,7 @@ const Contents: Array<IContent> = [
     href: 'https://twitter.com/punk3700/status/1664211213432291335',
     isShow: true,
     isShowViewUpdate: true,
+    isComingSoon: false,
     zIndex: 7,
   },
   {
@@ -69,6 +74,7 @@ const Contents: Array<IContent> = [
     href: 'https://twitter.com/punk3700/status/1684972258379563008',
     isShow: true,
     isShowViewUpdate: true,
+    isComingSoon: false,
     zIndex: 6,
   },
   {
@@ -80,6 +86,7 @@ const Contents: Array<IContent> = [
     href: 'https://twitter.com/punk3700/status/1699821767781658669',
     isShow: true,
     isShowViewUpdate: true,
+    isComingSoon: false,
     zIndex: 5,
   },
   {
@@ -87,10 +94,11 @@ const Contents: Array<IContent> = [
     dateStr: 'Q1 2024',
     title: 'BTC option for paying gas fees',
     desc: 'Enable payment of Bitcoin L2 gas fees in BTC, same to how Ethereum Rollup L2 solutions use ETH for transaction gas.',
-    img: '/roadmap/roadmap_img7.png',
+    img: '/roadmap/roadmap_comming_soon_1.png',
     href: '',
     isShow: true,
     isShowViewUpdate: false,
+    isComingSoon: true,
     zIndex: 4,
   },
   {
@@ -98,10 +106,11 @@ const Contents: Array<IContent> = [
     dateStr: 'Q1 2024',
     title: 'Bitcoin L2 App Store',
     desc: 'Install dApps like Uniswap, GMX, and Compound as default when creating a new Bitcoin L2.',
-    img: '/roadmap/roadmap_img8.png',
+    img: '/roadmap/roadmap_comming_soon_2.png',
     href: '',
     isShow: true,
     isShowViewUpdate: false,
+    isComingSoon: true,
     zIndex: 3,
   },
   {
@@ -109,10 +118,11 @@ const Contents: Array<IContent> = [
     dateStr: 'Q2 2024',
     title: 'Hyperbridges for enhanced connectivity',
     desc: 'Reduce liquidity fragmentation between Bitcoin L2 implementations by facilitating connectivity using Hyperbridges in the Bitcoin Virtual Machine, similar to how the web uses hyperlinks.',
-    img: '/roadmap/roadmap_img9.png',
+    img: '/roadmap/roadmap_comming_soon_3.png',
     href: '',
     isShow: true,
     isShowViewUpdate: false,
+    isComingSoon: true,
     zIndex: 2,
   },
   {
@@ -120,10 +130,11 @@ const Contents: Array<IContent> = [
     dateStr: 'Q3 2024',
     title: 'Integration of ZK Rollups into Rollup Frameworks',
     desc: 'Improve the Rollup protocol’s function in the Bitcoin L2 blockchain by including ZK rollups, which are recognized for their security, speed, and transparency, alongside Optimistic rollups.',
-    img: '/roadmap/roadmap_img10.png',
+    img: '/roadmap/roadmap_comming_soon_2.png',
     href: '',
     isShow: true,
     isShowViewUpdate: false,
+    isComingSoon: true,
     zIndex: 2,
   },
   {
@@ -131,10 +142,11 @@ const Contents: Array<IContent> = [
     dateStr: 'Q4 2024',
     title: 'Parallel EVM Implementation for Execution Layers',
     desc: 'Offer Bitcoin builders to use Parallel EVM, an upgraded engine capable of processing multiple transactions simultaneously, increasing the already impressive processing speed.',
-    img: '/roadmap/roadmap_img11.png',
+    img: '/roadmap/roadmap_comming_soon_1.png',
     href: '',
     isShow: true,
     isShowViewUpdate: false,
+    isComingSoon: true,
     zIndex: 1,
   },
 ];

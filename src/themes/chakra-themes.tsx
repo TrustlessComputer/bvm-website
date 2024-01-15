@@ -76,7 +76,7 @@ const chakraThemes = extendTheme({
       body: {
         minHeight: '100dvh',
         fontFamily: `Helvetica Neue`,
-        color: 'white',
+        color: '#F3F1E8',
         lineHeight: 'base',
       },
     },
