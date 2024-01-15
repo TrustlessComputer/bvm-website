@@ -7,9 +7,9 @@ import Section_7 from '@/modules/landing/Componets/Section_7';
 import { useEffect } from 'react';
 import ScalableSlide from '@/modules/landing/Componets/ScalableSlide';
 import Section7Mobile from './Componets/Section_7/Section_7_Mobile';
-import Lego from './Componets/Lego';
 import BitEth from '@/modules/landing/Componets/BitEth';
 import Ecosystem from './Componets/Ecosystem';
+import LegoV2 from '@/modules/landing/Componets/LegoV2';
 
 export default function Landing() {
   const { mobileScreen, tabletScreen } = useWindowSize();
@@ -20,7 +20,7 @@ export default function Landing() {
     <div className={s.landing}>
       <Hero />
       <Chain />
-      <Lego />
+      <LegoV2 />
       <BitEth />
       <Ecosystem />
       {mobileScreen || tabletScreen ? <ScaleableMobile /> : <ScalableSlide />}
