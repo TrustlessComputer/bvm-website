@@ -7,6 +7,7 @@ import { verifySignature } from '@/services/whitelist';
 import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
 import messageVerifier from '@/utils/message.verifier';
 import AllowListStorage from '@/utils/storage/allowlist.storage';
+import toast from 'react-hot-toast';
 
 const MESSAGE_FOR_SIGN = (address: string) => {
   return `Bitcoin Virtual Machine (BVM) is requesting you to sign this message with your Bitcoin wallet ${address}. By clicking "Sign" or "Approve," you are verifying that you are the rightful owner of the wallet. Please note that this action is only for authentication purposes and will not initiate any blockchain transactions, nor will it incur any network or gas fees.`
@@ -69,6 +70,7 @@ const useConnect = () => {
         message,
         signature
       });
+      toast.success("Successfully.")
       await AllowListStorage.setStorage({
         address: params.address,
         pubKey: params.pubKey,
@@ -101,8 +103,8 @@ const useConnect = () => {
       try {
         await verifySignature({
           ...params
-        })
-        await AllowListStorage.setStorage({
+        });
+        AllowListStorage.setStorage({
           address: params.address,
           pubKey: params.pubKey,
           walletType: WalletType.xverse
@@ -116,6 +118,7 @@ const useConnect = () => {
       const { message } = getError(errors[0]);
       throw new Error(message)
     }
+    toast.success("Successfully.")
   }
 
   const signMessage = async (type: WalletType) => {

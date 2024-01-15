@@ -2,6 +2,7 @@ import { PERP_API_URL } from '@/config';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import createAxiosInstance from './http-client';
 import AuthenStorage from '@/utils/storage/authen.storage';
+import { SignatureStatus } from '@/interfaces/whitelist';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -50,11 +51,23 @@ const verifySignature = async (params: {
   signature: string,
   pubKey: string,
 }) => {
-  const res = (await apiClient.post(`/bvm/verify-btc-address`, params)) as any;
+  const res = (await apiClient.post(`/bvm/verify-btc-address`, {
+    address: params.address,
+    message: params.message,
+    signature: params.signature,
+    pub_key: params.pubKey,
+  })) as any;
+  return res
+};
+
+
+const getSignatureStatus = async (): Promise<SignatureStatus[]> => {
+  const res = (await apiClient.get(`/bvm/verify-btc-address`)) as SignatureStatus[];
   return res
 }
 
 export {
   getTopLeaderBoards,
-  verifySignature
+  verifySignature,
+  getSignatureStatus
 }
