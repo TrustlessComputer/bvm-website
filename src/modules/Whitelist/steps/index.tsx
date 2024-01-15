@@ -149,8 +149,8 @@ const Steps = () => {
           step: MultiplierStep.post
         },
         {
-          title: 'Verify your Bitcoin wallet',
-          desc: 'Upgrade Your Multiplier\n' + 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
+          title: 'Upgrade your multiplier now',
+          desc: 'Say goodbye to high sats fees on Bitcoin; you\'re worth more, and it\'s your time. Get more for less with BVM\'s cheaper fees on the premier modular blockchain metaprotocol.',
           actionText: 'Connect wallet',
           actionHandle: onToggleConnect,
           isActive: !!token,

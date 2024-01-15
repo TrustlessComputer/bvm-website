@@ -28,7 +28,8 @@ export const shareTwitterSignature = (params: {
   const shareUrl = getLink('');
   let content = '';
 
-  content = `Verified my wallet on @bvmnetwork and upped my game! Paid ${params.fee} BTC in gas over ${params.txsCount} transactions and snagged ${params.point} points from bvm.network for their upcoming public sale!`;
+  content = `Paid ${params.fee} BTC in sats fee over ${params.txsCount} transactions and snagged ${params.point} points from @bvmnetwork via bvm.network for their upcoming public sale!
+`;
 
   window.open(
     `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
