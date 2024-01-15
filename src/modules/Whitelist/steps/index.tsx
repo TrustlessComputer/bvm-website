@@ -144,13 +144,13 @@ const Steps = () => {
           actionText: 'Post',
           actionHandle: handleShareTwMore,
         },
-        // {
-        //   title: 'Verify your Bitcoin wallet',
-        //   desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
-        //   actionText: 'Connect wallet',
-        //   actionHandle: onToggleConnect,
-        //   isForceActive: !!token
-        // },
+        {
+          title: 'Verify your Bitcoin wallet',
+          desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
+          actionText: 'Connect wallet',
+          actionHandle: onToggleConnect,
+          isForceActive: !!token
+        },
         // {
         //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
         // },
