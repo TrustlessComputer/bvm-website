@@ -150,7 +150,7 @@ const Steps = () => {
         },
         {
           title: 'Verify your Bitcoin wallet',
-          desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
+          desc: 'Upgrade Your Multiplier\n' + 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
           actionText: 'Connect wallet',
           actionHandle: onToggleConnect,
           isActive: !!token,

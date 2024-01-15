@@ -77,7 +77,7 @@ const HistoryMessage = () => {
         <Flex flexDirection="column" w="100%" alignItems="center">
           <p>You've spent <span>{formatCurrency(amount.fee, 0)} BTC</span> for gas fees across <span>{formatCurrency(amount.txsCount, 0)} transactions</span></p>
           <p>Congratulations, you've earned <span>{formatCurrency(amount.point, 0)} points</span></p>
-          <Button onClick={shareTwitterSignature}>Share now</Button>
+          <Button onClick={() => shareTwitterSignature({ fee: amount.fee, point: amount.point, txsCount: amount.txsCount })}>Share now</Button>
         </Flex>
       ) : (
         <p>
