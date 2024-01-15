@@ -1,0 +1,46 @@
+.modalContent {
+  background: white !important;
+}
+
+.modalHeader {
+  border: none;
+  padding: 0 !important;
+  padding-bottom: rem(24) !important;
+  padding-left: rem(24) !important;
+
+  &_title {
+    font-weight: 700;
+    color: black;
+    margin-top: rem(18) !important;
+    line-height: 140%;
+  }
+
+  &_description {
+    color: #5b5b5b;
+    font-size: rem(14);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    white-space: break-spaces;
+  }
+
+  &_closeBtn {
+    padding: rem(20px) !important;
+    background-color: transparent !important;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &:hover {
+      .closeIcon {
+        transform: rotate(90deg);
+        transition: all 0.3s;
+
+        :global(svg path) {
+          fill: black;
+          fill-opacity: 1;
+        }
+      }
+    }
+  }
+}

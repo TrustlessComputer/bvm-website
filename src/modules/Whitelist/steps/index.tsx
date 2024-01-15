@@ -3,15 +3,25 @@ import ItemStep from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
 import { getLink } from '@/utils/helpers';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
-import { setBearerToken } from '@/services/leaderboard';
+import { setBearerToken } from '@/services/whitelist';
+import ConnectModal from '@/components/ConnectModal';
+import useToggle from '@/hooks/useToggle';
 
 interface IAuthenCode {
   public_code: string;
   secret_code: string;
+}
+
+interface IItem {
+  title: string,
+  desc: string,
+  actionText: string,
+  actionHandle: any,
+  isForceActive?: boolean
 }
 
 const Steps = () => {
@@ -20,6 +30,7 @@ const Steps = () => {
   const [submitting, setSubmitting] = useState(false);
   const dispatch = useDispatch();
   const token = AuthenStorage.getAuthenKey();
+  const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle()
 
   const currentStep = useMemo(() => {
     if(!!token) {
@@ -32,10 +43,10 @@ const Steps = () => {
     const res: any = await requestAuthenByShareCode();
     setAuthenCode(res);
 
-    const shareUrl = " https://bvm.network";//getLink('');
+    const shareUrl = getLink('');
     let content = '';
 
-    content = `Welcome to the future of Bitcoin with @bvmnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks.\n\n$BVM public sale starting soon\n\n#${res?.public_code}\n\nJoin the allowlist`;
+    content = `Welcome to the future of Bitcoin with @bvmnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon\n\n#${res?.public_code}\n\nJoin the allowlist`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -117,10 +128,8 @@ const Steps = () => {
     }
   };
 
-  const handleConnectWallet = () => {
-  }
 
-  const DATA_COMMUNITY = useMemo(() => {
+  const DATA_COMMUNITY = useMemo<IItem[]>(() => {
     return (
       [
         {
@@ -138,15 +147,16 @@ const Steps = () => {
         // {
         //   title: 'Verify your Bitcoin wallet',
         //   desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
-        //   actionText: 'Connect Wallet',
-        //   actionHandle: handleConnectWallet,
+        //   actionText: 'Connect wallet',
+        //   actionHandle: onToggleConnect,
+        //   isForceActive: !!token
         // },
         // {
         //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
         // },
       ]
     )
-  }, [currentStep]);
+  }, [currentStep, token]);
 
   console.log('currentStep', currentStep);
 
@@ -161,9 +171,11 @@ const Steps = () => {
             content={item}
             isLoading={index === 0 && submitting}
             currentStep={currentStep}
+            isForceActive={!!item.isForceActive}
           />
         );
       })}
+      <ConnectModal isShow={isShowConnect} onHide={onToggleConnect}/>
     </Flex>
   );
 };

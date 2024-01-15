@@ -8,6 +8,9 @@ import { ChakraProvider } from '@chakra-ui/react';
 import Hydrated from '@/components/Hydrated';
 import dynamic from 'next/dynamic';
 import StoreProvider from '@/Providers/StoreProvider';
+import { XVerseProvider } from '@/Providers/xverse-context';
+import { UnisatProvider } from '@/Providers/unisat-context';
+import ToastOverlay from '@/components/ToastOverlay';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -30,8 +33,12 @@ export default function RootLayout({
       <StoreProvider>
         <ChakraProvider theme={chakraThemes}>
           <ChakraFontsFace />
-          <Hydrated>{children}</Hydrated>
-          {/* {children} */}
+          <XVerseProvider>
+            <UnisatProvider>
+              <Hydrated>{children}</Hydrated>
+              <ToastOverlay />
+            </UnisatProvider>
+          </XVerseProvider>
         </ChakraProvider>
       </StoreProvider>
       </body>

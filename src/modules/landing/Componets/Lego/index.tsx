@@ -6,8 +6,11 @@ import { Button, Flex } from '@chakra-ui/react';
 import HeadingSection from '@/modules/landing/Componets/HeadingSection';
 import ContentSection from '@/modules/landing/Componets/ContentSection';
 import Lines from '@/interactive/Lines';
+import { useRouter } from 'next/navigation';
 
 export default function Lego() {
+
+  const router = useRouter();
   return (
     <div className={s.lego}>
       <div className='container'>
@@ -43,6 +46,9 @@ export default function Lego() {
                 height={'48px'}
                 fontWeight={400}
                 fontSize={'16px'}
+                onClick={() => {
+                  router.push('/blockchains/customize');
+                }}
                 _hover={{
                   bgColor: '#000',
                 }}

@@ -28,8 +28,7 @@ const Section_1 = () => {
         color={'#000'}
         maxW={'709px'}
       >
-        BVM is the native cryptocurrency used within the BVM ecosystem to
-        empower building the future of Bitcoin.
+        BVM is the native cryptocurrency used within the BVM ecosystem to empower builders building the future of Bitcoin.
       </Text>
       {/* <Button
         bgColor={'#FA4E0E'}

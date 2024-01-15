@@ -4,7 +4,7 @@ import s from './styles.module.scss';
 
 import chain_1 from 'public/landing/compress/app-chain.png';
 import chain_2 from 'public/landing/compress/naka-chain.png';
-import chain_3 from 'public/landing/compress/ai-chain.png';
+import chain_3 from 'public/landing/images/arcade-chain.jpg';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
 import { Button, HStack } from '@chakra-ui/react';
@@ -55,7 +55,6 @@ const DATA_CHAINS = [
   {
     img: chain_2,
     title: 'Naka Chain',
-    subTitle: 'Coming soon',
     stud: 2,
     link: 'https://nakachain.xyz/',
     data: [
@@ -81,7 +80,7 @@ const DATA_CHAINS = [
       },
       {
         left: 'Data Availability',
-        right: 'Polygon',
+        right: 'Celestia',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
@@ -91,23 +90,22 @@ const DATA_CHAINS = [
   {
     img: chain_3,
     title: 'Arcade Chain',
-    subTitle: 'Coming soon',
     stud: 3,
     link: 'https://bitcoinarcade.xyz/',
     data: [
       {
         left: 'Currency',
-        right: 'Game',
+        right: 'GAME',
         icon: '/landing/svg/lego_icon_flat.svg',
       },
       {
         left: 'Use Case',
-        right: 'AI',
+        right: 'GameFi',
         icon: '/landing/svg/lego_icon_rect.svg',
       },
       {
         left: 'Rollups',
-        right: 'GameFi',
+        right: 'Optimistic, Sovereign',
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
@@ -117,7 +115,7 @@ const DATA_CHAINS = [
       },
       {
         left: 'Data Availability',
-        right: 'Celestia',
+        right: 'EigenDA',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
@@ -142,7 +140,7 @@ export default function Chain() {
             <p className={s.chain_case}>Case studies</p>
             <HeadingSection className={s.chain_heading}>
               <Chars>
-                Say hello to the first <b>Bitcoin L2 blockchains.</b>
+                Say hello to the first EVM-compatible <b>Bitcoin L2 blockchains powered by BVM.</b>
               </Chars>
             </HeadingSection>
             <Fade delay={0.6}>

@@ -2,8 +2,10 @@ import Avatar from '@/components/Avatar';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
-import { getTopLeaderBoards } from '@/services/leaderboard';
+import { getTopLeaderBoards } from '@/services/whitelist';
 import { formatCurrency, formatName } from '@/utils/format';
+import orderBy from 'lodash/orderBy';
+import uniqBy from 'lodash/uniqBy';
 import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './styles.module.scss';
@@ -14,6 +16,7 @@ import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
+import uniqueBy from '@popperjs/core/lib/utils/uniqueBy';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -52,6 +55,10 @@ const LeaderBoard = () => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
+
+      const sortList = (arr: ILeaderBoardPoint[]) => {
+        return uniqBy(orderBy(arr, item => Number(item.need_active || false), 'desc'), (item: ILeaderBoardPoint) => item.twitter_id)
+      }
       const { data: response, count } = await getTopLeaderBoards({
         ...refParams.current,
       });
@@ -67,10 +74,10 @@ const LeaderBoard = () => {
         };
         const reArr = removeOwnerRecord(response);
 
-        setData(response2.concat(reArr));
+        setData(sortList(response2.concat(reArr)));
       } else {
         const reArr = removeOwnerRecord(response);
-        setData(_data => [..._data, ...reArr]);
+        setData(_data => sortList([..._data, ...reArr]));
       }
     } catch (error) {
     } finally {
@@ -270,7 +277,7 @@ const LeaderBoard = () => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.content_point, 0, 0)}
+                  {formatCurrency(data?.point, 0, 0)}
                 </Text>
                 {data.need_active ?
                   <Tooltip

@@ -14,7 +14,7 @@ import Lines from '@/interactive/Lines';
 const DATA_ECOSYSTEM = [
   {
     img: ecosystem1,
-    title: 'Have 100% dedicated throughput',
+    title: 'Earn sequencer fees',
     stud: 2,
     bgTop: 'FFD73B',
     bgBottom: 'A05700',

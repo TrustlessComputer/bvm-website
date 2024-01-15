@@ -1,0 +1,50 @@
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: rem(16);
+  margin-bottom: rem(16);
+
+  &__loading {
+    opacity: 0.6;
+  }
+  .modalItem {
+    display: flex;
+    padding: 4px 16px 4px 4px;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    border: 1px solid #ececec;
+    box-shadow: 0 0 16px -6px rgb(0 0 0 / 8%);
+    cursor: pointer;
+    color: black;
+
+    &_content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: fit-content;
+    }
+
+    img {
+      width: 36px;
+      height: 36px;
+    }
+
+    &_warning {
+      color: #ff7e21;
+      line-height: 120%;
+    }
+
+    &_description {
+      opacity: 0.7;
+    }
+  }
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}

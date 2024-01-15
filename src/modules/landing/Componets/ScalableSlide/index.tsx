@@ -70,7 +70,7 @@ export default function ScalableSlide() {
             if (refSlide.current.index === 0) return;
 
             refItems.current &&
-              animation(refItems.current[2], refItems.current[0]);
+            animation(refItems.current[2], refItems.current[0]);
             refSlide.current.index = 0;
             setIndexActive(0);
           },
@@ -81,7 +81,7 @@ export default function ScalableSlide() {
         duration: 3,
         onStart: () => {
           refItems.current &&
-            animation(refItems.current[0], refItems.current[1]);
+          animation(refItems.current[0], refItems.current[1]);
           setIndexActive(1);
           refSlide.current.index = 1;
         },
@@ -91,7 +91,7 @@ export default function ScalableSlide() {
         duration: 3,
         onStart: () => {
           refItems.current &&
-            animation(refItems.current[1], refItems.current[2]);
+          animation(refItems.current[1], refItems.current[2]);
           setIndexActive(2);
           refSlide.current.index = 2;
         },
@@ -118,13 +118,12 @@ export default function ScalableSlide() {
         <div className={s.scalable_top}>
           <div className={s.scalable_top_inner}>
             <HeadingSection className={s.scalable_heading}>
-              <Chars>Scalable infrastructure for Bitcoin</Chars>
+              <Chars>Welcome to the future of Bitcoin.</Chars>
             </HeadingSection>
             <ContentSection className={s.scalable_content}>
               <Lines delay={0.1}>
-                If Ethereum is the world’s computer, Bitcoin is the world’s
-                supercomputer. With Bitcoin Virtual Machine, anyone can launch
-                their own Bitcoin L2 blockchain.
+                If Ethereum is the world’s computer, Bitcoin is the world’s supercomputer. With Bitcoin Virtual Machine,
+                anyone can launch their own Bitcoin L2 blockchain.
               </Lines>
             </ContentSection>
           </div>
@@ -139,23 +138,19 @@ export default function ScalableSlide() {
             indexActive={indexActive === 0}
             title={'Unlimited throughput'}
           >
-            Hyperscale Bitcoin with an unlimited number of Bitcoin Virtual
-            Machines as Bitcoin L2 blockchains.
+            Hyperscale Bitcoin with an unlimited number of Bitcoin Virtual Machines as Bitcoin L2 blockchains.
           </ScalableContent>
           <ScalableContent
             indexActive={indexActive === 1}
             title={'Infinite applications'}
           >
-            Bitcoin Virtual Machines support Solidity smart contracts on
-            Bitcoin, so you can quickly build all kinds of decentralized
-            applications on Bitcoin.
+            Bitcoin Virtual Machines support Solidity smart contracts on Bitcoin, so you can quickly build all kinds of decentralized applications on Bitcoin.
           </ScalableContent>
           <ScalableContent
             indexActive={indexActive === 2}
             title={'Fast & cheap'}
           >
-            Bitcoin Virtual Machines implement rollups on Bitcoin. Rollups
-            significantly reduce the block time and transaction fees.
+            Bitcoin Virtual Machines implement rollups on Bitcoin. Rollups significantly reduce the block time and transaction fees.
           </ScalableContent>
           <div className={s.scalable_bottom_po_wrap}>
             <div ref={refPo} className={s.scalable_bottom_po} />

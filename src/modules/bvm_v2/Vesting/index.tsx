@@ -55,7 +55,7 @@ const Vesting = (props: Props) => {
               <td>Monthly</td>
             </tr>
             <tr>
-              <td>Advisors</td>
+              <td>Investors</td>
               <td>2 years</td>
               <td>6 months</td>
               <td>Monthly</td>

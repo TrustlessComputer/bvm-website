@@ -12,16 +12,18 @@ export default function ItemCommunity({
   delay,
   isLoading,
   currentStep,
+  isForceActive
 }: {
   index: number;
   content: any;
   delay: number;
   isLoading?: boolean;
   currentStep: number;
+  isForceActive?: boolean
 }) {
   const isRunning = useMemo(() => {
-    return currentStep === index;
-  }, [currentStep, index]);
+    return currentStep === index || isForceActive;
+  }, [currentStep, index, isForceActive]);
 
   const isDone = useMemo(() => {
     return currentStep > index;
@@ -49,7 +51,7 @@ export default function ItemCommunity({
               <Text fontSize={px2rem(20)} fontWeight={700}>{index + 1}</Text>
             )
           }
-          <span className={s.itemCommunity_lego_stud}></span>
+          <span className={s.itemCommunity_lego_stud} />
         </div>
         <p className={s.itemCommunity_content}>
           <Flex direction={["column", "row"]}  justifyContent={"space-between"} alignItems={["flex-start", "center"]} w={"100%"} gap={['12px', '24px']}>
@@ -63,11 +65,15 @@ export default function ItemCommunity({
             </Flex>
             {
               content?.actionText && (
-                <Button className={s.itemCommunity_content_action} onClick={content?.actionHandle} isLoading={isLoading}>{content?.actionText}</Button>
+                <Button className={s.itemCommunity_content_action} onClick={() => {
+                  if (content?.actionHandle && isRunning) {
+                    content?.actionHandle()
+                  }
+                }} isLoading={isLoading}>{content?.actionText}</Button>
               )
             }
           </Flex>
-          <span className={s.itemCommunity_content_stud}></span>
+          <span className={s.itemCommunity_content_stud} />
         </p>
       </div>
     </div>

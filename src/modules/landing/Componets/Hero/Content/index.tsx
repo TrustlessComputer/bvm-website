@@ -6,23 +6,39 @@ import { useRouter } from 'next/navigation';
 import Lines from '@/interactive/Lines';
 import Fade from '@/interactive/Fade';
 import useWindowSize from '@/hooks/useWindowSize';
+import React from 'react';
+import { getTopLeaderBoards } from '@/services/whitelist';
+import { formatCurrency } from '@/utils/format';
 
 export default function HeroContent() {
   const { mobileScreen, tabletScreen } = useWindowSize();
   const router = useRouter();
+
+  const [count, setCount] = React.useState('');
+
+  const getCount = async () => {
+    try {
+      const response = await getTopLeaderBoards({ page: 1, limit: 20 });
+      setCount(response.count)
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+
+  React.useEffect(() => {
+    getCount()
+  }, [])
+
   return (
     <div className={s.heroContent}>
       {mobileScreen ? (
         <p>
-          BVM is a metaprotocol that lets developers launch their own
-          lightning-fast and low-cost Bitcoin L2 blockchain in a few clicks and
-          start building decentralized applications on Bitcoin.
+          The first modular blockchain metaprotocol that lets you customize and launch your own Bitcoin L2 blockchain protocol in a few clicks.
         </p>
       ) : (
         <Lines delay={0.2}>
-          BVM is a metaprotocol that lets developers launch their own
-          lightning-fast and low-cost Bitcoin L2 blockchain in a few clicks and
-          start building decentralized applications on Bitcoin.
+          The first modular blockchain metaprotocol that lets you customize and launch your own Bitcoin L2 blockchain protocol in a few clicks.
         </Lines>
       )}
       <HStack
@@ -50,7 +66,7 @@ export default function HeroContent() {
               bgColor: '#000',
             }}
             onClick={() => {
-              router.push('/blockchains/customize');
+              router.push('/allowlist');
             }}
           >
             Join the allowlist
@@ -60,21 +76,20 @@ export default function HeroContent() {
           <Fade>
             <li className={s.heroContent_itemSub}>
               <span className={s.heroContent_itemSub_hightLight}>
-                Public sale starting&nbsp;
+                Public sale starting soon
               </span>
-              Jan 24
             </li>
           </Fade>
           <Fade>
             <li className={s.heroContent_itemSub}>
-              5,321&nbsp;
+              {formatCurrency(count, 0, 0)}&nbsp;
               <span className={s.heroContent_itemSub_hightLight}>
                 people are on the allowlist
               </span>
             </li>
           </Fade>
         </ul>
-        <Fade delay={0.7}></Fade>
+        <Fade delay={0.7}/>
       </HStack>
     </div>
   );
