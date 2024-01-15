@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import ItemStep from './Step';
+import ItemStep, { MultiplierStep } from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
 import { getLink } from '@/utils/helpers';
@@ -26,6 +26,7 @@ interface IItem {
   actionHandle: any,
   isActive?: boolean,
   isDone?: boolean,
+  step: MultiplierStep
 }
 
 const Steps = () => {
@@ -136,7 +137,8 @@ const Steps = () => {
           actionText: 'Post',
           actionHandle: handleShareTw,
           isActive: !token,
-          isDone: !!token
+          isDone: !!token,
+          step: MultiplierStep.authen
         },
         {
           title: 'Level up your multiplier',
@@ -144,6 +146,7 @@ const Steps = () => {
           actionText: 'Post',
           actionHandle: handleShareTwMore,
           isActive: !!token,
+          step: MultiplierStep.post
         },
         {
           title: 'Verify your Bitcoin wallet',
@@ -152,6 +155,7 @@ const Steps = () => {
           actionHandle: onToggleConnect,
           isActive: !!token,
           isDone: !!AllowListStorage.getStorage() && !!token,
+          step: MultiplierStep.signMessage
         },
         // {
         //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
@@ -171,6 +175,7 @@ const Steps = () => {
             isLoading={index === 0 && submitting}
             isActive={!!item.isActive}
             isDone={!!item.isDone}
+            step={item.step}
           />
         );
       })}

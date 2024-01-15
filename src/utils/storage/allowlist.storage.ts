@@ -2,7 +2,7 @@ import storage from '@/utils/storage/local';
 import { WalletType } from '@/interfaces/wallet';
 import { compareString } from '@/utils/string';
 
-interface IStorageItem {
+export interface IStorageItem {
   address: string,
   pubKey: string,
   walletType: WalletType;
