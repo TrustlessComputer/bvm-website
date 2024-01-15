@@ -39,7 +39,7 @@ const LeaderBoard = () => {
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: 100,
+    limit: 1000,
   });
   const refInitial = useRef(false);
 
