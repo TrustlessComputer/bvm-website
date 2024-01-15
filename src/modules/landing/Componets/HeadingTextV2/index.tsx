@@ -41,7 +41,7 @@ export default function HeadingTextV2({ headings, className, children }: IProp) 
   useEffect(() => {
     if (!play) return;
     refTime.current = setTimeout(nextSlide, 500);
-    refLoop.current = setInterval(nextSlide, 3000);
+    refLoop.current = setInterval(nextSlide, 2000);
     return () => {
       clearInterval(refLoop.current);
       clearTimeout(refTime.current);
