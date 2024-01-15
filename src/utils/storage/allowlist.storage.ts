@@ -10,14 +10,21 @@ interface IStorageItem {
 class AllowListStorage {
   private static STORAGE_KEY = 'ALLOW_LIST_STORAGE';
 
-  public static getStorage = () => {
+  public static getStorage = (): IStorageItem[] | undefined => {
     const data = storage.get(this.STORAGE_KEY);
     if (data) {
-      return JSON.parse(data as string)
+      return JSON.parse(data as string) as IStorageItem[]
     }
-    return data
+    return undefined
   };
-  public static setStorage = (payload: IStorageItem) => storage.set(this.STORAGE_KEY, JSON.stringify(payload));
+  public static setStorage = (payload: IStorageItem) => {
+    const data = AllowListStorage.getStorage();
+    if (!data) {
+      storage.set(this.STORAGE_KEY, JSON.stringify([payload]));
+      return;
+    }
+    storage.set(this.STORAGE_KEY, JSON.stringify(data.push(payload)));
+  };
 }
 
 export default AllowListStorage
