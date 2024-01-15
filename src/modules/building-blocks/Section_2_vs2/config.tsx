@@ -62,7 +62,7 @@ export const BlockDataList: BlockItemType[] = [
       },
       {
         logoUrl: '/images/lego_polygon.svg',
-        name: 'Polygon ZKEVM',
+        name: 'Polygon',
         isComingSoon: true,
       },
       {
@@ -110,13 +110,13 @@ export const BlockDataList: BlockItemType[] = [
     isHide: false,
   },
   {
-    key: 'Interop',
-    label: 'Interop',
+    key: 'Cross-chain bridges',
+    label: 'Cross-chain bridges',
     networkList: [
-      {
-        logoUrl: '/images/lego_bitcoin.svg',
-        name: 'Bitcoin',
-      },
+      // {
+      //   logoUrl: '/images/lego_bitcoin.svg',
+      //   name: 'Bitcoin',
+      // },
       {
         logoUrl: '/images/lego_brc20.svg',
         name: 'BRC20',
@@ -138,6 +138,30 @@ export const BlockDataList: BlockItemType[] = [
     isHide: false,
   },
   {
+    key: 'Applications',
+    label: 'Applications',
+    networkList: [
+      {
+        logoUrl: '/images/lego_uniswap.png',
+        name: 'Uniswap',
+      },
+      {
+        logoUrl: '/images/lego_gmx.svg',
+        name: 'GMX',
+      },
+      {
+        logoUrl: '/images/lego_compound.svg',
+        name: 'Compound',
+      },
+    ],
+    // bgColor: '#FF5C5C',
+    bgColor: 'transparent',
+    bgCircle: '#FF7D7D',
+    zIndex: 5,
+    isLastItem: false,
+    isHide: false,
+  },
+  {
     key: 'Settlement',
     label: 'Settlement',
     networkList: [
@@ -149,7 +173,7 @@ export const BlockDataList: BlockItemType[] = [
     // bgColor: '#29892A',
     bgColor: 'transparent',
     bgCircle: '#54A155',
-    zIndex: 5,
+    zIndex: 4,
     isLastItem: true,
     isHide: false,
   },

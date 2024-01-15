@@ -108,7 +108,7 @@ const Section2 = () => {
               bgColor={'white'}
               height={'100%'}
             >
-              <Image key={`${obj.logoUrl}-${index}`} src={obj.logoUrl} />
+              <Image key={`${obj.logoUrl}-${index}`} src={obj.logoUrl}/>
               <Box height={'4px'}></Box>
               <Text
                 fontSize={['12px']}
@@ -148,9 +148,17 @@ const Section2 = () => {
   };
 
   return (
-    <VStack w={'100%'} spacing={['10px', '28px']}>
-      {BlockDataList.map(renderItem)}
-    </VStack>
+    <Flex
+      bgColor={'#F3F1E8'}
+      display={'flex'}
+      flexDirection={'column'}
+      h="100%"
+      align={'center'}
+    >
+      <VStack w={'100%'} spacing={['10px', '28px']}>
+        {BlockDataList.map(renderItem)}
+      </VStack>
+    </Flex>
   );
 };
 
