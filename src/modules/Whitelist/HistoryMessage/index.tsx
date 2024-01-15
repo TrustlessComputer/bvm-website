@@ -11,6 +11,7 @@ import Loading from '@/components/Loading';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { shareTwitterSignature } from '@/utils/helpers';
+import cs from 'classnames';
 
 let interval: any = undefined;
 
@@ -71,7 +72,9 @@ const HistoryMessage = () => {
   }
 
   return (
-    <Flex className={styles.container}>
+    <Flex className={cs(styles.container, {
+      [styles.container__congrats as string]: !!amount.txsCount
+    })}>
       <img src={`${CDN_URL_ICONS}/ic-verify.svg`} />
       {amount.txsCount ? (
         <Flex flexDirection="column" w="100%" alignItems="center">
