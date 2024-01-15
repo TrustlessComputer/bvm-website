@@ -8,7 +8,7 @@ interface IStorageItem {
 }
 
 class AllowListStorage {
-  private static STORAGE_KEY = 'ALLOW_LIST_STORAGE';
+  private static STORAGE_KEY = 'ALLOW_LIST_STORAGE_0.0.1';
 
   public static getStorage = (): IStorageItem[] | undefined => {
     const data = storage.get(this.STORAGE_KEY);
@@ -24,7 +24,8 @@ class AllowListStorage {
         storage.set(this.STORAGE_KEY, JSON.stringify([payload]));
         return;
       }
-      storage.set(this.STORAGE_KEY, JSON.stringify(data.push(payload)));
+      data.push(payload)
+      storage.set(this.STORAGE_KEY, JSON.stringify(data));
     } catch (error) {
       console.log('setStorage error: ', error);
     }
