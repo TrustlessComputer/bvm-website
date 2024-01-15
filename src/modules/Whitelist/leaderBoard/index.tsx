@@ -16,7 +16,7 @@ import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import uniqueBy from '@popperjs/core/lib/utils/uniqueBy';
+import BigNumber from 'bignumber.js';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -34,7 +34,6 @@ const LeaderBoard = () => {
   const [data, setData] = useState<ILeaderBoardPoint[]>([]);
   const [isFetching, setIsFetching] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [count, setCount] = useState<string | undefined>(undefined);
   const needReload = useAppSelector(commonSelector).needReload;
 
   const hasIncrementedPageRef = useRef(false);
@@ -62,7 +61,6 @@ const LeaderBoard = () => {
       const { data: response, count } = await getTopLeaderBoards({
         ...refParams.current,
       });
-      setCount(count)
       if (isNew) {
         const { data: response2 } = await getTopLeaderBoards({
           page: 1,
@@ -161,6 +159,10 @@ const LeaderBoard = () => {
               alignItems={'center'}
               width={'100%'}
               justifyContent={'space-between'}
+              cursor="pointer"
+              onClick={() => {
+                window.open(`https://twitter.com/${data?.twitter_username}`)
+              }}
             >
               <Flex flex={1} gap={2} alignItems={'center'}>
                 <Avatar
@@ -170,7 +172,7 @@ const LeaderBoard = () => {
                   )}
                   address={''}
                   width={36}
-                  name={data?.twitter_username || ''}
+                  name={data?.twitter_name || data?.twitter_username || ''}
                 />
                 <Flex width={'100%'} gap={'0px'} direction={'column'}>
                   {data?.twitter_name && (
@@ -251,7 +253,7 @@ const LeaderBoard = () => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>Content Points are calculated based on the performance of your posts on X, including Views, Likes, Reposts, and Quotes.
-                    Note: To be qualified, you must tag: <strong>@bvmnetwork</strong></p>
+                    Note: To be qualified, you must tag: <br/><strong>@bvmnetwork</strong></p>
                 </Flex>
               }
             >
@@ -337,45 +339,60 @@ const LeaderBoard = () => {
       //     );
       //   },
       // },
-      // {
-      //   id: 'feature',
-      //   label: (
-      //     <Flex
-      //       style={{
-      //         justifyContent: 'center',
-      //         alignSelf: 'center',
-      //         width: '100%',
-      //         textTransform: 'uppercase'
-      //       }}
-      //     >
-      //       Gas Spent
-      //     </Flex>
-      //   ),
-      //   labelConfig,
-      //   config: {
-      //     borderBottom: 'none',
-      //     fontSize: '16px',
-      //     fontWeight: 500,
-      //     verticalAlign: 'middle',
-      //     letterSpacing: '-0.5px',
-      //   },
-      //   render(data: ILeaderBoardPoint) {
-      //     return (
-      //       <Flex
-      //         gap={3}
-      //         alignItems={'center'}
-      //         width={'100%'}
-      //         justifyContent={'center'}
-      //       >
-      //         <Flex alignItems={'center'} gap={2}>
-      //           <Text className={styles.title}>
-      //             {formatCurrency(data?.point_portfolio_inday, 0, 0)}
-      //           </Text>
-      //         </Flex>
-      //       </Flex>
-      //     );
-      //   },
-      // },
+      {
+        id: 'feature',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              textTransform: 'uppercase',
+            }}
+            gap="3px"
+          >
+            <p style={{ textTransform:'uppercase' }}>Gas Spent</p>
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>Gas spent is calculated from total gas fees paid on Bitcoin, starting with the first payment to wallet verification on the BVM allowlist.</p>
+                </Flex>
+              }
+            >
+              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+            </Tooltip>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '16px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={3}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={2}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.gas_point, 0, 0)}
+                </Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
       {
         id: 'point',
         label: (
@@ -408,7 +425,7 @@ const LeaderBoard = () => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {formatCurrency(data.point, 0, 0)}
+                  {formatCurrency(new BigNumber(data?.point || '0').plus(data?.gas_point || '0').toNumber(), 0, 0)}
                 </Text>
               </Flex>
             </Flex>
