@@ -18,12 +18,16 @@ class AllowListStorage {
     return undefined
   };
   public static setStorage = (payload: IStorageItem) => {
-    const data = AllowListStorage.getStorage();
-    if (!data) {
-      storage.set(this.STORAGE_KEY, JSON.stringify([payload]));
-      return;
+    try {
+      const data = AllowListStorage.getStorage();
+      if (!data) {
+        storage.set(this.STORAGE_KEY, JSON.stringify([payload]));
+        return;
+      }
+      storage.set(this.STORAGE_KEY, JSON.stringify(data.push(payload)));
+    } catch (error) {
+      console.log('setStorage error: ', error);
     }
-    storage.set(this.STORAGE_KEY, JSON.stringify(data.push(payload)));
   };
 }
 
