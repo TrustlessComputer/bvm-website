@@ -21,7 +21,7 @@ interface IItem {
   desc: string,
   actionText: string,
   actionHandle: any,
-  isOpen?: boolean
+  isForceActive?: boolean
 }
 
 const Steps = () => {
@@ -147,9 +147,9 @@ const Steps = () => {
         // {
         //   title: 'Verify your Bitcoin wallet',
         //   desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
-        //   actionText: 'Connect Wallet',
+        //   actionText: 'Connect wallet',
         //   actionHandle: onToggleConnect,
-        //   isOpen: !!token
+        //   isForceActive: !!token
         // },
         // {
         //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
@@ -171,7 +171,7 @@ const Steps = () => {
             content={item}
             isLoading={index === 0 && submitting}
             currentStep={currentStep}
-            isOpen={!!item.isOpen}
+            isForceActive={!!item.isForceActive}
           />
         );
       })}

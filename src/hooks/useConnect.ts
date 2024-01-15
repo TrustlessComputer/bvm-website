@@ -4,8 +4,9 @@ import { UnisatContext } from '@/Providers/unisat-context';
 import { IConnectedInfo, WalletType } from '@/interfaces/wallet';
 import { getError } from '@/utils/error';
 import { verifySignature } from '@/services/whitelist';
-import { getAddressInfo, AddressType } from 'bitcoin-address-validation';
+import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
 import messageVerifier from '@/utils/message.verifier';
+import AllowListStorage from '@/utils/storage/allowlist.storage';
 
 const MESSAGE_FOR_SIGN = (address: string) => {
   return `Bitcoin Virtual Machine (BVM) is requesting you to sign this message with your Bitcoin wallet ${address}. By clicking "Sign" or "Approve," you are verifying that you are the rightful owner of the wallet. Please note that this action is only for authentication purposes and will not initiate any blockchain transactions, nor will it incur any network or gas fees.`
@@ -67,6 +68,11 @@ const useConnect = () => {
         pubKey,
         message,
         signature
+      });
+      await AllowListStorage.setStorage({
+        address: params.address,
+        pubKey: params.pubKey,
+        walletType: WalletType.unisat
       })
     }
   }
@@ -95,6 +101,11 @@ const useConnect = () => {
       try {
         await verifySignature({
           ...params
+        })
+        await AllowListStorage.setStorage({
+          address: params.address,
+          pubKey: params.pubKey,
+          walletType: WalletType.xverse
         })
       } catch (error) {
         errors.push(error)

@@ -12,18 +12,18 @@ export default function ItemCommunity({
   delay,
   isLoading,
   currentStep,
-  isOpen
+  isForceActive
 }: {
   index: number;
   content: any;
   delay: number;
   isLoading?: boolean;
   currentStep: number;
-  isOpen?: boolean
+  isForceActive?: boolean
 }) {
   const isRunning = useMemo(() => {
-    return currentStep === index || isOpen;
-  }, [currentStep, index, isOpen]);
+    return currentStep === index || isForceActive;
+  }, [currentStep, index, isForceActive]);
 
   const isDone = useMemo(() => {
     return currentStep > index;
@@ -65,7 +65,11 @@ export default function ItemCommunity({
             </Flex>
             {
               content?.actionText && (
-                <Button className={s.itemCommunity_content_action} onClick={content?.actionHandle} isLoading={isLoading}>{content?.actionText}</Button>
+                <Button className={s.itemCommunity_content_action} onClick={() => {
+                  if (content?.actionHandle && isRunning) {
+                    content?.actionHandle()
+                  }
+                }} isLoading={isLoading}>{content?.actionText}</Button>
               )
             }
           </Flex>
