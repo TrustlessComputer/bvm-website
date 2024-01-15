@@ -63,7 +63,9 @@ const HistoryMessage = () => {
     return (
       <Flex className={styles.container}>
         <Loading />
-        <p>Getting everything ready...</p>
+        <p>Wallet verification in progress!</p>
+        <p>You're in the queue. Please give us a few minutes to process.</p>
+        <p>Thanks for your patience!</p>
       </Flex>
     )
   }
@@ -71,9 +73,17 @@ const HistoryMessage = () => {
   return (
     <Flex className={styles.container}>
       <img src={`${CDN_URL_ICONS}/ic-verify.svg`} />
-      <p>You've spent <span>{formatCurrency(amount.fee, 0)} BTC</span> for gas fees across <span>{formatCurrency(amount.txsCount, 0)} transactions</span></p>
-      <p>Congratulations, you've earned <span>{formatCurrency(amount.point, 0)} points</span></p>
-      <Button onClick={shareTwitterSignature}>Share now</Button>
+      {amount.txsCount ? (
+        <Flex flexDirection="column" w="100%" alignItems="center">
+          <p>You've spent <span>{formatCurrency(amount.fee, 0)} BTC</span> for gas fees across <span>{formatCurrency(amount.txsCount, 0)} transactions</span></p>
+          <p>Congratulations, you've earned <span>{formatCurrency(amount.point, 0)} points</span></p>
+          <Button onClick={shareTwitterSignature}>Share now</Button>
+        </Flex>
+      ) : (
+        <p>
+          No transactions found. Please connect another wallet and try again.
+        </p>
+      )}
     </Flex>
   )
 }
