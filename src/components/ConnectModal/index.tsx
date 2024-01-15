@@ -52,7 +52,7 @@ const ConnectModal = React.memo(({ isShow, onHide }: IProps)=> {
       await signMessage(type);
       dispatch(requestReload())
       onHide()
-      toast.error("Successfully.")
+      toast.success("Successfully.")
     } catch (error) {
       const { message } = getError(error);
       toast.error(message)

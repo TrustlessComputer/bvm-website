@@ -50,7 +50,12 @@ const verifySignature = async (params: {
   signature: string,
   pubKey: string,
 }) => {
-  const res = (await apiClient.post(`/bvm/verify-btc-address`, params)) as any;
+  const res = (await apiClient.post(`/bvm/verify-btc-address`, {
+    address: params.address,
+    message: params.message,
+    signature: params.signature,
+    pub_key: params.pubKey,
+  })) as any;
   return res
 }
 
