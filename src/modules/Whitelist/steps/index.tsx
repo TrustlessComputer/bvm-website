@@ -10,6 +10,9 @@ import { useDispatch } from 'react-redux';
 import { setBearerToken } from '@/services/whitelist';
 import ConnectModal from '@/components/ConnectModal';
 import useToggle from '@/hooks/useToggle';
+import AllowListStorage from '@/utils/storage/allowlist.storage';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
 
 interface IAuthenCode {
   public_code: string;
@@ -21,7 +24,8 @@ interface IItem {
   desc: string,
   actionText: string,
   actionHandle: any,
-  isForceActive?: boolean
+  isActive?: boolean,
+  isDone?: boolean,
 }
 
 const Steps = () => {
@@ -30,14 +34,8 @@ const Steps = () => {
   const [submitting, setSubmitting] = useState(false);
   const dispatch = useDispatch();
   const token = AuthenStorage.getAuthenKey();
-  const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle()
-
-  const currentStep = useMemo(() => {
-    if(!!token) {
-      return 1;
-    }
-    return 0;
-  }, [token]);
+  const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle();
+  const needReload = useAppSelector(commonSelector).needReload
 
   const handleShareTw = async () => {
     const res: any = await requestAuthenByShareCode();
@@ -137,28 +135,30 @@ const Steps = () => {
           desc: 'Post anything on X and tag @bvmnetwork',
           actionText: 'Post',
           actionHandle: handleShareTw,
+          isActive: !token,
+          isDone: !!token
         },
         {
           title: 'Level up your multiplier',
           desc: 'The more you post, the bigger multiplier you’ll get.',
           actionText: 'Post',
           actionHandle: handleShareTwMore,
+          isActive: !!token,
         },
-        // {
-        //   title: 'Verify your Bitcoin wallet',
-        //   desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
-        //   actionText: 'Connect wallet',
-        //   actionHandle: onToggleConnect,
-        //   isForceActive: !!token
-        // },
+        {
+          title: 'Verify your Bitcoin wallet',
+          desc: 'The more gas you paid on Bitcoin, the higher the multiplier you receive!',
+          actionText: 'Connect wallet',
+          actionHandle: onToggleConnect,
+          isActive: !!token,
+          isDone: !!AllowListStorage.getStorage() && !!token,
+        },
         // {
         //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
         // },
       ]
     )
-  }, [currentStep, token]);
-
-  console.log('currentStep', currentStep);
+  }, [token, needReload]);
 
   return (
     <Flex className={s.container} direction={"column"} gap={5} mt={4}>
@@ -167,11 +167,9 @@ const Steps = () => {
           <ItemStep
             key={index}
             index={index}
-            delay={0.4 + index / 10}
             content={item}
             isLoading={index === 0 && submitting}
-            currentStep={currentStep}
-            isForceActive={!!item.isForceActive}
+            isActive={!!item.isActive}
           />
         );
       })}

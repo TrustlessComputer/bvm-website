@@ -9,25 +9,20 @@ import { useMemo } from 'react';
 export default function ItemCommunity({
   index,
   content,
-  delay,
   isLoading,
-  currentStep,
-  isForceActive
+  isActive,
+  isDone,
 }: {
   index: number;
   content: any;
-  delay: number;
   isLoading?: boolean;
-  currentStep: number;
-  isForceActive?: boolean
+  isActive?: boolean
+  isDone?: boolean;
 }) {
-  const isRunning = useMemo(() => {
-    return currentStep === index || isForceActive;
-  }, [currentStep, index, isForceActive]);
 
-  const isDone = useMemo(() => {
-    return currentStep > index;
-  }, [currentStep, index]);
+  const isRunning = useMemo(() => {
+    return isActive;
+  }, [isActive, index]);
 
   return (
     <div className={cx(s.itemCommunity, isRunning ? '' : s.isDone)}>
