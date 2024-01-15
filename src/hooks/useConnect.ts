@@ -101,9 +101,9 @@ const useConnect = () => {
       console.log('signMessageXverse: ', params, await messageVerifier(params));
 
       try {
-        // await verifySignature({
-        //   ...params
-        // });
+        await verifySignature({
+          ...params
+        });
         AllowListStorage.setStorage({
           address: params.address,
           pubKey: params.pubKey,
