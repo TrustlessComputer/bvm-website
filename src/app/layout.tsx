@@ -11,6 +11,7 @@ import StoreProvider from '@/Providers/StoreProvider';
 import { XVerseProvider } from '@/Providers/xverse-context';
 import { UnisatProvider } from '@/Providers/unisat-context';
 import ToastOverlay from '@/components/ToastOverlay';
+import ModalManager from '@/components/ModalManage';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -36,6 +37,7 @@ export default function RootLayout({
           <XVerseProvider>
             <UnisatProvider>
               <Hydrated>{children}</Hydrated>
+              <ModalManager />
               <ToastOverlay />
             </UnisatProvider>
           </XVerseProvider>

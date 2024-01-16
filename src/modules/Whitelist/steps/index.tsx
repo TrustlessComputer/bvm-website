@@ -26,7 +26,8 @@ interface IItem {
   actionHandle: any,
   isActive?: boolean,
   isDone?: boolean,
-  step: MultiplierStep
+  step: MultiplierStep,
+  secretCode?: string
 }
 
 const Steps = () => {
@@ -84,49 +85,24 @@ const Steps = () => {
   const handleVerifyTwitter = async (): Promise<void> => {
     try {
       const result = await generateTokenWithTwPost(authenCode?.secret_code as string);
-      if (result) {
-        clearInterval(timer.current);
-        const twitterToken = AuthenStorage.getAuthenKey();
-        if (!twitterToken || twitterToken !== result?.token) {
-          AuthenStorage.setAuthenKey(result?.token);
-          setBearerToken(result?.token);
-        }
-        setSubmitting(false);
-        dispatch(requestReload());
-        // setHasLinkTwitter(true);
-        // setShowTrouble && setShowTrouble(false);
-
-        // if (twProfile?.issued) {
-        //   gaEventTracker(
-        //     AlphaActions.PostTweetSignInSuccessTw,
-        //     JSON.stringify({
-        //       info: {
-        //         twitter_username: twProfile?.twitter_username,
-        //       },
-        //     }),
-        //   );
-        // } else {
-        //   gaEventTracker(
-        //     AlphaActions.PostTweetSignUpSuccessTw,
-        //     JSON.stringify({
-        //       info: {
-        //         twitter_username: twProfile?.twitter_username,
-        //       },
-        //     }),
-        //   );
-        // }
-
-        // try {
-        //   getReferralCode();
-        // } catch (e) {
-        //   console.log('getReferralCode', e);
-        // }
-      }
+      onVerifyTwSuccess(result);
     } catch (err) {
       console.log('handleVerifyTwitter', err);
     }
   };
 
+  const onVerifyTwSuccess = (result: any) => {
+    if (result) {
+      clearInterval(timer.current);
+      const twitterToken = AuthenStorage.getAuthenKey();
+      if (!twitterToken || twitterToken !== result?.token) {
+        AuthenStorage.setAuthenKey(result?.token);
+        setBearerToken(result?.token);
+      }
+      setSubmitting(false);
+      dispatch(requestReload());
+    }
+  }
 
   const DATA_COMMUNITY = useMemo<IItem[]>(() => {
     return (
@@ -138,7 +114,8 @@ const Steps = () => {
           actionHandle: handleShareTw,
           isActive: !token,
           isDone: !!token,
-          step: MultiplierStep.authen
+          step: MultiplierStep.authen,
+          secretCode: authenCode?.secret_code
         },
         {
           title: 'Level up your multiplier',
@@ -162,7 +139,7 @@ const Steps = () => {
         // },
       ]
     )
-  }, [token, needReload]);
+  }, [token, needReload, authenCode?.secret_code]);
 
   return (
     <Flex className={s.container} direction={"column"} gap={5} mt={4}>
@@ -172,10 +149,11 @@ const Steps = () => {
             key={index}
             index={index}
             content={item}
-            isLoading={index === 0 && submitting}
+            isLoading={item.step === MultiplierStep.authen && submitting}
             isActive={!!item.isActive}
             isDone={!!item.isDone}
             step={item.step}
+            secretCode={item?.secretCode}
           />
         );
       })}

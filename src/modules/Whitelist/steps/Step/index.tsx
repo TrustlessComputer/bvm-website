@@ -2,9 +2,12 @@ import s from './styles.module.scss';
 import { Button, Flex, Text } from '@chakra-ui/react';
 import px2rem from '@/utils/px2rem';
 import cx from 'clsx';
-import React, { useMemo } from 'react';
-import AllowListStorage, { IStorageItem } from '@/utils/storage/allowlist.storage';
+import React, { useEffect, useMemo, useState } from 'react';
 import HistoryMessage from '@/modules/Whitelist/HistoryMessage';
+import { useDispatch } from 'react-redux';
+import { openModal } from '@/stores/states/modal/reducer';
+import AuthenStorage from '@/utils/storage/authen.storage';
+import VerifyTwModal, { ReferralModalID } from '@/modules/Whitelist/steps/VerifyTwModal';
 
 export enum MultiplierStep {
   authen,
@@ -18,19 +21,44 @@ export default function ItemCommunity({
   isLoading,
   isActive,
   isDone,
-  step
+  step,
+  secretCode
 }: {
   index: number;
   content: any;
   isLoading?: boolean;
   isActive?: boolean
   isDone?: boolean;
-  step?: MultiplierStep
+  step?: MultiplierStep;
+  secretCode?: string;
 }) {
+  const dispatch = useDispatch();
+  const [showManualCheck, setShowManualCheck] = useState(false);
+  const token = AuthenStorage.getAuthenKey();
+
+  useEffect(() => {
+    if(!!token) {
+      setShowManualCheck(false);
+    }
+  }, [token]);
 
   const isRunning = useMemo(() => {
     return isActive;
   }, [isActive, index]);
+
+  const onClickEditRefCode = () => {
+    dispatch(
+      openModal({
+        id: ReferralModalID,
+        title: `Enter twitter post link`,
+        className: s.modalContent,
+        // modalProps: {
+        //   size: 'lg',
+        // },
+        render: () => <VerifyTwModal secretCode={secretCode}/>,
+      }),
+    );
+  };
 
   return (
     <>
@@ -69,11 +97,33 @@ export default function ItemCommunity({
               </Flex>
               {
                 content?.actionText && (
-                  <Button className={s.itemCommunity_content_action} onClick={() => {
-                    if (content?.actionHandle && isRunning) {
-                      content?.actionHandle()
+                  <Flex direction={"column"}>
+                    <Button className={s.itemCommunity_content_action} onClick={() => {
+                      if (content?.actionHandle && isRunning && !isLoading) {
+                        content?.actionHandle();
+
+                        if (step === MultiplierStep.authen) {
+                          setTimeout(() => {
+                            setShowManualCheck(true);
+                          }, 3000);
+                        }
+                      }
+                    }} isLoading={isLoading}>{content?.actionText}
+                    </Button>
+                    {
+                      step === MultiplierStep.authen && showManualCheck && (
+                        <Text
+                          cursor={"pointer"}
+                          fontSize={"14px"}
+                          fontWeight={400}
+                          color={"#000000"}
+                          textDecoration={"underline"}
+                          onClick={onClickEditRefCode}>
+                          Manual check
+                        </Text>
+                      )
                     }
-                  }} isLoading={isLoading}>{content?.actionText}</Button>
+                  </Flex>
                 )
               }
             </Flex>
