@@ -184,14 +184,6 @@ const Steps = () => {
         secretCode={authenCode?.secret_code}
         onSuccess={onVerifyTwSuccess}
       />
-      <VerifyTwModal
-        isShow={showManualCheck}
-        onHide={() => {
-          setShowManualCheck(false);
-        }}
-        secretCode={authenCode?.secret_code}
-        onSuccess={onVerifyTwSuccess}
-      />
     </Flex>
   );
 };
