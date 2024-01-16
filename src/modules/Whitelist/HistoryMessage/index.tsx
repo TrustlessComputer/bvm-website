@@ -1,6 +1,5 @@
 import { Button, Flex } from '@chakra-ui/react';
 import styles from './styles.module.scss';
-import { CDN_URL_ICONS } from '@/config';
 import React from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { getSignatureStatus } from '@/services/whitelist';

@@ -16,7 +16,6 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { userSelector } from '@/stores/states/user/selector';
 import copy from 'copy-to-clipboard';
 import toast from 'react-hot-toast';
-import BaseModal from '@/components/BaseModal';
 import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 
 interface IAuthenCode {
@@ -53,10 +52,10 @@ const Steps = () => {
   }
 
   const handleShareTwMore = async () => {
-    const shareUrl = getLink('');
+    const shareUrl = getLink(user?.referral_code);
     let content = '';
 
-    content = `Welcome to the future of Bitcoin with @bvmnetwork.\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks.\n\n$BVM public sale starting soon.\n\nJoin the allowlist:`;
+    content = `Welcome to the future of Bitcoin with bvm.network\n\nLaunch your Bitcoin L2 blockchain easily with @bvmnetwork - first modular blockchain meta-protocol.\n\n$BVM public sale starting soon.\n\nJoin the allowlist:`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -112,17 +111,17 @@ const Steps = () => {
   }
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
+    const isActiveRefer = !!token && !!user?.referral_code;
     return (
       [
         {
           title: 'Tweet about BVM',
-          desc: 'Help us spread the mission of building the future of Bitcoin. Help us spread the mission of building the future of Bitcoin.',
+          desc: 'Tweet as often as you like & tag @bvmnetwork to rank up.',
           actionText: 'Post',
+          image: "ic-x.svg",
           actionHandle: handleShareTw,
-          isActive: !token,
-          isDone: !!token,
+          isActive: true,
           step: MultiplierStep.authen,
-          image: "ic-heart.svg",
           right: {
             title: '+1 PTS',
             desc: 'per view'
@@ -130,13 +129,13 @@ const Steps = () => {
           handleShowManualPopup: handleShowManualPopup,
         },
         {
-          title: 'Refer a friend to BVM',
-          desc: 'Help us spread the mission of building the future of Bitcoin. Help us spread the mission of building the future of Bitcoin.',
-          actionText: 'Copy link',
+          title: 'Refer a fren to BVM',
+          desc: 'Spread the love to your frens, team, and communities.',
+          actionText: isActiveRefer ? shareReferralURL(user?.referral_code || '') : 'Copy link',
           actionHandle: handleShareRefferal,
-          isActive: !!token && !!user?.referral_code,
+          isActive: isActiveRefer,
           step: MultiplierStep.post,
-          image: "ic-x.svg",
+          image: "ic-heart.svg",
           right: {
             title: '+1000 PTS',
             desc: 'per friend'
@@ -144,8 +143,8 @@ const Steps = () => {
         },
         {
           title: 'Are you a Bitcoin OG?',
-          desc: 'Help us spread the mission of building the future of Bitcoin. Help us spread the mission of building the future of Bitcoin.',
-          actionText: 'Check your wallet',
+          desc: 'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.',
+          actionText: 'How much have I spent on sats?',
           actionHandle: onToggleConnect,
           isActive: !!token,
           isDone: !!AllowListStorage.getStorage() && !!token,
@@ -164,7 +163,10 @@ const Steps = () => {
   }, [token, needReload, user?.referral_code]);
 
   return (
-    <Flex className={s.container} direction={"column"} gap={5}>
+    <Flex className={s.container} direction={"column"} gap={{
+      base: "20px",
+      md: "40px"
+    }}>
       {DATA_COMMUNITY.map((item, index) => {
         return (
           <ItemStep

@@ -46,6 +46,10 @@ table {
         tr {
           height: 62px;
         }
+        th {
+          margin-right: 8px !important;
+          background-color: red !important;
+        }
       }
       .isActiveRow {
         background-color: #007659 !important;
@@ -94,8 +98,9 @@ table {
 
     tbody {
       tr {
-        td {
-          max-width: 90vw;
+        td, th {
+          //max-width: 90vw;
+          min-width: 120px;
         }
       }
     }
@@ -228,6 +233,15 @@ table {
   width: 18px;
   cursor: pointer;
   opacity: 0.7;
+}
+
+.tooltipIconActive {
+  cursor: pointer;
+  svg {
+    path {
+      fill: white;
+    }
+  }
 }
 
 .timeLine {
