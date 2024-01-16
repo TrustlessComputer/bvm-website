@@ -70,11 +70,11 @@ export default function ItemCommunity({
               {content?.actionText}
             </Button>
           )}
+          {step === MultiplierStep.signMessage && (
+            <HistoryMessage />
+          )}
         </Flex>
       </div>
-      {step === MultiplierStep.signMessage && (
-        <HistoryMessage />
-      )}
     </>
   );
 }
