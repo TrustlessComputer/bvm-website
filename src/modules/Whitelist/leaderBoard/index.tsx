@@ -420,7 +420,7 @@ const LeaderBoard = () => {
               padding="8px"
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Gas spent is calculated from total gas fees paid on Bitcoin.</p>
+                  <p>Referral points are calculated based on the total number of friends you refer to the allowlist.</p>
                 </Flex>
               }
             >

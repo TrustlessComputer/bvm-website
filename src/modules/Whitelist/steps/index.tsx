@@ -16,7 +16,6 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { userSelector } from '@/stores/states/user/selector';
 import copy from 'copy-to-clipboard';
 import toast from 'react-hot-toast';
-import BaseModal from '@/components/BaseModal';
 import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 
 interface IAuthenCode {
@@ -112,17 +111,17 @@ const Steps = () => {
   }
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
+    const isActiveRefer = !!token && !!user?.referral_code;
     return (
       [
         {
           title: 'Tweet about BVM',
-          desc: 'Help us spread the mission of building the future of Bitcoin. Help us spread the mission of building the future of Bitcoin.',
+          desc: 'Tweet as often as you like & tag @bvmnetwork to rank up.',
           actionText: 'Post',
+          image: "ic-x.svg",
           actionHandle: handleShareTw,
-          isActive: !token,
-          isDone: !!token,
+          isActive: true,
           step: MultiplierStep.authen,
-          image: "ic-heart.svg",
           right: {
             title: '+1 PTS',
             desc: 'per view'
@@ -130,15 +129,13 @@ const Steps = () => {
           handleShowManualPopup: handleShowManualPopup,
         },
         {
-          title: 'Refer a friend to BVM',
-          desc: 'Help us spread the mission of building the future of Bitcoin. Help us spread the mission of building the future of Bitcoin.',
-          actionText: 'Copy link',
+          title: 'Refer a fren to BVM',
+          desc: 'Spread the love to your frens, team, and communities.',
+          actionText: isActiveRefer ? shareReferralURL(user?.referral_code || '') : 'Copy link',
           actionHandle: handleShareRefferal,
-          actionTextSecond: 'Post',
-          actionHandleSecond: handleShareTwMore,
-          isActive: !!token && !!user?.referral_code,
+          isActive: isActiveRefer,
           step: MultiplierStep.post,
-          image: "ic-x.svg",
+          image: "ic-heart.svg",
           right: {
             title: '+1000 PTS',
             desc: 'per friend'
@@ -146,8 +143,8 @@ const Steps = () => {
         },
         {
           title: 'Are you a Bitcoin OG?',
-          desc: 'Help us spread the mission of building the future of Bitcoin. Help us spread the mission of building the future of Bitcoin.',
-          actionText: 'Check your wallet',
+          desc: 'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.',
+          actionText: 'How much have I spent on sats?',
           actionHandle: onToggleConnect,
           isActive: !!token,
           isDone: !!AllowListStorage.getStorage() && !!token,

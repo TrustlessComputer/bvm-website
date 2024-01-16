@@ -60,12 +60,12 @@ export default function ItemCommunity({
       <div className={cx(s.itemCommunity, isRunning ? '' : s.isDone)}>
         <Image className={s.itemCommunity__logo} width={48} height={48} src={`${CDN_URL_ICONS}/${image}`} alt="ic-section" />
         <Flex direction="column" gap="8px" flex={1}>
-          <Flex justifyContent="space-between" gap="8px">
+          <Flex justifyContent="space-between" gap="16px">
             <Flex direction="column">
               <div className={s.itemCommunity__title}>{content?.title}</div>
               {!!content?.desc && (<div className={s.itemCommunity__desc}>{content?.desc}</div>)}
             </Flex>
-            <Flex direction="column" w="200px">
+            <Flex direction="column">
               <div className={s.itemCommunity__point}>{content?.right.title}</div>
               {!!content?.desc && (<div className={s.itemCommunity__pointNote}>{content?.right.desc}</div>)}
             </Flex>
