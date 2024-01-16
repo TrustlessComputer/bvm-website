@@ -26,7 +26,8 @@ export const generateTokenWithTwPost = async (uuid: string, link?: string): Prom
     });
     return Object(camelCaseKeys(res));
   } catch (error) {
-    console.log(error);
+    throw error;
+    // console.log(error);
   }
   return;
 };

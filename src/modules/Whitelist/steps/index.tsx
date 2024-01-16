@@ -28,6 +28,7 @@ interface IItem {
   isDone?: boolean,
   step: MultiplierStep,
   secretCode?: string
+  onSuccess?: (_: any) => void;
 }
 
 const Steps = () => {
@@ -115,7 +116,8 @@ const Steps = () => {
           isActive: !token,
           isDone: !!token,
           step: MultiplierStep.authen,
-          secretCode: authenCode?.secret_code
+          secretCode: authenCode?.secret_code,
+          onSuccess: onVerifyTwSuccess
         },
         {
           title: 'Level up your multiplier',
@@ -154,6 +156,7 @@ const Steps = () => {
             isDone={!!item.isDone}
             step={item.step}
             secretCode={item?.secretCode}
+            onSuccess={item?.onSuccess}
           />
         );
       })}

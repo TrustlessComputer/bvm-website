@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost } from '@/services/player-share';
 import { toast } from 'react-hot-toast';
+import { closeModal } from '@/stores/states/modal/reducer';
+import { useDispatch } from 'react-redux';
 
 interface FormValues {
   postUrl: string;
@@ -12,17 +14,18 @@ interface FormValues {
 
 export const ReferralModalID = 'ReferralModalID';
 
-const VerifyTwModal = ({secretCode}: any) => {
+const VerifyTwModal = ({secretCode, onSuccess}: any) => {
+  const dispatch = useDispatch();
   const [isCreating, setIsCreating] = useState(false);
 
   const onSubmit = async (values: FormValues) => {
     try {
-      console.log('values', values);
       setIsCreating(true);
       const result = await generateTokenWithTwPost(secretCode as string, formValues.postUrl);
+      onSuccess && onSuccess(result);
+      dispatch(closeModal({ id: ReferralModalID }));
     } catch (error) {
-      const { message } = getError(error);
-      toast.error(message);
+      toast.error('Can not verify the post.');
     } finally {
       setIsCreating(false);
     }
@@ -44,12 +47,11 @@ const VerifyTwModal = ({secretCode}: any) => {
     }));
   };
 
-  console.log('formValues', formValues);
-
   return (
     <div className={s.container}>
       <div className={s.content}>
         <form className={s.form} onSubmit={formik.handleSubmit}>
+          <div className={s.desc}>Simply paste the URL of your tweet below to verify manually and we'll take care of the rest. </div>
           <div className={s.inputContainer}>
             <input
               id="postUrl"

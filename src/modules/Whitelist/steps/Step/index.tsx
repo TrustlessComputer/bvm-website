@@ -22,7 +22,8 @@ export default function ItemCommunity({
   isActive,
   isDone,
   step,
-  secretCode
+  secretCode,
+  onSuccess
 }: {
   index: number;
   content: any;
@@ -31,6 +32,7 @@ export default function ItemCommunity({
   isDone?: boolean;
   step?: MultiplierStep;
   secretCode?: string;
+  onSuccess?: (_: any) => void;
 }) {
   const dispatch = useDispatch();
   const [showManualCheck, setShowManualCheck] = useState(false);
@@ -50,12 +52,12 @@ export default function ItemCommunity({
     dispatch(
       openModal({
         id: ReferralModalID,
-        title: `Enter twitter post link`,
+        title: `Missing from the leaderboard?`,
         className: s.modalContent,
         // modalProps: {
         //   size: 'lg',
         // },
-        render: () => <VerifyTwModal secretCode={secretCode}/>,
+        render: () => <VerifyTwModal secretCode={secretCode} onSuccess={onSuccess}/>,
       }),
     );
   };
@@ -119,7 +121,7 @@ export default function ItemCommunity({
                           color={"#000000"}
                           textDecoration={"underline"}
                           onClick={onClickEditRefCode}>
-                          Manual check
+                          Missing from the leaderboard?
                         </Text>
                       )
                     }
