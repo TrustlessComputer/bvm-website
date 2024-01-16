@@ -18,6 +18,8 @@ export interface IItemCommunity {
   desc: string,
   actionText: string,
   actionHandle: any,
+  actionTextSecond?: string,
+  actionHandleSecond?: any,
   isActive?: boolean,
   isDone?: boolean,
   step: MultiplierStep,
@@ -56,7 +58,7 @@ export default function ItemCommunity({
   return (
     <>
       <div className={cx(s.itemCommunity, isRunning ? '' : s.isDone)}>
-        <Image width={48} height={48} src={`${CDN_URL_ICONS}/${image}`} alt="ic-section" />
+        <Image className={s.itemCommunity__logo} width={48} height={48} src={`${CDN_URL_ICONS}/${image}`} alt="ic-section" />
         <Flex direction="column" gap="8px" flex={1}>
           <Flex justifyContent="space-between" gap="8px">
             <Flex direction="column">
@@ -70,23 +72,41 @@ export default function ItemCommunity({
           </Flex>
           {!!content?.actionText && (
             <Flex direction={"column"}>
-              <Button
-                className={s.itemCommunity__btnCTA}
-                onClick={() => {
-                  if (content?.actionHandle && isRunning && !isLoading) {
-                    content?.actionHandle();
-
-                    if (step === MultiplierStep.authen) {
-                      setTimeout(() => {
-                        setShowManualCheck(true);
-                      }, 3000);
+              <Flex gap="8px" flexWrap="wrap">
+                <Button
+                  className={s.itemCommunity__btnCTA}
+                  onClick={() => {
+                    if (content?.actionHandle && isRunning && !isLoading) {
+                      content?.actionHandle();
+                      if (step === MultiplierStep.authen) {
+                        setTimeout(() => {
+                          setShowManualCheck(true);
+                        }, 3000);
+                      }
                     }
-                  }
-                }}
-                isLoading={isLoading}
-              >
-                {content?.actionText}
-              </Button>
+                  }}
+                  isLoading={isLoading}
+                >
+                  {content?.actionText}
+                </Button>
+                {!!content.actionHandleSecond && (
+                  <Button
+                    className={s.itemCommunity__btnCTA}
+                    onClick={() => {
+                      if (content?.actionHandleSecond && isRunning && !isLoading) {
+                        content?.actionHandleSecond();
+                        if (step === MultiplierStep.authen) {
+                          setTimeout(() => {
+                            setShowManualCheck(true);
+                          }, 3000);
+                        }
+                      }
+                    }}
+                  >
+                    {content?.actionTextSecond}
+                  </Button>
+                )}
+              </Flex>
               {
                 step === MultiplierStep.authen && showManualCheck && (
                   <Text
