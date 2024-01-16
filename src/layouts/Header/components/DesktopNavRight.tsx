@@ -76,7 +76,7 @@ type PropD = {
 const DropDown = ({ title, lists, primaryColor }: PropD): ReactElement => {
 
   return <div className={s.dropMenu}>
-    <span className={s.dropMenu_label}>
+    <span className={`${s.dropMenu_label} ${s[primaryColor || 'black']}`}>
        {title}
       <SvgInset svgUrl={`icons/ic-submenu.svg`} />
     </span>
