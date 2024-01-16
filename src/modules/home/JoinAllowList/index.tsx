@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation';
 import { ALLOW_LIST_URL } from '@/constants/route-path';
 import { KEY_TWITTER_USERNAME } from '@/constants/storage-key';
 import CookieUtil from '@/utils/cookie';
+import Fade from '@/interactive/Fade';
+import Chars from '@/interactive/Chars';
 
 interface FormValues {
   username: string;
@@ -19,11 +21,11 @@ const JoinAllowList = () => {
   const twitterUsername = CookieUtil.get(KEY_TWITTER_USERNAME);
 
   useEffect(() => {
-    if(twitterUsername) {
+    if (twitterUsername) {
       formik.setValues((values: any) => ({
         ...values,
         username: twitterUsername,
-      }))
+      }));
     }
   }, [twitterUsername]);
 
@@ -59,34 +61,46 @@ const JoinAllowList = () => {
 
   return (
     <div className={s.container}>
-      <form className={s.form} onSubmit={formik.handleSubmit}>
-        <div className={s.content}>
+      {/*<form className={s.form} onSubmit={formik.handleSubmit}>*/}
+      <div className={s.content}>
+        <Fade delay={.6}>
           <div className={s.titleWrapper}>
             <div className={s.title}>BVM PUBLIC SALE</div>
           </div>
-          <div className={s.desc}>Be the first to know. Allowlisters get up to <span>30% extra tokens</span>.</div>
-          <Flex gap={3}>
-            <div className={s.inputContainer}>
-              <input
-                id="username"
-                value={formValues.username}
-                placeholder="Enter your Twitter/X username"
-                className={s.input}
-                onChange={onChangeText}
-              />
-            </div>
+        </Fade>
+        <div className={s.desc}>
+          <Chars delay={.7}>
+            Be the first to know. Allowlisters get up to <span>30% extra tokens</span>.
+          </Chars>
+        </div>
+
+        <Flex gap={3}>
+          {/*<div className={s.inputContainer}>*/}
+          {/*  <input*/}
+          {/*    id="username"*/}
+          {/*    value={formValues.username}*/}
+          {/*    placeholder="Enter your Twitter/X username"*/}
+          {/*    className={s.input}*/}
+          {/*    onChange={onChangeText}*/}
+          {/*  />*/}
+          {/*</div>*/}
+          <Fade delay={.8}>
             <Button
-              type="submit"
-              isDisabled={isCreating || !formValues.username}
+              type='submit'
+              // isDisabled={isCreating || !formValues.username}
               isLoading={isCreating}
               loadingText={'Submitting...'}
               className={s.button}
+              onClick={() => {
+                router.push('/allowlist');
+              }}
             >
               Get on the allowlist
             </Button>
-          </Flex>
-        </div>
-      </form>
+          </Fade>
+        </Flex>
+      </div>
+      {/*</form>*/}
     </div>
   );
 };
