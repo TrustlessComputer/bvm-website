@@ -33,7 +33,6 @@ const Steps = () => {
   const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle();
   const needReload = useAppSelector(commonSelector).needReload
   const user = useAppSelector(userSelector);
-  const user = useAppSelector(userSelector)
   const [showManualCheck, setShowManualCheck] = useState(false);
 
   const handleShareTw = async () => {
