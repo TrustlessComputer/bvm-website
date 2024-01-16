@@ -35,7 +35,7 @@ const DATA_ECOSYSTEM = [
   {
     img: lego4,
     title: 'Cross-chain bridges',
-    icons: [2, 13, 14],
+    icons: [12, 13, 14],
   },
   {
     img: lego5,
