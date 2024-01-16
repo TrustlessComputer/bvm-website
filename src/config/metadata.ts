@@ -11,10 +11,7 @@ const APP_DESCRIPTION =
 const metadataConfig: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_DOMAIN_URL}`),
   applicationName: APP_NAME,
-  title: {
-    default: APP_DEFAULT_TITLE,
-    template: APP_TITLE_TEMPLATE,
-  },
+  title: APP_DEFAULT_TITLE,
   description: APP_DESCRIPTION,
   // manifest: "/manifest.json",// using for PWA
   appleWebApp: {
@@ -28,10 +25,7 @@ const metadataConfig: Metadata = {
   openGraph: {
     type: 'website',
     siteName: APP_NAME,
-    title: {
-      default: APP_DEFAULT_TITLE,
-      template: APP_TITLE_TEMPLATE,
-    },
+    title: APP_DEFAULT_TITLE,
     description: APP_DESCRIPTION,
     images: [
       {
@@ -44,10 +38,7 @@ const metadataConfig: Metadata = {
   },
   twitter: {
     card: 'summary',
-    title: {
-      default: APP_DEFAULT_TITLE,
-      template: APP_TITLE_TEMPLATE,
-    },
+    title: APP_DEFAULT_TITLE,
     description: APP_DESCRIPTION,
   },
 };
