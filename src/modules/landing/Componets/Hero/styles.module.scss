@@ -1,8 +1,19 @@
 .hero {
-  height: 100svh;
+
   width: 100%;
   position: relative;
-  overflow: hidden;
+
+  @include is-pc {
+    overflow: hidden;
+    height: 100svh;
+  }
+
+  &_wrap {
+    height: 100svh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
 
   @include is-mobile {
     width: auto;
@@ -13,7 +24,6 @@
 
   &_inner {
     position: absolute;
-    bottom: 60px;
     z-index: 2;
     width: 100%;
 
@@ -21,16 +31,13 @@
       bottom: 20px;
     }
 
-    &_rows {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    @include is-tablet {
+      bottom: 40px;
+    }
 
-      @include is-tablet {
-        flex-direction: column;
-        align-items: start;
-        gap: 32px;
-      }
+    @include is-pc {
+      top: calc(50% - 10vh);
+      transform: translateY(-50%);
     }
   }
 
@@ -51,12 +58,12 @@
   }
 
   &_headingSub {
-    font-size: 32px;
+    font-size: 42px;
     font-style: normal;
     color: #fff;
     font-weight: 400;
     line-height: 36px;
-    padding-bottom: 28px;
+    padding-bottom: 24px;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -67,13 +74,9 @@
     }
 
     @include is-tablet {
+      font-size: 32px;
       padding-bottom: 10px;
     }
-
-    b {
-      color: #f7931a;
-      font-weight: normal;
-      line-height: 1;
-    }
   }
+
 }

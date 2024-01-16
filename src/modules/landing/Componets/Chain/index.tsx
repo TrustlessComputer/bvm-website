@@ -131,11 +131,6 @@ export default function Chain() {
     <Cursor>
       <div className={s.chain}>
         <div className="container">
-          {(mobileScreen || tabletScreen) && (
-            <section className={s.chain_label}>
-              <HeroLabel />
-            </section>
-          )}
           <section className={s.chain_inner}>
             <p className={s.chain_case}>Case studies</p>
             <HeadingSection className={s.chain_heading}>

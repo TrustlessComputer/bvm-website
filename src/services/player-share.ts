@@ -53,3 +53,15 @@ export const requestAuthenByShareCode = async (): Promise<any> => {
   }
   return;
 };
+
+export const addAllowList = async (uuid: string): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/add-allow-list`, {
+      twitter_info: uuid,
+    });
+    return Object(camelCaseKeys(res));
+  } catch (error) {
+    console.log(error);
+  }
+  return;
+};

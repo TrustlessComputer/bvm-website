@@ -37,7 +37,7 @@ export default function HeroLabel() {
             height={32}
           />
           <p className={s.heroLabel_content_text}>
-            Powered by modular building blocks
+            Powered by the best-of-breed modules
           </p>
         </div>
       </Fade>

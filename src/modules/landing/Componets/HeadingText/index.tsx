@@ -64,7 +64,7 @@ export default function HeadingText({ children, headings, className }: IProp) {
   return (
     <div className={`${s.heading} ${className}`}>
       {children}{' '}
-      <b ref={refSpan}></b>
+      <span ref={refSpan}></span>
       <span className={s.heading_mouse}>_</span>
     </div>
   );

@@ -12,20 +12,14 @@
   }
 
   @include is-tablet {
-    gap: 20px;
+    gap: 0;
     justify-content: center;
   }
 }
 
 .chain {
   background: #f6f6f6;
-
-  @include is-mobile {
-    background: #fff;
-  }
-  @include is-tablet {
-    background: #fff;
-  }
+  overflow: hidden;
 
   &_case {
     color: #000;
