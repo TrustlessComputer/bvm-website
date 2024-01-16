@@ -70,9 +70,9 @@ const ConnectModal = React.memo(({ isShow, onHide }: IProps)=> {
           key={item.text}
           onClick={() => throttleSignMessage(item.type)}
         >
-          <Image width={36} height={36} src={item.image} alt="ic_wallet" />
+          <Image width={48} height={48} src={item.image} alt="ic_wallet" />
           <div className={styles.modalItem_content}>
-            <p >
+            <p className={styles.modalItem_title}>
               {item.text}
             </p>
             {item.description ? (
