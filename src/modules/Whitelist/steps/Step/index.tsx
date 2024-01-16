@@ -104,11 +104,11 @@ export default function ItemCommunity({
               }
             </Flex>
           )}
+          {step === MultiplierStep.signMessage && (
+            <HistoryMessage />
+          )}
         </Flex>
       </div>
-      {step === MultiplierStep.signMessage && (
-        <HistoryMessage />
-      )}
     </>
   );
 }

@@ -75,7 +75,6 @@ const HistoryMessage = () => {
     <Flex className={cs(styles.container, {
       [styles.container__congrats as string]: !!amount.txsCount
     })}>
-      <img src={`${CDN_URL_ICONS}/ic-verify.svg`} />
       {amount.txsCount ? (
         <Flex flexDirection="column" w="100%" alignItems="center">
           <p>You've spent <span>{formatCurrency(amount.fee, 0)} BTC</span> for gas fees across <span>{formatCurrency(amount.txsCount, 0)} transactions</span></p>
