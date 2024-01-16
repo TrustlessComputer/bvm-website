@@ -1,6 +1,7 @@
 .ecosystem {
   padding: 140px 0;
   background: #eee;
+  overflow: hidden;
 
   @include is-mobile{
     padding: 80px 0;
@@ -31,6 +32,7 @@
       grid-template-columns: repeat(1, 1fr);
     }
     @include is-tablet{
+      gap: 0;
       grid-template-columns: repeat(2, 1fr);
     }
   }

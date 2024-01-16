@@ -12,39 +12,36 @@ import useAnimationStore from '@/stores/useAnimationStore';
 import HeadingText from '@/modules/landing/Componets/HeadingText';
 import HeadingTextV2 from '@/modules/landing/Componets/HeadingTextV2';
 import Fade from '@/interactive/Fade';
+import JoinAllowList from '@/modules/home/JoinAllowList';
 
 export default function Hero() {
-  const { played } = useAnimationStore();
-  const { mobileScreen, tabletScreen } = useWindowSize();
   return (
     <div className={s.hero}>
-      <BgHero />
-      <div className={s.hero_inner}>
-        <div className={cn(s.hero_inner_container, 'container')}>
-          <h1 className={s.hero_heading}>
-            <Chars delay={0.1}>$BVM</Chars>
-          </h1>
-          <Fade delay={0.2}>
-            <HeadingTextV2
-              className={s.hero_headingSub}
-              headings={['the future of Bitcoin.',
-                'Bitcoin L2s for DeFi.',
-                'Bitcoin L2s for NFTs.',
-                'Bitcoin L2s for GameFi.',
-                'Bitcoin L2s for SocialFi.',
-              ]}
-            >
-              Welcome to
-            </HeadingTextV2>
-          </Fade>
-          {!mobileScreen && <BorderLine delay={0.2} />}
-          <Box mt={'20px'} />
-          <div className={s.hero_inner_rows}>
-            <HeroContent />
-            {!mobileScreen && !tabletScreen && <HeroLabel />}
+      <div className={s.hero_wrap}>
+        <BgHero />
+        <div className={s.hero_inner}>
+          <div className={cn(s.hero_inner_container, 'container')}>
+            <Fade delay={0.2}>
+              <HeadingText
+                className={s.hero_headingSub}
+                headings={['the future of Bitcoin.',
+                  'Bitcoin L2s for DeFi.',
+                  'Bitcoin L2s for NFTs.',
+                  'Bitcoin L2s for GameFi.',
+                  'Bitcoin L2s for SocialFi.',
+                ]}
+              >
+                Welcome to
+              </HeadingText>
+            </Fade>
+            <div className={s.hero_inner_rows}>
+              <HeroContent />
+              <HeroLabel />
+            </div>
           </div>
         </div>
       </div>
+      <JoinAllowList />
       <Intro />
     </div>
   );

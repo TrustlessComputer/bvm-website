@@ -1,7 +1,9 @@
 .heroContent {
-  max-width: 688px;
+  max-width: 560px;
   font-size: 24px;
   line-height: 36px;
+  padding-bottom: 28px;
+
   @include is-mobile {
     width: 100%;
     font-size: 16px;
@@ -9,6 +11,7 @@
   }
   @include is-tablet {
     max-width: unset;
+    font-size: 20px;
     width: 100%;
   }
 
@@ -17,13 +20,22 @@
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
-    line-height: 36px;
+    line-height: 150%;
+
+    @include is-tablet{
+      font-size: 20px;
+    }
 
     @include is-mobile {
       font-size: 16px;
-      line-height: 150%;
     }
+
   }
+
+  &_inner{
+    padding-bottom: 28px;
+  }
+
   &_lists {
     padding-left: 16px;
     display: flex;
