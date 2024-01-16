@@ -97,14 +97,16 @@ const Section_2 = () => {
         align={'left'}
         flexDir={'column'}
         w={'100%'}
-        gap={['20px', '24px']}
+        gap={['20px', '12px']}
       >
         {/* Date */}
         <Text
           fontSize={['14px', '16px']}
           lineHeight={'22px'}
           fontWeight={500}
+          opacity={0.7}
           color={'#353A4D'}
+          textTransform={'uppercase'}
         >
           {item.dateStr}
         </Text>
@@ -123,9 +125,13 @@ const Section_2 = () => {
           {/* Right - Content */}
           <Flex
             flexDir={'column'}
-            justify={'left'}
+            justify={'center'}
             py={['10px', '12px']}
-            gap={['16px']}
+            mr={{
+              base: 0,
+              '2xl': '160px',
+            }}
+            gap={['30px']}
           >
             <Flex flexDir={'row'} align={'center'} gap={['12px', '16px']}>
               {item.twitterLink && (
@@ -159,25 +165,27 @@ const Section_2 = () => {
               </Flex>
             </Flex>
 
-            <Text
-              fontSize={['20px', '24px']}
-              lineHeight={['28px', '33px']}
-              fontWeight={400}
-              color={'#000'}
-            >
-              {item.title}
-            </Text>
+            <Flex flexDir={'column'} align={'left'} gap={'8px'}>
+              <Text
+                fontSize={['20px', '24px']}
+                lineHeight={['28px', '33px']}
+                fontWeight={400}
+                color={'#000'}
+              >
+                {item.title}
+              </Text>
 
-            <Text
-              fontSize={['17px', '20px']}
-              lineHeight={['30px', '36px']}
-              fontWeight={400}
-              color={'#000'}
-            >
-              {item.desc}
-            </Text>
+              <Text
+                fontSize={['16px', '18px']}
+                lineHeight={['20px', '26px']}
+                fontWeight={400}
+                color={'#000'}
+                opacity={0.7}
+              >
+                {item.desc}
+              </Text>
+            </Flex>
 
-            <Box height={['5px', '8px']}></Box>
             <Flex flexDir={'row'} align={'center'} gap={['4px', '4px']}>
               {item.tagsList.map((item, index) => {
                 return (
@@ -266,8 +274,8 @@ const Section_2 = () => {
 
           <Box h={'8px'}></Box>
           <Text
-            fontSize={['17px', '20px']}
-            lineHeight={['30px', '33px']}
+            fontSize={['16px', '18px']}
+            lineHeight={['22px', '26px']}
             fontWeight={400}
             color={'#000'}
           >
@@ -320,8 +328,8 @@ const Section_2 = () => {
           </Text>
           <Box h={'8px'}></Box>
           <Text
-            fontSize={['17px', '20px']}
-            lineHeight={['30px', '33px']}
+            fontSize={['16px', '18px']}
+            lineHeight={['22px', '26px']}
             fontWeight={400}
             color={'#000'}
           >
