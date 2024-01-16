@@ -17,6 +17,7 @@ import cs from 'clsx';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import BigNumber from 'bignumber.js';
+import SvgInset from '@/components/SvgInset';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -286,7 +287,7 @@ const LeaderBoard = () => {
                 </Text>
                 {data.need_active ?
                   <Tooltip
-                    minW="220px"
+                    minW="180px"
                     bg="white"
                     boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
                     borderRadius="4px"
@@ -301,7 +302,9 @@ const LeaderBoard = () => {
                       </Flex>
                     }
                   >
-                    <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+                    <div>
+                      <SvgInset size={18} className={styles.tooltipIconActive} svgUrl={`${CDN_URL_ICONS}/info-circle.svg`}/>
+                    </div>
                   </Tooltip>
                 : <Box w="16px" />}
               </Flex>
@@ -390,6 +393,60 @@ const LeaderBoard = () => {
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
                   {formatCurrency(data?.gas_point, 0, 0)}
+                </Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'refer',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              textTransform: 'uppercase',
+            }}
+            gap="3px"
+          >
+            <p style={{ textTransform:'uppercase' }}>REFER</p>
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>Gas spent is calculated from total gas fees paid on Bitcoin.</p>
+                </Flex>
+              }
+            >
+              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+            </Tooltip>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '16px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={3}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={2}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.refer_point, 0, 0)}
                 </Text>
               </Flex>
             </Flex>

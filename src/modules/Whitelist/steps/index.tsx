@@ -53,10 +53,10 @@ const Steps = () => {
   }
 
   const handleShareTwMore = async () => {
-    const shareUrl = getLink('');
+    const shareUrl = getLink(user?.referral_code);
     let content = '';
 
-    content = `Welcome to the future of Bitcoin with @bvmnetwork.\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks.\n\n$BVM public sale starting soon.\n\nJoin the allowlist:`;
+    content = `Welcome to the future of Bitcoin with bvm.network\n\nLaunch your Bitcoin L2 blockchain easily with @bvmnetwork - first modular blockchain meta-protocol.\n\n$BVM public sale starting soon.\n\nJoin the allowlist:`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -134,6 +134,8 @@ const Steps = () => {
           desc: 'Help us spread the mission of building the future of Bitcoin. Help us spread the mission of building the future of Bitcoin.',
           actionText: 'Copy link',
           actionHandle: handleShareRefferal,
+          actionTextSecond: 'Post',
+          actionHandleSecond: handleShareTwMore,
           isActive: !!token && !!user?.referral_code,
           step: MultiplierStep.post,
           image: "ic-x.svg",
@@ -176,14 +178,6 @@ const Steps = () => {
         );
       })}
       <ConnectModal isShow={isShowConnect} onHide={onToggleConnect}/>
-      <VerifyTwModal
-        isShow={showManualCheck}
-        onHide={() => {
-          setShowManualCheck(false);
-        }}
-        secretCode={authenCode?.secret_code}
-        onSuccess={onVerifyTwSuccess}
-      />
       <VerifyTwModal
         isShow={showManualCheck}
         onHide={() => {

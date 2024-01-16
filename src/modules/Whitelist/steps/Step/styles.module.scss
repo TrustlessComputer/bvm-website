@@ -55,6 +55,17 @@
     gap: 8px !important;
     background: #FA4E0E !important;
     border-radius: 0 !important;
+    &__logo {
+      @include is-mobile {
+        width: 100% !important;
+        flex: 1;
+      }
+    }
+  }
+  &__logo {
+    @include is-mobile {
+      display: none;
+    }
   }
 }
 
