@@ -21,6 +21,7 @@ const BaseModal = (props: PropsWithChildren<IBaseModalProps>): React.ReactNode =
     isShow,
     onHide,
     title,
+    className,
     children,
     description,
     headerClassName,
@@ -34,7 +35,7 @@ const BaseModal = (props: PropsWithChildren<IBaseModalProps>): React.ReactNode =
         isCentered={true}
       >
         <ModalOverlay />
-        <ModalContent className={cs(s.modalContent, s[size])}>
+        <ModalContent className={cs(s.modalContent, s[size], className)}>
           <ModalHeader className={cs(s.modalHeader, headerClassName)}>
             <Flex justifyContent="space-between" alignItems="center">
               <button

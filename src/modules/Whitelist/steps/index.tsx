@@ -16,12 +16,13 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { userSelector } from '@/stores/states/user/selector';
 import copy from 'copy-to-clipboard';
 import toast from 'react-hot-toast';
+import BaseModal from '@/components/BaseModal';
+import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 
 interface IAuthenCode {
   public_code: string;
   secret_code: string;
 }
-
 
 const Steps = () => {
   const [authenCode, setAuthenCode] = useState<IAuthenCode>();
@@ -32,6 +33,7 @@ const Steps = () => {
   const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle();
   const needReload = useAppSelector(commonSelector).needReload
   const user = useAppSelector(userSelector);
+  const [showManualCheck, setShowManualCheck] = useState(false);
 
   const handleShareTw = async () => {
     const res: any = await requestAuthenByShareCode();
@@ -85,21 +87,29 @@ const Steps = () => {
   const handleVerifyTwitter = async (): Promise<void> => {
     try {
       const result = await generateTokenWithTwPost(authenCode?.secret_code as string);
-      if (result) {
-        clearInterval(timer.current);
-        const twitterToken = AuthenStorage.getAuthenKey();
-        if (!twitterToken || twitterToken !== result?.token) {
-          AuthenStorage.setAuthenKey(result?.token);
-          setBearerToken(result?.token);
-        }
-        setSubmitting(false);
-        dispatch(requestReload());
-      }
+      onVerifyTwSuccess(result);
     } catch (err) {
       console.log('handleVerifyTwitter', err);
     }
   };
 
+  const onVerifyTwSuccess = (result: any) => {
+    if (result) {
+      clearInterval(timer.current);
+      const twitterToken = AuthenStorage.getAuthenKey();
+      if (!twitterToken || twitterToken !== result?.token) {
+        AuthenStorage.setAuthenKey(result?.token);
+        setBearerToken(result?.token);
+      }
+      setSubmitting(false);
+      dispatch(requestReload());
+      setShowManualCheck(false);
+    }
+  }
+
+  const handleShowManualPopup = () => {
+    setShowManualCheck(true);
+  }
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return (
@@ -116,7 +126,8 @@ const Steps = () => {
           right: {
             title: '+1 PTS',
             desc: 'per view'
-          }
+          },
+          handleShowManualPopup: handleShowManualPopup,
         },
         {
           title: 'Refer a friend to BVM',
@@ -160,11 +171,27 @@ const Steps = () => {
             key={index}
             index={index}
             content={item}
-            isLoading={index === 0 && submitting}
+            isLoading={item.step === MultiplierStep.authen && submitting}
           />
         );
       })}
       <ConnectModal isShow={isShowConnect} onHide={onToggleConnect}/>
+      <VerifyTwModal
+        isShow={showManualCheck}
+        onHide={() => {
+          setShowManualCheck(false);
+        }}
+        secretCode={authenCode?.secret_code}
+        onSuccess={onVerifyTwSuccess}
+      />
+      <VerifyTwModal
+        isShow={showManualCheck}
+        onHide={() => {
+          setShowManualCheck(false);
+        }}
+        secretCode={authenCode?.secret_code}
+        onSuccess={onVerifyTwSuccess}
+      />
     </Flex>
   );
 };
