@@ -72,15 +72,14 @@ const Contents: Array<IContent> = [
   {
     key: 'KEY_4',
     dateStr: 'Feb 6',
-    thumbImgPath: '/upcoming/math_thumb_img.png',
+    thumbImgPath: '/upcoming/math_thumb_img_1.png',
     iconPath: '/upcoming/twitter_ic.png',
     appName: '@NewBitcoinCity',
     title: 'Math',
-    desc: 'Bitcoin Arcade is the first ever fully onchain gaming Bitcoin L2 blockchain.',
-    twitterLink: 'https://twitter.com/NewBitcoinCity',
-    href: 'https://generative.xyz/metaverse',
+    desc: 'Math is a Bitcoin L2 blockchain designed for the metaverse with fully on-chain, ever-evolving virtual worlds.',
+    href: 'mathchain.xyz',
     linkIconPath: '/upcoming/link_ic.png',
-    linkShortName: 'generative.xyz/metaverse',
+    linkShortName: 'mathchain.xyz',
     tagsList: ['Bitcoin', 'Ordinals', 'Optimistic', 'Sovereign'],
     isShow: true,
     isComingSoon: false,
@@ -120,7 +119,12 @@ const Section_2 = () => {
           gap={['30px', '36px']}
         >
           {/* ThumbImg */}
-          <Image src={`${item.thumbImgPath}`} fit={'contain'} />
+          <Image
+            src={`${item.thumbImgPath}`}
+            fit={'cover'}
+            maxW={'322px'}
+            maxH={'244px'}
+          />
 
           {/* Right - Content */}
           <Flex
