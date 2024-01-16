@@ -60,4 +60,9 @@ const metaExternalAI: Metadata = {
   },
 };
 
+// or Dynamic metadata
+export async function generateMetadata({ params }: any) {
+  return metaExternalAI;
+}
+
 export { metaExternalAI };
