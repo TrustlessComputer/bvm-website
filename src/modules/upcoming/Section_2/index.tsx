@@ -24,7 +24,7 @@ export interface IContent {
 const Contents: Array<IContent> = [
   {
     key: 'KEY_1',
-    dateStr: 'Jan 16',
+    dateStr: 'Jan 17',
     thumbImgPath: '/upcoming/naka_thumb_img.png',
     iconPath: '/upcoming/twitter_ic.png',
     appName: '@naka_chain',
