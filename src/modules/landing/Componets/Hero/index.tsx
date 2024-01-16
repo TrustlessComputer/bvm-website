@@ -12,6 +12,7 @@ import useAnimationStore from '@/stores/useAnimationStore';
 import HeadingText from '@/modules/landing/Componets/HeadingText';
 import HeadingTextV2 from '@/modules/landing/Componets/HeadingTextV2';
 import Fade from '@/interactive/Fade';
+import JoinAllowList from '@/modules/home/JoinAllowList';
 
 export default function Hero() {
   const { played } = useAnimationStore();
@@ -44,6 +45,7 @@ export default function Hero() {
             {!mobileScreen && !tabletScreen && <HeroLabel />}
           </div>
         </div>
+        <JoinAllowList />
       </div>
       <Intro />
     </div>
