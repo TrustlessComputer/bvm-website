@@ -19,4 +19,5 @@ export interface ILeaderBoardPoint {
   num_like:         string;
   num_quote:        string;
   num_post:         string;
+  refer_point:      string;
 }
