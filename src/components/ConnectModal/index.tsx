@@ -98,7 +98,7 @@ const ConnectModal = React.memo(({ isShow, onHide }: IProps)=> {
   );
 
   return (
-    <BaseModal isShow={isShow} onHide={onHide} title="Choose wallet">
+    <BaseModal isShow={isShow} onHide={onHide} title="Choose wallet" size={!!xverseCtx.capabilityMessage ? "normal" : "small"}>
       <div className={cs(styles.modalContent, loading && styles.modalContent__loading)}>
         {ITEMS.map(renderItem)}
       </div>

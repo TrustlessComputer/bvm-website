@@ -1,8 +1,8 @@
 import { Flex } from '@chakra-ui/react';
-import ItemStep, { MultiplierStep } from './Step';
+import ItemStep, { IItemCommunity, MultiplierStep } from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
-import { getLink } from '@/utils/helpers';
+import { getLink, shareReferralURL } from '@/utils/helpers';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
@@ -13,23 +13,15 @@ import useToggle from '@/hooks/useToggle';
 import AllowListStorage from '@/utils/storage/allowlist.storage';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
+import { userSelector } from '@/stores/states/user/selector';
+import copy from 'copy-to-clipboard';
+import toast from 'react-hot-toast';
 import BaseModal from '@/components/BaseModal';
 import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 
 interface IAuthenCode {
   public_code: string;
   secret_code: string;
-}
-
-interface IItem {
-  title: string,
-  desc: string,
-  actionText: string,
-  actionHandle: any,
-  isActive?: boolean,
-  isDone?: boolean,
-  step: MultiplierStep,
-  handleShowManualPopup?: () => void;
 }
 
 const Steps = () => {
@@ -39,7 +31,8 @@ const Steps = () => {
   const dispatch = useDispatch();
   const token = AuthenStorage.getAuthenKey();
   const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle();
-  const needReload = useAppSelector(commonSelector).needReload;
+  const needReload = useAppSelector(commonSelector).needReload
+  const user = useAppSelector(userSelector)
   const [showManualCheck, setShowManualCheck] = useState(false);
 
   const handleShareTw = async () => {
@@ -71,6 +64,12 @@ const Steps = () => {
       )}`,
       '_blank',
     );
+  }
+
+  const handleShareRefferal = () => {
+    if (!user?.referral_code) return;
+    copy(shareReferralURL(user?.referral_code || ''));
+    toast.success("Copied.")
   }
 
   useEffect(() => {
@@ -112,45 +111,60 @@ const Steps = () => {
     setShowManualCheck(true);
   }
 
-  const DATA_COMMUNITY = useMemo<IItem[]>(() => {
+  const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return (
       [
         {
-          title: 'Get your initial multiplier',
-          desc: 'Post anything on X and tag @bvmnetwork',
+          title: 'Tweet about BVM',
+          desc: 'Help us spread the mission of building the future of Bitcoin. Help us spread the mission of building the future of Bitcoin.',
           actionText: 'Post',
           actionHandle: handleShareTw,
           isActive: !token,
           isDone: !!token,
           step: MultiplierStep.authen,
+          image: "ic-heart.svg",
+          right: {
+            title: '+1 PTS',
+            desc: 'per view'
+          },
           handleShowManualPopup: handleShowManualPopup,
         },
         {
-          title: 'Level up your multiplier',
-          desc: 'The more you post, the bigger multiplier you’ll get.',
-          actionText: 'Post',
-          actionHandle: handleShareTwMore,
-          isActive: !!token,
-          step: MultiplierStep.post
+          title: 'Refer a friend to BVM',
+          desc: 'Help us spread the mission of building the future of Bitcoin. Help us spread the mission of building the future of Bitcoin.',
+          actionText: 'Copy link',
+          actionHandle: handleShareRefferal,
+          isActive: !!token && !!user?.referral_code,
+          step: MultiplierStep.post,
+          image: "ic-x.svg",
+          right: {
+            title: '+1000 PTS',
+            desc: 'per friend'
+          }
         },
         {
-          title: 'Upgrade your multiplier now',
-          desc: 'Say goodbye to high sats fees on Bitcoin; you\'re worth more, and it\'s your time. Get more for less with BVM\'s cheaper fees on the premier modular blockchain metaprotocol.',
-          actionText: 'Connect wallet',
+          title: 'Are you a Bitcoin OG?',
+          desc: 'Help us spread the mission of building the future of Bitcoin. Help us spread the mission of building the future of Bitcoin.',
+          actionText: 'Check your wallet',
           actionHandle: onToggleConnect,
           isActive: !!token,
           isDone: !!AllowListStorage.getStorage() && !!token,
-          step: MultiplierStep.signMessage
+          step: MultiplierStep.signMessage,
+          image: "ic-btc.svg",
+          right: {
+            title: '+1 PTS',
+            desc: 'per 1000 sats'
+          }
         },
         // {
         //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
         // },
       ]
     )
-  }, [token, needReload, authenCode?.secret_code]);
+  }, [token, needReload, user?.referral_code]);
 
   return (
-    <Flex className={s.container} direction={"column"} gap={5} mt={4}>
+    <Flex className={s.container} direction={"column"} gap={5}>
       {DATA_COMMUNITY.map((item, index) => {
         return (
           <ItemStep
@@ -158,9 +172,6 @@ const Steps = () => {
             index={index}
             content={item}
             isLoading={item.step === MultiplierStep.authen && submitting}
-            isActive={!!item.isActive}
-            isDone={!!item.isDone}
-            step={item.step}
             handleShowManualPopup={item?.handleShowManualPopup}
           />
         );

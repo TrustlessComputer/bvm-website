@@ -3,10 +3,9 @@
   //width: 1000px;
   //max-width: rem(1000px);
   //margin: 0 auto;
-
-  @include is-mobile {
-    padding: 0 12px;
-  }
+  //@include is-mobile {
+  //  padding: 0 12px;
+  //}
 }
 
 .modalManualHeader {

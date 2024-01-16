@@ -20,6 +20,20 @@ export const getLink = (referralCode?: string) => {
   return `${window.location.origin}${referral}`;
 };
 
+const REFERRAL_TEXT = 'referral'
+
+export const shareReferralURL = (code: string) => {
+  if (APP_ENV === 'production') {
+    return `https://bvm.network?${REFERRAL_TEXT}=${code}`;
+  }
+  return `${window.location.origin}?${REFERRAL_TEXT}=${code}`;
+};
+
+export const getReferralByURL = () => {
+  const params = new URLSearchParams(window.location?.search || '');
+  return params.get(REFERRAL_TEXT)
+};
+
 export const shareTwitterSignature = (params: {
   fee: string | number,
   txsCount: string | number,
