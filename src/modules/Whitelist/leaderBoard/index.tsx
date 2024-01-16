@@ -360,7 +360,7 @@ const LeaderBoard = () => {
               padding="8px"
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Gas spent is calculated from total gas fees paid on Bitcoin, starting with the first payment to wallet verification on the BVM allowlist.</p>
+                  <p>Gas spent is calculated from total gas fees paid on Bitcoin.</p>
                 </Flex>
               }
             >
