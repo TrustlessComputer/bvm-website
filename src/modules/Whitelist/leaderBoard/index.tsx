@@ -282,7 +282,7 @@ const LeaderBoard = () => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.point, 0, 0)}
+                  {formatCurrency(data?.content_point, 0, 0)}
                 </Text>
                 {data.need_active ?
                   <Tooltip
@@ -428,7 +428,7 @@ const LeaderBoard = () => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {formatCurrency(new BigNumber(data?.point || '0').plus(data?.gas_point || '0').toNumber(), 0, 0)}
+                  {formatCurrency(new BigNumber(data?.point || '0').toNumber(), 0, 0)}
                 </Text>
               </Flex>
             </Flex>
