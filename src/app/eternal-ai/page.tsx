@@ -64,5 +64,3 @@ const metaExternalAI: Metadata = {
 export async function generateMetadata({ params }: any) {
   return metaExternalAI;
 }
-
-export { metaExternalAI };
