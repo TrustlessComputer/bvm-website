@@ -13,6 +13,8 @@ import useToggle from '@/hooks/useToggle';
 import AllowListStorage from '@/utils/storage/allowlist.storage';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
+import BaseModal from '@/components/BaseModal';
+import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 
 interface IAuthenCode {
   public_code: string;
@@ -27,8 +29,7 @@ interface IItem {
   isActive?: boolean,
   isDone?: boolean,
   step: MultiplierStep,
-  secretCode?: string
-  onSuccess?: (_: any) => void;
+  handleShowManualPopup?: () => void;
 }
 
 const Steps = () => {
@@ -38,7 +39,8 @@ const Steps = () => {
   const dispatch = useDispatch();
   const token = AuthenStorage.getAuthenKey();
   const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle();
-  const needReload = useAppSelector(commonSelector).needReload
+  const needReload = useAppSelector(commonSelector).needReload;
+  const [showManualCheck, setShowManualCheck] = useState(false);
 
   const handleShareTw = async () => {
     const res: any = await requestAuthenByShareCode();
@@ -102,7 +104,12 @@ const Steps = () => {
       }
       setSubmitting(false);
       dispatch(requestReload());
+      setShowManualCheck(false);
     }
+  }
+
+  const handleShowManualPopup = () => {
+    setShowManualCheck(true);
   }
 
   const DATA_COMMUNITY = useMemo<IItem[]>(() => {
@@ -116,8 +123,7 @@ const Steps = () => {
           isActive: !token,
           isDone: !!token,
           step: MultiplierStep.authen,
-          secretCode: authenCode?.secret_code,
-          onSuccess: onVerifyTwSuccess
+          handleShowManualPopup: handleShowManualPopup,
         },
         {
           title: 'Level up your multiplier',
@@ -155,12 +161,22 @@ const Steps = () => {
             isActive={!!item.isActive}
             isDone={!!item.isDone}
             step={item.step}
-            secretCode={item?.secretCode}
-            onSuccess={item?.onSuccess}
+            handleShowManualPopup={item?.handleShowManualPopup}
           />
         );
       })}
       <ConnectModal isShow={isShowConnect} onHide={onToggleConnect}/>
+      <BaseModal
+        isShow={showManualCheck}
+        onHide={() => {
+          setShowManualCheck(false);
+        }}
+        title={"Missing from the Leaderboard?"}
+        headerClassName={s.modalManualHeader}
+        className={s.modalContent}
+      >
+        <VerifyTwModal secretCode={authenCode?.secret_code} onSuccess={onVerifyTwSuccess}/>
+      </BaseModal>
     </Flex>
   );
 };

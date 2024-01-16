@@ -20,9 +20,11 @@
   }
 
   .desc {
-    text-align: center;
-    font-size: 18px;
-    margin-top: 16px;
+    //text-align: center;
+    font-size: 16px;
+    margin-bottom: 24px;
+    font-weight: 400;
+    color: #1C1C1C;
   }
 
   .form {
@@ -32,25 +34,34 @@
   .inputContainer {
     border-radius: 0px;
     background: rgba(255, 255, 255, 0.10);
-    border: 1px solid transparent;
+    border: 1px solid #CECECE;
     display: flex;
     padding: 12px;
     align-items: center;
     gap: 12px;
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
   
   .input {
     height: 100%;
     overflow: hidden;
-    color: #FFF;
+    color: #000000;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 140%;
     background-color: transparent;
     width: 100%;
+
+    &::placeholder {
+      color: #898989;
+      opacity: 1; /* Firefox */
+    }
+
+    &::-ms-input-placeholder { /* Edge 12-18 */
+      color: #898989;
+    }
 
     &:focus {
       outline: none;
@@ -60,10 +71,10 @@
   .button {
     height: 48px !important;
     padding: 8px 60px !important;
-    border-radius: 4px !important;
-    background: linear-gradient(180deg, #7C3DFD 0%, #6633CE 100%) !important;
+    border-radius: 0px !important;
+    background: #FA4E0E !important;
     color: #fff !important;
-    width: 100% !important;
+    width: 180px !important;
   }
   
 }
@@ -112,7 +123,7 @@
     text-align: center;
     font-size: 28px;
     margin-top: 12px;
-    font-weight: 800px !important;
+    font-weight: 800;
     line-height: 30px;
   }
 

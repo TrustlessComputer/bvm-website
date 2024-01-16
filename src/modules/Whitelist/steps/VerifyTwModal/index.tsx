@@ -51,12 +51,12 @@ const VerifyTwModal = ({secretCode, onSuccess}: any) => {
     <div className={s.container}>
       <div className={s.content}>
         <form className={s.form} onSubmit={formik.handleSubmit}>
-          <div className={s.desc}>Simply paste the URL of your tweet below to verify manually and we'll take care of the rest. </div>
+          <div className={s.desc}>Simply paste the URL of your tweet below to verify manually and we'll take care of the rest.</div>
           <div className={s.inputContainer}>
             <input
               id="postUrl"
               value={formValues.postUrl}
-              placeholder="Enter post url"
+              placeholder="Enter post URL"
               className={s.input}
               onChange={onChangeText}
             />

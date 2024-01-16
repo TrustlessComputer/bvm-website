@@ -22,8 +22,7 @@ export default function ItemCommunity({
   isActive,
   isDone,
   step,
-  secretCode,
-  onSuccess
+  handleShowManualPopup
 }: {
   index: number;
   content: any;
@@ -31,8 +30,7 @@ export default function ItemCommunity({
   isActive?: boolean
   isDone?: boolean;
   step?: MultiplierStep;
-  secretCode?: string;
-  onSuccess?: (_: any) => void;
+  handleShowManualPopup?: () => void;
 }) {
   const dispatch = useDispatch();
   const [showManualCheck, setShowManualCheck] = useState(false);
@@ -47,20 +45,6 @@ export default function ItemCommunity({
   const isRunning = useMemo(() => {
     return isActive;
   }, [isActive, index]);
-
-  const onClickEditRefCode = () => {
-    dispatch(
-      openModal({
-        id: ReferralModalID,
-        title: `Missing from the leaderboard?`,
-        className: s.modalContent,
-        // modalProps: {
-        //   size: 'lg',
-        // },
-        render: () => <VerifyTwModal secretCode={secretCode} onSuccess={onSuccess}/>,
-      }),
-    );
-  };
 
   return (
     <>
@@ -120,7 +104,7 @@ export default function ItemCommunity({
                           fontWeight={400}
                           color={"#000000"}
                           textDecoration={"underline"}
-                          onClick={onClickEditRefCode}>
+                          onClick={handleShowManualPopup}>
                           Missing from the leaderboard?
                         </Text>
                       )
