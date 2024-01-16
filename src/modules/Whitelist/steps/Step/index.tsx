@@ -79,7 +79,7 @@ export default function ItemCommunity({
                     if (step === MultiplierStep.authen) {
                       setTimeout(() => {
                         setShowManualCheck(true);
-                      }, 3000);
+                      }, 15000);
                     }
                   }
                 }}
