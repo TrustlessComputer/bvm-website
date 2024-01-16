@@ -172,7 +172,6 @@ const Steps = () => {
             index={index}
             content={item}
             isLoading={item.step === MultiplierStep.authen && submitting}
-            handleShowManualPopup={item?.handleShowManualPopup}
           />
         );
       })}

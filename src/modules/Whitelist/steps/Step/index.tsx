@@ -25,7 +25,8 @@ export interface IItemCommunity {
   right: {
     title: string;
     desc: string
-  }
+  },
+  handleShowManualPopup?: () => void;
 }
 
 export default function ItemCommunity({
@@ -69,23 +70,23 @@ export default function ItemCommunity({
           </Flex>
           {!!content?.actionText && (
             <Flex direction={"column"}>
-            <Button
-              className={s.itemCommunity__btnCTA}
-              onClick={() => {
-                if (content?.actionHandle && isRunning && !isLoading) {
-                  content?.actionHandle();
+              <Button
+                className={s.itemCommunity__btnCTA}
+                onClick={() => {
+                  if (content?.actionHandle && isRunning && !isLoading) {
+                    content?.actionHandle();
 
-                  if (step === MultiplierStep.authen) {
-                    setTimeout(() => {
-                      setShowManualCheck(true);
-                    }, 3000);
+                    if (step === MultiplierStep.authen) {
+                      setTimeout(() => {
+                        setShowManualCheck(true);
+                      }, 3000);
+                    }
                   }
-                }
-              }}
-              isLoading={isLoading}
-            >
-              {content?.actionText}
-            </Button>
+                }}
+                isLoading={isLoading}
+              >
+                {content?.actionText}
+              </Button>
               {
                 step === MultiplierStep.authen && showManualCheck && (
                   <Text
@@ -94,8 +95,10 @@ export default function ItemCommunity({
                     fontWeight={400}
                     color={"#000000"}
                     textDecoration={"underline"}
-                    onClick={content?.handleShowManualPopup}>
-                    Missing from the leaderboard?
+                    onClick={content?.handleShowManualPopup}
+                    mt={1}
+                  >
+                    Missing from the Leaderboard?
                   </Text>
                 )
               }
