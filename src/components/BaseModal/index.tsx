@@ -4,15 +4,13 @@ import cs from 'classnames';
 import { CDN_URL_ICONS } from '@/config';
 import { Modal, ModalHeader, ModalBody, ModalOverlay, ModalContent } from '@chakra-ui/modal';
 import { Flex } from '@chakra-ui/react';
-
-type Type = 'normal' | 'expand';
+import { size } from 'valibot';
 
 export interface IBaseModalProps {
   isShow: boolean;
   onHide: () => void;
   title: string;
   className?: string;
-  type?: Type;
   size?: 'small' | 'normal' | 'extra';
   description?: string;
   headerClassName?: string;
@@ -26,6 +24,7 @@ const BaseModal = (props: PropsWithChildren<IBaseModalProps>): React.ReactNode =
     children,
     description,
     headerClassName,
+    size = "normal"
   } = props;
 
   return (
@@ -35,7 +34,7 @@ const BaseModal = (props: PropsWithChildren<IBaseModalProps>): React.ReactNode =
         isCentered={true}
       >
         <ModalOverlay />
-        <ModalContent className={s.modalContent}>
+        <ModalContent className={cs(s.modalContent, s[size])}>
           <ModalHeader className={cs(s.modalHeader, headerClassName)}>
             <Flex justifyContent="space-between" alignItems="center">
               <button
