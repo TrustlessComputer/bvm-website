@@ -176,17 +176,22 @@ const Steps = () => {
         );
       })}
       <ConnectModal isShow={isShowConnect} onHide={onToggleConnect}/>
-      <BaseModal
+      <VerifyTwModal
         isShow={showManualCheck}
         onHide={() => {
           setShowManualCheck(false);
         }}
-        title={"Missing from the Leaderboard?"}
-        headerClassName={s.modalManualHeader}
-        className={s.modalContent}
-      >
-        <VerifyTwModal secretCode={authenCode?.secret_code} onSuccess={onVerifyTwSuccess}/>
-      </BaseModal>
+        secretCode={authenCode?.secret_code}
+        onSuccess={onVerifyTwSuccess}
+      />
+      <VerifyTwModal
+        isShow={showManualCheck}
+        onHide={() => {
+          setShowManualCheck(false);
+        }}
+        secretCode={authenCode?.secret_code}
+        onSuccess={onVerifyTwSuccess}
+      />
     </Flex>
   );
 };

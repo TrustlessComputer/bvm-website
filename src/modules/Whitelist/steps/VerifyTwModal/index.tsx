@@ -7,6 +7,7 @@ import { generateTokenWithTwPost } from '@/services/player-share';
 import { toast } from 'react-hot-toast';
 import { closeModal } from '@/stores/states/modal/reducer';
 import { useDispatch } from 'react-redux';
+import BaseModal from '@/components/BaseModal';
 
 interface FormValues {
   postUrl: string;
@@ -14,7 +15,7 @@ interface FormValues {
 
 export const ReferralModalID = 'ReferralModalID';
 
-const VerifyTwModal = ({secretCode, onSuccess}: any) => {
+const VerifyTwModal = ({isShow, onHide, secretCode, onSuccess}: any) => {
   const dispatch = useDispatch();
   const [isCreating, setIsCreating] = useState(false);
 
@@ -48,31 +49,39 @@ const VerifyTwModal = ({secretCode, onSuccess}: any) => {
   };
 
   return (
-    <div className={s.container}>
-      <div className={s.content}>
-        <form className={s.form} onSubmit={formik.handleSubmit}>
-          <div className={s.desc}>Simply paste the URL of your tweet below to verify manually and we'll take care of the rest.</div>
-          <div className={s.inputContainer}>
-            <input
-              id="postUrl"
-              value={formValues.postUrl}
-              placeholder="Enter post URL"
-              className={s.input}
-              onChange={onChangeText}
-            />
-          </div>
-          <Button
-            type="submit"
-            isDisabled={isCreating || !formValues.postUrl}
-            isLoading={isCreating}
-            loadingText={'Verifying...'}
-            className={s.button}
-          >
-            Verify
-          </Button>
-        </form>
+    <BaseModal
+      isShow={isShow}
+      onHide={onHide}
+      title={"Missing from the Leaderboard?"}
+      headerClassName={s.modalManualHeader}
+      className={s.modalContent}
+    >
+      <div className={s.container}>
+        <div className={s.content}>
+          <form className={s.form} onSubmit={formik.handleSubmit}>
+            <div className={s.desc}>Simply paste the URL of your tweet below to verify manually and we'll take care of the rest.</div>
+            <div className={s.inputContainer}>
+              <input
+                id="postUrl"
+                value={formValues.postUrl}
+                placeholder="Enter post URL"
+                className={s.input}
+                onChange={onChangeText}
+              />
+            </div>
+            <Button
+              type="submit"
+              isDisabled={isCreating || !formValues.postUrl}
+              isLoading={isCreating}
+              loadingText={'Verifying...'}
+              className={s.button}
+            >
+              Verify
+            </Button>
+          </form>
+        </div>
       </div>
-    </div>
+    </BaseModal>
   );
 };
 
