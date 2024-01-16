@@ -1,10 +1,11 @@
 import s from './styles.module.scss';
 import { Button, Flex, Text } from '@chakra-ui/react';
 import cx from 'clsx';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import HistoryMessage from '@/modules/Whitelist/HistoryMessage';
 import Image from 'next/image';
 import { CDN_URL_ICONS } from '@/config';
+import AuthenStorage from '@/utils/storage/authen.storage';
 
 export enum MultiplierStep {
   authen,
@@ -24,7 +25,8 @@ export interface IItemCommunity {
   right: {
     title: string;
     desc: string
-  }
+  },
+  handleShowManualPopup?: () => void;
 }
 
 export default function ItemCommunity({
@@ -36,6 +38,15 @@ export default function ItemCommunity({
   content: IItemCommunity;
   isLoading?: boolean;
 }) {
+  const [showManualCheck, setShowManualCheck] = useState(false);
+  const token = AuthenStorage.getAuthenKey();
+
+  useEffect(() => {
+    if(!!token) {
+      setShowManualCheck(false);
+    }
+  }, [token]);
+
   const { isActive, image, step } = content;
 
   const isRunning = useMemo(() => {
@@ -58,17 +69,40 @@ export default function ItemCommunity({
             </Flex>
           </Flex>
           {!!content?.actionText && (
-            <Button
-              className={s.itemCommunity__btnCTA}
-              onClick={() => {
-                if (content?.actionHandle && isRunning) {
-                  content?.actionHandle()
-                }
-              }}
-              isLoading={isLoading}
-            >
-              {content?.actionText}
-            </Button>
+            <Flex direction={"column"}>
+              <Button
+                className={s.itemCommunity__btnCTA}
+                onClick={() => {
+                  if (content?.actionHandle && isRunning && !isLoading) {
+                    content?.actionHandle();
+
+                    if (step === MultiplierStep.authen) {
+                      setTimeout(() => {
+                        setShowManualCheck(true);
+                      }, 3000);
+                    }
+                  }
+                }}
+                isLoading={isLoading}
+              >
+                {content?.actionText}
+              </Button>
+              {
+                step === MultiplierStep.authen && showManualCheck && (
+                  <Text
+                    cursor={"pointer"}
+                    fontSize={"14px"}
+                    fontWeight={400}
+                    color={"#000000"}
+                    textDecoration={"underline"}
+                    onClick={content?.handleShowManualPopup}
+                    mt={1}
+                  >
+                    Missing from the Leaderboard?
+                  </Text>
+                )
+              }
+            </Flex>
           )}
           {step === MultiplierStep.signMessage && (
             <HistoryMessage />
