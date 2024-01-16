@@ -163,7 +163,10 @@ const Steps = () => {
   }, [token, needReload, user?.referral_code]);
 
   return (
-    <Flex className={s.container} direction={"column"} gap={5}>
+    <Flex className={s.container} direction={"column"} gap={{
+      base: "20px",
+      md: "40px"
+    }}>
       {DATA_COMMUNITY.map((item, index) => {
         return (
           <ItemStep
