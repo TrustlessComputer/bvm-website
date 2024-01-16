@@ -49,7 +49,8 @@
   }
   &__btnCTA {
     display: flex;
-    width: 85% !important;
+    width: 75% !important;
+    max-width: 350px !important;
     height: 48px !important;
     padding: 16px 40px !important;
     justify-content: center !important;

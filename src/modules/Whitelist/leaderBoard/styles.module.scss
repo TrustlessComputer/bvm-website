@@ -95,12 +95,28 @@ table {
         }
       }
     }
+    thead {
+      tr {
+        th {
+          &:nth-child(1) {
+            width: 60px !important;
+          }
+          &:nth-child(2) {
+            width: 220px !important;
+          }
+        }
+      }
+    }
 
     tbody {
       tr {
         td, th {
-          //max-width: 90vw;
-          min-width: 120px;
+          &:nth-child(1) {
+            width: 60px !important;
+          }
+          &:nth-child(2) {
+            width: 220px !important;
+          }
         }
       }
     }
@@ -111,7 +127,7 @@ table {
       font-size: 16px;
       line-height: 140%;
       color: black;
-      max-width: 100px;
+      max-width: 220px;
       overflow: hidden;
       text-overflow: ellipsis;
     }

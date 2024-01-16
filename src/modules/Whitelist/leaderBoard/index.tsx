@@ -144,7 +144,7 @@ const LeaderBoard = () => {
       },
       {
         id: 'player',
-        label: 'X USER',
+        label: 'NAME',
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -202,7 +202,7 @@ const LeaderBoard = () => {
               textTransform: 'uppercase'
             }}
           >
-            Multiplier
+            BOOST
           </Flex>
         ),
         config: {
@@ -236,6 +236,114 @@ const LeaderBoard = () => {
         },
       },
       {
+        id: 'refer',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              textTransform: 'uppercase',
+            }}
+            gap="3px"
+          >
+            <p style={{ textTransform:'uppercase' }}>INVITE POINTS</p>
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>Referral points are calculated based on the total number of friends you refer to the allowlist.</p>
+                </Flex>
+              }
+            >
+              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+            </Tooltip>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '16px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={3}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={2}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.refer_point, 0, 0)}
+                </Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'feature',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              textTransform: 'uppercase',
+            }}
+            gap="3px"
+          >
+            <p style={{ textTransform:'uppercase' }}>BITCOIN OG POINTS</p>
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>Gas spent is calculated from total gas fees paid on Bitcoin.</p>
+                </Flex>
+              }
+            >
+              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+            </Tooltip>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '16px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={3}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={2}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.gas_point, 0, 0)}
+                </Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
         id: 'content',
         label: (
           <Flex
@@ -247,7 +355,7 @@ const LeaderBoard = () => {
               gap: '4px',
             }}
           >
-            <p style={{ textTransform:'uppercase' }}>Content Points</p>
+            <p style={{ textTransform:'uppercase' }}>TWEET POINTS</p>
             <Tooltip
               minW="220px"
               bg="white"
@@ -346,114 +454,6 @@ const LeaderBoard = () => {
       //   },
       // },
       {
-        id: 'feature',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              alignSelf: 'center',
-              width: '100%',
-              textTransform: 'uppercase',
-            }}
-            gap="3px"
-          >
-            <p style={{ textTransform:'uppercase' }}>Gas Spent</p>
-            <Tooltip
-              minW="220px"
-              bg="white"
-              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-              borderRadius="4px"
-              padding="8px"
-              label={
-                <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Gas spent is calculated from total gas fees paid on Bitcoin.</p>
-                </Flex>
-              }
-            >
-              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
-            </Tooltip>
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '16px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex
-              gap={3}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
-            >
-              <Flex alignItems={'center'} gap={2}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.gas_point, 0, 0)}
-                </Text>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'refer',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              alignSelf: 'center',
-              width: '100%',
-              textTransform: 'uppercase',
-            }}
-            gap="3px"
-          >
-            <p style={{ textTransform:'uppercase' }}>REFER</p>
-            <Tooltip
-              minW="220px"
-              bg="white"
-              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-              borderRadius="4px"
-              padding="8px"
-              label={
-                <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Referral points are calculated based on the total number of friends you refer to the allowlist.</p>
-                </Flex>
-              }
-            >
-              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
-            </Tooltip>
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '16px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex
-              gap={3}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
-            >
-              <Flex alignItems={'center'} gap={2}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.refer_point, 0, 0)}
-                </Text>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
         id: 'point',
         label: (
           <Flex
@@ -464,7 +464,7 @@ const LeaderBoard = () => {
               textTransform: 'uppercase'
             }}
           >
-            Total points
+            TOTAL
           </Flex>
         ),
         labelConfig,

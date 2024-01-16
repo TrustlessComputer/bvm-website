@@ -131,7 +131,7 @@ const Steps = () => {
         {
           title: 'Refer a fren to BVM',
           desc: 'Spread the love to your frens, team, and communities.',
-          actionText: isActiveRefer ? shareReferralURL(user?.referral_code || '') : 'Copy link',
+          actionText: 'Copy your referral link',
           actionHandle: handleShareRefferal,
           isActive: isActiveRefer,
           step: MultiplierStep.post,
