@@ -1,155 +1,59 @@
 .itemCommunity {
-  display: flex;
   flex-direction: row;
   width: 100%;
-  align-items: center;
-  height: 74px;
+  display: flex;
+  padding: 16px;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+  border: 1px solid rgba(255, 126, 33, 0.30);
+  background: rgba(255, 126, 33, 0.06);
 
   &.isDone {
     opacity: 40%;
   }
 
-  @include is-mobile {
-    border: 1px solid #ff7e214d;
-    background-color: #ff7e210f;
-    height: auto;
-    padding: 12px 0;
-    padding-left: 10px;
-    align-items: start;
-  }
-  @include is-tablet {
-    height: 100%;
-  }
-  &_inner {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    align-items: center;
-    height: 74px;
-    gap: 2px;
-
-    @include is-mobile {
-      height: auto;
-      align-items: start;
-    }
-    @include is-tablet {
-      height: 100%;
-    }
-  }
-
-  &_lego {
-    background: #6abd00;
-    width: 74px;
-    height: 74px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    z-index: 1;
-    @include is-mobile {
-      background-color: transparent;
-      width: 20px;
-      height: 20px;
-    }
-
-    &_stud {
-      position: absolute;
-      left: 99%;
-      background-color: #6abd00;
-      width: 10px;
-      height: 25px;
-      top: 50%;
-      border-top-right-radius: 6px;
-      border-bottom-right-radius: 6px;
-      transform: translateY(-50%);
-
-      @include is-mobile {
-        background-color: transparent;
-      }
-    }
-
-    svg {
-      width: 18.92px;
-      height: 15.5px;
-      path {
-        @include is-mobile {
-          fill: #6abd00;
-        }
-      }
-    }
-  }
-  &_content {
-    padding: 0px 14px 0px 24px;
-    display: flex;
-    align-items: center;
+  &__title {
+    color: #000;
     font-size: 18px;
-    height: 100%;
-    line-height: 26px;
+    font-style: normal;
     font-weight: 400;
-    flex: 1;
-    position: relative;
-    border: 1px solid rgba(255, 126, 33, 0.20);
-    background: #FF7E2133;
-
-    @include is-mobile {
-      padding-left: 10px;
-      font-size: 14px;
-      line-height: 20px;
-      background: none;
-      border: none;
-    }
-    &_frame {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      pointer-events: none;
-      svg {
-        height: 100%;
-      }
-    }
-
-    &_title {
-      color: #000;
-      font-size: 18px;
-      font-weight: 400;
-    }
-
-    &_desc {
-      color: #000;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 140%;
-      white-space: pre-wrap;
-    }
-
-    &_action {
-      width: 180px;
-      min-width: 180px !important;
-      height: 48px !important;
-      padding: 16px 40px;
-      background: #FA4E0E !important;
-      color: #FFFFFF !important;
-      border-radius: 0 !important;
-    }
-
-    &_stud {
-      position: absolute;
-      left: -1px;
-      background-color: #FFFFFF;
-      width: 10px;
-      height: 29px;
-      top: 50%;
-      border-top-right-radius: 6px;
-      border-bottom-right-radius: 6px;
-      transform: translateY(-50%);
-      border: 1px solid rgba(255, 126, 33, 0.20);
-      border-left: none;
-
-      @include is-mobile {
-        background-color: transparent;
-        border: none;
-      }
-    }
+    line-height: 26px;
+  }
+  &__desc {
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+    opacity: 0.7;
+  }
+  &__point {
+    color: #000;
+    text-align: right;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+  }
+  &__pointNote {
+    color: #000;
+    text-align: right;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+    opacity: 0.7;
+  }
+  &__btnCTA {
+    display: flex;
+    width: 180px !important;
+    height: 48px !important;
+    padding: 16px 40px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: #FA4E0E !important;
+    border-radius: 0 !important;
   }
 }

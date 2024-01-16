@@ -4,8 +4,8 @@ import LeaderBoard from './leaderBoard';
 import s from './styles.module.scss';
 import useElementHeight from '@/hooks/useElementHeight';
 import { HEADER_ID } from '@/layouts/Header';
-import px2rem from '@/utils/px2rem';
 import Steps from '@/modules/Whitelist/steps';
+import BoxContent from '@/layouts/BoxContent';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
@@ -15,19 +15,19 @@ const Whitelist = () => {
   React.useEffect(() => {
     const element = document.getElementById(CONTAINER_ID)
     if (height && element) {
-      element.style.paddingTop = `${px2rem(height)}`
+      element.style.paddingTop = `${height}px`
     }
   }, [height])
 
   return (
-    <Flex className={s.container} id={CONTAINER_ID}>
-      <p className={s.title}>Get a bigger multiplier</p>
+    <BoxContent className={s.container} id={CONTAINER_ID}>
+      {/*<p className={s.title}>Get a bigger multiplier</p>*/}
       {/*<p className={s.desc}>Get a bigger multiplier.</p>*/}
       <div className={s.tokenSection}>
-        <Steps />
         <LeaderBoard />
+        <Steps />
       </div>
-    </Flex>
+    </BoxContent>
   )
 };
 
