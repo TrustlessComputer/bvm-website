@@ -1,28 +1,39 @@
 import { Button, Flex } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './styles.module.scss';
-import { generateTokenWithTwPost } from '@/services/player-share';
+import { addAllowList } from '@/services/player-share';
 import { toast } from 'react-hot-toast';
-import { closeModal } from '@/stores/states/modal/reducer';
-import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import { ALLOW_LIST_URL } from '@/constants/route-path';
+import { KEY_TWITTER_USERNAME } from '@/constants/storage-key';
+import CookieUtil from '@/utils/cookie';
 
 interface FormValues {
-  postUrl: string;
+  username: string;
 }
 
-export const ReferralModalID = 'ReferralModalID';
-
-const JoinAllowList = ({isShow, onHide, secretCode, onSuccess}: any) => {
-  const dispatch = useDispatch();
+const JoinAllowList = () => {
+  const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
+  const twitterUsername = CookieUtil.get(KEY_TWITTER_USERNAME);
+
+  useEffect(() => {
+    if(twitterUsername) {
+      formik.setValues((values: any) => ({
+        ...values,
+        username: twitterUsername,
+      }))
+    }
+  }, [twitterUsername]);
+
 
   const onSubmit = async (values: FormValues) => {
     try {
       setIsCreating(true);
-      const result = await generateTokenWithTwPost(secretCode as string, formValues.postUrl);
-      onSuccess && onSuccess(result);
-      dispatch(closeModal({ id: ReferralModalID }));
+      const result = await addAllowList(formValues.username);
+      CookieUtil.set(KEY_TWITTER_USERNAME, formValues.username);
+      router.push(ALLOW_LIST_URL);
     } catch (error) {
       toast.error('Can not verify the post.');
     } finally {
@@ -31,7 +42,7 @@ const JoinAllowList = ({isShow, onHide, secretCode, onSuccess}: any) => {
   };
 
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
-    initialValues: { postUrl: '' } as FormValues,
+    initialValues: { username: '' } as FormValues,
     onSubmit,
   });
 
@@ -42,7 +53,7 @@ const JoinAllowList = ({isShow, onHide, secretCode, onSuccess}: any) => {
   const onChangeText = (e: any) => {
     formik.setValues((values: any) => ({
       ...values,
-      postUrl: e.target.value,
+      username: e.target.value,
     }));
   };
 
@@ -57,8 +68,8 @@ const JoinAllowList = ({isShow, onHide, secretCode, onSuccess}: any) => {
           <Flex gap={3}>
             <div className={s.inputContainer}>
               <input
-                id="postUrl"
-                value={formValues.postUrl}
+                id="username"
+                value={formValues.username}
                 placeholder="Enter your Twitter/X username"
                 className={s.input}
                 onChange={onChangeText}
@@ -66,9 +77,9 @@ const JoinAllowList = ({isShow, onHide, secretCode, onSuccess}: any) => {
             </div>
             <Button
               type="submit"
-              isDisabled={isCreating || !formValues.postUrl}
+              isDisabled={isCreating || !formValues.username}
               isLoading={isCreating}
-              loadingText={'Submittng...'}
+              loadingText={'Submitting...'}
               className={s.button}
             >
               Get on the allowlist
