@@ -9,14 +9,14 @@
     align-self: center;
 
     .title {
-      font-size: 52px;
-      font-weight: 700;
-      letter-spacing: 0;
-      text-align: center;
+      font-size: 48px;
+      font-weight: 400;
+      text-align: start;
       color: black;
+      width: 100%;
       @include w-max(768px) {
-            font-size: 42px;
-        }
+        font-size: 24px;
+      }
     }
 
     .desc {

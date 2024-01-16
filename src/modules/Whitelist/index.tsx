@@ -21,8 +21,7 @@ const Whitelist = () => {
 
   return (
     <BoxContent className={s.container} id={CONTAINER_ID}>
-      {/*<p className={s.title}>Get a bigger multiplier</p>*/}
-      {/*<p className={s.desc}>Get a bigger multiplier.</p>*/}
+      <p className={s.title}>Get a bigger multiplier</p>
       <div className={s.tokenSection}>
         <LeaderBoard />
         <Steps />
