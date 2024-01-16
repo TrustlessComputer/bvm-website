@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import ItemStep, { IItemCommunity, MultiplierStep } from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
-import { getLink } from '@/utils/helpers';
+import { getLink, shareReferralURL } from '@/utils/helpers';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
@@ -13,6 +13,9 @@ import useToggle from '@/hooks/useToggle';
 import AllowListStorage from '@/utils/storage/allowlist.storage';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
+import { userSelector } from '@/stores/states/user/selector';
+import copy from 'copy-to-clipboard';
+import toast from 'react-hot-toast';
 
 interface IAuthenCode {
   public_code: string;
@@ -28,6 +31,7 @@ const Steps = () => {
   const token = AuthenStorage.getAuthenKey();
   const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle();
   const needReload = useAppSelector(commonSelector).needReload
+  const user = useAppSelector(userSelector)
 
   const handleShareTw = async () => {
     const res: any = await requestAuthenByShareCode();
@@ -58,6 +62,12 @@ const Steps = () => {
       )}`,
       '_blank',
     );
+  }
+
+  const handleShareRefferal = () => {
+    if (!user?.referral_code) return;
+    copy(shareReferralURL(user?.referral_code || ''));
+    toast.success("Copied.")
   }
 
   useEffect(() => {
@@ -104,7 +114,7 @@ const Steps = () => {
           step: MultiplierStep.authen,
           image: "ic-heart.svg",
           right: {
-            title: '+100 PTS',
+            title: '+1 PTS',
             desc: 'per view'
           }
         },
@@ -112,8 +122,8 @@ const Steps = () => {
           title: 'Refer a friend to BVM',
           desc: 'Help us spread the mission of building the future of Bitcoin. Help us spread the mission of building the future of Bitcoin.',
           actionText: 'Copy link',
-          actionHandle: handleShareTwMore,
-          isActive: !!token,
+          actionHandle: handleShareRefferal,
+          isActive: !!token && !!user?.referral_code,
           step: MultiplierStep.post,
           image: "ic-x.svg",
           right: {
@@ -131,8 +141,8 @@ const Steps = () => {
           step: MultiplierStep.signMessage,
           image: "ic-btc.svg",
           right: {
-            title: '+1000 PTS',
-            desc: 'per sat'
+            title: '+1 PTS',
+            desc: 'per 1000 sats'
           }
         },
         // {
@@ -140,7 +150,7 @@ const Steps = () => {
         // },
       ]
     )
-  }, [token, needReload]);
+  }, [token, needReload, user?.referral_code]);
 
   return (
     <Flex className={s.container} direction={"column"} gap={5}>
