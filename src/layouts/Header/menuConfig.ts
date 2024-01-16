@@ -70,7 +70,6 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
 ].filter((item) => !item.isHide);
 
-
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
   {
     label: 'Bitcoin L2s',
@@ -84,8 +83,13 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
+  {
+    label: 'Upcoming',
+    href: '/upcoming',
+    isNewWindow: false,
+    isHide: false,
+  },
 ].filter((item) => !item.isHide);
-
 
 export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   {
