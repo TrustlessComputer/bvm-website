@@ -20,6 +20,20 @@ export const getLink = (referralCode?: string) => {
   return `${window.location.origin}${referral}`;
 };
 
+const REFERRAL_TEXT = 'refer'
+
+export const shareReferralURL = (code: string) => {
+  if (APP_ENV === 'production') {
+    return `https://bvm.network?${REFERRAL_TEXT}=${code}`;
+  }
+  return `${window.location.origin}?${REFERRAL_TEXT}=${code}`;
+};
+
+export const getReferralByURL = () => {
+  const params = new URLSearchParams(window.location?.search || '');
+  return params.get(REFERRAL_TEXT)
+};
+
 export const shareTwitterSignature = (params: {
   fee: string | number,
   txsCount: string | number,
@@ -49,11 +63,11 @@ export const getReferralSearchURL = (referralCode?: string) => {
   if (!game_url && !referralCode) {
     return '';
   } else if (game_url && referralCode) {
-    return `?referral=${referralCode}&${game_url}`;
+    return `?${REFERRAL_TEXT}=${referralCode}&${game_url}`;
   } else if (game_url && !referralCode) {
     return `?${game_url}`;
   } else if (referralCode && !game_url) {
-    return `?referral=${referralCode}`;
+    return `?${REFERRAL_TEXT}=${referralCode}`;
   } else {
     return '';
   }

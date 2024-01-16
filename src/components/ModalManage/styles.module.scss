@@ -1,0 +1,25 @@
+.noPadding {
+  padding: 0;
+}
+.modalContent {
+  border: none;
+}
+.modalBody {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.modalDark {
+  background-color: var(--bs-gray-dark);
+  color: #fcfcfd;
+  button {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(10deg)
+      brightness(104%) contrast(102%);
+  }
+}
+
+.modalButtonClose {
+  box-shadow: none !important;
+}

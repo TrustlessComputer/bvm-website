@@ -160,3 +160,17 @@ export function formatString(
 
 export const zeroPad = (num: number, places: number) =>
   String(num).padStart(places, '0');
+
+export const formatMaxDecimals = (params: { value: any; maxDecimals?: number }) => {
+  const value = params.value;
+  const maxDecimals = params.maxDecimals !== undefined ? params.maxDecimals : 3;
+
+  if (
+    value &&
+    value.toString().includes('.') &&
+    value.toString().split('.')[1]?.length > maxDecimals
+  ) {
+    return undefined;
+  }
+  return value;
+};

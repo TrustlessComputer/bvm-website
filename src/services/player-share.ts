@@ -18,14 +18,16 @@ export const generateToken = async (uuid: string | string[]): Promise<any> => {
   return;
 };
 
-export const generateTokenWithTwPost = async (uuid: string): Promise<any> => {
+export const generateTokenWithTwPost = async (uuid: string, link?: string): Promise<any> => {
   try {
     const res = await apiClient.post(`/bvm/generate-token-with-twitter-post`, {
       secret_code: uuid,
+      link: link
     });
     return Object(camelCaseKeys(res));
   } catch (error) {
-    console.log(error);
+    throw error;
+    // console.log(error);
   }
   return;
 };

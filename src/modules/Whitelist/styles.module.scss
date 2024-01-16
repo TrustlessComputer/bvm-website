@@ -5,18 +5,18 @@
     align-items: center;
     justify-content: center;
     background-color: #F3F1E8;
-    max-width: 1000px;
+    max-width: 1600px;
     align-self: center;
 
     .title {
-      font-size: 52px;
-      font-weight: 700;
-      letter-spacing: 0;
-      text-align: center;
+      font-size: 48px;
+      font-weight: 400;
+      text-align: start;
       color: black;
+      width: 100%;
       @include w-max(768px) {
-            font-size: 42px;
-        }
+        font-size: 24px;
+      }
     }
 
     .desc {
@@ -41,17 +41,14 @@
 
     .tokenSection {
         display: grid;
-        grid-template-columns: 1fr;
-        gap: 80px;
+        grid-template-columns: 1fr 560px;
+        gap: 40px;
         margin-top: 16px;
         margin-bottom: 48px;
         width: 100%;
-        max-width: rem(940);
-
-        @include w-max(768px) {
-            grid-template-columns: 1fr;
-            margin-top: 12px;
-          gap: 40px;
+        @include w-max(1280px) {
+          display: flex;
+          flex-direction: column-reverse;
         }
     }
 

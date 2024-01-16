@@ -11,6 +11,7 @@ import StoreProvider from '@/Providers/StoreProvider';
 import { XVerseProvider } from '@/Providers/xverse-context';
 import { UnisatProvider } from '@/Providers/unisat-context';
 import ToastOverlay from '@/components/ToastOverlay';
+import { UserProvider } from '@/Providers/user-context';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -33,12 +34,14 @@ export default function RootLayout({
       <StoreProvider>
         <ChakraProvider theme={chakraThemes}>
           <ChakraFontsFace />
-          <XVerseProvider>
-            <UnisatProvider>
-              <Hydrated>{children}</Hydrated>
-              <ToastOverlay />
-            </UnisatProvider>
-          </XVerseProvider>
+          <UserProvider>
+            <XVerseProvider>
+              <UnisatProvider>
+                <Hydrated>{children}</Hydrated>
+                <ToastOverlay />
+              </UnisatProvider>
+            </XVerseProvider>
+          </UserProvider>
         </ChakraProvider>
       </StoreProvider>
       </body>
