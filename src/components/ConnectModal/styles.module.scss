@@ -9,14 +9,15 @@
   }
   .modalItem {
     display: flex;
-    padding: 4px 16px 4px 4px;
+    padding: 12px 10px;
     align-items: center;
     gap: 8px;
     align-self: stretch;
-    border: 1px solid #ececec;
     box-shadow: 0 0 16px -6px rgb(0 0 0 / 8%);
     cursor: pointer;
     color: black;
+    border: 1px solid rgba(255, 126, 33, 0.30);
+    background: rgba(255, 126, 33, 0.06);
 
     &_content {
       display: flex;
@@ -26,17 +27,33 @@
     }
 
     img {
-      width: 36px;
-      height: 36px;
+      width: 48px;
+      height: 48px;
     }
 
     &_warning {
       color: #ff7e21;
-      line-height: 120%;
+      opacity: 0.7;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 26px;
     }
 
     &_description {
       opacity: 0.7;
+      color: #000;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 26px;
+    }
+    &_title {
+      color: #000;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 26px;
     }
   }
 }

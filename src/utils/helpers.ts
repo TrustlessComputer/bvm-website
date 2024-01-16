@@ -20,11 +20,30 @@ export const getLink = (referralCode?: string) => {
   return `${window.location.origin}${referral}`;
 };
 
-export const shareTwitterSignature = () => {
+const REFERRAL_TEXT = 'referral'
+
+export const shareReferralURL = (code: string) => {
+  if (APP_ENV === 'production') {
+    return `https://bvm.network?${REFERRAL_TEXT}=${code}`;
+  }
+  return `${window.location.origin}?${REFERRAL_TEXT}=${code}`;
+};
+
+export const getReferralByURL = () => {
+  const params = new URLSearchParams(window.location?.search || '');
+  return params.get(REFERRAL_TEXT)
+};
+
+export const shareTwitterSignature = (params: {
+  fee: string | number,
+  txsCount: string | number,
+  point: string | number,
+}) => {
   const shareUrl = getLink('');
   let content = '';
 
-  content = `Welcome to the future of Bitcoin with @bvmnetwork.\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks.\n\n$BVM public sale starting soon.`;
+  content = `Paid ${params.fee} BTC in sats fee over ${params.txsCount} transactions and snagged ${params.point} points from @bvmnetwork via bvm.network for their upcoming public sale!
+`;
 
   window.open(
     `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(

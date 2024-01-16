@@ -11,6 +11,7 @@ import Loading from '@/components/Loading';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { shareTwitterSignature } from '@/utils/helpers';
+import cs from 'classnames';
 
 let interval: any = undefined;
 
@@ -71,13 +72,15 @@ const HistoryMessage = () => {
   }
 
   return (
-    <Flex className={styles.container}>
+    <Flex className={cs(styles.container, {
+      [styles.container__congrats as string]: !!amount.txsCount
+    })}>
       <img src={`${CDN_URL_ICONS}/ic-verify.svg`} />
       {amount.txsCount ? (
         <Flex flexDirection="column" w="100%" alignItems="center">
           <p>You've spent <span>{formatCurrency(amount.fee, 0)} BTC</span> for gas fees across <span>{formatCurrency(amount.txsCount, 0)} transactions</span></p>
           <p>Congratulations, you've earned <span>{formatCurrency(amount.point, 0)} points</span></p>
-          <Button onClick={shareTwitterSignature}>Share now</Button>
+          <Button onClick={() => shareTwitterSignature({ fee: amount.fee, point: amount.point, txsCount: amount.txsCount })}>Share now</Button>
         </Flex>
       ) : (
         <p>

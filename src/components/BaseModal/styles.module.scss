@@ -1,5 +1,14 @@
 .modalContent {
   background: white !important;
+  &.small {
+    max-width: 500px;
+  }
+  &.normal {
+    max-width: 780px !important;
+  }
+  &.extra {
+    max-width: 800px;
+  }
 }
 
 .modalHeader {

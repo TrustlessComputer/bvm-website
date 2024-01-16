@@ -9,7 +9,6 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import BoxContent from '../BoxContent';
-import { DesktopNav } from './components/DesktopNav';
 import DrawerMobileMenu from './components/DrawerMenu';
 import useAnimationStore from '@/stores/useAnimationStore';
 import { useMemo } from 'react';
@@ -17,6 +16,8 @@ import { usePathname } from 'next/navigation';
 import cn from 'classnames';
 import s from './style.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
+import { DesktopNavLeft } from '@/layouts/Header/components/DesktopNavLeft';
+import { DesktopNavRight } from '@/layouts/Header/components/DesktopNavRight';
 
 export type HeaderProps = {
   color?: 'black' | 'white';
@@ -38,7 +39,8 @@ const Header = (props: HeaderProps) => {
     return pathName === '/';
   }, [pathName]);
   const isMobile = useBreakpointValue({ base: true, md: false }) as boolean;
-  const { tabletScreen } = useWindowSize();
+  const { tabletScreen, isDesktop } = useWindowSize();
+
   return (
     <>
       <Box
@@ -55,7 +57,7 @@ const Header = (props: HeaderProps) => {
         zIndex={2}
         className={cn(isHome ? s.isHome : '', play ? s.play : '')}
       >
-        <BoxContent id="HEADER_CONTENT">
+        <BoxContent id='HEADER_CONTENT'>
           <Flex
             display={'flex'}
             flexDir={'row'}
@@ -63,24 +65,29 @@ const Header = (props: HeaderProps) => {
             alignItems={'center'}
             minH={['40px', '40px']}
           >
-            <Flex
+
+            {
+              isDesktop && <DesktopNavLeft primaryColor={primaryColor} />
+            }
+
+            <Box
+              className={s.logo}
               flex={tabletScreen ? '' : 1}
-              justify={'left'}
               _hover={{
                 cursor: 'pointer',
               }}
             >
-              <Link href="/">
+              <Link href='/'>
                 {primaryColor === 'white' ? (
                   <Image src={`/icons/logo_white.svg`} />
                 ) : (
                   <Image src={`/icons/logo_black.svg`} />
                 )}
               </Link>
-            </Flex>
+            </Box>
 
             <Flex flex={1} justify={'right'}>
-              {isMobile ? (
+              {!isDesktop ? (
                 <IconButton
                   onClick={onToggle}
                   icon={
@@ -101,7 +108,7 @@ const Header = (props: HeaderProps) => {
                   }}
                 />
               ) : (
-                <DesktopNav primaryColor={primaryColor} />
+                <DesktopNavRight primaryColor={primaryColor} />
               )}
             </Flex>
           </Flex>

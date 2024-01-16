@@ -6,7 +6,7 @@
   p {
     font-style: normal;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 140%;
 
     color: #ffffff;
@@ -42,18 +42,15 @@
 table {
   &.tableContainer {
     :global {
-      .isActiveRow {
-        background-color: #F5EADE !important;
-
-        tbody {
-          tr {
-            td {
-              max-width: 90vw;
-            }
-          }
+      tbody {
+        tr {
+          height: 62px;
         }
+      }
+      .isActiveRow {
+        background-color: #007659 !important;
         p {
-          color: black !important;
+          color: white !important;
         }
 
         .boost_25 {
@@ -106,19 +103,16 @@ table {
     .title {
       font-style: normal;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 16px;
       line-height: 140%;
-
       color: black;
-
       max-width: 100px;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .subTitle {
-      font-size: 12px;
-      opacity: 0.7;
+      font-size: 14px;
     }
 
     .desc {
@@ -138,7 +132,7 @@ table {
 
       p {
         font-weight: 500;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 140%;
         /* or 18px */
         text-align: center;
@@ -207,7 +201,7 @@ table {
 .banner {
   background: #000;
   color: #FFF;
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 600;
   line-height: 140%;
@@ -220,7 +214,7 @@ table {
   justify-content: space-between;
 
   .time {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     opacity: 0.7;
   }
@@ -278,6 +272,17 @@ table {
 
   &.boost_20 {
     background: linear-gradient(90deg, #FFD73B 0%, #A05700 100%);
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &.isActiveRow {
+    background: linear-gradient(90deg, #FFFFFF 0%, #35CCA6 100%);
     text-align: center;
     font-size: 16px;
     font-style: normal;

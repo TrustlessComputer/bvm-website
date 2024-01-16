@@ -17,6 +17,7 @@ interface CheckMobile {
   tabletScreen: boolean | undefined;
   desktopScreen: boolean;
   QHDScreen: boolean;
+  isDesktop: boolean;
 }
 
 function useWindowSize(): Size & CheckMobile {
@@ -31,6 +32,7 @@ function useWindowSize(): Size & CheckMobile {
   );
   const [desktopScreen, setDesktopScreen] = useState(true);
   const [QHDScreen, setQHDScreen] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
     function handleResize() {
@@ -38,7 +40,10 @@ function useWindowSize(): Size & CheckMobile {
         sreenWidth: window.innerWidth,
         heightWidth: window.innerHeight,
       });
+
+      setIsDesktop(window.innerWidth >= 1200);
     }
+
     window.addEventListener('resize', handleResize);
     handleResize();
     return () => window.removeEventListener('resize', handleResize);
@@ -84,6 +89,7 @@ function useWindowSize(): Size & CheckMobile {
     desktopScreen,
     QHDScreen,
     xSMobileScreen,
+    isDesktop,
   };
 }
 

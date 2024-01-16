@@ -22,6 +22,11 @@
     line-height: 26px;
   }
 
+  &__congrats {
+    //background-image: url("https://cdn.newbitcoincity.com/nbc/icons/bvm-icons/congrats-bg.png");
+    background-size: contain;
+  }
+
   button {
     display: flex;
     width: 180px !important;

@@ -39,7 +39,7 @@ const LeaderBoard = () => {
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: 100,
+    limit: 1000,
   });
   const refInitial = useRef(false);
 
@@ -171,20 +171,18 @@ const LeaderBoard = () => {
                     'normal'
                   )}
                   address={''}
-                  width={36}
+                  width={40}
                   name={data?.twitter_name || data?.twitter_username || ''}
                 />
-                <Flex width={'100%'} gap={'0px'} direction={'column'}>
-                  {data?.twitter_name && (
-                    <>
-                      <Text className={styles.title}>
-                        {formatName(data?.twitter_name as string, 50)}
+                <Flex width={'100%'} gap={'4px'} direction={'column'}>
+                    <Text className={styles.title}>
+                      {formatName(data?.twitter_name as string, 50)}
+                    </Text>
+                    {data?.need_active && (
+                      <Text className={styles.subTitle}>
+                        YOU
                       </Text>
-                      {/*<Text className={styles.subTitle}>*/}
-                      {/*  {shortCryptoAddress(data?.address as string, 8)}*/}
-                      {/*</Text>*/}
-                    </>
-                  )}
+                    )}
                 </Flex>
               </Flex>
             </Flex>
@@ -225,7 +223,12 @@ const LeaderBoard = () => {
                 )}
               >
                 <img style={{ width: 20 }} src={`${CDN_URL_ICONS}/${valueToImage?.[data?.boost] || 'flash_normal.svg'}`}/>
-                <Text className={cs(styles.title, styles.multiplier, styles[valueToClassName[`${data?.boost}`]])}>{data?.boost || 0}%</Text>
+                <Text className={cs(
+                  styles.title,
+                  styles.multiplier,
+                  styles[valueToClassName[`${data?.boost}`]],
+                  data.need_active && styles.isActiveRow
+                )}>{data?.boost || 0}%</Text>
               </Flex>
             </Flex>
           );
@@ -279,7 +282,7 @@ const LeaderBoard = () => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.point, 0, 0)}
+                  {formatCurrency(data?.content_point, 0, 0)}
                 </Text>
                 {data.need_active ?
                   <Tooltip
@@ -360,7 +363,7 @@ const LeaderBoard = () => {
               padding="8px"
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Gas spent is calculated from total gas fees paid on Bitcoin, starting with the first payment to wallet verification on the BVM allowlist.</p>
+                  <p>Gas spent is calculated from total gas fees paid on Bitcoin.</p>
                 </Flex>
               }
             >
@@ -425,7 +428,7 @@ const LeaderBoard = () => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {formatCurrency(new BigNumber(data?.point || '0').plus(data?.gas_point || '0').toNumber(), 0, 0)}
+                  {formatCurrency(new BigNumber(data?.point || '0').toNumber(), 0, 0)}
                 </Text>
               </Flex>
             </Flex>
@@ -503,7 +506,7 @@ const LeaderBoard = () => {
 
         </Box>
       </Box>*/}
-      <Box w="100%" bg="rgba(255, 255, 255, 0.30)" height="76dvh" p="8px">
+      <Box w="100%" bg="rgba(255, 255, 255, 0.30)" p="8px">
         <ScrollWrapper
           onFetch={() => {
             refParams.current = {
