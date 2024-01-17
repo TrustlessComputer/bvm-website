@@ -23,6 +23,10 @@
       max-width: 850px;
       color: #000;
       text-align: unset !important;
+
+      @include is-mobile {
+        margin-bottom: 12px;
+      }
     }
   }
   &_wrapper {
