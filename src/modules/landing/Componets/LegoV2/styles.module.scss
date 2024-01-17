@@ -70,6 +70,8 @@
 
     @include is-mobile {
       grid-template-columns: repeat(2, 1fr);
+      row-gap: 8px;
+      column-gap: 9px;
     }
     @include is-tablet {
       grid-template-columns: repeat(2, 1fr);
