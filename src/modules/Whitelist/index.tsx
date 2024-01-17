@@ -27,7 +27,7 @@ const Whitelist = () => {
 
   return (
     <BoxContent className={s.container} id={CONTAINER_ID}>
-      {!!count ? (<p className={s.title}>Join <span>{!count ? <Loading/> : formatCurrency(count)}</span> people on the public sale allowlist.</p>) : <AppLoading/>}
+      {!!count ? (<p className={s.title}>Join <span>{!count ? <Loading/> : formatCurrency(count, 0)}</span> people on the public sale allowlist.</p>) : <AppLoading/>}
       <Box mt="16px"/>
       <p className={s.title}>Tweet & invite friends to rank up.</p>
       <div className={s.tokenSection}>

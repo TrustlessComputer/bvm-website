@@ -1,4 +1,5 @@
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
+import { SignatureStatus } from '@/interfaces/whitelist';
 
 export interface User {
   id: string;
@@ -27,4 +28,5 @@ export interface UserState {
   user?: User | undefined,
   leaderBoard: ILeaderBoardPoint[];
   leaderBoardCount: string;
+  // btcTransactions: SignatureStatus[]
 }
