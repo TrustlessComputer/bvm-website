@@ -25,10 +25,13 @@ const DATA_HERO = [
     title: 'Uniswap',
   },
 ];
+
+const DELAY = 1.8;
+
 export default function HeroLabel() {
   return (
     <div className={`container ${s.heroLabel}`}>
-      <Fade delay={0.4}>
+      <Fade delay={DELAY + .4}>
         <div className={s.heroLabel_content}>
           <Image
             src={'/landing/svg/lego_icon_cube.svg'}
@@ -43,7 +46,7 @@ export default function HeroLabel() {
       </Fade>
       <div className={s.heroLabel_listHero}>
         {DATA_HERO.map((item, index) => {
-          return <ItemHero key={index} delay={0.4 + index / 10} data={item} />;
+          return <ItemHero key={index} delay={DELAY + index / 10} data={item} />;
         })}
       </div>
     </div>
