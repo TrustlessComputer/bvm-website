@@ -156,7 +156,7 @@ const Steps = () => {
           step: MultiplierStep.signMessage,
           image: "ic-btc.svg",
           right: {
-            title: '+1 PTS',
+            title: '+10 PTS',
             desc: 'per 1000 sats'
           }
         },
