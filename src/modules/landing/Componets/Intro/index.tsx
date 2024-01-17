@@ -18,6 +18,8 @@ export default function Intro() {
   const quickFillter = useRef<gsap.QuickToFunc>();
   const { setPlay, setPlayed, played } = useAnimationStore();
   const lottieRef = useRef<any>();
+  const refFlare = useRef<HTMLDivElement>(null);
+  const refSky = useRef<HTMLDivElement>(null);
 
 
   useEffect(() => {
@@ -56,16 +58,18 @@ export default function Intro() {
     setTimeout(setPlay, 300);
   };
 
-  const playCompleted = ()=>{
+  const playCompleted = () => {
     refActions.current.isComplete = true;
     const tm = { value: refActions.current.xFrame };
     gsap.to(tm, {
       value: FRAMES, ease: 'power3.inOut', duration: .4, onUpdate: () => {
         lottieRef.current?.seek(tm.value);
       },
-      onComplete: completed
+      onComplete: completed,
     });
-  }
+    gsap.to(refFlare.current, { '--bg': 1, '--shadown': '500px', ease: 'power3.inOut', duration: .6 });
+    gsap.to(refSky.current, { '--bg': 1, duration: 1.2, ease: 'power3.inOut' });
+  };
 
   const onMouseUp = () => {
     if (refActions.current.isComplete || !refBtn.current || !refWrap.current)
@@ -246,12 +250,16 @@ export default function Intro() {
               <button className={s.mood}>
                 <img className={s.mood_substract} src='/landing/subtract.svg?v=2' alt='substract' />
                 <img className={s.mood_door} src='/landing/door.png' alt='door' />
+                <div ref={refFlare} className={s.flare}>
+
+                </div>
               </button>
             </div>
           </div>
 
         </div>
       )}
+      <div className={s.sky} ref={refSky}></div>
     </div>
   );
 }
