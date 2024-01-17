@@ -2,9 +2,10 @@ import s from './styles.module.scss';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import useAnimationStore from '@/stores/useAnimationStore';
-import Image from 'next/image';
 import { MathMap } from '@/utils/mathUtils';
 import { DotLottiePlayer } from '@dotlottie/react-player';
+
+const FRAMES = 169;
 
 export default function Intro() {
   const refBtn = useRef<HTMLButtonElement>(null);
@@ -12,11 +13,12 @@ export default function Intro() {
   const gradientRef = useRef<HTMLDivElement>(null);
   const refContent = useRef<HTMLDivElement>(null);
   const refThumb = useRef<HTMLDivElement>(null);
-  const refActions = useRef({ isDown: false, isComplete: false, current: 0 });
+  const refActions = useRef({ isDown: false, isComplete: false, current: 0, xFrame: 0 });
   const quickTo = useRef<gsap.QuickToFunc>();
   const quickFillter = useRef<gsap.QuickToFunc>();
   const { setPlay, setPlayed, played } = useAnimationStore();
   const lottieRef = useRef<any>();
+
 
   useEffect(() => {
     played && completed();
@@ -35,7 +37,7 @@ export default function Intro() {
     });
   }, []);
   const completed = () => {
-    refActions.current.isComplete = true;
+
     gsap.fromTo(
       refContent.current,
       { pointerEvents: 'none' },
@@ -51,8 +53,19 @@ export default function Intro() {
         },
       },
     );
-    setTimeout(setPlay, 400);
+    setTimeout(setPlay, 300);
   };
+
+  const playCompleted = ()=>{
+    refActions.current.isComplete = true;
+    const tm = { value: refActions.current.xFrame };
+    gsap.to(tm, {
+      value: FRAMES, ease: 'power3.inOut', duration: .4, onUpdate: () => {
+        lottieRef.current?.seek(tm.value);
+      },
+      onComplete: completed
+    });
+  }
 
   const onMouseUp = () => {
     if (refActions.current.isComplete || !refBtn.current || !refWrap.current)
@@ -64,9 +77,9 @@ export default function Intro() {
     if (refActions.current.current > rectWrap.width / 2) {
       const dis = rectWrap.width - rectBtn.width;
       refActions.current.current = 0;
-      completed();
       quickTo.current && quickTo.current(dis);
-      lottieRef.current?.seek(100);
+      // lottieRef.current?.seek(FRAMES);
+      playCompleted();
     } else {
       refActions.current.current = 0;
       quickTo.current && quickTo.current(0);
@@ -108,17 +121,17 @@ export default function Intro() {
       0,
       rectWrap.width - rectBtn.width,
       0,
-      100,
+      FRAMES,
     );
     lottieRef.current?.seek(x);
     quickTo.current && quickTo.current(refActions.current.current);
+    refActions.current.xFrame = x;
 
     if (refActions.current.current > rectWrap.width / 2) {
       const dis = rectWrap.width - rectBtn.width;
       refActions.current.current = 0;
-      completed();
       quickTo.current && quickTo.current(dis);
-      lottieRef.current?.seek(100);
+      playCompleted();
     }
   };
 
@@ -126,8 +139,17 @@ export default function Intro() {
     <div ref={refContent} className={s.intro}>
       {!played && (
         <div className={s.intro_inner}>
-          <div className={s.intro_inner_top}>
-            <div className={s.intro_inner_thumbnail} ref={refThumb}>
+          <div className={s.intro_supper_content}>
+            <h1 className={s.intro_supper_content_bitcoin}>Welcome to the future of <b>Bitcoin.</b></h1>
+            <p className={s.intro_supper_content_desc}>
+              BVM is the first <b>modular Bitcoin L2 metaprotocol</b> on Bitcoin. With a few clicks, anyone can plug and
+              play
+              the best-of-breed blockchain modules to launch their own Bitcoin L2 blockchain.
+            </p>
+          </div>
+
+          <div className={s.intro_inner_thumbnail} ref={refThumb}>
+            <div className={s.intro_inner_thumbnail_inner}>
               <div className={s.grid}>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -168,19 +190,13 @@ export default function Intro() {
               </div>
               <DotLottiePlayer
                 lottieRef={lottieRef}
-                src='/landing/bvm-lego-updated-2.lottie'
+                src='/landing/bvm-lego-updated-3.lottie'
               />
-            </div>
-            <div className={s.intro_supper_content}>
-              <h1 className={s.intro_supper_content_bitcoin}>the future of <b>Bitcoin.</b></h1>
-              <p className={s.intro_supper_content_desc}>
-                BVM is the first modular Bitcoin L2 metaprotocol on Bitcoin. With a few clicks, anyone can plug and play the best-of-breed blockchain modules to build their own Bitcoin L2 blockchain.
-              </p>
             </div>
           </div>
 
           <div className={s.intro_inner_bottom}>
-            <p className={s.intro_inner_content}>
+            <p className={s.intro_inner_bottom_cotnent}>
               Step inside
             </p>
             <div className={s.drag} onMouseMove={onMouse} onTouchMove={onMouse}>
@@ -224,11 +240,12 @@ export default function Intro() {
                   onTouchEnd={onMouseUp}
                   onMouseUp={onMouseUp}
                 >
-                  <img src='/landing/drag.svg?v=2' alt='drag' />
+                  <img src='/landing/drag.svg?v=3s' alt='drag' />
                 </button>
               </div>
               <button className={s.mood}>
-                <img src='/landing/subtract.svg' alt='substract' />
+                <img className={s.mood_substract} src='/landing/subtract.svg?v=2' alt='substract' />
+                <img className={s.mood_door} src='/landing/door.png' alt='door' />
               </button>
             </div>
           </div>

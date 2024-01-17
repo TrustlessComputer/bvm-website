@@ -32,15 +32,29 @@
     width: 100%;
 
     &_thumbnail {
-      display: flex;
-      margin-bottom: 50px;
-      justify-content: center;
-      position: relative;
       --clipPath: 0%;
+      position: absolute;
+      top: calc(50% - 3vh);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      @include is-min-table {
+        top: calc(50% - 5vh);
+      }
+
+      &_inner {
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
 
       :global {
         .dotlottie-container {
-          width: 200px;
+          aspect-ratio: 150/334;
+          width: 100px;
+
+          @include is-min-table {
+            width: 150px;
+          }
         }
       }
 
@@ -90,6 +104,11 @@
                   rgba(225, 225, 225, 0) 100%
   );
 
+  transform: translateX(-20px);
+  @include is-min-table {
+    transform: translateX(-90px);
+  }
+
   svg,
   img {
     -webkit-user-drag: none;
@@ -100,16 +119,17 @@
 
   &_inner {
     position: absolute;
-    z-index: 3;
-    width: calc(100% - 56px);
+    z-index: 5;
+    width: calc(100% - 9px);
   }
 
   &_line {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: calc(50% - 5px);
     transform: translateX(-50%);
     pointer-events: none;
+    z-index: 5;
   }
 
   &_gradient {
@@ -134,11 +154,37 @@
   margin-left: auto;
   position: relative;
   z-index: 3;
+
+  &_substract {
+    position: relative;
+    z-index: 2;
+  }
+
+  &_door {
+    position: absolute;
+    top: calc(50% + 40px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 364px;
+    height: auto;
+    max-width: none;
+    mix-blend-mode: color-dodge;
+  }
 }
 
 .grid {
   position: absolute;
   bottom: -30%;
+
+  svg {
+    width: 500px;
+    height: auto;
+
+    @include is-min-table {
+      width: 720px;
+      height: auto;
+    }
+  }
 }
 
 
@@ -147,50 +193,83 @@
   bottom: 90px;
   left: 50%;
   transform: translateX(-50%);
+
+  &_cotnent {
+    position: absolute;
+    color: #FFF;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 19.6px */
+    letter-spacing: 0.28px;
+    text-transform: uppercase;
+    top: -54px;
+    right: 3px;
+
+    @include is-min-table {
+      right: 72px;
+    }
+  }
 }
 
 .intro_supper_content {
+  padding-top: 60px;
+  padding-left: 16px;
+  padding-right: 16px;
 
-  margin-top: 120px;
-
-  &_label {
-    color: var(--Color-newsystem-White-100, #FFF);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 100%; /* 16px */
-    letter-spacing: -0.32px;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 16px;
+  @include is-min-table {
+    padding-top: 90px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
 
   &_bitcoin {
+    color: var(--Color-newsystem-White-100, #FFF);
     text-align: center;
-    /* Drop 04 */
     text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.06);
-    font-size: 80px;
+    font-size: 50px;
     font-style: normal;
     font-weight: 400;
-    line-height: 100%; /* 80px */
+    line-height: 100%; /* 50px */
     text-transform: uppercase;
-    margin-bottom: 24px;
-    background: linear-gradient(0deg, #B3FFAB -24.43%, #12FFF7 117.05%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-align: center;
+    margin-bottom: 28px;
+
+    @include is-tablet {
+      font-size: 42px;
+    }
+
+    @include is-mobile {
+      font-size: 34px;
+    }
+
+    b {
+      font-weight: 400;
+      color: #FA4E0E;
+    }
   }
 
   &_desc {
     color: #FFF;
     text-align: center;
-    font-size: 20px;
+    font-size: 28px;
     font-style: normal;
-    font-weight: 500;
-    line-height: 160%; /* 32px */
-    max-width: 618px;
+    font-weight: 300;
+    line-height: 150%; /* 42px */
+    max-width: 960px;
     margin-left: auto;
     margin-right: auto;
+
+    @include is-tablet {
+      font-size: 20px;
+    }
+
+    @include is-mobile {
+      font-size: 16px;
+    }
+
+    b {
+      font-weight: 500;
+    }
   }
 }
