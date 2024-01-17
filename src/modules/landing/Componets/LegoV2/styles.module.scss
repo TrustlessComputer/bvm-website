@@ -9,12 +9,13 @@
   }
 
   &_heading {
-    max-width: 1100px;
+    max-width: 989px;
     padding-bottom: 68px;
 
     @include is-mobile {
       padding-bottom: 32px;
     }
+
     &_title {
       color: #000;
       text-align: left !important;
@@ -30,6 +31,7 @@
       }
     }
   }
+
   &_wrapper {
     display: flex;
     flex-direction: row;
@@ -46,11 +48,13 @@
       gap: 8px;
     }
   }
+
   &_bg {
     background: #44955b;
     max-width: 923px;
     width: 62.5%;
     flex-shrink: 0;
+
     img {
       width: 100%;
       height: 100%;

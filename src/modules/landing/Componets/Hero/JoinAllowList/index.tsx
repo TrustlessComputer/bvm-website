@@ -8,6 +8,8 @@ import { getTopLeaderBoards } from '@/services/whitelist';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import Image from 'next/image';
 
+
+const DELAY = 1.8;
 const JoinAllowList = () => {
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
@@ -31,17 +33,17 @@ const JoinAllowList = () => {
   console.log('count', listUser);
 
   return (
-    <Fade delay={1}>
+    <Fade delay={DELAY}>
       <div className={s.container}>
         <div className={`container ${s.content}`}>
-          <Flex flexDirection={'column'}gap={'8px'}>
-            <Fade delay={1.2}>
+          <Flex flexDirection={'column'} gap={'8px'}>
+            <Fade delay={DELAY + .2}>
               <div className={s.titleWrapper}>
                 <div className={s.title}>BVM PUBLIC SALE</div>
               </div>
             </Fade>
             <div className={s.desc}>
-              <Chars delay={1.4}>
+              <Chars delay={DELAY + .4}>
                 Be the first to know.
                 <br />
                 Allowlisters get up to <span>&nbsp;30% extra tokens</span>.
@@ -50,7 +52,7 @@ const JoinAllowList = () => {
           </Flex>
 
           <Flex gap={5} flexDirection={'column'}>
-            <Fade delay={1.6}>
+            <Fade delay={DELAY + .6}>
               <Button
                 type='submit'
                 // isDisabled={isCreating || !formValues.username}
@@ -81,7 +83,7 @@ const JoinAllowList = () => {
                   {/*})}*/}
                 </div>
                 <div className={s.whiteList_total}>
-                  <span>{totalUser}</span>&nbsp;people are on the allowlist
+                  <span>{totalUser}&nbsp;people</span>&nbsp;are on the allowlist
                 </div>
               </div>
             </Fade>
