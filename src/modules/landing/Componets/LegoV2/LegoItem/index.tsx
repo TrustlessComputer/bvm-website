@@ -8,11 +8,10 @@ import Fade from '@/interactive/Fade';
 
 interface IProp {
   data: any;
-  delay: number
+  delay: number;
 }
 
 export default function LegoItem({ data, delay }: IProp): ReactElement {
-
   const refContent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,8 +23,15 @@ export default function LegoItem({ data, delay }: IProp): ReactElement {
     const box = refContent.current?.querySelector('.js-box');
     const items = refContent.current?.querySelectorAll('.js-item');
 
-    gsap.to(box, { y: 0, opacity: 1, ease: 'power3.out', duration: .4 });
-    gsap.to(items, { y: 0, delay: .05, opacity: 1, stagger: .05, duration: .4, ease: 'power3.out' });
+    gsap.to(box, { y: 0, opacity: 1, ease: 'power3.out', duration: 0.4 });
+    gsap.to(items, {
+      y: 0,
+      delay: 0.05,
+      opacity: 1,
+      stagger: 0.05,
+      duration: 0.4,
+      ease: 'power3.out',
+    });
   };
 
   const onLeave = () => {
@@ -33,28 +39,57 @@ export default function LegoItem({ data, delay }: IProp): ReactElement {
     const box = refContent.current?.querySelector('.js-box');
     const items = refContent.current?.querySelectorAll('.js-item');
 
-    gsap.to(items, { y: 10, opacity: 0, stagger: .05, duration: .4, ease: 'power3.out' });
-    gsap.to(box, { y: 30, delay: .05, opacity: 0, ease: 'power3.out', duration: .4 });
+    gsap.to(items, {
+      y: 10,
+      opacity: 0,
+      stagger: 0.05,
+      duration: 0.4,
+      ease: 'power3.out',
+    });
+    gsap.to(box, {
+      y: 30,
+      delay: 0.05,
+      opacity: 0,
+      ease: 'power3.out',
+      duration: 0.4,
+    });
   };
-  return <div className={s.legoItem} ref={refContent} onMouseEnter={onHover} onMouseLeave={onLeave}>
-    <Fade delay={delay}>
-      <div className={s.legoItem_inner}>
-        <div className={s.legoItem_thumbnail}>
-          <ImagePlaceholder src={data.img} alt={data.title} width={509} height={471} />
+  return (
+    <div
+      className={s.legoItem}
+      ref={refContent}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+    >
+      <Fade delay={delay}>
+        <div className={s.legoItem_inner}>
+          <div className={s.legoItem_thumbnail}>
+            <ImagePlaceholder
+              src={data.img}
+              alt={data.title}
+              width={278}
+              height={160}
+            />
+          </div>
+          <div className={s.boxWrapper}>
+            <ul className={`${s.boxs} js-box`}>
+              {data.icons.map((src: any) => {
+                return (
+                  <li className={'js-item'}>
+                    <Image
+                      src={`/landing/images/box-image-${src}.png`}
+                      width={48}
+                      height={48}
+                      alt={'bxImg1'}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <h4 className={s.legoItem_title}>{data.title}</h4>
         </div>
-        <div className={s.boxWrapper}>
-          <ul className={`${s.boxs} js-box`}>
-            {data.icons.map((src:any) => {
-              return <li className={'js-item'}>
-                <Image src={`/landing/images/box-image-${src}.png`} width={48} height={48} alt={'bxImg1'} />
-              </li>;
-            })}
-          </ul>
-        </div>
-        <h4 className={s.legoItem_title}>
-          {data.title}
-        </h4>
-      </div>
-    </Fade>
-  </div>;
+      </Fade>
+    </div>
+  );
 }

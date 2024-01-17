@@ -15,6 +15,7 @@ import LegoItem from '@/modules/landing/Componets/LegoV2/LegoItem';
 import { Button, Flex } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const DATA_ECOSYSTEM = [
   {
@@ -49,21 +50,20 @@ const DATA_ECOSYSTEM = [
   },
 ];
 export default function LegoV2() {
-
   const router = useRouter();
   return (
     <div className={s.lego}>
-      <div className='container'>
+      <div className="container">
         <div className={s.lego_heading}>
           <HeadingSection className={s.lego_heading_title}>
             <Chars>
-              Customize your Bitcoin L2 blockchain with <b>the best-of-breed building
-              blocks.</b>
+              Customize your Bitcoin L2 blockchain with{' '}
+              <b>the best-of-breed building blocks.</b>
             </Chars>
           </HeadingSection>
 
           <ContentSection className={s.lego_heading_description}>
-            <Lines delay={.2}>
+            <Lines delay={0.2}>
               Choose a rollup method, select a data availability layer, and then
               launch to the world — it’s that easy. You can even install default
               dapps like Uniswap, Compound, and DAO. It’s a new way to build
@@ -71,7 +71,7 @@ export default function LegoV2() {
             </Lines>
           </ContentSection>
           <Fade delay={0.4}>
-            <Flex justify={'center'}>
+            <Flex justify={'start'}>
               <Button
                 bgColor={'#EF601B'}
                 color={'#fff'}
@@ -98,10 +98,20 @@ export default function LegoV2() {
           </Fade>
         </div>
 
-        <div className={s.lego_content}>
-          {DATA_ECOSYSTEM.map((item, index) => {
-            return <LegoItem data={item} delay={index / 10} />;
-          })}
+        <div className={s.lego_wrapper}>
+          <div className={s.lego_content}>
+            {DATA_ECOSYSTEM.map((item, index) => {
+              return <LegoItem data={item} delay={index / 10} />;
+            })}
+          </div>
+          <figure className={s.lego_bg}>
+            <Image
+              src="/landing/images/bg_lego.png"
+              alt="bg-hero"
+              width={923}
+              height={1000}
+            />
+          </figure>
         </div>
       </div>
     </div>

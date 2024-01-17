@@ -1,25 +1,34 @@
 .legoItem {
-
+  width: 100%;
+  background: #f6f6f6;
   &_inner {
-    padding: 48px;
-    transition: background .4s var(--easeOutQuart);
+    aspect-ratio: 1;
+    transition: background 0.4s var(--easeOutQuart);
 
     &:hover {
       background: #eeeeee;
     }
   }
-
+  &_thumbnail {
+    padding: 64px 22px 50px 22px;
+  }
   &_title {
     color: #000;
-    font-size: 20px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 100%;
-    text-align: center;
-    margin-top: 20px;
+    text-align: left;
+    padding: 16px;
+    border-top: 1px solid #e6e6e6;
+    text-transform: uppercase;
 
+    @include is-tablet {
+      padding-top: 40px;
+    }
     @include is-mobile {
-      font-size: 16px;
+      font-size: 14px;
+      padding-top: 56px;
     }
   }
 
@@ -35,7 +44,12 @@
         bottom: 0;
         left: 0;
         position: absolute;
-        background: linear-gradient(270deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 53.5%, rgba(236, 236, 236, 0.00) 100%);
+        background: linear-gradient(
+          270deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 53.5%,
+          rgba(236, 236, 236, 0) 100%
+        );
       }
     }
   }
@@ -50,7 +64,7 @@
         bottom: 0;
         right: 0;
         position: absolute;
-        background: #ECECEC;
+        background: #ececec;
       }
     }
 
@@ -63,7 +77,11 @@
         bottom: 0;
         left: 0;
         position: absolute;
-        background: linear-gradient(90deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          90deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
 
       &:before {
@@ -74,7 +92,11 @@
         bottom: 0;
         right: 0;
         position: absolute;
-        background: linear-gradient(-180deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          -180deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
     }
 
@@ -87,7 +109,11 @@
         bottom: 0;
         left: 0;
         position: absolute;
-        background: linear-gradient(270deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          270deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
     }
     &:nth-child(5) {
@@ -99,7 +125,11 @@
         top: 0;
         left: 0;
         position: absolute;
-        background: linear-gradient(90deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          90deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
 
       &:before {
@@ -110,7 +140,11 @@
         bottom: 0;
         right: 0;
         position: absolute;
-        background: linear-gradient(0deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          0deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
     }
 
@@ -123,7 +157,11 @@
         top: 0;
         left: 0;
         position: absolute;
-        background: linear-gradient(270deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          270deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
     }
   }
@@ -138,7 +176,7 @@
         bottom: 0;
         left: 0;
         position: absolute;
-        background: #ECECEC;
+        background: #ececec;
       }
     }
 
@@ -151,7 +189,11 @@
         bottom: 0;
         left: 0;
         position: absolute;
-        background: linear-gradient(90deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          90deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
 
       &:before {
@@ -162,7 +204,11 @@
         bottom: 0;
         right: 0;
         position: absolute;
-        background: linear-gradient(-180deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          -180deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
     }
 
@@ -175,7 +221,11 @@
         bottom: 0;
         left: 0;
         position: absolute;
-        background: linear-gradient(270deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          270deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
 
       &:before {
@@ -186,12 +236,15 @@
         bottom: 0;
         left: 0;
         position: absolute;
-        background: linear-gradient(-180deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          -180deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
     }
 
     &:nth-child(4) {
-
       &:before {
         content: '';
         display: block;
@@ -200,12 +253,15 @@
         top: 0;
         right: 0;
         position: absolute;
-        background: linear-gradient(0deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          0deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
     }
 
     &:nth-child(6) {
-
       &:before {
         content: '';
         display: block;
@@ -214,13 +270,15 @@
         top: 0;
         left: 0;
         position: absolute;
-        background: linear-gradient(0deg, rgba(236, 236, 236, 0.00) 0%, #ECECEC 100%);
+        background: linear-gradient(
+          0deg,
+          rgba(236, 236, 236, 0) 0%,
+          #ececec 100%
+        );
       }
     }
   }
-
 }
-
 
 .boxWrapper {
   position: absolute;
@@ -228,13 +286,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: fit-content;
-
 }
 
 .boxs {
   border-radius: 100px;
-  border: 1px solid #ECECEC;
-  background: #FFF;
+  border: 1px solid #ececec;
+  background: #fff;
   box-shadow: 0px 0px 32px -6px rgba(0, 0, 0, 0.16);
   display: flex;
   align-items: center;
