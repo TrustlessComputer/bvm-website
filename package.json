@@ -28,6 +28,7 @@
     "@dotlottie/react-player": "^1.6.12",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@metamask/providers": "^14.0.2",
     "@next/bundle-analyzer": "^14.0.4",
     "@reduxjs/toolkit": "^2.0.1",
     "@unisat/wallet-utils": "^1.0.0",

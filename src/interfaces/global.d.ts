@@ -9,5 +9,6 @@ interface IUniSat {
 declare global {
   interface Window {
     unisat: IUniSat;
+    ethereum: any;
   }
 }
