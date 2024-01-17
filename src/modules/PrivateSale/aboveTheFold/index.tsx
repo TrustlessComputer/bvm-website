@@ -1,12 +1,8 @@
 import s from './styles.module.scss';
 import { Box, Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
-import { CDN_URL_IMAGES } from '@/config';
 import React, { useEffect } from 'react';
 import Lines from '@/interactive/Lines';
 import Fade from '@/interactive/Fade';
-import Countdown from '@/components/Countdown';
-import dayjs from 'dayjs';
-import { formatCurrency } from '@/utils/format';
 import useAnimationStore from '@/stores/useAnimationStore';
 import BuyForm from '@/modules/PrivateSale/BuyForm';
 
@@ -18,7 +14,7 @@ const AboveTheFold = () => {
   }, []);
 
   return (
-    <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImage={'https://cdn.nakaswap.org/naka/home3/naka_genesis.webp'}>
+    <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImg={`/private-sale/bg.webp`}>
       <SimpleGrid className={s.content} gridTemplateColumns={["1fr", "1.25fr 1fr"]} gap={[6, 0]}>
         <Flex className={s.leftSection} direction={"column"} gap={[6, 6]} justifyContent={"center"}>
           <Text className={s.title}>
