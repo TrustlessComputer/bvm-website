@@ -46,7 +46,7 @@ const Steps = () => {
     }
 
     const shareUrl = getLink('');
-    const content = `Welcome to the future of Bitcoin with @bvmnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
+    const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -60,7 +60,7 @@ const Steps = () => {
     const shareUrl = getLink(user?.referral_code);
     let content = '';
 
-    content = `Welcome to the future of Bitcoin with bvm.network\n\nLaunch your Bitcoin L2 blockchain easily with @bvmnetwork - first modular blockchain meta-protocol.\n\n$BVM public sale starting soon.\n\nJoin the allowlist:`;
+    content = `Welcome to the future of Bitcoin with bvm.network\n\nLaunch your Bitcoin L2 blockchain easily with @BVMnetwork - first modular blockchain meta-protocol.\n\n$BVM public sale starting soon.\n\nJoin the allowlist:`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -121,7 +121,7 @@ const Steps = () => {
       [
         {
           title: 'Tweet about BVM',
-          desc: 'Tweet as often as you like & tag @bvmnetwork to rank up.',
+          desc: 'Tweet as often as you like & tag @BVMnetwork to rank up.',
           actionText: 'Post',
           image: "ic-x.svg",
           actionHandle: handleShareTw,
