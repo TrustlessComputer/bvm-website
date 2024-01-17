@@ -23,7 +23,7 @@ const Section1 = () => {
         wordBreak={'break-word'}
         color={'#000'}
       >
-        Assemble the best-of-breed modular blockchain building blocks to build your own Bitcoin L2 blockchain.
+        Find the best-of-breed blockchain modules for your Bitcoin L2 blockchain.
       </Text>
     </Flex>
   );

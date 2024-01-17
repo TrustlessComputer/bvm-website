@@ -1,83 +1,26 @@
 'use client';
 
 import {
-  AbsoluteCenter,
   Box,
+  Button,
   Flex,
   HStack,
   Image,
-  StackDivider,
   Text,
   VStack,
+  useBreakpointValue,
 } from '@chakra-ui/react';
+
+import { useRouter } from 'next/navigation';
 import { BlockDataList, BlockItemType } from './config';
 
 const Section2 = () => {
-  const renderLabelData = (item: BlockItemType) => {
-    return (
-      <Flex
-        position={'relative'}
-        direction={'row'}
-        minW={['180px', '340px']}
-        h={'100%'}
-        alignItems={'flex-start'}
-        justify={'space-between'}
-        borderRadius={'8px'}
-        py={['40px']}
-        bgColor={item.bgColor}
-      >
-        <Text
-          fontSize={['16px', '24px']}
-          color={'#000'}
-          fontWeight={500}
-          textAlign={'left'}
-        >
-          {`${item.label || ''}`}
-        </Text>
-        {/* <Box w={'8px'}></Box>
-        <Flex
-          boxSize={['37px', '30px']}
-          borderRadius={100}
-          display={'flex'}
-          align={'center'}
-          justify={'center'}
-          bgColor={item.bgCircle}
-        >
-          <Text
-            fontSize={['12px', '16px']}
-            color={'#fff'}
-            lineHeight={'100%'}
-            fontWeight={500}
-          >
-            {item.networkList?.length || 1}
-          </Text>
-        </Flex> */}
-        {/* {!item.isLastItem && (
-          <Flex
-            position={'absolute'}
-            left={0}
-            right={0}
-            bottom={'-18px'}
-            padding={['15px']}
-            height={'40px'}
-            display={'flex'}
-            justify={'center'}
-            align={'center'}
-            zIndex={-1}
-          >
-            <Box
-              borderWidth={'5px'}
-              borderColor={'#fff'}
-              bgColor={item.bgColor}
-              w={'38px'}
-              h={'38px'}
-              borderRadius={100}
-            ></Box>
-          </Flex>
-        )} */}
-      </Flex>
-    );
-  };
+  const router = useRouter();
+
+  const isBreakPointMobile = useBreakpointValue(
+    { base: true, '2xl': false },
+    { ssr: false },
+  );
 
   const renderNetworkList = (
     item?: {
@@ -90,6 +33,7 @@ const Section2 = () => {
       <HStack
         spacing={['5px', '8px']}
         overflowX={'auto'}
+        flexWrap={'wrap'}
         height={'100%'}
         minH={'100px'}
       >
@@ -101,14 +45,13 @@ const Section2 = () => {
               align={'center'}
               justify={'center'}
               flexDir={'column'}
-              borderRadius={['8px']}
               minW={[100]}
               minH={[100]}
               p={['16px']}
               bgColor={'white'}
               height={'100%'}
             >
-              <Image key={`${obj.logoUrl}-${index}`} src={obj.logoUrl}/>
+              <Image key={`${obj.logoUrl}-${index}`} src={obj.logoUrl} />
               <Box height={'4px'}></Box>
               <Text
                 fontSize={['12px']}
@@ -133,7 +76,6 @@ const Section2 = () => {
         alignItems={'flex-start'}
         spacing={['10px', '16px']}
       >
-        {/* {renderLabelData(item)} */}
         <Text
           fontSize={['16px', '20px']}
           color={'#000'}
@@ -147,17 +89,166 @@ const Section2 = () => {
     );
   };
 
+  const renderGroupLogo = () => {
+    return (
+      <Flex
+        w={'100%'}
+        flexDir={'column'}
+        gap={['20px', '28px']}
+        display={'flex'}
+        flex={{
+          base: 1,
+          '2xl': 2.5,
+        }}
+        mr={{
+          base: '0px',
+          '2xl': '30px',
+        }}
+        borderRightWidth={{
+          base: 0,
+          '2xl': 1,
+        }}
+        borderRightColor={'#ECECEC'}
+      >
+        {BlockDataList.map(renderItem)}
+      </Flex>
+    );
+  };
+
+  const renderGroupButton = () => {
+    return (
+      <Flex
+        display={'flex'}
+        flex={1}
+        flexDirection={'column'}
+        gap={['20px', '24px']}
+      >
+        <Flex
+          flexDir={'column'}
+          align={'left'}
+          // gap={'24px'}
+          p={['18px', '20px']}
+          bgColor={'#FFF7F2'}
+          borderColor={'#FFD3B3'}
+          borderWidth={1}
+        >
+          <Text
+            fontSize={['20px', '24px']}
+            lineHeight={['30px', '33px']}
+            fontWeight={400}
+            color={'#000'}
+          >
+            Launch your Bitcoin L2
+          </Text>
+          <Box h={'8px'}></Box>
+          <Text
+            fontSize={['16px', '18px']}
+            lineHeight={['22px', '26px']}
+            fontWeight={400}
+            color={'#000'}
+          >
+            It’s easy to customize and launch your own Bitcoin L2 blockchain —
+            just a few clicks.
+          </Text>
+          <Box h={'24px'}></Box>
+          <Button
+            bgColor={'#EF601B'}
+            color={'#fff'}
+            borderRadius={0}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            px={'24px'}
+            py={'16px'}
+            w={['217px']}
+            h={'48px'}
+            fontWeight={400}
+            fontSize={'16px'}
+            onClick={() => {
+              router.push('/blockchains/customize');
+            }}
+            _hover={{
+              opacity: 0.8,
+            }}
+          >
+            Launch now
+          </Button>
+        </Flex>
+
+        <Flex
+          flexDir={'column'}
+          align={'left'}
+          // gap={'24px'}
+          p={['18px', '20px']}
+          bgColor={'#F8F8F8'}
+          borderColor={'#ECECEC'}
+          borderWidth={1}
+        >
+          <Text
+            fontSize={['20px', '24px']}
+            lineHeight={['30px', '33px']}
+            fontWeight={400}
+            color={'#000'}
+          >
+            Publish your module
+          </Text>
+
+          <Box h={'8px'}></Box>
+          <Text
+            fontSize={['16px', '18px']}
+            lineHeight={['22px', '26px']}
+            fontWeight={400}
+            color={'#000'}
+          >
+            Working on a cool dapp? Building the next data availability layer?
+            Launching a new execution layer? Please reach out to us. We’d love
+            to integrate your module with BVM.
+          </Text>
+          <Box h={'24px'}></Box>
+          <Button
+            bgColor={'#000'}
+            color={'#fff'}
+            borderRadius={0}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            px={'24px'}
+            py={'16px'}
+            w={['217px']}
+            h={'48px'}
+            fontWeight={400}
+            fontSize={'16px'}
+            onClick={() => {
+              //TO DO
+              window.open('https://twitter.com/bvmnetwork', '_blank');
+            }}
+            _hover={{
+              opacity: 0.8,
+            }}
+          >
+            Contact the team
+          </Button>
+        </Flex>
+      </Flex>
+    );
+  };
+
   return (
     <Flex
-      bgColor={'#F3F1E8'}
-      display={'flex'}
-      flexDirection={'column'}
-      h="100%"
-      align={'center'}
+      flexDir={{
+        base: 'column',
+        '2xl': 'row',
+      }}
+      gap={{
+        base: '50px',
+        '2xl': '0px',
+      }}
     >
-      <VStack w={'100%'} spacing={['10px', '28px']}>
-        {BlockDataList.map(renderItem)}
-      </VStack>
+      {isBreakPointMobile && renderGroupButton()}
+      {isBreakPointMobile && renderGroupLogo()}
+
+      {!isBreakPointMobile && renderGroupLogo()}
+      {!isBreakPointMobile && renderGroupButton()}
     </Flex>
   );
 };
