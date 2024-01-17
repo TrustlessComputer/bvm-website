@@ -19,8 +19,8 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Modules',
-    href: '/building-blocks',
+    label: 'Module Store',
+    href: '/module-store',
     isNewWindow: false,
     isHide: false,
   },
@@ -78,8 +78,8 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Modules',
-    href: '/building-blocks',
+    label: 'Module Store',
+    href: '/module-store',
     isNewWindow: false,
     isHide: false,
   },
