@@ -57,7 +57,7 @@ export default function LegoV2() {
         <div className={s.lego_heading}>
           <HeadingSection className={s.lego_heading_title}>
             <Chars>
-              Customize your Bitcoin L2 blockchain with{' '}
+              Customize your modular Bitcoin L2 blockchain with{' '}
               <b>the best-of-breed building blocks.</b>
             </Chars>
           </HeadingSection>

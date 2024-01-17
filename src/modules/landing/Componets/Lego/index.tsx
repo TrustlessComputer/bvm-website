@@ -9,21 +9,20 @@ import Lines from '@/interactive/Lines';
 import { useRouter } from 'next/navigation';
 
 export default function Lego() {
-
   const router = useRouter();
   return (
     <div className={s.lego}>
-      <div className='container'>
+      <div className="container">
         <div className={s.lego_content}>
           <HeadingSection className={s.lego_content_title}>
             <Chars>
-              Customize your Bitcoin L2 blockchain with <b>the best-of-breed building
-              blocks.</b>
+              Customize your Bitcoin L2 blockchain with{' '}
+              <b>the best-of-breed building blocks.</b>
             </Chars>
           </HeadingSection>
 
           <ContentSection className={s.lego_content_description}>
-            <Lines delay={.2}>
+            <Lines delay={0.2}>
               Choose a rollup method, select a data availability layer, and then
               launch to the world — it’s that easy. You can even install default
               dapps like Uniswap, Compound, and DAO. It’s a new way to build
