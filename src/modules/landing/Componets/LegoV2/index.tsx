@@ -64,10 +64,10 @@ export default function LegoV2() {
 
           <ContentSection className={s.lego_heading_description}>
             <Lines delay={0.2}>
-              Choose a rollup method, select a data availability layer, and then
-              launch to the world — it’s that easy. You can even install default
-              dapps like Uniswap, Compound, and DAO. It’s a new way to build
-              blockchain.
+              Choose a rollup module, select a data availability module, and
+              then launch to theworld — it’s that easy. You can even install
+              dapp modules like Uniswap,Compound, and NFT Marketplace. It’s a
+              whole new way to build a Bitcoin L2.
             </Lines>
           </ContentSection>
           <Fade delay={0.4}>
