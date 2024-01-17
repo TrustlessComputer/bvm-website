@@ -15,7 +15,6 @@ import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { userSelector } from '@/stores/states/user/selector';
 import copy from 'copy-to-clipboard';
-import toast from 'react-hot-toast';
 import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 
 interface IAuthenCode {
@@ -33,15 +32,18 @@ const Steps = () => {
   const needReload = useAppSelector(commonSelector).needReload
   const user = useAppSelector(userSelector);
   const [showManualCheck, setShowManualCheck] = useState(false);
+  const { toggle: isCopied, onToggle: setIsCopied } = useToggle({ init: false })
 
   const handleShareTw = async () => {
-    const res: any = await requestAuthenByShareCode();
-    setAuthenCode(res);
+    let code = '';
+    if (!token) {
+      const res: any = await requestAuthenByShareCode();
+      setAuthenCode(res);
+      code = `\n\n#${res?.public_code}`
+    }
 
     const shareUrl = getLink('');
-    let content = '';
-
-    content = `Welcome to the future of Bitcoin with @bvmnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon\n\n#${res?.public_code}\n\nJoin the allowlist`;
+    const content = `Welcome to the future of Bitcoin with @bvmnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -68,7 +70,7 @@ const Steps = () => {
   const handleShareRefferal = () => {
     if (!user?.referral_code) return;
     copy(shareReferralURL(user?.referral_code || ''));
-    toast.success("Copied.")
+    setIsCopied();
   }
 
   useEffect(() => {
@@ -131,7 +133,7 @@ const Steps = () => {
         {
           title: 'Refer a fren to BVM',
           desc: 'Spread the love to your frens, team, and communities.',
-          actionText: isActiveRefer ? shareReferralURL(user?.referral_code || '') : 'Copy link',
+          actionText: isCopied ? 'Copied' : 'Copy your referral link',
           actionHandle: handleShareRefferal,
           isActive: isActiveRefer,
           step: MultiplierStep.post,
@@ -160,7 +162,15 @@ const Steps = () => {
         // },
       ]
     )
-  }, [token, needReload, user?.referral_code]);
+  }, [token, needReload, user?.referral_code, isCopied]);
+
+  React.useEffect(() => {
+    if (isCopied) {
+      setTimeout(() => {
+        setIsCopied()
+      }, 1500)
+    }
+  }, [isCopied])
 
   return (
     <Flex className={s.container} direction={"column"} gap={{

@@ -65,7 +65,7 @@ const JoinAllowList = () => {
       <div className={s.content}>
         <Fade delay={.6}>
           <div className={s.titleWrapper}>
-            <div className={s.title}>BVM PUBLIC SALE</div>
+            <div className={s.title}>BVM PUBLIC SALE LEADERBOARD</div>
           </div>
         </Fade>
         <div className={s.desc}>
