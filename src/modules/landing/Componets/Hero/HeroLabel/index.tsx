@@ -27,7 +27,7 @@ const DATA_HERO = [
 ];
 export default function HeroLabel() {
   return (
-    <div className={s.heroLabel}>
+    <div className={`container ${s.heroLabel}`}>
       <Fade delay={0.4}>
         <div className={s.heroLabel_content}>
           <Image

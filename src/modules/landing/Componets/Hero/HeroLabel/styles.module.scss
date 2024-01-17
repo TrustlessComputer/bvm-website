@@ -3,26 +3,24 @@
   flex-direction: column;
   gap: 12px;
 
-  //@include is-tablet {
-  //  margin: 0 auto;
-  //}
+
   &_content {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 12px;
 
-    //@include is-mobile {
-    //  flex-direction: column;
-    //  justify-content: center;
-    //  gap: 8px;
-    //}
-    //
-    //@include is-tablet {
-    //  flex-direction: column;
-    //  justify-content: center;
-    //  gap: 8px;
-    //}
+    @include is-mobile {
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    @include is-tablet {
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
     &_text {
       font-size: 20px;
       line-height: 36px;
@@ -39,6 +37,7 @@
       }
     }
   }
+
   &_listHero {
     display: flex;
     flex-direction: row;

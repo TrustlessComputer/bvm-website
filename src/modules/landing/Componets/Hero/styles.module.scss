@@ -2,6 +2,7 @@
   width: 100%;
   position: relative;
 
+
   @include is-pc {
     overflow: hidden;
     height: 100svh;
@@ -25,19 +26,21 @@
     position: absolute;
     z-index: 2;
     width: 100%;
-    left: 160px;
-    bottom: 210px;
+
     @include is-mobile {
       bottom: 20px;
+      display: flex;
+      justify-content: center;
     }
 
     @include is-tablet {
       bottom: 40px;
+      display: flex;
+      justify-content: center;
     }
 
     @include is-pc {
-      // top: calc(80% - 10vh);
-      // transform: translateY(-50%);
+      bottom: 210px;
     }
   }
 
