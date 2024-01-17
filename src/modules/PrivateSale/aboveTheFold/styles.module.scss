@@ -148,22 +148,10 @@
     width: 80%;
     height: 100dvh;
     position: relative;
+    margin-right: -100px;
 
-    .launchText {
-      font-size: rem(20px);
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-    }
-
-    .textCountdown {
-      > p {
-        font-size: rem(20px);
-        color: #FF7E21 !important;
-        font-weight: 600;
-      }
+    @include w-min(1920px) {
+      margin-right: -120px;
     }
   }
 }

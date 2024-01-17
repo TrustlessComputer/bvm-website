@@ -24,37 +24,38 @@
     margin: 0 auto;
     padding-left: 16px;
     padding-right: 16px;
-    @include is-min-table {
-      max-width: 70%;
+    //@include is-min-table {
+    //  max-width: 70%;
+    //}
+  }
+
+  .price {
+    font-weight: 400;
+    font-size: 32px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
+
+  .launchText {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  .textCountdown {
+    > p {
+      font-size: rem(20px);
+      color: #FF7E21 !important;
+      font-weight: 600;
     }
   }
 
-  .titleWrapper {
-    background: linear-gradient(90deg, rgba(0, 245, 160, 0.2) 0%, rgba(0, 217, 245, 0.2) 100%);
-    padding: 4px 16px 4px 16px;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .title {
-    text-align: center;
-    font-size: 14px;
-    font-weight: 500;
-    background: -webkit-linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
-    background: -moz-linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
-    background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-  }
-
   .desc {
-    font-size: 32px;
-    font-style: normal;
     font-weight: 400;
-    line-height: 120%;
-    margin-bottom: 32px;
+    font-size: 24px;
+    line-height: 150%;
+    color: #FFFFFF;
+    margin-bottom: 60px;
     margin-top: 16px;
     text-align: center;
 
@@ -79,7 +80,7 @@
     padding: 12px;
     align-items: center;
     gap: 12px;
-    width: 371px;
+    width: 100%;
   }
 
   .input {
@@ -93,7 +94,6 @@
     background-color: transparent;
     width: 100%;
     letter-spacing: 0.01em;
-    text-align: center;
 
     &::placeholder {
       color: rgba(255, 255, 255, 0.5);

@@ -92,19 +92,19 @@ const JoinAllowList = () => {
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
-          <Text className={s.launchText}>End in</Text>
-          <Text>Total raised: ${formatCurrency(1234567, 2, 8, 'BTC', true)}</Text>
-          <Box>
+          <Text className={s.price}>1 BVM = 11$</Text>
+          <Text className={s.desc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
+          <Text className={s.launchText}>Private Sale End in</Text>
+          <Box mb={"80px"}>
             <Countdown className={s.textCountdown} expiredTime={dayjs.utc('2024-01-26', 'YYYY-MM-DD').toString()} hideIcon={true}/>
           </Box>
-          <Text>Price: $0.0001 / 1 BVM</Text>
-          <Flex gap={3} direction={'column'}>
+          <Flex gap={8} direction={'column'}>
             <div className={s.inputContainer}>
               <input
                 type={'number'}
                 id='tokenAmount'
                 value={formValues.tokenAmount}
-                placeholder='Enter amount you want to buy'
+                placeholder='Enter number of token'
                 className={s.input}
                 onChange={onChangeText}
               />
@@ -122,7 +122,7 @@ const JoinAllowList = () => {
             </Fade>
             {
               showQrCode && (
-                <Flex gap={6} p={4}>
+                <Flex gap={6} p={4} mt={12}>
                   <QRCode
                     size={150}
                     value={vcInfo?.btc_address || ''}
