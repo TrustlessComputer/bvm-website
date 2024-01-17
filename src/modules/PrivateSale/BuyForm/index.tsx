@@ -1,4 +1,4 @@
-import { Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
 import React, { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
@@ -15,6 +15,8 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { useSelector } from 'react-redux';
 import { MAX_DECIMAL } from '@/constants/constants';
 import { QRCode } from 'react-qrcode-logo';
+import Countdown from '@/components/Countdown';
+import dayjs from 'dayjs';
 
 interface FormValues {
   tokenAmount: string;
@@ -33,7 +35,7 @@ const JoinAllowList = () => {
 
   const handleGetDepositAddress = () => {
     setShowQrCode(true);
-  }
+  };
 
   useEffect(() => {
     if (vcType) {
@@ -42,10 +44,10 @@ const JoinAllowList = () => {
   }, [vcType, walletId]);
 
   const getVentureInfo = async () => {
-    const result = await getVCWalletInfo({vc_type: vcType, wallet_id: walletId});
+    const result = await getVCWalletInfo({ vc_type: vcType, wallet_id: walletId });
     setVCInfo(result);
     LocalStorageUtil.set(KEY_WALLET_ID, result.wallet_id);
-  }
+  };
 
   const onSubmit = async (values: FormValues) => {
     try {
@@ -89,70 +91,65 @@ const JoinAllowList = () => {
   return (
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
-      <div className={s.content}>
-        <Fade delay={.6}>
-          <div className={s.titleWrapper}>
-            <div className={s.title}>BVM PUBLIC SALE</div>
-          </div>
-        </Fade>
-        <div className={s.desc}>
-          <Chars delay={.7}>
-            Be the first to know. Allowlisters get up to <span>30% extra tokens</span>.
-          </Chars>
-        </div>
-
-        <Flex gap={3} direction={'column'}>
-          <div className={s.inputContainer}>
-            <input
-              type={"number"}
-              id="tokenAmount"
-              value={formValues.tokenAmount}
-              placeholder="Enter amount you want to buy"
-              className={s.input}
-              onChange={onChangeText}
-            />
-          </div>
-          <Fade delay={.8}>
-            <Button
-              type='submit'
-              isDisabled={isCreating || !formValues.tokenAmount}
-              isLoading={isCreating}
-              loadingText={'Submitting...'}
-              className={s.button}
-            >
-              {Number(formValues.tokenAmount) > 0 ? `Pay ${formatCurrency(payAmountBtc, MAX_DECIMAL, MAX_DECIMAL, 'BTC', true)} BTC / ${formatCurrency(payAmountEth, MAX_DECIMAL, MAX_DECIMAL, 'BTC', true)} ETH` : 'Buy now'}
-            </Button>
-          </Fade>
-          {
-            showQrCode && (
-              <Flex gap={6} p={4}>
-                <QRCode
-                  size={150}
-                  value={vcInfo?.btc_address || ''}
-                  logoImage={"https://s2.coinmarketcap.com/static/img/coins/128x128/1.png"}
-                />
-                <QRCode
-                  size={150}
-                  value={vcInfo?.eth_balance || ''}
-                  logoImage={"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"}
-                />
-              </Flex>
-            )
-          }
-          <Flex justifyContent={"space-between"}>
-            <div className={s.desc}>
-              <Chars delay={.7}>
-                Total BTC <span>{formatCurrency(vcInfo?.btc_balance, 4, 4)} BTC</span>
-              </Chars>
+        <div className={s.content}>
+          <Text className={s.launchText}>End in</Text>
+          <Text>Total raised: ${formatCurrency(1234567, 2, 8, 'BTC', true)}</Text>
+          <Box>
+            <Countdown className={s.textCountdown} expiredTime={dayjs.utc('2024-01-26', 'YYYY-MM-DD').toString()} hideIcon={true}/>
+          </Box>
+          <Text>Price: $0.0001 / 1 BVM</Text>
+          <Flex gap={3} direction={'column'}>
+            <div className={s.inputContainer}>
+              <input
+                type={'number'}
+                id='tokenAmount'
+                value={formValues.tokenAmount}
+                placeholder='Enter amount you want to buy'
+                className={s.input}
+                onChange={onChangeText}
+              />
             </div>
-            <div className={s.desc}>
-              <Chars delay={.7}>
-                Total ETH <span>{formatCurrency(vcInfo?.eth_balance, 4, 4)} ETH</span>
-              </Chars>
-            </div>
+            <Fade delay={.8}>
+              <Button
+                type='submit'
+                isDisabled={isCreating || !formValues.tokenAmount}
+                isLoading={isCreating}
+                loadingText={'Submitting...'}
+                className={s.button}
+              >
+                {Number(formValues.tokenAmount) > 0 ? `Pay ${formatCurrency(payAmountBtc, MAX_DECIMAL, MAX_DECIMAL, 'BTC', true)} BTC / ${formatCurrency(payAmountEth, MAX_DECIMAL, MAX_DECIMAL, 'BTC', true)} ETH` : 'Buy now'}
+              </Button>
+            </Fade>
+            {
+              showQrCode && (
+                <Flex gap={6} p={4}>
+                  <QRCode
+                    size={150}
+                    value={vcInfo?.btc_address || ''}
+                    logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
+                  />
+                  <QRCode
+                    size={150}
+                    value={vcInfo?.eth_balance || ''}
+                    logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
+                  />
+                </Flex>
+              )
+            }
+            <Flex justifyContent={'space-between'}>
+              <div className={s.desc}>
+                <Chars delay={.7}>
+                  Total BTC <span>{formatCurrency(vcInfo?.btc_balance, 4, 4)} BTC</span>
+                </Chars>
+              </div>
+              <div className={s.desc}>
+                <Chars delay={.7}>
+                  Total ETH <span>{formatCurrency(vcInfo?.eth_balance, 4, 4)} ETH</span>
+                </Chars>
+              </div>
+            </Flex>
           </Flex>
-        </Flex>
-      </div>
+        </div>
       </form>
     </div>
   );

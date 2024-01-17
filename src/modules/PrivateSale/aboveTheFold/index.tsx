@@ -18,7 +18,7 @@ const AboveTheFold = () => {
   }, []);
 
   return (
-    <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImage={`${CDN_URL_IMAGES}/home3/top_4.webp`}>
+    <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImage={'https://cdn.nakaswap.org/naka/home3/top_4.webp'}>
       <SimpleGrid className={s.content} gridTemplateColumns={["1fr", "1.25fr 1fr"]} gap={[6, 0]}>
         <Flex className={s.leftSection} direction={"column"} gap={[6, 6]} justifyContent={"center"}>
           <Text className={s.title}>
@@ -54,12 +54,6 @@ const AboveTheFold = () => {
         </Flex>
         <Flex className={s.rightSection} justifyContent={["center", "flex-end"]} alignItems={"flex-end"}>
           <Flex className={s.btnJoinWrapper} direction={"column"}>
-            <Text className={s.launchText}>End in</Text>
-            <Text>Total raised: ${formatCurrency(1234567, 2, 8, 'BTC', true)}</Text>
-            <Box>
-              <Countdown className={s.textCountdown} expiredTime={dayjs.utc('2024-01-26', 'YYYY-MM-DD').toString()} hideIcon={true}/>
-            </Box>
-            <Text>Price: $0.0001 / 1 BVM</Text>
             <BuyForm />
           </Flex>
         </Flex>
