@@ -2,11 +2,16 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { useAppSelector } from '@/stores/hooks';
 import { allowBTCSelector } from '@/stores/states/user/selector';
+import { SignatureStatus } from '@/interfaces/whitelist';
+
+export const checkIsAllowBTCProcessing = (status: SignatureStatus[]) => {
+  return status.some(item => item.status === 'pending')
+}
 
 const useFormatAllowBTC = () => {
   const { loaded, status } = useAppSelector(allowBTCSelector);
   const isProcessing = React.useMemo(() => {
-    return status.some(item => item.status === 'pending')
+    return checkIsAllowBTCProcessing(status)
   }, [status]);
 
   const amount = React.useMemo(() => {

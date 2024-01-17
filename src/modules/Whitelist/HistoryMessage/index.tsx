@@ -9,8 +9,6 @@ import useFormatAllowBTC from '@/modules/Whitelist/HistoryMessage/useFormatAllow
 
 const HistoryMessage = () => {
   const { loaded, status, isProcessing, amount } = useFormatAllowBTC()
-
-  console.log('SANG TEST: ', { loaded, status, isProcessing, amount });
   const renderContent = React.useCallback(() => {
     if (!loaded || !status.length) return <></>;
     if (isProcessing) {
