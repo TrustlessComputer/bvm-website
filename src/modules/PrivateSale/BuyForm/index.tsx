@@ -1,11 +1,9 @@
 import { Button, Flex } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import { toast } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
-import { KEY_TWITTER_USERNAME, KEY_VC_TYPE, KEY_WALLET_ID } from '@/constants/storage-key';
-import CookieUtil from '@/utils/cookie';
+import { KEY_VC_TYPE, KEY_WALLET_ID } from '@/constants/storage-key';
 import Fade from '@/interactive/Fade';
 import Chars from '@/interactive/Chars';
 import QRCode from 'react-qr-code';
@@ -13,9 +11,10 @@ import LocalStorageUtil from '@/utils/localstorage';
 import { getVCWalletInfo } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
+import BigNumber from 'bignumber.js';
 
 interface FormValues {
-  username: string;
+  tokenAmount: string;
 }
 
 const JoinAllowList = () => {
@@ -24,6 +23,7 @@ const JoinAllowList = () => {
   const vcType = LocalStorageUtil.get(KEY_VC_TYPE);
   const walletId = LocalStorageUtil.get(KEY_WALLET_ID) || '';
   const [vcInfo, setVCInfo] = useState<VCInfo>();
+  const tokenPrice = 0.00123;
 
   const handleGetDepositAddress = () => {
     setShowQrCode(true);
@@ -44,9 +44,6 @@ const JoinAllowList = () => {
   const onSubmit = async (values: FormValues) => {
     try {
       setIsCreating(true);
-      // const result = await addAllowList(formValues.username);
-      // CookieUtil.set(KEY_TWITTER_USERNAME, formValues.username);
-      // router.push(ALLOW_LIST_URL);
       handleGetDepositAddress();
     } catch (error) {
       toast.error('Can not verify the post.');
@@ -56,7 +53,7 @@ const JoinAllowList = () => {
   };
 
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
-    initialValues: { username: '' } as FormValues,
+    initialValues: { tokenAmount: '' } as FormValues,
     onSubmit,
   });
 
@@ -67,9 +64,15 @@ const JoinAllowList = () => {
   const onChangeText = (e: any) => {
     formik.setValues((values: any) => ({
       ...values,
-      username: e.target.value,
+      tokenAmount: e.target.value,
     }));
   };
+
+  const payAmount = useMemo(() => {
+    return new BigNumber(tokenPrice).multipliedBy(formValues.tokenAmount).toString();
+  }, [formValues.tokenAmount]);
+
+  console.log('payAmount,', payAmount);
 
   return (
     <div className={s.container}>
@@ -90,8 +93,8 @@ const JoinAllowList = () => {
           <div className={s.inputContainer}>
             <input
               type={"number"}
-              id="username"
-              value={formValues.username}
+              id="tokenAmount"
+              value={formValues.tokenAmount}
               placeholder="Enter amount you want to buy"
               className={s.input}
               onChange={onChangeText}
@@ -100,7 +103,7 @@ const JoinAllowList = () => {
           <Fade delay={.8}>
             <Button
               type='submit'
-              isDisabled={isCreating || !formValues.username}
+              isDisabled={isCreating || !formValues.tokenAmount}
               isLoading={isCreating}
               loadingText={'Submitting...'}
               className={s.button}
@@ -119,12 +122,12 @@ const JoinAllowList = () => {
           <Flex justifyContent={"space-between"}>
             <div className={s.desc}>
               <Chars delay={.7}>
-                Total BTC <span>{formatCurrency(vcInfo?.btc_balance)} BTC</span>
+                Total BTC <span>{formatCurrency(vcInfo?.btc_balance, 4, 4)} BTC</span>
               </Chars>
             </div>
             <div className={s.desc}>
               <Chars delay={.7}>
-                Total ETH <span>{formatCurrency(vcInfo?.eth_balance)} ETH</span>
+                Total ETH <span>{formatCurrency(vcInfo?.eth_balance, 4, 4)} ETH</span>
               </Chars>
             </div>
           </Flex>
