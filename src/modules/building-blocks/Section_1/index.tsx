@@ -4,7 +4,7 @@ import { Flex, Box, Text } from '@chakra-ui/react';
 
 const Section1 = () => {
   return (
-    <Flex w={'100%'} flexDir={['column', 'row']}>
+    <Flex w={'100%'} flexDir={['column']}>
       <Text
         flex={1}
         fontSize={['28px', '48px']}
@@ -17,16 +17,13 @@ const Section1 = () => {
       </Text>
       <Box boxSize={['20px', null]} />
       <Text
-        maxW={'650px'}
-        fontSize={['14px', '22px']}
+        fontSize={['16px', '20px']}
         fontWeight={400}
-        lineHeight={'110%'}
+        lineHeight={'36px'}
         wordBreak={'break-word'}
         color={'#000'}
       >
-        {/* Lorem ipsum dolor sit amet consectetur. Gravida est vehicula fringilla
-        ut pulvinar. Varius egestas aliquet blandit morbi integer dui. Blandit
-        semper id aliquam vitae ut dui fusce risus. */}
+        Assemble the best-of-breed modular blockchain building blocks to build your own Bitcoin L2 blockchain.
       </Text>
     </Flex>
   );
