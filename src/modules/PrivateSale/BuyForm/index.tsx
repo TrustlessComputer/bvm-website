@@ -98,7 +98,7 @@ const JoinAllowList = () => {
           <Box mb={"80px"}>
             <Countdown className={s.textCountdown} expiredTime={dayjs.utc('2024-01-26', 'YYYY-MM-DD').toString()} hideIcon={true}/>
           </Box>
-          <Flex gap={8} direction={'column'}>
+          <Flex gap={8} direction={'column'} width={"100%"}>
             <div className={s.inputContainer}>
               <input
                 type={'number'}
@@ -122,32 +122,27 @@ const JoinAllowList = () => {
             </Fade>
             {
               showQrCode && (
-                <Flex gap={6} p={4} mt={12}>
-                  <QRCode
-                    size={150}
-                    value={vcInfo?.btc_address || ''}
-                    logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
-                  />
-                  <QRCode
-                    size={150}
-                    value={vcInfo?.eth_balance || ''}
-                    logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
-                  />
+                <Flex gap={6} mt={4} w={"100%"} justifyContent={"space-between"}>
+                  <Flex direction={"column"} alignItems={"center"} gap={3} >
+                    <QRCode
+                      size={150}
+                      value={vcInfo?.btc_address || ''}
+                      logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
+                    />
+                    <Text className={s.depositValue}>{formatCurrency(vcInfo?.btc_balance, 4, 4)} BTC</Text>
+                  </Flex>
+
+                  <Flex direction={"column"} alignItems={"center"} gap={3}>
+                    <QRCode
+                      size={150}
+                      value={vcInfo?.eth_balance || ''}
+                      logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
+                    />
+                    <Text className={s.depositValue}>{formatCurrency(vcInfo?.eth_balance, 4, 4)} ETH</Text>
+                  </Flex>
                 </Flex>
               )
             }
-            <Flex justifyContent={'space-between'}>
-              <div className={s.desc}>
-                <Chars delay={.7}>
-                  Total BTC <span>{formatCurrency(vcInfo?.btc_balance, 4, 4)} BTC</span>
-                </Chars>
-              </div>
-              <div className={s.desc}>
-                <Chars delay={.7}>
-                  Total ETH <span>{formatCurrency(vcInfo?.eth_balance, 4, 4)} ETH</span>
-                </Chars>
-              </div>
-            </Flex>
           </Flex>
         </div>
       </form>
