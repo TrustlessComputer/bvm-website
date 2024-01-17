@@ -40,7 +40,7 @@ const LeaderBoard = () => {
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: 1000,
+    limit: 50,
   });
   const refInitial = useRef(false);
 
@@ -563,7 +563,7 @@ const LeaderBoard = () => {
 
         </Box>
       </Box>*/}
-      <Box w="100%" bg="rgba(255, 255, 255, 0.30)" p="8px">
+      <Box w="100%" height="80dvh" bg="rgba(255, 255, 255, 0.30)" p="8px">
         <ScrollWrapper
           onFetch={() => {
             refParams.current = {
@@ -577,6 +577,7 @@ const LeaderBoard = () => {
           hasIncrementedPageRef={hasIncrementedPageRef}
           onFetchNewData={onRefresh}
           wrapClassName={styles.wrapScroll}
+          hideScrollBar={false}
         >
           <ListTable
             data={data}
