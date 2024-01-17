@@ -14,6 +14,15 @@ export interface IBlog {
 
 const BLOGS = [
   {
+    id: '16',
+    title: `Bitcoin developer sees ‘Bitcoin’s L2 era’ as key to mass adoption`,
+    desc: `Punk 3700, one of the developers behind Bitcoin Virtual Machine, assesses the potential of layer-two blockchains on top of Bitcoin as an important narrative in crypto's landscape for 2024.`,
+    logo: 'Coindesk',
+    imageUrl: `${CDN_URL_BLOGS}/Bitcoin-constructions-1024x585.webp`,
+    link: 'https://www.coindesk.com/tech/2023/08/02/a-new-bitcoin-based-arcade-game-is-leaving-a-mark-on-gamers/?utm_content=editorial&utm_medium=social&utm_term=organic&utm_campaign=coindesk_main&utm_source=twitter',
+    linkTarget: '_blank',
+  },
+  {
     id: '13',
     title: `A New Bitcoin-Based Arcade Game Is Leaving a Mark on Gamers`,
     desc: `A platform that went live last week looks to expand bitcoin usage by attracting players to win-to-earn games that run wholly on the Bitcoin blockchain.`,
