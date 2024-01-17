@@ -10,6 +10,9 @@ import { KEY_TWITTER_USERNAME } from '@/constants/storage-key';
 import CookieUtil from '@/utils/cookie';
 import Fade from '@/interactive/Fade';
 import Chars from '@/interactive/Chars';
+import { getTopLeaderBoards } from '@/services/whitelist';
+import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
+import Image from 'next/image';
 
 interface FormValues {
   username: string;
@@ -18,6 +21,8 @@ interface FormValues {
 const JoinAllowList = () => {
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
+  const [totalUser, setTotalUser] = useState<string>('');
+  const [listUser, setListUser] = useState<ILeaderBoardPoint[]>([]);
   const twitterUsername = CookieUtil.get(KEY_TWITTER_USERNAME);
 
   useEffect(() => {
@@ -51,39 +56,41 @@ const JoinAllowList = () => {
     return formik.values;
   }, [formik.values]);
 
-  const onChangeText = (e: any) => {
-    formik.setValues((values: any) => ({
-      ...values,
-      username: e.target.value,
-    }));
+  const getCount = async () => {
+    try {
+      const response = await getTopLeaderBoards({ page: 1, limit: 20 });
+      const topWhiteList = response.data.filter((item, index) => index < 5);
+      setTotalUser(response.count);
+      setListUser(topWhiteList);
+    } catch (e) {
+      console.log(e);
+    }
   };
+
+  React.useEffect(() => {
+    getCount();
+  }, []);
+  console.log('count', listUser);
 
   return (
     <div className={s.container}>
-      {/*<form className={s.form} onSubmit={formik.handleSubmit}>*/}
       <div className={s.content}>
-        <Fade delay={0.6}>
-          <div className={s.titleWrapper}>
-            <div className={s.title}>BVM PUBLIC SALE</div>
+        <Flex flexDirection={'column'} gap={'8px'}>
+          <Fade delay={0.6}>
+            <div className={s.titleWrapper}>
+              <div className={s.title}>BVM PUBLIC SALE</div>
+            </div>
+          </Fade>
+          <div className={s.desc}>
+            <Chars delay={0.7}>
+              Be the first to know.
+              <br />
+              Allowlisters get up to <span>&nbsp;30% extra tokens</span>.
+            </Chars>
           </div>
-        </Fade>
-        <div className={s.desc}>
-          <Chars delay={0.7}>
-            Be the first to know. Allowlisters get up to{' '}
-            <span>30% extra tokens</span>.
-          </Chars>
-        </div>
+        </Flex>
 
-        <Flex gap={3}>
-          {/*<div className={s.inputContainer}>*/}
-          {/*  <input*/}
-          {/*    id="username"*/}
-          {/*    value={formValues.username}*/}
-          {/*    placeholder="Enter your Twitter/X username"*/}
-          {/*    className={s.input}*/}
-          {/*    onChange={onChangeText}*/}
-          {/*  />*/}
-          {/*</div>*/}
+        <Flex gap={5} flexDirection={'column'}>
           <Fade delay={0.8}>
             <Button
               type="submit"
@@ -98,6 +105,25 @@ const JoinAllowList = () => {
               Get on the allowlist
             </Button>
           </Fade>
+          <div className={s.whiteList}>
+            <div className={s.whiteList_users}>
+              {listUser.map((item) => {
+                return (
+                  <figure className={s.whiteList_users_avatar} key={item.id}>
+                    <Image
+                      src={item.twitter_avatar}
+                      width={23}
+                      height={23}
+                      alt={item.twitter_name}
+                    />
+                  </figure>
+                );
+              })}
+            </div>
+            <div className={s.whiteList_total}>
+              <span>{totalUser}</span> &nbsp;people are on the allowlist
+            </div>
+          </div>
         </Flex>
       </div>
       {/*</form>*/}
