@@ -10,8 +10,8 @@ import BoxContent from '@/layouts/BoxContent';
 
 const BuildingBlockModule = () => {
   return (
-    <Box className={s.container}>
-      <BoxContent minH={"100dvh"}>
+    <Box className={s.container} bgColor={'#F6F6F6'}>
+      <BoxContent minH={'100dvh'}>
         <Box h={['20px', '140px']} />
         <Section1 />
         <Box h={['20px', '40px']} />

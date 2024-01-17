@@ -42,7 +42,7 @@ export const shareTwitterSignature = (params: {
   const shareUrl = getLink('');
   let content = '';
 
-  content = `Paid ${params.fee} BTC in sats fee over ${params.txsCount} transactions and snagged ${params.point} points from @bvmnetwork via bvm.network for their upcoming public sale!
+  content = `Paid ${params.fee} BTC in sats fee over ${params.txsCount} transactions and snagged ${params.point} points from @BVMnetwork via bvm.network for their upcoming public sale!
 `;
 
   window.open(
