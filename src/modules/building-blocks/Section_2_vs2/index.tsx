@@ -8,7 +8,6 @@ import {
   Image,
   Text,
   VStack,
-  useBreakpointValue,
 } from '@chakra-ui/react';
 
 import { useRouter } from 'next/navigation';
@@ -16,12 +15,6 @@ import { BlockDataList, BlockItemType } from './config';
 
 const Section2 = () => {
   const router = useRouter();
-
-  const isBreakPointMobile = useBreakpointValue(
-    { base: true, '2xl': false },
-    { ssr: false },
-  );
-
   const renderNetworkList = (
     item?: {
       logoUrl: string;
@@ -236,7 +229,7 @@ const Section2 = () => {
   return (
     <Flex
       flexDir={{
-        base: 'column',
+        base: 'column-reverse',
         '2xl': 'row',
       }}
       gap={{
@@ -244,11 +237,8 @@ const Section2 = () => {
         '2xl': '0px',
       }}
     >
-      {isBreakPointMobile && renderGroupButton()}
-      {isBreakPointMobile && renderGroupLogo()}
-
-      {!isBreakPointMobile && renderGroupLogo()}
-      {!isBreakPointMobile && renderGroupButton()}
+      {renderGroupLogo()}
+      {renderGroupButton()}
     </Flex>
   );
 };
