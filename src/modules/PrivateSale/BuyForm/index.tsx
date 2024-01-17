@@ -6,7 +6,6 @@ import { toast } from 'react-hot-toast';
 import { KEY_VC_TYPE, KEY_WALLET_ID } from '@/constants/storage-key';
 import Fade from '@/interactive/Fade';
 import Chars from '@/interactive/Chars';
-import QRCode from 'react-qr-code';
 import LocalStorageUtil from '@/utils/localstorage';
 import { getVCWalletInfo } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
@@ -15,6 +14,7 @@ import BigNumber from 'bignumber.js';
 import { commonSelector } from '@/stores/states/common/selector';
 import { useSelector } from 'react-redux';
 import { MAX_DECIMAL } from '@/constants/constants';
+import { QRCode } from 'react-qrcode-logo';
 
 interface FormValues {
   tokenAmount: string;
@@ -126,8 +126,16 @@ const JoinAllowList = () => {
           {
             showQrCode && (
               <Flex gap={6} p={4}>
-                <QRCode className={s.qrCode} size={150} value={vcInfo?.btc_address || ''} />
-                <QRCode className={s.qrCode} size={150} value={vcInfo?.eth_address || ''} />
+                <QRCode
+                  size={150}
+                  value={vcInfo?.btc_address || ''}
+                  logoImage={"https://s2.coinmarketcap.com/static/img/coins/128x128/1.png"}
+                />
+                <QRCode
+                  size={150}
+                  value={vcInfo?.eth_balance || ''}
+                  logoImage={"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"}
+                />
               </Flex>
             )
           }
