@@ -1,5 +1,6 @@
 .lego {
   padding: 140px 0;
+  overflow: hidden;
   background: #ffffff;
 
   @include is-mobile {
@@ -8,7 +9,7 @@
   }
 
   &_heading {
-    max-width: 989px;
+    max-width: 1100px;
     padding-bottom: 68px;
 
     @include is-mobile {
@@ -69,7 +70,7 @@
     flex: 1;
 
     @include is-mobile {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
     }
     @include is-tablet {
       grid-template-columns: repeat(2, 1fr);
