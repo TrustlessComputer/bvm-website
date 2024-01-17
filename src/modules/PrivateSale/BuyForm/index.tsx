@@ -92,7 +92,7 @@ const JoinAllowList = () => {
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
           <Text className={s.price}>1 BVM = 11$</Text>
-          <Text className={s.desc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
+          <Text className={s.desc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </Text>
           <Text className={s.launchText}>Private Sale End in</Text>
           <Box mb={"60px"} mt={8}>
             <Countdown className={s.textCountdown} expiredTime={dayjs.utc('2024-01-26', 'YYYY-MM-DD').toString()} hideIcon={true}/>
