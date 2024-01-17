@@ -1,11 +1,11 @@
 import React from 'react';
 import s from './styles.module.scss';
-import lego1 from '@/public/landing/images/lego1.png';
-import lego2 from '@/public/landing/images/lego2.png';
-import lego3 from '@/public/landing/images/lego3.png';
-import lego4 from '@/public/landing/images/lego4.png';
-import lego5 from '@/public/landing/images/lego5.png';
-import lego6 from '@/public/landing/images/lego6.png';
+import lego1 from '@/public/landing/ls-1.png';
+import lego2 from '@/public/landing/ls-2.png';
+import lego3 from '@/public/landing/ls-3.png';
+import lego4 from '@/public/landing/ls-4.png';
+import lego5 from '@/public/landing/ls-5.png';
+import lego6 from '@/public/landing/ls-6.png';
 
 import HeadingSection from '@/modules/landing/Componets/HeadingSection';
 import ContentSection from '@/modules/landing/Componets/ContentSection';
@@ -106,7 +106,8 @@ export default function LegoV2() {
           </div>
           <figure className={s.lego_bg}>
             <Image
-              src="/landing/images/bg_lego.png"
+              src="/landing/l2-best-1.jpg"
+              quality={100}
               alt="bg-hero"
               width={923}
               height={1000}
