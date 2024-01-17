@@ -18,7 +18,7 @@ const AboveTheFold = () => {
   }, []);
 
   return (
-    <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImage={'https://cdn.nakaswap.org/naka/home3/top_4.webp'}>
+    <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImage={'https://cdn.nakaswap.org/naka/home3/naka_genesis.webp'}>
       <SimpleGrid className={s.content} gridTemplateColumns={["1fr", "1.25fr 1fr"]} gap={[6, 0]}>
         <Flex className={s.leftSection} direction={"column"} gap={[6, 6]} justifyContent={"center"}>
           <Text className={s.title}>
