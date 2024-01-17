@@ -1,19 +1,17 @@
 import s from './styles.module.scss';
 import { Box, Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { CDN_URL_IMAGES } from '@/config';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Lines from '@/interactive/Lines';
 import Fade from '@/interactive/Fade';
 import Countdown from '@/components/Countdown';
 import dayjs from 'dayjs';
 import { formatCurrency } from '@/utils/format';
-import QRCode from 'react-qr-code';
-import { useRouter } from 'next/navigation';
 import useAnimationStore from '@/stores/useAnimationStore';
 import BuyForm from '@/modules/PrivateSale/BuyForm';
 
 const AboveTheFold = () => {
-  const { setPlay, setPlayed, played } = useAnimationStore();
+  const { setPlay } = useAnimationStore();
 
   useEffect(() => {
     setTimeout(setPlay, 400);

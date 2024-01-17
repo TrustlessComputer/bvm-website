@@ -5,6 +5,7 @@ export const APP_ENV: string = process.env.NEXT_PUBLIC_APP_ENV!;
 export const API_UR: string = process.env.NEXT_PUBLIC_API_URL!;
 export const DOMAIN_URL: string = process.env.NEXT_PUBLIC_DOMAIN_URL!;
 
+export const DEX_API = process.env.NEXT_PUBLIC_DEX_API!;
 export const CDN_URL: string = process.env.NEXT_PUBLIC_CDN_URL!;
 
 export const PERP_API_URL = process.env.NEXT_PUBLIC_PERP_API!;

@@ -12,6 +12,9 @@ import { getVCWalletInfo } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import BigNumber from 'bignumber.js';
+import { commonSelector } from '@/stores/states/common/selector';
+import { useSelector } from 'react-redux';
+import { MAX_DECIMAL } from '@/constants/constants';
 
 interface FormValues {
   tokenAmount: string;
@@ -24,6 +27,9 @@ const JoinAllowList = () => {
   const walletId = LocalStorageUtil.get(KEY_WALLET_ID) || '';
   const [vcInfo, setVCInfo] = useState<VCInfo>();
   const tokenPrice = 0.00123;
+  const coinPrices = useSelector(commonSelector).coinPrices;
+  const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
+  const ethPrice = useMemo(() => coinPrices?.['ETH'] || '0', [coinPrices]);
 
   const handleGetDepositAddress = () => {
     setShowQrCode(true);
@@ -68,11 +74,17 @@ const JoinAllowList = () => {
     }));
   };
 
-  const payAmount = useMemo(() => {
+  const payAmountUsd = useMemo(() => {
     return new BigNumber(tokenPrice).multipliedBy(formValues.tokenAmount).toString();
   }, [formValues.tokenAmount]);
 
-  console.log('payAmount,', payAmount);
+  const payAmountBtc = useMemo(() => {
+    return new BigNumber(payAmountUsd).dividedBy(btcPrice).toString();
+  }, [payAmountUsd, btcPrice]);
+
+  const payAmountEth = useMemo(() => {
+    return new BigNumber(payAmountUsd).dividedBy(ethPrice).toString();
+  }, [payAmountUsd, ethPrice]);
 
   return (
     <div className={s.container}>
@@ -108,7 +120,7 @@ const JoinAllowList = () => {
               loadingText={'Submitting...'}
               className={s.button}
             >
-              Buy now
+              {Number(formValues.tokenAmount) > 0 ? `Pay ${formatCurrency(payAmountBtc, MAX_DECIMAL, MAX_DECIMAL, 'BTC', true)} BTC / ${formatCurrency(payAmountEth, MAX_DECIMAL, MAX_DECIMAL, 'BTC', true)} ETH` : 'Buy now'}
             </Button>
           </Fade>
           {
