@@ -1,6 +1,7 @@
 .legoItem {
   width: 100%;
   background: #f6f6f6;
+  position: relative;
   &_inner {
     aspect-ratio: 1;
     transition: background 0.4s var(--easeOutQuart);
@@ -11,8 +12,14 @@
   }
   &_thumbnail {
     padding: 64px 22px 50px 22px;
+
+    @include is-mobile {
+      padding: 32px 11px 23px 11px;
+    }
   }
   &_title {
+    position: absolute;
+    bottom: 0;
     color: #000;
     font-size: 16px;
     font-style: normal;
@@ -22,13 +29,11 @@
     padding: 16px;
     border-top: 1px solid #e6e6e6;
     text-transform: uppercase;
+    width: 100%;
 
-    @include is-tablet {
-      padding-top: 40px;
-    }
     @include is-mobile {
-      font-size: 14px;
-      padding-top: 56px;
+      font-size: 10px;
+      padding: 8px;
     }
   }
 
