@@ -38,6 +38,7 @@
 
     @include is-mobile {
       flex-direction: column-reverse;
+      gap: 8px;
     }
   }
   &_bg {
@@ -68,7 +69,6 @@
     flex: 1;
 
     @include is-mobile {
-      padding-top: 24px;
       grid-template-columns: repeat(2, 1fr);
     }
     @include is-tablet {
