@@ -34,7 +34,7 @@ const JoinAllowList = () => {
     <Fade delay={1}>
       <div className={s.container}>
         <div className={`container ${s.content}`}>
-          <Flex flexDirection={'column'}gap={'8px'}>
+          <Flex flexDirection={'column'} gap={'8px'}>
             <Fade delay={1.2}>
               <div className={s.titleWrapper}>
                 <div className={s.title}>BVM PUBLIC SALE</div>
@@ -52,7 +52,7 @@ const JoinAllowList = () => {
           <Flex gap={5} flexDirection={'column'}>
             <Fade delay={1.6}>
               <Button
-                type='submit'
+                type="submit"
                 // isDisabled={isCreating || !formValues.username}
                 isLoading={isCreating}
                 loadingText={'Submitting...'}
@@ -65,8 +65,13 @@ const JoinAllowList = () => {
               </Button>
               <div className={s.whiteList}>
                 <div className={s.whiteList_users}>
-                  <Image src={'/landing/allow-avatars.png'} quality={100} width={88} height={24}
-                         alt={'allow-avatars'} />
+                  <Image
+                    src={'/landing/allow-avatars.png'}
+                    quality={100}
+                    width={88}
+                    height={24}
+                    alt={'allow-avatars'}
+                  />
                   {/*{listUser.map((item) => {*/}
                   {/*  return (*/}
                   {/*    <figure className={s.whiteList_users_avatar} key={item.id}>*/}
@@ -81,7 +86,7 @@ const JoinAllowList = () => {
                   {/*})}*/}
                 </div>
                 <div className={s.whiteList_total}>
-                  <span>{totalUser}</span>&nbsp;people are on the allowlist
+                  <span>{`${totalUser} people`}</span>&nbsp;are on the allowlist
                 </div>
               </div>
             </Fade>
