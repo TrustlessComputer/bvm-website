@@ -84,8 +84,8 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Upcoming',
-    href: '/upcoming',
+    label: 'Launchpad',
+    href: '/launchpad',
     isNewWindow: false,
     isHide: false,
   },

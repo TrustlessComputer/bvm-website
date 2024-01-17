@@ -17,7 +17,7 @@ const Section_1 = () => {
         fontWeight={400}
         color={'#000'}
       >
-        Upcoming Bitcoin L2 Launch
+        Bitcoin L2 Launchpad
       </Text>
       <Text
         fontSize={['14px', '20px']}
@@ -26,7 +26,7 @@ const Section_1 = () => {
         color={'#000'}
         maxW={'744px'}
       >
-        Be the first to know when new Bitcoin L2 chains launch.
+        Be the first to know when new Bitcoin L2 blockchains launch.
       </Text>
     </Flex>
   );
