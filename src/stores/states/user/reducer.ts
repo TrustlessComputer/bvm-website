@@ -5,7 +5,11 @@ import uniqueBy from '@popperjs/core/lib/utils/uniqueBy';
 const initialState: UserState = {
   user: undefined,
   leaderBoard: [],
-  leaderBoardCount: ''
+  leaderBoardCount: '',
+  allowBTC: {
+    status: [],
+    loaded: false
+  }
 };
 
 const slice = createSlice({
@@ -19,12 +23,19 @@ const slice = createSlice({
       state.leaderBoard = uniqueBy([...state.leaderBoard, ...action.payload.list], item => item.twitter_id);
       state.leaderBoardCount = action.payload.count;
     },
+    setAllowBTC: (state, action) => {
+      state.allowBTC = {
+        status: action.payload.status,
+        loaded: action.payload.loaded,
+      };
+    },
   },
 });
 
 export const {
   setUser,
-  setLeaderBoard
+  setLeaderBoard,
+  setAllowBTC
 } = slice.actions;
 
 export default slice.reducer;

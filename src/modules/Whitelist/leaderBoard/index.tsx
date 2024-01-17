@@ -375,7 +375,7 @@ const LeaderBoard = () => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>Content Points are calculated based on the performance of your posts on X, including Views.
-                    Note: To be qualified, you must tag: <br/><strong>@bvmnetwork</strong></p>
+                    Note: To be qualified, you must tag: <br/><strong>@BVMnetwork</strong></p>
                 </Flex>
               }
             >

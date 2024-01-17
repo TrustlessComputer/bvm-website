@@ -1,22 +1,22 @@
 import React from 'react';
-import { SignatureStatus } from '@/interfaces/whitelist';
-import { useAppSelector } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { getSignatureStatus } from '@/services/whitelist';
 import AuthenStorage from '@/utils/storage/authen.storage';
+import { setAllowBTC } from '@/stores/states/user/reducer';
 
 let interval: any = undefined;
-const useFetchHistoryBTC = () => {
-  const [loaded, setLoaded] = React.useState(false);
-  const [status, setStatus] = React.useState<SignatureStatus[]>([]);
+const useAllowBTC = () => {
   const needReload = useAppSelector(commonSelector).needReload;
+  const dispatch = useAppDispatch();
 
   const fetchData = async () => {
     try {
       const response  = await getSignatureStatus();
-      const isProcessing = response.some(item => item.status === 'pending');
-      setStatus([...(response || [])]);
-      setLoaded(true);
+      dispatch(setAllowBTC({
+        status: response || [],
+        loaded: true
+      }))
     } catch (error) {
       console.log('ERROR: ', error);
     }
@@ -35,7 +35,7 @@ const useFetchHistoryBTC = () => {
     interval = setInterval(() => {
       fetchData();
     }, 10000)
-  }, [setStatus, setLoaded, needReload])
+  }, [needReload]);
 }
 
-export default useFetchHistoryBTC;
+export default useAllowBTC;

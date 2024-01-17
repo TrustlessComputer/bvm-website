@@ -28,5 +28,8 @@ export interface UserState {
   user?: User | undefined,
   leaderBoard: ILeaderBoardPoint[];
   leaderBoardCount: string;
-  // btcTransactions: SignatureStatus[]
+  allowBTC: {
+    status: SignatureStatus[];
+    loaded: boolean;
+  }
 }
