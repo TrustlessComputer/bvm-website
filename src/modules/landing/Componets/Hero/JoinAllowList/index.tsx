@@ -9,7 +9,7 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import Image from 'next/image';
 
 
-const DELAY = 1.8;
+const DELAY = 2;
 const JoinAllowList = () => {
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
