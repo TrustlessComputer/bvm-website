@@ -16,6 +16,7 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { userSelector } from '@/stores/states/user/selector';
 import copy from 'copy-to-clipboard';
 import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
+import ConnectModalEVM from '@/components/ConnectModal/modal.evm';
 
 interface IAuthenCode {
   public_code: string;
@@ -29,6 +30,8 @@ const Steps = () => {
   const dispatch = useDispatch();
   const token = AuthenStorage.getAuthenKey();
   const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle();
+  const { toggle: isShowConnectEVM, onToggle: onToggleConnectEVM } = useToggle();
+
   const needReload = useAppSelector(commonSelector).needReload
   const user = useAppSelector(userSelector);
   const [showManualCheck, setShowManualCheck] = useState(false);
@@ -125,8 +128,8 @@ const Steps = () => {
           isActive: true,
           step: MultiplierStep.authen,
           right: {
-            title: '+1 PTS',
-            desc: 'per view'
+            title: !token ? '+1000 PTS' : '+1 PTS',
+            desc: !token ? 'first post' : 'per view'
           },
           handleShowManualPopup: handleShowManualPopup,
         },
@@ -158,6 +161,20 @@ const Steps = () => {
           }
         },
         // {
+        //   title: 'Are you a Modular Blockchain OG?',
+        //   desc: 'You’re a visionary. You’re a pioneer. Holding at least XXX tokens of the following modular blockchains will give you more points: Optimism, Celestia, and Polygon.',
+        //   actionText: 'How modular are you?',
+        //   actionHandle: onToggleConnectEVM,
+        //   isActive: !!token,
+        //   isDone: !!AllowListStorage.getStorage() && !!token,
+        //   step: MultiplierStep.signMessage,
+        //   image: "ic-modular-blockchain.svg",
+        //   right: {
+        //     title: '+10 PTS',
+        //     desc: 'per project'
+        //   }
+        // },
+        // {
         //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
         // },
       ]
@@ -188,6 +205,7 @@ const Steps = () => {
         );
       })}
       <ConnectModal isShow={isShowConnect} onHide={onToggleConnect}/>
+      <ConnectModalEVM isShow={isShowConnectEVM} onHide={onToggleConnectEVM}/>
       <VerifyTwModal
         isShow={showManualCheck}
         onHide={() => {
