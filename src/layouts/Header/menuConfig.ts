@@ -25,6 +25,12 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
+    label: 'Launchpad',
+    href: '/launchpad',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
     label: '$BVM',
     href: '/bvm',
     isNewWindow: false,
