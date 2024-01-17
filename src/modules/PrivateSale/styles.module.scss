@@ -1,0 +1,8 @@
+.container {
+  //background-color: #000000;
+  --container-padding: 80px 100px;
+
+  @include w-min(1920px) {
+    --container-padding: 100px 120px;
+  }
+}
