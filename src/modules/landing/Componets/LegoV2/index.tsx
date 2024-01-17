@@ -20,32 +20,32 @@ import Image from 'next/image';
 const DATA_ECOSYSTEM = [
   {
     img: lego1,
-    title: 'Data Availability',
+    title: 'DATA MODULES',
     icons: [10, 2, 6, 7, 8, 9],
   },
   {
     img: lego2,
-    title: 'Execution',
+    title: 'EXECUTION MODULES',
     icons: [1, 2, 3, 4, 5],
   },
   {
     img: lego3,
-    title: 'Rollup Framework',
+    title: 'ROLLUP MODULES',
     icons: [1, 11],
   },
   {
     img: lego4,
-    title: 'Cross-chain bridges',
+    title: 'BRIDGE MODULES',
     icons: [12, 13, 14],
   },
   {
     img: lego5,
-    title: 'Settlement',
+    title: 'SETTLEMENT MODULES',
     icons: [10],
   },
   {
     img: lego6,
-    title: 'Applications',
+    title: 'DAPP MODULES',
     icons: [15, 16, 17],
   },
 ];
@@ -57,8 +57,7 @@ export default function LegoV2() {
         <div className={s.lego_heading}>
           <HeadingSection className={s.lego_heading_title}>
             <Chars>
-              Customize your modular Bitcoin L2 blockchain with{' '}
-              <b>the best-of-breed modules.</b>
+              Customize and launch your modular Bitcoin L2 blockchain with the best-of-breed modules with <b>a few clicks.</b>
             </Chars>
           </HeadingSection>
 

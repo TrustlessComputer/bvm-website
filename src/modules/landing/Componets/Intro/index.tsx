@@ -144,7 +144,7 @@ export default function Intro() {
       {!played && (
         <div className={s.intro_inner}>
           <div className={s.intro_supper_content}>
-            <h1 className={s.intro_supper_content_bitcoin}>Welcome to the future of <b>Bitcoin.</b></h1>
+            <h1 className={s.intro_supper_content_bitcoin}>Welcome to <b>the future of Bitcoin.</b></h1>
             <p className={s.intro_supper_content_desc}>
               BVM is the first <b>modular Bitcoin L2 metaprotocol</b> on Bitcoin. With a few clicks, anyone can plug and
               play
