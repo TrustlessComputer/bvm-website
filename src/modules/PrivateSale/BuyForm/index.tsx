@@ -5,7 +5,6 @@ import s from './styles.module.scss';
 import { toast } from 'react-hot-toast';
 import { KEY_VC_TYPE, KEY_WALLET_ID } from '@/constants/storage-key';
 import Fade from '@/interactive/Fade';
-import Chars from '@/interactive/Chars';
 import LocalStorageUtil from '@/utils/localstorage';
 import { getVCWalletInfo } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
@@ -95,7 +94,7 @@ const JoinAllowList = () => {
           <Text className={s.price}>1 BVM = 11$</Text>
           <Text className={s.desc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
           <Text className={s.launchText}>Private Sale End in</Text>
-          <Box mb={"80px"}>
+          <Box mb={"60px"} mt={8}>
             <Countdown className={s.textCountdown} expiredTime={dayjs.utc('2024-01-26', 'YYYY-MM-DD').toString()} hideIcon={true}/>
           </Box>
           <Flex gap={8} direction={'column'} width={"100%"}>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import s from './styles.module.scss';
 import useCountdown from '@/hooks/useCountdown';
-import { Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import clsx from 'classnames';
 
 interface IProps {
@@ -53,13 +53,20 @@ const Countdown: React.FC<IProps> = ({
 
       {ended && <Text className={s.text}>Ended</Text>}
       {!ended && (
-        <Text className={s.text}>{`${
-          hours !== '00'
-            ? `${
-                days !== null && days !== 0 ? days * 24 + Number(hours) : hours
-              }h : `
-            : ''
-        }${minutes}m : ${seconds}s`}</Text>
+        <Flex gap={"60px"}>
+          <Flex direction={"column"} alignItems={"center"}>
+            <Text className={s.timeValue}>{hours}</Text>
+            <Text className={s.timeTitle}>Hours</Text>
+          </Flex>
+          <Flex direction={"column"} alignItems={"center"}>
+            <Text className={s.timeValue}>{minutes}</Text>
+            <Text className={s.timeTitle}>MINUTES</Text>
+          </Flex>
+          <Flex direction={"column"} alignItems={"center"}>
+            <Text className={s.timeValue}>{seconds}</Text>
+            <Text className={s.timeTitle}>SECONDS</Text>
+          </Flex>
+        </Flex>
       )}
     </div>
   );
