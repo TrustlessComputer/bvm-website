@@ -66,8 +66,22 @@ const getSignatureStatus = async (): Promise<SignatureStatus[]> => {
   return res
 }
 
+const requestClaimBTCPoint = async (status: SignatureStatus[]) => {
+  for (let i = 0; i < status.length; i++) {
+    try {
+      const item = status[i];
+      if (item && item.status === 'unclaimed') {
+        await apiClient.post(`/bvm/claim-btc-point/${item.id}`);
+      }
+    } catch (error) {
+      // TODO: handle error
+    }
+  }
+}
+
 export {
   getTopLeaderBoards,
   verifySignature,
-  getSignatureStatus
+  getSignatureStatus,
+  requestClaimBTCPoint
 }

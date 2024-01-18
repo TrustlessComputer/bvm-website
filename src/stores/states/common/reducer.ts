@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { CommonState } from './types';
+import { Coin, CommonState } from './types';
 
 const initialState: CommonState = {
   needReload: 0,
   coinPrices: {
-    BTC: '0',
-    ETH: '0',
-  },
+    [Coin.BTC]: '0'
+  }
 };
 
 const slice = createSlice({
@@ -16,15 +15,15 @@ const slice = createSlice({
     requestReload: (state) => {
       state.needReload += 1;
     },
-    updateCoinPrices: (state, actions) => {
-      state.coinPrices = actions.payload;
+    setCoinPrices: (state, action) => {
+      state.coinPrices = action.payload;
     },
   },
 });
 
 export const {
   requestReload,
-  updateCoinPrices,
+  setCoinPrices,
 } = slice.actions;
 
 export default slice.reducer;

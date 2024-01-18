@@ -208,7 +208,6 @@ const LeaderBoard = () => {
             style={{
               justifyContent: 'center',
               width: '100%',
-              paddingRight: '8px',
               textTransform: 'uppercase'
             }}
           >

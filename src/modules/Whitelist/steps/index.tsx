@@ -1,13 +1,13 @@
-import { Flex } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import ItemStep, { IItemCommunity, MultiplierStep } from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
-import { getLink, shareReferralURL } from '@/utils/helpers';
+import { getLink, shareBTCOG, shareReferralURL } from '@/utils/helpers';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
-import { setBearerToken } from '@/services/whitelist';
+import { requestClaimBTCPoint, setBearerToken } from '@/services/whitelist';
 import ConnectModal from '@/components/ConnectModal';
 import useToggle from '@/hooks/useToggle';
 import AllowListStorage from '@/utils/storage/allowlist.storage';
@@ -17,6 +17,9 @@ import { userSelector } from '@/stores/states/user/selector';
 import copy from 'copy-to-clipboard';
 import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 import ConnectModalEVM from '@/components/ConnectModal/modal.evm';
+import useFormatAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useFormatAllowBTC';
+import { formatCurrency } from '@/utils/format';
+import keplrCelestiaHelper from '@/utils/keplr.celestia';
 
 interface IAuthenCode {
   public_code: string;
@@ -31,6 +34,7 @@ const Steps = () => {
   const token = AuthenStorage.getAuthenKey();
   const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle();
   const { toggle: isShowConnectEVM, onToggle: onToggleConnectEVM } = useToggle();
+  const { amount, isUnclaimed, isProcessing, status } = useFormatAllowBTC()
 
   const needReload = useAppSelector(commonSelector).needReload
   const user = useAppSelector(userSelector);
@@ -117,6 +121,10 @@ const Steps = () => {
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     const isActiveRefer = !!token && !!user?.referral_code;
+    const btcOGMessage = amount.txsCount ?
+        <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(amount.point, 0)}</span>} pts.</p>:
+        'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
+    const isNeedClaim = isUnclaimed && amount.unClaimedPoint && !!amount.txsCount && !isProcessing;
     return (
       [
         {
@@ -148,13 +156,23 @@ const Steps = () => {
         },
         {
           title: 'Are you a Bitcoin OG?',
-          desc: 'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.',
-          actionText: 'How much have I spent on sats?',
-          actionHandle: onToggleConnect,
+          desc: btcOGMessage,
+          actionText: isNeedClaim ? `Tweet to claim ${formatCurrency(amount.unClaimedPoint, 0, 0)} pts` : 'How much have I spent on sats?',
+          actionHandle: isNeedClaim ? async () => {
+            try {
+              shareBTCOG({ fee: amount.fee, feeUSD: amount.feeUSD, refCode: user?.referral_code || '' });
+              await requestClaimBTCPoint(status)
+              dispatch(requestReload())
+            } catch (error) {
+              
+            }
+          } : onToggleConnect,
+          actionTextSecondary: isNeedClaim ? "Verify another wallet" : undefined,
+          actionHandleSecondary: isNeedClaim ? onToggleConnect : undefined,
           isActive: !!token,
           isDone: !!AllowListStorage.getStorage() && !!token,
           step: MultiplierStep.signMessage,
-          image: "ic-btc.svg",
+          image: "ic-btc-2.svg",
           right: {
             title: '+10 PTS',
             desc: 'per 1000 sats'
@@ -179,7 +197,7 @@ const Steps = () => {
         // },
       ]
     )
-  }, [token, needReload, user?.referral_code, isCopied]);
+  }, [token, needReload, user?.referral_code, isCopied, amount, isUnclaimed, isProcessing]);
 
   React.useEffect(() => {
     if (isCopied) {
@@ -214,6 +232,7 @@ const Steps = () => {
         secretCode={authenCode?.secret_code}
         onSuccess={onVerifyTwSuccess}
       />
+      {/*<Button onClick={keplrCelestiaHelper.signCelestiaMessage}>TEST CELESTIA</Button>*/}
     </Flex>
   );
 };
