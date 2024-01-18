@@ -81,7 +81,7 @@ const requestClaimBTCPoint = async (status: SignatureStatus[]) => {
 
 const getAllowCelestiaStatus = async (): Promise<SignatureStatus[]> => {
   const res = (await apiClient.get(`/bvm/verify-celestia-address`)) as SignatureStatus[];
-  return res
+  return res;
 }
 
 const requestClaimCelestiaPoint = async (status: SignatureStatus[]) => {
@@ -103,8 +103,6 @@ const verifyCelestiaSignature = async (params: { address: CelestiaAddress, signa
     message: keplrCelestiaHelper.KeplrCelestiaConfig.messageForSign,
     signature: params.signature.signature,
     pub_key: params.signature.pub_key.value,
-    pub_type: params.signature.pub_key.type,
-    chain_id: keplrCelestiaHelper.KeplrCelestiaConfig.chainId,
   })) as any;
   return res
 }

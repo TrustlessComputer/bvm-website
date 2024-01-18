@@ -27,7 +27,7 @@ const AllowCelestiaMessage = () => {
       })}>
         {!!Number(amount.point || '0') ? (
           <Flex flexDirection="column" w="100%" alignItems="center">
-            <p>You've got <span>{formatCurrency(amount.fee, 0)} TIA</span></p>
+            <p>You are holding or staking <span>{formatCurrency(amount.fee, 0)} TIA</span> in your Keplr wallet</p>
             <p>Congratulations, you've earned <span>{formatCurrency(amount.point, 0)} points</span></p>
           </Flex>
         ) : (

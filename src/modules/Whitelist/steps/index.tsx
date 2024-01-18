@@ -73,7 +73,8 @@ const Steps = () => {
     try {
       const { address, signature } = await keplrCelestiaHelper.signCelestiaMessage();
       await verifyCelestiaSignature({ address, signature });
-      dispatch(requestReload())
+      dispatch(requestReload());
+      toast.success("Successfully.")
     } catch (error) {
       const { message } = getError(error);
       toast.error(message)
@@ -186,8 +187,8 @@ const Steps = () => {
           }
         },
         // {
-        //   title: 'Are you a Modular Blockchain OG?',
-        //   desc: 'You’re a visionary. You’re a pioneer. Holding at least XXX tokens of the following modular blockchains will give you more points: Optimism, Celestia, and Polygon.',
+        //   title: 'Are you a Modular Blockchain Pioneer?',
+        //   desc: 'The more TIA you’re holding, the more points you’ll get. Connect your Keplr wallet to prove the account ownership.',
         //   actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
         //   actionHandle: isNeedClaimCelestiaPoint ? async () => {
         //     handleShareTw();
@@ -201,8 +202,8 @@ const Steps = () => {
         //   step: MultiplierStep.modular,
         //   image: "ic-modular-blockchain.svg",
         //   right: {
-        //     title: '+10 PTS',
-        //     desc: 'per project'
+        //     title: '+100 PTS',
+        //     desc: 'per TIA'
         //   }
         // },
         // {
