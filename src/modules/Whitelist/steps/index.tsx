@@ -171,7 +171,7 @@ const Steps = () => {
           isActive: !!token,
           isDone: !!AllowListStorage.getStorage() && !!token,
           step: MultiplierStep.signMessage,
-          image: "ic-btc.svg",
+          image: "ic-btc-2.svg",
           right: {
             title: '+10 PTS',
             desc: 'per 1000 sats'
