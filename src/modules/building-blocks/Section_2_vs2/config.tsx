@@ -35,12 +35,12 @@ export const BlockDataList: BlockItemType[] = [
         name: 'Eigen',
       },
       {
-        logoUrl: '/images/lego_avail.svg',
+        logoUrl: '/images/avali_coming_soon.png',
         name: 'Avail',
         isComingSoon: true,
       },
       {
-        logoUrl: '/images/lego_near.svg',
+        logoUrl: '/images/nearDA_coming_soon.png',
         name: 'NearDA',
         isComingSoon: true,
       },
@@ -63,20 +63,20 @@ export const BlockDataList: BlockItemType[] = [
       {
         logoUrl: '/images/lego_polygon.svg',
         name: 'Polygon',
-        isComingSoon: true,
+        isComingSoon: false,
       },
       {
-        logoUrl: '/images/lego_zksync_zkvm.svg',
+        logoUrl: '/images/zksync_zkvm_coming_soon.png',
         name: 'ZKSync ZKVM',
         isComingSoon: true,
       },
       {
-        logoUrl: '/images/lego_arbitrum.svg',
+        logoUrl: '/images/arbitrum_coming_soon.png',
         name: 'Arbitrum',
         isComingSoon: true,
       },
       {
-        logoUrl: '/images/lego_starknet.svg',
+        logoUrl: '/images/starknet_coming_soon.png',
         name: 'Starknet',
         isComingSoon: true,
       },
@@ -97,7 +97,7 @@ export const BlockDataList: BlockItemType[] = [
         name: 'Optimism',
       },
       {
-        logoUrl: '/images/lego_rollkit.svg',
+        logoUrl: '/images/rollkit_coming_soon.png',
         name: 'Rollkit',
         isComingSoon: true,
       },
