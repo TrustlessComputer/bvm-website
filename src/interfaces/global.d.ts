@@ -10,5 +10,6 @@ declare global {
   interface Window {
     unisat: IUniSat;
     ethereum: any;
+    keplr: any
   }
 }

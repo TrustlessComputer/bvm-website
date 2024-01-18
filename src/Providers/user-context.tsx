@@ -9,7 +9,9 @@ import { User } from '@/stores/states/user/types';
 import { getReferralByURL } from '@/utils/helpers';
 import userServices from '@/services/user';
 import ReferralStorage from '@/utils/storage/referral.storage';
-import useAllowBTC from '@/modules/Whitelist/HistoryMessage/useAllowBTC';
+import useAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useAllowBTC';
+import { getCoinPrices } from '@/services/common';
+import { setCoinPrices } from '@/stores/states/common/reducer';
 
 export interface IUserContext {}
 
@@ -29,7 +31,13 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     dispatch(setUser(userInfo as User))
   };
 
-  const throttleFetchUserInfo = React.useCallback(throttle(fetchUserInfo, 300), [])
+  const throttleFetchUserInfo = React.useCallback(throttle(fetchUserInfo, 300), []);
+
+  const fetchCoinPrices = async () => {
+    const coinPrices = await getCoinPrices();
+    if (!coinPrices) return;
+    dispatch(setCoinPrices(coinPrices));
+  }
 
   const contextValues = useMemo((): IUserContext => {
     return {};
@@ -46,6 +54,13 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     if (code) {
       ReferralStorage.setReferralCode(code)
     }
+  }, []);
+
+  React.useEffect(() => {
+    fetchCoinPrices();
+    setInterval(() => {
+      fetchCoinPrices()
+    }, 60 * 1000)
   }, [])
 
   return (

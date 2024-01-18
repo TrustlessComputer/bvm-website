@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { UUID } from '@/constants/storage-key';
 import { APP_ENV } from '@/config';
+import { formatCurrency } from '@/utils/format';
 
 export const getUuid = (): string => {
   let uuidText = localStorage.get(UUID) as string;
@@ -47,6 +48,22 @@ export const shareTwitterSignature = (params: {
 
   window.open(
     `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+      content,
+    )}`,
+    '_blank',
+  );
+}
+
+export const shareBTCOG = (params: {
+  fee: string | number,
+  feeUSD: string | number,
+  refCode: string,
+}) => {
+  const shareUrl = getLink(params.refCode);
+  const content = `I ♥️ Bitcoin\n\nI’ve spent ${params.fee} BTC on transaction fees. Right now, that’s $${formatCurrency(params.feeUSD, 0, 2)}.\n\nAnd I can’t wait for $BVM to launch.\n\n@BVMnetwork is going to be the future of Bitcoin. I’m going to be doing so much more with my BTC.\n\n→ ${shareUrl}`;
+
+  window.open(
+    `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       content,
     )}`,
     '_blank',
