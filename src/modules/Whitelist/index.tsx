@@ -9,9 +9,9 @@ import BoxContent from '@/layouts/BoxContent';
 import { useAppSelector } from '@/stores/hooks';
 import { leaderBoardSelector } from '@/stores/states/user/selector';
 import Loading from '@/components/Loading';
-import { formatCurrency } from '@/utils/format';
 import AppLoading from '@/components/AppLoading';
 import CountUp from 'react-countup';
+import FAQContent from './FAQContent';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
@@ -51,12 +51,13 @@ const Whitelist = () => {
       ) : (
         <AppLoading />
       )}
-      <Box mt="16px" />
+      <Box mt="8px" />
       <p className={s.title}>Tweet & invite friends to rank up.</p>
       <div className={s.tokenSection}>
         <LeaderBoard />
         <Steps />
       </div>
+      {/* <FAQContent /> */}
     </BoxContent>
   );
 };

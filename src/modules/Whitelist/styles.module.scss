@@ -1,68 +1,113 @@
-
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #F3F1E8;
-    max-width: 1600px;
-    align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f1e8;
+  max-width: 1600px;
+  align-self: center;
 
-    .title {
-      color: #000;
-      font-size: 32px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 120%;
-      text-align: start;
-      align-self: start;
-      span {
-        font-weight: 700;
-      }
-      @include w-max(768px) {
-        font-size: 24px;
-      }
+  .title {
+    color: #000;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    text-align: start;
+    align-self: start;
+    span {
+      font-weight: 700;
     }
-
-    .desc {
-      color: #000;
-      text-align: center;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 140%;
-      margin-top: 16px;
-
-      span {
-          color: #BA98FF;
-      }
-
-      @include w-max(768px) {
-          font-size: 18px;
-          max-width: 24em;
-          line-height: 28px;
-      }
+    @include w-max(768px) {
+      font-size: 24px;
     }
+  }
 
-    .tokenSection {
-        display: grid;
-        grid-template-columns: 1fr 560px;
-        gap: 40px;
-        margin-top: 24px;
-        margin-bottom: 48px;
+  .desc {
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    margin-top: 16px;
+
+    @include w-max(768px) {
+      font-size: 18px;
+      max-width: 24em;
+      line-height: 28px;
+    }
+  }
+
+  .tokenSection {
+    display: grid;
+    grid-template-columns: 1fr 560px;
+    gap: 40px;
+    margin-top: 24px;
+    margin-bottom: 48px;
+    width: 100%;
+    @include w-max(1280px) {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 24px;
+    }
+  }
+
+  .roadmapSection {
+    margin-top: 70px;
+
+    @include w-max(768px) {
+      margin-top: 30px;
+    }
+  }
+
+  :global {
+    .chakra-tabs {
+      margin-top: 20px;
+      height: calc(80dvh + 80px);
+      overflow: hidden;
+      width: 100%;
+
+      .chakra-tabs__tablist {
+        position: relative;
         width: 100%;
-        @include w-max(1280px) {
-          display: flex;
-          flex-direction: column-reverse;
+
+        button {
+          font-size: 24px;
+          color: #494846;
+          border-bottom-width: 0px !important;
+          text-align: left;
+
+          &:active {
+            background: transparent;
+          }
+          &[aria-selected='true'] {
+            color: #000000;
+            opacity: 1;
+            border-color: #000000;
+            border-bottom-width: 2px !important;
+          }
         }
-    }
+      }
 
-    .roadmapSection {
-        margin-top: 70px;
+      .chakra-tabs__tab-panels {
+        height: 100%;
+        margin-top: 12px;
+      }
 
-        @include w-max(768px) {
-            margin-top: 30px;
+      .chakra-tabs__tab-panel {
+        padding: 0;
+        height: 100%;
+        overflow-y: scroll;
+        padding-bottom: 100px;
+        margin-top: 12px;
+
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+          display: none;
         }
+      }
     }
-
+  }
 }
