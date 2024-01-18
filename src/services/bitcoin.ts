@@ -2,7 +2,7 @@ import { DEX_API } from '@/config';
 import { apiClient } from '@/services/index';
 import CacheManager from './cache';
 import { BINANCE_PAIR } from '@/services/interfaces/bitcoin';
-import { updateCoinPrices } from '@/stores/states/common/reducer';
+import { setCoinPrices } from '@/stores/states/common/reducer';
 import { store } from '@/stores';
 
 export type ListTokenRate = {
@@ -29,7 +29,7 @@ export const getCacheTokensRate = async (): Promise<ListTokenRate> => {
     promiseFunc: () => getTokensRate(),
     expiredTime: CacheManager.EXPIRED_TIME.RATE_TOKENS_EXPIRED_TIME,
   });
-  store.dispatch(updateCoinPrices(result));
+  store.dispatch(setCoinPrices(result));
 
   return result;
 };
