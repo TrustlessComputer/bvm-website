@@ -49,6 +49,12 @@ const metadataConfig: Metadata = {
       template: APP_TITLE_TEMPLATE,
     },
     description: APP_DESCRIPTION,
+    images: [
+      {
+        url: 'https://cdn.newbitcoincity.com/nbc/icons/bvm-icons/metadata_4.png',
+        alt: APP_NAME,
+      },
+    ]
   },
 };
 
