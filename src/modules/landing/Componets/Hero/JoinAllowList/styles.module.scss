@@ -10,6 +10,9 @@
     position: absolute;
     bottom: 0;
     left: 0;
+    @include is-min-table {
+      padding: 40px 0;
+    }
   }
 
   &.isFooter {
