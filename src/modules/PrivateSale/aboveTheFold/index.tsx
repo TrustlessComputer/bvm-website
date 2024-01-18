@@ -15,7 +15,7 @@ const AboveTheFold = () => {
 
   return (
     <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImg={`/private-sale/bg.webp`}>
-      <SimpleGrid className={s.content} gridTemplateColumns={["1fr", "1.25fr 1fr"]} gap={[6, 0]}>
+      <SimpleGrid className={`container ${s.content}`} gridTemplateColumns={["1fr", "1.25fr 1fr"]} gap={[6, 0]}>
         <Flex className={s.leftSection} direction={"column"} gap={[6, 6]} justifyContent={"center"}>
           <Text className={s.title}>
             Hello <span className={s.hightlight}>#name</span>

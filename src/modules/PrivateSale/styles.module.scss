@@ -1,9 +1,10 @@
 .container {
+  width: 100%;
   min-height: 100dvh;
   background-color: #0000004D;
-  --container-padding: 0px 100px;
+  --container-padding: 0px 32px;
 
   @include w-min(1920px) {
-    --container-padding: 0px 120px;
+    --container-padding: 0px 32px;
   }
 }
