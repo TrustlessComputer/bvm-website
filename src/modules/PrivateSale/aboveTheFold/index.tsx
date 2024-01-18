@@ -5,6 +5,7 @@ import Lines from '@/interactive/Lines';
 import Fade from '@/interactive/Fade';
 import useAnimationStore from '@/stores/useAnimationStore';
 import BuyForm from '@/modules/PrivateSale/BuyForm';
+import HeadingTextTyping from '@/modules/landing/Componets/HeadingTextTyping';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -18,7 +19,16 @@ const AboveTheFold = () => {
       <SimpleGrid className={`container ${s.content}`} gridTemplateColumns={["1fr", "1.25fr 1fr"]} gap={[6, 0]}>
         <Flex className={s.leftSection} direction={"column"} gap={[6, 6]} justifyContent={"center"}>
           <Text className={s.title}>
-            Hello <span className={s.hightlight}>#name</span>
+            <HeadingTextTyping
+              first={'Hello '}
+              last={''}
+              headings={[
+                '#name',
+              ]}
+              headingsStyles={[
+                s.hightlight,
+              ]}
+            />
           </Text>
           <Box className={s.subTitle}>
             <Lines delay={1.2}>
