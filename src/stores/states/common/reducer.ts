@@ -4,7 +4,8 @@ import { Coin, CommonState } from './types';
 const initialState: CommonState = {
   needReload: 0,
   coinPrices: {
-    [Coin.BTC]: '0'
+    [Coin.BTC]: '0',
+    [Coin.ETH]: '0',
   }
 };
 
