@@ -24,7 +24,7 @@ interface FormValues {
 
 const DELAY = 2;
 
-const JoinAllowList = () => {
+const PrivateSaleForm = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
   const vcType = LocalStorageUtil.get(KEY_VC_TYPE);
@@ -158,4 +158,4 @@ const JoinAllowList = () => {
   );
 };
 
-export default JoinAllowList;
+export default PrivateSaleForm;

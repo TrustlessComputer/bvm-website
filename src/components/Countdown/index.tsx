@@ -56,7 +56,7 @@ const Countdown: React.FC<IProps> = ({
         <Flex gap={"60px"}>
           <Flex direction={"column"} alignItems={"center"}>
             <Text className={s.timeValue}>{hours}</Text>
-            <Text className={s.timeTitle}>Hours</Text>
+            <Text className={s.timeTitle}>HOURS</Text>
           </Flex>
           <Flex direction={"column"} alignItems={"center"}>
             <Text className={s.timeValue}>{minutes}</Text>
