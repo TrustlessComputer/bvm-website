@@ -8,8 +8,8 @@ const apiClient = createAxiosInstance({
 
 const getCoinPrices = async (): Promise<CoinPrices | undefined> => {
   try {
-    const coinPrices = await apiClient.get('/coin-prices');
-    return coinPrices as CoinPrices;
+    const coinPrices = (await apiClient.get('/coin-prices')) as CoinPrices;
+    return coinPrices;
   } catch (error) {
     return undefined;
   }
