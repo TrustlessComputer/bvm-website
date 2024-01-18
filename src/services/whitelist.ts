@@ -71,7 +71,7 @@ const requestClaimBTCPoint = async (status: SignatureStatus[]) => {
     try {
       const item = status[i];
       if (item && item.status === 'unclaimed') {
-        await apiClient.get(`/bvm/claim-btc-point/${item.id}`);
+        await apiClient.post(`/bvm/claim-btc-point/${item.id}`);
       }
     } catch (error) {
       // TODO: handle error

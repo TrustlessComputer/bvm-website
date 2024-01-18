@@ -156,7 +156,7 @@ const Steps = () => {
         {
           title: 'Are you a Bitcoin OG?',
           desc: btcOGMessage,
-          actionText: isNeedClaim ? `Tweet to claim ${amount.unClaimedPoint} pts` : 'How much have I spent on sats?',
+          actionText: isNeedClaim ? `Tweet to claim ${formatCurrency(amount.unClaimedPoint, 0, 0)} pts` : 'How much have I spent on sats?',
           actionHandle: isNeedClaim ? async () => {
             try {
               shareBTCOG({ fee: amount.fee, feeUSD: amount.feeUSD });
