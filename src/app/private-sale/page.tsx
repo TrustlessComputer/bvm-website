@@ -3,7 +3,7 @@
 import PrivateSaleModule from '@/modules/PrivateSale';
 import MainLayout from '@/layouts/MainLayout';
 import s from './styles.module.scss';
-import LocalStorageUtil from "@/utils/localstorage";
+import LocalStorageUtil from '@/utils/localstorage';
 import { KEY_VC_TYPE } from '@/constants/storage-key';
 import { useEffect } from 'react';
 import { getCacheTokensRate } from '@/services/bitcoin';
@@ -19,6 +19,14 @@ const PrivateSale = () => {
 
   useEffect(() => {
     getCacheTokensRate();
+
+    const interval = setInterval(() => {
+      getCacheTokensRate();
+    }, 5 * 60 * 1000);
+
+    return () => {
+      clearInterval(interval);
+    }
   }, []);
 
   return (
