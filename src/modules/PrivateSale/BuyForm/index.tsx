@@ -16,10 +16,13 @@ import { MAX_DECIMAL } from '@/constants/constants';
 import { QRCode } from 'react-qrcode-logo';
 import Countdown from '@/components/Countdown';
 import dayjs from 'dayjs';
+import Lines from '@/interactive/Lines';
 
 interface FormValues {
   tokenAmount: string;
 }
+
+const DELAY = 2;
 
 const JoinAllowList = () => {
   const [isCreating, setIsCreating] = useState(false);
@@ -27,7 +30,7 @@ const JoinAllowList = () => {
   const vcType = LocalStorageUtil.get(KEY_VC_TYPE);
   const walletId = LocalStorageUtil.get(KEY_WALLET_ID) || '';
   const [vcInfo, setVCInfo] = useState<VCInfo>();
-  const tokenPrice = 0.00123;
+  const tokenPrice = 11;
   const coinPrices = useSelector(commonSelector).coinPrices;
   const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
   const ethPrice = useMemo(() => coinPrices?.['ETH'] || '0', [coinPrices]);
@@ -91,24 +94,31 @@ const JoinAllowList = () => {
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
-          <Text className={s.price}>1 BVM = 11$</Text>
-          <Text className={s.desc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </Text>
-          <Text className={s.launchText}>Private Sale End in</Text>
-          <Box mb={"60px"} mt={8}>
-            <Countdown className={s.textCountdown} expiredTime={dayjs.utc('2024-01-26', 'YYYY-MM-DD').toString()} hideIcon={true}/>
-          </Box>
-          <Flex gap={8} direction={'column'} width={"100%"}>
-            <div className={s.inputContainer}>
-              <input
-                type={'number'}
-                id='tokenAmount'
-                value={formValues.tokenAmount}
-                placeholder='Enter number of token'
-                className={s.input}
-                onChange={onChangeText}
-              />
-            </div>
-            <Fade delay={.8}>
+          <Text className={s.price}><Lines delay={DELAY + .2}>1 BVM = {formatCurrency(tokenPrice)}$</Lines></Text>
+          <Text className={s.desc}><Lines delay={DELAY + .5}>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod</Lines></Text>
+          <Fade delay={DELAY + .8}>
+            <Text className={s.launchText}>Private Sale End in</Text>
+            <Box mb={'60px'} mt={8}>
+              <Countdown className={s.textCountdown} expiredTime={dayjs.utc('2024-01-26', 'YYYY-MM-DD').toString()}
+                         hideIcon={true} />
+            </Box>
+          </Fade>
+
+          <Flex gap={8} direction={'column'} width={'100%'}>
+            <Fade delay={DELAY + 1}>
+              <div className={s.inputContainer}>
+                <input
+                  type={'number'}
+                  id='tokenAmount'
+                  value={formValues.tokenAmount}
+                  placeholder='Enter number of token'
+                  className={s.input}
+                  onChange={onChangeText}
+                />
+              </div>
+            </Fade>
+            <Fade delay={DELAY + 1}>
               <Button
                 type='submit'
                 isDisabled={isCreating || !formValues.tokenAmount}
@@ -119,29 +129,28 @@ const JoinAllowList = () => {
                 {Number(formValues.tokenAmount) > 0 ? `Pay ${formatCurrency(payAmountBtc, MAX_DECIMAL, MAX_DECIMAL, 'BTC', true)} BTC / ${formatCurrency(payAmountEth, MAX_DECIMAL, MAX_DECIMAL, 'BTC', true)} ETH` : 'Buy now'}
               </Button>
             </Fade>
-            {
-              showQrCode && (
-                <Flex gap={6} mt={4} w={"100%"} justifyContent={"space-between"}>
-                  <Flex direction={"column"} alignItems={"center"} gap={3} >
-                    <QRCode
-                      size={150}
-                      value={vcInfo?.btc_address || ''}
-                      logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
-                    />
-                    <Text className={s.depositValue}>{formatCurrency(vcInfo?.btc_balance, 4, 4)} BTC</Text>
+              {
+                showQrCode && (
+                  <Flex gap={6} mt={4} w={'100%'} justifyContent={'space-between'}>
+                    <Flex direction={'column'} alignItems={'center'} gap={3}>
+                      <QRCode
+                        size={150}
+                        value={vcInfo?.btc_address || ''}
+                        logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
+                      />
+                      <Text className={s.depositValue}>{formatCurrency(vcInfo?.btc_balance, 4, 4)} BTC</Text>
+                    </Flex>
+                    <Flex direction={'column'} alignItems={'center'} gap={3}>
+                      <QRCode
+                        size={150}
+                        value={vcInfo?.eth_balance || ''}
+                        logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
+                      />
+                      <Text className={s.depositValue}>{formatCurrency(vcInfo?.eth_balance, 4, 4)} ETH</Text>
+                    </Flex>
                   </Flex>
-
-                  <Flex direction={"column"} alignItems={"center"} gap={3}>
-                    <QRCode
-                      size={150}
-                      value={vcInfo?.eth_balance || ''}
-                      logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
-                    />
-                    <Text className={s.depositValue}>{formatCurrency(vcInfo?.eth_balance, 4, 4)} ETH</Text>
-                  </Flex>
-                </Flex>
-              )
-            }
+                )
+              }
           </Flex>
         </div>
       </form>
