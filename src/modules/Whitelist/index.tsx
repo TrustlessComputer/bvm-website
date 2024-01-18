@@ -11,6 +11,7 @@ import { leaderBoardSelector } from '@/stores/states/user/selector';
 import Loading from '@/components/Loading';
 import { formatCurrency } from '@/utils/format';
 import AppLoading from '@/components/AppLoading';
+import CountUp from 'react-countup';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
@@ -19,23 +20,45 @@ const Whitelist = () => {
   const { count } = useAppSelector(leaderBoardSelector);
 
   React.useEffect(() => {
-    const element = document.getElementById(CONTAINER_ID)
+    const element = document.getElementById(CONTAINER_ID);
     if (height && element) {
-      element.style.paddingTop = `${height + 32}px`
+      element.style.paddingTop = `${height + 32}px`;
     }
-  }, [height])
+  }, [height]);
 
   return (
     <BoxContent className={s.container} id={CONTAINER_ID}>
-      {!!count ? (<p className={s.title}>Join <span>{!count ? <Loading/> : formatCurrency(count, 0)} people</span> on the public sale allowlist.</p>) : <AppLoading/>}
-      <Box mt="16px"/>
+      {!!count ? (
+        <p className={s.title}>
+          Join{' '}
+          <span>
+            {!count ? (
+              <Loading />
+            ) : (
+              <CountUp
+                separator=","
+                start={0}
+                end={Number(count)}
+                decimals={0}
+                duration={2}
+                useEasing={false}
+              />
+            )}{' '}
+            people
+          </span>{' '}
+          on the public sale allowlist.
+        </p>
+      ) : (
+        <AppLoading />
+      )}
+      <Box mt="16px" />
       <p className={s.title}>Tweet & invite friends to rank up.</p>
       <div className={s.tokenSection}>
         <LeaderBoard />
         <Steps />
       </div>
     </BoxContent>
-  )
+  );
 };
 
 export default Whitelist;
