@@ -57,7 +57,7 @@ export default function LegoV2() {
         <div className={s.lego_heading}>
           <HeadingSection className={s.lego_heading_title}>
             <Chars>
-              Customize and launch your modular Bitcoin L2 blockchain with the best-of-breed modules with <b> a few clicks.</b>
+              Customize and launch your modular Bitcoin L2 blockchain with the best-of-breed modules <b> with a few clicks.</b>
             </Chars>
           </HeadingSection>
 
@@ -65,7 +65,7 @@ export default function LegoV2() {
             <Lines delay={0.2}>
               Choose a rollup module, select a data availability module, and
               then launch to theworld — it’s that easy. You can even install
-              dapp modules like Uniswap,Compound, and NFT Marketplace. It’s a
+              dapp modules like Uniswap, Compound, and NFT Marketplace. It’s a
               whole new way to build a Bitcoin L2.
             </Lines>
           </ContentSection>

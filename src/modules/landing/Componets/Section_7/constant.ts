@@ -32,6 +32,25 @@ const BLOGS = [
     linkTarget: '_blank',
   },
   {
+    id: '6',
+    title: `Bitcoin faster? Project uses Optimism to generate blocks every 2 seconds`,
+    desc: `Blockchain NOS aims to give scalability to the decentralized ecosystem created on Bitcoin, says Punk 3700, one of the developers behind the project`,
+    logo: 'CoinTelegraph Brazil',
+    imageUrl: `${CDN_URL_BLOGS}/CoinTelegraph_Brazil_02.jpeg`,
+    link: 'https://br.cointelegraph.com/news/bitcoin-becoming-faster-project-uses-optimism-to-generate-blocks-with-2-second-time',
+    linkTarget: '_blank',
+  },
+  {
+    id: '8',
+    title: `BITCOIN VIRTUAL MACHINE DEPLOYS UNISWAP V2 SMART CONTRACTS: HUGE MILESTONE FOR BITCOIN`,
+    desc: `The emergence of #Ordinals and #BRC20 tokens has led to a renaissance period for #Bitcoin  
+    With their deployment of Uniswap v2 smart contracts on #BTC, @TrustlessOnBTC is right at the forefront of this exciting development`,
+    logo: 'Influencive',
+    imageUrl: `${CDN_URL_BLOGS}/Influencive.png`,
+    link: 'https://twitter.com/Influencive/status/1657455923692986370',
+    linkTarget: '_blank',
+  },
+  {
     id: '12',
     title: `Bitcoin Transactions Hit Record High as New Token Type Takes Off`,
     desc: `Bitcoin Virtual Machine enables its own form of fungible tokens, called SBRC-20s, punk3700, a pseudonymous core contributor to Bitcoin Virtual Machine, told The Defiant.`,
@@ -125,26 +144,9 @@ const BLOGS = [
     linkTarget: '_blank',
   },
 
-  {
-    id: '6',
-    title: `Bitcoin faster? Project uses Optimism to generate blocks every 2 seconds`,
-    desc: `Blockchain NOS aims to give scalability to the decentralized ecosystem created on Bitcoin, says Punk 3700, one of the developers behind the project`,
-    logo: 'CoinTelegraph Brazil',
-    imageUrl: `${CDN_URL_BLOGS}/CoinTelegraph_Brazil_02.jpeg`,
-    link: 'https://br.cointelegraph.com/news/bitcoin-becoming-faster-project-uses-optimism-to-generate-blocks-with-2-second-time',
-    linkTarget: '_blank',
-  },
 
-  {
-    id: '8',
-    title: `BITCOIN VIRTUAL MACHINE DEPLOYS UNISWAP V2 SMART CONTRACTS: HUGE MILESTONE FOR BITCOIN`,
-    desc: `The emergence of #Ordinals and #BRC20 tokens has led to a renaissance period for #Bitcoin  
-    With their deployment of Uniswap v2 smart contracts on #BTC, @TrustlessOnBTC is right at the forefront of this exciting development`,
-    logo: 'Influencive',
-    imageUrl: `${CDN_URL_BLOGS}/Influencive.png`,
-    link: 'https://twitter.com/Influencive/status/1657455923692986370',
-    linkTarget: '_blank',
-  },
+
+
   {
     id: '10',
     title: `Smart Contracts on Bitcoin? Here’s All You Need to Know`,
