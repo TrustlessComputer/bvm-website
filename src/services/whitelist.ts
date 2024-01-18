@@ -3,6 +3,7 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import createAxiosInstance from './http-client';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { SignatureStatus } from '@/interfaces/whitelist';
+import keplrCelestiaHelper, { CelestiaAddress, CelestiaSignature } from '@/utils/keplr.celestia';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -45,7 +46,7 @@ const getTopLeaderBoards = async (params: {
   };
 };
 
-const verifySignature = async (params: {
+const verifyBTCSignature = async (params: {
   address: string,
   message: string,
   signature: string,
@@ -60,8 +61,7 @@ const verifySignature = async (params: {
   return res
 };
 
-
-const getSignatureStatus = async (): Promise<SignatureStatus[]> => {
+const getAllowBTCStatus = async (): Promise<SignatureStatus[]> => {
   const res = (await apiClient.get(`/bvm/verify-btc-address`)) as SignatureStatus[];
   return res
 }
@@ -77,11 +77,44 @@ const requestClaimBTCPoint = async (status: SignatureStatus[]) => {
       // TODO: handle error
     }
   }
+};
+
+const getAllowCelestiaStatus = async (): Promise<SignatureStatus[]> => {
+  const res = (await apiClient.get(`/bvm/verify-celestia-address`)) as SignatureStatus[];
+  return res
+}
+
+const requestClaimCelestiaPoint = async (status: SignatureStatus[]) => {
+  for (let i = 0; i < status.length; i++) {
+    try {
+      const item = status[i];
+      if (item && item.status === 'unclaimed') {
+        await apiClient.post(`/bvm/claim-celestia-point/${item.id}`);
+      }
+    } catch (error) {
+      // TODO: handle error
+    }
+  }
+};
+
+const verifyCelestiaSignature = async (params: { address: CelestiaAddress, signature: CelestiaSignature }) => {
+  const res = (await apiClient.post(`/bvm/verify-celestia-address`, {
+    address: params.address.bech32Address,
+    message: keplrCelestiaHelper.KeplrCelestiaConfig.messageForSign,
+    signature: params.signature.signature,
+    pub_key: params.signature.pub_key.value,
+    pub_type: params.signature.pub_key.type,
+    chain_id: keplrCelestiaHelper.KeplrCelestiaConfig.chainId,
+  })) as any;
+  return res
 }
 
 export {
   getTopLeaderBoards,
-  verifySignature,
-  getSignatureStatus,
-  requestClaimBTCPoint
+  verifyBTCSignature,
+  getAllowBTCStatus,
+  requestClaimBTCPoint,
+  verifyCelestiaSignature,
+  getAllowCelestiaStatus,
+  requestClaimCelestiaPoint
 }

@@ -3,7 +3,7 @@ import { XVerseContext } from '@/Providers/xverse-context';
 import { UnisatContext } from '@/Providers/unisat-context';
 import { IConnectedInfo, WalletType } from '@/interfaces/wallet';
 import { getError } from '@/utils/error';
-import { verifySignature } from '@/services/whitelist';
+import { verifyBTCSignature } from '@/services/whitelist';
 import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
 import messageVerifier from '@/utils/message.verifier';
 import AllowListStorage from '@/utils/storage/allowlist.storage';
@@ -64,7 +64,7 @@ const useConnect = () => {
         signature,
       };
       console.log('signMessageUnisat: ', params, await messageVerifier(params));
-      await verifySignature({
+      await verifyBTCSignature({
         address,
         pubKey,
         message,
@@ -101,7 +101,7 @@ const useConnect = () => {
       console.log('signMessageXverse: ', params, await messageVerifier(params));
 
       try {
-        await verifySignature({
+        await verifyBTCSignature({
           ...params
         });
         AllowListStorage.setStorage({

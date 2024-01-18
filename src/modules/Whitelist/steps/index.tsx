@@ -7,7 +7,12 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
-import { requestClaimBTCPoint, setBearerToken } from '@/services/whitelist';
+import {
+  requestClaimBTCPoint,
+  requestClaimCelestiaPoint,
+  setBearerToken,
+  verifyCelestiaSignature,
+} from '@/services/whitelist';
 import ConnectModal from '@/components/ConnectModal';
 import useToggle from '@/hooks/useToggle';
 import AllowListStorage from '@/utils/storage/allowlist.storage';
@@ -22,6 +27,7 @@ import { formatCurrency } from '@/utils/format';
 import keplrCelestiaHelper from '@/utils/keplr.celestia';
 import { getError } from '@/utils/error';
 import toast from 'react-hot-toast';
+import useFormatAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useFormatAllowCelestia';
 
 interface IAuthenCode {
   public_code: string;
@@ -36,7 +42,8 @@ const Steps = () => {
   const token = AuthenStorage.getAuthenKey();
   const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle();
   const { toggle: isShowConnectEVM, onToggle: onToggleConnectEVM } = useToggle();
-  const { amount, isUnclaimed, isProcessing, status } = useFormatAllowBTC()
+  const allowBTC = useFormatAllowBTC()
+  const allowCelestia = useFormatAllowCelestia()
 
   const needReload = useAppSelector(commonSelector).needReload
   const user = useAppSelector(userSelector);
@@ -51,22 +58,8 @@ const Steps = () => {
       code = `\n\n#${res?.public_code}`
     }
 
-    const shareUrl = getLink('');
+    const shareUrl = getLink(user?.referral_code || '');
     const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
-
-    window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
-  }
-
-  const handleShareTwMore = async () => {
-    const shareUrl = getLink(user?.referral_code);
-    let content = '';
-
-    content = `Welcome to the future of Bitcoin with bvm.network\n\nLaunch your Bitcoin L2 blockchain easily with @BVMnetwork - first modular blockchain meta-protocol.\n\n$BVM public sale starting soon.\n\nJoin the allowlist:`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -78,7 +71,9 @@ const Steps = () => {
 
   const onSignModular = async () => {
     try {
-      const {} = await keplrCelestiaHelper.signCelestiaMessage()
+      const { address, signature } = await keplrCelestiaHelper.signCelestiaMessage();
+      await verifyCelestiaSignature({ address, signature });
+      dispatch(requestReload())
     } catch (error) {
       const { message } = getError(error);
       toast.error(message)
@@ -132,10 +127,11 @@ const Steps = () => {
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     const isActiveRefer = !!token && !!user?.referral_code;
-    const btcOGMessage = amount.txsCount ?
-        <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(amount.point, 0)}</span>} pts.</p>:
+    const btcOGMessage = allowBTC.amount.txsCount ?
+        <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
         'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
-    const isNeedClaim = isUnclaimed && amount.unClaimedPoint && !!amount.txsCount && !isProcessing;
+    const isNeedClaimBTCPoint = allowBTC.isUnclaimed && allowBTC.amount.unClaimedPoint && !!allowBTC.amount.txsCount && !allowBTC.isProcessing;
+    const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed && allowCelestia.amount.unClaimedPoint && !allowBTC.isProcessing;
     return (
       [
         {
@@ -168,18 +164,18 @@ const Steps = () => {
         {
           title: 'Are you a Bitcoin OG?',
           desc: btcOGMessage,
-          actionText: isNeedClaim ? `Tweet to claim ${formatCurrency(amount.unClaimedPoint, 0, 0)} pts` : 'How much have I spent on sats?',
-          actionHandle: isNeedClaim ? async () => {
+          actionText: isNeedClaimBTCPoint ? `Tweet to claim ${formatCurrency(allowBTC.amount.unClaimedPoint, 0, 0)} pts` : 'How much have I spent on sats?',
+          actionHandle: isNeedClaimBTCPoint ? async () => {
             try {
-              shareBTCOG({ fee: amount.fee, feeUSD: amount.feeUSD, refCode: user?.referral_code || '' });
-              await requestClaimBTCPoint(status)
+              shareBTCOG({ fee: allowBTC.amount.fee, feeUSD: allowBTC.amount.feeUSD, refCode: user?.referral_code || '' });
+              await requestClaimBTCPoint(allowBTC.status)
               dispatch(requestReload())
             } catch (error) {
               
             }
           } : onToggleConnect,
-          actionTextSecondary: isNeedClaim ? "Verify another wallet" : undefined,
-          actionHandleSecondary: isNeedClaim ? onToggleConnect : undefined,
+          actionTextSecondary: isNeedClaimBTCPoint ? "Verify another wallet" : undefined,
+          actionHandleSecondary: isNeedClaimBTCPoint ? onToggleConnect : undefined,
           isActive: !!token,
           isDone: !!AllowListStorage.getStorage() && !!token,
           step: MultiplierStep.signMessage,
@@ -192,8 +188,14 @@ const Steps = () => {
         // {
         //   title: 'Are you a Modular Blockchain OG?',
         //   desc: 'You’re a visionary. You’re a pioneer. Holding at least XXX tokens of the following modular blockchains will give you more points: Optimism, Celestia, and Polygon.',
-        //   actionText: 'How modular are you?',
-        //   actionHandle: onSignModular,
+        //   actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
+        //   actionHandle: isNeedClaimCelestiaPoint ? async () => {
+        //     handleShareTw();
+        //     await requestClaimCelestiaPoint(allowCelestia.status)
+        //     dispatch(requestReload())
+        //   } : onSignModular,
+        //   actionTextSecondary: isNeedClaimCelestiaPoint ? "Verify another wallet" : undefined,
+        //   actionHandleSecondary: isNeedClaimCelestiaPoint ? onSignModular : undefined,
         //   isActive: !!token,
         //   isDone: !!token,
         //   step: MultiplierStep.modular,
@@ -208,7 +210,20 @@ const Steps = () => {
         // },
       ]
     )
-  }, [token, needReload, user?.referral_code, isCopied, amount, isUnclaimed, isProcessing]);
+  }, [
+    token,
+    needReload,
+    user?.referral_code,
+    isCopied,
+    JSON.stringify(allowBTC.status || {}),
+    allowBTC.amount,
+    allowBTC.isUnclaimed,
+    allowBTC.isProcessing,
+    allowCelestia.amount,
+    allowCelestia.isUnclaimed,
+    allowCelestia.isProcessing,
+    JSON.stringify(allowCelestia.status || {}),
+  ]);
 
   React.useEffect(() => {
     if (isCopied) {

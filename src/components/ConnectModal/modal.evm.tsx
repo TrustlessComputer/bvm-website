@@ -53,10 +53,6 @@ const ConnectModalEVM = React.memo(({ isShow, onHide }: IProps)=> {
       if (loading) return;
       setLoading(true)
       const { address, signature } = await signMessage(MESSAGE_EVM);
-      console.log('SANG TEST: ', {
-        address, signature
-      });
-
       dispatch(requestReload())
       onHide()
     } catch (error) {
