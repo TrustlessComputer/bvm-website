@@ -1,14 +1,26 @@
 .container {
-  padding: 40px 0;
+
   width: 100%;
   background: url('/landing/images/hero-bg-allow.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 
-  @include is-pc {
+  &:not(.isFooter) {
+    padding: 20px 0;
     position: absolute;
     bottom: 0;
     left: 0;
+    @include is-min-table {
+      padding: 40px 0;
+    }
+  }
+
+  &.isFooter {
+    padding: 40px 0;
+  }
+
+  @include is-min-table {
+    padding: 40px 0;
   }
 
   .content {
@@ -24,19 +36,12 @@
   }
 
   .titleWrapper {
-    width: 100%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-
-    @include is-pc{
-      display: block;
-      width: fit-content;
-    }
+    display: block;
+    width: fit-content;
   }
 
   .title {
-    text-align: center;
+
     font-size: 12px;
     line-height: normal;
     font-weight: 500;
@@ -46,21 +51,32 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     width: fit-content;
+
+    @include is-mobile {
+      font-size: 10px;
+    }
+
   }
 
   .desc {
-    font-size: 32px;
+
+    text-align: left;
     font-style: normal;
     font-weight: 400;
     line-height: 130%;
     max-width: 571px;
+
     @include is-mobile {
+      font-size: 20px;
+    }
+
+    @include is-tablet {
       font-size: 24px;
     }
-    text-align: center;
 
-    @include is-pc{
-      text-align: left;
+    @include is-pc {
+      font-size: 32px;
+
     }
 
     span {
@@ -178,11 +194,13 @@
 .whiteList {
   display: flex;
   flex-direction: row;
-  justify-content: end;
   align-items: center;
   gap: 8px;
-  padding-right: 16px;
   margin-top: 20px;
+
+  @include is-pc {
+    justify-content: end;
+  }
 
   &_users {
     display: flex;

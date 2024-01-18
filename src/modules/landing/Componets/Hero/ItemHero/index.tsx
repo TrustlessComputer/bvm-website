@@ -16,7 +16,7 @@ export default function ItemHero({
   delay: number;
 }) {
   return (
-    <div className={s.itemHero}>
+    <div className={`${s.itemHero} itemHero`}>
       <Fade from={{ x: 20 }} to={{ x: 0 }} delay={delay}>
         <div className={s.itemHero_inner}>
           <div className={s.itemHero_content}>
@@ -27,7 +27,7 @@ export default function ItemHero({
               width={45}
               height={45}
             />
-            <p className={s.itemHero_content_title}>{data.title}</p>
+            <p className={`${s.itemHero_content_title} itemHero_content_title`}>{data.title}</p>
           </div>
         </div>
       </Fade>
