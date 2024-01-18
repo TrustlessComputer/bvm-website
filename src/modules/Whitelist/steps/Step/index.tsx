@@ -11,7 +11,8 @@ import cs from 'classnames';
 export enum MultiplierStep {
   authen,
   post,
-  signMessage
+  signMessage,
+  modular
 }
 
 export interface IItemCommunity {

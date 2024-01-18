@@ -2,11 +2,24 @@ const KeplrCelestiaConfig = {
   chainId: 'celestia',
   chainName: 'Celestia',
   rpc: 'https://rpc.lunaroasis.net/',
-  rest: 'https://api.lunaroasis.net/'
+  rest: 'https://api.lunaroasis.net/',
+  messageForSign: 'Are you a Celestia OG?'
 };
 
 export interface CelestiaAddress {
-  bech32Address: string
+  bech32Address: string;
+  algo: string;
+  name: string;
+  address: Buffer;
+  pubKey: Buffer;
+}
+
+export interface CelestiaSignature {
+  pub_key: {
+    type: string,
+    value: string,
+  },
+  signature: string,
 }
 
 const getKeplrProvider = () => (window as any)?.keplr;
@@ -14,7 +27,8 @@ const getKeplrProvider = () => (window as any)?.keplr;
 const addOrSwitchToCelestia = async () => {
   const keplr = getKeplrProvider()
   if (!keplr) {
-    alert("Please install keplr extension");
+    window.open('https://www.keplr.app/download')
+    throw new Error('Please install keplr extension')
   } else {
     if (keplr.experimentalSuggestChain) {
       try {
@@ -78,10 +92,15 @@ const signCelestiaMessage = async () => {
   const keplr = getKeplrProvider();
   await addOrSwitchToCelestia();
   const address = (await keplr.getKey(KeplrCelestiaConfig.chainId)) as CelestiaAddress;
-  alert(address.bech32Address);
-  const message = 'Are you a Celestia OG?'
-  const signature = await keplr.signArbitrary(KeplrCelestiaConfig.chainId, address.bech32Address, message);
-  console.log('SANG TEST: ', { signature, address, message, chainID: KeplrCelestiaConfig.chainId });
+  const signature = (await keplr.signArbitrary(
+    KeplrCelestiaConfig.chainId,
+    address.bech32Address,
+    KeplrCelestiaConfig.messageForSign
+  )) as CelestiaSignature;
+  return {
+    address,
+    signature
+  }
 }
 
 const keplrCelestiaHelper = {
