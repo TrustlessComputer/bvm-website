@@ -61,6 +61,21 @@
     }
   }
 
+  .countUpDesktop {
+    @include w-max(1280px) {
+      display: none;
+      height: 0px;
+    }
+  }
+
+  .countUpMobile {
+    display: none;
+    @include w-max(1280px) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
   :global {
     .chakra-tabs {
       margin-top: 20px;
