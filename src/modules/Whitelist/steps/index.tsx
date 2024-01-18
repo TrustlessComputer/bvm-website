@@ -160,7 +160,7 @@ const Steps = () => {
           actionText: isNeedClaim ? `Tweet to claim ${formatCurrency(amount.unClaimedPoint, 0, 0)} pts` : 'How much have I spent on sats?',
           actionHandle: isNeedClaim ? async () => {
             try {
-              shareBTCOG({ fee: amount.fee, feeUSD: amount.feeUSD, refCode: user?.referral_code });
+              shareBTCOG({ fee: amount.fee, feeUSD: amount.feeUSD, refCode: user?.referral_code || '' });
               await requestClaimBTCPoint(status)
               dispatch(requestReload())
             } catch (error) {
