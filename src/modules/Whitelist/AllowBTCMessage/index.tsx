@@ -3,11 +3,10 @@ import styles from './styles.module.scss';
 import React from 'react';
 import { formatCurrency } from '@/utils/format';
 import Loading from '@/components/Loading';
-import { shareTwitterSignature } from '@/utils/helpers';
 import cs from 'classnames';
-import useFormatAllowBTC from '@/modules/Whitelist/HistoryMessage/useFormatAllowBTC';
+import useFormatAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useFormatAllowBTC';
 
-const HistoryMessage = () => {
+const AllowBTCMessage = () => {
   const { loaded, status, isProcessing, amount } = useFormatAllowBTC()
   const renderContent = React.useCallback(() => {
     if (!loaded || !status.length) return <></>;
@@ -30,7 +29,7 @@ const HistoryMessage = () => {
           <Flex flexDirection="column" w="100%" alignItems="center">
             <p>You've spent <span>{formatCurrency(amount.fee, 0)} BTC</span> for gas fees across <span>{formatCurrency(amount.txsCount, 0)} transactions</span></p>
             <p>Congratulations, you've earned <span>{formatCurrency(amount.point, 0)} points</span></p>
-            <Button onClick={() => shareTwitterSignature({ fee: amount.fee, point: amount.point, txsCount: amount.txsCount })}>Share now</Button>
+            {/*<Button onClick={() => shareTwitterSignature({ fee: amount.fee, point: amount.point, txsCount: amount.txsCount })}>Share now</Button>*/}
           </Flex>
         ) : (
           <p>
@@ -48,4 +47,4 @@ const HistoryMessage = () => {
   )
 }
 
-export default HistoryMessage;
+export default AllowBTCMessage;

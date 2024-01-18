@@ -2,10 +2,11 @@ import s from './styles.module.scss';
 import { Button, Flex, Text } from '@chakra-ui/react';
 import cx from 'clsx';
 import React, { useEffect, useMemo, useState } from 'react';
-import HistoryMessage from '@/modules/Whitelist/HistoryMessage';
 import Image from 'next/image';
 import { CDN_URL_ICONS } from '@/config';
 import AuthenStorage from '@/utils/storage/authen.storage';
+import AllowBTCMessage from '@/modules/Whitelist/AllowBTCMessage';
+import cs from 'classnames';
 
 export enum MultiplierStep {
   authen,
@@ -15,11 +16,11 @@ export enum MultiplierStep {
 
 export interface IItemCommunity {
   title: string,
-  desc: string,
+  desc: string | React.ReactNode,
   actionText: string,
   actionHandle: any,
-  actionTextSecond?: string,
-  actionHandleSecond?: any,
+  actionTextSecondary?: string,
+  actionHandleSecondary?: any,
   isActive?: boolean,
   isDone?: boolean,
   step: MultiplierStep,
@@ -61,72 +62,67 @@ export default function ItemCommunity({
         <Image className={s.itemCommunity__logo} width={48} height={48} src={`${CDN_URL_ICONS}/${image}`} alt="ic-section" />
         <Flex direction="column" gap="8px" flex={1}>
           <Flex justifyContent="space-between" gap="16px">
-            <Flex direction="column">
+            <Flex direction="column" w="100%">
               <div className={s.itemCommunity__title}>{content?.title}</div>
               {!!content?.desc && (<div className={s.itemCommunity__desc}>{content?.desc}</div>)}
+              {!!content?.actionText && (
+                <Flex direction="column" w="100%" mt="8px">
+                  <Flex gap="8px" flexDirection="column" w="100%">
+                    <Button
+                      className={s.itemCommunity__btnCTA}
+                      onClick={() => {
+                        if (content?.actionHandle && isRunning && !isLoading) {
+                          content?.actionHandle();
+                          if (step === MultiplierStep.authen) {
+                            setTimeout(() => {
+                              setShowManualCheck(true);
+                            }, 15000);
+                          }
+                        }
+                      }}
+                      isLoading={isLoading}
+                    >
+                      {content?.actionText}
+                    </Button>
+                    {!!content.actionHandleSecondary && (
+                      <Button
+                        className={cs(s.itemCommunity__btnCTA, s.itemCommunity__btnSecondary)}
+                        onClick={() => {
+                          if (content?.actionHandleSecondary && isRunning && !isLoading) {
+                            content?.actionHandleSecondary();
+                          }
+                        }}
+                      >
+                        {content?.actionTextSecondary}
+                      </Button>
+                    )}
+                    {step === MultiplierStep.signMessage && (
+                      <AllowBTCMessage />
+                    )}
+                  </Flex>
+                  {
+                    step === MultiplierStep.authen && showManualCheck && (
+                      <Text
+                        cursor={"pointer"}
+                        fontSize={"14px"}
+                        fontWeight={400}
+                        color={"#000000"}
+                        textDecoration={"underline"}
+                        onClick={content?.handleShowManualPopup}
+                        mt={1}
+                      >
+                        Missing from the Leaderboard?
+                      </Text>
+                    )
+                  }
+                </Flex>
+              )}
             </Flex>
             <Flex direction="column">
               <div className={s.itemCommunity__point}>{content?.right.title}</div>
               {!!content?.desc && (<div className={s.itemCommunity__pointNote}>{content?.right.desc}</div>)}
             </Flex>
           </Flex>
-          {!!content?.actionText && (
-            <Flex direction={"column"}>
-              <Flex gap="8px" flexWrap="wrap">
-                <Button
-                  className={s.itemCommunity__btnCTA}
-                  onClick={() => {
-                    if (content?.actionHandle && isRunning && !isLoading) {
-                      content?.actionHandle();
-                      if (step === MultiplierStep.authen) {
-                        setTimeout(() => {
-                          setShowManualCheck(true);
-                        }, 15000);
-                      }
-                    }
-                  }}
-                  isLoading={isLoading}
-                >
-                  {content?.actionText}
-                </Button>
-                {!!content.actionHandleSecond && (
-                  <Button
-                    className={s.itemCommunity__btnCTA}
-                    onClick={() => {
-                      if (content?.actionHandleSecond && isRunning && !isLoading) {
-                        content?.actionHandleSecond();
-                        if (step === MultiplierStep.authen) {
-                          setTimeout(() => {
-                            setShowManualCheck(true);
-                          }, 15000);
-                        }
-                      }
-                    }}
-                  >
-                    {content?.actionTextSecond}
-                  </Button>
-                )}
-              </Flex>
-              {
-                step === MultiplierStep.authen && showManualCheck && (
-                  <Text
-                    cursor={"pointer"}
-                    fontSize={"14px"}
-                    fontWeight={400}
-                    color={"#000000"}
-                    textDecoration={"underline"}
-                    onClick={content?.handleShowManualPopup}
-                    mt={1}
-                  >
-                    Missing from the Leaderboard?
-                  </Text>
-                )
-              }
-            </Flex>
-          )}
-          {step === MultiplierStep.signMessage && (
-            <HistoryMessage />
-          )}
         </Flex>
       </div>
     </>
