@@ -60,7 +60,7 @@ export const shareBTCOG = (params: {
   refCode: string,
 }) => {
   const shareUrl = getLink(params.refCode);
-  const content = `I ♥️ Bitcoin\n\nI’ve spent ${params.fee} BTC on transaction fees. Right now, that’s $${formatCurrency(params.feeUSD, 0, 2)}.\n\nAnd I can’t wait for $BVM to launch.\n\n@BVMnetwork is going to be the future of Bitcoin. I’m going to be doing so much more with my BTC.\n\n→ ${shareUrl}`;
+  const content = `I ♥️ Bitcoin\n\nI’ve spent ${params.fee} BTC on transaction fees. Right now, that’s $${formatCurrency(params.feeUSD, 0, 2)}.\n\nAnd I can’t wait for $BVM to launch.\n\n@BVMnetwork is going to be the future of Bitcoin. I’m going to be doing so much more with my BTC.\n\n${shareUrl}`;
 
   window.open(
     `https://twitter.com/intent/tweet?text=${encodeURIComponent(
