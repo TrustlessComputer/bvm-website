@@ -6,15 +6,21 @@ import JoinAllowList from './JoinAllowList';
 
 export default function Hero() {
   return (
-    <div className={s.hero}>
-      <div className={s.hero_wrap}>
-        <BgHero />
-        <div className={s.hero_inner}>
-          <HeroLabel />
+
+    <>
+      <div className={s.hero}>
+        <div className={s.hero_wrap}>
+          <BgHero />
+          <div className={`${s.hero_inner} ${s.hero_inner__desktop}`}>
+            <HeroLabel />
+          </div>
         </div>
+        <JoinAllowList />
+        <Intro />
       </div>
-      <JoinAllowList />
-      <Intro />
-    </div>
+      <div className={s.hero_wrap__mobile}>
+        <HeroLabel isMobile={true} />
+      </div>
+    </>
   );
 }

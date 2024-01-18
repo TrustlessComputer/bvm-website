@@ -21,21 +21,25 @@ const DATA_HERO = [
     title: 'Polygon',
   },
   {
-    icon: '/landing/uni.svg',
+    icon: '/landing/uni-v2.svg',
     title: 'Uniswap',
+  },
+  {
+    icon: '/landing/ic-ordinal.svg',
+    title: 'Ordinals',
   },
 ];
 
 const DELAY = 1.8;
 
-export default function HeroLabel() {
+export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
   return (
-    <div className={`container ${s.heroLabel}`}>
+    <div className={`container ${s.heroLabel} ${isMobile && s.heroLabel__mobile}`}>
       <Fade delay={DELAY + .4}>
         <div className={s.heroLabel_content}>
           <Image
             src={'/landing/svg/lego_icon_cube.svg'}
-            alt="cube"
+            alt='cube'
             width={32}
             height={32}
           />
@@ -44,7 +48,7 @@ export default function HeroLabel() {
           </p>
         </div>
       </Fade>
-      <div className={s.heroLabel_listHero}>
+      <div className={`${s.heroLabel_listHero} ${isMobile && s.heroLabel_listHero__mobile}`}>
         {DATA_HERO.map((item, index) => {
           return <ItemHero key={index} delay={DELAY + index / 10} data={item} />;
         })}

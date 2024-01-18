@@ -38,7 +38,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       @include is-min-table {
-        top: calc(50% - 5vh);
+        top: 50%;
       }
 
       &_inner {

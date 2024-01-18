@@ -46,7 +46,7 @@ const Section_7 = () => {
           <CardBody p={[0]} paddingRight={['20px']}>
             <Image
               src={item.imageUrl}
-              alt="thumb image"
+              alt='thumb image'
               width={'100%'}
               height={200}
               objectFit={'cover'}
@@ -74,18 +74,9 @@ const Section_7 = () => {
   return (
     <Box
       bgColor={'#fff'}
-      display={'flex'}
-      flexDirection={'column'}
-      py={['120px']}
-      justifyContent={'center'}
       className={s.slide}
     >
-      <Box
-        display={'flex'}
-        flexDirection={'column'}
-        className="maxWidth"
-        alignSelf={'center'}
-      >
+      <Box className='container'>
         <Text className={s.heading} fontSize={['48px']} color={'#000'}>
           <Chars>
             Oh, and the <span>press loves us too!</span>

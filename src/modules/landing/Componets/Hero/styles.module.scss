@@ -26,59 +26,19 @@
     position: absolute;
     z-index: 2;
     width: 100%;
-
-    @include is-mobile {
-      bottom: 20px;
-      display: flex;
-      justify-content: center;
-    }
-
-    @include is-tablet {
-      bottom: 40px;
-      display: flex;
-      justify-content: center;
-    }
+    display: none;
 
     @include is-pc {
       bottom: 210px;
+      display: block;
     }
   }
 
-  &_heading {
-    color: #fff;
-    font-size: 68px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 100%;
-    padding-bottom: 16px;
-    width: 100%;
+}
 
-    @include is-mobile {
-      font-size: 44px;
-      line-height: 120%;
-      padding: 0;
-    }
-  }
+.hero_wrap__mobile {
 
-  &_headingSub {
-    font-size: 42px;
-    font-style: normal;
-    color: #fff;
-    font-weight: 400;
-    line-height: 36px;
-    padding-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-
-    @include is-mobile {
-      padding-bottom: 10px;
-      font-size: 20px;
-    }
-
-    @include is-tablet {
-      font-size: 32px;
-      padding-bottom: 10px;
-    }
+  @include is-pc {
+    display: none;
   }
 }

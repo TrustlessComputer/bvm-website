@@ -24,7 +24,7 @@ export default function BitEth() {
         </Scale>
         <HeadingSection className={s.heading}>
           <Chars delay={.2}>
-            <b>Minimal effort</b> to migrate from Ethereum to Bitcoin.
+            <b>Minimal effort to migrate</b> from Ethereum to Bitcoin.
           </Chars>
         </HeadingSection>
         <ContentSection className={s.content}>
