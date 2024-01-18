@@ -3,6 +3,14 @@
   flex-direction: column;
   gap: 12px;
 
+  padding-top: 48px;
+  padding-bottom: 48px;
+
+  @include is-pc {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
 
   &_content {
     display: flex;
@@ -21,6 +29,7 @@
       justify-content: center;
       gap: 8px;
     }
+
     &_text {
       font-size: 20px;
       line-height: 36px;
@@ -28,12 +37,12 @@
       color: #fff;
 
       @include is-mobile {
-        //color: #000;
+        color: #000;
         font-size: 16px;
         line-height: 24px;
       }
       @include is-tablet {
-        //color: #000;
+        color: #000;
       }
     }
   }
@@ -41,6 +50,10 @@
   &_listHero {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 4px;
+    @include is-mobile {
+      justify-content: center;
+    }
   }
 }
