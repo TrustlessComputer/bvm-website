@@ -37,7 +37,7 @@
 }
 
 .hero_wrap__mobile {
-
+  background: white;
   @include is-pc {
     display: none;
   }

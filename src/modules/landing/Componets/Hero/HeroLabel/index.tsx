@@ -33,9 +33,10 @@ const DATA_HERO = [
 const DELAY = 1.8;
 
 export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
+  const delay = !isMobile ? DELAY  : 0;
   return (
     <div className={`container ${s.heroLabel} ${isMobile && s.heroLabel__mobile}`}>
-      <Fade delay={DELAY + .4}>
+      <Fade delay={delay + .4}>
         <div className={s.heroLabel_content}>
           <Image
             src={'/landing/svg/lego_icon_cube.svg'}
@@ -50,7 +51,7 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
       </Fade>
       <div className={`${s.heroLabel_listHero} ${isMobile && s.heroLabel_listHero__mobile}`}>
         {DATA_HERO.map((item, index) => {
-          return <ItemHero key={index} delay={DELAY + index / 10} data={item} />;
+          return <ItemHero key={index} delay={delay + index / 10} data={item} />;
         })}
       </div>
     </div>

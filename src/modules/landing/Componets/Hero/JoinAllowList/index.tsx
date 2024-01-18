@@ -7,6 +7,7 @@ import Chars from '@/interactive/Chars';
 import { getTopLeaderBoards } from '@/services/whitelist';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import Image from 'next/image';
+import { formatCurrency } from '@/utils/format';
 
 
 const DELAY = 2;
@@ -83,7 +84,7 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                   {/*})}*/}
                 </div>
                 <div className={s.whiteList_total}>
-                  <span>{totalUser}&nbsp;people</span>&nbsp;are on the allowlist
+                  <span>{formatCurrency(totalUser, 0,0)}&nbsp;people</span>&nbsp;are on the allowlist
                 </div>
               </div>
             </Fade>
