@@ -20,6 +20,8 @@ import ConnectModalEVM from '@/components/ConnectModal/modal.evm';
 import useFormatAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useFormatAllowBTC';
 import { formatCurrency } from '@/utils/format';
 import keplrCelestiaHelper from '@/utils/keplr.celestia';
+import { getError } from '@/utils/error';
+import toast from 'react-hot-toast';
 
 interface IAuthenCode {
   public_code: string;
@@ -72,6 +74,15 @@ const Steps = () => {
       )}`,
       '_blank',
     );
+  }
+
+  const onSignModular = async () => {
+    try {
+      const {} = await keplrCelestiaHelper.signCelestiaMessage()
+    } catch (error) {
+      const { message } = getError(error);
+      toast.error(message)
+    }
   }
 
   const handleShareRefferal = () => {
@@ -182,10 +193,10 @@ const Steps = () => {
         //   title: 'Are you a Modular Blockchain OG?',
         //   desc: 'You’re a visionary. You’re a pioneer. Holding at least XXX tokens of the following modular blockchains will give you more points: Optimism, Celestia, and Polygon.',
         //   actionText: 'How modular are you?',
-        //   actionHandle: onToggleConnectEVM,
+        //   actionHandle: onSignModular,
         //   isActive: !!token,
-        //   isDone: !!AllowListStorage.getStorage() && !!token,
-        //   step: MultiplierStep.signMessage,
+        //   isDone: !!token,
+        //   step: MultiplierStep.modular,
         //   image: "ic-modular-blockchain.svg",
         //   right: {
         //     title: '+10 PTS',
@@ -232,7 +243,7 @@ const Steps = () => {
         secretCode={authenCode?.secret_code}
         onSuccess={onVerifyTwSuccess}
       />
-      {/*<Button onClick={keplrCelestiaHelper.signCelestiaMessage}>TEST CELESTIA</Button>*/}
+      {/*<Button onClick={onSignModular}>TEST CELESTIA</Button>*/}
     </Flex>
   );
 };
