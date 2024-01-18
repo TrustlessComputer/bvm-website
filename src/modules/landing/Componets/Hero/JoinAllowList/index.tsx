@@ -10,7 +10,7 @@ import Image from 'next/image';
 
 
 const DELAY = 2;
-const JoinAllowList = () => {
+const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
   const [totalUser, setTotalUser] = useState<string>('');
@@ -34,7 +34,7 @@ const JoinAllowList = () => {
 
   return (
     <Fade delay={DELAY}>
-      <div className={s.container}>
+      <div className={`${s.container} ${isFooter && s.isFooter}`}>
         <div className={`container ${s.content}`}>
           <Flex flexDirection={'column'} gap={'8px'}>
             <Fade delay={DELAY + .2}>

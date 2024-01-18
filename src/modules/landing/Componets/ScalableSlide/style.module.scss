@@ -40,13 +40,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 120px;
+    gap: 3vw;
     bottom: 60px;
     width: 100%;
     position: absolute;
     z-index: 2;
     left: 0;
     border-top: 1px solid rgba(white, 0.2);
+    padding-left: 32px;
+    padding-right: 32px;
 
     @include is-tablet {
       flex-wrap: nowrap;
