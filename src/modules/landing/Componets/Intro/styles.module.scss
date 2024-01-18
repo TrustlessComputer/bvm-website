@@ -1,9 +1,6 @@
 .intro {
   height: 100vh;
   width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -31,17 +28,33 @@
   &_inner {
     position: relative;
     z-index: 3;
+    height: 100%;
+    width: 100%;
 
     &_thumbnail {
-      display: flex;
-      margin-bottom: 50px;
-      justify-content: center;
-      position: relative;
       --clipPath: 0%;
+      position: absolute;
+      top: calc(50% - 3vh);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      @include is-min-table {
+        top: calc(50% - 5vh);
+      }
+
+      &_inner {
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
 
       :global {
         .dotlottie-container {
-          width: 150px;
+          aspect-ratio: 150/334;
+          width: 100px;
+
+          @include is-min-table {
+            width: 150px;
+          }
         }
       }
 
@@ -91,6 +104,11 @@
                   rgba(225, 225, 225, 0) 100%
   );
 
+  transform: translateX(-20px);
+  @include is-min-table {
+    transform: translateX(-90px);
+  }
+
   svg,
   img {
     -webkit-user-drag: none;
@@ -101,16 +119,17 @@
 
   &_inner {
     position: absolute;
-    z-index: 3;
-    width: calc(100% - 56px);
+    z-index: 5;
+    width: calc(100% - 9px);
   }
 
   &_line {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: calc(50% - 5px);
     transform: translateX(-50%);
     pointer-events: none;
+    z-index: 5;
   }
 
   &_gradient {
@@ -135,9 +154,152 @@
   margin-left: auto;
   position: relative;
   z-index: 3;
+
+  &_substract {
+    position: relative;
+    z-index: 2;
+  }
+
+  &_door {
+    position: absolute;
+    top: calc(50% + 40px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 364px;
+    height: auto;
+    max-width: none;
+    mix-blend-mode: color-dodge;
+  }
 }
 
 .grid {
   position: absolute;
   bottom: -30%;
+
+  svg {
+    width: 500px;
+    height: auto;
+
+    @include is-min-table {
+      width: 720px;
+      height: auto;
+    }
+  }
+}
+
+
+.intro_inner_bottom {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &_cotnent {
+    position: absolute;
+    color: #FFF;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 19.6px */
+    letter-spacing: 0.28px;
+    text-transform: uppercase;
+    top: -54px;
+    right: 3px;
+
+    @include is-min-table {
+      right: 72px;
+    }
+  }
+}
+
+.intro_supper_content {
+  padding-top: 60px;
+  padding-left: 16px;
+  padding-right: 16px;
+
+  @include is-min-table {
+    padding-top: 120px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  &_bitcoin {
+    color: var(--Color-newsystem-White-100, #FFF);
+    text-align: center;
+    text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.06);
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 50px */
+    text-transform: uppercase;
+    margin-bottom: 28px;
+
+    @include is-tablet {
+      font-size: 42px;
+    }
+
+    @include is-mobile {
+      font-size: 34px;
+    }
+
+    b {
+      font-weight: 400;
+      color: #FA4E0E;
+    }
+  }
+
+  &_desc {
+    color: rgba(#FFF, .7);
+    text-align: center;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include is-tablet {
+      font-size: 20px;
+    }
+
+    @include is-mobile {
+      font-size: 16px;
+    }
+
+    b {
+      font-weight: 500;
+      color: white;
+    }
+  }
+}
+
+
+.flare {
+
+  --shadown: 0px;
+  --bg: 0;
+
+  height: 133px;
+  width: 88px;
+  border: 2px solid rgba(255, 255, 255, var(--bg));
+  box-shadow: 0 0 var(--shadown) calc(var(--shadown) / 2) #FFFFFF;
+  position: absolute;
+  bottom: -43px;
+  right: -20px;
+  z-index: 10;
+  background: rgba(255, 255, 255, var(--bg));
+}
+
+.sky {
+  --bg: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background: rgba(255, 255, 255, var(--bg));
 }

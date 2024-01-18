@@ -29,7 +29,6 @@ const JoinAllowList = () => {
     }
   }, [twitterUsername]);
 
-
   const onSubmit = async (values: FormValues) => {
     try {
       setIsCreating(true);
@@ -63,14 +62,15 @@ const JoinAllowList = () => {
     <div className={s.container}>
       {/*<form className={s.form} onSubmit={formik.handleSubmit}>*/}
       <div className={s.content}>
-        <Fade delay={.6}>
+        <Fade delay={0.6}>
           <div className={s.titleWrapper}>
-            <div className={s.title}>BVM PUBLIC SALE LEADERBOARD</div>
+            <div className={s.title}>BVM PUBLIC SALE</div>
           </div>
         </Fade>
         <div className={s.desc}>
-          <Chars delay={.7}>
-            Be the first to know. Allowlisters get up to <span>30% extra tokens</span>.
+          <Chars delay={0.7}>
+            Be the first to know. Allowlisters get up to{' '}
+            <span>30% extra tokens</span>.
           </Chars>
         </div>
 
@@ -84,9 +84,9 @@ const JoinAllowList = () => {
           {/*    onChange={onChangeText}*/}
           {/*  />*/}
           {/*</div>*/}
-          <Fade delay={.8}>
+          <Fade delay={0.8}>
             <Button
-              type='submit'
+              type="submit"
               // isDisabled={isCreating || !formValues.username}
               isLoading={isCreating}
               loadingText={'Submitting...'}

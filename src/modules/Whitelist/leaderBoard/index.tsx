@@ -14,10 +14,12 @@ import AppLoading from '@/components/AppLoading';
 import { CDN_URL_ICONS } from '@/config';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
-import { useAppSelector } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import BigNumber from 'bignumber.js';
 import SvgInset from '@/components/SvgInset';
+import { leaderBoardSelector } from '@/stores/states/user/selector';
+import { setLeaderBoard } from '@/stores/states/user/reducer';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -32,10 +34,11 @@ const valueToImage: any = {
 };
 
 const LeaderBoard = () => {
-  const [data, setData] = useState<ILeaderBoardPoint[]>([]);
+  const { list } = useAppSelector(leaderBoardSelector);
   const [isFetching, setIsFetching] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const needReload = useAppSelector(commonSelector).needReload;
+  const dispatch = useAppDispatch()
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -72,11 +75,18 @@ const LeaderBoard = () => {
           page: 1,
         };
         const reArr = removeOwnerRecord(response);
-
-        setData(sortList(response2.concat(reArr)));
+        const arr = sortList(response2.concat(reArr))
+        dispatch(setLeaderBoard({
+          list: arr,
+          count
+        }));
       } else {
         const reArr = removeOwnerRecord(response);
-        setData(_data => sortList([..._data, ...reArr]));
+        const arr = sortList([...reArr]);
+        dispatch(setLeaderBoard({
+          list: arr,
+          count
+        }));
       }
     } catch (error) {
     } finally {
@@ -365,7 +375,7 @@ const LeaderBoard = () => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>Content Points are calculated based on the performance of your posts on X, including Views.
-                    Note: To be qualified, you must tag: <br/><strong>@bvmnetwork</strong></p>
+                    Note: To be qualified, you must tag: <br/><strong>@BVMnetwork</strong></p>
                 </Flex>
               }
             >
@@ -580,7 +590,7 @@ const LeaderBoard = () => {
           hideScrollBar={false}
         >
           <ListTable
-            data={data}
+            data={list}
             columns={columns}
             className={styles.tableContainer}
           />

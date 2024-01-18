@@ -1,3 +1,6 @@
+import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
+import { SignatureStatus } from '@/interfaces/whitelist';
+
 export interface User {
   id: string;
   network: string;
@@ -22,5 +25,11 @@ export interface User {
 }
 
 export interface UserState {
-  user?: User | undefined
+  user?: User | undefined,
+  leaderBoard: ILeaderBoardPoint[];
+  leaderBoardCount: string;
+  allowBTC: {
+    status: SignatureStatus[];
+    loaded: boolean;
+  }
 }

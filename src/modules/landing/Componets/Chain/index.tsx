@@ -135,7 +135,7 @@ export default function Chain() {
             <p className={s.chain_case}>Case studies</p>
             <HeadingSection className={s.chain_heading}>
               <Chars>
-                Say hello to the first EVM-compatible <b>Bitcoin L2 blockchains</b> powered by BVM.
+                Say hello to the first <b>modular Bitcoin L2 blockchains</b> powered by BVM.
               </Chars>
             </HeadingSection>
             <Fade delay={0.6}>

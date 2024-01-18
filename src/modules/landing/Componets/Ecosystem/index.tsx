@@ -48,14 +48,13 @@ export default function Ecosystem() {
         <div className={s.ecosystem_heading}>
           <HeadingSection className={s.ecosystem_heading_title}>
             <Chars>
-              Why launch your own <b>Bitcoin L2 blockchain</b>?
+              Why launch your own <b>modular Bitcoin L2 blockchain</b>?
             </Chars>
           </HeadingSection>
           <ContentSection className={s.ecosystem_heading_description}>
             <Lines delay={.2}>
-              Whatever your vision — a dapp, a fully onchain game, a DEX, or an
-              ecosystem — there are many benefits of running your own Bitcoin L2
-              blockchain.
+              Whatever your vision — a dapp, a fully onchain game, a DEX, or an ecosystem — there are many benefits of
+              running your own Bitcoin L2 blockchain.
             </Lines>
           </ContentSection>
         </div>

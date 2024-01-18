@@ -33,6 +33,7 @@ const ToastOverlay = () => {
             color: '#FF4747',
             background: '#FFFFFF',
             justifyContent: 'center',
+            minWidth: '500px'
           },
         },
         style: {

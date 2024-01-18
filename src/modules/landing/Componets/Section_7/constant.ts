@@ -14,6 +14,33 @@ export interface IBlog {
 
 const BLOGS = [
   {
+    id: '16',
+    title: `Bitcoin developer sees ‘Bitcoin’s L2 era’ as key to mass adoption`,
+    desc: `Punk 3700, one of the developers behind Bitcoin Virtual Machine, assesses the potential of layer-two blockchains on top of Bitcoin as an important narrative in crypto's landscape for 2024.`,
+    logo: 'Coindesk',
+    imageUrl: `${CDN_URL_BLOGS}/Bitcoin-constructions-1024x585.webp`,
+    link: 'https://www.coindesk.com/tech/2023/08/02/a-new-bitcoin-based-arcade-game-is-leaving-a-mark-on-gamers/?utm_content=editorial&utm_medium=social&utm_term=organic&utm_campaign=coindesk_main&utm_source=twitter',
+    linkTarget: '_blank',
+  },
+  {
+    id: '7',
+    title: `DeFi on Bitcoin? Bitcoin Virtual Machine Says Yes`,
+    desc: `Developers can build decentralized apps on Bitcoin using Solidity smart contracts`,
+    logo: 'Blockworks',
+    imageUrl: `${CDN_URL_BLOGS}/Blockworks.webp`,
+    link: 'https://blockworks.co/news/defi-on-bitcoin',
+    linkTarget: '_blank',
+  },
+  {
+    id: '12',
+    title: `Bitcoin Transactions Hit Record High as New Token Type Takes Off`,
+    desc: `Bitcoin Virtual Machine enables its own form of fungible tokens, called SBRC-20s, punk3700, a pseudonymous core contributor to Bitcoin Virtual Machine, told The Defiant.`,
+    logo: 'The Defiant',
+    imageUrl: `${CDN_URL_BLOGS}/defiant.png`,
+    link: 'https://thedefiant.io/bitcoin-transactions-hit-record-high-as-new-token-type-takes-off',
+    linkTarget: '_blank',
+  },
+  {
     id: '13',
     title: `A New Bitcoin-Based Arcade Game Is Leaving a Mark on Gamers`,
     desc: `A platform that went live last week looks to expand bitcoin usage by attracting players to win-to-earn games that run wholly on the Bitcoin blockchain.`,
@@ -97,6 +124,7 @@ const BLOGS = [
     link: 'https://br.cointelegraph.com/news/defi-is-coming-to-bitcoin-says-expert',
     linkTarget: '_blank',
   },
+
   {
     id: '6',
     title: `Bitcoin faster? Project uses Optimism to generate blocks every 2 seconds`,
@@ -106,15 +134,7 @@ const BLOGS = [
     link: 'https://br.cointelegraph.com/news/bitcoin-becoming-faster-project-uses-optimism-to-generate-blocks-with-2-second-time',
     linkTarget: '_blank',
   },
-  {
-    id: '7',
-    title: `DeFi on Bitcoin? Bitcoin Virtual Machine Says Yes`,
-    desc: `Developers can build decentralized apps on Bitcoin using Solidity smart contracts`,
-    logo: 'Blockworks',
-    imageUrl: `${CDN_URL_BLOGS}/Blockworks.webp`,
-    link: 'https://blockworks.co/news/defi-on-bitcoin',
-    linkTarget: '_blank',
-  },
+
   {
     id: '8',
     title: `BITCOIN VIRTUAL MACHINE DEPLOYS UNISWAP V2 SMART CONTRACTS: HUGE MILESTONE FOR BITCOIN`,
@@ -141,15 +161,6 @@ const BLOGS = [
     logo: 'BSC News',
     imageUrl: `${CDN_URL_BLOGS}/BSCNews.jpeg`,
     link: 'https://www.bsc.news/post/exploring-the-new-bitcoin-city-ecosystem-with-its-unique-dex',
-    linkTarget: '_blank',
-  },
-  {
-    id: '12',
-    title: `Bitcoin Transactions Hit Record High as New Token Type Takes Off`,
-    desc: `Bitcoin Virtual Machine enables its own form of fungible tokens, called SBRC-20s, punk3700, a pseudonymous core contributor to Bitcoin Virtual Machine, told The Defiant.`,
-    logo: 'The Defiant',
-    imageUrl: `${CDN_URL_BLOGS}/defiant.png`,
-    link: 'https://thedefiant.io/bitcoin-transactions-hit-record-high-as-new-token-type-takes-off',
     linkTarget: '_blank',
   },
 ];

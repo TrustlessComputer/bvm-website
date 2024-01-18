@@ -9,11 +9,16 @@
     align-self: center;
 
     .title {
-      font-size: 48px;
+      color: #000;
+      font-size: 32px;
+      font-style: normal;
       font-weight: 400;
+      line-height: 120%;
       text-align: start;
-      color: black;
-      width: 100%;
+      align-self: start;
+      span {
+        font-weight: 700;
+      }
       @include w-max(768px) {
         font-size: 24px;
       }
@@ -43,7 +48,7 @@
         display: grid;
         grid-template-columns: 1fr 560px;
         gap: 40px;
-        margin-top: 16px;
+        margin-top: 24px;
         margin-bottom: 48px;
         width: 100%;
         @include w-max(1280px) {

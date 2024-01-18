@@ -9,6 +9,7 @@ import { User } from '@/stores/states/user/types';
 import { getReferralByURL } from '@/utils/helpers';
 import userServices from '@/services/user';
 import ReferralStorage from '@/utils/storage/referral.storage';
+import useAllowBTC from '@/modules/Whitelist/HistoryMessage/useAllowBTC';
 
 export interface IUserContext {}
 
@@ -22,7 +23,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
   const dispatch = useAppDispatch();
   const needReload = useAppSelector(commonSelector).needReload;
   const token = AuthenStorage.getAuthenKey();
-
+  useAllowBTC()
   const fetchUserInfo = async () => {
     const userInfo = await userServices.getUser()
     dispatch(setUser(userInfo as User))
