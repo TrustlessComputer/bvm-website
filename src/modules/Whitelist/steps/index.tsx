@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import ItemStep, { IItemCommunity, MultiplierStep } from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
@@ -19,6 +19,7 @@ import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 import ConnectModalEVM from '@/components/ConnectModal/modal.evm';
 import useFormatAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useFormatAllowBTC';
 import { formatCurrency } from '@/utils/format';
+import keplrCelestiaHelper from '@/utils/keplr.celestia';
 
 interface IAuthenCode {
   public_code: string;
@@ -159,7 +160,7 @@ const Steps = () => {
           actionText: isNeedClaim ? `Tweet to claim ${formatCurrency(amount.unClaimedPoint, 0, 0)} pts` : 'How much have I spent on sats?',
           actionHandle: isNeedClaim ? async () => {
             try {
-              shareBTCOG({ fee: amount.fee, feeUSD: amount.feeUSD });
+              shareBTCOG({ fee: amount.fee, feeUSD: amount.feeUSD, refCode: user?.referral_code });
               await requestClaimBTCPoint(status)
               dispatch(requestReload())
             } catch (error) {
@@ -231,6 +232,7 @@ const Steps = () => {
         secretCode={authenCode?.secret_code}
         onSuccess={onVerifyTwSuccess}
       />
+      {/*<Button onClick={keplrCelestiaHelper.signCelestiaMessage}>TEST CELESTIA</Button>*/}
     </Flex>
   );
 };

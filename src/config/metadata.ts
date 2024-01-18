@@ -35,7 +35,7 @@ const metadataConfig: Metadata = {
     description: APP_DESCRIPTION,
     images: [
       {
-        url: 'https://cdn.newbitcoincity.com/nbc/icons/bvm-icons/metadata_3.png',
+        url: 'https://cdn.newbitcoincity.com/nbc/icons/bvm-icons/metadata_4.png',
         width: 1200,
         height: 630,
         alt: APP_NAME,
