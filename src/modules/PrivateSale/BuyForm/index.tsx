@@ -99,13 +99,13 @@ const PrivateSaleForm = () => {
             sed do eiusmod</Lines></Text>
           <Fade delay={DELAY + .8}>
             <Text className={s.launchText}>Private Sale End in</Text>
-            <Box mb={'60px'} mt={8}>
+            <Box mb={'40px'} mt={8}>
               <Countdown className={s.textCountdown} expiredTime={dayjs.utc('2024-01-26', 'YYYY-MM-DD').toString()}
                          hideIcon={true} />
             </Box>
           </Fade>
 
-          <Flex gap={8} direction={'column'} width={'100%'}>
+          <Flex gap={6} direction={'column'} width={'100%'}>
             <Fade delay={DELAY + 1}>
               <div className={s.inputContainer}>
                 <input
@@ -134,7 +134,7 @@ const PrivateSaleForm = () => {
                   <Flex gap={6} mt={4} w={'100%'} justifyContent={'space-between'}>
                     <Flex direction={'column'} alignItems={'center'} gap={3}>
                       <QRCode
-                        size={150}
+                        size={130}
                         value={vcInfo?.btc_address || ''}
                         logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
                       />
@@ -142,7 +142,7 @@ const PrivateSaleForm = () => {
                     </Flex>
                     <Flex direction={'column'} alignItems={'center'} gap={3}>
                       <QRCode
-                        size={150}
+                        size={130}
                         value={vcInfo?.eth_balance || ''}
                         logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
                       />

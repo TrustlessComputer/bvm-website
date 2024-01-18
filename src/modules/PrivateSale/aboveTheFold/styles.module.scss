@@ -17,6 +17,10 @@
     }
   }
 
+  .leftSection {
+    padding-top: 30%;
+  }
+
   .rightSection {
     @include w-max(768px) {
       //margin-top: 40px;
