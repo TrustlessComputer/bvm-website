@@ -19,7 +19,7 @@ const BLOGS = [
     desc: `Punk 3700, one of the developers behind Bitcoin Virtual Machine, assesses the potential of layer-two blockchains on top of Bitcoin as an important narrative in crypto's landscape for 2024.`,
     logo: 'Coindesk',
     imageUrl: `${CDN_URL_BLOGS}/Bitcoin-constructions-1024x585.webp`,
-    link: 'https://www.coindesk.com/tech/2023/08/02/a-new-bitcoin-based-arcade-game-is-leaving-a-mark-on-gamers/?utm_content=editorial&utm_medium=social&utm_term=organic&utm_campaign=coindesk_main&utm_source=twitter',
+    link: 'https://cryptobriefing.com/exploring-future-developers-insight-bitcoins-l2-era/',
     linkTarget: '_blank',
   },
   {
