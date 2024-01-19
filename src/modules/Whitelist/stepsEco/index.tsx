@@ -49,7 +49,7 @@ const StepsEco = () => {
       },
       {
         title: 'Play Satoshi\'s Gambit',
-        desc: 'Experience the first 3D fully on-chain game on Bitcoin. Play, have fun, and earn more tokens.',
+        desc: 'Experience the first 3D fully on-chain game on Bitcoin. Play, have fun, and earn more points.',
         actionText: 'Play',
         image: 'bitcoin-arcade.svg',
         actionHandle: () => {
