@@ -591,8 +591,9 @@ const LeaderBoard = () => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    Ecosystem Points are calculated from your holding & staking{' '}
-                    <strong>TIA</strong>
+                    Points earned by doing tasks in other dApps like Naka
+                    Genesis, Bitcoin Arcade, Alpha, and more within the BVM
+                    ecosystem.
                   </p>
                 </Flex>
               }
