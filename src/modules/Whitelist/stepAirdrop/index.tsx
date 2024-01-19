@@ -64,7 +64,7 @@ const StepsAirdrop = () => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    Use this raffle code
+                    The raffle code is used to find the winner.
                   </p>
                 </Flex>
               }
