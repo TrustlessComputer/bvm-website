@@ -1,0 +1,66 @@
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
+import AuthenStorage from '@/utils/storage/authen.storage';
+import { Flex } from '@chakra-ui/react';
+import React, { useMemo, useState } from 'react';
+import ItemStep, { IItemCommunity } from './Step';
+import s from './styles.module.scss';
+
+const StepsAirdrop = () => {
+  const token = AuthenStorage.getAuthenKey();
+  const needReload = useAppSelector(commonSelector).needReload;
+
+  const handleShareTw = async () => {
+    const shareUrl = 'https://nakachain.xyz';
+    const content = ``;
+    window.open(
+      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+        content,
+      )}`,
+      '_blank',
+    );
+  };
+
+  const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
+    return [
+      {
+        title: 'New: Timechain',
+        desc: `Tweet about BVM to enter a raffle for Timechain - one of the first generative art on Ordinals.
+        <a href='https://nakachain.xyz' style='color: #00d9f5'>Learn more ></a>
+        `,
+        actionText: 'Tweet join enter raffle',
+        image: "ic-x.svg",
+        actionHandle: handleShareTw,
+        isActive: !!token,
+        right: {
+          title: '+10 Raffle',
+          desc: 'per friend',
+        },
+      },
+    ];
+  }, [token, needReload]);
+
+  return (
+    <Flex
+      className={s.container}
+      direction={'column'}
+      gap={{
+        base: '20px',
+        md: '40px',
+      }}
+    >
+      {DATA_COMMUNITY.map((item, index) => {
+        return (
+          <ItemStep
+            key={index}
+            index={index}
+            content={item}
+            isLoading={false}
+          />
+        );
+      })}
+    </Flex>
+  );
+};
+
+export default StepsAirdrop;

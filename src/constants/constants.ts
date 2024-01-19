@@ -9,3 +9,11 @@ export {
   NATIVE_ETH_ADDRESS,
   METAMASK_DOWNLOAD_PAGE
 };
+
+export const ALLOWED_ATTRIBUTES = {
+  '*': ['style'],
+  span: ['class'],
+  a: ['href', 'target'],
+  img: ['src', 'width', 'height'],
+  iframe: ['src', 'width', 'height'],
+};

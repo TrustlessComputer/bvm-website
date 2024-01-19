@@ -14,6 +14,7 @@ import CountUp from 'react-countup';
 // import FAQContent from './FAQContent';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import StepsEco from './stepsEco';
+import StepsAirdrop from '@/modules/Whitelist/stepAirdrop';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
@@ -81,6 +82,9 @@ const Whitelist = () => {
               </TabPanel>
               <TabPanel>
                 <StepsEco />
+              </TabPanel>
+               <TabPanel>
+                <StepsAirdrop />
               </TabPanel>
             </TabPanels>
           </Tabs>
