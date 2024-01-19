@@ -78,3 +78,36 @@ export const verifyNaka = async (params: any): Promise<any> => {
   }
   return;
 };
+
+export const getRaffleJoin = async (): Promise<any> => {
+  try {
+    const res = await apiClient.get(`/bvm/raffle/join`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+}
+
+export const joinRaffle = async (): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/raffle/join`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+}
+
+export const getRaffleUsers = async (params: any): Promise<any> => {
+  try {
+    const res = await apiClient.get(`/bvm/raffle/join`, {params});
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+}

@@ -10,6 +10,7 @@ import sanitizeHtml from 'sanitize-html';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import utc from 'dayjs/plugin/utc';
+import { AirdropTask } from '@/modules/Whitelist/stepAirdrop';
 
 dayjs.extend(utc);
 
@@ -28,6 +29,8 @@ export interface IItemCommunity {
     desc: string;
   };
   expiredTime?: string;
+  task: AirdropTask;
+  totalJoin?: number;
 }
 
 export default function ItemCommunity({
