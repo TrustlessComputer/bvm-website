@@ -10,12 +10,9 @@ const StepsEco = () => {
   const [showSyncBVM, setShowSyncBVM] = useState(false);
 
   const handleShareTw = async () => {
-    const shareUrl = 'https://nakachain.xyz';
-    const content = ``;
+    const content = `Exciting days for Bitcoin L2 with @BVMnetwork!\n\n@Naka_chain, powered by BVM, is exclusively built for BRC-20 DeFi with 2s block time, gas fees of less than $0.01, and supported by smart contracts.\n\nLet's make DeFi on Bitcoin accessible to everyone!\n\nnakachain.xyz`;
     window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
       '_blank',
     );
   };
@@ -24,14 +21,14 @@ const StepsEco = () => {
     return [
       {
         title: 'Share the word about NakaChain',
-        desc: 'Post on X as often as you like and tag @Naka_chain to climb the ranks.',
+        desc: 'Follow naka_chain, Post on X and tag @Naka_chain to climb the ranks.',
         actionText: 'Post',
         image: 'ic-naka.svg',
         actionHandle: handleShareTw,
         isActive: !!token,
         right: {
-          title: !token ? '+1000 PTS' : '+1 PTS',
-          desc: !token ? 'first post' : 'per view',
+          title: '+1000 PTS',
+          desc: '',
         },
       },
       {
@@ -44,8 +41,8 @@ const StepsEco = () => {
         },
         isActive: !!token,
         right: {
-          title: !token ? '+1 PTS' : '+1 PTS',
-          desc: !token ? 'first post' : 'per 0.000025 BTC',
+          title: '+1 PTS',
+          desc: 'per 25000 SAT',
         },
       },
       {
