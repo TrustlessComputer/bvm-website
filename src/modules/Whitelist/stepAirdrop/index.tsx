@@ -11,12 +11,8 @@ const StepsAirdrop = () => {
   const needReload = useAppSelector(commonSelector).needReload;
 
   const handleShareTw = async () => {
-    const shareUrl = 'https://nakachain.xyz';
-    const content = ``;
     window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
+      `https://twitter.com/BVMnetwork`,
       '_blank',
     );
   };
@@ -39,7 +35,7 @@ const StepsAirdrop = () => {
           title: '+1 raffle ticket',
           desc: '',
         },
-        expiredTime: '2024-01-22',
+        expiredTime: '2024-01-22 08:00:00',
       },
       {
         title: 'Retrospective: 2023 users',
@@ -54,7 +50,7 @@ const StepsAirdrop = () => {
           title: '',
           desc: '',
         },
-        expiredTime: '2024-01-24',
+        expiredTime: '2024-01-24 00:00:00',
       },
     ];
   }, [token, needReload]);
