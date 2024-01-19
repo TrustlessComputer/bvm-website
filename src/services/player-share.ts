@@ -76,9 +76,8 @@ export const verifyNaka = async (params: any): Promise<any> => {
     const res = await apiClient.post(`/bvm/verify-naka`, params);
     return Object(camelCaseKeys(res));
   } catch (error) {
-    console.log(error);
+    throw error;
   }
-  return;
 };
 
 export const getRaffleJoin = async (): Promise<any> => {
@@ -90,7 +89,7 @@ export const getRaffleJoin = async (): Promise<any> => {
   }
 
   return null;
-}
+};
 
 export const joinRaffle = async (): Promise<any> => {
   try {
@@ -101,25 +100,32 @@ export const joinRaffle = async (): Promise<any> => {
   }
 
   return null;
-}
+};
 
 export const getRaffleUsers = async (params: any): Promise<any> => {
   try {
-    const res = await apiClient.get(`/bvm/raffle/join`, {params});
+    const res = await apiClient.get(`/bvm/raffle/join`, { params });
     return res;
   } catch (error) {
     console.log(error);
   }
 
   return null;
-}
+};
 
-export const getVCWalletInfo = async ({vc_type, wallet_id}: any): Promise<VCWalletInfo> => {
-  const res = (await apiClient.get(`/bvm/vc/wallet?vc_type=${vc_type}&wallet_id=${wallet_id}`)) as unknown as VCWalletInfo;
+export const getVCWalletInfo = async ({
+  vc_type,
+  wallet_id,
+}: any): Promise<VCWalletInfo> => {
+  const res = (await apiClient.get(
+    `/bvm/vc/wallet?vc_type=${vc_type}&wallet_id=${wallet_id}`,
+  )) as unknown as VCWalletInfo;
   return res;
-}
+};
 
-export const getVCInformation = async ({vc_type}: any): Promise<VCInfo> => {
-  const res = (await apiClient.get(`/bvm/vc/info?vc_type=${vc_type}`)) as unknown as VCInfo;
+export const getVCInformation = async ({ vc_type }: any): Promise<VCInfo> => {
+  const res = (await apiClient.get(
+    `/bvm/vc/info?vc_type=${vc_type}`,
+  )) as unknown as VCInfo;
   return res;
-}
+};
