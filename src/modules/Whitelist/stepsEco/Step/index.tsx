@@ -61,9 +61,7 @@ export default function ItemCommunity({
                 <div
                   className={s.itemCommunity__desc}
                   dangerouslySetInnerHTML={{
-                    __html: sanitizeHtml(content?.desc as string, {
-                      allowedAttributes: ALLOWED_ATTRIBUTES,
-                    }),
+                    __html: content?.desc,
                   }}
                 />
               )}
@@ -107,13 +105,7 @@ export default function ItemCommunity({
             <Flex direction="column">
               <div className={s.itemCommunity__point}>
                 {content?.right.title}
-                {
-                  content?.right.tooltip && (
-                    <>
-                      {content?.right.tooltip}
-                    </>
-                  )
-                }
+                {content?.right.tooltip && <>{content?.right.tooltip}</>}
               </div>
               {!!content?.desc && (
                 <div className={s.itemCommunity__pointNote}>
