@@ -31,7 +31,7 @@ const Whitelist = () => {
   React.useEffect(() => {
     const leaderBoard = document.getElementById(LEADER_BOARD_ID);
     const stepper = document.getElementById(STEP_ID);
-    if (stepper && stepHeight && !isMobile) {
+    if (stepper && stepHeight && !isMobile && leaderBoard) {
       leaderBoard.style.maxHeight = `${stepHeight}px`;
     }
 
