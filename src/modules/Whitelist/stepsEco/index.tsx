@@ -37,7 +37,7 @@ const StepsEco = () => {
       {
         title: 'Swap and Add Liquidity on Naka Genesis',
         desc: 'The higher the volume you make the more airdrop points you will get.',
-        actionText: 'Verify',
+        actionText: 'Connect',
         image: 'ic-naka.svg',
         actionHandle: () => {
           setShowSyncBVM(true);

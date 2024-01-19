@@ -33,7 +33,7 @@ const valueToImage: any = {
   '30': 'flash_supper.svg',
 };
 
-export const LEADER_BOARD_ID = 'LEADER_BOARD_ID'
+export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
 const LeaderBoard = () => {
   const { list } = useAppSelector(leaderBoardSelector);
@@ -371,7 +371,7 @@ const LeaderBoard = () => {
             }}
             gap="3px"
           >
-            <p style={{ textTransform: 'uppercase' }}>BITCOIN OG PTS</p>
+            <p style={{ textTransform: 'uppercase' }}>BITCOIN PTS</p>
             <Tooltip
               minW="220px"
               bg="white"
@@ -431,7 +431,7 @@ const LeaderBoard = () => {
               gap: '4px',
             }}
           >
-            <p style={{ textTransform:'uppercase' }}>MODULAR POINTS</p>
+            <p style={{ textTransform: 'uppercase' }}>MODULAR POINTS</p>
             <Tooltip
               minW="220px"
               bg="white"
@@ -440,11 +440,17 @@ const LeaderBoard = () => {
               padding="8px"
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Modular Points are calculated from your holding & staking <strong>TIA</strong></p>
+                  <p>
+                    Modular Points are calculated from your holding & staking{' '}
+                    <strong>TIA</strong>
+                  </p>
                 </Flex>
               }
             >
-              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
             </Tooltip>
           </Flex>
         ),
@@ -564,7 +570,7 @@ const LeaderBoard = () => {
         },
       },
       {
-        id: 'celestia',
+        id: 'eco',
         label: (
           <Flex
             style={{
@@ -575,7 +581,7 @@ const LeaderBoard = () => {
               gap: '4px',
             }}
           >
-            <p style={{ textTransform: 'uppercase' }}>MODULAR PTS</p>
+            <p style={{ textTransform: 'uppercase' }}>ECOSYSTEM PTS</p>
             <Tooltip
               minW="220px"
               bg="white"
@@ -585,7 +591,7 @@ const LeaderBoard = () => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    Modular Points are calculated from your holding & staking{' '}
+                    Ecosystem Points are calculated from your holding & staking{' '}
                     <strong>TIA</strong>
                   </p>
                 </Flex>
@@ -609,47 +615,7 @@ const LeaderBoard = () => {
         render(data: ILeaderBoardPoint) {
           return (
             <Flex
-              gap={3}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
-            >
-              <Flex alignItems={'center'} gap={'4px'}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.celestia_point, 0, 0)}
-                </Text>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'eco',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              width: '100%',
-              gap: '4px',
-            }}
-          >
-            <p style={{ textTransform: 'uppercase' }}>ECOSYSTEM PTS</p>
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '16px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex
-              gap={3}
+              gap={'4px'}
               alignItems={'center'}
               width={'100%'}
               justifyContent={'center'}

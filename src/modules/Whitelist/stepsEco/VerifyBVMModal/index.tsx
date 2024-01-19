@@ -2,15 +2,18 @@ import BaseModal from '@/components/BaseModal';
 import { PERP_NAKA_API_URL } from '@/config';
 import { apiClient } from '@/services';
 import { verifyNaka } from '@/services/player-share';
+import { requestReload } from '@/stores/states/common/reducer';
 import { decryptAES, generateRandomString } from '@/utils/encryption';
 import { Box, Flex, ListItem, OrderedList, Text } from '@chakra-ui/react';
 import React from 'react';
 import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
+import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import s from './styles.module.scss';
 
 const VerifyBVMModal = ({ isShow, onHide }: any) => {
+  const dispatch = useDispatch();
   const publicCode = uuidv4();
   const privateCode = uuidv4();
 
@@ -48,12 +51,13 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
         const data = JSON.parse(decryptAES(rs, descryptCode));
         if (data && data.address) {
           await verifyNaka(data);
-          toast.success('Verify Naka successfully!');
+          dispatch(requestReload());
+          toast.success('Connect to Naka successfully!');
           onHide && onHide();
         }
       }
     } catch (error) {
-      toast.error('Can not verify Naka.');
+      toast.error('Can not connect.');
     }
   };
 
@@ -61,7 +65,7 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
     getSyncData(publicCode);
     const interval = setInterval(() => {
       getSyncData(publicCode);
-    }, 5000); // 5s
+    }, 3000); // 3s
     return () => {
       clearInterval(interval);
     };
@@ -75,7 +79,7 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
     <BaseModal
       isShow={isShow}
       onHide={onHide}
-      title={'Scan to verify Naka'}
+      title={'Scan to connect Naka Genesis'}
       headerClassName={s.modalManualHeader}
       className={s.modalContent}
     >
@@ -98,7 +102,7 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
                 fontWeight={600}
                 mb="4px"
               >
-                How to sync your Naka Genesis to the BVM:
+                How to connect your Naka Genesis to the BVM:
               </Text>
               <OrderedList fontWeight={400}>
                 <ListItem textAlign="left">
@@ -119,7 +123,10 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
                   Tap the balance at the bottom right to access the Wallet page
                 </ListItem>
                 <ListItem mt="4px" textAlign="left">
-                  Click on the QR scan icon next to the three dots icon
+                  Click on the three dots icon
+                </ListItem>
+                <ListItem mt="4px" textAlign="left">
+                  Click on the Connect to BVM
                 </ListItem>
                 <ListItem mt="4px" textAlign="left">
                   Scan the QR code provided
