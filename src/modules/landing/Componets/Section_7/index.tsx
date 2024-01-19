@@ -27,13 +27,22 @@ const SliderSlick = dynamic(
 );
 
 import dynamic from 'next/dynamic';
-import { IBlog, BLOGS } from './constant';
+import { IBlog, BLOGS, LOGOS } from './constant';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
+import { useMemo } from 'react';
 
 const Section_7 = () => {
   const numberSlide = isMobile ? 1 : isTablet ? 2 : 4;
+
+
   const renderCard = (item: IBlog) => {
+    const getLogo = useMemo((): string => {
+      const tmp = LOGOS.filter((itemLogo => {
+        return itemLogo.id === item.logo;
+      }));
+      return tmp.length ? tmp[0].img : '';
+    }, [item]);
     return (
       <Box
         minH={'450px'}
@@ -51,6 +60,18 @@ const Section_7 = () => {
               height={200}
               objectFit={'cover'}
             />
+            {
+              getLogo && <div className={s.cardLogo}>
+                <Image
+                  src={getLogo}
+                  alt='thumb image'
+                  width={'100%'}
+                  height={28}
+                  objectFit={'contain'}
+                />
+              </div>
+            }
+
             <Box height={'20px'} />
             <VStack align={'flex-start'}>
               <Text fontSize={['24px']} fontWeight={400} color={'#000'}>

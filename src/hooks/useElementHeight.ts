@@ -7,12 +7,24 @@ interface IProps {
 const useElementHeight = ({ elementID }: IProps) => {
   const [height, setHeight] = React.useState(0);
 
-  React.useEffect(() => {
+  const checkElementHeight = () => {
     if (!elementID) return
     const element = document.getElementById(elementID);
     if (element) {
-      setHeight(element.offsetHeight)
+      setHeight(element.offsetHeight);
+      element.addEventListener('resize', () => {
+        console.log('SANG TEST');
+      })
+
     }
+
+  }
+
+  React.useEffect(() => {
+    checkElementHeight();
+    setInterval(() => {
+      checkElementHeight();
+    }, 3000)
   }, [])
 
   return {
