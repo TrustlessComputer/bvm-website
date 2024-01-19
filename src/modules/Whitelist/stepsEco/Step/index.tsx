@@ -6,6 +6,8 @@ import cx from 'clsx';
 import Image from 'next/image';
 import React, { useMemo } from 'react';
 import s from './styles.module.scss';
+import sanitizeHtml from 'sanitize-html';
+import { ALLOWED_ATTRIBUTES } from '@/constants/constants';
 
 export interface IItemCommunity {
   title: string;
@@ -54,7 +56,14 @@ export default function ItemCommunity({
             <Flex direction="column" w="100%">
               <div className={s.itemCommunity__title}>{content?.title}</div>
               {!!content?.desc && (
-                <div className={s.itemCommunity__desc}>{content?.desc}</div>
+                <div
+                  className={s.itemCommunity__desc}
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeHtml(content?.desc as string, {
+                      allowedAttributes: ALLOWED_ATTRIBUTES,
+                    }),
+                  }}
+                />
               )}
               {!!content?.actionText && (
                 <Flex direction="column" w="100%" mt="8px">
