@@ -7,6 +7,11 @@ import React, { useMemo } from 'react';
 import s from './styles.module.scss';
 import { ALLOWED_ATTRIBUTES } from '@/constants/constants';
 import sanitizeHtml from 'sanitize-html';
+import dayjs from 'dayjs';
+import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
 
 export interface IItemCommunity {
   title: string;
@@ -22,6 +27,7 @@ export interface IItemCommunity {
     title: string;
     desc: string;
   };
+  expiredTime?: string;
 }
 
 export default function ItemCommunity({
@@ -63,6 +69,15 @@ export default function ItemCommunity({
                   }}
                 />
               )}
+              {
+                <Flex>
+                  {
+                    !!content?.expiredTime && (
+                      <Countdown className={s.itemCommunity__countdown} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD').toString()} hideIcon={true} />
+                    )
+                  }
+                </Flex>
+              }
               {!!content?.actionText && (
                 <Flex direction="column" w="100%" mt="8px">
                   <Flex gap="8px" flexDirection="column" w="100%">

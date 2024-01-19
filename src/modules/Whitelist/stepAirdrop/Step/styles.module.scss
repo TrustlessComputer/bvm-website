@@ -31,6 +31,23 @@
       font-weight: 700;
     }
   }
+  &__countdown {
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+    opacity: 0.7;
+    justify-content: flex-start;
+    span {
+      font-weight: 700;
+    }
+
+    > p {
+      color: inherit !important;
+      font-weight: inherit !important;
+    }
+  }
   &__point {
     color: #000;
     text-align: right;
