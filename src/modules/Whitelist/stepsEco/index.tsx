@@ -72,7 +72,7 @@ const StepsEco = () => {
         isActive: !!token,
         right: {
           title: '+1,000 PTS',
-          desc: 'per kilometer',
+          desc: 'per km (0.62 mile)',
           tooltip: (
             <Tooltip
               minW="220px"
