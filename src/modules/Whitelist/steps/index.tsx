@@ -157,8 +157,8 @@ const Steps = () => {
       isActive: true,
       step: MultiplierStep.authen,
       right: {
-        title: !token ? '+1000 PTS' : '+1 PTS',
-        desc: !token ? 'first post' : 'per view'
+        title: !token ? '+1000 PTS' : '+1000 PTS',
+        desc: !token ? 'first post' : 'per 1000 view'
       },
       handleShowManualPopup: handleShowManualPopup,
     };
