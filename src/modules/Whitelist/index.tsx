@@ -75,6 +75,7 @@ const Whitelist = () => {
             <TabList mb="32px" overflow="hidden">
               <Tab>Start here</Tab>
               <Tab>Ecosystem</Tab>
+              <Tab>Airdrop 1</Tab>
             </TabList>
             <TabPanels w="100%">
               <TabPanel>

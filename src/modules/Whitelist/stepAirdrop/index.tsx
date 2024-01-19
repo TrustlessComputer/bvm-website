@@ -36,6 +36,7 @@ const StepsAirdrop = () => {
           title: '+10 Raffle',
           desc: 'per friend',
         },
+        expiredTime: '2024-01-26'
       },
     ];
   }, [token, needReload]);
