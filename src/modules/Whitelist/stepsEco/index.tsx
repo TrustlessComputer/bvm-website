@@ -37,7 +37,7 @@ const StepsEco = () => {
       {
         title: 'Swap and Add Liquidity on Naka Genesis',
         desc: 'The higher the volume you make the more airdrop points you will get.',
-        actionText: 'Verify',
+        actionText: 'Connect',
         image: 'ic-naka.svg',
         actionHandle: () => {
           setShowSyncBVM(true);
@@ -46,6 +46,34 @@ const StepsEco = () => {
         right: {
           title: !token ? '+1 PTS' : '+1 PTS',
           desc: !token ? 'first post' : 'per 0.000025 BTC',
+        },
+      },
+      {
+        title: 'Play Satoshi Gambit',
+        desc: 'Experience the first 3D fully on-chain game on Bitcoin. Play, have fun, and earn more tokens.',
+        actionText: 'Play',
+        image: 'bitcoin-arcade.svg',
+        actionHandle: () => {
+          window.open('https://bitcoinarcade.xyz/');
+        },
+        isActive: !!token,
+        right: {
+          title: '',
+          desc: '',
+        },
+      },
+      {
+        title: 'Crypto Bull Run',
+        desc: 'Run to get fit in reality, engage online in a Web3 environment, and raise funds for charity all at once!',
+        actionText: 'Run',
+        image: 'alpha.svg',
+        actionHandle: () => {
+          window.open('https://app.alpha.wtf/');
+        },
+        isActive: !!token,
+        right: {
+          title: '',
+          desc: '',
         },
       },
     ];
