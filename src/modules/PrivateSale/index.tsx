@@ -7,15 +7,18 @@ import LocalStorageUtil from '@/utils/localstorage';
 import { KEY_VC_TYPE } from '@/constants/storage-key';
 import { useEffect } from 'react';
 import { getCacheTokensRate } from '@/services/bitcoin';
+import { useParams } from 'next/navigation';
 
 const PrivateSaleModule = () => {
+  const params = useParams();
   const vcType = LocalStorageUtil.get(KEY_VC_TYPE);
+  const id = params?.id;
 
   useEffect(() => {
-    if(!vcType) {
-      LocalStorageUtil.set(KEY_VC_TYPE, 'vc1');
+    if(!vcType && id) {
+      LocalStorageUtil.set(KEY_VC_TYPE, id);
     }
-  }, [vcType]);
+  }, [vcType, id]);
 
   useEffect(() => {
     getCacheTokensRate();

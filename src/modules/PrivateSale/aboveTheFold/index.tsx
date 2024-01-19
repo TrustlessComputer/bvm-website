@@ -1,18 +1,37 @@
 import s from './styles.module.scss';
-import { Box, Button, Flex, SimpleGrid, Text } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import { Box, Button, Flex, SimpleGrid, Text, useSteps } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import Lines from '@/interactive/Lines';
 import Fade from '@/interactive/Fade';
 import useAnimationStore from '@/stores/useAnimationStore';
 import BuyForm from '@/modules/PrivateSale/BuyForm';
 import HeadingTextTyping from '@/modules/landing/Componets/HeadingTextTyping';
+import LocalStorageUtil from '@/utils/localstorage';
+import { KEY_VC_TYPE } from '@/constants/storage-key';
+import { getVCInformation } from '@/services/player-share';
+import { VCInfo } from '@/interfaces/vc';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
+  const vcType = LocalStorageUtil.get(KEY_VC_TYPE);
+  const [vcInfo, setVCInfo] = useState<VCInfo>();
 
   useEffect(() => {
     setTimeout(setPlay, 400);
   }, []);
+
+  useEffect(() => {
+    if(vcType) {
+      getVCInfo(vcType as string);
+    }
+  }, [vcType]);
+
+  const getVCInfo = async (id: string) => {
+    const res = await getVCInformation({ vc_type: id });
+    setVCInfo(res);
+  }
+
+  console.log('vcInfo', vcInfo);
 
   return (
     <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImg={`/private-sale/bg.webp`}>
@@ -23,7 +42,7 @@ const AboveTheFold = () => {
               first={'Hello '}
               last={''}
               headings={[
-                '#name',
+                vcInfo?.name as string,
               ]}
               headingsStyles={[
                 s.hightlight,
@@ -37,7 +56,7 @@ const AboveTheFold = () => {
           </Box>
           <Box className={s.desc}>
             <Lines delay={1.4}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              {vcInfo?.description as string}
             </Lines>
           </Box>
           <Flex gap={6} direction={["column", "row"]}>

@@ -7,7 +7,7 @@ import { KEY_VC_TYPE, KEY_WALLET_ID } from '@/constants/storage-key';
 import Fade from '@/interactive/Fade';
 import LocalStorageUtil from '@/utils/localstorage';
 import { getVCWalletInfo } from '@/services/player-share';
-import { VCInfo } from '@/interfaces/vc';
+import { VCWalletInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import BigNumber from 'bignumber.js';
 import { commonSelector } from '@/stores/states/common/selector';
@@ -29,7 +29,7 @@ const PrivateSaleForm = () => {
   const [showQrCode, setShowQrCode] = useState(false);
   const vcType = LocalStorageUtil.get(KEY_VC_TYPE);
   const walletId = LocalStorageUtil.get(KEY_WALLET_ID) || '';
-  const [vcInfo, setVCInfo] = useState<VCInfo>();
+  const [vcInfo, setVCInfo] = useState<VCWalletInfo>();
   const tokenPrice = 11;
   const coinPrices = useSelector(commonSelector).coinPrices;
   const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);

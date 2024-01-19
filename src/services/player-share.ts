@@ -2,7 +2,7 @@ import { camelCaseKeys } from '@/utils/normalize';
 import { PERP_API_URL } from '@/config';
 import createAxiosInstance from '@/services/http-client';
 import { SignatureStatus } from '@/interfaces/whitelist';
-import { VCInfo } from '@/interfaces/vc';
+import { VCInfo, VCWalletInfo } from '@/interfaces/vc';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -70,7 +70,12 @@ export const addAllowList = async (uuid: string): Promise<any> => {
   return;
 };
 
-export const getVCWalletInfo = async ({vc_type, wallet_id}: any): Promise<VCInfo> => {
-  const res = (await apiClient.get(`/bvm/vc/wallet?vc_type=${vc_type}&wallet_id=${wallet_id}`)) as unknown as VCInfo;
+export const getVCWalletInfo = async ({vc_type, wallet_id}: any): Promise<VCWalletInfo> => {
+  const res = (await apiClient.get(`/bvm/vc/wallet?vc_type=${vc_type}&wallet_id=${wallet_id}`)) as unknown as VCWalletInfo;
+  return res;
+}
+
+export const getVCInformation = async ({vc_type}: any): Promise<VCInfo> => {
+  const res = (await apiClient.get(`/bvm/vc/info?vc_type=${vc_type}`)) as unknown as VCInfo;
   return res;
 }
