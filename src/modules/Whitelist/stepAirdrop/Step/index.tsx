@@ -13,6 +13,14 @@ import utc from 'dayjs/plugin/utc';
 
 dayjs.extend(utc);
 
+export enum AirdropType {
+  NONE,
+  NEW,
+  RETROSPECTIVE
+}
+
+export const AirdropText = ['', 'New', 'Retrospective'];
+
 export interface IItemCommunity {
   title: string;
   desc: string | React.ReactNode;
@@ -31,6 +39,7 @@ export interface IItemCommunity {
   expiredTime?: string;
   isDisable?: boolean;
   showExpireTime?: boolean;
+  airdropType: AirdropType
 }
 
 export default function ItemCommunity({
@@ -61,7 +70,10 @@ export default function ItemCommunity({
         <Flex direction="column" gap="8px" flex={1}>
           <Flex justifyContent="space-between" gap="16px">
             <Flex direction="column" w="100%">
-              <div className={s.itemCommunity__title}>{content?.title}</div>
+              <Flex gap={2}>
+                <div className={cx(s.itemCommunity__tag, s[AirdropText[content?.airdropType].toLowerCase()])}>{AirdropText[content?.airdropType]}</div>
+                <div className={s.itemCommunity__title}>{content?.title}</div>
+              </Flex>
               {!!content?.desc && (
                 <div
                   className={s.itemCommunity__desc}
