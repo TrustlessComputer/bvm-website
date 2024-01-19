@@ -28,11 +28,12 @@ import keplrCelestiaHelper from '@/utils/keplr.celestia';
 import { getError } from '@/utils/error';
 import toast from 'react-hot-toast';
 import useFormatAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useFormatAllowCelestia';
+import BigNumber from 'bignumber.js';
 
 interface IAuthenCode {
   public_code: string;
   secret_code: string;
-};
+}
 
 export const STEP_ID = 'STEP_ID'
 
@@ -62,6 +63,18 @@ const Steps = () => {
 
     const shareUrl = getLink(user?.referral_code || '');
     const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
+
+    window.open(
+      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+        content,
+      )}`,
+      '_blank',
+    );
+  }
+
+  const onShareModular = () => {
+    const shareUrl = getLink(user?.referral_code || '');
+    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (holding ${formatCurrency(new BigNumber(allowCelestia.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\nPowered by @BVMnetwork, you can deploy your own Bitcoin L2 chain with @Celestia and @Optimism in a few clicks.\n\n🤯🤯🤯\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -192,7 +205,7 @@ const Steps = () => {
         desc: 'The more TIA or staked TIA you hold, the more points you’ll get. Connect your Keplr wallet to prove the account ownership.',
         actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
         actionHandle: isNeedClaimCelestiaPoint ? async () => {
-          handleShareTw();
+          onShareModular();
           await requestClaimCelestiaPoint(allowCelestia.status)
           dispatch(requestReload())
         } : onSignModular,
@@ -201,7 +214,7 @@ const Steps = () => {
         isActive: !!token,
         isDone: !!token,
         step: MultiplierStep.modular,
-        image: "ic-modular-blockchain.svg",
+        image: "ic-celestia.svg",
         right: {
           title: '+100 PTS',
           desc: 'per TIA'

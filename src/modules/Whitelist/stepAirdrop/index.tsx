@@ -1,20 +1,40 @@
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import AuthenStorage from '@/utils/storage/authen.storage';
-import { Flex } from '@chakra-ui/react';
-import React, { useMemo } from 'react';
+import { Flex, Tooltip } from '@chakra-ui/react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ItemStep, { IItemCommunity } from './Step';
 import s from './styles.module.scss';
+import { getRaffleJoin, joinRaffle } from '@/services/player-share';
+import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
+import { CDN_URL_ICONS } from '@/config';
 
 const StepsAirdrop = () => {
   const token = AuthenStorage.getAuthenKey();
   const needReload = useAppSelector(commonSelector).needReload;
+  const [raffleCode, setRaffleCode] = useState();
+
+  useEffect(() => {
+    if(token) {
+      getRaffleJoinInfo();
+    }
+  }, [token, needReload]);
+
+  const getRaffleJoinInfo = async () => {
+    const res = await getRaffleJoin();
+    setRaffleCode(res);
+  };
 
   const handleShareTw = async () => {
     window.open(
       `https://twitter.com/BVMnetwork`,
       '_blank',
     );
+
+    joinRaffle();
+    setTimeout(() => {
+      getRaffleJoinInfo();
+    }, 1000);
   };
 
   const handleClaimRetrospective = () => {
@@ -32,8 +52,29 @@ const StepsAirdrop = () => {
         actionHandle: handleShareTw,
         isActive: !!token,
         right: {
-          title: '+1 raffle ticket',
+          title: raffleCode || '+1 raffle ticket',
           desc: '',
+          tooltip: (
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>
+                    Use this raffle code
+                  </p>
+                </Flex>
+              }
+            >
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
+            </Tooltip>
+          )
         },
         expiredTime: '2024-01-22 08:00:00',
       },
@@ -53,7 +94,7 @@ const StepsAirdrop = () => {
         expiredTime: '2024-01-24 03:00:00',
       },
     ];
-  }, [token, needReload]);
+  }, [token, needReload, raffleCode]);
 
   return (
     <Flex

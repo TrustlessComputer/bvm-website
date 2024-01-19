@@ -20,6 +20,7 @@ export interface IItemCommunity {
   right: {
     title: string;
     desc: string;
+    tooltip?: any;
   };
 }
 
@@ -95,6 +96,13 @@ export default function ItemCommunity({
             <Flex direction="column">
               <div className={s.itemCommunity__point}>
                 {content?.right.title}
+                {
+                  content?.right.tooltip && (
+                    <>
+                      {content?.right.tooltip}
+                    </>
+                  )
+                }
               </div>
               {!!content?.desc && (
                 <div className={s.itemCommunity__pointNote}>
