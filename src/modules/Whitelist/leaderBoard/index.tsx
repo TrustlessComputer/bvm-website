@@ -626,30 +626,6 @@ const LeaderBoard = () => {
                   {formatCurrency(data?.eco_point, 0, 0)}
                 </Text>
               </Flex>
-              {data.need_active ? (
-                <Tooltip
-                  minW="180px"
-                  bg="white"
-                  boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-                  borderRadius="4px"
-                  padding="8px"
-                  label={
-                    <Flex direction="column" color="black" opacity={0.7}>
-                      <p>Naka: {formatCurrency(data?.naka_point, 0, 0)}</p>
-                    </Flex>
-                  }
-                >
-                  <div>
-                    <SvgInset
-                      size={18}
-                      className={styles.tooltipIconActive}
-                      svgUrl={`${CDN_URL_ICONS}/info-circle.svg`}
-                    />
-                  </div>
-                </Tooltip>
-              ) : (
-                <Box w="16px" />
-              )}
             </Flex>
           );
         },
