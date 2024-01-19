@@ -732,7 +732,7 @@ const LeaderBoard = () => {
   };
 
   return (
-    <Box className={styles.container} maxH="820px" id={LEADER_BOARD_ID}>
+    <Box className={styles.container} height="100dvh" id={LEADER_BOARD_ID}>
       <ScrollWrapper
         onFetch={() => {
           refParams.current = {
