@@ -187,7 +187,7 @@ const LeaderBoard = () => {
                 />
                 <Flex width={'100%'} gap={'4px'} direction={'column'}>
                     <Text className={styles.title}>
-                      {formatName(data?.twitter_name as string, 18)}
+                      {formatName(data?.twitter_name as string, 12)}
                     </Text>
                     {data?.need_active && (
                       <Text className={styles.subTitle}>
