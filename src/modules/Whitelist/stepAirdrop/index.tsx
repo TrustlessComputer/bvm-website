@@ -36,14 +36,14 @@ const StepsAirdrop = () => {
         actionHandle: handleShareTw,
         isActive: !!token,
         right: {
-          title: '+10 Raffle',
-          desc: 'per friend',
+          title: '+1 raffle ticket',
+          desc: '',
         },
         expiredTime: '2024-01-22',
       },
       {
         title: 'Retrospective: 2023 users',
-        desc: `Thanks for supporting our 2023 'testnet'. In 2024 mainnet, an airdrop awaits users of BVM products like Generative, GM, Perceptrons, and all TC users.<br/>
+        desc: `Thanks for supporting our 2023 'testnet'. In 2024 mainnet, an airdrop awaits users of BVM products like Generative, Perceptrons, GM, Alpha, and all TC users.<br/>
           Snapshot on Jan 16, 2023. Claimable on Jan 24, 2024.
        `,
         actionText: 'Claim',
@@ -51,8 +51,8 @@ const StepsAirdrop = () => {
         actionHandle: handleClaimRetrospective,
         isActive: false,
         right: {
-          title: '+100 BVM',
-          desc: 'per GM',
+          title: '',
+          desc: '',
         },
         expiredTime: '2024-01-24',
       },

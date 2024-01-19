@@ -63,17 +63,17 @@ const StepsEco = () => {
         },
       },
       {
-        title: 'Alpha',
-        desc: 'The higher the volume you make the more airdrop points you will get.',
-        actionText: 'Verify',
+        title: 'Crypto Bull Run',
+        desc: 'Run to get fit in reality, engage online in a Web3 environment, and raise funds for charity all at once!',
+        actionText: 'Run',
         image: 'alpha.svg',
         actionHandle: () => {
           window.open('https://app.alpha.wtf/');
         },
         isActive: !!token,
         right: {
-          title: !token ? '+1 PTS' : '+1 PTS',
-          desc: !token ? 'first post' : 'per 0.000025 BTC',
+          title: '',
+          desc: '',
         },
       },
     ];
