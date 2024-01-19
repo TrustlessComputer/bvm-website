@@ -1,5 +1,5 @@
 import { CDN_URL_ICONS } from '@/config';
-import { Button, Flex } from '@chakra-ui/react';
+import { Button, Flex, Text } from '@chakra-ui/react';
 import cs from 'classnames';
 import cx from 'clsx';
 import Image from 'next/image';
@@ -73,7 +73,10 @@ export default function ItemCommunity({
                 <Flex>
                   {
                     !!content?.expiredTime && (
-                      <Countdown className={s.itemCommunity__countdown} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD').toString()} hideIcon={true} />
+                      <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
+                        <Countdown className={s.itemCommunity__countdown} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} />
+                        <Text fontSize={"12px"} fontWeight={400} color={"#000000"}>TIME REMAIN</Text>
+                      </Flex>
                     )
                   }
                 </Flex>
