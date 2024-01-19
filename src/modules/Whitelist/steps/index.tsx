@@ -146,8 +146,8 @@ const Steps = () => {
     const btcOGMessage = allowBTC.amount.txsCount ?
         <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
         'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
-    const isNeedClaimBTCPoint = allowBTC.isUnclaimed && allowBTC.amount.unClaimedPoint && !!allowBTC.amount.txsCount && !allowBTC.isProcessing;
-    const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed && allowCelestia.amount.unClaimedPoint && !allowBTC.isProcessing;
+    const isNeedClaimBTCPoint = allowBTC.isUnclaimed;
+    const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed;
     const authenTask =  {
       title: 'Tweet about BVM',
       desc: 'Tweet as often as you like & tag @BVMnetwork to rank up.',
@@ -218,6 +218,26 @@ const Steps = () => {
         right: {
           title: '+100 PTS',
           desc: 'per TIA'
+        }
+      },
+      {
+        title: 'Are you a Optimism Pioneer?',
+        desc: 'The more OP you hold, the more points you’ll get. Connect your Metamask wallet to prove the account ownership.',
+        actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
+        actionHandle: isNeedClaimCelestiaPoint ? async () => {
+          onShareModular();
+          await requestClaimCelestiaPoint(allowCelestia.status)
+          dispatch(requestReload())
+        } : onSignModular,
+        actionTextSecondary: isNeedClaimCelestiaPoint ? "Verify another wallet" : undefined,
+        actionHandleSecondary: isNeedClaimCelestiaPoint ? onSignModular : undefined,
+        isActive: !!token,
+        isDone: !!token,
+        step: MultiplierStep.modular,
+        image: "ic-optimism.svg",
+        right: {
+          title: '+100 PTS',
+          desc: 'per OP'
         }
       },
     ];

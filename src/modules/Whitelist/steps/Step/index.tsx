@@ -13,7 +13,7 @@ export enum MultiplierStep {
   authen,
   post,
   signMessage,
-  modular
+  modular,
 }
 
 export interface IItemCommunity {
