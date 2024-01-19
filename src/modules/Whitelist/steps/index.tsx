@@ -74,7 +74,7 @@ const Steps = () => {
 
   const onShareModular = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (holding ${formatCurrency(new BigNumber(allowCelestia.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\nPowered by @BVMnetwork, you can deploy your own Bitcoin L2 chain with @Celestia and @Optimism in a few clicks.\n\n🤯🤯🤯\n`;
+    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (holding ${formatCurrency(new BigNumber(allowCelestia.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\nPowered by @BVMnetwork, you can deploy your own Bitcoin L2 chain with @CelestiaOrg and @Optimism in a few clicks.\n\n🤯🤯🤯\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -157,8 +157,8 @@ const Steps = () => {
       isActive: true,
       step: MultiplierStep.authen,
       right: {
-        title: !token ? '+1000 PTS' : '+1 PTS',
-        desc: !token ? 'first post' : 'per view'
+        title: !token ? '+1000 PTS' : '+1000 PTS',
+        desc: !token ? 'first post' : 'per 1000 view'
       },
       handleShowManualPopup: handleShowManualPopup,
     };

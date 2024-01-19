@@ -193,9 +193,7 @@ const LeaderBoard = () => {
                   name={data?.twitter_name || data?.twitter_username || ''}
                 />
                 <Flex width={'100%'} gap={'4px'} direction={'column'}>
-                  <Text className={styles.title}>
-                    {formatName(data?.twitter_name as string, 18)}
-                  </Text>
+                  <p className={styles.title}>{data?.twitter_name || ''}</p>
                   {data?.need_active && (
                     <Text className={styles.subTitle}>YOU</Text>
                   )}
@@ -431,7 +429,7 @@ const LeaderBoard = () => {
               gap: '4px',
             }}
           >
-            <p style={{ textTransform: 'uppercase' }}>MODULAR POINTS</p>
+            <p style={{ textTransform: 'uppercase' }}>MODULAR PTS</p>
             <Tooltip
               minW="220px"
               bg="white"
