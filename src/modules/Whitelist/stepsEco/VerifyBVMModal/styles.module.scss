@@ -1,0 +1,119 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    color: #1c1c1c;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+
+    margin-top: 8px;
+  }
+
+  .button {
+    height: 48px !important;
+    padding: 8px 60px !important;
+    border-radius: 0px !important;
+    background: #fa4e0e !important;
+    color: #fff !important;
+    width: 180px !important;
+  }
+}
+
+.qrWrapper {
+  margin-top: 12px;
+  .qrCode {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    padding: 8px;
+    background: #ffffff;
+  }
+
+  .text {
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%;
+  }
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // display: grid;
+  // grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+
+  // @include w-max(768px) {
+  //   grid-template-columns: 1fr 1fr;
+  // }
+
+  // @include w-max(468px) {
+  //   grid-template-columns: 1fr;
+  // }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 28px 0px;
+    background-color: #1c1c1c;
+    padding: 28px 32px;
+    background-color: #1c1c1c;
+    min-width: 380px;
+    width: fit-content;
+
+    @include w-max(768px) {
+      min-width: 320px;
+    }
+  }
+
+  .item_title {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 8px;
+  }
+
+  .item_desc {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 12px;
+    font-weight: 800;
+    line-height: 30px;
+  }
+
+  .btn {
+    height: 16px;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+}
+
+.modalManualHeader {
+  padding-bottom: 0 !important;
+}
+
+.modalContent {
+  :global {
+    .chakra-modal__body {
+      padding-left: rem(24) !important;
+      padding-right: rem(24) !important;
+      padding-bottom: rem(24) !important;
+    }
+  }
+}
