@@ -58,7 +58,7 @@ const StepsEco = () => {
         isActive: !!token,
         right: {
           title: '+100 PTS',
-          desc: 'dạ, tks a nhé',
+          desc: 'per match',
         },
       },
       {
