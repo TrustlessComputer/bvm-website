@@ -480,22 +480,21 @@ const LeaderBoard = () => {
               gap: '4px',
             }}
           >
-            <p style={{ textTransform:'uppercase' }}>CELESTIA POINTS</p>
-            {/*<Tooltip*/}
-            {/*  minW="220px"*/}
-            {/*  bg="white"*/}
-            {/*  boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"*/}
-            {/*  borderRadius="4px"*/}
-            {/*  padding="8px"*/}
-            {/*  label={*/}
-            {/*    <Flex direction="column" color="black" opacity={0.7}>*/}
-            {/*      <p>Content Points are calculated based on the performance of your posts on X, including Views.*/}
-            {/*        Note: To be qualified, you must tag: <br/><strong>@BVMnetwork</strong></p>*/}
-            {/*    </Flex>*/}
-            {/*  }*/}
-            {/*>*/}
-            {/*  <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>*/}
-            {/*</Tooltip>*/}
+            <p style={{ textTransform:'uppercase' }}>MODULAR POINTS</p>
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>Modular Points are calculated from your holding & staking <strong>TIA</strong></p>
+                </Flex>
+              }
+            >
+              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+            </Tooltip>
           </Flex>
         ),
         labelConfig,
