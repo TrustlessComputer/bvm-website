@@ -82,7 +82,7 @@ const StepsAirdrop = () => {
       {
         title: 'Retrospective: 2023 users',
         desc: `Thanks for supporting our 2023 'testnet'. In 2024 mainnet, an airdrop awaits users of BVM products like Generative, Perceptrons, GM, Alpha, and all TC users.<br/>
-          Snapshot on Jan 16, 2023. Claimable on Jan 24, 2024.
+          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
         actionText: 'Claim',
         image: "gm.svg",
