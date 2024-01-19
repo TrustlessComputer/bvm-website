@@ -63,10 +63,24 @@
     }
   }
 
+  .countUpDesktop {
+    @include w-max(1280px) {
+      display: none;
+      height: 0px;
+    }
+  }
+
+  .countUpMobile {
+    display: none;
+    @include w-max(1280px) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
   :global {
     .chakra-tabs {
-      margin-top: 20px;
-      height: calc(80dvh + 80px);
+      margin-top: 8px;
       overflow: hidden;
       width: 100%;
 
@@ -79,6 +93,10 @@
           color: #494846;
           border-bottom-width: 0px !important;
           text-align: left;
+
+          @include w-max(720px) {
+            font-size: 15px;
+          }
 
           &:active {
             background: transparent;
@@ -103,6 +121,17 @@
         overflow-y: scroll;
         padding-bottom: 100px;
         margin-top: 12px;
+
+        height: calc(100dvh);
+
+        @include w-max(1280px) {
+          height: fit-content;
+          max-height: calc(80dvh);
+        }
+
+        @include w-max(1280px) {
+          padding-bottom: 20px;
+        }
 
         scrollbar-width: none;
         -ms-overflow-style: none;

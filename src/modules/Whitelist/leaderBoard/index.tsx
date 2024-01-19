@@ -125,7 +125,7 @@ const LeaderBoard = () => {
 
   const labelConfig = {
     color: 'rgba(1, 1, 0, 0.7)',
-    fontSize: '12px',
+    fontSize: '11px',
     letterSpacing: '-0.5px',
     borderBottom: '1px solid #FFFFFF33',
     textTransform: 'uppercase',
@@ -562,6 +562,67 @@ const LeaderBoard = () => {
                 ) : (
                   <Box w="16px" />
                 )}
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'eco',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              gap: '4px',
+            }}
+          >
+            <p style={{ textTransform: 'uppercase' }}>ECOSYSTEM PTS</p>
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>
+                    Points earned by doing tasks in other dApps like Naka
+                    Genesis, Bitcoin Arcade, Alpha, and more within the BVM
+                    ecosystem.
+                  </p>
+                </Flex>
+              }
+            >
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
+            </Tooltip>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '16px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={'4px'}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={'4px'}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.eco_point, 0, 0)}
+                </Text>
               </Flex>
             </Flex>
           );

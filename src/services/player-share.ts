@@ -18,11 +18,14 @@ export const generateToken = async (uuid: string | string[]): Promise<any> => {
   return;
 };
 
-export const generateTokenWithTwPost = async (uuid: string, link?: string): Promise<any> => {
+export const generateTokenWithTwPost = async (
+  uuid: string,
+  link?: string,
+): Promise<any> => {
   try {
     const res = await apiClient.post(`/bvm/generate-token-with-twitter-post`, {
       secret_code: uuid,
-      link: link
+      link: link,
     });
     return Object(camelCaseKeys(res));
   } catch (error) {
@@ -46,9 +49,7 @@ export const requestAuthenByUserName = async (uuid: string): Promise<any> => {
 
 export const requestAuthenByShareCode = async (): Promise<any> => {
   try {
-    const res = await apiClient.post(
-      `/bvm/request-auth-by-share-code`,
-    );
+    const res = await apiClient.post(`/bvm/request-auth-by-share-code`);
     return res;
   } catch (error) {
     console.log(error);
@@ -66,4 +67,46 @@ export const addAllowList = async (uuid: string): Promise<any> => {
     console.log(error);
   }
   return;
+};
+
+export const verifyNaka = async (params: any): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/verify-naka`, params);
+    return Object(camelCaseKeys(res));
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getRaffleJoin = async (): Promise<any> => {
+  try {
+    const res = await apiClient.get(`/bvm/raffle/join`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
+
+export const joinRaffle = async (): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/raffle/join`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
+
+export const getRaffleUsers = async (params: any): Promise<any> => {
+  try {
+    const res = await apiClient.get(`/bvm/raffle/join`, { params });
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
 };
