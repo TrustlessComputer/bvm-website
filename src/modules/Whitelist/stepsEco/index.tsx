@@ -44,8 +44,8 @@ const StepsEco = () => {
         },
         isActive: !!token,
         right: {
-          title: !token ? '+1000 PTS' : '+1 PTS',
-          desc: !token ? 'first post' : 'per view',
+          title: !token ? '+1 PTS' : '+1 PTS',
+          desc: !token ? 'first post' : 'per 0.000025 BTC',
         },
       },
     ];
