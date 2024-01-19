@@ -9,6 +9,10 @@ const initialState: UserState = {
   allowBTC: {
     status: [],
     loaded: false
+  },
+  allowCelestia: {
+    status: [],
+    loaded: false
   }
 };
 
@@ -29,13 +33,20 @@ const slice = createSlice({
         loaded: action.payload.loaded,
       };
     },
+    setAllowCelestia: (state, action) => {
+      state.allowCelestia = {
+        status: action.payload.status,
+        loaded: action.payload.loaded,
+      };
+    },
   },
 });
 
 export const {
   setUser,
   setLeaderBoard,
-  setAllowBTC
+  setAllowBTC,
+  setAllowCelestia
 } = slice.actions;
 
 export default slice.reducer;

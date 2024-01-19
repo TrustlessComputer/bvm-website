@@ -7,6 +7,7 @@ import { CDN_URL_ICONS } from '@/config';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import AllowBTCMessage from '@/modules/Whitelist/AllowBTCMessage';
 import cs from 'classnames';
+import AllowCelestiaMessage from '@/modules/Whitelist/AllowCelestiaMessage';
 
 export enum MultiplierStep {
   authen,
@@ -99,6 +100,9 @@ export default function ItemCommunity({
                     )}
                     {step === MultiplierStep.signMessage && (
                       <AllowBTCMessage />
+                    )}
+                    {step === MultiplierStep.modular && (
+                      <AllowCelestiaMessage />
                     )}
                   </Flex>
                   {

@@ -13,3 +13,8 @@ export const allowBTCSelector = (state: RootState) => ({
   status: (state.user?.allowBTC?.status || []) as SignatureStatus[],
   loaded: (state.user?.allowBTC?.loaded || false) as boolean
 });
+
+export const allowCelestiaSelector = (state: RootState) => ({
+  status: (state.user?.allowCelestia?.status || []) as SignatureStatus[],
+  loaded: (state.user?.allowCelestia?.loaded || false) as boolean
+});

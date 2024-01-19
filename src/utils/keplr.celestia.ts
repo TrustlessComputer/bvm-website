@@ -3,7 +3,7 @@ const KeplrCelestiaConfig = {
   chainName: 'Celestia',
   rpc: 'https://rpc.lunaroasis.net/',
   rest: 'https://api.lunaroasis.net/',
-  messageForSign: 'Are you a Celestia OG?'
+  messageForSign: 'Are you a Modular Blockchain Pioneer?'
 };
 
 export interface CelestiaAddress {

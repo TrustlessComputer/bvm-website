@@ -41,7 +41,7 @@ const ITEMS: ModalItem[] = [
   },
 ];
 
-export const MESSAGE_EVM = 'Are you a Modular Blockchain OG?'
+export const MESSAGE_EVM = 'Are you a Modular Blockchain Pioneer?'
 
 const ConnectModalEVM = React.memo(({ isShow, onHide }: IProps)=> {
   const dispatch = useAppDispatch()
@@ -53,10 +53,6 @@ const ConnectModalEVM = React.memo(({ isShow, onHide }: IProps)=> {
       if (loading) return;
       setLoading(true)
       const { address, signature } = await signMessage(MESSAGE_EVM);
-      console.log('SANG TEST: ', {
-        address, signature
-      });
-
       dispatch(requestReload())
       onHide()
     } catch (error) {

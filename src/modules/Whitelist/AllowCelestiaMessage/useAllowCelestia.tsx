@@ -1,19 +1,19 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { getAllowBTCStatus } from '@/services/whitelist';
+import { getAllowCelestiaStatus } from '@/services/whitelist';
 import AuthenStorage from '@/utils/storage/authen.storage';
-import { setAllowBTC } from '@/stores/states/user/reducer';
+import { setAllowCelestia } from '@/stores/states/user/reducer';
 
 let interval: any = undefined;
-const useAllowBTC = () => {
+const useAllowCelestia = () => {
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
 
   const fetchData = async () => {
     try {
-      const response  = await getAllowBTCStatus();
-      dispatch(setAllowBTC({
+      const response  = await getAllowCelestiaStatus();
+      dispatch(setAllowCelestia({
         status: response || [],
         loaded: true
       }))
@@ -24,13 +24,11 @@ const useAllowBTC = () => {
 
   React.useEffect(() => {
     const authenKey = AuthenStorage.getAuthenKey();
-
     if (!authenKey) return;
     if (interval) {
       clearInterval(interval);
       interval = undefined
     }
-
     fetchData();
     interval = setInterval(() => {
       fetchData();
@@ -38,4 +36,4 @@ const useAllowBTC = () => {
   }, [needReload]);
 }
 
-export default useAllowBTC;
+export default useAllowCelestia;
