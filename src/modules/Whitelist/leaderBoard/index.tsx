@@ -391,60 +391,60 @@ const LeaderBoard = () => {
           );
         },
       },
-      {
-        id: 'modular',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              width: '100%',
-              gap: '4px',
-            }}
-          >
-            <p style={{ textTransform:'uppercase' }}>MODULAR POINTS</p>
-            <Tooltip
-              minW="220px"
-              bg="white"
-              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-              borderRadius="4px"
-              padding="8px"
-              label={
-                <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Modular Points are calculated from your holding & staking <strong>TIA</strong></p>
-                </Flex>
-              }
-            >
-              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
-            </Tooltip>
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '16px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex
-              gap={3}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
-            >
-              <Flex alignItems={'center'} gap={'4px'}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.celestia_point, 0, 0)}
-                </Text>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
+      // {
+      //   id: 'modular',
+      //   label: (
+      //     <Flex
+      //       style={{
+      //         justifyContent: 'center',
+      //         alignItems: 'center',
+      //         alignSelf: 'center',
+      //         width: '100%',
+      //         gap: '4px',
+      //       }}
+      //     >
+      //       <p style={{ textTransform:'uppercase' }}>MODULAR POINTS</p>
+      //       <Tooltip
+      //         minW="220px"
+      //         bg="white"
+      //         boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+      //         borderRadius="4px"
+      //         padding="8px"
+      //         label={
+      //           <Flex direction="column" color="black" opacity={0.7}>
+      //             <p>Modular Points are calculated from your holding & staking <strong>TIA</strong></p>
+      //           </Flex>
+      //         }
+      //       >
+      //         <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+      //       </Tooltip>
+      //     </Flex>
+      //   ),
+      //   labelConfig,
+      //   config: {
+      //     borderBottom: 'none',
+      //     fontSize: '16px',
+      //     fontWeight: 500,
+      //     verticalAlign: 'middle',
+      //     letterSpacing: '-0.5px',
+      //   },
+      //   render(data: ILeaderBoardPoint) {
+      //     return (
+      //       <Flex
+      //         gap={3}
+      //         alignItems={'center'}
+      //         width={'100%'}
+      //         justifyContent={'center'}
+      //       >
+      //         <Flex alignItems={'center'} gap={'4px'}>
+      //           <Text className={styles.title}>
+      //             {formatCurrency(data?.celestia_point, 0, 0)}
+      //           </Text>
+      //         </Flex>
+      //       </Flex>
+      //     );
+      //   },
+      // },
       {
         id: 'content',
         label: (
