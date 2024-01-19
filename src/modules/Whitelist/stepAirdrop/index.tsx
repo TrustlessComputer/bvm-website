@@ -50,7 +50,7 @@ const StepsAirdrop = () => {
           ${LearnMore('https://twitter.com/punk3700/status/1623708934107430913')}
         `,
         actionText: 'Like and repost',
-        image: "time-chain.svg",
+        image: "time-chain2.svg",
         actionHandle: handleShareTw,
         isActive: !!token,
         right: {
@@ -83,12 +83,66 @@ const StepsAirdrop = () => {
         airdropType: AirdropType.NEW
       },
       {
-        title: '2023 users',
-        desc: `Thanks for supporting our 2023 'testnet'. In 2024 mainnet, an airdrop awaits users of BVM products like Generative, Perceptrons, GM, Alpha, and all TC users.<br/>
+        title: 'Generative users',
+        desc: `Proportional to key holding.<br/>
+          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
+       `,
+        actionText: 'Claim',
+        image: "time-chain2.svg",
+        actionHandle: handleClaimRetrospective,
+        isActive: true,
+        isDisable: true,
+        right: {
+          title: '',
+          desc: '',
+        },
+        expiredTime: '2024-01-24 03:00:00',
+        showExpireTime: false,
+        airdropType: AirdropType.RETROSPECTIVE
+      },
+      {
+        title: 'Perceptrons holders',
+        desc: `Proportional to the number of Perceptrons you hold.<br/>
+          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
+       `,
+        actionText: 'Claim',
+        image: "perceptron_thumb_03.jpg",
+        actionHandle: handleClaimRetrospective,
+        isActive: true,
+        isDisable: true,
+        right: {
+          title: '',
+          desc: '',
+        },
+        expiredTime: '2024-01-24 03:00:00',
+        showExpireTime: false,
+        airdropType: AirdropType.RETROSPECTIVE
+      },
+      {
+        title: 'GM holders',
+        desc: `Proportionally based on GM balance - min holding: 1 $GM<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
         actionText: 'Claim',
         image: "gm.svg",
+        actionHandle: handleClaimRetrospective,
+        isActive: true,
+        isDisable: true,
+        right: {
+          title: '',
+          desc: '',
+        },
+        expiredTime: '2024-01-24 03:00:00',
+        showExpireTime: false,
+        airdropType: AirdropType.RETROSPECTIVE
+      },
+      {
+        title: 'Alpha users',
+        desc: `Proportionally based on Airdrop Points - min Airdrop Points: 100,000<br/>
+          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
+       `,
+        actionText: 'Claim',
+        image: "alpha.svg",
         actionHandle: handleClaimRetrospective,
         isActive: true,
         isDisable: true,
