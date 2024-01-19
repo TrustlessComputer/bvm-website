@@ -50,7 +50,7 @@ const StepsAirdrop = () => {
           title: '',
           desc: '',
         },
-        expiredTime: '2024-01-24 00:00:00',
+        expiredTime: '2024-01-24 03:00:00',
       },
     ];
   }, [token, needReload]);
