@@ -10,6 +10,7 @@ import sanitizeHtml from 'sanitize-html';
 import { ALLOWED_ATTRIBUTES } from '@/constants/constants';
 
 export interface IItemCommunity {
+  project: string;
   title: string;
   desc: string | React.ReactNode;
   actionText: string;
@@ -54,6 +55,7 @@ export default function ItemCommunity({
         <Flex direction="column" gap="8px" flex={1}>
           <Flex justifyContent="space-between" gap="16px">
             <Flex direction="column" w="100%">
+              <div className={s.itemCommunity__project}>{content?.project}</div>
               <div className={s.itemCommunity__title}>{content?.title}</div>
               {!!content?.desc && (
                 <div
