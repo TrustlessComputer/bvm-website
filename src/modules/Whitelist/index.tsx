@@ -1,10 +1,10 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import React from 'react';
-import LeaderBoard from './leaderBoard';
+import LeaderBoard, { LEADER_BOARD_ID } from './leaderBoard';
 import s from './styles.module.scss';
 import useElementHeight from '@/hooks/useElementHeight';
 import { HEADER_ID } from '@/layouts/Header';
-import Steps from '@/modules/Whitelist/steps';
+import Steps, { STEP_ID } from '@/modules/Whitelist/steps';
 import BoxContent from '@/layouts/BoxContent';
 import { useAppSelector } from '@/stores/hooks';
 import { leaderBoardSelector } from '@/stores/states/user/selector';
@@ -12,12 +12,14 @@ import Loading from '@/components/Loading';
 import AppLoading from '@/components/AppLoading';
 import CountUp from 'react-countup';
 import FAQContent from './FAQContent';
+import { isMobile } from 'react-device-detect';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
 const Whitelist = () => {
-  const { height } = useElementHeight({ elementID: HEADER_ID });
   const { count } = useAppSelector(leaderBoardSelector);
+  const { height } = useElementHeight({ elementID: HEADER_ID });
+  const { height: stepHeight } = useElementHeight({ elementID: STEP_ID });
 
   React.useEffect(() => {
     const element = document.getElementById(CONTAINER_ID);
@@ -25,6 +27,15 @@ const Whitelist = () => {
       element.style.paddingTop = `${height + 32}px`;
     }
   }, [height]);
+
+  React.useEffect(() => {
+    const leaderBoard = document.getElementById(LEADER_BOARD_ID);
+    const stepper = document.getElementById(STEP_ID);
+    if (stepper && stepHeight && !isMobile) {
+      leaderBoard.style.maxHeight = `${stepHeight}px`;
+    }
+
+  }, [stepHeight]);
 
   return (
     <BoxContent className={s.container} id={CONTAINER_ID}>

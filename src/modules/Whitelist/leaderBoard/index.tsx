@@ -33,6 +33,8 @@ const valueToImage: any = {
   '30': 'flash_supper.svg',
 };
 
+export const LEADER_BOARD_ID = 'LEADER_BOARD_ID'
+
 const LeaderBoard = () => {
   const { list } = useAppSelector(leaderBoardSelector);
   const [isFetching, setIsFetching] = useState(true);
@@ -391,60 +393,60 @@ const LeaderBoard = () => {
           );
         },
       },
-      // {
-      //   id: 'modular',
-      //   label: (
-      //     <Flex
-      //       style={{
-      //         justifyContent: 'center',
-      //         alignItems: 'center',
-      //         alignSelf: 'center',
-      //         width: '100%',
-      //         gap: '4px',
-      //       }}
-      //     >
-      //       <p style={{ textTransform:'uppercase' }}>MODULAR POINTS</p>
-      //       <Tooltip
-      //         minW="220px"
-      //         bg="white"
-      //         boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-      //         borderRadius="4px"
-      //         padding="8px"
-      //         label={
-      //           <Flex direction="column" color="black" opacity={0.7}>
-      //             <p>Modular Points are calculated from your holding & staking <strong>TIA</strong></p>
-      //           </Flex>
-      //         }
-      //       >
-      //         <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
-      //       </Tooltip>
-      //     </Flex>
-      //   ),
-      //   labelConfig,
-      //   config: {
-      //     borderBottom: 'none',
-      //     fontSize: '16px',
-      //     fontWeight: 500,
-      //     verticalAlign: 'middle',
-      //     letterSpacing: '-0.5px',
-      //   },
-      //   render(data: ILeaderBoardPoint) {
-      //     return (
-      //       <Flex
-      //         gap={3}
-      //         alignItems={'center'}
-      //         width={'100%'}
-      //         justifyContent={'center'}
-      //       >
-      //         <Flex alignItems={'center'} gap={'4px'}>
-      //           <Text className={styles.title}>
-      //             {formatCurrency(data?.celestia_point, 0, 0)}
-      //           </Text>
-      //         </Flex>
-      //       </Flex>
-      //     );
-      //   },
-      // },
+      {
+        id: 'modular',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              gap: '4px',
+            }}
+          >
+            <p style={{ textTransform:'uppercase' }}>MODULAR POINTS</p>
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>Modular Points are calculated from your holding & staking <strong>TIA</strong></p>
+                </Flex>
+              }
+            >
+              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+            </Tooltip>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '16px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={3}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={'4px'}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.celestia_point, 0, 0)}
+                </Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
       {
         id: 'content',
         label: (
@@ -564,59 +566,29 @@ const LeaderBoard = () => {
   }
 
   return (
-    <Box className={styles.container}>
-      {/* <div className={styles.banner}>
-        <div className={styles.countDown}>
-          <div className={styles.countDown_left}>Rolling 24h leaderboard</div>
-          <div className={styles.countDown_right}>
-            <div className={styles.time}>
-              <Countdown
-                date={Date.now() + remainingTime()}
-                renderer={renderer}
-              >
-                <></>
-              </Countdown>
-            </div>
-          </div>
-        </div>
-      </div> */}
-      {/*<Box className={styles.timeLine}>
-        <Box>
-          {renderTimeLine({
-            content: <p>Public sale starting soon</p>
-          })}
-          {count !== undefined && (
-            renderTimeLine({
-              content: <p><span>{formatCurrency(count, 0)}</span> people are on the allowlist</p>
-            })
-          )}
-
-        </Box>
-      </Box>*/}
-      <Box w="100%" height="80dvh" bg="rgba(255, 255, 255, 0.30)" p="8px">
-        <ScrollWrapper
-          onFetch={() => {
-            refParams.current = {
-              ...refParams.current,
-              page: refParams.current.page + 1,
-            };
-            hasIncrementedPageRef.current = true;
-            fetchData();
-          }}
-          isFetching={refreshing}
-          hasIncrementedPageRef={hasIncrementedPageRef}
-          onFetchNewData={onRefresh}
-          wrapClassName={styles.wrapScroll}
-          hideScrollBar={false}
-        >
-          <ListTable
-            data={list}
-            columns={columns}
-            className={styles.tableContainer}
-          />
-          {isFetching && <AppLoading className={styles.loading} />}
-        </ScrollWrapper>
-      </Box>
+    <Box className={styles.container} maxH="820px" id={LEADER_BOARD_ID}>
+      <ScrollWrapper
+        onFetch={() => {
+          refParams.current = {
+            ...refParams.current,
+            page: refParams.current.page + 1,
+          };
+          hasIncrementedPageRef.current = true;
+          fetchData();
+        }}
+        isFetching={refreshing}
+        hasIncrementedPageRef={hasIncrementedPageRef}
+        onFetchNewData={onRefresh}
+        wrapClassName={styles.wrapScroll}
+        hideScrollBar={false}
+      >
+        <ListTable
+          data={list}
+          columns={columns}
+          className={styles.tableContainer}
+        />
+        {isFetching && <AppLoading className={styles.loading} />}
+      </ScrollWrapper>
     </Box>
   );
 };
