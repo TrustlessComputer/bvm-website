@@ -123,7 +123,7 @@ const LeaderBoard = () => {
 
   const labelConfig = {
     color: 'rgba(1, 1, 0, 0.7)',
-    fontSize: '12px',
+    fontSize: '11px',
     letterSpacing: '-0.5px',
     borderBottom: '1px solid #FFFFFF33',
     textTransform: 'uppercase',
