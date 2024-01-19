@@ -7,6 +7,15 @@ import VerifyBVMModal from './VerifyBVMModal';
 import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
 import { CDN_URL_ICONS } from '@/config';
 
+export const LearnMore = (href: string) => {
+  return `<a href='${href}' style="color: #FA4E0E" target="_blank">
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 4px;">
+        <p>Learn more</p>
+        <img style="width: 16px; height: 16px;" src="https://storage.googleapis.com/tc-cdn-prod/nbc/icons/bvm-icons/arrow-right.svg" />
+      </div>
+    </a>`;
+};
+
 const StepsEco = () => {
   const token = AuthenStorage.getAuthenKey();
   const [showSyncBVM, setShowSyncBVM] = useState(false);
@@ -21,60 +30,26 @@ const StepsEco = () => {
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
-      {
-        project: 'NakaChain',
-        title: 'Share the word about NakaChain',
-        desc: `Follow naka_chain, Post on X and tag @Naka_chain to climb the ranks.
-        <a href='https://nakachain.xyz/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
-        `,
-        actionText: 'Post',
-        image: 'ic-naka.svg',
-        actionHandle: handleShareTw,
-        isActive: !!token,
-        right: {
-          title: '+1000 PTS',
-          desc: '',
-        },
-      },
-      {
-        project: 'NakaChain',
-        title: 'Swap and Add Liquidity on Naka Genesis',
-        desc: `The higher the volume you make the more airdrop points you will get.
-          <a href='https://nakachain.xyz/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
-        `,
-        actionText: 'Connect',
-        image: 'ic-naka.svg',
-        actionHandle: () => {
-          setShowSyncBVM(true);
-        },
-        isActive: !!token,
-        right: {
-          title: '+1 PTS',
-          desc: 'per 25000 SAT',
-        },
-      },
-      {
-        project: 'Bitcoin Arcade',
-        title: 'Play Satoshi\'s Gambit',
-        desc: `Experience the first 3D fully on-chain game on Bitcoin. Play, have fun, and earn more points.
-          <a href='https://bitcoinarcade.xyz/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
-        `,
-        actionText: 'Play',
-        image: 'bitcoin-arcade.svg',
-        actionHandle: () => {
-          window.open('https://bitcoinarcade.xyz/');
-        },
-        isActive: !!token,
-        right: {
-          title: '+100 PTS',
-          desc: 'per match',
-        },
-      },
+      // {
+      //   project: 'NakaChain',
+      //   title: 'Share the word about NakaChain',
+      //   desc: `Follow naka_chain, Post on X and tag @Naka_chain to climb the ranks.
+      //   <a href='https://nakachain.xyz/' style='color: #FA4E0E' target='_blank'>Learn more</a>
+      //   `,
+      //   actionText: 'Post',
+      //   image: 'ic-naka.svg',
+      //   actionHandle: handleShareTw,
+      //   isActive: !!token,
+      //   right: {
+      //     title: '+1000 PTS',
+      //     desc: '',
+      //   },
+      // },
       {
         project: 'Alpha',
         title: 'Crypto Bull Run',
         desc: `Run to get fit in reality, engage online in a Web3 environment, and raise funds for charity all at once!
-          <a href='https://alpha.wtf/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
+          ${LearnMore('https://alpha.wtf/')}
         `,
         actionText: 'Run',
         image: 'alpha.svg',
@@ -94,9 +69,7 @@ const StepsEco = () => {
               padding="8px"
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
-                  <p>
-                    Max 5,000 pts per day
-                  </p>
+                  <p>Max 5,000 pts per day</p>
                 </Flex>
               }
             >
@@ -105,7 +78,41 @@ const StepsEco = () => {
                 src={`${CDN_URL_ICONS}/info-circle.svg`}
               />
             </Tooltip>
-          )
+          ),
+        },
+      },
+      {
+        project: 'NakaChain',
+        title: 'Swap and Add Liquidity on Naka Genesis',
+        desc: `The higher the volume you make the more airdrop points you will get. ${LearnMore(
+          'https://nakachain.xyz/',
+        )}`,
+        actionText: 'Connect',
+        image: 'ic-naka.svg',
+        actionHandle: () => {
+          setShowSyncBVM(true);
+        },
+        isActive: !!token,
+        right: {
+          title: '+1 PTS',
+          desc: 'per 25000 SAT',
+        },
+      },
+      {
+        project: 'Bitcoin Arcade',
+        title: "Play Satoshi's Gambit",
+        desc: `Experience the first 3D fully on-chain game on Bitcoin. Play, have fun, and earn more points.${LearnMore(
+          'https://bitcoinarcade.xyz/',
+        )}`,
+        actionText: 'Play',
+        image: 'bitcoin-arcade.svg',
+        actionHandle: () => {
+          window.open('https://bitcoinarcade.xyz/');
+        },
+        isActive: !!token,
+        right: {
+          title: '+100 PTS',
+          desc: 'per match',
         },
       },
     ];
