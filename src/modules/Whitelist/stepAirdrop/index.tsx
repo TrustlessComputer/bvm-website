@@ -21,13 +21,17 @@ const StepsAirdrop = () => {
     );
   };
 
+  const handleClaimRetrospective = () => {
+
+  }
+
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
       {
         title: 'New: Timechain',
-        desc: `Tweet about BVM to enter a raffle for Timechain - one of the first generative art on Ordinals.
+        desc: `Like and repost to enter a raffle for a Timechain (Inscription ID: 102269) - the first long-form generative art collection on Ordinals.
         `,
-        actionText: 'Tweet join enter raffle',
+        actionText: 'Like and repost',
         image: "time-chain.svg",
         actionHandle: handleShareTw,
         isActive: !!token,
@@ -35,21 +39,22 @@ const StepsAirdrop = () => {
           title: '+10 Raffle',
           desc: 'per friend',
         },
-        expiredTime: '2024-01-26',
+        expiredTime: '2024-01-22',
       },
       {
-        title: 'Retrospective: GM holders',
-        desc: `Tweet about BVM to enter a raffle for Timechain - one of the first generative art on Ordinals.
-        `,
-        actionText: 'Claim BVM',
-        image: "time-chain.svg",
-        actionHandle: handleShareTw,
-        isActive: !!token,
+        title: 'Retrospective: 2023 users',
+        desc: `Thanks for supporting our 2023 'testnet'. In 2024 mainnet, an airdrop awaits users of BVM products like Generative, GM, Perceptrons, and all TC users.<br/>
+          Snapshot on Jan 16, 2023. Claimable on Jan 24, 2024.
+       `,
+        actionText: 'Claim',
+        image: "gm.svg",
+        actionHandle: handleClaimRetrospective,
+        isActive: false,
         right: {
           title: '+100 BVM',
           desc: 'per GM',
         },
-        expiredTime: '2024-01-26',
+        expiredTime: '2024-01-24',
       },
     ];
   }, [token, needReload]);
