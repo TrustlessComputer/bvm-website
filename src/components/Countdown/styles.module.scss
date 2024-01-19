@@ -1,0 +1,36 @@
+.countdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+
+  svg,
+  path {
+    fill: #fff !important;
+  }
+}
+
+.text {
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  min-width: 36px;
+  text-align: left;
+}
+
+.timeValue {
+  font-weight: 500;
+  font-size: 80px;
+  line-height: 100%;
+  color: #FFFFFF;
+}
+
+.timeTitle {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #FFFFFF;
+}

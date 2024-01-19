@@ -1,0 +1,130 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 0 0px;
+
+  @include w-max(768px) {
+    padding: 0;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .price {
+    font-weight: 400;
+    font-size: 32px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+
+    @include is-mobile {
+      font-size: 24px;
+    }
+  }
+
+  .launchText {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 150%;
+    text-align: center;
+
+    @include is-mobile {
+      font-size: 24px;
+    }
+  }
+
+  .textCountdown {
+    @include is-mobile {
+      > div {
+        gap: 24px;
+
+        > div {
+          p:first-child {
+            font-size: 56px;
+          }
+
+          p:last-child {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .desc {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 150%;
+    color: #FFFFFF;
+    margin-bottom: 40px;
+    margin-top: 16px;
+    text-align: center;
+
+    @include is-mobile {
+      font-size: 16px;
+    }
+
+    span {
+      color: #FA4E0E;
+    }
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .inputContainer {
+    border-radius: 0px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid #CECECE;
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .input {
+    height: 100%;
+    overflow: hidden;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    background-color: transparent;
+    width: 100%;
+    letter-spacing: 0.01em;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &::-ms-input-placeholder { /* Edge 12-18 */
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .button {
+    height: 48px !important;
+    padding: 8px 60px !important;
+    border-radius: 0px !important;
+    background: #FA4E0E !important;
+    color: #fff !important;
+    width: 100%;
+    font-weight: normal !important;
+  }
+
+  .depositValue {
+    font-size: 24px;
+    font-weight: 500;
+  }
+}

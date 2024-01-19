@@ -4,6 +4,7 @@ export type CoinPrices = {
 
 export enum Coin {
   BTC = 'BTC',
+  ETH = 'ETH',
   TIA = 'TIA',
 }
 
