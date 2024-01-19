@@ -7,7 +7,12 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
-import { requestClaimBTCPoint, setBearerToken, verifyCelestiaSignature } from '@/services/whitelist';
+import {
+  requestClaimBTCPoint,
+  requestClaimCelestiaPoint,
+  setBearerToken,
+  verifyCelestiaSignature,
+} from '@/services/whitelist';
 import ConnectModal from '@/components/ConnectModal';
 import useToggle from '@/hooks/useToggle';
 import AllowListStorage from '@/utils/storage/allowlist.storage';
