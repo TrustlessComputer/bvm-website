@@ -48,6 +48,34 @@ const StepsEco = () => {
           desc: !token ? 'first post' : 'per 0.000025 BTC',
         },
       },
+      {
+        title: 'Play Satoshi Gambit',
+        desc: 'Experience the first 3D fully on-chain game on Bitcoin. Play, have fun, and earn more tokens.',
+        actionText: 'Play',
+        image: 'bitcoin-arcade.svg',
+        actionHandle: () => {
+          window.open('https://bitcoinarcade.xyz/');
+        },
+        isActive: !!token,
+        right: {
+          title: '',
+          desc: '',
+        },
+      },
+      {
+        title: 'Alpha',
+        desc: 'The higher the volume you make the more airdrop points you will get.',
+        actionText: 'Verify',
+        image: 'alpha.svg',
+        actionHandle: () => {
+          window.open('https://app.alpha.wtf/');
+        },
+        isActive: !!token,
+        right: {
+          title: !token ? '+1 PTS' : '+1 PTS',
+          desc: !token ? 'first post' : 'per 0.000025 BTC',
+        },
+      },
     ];
   }, [token]);
 
