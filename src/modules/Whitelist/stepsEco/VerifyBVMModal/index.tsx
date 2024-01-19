@@ -56,8 +56,12 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
           onHide && onHide();
         }
       }
-    } catch (error) {
-      toast.error('Can not connect.');
+    } catch (error: any) {
+      if (error && error.message && error.message.includes('Error 1062')) {
+        toast.error('address existed.');
+      } else {
+        toast.error('Can not connect.');
+      }
     }
   };
 

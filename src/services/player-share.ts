@@ -74,9 +74,8 @@ export const verifyNaka = async (params: any): Promise<any> => {
     const res = await apiClient.post(`/bvm/verify-naka`, params);
     return Object(camelCaseKeys(res));
   } catch (error) {
-    console.log(error);
+    throw error;
   }
-  return;
 };
 
 export const getRaffleJoin = async (): Promise<any> => {
@@ -88,7 +87,7 @@ export const getRaffleJoin = async (): Promise<any> => {
   }
 
   return null;
-}
+};
 
 export const joinRaffle = async (): Promise<any> => {
   try {
@@ -99,15 +98,15 @@ export const joinRaffle = async (): Promise<any> => {
   }
 
   return null;
-}
+};
 
 export const getRaffleUsers = async (params: any): Promise<any> => {
   try {
-    const res = await apiClient.get(`/bvm/raffle/join`, {params});
+    const res = await apiClient.get(`/bvm/raffle/join`, { params });
     return res;
   } catch (error) {
     console.log(error);
   }
 
   return null;
-}
+};
