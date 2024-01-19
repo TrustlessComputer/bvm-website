@@ -1,9 +1,11 @@
 import AuthenStorage from '@/utils/storage/authen.storage';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Tooltip } from '@chakra-ui/react';
 import React, { useMemo, useState } from 'react';
 import ItemStep, { IItemCommunity } from './Step';
 import s from './styles.module.scss';
 import VerifyBVMModal from './VerifyBVMModal';
+import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
+import { CDN_URL_ICONS } from '@/config';
 
 const StepsEco = () => {
   const token = AuthenStorage.getAuthenKey();
@@ -46,7 +48,7 @@ const StepsEco = () => {
         },
       },
       {
-        title: 'Play Satoshi Gambit',
+        title: 'Play Satoshi\'s Gambit',
         desc: 'Experience the first 3D fully on-chain game on Bitcoin. Play, have fun, and earn more tokens.',
         actionText: 'Play',
         image: 'bitcoin-arcade.svg',
@@ -55,8 +57,8 @@ const StepsEco = () => {
         },
         isActive: !!token,
         right: {
-          title: '',
-          desc: '',
+          title: '+100 PTS',
+          desc: 'dạ, tks a nhé',
         },
       },
       {
@@ -69,8 +71,29 @@ const StepsEco = () => {
         },
         isActive: !!token,
         right: {
-          title: '',
-          desc: '',
+          title: '+1,000 PTS',
+          desc: 'per kilometer',
+          tooltip: (
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>
+                    Max 5,000 pts per day
+                  </p>
+                </Flex>
+              }
+            >
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
+            </Tooltip>
+          )
         },
       },
     ];
