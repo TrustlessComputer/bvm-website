@@ -2,19 +2,37 @@ import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { Flex } from '@chakra-ui/react';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ItemStep, { IItemCommunity } from './Step';
 import s from './styles.module.scss';
+import { getRaffleJoin, joinRaffle } from '@/services/player-share';
 
 const StepsAirdrop = () => {
   const token = AuthenStorage.getAuthenKey();
   const needReload = useAppSelector(commonSelector).needReload;
+  const [raffleCode, setRaffleCode] = useState();
+
+  useEffect(() => {
+    if(token) {
+      getRaffleJoinInfo();
+    }
+  }, [token, needReload]);
+
+  const getRaffleJoinInfo = async () => {
+    const res = await getRaffleJoin();
+    setRaffleCode(res);
+  };
 
   const handleShareTw = async () => {
     window.open(
       `https://twitter.com/BVMnetwork`,
       '_blank',
     );
+
+    joinRaffle();
+    setTimeout(() => {
+      getRaffleJoinInfo();
+    }, 1000);
   };
 
   const handleClaimRetrospective = () => {
@@ -32,7 +50,7 @@ const StepsAirdrop = () => {
         actionHandle: handleShareTw,
         isActive: !!token,
         right: {
-          title: '+1 raffle ticket',
+          title: raffleCode || '+1 raffle ticket',
           desc: '',
         },
         expiredTime: '2024-01-22 08:00:00',
@@ -53,7 +71,7 @@ const StepsAirdrop = () => {
         expiredTime: '2024-01-24 03:00:00',
       },
     ];
-  }, [token, needReload]);
+  }, [token, needReload, raffleCode]);
 
   return (
     <Flex
