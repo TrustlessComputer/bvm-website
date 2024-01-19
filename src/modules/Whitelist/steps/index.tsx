@@ -201,7 +201,7 @@ const Steps = () => {
         isActive: !!token,
         isDone: !!token,
         step: MultiplierStep.modular,
-        image: "ic-modular-blockchain.svg",
+        image: "ic-celestia.svg",
         right: {
           title: '+100 PTS',
           desc: 'per TIA'
