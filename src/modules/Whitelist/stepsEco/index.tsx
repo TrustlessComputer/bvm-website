@@ -22,6 +22,7 @@ const StepsEco = () => {
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
       {
+        project: 'NakaChain',
         title: 'Share the word about NakaChain',
         desc: `Follow naka_chain, Post on X and tag @Naka_chain to climb the ranks.
         <a href='https://nakachain.xyz/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
@@ -36,6 +37,7 @@ const StepsEco = () => {
         },
       },
       {
+        project: 'NakaChain',
         title: 'Swap and Add Liquidity on Naka Genesis',
         desc: `The higher the volume you make the more airdrop points you will get.
           <a href='https://nakachain.xyz/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
@@ -52,6 +54,7 @@ const StepsEco = () => {
         },
       },
       {
+        project: 'Bitcoin Arcade',
         title: 'Play Satoshi\'s Gambit',
         desc: `Experience the first 3D fully on-chain game on Bitcoin. Play, have fun, and earn more points.
           <a href='https://bitcoinarcade.xyz/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
@@ -68,6 +71,7 @@ const StepsEco = () => {
         },
       },
       {
+        project: 'Alpha',
         title: 'Crypto Bull Run',
         desc: `Run to get fit in reality, engage online in a Web3 environment, and raise funds for charity all at once!
           <a href='https://alpha.wtf/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
