@@ -23,7 +23,9 @@ const StepsEco = () => {
     return [
       {
         title: 'Share the word about NakaChain',
-        desc: 'Follow naka_chain, Post on X and tag @Naka_chain to climb the ranks.',
+        desc: `Follow naka_chain, Post on X and tag @Naka_chain to climb the ranks.
+        <a href='https://nakachain.xyz/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
+        `,
         actionText: 'Post',
         image: 'ic-naka.svg',
         actionHandle: handleShareTw,
@@ -35,7 +37,9 @@ const StepsEco = () => {
       },
       {
         title: 'Swap and Add Liquidity on Naka Genesis',
-        desc: 'The higher the volume you make the more airdrop points you will get.',
+        desc: `The higher the volume you make the more airdrop points you will get.
+          <a href='https://nakachain.xyz/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
+        `,
         actionText: 'Connect',
         image: 'ic-naka.svg',
         actionHandle: () => {
@@ -49,7 +53,9 @@ const StepsEco = () => {
       },
       {
         title: 'Play Satoshi\'s Gambit',
-        desc: 'Experience the first 3D fully on-chain game on Bitcoin. Play, have fun, and earn more points.',
+        desc: `Experience the first 3D fully on-chain game on Bitcoin. Play, have fun, and earn more points.
+          <a href='https://bitcoinarcade.xyz/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
+        `,
         actionText: 'Play',
         image: 'bitcoin-arcade.svg',
         actionHandle: () => {
@@ -63,7 +69,9 @@ const StepsEco = () => {
       },
       {
         title: 'Crypto Bull Run',
-        desc: 'Run to get fit in reality, engage online in a Web3 environment, and raise funds for charity all at once!',
+        desc: `Run to get fit in reality, engage online in a Web3 environment, and raise funds for charity all at once!
+          <a href='https://alpha.wtf/' style='color: #FA4E0E' target='_blank'>Learn more ></a>
+        `,
         actionText: 'Run',
         image: 'alpha.svg',
         actionHandle: () => {

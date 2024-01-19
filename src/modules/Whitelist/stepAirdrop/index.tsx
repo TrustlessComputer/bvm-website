@@ -45,7 +45,7 @@ const StepsAirdrop = () => {
     return [
       {
         title: 'New: Timechain',
-        desc: `Like and repost to enter a raffle for a Timechain (Inscription ID: 102269) - the first long-form generative art collection on Ordinals.
+        desc: `Like and repost to enter a raffle for a Timechain (Inscription ID: 39554) - the first long-form generative art collection on Ordinals.
         `,
         actionText: 'Like and repost',
         image: "time-chain.svg",
@@ -76,7 +76,7 @@ const StepsAirdrop = () => {
             </Tooltip>
           )
         },
-        expiredTime: '2024-01-22 08:00:00',
+        expiredTime: '2024-01-24 08:00:00',
         showExpireTime: true
       },
       {
