@@ -73,18 +73,18 @@ const Whitelist = () => {
           <Tabs variant="unstyled">
             <TabList mb="32px" overflow="hidden">
               <Tab>Start here</Tab>
-              <Tab>Ecosystem</Tab>
               <Tab>Airdrop 1</Tab>
+              <Tab>Ecosystem</Tab>
             </TabList>
             <TabPanels w="100%">
               <TabPanel>
                 <Steps />
               </TabPanel>
               <TabPanel>
-                <StepsEco />
+                <StepsAirdrop />
               </TabPanel>
               <TabPanel>
-                <StepsAirdrop />
+                <StepsEco />
               </TabPanel>
             </TabPanels>
           </Tabs>
