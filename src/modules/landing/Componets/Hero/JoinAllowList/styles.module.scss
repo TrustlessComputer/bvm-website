@@ -197,10 +197,7 @@
   align-items: center;
   gap: 8px;
   margin-top: 20px;
-
-  @include is-pc {
-    justify-content: end;
-  }
+  justify-content: center;
 
   &_users {
     display: flex;

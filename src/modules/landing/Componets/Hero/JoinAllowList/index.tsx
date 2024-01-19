@@ -31,20 +31,21 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
   React.useEffect(() => {
     getCount();
   }, []);
-  console.log('count', listUser);
+
+  const delay = isFooter ? 0 : DELAY;
 
   return (
-    <Fade delay={DELAY}>
+    <Fade delay={delay}>
       <div className={`${s.container} ${isFooter && s.isFooter}`}>
         <div className={`container ${s.content}`}>
           <Flex flexDirection={'column'} gap={'8px'}>
-            <Fade delay={DELAY + .2}>
+            <Fade delay={delay + .2}>
               <div className={s.titleWrapper}>
                 <div className={s.title}>BVM PUBLIC SALE</div>
               </div>
             </Fade>
             <div className={s.desc}>
-              <Chars delay={DELAY + .4}>
+              <Chars delay={delay + .4}>
                 Be the first to know.
                 <br />
                 Allowlisters get up to <span>&nbsp;30% extra tokens</span>.
@@ -53,7 +54,7 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
           </Flex>
 
           <Flex gap={5} flexDirection={'column'}>
-            <Fade delay={DELAY + .6}>
+            <Fade delay={delay + .6}>
               <Button
                 type='submit'
                 // isDisabled={isCreating || !formValues.username}
