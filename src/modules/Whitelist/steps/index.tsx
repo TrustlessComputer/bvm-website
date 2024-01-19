@@ -186,26 +186,26 @@ const Steps = () => {
             desc: 'per 1000 sats'
           }
         },
-        // {
-        //   title: 'Are you a Modular Blockchain Pioneer?',
-        //   desc: 'The more TIA you’re holding, the more points you’ll get. Connect your Keplr wallet to prove the account ownership.',
-        //   actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
-        //   actionHandle: isNeedClaimCelestiaPoint ? async () => {
-        //     handleShareTw();
-        //     await requestClaimCelestiaPoint(allowCelestia.status)
-        //     dispatch(requestReload())
-        //   } : onSignModular,
-        //   actionTextSecondary: isNeedClaimCelestiaPoint ? "Verify another wallet" : undefined,
-        //   actionHandleSecondary: isNeedClaimCelestiaPoint ? onSignModular : undefined,
-        //   isActive: !!token,
-        //   isDone: !!token,
-        //   step: MultiplierStep.modular,
-        //   image: "ic-modular-blockchain.svg",
-        //   right: {
-        //     title: '+100 PTS',
-        //     desc: 'per TIA'
-        //   }
-        // },
+        {
+          title: 'Are you a Modular Blockchain Pioneer?',
+          desc: 'The more TIA or staked TIA you hold, the more points you’ll get. Connect your Keplr wallet to prove the account ownership.',
+          actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
+          actionHandle: isNeedClaimCelestiaPoint ? async () => {
+            handleShareTw();
+            await requestClaimCelestiaPoint(allowCelestia.status)
+            dispatch(requestReload())
+          } : onSignModular,
+          actionTextSecondary: isNeedClaimCelestiaPoint ? "Verify another wallet" : undefined,
+          actionHandleSecondary: isNeedClaimCelestiaPoint ? onSignModular : undefined,
+          isActive: !!token,
+          isDone: !!token,
+          step: MultiplierStep.modular,
+          image: "ic-modular-blockchain.svg",
+          right: {
+            title: '+100 PTS',
+            desc: 'per TIA'
+          }
+        },
         // {
         //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
         // },
