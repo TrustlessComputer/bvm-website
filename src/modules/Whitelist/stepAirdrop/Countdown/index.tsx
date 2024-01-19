@@ -53,13 +53,7 @@ const Countdown: React.FC<IProps> = ({
 
       {ended && <Text className={s.text}>Ended</Text>}
       {!ended && (
-        <Text className={s.text}>{`${
-          hours !== '00'
-            ? `${
-                days !== null && days !== 0 ? days * 24 + Number(hours) : hours
-              }:`
-            : ''
-        }${minutes}:${seconds}`}</Text>
+        <Text className={s.text}>{`${days}d ${hours}h:${minutes}m:${seconds}s`}</Text>
       )}
     </div>
   );
