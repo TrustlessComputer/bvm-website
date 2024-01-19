@@ -64,7 +64,7 @@ const StepsAirdrop = () => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    The raffle code is used to find the winner.
+                    At the end of the events, the list of qualified users (those who liked and reposted) will be collected, and a winner will be chosen at random using the raffle code.
                   </p>
                 </Flex>
               }
