@@ -147,8 +147,7 @@ const Steps = () => {
         <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
         'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
     const isNeedClaimBTCPoint = allowBTC.isUnclaimed && allowBTC.amount.unClaimedPoint && !!allowBTC.amount.txsCount && !allowBTC.isProcessing;
-    // const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed && allowCelestia.amount.unClaimedPoint && !allowBTC.isProcessing;
-    const isNeedClaimCelestiaPoint = true
+    const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed && allowCelestia.amount.unClaimedPoint && !allowBTC.isProcessing;
     const authenTask =  {
       title: 'Tweet about BVM',
       desc: 'Tweet as often as you like & tag @BVMnetwork to rank up.',
