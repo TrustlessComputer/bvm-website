@@ -13,7 +13,7 @@ import AppLoading from '@/components/AppLoading';
 import CountUp from 'react-countup';
 // import FAQContent from './FAQContent';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import StepsEco from './stepsEco';
+// import StepsEco from './stepsEco';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
@@ -74,15 +74,15 @@ const Whitelist = () => {
           <Tabs variant="unstyled">
             <TabList mb="32px" overflow="hidden">
               <Tab>Start here</Tab>
-              <Tab>Ecosystem</Tab>
+              {/* <Tab>Ecosystem</Tab> */}
             </TabList>
             <TabPanels w="100%">
               <TabPanel>
                 <Steps />
               </TabPanel>
-              <TabPanel>
+              {/* <TabPanel>
                 <StepsEco />
-              </TabPanel>
+              </TabPanel> */}
             </TabPanels>
           </Tabs>
         </div>

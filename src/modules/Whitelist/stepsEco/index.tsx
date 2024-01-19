@@ -6,12 +6,12 @@ import React, { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ItemStep, { IItemCommunity } from './Step';
 import s from './styles.module.scss';
+import VerifyBVMModal from './VerifyBVMModal';
 
 const StepsEco = () => {
-  const [submitting, setSubmitting] = useState(false);
-  const dispatch = useDispatch();
   const token = AuthenStorage.getAuthenKey();
   const needReload = useAppSelector(commonSelector).needReload;
+  const [showSyncBVM, setShowSyncBVM] = useState(false);
 
   const handleShareTw = async () => {
     const shareUrl = 'https://nakachain.xyz';
@@ -39,26 +39,12 @@ const StepsEco = () => {
         },
       },
       {
-        title: 'Swap on Naka Genesis',
+        title: 'Swap and Add Liquidity on Naka Genesis',
         desc: 'Tweet as often as you like & tag @Naka_Chain to rank up.',
-        actionText: 'Swap',
+        actionText: 'Sync',
         image: 'ic-naka.svg',
         actionHandle: () => {
-          window.open('https://nakachain.xyz/swap');
-        },
-        isActive: !!token,
-        right: {
-          title: !token ? '+1000 PTS' : '+1 PTS',
-          desc: !token ? 'first post' : 'per view',
-        },
-      },
-      {
-        title: 'Add Liquidity on Naka Genesis',
-        desc: 'Tweet as often as you like & tag @Naka_Chain to rank up.',
-        actionText: 'Add Liquidity',
-        image: 'ic-naka.svg',
-        actionHandle: () => {
-          window.open('https://nakachain.xyz/liquidity');
+          setShowSyncBVM(true);
         },
         isActive: !!token,
         right: {
@@ -84,10 +70,16 @@ const StepsEco = () => {
             key={index}
             index={index}
             content={item}
-            isLoading={submitting}
+            isLoading={false}
           />
         );
       })}
+      <VerifyBVMModal
+        isShow={showSyncBVM}
+        onHide={() => {
+          setShowSyncBVM(false);
+        }}
+      />
     </Flex>
   );
 };
