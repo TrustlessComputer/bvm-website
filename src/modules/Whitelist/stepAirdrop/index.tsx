@@ -77,6 +77,7 @@ const StepsAirdrop = () => {
           )
         },
         expiredTime: '2024-01-22 08:00:00',
+        showExpireTime: true
       },
       {
         title: 'Retrospective: 2023 users',
@@ -86,12 +87,14 @@ const StepsAirdrop = () => {
         actionText: 'Claim',
         image: "gm.svg",
         actionHandle: handleClaimRetrospective,
-        isActive: false,
+        isActive: true,
+        isDisable: true,
         right: {
           title: '',
           desc: '',
         },
         expiredTime: '2024-01-24 03:00:00',
+        showExpireTime: false
       },
     ];
   }, [token, needReload, raffleCode]);

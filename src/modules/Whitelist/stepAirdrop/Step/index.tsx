@@ -29,6 +29,8 @@ export interface IItemCommunity {
     tooltip?: any
   };
   expiredTime?: string;
+  isDisable?: boolean;
+  showExpireTime?: boolean;
 }
 
 export default function ItemCommunity({
@@ -40,7 +42,7 @@ export default function ItemCommunity({
   content: IItemCommunity;
   isLoading?: boolean;
 }) {
-  const { isActive, image } = content;
+  const { isActive, image, isDisable = false } = content;
 
   const isRunning = useMemo(() => {
     return isActive;
@@ -73,7 +75,7 @@ export default function ItemCommunity({
               {
                 <Flex>
                   {
-                    !!content?.expiredTime && (
+                    content?.showExpireTime && !!content?.expiredTime && (
                       <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
                         <Countdown className={s.itemCommunity__countdown} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} />
                         <Text fontSize={"12px"} fontWeight={400} color={"#000000"}>TIME REMAIN</Text>
@@ -93,8 +95,15 @@ export default function ItemCommunity({
                         }
                       }}
                       isLoading={isLoading}
+                      isDisabled={isDisable}
                     >
-                      {content?.actionText}
+                      {
+                        !content?.showExpireTime && !!content?.expiredTime ? (
+                          <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
+                            <Countdown className={s.itemCommunity__countdown_button} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} />
+                          </Flex>
+                        ) : (content?.actionText)
+                      }
                     </Button>
                     {!!content.actionHandleSecondary && (
                       <Button
