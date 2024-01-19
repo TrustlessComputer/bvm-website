@@ -12,19 +12,14 @@ const useElementHeight = ({ elementID }: IProps) => {
     const element = document.getElementById(elementID);
     if (element) {
       setHeight(element.offsetHeight);
-      element.addEventListener('resize', () => {
-        console.log('SANG TEST');
-      })
-
     }
-
   }
 
   React.useEffect(() => {
     checkElementHeight();
     setInterval(() => {
       checkElementHeight();
-    }, 3000)
+    }, 1000)
   }, [])
 
   return {
