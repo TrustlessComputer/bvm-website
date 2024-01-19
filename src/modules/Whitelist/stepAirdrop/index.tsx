@@ -3,7 +3,7 @@ import { commonSelector } from '@/stores/states/common/selector';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { Flex, Tooltip } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
-import ItemStep, { IItemCommunity } from './Step';
+import ItemStep, { AirdropType, IItemCommunity } from './Step';
 import s from './styles.module.scss';
 import { getRaffleJoin, joinRaffle } from '@/services/player-share';
 import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
@@ -44,7 +44,7 @@ const StepsAirdrop = () => {
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
       {
-        title: 'New: Timechain',
+        title: 'Timechain',
         desc: `Like and repost to enter a raffle for a Timechain (Inscription ID: 39554) - the first long-form generative art collection on Ordinals.
         `,
         actionText: 'Like and repost',
@@ -77,10 +77,11 @@ const StepsAirdrop = () => {
           )
         },
         expiredTime: '2024-01-24 08:00:00',
-        showExpireTime: true
+        showExpireTime: true,
+        airdropType: AirdropType.NEW
       },
       {
-        title: 'Retrospective: 2023 users',
+        title: '2023 users',
         desc: `Thanks for supporting our 2023 'testnet'. In 2024 mainnet, an airdrop awaits users of BVM products like Generative, Perceptrons, GM, Alpha, and all TC users.<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
@@ -94,7 +95,8 @@ const StepsAirdrop = () => {
           desc: '',
         },
         expiredTime: '2024-01-24 03:00:00',
-        showExpireTime: false
+        showExpireTime: false,
+        airdropType: AirdropType.RETROSPECTIVE
       },
     ];
   }, [token, needReload, raffleCode]);
