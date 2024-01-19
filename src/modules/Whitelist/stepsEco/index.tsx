@@ -23,8 +23,8 @@ const StepsEco = () => {
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
       {
-        title: 'Tweet about NakaChain',
-        desc: 'Tweet as often as you like & tag @Naka_Chain to rank up.',
+        title: 'Share the word about NakaChain',
+        desc: 'Post on X as often as you like and tag @Naka_chain to climb the ranks.',
         actionText: 'Post',
         image: 'ic-naka.svg',
         actionHandle: handleShareTw,
@@ -36,7 +36,7 @@ const StepsEco = () => {
       },
       {
         title: 'Swap and Add Liquidity on Naka Genesis',
-        desc: 'Tweet as often as you like & tag @Naka_Chain to rank up.',
+        desc: 'The higher the volume you make the more airdrop points you will get.',
         actionText: 'Verify',
         image: 'ic-naka.svg',
         actionHandle: () => {
