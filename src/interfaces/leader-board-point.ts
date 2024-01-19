@@ -22,4 +22,5 @@ export interface ILeaderBoardPoint {
   refer_point: string;
   celestia_point: string;
   naka_point: string;
+  eco_point: string;
 }

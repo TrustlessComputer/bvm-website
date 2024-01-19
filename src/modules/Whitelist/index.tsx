@@ -84,7 +84,7 @@ const Whitelist = () => {
               <TabPanel>
                 <StepsEco />
               </TabPanel>
-               <TabPanel>
+              <TabPanel>
                 <StepsAirdrop />
               </TabPanel>
             </TabPanels>

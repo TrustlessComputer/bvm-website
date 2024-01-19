@@ -83,6 +83,11 @@
       overflow: hidden;
       width: 100%;
 
+      @include w-max(1280px) {
+        height: fit-content;
+        max-height: calc(80dvh + 80px);
+      }
+
       .chakra-tabs__tablist {
         position: relative;
         width: 100%;
@@ -116,6 +121,10 @@
         overflow-y: scroll;
         padding-bottom: 100px;
         margin-top: 12px;
+
+        @include w-max(1280px) {
+          padding-bottom: 20px;
+        }
 
         scrollbar-width: none;
         -ms-overflow-style: none;
