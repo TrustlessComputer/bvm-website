@@ -127,7 +127,7 @@ const LeaderBoard = () => {
   const columns: ColumnProp[] = useMemo(() => {
     return [
       {
-        id: 'player',
+        id: 'rank',
         label: <Box pl={'8px'}>RANK</Box>,
         labelConfig,
         config: {
@@ -153,7 +153,7 @@ const LeaderBoard = () => {
         },
       },
       {
-        id: 'player',
+        id: 'name',
         label: 'NAME',
         labelConfig,
         config: {
@@ -187,7 +187,7 @@ const LeaderBoard = () => {
                 />
                 <Flex width={'100%'} gap={'4px'} direction={'column'}>
                     <Text className={styles.title}>
-                      {formatName(data?.twitter_name as string, 50)}
+                      {formatName(data?.twitter_name as string, 18)}
                     </Text>
                     {data?.need_active && (
                       <Text className={styles.subTitle}>
@@ -239,6 +239,45 @@ const LeaderBoard = () => {
                   styles[valueToClassName[`${data?.boost}`]],
                   data.need_active && styles.isActiveRow
                 )}>{data?.boost || 0}%</Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'point',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              textTransform: 'uppercase'
+            }}
+          >
+            TOTAL
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '16px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={3}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={2}>
+                <Text className={styles.title}>
+                  {formatCurrency(new BigNumber(data?.point || '0').toNumber(), 0, 0)}
+                </Text>
               </Flex>
             </Flex>
           );
@@ -299,7 +338,7 @@ const LeaderBoard = () => {
         },
       },
       {
-        id: 'feature',
+        id: 'btc-og',
         label: (
           <Flex
             style={{
@@ -319,7 +358,7 @@ const LeaderBoard = () => {
               padding="8px"
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Gas spent is calculated from total gas fees paid on Bitcoin.</p>
+                  <p>Bitcoin OG is calculated from total gas fees paid on Bitcoin.</p>
                 </Flex>
               }
             >
@@ -429,51 +468,34 @@ const LeaderBoard = () => {
           );
         },
       },
-      // {
-      //   id: 'swap',
-      //   label: (
-      //     <Flex style={{ textTransform: 'uppercase' }}>
-      //       BVM OG
-      //     </Flex>
-      //   ),
-      //   labelConfig,
-      //   config: {
-      //     borderBottom: 'none',
-      //     fontSize: '16px',
-      //     fontWeight: 500,
-      //     verticalAlign: 'middle',
-      //     letterSpacing: '-0.5px',
-      //     textTransform: 'uppercase'
-      //   },
-      //   render(data: ILeaderBoardPoint) {
-      //     return (
-      //       <Flex
-      //         gap={3}
-      //         alignItems={'center'}
-      //         width={'100%'}
-      //         justifyContent={'center'}
-      //       >
-      //         <Flex alignItems={'center'} gap={2}>
-      //           <Text className={styles.title}>
-      //             {formatCurrency(data?.point_swap_inday, 0, 0)}
-      //           </Text>
-      //         </Flex>
-      //       </Flex>
-      //     );
-      //   },
-      // },
       {
-        id: 'point',
+        id: 'celestia',
         label: (
           <Flex
             style={{
               justifyContent: 'center',
+              alignItems: 'center',
               alignSelf: 'center',
               width: '100%',
-              textTransform: 'uppercase'
+              gap: '4px',
             }}
           >
-            TOTAL
+            <p style={{ textTransform:'uppercase' }}>CELESTIA POINTS</p>
+            {/*<Tooltip*/}
+            {/*  minW="220px"*/}
+            {/*  bg="white"*/}
+            {/*  boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"*/}
+            {/*  borderRadius="4px"*/}
+            {/*  padding="8px"*/}
+            {/*  label={*/}
+            {/*    <Flex direction="column" color="black" opacity={0.7}>*/}
+            {/*      <p>Content Points are calculated based on the performance of your posts on X, including Views.*/}
+            {/*        Note: To be qualified, you must tag: <br/><strong>@BVMnetwork</strong></p>*/}
+            {/*    </Flex>*/}
+            {/*  }*/}
+            {/*>*/}
+            {/*  <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>*/}
+            {/*</Tooltip>*/}
           </Flex>
         ),
         labelConfig,
@@ -492,9 +514,9 @@ const LeaderBoard = () => {
               width={'100%'}
               justifyContent={'center'}
             >
-              <Flex alignItems={'center'} gap={2}>
+              <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(new BigNumber(data?.point || '0').toNumber(), 0, 0)}
+                  {formatCurrency(data?.celestia_point, 0, 0)}
                 </Text>
               </Flex>
             </Flex>

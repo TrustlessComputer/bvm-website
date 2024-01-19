@@ -46,10 +46,6 @@ table {
         tr {
           height: 62px;
         }
-        th {
-          margin-right: 8px !important;
-          background-color: red !important;
-        }
       }
       .isActiveRow {
         background-color: #007659 !important;
@@ -95,30 +91,12 @@ table {
         }
       }
     }
-    thead {
+    thead, tbody {
       tr {
-        th {
+        th, td{
+          padding-right: 16px !important;
           &:nth-child(1) {
             width: 60px !important;
-          }
-          &:nth-child(2) {
-            width: 220px !important;
-          }
-          &:nth-child(3) {
-            min-width: 100px !important;
-          }
-        }
-      }
-    }
-
-    tbody {
-      tr {
-        td, th {
-          &:nth-child(1) {
-            width: 60px !important;
-          }
-          &:nth-child(2) {
-            width: 220px !important;
           }
           &:nth-child(3) {
             min-width: 100px !important;
@@ -133,7 +111,6 @@ table {
       font-size: 16px;
       line-height: 140%;
       color: black;
-      max-width: 220px;
       overflow: hidden;
       text-overflow: ellipsis;
     }

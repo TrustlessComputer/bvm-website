@@ -20,4 +20,5 @@ export interface ILeaderBoardPoint {
   num_quote:        string;
   num_post:         string;
   refer_point:      string;
+  celestia_point:   string;
 }
