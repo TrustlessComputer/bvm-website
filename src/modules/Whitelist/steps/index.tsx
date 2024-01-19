@@ -74,7 +74,7 @@ const Steps = () => {
 
   const onShareModular = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (holding ${formatCurrency(new BigNumber(allowCelestia.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\nPowered by @BVMnetwork, you can deploy your own Bitcoin L2 chain with @Celestia and @Optimism in a few clicks.\n\n🤯🤯🤯\n`;
+    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (holding ${formatCurrency(new BigNumber(allowCelestia.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\nPowered by @BVMnetwork, you can deploy your own Bitcoin L2 chain with @CelestiaOrg and @Optimism in a few clicks.\n\n🤯🤯🤯\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -147,7 +147,8 @@ const Steps = () => {
         <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
         'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
     const isNeedClaimBTCPoint = allowBTC.isUnclaimed && allowBTC.amount.unClaimedPoint && !!allowBTC.amount.txsCount && !allowBTC.isProcessing;
-    const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed && allowCelestia.amount.unClaimedPoint && !allowBTC.isProcessing;
+    // const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed && allowCelestia.amount.unClaimedPoint && !allowBTC.isProcessing;
+    const isNeedClaimCelestiaPoint = true
     const authenTask =  {
       title: 'Tweet about BVM',
       desc: 'Tweet as often as you like & tag @BVMnetwork to rank up.',
