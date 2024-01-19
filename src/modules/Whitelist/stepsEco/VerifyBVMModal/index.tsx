@@ -1,20 +1,16 @@
 import BaseModal from '@/components/BaseModal';
 import { PERP_NAKA_API_URL } from '@/config';
 import { apiClient } from '@/services';
-import { closeModal } from '@/stores/states/modal/reducer';
+import { verifyNaka } from '@/services/player-share';
 import { decryptAES, generateRandomString } from '@/utils/encryption';
 import { Box, Flex, ListItem, OrderedList, Text } from '@chakra-ui/react';
 import React from 'react';
+import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
-import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import s from './styles.module.scss';
 
-export const VerifyBVMModalID = 'VerifyBVMModalID';
-
 const VerifyBVMModal = ({ isShow, onHide }: any) => {
-  const dispatch = useDispatch();
-
   const publicCode = uuidv4();
   const privateCode = uuidv4();
 
@@ -50,18 +46,14 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
 
       if (rs) {
         const data = JSON.parse(decryptAES(rs, descryptCode));
-
-        if (data && data['ADDRESS_STORAGE']) {
-          console.log('===data', data);
-
-          dispatch(closeModal({ id: VerifyBVMModalID }));
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+        if (data && data.address) {
+          await verifyNaka(data);
+          toast.success('Verify Naka successfully!');
+          onHide && onHide();
         }
       }
     } catch (error) {
-      console.log('errorrrrr', error);
+      toast.error('Can not verify Naka.');
     }
   };
 
@@ -69,7 +61,7 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
     getSyncData(publicCode);
     const interval = setInterval(() => {
       getSyncData(publicCode);
-    }, 3000); // 3s
+    }, 5000); // 5s
     return () => {
       clearInterval(interval);
     };
@@ -96,8 +88,9 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
               flexDirection="column"
               px={'12px'}
               py={'8px'}
-              borderRadius={'8px'}
               gap="4px"
+              bg="#F4EADB"
+              border="1px solid #FF7E214D"
             >
               <Text
                 textAlign="left"
@@ -105,7 +98,7 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
                 fontWeight={600}
                 mb="4px"
               >
-                How to sync your Naka Genesis profile to the BVM:
+                How to sync your Naka Genesis to the BVM:
               </Text>
               <OrderedList fontWeight={400}>
                 <ListItem textAlign="left">
@@ -123,7 +116,7 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
                   Open Naka Genesis App on your mobile
                 </ListItem>
                 <ListItem mt="4px" textAlign="left">
-                  Tap the balance at the top right to access the Wallet page
+                  Tap the balance at the bottom right to access the Wallet page
                 </ListItem>
                 <ListItem mt="4px" textAlign="left">
                   Click on the QR scan icon next to the three dots icon
@@ -139,8 +132,9 @@ const VerifyBVMModal = ({ isShow, onHide }: any) => {
               px={'12px'}
               py={'8px'}
               mt="16px"
-              borderRadius={'8px'}
               gap="4px"
+              bg="#F4EADB"
+              border="1px solid #FF7E214D"
             >
               <Text
                 textAlign="left"

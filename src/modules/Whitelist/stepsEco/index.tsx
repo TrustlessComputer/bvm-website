@@ -1,16 +1,12 @@
-import { useAppSelector } from '@/stores/hooks';
-import { commonSelector } from '@/stores/states/common/selector';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { Flex } from '@chakra-ui/react';
 import React, { useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import ItemStep, { IItemCommunity } from './Step';
 import s from './styles.module.scss';
 import VerifyBVMModal from './VerifyBVMModal';
 
 const StepsEco = () => {
   const token = AuthenStorage.getAuthenKey();
-  const needReload = useAppSelector(commonSelector).needReload;
   const [showSyncBVM, setShowSyncBVM] = useState(false);
 
   const handleShareTw = async () => {
@@ -41,7 +37,7 @@ const StepsEco = () => {
       {
         title: 'Swap and Add Liquidity on Naka Genesis',
         desc: 'Tweet as often as you like & tag @Naka_Chain to rank up.',
-        actionText: 'Sync',
+        actionText: 'Verify',
         image: 'ic-naka.svg',
         actionHandle: () => {
           setShowSyncBVM(true);
@@ -53,7 +49,7 @@ const StepsEco = () => {
         },
       },
     ];
-  }, [token, needReload]);
+  }, [token]);
 
   return (
     <Flex
@@ -74,14 +70,16 @@ const StepsEco = () => {
           />
         );
       })}
-      <VerifyBVMModal
-        isShow={showSyncBVM}
-        onHide={() => {
-          setShowSyncBVM(false);
-        }}
-      />
+      {showSyncBVM && (
+        <VerifyBVMModal
+          isShow={showSyncBVM}
+          onHide={() => {
+            setShowSyncBVM(false);
+          }}
+        />
+      )}
     </Flex>
   );
 };
 
-export default StepsEco;
+export default React.memo(StepsEco);
