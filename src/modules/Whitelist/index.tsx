@@ -56,7 +56,7 @@ const Whitelist = () => {
         ) : (
           <AppLoading />
         )}
-        <Box mt="40px" />
+        {/* <Box mt="40px" /> */}
       </>
     );
   };
@@ -83,7 +83,7 @@ const Whitelist = () => {
               <TabPanel>
                 <StepsEco />
               </TabPanel>
-               <TabPanel>
+              <TabPanel>
                 <StepsAirdrop />
               </TabPanel>
             </TabPanels>
