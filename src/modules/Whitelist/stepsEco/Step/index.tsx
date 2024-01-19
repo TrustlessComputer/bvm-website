@@ -21,7 +21,6 @@ export interface IItemCommunity {
     title: string;
     desc: string;
   };
-  handleShowManualPopup?: () => void;
 }
 
 export default function ItemCommunity({

@@ -13,6 +13,17 @@ const StepsEco = () => {
   const token = AuthenStorage.getAuthenKey();
   const needReload = useAppSelector(commonSelector).needReload;
 
+  const handleShareTw = async () => {
+    const shareUrl = 'https://nakachain.xyz';
+    const content = ``;
+    window.open(
+      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+        content,
+      )}`,
+      '_blank',
+    );
+  };
+
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
       {
@@ -20,7 +31,7 @@ const StepsEco = () => {
         desc: 'Tweet as often as you like & tag @Naka_Chain to rank up.',
         actionText: 'Post',
         image: 'ic-naka.svg',
-        actionHandle: () => {},
+        actionHandle: handleShareTw,
         isActive: !!token,
         right: {
           title: !token ? '+1000 PTS' : '+1 PTS',
@@ -44,10 +55,10 @@ const StepsEco = () => {
       {
         title: 'Add Liquidity on Naka Genesis',
         desc: 'Tweet as often as you like & tag @Naka_Chain to rank up.',
-        actionText: 'Swap',
+        actionText: 'Add Liquidity',
         image: 'ic-naka.svg',
         actionHandle: () => {
-          window.open('https://nakachain.xyz/swap');
+          window.open('https://nakachain.xyz/liquidity');
         },
         isActive: !!token,
         right: {
