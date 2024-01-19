@@ -78,9 +78,7 @@ export default function ItemCommunity({
                 <div
                   className={s.itemCommunity__desc}
                   dangerouslySetInnerHTML={{
-                    __html: sanitizeHtml(content?.desc as string, {
-                      allowedAttributes: ALLOWED_ATTRIBUTES,
-                    }),
+                    __html: content?.desc,
                   }}
                 />
               )}

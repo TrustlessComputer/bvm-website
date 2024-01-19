@@ -8,6 +8,7 @@ import s from './styles.module.scss';
 import { getRaffleJoin, joinRaffle } from '@/services/player-share';
 import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
 import { CDN_URL_ICONS } from '@/config';
+import { LearnMore } from '@/modules/Whitelist/stepsEco';
 
 const StepsAirdrop = () => {
   const token = AuthenStorage.getAuthenKey();
@@ -46,7 +47,7 @@ const StepsAirdrop = () => {
       {
         title: 'Timechain',
         desc: `Like and repost to enter a raffle for a Timechain (Inscription ID: 39554) - the first long-form generative art collection on Ordinals.
-          <a href='https://twitter.com/punk3700/status/1623708934107430913' style='color: #FA4E0E' target='_blank'>Learn more ></a>
+          ${LearnMore('https://twitter.com/punk3700/status/1623708934107430913')}
         `,
         actionText: 'Like and repost',
         image: "time-chain.svg",

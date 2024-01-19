@@ -7,7 +7,7 @@ import VerifyBVMModal from './VerifyBVMModal';
 import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
 import { CDN_URL_ICONS } from '@/config';
 
-const LearnMore = (href: string) => {
+export const LearnMore = (href: string) => {
   return `<a href='${href}' style="color: #FA4E0E" target="_blank">
       <div style="display: flex; flex-direction: row; align-items: center; gap: 4px;">
         <p>Learn more</p>
