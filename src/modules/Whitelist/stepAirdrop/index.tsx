@@ -27,7 +27,7 @@ const StepsAirdrop = () => {
 
   const handleShareTw = async () => {
     window.open(
-      `https://twitter.com/BVMnetwork`,
+      `https://twitter.com/BVMnetwork/status/1748299995898691711`,
       '_blank',
     );
 
@@ -46,6 +46,7 @@ const StepsAirdrop = () => {
       {
         title: 'Timechain',
         desc: `Like and repost to enter a raffle for a Timechain (Inscription ID: 39554) - the first long-form generative art collection on Ordinals.
+          <a href='https://twitter.com/punk3700/status/1623708934107430913' style='color: #FA4E0E' target='_blank'>Learn more ></a>
         `,
         actionText: 'Like and repost',
         image: "time-chain.svg",
