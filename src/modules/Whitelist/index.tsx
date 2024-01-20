@@ -55,7 +55,7 @@ const Whitelist = () => {
         ) : (
           <AppLoading />
         )}
-        <Box mt="40px" />
+        <Box mt={['0px', '40px']} />
       </>
     );
   };

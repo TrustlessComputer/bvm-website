@@ -68,7 +68,7 @@ export default function ItemCommunity({
           alt="ic-section"
         />
         <Flex direction="column" gap="8px" flex={1}>
-          <Flex justifyContent="space-between" gap="16px">
+          <Flex direction={["column", "row"]} justifyContent="space-between" gap={[1, 4]}>
             <Flex direction="column" w="100%">
               <Flex gap={2}>
                 <div className={cx(s.itemCommunity__tag, s[AirdropText[content?.airdropType].toLowerCase()])}>{AirdropText[content?.airdropType]}</div>
@@ -94,60 +94,11 @@ export default function ItemCommunity({
                   }
                 </Flex>
               }
-              {!!content?.actionText && (
-                <Flex direction="column" w="100%" mt="8px">
-                  <Flex gap="8px" flexDirection="column" w="100%">
-                    <Button
-                      className={s.itemCommunity__btnCTA}
-                      onClick={() => {
-                        if (content?.actionHandle && isRunning && !isLoading) {
-                          content?.actionHandle();
-                        }
-                      }}
-                      isLoading={isLoading}
-                      isDisabled={isDisable}
-                    >
-                      {
-                        !content?.showExpireTime && !!content?.expiredTime ? (
-                          <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
-                            <Countdown className={s.itemCommunity__countdown_button} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} />
-                          </Flex>
-                        ) : (content?.actionText)
-                      }
-                    </Button>
-                    {!!content.actionHandleSecondary && (
-                      <Button
-                        className={cs(
-                          s.itemCommunity__btnCTA,
-                          s.itemCommunity__btnSecondary,
-                        )}
-                        onClick={() => {
-                          if (
-                            content?.actionHandleSecondary &&
-                            isRunning &&
-                            !isLoading
-                          ) {
-                            content?.actionHandleSecondary();
-                          }
-                        }}
-                      >
-                        {content?.actionTextSecondary}
-                      </Button>
-                    )}
-                  </Flex>
-                </Flex>
-              )}
             </Flex>
-            <Flex direction="column">
+            <Flex direction={["row", 'column']} justifyContent={["space-between", "flex-start"]}>
               <div className={s.itemCommunity__point}>
                 {content?.right.title}
-                {
-                  content?.right.tooltip && (
-                    <>
-                      {content?.right.tooltip}
-                    </>
-                  )
-                }
+                {content?.right.tooltip && <>{content?.right.tooltip}</>}
               </div>
               {!!content?.desc && (
                 <div className={s.itemCommunity__pointNote}>
@@ -156,6 +107,48 @@ export default function ItemCommunity({
               )}
             </Flex>
           </Flex>
+          {!!content?.actionText && (
+            <Flex direction="column" w="100%" mt="8px">
+              <Flex gap="8px" flexDirection="column" w="100%">
+                <Button
+                  className={s.itemCommunity__btnCTA}
+                  onClick={() => {
+                    if (content?.actionHandle && isRunning && !isLoading) {
+                      content?.actionHandle();
+                    }
+                  }}
+                  isLoading={isLoading}
+                >
+                  {
+                    !content?.showExpireTime && !!content?.expiredTime ? (
+                      <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
+                        <Countdown className={s.itemCommunity__countdown_button} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} />
+                      </Flex>
+                    ) : (content?.actionText)
+                  }
+                </Button>
+                {!!content.actionHandleSecondary && (
+                  <Button
+                    className={cs(
+                      s.itemCommunity__btnCTA,
+                      s.itemCommunity__btnSecondary,
+                    )}
+                    onClick={() => {
+                      if (
+                        content?.actionHandleSecondary &&
+                        isRunning &&
+                        !isLoading
+                      ) {
+                        content?.actionHandleSecondary();
+                      }
+                    }}
+                  >
+                    {content?.actionTextSecondary}
+                  </Button>
+                )}
+              </Flex>
+            </Flex>
+          )}
         </Flex>
       </div>
     </>

@@ -87,12 +87,14 @@
       .chakra-tabs__tablist {
         position: relative;
         width: 100%;
+        overflow-x: auto;
 
         button {
           font-size: 24px;
           color: #494846;
           border-bottom-width: 0px !important;
           text-align: left;
+          white-space: nowrap;
 
           @include w-max(720px) {
             font-size: 15px;
