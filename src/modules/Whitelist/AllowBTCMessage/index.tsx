@@ -21,27 +21,25 @@ const AllowBTCMessage = () => {
       )
     }
 
-    if (amount.txsCount) {
-      return <></>
-    }
+    return <></>;
 
-    return (
-      <Flex className={cs(styles.container, {
-        [styles.container__congrats as string]: !!amount.txsCount
-      })}>
-        {amount.txsCount ? (
-          <Flex flexDirection="column" w="100%" alignItems="center">
-            <p>You've spent <span>{formatCurrency(amount.fee, 0)} BTC</span> for gas fees across <span>{formatCurrency(amount.txsCount, 0)} transactions</span></p>
-            <p>Congratulations, you've earned <span>{formatCurrency(amount.point, 0)} points</span></p>
-            {/*<Button onClick={() => shareTwitterSignature({ fee: amount.fee, point: amount.point, txsCount: amount.txsCount })}>Share now</Button>*/}
-          </Flex>
-        ) : (
-          <p>
-            No transactions found. Please connect another wallet and try again.
-          </p>
-        )}
-      </Flex>
-    )
+    // return (
+    //   <Flex className={cs(styles.container, {
+    //     [styles.container__congrats as string]: !!amount.txsCount
+    //   })}>
+    //     {amount.txsCount ? (
+    //       <Flex flexDirection="column" w="100%" alignItems="center">
+    //         <p>You've spent <span>{formatCurrency(amount.fee, 0)} BTC</span> for gas fees across <span>{formatCurrency(amount.txsCount, 0)} transactions</span></p>
+    //         <p>Congratulations, you've earned <span>{formatCurrency(amount.point, 0)} points</span></p>
+    //         {/*<Button onClick={() => shareTwitterSignature({ fee: amount.fee, point: amount.point, txsCount: amount.txsCount })}>Share now</Button>*/}
+    //       </Flex>
+    //     ) : (
+    //       <p>
+    //         No transactions found. Please connect another wallet and try again.
+    //       </p>
+    //     )}
+    //   </Flex>
+    // )
   }, [loaded, status, isProcessing, amount]);
 
   return (
