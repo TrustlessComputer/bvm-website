@@ -125,6 +125,7 @@ export const signMessage = async (message: any): Promise<any | null> => {
     return {
       address,
       signature,
+      message,
     };
   } catch (err) {
     throw err;
