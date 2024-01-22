@@ -1,10 +1,15 @@
-const KeplrCelestiaConfig = {
+const CelestiaConfig = {
   chainId: 'celestia',
   chainName: 'Celestia',
   rpc: 'https://rpc.lunaroasis.net/',
   rest: 'https://api.lunaroasis.net/',
   messageForSign: 'Are you a Modular Blockchain Pioneer?'
 };
+
+export enum ModularType {
+  kelpr,
+  leap
+}
 
 export interface CelestiaAddress {
   bech32Address: string;
@@ -23,6 +28,14 @@ export interface CelestiaSignature {
 }
 
 const getKeplrProvider = () => (window as any)?.keplr;
+const getLeapProvider = () => {
+  const provider = (window as any)?.leap;
+  if (!provider) {
+    window.open('https://www.leapwallet.io/#inpage-download')
+    throw new Error('Please install leap extension')
+  }
+  return provider;
+};
 
 const addOrSwitchToCelestia = async () => {
   const keplr = getKeplrProvider()
@@ -33,10 +46,10 @@ const addOrSwitchToCelestia = async () => {
     if (keplr.experimentalSuggestChain) {
       try {
         await keplr.experimentalSuggestChain({
-          chainId: KeplrCelestiaConfig.chainId,
-          chainName: KeplrCelestiaConfig.chainName,
-          rpc: KeplrCelestiaConfig.rpc,
-          rest: KeplrCelestiaConfig.rest,
+          chainId: CelestiaConfig.chainId,
+          chainName: CelestiaConfig.chainName,
+          rpc: CelestiaConfig.rpc,
+          rest: CelestiaConfig.rest,
           bip44: {
             coinType: 118,
           },
@@ -80,7 +93,7 @@ const addOrSwitchToCelestia = async () => {
         alert("Failed to suggest the chain");
       }
     }
-    const chainId = KeplrCelestiaConfig.chainId;
+    const chainId = CelestiaConfig.chainId;
     // Enabling before using the Keplr is recommended.
     // This method will ask the user whether to allow access if they haven't visited this website.
     // Also, it will request that the user unlock the wallet if the wallet is locked.
@@ -88,26 +101,41 @@ const addOrSwitchToCelestia = async () => {
   }
 }
 
-const signCelestiaMessage = async () => {
-  const keplr = getKeplrProvider();
-  await addOrSwitchToCelestia();
-  const address = (await keplr.getKey(KeplrCelestiaConfig.chainId)) as CelestiaAddress;
-  const signature = (await keplr.signArbitrary(
-    KeplrCelestiaConfig.chainId,
+const signCelestiaMessage = async (type: ModularType) => {
+  let provider = undefined;
+
+  switch (type) {
+    case ModularType.kelpr:
+      provider = getKeplrProvider();
+      await addOrSwitchToCelestia();
+      break;
+    case ModularType.leap:
+      provider = getLeapProvider()
+      break;
+  }
+
+  if (!provider) throw Error("Please install wallet.");
+
+  const address = (await provider.getKey(CelestiaConfig.chainId)) as CelestiaAddress;
+
+  const signature = (await provider.signArbitrary(
+    CelestiaConfig.chainId,
     address.bech32Address,
-    KeplrCelestiaConfig.messageForSign
+    CelestiaConfig.messageForSign
   )) as CelestiaSignature;
+
   return {
     address,
     signature
   }
 }
 
-const keplrCelestiaHelper = {
-  KeplrCelestiaConfig,
+const celestiaHelper = {
+  CelestiaConfig,
   addOrSwitchToCelestia,
   getKeplrProvider,
-  signCelestiaMessage
+  getLeapProvider,
+  signCelestiaMessage,
 };
 
-export default keplrCelestiaHelper;
+export default celestiaHelper;

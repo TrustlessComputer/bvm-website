@@ -14,6 +14,8 @@ import { requestReload } from '@/stores/states/common/reducer';
 import AppLoading from '@/components/AppLoading';
 import cs from 'classnames';
 import { signMessage } from '@/utils/metamask-helper';
+import celestiaHelper, { ModularType } from '@/utils/celestia';
+import { verifyCelestiaSignature } from '@/services/whitelist';
 
 interface IProps {
   isShow: boolean;
@@ -23,27 +25,23 @@ interface IProps {
 interface ModalItem {
   image: string;
   text: string;
-  rpc: string;
-  chainID: number;
+  type: ModularType
 }
 const ITEMS: ModalItem[] = [
   {
-    image: 'https://cryptologos.cc/logos/optimism-ethereum-op-logo.svg',
-    text: 'Optimism',
-    rpc: 'https://optimism.llamarpc.com',
-    chainID: 10
+    image: `${CDN_URL_ICONS}/kelpr.png`,
+    text: 'Kelpr',
+    type: ModularType.kelpr
   },
   {
-    image: 'https://cryptologos.cc/logos/polygon-matic-logo.svg',
-    text: 'Polygon',
-    rpc: 'https://polygon.llamarpc.com',
-    chainID: 137
+    image: `${CDN_URL_ICONS}/leap.jpeg`,
+    text: 'Leap',
+    type: ModularType.leap
   },
 ];
 
-export const MESSAGE_EVM = 'Are you a Blockchain Pioneer?'
 
-const ConnectModalEVM = React.memo(({ isShow, onHide }: IProps)=> {
+const ConnectModalModular = React.memo(({ isShow, onHide }: IProps)=> {
   const dispatch = useAppDispatch()
 
   const [loading, setLoading] = React.useState(false)
@@ -51,9 +49,11 @@ const ConnectModalEVM = React.memo(({ isShow, onHide }: IProps)=> {
   const onSignMessage = async (item: ModalItem) => {
     try {
       if (loading) return;
+      const { signature, address } = await celestiaHelper.signCelestiaMessage(item.type);
+      await verifyCelestiaSignature({ address, signature })
       setLoading(true)
-      const { address, signature } = await signMessage(MESSAGE_EVM);
-      dispatch(requestReload())
+      dispatch(requestReload());
+      toast.success("Successfully.")
       onHide()
     } catch (error) {
       const { message } = getError(error);
@@ -73,7 +73,7 @@ const ConnectModalEVM = React.memo(({ isShow, onHide }: IProps)=> {
           key={item.text}
           onClick={() => throttleSignMessage(item)}
         >
-          <Image width={48} height={48} src={item.image} alt="ic_wallet" />
+          <Image width={48} height={48} src={item.image} style={{ borderRadius: 120 }} alt="ic_wallet" />
           <div className={styles.modalItem_content}>
             <p className={styles.modalItem_title}>
               {item.text}
@@ -86,7 +86,7 @@ const ConnectModalEVM = React.memo(({ isShow, onHide }: IProps)=> {
   );
 
   return (
-    <BaseModal isShow={isShow} onHide={onHide} title="Choose network" size="small">
+    <BaseModal isShow={isShow} onHide={onHide} title="Choose wallet" size="small">
       <div className={cs(styles.modalContent, loading && styles.modalContent__loading)}>
         {ITEMS.map(renderItem)}
       </div>
@@ -99,6 +99,6 @@ const ConnectModalEVM = React.memo(({ isShow, onHide }: IProps)=> {
   );
 })
 
-ConnectModalEVM.displayName = 'ConnectModalEVM';
+ConnectModalModular.displayName = 'ConnectModalModular';
 
-export default ConnectModalEVM;
+export default ConnectModalModular;

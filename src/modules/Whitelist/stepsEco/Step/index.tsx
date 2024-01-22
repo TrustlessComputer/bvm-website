@@ -53,7 +53,7 @@ export default function ItemCommunity({
           alt="ic-section"
         />
         <Flex direction="column" gap="8px" flex={1}>
-          <Flex justifyContent="space-between" gap="16px">
+          <Flex direction={["column", "row"]} justifyContent="space-between" gap={[1, 4]}>
             <Flex direction="column" w="100%">
               <div className={s.itemCommunity__project}>{content?.project}</div>
               <div className={s.itemCommunity__title}>{content?.title}</div>
@@ -65,44 +65,8 @@ export default function ItemCommunity({
                   }}
                 />
               )}
-              {!!content?.actionText && (
-                <Flex direction="column" w="100%" mt="8px">
-                  <Flex gap="8px" flexDirection="column" w="100%">
-                    <Button
-                      className={s.itemCommunity__btnCTA}
-                      onClick={() => {
-                        if (content?.actionHandle && isRunning && !isLoading) {
-                          content?.actionHandle();
-                        }
-                      }}
-                      isLoading={isLoading}
-                    >
-                      {content?.actionText}
-                    </Button>
-                    {!!content.actionHandleSecondary && (
-                      <Button
-                        className={cs(
-                          s.itemCommunity__btnCTA,
-                          s.itemCommunity__btnSecondary,
-                        )}
-                        onClick={() => {
-                          if (
-                            content?.actionHandleSecondary &&
-                            isRunning &&
-                            !isLoading
-                          ) {
-                            content?.actionHandleSecondary();
-                          }
-                        }}
-                      >
-                        {content?.actionTextSecondary}
-                      </Button>
-                    )}
-                  </Flex>
-                </Flex>
-              )}
             </Flex>
-            <Flex direction="column">
+            <Flex direction={["row", 'column']} justifyContent={["space-between", "flex-start"]}>
               <div className={s.itemCommunity__point}>
                 {content?.right.title}
                 {content?.right.tooltip && <>{content?.right.tooltip}</>}
@@ -114,6 +78,42 @@ export default function ItemCommunity({
               )}
             </Flex>
           </Flex>
+          {!!content?.actionText && (
+            <Flex direction="column" w="100%" mt="8px">
+              <Flex gap="8px" flexDirection="column" w="100%">
+                <Button
+                  className={s.itemCommunity__btnCTA}
+                  onClick={() => {
+                    if (content?.actionHandle && isRunning && !isLoading) {
+                      content?.actionHandle();
+                    }
+                  }}
+                  isLoading={isLoading}
+                >
+                  {content?.actionText}
+                </Button>
+                {!!content.actionHandleSecondary && (
+                  <Button
+                    className={cs(
+                      s.itemCommunity__btnCTA,
+                      s.itemCommunity__btnSecondary,
+                    )}
+                    onClick={() => {
+                      if (
+                        content?.actionHandleSecondary &&
+                        isRunning &&
+                        !isLoading
+                      ) {
+                        content?.actionHandleSecondary();
+                      }
+                    }}
+                  >
+                    {content?.actionTextSecondary}
+                  </Button>
+                )}
+              </Flex>
+            </Flex>
+          )}
         </Flex>
       </div>
     </>

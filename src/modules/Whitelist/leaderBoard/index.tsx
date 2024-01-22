@@ -139,7 +139,7 @@ const LeaderBoard = () => {
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -165,7 +165,7 @@ const LeaderBoard = () => {
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -219,7 +219,7 @@ const LeaderBoard = () => {
         ),
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -271,7 +271,7 @@ const LeaderBoard = () => {
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -335,7 +335,7 @@ const LeaderBoard = () => {
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -395,7 +395,7 @@ const LeaderBoard = () => {
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -455,7 +455,7 @@ const LeaderBoard = () => {
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -517,7 +517,7 @@ const LeaderBoard = () => {
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -606,7 +606,7 @@ const LeaderBoard = () => {
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',

@@ -3,7 +3,7 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import createAxiosInstance from './http-client';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { SignatureStatus } from '@/interfaces/whitelist';
-import keplrCelestiaHelper, { CelestiaAddress, CelestiaSignature } from '@/utils/keplr.celestia';
+import celestiaHelper, { CelestiaAddress, CelestiaSignature } from '@/utils/celestia';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -100,7 +100,7 @@ const requestClaimCelestiaPoint = async (status: SignatureStatus[]) => {
 const verifyCelestiaSignature = async (params: { address: CelestiaAddress, signature: CelestiaSignature }) => {
   const res = (await apiClient.post(`/bvm/verify-celestia-address`, {
     address: params.address.bech32Address,
-    message: keplrCelestiaHelper.KeplrCelestiaConfig.messageForSign,
+    message: celestiaHelper.CelestiaConfig.messageForSign,
     signature: params.signature.signature,
     pub_key: params.signature.pub_key.value,
   })) as any;
