@@ -21,8 +21,19 @@ import { setBearerToken } from '@/services/whitelist';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
 import { IAuthenCode } from '@/modules/Whitelist/steps';
-import { setAirdropAlphaUsers, setAirdropGenerativeUsers, setAirdropGMHolders } from '@/stores/states/user/reducer';
+import {
+  setAirdropAlphaUsers,
+  setAirdropGenerativeUsers,
+  setAirdropGMHolders,
+  setAirdropPerceptronsHolders,
+} from '@/stores/states/user/reducer';
 import { signMessage } from '@/utils/metamask-helper';
+import ConnectModal from '@/components/ConnectModal';
+import AllowListStorage from '@/utils/storage/allowlist.storage';
+
+export const getMessageEVM = (address: string) => {
+  return `Verify you are the owner of the wallet ${address}`;
+}
 
 const StepsAirdrop = () => {
   const token = AuthenStorage.getAuthenKey();
@@ -34,6 +45,7 @@ const StepsAirdrop = () => {
   const dispatch = useDispatch();
   const [authenCode, setAuthenCode] = useState<IAuthenCode>();
   const [showManualCheck, setShowManualCheck] = useState(false);
+  const [showConnectModal, setShowConnectModal] = useState(false);
 
   useEffect(() => {
     if(token) {
@@ -63,10 +75,6 @@ const StepsAirdrop = () => {
       getRaffleJoinInfo();
     }, 1000);
   };
-
-  const handleClaimRetrospective = () => {
-
-  }
 
   const getAlphaUsersAirdrop = async () => {
     const res = await getBVMAirdrop({address: user?.twitter_id});
@@ -126,10 +134,7 @@ const StepsAirdrop = () => {
   }
 
   const handleVerifyWallet = async () => {
-    const getMessage = (address: string) => {
-      return `Verify you are the owner of the wallet ${address}`;
-    }
-    const {address, signature, message} = await signMessage(getMessage);
+    const {address, signature, message} = await signMessage(getMessageEVM);
 
     const resGMHolders = await getBVMAirdrop({address: address});
     dispatch(setAirdropGMHolders(resGMHolders));
@@ -190,7 +195,7 @@ const StepsAirdrop = () => {
         desc: `Proportional to key holding.<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Claim',
+        actionText: 'Connect',
         image: "time-chain2.svg",
         actionHandle: handleVerifyWallet,
         isActive: true,
@@ -209,7 +214,7 @@ const StepsAirdrop = () => {
         desc: `Proportional to the number of Perceptrons you hold.<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Claim',
+        actionText: 'Connect',
         image: "perceptron_thumb_03.jpg",
         actionHandle: handleVerifyWallet,
         isActive: true,
@@ -222,13 +227,17 @@ const StepsAirdrop = () => {
         showExpireTime: false,
         airdropType: AirdropType.RETROSPECTIVE,
         step: AirdropStep.perceptronsHolders,
+        actionHandleSecondary: () => {
+          setShowConnectModal(true);
+        },
+        actionTextSecondary: 'Other connect',
       },
       {
         title: 'GM holders',
         desc: `Proportionally based on GM balance - min holding: 1 $GM<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Claim',
+        actionText: 'Connect',
         image: "gm.svg",
         actionHandle: handleVerifyWallet,
         isActive: true,
@@ -287,6 +296,16 @@ const StepsAirdrop = () => {
           />
         );
       })}
+      <ConnectModal isShow={showConnectModal} onHide={async () => {
+        setShowConnectModal(false);
+        const data = AllowListStorage.getStorage();
+        if(data) {
+          console.log('dataaaaaa', data);
+          const address = data[0]?.address;
+          const resPerceptronsHolders = await getBVMAirdrop({address: address});
+          dispatch(setAirdropPerceptronsHolders(resPerceptronsHolders));
+        }
+      }}/>
     </Flex>
   );
 };

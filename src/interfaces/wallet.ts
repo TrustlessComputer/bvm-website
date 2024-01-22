@@ -1,11 +1,13 @@
 export enum WalletType {
   xverse = 'xverse-wallet',
   unisat = 'unisat-wallet',
+  metamask = 'metamask-wallet',
 }
 
 export const WalletName = {
   [WalletType.unisat]: 'Unisat wallet',
   [WalletType.xverse]: 'Xverse wallet',
+  [WalletType.metamask]: 'Metamask wallet',
 };
 
 export interface IConnectedInfo {

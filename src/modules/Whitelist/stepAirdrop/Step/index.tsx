@@ -13,7 +13,7 @@ import utc from 'dayjs/plugin/utc';
 import {
   airdropAlphaUsersSelector,
   airdropGenerativeUsersSelector,
-  airdropGMHoldersSelector,
+  airdropGMHoldersSelector, airdropPerceptronsHoldersSelector,
   userSelector,
 } from '@/stores/states/user/selector';
 import { useSelector } from 'react-redux';
@@ -73,6 +73,7 @@ export default function ItemCommunity({
   const airdropAlphaUsers = useSelector(airdropAlphaUsersSelector);
   const airdropGMHolders = useSelector(airdropGMHoldersSelector);
   const airdropGenerativeUsers = useSelector(airdropGenerativeUsersSelector);
+  const airdropPerceptronsHolders = useSelector(airdropPerceptronsHoldersSelector);
   const user = useAppSelector(userSelector);
   const [expireTimeEnd, setExpireTimeEnd] = useState(false);
 
@@ -210,6 +211,19 @@ export default function ItemCommunity({
                   {
                     airdropGenerativeUsers ? (
                       <Text color={"#000000"}>Airdrop: {formatCurrency(airdropGenerativeUsers?.balance)} $BVM - Vesting at: {dayjs(airdropGenerativeUsers?.claimeable_at).format('YYYY-MM-DD')}</Text>
+                    ) : (
+                      <Text color={"#000000"}>Your wallet do not have airdrop</Text>
+                    )
+                  }
+                </>
+              )
+            }
+            {
+              content?.step === AirdropStep.perceptronsHolders && (
+                <>
+                  {
+                    airdropGenerativeUsers ? (
+                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropPerceptronsHolders?.balance)} $BVM - Vesting at: {dayjs(airdropPerceptronsHolders?.claimeable_at).format('YYYY-MM-DD')}</Text>
                     ) : (
                       <Text color={"#000000"}>Your wallet do not have airdrop</Text>
                     )

@@ -9,7 +9,7 @@ export interface IStorageItem {
 }
 
 class AllowListStorage {
-  private static STORAGE_KEY = 'ALLOW_LIST_STORAGE_0.0.1';
+  private static STORAGE_KEY = 'ALLOW_LIST_STORAGE_0.0.2';
 
   public static getStorage = (): IStorageItem[] | undefined => {
     try {
