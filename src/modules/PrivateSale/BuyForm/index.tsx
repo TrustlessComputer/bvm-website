@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Button, Divider, Flex, Text } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
 import React, { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
@@ -14,8 +14,6 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { useSelector } from 'react-redux';
 import { MAX_DECIMAL } from '@/constants/constants';
 import { QRCode } from 'react-qrcode-logo';
-import Countdown from '@/components/Countdown';
-import dayjs from 'dayjs';
 import Lines from '@/interactive/Lines';
 
 interface FormValues {
@@ -24,13 +22,22 @@ interface FormValues {
 
 const DELAY = 2;
 
+const Column = ({value, title}: { value: string, title: string }) => {
+  return (
+    <Flex direction={'column'} justifyContent={"center"} flex={1} textAlign={"center"}>
+      <Text fontSize={"32px"} fontWeight={700}>{value}</Text>
+      <Text fontSize={"14px"} fontWeight={400}>{title}</Text>
+    </Flex>
+  )
+}
+
 const PrivateSaleForm = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
   const vcType = LocalStorageUtil.get(KEY_VC_TYPE);
   const walletId = LocalStorageUtil.get(KEY_WALLET_ID) || '';
   const [vcInfo, setVCInfo] = useState<VCWalletInfo>();
-  const tokenPrice = 11;
+  const tokenPrice = 1;
   const coinPrices = useSelector(commonSelector).coinPrices;
   const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
   const ethPrice = useMemo(() => coinPrices?.['ETH'] || '0', [coinPrices]);
@@ -94,7 +101,23 @@ const PrivateSaleForm = () => {
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
-          <Text className={s.price}><Lines delay={DELAY + .2}>1 BVM = {formatCurrency(tokenPrice)}$</Lines></Text>
+          <Text className={s.title}><Lines delay={DELAY + .2}>PRIVATE TOKEN ROUND</Lines></Text>
+          <Flex className={s.boxInfo} direction={"column"} gap={4} mt={"40px"} mb={"40px"} width={"100%"}>
+            <Column value={'100,000,000'} title={'TOTAL TOKENS'}/>
+            <Divider />
+            <Column value={'10%'} title={'AVAILABLE TOKEN FOR PRIVATE SALE'}/>
+            <Divider />
+            <Flex>
+              <Column value={'$1'} title={'TOKEN PRICE'}/>
+              <Column value={'$100M'} title={'FDV'}/>
+            </Flex>
+            <Divider />
+            <Flex>
+              <Column value={'$10M'} title={'FUNDRAISING GOAL'}/>
+              <Column value={'$25,000'} title={'MIN PERSONAL CAP'}/>
+            </Flex>
+          </Flex>
+          {/*<Text className={s.price}><Lines delay={DELAY + .2}>1 BVM = {formatCurrency(tokenPrice, 0, 0)}$</Lines></Text>
           <Text className={s.desc}><Lines delay={DELAY + .5}>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             sed do eiusmod</Lines></Text>
           <Fade delay={DELAY + .8}>
@@ -103,7 +126,7 @@ const PrivateSaleForm = () => {
               <Countdown className={s.textCountdown} expiredTime={dayjs.utc('2024-01-26', 'YYYY-MM-DD').toString()}
                          hideIcon={true} />
             </Box>
-          </Fade>
+          </Fade>*/}
 
           <Flex gap={6} direction={'column'} width={'100%'}>
             <Fade delay={DELAY + 1}>

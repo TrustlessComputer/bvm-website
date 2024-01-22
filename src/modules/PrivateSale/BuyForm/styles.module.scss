@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 64px 0 0px;
+  width: 100%;
 
   @include w-max(768px) {
     padding: 0;
@@ -13,6 +14,22 @@
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
+  }
+
+  .title {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 100%;
+  }
+
+  .boxInfo {
+    background: #FFFFFF26;
+    padding: 12px;
+    border-radius: 12px;
+
+    hr {
+      background-color: #8F8F8F;
+    }
   }
 
   .price {
