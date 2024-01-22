@@ -2,24 +2,50 @@ import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { Flex, Tooltip } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useState } from 'react';
-import ItemStep, { AirdropType, IItemCommunity } from './Step';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import ItemStep, { AirdropStep, AirdropType, IItemCommunity } from './Step';
 import s from './styles.module.scss';
-import { getRaffleJoin, joinRaffle } from '@/services/player-share';
+import {
+  generateTokenWithTwPost,
+  getBVMAirdrop,
+  getRaffleJoin,
+  joinRaffle,
+  requestAuthenByShareCode,
+} from '@/services/player-share';
 import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
 import { CDN_URL_ICONS } from '@/config';
 import { LearnMore } from '@/modules/Whitelist/stepsEco';
+import { userSelector } from '@/stores/states/user/selector';
+import { getLink } from '@/utils/helpers';
+import { setBearerToken } from '@/services/whitelist';
+import { requestReload } from '@/stores/states/common/reducer';
+import { useDispatch } from 'react-redux';
+import { IAuthenCode } from '@/modules/Whitelist/steps';
 
 const StepsAirdrop = () => {
   const token = AuthenStorage.getAuthenKey();
   const needReload = useAppSelector(commonSelector).needReload;
   const [raffleCode, setRaffleCode] = useState();
+  const user = useAppSelector(userSelector);
+  const timer = useRef<any>();
+  const [submitting, setSubmitting] = useState(false);
+  const dispatch = useDispatch();
+  const [authenCode, setAuthenCode] = useState<IAuthenCode>();
+  const [showManualCheck, setShowManualCheck] = useState(false);
+
+  console.log('user', user);
 
   useEffect(() => {
     if(token) {
       getRaffleJoinInfo();
     }
   }, [token, needReload]);
+
+  useEffect(() => {
+    if(user?.twitter_id) {
+      getAlphaUsersAirdrop();
+    }
+  }, [user?.twitter_id]);
 
   const getRaffleJoinInfo = async () => {
     const res = await getRaffleJoin();
@@ -40,6 +66,62 @@ const StepsAirdrop = () => {
 
   const handleClaimRetrospective = () => {
 
+  }
+
+  const getAlphaUsersAirdrop = async () => {
+    getBVMAirdrop({address: user?.twitter_id});
+  }
+
+  const handleShareTwToSignIn = async () => {
+    let code = '';
+    const res: any = await requestAuthenByShareCode();
+    setAuthenCode(res);
+    code = `\n\n#${res?.public_code}`
+
+    const shareUrl = getLink( '');
+    const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
+
+    window.open(
+      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+        content,
+      )}`,
+      '_blank',
+    );
+  }
+
+  useEffect(() => {
+    if (authenCode?.public_code) {
+      setSubmitting(true);
+      timer.current = setInterval(async () => {
+        handleVerifyTwitter();
+      }, 5000);
+    }
+    return () => {
+      clearInterval(timer.current);
+    };
+  }, [authenCode?.public_code]);
+
+  const handleVerifyTwitter = async (): Promise<void> => {
+    try {
+      const result = await generateTokenWithTwPost(authenCode?.secret_code as string);
+      onVerifyTwSuccess(result);
+    } catch (err) {
+      console.log('handleVerifyTwitter', err);
+    }
+  };
+
+  const onVerifyTwSuccess = (result: any) => {
+    if (result) {
+      clearInterval(timer.current);
+      const twitterToken = AuthenStorage.getAuthenKey();
+      if (!twitterToken || twitterToken !== result?.token) {
+        AuthenStorage.setAuthenKey(result?.token);
+        setBearerToken(result?.token);
+      }
+      setSubmitting(false);
+      dispatch(requestReload());
+      setShowManualCheck(false);
+    }
   }
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
@@ -80,7 +162,8 @@ const StepsAirdrop = () => {
         },
         expiredTime: '2024-01-24 08:00:00',
         showExpireTime: true,
-        airdropType: AirdropType.NEW
+        airdropType: AirdropType.NEW,
+        step: AirdropStep.timeChain,
       },
       {
         title: 'Generative users',
@@ -98,7 +181,8 @@ const StepsAirdrop = () => {
         },
         expiredTime: '2024-01-24 03:00:00',
         showExpireTime: false,
-        airdropType: AirdropType.RETROSPECTIVE
+        airdropType: AirdropType.RETROSPECTIVE,
+        step: AirdropStep.generativeUsers,
       },
       {
         title: 'Perceptrons holders',
@@ -116,7 +200,8 @@ const StepsAirdrop = () => {
         },
         expiredTime: '2024-01-24 03:00:00',
         showExpireTime: false,
-        airdropType: AirdropType.RETROSPECTIVE
+        airdropType: AirdropType.RETROSPECTIVE,
+        step: AirdropStep.perceptronsHolders,
       },
       {
         title: 'GM holders',
@@ -134,7 +219,8 @@ const StepsAirdrop = () => {
         },
         expiredTime: '2024-01-24 03:00:00',
         showExpireTime: false,
-        airdropType: AirdropType.RETROSPECTIVE
+        airdropType: AirdropType.RETROSPECTIVE,
+        step: AirdropStep.gmHolders,
       },
       {
         title: 'Alpha users',
@@ -152,7 +238,12 @@ const StepsAirdrop = () => {
         },
         expiredTime: '2024-01-24 03:00:00',
         showExpireTime: false,
-        airdropType: AirdropType.RETROSPECTIVE
+        airdropType: AirdropType.RETROSPECTIVE,
+        actionHandleSecondary: () => {
+          handleShareTwToSignIn();
+        },
+        actionTextSecondary: 'Switch account',
+        step: AirdropStep.alphaUsers,
       },
     ];
   }, [token, needReload, raffleCode]);
@@ -172,7 +263,7 @@ const StepsAirdrop = () => {
             key={index}
             index={index}
             content={item}
-            isLoading={false}
+            isLoading={item.step === AirdropStep.alphaUsers && submitting}
           />
         );
       })}

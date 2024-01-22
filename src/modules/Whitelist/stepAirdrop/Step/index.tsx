@@ -13,6 +13,14 @@ import utc from 'dayjs/plugin/utc';
 
 dayjs.extend(utc);
 
+export enum AirdropStep {
+  timeChain,
+  generativeUsers,
+  perceptronsHolders,
+  gmHolders,
+  alphaUsers,
+}
+
 export enum AirdropType {
   NONE,
   NEW,
@@ -39,7 +47,8 @@ export interface IItemCommunity {
   expiredTime?: string;
   isDisable?: boolean;
   showExpireTime?: boolean;
-  airdropType: AirdropType
+  airdropType: AirdropType,
+  step: AirdropStep
 }
 
 export default function ItemCommunity({
@@ -142,6 +151,7 @@ export default function ItemCommunity({
                         content?.actionHandleSecondary();
                       }
                     }}
+                    isLoading={isLoading}
                   >
                     {content?.actionTextSecondary}
                   </Button>

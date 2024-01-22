@@ -30,7 +30,7 @@ import toast from 'react-hot-toast';
 import useFormatAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useFormatAllowCelestia';
 import BigNumber from 'bignumber.js';
 
-interface IAuthenCode {
+export interface IAuthenCode {
   public_code: string;
   secret_code: string;
 }

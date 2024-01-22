@@ -110,3 +110,14 @@ export const getRaffleUsers = async (params: any): Promise<any> => {
 
   return null;
 };
+
+export const getBVMAirdrop = async (params: any): Promise<any> => {
+  try {
+    const res = await apiClient.get(`/bvm/airdrop`, { params });
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
