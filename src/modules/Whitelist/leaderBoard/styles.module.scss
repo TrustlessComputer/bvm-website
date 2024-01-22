@@ -119,6 +119,23 @@ table {
       max-width: 85px;
     }
 
+    .button {
+      display: flex;
+      width: 48px !important;
+      height: 24px;
+      padding: 12px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border-radius: 4px;
+      background: #FA4E0E;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%;
+      margin-left: 4px;
+    }
+
     .subTitle {
       font-size: 14px;
     }

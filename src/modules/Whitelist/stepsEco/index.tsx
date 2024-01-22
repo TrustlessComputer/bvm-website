@@ -94,8 +94,8 @@ const StepsEco = () => {
         },
         isActive: !!token,
         right: {
-          title: '+1 PTS',
-          desc: 'per 25000 SAT',
+          title: '+1000 PTS',
+          desc: 'per 0.001 BTC',
         },
       },
       {

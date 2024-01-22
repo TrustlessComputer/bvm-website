@@ -92,13 +92,7 @@ const Steps = () => {
 
   const onShareOptimism = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const content = `
-    BUILD WHATEVER ON BITCOIN.\n\n
-    As a modular maxi (holding ${formatCurrency(new BigNumber(allowOptimism.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), 
-    I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\n
-    Powered by @BVMnetwork, 
-    you can deploy your own Bitcoin L2 chain with @CelestiaOrg and @Optimism in a few clicks.\n\n
-    🤯🤯🤯\n`;
+    const content = `Two L2 rollups walk into a bar.\n\nBarman: “IDs, please?”\nZK Rollup: “I’m 18, no ID needed”\nOptimistic Rollup: “Wait a week, and I’ll be an adult”\nQ: What is the name of the bar?\nA: #Bitcoin\n\nWelcome to Bitcoin L2s with @BVMnetwork\n\nPS: Thanks @l2beat!`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -114,7 +108,7 @@ const Steps = () => {
 
   const onSignEVM = async (type: EVMFieldType) => {
     try {
-      const { message, signature, address } = await signEVMMessage('Are you a L2 OG?');
+      const { message, signature, address } = await signEVMMessage('Are you an L2 maxi?');
       await verifyEVMSignature({
         message,
         signature,
@@ -177,8 +171,8 @@ const Steps = () => {
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     const isActiveRefer = !!token && !!user?.referral_code;
     const btcOGMessage = allowBTC.amount.txsCount ?
-        <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
-        'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
+      <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
+      'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
     const isNeedClaimBTCPoint = allowBTC.isUnclaimed;
     const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed;
     const isNeedClaimOptimismPoint = allowOptimism.isUnclaimed;
@@ -235,9 +229,9 @@ const Steps = () => {
         }
       },
       {
-        title: 'Are you a L2 OG?',
-        desc: 'The more Blast you staked or Optimism you hold, the more points you’ll get. Connect your Metamask wallet to prove the account ownership.',
-        actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 OG are you?',
+        title: 'Are you an L2 maxi?',
+        desc: 'The more ETH you staked on Blast or the more Optimism (OP) tokens you hold, the more points you’ll get. Connect your MetaMask wallet to prove the account ownership.',
+        actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 maxi are you?',
         actionHandle: isNeedClaimOptimismPoint ? async () => {
           onShareOptimism();
           await requestClaimEVMPoint({
@@ -256,16 +250,10 @@ const Steps = () => {
         isDone: !!token,
         step: MultiplierStep.evm,
         image: "blast_op.svg",
-        right: [
-          {
-            title: '+100 PTS',
-            desc: 'per 0.005 ETH'
-          },
-          {
-            title: '+25 PTS',
-            desc: 'per OPs'
-          }
-        ]
+        right: {
+          title: '+100 PTS',
+          desc: 'per Ξ 0.005 or 4 OP'
+        }
       },
       {
         title: 'Are you a Modular Blockchain Pioneer?',

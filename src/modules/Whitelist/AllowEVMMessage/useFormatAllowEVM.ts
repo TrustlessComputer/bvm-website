@@ -29,6 +29,7 @@ const useFormatAllowEVM = ({ type }: IAllowEVMProps) => {
         point: new BigNumber(curr.gas_point || '0').plus(curr.blast_point || '0').plus(prev.point).toNumber(),
         unClaimedPoint: new BigNumber(prev.unClaimedPoint || '0')
           .plus(curr.status === 'unclaimed' ? curr.gas_point || '0' : '0')
+          .plus(curr.status === 'unclaimed' ? curr.blast_point || '0' : '0')
           .toNumber(),
       };
       value = {
