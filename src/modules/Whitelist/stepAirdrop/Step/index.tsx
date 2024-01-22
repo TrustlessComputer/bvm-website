@@ -10,6 +10,10 @@ import sanitizeHtml from 'sanitize-html';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import utc from 'dayjs/plugin/utc';
+import { airdropAlphaUsersSelector, userSelector } from '@/stores/states/user/selector';
+import { useSelector } from 'react-redux';
+import { formatCurrency } from '@/utils/format';
+import { useAppSelector } from '@/stores/hooks';
 
 dayjs.extend(utc);
 
@@ -61,6 +65,9 @@ export default function ItemCommunity({
   isLoading?: boolean;
 }) {
   const { isActive, image, isDisable = false } = content;
+  const airdropAlphaUsers = useSelector(airdropAlphaUsersSelector);
+  const user = useAppSelector(userSelector);
+  console.log('airdropAlphaUsers', airdropAlphaUsers);
 
   const isRunning = useMemo(() => {
     return isActive;
@@ -159,6 +166,13 @@ export default function ItemCommunity({
               </Flex>
             </Flex>
           )}
+          <Flex>
+            {
+              content?.step === AirdropStep.alphaUsers && airdropAlphaUsers && (
+                <Text color={"#000000"}>{user?.twitter_name} - Airdrop: {formatCurrency(airdropAlphaUsers?.balance)} $BVM - Vesting at: {dayjs(airdropAlphaUsers?.claimeable_at).format('YYYY-MM-DD')}</Text>
+              )
+            }
+          </Flex>
         </Flex>
       </div>
     </>

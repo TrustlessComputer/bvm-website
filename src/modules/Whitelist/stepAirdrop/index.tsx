@@ -21,6 +21,7 @@ import { setBearerToken } from '@/services/whitelist';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
 import { IAuthenCode } from '@/modules/Whitelist/steps';
+import { setAirdropAlphaUsers } from '@/stores/states/user/reducer';
 
 const StepsAirdrop = () => {
   const token = AuthenStorage.getAuthenKey();
@@ -32,8 +33,6 @@ const StepsAirdrop = () => {
   const dispatch = useDispatch();
   const [authenCode, setAuthenCode] = useState<IAuthenCode>();
   const [showManualCheck, setShowManualCheck] = useState(false);
-
-  console.log('user', user);
 
   useEffect(() => {
     if(token) {
@@ -69,7 +68,8 @@ const StepsAirdrop = () => {
   }
 
   const getAlphaUsersAirdrop = async () => {
-    getBVMAirdrop({address: user?.twitter_id});
+    const res = await getBVMAirdrop({address: user?.twitter_id});
+    dispatch(setAirdropAlphaUsers(res));
   }
 
   const handleShareTwToSignIn = async () => {

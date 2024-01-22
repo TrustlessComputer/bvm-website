@@ -18,3 +18,5 @@ export const allowCelestiaSelector = (state: RootState) => ({
   status: (state.user?.allowCelestia?.status || []) as SignatureStatus[],
   loaded: (state.user?.allowCelestia?.loaded || false) as boolean
 });
+
+export const airdropAlphaUsersSelector = (state: RootState) => state.user.airdropAlphaUsers;

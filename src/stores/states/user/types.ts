@@ -35,5 +35,6 @@ export interface UserState {
   allowCelestia: {
     status: SignatureStatus[];
     loaded: boolean;
-  }
+  },
+  airdropAlphaUsers: any;
 }

@@ -13,7 +13,8 @@ const initialState: UserState = {
   allowCelestia: {
     status: [],
     loaded: false
-  }
+  },
+  airdropAlphaUsers: null,
 };
 
 const slice = createSlice({
@@ -39,6 +40,9 @@ const slice = createSlice({
         loaded: action.payload.loaded,
       };
     },
+    setAirdropAlphaUsers: (state, action) => {
+      state.airdropAlphaUsers = action.payload;
+    }
   },
 });
 
@@ -46,7 +50,8 @@ export const {
   setUser,
   setLeaderBoard,
   setAllowBTC,
-  setAllowCelestia
+  setAllowCelestia,
+  setAirdropAlphaUsers,
 } = slice.actions;
 
 export default slice.reducer;
