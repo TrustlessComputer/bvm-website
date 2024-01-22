@@ -1,4 +1,4 @@
-import { Button, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import ItemStep, { IItemCommunity, MultiplierStep } from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
@@ -11,7 +11,6 @@ import {
   requestClaimBTCPoint,
   requestClaimCelestiaPoint,
   setBearerToken,
-  verifyCelestiaSignature,
 } from '@/services/whitelist';
 import ConnectModal from '@/components/ConnectModal';
 import useToggle from '@/hooks/useToggle';
@@ -24,11 +23,9 @@ import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 import ConnectModalEVM from '@/components/ConnectModal/modal.evm';
 import useFormatAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useFormatAllowBTC';
 import { formatCurrency } from '@/utils/format';
-import keplrCelestiaHelper from '@/utils/keplr.celestia';
-import { getError } from '@/utils/error';
-import toast from 'react-hot-toast';
 import useFormatAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useFormatAllowCelestia';
 import BigNumber from 'bignumber.js';
+import ConnectModalModular from '@/components/ConnectModal/modal.modular';
 
 interface IAuthenCode {
   public_code: string;
@@ -45,6 +42,7 @@ const Steps = () => {
   const token = AuthenStorage.getAuthenKey();
   const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle();
   const { toggle: isShowConnectEVM, onToggle: onToggleConnectEVM } = useToggle();
+  const { toggle: isShowConnectModular, onToggle: onToggleConnectModular } = useToggle();
   const allowBTC = useFormatAllowBTC()
   const allowCelestia = useFormatAllowCelestia()
 
@@ -74,7 +72,7 @@ const Steps = () => {
 
   const onShareModular = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (holding ${formatCurrency(new BigNumber(allowCelestia.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\nPowered by @BVMnetwork, you can deploy your own Bitcoin L2 chain with @Celestia and @Optimism in a few clicks.\n\n🤯🤯🤯\n`;
+    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (holding ${formatCurrency(new BigNumber(allowCelestia.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\nPowered by @BVMnetwork, you can deploy your own Bitcoin L2 chain with @CelestiaOrg and @Optimism in a few clicks.\n\n🤯🤯🤯\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -85,15 +83,7 @@ const Steps = () => {
   }
 
   const onSignModular = async () => {
-    try {
-      const { address, signature } = await keplrCelestiaHelper.signCelestiaMessage();
-      await verifyCelestiaSignature({ address, signature });
-      dispatch(requestReload());
-      toast.success("Successfully.")
-    } catch (error) {
-      const { message } = getError(error);
-      toast.error(message)
-    }
+    onToggleConnectModular();
   }
 
   const handleShareRefferal = () => {
@@ -157,8 +147,8 @@ const Steps = () => {
       isActive: true,
       step: MultiplierStep.authen,
       right: {
-        title: !token ? '+1000 PTS' : '+1 PTS',
-        desc: !token ? 'first post' : 'per view'
+        title: !token ? '+1000 PTS' : '+1000 PTS',
+        desc: !token ? 'first post' : 'per 1000 view'
       },
       handleShowManualPopup: handleShowManualPopup,
     };
@@ -202,7 +192,7 @@ const Steps = () => {
       },
       {
         title: 'Are you a Modular Blockchain Pioneer?',
-        desc: 'The more TIA or staked TIA you hold, the more points you’ll get. Connect your Keplr wallet to prove the account ownership.',
+        desc: 'The more TIA or staked TIA you hold, the more points you’ll get. Connect your Keplr or Leap wallet to prove the account ownership.',
         actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
         actionHandle: isNeedClaimCelestiaPoint ? async () => {
           onShareModular();
@@ -289,6 +279,7 @@ const Steps = () => {
       })}
       <ConnectModal isShow={isShowConnect} onHide={onToggleConnect}/>
       <ConnectModalEVM isShow={isShowConnectEVM} onHide={onToggleConnectEVM}/>
+      <ConnectModalModular isShow={isShowConnectModular} onHide={onToggleConnectModular}/>
       <VerifyTwModal
         isShow={showManualCheck}
         onHide={() => {
@@ -297,7 +288,6 @@ const Steps = () => {
         secretCode={authenCode?.secret_code}
         onSuccess={onVerifyTwSuccess}
       />
-      {/*<Button onClick={onSignModular}>TEST CELESTIA</Button>*/}
     </Flex>
   );
 };

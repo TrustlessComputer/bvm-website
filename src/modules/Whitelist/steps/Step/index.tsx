@@ -63,71 +63,71 @@ export default function ItemCommunity({
       <div className={cx(s.itemCommunity, isRunning ? '' : s.isDone)}>
         <Image className={s.itemCommunity__logo} width={48} height={48} src={`${CDN_URL_ICONS}/${image}`} alt="ic-section" />
         <Flex direction="column" gap="8px" flex={1}>
-          <Flex justifyContent="space-between" gap="16px">
+          <Flex direction={["column", "row"]} justifyContent="space-between" gap={[1, 4]}>
             <Flex direction="column" w="100%">
               <div className={s.itemCommunity__title}>{content?.title}</div>
               {!!content?.desc && (<div className={s.itemCommunity__desc}>{content?.desc}</div>)}
-              {!!content?.actionText && (
-                <Flex direction="column" w="100%" mt="8px">
-                  <Flex gap="8px" flexDirection="column" w="100%">
-                    <Button
-                      className={s.itemCommunity__btnCTA}
-                      onClick={() => {
-                        if (content?.actionHandle && isRunning && !isLoading) {
-                          content?.actionHandle();
-                          if (step === MultiplierStep.authen) {
-                            setTimeout(() => {
-                              setShowManualCheck(true);
-                            }, 15000);
-                          }
-                        }
-                      }}
-                      isLoading={isLoading}
-                    >
-                      {content?.actionText}
-                    </Button>
-                    {!!content.actionHandleSecondary && (
-                      <Button
-                        className={cs(s.itemCommunity__btnCTA, s.itemCommunity__btnSecondary)}
-                        onClick={() => {
-                          if (content?.actionHandleSecondary && isRunning && !isLoading) {
-                            content?.actionHandleSecondary();
-                          }
-                        }}
-                      >
-                        {content?.actionTextSecondary}
-                      </Button>
-                    )}
-                    {step === MultiplierStep.signMessage && (
-                      <AllowBTCMessage />
-                    )}
-                    {step === MultiplierStep.modular && (
-                      <AllowCelestiaMessage />
-                    )}
-                  </Flex>
-                  {
-                    step === MultiplierStep.authen && showManualCheck && (
-                      <Text
-                        cursor={"pointer"}
-                        fontSize={"14px"}
-                        fontWeight={400}
-                        color={"#000000"}
-                        textDecoration={"underline"}
-                        onClick={content?.handleShowManualPopup}
-                        mt={1}
-                      >
-                        Missing from the Leaderboard?
-                      </Text>
-                    )
-                  }
-                </Flex>
-              )}
             </Flex>
-            <Flex direction="column">
+            <Flex direction={["row", 'column']} justifyContent={["space-between", "flex-start"]}>
               <div className={s.itemCommunity__point}>{content?.right.title}</div>
               {!!content?.desc && (<div className={s.itemCommunity__pointNote}>{content?.right.desc}</div>)}
             </Flex>
           </Flex>
+          {!!content?.actionText && (
+            <Flex direction="column" w="100%" mt="8px">
+              <Flex gap="8px" flexDirection="column" w="100%">
+                <Button
+                  className={s.itemCommunity__btnCTA}
+                  onClick={() => {
+                    if (content?.actionHandle && isRunning && !isLoading) {
+                      content?.actionHandle();
+                      if (step === MultiplierStep.authen) {
+                        setTimeout(() => {
+                          setShowManualCheck(true);
+                        }, 15000);
+                      }
+                    }
+                  }}
+                  isLoading={isLoading}
+                >
+                  {content?.actionText}
+                </Button>
+                {!!content.actionHandleSecondary && (
+                  <Button
+                    className={cs(s.itemCommunity__btnCTA, s.itemCommunity__btnSecondary)}
+                    onClick={() => {
+                      if (content?.actionHandleSecondary && isRunning && !isLoading) {
+                        content?.actionHandleSecondary();
+                      }
+                    }}
+                  >
+                    {content?.actionTextSecondary}
+                  </Button>
+                )}
+                {step === MultiplierStep.signMessage && (
+                  <AllowBTCMessage />
+                )}
+                {step === MultiplierStep.modular && (
+                  <AllowCelestiaMessage />
+                )}
+              </Flex>
+              {
+                step === MultiplierStep.authen && showManualCheck && (
+                  <Text
+                    cursor={"pointer"}
+                    fontSize={"14px"}
+                    fontWeight={400}
+                    color={"#000000"}
+                    textDecoration={"underline"}
+                    onClick={content?.handleShowManualPopup}
+                    mt={1}
+                  >
+                    Missing from the Leaderboard?
+                  </Text>
+                )
+              }
+            </Flex>
+          )}
         </Flex>
       </div>
     </>

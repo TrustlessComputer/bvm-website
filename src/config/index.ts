@@ -8,6 +8,8 @@ export const DOMAIN_URL: string = process.env.NEXT_PUBLIC_DOMAIN_URL!;
 export const CDN_URL: string = process.env.NEXT_PUBLIC_CDN_URL!;
 
 export const PERP_API_URL = process.env.NEXT_PUBLIC_PERP_API!;
+export const PERP_NAKA_API_URL = process.env.NEXT_PUBLIC_NAKA_PERP_API!;
+
 export const TWITTER_CLIENT_ID = process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID!;
 
 export const API_DGAMES = process.env.NEXT_PUBLIC_API_DGAMES!;

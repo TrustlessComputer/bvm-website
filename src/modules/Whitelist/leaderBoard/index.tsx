@@ -33,14 +33,14 @@ const valueToImage: any = {
   '30': 'flash_supper.svg',
 };
 
-export const LEADER_BOARD_ID = 'LEADER_BOARD_ID'
+export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
 const LeaderBoard = () => {
   const { list } = useAppSelector(leaderBoardSelector);
   const [isFetching, setIsFetching] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const needReload = useAppSelector(commonSelector).needReload;
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -50,7 +50,7 @@ const LeaderBoard = () => {
   const refInitial = useRef(false);
 
   useEffect(() => {
-      fetchData(true);
+    fetchData(true);
   }, [needReload]);
 
   const removeOwnerRecord = (arr: ILeaderBoardPoint[] = []) => {
@@ -60,10 +60,12 @@ const LeaderBoard = () => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
-
       const sortList = (arr: ILeaderBoardPoint[]) => {
-        return uniqBy(orderBy(arr, item => Number(item.need_active || false), 'desc'), (item: ILeaderBoardPoint) => item.twitter_id)
-      }
+        return uniqBy(
+          orderBy(arr, (item) => Number(item.need_active || false), 'desc'),
+          (item: ILeaderBoardPoint) => item.twitter_id,
+        );
+      };
       const { data: response, count } = await getTopLeaderBoards({
         ...refParams.current,
       });
@@ -77,18 +79,22 @@ const LeaderBoard = () => {
           page: 1,
         };
         const reArr = removeOwnerRecord(response);
-        const arr = sortList(response2.concat(reArr))
-        dispatch(setLeaderBoard({
-          list: arr,
-          count
-        }));
+        const arr = sortList(response2.concat(reArr));
+        dispatch(
+          setLeaderBoard({
+            list: arr,
+            count,
+          }),
+        );
       } else {
         const reArr = removeOwnerRecord(response);
         const arr = sortList([...reArr]);
-        dispatch(setLeaderBoard({
-          list: arr,
-          count
-        }));
+        dispatch(
+          setLeaderBoard({
+            list: arr,
+            count,
+          }),
+        );
       }
     } catch (error) {
     } finally {
@@ -119,12 +125,11 @@ const LeaderBoard = () => {
 
   const labelConfig = {
     color: 'rgba(1, 1, 0, 0.7)',
-    fontSize: '12px',
+    fontSize: '11px',
     letterSpacing: '-0.5px',
     borderBottom: '1px solid #FFFFFF33',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
   };
-
 
   const columns: ColumnProp[] = useMemo(() => {
     return [
@@ -134,11 +139,11 @@ const LeaderBoard = () => {
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
-          color: 'black !important'
+          color: 'black !important',
         },
         render(data: ILeaderBoardPoint) {
           return (
@@ -149,7 +154,7 @@ const LeaderBoard = () => {
               justifyContent={'space-between'}
               paddingLeft={'16px'}
             >
-              <Text >{data.ranking}</Text>
+              <Text>{data.ranking}</Text>
             </Flex>
           );
         },
@@ -160,7 +165,7 @@ const LeaderBoard = () => {
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -174,28 +179,24 @@ const LeaderBoard = () => {
               justifyContent={'space-between'}
               cursor="pointer"
               onClick={() => {
-                window.open(`https://twitter.com/${data?.twitter_username}`)
+                window.open(`https://twitter.com/${data?.twitter_username}`);
               }}
             >
               <Flex flex={1} gap={2} alignItems={'center'}>
                 <Avatar
                   url={getUrlAvatarTwitter(
                     data?.twitter_avatar as string,
-                    'normal'
+                    'normal',
                   )}
                   address={''}
                   width={40}
                   name={data?.twitter_name || data?.twitter_username || ''}
                 />
                 <Flex width={'100%'} gap={'4px'} direction={'column'}>
-                    <Text className={styles.title}>
-                      {formatName(data?.twitter_name as string, 12)}
-                    </Text>
-                    {data?.need_active && (
-                      <Text className={styles.subTitle}>
-                        YOU
-                      </Text>
-                    )}
+                  <p className={styles.title}>{data?.twitter_name || ''}</p>
+                  {data?.need_active && (
+                    <Text className={styles.subTitle}>YOU</Text>
+                  )}
                 </Flex>
               </Flex>
             </Flex>
@@ -210,7 +211,7 @@ const LeaderBoard = () => {
             style={{
               justifyContent: 'center',
               width: '100%',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
             }}
           >
             BOOST
@@ -218,7 +219,7 @@ const LeaderBoard = () => {
         ),
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -230,17 +231,24 @@ const LeaderBoard = () => {
                 flexDirection="row"
                 gap="4px"
                 alignItems="center"
-                className={clsx(
-                  styles.tagBoost,
-                )}
+                className={clsx(styles.tagBoost)}
               >
-                <img style={{ width: 20 }} src={`${CDN_URL_ICONS}/${valueToImage?.[data?.boost] || 'flash_normal.svg'}`}/>
-                <Text className={cs(
-                  styles.title,
-                  styles.multiplier,
-                  styles[valueToClassName[`${data?.boost}`]],
-                  data.need_active && styles.isActiveRow
-                )}>{data?.boost || 0}%</Text>
+                <img
+                  style={{ width: 20 }}
+                  src={`${CDN_URL_ICONS}/${
+                    valueToImage?.[data?.boost] || 'flash_normal.svg'
+                  }`}
+                />
+                <Text
+                  className={cs(
+                    styles.title,
+                    styles.multiplier,
+                    styles[valueToClassName[`${data?.boost}`]],
+                    data.need_active && styles.isActiveRow,
+                  )}
+                >
+                  {data?.boost || 0}%
+                </Text>
               </Flex>
             </Flex>
           );
@@ -254,7 +262,7 @@ const LeaderBoard = () => {
               justifyContent: 'center',
               alignSelf: 'center',
               width: '100%',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
             }}
           >
             TOTAL
@@ -263,7 +271,7 @@ const LeaderBoard = () => {
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -278,7 +286,11 @@ const LeaderBoard = () => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {formatCurrency(new BigNumber(data?.point || '0').toNumber(), 0, 0)}
+                  {formatCurrency(
+                    new BigNumber(data?.point || '0').toNumber(),
+                    0,
+                    0,
+                  )}
                 </Text>
               </Flex>
             </Flex>
@@ -297,7 +309,7 @@ const LeaderBoard = () => {
             }}
             gap="3px"
           >
-            <p style={{ textTransform:'uppercase' }}>INVITE POINTS</p>
+            <p style={{ textTransform: 'uppercase' }}>INVITE PTS</p>
             <Tooltip
               minW="220px"
               bg="white"
@@ -306,18 +318,24 @@ const LeaderBoard = () => {
               padding="8px"
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Referral points are calculated based on the total number of friends you refer to the allowlist.</p>
+                  <p>
+                    Referral points are calculated based on the total number of
+                    friends you refer to the allowlist.
+                  </p>
                 </Flex>
               }
             >
-              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
             </Tooltip>
           </Flex>
         ),
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -351,7 +369,7 @@ const LeaderBoard = () => {
             }}
             gap="3px"
           >
-            <p style={{ textTransform:'uppercase' }}>BITCOIN OG POINTS</p>
+            <p style={{ textTransform: 'uppercase' }}>BITCOIN PTS</p>
             <Tooltip
               minW="220px"
               bg="white"
@@ -360,18 +378,24 @@ const LeaderBoard = () => {
               padding="8px"
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Bitcoin OG is calculated from total gas fees paid on Bitcoin.</p>
+                  <p>
+                    Bitcoin OG is calculated from total gas fees paid on
+                    Bitcoin.
+                  </p>
                 </Flex>
               }
             >
-              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
             </Tooltip>
           </Flex>
         ),
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -405,7 +429,7 @@ const LeaderBoard = () => {
               gap: '4px',
             }}
           >
-            <p style={{ textTransform:'uppercase' }}>MODULAR POINTS</p>
+            <p style={{ textTransform: 'uppercase' }}>MODULAR PTS</p>
             <Tooltip
               minW="220px"
               bg="white"
@@ -414,18 +438,24 @@ const LeaderBoard = () => {
               padding="8px"
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Modular Points are calculated from your holding & staking <strong>TIA</strong></p>
+                  <p>
+                    Modular Points are calculated from your holding & staking{' '}
+                    <strong>TIA</strong>
+                  </p>
                 </Flex>
               }
             >
-              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
             </Tooltip>
           </Flex>
         ),
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -459,7 +489,7 @@ const LeaderBoard = () => {
               gap: '4px',
             }}
           >
-            <p style={{ textTransform:'uppercase' }}>TWEET POINTS</p>
+            <p style={{ textTransform: 'uppercase' }}>TWEET PTS</p>
             <Tooltip
               minW="220px"
               bg="white"
@@ -468,19 +498,26 @@ const LeaderBoard = () => {
               padding="8px"
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
-                  <p>Content Points are calculated based on the performance of your posts on X, including Views.
-                    Note: To be qualified, you must tag: <br/><strong>@BVMnetwork</strong></p>
+                  <p>
+                    Content Points are calculated based on the performance of
+                    your posts on X, including Views. Note: To be qualified, you
+                    must tag: <br />
+                    <strong>@BVMnetwork</strong>
+                  </p>
                 </Flex>
               }
             >
-              <img className={styles.tooltipIcon} src={`${CDN_URL_ICONS}/info-circle.svg`}/>
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
             </Tooltip>
           </Flex>
         ),
         labelConfig,
         config: {
           borderBottom: 'none',
-          fontSize: '16px',
+          fontSize: '14px',
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
@@ -497,7 +534,7 @@ const LeaderBoard = () => {
                 <Text className={styles.title}>
                   {formatCurrency(data?.content_point, 0, 0)}
                 </Text>
-                {data.need_active ?
+                {data.need_active ? (
                   <Tooltip
                     minW="180px"
                     bg="white"
@@ -515,10 +552,77 @@ const LeaderBoard = () => {
                     }
                   >
                     <div>
-                      <SvgInset size={18} className={styles.tooltipIconActive} svgUrl={`${CDN_URL_ICONS}/info-circle.svg`}/>
+                      <SvgInset
+                        size={18}
+                        className={styles.tooltipIconActive}
+                        svgUrl={`${CDN_URL_ICONS}/info-circle.svg`}
+                      />
                     </div>
                   </Tooltip>
-                : <Box w="16px" />}
+                ) : (
+                  <Box w="16px" />
+                )}
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'eco',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              gap: '4px',
+            }}
+          >
+            <p style={{ textTransform: 'uppercase' }}>ECOSYSTEM PTS</p>
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>
+                    Points earned by doing tasks in other dApps like Naka
+                    Genesis, Bitcoin Arcade, Alpha, and more within the BVM
+                    ecosystem.
+                  </p>
+                </Flex>
+              }
+            >
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
+            </Tooltip>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={'4px'}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={'4px'}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.eco_point, 0, 0)}
+                </Text>
               </Flex>
             </Flex>
           );
@@ -526,7 +630,6 @@ const LeaderBoard = () => {
       },
     ];
   }, []);
-
 
   // const remainingTime = () => {
   //   const now = dayjs();
@@ -559,11 +662,15 @@ const LeaderBoard = () => {
   const renderTimeLine = (params: { content: React.ReactNode }) => {
     return (
       <Flex gap="6px" alignItems="center" width="fit-content">
-        <img style={{ width: 4, height: 4 }} src={`${CDN_URL_ICONS}/ic-dot.svg`} alt="ic-dot"/>
+        <img
+          style={{ width: 4, height: 4 }}
+          src={`${CDN_URL_ICONS}/ic-dot.svg`}
+          alt="ic-dot"
+        />
         {params.content}
       </Flex>
-    )
-  }
+    );
+  };
 
   return (
     <Box className={styles.container} height="100dvh" id={LEADER_BOARD_ID}>
