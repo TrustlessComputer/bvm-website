@@ -92,13 +92,7 @@ const Steps = () => {
 
   const onShareOptimism = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const content = `
-    BUILD WHATEVER ON BITCOIN.\n\n
-    As a modular maxi (holding ${formatCurrency(new BigNumber(allowOptimism.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), 
-    I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\n
-    Powered by @BVMnetwork, 
-    you can deploy your own Bitcoin L2 chain with @CelestiaOrg and @Optimism in a few clicks.\n\n
-    🤯🤯🤯\n`;
+    const content = `Two L2 rollups walk into a bar.\n\nBarman: “IDs, please?”\nZK Rollup: “I’m 18, no ID needed”\nOptimistic Rollup: “Wait a week, and I’ll be an adult”\nQ: What is the name of the bar?\nA: #Bitcoin\n\nWelcome to Bitcoin L2s with @BVMnetwork\n\nPS: Thanks @l2beat!`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
