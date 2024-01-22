@@ -92,7 +92,7 @@ const Steps = () => {
 
   const onShareOptimism = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const content = `Two L2 rollups walk into a bar.\n\nBarman: “IDs?“. ZK Rollup: “I’m 18, no ID needed”. Optimistic: “Wait a week & I’ll be an adult”\n\nQ: What is the name of the bar?\nA: #Bitcoin\n\nWelcome to Bitcoin L2s with @BVMnetwork.\n\nPS: Thanks @l2beat for the prompt!`;
+    const content = `Two L2 rollups walk into a bar.\n\nBarman: “IDs?”. ZK Rollup: “I’m 18, no ID needed”. Optimistic: “Wait a week & I’ll be an adult”\n\nQ: What is the name of the bar?\nA: #Bitcoin\n\nWelcome to Bitcoin L2s with @BVMnetwork.\n\nPS: Thanks @l2beat for the prompt!`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -175,7 +175,8 @@ const Steps = () => {
       'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
     const isNeedClaimBTCPoint = allowBTC.isUnclaimed;
     const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed;
-    const isNeedClaimOptimismPoint = allowOptimism.isUnclaimed;
+    // const isNeedClaimOptimismPoint = allowOptimism.isUnclaimed;
+    const isNeedClaimOptimismPoint = true
     const authenTask =  {
       title: 'Tweet about BVM',
       desc: 'Tweet as often as you like & tag @BVMnetwork to rank up.',
