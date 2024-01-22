@@ -247,9 +247,9 @@ const StepsAirdrop = () => {
         desc: `Proportionally based on Airdrop Points - min Airdrop Points: 100,000<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Claim',
+        actionText: 'Link account',
         image: "alpha.svg",
-        actionHandle: handleClaimRetrospective,
+        actionHandle: handleShareTwToSignIn,
         isActive: true,
         isDisable: true,
         right: {
@@ -259,10 +259,10 @@ const StepsAirdrop = () => {
         expiredTime: '2024-01-24 03:00:00',
         showExpireTime: false,
         airdropType: AirdropType.RETROSPECTIVE,
-        actionHandleSecondary: () => {
-          handleShareTwToSignIn();
-        },
-        actionTextSecondary: 'Switch account',
+        // actionHandleSecondary: () => {
+        //   handleShareTwToSignIn();
+        // },
+        // actionTextSecondary: 'Switch account',
         step: AirdropStep.alphaUsers,
       },
     ];

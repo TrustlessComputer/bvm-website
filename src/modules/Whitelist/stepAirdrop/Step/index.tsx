@@ -3,7 +3,7 @@ import { Button, Flex, Text } from '@chakra-ui/react';
 import cs from 'classnames';
 import cx from 'clsx';
 import Image from 'next/image';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import { ALLOWED_ATTRIBUTES } from '@/constants/constants';
 import sanitizeHtml from 'sanitize-html';
@@ -74,6 +74,7 @@ export default function ItemCommunity({
   const airdropGMHolders = useSelector(airdropGMHoldersSelector);
   const airdropGenerativeUsers = useSelector(airdropGenerativeUsersSelector);
   const user = useAppSelector(userSelector);
+  const [expireTimeEnd, setExpireTimeEnd] = useState(false);
 
   const isRunning = useMemo(() => {
     return isActive;
@@ -111,7 +112,12 @@ export default function ItemCommunity({
                   {
                     content?.showExpireTime && !!content?.expiredTime && (
                       <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
-                        <Countdown className={s.itemCommunity__countdown} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} />
+                        <Countdown
+                          className={s.itemCommunity__countdown}
+                          expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()}
+                          hideIcon={true}
+                          onRefreshEnd={() => setExpireTimeEnd(true)}
+                        />
                         <Text fontSize={"12px"} fontWeight={400} color={"#000000"}>TIME REMAIN</Text>
                       </Flex>
                     )
@@ -146,7 +152,12 @@ export default function ItemCommunity({
                   {
                     !content?.showExpireTime && !!content?.expiredTime ? (
                       <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
-                        <Countdown className={s.itemCommunity__countdown_button} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} />
+                        <Countdown
+                          className={s.itemCommunity__countdown_button}
+                          expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()}
+                          hideIcon={true}
+                          onRefreshEnd={() => setExpireTimeEnd(true)}
+                        />
                       </Flex>
                     ) : (content?.actionText)
                   }
