@@ -14,10 +14,16 @@ import CountUp from 'react-countup';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import StepsEco from './stepsEco';
 import StepsAirdrop from '@/modules/Whitelist/stepAirdrop';
+import useAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useAllowBTC';
+import useAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useAllowCelestia';
+import useAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useAllowEVM';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
 const Whitelist = () => {
+  useAllowBTC();
+  useAllowCelestia();
+  useAllowEVM({ type: "allowOptimism" });
   const { count } = useAppSelector(leaderBoardSelector);
   const { height } = useElementHeight({ elementID: HEADER_ID });
 

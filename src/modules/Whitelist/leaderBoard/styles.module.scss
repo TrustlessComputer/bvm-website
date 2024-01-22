@@ -97,9 +97,9 @@ table {
       tr {
         th,
         td {
-          padding-right: 20px !important;
+          padding-right: 18px !important;
           &:nth-child(1) {
-            width: 60px !important;
+            width: 55px !important;
           }
           &:nth-child(3) {
             min-width: 110px !important;
@@ -116,7 +116,7 @@ table {
       color: black;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 120px;
+      max-width: 85px;
     }
 
     .subTitle {

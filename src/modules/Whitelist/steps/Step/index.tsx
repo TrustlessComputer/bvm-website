@@ -8,12 +8,14 @@ import AuthenStorage from '@/utils/storage/authen.storage';
 import AllowBTCMessage from '@/modules/Whitelist/AllowBTCMessage';
 import cs from 'classnames';
 import AllowCelestiaMessage from '@/modules/Whitelist/AllowCelestiaMessage';
+import AllowEVMMessage from '@/modules/Whitelist/AllowEVMMessage';
 
 export enum MultiplierStep {
   authen,
   post,
   signMessage,
   modular,
+  evm
 }
 
 export interface IItemCommunity {
@@ -109,6 +111,9 @@ export default function ItemCommunity({
                 )}
                 {step === MultiplierStep.modular && (
                   <AllowCelestiaMessage />
+                )}
+                {step === MultiplierStep.evm && (
+                  <AllowEVMMessage type="allowOptimism" />
                 )}
               </Flex>
               {

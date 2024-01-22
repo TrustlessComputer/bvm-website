@@ -418,6 +418,91 @@ const LeaderBoard = () => {
         },
       },
       {
+        id: 'layer-2',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              gap: '4px',
+            }}
+          >
+            <p style={{ textTransform: 'uppercase' }}>L2 PTS</p>
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>
+                    L2 Points are calculated from your holding{' '}
+                    <strong>Optimism</strong> token
+                  </p>
+                </Flex>
+              }
+            >
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
+            </Tooltip>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                width: '100%',
+                gap: '4px',
+              }}
+            >
+              <Text className={styles.title}>
+                {formatCurrency(new BigNumber(data?.optimism_point || 0).toString(), 0, 0)}
+              </Text>
+              {data.need_active ? (
+                <Tooltip
+                  minW="130px"
+                  bg="white"
+                  boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                  borderRadius="4px"
+                  padding="8px"
+                  label={
+                    <Flex direction="column" color="black" opacity={0.7}>
+                      <p>Optimism: {data.optimism_point || '0'}</p>
+                    </Flex>
+                  }
+                >
+                  <div>
+                    <SvgInset
+                      size={18}
+                      className={styles.tooltipIconActive}
+                      svgUrl={`${CDN_URL_ICONS}/info-circle.svg`}
+                    />
+                  </div>
+                </Tooltip>
+              ) : (
+                <Box w="16px" />
+              )}
+            </Flex>
+          );
+        },
+      },
+      {
         id: 'modular',
         label: (
           <Flex
