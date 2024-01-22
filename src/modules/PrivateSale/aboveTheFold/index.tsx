@@ -53,19 +53,28 @@ const AboveTheFold = () => {
             </Lines>
           </Box>
           <Box className={s.desc}>
-            <Lines delay={1.4}>
+            <Fade delay={1.4}>
               {vcInfo?.description as string}
-            </Lines>
+            </Fade>
           </Box>
           <Flex gap={6} direction={["column", "row"]}>
             <Fade delay={1.5}>
-              <Button className={s.downloadBtn}>
-                Losem
-              </Button>
+              <Flex alignItems={"center"} gap={2}>
+                <Button className={s.buildBtn} onClick={() => {
+                  window.open('https://cdn.bvm.network/docs/deck.pdf', "_blank");
+                }}>Deck</Button>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.59999 7.2L14.4 12L9.59999 16.8" stroke="white" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </Flex>
             </Fade>
             <Fade delay={1.6}>
               <Flex alignItems={"center"} gap={2}>
-                <Button className={s.buildBtn}>Explore the docs</Button>
+                <Button className={s.buildBtn} onClick={() => {
+                  window.open('https://cdn.bvm.network/docs/onepager.pdf', "_blank");
+                }}>One-pager</Button>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
                   <path d="M9.59999 7.2L14.4 12L9.59999 16.8" stroke="white" stroke-width="2"

@@ -37,10 +37,13 @@ const PrivateSaleForm = ({vcInfo} : {vcInfo?: VCInfo}) => {
   const vcType = LocalStorageUtil.get(KEY_VC_TYPE);
   const walletId = LocalStorageUtil.get(KEY_WALLET_ID) || '';
   const [vcWalletInfo, setVcWalletInfo] = useState<VCWalletInfo>();
-  const tokenPrice = 1;
   const coinPrices = useSelector(commonSelector).coinPrices;
   const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
   const ethPrice = useMemo(() => coinPrices?.['ETH'] || '0', [coinPrices]);
+
+  const tokenPrice = useMemo(() => {
+    return Number(vcInfo?.token_price);
+  }, [vcInfo]);
 
   const handleGetDepositAddress = () => {
     setShowQrCode(true);
@@ -103,19 +106,27 @@ const PrivateSaleForm = ({vcInfo} : {vcInfo?: VCInfo}) => {
         <div className={s.content}>
           <Text className={s.title}><Lines delay={DELAY + .2}>PRIVATE TOKEN ROUND</Lines></Text>
           <Flex className={s.boxInfo} direction={"column"} gap={4} mt={"40px"} mb={"40px"} width={"100%"}>
-            <Column value={formatCurrency(vcInfo?.total_tokens, 0, 0, 'BTC', true)} title={'TOTAL TOKENS'}/>
+            <Fade delay={DELAY + 0.2}>
+              <Column value={formatCurrency(vcInfo?.total_tokens, 0, 0, 'BTC', true)} title={'TOTAL TOKENS'}/>
+            </Fade>
             <Divider />
+            <Fade delay={DELAY + 0.4}>
             <Column value={`${vcInfo?.available_tokens}%`} title={'AVAILABLE TOKEN FOR PRIVATE SALE'}/>
+            </Fade>
             <Divider />
-            <Flex>
-              <Column value={`$${formatCurrency(vcInfo?.token_price, 0, 0)}`} title={'TOKEN PRICE'}/>
-              <Column value={`$${formatCurrency(vcInfo?.fdv, 0, 0, 'BTC', )}`} title={'FDV'}/>
-            </Flex>
+            <Fade delay={DELAY + 0.6}>
+              <Flex>
+                <Column value={`$${formatCurrency(vcInfo?.token_price, 0, 0)}`} title={'TOKEN PRICE'}/>
+                <Column value={`$${formatCurrency(vcInfo?.fdv, 0, 0, 'BTC', )}`} title={'FDV'}/>
+              </Flex>
+            </Fade>
             <Divider />
-            <Flex>
-              <Column value={`$${formatCurrency(vcInfo?.fundraising_goal, 0, 0, 'BTC', )}`} title={'FUNDRAISING GOAL'}/>
-              <Column value={`$${formatCurrency(vcInfo?.min_personal_cap, 0, 0, 'BTC', true)}`} title={'MIN PERSONAL CAP'}/>
-            </Flex>
+            <Fade delay={DELAY + 0.8}>
+              <Flex>
+                <Column value={`$${formatCurrency(vcInfo?.fundraising_goal, 0, 0, 'BTC', )}`} title={'FUNDRAISING GOAL'}/>
+                <Column value={`$${formatCurrency(vcInfo?.min_personal_cap, 0, 0, 'BTC', true)}`} title={'MIN PERSONAL CAP'}/>
+              </Flex>
+            </Fade>
           </Flex>
           {/*<Text className={s.price}><Lines delay={DELAY + .2}>1 BVM = {formatCurrency(tokenPrice, 0, 0)}$</Lines></Text>
           <Text className={s.desc}><Lines delay={DELAY + .5}>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
