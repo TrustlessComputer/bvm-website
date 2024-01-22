@@ -18,6 +18,11 @@ export enum MultiplierStep {
   evm
 }
 
+interface IRight {
+  title: string;
+  desc: string
+}
+
 export interface IItemCommunity {
   title: string,
   desc: string | React.ReactNode,
@@ -29,10 +34,7 @@ export interface IItemCommunity {
   isDone?: boolean,
   step: MultiplierStep,
   image: string
-  right: {
-    title: string;
-    desc: string
-  },
+  right: IRight | IRight[],
   handleShowManualPopup?: () => void;
 }
 
@@ -70,10 +72,23 @@ export default function ItemCommunity({
               <div className={s.itemCommunity__title}>{content?.title}</div>
               {!!content?.desc && (<div className={s.itemCommunity__desc}>{content?.desc}</div>)}
             </Flex>
-            <Flex direction={["row", 'column']} justifyContent={["space-between", "flex-start"]}>
-              <div className={s.itemCommunity__point}>{content?.right.title}</div>
-              {!!content?.desc && (<div className={s.itemCommunity__pointNote}>{content?.right.desc}</div>)}
-            </Flex>
+            {!Array.isArray(content.right) ? (
+              <Flex direction={["row", 'column']} justifyContent={["space-between", "flex-start"]}>
+                <div className={s.itemCommunity__point}>{(content?.right as IRight).title}</div>
+                {!!content?.desc && (<div className={s.itemCommunity__pointNote}>{(content?.right as IRight).desc}</div>)}
+              </Flex>
+            ) : (
+              <Flex flexDirection="column" gap="8px">
+                {(
+                  content.right as IRight[]).map((data) => (
+                    <Flex key={data.desc} direction={["row", 'column']} justifyContent={["space-between", "flex-start"]}>
+                      <div className={s.itemCommunity__point}>{(data as IRight).title}</div>
+                      {!!content?.desc && (<div className={s.itemCommunity__pointNote}>{(data as IRight).desc}</div>)}
+                    </Flex>
+                  )
+                )}
+              </Flex>
+            )}
           </Flex>
           {!!content?.actionText && (
             <Flex direction="column" w="100%" mt="8px">

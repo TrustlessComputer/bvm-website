@@ -90,13 +90,31 @@ const Steps = () => {
     );
   }
 
+  const onShareOptimism = () => {
+    const shareUrl = getLink(user?.referral_code || '');
+    const content = `
+    BUILD WHATEVER ON BITCOIN.\n\n
+    As a modular maxi (holding ${formatCurrency(new BigNumber(allowOptimism.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), 
+    I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\n
+    Powered by @BVMnetwork, 
+    you can deploy your own Bitcoin L2 chain with @CelestiaOrg and @Optimism in a few clicks.\n\n
+    🤯🤯🤯\n`;
+
+    window.open(
+      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+        content,
+      )}`,
+      '_blank',
+    );
+  }
+
   const onSignModular = async () => {
     onToggleConnectModular();
   }
 
   const onSignEVM = async (type: EVMFieldType) => {
     try {
-      const { message, signature, address } = await signEVMMessage('Are you a Optimism Pioneer?');
+      const { message, signature, address } = await signEVMMessage('Are you a L2 OG?');
       await verifyEVMSignature({
         message,
         signature,
@@ -237,11 +255,11 @@ const Steps = () => {
         }
       },
       {
-        title: 'Are you a Optimism Pioneer?',
-        desc: 'The more OP you hold, the more points you’ll get. Connect your Metamask wallet to prove the account ownership.',
-        actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How Optimism are you?',
+        title: 'Are you a L2 OG?',
+        desc: 'The more Blast you staked or Optimism you hold, the more points you’ll get. Connect your Metamask wallet to prove the account ownership.',
+        actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 OG are you?',
         actionHandle: isNeedClaimOptimismPoint ? async () => {
-          onShareModular();
+          onShareOptimism();
           await requestClaimEVMPoint({
             status: allowOptimism.status,
             network: getEVMNetworkByFieldType('allowOptimism')
@@ -257,11 +275,17 @@ const Steps = () => {
         isActive: !!token,
         isDone: !!token,
         step: MultiplierStep.evm,
-        image: "ic-optimism.svg",
-        right: {
-          title: '+100 PTS',
-          desc: 'per OP'
-        }
+        image: "blast_op.svg",
+        right: [
+          {
+            title: '+100 PTS',
+            desc: 'per 0.005 ETH'
+          },
+          {
+            title: '+25 PTS',
+            desc: 'per OPs'
+          }
+        ]
       },
     ];
     if (token) {

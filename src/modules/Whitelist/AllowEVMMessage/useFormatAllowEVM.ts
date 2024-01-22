@@ -11,6 +11,7 @@ interface IAmount {
   point: number,
   unClaimedPoint: number,
   feeUSD: number,
+  blastAmount: number,
 }
 
 const useFormatAllowEVM = ({ type }: IAllowEVMProps) => {
@@ -24,7 +25,8 @@ const useFormatAllowEVM = ({ type }: IAllowEVMProps) => {
       let value = {
         txsCount: new BigNumber(curr.num_txs || '0').plus(prev.txsCount).toNumber(),
         fee: new BigNumber(curr.btc_fee || '0').plus(prev.fee).toNumber(),
-        point: new BigNumber(curr.gas_point || '0').plus(prev.point).toNumber(),
+        blastAmount: new BigNumber(curr.blast_amount || '0').plus(prev.blastAmount).toNumber(),
+        point: new BigNumber(curr.gas_point || '0').plus(curr.blast_point || '0').plus(prev.point).toNumber(),
         unClaimedPoint: new BigNumber(prev.unClaimedPoint || '0')
           .plus(curr.status === 'unclaimed' ? curr.gas_point || '0' : '0')
           .toNumber(),
@@ -35,7 +37,7 @@ const useFormatAllowEVM = ({ type }: IAllowEVMProps) => {
         feeUSD: new BigNumber(value.fee || 0).times(1).toNumber()
       } as IAmount;
       return value as IAmount;
-    }, { txsCount: 0, fee: 0, point: 0, unClaimedPoint: 0, feeUSD: 0 } as IAmount)
+    }, { txsCount: 0, fee: 0, point: 0, unClaimedPoint: 0, feeUSD: 0, blastAmount: 0 } as IAmount)
   }, [status]);
 
   return {

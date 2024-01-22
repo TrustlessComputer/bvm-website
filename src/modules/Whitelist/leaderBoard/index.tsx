@@ -439,8 +439,7 @@ const LeaderBoard = () => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    L2 Points are calculated from your holding{' '}
-                    <strong>Optimism</strong> token
+                    L2 Points are calculated from your <strong>Optimism</strong> & <strong>Blast</strong> staking and holding
                   </p>
                 </Flex>
               }
@@ -472,11 +471,11 @@ const LeaderBoard = () => {
               }}
             >
               <Text className={styles.title}>
-                {formatCurrency(new BigNumber(data?.optimism_point || 0).toString(), 0, 0)}
+                {formatCurrency(new BigNumber(data?.optimism_point || 0).plus(data?.blast_point || 0).toString(), 0, 0)}
               </Text>
               {data.need_active ? (
                 <Tooltip
-                  minW="130px"
+                  minW="160px"
                   bg="white"
                   boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
                   borderRadius="4px"
@@ -484,6 +483,7 @@ const LeaderBoard = () => {
                   label={
                     <Flex direction="column" color="black" opacity={0.7}>
                       <p>Optimism: {data.optimism_point || '0'}</p>
+                      <p>Blast: {data.blast_point || '0'}</p>
                     </Flex>
                   }
                 >
