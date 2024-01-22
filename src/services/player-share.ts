@@ -121,3 +121,14 @@ export const getBVMAirdrop = async (params: any): Promise<any> => {
 
   return null;
 };
+
+export const getGenerativeProfile = async (address: string): Promise<any> => {
+  try {
+    const res = await apiClient.get(`https://generative.xyz/generative/api/profile/wallet/${address}`, );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};

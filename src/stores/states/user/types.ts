@@ -37,4 +37,7 @@ export interface UserState {
     loaded: boolean;
   },
   airdropAlphaUsers: any;
+  airdropGMHolders: any;
+  airdropGenerativeUsers: any;
+  airdropPerceptronsHolders: any;
 }

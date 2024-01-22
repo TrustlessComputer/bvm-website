@@ -7,7 +7,7 @@ import ItemStep, { AirdropStep, AirdropType, IItemCommunity } from './Step';
 import s from './styles.module.scss';
 import {
   generateTokenWithTwPost,
-  getBVMAirdrop,
+  getBVMAirdrop, getGenerativeProfile,
   getRaffleJoin,
   joinRaffle,
   requestAuthenByShareCode,
@@ -21,7 +21,8 @@ import { setBearerToken } from '@/services/whitelist';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
 import { IAuthenCode } from '@/modules/Whitelist/steps';
-import { setAirdropAlphaUsers } from '@/stores/states/user/reducer';
+import { setAirdropAlphaUsers, setAirdropGenerativeUsers, setAirdropGMHolders } from '@/stores/states/user/reducer';
+import { signMessage } from '@/utils/metamask-helper';
 
 const StepsAirdrop = () => {
   const token = AuthenStorage.getAuthenKey();
@@ -124,6 +125,25 @@ const StepsAirdrop = () => {
     }
   }
 
+  const handleVerifyWallet = async () => {
+    const getMessage = (address: string) => {
+      return `Verify you are the owner of the wallet ${address}`;
+    }
+    const {address, signature, message} = await signMessage(getMessage);
+
+    const resGMHolders = await getBVMAirdrop({address: address});
+    dispatch(setAirdropGMHolders(resGMHolders));
+
+    const generativeProfile = await getGenerativeProfile(address);
+
+    if (generativeProfile?.walletAddressBtcTaproot) {
+      const resGenerativeUsers = await getBVMAirdrop({address: generativeProfile?.walletAddressBtcTaproot});
+      dispatch(setAirdropGenerativeUsers(resGenerativeUsers));
+    }
+
+    console.log('generativeProfile', generativeProfile);
+  }
+
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
       {
@@ -172,7 +192,7 @@ const StepsAirdrop = () => {
        `,
         actionText: 'Claim',
         image: "time-chain2.svg",
-        actionHandle: handleClaimRetrospective,
+        actionHandle: handleVerifyWallet,
         isActive: true,
         isDisable: true,
         right: {
@@ -191,7 +211,7 @@ const StepsAirdrop = () => {
        `,
         actionText: 'Claim',
         image: "perceptron_thumb_03.jpg",
-        actionHandle: handleClaimRetrospective,
+        actionHandle: handleVerifyWallet,
         isActive: true,
         isDisable: true,
         right: {
@@ -210,7 +230,7 @@ const StepsAirdrop = () => {
        `,
         actionText: 'Claim',
         image: "gm.svg",
-        actionHandle: handleClaimRetrospective,
+        actionHandle: handleVerifyWallet,
         isActive: true,
         isDisable: true,
         right: {

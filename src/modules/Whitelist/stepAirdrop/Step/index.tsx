@@ -10,7 +10,12 @@ import sanitizeHtml from 'sanitize-html';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import utc from 'dayjs/plugin/utc';
-import { airdropAlphaUsersSelector, userSelector } from '@/stores/states/user/selector';
+import {
+  airdropAlphaUsersSelector,
+  airdropGenerativeUsersSelector,
+  airdropGMHoldersSelector,
+  userSelector,
+} from '@/stores/states/user/selector';
 import { useSelector } from 'react-redux';
 import { formatCurrency } from '@/utils/format';
 import { useAppSelector } from '@/stores/hooks';
@@ -66,12 +71,15 @@ export default function ItemCommunity({
 }) {
   const { isActive, image, isDisable = false } = content;
   const airdropAlphaUsers = useSelector(airdropAlphaUsersSelector);
+  const airdropGMHolders = useSelector(airdropGMHoldersSelector);
+  const airdropGenerativeUsers = useSelector(airdropGenerativeUsersSelector);
   const user = useAppSelector(userSelector);
-  console.log('airdropAlphaUsers', airdropAlphaUsers);
 
   const isRunning = useMemo(() => {
     return isActive;
   }, [isActive, index]);
+
+  console.log('airdropGMHolders', airdropGMHolders);
 
   return (
     <>
@@ -170,6 +178,32 @@ export default function ItemCommunity({
             {
               content?.step === AirdropStep.alphaUsers && airdropAlphaUsers && (
                 <Text color={"#000000"}>{user?.twitter_name} - Airdrop: {formatCurrency(airdropAlphaUsers?.balance)} $BVM - Vesting at: {dayjs(airdropAlphaUsers?.claimeable_at).format('YYYY-MM-DD')}</Text>
+              )
+            }
+            {
+              content?.step === AirdropStep.gmHolders && (
+                <>
+                  {
+                    airdropGMHolders ? (
+                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropAlphaUsers?.balance)} $BVM - Vesting at: {dayjs(airdropAlphaUsers?.claimeable_at).format('YYYY-MM-DD')}</Text>
+                    ) : (
+                      <Text color={"#000000"}>Your wallet do not have airdrop</Text>
+                    )
+                  }
+                </>
+              )
+            }
+            {
+              content?.step === AirdropStep.generativeUsers && (
+                <>
+                  {
+                    airdropGenerativeUsers ? (
+                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropGenerativeUsers?.balance)} $BVM - Vesting at: {dayjs(airdropGenerativeUsers?.claimeable_at).format('YYYY-MM-DD')}</Text>
+                    ) : (
+                      <Text color={"#000000"}>Your wallet do not have airdrop</Text>
+                    )
+                  }
+                </>
               )
             }
           </Flex>
