@@ -7,7 +7,7 @@ import { KEY_VC_TYPE, KEY_WALLET_ID } from '@/constants/storage-key';
 import Fade from '@/interactive/Fade';
 import LocalStorageUtil from '@/utils/localstorage';
 import { getVCWalletInfo } from '@/services/player-share';
-import { VCWalletInfo } from '@/interfaces/vc';
+import { VCInfo, VCWalletInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import BigNumber from 'bignumber.js';
 import { commonSelector } from '@/stores/states/common/selector';
@@ -31,12 +31,12 @@ const Column = ({value, title}: { value: string, title: string }) => {
   )
 }
 
-const PrivateSaleForm = () => {
+const PrivateSaleForm = ({vcInfo} : {vcInfo?: VCInfo}) => {
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
   const vcType = LocalStorageUtil.get(KEY_VC_TYPE);
   const walletId = LocalStorageUtil.get(KEY_WALLET_ID) || '';
-  const [vcInfo, setVCInfo] = useState<VCWalletInfo>();
+  const [vcWalletInfo, setVcWalletInfo] = useState<VCWalletInfo>();
   const tokenPrice = 1;
   const coinPrices = useSelector(commonSelector).coinPrices;
   const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
@@ -54,7 +54,7 @@ const PrivateSaleForm = () => {
 
   const getVentureInfo = async () => {
     const result = await getVCWalletInfo({ vc_type: vcType, wallet_id: walletId });
-    setVCInfo(result);
+    setVcWalletInfo(result);
     LocalStorageUtil.set(KEY_WALLET_ID, result.wallet_id);
   };
 
@@ -103,18 +103,18 @@ const PrivateSaleForm = () => {
         <div className={s.content}>
           <Text className={s.title}><Lines delay={DELAY + .2}>PRIVATE TOKEN ROUND</Lines></Text>
           <Flex className={s.boxInfo} direction={"column"} gap={4} mt={"40px"} mb={"40px"} width={"100%"}>
-            <Column value={'100,000,000'} title={'TOTAL TOKENS'}/>
+            <Column value={formatCurrency(vcInfo?.total_tokens, 0, 0, 'BTC', true)} title={'TOTAL TOKENS'}/>
             <Divider />
-            <Column value={'10%'} title={'AVAILABLE TOKEN FOR PRIVATE SALE'}/>
+            <Column value={`${vcInfo?.available_tokens}%`} title={'AVAILABLE TOKEN FOR PRIVATE SALE'}/>
             <Divider />
             <Flex>
-              <Column value={'$1'} title={'TOKEN PRICE'}/>
-              <Column value={'$100M'} title={'FDV'}/>
+              <Column value={`$${formatCurrency(vcInfo?.token_price, 0, 0)}`} title={'TOKEN PRICE'}/>
+              <Column value={`$${formatCurrency(vcInfo?.fdv, 0, 0, 'BTC', )}`} title={'FDV'}/>
             </Flex>
             <Divider />
             <Flex>
-              <Column value={'$10M'} title={'FUNDRAISING GOAL'}/>
-              <Column value={'$25,000'} title={'MIN PERSONAL CAP'}/>
+              <Column value={`$${formatCurrency(vcInfo?.fundraising_goal, 0, 0, 'BTC', )}`} title={'FUNDRAISING GOAL'}/>
+              <Column value={`$${formatCurrency(vcInfo?.min_personal_cap, 0, 0, 'BTC', true)}`} title={'MIN PERSONAL CAP'}/>
             </Flex>
           </Flex>
           {/*<Text className={s.price}><Lines delay={DELAY + .2}>1 BVM = {formatCurrency(tokenPrice, 0, 0)}$</Lines></Text>
@@ -158,18 +158,18 @@ const PrivateSaleForm = () => {
                     <Flex direction={'column'} alignItems={'center'} gap={3}>
                       <QRCode
                         size={130}
-                        value={vcInfo?.btc_address || ''}
+                        value={vcWalletInfo?.btc_address || ''}
                         logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
                       />
-                      <Text className={s.depositValue}>{formatCurrency(vcInfo?.btc_balance, 4, 4)} BTC</Text>
+                      <Text className={s.depositValue}>{formatCurrency(vcWalletInfo?.btc_balance, 4, 4)} BTC</Text>
                     </Flex>
                     <Flex direction={'column'} alignItems={'center'} gap={3}>
                       <QRCode
                         size={130}
-                        value={vcInfo?.eth_balance || ''}
+                        value={vcWalletInfo?.eth_balance || ''}
                         logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
                       />
-                      <Text className={s.depositValue}>{formatCurrency(vcInfo?.eth_balance, 4, 4)} ETH</Text>
+                      <Text className={s.depositValue}>{formatCurrency(vcWalletInfo?.eth_balance, 4, 4)} ETH</Text>
                     </Flex>
                   </Flex>
                 )

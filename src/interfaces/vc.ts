@@ -12,4 +12,10 @@ export interface VCInfo {
   name: string;
   title: string;
   type: string;
+  available_tokens: string;
+  fdv: string;
+  fundraising_goal: string;
+  min_personal_cap: string;
+  token_price: string;
+  total_tokens: string;
 }

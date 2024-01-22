@@ -31,8 +31,6 @@ const AboveTheFold = () => {
     setVCInfo(res);
   }
 
-  console.log('vcInfo', vcInfo);
-
   return (
     <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImg={`/private-sale/bg.webp`}>
       <SimpleGrid className={`container ${s.content}`} gridTemplateColumns={["1fr", "1.25fr 1fr"]} gap={[6, 0]}>
@@ -79,7 +77,7 @@ const AboveTheFold = () => {
         </Flex>
         <Flex className={s.rightSection} justifyContent={["center", "flex-end"]} alignItems={"flex-end"}>
           <Flex className={s.btnJoinWrapper} direction={"column"}>
-            <BuyForm />
+            <BuyForm vcInfo={vcInfo}/>
           </Flex>
         </Flex>
       </SimpleGrid>
