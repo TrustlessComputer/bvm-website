@@ -92,7 +92,7 @@ const Steps = () => {
 
   const onShareOptimism = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const content = `Two L2 rollups walk into a bar.\n\nBarman: “IDs, please?”\nZK Rollup: “I’m 18, no ID needed”\nOptimistic Rollup: “Wait a week, and I’ll be an adult”\nQ: What is the name of the bar?\nA: #Bitcoin\n\nWelcome to Bitcoin L2s with @BVMnetwork\n\nPS: Thanks @l2beat!`;
+    const content = `Two L2 rollups walk into a bar.\n\nBarman: “IDs?“. ZK Rollup: “I’m 18, no ID needed”. Optimistic: “Wait a week & I’ll be an adult”\n\nQ: What is the name of the bar?\nA: #Bitcoin\n\nWelcome to Bitcoin L2s with @BVMnetwork.\n\nPS: Thanks @l2beat for the prompt!`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
