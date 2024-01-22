@@ -113,19 +113,12 @@ export const getRaffleUsers = async (params: any): Promise<any> => {
   return null;
 };
 
-export const getVCWalletInfo = async ({
-  vc_type,
-  wallet_id,
-}: any): Promise<VCWalletInfo> => {
-  const res = (await apiClient.get(
-    `/bvm/vc/wallet?vc_type=${vc_type}&wallet_id=${wallet_id}`,
-  )) as unknown as VCWalletInfo;
+export const getVCWalletInfo = async ({vc_type, wallet_id}: any): Promise<VCWalletInfo> => {
+  const res = (await apiClient.get(`/bvm/vc/wallet?vc_type=${vc_type}&wallet_id=${wallet_id}`)) as unknown as VCWalletInfo;
   return res;
-};
+}
 
-export const getVCInformation = async ({ vc_type }: any): Promise<VCInfo> => {
-  const res = (await apiClient.get(
-    `/bvm/vc/info?vc_type=${vc_type}`,
-  )) as unknown as VCInfo;
+export const getVCInformation = async ({vc_type}: any): Promise<VCInfo> => {
+  const res = (await apiClient.get(`/bvm/vc/info?vc_type=${vc_type}`)) as unknown as VCInfo;
   return res;
-};
+}

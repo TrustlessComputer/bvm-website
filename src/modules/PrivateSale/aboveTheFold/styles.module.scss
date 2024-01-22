@@ -69,6 +69,7 @@
     line-height: 140%;
     letter-spacing: 0.02em;
     color: #FFFFFF;
+    white-space: pre-wrap;
 
     @include w-max(768px) {
       font-size: 16px;

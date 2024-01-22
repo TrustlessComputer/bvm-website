@@ -7,7 +7,7 @@ const initialState: CommonState = {
     [Coin.BTC]: '0',
     [Coin.ETH]: '0',
     [Coin.TIA]: '0',
-  }
+  } as any
 };
 
 const slice = createSlice({
