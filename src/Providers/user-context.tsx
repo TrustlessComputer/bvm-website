@@ -9,10 +9,8 @@ import { User } from '@/stores/states/user/types';
 import { getReferralByURL } from '@/utils/helpers';
 import userServices from '@/services/user';
 import ReferralStorage from '@/utils/storage/referral.storage';
-import useAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useAllowBTC';
 import { getCoinPrices } from '@/services/common';
 import { setCoinPrices } from '@/stores/states/common/reducer';
-import useAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useAllowCelestia';
 
 export interface IUserContext {}
 
@@ -23,8 +21,6 @@ export const UserContext = React.createContext<IUserContext>(initialValue);
 export const UserProvider: React.FC<PropsWithChildren> = ({
   children,
 }: PropsWithChildren): React.ReactElement => {
-  useAllowBTC();
-  useAllowCelestia();
 
   const dispatch = useAppDispatch();
   const needReload = useAppSelector(commonSelector).needReload;

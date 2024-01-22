@@ -14,12 +14,19 @@ import CountUp from 'react-countup';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import StepsEco from './stepsEco';
 import StepsAirdrop from '@/modules/Whitelist/stepAirdrop';
+import useAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useAllowBTC';
+import useAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useAllowCelestia';
+import useAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useAllowEVM';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
 const Whitelist = () => {
+  useAllowBTC();
+  useAllowCelestia();
+  useAllowEVM({ type: "allowOptimism" });
   const { count } = useAppSelector(leaderBoardSelector);
   const { height } = useElementHeight({ elementID: HEADER_ID });
+  const [index, setIndex] = React.useState(0)
 
   React.useEffect(() => {
     const element = document.getElementById(CONTAINER_ID);
@@ -65,12 +72,12 @@ const Whitelist = () => {
       <div className={s.tokenSection}>
         <Box w="100%" overflow="hidden">
           <div className={s.countUpDesktop}>{renderCountUp()}</div>
-          <LeaderBoard />
+          <LeaderBoard setIndex={setIndex} />
         </Box>
 
         <div>
           <div className={s.countUpMobile}>{renderCountUp()}</div>
-          <Tabs variant="unstyled">
+          <Tabs variant="unstyled" index={index} onChange={(tabIndex) => setIndex(tabIndex)}>
             <TabList mb="32px" overflow="hidden">
               <Tab>Start here</Tab>
               <Tab>Airdrop 1</Tab>

@@ -1,13 +1,15 @@
-import { Button, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import styles from './styles.module.scss';
 import React from 'react';
 import { formatCurrency } from '@/utils/format';
 import Loading from '@/components/Loading';
 import cs from 'classnames';
-import useFormatAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useFormatAllowBTC';
+import { IAllowEVMProps } from '@/modules/Whitelist/AllowEVMMessage/type';
+import useFormatAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useFormatAllowEVM';
+import { getSymbolByFieldType } from '@/modules/Whitelist/utils';
 
-const AllowBTCMessage = () => {
-  const { loaded, status, isProcessing, amount } = useFormatAllowBTC()
+const AllowEVMMessage = (props: IAllowEVMProps) => {
+  const { loaded, status, isProcessing, amount } = useFormatAllowEVM({ type: props.type })
   const renderContent = React.useCallback(() => {
     if (!loaded || !status.length) return <></>;
     if (isProcessing) {
@@ -23,15 +25,16 @@ const AllowBTCMessage = () => {
 
     return <></>;
 
+    // if (!!Number(amount.point || '0')) return <></>;
+    //
     // return (
     //   <Flex className={cs(styles.container, {
-    //     [styles.container__congrats as string]: !!amount.txsCount
+    //     [styles.container__congrats as string]: !!Number(amount.point || '0')
     //   })}>
-    //     {amount.txsCount ? (
+    //     {!!Number(amount.point || '0') ? (
     //       <Flex flexDirection="column" w="100%" alignItems="center">
-    //         <p>You've spent <span>{formatCurrency(amount.fee, 0)} BTC</span> for gas fees across <span>{formatCurrency(amount.txsCount, 0)} transactions</span></p>
+    //         <p>You are holding <span>{formatCurrency(amount.fee, 0)} {getSymbolByFieldType(props.type)}</span> in your wallet</p>
     //         <p>Congratulations, you've earned <span>{formatCurrency(amount.point, 0)} points</span></p>
-    //         {/*<Button onClick={() => shareTwitterSignature({ fee: amount.fee, point: amount.point, txsCount: amount.txsCount })}>Share now</Button>*/}
     //       </Flex>
     //     ) : (
     //       <p>
@@ -49,4 +52,4 @@ const AllowBTCMessage = () => {
   )
 }
 
-export default AllowBTCMessage;
+export default AllowEVMMessage;
