@@ -141,9 +141,13 @@
       -webkit-mask-position-x: -132px;
       mask-repeat: no-repeat;
       animation: looparrwos 4s ease-out infinite;
+      width: 115%;
+      height: auto;
+      display: block;
+      max-width: inherit;
 
       &:nth-child(2) {
-        width: 100%;
+        width: 115%;
         height: auto;
         position: absolute;
         top: 0;
@@ -219,16 +223,17 @@
     position: absolute;
     color: #FFF;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
     font-style: normal;
     font-weight: 400;
     line-height: 140%; /* 19.6px */
     letter-spacing: 0.28px;
     top: -60px;
-    right: -32px;
+    right: -45px;
+    text-transform: uppercase;
 
     @include is-min-table {
-      right: 35px;
+      right: 25px;
     }
   }
 }
