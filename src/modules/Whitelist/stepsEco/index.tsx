@@ -100,8 +100,8 @@ const StepsEco = () => {
       },
       {
         project: 'Bitcoin Arcade',
-        title: "Play Satoshi's Gambit",
-        desc: `Experience the first 3D fully on-chain game on Bitcoin. Play, have fun, and earn more points.${LearnMore(
+        title: "Experience fully on-chain games.",
+        desc: `Get rewarded with 1,000 PTS for every match you play on Bitcoin Arcade. Have fun, play, and earn more points.${LearnMore(
           'https://bitcoinarcade.xyz/',
         )}`,
         actionText: 'Play',
@@ -111,7 +111,7 @@ const StepsEco = () => {
         },
         isActive: !!token,
         right: {
-          title: '+100 PTS',
+          title: '+1000 PTS',
           desc: 'per match',
         },
       },
