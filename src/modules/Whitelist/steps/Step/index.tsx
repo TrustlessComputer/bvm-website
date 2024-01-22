@@ -39,10 +39,10 @@ export interface IItemCommunity {
 }
 
 export default function ItemCommunity({
-  index,
-  content,
-  isLoading,
-}: {
+                                        index,
+                                        content,
+                                        isLoading,
+                                      }: {
   index: number;
   content: IItemCommunity;
   isLoading?: boolean;

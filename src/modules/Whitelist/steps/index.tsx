@@ -114,7 +114,7 @@ const Steps = () => {
 
   const onSignEVM = async (type: EVMFieldType) => {
     try {
-      const { message, signature, address } = await signEVMMessage('Are you a L2 OG?');
+      const { message, signature, address } = await signEVMMessage('Are you an L2 maxi?');
       await verifyEVMSignature({
         message,
         signature,
@@ -177,8 +177,8 @@ const Steps = () => {
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     const isActiveRefer = !!token && !!user?.referral_code;
     const btcOGMessage = allowBTC.amount.txsCount ?
-        <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
-        'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
+      <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
+      'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
     const isNeedClaimBTCPoint = allowBTC.isUnclaimed;
     const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed;
     const isNeedClaimOptimismPoint = allowOptimism.isUnclaimed;
@@ -235,9 +235,9 @@ const Steps = () => {
         }
       },
       {
-        title: 'Are you a L2 OG?',
-        desc: 'The more Blast you staked or Optimism you hold, the more points you’ll get. Connect your Metamask wallet to prove the account ownership.',
-        actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 OG are you?',
+        title: 'Are you an L2 maxi?',
+        desc: 'The more ETH you staked on Blast or the more Optimism (OP) tokens you hold, the more points you’ll get. Connect your MetaMask wallet to prove the account ownership.',
+        actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 maxi are you?',
         actionHandle: isNeedClaimOptimismPoint ? async () => {
           onShareOptimism();
           await requestClaimEVMPoint({
@@ -256,16 +256,10 @@ const Steps = () => {
         isDone: !!token,
         step: MultiplierStep.evm,
         image: "blast_op.svg",
-        right: [
-          {
-            title: '+100 PTS',
-            desc: 'per 0.005 ETH'
-          },
-          {
-            title: '+25 PTS',
-            desc: 'per OPs'
-          }
-        ]
+        right: {
+          title: '+100 PTS',
+          desc: 'per Ξ 0.005 or 4 OP'
+        }
       },
       {
         title: 'Are you a Modular Blockchain Pioneer?',

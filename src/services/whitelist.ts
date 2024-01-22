@@ -127,7 +127,7 @@ const requestClaimEVMPoint = async ({ status, network }: { status: SignatureStat
     try {
       const item = status[i];
       if (item && item.status === 'unclaimed') {
-        await apiClient.post(`/bvm/claim/${item.id}/?network=${network}`);
+        await apiClient.post(`/bvm/verify/claim/${item.id}?network=${network}`);
       }
     } catch (error) {
       // TODO: handle error
