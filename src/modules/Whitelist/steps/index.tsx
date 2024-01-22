@@ -10,7 +10,8 @@ import { useDispatch } from 'react-redux';
 import {
   requestClaimBTCPoint,
   requestClaimCelestiaPoint,
-  setBearerToken,
+  requestClaimEVMPoint,
+  setBearerToken, verifyEVMSignature,
 } from '@/services/whitelist';
 import ConnectModal from '@/components/ConnectModal';
 import useToggle from '@/hooks/useToggle';
@@ -26,6 +27,12 @@ import { formatCurrency } from '@/utils/format';
 import useFormatAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useFormatAllowCelestia';
 import BigNumber from 'bignumber.js';
 import ConnectModalModular from '@/components/ConnectModal/modal.modular';
+import { getError } from '@/utils/error';
+import toast from 'react-hot-toast';
+import { getEVMNetworkByFieldType } from '@/modules/Whitelist/utils';
+import useFormatAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useFormatAllowEVM';
+import { signMessage as signEVMMessage } from '@/utils/metamask-helper';
+import { EVMFieldType } from '@/stores/states/user/types';
 
 interface IAuthenCode {
   public_code: string;
@@ -45,6 +52,7 @@ const Steps = () => {
   const { toggle: isShowConnectModular, onToggle: onToggleConnectModular } = useToggle();
   const allowBTC = useFormatAllowBTC()
   const allowCelestia = useFormatAllowCelestia()
+  const allowOptimism = useFormatAllowEVM({ type: "allowOptimism" })
 
   const needReload = useAppSelector(commonSelector).needReload
   const user = useAppSelector(userSelector);
@@ -82,8 +90,43 @@ const Steps = () => {
     );
   }
 
+  const onShareOptimism = () => {
+    const shareUrl = getLink(user?.referral_code || '');
+    const content = `
+    BUILD WHATEVER ON BITCOIN.\n\n
+    As a modular maxi (holding ${formatCurrency(new BigNumber(allowOptimism.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), 
+    I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\n
+    Powered by @BVMnetwork, 
+    you can deploy your own Bitcoin L2 chain with @CelestiaOrg and @Optimism in a few clicks.\n\n
+    🤯🤯🤯\n`;
+
+    window.open(
+      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+        content,
+      )}`,
+      '_blank',
+    );
+  }
+
   const onSignModular = async () => {
     onToggleConnectModular();
+  }
+
+  const onSignEVM = async (type: EVMFieldType) => {
+    try {
+      const { message, signature, address } = await signEVMMessage('Are you a L2 OG?');
+      await verifyEVMSignature({
+        message,
+        signature,
+        address,
+        network: getEVMNetworkByFieldType(type)
+      });
+      dispatch(requestReload());
+      toast.success('Successfully.')
+    } catch (error) {
+      const { message } = getError(error);
+      toast.error(message);
+    }
   }
 
   const handleShareRefferal = () => {
@@ -136,8 +179,9 @@ const Steps = () => {
     const btcOGMessage = allowBTC.amount.txsCount ?
         <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
         'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
-    const isNeedClaimBTCPoint = allowBTC.isUnclaimed && allowBTC.amount.unClaimedPoint && !!allowBTC.amount.txsCount && !allowBTC.isProcessing;
-    const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed && allowCelestia.amount.unClaimedPoint && !allowBTC.isProcessing;
+    const isNeedClaimBTCPoint = allowBTC.isUnclaimed;
+    const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed;
+    const isNeedClaimOptimismPoint = allowOptimism.isUnclaimed;
     const authenTask =  {
       title: 'Tweet about BVM',
       desc: 'Tweet as often as you like & tag @BVMnetwork to rank up.',
@@ -210,6 +254,39 @@ const Steps = () => {
           desc: 'per TIA'
         }
       },
+      {
+        title: 'Are you a L2 OG?',
+        desc: 'The more Blast you staked or Optimism you hold, the more points you’ll get. Connect your Metamask wallet to prove the account ownership.',
+        actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 OG are you?',
+        actionHandle: isNeedClaimOptimismPoint ? async () => {
+          onShareOptimism();
+          await requestClaimEVMPoint({
+            status: allowOptimism.status,
+            network: getEVMNetworkByFieldType('allowOptimism')
+          })
+          dispatch(requestReload())
+        } : () => {
+          onSignEVM('allowOptimism')
+        },
+        actionTextSecondary: isNeedClaimOptimismPoint ? "Verify another wallet" : undefined,
+        actionHandleSecondary: isNeedClaimOptimismPoint ? () => {
+          onSignEVM('allowOptimism')
+        } : undefined,
+        isActive: !!token,
+        isDone: !!token,
+        step: MultiplierStep.evm,
+        image: "blast_op.svg",
+        right: [
+          {
+            title: '+100 PTS',
+            desc: 'per 0.005 ETH'
+          },
+          {
+            title: '+25 PTS',
+            desc: 'per OPs'
+          }
+        ]
+      },
     ];
     if (token) {
       tasks.push(authenTask)
@@ -230,6 +307,11 @@ const Steps = () => {
     allowCelestia.isUnclaimed,
     allowCelestia.isProcessing,
     JSON.stringify(allowCelestia.status || {}),
+
+    allowOptimism.amount,
+    allowOptimism.isUnclaimed,
+    allowOptimism.isProcessing,
+    JSON.stringify(allowOptimism.status || {}),
   ]);
 
   React.useEffect(() => {
