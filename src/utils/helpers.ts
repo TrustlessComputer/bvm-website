@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { UUID } from '@/constants/storage-key';
 import { APP_ENV } from '@/config';
 import { formatCurrency } from '@/utils/format';
+import BigNumber from 'bignumber.js';
 
 export const getUuid = (): string => {
   let uuidText = localStorage.get(UUID) as string;
@@ -60,7 +61,10 @@ export const shareBTCOG = (params: {
   refCode: string,
 }) => {
   const shareUrl = getLink(params.refCode);
-  const content = `I ♥️ Bitcoin\n\nI’ve spent ${params.fee} BTC on transaction fees. Right now, that’s $${formatCurrency(params.feeUSD, 0, 2)}.\n\nAnd I can’t wait for $BVM to launch.\n\n@BVMnetwork is going to be the future of Bitcoin. I’m going to be doing so much more with my BTC.\n\n→ ${shareUrl}`;
+  const amount = new BigNumber(params.fee).gte(0.0001) ?
+    new BigNumber(params.fee).toFixed(4, BigNumber.ROUND_FLOOR) :
+    new BigNumber(params.fee).toFixed();
+  const content = `I ♥️ Bitcoin\n\nI’ve spent ${amount} BTC on transaction fees. Right now, that’s $${formatCurrency(new BigNumber(params.feeUSD || 1).toNumber() || 1, 0, 2)}.\n\nAnd I can’t wait for $BVM to launch.\n\n@BVMnetwork is going to be the future of Bitcoin. I’m going to be doing so much more with my BTC.\n\n${shareUrl}`;
 
   window.open(
     `https://twitter.com/intent/tweet?text=${encodeURIComponent(

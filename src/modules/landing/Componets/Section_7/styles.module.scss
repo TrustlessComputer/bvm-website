@@ -94,12 +94,12 @@
   padding-top: 48px;
   padding-bottom: 48px;
 
-  @include is-tablet{
+  @include is-tablet {
     padding-top: 80px;
     padding-bottom: 80px;
   }
 
-  @include is-pc{
+  @include is-pc {
     padding-top: 120px;
     padding-bottom: 120px;
   }
@@ -112,11 +112,11 @@
       border-radius: 0;
       transition: opacity .4s ease-out;
 
-      &:hover{
+      &:hover {
         opacity: .8;
       }
 
-      &.slick-prev{
+      &.slick-prev {
         right: 80px;
       }
     }
@@ -124,11 +124,23 @@
     .slick-arrow .slick-next,
     .slick-arrow .slick-prev {
       z-index: 100;
-      width: fit-content !important;;
-      height: fit-content !important;;
-      display: flex !important;;
-      justify-content: center !important;;
-      align-items: center !important;;
+      width: fit-content !important;
+      height: fit-content !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
     }
+  }
+}
+
+
+.cardLogo {
+  border-bottom: 1px solid #ECECEC;
+  padding: 16px 0;
+
+  img {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
   }
 }

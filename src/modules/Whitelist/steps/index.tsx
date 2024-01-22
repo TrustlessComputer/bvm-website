@@ -1,4 +1,4 @@
-import { Button, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import ItemStep, { IItemCommunity, MultiplierStep } from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
@@ -7,7 +7,11 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
-import { requestClaimBTCPoint, setBearerToken } from '@/services/whitelist';
+import {
+  requestClaimBTCPoint,
+  requestClaimCelestiaPoint,
+  setBearerToken,
+} from '@/services/whitelist';
 import ConnectModal from '@/components/ConnectModal';
 import useToggle from '@/hooks/useToggle';
 import AllowListStorage from '@/utils/storage/allowlist.storage';
@@ -19,12 +23,16 @@ import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 import ConnectModalEVM from '@/components/ConnectModal/modal.evm';
 import useFormatAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useFormatAllowBTC';
 import { formatCurrency } from '@/utils/format';
-import keplrCelestiaHelper from '@/utils/keplr.celestia';
+import useFormatAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useFormatAllowCelestia';
+import BigNumber from 'bignumber.js';
+import ConnectModalModular from '@/components/ConnectModal/modal.modular';
 
 interface IAuthenCode {
   public_code: string;
   secret_code: string;
 }
+
+export const STEP_ID = 'STEP_ID'
 
 const Steps = () => {
   const [authenCode, setAuthenCode] = useState<IAuthenCode>();
@@ -34,7 +42,9 @@ const Steps = () => {
   const token = AuthenStorage.getAuthenKey();
   const { toggle: isShowConnect, onToggle: onToggleConnect } = useToggle();
   const { toggle: isShowConnectEVM, onToggle: onToggleConnectEVM } = useToggle();
-  const { amount, isUnclaimed, isProcessing, status } = useFormatAllowBTC()
+  const { toggle: isShowConnectModular, onToggle: onToggleConnectModular } = useToggle();
+  const allowBTC = useFormatAllowBTC()
+  const allowCelestia = useFormatAllowCelestia()
 
   const needReload = useAppSelector(commonSelector).needReload
   const user = useAppSelector(userSelector);
@@ -49,7 +59,7 @@ const Steps = () => {
       code = `\n\n#${res?.public_code}`
     }
 
-    const shareUrl = getLink('');
+    const shareUrl = getLink(user?.referral_code || '');
     const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
 
     window.open(
@@ -60,11 +70,9 @@ const Steps = () => {
     );
   }
 
-  const handleShareTwMore = async () => {
-    const shareUrl = getLink(user?.referral_code);
-    let content = '';
-
-    content = `Welcome to the future of Bitcoin with bvm.network\n\nLaunch your Bitcoin L2 blockchain easily with @BVMnetwork - first modular blockchain meta-protocol.\n\n$BVM public sale starting soon.\n\nJoin the allowlist:`;
+  const onShareModular = () => {
+    const shareUrl = getLink(user?.referral_code || '');
+    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (holding ${formatCurrency(new BigNumber(allowCelestia.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\nPowered by @BVMnetwork, you can deploy your own Bitcoin L2 chain with @CelestiaOrg and @Optimism in a few clicks.\n\n🤯🤯🤯\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -72,6 +80,10 @@ const Steps = () => {
       )}`,
       '_blank',
     );
+  }
+
+  const onSignModular = async () => {
+    onToggleConnectModular();
   }
 
   const handleShareRefferal = () => {
@@ -121,83 +133,104 @@ const Steps = () => {
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     const isActiveRefer = !!token && !!user?.referral_code;
-    const btcOGMessage = amount.txsCount ?
-        <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(amount.point, 0)}</span>} pts.</p>:
+    const btcOGMessage = allowBTC.amount.txsCount ?
+        <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
         'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
-    const isNeedClaim = isUnclaimed && amount.unClaimedPoint && !!amount.txsCount && !isProcessing;
-    return (
-      [
-        {
-          title: 'Tweet about BVM',
-          desc: 'Tweet as often as you like & tag @BVMnetwork to rank up.',
-          actionText: 'Post',
-          image: "ic-x.svg",
-          actionHandle: handleShareTw,
-          isActive: true,
-          step: MultiplierStep.authen,
-          right: {
-            title: !token ? '+1000 PTS' : '+1 PTS',
-            desc: !token ? 'first post' : 'per view'
-          },
-          handleShowManualPopup: handleShowManualPopup,
-        },
-        {
-          title: 'Refer a fren to BVM',
-          desc: 'Spread the love to your frens, team, and communities.',
-          actionText: isCopied ? 'Copied' : 'Copy your referral link',
-          actionHandle: handleShareRefferal,
-          isActive: isActiveRefer,
-          step: MultiplierStep.post,
-          image: "ic-heart.svg",
-          right: {
-            title: '+1000 PTS',
-            desc: 'per friend'
+    const isNeedClaimBTCPoint = allowBTC.isUnclaimed && allowBTC.amount.unClaimedPoint && !!allowBTC.amount.txsCount && !allowBTC.isProcessing;
+    const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed && allowCelestia.amount.unClaimedPoint && !allowBTC.isProcessing;
+    const authenTask =  {
+      title: 'Tweet about BVM',
+      desc: 'Tweet as often as you like & tag @BVMnetwork to rank up.',
+      actionText: 'Post',
+      image: "ic-x.svg",
+      actionHandle: handleShareTw,
+      isActive: true,
+      step: MultiplierStep.authen,
+      right: {
+        title: !token ? '+1000 PTS' : '+1000 PTS',
+        desc: !token ? 'first post' : 'per 1000 view'
+      },
+      handleShowManualPopup: handleShowManualPopup,
+    };
+    const tasks = [
+      {
+        title: 'Refer a fren to BVM',
+        desc: 'Spread the love to your frens, team, and communities.',
+        actionText: isCopied ? 'Copied' : 'Copy your referral link',
+        actionHandle: handleShareRefferal,
+        isActive: isActiveRefer,
+        step: MultiplierStep.post,
+        image: "ic-heart.svg",
+        right: {
+          title: '+1000 PTS',
+          desc: 'per friend'
+        }
+      },
+      {
+        title: 'Are you a Bitcoin OG?',
+        desc: btcOGMessage,
+        actionText: isNeedClaimBTCPoint ? `Tweet to claim ${formatCurrency(allowBTC.amount.unClaimedPoint, 0, 0)} pts` : 'How much have I spent on sats?',
+        actionHandle: isNeedClaimBTCPoint ? async () => {
+          try {
+            shareBTCOG({ fee: allowBTC.amount.fee, feeUSD: allowBTC.amount.feeUSD, refCode: user?.referral_code || '' });
+            await requestClaimBTCPoint(allowBTC.status)
+            dispatch(requestReload())
+          } catch (error) {
+
           }
-        },
-        {
-          title: 'Are you a Bitcoin OG?',
-          desc: btcOGMessage,
-          actionText: isNeedClaim ? `Tweet to claim ${formatCurrency(amount.unClaimedPoint, 0, 0)} pts` : 'How much have I spent on sats?',
-          actionHandle: isNeedClaim ? async () => {
-            try {
-              shareBTCOG({ fee: amount.fee, feeUSD: amount.feeUSD, refCode: user?.referral_code || '' });
-              await requestClaimBTCPoint(status)
-              dispatch(requestReload())
-            } catch (error) {
-              
-            }
-          } : onToggleConnect,
-          actionTextSecondary: isNeedClaim ? "Verify another wallet" : undefined,
-          actionHandleSecondary: isNeedClaim ? onToggleConnect : undefined,
-          isActive: !!token,
-          isDone: !!AllowListStorage.getStorage() && !!token,
-          step: MultiplierStep.signMessage,
-          image: "ic-btc-2.svg",
-          right: {
-            title: '+10 PTS',
-            desc: 'per 1000 sats'
-          }
-        },
-        // {
-        //   title: 'Are you a Modular Blockchain OG?',
-        //   desc: 'You’re a visionary. You’re a pioneer. Holding at least XXX tokens of the following modular blockchains will give you more points: Optimism, Celestia, and Polygon.',
-        //   actionText: 'How modular are you?',
-        //   actionHandle: onToggleConnectEVM,
-        //   isActive: !!token,
-        //   isDone: !!AllowListStorage.getStorage() && !!token,
-        //   step: MultiplierStep.signMessage,
-        //   image: "ic-modular-blockchain.svg",
-        //   right: {
-        //     title: '+10 PTS',
-        //     desc: 'per project'
-        //   }
-        // },
-        // {
-        //   title: 'Want to upgrade your multiplier faster? Complete the two tasks above to find out how!',
-        // },
-      ]
-    )
-  }, [token, needReload, user?.referral_code, isCopied, amount, isUnclaimed, isProcessing]);
+        } : onToggleConnect,
+        actionTextSecondary: isNeedClaimBTCPoint ? "Verify another wallet" : undefined,
+        actionHandleSecondary: isNeedClaimBTCPoint ? onToggleConnect : undefined,
+        isActive: !!token,
+        isDone: !!AllowListStorage.getStorage() && !!token,
+        step: MultiplierStep.signMessage,
+        image: "ic-btc-2.svg",
+        right: {
+          title: '+10 PTS',
+          desc: 'per 1000 sats'
+        }
+      },
+      {
+        title: 'Are you a Modular Blockchain Pioneer?',
+        desc: 'The more TIA or staked TIA you hold, the more points you’ll get. Connect your Keplr or Leap wallet to prove the account ownership.',
+        actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
+        actionHandle: isNeedClaimCelestiaPoint ? async () => {
+          onShareModular();
+          await requestClaimCelestiaPoint(allowCelestia.status)
+          dispatch(requestReload())
+        } : onSignModular,
+        actionTextSecondary: isNeedClaimCelestiaPoint ? "Verify another wallet" : undefined,
+        actionHandleSecondary: isNeedClaimCelestiaPoint ? onSignModular : undefined,
+        isActive: !!token,
+        isDone: !!token,
+        step: MultiplierStep.modular,
+        image: "ic-celestia.svg",
+        right: {
+          title: '+100 PTS',
+          desc: 'per TIA'
+        }
+      },
+    ];
+    if (token) {
+      tasks.push(authenTask)
+    } else {
+      tasks.unshift(authenTask)
+    }
+    return tasks
+  }, [
+    token,
+    needReload,
+    user?.referral_code,
+    isCopied,
+    JSON.stringify(allowBTC.status || {}),
+    allowBTC.amount,
+    allowBTC.isUnclaimed,
+    allowBTC.isProcessing,
+    allowCelestia.amount,
+    allowCelestia.isUnclaimed,
+    allowCelestia.isProcessing,
+    JSON.stringify(allowCelestia.status || {}),
+  ]);
 
   React.useEffect(() => {
     if (isCopied) {
@@ -208,14 +241,16 @@ const Steps = () => {
   }, [isCopied])
 
   return (
-    <Flex className={s.container} direction={"column"} gap={{
-      base: "20px",
-      md: "40px"
-    }}>
+    <Flex
+      className={s.container}
+      direction={"column"}
+      gap={{ base: "20px", md: "40px" }}
+      id={STEP_ID}
+    >
       {DATA_COMMUNITY.map((item, index) => {
         return (
           <ItemStep
-            key={index}
+            key={item.step}
             index={index}
             content={item}
             isLoading={item.step === MultiplierStep.authen && submitting}
@@ -224,6 +259,7 @@ const Steps = () => {
       })}
       <ConnectModal isShow={isShowConnect} onHide={onToggleConnect}/>
       <ConnectModalEVM isShow={isShowConnectEVM} onHide={onToggleConnectEVM}/>
+      <ConnectModalModular isShow={isShowConnectModular} onHide={onToggleConnectModular}/>
       <VerifyTwModal
         isShow={showManualCheck}
         onHide={() => {
@@ -232,7 +268,6 @@ const Steps = () => {
         secretCode={authenCode?.secret_code}
         onSuccess={onVerifyTwSuccess}
       />
-      {/*<Button onClick={keplrCelestiaHelper.signCelestiaMessage}>TEST CELESTIA</Button>*/}
     </Flex>
   );
 };

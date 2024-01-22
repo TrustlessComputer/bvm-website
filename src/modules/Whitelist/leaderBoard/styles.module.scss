@@ -6,7 +6,7 @@
   p {
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 140%;
 
     color: #ffffff;
@@ -15,6 +15,7 @@
 
 .container {
   position: relative;
+  background-color: rgba(255, 255, 255, 0.30);
   .title1 {
     font-size: 24px;
     font-weight: 600;
@@ -23,12 +24,12 @@
     text-transform: uppercase;
 
     @include w-max(768px) {
-        font-size: 20px;
+      font-size: 20px;
     }
   }
 
   .indicator {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     width: 58px;
     height: 2px;
     opacity: 0.7;
@@ -45,10 +46,6 @@ table {
       tbody {
         tr {
           height: 62px;
-        }
-        th {
-          margin-right: 8px !important;
-          background-color: red !important;
         }
       }
       .isActiveRow {
@@ -95,33 +92,17 @@ table {
         }
       }
     }
-    thead {
-      tr {
-        th {
-          &:nth-child(1) {
-            width: 60px !important;
-          }
-          &:nth-child(2) {
-            width: 220px !important;
-          }
-          &:nth-child(3) {
-            min-width: 100px !important;
-          }
-        }
-      }
-    }
-
+    thead,
     tbody {
       tr {
-        td, th {
+        th,
+        td {
+          padding-right: 20px !important;
           &:nth-child(1) {
             width: 60px !important;
           }
-          &:nth-child(2) {
-            width: 220px !important;
-          }
           &:nth-child(3) {
-            min-width: 100px !important;
+            min-width: 110px !important;
           }
         }
       }
@@ -130,12 +111,12 @@ table {
     .title {
       font-style: normal;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 140%;
       color: black;
-      max-width: 220px;
       overflow: hidden;
       text-overflow: ellipsis;
+      max-width: 120px;
     }
 
     .subTitle {
@@ -159,7 +140,7 @@ table {
 
       p {
         font-weight: 500;
-        font-size: 16px;
+        font-size: 14px;
         line-height: 140%;
         /* or 18px */
         text-align: center;
@@ -203,7 +184,6 @@ table {
   }
 }
 
-
 .container {
   overflow: hidden;
   width: 100%;
@@ -227,8 +207,8 @@ table {
 
 .banner {
   background: #000;
-  color: #FFF;
-  font-size: 16px;
+  color: #fff;
+  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: 140%;
@@ -241,7 +221,7 @@ table {
   justify-content: space-between;
 
   .time {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     opacity: 0.7;
   }
@@ -252,7 +232,7 @@ table {
 }
 
 .tooltipIcon {
-  width: 18px;
+  width: 14px;
   cursor: pointer;
   opacity: 0.7;
 }
@@ -288,7 +268,7 @@ table {
 .multiplier {
   background: black;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 120%;
@@ -296,9 +276,9 @@ table {
   -webkit-text-fill-color: transparent;
 
   &.boost_30 {
-    background: linear-gradient(90deg, #007659 0%, #35CCA6 100%);
+    background: linear-gradient(90deg, #007659 0%, #35cca6 100%);
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 120%;
@@ -307,9 +287,9 @@ table {
   }
 
   &.boost_20 {
-    background: linear-gradient(90deg, #FFD73B 0%, #A05700 100%);
+    background: linear-gradient(90deg, #ffd73b 0%, #a05700 100%);
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 120%;
@@ -318,9 +298,9 @@ table {
   }
 
   &.isActiveRow {
-    background: linear-gradient(90deg, #FFFFFF 0%, #35CCA6 100%);
+    background: linear-gradient(90deg, #ffffff 0%, #35cca6 100%);
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 120%;

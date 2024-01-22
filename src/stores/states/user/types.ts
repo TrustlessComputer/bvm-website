@@ -31,5 +31,9 @@ export interface UserState {
   allowBTC: {
     status: SignatureStatus[];
     loaded: boolean;
+  },
+  allowCelestia: {
+    status: SignatureStatus[];
+    loaded: boolean;
   }
 }

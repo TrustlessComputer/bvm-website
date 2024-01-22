@@ -1,10 +1,10 @@
-export interface CoinPrices {
-  [Coin.BTC]: string,
-  [Coin.ETH]: string,
+export type CoinPrices = {
+  [key in Coin]: string
 }
 
 export enum Coin {
   BTC = 'BTC',
+  TIA = 'TIA',
   ETH = 'ETH',
 }
 

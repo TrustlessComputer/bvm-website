@@ -21,6 +21,10 @@ const AllowBTCMessage = () => {
       )
     }
 
+    if (amount.txsCount) {
+      return <></>
+    }
+
     return (
       <Flex className={cs(styles.container, {
         [styles.container__congrats as string]: !!amount.txsCount

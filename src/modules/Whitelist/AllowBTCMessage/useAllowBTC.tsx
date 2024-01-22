@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { getSignatureStatus } from '@/services/whitelist';
+import { getAllowBTCStatus } from '@/services/whitelist';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { setAllowBTC } from '@/stores/states/user/reducer';
 
@@ -12,7 +12,7 @@ const useAllowBTC = () => {
 
   const fetchData = async () => {
     try {
-      const response  = await getSignatureStatus();
+      const response  = await getAllowBTCStatus();
       dispatch(setAllowBTC({
         status: response || [],
         loaded: true
