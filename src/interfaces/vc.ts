@@ -19,3 +19,8 @@ export interface VCInfo {
   token_price: string;
   total_tokens: string;
 }
+
+export interface PublicSaleWalletInfo {
+  btc_address: string,
+  eth_address: string,
+}

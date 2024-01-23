@@ -177,7 +177,7 @@ const PrivateSaleForm = ({vcInfo} : {vcInfo?: VCInfo}) => {
                     <Flex direction={'column'} alignItems={'center'} gap={3}>
                       <QRCode
                         size={130}
-                        value={vcWalletInfo?.eth_balance || ''}
+                        value={vcWalletInfo?.eth_address || ''}
                         logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
                       />
                       <Text className={s.depositValue}>{formatCurrency(vcWalletInfo?.eth_balance, 4, 4)} ETH</Text>

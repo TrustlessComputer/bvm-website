@@ -2,7 +2,7 @@ import { camelCaseKeys } from '@/utils/normalize';
 import { PERP_API_URL } from '@/config';
 import createAxiosInstance from '@/services/http-client';
 import { SignatureStatus } from '@/interfaces/whitelist';
-import { VCInfo, VCWalletInfo } from '@/interfaces/vc';
+import { PublicSaleWalletInfo, VCInfo, VCWalletInfo } from '@/interfaces/vc';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -120,5 +120,10 @@ export const getVCWalletInfo = async ({vc_type, wallet_id}: any): Promise<VCWall
 
 export const getVCInformation = async ({vc_type}: any): Promise<VCInfo> => {
   const res = (await apiClient.get(`/bvm/vc/info?vc_type=${vc_type}`)) as unknown as VCInfo;
+  return res;
+}
+
+export const getPublicsaleWalletInfo = async (): Promise<PublicSaleWalletInfo> => {
+  const res = (await apiClient.get(`/bvm/sale/wallet`)) as unknown as PublicSaleWalletInfo;
   return res;
 }
