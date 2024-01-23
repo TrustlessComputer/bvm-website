@@ -1,6 +1,7 @@
 import { camelCaseKeys } from '@/utils/normalize';
 import { PERP_API_URL } from '@/config';
 import createAxiosInstance from '@/services/http-client';
+import TimeChainStorage from '@/utils/storage/timechain.storage';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -92,6 +93,7 @@ export const getRaffleJoin = async (): Promise<any> => {
 export const joinRaffle = async (): Promise<any> => {
   try {
     const res = await apiClient.post(`/bvm/raffle/join`);
+    TimeChainStorage.setTimeChainClicked();
     return res;
   } catch (error) {
     console.log(error);
