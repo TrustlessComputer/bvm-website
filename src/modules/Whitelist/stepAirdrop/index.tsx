@@ -7,7 +7,8 @@ import ItemStep, { AirdropStep, AirdropType, IItemCommunity } from './Step';
 import s from './styles.module.scss';
 import {
   generateTokenWithTwPost,
-  getBVMAirdrop, getGenerativeProfile,
+  getBVMAirdrop,
+  getGenerativeProfile,
   getRaffleJoin,
   joinRaffle,
   requestAuthenByShareCode,
@@ -21,15 +22,11 @@ import { setBearerToken } from '@/services/whitelist';
 import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
 import { IAuthenCode } from '@/modules/Whitelist/steps';
-import {
-  setAirdropAlphaUsers,
-  setAirdropGenerativeUsers,
-  setAirdropGMHolders,
-  setAirdropPerceptronsHolders,
-} from '@/stores/states/user/reducer';
+import { setAirdropAlphaUsers } from '@/stores/states/user/reducer';
 import { signMessage } from '@/utils/metamask-helper';
 import ConnectModal from '@/components/ConnectModal';
 import AllowListStorage from '@/utils/storage/allowlist.storage';
+import AirdropStorage from '@/utils/storage/airdrop.storage';
 
 export const getMessageEVM = (address: string) => {
   return `Verify you are the owner of the wallet ${address}`;
@@ -137,16 +134,15 @@ const StepsAirdrop = () => {
     const {address, signature, message} = await signMessage(getMessageEVM);
 
     const resGMHolders = await getBVMAirdrop({address: address});
-    dispatch(setAirdropGMHolders(resGMHolders));
+    AirdropStorage.setIsConnectMetaMask(true);
+    AirdropStorage.setAirdropGMHolders(resGMHolders);
 
     const generativeProfile = await getGenerativeProfile(address);
 
     if (generativeProfile?.walletAddressBtcTaproot) {
       const resGenerativeUsers = await getBVMAirdrop({address: generativeProfile?.walletAddressBtcTaproot});
-      dispatch(setAirdropGenerativeUsers(resGenerativeUsers));
+      AirdropStorage.setAirdropGenerativeUsers(resGenerativeUsers);
     }
-
-    console.log('generativeProfile', generativeProfile);
   }
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
@@ -195,7 +191,7 @@ const StepsAirdrop = () => {
         desc: `Proportional to key holding.<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Connect',
+        actionText: 'Connect your Metamask',
         image: "time-chain2.svg",
         actionHandle: handleVerifyWallet,
         isActive: true,
@@ -214,7 +210,7 @@ const StepsAirdrop = () => {
         desc: `Proportional to the number of Perceptrons you hold.<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Connect',
+        actionText: 'Connect your Metamask',
         image: "perceptron_thumb_03.jpg",
         actionHandle: handleVerifyWallet,
         isActive: true,
@@ -230,14 +226,14 @@ const StepsAirdrop = () => {
         actionHandleSecondary: () => {
           setShowConnectModal(true);
         },
-        actionTextSecondary: 'Other connect',
+        actionTextSecondary: 'Verify another wallet',
       },
       {
         title: 'GM holders',
         desc: `Proportionally based on GM balance - min holding: 1 $GM<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Connect',
+        actionText: 'Connect your Metamask',
         image: "gm.svg",
         actionHandle: handleVerifyWallet,
         isActive: true,
@@ -256,7 +252,7 @@ const StepsAirdrop = () => {
         desc: `Proportionally based on Airdrop Points - min Airdrop Points: 100,000<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Link account',
+        actionText: !token ? 'Link account' : undefined,
         image: "alpha.svg",
         actionHandle: handleShareTwToSignIn,
         isActive: true,
@@ -296,14 +292,14 @@ const StepsAirdrop = () => {
           />
         );
       })}
-      <ConnectModal isShow={showConnectModal} onHide={async () => {
+      <ConnectModal isShow={showConnectModal} needVerifyBTCAddress={false} onHide={async () => {
         setShowConnectModal(false);
         const data = AllowListStorage.getStorage();
         if(data) {
-          console.log('dataaaaaa', data);
-          const address = data[0]?.address;
+          const address = data.address;
           const resPerceptronsHolders = await getBVMAirdrop({address: address});
-          dispatch(setAirdropPerceptronsHolders(resPerceptronsHolders));
+          AirdropStorage.setIsConnectBitcoinWallet(true);
+          AirdropStorage.setAirdropPerceptronsHolders(resPerceptronsHolders);
         }
       }}/>
     </Flex>

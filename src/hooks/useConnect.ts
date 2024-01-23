@@ -45,7 +45,7 @@ const useConnect = () => {
     }
   }
 
-  const signMessageUnisat = async () => {
+  const signMessageUnisat = async (needVerifyBTCAddress?: boolean) => {
     const unisat = (window as any)?.unisat;
     if (!unisat) throw new Error('Please install unisat.')
     const accounts = await unisat.getAccounts();
@@ -64,12 +64,14 @@ const useConnect = () => {
         signature,
       };
       console.log('signMessageUnisat: ', params, await messageVerifier(params));
-      // await verifyBTCSignature({
-      //   address,
-      //   pubKey,
-      //   message,
-      //   signature
-      // });
+      if(needVerifyBTCAddress) {
+        await verifyBTCSignature({
+          address,
+          pubKey,
+          message,
+          signature
+        });
+      }
       toast.success("Successfully.")
       await AllowListStorage.setStorage({
         address: params.address,
@@ -80,7 +82,7 @@ const useConnect = () => {
   }
 
 
-  const signMessageXverse = async (accounts: IConnectedInfo) => {
+  const signMessageXverse = async (accounts: IConnectedInfo, needVerifyBTCAddress?: boolean) => {
     let errors: unknown[] = []
     for (let index = 0; index < accounts.address.length; index++) {
       const address = accounts.address[index];
@@ -101,9 +103,11 @@ const useConnect = () => {
       console.log('signMessageXverse: ', params, await messageVerifier(params));
 
       try {
-        await verifyBTCSignature({
-          ...params
-        });
+        if(needVerifyBTCAddress) {
+          await verifyBTCSignature({
+            ...params
+          });
+        }
         AllowListStorage.setStorage({
           address: params.address,
           pubKey: params.pubKey,
@@ -121,16 +125,16 @@ const useConnect = () => {
     toast.success("Successfully.")
   }
 
-  const signMessage = async (type: WalletType) => {
+  const signMessage = async (type: WalletType, needVerifyBTCAddress?: boolean) => {
     const accounts = await onConnect(type);
     switch (type) {
       case WalletType.unisat: {
-        await signMessageUnisat();
+        await signMessageUnisat(needVerifyBTCAddress);
         break;
       }
       case WalletType.xverse: {
         if (accounts) {
-          await signMessageXverse(accounts)
+          await signMessageXverse(accounts, needVerifyBTCAddress)
         }
       }
     }

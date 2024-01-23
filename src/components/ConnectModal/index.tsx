@@ -17,6 +17,7 @@ import cs from 'classnames';
 interface IProps {
   isShow: boolean;
   onHide: () => void;
+  needVerifyBTCAddress?: boolean;
 }
 
 interface ModalItem {
@@ -38,7 +39,7 @@ const ITEMS: ModalItem[] = [
   },
 ];
 
-const ConnectModal = React.memo(({ isShow, onHide }: IProps)=> {
+const ConnectModal = React.memo(({ isShow, onHide, needVerifyBTCAddress = true }: IProps)=> {
   const xverseCtx = useContext(XVerseContext);
   const { signMessage } = useConnect();
   const dispatch = useAppDispatch()
@@ -49,7 +50,7 @@ const ConnectModal = React.memo(({ isShow, onHide }: IProps)=> {
     try {
       if (loading) return;
       setLoading(true)
-      await signMessage(type);
+      await signMessage(type, needVerifyBTCAddress);
       dispatch(requestReload())
       onHide()
     } catch (error) {
