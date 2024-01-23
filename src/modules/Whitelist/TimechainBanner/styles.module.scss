@@ -1,6 +1,6 @@
 .container {
   z-index: 20;
-  max-width: 560px;
+  max-width: 560px !important;
   background-image: url('https://storage.googleapis.com/tc-cdn-prod/nbc/icons/bvm-icons/bg-timechain.jpg');
   padding: 16px;
   .content {
