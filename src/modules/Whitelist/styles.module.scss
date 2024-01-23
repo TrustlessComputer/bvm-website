@@ -144,3 +144,25 @@
     }
   }
 }
+
+.countDown {
+  &_title {
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+  }
+
+  &_time {
+    :global {
+      .chakra-text {
+        color: #000;
+        font-size: 80px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 100%;
+      }
+    }
+  }
+}

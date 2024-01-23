@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 import LeaderBoard, { LEADER_BOARD_ID } from './leaderBoard';
 import s from './styles.module.scss';
@@ -13,13 +13,18 @@ import AppLoading from '@/components/AppLoading';
 import CountUp from 'react-countup';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import StepsEco from './stepsEco';
-import StepsAirdrop from '@/modules/Whitelist/stepAirdrop';
+import StepsAirdrop, { TIME_CHAIN_EXPIRED_TIME } from '@/modules/Whitelist/stepAirdrop';
 import useAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useAllowBTC';
 import useAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useAllowCelestia';
 import useAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useAllowEVM';
 import TimechainBanner from '@/modules/Whitelist/TimechainBanner';
+import styles from '@/modules/Whitelist/TimechainBanner/styles.module.scss';
+import dayjs from 'dayjs';
+import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
+
+export const PUBLIC_SALE_START = '2024-01-30 00:00:00'
 
 const Whitelist = () => {
   useAllowBTC();
@@ -70,7 +75,17 @@ const Whitelist = () => {
 
   return (
     <BoxContent className={s.container} id={CONTAINER_ID}>
-      <TimechainBanner setTabIndex={setIndex} />
+      <Flex justifyContent={{ base: "space-between" }} alignItems="center" flexDirection={{ base: "column", lg: "row" }} w="100%">
+        <Flex flexDirection="column" gap="8px">
+          <p className={s.countDown_title}>Public sale starting in</p>
+          <Countdown
+            className={s.countDown_time}
+            expiredTime={dayjs.utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
+            hideIcon={true}
+          />
+        </Flex>
+        <TimechainBanner setTabIndex={setIndex} />
+      </Flex>
       <div className={s.tokenSection}>
         <Box w="100%" overflow="hidden">
           <div className={s.countUpDesktop}>{renderCountUp()}</div>
