@@ -94,7 +94,7 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
               </div>
               <Flex gap="8px" className={s.countDown_wrapper}>
                 <img style={{ width: 18 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>
-                <p className={s.countDown_title}>Publish sale starting in</p>
+                <p className={s.countDown_title}>Public sale starting in</p>
                 <Countdown
                   className={s.countDown_time}
                   expiredTime={dayjs.utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
