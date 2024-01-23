@@ -3,7 +3,8 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import createAxiosInstance from './http-client';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { SignatureStatus } from '@/interfaces/whitelist';
-import keplrCelestiaHelper, { CelestiaAddress, CelestiaSignature } from '@/utils/keplr.celestia';
+import celestiaHelper, { CelestiaAddress, CelestiaSignature } from '@/utils/celestia';
+import { EVMFieldType } from '@/stores/states/user/types';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -100,12 +101,40 @@ const requestClaimCelestiaPoint = async (status: SignatureStatus[]) => {
 const verifyCelestiaSignature = async (params: { address: CelestiaAddress, signature: CelestiaSignature }) => {
   const res = (await apiClient.post(`/bvm/verify-celestia-address`, {
     address: params.address.bech32Address,
-    message: keplrCelestiaHelper.KeplrCelestiaConfig.messageForSign,
+    message: celestiaHelper.CelestiaConfig.messageForSign,
     signature: params.signature.signature,
     pub_key: params.signature.pub_key.value,
   })) as any;
   return res
 }
+
+const verifyEVMSignature = async (params: { address: string, signature: string, message: string, network: string }) => {
+  const res = (await apiClient.post(`/bvm/verify/?network=${params.network}`, {
+    address: params.address,
+    message: params.message,
+    signature: params.signature,
+  })) as any;
+  return res
+}
+
+const getAllowEVMStatus = async (network: string): Promise<SignatureStatus[]> => {
+  const res = (await apiClient.get(`/bvm/verify/?network=${network}`)) as SignatureStatus[];
+  return res;
+}
+
+const requestClaimEVMPoint = async ({ status, network }: { status: SignatureStatus[], network: string }) => {
+  for (let i = 0; i < status.length; i++) {
+    try {
+      const item = status[i];
+      if (item && item.status === 'unclaimed') {
+        await apiClient.post(`/bvm/verify/claim/${item.id}?network=${network}`);
+      }
+    } catch (error) {
+      // TODO: handle error
+    }
+  }
+};
+
 
 export {
   getTopLeaderBoards,
@@ -114,5 +143,8 @@ export {
   requestClaimBTCPoint,
   verifyCelestiaSignature,
   getAllowCelestiaStatus,
-  requestClaimCelestiaPoint
+  requestClaimCelestiaPoint,
+  verifyEVMSignature,
+  getAllowEVMStatus,
+  requestClaimEVMPoint
 }

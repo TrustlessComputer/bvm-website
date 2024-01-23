@@ -23,4 +23,6 @@ export interface ILeaderBoardPoint {
   celestia_point: string;
   naka_point: string;
   eco_point: string;
+  optimism_point: string;
+  blast_point: string;
 }

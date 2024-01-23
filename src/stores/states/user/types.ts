@@ -24,6 +24,8 @@ export interface User {
   boost: string;
 }
 
+export type EVMFieldType = "allowOptimism"
+
 export interface UserState {
   user?: User | undefined,
   leaderBoard: ILeaderBoardPoint[];

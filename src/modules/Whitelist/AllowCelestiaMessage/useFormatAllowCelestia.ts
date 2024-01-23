@@ -49,7 +49,7 @@ const useFormatAllowCelestia = () => {
     status,
     isProcessing,
     amount,
-    isUnclaimed
+    isUnclaimed: isUnclaimed && amount.unClaimedPoint && !isProcessing
   }
 };
 

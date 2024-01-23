@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { UserState } from './types';
+import { EVMFieldType, UserState } from './types';
 import uniqueBy from '@popperjs/core/lib/utils/uniqueBy';
 
 const initialState: UserState = {
@@ -18,7 +18,7 @@ const initialState: UserState = {
   airdropGMHolders: null,
   airdropGenerativeUsers: null,
   airdropPerceptronsHolders: null,
-};
+} as any;
 
 const slice = createSlice({
   name: 'userState',
@@ -43,6 +43,15 @@ const slice = createSlice({
         loaded: action.payload.loaded,
       };
     },
+    setAllowEVM: (state, action) => {
+      const type: EVMFieldType = action.payload.actionType;
+      if (type) {
+        (state as any)[type] = {
+          status: action.payload.status,
+          loaded: action.payload.loaded,
+        };
+      }
+    },
     setAirdropAlphaUsers: (state, action) => {
       state.airdropAlphaUsers = action.payload;
     },
@@ -63,6 +72,7 @@ export const {
   setLeaderBoard,
   setAllowBTC,
   setAllowCelestia,
+  setAllowEVM,
   setAirdropAlphaUsers,
   setAirdropGMHolders,
   setAirdropGenerativeUsers,

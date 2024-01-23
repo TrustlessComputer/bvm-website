@@ -49,7 +49,7 @@ const useFormatAllowBTC = () => {
     status,
     isProcessing,
     amount,
-    isUnclaimed
+    isUnclaimed: isUnclaimed && amount.unClaimedPoint && !!amount.txsCount && !isProcessing
   }
 };
 

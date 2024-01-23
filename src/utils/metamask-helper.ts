@@ -103,7 +103,7 @@ const connect = async (): Promise<WalletOperationReturn<string | null>> => {
   }
 };
 
-export const signMessage = async (message: any): Promise<any | null> => {
+export const signMessage = async (message: any): Promise<{ message: string, address: string, signature: string }> => {
   try {
     if (!(window as any).ethereum) {
       throw Error(WalletError.NO_INSTANCE);

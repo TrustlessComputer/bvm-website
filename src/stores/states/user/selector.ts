@@ -1,5 +1,5 @@
 import { RootState } from '@/stores';
-import { User } from '@/stores/states/user/types';
+import { EVMFieldType, User } from '@/stores/states/user/types';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { SignatureStatus } from '@/interfaces/whitelist';
 
@@ -18,6 +18,14 @@ export const allowCelestiaSelector = (state: RootState) => ({
   status: (state.user?.allowCelestia?.status || []) as SignatureStatus[],
   loaded: (state.user?.allowCelestia?.loaded || false) as boolean
 });
+
+export const allowEVMSelector = (state: RootState) => (type: EVMFieldType) => {
+  const data = (state.user as any)?.[type];
+  return ({
+    status: (data?.status || []) as SignatureStatus[],
+    loaded: (data?.allowCelestia?.loaded || false) as boolean
+  })
+};
 
 export const airdropAlphaUsersSelector = (state: RootState) => state.user.airdropAlphaUsers;
 export const airdropGMHoldersSelector = (state: RootState) => state.user.airdropGMHolders;
