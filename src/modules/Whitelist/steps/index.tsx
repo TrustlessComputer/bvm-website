@@ -175,8 +175,7 @@ const Steps = () => {
       'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
     const isNeedClaimBTCPoint = allowBTC.isUnclaimed;
     const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed;
-    // const isNeedClaimOptimismPoint = allowOptimism.isUnclaimed;
-    const isNeedClaimOptimismPoint = true
+    const isNeedClaimOptimismPoint = allowOptimism.isUnclaimed;
     const authenTask =  {
       title: 'Tweet about BVM',
       desc: 'Tweet as often as you like & tag @BVMnetwork to rank up.',
