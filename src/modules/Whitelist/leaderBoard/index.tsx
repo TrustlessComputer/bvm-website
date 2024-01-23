@@ -493,7 +493,11 @@ const LeaderBoard = (props: IProps) => {
               }}
             >
               <Text className={styles.title}>
-                {formatCurrency(new BigNumber(data?.optimism_point || 0).plus(data?.blast_point || 0).toString(), 0, 0)}
+                {formatCurrency(new BigNumber(data?.optimism_point || 0)
+                  .plus(data?.blast_point || 0)
+                  .plus(data?.base_point || 0)
+                  .plus(data?.arb_point || 0)
+                  .toString(), 0, 0)}
               </Text>
               {data.need_active ? (
                 <Tooltip
@@ -506,6 +510,8 @@ const LeaderBoard = (props: IProps) => {
                     <Flex direction="column" color="black" opacity={0.7}>
                       <p>Optimism: {data.optimism_point || '0'}</p>
                       <p>Blast: {data.blast_point || '0'}</p>
+                      <p>Base: {data.base_point || '0'}</p>
+                      <p>Arbitrum: {data.arb_point || '0'}</p>
                     </Flex>
                   }
                 >

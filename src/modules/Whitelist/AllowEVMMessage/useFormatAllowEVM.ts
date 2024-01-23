@@ -26,10 +26,17 @@ const useFormatAllowEVM = ({ type }: IAllowEVMProps) => {
         txsCount: new BigNumber(curr.num_txs || '0').plus(prev.txsCount).toNumber(),
         fee: new BigNumber(curr.btc_fee || '0').plus(prev.fee).toNumber(),
         blastAmount: new BigNumber(curr.blast_amount || '0').plus(prev.blastAmount).toNumber(),
-        point: new BigNumber(curr.gas_point || '0').plus(curr.blast_point || '0').plus(prev.point).toNumber(),
+        point: new BigNumber(curr.gas_point || '0')
+          .plus(prev.point)
+          .plus(curr.blast_point || '0')
+          .plus(curr.arb_point || '0')
+          .plus(curr.base_point || '0')
+          .toNumber(),
         unClaimedPoint: new BigNumber(prev.unClaimedPoint || '0')
           .plus(curr.status === 'unclaimed' ? curr.gas_point || '0' : '0')
           .plus(curr.status === 'unclaimed' ? curr.blast_point || '0' : '0')
+          .plus(curr.status === 'unclaimed' ? curr.arb_point || '0' : '0')
+          .plus(curr.status === 'unclaimed' ? curr.base_point || '0' : '0')
           .toNumber(),
       };
       value = {
