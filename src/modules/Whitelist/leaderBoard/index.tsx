@@ -461,7 +461,7 @@ const LeaderBoard = (props: IProps) => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    L2 Points are calculated from your <strong>Optimism</strong> & <strong>Blast</strong> staking and holding
+                    ETH you stake on <strong>Blast</strong> or the more <strong>Optimism (OP)</strong>, <strong>Base (BASE)</strong>, or <strong>Arbitrum (ARB)</strong> tokens you hold.
                   </p>
                 </Flex>
               }

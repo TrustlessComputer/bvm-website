@@ -194,7 +194,7 @@ const Steps = () => {
     const tasks = [
       {
         title: 'Are you an L2 maxi?',
-        desc: 'The more ETH you staked on Blast or the more Optimism (OP) tokens you hold, the more points you’ll get. Connect your MetaMask wallet to prove the account ownership.',
+        desc: 'The more ETH you stake on Blast or the more Optimism (OP), Base (BASE), or Arbitrum (ARB) tokens you hold, the more points you’ll earn. Connect your MetaMask wallet to prove account ownership.',
         actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 maxi are you?',
         actionHandle: isNeedClaimOptimismPoint ? async () => {
           onShareOptimism();
