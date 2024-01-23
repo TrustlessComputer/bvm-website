@@ -5,20 +5,14 @@ import cx from 'clsx';
 import Image from 'next/image';
 import React, { useMemo, useState } from 'react';
 import s from './styles.module.scss';
-import { ALLOWED_ATTRIBUTES } from '@/constants/constants';
-import sanitizeHtml from 'sanitize-html';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import utc from 'dayjs/plugin/utc';
-import {
-  airdropAlphaUsersSelector,
-  airdropGenerativeUsersSelector,
-  airdropGMHoldersSelector, airdropPerceptronsHoldersSelector,
-  userSelector,
-} from '@/stores/states/user/selector';
+import { airdropAlphaUsersSelector, userSelector } from '@/stores/states/user/selector';
 import { useSelector } from 'react-redux';
 import { formatCurrency } from '@/utils/format';
 import { useAppSelector } from '@/stores/hooks';
+import AirdropStorage from '@/utils/storage/airdrop.storage';
 
 dayjs.extend(utc);
 
@@ -41,7 +35,7 @@ export const AirdropText = ['', 'New', 'Retrospective'];
 export interface IItemCommunity {
   title: string;
   desc: string | React.ReactNode;
-  actionText: string;
+  actionText?: string;
   actionHandle: any;
   actionTextSecondary?: string;
   actionHandleSecondary?: any;
@@ -71,17 +65,24 @@ export default function ItemCommunity({
 }) {
   const { isActive, image, isDisable = false } = content;
   const airdropAlphaUsers = useSelector(airdropAlphaUsersSelector);
-  const airdropGMHolders = useSelector(airdropGMHoldersSelector);
-  const airdropGenerativeUsers = useSelector(airdropGenerativeUsersSelector);
-  const airdropPerceptronsHolders = useSelector(airdropPerceptronsHoldersSelector);
+  const airdropGMHolders = AirdropStorage.getAirdropGMHolders();
+  const airdropGenerativeUsers = AirdropStorage.getAirdropGenerativeUsers();
+  const airdropPerceptronsHolders = AirdropStorage.getAirdropPerceptronsHolders();
   const user = useAppSelector(userSelector);
   const [expireTimeEnd, setExpireTimeEnd] = useState(false);
+  const isConnectMetaMask = AirdropStorage.getIsConnectMetaMask();
+  const isConnectBitcoinWallet = AirdropStorage.getIsConnectBitcoinWallet();
+
+  // console.log('airdropGMHolders', airdropGMHolders);
+  // console.log('airdropGenerativeUsers', airdropGenerativeUsers);
+  // console.log('airdropPerceptronsHolders', airdropPerceptronsHolders);
+  // console.log('isConnectMetaMask', isConnectMetaMask);
+  // console.log('isConnectBitcoinWallet', isConnectBitcoinWallet);
+  // console.log('=======')
 
   const isRunning = useMemo(() => {
     return isActive;
   }, [isActive, index]);
-
-  console.log('airdropGMHolders', airdropGMHolders);
 
   return (
     <>
@@ -151,7 +152,7 @@ export default function ItemCommunity({
                   isLoading={isLoading}
                 >
                   {
-                    !content?.showExpireTime && !!content?.expiredTime ? (
+                    !content?.showExpireTime && !!content?.expiredTime && !expireTimeEnd  ? (
                       <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
                         <Countdown
                           className={s.itemCommunity__countdown_button}
@@ -188,8 +189,16 @@ export default function ItemCommunity({
           )}
           <Flex>
             {
-              content?.step === AirdropStep.alphaUsers && airdropAlphaUsers && (
-                <Text color={"#000000"}>{user?.twitter_name} - Airdrop: {formatCurrency(airdropAlphaUsers?.balance)} $BVM - Vesting at: {dayjs(airdropAlphaUsers?.claimeable_at).format('YYYY-MM-DD')}</Text>
+              content?.step === AirdropStep.alphaUsers && (
+                <>
+                  {
+                    airdropAlphaUsers ? (
+                      <Text color={"#000000"}>{user?.twitter_name} - Airdrop: {formatCurrency(airdropAlphaUsers?.balance)} $BVM - Vesting at: {dayjs(airdropAlphaUsers?.claimeable_at).format('MMM D, YYYY')}</Text>
+                    ) : user?.twitter_id && (
+                      <Text color={"#000000"}>Your alpha account do not have airdrop</Text>
+                    )
+                  }
+                </>
               )
             }
             {
@@ -197,8 +206,8 @@ export default function ItemCommunity({
                 <>
                   {
                     airdropGMHolders ? (
-                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropAlphaUsers?.balance)} $BVM - Vesting at: {dayjs(airdropAlphaUsers?.claimeable_at).format('YYYY-MM-DD')}</Text>
-                    ) : (
+                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropGMHolders?.balance)} $BVM - Vesting at: {dayjs(airdropGMHolders?.claimeable_at).format('MMM D, YYYY')}</Text>
+                    ) : isConnectMetaMask && (
                       <Text color={"#000000"}>Your wallet do not have airdrop</Text>
                     )
                   }
@@ -210,8 +219,8 @@ export default function ItemCommunity({
                 <>
                   {
                     airdropGenerativeUsers ? (
-                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropGenerativeUsers?.balance)} $BVM - Vesting at: {dayjs(airdropGenerativeUsers?.claimeable_at).format('YYYY-MM-DD')}</Text>
-                    ) : (
+                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropGenerativeUsers?.balance)} $BVM - Vesting at: {dayjs(airdropGenerativeUsers?.claimeable_at).format('MMM D, YYYY')}</Text>
+                    ) : isConnectMetaMask && (
                       <Text color={"#000000"}>Your wallet do not have airdrop</Text>
                     )
                   }
@@ -222,9 +231,9 @@ export default function ItemCommunity({
               content?.step === AirdropStep.perceptronsHolders && (
                 <>
                   {
-                    airdropGenerativeUsers ? (
-                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropPerceptronsHolders?.balance)} $BVM - Vesting at: {dayjs(airdropPerceptronsHolders?.claimeable_at).format('YYYY-MM-DD')}</Text>
-                    ) : (
+                    airdropPerceptronsHolders ? (
+                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropPerceptronsHolders?.balance)} $BVM - Vesting at: {dayjs(airdropPerceptronsHolders?.claimeable_at).format('MMM D, YYYY')}</Text>
+                    ) : (isConnectMetaMask || isConnectBitcoinWallet) && (
                       <Text color={"#000000"}>Your wallet do not have airdrop</Text>
                     )
                   }
