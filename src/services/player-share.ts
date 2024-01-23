@@ -1,9 +1,9 @@
 import { camelCaseKeys } from '@/utils/normalize';
 import { PERP_API_URL } from '@/config';
 import createAxiosInstance from '@/services/http-client';
+import TimeChainStorage from '@/utils/storage/timechain.storage';
 import { PublicSaleWalletInfo, VCInfo, VCWalletInfo } from '@/interfaces/vc';
 import AirdropStorage from '@/utils/storage/airdrop.storage';
-import TimeChainStorage from '@/utils/storage/timechain.storage';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
