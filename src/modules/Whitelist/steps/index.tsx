@@ -93,7 +93,22 @@ const Steps = () => {
 
   const onShareOptimism = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const content = `Two L2 rollups walk into a bar.\n\nBarman: “IDs?”. ZK Rollup: “I’m 18, no ID needed”. Optimistic: “Wait a week & I’ll be an adult”\n\nQ: What is the name of the bar?\nA: #Bitcoin\n\nWelcome to Bitcoin L2s with @BVMnetwork.\n\nPS: Thanks @l2beat for the prompt!`;
+
+    let op = '';
+    let arb = '';
+    let base = '';
+    if (new BigNumber(allowOptimism.amount.fee || 0).gt(0)) {
+      op = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.fee || 0).toFixed(), 0, 0)} $OP`
+    }
+    if (new BigNumber(allowOptimism.amount.arbAmount || 0).gt(0)) {
+      arb = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.arbAmount || 0).toFixed(), 0, 0)} $ARB`
+    }
+
+    if (new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0).gt(0)) {
+      base = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0), 0, 0)} $ETH bridged to @Blast_L2 & @base`
+    }
+
+    const content = `I have a big Ethereum L2 bag: \n${op}${arb}${base}\n\nAnd I can’t wait to stack my Bitcoin L2 bag.\n\nThousands of Bitcoin L2s are arriving, thanks to @BVMnetwork.\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -194,7 +209,7 @@ const Steps = () => {
     const tasks = [
       {
         title: 'Are you an L2 maxi?',
-        desc: 'The more ETH you staked on Blast or the more Optimism (OP) tokens you hold, the more points you’ll get. Connect your MetaMask wallet to prove the account ownership.',
+        desc: 'The more ETH you stake on Blast or the more Optimism (OP), Base (BASE), or Arbitrum (ARB) tokens you hold, the more points you’ll earn. Connect your MetaMask wallet to prove account ownership.',
         actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 maxi are you?',
         actionHandle: isNeedClaimOptimismPoint ? async () => {
           onShareOptimism();
@@ -213,11 +228,11 @@ const Steps = () => {
         isActive: !!token,
         isDone: !!token,
         step: MultiplierStep.evm,
-        image: "blast_op.svg",
+        image: "ic-l2.jpg",
         tag: StepTagType.NEW,
         right: {
           title: '+100 PTS',
-          desc: 'per Ξ 0.005 or 4 OP'
+          desc: 'per Ξ 0.005 or 4 OP or 8 ARB'
         }
       },
       {

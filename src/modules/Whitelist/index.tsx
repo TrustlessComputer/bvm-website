@@ -1,8 +1,8 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 import LeaderBoard, { LEADER_BOARD_ID } from './leaderBoard';
 import s from './styles.module.scss';
-import useElementHeight from '@/hooks/useElementHeight';
+import useElementSize from '@/hooks/useElementSize';
 import { HEADER_ID } from '@/layouts/Header';
 import Steps from '@/modules/Whitelist/steps';
 import BoxContent from '@/layouts/BoxContent';
@@ -13,19 +13,25 @@ import AppLoading from '@/components/AppLoading';
 import CountUp from 'react-countup';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import StepsEco from './stepsEco';
-import StepsAirdrop from '@/modules/Whitelist/stepAirdrop';
+import StepsAirdrop, { TIME_CHAIN_EXPIRED_TIME } from '@/modules/Whitelist/stepAirdrop';
 import useAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useAllowBTC';
 import useAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useAllowCelestia';
 import useAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useAllowEVM';
+import TimechainBanner from '@/modules/Whitelist/TimechainBanner';
+import styles from '@/modules/Whitelist/TimechainBanner/styles.module.scss';
+import dayjs from 'dayjs';
+import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
+
+export const PUBLIC_SALE_START = '2024-01-30 03:30:00'
 
 const Whitelist = () => {
   useAllowBTC();
   useAllowCelestia();
   useAllowEVM({ type: "allowOptimism" });
   const { count } = useAppSelector(leaderBoardSelector);
-  const { height } = useElementHeight({ elementID: HEADER_ID });
+  const { height } = useElementSize({ elementID: HEADER_ID });
   const [index, setIndex] = React.useState(0)
 
   React.useEffect(() => {
@@ -69,13 +75,24 @@ const Whitelist = () => {
 
   return (
     <BoxContent className={s.container} id={CONTAINER_ID}>
+      <Flex className={s.header} w="100%">
+        <Flex flexDirection="column" gap="8px">
+          <p className={s.countDown_title}>Public sale starting in</p>
+          <Countdown
+            className={s.countDown_time}
+            expiredTime={dayjs.utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
+            hideIcon={true}
+          />
+        </Flex>
+        <TimechainBanner setTabIndex={setIndex} />
+      </Flex>
       <div className={s.tokenSection}>
         <Box w="100%" overflow="hidden">
           <div className={s.countUpDesktop}>{renderCountUp()}</div>
           <LeaderBoard setIndex={setIndex} />
         </Box>
 
-        <div>
+        <div id="ALLOW_TASKS_LIST">
           <div className={s.countUpMobile}>{renderCountUp()}</div>
           <Tabs variant="unstyled" index={index} onChange={(tabIndex) => setIndex(tabIndex)}>
             <TabList mb="32px" overflow="hidden">
