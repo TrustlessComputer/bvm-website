@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  padding: 16px;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(255, 126, 33, 0.30);
+  background: rgba(255, 126, 33, 0.06);
+  z-index: 20;
+  align-self: flex-end;
+  &_time {
+    display: flex;
+    justify-content: start !important;
+    :global {
+      .chakra-text {
+        text-align: start !important;
+        color: #000 !important;
+        font-size: 20px !important;
+        font-style: normal;
+        font-weight: 500 !important;
+        line-height: 140%;
+        letter-spacing: 0.2px !important;
+        white-space: pre !important;
+      }
+    }
+  }
+  &_join {
+    color: #FA4E0E;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    cursor: pointer;
+    white-space: pre;
+  }
+}

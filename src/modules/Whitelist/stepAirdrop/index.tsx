@@ -32,6 +32,8 @@ export const getMessageEVM = (address: string) => {
   return `Verify you are the owner of the wallet ${address}`;
 }
 
+export const TIME_CHAIN_EXPIRED_TIME = '2024-01-24 08:00:00';
+
 const StepsAirdrop = () => {
   const token = AuthenStorage.getAuthenKey();
   const needReload = useAppSelector(commonSelector).needReload;
@@ -181,7 +183,7 @@ const StepsAirdrop = () => {
             </Tooltip>
           )
         },
-        expiredTime: '2024-01-24 08:00:00',
+        expiredTime: TIME_CHAIN_EXPIRED_TIME,
         showExpireTime: true,
         airdropType: AirdropType.NEW,
         step: AirdropStep.timeChain,
