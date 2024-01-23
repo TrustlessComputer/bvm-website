@@ -98,14 +98,16 @@ const Steps = () => {
     let arb = '';
     let base = '';
 
-    if (new BigNumber(allowOptimism.amount.fee || 0).gt(0)) {
+    const MIN = 0.0001
+
+    if (new BigNumber(allowOptimism.amount.fee || 0).gt(MIN)) {
       op = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.fee || 0).toFixed(), 0, 6)} $OP`
     }
-    if (new BigNumber(allowOptimism.amount.arbAmount || 0).gt(0)) {
+    if (new BigNumber(allowOptimism.amount.arbAmount || 0).gt(MIN)) {
       arb = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.arbAmount || 0).toFixed(), 0, 6)} $ARB`
     }
 
-    if (new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0).gt(0)) {
+    if (new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0).gt(MIN)) {
       base = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0).toFixed(), 0, 6)} $ETH bridged to @Blast_L2 & @base`
     }
 
