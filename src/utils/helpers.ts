@@ -15,11 +15,11 @@ export const getUuid = (): string => {
 
 export const getLink = (referralCode?: string) => {
   const referral = getReferralSearchURL(referralCode);
-
-  if (APP_ENV === 'production') {
-    return `https://bvm.network${referral}`;
-  }
-  return `${window.location.origin}${referral}`;
+  return `https://bvm.network${referral}`;
+  // if (APP_ENV === 'production') {
+  //   return `https://bvm.network${referral}`;
+  // }
+  // return `${window.location.origin}${referral}`;
 };
 
 const REFERRAL_TEXT = 'refer'

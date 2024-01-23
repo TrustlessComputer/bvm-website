@@ -8,12 +8,27 @@ import AuthenStorage from '@/utils/storage/authen.storage';
 import AllowBTCMessage from '@/modules/Whitelist/AllowBTCMessage';
 import cs from 'classnames';
 import AllowCelestiaMessage from '@/modules/Whitelist/AllowCelestiaMessage';
+import AllowEVMMessage from '@/modules/Whitelist/AllowEVMMessage';
+import { AirdropText } from '@/modules/Whitelist/stepAirdrop/Step';
 
 export enum MultiplierStep {
   authen,
   post,
   signMessage,
-  modular
+  modular,
+  evm
+}
+
+interface IRight {
+  title: string;
+  desc: string
+}
+
+export const STEP_TAG = ['', 'New'];
+
+export enum StepTagType {
+  NONE,
+  NEW,
 }
 
 export interface IItemCommunity {
@@ -27,11 +42,9 @@ export interface IItemCommunity {
   isDone?: boolean,
   step: MultiplierStep,
   image: string
-  right: {
-    title: string;
-    desc: string
-  },
+  right: IRight | IRight[],
   handleShowManualPopup?: () => void;
+  tag?: StepTagType
 }
 
 export default function ItemCommunity({
@@ -65,13 +78,31 @@ export default function ItemCommunity({
         <Flex direction="column" gap="8px" flex={1}>
           <Flex direction={["column", "row"]} justifyContent="space-between" gap={[1, 4]}>
             <Flex direction="column" w="100%">
-              <div className={s.itemCommunity__title}>{content?.title}</div>
+              <Flex gap={2}>
+                {content?.tag !== undefined && (
+                  <div className={cx(s.itemCommunity__tag, s[STEP_TAG[content?.tag].toLowerCase()])}>{STEP_TAG[content?.tag]}</div>
+                )}
+                <div className={s.itemCommunity__title}>{content?.title}</div>
+              </Flex>
               {!!content?.desc && (<div className={s.itemCommunity__desc}>{content?.desc}</div>)}
             </Flex>
-            <Flex direction={["row", 'column']} justifyContent={["space-between", "flex-start"]}>
-              <div className={s.itemCommunity__point}>{content?.right.title}</div>
-              {!!content?.desc && (<div className={s.itemCommunity__pointNote}>{content?.right.desc}</div>)}
-            </Flex>
+            {!Array.isArray(content.right) ? (
+              <Flex direction={["row", 'column']} justifyContent={["space-between", "flex-start"]}>
+                <div className={s.itemCommunity__point}>{(content?.right as IRight).title}</div>
+                {!!content?.desc && (<div className={s.itemCommunity__pointNote}>{(content?.right as IRight).desc}</div>)}
+              </Flex>
+            ) : (
+              <Flex flexDirection="column" gap="8px">
+                {(
+                  content.right as IRight[]).map((data) => (
+                    <Flex key={data.desc} direction={["row", 'column']} justifyContent={["space-between", "flex-start"]}>
+                      <div className={s.itemCommunity__point}>{(data as IRight).title}</div>
+                      {!!content?.desc && (<div className={s.itemCommunity__pointNote}>{(data as IRight).desc}</div>)}
+                    </Flex>
+                  )
+                )}
+              </Flex>
+            )}
           </Flex>
           {!!content?.actionText && (
             <Flex direction="column" w="100%" mt="8px">
@@ -109,6 +140,9 @@ export default function ItemCommunity({
                 )}
                 {step === MultiplierStep.modular && (
                   <AllowCelestiaMessage />
+                )}
+                {step === MultiplierStep.evm && (
+                  <AllowEVMMessage type="allowOptimism" />
                 )}
               </Flex>
               {

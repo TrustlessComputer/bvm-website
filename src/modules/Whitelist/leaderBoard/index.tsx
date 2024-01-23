@@ -18,8 +18,10 @@ import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import BigNumber from 'bignumber.js';
 import SvgInset from '@/components/SvgInset';
-import { leaderBoardSelector } from '@/stores/states/user/selector';
+import { leaderBoardSelector, userSelector } from '@/stores/states/user/selector';
 import { setLeaderBoard } from '@/stores/states/user/reducer';
+import copy from 'copy-to-clipboard';
+import { shareReferralURL } from '@/utils/helpers';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -35,7 +37,11 @@ const valueToImage: any = {
 
 export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
-const LeaderBoard = () => {
+interface IProps {
+  setIndex: (_: number) => void
+}
+
+const LeaderBoard = (props: IProps) => {
   const { list } = useAppSelector(leaderBoardSelector);
   const [isFetching, setIsFetching] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -122,6 +128,19 @@ const LeaderBoard = () => {
       setRefreshing(false);
     }
   };
+
+  const user = useAppSelector(userSelector);
+  const handleShareRefferal = () => {
+    if (!user?.referral_code) return;
+    copy(shareReferralURL(user?.referral_code || ''));
+    const element = document.getElementById('copy-button');
+    if (element) {
+      element.textContent = 'COPIED';
+      setTimeout(() => {
+        element.textContent = 'GET';
+      }, 2000)
+    }
+  }
 
   const labelConfig = {
     color: 'rgba(1, 1, 0, 0.7)',
@@ -352,6 +371,9 @@ const LeaderBoard = () => {
                 <Text className={styles.title}>
                   {formatCurrency(data?.refer_point, 0, 0)}
                 </Text>
+                {data.need_active && !Number(data?.refer_point || '0') && (
+                  <button id="copy-button" onClick={handleShareRefferal} className={styles.button}>GET</button>
+                )}
               </Flex>
             </Flex>
           );
@@ -413,6 +435,91 @@ const LeaderBoard = () => {
                   {formatCurrency(data?.gas_point, 0, 0)}
                 </Text>
               </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'layer-2',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              gap: '4px',
+            }}
+          >
+            <p style={{ textTransform: 'uppercase' }}>L2 PTS</p>
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>
+                    L2 Points are calculated from your <strong>Optimism</strong> & <strong>Blast</strong> staking and holding
+                  </p>
+                </Flex>
+              }
+            >
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
+            </Tooltip>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                width: '100%',
+                gap: '4px',
+              }}
+            >
+              <Text className={styles.title}>
+                {formatCurrency(new BigNumber(data?.optimism_point || 0).plus(data?.blast_point || 0).toString(), 0, 0)}
+              </Text>
+              {data.need_active ? (
+                <Tooltip
+                  minW="160px"
+                  bg="white"
+                  boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                  borderRadius="4px"
+                  padding="8px"
+                  label={
+                    <Flex direction="column" color="black" opacity={0.7}>
+                      <p>Optimism: {data.optimism_point || '0'}</p>
+                      <p>Blast: {data.blast_point || '0'}</p>
+                    </Flex>
+                  }
+                >
+                  <div>
+                    <SvgInset
+                      size={18}
+                      className={styles.tooltipIconActive}
+                      svgUrl={`${CDN_URL_ICONS}/info-circle.svg`}
+                    />
+                  </div>
+                </Tooltip>
+              ) : (
+                <Box w="16px" />
+              )}
             </Flex>
           );
         },
@@ -623,13 +730,16 @@ const LeaderBoard = () => {
                 <Text className={styles.title}>
                   {formatCurrency(data?.eco_point, 0, 0)}
                 </Text>
+                {data.need_active && !Number(data?.eco_point || '0') && (
+                  <button onClick={() => props.setIndex(2)} className={styles.button}>GET</button>
+                )}
               </Flex>
             </Flex>
           );
         },
       },
     ];
-  }, []);
+  }, [user?.referral_code]);
 
   // const remainingTime = () => {
   //   const now = dayjs();

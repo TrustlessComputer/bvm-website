@@ -97,9 +97,9 @@ table {
       tr {
         th,
         td {
-          padding-right: 20px !important;
+          padding-right: 18px !important;
           &:nth-child(1) {
-            width: 60px !important;
+            width: 55px !important;
           }
           &:nth-child(3) {
             min-width: 110px !important;
@@ -116,7 +116,24 @@ table {
       color: black;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 120px;
+      max-width: 85px;
+    }
+
+    .button {
+      display: flex;
+      width: 48px !important;
+      height: 24px;
+      padding: 12px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border-radius: 4px;
+      background: #FA4E0E;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%;
+      margin-left: 4px;
     }
 
     .subTitle {
