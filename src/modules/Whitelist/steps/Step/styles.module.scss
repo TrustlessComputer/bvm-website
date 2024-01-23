@@ -67,9 +67,10 @@
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 26px;
     opacity: 0.7;
-    white-space: pre;
+    min-width: 110px;
+    line-height: 140%;
+    //white-space: pre;
   }
   &__btnCTA {
     display: flex;
