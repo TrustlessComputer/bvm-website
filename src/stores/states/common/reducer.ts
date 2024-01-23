@@ -5,7 +5,8 @@ const initialState: CommonState = {
   needReload: 0,
   coinPrices: {
     [Coin.BTC]: '0',
-    [Coin.TIA]: '0'
+    [Coin.TIA]: '0',
+    [Coin.ETH]: '0',
   } as any
 };
 

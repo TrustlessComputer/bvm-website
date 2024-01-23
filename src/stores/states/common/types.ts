@@ -5,6 +5,7 @@ export type CoinPrices = {
 export enum Coin {
   BTC = 'BTC',
   TIA = 'TIA',
+  ETH = 'ETH',
 }
 
 export interface CommonState {
