@@ -31,7 +31,7 @@ const TimechainBanner = React.memo(({ setTabIndex }: IProps) => {
   return (
     <div className={styles.container} id="TIME_CHAIN_BANNER">
       <Countdown
-        className={s.itemCommunity__countdown}
+        className={styles.container_time}
         expiredTime={dayjs.utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
         hideIcon={true}
         onRefreshEnd={() => setIsEnd(true)}

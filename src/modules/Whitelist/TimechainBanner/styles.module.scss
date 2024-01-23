@@ -8,13 +8,20 @@
   z-index: 20;
   align-self: flex-end;
   &_time {
-    color: #000;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 140%;
-    letter-spacing: 0.2px;
-    white-space: pre;
+    display: flex;
+    justify-content: start !important;
+    :global {
+      .chakra-text {
+        text-align: start !important;
+        color: #000 !important;
+        font-size: 20px !important;
+        font-style: normal;
+        font-weight: 500 !important;
+        line-height: 140%;
+        letter-spacing: 0.2px !important;
+        white-space: pre !important;
+      }
+    }
   }
   &_join {
     color: #FA4E0E;
