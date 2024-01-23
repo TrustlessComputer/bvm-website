@@ -4,7 +4,7 @@ import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import dayjs from 'dayjs';
 import { TIME_CHAIN_EXPIRED_TIME } from '@/modules/Whitelist/stepAirdrop';
 import useElementSize from '@/hooks/useElementSize';
-import AirdropStorage from '@/utils/storage/airdrop.storage';
+import TimeChainStorage from '@/utils/storage/timechain.storage';
 
 interface IProps {
   setTabIndex: (_: number) => void;
@@ -17,11 +17,12 @@ const TimechainBanner = React.memo(({ setTabIndex }: IProps) => {
       .isBefore(dayjs().utc().format())
   );
 
+  const isClicked = React.useMemo(() => {
+    return TimeChainStorage.getTimeChainClicked()
+  }, [])
+
   const { width } = useElementSize({ elementID: 'ALLOW_TASKS_LIST' });
 
-  const isClicked = React.useMemo(() => {
-    return AirdropStorage.getTimeChainClicked()
-  }, []);
 
   React.useEffect(() => {
     const element = document.getElementById('TIME_CHAIN_BANNER');

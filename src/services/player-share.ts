@@ -4,6 +4,7 @@ import createAxiosInstance from '@/services/http-client';
 import { SignatureStatus } from '@/interfaces/whitelist';
 import { VCInfo, VCWalletInfo } from '@/interfaces/vc';
 import AirdropStorage from '@/utils/storage/airdrop.storage';
+import TimeChainStorage from '@/utils/storage/timechain.storage';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -96,6 +97,7 @@ export const joinRaffle = async (): Promise<any> => {
   try {
     const res = await apiClient.post(`/bvm/raffle/join`);
     AirdropStorage.setTimeChainClicked()
+    TimeChainStorage.setTimeChainClicked();
     return res;
   } catch (error) {
     console.log(error);
