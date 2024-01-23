@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
-import s from '@/modules/Whitelist/stepAirdrop/Step/styles.module.scss';
 import dayjs from 'dayjs';
 import { TIME_CHAIN_EXPIRED_TIME } from '@/modules/Whitelist/stepAirdrop';
 import useElementSize from '@/hooks/useElementSize';
+import AirdropStorage from '@/utils/storage/airdrop.storage';
 
 interface IProps {
   setTabIndex: (_: number) => void;
@@ -19,15 +19,19 @@ const TimechainBanner = React.memo(({ setTabIndex }: IProps) => {
 
   const { width } = useElementSize({ elementID: 'ALLOW_TASKS_LIST' });
 
+  const isClicked = React.useMemo(() => {
+    return AirdropStorage.getTimeChainClicked()
+  }, []);
+
   React.useEffect(() => {
     const element = document.getElementById('TIME_CHAIN_BANNER');
     if (element) {
-      element.style.maxWidth = `${width}px`;
+      element.style.maxWidth = `${width > 560 ? 560 : width}px`;
       element.style.width = "100%"
     }
   }, [width])
 
-  if (isEnd) return;
+  if (isEnd || isClicked) return;
   return (
     <div className={styles.container} id="TIME_CHAIN_BANNER">
       <Countdown

@@ -3,6 +3,7 @@ import { PERP_API_URL } from '@/config';
 import createAxiosInstance from '@/services/http-client';
 import { SignatureStatus } from '@/interfaces/whitelist';
 import { VCInfo, VCWalletInfo } from '@/interfaces/vc';
+import AirdropStorage from '@/utils/storage/airdrop.storage';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -94,6 +95,7 @@ export const getRaffleJoin = async (): Promise<any> => {
 export const joinRaffle = async (): Promise<any> => {
   try {
     const res = await apiClient.post(`/bvm/raffle/join`);
+    AirdropStorage.setTimeChainClicked()
     return res;
   } catch (error) {
     console.log(error);

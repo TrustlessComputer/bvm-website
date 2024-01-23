@@ -1,4 +1,5 @@
 import storage from '@/utils/storage/local';
+import AuthenStorage from '@/utils/storage/authen.storage';
 
 export interface IAirdropItem {
   id: number;
@@ -15,6 +16,7 @@ class AirdropStorage {
   private static AIRDROP_GM_HOLDERS_KEY = 'AIRDROP_GM_HOLDERS';
   private static AIRDROP_GENERATIVE_USERS_KEY = 'AIRDROP_GENERATIVE_USERS';
   private static AIRDROP_PERCEPTRONS_HOLDERS_KEY = 'AIRDROP_PERCEPTRONS_HOLDERS';
+  private static AIRDROP_TIME_CHAIN_CLICKED = 'AIRDROP_TIME_CHAIN_CLICKED';
 
   public static getIsConnectMetaMask = () => storage.get(this.CONNECT_META_MASK_KEY) || false;
   public static setIsConnectMetaMask = (isConnect: boolean) => storage.set(this.CONNECT_META_MASK_KEY, isConnect || '');
@@ -62,6 +64,14 @@ class AirdropStorage {
   };
 
   public static setAirdropPerceptronsHolders = (data: any) => storage.set(this.AIRDROP_PERCEPTRONS_HOLDERS_KEY, data || null);
+
+  public static getKeyTimeChainClicked = () => 'TIME_CHAIN_' + AuthenStorage.getAuthenKey();
+  public static getTimeChainClicked = () => !!storage.get(AirdropStorage.getKeyTimeChainClicked());
+  public static setTimeChainClicked = () => {
+    const authenKey = AuthenStorage.getAuthenKey();
+    if (!authenKey) return;
+    storage.set(AirdropStorage.getKeyTimeChainClicked(), 'true')
+  };
 }
 
 export default AirdropStorage
