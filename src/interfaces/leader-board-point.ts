@@ -25,4 +25,6 @@ export interface ILeaderBoardPoint {
   eco_point: string;
   optimism_point: string;
   blast_point: string;
+  base_point: string;
+  arb_point: string;
 }

@@ -9,7 +9,6 @@ import AllowBTCMessage from '@/modules/Whitelist/AllowBTCMessage';
 import cs from 'classnames';
 import AllowCelestiaMessage from '@/modules/Whitelist/AllowCelestiaMessage';
 import AllowEVMMessage from '@/modules/Whitelist/AllowEVMMessage';
-import { AirdropText } from '@/modules/Whitelist/stepAirdrop/Step';
 
 export enum MultiplierStep {
   authen,
@@ -74,7 +73,7 @@ export default function ItemCommunity({
   return (
     <>
       <div className={cx(s.itemCommunity, isRunning ? '' : s.isDone)}>
-        <Image className={s.itemCommunity__logo} width={48} height={48} src={`${CDN_URL_ICONS}/${image}`} alt="ic-section" />
+        <Image className={s.itemCommunity__logo} style={{ borderRadius: 120 }} width={48} height={48} src={`${CDN_URL_ICONS}/${image}`} alt="ic-section" />
         <Flex direction="column" gap="8px" flex={1}>
           <Flex direction={["column", "row"]} justifyContent="space-between" gap={[1, 4]}>
             <Flex direction="column" w="100%">
