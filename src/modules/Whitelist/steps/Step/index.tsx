@@ -9,6 +9,7 @@ import AllowBTCMessage from '@/modules/Whitelist/AllowBTCMessage';
 import cs from 'classnames';
 import AllowCelestiaMessage from '@/modules/Whitelist/AllowCelestiaMessage';
 import AllowEVMMessage from '@/modules/Whitelist/AllowEVMMessage';
+import { AirdropText } from '@/modules/Whitelist/stepAirdrop/Step';
 
 export enum MultiplierStep {
   authen,
@@ -21,6 +22,13 @@ export enum MultiplierStep {
 interface IRight {
   title: string;
   desc: string
+}
+
+export const STEP_TAG = ['', 'New'];
+
+export enum StepTagType {
+  NONE,
+  NEW,
 }
 
 export interface IItemCommunity {
@@ -36,13 +44,14 @@ export interface IItemCommunity {
   image: string
   right: IRight | IRight[],
   handleShowManualPopup?: () => void;
+  tag?: StepTagType
 }
 
 export default function ItemCommunity({
-                                        index,
-                                        content,
-                                        isLoading,
-                                      }: {
+  index,
+  content,
+  isLoading,
+}: {
   index: number;
   content: IItemCommunity;
   isLoading?: boolean;
@@ -69,7 +78,12 @@ export default function ItemCommunity({
         <Flex direction="column" gap="8px" flex={1}>
           <Flex direction={["column", "row"]} justifyContent="space-between" gap={[1, 4]}>
             <Flex direction="column" w="100%">
-              <div className={s.itemCommunity__title}>{content?.title}</div>
+              <Flex gap={2}>
+                {content?.tag !== undefined && (
+                  <div className={cx(s.itemCommunity__tag, s[STEP_TAG[content?.tag].toLowerCase()])}>{STEP_TAG[content?.tag]}</div>
+                )}
+                <div className={s.itemCommunity__title}>{content?.title}</div>
+              </Flex>
               {!!content?.desc && (<div className={s.itemCommunity__desc}>{content?.desc}</div>)}
             </Flex>
             {!Array.isArray(content.right) ? (

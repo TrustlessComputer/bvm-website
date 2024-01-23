@@ -1,13 +1,4 @@
-'use client';
-
-import { extendTheme, type ThemeConfig } from '@chakra-ui/react';
-
-import { Global } from '@emotion/react';
-
-export const ChakraFontsFace = () => (
-  <Global
-    styles={`
-     @font-face {
+@font-face {
   font-family: 'Helvetica Neue';
   src: local('Helvetica Neue Thin Italic'), local('HelveticaNeue-ThinItalic'),
   url('/webfont/HelveticaNeue-ThinItalic.woff2') format('woff2'),
@@ -166,38 +157,7 @@ export const ChakraFontsFace = () => (
   font-style: italic;
   font-display: swap;
 }
-      `}
-  />
-);
 
-const config: ThemeConfig = {
-  initialColorMode: 'dark',
-  useSystemColorMode: false,
-};
-
-const breakpoints = {
-  base: '0px',
-  sm: '480px',
-  md: '768px',
-  lg: '992px',
-  xl: '1280px',
-  '2xl': '1536px',
-  max: '1600px',
-};
-
-const chakraThemes = extendTheme({
-  config,
-  breakpoints,
-  styles: {
-    global: {
-      body: {
-        minHeight: '100dvh',
-        fontFamily: `Helvetica Neue`,
-        color: '#F3F1E8',
-        lineHeight: 'base',
-      },
-    },
-  },
-});
-
-export default chakraThemes;
+:root {
+  --font-family: 'Helvetica Neue', sans-serif;
+}

@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import ItemStep, { IItemCommunity, MultiplierStep } from './Step';
+import ItemStep, { IItemCommunity, MultiplierStep, StepTagType } from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
 import { getLink, shareBTCOG, shareReferralURL } from '@/utils/helpers';
@@ -33,6 +33,7 @@ import { getEVMNetworkByFieldType } from '@/modules/Whitelist/utils';
 import useFormatAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useFormatAllowEVM';
 import { signMessage as signEVMMessage } from '@/utils/metamask-helper';
 import { EVMFieldType } from '@/stores/states/user/types';
+import { AirdropType } from '@/modules/Whitelist/stepAirdrop/Step';
 
 export interface IAuthenCode {
   public_code: string;
@@ -250,6 +251,7 @@ const Steps = () => {
         isDone: !!token,
         step: MultiplierStep.evm,
         image: "blast_op.svg",
+        tag: StepTagType.NEW,
         right: {
           title: '+100 PTS',
           desc: 'per Ξ 0.005 or 4 OP'
