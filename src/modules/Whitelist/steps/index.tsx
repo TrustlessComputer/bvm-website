@@ -99,14 +99,14 @@ const Steps = () => {
     let base = '';
 
     if (new BigNumber(allowOptimism.amount.fee || 0).gt(0)) {
-      op = `\n • ${new BigNumber(allowOptimism.amount.fee || 0).toFixed()} $OP`
+      op = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.fee || 0).toFixed(), 0, 6)} $OP`
     }
     if (new BigNumber(allowOptimism.amount.arbAmount || 0).gt(0)) {
-      arb = `\n • ${new BigNumber(allowOptimism.amount.arbAmount || 0).toFixed()} $ARB`
+      arb = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.arbAmount || 0).toFixed(), 0, 6)} $ARB`
     }
 
     if (new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0).gt(0)) {
-      base = `\n • ${new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0).toFixed()} $ETH bridged to @Blast_L2 & @base`
+      base = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0).toFixed(), 0, 6)} $ETH bridged to @Blast_L2 & @base`
     }
 
     const content = `Here is my Ethereum L2 bag:\n${op}${arb}${base}\n\nAnd I can’t wait to stack my Bitcoin L2 bag.\n\nThousands of Bitcoin L2s are arriving, thanks to @BVMnetwork.\n`;
