@@ -1,0 +1,133 @@
+.container {
+  //padding: var(--container-padding);
+  background-size: cover;
+  background-repeat: no-repeat;
+  gap: 80px;
+  width: 100%;
+
+  @include w-min(1920px) {
+    min-height: 800px;
+  }
+
+  .content {
+    width: 100%;
+    padding: var(--container-padding);
+
+    @include w-max(768px) {
+      padding: rem(48px) rem(16px);
+    }
+  }
+
+  .leftSection {
+    padding-top: 100px;
+  }
+
+  .rightSection {
+    @include w-max(768px) {
+      //margin-top: 40px;
+    }
+    .image {
+      width: 704px;
+      height: 542px;
+
+      @include w-max(768px) {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .title {
+    font-size: 68px;
+    font-weight: 400;
+    line-height: 100%;
+    color: #FFFFFF;
+
+    @include w-max(768px) {
+      font-size: 32px;
+    }
+  }
+
+  .subTitle {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 100%;
+    color: #FFFFFF;
+
+    @include w-max(768px) {
+      font-size: 24px;
+    }
+  }
+
+  .hightlight {
+    color: #FF7E21;
+  }
+
+  .desc {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    white-space: pre-wrap;
+
+    @include w-max(768px) {
+      font-size: 16px;
+    }
+  }
+
+  .downloadBtn {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    color: #FFFFFF;
+    height: 48px;
+    padding: 16px 20px;
+    letter-spacing: 0.01em;
+    background: #FA4E0E;
+    border-radius: 0px;
+
+    @include w-max(768px) {
+      width: 100%;
+    }
+  }
+
+  .buildBtn {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #FFFFFF;
+    height: 48px;
+    padding: 16px 0px;
+    letter-spacing: 0.01em;
+    background: transparent !important;
+    border-radius: 100px;
+
+    @include w-max(768px) {
+      width: 100%;
+    }
+  }
+
+  .btnJoinWrapper {
+    display: flex;
+    gap: rem(24px);
+    align-items: center;
+    padding: rem(24px);
+    background: #0A294C99;
+    width: 80%;
+    min-height: 100dvh;
+    position: relative;
+    margin-right: -32px;
+
+    @include w-min(1920px) {
+      margin-right: -32px;
+    }
+
+    @include w-max(768px) {
+      padding: rem(16px);
+      width: 100%;
+      min-height: unset;
+      margin-right: unset;
+    }
+  }
+}
