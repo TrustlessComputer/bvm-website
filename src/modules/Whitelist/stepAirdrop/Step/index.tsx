@@ -120,7 +120,7 @@ export default function ItemCommunity({
                           hideIcon={true}
                           onRefreshEnd={() => setExpireTimeEnd(true)}
                         />
-                        <Text fontSize={"12px"} fontWeight={400} color={"#000000"}>TIME REMAIN</Text>
+                        {!expireTimeEnd && <Text fontSize={"12px"} fontWeight={400} color={"#000000"}>TIME REMAIN</Text>}
                       </Flex>
                     )
                   }
