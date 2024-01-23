@@ -292,14 +292,14 @@ const StepsAirdrop = () => {
           />
         );
       })}
-      <ConnectModal isShow={showConnectModal} onHide={async () => {
+      <ConnectModal isShow={showConnectModal} needVerifyBTCAddress={false} onHide={async () => {
         setShowConnectModal(false);
         const data = AllowListStorage.getStorage();
         if(data) {
           const address = data.address;
-          const resPerceptronsHolders = await getBVMAirdrop({address: 'bc1p9rrm4th75l05pzxuntdrad8z4sf5nxgvns60wth7rll9xe0vwaps5gcln7'});
+          const resPerceptronsHolders = await getBVMAirdrop({address: address});
           AirdropStorage.setIsConnectBitcoinWallet(true);
-          AirdropStorage.setAirdropPerceptronsHolders(JSON.stringify(resPerceptronsHolders));
+          AirdropStorage.setAirdropPerceptronsHolders(resPerceptronsHolders);
         }
       }}/>
     </Flex>
