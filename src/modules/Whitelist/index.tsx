@@ -75,7 +75,7 @@ const Whitelist = () => {
 
   return (
     <BoxContent className={s.container} id={CONTAINER_ID}>
-      <Flex justifyContent={{ base: "space-between" }} alignItems="center" flexDirection={{ base: "column", lg: "row" }} w="100%">
+      <Flex className={s.header} w="100%">
         <Flex flexDirection="column" gap="8px">
           <p className={s.countDown_title}>Public sale starting in</p>
           <Countdown
