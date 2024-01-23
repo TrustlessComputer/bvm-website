@@ -5,13 +5,13 @@ import QRCode from 'react-qr-code';
 import s from './styles.module.scss';
 
 const DownloadBitcoinArcadeModal = ({ isShow, onHide }: any) => {
-  const qrInfo = `https://app.alpha.wtf`;
+  const qrInfo = `https://play.bitcoinarcade.xyz/`;
 
   return (
     <BaseModal
       isShow={isShow}
       onHide={onHide}
-      title={'Download Bitcoin Arcade App'}
+      title={'Download Bitcoin Arcade app'}
       headerClassName={s.modalManualHeader}
       className={s.modalContent}
     >
@@ -28,13 +28,15 @@ const DownloadBitcoinArcadeModal = ({ isShow, onHide }: any) => {
               bg="#F4EADB"
               border="1px solid #FF7E214D"
             >
-              <Text
-                textAlign="left"
-                fontSize={'16px'}
-                fontWeight={600}
-                mb="4px"
-              >
-                Alpha uses progressive web app (PWA) technology that combines the best features of traditional websites and platform-specific apps.
+              <Text>
+                Scan the QR code to download the app.<br/>
+                Or simply open the link in a phone browser:{' '}
+                <a
+                  style={{ textDecoration: 'underline' }}
+                  href={qrInfo}
+                >
+                  {qrInfo}
+                </a>
               </Text>
             </Flex>
           </Box>
