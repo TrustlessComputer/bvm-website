@@ -14,6 +14,10 @@ const initialState: UserState = {
     status: [],
     loaded: false
   },
+  airdropAlphaUsers: null,
+  airdropGMHolders: null,
+  airdropGenerativeUsers: null,
+  airdropPerceptronsHolders: null,
 } as any;
 
 const slice = createSlice({
@@ -48,6 +52,18 @@ const slice = createSlice({
         };
       }
     },
+    setAirdropAlphaUsers: (state, action) => {
+      state.airdropAlphaUsers = action.payload;
+    },
+    setAirdropGMHolders: (state, action) => {
+      state.airdropGMHolders = action.payload;
+    },
+    setAirdropGenerativeUsers: (state, action) => {
+      state.airdropGenerativeUsers = action.payload;
+    },
+    setAirdropPerceptronsHolders: (state, action) => {
+      state.airdropPerceptronsHolders = action.payload;
+    },
   },
 });
 
@@ -56,7 +72,11 @@ export const {
   setLeaderBoard,
   setAllowBTC,
   setAllowCelestia,
-  setAllowEVM
+  setAllowEVM,
+  setAirdropAlphaUsers,
+  setAirdropGMHolders,
+  setAirdropGenerativeUsers,
+  setAirdropPerceptronsHolders,
 } = slice.actions;
 
 export default slice.reducer;

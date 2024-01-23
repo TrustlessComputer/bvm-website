@@ -3,15 +3,32 @@ import { Button, Flex, Text } from '@chakra-ui/react';
 import cs from 'classnames';
 import cx from 'clsx';
 import Image from 'next/image';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import { ALLOWED_ATTRIBUTES } from '@/constants/constants';
 import sanitizeHtml from 'sanitize-html';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import utc from 'dayjs/plugin/utc';
+import {
+  airdropAlphaUsersSelector,
+  airdropGenerativeUsersSelector,
+  airdropGMHoldersSelector, airdropPerceptronsHoldersSelector,
+  userSelector,
+} from '@/stores/states/user/selector';
+import { useSelector } from 'react-redux';
+import { formatCurrency } from '@/utils/format';
+import { useAppSelector } from '@/stores/hooks';
 
 dayjs.extend(utc);
+
+export enum AirdropStep {
+  timeChain,
+  generativeUsers,
+  perceptronsHolders,
+  gmHolders,
+  alphaUsers,
+}
 
 export enum AirdropType {
   NONE,
@@ -39,7 +56,8 @@ export interface IItemCommunity {
   expiredTime?: string;
   isDisable?: boolean;
   showExpireTime?: boolean;
-  airdropType: AirdropType
+  airdropType: AirdropType,
+  step: AirdropStep
 }
 
 export default function ItemCommunity({
@@ -52,10 +70,18 @@ export default function ItemCommunity({
   isLoading?: boolean;
 }) {
   const { isActive, image, isDisable = false } = content;
+  const airdropAlphaUsers = useSelector(airdropAlphaUsersSelector);
+  const airdropGMHolders = useSelector(airdropGMHoldersSelector);
+  const airdropGenerativeUsers = useSelector(airdropGenerativeUsersSelector);
+  const airdropPerceptronsHolders = useSelector(airdropPerceptronsHoldersSelector);
+  const user = useAppSelector(userSelector);
+  const [expireTimeEnd, setExpireTimeEnd] = useState(false);
 
   const isRunning = useMemo(() => {
     return isActive;
   }, [isActive, index]);
+
+  console.log('airdropGMHolders', airdropGMHolders);
 
   return (
     <>
@@ -87,7 +113,12 @@ export default function ItemCommunity({
                   {
                     content?.showExpireTime && !!content?.expiredTime && (
                       <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
-                        <Countdown className={s.itemCommunity__countdown} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} />
+                        <Countdown
+                          className={s.itemCommunity__countdown}
+                          expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()}
+                          hideIcon={true}
+                          onRefreshEnd={() => setExpireTimeEnd(true)}
+                        />
                         <Text fontSize={"12px"} fontWeight={400} color={"#000000"}>TIME REMAIN</Text>
                       </Flex>
                     )
@@ -122,7 +153,12 @@ export default function ItemCommunity({
                   {
                     !content?.showExpireTime && !!content?.expiredTime ? (
                       <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
-                        <Countdown className={s.itemCommunity__countdown_button} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} />
+                        <Countdown
+                          className={s.itemCommunity__countdown_button}
+                          expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()}
+                          hideIcon={true}
+                          onRefreshEnd={() => setExpireTimeEnd(true)}
+                        />
                       </Flex>
                     ) : (content?.actionText)
                   }
@@ -142,6 +178,7 @@ export default function ItemCommunity({
                         content?.actionHandleSecondary();
                       }
                     }}
+                    isLoading={isLoading}
                   >
                     {content?.actionTextSecondary}
                   </Button>
@@ -149,6 +186,52 @@ export default function ItemCommunity({
               </Flex>
             </Flex>
           )}
+          <Flex>
+            {
+              content?.step === AirdropStep.alphaUsers && airdropAlphaUsers && (
+                <Text color={"#000000"}>{user?.twitter_name} - Airdrop: {formatCurrency(airdropAlphaUsers?.balance)} $BVM - Vesting at: {dayjs(airdropAlphaUsers?.claimeable_at).format('YYYY-MM-DD')}</Text>
+              )
+            }
+            {
+              content?.step === AirdropStep.gmHolders && (
+                <>
+                  {
+                    airdropGMHolders ? (
+                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropAlphaUsers?.balance)} $BVM - Vesting at: {dayjs(airdropAlphaUsers?.claimeable_at).format('YYYY-MM-DD')}</Text>
+                    ) : (
+                      <Text color={"#000000"}>Your wallet do not have airdrop</Text>
+                    )
+                  }
+                </>
+              )
+            }
+            {
+              content?.step === AirdropStep.generativeUsers && (
+                <>
+                  {
+                    airdropGenerativeUsers ? (
+                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropGenerativeUsers?.balance)} $BVM - Vesting at: {dayjs(airdropGenerativeUsers?.claimeable_at).format('YYYY-MM-DD')}</Text>
+                    ) : (
+                      <Text color={"#000000"}>Your wallet do not have airdrop</Text>
+                    )
+                  }
+                </>
+              )
+            }
+            {
+              content?.step === AirdropStep.perceptronsHolders && (
+                <>
+                  {
+                    airdropGenerativeUsers ? (
+                      <Text color={"#000000"}>Airdrop: {formatCurrency(airdropPerceptronsHolders?.balance)} $BVM - Vesting at: {dayjs(airdropPerceptronsHolders?.claimeable_at).format('YYYY-MM-DD')}</Text>
+                    ) : (
+                      <Text color={"#000000"}>Your wallet do not have airdrop</Text>
+                    )
+                  }
+                </>
+              )
+            }
+          </Flex>
         </Flex>
       </div>
     </>

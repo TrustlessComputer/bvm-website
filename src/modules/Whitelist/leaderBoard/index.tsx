@@ -372,7 +372,7 @@ const LeaderBoard = (props: IProps) => {
                   {formatCurrency(data?.refer_point, 0, 0)}
                 </Text>
                 {data.need_active && !Number(data?.refer_point || '0') && (
-                  <button onClick={handleShareRefferal} className={styles.button}>GET</button>
+                  <button id="copy-button" onClick={handleShareRefferal} className={styles.button}>GET</button>
                 )}
               </Flex>
             </Flex>

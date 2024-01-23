@@ -64,12 +64,12 @@ const useConnect = () => {
         signature,
       };
       console.log('signMessageUnisat: ', params, await messageVerifier(params));
-      await verifyBTCSignature({
-        address,
-        pubKey,
-        message,
-        signature
-      });
+      // await verifyBTCSignature({
+      //   address,
+      //   pubKey,
+      //   message,
+      //   signature
+      // });
       toast.success("Successfully.")
       await AllowListStorage.setStorage({
         address: params.address,

@@ -99,9 +99,9 @@
   margin-left: auto;
   margin-right: auto;
   background: linear-gradient(
-                  -90deg,
-                  rgba(225, 225, 225, .07) 0,
-                  rgba(225, 225, 225, 0) 100%
+      -90deg,
+      rgba(225, 225, 225, .07) 0,
+      rgba(225, 225, 225, 0) 100%
   );
 
   transform: translateX(-20px);
@@ -125,11 +125,36 @@
 
   &_line {
     position: absolute;
-    top: 50%;
+    top: calc(50% - 10px);
     left: calc(50% - 5px);
     transform: translateX(-50%);
     pointer-events: none;
     z-index: 5;
+
+    &_inner {
+      position: relative;
+    }
+
+    img {
+
+      mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(171, 171, 171, 0) 100%);
+      -webkit-mask-position-x: -132px;
+      mask-repeat: no-repeat;
+      animation: looparrwos 4s ease-out infinite;
+      width: 115%;
+      height: auto;
+      display: block;
+      max-width: inherit;
+
+      &:nth-child(2) {
+        width: 115%;
+        height: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation-delay: 2s;
+      }
+    }
   }
 
   &_gradient {
@@ -142,9 +167,9 @@
     z-index: 2;
     pointer-events: none;
     background: linear-gradient(
-                    90deg,
-                    rgba(0, 0, 0, 1) var(--bg),
-                    rgba(171, 171, 171, 0) 100%
+        90deg,
+        rgba(0, 0, 0, 1) var(--bg),
+        rgba(171, 171, 171, 0) 100%
     );
   }
 }
@@ -198,17 +223,17 @@
     position: absolute;
     color: #FFF;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
     font-style: normal;
     font-weight: 400;
     line-height: 140%; /* 19.6px */
     letter-spacing: 0.28px;
+    top: -60px;
+    right: -45px;
     text-transform: uppercase;
-    top: -54px;
-    right: 3px;
 
     @include is-min-table {
-      right: 72px;
+      right: 25px;
     }
   }
 }
@@ -302,4 +327,13 @@
   left: 0;
   pointer-events: none;
   background: rgba(255, 255, 255, var(--bg));
+}
+
+@keyframes looparrwos {
+  0% {
+    -webkit-mask-position-x: -132px;
+  }
+  100% {
+    -webkit-mask-position-x: 132px;
+  }
 }

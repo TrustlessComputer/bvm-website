@@ -2,24 +2,62 @@ import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { Flex, Tooltip } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useState } from 'react';
-import ItemStep, { AirdropType, IItemCommunity } from './Step';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import ItemStep, { AirdropStep, AirdropType, IItemCommunity } from './Step';
 import s from './styles.module.scss';
-import { getRaffleJoin, joinRaffle } from '@/services/player-share';
+import {
+  generateTokenWithTwPost,
+  getBVMAirdrop, getGenerativeProfile,
+  getRaffleJoin,
+  joinRaffle,
+  requestAuthenByShareCode,
+} from '@/services/player-share';
 import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
 import { CDN_URL_ICONS } from '@/config';
 import { LearnMore } from '@/modules/Whitelist/stepsEco';
+import { userSelector } from '@/stores/states/user/selector';
+import { getLink } from '@/utils/helpers';
+import { setBearerToken } from '@/services/whitelist';
+import { requestReload } from '@/stores/states/common/reducer';
+import { useDispatch } from 'react-redux';
+import { IAuthenCode } from '@/modules/Whitelist/steps';
+import {
+  setAirdropAlphaUsers,
+  setAirdropGenerativeUsers,
+  setAirdropGMHolders,
+  setAirdropPerceptronsHolders,
+} from '@/stores/states/user/reducer';
+import { signMessage } from '@/utils/metamask-helper';
+import ConnectModal from '@/components/ConnectModal';
+import AllowListStorage from '@/utils/storage/allowlist.storage';
+
+export const getMessageEVM = (address: string) => {
+  return `Verify you are the owner of the wallet ${address}`;
+}
 
 const StepsAirdrop = () => {
   const token = AuthenStorage.getAuthenKey();
   const needReload = useAppSelector(commonSelector).needReload;
   const [raffleCode, setRaffleCode] = useState();
+  const user = useAppSelector(userSelector);
+  const timer = useRef<any>();
+  const [submitting, setSubmitting] = useState(false);
+  const dispatch = useDispatch();
+  const [authenCode, setAuthenCode] = useState<IAuthenCode>();
+  const [showManualCheck, setShowManualCheck] = useState(false);
+  const [showConnectModal, setShowConnectModal] = useState(false);
 
   useEffect(() => {
     if(token) {
       getRaffleJoinInfo();
     }
   }, [token, needReload]);
+
+  useEffect(() => {
+    if(user?.twitter_id) {
+      getAlphaUsersAirdrop();
+    }
+  }, [user?.twitter_id]);
 
   const getRaffleJoinInfo = async () => {
     const res = await getRaffleJoin();
@@ -38,8 +76,77 @@ const StepsAirdrop = () => {
     }, 1000);
   };
 
-  const handleClaimRetrospective = () => {
+  const getAlphaUsersAirdrop = async () => {
+    const res = await getBVMAirdrop({address: user?.twitter_id});
+    dispatch(setAirdropAlphaUsers(res));
+  }
 
+  const handleShareTwToSignIn = async () => {
+    let code = '';
+    const res: any = await requestAuthenByShareCode();
+    setAuthenCode(res);
+    code = `\n\n#${res?.public_code}`
+
+    const shareUrl = getLink( '');
+    const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
+
+    window.open(
+      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+        content,
+      )}`,
+      '_blank',
+    );
+  }
+
+  useEffect(() => {
+    if (authenCode?.public_code) {
+      setSubmitting(true);
+      timer.current = setInterval(async () => {
+        handleVerifyTwitter();
+      }, 5000);
+    }
+    return () => {
+      clearInterval(timer.current);
+    };
+  }, [authenCode?.public_code]);
+
+  const handleVerifyTwitter = async (): Promise<void> => {
+    try {
+      const result = await generateTokenWithTwPost(authenCode?.secret_code as string);
+      onVerifyTwSuccess(result);
+    } catch (err) {
+      console.log('handleVerifyTwitter', err);
+    }
+  };
+
+  const onVerifyTwSuccess = (result: any) => {
+    if (result) {
+      clearInterval(timer.current);
+      const twitterToken = AuthenStorage.getAuthenKey();
+      if (!twitterToken || twitterToken !== result?.token) {
+        AuthenStorage.setAuthenKey(result?.token);
+        setBearerToken(result?.token);
+      }
+      setSubmitting(false);
+      dispatch(requestReload());
+      setShowManualCheck(false);
+    }
+  }
+
+  const handleVerifyWallet = async () => {
+    const {address, signature, message} = await signMessage(getMessageEVM);
+
+    const resGMHolders = await getBVMAirdrop({address: address});
+    dispatch(setAirdropGMHolders(resGMHolders));
+
+    const generativeProfile = await getGenerativeProfile(address);
+
+    if (generativeProfile?.walletAddressBtcTaproot) {
+      const resGenerativeUsers = await getBVMAirdrop({address: generativeProfile?.walletAddressBtcTaproot});
+      dispatch(setAirdropGenerativeUsers(resGenerativeUsers));
+    }
+
+    console.log('generativeProfile', generativeProfile);
   }
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
@@ -80,16 +187,17 @@ const StepsAirdrop = () => {
         },
         expiredTime: '2024-01-24 08:00:00',
         showExpireTime: true,
-        airdropType: AirdropType.NEW
+        airdropType: AirdropType.NEW,
+        step: AirdropStep.timeChain,
       },
       {
         title: 'Generative users',
         desc: `Proportional to key holding.<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Claim',
+        actionText: 'Connect',
         image: "time-chain2.svg",
-        actionHandle: handleClaimRetrospective,
+        actionHandle: handleVerifyWallet,
         isActive: true,
         isDisable: true,
         right: {
@@ -98,16 +206,17 @@ const StepsAirdrop = () => {
         },
         expiredTime: '2024-01-24 03:00:00',
         showExpireTime: false,
-        airdropType: AirdropType.RETROSPECTIVE
+        airdropType: AirdropType.RETROSPECTIVE,
+        step: AirdropStep.generativeUsers,
       },
       {
         title: 'Perceptrons holders',
         desc: `Proportional to the number of Perceptrons you hold.<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Claim',
+        actionText: 'Connect',
         image: "perceptron_thumb_03.jpg",
-        actionHandle: handleClaimRetrospective,
+        actionHandle: handleVerifyWallet,
         isActive: true,
         isDisable: true,
         right: {
@@ -116,16 +225,21 @@ const StepsAirdrop = () => {
         },
         expiredTime: '2024-01-24 03:00:00',
         showExpireTime: false,
-        airdropType: AirdropType.RETROSPECTIVE
+        airdropType: AirdropType.RETROSPECTIVE,
+        step: AirdropStep.perceptronsHolders,
+        actionHandleSecondary: () => {
+          setShowConnectModal(true);
+        },
+        actionTextSecondary: 'Other connect',
       },
       {
         title: 'GM holders',
         desc: `Proportionally based on GM balance - min holding: 1 $GM<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Claim',
+        actionText: 'Connect',
         image: "gm.svg",
-        actionHandle: handleClaimRetrospective,
+        actionHandle: handleVerifyWallet,
         isActive: true,
         isDisable: true,
         right: {
@@ -134,16 +248,17 @@ const StepsAirdrop = () => {
         },
         expiredTime: '2024-01-24 03:00:00',
         showExpireTime: false,
-        airdropType: AirdropType.RETROSPECTIVE
+        airdropType: AirdropType.RETROSPECTIVE,
+        step: AirdropStep.gmHolders,
       },
       {
         title: 'Alpha users',
         desc: `Proportionally based on Airdrop Points - min Airdrop Points: 100,000<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
-        actionText: 'Claim',
+        actionText: 'Link account',
         image: "alpha.svg",
-        actionHandle: handleClaimRetrospective,
+        actionHandle: handleShareTwToSignIn,
         isActive: true,
         isDisable: true,
         right: {
@@ -152,7 +267,12 @@ const StepsAirdrop = () => {
         },
         expiredTime: '2024-01-24 03:00:00',
         showExpireTime: false,
-        airdropType: AirdropType.RETROSPECTIVE
+        airdropType: AirdropType.RETROSPECTIVE,
+        // actionHandleSecondary: () => {
+        //   handleShareTwToSignIn();
+        // },
+        // actionTextSecondary: 'Switch account',
+        step: AirdropStep.alphaUsers,
       },
     ];
   }, [token, needReload, raffleCode]);
@@ -172,10 +292,20 @@ const StepsAirdrop = () => {
             key={index}
             index={index}
             content={item}
-            isLoading={false}
+            isLoading={item.step === AirdropStep.alphaUsers && submitting}
           />
         );
       })}
+      <ConnectModal isShow={showConnectModal} onHide={async () => {
+        setShowConnectModal(false);
+        const data = AllowListStorage.getStorage();
+        if(data) {
+          console.log('dataaaaaa', data);
+          const address = data[0]?.address;
+          const resPerceptronsHolders = await getBVMAirdrop({address: address});
+          dispatch(setAirdropPerceptronsHolders(resPerceptronsHolders));
+        }
+      }}/>
     </Flex>
   );
 };

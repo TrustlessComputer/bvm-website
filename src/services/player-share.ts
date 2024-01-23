@@ -122,3 +122,25 @@ export const getVCInformation = async ({vc_type}: any): Promise<VCInfo> => {
   const res = (await apiClient.get(`/bvm/vc/info?vc_type=${vc_type}`)) as unknown as VCInfo;
   return res;
 }
+
+export const getBVMAirdrop = async (params: any): Promise<any> => {
+  try {
+    const res = await apiClient.get(`/bvm/airdrop`, { params });
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
+
+export const getGenerativeProfile = async (address: string): Promise<any> => {
+  try {
+    const res = await apiClient.get(`https://generative.xyz/generative/api/profile/wallet/${address}`, );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
