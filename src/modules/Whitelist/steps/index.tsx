@@ -11,7 +11,8 @@ import {
   requestClaimBTCPoint,
   requestClaimCelestiaPoint,
   requestClaimEVMPoint,
-  setBearerToken, verifyEVMSignature,
+  setBearerToken,
+  verifyEVMSignature,
 } from '@/services/whitelist';
 import ConnectModal from '@/components/ConnectModal';
 import useToggle from '@/hooks/useToggle';
@@ -33,7 +34,6 @@ import { getEVMNetworkByFieldType } from '@/modules/Whitelist/utils';
 import useFormatAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useFormatAllowEVM';
 import { signMessage as signEVMMessage } from '@/utils/metamask-helper';
 import { EVMFieldType } from '@/stores/states/user/types';
-import { AirdropType } from '@/modules/Whitelist/stepAirdrop/Step';
 
 export interface IAuthenCode {
   public_code: string;
