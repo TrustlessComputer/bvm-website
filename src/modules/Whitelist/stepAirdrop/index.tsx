@@ -57,7 +57,7 @@ const StepsAirdrop = () => {
         actionHandle: handleShareTw,
         isActive: !!token,
         right: {
-          title: `Your raffle code: ${raffleCode}` || '+1 raffle ticket',
+          title: raffleCode ? `Your raffle code: ${raffleCode}` : '+1 raffle ticket',
           desc: '',
           tooltip: (
             <Tooltip
