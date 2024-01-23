@@ -11,7 +11,7 @@ const DownloadAlphaModal = ({ isShow, onHide }: any) => {
     <BaseModal
       isShow={isShow}
       onHide={onHide}
-      title={'Download Alpha App'}
+      title={'Scan the QR code to download the app.'}
       headerClassName={s.modalManualHeader}
       className={s.modalContent}
     >
@@ -28,13 +28,13 @@ const DownloadAlphaModal = ({ isShow, onHide }: any) => {
               bg="#F4EADB"
               border="1px solid #FF7E214D"
             >
-              <Text
-                textAlign="left"
-                fontSize={'16px'}
-                fontWeight={600}
-                mb="4px"
-              >
-                Alpha uses progressive web app (PWA) technology that combines the best features of traditional websites and platform-specific apps.
+              <Text>Or simply open the link in a phone browser:{' '}
+                <a
+                  style={{ textDecoration: 'underline' }}
+                  href={qrInfo}
+                >
+                  {qrInfo}
+                </a>
               </Text>
             </Flex>
           </Box>
