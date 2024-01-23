@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { TIME_CHAIN_EXPIRED_TIME } from '@/modules/Whitelist/stepAirdrop';
 import useElementSize from '@/hooks/useElementSize';
 import TimeChainStorage from '@/utils/storage/timechain.storage';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Tooltip } from '@chakra-ui/react';
 import { CDN_URL_ICONS } from '@/config';
 
 interface IProps {
@@ -38,22 +38,38 @@ const TimechainBanner = React.memo(({ setTabIndex }: IProps) => {
   return (
     <div className={styles.container} id="TIME_CHAIN_BANNER">
       <div className={styles.content}>
-        <Flex gap="12px">
-          <img style={{ width: 48 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>
-          <Flex flexDirection="column" gap="8px">
-            <p className={styles.container_title}>Join giveaway</p>
-            <Countdown
-              className={styles.container_time}
-              expiredTime={dayjs.utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
-              hideIcon={true}
-              onRefreshEnd={() => setIsEnd(true)}
-              showDay={false}
-            />
+        <Tooltip
+          minW="220px"
+          bg="white"
+          boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+          borderRadius="4px"
+          padding="8px"
+          label={
+            <Flex direction="column" color="black" opacity={0.7}>
+              <p>Bitcoin's first long-form gen art collection: Timechain (Inscription ID: 39554)</p>
+            </Flex>
+          }
+        >
+          <Flex gap="12px">
+            <img style={{ width: 48 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>
+            <Flex flexDirection="column" gap="8px">
+              <p className={styles.container_title}>Join giveaway</p>
+              <Countdown
+                className={styles.container_time}
+                expiredTime={dayjs.utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
+                hideIcon={true}
+                onRefreshEnd={() => setIsEnd(true)}
+                showDay={false}
+              />
+            </Flex>
           </Flex>
-        </Flex>
+        </Tooltip>
         <Flex flexDirection="column" gap="8px">
           <p className={styles.container_title}>FLOOR PRICE</p>
           <p className={styles.container_price}>$3,200</p>
+          <p className={styles.container_more} onClick={() => {
+            window.open("https://twitter.com/BVMnetwork/status/1748299995898691711")
+          }}>Learn more</p>
         </Flex>
       </div>
       <button className={styles.cta} onClick={() => setTabIndex(1)}>
