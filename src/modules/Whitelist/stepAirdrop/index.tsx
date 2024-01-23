@@ -10,6 +10,8 @@ import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
 import { CDN_URL_ICONS } from '@/config';
 import { LearnMore } from '@/modules/Whitelist/stepsEco';
 
+export const TIME_CHAIN_EXPIRED_TIME = '2024-01-24 08:00:00';
+
 const StepsAirdrop = () => {
   const token = AuthenStorage.getAuthenKey();
   const needReload = useAppSelector(commonSelector).needReload;
@@ -78,7 +80,7 @@ const StepsAirdrop = () => {
             </Tooltip>
           )
         },
-        expiredTime: '2024-01-24 08:00:00',
+        expiredTime: TIME_CHAIN_EXPIRED_TIME,
         showExpireTime: true,
         airdropType: AirdropType.NEW
       },
