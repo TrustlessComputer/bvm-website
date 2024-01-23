@@ -55,7 +55,7 @@ const Countdown: React.FC<IProps> = ({
 
       {ended && <Text className={s.text}>Ended</Text>}
       {!ended && (
-        <Text className={s.text}>{`${showDay ? `${days}d ` : ''}${hours}h:${minutes}m:${seconds}s`}</Text>
+        <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m : ${seconds}s`}</Text>
       )}
     </div>
   );
