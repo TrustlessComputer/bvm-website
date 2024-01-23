@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import ItemStep, { IItemCommunity, MultiplierStep } from './Step';
+import ItemStep, { IItemCommunity, MultiplierStep, StepTagType } from './Step';
 import s from './styles.module.scss';
 import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/player-share';
 import { getLink, shareBTCOG, shareReferralURL } from '@/utils/helpers';
@@ -33,6 +33,7 @@ import { getEVMNetworkByFieldType } from '@/modules/Whitelist/utils';
 import useFormatAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useFormatAllowEVM';
 import { signMessage as signEVMMessage } from '@/utils/metamask-helper';
 import { EVMFieldType } from '@/stores/states/user/types';
+import { AirdropType } from '@/modules/Whitelist/stepAirdrop/Step';
 
 export interface IAuthenCode {
   public_code: string;
@@ -175,8 +176,7 @@ const Steps = () => {
       'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
     const isNeedClaimBTCPoint = allowBTC.isUnclaimed;
     const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed;
-    // const isNeedClaimOptimismPoint = allowOptimism.isUnclaimed;
-    const isNeedClaimOptimismPoint = true
+    const isNeedClaimOptimismPoint = allowOptimism.isUnclaimed;
     const authenTask =  {
       title: 'Tweet about BVM',
       desc: 'Tweet as often as you like & tag @BVMnetwork to rank up.',
@@ -192,6 +192,34 @@ const Steps = () => {
       handleShowManualPopup: handleShowManualPopup,
     };
     const tasks = [
+      {
+        title: 'Are you an L2 maxi?',
+        desc: 'The more ETH you staked on Blast or the more Optimism (OP) tokens you hold, the more points you’ll get. Connect your MetaMask wallet to prove the account ownership.',
+        actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 maxi are you?',
+        actionHandle: isNeedClaimOptimismPoint ? async () => {
+          onShareOptimism();
+          await requestClaimEVMPoint({
+            status: allowOptimism.status,
+            network: getEVMNetworkByFieldType('allowOptimism')
+          })
+          dispatch(requestReload())
+        } : () => {
+          onSignEVM('allowOptimism')
+        },
+        actionTextSecondary: isNeedClaimOptimismPoint ? "Verify another wallet" : undefined,
+        actionHandleSecondary: isNeedClaimOptimismPoint ? () => {
+          onSignEVM('allowOptimism')
+        } : undefined,
+        isActive: !!token,
+        isDone: !!token,
+        step: MultiplierStep.evm,
+        image: "blast_op.svg",
+        tag: StepTagType.NEW,
+        right: {
+          title: '+100 PTS',
+          desc: 'per Ξ 0.005 or 4 OP'
+        }
+      },
       {
         title: 'Refer a fren to BVM',
         desc: 'Spread the love to your frens, team, and communities.',
@@ -227,33 +255,6 @@ const Steps = () => {
         right: {
           title: '+10 PTS',
           desc: 'per 1000 sats'
-        }
-      },
-      {
-        title: 'Are you an L2 maxi?',
-        desc: 'The more ETH you staked on Blast or the more Optimism (OP) tokens you hold, the more points you’ll get. Connect your MetaMask wallet to prove the account ownership.',
-        actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 maxi are you?',
-        actionHandle: isNeedClaimOptimismPoint ? async () => {
-          onShareOptimism();
-          await requestClaimEVMPoint({
-            status: allowOptimism.status,
-            network: getEVMNetworkByFieldType('allowOptimism')
-          })
-          dispatch(requestReload())
-        } : () => {
-          onSignEVM('allowOptimism')
-        },
-        actionTextSecondary: isNeedClaimOptimismPoint ? "Verify another wallet" : undefined,
-        actionHandleSecondary: isNeedClaimOptimismPoint ? () => {
-          onSignEVM('allowOptimism')
-        } : undefined,
-        isActive: !!token,
-        isDone: !!token,
-        step: MultiplierStep.evm,
-        image: "blast_op.svg",
-        right: {
-          title: '+100 PTS',
-          desc: 'per Ξ 0.005 or 4 OP'
         }
       },
       {
