@@ -6,10 +6,12 @@ import s from './styles.module.scss';
 import VerifyBVMModal from './VerifyBVMModal';
 import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
 import { CDN_URL_ICONS } from '@/config';
+import DownloadAlphaModal from '@/modules/Whitelist/stepsEco/DownloadAlphaModal';
+import DownloadBitcoinArcadeModal from '@/modules/Whitelist/stepsEco/DownloadBitcoinArcadeModal';
 
 export const LearnMore = (href: string) => {
   return `<a href='${href}' style="color: #FA4E0E" target="_blank">
-      <div style="display: flex; flex-direction: row; align-items: center; gap: 4px;">
+      <div style="display: inline-flex; flex-direction: row; align-items: center; gap: 4px;">
         <p>Learn more</p>
         <img style="width: 16px; height: 16px;" src="https://storage.googleapis.com/tc-cdn-prod/nbc/icons/bvm-icons/arrow-right.svg" />
       </div>
@@ -19,6 +21,8 @@ export const LearnMore = (href: string) => {
 const StepsEco = () => {
   const token = AuthenStorage.getAuthenKey();
   const [showSyncBVM, setShowSyncBVM] = useState(false);
+  const [showDownloadAlphaApp, setShowDownloadAlphhaApp] = useState(false);
+  const [showDownloadBitcoinArcadeApp, setShowDownloadBitcoinArcadeApp] = useState(false);
 
   const handleShareTw = async () => {
     const content = `Exciting days for Bitcoin L2 with @BVMnetwork!\n\n@Naka_chain, powered by BVM, is exclusively built for BRC-20 DeFi with 2s block time, gas fees of less than $0.01, and supported by smart contracts.\n\nLet's make DeFi on Bitcoin accessible to everyone!\n\nnakachain.xyz`;
@@ -46,15 +50,16 @@ const StepsEco = () => {
       //   },
       // },
       {
-        project: 'Alpha',
-        title: 'Crypto Bull Run',
-        desc: `Run to get fit in reality, engage online in a Web3 environment, and raise funds for charity all at once!
-          ${LearnMore('https://alpha.wtf/')}
+        project: 'Bitcoin L2 for SoFi',
+        title: 'Alpha',
+        desc: `<span style='font-style: italic'>The first social app on Bitcoin.</span>
+          ${LearnMore('https://alpha.wtf/')}<br/>
+          Join Running Bitcoin for a cause. For every kilometer you run, you help raise funds for charity and also earn 1,000 PTS.
         `,
-        actionText: 'Run',
+        actionText: 'Download app',
         image: 'alpha.svg',
         actionHandle: () => {
-          window.open('https://app.alpha.wtf/');
+          setShowDownloadAlphhaApp(true);
         },
         isActive: !!token,
         right: {
@@ -82,12 +87,14 @@ const StepsEco = () => {
         },
       },
       {
-        project: 'NakaChain',
-        title: 'Swap and Add Liquidity on Naka Genesis',
-        desc: `The higher the volume you make the more airdrop points you will get. ${LearnMore(
+        project: 'Bitcoin L2 for DeFi',
+        title: 'NakaChain',
+        desc: `<span style='font-style: italic'>A low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps.</span>${LearnMore(
           'https://nakachain.xyz/',
-        )}`,
-        actionText: 'Connect',
+        )}<br/>
+        Swap and add liquidity on Naka Genesis to earn points. The higher the volume you make the more airdrop points you will get.
+        `,
+        actionText: 'Connect Naka Genesis',
         image: 'ic-naka.svg',
         actionHandle: () => {
           setShowSyncBVM(true);
@@ -99,15 +106,17 @@ const StepsEco = () => {
         },
       },
       {
-        project: 'Bitcoin Arcade',
-        title: "Experience fully on-chain games.",
-        desc: `Get rewarded with 1,000 PTS for every match you play on Bitcoin Arcade. Have fun, play, and earn more points.${LearnMore(
+        project: 'Bitcoin L2 for GameFi',
+        title: "Bitcoin Arcade",
+        desc: `<span style='font-style: italic'>The first ever fully on-chain gaming blockchain on Bitcoin.</span>${LearnMore(
           'https://bitcoinarcade.xyz/',
-        )}`,
-        actionText: 'Play',
+        )}<br/>
+        Get rewarded with 1,000 PTS for every match you play on Bitcoin Arcade. Have fun, play, and earn more points.
+        `,
+        actionText: 'Download app',
         image: 'bitcoin-arcade.svg',
         actionHandle: () => {
-          window.open('https://bitcoinarcade.xyz/');
+          setShowDownloadBitcoinArcadeApp(true);
         },
         isActive: !!token,
         right: {
@@ -142,6 +151,22 @@ const StepsEco = () => {
           isShow={showSyncBVM}
           onHide={() => {
             setShowSyncBVM(false);
+          }}
+        />
+      )}
+      {showDownloadAlphaApp && (
+        <DownloadAlphaModal
+          isShow={showDownloadAlphaApp}
+          onHide={() => {
+            setShowDownloadAlphhaApp(false);
+          }}
+        />
+      )}
+      {showDownloadBitcoinArcadeApp && (
+        <DownloadBitcoinArcadeModal
+          isShow={showDownloadBitcoinArcadeApp}
+          onHide={() => {
+            setShowDownloadBitcoinArcadeApp(false);
           }}
         />
       )}

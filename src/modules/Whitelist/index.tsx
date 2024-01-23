@@ -24,7 +24,7 @@ import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
-export const PUBLIC_SALE_START = '2024-01-30 00:00:00'
+export const PUBLIC_SALE_START = '2024-01-30 03:30:00'
 
 const Whitelist = () => {
   useAllowBTC();
@@ -75,7 +75,7 @@ const Whitelist = () => {
 
   return (
     <BoxContent className={s.container} id={CONTAINER_ID}>
-      <Flex justifyContent={{ base: "space-between" }} alignItems="center" flexDirection={{ base: "column", lg: "row" }} w="100%">
+      <Flex className={s.header} w="100%">
         <Flex flexDirection="column" gap="8px">
           <p className={s.countDown_title}>Public sale starting in</p>
           <Countdown
