@@ -213,7 +213,7 @@ const Steps = () => {
         isActive: !!token,
         isDone: !!token,
         step: MultiplierStep.evm,
-        image: "ic-l2.svg",
+        image: "ic-l2.jpg",
         tag: StepTagType.NEW,
         right: {
           title: '+100 PTS',
