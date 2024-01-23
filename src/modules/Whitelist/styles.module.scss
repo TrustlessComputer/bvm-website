@@ -162,6 +162,7 @@
         font-style: normal;
         font-weight: 500;
         line-height: 100%;
+        text-transform: uppercase;
         @include is-mobile {
           font-size: 35px;
         }
