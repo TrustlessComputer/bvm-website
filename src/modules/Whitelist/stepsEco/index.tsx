@@ -6,6 +6,8 @@ import s from './styles.module.scss';
 import VerifyBVMModal from './VerifyBVMModal';
 import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
 import { CDN_URL_ICONS } from '@/config';
+import DownloadAlphaModal from '@/modules/Whitelist/stepsEco/DownloadAlphaModal';
+import DownloadBitcoinArcadeModal from '@/modules/Whitelist/stepsEco/DownloadBitcoinArcadeModal';
 
 export const LearnMore = (href: string) => {
   return `<a href='${href}' style="color: #FA4E0E" target="_blank">
@@ -19,6 +21,8 @@ export const LearnMore = (href: string) => {
 const StepsEco = () => {
   const token = AuthenStorage.getAuthenKey();
   const [showSyncBVM, setShowSyncBVM] = useState(false);
+  const [showDownloadAlphaApp, setShowDownloadAlphhaApp] = useState(false);
+  const [showDownloadBitcoinArcadeApp, setShowDownloadBitcoinArcadeApp] = useState(false);
 
   const handleShareTw = async () => {
     const content = `Exciting days for Bitcoin L2 with @BVMnetwork!\n\n@Naka_chain, powered by BVM, is exclusively built for BRC-20 DeFi with 2s block time, gas fees of less than $0.01, and supported by smart contracts.\n\nLet's make DeFi on Bitcoin accessible to everyone!\n\nnakachain.xyz`;
@@ -51,10 +55,10 @@ const StepsEco = () => {
         desc: `Run to get fit in reality, engage online in a Web3 environment, and raise funds for charity all at once!
           ${LearnMore('https://alpha.wtf/')}
         `,
-        actionText: 'Run',
+        actionText: 'Download app',
         image: 'alpha.svg',
         actionHandle: () => {
-          window.open('https://app.alpha.wtf/');
+          setShowDownloadAlphhaApp(true);
         },
         isActive: !!token,
         right: {
@@ -104,10 +108,10 @@ const StepsEco = () => {
         desc: `Get rewarded with 1,000 PTS for every match you play on Bitcoin Arcade. Have fun, play, and earn more points.${LearnMore(
           'https://bitcoinarcade.xyz/',
         )}`,
-        actionText: 'Play',
+        actionText: 'Download app',
         image: 'bitcoin-arcade.svg',
         actionHandle: () => {
-          window.open('https://bitcoinarcade.xyz/');
+          setShowDownloadBitcoinArcadeApp(true);
         },
         isActive: !!token,
         right: {
@@ -142,6 +146,22 @@ const StepsEco = () => {
           isShow={showSyncBVM}
           onHide={() => {
             setShowSyncBVM(false);
+          }}
+        />
+      )}
+      {showDownloadAlphaApp && (
+        <DownloadAlphaModal
+          isShow={showDownloadAlphaApp}
+          onHide={() => {
+            setShowDownloadAlphhaApp(false);
+          }}
+        />
+      )}
+      {showDownloadBitcoinArcadeApp && (
+        <DownloadBitcoinArcadeModal
+          isShow={showDownloadBitcoinArcadeApp}
+          onHide={() => {
+            setShowDownloadBitcoinArcadeApp(false);
           }}
         />
       )}
