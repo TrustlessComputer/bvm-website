@@ -24,7 +24,7 @@ import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
-export const PUBLIC_SALE_START = '2024-01-30 00:00:00'
+export const PUBLIC_SALE_START = '2024-01-30 03:30:00'
 
 const Whitelist = () => {
   useAllowBTC();
