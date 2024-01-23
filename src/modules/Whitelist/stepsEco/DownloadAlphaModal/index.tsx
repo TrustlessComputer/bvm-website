@@ -11,7 +11,7 @@ const DownloadAlphaModal = ({ isShow, onHide }: any) => {
     <BaseModal
       isShow={isShow}
       onHide={onHide}
-      title={'Scan the QR code to download the app.'}
+      title={'Download Alpha app'}
       headerClassName={s.modalManualHeader}
       className={s.modalContent}
     >
@@ -28,7 +28,9 @@ const DownloadAlphaModal = ({ isShow, onHide }: any) => {
               bg="#F4EADB"
               border="1px solid #FF7E214D"
             >
-              <Text>Or simply open the link in a phone browser:{' '}
+              <Text>
+                Scan the QR code to download the app.<br/>
+                Or simply open the link in a phone browser:{' '}
                 <a
                   style={{ textDecoration: 'underline' }}
                   href={qrInfo}
