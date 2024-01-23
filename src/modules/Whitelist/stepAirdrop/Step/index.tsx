@@ -70,9 +70,15 @@ export default function ItemCommunity({
         <Flex direction="column" gap="8px" flex={1}>
           <Flex direction={["column", "row"]} justifyContent="space-between" gap={[1, 4]}>
             <Flex direction="column" w="100%">
-              <Flex gap={2}>
+              <Flex gap={2} w="100%">
                 <div className={cx(s.itemCommunity__tag, s[AirdropText[content?.airdropType].toLowerCase()])}>{AirdropText[content?.airdropType]}</div>
                 <div className={s.itemCommunity__title}>{content?.title}</div>
+                {!!content?.right.title && (
+                  <div className={s.itemCommunity__point} style={{ alignSelf: "flex-end", width: "100%" }}>
+                    {content?.right.title}
+                    {content?.right.tooltip && <>{content?.right.tooltip}</>}
+                  </div>
+                )}
               </Flex>
               {!!content?.desc && (
                 <div
@@ -94,17 +100,6 @@ export default function ItemCommunity({
                   }
                 </Flex>
               }
-            </Flex>
-            <Flex direction={["row", 'column']} justifyContent={["space-between", "flex-start"]}>
-              <div className={s.itemCommunity__point}>
-                {content?.right.title}
-                {content?.right.tooltip && <>{content?.right.tooltip}</>}
-              </div>
-              {!!content?.desc && (
-                <div className={s.itemCommunity__pointNote}>
-                  {content?.right.desc}
-                </div>
-              )}
             </Flex>
           </Flex>
           {!!content?.actionText && (
