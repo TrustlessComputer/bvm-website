@@ -6,6 +6,7 @@ import { TIME_CHAIN_EXPIRED_TIME } from '@/modules/Whitelist/stepAirdrop';
 import useElementSize from '@/hooks/useElementSize';
 import TimeChainStorage from '@/utils/storage/timechain.storage';
 import { Flex } from '@chakra-ui/react';
+import { CDN_URL_ICONS } from '@/config';
 
 interface IProps {
   setTabIndex: (_: number) => void;
@@ -36,20 +37,28 @@ const TimechainBanner = React.memo(({ setTabIndex }: IProps) => {
   if (isEnd || isClicked) return;
   return (
     <div className={styles.container} id="TIME_CHAIN_BANNER">
-      <Flex flexDirection="column">
-        <Countdown
-          className={styles.container_time}
-          expiredTime={dayjs.utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
-          hideIcon={true}
-          onRefreshEnd={() => setIsEnd(true)}
-          showDay={false}
-        />
-        <p className={styles.container_join} onClick={() => setTabIndex(1)}>Join Timechain Raffle</p>
-      </Flex>
-      <Flex flexDirection="column">
-        <p className={styles.container_info}>INSCRIPTION: #39554</p>
-        <p className={styles.container_info}>FLOOR PRICE: <span>3200$</span></p>
-      </Flex>
+      <div className={styles.content}>
+        <Flex gap="12px">
+          <img style={{ width: 48 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>
+          <Flex flexDirection="column" gap="8px">
+            <p className={styles.container_title}>Join giveaway</p>
+            <Countdown
+              className={styles.container_time}
+              expiredTime={dayjs.utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
+              hideIcon={true}
+              onRefreshEnd={() => setIsEnd(true)}
+              showDay={false}
+            />
+          </Flex>
+        </Flex>
+        <Flex flexDirection="column" gap="8px">
+          <p className={styles.container_title}>FLOOR PRICE</p>
+          <p className={styles.container_price}>$3,200</p>
+        </Flex>
+      </div>
+      <button className={styles.cta} onClick={() => setTabIndex(1)}>
+        Join Timechain Raffle
+      </button>
     </div>
   )
 });
