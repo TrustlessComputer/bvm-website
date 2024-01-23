@@ -19,8 +19,8 @@ export const BlockDataList: BlockItemType[] = [
     label: 'Data Availability',
     networkList: [
       {
-        logoUrl: '/images/lego_bitcoin.svg',
-        name: 'Bitcoin',
+        logoUrl: '/images/lego_ordinals.svg',
+        name: 'Ordinals',
       },
       {
         logoUrl: '/images/lego_polygon.svg',
