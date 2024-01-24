@@ -46,11 +46,11 @@ const TimechainBanner = React.memo(({ setTabIndex }: IProps) => {
   const { width } = useElementSize({ elementID: 'ALLOW_TASKS_LIST' });
 
   React.useEffect(() => {
-    const element = document.getElementById('TIME_CHAIN_BANNER');
-    if (element) {
-      element.style.maxWidth = `${width}px`;
-      element.style.width = "100%"
-    }
+    // const element = document.getElementById('TIME_CHAIN_BANNER');
+    // if (element) {
+    //   element.style.maxWidth = `${width}px`;
+    //   element.style.width = "100%"
+    // }
   }, [width])
 
   if (isEnd || raffleCode || !show) return;
