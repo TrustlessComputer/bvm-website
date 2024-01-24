@@ -202,7 +202,7 @@ export default function Intro() {
 
           <div className={s.intro_inner_bottom}>
             <p className={s.intro_inner_bottom_cotnent}>
-              Hold & Drag to go inside
+              HOLD & DRAG TO STEP INSIDE
             </p>
             <div className={s.drag} onMouseMove={onMouse} onTouchMove={onMouse}>
               <div ref={gradientRef} className={s.drag_line}>
