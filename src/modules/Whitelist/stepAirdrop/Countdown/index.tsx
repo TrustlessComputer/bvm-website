@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import s from './styles.module.scss';
 import useCountdown from '@/hooks/useCountdown';
-import { Text } from '@chakra-ui/react';
+import { Flex, Grid, Text } from '@chakra-ui/react';
 import clsx from 'classnames';
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
   hideIcon?: boolean;
   className?: string;
   onRefreshEnd?: () => void;
-  showDay?: boolean;
+  type?: 'row' | 'column',
 }
 
 const Countdown: React.FC<IProps> = ({
@@ -17,7 +17,7 @@ const Countdown: React.FC<IProps> = ({
   hideIcon,
   className,
   onRefreshEnd,
-  showDay = true
+  type = 'row'
 }: IProps): React.ReactElement => {
   const refCallEnd = useRef(false);
   const {
@@ -34,6 +34,10 @@ const Countdown: React.FC<IProps> = ({
       onRefreshEnd?.();
     }
   }, [ended, expiredTime, onRefreshEnd]);
+
+  const showDay = React.useMemo(() => {
+    return !!days && days !== '0';
+  }, [days])
 
   return (
     <div className={clsx(s.countdown, className)}>
@@ -55,7 +59,32 @@ const Countdown: React.FC<IProps> = ({
 
       {ended && <Text className={s.text}>Ended</Text>}
       {!ended && (
-        <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m : ${seconds}s`}</Text>
+        type === 'row' ? (
+          <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m : ${seconds}s`}</Text>
+        ) : (
+          (
+            <Flex gap="76px">
+              {showDay && (
+                <Flex flexDirection="column" alignItems="center">
+                  <Text className={s.text}>{days}</Text>
+                  <span>DAYS</span>
+                </Flex>
+              )}
+              <Flex flexDirection="column" alignItems="center">
+                <Text className={s.text}>{hours}</Text>
+                <span>HOURS</span>
+              </Flex>
+              <Flex flexDirection="column" alignItems="center">
+                <Text className={s.text}>{minutes}</Text>
+                <span>MINS</span>
+              </Flex>
+              <Flex flexDirection="column" alignItems="center">
+                <Text className={s.text}>{seconds}</Text>
+                <span>SECONDS</span>
+              </Flex>
+            </Flex>
+          )
+        )
       )}
     </div>
   );

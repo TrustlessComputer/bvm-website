@@ -3,8 +3,6 @@ import styles from './styles.module.scss';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import dayjs from 'dayjs';
 import { TIME_CHAIN_EXPIRED_TIME } from '@/modules/Whitelist/stepAirdrop';
-import useElementSize from '@/hooks/useElementSize';
-import TimeChainStorage from '@/utils/storage/timechain.storage';
 import { Flex, Tooltip } from '@chakra-ui/react';
 import { CDN_URL_ICONS } from '@/config';
 import { getRaffleJoin } from '@/services/player-share';
@@ -43,16 +41,6 @@ const TimechainBanner = React.memo(({ setTabIndex }: IProps) => {
     }
   }, [token, needReload]);
 
-  const { width } = useElementSize({ elementID: 'ALLOW_TASKS_LIST' });
-
-  React.useEffect(() => {
-    // const element = document.getElementById('TIME_CHAIN_BANNER');
-    // if (element) {
-    //   element.style.maxWidth = `${width}px`;
-    //   element.style.width = "100%"
-    // }
-  }, [width])
-
   if (isEnd || raffleCode || !show) return;
   return (
     <div className={styles.container} id="TIME_CHAIN_BANNER">
@@ -78,7 +66,6 @@ const TimechainBanner = React.memo(({ setTabIndex }: IProps) => {
                 expiredTime={dayjs.utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
                 hideIcon={true}
                 onRefreshEnd={() => setIsEnd(true)}
-                showDay={false}
               />
             </Flex>
           </Flex>
