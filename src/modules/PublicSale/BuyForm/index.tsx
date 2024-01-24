@@ -3,7 +3,11 @@ import { FormikProps, useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import s from './styles.module.scss';
 import Fade from '@/interactive/Fade';
-import { getPublicsaleWalletInfo, postPublicsaleWalletInfo } from '@/services/player-share';
+import {
+  getPublicsaleWalletInfo,
+  postPublicsaleWalletInfo,
+  postPublicsaleWalletInfoManualCheck,
+} from '@/services/player-share';
 import { PublicSaleWalletInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { QRCode } from 'react-qrcode-logo';
@@ -47,6 +51,12 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     }
   };
 
+  const handleRecheckDeposit = async () => {
+    await postPublicsaleWalletInfoManualCheck();
+    toast.success('Recheck deposit amount successfully!');
+    getVentureInfo();
+  }
+
   const onSubmit = async (values: FormValues) => {
     try {
       setIsCreating(true);
@@ -81,28 +91,32 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
           <Text className={s.title}><Lines delay={DELAY + .2}>PUBLIC TOKEN ROUND</Lines></Text>
-          <Flex className={s.boxInfo} direction={'column'} gap={4} mt={'40px'} mb={'40px'} width={'100%'}>
+          <Flex width={"100%"} className={s.boxInfoWrapper}>
             <Fade delay={DELAY + 0.2}>
-              <Column value={formatCurrency(vcInfo?.total_tokens, 0, 0, 'BTC', true)} title={'TOTAL TOKENS'} />
-            </Fade>
-            <Divider />
-            <Fade delay={DELAY + 0.4}>
-              <Column value={`${vcInfo?.available_tokens}%`} title={'AVAILABLE TOKEN FOR PRIVATE SALE'} />
-            </Fade>
-            <Divider />
-            <Fade delay={DELAY + 0.6}>
-              <Flex>
-                <Column value={`$${formatCurrency(vcInfo?.token_price, 0, 0)}`} title={'TOKEN PRICE'} />
-                <Column value={`$${formatCurrency(vcInfo?.fdv, 0, 0, 'BTC')}`} title={'FDV'} />
-              </Flex>
-            </Fade>
-            <Divider />
-            <Fade delay={DELAY + 0.8}>
-              <Flex>
-                <Column value={`$${formatCurrency(vcInfo?.fundraising_goal, 0, 0, 'BTC')}`}
-                        title={'FUNDRAISING GOAL'} />
-                <Column value={`$${formatCurrency(vcInfo?.min_personal_cap, 0, 0, 'BTC', true)}`}
-                        title={'MIN PERSONAL CAP'} />
+              <Flex className={s.boxInfo} direction={'column'} gap={4} mt={'40px'} mb={'40px'} width={'100%'}>
+                <Fade delay={DELAY + 0.2}>
+                  <Column value={formatCurrency(vcInfo?.total_tokens, 0, 0, 'BTC', true)} title={'TOTAL TOKENS'} />
+                </Fade>
+                <Divider />
+                <Fade delay={DELAY + 0.4}>
+                  <Column value={`${vcInfo?.available_tokens}%`} title={'AVAILABLE TOKEN FOR PRIVATE SALE'} />
+                </Fade>
+                <Divider />
+                <Fade delay={DELAY + 0.6}>
+                  <Flex>
+                    <Column value={`$${formatCurrency(vcInfo?.token_price, 0, 0)}`} title={'TOKEN PRICE'} />
+                    <Column value={`$${formatCurrency(vcInfo?.fdv, 0, 0, 'BTC')}`} title={'FDV'} />
+                  </Flex>
+                </Fade>
+                <Divider />
+                <Fade delay={DELAY + 0.8}>
+                  <Flex>
+                    <Column value={`$${formatCurrency(vcInfo?.fundraising_goal, 0, 0, 'BTC')}`}
+                            title={'FUNDRAISING GOAL'} />
+                    <Column value={`$${formatCurrency(vcInfo?.min_personal_cap, 0, 0, 'BTC', true)}`}
+                            title={'MIN PERSONAL CAP'} />
+                  </Flex>
+                </Fade>
               </Flex>
             </Fade>
           </Flex>
@@ -124,23 +138,39 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             }
             {
               showQrCode && (
-                <Flex gap={6} mt={4} w={'100%'} justifyContent={'space-between'}>
-                  <Flex direction={'column'} alignItems={'center'} gap={3}>
-                    <QRCode
-                      size={130}
-                      value={saleWalletInfo?.btc_address || ''}
-                      logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
-                    />
-                    <Text className={s.depositValue}>{formatCurrency(saleWalletInfo?.btc_balance, 4, 4)} BTC</Text>
-                  </Flex>
-                  <Flex direction={'column'} alignItems={'center'} gap={3}>
-                    <QRCode
-                      size={130}
-                      value={saleWalletInfo?.eth_address || ''}
-                      logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
-                    />
-                    <Text className={s.depositValue}>{formatCurrency(saleWalletInfo?.eth_balance, 4, 4)} ETH</Text>
-                  </Flex>
+                <Flex width={"100%"} direction={"column"}>
+                  <Fade delay={DELAY + 1}>
+                    <Flex gap={6} mt={4} w={'100%'} justifyContent={'space-between'}>
+                      <Flex direction={'column'} alignItems={'center'} gap={3}>
+                        <QRCode
+                          size={130}
+                          value={saleWalletInfo?.btc_address || ''}
+                          logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
+                        />
+                        <Text className={s.depositValue}>{formatCurrency(saleWalletInfo?.btc_balance, 4, 4)} BTC</Text>
+                      </Flex>
+                      <Flex direction={'column'} alignItems={'center'} gap={3}>
+                        <QRCode
+                          size={130}
+                          value={saleWalletInfo?.eth_address || ''}
+                          logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
+                        />
+                        <Text className={s.depositValue}>{formatCurrency(saleWalletInfo?.eth_balance, 4, 4)} ETH</Text>
+                      </Flex>
+                    </Flex>
+                    <Text
+                      cursor={"pointer"}
+                      fontSize={"16px"}
+                      fontWeight={400}
+                      color={"#FFFFFF"}
+                      textDecoration={"underline"}
+                      onClick={handleRecheckDeposit}
+                      mt={2}
+                      textAlign={"center"}
+                    >
+                      Recheck deposit amount
+                    </Text>
+                  </Fade>
                 </Flex>
               )
             }
