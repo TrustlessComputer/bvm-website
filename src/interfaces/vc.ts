@@ -22,5 +22,7 @@ export interface VCInfo {
 
 export interface PublicSaleWalletInfo {
   btc_address: string,
+  btc_balance: string,
   eth_address: string,
+  eth_balance: string,
 }
