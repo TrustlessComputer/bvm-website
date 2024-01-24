@@ -36,7 +36,7 @@ const Countdown: React.FC<IProps> = ({
   }, [ended, expiredTime, onRefreshEnd]);
 
   const showDay = React.useMemo(() => {
-    return !!days && days !== '0';
+    return !!days;
   }, [days])
 
   return (
