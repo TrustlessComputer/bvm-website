@@ -1,15 +1,16 @@
-import { Divider, Flex, Text } from '@chakra-ui/react';
+import { Button, Divider, Flex, Text } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import s from './styles.module.scss';
 import Fade from '@/interactive/Fade';
-import { getPublicsaleWalletInfo } from '@/services/player-share';
+import { getPublicsaleWalletInfo, postPublicsaleWalletInfo } from '@/services/player-share';
 import { PublicSaleWalletInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { QRCode } from 'react-qrcode-logo';
 import Lines from '@/interactive/Lines';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
+import { toast } from 'react-hot-toast';
 
 interface FormValues {
   tokenAmount: string;
@@ -27,7 +28,8 @@ const Column = ({ value, title }: { value: string, title: string }) => {
 };
 
 const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
-  const [showQrCode, setShowQrCode] = useState(true);
+  const [isCreating, setIsCreating] = useState(false);
+  const [showQrCode, setShowQrCode] = useState(false);
   const [saleWalletInfo, setSaleWalletInfo] = useState<PublicSaleWalletInfo>();
   const user = useAppSelector(userSelector);
 
@@ -40,18 +42,22 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const getVentureInfo = async () => {
     const result = await getPublicsaleWalletInfo();
     setSaleWalletInfo(result);
-    setShowQrCode(true);
+    if(result) {
+      setShowQrCode(true);
+    }
   };
 
   const onSubmit = async (values: FormValues) => {
-    // try {
-    //   setIsCreating(true);
-    //   handleGetDepositAddress();
-    // } catch (error) {
-    //   toast.error('Can not verify the post.');
-    // } finally {
-    //   setIsCreating(false);
-    // }
+    try {
+      setIsCreating(true);
+      const result = await postPublicsaleWalletInfo();
+      setSaleWalletInfo(result);
+      setShowQrCode(true);
+    } catch (error) {
+      toast.error('Can not verify the post.');
+    } finally {
+      setIsCreating(false);
+    }
   };
 
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
@@ -100,30 +106,45 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </Flex>
             </Fade>
           </Flex>
-          {
-            showQrCode && (
-              <Flex gap={6} direction={'column'} width={'100%'}>
+          <Flex gap={6} direction={'column'} width={'100%'}>
+            {
+              user?.twitter_id && !saleWalletInfo?.btc_address && (
                 <Fade delay={DELAY + 1}>
-                  <Flex gap={6} mt={4} w={'100%'} justifyContent={'space-between'}>
-                    <Flex direction={'column'} alignItems={'center'} gap={3}>
-                      <QRCode
-                        size={130}
-                        value={saleWalletInfo?.btc_address || ''}
-                        logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
-                      />
-                    </Flex>
-                    <Flex direction={'column'} alignItems={'center'} gap={3}>
-                      <QRCode
-                        size={130}
-                        value={saleWalletInfo?.eth_address || ''}
-                        logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
-                      />
-                    </Flex>
-                  </Flex>
+                  <Button
+                    type='submit'
+                    isDisabled={isCreating}
+                    isLoading={isCreating}
+                    // loadingText={'Submitting...'}
+                    className={s.button}
+                  >
+                    Deposit
+                  </Button>
                 </Fade>
-              </Flex>
-            )
-          }
+              )
+            }
+            {
+              showQrCode && (
+                <Flex gap={6} mt={4} w={'100%'} justifyContent={'space-between'}>
+                  <Flex direction={'column'} alignItems={'center'} gap={3}>
+                    <QRCode
+                      size={130}
+                      value={saleWalletInfo?.btc_address || ''}
+                      logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
+                    />
+                    <Text className={s.depositValue}>{formatCurrency(saleWalletInfo?.btc_balance, 4, 4)} BTC</Text>
+                  </Flex>
+                  <Flex direction={'column'} alignItems={'center'} gap={3}>
+                    <QRCode
+                      size={130}
+                      value={saleWalletInfo?.eth_address || ''}
+                      logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
+                    />
+                    <Text className={s.depositValue}>{formatCurrency(saleWalletInfo?.eth_balance, 4, 4)} ETH</Text>
+                  </Flex>
+                </Flex>
+              )
+            }
+          </Flex>
         </div>
       </form>
     </div>

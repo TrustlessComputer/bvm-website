@@ -129,3 +129,8 @@ export const getPublicsaleWalletInfo = async (): Promise<PublicSaleWalletInfo> =
   const res = (await apiClient.get(`/bvm/sale/wallet`)) as unknown as PublicSaleWalletInfo;
   return res;
 }
+
+export const postPublicsaleWalletInfo = async (): Promise<PublicSaleWalletInfo> => {
+  const res = (await apiClient.post(`/bvm/sale/wallet`)) as unknown as PublicSaleWalletInfo;
+  return res;
+}
