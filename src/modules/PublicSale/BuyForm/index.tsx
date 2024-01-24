@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import s from './styles.module.scss';
 import Fade from '@/interactive/Fade';
 import {
+  getPublicSaleSummary,
   getPublicsaleWalletInfo,
   postPublicsaleWalletInfo,
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
-import { PublicSaleWalletInfo, VCInfo } from '@/interfaces/vc';
+import { IPublicSaleDepositInfo, PublicSaleWalletInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { QRCode } from 'react-qrcode-logo';
 import Lines from '@/interactive/Lines';
@@ -36,12 +37,22 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const [showQrCode, setShowQrCode] = useState(false);
   const [saleWalletInfo, setSaleWalletInfo] = useState<PublicSaleWalletInfo>();
   const user = useAppSelector(userSelector);
+  const [contributeInfo, setContributeInfo] = useState<IPublicSaleDepositInfo>();
+
+  console.log('contributeInfo', contributeInfo);
 
   useEffect(() => {
+    getContributeInfo();
+
     if (user?.twitter_id) {
       getVentureInfo();
     }
   }, [user?.twitter_id]);
+
+  const getContributeInfo = async () => {
+    const res = await getPublicSaleSummary();
+    setContributeInfo(res);
+  }
 
   const getVentureInfo = async () => {
     const result = await getPublicsaleWalletInfo();

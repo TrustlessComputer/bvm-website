@@ -26,21 +26,12 @@ export const postPublicsaleWalletInfoManualCheck = async (): Promise<PublicSaleW
 export const getPublicSaleLeaderBoards = async (params: {
   page?: number;
   limit?: number;
-}): Promise<{ data: ILeaderBoardPoint[], count: string, summary: IPublicSaleDepositInfo }> => {
-  const res = (await axios.get(`${PERP_API_URL}/api/bvm/sale/leaderboards`, {
-    params,
-  })) as any;
+}): Promise<any> => {
+  const res = await apiClient.get(`/bvm/sale/leaderboards`);
+  return res;
+};
 
-  const data: ILeaderBoardPoint[] = res?.data?.result;
-  const summary: IPublicSaleDepositInfo = res?.data?.summary;
-  const count: string = res?.count
-
-  return {
-    data: (data || []).map(item => ({
-      ...item,
-      boost: Number(item.boost || '0').toString(),
-    })),
-    count: count,
-    summary: summary
-  };
+export const getPublicSaleSummary = async (): Promise<IPublicSaleDepositInfo> => {
+  const res = (await apiClient.get(`/bvm/sale/summary`)) as unknown as IPublicSaleDepositInfo;
+  return res;
 };
