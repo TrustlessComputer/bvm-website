@@ -7,7 +7,7 @@ import {
   getPublicsaleWalletInfo,
   postPublicsaleWalletInfo,
   postPublicsaleWalletInfoManualCheck,
-} from '@/services/player-share';
+} from '@/services/public-sale';
 import { PublicSaleWalletInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { QRCode } from 'react-qrcode-logo';

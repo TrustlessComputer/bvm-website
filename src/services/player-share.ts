@@ -124,18 +124,3 @@ export const getVCInformation = async ({vc_type}: any): Promise<VCInfo> => {
   const res = (await apiClient.get(`/bvm/vc/info?vc_type=${vc_type}`)) as unknown as VCInfo;
   return res;
 }
-
-export const getPublicsaleWalletInfo = async (): Promise<PublicSaleWalletInfo> => {
-  const res = (await apiClient.get(`/bvm/sale/wallet`)) as unknown as PublicSaleWalletInfo;
-  return res;
-}
-
-export const postPublicsaleWalletInfo = async (): Promise<PublicSaleWalletInfo> => {
-  const res = (await apiClient.post(`/bvm/sale/wallet`)) as unknown as PublicSaleWalletInfo;
-  return res;
-}
-
-export const postPublicsaleWalletInfoManualCheck = async (): Promise<PublicSaleWalletInfo> => {
-  const res = (await apiClient.post(`/bvm/sale/manual-check`)) as unknown as PublicSaleWalletInfo;
-  return res;
-}

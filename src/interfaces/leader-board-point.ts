@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface ILeaderBoardPoint {
   id: number;
   network: string;
@@ -27,4 +25,7 @@ export interface ILeaderBoardPoint {
   blast_point: string;
   base_point: string;
   arb_point: string;
+  bvm_balance: string;
+  eth_balance: string;
+  btc_balance: string;
 }

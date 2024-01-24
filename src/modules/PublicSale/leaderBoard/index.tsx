@@ -2,11 +2,10 @@ import Avatar from '@/components/Avatar';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
-import { getTopLeaderBoards } from '@/services/whitelist';
-import { formatCurrency, formatName } from '@/utils/format';
+import { formatCurrency } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
-import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import clsx from 'classnames';
@@ -16,12 +15,12 @@ import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import BigNumber from 'bignumber.js';
-import SvgInset from '@/components/SvgInset';
 import { leaderBoardSelector, userSelector } from '@/stores/states/user/selector';
 import { setLeaderBoard } from '@/stores/states/user/reducer';
 import copy from 'copy-to-clipboard';
 import { shareReferralURL } from '@/utils/helpers';
+import { getPublicSaleLeaderBoards } from '@/services/public-sale';
+import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -71,11 +70,11 @@ const LeaderBoard = (props: IProps) => {
           (item: ILeaderBoardPoint) => item.twitter_id,
         );
       };
-      const { data: response, count } = await getTopLeaderBoards({
+      const { data: response, count } = await getPublicSaleLeaderBoards({
         ...refParams.current,
       });
       if (isNew) {
-        const { data: response2 } = await getTopLeaderBoards({
+        const { data: response2 } = await getPublicSaleLeaderBoards({
           page: 1,
           limit: 0,
         });
@@ -302,13 +301,12 @@ const LeaderBoard = (props: IProps) => {
               width={'100%'}
               justifyContent={'center'}
             >
-              <Flex alignItems={'center'} gap={2}>
-                <Text className={styles.title}>
-                  {formatCurrency(
-                    new BigNumber(data?.point || '0').toNumber(),
-                    0,
-                    0,
-                  )}
+              <Flex direction={"column"} gap={2}>
+                <Text className={''}>
+                  {formatCurrency(data?.btc_balance, MIN_DECIMAL, MAX_DECIMAL)} BTC
+                </Text>
+                <Text className={''}>
+                  {formatCurrency(data?.eth_balance, MIN_DECIMAL, MAX_DECIMAL)} ETH
                 </Text>
               </Flex>
             </Flex>
@@ -328,26 +326,6 @@ const LeaderBoard = (props: IProps) => {
             gap="3px"
           >
             <p style={{ textTransform: 'uppercase' }}>ALLOCATION</p>
-            <Tooltip
-              minW="220px"
-              bg="white"
-              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-              borderRadius="4px"
-              padding="8px"
-              label={
-                <Flex direction="column" color="black" opacity={0.7}>
-                  <p>
-                    Referral points are calculated based on the total number of
-                    friends you refer to the allowlist.
-                  </p>
-                </Flex>
-              }
-            >
-              <img
-                className={styles.tooltipIcon}
-                src={`${CDN_URL_ICONS}/info-circle.svg`}
-              />
-            </Tooltip>
           </Flex>
         ),
         labelConfig,
@@ -368,11 +346,8 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.refer_point, 0, 0)}
+                  {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)}
                 </Text>
-                {data.need_active && !Number(data?.refer_point || '0') && (
-                  <button id="copy-button" onClick={handleShareRefferal} className={styles.button}>GET</button>
-                )}
               </Flex>
             </Flex>
           );
