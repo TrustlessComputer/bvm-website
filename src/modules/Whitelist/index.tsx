@@ -105,7 +105,7 @@ const Whitelist = () => {
                 <Steps />
               </TabPanel>
               <TabPanel>
-                <StepsAirdrop />
+                <StepsAirdrop setIndex={setIndex}/>
               </TabPanel>
               <TabPanel>
                 <StepsEco />

@@ -13,7 +13,12 @@ import { PUBLIC_SALE_START } from '@/modules/Whitelist';
 
 export const TIME_CHAIN_EXPIRED_TIME = '2024-01-24 08:00:00';
 
-const StepsAirdrop = () => {
+interface IProps {
+  setIndex: (_: number) => void
+}
+
+const StepsAirdrop = (props: IProps) => {
+  const {setIndex} = props;
   const token = AuthenStorage.getAuthenKey();
   const needReload = useAppSelector(commonSelector).needReload;
   const [raffleCode, setRaffleCode] = useState();
@@ -30,15 +35,19 @@ const StepsAirdrop = () => {
   };
 
   const handleShareTw = async () => {
-    window.open(
-      `https://twitter.com/BVMnetwork/status/1748299995898691711`,
-      '_blank',
-    );
+    if(token) {
+      window.open(
+        `https://twitter.com/BVMnetwork/status/1748299995898691711`,
+        '_blank',
+      );
 
-    joinRaffle();
-    setTimeout(() => {
-      getRaffleJoinInfo();
-    }, 1000);
+      joinRaffle();
+      setTimeout(() => {
+        getRaffleJoinInfo();
+      }, 1000);
+    } else {
+      setIndex(0);
+    }
   };
 
   const handleClaimRetrospective = () => {
@@ -52,10 +61,10 @@ const StepsAirdrop = () => {
         desc: `Like and repost to enter a raffle for a Timechain (Inscription ID: 39554) - the first long-form generative art collection on Ordinals.
           ${LearnMore('https://twitter.com/punk3700/status/1623708934107430913')}
         `,
-        actionText: 'Like and repost',
+        actionText: token ? 'Like and repost' : 'Craft a tweet about BVM first',
         image: "time-chain2.svg",
         actionHandle: handleShareTw,
-        isActive: !!token,
+        isActive: true,
         right: {
           title: raffleCode ? `Your raffle code: ${raffleCode}` : '+1 raffle ticket',
           desc: '',
