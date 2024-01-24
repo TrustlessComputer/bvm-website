@@ -16,6 +16,7 @@ import {
 import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
 import { CDN_URL_ICONS } from '@/config';
 import { LearnMore } from '@/modules/Whitelist/stepsEco';
+import { PUBLIC_SALE_START } from '@/modules/Whitelist';
 import { userSelector } from '@/stores/states/user/selector';
 import { getLink } from '@/utils/helpers';
 import { setBearerToken } from '@/services/whitelist';
@@ -34,7 +35,12 @@ export const getMessageEVM = (address: string) => {
 
 export const TIME_CHAIN_EXPIRED_TIME = '2024-01-24 08:00:00';
 
-const StepsAirdrop = () => {
+interface IProps {
+  setIndex: (_: number) => void
+}
+
+const StepsAirdrop = (props: IProps) => {
+  const {setIndex} = props;
   const token = AuthenStorage.getAuthenKey();
   const needReload = useAppSelector(commonSelector).needReload;
   const [raffleCode, setRaffleCode] = useState();
@@ -64,15 +70,19 @@ const StepsAirdrop = () => {
   };
 
   const handleShareTw = async () => {
-    window.open(
-      `https://twitter.com/BVMnetwork/status/1748299995898691711`,
-      '_blank',
-    );
+    if(token) {
+      window.open(
+        `https://twitter.com/BVMnetwork/status/1748299995898691711`,
+        '_blank',
+      );
 
-    joinRaffle();
-    setTimeout(() => {
-      getRaffleJoinInfo();
-    }, 1000);
+      joinRaffle();
+      setTimeout(() => {
+        getRaffleJoinInfo();
+      }, 1000);
+    } else {
+      setIndex(0);
+    }
   };
 
   const getAlphaUsersAirdrop = async () => {
@@ -154,12 +164,12 @@ const StepsAirdrop = () => {
         desc: `Like and repost to enter a raffle for a Timechain (Inscription ID: 39554) - the first long-form generative art collection on Ordinals.
           ${LearnMore('https://twitter.com/punk3700/status/1623708934107430913')}
         `,
-        actionText: 'Like and repost',
+        actionText: token ? 'Like and repost' : 'Craft a tweet about BVM first',
         image: "time-chain2.svg",
         actionHandle: handleShareTw,
-        isActive: !!token,
+        isActive: true,
         right: {
-          title: raffleCode || '+1 raffle ticket',
+          title: raffleCode ? `Your raffle code: ${raffleCode}` : '+1 raffle ticket',
           desc: '',
           tooltip: (
             <Tooltip
@@ -191,7 +201,7 @@ const StepsAirdrop = () => {
       {
         title: 'Generative users',
         desc: `Proportional to key holding.<br/>
-          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
+          Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
        `,
         actionText: 'Connect your Metamask',
         image: "time-chain2.svg",
@@ -202,7 +212,7 @@ const StepsAirdrop = () => {
           title: '',
           desc: '',
         },
-        expiredTime: '2024-01-24 03:00:00',
+        expiredTime: PUBLIC_SALE_START,
         showExpireTime: false,
         airdropType: AirdropType.RETROSPECTIVE,
         step: AirdropStep.generativeUsers,
@@ -210,7 +220,7 @@ const StepsAirdrop = () => {
       {
         title: 'Perceptrons holders',
         desc: `Proportional to the number of Perceptrons you hold.<br/>
-          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
+          Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
        `,
         actionText: 'Connect your Metamask',
         image: "perceptron_thumb_03.jpg",
@@ -221,7 +231,7 @@ const StepsAirdrop = () => {
           title: '',
           desc: '',
         },
-        expiredTime: '2024-01-24 03:00:00',
+        expiredTime: PUBLIC_SALE_START,
         showExpireTime: false,
         airdropType: AirdropType.RETROSPECTIVE,
         step: AirdropStep.perceptronsHolders,
@@ -232,8 +242,8 @@ const StepsAirdrop = () => {
       },
       {
         title: 'GM holders',
-        desc: `Proportionally based on GM balance - min holding: 1 $GM<br/>
-          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
+        desc: `Proportionally based on GM balance - min holding: 0.01 $GM<br/>
+          Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
        `,
         actionText: 'Connect your Metamask',
         image: "gm.svg",
@@ -244,15 +254,15 @@ const StepsAirdrop = () => {
           title: '',
           desc: '',
         },
-        expiredTime: '2024-01-24 03:00:00',
+        expiredTime: PUBLIC_SALE_START,
         showExpireTime: false,
         airdropType: AirdropType.RETROSPECTIVE,
         step: AirdropStep.gmHolders,
       },
       {
         title: 'Alpha users',
-        desc: `Proportionally based on Airdrop Points - min Airdrop Points: 100,000<br/>
-          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
+        desc: `Proportionally based on Airdrop Points - min Airdrop Points: 50,000<br/>
+          Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
        `,
         actionText: !token ? 'Link account' : undefined,
         image: "alpha.svg",
@@ -263,7 +273,7 @@ const StepsAirdrop = () => {
           title: '',
           desc: '',
         },
-        expiredTime: '2024-01-24 03:00:00',
+        expiredTime: PUBLIC_SALE_START,
         showExpireTime: false,
         airdropType: AirdropType.RETROSPECTIVE,
         // actionHandleSecondary: () => {

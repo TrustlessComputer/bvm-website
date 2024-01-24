@@ -2,8 +2,15 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { useAppSelector } from '@/stores/hooks';
 import { allowEVMSelector } from '@/stores/states/user/selector';
-import { checkIsAllowState } from '@/modules/Whitelist/utils';
 import { IAllowEVMProps } from '@/modules/Whitelist/AllowEVMMessage/type';
+import { SignatureStatus } from '@/interfaces/whitelist';
+
+const checkIsAllowState = (status: SignatureStatus[]) => {
+  return {
+    isProcessing: status.some(item => item.status === 'pending'),
+    isUnclaimed: status.some(item => item.status === 'unclaimed')
+  }
+};
 
 interface IAmount {
   txsCount: number,
@@ -51,6 +58,7 @@ const useFormatAllowEVM = ({ type }: IAllowEVMProps) => {
       return value as IAmount;
     }, { txsCount: 0, fee: 0, point: 0, unClaimedPoint: 0, feeUSD: 0, blastAmount: 0, baseAmount: 0, arbAmount: 0 } as IAmount)
   }, [status]);
+
 
   return {
     loaded,

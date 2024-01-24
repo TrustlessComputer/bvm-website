@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import dayjs from 'dayjs';
@@ -7,6 +7,10 @@ import useElementSize from '@/hooks/useElementSize';
 import TimeChainStorage from '@/utils/storage/timechain.storage';
 import { Flex, Tooltip } from '@chakra-ui/react';
 import { CDN_URL_ICONS } from '@/config';
+import { getRaffleJoin } from '@/services/player-share';
+import AuthenStorage from '@/utils/storage/authen.storage';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
 
 interface IProps {
   setTabIndex: (_: number) => void;
@@ -18,23 +22,39 @@ const TimechainBanner = React.memo(({ setTabIndex }: IProps) => {
       .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
       .isBefore(dayjs().utc().format())
   );
+  const [raffleCode, setRaffleCode] = useState();
+  const [show, setShow] = useState(false);
 
-  const isClicked = React.useMemo(() => {
-    return TimeChainStorage.getTimeChainClicked()
-  }, [])
+
+  const token = AuthenStorage.getAuthenKey();
+  const needReload = useAppSelector(commonSelector).needReload;
+
+  const getRaffleJoinInfo = async () => {
+    const res = await getRaffleJoin();
+    setRaffleCode(res);
+    setShow(true)
+  };
+
+  useEffect(() => {
+    if(token) {
+      getRaffleJoinInfo();
+    } else {
+      setShow(true)
+    }
+  }, [token, needReload]);
 
   const { width } = useElementSize({ elementID: 'ALLOW_TASKS_LIST' });
 
 
   React.useEffect(() => {
-    const element = document.getElementById('TIME_CHAIN_BANNER');
-    if (element) {
-      element.style.maxWidth = `${width > 560 ? 560 : width}px`;
-      element.style.width = "100%"
-    }
+    // const element = document.getElementById('TIME_CHAIN_BANNER');
+    // if (element) {
+    //   element.style.maxWidth = `${width}px`;
+    //   element.style.width = "100%"
+    // }
   }, [width])
 
-  if (isEnd || isClicked) return;
+  if (isEnd || raffleCode || !show) return;
   return (
     <div className={styles.container} id="TIME_CHAIN_BANNER">
       <div className={styles.content}>

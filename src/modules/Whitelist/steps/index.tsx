@@ -97,18 +97,21 @@ const Steps = () => {
     let op = '';
     let arb = '';
     let base = '';
-    if (new BigNumber(allowOptimism.amount.fee || 0).gt(0)) {
-      op = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.fee || 0).toFixed(), 0, 0)} $OP`
+
+    const MIN = 0.0001
+
+    if (new BigNumber(allowOptimism.amount.fee || 0).gt(MIN)) {
+      op = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.fee || 0).toFixed(), 0, 6)} $OP`
     }
-    if (new BigNumber(allowOptimism.amount.arbAmount || 0).gt(0)) {
-      arb = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.arbAmount || 0).toFixed(), 0, 0)} $ARB`
+    if (new BigNumber(allowOptimism.amount.arbAmount || 0).gt(MIN)) {
+      arb = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.arbAmount || 0).toFixed(), 0, 6)} $ARB`
     }
 
-    if (new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0).gt(0)) {
-      base = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0), 0, 0)} $ETH bridged to @Blast_L2 & @base`
+    if (new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0).gt(MIN)) {
+      base = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.blastAmount || 0).plus(allowOptimism.amount.baseAmount || 0).toFixed(), 0, 6)} $ETH bridged to @Blast_L2 & @base`
     }
 
-    const content = `I have a big Ethereum L2 bag: \n${op}${arb}${base}\n\nAnd I can’t wait to stack my Bitcoin L2 bag.\n\nThousands of Bitcoin L2s are arriving, thanks to @BVMnetwork.\n`;
+    const content = `Here is my Ethereum L2 bag:\n${op}${arb}${base}\n\nAnd I can’t wait to stack my Bitcoin L2 bag.\n\nThousands of Bitcoin L2s are arriving, thanks to @BVMnetwork.\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
