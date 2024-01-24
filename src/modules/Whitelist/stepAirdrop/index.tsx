@@ -129,7 +129,7 @@ const StepsAirdrop = (props: IProps) => {
       },
       {
         title: 'GM holders',
-        desc: `Proportionally based on GM balance - min holding: 1 $GM<br/>
+        desc: `Proportionally based on GM balance - min holding: 0.01 $GM<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
         actionText: 'Claim',
@@ -147,7 +147,7 @@ const StepsAirdrop = (props: IProps) => {
       },
       {
         title: 'Alpha users',
-        desc: `Proportionally based on Airdrop Points - min Airdrop Points: 100,000<br/>
+        desc: `Proportionally based on Airdrop Points - min Airdrop Points: 50,000<br/>
           Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
        `,
         actionText: 'Claim',
