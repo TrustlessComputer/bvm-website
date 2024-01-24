@@ -11,12 +11,35 @@
     bottom: 0;
     left: 0;
     @include is-min-table {
-      padding: 40px 0;
+      padding: 30px 0;
+    }
+  }
+
+  .countDown {
+    &_wrapper {
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: 400;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    img {
+      margin-right: 8px;
+    }
+
+    &_title {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    &_time {
+      width: fit-content;
+      text-transform: uppercase;
     }
   }
 
   &.isFooter {
-    padding: 40px 0;
+    padding: 30px 0;
   }
 
   @include is-min-table {

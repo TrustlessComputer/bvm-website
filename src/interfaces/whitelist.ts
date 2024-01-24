@@ -7,4 +7,8 @@ export interface SignatureStatus {
   blast_amount: string,
   blast_point: string,
   status: "pending" | "unclaimed" | "done",
+  base_point: string,
+  arb_point: string,
+  base_amount: string,
+  arb_amount: string,
 }

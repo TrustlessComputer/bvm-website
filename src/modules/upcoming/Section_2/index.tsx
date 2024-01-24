@@ -77,7 +77,7 @@ const Contents: Array<IContent> = [
     appName: '@NewBitcoinCity',
     title: 'Math',
     desc: 'Math is a Bitcoin L2 blockchain designed for the metaverse with fully on-chain, ever-evolving virtual worlds.',
-    href: 'mathchain.xyz',
+    href: 'http://mathchain.xyz',
     linkIconPath: '/upcoming/link_ic.png',
     linkShortName: 'mathchain.xyz',
     tagsList: ['Bitcoin', 'Ordinals', 'Optimistic', 'Sovereign'],

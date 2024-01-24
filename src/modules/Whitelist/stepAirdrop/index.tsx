@@ -9,6 +9,9 @@ import { getRaffleJoin, joinRaffle } from '@/services/player-share';
 import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
 import { CDN_URL_ICONS } from '@/config';
 import { LearnMore } from '@/modules/Whitelist/stepsEco';
+import { PUBLIC_SALE_START } from '@/modules/Whitelist';
+
+export const TIME_CHAIN_EXPIRED_TIME = '2024-01-24 08:00:00';
 
 interface IProps {
   setIndex: (_: number) => void
@@ -63,7 +66,7 @@ const StepsAirdrop = (props: IProps) => {
         actionHandle: handleShareTw,
         isActive: true,
         right: {
-          title: raffleCode || '+1 raffle ticket',
+          title: raffleCode ? `Your raffle code: ${raffleCode}` : '+1 raffle ticket',
           desc: '',
           tooltip: (
             <Tooltip
@@ -87,14 +90,14 @@ const StepsAirdrop = (props: IProps) => {
             </Tooltip>
           )
         },
-        expiredTime: '2024-01-24 08:00:00',
+        expiredTime: TIME_CHAIN_EXPIRED_TIME,
         showExpireTime: true,
         airdropType: AirdropType.NEW
       },
       {
         title: 'Generative users',
         desc: `Proportional to key holding.<br/>
-          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
+          Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
        `,
         actionText: 'Claim',
         image: "time-chain2.svg",
@@ -105,14 +108,14 @@ const StepsAirdrop = (props: IProps) => {
           title: '',
           desc: '',
         },
-        expiredTime: '2024-01-24 03:00:00',
+        expiredTime: PUBLIC_SALE_START,
         showExpireTime: false,
         airdropType: AirdropType.RETROSPECTIVE
       },
       {
         title: 'Perceptrons holders',
         desc: `Proportional to the number of Perceptrons you hold.<br/>
-          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
+          Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
        `,
         actionText: 'Claim',
         image: "perceptron_thumb_03.jpg",
@@ -123,14 +126,14 @@ const StepsAirdrop = (props: IProps) => {
           title: '',
           desc: '',
         },
-        expiredTime: '2024-01-24 03:00:00',
+        expiredTime: PUBLIC_SALE_START,
         showExpireTime: false,
         airdropType: AirdropType.RETROSPECTIVE
       },
       {
         title: 'GM holders',
         desc: `Proportionally based on GM balance - min holding: 0.01 $GM<br/>
-          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
+          Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
        `,
         actionText: 'Claim',
         image: "gm.svg",
@@ -141,14 +144,14 @@ const StepsAirdrop = (props: IProps) => {
           title: '',
           desc: '',
         },
-        expiredTime: '2024-01-24 03:00:00',
+        expiredTime: PUBLIC_SALE_START,
         showExpireTime: false,
         airdropType: AirdropType.RETROSPECTIVE
       },
       {
         title: 'Alpha users',
         desc: `Proportionally based on Airdrop Points - min Airdrop Points: 50,000<br/>
-          Snapshot on Jan 16, 2024. Claimable on Jan 24, 2024.
+          Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
        `,
         actionText: 'Claim',
         image: "alpha.svg",
@@ -159,7 +162,7 @@ const StepsAirdrop = (props: IProps) => {
           title: '',
           desc: '',
         },
-        expiredTime: '2024-01-24 03:00:00',
+        expiredTime: PUBLIC_SALE_START,
         showExpireTime: false,
         airdropType: AirdropType.RETROSPECTIVE
       },

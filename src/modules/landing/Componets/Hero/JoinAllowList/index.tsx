@@ -8,6 +8,10 @@ import { getTopLeaderBoards } from '@/services/whitelist';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import Image from 'next/image';
 import { formatCurrency } from '@/utils/format';
+import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
+import dayjs from 'dayjs';
+import { PUBLIC_SALE_START } from '@/modules/Whitelist';
+import { CDN_URL_ICONS } from '@/config';
 
 
 const DELAY = 2;
@@ -88,6 +92,15 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                   <span>{formatCurrency(totalUser, 0,0)}&nbsp;people</span>&nbsp;are on the allowlist
                 </div>
               </div>
+              <Flex gap="8px" className={s.countDown_wrapper}>
+                <img style={{ width: 18 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>
+                <p className={s.countDown_title}>Public sale starting in</p>
+                <Countdown
+                  className={s.countDown_time}
+                  expiredTime={dayjs.utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
+                  hideIcon={true}
+                />
+              </Flex>
             </Fade>
           </Flex>
         </div>
