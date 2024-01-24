@@ -62,6 +62,7 @@ const StepsAirdrop = (props: IProps) => {
           ${LearnMore('https://twitter.com/punk3700/status/1623708934107430913')}
         `,
         actionText: token ? 'Like and repost' : 'Craft a tweet about BVM first',
+        actionTextEnd: 'Result',
         image: "time-chain2.svg",
         actionHandle: handleShareTw,
         isActive: true,
