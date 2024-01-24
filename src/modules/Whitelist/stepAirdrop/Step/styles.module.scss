@@ -30,6 +30,14 @@
     }
   }
 
+  .resultWrapper {
+    img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+  }
+
   &__title {
     color: #000;
     font-size: 18px;

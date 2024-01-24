@@ -38,7 +38,8 @@ export interface IItemCommunity {
   expiredTime?: string;
   isDisable?: boolean;
   showExpireTime?: boolean;
-  airdropType: AirdropType
+  airdropType: AirdropType,
+  result?: any
 }
 
 export default function ItemCommunity({
@@ -93,12 +94,19 @@ export default function ItemCommunity({
                 />
               )}
               {
-                <Flex>
+                <Flex direction={"column"}>
                   {
                     content?.showExpireTime && !!content?.expiredTime && (
                       <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
                         <Countdown className={s.itemCommunity__countdown} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} onRefreshEnd={() => setIsEnd(true)}/>
                         {!isEnd && <Text fontSize={"12px"} fontWeight={400} color={"#000000"}>TIME REMAIN</Text>}
+                      </Flex>
+                    )
+                  }
+                  {
+                    isEnd && (
+                      <Flex className={s.resultWrapper}>
+                        {content?.result}
                       </Flex>
                     )
                   }

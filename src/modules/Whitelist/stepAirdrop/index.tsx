@@ -67,30 +67,48 @@ const StepsAirdrop = (props: IProps) => {
         actionHandle: handleShareTw,
         isActive: true,
         right: {
-          title: raffleCode ? `Your raffle code: ${raffleCode}` : '+1 raffle ticket',
+          title: '',
+          // title: (
+          //   <Flex alignItems={"center"} gap={"4px"} fontSize={"16px"}>
+          //     Winner:
+          //     <a href={"https://twitter.com/nftsupply/"} target={"_blank"} style={{textDecoration: 'underline'}}>
+          //       NFTSupply
+          //     </a>
+          //   </Flex>
+          // ),
           desc: '',
-          tooltip: (
-            <Tooltip
-              minW="220px"
-              bg="white"
-              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-              borderRadius="4px"
-              padding="8px"
-              label={
-                <Flex direction="column" color="black" opacity={0.7}>
-                  <p>
-                    At the end of the events, the list of qualified users (those who liked and reposted) will be collected, and a winner will be chosen at random using the raffle code.
-                  </p>
-                </Flex>
-              }
-            >
-              <img
-                className={styles.tooltipIcon}
-                src={`${CDN_URL_ICONS}/info-circle.svg`}
-              />
-            </Tooltip>
-          )
+          // tooltip: (
+          //   <Tooltip
+          //     minW="220px"
+          //     bg="white"
+          //     boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+          //     borderRadius="4px"
+          //     padding="8px"
+          //     label={
+          //       <Flex direction="column" color="black" opacity={0.7}>
+          //         <p>
+          //           At the end of the events, the list of qualified users (those who liked and reposted) will be collected, and a winner will be chosen at random using the raffle code.
+          //         </p>
+          //       </Flex>
+          //     }
+          //   >
+          //     <img
+          //       className={styles.tooltipIcon}
+          //       src={`${CDN_URL_ICONS}/info-circle.svg`}
+          //     />
+          //   </Tooltip>
+          // )
         },
+        result: (
+          <Flex alignItems={"center"} gap={"4px"} fontSize={"16px"} color={"#000000"}>
+            <img src='/icons/winner.png' alt='drag' />
+            Winner:
+            <img src='https://pbs.twimg.com/profile_images/1745826527650971648/joB2i1fN_200x200.jpg' alt='drag' />
+            <a href={"https://twitter.com/nftsupply/"} target={"_blank"} style={{textDecoration: 'underline', fontWeight: 700}}>
+              NFTSupply
+            </a>
+          </Flex>
+        ),
         expiredTime: TIME_CHAIN_EXPIRED_TIME,
         showExpireTime: true,
         airdropType: AirdropType.NEW
