@@ -461,7 +461,7 @@ const LeaderBoard = (props: IProps) => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    ETH you stake on <strong>Blast</strong> or the more <strong>Optimism (OP)</strong>, <strong>Base (BASE)</strong>, or <strong>Arbitrum (ARB)</strong> tokens you hold.
+                    ETH you stake on <strong>Blast</strong> or the more <strong>Optimism (OP)</strong>, <strong>Base (BASE)</strong>, <strong>Arbitrum (ARB)</strong> or <strong>Polygon (Matic)</strong> tokens you hold.
                   </p>
                 </Flex>
               }
@@ -497,6 +497,7 @@ const LeaderBoard = (props: IProps) => {
                   .plus(data?.blast_point || 0)
                   .plus(data?.base_point || 0)
                   .plus(data?.arb_point || 0)
+                  .plus(data?.polygon_point || 0)
                   .toString(), 0, 0)}
               </Text>
               {data.need_active ? (
@@ -512,6 +513,7 @@ const LeaderBoard = (props: IProps) => {
                       <p>Blast: {data.blast_point || '0'}</p>
                       <p>Base: {data.base_point || '0'}</p>
                       <p>Arbitrum: {data.arb_point || '0'}</p>
+                      <p>Polygon: {data.polygon_point || '0'}</p>
                     </Flex>
                   }
                 >

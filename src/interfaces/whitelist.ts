@@ -13,4 +13,6 @@ export interface SignatureStatus {
   arb_amount: string,
   eigenlayer_point: string,
   eigenlayer_amount: string,
+  polygon_point: string,
+  polygon_amount: string,
 }
