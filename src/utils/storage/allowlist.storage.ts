@@ -9,13 +9,13 @@ export interface IStorageItem {
 }
 
 class AllowListStorage {
-  private static STORAGE_KEY = 'ALLOW_LIST_STORAGE_0.0.1';
+  private static STORAGE_KEY = 'ALLOW_LIST_STORAGE_0.0.2';
 
-  public static getStorage = (): IStorageItem[] | undefined => {
+  public static getStorage = (): IStorageItem | undefined => {
     try {
       const data = storage.get(this.STORAGE_KEY);
       if (data) {
-        return JSON.parse(data as string) as IStorageItem[]
+        return JSON.parse(data as string) as IStorageItem
       }
       return undefined
     } catch (e) {
@@ -24,15 +24,16 @@ class AllowListStorage {
   };
   public static setStorage = (payload: IStorageItem) => {
     try {
-      const data = AllowListStorage.getStorage();
-      if (!data) {
-        storage.set(this.STORAGE_KEY, JSON.stringify([payload]));
-        return;
-      }
-      if (!data.some(item => compareString(item.address, payload.address))) {
-        data.push(payload)
-      }
-      storage.set(this.STORAGE_KEY, JSON.stringify(data));
+      storage.set(this.STORAGE_KEY, JSON.stringify(payload));
+      // const data = AllowListStorage.getStorage();
+      // if (!data) {
+      //   storage.set(this.STORAGE_KEY, JSON.stringify([payload]));
+      //   return;
+      // }
+      // if (!data.some(item => compareString(item.address, payload.address))) {
+      //   data.push(payload)
+      // }
+      // storage.set(this.STORAGE_KEY, JSON.stringify(data));
     } catch (error) {
       console.log('setStorage error: ', error);
     }

@@ -38,4 +38,8 @@ export interface UserState {
     status: SignatureStatus[];
     loaded: boolean;
   },
+  airdropAlphaUsers: any;
+  airdropGMHolders: any;
+  airdropGenerativeUsers: any;
+  airdropPerceptronsHolders: any;
 }

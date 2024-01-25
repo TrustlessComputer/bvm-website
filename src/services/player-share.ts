@@ -2,8 +2,8 @@ import { camelCaseKeys } from '@/utils/normalize';
 import { PERP_API_URL } from '@/config';
 import createAxiosInstance from '@/services/http-client';
 import TimeChainStorage from '@/utils/storage/timechain.storage';
-import { SignatureStatus } from '@/interfaces/whitelist';
 import { PublicSaleWalletInfo, VCInfo, VCWalletInfo } from '@/interfaces/vc';
+import AirdropStorage from '@/utils/storage/airdrop.storage';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -95,6 +95,7 @@ export const getRaffleJoin = async (): Promise<any> => {
 export const joinRaffle = async (): Promise<any> => {
   try {
     const res = await apiClient.post(`/bvm/raffle/join`);
+    AirdropStorage.setTimeChainClicked()
     TimeChainStorage.setTimeChainClicked();
     return res;
   } catch (error) {
@@ -129,3 +130,35 @@ export const getPublicsaleWalletInfo = async (): Promise<PublicSaleWalletInfo> =
   const res = (await apiClient.get(`/bvm/sale/wallet`)) as unknown as PublicSaleWalletInfo;
   return res;
 }
+
+export const postPublicsaleWalletInfo = async (): Promise<PublicSaleWalletInfo> => {
+  const res = (await apiClient.post(`/bvm/sale/wallet`)) as unknown as PublicSaleWalletInfo;
+  return res;
+}
+
+export const postPublicsaleWalletInfoManualCheck = async (): Promise<PublicSaleWalletInfo> => {
+  const res = (await apiClient.post(`/bvm/sale/manual-check`)) as unknown as PublicSaleWalletInfo;
+  return res;
+}
+
+export const getBVMAirdrop = async (params: any): Promise<any> => {
+  try {
+    const res = await apiClient.get(`/bvm/airdrop`, { params });
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
+
+export const getGenerativeProfile = async (address: string): Promise<any> => {
+  try {
+    const res = await apiClient.get(`https://generative.xyz/generative/api/profile/wallet/${address}`, );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};

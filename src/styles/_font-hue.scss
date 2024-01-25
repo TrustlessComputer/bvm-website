@@ -1,14 +1,4 @@
-'use client';
-
-import { Global } from '@emotion/react';
-
-export const ChakraFontsFace = () => {
-  // const isFireFox = navigator?.userAgent?.indexOf('Firefox') > -1;
-  // const fontVar = isFireFox ? 'system-ui,sans-serif;' : 'Helvetica Neue';
-  return (
-    <Global
-      styles={`
-      @font-face {
+@font-face {
   font-family: 'Helvetica Neue';
   src: local('Helvetica Neue Thin Italic'), local('HelveticaNeue-ThinItalic'),
   url('/webfont/HelveticaNeue-ThinItalic.woff2') format('woff2'),
@@ -167,9 +157,7 @@ export const ChakraFontsFace = () => {
   font-style: italic;
   font-display: swap;
 }
-      `}
-    />
-  );
-};
 
-export default ChakraFontsFace;
+:root {
+  --font-family: 'Helvetica Neue', sans-serif;
+}
