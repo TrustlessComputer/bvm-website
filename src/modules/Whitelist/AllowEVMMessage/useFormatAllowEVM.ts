@@ -17,7 +17,6 @@ interface IAmount {
   fee: number,
   point: number,
   unClaimedPoint: number,
-  feeUSD: number,
   blastAmount: number,
   baseAmount: number,
   arbAmount: number,
@@ -50,11 +49,6 @@ const useFormatAllowEVM = ({ type }: IAllowEVMProps) => {
           .plus(curr.status === 'unclaimed' ? curr.base_point || '0' : '0')
           .toNumber(),
       };
-      value = {
-        ...value,
-        // TODO: PRICE
-        feeUSD: new BigNumber(value.fee || 0).times(1).toNumber()
-      } as IAmount;
       return value as IAmount;
     }, { txsCount: 0, fee: 0, point: 0, unClaimedPoint: 0, feeUSD: 0, blastAmount: 0, baseAmount: 0, arbAmount: 0 } as IAmount)
   }, [status]);

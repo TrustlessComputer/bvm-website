@@ -1,13 +1,10 @@
 import { CDN_URL_ICONS } from '@/config';
-import AllowBTCMessage from '@/modules/Whitelist/AllowBTCMessage';
 import { Button, Flex } from '@chakra-ui/react';
 import cs from 'classnames';
 import cx from 'clsx';
 import Image from 'next/image';
 import React, { useMemo } from 'react';
 import s from './styles.module.scss';
-import sanitizeHtml from 'sanitize-html';
-import { ALLOWED_ATTRIBUTES } from '@/constants/constants';
 
 export interface IItemCommunity {
   project: string;
@@ -25,6 +22,14 @@ export interface IItemCommunity {
     desc: string;
     tooltip?: any;
   };
+  tag?: StepTagType
+}
+
+export const STEP_TAG = ['', 'New'];
+
+export enum StepTagType {
+  NONE,
+  NEW,
 }
 
 export default function ItemCommunity({
@@ -56,7 +61,12 @@ export default function ItemCommunity({
           <Flex direction={["column", "row"]} justifyContent="space-between" gap={[1, 4]}>
             <Flex direction="column" w="100%">
               <div className={s.itemCommunity__project}>{content?.project}</div>
-              <div className={s.itemCommunity__title}>{content?.title}</div>
+              <Flex gap="4px" alignItems="center">
+                {content?.tag !== undefined && (
+                  <div className={cx(s.itemCommunity__tag, s[STEP_TAG[content?.tag].toLowerCase()])}>{STEP_TAG[content?.tag]}</div>
+                )}
+                <div className={s.itemCommunity__title}>{content?.title}</div>
+              </Flex>
               {!!content?.desc && (
                 <div
                   className={s.itemCommunity__desc}

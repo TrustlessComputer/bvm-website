@@ -81,7 +81,25 @@ const Steps = () => {
 
   const onShareModular = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (holding ${formatCurrency(new BigNumber(allowCelestia.amount.fee || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\nPowered by @BVMnetwork, you can deploy your own Bitcoin L2 chain with @CelestiaOrg and @Optimism in a few clicks.\n\n🤯🤯🤯\n`;
+    const assests = [];
+    const minAmount = 0.0001;
+
+    if (new BigNumber(allowCelestia.amount.celestiaAmount || 0).gt(minAmount)) {
+      assests.push(`holding ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} TIA`)
+    }
+
+
+    if (new BigNumber(allowCelestia.amount.eigenlayerAmount || 0).gt(minAmount)) {
+      assests.push(`staking ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} ETH`)
+    }
+
+
+    if (new BigNumber(allowCelestia.amount.polygonAmount || 0).gt(minAmount)) {
+      assests.push(`holding ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} MATIC`)
+    }
+
+    const _amountString = assests.join(', ')
+    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (${_amountString}), I’m excited to see Modular Blockchains arrive on Bitcoin.\n\nIt's easy to launch your own Bitcoin L2 with @BVMnetwork.\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -103,6 +121,7 @@ const Steps = () => {
     if (new BigNumber(allowOptimism.amount.fee || 0).gt(MIN)) {
       op = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.fee || 0).toFixed(), 0, 6)} $OP`
     }
+
     if (new BigNumber(allowOptimism.amount.arbAmount || 0).gt(MIN)) {
       arb = `\n • ${formatCurrency(new BigNumber(allowOptimism.amount.arbAmount || 0).toFixed(), 0, 6)} $ARB`
     }
@@ -239,6 +258,26 @@ const Steps = () => {
         }
       },
       {
+        title: 'Are you a Modular Blockchain Pioneer?',
+        desc: 'The more TIA you hold, or the more ETH you stake on Eigen, or the more MATIC you have on Polygon, the more points you\'ll get. Connect your Keplr, Leap, or MetaMask wallet to prove the account ownership.\n',
+        actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
+        actionHandle: isNeedClaimCelestiaPoint ? async () => {
+          onShareModular();
+          await requestClaimCelestiaPoint(allowCelestia.status)
+          dispatch(requestReload())
+        } : onSignModular,
+        actionTextSecondary: isNeedClaimCelestiaPoint ? "Verify another wallet" : undefined,
+        actionHandleSecondary: isNeedClaimCelestiaPoint ? onSignModular : undefined,
+        isActive: !!token,
+        isDone: !!token,
+        step: MultiplierStep.modular,
+        image: "ic-modular-1.svg",
+        right: {
+          title: '+100 PTS',
+          desc: 'per TIA or Ξ 0.005 or 20 MATIC'
+        },
+      },
+      {
         title: 'Refer a fren to BVM',
         desc: 'Spread the love to your frens, team, and communities.',
         actionText: isCopied ? 'Copied' : 'Copy your referral link',
@@ -273,26 +312,6 @@ const Steps = () => {
         right: {
           title: '+10 PTS',
           desc: 'per 1000 sats'
-        }
-      },
-      {
-        title: 'Are you a Modular Blockchain Pioneer?',
-        desc: 'The more TIA or staked TIA you hold, the more points you’ll get. Connect your Keplr or Leap wallet to prove the account ownership.',
-        actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
-        actionHandle: isNeedClaimCelestiaPoint ? async () => {
-          onShareModular();
-          await requestClaimCelestiaPoint(allowCelestia.status)
-          dispatch(requestReload())
-        } : onSignModular,
-        actionTextSecondary: isNeedClaimCelestiaPoint ? "Verify another wallet" : undefined,
-        actionHandleSecondary: isNeedClaimCelestiaPoint ? onSignModular : undefined,
-        isActive: !!token,
-        isDone: !!token,
-        step: MultiplierStep.modular,
-        image: "ic-celestia.svg",
-        right: {
-          title: '+100 PTS',
-          desc: 'per TIA'
         }
       },
     ];

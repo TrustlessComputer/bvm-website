@@ -15,7 +15,7 @@ import AppLoading from '@/components/AppLoading';
 import cs from 'classnames';
 import { signMessage } from '@/utils/metamask-helper';
 import celestiaHelper, { ModularType } from '@/utils/celestia';
-import { verifyCelestiaSignature } from '@/services/whitelist';
+import { verifyCelestiaSignature, verifyEigenlayerSignature } from '@/services/whitelist';
 
 interface IProps {
   isShow: boolean;
@@ -25,18 +25,27 @@ interface IProps {
 interface ModalItem {
   image: string;
   text: string;
+  network: string;
   type: ModularType
 }
 const ITEMS: ModalItem[] = [
   {
     image: `${CDN_URL_ICONS}/kelpr.png`,
     text: 'Kelpr',
+    network: 'Celestia',
     type: ModularType.kelpr
   },
   {
     image: `${CDN_URL_ICONS}/leap.jpeg`,
     text: 'Leap',
+    network: 'Celestia',
     type: ModularType.leap
+  },
+  {
+    image: `${CDN_URL_ICONS}/ic-metamask.svg`,
+    text: 'Metamask',
+    network: 'Polygon & Eigenlayer',
+    type: ModularType.metamask
   },
 ];
 
@@ -49,8 +58,21 @@ const ConnectModalModular = React.memo(({ isShow, onHide }: IProps)=> {
   const onSignMessage = async (item: ModalItem) => {
     try {
       if (loading) return;
-      const { signature, address } = await celestiaHelper.signCelestiaMessage(item.type);
-      await verifyCelestiaSignature({ address, signature })
+      switch (item.type) {
+        case ModularType.kelpr:
+        case ModularType.leap: {
+          const { signature, address } = await celestiaHelper.signCelestiaMessage(item.type);
+          await verifyCelestiaSignature({ address, signature })
+          break
+        }
+        case ModularType.metamask: {
+          const { signature, address, message } = await signMessage(celestiaHelper.CelestiaConfig.messageForSign);
+          await verifyEigenlayerSignature({ signature, address, message })
+        }
+      }
+      //
+
+
       setLoading(true)
       dispatch(requestReload());
       toast.success("Successfully.")
@@ -78,6 +100,9 @@ const ConnectModalModular = React.memo(({ isShow, onHide }: IProps)=> {
             <p className={styles.modalItem_title}>
               {item.text}
             </p>
+            <p className={styles.modalItem_network}>
+              {item.network}
+            </p>
           </div>
         </div>
       );
@@ -86,7 +111,7 @@ const ConnectModalModular = React.memo(({ isShow, onHide }: IProps)=> {
   );
 
   return (
-    <BaseModal isShow={isShow} onHide={onHide} title="Choose wallet" size="small">
+    <BaseModal isShow={isShow} onHide={onHide} title="Choose your wallet" size="small">
       <div className={cs(styles.modalContent, loading && styles.modalContent__loading)}>
         {ITEMS.map(renderItem)}
       </div>
