@@ -76,7 +76,9 @@ export default function ItemCommunity({
           <Flex direction={["column", "row"]} justifyContent="space-between" gap={[1, 4]}>
             <Flex direction="column" w="100%">
               <Flex gap={2} w="100%">
-                <div className={cx(s.itemCommunity__tag, s[AirdropText[content?.airdropType].toLowerCase()])}>{AirdropText[content?.airdropType]}</div>
+                {!!AirdropText[content?.airdropType] && (
+                  <div className={cx(s.itemCommunity__tag, s[AirdropText[content?.airdropType].toLowerCase()])}>{AirdropText[content?.airdropType]}</div>
+                )}
                 <div className={s.itemCommunity__title}>{content?.title}</div>
                 {!!content?.right.title && (
                   <div className={s.itemCommunity__point} style={{ alignSelf: "flex-end", width: "100%" }}>
