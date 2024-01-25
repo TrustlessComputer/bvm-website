@@ -81,7 +81,25 @@ const Steps = () => {
 
   const onShareModular = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (holding ${formatCurrency(new BigNumber(allowCelestia.amount.celestiaAmount || '0').toFixed(2, BigNumber.ROUND_FLOOR), 0, 0)} TIA), I’m so excited to see Modular Blockchains arrive on Bitcoin.\n\nPowered by @BVMnetwork, you can deploy your own Bitcoin L2 chain with @CelestiaOrg and @Optimism in a few clicks.\n\n🤯🤯🤯\n`;
+    const assests = [];
+    const minAmount = 0.0001;
+
+    if (new BigNumber(allowCelestia.amount.celestiaAmount || 0).gt(minAmount)) {
+      assests.push(`holding ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} TIA`)
+    }
+
+
+    if (new BigNumber(allowCelestia.amount.eigenlayerAmount || 0).gt(minAmount)) {
+      assests.push(`staking ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} ETH`)
+    }
+
+
+    if (new BigNumber(allowCelestia.amount.polygonAmount || 0).gt(minAmount)) {
+      assests.push(`holding ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} MATIC`)
+    }
+
+    const _amountString = assests.join(', ')
+    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (${_amountString}), I’m excited to see Modular Blockchains arrive on Bitcoin.\n\nIt's easy to launch your own Bitcoin L2 with @BVMnetwork.\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
@@ -245,8 +263,8 @@ const Steps = () => {
         actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
         actionHandle: isNeedClaimCelestiaPoint ? async () => {
           onShareModular();
-          await requestClaimCelestiaPoint(allowCelestia.status)
-          dispatch(requestReload())
+          // await requestClaimCelestiaPoint(allowCelestia.status)
+          // dispatch(requestReload())
         } : onSignModular,
         actionTextSecondary: isNeedClaimCelestiaPoint ? "Verify another wallet" : undefined,
         actionHandleSecondary: isNeedClaimCelestiaPoint ? onSignModular : undefined,

@@ -98,7 +98,7 @@ table {
         th,
         td {
           padding-left: 4px !important;
-          padding-right: 18px !important;
+          padding-right: 12px !important;
           &:nth-child(1) {
             width: 55px !important;
           }
@@ -112,12 +112,12 @@ table {
     .title {
       font-style: normal;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 12px;
       line-height: 140%;
       color: black;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 75px;
+      max-width: 85px;
     }
 
     .button {
