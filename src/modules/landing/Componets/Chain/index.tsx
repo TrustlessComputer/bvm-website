@@ -80,7 +80,7 @@ const DATA_CHAINS = [
       },
       {
         left: 'Data Availability',
-        right: 'Celestia',
+        right: 'NearDA',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
