@@ -41,6 +41,12 @@ const Whitelist = () => {
     }
   }, [height]);
 
+  const isCountDown = React.useMemo(() => {
+    return dayjs
+      .utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss')
+      .isAfter(dayjs().utc().format())
+  }, [])
+
   const renderCountUp = () => {
     return (
       <>
@@ -76,14 +82,17 @@ const Whitelist = () => {
   return (
     <BoxContent className={s.container} id={CONTAINER_ID}>
       <Flex className={s.header} w="100%">
-        <Flex flexDirection="column" gap="8px">
-          <p className={s.countDown_title}>Public sale starting in</p>
-          <Countdown
-            className={s.countDown_time}
-            expiredTime={dayjs.utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
-            hideIcon={true}
-          />
-        </Flex>
+          {isCountDown && (
+            <Flex flexDirection="column" gap="8px">
+              <p className={s.countDown_title}>Public sale starting in</p>
+              <Countdown
+                className={s.countDown_time}
+                expiredTime={dayjs.utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
+                hideIcon={true}
+                type="column"
+              />
+            </Flex>
+          )}
         <TimechainBanner setTabIndex={setIndex} />
       </Flex>
       <div className={s.tokenSection}>
