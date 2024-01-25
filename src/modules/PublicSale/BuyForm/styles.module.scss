@@ -17,11 +17,21 @@
   }
 
   .title {
-    font-size: 32px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%;
+    width: 100%;
+    text-align: center;
+    color: #FFFFFF;
+  }
+
+  .fundValue {
+    font-size: 72px;
     font-weight: 500;
     line-height: 100%;
     width: 100%;
     text-align: center;
+    color: #FFFFFF;
   }
 
   .boxInfo {

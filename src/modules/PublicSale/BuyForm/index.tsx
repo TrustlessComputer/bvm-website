@@ -29,9 +29,9 @@ const DELAY = 2;
 
 const Column = ({ value, title }: { value: any, title: string }) => {
   return (
-    <Flex direction={'column'} justifyContent={'center'} flex={1} textAlign={'center'}>
-      <Text fontSize={'32px'} fontWeight={700}>{value}</Text>
+    <Flex direction={'column'} justifyContent={'center'} flex={1}>
       <Text fontSize={'14px'} fontWeight={400}>{title}</Text>
+      <Text fontSize={'24px'} fontWeight={500}>{value}</Text>
     </Flex>
   );
 };
@@ -111,7 +111,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
           <Text className={s.title}><Lines delay={DELAY + .2}>TOTAL FUNDED</Lines></Text>
-          <Text className={s.title}><Lines delay={DELAY + .2}>$9,233,476</Lines></Text>
+          <Text className={s.fundValue}><Lines delay={DELAY + .2}>$9,233,476</Lines></Text>
           <Flex className={s.boxInfo} gap={4} mt={'40px'} mb={'40px'} width={'100%'}>
             <Column value={formatCurrency(contributeInfo?.total_user, 0, 0, 'BTC', true)} title={'TOTAL TOKENS'} />
             <Column value={`${vcInfo?.available_tokens}%`} title={'BACKER'} />
