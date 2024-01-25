@@ -28,6 +28,10 @@ const DATA_HERO = [
     icon: '/landing/ic-ordinal.svg',
     title: 'Ordinals',
   },
+  {
+    icon: '/landing/ic-near.svg',
+    title: 'Near',
+  },
 ];
 
 const DELAY = 1.8;
