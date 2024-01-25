@@ -89,6 +89,18 @@
       display: none;
     }
   }
+  &__tag {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 4px 12px;
+    border-radius: 100px;
+    height: fit-content;
+
+    &.new {
+      color: #FFFFFF;
+      background: linear-gradient(90deg, #F4603F 0%, #FFA751 100%);
+    }
+  }
 }
 
 .modalContent {
