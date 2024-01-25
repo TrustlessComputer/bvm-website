@@ -15,6 +15,7 @@ import Welcome from '@/modules/PublicSale/welcome';
 import Playgame from '@/modules/PublicSale/playGame';
 import AddMoreContribution from '@/modules/PublicSale/addMoreContribution';
 import TopHeader from '@/modules/PublicSale/topHeader';
+import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -41,7 +42,7 @@ const AboveTheFold = () => {
       <SimpleGrid className={`${s.content}`} gridTemplateColumns={["1fr", "1fr 1fr"]} gap={[6, 0]}>
         <Flex className={s.leftSection} direction={"column"} gap={[6, 6]} justifyContent={"flex-start"}>
           <TopHeader />
-          <LeaderBoard />
+          <LeaderBoardVisual />
           <AddMoreContribution />
         </Flex>
         <Flex className={s.rightSection} direction={"column"}>

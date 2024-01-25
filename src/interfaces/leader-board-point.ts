@@ -28,4 +28,6 @@ export interface ILeaderBoardPoint {
   bvm_balance: string;
   eth_balance: string;
   btc_balance: string;
+  levelRender?:number
+  lastRender?:boolean
 }
