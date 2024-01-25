@@ -24,6 +24,7 @@
       flex-direction: column;
       justify-content: center;
       height: fit-content;
+      gap: 2px;
     }
 
     img {
@@ -54,6 +55,16 @@
       font-style: normal;
       font-weight: 400;
       line-height: 26px;
+    }
+    &_network {
+      color: rgba(0, 0, 0, 0.8);
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%;
+      background-color: rgba(255, 126, 33, 0.30);
+      padding: 3px 12px;
+      border-radius: 4px;
     }
   }
 }

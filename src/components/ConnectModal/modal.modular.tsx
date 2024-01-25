@@ -25,22 +25,26 @@ interface IProps {
 interface ModalItem {
   image: string;
   text: string;
+  network: string;
   type: ModularType
 }
 const ITEMS: ModalItem[] = [
   {
     image: `${CDN_URL_ICONS}/kelpr.png`,
-    text: 'Kelpr (Celestia)',
+    text: 'Kelpr',
+    network: 'Celestia',
     type: ModularType.kelpr
   },
   {
     image: `${CDN_URL_ICONS}/leap.jpeg`,
-    text: 'Leap (Celestia)',
+    text: 'Leap',
+    network: 'Celestia',
     type: ModularType.leap
   },
   {
     image: `${CDN_URL_ICONS}/ic-metamask.svg`,
-    text: 'Metamask (Polygon & Eigenlayer)',
+    text: 'Metamask',
+    network: 'Polygon & Eigenlayer',
     type: ModularType.metamask
   },
 ];
@@ -96,6 +100,9 @@ const ConnectModalModular = React.memo(({ isShow, onHide }: IProps)=> {
             <p className={styles.modalItem_title}>
               {item.text}
             </p>
+            <p className={styles.modalItem_network}>
+              {item.network}
+            </p>
           </div>
         </div>
       );
@@ -104,7 +111,7 @@ const ConnectModalModular = React.memo(({ isShow, onHide }: IProps)=> {
   );
 
   return (
-    <BaseModal isShow={isShow} onHide={onHide} title="Choose wallet" size="small">
+    <BaseModal isShow={isShow} onHide={onHide} title="Choose your wallet" size="small">
       <div className={cs(styles.modalContent, loading && styles.modalContent__loading)}>
         {ITEMS.map(renderItem)}
       </div>
