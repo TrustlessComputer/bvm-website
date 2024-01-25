@@ -108,6 +108,15 @@ const verifyCelestiaSignature = async (params: { address: CelestiaAddress, signa
   return res
 }
 
+const verifyEigenlayerSignature = async (params: { address: string, signature: string, message: string }) => {
+  const res = (await apiClient.post(`/bvm/verify-celestia-address?network=ethereum`, {
+    address: params.address,
+    message: params.message,
+    signature: params.signature,
+  })) as any;
+  return res
+}
+
 const verifyEVMSignature = async (params: { address: string, signature: string, message: string, network: string }) => {
   const res = (await apiClient.post(`/bvm/verify/?network=${params.network}`, {
     address: params.address,
@@ -146,5 +155,6 @@ export {
   requestClaimCelestiaPoint,
   verifyEVMSignature,
   getAllowEVMStatus,
-  requestClaimEVMPoint
+  requestClaimEVMPoint,
+  verifyEigenlayerSignature
 }

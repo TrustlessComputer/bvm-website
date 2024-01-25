@@ -36,6 +36,7 @@ export interface IItemCommunity {
   title: string;
   desc: string | React.ReactNode;
   actionText?: string;
+  actionTextEnd?: string;
   actionHandle: any;
   actionTextSecondary?: string;
   actionHandleSecondary?: any;
@@ -51,7 +52,8 @@ export interface IItemCommunity {
   isDisable?: boolean;
   showExpireTime?: boolean;
   airdropType: AirdropType,
-  step: AirdropStep
+  step: AirdropStep,
+  result?: any,
 }
 
 export default function ItemCommunity({
@@ -63,13 +65,17 @@ export default function ItemCommunity({
   content: IItemCommunity;
   isLoading?: boolean;
 }) {
+  const [isEnd, setIsEnd] = React.useState(
+    dayjs
+      .utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss')
+      .isBefore(dayjs().utc().format())
+  );
   const { isActive, image, isDisable = false } = content;
   const airdropAlphaUsers = useSelector(airdropAlphaUsersSelector);
   const airdropGMHolders = AirdropStorage.getAirdropGMHolders();
   const airdropGenerativeUsers = AirdropStorage.getAirdropGenerativeUsers();
   const airdropPerceptronsHolders = AirdropStorage.getAirdropPerceptronsHolders();
   const user = useAppSelector(userSelector);
-  const [expireTimeEnd, setExpireTimeEnd] = useState(false);
   const isConnectMetaMask = AirdropStorage.getIsConnectMetaMask();
   const isConnectBitcoinWallet = AirdropStorage.getIsConnectBitcoinWallet();
 
@@ -116,17 +122,19 @@ export default function ItemCommunity({
                 />
               )}
               {
-                <Flex>
+                <Flex direction={"column"}>
                   {
                     content?.showExpireTime && !!content?.expiredTime && (
                       <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
-                        <Countdown
-                          className={s.itemCommunity__countdown}
-                          expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()}
-                          hideIcon={true}
-                          onRefreshEnd={() => setExpireTimeEnd(true)}
-                        />
-                        {!expireTimeEnd && <Text fontSize={"12px"} fontWeight={400} color={"#000000"}>TIME REMAIN</Text>}
+                        <Countdown className={s.itemCommunity__countdown} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} onRefreshEnd={() => setIsEnd(true)}/>
+                        {!isEnd && <Text fontSize={"12px"} fontWeight={400} color={"#000000"}>TIME REMAIN</Text>}
+                      </Flex>
+                    )
+                  }
+                  {
+                    isEnd && (
+                      <Flex className={s.resultWrapper}>
+                        {content?.result}
                       </Flex>
                     )
                   }
@@ -147,16 +155,11 @@ export default function ItemCommunity({
                   isLoading={isLoading}
                 >
                   {
-                    !content?.showExpireTime && !!content?.expiredTime && !expireTimeEnd  ? (
+                    !content?.showExpireTime && !!content?.expiredTime  ? (
                       <Flex direction={"column"} justifyContent={"center"} gap={1} mt={2} mb={2}>
-                        <Countdown
-                          className={s.itemCommunity__countdown_button}
-                          expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()}
-                          hideIcon={true}
-                          onRefreshEnd={() => setExpireTimeEnd(true)}
-                        />
+                        <Countdown className={s.itemCommunity__countdown_button} expiredTime={dayjs.utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} onRefreshEnd={() => setIsEnd(true)}/>
                       </Flex>
-                    ) : (content?.actionText)
+                    ) : (isEnd ? content?.actionTextEnd || content?.actionText : content?.actionText)
                   }
                 </Button>
                 {!!content.actionHandleSecondary && (

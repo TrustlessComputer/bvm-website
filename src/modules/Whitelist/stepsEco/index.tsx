@@ -88,11 +88,30 @@ const StepsEco = () => {
       },
       {
         project: 'Bitcoin L2 for DeFi',
-        title: 'NakaChain',
+        title: 'NakaChain Swap',
         desc: `<span style='font-style: italic'>A low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps.</span>${LearnMore(
           'https://nakachain.xyz/',
         )}<br/>
-        Swap and add liquidity on Naka Genesis to earn points. The higher the volume you make the more airdrop points you will get.
+        Swap and add liquidity on Naka Genesis to earn points. The higher the volume you make the more points you will get.
+        `,
+        actionText: 'Connect Naka Genesis',
+        image: 'ic-naka.svg',
+        actionHandle: () => {
+          setShowSyncBVM(true);
+        },
+        isActive: !!token,
+        right: {
+          title: '+1000 PTS',
+          desc: 'per 0.001 BTC',
+        },
+      },
+      {
+        project: 'Bitcoin L2 for DeFi',
+        title: 'NakaChain Feature',
+        desc: `<span style='font-style: italic'>A low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps.</span>${LearnMore(
+          'https://nakachain.xyz/',
+        )}<br/>
+        Play feature on Naka Genesis to earn points. The higher the volume you make the more points you will get.
         `,
         actionText: 'Connect Naka Genesis',
         image: 'ic-naka.svg',

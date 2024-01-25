@@ -15,7 +15,7 @@ import AppLoading from '@/components/AppLoading';
 import cs from 'classnames';
 import { signMessage } from '@/utils/metamask-helper';
 import celestiaHelper, { ModularType } from '@/utils/celestia';
-import { verifyCelestiaSignature } from '@/services/whitelist';
+import { verifyCelestiaSignature, verifyEigenlayerSignature } from '@/services/whitelist';
 
 interface IProps {
   isShow: boolean;
@@ -30,13 +30,18 @@ interface ModalItem {
 const ITEMS: ModalItem[] = [
   {
     image: `${CDN_URL_ICONS}/kelpr.png`,
-    text: 'Kelpr',
+    text: 'Kelpr (Celestia)',
     type: ModularType.kelpr
   },
   {
     image: `${CDN_URL_ICONS}/leap.jpeg`,
-    text: 'Leap',
+    text: 'Leap (Celestia)',
     type: ModularType.leap
+  },
+  {
+    image: `${CDN_URL_ICONS}/ic-metamask.svg`,
+    text: 'Metamask (Eigenlayer)',
+    type: ModularType.metamask
   },
 ];
 
@@ -49,8 +54,21 @@ const ConnectModalModular = React.memo(({ isShow, onHide }: IProps)=> {
   const onSignMessage = async (item: ModalItem) => {
     try {
       if (loading) return;
-      const { signature, address } = await celestiaHelper.signCelestiaMessage(item.type);
-      await verifyCelestiaSignature({ address, signature })
+      switch (item.type) {
+        case ModularType.kelpr:
+        case ModularType.leap: {
+          const { signature, address } = await celestiaHelper.signCelestiaMessage(item.type);
+          await verifyCelestiaSignature({ address, signature })
+          break
+        }
+        case ModularType.metamask: {
+          const { signature, address, message } = await signMessage(celestiaHelper.CelestiaConfig.messageForSign);
+          await verifyEigenlayerSignature({ signature, address, message })
+        }
+      }
+      //
+
+
       setLoading(true)
       dispatch(requestReload());
       toast.success("Successfully.")

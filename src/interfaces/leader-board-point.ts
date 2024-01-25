@@ -27,4 +27,6 @@ export interface ILeaderBoardPoint {
   blast_point: string;
   base_point: string;
   arb_point: string;
+  eigenlayer_point: string;
+  polygon_point: string;
 }
