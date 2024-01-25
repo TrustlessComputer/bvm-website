@@ -552,8 +552,7 @@ const LeaderBoard = (props: IProps) => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    Modular Points are calculated from your holding & staking{' '}
-                    <strong>TIA</strong>
+                    Modular points are calculated based on your <strong>TIA</strong> holdings and staking, as well as <strong>ETH</strong> staking on <strong>Eigen</strong>.
                   </p>
                 </Flex>
               }
@@ -583,8 +582,33 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.celestia_point, 0, 0)}
+                  {formatCurrency(new BigNumber(data?.celestia_point || 0).plus(data?.eigenlayer_point || 0).toNumber(), 0, 0)}
                 </Text>
+                {data.need_active ? (
+                  <Tooltip
+                    minW="160px"
+                    bg="white"
+                    boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                    borderRadius="4px"
+                    padding="8px"
+                    label={
+                      <Flex direction="column" color="black" opacity={0.7}>
+                        <p>Eigenlayer: {data.eigenlayer_point || '0'}</p>
+                        <p>Celestia: {data.celestia_point || '0'}</p>
+                      </Flex>
+                    }
+                  >
+                    <div>
+                      <SvgInset
+                        size={18}
+                        className={styles.tooltipIconActive}
+                        svgUrl={`${CDN_URL_ICONS}/info-circle.svg`}
+                      />
+                    </div>
+                  </Tooltip>
+                ) : (
+                  <Box w="16px" />
+                )}
               </Flex>
             </Flex>
           );

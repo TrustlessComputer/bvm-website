@@ -8,7 +8,8 @@ const CelestiaConfig = {
 
 export enum ModularType {
   kelpr,
-  leap
+  leap,
+  metamask
 }
 
 export interface CelestiaAddress {
