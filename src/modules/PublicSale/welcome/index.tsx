@@ -24,7 +24,6 @@ const Welcome = () => {
           <EternalAi />
         </GridItem>
       </SimpleGrid>
-
     </Flex>
   );
 }

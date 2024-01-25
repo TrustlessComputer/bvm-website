@@ -1,0 +1,53 @@
+.container {
+  width: 140px;
+  height: 140px;
+  background: url("/public-sale/raffleBtnBg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  align-items: flex-end;
+
+  transition: all 0.3s;
+  position: relative;
+
+  .time {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .menuContent {
+    border: 1px solid #FFFFFF26;
+    padding: 20px;
+    display: none;
+    position: absolute;
+    background: linear-gradient(180deg, #282828 0%, #131313 146.93%),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
+    min-width: 600px;
+    bottom: -300px;
+
+    .title {
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .desc {
+      font-size: 20px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 8px;
+    }
+
+    .learnMoreWrapper {
+      background: #FFFFFF;
+      padding: 12px 16px;
+      width: fit-content;
+      color: #000000;
+      margin-top: 20px;
+    }
+  }
+
+  .showMenu {
+    display: block;
+  }
+}

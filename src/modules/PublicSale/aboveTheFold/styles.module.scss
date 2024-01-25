@@ -11,15 +11,14 @@
 
   .content {
     width: 100%;
-    padding: var(--container-padding);
+    //padding: var(--container-padding);
 
     @include w-max(768px) {
-      padding: rem(48px) rem(16px);
+      //padding: rem(48px) rem(16px);
     }
   }
 
   .leftSection {
-    padding-top: 100px;
     background: #000000;
   }
 
@@ -98,4 +97,9 @@
     }
   }
 
+  .raffleButton {
+    position: absolute;
+    top: 200px;
+    left: 100px;
+  }
 }

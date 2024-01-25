@@ -1,16 +1,40 @@
 import s from './styles.module.scss';
 import { Center, Divider, Flex, Text } from '@chakra-ui/react';
 import cx from 'clsx';
+import DepositModal from '@/modules/PublicSale/depositModal';
+import React, { useEffect, useState } from 'react';
+import { PublicSaleWalletInfo } from '@/interfaces/vc';
+import { getPublicsaleWalletInfo } from '@/services/public-sale';
+import { useAppSelector } from '@/stores/hooks';
+import { userSelector } from '@/stores/states/user/selector';
 
-const DAYS = [
-  {key: 0, title: '$100', desc: 'day 1 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 1, title: '$500', desc: 'day 2 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 2, title: '$1,000', desc: 'day 3 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 3, title: '$10,000', desc: 'day 4 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 4, title: '$15,000', desc: 'day 5 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+const AMOUNTS = [
+  {key: 0, title: '$100', value: 100},
+  {key: 1, title: '$500', value: 500},
+  {key: 2, title: '$1,000', value: 1000},
+  {key: 3, title: '$10,000', value: 10000},
+  {key: 4, title: '$15,000', value: 15000},
 ]
 
 const AddMoreContribution = () => {
+  const [showQrCode, setShowQrCode] = useState(false);
+  const [saleWalletInfo, setSaleWalletInfo] = useState<PublicSaleWalletInfo>();
+  const user = useAppSelector(userSelector);
+  const [selectedAmount, setSelectedAmount] = useState<any>();
+
+  useEffect(() => {
+    if (user?.twitter_id) {
+      getVentureInfo();
+    }
+  }, [user?.twitter_id]);
+
+  const getVentureInfo = async () => {
+    const result = await getPublicsaleWalletInfo();
+    setSaleWalletInfo(result);
+  };
+
+  console.log('selectedAmount',  selectedAmount);
+
   return (
     <Flex className={s.container}>
       <Flex p={'20px'} alignItems={"center"} w={"100%"} justifyContent={"space-between"}>
@@ -19,10 +43,19 @@ const AddMoreContribution = () => {
         </Text>
         <Flex gap={2} justifyContent={"space-between"}>
           {
-            DAYS.map(d => {
+            AMOUNTS.map(d => {
               return (
-                <Flex flex={1} justifyContent={'center'} alignItems={"center"}
-                      className={cx(s.item)}>
+                <Flex
+                  flex={1}
+                  justifyContent={'center'}
+                  alignItems={"center"}
+                  className={cx(s.item)}
+                  onClick={() => {
+                    setSelectedAmount(d);
+                    setShowQrCode(true);
+                  }}
+                  cursor={"pointer"}
+                >
                   {d?.title}
                 </Flex>
               )
@@ -50,6 +83,12 @@ const AddMoreContribution = () => {
           </Flex>
         </a>
       </Flex>
+      <DepositModal
+        isShow={showQrCode}
+        onHide={() => setShowQrCode(false)}
+        saleWalletInfo={saleWalletInfo}
+        payAmountUsd={selectedAmount?.value}
+      />
     </Flex>
   )
 };

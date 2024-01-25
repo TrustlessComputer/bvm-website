@@ -28,6 +28,8 @@ export interface ILeaderBoardPoint {
   eigenlayer_point: string;
   polygon_point: string;
   game_point: string;
+  levelRender?:number
+  lastRender?:boolean
   alpha_point: string;
   bvm_balance: string;
   eth_balance: string;
