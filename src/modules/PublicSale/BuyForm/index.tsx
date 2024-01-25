@@ -113,8 +113,13 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           <Text className={s.title}><Lines delay={DELAY + .2}>TOTAL FUNDED</Lines></Text>
           <Text className={s.fundValue}><Lines delay={DELAY + .2}>$9,233,476</Lines></Text>
           <Flex className={s.boxInfo} gap={4} mt={'40px'} mb={'40px'} width={'100%'}>
-            <Column value={formatCurrency(contributeInfo?.total_user, 0, 0, 'BTC', true)} title={'TOTAL TOKENS'} />
-            <Column value={`${vcInfo?.available_tokens}%`} title={'BACKER'} />
+            <Column value={formatCurrency(contributeInfo?.total_user, 0, 0, 'BTC', true)} title={'CONTRIBUTORS'} />
+            <Column value={
+              <Flex>
+                <Text>$100,000</Text>
+                <Text>(30%)</Text>
+              </Flex>
+            } title={'YOUR CONTRIBUTION'} />
             <Column value={
               <Countdown
                 className={s.time}
@@ -135,7 +140,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     // loadingText={'Submitting...'}
                     className={s.button}
                   >
-                    Deposit
+                    Buy $BVM
                   </Button>
                 </Fade>
               )
