@@ -531,6 +531,135 @@ const LeaderBoard = (props: IProps) => {
         },
       },
       {
+        id: 'game',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              gap: '4px',
+            }}
+          >
+            <p style={{ textTransform: 'uppercase' }}>Gaming PTS</p>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={'4px'}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={'4px'}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.game_point, 0, 0)}
+                </Text>
+                {data.need_active && !Number(data?.game_point || '0') && (
+                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
+                )}
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'naka',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              gap: '4px',
+            }}
+          >
+            <p style={{ textTransform: 'uppercase' }}>DEFI PTS</p>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={'4px'}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={'4px'}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.naka_point, 0, 0)}
+                </Text>
+                {data.need_active && !Number(data?.naka_point || '0') && (
+                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
+                )}
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'eco',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              gap: '4px',
+            }}
+          >
+            <p style={{ textTransform: 'uppercase' }}>SOCIALFI PTS</p>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={'4px'}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={'4px'}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.alpha_point, 0, 0)}
+                </Text>
+                {data.need_active && !Number(data?.alpha_point || '0') && (
+                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
+                )}
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
         id: 'modular',
         label: (
           <Flex
@@ -702,70 +831,6 @@ const LeaderBoard = (props: IProps) => {
                   </Tooltip>
                 ) : (
                   <Box w="16px" />
-                )}
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'eco',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              width: '100%',
-              gap: '4px',
-            }}
-          >
-            <p style={{ textTransform: 'uppercase' }}>ECOSYSTEM PTS</p>
-            <Tooltip
-              minW="220px"
-              bg="white"
-              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-              borderRadius="4px"
-              padding="8px"
-              label={
-                <Flex direction="column" color="black" opacity={0.7}>
-                  <p>
-                    Points earned by doing tasks in other dApps like Naka
-                    Genesis, Bitcoin Arcade, Alpha, and more within the BVM
-                    ecosystem.
-                  </p>
-                </Flex>
-              }
-            >
-              <img
-                className={styles.tooltipIcon}
-                src={`${CDN_URL_ICONS}/info-circle.svg`}
-              />
-            </Tooltip>
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex
-              gap={'4px'}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
-            >
-              <Flex alignItems={'center'} gap={'4px'}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.eco_point, 0, 0)}
-                </Text>
-                {data.need_active && !Number(data?.eco_point || '0') && (
-                  <button onClick={() => props.setIndex(2)} className={styles.button}>GET</button>
                 )}
               </Flex>
             </Flex>
