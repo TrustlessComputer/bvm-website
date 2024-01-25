@@ -30,8 +30,8 @@ const DELAY = 2;
 const Column = ({ value, title }: { value: any, title: string }) => {
   return (
     <Flex direction={'column'} justifyContent={'center'} flex={1}>
-      <Text fontSize={'14px'} fontWeight={400}>{title}</Text>
-      <Text fontSize={'24px'} fontWeight={500}>{value}</Text>
+      <Text fontSize={'12px'} fontWeight={400}>{title}</Text>
+      <Text fontSize={'22px'} fontWeight={500} color={'#FFFFFF'}>{value}</Text>
     </Flex>
   );
 };
@@ -115,9 +115,27 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           <Flex className={s.boxInfo} gap={4} mt={'40px'} mb={'40px'} width={'100%'}>
             <Column value={formatCurrency(contributeInfo?.total_user, 0, 0, 'BTC', true)} title={'CONTRIBUTORS'} />
             <Column value={
-              <Flex>
-                <Text>$100,000</Text>
-                <Text>(30%)</Text>
+              <Flex direction={"column"}>
+                <Flex gap={1} alignItems={"center"}>
+                  <Text>$120,000</Text>
+                  <Text fontSize={'16px'} fontWeight={"400"} color={'rgba(255, 255, 255, 0.7)'}>(0.05)</Text>
+                </Flex>
+                <Flex gap={1} alignItems={"center"}>
+                  <Text fontSize={'12px'} fontWeight={"400"} color={'rgba(255, 255, 255, 0.7)'}>$100,000</Text>
+                  <svg width="2" height="11" viewBox="0 0 2 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="1.16699" y1="10.2803" x2="1.16699" y2="0.280273" stroke="white" stroke-opacity="0.2"/>
+                  </svg>
+                  <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.66699 5.18883H5.39426L6.12154 0.825195L0.666992 7.37065H3.93972L3.21245 11.7343L8.66699 5.18883Z" fill="url(#paint0_linear_29800_7703)"/>
+                    <defs>
+                      <linearGradient id="paint0_linear_29800_7703" x1="0.666992" y1="6.27974" x2="8.66699" y2="6.27974" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="white"/>
+                        <stop offset="1" stop-color="#35CCA6"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <Text fontSize={'12px'} fontWeight={"500"} color={'rgba(255, 255, 255, 0.7)'} className={s.boost}>20%</Text>
+                </Flex>
               </Flex>
             } title={'YOUR CONTRIBUTION'} />
             <Column value={
