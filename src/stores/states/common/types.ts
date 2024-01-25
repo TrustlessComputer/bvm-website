@@ -10,5 +10,6 @@ export enum Coin {
 
 export interface CommonState {
   needReload: number;
-  coinPrices: CoinPrices
+  coinPrices: CoinPrices,
+  leaderBoardMode: 0 | 1;
 }
