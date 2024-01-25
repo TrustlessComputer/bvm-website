@@ -582,7 +582,10 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(new BigNumber(data?.celestia_point || 0).plus(data?.eigenlayer_point || 0).toNumber(), 0, 0)}
+                  {formatCurrency(new BigNumber(data?.celestia_point || 0)
+                    .plus(data?.eigenlayer_point || 0)
+                    .plus(data?.polygon_point || 0)
+                    .toNumber(), 0, 0)}
                 </Text>
                 {data.need_active ? (
                   <Tooltip
