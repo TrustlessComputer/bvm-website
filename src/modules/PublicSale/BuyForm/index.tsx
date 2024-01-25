@@ -66,9 +66,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const getVentureInfo = async () => {
     const result = await getPublicsaleWalletInfo();
     setSaleWalletInfo(result);
-    // if(result) {
-    //   setShowQrCode(true);
-    // }
   };
 
   const handleRecheckDeposit = async () => {

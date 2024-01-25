@@ -13,6 +13,8 @@ const DepositModal = ({ isShow, onHide, saleWalletInfo, payAmountUsd }: any) => 
   const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
   const ethPrice = useMemo(() => coinPrices?.['ETH'] || '0', [coinPrices]);
 
+  console.log('payAmountUsd', payAmountUsd);
+
   const payAmountBtc = useMemo(() => {
     return new BigNumber(payAmountUsd).dividedBy(btcPrice).toString();
   }, [payAmountUsd, btcPrice]);
@@ -40,7 +42,7 @@ const DepositModal = ({ isShow, onHide, saleWalletInfo, payAmountUsd }: any) => 
                   value={saleWalletInfo?.btc_address || ''}
                   logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
                 />
-                {payAmountUsd && <Text className={s.depositValue}>{formatCurrency(payAmountBtc, 4, 4)} BTC</Text>}
+                {payAmountUsd && <Text className={s.depositValue}>${formatCurrency(payAmountUsd, 0, 0, 'BTC', true)} ~ {formatCurrency(payAmountBtc, 4, 4)} BTC</Text>}
               </Flex>
               <Flex direction={'column'} alignItems={'center'} gap={3}>
                 <QRCode
@@ -48,7 +50,7 @@ const DepositModal = ({ isShow, onHide, saleWalletInfo, payAmountUsd }: any) => 
                   value={saleWalletInfo?.eth_address || ''}
                   logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
                 />
-                {payAmountUsd && <Text className={s.depositValue}>{formatCurrency(payAmountEth, 4, 4)} ETH</Text>}
+                {payAmountUsd && <Text className={s.depositValue}>${formatCurrency(payAmountUsd, 0, 0, 'BTC', true)} ~ {formatCurrency(payAmountEth, 4, 4)} ETH</Text>}
               </Flex>
             </Flex>
           </Box>
