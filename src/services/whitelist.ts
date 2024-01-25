@@ -81,7 +81,7 @@ const requestClaimBTCPoint = async (status: SignatureStatus[]) => {
 };
 
 const getAllowCelestiaStatus = async (): Promise<SignatureStatus[]> => {
-  const res = (await apiClient.get(`/bvm/verify-celestia-address`)) as SignatureStatus[];
+  const res = (await apiClient.get(`/bvm/verify-celestia-address/?network=ethereum`)) as SignatureStatus[];
   return res;
 }
 
@@ -90,7 +90,7 @@ const requestClaimCelestiaPoint = async (status: SignatureStatus[]) => {
     try {
       const item = status[i];
       if (item && item.status === 'unclaimed') {
-        await apiClient.post(`/bvm/claim-celestia-point/${item.id}`);
+        await apiClient.post(`/bvm/claim-celestia-point/${item.id}?network=ethereum`);
       }
     } catch (error) {
       // TODO: handle error
@@ -99,7 +99,7 @@ const requestClaimCelestiaPoint = async (status: SignatureStatus[]) => {
 };
 
 const verifyCelestiaSignature = async (params: { address: CelestiaAddress, signature: CelestiaSignature }) => {
-  const res = (await apiClient.post(`/bvm/verify-celestia-address`, {
+  const res = (await apiClient.post(`/bvm/verify-celestia-address/?network=ethereum`, {
     address: params.address.bech32Address,
     message: celestiaHelper.CelestiaConfig.messageForSign,
     signature: params.signature.signature,

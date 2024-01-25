@@ -63,7 +63,7 @@ const Countdown: React.FC<IProps> = ({
           <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m : ${seconds}s`}</Text>
         ) : (
           (
-            <Flex gap="76px">
+            <Flex gap={{ base: "24px", lg: "76px" }}>
               {showDay && (
                 <Flex flexDirection="column" alignItems="center">
                   <Text className={s.text}>{days}</Text>
