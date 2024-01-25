@@ -263,8 +263,8 @@ const Steps = () => {
         actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
         actionHandle: isNeedClaimCelestiaPoint ? async () => {
           onShareModular();
-          // await requestClaimCelestiaPoint(allowCelestia.status)
-          // dispatch(requestReload())
+          await requestClaimCelestiaPoint(allowCelestia.status)
+          dispatch(requestReload())
         } : onSignModular,
         actionTextSecondary: isNeedClaimCelestiaPoint ? "Verify another wallet" : undefined,
         actionHandleSecondary: isNeedClaimCelestiaPoint ? onSignModular : undefined,
