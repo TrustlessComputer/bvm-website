@@ -17,7 +17,6 @@ import StepsAirdrop, { TIME_CHAIN_EXPIRED_TIME } from '@/modules/Whitelist/stepA
 import useAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useAllowBTC';
 import useAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useAllowCelestia';
 import useAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useAllowEVM';
-import TimechainBanner from '@/modules/Whitelist/TimechainBanner';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import ArcadeBanner from '@/modules/Whitelist/ArcadeBanner';
