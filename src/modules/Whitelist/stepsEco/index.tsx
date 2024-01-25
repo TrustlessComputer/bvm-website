@@ -1,7 +1,7 @@
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { Flex, Tooltip } from '@chakra-ui/react';
 import React, { useMemo, useState } from 'react';
-import ItemStep, { IItemCommunity } from './Step';
+import ItemStep, { IItemCommunity, StepTagType } from './Step';
 import s from './styles.module.scss';
 import VerifyBVMModal from './VerifyBVMModal';
 import styles from '@/modules/Whitelist/leaderBoard/styles.module.scss';
@@ -18,7 +18,11 @@ export const LearnMore = (href: string) => {
     </a>`;
 };
 
-const StepsEco = () => {
+interface IProps {
+  setTabIndex: (_: number) => void
+}
+
+const StepsEco = ({ setTabIndex }: IProps) => {
   const token = AuthenStorage.getAuthenKey();
   const [showSyncBVM, setShowSyncBVM] = useState(false);
   const [showDownloadAlphaApp, setShowDownloadAlphhaApp] = useState(false);
@@ -49,6 +53,28 @@ const StepsEco = () => {
       //     desc: '',
       //   },
       // },
+      {
+        project: 'Bitcoin L2 for GameFi',
+        title: "Bitcoin Arcade",
+        desc: `<span style='font-style: italic'>The first ever fully on-chain gaming blockchain on Bitcoin.</span>${LearnMore(
+          'https://bitcoinarcade.xyz/',
+        )}<br/>
+        Get rewarded with 1,000 PTS for every match you play on Bitcoin Arcade. Have fun, play, and earn more points.
+        `,
+        actionText: token ? 'Download app' : 'Craft a tweet about BVM first',
+        image: 'bitcoin-arcade.svg',
+        isActive: true,
+        actionHandle: () => {
+          if (!token) {
+            return setTabIndex(0)
+          }
+          setShowDownloadBitcoinArcadeApp(true);
+        },
+        right: {
+          title: '+1000 PTS',
+          desc: 'per match',
+        },
+      },
       {
         project: 'Bitcoin L2 for SoFi',
         title: 'Alpha',
@@ -88,7 +114,28 @@ const StepsEco = () => {
       },
       {
         project: 'Bitcoin L2 for DeFi',
-        title: 'NakaChain',
+        title: 'NakaChain Perpetual',
+        desc: `<span style='font-style: italic'>The first decentralized perpetual BRC20 trading platform. </span>${LearnMore(
+          'https://nakachain.xyz/',
+        )}<br/>
+        Play long/short brc20 on Naka Genesis to earn points.<br/>
+        The higher the volume you make the more points you will get.
+        `,
+        actionText: 'Connect Naka Genesis',
+        image: 'ic-naka.svg',
+        actionHandle: () => {
+          setShowSyncBVM(true);
+        },
+        isActive: !!token,
+        right: {
+          title: '+1000 PTS',
+          desc: 'per 0.001 BTC',
+        },
+        tag: StepTagType.NEW
+      },
+      {
+        project: 'Bitcoin L2 for DeFi',
+        title: 'NakaChain Swap',
         desc: `<span style='font-style: italic'>A low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps.</span>${LearnMore(
           'https://nakachain.xyz/',
         )}<br/>
@@ -103,25 +150,6 @@ const StepsEco = () => {
         right: {
           title: '+1000 PTS',
           desc: 'per 0.001 BTC',
-        },
-      },
-      {
-        project: 'Bitcoin L2 for GameFi',
-        title: "Bitcoin Arcade",
-        desc: `<span style='font-style: italic'>The first ever fully on-chain gaming blockchain on Bitcoin.</span>${LearnMore(
-          'https://bitcoinarcade.xyz/',
-        )}<br/>
-        Get rewarded with 1,000 PTS for every match you play on Bitcoin Arcade. Have fun, play, and earn more points.
-        `,
-        actionText: 'Download app',
-        image: 'bitcoin-arcade.svg',
-        actionHandle: () => {
-          setShowDownloadBitcoinArcadeApp(true);
-        },
-        isActive: !!token,
-        right: {
-          title: '+1000 PTS',
-          desc: 'per match',
         },
       },
     ];
