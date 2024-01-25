@@ -15,6 +15,8 @@ const AnimatedText = () => {
     const duration = Math.max(Math.floor(Math.random() * 15) + 1 , 2);
     const offset = MathMap(Math.random(), 0, 1, 40, 350);
 
+    const money = Math.random();
+
     element.style.cssText = `right:${offset}px; transform:scale(${Math.min(Math.max(money / 200, .6), 2)}); animation-duration:${duration}s`;
     element.innerHTML = `<div><img src="/images/avt.jpg" /> <span>+ $${money.toFixed(0)}</span></div>`;
 
