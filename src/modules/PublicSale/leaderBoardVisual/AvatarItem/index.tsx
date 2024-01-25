@@ -5,7 +5,7 @@ import { getUrlAvatarTwitter } from '@/utils/twitter';
 import React, { ReactElement, useState } from 'react';
 import Image from 'next/image';
 
-export default function AvatarItem({ data }) {
+export default function AvatarItem({ data }: any) {
 
   const [error, setError] = useState<boolean>(false);
 
@@ -14,7 +14,7 @@ export default function AvatarItem({ data }) {
     return <Image
       width={120}
       height={120}
-      src={'/images/elipse.jpg'} />;
+      src={'/images/elipse.jpg'} alt={'elipse'}/>;
   };
 
   return <div className={`${s.avatarItem} ${data.levelRender !==undefined && 'level-' + data.levelRender} js-avatarItem`}>
@@ -37,7 +37,7 @@ export default function AvatarItem({ data }) {
           src={getUrlAvatarTwitter(
             data?.twitter_avatar as string,
             'medium',
-          )} />}
+          ) || ''} alt={'medium'}/>}
 
 
       </div>

@@ -398,7 +398,7 @@ const LeaderBoardVisual = (props: IProps) => {
   }, [list]);
 
   return (
-    <div ref={refContent} className={styles.container} height='85dvh' id={LEADER_BOARD_ID}>
+    <div ref={refContent} className={styles.container} id={LEADER_BOARD_ID}>
       <ScrollWrapper
         onFetch={() => {
           refParams.current = {

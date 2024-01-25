@@ -7,10 +7,12 @@ const AnimatedText = () => {
   const chars = ['$', '$', '$', '$', '$'];
   const containerRef = useRef(null);
 
-  const add = (_url, _money) => {
+  const add = (_url: string, _money: number) => {
     const element = document.createElement('span');
     element.classList.add(s.moneyChange)
-    containerRef.current.appendChild(element);
+    if(containerRef?.current) {
+      (containerRef?.current as any).appendChild(element);
+    }
 
     const duration = Math.max(Math.floor(Math.random() * 15) + 1 , 2);
     const offset = MathMap(Math.random(), 0, 1, 40, 350);
@@ -23,7 +25,7 @@ const AnimatedText = () => {
      window.setTimeout(() => remove(element), Math.max(duration, 1) * 1000);
   };
 
-  const remove = (element) => {
+  const remove = (element: any) => {
     element.parentNode.removeChild(element);
   };
 
