@@ -17,10 +17,9 @@ import StepsAirdrop, { TIME_CHAIN_EXPIRED_TIME } from '@/modules/Whitelist/stepA
 import useAllowBTC from '@/modules/Whitelist/AllowBTCMessage/useAllowBTC';
 import useAllowCelestia from '@/modules/Whitelist/AllowCelestiaMessage/useAllowCelestia';
 import useAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useAllowEVM';
-import TimechainBanner from '@/modules/Whitelist/TimechainBanner';
-import styles from '@/modules/Whitelist/TimechainBanner/styles.module.scss';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
+import ArcadeBanner from '@/modules/Whitelist/ArcadeBanner';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
@@ -93,7 +92,7 @@ const Whitelist = () => {
               />
             </Flex>
           )}
-        <TimechainBanner setTabIndex={setIndex} />
+        <ArcadeBanner setTabIndex={setIndex} />
       </Flex>
       <div className={s.tokenSection}>
         <Box w="100%" overflow="hidden">
@@ -106,18 +105,18 @@ const Whitelist = () => {
           <Tabs variant="unstyled" index={index} onChange={(tabIndex) => setIndex(tabIndex)}>
             <TabList mb="32px" overflow="hidden">
               <Tab>Start here</Tab>
-              <Tab>Airdrop 1</Tab>
-              <Tab>Explore the ecosystem</Tab>
+              <Tab>Experience BVM</Tab>
+              <Tab>Airdrop</Tab>
             </TabList>
             <TabPanels w="100%">
               <TabPanel>
                 <Steps />
               </TabPanel>
               <TabPanel>
-                <StepsAirdrop setIndex={setIndex}/>
+                <StepsEco />
               </TabPanel>
               <TabPanel>
-                <StepsEco />
+                <StepsAirdrop setIndex={setIndex}/>
               </TabPanel>
             </TabPanels>
           </Tabs>
