@@ -99,7 +99,7 @@ const requestClaimCelestiaPoint = async (status: SignatureStatus[]) => {
 };
 
 const verifyCelestiaSignature = async (params: { address: CelestiaAddress, signature: CelestiaSignature }) => {
-  const res = (await apiClient.post(`/bvm/verify-celestia-address/?network=ethereum`, {
+  const res = (await apiClient.post(`/bvm/verify-celestia-address`, {
     address: params.address.bech32Address,
     message: celestiaHelper.CelestiaConfig.messageForSign,
     signature: params.signature.signature,
