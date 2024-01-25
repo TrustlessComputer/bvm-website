@@ -24,19 +24,21 @@
     text-align: center;
   }
 
-  .boxInfoWrapper {
+  .boxInfo {
+    padding: 12px;
+
     > div {
-      width: 100%;
+      border: 1px solid #FFFFFF33;
+      background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
+      linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+      padding: 16px 20px;
     }
   }
 
-  .boxInfo {
-    background: #FFFFFF26;
-    padding: 12px;
-    border-radius: 12px;
-
-    hr {
-      background-color: #8F8F8F;
+  .time {
+    p {
+      font-size: 32px;
+      font-weight: 700;
     }
   }
 

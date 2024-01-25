@@ -1,4 +1,4 @@
-import { Button, Divider, Flex, Text } from '@chakra-ui/react';
+import { Button, Flex, Text } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import s from './styles.module.scss';
@@ -16,6 +16,10 @@ import Lines from '@/interactive/Lines';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
 import { toast } from 'react-hot-toast';
+import dayjs from 'dayjs';
+import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
+
+export const TIME_CHAIN_EXPIRED_TIME = '2024-01-30 08:00:00';
 
 interface FormValues {
   tokenAmount: string;
@@ -23,7 +27,7 @@ interface FormValues {
 
 const DELAY = 2;
 
-const Column = ({ value, title }: { value: string, title: string }) => {
+const Column = ({ value, title }: { value: any, title: string }) => {
   return (
     <Flex direction={'column'} justifyContent={'center'} flex={1} textAlign={'center'}>
       <Text fontSize={'32px'} fontWeight={700}>{value}</Text>
@@ -38,6 +42,11 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const [saleWalletInfo, setSaleWalletInfo] = useState<PublicSaleWalletInfo>();
   const user = useAppSelector(userSelector);
   const [contributeInfo, setContributeInfo] = useState<IPublicSaleDepositInfo>();
+  const [isEnd, setIsEnd] = React.useState(
+    dayjs
+      .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
+      .isBefore(dayjs().utc().format())
+  );
 
   console.log('contributeInfo', contributeInfo);
 
@@ -101,35 +110,19 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
-          <Text className={s.title}><Lines delay={DELAY + .2}>PUBLIC TOKEN ROUND</Lines></Text>
-          <Flex width={"100%"} className={s.boxInfoWrapper}>
-            <Fade delay={DELAY + 0.2}>
-              <Flex className={s.boxInfo} direction={'column'} gap={4} mt={'40px'} mb={'40px'} width={'100%'}>
-                <Fade delay={DELAY + 0.2}>
-                  <Column value={formatCurrency(vcInfo?.total_tokens, 0, 0, 'BTC', true)} title={'TOTAL TOKENS'} />
-                </Fade>
-                <Divider />
-                <Fade delay={DELAY + 0.4}>
-                  <Column value={`${vcInfo?.available_tokens}%`} title={'AVAILABLE TOKEN FOR PRIVATE SALE'} />
-                </Fade>
-                <Divider />
-                <Fade delay={DELAY + 0.6}>
-                  <Flex>
-                    <Column value={`$${formatCurrency(vcInfo?.token_price, 0, 0)}`} title={'TOKEN PRICE'} />
-                    <Column value={`$${formatCurrency(vcInfo?.fdv, 0, 0, 'BTC')}`} title={'FDV'} />
-                  </Flex>
-                </Fade>
-                <Divider />
-                <Fade delay={DELAY + 0.8}>
-                  <Flex>
-                    <Column value={`$${formatCurrency(vcInfo?.fundraising_goal, 0, 0, 'BTC')}`}
-                            title={'FUNDRAISING GOAL'} />
-                    <Column value={`$${formatCurrency(vcInfo?.min_personal_cap, 0, 0, 'BTC', true)}`}
-                            title={'MIN PERSONAL CAP'} />
-                  </Flex>
-                </Fade>
-              </Flex>
-            </Fade>
+          <Text className={s.title}><Lines delay={DELAY + .2}>TOTAL FUNDED</Lines></Text>
+          <Text className={s.title}><Lines delay={DELAY + .2}>$9,233,476</Lines></Text>
+          <Flex className={s.boxInfo} gap={4} mt={'40px'} mb={'40px'} width={'100%'}>
+            <Column value={formatCurrency(contributeInfo?.total_user, 0, 0, 'BTC', true)} title={'TOTAL TOKENS'} />
+            <Column value={`${vcInfo?.available_tokens}%`} title={'BACKER'} />
+            <Column value={
+              <Countdown
+                className={s.time}
+                expiredTime={dayjs.utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
+                hideIcon={true}
+                onRefreshEnd={() => setIsEnd(true)}
+              />
+            } title={'ENDS IN'} />
           </Flex>
           <Flex gap={6} direction={'column'} width={'100%'}>
             {
