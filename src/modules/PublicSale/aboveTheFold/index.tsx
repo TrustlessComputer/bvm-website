@@ -13,6 +13,7 @@ import { VCInfo } from '@/interfaces/vc';
 import LeaderBoard from '@/modules/PublicSale/leaderBoard';
 import Welcome from '@/modules/PublicSale/welcome';
 import Playgame from '@/modules/PublicSale/playGame';
+import AddMoreContribution from '@/modules/PublicSale/addMoreContribution';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -39,6 +40,7 @@ const AboveTheFold = () => {
       <SimpleGrid className={`container ${s.content}`} gridTemplateColumns={["1fr", "1fr 1fr"]} gap={[6, 0]}>
         <Flex className={s.leftSection} direction={"column"} gap={[6, 6]} justifyContent={"flex-start"}>
           <LeaderBoard />
+          <AddMoreContribution />
         </Flex>
         <Flex className={s.rightSection} direction={"column"}>
           <BuyForm vcInfo={vcInfo}/>
