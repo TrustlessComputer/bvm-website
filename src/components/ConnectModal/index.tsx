@@ -99,7 +99,7 @@ const ConnectModal = React.memo(({ isShow, onHide, needVerifyBTCAddress = true }
   );
 
   return (
-    <BaseModal isShow={isShow} onHide={onHide} title="Choose wallet" size={!!xverseCtx.capabilityMessage ? "normal" : "small"}>
+    <BaseModal isShow={isShow} onHide={onHide} title="Choose your wallet" size={!!xverseCtx.capabilityMessage ? "normal" : "small"}>
       <div className={cs(styles.modalContent, loading && styles.modalContent__loading)}>
         {ITEMS.map(renderItem)}
       </div>
