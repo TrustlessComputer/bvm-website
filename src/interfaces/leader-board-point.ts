@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface ILeaderBoardPoint {
   id: number;
   network: string;
@@ -29,4 +27,7 @@ export interface ILeaderBoardPoint {
   arb_point: string;
   eigenlayer_point: string;
   polygon_point: string;
+  bvm_balance: string;
+  eth_balance: string;
+  btc_balance: string;
 }

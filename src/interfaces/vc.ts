@@ -26,3 +26,10 @@ export interface PublicSaleWalletInfo {
   eth_address: string,
   eth_balance: string,
 }
+
+export interface IPublicSaleDepositInfo {
+  total_btc: string;
+  total_bvm: string;
+  total_eth: string;
+  total_user: number;
+}

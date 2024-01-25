@@ -11,6 +11,10 @@ import { KEY_VC_TYPE } from '@/constants/storage-key';
 import { getVCInformation } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
 import LeaderBoard from '@/modules/PublicSale/leaderBoard';
+import Welcome from '@/modules/PublicSale/welcome';
+import Playgame from '@/modules/PublicSale/playGame';
+import AddMoreContribution from '@/modules/PublicSale/addMoreContribution';
+import TopHeader from '@/modules/PublicSale/topHeader';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -34,14 +38,16 @@ const AboveTheFold = () => {
 
   return (
     <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImg={`/private-sale/bg.webp`}>
-      <SimpleGrid className={`container ${s.content}`} gridTemplateColumns={["1fr", "1.25fr 1fr"]} gap={[6, 0]}>
+      <SimpleGrid className={`container ${s.content}`} gridTemplateColumns={["1fr", "1fr 1fr"]} gap={[6, 0]}>
         <Flex className={s.leftSection} direction={"column"} gap={[6, 6]} justifyContent={"flex-start"}>
+          <TopHeader />
           <LeaderBoard />
+          <AddMoreContribution />
         </Flex>
-        <Flex className={s.rightSection} justifyContent={["center", "flex-end"]} alignItems={"flex-end"}>
-          <Flex className={s.btnJoinWrapper} direction={"column"}>
-            <BuyForm vcInfo={vcInfo}/>
-          </Flex>
+        <Flex className={s.rightSection} direction={"column"}>
+          <BuyForm vcInfo={vcInfo}/>
+          <Welcome />
+          <Playgame />
         </Flex>
       </SimpleGrid>
     </Flex>

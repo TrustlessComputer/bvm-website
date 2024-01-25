@@ -7,7 +7,8 @@ const initialState: CommonState = {
     [Coin.BTC]: '0',
     [Coin.ETH]: '0',
     [Coin.TIA]: '0',
-  } as any
+  } as any,
+  leaderBoardMode: 0
 };
 
 const slice = createSlice({
@@ -20,12 +21,16 @@ const slice = createSlice({
     setCoinPrices: (state, action) => {
       state.coinPrices = action.payload;
     },
+    setLeaderBoardMode: (state, action) => {
+      state.leaderBoardMode = action.payload;
+    },
   },
 });
 
 export const {
   requestReload,
   setCoinPrices,
+  setLeaderBoardMode,
 } = slice.actions;
 
 export default slice.reducer;

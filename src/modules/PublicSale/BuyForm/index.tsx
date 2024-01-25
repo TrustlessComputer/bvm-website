@@ -1,20 +1,25 @@
-import { Button, Divider, Flex, Text } from '@chakra-ui/react';
+import { Button, Flex, Text } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import s from './styles.module.scss';
 import Fade from '@/interactive/Fade';
 import {
+  getPublicSaleSummary,
   getPublicsaleWalletInfo,
   postPublicsaleWalletInfo,
   postPublicsaleWalletInfoManualCheck,
-} from '@/services/player-share';
-import { PublicSaleWalletInfo, VCInfo } from '@/interfaces/vc';
+} from '@/services/public-sale';
+import { IPublicSaleDepositInfo, PublicSaleWalletInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { QRCode } from 'react-qrcode-logo';
 import Lines from '@/interactive/Lines';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
 import { toast } from 'react-hot-toast';
+import dayjs from 'dayjs';
+import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
+
+export const TIME_CHAIN_EXPIRED_TIME = '2024-01-30 08:00:00';
 
 interface FormValues {
   tokenAmount: string;
@@ -22,11 +27,11 @@ interface FormValues {
 
 const DELAY = 2;
 
-const Column = ({ value, title }: { value: string, title: string }) => {
+const Column = ({ value, title }: { value: any, title: string }) => {
   return (
-    <Flex direction={'column'} justifyContent={'center'} flex={1} textAlign={'center'}>
-      <Text fontSize={'32px'} fontWeight={700}>{value}</Text>
-      <Text fontSize={'14px'} fontWeight={400}>{title}</Text>
+    <Flex direction={'column'} justifyContent={'center'} flex={1}>
+      <Text fontSize={'12px'} fontWeight={400}>{title}</Text>
+      <Text fontSize={'22px'} fontWeight={500} color={'#FFFFFF'}>{value}</Text>
     </Flex>
   );
 };
@@ -36,12 +41,27 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const [showQrCode, setShowQrCode] = useState(false);
   const [saleWalletInfo, setSaleWalletInfo] = useState<PublicSaleWalletInfo>();
   const user = useAppSelector(userSelector);
+  const [contributeInfo, setContributeInfo] = useState<IPublicSaleDepositInfo>();
+  const [isEnd, setIsEnd] = React.useState(
+    dayjs
+      .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
+      .isBefore(dayjs().utc().format())
+  );
+
+  console.log('contributeInfo', contributeInfo);
 
   useEffect(() => {
+    getContributeInfo();
+
     if (user?.twitter_id) {
       getVentureInfo();
     }
   }, [user?.twitter_id]);
+
+  const getContributeInfo = async () => {
+    const res = await getPublicSaleSummary();
+    setContributeInfo(res);
+  }
 
   const getVentureInfo = async () => {
     const result = await getPublicsaleWalletInfo();
@@ -90,35 +110,42 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
-          <Text className={s.title}><Lines delay={DELAY + .2}>PUBLIC TOKEN ROUND</Lines></Text>
-          <Flex width={"100%"} className={s.boxInfoWrapper}>
-            <Fade delay={DELAY + 0.2}>
-              <Flex className={s.boxInfo} direction={'column'} gap={4} mt={'40px'} mb={'40px'} width={'100%'}>
-                <Fade delay={DELAY + 0.2}>
-                  <Column value={formatCurrency(vcInfo?.total_tokens, 0, 0, 'BTC', true)} title={'TOTAL TOKENS'} />
-                </Fade>
-                <Divider />
-                <Fade delay={DELAY + 0.4}>
-                  <Column value={`${vcInfo?.available_tokens}%`} title={'AVAILABLE TOKEN FOR PRIVATE SALE'} />
-                </Fade>
-                <Divider />
-                <Fade delay={DELAY + 0.6}>
-                  <Flex>
-                    <Column value={`$${formatCurrency(vcInfo?.token_price, 0, 0)}`} title={'TOKEN PRICE'} />
-                    <Column value={`$${formatCurrency(vcInfo?.fdv, 0, 0, 'BTC')}`} title={'FDV'} />
-                  </Flex>
-                </Fade>
-                <Divider />
-                <Fade delay={DELAY + 0.8}>
-                  <Flex>
-                    <Column value={`$${formatCurrency(vcInfo?.fundraising_goal, 0, 0, 'BTC')}`}
-                            title={'FUNDRAISING GOAL'} />
-                    <Column value={`$${formatCurrency(vcInfo?.min_personal_cap, 0, 0, 'BTC', true)}`}
-                            title={'MIN PERSONAL CAP'} />
-                  </Flex>
-                </Fade>
+          <Text className={s.title}><Lines delay={DELAY + .2}>TOTAL FUNDED</Lines></Text>
+          <Text className={s.fundValue}><Lines delay={DELAY + .2}>$9,233,476</Lines></Text>
+          <Flex className={s.boxInfo} gap={4} mt={'40px'} mb={'40px'} width={'100%'}>
+            <Column value={formatCurrency(contributeInfo?.total_user, 0, 0, 'BTC', true)} title={'CONTRIBUTORS'} />
+            <Column value={
+              <Flex direction={"column"}>
+                <Flex gap={1} alignItems={"center"}>
+                  <Text>$120,000</Text>
+                  <Text fontSize={'16px'} fontWeight={"400"} color={'rgba(255, 255, 255, 0.7)'}>(0.05)</Text>
+                </Flex>
+                <Flex gap={1} alignItems={"center"}>
+                  <Text fontSize={'12px'} fontWeight={"400"} color={'rgba(255, 255, 255, 0.7)'}>$100,000</Text>
+                  <svg width="2" height="11" viewBox="0 0 2 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="1.16699" y1="10.2803" x2="1.16699" y2="0.280273" stroke="white" stroke-opacity="0.2"/>
+                  </svg>
+                  <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.66699 5.18883H5.39426L6.12154 0.825195L0.666992 7.37065H3.93972L3.21245 11.7343L8.66699 5.18883Z" fill="url(#paint0_linear_29800_7703)"/>
+                    <defs>
+                      <linearGradient id="paint0_linear_29800_7703" x1="0.666992" y1="6.27974" x2="8.66699" y2="6.27974" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="white"/>
+                        <stop offset="1" stop-color="#35CCA6"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <Text fontSize={'12px'} fontWeight={"500"} color={'rgba(255, 255, 255, 0.7)'} className={s.boost}>20%</Text>
+                </Flex>
               </Flex>
-            </Fade>
+            } title={'YOUR CONTRIBUTION'} />
+            <Column value={
+              <Countdown
+                className={s.time}
+                expiredTime={dayjs.utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
+                hideIcon={true}
+                onRefreshEnd={() => setIsEnd(true)}
+              />
+            } title={'ENDS IN'} />
           </Flex>
           <Flex gap={6} direction={'column'} width={'100%'}>
             {
@@ -131,7 +158,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     // loadingText={'Submitting...'}
                     className={s.button}
                   >
-                    Deposit
+                    Buy $BVM
                   </Button>
                 </Fade>
               )

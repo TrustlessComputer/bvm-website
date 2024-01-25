@@ -17,27 +17,48 @@
   }
 
   .title {
-    font-size: 32px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%;
+    width: 100%;
+    text-align: center;
+    color: #FFFFFF;
+  }
+
+  .fundValue {
+    font-size: 72px;
     font-weight: 500;
     line-height: 100%;
     width: 100%;
     text-align: center;
-  }
-
-  .boxInfoWrapper {
-    > div {
-      width: 100%;
-    }
+    color: #FFFFFF;
   }
 
   .boxInfo {
-    background: #FFFFFF26;
     padding: 12px;
-    border-radius: 12px;
 
-    hr {
-      background-color: #8F8F8F;
+    > div {
+      border: 1px solid #FFFFFF33;
+      background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
+      linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+      padding: 16px 20px;
     }
+  }
+
+  .time {
+    p {
+      font-size: 22px;
+      font-weight: 500;
+      line-height: var(--chakra-lineHeights-base);
+    }
+  }
+
+  .boost {
+    background: -webkit-linear-gradient(90deg, #FFFFFF 0%, #35CCA6 100%);
+    background: -moz-linear-gradient(90deg, #FFFFFF 0%, #35CCA6 100%);
+    background: linear-gradient(90deg, #FFFFFF 0%, #35CCA6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .price {

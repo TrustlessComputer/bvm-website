@@ -20,21 +20,11 @@
 
   .leftSection {
     padding-top: 100px;
+    background: #000000;
   }
 
   .rightSection {
-    @include w-max(768px) {
-      //margin-top: 40px;
-    }
-    .image {
-      width: 704px;
-      height: 542px;
-
-      @include w-max(768px) {
-        width: 100%;
-        height: auto;
-      }
-    }
+    background: #222222;
   }
 
   .title {
@@ -108,26 +98,4 @@
     }
   }
 
-  .btnJoinWrapper {
-    display: flex;
-    gap: rem(24px);
-    align-items: center;
-    padding: rem(24px);
-    background: #0A294C99;
-    width: 80%;
-    min-height: 100dvh;
-    position: relative;
-    margin-right: -32px;
-
-    @include w-min(1920px) {
-      margin-right: -32px;
-    }
-
-    @include w-max(768px) {
-      padding: rem(16px);
-      width: 100%;
-      min-height: unset;
-      margin-right: unset;
-    }
-  }
 }
