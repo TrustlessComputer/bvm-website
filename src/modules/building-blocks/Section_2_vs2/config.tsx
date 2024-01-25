@@ -35,13 +35,12 @@ export const BlockDataList: BlockItemType[] = [
         name: 'Eigen',
       },
       {
-        logoUrl: '/images/avali_coming_soon.png',
-        name: 'Avail',
-        isComingSoon: true,
+        logoUrl: '/images/lego_nearDA.svg',
+        name: 'NearDA',
       },
       {
-        logoUrl: '/images/nearDA_coming_soon.png',
-        name: 'NearDA',
+        logoUrl: '/images/avali_coming_soon.png',
+        name: 'Avail',
         isComingSoon: true,
       },
     ],
