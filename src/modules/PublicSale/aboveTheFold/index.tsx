@@ -11,6 +11,7 @@ import { KEY_VC_TYPE } from '@/constants/storage-key';
 import { getVCInformation } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
 import LeaderBoard from '@/modules/PublicSale/leaderBoard';
+import Welcome from '@/modules/PublicSale/welcome';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -38,8 +39,9 @@ const AboveTheFold = () => {
         <Flex className={s.leftSection} direction={"column"} gap={[6, 6]} justifyContent={"flex-start"}>
           <LeaderBoard />
         </Flex>
-        <Flex className={s.rightSection}>
+        <Flex className={s.rightSection} direction={"column"}>
           <BuyForm vcInfo={vcInfo}/>
+          <Welcome />
         </Flex>
       </SimpleGrid>
     </Flex>
