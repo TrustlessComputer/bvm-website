@@ -38,21 +38,6 @@ const StepsEco = ({ setTabIndex }: IProps) => {
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
-      // {
-      //   project: 'NakaChain',
-      //   title: 'Share the word about NakaChain',
-      //   desc: `Follow naka_chain, Post on X and tag @Naka_chain to climb the ranks.
-      //   <a href='https://nakachain.xyz/' style='color: #FA4E0E' target='_blank'>Learn more</a>
-      //   `,
-      //   actionText: 'Post',
-      //   image: 'ic-naka.svg',
-      //   actionHandle: handleShareTw,
-      //   isActive: !!token,
-      //   right: {
-      //     title: '+1000 PTS',
-      //     desc: '',
-      //   },
-      // },
       {
         project: 'Bitcoin L2 for GameFi',
         title: "Bitcoin Arcade",

@@ -144,10 +144,11 @@ const LeaderBoard = (props: IProps) => {
 
   const labelConfig = {
     color: 'rgba(1, 1, 0, 0.7)',
-    fontSize: '11px',
+    fontSize: '9px',
     letterSpacing: '-0.5px',
     borderBottom: '1px solid #FFFFFF33',
     textTransform: 'uppercase',
+    fontWeight: 500
   };
 
   const columns: ColumnProp[] = useMemo(() => {
@@ -317,18 +318,21 @@ const LeaderBoard = (props: IProps) => {
         },
       },
       {
-        id: 'refer',
+        id: 'modular',
         label: (
           <Flex
             style={{
               justifyContent: 'center',
+              alignItems: 'center',
               alignSelf: 'center',
               width: '100%',
-              textTransform: 'uppercase',
+              gap: '4px',
             }}
-            gap="3px"
           >
-            <p style={{ textTransform: 'uppercase' }}>INVITE PTS</p>
+            <Flex flexDirection="column" alignItems="center">
+              <p style={{ textTransform: 'uppercase' }}>MODULAR</p>
+              <p style={{ textTransform: 'uppercase' }}>PTS</p>
+            </Flex>
             <Tooltip
               minW="220px"
               bg="white"
@@ -338,8 +342,7 @@ const LeaderBoard = (props: IProps) => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    Referral points are calculated based on the total number of
-                    friends you refer to the allowlist.
+                    Modular points are calculated based on your <strong>TIA</strong> holdings and staking, as well as <strong>ETH</strong> staking on <strong>Eigen</strong>.
                   </p>
                 </Flex>
               }
@@ -367,12 +370,38 @@ const LeaderBoard = (props: IProps) => {
               width={'100%'}
               justifyContent={'center'}
             >
-              <Flex alignItems={'center'} gap={2}>
+              <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.refer_point, 0, 0)}
+                  {formatCurrency(new BigNumber(data?.celestia_point || 0)
+                    .plus(data?.eigenlayer_point || 0)
+                    .plus(data?.polygon_point || 0)
+                    .toNumber(), 0, 0)}
                 </Text>
-                {data.need_active && !Number(data?.refer_point || '0') && (
-                  <button id="copy-button" onClick={handleShareRefferal} className={styles.button}>GET</button>
+                {data.need_active ? (
+                  <Tooltip
+                    minW="160px"
+                    bg="white"
+                    boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                    borderRadius="4px"
+                    padding="8px"
+                    label={
+                      <Flex direction="column" color="black" opacity={0.7}>
+                        <p>Eigenlayer: {data.eigenlayer_point || '0'}</p>
+                        <p>Celestia: {data.celestia_point || '0'}</p>
+                        <p>Polygon: {data.polygon_point || '0'}</p>
+                      </Flex>
+                    }
+                  >
+                    <div>
+                      <SvgInset
+                        size={18}
+                        className={styles.tooltipIconActive}
+                        svgUrl={`${CDN_URL_ICONS}/info-circle.svg`}
+                      />
+                    </div>
+                  </Tooltip>
+                ) : (
+                  <Box w="16px" />
                 )}
               </Flex>
             </Flex>
@@ -391,7 +420,10 @@ const LeaderBoard = (props: IProps) => {
             }}
             gap="3px"
           >
-            <p style={{ textTransform: 'uppercase' }}>BITCOIN PTS</p>
+            <Flex flexDirection="column" alignItems="center">
+              <p style={{ textTransform: 'uppercase' }}>BITCOIN</p>
+              <p style={{ textTransform: 'uppercase' }}>PTS</p>
+            </Flex>
             <Tooltip
               minW="220px"
               bg="white"
@@ -531,7 +563,55 @@ const LeaderBoard = (props: IProps) => {
         },
       },
       {
-        id: 'modular',
+        id: 'game',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              gap: '4px',
+              color: "#FA4E0E"
+            }}
+          >
+            <Flex alignItems="center" flexDirection="column">
+              <SvgInset svgUrl={`${CDN_URL_ICONS}/ic-fire.svg`} />
+              <p style={{ textTransform: 'uppercase' }}>Gaming PTS</p>
+              <p style={{ textTransform: 'uppercase' }}>3X POINT</p>
+            </Flex>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={'4px'}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={'4px'}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.game_point, 0, 0)}
+                </Text>
+                {data.need_active && !Number(data?.game_point || '0') && (
+                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
+                )}
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'naka',
         label: (
           <Flex
             style={{
@@ -542,7 +622,93 @@ const LeaderBoard = (props: IProps) => {
               gap: '4px',
             }}
           >
-            <p style={{ textTransform: 'uppercase' }}>MODULAR PTS</p>
+            <p style={{ textTransform: 'uppercase' }}>DEFI PTS</p>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={'4px'}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={'4px'}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.naka_point, 0, 0)}
+                </Text>
+                {data.need_active && !Number(data?.naka_point || '0') && (
+                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
+                )}
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'eco',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              gap: '4px',
+            }}
+          >
+            <p style={{ textTransform: 'uppercase' }}>SOCIALFI PTS</p>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex
+              gap={'4px'}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={'4px'}>
+                <Text className={styles.title}>
+                  {formatCurrency(data?.alpha_point, 0, 0)}
+                </Text>
+                {data.need_active && !Number(data?.alpha_point || '0') && (
+                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
+                )}
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'refer',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              textTransform: 'uppercase',
+            }}
+            gap="3px"
+          >
+            <p style={{ textTransform: 'uppercase' }}>INVITE PTS</p>
             <Tooltip
               minW="220px"
               bg="white"
@@ -552,7 +718,8 @@ const LeaderBoard = (props: IProps) => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    Modular points are calculated based on your <strong>TIA</strong> holdings and staking, as well as <strong>ETH</strong> staking on <strong>Eigen</strong>.
+                    Referral points are calculated based on the total number of
+                    friends you refer to the allowlist.
                   </p>
                 </Flex>
               }
@@ -580,38 +747,12 @@ const LeaderBoard = (props: IProps) => {
               width={'100%'}
               justifyContent={'center'}
             >
-              <Flex alignItems={'center'} gap={'4px'}>
+              <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {formatCurrency(new BigNumber(data?.celestia_point || 0)
-                    .plus(data?.eigenlayer_point || 0)
-                    .plus(data?.polygon_point || 0)
-                    .toNumber(), 0, 0)}
+                  {formatCurrency(data?.refer_point, 0, 0)}
                 </Text>
-                {data.need_active ? (
-                  <Tooltip
-                    minW="160px"
-                    bg="white"
-                    boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-                    borderRadius="4px"
-                    padding="8px"
-                    label={
-                      <Flex direction="column" color="black" opacity={0.7}>
-                        <p>Eigenlayer: {data.eigenlayer_point || '0'}</p>
-                        <p>Celestia: {data.celestia_point || '0'}</p>
-                        <p>Polygon: {data.polygon_point || '0'}</p>
-                      </Flex>
-                    }
-                  >
-                    <div>
-                      <SvgInset
-                        size={18}
-                        className={styles.tooltipIconActive}
-                        svgUrl={`${CDN_URL_ICONS}/info-circle.svg`}
-                      />
-                    </div>
-                  </Tooltip>
-                ) : (
-                  <Box w="16px" />
+                {data.need_active && !Number(data?.refer_point || '0') && (
+                  <button id="copy-button" onClick={handleShareRefferal} className={styles.button}>GET</button>
                 )}
               </Flex>
             </Flex>
@@ -702,70 +843,6 @@ const LeaderBoard = (props: IProps) => {
                   </Tooltip>
                 ) : (
                   <Box w="16px" />
-                )}
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'eco',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              width: '100%',
-              gap: '4px',
-            }}
-          >
-            <p style={{ textTransform: 'uppercase' }}>ECOSYSTEM PTS</p>
-            <Tooltip
-              minW="220px"
-              bg="white"
-              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-              borderRadius="4px"
-              padding="8px"
-              label={
-                <Flex direction="column" color="black" opacity={0.7}>
-                  <p>
-                    Points earned by doing tasks in other dApps like Naka
-                    Genesis, Bitcoin Arcade, Alpha, and more within the BVM
-                    ecosystem.
-                  </p>
-                </Flex>
-              }
-            >
-              <img
-                className={styles.tooltipIcon}
-                src={`${CDN_URL_ICONS}/info-circle.svg`}
-              />
-            </Tooltip>
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex
-              gap={'4px'}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
-            >
-              <Flex alignItems={'center'} gap={'4px'}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.eco_point, 0, 0)}
-                </Text>
-                {data.need_active && !Number(data?.eco_point || '0') && (
-                  <button onClick={() => props.setIndex(2)} className={styles.button}>GET</button>
                 )}
               </Flex>
             </Flex>

@@ -85,6 +85,10 @@ const StepsAirdrop = (props: IProps) => {
     }
   };
 
+  const handleClaimRetrospective = () => {
+
+  }
+
   const getAlphaUsersAirdrop = async () => {
     const res = await getBVMAirdrop({address: user?.twitter_id});
     dispatch(setAirdropAlphaUsers(res));
@@ -159,13 +163,96 @@ const StepsAirdrop = (props: IProps) => {
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
+      // {
+      //   title: 'Generative users',
+      //   desc: `Proportional to key holding.<br/>
+      //     Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
+      //  `,
+      //   actionText: 'Claim',
+      //   image: "time-chain2.svg",
+      //   actionHandle: handleClaimRetrospective,
+      //   isActive: true,
+      //   isDisable: true,
+      //   right: {
+      //     title: '',
+      //     desc: '',
+      //   },
+      //   expiredTime: PUBLIC_SALE_START,
+      //   showExpireTime: false,
+      //   airdropType: AirdropType.RETROSPECTIVE
+      // },
+      // {
+      //   title: 'Perceptrons holders',
+      //   desc: `Proportional to the number of Perceptrons you hold.<br/>
+      //     Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
+      //  `,
+      //   actionText: 'Claim',
+      //   image: "perceptron_thumb_03.jpg",
+      //   actionHandle: handleClaimRetrospective,
+      //   isActive: true,
+      //   isDisable: true,
+      //   right: {
+      //     title: '',
+      //     desc: '',
+      //   },
+      //   expiredTime: PUBLIC_SALE_START,
+      //   showExpireTime: false,
+      //   airdropType: AirdropType.RETROSPECTIVE
+      // },
+      // {
+      //   title: 'GM holders',
+      //   desc: `Proportionally based on GM balance - min holding: 0.01 $GM<br/>
+      //     Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
+      //  `,
+      //   actionText: 'Claim',
+      //   image: "gm.svg",
+      //   actionHandle: handleClaimRetrospective,
+      //   isActive: true,
+      //   isDisable: true,
+      //   right: {
+      //     title: '',
+      //     desc: '',
+      //   },
+      //   expiredTime: PUBLIC_SALE_START,
+      //   showExpireTime: false,
+      //   airdropType: AirdropType.RETROSPECTIVE
+      // },
+      {
+        title: 'Modular',
+        desc: "Coming soon",
+        actionText: '',
+        image: "ic-lego.svg",
+        actionHandle: handleClaimRetrospective,
+        isActive: true,
+        right: {
+          title: '',
+          desc: '',
+        },
+        airdropType: AirdropType.NONE
+      },
+      {
+        title: 'Airdrop',
+        desc: `Thanks for supporting our 2023 'testnet'. In 2024 mainnet, an airdrop awaits users of BVM products like Generative, Perceptrons, GM, Alpha, and all TC users.<br/>Snapshot on Jan 16, 2024.<br/>Claimable on Jan 30, 2024.`,
+        actionText: 'Claim',
+        image: "ic-airdrop1.svg",
+        actionHandle: handleClaimRetrospective,
+        isActive: true,
+        isDisable: true,
+        right: {
+          title: '',
+          desc: '',
+        },
+        expiredTime: PUBLIC_SALE_START,
+        showExpireTime: false,
+        airdropType: AirdropType.RETROSPECTIVE
+      },
       {
         title: 'Timechain',
         desc: `Like and repost to enter a raffle for a Timechain (Inscription ID: 39554) - the first long-form generative art collection on Ordinals.
           ${LearnMore('https://twitter.com/punk3700/status/1623708934107430913')}
         `,
         actionText: token ? 'Like and repost' : 'Craft a tweet about BVM first',
-        actionTextEnd: 'Result',
+        actionTextEnd: 'View result',
         image: "time-chain2.svg",
         actionHandle: handleShareTw,
         isActive: true,
@@ -202,19 +289,19 @@ const StepsAirdrop = (props: IProps) => {
           //   </Tooltip>
           // )
         },
-        result: (
-          <Flex alignItems={"center"} gap={"4px"} fontSize={"16px"} color={"#000000"}>
-            <img src='/icons/winner.png' alt='drag' />
-            Winner:
-            <img src='https://pbs.twimg.com/profile_images/1745826527650971648/joB2i1fN_200x200.jpg' alt='drag' />
-            <a href={"https://twitter.com/nftsupply/"} target={"_blank"} style={{textDecoration: 'underline', fontWeight: 700}}>
-              NFTSupply
-            </a>
-          </Flex>
-        ),
-        expiredTime: TIME_CHAIN_EXPIRED_TIME,
-        showExpireTime: true,
-        airdropType: AirdropType.NEW,
+        // result: (
+        //   <Flex alignItems={"center"} gap={"4px"} fontSize={"16px"} color={"#000000"}>
+        //     <img src='/icons/winner.png' alt='drag' />
+        //     Winner:
+        //     <img src='https://pbs.twimg.com/profile_images/1745826527650971648/joB2i1fN_200x200.jpg' alt='drag' />
+        //     <a href={"https://twitter.com/nftsupply/"} target={"_blank"} style={{textDecoration: 'underline', fontWeight: 700}}>
+        //       NFTSupply
+        //     </a>
+        //   </Flex>
+        // ),
+        // expiredTime: TIME_CHAIN_EXPIRED_TIME,
+        // showExpireTime: true,
+        airdropType: AirdropType.NONE,
         step: AirdropStep.timeChain,
       },
       {
