@@ -4,7 +4,7 @@ import PublicSaleModule from '@/modules/PublicSale';
 
 const PublicSale = () => {
   return (
-    <MainLayout>
+    <MainLayout hideHeader>
       <div className={s.container}>
         <PublicSaleModule />
       </div>
