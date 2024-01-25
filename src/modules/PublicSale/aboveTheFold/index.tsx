@@ -12,6 +12,7 @@ import { getVCInformation } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
 import LeaderBoard from '@/modules/PublicSale/leaderBoard';
 import Welcome from '@/modules/PublicSale/welcome';
+import Playgame from '@/modules/PublicSale/playGame';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -42,6 +43,7 @@ const AboveTheFold = () => {
         <Flex className={s.rightSection} direction={"column"}>
           <BuyForm vcInfo={vcInfo}/>
           <Welcome />
+          <Playgame />
         </Flex>
       </SimpleGrid>
     </Flex>
