@@ -17,6 +17,7 @@ interface IAmount {
   unClaimedPoint: number,
   celestiaAmount: number,
   eigenlayerAmount: number
+  polygonAmount: number
 }
 
 const INIT_DATA = {
@@ -25,6 +26,7 @@ const INIT_DATA = {
   unClaimedPoint: 0,
   celestiaAmount: 0,
   eigenlayerAmount: 0,
+  polygonAmount: 0
 }
 
 const useFormatAllowCelestia = () => {
@@ -39,10 +41,12 @@ const useFormatAllowCelestia = () => {
         txsCount: new BigNumber(curr.num_txs || '0').plus(prev.txsCount).toNumber(),
         celestiaAmount: new BigNumber(curr.btc_fee || '0').plus(prev.celestiaAmount).toNumber(),
         eigenlayerAmount: new BigNumber(curr.eigenlayer_amount || '0').plus(prev.eigenlayerAmount).toNumber(),
+        polygonAmount: new BigNumber(curr.polygon_amount || '0').plus(prev.polygonAmount).toNumber(),
         point: new BigNumber(curr.gas_point || '0').plus(prev.point).toNumber(),
         unClaimedPoint: new BigNumber(prev.unClaimedPoint || '0')
           .plus(curr.status === 'unclaimed' ? curr.gas_point || '0' : '0')
           .plus(curr.status === 'unclaimed' ? curr.eigenlayer_point || '0' : '0')
+          .plus(curr.status === 'unclaimed' ? curr.polygon_point || '0' : '0')
           .toNumber(),
       };
       return value as IAmount;
