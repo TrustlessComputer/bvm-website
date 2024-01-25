@@ -11,13 +11,13 @@ import {
 } from '@/services/public-sale';
 import { IPublicSaleDepositInfo, PublicSaleWalletInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
-import { QRCode } from 'react-qrcode-logo';
 import Lines from '@/interactive/Lines';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
+import DepositModal from '@/modules/PublicSale/depositModal';
 
 export const TIME_CHAIN_EXPIRED_TIME = '2024-01-30 08:00:00';
 
@@ -66,9 +66,9 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const getVentureInfo = async () => {
     const result = await getPublicsaleWalletInfo();
     setSaleWalletInfo(result);
-    if(result) {
-      setShowQrCode(true);
-    }
+    // if(result) {
+    //   setShowQrCode(true);
+    // }
   };
 
   const handleRecheckDeposit = async () => {
@@ -148,60 +148,23 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             } title={'ENDS IN'} />
           </Flex>
           <Flex gap={6} direction={'column'} width={'100%'}>
-            {
-              user?.twitter_id && !saleWalletInfo?.btc_address && (
-                <Fade delay={DELAY + 1}>
-                  <Button
-                    type='submit'
-                    isDisabled={isCreating}
-                    isLoading={isCreating}
-                    // loadingText={'Submitting...'}
-                    className={s.button}
-                  >
-                    Buy $BVM
-                  </Button>
-                </Fade>
-              )
-            }
-            {
-              showQrCode && (
-                <Flex width={"100%"} direction={"column"}>
-                  <Fade delay={DELAY + 1}>
-                    <Flex gap={6} mt={4} w={'100%'} justifyContent={'space-between'}>
-                      <Flex direction={'column'} alignItems={'center'} gap={3}>
-                        <QRCode
-                          size={130}
-                          value={saleWalletInfo?.btc_address || ''}
-                          logoImage={'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png'}
-                        />
-                        <Text className={s.depositValue}>{formatCurrency(saleWalletInfo?.btc_balance, 4, 4)} BTC</Text>
-                      </Flex>
-                      <Flex direction={'column'} alignItems={'center'} gap={3}>
-                        <QRCode
-                          size={130}
-                          value={saleWalletInfo?.eth_address || ''}
-                          logoImage={'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'}
-                        />
-                        <Text className={s.depositValue}>{formatCurrency(saleWalletInfo?.eth_balance, 4, 4)} ETH</Text>
-                      </Flex>
-                    </Flex>
-                    <Text
-                      cursor={"pointer"}
-                      fontSize={"16px"}
-                      fontWeight={400}
-                      color={"#FFFFFF"}
-                      textDecoration={"underline"}
-                      onClick={handleRecheckDeposit}
-                      mt={2}
-                      textAlign={"center"}
-                    >
-                      Recheck deposit amount
-                    </Text>
-                  </Fade>
-                </Flex>
-              )
-            }
+            <Fade delay={DELAY + 1}>
+              <Button
+                type='submit'
+                isDisabled={isCreating}
+                isLoading={isCreating}
+                // loadingText={'Submitting...'}
+                className={s.button}
+              >
+                {user?.twitter_id ? 'Buy $BVM' : 'Tweet to buy'}
+              </Button>
+            </Fade>
           </Flex>
+          <DepositModal
+            isShow={showQrCode}
+            onHide={() => setShowQrCode(false)}
+            saleWalletInfo={saleWalletInfo}
+          />
         </div>
       </form>
     </div>
