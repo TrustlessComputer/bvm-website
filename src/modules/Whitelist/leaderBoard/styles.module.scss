@@ -97,6 +97,7 @@ table {
       tr {
         th,
         td {
+          padding-left: 4px !important;
           padding-right: 18px !important;
           &:nth-child(1) {
             width: 55px !important;
@@ -116,7 +117,7 @@ table {
       color: black;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 85px;
+      max-width: 75px;
     }
 
     .button {
