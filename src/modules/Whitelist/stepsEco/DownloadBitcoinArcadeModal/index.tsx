@@ -26,6 +26,20 @@ const DownloadBitcoinArcadeModal = ({ isShow, onHide }: any) => {
               py={'8px'}
               gap="4px"
               bg="#F4EADB"
+              mb="16px"
+              border="1px solid #FF7E214D"
+            >
+              <Text textAlign="center">
+                invite code: <strong>ARCADE</strong>
+              </Text>
+            </Flex>
+            <Flex
+              fontSize={'14px'}
+              flexDirection="column"
+              px={'12px'}
+              py={'8px'}
+              gap="4px"
+              bg="#F4EADB"
               border="1px solid #FF7E214D"
             >
               <Text>
