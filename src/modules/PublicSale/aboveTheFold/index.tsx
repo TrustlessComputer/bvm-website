@@ -37,10 +37,10 @@ const AboveTheFold = () => {
   return (
     <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImg={`/private-sale/bg.webp`}>
       <SimpleGrid className={`${s.content}`} gridTemplateColumns={["1fr", "1fr 1fr"]} gap={[6, 0]}>
-        <Flex className={s.leftSection} direction={"column"} gap={[6, 6]} justifyContent={"flex-start"}>
+        <Flex className={s.leftSection} direction={"column"} justifyContent={"flex-start"}>
           <TopHeader />
           <LeaderBoardVisual />
-          <AddMoreContribution />
+
           <RaffleButton className={s.raffleButton}/>
         </Flex>
         <Flex className={s.rightSection} direction={"column"}>
