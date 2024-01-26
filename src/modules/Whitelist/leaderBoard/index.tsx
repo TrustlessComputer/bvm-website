@@ -610,49 +610,6 @@ const LeaderBoard = (props: IProps) => {
         },
       },
       {
-        id: 'naka',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              width: '100%',
-              gap: '4px',
-            }}
-          >
-            <p style={{ textTransform: 'uppercase' }}>DEFI PTS</p>
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex
-              gap={'4px'}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
-            >
-              <Flex alignItems={'center'} gap={'4px'}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.naka_point, 0, 0)}
-                </Text>
-                {data.need_active && !Number(data?.naka_point || '0') && (
-                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
-                )}
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
         id: 'eco',
         label: (
           <Flex
@@ -664,7 +621,7 @@ const LeaderBoard = (props: IProps) => {
               gap: '4px',
             }}
           >
-            <p style={{ textTransform: 'uppercase' }}>SOCIALFI PTS</p>
+            <p style={{ textTransform: 'uppercase' }}>ECO PTS</p>
           </Flex>
         ),
         labelConfig,
@@ -676,6 +633,7 @@ const LeaderBoard = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: ILeaderBoardPoint) {
+          const point = new BigNumber(data?.alpha_point || 0).plus(data?.bvm_point || 0).plus(data?.naka_point || 0)
           return (
             <Flex
               gap={'4px'}
@@ -685,10 +643,34 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.alpha_point, 0, 0)}
+                  {formatCurrency(point.toFixed(), 0, 0)}
                 </Text>
-                {data.need_active && !Number(data?.alpha_point || '0') && (
+                {data.need_active && !point.toNumber() && (
                   <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
+                )}
+                {data.need_active && (
+                  <Tooltip
+                    minW="180px"
+                    bg="white"
+                    boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                    borderRadius="4px"
+                    padding="8px"
+                    label={
+                      <Flex direction="column" color="black" opacity={0.7}>
+                        <p>Naka: {formatCurrency(data.naka_point || '0', 0, 0)}</p>
+                        <p>BVM: {formatCurrency(data.bvm_point || '0', 0, 0)}</p>
+                        <p>SocialFi: {formatCurrency(data.alpha_point || '0', 0, 0)}</p>
+                      </Flex>
+                    }
+                  >
+                    <div>
+                      <SvgInset
+                        size={18}
+                        className={styles.tooltipIconActive}
+                        svgUrl={`${CDN_URL_ICONS}/info-circle.svg`}
+                      />
+                    </div>
+                  </Tooltip>
                 )}
               </Flex>
             </Flex>
