@@ -13,6 +13,7 @@ import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
 import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
 import Image from 'next/image';
 import AvatarYou from '@/modules/PublicSale/leaderBoardVisual/AvatarYou';
+import AddMoreContribution from '@/modules/PublicSale/addMoreContribution';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -163,6 +164,7 @@ const LeaderBoardVisual = (props: IProps) => {
             })
           }
         </div>
+        <AddMoreContribution />
       </ScrollWrapper>
       <AnimatedText />
     </div>
