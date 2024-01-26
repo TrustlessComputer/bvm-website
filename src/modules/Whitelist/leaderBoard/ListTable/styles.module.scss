@@ -2,7 +2,7 @@
   overflow-x: auto !important;
   position: relative !important;
   overflow-y: auto !important;
-  height: 100vh !important;
+  height: calc(100vh - 250px) !important;
   -ms-overflow-style: none;
   scroll-behavior: smooth;
   -webkit-scroll-behavior: smooth;
