@@ -38,4 +38,5 @@ export interface UserState {
     status: SignatureStatus[];
     loaded: boolean;
   },
+  publicSaleLeaderBoard: ILeaderBoardPoint[];
 }

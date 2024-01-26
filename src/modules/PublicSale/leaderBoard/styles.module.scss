@@ -15,7 +15,7 @@
 
 .container {
   position: relative;
-  background-color: rgba(255, 255, 255, 0.30);
+  //background-color: rgba(255, 255, 255, 0.30);
   .title1 {
     font-size: 24px;
     font-weight: 600;
@@ -49,9 +49,9 @@ table {
         }
       }
       .isActiveRow {
-        background-color: #007659 !important;
+        background-color: #FFFFFF !important;
         p {
-          color: white !important;
+          color: #000000 !important;
         }
 
         .boost_25 {
@@ -113,7 +113,7 @@ table {
       font-weight: 600;
       font-size: 14px;
       line-height: 140%;
-      color: black;
+      color: #FFFFFF;
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 85px;
@@ -291,6 +291,7 @@ table {
   line-height: 120%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: white;
 
   &.boost_30 {
     background: linear-gradient(90deg, #007659 0%, #35cca6 100%);

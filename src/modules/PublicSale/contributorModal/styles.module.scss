@@ -27,40 +27,70 @@
     font-weight: 400;
   }
 
+  .form {
+    width: 100%;
+  }
+
+  .inputContainer {
+    border-radius: 0px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid #CECECE;
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .input {
+    height: 100%;
+    overflow: hidden;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    background-color: transparent;
+    width: 100%;
+    letter-spacing: 0.01em;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &::-ms-input-placeholder { /* Edge 12-18 */
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
   .button {
     height: 48px !important;
     padding: 8px 60px !important;
     border-radius: 0px !important;
-    background: #fa4e0e !important;
-    color: #fff !important;
-    width: 180px !important;
-  }
-}
-
-.qrWrapper {
-  margin-top: 12px;
-  .qrCode {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 24px;
-    padding: 8px;
-    background: #ffffff;
-  }
-
-  .text {
-    text-align: center;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 160%;
+    background: #fff !important;
+    color: #000 !important;
+    width: 131px;
+    font-weight: normal !important;
   }
 }
 
 .modalManualHeader {
   padding-bottom: 0 !important;
+
+  > div {
+    p {
+      color: #FFFFFF !important;
+    }
+  }
 }
 
 .modalContent {
+  background: #262626 !important;
+
   :global {
     .chakra-modal__body {
       padding-left: rem(24) !important;

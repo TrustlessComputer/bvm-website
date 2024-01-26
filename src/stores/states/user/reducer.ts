@@ -14,6 +14,7 @@ const initialState: UserState = {
     status: [],
     loaded: false
   },
+  publicSaleLeaderBoard: []
 } as any;
 
 const slice = createSlice({
@@ -48,6 +49,9 @@ const slice = createSlice({
         };
       }
     },
+    setPublicSaleLeaderBoard: (state, action) => {
+      state.publicSaleLeaderBoard = uniqueBy([...action.payload.list], item => item.twitter_id);
+    },
   },
 });
 
@@ -56,7 +60,8 @@ export const {
   setLeaderBoard,
   setAllowBTC,
   setAllowCelestia,
-  setAllowEVM
+  setAllowEVM,
+  setPublicSaleLeaderBoard,
 } = slice.actions;
 
 export default slice.reducer;
