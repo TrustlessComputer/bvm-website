@@ -78,7 +78,7 @@ const StepsEco = ({ setTabIndex }: IProps) => {
       {
         project: 'Bitcoin L2s',
         title: 'Launch your own Bitcoin L2',
-        desc: `Developers? It’s easy to customize and launch your own Bitcoin L2 blockchain — with just a few clicks. ${LearnMore("https://docs.bvm.network/bvm/quickstart/create-a-bitcoin-virtual-machine", "Read the whitepaper")}<br/>It’s easy to customize and launch your own Bitcoin L2 blockchain — just a few clicks.`,
+        desc: `Developers? It’s easy to customize and launch your own Bitcoin L2 blockchain — with just a few clicks. ${LearnMore("https://docs.bvm.network/bvm/quickstart/create-a-bitcoin-virtual-machine", "Read the whitepaper")}`,
         actionText: token ? 'Launch now' : 'Craft a tweet about BVM first',
         image: 'ic-create-bvm.svg',
         actionHandle: () => {
