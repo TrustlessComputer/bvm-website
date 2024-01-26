@@ -1,6 +1,6 @@
 import { Box, Center, Flex, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import EternalAi from 'src/modules/PublicSale/welcome/VideoFrame';
+import EternalAi from './VideoFrame';
 import { useState } from 'react';
 import cx from 'clsx';
 
