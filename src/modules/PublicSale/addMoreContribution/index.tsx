@@ -63,23 +63,23 @@ const AddMoreContribution = () => {
           }
         </Flex>
       </Flex>
-      <Divider orientation={'vertical'}/>
+      <Divider orientation={'vertical'} borderColor={'rgba(255, 255, 255, .4)'}/>
       <Flex p={'20px'} alignItems={'center'}>
         <a href={"https://bvm.network/"} target={"_blank"}>
           <Flex className={s.learnMoreWrapper} gap={3}>
             <Text whiteSpace={"nowrap"}>Share on</Text>
-            <Center w={"28px"} height={"28px"} bgColor={"#000000"}>
+            <span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_29786_7178)">
-                  <path d="M12.6007 0.769531H15.054L9.694 6.8962L16 15.2315H11.0627L7.196 10.1755L2.77067 15.2315H0.316L6.04933 8.6782L0 0.770198H5.06267L8.558 5.39153L12.6007 0.769531ZM11.74 13.7635H13.0993L4.324 2.16086H2.86533L11.74 13.7635Z" fill="white"/>
-                </g>
-                <defs>
-                  <clipPath id="clip0_29786_7178">
-                    <rect width="16" height="16" fill="white"/>
-                  </clipPath>
-                </defs>
-              </svg>
-            </Center>
+              <g clip-path="url(#clip0_29786_7178)">
+                <path d="M12.6007 0.769531H15.054L9.694 6.8962L16 15.2315H11.0627L7.196 10.1755L2.77067 15.2315H0.316L6.04933 8.6782L0 0.770198H5.06267L8.558 5.39153L12.6007 0.769531ZM11.74 13.7635H13.0993L4.324 2.16086H2.86533L11.74 13.7635Z" fill="white"/>
+              </g>
+              <defs>
+                <clipPath id="clip0_29786_7178">
+                  <rect width="16" height="16" fill="white"/>
+                </clipPath>
+              </defs>
+            </svg>
+            </span>
           </Flex>
         </a>
       </Flex>
