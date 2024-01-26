@@ -1,0 +1,35 @@
+.avatarItem {
+  &_inner {
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 3px solid white;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+  }
+
+  img {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+  }
+
+  .price {
+    background: red;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+
+  }
+}
+
+

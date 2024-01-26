@@ -8,13 +8,29 @@
   margin-left: 14px;
   margin-right: 14px;
 
+  &_inner {
+    position: relative;
+  }
+
+  .price {
+    font-size: clamp(10px, #{vw(38px)}, 14px);
+    background: white;
+    border-radius: 100px;
+    font-weight: 500;
+    position: absolute;
+    color: #000;
+    padding: 8px 12px;
+    left: 50%;
+    bottom: -12px;
+    transform: translateX(-50%);
+  }
+
   .title {
     display: none;
   }
 
   &_avatar {
     border-radius: 50%;
-
     box-shadow: 0px 0px 40px -6px #0000001F;
     border: 3px solid #fff;
     width: fit-content;
@@ -37,6 +53,13 @@
     //flex: 0 0 100%;
     //margin-bottom: 35px;
 
+    .price {
+      font-size: clamp(14px, #{vw(212px)}, 24px);
+      background: linear-gradient(180deg, #FF9776 0%, #FF8139 32.81%, #E04300 100%);
+      color: white;
+      padding: 8px clamp(16px, #{vw(212px)}, 32px);
+    }
+
     .avatarItem_avatar {
       * {
         width: 200px !important;
@@ -51,6 +74,12 @@
     //margin-bottom: 30px;
     margin-left: 22px;
     margin-right: 22px;
+
+
+    .price {
+      font-size: clamp(12px, #{vw(140px)}, 20px);
+      background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
+    }
 
     .avatarItem_avatar {
       * {
@@ -67,6 +96,10 @@
     margin-left: 24px;
     margin-right: 24px;
 
+    .price {
+      font-size: clamp(12px, #{vw(80px)}, 16px);
+    }
+
     .avatarItem_avatar {
       * {
         width: 92px !important;
@@ -79,6 +112,11 @@
   &:global(.level-3) {
     //flex: 0 0 calc(100% / 6);
     //margin-bottom: 27px;
+
+    .price {
+      font-size: clamp(12px, #{vw(80px)}, 16px);
+    }
+
     margin-left: 24px;
     margin-right: 24px;
 
@@ -97,6 +135,10 @@
     margin-left: 20px;
     margin-right: 20px;
 
+    .price {
+      font-size: clamp(12px, #{vw(60px)}, 14px);
+    }
+
     .avatarItem_avatar {
       * {
         width: 60px !important;
@@ -105,6 +147,6 @@
       }
     }
   }
-
-
 }
+
+

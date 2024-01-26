@@ -354,3 +354,20 @@ table {
   display: block;
   flex: 0 0 100%;
 }
+
+.emptyArray {
+  display: grid;
+  gap: 28px;
+  width: 100%;
+  margin-top: 24px;
+  padding-bottom: 24px;
+  justify-content: center;
+  grid-template-columns: repeat(13, 1fr);
+}
+
+.emptyArray_label {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50%;
+  border: 3px solid white;
+}
