@@ -3,12 +3,14 @@
   position: sticky;
   bottom: 0;
   background: #000000;
+  border-top: 1px solid rgba(255, 255, 255, .24);
+  z-index: 2;
 
   .item {
     background: #FA4E0E;
     color: #FFFFFF;
     text-transform: uppercase;
-    height: 36px;
+    height: 40px;
     font-size: 14px;
     font-weight: 400;
     min-width: 80px;
@@ -16,8 +18,20 @@
 
   .learnMoreWrapper {
     background: #FFFFFF;
-    padding: 12px 16px;
+
+    align-items: center;
     width: fit-content;
+    height: 40px;
+    padding-left: 16px;
+    padding-right: 6px;
+    gap: 16px;
     color: #000000;
+
+    span {
+      background: #000000;
+      display: block;
+      padding: 6px;
+    }
+
   }
 }
