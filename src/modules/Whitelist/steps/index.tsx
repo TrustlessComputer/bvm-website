@@ -78,7 +78,7 @@ const Steps = () => {
         )}`,
         '_blank',
       );
-    }, 500)
+    }, 300)
 
   }
 
@@ -104,12 +104,14 @@ const Steps = () => {
     const _amountString = assests.join(', ')
     const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (${_amountString}), I’m excited to see Modular Blockchains arrive on Bitcoin.\n\nIt's easy to launch your own Bitcoin L2 with @BVMnetwork.\n`;
 
-    window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
+    setTimeout(() => {
+      window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    }, 300)
   }
 
   const onShareOptimism = () => {
@@ -135,12 +137,14 @@ const Steps = () => {
 
     const content = `Here is my Ethereum L2 bag:\n${op}${arb}${base}\n\nAnd I can’t wait to stack my Bitcoin L2 bag.\n\nThousands of Bitcoin L2s are arriving, thanks to @BVMnetwork.\n`;
 
-    window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
+    setTimeout(() => {
+      window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    }, 300)
   }
 
   const onSignModular = async () => {
