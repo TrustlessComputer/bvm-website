@@ -71,12 +71,15 @@ const Steps = () => {
     const shareUrl = getLink(user?.referral_code || '');
     const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
 
-    window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
+    setTimeout(() => {
+      window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    }, 300)
+
   }
 
   const onShareModular = () => {
@@ -112,12 +115,14 @@ const Steps = () => {
 
     const content = `BUILD WHATEVER ON BITCOIN.\n\nI'm holding and staking:\n\n${tiaAmount}${maticAmount}${mantaAmount}${ethAmount}\n\nAs a modular maxi, I’m excited to see Modular Blockchains arrive on Bitcoin powered by @BVMnetwork\n`;
 
-    window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
+    setTimeout(() => {
+      window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    }, 300)
   }
 
   const onShareOptimism = () => {
@@ -143,12 +148,14 @@ const Steps = () => {
 
     const content = `Here is my Ethereum L2 bag:\n${op}${arb}${base}\n\nAnd I can’t wait to stack my Bitcoin L2 bag.\n\nThousands of Bitcoin L2s are arriving, thanks to @BVMnetwork.\n`;
 
-    window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
+    setTimeout(() => {
+      window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    }, 300)
   }
 
   const onSignModular = async () => {

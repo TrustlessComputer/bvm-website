@@ -36,7 +36,8 @@ const Whitelist = () => {
   React.useEffect(() => {
     const element = document.getElementById(CONTAINER_ID);
     if (height && element) {
-      element.style.paddingTop = `${height + 24}px`;
+      element.style.marginTop = `${height + 24}px`;
+      element.style.zIndex = '1';
     }
   }, [height]);
 
