@@ -19,6 +19,7 @@ import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import DepositModal from '@/modules/PublicSale/depositModal';
 import HorizontalItem from '@/components/HorizontalItem';
+import ContributorsModal from '@/modules/PublicSale/contributorModal';
 
 export const TIME_CHAIN_EXPIRED_TIME = '2024-01-30 08:00:00';
 
@@ -110,6 +111,35 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     }));
   };
 
+  const ContributorInfo = () => {
+    return (
+      <Flex direction={'column'} w={'284px'} gap={4} className={s.contributorInfo}>
+        <HorizontalItem className={s.rowData} label={'USER'} value={'clinkzchan'} />
+        <HorizontalItem className={s.rowData} label={'RANK'} value={'1,000'} />
+        <HorizontalItem className={s.rowData} label={'CONTRIBUTION'} value={'$120,000'} />
+        <HorizontalItem className={s.rowData} label={'ALLOCATION'} value={<Text color={'#FF5312'}>15 BVM</Text>} />
+        <HorizontalItem className={s.rowData} label={'BOOST'} value={
+          <Flex gap={1} alignItems={'center'}>
+            <svg width='14' height='20' viewBox='0 0 14 20' fill='none'
+                 xmlns='http://www.w3.org/2000/svg'>
+              <path
+                d='M13.6663 8.18093H8.21179L9.42391 0.908203L0.333008 11.8173H5.78755L4.57543 19.09L13.6663 8.18093Z'
+                fill='url(#paint0_linear_29823_6261)' />
+              <defs>
+                <linearGradient id='paint0_linear_29823_6261' x1='0.333008' y1='9.99911' x2='13.6663'
+                                y2='9.99911' gradientUnits='userSpaceOnUse'>
+                  <stop stop-color='#007659' />
+                  <stop offset='1' stop-color='#35CCA6' />
+                </linearGradient>
+              </defs>
+            </svg>
+            <Text fontSize={'16px'} fontWeight={'500'} className={s.boostLight}>10%</Text>
+          </Flex>
+        } />
+      </Flex>
+    )
+  }
+
   return (
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
@@ -120,7 +150,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             <Column value={
               <Flex direction={'column'}>
                 <Text>{formatCurrency(contributeInfo?.total_user, 0, 0, 'BTC', true)}</Text>
-                <Text fontSize={'12px'} fontWeight={'400'} color={'#FA4E0E'}>View more</Text>
+                <Text fontSize={'12px'} fontWeight={'400'} color={'#FA4E0E'} textDecoration={"underline"}>View all</Text>
               </Flex>
             } title={'Contributors'} />
             <Tooltip minW='220px'
@@ -130,30 +160,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                      padding='16px'
                      hasArrow
                      label={
-                       <Flex direction={'column'} w={'284px'} gap={4}>
-                         <HorizontalItem label={'USER'} value={'clinkzchan'} />
-                         <HorizontalItem label={'RANK'} value={'1,000'} />
-                         <HorizontalItem label={'Contribution'} value={'$120,000'} />
-                         <HorizontalItem label={'Allocation'} value={<Text color={'#FF5312'}>15 BVM</Text>} />
-                         <HorizontalItem label={'BOOST'} value={
-                           <Flex gap={1} alignItems={'center'}>
-                             <svg width='14' height='20' viewBox='0 0 14 20' fill='none'
-                                  xmlns='http://www.w3.org/2000/svg'>
-                               <path
-                                 d='M13.6663 8.18093H8.21179L9.42391 0.908203L0.333008 11.8173H5.78755L4.57543 19.09L13.6663 8.18093Z'
-                                 fill='url(#paint0_linear_29823_6261)' />
-                               <defs>
-                                 <linearGradient id='paint0_linear_29823_6261' x1='0.333008' y1='9.99911' x2='13.6663'
-                                                 y2='9.99911' gradientUnits='userSpaceOnUse'>
-                                   <stop stop-color='#007659' />
-                                   <stop offset='1' stop-color='#35CCA6' />
-                                 </linearGradient>
-                               </defs>
-                             </svg>
-                             <Text fontSize={'16px'} fontWeight={'500'} className={s.boostLight}>10%</Text>
-                           </Flex>
-                         } />
-                       </Flex>
+                       <ContributorInfo />
                      }
             >
               <Column value={
@@ -217,6 +224,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             onHide={() => setShowQrCode(false)}
             saleWalletInfo={saleWalletInfo}
           />
+          <ContributorsModal />
         </div>
       </form>
     </div>

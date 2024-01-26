@@ -193,3 +193,17 @@
     font-weight: 500;
   }
 }
+
+.contributorInfo {
+  .rowData {
+    > div {
+      &:first-child {
+        font-size: 12px;
+      }
+
+      &:last-child {
+        font-size: 16px;
+      }
+    }
+  }
+}
