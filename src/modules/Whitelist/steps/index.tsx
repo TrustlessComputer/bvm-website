@@ -71,42 +71,52 @@ const Steps = () => {
     const shareUrl = getLink(user?.referral_code || '');
     const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
 
-    window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
+    setTimeout(() => {
+      window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    }, 200)
+
   }
 
   const onShareModular = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const assests = [];
     const minAmount = 0.0001;
 
+    let tiaAmount = '';
+    let maticAmount = '';
+    let mantaAmount = '';
+    let ethAmount = '';
+
     if (new BigNumber(allowCelestia.amount.celestiaAmount || 0).gt(minAmount)) {
-      assests.push(`holding ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} TIA`)
+      tiaAmount = `\n • ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 4)} TIA`;
     }
-
-
-    if (new BigNumber(allowCelestia.amount.eigenlayerAmount || 0).gt(minAmount)) {
-      assests.push(`staking ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} ETH`)
-    }
-
 
     if (new BigNumber(allowCelestia.amount.polygonAmount || 0).gt(minAmount)) {
-      assests.push(`holding ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} MATIC`)
+      maticAmount = `\n • ${formatCurrency(allowCelestia.amount.polygonAmount, 0, 4)} MATIC`;
     }
 
-    const _amountString = assests.join(', ')
-    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (${_amountString}), I’m excited to see Modular Blockchains arrive on Bitcoin.\n\nIt's easy to launch your own Bitcoin L2 with @BVMnetwork.\n`;
+    if (new BigNumber(allowCelestia.amount.mantaAmount || 0).gt(minAmount)) {
+      mantaAmount = `\n • ${formatCurrency(allowCelestia.amount.mantaAmount, 0, 4)} MANTA`;
+    }
 
-    window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
+    if (new BigNumber(allowCelestia.amount.eigenlayerAmount || 0).gt(minAmount)) {
+      ethAmount = `\n • ${formatCurrency(allowCelestia.amount.eigenlayerAmount, 0, 4)} ETH`;
+    }
+
+    const content = `BUILD WHATEVER ON BITCOIN.\n\nI'm holding and staking:\n${tiaAmount}${maticAmount}${mantaAmount}${ethAmount}\n\nAs a modular maxi, I’m excited to see Modular Blockchains arrive on Bitcoin powered by @BVMnetwork\n\nLet's build!\n`;
+
+    setTimeout(() => {
+      window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    }, 200)
   }
 
   const onShareOptimism = () => {
@@ -132,12 +142,14 @@ const Steps = () => {
 
     const content = `Here is my Ethereum L2 bag:\n${op}${arb}${base}\n\nAnd I can’t wait to stack my Bitcoin L2 bag.\n\nThousands of Bitcoin L2s are arriving, thanks to @BVMnetwork.\n`;
 
-    window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
+    setTimeout(() => {
+      window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    }, 200)
   }
 
   const onSignModular = async () => {
@@ -258,8 +270,8 @@ const Steps = () => {
         }
       },
       {
-        title: 'Are you a Modular Blockchain Pioneer?',
-        desc: 'The more TIA you hold, or the more ETH you stake on Eigen, or the more MATIC you have on Polygon, the more points you\'ll get. Connect your Keplr, Leap, or MetaMask wallet to prove the account ownership.\n',
+        title: 'Are you a Modular pioneer?',
+        desc: 'You’ll earn more points if you hold TIA, MANTA, or MATIC or you stake ETH on Eigen. Connect your Keplr, Leap, or MetaMask wallet to prove the account ownership.',
         actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
         actionHandle: isNeedClaimCelestiaPoint ? async () => {
           onShareModular();
@@ -271,10 +283,10 @@ const Steps = () => {
         isActive: !!token,
         isDone: !!token,
         step: MultiplierStep.modular,
-        image: "ic-modular-1.svg",
+        image: "ic-modular2.svg",
         right: {
           title: '+100 PTS',
-          desc: 'per TIA or Ξ 0.005 or 20 MATIC'
+          desc: 'per 1 TIA\nor Ξ 0.005\nor 20 MATIC\nor 6 MANTA'
         },
       },
       {

@@ -15,4 +15,6 @@ export interface SignatureStatus {
   eigenlayer_amount: string,
   polygon_point: string,
   polygon_amount: string,
+  manta_amount: string;
+  manta_point: string;
 }

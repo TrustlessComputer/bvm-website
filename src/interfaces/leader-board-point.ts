@@ -29,6 +29,8 @@ export interface ILeaderBoardPoint {
   polygon_point: string;
   game_point: string;
   alpha_point: string
+  manta_amount: string;
+  manta_point: string;
   bvm_balance: string;
   eth_balance: string;
   btc_balance: string;

@@ -1,16 +1,14 @@
 import Avatar from '@/components/Avatar';
-import ListTable, { ColumnProp } from '@/components/ListTable';
-import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
+import ListTable, { ColumnProp } from './ListTable';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { getTopLeaderBoards } from '@/services/whitelist';
-import { formatCurrency, formatName } from '@/utils/format';
+import { formatCurrency } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
 import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import clsx from 'classnames';
-import AppLoading from '@/components/AppLoading';
 import { CDN_URL_ICONS } from '@/config';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
@@ -150,6 +148,11 @@ const LeaderBoard = (props: IProps) => {
     textTransform: 'uppercase',
     fontWeight: 500
   };
+
+  const _formatPoint = (point: string | number) => {
+    const _point = formatCurrency(point, 0, 0)
+    return (!!_point && _point !== '0') ? _point : '-';
+  }
 
   const columns: ColumnProp[] = useMemo(() => {
     return [
@@ -306,10 +309,8 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {formatCurrency(
+                  {_formatPoint(
                     new BigNumber(data?.point || '0').toNumber(),
-                    0,
-                    0,
                   )}
                 </Text>
               </Flex>
@@ -342,7 +343,7 @@ const LeaderBoard = (props: IProps) => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    Modular points are calculated based on your <strong>TIA</strong> holdings and staking, as well as <strong>ETH</strong> staking on <strong>Eigen</strong>.
+                    The more <strong>TIA</strong>, <strong>MATIC</strong>, and <strong>MANTA</strong> you hold, or the more <strong>ETH</strong> you stake on <strong>Eigen</strong>, the more Modular points you'll get.
                   </p>
                 </Flex>
               }
@@ -363,6 +364,10 @@ const LeaderBoard = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: ILeaderBoardPoint) {
+          const point = new BigNumber(data?.celestia_point || 0)
+            .plus(data?.eigenlayer_point || 0)
+            .plus(data?.polygon_point || 0)
+            .toNumber();
           return (
             <Flex
               gap={3}
@@ -372,12 +377,12 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(new BigNumber(data?.celestia_point || 0)
+                  {_formatPoint(new BigNumber(data?.celestia_point || 0)
                     .plus(data?.eigenlayer_point || 0)
                     .plus(data?.polygon_point || 0)
-                    .toNumber(), 0, 0)}
+                    .toNumber())}
                 </Text>
-                {data.need_active ? (
+                {(data.need_active && !!point) ? (
                   <Tooltip
                     minW="160px"
                     bg="white"
@@ -386,9 +391,10 @@ const LeaderBoard = (props: IProps) => {
                     padding="8px"
                     label={
                       <Flex direction="column" color="black" opacity={0.7}>
-                        <p>Eigenlayer: {data.eigenlayer_point || '0'}</p>
-                        <p>Celestia: {data.celestia_point || '0'}</p>
-                        <p>Polygon: {data.polygon_point || '0'}</p>
+                        <p>Eigenlayer: {_formatPoint(data.eigenlayer_point || '0')}</p>
+                        <p>Celestia: {_formatPoint(data.celestia_point || '0')}</p>
+                        <p>Polygon: {_formatPoint(data.polygon_point || '0')}</p>
+                        <p>Manta: {_formatPoint(data.manta_point || '0')}</p>
                       </Flex>
                     }
                   >
@@ -464,7 +470,7 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.gas_point, 0, 0)}
+                  {_formatPoint(data?.gas_point || '0')}
                 </Text>
               </Flex>
             </Flex>
@@ -514,6 +520,11 @@ const LeaderBoard = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: ILeaderBoardPoint) {
+          const point = new BigNumber(data?.optimism_point || 0)
+            .plus(data?.blast_point || 0)
+            .plus(data?.base_point || 0)
+            .plus(data?.arb_point || 0)
+            .toNumber();
           return (
             <Flex
               style={{
@@ -525,13 +536,9 @@ const LeaderBoard = (props: IProps) => {
               }}
             >
               <Text className={styles.title}>
-                {formatCurrency(new BigNumber(data?.optimism_point || 0)
-                  .plus(data?.blast_point || 0)
-                  .plus(data?.base_point || 0)
-                  .plus(data?.arb_point || 0)
-                  .toString(), 0, 0)}
+                {_formatPoint(point)}
               </Text>
-              {data.need_active ? (
+              {data.need_active && !!point ? (
                 <Tooltip
                   minW="160px"
                   bg="white"
@@ -540,10 +547,10 @@ const LeaderBoard = (props: IProps) => {
                   padding="8px"
                   label={
                     <Flex direction="column" color="black" opacity={0.7}>
-                      <p>Optimism: {data.optimism_point || '0'}</p>
-                      <p>Blast: {data.blast_point || '0'}</p>
-                      <p>Base: {data.base_point || '0'}</p>
-                      <p>Arbitrum: {data.arb_point || '0'}</p>
+                      <p>Optimism: {_formatPoint(data.optimism_point || '0')}</p>
+                      <p>Blast: {_formatPoint(data.blast_point || '0')}</p>
+                      <p>Base: {_formatPoint(data.base_point || '0')}</p>
+                      <p>Arbitrum: {_formatPoint(data.arb_point || '0')}</p>
                     </Flex>
                   }
                 >
@@ -591,6 +598,7 @@ const LeaderBoard = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: ILeaderBoardPoint) {
+          const point = new BigNumber(data?.game_point || 0).toNumber();
           return (
             <Flex
               gap={'4px'}
@@ -600,95 +608,9 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.game_point, 0, 0)}
+                  {data.need_active ? point ? _formatPoint(point) : '' : _formatPoint(point)}
                 </Text>
-                {data.need_active && !Number(data?.game_point || '0') && (
-                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
-                )}
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'naka',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              width: '100%',
-              gap: '4px',
-            }}
-          >
-            <p style={{ textTransform: 'uppercase' }}>DEFI PTS</p>
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex
-              gap={'4px'}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
-            >
-              <Flex alignItems={'center'} gap={'4px'}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.naka_point, 0, 0)}
-                </Text>
-                {data.need_active && !Number(data?.naka_point || '0') && (
-                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
-                )}
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'eco',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              width: '100%',
-              gap: '4px',
-            }}
-          >
-            <p style={{ textTransform: 'uppercase' }}>SOCIALFI PTS</p>
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex
-              gap={'4px'}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
-            >
-              <Flex alignItems={'center'} gap={'4px'}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.alpha_point, 0, 0)}
-                </Text>
-                {data.need_active && !Number(data?.alpha_point || '0') && (
+                {data.need_active && !point && (
                   <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
                 )}
               </Flex>
@@ -740,6 +662,7 @@ const LeaderBoard = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: ILeaderBoardPoint) {
+          const point = new BigNumber(data?.refer_point || 0).toNumber()
           return (
             <Flex
               gap={3}
@@ -749,10 +672,97 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.refer_point, 0, 0)}
+                  {data.need_active ? point ? _formatPoint(point) : '' : _formatPoint(point)}
                 </Text>
-                {data.need_active && !Number(data?.refer_point || '0') && (
+                {data.need_active && !point && (
                   <button id="copy-button" onClick={handleShareRefferal} className={styles.button}>GET</button>
+                )}
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'eco',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '100%',
+              gap: '4px',
+            }}
+          >
+            <p style={{ textTransform: 'uppercase' }}>ECO PTS</p>
+            <Tooltip
+              minW="220px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="8px"
+              label={
+                <Flex direction="column" color="black" opacity={0.7}>
+                  <p>
+                    The Eco points are calculated based on all the tasks you have completed in the Experience BVM section.
+                  </p>
+                </Flex>
+              }
+            >
+              <img
+                className={styles.tooltipIcon}
+                src={`${CDN_URL_ICONS}/info-circle.svg`}
+              />
+            </Tooltip>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          const point = new BigNumber(data?.alpha_point || 0).plus(data?.bvm_point || 0).plus(data?.naka_point || 0).toNumber()
+          return (
+            <Flex
+              gap={'4px'}
+              alignItems={'center'}
+              width={'100%'}
+              justifyContent={'center'}
+            >
+              <Flex alignItems={'center'} gap={'4px'}>
+                <Text className={styles.title}>
+                  {data.need_active ? point ? _formatPoint(point) : '' : _formatPoint(point)}
+                </Text>
+                {data.need_active && !point && (
+                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
+                )}
+                {data.need_active && !!point && (
+                  <Tooltip
+                    minW="180px"
+                    bg="white"
+                    boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                    borderRadius="4px"
+                    padding="8px"
+                    label={
+                      <Flex direction="column" color="black" opacity={0.7}>
+                        <p>Naka: {_formatPoint(data.naka_point || '0')}</p>
+                        <p>BVM: {_formatPoint(data.bvm_point || '0')}</p>
+                        <p>SocialFi: {_formatPoint(data.alpha_point || '0')}</p>
+                      </Flex>
+                    }
+                  >
+                    <div>
+                      <SvgInset
+                        size={18}
+                        className={styles.tooltipIconActive}
+                        svgUrl={`${CDN_URL_ICONS}/info-circle.svg`}
+                      />
+                    </div>
+                  </Tooltip>
                 )}
               </Flex>
             </Flex>
@@ -814,7 +824,7 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {formatCurrency(data?.content_point, 0, 0)}
+                  {_formatPoint(data?.content_point)}
                 </Text>
                 {data.need_active ? (
                   <Tooltip
@@ -894,29 +904,59 @@ const LeaderBoard = (props: IProps) => {
   };
 
   return (
-    <Box className={styles.container} height="100dvh" id={LEADER_BOARD_ID}>
-      <ScrollWrapper
-        onFetch={() => {
-          refParams.current = {
-            ...refParams.current,
-            page: refParams.current.page + 1,
-          };
-          hasIncrementedPageRef.current = true;
-          fetchData();
-        }}
-        isFetching={refreshing}
-        hasIncrementedPageRef={hasIncrementedPageRef}
-        onFetchNewData={onRefresh}
-        wrapClassName={styles.wrapScroll}
-        hideScrollBar={false}
-      >
+    <Box className={styles.container} id={LEADER_BOARD_ID}>
+      {/*<ScrollWrapper*/}
+      {/*  onFetch={() => {*/}
+      {/*    refParams.current = {*/}
+      {/*      ...refParams.current,*/}
+      {/*      page: refParams.current.page + 1,*/}
+      {/*    };*/}
+      {/*    hasIncrementedPageRef.current = true;*/}
+      {/*    fetchData();*/}
+      {/*  }}*/}
+      {/*  isFetching={refreshing}*/}
+      {/*  hasIncrementedPageRef={hasIncrementedPageRef}*/}
+      {/*  onFetchNewData={onRefresh}*/}
+      {/*  wrapClassName={styles.wrapScroll}*/}
+      {/*  hideScrollBar={false}*/}
+      {/*>*/}
+      {/*  <ListTable*/}
+      {/*    data={list}*/}
+      {/*    columns={columns}*/}
+      {/*    className={styles.tableContainer}*/}
+      {/*  />*/}
+      {/*  {isFetching && <AppLoading className={styles.loading} />}*/}
+      {/*</ScrollWrapper>*/}
+      {/*<InfiniteScroll*/}
+      {/*  dataLength={columns.length}*/}
+      {/*  next={() => {*/}
+      {/*    console.log('SANG TEST: ');*/}
+      {/*    refParams.current = {*/}
+      {/*      ...refParams.current,*/}
+      {/*      page: refParams.current.page + 1,*/}
+      {/*    };*/}
+      {/*    hasIncrementedPageRef.current = true;*/}
+      {/*    fetchData();*/}
+      {/*  }}*/}
+      {/*  hasMore={true}*/}
+      {/*  className={styles.wrapScroll}*/}
+      {/*  loader={<h4>Loading more...</h4>}*/}
+      {/*>*/}
         <ListTable
           data={list}
           columns={columns}
           className={styles.tableContainer}
+          hasIncrementedPageRef={hasIncrementedPageRef}
+          onFetch={() => {
+            refParams.current = {
+              ...refParams.current,
+              page: refParams.current.page + 1,
+            };
+            hasIncrementedPageRef.current = true;
+            fetchData();
+          }}
         />
-        {isFetching && <AppLoading className={styles.loading} />}
-      </ScrollWrapper>
+      {/*</InfiniteScroll>*/}
     </Box>
   );
 };

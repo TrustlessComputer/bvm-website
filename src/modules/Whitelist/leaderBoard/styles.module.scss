@@ -37,7 +37,8 @@
 }
 
 .wrapScroll {
-  overflow-x: auto;
+  overflow: auto;
+  min-height: 100vh;
 }
 
 table {
@@ -46,6 +47,15 @@ table {
       tbody {
         tr {
           height: 62px;
+        }
+      }
+      thead {
+        tr {
+          th {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 100;
+          }
         }
       }
       .isActiveRow {
