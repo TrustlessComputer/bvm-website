@@ -17,7 +17,7 @@
 .container {
   position: relative;
   background-color: rgba(0, 0, 0, 1);
-  height: 85dvh;
+  height: calc(85dvh - 40px);
 
   .title1 {
     font-size: 24px;
@@ -222,9 +222,7 @@ table {
 .container {
   overflow: hidden;
   width: 100%;
-  padding-top: 80px;
-  padding-bottom: 80px;
-  // min-width: 880px;
+  padding-top: 24px;
 
   @include w-max(968px) {
     margin-left: 12px;
@@ -301,8 +299,6 @@ table {
     width: fit-content;
   }
 
-  .content {
-  }
 }
 
 .multiplier {

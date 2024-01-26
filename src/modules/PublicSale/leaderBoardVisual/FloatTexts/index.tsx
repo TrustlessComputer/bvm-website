@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import s from './styles.module.scss';
 import { MathMap } from '@/utils/mathUtils';
-import { CDN_URL_IMAGES } from '@/config';
+import { formatCurrency } from '@/utils/format';
 
 const AnimatedText = () => {
   const chars = ['$', '$', '$', '$', '$'];
@@ -14,13 +14,16 @@ const AnimatedText = () => {
       (containerRef?.current as any).appendChild(element);
     }
 
-    const duration = Math.max(Math.floor(Math.random() * 15) + 1 , 2);
+
     const offset = MathMap(Math.random(), 0, 1, 40, 350);
 
-    const money = Math.random();
+    //@todo step
+    const money = Math.random() * 1000000;
+    const duration = MathMap(money, 100, 1000000, 8, 30);
+    const scale = MathMap(money, 100, 1000000,.5, 2);
 
-    element.style.cssText = `right:${offset}px; transform:scale(${Math.min(Math.max(money / 200, .6), 2)}); animation-duration:${duration}s`;
-    element.innerHTML = `<div><img src="/images/avt.jpg" /> <span>+ $${money.toFixed(0)}</span></div>`;
+    element.style.cssText = `right:${offset}px; transform:scale(${scale}); animation-duration:${duration}s`;
+    element.innerHTML = `<div><img src="/images/avt.jpg" /> <span>+ $${formatCurrency(money, 0,0)}</span></div>`;
 
      window.setTimeout(() => remove(element), Math.max(duration, 1) * 1000);
   };
