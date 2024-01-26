@@ -48,8 +48,8 @@ export default function ItemCommunity({
   }, [isActive, index]);
 
   return (
-    <>
-      <div className={cx(s.itemCommunity, isRunning ? '' : s.isDone)}>
+    <div className={cx(s.container, isRunning ? '' : s.isDone)}>
+      <div className={cx(s.itemCommunity)}>
         <Image
           className={s.itemCommunity__logo}
           width={48}
@@ -88,44 +88,44 @@ export default function ItemCommunity({
               )}
             </Flex>
           </Flex>
-          {!!content?.actionText && (
-            <Flex direction="column" w="100%" mt="8px">
-              <Flex gap="8px" flexDirection="column" w="100%">
-                <Button
-                  className={s.itemCommunity__btnCTA}
-                  onClick={() => {
-                    if (content?.actionHandle && isRunning && !isLoading) {
-                      content?.actionHandle();
-                    }
-                  }}
-                  isLoading={isLoading}
-                >
-                  {content?.actionText}
-                </Button>
-                {!!content.actionHandleSecondary && (
-                  <Button
-                    className={cs(
-                      s.itemCommunity__btnCTA,
-                      s.itemCommunity__btnSecondary,
-                    )}
-                    onClick={() => {
-                      if (
-                        content?.actionHandleSecondary &&
-                        isRunning &&
-                        !isLoading
-                      ) {
-                        content?.actionHandleSecondary();
-                      }
-                    }}
-                  >
-                    {content?.actionTextSecondary}
-                  </Button>
-                )}
-              </Flex>
-            </Flex>
-          )}
         </Flex>
       </div>
-    </>
+      {!!content?.actionText && (
+        <Flex direction="column" w="100%" mt="8px">
+          <Flex gap="8px" flexDirection="column" w="100%">
+            <Button
+              className={s.container__btnCTA}
+              onClick={() => {
+                if (content?.actionHandle && isRunning && !isLoading) {
+                  content?.actionHandle();
+                }
+              }}
+              isLoading={isLoading}
+            >
+              {content?.actionText}
+            </Button>
+            {!!content.actionHandleSecondary && (
+              <Button
+                className={cs(
+                  s.container__btnCTA,
+                  s.container__btnSecondary,
+                )}
+                onClick={() => {
+                  if (
+                    content?.actionHandleSecondary &&
+                    isRunning &&
+                    !isLoading
+                  ) {
+                    content?.actionHandleSecondary();
+                  }
+                }}
+              >
+                {content?.actionTextSecondary}
+              </Button>
+            )}
+          </Flex>
+        </Flex>
+      )}
+    </div>
   );
 }

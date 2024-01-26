@@ -112,10 +112,13 @@ const StepsAirdrop = (props: IProps) => {
       // },
       {
         title: 'Modular',
-        desc: "Coming soon",
-        actionText: '',
+        desc: `Playing with Lego at BVM network.
+          ${LearnMore('https://playmodular.com/')}
+        `,
+        actionText: 'Comming soon',
         image: "ic-lego.svg",
-        actionHandle: handleClaimRetrospective,
+        actionHandle: () => undefined,
+        isDisableButton: true,
         isActive: true,
         right: {
           title: '',

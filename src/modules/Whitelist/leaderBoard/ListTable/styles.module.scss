@@ -2,41 +2,43 @@
   overflow-x: auto !important;
   position: relative !important;
   overflow-y: auto !important;
-  height: 100vh !important;
+  height: calc(100vh - 250px) !important;
   -ms-overflow-style: none;
   scroll-behavior: smooth;
   -webkit-scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   transition: transform 0s linear;
-  scrollbar-color: #fa8e70 rgba(255, 255, 255, .2);
+  scrollbar-color: #fa8e70 rgba(255, 255, 255, 0.2);
   scrollbar-width: thin;
 
-  ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3) !important;
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3) !important;
     background-color: white !important;
   }
 
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 6px;
-    background-color: #F6F5EF;
+    background-color: #f6f5ef;
   }
-  ::-webkit-scrollbar-thumb{
+  &::-webkit-scrollbar-thumb {
     background-color: #fa8e70;
-    background-image: -webkit-linear-gradient(45deg,
-      rgba(255, 255, 255, .2) 25%,
+    background-image: -webkit-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.2) 25%,
       transparent 25%,
       transparent 50%,
-      rgba(255, 255, 255, .2) 50%,
-      rgba(255, 255, 255, .2) 75%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0.2) 75%,
       transparent 75%,
-      transparent)
+      transparent
+    );
   }
   :global .chakra-table {
-    background-color: #F6F5EF;
+    background-color: #f6f5ef;
     thead {
       box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 12px 0px;
       margin-bottom: 4px;
-      background-color: #F6F5EF;
+      background-color: #f6f5ef;
       z-index: 100;
       tr {
         th {
