@@ -384,9 +384,10 @@ const LeaderBoard = (props: IProps) => {
                     padding="8px"
                     label={
                       <Flex direction="column" color="black" opacity={0.7}>
-                        <p>Eigenlayer: {data.eigenlayer_point || '0'}</p>
-                        <p>Celestia: {data.celestia_point || '0'}</p>
-                        <p>Polygon: {data.polygon_point || '0'}</p>
+                        <p>Eigenlayer: {formatCurrency(data.eigenlayer_point || '0', 0, 0)}</p>
+                        <p>Celestia: {formatCurrency(data.celestia_point || '0', 0, 0)}</p>
+                        <p>Polygon: {formatCurrency(data.polygon_point || '0', 0, 0)}</p>
+                        <p>Manta: {formatCurrency(data.manta_point || '0', 0, 0)}</p>
                       </Flex>
                     }
                   >
@@ -538,10 +539,10 @@ const LeaderBoard = (props: IProps) => {
                   padding="8px"
                   label={
                     <Flex direction="column" color="black" opacity={0.7}>
-                      <p>Optimism: {data.optimism_point || '0'}</p>
-                      <p>Blast: {data.blast_point || '0'}</p>
-                      <p>Base: {data.base_point || '0'}</p>
-                      <p>Arbitrum: {data.arb_point || '0'}</p>
+                      <p>Optimism: {formatCurrency(data.optimism_point || '0', 0, 0)}</p>
+                      <p>Blast: {formatCurrency(data.blast_point || '0', 0, 0)}</p>
+                      <p>Base: {formatCurrency(data.base_point || '0', 0, 0)}</p>
+                      <p>Arbitrum: {formatCurrency(data.arb_point || '0', 0, 0)}</p>
                     </Flex>
                   }
                 >
