@@ -55,24 +55,6 @@ const StepsEco = ({ setTabIndex }: IProps) => {
         },
       },
       {
-        project: 'Bitcoin L2s',
-        title: 'Module store',
-        desc: `Developers? Create your own Bitcoin L2 blockchain. ${LearnMore("https://docs.bvm.network/bvm/quickstart/create-a-bitcoin-virtual-machine", "Read the whitepaper")}<br/>It’s easy to customize and launch your own Bitcoin L2 blockchain — just a few clicks.`,
-        actionText: 'Launch now',
-        image: 'ic-create-bvm.svg',
-        actionHandle: () => {
-          setTimeout(() => {
-            window.open('https://bvm.network/blockchains/customize', '_blank')
-          }, 200)
-        },
-        isActive: true,
-        right: {
-          title: '+10,000 PTS',
-          desc: '',
-        },
-        // tag: StepTagType.NEW
-      },
-      {
         project: 'Bitcoin L2 for DeFi',
         title: 'NakaChain Perpetual',
         desc: `<span style='font-style: italic'>The first decentralized perpetual BRC20 trading platform. </span>${LearnMore(
@@ -92,6 +74,24 @@ const StepsEco = ({ setTabIndex }: IProps) => {
           desc: 'per 0.001 BTC',
         },
         tag: StepTagType.NEW
+      },
+      {
+        project: 'Bitcoin L2s',
+        title: 'Module store',
+        desc: `Developers? Create your own Bitcoin L2 blockchain. ${LearnMore("https://docs.bvm.network/bvm/quickstart/create-a-bitcoin-virtual-machine", "Read the whitepaper")}<br/>It’s easy to customize and launch your own Bitcoin L2 blockchain — just a few clicks.`,
+        actionText: 'Launch now',
+        image: 'ic-create-bvm.svg',
+        actionHandle: () => {
+          setTimeout(() => {
+            window.open('https://bvm.network/blockchains/customize', '_blank')
+          }, 200)
+        },
+        isActive: true,
+        right: {
+          title: '+10,000 PTS',
+          desc: '',
+        },
+        // tag: StepTagType.NEW
       },
       {
         project: 'Bitcoin L2 for DeFi',
