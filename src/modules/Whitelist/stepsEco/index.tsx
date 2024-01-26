@@ -9,13 +9,15 @@ import { CDN_URL_ICONS } from '@/config';
 import DownloadAlphaModal from '@/modules/Whitelist/stepsEco/DownloadAlphaModal';
 import DownloadBitcoinArcadeModal from '@/modules/Whitelist/stepsEco/DownloadBitcoinArcadeModal';
 
-export const LearnMore = (href: string) => {
-  return `<a href='${href}' style="color: #FA4E0E" target="_blank">
+export const LearnMore = (href: string, text?: string) => {
+  return (
+    `<a href='${href}' style="color: #FA4E0E" target="_blank">
       <div style="display: inline-flex; flex-direction: row; align-items: center; gap: 4px;">
-        <p>Learn more</p>
+        <p>${text ? text : "Learn more"}</p>
         <img style="width: 16px; height: 16px;" src="https://storage.googleapis.com/tc-cdn-prod/nbc/icons/bvm-icons/arrow-right.svg" />
       </div>
-    </a>`;
+    </a>`
+  );
 };
 
 interface IProps {
@@ -27,14 +29,6 @@ const StepsEco = ({ setTabIndex }: IProps) => {
   const [showSyncBVM, setShowSyncBVM] = useState(false);
   const [showDownloadAlphaApp, setShowDownloadAlphhaApp] = useState(false);
   const [showDownloadBitcoinArcadeApp, setShowDownloadBitcoinArcadeApp] = useState(false);
-
-  const handleShareTw = async () => {
-    const content = `Exciting days for Bitcoin L2 with @BVMnetwork!\n\n@Naka_chain, powered by BVM, is exclusively built for BRC-20 DeFi with 2s block time, gas fees of less than $0.01, and supported by smart contracts.\n\nLet's make DeFi on Bitcoin accessible to everyone!\n\nnakachain.xyz`;
-    window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
-      '_blank',
-    );
-  };
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
@@ -59,6 +53,24 @@ const StepsEco = ({ setTabIndex }: IProps) => {
           title: '+3000 PTS',
           desc: 'per match',
         },
+      },
+      {
+        project: 'Bitcoin L2s',
+        title: 'Module store',
+        desc: `Developers? Create your own Bitcoin L2 blockchain. ${LearnMore("https://docs.bvm.network/bvm/quickstart/create-a-bitcoin-virtual-machine", "Read the whitepaper")}<br/>It’s easy to customize and launch your own Bitcoin L2 blockchain — just a few clicks.`,
+        actionText: 'Launch now',
+        image: 'ic-create-bvm.svg',
+        actionHandle: () => {
+          setTimeout(() => {
+            window.open('https://bvm.network/blockchains/customize', '_blank')
+          }, 200)
+        },
+        isActive: true,
+        right: {
+          title: '+10,000 PTS',
+          desc: '',
+        },
+        // tag: StepTagType.NEW
       },
       {
         project: 'Bitcoin L2 for DeFi',

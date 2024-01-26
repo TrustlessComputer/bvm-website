@@ -8,7 +8,7 @@
 
   &__btnCTA {
     display: flex;
-    width: 100% !important;
+    //width: 100% !important;
     height: 48px !important;
     padding: 16px 40px !important;
     justify-content: center !important;
@@ -19,6 +19,10 @@
     font-weight: 500 !important;
     margin-top: 6px;
     margin-bottom: 6px;
+    margin-left: 72px;
+    @include is-mobile {
+      margin-left: 0;
+    }
   }
 
   &__btnSecondary {
