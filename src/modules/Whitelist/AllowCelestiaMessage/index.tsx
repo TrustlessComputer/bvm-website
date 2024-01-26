@@ -19,7 +19,8 @@ const AllowCelestiaMessage = () => {
         </Flex>
       )
     }
-    return <img src={`${CDN_URL_ICONS}/bg-add-new.png`} style={{ width: "100%", marginTop: "8px" }} />;
+    return <></>
+    // return <img src={`${CDN_URL_ICONS}/bg-add-new.png`} style={{ width: "100%", marginTop: "8px" }} />;
   }, [loaded, status, isProcessing, amount]);
 
   return (

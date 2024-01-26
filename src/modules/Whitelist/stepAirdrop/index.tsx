@@ -115,7 +115,7 @@ const StepsAirdrop = (props: IProps) => {
         desc: `Playing with Lego at BVM network.
           ${LearnMore('https://playmodular.com/')}
         `,
-        actionText: 'Comming soon',
+        actionText: 'Coming soon',
         image: "ic-lego.svg",
         actionHandle: () => undefined,
         isDisableButton: true,
