@@ -84,22 +84,33 @@ const Steps = () => {
     const assests = [];
     const minAmount = 0.0001;
 
+    // 20.70063 TIA
+    // 20.70063 MATIC
+    // 10.0000 MANTA
+    // 20.70063 ETH
+
+    let tiaAmount = '';
+    let maticAmount = '';
+    let mantaAmount = '';
+    let ethAmount = '';
+
     if (new BigNumber(allowCelestia.amount.celestiaAmount || 0).gt(minAmount)) {
-      assests.push(`holding ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} TIA`)
+      tiaAmount = `${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} TIA`;
     }
-
-
-    if (new BigNumber(allowCelestia.amount.eigenlayerAmount || 0).gt(minAmount)) {
-      assests.push(`staking ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} ETH`)
-    }
-
 
     if (new BigNumber(allowCelestia.amount.polygonAmount || 0).gt(minAmount)) {
-      assests.push(`holding ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} MATIC`)
+      maticAmount = `${formatCurrency(allowCelestia.amount.polygonAmount, 0, 5)} MATIC`;
     }
 
-    const _amountString = assests.join(', ')
-    const content = `BUILD WHATEVER ON BITCOIN.\n\nAs a modular maxi (${_amountString}), I’m excited to see Modular Blockchains arrive on Bitcoin.\n\nIt's easy to launch your own Bitcoin L2 with @BVMnetwork.\n`;
+    if (new BigNumber(allowCelestia.amount.mantaAmount || 0).gt(minAmount)) {
+      mantaAmount = `${formatCurrency(allowCelestia.amount.mantaAmount, 0, 5)} MANTA`;
+    }
+
+    if (new BigNumber(allowCelestia.amount.eigenlayerAmount || 0).gt(minAmount)) {
+      ethAmount = `${formatCurrency(allowCelestia.amount.eigenlayerAmount, 0, 5)} ETH`;
+    }
+
+    const content = `BUILD WHATEVER ON BITCOIN.\n\nI'm holding and staking:\n\n${tiaAmount}${maticAmount}${mantaAmount}${ethAmount}\n\nAs a modular maxi, I’m excited to see Modular Blockchains arrive on Bitcoin powered by @BVMnetwork\n`;
 
     window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
