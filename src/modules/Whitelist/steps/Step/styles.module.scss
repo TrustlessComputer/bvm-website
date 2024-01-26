@@ -17,6 +17,10 @@
     border-radius: 0 !important;
     font-weight: 500 !important;
     margin-left: 72px;
+
+    @include is-mobile {
+      margin-left: 0;
+    }
   }
 
   &__btnSecondary {
@@ -63,6 +67,7 @@
     font-weight: 400;
     line-height: 26px;
     opacity: 0.7;
+    white-space: break-spaces;
     span {
       font-weight: 700;
     }

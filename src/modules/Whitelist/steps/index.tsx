@@ -286,7 +286,7 @@ const Steps = () => {
         image: "ic-modular2.svg",
         right: {
           title: '+100 PTS',
-          desc: 'per TIA or Ξ 0.005 or 20 MATIC'
+          desc: 'per 1 TIA\nor Ξ 0.005\nor 20 MATIC\nor 6 MANTA'
         },
       },
       {
