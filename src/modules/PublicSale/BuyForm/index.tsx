@@ -21,7 +21,7 @@ import DepositModal from '@/modules/PublicSale/depositModal';
 import HorizontalItem from '@/components/HorizontalItem';
 import ContributorsModal from '@/modules/PublicSale/contributorModal';
 
-export const TIME_CHAIN_EXPIRED_TIME = '2024-01-30 08:00:00';
+export const TIME_CHAIN_EXPIRED_TIME = '2024-01-26 18:00:00';
 
 interface FormValues {
   tokenAmount: string;
@@ -55,6 +55,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
       .isBefore(dayjs().utc().format()),
   );
+  const [showContributorModal, setShowContributorModal] = useState(false);
 
   console.log('contributeInfo', contributeInfo);
 
@@ -144,13 +145,21 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
-          <Text className={s.title}><Lines delay={DELAY + .2}>Total Funded</Lines></Text>
-          <Text className={s.fundValue}><Lines delay={DELAY + .2}>$9,233,476</Lines></Text>
+          <Text className={s.title}>Total Funded</Text>
+          <Text className={s.fundValue}>$9,233,476</Text>
           <Flex className={s.boxInfo} gap={4} width={'100%'}>
             <Column value={
               <Flex direction={'column'}>
                 <Text>{formatCurrency(contributeInfo?.total_user, 0, 0, 'BTC', true)}</Text>
-                <Text fontSize={'12px'} fontWeight={'400'} color={'#FA4E0E'} textDecoration={"underline"} mt={1}>View all</Text>
+                <Text
+                  fontSize={'12px'}
+                  fontWeight={'400'}
+                  color={'#FA4E0E'}
+                  textDecoration={"underline"}
+                  mt={1}
+                  onClick={() => setShowContributorModal(true)}
+                  cursor={"pointer"}
+                >View all</Text>
               </Flex>
             } title={'Contributors'} />
             <Tooltip minW='220px'
@@ -210,24 +219,25 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             } title={'Ends in'} />
           </Flex>
           <Flex gap={6} direction={'column'} width={'100%'}>
-            <Fade delay={DELAY + 1}>
-              <Button
-                type='submit'
-                isDisabled={isCreating}
-                isLoading={isCreating}
-                // loadingText={'Submitting...'}
-                className={s.button}
-              >
-                {user?.twitter_id ? 'Buy $BVM' : 'Tweet to buy'}
-              </Button>
-            </Fade>
+            <Button
+              type='submit'
+              isDisabled={isCreating}
+              isLoading={isCreating}
+              // loadingText={'Submitting...'}
+              className={s.button}
+            >
+              {user?.twitter_id ? 'Buy $BVM' : 'Tweet to buy'}
+            </Button>
           </Flex>
           <DepositModal
             isShow={showQrCode}
             onHide={() => setShowQrCode(false)}
             saleWalletInfo={saleWalletInfo}
           />
-          <ContributorsModal />
+          <ContributorsModal
+            isShow={showContributorModal}
+            onHide={() => setShowContributorModal(false)}
+          />
         </div>
       </form>
     </div>

@@ -1,5 +1,4 @@
 import s from './styles.module.scss';
-import ModalVideo from 'react-modal-video';
 import { useState } from 'react';
 
 export default function EternalAi() {
@@ -8,10 +7,10 @@ export default function EternalAi() {
   return (
     <>
       <div className={s.eternalAi} onClick={() => setOpen(true)}>
-        <video className={s.eternalAi_video} playsInline loop autoPlay muted src={'landing/loop-videos.webm'} />
-        {/*<Image loading={'eager'} src={'landing/images/eternail.svg'} width={485} height={213} alt={'eternail'} />*/}
+        {/*<video className={s.eternalAi_video} playsInline loop autoPlay muted src={'landing/loop-videos.webm'} />*/}
+        <img loading={'eager'} src={'public-sale/playGame.png'} alt={'eternail'} />
       </div>
-      <ModalVideo
+      {/*<ModalVideo
         channel="custom"
         url={'landing/loop-videos.webm'}
         isOpen={isOpen}
@@ -20,7 +19,7 @@ export default function EternalAi() {
           console.log('aaaaaa')
           setOpen(false);
         }}
-      />
+      />*/}
     </>
   );
 }

@@ -10,16 +10,14 @@ const ContributorsModal = ({ isShow, onHide }: any) => {
     <BaseModal
       isShow={isShow}
       onHide={onHide}
-      title={'Deposit'}
+      title={'Find your contribution'}
       headerClassName={s.modalManualHeader}
       className={s.modalContent}
     >
       <div className={s.container}>
         <div className={s.content}>
           <Text className={s.desc}>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.</Text>
-          <Box className={s.qrWrapper}>
-            <LeaderBoard />
-          </Box>
+          <LeaderBoard />
         </div>
       </div>
     </BaseModal>
