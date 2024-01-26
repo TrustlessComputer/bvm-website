@@ -54,7 +54,7 @@ export const shareTwitterSignature = (params: {
       )}`,
       '_blank',
     );
-  }, 300)
+  }, 200)
 }
 
 export const shareBTCOG = (params: {
@@ -75,7 +75,7 @@ export const shareBTCOG = (params: {
       )}`,
       '_blank',
     );
-  }, 300)
+  }, 200)
 }
 
 

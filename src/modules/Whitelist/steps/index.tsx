@@ -78,7 +78,7 @@ const Steps = () => {
         )}`,
         '_blank',
       );
-    }, 300)
+    }, 200)
 
   }
 
@@ -122,7 +122,7 @@ const Steps = () => {
         )}`,
         '_blank',
       );
-    }, 300)
+    }, 200)
   }
 
   const onShareOptimism = () => {
@@ -155,7 +155,7 @@ const Steps = () => {
         )}`,
         '_blank',
       );
-    }, 300)
+    }, 200)
   }
 
   const onSignModular = async () => {
@@ -230,7 +230,7 @@ const Steps = () => {
       <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
       'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
     const isNeedClaimBTCPoint = allowBTC.isUnclaimed;
-    const isNeedClaimCelestiaPoint = true;
+    const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed;
     const isNeedClaimOptimismPoint = allowOptimism.isUnclaimed;
     const authenTask =  {
       title: 'Tweet about BVM',

@@ -28,14 +28,6 @@ const StepsEco = ({ setTabIndex }: IProps) => {
   const [showDownloadAlphaApp, setShowDownloadAlphhaApp] = useState(false);
   const [showDownloadBitcoinArcadeApp, setShowDownloadBitcoinArcadeApp] = useState(false);
 
-  const handleShareTw = async () => {
-    const content = `Exciting days for Bitcoin L2 with @BVMnetwork!\n\n@Naka_chain, powered by BVM, is exclusively built for BRC-20 DeFi with 2s block time, gas fees of less than $0.01, and supported by smart contracts.\n\nLet's make DeFi on Bitcoin accessible to everyone!\n\nnakachain.xyz`;
-    window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
-      '_blank',
-    );
-  };
-
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
       {
@@ -59,6 +51,24 @@ const StepsEco = ({ setTabIndex }: IProps) => {
           title: '+3000 PTS',
           desc: 'per match',
         },
+      },
+      {
+        project: 'Bitcoin L2s',
+        title: 'Module store',
+        desc: `Developers? Create your own Bitcoin L2 blockchain. ${LearnMore("https://bvm.network/module-store")}<br/>It’s easy to customize and launch your own Bitcoin L2 blockchain — just a few clicks.`,
+        actionText: 'Launch now',
+        image: 'ic-create-bvm.svg',
+        actionHandle: () => {
+          setTimeout(() => {
+            window.open('https://bvm.network/blockchains/customize', '_blank')
+          }, 200)
+        },
+        isActive: true,
+        right: {
+          title: '',
+          desc: '',
+        },
+        // tag: StepTagType.NEW
       },
       {
         project: 'Bitcoin L2 for DeFi',
