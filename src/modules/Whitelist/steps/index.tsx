@@ -84,13 +84,7 @@ const Steps = () => {
 
   const onShareModular = () => {
     const shareUrl = getLink(user?.referral_code || '');
-    const assests = [];
     const minAmount = 0.0001;
-
-    // 20.70063 TIA
-    // 20.70063 MATIC
-    // 10.0000 MANTA
-    // 20.70063 ETH
 
     let tiaAmount = '';
     let maticAmount = '';
@@ -98,22 +92,22 @@ const Steps = () => {
     let ethAmount = '';
 
     if (new BigNumber(allowCelestia.amount.celestiaAmount || 0).gt(minAmount)) {
-      tiaAmount = `\n • ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} TIA`;
+      tiaAmount = `\n • ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 4)} TIA`;
     }
 
     if (new BigNumber(allowCelestia.amount.polygonAmount || 0).gt(minAmount)) {
-      maticAmount = `\n • ${formatCurrency(allowCelestia.amount.polygonAmount, 0, 5)} MATIC`;
+      maticAmount = `\n • ${formatCurrency(allowCelestia.amount.polygonAmount, 0, 4)} MATIC`;
     }
 
     if (new BigNumber(allowCelestia.amount.mantaAmount || 0).gt(minAmount)) {
-      mantaAmount = `\n • ${formatCurrency(allowCelestia.amount.mantaAmount, 0, 5)} MANTA`;
+      mantaAmount = `\n • ${formatCurrency(allowCelestia.amount.mantaAmount, 0, 4)} MANTA`;
     }
 
     if (new BigNumber(allowCelestia.amount.eigenlayerAmount || 0).gt(minAmount)) {
-      ethAmount = `\n • ${formatCurrency(allowCelestia.amount.eigenlayerAmount, 0, 5)} ETH`;
+      ethAmount = `\n • ${formatCurrency(allowCelestia.amount.eigenlayerAmount, 0, 4)} ETH`;
     }
 
-    const content = `BUILD WHATEVER ON BITCOIN.\n\nI'm holding and staking:\n${tiaAmount}${maticAmount}${mantaAmount}${ethAmount}\n\nAs a modular maxi, I’m excited to see Modular Blockchains arrive on Bitcoin powered by @BVMnetwork\n`;
+    const content = `BUILD WHATEVER ON BITCOIN.\n\nI'm holding and staking:\n${tiaAmount}${maticAmount}${mantaAmount}${ethAmount}\n\nAs a modular maxi, I’m excited to see Modular Blockchains arrive on Bitcoin powered by @BVMnetwork\n\nLet's build!\n`;
 
     setTimeout(() => {
       window.open(
@@ -292,7 +286,7 @@ const Steps = () => {
         image: "ic-modular2.svg",
         right: {
           title: '+100 PTS',
-          desc: 'per TIA or Ξ 0.005 or 20 MATIC'
+          desc: 'per 1 TIA\nor Ξ 0.005\nor 20 MATIC\nor 6 MANTA'
         },
       },
       {

@@ -340,7 +340,7 @@ const LeaderBoard = (props: IProps) => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    Modular points are calculated based on your <strong>TIA</strong> holdings and staking, as well as <strong>ETH</strong> staking on <strong>Eigen</strong>.
+                    The more <strong>TIA</strong>, <strong>MATIC</strong>, and <strong>MANTA</strong> you hold, or the more <strong>ETH</strong> you stake on <strong>Eigen</strong>, the more Modular points you'll get.
                   </p>
                 </Flex>
               }

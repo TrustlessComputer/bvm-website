@@ -9,13 +9,15 @@ import { CDN_URL_ICONS } from '@/config';
 import DownloadAlphaModal from '@/modules/Whitelist/stepsEco/DownloadAlphaModal';
 import DownloadBitcoinArcadeModal from '@/modules/Whitelist/stepsEco/DownloadBitcoinArcadeModal';
 
-export const LearnMore = (href: string) => {
-  return `<a href='${href}' style="color: #FA4E0E" target="_blank">
+export const LearnMore = (href: string, text?: string) => {
+  return (
+    `<a href='${href}' style="color: #FA4E0E" target="_blank">
       <div style="display: inline-flex; flex-direction: row; align-items: center; gap: 4px;">
-        <p>Learn more</p>
+        <p>${text ? text : "Learn more"}</p>
         <img style="width: 16px; height: 16px;" src="https://storage.googleapis.com/tc-cdn-prod/nbc/icons/bvm-icons/arrow-right.svg" />
       </div>
-    </a>`;
+    </a>`
+  );
 };
 
 interface IProps {
@@ -55,7 +57,7 @@ const StepsEco = ({ setTabIndex }: IProps) => {
       {
         project: 'Bitcoin L2s',
         title: 'Module store',
-        desc: `Developers? Create your own Bitcoin L2 blockchain. ${LearnMore("https://bvm.network/module-store")}<br/>It’s easy to customize and launch your own Bitcoin L2 blockchain — just a few clicks.`,
+        desc: `Developers? Create your own Bitcoin L2 blockchain. ${LearnMore("https://docs.bvm.network/bvm/quickstart/create-a-bitcoin-virtual-machine", "Read the whitepaper")}<br/>It’s easy to customize and launch your own Bitcoin L2 blockchain — just a few clicks.`,
         actionText: 'Launch now',
         image: 'ic-create-bvm.svg',
         actionHandle: () => {
@@ -65,7 +67,7 @@ const StepsEco = ({ setTabIndex }: IProps) => {
         },
         isActive: true,
         right: {
-          title: '',
+          title: '+10,000 PTS',
           desc: '',
         },
         // tag: StepTagType.NEW
