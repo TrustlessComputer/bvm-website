@@ -3,6 +3,7 @@ import { FormikProps, useFormik } from 'formik';
 import React, { forwardRef, useEffect, useState } from 'react';
 import s from './styles.module.scss';
 import {
+  getPublicSaleLeaderBoards,
   getPublicSaleSummary,
   getPublicsaleWalletInfo,
   postPublicsaleWalletInfo,
@@ -18,14 +19,16 @@ import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import DepositModal from '@/modules/PublicSale/depositModal';
 import HorizontalItem from '@/components/HorizontalItem';
 import ContributorsModal from '@/modules/PublicSale/contributorModal';
+import { useSelector } from 'react-redux';
+import { commonSelector } from '@/stores/states/common/selector';
+import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
+import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 
 export const TIME_CHAIN_EXPIRED_TIME = '2024-01-26 18:00:00';
 
 interface FormValues {
   tokenAmount: string;
 }
-
-const DELAY = 2;
 
 interface IColumnProps {
   value: any;
@@ -55,14 +58,20 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       .isBefore(dayjs().utc().format()),
   );
   const [showContributorModal, setShowContributorModal] = useState(false);
+  const coinPrices = useSelector(commonSelector).coinPrices;
+  const [userContributeInfo, setUserContributeInfo] = useState<ILeaderBoardPoint>();
 
   console.log('contributeInfo', contributeInfo);
+  console.log('coinPrices', coinPrices);
+  console.log('userContributeInfo', userContributeInfo);
+  console.log('=======')
 
   useEffect(() => {
     getContributeInfo();
 
     if (user?.twitter_id) {
       getVentureInfo();
+      getUserContributeInfo();
     }
   }, [user?.twitter_id]);
 
@@ -75,6 +84,15 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     const result = await getPublicsaleWalletInfo();
     setSaleWalletInfo(result);
   };
+
+  const getUserContributeInfo = async () => {
+    const { data } = await getPublicSaleLeaderBoards({
+      page: 1,
+      limit: 0,
+    });
+
+    setUserContributeInfo(data[0]);
+  }
 
   const handleRecheckDeposit = async () => {
     await postPublicsaleWalletInfoManualCheck();
@@ -146,13 +164,13 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       <Column className={className} ref={ref} {...rest} value={
         <Flex direction={'column'}>
           <Flex gap={1} alignItems={'center'}>
-            <Text>$100,000</Text>
+            <Text>{user?.twitter_id ? `$${formatCurrency(userContributeInfo?.usdt_value, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}` : '-'}</Text>
           </Flex>
           <Flex gap={1} w={'fit-content'} p={'3px 8px'} alignItems={'center'}
                 bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}>
             <Text fontSize={'10px'} fontWeight={'400'} color={'#FFFFFF'}>YOU GET</Text>
-            <Text fontSize={'12px'} fontWeight={'600'} className={s.youGet}>15 BVM</Text>
-            <Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFFF'}>(0.05%)</Text>
+            <Text fontSize={'12px'} fontWeight={'600'} className={s.youGet}>{user?.twitter_id ? formatCurrency(userContributeInfo?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL) : '-'} BVM</Text>
+            <Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFFF'}>({user?.twitter_id ? formatCurrency(userContributeInfo?.boost, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true) : '-'}%)</Text>
           </Flex>
         </Flex>
       } title={
@@ -176,8 +194,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 </clipPath>
               </defs>
             </svg>
-            <Text fontSize={'14px'} fontWeight={'500'} color={'rgba(255, 255, 255, 0.7)'}
-                  className={s.boost}>20%</Text>
+            <Text fontSize={'14px'} fontWeight={'500'} color={'rgba(255, 255, 255, 0.7)'} className={s.boost}>{user?.twitter_id ? `${formatCurrency(userContributeInfo?.boost, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}%` : '-'}</Text>
           </Flex>
         </Flex>
       } />
