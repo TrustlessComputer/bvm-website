@@ -4,13 +4,10 @@ import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
-import AppLoading from '@/components/AppLoading';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { leaderBoardSelector, userSelector } from '@/stores/states/user/selector';
+import { leaderBoardSelector } from '@/stores/states/user/selector';
 import { setLeaderBoard } from '@/stores/states/user/reducer';
-import copy from 'copy-to-clipboard';
-import { shareReferralURL } from '@/utils/helpers';
 import { getPublicSaleLeaderBoards } from '@/services/public-sale';
 import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
 import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
@@ -98,7 +95,7 @@ const LeaderBoardVisual = (props: IProps) => {
       }
     } catch (error) {
     } finally {
-      setIsFetching(false);
+      // setIsFetching(false);
       hasIncrementedPageRef.current = false;
       refInitial.current = true;
     }
@@ -135,6 +132,9 @@ const LeaderBoardVisual = (props: IProps) => {
         hasIncrementedPageRef={hasIncrementedPageRef}
         wrapClassName={styles.wrapScroll}
         hideScrollBar={false}
+        onFetch={() => {}}
+        isFetching={true}
+        onFetchNewData={() => {}}
       >
         {
           listRender.slice(0, 23).map((item, index) => {
