@@ -109,7 +109,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
         <div className={s.content}>
           <Text className={s.title}><Lines delay={DELAY + .2}>Total Funded</Lines></Text>
           <Text className={s.fundValue}><Lines delay={DELAY + .2}>$9,233,476</Lines></Text>
-          <Flex className={s.boxInfo} gap={4} mt={'40px'} mb={'40px'} width={'100%'}>
+          <Flex className={s.boxInfo} gap={4} width={'100%'}>
             <Column value={
               <Flex direction={"column"}>
                 <Text>{formatCurrency(contributeInfo?.total_user, 0, 0, 'BTC', true)}</Text>
