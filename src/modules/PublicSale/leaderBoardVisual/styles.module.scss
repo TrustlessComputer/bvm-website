@@ -17,7 +17,7 @@
 .container {
   position: relative;
   background-color: rgba(0, 0, 0, 1);
-  height: calc(100dvh - 138px);
+  height: calc(100dvh - 185px);
 
   .title1 {
     font-size: 24px;
@@ -222,7 +222,6 @@ table {
 .container {
   overflow: hidden;
   width: 100%;
-  padding-top: 24px;
 
   @include w-max(968px) {
     margin-left: 12px;
@@ -366,4 +365,5 @@ table {
   height: 44px !important;
   border-radius: 50%;
   border: 3px solid white;
+  max-width: none;
 }

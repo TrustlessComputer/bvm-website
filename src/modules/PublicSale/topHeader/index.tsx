@@ -9,12 +9,7 @@ const TopHeader = () => {
 
   return (
     <Flex direction={"column"} className={s.container} gap={3}>
-      <Flex gap={3} alignItems={"center"} onClick={() => router.push(HOME_URL)} cursor={'pointer'}>
-        <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3.02366 6.00038L7.14866 10.1254L5.97033 11.3037L0.666992 6.00038L5.97033 0.697043L7.14866 1.87538L3.02366 6.00038Z" fill="rgba(255, 255, 255, 0.6)"/>
-        </svg>
-        <Text fontSize={"14px"} fontWeight={"500"} color={"rgba(255, 255, 255, 0.6)"}>Back to homepage</Text>
-      </Flex>
+
       <Flex gap={4} justifyContent={"space-between"}>
         <Flex gap={4} alignItems={"center"}>
           <svg width="54" height="55" viewBox="0 0 54 55" fill="none" xmlns="http://www.w3.org/2000/svg">
