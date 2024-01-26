@@ -19,11 +19,11 @@
       transform: translateY(.05em);
     }
   }
-
   &:hover {
     .dropMenu_list {
       opacity: 1;
       visibility: visible;
+      z-index: 2 !important;
     }
   }
 

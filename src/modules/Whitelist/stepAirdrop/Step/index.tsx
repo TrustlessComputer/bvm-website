@@ -53,7 +53,8 @@ export interface IItemCommunity {
   showExpireTime?: boolean;
   airdropType: AirdropType,
   step?: AirdropStep,
-  result?: any,
+  result?: any
+  isDisableButton?: boolean,
 }
 
 export default function ItemCommunity({
@@ -148,6 +149,7 @@ export default function ItemCommunity({
             <Flex direction="column" w="100%" mt="8px">
               <Flex gap="8px" flexDirection="column" w="100%">
                 <Button
+                  isDisabled={content.isDisableButton}
                   className={s.itemCommunity__btnCTA}
                   onClick={() => {
                     if (content?.actionHandle && isRunning && !isLoading) {

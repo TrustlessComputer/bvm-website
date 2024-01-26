@@ -1,6 +1,5 @@
 import Avatar from '@/components/Avatar';
-import ListTable, { ColumnProp } from '@/components/ListTable';
-import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
+import ListTable, { ColumnProp } from './ListTable';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { getTopLeaderBoards } from '@/services/whitelist';
 import { formatCurrency, formatName } from '@/utils/format';
@@ -10,7 +9,6 @@ import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import clsx from 'classnames';
-import AppLoading from '@/components/AppLoading';
 import { CDN_URL_ICONS } from '@/config';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
@@ -386,9 +384,10 @@ const LeaderBoard = (props: IProps) => {
                     padding="8px"
                     label={
                       <Flex direction="column" color="black" opacity={0.7}>
-                        <p>Eigenlayer: {data.eigenlayer_point || '0'}</p>
-                        <p>Celestia: {data.celestia_point || '0'}</p>
-                        <p>Polygon: {data.polygon_point || '0'}</p>
+                        <p>Eigenlayer: {formatCurrency(data.eigenlayer_point || '0', 0, 0)}</p>
+                        <p>Celestia: {formatCurrency(data.celestia_point || '0', 0, 0)}</p>
+                        <p>Polygon: {formatCurrency(data.polygon_point || '0', 0, 0)}</p>
+                        <p>Manta: {formatCurrency(data.manta_point || '0', 0, 0)}</p>
                       </Flex>
                     }
                   >
@@ -540,10 +539,10 @@ const LeaderBoard = (props: IProps) => {
                   padding="8px"
                   label={
                     <Flex direction="column" color="black" opacity={0.7}>
-                      <p>Optimism: {data.optimism_point || '0'}</p>
-                      <p>Blast: {data.blast_point || '0'}</p>
-                      <p>Base: {data.base_point || '0'}</p>
-                      <p>Arbitrum: {data.arb_point || '0'}</p>
+                      <p>Optimism: {formatCurrency(data.optimism_point || '0', 0, 0)}</p>
+                      <p>Blast: {formatCurrency(data.blast_point || '0', 0, 0)}</p>
+                      <p>Base: {formatCurrency(data.base_point || '0', 0, 0)}</p>
+                      <p>Arbitrum: {formatCurrency(data.arb_point || '0', 0, 0)}</p>
                     </Flex>
                   }
                 >
@@ -894,29 +893,59 @@ const LeaderBoard = (props: IProps) => {
   };
 
   return (
-    <Box className={styles.container} height="100dvh" id={LEADER_BOARD_ID}>
-      <ScrollWrapper
-        onFetch={() => {
-          refParams.current = {
-            ...refParams.current,
-            page: refParams.current.page + 1,
-          };
-          hasIncrementedPageRef.current = true;
-          fetchData();
-        }}
-        isFetching={refreshing}
-        hasIncrementedPageRef={hasIncrementedPageRef}
-        onFetchNewData={onRefresh}
-        wrapClassName={styles.wrapScroll}
-        hideScrollBar={false}
-      >
+    <Box className={styles.container} id={LEADER_BOARD_ID}>
+      {/*<ScrollWrapper*/}
+      {/*  onFetch={() => {*/}
+      {/*    refParams.current = {*/}
+      {/*      ...refParams.current,*/}
+      {/*      page: refParams.current.page + 1,*/}
+      {/*    };*/}
+      {/*    hasIncrementedPageRef.current = true;*/}
+      {/*    fetchData();*/}
+      {/*  }}*/}
+      {/*  isFetching={refreshing}*/}
+      {/*  hasIncrementedPageRef={hasIncrementedPageRef}*/}
+      {/*  onFetchNewData={onRefresh}*/}
+      {/*  wrapClassName={styles.wrapScroll}*/}
+      {/*  hideScrollBar={false}*/}
+      {/*>*/}
+      {/*  <ListTable*/}
+      {/*    data={list}*/}
+      {/*    columns={columns}*/}
+      {/*    className={styles.tableContainer}*/}
+      {/*  />*/}
+      {/*  {isFetching && <AppLoading className={styles.loading} />}*/}
+      {/*</ScrollWrapper>*/}
+      {/*<InfiniteScroll*/}
+      {/*  dataLength={columns.length}*/}
+      {/*  next={() => {*/}
+      {/*    console.log('SANG TEST: ');*/}
+      {/*    refParams.current = {*/}
+      {/*      ...refParams.current,*/}
+      {/*      page: refParams.current.page + 1,*/}
+      {/*    };*/}
+      {/*    hasIncrementedPageRef.current = true;*/}
+      {/*    fetchData();*/}
+      {/*  }}*/}
+      {/*  hasMore={true}*/}
+      {/*  className={styles.wrapScroll}*/}
+      {/*  loader={<h4>Loading more...</h4>}*/}
+      {/*>*/}
         <ListTable
           data={list}
           columns={columns}
           className={styles.tableContainer}
+          hasIncrementedPageRef={hasIncrementedPageRef}
+          onFetch={() => {
+            refParams.current = {
+              ...refParams.current,
+              page: refParams.current.page + 1,
+            };
+            hasIncrementedPageRef.current = true;
+            fetchData();
+          }}
         />
-        {isFetching && <AppLoading className={styles.loading} />}
-      </ScrollWrapper>
+      {/*</InfiniteScroll>*/}
     </Box>
   );
 };

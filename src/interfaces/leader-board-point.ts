@@ -34,4 +34,6 @@ export interface ILeaderBoardPoint {
   bvm_balance: string;
   eth_balance: string;
   btc_balance: string;
+  manta_amount: string;
+  manta_point: string;
 }
