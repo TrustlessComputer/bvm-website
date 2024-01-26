@@ -270,7 +270,7 @@ const Steps = () => {
         }
       },
       {
-        title: 'Are you a Modular Blockchain Pioneer?',
+        title: 'Are you a Modular pioneer?',
         desc: 'You’ll earn more points if you hold TIA, MANTA, or MATIC or you stake ETH on Eigen. Connect your Keplr, Leap, or MetaMask wallet to prove the account ownership.',
         actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
         actionHandle: isNeedClaimCelestiaPoint ? async () => {
