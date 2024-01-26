@@ -30,12 +30,13 @@ const DELAY = 2;
 interface IColumnProps {
   value: any;
   title: any;
+  className?: any
 }
 
 const Column = forwardRef((props: IColumnProps, ref: any) => {
-  const { value, title, ...rest } = props;
+  const { value, title, className, ...rest } = props;
   return (
-    <Flex ref={ref} {...rest} direction={'column'} justifyContent={'flex-start'} flex={1} gap={1}>
+    <Flex className={className} ref={ref} {...rest} direction={'column'} justifyContent={'flex-start'} flex={1} gap={1}>
       <Text fontSize={'14px'} fontWeight={400}>{title}</Text>
       <Text fontSize={'22px'} fontWeight={500} color={'#FFFFFF'}>{value}</Text>
     </Flex>
@@ -112,7 +113,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   const ContributorInfo = () => {
     return (
-      <Flex direction={'column'} w={'284px'} gap={4} className={s.contributorInfo}>
+      <Flex direction={'column'} w={'284px'} gap={3} className={s.contributorInfo}>
         <HorizontalItem className={s.rowData} label={'USER'} value={'clinkzchan'} />
         <HorizontalItem className={s.rowData} label={'RANK'} value={'1,000'} />
         <HorizontalItem className={s.rowData} label={'CONTRIBUTION'} value={'$120,000'} />
@@ -139,6 +140,50 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     );
   };
 
+  const ContributorBlock = forwardRef((props: any, ref: any) => {
+    const { className, ...rest } = props;
+    return (
+      <Column className={className} ref={ref} {...rest} value={
+        <Flex direction={'column'}>
+          <Flex gap={1} alignItems={'center'}>
+            <Text>$100,000</Text>
+          </Flex>
+          <Flex gap={1} w={'fit-content'} p={'3px 8px'} alignItems={'center'}
+                bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}>
+            <Text fontSize={'10px'} fontWeight={'400'} color={'#FFFFFF'}>YOU GET</Text>
+            <Text fontSize={'12px'} fontWeight={'600'} className={s.youGet}>15 BVM</Text>
+            <Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFFF'}>(0.05%)</Text>
+          </Flex>
+        </Flex>
+      } title={
+        <Flex justifyContent={'space-between'}>
+          <Text>Your contribution</Text>
+          <Flex gap={1} alignItems={'center'}>
+            <svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
+              <g clip-path='url(#clip0_29914_7369)'>
+                <path
+                  d='M13.6676 7.32502H9.304L10.2737 1.50684L3.00098 10.2341H7.36461L6.39491 16.0523L13.6676 7.32502Z'
+                  fill='url(#paint0_linear_29914_7369)' />
+              </g>
+              <defs>
+                <linearGradient id='paint0_linear_29914_7369' x1='3.00098' y1='8.77956' x2='13.6676'
+                                y2='8.77956' gradientUnits='userSpaceOnUse'>
+                  <stop stop-color='white' />
+                  <stop offset='1' stop-color='#35CCA6' />
+                </linearGradient>
+                <clipPath id='clip0_29914_7369'>
+                  <rect width='16' height='16' fill='white' transform='translate(0.333984 0.780273)' />
+                </clipPath>
+              </defs>
+            </svg>
+            <Text fontSize={'14px'} fontWeight={'500'} color={'rgba(255, 255, 255, 0.7)'}
+                  className={s.boost}>20%</Text>
+          </Flex>
+        </Flex>
+      } />
+    )
+  });
+
   return (
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
@@ -160,56 +205,25 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 >View all</Text>
               </Flex>
             } title={'Contributors'} />
-            <Tooltip minW='220px'
-                     bg='white'
-                     boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
-                     borderRadius='4px'
-                     padding='16px'
-                     hasArrow
-                     label={
-                       <ContributorInfo />
-                     }
-            >
-              <Column value={
-                <Flex direction={'column'}>
-                  <Flex gap={1} alignItems={'center'}>
-                    <Text>$100,000</Text>
-                  </Flex>
-                  <Flex gap={1} w={'fit-content'} p={'3px 8px'} alignItems={'center'}
-                        bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}>
-                    <Text fontSize={'10px'} fontWeight={'400'} color={'#FFFFFF'}>YOU GET</Text>
-                    <Text fontSize={'12px'} fontWeight={'600'} className={s.youGet}>15 BVM</Text>
-                    <Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFFF'}>(0.05%)</Text>
-                  </Flex>
-                </Flex>
-              } title={
-                <Flex justifyContent={'space-between'}>
-                  <Text>Your contribution</Text>
-                  <Flex gap={1} alignItems={'center'}>
-                    <svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                      <g clip-path='url(#clip0_29914_7369)'>
-                        <path
-                          d='M13.6676 7.32502H9.304L10.2737 1.50684L3.00098 10.2341H7.36461L6.39491 16.0523L13.6676 7.32502Z'
-                          fill='url(#paint0_linear_29914_7369)' />
-                      </g>
-                      <defs>
-                        <linearGradient id='paint0_linear_29914_7369' x1='3.00098' y1='8.77956' x2='13.6676'
-                                        y2='8.77956' gradientUnits='userSpaceOnUse'>
-                          <stop stop-color='white' />
-                          <stop offset='1' stop-color='#35CCA6' />
-                        </linearGradient>
-                        <clipPath id='clip0_29914_7369'>
-                          <rect width='16' height='16' fill='white' transform='translate(0.333984 0.780273)' />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                    <Text fontSize={'14px'} fontWeight={'500'} color={'rgba(255, 255, 255, 0.7)'}
-                          className={s.boost}>20%</Text>
-                  </Flex>
-                </Flex>
-              } />
-            </Tooltip>
 
+            {
+              user?.twitter_id ? (
+                <Tooltip minW='220px'
+                         bg='white'
+                         boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
+                         borderRadius='4px'
+                         padding='16px'
+                         hasArrow
+                         label={
+                           <ContributorInfo />
+                         }
+                >
+                  <ContributorBlock className={s.contributorBlock}/>
+                </Tooltip>
+              ) : (
+                <ContributorBlock />
+              )
+            }
             <Column value={
               <Countdown
                 className={s.time}
@@ -218,6 +232,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 onRefreshEnd={() => setIsEnd(true)}
               />
             } title={'Ends in'} />
+
           </Flex>
           <Flex gap={6} direction={'column'} width={'100%'}>
             <Button
