@@ -39,7 +39,7 @@ export default function AvatarYou() {
           ) || ''} alt={'medium'} />}
       </div>
 
-      <p className={s.price}>Your</p>
+      <p className={s.price}>You</p>
     </div>
   </div>;
 }
