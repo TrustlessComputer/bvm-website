@@ -21,20 +21,11 @@ const RaffleButton = ({className}: any) => {
       .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
       .isBefore(dayjs().utc().format())
   );
-  const [showMenu, setShowMenu] = useState(false);
-
-  const onHover = () => {
-    setShowMenu(true);
-  }
-
-  const onLeave = () => {
-    setShowMenu(false)
-  }
 
   return (
     <Popover>
       <PopoverTrigger>
-        <Flex className={cx(s.container, className)} onMouseEnter={onHover} onMouseLeave={onLeave}>
+        <Flex className={cx(s.container, className)}>
           <Countdown
             className={s.time}
             expiredTime={dayjs.utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
@@ -62,7 +53,7 @@ const RaffleButton = ({className}: any) => {
                   </Flex>
                 </a>
               </Flex>
-              <img style={{width: '156px', height: '156px'}} src={"/public-sale/raffleBtnBg.png"} alt="raffleBtnBg" />
+              <img style={{width: '156px', height: '156px'}} src={"/public-sale/raffleImg.png"} alt="raffleBtnBg" />
             </Flex>
           </Flex>
         </PopoverBody>
