@@ -21,7 +21,7 @@ import DepositModal from '@/modules/PublicSale/depositModal';
 import HorizontalItem from '@/components/HorizontalItem';
 import ContributorsModal from '@/modules/PublicSale/contributorModal';
 
-export const TIME_CHAIN_EXPIRED_TIME = '2024-01-30 08:00:00';
+export const TIME_CHAIN_EXPIRED_TIME = '2024-01-26 18:00:00';
 
 interface FormValues {
   tokenAmount: string;

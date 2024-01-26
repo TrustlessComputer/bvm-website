@@ -1,6 +1,6 @@
 .container {
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
   background: url("/public-sale/raffleBtnBg.png");
   background-size: cover;
   background-repeat: no-repeat;
@@ -11,8 +11,16 @@
   position: relative;
 
   .time {
+    margin-top: 10px;
     font-size: 16px;
     font-weight: 500;
+    position: absolute;
+    bottom: -10px;
+
+    p {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+    }
   }
 
   .menuContent {
