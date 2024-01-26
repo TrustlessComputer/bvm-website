@@ -144,7 +144,7 @@ const StepsAirdrop = (props: IProps) => {
         desc: `Like and repost to enter a raffle for a Timechain (Inscription ID: 39554) - the first long-form generative art collection on Ordinals.
           ${LearnMore('https://twitter.com/punk3700/status/1623708934107430913')}
         `,
-        actionText: token ? 'Like and repost' : 'Craft a tweet about BVM first',
+        actionText: 'View result',
         actionTextEnd: 'View result',
         image: "time-chain2.svg",
         actionHandle: handleShareTw,

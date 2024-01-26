@@ -56,8 +56,48 @@ const StepsEco = ({ setTabIndex }: IProps) => {
           setShowDownloadBitcoinArcadeApp(true);
         },
         right: {
-          title: '+1000 PTS',
+          title: '+3000 PTS',
           desc: 'per match',
+        },
+      },
+      {
+        project: 'Bitcoin L2 for DeFi',
+        title: 'NakaChain Perpetual',
+        desc: `<span style='font-style: italic'>The first decentralized perpetual BRC20 trading platform. </span>${LearnMore(
+          'https://nakachain.xyz/',
+        )}<br/>
+        Play long/short brc20 on Naka Genesis to earn points.<br/>
+        The higher the volume you make the more points you will get.
+        `,
+        actionText: 'Connect Naka Genesis',
+        image: 'ic-naka.svg',
+        actionHandle: () => {
+          setShowSyncBVM(true);
+        },
+        isActive: !!token,
+        right: {
+          title: '+2000 PTS',
+          desc: 'per 0.001 BTC',
+        },
+        tag: StepTagType.NEW
+      },
+      {
+        project: 'Bitcoin L2 for DeFi',
+        title: 'NakaChain Swap',
+        desc: `<span style='font-style: italic'>A low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps.</span>${LearnMore(
+          'https://nakachain.xyz/',
+        )}<br/>
+        Swap and add liquidity on Naka Genesis to earn points. The higher the volume you make the more points you will get.
+        `,
+        actionText: 'Connect Naka Genesis',
+        image: 'ic-naka.svg',
+        actionHandle: () => {
+          setShowSyncBVM(true);
+        },
+        isActive: !!token,
+        right: {
+          title: '+1000 PTS',
+          desc: 'per 0.001 BTC',
         },
       },
       {
@@ -95,46 +135,6 @@ const StepsEco = ({ setTabIndex }: IProps) => {
               />
             </Tooltip>
           ),
-        },
-      },
-      {
-        project: 'Bitcoin L2 for DeFi',
-        title: 'NakaChain Perpetual',
-        desc: `<span style='font-style: italic'>The first decentralized perpetual BRC20 trading platform. </span>${LearnMore(
-          'https://nakachain.xyz/',
-        )}<br/>
-        Play long/short brc20 on Naka Genesis to earn points.<br/>
-        The higher the volume you make the more points you will get.
-        `,
-        actionText: 'Connect Naka Genesis',
-        image: 'ic-naka.svg',
-        actionHandle: () => {
-          setShowSyncBVM(true);
-        },
-        isActive: !!token,
-        right: {
-          title: '+1000 PTS',
-          desc: 'per 0.001 BTC',
-        },
-        tag: StepTagType.NEW
-      },
-      {
-        project: 'Bitcoin L2 for DeFi',
-        title: 'NakaChain Swap',
-        desc: `<span style='font-style: italic'>A low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps.</span>${LearnMore(
-          'https://nakachain.xyz/',
-        )}<br/>
-        Swap and add liquidity on Naka Genesis to earn points. The higher the volume you make the more points you will get.
-        `,
-        actionText: 'Connect Naka Genesis',
-        image: 'ic-naka.svg',
-        actionHandle: () => {
-          setShowSyncBVM(true);
-        },
-        isActive: !!token,
-        right: {
-          title: '+1000 PTS',
-          desc: 'per 0.001 BTC',
         },
       },
     ];
