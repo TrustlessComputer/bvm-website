@@ -1,6 +1,5 @@
 import Avatar from '@/components/Avatar';
-import ListTable, { ColumnProp } from '@/components/ListTable';
-import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
+import ListTable, { ColumnProp } from './ListTable';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { getTopLeaderBoards } from '@/services/whitelist';
 import { formatCurrency, formatName } from '@/utils/format';
@@ -10,7 +9,6 @@ import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import clsx from 'classnames';
-import AppLoading from '@/components/AppLoading';
 import { CDN_URL_ICONS } from '@/config';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
@@ -895,28 +893,58 @@ const LeaderBoard = (props: IProps) => {
 
   return (
     <Box className={styles.container} height="100dvh" id={LEADER_BOARD_ID}>
-      <ScrollWrapper
-        onFetch={() => {
-          refParams.current = {
-            ...refParams.current,
-            page: refParams.current.page + 1,
-          };
-          hasIncrementedPageRef.current = true;
-          fetchData();
-        }}
-        isFetching={refreshing}
-        hasIncrementedPageRef={hasIncrementedPageRef}
-        onFetchNewData={onRefresh}
-        wrapClassName={styles.wrapScroll}
-        hideScrollBar={false}
-      >
+      {/*<ScrollWrapper*/}
+      {/*  onFetch={() => {*/}
+      {/*    refParams.current = {*/}
+      {/*      ...refParams.current,*/}
+      {/*      page: refParams.current.page + 1,*/}
+      {/*    };*/}
+      {/*    hasIncrementedPageRef.current = true;*/}
+      {/*    fetchData();*/}
+      {/*  }}*/}
+      {/*  isFetching={refreshing}*/}
+      {/*  hasIncrementedPageRef={hasIncrementedPageRef}*/}
+      {/*  onFetchNewData={onRefresh}*/}
+      {/*  wrapClassName={styles.wrapScroll}*/}
+      {/*  hideScrollBar={false}*/}
+      {/*>*/}
+      {/*  <ListTable*/}
+      {/*    data={list}*/}
+      {/*    columns={columns}*/}
+      {/*    className={styles.tableContainer}*/}
+      {/*  />*/}
+      {/*  {isFetching && <AppLoading className={styles.loading} />}*/}
+      {/*</ScrollWrapper>*/}
+      {/*<InfiniteScroll*/}
+      {/*  dataLength={columns.length}*/}
+      {/*  next={() => {*/}
+      {/*    console.log('SANG TEST: ');*/}
+      {/*    refParams.current = {*/}
+      {/*      ...refParams.current,*/}
+      {/*      page: refParams.current.page + 1,*/}
+      {/*    };*/}
+      {/*    hasIncrementedPageRef.current = true;*/}
+      {/*    fetchData();*/}
+      {/*  }}*/}
+      {/*  hasMore={true}*/}
+      {/*  className={styles.wrapScroll}*/}
+      {/*  loader={<h4>Loading more...</h4>}*/}
+      {/*>*/}
         <ListTable
           data={list}
           columns={columns}
           className={styles.tableContainer}
+          hasIncrementedPageRef={hasIncrementedPageRef}
+          onFetch={() => {
+            refParams.current = {
+              ...refParams.current,
+              page: refParams.current.page + 1,
+            };
+            hasIncrementedPageRef.current = true;
+            fetchData();
+          }}
         />
-        {isFetching && <AppLoading className={styles.loading} />}
-      </ScrollWrapper>
+      {/*</InfiniteScroll>*/}
     </Box>
   );
 };
