@@ -98,22 +98,22 @@ const Steps = () => {
     let ethAmount = '';
 
     if (new BigNumber(allowCelestia.amount.celestiaAmount || 0).gt(minAmount)) {
-      tiaAmount = `${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} TIA`;
+      tiaAmount = `\n • ${formatCurrency(allowCelestia.amount.celestiaAmount, 0, 5)} TIA`;
     }
 
     if (new BigNumber(allowCelestia.amount.polygonAmount || 0).gt(minAmount)) {
-      maticAmount = `${formatCurrency(allowCelestia.amount.polygonAmount, 0, 5)} MATIC`;
+      maticAmount = `\n • ${formatCurrency(allowCelestia.amount.polygonAmount, 0, 5)} MATIC`;
     }
 
     if (new BigNumber(allowCelestia.amount.mantaAmount || 0).gt(minAmount)) {
-      mantaAmount = `${formatCurrency(allowCelestia.amount.mantaAmount, 0, 5)} MANTA`;
+      mantaAmount = `\n • ${formatCurrency(allowCelestia.amount.mantaAmount, 0, 5)} MANTA`;
     }
 
     if (new BigNumber(allowCelestia.amount.eigenlayerAmount || 0).gt(minAmount)) {
-      ethAmount = `${formatCurrency(allowCelestia.amount.eigenlayerAmount, 0, 5)} ETH`;
+      ethAmount = `\n • ${formatCurrency(allowCelestia.amount.eigenlayerAmount, 0, 5)} ETH`;
     }
 
-    const content = `BUILD WHATEVER ON BITCOIN.\n\nI'm holding and staking:\n\n${tiaAmount}${maticAmount}${mantaAmount}${ethAmount}\n\nAs a modular maxi, I’m excited to see Modular Blockchains arrive on Bitcoin powered by @BVMnetwork\n`;
+    const content = `BUILD WHATEVER ON BITCOIN.\n\nI'm holding and staking:\n${tiaAmount}${maticAmount}${mantaAmount}${ethAmount}\n\nAs a modular maxi, I’m excited to see Modular Blockchains arrive on Bitcoin powered by @BVMnetwork\n`;
 
     setTimeout(() => {
       window.open(
@@ -230,7 +230,7 @@ const Steps = () => {
       <p>You’re a true Bitcoiner. You’ve spent {<span>{formatCurrency(allowBTC.amount.fee, 0, 6, 'BTC')}</span>} BTC on transaction fees. Your total reward is {<span>{formatCurrency(allowBTC.amount.point, 0)}</span>} pts.</p>:
       'The more sats you have spent on Bitcoin, the more points you’ll get. Connect your Unisat or Xverse wallet to prove the account ownership.';
     const isNeedClaimBTCPoint = allowBTC.isUnclaimed;
-    const isNeedClaimCelestiaPoint = allowCelestia.isUnclaimed;
+    const isNeedClaimCelestiaPoint = true;
     const isNeedClaimOptimismPoint = allowOptimism.isUnclaimed;
     const authenTask =  {
       title: 'Tweet about BVM',
@@ -249,7 +249,7 @@ const Steps = () => {
     const tasks = [
       {
         title: 'Are you an L2 maxi?',
-        desc: 'The more Optimism (OP) or Arbitrum (ARB) tokens you hold, the more ETH you stake on Blast or Base, the more points you’ll earn. Connect your MetaMask wallet to prove account ownership.',
+        desc: 'The more TIA, MATIC,  and MANTA you hold, or the more ETH you stake on Eigen, the more points you\'ll get. Connect your MetaMask wallet to prove account ownership.',
         actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 maxi are you?',
         actionHandle: isNeedClaimOptimismPoint ? async () => {
           onShareOptimism();

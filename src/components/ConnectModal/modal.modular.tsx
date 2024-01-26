@@ -44,7 +44,7 @@ const ITEMS: ModalItem[] = [
   {
     image: `${CDN_URL_ICONS}/ic-metamask.svg`,
     text: 'Metamask',
-    network: 'Polygon & Eigenlayer',
+    network: 'Polygon, Eigenlayer and Manta',
     type: ModularType.metamask
   },
 ];
