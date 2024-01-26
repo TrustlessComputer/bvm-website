@@ -46,6 +46,7 @@ const ContributorsModal = ({ isShow, onHide }: any) => {
       title={'Find your contribution'}
       headerClassName={s.modalManualHeader}
       className={s.modalContent}
+      size={"extra"}
     >
       <div className={s.container}>
         <form className={s.form} onSubmit={formik.handleSubmit}>

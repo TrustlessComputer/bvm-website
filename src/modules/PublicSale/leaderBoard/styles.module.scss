@@ -1,39 +1,5 @@
-.headerRolling {
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 12px 20px;
-  p {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 120%;
-
-    color: #ffffff;
-  }
-}
-
 .container {
-  position: relative;
-  //background-color: rgba(255, 255, 255, 0.30);
-  .title1 {
-    font-size: 24px;
-    font-weight: 600;
-    letter-spacing: 0;
-    color: black;
-    text-transform: uppercase;
-
-    @include w-max(768px) {
-      font-size: 20px;
-    }
-  }
-
-  .indicator {
-    background-color: #ffffff;
-    width: 58px;
-    height: 2px;
-    opacity: 0.7;
-  }
+  width: 100%;
 }
 
 .wrapScroll {
@@ -129,9 +95,7 @@ table {
 
     .tagBoost {
       padding: 7px 9px;
-      // background: rgba(255, 255, 255, 0.15);
       border-radius: 100px;
-      // width: 60px;
       display: flex;
       align-items: center;
 
@@ -149,7 +113,7 @@ table {
         svg {
           g {
             path {
-              fill: white !important;
+              fill: white;
             }
           }
         }
@@ -162,17 +126,20 @@ table {
           height: 62px;
         }
       }
+
       .isActiveRow {
         background-color: #FFFFFF !important;
         p {
           color: #000000 !important;
         }
 
-        .boostNormal {
-          svg {
-            g {
-              path {
-                fill: black !important;
+        td:last-child {
+          > div {
+            svg {
+              g {
+                path {
+                  fill: black !important;
+                }
               }
             }
           }
@@ -182,85 +149,8 @@ table {
   }
 }
 
-.container {
-  overflow: hidden;
-  width: 100%;
-  // min-width: 880px;
-
-  @include w-max(968px) {
-    margin-left: 12px;
-    margin-right: 12px;
-    margin-bottom: 32px;
-    width: 92vw;
-    min-width: auto;
-  }
-
-  .title {
-    font-size: 28px;
-    @include w-max(968px) {
-      font-size: 20px;
-    }
-  }
-}
-
-.banner {
-  background: #000;
-  color: #fff;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 120%;
-  padding-bottom: 12px;
-}
-
-.countDown {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .time {
-    font-size: 14px;
-    font-weight: 600;
-    opacity: 0.7;
-  }
-}
-
 .loading {
   margin-top: 16px;
-}
-
-.tooltipIcon {
-  width: 14px;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.tooltipIconActive {
-  cursor: pointer;
-  svg {
-    path {
-      fill: white !important;
-    }
-  }
-}
-
-.timeLine {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: rgba(1, 1, 1, 0.7);
-  margin-bottom: rem(32);
-  span {
-    color: rgb(1, 1, 1);
-    font-weight: 500;
-  }
-
-  p {
-    width: fit-content;
-  }
-  .content {
-  }
 }
 
 .multiplier {
@@ -295,7 +185,7 @@ table {
   }
 
   &.isActiveRow {
-    background: linear-gradient(90deg, #ffffff 0%, #35cca6 100%);
+    background: linear-gradient(90deg, #007659 0%, #35CCA6 100%);
     text-align: center;
     font-size: 14px;
     font-style: normal;

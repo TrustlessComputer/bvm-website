@@ -254,6 +254,7 @@ const LeaderBoard = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: ILeaderBoardPoint) {
+          console.log('datadatadata', data);
           return (
             <Flex
               gap={3}
@@ -303,7 +304,7 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={s.bvm_amount}>
-                  {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)}
+                  {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)} BVM
                 </Text>
                 <Text className={s.bvm_percent}>({data?.bvm_point}%)</Text>
               </Flex>
@@ -362,47 +363,6 @@ const LeaderBoard = (props: IProps) => {
       },
     ];
   }, [user?.referral_code]);
-
-  // const remainingTime = () => {
-  //   const now = dayjs();
-
-  //   const tomorrow = dayjs()
-  //     .add(1, 'days')
-  //     .set('hour', 7)
-  //     .set('minute', 0)
-  //     .set('second', 0);
-
-  //   const millisecondsRemaining = tomorrow.valueOf() - now.valueOf();
-
-  //   return millisecondsRemaining;
-  // };
-
-  // const renderer = ({ hours, minutes, seconds, completed }: any) => {
-  //   if (completed) {
-  //     // Render a completed state
-  //     return <></>;
-  //   } else {
-  //     // Render a countdown
-  //     return (
-  //       <span>
-  //         {hours}h : {minutes}m : {seconds}s
-  //       </span>
-  //     );
-  //   }
-  // };
-
-  const renderTimeLine = (params: { content: React.ReactNode }) => {
-    return (
-      <Flex gap="6px" alignItems="center" width="fit-content">
-        <img
-          style={{ width: 4, height: 4 }}
-          src={`${CDN_URL_ICONS}/ic-dot.svg`}
-          alt="ic-dot"
-        />
-        {params.content}
-      </Flex>
-    );
-  };
 
   return (
     <Box className={s.container} height="65dvh" id={LEADER_BOARD_ID}>
