@@ -164,25 +164,27 @@ const LeaderBoardVisual = (props: IProps) => {
         hasIncrementedPageRef={hasIncrementedPageRef}
         wrapClassName={styles.wrapScroll}
         hideScrollBar={false}
-        onFetch={() => {}}
+        onFetch={() => {
+        }}
         isFetching={true}
-        onFetchNewData={() => {}}
+        onFetchNewData={() => {
+        }}
       >
         {
           listRender.slice(0, 23).map((item, index) => {
             return <>
-            <Tooltip minW='220px'
-                     bg='white'
-                     boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
-                     borderRadius='4px'
-                     padding='16px'
-                     hasArrow
-                     label={
-                       <ContributorInfo />
-                     }
-            >
-              <AvatarItem data={item} />
-            </Tooltip>
+              <Tooltip minW='220px'
+                       bg='white'
+                       boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
+                       borderRadius='4px'
+                       padding='16px'
+                       hasArrow
+                       label={
+                         <ContributorInfo />
+                       }
+              >
+                <AvatarItem data={item} />
+              </Tooltip>
               {
                 item.lastRender && <span className={styles.lastRender}></span>
               }
@@ -194,7 +196,20 @@ const LeaderBoardVisual = (props: IProps) => {
             emptyArray.map((item, index) => {
 
               if (index === indexUserInsert) {
-                return <AvatarYou />;
+                return (
+                  <Tooltip minW='220px'
+                           bg='white'
+                           boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
+                           borderRadius='4px'
+                           padding='16px'
+                           hasArrow
+                           label={
+                             <ContributorInfo />
+                           }
+                  >
+                    <AvatarYou />
+                  </Tooltip>
+                );
               }
               return <>
                 <Image

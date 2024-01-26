@@ -5,13 +5,13 @@ import { useState } from 'react';
 import cx from 'clsx';
 
 const DAYS = [
-  {key: 0, title: 'DAY 1', desc: 'day 1 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 1, title: 'DAY 2', desc: 'day 2 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 2, title: 'DAY 3', desc: 'day 3 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 3, title: 'DAY 4', desc: 'day 4 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 4, title: 'DAY 5', desc: 'day 5 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 5, title: 'DAY 6', desc: 'day 6 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 6, title: 'DAY 7', desc: 'day 6 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+  {key: 0, tag: 'DAY 1', title: 'Play game in Arcade', desc: 'day 1 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+  {key: 1, tag: 'DAY 2', title: 'Play game in Arcade', desc: 'day 2 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+  {key: 2, tag: 'DAY 3', title: 'Play game in Arcade', desc: 'day 3 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+  {key: 3, tag: 'DAY 4', title: 'Play game in Arcade', desc: 'day 4 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+  {key: 4, tag: 'DAY 5', title: 'Play game in Arcade', desc: 'day 5 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+  {key: 5, tag: 'DAY 6', title: 'Play game in Arcade', desc: 'day 6 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+  {key: 6, tag: 'DAY 7', title: 'Play game in Arcade', desc: 'day 6 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
 ]
 
 const Playgame = () => {
@@ -27,7 +27,7 @@ const Playgame = () => {
                 <Flex flex={1} justifyContent={'center'} alignItems={"center"}
                       onClick={() => setSelectedDay(d)}
                       className={cx(s.item, d?.key === selectedDay?.key ? s.selected : null)}>
-                  {d?.title}
+                  {d?.tag}
                 </Flex>
               )
             })
