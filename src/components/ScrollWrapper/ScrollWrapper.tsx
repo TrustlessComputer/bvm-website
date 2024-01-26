@@ -40,18 +40,18 @@ const ScrollWrapper = forwardRef((props: props, ref) => {
   // fetching data on scroll
   const feedContainerRef = useRef<HTMLDivElement | null>(null);
   const handleScroll = () => {
-    // if (feedContainerRef && feedContainerRef?.current) {
-    //   const container = feedContainerRef.current;
-    //   if (container) {
-    //     const isScrolledToBottom =
-    //       container.scrollTop + container.clientHeight >=
-    //       container.scrollHeight - container.scrollHeight / 4;
-    //
-    //     if (isScrolledToBottom && !isFetching && !hasIncrementedPageRef.current) {
-    //       onFetch();
-    //     }
-    //   }
-    // }
+    if (feedContainerRef && feedContainerRef?.current) {
+      const container = feedContainerRef.current;
+      if (container) {
+        const isScrolledToBottom =
+          container.scrollTop + container.clientHeight >=
+          container.scrollHeight - container.scrollHeight / 4;
+
+        if (isScrolledToBottom && !isFetching && !hasIncrementedPageRef.current) {
+          onFetch();
+        }
+      }
+    }
   };
 
   useImperativeHandle(

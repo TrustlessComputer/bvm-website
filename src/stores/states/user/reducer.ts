@@ -50,7 +50,10 @@ const slice = createSlice({
       }
     },
     setPublicSaleLeaderBoard: (state, action) => {
-      state.publicSaleLeaderBoard = uniqueBy([...action.payload.list], item => item.twitter_id);
+      state.publicSaleLeaderBoard = uniqueBy([...state.publicSaleLeaderBoard, ...action.payload.list], item => item.twitter_id);
+    },
+    clearPublicSaleLeaderBoard: (state) => {
+      state.publicSaleLeaderBoard = [];
     },
   },
 });
@@ -62,6 +65,7 @@ export const {
   setAllowCelestia,
   setAllowEVM,
   setPublicSaleLeaderBoard,
+  clearPublicSaleLeaderBoard,
 } = slice.actions;
 
 export default slice.reducer;

@@ -16,7 +16,7 @@ import cs from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { publicSaleLeaderBoardSelector, userSelector } from '@/stores/states/user/selector';
-import { setPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
+import { clearPublicSaleLeaderBoard, setPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
 import { getPublicSaleLeaderBoards } from '@/services/public-sale';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 import SvgInset from '@/components/SvgInset';
@@ -71,14 +71,10 @@ const LeaderBoard = (props: IProps) => {
 
   useEffect(() => {
     if(isSearch) {
+      dispatch(clearPublicSaleLeaderBoard());
       fetchData(true);
     }
   }, [isSearch]);
-
-  const removeOwnerRecord = (arr: ILeaderBoardPoint[] = []) => {
-    // return remove(arr, v => !compareString(v.address, 'TESTTTTT'));
-    return arr;
-  };
 
   const fetchData = async (isNew?: boolean) => {
     try {
@@ -100,9 +96,7 @@ const LeaderBoard = (props: IProps) => {
           ...refParams.current,
           page: 1,
         };
-        const reArr = removeOwnerRecord(response);
-        let arr = response2;
-        arr = sortList(response2.concat(reArr));
+        const arr = sortList((userName ? [] : response2).concat(response));
 
         dispatch(
           setPublicSaleLeaderBoard({
@@ -113,8 +107,7 @@ const LeaderBoard = (props: IProps) => {
 
         setSubmitting && setSubmitting(false);
       } else {
-        const reArr = removeOwnerRecord(response);
-        const arr = sortList([...reArr]);
+        const arr = sortList([...response]);
         dispatch(
           setPublicSaleLeaderBoard({
             list: arr,
@@ -254,7 +247,6 @@ const LeaderBoard = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: ILeaderBoardPoint) {
-          console.log('datadatadata', data);
           return (
             <Flex
               gap={3}
