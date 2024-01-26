@@ -33,8 +33,6 @@ const AddMoreContribution = () => {
     setSaleWalletInfo(result);
   };
 
-  console.log('selectedAmount',  selectedAmount);
-
   return (
     <Flex className={s.container}>
       <Flex p={'20px'} alignItems={"center"} w={"100%"} justifyContent={"space-between"}>

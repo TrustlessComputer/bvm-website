@@ -31,3 +31,7 @@ export const airdropAlphaUsersSelector = (state: RootState) => state.user.airdro
 export const airdropGMHoldersSelector = (state: RootState) => state.user.airdropGMHolders;
 export const airdropGenerativeUsersSelector = (state: RootState) => state.user.airdropGenerativeUsers;
 export const airdropPerceptronsHoldersSelector = (state: RootState) => state.user.airdropPerceptronsHolders;
+
+export const publicSaleLeaderBoardSelector = (state: RootState) => ({
+  list: (state.user?.publicSaleLeaderBoard || []) as ILeaderBoardPoint[],
+});

@@ -191,36 +191,36 @@ const LeaderBoardVisual = (props: IProps) => {
             </>;
           })
         }
-        <div className={styles.emptyArray}>
-          {
-            emptyArray.map((item, index) => {
+        {/*<div className={styles.emptyArray}>*/}
+        {/*  {*/}
+        {/*    emptyArray.map((item, index) => {*/}
 
-              if (index === indexUserInsert) {
-                return (
-                  <Tooltip minW='220px'
-                           bg='white'
-                           boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
-                           borderRadius='4px'
-                           padding='16px'
-                           hasArrow
-                           label={
-                             <ContributorInfo />
-                           }
-                  >
-                    <AvatarYou />
-                  </Tooltip>
-                );
-              }
-              return <>
-                <Image
-                  className={styles.emptyArray_label}
-                  width={120}
-                  height={120}
-                  src={'/images/elipse.jpg'} alt={'elipse'} />
-              </>;
-            })
-          }
-        </div>
+        {/*      if (index === indexUserInsert) {*/}
+        {/*        return (*/}
+        {/*          <Tooltip minW='220px'*/}
+        {/*                   bg='white'*/}
+        {/*                   boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'*/}
+        {/*                   borderRadius='4px'*/}
+        {/*                   padding='16px'*/}
+        {/*                   hasArrow*/}
+        {/*                   label={*/}
+        {/*                     <ContributorInfo />*/}
+        {/*                   }*/}
+        {/*          >*/}
+        {/*            <AvatarYou />*/}
+        {/*          </Tooltip>*/}
+        {/*        );*/}
+        {/*      }*/}
+        {/*      return <>*/}
+        {/*        <Image*/}
+        {/*          className={styles.emptyArray_label}*/}
+        {/*          width={120}*/}
+        {/*          height={120}*/}
+        {/*          src={'/images/elipse.jpg'} alt={'elipse'} />*/}
+        {/*      </>;*/}
+        {/*    })*/}
+        {/*  }*/}
+        {/*</div>*/}
         <AddMoreContribution />
       </ScrollWrapper>
       <AnimatedText />

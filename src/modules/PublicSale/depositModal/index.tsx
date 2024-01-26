@@ -13,8 +13,6 @@ const DepositModal = ({ isShow, onHide, saleWalletInfo, payAmountUsd }: any) => 
   const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
   const ethPrice = useMemo(() => coinPrices?.['ETH'] || '0', [coinPrices]);
 
-  console.log('payAmountUsd', payAmountUsd);
-
   const payAmountBtc = useMemo(() => {
     return new BigNumber(payAmountUsd).dividedBy(btcPrice).toString();
   }, [payAmountUsd, btcPrice]);

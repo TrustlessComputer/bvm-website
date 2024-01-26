@@ -42,4 +42,5 @@ export interface UserState {
   airdropGMHolders: any;
   airdropGenerativeUsers: any;
   airdropPerceptronsHolders: any;
+  publicSaleLeaderBoard: ILeaderBoardPoint[];
 }

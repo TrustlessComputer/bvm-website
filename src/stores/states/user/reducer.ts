@@ -18,6 +18,7 @@ const initialState: UserState = {
   airdropGMHolders: null,
   airdropGenerativeUsers: null,
   airdropPerceptronsHolders: null,
+  publicSaleLeaderBoard: []
 } as any;
 
 const slice = createSlice({
@@ -64,6 +65,9 @@ const slice = createSlice({
     setAirdropPerceptronsHolders: (state, action) => {
       state.airdropPerceptronsHolders = action.payload;
     },
+    setPublicSaleLeaderBoard: (state, action) => {
+      state.publicSaleLeaderBoard = uniqueBy([...action.payload.list], item => item.twitter_id);
+    },
   },
 });
 
@@ -77,6 +81,7 @@ export const {
   setAirdropGMHolders,
   setAirdropGenerativeUsers,
   setAirdropPerceptronsHolders,
+  setPublicSaleLeaderBoard,
 } = slice.actions;
 
 export default slice.reducer;

@@ -1,5 +1,4 @@
 .container {
-  //padding: var(--container-padding);
   background-size: cover;
   background-repeat: no-repeat;
   gap: 80px;
@@ -11,21 +10,18 @@
 
   .content {
     width: 100%;
-    //padding: var(--container-padding);
-
-    @include w-max(768px) {
-      //padding: rem(48px) rem(16px);
-    }
   }
 
   .leftSection {
     background: #000000;
+    padding-top: 80px;
     position: relative;
   }
 
   .rightSection {
     background: #222222;
-    height: calc(100dvh - 00px);
+    padding-top: 80px;
+    height: 100dvh;
     overflow-y: auto;
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
@@ -108,7 +104,7 @@
 
   .raffleButton {
     position: absolute;
-    top: 160px;
+    top: 200px;
     left: 24px;
   }
 }

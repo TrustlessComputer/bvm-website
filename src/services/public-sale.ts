@@ -26,8 +26,9 @@ export const postPublicsaleWalletInfoManualCheck = async (): Promise<PublicSaleW
 export const getPublicSaleLeaderBoards = async (params: {
   page?: number;
   limit?: number;
+  search?: string;
 }): Promise<any> => {
-  const res = await apiClient.get(`/bvm/sale/leaderboards`);
+  const res = await apiClient.get(`/bvm/sale/leaderboards`, {params});
   return res;
 };
 

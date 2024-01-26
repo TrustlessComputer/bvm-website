@@ -15,10 +15,8 @@ import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { leaderBoardSelector, userSelector } from '@/stores/states/user/selector';
-import { setLeaderBoard } from '@/stores/states/user/reducer';
-import copy from 'copy-to-clipboard';
-import { shareReferralURL } from '@/utils/helpers';
+import { publicSaleLeaderBoardSelector, userSelector } from '@/stores/states/user/selector';
+import { setPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
 import { getPublicSaleLeaderBoards } from '@/services/public-sale';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 
@@ -37,10 +35,14 @@ const valueToImage: any = {
 export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
 interface IProps {
+  userName?: string;
+  isSearch?: boolean;
+  setSubmitting?: any;
 }
 
 const LeaderBoard = (props: IProps) => {
-  const { list } = useAppSelector(leaderBoardSelector);
+  const { userName, isSearch, setSubmitting } = props;
+  const { list } = useAppSelector(publicSaleLeaderBoardSelector);
   const [isFetching, setIsFetching] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const needReload = useAppSelector(commonSelector).needReload;
@@ -50,12 +52,27 @@ const LeaderBoard = (props: IProps) => {
   const refParams = useRef({
     page: 1,
     limit: 50,
+    search: ''
   });
+
+  useEffect(() => {
+    refParams.current = {
+      ...refParams.current,
+      search: userName || '',
+    };
+  }, [userName]);
+
   const refInitial = useRef(false);
 
   useEffect(() => {
     fetchData(true);
   }, [needReload]);
+
+  useEffect(() => {
+    if(isSearch) {
+      fetchData(true);
+    }
+  }, [isSearch]);
 
   const removeOwnerRecord = (arr: ILeaderBoardPoint[] = []) => {
     // return remove(arr, v => !compareString(v.address, 'TESTTTTT'));
@@ -83,18 +100,22 @@ const LeaderBoard = (props: IProps) => {
           page: 1,
         };
         const reArr = removeOwnerRecord(response);
-        const arr = sortList(response2.concat(reArr));
+        let arr = response2;
+        arr = sortList(response2.concat(reArr));
+
         dispatch(
-          setLeaderBoard({
+          setPublicSaleLeaderBoard({
             list: arr,
             count,
           }),
         );
+
+        setSubmitting && setSubmitting(false);
       } else {
         const reArr = removeOwnerRecord(response);
         const arr = sortList([...reArr]);
         dispatch(
-          setLeaderBoard({
+          setPublicSaleLeaderBoard({
             list: arr,
             count,
           }),
@@ -128,20 +149,9 @@ const LeaderBoard = (props: IProps) => {
   };
 
   const user = useAppSelector(userSelector);
-  const handleShareRefferal = () => {
-    if (!user?.referral_code) return;
-    copy(shareReferralURL(user?.referral_code || ''));
-    const element = document.getElementById('copy-button');
-    if (element) {
-      element.textContent = 'COPIED';
-      setTimeout(() => {
-        element.textContent = 'GET';
-      }, 2000)
-    }
-  }
 
   const labelConfig = {
-    color: 'rgba(1, 1, 0, 0.7)',
+    color: 'rgba(255, 255, 255, 0.7)',
     fontSize: '11px',
     letterSpacing: '-0.5px',
     borderBottom: '1px solid #FFFFFF33',
@@ -160,7 +170,7 @@ const LeaderBoard = (props: IProps) => {
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
-          color: 'black !important',
+          color: 'white !important',
         },
         render(data: ILeaderBoardPoint) {
           return (
@@ -215,57 +225,6 @@ const LeaderBoard = (props: IProps) => {
                     <Text className={styles.subTitle}>YOU</Text>
                   )}
                 </Flex>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'boost',
-        labelConfig,
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              width: '100%',
-              textTransform: 'uppercase',
-            }}
-          >
-            BOOST
-          </Flex>
-        ),
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex justifyContent="center" alignItems="center">
-              <Flex
-                flexDirection="row"
-                gap="4px"
-                alignItems="center"
-                className={clsx(styles.tagBoost)}
-              >
-                <img
-                  style={{ width: 20 }}
-                  src={`${CDN_URL_ICONS}/${
-                    valueToImage?.[data?.boost] || 'flash_normal.svg'
-                  }`}
-                />
-                <Text
-                  className={cs(
-                    styles.title,
-                    styles.multiplier,
-                    styles[valueToClassName[`${data?.boost}`]],
-                    data.need_active && styles.isActiveRow,
-                  )}
-                >
-                  {data?.boost || 0}%
-                </Text>
               </Flex>
             </Flex>
           );
@@ -347,6 +306,57 @@ const LeaderBoard = (props: IProps) => {
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
                   {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)}
+                </Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'boost',
+        labelConfig,
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'center',
+              width: '100%',
+              textTransform: 'uppercase',
+            }}
+          >
+            BOOST
+          </Flex>
+        ),
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex justifyContent="center" alignItems="center">
+              <Flex
+                flexDirection="row"
+                gap="4px"
+                alignItems="center"
+                className={clsx(styles.tagBoost)}
+              >
+                <img
+                  style={{ width: 20 }}
+                  src={`${CDN_URL_ICONS}/${
+                    valueToImage?.[data?.boost] || 'flash_normal.svg'
+                  }`}
+                />
+                <Text
+                  className={cs(
+                    styles.title,
+                    styles.multiplier,
+                    styles[valueToClassName[`${data?.boost}`]],
+                    data.need_active && styles.isActiveRow,
+                  )}
+                >
+                  {data?.boost || 0}%
                 </Text>
               </Flex>
             </Flex>
