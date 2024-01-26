@@ -71,12 +71,15 @@ const Steps = () => {
     const shareUrl = getLink(user?.referral_code || '');
     const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
 
-    window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
+    setTimeout(() => {
+      window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    })
+
   }
 
   const onShareModular = () => {
