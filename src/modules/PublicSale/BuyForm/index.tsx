@@ -2,7 +2,6 @@ import { Button, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
 import React, { forwardRef, useEffect, useState } from 'react';
 import s from './styles.module.scss';
-import Fade from '@/interactive/Fade';
 import {
   getPublicSaleSummary,
   getPublicsaleWalletInfo,
@@ -11,7 +10,6 @@ import {
 } from '@/services/public-sale';
 import { IPublicSaleDepositInfo, PublicSaleWalletInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
-import Lines from '@/interactive/Lines';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
 import { toast } from 'react-hot-toast';
@@ -138,8 +136,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           </Flex>
         } />
       </Flex>
-    )
-  }
+    );
+  };
 
   return (
     <div className={s.container}>
@@ -155,10 +153,10 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   fontSize={'12px'}
                   fontWeight={'400'}
                   color={'#FA4E0E'}
-                  textDecoration={"underline"}
+                  textDecoration={'underline'}
                   mt={1}
                   onClick={() => setShowContributorModal(true)}
-                  cursor={"pointer"}
+                  cursor={'pointer'}
                 >View all</Text>
               </Flex>
             } title={'Contributors'} />
@@ -188,17 +186,20 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 <Flex justifyContent={'space-between'}>
                   <Text>Your contribution</Text>
                   <Flex gap={1} alignItems={'center'}>
-                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g clip-path="url(#clip0_29914_7369)">
-                        <path d="M13.6676 7.32502H9.304L10.2737 1.50684L3.00098 10.2341H7.36461L6.39491 16.0523L13.6676 7.32502Z" fill="url(#paint0_linear_29914_7369)"/>
+                    <svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                      <g clip-path='url(#clip0_29914_7369)'>
+                        <path
+                          d='M13.6676 7.32502H9.304L10.2737 1.50684L3.00098 10.2341H7.36461L6.39491 16.0523L13.6676 7.32502Z'
+                          fill='url(#paint0_linear_29914_7369)' />
                       </g>
                       <defs>
-                        <linearGradient id="paint0_linear_29914_7369" x1="3.00098" y1="8.77956" x2="13.6676" y2="8.77956" gradientUnits="userSpaceOnUse">
-                          <stop stop-color="white"/>
-                          <stop offset="1" stop-color="#35CCA6"/>
+                        <linearGradient id='paint0_linear_29914_7369' x1='3.00098' y1='8.77956' x2='13.6676'
+                                        y2='8.77956' gradientUnits='userSpaceOnUse'>
+                          <stop stop-color='white' />
+                          <stop offset='1' stop-color='#35CCA6' />
                         </linearGradient>
-                        <clipPath id="clip0_29914_7369">
-                          <rect width="16" height="16" fill="white" transform="translate(0.333984 0.780273)"/>
+                        <clipPath id='clip0_29914_7369'>
+                          <rect width='16' height='16' fill='white' transform='translate(0.333984 0.780273)' />
                         </clipPath>
                       </defs>
                     </svg>

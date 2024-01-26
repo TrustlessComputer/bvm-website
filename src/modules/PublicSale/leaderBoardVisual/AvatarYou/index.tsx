@@ -1,12 +1,13 @@
 import s from './styles.module.scss';
 
 import { getUrlAvatarTwitter } from '@/utils/twitter';
-import React, { ReactElement, useState } from 'react';
+import React, { forwardRef, ReactElement, useState } from 'react';
 import Image from 'next/image';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
 
-export default function AvatarYou() {
+const AvatarYou = forwardRef((props: any, ref: any) => {
+  const { ...rest } = props;
   const [error, setError] = useState<boolean>(false);
   const user = useAppSelector(userSelector);
   const PlaceImage = (): ReactElement => {
@@ -15,31 +16,35 @@ export default function AvatarYou() {
       height={120}
       src={'/images/mk-your-avatar.jpg'} alt={'mk-your-avatar'} />;
   };
-  return <div
-    className={`${s.avatarItem}`}>
-    <div className={s.avatarItem_inner}>
-      <div
-        className={s.avatarItem_avatar}
-        onClick={() => {
-          window.open(`https://twitter.com/${user?.twitter_username}`);
-        }}
-      >
-        {
-          error && <PlaceImage />
-        }
-        {!error && <Image
-          width={120}
-          height={120}
-          onError={(e) => {
-            setError(true);
+  return (
+    <div
+      className={`${s.avatarItem}`} ref={ref} {...rest}>
+      <div className={s.avatarItem_inner}>
+        <div
+          className={s.avatarItem_avatar}
+          onClick={() => {
+            window.open(`https://twitter.com/${user?.twitter_username}`);
           }}
-          src={getUrlAvatarTwitter(
-            user?.twitter_avatar as string,
-            'medium',
-          ) || ''} alt={'medium'} />}
-      </div>
+        >
+          {
+            error && <PlaceImage />
+          }
+          {!error && <Image
+            width={120}
+            height={120}
+            onError={(e) => {
+              setError(true);
+            }}
+            src={getUrlAvatarTwitter(
+              user?.twitter_avatar as string,
+              'medium',
+            ) || ''} alt={'medium'} />}
+        </div>
 
-      <p className={s.price}>You</p>
+        <p className={s.price}>You</p>
+      </div>
     </div>
-  </div>;
-}
+  );
+});
+
+export default AvatarYou;
