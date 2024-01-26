@@ -7,7 +7,7 @@
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
-    line-height: 140%;
+    line-height: 120%;
 
     color: #ffffff;
   }
@@ -42,49 +42,6 @@
 
 table {
   &.tableContainer {
-    :global {
-      tbody {
-        tr {
-          height: 62px;
-        }
-      }
-      .isActiveRow {
-        background-color: #FFFFFF !important;
-        p {
-          color: #000000 !important;
-        }
-
-        .boost_25 {
-          // background: linear-gradient(
-          //   90deg,
-          //   #00f5a0 0%,
-          //   #00d9f5 100%
-          // ) !important;
-        }
-        .boost_2 {
-          // background: linear-gradient(
-          //   90deg,
-          //   #ffe259 0%,
-          //   #ffa751 100%
-          // ) !important;
-        }
-        .boost_15 {
-          // background: linear-gradient(
-          //   90deg,
-          //   #a770ef 0%,
-          //   #cf8bf3 50%,
-          //   #fdb99b 100%
-          // ) !important;
-        }
-        .boost_1 {
-          // background: rgba(0, 0, 0, 1) !important;
-          p {
-            color: white !important;
-          }
-        }
-      }
-    }
-
     thead {
       tr {
         th {
@@ -92,6 +49,7 @@ table {
         }
       }
     }
+
     thead,
     tbody {
       tr {
@@ -110,9 +68,31 @@ table {
 
     .title {
       font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 140%;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 120%;
+      color: #FFFFFF;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 85px;
+    }
+
+    .bvm_amount {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 120%;
+      color: #FA4E0E;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 85px;
+    }
+
+    .bvm_percent {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 120%;
       color: #FFFFFF;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -143,7 +123,7 @@ table {
     .desc {
       font-weight: 500;
       font-size: 12px;
-      line-height: 140%;
+      line-height: 120%;
       color: var(--chakra-colors-blue-600);
     }
 
@@ -158,43 +138,44 @@ table {
       p {
         font-weight: 500;
         font-size: 14px;
-        line-height: 140%;
+        line-height: 120%;
         /* or 18px */
         text-align: center;
 
         color: #ffffff;
       }
-      &.boost_25 {
-        // background: linear-gradient(
-        //   90deg,
-        //   rgba(0, 245, 160, 0.15) 0%,
-        //   rgba(0, 217, 245, 0.15) 100%
-        // );
-        p {
-          color: rgba(0, 245, 160, 1);
+
+      &.boostNormal {
+        svg {
+          g {
+            path {
+              fill: white !important;
+            }
+          }
         }
       }
-      &.boost_2 {
-        // background: linear-gradient(
-        //   90deg,
-        //   rgba(255, 226, 89, 0.15) 0%,
-        //   rgba(255, 167, 81, 0.15) 100%
-        // );
+    }
 
-        p {
-          color: rgba(255, 226, 89, 1);
+    :global {
+      tbody {
+        tr {
+          height: 62px;
         }
       }
-      &.boost_15 {
-        // background: linear-gradient(
-        //   90deg,
-        //   rgba(167, 112, 239, 0.15) 0%,
-        //   rgba(207, 139, 243, 0.15) 50%,
-        //   rgba(253, 185, 155, 0.15) 100%
-        // );
-
+      .isActiveRow {
+        background-color: #FFFFFF !important;
         p {
-          color: rgba(167, 112, 239, 1);
+          color: #000000 !important;
+        }
+
+        .boostNormal {
+          svg {
+            g {
+              path {
+                fill: black !important;
+              }
+            }
+          }
         }
       }
     }
@@ -228,7 +209,7 @@ table {
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
-  line-height: 140%;
+  line-height: 120%;
   padding-bottom: 12px;
 }
 
@@ -258,7 +239,7 @@ table {
   cursor: pointer;
   svg {
     path {
-      fill: white;
+      fill: white !important;
     }
   }
 }
@@ -289,8 +270,6 @@ table {
   font-style: normal;
   font-weight: 500;
   line-height: 120%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   color: white;
 
   &.boost_30 {

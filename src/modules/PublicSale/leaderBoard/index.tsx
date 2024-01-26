@@ -7,7 +7,7 @@ import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import styles from './styles.module.scss';
+import s from './styles.module.scss';
 import clsx from 'classnames';
 import AppLoading from '@/components/AppLoading';
 import { CDN_URL_ICONS } from '@/config';
@@ -19,6 +19,7 @@ import { publicSaleLeaderBoardSelector, userSelector } from '@/stores/states/use
 import { setPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
 import { getPublicSaleLeaderBoards } from '@/services/public-sale';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
+import SvgInset from '@/components/SvgInset';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -220,9 +221,9 @@ const LeaderBoard = (props: IProps) => {
                   name={data?.twitter_name || data?.twitter_username || ''}
                 />
                 <Flex width={'100%'} gap={'4px'} direction={'column'}>
-                  <p className={styles.title}>{data?.twitter_name || ''}</p>
+                  <p className={s.title}>{data?.twitter_name || ''}</p>
                   {data?.need_active && (
-                    <Text className={styles.subTitle}>YOU</Text>
+                    <Text className={s.subTitle}>YOU</Text>
                   )}
                 </Flex>
               </Flex>
@@ -261,11 +262,8 @@ const LeaderBoard = (props: IProps) => {
               justifyContent={'center'}
             >
               <Flex direction={"column"} gap={2}>
-                <Text className={''}>
-                  {formatCurrency(data?.btc_balance, MIN_DECIMAL, MAX_DECIMAL)} BTC
-                </Text>
-                <Text className={''}>
-                  {formatCurrency(data?.eth_balance, MIN_DECIMAL, MAX_DECIMAL)} ETH
+                <Text className={s.title}>
+                  ${formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
                 </Text>
               </Flex>
             </Flex>
@@ -304,9 +302,10 @@ const LeaderBoard = (props: IProps) => {
               justifyContent={'center'}
             >
               <Flex alignItems={'center'} gap={2}>
-                <Text className={styles.title}>
+                <Text className={s.bvm_amount}>
                   {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)}
                 </Text>
+                <Text className={s.bvm_percent}>({data?.bvm_point}%)</Text>
               </Flex>
             </Flex>
           );
@@ -340,20 +339,18 @@ const LeaderBoard = (props: IProps) => {
                 flexDirection="row"
                 gap="4px"
                 alignItems="center"
-                className={clsx(styles.tagBoost)}
+                className={clsx(s.tagBoost, (Number(data?.boost) || 0) <= 10 ? s.boostNormal : '')}
               >
-                <img
-                  style={{ width: 20 }}
-                  src={`${CDN_URL_ICONS}/${
-                    valueToImage?.[data?.boost] || 'flash_normal.svg'
-                  }`}
+                <SvgInset svgUrl={`${CDN_URL_ICONS}/${
+                  valueToImage?.[data?.boost] || 'flash_normal.svg'
+                }`}
                 />
                 <Text
                   className={cs(
-                    styles.title,
-                    styles.multiplier,
-                    styles[valueToClassName[`${data?.boost}`]],
-                    data.need_active && styles.isActiveRow,
+                    s.title,
+                    s.multiplier,
+                    s[valueToClassName[`${data?.boost}`]],
+                    data.need_active && s.isActiveRow,
                   )}
                 >
                   {data?.boost || 0}%
@@ -408,7 +405,7 @@ const LeaderBoard = (props: IProps) => {
   };
 
   return (
-    <Box className={styles.container} height="65dvh" id={LEADER_BOARD_ID}>
+    <Box className={s.container} height="65dvh" id={LEADER_BOARD_ID}>
       <ScrollWrapper
         onFetch={() => {
           refParams.current = {
@@ -421,15 +418,15 @@ const LeaderBoard = (props: IProps) => {
         isFetching={refreshing}
         hasIncrementedPageRef={hasIncrementedPageRef}
         onFetchNewData={onRefresh}
-        wrapClassName={styles.wrapScroll}
+        wrapClassName={s.wrapScroll}
         hideScrollBar={false}
       >
         <ListTable
           data={list}
           columns={columns}
-          className={styles.tableContainer}
+          className={s.tableContainer}
         />
-        {isFetching && <AppLoading className={styles.loading} />}
+        {isFetching && <AppLoading className={s.loading} />}
       </ScrollWrapper>
     </Box>
   );
