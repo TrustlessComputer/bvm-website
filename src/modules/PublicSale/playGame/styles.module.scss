@@ -38,9 +38,10 @@
     height: 36px;
     font-size: 14px;
     font-weight: 400;
+    cursor: pointer;
 
     &.selected {
-      background: #FA4E0E1F;
+      background: #FFFFFF;
       color: #FA4E0E;
     }
   }

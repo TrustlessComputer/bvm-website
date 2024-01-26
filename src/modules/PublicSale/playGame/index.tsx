@@ -20,6 +20,19 @@ const Playgame = () => {
   return (
     <Flex className={s.container} direction={"column"}>
       <Box className={s.content}>
+        <Flex gap={2} justifyContent={"space-between"} mb={8}>
+          {
+            DAYS.map(d => {
+              return (
+                <Flex flex={1} justifyContent={'center'} alignItems={"center"}
+                      onClick={() => setSelectedDay(d)}
+                      className={cx(s.item, d?.key === selectedDay?.key ? s.selected : null)}>
+                  {d?.title}
+                </Flex>
+              )
+            })
+          }
+        </Flex>
         <SimpleGrid gridTemplateColumns={["1fr", "1fr 1fr"]}>
           <GridItem>
             <Text className={s.title}>{selectedDay?.title}</Text>
@@ -41,19 +54,6 @@ const Playgame = () => {
             </Flex>
           </GridItem>
         </SimpleGrid>
-        <Flex gap={2} justifyContent={"space-between"} mt={8}>
-          {
-            DAYS.map(d => {
-              return (
-                <Flex flex={1} justifyContent={'center'} alignItems={"center"}
-                      onClick={() => setSelectedDay(d)}
-                      className={cx(s.item, d?.key === selectedDay?.key ? s.selected : null)}>
-                  {d?.title}
-                </Flex>
-              )
-            })
-          }
-        </Flex>
       </Box>
     </Flex>
   );
