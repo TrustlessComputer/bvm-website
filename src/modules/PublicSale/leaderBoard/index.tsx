@@ -248,6 +248,7 @@ const LeaderBoard = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: ILeaderBoardPoint) {
+          console.log('data', data);
           return (
             <Tooltip
               minW="360px"

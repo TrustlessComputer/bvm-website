@@ -14,6 +14,7 @@ interface IContributionCoin {
 };
 
 const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
+  console.log('ContributorDetailInfo', data);
   const list: IContributionCoin[] = useMemo(() => {
     return [
       {
@@ -32,10 +33,6 @@ const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
         usdt_value: '1000'
       },
     ];
-  }, [data]);
-
-  const totalContribution = useMemo(() => {
-    return '1300';
   }, [data]);
 
   const labelConfig = {
@@ -138,7 +135,7 @@ const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
           fontSize={"16px"}
           fontWeight={500}
           color={"#1C1C1C"}
-        >${formatCurrency(totalContribution, 0, 2, 'BTC', true)}</Text>
+        >${formatCurrency(data?.usdt_value, 0, 2, 'BTC', true)}</Text>
       </Flex>
       <ListTable
         data={list}
