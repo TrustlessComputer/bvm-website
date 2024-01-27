@@ -37,4 +37,5 @@ export interface ILeaderBoardPoint {
   eth_balance: string;
   btc_balance: string;
   usdt_value?:string;
+  bvm_percent?:string;
 }
