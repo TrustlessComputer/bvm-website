@@ -37,4 +37,5 @@ export interface ILeaderBoardPoint {
   levelRender?:number;
   lastRender?:boolean;
   usdt_value?:string;
+  bvm_percent?:string;
 }

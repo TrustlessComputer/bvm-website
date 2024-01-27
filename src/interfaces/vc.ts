@@ -28,10 +28,21 @@ export interface PublicSaleWalletInfo {
 }
 
 export interface IPublicSaleDepositInfo {
-  total_btc: string;
-  total_bvm: string;
-  total_eth: string;
   total_user: number;
+  total_eth: string;
+  total_btc: string;
+  total_eth_op: string;
+  total_eth_arb: string;
+  total_eth_base: string;
+  total_tia: string;
+  total_op: string;
+  total_arb: string;
+  total_ordi: string;
+  total_sats: string;
+  total_bvm: string;
+  total_usdt: string;
+  total_usdc: string;
+  total_usdt_value: string;
 }
 
 export interface IGenerateTOkenWithSecretCode {

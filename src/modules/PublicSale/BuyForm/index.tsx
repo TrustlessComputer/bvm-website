@@ -75,12 +75,10 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       .isBefore(dayjs().utc().format()),
   );
   const [showContributorModal, setShowContributorModal] = useState(false);
-  const coinPrices = useSelector(commonSelector).coinPrices;
   const [userContributeInfo, setUserContributeInfo] =
     useState<ILeaderBoardPoint>();
 
   console.log('contributeInfo', contributeInfo);
-  console.log('coinPrices', coinPrices);
   console.log('userContributeInfo', userContributeInfo);
   console.log('=======');
 
@@ -189,7 +187,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 (
                 {user?.twitter_id
                   ? formatCurrency(
-                      userContributeInfo?.boost,
+                      userContributeInfo?.bvm_percent,
                       MIN_DECIMAL,
                       MIN_DECIMAL,
                       'BTC',
@@ -268,7 +266,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
           <Text className={s.title}>Total Funded</Text>
-          <Text className={s.fundValue}>$9,233,476</Text>
+          <Text className={s.fundValue}>${formatCurrency(contributeInfo?.total_usdt_value, 0, 0, 'BTC', true)}</Text>
           <Flex className={s.boxInfo} gap={4} width={'100%'}>
             <Column
               value={
