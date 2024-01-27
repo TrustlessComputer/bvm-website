@@ -131,7 +131,7 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
           <Flex className={s.qrCodeContainer}>
             <QRCode size={184} value={selectToken?.address} />
           </Flex>
-          <Box mt={'12px'} />
+          <Box mt={'24px'} />
           <Flex className={s.wrapTokenDepositDetail}>
             <Flex className={s.wrapTokenDepositDetailItem}>
               <Text className={s.wrapTokenDepositDetailItemTitle}>Network</Text>
