@@ -51,16 +51,7 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
 
   const getTokens = async () => {
     try {
-      let barerToken = 'Bearer ';
-      if (token) {
-        barerToken += token;
-      } else if (barerTokenGuest) {
-        barerToken += barerTokenGuest;
-      }
-      const headers = {
-        Authorization: barerToken,
-      };
-      const rs = await getPublicsaleWalletInfo(headers);
+      const rs = await getPublicsaleWalletInfo();
       if (rs.length > 0 && !selectToken) {
         setSelectToken(rs[0]);
       }

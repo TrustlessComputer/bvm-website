@@ -100,7 +100,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   };
 
   const getVentureInfo = async () => {
-    const result = await getPublicsaleWalletInfo({});
+    const result = await getPublicsaleWalletInfo();
     setSaleWalletInfo(result);
   };
 

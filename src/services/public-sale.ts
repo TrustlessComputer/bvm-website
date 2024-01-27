@@ -8,8 +8,8 @@ const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
 });
 
-export const getPublicsaleWalletInfo = async (headers: {}): Promise<PublicSaleWalletTokenDeposit[]> => {
-  const res = (await apiClient.get(`/bvm/sale/wallet`, {headers})) as unknown as PublicSaleWalletTokenDeposit[];
+export const getPublicsaleWalletInfo = async (): Promise<PublicSaleWalletTokenDeposit[]> => {
+  const res = (await apiClient.get(`/bvm/sale/wallet`)) as unknown as PublicSaleWalletTokenDeposit[];
   return res;
 }
 
