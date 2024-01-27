@@ -29,7 +29,7 @@ import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 
-export const TIME_CHAIN_EXPIRED_TIME = '2024-01-26 18:00:00';
+export const TIME_CHAIN_EXPIRED_TIME = '2024-01-28 18:00:00';
 
 interface FormValues {
   tokenAmount: string;
@@ -306,7 +306,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 borderRadius="4px"
                 padding="16px"
                 hasArrow
-                label={<ContributorInfo />}
+                label={<ContributorInfo data={userContributeInfo}/>}
               >
                 <ContributorBlock className={s.contributorBlock} />
               </Tooltip>
