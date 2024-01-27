@@ -1,3 +1,5 @@
+import { IContributionCoin } from '@/modules/PublicSale/components/contributorDetailInfo';
+
 export interface ILeaderBoardPoint {
   id: number;
   network: string;
@@ -38,4 +40,5 @@ export interface ILeaderBoardPoint {
   lastRender?:boolean;
   usdt_value?:string;
   bvm_percent?:string;
+  coin_balances?:IContributionCoin[];
 }

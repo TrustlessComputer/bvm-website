@@ -7,33 +7,15 @@ import { tokenIcons } from '@/modules/PublicSale/depositModal/constants';
 import { formatCurrency } from '@/utils/format';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 
-interface IContributionCoin {
-  coin: string;
+export interface IContributionCoin {
+  symbol: string;
   balance: string;
   usdt_value: string;
+  network: string;
 };
 
 const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
   console.log('ContributorDetailInfo', data);
-  const list: IContributionCoin[] = useMemo(() => {
-    return [
-      {
-        coin: 'BTC',
-        balance: '0.0005',
-        usdt_value: '300',
-      },
-      {
-        coin: 'ETH',
-        balance: '0.5',
-        usdt_value: '1000'
-      },
-      {
-        coin: 'ETH',
-        balance: '0.5',
-        usdt_value: '1000'
-      },
-    ];
-  }, [data]);
 
   const labelConfig = {
     color: '#898989',
@@ -65,8 +47,8 @@ const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
               width={'100%'}
               paddingLeft={'8px'}
             >
-              <Avatar width={'24px'} height={'24px'} src={tokenIcons[row.coin.toLowerCase()]} />
-              <Text>{row?.coin}</Text>
+              <Avatar width={'24px'} height={'24px'} src={tokenIcons[row.symbol.toLowerCase()]} />
+              <Text>{row?.symbol}</Text>
             </Flex>
           );
         },
@@ -138,7 +120,7 @@ const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
         >${formatCurrency(data?.usdt_value, 0, 2, 'BTC', true)}</Text>
       </Flex>
       <ListTable
-        data={list}
+        data={data?.coin_balances}
         columns={columns}
         className={s.tableContainer}
       />
