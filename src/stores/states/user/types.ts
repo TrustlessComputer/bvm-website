@@ -39,4 +39,5 @@ export interface UserState {
     loaded: boolean;
   },
   publicSaleLeaderBoard: ILeaderBoardPoint[];
+  publicSaleLeaderBoardVisual: ILeaderBoardPoint[];
 }

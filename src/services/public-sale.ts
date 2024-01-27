@@ -32,6 +32,14 @@ export const getPublicSaleLeaderBoards = async (params: {
   return res;
 };
 
+export const getPublicSaleTop = async (params: {
+  page?: number;
+  limit?: number;
+}): Promise<any> => {
+  const res = await apiClient.get(`/bvm/sale/top`, {params});
+  return { data: res };
+};
+
 export const getPublicSaleSummary = async (): Promise<IPublicSaleDepositInfo> => {
   const res = (await apiClient.get(`/bvm/sale/summary`)) as unknown as IPublicSaleDepositInfo;
   return res;

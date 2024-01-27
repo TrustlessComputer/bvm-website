@@ -14,7 +14,8 @@ const initialState: UserState = {
     status: [],
     loaded: false
   },
-  publicSaleLeaderBoard: []
+  publicSaleLeaderBoard: [],
+  publicSaleLeaderBoardVisual: [],
 } as any;
 
 const slice = createSlice({
@@ -55,6 +56,9 @@ const slice = createSlice({
     clearPublicSaleLeaderBoard: (state) => {
       state.publicSaleLeaderBoard = [];
     },
+    setPublicSaleLeaderBoardVisual: (state, action) => {
+      state.publicSaleLeaderBoardVisual = uniqueBy([...action.payload.list], item => item.twitter_id);
+    },
   },
 });
 
@@ -66,6 +70,7 @@ export const {
   setAllowEVM,
   setPublicSaleLeaderBoard,
   clearPublicSaleLeaderBoard,
+  setPublicSaleLeaderBoardVisual,
 } = slice.actions;
 
 export default slice.reducer;

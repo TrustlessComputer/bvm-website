@@ -6,14 +6,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { leaderBoardSelector } from '@/stores/states/user/selector';
-import { setLeaderBoard } from '@/stores/states/user/reducer';
-import { getPublicSaleLeaderBoards } from '@/services/public-sale';
+import { publicSaleLeaderBoardVisualSelector } from '@/stores/states/user/selector';
+import { setPublicSaleLeaderBoardVisual } from '@/stores/states/user/reducer';
+import { getPublicSaleLeaderBoards, getPublicSaleTop } from '@/services/public-sale';
 import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
 import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
 import AddMoreContribution from '@/modules/PublicSale/addMoreContribution';
 import { Tooltip } from '@chakra-ui/react';
 import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
+import { useSelector } from 'react-redux';
+import { LEADER_BOARD_MODE } from '@/modules/PublicSale/leaderBoardSwitch';
 
 export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
@@ -21,27 +23,24 @@ interface IProps {
 }
 
 const LeaderBoardVisual = (props: IProps) => {
-  const { list } = useAppSelector(leaderBoardSelector);
+  const { list } = useAppSelector(publicSaleLeaderBoardVisualSelector);
   const [listRender, setListRender] = useState<ILeaderBoardPoint[]>([]);
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
   const emptyArray: number[] = Array.from({ length: (13 * 5) });
   const indexUserInsert = Math.floor(Math.random() * emptyArray.length);
+  const leaderBoardMode = useSelector(commonSelector).leaderBoardMode;
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: 50,
+    limit: 23,
   });
   const refInitial = useRef(false);
 
   useEffect(() => {
     fetchData(true);
-  }, [needReload]);
-
-  const removeOwnerRecord = (arr: ILeaderBoardPoint[] = []) => {
-    return arr;
-  };
+  }, [needReload, leaderBoardMode]);
 
   const fetchData = async (isNew?: boolean) => {
     try {
@@ -51,37 +50,39 @@ const LeaderBoardVisual = (props: IProps) => {
           (item: ILeaderBoardPoint) => item.twitter_id,
         );
       };
-      const { data: response, count } = await getPublicSaleLeaderBoards({
+
+      const fnLoadData = leaderBoardMode === LEADER_BOARD_MODE.DAY ? getPublicSaleTop : getPublicSaleLeaderBoards;
+
+      const { data: response, count } = await fnLoadData({
         ...refParams.current,
       });
       if (isNew) {
-        const { data: response2 } = await getPublicSaleLeaderBoards({
-          page: 1,
-          limit: 0,
-        });
+        // const { data: response2 } = await fnLoadData({
+        //   page: 1,
+        //   limit: 0,
+        // });
         refParams.current = {
           ...refParams.current,
           page: 1,
         };
-        const reArr = removeOwnerRecord(response);
-        const arr = sortList(response2.concat(reArr));
+        const arr = sortList([...response]);
         dispatch(
-          setLeaderBoard({
+          setPublicSaleLeaderBoardVisual({
             list: arr,
             count,
           }),
         );
       } else {
-        const reArr = removeOwnerRecord(response);
-        const arr = sortList([...reArr]);
+        const arr = sortList([...response]);
         dispatch(
-          setLeaderBoard({
+          setPublicSaleLeaderBoardVisual({
             list: arr,
             count,
           }),
         );
       }
     } catch (error) {
+      console.log('LeaderBoardVisual error', error)
     } finally {
       // setIsFetching(false);
       hasIncrementedPageRef.current = false;
