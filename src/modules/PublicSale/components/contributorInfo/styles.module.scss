@@ -1,0 +1,21 @@
+.container {
+  .rowData {
+    > div {
+      &:first-child {
+        font-size: 12px;
+      }
+
+      &:last-child {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .boost {
+    background: -webkit-linear-gradient(90deg, #007659 0%, #35CCA6 100%);
+    background: -moz-linear-gradient(90deg, #007659 0%, #35CCA6 100%);
+    background: linear-gradient(90deg, #007659 0%, #35CCA6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

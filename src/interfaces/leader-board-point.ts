@@ -28,12 +28,13 @@ export interface ILeaderBoardPoint {
   eigenlayer_point: string;
   polygon_point: string;
   game_point: string;
+  alpha_point: string
+  manta_amount: string;
+  manta_point: string;
   levelRender?:number
   lastRender?:boolean
-  alpha_point: string;
   bvm_balance: string;
   eth_balance: string;
   btc_balance: string;
-  manta_amount: string;
-  manta_point: string;
+  usdt_value?:string;
 }

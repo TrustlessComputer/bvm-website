@@ -243,7 +243,7 @@ const Steps = () => {
     const tasks = [
       {
         title: 'Are you an L2 maxi?',
-        desc: 'The more TIA, MATIC,  and MANTA you hold, or the more ETH you stake on Eigen, the more points you\'ll get. Connect your MetaMask wallet to prove account ownership.',
+        desc: 'The more Optimism (OP) or Arbitrum (ARB) tokens you hold, the more ETH you stake on Blast or Base, the more points you’ll earn. Connect your MetaMask wallet to prove account ownership.',
         actionText: isNeedClaimOptimismPoint ? `Tweet to claim ${formatCurrency(allowOptimism.amount.unClaimedPoint, 0, 0)} pts` : 'How L2 maxi are you?',
         actionHandle: isNeedClaimOptimismPoint ? async () => {
           onShareOptimism();
@@ -270,8 +270,8 @@ const Steps = () => {
         }
       },
       {
-        title: 'Are you a Modular Blockchain Pioneer?',
-        desc: 'The more TIA you hold, or the more ETH you stake on Eigen, or the more MATIC you have on Polygon, the more points you\'ll get. Connect your Keplr, Leap, or MetaMask wallet to prove the account ownership.\n',
+        title: 'Are you a Modular pioneer?',
+        desc: 'You’ll earn more points if you hold TIA, MANTA, or MATIC or you stake ETH on Eigen. Connect your Keplr, Leap, or MetaMask wallet to prove the account ownership.',
         actionText: isNeedClaimCelestiaPoint ? `Tweet to claim ${formatCurrency(allowCelestia.amount.unClaimedPoint, 0, 0)} pts` : 'How modular are you?',
         actionHandle: isNeedClaimCelestiaPoint ? async () => {
           onShareModular();

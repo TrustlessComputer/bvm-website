@@ -22,6 +22,7 @@ export interface User {
   num_quote: string;
   num_post: string;
   boost: string;
+  guest_code: string;
 }
 
 export type EVMFieldType = "allowOptimism"
@@ -43,4 +44,5 @@ export interface UserState {
   airdropGenerativeUsers: any;
   airdropPerceptronsHolders: any;
   publicSaleLeaderBoard: ILeaderBoardPoint[];
+  publicSaleLeaderBoardVisual: ILeaderBoardPoint[];
 }

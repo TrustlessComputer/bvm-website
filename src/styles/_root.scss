@@ -1,9 +1,9 @@
 :root {
   background: #fff;
   color: #000;
-  font-variant: "none";
+  font-variant: 'none';
   --easeOutQuart: cubic-bezier(0.25, 1, 0.5, 1);
-  
+
   text-rendering: optimizeLegibility !important; //macOS
   -webkit-font-smoothing: antialiased !important; //macOS
 
@@ -18,4 +18,9 @@
 
 .maxWidth {
   max-width: 1600px;
+}
+
+.grecaptcha-badge {
+  opacity: 0 !important;
+  bottom: -9999999px !important;
 }

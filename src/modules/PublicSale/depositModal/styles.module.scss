@@ -61,6 +61,8 @@
 }
 
 .modalContent {
+  background-color: #292929 !important;
+
   :global {
     .chakra-modal__body {
       padding-left: rem(24) !important;
@@ -68,4 +70,97 @@
       padding-bottom: rem(24) !important;
     }
   }
+}
+
+.depositContent {
+  flex-direction: column;
+  .title {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+
+    color: #ffffff;
+    margin-top: 20px;
+  }
+  .desc {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: 0em;
+    text-align: center;
+    opacity: 0.7;
+    max-width: 60%;
+    line-height: 140%;
+    margin-top: 8px;
+  }
+}
+
+.btnSelectToken {
+  background: #0d0a04 !important;
+  border-radius: 100px !important;
+  padding: 6px 12px 6px 6px !important;
+  height: 38px !important;
+  min-width: 250px !important;
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  :global {
+    .chakra-menu__menuitem {
+      padding: 0;
+      width: fit-content;
+    }
+  }
+}
+
+.itemToken {
+  gap: 8px;
+}
+
+.qrCodeContainer {
+  background-image: url('/icons/bg_qr_code.png');
+  width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapTokenDepositDetail {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 80%;
+  padding: 12px;
+  flex-direction: column;
+  gap: 12px;
+  .wrapTokenDepositDetailItem {
+    flex-direction: column;
+    .wrapTokenDepositDetailItemTitle {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-bottom: 2px;
+    }
+    .wrapTokenDepositDetailItemValue {
+      font-weight: 700;
+      word-break: break-word;
+      line-height: 140%;
+    }
+    .wrapTokenDepositDetailItemValueAddress {
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      svg {
+        opacity: 0.7;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.balanceConvert {
+  font-weight: 700;
 }

@@ -8,17 +8,18 @@ const initialState: UserState = {
   leaderBoardCount: '',
   allowBTC: {
     status: [],
-    loaded: false
+    loaded: false,
   },
   allowCelestia: {
     status: [],
-    loaded: false
+    loaded: false,
   },
+  publicSaleLeaderBoard: [],
+  publicSaleLeaderBoardVisual: [],
   airdropAlphaUsers: null,
   airdropGMHolders: null,
   airdropGenerativeUsers: null,
   airdropPerceptronsHolders: null,
-  publicSaleLeaderBoard: []
 } as any;
 
 const slice = createSlice({
@@ -29,7 +30,10 @@ const slice = createSlice({
       state.user = action.payload;
     },
     setLeaderBoard: (state, action) => {
-      state.leaderBoard = uniqueBy([...state.leaderBoard, ...action.payload.list], item => item.twitter_id);
+      state.leaderBoard = uniqueBy(
+        [...state.leaderBoard, ...action.payload.list],
+        (item) => item.twitter_id,
+      );
       state.leaderBoardCount = action.payload.count;
     },
     setAllowBTC: (state, action) => {
@@ -66,7 +70,22 @@ const slice = createSlice({
       state.airdropPerceptronsHolders = action.payload;
     },
     setPublicSaleLeaderBoard: (state, action) => {
-      state.publicSaleLeaderBoard = uniqueBy([...action.payload.list], item => item.twitter_id);
+      state.publicSaleLeaderBoard = uniqueBy(
+        [...state.publicSaleLeaderBoard, ...action.payload.list],
+        (item) => item.twitter_id,
+      );
+    },
+    clearPublicSaleLeaderBoard: (state) => {
+      state.publicSaleLeaderBoard = [];
+    },
+    setPublicSaleLeaderBoardVisual: (state, action) => {
+      state.publicSaleLeaderBoardVisual = uniqueBy([...action.payload.list], item => item.twitter_id);
+    },
+    setGuestSecretCode: (state, action) => {
+      state.user = {
+        ...state.user,
+        guest_code: action.payload,
+      } as any;
     },
   },
 });
@@ -82,6 +101,9 @@ export const {
   setAirdropGenerativeUsers,
   setAirdropPerceptronsHolders,
   setPublicSaleLeaderBoard,
+  clearPublicSaleLeaderBoard,
+  setPublicSaleLeaderBoardVisual,
+  setGuestSecretCode,
 } = slice.actions;
 
 export default slice.reducer;

@@ -5,9 +5,9 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import styles from './styles.module.scss';
+import s from './styles.module.scss';
 import clsx from 'classnames';
 import AppLoading from '@/components/AppLoading';
 import { CDN_URL_ICONS } from '@/config';
@@ -16,9 +16,11 @@ import cs from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { publicSaleLeaderBoardSelector, userSelector } from '@/stores/states/user/selector';
-import { setPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
+import { clearPublicSaleLeaderBoard, setPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
 import { getPublicSaleLeaderBoards } from '@/services/public-sale';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
+import SvgInset from '@/components/SvgInset';
+import ContributorDetailInfo from '@/modules/PublicSale/components/contributorDetailInfo';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -70,14 +72,10 @@ const LeaderBoard = (props: IProps) => {
 
   useEffect(() => {
     if(isSearch) {
+      dispatch(clearPublicSaleLeaderBoard());
       fetchData(true);
     }
   }, [isSearch]);
-
-  const removeOwnerRecord = (arr: ILeaderBoardPoint[] = []) => {
-    // return remove(arr, v => !compareString(v.address, 'TESTTTTT'));
-    return arr;
-  };
 
   const fetchData = async (isNew?: boolean) => {
     try {
@@ -99,9 +97,7 @@ const LeaderBoard = (props: IProps) => {
           ...refParams.current,
           page: 1,
         };
-        const reArr = removeOwnerRecord(response);
-        let arr = response2;
-        arr = sortList(response2.concat(reArr));
+        const arr = sortList((userName ? [] : response2).concat(response));
 
         dispatch(
           setPublicSaleLeaderBoard({
@@ -112,8 +108,7 @@ const LeaderBoard = (props: IProps) => {
 
         setSubmitting && setSubmitting(false);
       } else {
-        const reArr = removeOwnerRecord(response);
-        const arr = sortList([...reArr]);
+        const arr = sortList([...response]);
         dispatch(
           setPublicSaleLeaderBoard({
             list: arr,
@@ -220,9 +215,9 @@ const LeaderBoard = (props: IProps) => {
                   name={data?.twitter_name || data?.twitter_username || ''}
                 />
                 <Flex width={'100%'} gap={'4px'} direction={'column'}>
-                  <p className={styles.title}>{data?.twitter_name || ''}</p>
+                  <p className={s.title}>{data?.twitter_name || ''}</p>
                   {data?.need_active && (
-                    <Text className={styles.subTitle}>YOU</Text>
+                    <Text className={s.subTitle}>YOU</Text>
                   )}
                 </Flex>
               </Flex>
@@ -254,21 +249,28 @@ const LeaderBoard = (props: IProps) => {
         },
         render(data: ILeaderBoardPoint) {
           return (
-            <Flex
-              gap={3}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
+            <Tooltip
+              minW="360px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="0px"
+              hasArrow
+              label={<ContributorDetailInfo data={data} />}
             >
-              <Flex direction={"column"} gap={2}>
-                <Text className={''}>
-                  {formatCurrency(data?.btc_balance, MIN_DECIMAL, MAX_DECIMAL)} BTC
-                </Text>
-                <Text className={''}>
-                  {formatCurrency(data?.eth_balance, MIN_DECIMAL, MAX_DECIMAL)} ETH
-                </Text>
+              <Flex
+                gap={3}
+                alignItems={'center'}
+                width={'100%'}
+                justifyContent={'center'}
+              >
+                <Flex direction={"column"} gap={2}>
+                  <Text className={s.title}>
+                    ${formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
+                  </Text>
+                </Flex>
               </Flex>
-            </Flex>
+            </Tooltip>
           );
         },
       },
@@ -304,9 +306,10 @@ const LeaderBoard = (props: IProps) => {
               justifyContent={'center'}
             >
               <Flex alignItems={'center'} gap={2}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)}
+                <Text className={s.bvm_amount}>
+                  {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)} BVM
                 </Text>
+                <Text className={s.bvm_percent}>({data?.bvm_point}%)</Text>
               </Flex>
             </Flex>
           );
@@ -340,20 +343,18 @@ const LeaderBoard = (props: IProps) => {
                 flexDirection="row"
                 gap="4px"
                 alignItems="center"
-                className={clsx(styles.tagBoost)}
+                className={clsx(s.tagBoost, (Number(data?.boost) || 0) <= 10 ? s.boostNormal : '')}
               >
-                <img
-                  style={{ width: 20 }}
-                  src={`${CDN_URL_ICONS}/${
-                    valueToImage?.[data?.boost] || 'flash_normal.svg'
-                  }`}
+                <SvgInset svgUrl={`${CDN_URL_ICONS}/${
+                  valueToImage?.[data?.boost] || 'flash_normal.svg'
+                }`}
                 />
                 <Text
                   className={cs(
-                    styles.title,
-                    styles.multiplier,
-                    styles[valueToClassName[`${data?.boost}`]],
-                    data.need_active && styles.isActiveRow,
+                    s.title,
+                    s.multiplier,
+                    s[valueToClassName[`${data?.boost}`]],
+                    data.need_active && s.isActiveRow,
                   )}
                 >
                   {data?.boost || 0}%
@@ -366,49 +367,8 @@ const LeaderBoard = (props: IProps) => {
     ];
   }, [user?.referral_code]);
 
-  // const remainingTime = () => {
-  //   const now = dayjs();
-
-  //   const tomorrow = dayjs()
-  //     .add(1, 'days')
-  //     .set('hour', 7)
-  //     .set('minute', 0)
-  //     .set('second', 0);
-
-  //   const millisecondsRemaining = tomorrow.valueOf() - now.valueOf();
-
-  //   return millisecondsRemaining;
-  // };
-
-  // const renderer = ({ hours, minutes, seconds, completed }: any) => {
-  //   if (completed) {
-  //     // Render a completed state
-  //     return <></>;
-  //   } else {
-  //     // Render a countdown
-  //     return (
-  //       <span>
-  //         {hours}h : {minutes}m : {seconds}s
-  //       </span>
-  //     );
-  //   }
-  // };
-
-  const renderTimeLine = (params: { content: React.ReactNode }) => {
-    return (
-      <Flex gap="6px" alignItems="center" width="fit-content">
-        <img
-          style={{ width: 4, height: 4 }}
-          src={`${CDN_URL_ICONS}/ic-dot.svg`}
-          alt="ic-dot"
-        />
-        {params.content}
-      </Flex>
-    );
-  };
-
   return (
-    <Box className={styles.container} height="65dvh" id={LEADER_BOARD_ID}>
+    <Box className={s.container} height="65dvh" id={LEADER_BOARD_ID}>
       <ScrollWrapper
         onFetch={() => {
           refParams.current = {
@@ -421,15 +381,15 @@ const LeaderBoard = (props: IProps) => {
         isFetching={refreshing}
         hasIncrementedPageRef={hasIncrementedPageRef}
         onFetchNewData={onRefresh}
-        wrapClassName={styles.wrapScroll}
+        wrapClassName={s.wrapScroll}
         hideScrollBar={false}
       >
         <ListTable
           data={list}
           columns={columns}
-          className={styles.tableContainer}
+          className={s.tableContainer}
         />
-        {isFetching && <AppLoading className={styles.loading} />}
+        {isFetching && <AppLoading className={s.loading} />}
       </ScrollWrapper>
     </Box>
   );

@@ -35,3 +35,7 @@ export const airdropPerceptronsHoldersSelector = (state: RootState) => state.use
 export const publicSaleLeaderBoardSelector = (state: RootState) => ({
   list: (state.user?.publicSaleLeaderBoard || []) as ILeaderBoardPoint[],
 });
+
+export const publicSaleLeaderBoardVisualSelector = (state: RootState) => ({
+  list: (state.user?.publicSaleLeaderBoardVisual || []) as ILeaderBoardPoint[],
+});

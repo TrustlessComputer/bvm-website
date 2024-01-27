@@ -8,7 +8,7 @@ import { compareString } from '@/utils/string';
 import { commonSelector } from '@/stores/states/common/selector';
 import { setLeaderBoardMode } from '@/stores/states/common/reducer';
 
-const LEADER_BOARD_MODE = {
+export const LEADER_BOARD_MODE = {
   DAY: 0,
   ALL: 1,
 }
