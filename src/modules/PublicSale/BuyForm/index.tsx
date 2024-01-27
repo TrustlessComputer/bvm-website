@@ -8,7 +8,11 @@ import {
   postPublicsaleWalletInfo,
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
-import { IPublicSaleDepositInfo, PublicSaleWalletInfo, VCInfo } from '@/interfaces/vc';
+import {
+  IPublicSaleDepositInfo,
+  PublicSaleWalletInfo,
+  VCInfo,
+} from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
@@ -18,6 +22,7 @@ import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import DepositModal from '@/modules/PublicSale/depositModal';
 import HorizontalItem from '@/components/HorizontalItem';
 import ContributorsModal from '@/modules/PublicSale/contributorModal';
+import AuthForBuy from '../AuthForBuy';
 
 export const TIME_CHAIN_EXPIRED_TIME = '2024-01-26 18:00:00';
 
@@ -30,15 +35,27 @@ const DELAY = 2;
 interface IColumnProps {
   value: any;
   title: any;
-  className?: any
+  className?: any;
 }
 
 const Column = forwardRef((props: IColumnProps, ref: any) => {
   const { value, title, className, ...rest } = props;
   return (
-    <Flex className={className} ref={ref} {...rest} direction={'column'} justifyContent={'flex-start'} flex={1} gap={1}>
-      <Text fontSize={'14px'} fontWeight={400}>{title}</Text>
-      <Text fontSize={'22px'} fontWeight={500} color={'#FFFFFF'}>{value}</Text>
+    <Flex
+      className={className}
+      ref={ref}
+      {...rest}
+      direction={'column'}
+      justifyContent={'flex-start'}
+      flex={1}
+      gap={1}
+    >
+      <Text fontSize={'14px'} fontWeight={400}>
+        {title}
+      </Text>
+      <Text fontSize={'22px'} fontWeight={500} color={'#FFFFFF'}>
+        {value}
+      </Text>
     </Flex>
   );
 });
@@ -48,7 +65,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const [showQrCode, setShowQrCode] = useState(false);
   const [saleWalletInfo, setSaleWalletInfo] = useState<PublicSaleWalletInfo>();
   const user = useAppSelector(userSelector);
-  const [contributeInfo, setContributeInfo] = useState<IPublicSaleDepositInfo>();
+  const [contributeInfo, setContributeInfo] =
+    useState<IPublicSaleDepositInfo>();
   const [isEnd, setIsEnd] = React.useState(
     dayjs
       .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
@@ -83,16 +101,17 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   };
 
   const onSubmit = async (values: FormValues) => {
-    try {
-      setIsCreating(true);
-      const result = await postPublicsaleWalletInfo();
-      setSaleWalletInfo(result);
-      setShowQrCode(true);
-    } catch (error) {
-      toast.error('Can not verify the post.');
-    } finally {
-      setIsCreating(false);
-    }
+    setShowQrCode(true);
+    // try {
+    //   setIsCreating(true);
+    //   const result = await postPublicsaleWalletInfo();
+    //   setSaleWalletInfo(result);
+    //   setShowQrCode(true);
+    // } catch (error) {
+    //   toast.error('Can not verify the post.');
+    // } finally {
+    //   setIsCreating(false);
+    // }
   };
 
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
@@ -113,29 +132,68 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   const ContributorInfo = () => {
     return (
-      <Flex direction={'column'} w={'284px'} gap={3} className={s.contributorInfo}>
-        <HorizontalItem className={s.rowData} label={'USER'} value={'clinkzchan'} />
+      <Flex
+        direction={'column'}
+        w={'284px'}
+        gap={3}
+        className={s.contributorInfo}
+      >
+        <HorizontalItem
+          className={s.rowData}
+          label={'USER'}
+          value={'clinkzchan'}
+        />
         <HorizontalItem className={s.rowData} label={'RANK'} value={'1,000'} />
-        <HorizontalItem className={s.rowData} label={'CONTRIBUTION'} value={'$120,000'} />
-        <HorizontalItem className={s.rowData} label={'ALLOCATION'} value={<Text color={'#FF5312'}>15 BVM</Text>} />
-        <HorizontalItem className={s.rowData} label={'BOOST'} value={
-          <Flex gap={1} alignItems={'center'}>
-            <svg width='14' height='20' viewBox='0 0 14 20' fill='none'
-                 xmlns='http://www.w3.org/2000/svg'>
-              <path
-                d='M13.6663 8.18093H8.21179L9.42391 0.908203L0.333008 11.8173H5.78755L4.57543 19.09L13.6663 8.18093Z'
-                fill='url(#paint0_linear_29823_6261)' />
-              <defs>
-                <linearGradient id='paint0_linear_29823_6261' x1='0.333008' y1='9.99911' x2='13.6663'
-                                y2='9.99911' gradientUnits='userSpaceOnUse'>
-                  <stop stop-color='#007659' />
-                  <stop offset='1' stop-color='#35CCA6' />
-                </linearGradient>
-              </defs>
-            </svg>
-            <Text fontSize={'16px'} fontWeight={'500'} className={s.boostLight}>10%</Text>
-          </Flex>
-        } />
+        <HorizontalItem
+          className={s.rowData}
+          label={'CONTRIBUTION'}
+          value={'$120,000'}
+        />
+        <HorizontalItem
+          className={s.rowData}
+          label={'ALLOCATION'}
+          value={<Text color={'#FF5312'}>15 BVM</Text>}
+        />
+        <HorizontalItem
+          className={s.rowData}
+          label={'BOOST'}
+          value={
+            <Flex gap={1} alignItems={'center'}>
+              <svg
+                width="14"
+                height="20"
+                viewBox="0 0 14 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13.6663 8.18093H8.21179L9.42391 0.908203L0.333008 11.8173H5.78755L4.57543 19.09L13.6663 8.18093Z"
+                  fill="url(#paint0_linear_29823_6261)"
+                />
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_29823_6261"
+                    x1="0.333008"
+                    y1="9.99911"
+                    x2="13.6663"
+                    y2="9.99911"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#007659" />
+                    <stop offset="1" stop-color="#35CCA6" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <Text
+                fontSize={'16px'}
+                fontWeight={'500'}
+                className={s.boostLight}
+              >
+                10%
+              </Text>
+            </Flex>
+          }
+        />
       </Flex>
     );
   };
@@ -143,45 +201,88 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const ContributorBlock = forwardRef((props: any, ref: any) => {
     const { className, ...rest } = props;
     return (
-      <Column className={className} ref={ref} {...rest} value={
-        <Flex direction={'column'}>
-          <Flex gap={1} alignItems={'center'}>
-            <Text>$100,000</Text>
+      <Column
+        className={className}
+        ref={ref}
+        {...rest}
+        value={
+          <Flex direction={'column'}>
+            <Flex gap={1} alignItems={'center'}>
+              <Text>$100,000</Text>
+            </Flex>
+            <Flex
+              gap={1}
+              w={'fit-content'}
+              p={'3px 8px'}
+              alignItems={'center'}
+              bg={
+                'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'
+              }
+            >
+              <Text fontSize={'10px'} fontWeight={'400'} color={'#FFFFFF'}>
+                YOU GET
+              </Text>
+              <Text fontSize={'12px'} fontWeight={'600'} className={s.youGet}>
+                15 BVM
+              </Text>
+              <Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFFF'}>
+                (0.05%)
+              </Text>
+            </Flex>
           </Flex>
-          <Flex gap={1} w={'fit-content'} p={'3px 8px'} alignItems={'center'}
-                bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}>
-            <Text fontSize={'10px'} fontWeight={'400'} color={'#FFFFFF'}>YOU GET</Text>
-            <Text fontSize={'12px'} fontWeight={'600'} className={s.youGet}>15 BVM</Text>
-            <Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFFF'}>(0.05%)</Text>
+        }
+        title={
+          <Flex justifyContent={'space-between'}>
+            <Text>Your contribution</Text>
+            <Flex gap={1} alignItems={'center'}>
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 17 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_29914_7369)">
+                  <path
+                    d="M13.6676 7.32502H9.304L10.2737 1.50684L3.00098 10.2341H7.36461L6.39491 16.0523L13.6676 7.32502Z"
+                    fill="url(#paint0_linear_29914_7369)"
+                  />
+                </g>
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_29914_7369"
+                    x1="3.00098"
+                    y1="8.77956"
+                    x2="13.6676"
+                    y2="8.77956"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="white" />
+                    <stop offset="1" stop-color="#35CCA6" />
+                  </linearGradient>
+                  <clipPath id="clip0_29914_7369">
+                    <rect
+                      width="16"
+                      height="16"
+                      fill="white"
+                      transform="translate(0.333984 0.780273)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+              <Text
+                fontSize={'14px'}
+                fontWeight={'500'}
+                color={'rgba(255, 255, 255, 0.7)'}
+                className={s.boost}
+              >
+                20%
+              </Text>
+            </Flex>
           </Flex>
-        </Flex>
-      } title={
-        <Flex justifyContent={'space-between'}>
-          <Text>Your contribution</Text>
-          <Flex gap={1} alignItems={'center'}>
-            <svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
-              <g clip-path='url(#clip0_29914_7369)'>
-                <path
-                  d='M13.6676 7.32502H9.304L10.2737 1.50684L3.00098 10.2341H7.36461L6.39491 16.0523L13.6676 7.32502Z'
-                  fill='url(#paint0_linear_29914_7369)' />
-              </g>
-              <defs>
-                <linearGradient id='paint0_linear_29914_7369' x1='3.00098' y1='8.77956' x2='13.6676'
-                                y2='8.77956' gradientUnits='userSpaceOnUse'>
-                  <stop stop-color='white' />
-                  <stop offset='1' stop-color='#35CCA6' />
-                </linearGradient>
-                <clipPath id='clip0_29914_7369'>
-                  <rect width='16' height='16' fill='white' transform='translate(0.333984 0.780273)' />
-                </clipPath>
-              </defs>
-            </svg>
-            <Text fontSize={'14px'} fontWeight={'500'} color={'rgba(255, 255, 255, 0.7)'}
-                  className={s.boost}>20%</Text>
-          </Flex>
-        </Flex>
-      } />
-    )
+        }
+      />
+    );
   });
 
   return (
@@ -191,59 +292,75 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           <Text className={s.title}>Total Funded</Text>
           <Text className={s.fundValue}>$9,233,476</Text>
           <Flex className={s.boxInfo} gap={4} width={'100%'}>
-            <Column value={
-              <Flex direction={'column'}>
-                <Text>{formatCurrency(contributeInfo?.total_user, 0, 0, 'BTC', true)}</Text>
-                <Text
-                  fontSize={'12px'}
-                  fontWeight={'400'}
-                  color={'#FA4E0E'}
-                  textDecoration={'underline'}
-                  mt={1}
-                  onClick={() => setShowContributorModal(true)}
-                  cursor={'pointer'}
-                >View all</Text>
-              </Flex>
-            } title={'Contributors'} />
+            <Column
+              value={
+                <Flex direction={'column'}>
+                  <Text>
+                    {formatCurrency(
+                      contributeInfo?.total_user,
+                      0,
+                      0,
+                      'BTC',
+                      true,
+                    )}
+                  </Text>
+                  <Text
+                    fontSize={'12px'}
+                    fontWeight={'400'}
+                    color={'#FA4E0E'}
+                    textDecoration={'underline'}
+                    mt={1}
+                    onClick={() => setShowContributorModal(true)}
+                    cursor={'pointer'}
+                  >
+                    View all
+                  </Text>
+                </Flex>
+              }
+              title={'Contributors'}
+            />
 
-            {
-              user?.twitter_id ? (
-                <Tooltip minW='220px'
-                         bg='white'
-                         boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
-                         borderRadius='4px'
-                         padding='16px'
-                         hasArrow
-                         label={
-                           <ContributorInfo />
-                         }
-                >
-                  <ContributorBlock className={s.contributorBlock}/>
-                </Tooltip>
-              ) : (
-                <ContributorBlock />
-              )
-            }
-            <Column value={
-              <Countdown
-                className={s.time}
-                expiredTime={dayjs.utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
-                hideIcon={true}
-                onRefreshEnd={() => setIsEnd(true)}
-              />
-            } title={'Ends in'} />
-
+            {user?.twitter_id ? (
+              <Tooltip
+                minW="220px"
+                bg="white"
+                boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                borderRadius="4px"
+                padding="16px"
+                hasArrow
+                label={<ContributorInfo />}
+              >
+                <ContributorBlock className={s.contributorBlock} />
+              </Tooltip>
+            ) : (
+              <ContributorBlock />
+            )}
+            <Column
+              value={
+                <Countdown
+                  className={s.time}
+                  expiredTime={dayjs
+                    .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
+                    .toString()}
+                  hideIcon={true}
+                  onRefreshEnd={() => setIsEnd(true)}
+                />
+              }
+              title={'Ends in'}
+            />
           </Flex>
           <Flex gap={6} direction={'column'} width={'100%'}>
-            <Button
-              type='submit'
-              isDisabled={isCreating}
-              isLoading={isCreating}
-              // loadingText={'Submitting...'}
-              className={s.button}
-            >
-              {user?.twitter_id ? 'Buy $BVM' : 'Tweet to buy'}
-            </Button>
+            <AuthForBuy>
+              <Button
+                type="submit"
+                isDisabled={isCreating}
+                isLoading={isCreating}
+                // loadingText={'Submitting...'}
+                className={s.button}
+              >
+                Buy $BVM
+              </Button>
+            </AuthForBuy>
           </Flex>
           <DepositModal
             isShow={showQrCode}

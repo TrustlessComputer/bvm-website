@@ -8,13 +8,13 @@ const initialState: UserState = {
   leaderBoardCount: '',
   allowBTC: {
     status: [],
-    loaded: false
+    loaded: false,
   },
   allowCelestia: {
     status: [],
-    loaded: false
+    loaded: false,
   },
-  publicSaleLeaderBoard: []
+  publicSaleLeaderBoard: [],
 } as any;
 
 const slice = createSlice({
@@ -25,7 +25,10 @@ const slice = createSlice({
       state.user = action.payload;
     },
     setLeaderBoard: (state, action) => {
-      state.leaderBoard = uniqueBy([...state.leaderBoard, ...action.payload.list], item => item.twitter_id);
+      state.leaderBoard = uniqueBy(
+        [...state.leaderBoard, ...action.payload.list],
+        (item) => item.twitter_id,
+      );
       state.leaderBoardCount = action.payload.count;
     },
     setAllowBTC: (state, action) => {
@@ -50,10 +53,19 @@ const slice = createSlice({
       }
     },
     setPublicSaleLeaderBoard: (state, action) => {
-      state.publicSaleLeaderBoard = uniqueBy([...state.publicSaleLeaderBoard, ...action.payload.list], item => item.twitter_id);
+      state.publicSaleLeaderBoard = uniqueBy(
+        [...state.publicSaleLeaderBoard, ...action.payload.list],
+        (item) => item.twitter_id,
+      );
     },
     clearPublicSaleLeaderBoard: (state) => {
       state.publicSaleLeaderBoard = [];
+    },
+    setGuestSecretCode: (state, action) => {
+      state.user = {
+        ...state.user,
+        guest_code: action.payload,
+      } as any;
     },
   },
 });
@@ -66,6 +78,7 @@ export const {
   setAllowEVM,
   setPublicSaleLeaderBoard,
   clearPublicSaleLeaderBoard,
+  setGuestSecretCode,
 } = slice.actions;
 
 export default slice.reducer;

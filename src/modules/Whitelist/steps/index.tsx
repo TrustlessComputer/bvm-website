@@ -35,7 +35,7 @@ import { signMessage as signEVMMessage } from '@/utils/metamask-helper';
 import { EVMFieldType } from '@/stores/states/user/types';
 import { AirdropType } from '@/modules/Whitelist/stepAirdrop/Step';
 
-interface IAuthenCode {
+export interface IAuthenCode {
   public_code: string;
   secret_code: string;
 }

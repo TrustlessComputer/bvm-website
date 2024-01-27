@@ -1,0 +1,39 @@
+.btnWrapper {
+  gap: 10px;
+  align-items: center;
+}
+
+.btnContainer {
+  height: 48px !important;
+  padding: 8px 60px !important;
+  border-radius: 0px !important;
+  background: #fa4e0e !important;
+  color: #fff !important;
+  width: 100%;
+  font-weight: normal !important;
+  &.btnBuyAsGuest {
+    background: gray !important;
+  }
+}
+
+.copyLinkContainer {
+  align-items: center;
+  gap: 5px;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.backupNow {
+  align-items: center;
+  gap: 5px;
+  background-color: rgba(255, 94, 40, 0.1);
+  padding: 10px 20px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.modalContent {
+  background-color: #292929 !important;
+}
