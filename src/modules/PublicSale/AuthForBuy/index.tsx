@@ -143,6 +143,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
         onHide={onClose}
         title={isBuyGuest ? 'Buy as guest' : 'Tweet to Buy'}
         className={s.modalContent}
+        headerClassName={s.modalHeader}
         size="small"
       >
         {isBuyGuest ? (

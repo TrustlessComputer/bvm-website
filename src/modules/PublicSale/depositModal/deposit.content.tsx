@@ -7,15 +7,7 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { userSelector } from '@/stores/states/user/selector';
 import { formatCurrency } from '@/utils/format';
 import { compareString } from '@/utils/string';
-import {
-  Box,
-  Center,
-  Flex,
-  Menu,
-  MenuButton,
-  MenuList,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Center, Flex, Menu, MenuButton, MenuList, Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import copy from 'copy-to-clipboard';
 import { useEffect, useMemo, useState } from 'react';
@@ -149,7 +141,7 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
           </Flex>
           <Box mt={'12px'} />
           <Text className={s.balanceConvert}>
-            ${amount_usd} ={' '}
+            ${formatCurrency(amount_usd, 0, 0, 'BTC', true)} ={' '}
             {formatCurrency(convertAmountUsdtToToken, 2, 2, 'BTC', true)}{' '}
             {selectToken.coin}
           </Text>
