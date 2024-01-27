@@ -1,33 +1,29 @@
-import { useAppSelector } from '@/stores/hooks';
-import { userSelector } from '@/stores/states/user/selector';
-import AuthenStorage from '@/utils/storage/authen.storage';
-import { useEffect, useMemo, useState } from 'react';
-import { BARER_TOKEN_GUEST, SECRET_CODE_GUEST } from '../AuthForBuy/buyAsGuest';
+import AppLoading from '@/components/AppLoading';
+import SvgInset from '@/components/SvgInset';
+import { PublicSaleWalletTokenDeposit } from '@/interfaces/vc';
 import { getPublicsaleWalletInfo } from '@/services/public-sale';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
+import { userSelector } from '@/stores/states/user/selector';
+import { formatCurrency } from '@/utils/format';
+import { compareString } from '@/utils/string';
 import {
   Box,
-  Button,
   Center,
-  Divider,
   Flex,
   Menu,
   MenuButton,
   MenuList,
   Text,
 } from '@chakra-ui/react';
-import AppLoading from '@/components/AppLoading';
-import { PublicSaleWalletTokenDeposit } from '@/interfaces/vc';
-import s from './styles.module.scss';
-import DepositContentItem from './deposit.content.item';
-import SvgInset from '@/components/SvgInset';
-import QRCode from 'react-qr-code';
-import copy from 'copy-to-clipboard';
-import toast from 'react-hot-toast';
-import { useSelector } from 'react-redux';
-import { commonSelector } from '@/stores/states/common/selector';
 import BigNumber from 'bignumber.js';
-import { formatCurrency } from '@/utils/format';
-import { compareString } from '@/utils/string';
+import copy from 'copy-to-clipboard';
+import { useEffect, useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
+import QRCode from 'react-qr-code';
+import { useSelector } from 'react-redux';
+import DepositContentItem from './deposit.content.item';
+import s from './styles.module.scss';
 
 interface IDepositContent {
   amount_usd?: string;
@@ -35,9 +31,7 @@ interface IDepositContent {
 
 const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
   const user = useAppSelector(userSelector);
-  const token = AuthenStorage.getAuthenKey();
   const [loading, setLoading] = useState(true);
-  const barerTokenGuest = AuthenStorage.getGuestAuthenKey();
   const [tokens, setTokens] = useState<PublicSaleWalletTokenDeposit[]>([]);
   const [selectToken, setSelectToken] = useState<
     PublicSaleWalletTokenDeposit | undefined
