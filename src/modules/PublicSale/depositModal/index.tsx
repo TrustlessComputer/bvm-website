@@ -9,21 +9,8 @@ import s from './styles.module.scss';
 const DepositModal = ({
   isShow,
   onHide,
-  saleWalletInfo,
   payAmountUsd,
 }: any) => {
-  const coinPrices = useSelector(commonSelector).coinPrices;
-  const btcPrice = useMemo(() => coinPrices?.['BTC'] || '0', [coinPrices]);
-  const ethPrice = useMemo(() => coinPrices?.['ETH'] || '0', [coinPrices]);
-
-  const payAmountBtc = useMemo(() => {
-    return new BigNumber(payAmountUsd).dividedBy(btcPrice).toString();
-  }, [payAmountUsd, btcPrice]);
-
-  const payAmountEth = useMemo(() => {
-    return new BigNumber(payAmountUsd).dividedBy(ethPrice).toString();
-  }, [payAmountUsd, ethPrice]);
-
   return (
     <BaseModal
       isShow={isShow}
@@ -33,7 +20,7 @@ const DepositModal = ({
       className={s.modalContent}
       size="small"
     >
-      <DepositContent />
+      <DepositContent amount_usd={payAmountUsd}/>
     </BaseModal>
   );
 };

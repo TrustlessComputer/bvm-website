@@ -66,7 +66,6 @@ const Column = forwardRef((props: IColumnProps, ref: any) => {
 const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
-  const [saleWalletInfo, setSaleWalletInfo] = useState<PublicSaleWalletInfo>();
   const user = useAppSelector(userSelector);
   const [contributeInfo, setContributeInfo] =
     useState<IPublicSaleDepositInfo>();
@@ -88,20 +87,14 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   useEffect(() => {
     getContributeInfo();
 
-    if (user?.twitter_id) {
-      getVentureInfo();
+    if (user?.twitter_id || user?.guest_code) {
       getUserContributeInfo();
     }
-  }, [user?.twitter_id]);
+  }, [user?.twitter_id, user?.guest_code]);
 
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
     setContributeInfo(res);
-  };
-
-  const getVentureInfo = async () => {
-    const result = await getPublicsaleWalletInfo();
-    setSaleWalletInfo(result);
   };
 
   const getUserContributeInfo = async () => {
@@ -116,7 +109,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const handleRecheckDeposit = async () => {
     await postPublicsaleWalletInfoManualCheck();
     toast.success('Recheck deposit amount successfully!');
-    getVentureInfo();
   };
 
   const onSubmit = async (values: FormValues) => {
@@ -351,7 +343,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           <DepositModal
             isShow={showQrCode}
             onHide={() => setShowQrCode(false)}
-            saleWalletInfo={saleWalletInfo}
           />
           <ContributorsModal
             isShow={showContributorModal}
