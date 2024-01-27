@@ -30,3 +30,7 @@ export const allowEVMSelector = (state: RootState) => (type: EVMFieldType) => {
 export const publicSaleLeaderBoardSelector = (state: RootState) => ({
   list: (state.user?.publicSaleLeaderBoard || []) as ILeaderBoardPoint[],
 });
+
+export const publicSaleLeaderBoardVisualSelector = (state: RootState) => ({
+  list: (state.user?.publicSaleLeaderBoardVisual || []) as ILeaderBoardPoint[],
+});
