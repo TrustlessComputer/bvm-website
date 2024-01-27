@@ -53,3 +53,8 @@ export const getPublicSaleSummary = async (): Promise<IPublicSaleDepositInfo> =>
   const res = (await apiClient.get(`/bvm/sale/summary`)) as unknown as IPublicSaleDepositInfo;
   return res;
 };
+
+export const getPublicSaleContributionLatest = async (): Promise<ILeaderBoardPoint[]> => {
+  const res = (await apiClient.get(`/bvm/sale/latest`)) as unknown as ILeaderBoardPoint[];
+  return res;
+};

@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { publicSaleLeaderBoardVisualSelector } from '@/stores/states/user/selector';
 import { setPublicSaleLeaderBoardVisual } from '@/stores/states/user/reducer';
-import { getPublicSaleLeaderBoards, getPublicSaleTop } from '@/services/public-sale';
+import { getPublicSaleContributionLatest, getPublicSaleLeaderBoards, getPublicSaleTop } from '@/services/public-sale';
 import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
 import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
 import AddMoreContribution from '@/modules/PublicSale/addMoreContribution';
@@ -30,6 +30,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const emptyArray: number[] = Array.from({ length: (13 * 5) });
   const indexUserInsert = Math.floor(Math.random() * emptyArray.length);
   const leaderBoardMode = useSelector(commonSelector).leaderBoardMode;
+  const [latestContributors, setLatestContributors] = useState<ILeaderBoardPoint[]>([]);
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -37,6 +38,16 @@ const LeaderBoardVisual = (props: IProps) => {
     limit: 23,
   });
   const refInitial = useRef(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchLatestData();
+    }, 10000);
+
+    return () => {
+      clearInterval(interval);
+    }
+  }, []);
 
   useEffect(() => {
     fetchData(true);
@@ -90,6 +101,10 @@ const LeaderBoardVisual = (props: IProps) => {
     }
   };
 
+  const fetchLatestData = async () => {
+    const res = await getPublicSaleContributionLatest();
+    setLatestContributors(res);
+  }
 
   useEffect(() => {
 
@@ -180,7 +195,7 @@ const LeaderBoardVisual = (props: IProps) => {
         {/*</div>*/}
         <AddMoreContribution />
       </ScrollWrapper>
-      <AnimatedText />
+      <AnimatedText latestContributors={latestContributors}/>
     </div>
   );
 };
