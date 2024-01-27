@@ -1,12 +1,8 @@
 import s from './styles.module.scss';
-import { Center, Divider, Flex, Text } from '@chakra-ui/react';
+import { Divider, Flex, Text } from '@chakra-ui/react';
 import cx from 'clsx';
 import DepositModal from '@/modules/PublicSale/depositModal';
-import React, { useEffect, useState } from 'react';
-import { PublicSaleWalletInfo } from '@/interfaces/vc';
-import { getPublicsaleWalletInfo } from '@/services/public-sale';
-import { useAppSelector } from '@/stores/hooks';
-import { userSelector } from '@/stores/states/user/selector';
+import React, { useState } from 'react';
 
 const AMOUNTS = [
   {key: 0, title: '$100', value: 100},
@@ -18,20 +14,7 @@ const AMOUNTS = [
 
 const AddMoreContribution = () => {
   const [showQrCode, setShowQrCode] = useState(false);
-  const [saleWalletInfo, setSaleWalletInfo] = useState<PublicSaleWalletInfo>();
-  const user = useAppSelector(userSelector);
   const [selectedAmount, setSelectedAmount] = useState<any>();
-
-  useEffect(() => {
-    if (user?.twitter_id) {
-      getVentureInfo();
-    }
-  }, [user?.twitter_id]);
-
-  const getVentureInfo = async () => {
-    const result = await getPublicsaleWalletInfo();
-    setSaleWalletInfo(result);
-  };
 
   return (
     <Flex className={s.container}>
@@ -84,7 +67,6 @@ const AddMoreContribution = () => {
       <DepositModal
         isShow={showQrCode}
         onHide={() => setShowQrCode(false)}
-        saleWalletInfo={saleWalletInfo}
         payAmountUsd={selectedAmount?.value}
       />
     </Flex>

@@ -5,7 +5,7 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import clsx from 'classnames';
@@ -20,6 +20,7 @@ import { clearPublicSaleLeaderBoard, setPublicSaleLeaderBoard } from '@/stores/s
 import { getPublicSaleLeaderBoards } from '@/services/public-sale';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 import SvgInset from '@/components/SvgInset';
+import ContributorDetailInfo from '@/modules/PublicSale/components/contributorDetailInfo';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -248,18 +249,28 @@ const LeaderBoard = (props: IProps) => {
         },
         render(data: ILeaderBoardPoint) {
           return (
-            <Flex
-              gap={3}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
+            <Tooltip
+              minW="360px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="0px"
+              hasArrow
+              label={<ContributorDetailInfo data={data} />}
             >
-              <Flex direction={"column"} gap={2}>
-                <Text className={s.title}>
-                  ${formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
-                </Text>
+              <Flex
+                gap={3}
+                alignItems={'center'}
+                width={'100%'}
+                justifyContent={'center'}
+              >
+                <Flex direction={"column"} gap={2}>
+                  <Text className={s.title}>
+                    ${formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
+                  </Text>
+                </Flex>
               </Flex>
-            </Flex>
+            </Tooltip>
           );
         },
       },

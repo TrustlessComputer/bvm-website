@@ -1,0 +1,33 @@
+.container {
+  .tableContainer {
+    thead {
+      tr {
+        th {
+          border-bottom: none;
+          padding-bottom: 16px !important;
+          &:nth-child(2), &:nth-child(3) {
+            > div {
+              justify-content: flex-end;
+            }
+          }
+        }
+      }
+    }
+
+    thead,
+    tbody {
+      tr {
+        th,
+        td {
+          //padding-right: 18px !important;
+          //&:nth-child(1) {
+          //  width: 55px !important;
+          //}
+          //&:nth-child(3) {
+          //  min-width: 110px !important;
+          //}
+        }
+      }
+    }
+  }
+}
