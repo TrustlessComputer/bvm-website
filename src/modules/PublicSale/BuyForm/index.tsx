@@ -279,7 +279,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           </Text>
           <Grid className={s.boxInfo} width={'100%'}>
             <GridItem>
-              <Flex alignItems={'center'} gap={'16px'} >
+              <Flex alignItems={'center'} gap={'16px'} direction={["column", "row"]}>
                 <Column
                   className={s.blockItem}
                   value={
