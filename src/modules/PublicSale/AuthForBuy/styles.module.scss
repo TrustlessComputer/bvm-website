@@ -1,6 +1,6 @@
 .btnWrapper {
-  gap: 10px;
-  align-items: center;
+  grid-gap: 16px;
+  grid-template-columns: 2fr 1fr;
 }
 
 .btnContainer {
@@ -11,8 +11,10 @@
   color: #fff !important;
   width: 100%;
   font-weight: normal !important;
+  gap: 8px;
   &.btnBuyAsGuest {
-    background: gray !important;
+    background: #ffffff !important;
+    color: #000000 !important;
   }
 }
 
@@ -27,19 +29,53 @@
 
 .backupNow {
   align-items: center;
-  gap: 5px;
-  background-color: rgba(255, 94, 40, 0.1);
-  padding: 10px 20px;
-  border-radius: 100px;
+  gap: 50px;
+  background: linear-gradient(
+      0deg,
+      rgba(250, 78, 14, 0.4),
+      rgba(250, 78, 14, 0.4)
+    ),
+    linear-gradient(0deg, rgba(250, 78, 14, 0.1), rgba(250, 78, 14, 0.1));
+
+  padding: 8px;
   cursor: pointer;
+  border: 1px solid #fa4e0e66;
 }
 
 .modalHeader {
   p {
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 
 .modalContent {
   background-color: #292929 !important;
+  &.deposit {
+    max-width: 600px !important;
+  }
+}
+
+.btnTweetToSign {
+  width: 100% !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  padding: 6px !important;
+  height: auto !important;
+  border-radius: 0px !important;
+  &.btnPrimary {
+    background: #fa4e0e !important;
+  }
+  .boxIcon {
+    width: 36px;
+    height: 36px;
+    background-color: #000000;
+  }
+}
+
+.wrapSecretKey {
+  background: #ffffff12;
+  padding: 20px 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
 }

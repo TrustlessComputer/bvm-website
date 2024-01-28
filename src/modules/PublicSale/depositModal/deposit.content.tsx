@@ -7,14 +7,24 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { userSelector } from '@/stores/states/user/selector';
 import { formatCurrency } from '@/utils/format';
 import { compareString } from '@/utils/string';
-import { Box, Center, Flex, Menu, MenuButton, MenuList, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Center,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuList,
+  Text,
+} from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import copy from 'copy-to-clipboard';
 import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
 import { useSelector } from 'react-redux';
-import DepositContentItem from './deposit.content.item';
+import DepositContentItem, {
+  DepositContentItem2,
+} from './deposit.content.item';
 import s from './styles.module.scss';
 
 interface IDepositContent {
@@ -80,14 +90,14 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
   }
 
   return (
-    <Center className={s.depositContent}>
-      <Text className={s.title}>Deposit</Text>
-      <Text className={s.desc}>
+    <Flex className={s.depositContent}>
+      {/* <Text className={s.title}>Deposit</Text> */}
+      {/* <Text className={s.desc}>
         Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
         suscipit laboriosam.
-      </Text>
-      <Box mt={'20px'} />
-      <Menu>
+      </Text> */}
+      {/* <Box mt={'20px'} /> */}
+      {/* <Menu>
         <MenuButton className={s.btnSelectToken}>
           <DepositContentItem token={selectToken} />
           <SvgInset svgUrl="/icons/ic_arrow_down.svg" />
@@ -101,14 +111,23 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
             />
           ))}
         </MenuList>
-      </Menu>
+      </Menu> */}
+      <Flex className={s.tokenWrapper}>
+        {tokens.map((t) => (
+          <DepositContentItem2
+            key={t.coin}
+            token={t}
+            onSelectToken={(_token) => setSelectToken(_token)}
+            isActive={compareString(t.coin, selectToken?.coin)}
+          />
+        ))}
+      </Flex>
+
       {selectToken && (
-        <>
-          <Box mt={'24px'} />
+        <Flex className={s.infoDepositWrap}>
           <Flex className={s.qrCodeContainer}>
             <QRCode size={184} value={selectToken?.address} />
           </Flex>
-          <Box mt={'24px'} />
           <Flex className={s.wrapTokenDepositDetail}>
             <Flex className={s.wrapTokenDepositDetailItem}>
               <Text className={s.wrapTokenDepositDetailItemTitle}>Network</Text>
@@ -138,16 +157,16 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
                 />
               </Flex>
             </Flex>
+            <Text className={s.balanceConvert}>
+              ${formatCurrency(amount_usd, 0, 0, 'BTC', true)} ={' '}
+              {formatCurrency(convertAmountUsdtToToken, 2, 2, 'BTC', true)}{' '}
+              {selectToken.coin}
+            </Text>
           </Flex>
-          <Box mt={'12px'} />
-          <Text className={s.balanceConvert}>
-            ${formatCurrency(amount_usd, 0, 0, 'BTC', true)} ={' '}
-            {formatCurrency(convertAmountUsdtToToken, 2, 2, 'BTC', true)}{' '}
-            {selectToken.coin}
-          </Text>
-        </>
+        </Flex>
       )}
-    </Center>
+      <Box />
+    </Flex>
   );
 };
 

@@ -1,15 +1,20 @@
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
 import {
+  Box,
   Button,
+  Center,
   Divider,
   Flex,
+  Grid,
+  GridItem,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  SimpleGrid,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -115,36 +120,41 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
 
   return (
     <>
-      <Flex className={s.btnWrapper}>
-        <Button
-          onClick={() => {
-            setIsBuyGuest(false);
-            onOpen();
-          }}
-          type="button"
-          className={s.btnContainer}
-        >
-          Tweet to Buy
-        </Button>
-        <Text>Or</Text>
-        <Button
-          onClick={() => {
-            setIsBuyGuest(true);
-            onOpen();
-          }}
-          type="button"
-          className={cs(s.btnContainer, s.btnBuyAsGuest)}
-        >
-          Buy as guest
-        </Button>
-      </Flex>
+      <Grid className={s.btnWrapper}>
+        <GridItem>
+          <Button
+            onClick={() => {
+              setIsBuyGuest(false);
+              onOpen();
+            }}
+            type="button"
+            className={s.btnContainer}
+          >
+            <SvgInset svgUrl="/icons/ic_twitter.svg" />
+            Tweet to Sign
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            onClick={() => {
+              setIsBuyGuest(true);
+              onOpen();
+            }}
+            type="button"
+            className={cs(s.btnContainer, s.btnBuyAsGuest)}
+          >
+            <SvgInset svgUrl="/icons/ic_guest.svg" />
+            Buy as Guest
+          </Button>
+        </GridItem>
+      </Grid>
       <BaseModal
         isShow={isOpen}
         onHide={onClose}
-        title={isBuyGuest ? 'Buy as guest' : 'Tweet to Buy'}
-        className={s.modalContent}
+        title={isBuyGuest ? 'Buy as guest' : 'Tweet to Sign'}
         headerClassName={s.modalHeader}
-        size="small"
+        className={cs(s.modalContent, isBuyGuest && s.deposit)}
+        size={isBuyGuest ? 'custom' : 'small'}
       >
         {isBuyGuest ? (
           <GoogleReCaptchaProvider
@@ -164,7 +174,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
               flexDirection={'column'}
               justifyContent={'center'}
               alignItems={'center'}
-              gap={'20px'}
+              gap={'16px'}
             >
               <Button
                 isDisabled={submitting && !isCopy}
@@ -172,14 +182,29 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
                 loadingText={'Processing'}
                 type="button"
                 onClick={handleShareTw}
+                className={cs(s.btnTweetToSign, s.btnPrimary)}
               >
+                <SvgInset svgUrl="/icons/ic_twitter_square.svg" />
                 Post to Sign in
               </Button>
-              <Text>or</Text>
-              <Flex onClick={onCopy} className={s.copyLinkContainer}>
+              <Button
+                isDisabled={submitting && !isCopy}
+                isLoading={submitting && !isCopy}
+                loadingText={'Processing'}
+                type="button"
+                onClick={onCopy}
+                className={s.btnTweetToSign}
+              >
+                <Center className={s.boxIcon}>
+                  <SvgInset size={16} svgUrl="/icons/ic-copy.svg" />
+                </Center>
+                {isCopy ? 'Copied' : 'Copy link to Sign in'}
+              </Button>
+              <Box />
+              {/* <Flex onClick={onCopy} className={s.copyLinkContainer}>
                 <Text>{isCopy ? 'Copied' : 'Copy link to Sign in'}</Text>
                 <SvgInset svgUrl="/icons/ic-copy.svg" />
-              </Flex>
+              </Flex> */}
             </Flex>
           </>
         )}

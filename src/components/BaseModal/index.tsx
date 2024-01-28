@@ -11,7 +11,7 @@ export interface IBaseModalProps {
   onHide: () => void;
   title: string;
   className?: string;
-  size?: 'small' | 'normal' | 'extra';
+  size?: 'small' | 'normal' | 'extra' | 'custom';
   description?: string;
   headerClassName?: string;
 }
