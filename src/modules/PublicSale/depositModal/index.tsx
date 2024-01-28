@@ -18,7 +18,7 @@ const DepositModal = ({
       title={''}
       headerClassName={s.modalManualHeader}
       className={s.modalContent}
-      size="small"
+      // size="small"
     >
       <DepositContent amount_usd={payAmountUsd}/>
     </BaseModal>

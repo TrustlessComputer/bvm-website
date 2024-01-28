@@ -1,4 +1,4 @@
-import { Button, Flex, Text, Tooltip } from '@chakra-ui/react';
+import { Button, Flex, Grid, GridItem, Text, Tooltip } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
 import React, { forwardRef, useEffect, useState } from 'react';
 import s from './styles.module.scss';
@@ -28,6 +28,7 @@ import { commonSelector } from '@/stores/states/common/selector';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
+import cx from 'classnames';
 
 export const TIME_CHAIN_EXPIRED_TIME = '2024-01-28 18:00:00';
 
@@ -266,65 +267,84 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
           <Text className={s.title}>Total Funded</Text>
-          <Text className={s.fundValue}>${formatCurrency(contributeInfo?.total_usdt_value, 0, 0, 'BTC', true)}</Text>
-          <Flex className={s.boxInfo} gap={4} width={'100%'}>
-            <Column
-              value={
-                <Flex direction={'column'}>
-                  <Text>
-                    {formatCurrency(
-                      contributeInfo?.total_user,
-                      0,
-                      0,
-                      'BTC',
-                      true,
-                    )}
-                  </Text>
-                  <Text
-                    fontSize={'12px'}
-                    fontWeight={'400'}
-                    color={'#FA4E0E'}
-                    textDecoration={'underline'}
-                    mt={1}
-                    onClick={() => setShowContributorModal(true)}
-                    cursor={'pointer'}
-                  >
-                    View all
-                  </Text>
-                </Flex>
-              }
-              title={'Contributors'}
-            />
-
-            {user?.twitter_id ? (
-              <Tooltip
-                minW="220px"
-                bg="white"
-                boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-                borderRadius="4px"
-                padding="16px"
-                hasArrow
-                label={<ContributorInfo data={userContributeInfo}/>}
-              >
-                <ContributorBlock className={s.contributorBlock} />
-              </Tooltip>
-            ) : (
-              <ContributorBlock />
+          <Text className={s.fundValue}>
+            $
+            {formatCurrency(
+              contributeInfo?.total_usdt_value,
+              0,
+              0,
+              'BTC',
+              true,
             )}
-            <Column
-              value={
-                <Countdown
-                  className={s.time}
-                  expiredTime={dayjs
-                    .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
-                    .toString()}
-                  hideIcon={true}
-                  onRefreshEnd={() => setIsEnd(true)}
+          </Text>
+          <Grid className={s.boxInfo} width={'100%'}>
+            <GridItem>
+              <Flex alignItems={'center'} gap={'16px'} >
+                <Column
+                  className={s.blockItem}
+                  value={
+                    <Flex direction={'column'}>
+                      <Text>
+                        {formatCurrency(
+                          contributeInfo?.total_user,
+                          0,
+                          0,
+                          'BTC',
+                          true,
+                        )}
+                      </Text>
+                      <Text
+                        fontSize={'12px'}
+                        fontWeight={'400'}
+                        color={'#FA4E0E'}
+                        textDecoration={'underline'}
+                        mt={1}
+                        onClick={() => setShowContributorModal(true)}
+                        cursor={'pointer'}
+                      >
+                        View all
+                      </Text>
+                    </Flex>
+                  }
+                  title={'Contributors'}
                 />
-              }
-              title={'Ends in'}
-            />
-          </Flex>
+                {user?.twitter_id ? (
+                  <Tooltip
+                    minW="220px"
+                    bg="white"
+                    boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                    borderRadius="4px"
+                    padding="16px"
+                    hasArrow
+                    label={<ContributorInfo data={userContributeInfo} />}
+                  >
+                    <ContributorBlock
+                      className={cx(s.contributorBlock, s.blockItem)}
+                    />
+                  </Tooltip>
+                ) : (
+                  <ContributorBlock className={s.blockItem} />
+                )}
+              </Flex>
+            </GridItem>
+
+            <GridItem>
+              <Column
+                className={s.blockItem}
+                value={
+                  <Countdown
+                    className={s.time}
+                    expiredTime={dayjs
+                      .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
+                      .toString()}
+                    hideIcon={true}
+                    onRefreshEnd={() => setIsEnd(true)}
+                  />
+                }
+                title={'Ends in'}
+              />
+            </GridItem>
+          </Grid>
           <Flex gap={6} direction={'column'} width={'100%'}>
             <AuthForBuy>
               <Button

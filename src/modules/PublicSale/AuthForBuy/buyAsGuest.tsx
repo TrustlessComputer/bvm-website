@@ -90,7 +90,7 @@ const BuyAsGuest = () => {
 
   return (
     <>
-      <Center flexDirection={'column'} gap={'5px'}>
+      <Flex className={s.wrapSecretKey}>
         <Text>Your secret key. Backup now</Text>
         <Flex
           className={s.backupNow}
@@ -99,13 +99,14 @@ const BuyAsGuest = () => {
             copy(secretCode);
           }}
         >
-          <Text>{secretCode}</Text>
-          <SvgInset size={16} svgUrl="/icons/ic-copy.svg" />
+          <Flex alignItems={'center'} gap={'8px'}>
+            <SvgInset size={16} svgUrl="/icons/ic_wallet.svg" />
+            <Text>{secretCode}</Text>
+          </Flex>
+          <SvgInset size={20} svgUrl="/icons/ic-copy.svg" />
         </Flex>
-      </Center>
-      <Box mt={2} />
-      <Divider />
-      <Box mt={2} />
+      </Flex>
+      <Box mt={'32px'} />
       <DepositContent />
     </>
   );
