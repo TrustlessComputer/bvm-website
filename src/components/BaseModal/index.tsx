@@ -5,6 +5,7 @@ import { CDN_URL_ICONS } from '@/config';
 import { Modal, ModalHeader, ModalBody, ModalOverlay, ModalContent } from '@chakra-ui/modal';
 import { Flex } from '@chakra-ui/react';
 import { size } from 'valibot';
+import SvgInset from '@/components/SvgInset';
 
 export interface IBaseModalProps {
   isShow: boolean;
@@ -42,11 +43,7 @@ const BaseModal = (props: PropsWithChildren<IBaseModalProps>): React.ReactNode =
                 onClick={onHide}
                 className={s.modalHeader_closeBtn}
               >
-                <img
-                  alt="ic-close"
-                  className={s.closeIcon}
-                  src={`${CDN_URL_ICONS}/ic-close-border.svg`}
-                />
+                <SvgInset className={s.closeIcon} svgUrl={`${CDN_URL_ICONS}/ic-close-border.svg`} />
               </button>
               <p className={s.modalHeader_title}>
                 {title}
