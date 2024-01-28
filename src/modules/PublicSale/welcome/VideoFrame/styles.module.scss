@@ -1,14 +1,13 @@
-.eternalAi {
+.container {
   display: flex;
-  //height: 100vh;
   align-items: center;
   justify-content: center;
   padding: 8px;
-  width: 333px;
-  height: 180px;
+  max-width: 333px;
+  //height: 180px;
   position: relative;
   background: url("/public-sale/video_frame.svg");
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
 
   video {
@@ -28,5 +27,6 @@
     object-fit: contain;
     position: relative;
     z-index: 2;
+    aspect-ratio: 333/180;
   }
 }

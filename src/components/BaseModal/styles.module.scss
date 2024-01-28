@@ -48,10 +48,10 @@
         transform: rotate(90deg);
         transition: all 0.3s;
 
-        :global(svg path) {
-          fill: black;
-          fill-opacity: 1;
-        }
+        //:global(svg path) {
+        //  fill: black;
+        //  fill-opacity: 1;
+        //}
       }
     }
   }

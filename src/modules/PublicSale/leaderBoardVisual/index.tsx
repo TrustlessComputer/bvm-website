@@ -11,7 +11,6 @@ import { setPublicSaleLeaderBoardVisual } from '@/stores/states/user/reducer';
 import { getPublicSaleContributionLatest, getPublicSaleLeaderBoards, getPublicSaleTop } from '@/services/public-sale';
 import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
 import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
-import AddMoreContribution from '@/modules/PublicSale/addMoreContribution';
 import { Tooltip } from '@chakra-ui/react';
 import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import { useSelector } from 'react-redux';
@@ -193,7 +192,7 @@ const LeaderBoardVisual = (props: IProps) => {
         {/*    })*/}
         {/*  }*/}
         {/*</div>*/}
-        <AddMoreContribution />
+        {/*<AddMoreContribution />*/}
       </ScrollWrapper>
       <AnimatedText latestContributors={latestContributors}/>
     </div>

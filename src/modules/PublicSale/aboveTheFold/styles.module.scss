@@ -21,7 +21,7 @@
   .rightSection {
     background: #222222;
     padding-top: 80px;
-    height: 100dvh;
+    height: calc(100dvh + 80px);
     overflow-y: auto;
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */

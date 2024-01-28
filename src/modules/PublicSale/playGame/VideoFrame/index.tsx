@@ -6,9 +6,9 @@ export default function EternalAi() {
 
   return (
     <>
-      <div className={s.eternalAi} onClick={() => setOpen(true)}>
+      <div className={s.container} onClick={() => setOpen(true)}>
         {/*<video className={s.eternalAi_video} playsInline loop autoPlay muted src={'landing/loop-videos.webm'} />*/}
-        <img loading={'eager'} src={'public-sale/playGame.png'} alt={'eternail'} />
+        <img loading={'eager'} src={'public-sale/playGame.png'} alt={'playGame'} />
       </div>
       {/*<ModalVideo
         channel="custom"
