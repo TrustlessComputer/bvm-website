@@ -13,14 +13,14 @@
 
 .modalHeader {
   border: none;
-  padding: 0 !important;
-  padding-bottom: rem(24) !important;
-  padding-left: rem(24) !important;
+  padding-top: 0;
+  padding-bottom: rem(24);
+  padding-left: rem(24);
 
   &_title {
     font-weight: 700;
     color: black;
-    margin-top: rem(18) !important;
+    //margin-top: rem(18) !important;
     line-height: 140%;
   }
 
@@ -34,7 +34,7 @@
   }
 
   &_closeBtn {
-    padding: rem(20px) !important;
+    padding: 20px !important;
     background-color: transparent !important;
     position: absolute;
     right: 0;
