@@ -8,7 +8,7 @@
   margin: 0 auto;
 
   @include w-max(768px) {
-    padding: 0;
+    padding: 24px;
   }
 
   .content {
@@ -42,11 +42,17 @@
     margin-bottom: 16px;
     grid-gap: 16px;
     grid-template-columns: 2fr 1fr;
+
     .blockItem {
       border: 1px solid #434343;
       background: rgba(255, 255, 255, 0.05);
       padding: 16px 20px;
       height: 100%;
+      width: 100%;
+    }
+
+    @include is-mobile {
+      grid-template-columns: 1fr;
     }
   }
 

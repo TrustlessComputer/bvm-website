@@ -10,6 +10,11 @@
   transition: all 0.3s;
   position: relative;
 
+  @include is-mobile {
+    width: 80px;
+    height: 80px;
+  }
+
   .time {
     margin-top: 10px;
     font-size: 16px;
@@ -21,24 +26,26 @@
       font-size: inherit !important;
       font-weight: inherit !important;
     }
-  }
 
-  .showMenu {
-    display: block;
+    @include is-mobile {
+      font-size: 14px;
+    }
   }
 }
 
 .menuContent {
   border: 1px solid #FFFFFF26;
   padding: 20px;
-  //display: none;
-  //position: absolute;
   background: linear-gradient(180deg, #282828 0%, #131313 146.93%),
   linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
   min-width: 600px;
   border-radius: 0 !important;
   &:focus-visible {
     box-shadow: none !important;
+  }
+
+  @include is-mobile {
+    min-width: 95vw;
   }
 
   .title {
@@ -62,5 +69,11 @@
     margin-top: 20px;
     font-size: 14px;
     align-items: center;
+  }
+
+  :global {
+    .chakra-popover__body {
+      padding: 0;
+    }
   }
 }

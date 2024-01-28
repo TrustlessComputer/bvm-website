@@ -29,6 +29,10 @@
     &::-webkit-scrollbar {
       display: none;  /* Safari and Chrome */
     }
+
+    @include is-mobile {
+      padding-top: unset;
+    }
   }
 
   .title {
@@ -37,7 +41,7 @@
     line-height: 100%;
     color: #FFFFFF;
 
-    @include w-max(768px) {
+    @include is-mobile {
       font-size: 32px;
     }
   }
@@ -70,41 +74,13 @@
     }
   }
 
-  .downloadBtn {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 140%;
-    color: #FFFFFF;
-    height: 48px;
-    padding: 16px 20px;
-    letter-spacing: 0.01em;
-    background: #FA4E0E;
-    border-radius: 0px;
-
-    @include w-max(768px) {
-      width: 100%;
-    }
-  }
-
-  .buildBtn {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 120%;
-    color: #FFFFFF;
-    height: 48px;
-    padding: 16px 0px;
-    letter-spacing: 0.01em;
-    background: transparent !important;
-    border-radius: 100px;
-
-    @include w-max(768px) {
-      width: 100%;
-    }
-  }
-
   .raffleButton {
     position: absolute;
     top: 200px;
     left: 24px;
+
+    @include is-mobile {
+      top: 280px;
+    }
   }
 }
