@@ -40,7 +40,7 @@ const AboveTheFold = () => {
         <Flex className={s.leftSection} direction={"column"} justifyContent={"flex-start"}>
           <TopHeader />
           <LeaderBoardVisual />
-
+          <AddMoreContribution />
           <RaffleButton className={s.raffleButton}/>
         </Flex>
         <Flex className={s.rightSection} direction={"column"}>
