@@ -17,12 +17,19 @@ const AddMoreContribution = () => {
   const [selectedAmount, setSelectedAmount] = useState<any>();
 
   return (
-    <Flex className={s.container}>
-      <Flex p={'20px'} alignItems={"center"} w={"100%"} justifyContent={"space-between"}>
+    <Flex className={s.container} direction={["column", "row"]}>
+      <Flex
+        p={'20px'}
+        alignItems={"center"}
+        w={"100%"}
+        justifyContent={"space-between"}
+        direction={["column", "row"]}
+        gap={6}
+      >
         <Text fontSize={'18px'} fontWeight={400} color={'#FFFFFF'}>
           Add more contributors
         </Text>
-        <Flex gap={2} justifyContent={"space-between"}>
+        <Flex gap={2} justifyContent={"space-between"} flexWrap={["wrap", "nowrap"]}>
           {
             AMOUNTS.map(d => {
               return (
@@ -45,7 +52,7 @@ const AddMoreContribution = () => {
         </Flex>
       </Flex>
       <Divider orientation={'vertical'} borderColor={'rgba(255, 255, 255, .4)'}/>
-      <Flex p={'20px'} alignItems={'center'}>
+      <Flex p={'20px'} alignItems={'center'} justifyContent={"center"}>
         <a href={"https://bvm.network/"} target={"_blank"}>
           <Flex className={s.learnMoreWrapper} gap={3}>
             <Text whiteSpace={"nowrap"}>Share on</Text>
