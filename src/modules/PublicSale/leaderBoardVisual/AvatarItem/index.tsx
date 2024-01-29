@@ -31,44 +31,50 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
       const add = animatedLatestContributors?.find(c => c.twitter_id === data.twitter_id);
 
       if(add) {
-        return Number(data.usdt_value) + Number(add.usdt_value);
+        return refMoney.current.value + Number(add.usdt_value);
       } else {
-        return Number(data.usdt_value);
+        return refMoney.current.value;
       }
     } else {
-      return Number(data.usdt_value);
+      return refMoney.current.value;
     }
-  }, [data, needCheckDeposit, animatedLatestContributors]);
+  }, [needCheckDeposit, JSON.stringify(animatedLatestContributors)]);
 
   useEffect(() => {
 
     if (!refInertMoney.current) return;
     if (newTotalMoney && refMoney.current.value !== newTotalMoney) {
+      const numberLoop = 5;
+      const duration = 19/24;
       gsap.to(refMoney.current, {
-        value: newTotalMoney, ease: 'power3.inOut', duration: 1, onUpdate: () => {
+        value: newTotalMoney, ease: 'power3.inOut', duration: numberLoop * duration, onUpdate: () => {
           if (refInertMoney.current) {
             refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.current.value, 0, 0, '', true)}`;
           }
         },
       });
+      if (!lottieRef.current) return;
+
+      lottieRef.current.setLoop(numberLoop);
+      lottieRef.current.play();
+
+      setIsLoopDone(false);
+      if(refTime.current) {
+        clearTimeout(refTime.current);
+      }
+      refTime.current = setTimeout(() => {
+        setIsLoopDone(true);
+        onCompleted && onCompleted();
+      }, duration * numberLoop * 1000);
     } else {
       refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.current.value, 0, 0, '', true)}`;
     }
 
-
-    if (!lottieRef.current) return;
-    const numberLoop = 3;
-
-    lottieRef.current.setLoop(3);
-    lottieRef.current.play();
-    setIsLoopDone(false);
-
-    const duration = lottieRef.current;
-    refTime.current = setTimeout(() => {
-      setIsLoopDone(true);
-      onCompleted && onCompleted();
-    }, duration * numberLoop);
-
+    return () => {
+      if(refTime.current) {
+        clearTimeout(refTime.current);
+      }
+    }
   }, [newTotalMoney]);
 
   const [error, setError] = useState<boolean>(false);
@@ -78,7 +84,6 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
       height={120}
       src={'/images/mk-user.jpg'} alt={'user'} style={{ cursor: 'pointer' }} />;
   };
-
 
   return (
     <div
@@ -116,7 +121,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         </div>
       </div>
       {
-        <div className={`${s.lt} ${!isLoopDone && s.isRun}`}>
+        <div className={`${s.lt} ${!isLoopDone ? s.isRun : ''}`}>
           <DotLottiePlayer
             className={s.lottie}
             lottieRef={lottieRef}
