@@ -43,4 +43,5 @@ export interface ILeaderBoardPoint {
   usdt_value?:string;
   bvm_percent?:string;
   coin_balances?:IContributionCoin[];
+  deposit_id:string;
 }

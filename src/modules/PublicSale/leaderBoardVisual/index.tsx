@@ -42,8 +42,11 @@ const LeaderBoardVisual = (props: IProps) => {
     fetchLatestData();
     const interval = setInterval(() => {
       fetchLatestData();
-      dispatch(setNeedCheckDeposit(true));
     }, 10000);
+
+    setTimeout(() => {
+      dispatch(setNeedCheckDeposit(true));
+    }, 12000);
 
     return () => {
       clearInterval(interval);
@@ -107,14 +110,14 @@ const LeaderBoardVisual = (props: IProps) => {
     const oldContributors = latestContributors?.current;
 
     const newRes = res.filter( function( el ) {
-      return oldContributors?.findIndex(a => a.twitter_id === el.twitter_id) < 0;
+      return oldContributors?.findIndex(a => a.deposit_id === el.deposit_id) < 0;
     });
 
     if(newRes?.length > 0) {
       latestContributors.current = [...newRes].concat(latestContributors.current);
-      animatedLatestContributors.current = newRes;
-      dispatch(setAnimatedLatestContributors(newRes));
     }
+    animatedLatestContributors.current = newRes || [];
+    dispatch(setAnimatedLatestContributors(newRes || []));
   };
 
   useEffect(() => {
