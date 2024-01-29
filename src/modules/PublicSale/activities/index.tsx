@@ -38,7 +38,7 @@ const Activities = React.memo(() => {
           type: 'link',
           link: 'https://bitcoinarcade.xyz/'
         }],
-        desc: `Have fun with Bitcoin Arcade - the Bitcoin L2 for fully-on-chain gaming<br/>Play hyper-casual mobile games on Bitcoin and earn $ARCA testnet tokens.<br/>Play hyper-casual mobile games on Bitcoin Arcade.<br/>Total rewards: 30M $ARCA testnet tokens.`
+        desc: `Play hyper-casual mobile games on Bitcoin Arcade.<br/>Total rewards: <strong>30M $ARCA</strong> testnet tokens.`
       },
       {
         key: 1,
