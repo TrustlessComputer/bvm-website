@@ -22,6 +22,7 @@ import {
   IPublicSalePrograme,
   joinRafflePrograme,
 } from '@/services/public-sale';
+import AuthenStorage from '@/utils/storage/authen.storage';
 
 const RaffleButton = ({className}: any) => {
   const [isEnd, setIsEnd] = React.useState(false);
@@ -29,17 +30,20 @@ const RaffleButton = ({className}: any) => {
   const [programeInfo, setProgrameInfo] = useState<IPublicSalePrograme>();
   const [isLoading, setIsLoading] = useState(true);
   const [raffleCode, setRaffleCode] = useState();
+  const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
   const handleShareTw = () => {
-    const shareUrl = getLink(user?.referral_code || '');
+    if(token) {
+      const shareUrl = getLink(user?.referral_code || '');
 
-    const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon\n\nJoin the allowlist`;
-    const url = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-      content,
-    )}`;
+      const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon\n\nJoin the allowlist`;
+      const url = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+        content,
+      )}`;
 
-    window.open(url, '_blank');
-    joinRafflePrograme(programeInfo?.id as number);
+      window.open(url, '_blank');
+      joinRafflePrograme(programeInfo?.id as number);
+    }
   }
 
   useEffect(() => {
@@ -126,7 +130,7 @@ const RaffleButton = ({className}: any) => {
                   raffleCode ? (
                     <Text className={s.yourRaffleCode}>Your raffle code: <b>{raffleCode}</b></Text>
                   ) : (
-                    <Flex className={s.learnMoreWrapper} gap={3} onClick={handleShareTw}>
+                    <Flex className={cx(s.learnMoreWrapper, !token ? s.isDisable : '')} gap={3} onClick={handleShareTw}>
                       <Text>Get raffle code</Text>
                       <Center w={"28px"} height={"28px"} bgColor={"#FA4E0E"}>
                         <svg width="30" height="29" viewBox="0 0 30 29" fill="none" xmlns="http://www.w3.org/2000/svg">
