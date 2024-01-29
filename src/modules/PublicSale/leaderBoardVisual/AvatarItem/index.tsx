@@ -3,6 +3,7 @@ import { getUrlAvatarTwitter } from '@/utils/twitter';
 import React, { forwardRef, ReactElement, useState } from 'react';
 import Image from 'next/image';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
+import { formatCurrency } from '@/utils/format';
 
 interface IProps {
   data: ILeaderBoardPoint
@@ -18,6 +19,8 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
       height={120}
       src={'/images/mk-user.jpg'} alt={'user'} />;
   };
+
+  console.log('data', data);
 
   return (
     <div
@@ -43,7 +46,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
               'medium',
             ) || ''} alt={'medium'} />}
         </div>
-        <p className={s.price}>$100,000</p>
+        <p className={s.price}>${formatCurrency(data?.usdt_value, 0, 0, 'BTC', true)}</p>
       </div>
   </div>
   );
