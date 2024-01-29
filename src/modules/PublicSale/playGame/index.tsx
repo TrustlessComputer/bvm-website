@@ -20,6 +20,7 @@ const Playgame = () => {
   return (
     <Flex className={s.container} direction={"column"}>
       <Box className={s.content}>
+        <div className={s.content_inner}>
         <Flex gap={2} justifyContent={"space-between"} mb={8}>
           {
             DAYS.map(d => {
@@ -54,6 +55,7 @@ const Playgame = () => {
             </Flex>
           </GridItem>
         </SimpleGrid>
+        </div>
       </Box>
     </Flex>
   );
