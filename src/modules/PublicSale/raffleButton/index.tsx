@@ -14,6 +14,9 @@ import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import React, { useState } from 'react';
 import { TIME_CHAIN_EXPIRED_TIME } from '@/modules/PublicSale/BuyForm';
 import cx from 'clsx';
+import { getLink } from '@/utils/helpers';
+import { useAppSelector } from '@/stores/hooks';
+import { userSelector } from '@/stores/states/user/selector';
 
 const RaffleButton = ({className}: any) => {
   const [isEnd, setIsEnd] = React.useState(
@@ -21,6 +24,18 @@ const RaffleButton = ({className}: any) => {
       .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
       .isBefore(dayjs().utc().format())
   );
+  const user = useAppSelector(userSelector);
+
+  const handleShareTw = () => {
+    const shareUrl = getLink(user?.referral_code || '');
+
+    const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon\n\nJoin the allowlist`;
+    const url = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+      content,
+    )}`;
+
+    window.open(url, '_blank');
+  }
 
   return (
     <Flex className={cx(s.container, className)} direction={"column"} alignItems={"center"}>
@@ -59,11 +74,9 @@ const RaffleButton = ({className}: any) => {
           <img style={{width: '100px', height: '100px'}} src={"/public-sale/raffleImg.png"} alt="raffleBtnBg" />
         </Center>
         <Text className={s.title} textAlign={"center"}>Share to earn reward worth <span className={s.highlight}>$3000</span></Text>
-        <a href={"https://bvm.network/"} target={"_blank"}>
-          <Flex className={s.learnMoreWrapper} gap={3}>
-            <Text>Share</Text>
-          </Flex>
-        </a>
+        <Flex className={s.learnMoreWrapper} gap={3} onClick={handleShareTw}>
+          <Text>Share</Text>
+        </Flex>
       </Flex>
     </Flex>
   )
