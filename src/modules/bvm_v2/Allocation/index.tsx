@@ -23,13 +23,13 @@ const Allocation = (props: Props) => {
     >
       <Box
         bgColor={'#007659'}
-        w="100vw"
+        w='100vw'
         position={'absolute'}
         top={0}
         left={'calc(-50vw + 50%)'}
-        h="100%"
+        h='100%'
         zIndex={0}
-      ></Box>
+      />
       <Box zIndex={1} position={'relative'}>
         <Text as="h4" className={s.heading}>
           BVM Allocation
@@ -37,33 +37,30 @@ const Allocation = (props: Props) => {
         <Text className={s.desc}>
           The total supply of BVM is permanently fixed at 100M tokens.
         </Text>
-        <Box className={s.mobile} display={{ base: 'block', sm: 'none' }}>
-          <Image
-            src={'/images/pie-chart-3.png'}
-            alt={'Allocation chart'}
-            maxW={'100%'}
-            mx="auto"
-          ></Image>
-          <Flex flexDir={'column'} gap="24px" alignItems={'center'}>
-            {ALLOCATION_DATA.map((item, index) => (
-              <Box key={index}>
-                <Text fontSize={'18px'} lineHeight={'110%'} mb="8px">
-                  {item.title}
-                </Text>
-                <Text fontSize={'14px'} lineHeight={'20px'}>
-                  {item.desc}
-                </Text>
-              </Box>
-            ))}
+        <Flex
+          w="100%"
+          flexDir={{ base: "column", lg: "row" }}
+          gap={{ base: "32px", lg: "200px" }}
+          mt={{ base: "16px", lg: "60px" }}
+          px={{ base: '40px', lg: '100px' }}
+        >
+          <Flex flex={1}>
+            <Image
+              src={'/images/pie-chart-4.png'}
+              alt={'Allocation chart'}
+              flex={1}
+              mx="auto"
+            />
           </Flex>
-        </Box>
-        <Image
-          src={'/images/pie-chart-3.png'}
-          alt={'Allocation chart'}
-          maxW={{ base: '100%', md: '70%' }}
-          mx="auto"
-          display={{ base: 'none', sm: 'block' }}
-        ></Image>
+          <Flex flex={1}>
+            <Image
+              src={'/images/wave-chart-2.png'}
+              alt={'Allocation chart'}
+              flex={1}
+              mx="auto"
+            />
+          </Flex>
+        </Flex>
       </Box>
     </Box>
   );

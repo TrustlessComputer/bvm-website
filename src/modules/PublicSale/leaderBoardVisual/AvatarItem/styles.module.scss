@@ -52,7 +52,7 @@
   .meta {
     position: absolute;
     left: 50%;
-    bottom: -32px;
+    bottom: -8px;
     transform: translateX(-50%);
   }
 
@@ -72,7 +72,7 @@
     border-radius: 100px;
     font-weight: 500;
     color: #000;
-    padding: 6px 12px;
+    padding: 5px 15px;
     line-height: 1.4;
     text-align: center;
     width: fit-content;
@@ -115,19 +115,23 @@
 
 
   &:global(.level-0) {
-    margin-bottom: 48px;
+    margin-bottom: 58px;
     margin-top: 24px;
+
+    .meta{
+      bottom: -32px;
+    }
 
     .price {
       font-size: clamp(14px, #{vw(140px)}, 16px);
       background: linear-gradient(180deg, #FF9776 0%, #FF8139 32.81%, #E04300 100%);
       color: white;
+      margin-bottom: 5px;
       padding: 6px clamp(16px, #{vw(140px)}, 20px);
     }
 
     .name {
-      font-size: clamp(16px, #{vw(140px)}, 18px);
-      margin-bottom: 5px;
+      font-size: clamp(14px, #{vw(140px)}, 16px);
     }
 
     .avatarItem_avatar {
@@ -141,49 +145,49 @@
   &:global(.level-1) {
     margin-bottom: 48px;
 
-    margin-left: clamp(14px, #{vw(110px)}, 19px);
-    margin-right: clamp(14px, #{vw(110px)}, 19px);
+    margin-left: clamp(14px, #{vw(88px)}, 19px);
+    margin-right: clamp(14px, #{vw(88px)}, 19px);
 
     .price {
-      font-size: clamp(12px, #{vw(110px)}, 18px);
+      font-size: clamp(12px, #{vw(88px)}, 14px);
       background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
     }
 
 
     .avatarItem_avatar {
       * {
-        width: 110px !important;
-        height: 110px !important;
+        width: 88px !important;
+        height: 88px !important;
       }
     }
   }
 
   &:global(.level-2) {
     margin-bottom: 40px;
-    margin-left: clamp(14px, #{vw(80px)}, 20px);
-    margin-right: clamp(14px, #{vw(80px)}, 20px);
+    margin-left: clamp(14px, #{vw(60px)}, 20px);
+    margin-right: clamp(14px, #{vw(60px)}, 20px);
 
     .price {
-      font-size: clamp(12px, #{vw(80px)}, 16px);
+      font-size: clamp(12px, #{vw(60px)}, 14px);
     }
 
     .avatarItem_avatar {
       * {
-        width: 80px !important;
-        height: 80px !important;
+        width: 60px !important;
+        height: 60px !important;
       }
     }
   }
 
   &:global(.level-3) {
 
+    margin-bottom: 60px;
+    margin-left: clamp(14px, #{vw(60px)}, 20px);
+    margin-right: clamp(14px, #{vw(60px)}, 20px);
+
     .price {
       font-size: clamp(12px, #{vw(60px)}, 14px);
-      padding: 4px clamp(4px, #{vw(60px)}, 8px);
     }
-
-    margin-left: clamp(12px, #{vw(60px)}, 18px);
-    margin-right: clamp(12px, #{vw(60px)}, 18px);
 
     .avatarItem_avatar {
       * {
