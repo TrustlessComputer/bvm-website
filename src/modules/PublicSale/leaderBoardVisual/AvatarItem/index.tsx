@@ -8,6 +8,8 @@ import { DotLottiePlayer } from '@dotlottie/react-player';
 import { gsap } from 'gsap';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
+import { Tooltip } from '@chakra-ui/react';
+import TopContributorReward from '@/modules/PublicSale/leaderBoardVisual/topContributorReward';
 
 interface IProps {
   data: ILeaderBoardPoint,
@@ -85,10 +87,8 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
       src={'/images/mk-user.jpg'} alt={'user'} style={{ cursor: 'pointer' }} />;
   };
 
-  return (
-    <div
-      className={`${s.avatarItem} ${isYou && s.isYou} ${data.levelRender !== undefined && 'level-' + data.levelRender} js-avatarItem`}
-      ref={ref} {...rest}>
+  const renderContent = () => {
+    return (
       <div className={s.avatarItem_inner}>
         {
           data.levelRender === 0 && <Image className={s.king} src={'/public-sale/king.png'} width={60} height={60} alt={'king'} />
@@ -123,6 +123,30 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
           }
         </div>
       </div>
+    )
+  }
+
+  return (
+    <div
+      className={`${s.avatarItem} ${isYou && s.isYou} ${data.levelRender !== undefined && 'level-' + data.levelRender} js-avatarItem`}
+      ref={ref} {...rest}>
+      {
+        data.levelRender === 0 ? (
+          <Tooltip
+            minW="400px"
+            bg="white"
+            boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+            borderRadius="4px"
+            padding="0px"
+            hasArrow
+            label={<TopContributorReward />}
+          >
+            {renderContent()}
+          </Tooltip>
+        ) : (
+          <>{renderContent()}</>
+        )
+      }
       {
         <div className={`${s.lt} ${!isLoopDone ? s.isRun : ''}`}>
           <DotLottiePlayer
