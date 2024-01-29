@@ -1,24 +1,23 @@
+import SvgInset from '@/components/SvgInset';
 import { generateTOkenWithSecretCode } from '@/services/public-sale';
+import { setGuestSecretCode } from '@/stores/states/user/reducer';
+import { generateRandomString } from '@/utils/encryption';
+import AuthenStorage from '@/utils/storage/authen.storage';
 import {
   Box,
   Button,
   Center,
-  Divider,
   Flex,
   Spinner,
-  Text,
+  Text
 } from '@chakra-ui/react';
-import { ethers } from 'ethers';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
-import DepositContent from '../depositModal/deposit.content';
-import SvgInset from '@/components/SvgInset';
-import s from './styles.module.scss';
 import copy from 'copy-to-clipboard';
+import { useCallback, useEffect, useState } from 'react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import toast from 'react-hot-toast';
-import AuthenStorage from '@/utils/storage/authen.storage';
 import { useDispatch } from 'react-redux';
-import { setGuestSecretCode } from '@/stores/states/user/reducer';
+import DepositContent from '../depositModal/deposit.content';
+import s from './styles.module.scss';
 
 export const SECRET_CODE_GUEST = 'SECRET_CODE_GUEST';
 export const BARER_TOKEN_GUEST = 'BARER_TOKEN_GUEST';
@@ -53,7 +52,7 @@ const BuyAsGuest = () => {
       if (secretCode) {
         return;
       }
-      const _secretCode = ethers.Wallet.createRandom().privateKey.slice(0, 10);
+      const _secretCode = generateRandomString(10);
 
       const rs = await generateTOkenWithSecretCode(_secretCode, captcha);
       AuthenStorage.setGuestSecretKey(_secretCode);

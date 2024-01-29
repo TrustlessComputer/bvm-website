@@ -34,7 +34,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: 23,
+    limit: 24,
   });
   const refInitial = useRef(false);
 
