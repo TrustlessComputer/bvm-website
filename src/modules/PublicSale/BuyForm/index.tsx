@@ -263,7 +263,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                         fontWeight={'400'}
                         color={'#FA4E0E'}
                         textDecoration={'underline'}
-                        mt={1}
                         onClick={() => setShowContributorModal(true)}
                         cursor={'pointer'}
                         lineHeight={"22px"}
@@ -311,7 +310,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                       fontSize={'12px'}
                       fontWeight={'400'}
                       color={'rgba(255,255,255, 0.7)'}
-                      mt={1}
                       lineHeight={"22px"}
                     >
                       {dayjs(PUBLIC_SALE_END).format('MMM D, YYYY h:mm A')}
