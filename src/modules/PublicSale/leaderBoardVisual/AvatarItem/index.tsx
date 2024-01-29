@@ -18,7 +18,7 @@ interface IProps {
 const AvatarItem = forwardRef((props: IProps, ref: any) => {
   const { data, isUpMoney, newMoney, isShowName, isYou, ...rest } = props;
   const lottieRef = useRef<any>();
-  const refMoney = useRef({ value: data?.usdt_value });
+  const refMoney = useRef<{value: number}>({ value: data?.usdt_value || 0 });
   const refInertMoney = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
