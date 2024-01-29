@@ -40,8 +40,10 @@ const AvatarYou = forwardRef((props: any, ref: any) => {
               'medium',
             ) || ''} alt={'medium'} />}
         </div>
-
-        <p className={s.price}>You</p>
+        <div>
+          <p className={s.name}>You</p>
+          <p className={s.price}>$1100,000</p>
+        </div>
       </div>
     </div>
   );
