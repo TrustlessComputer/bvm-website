@@ -11,6 +11,14 @@
       border-top: 1px solid #FFFFFF16;
       padding-top: 60px;
     }
+
+    @include is-mobile {
+      padding: 0 16px;
+
+      &_inner{
+        padding-top: 20px;
+      }
+    }
   }
 
   .title {

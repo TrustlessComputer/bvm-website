@@ -34,7 +34,7 @@ const Playgame = () => {
             })
           }
         </Flex>
-        <SimpleGrid gridTemplateColumns={["1fr", "1fr 1fr"]}>
+        <SimpleGrid gridTemplateColumns={["1fr", "1fr 1fr"]} gap={6}>
           <GridItem>
             <Text className={s.title}>{selectedDay?.title}</Text>
             <Text className={s.desc}>{selectedDay?.desc}</Text>
