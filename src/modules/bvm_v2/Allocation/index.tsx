@@ -23,7 +23,7 @@ const Allocation = () => {
     >
       <Box
         bgColor={'#007659'}
-        w='100vw'
+        w='100%'
         position={'absolute'}
         top={0}
         left={'calc(-50vw + 50%)'}

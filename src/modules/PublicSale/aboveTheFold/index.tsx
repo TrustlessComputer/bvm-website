@@ -7,13 +7,9 @@ import LocalStorageUtil from '@/utils/localstorage';
 import { KEY_VC_TYPE } from '@/constants/storage-key';
 import { getVCInformation } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
-import Welcome from '@/modules/PublicSale/welcome';
-import Playgame from '@/modules/PublicSale/playGame';
-import AddMoreContribution from '@/modules/PublicSale/addMoreContribution';
 import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
 import RaffleButton from '@/modules/PublicSale/raffleButton';
 import Activities from '@/modules/PublicSale/activities';
-import TopContent from '@/modules/PublicSale/topContent';
 import LeaderBoardSwitch from '@/modules/PublicSale/leaderBoardSwitch';
 
 const AboveTheFold = () => {
@@ -37,10 +33,9 @@ const AboveTheFold = () => {
   }
 
   return (
-    <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImg={`/private-sale/bg.webp`}>
-      <SimpleGrid className={`${s.content}`} gridTemplateColumns={{ lg: "1fr", xl: "7fr 3fr" }} gap={[0, 0]}>
+    <Flex direction={"column"} justifyContent={"space-between"} className={s.container}>
+      <SimpleGrid className={`${s.content}`} gridTemplateColumns={{ lg: "1fr", xl: "6.5fr 3.5fr" }} gap={[0, '20px']}>
         <Flex className={s.leftSection} direction={"column"} justifyContent={"flex-start"}>
-          <TopContent />
           <LeaderBoardVisual />
           {/*<AddMoreContribution />*/}
           <RaffleButton className={s.raffleButton}/>

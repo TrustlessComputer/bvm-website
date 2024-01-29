@@ -13,25 +13,15 @@
   }
 
   .leftSection {
-    background: #000000;
+    background: #1B1B1B;
     padding-top: 80px;
     position: relative;
   }
 
   .rightSection {
-    background: #F6F6F6;
-    padding-top: 80px;
-    height: 100dvh;
-    overflow-y: auto;
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
 
     @include w-max(768px) {
       height: unset;
-    }
-
-    &::-webkit-scrollbar {
-      display: none; /* Safari and Chrome */
     }
 
     @include is-mobile {
@@ -81,7 +71,7 @@
 
   .raffleButton {
     position: absolute;
-    top: 405px;
+    top: 24px;
     left: 24px;
 
     @include is-mobile {
@@ -91,7 +81,7 @@
 
   .boardSwitch {
     position: absolute;
-    top: 405px;
+    top: 24px;
     right: 24px;
     width: fit-content;
 
