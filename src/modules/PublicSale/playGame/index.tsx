@@ -3,6 +3,11 @@ import s from './styles.module.scss';
 import EternalAi from './VideoFrame';
 import React, { useState } from 'react';
 import cx from 'clsx';
+import dayjs from 'dayjs';
+import { PUBLIC_SALE_START } from '@/modules/Whitelist';
+import BigNumber from 'bignumber.js';
+
+const TIME_DAY = 1000 * 60 * 60 * 24;
 
 const Playgame = () => {
   const DAYS = React.useMemo(() => {
@@ -17,7 +22,15 @@ const Playgame = () => {
     ]
   }, [])
 
-  const [selectedDay, setSelectedDay] = useState(DAYS[0]);
+  const currentDay = React.useMemo(() => {
+    const diffDay = new BigNumber(dayjs.utc(PUBLIC_SALE_START).diff(dayjs.utc(), 'days')).absoluteValue().toNumber();
+    return {
+      step: DAYS.length > diffDay ? DAYS[diffDay] : DAYS[DAYS.length - 1],
+      diffDay
+    }
+  }, [])
+
+  const [selectedDay, setSelectedDay] = useState(currentDay.step);
 
   return (
     <Flex className={s.container} direction={"column"}>

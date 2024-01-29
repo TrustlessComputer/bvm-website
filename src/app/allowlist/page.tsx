@@ -10,12 +10,15 @@ const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
 
+export const checkIsPublicSale = () => {
+  return dayjs
+    .utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss')
+    .isBefore(dayjs().utc().format());
+}
+
 const Whitelist = () => {
   const onRedirect = () => {
-    const PUBLIC_SALE_TIME = isProduction ? PUBLIC_SALE_START : '2024-01-29 04:00:00';
-    const isPublicSale = dayjs
-      .utc(PUBLIC_SALE_TIME, 'YYYY-MM-DD HH:mm:ss')
-      .isBefore(dayjs().utc().format());
+    const isPublicSale = checkIsPublicSale();
     if (isPublicSale) redirect('public-sale');
   }
   React.useEffect(() => {

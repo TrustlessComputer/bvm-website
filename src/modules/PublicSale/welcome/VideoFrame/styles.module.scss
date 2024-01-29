@@ -11,6 +11,10 @@
   background-repeat: no-repeat;
   cursor: pointer;
 
+  @include is-mobile {
+    max-width: unset;
+  }
+
   video {
     mix-blend-mode: luminosity;
     position: absolute;
