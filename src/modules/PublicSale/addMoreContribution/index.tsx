@@ -6,10 +6,10 @@ import React, { useState } from 'react';
 
 const AMOUNTS = [
   {key: 0, title: '$100', value: 100},
-  {key: 1, title: '$500', value: 500},
-  {key: 2, title: '$1,000', value: 1000},
-  {key: 3, title: '$10,000', value: 10000},
-  {key: 4, title: '$15,000', value: 15000},
+  {key: 1, title: '$1,000', value: 1000},
+  {key: 2, title: '$10,000', value: 10000},
+  {key: 3, title: '$20,000', value: 20000},
+  {key: 4, title: '$50,000', value: 50000},
 ]
 
 const AddMoreContribution = () => {
