@@ -193,6 +193,9 @@ const FAQContent: React.FC = (): React.ReactElement => {
                     <p className={s.faqContent}>
                       To clarify, the top 1% of the allowlist will receive a 30% boost, the next 9% will get a 20% boost, and the remaining 90% will receive a 10% boost.
                     </p>
+                    <p className={s.faqContent}>
+                      If you have a boost, claim it here.
+                    </p>
                   </AccordionPanel>
                 </>
               )}

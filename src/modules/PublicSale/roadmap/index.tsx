@@ -36,7 +36,7 @@ const RoadmapModule = () => {
         time: 'May 2023',
         title: 'Deployed Uniswap on Bitcoin',
         button: 'Learn more',
-        link: 'https://twitter.com/punk3700/status/1651252683179978752',
+        link: 'https://twitter.com/punk3700/status/1654532883388977158',
         isDone: true,
         desc: 'Our second experiment involved building sophisticated applications on Bitcoin, with Uniswap being the first use case. We built a fully functional DEX on Bitcoin as a result.'
       },
