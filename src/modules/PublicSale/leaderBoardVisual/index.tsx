@@ -38,6 +38,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const refInitial = useRef(false);
 
   useEffect(() => {
+    fetchLatestData();
     const interval = setInterval(() => {
       fetchLatestData();
     }, 10000);
