@@ -10,8 +10,8 @@ const PublicSaleModule = () => {
   return (
     <Box className={s.container}>
       <AboveTheFold />
-      <Allocation />
       <RoadmapModule />
+      <Allocation />
     </Box>
   );
 };

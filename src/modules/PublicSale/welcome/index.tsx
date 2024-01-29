@@ -2,7 +2,7 @@ import { Box, Center, Flex, GridItem, SimpleGrid, Text } from '@chakra-ui/react'
 import s from './styles.module.scss';
 import EternalAi from 'src/modules/PublicSale/welcome/VideoFrame';
 
-const LearnMore = ({url, title}: any) => {
+export const LearnMore = ({url, title}: any) => {
   return (
     <a href={url} target={"_blank"}>
       <Flex className={s.learnMoreWrapper} gap={3}>
