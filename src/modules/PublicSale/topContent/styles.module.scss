@@ -1,0 +1,60 @@
+.container {
+  padding: 20px 0;
+  max-width: 633px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 32px;
+
+  .title {
+    font-size: 44px;
+    line-height: 1;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+  }
+
+  .desc {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: (24/16);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 24px;
+    align-items: center;
+    margin-top: 20px;
+
+    li > a {
+      display: flex;
+      align-items: center;
+      color: white;
+      gap: 6px;
+      font-weight: 500;
+      line-height: 1.4;
+
+      img {
+        width: 16px;
+        height: 16px;
+        max-width: none;
+        max-height: none;
+      }
+    }
+  }
+
+  @include is-mobile {
+    padding: 16px 16px;
+
+    .title {
+      font-size: 20px;
+    }
+
+    .desc {
+      font-size: 14px;
+    }
+  }
+}

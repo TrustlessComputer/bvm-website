@@ -13,12 +13,16 @@ export const LEADER_BOARD_MODE = {
   ALL: 1,
 }
 
-const LeaderBoardSwitch = () => {
+
+type IProp = {
+  classNames: string
+}
+const LeaderBoardSwitch = ({classNames}: IProp) => {
   const leaderBoardMode = useSelector(commonSelector).leaderBoardMode;
   const dispatch = useDispatch();
 
   return (
-    <Flex className={s.container}>
+    <Flex className={`${s.container} ${classNames}`}>
       <Button
         className={cs(
           s.btn,
