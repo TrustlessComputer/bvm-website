@@ -23,7 +23,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
     return <Image
       width={120}
       height={120}
-      src={'/images/mk-user.jpg'} alt={'user'} />;
+      src={'/images/mk-user.jpg'} alt={'user'} style={{ cursor: 'pointer' }} />;
   };
 
   useEffect(() => {

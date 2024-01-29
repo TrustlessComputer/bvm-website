@@ -20,6 +20,7 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import cx from 'classnames';
 import AuthenStorage from '@/utils/storage/authen.storage';
+import { PUBLIC_SALE_END } from '@/modules/Whitelist';
 
 export const TIME_CHAIN_EXPIRED_TIME = '2024-01-30 18:00:00';
 
@@ -158,7 +159,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'
               }
             >
-              <Text fontSize={'10px'} fontWeight={'400'} color={'#FFFFFF'}>
+              <Text fontSize={'10px'} fontWeight={'400'} mt="2.5px" color={'#FFFFFF'}>
                 YOU GET
               </Text>
               <Text fontSize={'12px'} fontWeight={'600'} className={s.youGet}>
@@ -322,7 +323,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   <Countdown
                     className={s.time}
                     expiredTime={dayjs
-                      .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
+                      .utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss')
                       .toString()}
                     hideIcon={true}
                     onRefreshEnd={() => setIsEnd(true)}

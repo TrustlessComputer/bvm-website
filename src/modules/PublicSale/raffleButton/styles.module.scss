@@ -18,6 +18,15 @@
   .timeWrapper {
     position: absolute;
     bottom: -10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
   }
 
   .time {
@@ -29,6 +38,7 @@
     p {
       font-size: inherit !important;
       font-weight: inherit !important;
+      white-space: pre;
     }
 
     @include is-mobile {
