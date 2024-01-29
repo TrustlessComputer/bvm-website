@@ -1,11 +1,16 @@
 .container {
-  border-top: 1px solid #FFFFFF16;
+
   width: 100%;
 
   .content {
     max-width: 826px;
     margin: 0 auto;
-    padding: 60px 24px;
+    padding: 0 24px;
+
+    &_inner{
+      border-top: 1px solid #FFFFFF16;
+      padding-top: 60px;
+    }
   }
 
   .title {
@@ -30,5 +35,12 @@
     font-size: 14px;
     font-weight: 400;
     align-items: center;
+    transition: background-color .3s ease-out, color .3s ease-out;
+
+    &:hover{
+      background: #FFFFFF;
+      color: black;
+
+    }
   }
 }

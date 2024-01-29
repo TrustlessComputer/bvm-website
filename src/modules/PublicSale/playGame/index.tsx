@@ -1,25 +1,28 @@
 import { Box, Center, Flex, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import EternalAi from './VideoFrame';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import cx from 'clsx';
 
-const DAYS = [
-  {key: 0, tag: 'DAY 1', title: 'Play game in Arcade', desc: 'day 1 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 1, tag: 'DAY 2', title: 'Play game in Arcade', desc: 'day 2 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 2, tag: 'DAY 3', title: 'Play game in Arcade', desc: 'day 3 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 3, tag: 'DAY 4', title: 'Play game in Arcade', desc: 'day 4 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 4, tag: 'DAY 5', title: 'Play game in Arcade', desc: 'day 5 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 5, tag: 'DAY 6', title: 'Play game in Arcade', desc: 'day 6 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-  {key: 6, tag: 'DAY 7', title: 'Play game in Arcade', desc: 'day 6 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
-]
-
 const Playgame = () => {
+  const DAYS = React.useMemo(() => {
+    return [
+      {key: 0, tag: 'DAY 1', title: 'Play game in Arcade', desc: 'day 1 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+      {key: 1, tag: 'DAY 2', title: 'Play game in Arcade', desc: 'day 2 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+      {key: 2, tag: 'DAY 3', title: 'Play game in Arcade', desc: 'day 3 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+      {key: 3, tag: 'DAY 4', title: 'Play game in Arcade', desc: 'day 4 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+      {key: 4, tag: 'DAY 5', title: 'Play game in Arcade', desc: 'day 5 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+      {key: 5, tag: 'DAY 6', title: 'Play game in Arcade', desc: 'day 6 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+      {key: 6, tag: 'DAY 7', title: 'Play game in Arcade', desc: 'day 6 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'},
+    ]
+  }, [])
+
   const [selectedDay, setSelectedDay] = useState(DAYS[0]);
 
   return (
     <Flex className={s.container} direction={"column"}>
       <Box className={s.content}>
+        <div className={s.content_inner}>
         <Flex gap={2} justifyContent={"space-between"} mb={8}>
           {
             DAYS.map(d => {
@@ -54,6 +57,7 @@ const Playgame = () => {
             </Flex>
           </GridItem>
         </SimpleGrid>
+        </div>
       </Box>
     </Flex>
   );

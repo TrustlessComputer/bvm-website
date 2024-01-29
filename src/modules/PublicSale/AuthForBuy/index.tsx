@@ -122,13 +122,15 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
   };
 
   const modalSize = useMemo(() => {
+    console.log('user', user);
+
     if (user?.guest_code || user?.twitter_id) {
       return 'custom';
     }
     return 'small';
-  }, [user, isBuyGuest]);
+  }, [user]);
 
-  if (Boolean(user?.twitter_id)) {
+  if (Boolean(user?.twitter_id) || Boolean(user?.guest_code)) {
     return children;
   }
 

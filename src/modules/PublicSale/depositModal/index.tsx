@@ -6,21 +6,17 @@ import { useSelector } from 'react-redux';
 import DepositContent from './deposit.content';
 import s from './styles.module.scss';
 
-const DepositModal = ({
-  isShow,
-  onHide,
-  payAmountUsd,
-}: any) => {
+const DepositModal = ({ isShow, onHide, payAmountUsd }: any) => {
   return (
     <BaseModal
       isShow={isShow}
       onHide={onHide}
-      title={''}
+      title={'Deposit'}
       headerClassName={s.modalManualHeader}
       className={s.modalContent}
-      // size="small"
+      size="custom"
     >
-      <DepositContent amount_usd={payAmountUsd}/>
+      <DepositContent amount_usd={payAmountUsd} />
     </BaseModal>
   );
 };

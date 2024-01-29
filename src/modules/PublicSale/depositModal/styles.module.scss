@@ -57,17 +57,21 @@
 }
 
 .modalManualHeader {
-  padding-bottom: 0 !important;
+  // padding-bottom: 0 !important;
+  p {
+    color: white;
+  }
 }
 
 .modalContent {
   background-color: #292929 !important;
+  max-width: 600px !important;
 
   :global {
     .chakra-modal__body {
-      padding-left: rem(24) !important;
-      padding-right: rem(24) !important;
-      padding-bottom: rem(24) !important;
+      // padding-left: rem(24) !important;
+      // padding-right: rem(24) !important;
+      // padding-bottom: rem(24) !important;
     }
   }
 }
@@ -149,6 +153,9 @@
     flex-direction: column;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 12px;
+    &:last-child {
+      border-bottom: 0;
+    }
     .wrapTokenDepositDetailItemTitle {
       font-size: 12px;
       opacity: 0.7;
