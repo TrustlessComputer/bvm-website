@@ -54,12 +54,36 @@ const RaffleButton = ({className}: any) => {
     <Popover>
       <PopoverTrigger>
         <Flex className={cx(s.container, className)}>
-          <Countdown
-            className={s.time}
-            expiredTime={dayjs.utc(programeInfo?.end_date, 'YYYY-MM-DD HH:mm:ss').toString()}
-            hideIcon={true}
-            onRefreshEnd={() => setIsEnd(true)}
-          />
+          <Flex gap={"6px"} className={s.timeWrapper}>
+            <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.8336 3.81861C3.78016 4.38861 3.74266 5.39736 4.07923 5.82674C4.07923 5.82674 3.92079 4.71861 5.3411 3.3283C5.91298 2.76861 6.04516 2.00736 5.84548 1.43642C5.73204 1.11299 5.52485 0.845799 5.34485 0.659236C5.23985 0.549549 5.32048 0.368611 5.47329 0.375174C6.39766 0.416424 7.89579 0.673298 8.53235 2.2708C8.81173 2.97205 8.83235 3.69674 8.69923 4.43361C8.61485 4.90424 8.31485 5.95049 8.99923 6.07892C9.48766 6.1708 9.72391 5.78267 9.82985 5.5033C9.87391 5.38705 10.0267 5.35799 10.1092 5.4508C10.9342 6.38924 11.0045 7.49455 10.8339 8.44611C10.5039 10.2855 8.6411 11.6242 6.79048 11.6242C4.4786 11.6242 2.63829 10.3014 2.1611 7.90705C1.96891 6.94049 2.06641 5.02799 3.55704 3.67799C3.66766 3.57674 3.8486 3.66674 3.8336 3.81861Z" fill="url(#paint0_radial_30141_6168)"/>
+              <path d="M7.63538 7.25774C6.78319 6.16086 7.16475 4.9093 7.37381 4.41055C7.40194 4.34493 7.32694 4.28305 7.26788 4.32336C6.90131 4.57274 6.15038 5.15961 5.80069 5.98555C5.32725 7.10211 5.361 7.64868 5.64131 8.31618C5.81006 8.71836 5.61413 8.80368 5.51569 8.81868C5.42006 8.83368 5.33194 8.76993 5.26163 8.70336C5.05935 8.50917 4.91521 8.26244 4.84538 7.99086C4.83038 7.93274 4.75444 7.9168 4.71975 7.96461C4.45725 8.32743 4.32131 8.90961 4.31475 9.32118C4.29413 10.5934 5.34506 11.6246 6.61631 11.6246C8.2185 11.6246 9.38569 9.85274 8.46506 8.37149C8.19788 7.94024 7.94663 7.65805 7.63538 7.25774Z" fill="url(#paint1_radial_30141_6168)"/>
+              <defs>
+                <radialGradient id="paint0_radial_30141_6168" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(6.33258 11.6534) rotate(-179.751) scale(6.61759 10.8581)">
+                  <stop offset="0.314" stop-color="#FF9800"/>
+                  <stop offset="0.662" stop-color="#FF6D00"/>
+                  <stop offset="0.972" stop-color="#F44336"/>
+                </radialGradient>
+                <radialGradient id="paint1_radial_30141_6168" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(6.70443 5.06759) rotate(90.5787) scale(6.92404 5.21086)">
+                  <stop offset="0.214" stop-color="#FFF176"/>
+                  <stop offset="0.328" stop-color="#FFF27D"/>
+                  <stop offset="0.487" stop-color="#FFF48F"/>
+                  <stop offset="0.672" stop-color="#FFF7AD"/>
+                  <stop offset="0.793" stop-color="#FFF9C4"/>
+                  <stop offset="0.822" stop-color="#FFF8BD" stop-opacity="0.804"/>
+                  <stop offset="0.863" stop-color="#FFF6AB" stop-opacity="0.529"/>
+                  <stop offset="0.91" stop-color="#FFF38D" stop-opacity="0.209"/>
+                  <stop offset="0.941" stop-color="#FFF176" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+            </svg>
+            <Countdown
+              className={s.time}
+              expiredTime={dayjs.utc(programeInfo?.end_date, 'YYYY-MM-DD HH:mm:ss').toString()}
+              hideIcon={true}
+              onRefreshEnd={() => setIsEnd(true)}
+            />
+          </Flex>
         </Flex>
       </PopoverTrigger>
       <PopoverContent className={cx(s.menuContent)}>

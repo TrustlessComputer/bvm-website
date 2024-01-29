@@ -20,10 +20,12 @@ import useAllowEVM from '@/modules/Whitelist/AllowEVMMessage/useAllowEVM';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import ArcadeBanner from '@/modules/Whitelist/ArcadeBanner';
+import { isProduction } from '@/config';
 
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
-export const PUBLIC_SALE_START = '2024-01-30 03:30:00'
+export const PUBLIC_SALE_START = isProduction ? '2024-01-30 03:30:00' : '2024-01-29 04:00:00'
+export const PUBLIC_SALE_END = '2024-02-06 03:30:00'
 
 const Whitelist = () => {
   useAllowBTC();

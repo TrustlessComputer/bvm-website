@@ -26,6 +26,10 @@
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
 
+    @include w-max(768px) {
+      height: unset;
+    }
+
     &::-webkit-scrollbar {
       display: none;  /* Safari and Chrome */
     }

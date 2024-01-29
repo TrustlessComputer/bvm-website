@@ -27,7 +27,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
   const leaderBoardMode = useSelector(commonSelector).leaderBoardMode;
-  const [latestContributors, setLatestContributors] = useState<ILeaderBoardPoint[]>([]);
+  const latestContributors = useRef<ILeaderBoardPoint[]>([]);
   const user = useAppSelector(userSelector);
 
   const hasIncrementedPageRef = useRef(false);
@@ -38,6 +38,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const refInitial = useRef(false);
 
   useEffect(() => {
+    fetchLatestData();
     const interval = setInterval(() => {
       fetchLatestData();
     }, 10000);
@@ -100,8 +101,16 @@ const LeaderBoardVisual = (props: IProps) => {
   };
 
   const fetchLatestData = async () => {
-    const res = await getPublicSaleContributionLatest();
-    setLatestContributors(res);
+    let res = await getPublicSaleContributionLatest();
+    const oldContributors = latestContributors?.current;
+
+    const newRes = res.filter( function( el ) {
+      return oldContributors?.findIndex(a => a.twitter_id === el.twitter_id) < 0;
+    });
+
+    if(newRes?.length > 0) {
+      latestContributors.current = newRes;
+    }
   };
 
   useEffect(() => {
@@ -161,7 +170,7 @@ const LeaderBoardVisual = (props: IProps) => {
           })
         }
       </ScrollWrapper>
-      <AnimatedText latestContributors={latestContributors} />
+      <AnimatedText latestContributors={latestContributors?.current} />
     </div>
   );
 };
