@@ -1,6 +1,10 @@
 .btnWrapper {
   grid-gap: 16px;
   grid-template-columns: 2fr 1fr;
+
+  @include is-mobile {
+    grid-template-columns: 1fr;
+  }
 }
 
 .btnContainer {
