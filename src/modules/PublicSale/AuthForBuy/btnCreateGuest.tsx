@@ -8,6 +8,7 @@ import { generateTOkenWithSecretCode } from '@/services/public-sale';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { setGuestSecretCode } from '@/stores/states/user/reducer';
 import { useDispatch } from 'react-redux';
+import cs from 'classnames';
 
 const BtnCreateGuest = () => {
   const dispatch = useDispatch();
@@ -47,14 +48,18 @@ const BtnCreateGuest = () => {
     <Button
       loadingText={'Processing'}
       type="button"
-      className={s.btnTweetToSign}
+      className={cs(s.btnTweetToSign, s.btnPrimary)}
       onClick={createNewSecretCode}
     >
-      <Center className={s.boxIcon}>
+      <Center className={cs(s.boxIcon, s.boxIconWhite)}>
         {loading ? (
           <Spinner color="#fa4e0e" width={'16px'} height={'16px'} />
         ) : (
-          <SvgInset svgUrl="/icons/ic_guest.svg" size={16} />
+          <SvgInset
+            className={s.iconBlack}
+            svgUrl="/icons/ic_guest.svg"
+            size={16}
+          />
         )}
       </Center>
       <Text>Buy as guest</Text>

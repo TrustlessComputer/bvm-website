@@ -188,13 +188,13 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
           className={s.btnContainer}
         >
           <SvgInset svgUrl="/icons/ic_twitter.svg" />
-          Buy $BVM
+          Back $BVM
         </Button>
       </Flex>
       <BaseModal
         isShow={isOpen}
         onHide={onClose}
-        title={isSigned ? 'Buy $BVM' : 'Sign to Buy $BVM'}
+        title={isSigned ? 'Back $BVM' : 'Back $BVM'}
         headerClassName={s.modalHeader}
         className={cs(s.modalContent, isSigned ? s.deposit : s.notSignModal)}
         // size={modalSize}
@@ -215,7 +215,35 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
                   alignItems={'center'}
                   gap={'16px'}
                 >
-                  <Button
+                  <GoogleReCaptchaProvider
+                    reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
+                    scriptProps={{
+                      async: false,
+                      defer: false,
+                      appendTo: 'head',
+                      nonce: undefined,
+                    }}
+                  >
+                    <BtnCreateGuest />
+                  </GoogleReCaptchaProvider>
+                  <Flex
+                    alignItems={'center'}
+                    gap={'12px'}
+                    justifyContent={'center'}
+                    width={'100%'}
+                    mt={'5px'}
+                  >
+                    <Text onClick={handleShareTw} className={s.link}>
+                      Post to sign-in
+                    </Text>
+                    <Text fontSize={'12px'} opacity={0.7}>
+                      Or
+                    </Text>
+                    <Text onClick={getTwitterOauthUrl} className={s.link}>
+                      Authorize to sign-in
+                    </Text>
+                  </Flex>
+                  {/* <Button
                     isDisabled={submitting && !isCopy}
                     loadingText={'Processing'}
                     type="button"
@@ -249,18 +277,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
                       />
                     </Center>
                     <Text>Auth to sign</Text>
-                  </Button>
-                  <GoogleReCaptchaProvider
-                    reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
-                    scriptProps={{
-                      async: false,
-                      defer: false,
-                      appendTo: 'head',
-                      nonce: undefined,
-                    }}
-                  >
-                    <BtnCreateGuest />
-                  </GoogleReCaptchaProvider>
+                  </Button> */}
 
                   <Box />
                 </Flex>
