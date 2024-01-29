@@ -1,3 +1,5 @@
+import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
+
 export type CoinPrices = {
   [key in Coin]: string
 }
@@ -12,4 +14,6 @@ export interface CommonState {
   needReload: number;
   coinPrices: CoinPrices,
   leaderBoardMode: 0 | 1;
+  needCheckDeposit: boolean;
+  animatedLatestContributors: ILeaderBoardPoint[];
 }

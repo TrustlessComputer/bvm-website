@@ -13,6 +13,7 @@ import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
 import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
 import { useSelector } from 'react-redux';
 import { LEADER_BOARD_MODE } from '@/modules/PublicSale/leaderBoardSwitch';
+import { setAnimatedLatestContributors, setNeedCheckDeposit } from '@/stores/states/common/reducer';
 
 export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
@@ -37,9 +38,11 @@ const LeaderBoardVisual = (props: IProps) => {
   const refInitial = useRef(false);
 
   useEffect(() => {
+    dispatch(setNeedCheckDeposit(false));
     fetchLatestData();
     const interval = setInterval(() => {
       fetchLatestData();
+      dispatch(setNeedCheckDeposit(true));
     }, 10000);
 
     return () => {
@@ -110,6 +113,7 @@ const LeaderBoardVisual = (props: IProps) => {
     if(newRes?.length > 0) {
       latestContributors.current = newRes.concat(latestContributors.current);
       animatedLatestContributors.current = newRes;
+      dispatch(setAnimatedLatestContributors(newRes));
     }
   };
 
