@@ -6,11 +6,13 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
 
 interface IProps {
-  data: ILeaderBoardPoint
+  data: ILeaderBoardPoint,
+  isShowName?: boolean
+  isYou?: boolean
 }
 
 const AvatarItem = forwardRef((props: IProps, ref: any) => {
-  const { data, ...rest } = props;
+  const { data, isShowName, isYou, ...rest } = props;
 
   const [error, setError] = useState<boolean>(false);
   const PlaceImage = (): ReactElement => {
@@ -20,11 +22,10 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
       src={'/images/mk-user.jpg'} alt={'user'} />;
   };
 
-  console.log('data', data);
-
   return (
     <div
-      className={`${s.avatarItem} ${data.levelRender !== undefined && 'level-' + data.levelRender} js-avatarItem`} ref={ref} {...rest}>
+      className={`${s.avatarItem} ${isYou && s.isYou} ${data.levelRender !== undefined && 'level-' + data.levelRender} js-avatarItem`}
+      ref={ref} {...rest}>
       <div className={s.avatarItem_inner}>
         <div
           className={s.avatarItem_avatar}
@@ -46,9 +47,17 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
               'medium',
             ) || ''} alt={'medium'} />}
         </div>
-        <p className={s.price}>${formatCurrency(data?.usdt_value, 0, 0, 'BTC', true)}</p>
+        <div className={s.meta}>
+          {
+            isShowName && !isYou && <p className={s.name}>{data.twitter_username}</p>
+          }
+          {
+            isYou && <p className={s.name}>You</p>
+          }
+          <p className={s.price}>${formatCurrency(data?.usdt_value, 0, 0, 'BTC', true)}</p>
+        </div>
       </div>
-  </div>
+    </div>
   );
 });
 

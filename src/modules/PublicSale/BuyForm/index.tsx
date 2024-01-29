@@ -21,7 +21,7 @@ import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import cx from 'classnames';
 import AuthenStorage from '@/utils/storage/authen.storage';
 
-export const TIME_CHAIN_EXPIRED_TIME = '2024-01-28 18:00:00';
+export const TIME_CHAIN_EXPIRED_TIME = '2024-01-30 18:00:00';
 
 interface FormValues {
   tokenAmount: string;

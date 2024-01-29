@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { publicSaleLeaderBoardVisualSelector } from '@/stores/states/user/selector';
+import { publicSaleLeaderBoardVisualSelector, userSelector } from '@/stores/states/user/selector';
 import { setPublicSaleLeaderBoardVisual } from '@/stores/states/user/reducer';
 import { getPublicSaleContributionLatest, getPublicSaleLeaderBoards, getPublicSaleTop } from '@/services/public-sale';
 import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
@@ -26,10 +26,9 @@ const LeaderBoardVisual = (props: IProps) => {
   const [listRender, setListRender] = useState<ILeaderBoardPoint[]>([]);
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
-  const emptyArray: number[] = Array.from({ length: (13 * 5) });
-  const indexUserInsert = Math.floor(Math.random() * emptyArray.length);
   const leaderBoardMode = useSelector(commonSelector).leaderBoardMode;
   const [latestContributors, setLatestContributors] = useState<ILeaderBoardPoint[]>([]);
+  const user = useAppSelector(userSelector);
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -45,7 +44,7 @@ const LeaderBoardVisual = (props: IProps) => {
 
     return () => {
       clearInterval(interval);
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -92,7 +91,7 @@ const LeaderBoardVisual = (props: IProps) => {
         );
       }
     } catch (error) {
-      console.log('LeaderBoardVisual error', error)
+      console.log('LeaderBoardVisual error', error);
     } finally {
       // setIsFetching(false);
       hasIncrementedPageRef.current = false;
@@ -103,16 +102,14 @@ const LeaderBoardVisual = (props: IProps) => {
   const fetchLatestData = async () => {
     const res = await getPublicSaleContributionLatest();
     setLatestContributors(res);
-  }
+  };
 
   useEffect(() => {
 
     let refLevel = 0;
     const levels = [1, 3, 5, 6, 8];
     const tmsss = list.map((el, index) => {
-
       const tmp: ILeaderBoardPoint = { ...el, levelRender: refLevel, lastRender: false };
-
       tmp.levelRender = refLevel;
       if (levels[refLevel] > 0) {
         levels[refLevel]--;
@@ -125,8 +122,9 @@ const LeaderBoardVisual = (props: IProps) => {
       return tmp;
     });
 
-    setListRender(tmsss);
-
+    setListRender(tmsss.slice(0, 23).sort((a, b) => {
+      return a.ranking - b.ranking;
+    }));
   }, [list]);
 
   return (
@@ -142,7 +140,7 @@ const LeaderBoardVisual = (props: IProps) => {
         }}
       >
         {
-          listRender.slice(0, 23).map((item, index) => {
+          listRender.map((item, index) => {
             return <>
               <Tooltip minW='220px'
                        bg='white'
@@ -151,10 +149,10 @@ const LeaderBoardVisual = (props: IProps) => {
                        padding='16px'
                        hasArrow
                        label={
-                         <ContributorInfo data={item}/>
+                         <ContributorInfo data={item} />
                        }
               >
-                <AvatarItem data={item} />
+                <AvatarItem data={item} isShowName={index < 4} isYou={user?.twitter_id === item.twitter_id} />
               </Tooltip>
               {
                 item.lastRender && <span className={styles.lastRender}></span>
@@ -162,39 +160,8 @@ const LeaderBoardVisual = (props: IProps) => {
             </>;
           })
         }
-        {/*<div className={styles.emptyArray}>*/}
-        {/*  {*/}
-        {/*    emptyArray.map((item, index) => {*/}
-
-        {/*      if (index === indexUserInsert) {*/}
-        {/*        return (*/}
-        {/*          <Tooltip minW='220px'*/}
-        {/*                   bg='white'*/}
-        {/*                   boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'*/}
-        {/*                   borderRadius='4px'*/}
-        {/*                   padding='16px'*/}
-        {/*                   hasArrow*/}
-        {/*                   label={*/}
-        {/*                     <ContributorInfo />*/}
-        {/*                   }*/}
-        {/*          >*/}
-        {/*            <AvatarYou />*/}
-        {/*          </Tooltip>*/}
-        {/*        );*/}
-        {/*      }*/}
-        {/*      return <>*/}
-        {/*        <Image*/}
-        {/*          className={styles.emptyArray_label}*/}
-        {/*          width={120}*/}
-        {/*          height={120}*/}
-        {/*          src={'/images/elipse.jpg'} alt={'elipse'} />*/}
-        {/*      </>;*/}
-        {/*    })*/}
-        {/*  }*/}
-        {/*</div>*/}
-        {/*<AddMoreContribution />*/}
       </ScrollWrapper>
-      <AnimatedText latestContributors={latestContributors}/>
+      <AnimatedText latestContributors={latestContributors} />
     </div>
   );
 };

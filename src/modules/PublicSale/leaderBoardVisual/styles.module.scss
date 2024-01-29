@@ -44,7 +44,12 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  //gap: 16px;
+  align-content: flex-start;
+  padding-top: vh(24px);
+
+  @include is-pc {
+    padding-top: vh(40px);
+  }
 }
 
 table {

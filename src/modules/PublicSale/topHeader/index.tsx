@@ -13,10 +13,9 @@ const TopHeader = () => {
     <Flex direction={"column"} className={s.container} gap={3}>
       <Flex gap={4} justifyContent={"space-between"} direction={["column", "row"]}>
         <Flex gap={4} alignItems={"center"} >
-          <SvgInset svgUrl="/public-sale/topContribution.svg" />
           <Flex direction={"column"} gap={1}>
             <Text className={s.title}>Top Contribution</Text>
-            <Text className={s.desc}>Nemo enim ipsam voluptatem quia voluptas sit aspernatur .</Text>
+            <Text className={s.desc}>The first modular blockchain metaprotocol that lets</Text>
           </Flex>
         </Flex>
         <Flex alignItems={"flex-end"}>
