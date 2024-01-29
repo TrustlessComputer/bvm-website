@@ -17,13 +17,13 @@ interface IProps {
 const AvatarItem = forwardRef((props: IProps, ref: any) => {
   const { data, isShowName, isYou, onCompleted, ...rest } = props;
   const lottieRef = useRef<any>();
-  const refMoney = useRef<{ value: number }>({ value: data?.usdt_value || 0 });
+  const refMoney = useRef<{ value: number }>({ value: Number(data?.usdt_value) || 0 });
   const refInertMoney = useRef<HTMLParagraphElement>(null);
   const [isLoopDone, setIsLoopDone] = useState(true);
   const refTime = useRef<NodeJS.Timeout>();
 
-  const newTotalMoney = useMemo(() => {
-    return data.usdt_value;
+  const newTotalMoney = useMemo(():number => {
+    return Number(data.usdt_value);
   }, [data]);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
     const duration = lottieRef.current;
     refTime.current = setTimeout(() => {
       setIsLoopDone(true);
-      onCompleted();
+      onCompleted && onCompleted();
     }, duration * numberLoop);
 
   }, [newTotalMoney]);
