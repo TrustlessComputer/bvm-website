@@ -45,7 +45,7 @@
 
     &:hover {
       .closeIcon {
-        transform: rotate(90deg);
+        transform: scale(1.2);
         transition: all 0.3s;
 
         //:global(svg path) {

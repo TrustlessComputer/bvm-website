@@ -24,7 +24,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
 
   const dispatch = useAppDispatch();
   const needReload = useAppSelector(commonSelector).needReload;
-  const token = AuthenStorage.getAuthenKey();
+  const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
   const fetchUserInfo = async () => {
     const userInfo = await userServices.getUser()

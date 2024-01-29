@@ -43,7 +43,7 @@ const BaseModal = (props: PropsWithChildren<IBaseModalProps>): React.ReactNode =
                 onClick={onHide}
                 className={s.modalHeader_closeBtn}
               >
-                <SvgInset className={s.closeIcon} svgUrl={`${CDN_URL_ICONS}/ic-close-border.svg`} />
+                <SvgInset className={s.closeIcon} svgUrl={`/icons/ic_close_modal.svg`} />
               </button>
               <p className={s.modalHeader_title}>
                 {title}
