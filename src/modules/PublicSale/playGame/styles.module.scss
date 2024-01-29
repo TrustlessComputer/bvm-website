@@ -1,11 +1,16 @@
 .container {
-  border-top: 1px solid #FFFFFF16;
   width: 100%;
 
   .content {
     max-width: 826px;
     margin: 0 auto;
-    padding: 60px 24px;
+    padding: 0 24px;
+    margin-top: 60px;
+
+    &_inner {
+      border-top: 1px solid #FFFFFF16;
+      padding-top: 60px;
+    }
   }
 
   .title {

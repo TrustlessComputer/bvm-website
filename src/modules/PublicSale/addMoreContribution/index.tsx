@@ -41,7 +41,7 @@ const AddMoreContribution = () => {
         direction={["column", "row"]}
         gap={6}
       >
-        <Text fontSize={'18px'} fontWeight={400} color={'#FFFFFF'}>
+        <Text fontSize={'14px'} casing={'uppercase'} fontWeight={500} color={'#FFFFFF'}>
           Add more contributors
         </Text>
         <Flex gap={2} justifyContent={"space-between"} flexWrap={["wrap", "nowrap"]}>
@@ -66,7 +66,7 @@ const AddMoreContribution = () => {
           }
         </Flex>
       </Flex>
-      <Divider orientation={'vertical'} borderColor={'rgba(255, 255, 255, .4)'}/>
+      <Divider orientation={'vertical'} borderColor={'rgba(255, 255, 255, .3)'}/>
       <Flex p={'20px'} alignItems={'center'} justifyContent={"center"}>
         <Flex className={s.learnMoreWrapper} gap={3} onClick={handleShareTw}>
           <Text whiteSpace={"nowrap"}>Share on</Text>
