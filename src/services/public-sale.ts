@@ -36,12 +36,8 @@ export const generateTOkenWithSecretCode = async (secret_code: string, recaptcha
   return res;
 }
 
-export const generateTokenWithOauth = async (secret_code: string, recaptcha: string): Promise<IGenerateTOkenWithSecretCode> => {
-  const res = (await apiClient.post(`/bvm/generate-token-with-oauth`, {secret_code}, {
-    headers: {
-      recaptcha
-    }
-  })) as unknown as IGenerateTOkenWithSecretCode;
+export const generateTokenWithOauth = async (uuid: string): Promise<IGenerateTOkenWithSecretCode> => {
+  const res = (await apiClient.post(`/bvm/generate-token-with-oauth`, {token: uuid})) as unknown as IGenerateTOkenWithSecretCode;
   return res;
 }
 
@@ -69,6 +65,13 @@ export const getPublicSaleSummary = async (): Promise<IPublicSaleDepositInfo> =>
 
 export const getPublicSaleContributionLatest = async (): Promise<ILeaderBoardPoint[]> => {
   const res = (await apiClient.get(`/bvm/sale/latest`)) as unknown as ILeaderBoardPoint[];
+  return res;
+};
+
+export const saleManualCheck = async (recaptcha: string): Promise<any> => {
+  const res = (await apiClient.post(`/bvm/sale/manual-check`, {}, {  headers: {
+    recaptcha
+  } })) as unknown as any;
   return res;
 };
 

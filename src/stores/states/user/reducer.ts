@@ -27,7 +27,10 @@ const slice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.user = {
+        ...state.user,
+        ...action.payload,
+      } as any;
     },
     setLeaderBoard: (state, action) => {
       state.leaderBoard = uniqueBy(
@@ -79,7 +82,10 @@ const slice = createSlice({
       state.publicSaleLeaderBoard = [];
     },
     setPublicSaleLeaderBoardVisual: (state, action) => {
-      state.publicSaleLeaderBoardVisual = uniqueBy([...action.payload.list], item => item.twitter_id);
+      state.publicSaleLeaderBoardVisual = uniqueBy(
+        [...action.payload.list],
+        (item) => item.twitter_id,
+      );
     },
     setGuestSecretCode: (state, action) => {
       state.user = {

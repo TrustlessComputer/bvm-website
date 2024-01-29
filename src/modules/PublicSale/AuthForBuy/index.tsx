@@ -1,23 +1,29 @@
+import BaseModal from '@/components/BaseModal';
+import SvgInset from '@/components/SvgInset';
+import { PERP_NAKA_API_URL, TWITTER_CLIENT_ID } from '@/config';
+import { IAuthenCode } from '@/modules/Whitelist/steps';
+import {
+  generateTokenWithTwPost,
+  requestAuthenByShareCode,
+} from '@/services/player-share';
+import { generateTokenWithOauth } from '@/services/public-sale';
+import { setBearerToken } from '@/services/whitelist';
 import { useAppSelector } from '@/stores/hooks';
+import { requestReload } from '@/stores/states/common/reducer';
 import { userSelector } from '@/stores/states/user/selector';
+import { getLink, getUuid } from '@/utils/helpers';
+import AuthenStorage from '@/utils/storage/authen.storage';
 import {
   Box,
   Button,
   Center,
-  Divider,
   Flex,
-  Grid,
-  GridItem,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  SimpleGrid,
+  Spinner,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import cs from 'classnames';
+import copy from 'copy-to-clipboard';
 import React, {
   PropsWithChildren,
   useEffect,
@@ -25,24 +31,12 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import s from './styles.module.scss';
-import AuthenStorage from '@/utils/storage/authen.storage';
-import {
-  generateTokenWithTwPost,
-  requestAuthenByShareCode,
-} from '@/services/player-share';
-import { getLink } from '@/utils/helpers';
-import { IAuthenCode } from '@/modules/Whitelist/steps';
-import { setBearerToken } from '@/services/whitelist';
-import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
-import SvgInset from '@/components/SvgInset';
-import copy from 'copy-to-clipboard';
-import cs from 'classnames';
 import BuyAsGuest from './buyAsGuest';
+import s from './styles.module.scss';
+import DepositContent from '../depositModal/deposit.content';
+import BtnCreateGuest from './btnCreateGuest';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import BaseModal from '@/components/BaseModal';
-import { compareString } from '@/utils/string';
 
 interface IAuthForBuy extends PropsWithChildren {}
 
@@ -56,6 +50,8 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
   const dispatch = useDispatch();
   const [isCopy, setIsCopy] = useState(false);
   const [isBuyGuest, setIsBuyGuest] = useState(false);
+
+  const uuid = getUuid();
 
   useEffect(() => {
     if (authenCode?.public_code) {
@@ -90,8 +86,57 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
       }
       setSubmitting(false);
       dispatch(requestReload());
-      onClose();
+      // onClose();
     }
+  };
+
+  useEffect(() => {
+    if (!user?.twitter_id) {
+      timer.current = setInterval(async () => {
+        handleVerifyTwitterWithUUID();
+      }, 2000);
+    }
+    return () => {
+      clearInterval(timer.current);
+    };
+  }, [user]);
+
+  const handleVerifyTwitterWithUUID = async (): Promise<void> => {
+    try {
+      const result = await generateTokenWithOauth(uuid);
+      if (result) {
+        clearInterval(timer.current);
+        if (!token || token !== result?.token) {
+          onVerifyTwSuccess(result);
+          setTimeout(() => {
+            onOpen();
+          }, 1000);
+        }
+      }
+    } catch (e) {
+      console.log('handleVerifyTwitter TwitterSignIn', e);
+    }
+  };
+
+  const getTwitterOauthUrl = () => {
+    const URL = `${window.location.origin}/public-sale`;
+    const rootUrl = 'https://twitter.com/i/oauth2/authorize';
+    const options = {
+      redirect_uri: `${PERP_NAKA_API_URL}/twitter-api/oauth/twitter-bvm?callbackURL=${URL}&uuid=${uuid}`,
+      client_id: TWITTER_CLIENT_ID,
+      state: 'state',
+      response_type: 'code',
+      code_challenge: 'challenge',
+      code_challenge_method: 'plain',
+      scope: [
+        'users.read',
+        'tweet.read',
+        'follows.read',
+        'offline.access',
+      ].join(' '),
+    };
+    const qs = new URLSearchParams(options).toString();
+    window.open(`${rootUrl}?${qs}`, '_self');
   };
 
   const generateLinkTweet = async () => {
@@ -121,110 +166,106 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
     copy(content);
   };
 
-  const modalSize = useMemo(() => {
-    console.log('user', user);
-
+  const isSigned = useMemo(() => {
     if (user?.guest_code || user?.twitter_id) {
-      return 'custom';
+      return true;
     }
-    return 'small';
+    return false;
   }, [user]);
 
-  if (Boolean(user?.twitter_id) || Boolean(user?.guest_code)) {
-    return children;
-  }
+  // if (user?.twitter_id || user?.guest_code) {
+  //   return children;
+  // }
 
   return (
     <>
-      <Grid className={s.btnWrapper}>
-        <GridItem>
-          <Button
-            onClick={() => {
-              setIsBuyGuest(false);
-              onOpen();
-            }}
-            type="button"
-            className={s.btnContainer}
-          >
-            <SvgInset svgUrl="/icons/ic_twitter.svg" />
-            Tweet to Sign
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            onClick={() => {
-              setIsBuyGuest(true);
-              onOpen();
-            }}
-            type="button"
-            className={cs(s.btnContainer, s.btnBuyAsGuest)}
-          >
-            <SvgInset svgUrl="/icons/ic_guest.svg" />
-            Buy as Guest
-          </Button>
-        </GridItem>
-      </Grid>
+      <Flex className={s.btnWrapper}>
+        <Button
+          onClick={() => {
+            onOpen();
+          }}
+          type="button"
+          className={s.btnContainer}
+        >
+          <SvgInset svgUrl="/icons/ic_twitter.svg" />
+          Buy $BVM
+        </Button>
+      </Flex>
       <BaseModal
         isShow={isOpen}
         onHide={onClose}
-        title={isBuyGuest ? 'Buy as guest' : 'Tweet to Sign'}
+        title={isSigned ? 'Buy $BVM' : 'Sign to Buy $BVM'}
         headerClassName={s.modalHeader}
-        className={cs(
-          s.modalContent,
-          compareString(modalSize, 'custom') && s.deposit,
-        )}
-        size={modalSize}
+        className={cs(s.modalContent, isSigned ? s.deposit : s.notSignModal)}
+        // size={modalSize}
       >
-        {isBuyGuest ? (
-          <GoogleReCaptchaProvider
-            reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
-            scriptProps={{
-              async: false,
-              defer: false,
-              appendTo: 'head',
-              nonce: undefined,
-            }}
-          >
-            <BuyAsGuest />
-          </GoogleReCaptchaProvider>
+        {isSigned ? (
+          <>
+            <DepositContent />
+          </>
         ) : (
           <>
-            <Flex
-              flexDirection={'column'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              gap={'16px'}
-            >
-              <Button
-                isDisabled={submitting && !isCopy}
-                isLoading={submitting && !isCopy}
-                loadingText={'Processing'}
-                type="button"
-                onClick={handleShareTw}
-                className={cs(s.btnTweetToSign, s.btnPrimary)}
-              >
-                <SvgInset svgUrl="/icons/ic_twitter_square.svg" />
-                Post to Sign in
-              </Button>
-              <Button
-                isDisabled={submitting && !isCopy}
-                isLoading={submitting && !isCopy}
-                loadingText={'Processing'}
-                type="button"
-                onClick={onCopy}
-                className={s.btnTweetToSign}
-              >
-                <Center className={s.boxIcon}>
-                  <SvgInset size={16} svgUrl="/icons/ic-copy.svg" />
-                </Center>
-                {isCopy ? 'Copied' : 'Copy link to Sign in'}
-              </Button>
-              <Box />
-              {/* <Flex onClick={onCopy} className={s.copyLinkContainer}>
-                <Text>{isCopy ? 'Copied' : 'Copy link to Sign in'}</Text>
-                <SvgInset svgUrl="/icons/ic-copy.svg" />
-              </Flex> */}
-            </Flex>
+            {isBuyGuest ? (
+              <BuyAsGuest onBack={() => setIsBuyGuest(false)} />
+            ) : (
+              <>
+                <Flex
+                  flexDirection={'column'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  gap={'16px'}
+                >
+                  <Button
+                    isDisabled={submitting && !isCopy}
+                    loadingText={'Processing'}
+                    type="button"
+                    onClick={handleShareTw}
+                    className={cs(s.btnTweetToSign, s.btnPrimary)}
+                  >
+                    <Center className={cs(s.boxIcon, s.boxIconWhite)}>
+                      {submitting ? (
+                        <Spinner
+                          color="#fa4e0e"
+                          width={'16px'}
+                          height={'16px'}
+                        />
+                      ) : (
+                        <SvgInset svgUrl="/icons/ic_twitter_square.svg" />
+                      )}
+                    </Center>
+                    <Text>Post to Sign in</Text>
+                  </Button>
+                  <Button
+                    loadingText={'Processing'}
+                    type="button"
+                    onClick={getTwitterOauthUrl}
+                    className={cs(s.btnTweetToSign)}
+                  >
+                    <Center className={s.boxIcon}>
+                      <SvgInset
+                        className={s.iconWhite}
+                        svgUrl="/icons/ic-copy.svg"
+                        size={16}
+                      />
+                    </Center>
+                    <Text>Auth to sign</Text>
+                  </Button>
+                  <GoogleReCaptchaProvider
+                    reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
+                    scriptProps={{
+                      async: false,
+                      defer: false,
+                      appendTo: 'head',
+                      nonce: undefined,
+                    }}
+                  >
+                    <BtnCreateGuest />
+                  </GoogleReCaptchaProvider>
+
+                  <Box />
+                </Flex>
+              </>
+            )}
           </>
         )}
       </BaseModal>
