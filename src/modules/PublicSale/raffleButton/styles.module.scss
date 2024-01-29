@@ -73,6 +73,15 @@
     margin-top: 20px;
     font-size: 14px;
     align-items: center;
+
+    &.isDisable {
+      opacity: 70%;
+      cursor: not-allowed;
+    }
+  }
+
+  .yourRaffleCode {
+    margin-top: 10px;
   }
 
   .raffleBg {
