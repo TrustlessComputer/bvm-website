@@ -153,7 +153,7 @@ const Activities = React.memo(() => {
 
   const renderItem = (item: GameItemProps, index: number) => {
     const isDisable = index > currentDay.diffDay;
-    const title = isDisable ? "▧ ❀ ▧ ❀ ⬚ 🖳 ▧ ❀ ⬚ 🗠 ⬚ ❀ ⬚ ❀ ▧ ♖ ▧" : item.title
+    const title = isDisable ? "▧ ❀ ▧ ❀ ⬚ ▧ ▧ ❀ ⬚ ▧ ⬚ ❀ ⬚ ❀ ▧ ♖ ▧" : item.title
     return (
       <AccordionItem isDisabled={index > currentDay.diffDay} className={styles.itemWrapper}>
         {({ isExpanded }) => (
@@ -165,7 +165,6 @@ const Activities = React.memo(() => {
                   <SvgInset
                     className={isExpanded ? styles.itemWrapper_downArrow : styles.itemWrapper_normalArrow}
                     svgUrl={`${CDN_URL}/icons/chevron-right-ic-32.svg`}
-                    alt="chevron-right-ic"
                     size={24}
                   />
                 </button>
