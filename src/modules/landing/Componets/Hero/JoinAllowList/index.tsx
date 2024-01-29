@@ -10,9 +10,10 @@ import Image from 'next/image';
 import { formatCurrency } from '@/utils/format';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import dayjs from 'dayjs';
-import { PUBLIC_SALE_START } from '@/modules/Whitelist';
+import { PUBLIC_SALE_END, PUBLIC_SALE_START } from '@/modules/Whitelist';
 import { CDN_URL_ICONS } from '@/config';
-
+import { getPublicSaleSummary } from '@/services/public-sale';
+import { checkIsPublicSale } from '@/app/allowlist/page';
 
 const DELAY = 2;
 const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
@@ -21,12 +22,19 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
   const [totalUser, setTotalUser] = useState<string>('');
   const [listUser, setListUser] = useState<ILeaderBoardPoint[]>([]);
 
+  const isPublicSale = React.useMemo(() => checkIsPublicSale(), [])
+
   const getCount = async () => {
     try {
-      const response = await getTopLeaderBoards({ page: 1, limit: 20 });
-      const topWhiteList = response.data.filter((item, index) => index < 5);
-      setTotalUser(response.count);
-      setListUser(topWhiteList);
+      if (isPublicSale) {
+        const response = await getPublicSaleSummary();
+        setTotalUser(response.total_user.toString());
+      } else {
+        const response = await getTopLeaderBoards({ page: 1, limit: 20 });
+        const topWhiteList = response.data.filter((item, index) => index < 5);
+        setTotalUser(response.count);
+        setListUser(topWhiteList);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -34,7 +42,7 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
 
   React.useEffect(() => {
     getCount();
-  }, []);
+  }, [isPublicSale]);
 
   const delay = isFooter ? 0 : DELAY;
 
@@ -66,38 +74,27 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                 loadingText={'Submitting...'}
                 className={s.button}
                 onClick={() => {
+                  if (isPublicSale) return router.push('/public-sale')
                   router.push('/allowlist');
                 }}
               >
-                Get on the allowlist
+                Get on the {isPublicSale ? 'public sale' : 'allowlist'}
               </Button>
               <div className={s.whiteList}>
                 <div className={s.whiteList_users}>
                   <Image src={'/landing/allow-avatars.png'} quality={100} width={88} height={24}
                          alt={'allow-avatars'} />
-                  {/*{listUser.map((item) => {*/}
-                  {/*  return (*/}
-                  {/*    <figure className={s.whiteList_users_avatar} key={item.id}>*/}
-                  {/*      <Image*/}
-                  {/*        src={item.twitter_avatar}*/}
-                  {/*        width={23}*/}
-                  {/*        height={23}*/}
-                  {/*        alt={item.twitter_name}*/}
-                  {/*      />*/}
-                  {/*    </figure>*/}
-                  {/*  );*/}
-                  {/*})}*/}
                 </div>
                 <div className={s.whiteList_total}>
-                  <span>{formatCurrency(totalUser, 0,0)}&nbsp;people</span>&nbsp;are on the allowlist
+                  <span>{formatCurrency(totalUser, 0,0)}&nbsp;people</span>&nbsp;are on the {isPublicSale ? "public sale" : "allowlist"}
                 </div>
               </div>
               <Flex gap="8px" className={s.countDown_wrapper}>
                 <img style={{ width: 18 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>
-                <p className={s.countDown_title}>Public sale starting in</p>
+                <p className={s.countDown_title}>Public sale {isPublicSale ? 'ending' : 'starting'} in</p>
                 <Countdown
                   className={s.countDown_time}
-                  expiredTime={dayjs.utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
+                  expiredTime={dayjs.utc(isPublicSale ? PUBLIC_SALE_END : PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
                   hideIcon={true}
                 />
               </Flex>
