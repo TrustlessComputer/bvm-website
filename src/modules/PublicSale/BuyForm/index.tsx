@@ -5,30 +5,21 @@ import s from './styles.module.scss';
 import {
   getPublicSaleLeaderBoards,
   getPublicSaleSummary,
-  getPublicsaleWalletInfo,
-  postPublicsaleWalletInfo,
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
-import {
-  IPublicSaleDepositInfo,
-  PublicSaleWalletInfo,
-  VCInfo,
-} from '@/interfaces/vc';
+import { IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
-import { useAppSelector } from '@/stores/hooks';
-import { userSelector } from '@/stores/states/user/selector';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import DepositModal from '@/modules/PublicSale/depositModal';
 import ContributorsModal from '@/modules/PublicSale/contributorModal';
 import AuthForBuy from '../AuthForBuy';
-import { useSelector } from 'react-redux';
-import { commonSelector } from '@/stores/states/common/selector';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import cx from 'classnames';
+import AuthenStorage from '@/utils/storage/authen.storage';
 
 export const TIME_CHAIN_EXPIRED_TIME = '2024-01-28 18:00:00';
 
@@ -67,7 +58,6 @@ const Column = forwardRef((props: IColumnProps, ref: any) => {
 const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
-  const user = useAppSelector(userSelector);
   const [contributeInfo, setContributeInfo] =
     useState<IPublicSaleDepositInfo>();
   const [isEnd, setIsEnd] = React.useState(
@@ -78,6 +68,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const [showContributorModal, setShowContributorModal] = useState(false);
   const [userContributeInfo, setUserContributeInfo] =
     useState<ILeaderBoardPoint>();
+  const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
   console.log('contributeInfo', contributeInfo);
   console.log('userContributeInfo', userContributeInfo);
@@ -86,10 +77,10 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   useEffect(() => {
     getContributeInfo();
 
-    if (user?.twitter_id || user?.guest_code) {
+    if (token) {
       getUserContributeInfo();
     }
-  }, [user?.twitter_id, user?.guest_code]);
+  }, [token]);
 
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
@@ -151,7 +142,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           <Flex direction={'column'}>
             <Flex gap={1} alignItems={'center'}>
               <Text>
-                {user?.twitter_id
+                {token
                   ? `$${formatCurrency(
                       userContributeInfo?.usdt_value,
                       MIN_DECIMAL,
@@ -175,7 +166,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 YOU GET
               </Text>
               <Text fontSize={'12px'} fontWeight={'600'} className={s.youGet}>
-                {user?.twitter_id
+                {token
                   ? formatCurrency(
                       userContributeInfo?.bvm_balance,
                       MIN_DECIMAL,
@@ -186,7 +177,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </Text>
               <Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFFF'}>
                 (
-                {user?.twitter_id
+                {token
                   ? formatCurrency(
                       userContributeInfo?.bvm_percent,
                       MIN_DECIMAL,
@@ -245,7 +236,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 color={'rgba(255, 255, 255, 0.7)'}
                 className={s.boost}
               >
-                {user?.twitter_id
+                {token
                   ? `${formatCurrency(
                       userContributeInfo?.boost,
                       MIN_DECIMAL,
@@ -308,7 +299,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   }
                   title={'Contributors'}
                 />
-                {user?.twitter_id ? (
+                {token ? (
                   <Tooltip
                     minW="220px"
                     bg="white"
