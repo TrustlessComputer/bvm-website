@@ -11,6 +11,10 @@
   background-size: contain;
   background-repeat: no-repeat;
 
+  @include is-mobile {
+    max-width: unset;
+  }
+
   video {
     mix-blend-mode: luminosity;
     position: absolute;

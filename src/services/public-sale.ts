@@ -67,3 +67,19 @@ export const getPublicSaleContributionLatest = async (): Promise<ILeaderBoardPoi
   const res = (await apiClient.get(`/bvm/sale/latest`)) as unknown as ILeaderBoardPoint[];
   return res;
 };
+
+export interface IPublicSalePrograme {
+  title: string;
+  description: string;
+  button_name: string;
+  link: string;
+  image: string;
+  reward: string;
+  start_date: string;
+  end_date: string;
+}
+
+export const getPublicSaleProgram = async (): Promise<IPublicSalePrograme> => {
+  const res = (await apiClient.get(`/bvm/sale/programes`)) as unknown as IPublicSalePrograme;
+  return res;
+};

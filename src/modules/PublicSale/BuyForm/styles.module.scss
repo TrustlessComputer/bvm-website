@@ -7,8 +7,8 @@
   max-width: 826px;
   margin: 0 auto;
 
-  @include w-max(768px) {
-    padding: 24px;
+  @include is-mobile {
+    padding: 16px;
   }
 
   .content {
@@ -35,6 +35,10 @@
     text-align: center;
     color: #ffffff;
     margin-top: 8px;
+
+    @include is-mobile {
+      font-size: 48px;
+    }
   }
 
   .boxInfo {

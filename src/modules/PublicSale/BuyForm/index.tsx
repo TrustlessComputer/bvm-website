@@ -70,10 +70,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     useState<ILeaderBoardPoint>();
   const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
-  console.log('contributeInfo', contributeInfo);
-  console.log('userContributeInfo', userContributeInfo);
-  console.log('=======');
-
   useEffect(() => {
     getContributeInfo();
 
