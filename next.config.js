@@ -4,9 +4,6 @@ const path = require('path');
 const withPlugins = require('next-compose-plugins');
 const withSvgr = require('next-plugin-svgr');
 const withBundleAnalyzer = require('@next/bundle-analyzer');
-const dayjs = require('dayjs');
-const utc = require('dayjs/plugin/utc');
-dayjs.extend(utc)
 
 const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
@@ -66,20 +63,14 @@ const nextConfig = {
         permanent: false,
       }
     ]
-
-    const PUBLIC_SALE_START = isDevEnv ? '2024-01-29 04:00:00' : '2024-01-30 03:30:00';
-
-    const isPublicSale = dayjs
-      .utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss')
-      .isBefore(dayjs().utc().format());
-
-    if (isPublicSale) {
-      redirects.push({
-        source: '/allowlist',
-        destination: '/public-sale',
-        permanent: false,
-      })
-    }
+    //
+    // if (isPublicSale) {
+    //   redirects.push({
+    //     source: '/allowlist',
+    //     destination: '/public-sale',
+    //     permanent: false,
+    //   })
+    // }
     return redirects;
   },
 
