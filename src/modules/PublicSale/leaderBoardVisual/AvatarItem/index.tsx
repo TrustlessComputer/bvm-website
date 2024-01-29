@@ -23,7 +23,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
   const refTime = useRef<NodeJS.Timeout>();
 
   const newTotalMoney = useMemo(() => {
-    return data.usdt_value;
+    return data?.usdt_value;
   }, [data]);
 
   useEffect(() => {
