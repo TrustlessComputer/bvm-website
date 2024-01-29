@@ -83,6 +83,30 @@
     margin-top: 20px;
     font-size: 14px;
     align-items: center;
+
+    &.isDisable {
+      opacity: 70%;
+      cursor: not-allowed;
+    }
+  }
+
+  .yourRaffleCode {
+    margin-top: 10px;
+    font-size: 14px;
+
+    > div {
+      padding: 8px 16px;
+
+      &:first-child {
+        color: #ffffff;
+        background: #FFFFFF12;
+      }
+
+      &:last-child {
+        color: #000000;
+        background: #FFFFFF;
+      }
+    }
   }
 
   .raffleBg {

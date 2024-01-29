@@ -1,18 +1,22 @@
 import s from './styles.module.scss';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
-import React, { forwardRef, ReactElement, useState } from 'react';
+import React, { forwardRef, ReactElement, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
+import { DotLottiePlayer } from '@dotlottie/react-player';
 
 interface IProps {
   data: ILeaderBoardPoint,
   isShowName?: boolean
   isYou?: boolean
+  isUpMoney?: boolean
 }
 
 const AvatarItem = forwardRef((props: IProps, ref: any) => {
-  const { data, isShowName, isYou, ...rest } = props;
+  const { data, isUpMoney, isShowName, isYou, ...rest } = props;
+  const lottieRef = useRef<any>();
+  const refTime = useRef<NodeJS.Timeout>();
 
   const [error, setError] = useState<boolean>(false);
   const PlaceImage = (): ReactElement => {
@@ -21,6 +25,15 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
       height={120}
       src={'/images/mk-user.jpg'} alt={'user'} style={{ cursor: 'pointer' }} />;
   };
+
+  useEffect(() => {
+    if (isUpMoney) {
+      lottieRef.current.setLoop(true);
+      lottieRef.current.play();
+    } else {
+      lottieRef.current.stop();
+    }
+  }, [isUpMoney]);
 
   return (
     <div
@@ -57,6 +70,11 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
           <p className={s.price}>${formatCurrency(data?.usdt_value, 0, 0, 'BTC', true)}</p>
         </div>
       </div>
+      <DotLottiePlayer
+        className={s.lottie}
+        lottieRef={lottieRef}
+        src='/presale-up.lottie'
+      />
     </div>
   );
 });
