@@ -79,12 +79,14 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
       src={'/images/mk-user.jpg'} alt={'user'} style={{ cursor: 'pointer' }} />;
   };
 
-
   return (
     <div
       className={`${s.avatarItem} ${isYou && s.isYou} ${data.levelRender !== undefined && 'level-' + data.levelRender} js-avatarItem`}
       ref={ref} {...rest}>
       <div className={s.avatarItem_inner}>
+        {
+          data.levelRender === 0 && <Image className={s.king} src={'/public-sale/king.png'} width={60} height={60} alt={'king'} />
+        }
         <div
           className={s.avatarItem_avatar}
           onClick={() => {
@@ -106,13 +108,13 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
             ) || ''} alt={'medium'} />}
         </div>
         <div className={s.meta}>
+          <p className={s.price} ref={refInertMoney}></p>
           {
             isShowName && !isYou && <p className={s.name}>{data.twitter_username}</p>
           }
           {
             isYou && <p className={s.name}>You</p>
           }
-          <p className={s.price} ref={refInertMoney}></p>
         </div>
       </div>
       {

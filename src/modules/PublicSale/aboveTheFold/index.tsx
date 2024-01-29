@@ -10,9 +10,10 @@ import { VCInfo } from '@/interfaces/vc';
 import Welcome from '@/modules/PublicSale/welcome';
 import Playgame from '@/modules/PublicSale/playGame';
 import AddMoreContribution from '@/modules/PublicSale/addMoreContribution';
-import TopHeader from '@/modules/PublicSale/topHeader';
 import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
 import RaffleButton from '@/modules/PublicSale/raffleButton';
+import TopContent from '@/modules/PublicSale/topContent';
+import LeaderBoardSwitch from '@/modules/PublicSale/leaderBoardSwitch';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -36,12 +37,13 @@ const AboveTheFold = () => {
 
   return (
     <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImg={`/private-sale/bg.webp`}>
-      <SimpleGrid className={`${s.content}`} gridTemplateColumns={{ lg: "1fr", xl: "1fr 1fr" }} gap={[0, 0]}>
+      <SimpleGrid className={`${s.content}`} gridTemplateColumns={{ lg: "1fr", xl: "7fr 3fr" }} gap={[0, 0]}>
         <Flex className={s.leftSection} direction={"column"} justifyContent={"flex-start"}>
-          <TopHeader />
+          <TopContent />
           <LeaderBoardVisual />
-          <AddMoreContribution />
+          {/*<AddMoreContribution />*/}
           <RaffleButton className={s.raffleButton}/>
+          <LeaderBoardSwitch classNames={s.boardSwitch} />
         </Flex>
         <Flex className={s.rightSection} direction={"column"}>
           <BuyForm vcInfo={vcInfo}/>
