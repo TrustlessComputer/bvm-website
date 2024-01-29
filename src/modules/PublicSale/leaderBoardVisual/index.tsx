@@ -11,8 +11,6 @@ import { setPublicSaleLeaderBoardVisual } from '@/stores/states/user/reducer';
 import { getPublicSaleContributionLatest, getPublicSaleLeaderBoards, getPublicSaleTop } from '@/services/public-sale';
 import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
 import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
-import { Tooltip } from '@chakra-ui/react';
-import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import { useSelector } from 'react-redux';
 import { LEADER_BOARD_MODE } from '@/modules/PublicSale/leaderBoardSwitch';
 
@@ -28,6 +26,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const dispatch = useAppDispatch();
   const leaderBoardMode = useSelector(commonSelector).leaderBoardMode;
   const latestContributors = useRef<ILeaderBoardPoint[]>([]);
+  const animatedLatestContributors = useRef<ILeaderBoardPoint[]>([]);
   const user = useAppSelector(userSelector);
 
   const hasIncrementedPageRef = useRef(false);
@@ -109,7 +108,8 @@ const LeaderBoardVisual = (props: IProps) => {
     });
 
     if(newRes?.length > 0) {
-      latestContributors.current = newRes;
+      latestContributors.current = newRes.concat(latestContributors.current);
+      animatedLatestContributors.current = newRes;
     }
   };
 
@@ -151,18 +151,7 @@ const LeaderBoardVisual = (props: IProps) => {
         {
           listRender.map((item, index) => {
             return <>
-              <Tooltip minW='220px'
-                       bg='white'
-                       boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
-                       borderRadius='4px'
-                       padding='16px'
-                       hasArrow
-                       label={
-                         <ContributorInfo data={item} />
-                       }
-              >
-                <AvatarItem data={item} isShowName={index < 4} isUpMoney={true} isYou={user?.twitter_id === item.twitter_id} />
-              </Tooltip>
+                <AvatarItem data={item} isShowName={index < 4} isYou={user?.twitter_id === item.twitter_id} />
               {
                 item.lastRender && <span className={styles.lastRender}></span>
               }
@@ -170,7 +159,7 @@ const LeaderBoardVisual = (props: IProps) => {
           })
         }
       </ScrollWrapper>
-      <AnimatedText latestContributors={latestContributors?.current} />
+      <AnimatedText latestContributors={animatedLatestContributors?.current} />
     </div>
   );
 };

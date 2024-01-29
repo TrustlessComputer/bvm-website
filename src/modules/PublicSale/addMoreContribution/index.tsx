@@ -5,6 +5,7 @@ import DepositModal from '@/modules/PublicSale/depositModal';
 import React, { useState } from 'react';
 import { getLink } from '@/utils/helpers';
 import { useAppSelector } from '@/stores/hooks';
+import Image from 'next/image';
 import { userSelector } from '@/stores/states/user/selector';
 
 const AMOUNTS = [
@@ -20,6 +21,7 @@ const AddMoreContribution = () => {
   const [selectedAmount, setSelectedAmount] = useState<any>();
   const user = useAppSelector(userSelector);
 
+
   const handleShareTw = () => {
     const shareUrl = getLink(user?.referral_code || '');
 
@@ -29,55 +31,72 @@ const AddMoreContribution = () => {
     )}`;
 
     window.open(url, '_blank');
-  }
+  };
 
   return (
-    <Flex className={s.container} direction={["column", "row"]}>
+    <Flex className={s.container} direction={['column', 'row']}>
       <Flex
         p={[4, 5]}
-        alignItems={"center"}
-        w={"100%"}
-        justifyContent={"space-between"}
-        direction={["column", "row"]}
+        alignItems={'center'}
+        w={'100%'}
+        justifyContent={'space-between'}
+        direction={['column', 'row']}
         gap={6}
       >
-        <Text fontSize={'14px'} casing={'uppercase'} fontWeight={500} color={'#FFFFFF'}>
-          Add more contributors
-        </Text>
-        <Flex gap={2} justifyContent={"space-between"} flexWrap={["wrap", "nowrap"]}>
+        <div>
+          <Text fontSize={'14px'} casing={'uppercase'} fontWeight={500} color={'#FFFFFF'}>
+            Add more contributors
+          </Text>
+          <p>
+            <span className={s.yourBoots}>
+            Your boots <span>
+              <Image src={'/icons/flash.svg'} width={12} height={12} alt={'flash.svg'} />
+          </span>
+            <span className={s.yourBoots_percent}>
+                 20%
+              {/*//todo step*/}
+            </span>
+          </span>
+          </p>
+        </div>
+
+
+        <Flex gap={2} justifyContent={'space-between'} flexWrap={['wrap', 'nowrap']}>
           {
             AMOUNTS.map(d => {
               return (
                 <Flex
                   flex={1}
                   justifyContent={'center'}
-                  alignItems={"center"}
+                  alignItems={'center'}
                   className={cx(s.item)}
                   onClick={() => {
                     setSelectedAmount(d);
                     setShowQrCode(true);
                   }}
-                  cursor={"pointer"}
+                  cursor={'pointer'}
                 >
                   {d?.title}
                 </Flex>
-              )
+              );
             })
           }
         </Flex>
       </Flex>
-      <Divider orientation={'vertical'} borderColor={'rgba(255, 255, 255, .3)'}/>
-      <Flex p={[4, 5]} alignItems={'center'} justifyContent={"center"}>
+      <Divider orientation={'vertical'} borderColor={'rgba(255, 255, 255, .3)'} />
+      <Flex p={[4, 5]} alignItems={'center'} justifyContent={'center'}>
         <Flex className={s.learnMoreWrapper} gap={3} onClick={handleShareTw}>
-          <Text whiteSpace={"nowrap"} lineHeight={"100%"}>Share on</Text>
+          <Text whiteSpace={'nowrap'} lineHeight={'100%'}>Share on</Text>
           <span>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_29786_7178)">
-                <path d="M12.6007 0.769531H15.054L9.694 6.8962L16 15.2315H11.0627L7.196 10.1755L2.77067 15.2315H0.316L6.04933 8.6782L0 0.770198H5.06267L8.558 5.39153L12.6007 0.769531ZM11.74 13.7635H13.0993L4.324 2.16086H2.86533L11.74 13.7635Z" fill="white"/>
+              <svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
+              <g clip-path='url(#clip0_29786_7178)'>
+                <path
+                  d='M12.6007 0.769531H15.054L9.694 6.8962L16 15.2315H11.0627L7.196 10.1755L2.77067 15.2315H0.316L6.04933 8.6782L0 0.770198H5.06267L8.558 5.39153L12.6007 0.769531ZM11.74 13.7635H13.0993L4.324 2.16086H2.86533L11.74 13.7635Z'
+                  fill='white' />
               </g>
               <defs>
-                <clipPath id="clip0_29786_7178">
-                  <rect width="16" height="16" fill="white"/>
+                <clipPath id='clip0_29786_7178'>
+                  <rect width='16' height='16' fill='white' />
                 </clipPath>
               </defs>
             </svg>
@@ -90,7 +109,7 @@ const AddMoreContribution = () => {
         payAmountUsd={selectedAmount?.value}
       />
     </Flex>
-  )
+  );
 };
 
 export default AddMoreContribution;
