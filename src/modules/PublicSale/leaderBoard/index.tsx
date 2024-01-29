@@ -342,7 +342,7 @@ const LeaderBoard = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: ILeaderBoardPoint) {
-          return (
+          return data?.need_active && (
             <Flex justifyContent="flex-start" alignItems="center">
               <Flex
                 flexDirection="row"
