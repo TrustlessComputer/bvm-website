@@ -19,7 +19,7 @@ const AnimatedText = ({latestContributors} : {latestContributors: ILeaderBoardPo
     const offset = MathMap(Math.random(), 0, 1, 40, 350);
 
     //@todo step
-    const money = (Number(contributor?.usdt_value) || 0) + Math.random() * 1000000;
+    const money = (Number(contributor?.usdt_value) || 0);
     const duration = MathMap(money, 100, 1000000, 8, 30);
     const scale = MathMap(money, 100, 1000000,.5, 2);
 
