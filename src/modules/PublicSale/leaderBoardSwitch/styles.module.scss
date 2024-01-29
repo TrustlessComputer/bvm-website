@@ -6,7 +6,7 @@
   padding: 4px;
   transition: all 0.3s;
   gap: 4px;
-  border: 1px solid #FFFFFF33;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
   .btn {
     width: 100%;
@@ -15,8 +15,8 @@
     border-radius: 0px;
     letter-spacing: 0.02rem;
     font-weight: 400;
-    font-size: 14px;
-    height: 30px;
+    font-size: 12px;
+    height: 26px;
     &.active {
       color: #000000;
       background: #FFFFFF;

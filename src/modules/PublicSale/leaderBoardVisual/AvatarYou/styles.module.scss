@@ -1,4 +1,8 @@
 .avatarItem {
+  position: absolute;
+  top: 0;
+  right: 0;
+
   &_inner {
     aspect-ratio: 1/1;
     border-radius: 50%;

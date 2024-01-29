@@ -1,6 +1,8 @@
 .container {
   padding: 20px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: url("https://storage.googleapis.com/tc-cdn-prod/nbc/images/bg-top.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 
   .title {
     font-size: 24px;
@@ -11,6 +13,6 @@
   .desc {
     font-size: 16px;
     font-weight: 400;
-    color: #FFFFFF;
+    color: rgba(255, 255, 255, 0.7);
   }
 }
