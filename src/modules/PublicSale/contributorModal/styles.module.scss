@@ -34,12 +34,16 @@
   .inputContainer {
     border-radius: 0px;
     background: rgba(255, 255, 255, 0.10);
-    border: 1px solid #CECECE;
+    border: 1px solid #FFFFFF33;
     display: flex;
     padding: 10px;
     align-items: center;
     gap: 12px;
     width: 100%;
+
+    &:has(input:focus) {
+      border: 1px solid #CECECE;
+    }
   }
 
   .input {

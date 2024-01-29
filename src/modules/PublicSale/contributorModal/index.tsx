@@ -57,7 +57,7 @@ const ContributorsModal = ({ isShow, onHide }: any) => {
                   // type={'number'}
                   id='userName'
                   value={formValues.userName}
-                  placeholder='Enter address'
+                  placeholder='Enter name'
                   className={s.input}
                   onChange={onChangeText}
                 />
