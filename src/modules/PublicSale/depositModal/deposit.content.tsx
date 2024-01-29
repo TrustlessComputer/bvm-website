@@ -1,11 +1,12 @@
 import AppLoading from '@/components/AppLoading';
 import SvgInset from '@/components/SvgInset';
 import { PublicSaleWalletTokenDeposit } from '@/interfaces/vc';
-import { getPublicsaleWalletInfo } from '@/services/public-sale';
+import { getLocation, getPublicsaleWalletInfo } from '@/services/public-sale';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { userSelector } from '@/stores/states/user/selector';
 import { formatCurrency } from '@/utils/format';
+import AuthenStorage from '@/utils/storage/authen.storage';
 import { compareString } from '@/utils/string';
 import {
   Box,
@@ -26,32 +27,31 @@ import {
 import BigNumber from 'bignumber.js';
 import copy from 'copy-to-clipboard';
 import React, { useEffect, useMemo, useState } from 'react';
+import { isMobile } from 'react-device-detect';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
 import { useSelector } from 'react-redux';
+import ImportOrCreate from '../AuthForBuy/importOrCreate';
+import DepositCheck from './deposit.check';
 import DepositContentItem, {
   DepositContentItem2,
 } from './deposit.content.item';
 import s from './styles.module.scss';
-import { isMobile } from 'react-device-detect';
-import AuthenStorage from '@/utils/storage/authen.storage';
-import BaseModal from '@/components/BaseModal';
-import AuthForBuy from '../AuthForBuy';
-import BuyAsGuest from '../AuthForBuy/buyAsGuest';
-import ImportOrCreate from '../AuthForBuy/importOrCreate';
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import DepositCheck from './deposit.check';
-import { FormikProvider } from 'formik';
 
 interface IDepositContent {
   amount_usd?: string;
   onHide?: any;
 }
 
+const COUNTRY_BANNED: any[] = ['US'];
+
 const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   const user = useAppSelector(userSelector);
   const [loading, setLoading] = useState(true);
+  const [checkingLocation, setCheckingLocation] = useState(true);
+  const [isBanned, setIsBanned] = useState(false);
   const [tokens, setTokens] = useState<PublicSaleWalletTokenDeposit[]>([]);
   const [selectToken, setSelectToken] = useState<
     PublicSaleWalletTokenDeposit | undefined
@@ -64,8 +64,23 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
   const coinPrices = useSelector(commonSelector).coinPrices;
 
   useEffect(() => {
+    checkLocation();
+  }, []);
+
+  useEffect(() => {
     getTokens();
   }, [user]);
+
+  const checkLocation = async () => {
+    try {
+      const rs = await getLocation();
+      const country_code = rs?.data?.country_code;
+      setIsBanned(COUNTRY_BANNED.includes(country_code));
+    } catch (error) {
+    } finally {
+      setCheckingLocation(false);
+    }
+  };
 
   const getTokens = async () => {
     try {
@@ -103,12 +118,16 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
     return '0';
   }, [coinPrices, amount_usd, selectToken]);
 
-  if (loading) {
+  if (loading || checkingLocation) {
     return (
       <Center>
         <AppLoading />
       </Center>
     );
+  }
+
+  if (isBanned) {
+    return <Center><Text>Not Available in Your Region</Text></Center>
   }
 
   return (
