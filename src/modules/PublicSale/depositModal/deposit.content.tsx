@@ -26,6 +26,7 @@ import DepositContentItem, {
   DepositContentItem2,
 } from './deposit.content.item';
 import s from './styles.module.scss';
+import { isMobile } from 'react-device-detect';
 
 interface IDepositContent {
   amount_usd?: string;
@@ -91,40 +92,42 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
 
   return (
     <Flex className={s.depositContent}>
-      {/* <Text className={s.title}>Deposit</Text> */}
-      {/* <Text className={s.desc}>
-        Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-        suscipit laboriosam.
-      </Text> */}
-      {/* <Box mt={'20px'} /> */}
-      {/* <Menu>
-        <MenuButton className={s.btnSelectToken}>
-          <DepositContentItem token={selectToken} />
-          <SvgInset svgUrl="/icons/ic_arrow_down.svg" />
-        </MenuButton>
-        <MenuList>
+      {isMobile ? (
+        <Menu>
+          <MenuButton className={s.btnSelectToken}>
+            <DepositContentItem token={selectToken} />
+            <SvgInset svgUrl="/icons/ic_arrow_down.svg" />
+          </MenuButton>
+          <MenuList>
+            {tokens.map((t) => (
+              <DepositContentItem
+                key={t.coin}
+                token={t}
+                onSelectToken={(_token) => setSelectToken(_token)}
+              />
+            ))}
+          </MenuList>
+        </Menu>
+      ) : (
+        <Flex className={s.tokenWrapper}>
           {tokens.map((t) => (
-            <DepositContentItem
+            <DepositContentItem2
               key={t.coin}
               token={t}
               onSelectToken={(_token) => setSelectToken(_token)}
+              isActive={compareString(t.coin, selectToken?.coin)}
             />
           ))}
-        </MenuList>
-      </Menu> */}
-      <Flex className={s.tokenWrapper}>
-        {tokens.map((t) => (
-          <DepositContentItem2
-            key={t.coin}
-            token={t}
-            onSelectToken={(_token) => setSelectToken(_token)}
-            isActive={compareString(t.coin, selectToken?.coin)}
-          />
-        ))}
-      </Flex>
+        </Flex>
+      )}
 
       {selectToken && (
-        <Flex className={s.infoDepositWrap}>
+        <Flex
+          className={s.infoDepositWrap}
+          flexDirection={isMobile ? 'column' : 'row'}
+          justifyContent={'center'}
+          alignItems={'center'}
+        >
           <Flex className={s.qrCodeContainer}>
             <QRCode size={184} value={selectToken?.address} />
           </Flex>
