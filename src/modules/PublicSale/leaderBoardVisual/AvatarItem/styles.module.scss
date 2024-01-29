@@ -9,6 +9,17 @@
   margin-right: 14px;
   position: relative;
 
+  .lt {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+
+    &.isRun {
+      opacity: 1;
+    }
+  }
+
   .lottie {
     position: absolute;
     bottom: 0;

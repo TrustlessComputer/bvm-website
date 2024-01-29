@@ -14,6 +14,7 @@ export interface ILeaderBoardPoint {
   gas_point: number;
   content_point: number;
   boost: string;
+  view_boost: string;
   num_view: string;
   num_retweet: string;
   num_like: string;
@@ -36,6 +37,7 @@ export interface ILeaderBoardPoint {
   levelRender?:number
   lastRender?:boolean
   bvm_balance: string;
+  bvm_balance_not_boost: string;
   eth_balance: string;
   btc_balance: string;
   usdt_value?:string;
