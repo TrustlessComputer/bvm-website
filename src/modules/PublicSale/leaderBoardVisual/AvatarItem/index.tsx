@@ -1,6 +1,6 @@
 import s from './styles.module.scss';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
-import React, { forwardRef, ReactElement, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, ReactElement, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
@@ -11,18 +11,20 @@ interface IProps {
   data: ILeaderBoardPoint,
   isShowName?: boolean
   isYou?: boolean
-  newTotalMoney?: number
   onCompleted?: ()=>void
 }
 
-const AvatarItem = forwardRef((props: IProps, ref: any, onCompleted) => {
-  const { data, newTotalMoney, isShowName, isYou, ...rest } = props;
+const AvatarItem = forwardRef((props: IProps, ref: any) => {
+  const { data, isShowName, isYou, onCompleted, ...rest } = props;
   const lottieRef = useRef<any>();
   const refMoney = useRef<{ value: number }>({ value: data?.usdt_value || 0 });
   const refInertMoney = useRef<HTMLParagraphElement>(null);
   const [isLoopDone, setIsLoopDone] = useState(true);
   const refTime = useRef<NodeJS.Timeout>();
 
+  const newTotalMoney = useMemo(() => {
+    return data.usdt_value;
+  }, [data]);
 
   useEffect(() => {
 
