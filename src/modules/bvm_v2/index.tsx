@@ -6,6 +6,9 @@ import s from './styles.module.scss';
 import BoxContent from '@/layouts/BoxContent';
 import Section1 from './Section_1';
 import Section2 from './Section_2';
+import Allocation from '@/modules/bvm_v2/Allocation';
+import Vesting from '@/modules/bvm_v2/Vesting';
+import Schedule from '@/modules/bvm_v2/Schedule';
 
 const BVMModule = () => {
   return (
@@ -16,9 +19,9 @@ const BVMModule = () => {
         <Box h={['20px', '80px']} />
         <Section2 />
         <Box h={['20px', '40px']} />
-        {/*<Allocation />
-        <Vesting />
-        <Schedule />*/}
+        <Allocation />
+        {/*<Vesting />*/}
+        {/*<Schedule />*/}
       </BoxContent>
     </Box>
   );

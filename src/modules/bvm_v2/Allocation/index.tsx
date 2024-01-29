@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './Allocation.module.scss';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import Vesting from '@/modules/bvm_v2/Vesting';
 
-type Props = {};
 
 const ALLOCATION_DATA = [
   { title: 'Team (20%)', desc: 'For core team and  project copntributors' },
@@ -14,7 +14,7 @@ const ALLOCATION_DATA = [
   },
 ];
 
-const Allocation = (props: Props) => {
+const Allocation = () => {
   return (
     <Box
       className={s.wrapper}
@@ -43,6 +43,7 @@ const Allocation = (props: Props) => {
           gap={{ base: "32px", lg: "200px" }}
           mt={{ base: "16px", lg: "60px" }}
           px={{ base: '40px', lg: '100px' }}
+          alignItems="center"
         >
           <Flex flex={1}>
             <Image
@@ -53,12 +54,13 @@ const Allocation = (props: Props) => {
             />
           </Flex>
           <Flex flex={1}>
-            <Image
-              src={'/images/wave-chart-2.png'}
-              alt={'Allocation chart'}
-              flex={1}
-              mx="auto"
-            />
+            {/*<Image*/}
+            {/*  src={'/images/wave-chart-2.png'}*/}
+            {/*  alt={'Allocation chart'}*/}
+            {/*  flex={1}*/}
+            {/*  mx="auto"*/}
+            {/*/>*/}
+            <Vesting />
           </Flex>
         </Flex>
       </Box>

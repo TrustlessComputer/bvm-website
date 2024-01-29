@@ -32,7 +32,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
           type="button"
           className={s.btnContainer}
         >
-          <SvgInset svgUrl="/icons/ic_twitter.svg" />
+          {/*<SvgInset svgUrl="/icons/ic_twitter.svg" />*/}
           Back $BVM
         </Button>
       </Flex>
