@@ -30,6 +30,10 @@
     font-weight: 500;
     line-height: 140%;
 
+    @include is-mobile {
+      font-size: 14px;
+    }
+
     &__active {
       color: black;
     }
@@ -40,6 +44,9 @@
     font-style: normal;
     font-weight: 400;
     line-height: 160%;
+    @include is-mobile {
+      font-size: 14px;
+    }
   }
   &_header {
     padding: 16px 0 !important;
