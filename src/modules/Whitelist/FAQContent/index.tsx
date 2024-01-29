@@ -233,6 +233,32 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   <h2>
                     <AccordionButton justifyContent={'space-between'}>
                       <span className={s.faqTitle}>
+                        How to check my contribution status?
+                      </span>
+                      <button>
+                        <img
+                          className={isExpanded ? s.downArrow : ''}
+                          src={`${CDN_URL}/icons/chevron-right-ic-32.svg`}
+                          alt="chevron-right-ic"
+                        />
+                      </button>
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel>
+                    <p className={s.faqContent}>
+                      Check it here.
+                    </p>
+                  </AccordionPanel>
+                </>
+              )}
+            </AccordionItem>
+
+            <AccordionItem className={s.faqItem}>
+              {({ isExpanded }) => (
+                <>
+                  <h2>
+                    <AccordionButton justifyContent={'space-between'}>
+                      <span className={s.faqTitle}>
                         When is the TGE (Token Generation Event)?
                       </span>
                       <button>
