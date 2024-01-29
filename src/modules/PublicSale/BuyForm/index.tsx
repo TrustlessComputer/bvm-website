@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Grid, GridItem, Text, Tooltip } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import {
   getPublicSaleLeaderBoards,
@@ -21,8 +21,6 @@ import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import cx from 'classnames';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { PUBLIC_SALE_END } from '@/modules/Whitelist';
-
-export const TIME_CHAIN_EXPIRED_TIME = '2024-01-30 18:00:00';
 
 interface FormValues {
   tokenAmount: string;
@@ -63,7 +61,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     useState<IPublicSaleDepositInfo>();
   const [isEnd, setIsEnd] = React.useState(
     dayjs
-      .utc(TIME_CHAIN_EXPIRED_TIME, 'YYYY-MM-DD HH:mm:ss')
+      .utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss')
       .isBefore(dayjs().utc().format()),
   );
   const [showContributorModal, setShowContributorModal] = useState(false);
@@ -71,6 +69,10 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     useState<ILeaderBoardPoint>();
   const token =
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
+
+  const remainDay = useMemo(() => {
+    return dayjs(PUBLIC_SALE_END).diff(dayjs(), 'day', );
+  }, []);
 
   useEffect(() => {
     getContributeInfo();
@@ -249,17 +251,23 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           </div>
 
           <Box mt={'24px'} />
-          <Flex gap={'6px'} width={'100%'} >
-            <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
-              <Countdown
-                className={s.time}
-                expiredTime={dayjs
-                  .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
-                  .toString()}
-                hideIcon={true}
-                onRefreshEnd={() => setIsEnd(true)}
-              />
-            </Text>
+          <Flex gap={6} direction={'column'} width={'100%'}>
+            {
+              remainDay === 0 ?  (
+                <Countdown
+                  className={s.time}
+                  expiredTime={dayjs
+                    .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
+                    .toString()}
+                  hideIcon={true}
+                  onRefreshEnd={() => setIsEnd(true)}
+                />
+              ) : (
+                <Flex className={s.time}>
+                  <Text>{remainDay} day{remainDay !== 1 && 's'} to go</Text>
+                </Flex>
+              )
+            }
           </Flex>
           <Box mt={'24px'} />
           {token ? (
