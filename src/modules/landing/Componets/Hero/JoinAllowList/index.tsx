@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import { PUBLIC_SALE_END, PUBLIC_SALE_START } from '@/modules/Whitelist';
 import { CDN_URL_ICONS } from '@/config';
 import { getPublicSaleSummary } from '@/services/public-sale';
-import { checkIsPublicSale } from '@/app/allowlist/page';
+import { checkIsPublicSale } from '@/modules/Whitelist/utils';
 
 const DELAY = 2;
 const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {

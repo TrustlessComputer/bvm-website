@@ -4,17 +4,8 @@ import MainLayout from '@/layouts/MainLayout';
 import WhitelistModule, { PUBLIC_SALE_START } from '@/modules/Whitelist';
 import styles from './styles.module.scss';
 import React from 'react';
-import { isProduction } from '@/config';
 import { redirect } from 'next/navigation';
-const dayjs = require('dayjs');
-const utc = require('dayjs/plugin/utc');
-dayjs.extend(utc);
-
-export const checkIsPublicSale = () => {
-  return dayjs
-    .utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss')
-    .isBefore(dayjs().utc().format());
-}
+import { checkIsPublicSale } from '@/modules/Whitelist/utils';
 
 const Whitelist = () => {
   const onRedirect = () => {
