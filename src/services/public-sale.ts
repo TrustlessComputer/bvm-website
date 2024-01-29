@@ -7,6 +7,7 @@ import {
 import createAxiosInstance from '@/services/http-client';
 import { PERP_API_URL } from '@/config';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
+import axios from 'axios';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -72,6 +73,11 @@ export const saleManualCheck = async (recaptcha: string): Promise<any> => {
   const res = (await apiClient.post(`/bvm/sale/manual-check`, {}, {  headers: {
     recaptcha
   } })) as unknown as any;
+  return res;
+};
+
+export const getLocation = async (): Promise<any> => {
+  const res = (await axios.get(`https://geolocation-db.com/json/`)) as unknown as any;
   return res;
 };
 
