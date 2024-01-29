@@ -6,11 +6,18 @@ import AboveTheFold from './aboveTheFold';
 import Allocation from '@/modules/bvm_v2/Allocation';
 import RoadmapModule from '@/modules/PublicSale/roadmap';
 import FAQContent from '@/modules/Whitelist/FAQContent';
+import TopContent from '@/modules/PublicSale/topContent';
+import React from 'react';
 
 const PublicSaleModule = () => {
   return (
     <Box className={s.container}>
-      <AboveTheFold />
+      <div className={s.contentTop}>
+        <div className='container'>
+          <TopContent />
+          <AboveTheFold />
+        </div>
+      </div>
       <RoadmapModule />
       <Allocation />
       <FAQContent />

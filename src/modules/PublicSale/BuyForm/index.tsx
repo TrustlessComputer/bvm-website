@@ -134,83 +134,88 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const ContributorBlock = forwardRef((props: any, ref: any) => {
     const { className, ...rest } = props;
     return (
-      <Flex gap={'5px'} alignItems={'center'} ref={ref} {...rest} cursor={token ? "pointer" : 'auto'}>
-        <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
-          {token
-            ? `$${formatCurrency(
-              userContributeInfo?.usdt_value,
-              MIN_DECIMAL,
-              MIN_DECIMAL,
-              'BTC',
-              true,
-            )}`
-            : '-'}
-        </Text>
-        {/*<Text color={'rgba(255, 255, 255, 0.7)'} fontSize={'12px'} fontWeight={'500'}>*/}
-        {/*  {token*/}
-        {/*    ? `(${formatCurrency(*/}
-        {/*      userContributeInfo?.bvm_balance_not_boost,*/}
-        {/*      MIN_DECIMAL,*/}
-        {/*      MAX_DECIMAL,*/}
-        {/*      'BTC',*/}
-        {/*      false,*/}
-        {/*    )} BVM)`*/}
-        {/*    : '-'}*/}
-        {/*</Text>*/}
-
-        <Text fontSize={20} lineHeight={1} fontWeight={400} color={'rgba(0,0,0,0.7)'}>
-          your contribution
-        </Text>
-        {/*<Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFF'}>*/}
-        {/*  GET*/}
-        {/*</Text>*/}
-        {/*<Text fontSize={'12px'} fontWeight={'500'} className={s.youGet}>*/}
-        {/*  {token*/}
-        {/*    ? formatCurrency(*/}
-        {/*      userContributeInfo?.bvm_balance,*/}
-        {/*      MIN_DECIMAL,*/}
-        {/*      MAX_DECIMAL,*/}
-        {/*    )*/}
-        {/*    : '-'}{' '}*/}
-        {/*  BVM*/}
-        {/*</Text>*/}
-        <Flex
-          gap={'2px'}
-          alignItems={'center'}
-          bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}
-          borderRadius={'100px'}
-          p={'2px 10px'}
-        >
-          <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <path d='M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z'
-                  fill='url(#paint0_linear_30263_14863)' />
-            <defs>
-              <linearGradient id='paint0_linear_30263_14863' x1='2.66675' y1='8.49929' x2='13.3334' y2='8.49929'
-                              gradientUnits='userSpaceOnUse'>
-                <stop stop-color='#007659' />
-                <stop offset='1' stop-color='#35CCA6' />
-              </linearGradient>
-            </defs>
-          </svg>
-
-          <Text
-            fontSize={'14'}
-            fontWeight={'500'}
-            className={s.boost}
-            color={'#000'}
-          >
+      <div>
+        <Flex className={s.tValue} gap={'5px'} alignItems={'center'} ref={ref} {...rest} cursor={token ? "pointer" : 'auto'}>
+          <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
             {token
-              ? `${formatCurrency(
-                userContributeInfo?.view_boost,
+              ? `$${formatCurrency(
+                userContributeInfo?.usdt_value,
                 MIN_DECIMAL,
                 MIN_DECIMAL,
                 'BTC',
                 true,
-              )}%`
+              )}`
               : '-'}
           </Text>
+          {/*<Text color={'rgba(255, 255, 255, 0.7)'} fontSize={'12px'} fontWeight={'500'}>*/}
+          {/*  {token*/}
+          {/*    ? `(${formatCurrency(*/}
+          {/*      userContributeInfo?.bvm_balance_not_boost,*/}
+          {/*      MIN_DECIMAL,*/}
+          {/*      MAX_DECIMAL,*/}
+          {/*      'BTC',*/}
+          {/*      false,*/}
+          {/*    )} BVM)`*/}
+          {/*    : '-'}*/}
+          {/*</Text>*/}
+
+
+          {/*<Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFF'}>*/}
+          {/*  GET*/}
+          {/*</Text>*/}
+          {/*<Text fontSize={'12px'} fontWeight={'500'} className={s.youGet}>*/}
+          {/*  {token*/}
+          {/*    ? formatCurrency(*/}
+          {/*      userContributeInfo?.bvm_balance,*/}
+          {/*      MIN_DECIMAL,*/}
+          {/*      MAX_DECIMAL,*/}
+          {/*    )*/}
+          {/*    : '-'}{' '}*/}
+          {/*  BVM*/}
+          {/*</Text>*/}
+          <Flex
+            gap={'2px'}
+            alignItems={'center'}
+            bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}
+            borderRadius={'100px'}
+            p={'2px 10px'}
+          >
+            <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
+              <path d='M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z'
+                    fill='url(#paint0_linear_30263_14863)' />
+              <defs>
+                <linearGradient id='paint0_linear_30263_14863' x1='2.66675' y1='8.49929' x2='13.3334' y2='8.49929'
+                                gradientUnits='userSpaceOnUse'>
+                  <stop stop-color='#007659' />
+                  <stop offset='1' stop-color='#35CCA6' />
+                </linearGradient>
+              </defs>
+            </svg>
+
+            <Text
+              fontSize={'14'}
+              fontWeight={'500'}
+              className={s.boost}
+              color={'#000'}
+            >
+              {token
+                ? `${formatCurrency(
+                  userContributeInfo?.view_boost,
+                  MIN_DECIMAL,
+                  MIN_DECIMAL,
+                  'BTC',
+                  true,
+                )}%`
+                : '-'}
+            </Text>
+          </Flex>
         </Flex>
-      </Flex>
+        <Text
+          className={s.tLabel}
+          fontSize={20} lineHeight={1} fontWeight={400} color={'rgba(0,0,0,0.7)'}>
+          Your contribution
+        </Text>
+      </div>
     );
   });
 
@@ -218,6 +223,9 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
+          <Text fontSize={14} lineHeight={1} fontWeight={400} color={'black'} mb={'12px'}>
+            Total Funded
+          </Text>
           <Text className={s.fundValue}>
             $
             {formatCurrency(
@@ -230,68 +238,70 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           </Text>
           <Box mt={'32px'} />
 
-          <div>
+          <div className={s.grid}>
+            <div>
+              <div className={s.backer}  onClick={() => setShowContributorModal(true)}>
+                <Text className={s.tValue} fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}
+                      _hover={{
+                        color: "#FA4E0E",
+                      }}>
+                  {formatCurrency(
+                    contributeInfo?.total_user,
+                    0,
+                    0,
+                    'BTC',
+                    true,
+                  )}
 
-            <Flex className={s.backer} gap={'6px'} onClick={() => setShowContributorModal(true)}>
-              <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}
-                    _hover={{
-                      color: "#FA4E0E",
-                    }}>
-                {formatCurrency(
-                  contributeInfo?.total_user,
-                  0,
-                  0,
-                  'BTC',
-                  true,
-                )}
-
-              </Text>
-              <Text fontSize={20} lineHeight={1} fontWeight={400} color={'rgba(0,0,0,0.7)'}>
-                {' backers'}
-              </Text>
-            </Flex>
+                </Text>
+                <Text
+                  className={s.tLabel}
+                  fontSize={20} lineHeight={1} fontWeight={400} color={'rgba(0,0,0,0.7)'}>
+                  {'Backers'}
+                </Text>
+              </div>
+            </div>
+            <div>
+              {
+                remainDay === 0 ? (
+                  <Countdown
+                    className={s.time}
+                    expiredTime={dayjs
+                      .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
+                      .toString()}
+                    hideIcon={true}
+                    onRefreshEnd={() => setIsEnd(true)}
+                  />
+                ) : (
+                  <div>
+                    <Text className={s.tValue} fontSize={20} lineHeight={1} fontWeight={400} color={'rgba(0,0,0,1)'}> {remainDay} </Text> <Text
+                    fontSize={20} lineHeight={1} fontWeight={400}
+                    className={s.tLabel}
+                    color={'rgba(0,0,0,0.7)'}> Day{remainDay !== 1 && 's'} to go</Text>
+                  </div>
+                )
+              }
+            </div>
+            {token ? (
+              <Tooltip
+                minW='220px'
+                bg='white'
+                boxShadow='0px 0px 24px -6px #0000001F'
+                borderRadius='4px'
+                padding='16px'
+                hasArrow
+                label={<ContributorInfo data={userContributeInfo} />}
+              >
+                <ContributorBlock
+                  className={cx(s.contributorBlock, s.blockItem)}
+                />
+              </Tooltip>
+            ) : (
+              <ContributorBlock className={s.blockItem} />
+            )}
           </div>
 
-          <Box mt={'24px'} />
-          <Flex gap={6} direction={'column'} width={'100%'}>
-            {
-              remainDay === 0 ? (
-                <Countdown
-                  className={s.time}
-                  expiredTime={dayjs
-                    .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
-                    .toString()}
-                  hideIcon={true}
-                  onRefreshEnd={() => setIsEnd(true)}
-                />
-              ) : (
-                <Flex  gap={'5px'}>
-                  <Text fontSize={20} lineHeight={1} fontWeight={400} color={'rgba(0,0,0,1)'}> {remainDay} </Text> <Text
-                  fontSize={20} lineHeight={1} fontWeight={400}
-                  color={'rgba(0,0,0,0.7)'}> day{remainDay !== 1 && 's'} to go</Text>
-                </Flex>
-              )
-            }
-          </Flex>
-          <Box mt={'24px'} />
-          {token ? (
-            <Tooltip
-              minW='220px'
-              bg='white'
-              boxShadow='0px 0px 24px -6px #0000001F'
-              borderRadius='4px'
-              padding='16px'
-              hasArrow
-              label={<ContributorInfo data={userContributeInfo} />}
-            >
-              <ContributorBlock
-                className={cx(s.contributorBlock, s.blockItem)}
-              />
-            </Tooltip>
-          ) : (
-            <ContributorBlock className={s.blockItem} />
-          )}
-          <Box mt={'40px'} />
+          <Box mt={'32px'} />
           <Flex gap={6} direction={'column'} width={'100%'}>
             <AuthForBuy>
               <Button

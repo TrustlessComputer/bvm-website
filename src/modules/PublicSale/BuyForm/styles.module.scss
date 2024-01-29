@@ -8,6 +8,7 @@
   margin: 0 auto;
   box-shadow: 0px 0px 24px -6px #00000014;
   background: #FFFFFF;
+  margin-bottom: 24px;
 
   @include is-mobile {
     padding: 16px;
@@ -199,4 +200,25 @@
   .backer {
     cursor: pointer;
   }
+}
+
+.grid {
+  display: flex;
+  gap: 68px;
+}
+
+.tValue {
+  min-height: 25px;
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1;
+  text-align: left;
+}
+
+.tLabel{
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 14px !important;
+  text-align: left;
 }

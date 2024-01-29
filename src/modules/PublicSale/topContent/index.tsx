@@ -13,45 +13,46 @@ const TopContent = () => {
 
   return (
     <div className={s.container}>
-      <Flex direction={'column'} gap={1}>
-        <Text fontSize={44} fontWeight={400} lineHeight={44} className={s.title}>Welcome to the future of
-          Bitcoin</Text>
-        <Text fontSize={16} fontWeight={400} lineHeight={24} className={s.desc}>In this release, we shipped a
-          full-featured EVM on Bitcoin. This is the first building block to make Bitcoin usable far more than just a
-          currency because developers can now write smart contracts and build dapps for Bitcoin.</Text>
-      </Flex>
-      <ul className={s.actions}>
-        <li>
-          <a href={'#'} onClick={() => setOpen(true)}>Watch the film <Image src={`/public-sale/mdi_play.svg`} width={10} height={10}
-                                              alt={'right'} /></a>
-          <ModalVideo
-            channel="custom"
-            url={'/public-sale/public_sale_video.mp4'}
-            isOpen={isOpen}
-            // videoId="L61p2uyiMSo"
-            onClose={() => {
-              console.log('aaaaaa')
-              setOpen(false);
-            }}
-          />
-        </li>
-        <li>
-          <DropDown title={'Learn more'} lists={[
-            {
-              link: 'https://bvm.network/onepager.pdf',
-              title: 'Onepager',
-            },
-            {
-              link: 'https://bvm.network/deck.pdf',
-              title: 'Deck',
-            },
-            {
-              link: WHITEPAPER_DOC_URL,
-              title: 'Whitepaper',
-            },
-          ]} />
-        </li>
-      </ul>
+      <div className={s.content}>
+        <Flex direction={'column'} gap={1}>
+          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.subTitle}>
+            Bitcoin Virtual Machine
+          </Text>
+          <Text fontSize={56} fontWeight={400} lineHeight={1} className={s.title}>Welcome to the future of
+            Bitcoin</Text>
+          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin. And we’re fucking serious about it. Hope you’ll join the ride. LFG.</Text>
+        </Flex>
+        <ul className={s.actions}>
+          <li>
+            <a href={'#'} onClick={() => setOpen(true)}>Watch the Film <Image src={`/public-sale/mdi_play.svg`} width={10} height={10}
+                                                                              alt={'right'} /></a>
+            <ModalVideo
+              channel="custom"
+              url={'/public-sale/public_sale_video.mp4'}
+              isOpen={isOpen}
+              onClose={() => {
+                setOpen(false);
+              }}
+            />
+          </li>
+          <li>
+            <DropDown title={'What is BVM'} lists={[
+              {
+                link: 'https://bvm.network/onepager.pdf',
+                title: 'Onepager',
+              },
+              {
+                link: 'https://bvm.network/deck.pdf',
+                title: 'Deck',
+              },
+              {
+                link: WHITEPAPER_DOC_URL,
+                title: 'Whitepaper',
+              },
+            ]} />
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

@@ -62,8 +62,10 @@
     line-height: 24px;
     text-align: center;
     white-space: nowrap;
-    margin-top: 2px;
-    @include fixTextLargeLen(150px)
+    position: absolute;
+    bottom: calc(100% + 10px);
+    width: 100%;
+    @include fixTextLargeLen(150px);
   }
 
   .price {
@@ -115,12 +117,8 @@
 
 
   &:global(.level-0) {
-    margin-bottom: 58px;
+    margin-bottom: 48px;
     margin-top: 24px;
-
-    .meta{
-      bottom: -32px;
-    }
 
     .price {
       font-size: clamp(14px, #{vw(140px)}, 16px);

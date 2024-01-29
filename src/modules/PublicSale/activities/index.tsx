@@ -183,8 +183,8 @@ const Activities = React.memo(() => {
   }
 
   return (
-    <Flex flexDirection="column" padding={{ base: "24px", md: "48px 32px 32px 32px" }} bg="#F6F6F6;">
-      <p className={styles.container__title}>Experience Bitcoin like never before</p>
+    <Flex className={styles.wrap} flexDirection="column" padding={{ base: "24px", md: "24px 24px 32px 24px" }}>
+      <p className={styles.container__title}>Experience what we’ve been building on Bitcoin throughout the bear.</p>
       <Accordion allowMultiple={false} defaultIndex={currentDay.diffDay}>
         {DAYS.map(renderItem)}
       </Accordion>
