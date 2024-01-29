@@ -14,6 +14,7 @@ import { PUBLIC_SALE_END, PUBLIC_SALE_START } from '@/modules/Whitelist';
 import { CDN_URL_ICONS } from '@/config';
 import { getPublicSaleSummary } from '@/services/public-sale';
 import { checkIsPublicSale } from '@/modules/Whitelist/utils';
+import cs from 'classnames';
 
 const DELAY = 2;
 const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
@@ -53,13 +54,13 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
           <Flex flexDirection={'column'} gap={'8px'}>
             <Fade delay={delay + .2}>
               <div className={s.titleWrapper}>
-                <div className={s.title}>BVM PUBLIC SALE</div>
+                <div className={cs(s.title, {[s.title__publicSale]: isPublicSale})}>{isPublicSale ? "$BVM PUBLIC SALE IS HAPPENING" : "BVM PUBLIC SALE"}</div>
               </div>
             </Fade>
-            <div className={s.desc}>
+            <div className={cs(s.desc, {[s.desc__publicSale]: isPublicSale})}>
               {isPublicSale ? (
                 <Chars delay={delay + .4}>
-                  $BVM PUBLIC SALE IS HAPPENING
+                  The first modular blockchain metaprotocol that lets you customize and launch your own Bitcoin L2 blockchain protocol in a few clicks.
                 </Chars>
               ) : (
                 <Chars delay={delay + .4}>

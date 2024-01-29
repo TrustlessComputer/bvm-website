@@ -5,13 +5,15 @@ import { Box } from '@chakra-ui/react';
 import AboveTheFold from './aboveTheFold';
 import Allocation from '@/modules/bvm_v2/Allocation';
 import RoadmapModule from '@/modules/PublicSale/roadmap';
+import FAQContent from '@/modules/Whitelist/FAQContent';
 
 const PublicSaleModule = () => {
   return (
     <Box className={s.container}>
       <AboveTheFold />
-      <Allocation />
       <RoadmapModule />
+      <Allocation />
+      <FAQContent />
     </Box>
   );
 };
