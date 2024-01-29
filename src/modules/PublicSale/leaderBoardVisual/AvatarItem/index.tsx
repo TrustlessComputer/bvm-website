@@ -5,24 +5,25 @@ import Image from 'next/image';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
 import { DotLottiePlayer } from '@dotlottie/react-player';
-import {gsap} from 'gsap';
+import { gsap } from 'gsap';
 
 interface IProps {
   data: ILeaderBoardPoint,
   isShowName?: boolean
   isYou?: boolean
-  isUpMoney?: boolean
   newMoney?: number
+  onCompleted?: ()=>void
 }
 
-const AvatarItem = forwardRef((props: IProps, ref: any) => {
-  const { data, isUpMoney, newMoney, isShowName, isYou, ...rest } = props;
+const AvatarItem = forwardRef((props: IProps, ref: any, onCompleted) => {
+  const { data, newMoney, isShowName, isYou, ...rest } = props;
   const lottieRef = useRef<any>();
-  const refMoney = useRef<{value: number}>({ value: data?.usdt_value || 0 });
+  const refMoney = useRef<{ value: number }>({ value: data?.usdt_value || 0 });
   const refInertMoney = useRef<HTMLParagraphElement>(null);
+  const [isLoopDone, setIsLoopDone] = useState(true);
+  const refTime = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
-    const fa = { value: data.usdt_value };
 
     if (!refInertMoney.current) return;
     if (newMoney && refMoney.current.value !== newMoney) {
@@ -36,6 +37,21 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
     } else {
       refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.current.value, 0, 0, '', true)}`;
     }
+
+
+    if (!lottieRef.current) return;
+    const numberLoop = 3;
+
+    lottieRef.current.setLoop(3);
+    lottieRef.current.play();
+    setIsLoopDone(false);
+
+    const duration = lottieRef.current;
+    refTime.current = setTimeout(() => {
+      setIsLoopDone(true);
+      onCompleted();
+    }, duration * numberLoop);
+
   }, [newMoney]);
 
   const [error, setError] = useState<boolean>(false);
@@ -46,15 +62,6 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
       src={'/images/mk-user.jpg'} alt={'user'} style={{ cursor: 'pointer' }} />;
   };
 
-  useEffect(() => {
-    if (isUpMoney) {
-      lottieRef.current.setLoop(true);
-      lottieRef.current.play();
-
-    } else {
-      lottieRef.current.stop();
-    }
-  }, [isUpMoney]);
 
   return (
     <div
@@ -91,11 +98,15 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
           <p className={s.price} ref={refInertMoney}></p>
         </div>
       </div>
-      <DotLottiePlayer
-        className={s.lottie}
-        lottieRef={lottieRef}
-        src='/presale-up-2.lottie'
-      />
+      {
+        <div className={`${s.lt} ${!isLoopDone && s.isRun}`}>
+          <DotLottiePlayer
+            className={s.lottie}
+            lottieRef={lottieRef}
+            src='/presale-up-2.lottie'
+          />
+        </div>
+      }
     </div>
   );
 });
