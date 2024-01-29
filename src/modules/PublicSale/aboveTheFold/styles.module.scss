@@ -23,15 +23,15 @@
     padding-top: 80px;
     height: calc(100dvh + 80px);
     overflow-y: auto;
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
 
     @include w-max(768px) {
       height: unset;
     }
 
     &::-webkit-scrollbar {
-      display: none;  /* Safari and Chrome */
+      display: none; /* Safari and Chrome */
     }
 
     @include is-mobile {
@@ -81,8 +81,19 @@
 
   .raffleButton {
     position: absolute;
-    top: 200px;
+    top: 405px;
     left: 24px;
+
+    @include is-mobile {
+      top: 280px;
+    }
+  }
+
+  .boardSwitch {
+    position: absolute;
+    top: 405px;
+    right: 24px;
+    width: fit-content;
 
     @include is-mobile {
       top: 280px;
