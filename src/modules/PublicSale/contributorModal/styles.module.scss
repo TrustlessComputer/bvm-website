@@ -34,9 +34,9 @@
   .inputContainer {
     border-radius: 0px;
     background: rgba(255, 255, 255, 0.10);
-    border: 1px solid #FFFFFF33;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     display: flex;
-    padding: 10px;
+    padding: 8px 10px;
     align-items: center;
     gap: 12px;
     width: 100%;
@@ -50,10 +50,11 @@
     height: 100%;
     overflow: hidden;
     color: #FFFFFF;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 140%;
+    height: 22px;
+    line-height: 22px;
     background-color: transparent;
     width: 100%;
     letter-spacing: 0.01em;
@@ -72,13 +73,14 @@
   }
 
   .button {
-    height: 48px !important;
+    height: 40px !important;
     padding: 8px 60px !important;
     border-radius: 0px !important;
     background: #fff !important;
     color: #000 !important;
     width: 131px;
     font-weight: normal !important;
+    font-size: 14px !important;
   }
 }
 
