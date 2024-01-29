@@ -13,7 +13,7 @@ interface IRoadMap {
   color: string,
   time: string,
   title: string,
-  desc: string,
+  desc: any,
   button?: string,
   link?: string,
   isDone?: boolean
@@ -29,16 +29,16 @@ const RoadmapModule = () => {
         button: 'Learn more',
         link: 'https://twitter.com/punk3700/status/1628406581510676480',
         isDone: true,
-        desc: 'This marked our first experiment in bringing smart contracts to Bitcoin, aiming to expand its utility beyond being just a currency.'
+        desc: '• Deployed smart contracts on Bitcoin<br/>• Built BVM as EVM-equivalent Layer 1 on Bitcoin<br/>• Expand Bitcoin’s utility beyond being just a currency'
       },
       {
         color: '#13BBC9',
         time: 'May 2023',
         title: 'Deployed Uniswap on Bitcoin',
         button: 'Learn more',
-        link: 'https://twitter.com/punk3700/status/1651252683179978752',
+        link: 'https://twitter.com/punk3700/status/1654532883388977158',
         isDone: true,
-        desc: 'Our second experiment involved building sophisticated applications on Bitcoin, with Uniswap being the first use case. We built a fully functional DEX on Bitcoin as a result.'
+        desc: '• Built a DEX on Bitcoin using Uniswap smart contracts<br/>• An early example of DeFi on Bitcoin<br/>'
       },
       {
         color: '#E64790',
@@ -47,7 +47,7 @@ const RoadmapModule = () => {
         button: 'Learn more',
         isDone: true,
         link: 'https://twitter.com/punk3700/status/1699821767781658669',
-        desc: 'In the third experiment, we focused on scaling up Bitcoin, with Optimism being the first scaling solution. We plan to deploy more scaling technologies over time.'
+        desc: '• Scaled up Bitcoin using OP rollups<br/>• This enabled Bitcoin L2s with high speed and low gas'
       },
       {
         color: '#96C35A',
@@ -55,7 +55,7 @@ const RoadmapModule = () => {
         title: 'The First Bitcoin L2',
         button: 'Learn more',
         isDone: true,
-        desc: 'Alpha Chain was the first Bitcoin L2 powered by BVM. It hosts the second biggest SocialFi dapp by TVL, and facilitates $36 million in volume and over 1 million transactions so far.',
+        desc: '• Alpha Chain is the first Bitcoin L2 powered by BVM<br/>• It hosts Alpha app - the second biggest SocialFi dapp by TVL<br/>• It facilitates $36M+ in volume & 1M+ transactions so far',
         link: 'https://twitter.com/punk3700/status/1703819001510682709'
       },
       {
@@ -72,7 +72,7 @@ const RoadmapModule = () => {
         title: 'TGE & Listing',
         button: '',
         link: '',
-        desc: 'Investors can claim their BVM tokens from the public sale. BVM token is to be listed on several exchanges for trading.'
+        desc: '• Investors can claim BVM tokens from the public sale.<br/>• BVM token to be listed on several exchanges<br/>'
       },
       {
         color: '#9E9E9E',
@@ -80,7 +80,7 @@ const RoadmapModule = () => {
         title: 'BVM Staking',
         button: '',
         link: '',
-        desc: 'Holders can stake their BVM tokens to earn staking rewards from different Bitcoin L2 blockchains within the BVM ecosystem.'
+        desc: '• Stake BVM tokens and earn staking rewards from different Bitcoin L2 blockchains within the BVM ecosystem'
       },
       {
         color: '#9E9E9E',
@@ -88,7 +88,7 @@ const RoadmapModule = () => {
         title: 'Developer Ecosystem',
         button: '',
         link: '',
-        desc: 'BVM to power thousands of Bitcoin L2s with builder teams from around the world.'
+        desc: '• BVM to power thousands of Bitcoin L2s with builder teams from around the world'
       },
       {
         color: '#9E9E9E',
@@ -96,7 +96,7 @@ const RoadmapModule = () => {
         title: 'Modular Store',
         button: '',
         link: '',
-        desc: 'When launching a Bitcoin L2 with BVM, developers have the option to deploy pre-installed dapps for their blockchain, such as DEX, NFT Marketplace, Bridge, etc. Think of an app store but for blockchain.'
+        desc: '• Developers have the option to deploy pre-installed dapps for their Bitcoin L2s, such as DEX, NFT Marketplace, etc<br/>'
       },
     ]
   }, [])
@@ -124,7 +124,8 @@ const RoadmapModule = () => {
                 <span><SvgInset svgUrl={`${CDN_URL_ICONS}/check-green.svg`} /></span>
               )}
             </Flex>
-            <Text color="black" fontSize="14px" fontWeight="400" lineHeight="180%" opacity={0.7} mt="8px">{item.desc}</Text>
+
+            <Box as='p' color='black' fontSize='14px' fontWeight='400' lineHeight='180%' opacity={0.7} mt='8px' dangerouslySetInnerHTML={{ __html: item.desc }}/>
           </Flex>
           {item.button && (
             <a href={item.link} target="_blank" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: "8px", color: '#FA4E0E', fontSize: '14px' }}>

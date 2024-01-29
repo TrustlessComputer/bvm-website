@@ -1,10 +1,16 @@
 import AppLoading from '@/components/AppLoading';
 import SvgInset from '@/components/SvgInset';
 import { PublicSaleWalletTokenDeposit } from '@/interfaces/vc';
-import { getLocation, getPublicsaleWalletInfo } from '@/services/public-sale';
+import {
+  generateTOkenWithSecretCode,
+  getLocation,
+  getPublicsaleWalletInfo,
+} from '@/services/public-sale';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
+import { setGuestSecretCode } from '@/stores/states/user/reducer';
 import { userSelector } from '@/stores/states/user/selector';
+import { generateRandomString } from '@/utils/encryption';
 import { formatCurrency } from '@/utils/format';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { compareString } from '@/utils/string';
@@ -12,15 +18,9 @@ import {
   Box,
   Center,
   Flex,
-  FocusLock,
   Menu,
   MenuButton,
   MenuList,
-  Popover,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverTrigger,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -28,12 +28,11 @@ import BigNumber from 'bignumber.js';
 import copy from 'copy-to-clipboard';
 import React, { useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ImportOrCreate from '../AuthForBuy/importOrCreate';
-import DepositCheck from './deposit.check';
 import DepositContentItem, {
   DepositContentItem2,
 } from './deposit.content.item';
@@ -48,6 +47,7 @@ const COUNTRY_BANNED: any[] = ['US'];
 
 const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
+
   const user = useAppSelector(userSelector);
   const [loading, setLoading] = useState(true);
   const [checkingLocation, setCheckingLocation] = useState(true);
@@ -63,9 +63,53 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
 
   const coinPrices = useSelector(commonSelector).coinPrices;
 
+  const dispatch = useDispatch();
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [generating, setGenerating] = useState(true);
+
+  const isAuth = useMemo(() => user?.guest_code || user?.twitter_id, [user]);
+
+  const createNewSecretCode = () => {
+    try {
+      if (isAuth) {
+        setGenerating(false);
+        return;
+      }
+      if (!executeRecaptcha) {
+        console.log('Execute recaptcha not yet available');
+        throw Error('Execute recaptcha not yet available');
+      }
+      executeRecaptcha('enquiryFormSubmit').then((gReCaptchaToken) => {
+        console.log(gReCaptchaToken, 'response Google reCaptcha server');
+
+        getToken(gReCaptchaToken);
+      });
+    } catch (error) {
+      //
+    }
+  };
+
+  const getToken = async (captcha: string, code?: string) => {
+    try {
+      const _secretCode = generateRandomString(10);
+
+      const rs = await generateTOkenWithSecretCode(_secretCode, captcha);
+      AuthenStorage.setGuestSecretKey(_secretCode);
+      AuthenStorage.setGuestAuthenKey(rs?.token);
+      dispatch(setGuestSecretCode(_secretCode));
+    } catch (error) {
+    } finally {
+      setGenerating(false);
+    }
+  };
+
   useEffect(() => {
     checkLocation();
   }, []);
+
+  useEffect(() => {
+    createNewSecretCode();
+  }, [isAuth]);
 
   useEffect(() => {
     getTokens();
@@ -118,7 +162,7 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
     return '0';
   }, [coinPrices, amount_usd, selectToken]);
 
-  if (loading || checkingLocation) {
+  if (loading || checkingLocation || generating) {
     return (
       <Center>
         <AppLoading />
@@ -127,12 +171,16 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
   }
 
   if (isBanned) {
-    return <Center><Text>Not Available in Your Region</Text></Center>
+    return (
+      <Center>
+        <Text>Not Available in Your Region</Text>
+      </Center>
+    );
   }
 
   return (
     <Flex className={s.depositContent}>
-      {secretCode && (
+      {/* {secretCode && (
         <>
           <Flex className={s.wrapSecretKey}>
             <Text className={s.titleCopy}>
@@ -153,30 +201,20 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
             </Flex>
           </Flex>
         </>
-      )}
+      )} */}
 
       {isDepositAnotherAccount ? (
         <>
-          <GoogleReCaptchaProvider
-            reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
-            scriptProps={{
-              async: false,
-              defer: false,
-              appendTo: 'head',
-              nonce: undefined,
-            }}
-          >
-            <ImportOrCreate />
-            <Box className={s.depositAnotherAccount}>
-              <Text
-                onClick={() => {
-                  setIsDepositAnotherAccount(false);
-                }}
-              >
-                Back to deposit
-              </Text>
-            </Box>
-          </GoogleReCaptchaProvider>
+          <ImportOrCreate />
+          <Box className={s.depositAnotherAccount}>
+            <Text
+              onClick={() => {
+                setIsDepositAnotherAccount(false);
+              }}
+            >
+              Back to deposit
+            </Text>
+          </Box>
         </>
       ) : (
         <>
@@ -264,42 +302,12 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
                       svgUrl="/icons/ic-copy.svg"
                     />
                   </Flex>
-                  <Popover
-                    isOpen={isOpen}
-                    initialFocusRef={firstFieldRef}
-                    onOpen={onOpen}
-                    onClose={onClose}
-                    closeOnBlur={false}
-                    placement="top-start"
-                  >
-                    <PopoverTrigger>
-                      <Box mt={'12px'} className={s.depositAnotherAccount}>
-                        <Text onClick={onOpen}>Already deposited?</Text>
-                      </Box>
-                    </PopoverTrigger>
-                    <PopoverContent px={2} pt={5} pb={2}>
-                      <FocusLock persistentFocus={false}>
-                        <PopoverArrow />
-                        <PopoverCloseButton />
-                        <GoogleReCaptchaProvider
-                          reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
-                          scriptProps={{
-                            async: false,
-                            defer: false,
-                            appendTo: 'head',
-                            nonce: undefined,
-                          }}
-                        >
-                          <DepositCheck onClose={onClose} />
-                        </GoogleReCaptchaProvider>
-                      </FocusLock>
-                    </PopoverContent>
-                  </Popover>
                 </Flex>
               </Flex>
             </Flex>
           )}
-          {secretCode && !token && (
+
+          {/* {secretCode && !token && (
             <>
               <Box className={s.depositAnotherAccount}>
                 <Text
@@ -311,7 +319,7 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
                 </Text>
               </Box>
             </>
-          )}
+          )} */}
         </>
       )}
 
@@ -324,4 +332,8 @@ DepositContent.defaultProps = {
   amount_usd: '0',
 };
 
-export default DepositContent;
+const DepositContentContainer: React.FC<IDepositContent> = (props) => {
+  return <DepositContent {...props} />;
+};
+
+export default DepositContentContainer;

@@ -12,6 +12,7 @@ import Playgame from '@/modules/PublicSale/playGame';
 import AddMoreContribution from '@/modules/PublicSale/addMoreContribution';
 import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
 import RaffleButton from '@/modules/PublicSale/raffleButton';
+import Activities from '@/modules/PublicSale/activities';
 import TopContent from '@/modules/PublicSale/topContent';
 import LeaderBoardSwitch from '@/modules/PublicSale/leaderBoardSwitch';
 
@@ -47,8 +48,9 @@ const AboveTheFold = () => {
         </Flex>
         <Flex className={s.rightSection} direction={"column"}>
           <BuyForm vcInfo={vcInfo}/>
-          <Welcome />
-          <Playgame />
+          {/*<Welcome />*/}
+          {/*<Playgame />*/}
+          <Activities />
         </Flex>
       </SimpleGrid>
     </Flex>

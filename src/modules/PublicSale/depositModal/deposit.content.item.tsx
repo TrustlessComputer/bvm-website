@@ -50,7 +50,7 @@ export const DepositContentItem2: React.FC<IDepositContentItem> = ({
       onClick={() => onSelectToken?.(token)}
     >
       <Avatar width={'24px'} height={'24px'} src={tokenInfo?.icon} />
-      <Text>{tokenInfo?.name}</Text>
+      <Text>{tokenInfo?.symbol}</Text>
     </Flex>
   );
 };
