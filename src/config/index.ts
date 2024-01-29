@@ -10,6 +10,7 @@ export const CDN_URL: string = process.env.NEXT_PUBLIC_CDN_URL!;
 
 export const PERP_API_URL = process.env.NEXT_PUBLIC_PERP_API!;
 export const PERP_NAKA_API_URL = process.env.NEXT_PUBLIC_NAKA_PERP_API!;
+export const BVM_API = process.env.NEXT_PUBLIC_BVM_API!;
 
 export const TWITTER_CLIENT_ID = process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID!;
 

@@ -1,6 +1,6 @@
 import BaseModal from '@/components/BaseModal';
 import SvgInset from '@/components/SvgInset';
-import { PERP_NAKA_API_URL, TWITTER_CLIENT_ID } from '@/config';
+import { BVM_API, PERP_NAKA_API_URL, TWITTER_CLIENT_ID } from '@/config';
 import { IAuthenCode } from '@/modules/Whitelist/steps';
 import {
   generateTokenWithTwPost,
@@ -122,7 +122,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
     const URL = `${window.location.origin}/public-sale`;
     const rootUrl = 'https://twitter.com/i/oauth2/authorize';
     const options = {
-      redirect_uri: `${PERP_NAKA_API_URL}/twitter-api/oauth/twitter-bvm?callbackURL=${URL}&uuid=${uuid}`,
+      redirect_uri: `${BVM_API}/twitter-api/oauth/twitter-bvm?callbackURL=${URL}&uuid=${uuid}`,
       client_id: TWITTER_CLIENT_ID,
       state: 'state',
       response_type: 'code',
