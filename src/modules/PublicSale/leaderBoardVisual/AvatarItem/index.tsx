@@ -116,7 +116,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         <div className={s.meta}>
           <p className={s.price} ref={refInertMoney}></p>
           {
-            isShowName && !isYou && <p className={s.name}>{data.twitter_username}</p>
+            isShowName && data.levelRender === 0 && !isYou && <p className={s.name}>{data.twitter_username}</p>
           }
           {
             isYou && <p className={s.name}>You</p>

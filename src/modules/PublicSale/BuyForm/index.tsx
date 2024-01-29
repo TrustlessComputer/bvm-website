@@ -142,23 +142,23 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               <Text>
                 {token
                   ? `$${formatCurrency(
-                      userContributeInfo?.usdt_value,
-                      MIN_DECIMAL,
-                      MIN_DECIMAL,
-                      'BTC',
-                      true,
-                    )}`
+                    userContributeInfo?.usdt_value,
+                    MIN_DECIMAL,
+                    MIN_DECIMAL,
+                    'BTC',
+                    true,
+                  )}`
                   : '-'}
               </Text>
-              <Text color={"rgba(255, 255, 255, 0.7)"} fontSize={"12px"} fontWeight={"500"}>
+              <Text color={'rgba(255, 255, 255, 0.7)'} fontSize={'12px'} fontWeight={'500'}>
                 {token
                   ? `(${formatCurrency(
-                      userContributeInfo?.bvm_balance_not_boost,
-                      MIN_DECIMAL,
-                      MAX_DECIMAL,
-                      'BTC',
-                      false,
-                    )} BVM)`
+                    userContributeInfo?.bvm_balance_not_boost,
+                    MIN_DECIMAL,
+                    MAX_DECIMAL,
+                    'BTC',
+                    false,
+                  )} BVM)`
                   : '-'}
               </Text>
             </Flex>
@@ -177,26 +177,29 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               <Text fontSize={'12px'} fontWeight={'500'} className={s.youGet}>
                 {token
                   ? formatCurrency(
-                      userContributeInfo?.bvm_balance,
-                      MIN_DECIMAL,
-                      MAX_DECIMAL,
-                    )
+                    userContributeInfo?.bvm_balance,
+                    MIN_DECIMAL,
+                    MAX_DECIMAL,
+                  )
                   : '-'}{' '}
                 BVM
               </Text>
               <Flex
                 gap={1}
                 alignItems={'center'}
-                bg={"linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)"}
-                borderRadius={"100px"}
-                p={"2px 6px"}
+                bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}
+                borderRadius={'100px'}
+                p={'2px 6px'}
               >
-                <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.66601 5.18883H5.39329L6.12056 0.825195L0.666016 7.37065H3.93874L3.21147 11.7343L8.66601 5.18883Z" fill="url(#paint0_linear_30246_12163)"/>
+                <svg width='9' height='12' viewBox='0 0 9 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    d='M8.66601 5.18883H5.39329L6.12056 0.825195L0.666016 7.37065H3.93874L3.21147 11.7343L8.66601 5.18883Z'
+                    fill='url(#paint0_linear_30246_12163)' />
                   <defs>
-                    <linearGradient id="paint0_linear_30246_12163" x1="0.666016" y1="6.27974" x2="8.66601" y2="6.27974" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#00F5A0"/>
-                      <stop offset="1" stop-color="#00D9F5"/>
+                    <linearGradient id='paint0_linear_30246_12163' x1='0.666016' y1='6.27974' x2='8.66601' y2='6.27974'
+                                    gradientUnits='userSpaceOnUse'>
+                      <stop stop-color='#00F5A0' />
+                      <stop offset='1' stop-color='#00D9F5' />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -232,7 +235,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
-          <Text className={s.title}>Total Funded</Text>
           <Text className={s.fundValue}>
             $
             {formatCurrency(
@@ -243,93 +245,59 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               true,
             )}
           </Text>
-          <Grid className={s.boxInfo} width={'100%'}>
-            <GridItem>
-              <Flex
-                alignItems={'center'}
-                gap={'16px'}
-                direction={['column', 'row']}
-              >
-                <Column
-                  className={s.blockItem}
-                  value={
-                    <Flex direction={'column'}>
-                      <Text>
-                        {formatCurrency(
-                          contributeInfo?.total_user,
-                          0,
-                          0,
-                          'BTC',
-                          true,
-                        )}
-                      </Text>
-                      <Text
-                        fontSize={'12px'}
-                        fontWeight={'400'}
-                        color={'#FA4E0E'}
-                        textDecoration={'underline'}
-                        onClick={() => setShowContributorModal(true)}
-                        cursor={'pointer'}
-                        lineHeight={"22px"}
-                      >
-                        View all
-                      </Text>
-                    </Flex>
-                  }
-                  title={'Contributors'}
-                />
-                {token ? (
-                  <Tooltip
-                    minW="220px"
-                    bg="white"
-                    boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-                    borderRadius="4px"
-                    padding="16px"
-                    hasArrow
-                    label={<ContributorInfo data={userContributeInfo} />}
-                  >
-                    <ContributorBlock
-                      className={cx(s.contributorBlock, s.blockItem)}
-                    />
-                  </Tooltip>
-                ) : (
-                  <ContributorBlock className={s.blockItem} />
+
+          <div>
+
+
+            <Flex direction={'column'} onClick={() => setShowContributorModal(true)}>
+              <Text>
+                {formatCurrency(
+                  contributeInfo?.total_user,
+                  0,
+                  0,
+                  'BTC',
+                  true,
                 )}
-              </Flex>
-            </GridItem>
-
-            <GridItem>
-              <Column
-                className={s.blockItem}
-                value={
-                  <Flex direction={'column'}>
-                    <Countdown
-                      className={s.time}
-                      expiredTime={dayjs
-                        .utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss')
-                        .toString()}
-                      hideIcon={true}
-                      onRefreshEnd={() => setIsEnd(true)}
-                    />
-                    <Text
-                      fontSize={'12px'}
-                      fontWeight={'400'}
-                      color={'rgba(255,255,255, 0.7)'}
-                      lineHeight={"22px"}
-                    >
-                      {dayjs(PUBLIC_SALE_END).format('MMM D, YYYY h:mm A')}
-                    </Text>
-                  </Flex>
-
-                }
-                title={'Ends in'}
+              </Text>
+              <Text
+              >
+                backers
+              </Text>
+            </Flex>
+          </div>
+          {token ? (
+            <Tooltip
+              minW='220px'
+              bg='white'
+              boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
+              borderRadius='4px'
+              padding='16px'
+              hasArrow
+              label={<ContributorInfo data={userContributeInfo} />}
+            >
+              <ContributorBlock
+                className={cx(s.contributorBlock, s.blockItem)}
               />
-            </GridItem>
-          </Grid>
+            </Tooltip>
+          ) : (
+            <ContributorBlock className={s.blockItem} />
+          )}
+
+          <Flex gap={6} direction={'column'} width={'100%'}>
+            <Countdown
+              className={s.time}
+              expiredTime={dayjs
+                .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
+                .toString()}
+              hideIcon={true}
+              onRefreshEnd={() => setIsEnd(true)}
+            />
+          </Flex>
+
           <Flex gap={6} direction={'column'} width={'100%'}>
             <AuthForBuy>
               <Button
-                type="submit"
+                type='submit'
                 isDisabled={isCreating}
                 isLoading={isCreating}
                 // loadingText={'Submitting...'}
