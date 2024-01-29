@@ -165,7 +165,6 @@ const Activities = React.memo(() => {
                   <SvgInset
                     className={isExpanded ? styles.itemWrapper_downArrow : styles.itemWrapper_normalArrow}
                     svgUrl={`${CDN_URL}/icons/chevron-right-ic-32.svg`}
-                    alt="chevron-right-ic"
                     size={24}
                   />
                 </button>
