@@ -111,7 +111,7 @@ const LeaderBoardVisual = (props: IProps) => {
     });
 
     if(newRes?.length > 0) {
-      latestContributors.current = newRes.concat(latestContributors.current);
+      latestContributors.current = [...newRes].concat(latestContributors.current);
       animatedLatestContributors.current = newRes;
       dispatch(setAnimatedLatestContributors(newRes));
     }
