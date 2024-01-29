@@ -219,7 +219,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
-          <Text className={s.fundValue} fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
+          <Text className={s.fundValue}>
             $
             {formatCurrency(
               contributeInfo?.total_usdt_value,

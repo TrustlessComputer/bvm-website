@@ -91,7 +91,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
     return (
       <div className={s.avatarItem_inner}>
         {
-          data.levelRender === 0 && <Image className={s.king} src={'/public-sale/king.png'} width={60} height={60} alt={'king'} />
+          data.levelRender === 0 && <Image className={s.king} src={'/public-sale/icon-king.svg'} width={60} height={60} alt={'king'} />
         }
         <div
           className={s.avatarItem_avatar}
