@@ -348,21 +348,21 @@ const LeaderBoard = (props: IProps) => {
                 flexDirection="row"
                 gap="4px"
                 alignItems="center"
-                className={clsx(s.tagBoost, (Number(data?.boost) || 0) <= 10 ? s.boostNormal : '')}
+                className={clsx(s.tagBoost, (Number(data?.view_boost) || 0) <= 10 ? s.boostNormal : '')}
               >
                 <SvgInset svgUrl={`${CDN_URL_ICONS}/${
-                  valueToImage?.[data?.boost] || 'flash_normal.svg'
+                  valueToImage?.[data?.view_boost] || 'flash_normal.svg'
                 }`}
                 />
                 <Text
                   className={cs(
                     s.title,
                     s.multiplier,
-                    s[valueToClassName[`${data?.boost}`]],
+                    s[valueToClassName[`${data?.view_boost}`]],
                     data.need_active && s.isActiveRow,
                   )}
                 >
-                  {data?.boost || 0}%
+                  {data?.view_boost || 0}%
                 </Text>
               </Flex>
             </Flex>

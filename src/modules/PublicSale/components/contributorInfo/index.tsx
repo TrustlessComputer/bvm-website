@@ -7,13 +7,19 @@ import { formatCurrency } from '@/utils/format';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 
 const ContributorInfo = ({data}: {data?: ILeaderBoardPoint}) => {
+  console.log('data', data);
   return (
     <Flex direction={'column'} w={'284px'} gap={3} className={s.container}>
       <HorizontalItem className={s.rowData} label={'USER'} value={data?.twitter_name} />
       <HorizontalItem className={s.rowData} label={'RANK'} value={formatCurrency(data?.ranking, 0, 0, 'BTC', true)} />
-      <HorizontalItem className={s.rowData} label={'CONTRIBUTION'} value={`$${formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}`} />
-      <HorizontalItem className={s.rowData} label={'ALLOCATION'} value={<Text color={'#FF5312'}>{formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)} BVM</Text>} />
-      <HorizontalItem className={s.rowData} label={'BOOST'} value={
+      {/*<HorizontalItem className={s.rowData} label={'CONTRIBUTION'} value={`$${formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}`} />*/}
+      <HorizontalItem className={s.rowData} label={'ALLOCATION'} value={
+        <Flex gap={1}>
+          <Text color={'#FF5312'}>{formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)} BVM</Text>
+          <Text color={'#000000'}>({formatCurrency(data?.bvm_percent, MIN_DECIMAL, MIN_DECIMAL)}%)</Text>
+        </Flex>
+      } />
+      {/*<HorizontalItem className={s.rowData} label={'BOOST'} value={
         <Flex gap={1} alignItems={'center'}>
           <svg width='14' height='20' viewBox='0 0 14 20' fill='none'
                xmlns='http://www.w3.org/2000/svg'>
@@ -30,7 +36,7 @@ const ContributorInfo = ({data}: {data?: ILeaderBoardPoint}) => {
           </svg>
           <Text fontSize={'16px'} fontWeight={'500'} className={s.boost}>{`${formatCurrency(data?.boost, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}%`}</Text>
         </Flex>
-      } />
+      } />*/}
     </Flex>
   );
 };
