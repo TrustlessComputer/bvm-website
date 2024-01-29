@@ -32,7 +32,7 @@ const Playgame = () => {
         title: 'Fully on-chain gaming on Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [{
-          title: 'Play game in Arcade',
+          title: 'Play games on Arcade',
           type: 'link',
           link: 'https://bitcoinarcade.xyz/'
         }],
@@ -44,7 +44,7 @@ const Playgame = () => {
         title: 'BRC-20 Futures Trading Competition',
         src: 'public-sale/playGame.png',
         ctas: [{
-          title: 'Trading in NakaChain',
+          title: 'Trade on Naka',
           type: 'link',
           link: 'https://nakachain.xyz/'
         }],
@@ -56,7 +56,7 @@ const Playgame = () => {
         title: 'Playing with Lego at BVM network',
         src: 'public-sale/playGame.png',
         ctas: [{
-          title: 'Playing with Lego',
+          title: 'Play with modular blocks',
           type: 'link',
           link: 'https://playmodular.com/'
         }],
@@ -68,7 +68,7 @@ const Playgame = () => {
         title: 'Poker Friday Night on Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [{
-          title: 'Play game in Arcade',
+          title: 'Play games on Arcade',
           type: 'link',
           link: 'https://bitcoinarcade.xyz/'
         }],
@@ -79,21 +79,31 @@ const Playgame = () => {
         tag: 'DAY 5',
         title: 'Get Fit & Raise Charity on Bitcoin',
         src: 'public-sale/playGame.png',
+        ctas: [{
+          title: 'Run with Alphas',
+          type: 'link',
+          link: 'https://alpha.wtf/'
+        }],
         desc: 'A fitness and charity event built on Bitcoin in honor of Hal Finney.<br/>The more you run, the more you donate and earn at the same time'
       },
       {
         key: 5,
         tag: 'DAY 6',
-        title: 'Play game in Arcade',
+        title: 'Get Fit & Raise Charity on Bitcoin',
         src: 'public-sale/playGame.png',
-        desc: 'day 6 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'
+        ctas: [{
+          title: 'Run with Alphas',
+          type: 'link',
+          link: 'https://alpha.wtf/'
+        }],
+        desc: 'A fitness and charity event built on Bitcoin in honor of Hal Finney.<br/>The more you run, the more you donate and earn at the same time'
       },
       {
         key: 6,
         tag: 'DAY 7',
-        title: 'Play game in Arcade',
+        title: 'Last day',
         src: 'public-sale/playGame.png',
-        desc: 'day 6 Day Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut al.Ut enim ad minima veniam, quis nostrum exercitationem ullam.'
+        desc: 'Details of Day 7 will be provided as soon as Day 6 is completed.'
       },
     ]
   }, [])
