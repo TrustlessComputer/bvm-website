@@ -62,9 +62,10 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      There is no hard cap for the public sale. It will be a
-                      crowdfunding event, allowing the public to determine the
-                      valuation of the BVM project.
+                      There is no hard cap for the public sale.
+                    </p>
+                    <p className={s.faqContent}>
+                      It will be a crowdfunding event, allowing the public to determine the fair valuation of the project based on its technology and traction to date.
                     </p>
                   </AccordionPanel>
                 </>
@@ -77,7 +78,7 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   <h2>
                     <AccordionButton justifyContent={'space-between'}>
                       <span className={s.faqTitle}>
-                        What is the $BVM token standard?
+                        What is the BVM token standard?
                       </span>
                       <button>
                         <img
@@ -89,7 +90,7 @@ const FAQContent: React.FC = (): React.ReactElement => {
                     </AccordionButton>
                   </h2>
                   <AccordionPanel>
-                    <p className={s.faqContent}>BRC-20</p>
+                    <p className={s.faqContent}>BVM is the native token of the network. BVM can be exported to BRC-20 format and traded on decentralized exchanges and centralized exchanges that support BRC-20.</p>
                   </AccordionPanel>
                 </>
               )}
@@ -101,7 +102,7 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   <h2>
                     <AccordionButton justifyContent={'space-between'}>
                       <span className={s.faqTitle}>
-                        What is the utility of $BVM?
+                        What is the utility of BVM?
                       </span>
                       <button>
                         <img
@@ -114,9 +115,7 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      $BVM serves as the native cryptocurrency within the BVM
-                      ecosystem, facilitating network fee payments and the
-                      creation of Bitcoin L2 blockchains.
+                      BVM serves as the native cryptocurrency within the BVM ecosystem, facilitating the creation and operation of multiple Bitcoin L2 blockchains.
                     </p>
                   </AccordionPanel>
                 </>
@@ -142,9 +141,7 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      There is no vesting period for the public sale. All tokens
-                      will be distributed at TGE, which is expected to be around
-                      early March.
+                      There is no vesting period for the public sale. All tokens will be distributed at TGE, which will be around March
                     </p>
                   </AccordionPanel>
                 </>
@@ -234,8 +231,7 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      You can deposit nine different currencies, including BTC,
-                      ETH, TIA, OP, ARB, ORDI, SATS, USDT, USDC.
+                      You can contribute in nine different currencies, including BTC, ETH, TIA, OP, ARB, ORDI, SATS, USDT, and USDC
                     </p>
                   </AccordionPanel>
                 </>
@@ -248,7 +244,7 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   <h2>
                     <AccordionButton justifyContent={'space-between'}>
                       <span className={s.faqTitle}>
-                        How to check my contribution status?
+                        How do I check my contribution status?
                       </span>
                       <button>
                         <img
@@ -261,7 +257,7 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      <DepositCheckItHere><a>Check it here</a></DepositCheckItHere>.
+                      <DepositCheckItHere><a>Check the status</a></DepositCheckItHere>.
                     </p>
                   </AccordionPanel>
                 </>
@@ -287,8 +283,7 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      The TGE is expected to take place around March, coinciding
-                      with the exchange listings.
+                      The TGE will around March, at the same time as BVM exchange listings.
                     </p>
                   </AccordionPanel>
                 </>

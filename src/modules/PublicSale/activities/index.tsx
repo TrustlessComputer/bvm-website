@@ -153,7 +153,7 @@ const Activities = React.memo(() => {
 
   const renderItem = (item: GameItemProps, index: number) => {
     const isDisable = index > currentDay.diffDay;
-    const title = isDisable ? "▧ ❀ ▧ ❀ ⬚ 🖳 ▧ ❀ ⬚ 🗠 ⬚ ❀ ⬚ ❀ ▧ ♖ ▧" : item.title
+    const title = isDisable ? "▧ ❀ ▧ ❀ ⬚ ▧ ▧ ❀ ⬚ ▧ ⬚ ❀ ⬚ ❀ ▧ ♖ ▧" : item.title
     return (
       <AccordionItem isDisabled={index > currentDay.diffDay} className={styles.itemWrapper}>
         {({ isExpanded }) => (
