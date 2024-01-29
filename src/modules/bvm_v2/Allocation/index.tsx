@@ -39,7 +39,7 @@ const Allocation = (props: Props) => {
         </Text>
         <Box className={s.mobile} display={{ base: 'block', sm: 'none' }}>
           <Image
-            src={'/images/chart-pie.png'}
+            src={'/images/pie-chart-3.png'}
             alt={'Allocation chart'}
             maxW={'100%'}
             mx="auto"
@@ -58,7 +58,7 @@ const Allocation = (props: Props) => {
           </Flex>
         </Box>
         <Image
-          src={'/images/allocation-chart.png'}
+          src={'/images/pie-chart-3.png'}
           alt={'Allocation chart'}
           maxW={{ base: '100%', md: '70%' }}
           mx="auto"
