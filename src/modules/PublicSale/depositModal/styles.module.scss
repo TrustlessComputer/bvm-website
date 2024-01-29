@@ -148,23 +148,32 @@
   // padding: 12px;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
+  gap: 20px;
   .wrapTokenDepositDetailItem {
     flex-direction: column;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 12px;
+    gap: 4px;
     &:last-child {
       border-bottom: 0;
     }
     .wrapTokenDepositDetailItemTitle {
-      font-size: 12px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      letter-spacing: 0em;
+      text-align: left;
       opacity: 0.7;
-      margin-bottom: 2px;
     }
     .wrapTokenDepositDetailItemValue {
-      font-weight: 700;
       word-break: break-word;
-      line-height: 140%;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 26px;
+      letter-spacing: 0em;
+      text-align: left;
+      opacity: 1;
+      color: white;
     }
     .wrapTokenDepositDetailItemValueAddress {
       align-items: center;
@@ -179,8 +188,11 @@
 }
 
 .balanceConvert {
-  font-weight: 700;
-  font-size: 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0em;
+  text-align: center;
 }
 
 .tokenWrapper {
@@ -195,5 +207,39 @@
       background: #fa4e0e;
       color: white;
     }
+  }
+}
+.wrapSecretKey {
+  background: #ffffff12;
+  padding: 20px 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  .backupNow {
+    align-items: center;
+    gap: 50px;
+    background: linear-gradient(
+        0deg,
+        rgba(250, 78, 14, 0.4),
+        rgba(250, 78, 14, 0.4)
+      ),
+      linear-gradient(0deg, rgba(250, 78, 14, 0.1), rgba(250, 78, 14, 0.1));
+
+    padding: 8px;
+    cursor: pointer;
+    border: 1px solid #fa4e0e66;
+  }
+}
+
+.depositAnotherAccount {
+  p {
+    color: #fa4e0e;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+    cursor: pointer;
+    text-decoration: underline;
   }
 }

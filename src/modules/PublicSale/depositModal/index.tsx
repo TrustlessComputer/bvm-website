@@ -1,8 +1,4 @@
 import BaseModal from '@/components/BaseModal';
-import { commonSelector } from '@/stores/states/common/selector';
-import BigNumber from 'bignumber.js';
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import DepositContent from './deposit.content';
 import s from './styles.module.scss';
 
@@ -16,7 +12,7 @@ const DepositModal = ({ isShow, onHide, payAmountUsd }: any) => {
       className={s.modalContent}
       size="custom"
     >
-      <DepositContent amount_usd={payAmountUsd} />
+      <DepositContent amount_usd={payAmountUsd} onHide={onHide} />
     </BaseModal>
   );
 };

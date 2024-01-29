@@ -6,6 +6,8 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import { gsap } from 'gsap';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
 
 interface IProps {
   data: ILeaderBoardPoint,
@@ -21,10 +23,22 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
   const refInertMoney = useRef<HTMLParagraphElement>(null);
   const [isLoopDone, setIsLoopDone] = useState(true);
   const refTime = useRef<NodeJS.Timeout>();
+  const needCheckDeposit = useAppSelector(commonSelector).needCheckDeposit;
+  const animatedLatestContributors = useAppSelector(commonSelector).animatedLatestContributors;
 
   const newTotalMoney = useMemo(():number => {
-    return Number(data.usdt_value);
-  }, [data]);
+    if (needCheckDeposit) {
+      const add = animatedLatestContributors?.find(c => c.twitter_id === data.twitter_id);
+
+      if(add) {
+        return Number(data.usdt_value) + Number(add.usdt_value);
+      } else {
+        return Number(data.usdt_value);
+      }
+    } else {
+      return Number(data.usdt_value);
+    }
+  }, [data, needCheckDeposit, animatedLatestContributors]);
 
   useEffect(() => {
 
