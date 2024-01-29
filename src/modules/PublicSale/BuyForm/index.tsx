@@ -134,8 +134,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const ContributorBlock = forwardRef((props: any, ref: any) => {
     const { className, ...rest } = props;
     return (
-      <Flex gap={'5px'} alignItems={'center'}>
-
+      <Flex gap={'5px'} alignItems={'center'} ref={ref} {...rest} cursor={token ? "pointer" : 'auto'}>
         <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
           {token
             ? `$${formatCurrency(
@@ -229,12 +228,15 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               true,
             )}
           </Text>
-          <Box mt={'40px'} />
+          <Box mt={'32px'} />
 
           <div>
 
             <Flex className={s.backer} gap={'6px'} onClick={() => setShowContributorModal(true)}>
-              <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
+              <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}
+                    _hover={{
+                      color: "#FA4E0E",
+                    }}>
                 {formatCurrency(
                   contributeInfo?.total_user,
                   0,
@@ -276,7 +278,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             <Tooltip
               minW='220px'
               bg='white'
-              boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
+              boxShadow='0px 0px 24px -6px #0000001F'
               borderRadius='4px'
               padding='16px'
               hasArrow
