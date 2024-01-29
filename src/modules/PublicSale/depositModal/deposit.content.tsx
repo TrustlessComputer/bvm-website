@@ -116,7 +116,9 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
       {secretCode && (
         <>
           <Flex className={s.wrapSecretKey}>
-            <Text>Your secret key. Backup now</Text>
+            <Text className={s.titleCopy}>
+              Use this code to claim. copy now
+            </Text>
             <Flex
               className={s.backupNow}
               onClick={() => {

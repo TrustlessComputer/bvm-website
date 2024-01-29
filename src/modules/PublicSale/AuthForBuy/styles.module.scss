@@ -79,9 +79,26 @@
         fill: #fff;
       }
     }
+    .iconBlack {
+      color: #000000;
+      path {
+        fill: #000000;
+      }
+    }
   }
 }
 
 .btnImport {
   background: #fa4e0e !important;
+}
+
+.link {
+  font-size: 14px;
+  opacity: 0.7;
+  text-decoration: underline;
+  cursor: pointer;
+  &:hover {
+    color: white;
+    opacity: 1;
+  }
 }
