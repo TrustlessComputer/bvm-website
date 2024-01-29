@@ -18,7 +18,13 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import React, {
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import s from './styles.module.scss';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import {
@@ -36,6 +42,7 @@ import cs from 'classnames';
 import BuyAsGuest from './buyAsGuest';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import BaseModal from '@/components/BaseModal';
+import { compareString } from '@/utils/string';
 
 interface IAuthForBuy extends PropsWithChildren {}
 
@@ -114,6 +121,13 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
     copy(content);
   };
 
+  const modalSize = useMemo(() => {
+    if (user?.guest_code || user?.twitter_id) {
+      return 'custom';
+    }
+    return 'small';
+  }, [user, isBuyGuest]);
+
   if (Boolean(user?.twitter_id)) {
     return children;
   }
@@ -153,8 +167,11 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({ children }) => {
         onHide={onClose}
         title={isBuyGuest ? 'Buy as guest' : 'Tweet to Sign'}
         headerClassName={s.modalHeader}
-        className={cs(s.modalContent, isBuyGuest && s.deposit)}
-        size={isBuyGuest ? 'custom' : 'small'}
+        className={cs(
+          s.modalContent,
+          compareString(modalSize, 'custom') && s.deposit,
+        )}
+        size={modalSize}
       >
         {isBuyGuest ? (
           <GoogleReCaptchaProvider
