@@ -11,24 +11,25 @@ interface IProps {
   data: ILeaderBoardPoint,
   isShowName?: boolean
   isYou?: boolean
-  newMoney?: number
+  newTotalMoney?: number
   onCompleted?: ()=>void
 }
 
 const AvatarItem = forwardRef((props: IProps, ref: any, onCompleted) => {
-  const { data, newMoney, isShowName, isYou, ...rest } = props;
+  const { data, newTotalMoney, isShowName, isYou, ...rest } = props;
   const lottieRef = useRef<any>();
   const refMoney = useRef<{ value: number }>({ value: data?.usdt_value || 0 });
   const refInertMoney = useRef<HTMLParagraphElement>(null);
   const [isLoopDone, setIsLoopDone] = useState(true);
   const refTime = useRef<NodeJS.Timeout>();
 
+
   useEffect(() => {
 
     if (!refInertMoney.current) return;
-    if (newMoney && refMoney.current.value !== newMoney) {
+    if (newTotalMoney && refMoney.current.value !== newTotalMoney) {
       gsap.to(refMoney.current, {
-        value: newMoney, ease: 'power3.inOut', duration: 1, onUpdate: () => {
+        value: newTotalMoney, ease: 'power3.inOut', duration: 1, onUpdate: () => {
           if (refInertMoney.current) {
             refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.current.value, 0, 0, '', true)}`;
           }
@@ -52,7 +53,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any, onCompleted) => {
       onCompleted();
     }, duration * numberLoop);
 
-  }, [newMoney]);
+  }, [newTotalMoney]);
 
   const [error, setError] = useState<boolean>(false);
   const PlaceImage = (): ReactElement => {

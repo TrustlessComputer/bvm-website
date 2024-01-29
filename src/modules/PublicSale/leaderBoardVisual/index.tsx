@@ -26,6 +26,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const dispatch = useAppDispatch();
   const leaderBoardMode = useSelector(commonSelector).leaderBoardMode;
   const latestContributors = useRef<ILeaderBoardPoint[]>([]);
+  const animatedLatestContributors = useRef<ILeaderBoardPoint[]>([]);
   const user = useAppSelector(userSelector);
 
   const hasIncrementedPageRef = useRef(false);
@@ -107,7 +108,8 @@ const LeaderBoardVisual = (props: IProps) => {
     });
 
     if(newRes?.length > 0) {
-      latestContributors.current = newRes;
+      latestContributors.current = newRes.concat(latestContributors.current);
+      animatedLatestContributors.current = newRes;
     }
   };
 
@@ -149,7 +151,7 @@ const LeaderBoardVisual = (props: IProps) => {
         {
           listRender.map((item, index) => {
             return <>
-                <AvatarItem data={item} isShowName={index < 4} isUpMoney={true} isYou={user?.twitter_id === item.twitter_id} />
+                <AvatarItem data={item} isShowName={index < 4} isYou={user?.twitter_id === item.twitter_id} />
               {
                 item.lastRender && <span className={styles.lastRender}></span>
               }
@@ -157,7 +159,7 @@ const LeaderBoardVisual = (props: IProps) => {
           })
         }
       </ScrollWrapper>
-      <AnimatedText latestContributors={latestContributors?.current} />
+      <AnimatedText latestContributors={animatedLatestContributors?.current} />
     </div>
   );
 };
