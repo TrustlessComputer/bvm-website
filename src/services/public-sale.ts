@@ -32,6 +32,15 @@ export const generateTOkenWithSecretCode = async (secret_code: string, recaptcha
   return res;
 }
 
+export const generateTokenWithOauth = async (secret_code: string, recaptcha: string): Promise<IGenerateTOkenWithSecretCode> => {
+  const res = (await apiClient.post(`/bvm/generate-token-with-oauth`, {secret_code}, {
+    headers: {
+      recaptcha
+    }
+  })) as unknown as IGenerateTOkenWithSecretCode;
+  return res;
+}
+
 export const getPublicSaleLeaderBoards = async (params: {
   page?: number;
   limit?: number;

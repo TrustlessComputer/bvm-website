@@ -21,22 +21,24 @@ const Welcome = () => {
   return (
     <Flex className={s.container}>
       <Box className={s.content}>
-        <SimpleGrid gridTemplateColumns={["1fr", "1fr 1fr"]} gap={6}>
-          <GridItem>
-            <Text className={s.title}>Welcome to the future of Bitcoin.</Text>
-            <Text className={s.desc}>The first modular blockchain metaprotocol that lets you customize and launch your own Bitcoin L2 blockchain protocol in a few clicks.</Text>
-            <Flex gap={3}>
-              <LearnMore url={"https://cdn.bvm.network/docs/onepager.pdf"} title={"Onepager"}/>
-              <LearnMore url={"https://cdn.bvm.network/docs/deck.pdf"} title={"Deck"}/>
-              <LearnMore url={"https://cdn.bvm.network/docs/whitepaper.pdf"} title={"Whitepaper"}/>
-            </Flex>
-          </GridItem>
-          <GridItem>
-            <Flex justifyContent={"flex-end"}>
-              <EternalAi />
-            </Flex>
-          </GridItem>
-        </SimpleGrid>
+        <div className={s.content_inner}>
+          <SimpleGrid gridTemplateColumns={["1fr", "1fr 1fr"]} gap={6}>
+            <GridItem>
+              <Text className={s.title}>Welcome to the future of Bitcoin.</Text>
+              <Text className={s.desc}>The first modular blockchain metaprotocol that lets you customize and launch your own Bitcoin L2 blockchain protocol in a few clicks.</Text>
+              <Flex gap={3}>
+                <LearnMore url={"https://cdn.bvm.network/docs/onepager.pdf"} title={"Onepager"}/>
+                <LearnMore url={"https://cdn.bvm.network/docs/deck.pdf"} title={"Deck"}/>
+                <LearnMore url={"https://cdn.bvm.network/docs/whitepaper.pdf"} title={"Whitepaper"}/>
+              </Flex>
+            </GridItem>
+            <GridItem>
+              <Flex justifyContent={"flex-end"}>
+                <EternalAi />
+              </Flex>
+            </GridItem>
+          </SimpleGrid>
+        </div>
       </Box>
     </Flex>
   );
