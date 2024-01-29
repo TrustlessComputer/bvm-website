@@ -75,7 +75,7 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
       (compareString(selectToken.coin, 'USDT') ||
         compareString(selectToken.coin, 'USDC'))
     ) {
-      return amount_usd;
+      return amount_usd?.toString();
     }
 
     return '0';
@@ -129,6 +129,19 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
             <QRCode size={184} value={selectToken?.address} />
           </Flex>
           <Flex className={s.wrapTokenDepositDetail}>
+            {parseFloat(convertAmountUsdtToToken || '0') > 0 && (
+              <Flex className={s.wrapTokenDepositDetailItem}>
+                <Text className={s.wrapTokenDepositDetailItemTitle}>
+                  Amount
+                </Text>
+                <Text className={s.wrapTokenDepositDetailItemValue}>
+                  ${formatCurrency(amount_usd, 0, 0, 'BTC', true)} ={' '}
+                  {formatCurrency(convertAmountUsdtToToken, 2, 2, 'BTC', true)}{' '}
+                  {selectToken.coin}
+                </Text>
+              </Flex>
+            )}
+
             <Flex className={s.wrapTokenDepositDetailItem}>
               <Text className={s.wrapTokenDepositDetailItemTitle}>Network</Text>
               <Text
@@ -157,11 +170,6 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
                 />
               </Flex>
             </Flex>
-            <Text className={s.balanceConvert}>
-              ${formatCurrency(amount_usd, 0, 0, 'BTC', true)} ={' '}
-              {formatCurrency(convertAmountUsdtToToken, 2, 2, 'BTC', true)}{' '}
-              {selectToken.coin}
-            </Text>
           </Flex>
         </Flex>
       )}
@@ -171,7 +179,7 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd }) => {
 };
 
 DepositContent.defaultProps = {
-  amount_usd: '100',
+  amount_usd: '0',
 };
 
 export default DepositContent;
