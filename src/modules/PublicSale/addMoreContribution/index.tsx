@@ -2,25 +2,48 @@ import s from './styles.module.scss';
 import { Divider, Flex, Text } from '@chakra-ui/react';
 import cx from 'clsx';
 import DepositModal from '@/modules/PublicSale/depositModal';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getLink } from '@/utils/helpers';
 import { useAppSelector } from '@/stores/hooks';
 import Image from 'next/image';
 import { userSelector } from '@/stores/states/user/selector';
+import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
+import { getPublicSaleLeaderBoards } from '@/services/public-sale';
+import AuthenStorage from '@/utils/storage/authen.storage';
+import { formatCurrency } from '@/utils/format';
+import { MIN_DECIMAL } from '@/constants/constants';
 
 const AMOUNTS = [
-  {key: 0, title: '$1,000', value: 1000},
-  {key: 1, title: '$2,000', value: 2000},
-  {key: 2, title: '$5,000', value: 5000},
-  {key: 3, title: '$10,000', value: 10000},
-  {key: 4, title: '$20,000', value: 20000},
-]
+  { key: 0, title: '$1,000', value: 1000 },
+  { key: 1, title: '$2,000', value: 2000 },
+  { key: 2, title: '$5,000', value: 5000 },
+  { key: 3, title: '$10,000', value: 10000 },
+  { key: 4, title: '$20,000', value: 20000 },
+];
 
 const AddMoreContribution = () => {
   const [showQrCode, setShowQrCode] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<any>();
   const user = useAppSelector(userSelector);
+  const [userContributeInfo, setUserContributeInfo] =
+    useState<ILeaderBoardPoint>();
+  const token =
+    AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
+  useEffect(() => {
+    if (token) {
+      getUserContributeInfo();
+    }
+  }, [token]);
+
+  const getUserContributeInfo = async () => {
+    const { data } = await getPublicSaleLeaderBoards({
+      page: 1,
+      limit: 0,
+    });
+
+    setUserContributeInfo(data[0]);
+  };
 
   const handleShareTw = () => {
     const shareUrl = getLink(user?.referral_code || '');
@@ -53,8 +76,15 @@ const AddMoreContribution = () => {
               <Image src={'/icons/flash.svg'} width={12} height={12} alt={'flash.svg'} />
           </span>
             <span className={s.yourBoots_percent}>
-                 20%
-              {/*//todo step*/}
+                 {token
+                   ? `${formatCurrency(
+                     userContributeInfo?.view_boost,
+                     MIN_DECIMAL,
+                     MIN_DECIMAL,
+                     'BTC',
+                     true,
+                   )}%`
+                   : '-'}
             </span>
           </span>
           </p>
