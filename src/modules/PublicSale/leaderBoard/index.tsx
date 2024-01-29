@@ -231,7 +231,7 @@ const LeaderBoard = (props: IProps) => {
         label: (
           <Flex
             style={{
-              justifyContent: 'center',
+              // justifyContent: 'center',
               alignSelf: 'center',
               width: '100%',
               textTransform: 'uppercase',
@@ -263,7 +263,7 @@ const LeaderBoard = (props: IProps) => {
                 gap={3}
                 alignItems={'center'}
                 width={'100%'}
-                justifyContent={'center'}
+                // justifyContent={'center'}
               >
                 <Flex gap={2} alignItems={"center"}>
                   <Text className={s.title}>
@@ -284,7 +284,7 @@ const LeaderBoard = (props: IProps) => {
         label: (
           <Flex
             style={{
-              justifyContent: 'center',
+              justifyContent: 'flex-end',
               alignSelf: 'center',
               width: '100%',
               textTransform: 'uppercase',
@@ -308,7 +308,7 @@ const LeaderBoard = (props: IProps) => {
               gap={3}
               alignItems={'center'}
               width={'100%'}
-              justifyContent={'center'}
+              justifyContent={'flex-end'}
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={s.bvm_amount}>
@@ -326,7 +326,7 @@ const LeaderBoard = (props: IProps) => {
         label: (
           <Flex
             style={{
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
               width: '100%',
               textTransform: 'uppercase',
             }}
@@ -343,7 +343,7 @@ const LeaderBoard = (props: IProps) => {
         },
         render(data: ILeaderBoardPoint) {
           return (
-            <Flex justifyContent="center" alignItems="center">
+            <Flex justifyContent="flex-start" alignItems="center">
               <Flex
                 flexDirection="row"
                 gap="4px"
