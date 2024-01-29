@@ -1,4 +1,5 @@
 import {
+  Box,
   Center,
   Flex,
   Popover,
@@ -128,7 +129,10 @@ const RaffleButton = ({className}: any) => {
                 </a>*/}
                 {
                   raffleCode ? (
-                    <Text className={s.yourRaffleCode}>Your raffle code: <b>{raffleCode}</b></Text>
+                    <Flex className={s.yourRaffleCode}>
+                      <Box >Your raffle code</Box>
+                      <Box >{raffleCode}</Box>
+                    </Flex>
                   ) : (
                     <Flex className={cx(s.learnMoreWrapper, !token ? s.isDisable : '')} gap={3} onClick={handleShareTw}>
                       <Text>Get raffle code</Text>
