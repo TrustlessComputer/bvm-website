@@ -15,7 +15,7 @@ export const LEADER_BOARD_MODE = {
 
 
 type IProp = {
-  classNames: string
+  classNames?: string
 }
 const LeaderBoardSwitch = ({classNames}: IProp) => {
   const leaderBoardMode = useSelector(commonSelector).leaderBoardMode;
