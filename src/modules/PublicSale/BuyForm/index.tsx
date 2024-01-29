@@ -149,20 +149,31 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     )}`
                   : '-'}
               </Text>
+              <Text color={"rgba(255, 255, 255, 0.7)"} fontSize={"12px"} fontWeight={"500"}>
+                {token
+                  ? `(${formatCurrency(
+                      userContributeInfo?.bvm_balance_not_boost,
+                      MIN_DECIMAL,
+                      MAX_DECIMAL,
+                      'BTC',
+                      false,
+                    )} BVM)`
+                  : '-'}
+              </Text>
             </Flex>
             <Flex
               gap={1}
               w={'fit-content'}
-              p={'3px 8px'}
+              // p={'3px 8px'}
               alignItems={'center'}
-              bg={
-                'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'
-              }
+              // bg={
+              //   'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'
+              // }
             >
-              <Text fontSize={'10px'} fontWeight={'400'} mt="2.5px" color={'#FFFFFF'}>
-                YOU GET
+              <Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFF'}>
+                GET
               </Text>
-              <Text fontSize={'12px'} fontWeight={'600'} className={s.youGet}>
+              <Text fontSize={'12px'} fontWeight={'500'} className={s.youGet}>
                 {token
                   ? formatCurrency(
                       userContributeInfo?.bvm_balance,
@@ -172,78 +183,44 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   : '-'}{' '}
                 BVM
               </Text>
-              <Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFFF'}>
-                (
-                {token
-                  ? formatCurrency(
-                      userContributeInfo?.bvm_percent,
+              <Flex
+                gap={1}
+                alignItems={'center'}
+                bg={"linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)"}
+                borderRadius={"100px"}
+                p={"2px 6px"}
+              >
+                <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.66601 5.18883H5.39329L6.12056 0.825195L0.666016 7.37065H3.93874L3.21147 11.7343L8.66601 5.18883Z" fill="url(#paint0_linear_30246_12163)"/>
+                  <defs>
+                    <linearGradient id="paint0_linear_30246_12163" x1="0.666016" y1="6.27974" x2="8.66601" y2="6.27974" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#00F5A0"/>
+                      <stop offset="1" stop-color="#00D9F5"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <Text
+                  fontSize={'12px'}
+                  fontWeight={'500'}
+                  className={s.boost}
+                >
+                  {token
+                    ? `${formatCurrency(
+                      userContributeInfo?.view_boost,
                       MIN_DECIMAL,
                       MIN_DECIMAL,
                       'BTC',
                       true,
-                    )
-                  : '-'}
-                %)
-              </Text>
+                    )}%`
+                    : '-'}
+                </Text>
+              </Flex>
             </Flex>
           </Flex>
         }
         title={
           <Flex justifyContent={'space-between'}>
             <Text>Your contribution</Text>
-            <Flex gap={1} alignItems={'center'}>
-              <svg
-                width="17"
-                height="17"
-                viewBox="0 0 17 17"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g clip-path="url(#clip0_29914_7369)">
-                  <path
-                    d="M13.6676 7.32502H9.304L10.2737 1.50684L3.00098 10.2341H7.36461L6.39491 16.0523L13.6676 7.32502Z"
-                    fill="url(#paint0_linear_29914_7369)"
-                  />
-                </g>
-                <defs>
-                  <linearGradient
-                    id="paint0_linear_29914_7369"
-                    x1="3.00098"
-                    y1="8.77956"
-                    x2="13.6676"
-                    y2="8.77956"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stop-color="white" />
-                    <stop offset="1" stop-color="#35CCA6" />
-                  </linearGradient>
-                  <clipPath id="clip0_29914_7369">
-                    <rect
-                      width="16"
-                      height="16"
-                      fill="white"
-                      transform="translate(0.333984 0.780273)"
-                    />
-                  </clipPath>
-                </defs>
-              </svg>
-              <Text
-                fontSize={'14px'}
-                fontWeight={'500'}
-                color={'rgba(255, 255, 255, 0.7)'}
-                className={s.boost}
-              >
-                {token
-                  ? `${formatCurrency(
-                      userContributeInfo?.boost,
-                      MIN_DECIMAL,
-                      MIN_DECIMAL,
-                      'BTC',
-                      true,
-                    )}%`
-                  : '-'}
-              </Text>
-            </Flex>
           </Flex>
         }
       />
@@ -286,7 +263,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                         fontWeight={'400'}
                         color={'#FA4E0E'}
                         textDecoration={'underline'}
-                        mt={1}
                         onClick={() => setShowContributorModal(true)}
                         cursor={'pointer'}
                         lineHeight={"22px"}
@@ -334,7 +310,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                       fontSize={'12px'}
                       fontWeight={'400'}
                       color={'rgba(255,255,255, 0.7)'}
-                      mt={1}
                       lineHeight={"22px"}
                     >
                       {dayjs(PUBLIC_SALE_END).format('MMM D, YYYY h:mm A')}
