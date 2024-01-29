@@ -37,7 +37,7 @@
   border: 1px solid #FFFFFF26;
   padding: 20px;
   background: linear-gradient(180deg, #282828 0%, #131313 146.93%),
-  linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
+  linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) !important;
   min-width: 600px;
   border-radius: 0 !important;
   &:focus-visible {
@@ -69,6 +69,20 @@
     margin-top: 20px;
     font-size: 14px;
     align-items: center;
+  }
+
+  .raffleBg {
+    background: url("/public-sale/raffle_frame.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 8px;
+
+    > img {
+      min-width: 140px;
+      min-height: 140px;
+      max-width: 140px;
+      max-height: 140px;
+    }
   }
 
   :global {
