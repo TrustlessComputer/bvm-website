@@ -34,7 +34,7 @@ const AddMoreContribution = () => {
   return (
     <Flex className={s.container} direction={["column", "row"]}>
       <Flex
-        p={'20px'}
+        p={[4, 5]}
         alignItems={"center"}
         w={"100%"}
         justifyContent={"space-between"}
@@ -67,9 +67,9 @@ const AddMoreContribution = () => {
         </Flex>
       </Flex>
       <Divider orientation={'vertical'} borderColor={'rgba(255, 255, 255, .3)'}/>
-      <Flex p={'20px'} alignItems={'center'} justifyContent={"center"}>
+      <Flex p={[4, 5]} alignItems={'center'} justifyContent={"center"}>
         <Flex className={s.learnMoreWrapper} gap={3} onClick={handleShareTw}>
-          <Text whiteSpace={"nowrap"}>Share on</Text>
+          <Text whiteSpace={"nowrap"} lineHeight={"100%"}>Share on</Text>
           <span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_29786_7178)">
