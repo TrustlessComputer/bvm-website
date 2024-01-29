@@ -161,7 +161,7 @@ const LeaderBoardVisual = (props: IProps) => {
                          <ContributorInfo data={item} />
                        }
               >
-                <AvatarItem data={item} isShowName={index < 4} isYou={user?.twitter_id === item.twitter_id} />
+                <AvatarItem data={item} isShowName={index < 4} isUpMoney={true} isYou={user?.twitter_id === item.twitter_id} />
               </Tooltip>
               {
                 item.lastRender && <span className={styles.lastRender}></span>
