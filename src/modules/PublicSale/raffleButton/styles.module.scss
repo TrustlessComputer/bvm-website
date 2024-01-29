@@ -1,26 +1,9 @@
 .container {
-  width: 120px;
-  height: 120px;
-  background: url("/public-sale/raffleBtnBg.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  align-items: flex-end;
-
-  transition: all 0.3s;
-  position: relative;
-
-  @include is-mobile {
-    width: 80px;
-    height: 80px;
-  }
+  width: 141px;
 
   .time {
-    margin-top: 10px;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 500;
-    position: absolute;
-    bottom: -10px;
 
     p {
       font-size: inherit !important;
@@ -31,49 +14,34 @@
       font-size: 14px;
     }
   }
-}
 
-.menuContent {
-  border: 1px solid #FFFFFF26;
-  padding: 20px;
-  background: linear-gradient(180deg, #282828 0%, #131313 146.93%),
-  linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
-  min-width: 600px;
-  border-radius: 0 !important;
-  &:focus-visible {
-    box-shadow: none !important;
+  .raffleBg {
+    background: url("/public-sale/raffle_frame.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 12px;
   }
 
-  @include is-mobile {
-    min-width: 95vw;
+  .highlight {
+    color: #FA4E0E;
   }
 
   .title {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
     color: #ffffff;
-  }
-
-  .desc {
-    font-size: 14px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.7);
-    margin-top: 8px;
+    margin-top: 12px;
   }
 
   .learnMoreWrapper {
+    cursor: pointer;
     background: #FFFFFF;
-    padding: 6px 6px 6px 16px;
+    padding: 6px 20px;
     width: fit-content;
     color: #000000;
-    margin-top: 20px;
-    font-size: 14px;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 400;
     align-items: center;
-  }
-
-  :global {
-    .chakra-popover__body {
-      padding: 0;
-    }
   }
 }
