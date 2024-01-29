@@ -5,7 +5,7 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
-import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
+import { Avatar as AvatarImg, Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import clsx from 'classnames';
@@ -21,6 +21,7 @@ import { getPublicSaleLeaderBoards } from '@/services/public-sale';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 import SvgInset from '@/components/SvgInset';
 import ContributorDetailInfo from '@/modules/PublicSale/components/contributorDetailInfo';
+import { tokenIcons } from '@/modules/PublicSale/depositModal/constants';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -264,10 +265,14 @@ const LeaderBoard = (props: IProps) => {
                 width={'100%'}
                 justifyContent={'center'}
               >
-                <Flex direction={"column"} gap={2}>
+                <Flex gap={2} alignItems={"center"}>
                   <Text className={s.title}>
                     ${formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
                   </Text>
+                  <svg width="1" height="16" viewBox="0 0 1 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="0.5" y1="16" x2="0.499999" y2="2.18557e-08" stroke="#ECECEC"/>
+                  </svg>
+                  <AvatarImg width={'18px'} height={'18px'} src={tokenIcons[(data?.coin_balances || [])[0]?.symbol.toLowerCase()]} />
                 </Flex>
               </Flex>
             </Tooltip>
