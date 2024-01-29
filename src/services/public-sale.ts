@@ -1,8 +1,12 @@
-import { IGenerateTOkenWithSecretCode, IPublicSaleDepositInfo, PublicSaleWalletInfo, PublicSaleWalletTokenDeposit } from '@/interfaces/vc';
+import {
+  IGenerateTOkenWithSecretCode,
+  IPublicSaleDepositInfo,
+  PublicSaleWalletInfo,
+  PublicSaleWalletTokenDeposit,
+} from '@/interfaces/vc';
 import createAxiosInstance from '@/services/http-client';
 import { PERP_API_URL } from '@/config';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
-import axios from 'axios';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -69,6 +73,7 @@ export const getPublicSaleContributionLatest = async (): Promise<ILeaderBoardPoi
 };
 
 export interface IPublicSalePrograme {
+  id: number;
   title: string;
   description: string;
   button_name: string;
@@ -80,6 +85,28 @@ export interface IPublicSalePrograme {
 }
 
 export const getPublicSaleProgram = async (): Promise<IPublicSalePrograme> => {
-  const res = (await apiClient.get(`/bvm/sale/programes`)) as unknown as IPublicSalePrograme;
+  const res = (await apiClient.get(`/bvm/sale-raffle/programes`)) as unknown as IPublicSalePrograme;
   return res;
+};
+
+export const getRaffleJoinProgame = async (id: number): Promise<any> => {
+  try {
+    const res = await apiClient.get(`/bvm/sale-raffle/join?program_id=${id}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
+
+export const joinRafflePrograme = async (id: number): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/sale-raffle/join?program_id=${id}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
 };
