@@ -1,13 +1,15 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import s from './styles.module.scss';
-import React from 'react';
+import React, { useState } from 'react';
 import DropDown from '@/components/DropList';
 import { WHITEPAPER_DOC_URL } from '@/config';
 import Image from 'next/image';
+import ModalVideo from 'react-modal-video';
 
 const TopContent = () => {
   const router = useRouter();
+  const [isOpen, setOpen] = useState(false);
 
   return (
     <div className={s.container}>
@@ -20,8 +22,18 @@ const TopContent = () => {
       </Flex>
       <ul className={s.actions}>
         <li>
-          <a href={'#'}>Watch the film <Image src={`/public-sale/mdi_play.svg`} width={10} height={10}
+          <a href={'#'} onClick={() => setOpen(true)}>Watch the film <Image src={`/public-sale/mdi_play.svg`} width={10} height={10}
                                               alt={'right'} /></a>
+          <ModalVideo
+            channel="custom"
+            url={'/public-sale/public_sale_video.mp4'}
+            isOpen={isOpen}
+            // videoId="L61p2uyiMSo"
+            onClose={() => {
+              console.log('aaaaaa')
+              setOpen(false);
+            }}
+          />
         </li>
         <li>
           <DropDown title={'Learn more'} lists={[
