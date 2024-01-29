@@ -24,7 +24,7 @@ const AnimatedText = ({latestContributors} : {latestContributors: ILeaderBoardPo
     const scale = MathMap(money, 100, 1000000,.5, 2);
 
     element.style.cssText = `right:${offset}px; transform:scale(${scale}); animation-duration:${duration}s`;
-    element.innerHTML = `<div><img src=${contributor?.twitter_avatar} /> <span>+ $${formatCurrency(money, 0,0)}</span></div>`;
+    element.innerHTML = `<div><img src=${contributor?.twitter_avatar || '/none-avatar.jpeg'} /> <span>+ $${formatCurrency(money, 0,0)}</span></div>`;
 
      window.setTimeout(() => remove(element), Math.max(duration, 1) * 1000);
   };

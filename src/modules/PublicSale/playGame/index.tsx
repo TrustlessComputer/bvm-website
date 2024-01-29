@@ -6,6 +6,7 @@ import cx from 'clsx';
 import dayjs from 'dayjs';
 import { PUBLIC_SALE_START } from '@/modules/Whitelist';
 import BigNumber from 'bignumber.js';
+import Living from '@/components/Living';
 
 interface ICTA {
   title: string,
@@ -173,9 +174,11 @@ const Playgame = () => {
                   flex={1}
                   justifyContent="center"
                   alignItems="center"
+                  gap="12px"
                   onClick={() => setSelectedDay(d)}
                   className={cx(s.item, d?.key === selectedDay?.key ? s.selected : null)}
                 >
+                  {/*<Living />*/}
                   {d?.tag}
                 </Flex>
               )

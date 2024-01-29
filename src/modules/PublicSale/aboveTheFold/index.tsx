@@ -13,6 +13,7 @@ import AddMoreContribution from '@/modules/PublicSale/addMoreContribution';
 import TopHeader from '@/modules/PublicSale/topHeader';
 import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
 import RaffleButton from '@/modules/PublicSale/raffleButton';
+import Activities from '@/modules/PublicSale/activities';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -45,8 +46,9 @@ const AboveTheFold = () => {
         </Flex>
         <Flex className={s.rightSection} direction={"column"}>
           <BuyForm vcInfo={vcInfo}/>
-          <Welcome />
-          <Playgame />
+          {/*<Welcome />*/}
+          {/*<Playgame />*/}
+          <Activities />
         </Flex>
       </SimpleGrid>
     </Flex>

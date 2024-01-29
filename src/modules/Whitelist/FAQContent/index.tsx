@@ -193,6 +193,9 @@ const FAQContent: React.FC = (): React.ReactElement => {
                     <p className={s.faqContent}>
                       To clarify, the top 1% of the allowlist will receive a 30% boost, the next 9% will get a 20% boost, and the remaining 90% will receive a 10% boost.
                     </p>
+                    <p className={s.faqContent}>
+                      If you have a boost, claim it here.
+                    </p>
                   </AccordionPanel>
                 </>
               )}
@@ -218,6 +221,32 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   <AccordionPanel>
                     <p className={s.faqContent}>
                       You can deposit nine different currencies, including BTC, ETH, TIA, OP, ARB, ORDI, SATS, USDT, USDC.
+                    </p>
+                  </AccordionPanel>
+                </>
+              )}
+            </AccordionItem>
+
+            <AccordionItem className={s.faqItem}>
+              {({ isExpanded }) => (
+                <>
+                  <h2>
+                    <AccordionButton justifyContent={'space-between'}>
+                      <span className={s.faqTitle}>
+                        How to check my contribution status?
+                      </span>
+                      <button>
+                        <img
+                          className={isExpanded ? s.downArrow : ''}
+                          src={`${CDN_URL}/icons/chevron-right-ic-32.svg`}
+                          alt="chevron-right-ic"
+                        />
+                      </button>
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel>
+                    <p className={s.faqContent}>
+                      Check it here.
                     </p>
                   </AccordionPanel>
                 </>

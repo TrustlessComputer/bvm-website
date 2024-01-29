@@ -6,6 +6,8 @@ import s from './styles.module.scss';
 import BoxContent from '@/layouts/BoxContent';
 import React from 'react';
 import cs from 'classnames';
+import SvgInset from '@/components/SvgInset';
+import { CDN_URL_ICONS } from '@/config';
 
 interface IRoadMap {
   color: string,
@@ -13,7 +15,8 @@ interface IRoadMap {
   title: string,
   desc: string,
   button?: string,
-  link?: string
+  link?: string,
+  isDone?: boolean
 }
 
 const RoadmapModule = () => {
@@ -25,6 +28,7 @@ const RoadmapModule = () => {
         title: 'Added EVM to Bitcoin',
         button: 'Learn more',
         link: 'https://twitter.com/punk3700/status/1628406581510676480',
+        isDone: true,
         desc: 'This marked our first experiment in bringing smart contracts to Bitcoin, aiming to expand its utility beyond being just a currency.'
       },
       {
@@ -32,7 +36,8 @@ const RoadmapModule = () => {
         time: 'May 2023',
         title: 'Deployed Uniswap on Bitcoin',
         button: 'Learn more',
-        link: 'https://twitter.com/punk3700/status/1651252683179978752',
+        link: 'https://twitter.com/punk3700/status/1654532883388977158',
+        isDone: true,
         desc: 'Our second experiment involved building sophisticated applications on Bitcoin, with Uniswap being the first use case. We built a fully functional DEX on Bitcoin as a result.'
       },
       {
@@ -40,6 +45,7 @@ const RoadmapModule = () => {
         time: 'Sep 2023',
         title: 'Deployed Optimism on Bitcoin',
         button: 'Learn more',
+        isDone: true,
         link: 'https://twitter.com/punk3700/status/1699821767781658669',
         desc: 'In the third experiment, we focused on scaling up Bitcoin, with Optimism being the first scaling solution. We plan to deploy more scaling technologies over time.'
       },
@@ -48,6 +54,7 @@ const RoadmapModule = () => {
         time: 'Oct 2023',
         title: 'The First Bitcoin L2',
         button: 'Learn more',
+        isDone: true,
         desc: 'Alpha Chain was the first Bitcoin L2 powered by BVM. It hosts the second biggest SocialFi dapp by TVL, and facilitates $36 million in volume and over 1 million transactions so far.',
         link: 'https://twitter.com/punk3700/status/1703819001510682709'
       },
@@ -111,7 +118,12 @@ const RoadmapModule = () => {
         <Flex flex={1} flexDir="column" justifyContent="space-between" height="100%" gap="8px">
           <Flex flex={1} flexDir="column">
             <Text color="black" fontSize="12px" fontWeight="400" lineHeight="140%">{item.time}</Text>
-            <Text color="black" fontWeight="400" lineHeight="140%" mt="4px">{item.title}</Text>
+            <Flex alignItems="center" gap="6px">
+              <Text color="black" fontWeight="400" lineHeight="140%" mt="4px">{item.title}</Text>
+              {!!item.isDone && (
+                <span><SvgInset svgUrl={`${CDN_URL_ICONS}/check-green.svg`} /></span>
+              )}
+            </Flex>
             <Text color="black" fontSize="14px" fontWeight="400" lineHeight="180%" opacity={0.7} mt="8px">{item.desc}</Text>
           </Flex>
           {item.button && (

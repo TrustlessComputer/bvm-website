@@ -1,0 +1,80 @@
+.container {
+  &__title {
+    align-self: stretch;
+    color: #000;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+}
+
+.itemWrapper {
+  &:global(.chakra-accordion__item) {
+    margin-top: 0;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    border-width: 0;
+    background-color: transparent;
+    button {
+      padding: 12px 20px;
+    }
+  }
+
+  &_title {
+    color: black;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+
+    &__active {
+      color: black;
+    }
+  }
+  &_desc {
+    color: black;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+  }
+  &_header {
+    padding: 16px 0 !important;
+    button {
+      padding: 0 !important;
+    }
+
+    &__active {
+      background-color: transparent;
+    }
+    &__active:hover {
+      background-color: transparent !important;
+    }
+  }
+  &_downArrow {
+    transform: rotate(270deg);
+  }
+
+  &_normalArrow {
+    transform: rotate(90deg);
+    svg {
+      path {
+        stroke: white;
+      }
+    }
+  }
+
+  &_learnMore {
+    color: #FA4E0E;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 6px;
+    align-items: center;
+  }
+}
