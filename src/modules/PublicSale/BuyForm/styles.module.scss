@@ -55,16 +55,12 @@
 
   .time {
     justify-content: flex-start;
-    *{
+
+    * {
       color: #000;
       font-size: 20px;
-      font-weight: 400;
+      font-weight: 400 !important;
       line-height: 1;
-    }
-    p {
-      font-size: 22px;
-      font-weight: 500;
-      line-height: var(--chakra-lineHeights-base);
     }
   }
 

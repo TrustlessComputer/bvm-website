@@ -71,7 +71,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
   const remainDay = useMemo(() => {
-    return dayjs(PUBLIC_SALE_END).diff(dayjs(), 'day', );
+    return dayjs(PUBLIC_SALE_END).diff(dayjs(), 'day');
   }, []);
 
   useEffect(() => {
@@ -176,11 +176,11 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
         {/*  BVM*/}
         {/*</Text>*/}
         <Flex
-          gap={1}
+          gap={'2px'}
           alignItems={'center'}
           bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}
           borderRadius={'100px'}
-          p={'2px 6px'}
+          p={'2px 10px'}
         >
           <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path d='M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z'
@@ -233,7 +233,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
           <div>
 
-            <Flex gap={'6px'} onClick={() => setShowContributorModal(true)}>
+            <Flex className={s.backer} gap={'6px'} onClick={() => setShowContributorModal(true)}>
               <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
                 {formatCurrency(
                   contributeInfo?.total_user,
@@ -253,7 +253,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           <Box mt={'24px'} />
           <Flex gap={6} direction={'column'} width={'100%'}>
             {
-              remainDay === 0 ?  (
+              remainDay === 0 ? (
                 <Countdown
                   className={s.time}
                   expiredTime={dayjs
@@ -263,8 +263,10 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   onRefreshEnd={() => setIsEnd(true)}
                 />
               ) : (
-                <Flex className={s.time}>
-                  <Text>{remainDay} day{remainDay !== 1 && 's'} to go</Text>
+                <Flex  gap={'5px'}>
+                  <Text fontSize={20} lineHeight={1} fontWeight={400} color={'rgba(0,0,0,1)'}> {remainDay} </Text> <Text
+                  fontSize={20} lineHeight={1} fontWeight={400}
+                  color={'rgba(0,0,0,0.7)'}> day{remainDay !== 1 && 's'} to go</Text>
                 </Flex>
               )
             }
