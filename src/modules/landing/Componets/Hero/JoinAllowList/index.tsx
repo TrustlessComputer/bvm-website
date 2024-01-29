@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import { PUBLIC_SALE_END, PUBLIC_SALE_START } from '@/modules/Whitelist';
 import { CDN_URL_ICONS } from '@/config';
 import { getPublicSaleSummary } from '@/services/public-sale';
-import { checkIsPublicSale } from '@/app/allowlist/page';
+import { checkIsPublicSale } from '@/modules/Whitelist/utils';
 
 const DELAY = 2;
 const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
@@ -57,11 +57,17 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
               </div>
             </Fade>
             <div className={s.desc}>
-              <Chars delay={delay + .4}>
-                Be the first to know.
-                <br />
-                Allowlisters get up to <span>&nbsp;30% extra tokens</span>.
-              </Chars>
+              {isPublicSale ? (
+                <Chars delay={delay + .4}>
+                  $BVM PUBLIC SALE IS HAPPENING
+                </Chars>
+              ) : (
+                <Chars delay={delay + .4}>
+                  Be the first to know.
+                  <br />
+                  Allowlisters get up to <span>&nbsp;30% extra tokens</span>.
+                </Chars>
+              )}
             </div>
           </Flex>
 
@@ -78,7 +84,7 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                   router.push('/allowlist');
                 }}
               >
-                Get on the {isPublicSale ? 'public sale' : 'allowlist'}
+                {isPublicSale ? "Buy $BVM" : "Get on the allowlist"}
               </Button>
               <div className={s.whiteList}>
                 <div className={s.whiteList_users}>
@@ -86,12 +92,12 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                          alt={'allow-avatars'} />
                 </div>
                 <div className={s.whiteList_total}>
-                  <span>{formatCurrency(totalUser, 0,0)}&nbsp;people</span>&nbsp;are on the {isPublicSale ? "public sale" : "allowlist"}
+                  <span>{formatCurrency(totalUser, 0,0)}&nbsp;people</span>&nbsp;{isPublicSale ? "made contributions" : "are on the allowlist"}
                 </div>
               </div>
               <Flex gap="8px" className={s.countDown_wrapper}>
                 <img style={{ width: 18 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>
-                <p className={s.countDown_title}>Public sale {isPublicSale ? 'ending' : 'starting'} in</p>
+                <p className={s.countDown_title}>{isPublicSale ? 'Ends' : 'Public sale starting'} in</p>
                 <Countdown
                   className={s.countDown_time}
                   expiredTime={dayjs.utc(isPublicSale ? PUBLIC_SALE_END : PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}

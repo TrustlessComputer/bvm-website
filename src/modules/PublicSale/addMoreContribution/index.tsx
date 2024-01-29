@@ -9,12 +9,12 @@ import Image from 'next/image';
 import { userSelector } from '@/stores/states/user/selector';
 
 const AMOUNTS = [
-  { key: 0, title: '$100', value: 100 },
-  { key: 1, title: '$1,000', value: 1000 },
-  { key: 2, title: '$10,000', value: 10000 },
-  { key: 3, title: '$20,000', value: 20000 },
-  { key: 4, title: '$50,000', value: 50000 },
-];
+  {key: 0, title: '$1,000', value: 1000},
+  {key: 1, title: '$2,000', value: 2000},
+  {key: 2, title: '$5,000', value: 5000},
+  {key: 3, title: '$10,000', value: 10000},
+  {key: 4, title: '$20,000', value: 20000},
+]
 
 const AddMoreContribution = () => {
   const [showQrCode, setShowQrCode] = useState(false);
