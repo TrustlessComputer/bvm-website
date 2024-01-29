@@ -49,7 +49,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         </div>
         <div className={s.meta}>
           {
-            isShowName && <p className={s.name}>{data.twitter_username}</p>
+            isShowName && !isYou && <p className={s.name}>{data.twitter_username}</p>
           }
           {
             isYou && <p className={s.name}>You</p>
