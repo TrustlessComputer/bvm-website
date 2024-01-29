@@ -5,18 +5,38 @@ import Image from 'next/image';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
 import { DotLottiePlayer } from '@dotlottie/react-player';
+import {gsap} from 'gsap';
 
 interface IProps {
   data: ILeaderBoardPoint,
   isShowName?: boolean
   isYou?: boolean
   isUpMoney?: boolean
+  newMoney?: number
 }
 
 const AvatarItem = forwardRef((props: IProps, ref: any) => {
-  const { data, isUpMoney, isShowName, isYou, ...rest } = props;
+  const { data, isUpMoney, newMoney, isShowName, isYou, ...rest } = props;
   const lottieRef = useRef<any>();
-  const refTime = useRef<NodeJS.Timeout>();
+  const refMoney = useRef({ value: data?.usdt_value });
+  const refInertMoney = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const fa = { value: data.usdt_value };
+
+    if (!refInertMoney.current) return;
+    if (newMoney && refMoney.current.value !== newMoney) {
+      gsap.to(refMoney.current, {
+        value: newMoney, ease: 'power3.inOut', duration: 1, onUpdate: () => {
+          if (refInertMoney.current) {
+            refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.current.value, 0, 0, '', true)}`;
+          }
+        },
+      });
+    } else {
+      refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.current.value, 0, 0, '', true)}`;
+    }
+  }, [newMoney]);
 
   const [error, setError] = useState<boolean>(false);
   const PlaceImage = (): ReactElement => {
@@ -30,6 +50,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
     if (isUpMoney) {
       lottieRef.current.setLoop(true);
       lottieRef.current.play();
+
     } else {
       lottieRef.current.stop();
     }
@@ -67,13 +88,13 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
           {
             isYou && <p className={s.name}>You</p>
           }
-          <p className={s.price}>${formatCurrency(data?.usdt_value, 0, 0, 'BTC', true)}</p>
+          <p className={s.price} ref={refInertMoney}></p>
         </div>
       </div>
       <DotLottiePlayer
         className={s.lottie}
         lottieRef={lottieRef}
-        src='/presale-up.lottie'
+        src='/presale-up-2.lottie'
       />
     </div>
   );
