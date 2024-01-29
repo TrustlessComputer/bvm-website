@@ -69,7 +69,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const [showContributorModal, setShowContributorModal] = useState(false);
   const [userContributeInfo, setUserContributeInfo] =
     useState<ILeaderBoardPoint>();
-  const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
+  const token =
+    AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
   useEffect(() => {
     getContributeInfo();
@@ -244,7 +245,11 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           </Text>
           <Grid className={s.boxInfo} width={'100%'}>
             <GridItem>
-              <Flex alignItems={'center'} gap={'16px'} direction={["column", "row"]}>
+              <Flex
+                alignItems={'center'}
+                gap={'16px'}
+                direction={['column', 'row']}
+              >
                 <Column
                   className={s.blockItem}
                   value={

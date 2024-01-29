@@ -5,10 +5,10 @@ import { formatCurrency } from '@/utils/format';
 import BigNumber from 'bignumber.js';
 
 export const getUuid = (): string => {
-  let uuidText = localStorage.get(UUID) as string;
+  let uuidText = window.localStorage.getItem(UUID) as string;
   if (!uuidText) {
     uuidText = uuidv4();
-    localStorage.set(UUID, uuidText);
+    window.localStorage.setItem(UUID, uuidText);
   }
   return uuidText;
 };

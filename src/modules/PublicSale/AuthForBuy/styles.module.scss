@@ -31,21 +31,6 @@
   cursor: pointer;
 }
 
-.backupNow {
-  align-items: center;
-  gap: 50px;
-  background: linear-gradient(
-      0deg,
-      rgba(250, 78, 14, 0.4),
-      rgba(250, 78, 14, 0.4)
-    ),
-    linear-gradient(0deg, rgba(250, 78, 14, 0.1), rgba(250, 78, 14, 0.1));
-
-  padding: 8px;
-  cursor: pointer;
-  border: 1px solid #fa4e0e66;
-}
-
 .modalHeader {
   p {
     color: #ffffff;
@@ -57,6 +42,9 @@
   &.deposit {
     max-width: 600px !important;
   }
+  &.notSignModal {
+    max-width: 300px !important;
+  }
 }
 
 .btnTweetToSign {
@@ -66,22 +54,32 @@
   padding: 6px !important;
   height: auto !important;
   border-radius: 0px !important;
+  background: #ffffff !important;
+  p {
+    color: #000000 !important;
+    font-weight: 400 !important;
+    line-height: 100% !important;
+  }
   &.btnPrimary {
     background: #fa4e0e !important;
+    p {
+      color: #ffffff !important;
+    }
   }
   .boxIcon {
     width: 36px;
     height: 36px;
     background-color: #000000;
+    &.boxIconWhite {
+      background-color: white;
+    }
+    .iconWhite {
+      color: white;
+      path {
+        fill: #fff;
+      }
+    }
   }
-}
-
-.wrapSecretKey {
-  background: #ffffff12;
-  padding: 20px 12px;
-  align-items: center;
-  justify-content: center;
-  gap: 34px;
 }
 
 .btnImport {
