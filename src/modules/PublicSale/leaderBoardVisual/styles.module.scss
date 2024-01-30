@@ -44,7 +44,7 @@
   justify-content: center;
   flex-wrap: wrap;
   align-content: flex-start;
-  padding-top: 30px;
+  padding-top: vh(60px);
 }
 
 table {
@@ -348,6 +348,81 @@ table {
 .lastRender {
   display: block;
   flex: 0 0 100%;
+  position: relative;
+  pointer-events: none;
+
+  &.lastRender__0 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 78px;
+      width: 321px;
+      left: 50%;
+      bottom: 78px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/public-sale/oval-1.svg");
+    }
+  }
+  &.lastRender__1 {
+
+
+    &:after {
+      content: '';
+      display: block;
+      height: 107px;
+      width: 510px;
+      left: 50%;
+      bottom: 70px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/public-sale/oval-2.svg");
+    }
+  }
+  &.lastRender__2 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 107px;
+      width: 672px;
+      left: 50%;
+      bottom: 56px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/public-sale/oval-3.svg");
+    }
+  }
+
+  &.lastRender__3 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 138px;
+      width: 812px;
+      left: 50%;
+      bottom: 78px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/public-sale/oval-4.svg");
+    }
+  }
+  &.lastRender__4 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 60px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/public-sale/oval-5.svg");
+    }
+  }
 }
 
 .emptyArray {
