@@ -253,7 +253,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             Total
           </Text>
           <Text className={s.fundValue}>
-            <NumberScale label={'$'} couters={Number(contributeInfo?.total_usdt_value)} maximumFractionDigits={0}
+            <NumberScale label={'$'} couters={Number(contributeInfo?.total_usdt_value_not_boost)} maximumFractionDigits={0}
                          minimumFractionDigits={0} />
           </Text>
           <Box mt={'24px'} />
