@@ -1,11 +1,15 @@
 .container {
   text-align: center;
-  padding-top: calc(76px + 48px);
-  // background-color: #0E0E0E;
+
   margin-bottom: 32px;
+  padding-top: 120px;
+
+  @include is-min-table {
+    padding-top: calc(76px + 48px);
+  }
 
   .content {
-    width: 810px;
+    max-width: 810px;
     margin-right: auto;
     margin-left: auto;
   }
@@ -79,15 +83,14 @@
     }
   }
 
+
   @include is-mobile {
-    padding: 16px 16px;
-
-    .title {
-      font-size: 20px;
+    .title{
+      font-size: 32px;
     }
-
     .desc {
-      font-size: 14px;
+      font-size: 13px;
+      line-height: 1.4;
     }
   }
 }

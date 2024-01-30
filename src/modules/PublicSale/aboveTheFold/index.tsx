@@ -13,11 +13,13 @@ import Activities from '@/modules/PublicSale/activities';
 import LeaderBoardSwitch from '@/modules/PublicSale/leaderBoardSwitch';
 import RewardButton from '../rewardButton';
 import cs from 'classnames'
+import useWindowSize from '@/hooks/useWindowSize';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
   const vcType = LocalStorageUtil.get(KEY_VC_TYPE);
   const [vcInfo, setVCInfo] = useState<VCInfo>();
+  const {mobileScreen} = useWindowSize();
 
   useEffect(() => {
     setTimeout(setPlay, 400);
@@ -43,12 +45,13 @@ const AboveTheFold = () => {
           <RaffleButton className={s.raffleButton}/>
           <RewardButton className={cs(s.raffleButton, s.rewardButton)}/>
           <LeaderBoardSwitch classNames={s.boardSwitch} />
+          {mobileScreen && <Activities />}
         </Flex>
         <Flex className={s.rightSection} direction={"column"}>
           <BuyForm vcInfo={vcInfo}/>
           {/*<Welcome />*/}
           {/*<Playgame />*/}
-          <Activities />
+          {!mobileScreen && <Activities />}
         </Flex>
       </SimpleGrid>
     </Flex>
