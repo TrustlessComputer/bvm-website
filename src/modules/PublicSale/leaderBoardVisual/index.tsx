@@ -87,9 +87,14 @@ const LeaderBoardVisual = (props: IProps) => {
 
       const fnLoadData = leaderBoardMode === LEADER_BOARD_MODE.DAY ? getPublicSaleTop : getPublicSaleLeaderBoards;
 
+      const getLimit = () => {
+        const limitMobile = mobileScreen ? 22 : 23;
+        return leaderBoardMode === LEADER_BOARD_MODE.DAY ? limitMobile : token ? 22 : limitMobile;
+      }
+
       const { data: response, count } = await fnLoadData({
         ...refParams.current,
-        limit: leaderBoardMode === LEADER_BOARD_MODE.DAY ? 23 : token ? 22 : 23
+        limit: getLimit()
       });
       if (isNew) {
         // const { data: response2 } = await fnLoadData({
