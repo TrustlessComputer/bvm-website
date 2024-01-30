@@ -18,6 +18,13 @@ interface IProps {
   onCompleted?: ()=>void
 }
 
+export const PlaceImage = (): ReactElement => {
+  return <Image
+    width={120}
+    height={120}
+    src={'/none-avatar.jpeg'} alt={'user'} style={{ cursor: 'pointer' }} />;
+};
+
 const AvatarItem = forwardRef((props: IProps, ref: any) => {
   const { data, isShowName, isYou, onCompleted, ...rest } = props;
   const lottieRef = useRef<any>();
@@ -30,7 +37,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
 
   const newTotalMoney = useMemo(():number => {
     if (needCheckDeposit) {
-      const add = animatedLatestContributors?.find(c => c.twitter_id === data.twitter_id);
+      const add = animatedLatestContributors?.find(c => c.twitter_id === data?.twitter_id);
 
       if(add) {
         return refMoney.current.value + Number(add.usdt_value);
@@ -80,21 +87,15 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
   }, [newTotalMoney]);
 
   const [error, setError] = useState<boolean>(false);
-  const PlaceImage = (): ReactElement => {
-    return <Image
-      width={120}
-      height={120}
-      src={'/images/mk-user.jpg'} alt={'user'} style={{ cursor: 'pointer' }} />;
-  };
 
   const renderContent = () => {
     return (
       <div className={s.avatarItem_inner}>
         {
-          data.levelRender === 0 && <Image className={s.king} src={'/public-sale/icon-king.svg'} width={60} height={60} alt={'king'} />
+          data?.levelRender === 0 && <Image className={s.king} src={'/public-sale/icon-king.svg'} width={60} height={60} alt={'king'} />
         }
         {
-          isShowName && data.levelRender === 0 && !isYou && <p className={s.name}>{data.twitter_username}</p>
+          isShowName && data?.levelRender === 0 && !isYou && <p className={s.name}>{data?.twitter_username}</p>
         }
         {
           isYou && <p className={s.name}>You</p>
@@ -129,10 +130,10 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
 
   return (
     <div
-      className={`${s.avatarItem} ${isYou && s.isYou} ${data.levelRender !== undefined && 'level-' + data.levelRender} js-avatarItem`}
+      className={`${s.avatarItem} ${isYou && s.isYou} ${data?.levelRender !== undefined && 'level-' + data?.levelRender} js-avatarItem`}
       ref={ref} {...rest}>
       {
-        data.levelRender === 0 ? (
+        data?.levelRender === 0 ? (
           <Tooltip
             minW="400px"
             bg="white"
