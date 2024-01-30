@@ -80,7 +80,7 @@
     }
 
     &:not(.isYour) {
-      @include fixTextLargeLen(150px);
+      @include fixTextLargeLen(80px);
     }
   }
 
