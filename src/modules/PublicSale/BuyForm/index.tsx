@@ -253,8 +253,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   {token
                     ? `${formatCurrency(
                       userContributeInfo?.view_boost,
-                      MIN_DECIMAL,
-                      MIN_DECIMAL,
+                      0,
+                      0,
                       'BTC',
                       true,
                     )}%`
