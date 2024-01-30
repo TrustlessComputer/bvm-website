@@ -62,7 +62,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         const duration = 19 / 24;
         gsap.to(refMoney, {
           value: newTotalMoney, ease: 'power3.inOut', duration: numberLoop * duration,
-          onCompleted: (): void => {
+          onComplete: (): void => {
             setIsLoopDone(true);
           },
           onUpdate: () => {
