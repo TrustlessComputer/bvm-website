@@ -104,7 +104,7 @@ const LeaderBoard = (props: IProps) => {
       if (isNew) {
         const { data: response2 } = await getPublicSaleLeaderBoards({
           page: 1,
-          limit: 0,
+          limit: 1,
         });
         refParams.current = {
           ...refParams.current,
