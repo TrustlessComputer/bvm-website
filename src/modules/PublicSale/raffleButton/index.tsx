@@ -109,7 +109,7 @@ const RaffleButton = ({className}: any) => {
                       <Box >{raffleCode}</Box>
                     </Flex>
                   ) : (
-                    <Flex className={cx(s.learnMoreWrapper, !token ? s.isDisable : '')} gap={3} onClick={handleShareTw}>
+                    <Flex className={cx(s.learnMoreWrapper, !token ? s.isDisable : '')} gap={3} onClick={handleShareTw} cursor="pointer">
                       <Text>Get raffle code</Text>
                       <Center w={"28px"} height={"28px"} bgColor={"#FA4E0E"}>
                         <svg width="30" height="29" viewBox="0 0 30 29" fill="none" xmlns="http://www.w3.org/2000/svg">
