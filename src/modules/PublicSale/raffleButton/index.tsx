@@ -34,12 +34,10 @@ const RaffleButton = ({className}: any) => {
   const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
   const handleShareTw = () => {
-    if(token) {
-      const url = `https://twitter.com/BVMnetwork/status/1752174033100226567`;
+    const url = `https://twitter.com/BVMnetwork/status/1752174033100226567`;
 
-      window.open(url, '_blank');
-      joinRafflePrograme(programeInfo?.id as number);
-    }
+    window.open(url, '_blank');
+    joinRafflePrograme(programeInfo?.id as number);
   }
 
   useEffect(() => {
