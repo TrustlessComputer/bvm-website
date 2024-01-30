@@ -131,7 +131,7 @@ const LeaderBoardVisual = (props: IProps) => {
       usdt_value: 0,
       twitter_id: "",
       twitter_username: "",
-      twitter_avatar: ""
+      twitter_avatar: "/none-avatar.jpeg"
     })) as unknown as ILeaderBoardPoint[];
     const tmsss = list.concat(missingArray).map((el, index) => {
       const tmp: ILeaderBoardPoint = { ...el, levelRender: refLevel, lastRender: false };
