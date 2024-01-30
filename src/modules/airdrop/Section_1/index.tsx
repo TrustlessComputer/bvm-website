@@ -27,9 +27,8 @@ const Section_1 = () => {
         maxW={'744px'}
         textAlign="center"
       >
-        Thanks for supporting our 2023 'testnet'. In 2024 mainnet, an airdrop
-        awaits users of BVM products like Generative, Perceptrons, GM, Alpha,
-        and all TC users.
+        Thanks for supporting our 2023 'testnet'. In 2024 mainnet, an airdrop awaits users of BVM products including Generative, Perceptrons, GM, and Alpha.<br/>
+        Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
       </Text>
     </Flex>
   );
