@@ -32,7 +32,7 @@ const Allocation = () => {
       />
       <Box zIndex={1} position={'relative'}>
         <Text as="h4" className={s.heading}>
-          BVM Allocation
+          BVM Tokenomics
         </Text>
         <Text className={s.desc}>
           The total supply of BVM is permanently fixed at 100M tokens.
@@ -47,7 +47,7 @@ const Allocation = () => {
         >
           <Flex flex={1}>
             <Image
-              src={'/images/pie-chart-5.png'}
+              src={'/images/pie-chart-6.png'}
               alt={'Allocation chart'}
               flex={1}
               mx="auto"
