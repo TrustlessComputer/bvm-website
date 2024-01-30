@@ -79,7 +79,7 @@
       text-fill-color: transparent;
     }
 
-    &:not(.isYour){
+    &:not(.isYour) {
       @include fixTextLargeLen(150px);
     }
   }
@@ -216,6 +216,30 @@
   }
 
   &:global(.level-4) {
+    margin-bottom: 80px;
+    margin-left: clamp(12px, #{vw(32px)}, 18px);
+    margin-right: clamp(12px, #{vw(32px)}, 18px);
+
+    .price {
+      font-size: 10px;
+      padding: 4px clamp(4px, #{vw(32px)}, 8px);
+    }
+
+    .avatarItem_avatar {
+      * {
+        width: 32px !important;
+        height: 32px !important;
+      }
+    }
+
+    &.isYou {
+      .price {
+        background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
+      }
+    }
+  }
+
+  &:global(.level-5) {
     margin-bottom: 48px;
     margin-left: clamp(12px, #{vw(32px)}, 18px);
     margin-right: clamp(12px, #{vw(32px)}, 18px);
@@ -239,33 +263,61 @@
     }
   }
 
-  &__1, &__3 {
-    transform: translateY(-5px);
+  &:global(.level-6) {
+    margin-bottom: 48px;
+    margin-left: clamp(12px, #{vw(32px)}, 18px);
+    margin-right: clamp(12px, #{vw(32px)}, 18px);
+
+    .price {
+      font-size: 10px;
+      padding: 4px clamp(4px, #{vw(32px)}, 8px);
+    }
+
+    .avatarItem_avatar {
+      * {
+        width: 32px !important;
+        height: 32px !important;
+      }
+    }
+
+    &.isYou {
+      .price {
+        background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
+      }
+    }
   }
 
-  &__4, &__8 {
-    transform: translateY(-10px);
+
+  @include is-min-table {
+    &__1, &__3 {
+      transform: translateY(-5px);
+    }
+    &__4, &__8 {
+      transform: translateY(-10px);
+    }
+
+    &__10, &__13 {
+      transform: translateY(-5px);
+    }
+
+    &__9, &__14 {
+      transform: translateY(-20px);
+    }
+
+    &__17, &__20 {
+      transform: translateY(-2px);
+    }
+
+    &__16, &__21 {
+      transform: translateY(-10px);
+    }
+
+    &__15, &__22 {
+      transform: translateY(-32px);
+    }
   }
 
-  &__10, &__13 {
-    transform: translateY(-5px);
-  }
 
-  &__9, &__14 {
-    transform: translateY(-20px);
-  }
-
-  &__17, &__20 {
-    transform: translateY(-2px);
-  }
-
-  &__16, &__21 {
-    transform: translateY(-10px);
-  }
-
-  &__15, &__22 {
-    transform: translateY(-32px);
-  }
 }
 
 .isYou {

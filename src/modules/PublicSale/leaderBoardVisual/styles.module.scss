@@ -18,6 +18,10 @@
   position: relative;
   background: #1B1B1B;
 
+  @include is-mobile{
+    margin-bottom: 80px;
+  }
+
   .title1 {
     font-size: 24px;
     font-weight: 600;
@@ -44,6 +48,10 @@
   justify-content: center;
   flex-wrap: wrap;
   align-content: flex-start;
+
+  @include is-mobile{
+    margin-top: 130px;
+  }
 }
 
 table {
@@ -222,14 +230,6 @@ table {
   overflow: hidden;
   width: 100%;
 
-  @include w-max(968px) {
-    margin-left: 12px;
-    margin-right: 12px;
-    margin-bottom: 32px;
-    width: 92vw;
-    min-width: auto;
-  }
-
   .title {
     font-size: 28px;
     @include w-max(968px) {
@@ -350,8 +350,11 @@ table {
   position: relative;
   pointer-events: none;
 
-  &:after{
+  &:after {
     z-index: 0;
+    @include is-mobile {
+      display: none !important;
+    }
   }
 
   &.lastRender__0 {
@@ -368,6 +371,7 @@ table {
       background: url("/public-sale/oval-1.svg");
     }
   }
+
   &.lastRender__1 {
 
 
@@ -383,6 +387,7 @@ table {
       background: url("/public-sale/oval-2.svg");
     }
   }
+
   &.lastRender__2 {
 
     &:after {
@@ -412,6 +417,7 @@ table {
       background: url("/public-sale/oval-4.svg");
     }
   }
+
   &.lastRender__4 {
 
     &:after {
@@ -420,7 +426,7 @@ table {
       height: 157px;
       width: 976px;
       left: 50%;
-      bottom: 60px;
+      bottom: 86px;
       transform: translateX(-50%);
       position: absolute;
       background: url("/public-sale/oval-5.svg");
