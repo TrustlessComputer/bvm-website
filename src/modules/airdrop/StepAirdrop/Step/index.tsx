@@ -2,7 +2,7 @@ import { CDN_URL_ICONS } from '@/config';
 import { Button, Flex, Text, Image } from '@chakra-ui/react';
 import cs from 'classnames';
 import cx from 'clsx';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import { formatCurrency } from '@/utils/format';
 import { useAppSelector } from '@/stores/hooks';
 import AirdropStorage from '@/utils/storage/airdrop.storage';
+import AuthenStorage from '@/utils/storage/authen.storage';
 
 dayjs.extend(utc);
 
@@ -57,6 +58,7 @@ export interface IItemCommunity {
   step?: AirdropStep;
   result?: any;
   isDisableButton?: boolean;
+  handleShowManualPopup?: () => void;
 }
 
 export default function ItemCommunity({
@@ -73,7 +75,7 @@ export default function ItemCommunity({
       .utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss')
       .isBefore(dayjs().utc().format()),
   );
-  const { isActive, image, isDisable = false } = content;
+  const { isActive, image, isDisable = false, step } = content;
   const airdropAlphaUsers = useSelector(airdropAlphaUsersSelector);
   const airdropGMHolders = AirdropStorage.getAirdropGMHolders();
   const airdropGenerativeUsers = AirdropStorage.getAirdropGenerativeUsers();
@@ -86,6 +88,15 @@ export default function ItemCommunity({
   const isRunning = useMemo(() => {
     return isActive;
   }, [isActive, index]);
+
+  const [showManualCheck, setShowManualCheck] = useState(false);
+  const token = AuthenStorage.getAuthenKey();
+
+  useEffect(() => {
+    if (!!token) {
+      setShowManualCheck(false);
+    }
+  }, [token]);
 
   return (
     <>
@@ -180,11 +191,16 @@ export default function ItemCommunity({
                   onClick={() => {
                     if (content?.actionHandle && isRunning && !isLoading) {
                       content?.actionHandle();
+                      if (step === AirdropStep.alphaUsers) {
+                        setTimeout(() => {
+                          setShowManualCheck(true);
+                        }, 10000);
+                      }
                     }
                   }}
                   isLoading={isLoading}
                 >
-                  {!content?.showExpireTime && !!content?.expiredTime ? (
+                  {content?.actionText && (
                     <Flex
                       direction={'column'}
                       justifyContent={'center'}
@@ -192,22 +208,23 @@ export default function ItemCommunity({
                       mt={2}
                       mb={2}
                     >
-                      {/* <Countdown
-                        className={s.itemCommunity__countdown_button}
-                        expiredTime={dayjs
-                          .utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss')
-                          .toString()}
-                        hideIcon={true}
-                        onRefreshEnd={() => setIsEnd(true)}
-                      /> */}
-                      Claim
+                      {content?.actionText}
                     </Flex>
-                  ) : isEnd ? (
-                    content?.actionTextEnd || content?.actionText
-                  ) : (
-                    content?.actionText
                   )}
                 </Button>
+                {step === AirdropStep.alphaUsers && showManualCheck && (
+                  <Text
+                    cursor={'pointer'}
+                    fontSize={'14px'}
+                    fontWeight={400}
+                    color={'#000000'}
+                    textDecoration={'underline'}
+                    onClick={content?.handleShowManualPopup}
+                    mt={1}
+                  >
+                    Missing from the Leaderboard?
+                  </Text>
+                )}
                 {!!content.actionHandleSecondary && (
                   <Button
                     className={cs(
