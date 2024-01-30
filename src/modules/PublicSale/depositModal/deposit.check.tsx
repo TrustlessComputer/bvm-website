@@ -18,14 +18,15 @@ const DepositCheck = ({ onClose }: { onClose?: any }) => {
   const onSubmit = useCallback(
     async (values: any, actions: any) => {
       try {
-        if (!executeRecaptcha) {
-          console.log('Execute recaptcha not yet available');
-          throw Error('Execute recaptcha not yet available');
-        }
-        actions.setSubmitting(true);
+        await saleManualCheck('gReCaptchaToken');
+        // if (!executeRecaptcha) {
+        //   console.log('Execute recaptcha not yet available');
+        //   throw Error('Execute recaptcha not yet available');
+        // }
+        // actions.setSubmitting(true);
 
-        const gReCaptchaToken = await executeRecaptcha('enquiryFormSubmit');
-        await saleManualCheck(gReCaptchaToken);
+        // const gReCaptchaToken = await executeRecaptcha('enquiryFormSubmit');
+        // await saleManualCheck(gReCaptchaToken);
         toast.success('Request success');
         onClose();
       } catch (error) {
