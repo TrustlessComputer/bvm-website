@@ -218,32 +218,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 p={'4px 8px'}
                 width={"fit-content"}
               >
-                <svg
-                  width="16"
-                  height="17"
-                  viewBox="0 0 16 17"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z"
-                    fill="url(#paint0_linear_30263_14863)"
-                  />
-                  <defs>
-                    <linearGradient
-                      id="paint0_linear_30263_14863"
-                      x1="2.66675"
-                      y1="8.49929"
-                      x2="13.3334"
-                      y2="8.49929"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop stop-color="#007659" />
-                      <stop offset="1" stop-color="#35CCA6" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-
                 <Text
                   fontSize={'14'}
                   fontWeight={'500'}
@@ -251,13 +225,13 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   color={'#000'}
                 >
                   {token
-                    ? `${formatCurrency(
+                    ? `+${formatCurrency(
                       userContributeInfo?.view_boost,
                       0,
                       0,
                       'BTC',
                       true,
-                    )}%`
+                    )}% boost`
                     : '-'}
                 </Text>
               </Flex>
