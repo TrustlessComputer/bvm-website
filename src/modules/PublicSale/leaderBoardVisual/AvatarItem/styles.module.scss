@@ -59,14 +59,17 @@
   }
 
   .name {
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 500;
     line-height: 24px;
     text-align: center;
     white-space: nowrap;
     position: absolute;
-    bottom: calc(100% + 10px);
+    //top: 100%;
     width: 100%;
+    left: 50%;
+    margin-top: 2px;
+    transform: translateX(-50%);
 
     &.isYou {
       background: linear-gradient(90deg, #FFE259 0%, #FFA751 100%);
@@ -74,7 +77,10 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       text-fill-color: transparent;
-      bottom: 100%;
+    }
+
+    &:not(.isYour){
+      @include fixTextLargeLen(150px);
     }
   }
 
@@ -128,12 +134,10 @@
       height: 32px !important;
       max-width: none !important;
     }
-
   }
 
-
   &:global(.level-0) {
-    margin-bottom: 48px;
+    margin-bottom: 80px;
     margin-top: 24px;
 
     .price {
@@ -146,10 +150,6 @@
 
     .name {
       font-size: 14px;
-
-      &.isYou{
-        bottom: calc(100% + 10px) !important;
-      }
     }
 
     .avatarItem_avatar {
@@ -161,7 +161,7 @@
   }
 
   &:global(.level-1) {
-    margin-bottom: 48px;
+    margin-bottom: 80px;
 
     margin-left: clamp(14px, #{vw(60px)}, 18px);
     margin-right: clamp(14px, #{vw(60px)}, 18px);
@@ -181,7 +181,7 @@
   }
 
   &:global(.level-2) {
-    margin-bottom: 40px;
+    margin-bottom: 80px;
     margin-left: clamp(14px, #{vw(48px)}, 20px);
     margin-right: clamp(14px, #{vw(48px)}, 20px);
 
@@ -199,7 +199,7 @@
 
   &:global(.level-3) {
 
-    margin-bottom: 60px;
+    margin-bottom: 80px;
     margin-left: clamp(14px, #{vw(48px)}, 20px);
     margin-right: clamp(14px, #{vw(48px)}, 20px);
 

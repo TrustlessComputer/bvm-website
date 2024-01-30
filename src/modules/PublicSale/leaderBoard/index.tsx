@@ -34,6 +34,7 @@ import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 import SvgInset from '@/components/SvgInset';
 import ContributorDetailInfo from '@/modules/PublicSale/components/contributorDetailInfo';
 import { tokenIcons } from '@/modules/PublicSale/depositModal/constants';
+import { compareString } from '@/utils/string';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -342,46 +343,48 @@ const LeaderBoard = (props: IProps) => {
               justifyContent={'flex-end'}
             >
               <Flex alignItems={'center'} gap={2}>
-                {!parseFloat(data?.view_boost || '0') > 0 && (
-                  <Flex justifyContent="flex-start" alignItems="center">
-                    <Flex
-                      flexDirection="row"
-                      gap="4px"
-                      alignItems="center"
-                      className={clsx(
-                        s.tagBoost,
-                        (Number(data?.view_boost) || 0) <= 10
-                          ? s.boostNormal
-                          : '',
-                        data.need_active && s.isActiveRowContent,
-                      )}
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M13.3337 6.54474H8.97002L9.93972 0.726562L2.66699 9.45383H7.03063L6.06093 15.272L13.3337 6.54474Z"
-                          fill="#008456"
-                        />
-                      </svg>
-
-                      <Text
-                        className={cs(
-                          s.title,
-                          // s.multiplier,
-                          s[valueToClassName[`${data?.view_boost}`]],
-                          data.need_active && s.isActiveRow,
+                {parseFloat(data?.view_boost || '0') > 0 &&
+                  user?.twitter_id &&
+                  compareString(data?.twitter_id, user?.twitter_id) && (
+                    <Flex justifyContent="flex-start" alignItems="center">
+                      <Flex
+                        flexDirection="row"
+                        gap="4px"
+                        alignItems="center"
+                        className={clsx(
+                          s.tagBoost,
+                          (Number(data?.view_boost) || 0) <= 10
+                            ? s.boostNormal
+                            : '',
+                          data.need_active && s.isActiveRowContent,
                         )}
                       >
-                        {data?.view_boost || 0}%
-                      </Text>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M13.3337 6.54474H8.97002L9.93972 0.726562L2.66699 9.45383H7.03063L6.06093 15.272L13.3337 6.54474Z"
+                            fill="#008456"
+                          />
+                        </svg>
+
+                        <Text
+                          className={cs(
+                            s.title,
+                            // s.multiplier,
+                            s[valueToClassName[`${data?.view_boost}`]],
+                            data.need_active && s.isActiveRow,
+                          )}
+                        >
+                          {data?.view_boost || 0}%
+                        </Text>
+                      </Flex>
                     </Flex>
-                  </Flex>
-                )}
+                  )}
 
                 <Text className={s.bvm_amount}>
                   {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MIN_DECIMAL)}{' '}
@@ -401,57 +404,8 @@ const LeaderBoard = (props: IProps) => {
           );
         },
       },
-      // {
-      //   id: 'boost',
-      //   labelConfig,
-      //   label: (
-      //     <Flex
-      //       style={{
-      //         justifyContent: 'flex-start',
-      //         width: '100%',
-      //         textTransform: 'uppercase',
-      //       }}
-      //     >
-      //       BOOST
-      //     </Flex>
-      //   ),
-      //   config: {
-      //     borderBottom: 'none',
-      //     fontSize: '14px',
-      //     fontWeight: 500,
-      //     verticalAlign: 'middle',
-      //     letterSpacing: '-0.5px',
-      //   },
-      //   render(data: ILeaderBoardPoint) {
-      //     return data?.need_active && (
-      // <Flex justifyContent="flex-start" alignItems="center">
-      //   <Flex
-      //     flexDirection="row"
-      //     gap="4px"
-      //     alignItems="center"
-      //     className={clsx(s.tagBoost, (Number(data?.view_boost) || 0) <= 10 ? s.boostNormal : '')}
-      //   >
-      //     <SvgInset svgUrl={`${CDN_URL_ICONS}/${
-      //       valueToImage?.[data?.view_boost] || 'flash_normal.svg'
-      //     }`}
-      //     />
-      //     <Text
-      //       className={cs(
-      //         s.title,
-      //         s.multiplier,
-      //         s[valueToClassName[`${data?.view_boost}`]],
-      //         data.need_active && s.isActiveRow,
-      //       )}
-      //     >
-      //       {data?.view_boost || 0}%
-      //     </Text>
-      //   </Flex>
-      // </Flex>
-      //     );
-      //   },
-      // },
     ];
-  }, [user?.referral_code]);
+  }, [user?.referral_code, user?.twitter_id]);
 
   return (
     <Box className={s.container} height="65dvh" id={LEADER_BOARD_ID}>

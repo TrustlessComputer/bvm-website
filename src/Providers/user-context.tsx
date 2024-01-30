@@ -11,6 +11,7 @@ import userServices from '@/services/user';
 import ReferralStorage from '@/utils/storage/referral.storage';
 import { getCoinPrices } from '@/services/common';
 import { setCoinPrices } from '@/stores/states/common/reducer';
+import { redirect, useRouter } from 'next/navigation';
 
 export interface IUserContext {}
 
@@ -21,6 +22,8 @@ export const UserContext = React.createContext<IUserContext>(initialValue);
 export const UserProvider: React.FC<PropsWithChildren> = ({
   children,
 }: PropsWithChildren): React.ReactElement => {
+
+  const router = useRouter()
 
   const dispatch = useAppDispatch();
   const needReload = useAppSelector(commonSelector).needReload;
@@ -53,6 +56,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     const code = getReferralByURL();
     if (code) {
       ReferralStorage.setReferralCode(code)
+      setTimeout(() => router.replace('/public-sale'), 100)
     }
   }, []);
 

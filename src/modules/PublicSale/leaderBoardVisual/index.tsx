@@ -30,6 +30,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const latestContributors = useRef<ILeaderBoardPoint[]>([]);
   const animatedLatestContributors = useRef<ILeaderBoardPoint[]>([]);
   const user = useAppSelector(userSelector);
+  const refInterval = useRef<any>();
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -56,6 +57,18 @@ const LeaderBoardVisual = (props: IProps) => {
 
   useEffect(() => {
     fetchData(true);
+
+    if(refInterval.current) {
+      clearInterval(refInterval.current);
+    }
+
+    refInterval.current = setInterval(() => {
+      fetchData(true);
+    }, 30000);
+
+    return () => {
+      clearInterval(refInterval.current);
+    };
   }, [needReload, leaderBoardMode]);
 
   const fetchData = async (isNew?: boolean) => {

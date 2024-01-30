@@ -15,7 +15,7 @@ interface IProps {
   data: ILeaderBoardPoint,
   isShowName?: boolean
   isYou?: boolean
-  onCompleted?: ()=>void
+  onCompleted?: () => void
   idx: number
 }
 
@@ -31,7 +31,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
   const { data, idx, isShowName, isYou, onCompleted, ...rest } = props;
   const lottieRef = useRef<any>();
   const [error, setError] = useState<boolean>(false);
-  const refMoney = proxy<{ value: number }>({value:  Number(data?.usdt_value) || 0});
+  const refMoney = proxy<{ value: number }>({ value: Number(data?.usdt_value) || 0 });
   // const refMoney = useRef<{ value: number }>({ value: Number(data?.usdt_value) || 0 });
   const refInertMoney = useRef<HTMLParagraphElement>(null);
   const [isLoopDone, setIsLoopDone] = useState(true);
@@ -39,11 +39,11 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
   const needCheckDeposit = useAppSelector(commonSelector).needCheckDeposit;
   const animatedLatestContributors = useAppSelector(commonSelector).animatedLatestContributors;
 
-  const newTotalMoney = useMemo(():number => {
+  const newTotalMoney = useMemo((): number => {
     if (needCheckDeposit) {
       const add = animatedLatestContributors?.find(c => c.twitter_id === data?.twitter_id);
 
-      if(add) {
+      if (add) {
         return refMoney.value + Number(add.usdt_value);
       } else {
         return refMoney.value;
@@ -55,54 +55,44 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
 
   useEffect(() => {
 
-    if (!refInertMoney.current) return;
-    if (newTotalMoney && refMoney.value !== newTotalMoney) {
-      const numberLoop = 5;
-      const duration = 19/24;
-      gsap.to(refMoney, {
-        value: newTotalMoney, ease: 'power3.inOut', duration: numberLoop * duration, onUpdate: () => {
-          if (refInertMoney.current) {
-            refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.value, 0, 0, '', true)}`;
-          }
-        },
-      });
+    const gc = gsap.context(() => {
+      if (!refInertMoney.current) return;
+      if (newTotalMoney && refMoney.value !== newTotalMoney) {
+        const numberLoop = 5;
+        const duration = 19 / 24;
+        gsap.to(refMoney, {
+          value: newTotalMoney, ease: 'power3.inOut', duration: numberLoop * duration,
+          onCompleted: (): void => {
+            setIsLoopDone(true);
+          },
+          onUpdate: () => {
+            if (refInertMoney.current) {
+              refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.value, 0, 0, '', true)}`;
+            }
 
-      if (!lottieRef.current) return;
-
-      lottieRef.current.setLoop(numberLoop);
-      lottieRef.current.play();
-
-      setIsLoopDone(false);
-      if(refTime.current) {
-        clearTimeout(refTime.current);
+          },
+          onStart: () => {
+            if (!lottieRef.current) return;
+            lottieRef.current.setLoop(numberLoop);
+            lottieRef.current.play();
+            setIsLoopDone(false);
+          },
+        });
+      } else {
+        refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.value, 0, 0, '', true)}`;
       }
-      refTime.current = setTimeout(() => {
-        setIsLoopDone(true);
-        onCompleted && onCompleted();
-      }, duration * numberLoop * 1000);
-    } else {
-      refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.value, 0, 0, '', true)}`;
-    }
-
-    return () => {
-      if(refTime.current) {
-        clearTimeout(refTime.current);
-      }
-    }
+    });
+    return () => gc.revert();
   }, [newTotalMoney, data]);
 
   const renderContent = () => {
     return (
       <div className={s.avatarItem_inner}>
         {
-          data?.levelRender === 0 && <Image className={s.king} src={'/public-sale/icon-king.svg'} width={60} height={60} alt={'king'} />
+          data?.levelRender === 0 &&
+          <Image className={s.king} src={'/public-sale/icon-king.svg'} width={60} height={60} alt={'king'} />
         }
-        {
-          isShowName && data?.levelRender === 0 && !isYou && <p className={s.name}>{data?.twitter_username}</p>
-        }
-        {
-          isYou && <p className={cx(s.name, s.isYou)}>You</p>
-        }
+
         <div
           className={s.avatarItem_avatar}
           onClick={() => {
@@ -125,11 +115,16 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         </div>
         <div className={s.meta}>
           <p className={s.price} ref={refInertMoney}></p>
-
+          {
+            !isYou && <p className={s.name}>{data?.twitter_username}</p>
+          }
+          {
+            isYou && <p className={cx(s.name, s.isYou)}>You</p>
+          }
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div

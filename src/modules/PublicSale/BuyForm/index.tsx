@@ -1,13 +1,13 @@
-import { Box, Button, Flex, Grid, GridItem, Text, Tooltip } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
-import React, { forwardRef, useEffect, useMemo, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import {
   getPublicSaleLeaderBoards,
   getPublicSaleSummary,
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
-import { IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
+import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
@@ -15,7 +15,7 @@ import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import DepositModal from '@/modules/PublicSale/depositModal';
 import ContributorsModal from '@/modules/PublicSale/contributorModal';
 import AuthForBuy from '../AuthForBuy';
-import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
+import { MIN_DECIMAL } from '@/constants/constants';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import cx from 'classnames';
@@ -56,10 +56,14 @@ const Column = forwardRef((props: IColumnProps, ref: any) => {
 });
 
 const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
+  const cachedTotalUSD = window.localStorage.getItem('LAST_TOTAL_USDT') || '0';
+
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
-  const [contributeInfo, setContributeInfo] =
-    useState<IPublicSaleDepositInfo>();
+  const [contributeInfo, setContributeInfo] = useState<IPublicSaleDepositInfo>({
+    ...defaultSummary,
+    total_usdt_value: cachedTotalUSD,
+  });
   const [isEnd, setIsEnd] = React.useState(
     dayjs
       .utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss')
@@ -75,16 +79,26 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     return dayjs(PUBLIC_SALE_END).diff(dayjs(), 'day');
   }, []);
 
+  const timeIntervalSummary = useRef<any>(undefined);
+
   useEffect(() => {
     getContributeInfo();
+
+    timeIntervalSummary.current = setInterval(() => {
+      getContributeInfo();
+    }, 10000);
 
     if (token) {
       getUserContributeInfo();
     }
+    return () => {
+      clearInterval(timeIntervalSummary.current);
+    };
   }, [token]);
 
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
+    window.localStorage.setItem('LAST_TOTAL_USDT', res.total_usdt_value || '0');
     setContributeInfo(res);
   };
 
@@ -94,7 +108,9 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       limit: 0,
     });
 
-    setUserContributeInfo(data[0]);
+    if (data[0]?.need_active) {
+      setUserContributeInfo(data[0]);
+    }
   };
 
   const handleRecheckDeposit = async () => {
@@ -136,17 +152,23 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     const { className, ...rest } = props;
     return (
       <div>
-        <Flex className={s.tValue} gap={'5px'} alignItems={'center'} ref={ref} {...rest}
-              cursor={token ? 'pointer' : 'auto'}>
+        <Flex
+          className={s.tValue}
+          gap={'5px'}
+          alignItems={'center'}
+          ref={ref}
+          {...rest}
+          cursor={token ? 'pointer' : 'auto'}
+        >
           <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
             {token
               ? `$${formatCurrency(
-                userContributeInfo?.usdt_value,
-                MIN_DECIMAL,
-                MIN_DECIMAL,
-                'BTC',
-                true,
-              )}`
+                  userContributeInfo?.usdt_value,
+                  MIN_DECIMAL,
+                  MIN_DECIMAL,
+                  'BTC',
+                  true,
+                )}`
               : '$0'}
           </Text>
           {/*<Text color={'rgba(255, 255, 255, 0.7)'} fontSize={'12px'} fontWeight={'500'}>*/}
@@ -160,7 +182,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           {/*    )} BVM)`*/}
           {/*    : '-'}*/}
           {/*</Text>*/}
-
 
           {/*<Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFF'}>*/}
           {/*  GET*/}
@@ -176,53 +197,68 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           {/*  BVM*/}
           {/*</Text>*/}
 
-          {
-            Boolean(userContributeInfo?.view_boost) &&
-            (
-              <Flex
-                gap={'2px'}
-                alignItems={'center'}
-                bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}
-                borderRadius={'100px'}
-                p={'4px 8px'}
+          {Boolean(userContributeInfo?.view_boost) && (
+            <Flex
+              gap={'2px'}
+              alignItems={'center'}
+              bg={
+                'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'
+              }
+              borderRadius={'100px'}
+              p={'4px 8px'}
+            >
+              <svg
+                width="16"
+                height="17"
+                viewBox="0 0 16 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                  <path
-                    d='M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z'
-                    fill='url(#paint0_linear_30263_14863)' />
-                  <defs>
-                    <linearGradient id='paint0_linear_30263_14863' x1='2.66675' y1='8.49929' x2='13.3334' y2='8.49929'
-                                    gradientUnits='userSpaceOnUse'>
-                      <stop stop-color='#007659' />
-                      <stop offset='1' stop-color='#35CCA6' />
-                    </linearGradient>
-                  </defs>
-                </svg>
+                <path
+                  d="M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z"
+                  fill="url(#paint0_linear_30263_14863)"
+                />
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_30263_14863"
+                    x1="2.66675"
+                    y1="8.49929"
+                    x2="13.3334"
+                    y2="8.49929"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#007659" />
+                    <stop offset="1" stop-color="#35CCA6" />
+                  </linearGradient>
+                </defs>
+              </svg>
 
-                <Text
-                  fontSize={'14'}
-                  fontWeight={'500'}
-                  className={s.boost}
-                  color={'#000'}
-                >
-                  {token
-                    ? `${formatCurrency(
+              <Text
+                fontSize={'14'}
+                fontWeight={'500'}
+                className={s.boost}
+                color={'#000'}
+              >
+                {token
+                  ? `${formatCurrency(
                       userContributeInfo?.view_boost,
                       MIN_DECIMAL,
                       MIN_DECIMAL,
                       'BTC',
                       true,
                     )}%`
-                    : '-'}
-                </Text>
-              </Flex>
-            )
-          }
-
+                  : '-'}
+              </Text>
+            </Flex>
+          )}
         </Flex>
         <Text
           className={s.tLabel}
-          fontSize={20} lineHeight={1} fontWeight={400} color={'rgba(0,0,0,0.7)'}>
+          fontSize={20}
+          lineHeight={1}
+          fontWeight={400}
+          color={'rgba(0,0,0,0.7)'}
+        >
           Your contribution
         </Text>
       </div>
@@ -233,63 +269,102 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
-          <Text fontSize={14} lineHeight={1} fontWeight={400} color={'black'} mb={'12px'}>
+          <Text
+            fontSize={14}
+            lineHeight={1}
+            fontWeight={400}
+            color={'black'}
+            mb={'12px'}
+          >
             Total
           </Text>
           <Text className={s.fundValue}>
-            <NumberScale label={'$'} couters={Number(contributeInfo?.total_usdt_value)} maximumFractionDigits={0}
-                         minimumFractionDigits={0} />
+            <NumberScale
+              label={'$'}
+              couters={Number(contributeInfo?.total_usdt_value_not_boost)}
+              maximumFractionDigits={0}
+              minimumFractionDigits={0}
+              defaultFrom={cachedTotalUSD}
+            />
           </Text>
           <Box mt={'24px'} />
           <div className={s.grid}>
             <div className={s.grid_item}>
-              <div className={s.backer} onClick={() => setShowContributorModal(true)}>
-                <Text className={s.tValue} fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}
-                      _hover={{
-                        color: '#FA4E0E',
-                      }}>
-
-                  <NumberScale label={''} couters={Number(contributeInfo?.total_user)} maximumFractionDigits={0}
-                               minimumFractionDigits={0} />
-
+              <div
+                className={s.backer}
+                onClick={() => setShowContributorModal(true)}
+              >
+                <Text
+                  className={s.tValue}
+                  fontSize={20}
+                  lineHeight={1}
+                  fontWeight={400}
+                  color={'#000'}
+                  _hover={{
+                    color: '#FA4E0E',
+                  }}
+                >
+                  <NumberScale
+                    label={''}
+                    couters={Number(contributeInfo?.total_user)}
+                    maximumFractionDigits={0}
+                    minimumFractionDigits={0}
+                  />
                 </Text>
                 <Text
                   className={s.tLabel}
-                  fontSize={20} lineHeight={1} fontWeight={400} color={'rgba(0,0,0,0.7)'}>
+                  fontSize={20}
+                  lineHeight={1}
+                  fontWeight={400}
+                  color={'rgba(0,0,0,0.7)'}
+                >
                   {'Backers'}
                 </Text>
               </div>
             </div>
             <div className={s.grid_item}>
-              {
-                remainDay === 0 ? (
-                  <Countdown
-                    className={s.time}
-                    expiredTime={dayjs
-                      .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
-                      .toString()}
-                    hideIcon={true}
-                    onRefreshEnd={() => setIsEnd(true)}
-                  />
-                ) : (
-                  <div>
-                    <Text className={s.tValue} fontSize={20} lineHeight={1} fontWeight={400}
-                          color={'rgba(0,0,0,1)'}> {remainDay} </Text> <Text
-                    fontSize={20} lineHeight={1} fontWeight={400}
+              {remainDay === 0 ? (
+                <Countdown
+                  className={s.time}
+                  expiredTime={dayjs
+                    .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
+                    .toString()}
+                  hideIcon={true}
+                  onRefreshEnd={() => setIsEnd(true)}
+                />
+              ) : (
+                <div>
+                  <Text
+                    className={s.tValue}
+                    fontSize={20}
+                    lineHeight={1}
+                    fontWeight={400}
+                    color={'rgba(0,0,0,1)'}
+                  >
+                    {' '}
+                    {remainDay}{' '}
+                  </Text>{' '}
+                  <Text
+                    fontSize={20}
+                    lineHeight={1}
+                    fontWeight={400}
                     className={s.tLabel}
-                    color={'rgba(0,0,0,0.7)'}> Day{remainDay !== 1 && 's'} to go</Text>
-                  </div>
-                )
-              }
+                    color={'rgba(0,0,0,0.7)'}
+                  >
+                    {' '}
+                    Day{remainDay !== 1 && 's'} to go
+                  </Text>
+                </div>
+              )}
             </div>
             <div className={s.grid_item}>
               {token ? (
                 <Tooltip
-                  minW='220px'
-                  bg='white'
-                  boxShadow='0px 0px 24px -6px #0000001F'
-                  borderRadius='4px'
-                  padding='16px'
+                  minW="220px"
+                  bg="white"
+                  boxShadow="0px 0px 24px -6px #0000001F"
+                  borderRadius="4px"
+                  padding="16px"
                   hasArrow
                   label={<ContributorInfo data={userContributeInfo} />}
                 >
@@ -307,7 +382,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           <Flex gap={6} direction={'column'} width={'100%'}>
             <AuthForBuy>
               <Button
-                type='submit'
+                type="submit"
                 isDisabled={isCreating}
                 isLoading={isCreating}
                 // loadingText={'Submitting...'}

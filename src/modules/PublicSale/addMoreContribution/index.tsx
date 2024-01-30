@@ -42,7 +42,9 @@ const AddMoreContribution = () => {
       limit: 0,
     });
 
-    setUserContributeInfo(data[0]);
+    if(data[0]?.need_active) {
+      setUserContributeInfo(data[0]);
+    }
   };
 
   const handleShareTw = () => {
