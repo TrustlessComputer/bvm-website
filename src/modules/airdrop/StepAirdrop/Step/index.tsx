@@ -276,7 +276,7 @@ export default function ItemCommunity({
                 ) : (
                   user?.twitter_id && (
                     <Text color={'#000000'}>
-                      Your alpha account do not have airdrop
+                      Your Alpha account does not qualify for this airdrop.
                     </Text>
                   )
                 )}
