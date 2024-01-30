@@ -102,7 +102,7 @@ const TradeNakaWinnersPopup = ({ isShow, onHide }: IProps) => {
               gap="4px"
               flexDir="column"
             >
-              <Text className={cs(styles.modalContent__text, styles.modalContent__pnl)}>{formatCurrency(row?.realized_pnl, 0, 5, 'TC', false)} BTC</Text>
+              <Text className={cs(styles.modalContent__text, styles.modalContent__pnl)}>+{formatCurrency(row?.realized_pnl, 0, 5, 'TC', false)} BTC</Text>
               <Text className={cs(styles.modalContent__usd)}>${formatCurrency(amountUSD, 0, 3, 'TC', false)}</Text>
             </Flex>
           );

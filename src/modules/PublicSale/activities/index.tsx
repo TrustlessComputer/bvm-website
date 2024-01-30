@@ -15,9 +15,8 @@ import styles from './styles.module.scss';
 import { CDN_URL } from '@/config';
 import cs from 'classnames';
 import SvgInset from '@/components/SvgInset';
-import s from '@/modules/PublicSale/playGame/styles.module.scss';
-import useTradeNakaData from '@/modules/PublicSale/activities/hooks/useTradeNakaData';
 import TradeNakaWinnersPopup from '@/modules/PublicSale/activities/components/TradeNakaWinnersPopup';
+import NakaCountDown from '@/modules/PublicSale/activities/components/NakaCountDown';
 
 interface ICTA {
   title: string;
@@ -36,7 +35,6 @@ export interface GameItemProps {
 }
 
 const Activities = React.memo(() => {
-  const tradeNakaData = useTradeNakaData();
   const {
     onClose: onCloseNakaWinners,
     onOpen: onOpenNakaWinners,
@@ -159,6 +157,8 @@ Good luck and have fun!
     };
   }, []);
 
+  const [expandIndex, setExpandIndex] = React.useState(currentDay.diffDay)
+
   const renderCta = (item: ICTA) => {
     switch (item.type) {
       case 'link':
@@ -256,6 +256,9 @@ Good luck and have fun!
                   className={styles.itemWrapper_desc}
                   dangerouslySetInnerHTML={{ __html: item.desc }}
                 />
+                {currentDay.diffDay === expandIndex && expandIndex === index && (
+                  <NakaCountDown />
+                )}
                 <Flex alignItems="center" gap="8px">
                   {item.ctas?.map(renderCta)}
                 </Flex>
@@ -277,7 +280,9 @@ Good luck and have fun!
         <p className={styles.container__title}>
           7 days of awesomeness. Experience Bitcoin like never before.
         </p>
-        <Accordion allowMultiple={false} defaultIndex={currentDay.diffDay}>
+        <Accordion allowMultiple={false} defaultIndex={currentDay.diffDay} index={expandIndex} onChange={(expandedIndex) => {
+          setExpandIndex(expandedIndex as number)
+        }}>
           {DAYS.map(renderItem)}
         </Accordion>
       </Flex>

@@ -1,15 +1,49 @@
 import React from 'react';
 import useTradeNakaData from '@/modules/PublicSale/activities/hooks/useTradeNakaData';
-import { SimpleGrid } from '@chakra-ui/react';
+import { Flex, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
+import styles from './styles.module.scss';
+import dayjs from 'dayjs';
+import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
+import SvgInset from '@/components/SvgInset';
+import { CDN_URL_ICONS } from '@/config';
+import { formatCurrency, formatString } from '@/utils/format';
 
 const NakaCountDown = React.memo(() => {
   const { bestPNL } = useTradeNakaData();
-  if (!bestPNL) return <></>;
+  if (!bestPNL || !bestPNL.to_time || !bestPNL.from_time) return <></>;
 
   return (
-    <SimpleGrid gridTemplateColumns={{  }}>
-
-    </SimpleGrid>
+    <Flex className={styles.nakaCountDown}>
+      <Flex className={styles.item}>
+        <Text className={styles.item_title}>
+          {dayjs.utc(bestPNL.from_time, 'YYYY-MM-DD HH:mm:ss').local().format('HH:mm')}
+          {" - "}
+          {dayjs.utc(bestPNL.to_time, 'YYYY-MM-DD HH:mm:ss').local().format('HH:mm')}
+        </Text>
+        <Flex className={styles.item_countdown}>
+          <SvgInset svgUrl={`${CDN_URL_ICONS}/ic-fire.svg`} size={16} />
+          <Countdown expiredTime={dayjs.utc(bestPNL.to_time, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} isHideSecond={false} hideZeroHour={true} />
+        </Flex>
+      </Flex>
+      {!!bestPNL?.winner && (
+        <Flex className={styles.item}>
+          <Text className={styles.item_title}>
+            Top PNL
+          </Text>
+          <Text className={styles.item_name}>
+            {formatString(bestPNL?.winner?.twitter_name, 6)} <span>+{formatCurrency(bestPNL?.winner?.realized_pnl || '0', 0, 5, 'TC', false)} BTC</span>
+          </Text>
+        </Flex>
+      )}
+      <Flex className={styles.item}>
+        <Text className={styles.item_title}>
+          Rewards
+        </Text>
+        <Flex className={styles.item_reward}>
+          ${bestPNL.reward}
+        </Flex>
+      </Flex>
+    </Flex>
   )
 })
 
