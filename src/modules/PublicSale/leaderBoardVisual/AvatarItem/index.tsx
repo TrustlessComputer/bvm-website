@@ -8,8 +8,6 @@ import { DotLottiePlayer } from '@dotlottie/react-player';
 import { gsap } from 'gsap';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { Tooltip } from '@chakra-ui/react';
-import TopContributorReward from '@/modules/PublicSale/leaderBoardVisual/topContributorReward';
 
 interface IProps {
   data: ILeaderBoardPoint,
