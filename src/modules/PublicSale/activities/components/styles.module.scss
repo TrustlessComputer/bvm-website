@@ -90,6 +90,9 @@ table {
   margin-top: 12px;
   gap: 8px;
   flex-wrap: wrap;
+  @include is-mobile {
+    flex-direction: column;
+  }
   .item {
     display: flex;
     padding: 4px 12px 4px 8px;
