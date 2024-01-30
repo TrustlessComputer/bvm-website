@@ -113,7 +113,7 @@ const TradeNakaWinnersPopup = ({ isShow, onHide }: IProps) => {
         id: 'user',
         labelConfig,
         config,
-        label: <Text>USER</Text>,
+        label: <Text>REWARD</Text>,
         render(row: TopWinner) {
           return (
             <Flex
