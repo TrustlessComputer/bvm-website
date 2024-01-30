@@ -262,52 +262,43 @@ const LeaderBoard = (props: IProps) => {
         },
         render(data: ILeaderBoardPoint) {
           return (
-            <Tooltip
-              minW="360px"
-              bg="white"
-              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-              borderRadius="4px"
-              padding="0px"
-              hasArrow
-              label={<ContributorDetailInfo data={data} />}
+            <Flex
+              gap={3}
+              alignItems={'center'}
+              width={'100%'}
+              // justifyContent={'center'}
             >
-              <Flex
-                gap={3}
-                alignItems={'center'}
-                width={'100%'}
-                // justifyContent={'center'}
-              >
-                <Flex gap={2} alignItems={'center'}>
-                  <Text className={s.title}>
-                    $
-                    {formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
-                  </Text>
-                  <svg
-                    width="1"
-                    height="16"
-                    viewBox="0 0 1 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <line
-                      x1="0.5"
-                      y1="16"
-                      x2="0.499999"
-                      y2="2.18557e-08"
-                      stroke="#ECECEC"
+              <Flex gap={2} alignItems={'center'}>
+                <Text className={s.title}>
+                  $
+                  {formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
+                </Text>
+                <svg
+                  width="1"
+                  height="16"
+                  viewBox="0 0 1 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="0.5"
+                    y1="16"
+                    x2="0.499999"
+                    y2="2.18557e-08"
+                    stroke="#ECECEC"
+                  />
+                </svg>
+                <AvatarGroup spacing={'-5px'} >
+                  {(data?.coin_balances || []).map((t) => (
+                    <AvatarImg
+                      key={`${data.id}-${t.symbol}`}
+                      src={tokenIcons[t.symbol.toLowerCase()]}
+                      width={'18px'}
+                      height={'18px'}
                     />
-                  </svg>
-                  <AvatarGroup spacing={'-5px'} >
-                    {(data?.coin_balances || []).map((t) => (
-                      <AvatarImg
-                        key={`${data.id}-${t.symbol}`}
-                        src={tokenIcons[t.symbol.toLowerCase()]}
-                        width={'18px'}
-                        height={'18px'}
-                      />
-                    ))}
-                  </AvatarGroup>
-                  {/* <AvatarImg
+                  ))}
+                </AvatarGroup>
+                {/* <AvatarImg
                     width={'18px'}
                     height={'18px'}
                     src={
@@ -316,9 +307,8 @@ const LeaderBoard = (props: IProps) => {
                       ]
                     }
                   /> */}
-                </Flex>
               </Flex>
-            </Tooltip>
+            </Flex>
           );
         },
       },

@@ -221,11 +221,13 @@
 
 .tValue {
   min-height: 25px;
-  margin-bottom: 5px;
+
   font-size: 20px;
   font-weight: 400;
   line-height: 1;
   text-align: left;
+  justify-content: flex-start;
+
   *{
     font-size: 20px;
     font-weight: 400;
@@ -239,4 +241,5 @@
   font-weight: 400 !important;
   line-height: 14px !important;
   text-align: left;
+  margin-bottom: 5px;
 }
