@@ -18,7 +18,7 @@ const IntroVideos = () => {
         <Text fontSize={{ base: "16px", md: "22px" }} textAlign="center" maxWidth="820px" ml="auto" mr="auto">Our mission is to make Bitcoin as generalized as possible — usable for far more than just a currency. We want DeFi, Gaming, AI, DAOs, and NFTs all on Bitcoin.</Text>
         <Box maxW={{ base: "100%", lg: "1100px" }} w="100%" aspectRatio="16/9" alignSelf="center" mt={{ base: "16px", md: "52px" }} mb="80px" position="relative">
           <video src="public-sale/public_sale_video_2.mp4" controls autoPlay={false} id={VIDEO_ID} ref={videoRef as any} />
-          <Image src="public-sale/video_banner.png" position="absolute" top="0" id={BANNER_ID} className={cs(styles.banner)} onClick={() => {
+          <Image src="public-sale/t-videos.jpeg" position="absolute" top="0" id={BANNER_ID} className={cs(styles.banner)} onClick={() => {
             if (videoRef && videoRef.current) {
               const banner = document.getElementById(BANNER_ID)
               videoRef.current?.play();

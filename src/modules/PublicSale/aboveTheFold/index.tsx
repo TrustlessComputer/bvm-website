@@ -12,21 +12,21 @@ import RaffleButton from '@/modules/PublicSale/raffleButton';
 import Activities from '@/modules/PublicSale/activities';
 import LeaderBoardSwitch from '@/modules/PublicSale/leaderBoardSwitch';
 import RewardButton from '../rewardButton';
-import cs from 'classnames'
+import cs from 'classnames';
 import useWindowSize from '@/hooks/useWindowSize';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
   const vcType = LocalStorageUtil.get(KEY_VC_TYPE);
   const [vcInfo, setVCInfo] = useState<VCInfo>();
-  const {mobileScreen} = useWindowSize();
+  const { mobileScreen } = useWindowSize();
 
   useEffect(() => {
     setTimeout(setPlay, 400);
   }, []);
 
   useEffect(() => {
-    if(vcType) {
+    if (vcType) {
       getVCInfo(vcType as string);
     }
   }, [vcType]);
@@ -34,21 +34,35 @@ const AboveTheFold = () => {
   const getVCInfo = async (id: string) => {
     const res = await getVCInformation({ vc_type: id });
     setVCInfo(res);
-  }
+  };
 
   return (
-    <Flex direction={"column"} justifyContent={"space-between"} className={s.container}>
-      <SimpleGrid className={`${s.content}`} gridTemplateColumns={{ lg: "1fr", xl: "6.5fr 3.5fr" }} gap={[0, '20px']}>
-        <Flex className={s.leftSection} direction={"column"} justifyContent={"flex-start"}>
+    <Flex
+      direction={'column'}
+      justifyContent={'space-between'}
+      className={s.container}
+    >
+      <SimpleGrid
+        className={`${s.content}`}
+        gridTemplateColumns={{ lg: '1fr', xl: '6.5fr 3.5fr' }}
+        gap={[0, '20px']}
+      >
+        <Flex
+          className={s.leftSection}
+          direction={'column'}
+          justifyContent={'flex-start'}
+        >
           <LeaderBoardVisual />
           {/*<AddMoreContribution />*/}
-          <RaffleButton className={s.raffleButton}/>
-          <RewardButton className={cs(s.raffleButton, s.rewardButton)}/>
+          <Flex className={s.btnActions}>
+            <RaffleButton />
+            <RewardButton />
+          </Flex>
           <LeaderBoardSwitch classNames={s.boardSwitch} />
           {mobileScreen && <Activities />}
         </Flex>
-        <Flex className={s.rightSection} direction={"column"}>
-          <BuyForm vcInfo={vcInfo}/>
+        <Flex className={s.rightSection} direction={'column'}>
+          <BuyForm vcInfo={vcInfo} />
           {/*<Welcome />*/}
           {/*<Playgame />*/}
           {!mobileScreen && <Activities />}

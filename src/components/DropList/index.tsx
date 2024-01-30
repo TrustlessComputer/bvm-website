@@ -1,16 +1,15 @@
-import { ReactElement } from 'react';
-import s from '@/layouts/Header/components/styles.module.scss';
+import { PropsWithChildren, ReactElement } from 'react';
+import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 
-type PropD = {
-  title: string, lists: {title: string, link: string}[]
+interface PropD extends PropsWithChildren{
+   lists: {title: string, link: string}[]
 };
-const DropDown = ({ title, lists }: PropD): ReactElement => {
+const DropDown = ({ children, lists }: PropD): ReactElement => {
 
   return <div className={s.dropMenu}>
     <span className={`${s.dropMenu_label} dropMenu_label`}>
-       {title}
-      <SvgInset svgUrl={`icons/ic-submenu.svg`} />
+       {children}
     </span>
     <ul className={s.dropMenu_list}>
       {

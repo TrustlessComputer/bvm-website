@@ -1,14 +1,14 @@
 .container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
   transition: all 0.3s;
   position: relative;
   padding: 4px;
-  padding-right: 14px !important;
   border: 1px solid #ffffff1a;
   background-color: #ffffff1a;
   cursor: pointer;
+  width: 100%;
 
   .icon {
     width: 40px;
@@ -100,21 +100,6 @@
     border-radius: 0;
   }
 
-  .learnMoreWrapper {
-    background: #ffffff;
-    padding: 6px 6px 6px 16px;
-    width: fit-content;
-    color: #000000;
-    margin-top: 20px;
-    font-size: 14px;
-    align-items: center;
-
-    &.isDisable {
-      opacity: 70%;
-      cursor: not-allowed;
-    }
-  }
-
   .yourRaffleCode {
     margin-top: 10px;
     font-size: 14px;
@@ -155,5 +140,26 @@
     .chakra-popover__body {
       padding: 0;
     }
+  }
+}
+.flexContainer {
+  gap: 10px;
+}
+
+.learnMoreWrapper {
+  background: #ffffff;
+  padding: 4px 6px 4px 16px;
+  width: fit-content;
+  color: #000000;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  gap: 8px;
+  width: 100%;
+
+  &.isDisable {
+    opacity: 70%;
+    cursor: not-allowed;
   }
 }

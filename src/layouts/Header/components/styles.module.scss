@@ -70,17 +70,22 @@
 
 
 .isStrong {
-  padding: 5px 12px;
+  padding: 4px 12px;
   border-radius: 100px;
-  background: #002D07;
+  background: #000000;
   display: flex;
   align-items: center;
 
-  * {
+  p {
     color: #FF6A00 !important;
     background: linear-gradient(90deg, #EE0979 0%, #FF6A00 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    font-weight: 500;
   }
+}
+
+.strongText {
+  color: yellow !important;
 }

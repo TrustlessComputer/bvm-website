@@ -35,12 +35,13 @@ const LeaderBoardVisual = (props: IProps) => {
   const refInterval = useRef<any>();
   const needCheckDeposit = useAppSelector(commonSelector).needCheckDeposit;
   const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
-  const {mobileScreen} = useWindowSize();
+  const { mobileScreen } = useWindowSize();
+  const TOTALs = 39;
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: 23,
+    limit: TOTALs,
   });
   const refInitial = useRef(false);
 
@@ -63,7 +64,7 @@ const LeaderBoardVisual = (props: IProps) => {
   useEffect(() => {
     fetchData(true);
 
-    if(refInterval.current) {
+    if (refInterval.current) {
       clearInterval(refInterval.current);
     }
 
@@ -74,7 +75,7 @@ const LeaderBoardVisual = (props: IProps) => {
     return () => {
       clearInterval(refInterval.current);
     };
-  }, [needReload, leaderBoardMode]);
+  }, [needReload, leaderBoardMode, mobileScreen]);
 
   const fetchData = async (isNew?: boolean) => {
     try {
@@ -87,9 +88,14 @@ const LeaderBoardVisual = (props: IProps) => {
 
       const fnLoadData = leaderBoardMode === LEADER_BOARD_MODE.DAY ? getPublicSaleTop : getPublicSaleLeaderBoards;
 
+      const getLimit = () => {
+        const limitMobile = mobileScreen ? (TOTALs - 1) : TOTALs;
+        return leaderBoardMode === LEADER_BOARD_MODE.DAY ? limitMobile : token ? (TOTALs - 1) : limitMobile;
+      };
+
       const { data: response, count } = await fnLoadData({
         ...refParams.current,
-        limit: leaderBoardMode === LEADER_BOARD_MODE.DAY ? 23 : token ? 22 : 23
+        limit: getLimit(),
       });
       if (isNew) {
         // const { data: response2 } = await fnLoadData({
@@ -143,18 +149,18 @@ const LeaderBoardVisual = (props: IProps) => {
   useEffect(() => {
 
     let refLevel = 0;
-    const levels = mobileScreen ? [1, 3, 4, 4, 5, 5, 1] : [1, 3, 5, 6, 8] ;
-    const missingLength = (mobileScreen ? 22 : 23) - list.length;
+    const levels = mobileScreen ? [1, 3, 4, 4, 5, 5, 5, 5, 5] : [1, 3, 5, 6, 8, 8, 8];
+    const missingLength = (mobileScreen ? (TOTALs - 1) : TOTALs) - list.length;
     const missingArray = Array.from({ length: missingLength }).map((u, i) => ({
       ranking: 1000,
       usdt_value: 0,
-      twitter_id: "",
-      twitter_username: "",
-      twitter_avatar: "/none-avatar.jpeg"
+      twitter_id: '',
+      twitter_username: '',
+      twitter_avatar: '/none-avatar.jpeg',
     })) as unknown as ILeaderBoardPoint[];
 
     let sortList = [...list].sort((a, b) => {
-      return a?.ranking - b?.ranking;
+      return Number(b?.usdt_value) - Number(a?.usdt_value);
     })
 
     const tmsss = sortList.concat(missingArray).map((el, index) => {
@@ -171,7 +177,7 @@ const LeaderBoardVisual = (props: IProps) => {
       return tmp;
     });
 
-    setListRender(tmsss.slice(0, 23));
+    setListRender(tmsss.slice(0, mobileScreen ? (TOTALs - 1) : TOTALs));
     setListMissingRender(missingArray);
   }, [list, mobileScreen]);
 
@@ -190,7 +196,8 @@ const LeaderBoardVisual = (props: IProps) => {
         {
           listRender.map((item, index) => {
             return <>
-              <AvatarItem data={item} idx={index} isShowName={index < 4} isYou={user?.twitter_id === item?.twitter_id} />
+              <AvatarItem data={item} idx={index} isShowName={index < 4}
+                          isYou={user?.twitter_id === item?.twitter_id} />
               {
                 item?.lastRender &&
                 <span className={`${styles.lastRender} ${styles[`lastRender__${item?.levelRender}`]}`}></span>

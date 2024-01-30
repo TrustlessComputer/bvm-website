@@ -23,8 +23,10 @@ const TopContent = () => {
         </Flex>
         <ul className={s.actions}>
           <li>
-            <a href={'#'} onClick={() => setOpen(true)}>What is BVM? <Image src={`/public-sale/mdi_play.svg`} width={10} height={10}
-                                                                              alt={'right'} /></a>
+            <a href={'#'} onClick={() => setOpen(true)}>
+              <Image src={`/public-sale/btn-play-3.png`} width={168} height={90}
+                     alt={'right'} />
+              What is BVM? </a>
             <ModalVideo
               channel="custom"
               url={'/public-sale/public_sale_video_2.mp4'}
@@ -34,8 +36,8 @@ const TopContent = () => {
               }}
             />
           </li>
-          <li>
-            <DropDown title={'Learn more'} lists={[
+          <li className={s.dropDownItem}>
+            <DropDown lists={[
               {
                 link: 'https://bvm.network/onepager.pdf',
                 title: 'Onepager',
@@ -48,11 +50,11 @@ const TopContent = () => {
                 link: WHITEPAPER_DOC_URL,
                 title: 'Whitepaper',
               },
-              {
-                link: 'https://github.com/trustlesscomputer/',
-                title: 'Github',
-              },
-            ]} />
+            ]}>
+              <Image src={`/public-sale/btn-pdf.png`} width={168} height={90}
+                     alt={'right'} />
+              <span className={s.text}>Learn more</span>
+            </DropDown>
           </li>
         </ul>
       </div>
