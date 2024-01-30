@@ -1,6 +1,6 @@
-import { Box, Button, Flex, Grid, GridItem, Text, Tooltip } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
-import React, { forwardRef, useEffect, useMemo, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import {
   getPublicSaleLeaderBoards,
@@ -15,7 +15,7 @@ import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import DepositModal from '@/modules/PublicSale/depositModal';
 import ContributorsModal from '@/modules/PublicSale/contributorModal';
 import AuthForBuy from '../AuthForBuy';
-import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
+import { MIN_DECIMAL } from '@/constants/constants';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import cx from 'classnames';
@@ -71,6 +71,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const token =
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
+  const refInterval = useRef<any>();
+
   const remainDay = useMemo(() => {
     return dayjs(PUBLIC_SALE_END).diff(dayjs(), 'day');
   }, []);
@@ -80,6 +82,18 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
     if (token) {
       getUserContributeInfo();
+    }
+
+    if(refInterval.current) {
+      clearInterval(refInterval.current);
+    }
+
+    refInterval.current = setInterval(() => {
+      getContributeInfo();
+    }, 20000);
+
+    return () => {
+      clearInterval(refInterval.current);
     }
   }, [token]);
 
