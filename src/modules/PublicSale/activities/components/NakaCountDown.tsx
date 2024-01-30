@@ -30,7 +30,8 @@ const NakaCountDown = React.memo(() => {
           <Text className={styles.item_title}>
             Top PNL
           </Text>
-          <Text className={styles.item_name} cursor="pointer" _hover={{ textDecoration: 'underline' }} onClick={() => {
+          <Text className={styles.item_name} cursor="pointer" _hover={{ textDecoration: bestPNL?.winner?.twitter_username ? 'underline' : 'unset' }} onClick={() => {
+            if (!bestPNL?.winner?.twitter_username) return;
             window.open(`https://twitter.com/${bestPNL?.winner?.twitter_username}`, '_blank');
           }}>
             {formatString(bestPNL?.winner?.twitter_name || bestPNL?.winner?.address , 6)} <span>+{formatCurrency(bestPNL?.winner?.realized_pnl || '0', 0, 5, 'TC', false)} BTC</span>

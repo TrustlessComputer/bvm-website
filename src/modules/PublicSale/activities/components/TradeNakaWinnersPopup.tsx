@@ -51,8 +51,9 @@ const TradeNakaWinnersPopup = ({ isShow, onHide }: IProps) => {
             <Flex
               alignItems="center"
               gap="12px"
-              cursor="pointer"
+              cursor={row.twitter_username ? "pointer" : "unset"}
               onClick={() => {
+                if (!row.twitter_username) return;
                 window.open(`https://twitter.com/${row.twitter_username}`)
               }}
               maxW="170px"
@@ -66,7 +67,7 @@ const TradeNakaWinnersPopup = ({ isShow, onHide }: IProps) => {
                 width={40}
                 name={row?.twitter_name || row?.twitter_username || row?.address || ''}
               />
-              <Text className={cs(styles.modalContent__userName)}>{formatName(row?.twitter_username || '-', 17)}</Text>
+              <Text className={cs(styles.modalContent__userName)}>{row?.twitter_username ? formatName(row?.twitter_username || '-', 17) : (row?.address || '').slice(0, 8)}</Text>
             </Flex>
           );
         },
@@ -110,7 +111,7 @@ const TradeNakaWinnersPopup = ({ isShow, onHide }: IProps) => {
         },
       },
       {
-        id: 'user',
+        id: 'reward',
         labelConfig,
         config,
         label: <Text>REWARD</Text>,
