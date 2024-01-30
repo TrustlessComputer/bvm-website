@@ -245,7 +245,7 @@ const StepsAirdrop = (props: IProps) => {
           title: '',
           desc: '',
         },
-        expiredTime: PUBLIC_SALE_START,
+        expiredTime: '2024-01-30 09:00:00',
         showExpireTime: false,
         airdropType: AirdropType.RETROSPECTIVE
       },

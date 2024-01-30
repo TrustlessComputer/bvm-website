@@ -3,7 +3,7 @@ import BoxContent from '@/layouts/BoxContent';
 
 const IntroVideos = () => {
   return (
-    <Flex bg="black" justifyContent="center">
+    <Flex bg="black" justifyContent="center" pt={{ base: "32px", lg: "80px" }}>
       <BoxContent>
         <Text fontSize={{ base: "24px", md: "44px" }} mb={{ base: "12px", md: "24px" }} textAlign="center" ml="auto" mr="auto">Bitcoin, reimagined.</Text>
         <Text fontSize={{ base: "16px", md: "22px" }} textAlign="center" maxWidth="620px" ml="auto" mr="auto">Our mission is to make Bitcoin as generalized as possible — usable for far more than just a currency. We want DeFi, Gaming, AI, DAOs, and NFTs all on Bitcoin.</Text>
