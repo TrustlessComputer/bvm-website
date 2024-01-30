@@ -4,7 +4,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
 import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import cs from 'classnames';
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { PropsWithChildren, useMemo, useState } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import DepositContent from '../depositModal/deposit.content';
 import s from './styles.module.scss';
@@ -14,6 +14,7 @@ interface IAuthForBuy extends PropsWithChildren {}
 const AuthForBuy: React.FC<IAuthForBuy> = () => {
   const user = useAppSelector(userSelector);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [hasStaked, setHasStaked] = useState(false);
 
   const isSigned = useMemo(() => {
     if (user?.guest_code || user?.twitter_id) {
@@ -27,6 +28,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
       <Flex className={s.btnWrapper}>
         <Button
           onClick={() => {
+            setHasStaked(false);
             onOpen();
           }}
           type="button"
@@ -34,6 +36,17 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
         >
           {/*<SvgInset svgUrl="/icons/ic_twitter.svg" />*/}
           Buy $BVM
+        </Button>
+        <Button
+          onClick={() => {
+            setHasStaked(true);
+            onOpen();
+          }}
+          type="button"
+          className={s.btnContainer}
+        >
+          {/*<SvgInset svgUrl="/icons/ic_twitter.svg" />*/}
+          Buy & Stake $BVM
         </Button>
       </Flex>
       <GoogleReCaptchaProvider
@@ -53,7 +66,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
           className={cs(s.modalContent, isSigned ? s.deposit : s.notSignModal)}
           // size={modalSize}
         >
-          <DepositContent />
+          <DepositContent hasStaked={hasStaked} />
 
           {/* {isSigned ? (
           <>

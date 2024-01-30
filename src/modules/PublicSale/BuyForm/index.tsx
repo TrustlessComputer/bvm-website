@@ -7,7 +7,11 @@ import {
   getPublicSaleSummary,
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
-import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
+import {
+  defaultSummary,
+  IPublicSaleDepositInfo,
+  VCInfo,
+} from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
@@ -98,7 +102,10 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
-    window.localStorage.setItem('LAST_TOTAL_USDT', res.total_usdt_value_not_boost || '0');
+    window.localStorage.setItem(
+      'LAST_TOTAL_USDT',
+      res.total_usdt_value_not_boost || '0',
+    );
     setContributeInfo(res);
   };
 
@@ -323,16 +330,15 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </div>
             </div>
             <div className={s.grid_item}>
-
-                <Countdown
-                  className={s.tValue}
-                  expiredTime={dayjs
-                    .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
-                    .toString()}
-                  hideIcon={true}
-                  isHideSecond={true}
-                  onRefreshEnd={() => setIsEnd(true)}
-                />
+              <Countdown
+                className={s.tValue}
+                expiredTime={dayjs
+                  .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
+                  .toString()}
+                hideIcon={true}
+                isHideSecond={true}
+                onRefreshEnd={() => setIsEnd(true)}
+              />
 
               {/*{remainDay === 0 ? (*/}
               {/*  <Countdown*/}
@@ -355,16 +361,16 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               {/*      {' '}*/}
               {/*      {remainDay}{' '}*/}
               {/*    </Text>{' '}*/}
-                  <Text
-                    fontSize={20}
-                    lineHeight={1}
-                    fontWeight={400}
-                    className={s.tLabel}
-                    color={'rgba(0,0,0,0.7)'}
-                  >
-                   End in
-                    {/*Day{remainDay !== 1 && 's'} to go*/}
-                  </Text>
+              <Text
+                fontSize={20}
+                lineHeight={1}
+                fontWeight={400}
+                className={s.tLabel}
+                color={'rgba(0,0,0,0.7)'}
+              >
+                End in
+                {/*Day{remainDay !== 1 && 's'} to go*/}
+              </Text>
               {/*  </div>*/}
               {/*)}*/}
             </div>
