@@ -78,6 +78,7 @@
     "svg-react-loader": "^0.4.6",
     "url-loader": "^4.1.1",
     "uuid": "^9.0.1",
+    "valtio": "^1.13.0",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
