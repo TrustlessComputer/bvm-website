@@ -2,9 +2,11 @@
 import common from '@/stores/states/common/reducer';
 import modal from '@/stores/states/modal/reducer';
 import user from '@/stores/states/user/reducer';
+import activities from '@/stores/states/activities/reducer';
 
 export default {
   common,
   modal,
   user,
+  activities
 };
