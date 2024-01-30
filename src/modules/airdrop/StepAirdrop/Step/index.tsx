@@ -285,7 +285,7 @@ export default function ItemCommunity({
             {content?.step === AirdropStep.gmHolders && (
               <>
                 {airdropGMHolders ? (
-                  <Flex direction="column" gap="8px">
+                  <Flex direction="column" gap="8px" mt="4px">
                     <Text color={'#000000'}>
                       Airdrop: {formatCurrency(airdropGMHolders?.balance)} $BVM
                       - Vesting at:{' '}
@@ -312,7 +312,7 @@ export default function ItemCommunity({
             {content?.step === AirdropStep.generativeUsers && (
               <>
                 {airdropGenerativeUsers ? (
-                  <Flex direction="column" gap="8px">
+                  <Flex direction="column" gap="8px" mt="4px">
                     <Text color={'#000000'}>
                       Airdrop: {formatCurrency(airdropGenerativeUsers?.balance)}{' '}
                       $BVM - Vesting at:{' '}
