@@ -25,6 +25,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ItemStep, { AirdropStep, AirdropType, IItemCommunity } from './Step';
 import s from './styles.module.scss';
+import { compareString } from '@/utils/string';
 
 export const getMessageEVM = (address: string) => {
   return `Verify you are the owner of the wallet ${address}`;
@@ -144,23 +145,23 @@ const StepsAirdrop = (props: IProps) => {
     try {
       const { address } = await signMessage(getMessageEVM);
 
-      const resGMHolders = await getBVMAirdrop({ address: address });
+      const resGMHolders = await getBVMAirdrop({
+        address: address,
+      });
+
       AirdropStorage.setIsConnectMetaMask(true);
-      AirdropStorage.setAirdropGMHolders(resGMHolders);
-
-      // if (
-      //   type === AirdropStep.generativeUsers ||
-      //   type === AirdropStep.perceptronsHolders
-      // ) {
-      //   const resp = await getGenerativeProfile(address);
-
-      //   if (resp && resp.data && resp.data?.walletAddressBtcTaproot) {
-      //     const resGenerativeUsers = await getBVMAirdrop({
-      //       address: resp.data?.walletAddressBtcTaproot,
-      //     });
-      //     AirdropStorage.setAirdropGenerativeUsers(resGenerativeUsers);
-      //   }
-      // }
+      if (compareString(type, AirdropStep.generativeUsers)) {
+        AirdropStorage.setAirdropGenerativeUsers(JSON.stringify(resGMHolders));
+      } else if (compareString(type, AirdropStep.perceptronsHolders)) {
+        AirdropStorage.setAirdropPerceptronsHolders(
+          JSON.stringify(resGMHolders),
+        );
+      } else {
+        AirdropStorage.setAirdropGMHolders(JSON.stringify(resGMHolders));
+      }
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.log('error', error);
     }
