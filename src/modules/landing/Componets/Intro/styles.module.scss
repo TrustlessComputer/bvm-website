@@ -1,5 +1,5 @@
 .intro {
-  height: 100vh;
+  height: 100svh;
   width: 100vw;
   position: fixed;
   top: 0;
@@ -99,9 +99,9 @@
   margin-left: auto;
   margin-right: auto;
   background: linear-gradient(
-      -90deg,
-      rgba(225, 225, 225, .07) 0,
-      rgba(225, 225, 225, 0) 100%
+                  -90deg,
+                  rgba(225, 225, 225, .07) 0,
+                  rgba(225, 225, 225, 0) 100%
   );
 
   transform: translateX(-20px);
@@ -167,9 +167,9 @@
     z-index: 2;
     pointer-events: none;
     background: linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 1) var(--bg),
-        rgba(171, 171, 171, 0) 100%
+                    90deg,
+                    rgba(0, 0, 0, 1) var(--bg),
+                    rgba(171, 171, 171, 0) 100%
     );
   }
 }

@@ -148,12 +148,14 @@
   }
 
   .button {
-    height: 48px !important;
+    height: 60px !important;
     border-radius: 0px !important;
     background: #fa4e0e !important;
     color: #fff !important;
     width: 331px !important;
     font-weight: normal !important;
+    font-size: 20px;
+    line-height: 1.3;
   }
 }
 
@@ -261,12 +263,21 @@
   }
 }
 
+.countDown_wrapper {
+  * {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    font-weight: 400 !important;
+  }
+}
+
 
 .hero_inner__desktop {
   display: none;
-  @include is-min-table{
+  @include is-min-table {
     display: block;
   }
+
   :global {
     .heroLabel_inner {
       border-top: 1px solid #FFFFFF26;

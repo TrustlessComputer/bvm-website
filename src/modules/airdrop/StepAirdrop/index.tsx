@@ -86,7 +86,7 @@ const StepsAirdrop = (props: IProps) => {
   };
 
   const handleTweetToClaim = (airdropStep: AirdropStep) => {
-    let content = `The retro airdrop 1 is now up for grabs!\n\nPatience pays off – it's been a journey with @NewBitcoinCity since 2023, and now we're reaping the rewards.\n\nExcited for more airdrops from the @BVMnetwork ecosystem!\n\nWelcome to the future of Bitcoin!\n\nbvm.network/public-sale`;
+    const content = `The retro airdrop 1 is now claimable!\n\nPatience pays off––it's been a journey with @NewBitcoinCity since 2023, and now we're reaping the rewards.\n\nExcited for more unmissable airdrops from the @BVMnetwork ecosystem?\n\nWelcome to the future of Bitcoin.\n\nbvm.network/public-sale`;
     switch (airdropStep) {
       case AirdropStep.generativeUsers:
         break;
