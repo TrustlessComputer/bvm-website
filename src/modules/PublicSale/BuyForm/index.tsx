@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Text,
-  Tooltip,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
@@ -15,11 +7,7 @@ import {
   getPublicSaleSummary,
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
-import {
-  IPublicSaleDepositInfo,
-  VCInfo,
-  defaultSummary,
-} from '@/interfaces/vc';
+import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
@@ -27,7 +15,7 @@ import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import DepositModal from '@/modules/PublicSale/depositModal';
 import ContributorsModal from '@/modules/PublicSale/contributorModal';
 import AuthForBuy from '../AuthForBuy';
-import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
+import { MIN_DECIMAL } from '@/constants/constants';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import cx from 'classnames';
@@ -293,7 +281,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           <Text className={s.fundValue}>
             <NumberScale
               label={'$'}
-              couters={Number(contributeInfo?.total_usdt_value)}
+              couters={Number(contributeInfo?.total_usdt_value_not_boost)}
               maximumFractionDigits={0}
               minimumFractionDigits={0}
               defaultFrom={cachedTotalUSD}

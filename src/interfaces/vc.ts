@@ -43,6 +43,7 @@ export interface IPublicSaleDepositInfo {
   total_usdt: string;
   total_usdc: string;
   total_usdt_value: string;
+  total_usdt_value_not_boost: string;
 }
 
 export const defaultSummary: IPublicSaleDepositInfo = {
