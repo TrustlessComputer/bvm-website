@@ -7,6 +7,7 @@ import React, { PropsWithChildren, useMemo, useState } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import DepositContent from '../depositModal/deposit.content';
 import s from './styles.module.scss';
+import cx from 'clsx';
 
 interface IAuthForBuy extends PropsWithChildren {}
 
@@ -52,7 +53,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
               onOpen();
             }}
             type="button"
-            className={s.btnContainer}
+            className={cx(s.btnContainer, s.btnBuyAndStake)}
           >
             {/*<SvgInset svgUrl="/icons/ic_twitter.svg" />*/}
             Buy & Stake $BVM
