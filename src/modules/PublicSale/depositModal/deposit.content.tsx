@@ -170,13 +170,13 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
     );
   }
 
-  if (isBanned) {
-    return (
-      <Center>
-        <Text>Not Available in Your Region</Text>
-      </Center>
-    );
-  }
+  // if (isBanned) {
+  //   return (
+  //     <Center>
+  //       <Text>Not Available in Your Region</Text>
+  //     </Center>
+  //   );
+  // }
 
   return (
     <Flex className={s.depositContent}>
