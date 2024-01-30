@@ -256,7 +256,7 @@ Good luck and have fun!
                   className={styles.itemWrapper_desc}
                   dangerouslySetInnerHTML={{ __html: item.desc }}
                 />
-                {currentDay.diffDay === expandIndex && expandIndex === index && (
+                {currentDay.diffDay === expandIndex && expandIndex === index && index === 1 && (
                   <NakaCountDown />
                 )}
                 <Flex alignItems="center" gap="8px">
