@@ -18,11 +18,11 @@
   }
 
   .title {
-    font-size: 44px;
-    line-height: 1;
+    font-size: 56px;
+    line-height: 100%;
     font-weight: 400;
     color: #FFFFFF;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
   }
 
   .desc {
@@ -43,20 +43,33 @@
     align-items: center;
     margin-top: 20px;
 
-    li > a {
-      display: flex;
-      align-items: center;
-      color: white;
-      gap: 6px;
+    li {
       font-size: 14px;
-      font-weight: 500;
-      line-height: 1.4;
+      line-height: 14px;
+      font-weight: 400;
 
-      img {
-        width: 16px;
-        height: 16px;
-        max-width: none;
-        max-height: none;
+      > a {
+        display: flex;
+        align-items: center;
+        color: white;
+        gap: 4px;
+        img {
+          width: 16px;
+          height: 16px;
+          max-width: none;
+          max-height: none;
+        }
+      }
+
+      > div {
+        span {
+          font-weight: inherit !important;
+        }
+
+        svg {
+          width: 16px !important;
+          height: 16px !important;
+        }
       }
     }
   }
