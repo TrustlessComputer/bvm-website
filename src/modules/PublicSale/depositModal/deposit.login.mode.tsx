@@ -10,16 +10,17 @@ import {
   generateTokenWithTwPost,
   requestAuthenByShareCode,
 } from '@/services/player-share';
-import { generateTokenWithOauth } from '@/services/public-sale';
+import { generateTokenWithOauth, getPublicSaleSummary } from '@/services/public-sale';
 import { setBearerToken } from '@/services/whitelist';
 import { requestReload } from '@/stores/states/common/reducer';
 import { userSelector } from '@/stores/states/user/selector';
 import { getUuid, getLink } from '@/utils/helpers';
 import { useDispatch } from 'react-redux';
+import { formatCurrency } from '@/utils/format';
 
 const DepositLoginMode = ({ onClose }: { onClose: any }) => {
   const user = useAppSelector(userSelector);
-  const token = AuthenStorage.getAuthenKey();
+  const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
   const [authenCode, setAuthenCode] = useState<IAuthenCode>();
   const timer = useRef<any>();
   const [submitting, setSubmitting] = useState(false);
@@ -119,11 +120,35 @@ const DepositLoginMode = ({ onClose }: { onClose: any }) => {
       code = `\n\n#${res?.public_code}`;
     }
 
-    const shareUrl = getLink(user?.referral_code || '');
-    const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
+    const shareUrl = !user?.referral_code ? 'bvm.network/public-sale' : getLink(user?.referral_code || '');
+
+    const saleSummary = await getPublicSaleSummary();
+    const content = `Welcome to the future of Bitcoin!\n\n@BVMnetwork is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain in a few clicks.\n\nJoin the ${formatCurrency(
+      saleSummary.total_user || '0',
+      0,
+      0,
+      'BTC',
+      false,
+    )} early contributors backing us with ${formatCurrency(
+      saleSummary.total_usdt_value || '0',
+      0,
+      0,
+      'BTC',
+      false,
+    )} to build the future of Bitcoin.${code}`;
     return `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
       content,
     )}`;
+    //
+    // if (token) {
+    //
+    // } else {
+    //   const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
+    //   return `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+    //     content,
+    //   )}`;
+    // }
+
   };
 
   const handleShareTw = async () => {

@@ -23,6 +23,7 @@ export interface User {
   num_post: string;
   boost: string;
   guest_code: string;
+  view_boost: string
 }
 
 export type EVMFieldType = "allowOptimism"

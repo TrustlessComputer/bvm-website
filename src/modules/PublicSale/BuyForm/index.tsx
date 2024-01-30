@@ -62,7 +62,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const [showQrCode, setShowQrCode] = useState(false);
   const [contributeInfo, setContributeInfo] = useState<IPublicSaleDepositInfo>({
     ...defaultSummary,
-    total_usdt_value: cachedTotalUSD,
+    total_usdt_value_not_boost: cachedTotalUSD,
   });
   const [isEnd, setIsEnd] = React.useState(
     dayjs
@@ -98,7 +98,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
-    window.localStorage.setItem('LAST_TOTAL_USDT', res.total_usdt_value || '0');
+    window.localStorage.setItem('LAST_TOTAL_USDT', res.total_usdt_value_not_boost || '0');
     setContributeInfo(res);
   };
 
@@ -108,7 +108,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       limit: 0,
     });
 
-    if(data[0]?.need_active) {
+    if (data[0]?.need_active) {
       setUserContributeInfo(data[0]);
     }
   };
@@ -286,6 +286,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               couters={Number(contributeInfo?.total_usdt_value_not_boost)}
               maximumFractionDigits={0}
               minimumFractionDigits={0}
+              defaultFrom={cachedTotalUSD}
             />
           </Text>
           <Box mt={'24px'} />
@@ -319,7 +320,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     couters={Number(contributeInfo?.total_user)}
                     maximumFractionDigits={0}
                     minimumFractionDigits={0}
-                    defaultFrom={cachedTotalUSD}
                   />
                 </Text>
 

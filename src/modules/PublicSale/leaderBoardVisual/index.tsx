@@ -14,6 +14,7 @@ import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
 import { useSelector } from 'react-redux';
 import { LEADER_BOARD_MODE } from '@/modules/PublicSale/leaderBoardSwitch';
 import { setAnimatedLatestContributors, setNeedCheckDeposit } from '@/stores/states/common/reducer';
+import AuthenStorage from '@/utils/storage/authen.storage';
 
 export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
@@ -32,6 +33,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const user = useAppSelector(userSelector);
   const refInterval = useRef<any>();
   const needCheckDeposit = useAppSelector(commonSelector).needCheckDeposit;
+  const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -85,6 +87,7 @@ const LeaderBoardVisual = (props: IProps) => {
 
       const { data: response, count } = await fnLoadData({
         ...refParams.current,
+        limit: leaderBoardMode === LEADER_BOARD_MODE.DAY ? 23 : token ? 22 : 23
       });
       if (isNew) {
         // const { data: response2 } = await fnLoadData({
@@ -147,7 +150,12 @@ const LeaderBoardVisual = (props: IProps) => {
       twitter_username: "",
       twitter_avatar: "/none-avatar.jpeg"
     })) as unknown as ILeaderBoardPoint[];
-    const tmsss = list.concat(missingArray).map((el, index) => {
+
+    let sortList = [...list].sort((a, b) => {
+      return a?.ranking - b?.ranking;
+    })
+
+    const tmsss = sortList.concat(missingArray).map((el, index) => {
       const tmp: ILeaderBoardPoint = { ...el, levelRender: refLevel, lastRender: false };
       tmp.levelRender = refLevel;
       if (levels[refLevel] > 0) {
@@ -161,9 +169,7 @@ const LeaderBoardVisual = (props: IProps) => {
       return tmp;
     });
 
-    setListRender(tmsss.slice(0, 23).sort((a, b) => {
-      return a?.ranking - b?.ranking;
-    }));
+    setListRender(tmsss.slice(0, 23));
     setListMissingRender(missingArray);
   }, [list]);
 
