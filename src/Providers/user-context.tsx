@@ -11,6 +11,7 @@ import userServices from '@/services/user';
 import ReferralStorage from '@/utils/storage/referral.storage';
 import { getCoinPrices } from '@/services/common';
 import { setCoinPrices } from '@/stores/states/common/reducer';
+import { redirect } from 'next/navigation';
 
 export interface IUserContext {}
 
@@ -53,6 +54,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     const code = getReferralByURL();
     if (code) {
       ReferralStorage.setReferralCode(code)
+      setTimeout(() => redirect('public-sale'))
     }
   }, []);
 
