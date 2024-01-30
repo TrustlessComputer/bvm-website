@@ -72,25 +72,16 @@
     }
   }
 
-  .raffleButton {
-    position: absolute;
-
+  .btnActions {
     :global {
       --top-spacing: 24px;
       --item-spacing: 12px;
     }
-
+    position: absolute;
+    flex-direction: column;
     top: var(--top-spacing);
     left: 24px;
-
-    &.rewardButton {
-      top: calc(var(--top-spacing) + var(--item-spacing) + 50px);
-    }
-
-    @include is-mobile {
-      left: 16px;
-      width: fit-content;
-    }
+    gap: 10px
   }
 
   .boardSwitch {
