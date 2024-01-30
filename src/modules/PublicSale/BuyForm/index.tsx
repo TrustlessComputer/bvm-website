@@ -98,7 +98,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
-    window.localStorage.setItem('LAST_TOTAL_USDT', res.total_usdt_value || '0');
+    window.localStorage.setItem('LAST_TOTAL_USDT', res.total_usdt_value_not_boost || '0');
     setContributeInfo(res);
   };
 
