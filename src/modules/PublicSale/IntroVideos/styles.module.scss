@@ -1,3 +1,11 @@
 .container {
 
 }
+
+.videos {
+  width: 920px;
+  aspect-ratio: 16 / 9;
+  @include is-mobile {
+    width: 90vw;
+  }
+}
