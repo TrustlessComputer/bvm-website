@@ -4,7 +4,7 @@ import { Box, HStack, Text } from '@chakra-ui/react';
 
 import Link from 'next/link';
 import { NAV_ITEMS, NAV_ITEMS_LEFT } from '../menuConfig';
-import { IcTW } from './IcTW';
+import s from './styles.module.scss'
 
 type Props = {
   primaryColor?: 'black' | 'white';
@@ -19,28 +19,8 @@ export const DesktopNavLeft = (props: Props) => {
           href={navItem.href ?? '#'}
           target={navItem.isNewWindow ? '_blank' : '_self'}
           color={props?.primaryColor || 'white'}
+          className={navItem.isStrong ? s.isStrong : ''}
         >
-          {navItem?.isTwitter ? (
-            <Box
-              m={0}
-              p={'10px'}
-              display={'flex'}
-              alignItems={'center'}
-              borderRadius={100}
-              bgColor={
-                props?.primaryColor === 'white' ? '#b2b1b158' : '#fefefec5'
-              }
-              justifyContent={'center'}
-              _hover={{
-                opacity: 0.7,
-              }}
-              onClick={() => {
-                window.open(navItem.href, '_blank');
-              }}
-            >
-              <IcTW fillColor={props?.primaryColor} />
-            </Box>
-          ) : (
             <Text
               textAlign={'center'}
               fontSize={['14px', '16px']}
@@ -51,7 +31,6 @@ export const DesktopNavLeft = (props: Props) => {
             >
               {navItem.label}
             </Text>
-          )}
         </Link>
       ))}
     </HStack>

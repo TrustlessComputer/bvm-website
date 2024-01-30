@@ -12,7 +12,7 @@ const DepositModal = ({ isShow, onHide, payAmountUsd }: any) => {
       className={s.modalContent}
       size="custom"
     >
-      <DepositContent amount_usd={payAmountUsd} onHide={onHide} />
+      <DepositContent amount_usd={payAmountUsd} />
     </BaseModal>
   );
 };
