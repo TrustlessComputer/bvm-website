@@ -41,7 +41,7 @@ const nextConfig = {
   },
 
   async redirects() {
-    return [
+    const redirects = [
       {
         source: '/trustless-computers',
         destination: '/blockchains/computers',
@@ -61,8 +61,17 @@ const nextConfig = {
         source: '/blockchains/buy',
         destination: '/blockchains/customize',
         permanent: false,
-      },
-    ];
+      }
+    ]
+    //
+    // if (isPublicSale) {
+    //   redirects.push({
+    //     source: '/allowlist',
+    //     destination: '/public-sale',
+    //     permanent: false,
+    //   })
+    // }
+    return redirects;
   },
 
   async rewrites() {

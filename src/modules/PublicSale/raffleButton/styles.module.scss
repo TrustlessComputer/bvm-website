@@ -1,0 +1,141 @@
+.container {
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+  position: relative;
+  padding: 4px;
+  padding-right: 14px !important;
+  border: 1px solid #FFFFFF1A;
+  background-color: #FFFFFF1A;
+  cursor: pointer;
+
+  .icon {
+    width: 40px;
+    height: 40px;
+    background: url("/public-sale/rbtn.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    align-items: flex-end;
+  }
+
+  .text_text {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .timeWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+  }
+
+  .time {
+    //margin-top: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+
+    p {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      white-space: pre;
+    }
+
+    @include is-mobile {
+      font-size: 14px;
+    }
+  }
+}
+
+.menuContent {
+  border: 1px solid #FFFFFF26;
+  padding: 20px;
+  background: linear-gradient(180deg, #282828 0%, #131313 146.93%),
+  linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) !important;
+  min-width: 600px;
+  border-radius: 0 !important;
+
+  &:focus-visible {
+    box-shadow: none !important;
+  }
+
+  @include is-mobile {
+    min-width: 95vw;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffffff;
+  }
+
+  .desc {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 8px;
+  }
+
+  .learnMoreWrapper {
+    background: #FFFFFF;
+    padding: 6px 6px 6px 16px;
+    width: fit-content;
+    color: #000000;
+    margin-top: 20px;
+    font-size: 14px;
+    align-items: center;
+
+    &.isDisable {
+      opacity: 70%;
+      cursor: not-allowed;
+    }
+  }
+
+  .yourRaffleCode {
+    margin-top: 10px;
+    font-size: 14px;
+
+    > div {
+      padding: 8px 16px;
+
+      &:first-child {
+        color: #ffffff;
+        background: #FFFFFF12;
+      }
+
+      &:last-child {
+        color: #000000;
+        background: #FFFFFF;
+      }
+    }
+  }
+
+  .raffleBg {
+    background: url("/public-sale/raffle_frame.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 8px;
+
+    > img {
+      min-width: 140px;
+      min-height: 140px;
+      max-width: 140px;
+      max-height: 140px;
+    }
+  }
+
+  :global {
+    .chakra-popover__body {
+      padding: 0;
+    }
+  }
+}

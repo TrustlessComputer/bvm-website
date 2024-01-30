@@ -1,5 +1,9 @@
 import { SignatureStatus } from '@/interfaces/whitelist';
 import { EVMFieldType } from '@/stores/states/user/types';
+import { PUBLIC_SALE_START } from '@/modules/Whitelist/index';
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+dayjs.extend(utc);
 
 const checkIsAllowState = (status: SignatureStatus[]) => {
   return {
@@ -26,8 +30,15 @@ const getSymbolByFieldType = (type: EVMFieldType) => {
   }
 }
 
+const checkIsPublicSale = () => {
+  return dayjs
+    .utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss')
+    .isBefore(dayjs().utc().format());
+}
+
 export {
   checkIsAllowState,
   getEVMNetworkByFieldType,
-  getSymbolByFieldType
+  getSymbolByFieldType,
+  checkIsPublicSale
 }

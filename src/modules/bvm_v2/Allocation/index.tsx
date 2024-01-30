@@ -1,8 +1,9 @@
 import React from 'react';
 import s from './Allocation.module.scss';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import Vesting from '@/modules/bvm_v2/Vesting';
+import BoxContent from '@/layouts/BoxContent';
 
-type Props = {};
 
 const ALLOCATION_DATA = [
   { title: 'Team (20%)', desc: 'For core team and  project copntributors' },
@@ -14,7 +15,7 @@ const ALLOCATION_DATA = [
   },
 ];
 
-const Allocation = (props: Props) => {
+const Allocation = () => {
   return (
     <Box
       className={s.wrapper}
@@ -23,47 +24,42 @@ const Allocation = (props: Props) => {
     >
       <Box
         bgColor={'#007659'}
-        w="100vw"
+        w='100%'
         position={'absolute'}
         top={0}
         left={'calc(-50vw + 50%)'}
-        h="100%"
+        h='100%'
         zIndex={0}
-      ></Box>
+      />
       <Box zIndex={1} position={'relative'}>
         <Text as="h4" className={s.heading}>
-          BVM Allocation
+          BVM Tokenomics
         </Text>
         <Text className={s.desc}>
           The total supply of BVM is permanently fixed at 100M tokens.
         </Text>
-        <Box className={s.mobile} display={{ base: 'block', sm: 'none' }}>
-          <Image
-            src={'/images/chart-pie.png'}
-            alt={'Allocation chart'}
-            maxW={'100%'}
-            mx="auto"
-          ></Image>
-          <Flex flexDir={'column'} gap="24px" alignItems={'center'}>
-            {ALLOCATION_DATA.map((item, index) => (
-              <Box key={index}>
-                <Text fontSize={'18px'} lineHeight={'110%'} mb="8px">
-                  {item.title}
-                </Text>
-                <Text fontSize={'14px'} lineHeight={'20px'}>
-                  {item.desc}
-                </Text>
-              </Box>
-            ))}
-          </Flex>
-        </Box>
-        <Image
-          src={'/images/allocation-chart.png'}
-          alt={'Allocation chart'}
-          maxW={{ base: '100%', md: '70%' }}
-          mx="auto"
-          display={{ base: 'none', sm: 'block' }}
-        ></Image>
+        <Flex w="100%" flex={1} justifyContent="center">
+          <BoxContent>
+            <Flex
+              w="100%"
+              flexDir={{ base: "column", lg: "row" }}
+              gap={{ base: "32px", lg: "200px" }}
+              mt={{ base: "16px", lg: "60px" }}
+            >
+              <Flex flex={1}>
+                <Image
+                  src={'/images/pie-chart-6.png'}
+                  alt={'Allocation chart'}
+                  flex={1}
+                  mx="auto"
+                />
+              </Flex>
+              <Flex flex={1}>
+                <Vesting />
+              </Flex>
+            </Flex>
+          </BoxContent>
+        </Flex>
       </Box>
     </Box>
   );

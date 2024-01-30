@@ -1,0 +1,54 @@
+.container {
+
+  width: 100%;
+
+  .content {
+    max-width: 826px;
+    margin: 0 auto;
+    padding: 0 24px;
+
+    &_inner{
+      border-top: 1px solid #FFFFFF16;
+      padding-top: 60px;
+    }
+
+    @include is-mobile {
+      padding: 0 16px;
+
+      &_inner{
+        padding-top: 20px;
+      }
+    }
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #ffffff;
+  }
+
+  .desc {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 8px;
+  }
+
+  .learnMoreWrapper {
+    background: #FFFFFF1A;
+    padding: 4px 4px 4px 12px;
+    width: fit-content;
+    color: #FFFFFF;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    align-items: center;
+    transition: background-color .3s ease-out, color .3s ease-out;
+
+    &:hover{
+      background: #FFFFFF;
+      color: black;
+
+    }
+  }
+}

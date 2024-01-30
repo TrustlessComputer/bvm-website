@@ -2,13 +2,12 @@ import Avatar from '@/components/Avatar';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
-import { getTopLeaderBoards } from '@/services/whitelist';
-import { formatCurrency, formatName } from '@/utils/format';
+import { formatCurrency } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
-import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
+import { Avatar as AvatarImg, Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import styles from './styles.module.scss';
+import s from './styles.module.scss';
 import clsx from 'classnames';
 import AppLoading from '@/components/AppLoading';
 import { CDN_URL_ICONS } from '@/config';
@@ -16,12 +15,13 @@ import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import BigNumber from 'bignumber.js';
+import { publicSaleLeaderBoardSelector, userSelector } from '@/stores/states/user/selector';
+import { clearPublicSaleLeaderBoard, setPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
+import { getPublicSaleLeaderBoards } from '@/services/public-sale';
+import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 import SvgInset from '@/components/SvgInset';
-import { leaderBoardSelector, userSelector } from '@/stores/states/user/selector';
-import { setLeaderBoard } from '@/stores/states/user/reducer';
-import copy from 'copy-to-clipboard';
-import { shareReferralURL } from '@/utils/helpers';
+import ContributorDetailInfo from '@/modules/PublicSale/components/contributorDetailInfo';
+import { tokenIcons } from '@/modules/PublicSale/depositModal/constants';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -38,10 +38,14 @@ const valueToImage: any = {
 export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
 interface IProps {
+  userName?: string;
+  isSearch?: boolean;
+  setSubmitting?: any;
 }
 
 const LeaderBoard = (props: IProps) => {
-  const { list } = useAppSelector(leaderBoardSelector);
+  const { userName, isSearch, setSubmitting } = props;
+  const { list } = useAppSelector(publicSaleLeaderBoardSelector);
   const [isFetching, setIsFetching] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const needReload = useAppSelector(commonSelector).needReload;
@@ -51,17 +55,28 @@ const LeaderBoard = (props: IProps) => {
   const refParams = useRef({
     page: 1,
     limit: 50,
+    search: ''
   });
+
+  useEffect(() => {
+    refParams.current = {
+      ...refParams.current,
+      search: userName || '',
+    };
+  }, [userName]);
+
   const refInitial = useRef(false);
 
   useEffect(() => {
     fetchData(true);
   }, [needReload]);
 
-  const removeOwnerRecord = (arr: ILeaderBoardPoint[] = []) => {
-    // return remove(arr, v => !compareString(v.address, 'TESTTTTT'));
-    return arr;
-  };
+  useEffect(() => {
+    if(isSearch) {
+      dispatch(clearPublicSaleLeaderBoard());
+      fetchData(true);
+    }
+  }, [isSearch]);
 
   const fetchData = async (isNew?: boolean) => {
     try {
@@ -71,11 +86,11 @@ const LeaderBoard = (props: IProps) => {
           (item: ILeaderBoardPoint) => item.twitter_id,
         );
       };
-      const { data: response, count } = await getTopLeaderBoards({
+      const { data: response, count } = await getPublicSaleLeaderBoards({
         ...refParams.current,
       });
       if (isNew) {
-        const { data: response2 } = await getTopLeaderBoards({
+        const { data: response2 } = await getPublicSaleLeaderBoards({
           page: 1,
           limit: 0,
         });
@@ -83,19 +98,20 @@ const LeaderBoard = (props: IProps) => {
           ...refParams.current,
           page: 1,
         };
-        const reArr = removeOwnerRecord(response);
-        const arr = sortList(response2.concat(reArr));
+        const arr = sortList((userName ? [] : response2).concat(response));
+
         dispatch(
-          setLeaderBoard({
+          setPublicSaleLeaderBoard({
             list: arr,
             count,
           }),
         );
+
+        setSubmitting && setSubmitting(false);
       } else {
-        const reArr = removeOwnerRecord(response);
-        const arr = sortList([...reArr]);
+        const arr = sortList([...response]);
         dispatch(
-          setLeaderBoard({
+          setPublicSaleLeaderBoard({
             list: arr,
             count,
           }),
@@ -129,20 +145,9 @@ const LeaderBoard = (props: IProps) => {
   };
 
   const user = useAppSelector(userSelector);
-  const handleShareRefferal = () => {
-    if (!user?.referral_code) return;
-    copy(shareReferralURL(user?.referral_code || ''));
-    const element = document.getElementById('copy-button');
-    if (element) {
-      element.textContent = 'COPIED';
-      setTimeout(() => {
-        element.textContent = 'GET';
-      }, 2000)
-    }
-  }
 
   const labelConfig = {
-    color: 'rgba(1, 1, 0, 0.7)',
+    color: 'rgba(255, 255, 255, 0.7)',
     fontSize: '11px',
     letterSpacing: '-0.5px',
     borderBottom: '1px solid #FFFFFF33',
@@ -161,7 +166,7 @@ const LeaderBoard = (props: IProps) => {
           fontWeight: 500,
           verticalAlign: 'middle',
           letterSpacing: '-0.5px',
-          color: 'black !important',
+          color: 'white !important',
         },
         render(data: ILeaderBoardPoint) {
           return (
@@ -211,62 +216,11 @@ const LeaderBoard = (props: IProps) => {
                   name={data?.twitter_name || data?.twitter_username || ''}
                 />
                 <Flex width={'100%'} gap={'4px'} direction={'column'}>
-                  <p className={styles.title}>{data?.twitter_name || ''}</p>
+                  <p className={s.title}>{data?.twitter_name || ''}</p>
                   {data?.need_active && (
-                    <Text className={styles.subTitle}>YOU</Text>
+                    <Text className={s.subTitle}>YOU</Text>
                   )}
                 </Flex>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'boost',
-        labelConfig,
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'center',
-              width: '100%',
-              textTransform: 'uppercase',
-            }}
-          >
-            BOOST
-          </Flex>
-        ),
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return (
-            <Flex justifyContent="center" alignItems="center">
-              <Flex
-                flexDirection="row"
-                gap="4px"
-                alignItems="center"
-                className={clsx(styles.tagBoost)}
-              >
-                <img
-                  style={{ width: 20 }}
-                  src={`${CDN_URL_ICONS}/${
-                    valueToImage?.[data?.boost] || 'flash_normal.svg'
-                  }`}
-                />
-                <Text
-                  className={cs(
-                    styles.title,
-                    styles.multiplier,
-                    styles[valueToClassName[`${data?.boost}`]],
-                    data.need_active && styles.isActiveRow,
-                  )}
-                >
-                  {data?.boost || 0}%
-                </Text>
               </Flex>
             </Flex>
           );
@@ -277,7 +231,7 @@ const LeaderBoard = (props: IProps) => {
         label: (
           <Flex
             style={{
-              justifyContent: 'center',
+              // justifyContent: 'center',
               alignSelf: 'center',
               width: '100%',
               textTransform: 'uppercase',
@@ -296,22 +250,32 @@ const LeaderBoard = (props: IProps) => {
         },
         render(data: ILeaderBoardPoint) {
           return (
-            <Flex
-              gap={3}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'center'}
+            <Tooltip
+              minW="360px"
+              bg="white"
+              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+              borderRadius="4px"
+              padding="0px"
+              hasArrow
+              label={<ContributorDetailInfo data={data} />}
             >
-              <Flex alignItems={'center'} gap={2}>
-                <Text className={styles.title}>
-                  {formatCurrency(
-                    new BigNumber(data?.point || '0').toNumber(),
-                    0,
-                    0,
-                  )}
-                </Text>
+              <Flex
+                gap={3}
+                alignItems={'center'}
+                width={'100%'}
+                // justifyContent={'center'}
+              >
+                <Flex gap={2} alignItems={"center"}>
+                  <Text className={s.title}>
+                    ${formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
+                  </Text>
+                  <svg width="1" height="16" viewBox="0 0 1 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="0.5" y1="16" x2="0.499999" y2="2.18557e-08" stroke="#ECECEC"/>
+                  </svg>
+                  <AvatarImg width={'18px'} height={'18px'} src={tokenIcons[(data?.coin_balances || [])[0]?.symbol.toLowerCase()]} />
+                </Flex>
               </Flex>
-            </Flex>
+            </Tooltip>
           );
         },
       },
@@ -320,7 +284,7 @@ const LeaderBoard = (props: IProps) => {
         label: (
           <Flex
             style={{
-              justifyContent: 'center',
+              justifyContent: 'flex-end',
               alignSelf: 'center',
               width: '100%',
               textTransform: 'uppercase',
@@ -328,26 +292,6 @@ const LeaderBoard = (props: IProps) => {
             gap="3px"
           >
             <p style={{ textTransform: 'uppercase' }}>ALLOCATION</p>
-            <Tooltip
-              minW="220px"
-              bg="white"
-              boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-              borderRadius="4px"
-              padding="8px"
-              label={
-                <Flex direction="column" color="black" opacity={0.7}>
-                  <p>
-                    Referral points are calculated based on the total number of
-                    friends you refer to the allowlist.
-                  </p>
-                </Flex>
-              }
-            >
-              <img
-                className={styles.tooltipIcon}
-                src={`${CDN_URL_ICONS}/info-circle.svg`}
-              />
-            </Tooltip>
           </Flex>
         ),
         labelConfig,
@@ -364,15 +308,62 @@ const LeaderBoard = (props: IProps) => {
               gap={3}
               alignItems={'center'}
               width={'100%'}
-              justifyContent={'center'}
+              justifyContent={'flex-end'}
             >
               <Flex alignItems={'center'} gap={2}>
-                <Text className={styles.title}>
-                  {formatCurrency(data?.refer_point, 0, 0)}
+                <Text className={s.bvm_amount}>
+                  {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MIN_DECIMAL)} BVM
                 </Text>
-                {data.need_active && !Number(data?.refer_point || '0') && (
-                  <button id="copy-button" onClick={handleShareRefferal} className={styles.button}>GET</button>
-                )}
+                <Text className={s.bvm_percent}>({formatCurrency(Number(data?.bvm_percent) * 100, MIN_DECIMAL, MIN_DECIMAL)}%)</Text>
+              </Flex>
+            </Flex>
+          );
+        },
+      },
+      {
+        id: 'boost',
+        labelConfig,
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'flex-start',
+              width: '100%',
+              textTransform: 'uppercase',
+            }}
+          >
+            BOOST
+          </Flex>
+        ),
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return data?.need_active && (
+            <Flex justifyContent="flex-start" alignItems="center">
+              <Flex
+                flexDirection="row"
+                gap="4px"
+                alignItems="center"
+                className={clsx(s.tagBoost, (Number(data?.view_boost) || 0) <= 10 ? s.boostNormal : '')}
+              >
+                <SvgInset svgUrl={`${CDN_URL_ICONS}/${
+                  valueToImage?.[data?.view_boost] || 'flash_normal.svg'
+                }`}
+                />
+                <Text
+                  className={cs(
+                    s.title,
+                    s.multiplier,
+                    s[valueToClassName[`${data?.view_boost}`]],
+                    data.need_active && s.isActiveRow,
+                  )}
+                >
+                  {data?.view_boost || 0}%
+                </Text>
               </Flex>
             </Flex>
           );
@@ -381,49 +372,8 @@ const LeaderBoard = (props: IProps) => {
     ];
   }, [user?.referral_code]);
 
-  // const remainingTime = () => {
-  //   const now = dayjs();
-
-  //   const tomorrow = dayjs()
-  //     .add(1, 'days')
-  //     .set('hour', 7)
-  //     .set('minute', 0)
-  //     .set('second', 0);
-
-  //   const millisecondsRemaining = tomorrow.valueOf() - now.valueOf();
-
-  //   return millisecondsRemaining;
-  // };
-
-  // const renderer = ({ hours, minutes, seconds, completed }: any) => {
-  //   if (completed) {
-  //     // Render a completed state
-  //     return <></>;
-  //   } else {
-  //     // Render a countdown
-  //     return (
-  //       <span>
-  //         {hours}h : {minutes}m : {seconds}s
-  //       </span>
-  //     );
-  //   }
-  // };
-
-  const renderTimeLine = (params: { content: React.ReactNode }) => {
-    return (
-      <Flex gap="6px" alignItems="center" width="fit-content">
-        <img
-          style={{ width: 4, height: 4 }}
-          src={`${CDN_URL_ICONS}/ic-dot.svg`}
-          alt="ic-dot"
-        />
-        {params.content}
-      </Flex>
-    );
-  };
-
   return (
-    <Box className={styles.container} height="85dvh" id={LEADER_BOARD_ID}>
+    <Box className={s.container} height="65dvh" id={LEADER_BOARD_ID}>
       <ScrollWrapper
         onFetch={() => {
           refParams.current = {
@@ -436,15 +386,15 @@ const LeaderBoard = (props: IProps) => {
         isFetching={refreshing}
         hasIncrementedPageRef={hasIncrementedPageRef}
         onFetchNewData={onRefresh}
-        wrapClassName={styles.wrapScroll}
+        wrapClassName={s.wrapScroll}
         hideScrollBar={false}
       >
         <ListTable
           data={list}
           columns={columns}
-          className={styles.tableContainer}
+          className={s.tableContainer}
         />
-        {isFetching && <AppLoading className={styles.loading} />}
+        {isFetching && <AppLoading className={s.loading} />}
       </ScrollWrapper>
     </Box>
   );

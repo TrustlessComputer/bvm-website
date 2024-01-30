@@ -8,12 +8,18 @@ const initialState: UserState = {
   leaderBoardCount: '',
   allowBTC: {
     status: [],
-    loaded: false
+    loaded: false,
   },
   allowCelestia: {
     status: [],
-    loaded: false
+    loaded: false,
   },
+  publicSaleLeaderBoard: [],
+  publicSaleLeaderBoardVisual: [],
+  airdropAlphaUsers: null,
+  airdropGMHolders: null,
+  airdropGenerativeUsers: null,
+  airdropPerceptronsHolders: null,
 } as any;
 
 const slice = createSlice({
@@ -21,10 +27,16 @@ const slice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.user = {
+        ...state.user,
+        ...action.payload,
+      } as any;
     },
     setLeaderBoard: (state, action) => {
-      state.leaderBoard = uniqueBy([...state.leaderBoard, ...action.payload.list], item => item.twitter_id);
+      state.leaderBoard = uniqueBy(
+        [...state.leaderBoard, ...action.payload.list],
+        (item) => item.twitter_id,
+      );
       state.leaderBoardCount = action.payload.count;
     },
     setAllowBTC: (state, action) => {
@@ -48,6 +60,39 @@ const slice = createSlice({
         };
       }
     },
+    setAirdropAlphaUsers: (state, action) => {
+      state.airdropAlphaUsers = action.payload;
+    },
+    setAirdropGMHolders: (state, action) => {
+      state.airdropGMHolders = action.payload;
+    },
+    setAirdropGenerativeUsers: (state, action) => {
+      state.airdropGenerativeUsers = action.payload;
+    },
+    setAirdropPerceptronsHolders: (state, action) => {
+      state.airdropPerceptronsHolders = action.payload;
+    },
+    setPublicSaleLeaderBoard: (state, action) => {
+      state.publicSaleLeaderBoard = uniqueBy(
+        [...state.publicSaleLeaderBoard, ...action.payload.list],
+        (item) => item.twitter_id,
+      );
+    },
+    clearPublicSaleLeaderBoard: (state) => {
+      state.publicSaleLeaderBoard = [];
+    },
+    setPublicSaleLeaderBoardVisual: (state, action) => {
+      state.publicSaleLeaderBoardVisual = uniqueBy(
+        [...action.payload.list],
+        (item) => item.twitter_id,
+      );
+    },
+    setGuestSecretCode: (state, action) => {
+      state.user = {
+        ...state.user,
+        guest_code: action.payload,
+      } as any;
+    },
   },
 });
 
@@ -56,7 +101,15 @@ export const {
   setLeaderBoard,
   setAllowBTC,
   setAllowCelestia,
-  setAllowEVM
+  setAllowEVM,
+  setAirdropAlphaUsers,
+  setAirdropGMHolders,
+  setAirdropGenerativeUsers,
+  setAirdropPerceptronsHolders,
+  setPublicSaleLeaderBoard,
+  clearPublicSaleLeaderBoard,
+  setPublicSaleLeaderBoardVisual,
+  setGuestSecretCode,
 } = slice.actions;
 
 export default slice.reducer;

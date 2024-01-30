@@ -13,14 +13,14 @@
 
 .modalHeader {
   border: none;
-  padding: 0 !important;
-  padding-bottom: rem(24) !important;
-  padding-left: rem(24) !important;
+  padding-top: 0;
+  padding-bottom: rem(24);
+  padding-left: rem(24);
 
   &_title {
-    font-weight: 700;
+    font-weight: 500;
     color: black;
-    margin-top: rem(18) !important;
+    //margin-top: rem(18) !important;
     line-height: 140%;
   }
 
@@ -34,21 +34,24 @@
   }
 
   &_closeBtn {
-    padding: rem(20px) !important;
+    padding: 20px !important;
     background-color: transparent !important;
     position: absolute;
     right: 0;
     top: 0;
+    &:focus-visible {
+      outline: none;
+    }
 
     &:hover {
       .closeIcon {
-        transform: rotate(90deg);
+        transform: scale(1.2);
         transition: all 0.3s;
 
-        :global(svg path) {
-          fill: black;
-          fill-opacity: 1;
-        }
+        //:global(svg path) {
+        //  fill: black;
+        //  fill-opacity: 1;
+        //}
       }
     }
   }

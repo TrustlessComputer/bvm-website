@@ -5,10 +5,10 @@ import { formatCurrency } from '@/utils/format';
 import BigNumber from 'bignumber.js';
 
 export const getUuid = (): string => {
-  let uuidText = localStorage.get(UUID) as string;
+  let uuidText = window.localStorage.getItem(UUID) as string;
   if (!uuidText) {
     uuidText = uuidv4();
-    localStorage.set(UUID, uuidText);
+    window.localStorage.setItem(UUID, uuidText);
   }
   return uuidText;
 };
@@ -22,7 +22,7 @@ export const getLink = (referralCode?: string) => {
   // return `${window.location.origin}${referral}`;
 };
 
-const REFERRAL_TEXT = 'refer'
+const REFERRAL_TEXT = 'refer';
 
 export const shareReferralURL = (code: string) => {
   if (APP_ENV === 'production') {
@@ -33,13 +33,13 @@ export const shareReferralURL = (code: string) => {
 
 export const getReferralByURL = () => {
   const params = new URLSearchParams(window.location?.search || '');
-  return params.get(REFERRAL_TEXT)
+  return params.get(REFERRAL_TEXT);
 };
 
 export const shareTwitterSignature = (params: {
-  fee: string | number,
-  txsCount: string | number,
-  point: string | number,
+  fee: string | number;
+  txsCount: string | number;
+  point: string | number;
 }) => {
   const shareUrl = getLink('');
   let content = '';
@@ -54,30 +54,31 @@ export const shareTwitterSignature = (params: {
       )}`,
       '_blank',
     );
-  }, 200)
-}
+  }, 200);
+};
 
 export const shareBTCOG = (params: {
-  fee: string | number,
-  feeUSD: string | number,
-  refCode: string,
+  fee: string | number;
+  feeUSD: string | number;
+  refCode: string;
 }) => {
   const shareUrl = getLink(params.refCode);
-  const amount = new BigNumber(params.fee).gte(0.0001) ?
-    new BigNumber(params.fee).toFixed(4, BigNumber.ROUND_FLOOR) :
-    new BigNumber(params.fee).toFixed();
-  const content = `I ♥️ Bitcoin\n\nI’ve spent ${amount} BTC on transaction fees. Right now, that’s $${formatCurrency(new BigNumber(params.feeUSD || 1).toNumber() || 1, 0, 2)}.\n\nAnd I can’t wait for $BVM to launch.\n\n@BVMnetwork is going to be the future of Bitcoin. I’m going to be doing so much more with my BTC.\n\n${shareUrl}`;
+  const amount = new BigNumber(params.fee).gte(0.0001)
+    ? new BigNumber(params.fee).toFixed(4, BigNumber.ROUND_FLOOR)
+    : new BigNumber(params.fee).toFixed();
+  const content = `I ♥️ Bitcoin\n\nI’ve spent ${amount} BTC on transaction fees. Right now, that’s $${formatCurrency(
+    new BigNumber(params.feeUSD || 1).toNumber() || 1,
+    0,
+    2,
+  )}.\n\nAnd I can’t wait for $BVM to launch.\n\n@BVMnetwork is going to be the future of Bitcoin. I’m going to be doing so much more with my BTC.\n\n${shareUrl}`;
 
   setTimeout(() => {
     window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-        content,
-      )}`,
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
       '_blank',
     );
-  }, 200)
-}
-
+  }, 200);
+};
 
 export const getReferralSearchURL = (referralCode?: string) => {
   let game_url = '';

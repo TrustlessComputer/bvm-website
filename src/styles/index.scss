@@ -1,8 +1,10 @@
 // @import "./reset";
 // @import './font';
+//@import './font-hue';
 @import './mixins';
 @import './variables';
 @import './global';
 @import './root';
 @import './modal';
 @import '~slick-carousel/slick/slick.css';
+@import 'node_modules/react-modal-video/scss/modal-video.scss';

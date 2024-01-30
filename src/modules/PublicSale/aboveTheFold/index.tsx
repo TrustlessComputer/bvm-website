@@ -1,16 +1,16 @@
 import s from './styles.module.scss';
-import { Box, Button, Flex, SimpleGrid, Text, useSteps } from '@chakra-ui/react';
+import { Flex, SimpleGrid } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import Lines from '@/interactive/Lines';
-import Fade from '@/interactive/Fade';
 import useAnimationStore from '@/stores/useAnimationStore';
 import BuyForm from '@/modules/PublicSale/BuyForm';
-import HeadingTextTyping from '@/modules/landing/Componets/HeadingTextTyping';
 import LocalStorageUtil from '@/utils/localstorage';
 import { KEY_VC_TYPE } from '@/constants/storage-key';
 import { getVCInformation } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
-import LeaderBoard from '@/modules/PublicSale/leaderBoard';
+import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
+import RaffleButton from '@/modules/PublicSale/raffleButton';
+import Activities from '@/modules/PublicSale/activities';
+import LeaderBoardSwitch from '@/modules/PublicSale/leaderBoardSwitch';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -33,15 +33,19 @@ const AboveTheFold = () => {
   }
 
   return (
-    <Flex direction={"column"} justifyContent={"space-between"} className={s.container} bgImg={`/private-sale/bg.webp`}>
-      <SimpleGrid className={`container ${s.content}`} gridTemplateColumns={["1fr", "1.25fr 1fr"]} gap={[6, 0]}>
-        <Flex className={s.leftSection} direction={"column"} gap={[6, 6]} justifyContent={"flex-start"}>
-          <LeaderBoard />
+    <Flex direction={"column"} justifyContent={"space-between"} className={s.container}>
+      <SimpleGrid className={`${s.content}`} gridTemplateColumns={{ lg: "1fr", xl: "6.5fr 3.5fr" }} gap={[0, '20px']}>
+        <Flex className={s.leftSection} direction={"column"} justifyContent={"flex-start"}>
+          <LeaderBoardVisual />
+          {/*<AddMoreContribution />*/}
+          <RaffleButton className={s.raffleButton}/>
+          <LeaderBoardSwitch classNames={s.boardSwitch} />
         </Flex>
-        <Flex className={s.rightSection} justifyContent={["center", "flex-end"]} alignItems={"flex-end"}>
-          <Flex className={s.btnJoinWrapper} direction={"column"}>
-            <BuyForm vcInfo={vcInfo}/>
-          </Flex>
+        <Flex className={s.rightSection} direction={"column"}>
+          <BuyForm vcInfo={vcInfo}/>
+          {/*<Welcome />*/}
+          {/*<Playgame />*/}
+          <Activities />
         </Flex>
       </SimpleGrid>
     </Flex>

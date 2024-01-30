@@ -26,3 +26,16 @@ export const allowEVMSelector = (state: RootState) => (type: EVMFieldType) => {
     loaded: (data?.allowCelestia?.loaded || false) as boolean
   })
 };
+
+export const airdropAlphaUsersSelector = (state: RootState) => state.user.airdropAlphaUsers;
+export const airdropGMHoldersSelector = (state: RootState) => state.user.airdropGMHolders;
+export const airdropGenerativeUsersSelector = (state: RootState) => state.user.airdropGenerativeUsers;
+export const airdropPerceptronsHoldersSelector = (state: RootState) => state.user.airdropPerceptronsHolders;
+
+export const publicSaleLeaderBoardSelector = (state: RootState) => ({
+  list: (state.user?.publicSaleLeaderBoard || []) as ILeaderBoardPoint[],
+});
+
+export const publicSaleLeaderBoardVisualSelector = (state: RootState) => ({
+  list: (state.user?.publicSaleLeaderBoardVisual || []) as ILeaderBoardPoint[],
+});

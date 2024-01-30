@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 4px;
+  width: 100%;
+
+  > div {
+    display: flex;
+    align-items: center;
+
+    &:first-child {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 140%;
+      color: var(--naka-tcText);
+      opacity: 0.7;
+      gap: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    &:last-child {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 140%;
+      text-align: right;
+      color: var(--naka-tcText) !important;
+      letter-spacing: 0.5px;
+
+      > div {
+        color: var(--naka-tcText);
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 140%;
+        text-align: right;
+        color: #1879ec;
+        cursor: pointer;
+      }
+    }
+  }
+}

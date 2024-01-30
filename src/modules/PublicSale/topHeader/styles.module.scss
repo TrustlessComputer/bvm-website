@@ -1,0 +1,30 @@
+.container {
+  padding: 20px 24px;
+  background: url("https://storage.googleapis.com/tc-cdn-prod/nbc/images/bg-top.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  .title {
+    font-size: 24px;
+    font-weight: 400;
+    color: #FFFFFF;
+  }
+
+  .desc {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  @include is-mobile {
+    padding: 16px 16px;
+
+    .title {
+      font-size: 20px;
+    }
+
+    .desc {
+      font-size: 14px;
+    }
+  }
+}

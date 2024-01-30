@@ -1,39 +1,5 @@
-.headerRolling {
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 12px 20px;
-  p {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 140%;
-
-    color: #ffffff;
-  }
-}
-
 .container {
-  position: relative;
-  background-color: rgba(255, 255, 255, 0.30);
-  .title1 {
-    font-size: 24px;
-    font-weight: 600;
-    letter-spacing: 0;
-    color: black;
-    text-transform: uppercase;
-
-    @include w-max(768px) {
-      font-size: 20px;
-    }
-  }
-
-  .indicator {
-    background-color: #ffffff;
-    width: 58px;
-    height: 2px;
-    opacity: 0.7;
-  }
+  width: 100%;
 }
 
 .wrapScroll {
@@ -42,49 +8,6 @@
 
 table {
   &.tableContainer {
-    :global {
-      tbody {
-        tr {
-          height: 62px;
-        }
-      }
-      .isActiveRow {
-        background-color: #007659 !important;
-        p {
-          color: white !important;
-        }
-
-        .boost_25 {
-          // background: linear-gradient(
-          //   90deg,
-          //   #00f5a0 0%,
-          //   #00d9f5 100%
-          // ) !important;
-        }
-        .boost_2 {
-          // background: linear-gradient(
-          //   90deg,
-          //   #ffe259 0%,
-          //   #ffa751 100%
-          // ) !important;
-        }
-        .boost_15 {
-          // background: linear-gradient(
-          //   90deg,
-          //   #a770ef 0%,
-          //   #cf8bf3 50%,
-          //   #fdb99b 100%
-          // ) !important;
-        }
-        .boost_1 {
-          // background: rgba(0, 0, 0, 1) !important;
-          p {
-            color: white !important;
-          }
-        }
-      }
-    }
-
     thead {
       tr {
         th {
@@ -92,6 +15,7 @@ table {
         }
       }
     }
+
     thead,
     tbody {
       tr {
@@ -110,10 +34,32 @@ table {
 
     .title {
       font-style: normal;
-      font-weight: 600;
+      font-weight: 500;
       font-size: 14px;
-      line-height: 140%;
-      color: black;
+      line-height: 120%;
+      color: #FFFFFF;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 85px;
+    }
+
+    .bvm_amount {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 120%;
+      color: #FA4E0E;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 85px;
+    }
+
+    .bvm_percent {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 120%;
+      color: #FFFFFF;
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 85px;
@@ -143,143 +89,68 @@ table {
     .desc {
       font-weight: 500;
       font-size: 12px;
-      line-height: 140%;
+      line-height: 120%;
       color: var(--chakra-colors-blue-600);
     }
 
     .tagBoost {
-      padding: 7px 9px;
-      // background: rgba(255, 255, 255, 0.15);
+      //padding: 7px 9px;
       border-radius: 100px;
-      // width: 60px;
       display: flex;
       align-items: center;
 
       p {
         font-weight: 500;
         font-size: 14px;
-        line-height: 140%;
+        line-height: 120%;
         /* or 18px */
         text-align: center;
 
         color: #ffffff;
       }
-      &.boost_25 {
-        // background: linear-gradient(
-        //   90deg,
-        //   rgba(0, 245, 160, 0.15) 0%,
-        //   rgba(0, 217, 245, 0.15) 100%
-        // );
-        p {
-          color: rgba(0, 245, 160, 1);
-        }
-      }
-      &.boost_2 {
-        // background: linear-gradient(
-        //   90deg,
-        //   rgba(255, 226, 89, 0.15) 0%,
-        //   rgba(255, 167, 81, 0.15) 100%
-        // );
 
-        p {
-          color: rgba(255, 226, 89, 1);
-        }
-      }
-      &.boost_15 {
-        // background: linear-gradient(
-        //   90deg,
-        //   rgba(167, 112, 239, 0.15) 0%,
-        //   rgba(207, 139, 243, 0.15) 50%,
-        //   rgba(253, 185, 155, 0.15) 100%
-        // );
-
-        p {
-          color: rgba(167, 112, 239, 1);
+      &.boostNormal {
+        svg {
+          g {
+            path {
+              fill: white;
+            }
+          }
         }
       }
     }
-  }
-}
 
-.container {
-  overflow: hidden;
-  width: 100%;
-  // min-width: 880px;
+    :global {
+      tbody {
+        tr {
+          height: 62px;
+        }
+      }
 
-  @include w-max(968px) {
-    margin-left: 12px;
-    margin-right: 12px;
-    margin-bottom: 32px;
-    width: 92vw;
-    min-width: auto;
-  }
+      .isActiveRow {
+        background-color: #FFFFFF !important;
+        p {
+          color: #000000 !important;
+        }
 
-  .title {
-    font-size: 28px;
-    @include w-max(968px) {
-      font-size: 20px;
+        td:last-child {
+          > div {
+            svg {
+              g {
+                path {
+                  fill: black !important;
+                }
+              }
+            }
+          }
+        }
+      }
     }
-  }
-}
-
-.banner {
-  background: #000;
-  color: #fff;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 140%;
-  padding-bottom: 12px;
-}
-
-.countDown {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .time {
-    font-size: 14px;
-    font-weight: 600;
-    opacity: 0.7;
   }
 }
 
 .loading {
   margin-top: 16px;
-}
-
-.tooltipIcon {
-  width: 14px;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.tooltipIconActive {
-  cursor: pointer;
-  svg {
-    path {
-      fill: white;
-    }
-  }
-}
-
-.timeLine {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: rgba(1, 1, 1, 0.7);
-  margin-bottom: rem(32);
-  span {
-    color: rgb(1, 1, 1);
-    font-weight: 500;
-  }
-
-  p {
-    width: fit-content;
-  }
-  .content {
-  }
 }
 
 .multiplier {
@@ -289,8 +160,7 @@ table {
   font-style: normal;
   font-weight: 500;
   line-height: 120%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: white;
 
   &.boost_30 {
     background: linear-gradient(90deg, #007659 0%, #35cca6 100%);
@@ -315,7 +185,7 @@ table {
   }
 
   &.isActiveRow {
-    background: linear-gradient(90deg, #ffffff 0%, #35cca6 100%);
+    background: linear-gradient(90deg, #007659 0%, #35CCA6 100%);
     text-align: center;
     font-size: 14px;
     font-style: normal;

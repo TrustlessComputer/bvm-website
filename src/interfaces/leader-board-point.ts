@@ -1,4 +1,4 @@
-import React from 'react';
+import { IContributionCoin } from '@/modules/PublicSale/components/contributorDetailInfo';
 
 export interface ILeaderBoardPoint {
   id: number;
@@ -14,6 +14,7 @@ export interface ILeaderBoardPoint {
   gas_point: number;
   content_point: number;
   boost: string;
+  view_boost: string;
   num_view: string;
   num_retweet: string;
   num_like: string;
@@ -33,4 +34,14 @@ export interface ILeaderBoardPoint {
   alpha_point: string
   manta_amount: string;
   manta_point: string;
+  levelRender?:number
+  lastRender?:boolean
+  bvm_balance: string;
+  bvm_balance_not_boost: string;
+  eth_balance: string;
+  btc_balance: string;
+  usdt_value?:string;
+  bvm_percent?:string;
+  coin_balances?:IContributionCoin[];
+  deposit_id:string;
 }

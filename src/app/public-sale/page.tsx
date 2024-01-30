@@ -4,7 +4,7 @@ import PublicSaleModule from '@/modules/PublicSale';
 
 const PublicSale = () => {
   return (
-    <MainLayout>
+    <MainLayout headerProps={{bgColor: '#000000'}}>
       <div className={s.container}>
         <PublicSaleModule />
       </div>

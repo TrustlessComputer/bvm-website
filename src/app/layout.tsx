@@ -2,16 +2,16 @@ import '@/styles/index.scss';
 
 import { Metadata, Viewport } from 'next';
 
+import StoreProvider from '@/Providers/StoreProvider';
+import { UnisatProvider } from '@/Providers/unisat-context';
+import { UserProvider } from '@/Providers/user-context';
+import { XVerseProvider } from '@/Providers/xverse-context';
+import Hydrated from '@/components/Hydrated';
+import ToastOverlay from '@/components/ToastOverlay';
 import { MetadataConfig, ViewportConfig } from '@/config';
 import chakraThemes from '@/themes/chakra-themes';
 import { ChakraProvider } from '@chakra-ui/react';
-import Hydrated from '@/components/Hydrated';
 import dynamic from 'next/dynamic';
-import StoreProvider from '@/Providers/StoreProvider';
-import { XVerseProvider } from '@/Providers/xverse-context';
-import { UnisatProvider } from '@/Providers/unisat-context';
-import ToastOverlay from '@/components/ToastOverlay';
-import { UserProvider } from '@/Providers/user-context';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -31,19 +31,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <StoreProvider>
-        <ChakraProvider theme={chakraThemes}>
-          <ChakraFontsFace />
-          <UserProvider>
-            <XVerseProvider>
-              <UnisatProvider>
-                <Hydrated>{children}</Hydrated>
-                <ToastOverlay />
-              </UnisatProvider>
-            </XVerseProvider>
-          </UserProvider>
-        </ChakraProvider>
-      </StoreProvider>
+        <StoreProvider>
+          <ChakraProvider theme={chakraThemes}>
+            <ChakraFontsFace />
+            <UserProvider>
+              <XVerseProvider>
+                <UnisatProvider>
+                  <Hydrated>{children}</Hydrated>
+                  <ToastOverlay />
+                </UnisatProvider>
+              </XVerseProvider>
+            </UserProvider>
+          </ChakraProvider>
+        </StoreProvider>
       </body>
     </html>
   );

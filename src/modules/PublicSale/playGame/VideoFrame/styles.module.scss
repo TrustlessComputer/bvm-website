@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  //height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  max-width: 333px;
+  //height: 180px;
+  position: relative;
+  background: url("/public-sale/video_frame.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  @include is-mobile {
+    max-width: unset;
+  }
+
+  video {
+    mix-blend-mode: luminosity;
+    position: absolute;
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    object-fit: cover;
+    top: 8px;
+    left: 8px;
+  }
+
+  img {
+    //aspect-ratio: 485/213;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    aspect-ratio: 333/180;
+  }
+}
