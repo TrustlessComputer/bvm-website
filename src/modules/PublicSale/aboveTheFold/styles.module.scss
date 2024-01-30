@@ -10,6 +10,10 @@
 
   .content {
     width: 100%;
+    @include is-mobile {
+      display: flex;
+      flex-direction: column-reverse;
+    }
   }
 
   .leftSection {
@@ -73,9 +77,8 @@
     position: absolute;
     top: 24px;
     left: 24px;
-
     @include is-mobile {
-      top: 280px;
+      left: 16px;
     }
   }
 
@@ -84,9 +87,8 @@
     top: 24px;
     right: 24px;
     width: fit-content;
-
     @include is-mobile {
-      top: 280px;
+      right: 16px;
     }
   }
 }
