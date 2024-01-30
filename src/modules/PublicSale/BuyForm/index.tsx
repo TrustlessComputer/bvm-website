@@ -22,10 +22,7 @@ import cx from 'classnames';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { PUBLIC_SALE_END } from '@/modules/Whitelist';
 import NumberScale from '@/components/NumberScale';
-import DepositGuestCodeHere, {
-  GuestCodeHere,
-} from '../depositModal/deposit.guest.code';
-import { getLink } from '@/utils/helpers';
+import { GuestCodeHere } from '../depositModal/deposit.guest.code';
 import LoginTooltip from '@/modules/PublicSale/depositModal/login.tooltip';
 
 interface FormValues {
