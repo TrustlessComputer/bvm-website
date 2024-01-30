@@ -84,6 +84,12 @@
           cursor: pointer;
         }
       }
+
+      &.dropDownItem {
+        .text {
+          color: white !important;
+        }
+      }
     }
   }
 
