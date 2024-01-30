@@ -73,9 +73,6 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
       lottieRef.current.play();
 
       setIsLoopDone(false);
-      if(refTime.current) {
-        clearTimeout(refTime.current);
-      }
       refTime.current = setTimeout(() => {
         setIsLoopDone(true);
         onCompleted && onCompleted();
@@ -86,6 +83,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
 
     return () => {
       if(refTime.current) {
+        setIsLoopDone(true);
         clearTimeout(refTime.current);
       }
     }
@@ -98,7 +96,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
           data?.levelRender === 0 && <Image className={s.king} src={'/public-sale/icon-king.svg'} width={60} height={60} alt={'king'} />
         }
         {
-          isShowName && data?.levelRender === 0 && !isYou && <p className={s.name}>{data?.twitter_username}</p>
+           !isYou && <p className={s.name}>{data?.twitter_username}</p>
         }
         {
           isYou && <p className={cx(s.name, s.isYou)}>You</p>

@@ -630,8 +630,10 @@ $mixin-text-p-book-font-size: rem(14px);
 }
 
 @mixin fixTextLargeLen($len: 150px) {
-  max-width: $len;
+  width: $len !important;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+
+  display: block;
 }
