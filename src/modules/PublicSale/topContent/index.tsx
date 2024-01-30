@@ -19,7 +19,7 @@ const TopContent = () => {
             Bitcoin Virtual Machine
           </Text>
           <Text className={s.title}>Welcome to the future of Bitcoin</Text>
-          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin. And we’re fucking serious about it. Hope you’ll join the ride. LFG.</Text>
+          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin and to make it work for everyone. Gear up, get ready, and join the ride!</Text>
         </Flex>
         <ul className={s.actions}>
           <li>
