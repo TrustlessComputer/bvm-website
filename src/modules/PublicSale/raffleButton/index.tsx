@@ -121,9 +121,16 @@ const RaffleButton = ({className}: any) => {
                 }
               </Flex>
             </Flex>
-            <Center className={s.raffleBg}>
-              <img src={programeInfo?.image} alt="raffleBtnBg" />
-            </Center>
+            <Flex direction={"column"} alignItems={"center"} gap={2}>
+              <Center className={s.raffleBg}>
+                <img src={programeInfo?.image} alt="raffleBtnBg" />
+              </Center>
+              <Flex fontSize={"14px"} gap={1} alignItems={"center"} fontWeight={"500"}>
+                <Text color={"rgba(255, 255, 255, 0.7)"}>Floor price: </Text>
+                <Text color={"#FA4E0E"} >{programeInfo?.reward}</Text>
+              </Flex>
+
+            </Flex>
           </Flex>
         </PopoverBody>
       </PopoverContent>
