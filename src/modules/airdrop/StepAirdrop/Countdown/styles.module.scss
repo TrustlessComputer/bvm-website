@@ -1,0 +1,33 @@
+.countdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+
+  svg,
+  path {
+    fill: #fff !important;
+  }
+
+  span {
+    color: black !important;
+    opacity: 0.7;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+}
+
+.text {
+  color: #fff;
+  //font-family: $font-alp;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  min-width: 36px;
+  text-align: left;
+}
