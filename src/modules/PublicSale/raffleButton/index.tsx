@@ -107,7 +107,7 @@ const RaffleButton = ({className}: any) => {
                       {
                         !token ? (
                           <DepositClaimItHere>
-                            <Flex className={cx(s.learnMoreWrapper)} p={"6px !important"} gap={3} cursor="pointer">
+                            <Flex className={cx(s.learnMoreWrapper)} p={"6px 16px !important"} gap={3} cursor="pointer">
                               Sign in to join
                             </Flex>
                           </DepositClaimItHere>
