@@ -28,7 +28,6 @@ const RoadmapModule = () => {
         title: 'Added EVM to Bitcoin',
         button: 'Learn more',
         link: 'https://twitter.com/punk3700/status/1628406581510676480',
-        isDone: true,
         desc: '• Deployed smart contracts on Bitcoin<br/>• Built BVM as EVM-equivalent Layer 1 on Bitcoin<br/>• Expand Bitcoin’s utility beyond being just a currency'
       },
       {
@@ -37,7 +36,6 @@ const RoadmapModule = () => {
         title: 'Deployed Uniswap on Bitcoin',
         button: 'Learn more',
         link: 'https://twitter.com/punk3700/status/1654532883388977158',
-        isDone: true,
         desc: '• Built a DEX on Bitcoin using Uniswap smart contracts<br/>• An early example of DeFi on Bitcoin<br/>'
       },
       {
@@ -45,7 +43,6 @@ const RoadmapModule = () => {
         time: 'Sep 2023',
         title: 'Deployed Optimism on Bitcoin',
         button: 'Learn more',
-        isDone: true,
         link: 'https://twitter.com/punk3700/status/1699821767781658669',
         desc: '• Scaled up Bitcoin using OP rollups<br/>• This enabled Bitcoin L2s with high speed and low gas'
       },
@@ -54,7 +51,6 @@ const RoadmapModule = () => {
         time: 'Oct 2023',
         title: 'The First Bitcoin L2',
         button: 'Learn more',
-        isDone: true,
         desc: '• Alpha Chain is the first Bitcoin L2 powered by BVM<br/>• It hosts Alpha app - the second biggest SocialFi dapp by TVL<br/>• It facilitates $36M+ in volume & 1M+ transactions so far',
         link: 'https://twitter.com/punk3700/status/1703819001510682709'
       },
@@ -102,8 +98,10 @@ const RoadmapModule = () => {
   }, [])
 
   const renderItem = (item: IRoadMap, index: number) => {
+    const isDone = index < 4;
+    const isFeature = index > 4;
     return (
-      <GridItem className={cs(s.item, {[s.item__public]: index === 4})}>
+      <GridItem className={cs(s.item, {[s.item__public]: index === 4, [s.item__feature]: isFeature})}>
         <Box
           bg={item.color}
           width={{ base: "32px", md: "48px" }}
@@ -120,7 +118,7 @@ const RoadmapModule = () => {
             <Text color="black" fontSize="12px" fontWeight="400" lineHeight="140%">{item.time}</Text>
             <Flex alignItems="center" gap="6px">
               <Text color="black" fontWeight="400" lineHeight="140%" mt="4px">{item.title}</Text>
-              {!!item.isDone && (
+              {!!isDone && (
                 <span><SvgInset svgUrl={`${CDN_URL_ICONS}/check-green.svg`} /></span>
               )}
             </Flex>
