@@ -183,14 +183,11 @@ const DepositContent: React.FC<IDepositContent> = ({
 
   return (
     <Flex className={s.depositContent}>
-      {hasStaked && (
+      {/*{hasStaked && (
         <Text className={s.descStaked} >
-          Buy and stake your $BVM to unlock future rewards from the BVM
-          ecosystem and our collaborative Bitcoin L2s and dApps partners. Your
-          $BVM will be automatically staked after the public sale, and you can
-          choose to unstake at any time.
+          Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.
         </Text>
-      )}
+      )}*/}
       {/* {secretCode && (
         <>
           <Flex className={s.wrapSecretKey}>

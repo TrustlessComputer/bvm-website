@@ -1,8 +1,7 @@
 import BaseModal from '@/components/BaseModal';
-import SvgInset from '@/components/SvgInset';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
-import { Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Tooltip, useDisclosure } from '@chakra-ui/react';
 import cs from 'classnames';
 import React, { PropsWithChildren, useMemo, useState } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
@@ -37,17 +36,27 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
           {/*<SvgInset svgUrl="/icons/ic_twitter.svg" />*/}
           Buy $BVM
         </Button>
-        <Button
-          onClick={() => {
-            setHasStaked(true);
-            onOpen();
-          }}
-          type="button"
-          className={s.btnContainer}
+        <Tooltip
+          minW="220px"
+          bg="white"
+          boxShadow="0px 0px 24px -6px #0000001F"
+          borderRadius="4px"
+          padding="16px"
+          hasArrow
+          label={'Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.'}
         >
-          {/*<SvgInset svgUrl="/icons/ic_twitter.svg" />*/}
-          Buy & Stake $BVM
-        </Button>
+          <Button
+            onClick={() => {
+              setHasStaked(true);
+              onOpen();
+            }}
+            type="button"
+            className={s.btnContainer}
+          >
+            {/*<SvgInset svgUrl="/icons/ic_twitter.svg" />*/}
+            Buy & Stake $BVM
+          </Button>
+        </Tooltip>
       </Flex>
       <GoogleReCaptchaProvider
         reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
