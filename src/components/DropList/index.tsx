@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactElement } from 'react';
-import s from '@/layouts/Header/components/styles.module.scss';
+import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 
 interface PropD extends PropsWithChildren{

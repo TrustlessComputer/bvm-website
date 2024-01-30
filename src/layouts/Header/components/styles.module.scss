@@ -3,6 +3,9 @@
   color: white;
 
   &_label {
+    display: flex;
+    gap: 5px;
+    align-items: center;
     font-weight: 500;
 
     &.black {
