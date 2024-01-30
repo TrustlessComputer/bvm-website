@@ -14,6 +14,7 @@ import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
 import { useSelector } from 'react-redux';
 import { LEADER_BOARD_MODE } from '@/modules/PublicSale/leaderBoardSwitch';
 import { setAnimatedLatestContributors, setNeedCheckDeposit } from '@/stores/states/common/reducer';
+import AvatarItemTemp from '@/modules/PublicSale/leaderBoardVisual/AvatarItemTemp';
 
 export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
@@ -23,6 +24,7 @@ interface IProps {
 const LeaderBoardVisual = (props: IProps) => {
   const { list } = useAppSelector(publicSaleLeaderBoardVisualSelector);
   const [listRender, setListRender] = useState<ILeaderBoardPoint[]>([]);
+  const [listMissingRender, setListMissingRender] = useState<ILeaderBoardPoint[]>([]);
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
   const leaderBoardMode = useSelector(commonSelector).leaderBoardMode;
@@ -109,11 +111,11 @@ const LeaderBoardVisual = (props: IProps) => {
     let res = await getPublicSaleContributionLatest();
     const oldContributors = latestContributors?.current;
 
-    const newRes = res.filter( function( el ) {
+    const newRes = res.filter(function(el) {
       return oldContributors?.findIndex(a => a.deposit_id === el.deposit_id) < 0;
     });
 
-    if(newRes?.length > 0) {
+    if (newRes?.length > 0) {
       latestContributors.current = [...newRes].concat(latestContributors.current);
     }
     animatedLatestContributors.current = newRes || [];
@@ -124,6 +126,8 @@ const LeaderBoardVisual = (props: IProps) => {
 
     let refLevel = 0;
     const levels = [1, 3, 5, 6, 8];
+    const missingLength = 23 - list.length;
+    const missingArray = Array.from({ length: missingLength }).map((u, i) => ({})) as unknown as ILeaderBoardPoint[];
     const tmsss = list.map((el, index) => {
       const tmp: ILeaderBoardPoint = { ...el, levelRender: refLevel, lastRender: false };
       tmp.levelRender = refLevel;
@@ -139,8 +143,9 @@ const LeaderBoardVisual = (props: IProps) => {
     });
 
     setListRender(tmsss.slice(0, 23).sort((a, b) => {
-      return a.ranking - b.ranking;
+      return a?.ranking - b?.ranking;
     }));
+    setListMissingRender(missingArray);
   }, [list]);
 
   return (
@@ -158,11 +163,17 @@ const LeaderBoardVisual = (props: IProps) => {
         {
           listRender.map((item, index) => {
             return <>
-                <AvatarItem data={item} isShowName={index < 4} isYou={user?.twitter_id === item.twitter_id} />
+              <AvatarItem data={item} idx={index} isShowName={index < 4} isYou={user?.twitter_id === item?.twitter_id} />
               {
-                item.lastRender && <span className={styles.lastRender}></span>
+                item?.lastRender &&
+                <span className={`${styles.lastRender} ${styles[`lastRender__${item?.levelRender}`]}`}></span>
               }
             </>;
+          })
+        }
+        {
+          listMissingRender?.map((item, index) => {
+           return <AvatarItemTemp data={item}/>
           })
         }
       </ScrollWrapper>

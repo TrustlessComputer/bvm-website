@@ -19,10 +19,10 @@ const BVMModule = () => {
         <Box h={['20px', '80px']} />
         <Section2 />
         <Box h={['20px', '40px']} />
-        <Allocation />
         {/*<Vesting />*/}
         {/*<Schedule />*/}
       </BoxContent>
+      <Allocation />
     </Box>
   );
 };
