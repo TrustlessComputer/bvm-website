@@ -96,7 +96,9 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         <div
           className={s.avatarItem_avatar}
           onClick={() => {
-            window.open(`https://twitter.com/${data?.twitter_username}`);
+            if (!isNaN(Number(data?.twitter_id))) {
+              window.open(`https://twitter.com/${data?.twitter_username}`);
+            }
           }}
         >
           {
