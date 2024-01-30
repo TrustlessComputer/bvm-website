@@ -15,6 +15,7 @@ import { CDN_URL_ICONS } from '@/config';
 import { getPublicSaleSummary } from '@/services/public-sale';
 import { checkIsPublicSale } from '@/modules/Whitelist/utils';
 import cs from 'classnames';
+import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 
 const DELAY = 2;
 const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
@@ -125,6 +126,9 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
               </Flex>
             </Fade>
           </Flex>
+        </div>
+        <div className={`${s.hero_inner} ${s.hero_inner__desktop}`}>
+          <HeroLabel />
         </div>
         {/*</form>*/}
       </div>
