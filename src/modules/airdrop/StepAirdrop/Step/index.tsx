@@ -72,6 +72,8 @@ export default function ItemCommunity({
   isLoading?: boolean;
   onClickTweetToClaim: (airdropType: AirdropStep) => void;
 }) {
+  console.log('content', content);
+  
   const [isEnd, setIsEnd] = React.useState(
     dayjs
       .utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss')
@@ -276,7 +278,7 @@ export default function ItemCommunity({
                 ) : (
                   user?.twitter_id && (
                     <Text color={'#000000'}>
-                      Your alpha account do not have airdrop
+                      Your Alpha account does not qualify for this airdrop.
                     </Text>
                   )
                 )}
@@ -285,7 +287,7 @@ export default function ItemCommunity({
             {content?.step === AirdropStep.gmHolders && (
               <>
                 {airdropGMHolders ? (
-                  <Flex direction="column" gap="8px">
+                  <Flex direction="column" gap="8px" mt="4px">
                     <Text color={'#000000'}>
                       Airdrop: {formatCurrency(airdropGMHolders?.balance)} $BVM
                       - Vesting at:{' '}
@@ -312,7 +314,7 @@ export default function ItemCommunity({
             {content?.step === AirdropStep.generativeUsers && (
               <>
                 {airdropGenerativeUsers ? (
-                  <Flex direction="column" gap="8px">
+                  <Flex direction="column" gap="8px" mt="4px">
                     <Text color={'#000000'}>
                       Airdrop: {formatCurrency(airdropGenerativeUsers?.balance)}{' '}
                       $BVM - Vesting at:{' '}

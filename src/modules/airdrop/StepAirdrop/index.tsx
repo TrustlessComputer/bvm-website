@@ -86,7 +86,7 @@ const StepsAirdrop = (props: IProps) => {
   };
 
   const handleTweetToClaim = (airdropStep: AirdropStep) => {
-    let content = `The retro airdrop 1 is now up for grabs!\n\nPatience pays off – it's been a journey with @NewBitcoinCity since 2023, and now we're reaping the rewards.\n\nExcited for more airdrops from the @BVMnetwork ecosystem!\n\nWelcome to the future of Bitcoin!\n\nbvm.network/public-sale`;
+    const content = `I've been a supporter of @newbitcoincity since their early days in 2023.\n\nThese builders are reinventing Bitcoin, and I share their vision.\n\nExcited to claim their first airdrop in 2024 and eager for what's to come.\n\nCheck out their latest project: bvm.network`;
     switch (airdropStep) {
       case AirdropStep.generativeUsers:
         break;
@@ -141,24 +141,28 @@ const StepsAirdrop = (props: IProps) => {
   };
 
   const handleVerifyWallet = async (type?: AirdropStep) => {
-    const { address } = await signMessage(getMessageEVM);
+    try {
+      const { address } = await signMessage(getMessageEVM);
 
-    const resGMHolders = await getBVMAirdrop({ address: address });
-    AirdropStorage.setIsConnectMetaMask(true);
-    AirdropStorage.setAirdropGMHolders(resGMHolders);
+      const resGMHolders = await getBVMAirdrop({ address: address });
+      AirdropStorage.setIsConnectMetaMask(true);
+      AirdropStorage.setAirdropGMHolders(resGMHolders);
 
-    if (
-      type === AirdropStep.generativeUsers ||
-      type === AirdropStep.perceptronsHolders
-    ) {
-      const resp = await getGenerativeProfile(address);
+      // if (
+      //   type === AirdropStep.generativeUsers ||
+      //   type === AirdropStep.perceptronsHolders
+      // ) {
+      //   const resp = await getGenerativeProfile(address);
 
-      if (resp && resp.data && resp.data?.walletAddressBtcTaproot) {
-        const resGenerativeUsers = await getBVMAirdrop({
-          address: resp.data?.walletAddressBtcTaproot,
-        });
-        AirdropStorage.setAirdropGenerativeUsers(resGenerativeUsers);
-      }
+      //   if (resp && resp.data && resp.data?.walletAddressBtcTaproot) {
+      //     const resGenerativeUsers = await getBVMAirdrop({
+      //       address: resp.data?.walletAddressBtcTaproot,
+      //     });
+      //     AirdropStorage.setAirdropGenerativeUsers(resGenerativeUsers);
+      //   }
+      // }
+    } catch (error) {
+      console.log('error', error);
     }
   };
 

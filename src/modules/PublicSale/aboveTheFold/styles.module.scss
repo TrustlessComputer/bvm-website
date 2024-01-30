@@ -4,6 +4,11 @@
   gap: 80px;
   width: 100%;
 
+  :global {
+    --top-spacing: 24px;
+    --item-spacing: 12px;
+  }
+
   @include w-min(1920px) {
     min-height: 800px;
   }
@@ -20,6 +25,9 @@
     background: #1b1b1b;
     padding-top: 80px;
     position: relative;
+    @include is-mobile {
+      padding-top: 130px;
+    }
   }
 
   .rightSection {
@@ -72,25 +80,12 @@
     }
   }
 
-  .raffleButton {
+  .btnActions {
     position: absolute;
-
-    :global {
-      --top-spacing: 24px;
-      --item-spacing: 12px;
-    }
-
+    flex-direction: column;
     top: var(--top-spacing);
     left: 24px;
-
-    &.rewardButton {
-      top: calc(var(--top-spacing) + var(--item-spacing) + 50px);
-    }
-
-    @include is-mobile {
-      left: 16px;
-      width: calc(100% - 32px);
-    }
+    gap: 10px;
   }
 
   .boardSwitch {
@@ -101,7 +96,7 @@
     @include is-mobile {
       width: calc(100% - 32px);
       right: 16px;
-      top: 150px;
+      top: calc(calc(var(--item-spacing) * 5) + 150px + var(--item-spacing));
     }
   }
 }

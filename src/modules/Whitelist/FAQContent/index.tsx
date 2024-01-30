@@ -13,9 +13,12 @@ import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
 import { compareString } from '@/utils/string';
 import DepositGuestCodeHere from '@/modules/PublicSale/depositModal/deposit.guest.code';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import AuthenStorage from '@/utils/storage/authen.storage';
 
 const FAQContent: React.FC = (): React.ReactElement => {
   const user = useAppSelector(userSelector);
+  const guestCode = AuthenStorage.getGuestSecretKey();
 
   const boost = React.useMemo(() => {
     if (!user?.boost) return '0%';
@@ -286,9 +289,19 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      <DepositCheckItHere>
-                        <a>Check the status</a>
-                      </DepositCheckItHere>
+                      <GoogleReCaptchaProvider
+                        reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
+                        scriptProps={{
+                          async: false,
+                          defer: false,
+                          appendTo: 'head',
+                          nonce: undefined,
+                        }}
+                      >
+                        <DepositCheckItHere>
+                          <a>Check the status</a>
+                        </DepositCheckItHere>
+                      </GoogleReCaptchaProvider>
                       .
                     </p>
                   </AccordionPanel>
@@ -349,7 +362,7 @@ const FAQContent: React.FC = (): React.ReactElement => {
               )}
             </AccordionItem>
 
-            {Boolean(user?.guest_code) && (
+            {Boolean(guestCode) && (
               <AccordionItem className={s.faqItem}>
                 {({ isExpanded }) => (
                   <>
