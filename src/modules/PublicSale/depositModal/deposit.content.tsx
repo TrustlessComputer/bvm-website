@@ -40,12 +40,15 @@ import s from './styles.module.scss';
 
 interface IDepositContent {
   amount_usd?: string;
-  onHide?: any;
+  hasStaked?: any;
 }
 
 const COUNTRY_BANNED: any[] = ['US'];
 
-const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
+const DepositContent: React.FC<IDepositContent> = ({
+  amount_usd,
+  hasStaked,
+}) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
 
   const user = useAppSelector(userSelector);
@@ -118,8 +121,9 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
   const checkLocation = async () => {
     try {
       const rs = await getLocation();
-      const country_code = rs?.data?.country_code;
-      setIsBanned(COUNTRY_BANNED.includes(country_code));
+      const country_code = rs?.data?.result;
+
+      setIsBanned(COUNTRY_BANNED.includes(country_code?.toUpperCase?.()));
     } catch (error) {
     } finally {
       setCheckingLocation(false);
@@ -170,16 +174,21 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
     );
   }
 
-  // if (isBanned) {
-  //   return (
-  //     <Center>
-  //       <Text>Not Available in Your Region</Text>
-  //     </Center>
-  //   );
-  // }
+  if (isBanned) {
+    return (
+      <Center>
+        <Text>The public sale is open to everyone except US citizens.</Text>
+      </Center>
+    );
+  }
 
   return (
     <Flex className={s.depositContent}>
+      {/*{hasStaked && (
+        <Text className={s.descStaked} >
+          Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.
+        </Text>
+      )}*/}
       {/* {secretCode && (
         <>
           <Flex className={s.wrapSecretKey}>

@@ -65,6 +65,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
           onComplete: (): void => {
             setIsLoopDone(true);
           },
+          overflow: 'auto',
           onUpdate: () => {
             if (refInertMoney.current) {
               refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.value, 0, 0, '', true)}`;
@@ -82,7 +83,10 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.value, 0, 0, '', true)}`;
       }
     });
-    return () => gc.revert();
+    return () => {
+      setIsLoopDone(true);
+      gc.revert();
+    }
   }, [newTotalMoney, data]);
 
   const renderContent = () => {

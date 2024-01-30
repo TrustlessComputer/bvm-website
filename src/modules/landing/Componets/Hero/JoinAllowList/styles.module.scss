@@ -260,3 +260,18 @@
     }
   }
 }
+
+
+.hero_inner__desktop {
+  display: none;
+  @include is-min-table{
+    display: block;
+  }
+  :global {
+    .heroLabel_inner {
+      border-top: 1px solid #FFFFFF26;
+      padding-top: 28px;
+      margin-top: 28px;
+    }
+  }
+}

@@ -17,6 +17,9 @@
     font-weight: 500;
     font-size: 12px;
     height: 24px;
+    @include is-mobile{
+      height: 34px;
+    }
     &.active {
       color: #FFFFFF;
       background: rgba(255, 255, 255, 0.1);

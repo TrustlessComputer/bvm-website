@@ -12,17 +12,18 @@ import DepositCheckItHere from '@/modules/PublicSale/depositModal/deposit.check.
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
 import { compareString } from '@/utils/string';
+import DepositGuestCodeHere from '@/modules/PublicSale/depositModal/deposit.guest.code';
 
 const FAQContent: React.FC = (): React.ReactElement => {
   const user = useAppSelector(userSelector);
 
   const boost = React.useMemo(() => {
     if (!user?.boost) return '0%';
-    if (compareString(user?.boost, '1.1')) return "10%";
-    if (compareString(user?.boost, '1.2')) return "20%";
-    if (compareString(user?.boost, '1.3')) return "30%";
-    return '0%'
-  }, [user?.boost])
+    if (compareString(user?.boost, '1.1')) return '10%';
+    if (compareString(user?.boost, '1.2')) return '20%';
+    if (compareString(user?.boost, '1.3')) return '30%';
+    return '0%';
+  }, [user?.boost]);
   return (
     <div className={s.faqWrapper} id="1" data-section="1">
       <div className={s.faqContainer}>
@@ -234,7 +235,6 @@ const FAQContent: React.FC = (): React.ReactElement => {
                         .
                       </p>
                     )}
-
                   </AccordionPanel>
                 </>
               )}
@@ -348,6 +348,43 @@ const FAQContent: React.FC = (): React.ReactElement => {
                 </>
               )}
             </AccordionItem>
+
+            {Boolean(user?.guest_code) && (
+              <AccordionItem className={s.faqItem}>
+                {({ isExpanded }) => (
+                  <>
+                    <h2>
+                      <AccordionButton justifyContent={'space-between'}>
+                        <span className={s.faqTitle}>
+                          If I don't sign in via Twitter, how will I know my
+                          contribution?
+                        </span>
+                        <button>
+                          <img
+                            className={isExpanded ? s.downArrow : ''}
+                            src={`${CDN_URL}/icons/chevron-right-ic-32.svg`}
+                            alt="chevron-right-ic"
+                          />
+                        </button>
+                      </AccordionButton>
+                    </h2>
+                    <AccordionPanel>
+                      <p className={s.faqContent}>
+                        Your contribution will appear as Anonymous, and you will
+                        receive a secret key to claim your allocation later on.
+                        <br />
+                        <br />
+                        Click{' '}
+                        <DepositGuestCodeHere>
+                          <a>here</a>
+                        </DepositGuestCodeHere>{' '}
+                        to back up your secret key. the secret key.
+                      </p>
+                    </AccordionPanel>
+                  </>
+                )}
+              </AccordionItem>
+            )}
           </Accordion>
         </div>
       </div>

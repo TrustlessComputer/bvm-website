@@ -120,7 +120,7 @@ export const saleManualCheck = async (recaptcha: string): Promise<any> => {
 
 export const getLocation = async (): Promise<any> => {
   const res = (await axios.get(
-    `https://geolocation-db.com/json/`,
+    `https://api.bvm.network/api/ip-country`,
   )) as unknown as any;
   return res;
 };
