@@ -24,7 +24,7 @@ const TopContent = () => {
         <ul className={s.actions}>
           <li>
             <a href={'#'} onClick={() => setOpen(true)}>
-              <Image src={`/public-sale/btn-play.png`} width={168} height={90}
+              <Image src={`/public-sale/btn-play-3.png`} width={168} height={90}
                      alt={'right'} />
               What is BVM? </a>
             <ModalVideo
@@ -36,7 +36,7 @@ const TopContent = () => {
               }}
             />
           </li>
-          <li>
+          <li className={s.dropDownItem}>
             <DropDown lists={[
               {
                 link: 'https://bvm.network/onepager.pdf',
@@ -50,14 +50,10 @@ const TopContent = () => {
                 link: WHITEPAPER_DOC_URL,
                 title: 'Whitepaper',
               },
-              {
-                link: 'https://github.com/trustlesscomputer/',
-                title: 'Github',
-              },
             ]}>
               <Image src={`/public-sale/btn-pdf.png`} width={168} height={90}
                      alt={'right'} />
-              Learn more
+              <span className={s.text}>Learn more</span>
             </DropDown>
           </li>
         </ul>
