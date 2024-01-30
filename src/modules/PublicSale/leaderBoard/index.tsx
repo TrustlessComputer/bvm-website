@@ -6,6 +6,7 @@ import { formatCurrency } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
 import {
+  AvatarGroup,
   Avatar as AvatarImg,
   Box,
   Flex,
@@ -296,7 +297,17 @@ const LeaderBoard = (props: IProps) => {
                       stroke="#ECECEC"
                     />
                   </svg>
-                  <AvatarImg
+                  <AvatarGroup spacing={'-5px'} >
+                    {(data?.coin_balances || []).map((t) => (
+                      <AvatarImg
+                        key={`${data.id}-${t.symbol}`}
+                        src={tokenIcons[t.symbol.toLowerCase()]}
+                        width={'18px'}
+                        height={'18px'}
+                      />
+                    ))}
+                  </AvatarGroup>
+                  {/* <AvatarImg
                     width={'18px'}
                     height={'18px'}
                     src={
@@ -304,7 +315,7 @@ const LeaderBoard = (props: IProps) => {
                         (data?.coin_balances || [])[0]?.symbol.toLowerCase()
                       ]
                     }
-                  />
+                  /> */}
                 </Flex>
               </Flex>
             </Tooltip>
