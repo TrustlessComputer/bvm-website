@@ -323,27 +323,38 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </div>
             </div>
             <div className={s.grid_item}>
-              {remainDay === 0 ? (
+
                 <Countdown
-                  className={s.time}
+                  className={s.tValue}
                   expiredTime={dayjs
                     .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
                     .toString()}
                   hideIcon={true}
+                  isHideSecond={true}
                   onRefreshEnd={() => setIsEnd(true)}
                 />
-              ) : (
-                <div>
-                  <Text
-                    className={s.tValue}
-                    fontSize={20}
-                    lineHeight={1}
-                    fontWeight={400}
-                    color={'rgba(0,0,0,1)'}
-                  >
-                    {' '}
-                    {remainDay}{' '}
-                  </Text>{' '}
+
+              {/*{remainDay === 0 ? (*/}
+              {/*  <Countdown*/}
+              {/*    className={s.time}*/}
+              {/*    expiredTime={dayjs*/}
+              {/*      .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')*/}
+              {/*      .toString()}*/}
+              {/*    hideIcon={true}*/}
+              {/*    onRefreshEnd={() => setIsEnd(true)}*/}
+              {/*  />*/}
+              {/*) : (*/}
+              {/*  <div>*/}
+              {/*    <Text*/}
+              {/*      className={s.tValue}*/}
+              {/*      fontSize={20}*/}
+              {/*      lineHeight={1}*/}
+              {/*      fontWeight={400}*/}
+              {/*      color={'rgba(0,0,0,1)'}*/}
+              {/*    >*/}
+              {/*      {' '}*/}
+              {/*      {remainDay}{' '}*/}
+              {/*    </Text>{' '}*/}
                   <Text
                     fontSize={20}
                     lineHeight={1}
@@ -351,11 +362,11 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     className={s.tLabel}
                     color={'rgba(0,0,0,0.7)'}
                   >
-                    {' '}
-                    Day{remainDay !== 1 && 's'} to go
+                   End in
+                    {/*Day{remainDay !== 1 && 's'} to go*/}
                   </Text>
-                </div>
-              )}
+              {/*  </div>*/}
+              {/*)}*/}
             </div>
             <div className={s.grid_item}>
               {token ? (
