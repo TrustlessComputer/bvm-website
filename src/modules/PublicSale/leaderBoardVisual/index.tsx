@@ -31,6 +31,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const animatedLatestContributors = useRef<ILeaderBoardPoint[]>([]);
   const user = useAppSelector(userSelector);
   const refInterval = useRef<any>();
+  const needCheckDeposit = useAppSelector(commonSelector).needCheckDeposit;
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -190,7 +191,7 @@ const LeaderBoardVisual = (props: IProps) => {
           })
         }
       </ScrollWrapper>
-      <AnimatedText latestContributors={animatedLatestContributors?.current} />
+      <AnimatedText latestContributors={needCheckDeposit ? animatedLatestContributors?.current : []} />
     </div>
   );
 };
