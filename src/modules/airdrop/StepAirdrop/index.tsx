@@ -141,24 +141,28 @@ const StepsAirdrop = (props: IProps) => {
   };
 
   const handleVerifyWallet = async (type?: AirdropStep) => {
-    const { address } = await signMessage(getMessageEVM);
+    try {
+      const { address } = await signMessage(getMessageEVM);
 
-    const resGMHolders = await getBVMAirdrop({ address: address });
-    AirdropStorage.setIsConnectMetaMask(true);
-    AirdropStorage.setAirdropGMHolders(resGMHolders);
+      const resGMHolders = await getBVMAirdrop({ address: address });
+      AirdropStorage.setIsConnectMetaMask(true);
+      AirdropStorage.setAirdropGMHolders(resGMHolders);
 
-    if (
-      type === AirdropStep.generativeUsers ||
-      type === AirdropStep.perceptronsHolders
-    ) {
-      const resp = await getGenerativeProfile(address);
+      // if (
+      //   type === AirdropStep.generativeUsers ||
+      //   type === AirdropStep.perceptronsHolders
+      // ) {
+      //   const resp = await getGenerativeProfile(address);
 
-      if (resp && resp.data && resp.data?.walletAddressBtcTaproot) {
-        const resGenerativeUsers = await getBVMAirdrop({
-          address: resp.data?.walletAddressBtcTaproot,
-        });
-        AirdropStorage.setAirdropGenerativeUsers(resGenerativeUsers);
-      }
+      //   if (resp && resp.data && resp.data?.walletAddressBtcTaproot) {
+      //     const resGenerativeUsers = await getBVMAirdrop({
+      //       address: resp.data?.walletAddressBtcTaproot,
+      //     });
+      //     AirdropStorage.setAirdropGenerativeUsers(resGenerativeUsers);
+      //   }
+      // }
+    } catch (error) {
+      console.log('error', error);
     }
   };
 

@@ -72,6 +72,8 @@ export default function ItemCommunity({
   isLoading?: boolean;
   onClickTweetToClaim: (airdropType: AirdropStep) => void;
 }) {
+  console.log('content', content);
+  
   const [isEnd, setIsEnd] = React.useState(
     dayjs
       .utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss')
