@@ -159,7 +159,7 @@ const LeaderBoardVisual = (props: IProps) => {
     })) as unknown as ILeaderBoardPoint[];
 
     let sortList = [...list].sort((a, b) => {
-      return a?.ranking - b?.ranking;
+      return Number(b?.usdt_value) - Number(a?.usdt_value);
     })
 
     const tmsss = sortList.concat(missingArray).map((el, index) => {

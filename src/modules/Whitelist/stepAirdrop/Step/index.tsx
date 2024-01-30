@@ -197,7 +197,7 @@ export default function ItemCommunity({
                     airdropAlphaUsers ? (
                       <Text color={"#000000"}>{user?.twitter_name} - Airdrop: {formatCurrency(airdropAlphaUsers?.balance)} $BVM - Vesting at: {dayjs(airdropAlphaUsers?.claimeable_at).format('MMM D, YYYY')}</Text>
                     ) : user?.twitter_id && (
-                      <Text color={"#000000"}>Your alpha account do not have airdrop</Text>
+                      <Text color={"#000000"}>Your Alpha account does not qualify for this airdrop.</Text>
                     )
                   }
                 </>
