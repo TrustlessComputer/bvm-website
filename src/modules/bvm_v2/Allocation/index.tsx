@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Allocation.module.scss';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import Vesting from '@/modules/bvm_v2/Vesting';
+import BoxContent from '@/layouts/BoxContent';
 
 
 const ALLOCATION_DATA = [
@@ -37,31 +38,27 @@ const Allocation = () => {
         <Text className={s.desc}>
           The total supply of BVM is permanently fixed at 100M tokens.
         </Text>
-        <Flex
-          w="100%"
-          flexDir={{ base: "column", lg: "row" }}
-          gap={{ base: "32px", lg: "200px" }}
-          mt={{ base: "16px", lg: "60px" }}
-          px={{ base: '40px', lg: '100px' }}
-          alignItems="center"
-        >
-          <Flex flex={1}>
-            <Image
-              src={'/images/pie-chart-6.png'}
-              alt={'Allocation chart'}
-              flex={1}
-              mx="auto"
-            />
-          </Flex>
-          <Flex flex={1}>
-            {/*<Image*/}
-            {/*  src={'/images/wave-chart-2.png'}*/}
-            {/*  alt={'Allocation chart'}*/}
-            {/*  flex={1}*/}
-            {/*  mx="auto"*/}
-            {/*/>*/}
-            <Vesting />
-          </Flex>
+        <Flex w="100%" flex={1} justifyContent="center">
+          <BoxContent>
+            <Flex
+              w="100%"
+              flexDir={{ base: "column", lg: "row" }}
+              gap={{ base: "32px", lg: "200px" }}
+              mt={{ base: "16px", lg: "60px" }}
+            >
+              <Flex flex={1}>
+                <Image
+                  src={'/images/pie-chart-6.png'}
+                  alt={'Allocation chart'}
+                  flex={1}
+                  mx="auto"
+                />
+              </Flex>
+              <Flex flex={1}>
+                <Vesting />
+              </Flex>
+            </Flex>
+          </BoxContent>
         </Flex>
       </Box>
     </Box>
