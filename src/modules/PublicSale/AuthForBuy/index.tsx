@@ -7,6 +7,7 @@ import React, { PropsWithChildren, useMemo, useState } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import DepositContent from '../depositModal/deposit.content';
 import s from './styles.module.scss';
+import cx from 'clsx';
 
 interface IAuthForBuy extends PropsWithChildren {}
 
@@ -38,12 +39,13 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
         </Button>
         <Tooltip
           minW="220px"
-          bg="white"
-          boxShadow="0px 0px 24px -6px #0000001F"
+          bg="#006149"
+          boxShadow="0px 0px 40px rgba(0, 0, 0, 0.12)"
           borderRadius="4px"
           padding="16px"
           hasArrow
           label={'Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.'}
+          color={"#FFFFFF"}
         >
           <Button
             onClick={() => {
@@ -51,7 +53,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
               onOpen();
             }}
             type="button"
-            className={s.btnContainer}
+            className={cx(s.btnContainer, s.btnBuyAndStake)}
           >
             {/*<SvgInset svgUrl="/icons/ic_twitter.svg" />*/}
             Buy & Stake $BVM
