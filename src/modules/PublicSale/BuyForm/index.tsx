@@ -181,7 +181,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             borderRadius={'100px'}
             p={'4px 8px'}
           >
-            <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            {/* <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
               <path d='M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z'
                     fill='url(#paint0_linear_30263_14863)' />
               <defs>
@@ -191,7 +191,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   <stop offset='1' stop-color='#35CCA6' />
                 </linearGradient>
               </defs>
-            </svg>
+            </svg> */}
 
             <Text
               fontSize={'14'}
@@ -200,13 +200,13 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               color={'#000'}
             >
               {token
-                ? `${formatCurrency(
+                ? `+${formatCurrency(
                   userContributeInfo?.view_boost,
                   MIN_DECIMAL,
                   MIN_DECIMAL,
                   'BTC',
                   true,
-                )}%`
+                )}% boost`
                 : '-'}
             </Text>
           </Flex>
@@ -225,7 +225,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
           <Text fontSize={14} lineHeight={1} fontWeight={400} color={'black'} mb={'12px'}>
-            Total Funded
+            Total
           </Text>
           <Text className={s.fundValue}>
             <NumberScale label={'$'} couters={Number(contributeInfo?.total_usdt_value)} maximumFractionDigits={0} minimumFractionDigits={0} />
