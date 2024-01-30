@@ -69,6 +69,9 @@ table {
           margin-top: auto;
           margin-bottom: auto;
           padding: 0 !important;
+          @include is-mobile {
+            padding-right: 24px !important;
+          }
           > div {
             height: 100%;
             padding-top: 16px !important;
