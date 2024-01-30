@@ -1,6 +1,7 @@
 import ConnectModal from '@/components/ConnectModal';
 import { PUBLIC_SALE_START } from '@/modules/Whitelist';
 import { IAuthenCode } from '@/modules/Whitelist/steps';
+import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 import {
   generateTokenWithTwPost,
   getBVMAirdrop,
@@ -124,21 +125,30 @@ const StepsAirdrop = (props: IProps) => {
     }
   };
 
-  const handleVerifyWallet = async () => {
+  const handleVerifyWallet = async (type?: AirdropStep) => {
     const { address } = await signMessage(getMessageEVM);
 
     const resGMHolders = await getBVMAirdrop({ address: address });
     AirdropStorage.setIsConnectMetaMask(true);
     AirdropStorage.setAirdropGMHolders(resGMHolders);
 
-    const generativeProfile = await getGenerativeProfile(address);
+    if (
+      type === AirdropStep.generativeUsers ||
+      type === AirdropStep.perceptronsHolders
+    ) {
+      const resp = await getGenerativeProfile(address);
 
-    if (generativeProfile?.walletAddressBtcTaproot) {
-      const resGenerativeUsers = await getBVMAirdrop({
-        address: generativeProfile?.walletAddressBtcTaproot,
-      });
-      AirdropStorage.setAirdropGenerativeUsers(resGenerativeUsers);
+      if (resp && resp.data && resp.data?.walletAddressBtcTaproot) {
+        const resGenerativeUsers = await getBVMAirdrop({
+          address: resp.data?.walletAddressBtcTaproot,
+        });
+        AirdropStorage.setAirdropGenerativeUsers(resGenerativeUsers);
+      }
     }
+  };
+
+  const handleShowManualPopup = () => {
+    setShowManualCheck(true);
   };
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
@@ -150,7 +160,7 @@ const StepsAirdrop = (props: IProps) => {
        `,
         actionText: 'Connect your Metamask',
         image: '/airdrop/generative.png',
-        actionHandle: handleVerifyWallet,
+        actionHandle: () => handleVerifyWallet(AirdropStep.generativeUsers),
         isActive: true,
         isDisable: true,
         right: {
@@ -169,7 +179,7 @@ const StepsAirdrop = (props: IProps) => {
        `,
         actionText: 'Connect your Metamask',
         image: '/airdrop/percep.png',
-        actionHandle: handleVerifyWallet,
+        actionHandle: () => handleVerifyWallet(AirdropStep.perceptronsHolders),
         isActive: true,
         isDisable: true,
         right: {
@@ -226,6 +236,7 @@ const StepsAirdrop = (props: IProps) => {
         // },
         // actionTextSecondary: 'Switch account',
         step: AirdropStep.alphaUsers,
+        handleShowManualPopup: handleShowManualPopup,
       },
     ];
   }, [token, needReload, raffleCode]);
@@ -264,6 +275,14 @@ const StepsAirdrop = (props: IProps) => {
             AirdropStorage.setAirdropPerceptronsHolders(resPerceptronsHolders);
           }
         }}
+      />
+      <VerifyTwModal
+        isShow={showManualCheck}
+        onHide={() => {
+          setShowManualCheck(false);
+        }}
+        secretCode={authenCode?.secret_code}
+        onSuccess={onVerifyTwSuccess}
       />
     </Flex>
   );
