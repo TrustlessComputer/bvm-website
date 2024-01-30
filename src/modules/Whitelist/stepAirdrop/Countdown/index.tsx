@@ -7,18 +7,22 @@ import clsx from 'classnames';
 interface IProps {
   expiredTime: string;
   hideIcon?: boolean;
+  isHideSecond?: boolean;
   className?: string;
   onRefreshEnd?: () => void;
   type?: 'row' | 'column',
+  hideZeroHour?: boolean
 }
 
 const Countdown: React.FC<IProps> = ({
-  expiredTime,
-  hideIcon,
-  className,
-  onRefreshEnd,
-  type = 'row'
-}: IProps): React.ReactElement => {
+   expiredTime,
+   hideIcon,
+   className,
+   onRefreshEnd,
+   type = 'row',
+   isHideSecond,
+   hideZeroHour = false
+ }: IProps): React.ReactElement => {
   const refCallEnd = useRef(false);
   const {
     days = 0,
@@ -27,6 +31,15 @@ const Countdown: React.FC<IProps> = ({
     seconds,
     ended,
   } = useCountdown(expiredTime);
+
+  const renderTime = () => {
+    if (hideZeroHour) {
+      return <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hideZeroHour && !hours ? `${hours}h : ` : ''} ${minutes}m : ${isHideSecond ? '' : `${seconds}s`}`}</Text>
+    } else if (!isHideSecond) {
+      return <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m : ${seconds}s`}</Text>
+    }
+    return <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m`}</Text>
+  }
 
   useEffect(() => {
     if (ended && expiredTime && onRefreshEnd && !refCallEnd.current) {
@@ -37,17 +50,17 @@ const Countdown: React.FC<IProps> = ({
 
   const showDay = React.useMemo(() => {
     return !!days;
-  }, [days])
+  }, [days]);
 
   return (
     <div className={clsx(s.countdown, className)}>
       {!hideIcon && (
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="12"
-          height="12"
-          viewBox="0 0 12 12"
-          fill="none"
+          xmlns='http://www.w3.org/2000/svg'
+          width='12'
+          height='12'
+          viewBox='0 0 12 12'
+          fill='none'
           style={{ fill: 'white' }}
         >
           <path
@@ -60,28 +73,30 @@ const Countdown: React.FC<IProps> = ({
       {ended && <Text className={s.text}>Ended</Text>}
       {!ended && (
         type === 'row' ? (
-          <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m : ${seconds}s`}</Text>
+          renderTime()
         ) : (
           (
-            <Flex gap={{ base: "24px", lg: "76px" }}>
+            <Flex gap={{ base: '24px', lg: '76px' }}>
               {showDay && (
-                <Flex flexDirection="column" alignItems="center">
+                <Flex flexDirection='column' alignItems='center'>
                   <Text className={s.text}>{days}</Text>
                   <span>DAYS</span>
                 </Flex>
               )}
-              <Flex flexDirection="column" alignItems="center">
-                <Text className={s.text}>{hours}</Text>
-                <span>HOURS</span>
-              </Flex>
-              <Flex flexDirection="column" alignItems="center">
+              {!!hideZeroHour && !hours && (
+                <Flex flexDirection='column' alignItems='center'>
+                  <Text className={s.text}>{hours}</Text>
+                  <span>HOURS</span>
+                </Flex>
+              )}
+              <Flex flexDirection='column' alignItems='center'>
                 <Text className={s.text}>{minutes}</Text>
                 <span>MINS</span>
               </Flex>
-              <Flex flexDirection="column" alignItems="center">
+              {!isHideSecond && <Flex flexDirection='column' alignItems='center'>
                 <Text className={s.text}>{seconds}</Text>
                 <span>SECONDS</span>
-              </Flex>
+              </Flex>}
             </Flex>
           )
         )

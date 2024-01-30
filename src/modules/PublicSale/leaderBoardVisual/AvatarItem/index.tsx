@@ -62,9 +62,10 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         const duration = 19 / 24;
         gsap.to(refMoney, {
           value: newTotalMoney, ease: 'power3.inOut', duration: numberLoop * duration,
-          onCompleted: (): void => {
+          onComplete: (): void => {
             setIsLoopDone(true);
           },
+          overflow: 'auto',
           onUpdate: () => {
             if (refInertMoney.current) {
               refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.value, 0, 0, '', true)}`;
@@ -82,7 +83,10 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.value, 0, 0, '', true)}`;
       }
     });
-    return () => gc.revert();
+    return () => {
+      setIsLoopDone(true);
+      gc.revert();
+    }
   }, [newTotalMoney, data]);
 
   const renderContent = () => {
@@ -96,7 +100,9 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         <div
           className={s.avatarItem_avatar}
           onClick={() => {
-            window.open(`https://twitter.com/${data?.twitter_username}`);
+            if (!isNaN(Number(data?.twitter_id))) {
+              window.open(`https://twitter.com/${data?.twitter_username}`);
+            }
           }}
         >
           {
@@ -116,7 +122,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         <div className={s.meta}>
           <p className={s.price} ref={refInertMoney}></p>
           {
-            !isYou && <p className={s.name}>{data?.twitter_username}</p>
+            !isYou && <p className={s.name}>{data?.twitter_name}</p>
           }
           {
             isYou && <p className={cx(s.name, s.isYou)}>You</p>

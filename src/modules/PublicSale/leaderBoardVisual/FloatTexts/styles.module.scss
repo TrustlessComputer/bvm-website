@@ -6,6 +6,7 @@
   bottom: 0;
   z-index: 1;
   pointer-events: none;
+  aspect-ratio: 1/1;
 }
 
 .animationContainer span {
@@ -58,6 +59,10 @@
     border-radius: 50%;
     flex: 0 0 auto;
     border: 2px solid #FFE259;
+    aspect-ratio: 1/1;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
   }
 
   span {

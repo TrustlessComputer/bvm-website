@@ -25,7 +25,7 @@ export const setBearerToken = (token: string) => {
   }
 };
 
-setBearerToken(AuthenStorage.getAuthenKey() as string);
+setBearerToken((AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey()) as string);
 
 const getTopLeaderBoards = async (params: {
   page?: number;

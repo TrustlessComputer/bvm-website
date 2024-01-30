@@ -8,7 +8,7 @@ type PropD = {
 const DropDown = ({ title, lists }: PropD): ReactElement => {
 
   return <div className={s.dropMenu}>
-    <span className={`${s.dropMenu_label}`}>
+    <span className={`${s.dropMenu_label} dropMenu_label`}>
        {title}
       <SvgInset svgUrl={`icons/ic-submenu.svg`} />
     </span>

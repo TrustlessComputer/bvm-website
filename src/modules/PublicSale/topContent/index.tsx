@@ -27,7 +27,7 @@ const TopContent = () => {
                                                                               alt={'right'} /></a>
             <ModalVideo
               channel="custom"
-              url={'/public-sale/public_sale_video_1.mp4'}
+              url={'/public-sale/public_sale_video_2.mp4'}
               isOpen={isOpen}
               onClose={() => {
                 setOpen(false);
@@ -47,6 +47,10 @@ const TopContent = () => {
               {
                 link: WHITEPAPER_DOC_URL,
                 title: 'Whitepaper',
+              },
+              {
+                link: 'https://github.com/trustlesscomputer/',
+                title: 'Github',
               },
             ]} />
           </li>

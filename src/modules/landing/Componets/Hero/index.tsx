@@ -11,9 +11,7 @@ export default function Hero() {
       <div className={s.hero}>
         <div className={s.hero_wrap}>
           <BgHero />
-          <div className={`${s.hero_inner} ${s.hero_inner__desktop}`}>
-            <HeroLabel />
-          </div>
+
         </div>
         <JoinAllowList />
         <Intro />

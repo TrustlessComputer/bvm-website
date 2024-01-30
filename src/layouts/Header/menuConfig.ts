@@ -9,6 +9,7 @@ export interface NavItem {
   href?: string;
   isHide?: boolean;
   isTwitter?: boolean;
+  isStrong?: boolean;
   subMenu?: any;
 }
 
@@ -75,6 +76,13 @@ export const NAV_ITEMS: Array<NavItem> = [
     isNewWindow: true,
     isHide: false,
   },
+  {
+    label: 'Github',
+    isTwitter: true,
+    href: 'https://github.com/trustlesscomputer/',
+    isNewWindow: true,
+    isHide: false,
+  },
 ].filter((item) => !item.isHide);
 
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
@@ -91,9 +99,10 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
+    label: checkIsPublicSale() ? '✨Public Sale' : 'Launchpad',
     href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
     isNewWindow: false,
+    isStrong: checkIsPublicSale(),
     isHide: false,
   },
 ].filter((item) => !item.isHide);
@@ -137,11 +146,5 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
     isNewWindow: true,
     isHide: false,
   },
-  {
-    label: 'Twitter',
-    isTwitter: true,
-    href: 'https://twitter.com/bvmnetwork',
-    isNewWindow: true,
-    isHide: false,
-  },
+
 ].filter((item) => !item.isHide);
