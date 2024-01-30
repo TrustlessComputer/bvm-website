@@ -38,7 +38,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: token ? 22 : 23,
+    limit: 23,
   });
   const refInitial = useRef(false);
 
@@ -87,6 +87,7 @@ const LeaderBoardVisual = (props: IProps) => {
 
       const { data: response, count } = await fnLoadData({
         ...refParams.current,
+        limit: leaderBoardMode === LEADER_BOARD_MODE.DAY ? 23 : token ? 22 : 23
       });
       if (isNew) {
         // const { data: response2 } = await fnLoadData({

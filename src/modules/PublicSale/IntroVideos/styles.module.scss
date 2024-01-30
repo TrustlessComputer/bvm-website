@@ -1,3 +1,14 @@
 .container {
-
+  .banner {
+    transition: all 0.5s linear;
+    -webkit-transition: opacity 0.5s linear;
+    -moz-transition: opacity 0.5s linear;
+    -o-transition: opacity 0.5s linear;
+    -ms-transition: opacity 0.5s linear;
+    cursor: pointer;
+  }
+  .bannerHidden {
+    opacity: 0;
+    display:none;
+  }
 }
