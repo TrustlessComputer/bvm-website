@@ -5,7 +5,13 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
-import { Avatar as AvatarImg, Box, Flex, Text, Tooltip } from '@chakra-ui/react';
+import {
+  Avatar as AvatarImg,
+  Box,
+  Flex,
+  Text,
+  Tooltip,
+} from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import clsx from 'classnames';
@@ -15,8 +21,14 @@ import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { publicSaleLeaderBoardSelector, userSelector } from '@/stores/states/user/selector';
-import { clearPublicSaleLeaderBoard, setPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
+import {
+  publicSaleLeaderBoardSelector,
+  userSelector,
+} from '@/stores/states/user/selector';
+import {
+  clearPublicSaleLeaderBoard,
+  setPublicSaleLeaderBoard,
+} from '@/stores/states/user/reducer';
 import { getPublicSaleLeaderBoards } from '@/services/public-sale';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 import SvgInset from '@/components/SvgInset';
@@ -55,7 +67,7 @@ const LeaderBoard = (props: IProps) => {
   const refParams = useRef({
     page: 1,
     limit: 50,
-    search: ''
+    search: '',
   });
 
   useEffect(() => {
@@ -72,7 +84,7 @@ const LeaderBoard = (props: IProps) => {
   }, [needReload]);
 
   useEffect(() => {
-    if(isSearch) {
+    if (isSearch) {
       dispatch(clearPublicSaleLeaderBoard());
       fetchData(true);
     }
@@ -217,9 +229,7 @@ const LeaderBoard = (props: IProps) => {
                 />
                 <Flex width={'100%'} gap={'4px'} direction={'column'}>
                   <p className={s.title}>{data?.twitter_name || ''}</p>
-                  {data?.need_active && (
-                    <Text className={s.subTitle}>YOU</Text>
-                  )}
+                  {data?.need_active && <Text className={s.subTitle}>YOU</Text>}
                 </Flex>
               </Flex>
             </Flex>
@@ -265,14 +275,35 @@ const LeaderBoard = (props: IProps) => {
                 width={'100%'}
                 // justifyContent={'center'}
               >
-                <Flex gap={2} alignItems={"center"}>
+                <Flex gap={2} alignItems={'center'}>
                   <Text className={s.title}>
-                    ${formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
+                    $
+                    {formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
                   </Text>
-                  <svg width="1" height="16" viewBox="0 0 1 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="0.5" y1="16" x2="0.499999" y2="2.18557e-08" stroke="#ECECEC"/>
+                  <svg
+                    width="1"
+                    height="16"
+                    viewBox="0 0 1 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      x1="0.5"
+                      y1="16"
+                      x2="0.499999"
+                      y2="2.18557e-08"
+                      stroke="#ECECEC"
+                    />
                   </svg>
-                  <AvatarImg width={'18px'} height={'18px'} src={tokenIcons[(data?.coin_balances || [])[0]?.symbol.toLowerCase()]} />
+                  <AvatarImg
+                    width={'18px'}
+                    height={'18px'}
+                    src={
+                      tokenIcons[
+                        (data?.coin_balances || [])[0]?.symbol.toLowerCase()
+                      ]
+                    }
+                  />
                 </Flex>
               </Flex>
             </Tooltip>
@@ -311,64 +342,114 @@ const LeaderBoard = (props: IProps) => {
               justifyContent={'flex-end'}
             >
               <Flex alignItems={'center'} gap={2}>
+                {!parseFloat(data?.view_boost) > 0 && (
+                  <Flex justifyContent="flex-start" alignItems="center">
+                    <Flex
+                      flexDirection="row"
+                      gap="4px"
+                      alignItems="center"
+                      className={clsx(
+                        s.tagBoost,
+                        (Number(data?.view_boost) || 0) <= 10
+                          ? s.boostNormal
+                          : '',
+                        data.need_active && s.isActiveRowContent,
+                      )}
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13.3337 6.54474H8.97002L9.93972 0.726562L2.66699 9.45383H7.03063L6.06093 15.272L13.3337 6.54474Z"
+                          fill="#008456"
+                        />
+                      </svg>
+
+                      <Text
+                        className={cs(
+                          s.title,
+                          // s.multiplier,
+                          s[valueToClassName[`${data?.view_boost}`]],
+                          data.need_active && s.isActiveRow,
+                        )}
+                      >
+                        {data?.view_boost || 0}%
+                      </Text>
+                    </Flex>
+                  </Flex>
+                )}
+
                 <Text className={s.bvm_amount}>
-                  {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MIN_DECIMAL)} BVM
+                  {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MIN_DECIMAL)}{' '}
+                  BVM
                 </Text>
-                <Text className={s.bvm_percent}>({formatCurrency(Number(data?.bvm_percent) * 100, MIN_DECIMAL, MIN_DECIMAL)}%)</Text>
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'boost',
-        labelConfig,
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'flex-start',
-              width: '100%',
-              textTransform: 'uppercase',
-            }}
-          >
-            BOOST
-          </Flex>
-        ),
-        config: {
-          borderBottom: 'none',
-          fontSize: '14px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: ILeaderBoardPoint) {
-          return data?.need_active && (
-            <Flex justifyContent="flex-start" alignItems="center">
-              <Flex
-                flexDirection="row"
-                gap="4px"
-                alignItems="center"
-                className={clsx(s.tagBoost, (Number(data?.view_boost) || 0) <= 10 ? s.boostNormal : '')}
-              >
-                <SvgInset svgUrl={`${CDN_URL_ICONS}/${
-                  valueToImage?.[data?.view_boost] || 'flash_normal.svg'
-                }`}
-                />
-                <Text
-                  className={cs(
-                    s.title,
-                    s.multiplier,
-                    s[valueToClassName[`${data?.view_boost}`]],
-                    data.need_active && s.isActiveRow,
+                <Text className={s.bvm_percent}>
+                  (
+                  {formatCurrency(
+                    Number(data?.bvm_percent) * 100,
+                    MIN_DECIMAL,
+                    MIN_DECIMAL,
                   )}
-                >
-                  {data?.view_boost || 0}%
+                  %)
                 </Text>
               </Flex>
             </Flex>
           );
         },
       },
+      // {
+      //   id: 'boost',
+      //   labelConfig,
+      //   label: (
+      //     <Flex
+      //       style={{
+      //         justifyContent: 'flex-start',
+      //         width: '100%',
+      //         textTransform: 'uppercase',
+      //       }}
+      //     >
+      //       BOOST
+      //     </Flex>
+      //   ),
+      //   config: {
+      //     borderBottom: 'none',
+      //     fontSize: '14px',
+      //     fontWeight: 500,
+      //     verticalAlign: 'middle',
+      //     letterSpacing: '-0.5px',
+      //   },
+      //   render(data: ILeaderBoardPoint) {
+      //     return data?.need_active && (
+      // <Flex justifyContent="flex-start" alignItems="center">
+      //   <Flex
+      //     flexDirection="row"
+      //     gap="4px"
+      //     alignItems="center"
+      //     className={clsx(s.tagBoost, (Number(data?.view_boost) || 0) <= 10 ? s.boostNormal : '')}
+      //   >
+      //     <SvgInset svgUrl={`${CDN_URL_ICONS}/${
+      //       valueToImage?.[data?.view_boost] || 'flash_normal.svg'
+      //     }`}
+      //     />
+      //     <Text
+      //       className={cs(
+      //         s.title,
+      //         s.multiplier,
+      //         s[valueToClassName[`${data?.view_boost}`]],
+      //         data.need_active && s.isActiveRow,
+      //       )}
+      //     >
+      //       {data?.view_boost || 0}%
+      //     </Text>
+      //   </Flex>
+      // </Flex>
+      //     );
+      //   },
+      // },
     ];
   }, [user?.referral_code]);
 
@@ -389,11 +470,7 @@ const LeaderBoard = (props: IProps) => {
         wrapClassName={s.wrapScroll}
         hideScrollBar={false}
       >
-        <ListTable
-          data={list}
-          columns={columns}
-          className={s.tableContainer}
-        />
+        <ListTable data={list} columns={columns} className={s.tableContainer} />
         {isFetching && <AppLoading className={s.loading} />}
       </ScrollWrapper>
     </Box>

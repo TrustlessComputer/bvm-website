@@ -12,6 +12,7 @@ import { MetadataConfig, ViewportConfig } from '@/config';
 import chakraThemes from '@/themes/chakra-themes';
 import { ChakraProvider } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
+import Script from 'next/script';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -30,6 +31,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-D9T7LSF6BJ"
+        ></Script>
+        <Script>
+          {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-D9T7LSF6BJ');`}
+        </Script>
+      </head>
       <body>
         <StoreProvider>
           <ChakraProvider theme={chakraThemes}>

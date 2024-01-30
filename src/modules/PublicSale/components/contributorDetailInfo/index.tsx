@@ -29,7 +29,7 @@ const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
     return [
       {
         id: 'rank',
-        label: <Text pl={"8px"}>TOKEN NAME</Text>,
+        label: <Text pl={"8px"}>TOKEN</Text>,
         labelConfig,
         config: {
           borderBottom: 'none',
