@@ -14,11 +14,11 @@
   &__title {
     align-self: stretch;
     color: #FFFFFF;
-    font-size: 24px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: 150%;
-    margin-bottom: 16px;
+    line-height: 28px;
+    margin-bottom: 8px;
   }
 }
 
@@ -28,8 +28,8 @@
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
-    border-width: 0;
-    background-color: rgba(white, .08);
+    background-color: rgba(white, .06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     button {
       padding: 12px 20px;
 
@@ -40,7 +40,7 @@
   }
 
   :global(.chakra-collapse){
-    padding: 16px 10px !important;
+    padding: 10px 16px !important;
     padding-bottom: 0 !important;
   }
 
@@ -51,6 +51,11 @@
     line-height: 20px;
     letter-spacing: 0em;
     text-align: center;
+    white-space: nowrap;
+
+    img {
+      max-width: 214px;
+    }
 
     @include is-mobile {
       font-size: 14px;
@@ -58,13 +63,13 @@
 
     &__active {
       color: #FFFFFF;
-      background-color: rgba(white, .08);
+      //background-color: rgba(white, .08);
     }
   }
   &_desc {
     color: rgba(white, .7);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 20px;
     letter-spacing: 0em;
     b, strong{
@@ -78,18 +83,23 @@
 
   }
   &_header {
-    padding: 16px 10px !important;
+    padding: 10px 16px !important;
     background-color: rgba(black, .8);
-    border: 1px solid rgba(white, .10);
+    //border: 1px solid rgba(white, .10);
 
     button {
       padding: 0 !important;
+      display: none;
     }
 
     &__active {
       background-color: transparent;
       border: 0 !important;
-      border-bottom: 1px solid rgba(white, .10) !important;
+      border-bottom: 1px solid rgba(white, .07) !important;
+
+      button {
+        display: block;
+      }
     }
 
   }
@@ -113,7 +123,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    margin-top: 6px;
+    margin-top: 12px;
     align-items: center;
   }
 }

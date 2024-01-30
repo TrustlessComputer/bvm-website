@@ -1,25 +1,25 @@
 .container {
-  background: #FFFFFF1A;
-  box-shadow: 0px 0px 24px -6px #0000001F;
+  //background: #FFFFFF1A;
+  //box-shadow: 0px 0px 24px -6px #0000001F;
   width: 100%;
   //height: 36px;
-  padding: 4px;
+  //padding: 4px;
   transition: all 0.3s;
   gap: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  //border: 1px solid rgba(255, 255, 255, 0.1);
 
   .btn {
     width: 100%;
     background: transparent;
     color: #FFFFFF80;
     border-radius: 0px;
-    letter-spacing: 0.02rem;
-    font-weight: 400;
+    padding: 0 12px;
+    font-weight: 500;
     font-size: 12px;
-    height: 26px;
+    height: 24px;
     &.active {
-      color: #000000;
-      background: #FFFFFF;
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.1);
       font-weight: 500;
     }
   }

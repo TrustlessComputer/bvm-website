@@ -14,11 +14,11 @@ const TopContent = () => {
   return (
     <div className={s.container}>
       <div className={s.content}>
-        <Flex direction={'column'} gap={1}>
-          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.subTitle}>
+        <Flex direction={'column'} gap={3}>
+          <Text fontSize={"16px"} fontWeight={400} lineHeight={'24px'} className={s.subTitle}>
             Bitcoin Virtual Machine
           </Text>
-          <Text fontSize={56} fontWeight={400} lineHeight={1} className={s.title}>Welcome to the future of
+          <Text className={s.title}>Welcome to the future of
             Bitcoin</Text>
           <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin. And we’re fucking serious about it. Hope you’ll join the ride. LFG.</Text>
         </Flex>

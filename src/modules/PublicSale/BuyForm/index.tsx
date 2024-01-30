@@ -178,7 +178,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             alignItems={'center'}
             bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}
             borderRadius={'100px'}
-            p={'2px 10px'}
+            p={'4px 8px'}
           >
             <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
               <path d='M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z'
@@ -236,8 +236,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               true,
             )}
           </Text>
-          <Box mt={'32px'} />
-
+          <Box mt={'24px'} />
           <div className={s.grid}>
             <div>
               <div className={s.backer}  onClick={() => setShowContributorModal(true)}>
