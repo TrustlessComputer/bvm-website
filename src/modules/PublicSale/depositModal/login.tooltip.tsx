@@ -109,7 +109,9 @@ const LoginTooltip = ({ onClose }: { onClose: any }) => {
 
   const handleShareTw = async () => {
     const content = await generateLinkTweet();
-    window.open(content, '_blank');
+    setTimeout(() => {
+      window.open(content, '_blank');
+    }, 500);
 
     setTimeout(() => {
       setShowManualCheck(true);

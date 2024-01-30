@@ -70,7 +70,11 @@ const InfoTooltip = (props: InfoTooltipProps) => {
       isOpen={isOpen}
       onClose={onClose}
       styleConfig={
-        { zIndex: 999999999 }
+        isStyleConfig
+          ? {
+              zIndex: 999999999,
+            }
+          : undefined
       }
     >
       <PopoverTrigger>
@@ -91,7 +95,6 @@ const InfoTooltip = (props: InfoTooltipProps) => {
         <PopoverBody
           style={{
             padding: 5,
-            zIndex: 999999999
           }}
           className={bodyClassName}
         >
