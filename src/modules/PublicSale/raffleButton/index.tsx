@@ -81,19 +81,19 @@ const RaffleButton = ({ className }: any) => {
 
     const saleSummary = await getPublicSaleSummary();
 
-    const content = `Welcome to the future of Bitcoin!\n\n@BVMnetwork is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\nJoin the ${formatCurrency(
+    const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
       saleSummary.total_user || '0',
       0,
       0,
       'BTC',
       false,
-    )} early contributors backing us with $${formatCurrency(
+    )} early contributors who've committed $${formatCurrency(
       saleSummary.total_usdt_value_not_boost || '0',
       0,
       0,
       'BTC',
       true,
-    )} to build the future of Bitcoin.\n`;
+    )} to building Bitcoin's future with @BVMnetwork\n\n`;
     return window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
         content,
@@ -132,23 +132,49 @@ const RaffleButton = ({ className }: any) => {
             </Flex>
             <Flex gap={4}>
               {raffleCode ? (
-                <>
-                  <Button
-                    onClick={onShareNow}
-                    className={cx(s.learnMoreWrapper)}
-                    borderRadius={'0px'}
-                    height={'100%'}
-                    w={'100%'}
-                    bg={'#fff'}
-                    _hover={{
-                      bgColor: '#FA4E0E',
-                    }}
+                <Flex flexDirection={'column'}>
+                  <Text
+                    fontWeight={'400'}
+                    color={'#fff'}
+                    fontSize={'12px'}
+                    lineHeight={'120%'}
+                    mb={'5px'}
                   >
+                    Share more post to increase
+                    <br />
+                    your winning chance
+                  </Text>
+                  <Flex onClick={onShareNow} className={cx(s.learnMoreWrapper)}>
                     <Text fontWeight={'400'} color={'#000'} fontSize={'14px'}>
-                      Share to win
+                      Share now
                     </Text>
-                  </Button>
-                </>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect width="24" height="24" fill="black" />
+                      <g clip-path="url(#clip0_30479_11542)">
+                        <path
+                          d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z"
+                          fill="white"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_30479_11542">
+                          <rect
+                            width="14"
+                            height="14"
+                            fill="white"
+                            transform="translate(5 5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </Flex>
+                </Flex>
               ) : (
                 <>
                   <Flex
@@ -217,9 +243,40 @@ const RaffleButton = ({ className }: any) => {
                           Share more posts on X to increase your chances of
                           winning the raffle
                         </Text>
-                        <Button onClick={onShareNow} className={s.shareNow}>
-                          Share to win
-                        </Button>
+                        <Flex
+                          className={cx(s.learnMoreWrapper)}
+                          gap={3}
+                          onClick={onShareNow}
+                          cursor="pointer"
+                          mt={'20px'}
+                        >
+                          <Text>Like and repost to join</Text>
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect width="24" height="24" fill="black" />
+                            <g clip-path="url(#clip0_30479_11542)">
+                              <path
+                                d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z"
+                                fill="white"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_30479_11542">
+                                <rect
+                                  width="14"
+                                  height="14"
+                                  fill="white"
+                                  transform="translate(5 5)"
+                                />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </Flex>
                       </Flex>
                     </>
                   ) : (

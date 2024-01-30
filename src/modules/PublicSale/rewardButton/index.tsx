@@ -39,7 +39,9 @@ const RewardButton = ({ className }: any) => {
       const res = await getPublicSaleProgram();
       setProgrameInfo(res);
       if (!isMobile) {
-        onOpen();
+        setTimeout(() => {
+          onOpen();
+        }, 2000);
       }
     } catch (e) {
     } finally {
@@ -54,11 +56,7 @@ const RewardButton = ({ className }: any) => {
   return (
     <Popover onClose={onClose} isOpen={isOpen} defaultIsOpen={true}>
       <PopoverTrigger>
-        <Flex
-          onMouseOut={onClose}
-          onMouseOver={onOpen}
-          className={cx(s.container, className)}
-        >
+        <Flex onMouseOver={onOpen} className={cx(s.container, className)}>
           <span className={s.icon}></span>
           <div className={s.text}>
             <Text
@@ -88,11 +86,22 @@ const RewardButton = ({ className }: any) => {
         <PopoverBody>
           <Flex gap={6} direction={['column', 'row']}>
             <Flex direction={'column'}>
-              <Text className={s.title}>{'Top Leaderboard Reward'}</Text>
+              <Text className={s.title}>{'DAILY LEADERBOARD REWARDS'}</Text>
               <Text className={s.desc}>
                 {
-                  'Make contributions to climb to the top of the leaderboard and earn exciting rewards every day. Stay tuned for daily updates.'
+                  'The top 3 backers of each day will receive 10 Modular Inscriptions each.'
                 }
+              </Text>
+              <Text
+                onClick={() =>
+                  window.open(
+                    'https://twitter.com/punk3700/status/1752291478901235915',
+                    '_blank',
+                  )
+                }
+                className={s.link}
+              >
+                {'Learn more >'}
               </Text>
             </Flex>
           </Flex>

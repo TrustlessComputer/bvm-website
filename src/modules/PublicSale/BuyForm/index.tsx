@@ -22,6 +22,9 @@ import cx from 'classnames';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { PUBLIC_SALE_END } from '@/modules/Whitelist';
 import NumberScale from '@/components/NumberScale';
+import DepositGuestCodeHere, {
+  GuestCodeHere,
+} from '../depositModal/deposit.guest.code';
 import { getLink } from '@/utils/helpers';
 import LoginTooltip from '@/modules/PublicSale/depositModal/login.tooltip';
 
@@ -58,7 +61,8 @@ const Column = forwardRef((props: IColumnProps, ref: any) => {
 });
 
 const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
-  const cachedTotalUSD = window.localStorage.getItem('LAST_TOTAL_USDT') || '0';
+  const cachedTotalUSD =
+    window.localStorage.getItem('LAST_TOTAL_USDT_NON_BOOST') || '0';
 
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
@@ -101,7 +105,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
     window.localStorage.setItem(
-      'LAST_TOTAL_USDT',
+      'LAST_TOTAL_USDT_NON_BOOST',
       res.total_usdt_value_not_boost || '0',
     );
     setContributeInfo(res);
@@ -182,12 +186,12 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
               {token
                 ? `$${formatCurrency(
-                  userContributeInfo?.usdt_value,
-                  MIN_DECIMAL,
-                  MIN_DECIMAL,
-                  'BTC',
-                  true,
-                )}`
+                    userContributeInfo?.usdt_value,
+                    MIN_DECIMAL,
+                    MIN_DECIMAL,
+                    'BTC',
+                    true,
+                  )}`
                 : '$0'}
             </Text>
             {/*<Text color={'rgba(255, 255, 255, 0.7)'} fontSize={'12px'} fontWeight={'500'}>*/}
@@ -215,7 +219,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             {/*    : '-'}{' '}*/}
             {/*  BVM*/}
             {/*</Text>*/}
-            {Boolean(userContributeInfo?.view_boost) && (
+            {Boolean(userContributeInfo?.view_boost) ? (
               <Flex
                 gap={'2px'}
                 alignItems={'center'}
@@ -224,7 +228,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 }
                 borderRadius={'100px'}
                 p={'4px 8px'}
-                width={"fit-content"}
+                width={'fit-content'}
               >
                 <Text
                   fontSize={'14'}
@@ -234,19 +238,33 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 >
                   {token
                     ? `+${formatCurrency(
-                      userContributeInfo?.view_boost,
-                      0,
-                      0,
-                      'BTC',
-                      true,
-                    )}% boost`
+                        userContributeInfo?.view_boost,
+                        0,
+                        0,
+                        'BTC',
+                        true,
+                      )}% boost`
                     : '-'}
                 </Text>
               </Flex>
+            ) : (
+              <Tooltip label="Sign in to X and claim your boost!">
+                <svg
+                  cursor={'pointer'}
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 512 512"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M256 48C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48zm-4.3 304c-11.8 0-21.4-9-21.4-20.6 0-11.5 9.6-20.6 21.4-20.6 11.9 0 21.5 9 21.5 20.6 0 11.6-9.5 20.6-21.5 20.6zm40.2-96.9c-17.4 10.1-23.3 17.5-23.3 30.3v7.9h-34.7l-.3-8.6c-1.7-20.6 5.5-33.4 23.6-44 16.9-10.1 24-16.5 24-28.9s-12-21.5-26.9-21.5c-15.1 0-26 9.8-26.8 24.6H192c.7-32.2 24.5-55 64.7-55 37.5 0 63.3 20.8 63.3 50.7 0 19.9-9.6 33.6-28.1 44.5z"></path>
+                </svg>
+              </Tooltip>
             )}
           </Flex>
         </div>
-
       </div>
     );
   });
@@ -328,7 +346,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     minimumFractionDigits={0}
                   />
                 </Text>
-
               </div>
             </div>
             <div className={s.grid_item}>
@@ -343,15 +360,15 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 {/*Day{remainDay !== 1 && 's'} to go*/}
               </Text>
 
-                <Countdown
-                  className={s.tValue}
-                  expiredTime={dayjs
-                    .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
-                    .toString()}
-                  hideIcon={true}
-                  isHideSecond={true}
-                  onRefreshEnd={() => setIsEnd(true)}
-                />
+              <Countdown
+                className={s.tValue}
+                expiredTime={dayjs
+                  .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
+                  .toString()}
+                hideIcon={true}
+                isHideSecond={true}
+                onRefreshEnd={() => setIsEnd(true)}
+              />
 
               {/*{remainDay === 0 ? (*/}
               {/*  <Countdown*/}
@@ -399,6 +416,10 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </Button>
             </AuthForBuy>
           </Flex>
+          {parseFloat(userContributeInfo?.usdt_value || '0') > 0 && (
+            <GuestCodeHere theme="light" />
+          )}
+
           <DepositModal
             isShow={showQrCode}
             onHide={() => setShowQrCode(false)}
