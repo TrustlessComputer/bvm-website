@@ -9,8 +9,20 @@ import s from './styles.module.scss';
 import { CDN_URL } from '@/config';
 import DepositClaimItHere from '@/modules/PublicSale/depositModal/deposit.claim.it.here';
 import DepositCheckItHere from '@/modules/PublicSale/depositModal/deposit.check.it.here';
+import { useAppSelector } from '@/stores/hooks';
+import { userSelector } from '@/stores/states/user/selector';
+import { compareString } from '@/utils/string';
 
 const FAQContent: React.FC = (): React.ReactElement => {
+  const user = useAppSelector(userSelector);
+
+  const boost = React.useMemo(() => {
+    if (!user?.boost) return '0%';
+    if (compareString(user?.boost, '1.1')) return "10%";
+    if (compareString(user?.boost, '1.2')) return "20%";
+    if (compareString(user?.boost, '1.3')) return "30%";
+    return '0%'
+  }, [user?.boost])
   return (
     <div className={s.faqWrapper} id="1" data-section="1">
       <div className={s.faqContainer}>
@@ -209,13 +221,20 @@ const FAQContent: React.FC = (): React.ReactElement => {
                       boost, the next 9% will get a 20% boost, and the remaining
                       90% will receive a 10% boost.
                     </p>
-                    <p className={s.faqContent}>
-                      If you have a boost,{' '}
-                      <DepositClaimItHere>
-                        <a>claim it here</a>
-                      </DepositClaimItHere>
-                      .
-                    </p>
+                    {user ? (
+                      <p className={s.faqContent}>
+                        You have a boost of {boost}!!!
+                      </p>
+                    ) : (
+                      <p className={s.faqContent}>
+                        If you have a boost,{' '}
+                        <DepositClaimItHere>
+                          <a>claim it here</a>
+                        </DepositClaimItHere>
+                        .
+                      </p>
+                    )}
+
                   </AccordionPanel>
                 </>
               )}
