@@ -256,7 +256,7 @@ Good luck and have fun!
       <p className={styles.container__title}>
         7 days of awesomeness. Experience Bitcoin like never before.
       </p>
-      <Accordion allowMultiple={false} allowToggle defaultIndex={[0]} >
+      <Accordion allowMultiple={false} allowToggle defaultIndex={[currentDay.diffDay]} >
         {DAYS.map(renderItem)}
       </Accordion>
     </Flex>
