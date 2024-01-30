@@ -19,7 +19,7 @@ export const DesktopNavLeft = (props: Props) => {
           href={navItem.href ?? '#'}
           target={navItem.isNewWindow ? '_blank' : '_self'}
           color={props?.primaryColor || 'white'}
-          className={navItem.isStrong && s.isStrong}
+          className={navItem.isStrong ? s.isStrong : ''}
         >
             <Text
               textAlign={'center'}
