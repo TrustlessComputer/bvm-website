@@ -170,97 +170,99 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           >
             Your contribution
           </Text>
-          <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
-            {token
-              ? `$${formatCurrency(
+          <Flex gap={1} alignItems={"center"}>
+            <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
+              {token
+                ? `$${formatCurrency(
                   userContributeInfo?.usdt_value,
                   MIN_DECIMAL,
                   MIN_DECIMAL,
                   'BTC',
                   true,
                 )}`
-              : '$0'}
-          </Text>
-          {/*<Text color={'rgba(255, 255, 255, 0.7)'} fontSize={'12px'} fontWeight={'500'}>*/}
-          {/*  {token*/}
-          {/*    ? `(${formatCurrency(*/}
-          {/*      userContributeInfo?.bvm_balance_not_boost,*/}
-          {/*      MIN_DECIMAL,*/}
-          {/*      MAX_DECIMAL,*/}
-          {/*      'BTC',*/}
-          {/*      false,*/}
-          {/*    )} BVM)`*/}
-          {/*    : '-'}*/}
-          {/*</Text>*/}
+                : '$0'}
+            </Text>
+            {/*<Text color={'rgba(255, 255, 255, 0.7)'} fontSize={'12px'} fontWeight={'500'}>*/}
+            {/*  {token*/}
+            {/*    ? `(${formatCurrency(*/}
+            {/*      userContributeInfo?.bvm_balance_not_boost,*/}
+            {/*      MIN_DECIMAL,*/}
+            {/*      MAX_DECIMAL,*/}
+            {/*      'BTC',*/}
+            {/*      false,*/}
+            {/*    )} BVM)`*/}
+            {/*    : '-'}*/}
+            {/*</Text>*/}
 
-          {/*<Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFF'}>*/}
-          {/*  GET*/}
-          {/*</Text>*/}
-          {/*<Text fontSize={'12px'} fontWeight={'500'} className={s.youGet}>*/}
-          {/*  {token*/}
-          {/*    ? formatCurrency(*/}
-          {/*      userContributeInfo?.bvm_balance,*/}
-          {/*      MIN_DECIMAL,*/}
-          {/*      MAX_DECIMAL,*/}
-          {/*    )*/}
-          {/*    : '-'}{' '}*/}
-          {/*  BVM*/}
-          {/*</Text>*/}
-
-          {Boolean(userContributeInfo?.view_boost) && (
-            <Flex
-              gap={'2px'}
-              alignItems={'center'}
-              bg={
-                'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'
-              }
-              borderRadius={'100px'}
-              p={'4px 8px'}
-            >
-              <svg
-                width="16"
-                height="17"
-                viewBox="0 0 16 17"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+            {/*<Text fontSize={'12px'} fontWeight={'500'} color={'#FFFFFF'}>*/}
+            {/*  GET*/}
+            {/*</Text>*/}
+            {/*<Text fontSize={'12px'} fontWeight={'500'} className={s.youGet}>*/}
+            {/*  {token*/}
+            {/*    ? formatCurrency(*/}
+            {/*      userContributeInfo?.bvm_balance,*/}
+            {/*      MIN_DECIMAL,*/}
+            {/*      MAX_DECIMAL,*/}
+            {/*    )*/}
+            {/*    : '-'}{' '}*/}
+            {/*  BVM*/}
+            {/*</Text>*/}
+            {Boolean(userContributeInfo?.view_boost) && (
+              <Flex
+                gap={'2px'}
+                alignItems={'center'}
+                bg={
+                  'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'
+                }
+                borderRadius={'100px'}
+                p={'4px 8px'}
+                width={"fit-content"}
               >
-                <path
-                  d="M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z"
-                  fill="url(#paint0_linear_30263_14863)"
-                />
-                <defs>
-                  <linearGradient
-                    id="paint0_linear_30263_14863"
-                    x1="2.66675"
-                    y1="8.49929"
-                    x2="13.3334"
-                    y2="8.49929"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stop-color="#007659" />
-                    <stop offset="1" stop-color="#35CCA6" />
-                  </linearGradient>
-                </defs>
-              </svg>
+                <svg
+                  width="16"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z"
+                    fill="url(#paint0_linear_30263_14863)"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="paint0_linear_30263_14863"
+                      x1="2.66675"
+                      y1="8.49929"
+                      x2="13.3334"
+                      y2="8.49929"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#007659" />
+                      <stop offset="1" stop-color="#35CCA6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
 
-              <Text
-                fontSize={'14'}
-                fontWeight={'500'}
-                className={s.boost}
-                color={'#000'}
-              >
-                {token
-                  ? `${formatCurrency(
+                <Text
+                  fontSize={'14'}
+                  fontWeight={'500'}
+                  className={s.boost}
+                  color={'#000'}
+                >
+                  {token
+                    ? `${formatCurrency(
                       userContributeInfo?.view_boost,
                       MIN_DECIMAL,
                       MIN_DECIMAL,
                       'BTC',
                       true,
                     )}%`
-                  : '-'}
-              </Text>
-            </Flex>
-          )}
+                    : '-'}
+                </Text>
+              </Flex>
+            )}
+          </Flex>
         </div>
 
       </div>
