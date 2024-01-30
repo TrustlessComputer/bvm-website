@@ -6,10 +6,11 @@ import {gsap} from 'gsap';
 interface IProp { couters: number; minimumFractionDigits: number ; maximumFractionDigits: number, label: string}
 export default function NumberScale({ couters, minimumFractionDigits, maximumFractionDigits, label }: IProp) {
   const cx = proxy<{ value: number }>({ value: 0 });
+  const refFrom = useRef(0);
   const refContent = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    gsap.to(cx, {
-      value: couters, duration: 3, ease: 'power3.out', onUpdate: () => {
+    gsap.from(cx, {
+      value: refFrom.current, duration: 3, ease: 'power3.out', onUpdate: () => {
         if (refContent.current) {
           refContent.current.innerHTML = `${label}`+formatCurrency(
             cx.value,
@@ -20,8 +21,24 @@ export default function NumberScale({ couters, minimumFractionDigits, maximumFra
           );
         }
       },
+      
     });
-  }, [couters]);
+    gsap.to(cx, {
+      value: couters, duration: 3, ease: 'power3.out', onUpdate: () => {
+        if (refContent.current) {
+          refContent.current.innerHTML = `${label}`+formatCurrency(
+            cx.value,
+            minimumFractionDigits,
+            maximumFractionDigits,
+            '',
+            true,
+          );
+          refFrom.current = couters;
+        }
+      },
+      
+    });
+  }, [couters, refFrom.current]);
 
   return <div ref={refContent}>
 

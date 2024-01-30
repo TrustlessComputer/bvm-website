@@ -45,6 +45,24 @@ export interface IPublicSaleDepositInfo {
   total_usdt_value: string;
 }
 
+export const defaultSummary: IPublicSaleDepositInfo = {
+  total_user: 0,
+  total_eth: '0',
+  total_btc: '0',
+  total_eth_op: '0',
+  total_eth_arb: '0',
+  total_eth_base: '0',
+  total_tia: '0',
+  total_op: '0',
+  total_arb: '0',
+  total_ordi: '0',
+  total_sats: '0',
+  total_bvm: '0',
+  total_usdt: '0',
+  total_usdc: '0',
+  total_usdt_value: '0',
+};
+
 export interface IGenerateTOkenWithSecretCode {
   expired_at: string;
   token: string;
