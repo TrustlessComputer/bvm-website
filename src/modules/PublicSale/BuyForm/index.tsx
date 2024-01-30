@@ -91,7 +91,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const getUserContributeInfo = async () => {
     const { data } = await getPublicSaleLeaderBoards({
       page: 1,
-      limit: 1,
+      limit: 0,
     });
 
     if(data[0]?.need_active) {
