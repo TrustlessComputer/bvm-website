@@ -33,17 +33,19 @@ const Activities = React.memo(() => {
         tag: 'Day 1',
         title: 'Fully on-chain gaming on Bitcoin',
         src: 'public-sale/playGame.png',
-        ctas: [{
-          title: 'Play games on Arcade',
-          type: 'link',
-          link: 'https://bitcoinarcade.xyz/'
-        }],
-        desc: `Play hyper-casual mobile games on Bitcoin Arcade.<br/>Total rewards: <strong>30M $ARCA</strong> testnet tokens.`
+        ctas: [],
+        desc: `
+Bitcoin Arcade is a Bitcoin L2 designed for gaming (aka. the Immutable of Bitcoin). It’s powered by BVM with these modules: Bitcoin for security, EigenDA for data availability, and Optimism for execution.<br/><br/>
+On the first day of BVM’s launch, you’ll play incredibly fun games. These are the first fully on-chain on Bitcoin. Both the game logic and game states are stored on-chain.<br/><br/>
+Rewards: 30 million $ARCA testnet tokens, which can be converted to the $ARCA mainnet tokens in March.<br/><br/>
+How to play: Go to <a href='https://play.bitcoinarcade.xyz' target='_blank' style='text-decoration: underline; color: #FA4E0E'>https://play.bitcoinarcade.xyz</a> and enter the private invite code ARCADE.<br/><br/>
+Good luck and have fun!
+`
       },
       {
         key: 1,
         tag: 'Day 2',
-        title: 'BRC-20 Futures Trading Competition',
+        title: 'BRC-20 Perpetual Futures on Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [{
           title: 'Trade on Naka',
@@ -55,7 +57,7 @@ const Activities = React.memo(() => {
       {
         key: 2,
         tag: 'Day 3',
-        title: 'Playing with Lego at BVM network',
+        title: 'Modular on Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [{
           title: 'Play with modular blocks',
@@ -67,7 +69,7 @@ const Activities = React.memo(() => {
       {
         key: 3,
         tag: 'Day 4',
-        title: 'Poker Friday Night on Bitcoin',
+        title: 'Fully on-chain poker on Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [{
           title: 'Play games on Arcade',
@@ -79,7 +81,7 @@ const Activities = React.memo(() => {
       {
         key: 4,
         tag: 'Day 5',
-        title: 'Get Fit & Raise Charity on Bitcoin',
+        title: 'Running Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [{
           title: 'Run with Alphas',
@@ -91,7 +93,7 @@ const Activities = React.memo(() => {
       {
         key: 5,
         tag: 'Day 6',
-        title: 'Get Fit & Raise Charity on Bitcoin',
+        title: 'Running Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [{
           title: 'Run with Alphas',
@@ -103,7 +105,7 @@ const Activities = React.memo(() => {
       {
         key: 6,
         tag: 'Day 7',
-        title: 'Last day',
+        title: 'AI x Bitcoin',
         src: 'public-sale/playGame.png',
         desc: 'Details of Day 7 will be provided as soon as Day 6 is completed.'
       },
@@ -153,7 +155,7 @@ const Activities = React.memo(() => {
 
   const renderItem = (item: GameItemProps, index: number) => {
     const isDisable = index > currentDay.diffDay;
-    const title = isDisable ? <img src={'/public-sale/textblur.png'} alt={"textblur"}/> : item.title
+    const title = isDisable ? item.title : item.title
     return (
       <AccordionItem isDisabled={index > currentDay.diffDay} className={styles.itemWrapper}>
         {({ isExpanded }) => (
