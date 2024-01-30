@@ -46,6 +46,19 @@
     align-items: center;
     margin-top: 20px;
 
+    :global {
+      .dropMenu_label {
+        svg {
+          width: 16px !important;
+          height: 16px !important;
+
+          path {
+            stroke: rgb(250 78 13);
+          }
+        }
+      }
+    }
+
     li {
       font-size: 14px;
       line-height: 14px;
@@ -56,6 +69,7 @@
         align-items: center;
         gap: 4px;
         color: rgb(250 78 13);
+
         img {
           width: 16px;
           height: 16px;
@@ -70,22 +84,13 @@
           color: rgb(250 78 13);
           cursor: pointer;
         }
-
-        svg {
-          width: 16px !important;
-          height: 16px !important;
-
-          path {
-            stroke: rgb(250 78 13);
-          }
-        }
       }
     }
   }
 
 
   @include is-mobile {
-    .title{
+    .title {
       font-size: 32px;
     }
     .desc {

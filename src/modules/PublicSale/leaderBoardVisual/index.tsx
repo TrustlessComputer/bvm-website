@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import { LEADER_BOARD_MODE } from '@/modules/PublicSale/leaderBoardSwitch';
 import { setAnimatedLatestContributors, setNeedCheckDeposit } from '@/stores/states/common/reducer';
 import AuthenStorage from '@/utils/storage/authen.storage';
+import useWindowSize from '@/hooks/useWindowSize';
 
 export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
@@ -34,6 +35,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const refInterval = useRef<any>();
   const needCheckDeposit = useAppSelector(commonSelector).needCheckDeposit;
   const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
+  const {mobileScreen} = useWindowSize();
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -141,8 +143,8 @@ const LeaderBoardVisual = (props: IProps) => {
   useEffect(() => {
 
     let refLevel = 0;
-    const levels = [1, 3, 5, 6, 8];
-    const missingLength = 23 - list.length;
+    const levels = mobileScreen ? [1, 3, 4, 4, 5, 5, 1] : [1, 3, 5, 6, 8] ;
+    const missingLength = (mobileScreen ? 22 : 23) - list.length;
     const missingArray = Array.from({ length: missingLength }).map((u, i) => ({
       ranking: 1000,
       usdt_value: 0,
@@ -171,7 +173,7 @@ const LeaderBoardVisual = (props: IProps) => {
 
     setListRender(tmsss.slice(0, 23));
     setListMissingRender(missingArray);
-  }, [list]);
+  }, [list, mobileScreen]);
 
   return (
     <div className={styles.container} id={LEADER_BOARD_ID}>

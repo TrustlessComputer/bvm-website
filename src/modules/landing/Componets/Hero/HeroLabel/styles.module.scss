@@ -1,7 +1,4 @@
 .heroLabel {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 
   padding-top: 48px;
   padding-bottom: 48px;
@@ -9,6 +6,19 @@
   @include is-pc {
     padding-top: 0;
     padding-bottom: 0;
+  }
+
+  .inner{
+    display: flex;
+    gap: 12px;
+    @include is-min-table{
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @include is-mobile{
+      flex-direction: column;
+    }
   }
 
 

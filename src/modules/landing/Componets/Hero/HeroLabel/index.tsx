@@ -40,23 +40,25 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
   const delay = !isMobile ? DELAY  : 0;
   return (
     <div className={`container ${s.heroLabel} ${isMobile && s.heroLabel__mobile}`}>
-      <Fade delay={delay + .4}>
-        <div className={s.heroLabel_content}>
-          <Image
-            src={'/landing/svg/lego_icon_cube.svg'}
-            alt='cube'
-            width={32}
-            height={32}
-          />
-          <p className={s.heroLabel_content_text}>
-            Powered by the best-of-breed modules
-          </p>
+      <div className={`${s.inner} heroLabel_inner`}>
+        <Fade delay={delay + .4}>
+          <div className={s.heroLabel_content}>
+            <Image
+              src={'/landing/svg/lego_icon_cube.svg'}
+              alt='cube'
+              width={32}
+              height={32}
+            />
+            <p className={s.heroLabel_content_text}>
+              Powered by the best-of-breed modules
+            </p>
+          </div>
+        </Fade>
+        <div className={`${s.heroLabel_listHero} ${isMobile && s.heroLabel_listHero__mobile}`}>
+          {DATA_HERO.map((item, index) => {
+            return <ItemHero key={index} delay={delay + index / 10} data={item} />;
+          })}
         </div>
-      </Fade>
-      <div className={`${s.heroLabel_listHero} ${isMobile && s.heroLabel_listHero__mobile}`}>
-        {DATA_HERO.map((item, index) => {
-          return <ItemHero key={index} delay={delay + index / 10} data={item} />;
-        })}
       </div>
     </div>
   );
