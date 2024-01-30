@@ -75,7 +75,7 @@ const LeaderBoardVisual = (props: IProps) => {
     return () => {
       clearInterval(refInterval.current);
     };
-  }, [needReload, leaderBoardMode]);
+  }, [needReload, leaderBoardMode, mobileScreen]);
 
   const fetchData = async (isNew?: boolean) => {
     try {
