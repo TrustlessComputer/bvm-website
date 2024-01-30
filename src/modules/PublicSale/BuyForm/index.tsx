@@ -152,7 +152,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     const { className, ...rest } = props;
     return (
       <div>
-        <Flex
+        <div
           className={s.tValue}
           gap={'5px'}
           alignItems={'center'}
@@ -160,6 +160,16 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           {...rest}
           cursor={token ? 'pointer' : 'auto'}
         >
+
+          <Text
+            className={s.tLabel}
+            fontSize={20}
+            lineHeight={1}
+            fontWeight={400}
+            color={'rgba(0,0,0,0.7)'}
+          >
+            Your contribution
+          </Text>
           <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
             {token
               ? `$${formatCurrency(
@@ -251,16 +261,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </Text>
             </Flex>
           )}
-        </Flex>
-        <Text
-          className={s.tLabel}
-          fontSize={20}
-          lineHeight={1}
-          fontWeight={400}
-          color={'rgba(0,0,0,0.7)'}
-        >
-          Your contribution
-        </Text>
+        </div>
+
       </div>
     );
   });
@@ -294,6 +296,15 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 onClick={() => setShowContributorModal(true)}
               >
                 <Text
+                  className={s.tLabel}
+                  fontSize={20}
+                  lineHeight={1}
+                  fontWeight={400}
+                  color={'rgba(0,0,0,0.7)'}
+                >
+                  {'Backers'}
+                </Text>
+                <Text
                   className={s.tValue}
                   fontSize={20}
                   lineHeight={1}
@@ -311,18 +322,20 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     defaultFrom={cachedTotalUSD}
                   />
                 </Text>
-                <Text
-                  className={s.tLabel}
-                  fontSize={20}
-                  lineHeight={1}
-                  fontWeight={400}
-                  color={'rgba(0,0,0,0.7)'}
-                >
-                  {'Backers'}
-                </Text>
+
               </div>
             </div>
             <div className={s.grid_item}>
+              <Text
+                fontSize={20}
+                lineHeight={1}
+                fontWeight={400}
+                className={s.tLabel}
+                color={'rgba(0,0,0,0.7)'}
+              >
+                Ends in
+                {/*Day{remainDay !== 1 && 's'} to go*/}
+              </Text>
 
                 <Countdown
                   className={s.tValue}
@@ -355,16 +368,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               {/*      {' '}*/}
               {/*      {remainDay}{' '}*/}
               {/*    </Text>{' '}*/}
-                  <Text
-                    fontSize={20}
-                    lineHeight={1}
-                    fontWeight={400}
-                    className={s.tLabel}
-                    color={'rgba(0,0,0,0.7)'}
-                  >
-                   End in
-                    {/*Day{remainDay !== 1 && 's'} to go*/}
-                  </Text>
+
               {/*  </div>*/}
               {/*)}*/}
             </div>
