@@ -48,6 +48,10 @@ const TopContent = () => {
                 link: WHITEPAPER_DOC_URL,
                 title: 'Whitepaper',
               },
+              {
+                link: 'https://github.com/trustlesscomputer/',
+                title: 'Github',
+              },
             ]} />
           </li>
         </ul>
