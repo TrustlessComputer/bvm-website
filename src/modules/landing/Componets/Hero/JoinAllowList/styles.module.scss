@@ -78,14 +78,6 @@
     @include is-mobile {
       font-size: 10px;
     }
-
-    &__publicSale {
-      font-size: 18px;
-      @include is-mobile {
-        font-size: 14px;
-      }
-    }
-
   }
 
   .desc {
@@ -106,22 +98,6 @@
 
     @include is-pc {
       font-size: 32px;
-    }
-
-
-    &__publicSale {
-      max-width: 720px;
-      @include is-mobile {
-        font-size: 18px;
-      }
-
-      @include is-tablet {
-        font-size: 20px;
-      }
-
-      @include is-pc {
-        font-size: 24px;
-      }
     }
 
     span {

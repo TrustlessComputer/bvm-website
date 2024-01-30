@@ -312,9 +312,9 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={s.bvm_amount}>
-                  {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)} BVM
+                  {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MIN_DECIMAL)} BVM
                 </Text>
-                <Text className={s.bvm_percent}>({data?.bvm_point}%)</Text>
+                <Text className={s.bvm_percent}>({formatCurrency(Number(data?.bvm_percent) * 100, MIN_DECIMAL, MIN_DECIMAL)}%)</Text>
               </Flex>
             </Flex>
           );
