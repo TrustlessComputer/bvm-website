@@ -272,7 +272,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
         <ContributorBlock className={s.blockItem} />
       )
     )
-  }, [token]);
+  }, [token, userContributeInfo]);
 
   return (
     <div className={s.container}>
