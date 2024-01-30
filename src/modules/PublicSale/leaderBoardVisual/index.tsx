@@ -109,11 +109,11 @@ const LeaderBoardVisual = (props: IProps) => {
     let res = await getPublicSaleContributionLatest();
     const oldContributors = latestContributors?.current;
 
-    const newRes = res.filter( function( el ) {
+    const newRes = res.filter(function(el) {
       return oldContributors?.findIndex(a => a.deposit_id === el.deposit_id) < 0;
     });
 
-    if(newRes?.length > 0) {
+    if (newRes?.length > 0) {
       latestContributors.current = [...newRes].concat(latestContributors.current);
     }
     animatedLatestContributors.current = newRes || [];
@@ -158,9 +158,10 @@ const LeaderBoardVisual = (props: IProps) => {
         {
           listRender.map((item, index) => {
             return <>
-                <AvatarItem data={item} isShowName={index < 4} isYou={user?.twitter_id === item.twitter_id} />
+              <AvatarItem data={item} idx={index} isShowName={index < 4} isYou={user?.twitter_id === item.twitter_id} />
               {
-                item.lastRender && <span className={styles.lastRender}></span>
+                item.lastRender &&
+                <span className={`${styles.lastRender} ${styles[`lastRender__${item.levelRender}`]}`}></span>
               }
             </>;
           })
