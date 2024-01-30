@@ -67,7 +67,6 @@
     position: absolute;
     bottom: calc(100% + 10px);
     width: 100%;
-    @include fixTextLargeLen(160px);
 
     &.isYou {
       background: linear-gradient(90deg, #FFE259 0%, #FFA751 100%);
@@ -75,6 +74,7 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       text-fill-color: transparent;
+      bottom: 100%;
     }
   }
 
@@ -146,6 +146,10 @@
 
     .name {
       font-size: 14px;
+
+      &.isYou{
+        bottom: calc(100% + 10px) !important;
+      }
     }
 
     .avatarItem_avatar {

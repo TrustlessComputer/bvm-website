@@ -67,7 +67,6 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         },
       });
 
-      console.log('___lottieRef.current', lottieRef.current)
       if (!lottieRef.current) return;
 
       lottieRef.current.setLoop(numberLoop);
