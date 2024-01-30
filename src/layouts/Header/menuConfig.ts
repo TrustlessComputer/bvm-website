@@ -1,4 +1,5 @@
 import { DEVELOPERS_DOC_URL, WHITEPAPER_DOC_URL } from '@/config';
+import { checkIsPublicSale } from '@/modules/Whitelist/utils';
 
 export interface NavItem {
   label: string;
@@ -25,8 +26,8 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Launchpad',
-    href: '/launchpad',
+    label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
+    href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
     isNewWindow: false,
     isHide: false,
   },
@@ -90,8 +91,8 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Launchpad',
-    href: '/launchpad',
+    label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
+    href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
     isNewWindow: false,
     isHide: false,
   },

@@ -8,8 +8,8 @@ import { DotLottiePlayer } from '@dotlottie/react-player';
 import { gsap } from 'gsap';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { Tooltip } from '@chakra-ui/react';
-import TopContributorReward from '@/modules/PublicSale/leaderBoardVisual/topContributorReward';
+import { proxy } from 'valtio';
+import cx from 'clsx';
 
 interface IProps {
   data: ILeaderBoardPoint,
@@ -27,9 +27,12 @@ export const PlaceImage = (): ReactElement => {
 };
 
 const AvatarItem = forwardRef((props: IProps, ref: any) => {
+
   const { data, idx, isShowName, isYou, onCompleted, ...rest } = props;
   const lottieRef = useRef<any>();
-  const refMoney = useRef<{ value: number }>({ value: Number(data?.usdt_value) || 0 });
+  const [error, setError] = useState<boolean>(false);
+  const refMoney = proxy<{ value: number }>({value:  Number(data?.usdt_value) || 0});
+  // const refMoney = useRef<{ value: number }>({ value: Number(data?.usdt_value) || 0 });
   const refInertMoney = useRef<HTMLParagraphElement>(null);
   const [isLoopDone, setIsLoopDone] = useState(true);
   const refTime = useRef<NodeJS.Timeout>();
@@ -41,28 +44,30 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
       const add = animatedLatestContributors?.find(c => c.twitter_id === data?.twitter_id);
 
       if(add) {
-        return refMoney.current.value + Number(add.usdt_value);
+        return refMoney.value + Number(add.usdt_value);
       } else {
-        return refMoney.current.value;
+        return refMoney.value;
       }
     } else {
-      return refMoney.current.value;
+      return refMoney.value;
     }
-  }, [needCheckDeposit, JSON.stringify(animatedLatestContributors)]);
+  }, [needCheckDeposit, JSON.stringify(animatedLatestContributors), data]);
 
   useEffect(() => {
 
     if (!refInertMoney.current) return;
-    if (newTotalMoney && refMoney.current.value !== newTotalMoney) {
+    if (newTotalMoney && refMoney.value !== newTotalMoney) {
       const numberLoop = 5;
       const duration = 19/24;
-      gsap.to(refMoney.current, {
+      gsap.to(refMoney, {
         value: newTotalMoney, ease: 'power3.inOut', duration: numberLoop * duration, onUpdate: () => {
           if (refInertMoney.current) {
-            refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.current.value, 0, 0, '', true)}`;
+            refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.value, 0, 0, '', true)}`;
           }
         },
       });
+
+      console.log('___lottieRef.current', lottieRef.current)
       if (!lottieRef.current) return;
 
       lottieRef.current.setLoop(numberLoop);
@@ -77,7 +82,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         onCompleted && onCompleted();
       }, duration * numberLoop * 1000);
     } else {
-      refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.current.value, 0, 0, '', true)}`;
+      refInertMoney.current.innerHTML = `$${formatCurrency(refMoney.value, 0, 0, '', true)}`;
     }
 
     return () => {
@@ -85,9 +90,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         clearTimeout(refTime.current);
       }
     }
-  }, [newTotalMoney]);
-
-  const [error, setError] = useState<boolean>(false);
+  }, [newTotalMoney, data]);
 
   const renderContent = () => {
     return (
@@ -99,7 +102,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
           isShowName && data?.levelRender === 0 && !isYou && <p className={s.name}>{data?.twitter_username}</p>
         }
         {
-          isYou && <p className={s.name}>You</p>
+          isYou && <p className={cx(s.name, s.isYou)}>You</p>
         }
         <div
           className={s.avatarItem_avatar}
@@ -133,7 +136,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
     <div
       className={`${s.avatarItem} ${s[`avatarItem__${idx}`]} ${isYou && s.isYou} ${data?.levelRender !== undefined && 'level-' + data?.levelRender} js-avatarItem`}
       ref={ref} {...rest}>
-      {
+      {/*{
         data?.levelRender === 0 ? (
           <Tooltip
             minW="400px"
@@ -149,7 +152,8 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         ) : (
           <>{renderContent()}</>
         )
-      }
+      }*/}
+      <>{renderContent()}</>
       {
         <div className={`${s.lt} ${!isLoopDone ? s.isRun : ''}`}>
           <DotLottiePlayer
