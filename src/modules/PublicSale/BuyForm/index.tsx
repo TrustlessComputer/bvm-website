@@ -62,7 +62,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const [showQrCode, setShowQrCode] = useState(false);
   const [contributeInfo, setContributeInfo] = useState<IPublicSaleDepositInfo>({
     ...defaultSummary,
-    total_usdt_value: cachedTotalUSD,
+    total_usdt_value_not_boost: cachedTotalUSD,
   });
   const [isEnd, setIsEnd] = React.useState(
     dayjs
