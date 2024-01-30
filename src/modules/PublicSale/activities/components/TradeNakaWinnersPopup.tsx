@@ -53,7 +53,7 @@ const TradeNakaWinnersPopup = ({ isShow, onHide }: IProps) => {
               gap="12px"
               cursor="pointer"
               onClick={() => {
-                window.open(`https://twitter.com/${row.twitter_name}`)
+                window.open(`https://twitter.com/${row.twitter_username}`)
               }}
               maxW="170px"
             >
