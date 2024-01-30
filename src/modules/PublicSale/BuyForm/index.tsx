@@ -1,12 +1,3 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Text,
-  Tooltip,
-} from '@chakra-ui/react';
 import { Box, Button, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
@@ -16,11 +7,7 @@ import {
   getPublicSaleSummary,
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
-import {
-  IPublicSaleDepositInfo,
-  VCInfo,
-  defaultSummary,
-} from '@/interfaces/vc';
+import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
