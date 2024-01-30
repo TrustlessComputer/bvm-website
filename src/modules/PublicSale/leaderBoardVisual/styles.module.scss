@@ -350,6 +350,10 @@ table {
   position: relative;
   pointer-events: none;
 
+  &:after{
+    z-index: 0;
+  }
+
   &.lastRender__0 {
 
     &:after {
