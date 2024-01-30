@@ -94,7 +94,9 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       limit: 1,
     });
 
-    setUserContributeInfo(data[0]);
+    if(data[0]?.need_active) {
+      setUserContributeInfo(data[0]);
+    }
   };
 
   const handleRecheckDeposit = async () => {
