@@ -118,7 +118,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         <div className={s.meta}>
           <p className={s.price} ref={refInertMoney}></p>
           {
-            !isYou && <p className={s.name}>{data?.twitter_username}</p>
+            !isYou && <p className={s.name}>{data?.twitter_name}</p>
           }
           {
             isYou && <p className={cx(s.name, s.isYou)}>You</p>
