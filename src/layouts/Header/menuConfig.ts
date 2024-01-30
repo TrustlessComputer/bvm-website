@@ -9,6 +9,7 @@ export interface NavItem {
   href?: string;
   isHide?: boolean;
   isTwitter?: boolean;
+  isStrong?: boolean;
   subMenu?: any;
 }
 
@@ -98,9 +99,10 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
+    label: checkIsPublicSale() ? '✨Public Sale' : 'Launchpad',
     href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
     isNewWindow: false,
+    isStrong: checkIsPublicSale(),
     isHide: false,
   },
 ].filter((item) => !item.isHide);
