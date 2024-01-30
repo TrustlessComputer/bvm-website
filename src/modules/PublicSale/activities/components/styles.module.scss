@@ -1,0 +1,18 @@
+.modalManualHeader {
+  padding-bottom: 8px;
+  padding-left: 24px;
+
+  > div {
+    p {
+      color: #FFFFFF !important;
+    }
+  }
+
+  button {
+    display: none;
+  }
+}
+
+.modalContent {
+  background: #262626 !important;
+}

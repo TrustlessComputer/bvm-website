@@ -14,7 +14,7 @@ import s from './styles.module.scss';
 export interface IBaseModalProps {
   isShow: boolean;
   onHide: () => void;
-  title: string;
+  title?: string;
   className?: string;
   size?: 'small' | 'normal' | 'extra' | 'custom';
   description?: string;
@@ -47,7 +47,7 @@ const BaseModal = (
                 svgUrl={`/icons/ic_close_modal.svg`}
               />
             </button>
-            <p className={s.modalHeader_title}>{title}</p>
+            <p className={s.modalHeader_title}>{title || ''}</p>
           </Flex>
         </ModalHeader>
         <ModalBody>

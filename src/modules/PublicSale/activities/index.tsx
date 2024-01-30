@@ -9,7 +9,7 @@ import {
   AccordionPanel,
   Center,
   Flex,
-  Text,
+  Text, useDisclosure,
 } from '@chakra-ui/react';
 import styles from './styles.module.scss';
 import { CDN_URL } from '@/config';
@@ -17,6 +17,7 @@ import cs from 'classnames';
 import SvgInset from '@/components/SvgInset';
 import s from '@/modules/PublicSale/playGame/styles.module.scss';
 import useTradeNakaData from '@/modules/PublicSale/activities/hooks/useTradeNakaData';
+import TradeNakaWinnersPopup from '@/modules/PublicSale/activities/components/TradeNakaWinnersPopup';
 
 interface ICTA {
   title: string;
@@ -35,7 +36,12 @@ export interface GameItemProps {
 }
 
 const Activities = React.memo(() => {
-  const tradeNakaData = useTradeNakaData()
+  const tradeNakaData = useTradeNakaData();
+  const {
+    onClose: onCloseNakaWinners,
+    onOpen: onOpenNakaWinners,
+    isOpen: isOpenNakaWinners,
+  } = useDisclosure();
 
   const DAYS = React.useMemo<GameItemProps[]>(() => {
     return [
@@ -68,7 +74,7 @@ Good luck and have fun!
             title: 'View winners',
             type: 'action',
             onPress: () => {
-              alert('aaa')
+              onOpenNakaWinners()
             }
           },
         ],
@@ -139,7 +145,7 @@ Good luck and have fun!
         desc: 'Details of Day 7 will be provided as soon as Day 6 is completed.',
       },
     ];
-  }, []);
+  }, [isOpenNakaWinners]);
 
   const currentDay = React.useMemo(() => {
     const diffDay = new BigNumber(
@@ -208,7 +214,6 @@ Good luck and have fun!
   const renderItem = (item: GameItemProps, index: number) => {
     const isDisable = index > currentDay.diffDay;
     const title = isDisable ? item.title : item.title;
-    console.log(index, currentDay.diffDay);
 
     return (
       <AccordionItem
@@ -263,18 +268,21 @@ Good luck and have fun!
   };
 
   return (
-    <Flex
-      className={styles.wrap}
-      flexDirection="column"
-      padding={{ base: '24px', md: '24px 24px 32px 24px' }}
-    >
-      <p className={styles.container__title}>
-        7 days of awesomeness. Experience Bitcoin like never before.
-      </p>
-      <Accordion allowMultiple={false} defaultIndex={currentDay.diffDay}>
-        {DAYS.map(renderItem)}
-      </Accordion>
-    </Flex>
+    <>
+      <Flex
+        className={styles.wrap}
+        flexDirection="column"
+        padding={{ base: '24px', md: '24px 24px 32px 24px' }}
+      >
+        <p className={styles.container__title}>
+          7 days of awesomeness. Experience Bitcoin like never before.
+        </p>
+        <Accordion allowMultiple={false} defaultIndex={currentDay.diffDay}>
+          {DAYS.map(renderItem)}
+        </Accordion>
+      </Flex>
+      <TradeNakaWinnersPopup isShow={isOpenNakaWinners} onHide={onCloseNakaWinners} />
+    </>
   );
 });
 
