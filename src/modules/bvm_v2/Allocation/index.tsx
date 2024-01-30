@@ -48,7 +48,7 @@ const Allocation = () => {
             >
               <Flex flex={1}>
                 <Image
-                  src={'/images/pie-chart-6.png'}
+                  src={'/images/pie-chart-7.png'}
                   alt={'Allocation chart'}
                   flex={1}
                   mx="auto"

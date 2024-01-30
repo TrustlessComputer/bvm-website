@@ -21,6 +21,7 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
   const [totalUser, setTotalUser] = useState<string>('');
+  const [totalDeposit, setTotalDeposit] = useState('');
   const [listUser, setListUser] = useState<ILeaderBoardPoint[]>([]);
 
   const isPublicSale = React.useMemo(() => checkIsPublicSale(), [])
@@ -30,6 +31,7 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
       if (isPublicSale) {
         const response = await getPublicSaleSummary();
         setTotalUser(response.total_user.toString());
+        setTotalDeposit(response.total_usdt_value.toString())
       } else {
         const response = await getTopLeaderBoards({ page: 1, limit: 20 });
         const topWhiteList = response.data.filter((item, index) => index < 5);
@@ -61,7 +63,15 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
               {isPublicSale ? (
                 (!!totalUser && Number(totalUser || 0)) ? (
                   <Chars delay={delay + .4}>
-                    Join <span>{formatCurrency(totalUser, 0, 0)}</span> people backing us building the future of Bitcoin.
+                    {/*Join <span>{formatCurrency(totalUser, 0, 0)}</span> people backing us building the future of Bitcoin.*/}
+                    Join the <span>{formatCurrency(totalUser, 0, 0)}</span> early contributors backing us with
+                    {" "}<span>${formatCurrency(
+                      totalDeposit || '0',
+                      0,
+                      0,
+                      'BTC',
+                      true,
+                    )}</span> to build the future of Bitcoin.
                   </Chars>
                 ) : (
                   <Chars delay={delay + .4}>
