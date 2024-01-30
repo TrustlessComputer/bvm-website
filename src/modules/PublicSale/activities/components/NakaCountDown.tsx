@@ -25,7 +25,7 @@ const NakaCountDown = React.memo(() => {
           <Countdown expiredTime={dayjs.utc(bestPNL.to_time, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} isHideSecond={false} hideZeroHour={true} />
         </Flex>
       </Flex>
-      {!!bestPNL?.winner && (
+      {!!bestPNL?.winner ? (
         <Flex className={styles.item}>
           <Text className={styles.item_title}>
             Top PNL
@@ -33,7 +33,16 @@ const NakaCountDown = React.memo(() => {
           <Text className={styles.item_name} cursor="pointer" _hover={{ textDecoration: 'underline' }} onClick={() => {
             window.open(`https://twitter.com/${bestPNL?.winner?.twitter_username}`, '_blank');
           }}>
-            {formatString(bestPNL?.winner?.twitter_name, 6)} <span>+{formatCurrency(bestPNL?.winner?.realized_pnl || '0', 0, 5, 'TC', false)} BTC</span>
+            {formatString(bestPNL?.winner?.twitter_name || bestPNL?.winner?.address , 6)} <span>+{formatCurrency(bestPNL?.winner?.realized_pnl || '0', 0, 5, 'TC', false)} BTC</span>
+          </Text>
+        </Flex>
+      ) : (
+        <Flex className={styles.item}>
+          <Text className={styles.item_title}>
+            Top PNL
+          </Text>
+          <Text className={styles.item_name}>
+            Be the first!!!
           </Text>
         </Flex>
       )}
