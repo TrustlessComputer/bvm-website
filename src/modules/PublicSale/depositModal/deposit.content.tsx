@@ -40,12 +40,15 @@ import s from './styles.module.scss';
 
 interface IDepositContent {
   amount_usd?: string;
-  onHide?: any;
+  hasStaked?: any;
 }
 
 const COUNTRY_BANNED: any[] = ['US'];
 
-const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
+const DepositContent: React.FC<IDepositContent> = ({
+  amount_usd,
+  hasStaked,
+}) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
 
   const user = useAppSelector(userSelector);
@@ -180,6 +183,11 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
 
   return (
     <Flex className={s.depositContent}>
+      {/*{hasStaked && (
+        <Text className={s.descStaked} >
+          Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.
+        </Text>
+      )}*/}
       {/* {secretCode && (
         <>
           <Flex className={s.wrapSecretKey}>

@@ -1,10 +1,9 @@
 import BaseModal from '@/components/BaseModal';
-import SvgInset from '@/components/SvgInset';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
-import { Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Tooltip, useDisclosure } from '@chakra-ui/react';
 import cs from 'classnames';
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { PropsWithChildren, useMemo, useState } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import DepositContent from '../depositModal/deposit.content';
 import s from './styles.module.scss';
@@ -14,6 +13,7 @@ interface IAuthForBuy extends PropsWithChildren {}
 const AuthForBuy: React.FC<IAuthForBuy> = () => {
   const user = useAppSelector(userSelector);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [hasStaked, setHasStaked] = useState(false);
 
   const isSigned = useMemo(() => {
     if (user?.guest_code || user?.twitter_id) {
@@ -27,6 +27,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
       <Flex className={s.btnWrapper}>
         <Button
           onClick={() => {
+            setHasStaked(false);
             onOpen();
           }}
           type="button"
@@ -35,6 +36,27 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
           {/*<SvgInset svgUrl="/icons/ic_twitter.svg" />*/}
           Buy $BVM
         </Button>
+        <Tooltip
+          minW="220px"
+          bg="white"
+          boxShadow="0px 0px 24px -6px #0000001F"
+          borderRadius="4px"
+          padding="16px"
+          hasArrow
+          label={'Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.'}
+        >
+          <Button
+            onClick={() => {
+              setHasStaked(true);
+              onOpen();
+            }}
+            type="button"
+            className={s.btnContainer}
+          >
+            {/*<SvgInset svgUrl="/icons/ic_twitter.svg" />*/}
+            Buy & Stake $BVM
+          </Button>
+        </Tooltip>
       </Flex>
       <GoogleReCaptchaProvider
         reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
@@ -53,7 +75,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
           className={cs(s.modalContent, isSigned ? s.deposit : s.notSignModal)}
           // size={modalSize}
         >
-          <DepositContent />
+          <DepositContent hasStaked={hasStaked} />
 
           {/* {isSigned ? (
           <>

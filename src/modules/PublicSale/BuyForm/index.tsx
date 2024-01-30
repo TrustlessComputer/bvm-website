@@ -7,7 +7,11 @@ import {
   getPublicSaleSummary,
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
-import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
+import {
+  defaultSummary,
+  IPublicSaleDepositInfo,
+  VCInfo,
+} from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
@@ -98,7 +102,10 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
-    window.localStorage.setItem('LAST_TOTAL_USDT', res.total_usdt_value_not_boost || '0');
+    window.localStorage.setItem(
+      'LAST_TOTAL_USDT',
+      res.total_usdt_value_not_boost || '0',
+    );
     setContributeInfo(res);
   };
 
