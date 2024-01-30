@@ -61,7 +61,7 @@
   padding: 20px;
   background: linear-gradient(180deg, #282828 0%, #131313 146.93%),
   linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) !important;
-  min-width: 600px;
+  min-width: 500px;
   border-radius: 0 !important;
 
   &:focus-visible {
@@ -125,6 +125,9 @@
     background-size: contain;
     background-repeat: no-repeat;
     padding: 8px;
+    align-items: flex-start;
+    width: 156px;
+    height: 156px;
 
     > img {
       min-width: 140px;

@@ -234,7 +234,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div className={s.content}>
           <Text fontSize={14} lineHeight={1} fontWeight={400} color={'black'} mb={'12px'}>
-            Total Funded
+            Total
           </Text>
           <Text className={s.fundValue}>
             <NumberScale label={'$'} couters={Number(contributeInfo?.total_usdt_value)} maximumFractionDigits={0}

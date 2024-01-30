@@ -135,12 +135,12 @@ const DepositLoginMode = ({ onClose }: { onClose: any }) => {
   return (
     <Flex mt={5} gap={'12px'}>
       <Button
-        onClick={getTwitterOauthUrl}
+        onClick={handleShareTw}
         className={cs(s.btnTweetToSign, s.btnPrimary)}
       >
         <Text>Post to sign-in</Text>
       </Button>
-      <Button onClick={handleShareTw} className={cs(s.btnTweetToSign)}>
+      <Button onClick={getTwitterOauthUrl} className={cs(s.btnTweetToSign)}>
         <Text>Authorize to sign-in</Text>
       </Button>
     </Flex>

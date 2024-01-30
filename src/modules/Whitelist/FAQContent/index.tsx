@@ -65,7 +65,9 @@ const FAQContent: React.FC = (): React.ReactElement => {
                       There is no hard cap for the public sale.
                     </p>
                     <p className={s.faqContent}>
-                      It will be a crowdfunding event, allowing the public to determine the fair valuation of the project based on its technology and traction to date.
+                      It will be a crowdfunding event, allowing the public to
+                      determine the fair valuation of the project based on its
+                      technology and traction to date.
                     </p>
                   </AccordionPanel>
                 </>
@@ -90,7 +92,11 @@ const FAQContent: React.FC = (): React.ReactElement => {
                     </AccordionButton>
                   </h2>
                   <AccordionPanel>
-                    <p className={s.faqContent}>BVM is the native token of the network. BVM can be exported to BRC-20 format and traded on decentralized exchanges and centralized exchanges that support BRC-20.</p>
+                    <p className={s.faqContent}>
+                      BVM is the native token of the network. BVM can be
+                      exported to BRC-20 format and traded on decentralized
+                      exchanges and centralized exchanges that support BRC-20.
+                    </p>
                   </AccordionPanel>
                 </>
               )}
@@ -115,7 +121,9 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      BVM serves as the native cryptocurrency within the BVM ecosystem, facilitating the creation and operation of multiple Bitcoin L2 blockchains.
+                      BVM serves as the native cryptocurrency within the BVM
+                      ecosystem, facilitating the creation and operation of
+                      multiple Bitcoin L2 blockchains.
                     </p>
                   </AccordionPanel>
                 </>
@@ -141,7 +149,8 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      There is no vesting period for the public sale. All tokens will be distributed at TGE, which will be around March
+                      There is no vesting period for the public sale. All tokens
+                      will be distributed at TGE, which will be around March
                     </p>
                   </AccordionPanel>
                 </>
@@ -231,7 +240,8 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      You can contribute in nine different currencies, including BTC, ETH, TIA, OP, ARB, ORDI, SATS, USDT, and USDC
+                      You can contribute in nine different currencies, including
+                      BTC, ETH, TIA, OP, ARB, ORDI, SATS, USDT, and USDC
                     </p>
                   </AccordionPanel>
                 </>
@@ -257,7 +267,10 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      <DepositCheckItHere><a>Check the status</a></DepositCheckItHere>.
+                      <DepositCheckItHere>
+                        <a>Check the status</a>
+                      </DepositCheckItHere>
+                      .
                     </p>
                   </AccordionPanel>
                 </>
@@ -283,7 +296,34 @@ const FAQContent: React.FC = (): React.ReactElement => {
                   </h2>
                   <AccordionPanel>
                     <p className={s.faqContent}>
-                      The TGE will around March, at the same time as BVM exchange listings.
+                      The TGE will around March, at the same time as BVM
+                      exchange listings.
+                    </p>
+                  </AccordionPanel>
+                </>
+              )}
+            </AccordionItem>
+
+            <AccordionItem className={s.faqItem}>
+              {({ isExpanded }) => (
+                <>
+                  <h2>
+                    <AccordionButton justifyContent={'space-between'}>
+                      <span className={s.faqTitle}>
+                        Who is eligible to join the public sale?
+                      </span>
+                      <button>
+                        <img
+                          className={isExpanded ? s.downArrow : ''}
+                          src={`${CDN_URL}/icons/chevron-right-ic-32.svg`}
+                          alt="chevron-right-ic"
+                        />
+                      </button>
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel>
+                    <p className={s.faqContent}>
+                      The public sale is open to everyone except US citizens.
                     </p>
                   </AccordionPanel>
                 </>

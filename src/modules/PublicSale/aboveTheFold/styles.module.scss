@@ -17,13 +17,12 @@
   }
 
   .leftSection {
-    background: #1B1B1B;
+    background: #1b1b1b;
     padding-top: 80px;
     position: relative;
   }
 
   .rightSection {
-
     @include w-max(768px) {
       height: unset;
     }
@@ -38,7 +37,7 @@
     font-size: 68px;
     font-weight: 400;
     line-height: 100%;
-    color: #FFFFFF;
+    color: #ffffff;
 
     @include is-mobile {
       font-size: 32px;
@@ -49,7 +48,7 @@
     font-size: 36px;
     font-weight: 400;
     line-height: 100%;
-    color: #FFFFFF;
+    color: #ffffff;
 
     @include w-max(768px) {
       font-size: 24px;
@@ -57,7 +56,7 @@
   }
 
   .hightlight {
-    color: #FF7E21;
+    color: #ff7e21;
   }
 
   .desc {
@@ -65,7 +64,7 @@
     font-size: 24px;
     line-height: 140%;
     letter-spacing: 0.02em;
-    color: #FFFFFF;
+    color: #ffffff;
     white-space: pre-wrap;
 
     @include w-max(768px) {
@@ -75,8 +74,19 @@
 
   .raffleButton {
     position: absolute;
-    top: 24px;
+
+    :global {
+      --top-spacing: 24px;
+      --item-spacing: 12px;
+    }
+
+    top: var(--top-spacing);
     left: 24px;
+
+    &.rewardButton {
+      top: calc(var(--top-spacing) + var(--item-spacing) + 50px);
+    }
+
     @include is-mobile {
       left: 16px;
     }
