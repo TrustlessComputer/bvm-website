@@ -120,7 +120,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       limit: 0,
     });
 
-    if(data[0]?.need_active) {
+    if (data[0]?.need_active) {
       setUserContributeInfo(data[0]);
     }
   };
@@ -296,6 +296,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               couters={Number(contributeInfo?.total_usdt_value)}
               maximumFractionDigits={0}
               minimumFractionDigits={0}
+              defaultFrom={cachedTotalUSD}
             />
           </Text>
           <Box mt={'24px'} />
@@ -320,7 +321,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     couters={Number(contributeInfo?.total_user)}
                     maximumFractionDigits={0}
                     minimumFractionDigits={0}
-                    defaultFrom={cachedTotalUSD}
                   />
                 </Text>
                 <Text
