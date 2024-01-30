@@ -92,12 +92,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
           data?.levelRender === 0 &&
           <Image className={s.king} src={'/public-sale/icon-king.svg'} width={60} height={60} alt={'king'} />
         }
-        {
-          !isYou && <p className={s.name}>{data?.twitter_username}</p>
-        }
-        {
-          isYou && <p className={cx(s.name, s.isYou)}>You</p>
-        }
+
         <div
           className={s.avatarItem_avatar}
           onClick={() => {
@@ -120,7 +115,12 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         </div>
         <div className={s.meta}>
           <p className={s.price} ref={refInertMoney}></p>
-
+          {
+            !isYou && <p className={s.name}>{data?.twitter_username}</p>
+          }
+          {
+            isYou && <p className={cx(s.name, s.isYou)}>You</p>
+          }
         </div>
       </div>
     );

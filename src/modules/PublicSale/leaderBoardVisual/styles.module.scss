@@ -44,7 +44,6 @@
   justify-content: center;
   flex-wrap: wrap;
   align-content: flex-start;
-  padding-top: vh(60px);
 }
 
 table {
@@ -359,7 +358,7 @@ table {
       height: 78px;
       width: 321px;
       left: 50%;
-      bottom: 78px;
+      bottom: 100px;
       transform: translateX(-50%);
       position: absolute;
       background: url("/public-sale/oval-1.svg");
@@ -374,7 +373,7 @@ table {
       height: 107px;
       width: 510px;
       left: 50%;
-      bottom: 70px;
+      bottom: 90px;
       transform: translateX(-50%);
       position: absolute;
       background: url("/public-sale/oval-2.svg");
@@ -388,7 +387,7 @@ table {
       height: 107px;
       width: 672px;
       left: 50%;
-      bottom: 56px;
+      bottom: 90px;
       transform: translateX(-50%);
       position: absolute;
       background: url("/public-sale/oval-3.svg");
@@ -403,7 +402,7 @@ table {
       height: 138px;
       width: 812px;
       left: 50%;
-      bottom: 78px;
+      bottom: 90px;
       transform: translateX(-50%);
       position: absolute;
       background: url("/public-sale/oval-4.svg");
