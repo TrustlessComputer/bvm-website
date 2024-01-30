@@ -54,14 +54,20 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
           <Flex flexDirection={'column'} gap={'8px'}>
             <Fade delay={delay + .2}>
               <div className={s.titleWrapper}>
-                <div className={cs(s.title, {[s.title__publicSale]: isPublicSale})}>{isPublicSale ? "$BVM PUBLIC SALE IS HAPPENING" : "BVM PUBLIC SALE"}</div>
+                <div className={cs(s.title)}>{"BVM PUBLIC SALE"}</div>
               </div>
             </Fade>
-            <div className={cs(s.desc, {[s.desc__publicSale]: isPublicSale})}>
+            <div className={cs(s.desc)}>
               {isPublicSale ? (
-                <Chars delay={delay + .4}>
-                  The first modular blockchain metaprotocol that lets you customize and launch your own Bitcoin L2 blockchain protocol in a few clicks.
-                </Chars>
+                (!!totalUser && Number(totalUser || 0)) ? (
+                  <Chars delay={delay + .4}>
+                    Join <span>{formatCurrency(totalUser, 0, 0)}</span> people backing us building the future of Bitcoin.
+                  </Chars>
+                ) : (
+                  <Chars delay={delay + .4}>
+                    Back us building the future of Bitcoin
+                  </Chars>
+                )
               ) : (
                 <Chars delay={delay + .4}>
                   Be the first to know.
@@ -85,17 +91,19 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                   router.push('/allowlist');
                 }}
               >
-                {isPublicSale ? "Buy $BVM" : "Get on the allowlist"}
+                {isPublicSale ? "Join the BVM public sale" : "Get on the allowlist"}
               </Button>
-              <div className={s.whiteList}>
-                <div className={s.whiteList_users}>
-                  <Image src={'/landing/allow-avatars.png'} quality={100} width={88} height={24}
-                         alt={'allow-avatars'} />
+              {!isPublicSale && (
+                <div className={s.whiteList}>
+                  <div className={s.whiteList_users}>
+                    <Image src={'/landing/allow-avatars.png'} quality={100} width={88} height={24}
+                           alt={'allow-avatars'} />
+                  </div>
+                  <div className={s.whiteList_total}>
+                    <span>{formatCurrency(totalUser, 0,0)}&nbsp;people</span>&nbsp;{isPublicSale ? "made contributions" : "are on the allowlist"}
+                  </div>
                 </div>
-                <div className={s.whiteList_total}>
-                  <span>{formatCurrency(totalUser, 0,0)}&nbsp;people</span>&nbsp;{isPublicSale ? "made contributions" : "are on the allowlist"}
-                </div>
-              </div>
+              )}
               <Flex gap="8px" className={s.countDown_wrapper}>
                 <img style={{ width: 18 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>
                 <p className={s.countDown_title}>{isPublicSale ? 'Ends' : 'Public sale starting'} in</p>
