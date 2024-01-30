@@ -59,14 +59,16 @@
   }
 
   .name {
-    font-size: 14px;
+    font-size: 10px;
     font-weight: 500;
     line-height: 24px;
     text-align: center;
     white-space: nowrap;
     position: absolute;
-    bottom: calc(100% + 10px);
+    bottom: 100%;
     width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
 
     &.isYou {
       background: linear-gradient(90deg, #FFE259 0%, #FFA751 100%);
@@ -75,6 +77,10 @@
       background-clip: text;
       text-fill-color: transparent;
       bottom: 100%;
+    }
+
+    &:not(.isYour){
+      @include fixTextLargeLen(150px);
     }
   }
 
@@ -128,9 +134,7 @@
       height: 32px !important;
       max-width: none !important;
     }
-
   }
-
 
   &:global(.level-0) {
     margin-bottom: 48px;
@@ -146,10 +150,7 @@
 
     .name {
       font-size: 14px;
-
-      &.isYou{
-        bottom: calc(100% + 10px) !important;
-      }
+      bottom: calc(100% + 10px) !important;
     }
 
     .avatarItem_avatar {
