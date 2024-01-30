@@ -27,7 +27,7 @@ const TopContent = () => {
                                                                               alt={'right'} /></a>
             <ModalVideo
               channel="custom"
-              url={'/public-sale/public_sale_video_1.mp4'}
+              url={'/public-sale/public_sale_video_2.mp4'}
               isOpen={isOpen}
               onClose={() => {
                 setOpen(false);
