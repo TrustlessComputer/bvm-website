@@ -39,7 +39,9 @@ const RewardButton = ({ className }: any) => {
       const res = await getPublicSaleProgram();
       setProgrameInfo(res);
       if (!isMobile) {
-        onOpen();
+        setTimeout(() => {
+          onOpen();
+        }, 2000);
       }
     } catch (e) {
     } finally {

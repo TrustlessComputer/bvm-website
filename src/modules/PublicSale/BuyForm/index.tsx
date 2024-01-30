@@ -63,7 +63,8 @@ const Column = forwardRef((props: IColumnProps, ref: any) => {
 });
 
 const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
-  const cachedTotalUSD = window.localStorage.getItem('LAST_TOTAL_USDT') || '0';
+  const cachedTotalUSD =
+    window.localStorage.getItem('LAST_TOTAL_USDT_NON_BOOST') || '0';
 
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
@@ -106,7 +107,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
     window.localStorage.setItem(
-      'LAST_TOTAL_USDT',
+      'LAST_TOTAL_USDT_NON_BOOST',
       res.total_usdt_value_not_boost || '0',
     );
     setContributeInfo(res);
@@ -390,7 +391,10 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </Button>
             </AuthForBuy>
           </Flex>
-          {/* <GuestCodeHere theme="light" /> */}
+          {parseFloat(userContributeInfo?.usdt_value || '0') > 0 && (
+            <GuestCodeHere theme="light" />
+          )}
+
           <DepositModal
             isShow={showQrCode}
             onHide={() => setShowQrCode(false)}
