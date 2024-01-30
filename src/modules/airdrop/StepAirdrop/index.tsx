@@ -77,13 +77,28 @@ const StepsAirdrop = (props: IProps) => {
     setAuthenCode(res);
     code = `\n\n#${res?.public_code}`;
 
-    const shareUrl = getLink('');
-    const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\n$BVM public sale starting soon${code}\n\nJoin the allowlist`;
+    const content = `The retro airdrop 1 is now up for grabs!\n\nPatience pays off – it's been a journey with @NewBitcoinCity since 2023, and now we're reaping the rewards.\n\nExcited for more airdrops from the @BVMnetwork ecosystem!\n\nWelcome to the future of Bitcoin!${code}\n\nbvm.network/public-sale`;
 
     window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
+      '_blank',
+    );
+  };
+
+  const handleTweetToClaim = (airdropStep: AirdropStep) => {
+    let content = `The retro airdrop 1 is now up for grabs!\n\nPatience pays off – it's been a journey with @NewBitcoinCity since 2023, and now we're reaping the rewards.\n\nExcited for more airdrops from the @BVMnetwork ecosystem!\n\nWelcome to the future of Bitcoin!\n\nbvm.network/public-sale`;
+    switch (airdropStep) {
+      case AirdropStep.generativeUsers:
+        break;
+      case AirdropStep.gmHolders:
+        break;
+      case AirdropStep.perceptronsHolders:
+        break;
+      default:
+        break;
+    }
+    window.open(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
       '_blank',
     );
   };
@@ -257,6 +272,7 @@ const StepsAirdrop = (props: IProps) => {
             index={index}
             content={item}
             isLoading={item.step === AirdropStep.alphaUsers && submitting}
+            onClickTweetToClaim={handleTweetToClaim}
           />
         );
       })}
@@ -283,6 +299,7 @@ const StepsAirdrop = (props: IProps) => {
         }}
         secretCode={authenCode?.secret_code}
         onSuccess={onVerifyTwSuccess}
+        title={`Can't link account?`}
       />
     </Flex>
   );

@@ -65,10 +65,12 @@ export default function ItemCommunity({
   index,
   content,
   isLoading,
+  onClickTweetToClaim,
 }: {
   index: number;
   content: IItemCommunity;
   isLoading?: boolean;
+  onClickTweetToClaim: (airdropType: AirdropStep) => void;
 }) {
   const [isEnd, setIsEnd] = React.useState(
     dayjs
@@ -199,6 +201,15 @@ export default function ItemCommunity({
                     }
                   }}
                   isLoading={isLoading}
+                  background={
+                    (step === AirdropStep.generativeUsers &&
+                      airdropGenerativeUsers) ||
+                    (step === AirdropStep.gmHolders && airdropGMHolders) ||
+                    (step === AirdropStep.perceptronsHolders &&
+                      airdropPerceptronsHolders)
+                      ? '#000000 !important'
+                      : 'auto'
+                  }
                 >
                   {content?.actionText && (
                     <Flex
@@ -222,7 +233,7 @@ export default function ItemCommunity({
                     onClick={content?.handleShowManualPopup}
                     mt={1}
                   >
-                    Missing from the Leaderboard?
+                    Can't link account?
                   </Text>
                 )}
                 {!!content.actionHandleSecondary && (
@@ -252,14 +263,16 @@ export default function ItemCommunity({
             {content?.step === AirdropStep.alphaUsers && (
               <>
                 {airdropAlphaUsers ? (
-                  <Text color={'#000000'}>
-                    {user?.twitter_name} - Airdrop:{' '}
-                    {formatCurrency(airdropAlphaUsers?.balance)} $BVM - Vesting
-                    at:{' '}
-                    {dayjs(airdropAlphaUsers?.claimeable_at).format(
-                      'MMM D, YYYY',
-                    )}
-                  </Text>
+                  <Flex direction="column" gap="8px">
+                    <Text color={'#000000'}>
+                      {user?.twitter_name} - Airdrop:{' '}
+                      {formatCurrency(airdropAlphaUsers?.balance)} $BVM -
+                      Vesting at:{' '}
+                      {dayjs(airdropAlphaUsers?.claimeable_at).format(
+                        'MMM D, YYYY',
+                      )}
+                    </Text>
+                  </Flex>
                 ) : (
                   user?.twitter_id && (
                     <Text color={'#000000'}>
@@ -272,13 +285,21 @@ export default function ItemCommunity({
             {content?.step === AirdropStep.gmHolders && (
               <>
                 {airdropGMHolders ? (
-                  <Text color={'#000000'}>
-                    Airdrop: {formatCurrency(airdropGMHolders?.balance)} $BVM -
-                    Vesting at:{' '}
-                    {dayjs(airdropGMHolders?.claimeable_at).format(
-                      'MMM D, YYYY',
-                    )}
-                  </Text>
+                  <Flex direction="column" gap="8px">
+                    <Text color={'#000000'}>
+                      Airdrop: {formatCurrency(airdropGMHolders?.balance)} $BVM
+                      - Vesting at:{' '}
+                      {dayjs(airdropGMHolders?.claimeable_at).format(
+                        'MMM D, YYYY',
+                      )}
+                    </Text>
+                    <Button
+                      className={cs(s.itemCommunity__btnCTA)}
+                      onClick={() => onClickTweetToClaim(AirdropStep.gmHolders)}
+                    >
+                      Tweet to claim
+                    </Button>
+                  </Flex>
                 ) : (
                   isConnectMetaMask && (
                     <Text color={'#000000'}>
@@ -291,13 +312,23 @@ export default function ItemCommunity({
             {content?.step === AirdropStep.generativeUsers && (
               <>
                 {airdropGenerativeUsers ? (
-                  <Text color={'#000000'}>
-                    Airdrop: {formatCurrency(airdropGenerativeUsers?.balance)}{' '}
-                    $BVM - Vesting at:{' '}
-                    {dayjs(airdropGenerativeUsers?.claimeable_at).format(
-                      'MMM D, YYYY',
-                    )}
-                  </Text>
+                  <Flex direction="column" gap="8px">
+                    <Text color={'#000000'}>
+                      Airdrop: {formatCurrency(airdropGenerativeUsers?.balance)}{' '}
+                      $BVM - Vesting at:{' '}
+                      {dayjs(airdropGenerativeUsers?.claimeable_at).format(
+                        'MMM D, YYYY',
+                      )}
+                    </Text>
+                    <Button
+                      className={cs(s.itemCommunity__btnCTA)}
+                      onClick={() =>
+                        onClickTweetToClaim(AirdropStep.generativeUsers)
+                      }
+                    >
+                      Tweet to claim
+                    </Button>
+                  </Flex>
                 ) : (
                   isConnectMetaMask && (
                     <Text color={'#000000'}>
@@ -310,14 +341,24 @@ export default function ItemCommunity({
             {content?.step === AirdropStep.perceptronsHolders && (
               <>
                 {airdropPerceptronsHolders ? (
-                  <Text color={'#000000'}>
-                    Airdrop:{' '}
-                    {formatCurrency(airdropPerceptronsHolders?.balance)} $BVM -
-                    Vesting at:{' '}
-                    {dayjs(airdropPerceptronsHolders?.claimeable_at).format(
-                      'MMM D, YYYY',
-                    )}
-                  </Text>
+                  <Flex direction="column" gap="8px" mt="4px">
+                    <Text color={'#000000'}>
+                      Airdrop:{' '}
+                      {formatCurrency(airdropPerceptronsHolders?.balance)} $BVM
+                      - Vesting at:{' '}
+                      {dayjs(airdropPerceptronsHolders?.claimeable_at).format(
+                        'MMM D, YYYY',
+                      )}
+                    </Text>
+                    <Button
+                      className={cs(s.itemCommunity__btnCTA)}
+                      onClick={() =>
+                        onClickTweetToClaim(AirdropStep.perceptronsHolders)
+                      }
+                    >
+                      Tweet to claim
+                    </Button>
+                  </Flex>
                 ) : (
                   (isConnectMetaMask || isConnectBitcoinWallet) && (
                     <Text color={'#000000'}>
