@@ -1,7 +1,7 @@
 import { PERP_API_URL } from '@/config';
 import createAxiosInstance from './http-client';
 import AuthenStorage from '@/utils/storage/authen.storage';
-import { TopWinner } from '@/services/interfaces/activities';
+import { CurrentBestPNL, TopWinner } from '@/services/interfaces/activities';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api/bvm`,
@@ -26,12 +26,18 @@ setBearerToken((AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey(
 
 
 const getTopWinnersNaka = async () => {
-  const topWinners = (await apiClient.get("future/winner?page=&limit=")) as TopWinner[];
+  const topWinners = (await apiClient.get("future/winner?page=&limit="))?.data as TopWinner[];
   return topWinners || [];
 };
 
+const getBestPNL = async () => {
+  const bestPNL = (await apiClient.get("future/leaderboards")) as CurrentBestPNL;
+  return bestPNL
+}
+
 const activitiesAPI = {
   getTopWinnersNaka,
+  getBestPNL,
 };
 
 export default activitiesAPI;

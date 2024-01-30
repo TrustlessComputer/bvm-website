@@ -1,7 +1,8 @@
-import { TopWinner } from '@/services/interfaces/activities';
+import { CurrentBestPNL, TopWinner } from '@/services/interfaces/activities';
 
 export interface IDaySecond {
-  topWinners: TopWinner[]
+  topWinners: TopWinner[],
+  bestPNL?: CurrentBestPNL
 }
 
 export interface ActivitiesState {

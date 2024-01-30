@@ -4,6 +4,7 @@ import { ActivitiesState, IDaySecond } from './types';
 const initialState: ActivitiesState = {
   daySecond: {
     topWinners: [],
+    bestPNL: undefined
   }
 };
 

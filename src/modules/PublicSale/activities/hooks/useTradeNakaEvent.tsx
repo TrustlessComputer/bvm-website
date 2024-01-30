@@ -1,6 +1,6 @@
 import { IDaySecond } from '@/stores/states/activities/types';
 import activitiesAPI from '@/services/activities';
-import { TopWinner } from '@/services/interfaces/activities';
+import { CurrentBestPNL, TopWinner } from '@/services/interfaces/activities';
 import { useAppDispatch } from '@/stores/hooks';
 import { setDaySecondActivities } from '@/stores/states/activities/reducer';
 import React from 'react';
@@ -13,17 +13,20 @@ const useTradeNakaEvent = () => {
 
   const fetchData = async () => {
     let daySecond: IDaySecond = {
-      topWinners: []
+      topWinners: [],
+      bestPNL: undefined
     }
     try {
-      const [topWinners] = (
+      const [topWinners, bestPNL] = (
         await Promise.all([
-          activitiesAPI.getTopWinnersNaka()
+          activitiesAPI.getTopWinnersNaka(),
+          activitiesAPI.getBestPNL()
         ])
-      ) as [TopWinner[]];
+      ) as [TopWinner[], CurrentBestPNL];
       daySecond = {
         ...daySecond,
-        topWinners
+        topWinners,
+        bestPNL
       }
     } catch (e) {
       // TODO: handle error

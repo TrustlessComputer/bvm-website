@@ -14,3 +14,10 @@ export interface TopWinner {
   realized_pnl:     string;
   reward:           string;
 }
+
+export interface CurrentBestPNL {
+  from_time: string;
+  to_time:   string;
+  reward:    string;
+  winner:    TopWinner;
+}
