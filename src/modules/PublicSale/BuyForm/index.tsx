@@ -136,7 +136,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     const { className, ...rest } = props;
     return (
       <div>
-        <Flex className={s.tValue} gap={'5px'} alignItems={'center'} ref={ref} {...rest} cursor={token ? "pointer" : 'auto'}>
+        <Flex className={s.tValue} gap={'5px'} alignItems={'center'} ref={ref} {...rest}
+              cursor={token ? 'pointer' : 'auto'}>
           <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
             {token
               ? `$${formatCurrency(
@@ -146,7 +147,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 'BTC',
                 true,
               )}`
-              : '-'}
+              : '$0'}
           </Text>
           {/*<Text color={'rgba(255, 255, 255, 0.7)'} fontSize={'12px'} fontWeight={'500'}>*/}
           {/*  {token*/}
@@ -174,42 +175,50 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           {/*    : '-'}{' '}*/}
           {/*  BVM*/}
           {/*</Text>*/}
-          <Flex
-            gap={'2px'}
-            alignItems={'center'}
-            bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}
-            borderRadius={'100px'}
-            p={'4px 8px'}
-          >
-            {/* <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
-              <path d='M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z'
-                    fill='url(#paint0_linear_30263_14863)' />
-              <defs>
-                <linearGradient id='paint0_linear_30263_14863' x1='2.66675' y1='8.49929' x2='13.3334' y2='8.49929'
-                                gradientUnits='userSpaceOnUse'>
-                  <stop stop-color='#007659' />
-                  <stop offset='1' stop-color='#35CCA6' />
-                </linearGradient>
-              </defs>
-            </svg> */}
 
-            <Text
-              fontSize={'14'}
-              fontWeight={'500'}
-              className={s.boost}
-              color={'#000'}
-            >
-              {token
-                ? `+${formatCurrency(
-                  userContributeInfo?.view_boost,
-                  MIN_DECIMAL,
-                  MIN_DECIMAL,
-                  'BTC',
-                  true,
-                )}% boost`
-                : '-'}
-            </Text>
-          </Flex>
+          {
+            Boolean(userContributeInfo?.view_boost) &&
+            (
+              <Flex
+                gap={'2px'}
+                alignItems={'center'}
+                bg={'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'}
+                borderRadius={'100px'}
+                p={'4px 8px'}
+              >
+                <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    d='M13.3334 7.04474H8.96978L9.93947 1.22656L2.66675 9.95383H7.03038L6.06069 15.772L13.3334 7.04474Z'
+                    fill='url(#paint0_linear_30263_14863)' />
+                  <defs>
+                    <linearGradient id='paint0_linear_30263_14863' x1='2.66675' y1='8.49929' x2='13.3334' y2='8.49929'
+                                    gradientUnits='userSpaceOnUse'>
+                      <stop stop-color='#007659' />
+                      <stop offset='1' stop-color='#35CCA6' />
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                <Text
+                  fontSize={'14'}
+                  fontWeight={'500'}
+                  className={s.boost}
+                  color={'#000'}
+                >
+                  {token
+                    ? `${formatCurrency(
+                      userContributeInfo?.view_boost,
+                      MIN_DECIMAL,
+                      MIN_DECIMAL,
+                      'BTC',
+                      true,
+                    )}%`
+                    : '-'}
+                </Text>
+              </Flex>
+            )
+          }
+
         </Flex>
         <Text
           className={s.tLabel}
@@ -228,25 +237,21 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             Total
           </Text>
           <Text className={s.fundValue}>
-            <NumberScale label={'$'} couters={Number(contributeInfo?.total_usdt_value)} maximumFractionDigits={0} minimumFractionDigits={0} />
+            <NumberScale label={'$'} couters={Number(contributeInfo?.total_usdt_value)} maximumFractionDigits={0}
+                         minimumFractionDigits={0} />
           </Text>
           <Box mt={'24px'} />
           <div className={s.grid}>
-            <div>
-              <div className={s.backer}  onClick={() => setShowContributorModal(true)}>
+            <div className={s.grid_item}>
+              <div className={s.backer} onClick={() => setShowContributorModal(true)}>
                 <Text className={s.tValue} fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}
                       _hover={{
-                        color: "#FA4E0E",
+                        color: '#FA4E0E',
                       }}>
 
-                  <NumberScale label={''} couters={Number(contributeInfo?.total_user)} maximumFractionDigits={0} minimumFractionDigits={0} />
-                  {/*{formatCurrency(*/}
-                  {/*  contributeInfo?.total_user,*/}
-                  {/*  0,*/}
-                  {/*  0,*/}
-                  {/*  'BTC',*/}
-                  {/*  true,*/}
-                  {/*)}*/}
+                  <NumberScale label={''} couters={Number(contributeInfo?.total_user)} maximumFractionDigits={0}
+                               minimumFractionDigits={0} />
+
                 </Text>
                 <Text
                   className={s.tLabel}
@@ -255,7 +260,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 </Text>
               </div>
             </div>
-            <div>
+            <div className={s.grid_item}>
               {
                 remainDay === 0 ? (
                   <Countdown
@@ -268,7 +273,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   />
                 ) : (
                   <div>
-                    <Text className={s.tValue} fontSize={20} lineHeight={1} fontWeight={400} color={'rgba(0,0,0,1)'}> {remainDay} </Text> <Text
+                    <Text className={s.tValue} fontSize={20} lineHeight={1} fontWeight={400}
+                          color={'rgba(0,0,0,1)'}> {remainDay} </Text> <Text
                     fontSize={20} lineHeight={1} fontWeight={400}
                     className={s.tLabel}
                     color={'rgba(0,0,0,0.7)'}> Day{remainDay !== 1 && 's'} to go</Text>
@@ -276,23 +282,25 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 )
               }
             </div>
-            {token ? (
-              <Tooltip
-                minW='220px'
-                bg='white'
-                boxShadow='0px 0px 24px -6px #0000001F'
-                borderRadius='4px'
-                padding='16px'
-                hasArrow
-                label={<ContributorInfo data={userContributeInfo} />}
-              >
-                <ContributorBlock
-                  className={cx(s.contributorBlock, s.blockItem)}
-                />
-              </Tooltip>
-            ) : (
-              <ContributorBlock className={s.blockItem} />
-            )}
+            <div className={s.grid_item}>
+              {token ? (
+                <Tooltip
+                  minW='220px'
+                  bg='white'
+                  boxShadow='0px 0px 24px -6px #0000001F'
+                  borderRadius='4px'
+                  padding='16px'
+                  hasArrow
+                  label={<ContributorInfo data={userContributeInfo} />}
+                >
+                  <ContributorBlock
+                    className={cx(s.contributorBlock, s.blockItem)}
+                  />
+                </Tooltip>
+              ) : (
+                <ContributorBlock className={s.blockItem} />
+              )}
+            </div>
           </div>
 
           <Box mt={'32px'} />
