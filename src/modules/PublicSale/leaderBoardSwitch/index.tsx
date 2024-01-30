@@ -30,7 +30,7 @@ const LeaderBoardSwitch = ({classNames}: IProp) => {
         )}
         onClick={() => dispatch(setLeaderBoardMode(LEADER_BOARD_MODE.DAY))}
       >
-        24H
+        24h leaderboard
       </Button>
       <Button
         className={cs(
@@ -39,7 +39,7 @@ const LeaderBoardSwitch = ({classNames}: IProp) => {
         )}
         onClick={() => dispatch(setLeaderBoardMode(LEADER_BOARD_MODE.ALL))}
       >
-        ALL
+        7D leaderboard
       </Button>
     </Flex>
   );

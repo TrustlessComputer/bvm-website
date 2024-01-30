@@ -31,17 +31,7 @@ const DepositCheckItHere: React.FC<IDepositCheckItHere> = ({ children }) => {
         <FocusLock persistentFocus={false}>
           <PopoverArrow />
           <PopoverCloseButton />
-          <GoogleReCaptchaProvider
-            reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
-            scriptProps={{
-              async: false,
-              defer: false,
-              appendTo: 'head',
-              nonce: undefined,
-            }}
-          >
-            <DepositCheck onClose={onClose} />
-          </GoogleReCaptchaProvider>
+          <DepositCheck onClose={onClose} />
         </FocusLock>
       </PopoverContent>
     </Popover>

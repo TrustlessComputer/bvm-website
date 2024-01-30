@@ -87,9 +87,14 @@ const LeaderBoardVisual = (props: IProps) => {
 
       const fnLoadData = leaderBoardMode === LEADER_BOARD_MODE.DAY ? getPublicSaleTop : getPublicSaleLeaderBoards;
 
+      const getLimit = () => {
+        const limitMobile = mobileScreen ? 22 : 23;
+        return leaderBoardMode === LEADER_BOARD_MODE.DAY ? limitMobile : token ? 22 : limitMobile;
+      }
+
       const { data: response, count } = await fnLoadData({
         ...refParams.current,
-        limit: leaderBoardMode === LEADER_BOARD_MODE.DAY ? 23 : token ? 22 : 23
+        limit: getLimit()
       });
       if (isNew) {
         // const { data: response2 } = await fnLoadData({
@@ -143,7 +148,7 @@ const LeaderBoardVisual = (props: IProps) => {
   useEffect(() => {
 
     let refLevel = 0;
-    const levels = mobileScreen ? [1, 3, 4, 4, 5, 5, 1] : [1, 3, 5, 6, 8] ;
+    const levels = mobileScreen ? [1, 3, 4, 4, 5, 5] : [1, 3, 5, 6, 8] ;
     const missingLength = (mobileScreen ? 22 : 23) - list.length;
     const missingArray = Array.from({ length: missingLength }).map((u, i) => ({
       ranking: 1000,
@@ -171,7 +176,7 @@ const LeaderBoardVisual = (props: IProps) => {
       return tmp;
     });
 
-    setListRender(tmsss.slice(0, 23));
+    setListRender(tmsss.slice(0, mobileScreen ? 22 : 23));
     setListMissingRender(missingArray);
   }, [list, mobileScreen]);
 
