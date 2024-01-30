@@ -1,22 +1,20 @@
-import {
-  Flex,
-  FocusLock,
-  Popover,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverTrigger,
-  Text,
-  useDisclosure,
-} from '@chakra-ui/react';
-import React, { PropsWithChildren, useReducer } from 'react';
-import DepositLoginMode from './deposit.login.mode';
-import { userSelector } from '@/stores/states/user/selector';
-import { useSelector } from 'react-redux';
-import s from './styles.module.scss';
-import toast from 'react-hot-toast';
 import SvgInset from '@/components/SvgInset';
+import AuthenStorage from '@/utils/storage/authen.storage';
+import {
+    Flex,
+    FocusLock,
+    Popover,
+    PopoverArrow,
+    PopoverCloseButton,
+    PopoverContent,
+    PopoverTrigger,
+    Text,
+    useDisclosure,
+} from '@chakra-ui/react';
 import copy from 'copy-to-clipboard';
+import React, { PropsWithChildren } from 'react';
+import toast from 'react-hot-toast';
+import s from './styles.module.scss';
 
 interface IDepositGuestCodeHere extends PropsWithChildren {}
 
@@ -29,8 +27,7 @@ const DepositGuestCodeHere: React.FC<IDepositGuestCodeHere> = ({
     onOpen: onOpen2,
     isOpen: isOpen2,
   } = useDisclosure();
-
-  const guest_code = useSelector(userSelector)?.guest_code;
+  const guest_code = AuthenStorage.getGuestSecretKey();
 
   return (
     <Popover
