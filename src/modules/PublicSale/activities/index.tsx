@@ -45,8 +45,8 @@ const Activities = React.memo(() => {
         desc: `
 Bitcoin Arcade is a Bitcoin L2 designed for gaming (aka. the Immutable of Bitcoin). It’s powered by BVM with these modules: Bitcoin for security, EigenDA for data availability, and Optimism for execution.<br/><br/>
 On the first day of BVM’s launch, you’ll play incredibly fun games. These are the first fully on-chain on Bitcoin. Both the game logic and game states are stored on-chain.<br/><br/>
-Rewards: 30 million $ARCA testnet tokens, which can be converted to the $ARCA mainnet tokens in March.<br/><br/>
-How to play: Go to <a href='https://play.bitcoinarcade.xyz' target='_blank' style='text-decoration: underline; color: #FA4E0E'>https://play.bitcoinarcade.xyz</a> and enter the private invite code ARCADE.<br/><br/>
+🎁 Rewards: <strong>30 million $ARCA testnet tokens</strong>, which can be converted to the $ARCA mainnet tokens in March.<br/><br/>
+🎮 How to play: Go to <a href='https://play.bitcoinarcade.xyz' target='_blank' style='text-decoration: underline; color: #FA4E0E'>https://play.bitcoinarcade.xyz</a> and enter the private invite code ARCADE.<br/><br/>
 Good luck and have fun!
 `,
       },
