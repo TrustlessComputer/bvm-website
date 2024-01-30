@@ -67,7 +67,6 @@
     position: absolute;
     bottom: calc(100% + 10px);
     width: 100%;
-    @include fixTextLargeLen(160px);
 
     &.isYou {
       background: linear-gradient(90deg, #FFE259 0%, #FFA751 100%);
@@ -75,6 +74,7 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       text-fill-color: transparent;
+      bottom: 100%;
     }
   }
 
@@ -94,6 +94,12 @@
 
   .title {
     display: none;
+  }
+
+  &.isYou {
+    .avatarItem_avatar {
+      border-color: #FFE259 !important;
+    }
   }
 
   &_avatar {
@@ -140,6 +146,10 @@
 
     .name {
       font-size: 14px;
+
+      &.isYou{
+        bottom: calc(100% + 10px) !important;
+      }
     }
 
     .avatarItem_avatar {
@@ -203,12 +213,6 @@
         height: 48px !important;
       }
     }
-
-    &.isYou {
-      .price {
-        background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
-      }
-    }
   }
 
   &:global(.level-4) {
@@ -264,4 +268,10 @@
   }
 }
 
+.isYou {
+  .price {
+    background: linear-gradient(90deg, #FFE259 0%, #FFA751 100%) !important;
+    color: black !important;
+  }
 
+}
