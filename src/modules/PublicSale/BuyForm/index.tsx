@@ -98,7 +98,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
     timeIntervalSummary.current = setInterval(() => {
       getContributeInfo();
-    }, 30000);
+    }, 10000);
 
     if (token) {
       getUserContributeInfo();
