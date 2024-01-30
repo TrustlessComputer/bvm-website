@@ -21,6 +21,7 @@ import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import cx from 'classnames';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { PUBLIC_SALE_END } from '@/modules/Whitelist';
+import NumberScale from '@/components/NumberScale';
 
 interface FormValues {
   tokenAmount: string;
@@ -227,14 +228,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             Total Funded
           </Text>
           <Text className={s.fundValue}>
-            $
-            {formatCurrency(
-              contributeInfo?.total_usdt_value,
-              0,
-              0,
-              'BTC',
-              true,
-            )}
+            <NumberScale label={'$'} couters={Number(contributeInfo?.total_usdt_value)} maximumFractionDigits={0} minimumFractionDigits={0} />
           </Text>
           <Box mt={'24px'} />
           <div className={s.grid}>
@@ -244,14 +238,15 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                       _hover={{
                         color: "#FA4E0E",
                       }}>
-                  {formatCurrency(
-                    contributeInfo?.total_user,
-                    0,
-                    0,
-                    'BTC',
-                    true,
-                  )}
 
+                  <NumberScale label={''} couters={Number(contributeInfo?.total_user)} maximumFractionDigits={0} minimumFractionDigits={0} />
+                  {/*{formatCurrency(*/}
+                  {/*  contributeInfo?.total_user,*/}
+                  {/*  0,*/}
+                  {/*  0,*/}
+                  {/*  'BTC',*/}
+                  {/*  true,*/}
+                  {/*)}*/}
                 </Text>
                 <Text
                   className={s.tLabel}
