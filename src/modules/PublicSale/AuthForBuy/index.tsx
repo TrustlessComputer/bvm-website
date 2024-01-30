@@ -38,12 +38,13 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
         </Button>
         <Tooltip
           minW="220px"
-          bg="white"
-          boxShadow="0px 0px 24px -6px #0000001F"
+          bg="#006149"
+          boxShadow="0px 0px 40px rgba(0, 0, 0, 0.12)"
           borderRadius="4px"
           padding="16px"
           hasArrow
           label={'Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.'}
+          color={"#FFFFFF"}
         >
           <Button
             onClick={() => {

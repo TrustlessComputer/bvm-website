@@ -4,6 +4,7 @@ import createAxiosInstance from '@/services/http-client';
 import TimeChainStorage from '@/utils/storage/timechain.storage';
 import { PublicSaleWalletInfo, VCInfo, VCWalletInfo } from '@/interfaces/vc';
 import AirdropStorage from '@/utils/storage/airdrop.storage';
+import axios from 'axios';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -139,8 +140,10 @@ export const getBVMAirdrop = async (params: any): Promise<any> => {
 
 export const getGenerativeProfile = async (address: string): Promise<any> => {
   try {
-    const res = await apiClient.get(`https://generative.xyz/generative/api/profile/wallet/${address}`, );
-    return res;
+    const res = await axios.get(
+      `https://generative.xyz/generative/api/profile/wallet/${address}`,
+    );
+    return res?.data;
   } catch (error) {
     console.log(error);
   }
