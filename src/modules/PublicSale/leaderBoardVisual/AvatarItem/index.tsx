@@ -133,7 +133,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
     <div
       className={`${s.avatarItem} ${s[`avatarItem__${idx}`]} ${isYou && s.isYou} ${data?.levelRender !== undefined && 'level-' + data?.levelRender} js-avatarItem`}
       ref={ref} {...rest}>
-      {
+      {/*{
         data?.levelRender === 0 ? (
           <Tooltip
             minW="400px"
@@ -149,7 +149,8 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         ) : (
           <>{renderContent()}</>
         )
-      }
+      }*/}
+      <>{renderContent()}</>
       {
         <div className={`${s.lt} ${!isLoopDone ? s.isRun : ''}`}>
           <DotLottiePlayer
