@@ -7,7 +7,7 @@ import Avatar from '@/components/Avatar';
 import { Flex, Text } from '@chakra-ui/react';
 import { TopWinner } from '@/services/interfaces/activities';
 import dayjs from 'dayjs';
-import { formatCurrency } from '@/utils/format';
+import { formatCurrency, formatName } from '@/utils/format';
 import styles from './styles.module.scss';
 import cs from 'classnames';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
@@ -55,6 +55,7 @@ const TradeNakaWinnersPopup = ({ isShow, onHide }: IProps) => {
               onClick={() => {
                 window.open(`https://twitter.com/${row.twitter_name}`)
               }}
+              maxW="170px"
             >
               <Avatar
                 url={getUrlAvatarTwitter(
@@ -65,7 +66,7 @@ const TradeNakaWinnersPopup = ({ isShow, onHide }: IProps) => {
                 width={40}
                 name={row?.twitter_name || row?.twitter_username || row?.address || ''}
               />
-              <Text className={cs(styles.modalContent__text)}>{row?.twitter_username || '-'}</Text>
+              <Text className={cs(styles.modalContent__userName)}>{formatName(row?.twitter_username || '-', 17)}</Text>
             </Flex>
           );
         },

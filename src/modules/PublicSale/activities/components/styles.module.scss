@@ -40,6 +40,13 @@
     font-size: 16px;
     font-weight: 500;
   }
+
+  &__userName {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+  }
 }
 
 
@@ -66,6 +73,12 @@ table {
             height: 100%;
             padding-top: 16px !important;
             padding-bottom: 16px !important;
+          }
+          &:first-child {
+            width: 220px !important;
+            @include is-mobile {
+              width: 180px !important;
+            }
           }
         }
       }
