@@ -23,7 +23,7 @@ const TopContent = () => {
         </Flex>
         <ul className={s.actions}>
           <li>
-            <a href={'#'} onClick={() => setOpen(true)}>Watch the Film <Image src={`/public-sale/mdi_play.svg`} width={10} height={10}
+            <a href={'#'} onClick={() => setOpen(true)}>What is BVM? <Image src={`/public-sale/mdi_play.svg`} width={10} height={10}
                                                                               alt={'right'} /></a>
             <ModalVideo
               channel="custom"
@@ -35,7 +35,7 @@ const TopContent = () => {
             />
           </li>
           <li>
-            <DropDown title={'What is BVM'} lists={[
+            <DropDown title={'Learn more'} lists={[
               {
                 link: 'https://bvm.network/onepager.pdf',
                 title: 'Onepager',

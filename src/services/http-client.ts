@@ -1,5 +1,6 @@
 import axios from 'axios';
 import AuthenStorage from '@/utils/storage/authen.storage';
+import { userAgent } from 'next/server';
 
 export const TIMEOUT = 5 * 60000;
 export const HEADERS = { 'Content-Type': 'application/json' };
@@ -15,10 +16,16 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
 
   instance.interceptors.request.use(
     (config) => {
-      const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
+      const token =
+        AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
+      const userInfo = {
+        screen: window.location.pathname,
+        timezone: new Date().toString(),
+      };
+      config.headers['user-data'] = JSON.stringify(userInfo);
       return config;
     },
     (error) => {
@@ -32,7 +39,7 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
       if (res?.data?.count !== undefined) {
         return Promise.resolve({
           data: result,
-          count: res.data.count
+          count: res.data.count,
         } as any);
       }
       const error = res?.data?.error;
