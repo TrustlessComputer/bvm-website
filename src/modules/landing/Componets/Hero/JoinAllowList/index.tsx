@@ -31,7 +31,7 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
       if (isPublicSale) {
         const response = await getPublicSaleSummary();
         setTotalUser(response.total_user.toString());
-        setTotalDeposit(response.total_usdt_value.toString())
+        setTotalDeposit(response.total_usdt_value_not_boost.toString())
       } else {
         const response = await getTopLeaderBoards({ page: 1, limit: 20 });
         const topWhiteList = response.data.filter((item, index) => index < 5);
