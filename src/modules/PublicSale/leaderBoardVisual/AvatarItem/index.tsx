@@ -8,9 +8,8 @@ import { DotLottiePlayer } from '@dotlottie/react-player';
 import { gsap } from 'gsap';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { Tooltip } from '@chakra-ui/react';
-import TopContributorReward from '@/modules/PublicSale/leaderBoardVisual/topContributorReward';
 import { proxy } from 'valtio';
+import cx from 'clsx';
 
 interface IProps {
   data: ILeaderBoardPoint,
@@ -103,7 +102,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
           isShowName && data?.levelRender === 0 && !isYou && <p className={s.name}>{data?.twitter_username}</p>
         }
         {
-          isYou && <p className={s.name}>You</p>
+          isYou && <p className={cx(s.name, s.isYou)}>You</p>
         }
         <div
           className={s.avatarItem_avatar}
