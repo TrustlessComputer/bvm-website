@@ -320,6 +320,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     couters={Number(contributeInfo?.total_user)}
                     maximumFractionDigits={0}
                     minimumFractionDigits={0}
+                    defaultFrom={cachedTotalUSD}
                   />
                 </Text>
                 <Text
