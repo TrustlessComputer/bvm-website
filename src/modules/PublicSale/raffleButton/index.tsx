@@ -81,19 +81,19 @@ const RaffleButton = ({ className }: any) => {
 
     const saleSummary = await getPublicSaleSummary();
 
-    const content = `Welcome to the future of Bitcoin!\n\n@BVMnetwork is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\nJoin the ${formatCurrency(
+    const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
       saleSummary.total_user || '0',
       0,
       0,
       'BTC',
       false,
-    )} early contributors backing us with $${formatCurrency(
+    )} early contributors who've committed $${formatCurrency(
       saleSummary.total_usdt_value_not_boost || '0',
       0,
       0,
       'BTC',
       true,
-    )} to build the future of Bitcoin.\n`;
+    )} to building Bitcoin's future with @BVMnetwork\n\n`;
     return window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
         content,
@@ -105,9 +105,9 @@ const RaffleButton = ({ className }: any) => {
   return (
     !isLoading && (
       <Popover onClose={onClose} isOpen={isOpen}>
-        <Flex className={cx(s.flexContainer, className)}>
-          <PopoverTrigger>
-            <Flex onMouseOver={onOpen} className={cx(s.container)}>
+        <PopoverTrigger>
+          <Flex className={cx(s.container, className)}>
+            <Flex onMouseOver={onOpen} gap={'8px'} alignItems={'center'}>
               <span className={s.icon}></span>
               <div className={s.text}>
                 <Text
@@ -130,65 +130,78 @@ const RaffleButton = ({ className }: any) => {
                 </Flex>
               </div>
             </Flex>
-          </PopoverTrigger>
-          <Flex gap={4}>
-            {raffleCode ? (
-              <>
-                <Button
-                  bgColor={'#FA4E0E'}
-                  onClick={onShareNow}
-                  className={s.shareNow}
-                  borderRadius={'0px'}
-                  height={'100%'}
-                >
-                  Share to win
-                </Button>
-              </>
-            ) : (
-              <>
-                {isMobile ? (
-                  <Center w={'50px'} height={'50px'} bgColor={'#FA4E0E'}>
-                    <svg
-                      width="30"
-                      height="29"
-                      viewBox="0 0 30 29"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13.1144 12.1642C13.0305 12.1672 12.9469 12.1532 12.8685 12.1232C12.7901 12.0931 12.7186 12.0476 12.6582 11.9893C12.5978 11.931 12.5498 11.8611 12.517 11.7839C12.4842 11.7066 12.4673 11.6236 12.4673 11.5396C12.4673 11.4557 12.4842 11.3726 12.517 11.2954C12.5498 11.2181 12.5978 11.1483 12.6582 11.09C12.7186 11.0317 12.7901 10.9861 12.8685 10.9561C12.9469 10.926 13.0305 10.9121 13.1144 10.915L17.8284 10.915C17.994 10.9151 18.1528 10.981 18.2699 11.0981C18.3871 11.2152 18.4529 11.374 18.453 11.5396L18.453 16.2537C18.456 16.3376 18.442 16.4212 18.4119 16.4995C18.3819 16.5779 18.3364 16.6494 18.2781 16.7098C18.2198 16.7702 18.1499 16.8182 18.0727 16.851C17.9954 16.8838 17.9123 16.9007 17.8284 16.9007C17.7445 16.9007 17.6614 16.8838 17.5841 16.851C17.5069 16.8182 17.437 16.7702 17.3787 16.7098C17.3204 16.6494 17.2749 16.5779 17.2448 16.4995C17.2148 16.4212 17.2008 16.3376 17.2038 16.2537L17.2038 13.0481L11.4939 18.758C11.3767 18.8752 11.2177 18.9411 11.052 18.9411C10.8862 18.9411 10.7272 18.8752 10.61 18.758C10.4928 18.6408 10.427 18.4818 10.427 18.3161C10.427 18.1503 10.4928 17.9913 10.61 17.8741L16.3199 12.1642L13.1144 12.1642Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </Center>
-                ) : (
+            <Flex gap={4}>
+              {raffleCode ? (
+                <Flex flexDirection={'column'}>
+                  <Text
+                    fontWeight={'400'}
+                    color={'#fff'}
+                    fontSize={'12px'}
+                    lineHeight={'120%'}
+                    mb={'5px'}
+                  >
+                    Share more post to increase
+                    <br />
+                    your winning chance
+                  </Text>
+                  <Button
+                    onClick={onShareNow}
+                    className={cx(s.learnMoreWrapper)}
+                    borderRadius={'0px'}
+                    height={'100%'}
+                    w={'100%'}
+                    bg={'#fff'}
+                    _hover={{
+                      bgColor: '#FA4E0E',
+                    }}
+                  >
+                    <Text fontWeight={'400'} color={'#000'} fontSize={'14px'}>
+                      Share now
+                    </Text>
+                  </Button>
+                </Flex>
+              ) : (
+                <>
                   <Flex
                     className={cx(s.learnMoreWrapper)}
                     gap={3}
                     onClick={handleShareTw}
                     cursor="pointer"
                   >
-                    <Text>Like and repost to join</Text>
-                    <Center w={'28px'} height={'28px'} bgColor={'#FA4E0E'}>
-                      <svg
-                        width="30"
-                        height="29"
-                        viewBox="0 0 30 29"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
+                    <Text lineHeight={'100%'} fontSize={'14px'}>
+                      Like and repost to join
+                    </Text>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect width="24" height="24" fill="black" />
+                      <g clip-path="url(#clip0_30479_11542)">
                         <path
-                          d="M13.1144 12.1642C13.0305 12.1672 12.9469 12.1532 12.8685 12.1232C12.7901 12.0931 12.7186 12.0476 12.6582 11.9893C12.5978 11.931 12.5498 11.8611 12.517 11.7839C12.4842 11.7066 12.4673 11.6236 12.4673 11.5396C12.4673 11.4557 12.4842 11.3726 12.517 11.2954C12.5498 11.2181 12.5978 11.1483 12.6582 11.09C12.7186 11.0317 12.7901 10.9861 12.8685 10.9561C12.9469 10.926 13.0305 10.9121 13.1144 10.915L17.8284 10.915C17.994 10.9151 18.1528 10.981 18.2699 11.0981C18.3871 11.2152 18.4529 11.374 18.453 11.5396L18.453 16.2537C18.456 16.3376 18.442 16.4212 18.4119 16.4995C18.3819 16.5779 18.3364 16.6494 18.2781 16.7098C18.2198 16.7702 18.1499 16.8182 18.0727 16.851C17.9954 16.8838 17.9123 16.9007 17.8284 16.9007C17.7445 16.9007 17.6614 16.8838 17.5841 16.851C17.5069 16.8182 17.437 16.7702 17.3787 16.7098C17.3204 16.6494 17.2749 16.5779 17.2448 16.4995C17.2148 16.4212 17.2008 16.3376 17.2038 16.2537L17.2038 13.0481L11.4939 18.758C11.3767 18.8752 11.2177 18.9411 11.052 18.9411C10.8862 18.9411 10.7272 18.8752 10.61 18.758C10.4928 18.6408 10.427 18.4818 10.427 18.3161C10.427 18.1503 10.4928 17.9913 10.61 17.8741L16.3199 12.1642L13.1144 12.1642Z"
+                          d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z"
                           fill="white"
                         />
-                      </svg>
-                    </Center>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_30479_11542">
+                          <rect
+                            width="14"
+                            height="14"
+                            fill="white"
+                            transform="translate(5 5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
                   </Flex>
-                )}
-              </>
-            )}
+                </>
+              )}
+            </Flex>
           </Flex>
-        </Flex>
+        </PopoverTrigger>
 
         <PopoverContent className={cx(s.menuContent)}>
           <PopoverCloseButton />
@@ -216,7 +229,7 @@ const RaffleButton = ({ className }: any) => {
                           winning the raffle
                         </Text>
                         <Button onClick={onShareNow} className={s.shareNow}>
-                          Share to win
+                          Share now
                         </Button>
                       </Flex>
                     </>
@@ -230,20 +243,31 @@ const RaffleButton = ({ className }: any) => {
                         mt={'20px'}
                       >
                         <Text>Like and repost to join</Text>
-                        <Center w={'28px'} height={'28px'} bgColor={'#FA4E0E'}>
-                          <svg
-                            width="30"
-                            height="29"
-                            viewBox="0 0 30 29"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect width="24" height="24" fill="black" />
+                          <g clip-path="url(#clip0_30479_11542)">
                             <path
-                              d="M13.1144 12.1642C13.0305 12.1672 12.9469 12.1532 12.8685 12.1232C12.7901 12.0931 12.7186 12.0476 12.6582 11.9893C12.5978 11.931 12.5498 11.8611 12.517 11.7839C12.4842 11.7066 12.4673 11.6236 12.4673 11.5396C12.4673 11.4557 12.4842 11.3726 12.517 11.2954C12.5498 11.2181 12.5978 11.1483 12.6582 11.09C12.7186 11.0317 12.7901 10.9861 12.8685 10.9561C12.9469 10.926 13.0305 10.9121 13.1144 10.915L17.8284 10.915C17.994 10.9151 18.1528 10.981 18.2699 11.0981C18.3871 11.2152 18.4529 11.374 18.453 11.5396L18.453 16.2537C18.456 16.3376 18.442 16.4212 18.4119 16.4995C18.3819 16.5779 18.3364 16.6494 18.2781 16.7098C18.2198 16.7702 18.1499 16.8182 18.0727 16.851C17.9954 16.8838 17.9123 16.9007 17.8284 16.9007C17.7445 16.9007 17.6614 16.8838 17.5841 16.851C17.5069 16.8182 17.437 16.7702 17.3787 16.7098C17.3204 16.6494 17.2749 16.5779 17.2448 16.4995C17.2148 16.4212 17.2008 16.3376 17.2038 16.2537L17.2038 13.0481L11.4939 18.758C11.3767 18.8752 11.2177 18.9411 11.052 18.9411C10.8862 18.9411 10.7272 18.8752 10.61 18.758C10.4928 18.6408 10.427 18.4818 10.427 18.3161C10.427 18.1503 10.4928 17.9913 10.61 17.8741L16.3199 12.1642L13.1144 12.1642Z"
+                              d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z"
                               fill="white"
                             />
-                          </svg>
-                        </Center>
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_30479_11542">
+                              <rect
+                                width="14"
+                                height="14"
+                                fill="white"
+                                transform="translate(5 5)"
+                              />
+                            </clipPath>
+                          </defs>
+                        </svg>
                       </Flex>
                     </>
                   )}

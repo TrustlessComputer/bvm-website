@@ -246,6 +246,21 @@
     border: 1px solid #fa4e0e66;
     align-self: flex-start;
   }
+
+  &.wrapSecretKeyLight {
+    background: #fa4e0e12;
+    padding: 8px 12px;
+    justify-content: space-between;
+    gap: 12px;
+    .titleCopy {
+      color: #000000;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      letter-spacing: 0em;
+      text-align: left;
+    }
+  }
 }
 
 .depositAnotherAccount {
