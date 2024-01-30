@@ -8,6 +8,7 @@ import RoadmapModule from '@/modules/PublicSale/roadmap';
 import FAQContent from '@/modules/Whitelist/FAQContent';
 import TopContent from '@/modules/PublicSale/topContent';
 import React from 'react';
+import IntroVideos from '@/modules/PublicSale/IntroVideos';
 
 const PublicSaleModule = () => {
   return (
@@ -18,6 +19,7 @@ const PublicSaleModule = () => {
           <AboveTheFold />
         </div>
       </div>
+      <IntroVideos />
       <RoadmapModule />
       <Allocation />
       <FAQContent />

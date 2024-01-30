@@ -81,7 +81,7 @@ const RaffleButton = ({className}: any) => {
           </span>
           <div className={s.text}>
             <Text className={s.text_text} fontSize={11} lineHeight={'12px'} fontWeight={400}>
-              Reward
+              Daily Raffle
             </Text>
             <Flex gap={"6px"} className={s.timeWrapper}>
               <Countdown

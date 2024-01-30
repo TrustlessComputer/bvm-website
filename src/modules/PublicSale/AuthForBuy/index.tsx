@@ -33,7 +33,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
           className={s.btnContainer}
         >
           {/*<SvgInset svgUrl="/icons/ic_twitter.svg" />*/}
-          Back $BVM
+          Buy $BVM
         </Button>
       </Flex>
       <GoogleReCaptchaProvider
@@ -48,7 +48,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
         <BaseModal
           isShow={isOpen}
           onHide={onClose}
-          title={isSigned ? 'Back $BVM' : 'Back $BVM'}
+          title={isSigned ? 'Buy $BVM' : 'Buy $BVM'}
           headerClassName={s.modalHeader}
           className={cs(s.modalContent, isSigned ? s.deposit : s.notSignModal)}
           // size={modalSize}
