@@ -118,8 +118,9 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
   const checkLocation = async () => {
     try {
       const rs = await getLocation();
-      const country_code = rs?.data?.country_code;
-      setIsBanned(COUNTRY_BANNED.includes(country_code));
+      const country_code = rs?.data?.result;
+
+      setIsBanned(COUNTRY_BANNED.includes(country_code?.toUpperCase?.()));
     } catch (error) {
     } finally {
       setCheckingLocation(false);
@@ -170,13 +171,13 @@ const DepositContent: React.FC<IDepositContent> = ({ amount_usd, onHide }) => {
     );
   }
 
-  // if (isBanned) {
-  //   return (
-  //     <Center>
-  //       <Text>Not Available in Your Region</Text>
-  //     </Center>
-  //   );
-  // }
+  if (isBanned) {
+    return (
+      <Center>
+        <Text>The public sale is open to everyone except US citizens.</Text>
+      </Center>
+    );
+  }
 
   return (
     <Flex className={s.depositContent}>

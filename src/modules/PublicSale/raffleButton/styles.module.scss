@@ -1,5 +1,4 @@
 .container {
-
   display: flex;
   align-items: center;
   gap: 8px;
@@ -7,14 +6,14 @@
   position: relative;
   padding: 4px;
   padding-right: 14px !important;
-  border: 1px solid #FFFFFF1A;
-  background-color: #FFFFFF1A;
+  border: 1px solid #ffffff1a;
+  background-color: #ffffff1a;
   cursor: pointer;
 
   .icon {
     width: 40px;
     height: 40px;
-    background: url("/public-sale/rbtn.png");
+    background: url('/public-sale/rbtn.png');
     background-size: cover;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -57,10 +56,10 @@
 }
 
 .menuContent {
-  border: 1px solid #FFFFFF26;
+  border: 1px solid #ffffff26;
   padding: 20px;
   background: linear-gradient(180deg, #282828 0%, #131313 146.93%),
-  linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) !important;
+    linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) !important;
   min-width: 500px;
   border-radius: 0 !important;
 
@@ -84,10 +83,25 @@
     color: rgba(255, 255, 255, 0.7);
     margin-top: 8px;
     white-space: pre-wrap;
+    article {
+      display: inline-flex;
+      &::before {
+        content: '-';
+        display: block;
+        padding-right: 5px;
+      }
+    }
+  }
+
+  .shareNow {
+    background-color: #fa4e0e;
+    // align-self: flex-start;
+    margin-top: 8px;
+    border-radius: 0;
   }
 
   .learnMoreWrapper {
-    background: #FFFFFF;
+    background: #ffffff;
     padding: 6px 6px 6px 16px;
     width: fit-content;
     color: #000000;
@@ -110,18 +124,18 @@
 
       &:first-child {
         color: #ffffff;
-        background: #FFFFFF12;
+        background: #ffffff12;
       }
 
       &:last-child {
         color: #000000;
-        background: #FFFFFF;
+        background: #ffffff;
       }
     }
   }
 
   .raffleBg {
-    background: url("/public-sale/raffle_frame.svg");
+    background: url('/public-sale/raffle_frame.svg');
     background-size: contain;
     background-repeat: no-repeat;
     padding: 8px;

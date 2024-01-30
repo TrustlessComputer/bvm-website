@@ -209,22 +209,25 @@
     }
   }
 }
+
 .wrapSecretKey {
-  background: #ffffff12;
-  padding: 20px 12px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   align-items: center;
-  justify-content: center;
-  gap: 34px;
+  gap: 5px;
+  // flex-direction: column;
   .titleCopy {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 26px;
     letter-spacing: 0em;
     text-align: left;
+    color: white;
+    line-height: 140%;
   }
   .backupNow {
     align-items: center;
-    gap: 40px;
+    gap: 10px;
     background: linear-gradient(
         0deg,
         rgba(250, 78, 14, 0.4),
@@ -235,6 +238,7 @@
     padding: 8px;
     cursor: pointer;
     border: 1px solid #fa4e0e66;
+    align-self: flex-start;
   }
 }
 
