@@ -62,6 +62,7 @@ export const defaultSummary: IPublicSaleDepositInfo = {
   total_usdt: '0',
   total_usdc: '0',
   total_usdt_value: '0',
+  total_usdt_value_not_boost: "0"
 };
 
 export interface IGenerateTOkenWithSecretCode {
