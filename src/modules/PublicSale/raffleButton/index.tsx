@@ -81,19 +81,19 @@ const RaffleButton = ({ className }: any) => {
 
     const saleSummary = await getPublicSaleSummary();
 
-    const content = `Welcome to the future of Bitcoin!\n\n@BVMnetwork is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks\n\nJoin the ${formatCurrency(
+    const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
       saleSummary.total_user || '0',
       0,
       0,
       'BTC',
       false,
-    )} early contributors backing us with $${formatCurrency(
+    )} early contributors who've committed $${formatCurrency(
       saleSummary.total_usdt_value_not_boost || '0',
       0,
       0,
       'BTC',
       true,
-    )} to build the future of Bitcoin.\n`;
+    )} to building Bitcoin's future with @BVMnetwork\n\n`;
     return window.open(
       `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
         content,
@@ -132,7 +132,18 @@ const RaffleButton = ({ className }: any) => {
             </Flex>
             <Flex gap={4}>
               {raffleCode ? (
-                <>
+                <Flex flexDirection={'column'}>
+                  <Text
+                    fontWeight={'400'}
+                    color={'#fff'}
+                    fontSize={'12px'}
+                    lineHeight={'120%'}
+                    mb={'5px'}
+                  >
+                    Share more post to increase
+                    <br />
+                    your winning chance
+                  </Text>
                   <Button
                     onClick={onShareNow}
                     className={cx(s.learnMoreWrapper)}
@@ -145,10 +156,10 @@ const RaffleButton = ({ className }: any) => {
                     }}
                   >
                     <Text fontWeight={'400'} color={'#000'} fontSize={'14px'}>
-                      Share to win
+                      Share now
                     </Text>
                   </Button>
-                </>
+                </Flex>
               ) : (
                 <>
                   <Flex
@@ -218,7 +229,7 @@ const RaffleButton = ({ className }: any) => {
                           winning the raffle
                         </Text>
                         <Button onClick={onShareNow} className={s.shareNow}>
-                          Share to win
+                          Share now
                         </Button>
                       </Flex>
                     </>

@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { PropsWithChildren, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { setUser } from '@/stores/states/user/reducer';
@@ -22,25 +22,33 @@ export const UserContext = React.createContext<IUserContext>(initialValue);
 export const UserProvider: React.FC<PropsWithChildren> = ({
   children,
 }: PropsWithChildren): React.ReactElement => {
-
-  const router = useRouter()
+  const router = useRouter();
 
   const dispatch = useAppDispatch();
   const needReload = useAppSelector(commonSelector).needReload;
-  const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
+  const token =
+    AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
+  const guestCode = AuthenStorage.getGuestSecretKey();
 
   const fetchUserInfo = async () => {
-    const userInfo = await userServices.getUser()
-    dispatch(setUser(userInfo as User))
+    const userInfo = await userServices.getUser();
+    const userInfoData = {
+      ...userInfo,
+      guest_code: guestCode,
+    };
+    dispatch(setUser(userInfoData as User));
   };
 
-  const throttleFetchUserInfo = React.useCallback(throttle(fetchUserInfo, 300), []);
+  const throttleFetchUserInfo = React.useCallback(
+    throttle(fetchUserInfo, 300),
+    [],
+  );
 
   const fetchCoinPrices = async () => {
     const coinPrices = await getCoinPrices();
     if (!coinPrices) return;
     dispatch(setCoinPrices(coinPrices));
-  }
+  };
 
   const contextValues = useMemo((): IUserContext => {
     return {};
@@ -48,24 +56,24 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
 
   React.useEffect(() => {
     if (!token) return;
-    throttleFetchUserInfo()
+    throttleFetchUserInfo();
   }, [needReload, token]);
 
   // GET REFERRAL CODE
   React.useEffect(() => {
     const code = getReferralByURL();
     if (code) {
-      ReferralStorage.setReferralCode(code)
-      setTimeout(() => router.replace('/public-sale'), 100)
+      ReferralStorage.setReferralCode(code);
+      setTimeout(() => router.replace('/public-sale'), 100);
     }
   }, []);
 
   React.useEffect(() => {
     fetchCoinPrices();
     setInterval(() => {
-      fetchCoinPrices()
-    }, 60 * 1000)
-  }, [])
+      fetchCoinPrices();
+    }, 60 * 1000);
+  }, []);
 
   return (
     <UserContext.Provider value={contextValues}>

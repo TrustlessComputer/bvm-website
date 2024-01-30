@@ -26,6 +26,9 @@ import cx from 'classnames';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { PUBLIC_SALE_END } from '@/modules/Whitelist';
 import NumberScale from '@/components/NumberScale';
+import DepositGuestCodeHere, {
+  GuestCodeHere,
+} from '../depositModal/deposit.guest.code';
 
 interface FormValues {
   tokenAmount: string;
@@ -167,7 +170,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           {...rest}
           cursor={token ? 'pointer' : 'auto'}
         >
-
           <Text
             className={s.tLabel}
             fontSize={20}
@@ -177,16 +179,16 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           >
             Your contribution
           </Text>
-          <Flex gap={1} alignItems={"center"}>
+          <Flex gap={1} alignItems={'center'}>
             <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
               {token
                 ? `$${formatCurrency(
-                  userContributeInfo?.usdt_value,
-                  MIN_DECIMAL,
-                  MIN_DECIMAL,
-                  'BTC',
-                  true,
-                )}`
+                    userContributeInfo?.usdt_value,
+                    MIN_DECIMAL,
+                    MIN_DECIMAL,
+                    'BTC',
+                    true,
+                  )}`
                 : '$0'}
             </Text>
             {/*<Text color={'rgba(255, 255, 255, 0.7)'} fontSize={'12px'} fontWeight={'500'}>*/}
@@ -223,7 +225,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 }
                 borderRadius={'100px'}
                 p={'4px 8px'}
-                width={"fit-content"}
+                width={'fit-content'}
               >
                 <Text
                   fontSize={'14'}
@@ -233,19 +235,18 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 >
                   {token
                     ? `+${formatCurrency(
-                      userContributeInfo?.view_boost,
-                      0,
-                      0,
-                      'BTC',
-                      true,
-                    )}% boost`
+                        userContributeInfo?.view_boost,
+                        0,
+                        0,
+                        'BTC',
+                        true,
+                      )}% boost`
                     : '-'}
                 </Text>
               </Flex>
             )}
           </Flex>
         </div>
-
       </div>
     );
   });
@@ -305,7 +306,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     minimumFractionDigits={0}
                   />
                 </Text>
-
               </div>
             </div>
             <div className={s.grid_item}>
@@ -320,15 +320,15 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 {/*Day{remainDay !== 1 && 's'} to go*/}
               </Text>
 
-                <Countdown
-                  className={s.tValue}
-                  expiredTime={dayjs
-                    .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
-                    .toString()}
-                  hideIcon={true}
-                  isHideSecond={true}
-                  onRefreshEnd={() => setIsEnd(true)}
-                />
+              <Countdown
+                className={s.tValue}
+                expiredTime={dayjs
+                  .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
+                  .toString()}
+                hideIcon={true}
+                isHideSecond={true}
+                onRefreshEnd={() => setIsEnd(true)}
+              />
 
               {/*{remainDay === 0 ? (*/}
               {/*  <Countdown*/}
@@ -390,6 +390,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </Button>
             </AuthForBuy>
           </Flex>
+          {/* <GuestCodeHere theme="light" /> */}
           <DepositModal
             isShow={showQrCode}
             onHide={() => setShowQrCode(false)}
