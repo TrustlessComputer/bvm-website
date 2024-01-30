@@ -11,16 +11,18 @@ interface IProps {
   className?: string;
   onRefreshEnd?: () => void;
   type?: 'row' | 'column',
+  hideZeroHour?: boolean
 }
 
 const Countdown: React.FC<IProps> = ({
-                                       expiredTime,
-                                       hideIcon,
-                                       className,
-                                       onRefreshEnd,
-                                       type = 'row',
-                                       isHideSecond,
-                                     }: IProps): React.ReactElement => {
+   expiredTime,
+   hideIcon,
+   className,
+   onRefreshEnd,
+   type = 'row',
+   isHideSecond,
+   hideZeroHour = false
+ }: IProps): React.ReactElement => {
   const refCallEnd = useRef(false);
   const {
     days = 0,
@@ -29,6 +31,15 @@ const Countdown: React.FC<IProps> = ({
     seconds,
     ended,
   } = useCountdown(expiredTime);
+
+  const renderTime = () => {
+    if (hideZeroHour) {
+      return <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hideZeroHour && !hours ? `${hours}h : ` : ''} ${minutes}m : ${isHideSecond ? '' : `${seconds}s`}`}</Text>
+    } else if (!isHideSecond) {
+      return <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m : ${seconds}s`}</Text>
+    }
+    return <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m`}</Text>
+  }
 
   useEffect(() => {
     if (ended && expiredTime && onRefreshEnd && !refCallEnd.current) {
@@ -62,9 +73,7 @@ const Countdown: React.FC<IProps> = ({
       {ended && <Text className={s.text}>Ended</Text>}
       {!ended && (
         type === 'row' ? (
-          !isHideSecond ?
-          <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m : ${seconds}s`}</Text> :
-            <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m`}</Text>
+          renderTime()
         ) : (
           (
             <Flex gap={{ base: '24px', lg: '76px' }}>
@@ -74,10 +83,12 @@ const Countdown: React.FC<IProps> = ({
                   <span>DAYS</span>
                 </Flex>
               )}
-              <Flex flexDirection='column' alignItems='center'>
-                <Text className={s.text}>{hours}</Text>
-                <span>HOURS</span>
-              </Flex>
+              {!!hideZeroHour && !hours && (
+                <Flex flexDirection='column' alignItems='center'>
+                  <Text className={s.text}>{hours}</Text>
+                  <span>HOURS</span>
+                </Flex>
+              )}
               <Flex flexDirection='column' alignItems='center'>
                 <Text className={s.text}>{minutes}</Text>
                 <span>MINS</span>
