@@ -8,19 +8,25 @@ export default function NumberScale({ couters, minimumFractionDigits, maximumFra
   const cx = proxy<{ value: number }>({ value: 0 });
   const refContent = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    gsap.to(cx, {
-      value: couters, duration: 3, ease: 'power3.out', onUpdate: () => {
-        if (refContent.current) {
-          refContent.current.innerHTML = `${label}`+formatCurrency(
-            cx.value,
-            minimumFractionDigits,
-            maximumFractionDigits,
-            '',
-            true,
-          );
-        }
-      },
+    const gc = gsap.context(()=>{
+      gsap.to(cx, {
+        value: couters, duration: 3, ease: 'power3.out', onUpdate: () => {
+          if (refContent.current) {
+            refContent.current.innerHTML = `${label}`+formatCurrency(
+              cx.value,
+              minimumFractionDigits,
+              maximumFractionDigits,
+              '',
+              true,
+            );
+          }
+        },
+      });
     });
+
+    return ()=>{
+      gc.revert()
+    }
   }, [couters]);
 
   return <div ref={refContent}>
