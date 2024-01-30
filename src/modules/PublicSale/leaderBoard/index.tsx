@@ -342,7 +342,7 @@ const LeaderBoard = (props: IProps) => {
               justifyContent={'flex-end'}
             >
               <Flex alignItems={'center'} gap={2}>
-                {!parseFloat(data?.view_boost) > 0 && (
+                {!parseFloat(data?.view_boost || '0') > 0 && (
                   <Flex justifyContent="flex-start" alignItems="center">
                     <Flex
                       flexDirection="row"
