@@ -16,6 +16,7 @@ interface IProps {
   isShowName?: boolean
   isYou?: boolean
   onCompleted?: ()=>void
+  idx: number
 }
 
 export const PlaceImage = (): ReactElement => {
@@ -26,7 +27,7 @@ export const PlaceImage = (): ReactElement => {
 };
 
 const AvatarItem = forwardRef((props: IProps, ref: any) => {
-  const { data, isShowName, isYou, onCompleted, ...rest } = props;
+  const { data, idx, isShowName, isYou, onCompleted, ...rest } = props;
   const lottieRef = useRef<any>();
   const refMoney = useRef<{ value: number }>({ value: Number(data?.usdt_value) || 0 });
   const refInertMoney = useRef<HTMLParagraphElement>(null);
@@ -130,7 +131,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
 
   return (
     <div
-      className={`${s.avatarItem} ${isYou && s.isYou} ${data?.levelRender !== undefined && 'level-' + data?.levelRender} js-avatarItem`}
+      className={`${s.avatarItem} ${s[`avatarItem__${idx}`]} ${isYou && s.isYou} ${data?.levelRender !== undefined && 'level-' + data?.levelRender} js-avatarItem`}
       ref={ref} {...rest}>
       {
         data?.levelRender === 0 ? (
