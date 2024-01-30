@@ -14,7 +14,6 @@ import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
 import { useSelector } from 'react-redux';
 import { LEADER_BOARD_MODE } from '@/modules/PublicSale/leaderBoardSwitch';
 import { setAnimatedLatestContributors, setNeedCheckDeposit } from '@/stores/states/common/reducer';
-import AvatarItemTemp from '@/modules/PublicSale/leaderBoardVisual/AvatarItemTemp';
 
 export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
@@ -127,8 +126,14 @@ const LeaderBoardVisual = (props: IProps) => {
     let refLevel = 0;
     const levels = [1, 3, 5, 6, 8];
     const missingLength = 23 - list.length;
-    const missingArray = Array.from({ length: missingLength }).map((u, i) => ({})) as unknown as ILeaderBoardPoint[];
-    const tmsss = list.map((el, index) => {
+    const missingArray = Array.from({ length: missingLength }).map((u, i) => ({
+      ranking: 1000,
+      usdt_value: 0,
+      twitter_id: "",
+      twitter_username: "",
+      twitter_avatar: ""
+    })) as unknown as ILeaderBoardPoint[];
+    const tmsss = list.concat(missingArray).map((el, index) => {
       const tmp: ILeaderBoardPoint = { ...el, levelRender: refLevel, lastRender: false };
       tmp.levelRender = refLevel;
       if (levels[refLevel] > 0) {
@@ -169,11 +174,6 @@ const LeaderBoardVisual = (props: IProps) => {
                 <span className={`${styles.lastRender} ${styles[`lastRender__${item?.levelRender}`]}`}></span>
               }
             </>;
-          })
-        }
-        {
-          listMissingRender?.map((item, index) => {
-           return <AvatarItemTemp data={item}/>
           })
         }
       </ScrollWrapper>
