@@ -295,12 +295,12 @@ export default function ItemCommunity({
                         'MMM D, YYYY',
                       )}
                     </Text>
-                    <Button
+                    {/* <Button
                       className={cs(s.itemCommunity__btnCTA)}
                       onClick={() => onClickTweetToClaim(AirdropStep.gmHolders)}
                     >
                       Tweet to claim
-                    </Button>
+                    </Button> */}
                   </Flex>
                 ) : (
                   isConnectMetaMask && (
@@ -322,14 +322,14 @@ export default function ItemCommunity({
                         'MMM D, YYYY',
                       )}
                     </Text>
-                    <Button
+                    {/* <Button
                       className={cs(s.itemCommunity__btnCTA)}
                       onClick={() =>
                         onClickTweetToClaim(AirdropStep.generativeUsers)
                       }
                     >
                       Tweet to claim
-                    </Button>
+                    </Button> */}
                   </Flex>
                 ) : (
                   isConnectMetaMask && (
@@ -352,14 +352,14 @@ export default function ItemCommunity({
                         'MMM D, YYYY',
                       )}
                     </Text>
-                    <Button
+                    {/* <Button
                       className={cs(s.itemCommunity__btnCTA)}
                       onClick={() =>
                         onClickTweetToClaim(AirdropStep.perceptronsHolders)
                       }
                     >
                       Tweet to claim
-                    </Button>
+                    </Button> */}
                   </Flex>
                 ) : (
                   (isConnectMetaMask || isConnectBitcoinWallet) && (
