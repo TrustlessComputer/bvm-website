@@ -11,64 +11,82 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import cx from 'clsx';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
 import {
-  getPublicSaleProgram,
+  claimPublicSaleDailyReward,
+  getPublicSaleDailyReward,
   getPublicSaleSummary,
-  getRaffleJoinProgame,
-  IPublicSalePrograme,
-  joinRafflePrograme,
+  IPublicSaleDailyReward,
 } from '@/services/public-sale';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { formatCurrency } from '@/utils/format';
-import BigNumber from 'bignumber.js';
-import { PUBLIC_SALE_START } from '@/modules/Whitelist';
+import toast from 'react-hot-toast';
+import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
 
 const RaffleButton = ({ className }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isEnd, setIsEnd] = React.useState(false);
   const user = useAppSelector(userSelector);
-  const [programeInfo, setProgrameInfo] = useState<IPublicSalePrograme>();
+  const [dailyReward
+    , setDailyReward] = useState<IPublicSaleDailyReward | null>();
   const [isLoading, setIsLoading] = useState(true);
   const [raffleCode, setRaffleCode] = useState();
   const token =
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
+  const refInterval = useRef<any>(undefined);
+  const [claiming, setClaiming] = useState(false);
+
+  console.log('dailyReward', dailyReward);
 
   const handleShareTw = () => {
     const url = `https://twitter.com/BVMnetwork/status/1752546771560239400`;
 
     window.open(url, '_blank');
-    joinRafflePrograme(programeInfo?.id as number);
+    // joinRafflePrograme(dailyReward?.id as number);
   };
 
   useEffect(() => {
     getProgramInfo();
-  }, []);
 
-  useEffect(() => {
-    if (programeInfo?.id) {
-      getRaffleJoinInfo();
+    if(refInterval?.current) {
+      clearInterval(refInterval.current);
     }
-  }, [programeInfo?.id]);
+
+    refInterval.current = setInterval(() => {
+      getProgramInfo();
+    }, 300000);
+
+    return () => {
+      if(refInterval?.current) {
+        clearInterval(refInterval.current);
+      }
+    }
+  }, []);
 
   const getProgramInfo = async () => {
     try {
-      const res = await getPublicSaleProgram();
-      setProgrameInfo(res);
+      const res = await getPublicSaleDailyReward();
+      setDailyReward(res);
     } catch (e) {
     } finally {
       setIsLoading(false);
     }
   };
 
-  const getRaffleJoinInfo = async () => {
-    const res = await getRaffleJoinProgame(programeInfo?.id as number);
-    setRaffleCode(res);
-  };
+  const claimDailyReward = async () => {
+    try {
+      setClaiming(true);
+      const res = await claimPublicSaleDailyReward();
+      toast.success("Successfully.")
+    } catch (e) {
+
+    } finally {
+      setClaiming(false)
+    }
+  }
 
   const onShareNow = async () => {
     const shareUrl = !user?.referral_code
@@ -98,6 +116,14 @@ const RaffleButton = ({ className }: any) => {
     );
   };
 
+  const titleReward = useMemo(() => {
+    return 'Today’s $BVM Reward';
+  }, [dailyReward]);
+
+  const rewardValue = useMemo(() => {
+    return 0;
+  }, [dailyReward]);
+
   return (
     !isLoading && (
       <Popover onClose={onClose} isOpen={isOpen}>
@@ -116,10 +142,11 @@ const RaffleButton = ({ className }: any) => {
                   lineHeight={'12px'}
                   fontWeight={400}
                 >
-                  Daily Rewards
+                  {titleReward}
                 </Text>
+
                 <Flex gap={'6px'} className={s.timeWrapper}>
-                  <Text className={s.time} color={"#FFFFFF"}>{programeInfo?.title}</Text>
+                  <Text className={cx(s.time, rewardValue > 0 ? s.claimable : '')}>{formatCurrency(rewardValue, MIN_DECIMAL, MAX_DECIMAL, 'BTC', false)} BVM</Text>
                 </Flex>
                 <Flex gap={4} w={"100%"}>
                   {raffleCode ? (
@@ -198,103 +225,16 @@ const RaffleButton = ({ className }: any) => {
           <PopoverCloseButton />
           <PopoverArrow />
           <PopoverBody mt={4}>
-            <Flex gap={6} direction={['column', 'row']}>
-              <Flex direction={'column'}>
-                <Text className={s.title}>{programeInfo?.title}</Text>
-                <Text
+            <Flex gap={6} direction={['column', 'row']} maxW={"350px"}>
+              <Flex direction={'column'} gap={4}>
+                <Text className={s.title}>Earn Extra $BVM Daily for Your Contribution</Text>
+                <img className={s.imgDemo} src={'/public-sale/dailyReward.png'} alt={'dailyReward'} />
+                <Flex direction={"column"} gap={"12px"}
                   className={s.desc}
-                  dangerouslySetInnerHTML={{
-                    __html: programeInfo?.description as string,
-                  }}
-                />
-                <Flex gap={4}>
-                  {raffleCode ? (
-                    <>
-                      <Flex mt={'10px'} flexDirection={'column'}>
-                        <Text
-                          fontWeight={'500'}
-                          fontSize={'14px'}
-                          lineHeight={'140%'}
-                        >
-                          Share more posts on X to increase your chances of
-                          winning the raffle
-                        </Text>
-                        <Flex
-                          className={cx(s.learnMoreWrapper)}
-                          gap={2}
-                          onClick={handleShareTw}
-                          cursor="pointer"
-                          mt={'20px'}
-                          w={"fit-content"}
-                        >
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="24" height="24" fill="black"/>
-                            <g clip-path="url(#clip0_30591_7687)">
-                              <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="white"/>
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_30591_7687">
-                                <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
-                              </clipPath>
-                            </defs>
-                          </svg>
-                          <Text lineHeight={'100%'} fontSize={'12px'}>Enter the raffle</Text>
-                        </Flex>
-                      </Flex>
-                    </>
-                  ) : (
-                    <>
-                      <Flex
-                        className={cx(s.learnMoreWrapper)}
-                        gap={2}
-                        onClick={handleShareTw}
-                        cursor="pointer"
-                        mt={'20px'}
-                        w={"fit-content"}
-                      >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect width="24" height="24" fill="black"/>
-                          <g clip-path="url(#clip0_30591_7687)">
-                            <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="white"/>
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_30591_7687">
-                              <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <Text lineHeight={'100%'} fontSize={'12px'}>Enter the raffle</Text>
-                      </Flex>
-                    </>
-                  )}
-                </Flex>
-              </Flex>
-              <Flex direction={'column'} alignItems={'center'} gap={2}>
-                <Center
-                  cursor={programeInfo?.link ? 'pointer' : 'default'}
-                  className={s.raffleBg}
-                  onClick={() =>
-                    programeInfo?.link
-                      ? window.open(programeInfo?.link, '_blank')
-                      : undefined
-                  }
                 >
-                  <img src={programeInfo?.image} alt="raffleBtnBg" />
-                </Center>
-                <Flex
-                  fontSize={'14px'}
-                  gap={1}
-                  alignItems={'center'}
-                  fontWeight={'500'}
-                >
-                  {Boolean(programeInfo?.reward) && (
-                    <>
-                      <Text color={'rgba(255, 255, 255, 0.7)'}>
-                        Floor price:{' '}
-                      </Text>
-                      <Text color={'#FA4E0E'}>{programeInfo?.reward}</Text>
-                    </>
-                  )}
+                  <Text>We are offering 200,000 $BVM rewards for all BVM public sale contributors.</Text>
+                  <Text>Within 7 days of public sale, the daily rewards will decrease by half each day, similar to Bitcoin Halving Block Reward.</Text>
+                  <Text>This means the earlier you join the $BVM public sale, the more extra $BVM reward you are eligible to earn.</Text>
                 </Flex>
               </Flex>
             </Flex>

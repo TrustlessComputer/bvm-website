@@ -116,7 +116,7 @@ const RaffleButton = ({ className }: any) => {
       <Popover onClose={onClose} isOpen={isOpen}>
         <PopoverTrigger>
           <Flex className={cx(s.container, className)}>
-            <Flex onMouseOver={onOpen} gap={'8px'} alignItems={'center'}>
+            <Flex onMouseOver={onOpen} gap={'8px'} alignItems={'flex-start'}>
               <Center
                 cursor={programeInfo?.link ? 'pointer' : 'default'}
                 className={s.raffleBgIcon}
@@ -142,7 +142,7 @@ const RaffleButton = ({ className }: any) => {
                 </Flex>
                 <Flex gap={4} w={"100%"}>
                   {raffleCode ? (
-                    <Flex flexDirection={'column'}>
+                    <Flex flexDirection={'column'} w={"100%"}>
                       <Text
                         fontWeight={'400'}
                         color={'#fff'}
@@ -188,6 +188,7 @@ const RaffleButton = ({ className }: any) => {
                         gap={2}
                         onClick={handleShareTw}
                         cursor="pointer"
+                        w={"100%"}
                       >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <rect width="24" height="24" fill="black"/>
