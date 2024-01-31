@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { EVMFieldType, UserState } from './types';
 import uniqueBy from '@popperjs/core/lib/utils/uniqueBy';
+import AuthenStorage from '@/utils/storage/authen.storage';
 
 const initialState: UserState = {
   user: undefined,
@@ -20,6 +21,7 @@ const initialState: UserState = {
   airdropGMHolders: null,
   airdropGenerativeUsers: null,
   airdropPerceptronsHolders: null,
+  userToken: null,
 } as any;
 
 const slice = createSlice({
@@ -93,6 +95,10 @@ const slice = createSlice({
         guest_code: action.payload,
       } as any;
     },
+    setUserToken: (state, action) => {
+      state.userToken = action.payload;
+      AuthenStorage.setAuthenKey(action.payload);
+    },
   },
 });
 
@@ -110,6 +116,7 @@ export const {
   clearPublicSaleLeaderBoard,
   setPublicSaleLeaderBoardVisual,
   setGuestSecretCode,
+  setUserToken,
 } = slice.actions;
 
 export default slice.reducer;
