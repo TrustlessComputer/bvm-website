@@ -292,6 +292,7 @@ const RaffleButton = ({ className }: any) => {
                     <Text>Within 7 days of the sale, the daily reward pool will diminish by half each day, similar to Bitcoin Halving Block Reward</Text>
                     <Text>This means the earlier you join, the more extra $BVM reward you are eligible to claim</Text>
                     <Text>Furthermore, the rewards will be distributed proportionally based on your contribution amount</Text>
+                    <Text>Be an early $BVM backer!</Text>
                   </Flex>
                 </Flex>
               </Flex>
