@@ -198,7 +198,7 @@ const LeaderBoardVisual = (props: IProps) => {
           listRender.map((item, index) => {
             return <>
               <AvatarItem data={item} idx={index} isShowName={index < 4}
-                          isYou={user?.twitter_id === item?.twitter_id} />
+                          isYou={user?.twitter_id === item?.twitter_id} key={item?.twitter_id || item?.twitter_username}/>
               {
                 item?.lastRender &&
                 <span className={`${styles.lastRender} ${styles[`lastRender__${item?.levelRender}`]}`}></span>

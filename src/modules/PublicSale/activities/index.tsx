@@ -90,7 +90,7 @@ Good luck and have fun!
           },
         ],
         desc: 'NakaChain is a low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps, enabling the payment of gas fees in Bitcoin. It’s powered by BVM with these modules: Bitcoin for security, Polygon for data availability, and Optimism for execution.' +
-          '<br/><br/>On the second day of awesomeness, challenge yourself to dominate the market by trading futures on BRC-20 tokens\' prices. The top gainer will be rewarded every 2 hours.' +
+          '<br/><br/>On the second day of awesomeness, challenge yourself to dominate the market by trading futures on BRC-20 tokens\' prices. Every two hours, the top gainer will earn $250 in Bitcoin.\n' +
           '<br/><br/>Total rewards: <span style="color: #FA4E0E">$3,000</span>',
       },
       {
@@ -172,7 +172,7 @@ Good luck and have fun!
       .toNumber();
 
     // Case naka start at 4h UTC
-    if (diffDay === 1 && dayjs.utc().hour() < 4) {
+    if (diffDay === ActivityType.Day2 && dayjs.utc().hour() < 4) {
       diffDay = 0;
     }
 
