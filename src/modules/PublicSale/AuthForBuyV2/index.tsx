@@ -197,13 +197,16 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
       <>
         {renderWithoutLogin?.(onOpen)}
         <BaseModal
-          title="To specify your allocation"
+          title="Connect to BVM"
           size="custom"
           isShow={isOpen}
           onHide={onClose}
           className={s.loginModal}
         >
           <Flex flexDir="column" gap="12px" mb="12px">
+            <Text fontSize="14px" mb="12px">
+              Choose how you want to connect. If you don't have a wallet, you can just post on X to verify your account ownership.
+            </Text>
             {submitting && <AppLoading />}
             <Flex flexDir="column" gap="0px">
               <Button className={cx(s.btnContainer, s.btnPrimary)} onClick={handleShareTw}>
