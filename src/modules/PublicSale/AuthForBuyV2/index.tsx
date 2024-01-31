@@ -144,19 +144,19 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
       : getLink(user?.referral_code || '');
 
     const saleSummary = await getPublicSaleSummary();
-    const content = `Welcome to the future of Bitcoin!\n\n@BVMnetwork is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain in a few clicks.\n\nJoin the ${formatCurrency(
+    const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
       saleSummary.total_user || '0',
       0,
       0,
       'BTC',
       false,
-    )} early contributors backing us with ${formatCurrency(
+    )} early contributors who've committed ${formatCurrency(
       saleSummary.total_usdt_value_not_boost || '0',
       0,
       0,
       'BTC',
       false,
-    )} to build the future of Bitcoin.${code}`;
+    )} to build Bitcoin's future with @BVMnetwork.${code}`;
     return `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
       content,
     )}`;
