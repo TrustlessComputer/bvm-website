@@ -1,24 +1,13 @@
 import { Box, Button, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import {
   getPublicSaleLeaderBoards,
   getPublicSaleSummary,
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
-import {
-  defaultSummary,
-  IPublicSaleDepositInfo,
-  VCInfo,
-} from '@/interfaces/vc';
+import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
@@ -37,7 +26,6 @@ import { GuestCodeHere } from '../depositModal/deposit.guest.code';
 import LoginTooltip from '@/modules/PublicSale/depositModal/login.tooltip';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import AuthForBuyV2 from '../AuthForBuyV2';
 
 interface FormValues {
   tokenAmount: string;
@@ -187,13 +175,14 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             lineHeight={1}
             fontWeight={400}
             color={'rgba(0,0,0,0.7)'}
-            gap={1}
-            alignItems={'center'}
+            gap={1} alignItems={"center"}
           >
             Your contribution
-            <LoginTooltip onClose={() => {}} />
+            <LoginTooltip onClose={() => {
+
+            }}/>
           </Flex>
-          <Flex gap={1} alignItems={'center'}>
+          <Flex gap={1} alignItems={"center"}>
             <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
               {token
                 ? `$${formatCurrency(
@@ -258,7 +247,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     : '-'}
                 </Text>
               </Flex>
-            )}
+            )
+            }
           </Flex>
         </div>
       </div>
@@ -266,21 +256,25 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   });
 
   const renderLoginTooltip = useCallback(() => {
-    return token ? (
-      <Tooltip
-        minW="220px"
-        bg="white"
-        boxShadow="0px 0px 24px -6px #0000001F"
-        borderRadius="4px"
-        padding="16px"
-        hasArrow
-        label={<ContributorInfo data={userContributeInfo} />}
-      >
-        <ContributorBlock className={cx(s.contributorBlock, s.blockItem)} />
-      </Tooltip>
-    ) : (
-      <ContributorBlock className={s.blockItem} />
-    );
+    return (
+      token ? (
+        <Tooltip
+          minW="220px"
+          bg="white"
+          boxShadow="0px 0px 24px -6px #0000001F"
+          borderRadius="4px"
+          padding="16px"
+          hasArrow
+          label={<ContributorInfo data={userContributeInfo} />}
+        >
+          <ContributorBlock
+            className={cx(s.contributorBlock, s.blockItem)}
+          />
+        </Tooltip>
+      ) : (
+        <ContributorBlock className={s.blockItem} />
+      )
+    )
   }, [token, userContributeInfo]);
 
   return (
@@ -387,12 +381,16 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               {/*  </div>*/}
               {/*)}*/}
             </div>
-            <div className={s.grid_item}>{renderLoginTooltip()}</div>
+            <div className={s.grid_item}>
+              {
+                renderLoginTooltip()
+              }
+            </div>
           </div>
 
           <Box mt={'32px'} />
           <Flex gap={6} direction={'column'} width={'100%'}>
-            <AuthForBuyV2>
+            <AuthForBuy>
               <Button
                 type="submit"
                 isDisabled={isCreating}
@@ -402,18 +400,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               >
                 Buy $BVM
               </Button>
-            </AuthForBuyV2>
-            {/* <AuthForBuy>
-              <Button
-                type="submit"
-                isDisabled={isCreating}
-                isLoading={isCreating}
-                // loadingText={'Submitting...'}
-                className={s.button}
-              >
-                Buy $BVM
-              </Button>
-            </AuthForBuy> */}
+            </AuthForBuy>
           </Flex>
           {parseFloat(userContributeInfo?.usdt_value || '0') > 0 && (
             <GuestCodeHere theme="light" />

@@ -7,18 +7,28 @@
   }
 }
 
+.loginModal {
+  max-width: 400px !important;
+  header {
+    p {
+      color: white;
+    }
+  }
+}
+
 .btnContainer {
   height: 48px !important;
-  padding: 8px 60px !important;
+  padding: 6px !important;
   border-radius: 0px !important;
-  background: #fa4e0e !important;
-  color: #fff !important;
+  background: #ffffff !important;
+  color: #000000 !important;
   width: 100%;
   font-weight: normal !important;
   gap: 8px;
-  &.btnBuyAsGuest {
-    background: #ffffff !important;
-    color: #000000 !important;
+  justify-content: flex-start !important;
+  &.btnPrimary {
+    background: #fa4e0e !important;
+    color: #fff !important;
   }
   &.btnBuyAndStake {
     background: #000000 !important;

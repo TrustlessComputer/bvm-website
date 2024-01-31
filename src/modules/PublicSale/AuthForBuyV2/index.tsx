@@ -1,13 +1,19 @@
 import { userTokenSelector } from '@/stores/states/user/selector';
-import { Button, Flex, Tooltip, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Text, Tooltip, useDisclosure } from '@chakra-ui/react';
 import cx from 'classnames';
 import React, { PropsWithChildren, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import s from './styles.module.scss';
+import BaseModal from '@/components/BaseModal';
 
-interface IAuthForBuyV2 extends PropsWithChildren {}
+interface IAuthForBuyV2 extends PropsWithChildren {
+  renderWithoutLogin?: (onClick: any) => any;
+}
 
-const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({ children }) => {
+const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
+  children,
+  renderWithoutLogin,
+}) => {
   const userToken = useSelector(userTokenSelector);
 
   const isLogged = useMemo(() => Boolean(userToken), [userToken]);
@@ -18,43 +24,176 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({ children }) => {
     return children;
   }
 
-  return (
-    <>
-      <Flex className={s.btnWrapper}>
-        <Button
-          onClick={() => {
-            onOpen();
-          }}
-          type="button"
-          className={s.btnContainer}
+  if (renderWithoutLogin) {
+    return (
+      <>
+        {renderWithoutLogin?.(onOpen)}
+        <BaseModal
+          title="To specify your allocation"
+          size="custom"
+          isShow={isOpen}
+          onHide={onClose}
+          className={s.loginModal}
         >
-          Buy $BVM
-        </Button>
-        <Tooltip
-          minW="220px"
-          bg="#006149"
-          boxShadow="0px 0px 40px rgba(0, 0, 0, 0.12)"
-          borderRadius="4px"
-          padding="16px"
-          hasArrow
-          label={
-            'Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.'
-          }
-          color={'#FFFFFF'}
-        >
-          <Button
-            onClick={() => {
-              onOpen();
-            }}
-            type="button"
-            className={cx(s.btnContainer, s.btnBuyAndStake)}
-          >
-            Buy & Stake $BVM
+          <Button className={cx(s.btnContainer, s.btnPrimary)}>
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="36" height="36" fill="white" />
+              <g clip-path="url(#clip0_30620_7146)">
+                <path
+                  d="M22.6007 10.7695H25.054L19.694 16.8962L26 25.2315H21.0627L17.196 20.1755L12.7707 25.2315H10.316L16.0493 18.6782L10 10.7702H15.0627L18.558 15.3915L22.6007 10.7695ZM21.74 23.7635H23.0993L14.324 12.1609H12.8653L21.74 23.7635Z"
+                  fill="black"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_30620_7146">
+                  <rect
+                    width="16"
+                    height="16"
+                    fill="white"
+                    transform="translate(10 10)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+            <Text>Post on X</Text>
           </Button>
-        </Tooltip>
-      </Flex>
-    </>
-  );
+          <Button className={cx(s.btnContainer)}>
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="36" height="36" fill="black" />
+              <g clip-path="url(#clip0_30620_7162)">
+                <path
+                  d="M22.6007 10.7695H25.054L19.694 16.8962L26 25.2315H21.0627L17.196 20.1755L12.7707 25.2315H10.316L16.0493 18.6782L10 10.7702H15.0627L18.558 15.3915L22.6007 10.7695ZM21.74 23.7635H23.0993L14.324 12.1609H12.8653L21.74 23.7635Z"
+                  fill="white"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_30620_7162">
+                  <rect
+                    width="16"
+                    height="16"
+                    fill="white"
+                    transform="translate(10 10)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+
+            <Text>Authorize</Text>
+          </Button>
+          <Button className={cx(s.btnContainer)}>
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M30.9717 4.01172L19.7288 12.362L21.8079 7.43545L30.9717 4.01172Z"
+                fill="#E2761B"
+                stroke="#E2761B"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M5.01701 4.01172L16.1695 12.4411L14.1921 7.43545L5.01701 4.01172ZM26.9266 23.3677L23.9323 27.9552L30.339 29.7179L32.1808 23.4693L26.9266 23.3677ZM3.83057 23.4693L5.66107 29.7179L12.0679 27.9552L9.0735 23.3677L3.83057 23.4693Z"
+                fill="#E4761B"
+                stroke="#E4761B"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M11.7062 15.6158L9.9209 18.3164L16.2825 18.5988L16.0565 11.7627L11.7062 15.6158ZM24.2825 15.6158L19.8757 11.6836L19.7288 18.5988L26.0791 18.3164L24.2825 15.6158ZM12.0678 27.9548L15.887 26.0904L12.5876 23.5141L12.0678 27.9548ZM20.1017 26.0904L23.9322 27.9548L23.4011 23.5141L20.1017 26.0904Z"
+                fill="#E4761B"
+                stroke="#E4761B"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M23.9322 27.9543L20.1016 26.0898L20.4067 28.587L20.3728 29.6379L23.9322 27.9543ZM12.0677 27.9543L15.6271 29.6379L15.6045 28.587L15.887 26.0898L12.0677 27.9543Z"
+                fill="#D7C1B3"
+                stroke="#D7C1B3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M15.6836 21.8645L12.4972 20.9267L14.7458 19.8984L15.6836 21.8645ZM20.3051 21.8645L21.243 19.8984L23.5028 20.9267L20.3051 21.8645Z"
+                fill="#233447"
+                stroke="#233447"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12.0678 27.9548L12.6102 23.3673L9.07349 23.4689L12.0678 27.9548ZM23.3899 23.3673L23.9322 27.9548L26.9266 23.4689L23.3899 23.3673ZM26.0791 18.3164L19.7289 18.5989L20.3164 21.8644L21.2543 19.8983L23.5142 20.9266L26.0791 18.3164ZM12.4972 20.9266L14.7571 19.8983L15.6837 21.8644L16.2825 18.5989L9.92094 18.3164L12.4972 20.9266Z"
+                fill="#CD6116"
+                stroke="#CD6116"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M9.9209 18.3164L12.5876 23.5141L12.4972 20.9266L9.9209 18.3164ZM23.5141 20.9266L23.4011 23.5141L26.0791 18.3164L23.5141 20.9266ZM16.2825 18.5989L15.6836 21.8644L16.4294 25.7175L16.5989 20.6441L16.2825 18.5989ZM19.7288 18.5989L19.4237 20.6328L19.5593 25.7175L20.3164 21.8644L19.7288 18.5989Z"
+                fill="#E4751F"
+                stroke="#E4751F"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M20.3164 21.8636L19.5593 25.7167L20.1017 26.0896L23.4011 23.5134L23.5141 20.9258L20.3164 21.8636ZM12.4972 20.9258L12.5876 23.5134L15.887 26.0896L16.4294 25.7167L15.6836 21.8636L12.4972 20.9258Z"
+                fill="#F6851B"
+                stroke="#F6851B"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M20.3728 29.6387L20.4067 28.5878L20.1242 28.3393H15.8644L15.6045 28.5878L15.6271 29.6387L12.0677 27.9551L13.3107 28.972L15.8305 30.7234H20.1581L22.6892 28.972L23.9322 27.9551L20.3728 29.6387Z"
+                fill="#C0AD9E"
+                stroke="#C0AD9E"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M20.1017 26.0897L19.5593 25.7168H16.4293L15.887 26.0897L15.6045 28.5869L15.8644 28.3383H20.1243L20.4068 28.5869L20.1017 26.0897Z"
+                fill="#161616"
+                stroke="#161616"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M31.4464 12.9044L32.4068 8.2942L30.9718 4.01172L20.1017 12.0795L24.2825 15.6162L30.1921 17.3451L31.5029 15.8196L30.9379 15.4128L31.8418 14.588L31.1413 14.0456L32.0452 13.3564L31.4464 12.9044ZM3.59326 8.2942L4.55371 12.9044L3.94354 13.3564L4.8475 14.0456L4.15823 14.588L5.06219 15.4128L4.49722 15.8196L5.79665 17.3451L11.7063 15.6162L15.887 12.0795L5.01699 4.01172L3.59326 8.2942Z"
+                fill="#763D16"
+                stroke="#763D16"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M30.1922 17.3452L24.2825 15.6163L26.0792 18.3169L23.4012 23.5146L26.9266 23.4694H32.1808L30.1922 17.3452ZM11.7063 15.6163L5.79667 17.3452L3.83057 23.4694H9.0735L12.5876 23.5146L9.92096 18.3169L11.7063 15.6163ZM19.7289 18.5994L20.1018 12.0796L21.8193 7.43555H14.1921L15.8871 12.0796L16.2825 18.5994L16.4181 20.6559L16.4294 25.718H19.5594L19.582 20.6559L19.7289 18.5994Z"
+                fill="#F6851B"
+                stroke="#F6851B"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+            <Text>Connect your Metamask</Text>
+          </Button>
+        </BaseModal>
+      </>
+    );
+  }
+
+  return <></>;
 };
 
 export default AuthForBuyV2;
