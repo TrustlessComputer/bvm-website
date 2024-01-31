@@ -135,6 +135,7 @@ export interface IPublicSalePrograme {
   reward: string;
   start_date: string;
   end_date: string;
+  sub_title: string;
 }
 
 export const getPublicSaleProgram = async (): Promise<IPublicSalePrograme> => {
