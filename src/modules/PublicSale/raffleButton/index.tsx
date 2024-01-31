@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import dayjs from 'dayjs';
-import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import React, { useEffect, useState } from 'react';
 import cx from 'clsx';
 import { useAppSelector } from '@/stores/hooks';
@@ -24,10 +23,10 @@ import {
   IPublicSalePrograme,
   joinRafflePrograme,
 } from '@/services/public-sale';
-import AuthenStorage from '@/utils/storage/authen.storage';
 import { formatCurrency } from '@/utils/format';
 import BigNumber from 'bignumber.js';
 import { PUBLIC_SALE_START } from '@/modules/Whitelist';
+import useWindowSize from '@/hooks/useWindowSize';
 
 const RaffleButton = ({ className }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,8 +35,7 @@ const RaffleButton = ({ className }: any) => {
   const [programeInfo, setProgrameInfo] = useState<IPublicSalePrograme>();
   const [isLoading, setIsLoading] = useState(true);
   const [raffleCode, setRaffleCode] = useState();
-  const token =
-    AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
+  const { mobileScreen } = useWindowSize();
 
   const handleShareTw = () => {
     const url = `https://twitter.com/BVMnetwork/status/1752550686095798386`;
@@ -91,12 +89,15 @@ const RaffleButton = ({ className }: any) => {
       'BTC',
       true,
     )} to building Bitcoin's future with @BVMnetwork\n\n`;
-    return window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
+
+    setTimeout(() => {
+      return window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    }, 300);
   };
 
   const currentDay = React.useMemo(() => {
@@ -116,7 +117,7 @@ const RaffleButton = ({ className }: any) => {
       <Popover onClose={onClose} isOpen={isOpen}>
         <PopoverTrigger>
           <Flex className={cx(s.container, className)}>
-            <Flex onMouseOver={onOpen} gap={'8px'} alignItems={'flex-start'}>
+            <Flex onMouseOver={mobileScreen ? undefined : onOpen} onClick={mobileScreen ? onOpen : undefined} gap={'8px'} alignItems={'flex-start'}>
               <Center
                 cursor={programeInfo?.link ? 'pointer' : 'default'}
                 className={s.raffleBgIcon}
@@ -212,7 +213,11 @@ const RaffleButton = ({ className }: any) => {
                     <Flex
                       className={cx(s.learnMoreWrapper)}
                       gap={2}
-                      onClick={onShareNow}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        onShareNow();
+                      }}
                       cursor="pointer"
                       w={"100%"}
                     >

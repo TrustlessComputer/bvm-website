@@ -34,6 +34,7 @@ import BigNumber from 'bignumber.js';
 import dayjs from 'dayjs';
 import { PUBLIC_SALE_START } from '@/modules/Whitelist';
 import { commonSelector } from '@/stores/states/common/selector';
+import useWindowSize from '@/hooks/useWindowSize';
 
 const REWARD_DAILY = JSON.parse("{\"2024-01-30\":100000,\"2024-01-31\":50000,\"2024-02-01\":50000,\"2024-02-02\":50000,\"2024-02-03\":50000,\"2024-02-04\":50000,\"2024-02-05\":50000}");
 
@@ -44,7 +45,6 @@ const RaffleButton = ({ className }: any) => {
   const [dailyReward
     , setDailyReward] = useState<IPublicSaleDailyReward | null>();
   const [isLoading, setIsLoading] = useState(true);
-  const [raffleCode, setRaffleCode] = useState();
   const token =
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
   const refInterval = useRef<any>(undefined);
@@ -52,6 +52,7 @@ const RaffleButton = ({ className }: any) => {
   const [authenCode, setAuthenCode] = useState<IAuthenCode>();
   const [showManualCheck, setShowManualCheck] = useState(false);
   const needReload = useAppSelector(commonSelector).needReload;
+  const { mobileScreen } = useWindowSize();
 
   const currentDay = React.useMemo(() => {
     const diffDay = new BigNumber(
@@ -216,7 +217,7 @@ const RaffleButton = ({ className }: any) => {
         <Popover onClose={onClose} isOpen={isOpen}>
           <PopoverTrigger>
             <Flex className={cx(s.container, className)}>
-              <Flex onMouseOver={onOpen} gap={'8px'} alignItems={'center'}>
+              <Flex onMouseOver={mobileScreen ? undefined : onOpen} onClick={mobileScreen ? onOpen : undefined} gap={'8px'} alignItems={'center'}>
                 <Center
                   className={s.raffleBgIcon}
                 >
@@ -240,7 +241,11 @@ const RaffleButton = ({ className }: any) => {
                       <Flex
                         className={cx(s.learnMoreWrapper)}
                         gap={2}
-                        onClick={rewardValue > 0 ? handleShareTw : onShareNow}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          rewardValue > 0 ? handleShareTw() : onShareNow()
+                        }}
                         cursor="pointer"
                         bg={rewardValue > 0 ? "#FA4E0E" : '#FFFFFF'}
                       >
