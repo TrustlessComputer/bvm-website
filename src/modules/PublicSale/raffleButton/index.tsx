@@ -43,7 +43,7 @@ const RaffleButton = ({ className }: any) => {
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
   const handleShareTw = () => {
-    const url = `https://twitter.com/BVMnetwork/status/1752174033100226567`;
+    const url = `https://twitter.com/BVMnetwork/status/1752546771560239400`;
 
     window.open(url, '_blank');
     joinRafflePrograme(programeInfo?.id as number);
@@ -256,7 +256,7 @@ const RaffleButton = ({ className }: any) => {
                         <Flex
                           className={cx(s.learnMoreWrapper)}
                           gap={3}
-                          onClick={onShareNow}
+                          onClick={handleShareTw}
                           cursor="pointer"
                           mt={'20px'}
                         >
