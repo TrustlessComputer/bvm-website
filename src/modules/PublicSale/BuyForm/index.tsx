@@ -321,9 +321,9 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   lineHeight={1}
                   fontWeight={400}
                   color={'#000'}
-                  _hover={{
-                    color: '#FA4E0E',
-                  }}
+                  // _hover={{
+                  //   color: '#FA4E0E',
+                  // }}
                 >
                   <NumberScale
                     label={''}
