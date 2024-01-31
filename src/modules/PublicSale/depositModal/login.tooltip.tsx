@@ -130,7 +130,7 @@ const LoginTooltip = ({ onClose }: { onClose: any }) => {
                 color={'#000000'}
                 gap={1}
           >
-            <Text onClick={handleShareTw} fontSize={'14px !important'}><Text as={"span"} textDecoration={"underline"} fontSize={'14px !important'}>Sign in to X</Text> and claim your boost!</Text>
+            <Text onClick={handleShareTw} fontSize={'14px !important'}><Text as={"span"} fontWeight={600} color={"#FA4E0E"} textDecoration={"underline"} fontSize={'14px !important'}>Sign in to X</Text> and claim your boost!</Text>
             {showManualCheck && (
               <Text
                 cursor={'pointer'}
