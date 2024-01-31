@@ -228,7 +228,7 @@ const RaffleButton = ({ className }: any) => {
                   </Text>
 
                   <Flex gap={'6px'} className={s.timeWrapper}>
-                    <Text className={cx(s.time, rewardValue > 0 ? s.claimable : '')}>{formatCurrency(rewardValue || dailyReward?.pending || currentDayReward, MIN_DECIMAL, MAX_DECIMAL, 'BTC', false)} BVM</Text>
+                    <Text className={cx(s.time, rewardValue > 0 ? s.claimable : '')}>{formatCurrency(rewardValue || dailyReward?.pending || currentDayReward, MIN_DECIMAL, MIN_DECIMAL, 'BTC', false)} BVM</Text>
                   </Flex>
                   <Flex gap={4} w={"100%"}>
                     <>
