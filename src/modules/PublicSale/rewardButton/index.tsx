@@ -227,14 +227,15 @@ const RaffleButton = ({ className }: any) => {
           <PopoverBody mt={4}>
             <Flex gap={6} direction={['column', 'row']} maxW={"350px"}>
               <Flex direction={'column'} gap={4}>
-                <Text className={s.title}>Earn Extra $BVM Daily for Your Contribution</Text>
+                <Text className={s.title}>Contribute Early and Earn Extra BVM Tokens</Text>
                 <img className={s.imgDemo} src={'/public-sale/dailyReward.png'} alt={'dailyReward'} />
                 <Flex direction={"column"} gap={"12px"}
                   className={s.desc}
                 >
-                  <Text>We are offering 200,000 $BVM rewards for all BVM public sale contributors.</Text>
-                  <Text>Within 7 days of public sale, the daily rewards will decrease by half each day, similar to Bitcoin Halving Block Reward.</Text>
-                  <Text>This means the earlier you join the $BVM public sale, the more extra $BVM reward you are eligible to earn.</Text>
+                  <Text>We are offering 200,000 $BVM in daily rewards to all BVM public sale participants!</Text>
+                  <Text>Within 7 days of the sale, the daily reward pool will diminish by half each day, similar to Bitcoin Halving Block Reward</Text>
+                  <Text>This means the earlier you join, the more extra $BVM reward you are eligible to claim</Text>
+                  <Text>Furthermore, the rewards will be distributed proportionally based on your contribution amount</Text>
                 </Flex>
               </Flex>
             </Flex>
