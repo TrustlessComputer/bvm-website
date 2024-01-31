@@ -33,6 +33,7 @@ import { toast } from 'react-hot-toast';
 import BigNumber from 'bignumber.js';
 import dayjs from 'dayjs';
 import { PUBLIC_SALE_START } from '@/modules/Whitelist';
+import { commonSelector } from '@/stores/states/common/selector';
 
 const REWARD_DAILY = JSON.parse("{\"2024-01-30\":100000,\"2024-01-31\":50000,\"2024-02-01\":50000,\"2024-02-02\":50000,\"2024-02-03\":50000,\"2024-02-04\":50000,\"2024-02-05\":50000}");
 
@@ -50,6 +51,7 @@ const RaffleButton = ({ className }: any) => {
   const dispatch = useDispatch();
   const [authenCode, setAuthenCode] = useState<IAuthenCode>();
   const [showManualCheck, setShowManualCheck] = useState(false);
+  const needReload = useAppSelector(commonSelector).needReload;
 
   const currentDay = React.useMemo(() => {
     const diffDay = new BigNumber(
@@ -94,7 +96,7 @@ const RaffleButton = ({ className }: any) => {
         clearInterval(refInterval.current);
       }
     }
-  }, []);
+  }, [needReload]);
 
   const getProgramInfo = async () => {
     try {
