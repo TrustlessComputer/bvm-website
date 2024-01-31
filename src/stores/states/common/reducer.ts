@@ -8,7 +8,7 @@ const initialState: CommonState = {
     [Coin.ETH]: '0',
     [Coin.TIA]: '0',
   } as any,
-  leaderBoardMode: 0,
+  leaderBoardMode: 1,
   needCheckDeposit: false,
   animatedLatestContributors: [],
 };
