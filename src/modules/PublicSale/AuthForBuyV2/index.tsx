@@ -150,7 +150,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
       0,
       'BTC',
       false,
-    )} early contributors who've committed ${formatCurrency(
+    )} early contributors who've committed $${formatCurrency(
       saleSummary.total_usdt_value_not_boost || '0',
       0,
       0,
