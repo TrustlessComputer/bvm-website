@@ -128,12 +128,15 @@ const RaffleButton = ({ className }: any) => {
       'BTC',
       true,
     )} to building Bitcoin's future with @BVMnetwork\n\n`;
-    return window.open(
-      `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-        content,
-      )}`,
-      '_blank',
-    );
+
+    setTimeout(() => {
+      return window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    }, 300);
   };
 
   const rewardValue = useMemo(() => {
