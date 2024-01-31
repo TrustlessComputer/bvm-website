@@ -20,6 +20,7 @@ const initialState: UserState = {
   airdropGMHolders: null,
   airdropGenerativeUsers: null,
   airdropPerceptronsHolders: null,
+  userToken: null,
 } as any;
 
 const slice = createSlice({
@@ -93,6 +94,9 @@ const slice = createSlice({
         guest_code: action.payload,
       } as any;
     },
+    setUserToken: (state, action) => {
+      state.userToken = action.payload;
+    },
   },
 });
 
@@ -110,6 +114,7 @@ export const {
   clearPublicSaleLeaderBoard,
   setPublicSaleLeaderBoardVisual,
   setGuestSecretCode,
+  setUserToken
 } = slice.actions;
 
 export default slice.reducer;

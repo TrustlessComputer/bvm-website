@@ -1,0 +1,27 @@
+.btnWrapper {
+  grid-gap: 16px;
+  grid-template-columns: 2fr 1fr;
+
+  @include is-mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btnContainer {
+  height: 48px !important;
+  padding: 8px 60px !important;
+  border-radius: 0px !important;
+  background: #fa4e0e !important;
+  color: #fff !important;
+  width: 100%;
+  font-weight: normal !important;
+  gap: 8px;
+  &.btnBuyAsGuest {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  &.btnBuyAndStake {
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+}
