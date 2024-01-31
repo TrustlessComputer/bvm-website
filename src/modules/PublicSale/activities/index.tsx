@@ -261,7 +261,7 @@ Good luck and have fun!
                     [styles.itemWrapper_title__active]: isExpanded,
                   })}
                 >
-                  <Text>{item.tag}: {title} {item.key === currentDay.diffDay && <span>(Happening Now)</span>}</Text>
+                  <Text>{item.key === currentDay.diffDay && <span>Happening Now</span>} {item.tag}: {title}</Text>
                 </Flex>
                 <button>
                   <SvgInset
@@ -305,7 +305,7 @@ Good luck and have fun!
         padding={{ base: '24px', md: '24px 24px 32px 24px' }}
       >
         <p className={styles.container__title}>
-          7 days of awesomeness. Experience Bitcoin like never before.
+          Experience Bitcoin like never before.
         </p>
         <Accordion allowToggle={true} allowMultiple={false} index={expandIndex as any} onChange={(expandedIndex) => {
           setExpandIndex(expandedIndex as number)
