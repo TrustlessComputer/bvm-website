@@ -40,14 +40,14 @@ export const postPublicsaleWalletInfoManualCheck =
 
 export const generateTOkenWithSecretCode = async (
   secret_code: string,
-  recaptcha: string,
+  _recaptcha: string,
 ): Promise<IGenerateTOkenWithSecretCode> => {
   const res = (await apiClient.post(
     `/bvm/generate-token-with-secret-code`,
     { secret_code },
     {
       headers: {
-        recaptcha,
+        // recaptcha,
         'user-data': JSON.stringify({
           screen: window?.location?.pathname,
           timezone: new Date().toString(),
