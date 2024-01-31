@@ -1,20 +1,19 @@
 .container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
   transition: all 0.3s;
   position: relative;
-  padding: 4px;
-  padding-right: 14px !important;
-  border: 1px solid #ffffff1a;
-  background-color: #ffffff1a;
+  //padding: 4px;
+  //border: 1px solid #ffffff1a;
+  //background-color: #ffffff1a;
   cursor: pointer;
   width: 100%;
 
   .icon {
     width: 40px;
     height: 40px;
-    background: url('/public-sale/rwbn.png');
+    background: url('/public-sale/rwbn_2.png');
     background-size: cover;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -30,17 +29,18 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
+    //justify-content: center;
+    //left: 0;
+    //right: 0;
+    //margin-left: auto;
+    //margin-right: auto;
     width: fit-content;
+    margin-bottom: 8px;
   }
 
   .time {
     //margin-top: 10px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
 
@@ -53,6 +53,29 @@
     @include is-mobile {
       font-size: 14px;
     }
+
+    &.claimable {
+      background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
+      -webkit-background-clip: text; /* clip the background to the text inside the tag*/
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .raffleBgIcon {
+    background: url('/public-sale/raffle_frame.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 4px;
+    align-items: flex-start;
+    width: 80px;
+    height: 80px;
+
+    > img {
+      min-width: 72px;
+      min-height: 72px;
+      max-width: 72px;
+      max-height: 72px;
+    }
   }
 }
 
@@ -60,8 +83,8 @@
   border: 1px solid #ffffff26;
   padding: 20px;
   background: linear-gradient(180deg, #282828 0%, #131313 146.93%),
-    linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) !important;
-  min-width: 300px;
+  linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) !important;
+  min-width: 400px;
   border-radius: 0 !important;
 
   &:focus-visible {
@@ -73,38 +96,36 @@
   }
 
   .title {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
     color: #ffffff;
+  }
+
+  .imgDemo {
+    max-width: 350px;
   }
 
   .desc {
     font-size: 14px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 1);
     margin-top: 8px;
-  }
-
-  .link {
-    margin-top: 10px;
-    font-size: 12px;
-    color: #fa4e0e;
-    cursor: pointer;
-  }
-
-  .learnMoreWrapper {
-    background: #ffffff;
-    padding: 6px 6px 6px 16px;
-    width: fit-content;
-    color: #000000;
-    margin-top: 20px;
-    font-size: 14px;
-    align-items: center;
-
-    &.isDisable {
-      opacity: 70%;
-      cursor: not-allowed;
+    white-space: pre-wrap;
+    article {
+      display: inline-flex;
+      &::before {
+        content: '-';
+        display: block;
+        padding-right: 5px;
+      }
     }
+  }
+
+  .shareNow {
+    background-color: #fa4e0e;
+    // align-self: flex-start;
+    margin-top: 8px;
+    border-radius: 0;
   }
 
   .yourRaffleCode {
@@ -131,6 +152,9 @@
     background-size: contain;
     background-repeat: no-repeat;
     padding: 8px;
+    align-items: flex-start;
+    width: 156px;
+    height: 156px;
 
     > img {
       min-width: 140px;
@@ -143,6 +167,27 @@
   :global {
     .chakra-popover__body {
       padding: 0;
+      margin: 0 !important;
     }
+  }
+}
+.flexContainer {
+  gap: 10px;
+}
+
+.learnMoreWrapper {
+  background: #ffffff;
+  padding: 4px 12px 4px 4px;
+  color: #000000;
+  font-size: 14px;
+  align-items: center;
+  //justify-content: center;
+  height: 32px;
+  gap: 8px;
+  width: 100%;
+
+  &.isDisable {
+    opacity: 70%;
+    cursor: not-allowed;
   }
 }

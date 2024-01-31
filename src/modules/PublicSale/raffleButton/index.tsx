@@ -116,95 +116,124 @@ const RaffleButton = ({ className }: any) => {
       <Popover onClose={onClose} isOpen={isOpen}>
         <PopoverTrigger>
           <Flex className={cx(s.container, className)}>
-            <Flex onMouseOver={onOpen} gap={'8px'} alignItems={'center'}>
-              <span className={s.icon}></span>
-              <div className={s.text}>
+            <Flex onMouseOver={onOpen} gap={'8px'} alignItems={'flex-start'}>
+              <Center
+                cursor={programeInfo?.link ? 'pointer' : 'default'}
+                className={s.raffleBgIcon}
+                onClick={() =>
+                  programeInfo?.link
+                    ? window.open(programeInfo?.link, '_blank')
+                    : undefined
+                }
+              >
+                <img src={programeInfo?.image} alt="raffleBtnBg" />
+              </Center>
+              <Flex direction={"column"} alignItems={"flex-start"} flex={1}>
                 <Text
                   className={s.text_text}
-                  fontSize={11}
+                  fontSize={12}
                   lineHeight={'12px'}
-                  fontWeight={400}
+                  fontWeight={500}
+                  textTransform={"uppercase"}
                 >
                   Day {currentDay?.diffDay + 1} Raffle
                 </Text>
                 <Flex gap={'6px'} className={s.timeWrapper}>
-                  <Countdown
-                    className={s.time}
-                    expiredTime={dayjs
-                      .utc(programeInfo?.end_date, 'YYYY-MM-DD HH:mm:ss')
-                      .toString()}
-                    hideIcon={true}
-                    onRefreshEnd={() => setIsEnd(true)}
-                  />
+                  <Text className={s.time} color={"#FFFFFF"}>{programeInfo?.sub_title}</Text>
                 </Flex>
-              </div>
-            </Flex>
-            <Flex gap={4}>
-              {raffleCode ? (
-                <Flex flexDirection={'column'}>
-                  <Text
-                    fontWeight={'400'}
-                    color={'#fff'}
-                    fontSize={'10px'}
-                    lineHeight={'140%'}
-                    mb={'5px'}
-                    style={{
-                      background: '#FFFFFF1A',
-                      padding: '4px 8px',
-                    }}
-                  >
-                    Share more post to increase
-                    <br />
-                    your winning chance
-                  </Text>
-                  <Flex
-                    onClick={onShareNow}
-                    className={cx(s.learnMoreWrapper)}
-                    style={{
-                      justifyContent: 'flex-start',
-                    }}
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="24" height="24" fill="black"/>
-                      <g clip-path="url(#clip0_30591_7687)">
-                        <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="white"/>
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_30591_7687">
-                          <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
-                        </clipPath>
-                      </defs>
-                    </svg>
-                    <Text lineHeight={'100%'} fontSize={'13px'}>
-                      Share now
-                    </Text>
-                  </Flex>
+                <Flex gap={4} w={"100%"}>
+                  {/*{raffleCode ? (
+                    <Flex flexDirection={'column'} w={"100%"}>
+                      <Text
+                        fontWeight={'400'}
+                        color={'#fff'}
+                        fontSize={'10px'}
+                        lineHeight={'140%'}
+                        mb={'5px'}
+                        style={{
+                          background: '#FFFFFF1A',
+                          padding: '4px 8px',
+                        }}
+                      >
+                        Share more post to increase
+                        <br />
+                        your winning chance
+                      </Text>
+                      <Flex
+                        onClick={onShareNow}
+                        className={cx(s.learnMoreWrapper)}
+                        style={{
+                          justifyContent: 'flex-start',
+                        }}
+                      >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="24" height="24" fill="black"/>
+                          <g clip-path="url(#clip0_30591_7687)">
+                            <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="white"/>
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_30591_7687">
+                              <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        <Text lineHeight={'100%'} fontSize={'12px'}>
+                          Share now
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  ) : (
+                    <>
+                      <Flex
+                        className={cx(s.learnMoreWrapper)}
+                        gap={2}
+                        onClick={onShareNow}
+                        cursor="pointer"
+                        w={"100%"}
+                      >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="24" height="24" fill="black"/>
+                          <g clip-path="url(#clip0_30591_7687)">
+                            <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="white"/>
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_30591_7687">
+                              <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        <Text lineHeight={'100%'} fontSize={'12px'}>
+                          Enter the raffle
+                        </Text>
+                      </Flex>
+                    </>
+                  )}*/}
+                  <>
+                    <Flex
+                      className={cx(s.learnMoreWrapper)}
+                      gap={2}
+                      onClick={onShareNow}
+                      cursor="pointer"
+                      w={"100%"}
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" fill="black"/>
+                        <g clip-path="url(#clip0_30591_7687)">
+                          <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="white"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_30591_7687">
+                            <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                      <Text lineHeight={'100%'} fontSize={'12px'}>
+                        Tweet to enter
+                      </Text>
+                    </Flex>
+                  </>
                 </Flex>
-              ) : (
-                <>
-                  <Flex
-                    className={cx(s.learnMoreWrapper)}
-                    gap={2}
-                    onClick={handleShareTw}
-                    cursor="pointer"
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="24" height="24" fill="black"/>
-                      <g clip-path="url(#clip0_30591_7687)">
-                        <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="white"/>
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_30591_7687">
-                          <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
-                        </clipPath>
-                      </defs>
-                    </svg>
-                    <Text lineHeight={'100%'} fontSize={'13px'}>
-                      Enter the raffle
-                    </Text>
-                  </Flex>
-                </>
-              )}
+              </Flex>
             </Flex>
           </Flex>
         </PopoverTrigger>
@@ -223,7 +252,7 @@ const RaffleButton = ({ className }: any) => {
                   }}
                 />
                 <Flex gap={4}>
-                  {raffleCode ? (
+                  {/*{raffleCode ? (
                     <>
                       <Flex mt={'10px'} flexDirection={'column'}>
                         <Text
@@ -253,7 +282,7 @@ const RaffleButton = ({ className }: any) => {
                               </clipPath>
                             </defs>
                           </svg>
-                          <Text lineHeight={'100%'} fontSize={'13px'}>Enter the raffle</Text>
+                          <Text lineHeight={'100%'} fontSize={'12px'}>Enter the raffle</Text>
                         </Flex>
                       </Flex>
                     </>
@@ -278,10 +307,33 @@ const RaffleButton = ({ className }: any) => {
                             </clipPath>
                           </defs>
                         </svg>
-                        <Text lineHeight={'100%'} fontSize={'13px'}>Enter the raffle</Text>
+                        <Text lineHeight={'100%'} fontSize={'12px'}>Enter the raffle</Text>
                       </Flex>
                     </>
-                  )}
+                  )}*/}
+                  <>
+                    <Flex
+                      className={cx(s.learnMoreWrapper)}
+                      gap={2}
+                      onClick={onShareNow}
+                      cursor="pointer"
+                      mt={'20px'}
+                      w={"fit-content"}
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" fill="black"/>
+                        <g clip-path="url(#clip0_30591_7687)">
+                          <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="white"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_30591_7687">
+                            <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                      <Text lineHeight={'100%'} fontSize={'12px'}>Tweet to enter</Text>
+                    </Flex>
+                  </>
                 </Flex>
               </Flex>
               <Flex direction={'column'} alignItems={'center'} gap={2}>

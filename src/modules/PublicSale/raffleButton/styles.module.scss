@@ -4,9 +4,9 @@
   gap: 8px;
   transition: all 0.3s;
   position: relative;
-  padding: 4px;
-  border: 1px solid #ffffff1a;
-  background-color: #ffffff1a;
+  //padding: 4px;
+  //border: 1px solid #ffffff1a;
+  //background-color: #ffffff1a;
   cursor: pointer;
   width: 100%;
 
@@ -29,19 +29,20 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
+    //justify-content: center;
+    //left: 0;
+    //right: 0;
+    //margin-left: auto;
+    //margin-right: auto;
     width: fit-content;
+    margin-bottom: 8px;
   }
 
   .time {
     //margin-top: 10px;
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 400;
+    //text-transform: uppercase;
 
     p {
       font-size: inherit !important;
@@ -51,6 +52,23 @@
 
     @include is-mobile {
       font-size: 14px;
+    }
+  }
+
+  .raffleBgIcon {
+    background: url('/public-sale/raffle_frame.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 4px;
+    align-items: flex-start;
+    width: 80px;
+    height: 80px;
+
+    > img {
+      min-width: 72px;
+      min-height: 72px;
+      max-width: 72px;
+      max-height: 72px;
     }
   }
 }
