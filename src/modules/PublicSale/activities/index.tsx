@@ -147,11 +147,12 @@ Good luck and have fun!
   }, [isOpenNakaWinners]);
 
   const currentDay = React.useMemo(() => {
-    const diffDay = new BigNumber(
-      dayjs.utc(PUBLIC_SALE_START).diff(dayjs.utc(), 'days'),
-    )
-      .absoluteValue()
-      .toNumber();
+    // const diffDay = new BigNumber(
+    //   dayjs.utc(PUBLIC_SALE_START).diff(dayjs.utc(), 'days'),
+    // )
+    //   .absoluteValue()
+    //   .toNumber();
+    const diffDay = 0;
     return {
       step: DAYS.length > diffDay ? DAYS[diffDay] : DAYS[DAYS.length - 1],
       diffDay,
@@ -218,7 +219,7 @@ Good luck and have fun!
 
     return (
       <AccordionItem
-        isDisabled={index > currentDay.diffDay}
+        isDisabled={isDisable}
         className={styles.itemWrapper}
       >
         {({ isExpanded }) => (
