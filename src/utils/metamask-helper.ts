@@ -105,13 +105,14 @@ const connect = async (): Promise<WalletOperationReturn<string | null>> => {
 
 export const signMessage = async (message: any): Promise<{ message: string, address: string, signature: string }> => {
   try {
-    if (!(window as any).ethereum) {
-      throw Error(WalletError.NO_INSTANCE);
-    }
 
     if (!isMetamaskInstalled()) {
       window.open(METAMASK_DOWNLOAD_PAGE);
       throw Error(WalletError.NO_METAMASK);
+    }
+
+    if (!(window as any).ethereum) {
+      throw Error(WalletError.NO_INSTANCE);
     }
 
     const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);
