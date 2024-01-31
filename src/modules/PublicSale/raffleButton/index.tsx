@@ -40,7 +40,7 @@ const RaffleButton = ({ className }: any) => {
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
   const handleShareTw = () => {
-    const url = `https://twitter.com/BVMnetwork/status/1752174033100226567`;
+    const url = `https://twitter.com/BVMnetwork/status/1752546771560239400`;
 
     window.open(url, '_blank');
     joinRafflePrograme(programeInfo?.id as number);
@@ -145,18 +145,25 @@ const RaffleButton = ({ className }: any) => {
                   <Text
                     fontWeight={'400'}
                     color={'#fff'}
-                    fontSize={'12px'}
-                    lineHeight={'120%'}
+                    fontSize={'10px'}
+                    lineHeight={'140%'}
                     mb={'5px'}
+                    style={{
+                      background: '#FFFFFF1A',
+                      padding: '4px 8px',
+                    }}
                   >
                     Share more post to increase
                     <br />
                     your winning chance
                   </Text>
-                  <Flex onClick={onShareNow} className={cx(s.learnMoreWrapper)}>
-                    <Text fontWeight={'400'} color={'#000'} fontSize={'14px'}>
-                      Share now
-                    </Text>
+                  <Flex
+                    onClick={onShareNow}
+                    className={cx(s.learnMoreWrapper)}
+                    style={{
+                      justifyContent: 'flex-start',
+                    }}
+                  >
                     <svg
                       width="24"
                       height="24"
@@ -182,6 +189,9 @@ const RaffleButton = ({ className }: any) => {
                         </clipPath>
                       </defs>
                     </svg>
+                    <Text fontWeight={'400'} color={'#000'} fontSize={'12px'}>
+                      Share now
+                    </Text>
                   </Flex>
                 </Flex>
               ) : (
@@ -242,7 +252,7 @@ const RaffleButton = ({ className }: any) => {
                         <Flex
                           className={cx(s.learnMoreWrapper)}
                           gap={3}
-                          onClick={onShareNow}
+                          onClick={handleShareTw}
                           cursor="pointer"
                           mt={'20px'}
                         >
@@ -333,8 +343,14 @@ const RaffleButton = ({ className }: any) => {
                   alignItems={'center'}
                   fontWeight={'500'}
                 >
-                  <Text color={'rgba(255, 255, 255, 0.7)'}>Floor price: </Text>
-                  <Text color={'#FA4E0E'}>{programeInfo?.reward}</Text>
+                  {Boolean(programeInfo?.reward) && (
+                    <>
+                      <Text color={'rgba(255, 255, 255, 0.7)'}>
+                        Floor price:{' '}
+                      </Text>
+                      <Text color={'#FA4E0E'}>{programeInfo?.reward}</Text>
+                    </>
+                  )}
                 </Flex>
               </Flex>
             </Flex>

@@ -930,7 +930,6 @@ const LeaderBoard = (props: IProps) => {
       {/*<InfiniteScroll*/}
       {/*  dataLength={columns.length}*/}
       {/*  next={() => {*/}
-      {/*    console.log('SANG TEST: ');*/}
       {/*    refParams.current = {*/}
       {/*      ...refParams.current,*/}
       {/*      page: refParams.current.page + 1,*/}

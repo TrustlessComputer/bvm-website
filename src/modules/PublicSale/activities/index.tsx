@@ -25,6 +25,16 @@ interface ICTA {
   link?: string;
 }
 
+enum ActivityType {
+  Day1,
+  Day2,
+  Day3,
+  Day4,
+  Day5,
+  Day6,
+  Day7
+}
+
 export interface GameItemProps {
   key: number;
   tag: string;
@@ -32,6 +42,7 @@ export interface GameItemProps {
   desc: string | any;
   src: string;
   ctas?: ICTA[];
+  type: ActivityType
 }
 
 const Activities = React.memo(() => {
@@ -49,6 +60,7 @@ const Activities = React.memo(() => {
         title: 'Fully on-chain gaming on Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [],
+        type: ActivityType.Day1,
         desc: `
 Bitcoin Arcade is a Bitcoin L2 designed for gaming (aka. the Immutable of Bitcoin). It’s powered by BVM with these modules: Bitcoin for security, EigenDA for data availability, and Optimism for execution.<br/><br/>
 On the first day of BVM’s launch, you’ll play incredibly fun games. These are the first fully on-chain on Bitcoin. Both the game logic and game states are stored on-chain.<br/><br/>
@@ -62,6 +74,7 @@ Good luck and have fun!
         tag: 'Day 2',
         title: 'BRC-20 Perpetual Futures on Bitcoin',
         src: 'public-sale/playGame.png',
+        type: ActivityType.Day2,
         ctas: [
           {
             title: 'Trade on Naka',
@@ -77,7 +90,7 @@ Good luck and have fun!
           },
         ],
         desc: 'NakaChain is a low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps, enabling the payment of gas fees in Bitcoin. It’s powered by BVM with these modules: Bitcoin for security, Polygon for data availability, and Optimism for execution.' +
-          '<br/><br/>On the second day of awesomeness, challenge yourself to dominate the market by trading futures on BRC-20 tokens\' prices. The top gainer will be rewarded every hour.' +
+          '<br/><br/>On the second day of awesomeness, challenge yourself to dominate the market by trading futures on BRC-20 tokens\' prices. Every two hours, the top gainer will earn $250 in Bitcoin.\n' +
           '<br/><br/>Total rewards: <span style="color: #FA4E0E">$3,000</span>',
       },
       {
@@ -85,6 +98,7 @@ Good luck and have fun!
         tag: 'Day 3',
         title: 'Modular on Bitcoin',
         src: 'public-sale/playGame.png',
+        type: ActivityType.Day3,
         ctas: [
           {
             title: 'Play with modular blocks',
@@ -99,6 +113,7 @@ Good luck and have fun!
         tag: 'Day 4',
         title: 'Fully on-chain poker on Bitcoin',
         src: 'public-sale/playGame.png',
+        type: ActivityType.Day4,
         ctas: [
           {
             title: 'Play games on Arcade',
@@ -111,6 +126,7 @@ Good luck and have fun!
       {
         key: 4,
         tag: 'Day 5',
+        type: ActivityType.Day5,
         title: 'Running Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [
@@ -125,6 +141,7 @@ Good luck and have fun!
       {
         key: 5,
         tag: 'Day 6',
+        type: ActivityType.Day6,
         title: 'Running Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [
@@ -139,6 +156,7 @@ Good luck and have fun!
       {
         key: 6,
         tag: 'Day 7',
+        type: ActivityType.Day7,
         title: 'AI x Bitcoin',
         src: 'public-sale/playGame.png',
         desc: 'Details of Day 7 will be provided as soon as Day 6 is completed.',
@@ -147,11 +165,17 @@ Good luck and have fun!
   }, [isOpenNakaWinners]);
 
   const currentDay = React.useMemo(() => {
-    const diffDay = new BigNumber(
+    let diffDay = new BigNumber(
       dayjs.utc(PUBLIC_SALE_START).diff(dayjs.utc(), 'days'),
     )
       .absoluteValue()
       .toNumber();
+
+    // Case naka start at 4h UTC
+    if (diffDay === ActivityType.Day2 && dayjs.utc().hour() < 4) {
+      diffDay = 0;
+    }
+
     return {
       step: DAYS.length > diffDay ? DAYS[diffDay] : DAYS[DAYS.length - 1],
       diffDay,
@@ -212,13 +236,13 @@ Good luck and have fun!
     }
   };
 
-  const renderItem = (item: GameItemProps, index: number) => {
-    const isDisable = index > currentDay.diffDay;
+  const renderItem = (item: GameItemProps) => {
+    const isDisable = item.key > currentDay.diffDay;
     const title = isDisable ? item.title : item.title;
 
     return (
       <AccordionItem
-        isDisabled={index > currentDay.diffDay}
+        isDisabled={isDisable}
         className={styles.itemWrapper}
       >
         {({ isExpanded }) => (
@@ -258,7 +282,7 @@ Good luck and have fun!
                   className={styles.itemWrapper_desc}
                   dangerouslySetInnerHTML={{ __html: item.desc }}
                 />
-                {currentDay.diffDay === expandIndex && expandIndex === index && index === 1 && (
+                {currentDay.diffDay === expandIndex && expandIndex === item.key && item.key === 1 && (
                   <NakaCountDown />
                 )}
                 <Flex alignItems="center" gap="8px">
@@ -282,7 +306,7 @@ Good luck and have fun!
         <p className={styles.container__title}>
           7 days of awesomeness. Experience Bitcoin like never before.
         </p>
-        <Accordion allowMultiple={false} defaultIndex={currentDay.diffDay} index={expandIndex} onChange={(expandedIndex) => {
+        <Accordion allowToggle={true} allowMultiple={false} defaultIndex={currentDay.diffDay} index={expandIndex} onChange={(expandedIndex) => {
           setExpandIndex(expandedIndex as number)
         }}>
           {DAYS.map(renderItem)}
