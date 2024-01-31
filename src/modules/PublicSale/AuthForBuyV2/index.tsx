@@ -20,6 +20,7 @@ import AppLoading from '@/components/AppLoading';
 import { getError } from '@/utils/error';
 import toast from 'react-hot-toast';
 import { signMessage } from '@/utils/metamask-helper';
+import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
 
 interface IAuthForBuyV2 extends PropsWithChildren {
   renderWithoutLogin?: (onClick: any) => any;
@@ -36,6 +37,8 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
   const dispatch = useDispatch();
   const [isCopy, setIsCopy] = useState(false);
   const uuid = getUuid();
+  const [showManualCheck, setShowManualCheck] = useState(false);
+  const [showManualCheckModal, setShowManualCheckModal] = useState(false);
 
   const userToken = useSelector(userTokenSelector);
 
@@ -162,7 +165,10 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
   const handleShareTw = async () => {
     setIsCopy(false);
     const content = await generateLinkTweet();
-    setTimeout(() => window.open(content, '_blank'))
+    setTimeout(() => window.open(content, '_blank'));
+    setTimeout(() => {
+      setShowManualCheck(true);
+    }, 10000);
   };
 
   const handleLoginMetamask = async () => {
@@ -199,34 +205,48 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
         >
           <Flex flexDir="column" gap="12px" mb="12px">
             {submitting && <AppLoading />}
-            <Button className={cx(s.btnContainer, s.btnPrimary)} onClick={handleShareTw}>
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 36 36"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect width="36" height="36" fill="white" />
-                <g clip-path="url(#clip0_30620_7146)">
-                  <path
-                    d="M22.6007 10.7695H25.054L19.694 16.8962L26 25.2315H21.0627L17.196 20.1755L12.7707 25.2315H10.316L16.0493 18.6782L10 10.7702H15.0627L18.558 15.3915L22.6007 10.7695ZM21.74 23.7635H23.0993L14.324 12.1609H12.8653L21.74 23.7635Z"
-                    fill="black"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_30620_7146">
-                    <rect
-                      width="16"
-                      height="16"
-                      fill="white"
-                      transform="translate(10 10)"
+            <Flex flexDir="column" gap="0px">
+              <Button className={cx(s.btnContainer, s.btnPrimary)} onClick={handleShareTw}>
+                <svg
+                  width="36"
+                  height="36"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect width="36" height="36" fill="white" />
+                  <g clip-path="url(#clip0_30620_7146)">
+                    <path
+                      d="M22.6007 10.7695H25.054L19.694 16.8962L26 25.2315H21.0627L17.196 20.1755L12.7707 25.2315H10.316L16.0493 18.6782L10 10.7702H15.0627L18.558 15.3915L22.6007 10.7695ZM21.74 23.7635H23.0993L14.324 12.1609H12.8653L21.74 23.7635Z"
+                      fill="black"
                     />
-                  </clipPath>
-                </defs>
-              </svg>
-              <Text>Post on X</Text>
-            </Button>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_30620_7146">
+                      <rect
+                        width="16"
+                        height="16"
+                        fill="white"
+                        transform="translate(10 10)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+                <Text>Post on X</Text>
+              </Button>
+              {showManualCheck && (
+                <Text
+                  cursor={'pointer'}
+                  textDecoration={'underline'}
+                  onClick={() => setShowManualCheckModal(true)}
+                  mt={1}
+                  fontSize={'12px !important'}
+                  mb="12px"
+                >
+                  Can't link account?
+                </Text>
+              )}
+            </Flex>
             <Button className={cx(s.btnContainer)} onClick={getTwitterOauthUrl}>
               <svg
                 width="36"
@@ -354,6 +374,15 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
             </Button>
           </Flex>
         </BaseModal>
+        <VerifyTwModal
+          isShow={showManualCheckModal}
+          onHide={() => {
+            setShowManualCheckModal(false);
+          }}
+          secretCode={authenCode?.secret_code}
+          onSuccess={onVerifyTwSuccess}
+          title={`Can't link account?`}
+        />
       </>
     );
   }

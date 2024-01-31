@@ -188,9 +188,9 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               )}>
             </AuthForBuyV2>
 
-            <LoginTooltip onClose={() => {
+            {/*<LoginTooltip onClose={() => {*/}
 
-            }}/>
+            {/*}}/>*/}
           </Flex>
           <Flex gap={1} alignItems={"center"}>
             <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
