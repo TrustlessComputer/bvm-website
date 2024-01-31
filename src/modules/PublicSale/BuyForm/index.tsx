@@ -182,7 +182,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             Your contribution
             <AuthForBuyV2
               renderWithoutLogin={(onClick: any) => (
-                <Flex bg="#FA4E0E" borderRadius={12} onClick={onClick}>
+                <Flex bg="#FA4E0E" borderRadius={12} mt="-2px" ml="4px" cursor="pointer" onClick={onClick}>
                   <IcHelp />
                 </Flex>
               )}>
