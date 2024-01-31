@@ -28,7 +28,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const [listMissingRender, setListMissingRender] = useState<ILeaderBoardPoint[]>([]);
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
-  const leaderBoardMode = useSelector(commonSelector).leaderBoardMode;
+  const leaderBoardMode = LEADER_BOARD_MODE.ALL;
   const latestContributors = useRef<ILeaderBoardPoint[]>([]);
   const animatedLatestContributors = useRef<ILeaderBoardPoint[]>([]);
   const user = useAppSelector(userSelector);

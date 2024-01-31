@@ -10,9 +10,7 @@ import { VCInfo } from '@/interfaces/vc';
 import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
 import RaffleButton from '@/modules/PublicSale/raffleButton';
 import Activities from '@/modules/PublicSale/activities';
-import LeaderBoardSwitch from '@/modules/PublicSale/leaderBoardSwitch';
 import RewardButton from '../rewardButton';
-import cs from 'classnames';
 import useWindowSize from '@/hooks/useWindowSize';
 
 const AboveTheFold = () => {
@@ -58,7 +56,7 @@ const AboveTheFold = () => {
             <RaffleButton />
             <RewardButton />
           </Flex>
-          <LeaderBoardSwitch classNames={s.boardSwitch} />
+          {/*<LeaderBoardSwitch classNames={s.boardSwitch} />*/}
           {mobileScreen && <Activities />}
         </Flex>
         <Flex className={s.rightSection} direction={'column'}>
