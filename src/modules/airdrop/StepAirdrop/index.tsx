@@ -22,9 +22,11 @@ import AllowListStorage from '@/utils/storage/allowlist.storage';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { Flex } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ItemStep, { AirdropStep, AirdropType, IItemCommunity } from './Step';
 import s from './styles.module.scss';
+import { compareString } from '@/utils/string';
+import { airdropSelector, setAirdrop } from '@/stores/states/airdrop/reducer';
 
 export const getMessageEVM = (address: string) => {
   return `Verify you are the owner of the wallet ${address}`;
@@ -48,6 +50,9 @@ const StepsAirdrop = (props: IProps) => {
   const [authenCode, setAuthenCode] = useState<IAuthenCode>();
   const [showManualCheck, setShowManualCheck] = useState(false);
   const [showConnectModal, setShowConnectModal] = useState(false);
+  const airdrops = useSelector(airdropSelector).airdrops;
+  const [loading, setLoading] = useState(false);
+  const [currentStep, setCurrentStep] = useState<any>(-1);
 
   useEffect(() => {
     if (token) {
@@ -142,27 +147,35 @@ const StepsAirdrop = (props: IProps) => {
 
   const handleVerifyWallet = async (type?: AirdropStep) => {
     try {
+      setCurrentStep(type);
       const { address } = await signMessage(getMessageEVM);
 
-      const resGMHolders = await getBVMAirdrop({ address: address });
-      AirdropStorage.setIsConnectMetaMask(true);
-      AirdropStorage.setAirdropGMHolders(resGMHolders);
+      let currentAirdropContent = { type };
 
-      // if (
-      //   type === AirdropStep.generativeUsers ||
-      //   type === AirdropStep.perceptronsHolders
-      // ) {
-      //   const resp = await getGenerativeProfile(address);
+      const airdropContent = airdrops.find((v) => compareString(v.type, type));
 
-      //   if (resp && resp.data && resp.data?.walletAddressBtcTaproot) {
-      //     const resGenerativeUsers = await getBVMAirdrop({
-      //       address: resp.data?.walletAddressBtcTaproot,
-      //     });
-      //     AirdropStorage.setAirdropGenerativeUsers(resGenerativeUsers);
-      //   }
-      // }
+      if (!airdropContent) {
+        dispatch(setAirdrop(currentAirdropContent));
+      }
+
+      setLoading(true);
+
+      const resGMHolders = await getBVMAirdrop({
+        address,
+        type,
+      });
+
+      if (resGMHolders && compareString(resGMHolders.type, type)) {
+        currentAirdropContent = {
+          ...currentAirdropContent,
+          ...resGMHolders,
+        };
+        dispatch(setAirdrop(currentAirdropContent));
+      }
     } catch (error) {
       console.log('error', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -221,7 +234,7 @@ const StepsAirdrop = (props: IProps) => {
        `,
         actionText: 'Connect your Metamask',
         image: '/airdrop/gm.png',
-        actionHandle: handleVerifyWallet,
+        actionHandle: () => handleVerifyWallet(AirdropStep.gmHolders),
         isActive: true,
         isDisable: true,
         right: {
@@ -258,7 +271,7 @@ const StepsAirdrop = (props: IProps) => {
         handleShowManualPopup: handleShowManualPopup,
       },
     ];
-  }, [token, needReload, raffleCode]);
+  }, [token, needReload, raffleCode, loading, currentStep]);
 
   return (
     <Flex
@@ -277,6 +290,7 @@ const StepsAirdrop = (props: IProps) => {
             content={item}
             isLoading={item.step === AirdropStep.alphaUsers && submitting}
             onClickTweetToClaim={handleTweetToClaim}
+            loading={loading && compareString(currentStep, item.step)}
           />
         );
       })}

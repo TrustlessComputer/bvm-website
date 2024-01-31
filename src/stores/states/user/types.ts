@@ -23,27 +23,28 @@ export interface User {
   num_post: string;
   boost: string;
   guest_code: string;
-  view_boost: string
+  view_boost: string;
 }
 
-export type EVMFieldType = "allowOptimism"
+export type EVMFieldType = 'allowOptimism';
 
 export interface UserState {
-  user?: User | undefined,
+  user?: User | undefined;
   leaderBoard: ILeaderBoardPoint[];
   leaderBoardCount: string;
   allowBTC: {
     status: SignatureStatus[];
     loaded: boolean;
-  },
+  };
   allowCelestia: {
     status: SignatureStatus[];
     loaded: boolean;
-  },
+  };
   airdropAlphaUsers: any;
   airdropGMHolders: any;
   airdropGenerativeUsers: any;
   airdropPerceptronsHolders: any;
   publicSaleLeaderBoard: ILeaderBoardPoint[];
   publicSaleLeaderBoardVisual: ILeaderBoardPoint[];
+  userToken: string;
 }

@@ -199,6 +199,28 @@
 
   .backer {
     cursor: pointer;
+
+    &:hover {
+      p:last-child {
+        > div {
+          color: #FA4E0E;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  :global {
+    .chakra-popover__popper {
+      z-index: 999999;
+
+      .chakra-popover__content {
+        &:focus-visible {
+          outline: none !important;
+          box-shadow: 0px 0px 24px -6px #0000001F !important;
+        }
+      }
+    }
   }
 }
 

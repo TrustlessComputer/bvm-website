@@ -4,8 +4,6 @@ import { daySecondSelector } from '@/stores/states/activities/selector';
 
 const useTradeNakaData = () => {
   const { topWinners, bestPNL } = useAppSelector(daySecondSelector);
-  console.log('SANG TEST: ', bestPNL);
-
   return {
     topWinners,
     bestPNL

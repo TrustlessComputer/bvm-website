@@ -13,7 +13,7 @@ import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
 import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
 import { useSelector } from 'react-redux';
 import { LEADER_BOARD_MODE } from '@/modules/PublicSale/leaderBoardSwitch';
-import { setAnimatedLatestContributors, setNeedCheckDeposit } from '@/stores/states/common/reducer';
+import { requestReload, setAnimatedLatestContributors, setNeedCheckDeposit } from '@/stores/states/common/reducer';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import useWindowSize from '@/hooks/useWindowSize';
 
@@ -28,7 +28,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const [listMissingRender, setListMissingRender] = useState<ILeaderBoardPoint[]>([]);
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
-  const leaderBoardMode = useSelector(commonSelector).leaderBoardMode;
+  const leaderBoardMode = LEADER_BOARD_MODE.ALL;
   const latestContributors = useRef<ILeaderBoardPoint[]>([]);
   const animatedLatestContributors = useRef<ILeaderBoardPoint[]>([]);
   const user = useAppSelector(userSelector);
@@ -89,7 +89,7 @@ const LeaderBoardVisual = (props: IProps) => {
       const fnLoadData = leaderBoardMode === LEADER_BOARD_MODE.DAY ? getPublicSaleTop : getPublicSaleLeaderBoards;
 
       const getLimit = () => {
-        const limitMobile = mobileScreen ? (TOTALs - 1) : TOTALs;
+        const limitMobile = mobileScreen ? (TOTALs - 2) : TOTALs;
         return leaderBoardMode === LEADER_BOARD_MODE.DAY ? limitMobile : token ? (TOTALs - 1) : limitMobile;
       };
 
@@ -141,6 +141,7 @@ const LeaderBoardVisual = (props: IProps) => {
 
     if (newRes?.length > 0) {
       latestContributors.current = [...newRes].concat(latestContributors.current);
+      dispatch(requestReload());
     }
     animatedLatestContributors.current = newRes || [];
     dispatch(setAnimatedLatestContributors(newRes || []));
@@ -177,7 +178,7 @@ const LeaderBoardVisual = (props: IProps) => {
       return tmp;
     });
 
-    setListRender(tmsss.slice(0, mobileScreen ? (TOTALs - 1) : TOTALs));
+    setListRender(tmsss.slice(0, mobileScreen ? (TOTALs - 2) : TOTALs));
     setListMissingRender(missingArray);
   }, [list, mobileScreen]);
 
@@ -197,7 +198,7 @@ const LeaderBoardVisual = (props: IProps) => {
           listRender.map((item, index) => {
             return <>
               <AvatarItem data={item} idx={index} isShowName={index < 4}
-                          isYou={user?.twitter_id === item?.twitter_id} />
+                          isYou={user?.twitter_id === item?.twitter_id} key={item?.twitter_id || item?.twitter_username}/>
               {
                 item?.lastRender &&
                 <span className={`${styles.lastRender} ${styles[`lastRender__${item?.levelRender}`]}`}></span>

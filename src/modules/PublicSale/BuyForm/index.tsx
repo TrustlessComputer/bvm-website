@@ -1,17 +1,13 @@
 import { Box, Button, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
-import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import {
   getPublicSaleLeaderBoards,
   getPublicSaleSummary,
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
-import {
-  defaultSummary,
-  IPublicSaleDepositInfo,
-  VCInfo,
-} from '@/interfaces/vc';
+import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
@@ -26,9 +22,12 @@ import cx from 'classnames';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { PUBLIC_SALE_END } from '@/modules/Whitelist';
 import NumberScale from '@/components/NumberScale';
-import DepositGuestCodeHere, {
-  GuestCodeHere,
-} from '../depositModal/deposit.guest.code';
+import { GuestCodeHere } from '../depositModal/deposit.guest.code';
+import LoginTooltip from '@/modules/PublicSale/depositModal/login.tooltip';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
+import IcHelp from '@/components/InfoTooltip/IcHelp';
+import AuthForBuyV2 from '@/modules/PublicSale/AuthForBuyV2';
 
 interface FormValues {
   tokenAmount: string;
@@ -88,6 +87,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   }, []);
 
   const timeIntervalSummary = useRef<any>(undefined);
+  const { needReload } = useAppSelector(commonSelector);
 
   useEffect(() => {
     getContributeInfo();
@@ -102,7 +102,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     return () => {
       clearInterval(timeIntervalSummary.current);
     };
-  }, [token]);
+  }, [token, needReload]);
 
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
@@ -171,16 +171,28 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           {...rest}
           cursor={token ? 'pointer' : 'auto'}
         >
-          <Text
+          <Flex
             className={s.tLabel}
             fontSize={20}
             lineHeight={1}
             fontWeight={400}
             color={'rgba(0,0,0,0.7)'}
+            gap={1} alignItems={"center"}
           >
             Your contribution
-          </Text>
-          <Flex gap={1} alignItems={'center'}>
+            <AuthForBuyV2
+              renderWithoutLogin={(onClick: any) => (
+                <Flex bg="#FA4E0E" borderRadius={12} mt="-2px" ml="4px" cursor="pointer" onClick={onClick}>
+                  <IcHelp />
+                </Flex>
+              )}>
+            </AuthForBuyV2>
+
+            {/*<LoginTooltip onClose={() => {*/}
+
+            {/*}}/>*/}
+          </Flex>
+          <Flex gap={1} alignItems={"center"}>
             <Text fontSize={20} lineHeight={1} fontWeight={400} color={'#000'}>
               {token
                 ? `$${formatCurrency(
@@ -245,12 +257,35 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                     : '-'}
                 </Text>
               </Flex>
-            )}
+            )
+            }
           </Flex>
         </div>
       </div>
     );
   });
+
+  const renderLoginTooltip = useCallback(() => {
+    return (
+      token ? (
+        <Tooltip
+          minW="220px"
+          bg="white"
+          boxShadow="0px 0px 24px -6px #0000001F"
+          borderRadius="4px"
+          padding="16px"
+          hasArrow
+          label={<ContributorInfo data={userContributeInfo} />}
+        >
+          <ContributorBlock
+            className={cx(s.contributorBlock, s.blockItem)}
+          />
+        </Tooltip>
+      ) : (
+        <ContributorBlock className={s.blockItem} />
+      )
+    )
+  }, [token, userContributeInfo]);
 
   return (
     <div className={s.container}>
@@ -296,9 +331,9 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   lineHeight={1}
                   fontWeight={400}
                   color={'#000'}
-                  _hover={{
-                    color: '#FA4E0E',
-                  }}
+                  // _hover={{
+                  //   color: '#FA4E0E',
+                  // }}
                 >
                   <NumberScale
                     label={''}
@@ -357,23 +392,9 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               {/*)}*/}
             </div>
             <div className={s.grid_item}>
-              {token ? (
-                <Tooltip
-                  minW="220px"
-                  bg="white"
-                  boxShadow="0px 0px 24px -6px #0000001F"
-                  borderRadius="4px"
-                  padding="16px"
-                  hasArrow
-                  label={<ContributorInfo data={userContributeInfo} />}
-                >
-                  <ContributorBlock
-                    className={cx(s.contributorBlock, s.blockItem)}
-                  />
-                </Tooltip>
-              ) : (
-                <ContributorBlock className={s.blockItem} />
-              )}
+              {
+                renderLoginTooltip()
+              }
             </div>
           </div>
 

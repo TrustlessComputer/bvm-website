@@ -12,20 +12,26 @@ import {
   Text,
   Box,
 } from '@chakra-ui/react';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useDispatch } from 'react-redux';
 import s from './styles.module.scss';
+import { userSelector } from '@/stores/states/user/selector';
+import { useAppSelector } from '@/stores/hooks';
 
 const ImportOrCreate = ({ onBack }: { onBack?: any }) => {
   const dispatch = useDispatch();
   const getSecretCode = AuthenStorage.getGuestSecretKey();
+
+  const user = useAppSelector(userSelector);
 
   const [loading, setLoading] = useState(false);
   const [secretCode, setSecretCode] = useState(getSecretCode);
   const [isImport, setIsImport] = useState(false);
   const [importSecretKeyText, setImportSecretKeyText] = useState('');
   const [secretKeyError, setSecretKeyError] = useState('');
+
+  const isAuth = useMemo(() => user?.guest_code || user?.twitter_id, [user]);
 
   const validatePassword = (password: string) => {
     // Regular expression to validate password
@@ -37,6 +43,9 @@ const ImportOrCreate = ({ onBack }: { onBack?: any }) => {
 
   const getToken = async (captcha: string, code?: string) => {
     try {
+      if (isAuth) {
+        return;
+      }
       setLoading(true);
       const _secretCode = code || generateRandomString(10);
 
@@ -51,20 +60,26 @@ const ImportOrCreate = ({ onBack }: { onBack?: any }) => {
     }
   };
 
-  const createNewSecretCode = useCallback(() => {
+  // const createNewSecretCode = useCallback(() => {
+  //   try {
+  //     if (!executeRecaptcha) {
+  //       console.log('Execute recaptcha not yet available');
+  //       throw Error('Execute recaptcha not yet available');
+  //     }
+  //     executeRecaptcha('enquiryFormSubmit').then((gReCaptchaToken) => {
+  //       console.log(gReCaptchaToken, 'response Google reCaptcha server');
+  //       getToken(gReCaptchaToken);
+  //     });
+  //   } catch (error) {
+  //     //
+  //   }
+  // }, [executeRecaptcha]);
+
+  const createNewSecretCode = async () => {
     try {
-      if (!executeRecaptcha) {
-        console.log('Execute recaptcha not yet available');
-        throw Error('Execute recaptcha not yet available');
-      }
-      executeRecaptcha('enquiryFormSubmit').then((gReCaptchaToken) => {
-        console.log(gReCaptchaToken, 'response Google reCaptcha server');
-        getToken(gReCaptchaToken);
-      });
-    } catch (error) {
-      //
-    }
-  }, [executeRecaptcha]);
+      await getToken('gReCaptchaToken');
+    } catch (error) {}
+  };
 
   const onImportSecretCode = useCallback(
     (code: string) => {

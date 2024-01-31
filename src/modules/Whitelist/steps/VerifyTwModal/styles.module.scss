@@ -136,6 +136,14 @@
 
 .modalManualHeader {
   padding-bottom: 0 !important;
+
+  :global {
+    svg {
+      path {
+        fill: black;
+      }
+    }
+  }
 }
 
 .modalContent {

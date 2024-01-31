@@ -3,7 +3,7 @@ import {
   Accordion,
   AccordionItem,
   AccordionButton,
-  AccordionPanel,
+  AccordionPanel, Button,
 } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { CDN_URL } from '@/config';
@@ -15,6 +15,7 @@ import { compareString } from '@/utils/string';
 import DepositGuestCodeHere from '@/modules/PublicSale/depositModal/deposit.guest.code';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import AuthenStorage from '@/utils/storage/authen.storage';
+import AuthForBuyV2 from '@/modules/PublicSale/AuthForBuyV2';
 
 const FAQContent: React.FC = (): React.ReactElement => {
   const user = useAppSelector(userSelector);
@@ -232,9 +233,12 @@ const FAQContent: React.FC = (): React.ReactElement => {
                     ) : (
                       <p className={s.faqContent}>
                         If you have a boost,{' '}
-                        <DepositClaimItHere>
-                          <a>claim it here</a>
-                        </DepositClaimItHere>
+
+                        <AuthForBuyV2
+                          renderWithoutLogin={(onClick: any) => (
+                            <a onClick={onClick}>claim it here</a>
+                          )}>
+                        </AuthForBuyV2>
                         .
                       </p>
                     )}

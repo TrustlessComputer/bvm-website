@@ -68,7 +68,7 @@
   }
 
   @include is-mobile {
-    min-width: 95vw;
+    min-width: 85vw;
   }
 
   .title {
@@ -148,12 +148,11 @@
 
 .learnMoreWrapper {
   background: #ffffff;
-  padding: 4px 6px 4px 16px;
-  width: fit-content;
+  padding: 4px 12px 4px 4px;
   color: #000000;
   font-size: 14px;
   align-items: center;
-  justify-content: center;
+  //justify-content: center;
   height: 32px;
   gap: 8px;
   width: 100%;

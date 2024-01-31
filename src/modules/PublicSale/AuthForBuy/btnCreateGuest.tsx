@@ -1,6 +1,6 @@
 import SvgInset from '@/components/SvgInset';
 import { Button, Center, Spinner, Text } from '@chakra-ui/react';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { generateRandomString } from '@/utils/encryption';
@@ -9,28 +9,41 @@ import AuthenStorage from '@/utils/storage/authen.storage';
 import { setGuestSecretCode } from '@/stores/states/user/reducer';
 import { useDispatch } from 'react-redux';
 import cs from 'classnames';
+import { userSelector } from '@/stores/states/user/selector';
+import { useAppSelector } from '@/stores/hooks';
 
 const BtnCreateGuest = () => {
   const dispatch = useDispatch();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [loading, setLoading] = useState(false);
-  const createNewSecretCode = useCallback(() => {
+  const user = useAppSelector(userSelector);
+  const isAuth = useMemo(() => user?.guest_code || user?.twitter_id, [user]);
+  // const createNewSecretCode = useCallback(() => {
+  //   try {
+  //     if (!executeRecaptcha) {
+  //       console.log('Execute recaptcha not yet available');
+  //       throw Error('Execute recaptcha not yet available');
+  //     }
+  //     executeRecaptcha('enquiryFormSubmit').then((gReCaptchaToken) => {
+  //       console.log(gReCaptchaToken, 'response Google reCaptcha server');
+  //       getToken(gReCaptchaToken);
+  //     });
+  //   } catch (error) {
+  //     //
+  //   }
+  // }, [executeRecaptcha]);
+
+  const createNewSecretCode = async () => {
     try {
-      if (!executeRecaptcha) {
-        console.log('Execute recaptcha not yet available');
-        throw Error('Execute recaptcha not yet available');
-      }
-      executeRecaptcha('enquiryFormSubmit').then((gReCaptchaToken) => {
-        console.log(gReCaptchaToken, 'response Google reCaptcha server');
-        getToken(gReCaptchaToken);
-      });
-    } catch (error) {
-      //
-    }
-  }, [executeRecaptcha]);
+      await getToken('gReCaptchaToken');
+    } catch (error) {}
+  };
 
   const getToken = async (captcha: string, code?: string) => {
     try {
+      if (isAuth) {
+        return;
+      }
       setLoading(true);
       const _secretCode = generateRandomString(10);
 

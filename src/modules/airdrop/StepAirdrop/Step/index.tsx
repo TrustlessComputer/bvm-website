@@ -1,30 +1,29 @@
-import { CDN_URL_ICONS } from '@/config';
-import { Button, Flex, Text, Image } from '@chakra-ui/react';
-import cs from 'classnames';
-import cx from 'clsx';
-import React, { useEffect, useMemo, useState } from 'react';
-import s from './styles.module.scss';
-import dayjs from 'dayjs';
-import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
-import utc from 'dayjs/plugin/utc';
+import { useAppSelector } from '@/stores/hooks';
+import { airdropSelector } from '@/stores/states/airdrop/reducer';
 import {
   airdropAlphaUsersSelector,
   userSelector,
 } from '@/stores/states/user/selector';
-import { useSelector } from 'react-redux';
 import { formatCurrency } from '@/utils/format';
-import { useAppSelector } from '@/stores/hooks';
-import AirdropStorage from '@/utils/storage/airdrop.storage';
 import AuthenStorage from '@/utils/storage/authen.storage';
+import { compareString } from '@/utils/string';
+import { Button, Flex, Image, Text } from '@chakra-ui/react';
+import cs from 'classnames';
+import cx from 'clsx';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import s from './styles.module.scss';
 
 dayjs.extend(utc);
 
 export enum AirdropStep {
   timeChain,
-  generativeUsers,
-  perceptronsHolders,
-  gmHolders,
   alphaUsers,
+  gmHolders,
+  perceptronsHolders,
+  generativeUsers,
 }
 
 export enum AirdropType {
@@ -59,6 +58,7 @@ export interface IItemCommunity {
   result?: any;
   isDisableButton?: boolean;
   handleShowManualPopup?: () => void;
+  loading?: boolean;
 }
 
 export default function ItemCommunity({
@@ -66,14 +66,14 @@ export default function ItemCommunity({
   content,
   isLoading,
   onClickTweetToClaim,
+  loading,
 }: {
   index: number;
   content: IItemCommunity;
   isLoading?: boolean;
   onClickTweetToClaim: (airdropType: AirdropStep) => void;
+  loading?: boolean;
 }) {
-  console.log('content', content);
-  
   const [isEnd, setIsEnd] = React.useState(
     dayjs
       .utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss')
@@ -81,13 +81,13 @@ export default function ItemCommunity({
   );
   const { isActive, image, isDisable = false, step } = content;
   const airdropAlphaUsers = useSelector(airdropAlphaUsersSelector);
-  const airdropGMHolders = AirdropStorage.getAirdropGMHolders();
-  const airdropGenerativeUsers = AirdropStorage.getAirdropGenerativeUsers();
-  const airdropPerceptronsHolders =
-    AirdropStorage.getAirdropPerceptronsHolders();
   const user = useAppSelector(userSelector);
-  const isConnectMetaMask = AirdropStorage.getIsConnectMetaMask();
-  const isConnectBitcoinWallet = AirdropStorage.getIsConnectBitcoinWallet();
+
+  const airdrops = useSelector(airdropSelector).airdrops;
+
+  const airdropContent = useMemo(() => {
+    return airdrops.find((v) => compareString(v.type, content.step));
+  }, [airdrops, content]);
 
   const isRunning = useMemo(() => {
     return isActive;
@@ -190,7 +190,7 @@ export default function ItemCommunity({
             <Flex direction="column" w="100%" mt="8px">
               <Flex gap="8px" flexDirection="column" w="100%">
                 <Button
-                  isDisabled={content.isDisableButton}
+                  isDisabled={content.isDisableButton || loading || isLoading}
                   className={s.itemCommunity__btnCTA}
                   onClick={() => {
                     if (content?.actionHandle && isRunning && !isLoading) {
@@ -202,16 +202,8 @@ export default function ItemCommunity({
                       }
                     }
                   }}
-                  isLoading={isLoading}
-                  background={
-                    (step === AirdropStep.generativeUsers &&
-                      airdropGenerativeUsers) ||
-                    (step === AirdropStep.gmHolders && airdropGMHolders) ||
-                    (step === AirdropStep.perceptronsHolders &&
-                      airdropPerceptronsHolders)
-                      ? '#000000 !important'
-                      : 'auto'
-                  }
+                  loadingText={'Verifying'}
+                  isLoading={isLoading || loading}
                 >
                   {content?.actionText && (
                     <Flex
@@ -286,87 +278,76 @@ export default function ItemCommunity({
             )}
             {content?.step === AirdropStep.gmHolders && (
               <>
-                {airdropGMHolders ? (
-                  <Flex direction="column" gap="8px" mt="4px">
-                    <Text color={'#000000'}>
-                      Airdrop: {formatCurrency(airdropGMHolders?.balance)} $BVM
-                      - Vesting at:{' '}
-                      {dayjs(airdropGMHolders?.claimeable_at).format(
-                        'MMM D, YYYY',
-                      )}
-                    </Text>
-                    <Button
-                      className={cs(s.itemCommunity__btnCTA)}
-                      onClick={() => onClickTweetToClaim(AirdropStep.gmHolders)}
-                    >
-                      Tweet to claim
-                    </Button>
-                  </Flex>
+                {airdropContent && !loading ? (
+                  <>
+                    {airdropContent?.balance ? (
+                      <Flex direction="column" gap="8px" mt="4px">
+                        <Text color={'#000000'}>
+                          Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
+                          $BVM - Vesting at:{' '}
+                          {dayjs(airdropContent?.claimeable_at).format(
+                            'MMM D, YYYY',
+                          )}
+                        </Text>
+                      </Flex>
+                    ) : (
+                      <Text color={'#000000'}>
+                        Your wallet do not have airdrop
+                      </Text>
+                    )}
+                  </>
                 ) : (
-                  isConnectMetaMask && (
-                    <Text color={'#000000'}>
-                      Your wallet do not have airdrop
-                    </Text>
-                  )
+                  <></>
                 )}
               </>
             )}
             {content?.step === AirdropStep.generativeUsers && (
               <>
-                {airdropGenerativeUsers ? (
-                  <Flex direction="column" gap="8px" mt="4px">
-                    <Text color={'#000000'}>
-                      Airdrop: {formatCurrency(airdropGenerativeUsers?.balance)}{' '}
-                      $BVM - Vesting at:{' '}
-                      {dayjs(airdropGenerativeUsers?.claimeable_at).format(
-                        'MMM D, YYYY',
-                      )}
-                    </Text>
-                    <Button
-                      className={cs(s.itemCommunity__btnCTA)}
-                      onClick={() =>
-                        onClickTweetToClaim(AirdropStep.generativeUsers)
-                      }
-                    >
-                      Tweet to claim
-                    </Button>
-                  </Flex>
+                {airdropContent && !loading ? (
+                  <>
+                    {airdropContent?.balance ? (
+                      <Flex direction="column" gap="8px" mt="4px">
+                        <Text color={'#000000'}>
+                          Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
+                          $BVM - Vesting at:{' '}
+                          {dayjs(airdropContent?.claimeable_at).format(
+                            'MMM D, YYYY',
+                          )}
+                        </Text>
+                      </Flex>
+                    ) : (
+                      <Text color={'#000000'}>
+                        Your wallet do not have airdrop
+                      </Text>
+                    )}
+                  </>
                 ) : (
-                  isConnectMetaMask && (
-                    <Text color={'#000000'}>
-                      Your wallet do not have airdrop
-                    </Text>
-                  )
+                  <></>
                 )}
               </>
             )}
             {content?.step === AirdropStep.perceptronsHolders && (
               <>
-                {airdropPerceptronsHolders ? (
-                  <Flex direction="column" gap="8px" mt="4px">
-                    <Text color={'#000000'}>
-                      Airdrop:{' '}
-                      {formatCurrency(airdropPerceptronsHolders?.balance)} $BVM
-                      - Vesting at:{' '}
-                      {dayjs(airdropPerceptronsHolders?.claimeable_at).format(
-                        'MMM D, YYYY',
-                      )}
-                    </Text>
-                    <Button
-                      className={cs(s.itemCommunity__btnCTA)}
-                      onClick={() =>
-                        onClickTweetToClaim(AirdropStep.perceptronsHolders)
-                      }
-                    >
-                      Tweet to claim
-                    </Button>
-                  </Flex>
+                {airdropContent && !loading ? (
+                  <>
+                    {airdropContent?.balance ? (
+                      <Flex direction="column" gap="8px" mt="4px">
+                        <Text color={'#000000'}>
+                          Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
+                          $BVM - Vesting at:{' '}
+                          {dayjs(airdropContent?.claimeable_at).format(
+                            'MMM D, YYYY',
+                          )}
+                        </Text>
+                      </Flex>
+                    ) : (
+                      <Text color={'#000000'}>
+                        Your wallet do not have airdrop
+                      </Text>
+                    )}
+                  </>
                 ) : (
-                  (isConnectMetaMask || isConnectBitcoinWallet) && (
-                    <Text color={'#000000'}>
-                      Your wallet do not have airdrop
-                    </Text>
-                  )
+                  <></>
                 )}
               </>
             )}

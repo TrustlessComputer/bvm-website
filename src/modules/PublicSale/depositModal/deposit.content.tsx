@@ -72,21 +72,22 @@ const DepositContent: React.FC<IDepositContent> = ({
 
   const isAuth = useMemo(() => user?.guest_code || user?.twitter_id, [user]);
 
-  const createNewSecretCode = () => {
+  const createNewSecretCode = async () => {
     try {
-      if (isAuth) {
-        setGenerating(false);
-        return;
-      }
-      if (!executeRecaptcha) {
-        console.log('Execute recaptcha not yet available');
-        throw Error('Execute recaptcha not yet available');
-      }
-      executeRecaptcha('enquiryFormSubmit').then((gReCaptchaToken) => {
-        console.log(gReCaptchaToken, 'response Google reCaptcha server');
+      await getToken('');
+      // if (isAuth) {
+      //   setGenerating(false);
+      //   return;
+      // }
+      // if (!executeRecaptcha) {
+      //   console.log('Execute recaptcha not yet available');
+      //   throw Error('Execute recaptcha not yet available');
+      // }
+      // executeRecaptcha('enquiryFormSubmit').then((gReCaptchaToken) => {
+      //   console.log(gReCaptchaToken, 'response Google reCaptcha server');
 
-        getToken(gReCaptchaToken);
-      });
+      //   getToken(gReCaptchaToken);
+      // });
     } catch (error) {
       //
     }
@@ -94,6 +95,9 @@ const DepositContent: React.FC<IDepositContent> = ({
 
   const getToken = async (captcha: string, code?: string) => {
     try {
+      if (isAuth) {
+        return;
+      }
       const _secretCode = generateRandomString(10);
 
       const rs = await generateTOkenWithSecretCode(_secretCode, captcha);
@@ -184,11 +188,12 @@ const DepositContent: React.FC<IDepositContent> = ({
 
   return (
     <Flex className={s.depositContent}>
-      {/*{hasStaked && (
-        <Text className={s.descStaked} >
-          Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.
-        </Text>
-      )}*/}
+      <Text className={s.descStaked}>
+        Make a contribution using any of the currencies below.
+        <br />
+        After your payment processes, you’ll get a confirmation code to claim
+        your $BVM allocation later.
+      </Text>
       {/* {secretCode && (
         <>
           <Flex className={s.wrapSecretKey}>

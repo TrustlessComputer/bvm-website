@@ -40,14 +40,14 @@ export const postPublicsaleWalletInfoManualCheck =
 
 export const generateTOkenWithSecretCode = async (
   secret_code: string,
-  recaptcha: string,
+  _recaptcha: string,
 ): Promise<IGenerateTOkenWithSecretCode> => {
   const res = (await apiClient.post(
     `/bvm/generate-token-with-secret-code`,
     { secret_code },
     {
       headers: {
-        recaptcha,
+        // recaptcha,
         'user-data': JSON.stringify({
           screen: window?.location?.pathname,
           timezone: new Date().toString(),
@@ -63,6 +63,18 @@ export const generateTokenWithOauth = async (
 ): Promise<IGenerateTOkenWithSecretCode> => {
   const res = (await apiClient.post(`/bvm/generate-token-with-oauth`, {
     token: uuid,
+  })) as unknown as IGenerateTOkenWithSecretCode;
+  return res;
+};
+
+export const generateTokenWithMetamask = async (
+  params: { address: string, message: string, signature: string }
+): Promise<IGenerateTOkenWithSecretCode> => {
+  const res = (await apiClient.post(`/bvm/generate-token-with-wallet`, {
+    "wallet_type": "ethereum",
+    "address": params.address,
+    "message": params.message,
+    "signature": params.signature
   })) as unknown as IGenerateTOkenWithSecretCode;
   return res;
 };
