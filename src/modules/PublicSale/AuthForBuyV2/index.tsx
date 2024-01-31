@@ -205,7 +205,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
         >
           <Flex flexDir="column" gap="12px" mb="12px">
             <Text fontSize="14px" mb="12px">
-              Choose how you want to connect. If you don't have a wallet, you can just post on X to verify your account ownership.
+              Choose how you want to connect. If you don’t have a wallet, post on X to verify your account ownership.
             </Text>
             {submitting && <AppLoading />}
             <Flex flexDir="column" gap="0px">
