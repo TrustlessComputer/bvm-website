@@ -337,8 +337,14 @@ const RaffleButton = ({ className }: any) => {
                   alignItems={'center'}
                   fontWeight={'500'}
                 >
-                  <Text color={'rgba(255, 255, 255, 0.7)'}>Floor price: </Text>
-                  <Text color={'#FA4E0E'}>{programeInfo?.reward}</Text>
+                  {Boolean(programeInfo?.reward) && (
+                    <>
+                      <Text color={'rgba(255, 255, 255, 0.7)'}>
+                        Floor price:{' '}
+                      </Text>
+                      <Text color={'#FA4E0E'}>{programeInfo?.reward}</Text>
+                    </>
+                  )}
                 </Flex>
               </Flex>
             </Flex>
