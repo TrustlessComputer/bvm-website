@@ -135,7 +135,7 @@ const RaffleButton = ({ className }: any) => {
                   lineHeight={'12px'}
                   fontWeight={400}
                 >
-                  Daily Raffle
+                  Day {currentDay?.diffDay + 1} Raffle
                 </Text>
                 <Flex gap={'6px'} className={s.timeWrapper}>
                   <Text className={s.time} color={"#FFFFFF"}>{programeInfo?.title}</Text>
@@ -176,7 +176,7 @@ const RaffleButton = ({ className }: any) => {
                             </clipPath>
                           </defs>
                         </svg>
-                        <Text lineHeight={'100%'} fontSize={'13px'}>
+                        <Text lineHeight={'100%'} fontSize={'12px'}>
                           Share now
                         </Text>
                       </Flex>
@@ -200,7 +200,7 @@ const RaffleButton = ({ className }: any) => {
                             </clipPath>
                           </defs>
                         </svg>
-                        <Text lineHeight={'100%'} fontSize={'13px'}>
+                        <Text lineHeight={'100%'} fontSize={'12px'}>
                           Enter the raffle
                         </Text>
                       </Flex>
@@ -256,7 +256,7 @@ const RaffleButton = ({ className }: any) => {
                               </clipPath>
                             </defs>
                           </svg>
-                          <Text lineHeight={'100%'} fontSize={'13px'}>Enter the raffle</Text>
+                          <Text lineHeight={'100%'} fontSize={'12px'}>Enter the raffle</Text>
                         </Flex>
                       </Flex>
                     </>
@@ -281,7 +281,7 @@ const RaffleButton = ({ className }: any) => {
                             </clipPath>
                           </defs>
                         </svg>
-                        <Text lineHeight={'100%'} fontSize={'13px'}>Enter the raffle</Text>
+                        <Text lineHeight={'100%'} fontSize={'12px'}>Enter the raffle</Text>
                       </Flex>
                     </>
                   )}
