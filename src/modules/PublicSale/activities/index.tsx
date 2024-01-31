@@ -281,7 +281,7 @@ Good luck and have fun!
         <p className={styles.container__title}>
           7 days of awesomeness. Experience Bitcoin like never before.
         </p>
-        <Accordion allowMultiple={false} defaultIndex={currentDay.diffDay} index={expandIndex} onChange={(expandedIndex) => {
+        <Accordion allowToggle={true} allowMultiple={false} defaultIndex={currentDay.diffDay} index={expandIndex} onChange={(expandedIndex) => {
           setExpandIndex(expandedIndex as number)
         }}>
           {DAYS.map(renderItem)}
