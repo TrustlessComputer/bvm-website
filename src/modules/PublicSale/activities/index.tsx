@@ -252,6 +252,7 @@ Good luck and have fun!
                 justifyContent={'space-between'}
                 className={cs(styles.itemWrapper_header, {
                   [styles.itemWrapper_header__active]: isExpanded,
+                  [styles.itemWrapper_header__disable]: isDisable,
                 })}
               >
                 <Flex
