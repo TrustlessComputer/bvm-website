@@ -136,18 +136,25 @@ const RaffleButton = ({ className }: any) => {
                   <Text
                     fontWeight={'400'}
                     color={'#fff'}
-                    fontSize={'12px'}
-                    lineHeight={'120%'}
+                    fontSize={'10px'}
+                    lineHeight={'140%'}
                     mb={'5px'}
+                    style={{
+                      background: '#FFFFFF1A',
+                      padding: '4px 8px',
+                    }}
                   >
                     Share more post to increase
                     <br />
                     your winning chance
                   </Text>
-                  <Flex onClick={onShareNow} className={cx(s.learnMoreWrapper)}>
-                    <Text fontWeight={'400'} color={'#000'} fontSize={'14px'}>
-                      Share now
-                    </Text>
+                  <Flex
+                    onClick={onShareNow}
+                    className={cx(s.learnMoreWrapper)}
+                    style={{
+                      justifyContent: 'flex-start',
+                    }}
+                  >
                     <svg
                       width="24"
                       height="24"
@@ -173,6 +180,9 @@ const RaffleButton = ({ className }: any) => {
                         </clipPath>
                       </defs>
                     </svg>
+                    <Text fontWeight={'400'} color={'#000'} fontSize={'12px'}>
+                      Share now
+                    </Text>
                   </Flex>
                 </Flex>
               ) : (
