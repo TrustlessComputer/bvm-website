@@ -40,7 +40,7 @@ const NakaCountDown = React.memo(() => {
       ) : (
         <Flex className={styles.item}>
           <Text className={styles.item_title}>
-            Top PNL
+            Top 1 PNL
           </Text>
           <Text className={styles.item_name}>
             Be the first!!!
