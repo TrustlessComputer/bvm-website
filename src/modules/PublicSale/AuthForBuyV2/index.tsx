@@ -247,35 +247,35 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
                 </Text>
               )}
             </Flex>
-            <Button className={cx(s.btnContainer)} onClick={getTwitterOauthUrl}>
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 36 36"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect width="36" height="36" fill="black" />
-                <g clip-path="url(#clip0_30620_7162)">
-                  <path
-                    d="M22.6007 10.7695H25.054L19.694 16.8962L26 25.2315H21.0627L17.196 20.1755L12.7707 25.2315H10.316L16.0493 18.6782L10 10.7702H15.0627L18.558 15.3915L22.6007 10.7695ZM21.74 23.7635H23.0993L14.324 12.1609H12.8653L21.74 23.7635Z"
-                    fill="white"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_30620_7162">
-                    <rect
-                      width="16"
-                      height="16"
-                      fill="white"
-                      transform="translate(10 10)"
-                    />
-                  </clipPath>
-                </defs>
-              </svg>
+            {/*<Button className={cx(s.btnContainer)} onClick={getTwitterOauthUrl}>*/}
+            {/*  <svg*/}
+            {/*    width="36"*/}
+            {/*    height="36"*/}
+            {/*    viewBox="0 0 36 36"*/}
+            {/*    fill="none"*/}
+            {/*    xmlns="http://www.w3.org/2000/svg"*/}
+            {/*  >*/}
+            {/*    <rect width="36" height="36" fill="black" />*/}
+            {/*    <g clip-path="url(#clip0_30620_7162)">*/}
+            {/*      <path*/}
+            {/*        d="M22.6007 10.7695H25.054L19.694 16.8962L26 25.2315H21.0627L17.196 20.1755L12.7707 25.2315H10.316L16.0493 18.6782L10 10.7702H15.0627L18.558 15.3915L22.6007 10.7695ZM21.74 23.7635H23.0993L14.324 12.1609H12.8653L21.74 23.7635Z"*/}
+            {/*        fill="white"*/}
+            {/*      />*/}
+            {/*    </g>*/}
+            {/*    <defs>*/}
+            {/*      <clipPath id="clip0_30620_7162">*/}
+            {/*        <rect*/}
+            {/*          width="16"*/}
+            {/*          height="16"*/}
+            {/*          fill="white"*/}
+            {/*          transform="translate(10 10)"*/}
+            {/*        />*/}
+            {/*      </clipPath>*/}
+            {/*    </defs>*/}
+            {/*  </svg>*/}
 
-              <Text>Authorize</Text>
-            </Button>
+            {/*  <Text>Authorize</Text>*/}
+            {/*</Button>*/}
             <Button className={cx(s.btnContainer)} onClick={handleLoginMetamask}>
               <svg
                 width="36"
