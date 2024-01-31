@@ -1,6 +1,4 @@
 import {
-  Box,
-  Button,
   Center,
   Flex,
   Popover,
@@ -19,7 +17,6 @@ import React, { useEffect, useState } from 'react';
 import cx from 'clsx';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
-import { getLink } from '@/utils/helpers';
 import {
   getPublicSaleProgram,
   getPublicSaleSummary,
@@ -28,9 +25,9 @@ import {
   joinRafflePrograme,
 } from '@/services/public-sale';
 import AuthenStorage from '@/utils/storage/authen.storage';
-import DepositClaimItHere from '@/modules/PublicSale/depositModal/deposit.claim.it.here';
 import { formatCurrency } from '@/utils/format';
-import { isMobile } from 'react-device-detect';
+import BigNumber from 'bignumber.js';
+import { PUBLIC_SALE_START } from '@/modules/Whitelist';
 
 const RaffleButton = ({ className }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -102,6 +99,18 @@ const RaffleButton = ({ className }: any) => {
     );
   };
 
+  const currentDay = React.useMemo(() => {
+    const diffDay = new BigNumber(
+      dayjs.utc(PUBLIC_SALE_START).diff(dayjs.utc(), 'days'),
+    )
+      .absoluteValue()
+      .toNumber();
+    return {
+      // step: DAYS.length > diffDay ? DAYS[diffDay] : DAYS[DAYS.length - 1],
+      diffDay,
+    };
+  }, []);
+
   return (
     !isLoading && (
       <Popover onClose={onClose} isOpen={isOpen}>
@@ -116,7 +125,7 @@ const RaffleButton = ({ className }: any) => {
                   lineHeight={'12px'}
                   fontWeight={400}
                 >
-                  Daily Raffle
+                  Day {currentDay?.diffDay + 1} Raffle
                 </Text>
                 <Flex gap={'6px'} className={s.timeWrapper}>
                   <Countdown
@@ -183,8 +192,8 @@ const RaffleButton = ({ className }: any) => {
                     onClick={handleShareTw}
                     cursor="pointer"
                   >
-                    <Text lineHeight={'100%'} fontSize={'14px'}>
-                      Like and repost to join
+                    <Text lineHeight={'100%'} fontSize={'13px'}>
+                      Enter the raffle
                     </Text>
                     <svg
                       width="24"
@@ -250,7 +259,7 @@ const RaffleButton = ({ className }: any) => {
                           cursor="pointer"
                           mt={'20px'}
                         >
-                          <Text>Like and repost to join</Text>
+                          <Text>Enter the raffle</Text>
                           <svg
                             width="24"
                             height="24"
@@ -288,7 +297,7 @@ const RaffleButton = ({ className }: any) => {
                         cursor="pointer"
                         mt={'20px'}
                       >
-                        <Text>Like and repost to join</Text>
+                        <Text>Enter the raffle</Text>
                         <svg
                           width="24"
                           height="24"
