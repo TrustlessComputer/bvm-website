@@ -9,10 +9,11 @@ import {
   AccordionPanel,
   Center,
   Flex,
-  Text, useDisclosure,
+  Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import styles from './styles.module.scss';
-import { CDN_URL } from '@/config';
+import { CDN_URL, CDN_URL_ICONS } from '@/config';
 import cs from 'classnames';
 import SvgInset from '@/components/SvgInset';
 import TradeNakaWinnersPopup from '@/modules/PublicSale/activities/components/TradeNakaWinnersPopup';
@@ -32,7 +33,7 @@ enum ActivityType {
   Day4,
   Day5,
   Day6,
-  Day7
+  Day7,
 }
 
 export interface GameItemProps {
@@ -42,7 +43,7 @@ export interface GameItemProps {
   desc: string | any;
   src: string;
   ctas?: ICTA[];
-  type: ActivityType
+  type: ActivityType;
 }
 
 const Activities = React.memo(() => {
@@ -85,13 +86,14 @@ Good luck and have fun!
             title: 'Winners',
             type: 'action',
             onPress: () => {
-              onOpenNakaWinners()
-            }
+              onOpenNakaWinners();
+            },
           },
         ],
-        desc: 'NakaChain is a low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps, enabling the payment of gas fees in Bitcoin. It’s powered by BVM with these modules: Bitcoin for security, Polygon for data availability, and Optimism for execution.' +
-          '<br/><br/>On the second day of awesomeness, challenge yourself to dominate the market by trading futures on BRC-20 tokens\' prices. Every two hours, the top gainer will earn $250 in Bitcoin.\n' +
-          '<br/><br/>Total rewards: <span style="color: #FA4E0E">$3,000</span>',
+        desc:
+          'NakaChain is a low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps, enabling the payment of gas fees in Bitcoin. It’s powered by BVM with these modules: Bitcoin for security, Polygon for data availability, and Optimism for execution.' +
+          "<br/><br/>On the second day of awesomeness, challenge yourself to dominate the market by trading futures on BRC-20 tokens' prices. Every two hours, the top gainer will earn $50 in Bitcoin.\n" +
+          '<br/><br/>Total rewards: <span style="color: #FA4E0E">$1,000</span>',
       },
       {
         key: 2,
@@ -182,7 +184,8 @@ Good luck and have fun!
     };
   }, []);
 
-  const [expandIndex, setExpandIndex] = React.useState(currentDay.diffDay)
+  const [expandIndex, setExpandIndex] =
+    React.useState<Number | undefined>(undefined);
 
   const renderCta = (item: ICTA) => {
     switch (item.type) {
@@ -241,10 +244,7 @@ Good luck and have fun!
     const title = isDisable ? item.title : item.title;
 
     return (
-      <AccordionItem
-        isDisabled={isDisable}
-        className={styles.itemWrapper}
-      >
+      <AccordionItem isDisabled={isDisable} className={styles.itemWrapper}>
         {({ isExpanded }) => (
           <>
             <h2>
@@ -261,16 +261,31 @@ Good luck and have fun!
                     [styles.itemWrapper_title__active]: isExpanded,
                   })}
                 >
-                  {item.tag}: {title}
+                  <Flex direction="column" gap="4px">
+                    <Text>
+                      {item.key === currentDay.diffDay && (
+                        <span>Happening Now</span>
+                      )}
+                    </Text>
+                    <Text>
+                      {item.tag}: {title}
+                    </Text>
+                  </Flex>
                 </Flex>
                 <button>
                   <SvgInset
                     className={
-                      isExpanded
+                      isDisable
+                        ? ''
+                        : isExpanded
                         ? styles.itemWrapper_downArrow
                         : styles.itemWrapper_normalArrow
                     }
-                    svgUrl={`${CDN_URL}/icons/chevron-right-ic-32.svg`}
+                    svgUrl={
+                      isDisable
+                        ? `${CDN_URL_ICONS}/lock.svg`
+                        : `${CDN_URL}/icons/chevron-right-ic-32.svg`
+                    }
                     size={20}
                   />
                 </button>
@@ -282,9 +297,9 @@ Good luck and have fun!
                   className={styles.itemWrapper_desc}
                   dangerouslySetInnerHTML={{ __html: item.desc }}
                 />
-                {currentDay.diffDay === expandIndex && expandIndex === item.key && item.key === 1 && (
-                  <NakaCountDown />
-                )}
+                {currentDay.diffDay === expandIndex &&
+                  expandIndex === item.key &&
+                  item.key === 1 && <NakaCountDown />}
                 <Flex alignItems="center" gap="8px">
                   {item.ctas?.map(renderCta)}
                 </Flex>
@@ -304,15 +319,23 @@ Good luck and have fun!
         padding={{ base: '24px', md: '24px 24px 32px 24px' }}
       >
         <p className={styles.container__title}>
-          7 days of awesomeness. Experience Bitcoin like never before.
+          Experience Bitcoin like never before.
         </p>
-        <Accordion allowToggle={true} allowMultiple={false} defaultIndex={currentDay.diffDay} index={expandIndex} onChange={(expandedIndex) => {
-          setExpandIndex(expandedIndex as number)
-        }}>
+        <Accordion
+          allowToggle={true}
+          allowMultiple={false}
+          index={expandIndex as any}
+          onChange={(expandedIndex) => {
+            setExpandIndex(expandedIndex as number);
+          }}
+        >
           {DAYS.map(renderItem)}
         </Accordion>
       </Flex>
-      <TradeNakaWinnersPopup isShow={isOpenNakaWinners} onHide={onCloseNakaWinners} />
+      <TradeNakaWinnersPopup
+        isShow={isOpenNakaWinners}
+        onHide={onCloseNakaWinners}
+      />
     </>
   );
 });
