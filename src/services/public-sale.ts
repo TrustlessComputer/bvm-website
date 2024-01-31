@@ -8,6 +8,7 @@ import createAxiosInstance from '@/services/http-client';
 import { PERP_API_URL } from '@/config';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import axios from 'axios';
+import { camelCaseKeys } from '@/utils/normalize';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -194,6 +195,7 @@ export interface IPublicSaleDailyReward {
   day7: string;
   claimed: string;
   total: string;
+  pending: string;
 }
 
 export const getPublicSaleDailyReward = async (): Promise<IPublicSaleDailyReward | null> => {
@@ -218,4 +220,31 @@ export const claimPublicSaleDailyReward = async (): Promise<any> => {
   }
 
   return null;
+};
+
+export const claimRewardDailyWithPost = async (
+  uuid: string,
+  link?: string,
+): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/user/halving/claim`, {
+      secret_code: uuid,
+      link: link,
+    });
+    return Object(camelCaseKeys(res));
+  } catch (error) {
+    throw error;
+    // console.log(error);
+  }
+  return;
+};
+
+export const requestRewardDailyShareCode = async (): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/user/halving/request-code`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+  return;
 };
