@@ -25,6 +25,16 @@ interface ICTA {
   link?: string;
 }
 
+enum ActivityType {
+  Day1,
+  Day2,
+  Day3,
+  Day4,
+  Day5,
+  Day6,
+  Day7
+}
+
 export interface GameItemProps {
   key: number;
   tag: string;
@@ -32,6 +42,7 @@ export interface GameItemProps {
   desc: string | any;
   src: string;
   ctas?: ICTA[];
+  type: ActivityType
 }
 
 const Activities = React.memo(() => {
@@ -49,6 +60,7 @@ const Activities = React.memo(() => {
         title: 'Fully on-chain gaming on Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [],
+        type: ActivityType.Day1,
         desc: `
 Bitcoin Arcade is a Bitcoin L2 designed for gaming (aka. the Immutable of Bitcoin). It’s powered by BVM with these modules: Bitcoin for security, EigenDA for data availability, and Optimism for execution.<br/><br/>
 On the first day of BVM’s launch, you’ll play incredibly fun games. These are the first fully on-chain on Bitcoin. Both the game logic and game states are stored on-chain.<br/><br/>
@@ -62,6 +74,7 @@ Good luck and have fun!
         tag: 'Day 2',
         title: 'BRC-20 Perpetual Futures on Bitcoin',
         src: 'public-sale/playGame.png',
+        type: ActivityType.Day2,
         ctas: [
           {
             title: 'Trade on Naka',
@@ -85,6 +98,7 @@ Good luck and have fun!
         tag: 'Day 3',
         title: 'Modular on Bitcoin',
         src: 'public-sale/playGame.png',
+        type: ActivityType.Day3,
         ctas: [
           {
             title: 'Play with modular blocks',
@@ -99,6 +113,7 @@ Good luck and have fun!
         tag: 'Day 4',
         title: 'Fully on-chain poker on Bitcoin',
         src: 'public-sale/playGame.png',
+        type: ActivityType.Day4,
         ctas: [
           {
             title: 'Play games on Arcade',
@@ -111,6 +126,7 @@ Good luck and have fun!
       {
         key: 4,
         tag: 'Day 5',
+        type: ActivityType.Day5,
         title: 'Running Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [
@@ -125,6 +141,7 @@ Good luck and have fun!
       {
         key: 5,
         tag: 'Day 6',
+        type: ActivityType.Day6,
         title: 'Running Bitcoin',
         src: 'public-sale/playGame.png',
         ctas: [
@@ -139,6 +156,7 @@ Good luck and have fun!
       {
         key: 6,
         tag: 'Day 7',
+        type: ActivityType.Day7,
         title: 'AI x Bitcoin',
         src: 'public-sale/playGame.png',
         desc: 'Details of Day 7 will be provided as soon as Day 6 is completed.',
@@ -218,8 +236,8 @@ Good luck and have fun!
     }
   };
 
-  const renderItem = (item: GameItemProps, index: number) => {
-    const isDisable = index > currentDay.diffDay;
+  const renderItem = (item: GameItemProps) => {
+    const isDisable = item.key > currentDay.diffDay;
     const title = isDisable ? item.title : item.title;
 
     return (
@@ -234,6 +252,7 @@ Good luck and have fun!
                 justifyContent={'space-between'}
                 className={cs(styles.itemWrapper_header, {
                   [styles.itemWrapper_header__active]: isExpanded,
+                  [styles.itemWrapper_header__disable]: isDisable,
                 })}
               >
                 <Flex
@@ -263,7 +282,7 @@ Good luck and have fun!
                   className={styles.itemWrapper_desc}
                   dangerouslySetInnerHTML={{ __html: item.desc }}
                 />
-                {currentDay.diffDay === expandIndex && expandIndex === index && index === 1 && (
+                {currentDay.diffDay === expandIndex && expandIndex === item.key && item.key === 1 && (
                   <NakaCountDown />
                 )}
                 <Flex alignItems="center" gap="8px">

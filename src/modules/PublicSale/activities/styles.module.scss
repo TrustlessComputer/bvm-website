@@ -92,7 +92,6 @@
 
     button {
       padding: 0 !important;
-      display: none;
     }
 
     &__active {
@@ -101,7 +100,13 @@
       border-bottom: 1px solid rgba(white, .07) !important;
 
       button {
-        display: block;
+        display: block !important;
+      }
+    }
+
+    &__disable {
+      button {
+        display: none !important;
       }
     }
 
