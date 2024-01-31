@@ -89,7 +89,7 @@ const LeaderBoardVisual = (props: IProps) => {
       const fnLoadData = leaderBoardMode === LEADER_BOARD_MODE.DAY ? getPublicSaleTop : getPublicSaleLeaderBoards;
 
       const getLimit = () => {
-        const limitMobile = mobileScreen ? (TOTALs - 1) : TOTALs;
+        const limitMobile = mobileScreen ? (TOTALs - 2) : TOTALs;
         return leaderBoardMode === LEADER_BOARD_MODE.DAY ? limitMobile : token ? (TOTALs - 1) : limitMobile;
       };
 
@@ -178,7 +178,7 @@ const LeaderBoardVisual = (props: IProps) => {
       return tmp;
     });
 
-    setListRender(tmsss.slice(0, mobileScreen ? (TOTALs - 1) : TOTALs));
+    setListRender(tmsss.slice(0, mobileScreen ? (TOTALs - 2) : TOTALs));
     setListMissingRender(missingArray);
   }, [list, mobileScreen]);
 
