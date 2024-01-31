@@ -165,3 +165,44 @@ export const joinRafflePrograme = async (id: number): Promise<any> => {
 
   return null;
 };
+
+export interface IPublicSaleDailyReward {
+  id: number;
+  twitter_id: string;
+  twitter_username: string;
+  twitter_name: string;
+  twitter_avatar: string;
+  day1: string;
+  day2: string;
+  day3: string;
+  day4: string;
+  day5: string;
+  day6: string;
+  day7: string;
+  claimed: string;
+  total: string;
+}
+
+export const getPublicSaleDailyReward = async (): Promise<IPublicSaleDailyReward | null> => {
+  try {
+    const res = (await apiClient.get(
+      `/bvm/user/halving`,
+    )) as unknown as IPublicSaleDailyReward;
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
+
+export const claimPublicSaleDailyReward = async (): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/user/halving`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
