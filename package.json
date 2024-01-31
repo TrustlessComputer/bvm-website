@@ -58,6 +58,7 @@
     "react-final-form": "^6.5.9",
     "react-google-recaptcha-v3": "^1.10.1",
     "react-hot-toast": "^2.4.1",
+    "react-jazzicon": "^1.0.4",
     "react-modal-video": "^2.0.1",
     "react-player": "^2.14.1",
     "react-qr-code": "^2.0.12",

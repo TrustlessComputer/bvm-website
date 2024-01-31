@@ -15,6 +15,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { coinPricesSelector } from '@/stores/states/common/selector';
 import { Coin } from '@/stores/states/common/types';
 import BigNumber from 'bignumber.js';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 
 interface IProps extends IBaseModalProps {
 }
@@ -47,6 +48,7 @@ const TradeNakaWinnersPopup = ({ isShow, onHide }: IProps) => {
         config,
         label: <Text>USER</Text>,
         render(row: TopWinner) {
+          const name = row?.twitter_name || row?.twitter_username;
           return (
             <Flex
               alignItems="center"
@@ -58,15 +60,20 @@ const TradeNakaWinnersPopup = ({ isShow, onHide }: IProps) => {
               }}
               maxW="170px"
             >
-              <Avatar
-                url={getUrlAvatarTwitter(
-                  row?.twitter_avatar as string,
-                  'normal',
-                )}
-                address={''}
-                width={40}
-                name={row?.twitter_name || row?.twitter_username || row?.address || ''}
-              />
+              {!!name ? (
+                <Avatar
+                  url={getUrlAvatarTwitter(
+                    row?.twitter_avatar as string,
+                    'normal',
+                  )}
+                  address={''}
+                  width={40}
+                  name={name || ''}
+                />
+              ) : (
+                <Jazzicon diameter={40} seed={jsNumberForAddress(row?.address || "")} />
+              )}
+
               <Text className={cs(styles.modalContent__userName)}>{row?.twitter_username ? formatName(row?.twitter_username || '-', 17) : (row?.address || '').slice(0, 8)}</Text>
             </Flex>
           );

@@ -69,15 +69,16 @@ Good luck and have fun!
             link: 'https://nakachain.xyz/app',
           },
           {
-            title: 'View winners',
+            title: 'Winners',
             type: 'action',
             onPress: () => {
               onOpenNakaWinners()
             }
           },
         ],
-        desc: 'Experience on-chain BRC-20 perpetual trading with Naka Chain - the Bitcoin L2 for BRC-20 DeFi powered by BVM' +
-          '<br/>For the first time, you can go long and short on BRC-20 tokens on a decentralized platform',
+        desc: 'NakaChain is a low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps, enabling the payment of gas fees in Bitcoin. It’s powered by BVM with these modules: Bitcoin for security, Polygon for data availability, and Optimism for execution.' +
+          '<br/><br/>On the second day of awesomeness, challenge yourself to dominate the market by trading futures on BRC-20 tokens\' prices. The top gainer will be rewarded every hour.' +
+          '<br/><br/>Total rewards: <span style="color: #FA4E0E">$3,000</span>',
       },
       {
         key: 2,

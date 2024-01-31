@@ -28,13 +28,13 @@ const NakaCountDown = React.memo(() => {
       {!!bestPNL?.winner ? (
         <Flex className={styles.item}>
           <Text className={styles.item_title}>
-            Top PNL
+            Top 1 PNL
           </Text>
           <Text className={styles.item_name} cursor="pointer" _hover={{ textDecoration: bestPNL?.winner?.twitter_username ? 'underline' : 'unset' }} onClick={() => {
             if (!bestPNL?.winner?.twitter_username) return;
             window.open(`https://twitter.com/${bestPNL?.winner?.twitter_username}`, '_blank');
           }}>
-            {formatString(bestPNL?.winner?.twitter_name || bestPNL?.winner?.address , 6)} <span>+{formatCurrency(bestPNL?.winner?.realized_pnl || '0', 0, 5, 'TC', false)} BTC</span>
+            {formatString(bestPNL?.winner?.twitter_name || bestPNL?.winner?.address , 6)} <span>+{formatCurrency(bestPNL?.winner?.realized_pnl || '0', 0, 5)} BTC</span>
           </Text>
         </Flex>
       ) : (
@@ -49,7 +49,7 @@ const NakaCountDown = React.memo(() => {
       )}
       <Flex className={styles.item}>
         <Text className={styles.item_title}>
-          Rewards
+          Reward
         </Text>
         <Flex className={styles.item_reward}>
           ${bestPNL.reward}
