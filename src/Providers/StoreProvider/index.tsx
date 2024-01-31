@@ -1,8 +1,11 @@
 'use client';
 
-import { AppStore, store } from '@/stores';
+import AppLoading from '@/components/AppLoading';
+import { AppStore, persistor, store } from '@/stores';
+import { Center } from '@chakra-ui/react';
 import React, { useRef } from 'react';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 // import useBootstrapApp from '@/hooks/useBootstrapApp';
 
@@ -18,5 +21,11 @@ export default function StoreProvider({
     storeRef.current = store;
   }
 
-  return <Provider store={storeRef.current as any}>{children}</Provider>;
+  return (
+    <Provider store={storeRef.current as any}>
+      <PersistGate loading={<></>} persistor={persistor}>
+        {children}
+      </PersistGate>
+    </Provider>
+  );
 }
