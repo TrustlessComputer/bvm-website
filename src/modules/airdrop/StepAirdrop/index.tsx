@@ -162,6 +162,7 @@ const StepsAirdrop = (props: IProps) => {
 
       const resGMHolders = await getBVMAirdrop({
         address,
+        type,
       });
 
       if (resGMHolders && compareString(resGMHolders.type, type)) {

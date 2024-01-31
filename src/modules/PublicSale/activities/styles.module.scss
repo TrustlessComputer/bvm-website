@@ -1,22 +1,22 @@
-.wrap{
+.wrap {
   overflow-y: auto;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
 
-  @include is-pc{
+  @include is-pc {
     height: 810px;
   }
 
   &::-webkit-scrollbar {
     display: none; /* Safari and Chrome */
   }
-  background-color: #1B1B1B;
+  background-color: #1b1b1b;
 }
 
 .container {
   &__title {
     align-self: stretch;
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
@@ -31,24 +31,24 @@
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
-    background-color: rgba(white, .06);
+    background-color: rgba(white, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.06);
     button {
       padding: 12px 20px;
 
-      svg path{
-        stroke: #FFFFFF !important;
+      svg path {
+        stroke: #ffffff !important;
       }
     }
   }
 
-  :global(.chakra-collapse){
+  :global(.chakra-collapse) {
     padding: 10px 16px !important;
     padding-bottom: 0 !important;
   }
 
   &_title {
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
@@ -59,36 +59,47 @@
       max-width: 214px;
     }
 
+    span {
+      color: black;
+      padding: 4px 12px;
+      font-size: 10px;
+      font-weight: 400;
+      border-radius: 100px;
+      background: #fa4e0e;
+      margin-right: 4px;
+      background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
+    }
+
     @include is-mobile {
       font-size: 14px;
     }
 
     &__active {
-      color: #FFFFFF;
+      color: #ffffff;
       //background-color: rgba(white, .08);
     }
   }
   &_desc {
-    color: rgba(white, .7);
+    color: rgba(white, 0.7);
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
     letter-spacing: 0em;
-    b, strong{
+    b,
+    strong {
       color: white;
     }
 
     @include is-mobile {
       font-size: 14px;
     }
-
-
   }
   &_header {
     padding: 10px 16px !important;
-    background-color: rgba(black, .8);
+    background-color: rgba(black, 0.8);
     //border: 1px solid rgba(white, .10);
     cursor: default !important;
+    gap: 8px;
 
     button {
       padding: 0 !important;
@@ -97,7 +108,7 @@
     &__active {
       background-color: transparent;
       border: 0 !important;
-      border-bottom: 1px solid rgba(white, .07) !important;
+      border-bottom: 1px solid rgba(white, 0.07) !important;
 
       button {
         display: block !important;
@@ -105,11 +116,10 @@
     }
 
     &__disable {
-      button {
-        display: none !important;
-      }
+      //button {
+      //  display: none !important;
+      //}
     }
-
   }
   &_downArrow {
     transform: rotate(270deg);
@@ -125,7 +135,7 @@
   }
 
   &_learnMore {
-    color: #FA4E0E;
+    color: #fa4e0e;
     text-align: center;
     font-size: 14px;
     font-style: normal;
