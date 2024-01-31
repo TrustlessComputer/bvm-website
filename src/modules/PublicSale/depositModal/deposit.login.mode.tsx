@@ -135,7 +135,7 @@ const DepositLoginMode = ({ onClose }: { onClose: any }) => {
       0,
       'BTC',
       false,
-    )} early contributors backing us with ${formatCurrency(
+    )} early contributors backing us with $${formatCurrency(
       saleSummary.total_usdt_value_not_boost || '0',
       0,
       0,
