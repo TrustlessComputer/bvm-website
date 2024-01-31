@@ -43,7 +43,7 @@ const RaffleButton = ({ className }: any) => {
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
   const handleShareTw = () => {
-    const url = `https://twitter.com/BVMnetwork/status/1752546771560239400`;
+    const url = `https://twitter.com/BVMnetwork/status/1752550686095798386`;
 
     window.open(url, '_blank');
     joinRafflePrograme(programeInfo?.id as number);
