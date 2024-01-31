@@ -8,12 +8,10 @@ import { KEY_VC_TYPE } from '@/constants/storage-key';
 import { getVCInformation } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
 import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
-import RaffleButton from '@/modules/PublicSale/raffleButton';
 import Activities from '@/modules/PublicSale/activities';
 import LeaderBoardSwitch from '@/modules/PublicSale/leaderBoardSwitch';
-import RewardButton from '../rewardButton';
-import cs from 'classnames';
 import useWindowSize from '@/hooks/useWindowSize';
+import DailyReward from '@/modules/PublicSale/dailyReward';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -54,10 +52,7 @@ const AboveTheFold = () => {
         >
           <LeaderBoardVisual />
           {/*<AddMoreContribution />*/}
-          <Flex className={s.btnActions}>
-            <RaffleButton />
-            <RewardButton />
-          </Flex>
+          <DailyReward />
           <LeaderBoardSwitch classNames={s.boardSwitch} />
           {mobileScreen && <Activities />}
         </Flex>

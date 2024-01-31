@@ -1,0 +1,25 @@
+.container {
+  position: absolute;
+  flex-direction: column;
+  top: var(--top-spacing);
+  left: 24px;
+  gap: 16px;
+  min-width: 280px;
+
+  .time {
+    //margin-top: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+
+    p {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      white-space: pre;
+    }
+
+    @include is-mobile {
+      font-size: 14px;
+    }
+  }
+}
