@@ -69,15 +69,16 @@ Good luck and have fun!
             link: 'https://nakachain.xyz/app',
           },
           {
-            title: 'View winners',
+            title: 'Winners',
             type: 'action',
             onPress: () => {
               onOpenNakaWinners()
             }
           },
         ],
-        desc: 'Experience on-chain BRC-20 perpetual trading with Naka Chain - the Bitcoin L2 for BRC-20 DeFi powered by BVM' +
-          '<br/>For the first time, you can go long and short on BRC-20 tokens on a decentralized platform',
+        desc: 'NakaChain is a low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps, enabling the payment of gas fees in Bitcoin. It’s powered by BVM with these modules: Bitcoin for security, Polygon for data availability, and Optimism for execution.' +
+          '<br/><br/>On the second day of awesomeness, challenge yourself to dominate the market by trading futures on BRC-20 tokens\' prices. The top gainer will be rewarded every hour.' +
+          '<br/><br/>Total rewards: <span style="color: #FA4E0E">$3,000</span>',
       },
       {
         key: 2,
@@ -146,11 +147,12 @@ Good luck and have fun!
   }, [isOpenNakaWinners]);
 
   const currentDay = React.useMemo(() => {
-    const diffDay = new BigNumber(
-      dayjs.utc(PUBLIC_SALE_START).diff(dayjs.utc(), 'days'),
-    )
-      .absoluteValue()
-      .toNumber();
+    // const diffDay = new BigNumber(
+    //   dayjs.utc(PUBLIC_SALE_START).diff(dayjs.utc(), 'days'),
+    // )
+    //   .absoluteValue()
+    //   .toNumber();
+    const diffDay = 0;
     return {
       step: DAYS.length > diffDay ? DAYS[diffDay] : DAYS[DAYS.length - 1],
       diffDay,
@@ -217,7 +219,7 @@ Good luck and have fun!
 
     return (
       <AccordionItem
-        isDisabled={index > currentDay.diffDay}
+        isDisabled={isDisable}
         className={styles.itemWrapper}
       >
         {({ isExpanded }) => (
@@ -280,7 +282,7 @@ Good luck and have fun!
         <p className={styles.container__title}>
           7 days of awesomeness. Experience Bitcoin like never before.
         </p>
-        <Accordion allowMultiple={false} defaultIndex={currentDay.diffDay} index={expandIndex} onChange={(expandedIndex) => {
+        <Accordion allowToggle={true} allowMultiple={false} defaultIndex={currentDay.diffDay} index={expandIndex} onChange={(expandedIndex) => {
           setExpandIndex(expandedIndex as number)
         }}>
           {DAYS.map(renderItem)}
