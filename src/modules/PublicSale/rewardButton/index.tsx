@@ -149,7 +149,7 @@ const RaffleButton = ({ className }: any) => {
                   <Text className={cx(s.time, rewardValue > 0 ? s.claimable : '')}>{formatCurrency(rewardValue, MIN_DECIMAL, MAX_DECIMAL, 'BTC', false)} BVM</Text>
                 </Flex>
                 <Flex gap={4} w={"100%"}>
-                  {raffleCode ? (
+                  {/*{raffleCode ? (
                     <Flex flexDirection={'column'}>
                       <Text
                         fontWeight={'400'}
@@ -214,7 +214,47 @@ const RaffleButton = ({ className }: any) => {
                         </Text>
                       </Flex>
                     </>
-                  )}
+                  )}*/}
+                  <>
+                    <Flex
+                      className={cx(s.learnMoreWrapper)}
+                      gap={2}
+                      onClick={rewardValue > 0 ? handleShareTw : onShareNow}
+                      cursor="pointer"
+                      bg={rewardValue > 0 ? "#FA4E0E" : '#FFFFFF'}
+                    >
+                      {
+                        rewardValue > 0 ? (
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="24" fill="white"/>
+                            <g clip-path="url(#clip0_30630_9258)">
+                              <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="black"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_30630_9258">
+                                <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        ) : (
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="24" fill="black"/>
+                            <g clip-path="url(#clip0_30640_11775)">
+                              <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="white"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_30640_11775">
+                                <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        )
+                      }
+                      <Text lineHeight={'100%'} fontSize={'12px'} color={rewardValue > 0 ? "#FFFFFF" : "#000000"}>
+                        {rewardValue > 0 ? 'Share to claim' : 'Share'}
+                      </Text>
+                    </Flex>
+                  </>
                 </Flex>
               </Flex>
             </Flex>
