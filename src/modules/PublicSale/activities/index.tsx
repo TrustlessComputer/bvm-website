@@ -172,7 +172,7 @@ Good luck and have fun!
       .toNumber();
 
     // Case naka start at 4h UTC
-    if (diffDay === 1 && dayjs.utc().hour() < 4) {
+    if (diffDay === ActivityType.Day2 && dayjs.utc().hour() < 4) {
       diffDay = 0;
     }
 
