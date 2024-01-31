@@ -24,6 +24,8 @@ import { PUBLIC_SALE_END } from '@/modules/Whitelist';
 import NumberScale from '@/components/NumberScale';
 import { GuestCodeHere } from '../depositModal/deposit.guest.code';
 import LoginTooltip from '@/modules/PublicSale/depositModal/login.tooltip';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
 
 interface FormValues {
   tokenAmount: string;
@@ -83,6 +85,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   }, []);
 
   const timeIntervalSummary = useRef<any>(undefined);
+  const { needReload } = useAppSelector(commonSelector);
 
   useEffect(() => {
     getContributeInfo();
@@ -97,7 +100,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     return () => {
       clearInterval(timeIntervalSummary.current);
     };
-  }, [token]);
+  }, [token, needReload]);
 
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();

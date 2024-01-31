@@ -13,7 +13,7 @@ import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
 import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
 import { useSelector } from 'react-redux';
 import { LEADER_BOARD_MODE } from '@/modules/PublicSale/leaderBoardSwitch';
-import { setAnimatedLatestContributors, setNeedCheckDeposit } from '@/stores/states/common/reducer';
+import { requestReload, setAnimatedLatestContributors, setNeedCheckDeposit } from '@/stores/states/common/reducer';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import useWindowSize from '@/hooks/useWindowSize';
 
@@ -141,6 +141,7 @@ const LeaderBoardVisual = (props: IProps) => {
 
     if (newRes?.length > 0) {
       latestContributors.current = [...newRes].concat(latestContributors.current);
+      dispatch(requestReload());
     }
     animatedLatestContributors.current = newRes || [];
     dispatch(setAnimatedLatestContributors(newRes || []));
