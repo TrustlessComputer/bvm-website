@@ -59,6 +59,10 @@
       max-width: 214px;
     }
 
+    span {
+      color: #FA4E0E;
+    }
+
     @include is-mobile {
       font-size: 14px;
     }
@@ -82,13 +86,13 @@
       font-size: 14px;
     }
 
-
   }
   &_header {
     padding: 10px 16px !important;
     background-color: rgba(black, .8);
     //border: 1px solid rgba(white, .10);
     cursor: default !important;
+    gap: 8px;
 
     button {
       padding: 0 !important;
@@ -105,9 +109,9 @@
     }
 
     &__disable {
-      button {
-        display: none !important;
-      }
+      //button {
+      //  display: none !important;
+      //}
     }
 
   }

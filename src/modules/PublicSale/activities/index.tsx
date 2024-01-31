@@ -12,7 +12,7 @@ import {
   Text, useDisclosure,
 } from '@chakra-ui/react';
 import styles from './styles.module.scss';
-import { CDN_URL } from '@/config';
+import { CDN_URL, CDN_URL_ICONS } from '@/config';
 import cs from 'classnames';
 import SvgInset from '@/components/SvgInset';
 import TradeNakaWinnersPopup from '@/modules/PublicSale/activities/components/TradeNakaWinnersPopup';
@@ -182,7 +182,7 @@ Good luck and have fun!
     };
   }, []);
 
-  const [expandIndex, setExpandIndex] = React.useState(currentDay.diffDay)
+  const [expandIndex, setExpandIndex] = React.useState<Number | undefined>(undefined)
 
   const renderCta = (item: ICTA) => {
     switch (item.type) {
@@ -261,16 +261,17 @@ Good luck and have fun!
                     [styles.itemWrapper_title__active]: isExpanded,
                   })}
                 >
-                  {item.tag}: {title}
+                  <Text>{item.tag}: {title} {item.key === currentDay.diffDay && <span>(Happening Now)</span>}</Text>
                 </Flex>
                 <button>
                   <SvgInset
                     className={
-                      isExpanded
-                        ? styles.itemWrapper_downArrow
-                        : styles.itemWrapper_normalArrow
+                      isDisable ? "" :
+                        isExpanded
+                          ? styles.itemWrapper_downArrow
+                          : styles.itemWrapper_normalArrow
                     }
-                    svgUrl={`${CDN_URL}/icons/chevron-right-ic-32.svg`}
+                    svgUrl={isDisable ? `${CDN_URL_ICONS}/lock.svg` : `${CDN_URL}/icons/chevron-right-ic-32.svg`}
                     size={20}
                   />
                 </button>
@@ -306,7 +307,7 @@ Good luck and have fun!
         <p className={styles.container__title}>
           7 days of awesomeness. Experience Bitcoin like never before.
         </p>
-        <Accordion allowToggle={true} allowMultiple={false} defaultIndex={currentDay.diffDay} index={expandIndex} onChange={(expandedIndex) => {
+        <Accordion allowToggle={true} allowMultiple={false} index={expandIndex as any} onChange={(expandedIndex) => {
           setExpandIndex(expandedIndex as number)
         }}>
           {DAYS.map(renderItem)}
