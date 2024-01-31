@@ -2,10 +2,11 @@ import { RootState } from '@/stores';
 import { EVMFieldType, User } from '@/stores/states/user/types';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { SignatureStatus } from '@/interfaces/whitelist';
+import AuthenStorage from '@/utils/storage/authen.storage';
 
 export const userSelector = (state: RootState) =>
   state.user?.user as User | undefined;
-export const userTokenSelector = (state: RootState) => state.user?.userToken;
+export const userTokenSelector = (state: RootState) => state.user?.userToken || AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 export const leaderBoardSelector = (state: RootState) => ({
   list: (state.user?.leaderBoard || []) as ILeaderBoardPoint[],
   count: (state.user?.leaderBoardCount || '') as string,

@@ -26,6 +26,8 @@ import { GuestCodeHere } from '../depositModal/deposit.guest.code';
 import LoginTooltip from '@/modules/PublicSale/depositModal/login.tooltip';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
+import IcHelp from '@/components/InfoTooltip/IcHelp';
+import AuthForBuyV2 from '@/modules/PublicSale/AuthForBuyV2';
 
 interface FormValues {
   tokenAmount: string;
@@ -178,6 +180,14 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             gap={1} alignItems={"center"}
           >
             Your contribution
+            <AuthForBuyV2
+              renderWithoutLogin={(onClick: any) => (
+                <Flex bg="#FA4E0E" borderRadius={12} onClick={onClick}>
+                  <IcHelp />
+                </Flex>
+              )}>
+            </AuthForBuyV2>
+
             <LoginTooltip onClose={() => {
 
             }}/>

@@ -67,6 +67,18 @@ export const generateTokenWithOauth = async (
   return res;
 };
 
+export const generateTokenWithMetamask = async (
+  params: { address: string, message: string, signature: string }
+): Promise<IGenerateTOkenWithSecretCode> => {
+  const res = (await apiClient.post(`/bvm/generate-token-with-wallet`, {
+    "wallet_type": "ethereum",
+    "address": params.address,
+    "message": params.message,
+    "signature": params.signature
+  })) as unknown as IGenerateTOkenWithSecretCode;
+  return res;
+};
+
 export const getPublicSaleLeaderBoards = async (params: {
   page?: number;
   limit?: number;

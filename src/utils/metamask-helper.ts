@@ -119,13 +119,12 @@ export const signMessage = async (message: any): Promise<{ message: string, addr
     const signer = web3Provider.getSigner();
 
     const address = addresses && Array.isArray(addresses) ? addresses[0] : '';
-    const signature = await signer.signMessage(
-      typeof message === 'function' ? message(address) : message,
-    );
+    const messageForSign = typeof message === 'function' ? message(address) : message;
+    const signature = await signer.signMessage(messageForSign);
     return {
       address,
       signature,
-      message,
+      message: messageForSign,
     };
   } catch (err) {
     throw err;
