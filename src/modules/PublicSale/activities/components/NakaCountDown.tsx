@@ -22,7 +22,7 @@ const NakaCountDown = React.memo(() => {
         </Text>
         <Flex className={styles.item_countdown}>
           <SvgInset svgUrl={`${CDN_URL_ICONS}/ic-fire.svg`} size={16} />
-          <Countdown expiredTime={dayjs.utc(bestPNL.to_time, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} isHideSecond={false} hideZeroHour={true} />
+          <Countdown expiredTime={dayjs.utc(bestPNL.to_time, 'YYYY-MM-DD HH:mm:ss').toString()} hideIcon={true} isHideSecond={true} />
         </Flex>
       </Flex>
       {!!bestPNL?.winner ? (
