@@ -190,9 +190,9 @@ const DepositContent: React.FC<IDepositContent> = ({
     <Flex className={s.depositContent}>
       <Text className={s.descStaked}>
         Make a contribution using any of the currencies below.
-        <br />
-        After your payment processes, you’ll get a confirmation code to claim
-        your $BVM allocation later.
+        {/*<br />*/}
+        {/*After your payment processes, you’ll get a confirmation code to claim*/}
+        {/*your $BVM allocation later.*/}
       </Text>
       {/* {secretCode && (
         <>
