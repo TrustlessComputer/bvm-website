@@ -57,6 +57,7 @@ const HourlyReward = () => {
     return (REWARDS[currentDay.diffDay] as number) / 24;
   }, [currentDay, REWARDS])
 
+  return null;
   return (
     <Flex className={s.container}>
       <Flex justifyContent={"space-between"} alignItems={"center"}>
