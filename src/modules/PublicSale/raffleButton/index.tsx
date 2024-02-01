@@ -130,17 +130,26 @@ const RaffleButton = ({ className }: any) => {
                 <img src={programeInfo?.image} alt="raffleBtnBg" />
               </Center>
               <Flex direction={"column"} alignItems={"flex-start"} flex={1}>
-                <Text
-                  className={s.text_text}
-                  fontSize={12}
-                  lineHeight={'12px'}
-                  fontWeight={500}
-                  textTransform={"uppercase"}
+                <Flex
+                  direction={"column"}
+                  onClick={() =>
+                    programeInfo?.link
+                      ? window.open(programeInfo?.link, '_blank')
+                      : undefined
+                  }
                 >
-                  Day {currentDay?.diffDay + 1} Raffle
-                </Text>
-                <Flex gap={'6px'} className={s.timeWrapper}>
-                  <Text className={s.time} color={"#FFFFFF"}>{programeInfo?.sub_title}</Text>
+                  <Text
+                    className={s.text_text}
+                    fontSize={12}
+                    lineHeight={'12px'}
+                    fontWeight={500}
+                    textTransform={"uppercase"}
+                  >
+                    Day {currentDay?.diffDay + 1} Raffle
+                  </Text>
+                  <Flex gap={'6px'} className={s.timeWrapper}>
+                    <Text className={s.time} color={"#FFFFFF"}>{programeInfo?.sub_title}</Text>
+                  </Flex>
                 </Flex>
                 <Flex gap={4} w={"100%"}>
                   {/*{raffleCode ? (
@@ -249,7 +258,15 @@ const RaffleButton = ({ className }: any) => {
           <PopoverBody mt={4}>
             <Flex gap={6} direction={['column', 'row']}>
               <Flex direction={'column'}>
-                <Text className={s.title}>{programeInfo?.title}</Text>
+                <Text
+                  className={s.title}
+                  onClick={() =>
+                    programeInfo?.link
+                      ? window.open(programeInfo?.link, '_blank')
+                      : undefined
+                  }
+                  cursor={programeInfo?.link ? 'pointer' : 'default'}
+                >{programeInfo?.title}</Text>
                 <Text
                   className={s.desc}
                   dangerouslySetInnerHTML={{
