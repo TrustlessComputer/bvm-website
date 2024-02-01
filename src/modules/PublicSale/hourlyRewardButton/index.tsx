@@ -321,7 +321,7 @@ const HourlyRewardButton = ({ className }: any) => {
               <Flex gap={6} direction={['column', 'row']} maxW={"350px"}>
                 <Flex direction={'column'} gap={4}>
                   <Text className={s.title}>Earn Extra $BVM Daily for Your Contribution</Text>
-                  <img className={s.imgDemo} src={'/public-sale/dailyReward.png'} alt={'dailyReward'} />
+                  <img className={s.imgDemo} src={`/public-sale/dailyReward_${currentDay?.diffDay}.png`} alt={'dailyReward'} />
                   <Flex direction={"column"} gap={"12px"}
                         className={s.desc}
                   >
