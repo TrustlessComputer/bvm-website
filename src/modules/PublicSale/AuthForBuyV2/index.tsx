@@ -25,10 +25,10 @@ import AppLoading from '@/components/AppLoading';
 import { getError } from '@/utils/error';
 import toast from 'react-hot-toast';
 import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
-import useConnect from '@/hooks/useConnect';
 import Image from 'next/image';
 import { WalletType } from '@/interfaces/wallet';
 import useLoginBTC from '@/hooks/useLoginBTC';
+import { signMessage as signMessageMetamask } from '@/utils/metamask-helper';
 
 interface IAuthForBuyV2 extends PropsWithChildren {
   renderWithoutLogin?: (onClick: any) => any;
@@ -207,7 +207,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
 
   const handleLoginMetamask = async () => {
     try {
-      const { signature, message, address } = await signMessage((address: string) => {
+      const { signature, message, address } = await signMessageMetamask((address: string) => {
         return `This action verifies the ownership of ${address} and allows you to join the $BVM public sale.`
       })
       const result = await generateTokenWithMetamask({ message, signature, address })
