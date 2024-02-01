@@ -12,6 +12,7 @@ const initialState: CommonState = {
   leaderBoardMode: 1,
   needCheckDeposit: false,
   animatedLatestContributors: [],
+  publicSaleDailyReward: undefined,
 };
 
 const slice = createSlice({
@@ -36,6 +37,9 @@ const slice = createSlice({
     setAnimatedLatestContributors: (state, action) => {
       state.animatedLatestContributors = action.payload;
     },
+    setPublicSaleDailyReward: (state, action) => {
+      state.publicSaleDailyReward = action.payload;
+    },
   },
 });
 
@@ -45,7 +49,8 @@ export const {
   setConfigs,
   setLeaderBoardMode,
   setNeedCheckDeposit,
-  setAnimatedLatestContributors
+  setAnimatedLatestContributors,
+  setPublicSaleDailyReward
 } = slice.actions;
 
 export default slice.reducer;

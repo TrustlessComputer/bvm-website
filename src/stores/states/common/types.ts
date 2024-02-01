@@ -1,4 +1,5 @@
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
+import { IPublicSaleDailyReward } from '@/services/public-sale';
 
 export type CoinPrices = {
   [key in Coin]: string
@@ -17,4 +18,5 @@ export interface CommonState {
   leaderBoardMode: 0 | 1;
   needCheckDeposit: boolean;
   animatedLatestContributors: ILeaderBoardPoint[];
+  publicSaleDailyReward?: IPublicSaleDailyReward;
 }

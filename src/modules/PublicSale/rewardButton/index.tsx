@@ -24,7 +24,7 @@ import {
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { formatCurrency } from '@/utils/format';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
-import { requestReload } from '@/stores/states/common/reducer';
+import { requestReload, setPublicSaleDailyReward } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
 import { IAuthenCode } from '@/modules/Whitelist/steps';
 import { getLink } from '@/utils/helpers';
@@ -101,6 +101,7 @@ const RaffleButton = ({ className }: any) => {
     try {
       const res = await getPublicSaleDailyReward();
       setDailyReward(res);
+      dispatch(setPublicSaleDailyReward(res));
     } catch (e) {
     } finally {
       setIsLoading(false);
