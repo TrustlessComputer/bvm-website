@@ -72,7 +72,10 @@ const StepsAirdrop = (props: IProps) => {
   };
 
   const getAlphaUsersAirdrop = async () => {
-    const res = await getBVMAirdrop({ address: user?.twitter_id });
+    const res = await getBVMAirdrop({
+      address: user?.twitter_id,
+      type: AirdropStep.alphaUsers,
+    });
     dispatch(setAirdropAlphaUsers(res));
   };
 
