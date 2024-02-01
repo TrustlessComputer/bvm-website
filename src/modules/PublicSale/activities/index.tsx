@@ -173,10 +173,10 @@ Good luck and have fun!
       .absoluteValue()
       .toNumber();
 
-    // Case naka start at 4h UTC
-    if (diffDay === ActivityType.Day2 && dayjs.utc().hour() < 4) {
-      diffDay = 0;
-    }
+    // // Case naka start at 4h UTC
+    // if (diffDay === ActivityType.Day2 && dayjs.utc().hour() < 4) {
+    //   diffDay = 0;
+    // }
 
     return {
       step: DAYS.length > diffDay ? DAYS[diffDay] : DAYS[DAYS.length - 1],
