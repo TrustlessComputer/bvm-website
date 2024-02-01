@@ -53,7 +53,7 @@ const AboveTheFold = () => {
           <LeaderBoardVisual />
           {/*<AddMoreContribution />*/}
           <DailyReward />
-          <HourlyReward />
+          {/*<HourlyReward />*/}
           {/*<LeaderBoardSwitch classNames={s.boardSwitch} />*/}
           {mobileScreen && <Activities />}
         </Flex>
