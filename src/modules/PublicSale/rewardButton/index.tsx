@@ -36,8 +36,6 @@ import { PUBLIC_SALE_START } from '@/modules/Whitelist';
 import { commonSelector } from '@/stores/states/common/selector';
 import useWindowSize from '@/hooks/useWindowSize';
 
-const REWARD_DAILY = JSON.parse("{\"2024-01-30\":100000,\"2024-01-31\":50000,\"2024-02-01\":50000,\"2024-02-02\":50000,\"2024-02-03\":50000,\"2024-02-04\":50000,\"2024-02-05\":50000}");
-
 const RaffleButton = ({ className }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isEnd, setIsEnd] = React.useState(false);
@@ -52,6 +50,7 @@ const RaffleButton = ({ className }: any) => {
   const [authenCode, setAuthenCode] = useState<IAuthenCode>();
   const [showManualCheck, setShowManualCheck] = useState(false);
   const needReload = useAppSelector(commonSelector).needReload;
+  const configs = useAppSelector(commonSelector).configs;
   const { mobileScreen } = useWindowSize();
 
   const currentDay = React.useMemo(() => {
@@ -67,19 +66,18 @@ const RaffleButton = ({ className }: any) => {
   }, []);
 
   const REWARDS = useMemo(() => {
-    return Object.values(REWARD_DAILY);
-  }, [REWARD_DAILY]);
+    if(configs) {
+      if(configs['naka']?.bvm_halvings) {
+        const res = JSON.parse(configs['naka']?.bvm_halvings);
+        return Object.values(res);
+      }
+    }
+    return [];
+  }, [configs]);
 
   const currentDayReward = useMemo(() => {
     return REWARDS[currentDay.diffDay];
   }, [currentDay, REWARDS])
-
-  console.log('dailyReward', dailyReward);
-  console.log('user', user);
-  console.log('currentDay', currentDay);
-  console.log('REWARDS', REWARDS);
-  console.log('currentDayReward', currentDayReward);
-  console.log('=====')
 
   useEffect(() => {
     getProgramInfo();

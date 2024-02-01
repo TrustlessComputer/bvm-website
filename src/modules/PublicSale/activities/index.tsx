@@ -44,6 +44,8 @@ export interface GameItemProps {
   src: string;
   ctas?: ICTA[];
   type: ActivityType;
+  startTime?: string;
+  endTime?: string;
 }
 
 const Activities = React.memo(() => {
@@ -92,8 +94,8 @@ Good luck and have fun!
         ],
         desc:
           'NakaChain is a low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps, enabling the payment of gas fees in Bitcoin. It’s powered by BVM with these modules: Bitcoin for security, Polygon for data availability, and Optimism for execution.' +
-          "<br/><br/>On the second day of awesomeness, challenge yourself to dominate the market by trading futures on BRC-20 tokens' prices. Every two hours, the top gainer will earn $50 in Bitcoin.\n" +
-          '<br/><br/>Total rewards: <span style="color: #FA4E0E">$1,000</span>',
+          "<br/><br/>On the second day of awesomeness, challenge yourself to dominate the market by trading futures on BRC-20 tokens' prices. Every four hours, the top gainer will earn $50 in Bitcoin.\n"
+          // '<br/><br/>Total rewards: <span style="color: #FA4E0E">$1,000</span>',
       },
       {
         key: 2,
@@ -243,6 +245,8 @@ Good luck and have fun!
     const isDisable = item.key > currentDay.diffDay;
     const title = isDisable ? item.title : item.title;
 
+    const isRunningNaka = expandIndex === item.key && item.key === ActivityType.Day2
+
     return (
       <AccordionItem isDisabled={isDisable} className={styles.itemWrapper}>
         {({ isExpanded }) => (
@@ -263,8 +267,11 @@ Good luck and have fun!
                 >
                   <Flex direction="column" gap="8px">
                     <Text>
+                      {item.key < currentDay.diffDay && (
+                        <span className={styles.itemWrapper_happening}>Happening Now</span>
+                      )}
                       {item.key === currentDay.diffDay && (
-                        <span>Happening Now</span>
+                        <span className={styles.itemWrapper_unlocked}>New unlocked</span>
                       )}
                     </Text>
                     <Text>
@@ -297,9 +304,7 @@ Good luck and have fun!
                   className={styles.itemWrapper_desc}
                   dangerouslySetInnerHTML={{ __html: item.desc }}
                 />
-                {currentDay.diffDay === expandIndex &&
-                  expandIndex === item.key &&
-                  item.key === 1 && <NakaCountDown />}
+                {isRunningNaka && <NakaCountDown />}
                 <Flex alignItems="center" gap="8px">
                   {item.ctas?.map(renderCta)}
                 </Flex>
