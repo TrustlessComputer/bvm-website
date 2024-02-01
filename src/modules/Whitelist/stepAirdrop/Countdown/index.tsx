@@ -12,6 +12,7 @@ interface IProps {
   onRefreshEnd?: () => void;
   type?: 'row' | 'column',
   hideZeroHour?: boolean
+  showColon?: boolean
 }
 
 const Countdown: React.FC<IProps> = ({
@@ -21,7 +22,8 @@ const Countdown: React.FC<IProps> = ({
    onRefreshEnd,
    type = 'row',
    isHideSecond,
-   hideZeroHour = false
+   hideZeroHour = false,
+   showColon = false
  }: IProps): React.ReactElement => {
   const refCallEnd = useRef(false);
   const {
@@ -78,25 +80,44 @@ const Countdown: React.FC<IProps> = ({
           (
             <Flex gap={{ base: '24px', lg: '76px' }}>
               {showDay && (
-                <Flex flexDirection='column' alignItems='center'>
-                  <Text className={s.text}>{days}</Text>
-                  <span>DAYS</span>
-                </Flex>
+                <>
+                  <Flex flexDirection='column' alignItems='center'>
+                    <Text className={s.text}>{days}</Text>
+                    <span>DAYS</span>
+                  </Flex>
+                  {
+                    showColon && ':'
+                  }
+                </>
               )}
               {!!hideZeroHour && !hours && (
-                <Flex flexDirection='column' alignItems='center'>
-                  <Text className={s.text}>{hours}</Text>
-                  <span>HOURS</span>
-                </Flex>
+                <>
+                  <Flex flexDirection='column' alignItems='center'>
+                    <Text className={s.text}>{hours}</Text>
+                    <span>HOURS</span>
+                  </Flex>
+                  {
+                    showColon && ':'
+                  }
+                </>
+
               )}
               <Flex flexDirection='column' alignItems='center'>
                 <Text className={s.text}>{minutes}</Text>
                 <span>MINS</span>
               </Flex>
-              {!isHideSecond && <Flex flexDirection='column' alignItems='center'>
-                <Text className={s.text}>{seconds}</Text>
-                <span>SECONDS</span>
-              </Flex>}
+              {!isHideSecond && (
+                <>
+                  {
+                    showColon && ':'
+                  }
+                  <Flex flexDirection='column' alignItems='center'>
+                    <Text className={s.text}>{seconds}</Text>
+                    <span>SECONDS</span>
+                  </Flex>
+                </>
+                )
+              }
             </Flex>
           )
         )

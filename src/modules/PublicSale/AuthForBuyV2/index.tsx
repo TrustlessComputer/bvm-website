@@ -29,6 +29,7 @@ import Image from 'next/image';
 import { WalletType } from '@/interfaces/wallet';
 import useLoginBTC from '@/hooks/useLoginBTC';
 import { signMessage as signMessageMetamask } from '@/utils/metamask-helper';
+import userServices from '@/services/user';
 
 interface IAuthForBuyV2 extends PropsWithChildren {
   renderWithoutLogin?: (onClick: any) => any;
@@ -54,6 +55,18 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
   const isLogged = useMemo(() => Boolean(userToken), [userToken]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    if (isLogged) {
+      submitReferralModular();
+    }
+  }, [isLogged]);
+
+  const submitReferralModular = async () => {
+    try {
+      await userServices.submitReferralModularCode();
+    } catch (error) {}
+  };
 
   useEffect(() => {
     if (authenCode?.public_code) {
