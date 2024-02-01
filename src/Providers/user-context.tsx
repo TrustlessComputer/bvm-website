@@ -9,9 +9,9 @@ import { User } from '@/stores/states/user/types';
 import { getReferralByURL } from '@/utils/helpers';
 import userServices from '@/services/user';
 import ReferralStorage from '@/utils/storage/referral.storage';
-import { getCoinPrices } from '@/services/common';
-import { setCoinPrices } from '@/stores/states/common/reducer';
-import { redirect, useRouter } from 'next/navigation';
+import { getCoinPrices, getConfigs } from '@/services/common';
+import { setCoinPrices, setConfigs } from '@/stores/states/common/reducer';
+import { useRouter } from 'next/navigation';
 
 export interface IUserContext {}
 
@@ -50,6 +50,12 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     dispatch(setCoinPrices(coinPrices));
   };
 
+  const fetchConfigs = async () => {
+    const configs = await getConfigs();
+    if (!configs) return;
+    dispatch(setConfigs(configs));
+  };
+
   const contextValues = useMemo((): IUserContext => {
     return {};
   }, []);
@@ -70,8 +76,10 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
 
   React.useEffect(() => {
     fetchCoinPrices();
+    fetchConfigs();
     setInterval(() => {
       fetchCoinPrices();
+      fetchConfigs();
     }, 60 * 1000);
   }, []);
 
