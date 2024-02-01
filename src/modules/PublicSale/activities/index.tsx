@@ -119,7 +119,7 @@ Let's play to earn $ARCA testnet tokens, convertible to $ARCA mainnet tokens in 
           '<br/><br/>' +
           'Share your build for a chance to get <a style="text-decoration: underline; color: white" target="_blank" href="https://magiceden.io/ordinals/item-details/ea283fe32ce8666960ec43febb6b09857c095f24b8a723140f57aacca34c35eci0">Bitcoin Punk Inscription #18108</a> - one of the earliest Bitcoin Punk ever inscribed.' +
           '<br/><br/>' +
-          '<video src="public-sale/modular-video-2.mp4" controls autoplay loop />',
+          '<video src="public-sale/modular-video-2.mp4" controls muted autoplay loop style="width: 100%" />',
       },
       {
         key: 3,
