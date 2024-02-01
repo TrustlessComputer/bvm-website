@@ -8,7 +8,7 @@ import {
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
 import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
-import { formatCurrency, formatName, formatString } from '@/utils/format';
+import { ellipsisCenter, formatCurrency, formatName, formatString } from '@/utils/format';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
@@ -175,7 +175,9 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     let component: React.ReactNode | undefined = undefined;
     if (user.twitter_id && (isEVM || isBTC)) {
       component = (
-        <Flex alignItems="center" gap="12px" cursor="pointer" onClick={() => {
+        <Flex
+          className={s.profileBox_content}
+          onClick={() => {
           if (isEVM) {
             window.open(`https://etherscan.io/address/${user?.twitter_id}`)
           } else {
@@ -183,19 +185,17 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           }
         }}>
           {isEVM ? (
-            <Jazzicon diameter={48} seed={jsNumberForAddress(user?.twitter_id || "")} />
+            <Jazzicon diameter={32} seed={jsNumberForAddress(user?.twitter_id || "")} />
           ) : (
-            <Image src={`${CDN_URL_ICONS}/ic-btc-2.svg`} alt="ic bitcoin" width={48} height={48} />
+            <Image src={`${CDN_URL_ICONS}/ic-btc-2.svg`} alt="ic bitcoin" width={32} height={32} />
           )}
-          <Text color="black" fontSize="16px" fontWeight="500">{formatString(user.twitter_id, 8)}</Text>
+          <Text color="black" fontSize="14px" fontWeight="500">{ellipsisCenter({ str: user.twitter_id })}</Text>
         </Flex>
       )
     } else if (user.twitter_id) {
       component = (
         <Flex
-          alignItems="center"
-          cursor="pointer"
-          gap="12px"
+          className={s.profileBox_content}
           onClick={() => {
             setTimeout(() => {
               window.open(`https://twitter.com/${user?.twitter_username}`)
@@ -208,26 +208,17 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               'normal',
             )}
             address={''}
-            width={48}
+            width={32}
             name={user.twitter_name || user.twitter_username || ''}
           />
-          <Text color="black" fontSize="16px" fontWeight="500">{formatString(user.twitter_name, 12)}</Text>
+          <Text color="black" fontSize="14px" fontWeight="500">{formatString(user.twitter_name, 12)}</Text>
         </Flex>
       )
     }
 
     if (component) {
       return (
-        <Flex flex={1} flexDir="column">
-          <Text
-            fontSize={14}
-            lineHeight={1}
-            fontWeight={400}
-            color="black"
-            mb="12px"
-          >
-            You
-          </Text>
+        <Flex className={s.profileBox}>
           {component}
         </Flex>
       )
@@ -366,7 +357,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
         <div>
-          <Flex justify="space-between" gap="24px" flexDir={{ base: "column", lg: 'row' }}>
+          <Flex justify="space-between" gap="24px" flexDir={{ base: "column", lg: 'row' }} position="relative">
             <Flex flex={1} flexDir="column">
               <Text
                 fontSize={14}

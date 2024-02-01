@@ -266,3 +266,26 @@
   text-align: left;
   margin-bottom: 12px;
 }
+
+.profileBox {
+  display: flex;
+  padding: 4px 8px;
+  justify-content: center;
+  border-radius: 100px;
+  border: 1px solid #ECECEC;
+  background: #F6F6F6;
+  height: fit-content;
+  width: fit-content;
+  @include is-mobile {
+    padding: 4px 16px;
+  }
+  &_content {
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}

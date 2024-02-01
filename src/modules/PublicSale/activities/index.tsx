@@ -18,6 +18,7 @@ import cs from 'classnames';
 import SvgInset from '@/components/SvgInset';
 import TradeNakaWinnersPopup from '@/modules/PublicSale/activities/components/TradeNakaWinnersPopup';
 import NakaCountDown from '@/modules/PublicSale/activities/components/NakaCountDown';
+import { checkIsEndPublicSale } from '@/modules/Whitelist/utils';
 
 interface ICTA {
   title: string;
@@ -46,6 +47,7 @@ export interface GameItemProps {
   type: ActivityType;
   startTime?: string;
   endTime?: string;
+  media?: any
 }
 
 const Activities = React.memo(() => {
@@ -62,19 +64,18 @@ const Activities = React.memo(() => {
         tag: 'Day 1',
         title: 'Fully on-chain gaming on Bitcoin',
         src: 'public-sale/playGame.png',
-        ctas: [{
-          title: "Play game in Arcade",
-          type: 'link',
-          link: 'https://play.bitcoinarcade.xyz'
-        }],
+        // ctas: [{
+        //   title: "Play game in Arcade",
+        //   type: 'link',
+        //   link: 'https://play.bitcoinarcade.xyz'
+        // }],
         type: ActivityType.Day1,
+        media: "<a href='https://play.bitcoinarcade.xyz' target='_blank'><img src='public-sale/banner-game.png' width=\"100%\" /></a>",
         desc: `
 Bitcoin Arcade is a Bitcoin L2 for gaming using Bitcoin for security, EigenDA for data availability, and Optimism for execution.<br/><br/>
 Let's play to earn $ARCA testnet tokens, convertible to $ARCA mainnet tokens in March.<br/><br/>
 🎁 Rewards: <strong>30M $ARCA</strong><br/><br/>
-🎮 Play now at <a href='https://play.bitcoinarcade.xyz' target='_blank' style='text-decoration: underline; color: #FA4E0E'>play.bitcoinarcade.xyz</a> with the invite code ARCADE.<br/><br/>
-<img src='public-sale/banner-game.png' width="100%" />
-`,
+🎮 Play now at <a href='https://play.bitcoinarcade.xyz' target='_blank' style='text-decoration: underline; color: #FA4E0E'>play.bitcoinarcade.xyz</a> with the invite code <strong>ARCADE</strong>.<br/><br/>`,
       },
       {
         key: 1,
@@ -114,12 +115,11 @@ Let's play to earn $ARCA testnet tokens, convertible to $ARCA mainnet tokens in 
             link: 'https://playmodular.com/workshop',
           },
         ],
-        // https://
         desc: 'Build whatever on Bitcoin with modular blocks powered by the BVM network.' +
           '<br/><br/>' +
           'Share your build for a chance to get <a style="text-decoration: underline; color: white" target="_blank" href="https://magiceden.io/ordinals/item-details/ea283fe32ce8666960ec43febb6b09857c095f24b8a723140f57aacca34c35eci0">Bitcoin Punk Inscription #18108</a> - one of the earliest Bitcoin Punk ever inscribed.' +
-          '<br/><br/>' +
-          '<video src="public-sale/modular-video-2.mp4" controls muted autoplay loop style="width: 100%" />',
+          '<br/>',
+        media: "<br/><video src=\"public-sale/modular-video-3.mp4\" controls muted autoplay loop style=\"width: 100%\" />"
       },
       {
         key: 3,
@@ -184,14 +184,12 @@ Let's play to earn $ARCA testnet tokens, convertible to $ARCA mainnet tokens in 
       .absoluteValue()
       .toNumber();
 
-    // // Case naka start at 4h UTC
-    // if (diffDay === ActivityType.Day2 && dayjs.utc().hour() < 4) {
-    //   diffDay = 0;
-    // }
+    const isEnd = checkIsEndPublicSale()
 
     return {
       step: DAYS.length > diffDay ? DAYS[diffDay] : DAYS[DAYS.length - 1],
       diffDay,
+      isEnd
     };
   }, []);
 
@@ -254,7 +252,8 @@ Let's play to earn $ARCA testnet tokens, convertible to $ARCA mainnet tokens in 
     const isDisable = item.key > currentDay.diffDay;
     const title = isDisable ? item.title : item.title;
 
-    const isRunningNaka = expandIndex === item.key && item.key === ActivityType.Day2
+    const isEnded = currentDay.isEnd
+    const isRunningNaka = expandIndex === item.key && item.key === ActivityType.Day2 && !isEnded;
 
     return (
       <AccordionItem isDisabled={isDisable} className={styles.itemWrapper}>
@@ -317,6 +316,12 @@ Let's play to earn $ARCA testnet tokens, convertible to $ARCA mainnet tokens in 
                 <Flex alignItems="center" gap="8px">
                   {item.ctas?.map(renderCta)}
                 </Flex>
+                {!!item.media && (
+                  <div
+                    style={{ width: "100%" }}
+                    dangerouslySetInnerHTML={{ __html: item.media }}
+                  />
+                )}
               </Flex>
             </AccordionPanel>
           </>

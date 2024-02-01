@@ -174,3 +174,12 @@ export const formatMaxDecimals = (params: { value: any; maxDecimals?: number }) 
   }
   return value;
 };
+
+export const ellipsisCenter = ({ str, chars = '...', limit = 4 }: { str: string, limit?: number, chars?: string }) => {
+  if (str.length > limit * 2) {
+    const prefix = str.slice(0, limit);
+    const suffix = str.slice(str.length - limit, str.length);
+    return prefix + chars + suffix;
+  }
+  return str;
+}

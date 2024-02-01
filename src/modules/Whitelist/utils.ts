@@ -36,9 +36,15 @@ const checkIsPublicSale = () => {
     .isBefore(dayjs().utc().format());
 }
 
+const checkIsEndPublicSale = () => {
+  const diffDays = dayjs().utc().diff(dayjs.utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss'));
+  return diffDays >= 8
+}
+
 export {
   checkIsAllowState,
   getEVMNetworkByFieldType,
   getSymbolByFieldType,
-  checkIsPublicSale
+  checkIsPublicSale,
+  checkIsEndPublicSale
 }
