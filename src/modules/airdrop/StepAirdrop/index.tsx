@@ -304,6 +304,7 @@ const StepsAirdrop = (props: IProps) => {
             const address = data.address;
             const resPerceptronsHolders = await getBVMAirdrop({
               address: address,
+              type: AirdropStep.perceptronsHolders,
             });
             AirdropStorage.setIsConnectBitcoinWallet(true);
             AirdropStorage.setAirdropPerceptronsHolders(resPerceptronsHolders);
