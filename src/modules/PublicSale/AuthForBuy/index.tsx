@@ -10,9 +10,11 @@ import s from './styles.module.scss';
 import cx from 'clsx';
 import AuthForBuyV2 from '../AuthForBuyV2';
 
-interface IAuthForBuy extends PropsWithChildren {}
+interface IAuthForBuy extends PropsWithChildren {
+  hideBuyAndStake?: boolean;
+}
 
-const AuthForBuy: React.FC<IAuthForBuy> = () => {
+const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
   const user = useAppSelector(userSelector);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasStaked, setHasStaked] = useState(false);
@@ -45,31 +47,35 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
             Buy $BVM
           </Button>
         </AuthForBuyV2>
-        <AuthForBuyV2>
-          <Tooltip
-            minW="220px"
-            bg="#006149"
-            boxShadow="0px 0px 40px rgba(0, 0, 0, 0.12)"
-            borderRadius="4px"
-            padding="16px"
-            hasArrow
-            label={
-              'Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.'
-            }
-            color={'#FFFFFF'}
-          >
-            <Button
-              onClick={() => {
-                setHasStaked(true);
-                onOpen();
-              }}
-              type="button"
-              className={cx(s.btnContainer, s.btnBuyAndStake)}
-            >
-              Buy & Stake $BVM
-            </Button>
-          </Tooltip>
-        </AuthForBuyV2>
+        {
+          !hideBuyAndStake && (
+            <AuthForBuyV2>
+              <Tooltip
+                minW="220px"
+                bg="#006149"
+                boxShadow="0px 0px 40px rgba(0, 0, 0, 0.12)"
+                borderRadius="4px"
+                padding="16px"
+                hasArrow
+                label={
+                  'Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.'
+                }
+                color={'#FFFFFF'}
+              >
+                <Button
+                  onClick={() => {
+                    setHasStaked(true);
+                    onOpen();
+                  }}
+                  type="button"
+                  className={cx(s.btnContainer, s.btnBuyAndStake)}
+                >
+                  Buy & Stake $BVM
+                </Button>
+              </Tooltip>
+            </AuthForBuyV2>
+          )
+        }
       </Flex>
       <GoogleReCaptchaProvider
         reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
