@@ -110,7 +110,7 @@ Good luck and have fun!
             link: 'https://playmodular.com/',
           },
         ],
-        desc: 'Build whatever on Bitcoin with modular blocks powered by the BVM network.',
+        desc: 'Build whatever on Bitcoin with modular blocks powered by the BVM network.<br/><video src="public-sale/modular-video.mp4" controls autoPlay={false}/>',
       },
       {
         key: 3,
