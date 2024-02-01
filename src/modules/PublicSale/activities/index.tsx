@@ -252,8 +252,8 @@ Let's play to earn $ARCA testnet tokens, convertible to $ARCA mainnet tokens in 
     const isDisable = item.key > currentDay.diffDay;
     const title = isDisable ? item.title : item.title;
 
-    const isEnded = currentDay.isEnd
-    const isRunningNaka = expandIndex === item.key && item.key === ActivityType.Day2 && !isEnded;
+    // const isEnded = currentDay.isEnd
+    const isRunningNaka = expandIndex === item.key && item.key === ActivityType.Day2;
 
     return (
       <AccordionItem isDisabled={isDisable} className={styles.itemWrapper}>
