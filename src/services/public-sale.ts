@@ -8,6 +8,7 @@ import createAxiosInstance from '@/services/http-client';
 import { PERP_API_URL } from '@/config';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import axios from 'axios';
+import { camelCaseKeys } from '@/utils/normalize';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
@@ -75,6 +76,19 @@ export const generateTokenWithMetamask = async (
     "address": params.address,
     "message": params.message,
     "signature": params.signature
+  })) as unknown as IGenerateTOkenWithSecretCode;
+  return res;
+};
+
+export const generateTokenWithWalletBTC = async (
+  params: { address: string, message: string, signature: string, pub_key: string }
+): Promise<IGenerateTOkenWithSecretCode> => {
+  const res = (await apiClient.post(`/bvm/generate-token-with-wallet`, {
+    "wallet_type": "bitcoin",
+    "address": params.address,
+    "message": params.message,
+    "signature": params.signature,
+    "pub_key": params.pub_key
   })) as unknown as IGenerateTOkenWithSecretCode;
   return res;
 };
@@ -147,6 +161,7 @@ export interface IPublicSalePrograme {
   reward: string;
   start_date: string;
   end_date: string;
+  sub_title: string;
 }
 
 export const getPublicSaleProgram = async (): Promise<IPublicSalePrograme> => {
@@ -176,4 +191,73 @@ export const joinRafflePrograme = async (id: number): Promise<any> => {
   }
 
   return null;
+};
+
+export interface IPublicSaleDailyReward {
+  id: number;
+  twitter_id: string;
+  twitter_username: string;
+  twitter_name: string;
+  twitter_avatar: string;
+  day1: string;
+  day2: string;
+  day3: string;
+  day4: string;
+  day5: string;
+  day6: string;
+  day7: string;
+  claimed: string;
+  total: string;
+  pending: string;
+}
+
+export const getPublicSaleDailyReward = async (): Promise<IPublicSaleDailyReward | null> => {
+  try {
+    const res = (await apiClient.get(
+      `/bvm/user/halving`,
+    )) as unknown as IPublicSaleDailyReward;
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
+
+export const claimPublicSaleDailyReward = async (): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/user/halving`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+};
+
+export const claimRewardDailyWithPost = async (
+  uuid: string,
+  link?: string,
+): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/user/halving/claim`, {
+      secret_code: uuid,
+      link: link,
+    });
+    return Object(camelCaseKeys(res));
+  } catch (error) {
+    throw error;
+    // console.log(error);
+  }
+  return;
+};
+
+export const requestRewardDailyShareCode = async (): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/user/halving/request-code`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+  return;
 };

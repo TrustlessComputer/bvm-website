@@ -1,0 +1,158 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+
+    margin-top: 8px;
+  }
+
+  .desc {
+    //text-align: center;
+    font-size: 16px;
+    margin-bottom: 24px;
+    font-weight: 400;
+    color: #1c1c1c;
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .inputContainer {
+    border-radius: 0px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #cecece;
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .input {
+    height: 100%;
+    overflow: hidden;
+    color: #000000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    background-color: transparent;
+    width: 100%;
+
+    &::placeholder {
+      color: #898989;
+      opacity: 1; /* Firefox */
+    }
+
+    &::-ms-input-placeholder {
+      /* Edge 12-18 */
+      color: #898989;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .button {
+    height: 48px !important;
+    padding: 8px 60px !important;
+    border-radius: 0px !important;
+    background: #fa4e0e !important;
+    color: #fff !important;
+    width: 180px !important;
+  }
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // display: grid;
+  // grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+
+  // @include w-max(768px) {
+  //   grid-template-columns: 1fr 1fr;
+  // }
+
+  // @include w-max(468px) {
+  //   grid-template-columns: 1fr;
+  // }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 28px 0px;
+    background-color: #1c1c1c;
+    padding: 28px 32px;
+    background-color: #1c1c1c;
+    min-width: 380px;
+    width: fit-content;
+
+    @include w-max(768px) {
+      min-width: 320px;
+    }
+  }
+
+  .item_title {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 8px;
+  }
+
+  .item_desc {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 12px;
+    font-weight: 800;
+    line-height: 30px;
+  }
+
+  .btn {
+    height: 16px;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+}
+
+.modalManualHeader {
+  padding-bottom: 0 !important;
+
+  :global {
+    svg {
+      path {
+        fill: black;
+      }
+    }
+  }
+}
+
+.modalContent {
+  background: #ffffff !important;
+  :global {
+    .chakra-modal__body {
+      padding-left: rem(24) !important;
+      padding-right: rem(24) !important;
+      padding-bottom: rem(24) !important;
+    }
+  }
+}

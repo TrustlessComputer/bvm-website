@@ -173,10 +173,10 @@ Good luck and have fun!
       .absoluteValue()
       .toNumber();
 
-    // Case naka start at 4h UTC
-    if (diffDay === ActivityType.Day2 && dayjs.utc().hour() < 4) {
-      diffDay = 0;
-    }
+    // // Case naka start at 4h UTC
+    // if (diffDay === ActivityType.Day2 && dayjs.utc().hour() < 4) {
+    //   diffDay = 0;
+    // }
 
     return {
       step: DAYS.length > diffDay ? DAYS[diffDay] : DAYS[DAYS.length - 1],
@@ -185,7 +185,7 @@ Good luck and have fun!
   }, []);
 
   const [expandIndex, setExpandIndex] =
-    React.useState<Number | undefined>(undefined);
+    React.useState<Number | undefined>(currentDay.diffDay);
 
   const renderCta = (item: ICTA) => {
     switch (item.type) {
@@ -261,7 +261,7 @@ Good luck and have fun!
                     [styles.itemWrapper_title__active]: isExpanded,
                   })}
                 >
-                  <Flex direction="column" gap="4px">
+                  <Flex direction="column" gap="8px">
                     <Text>
                       {item.key === currentDay.diffDay && (
                         <span>Happening Now</span>
@@ -325,6 +325,7 @@ Good luck and have fun!
           allowToggle={true}
           allowMultiple={false}
           index={expandIndex as any}
+          defaultIndex={currentDay.diffDay}
           onChange={(expandedIndex) => {
             setExpandIndex(expandedIndex as number);
           }}
