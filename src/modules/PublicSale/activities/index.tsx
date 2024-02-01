@@ -124,7 +124,7 @@ Let's play to earn $ARCA testnet tokens, convertible to $ARCA mainnet tokens in 
       {
         key: 3,
         tag: 'Day 4',
-        title: 'Fully on-chain poker on Bitcoin',
+        title: 'Fully onchain gaming on Bitcoin (Part 2)',
         src: 'public-sale/playGame.png',
         type: ActivityType.Day4,
         ctas: [
