@@ -187,7 +187,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           ) : (
             <Image src={`${CDN_URL_ICONS}/ic-btc-2.svg`} alt="ic bitcoin" width={48} height={48} />
           )}
-          <Text color="black" fontSize="16px" fontWeight="500" textAlign="flex-start">{formatString(user.twitter_id, 6)}</Text>
+          <Text color="black" fontSize="16px" fontWeight="500" textAlign="flex-start">{formatString(user.twitter_id, 8)}</Text>
         </Flex>
       )
     } else if (user.twitter_id) {
