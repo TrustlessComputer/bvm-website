@@ -211,7 +211,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             width={48}
             name={user.twitter_name || user.twitter_username || ''}
           />
-          <Text color="black" fontSize="16px" fontWeight="500" textAlign="flex-start">{formatString(user.twitter_name, 12)}</Text>
+          <Text color="black" fontSize="16px" fontWeight="500">{formatString(user.twitter_name, 12)}</Text>
         </Flex>
       )
     }
