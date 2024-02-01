@@ -16,7 +16,12 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import cx from 'clsx';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
-import { getPublicSaleSummary, IPublicSaleDailyReward, requestRewardDailyShareCode } from '@/services/public-sale';
+import {
+  getPublicSaleDailyReward,
+  getPublicSaleSummary,
+  IPublicSaleDailyReward,
+  requestRewardDailyShareCode,
+} from '@/services/public-sale';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { formatCurrency } from '@/utils/format';
@@ -98,7 +103,7 @@ const HourlyRewardButton = ({ className }: any) => {
 
   const getProgramInfo = async () => {
     try {
-      const res = null;//await getPublicSaleDailyReward();
+      const res = await getPublicSaleDailyReward();
       setDailyReward(res);
       dispatch(setPublicSaleDailyReward(res));
     } catch (e) {
