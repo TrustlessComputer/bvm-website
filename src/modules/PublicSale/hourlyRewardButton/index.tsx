@@ -9,10 +9,10 @@ const HourlyRewardButton = ({ className }: any) => {
   const [isEnd, setIsEnd] = React.useState(false);
 
   const hourlyEndTime = useMemo(() => {
-    const res = dayjs.utc().set('minute', 30);
-    if (dayjs().utc().isBefore(res)) {
-      console.log('fadfa', res.get('hour'));
-      res.set('hour', res.get('hour') + 1);
+    let res = dayjs.utc().set('minute', 30);
+    res = res.set('second', 0);
+    if (dayjs().utc().isAfter(res)) {
+      res = res.set('hour', res.get('hour') + 1);
     }
     if(isEnd) {
       setIsEnd(false);
@@ -21,8 +21,8 @@ const HourlyRewardButton = ({ className }: any) => {
     return res.toString();
   }, [isEnd]);
 
-  console.log('dayjs.utc()', dayjs.utc().toString());
-  console.log('hourlyEndTime', hourlyEndTime);
+  // console.log('dayjs.utc()', dayjs.utc().toString());
+  // console.log('hourlyEndTime', hourlyEndTime);
 
   return (
     <Flex className={cx(s.container, className)}>
