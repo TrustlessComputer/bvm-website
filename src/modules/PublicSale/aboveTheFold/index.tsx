@@ -11,7 +11,6 @@ import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
 import Activities from '@/modules/PublicSale/activities';
 import useWindowSize from '@/hooks/useWindowSize';
 import DailyReward from '@/modules/PublicSale/dailyReward';
-import HourlyReward from '@/modules/PublicSale/hourlyReward';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
