@@ -9,9 +9,9 @@ import { getVCInformation } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
 import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
 import Activities from '@/modules/PublicSale/activities';
-import LeaderBoardSwitch from '@/modules/PublicSale/leaderBoardSwitch';
 import useWindowSize from '@/hooks/useWindowSize';
 import DailyReward from '@/modules/PublicSale/dailyReward';
+import HourlyReward from '@/modules/PublicSale/hourlyReward';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -53,6 +53,7 @@ const AboveTheFold = () => {
           <LeaderBoardVisual />
           {/*<AddMoreContribution />*/}
           <DailyReward />
+          <HourlyReward />
           {/*<LeaderBoardSwitch classNames={s.boardSwitch} />*/}
           {mobileScreen && <Activities />}
         </Flex>
