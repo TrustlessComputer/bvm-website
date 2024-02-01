@@ -269,16 +269,11 @@
 
 .profileBox {
   display: flex;
-  padding: 4px 8px;
   justify-content: center;
   border-radius: 100px;
-  border: 1px solid #ECECEC;
-  background: #F6F6F6;
+  border: 1px solid rgba(1, 1, 1, 0.3);
   height: fit-content;
   width: fit-content;
-  @include is-mobile {
-    padding: 4px 16px;
-  }
   &_content {
     gap: 8px;
     align-items: center;

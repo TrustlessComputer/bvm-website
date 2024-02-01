@@ -36,6 +36,7 @@ import Avatar from '@/components/Avatar';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
 import Image from 'next/image';
 import { CDN_URL_ICONS } from '@/config';
+import UserLoggedAvatar from '@/modules/PublicSale/BuyForm/UserLoggedAvatar';
 
 interface FormValues {
   tokenAmount: string;
@@ -72,7 +73,6 @@ const Column = forwardRef((props: IColumnProps, ref: any) => {
 const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const cachedTotalUSD =
     window.localStorage.getItem('LAST_TOTAL_USDT_NON_BOOST') || '0';
-  const user = useAppSelector(userSelector)
 
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
@@ -168,62 +168,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     }));
   };
 
-  const renderUser = () => {
-    if (!user) return '';
-    const isEVM = isAddress(user.twitter_id);
-    const isBTC = validate(user.twitter_id);
-    let component: React.ReactNode | undefined = undefined;
-    if (user.twitter_id && (isEVM || isBTC)) {
-      component = (
-        <Flex
-          className={s.profileBox_content}
-          onClick={() => {
-          if (isEVM) {
-            window.open(`https://etherscan.io/address/${user?.twitter_id}`)
-          } else {
-            window.open(`https://mempool.space/address/${user?.twitter_id}`)
-          }
-        }}>
-          {isEVM ? (
-            <Jazzicon diameter={32} seed={jsNumberForAddress(user?.twitter_id || "")} />
-          ) : (
-            <Image src={`${CDN_URL_ICONS}/ic-btc-2.svg`} alt="ic bitcoin" width={32} height={32} />
-          )}
-          <Text color="black" fontSize="14px" fontWeight="500">{ellipsisCenter({ str: user.twitter_id })}</Text>
-        </Flex>
-      )
-    } else if (user.twitter_id) {
-      component = (
-        <Flex
-          className={s.profileBox_content}
-          onClick={() => {
-            setTimeout(() => {
-              window.open(`https://twitter.com/${user?.twitter_username}`)
-            })
-          }}
-        >
-          <Avatar
-            url={getUrlAvatarTwitter(
-              user?.twitter_avatar as string,
-              'normal',
-            )}
-            address={''}
-            width={32}
-            name={user.twitter_name || user.twitter_username || ''}
-          />
-          <Text color="black" fontSize="14px" fontWeight="500">{formatString(user.twitter_name, 12)}</Text>
-        </Flex>
-      )
-    }
-
-    if (component) {
-      return (
-        <Flex className={s.profileBox}>
-          {component}
-        </Flex>
-      )
-    }
-  }
 
   const ContributorBlock = forwardRef((props: any, ref: any) => {
     const { className, ...rest } = props;
@@ -242,9 +186,11 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             fontSize={20}
             lineHeight={1}
             fontWeight={400}
-            color={'rgba(0,0,0,0.7)'}
-            gap={1} alignItems={"center"}
+            color="rgba(0,0,0,0.7)"
+            gap={1}
+            alignItems="center"
           >
+            <UserLoggedAvatar />
             Your contribution
             <AuthForBuyV2
               renderWithoutLogin={(onClick: any) => (
@@ -380,7 +326,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 </Text>
               </Flex>
             </Flex>
-            {renderUser()}
           </Flex>
           <Box mt={'24px'} />
           <div className={s.grid}>
