@@ -8,6 +8,7 @@ const initialState: CommonState = {
     [Coin.ETH]: '0',
     [Coin.TIA]: '0',
   } as any,
+  configs: null,
   leaderBoardMode: 1,
   needCheckDeposit: false,
   animatedLatestContributors: [],
@@ -22,6 +23,9 @@ const slice = createSlice({
     },
     setCoinPrices: (state, action) => {
       state.coinPrices = action.payload;
+    },
+    setConfigs: (state, action) => {
+      state.configs = action.payload;
     },
     setLeaderBoardMode: (state, action) => {
       state.leaderBoardMode = action.payload;
@@ -38,6 +42,7 @@ const slice = createSlice({
 export const {
   requestReload,
   setCoinPrices,
+  setConfigs,
   setLeaderBoardMode,
   setNeedCheckDeposit,
   setAnimatedLatestContributors

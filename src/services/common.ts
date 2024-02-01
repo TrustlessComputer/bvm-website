@@ -15,6 +15,16 @@ const getCoinPrices = async (): Promise<CoinPrices | undefined> => {
   }
 };
 
+const getConfigs = async (): Promise<CoinPrices | undefined> => {
+  try {
+    const res = (await apiClient.get('/configs')) as any;
+    return res;
+  } catch (error) {
+    return undefined;
+  }
+};
+
 export {
-  getCoinPrices
+  getCoinPrices,
+  getConfigs
 }
