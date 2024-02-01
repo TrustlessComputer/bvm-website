@@ -67,8 +67,10 @@ const RaffleButton = ({ className }: any) => {
 
   const REWARDS = useMemo(() => {
     if(configs) {
-      const res = JSON.parse(configs['naka']?.bvm_halvings);
-      return Object.values(res);
+      if(configs['naka']?.bvm_halvings) {
+        const res = JSON.parse(configs['naka']?.bvm_halvings);
+        return Object.values(res);
+      }
     }
     return [];
   }, [configs]);

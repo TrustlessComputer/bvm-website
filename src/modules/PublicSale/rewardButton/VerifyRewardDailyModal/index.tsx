@@ -68,7 +68,7 @@ const VerifyRewardDailyModal = ({
     <BaseModal
       isShow={isShow}
       onHide={onHide}
-      title={`Can't claim your reward?`}
+      title={`Claim your reward`}
       headerClassName={s.modalManualHeader}
       className={s.modalContent}
     >
