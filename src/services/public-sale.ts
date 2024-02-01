@@ -80,6 +80,19 @@ export const generateTokenWithMetamask = async (
   return res;
 };
 
+export const generateTokenWithWalletBTC = async (
+  params: { address: string, message: string, signature: string, pub_key: string }
+): Promise<IGenerateTOkenWithSecretCode> => {
+  const res = (await apiClient.post(`/bvm/generate-token-with-wallet`, {
+    "wallet_type": "bitcoin",
+    "address": params.address,
+    "message": params.message,
+    "signature": params.signature,
+    "pub_key": params.pub_key
+  })) as unknown as IGenerateTOkenWithSecretCode;
+  return res;
+};
+
 export const getPublicSaleLeaderBoards = async (params: {
   page?: number;
   limit?: number;

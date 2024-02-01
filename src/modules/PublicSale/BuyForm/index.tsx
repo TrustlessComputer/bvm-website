@@ -8,7 +8,7 @@ import {
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
 import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
-import { formatCurrency } from '@/utils/format';
+import { formatCurrency, formatName, formatString } from '@/utils/format';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
@@ -28,6 +28,14 @@ import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import IcHelp from '@/components/InfoTooltip/IcHelp';
 import AuthForBuyV2 from '@/modules/PublicSale/AuthForBuyV2';
+import { userSelector } from '@/stores/states/user/selector';
+import { isAddress } from '@ethersproject/address';
+import { validate } from 'bitcoin-address-validation';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
+import Avatar from '@/components/Avatar';
+import { getUrlAvatarTwitter } from '@/utils/twitter';
+import Image from 'next/image';
+import { CDN_URL_ICONS } from '@/config';
 
 interface FormValues {
   tokenAmount: string;
@@ -64,6 +72,7 @@ const Column = forwardRef((props: IColumnProps, ref: any) => {
 const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const cachedTotalUSD =
     window.localStorage.getItem('LAST_TOTAL_USDT_NON_BOOST') || '0';
+  const user = useAppSelector(userSelector)
 
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
@@ -158,6 +167,72 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       tokenAmount: e.target.value,
     }));
   };
+
+  const renderUser = () => {
+    if (!user) return '';
+    const isEVM = isAddress(user.twitter_id);
+    const isBTC = validate(user.twitter_id);
+    let component: React.ReactNode | undefined = undefined;
+    if (user.twitter_id && (isEVM || isBTC)) {
+      component = (
+        <Flex alignItems="center" gap="12px" cursor="pointer" onClick={() => {
+          if (isEVM) {
+            window.open(`https://etherscan.io/address/${user?.twitter_id}`)
+          } else {
+            window.open(`https://mempool.space/address/${user?.twitter_id}`)
+          }
+        }}>
+          {isEVM ? (
+            <Jazzicon diameter={48} seed={jsNumberForAddress(user?.twitter_id || "")} />
+          ) : (
+            <Image src={`${CDN_URL_ICONS}/ic-btc-2.svg`} alt="ic bitcoin" width={48} height={48} />
+          )}
+          <Text color="black" fontSize="16px" fontWeight="500">{formatString(user.twitter_id, 8)}</Text>
+        </Flex>
+      )
+    } else if (user.twitter_id) {
+      component = (
+        <Flex
+          alignItems="center"
+          cursor="pointer"
+          gap="12px"
+          onClick={() => {
+            setTimeout(() => {
+              window.open(`https://twitter.com/${user?.twitter_username}`)
+            })
+          }}
+        >
+          <Avatar
+            url={getUrlAvatarTwitter(
+              user?.twitter_avatar as string,
+              'normal',
+            )}
+            address={''}
+            width={48}
+            name={user.twitter_name || user.twitter_username || ''}
+          />
+          <Text color="black" fontSize="16px" fontWeight="500">{formatString(user.twitter_name, 12)}</Text>
+        </Flex>
+      )
+    }
+
+    if (component) {
+      return (
+        <Flex flex={1} flexDir="column">
+          <Text
+            fontSize={14}
+            lineHeight={1}
+            fontWeight={400}
+            color="black"
+            mb="12px"
+          >
+            You
+          </Text>
+          {component}
+        </Flex>
+      )
+    }
+  }
 
   const ContributorBlock = forwardRef((props: any, ref: any) => {
     const { className, ...rest } = props;
@@ -290,25 +365,32 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   return (
     <div className={s.container}>
       <form className={s.form} onSubmit={formik.handleSubmit}>
-        <div className={s.content}>
-          <Text
-            fontSize={14}
-            lineHeight={1}
-            fontWeight={400}
-            color={'black'}
-            mb={'12px'}
-          >
-            Total
-          </Text>
-          <Text className={s.fundValue}>
-            <NumberScale
-              label={'$'}
-              couters={Number(contributeInfo?.total_usdt_value_not_boost)}
-              maximumFractionDigits={0}
-              minimumFractionDigits={0}
-              defaultFrom={cachedTotalUSD}
-            />
-          </Text>
+        <div>
+          <Flex justify="space-between" gap="24px" flexDir={{ base: "column", lg: 'row' }}>
+            <Flex flex={1} flexDir="column">
+              <Text
+                fontSize={14}
+                lineHeight={1}
+                fontWeight={400}
+                color={'black'}
+                mb={'12px'}
+              >
+                Total
+              </Text>
+              <Flex alignItems="start" gap="12px">
+                <Text className={s.fundValue}>
+                  <NumberScale
+                    label={'$'}
+                    couters={Number(contributeInfo?.total_usdt_value_not_boost)}
+                    maximumFractionDigits={0}
+                    minimumFractionDigits={0}
+                    defaultFrom={cachedTotalUSD}
+                  />
+                </Text>
+              </Flex>
+            </Flex>
+            {renderUser()}
+          </Flex>
           <Box mt={'24px'} />
           <div className={s.grid}>
             <div className={s.grid_item}>
