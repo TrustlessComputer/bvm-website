@@ -268,7 +268,10 @@ Good luck and have fun!
                   <Flex direction="column" gap="8px">
                     <Text>
                       {item.key < currentDay.diffDay && (
-                        <span>Happening Now</span>
+                        <span className={styles.itemWrapper_happening}>Happening Now</span>
+                      )}
+                      {item.key === currentDay.diffDay && (
+                        <span className={styles.itemWrapper_unlocked}>New unlocked</span>
                       )}
                     </Text>
                     <Text>
