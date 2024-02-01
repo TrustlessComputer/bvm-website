@@ -1,5 +1,5 @@
 import { userSelector, userTokenSelector } from '@/stores/states/user/selector';
-import { Button, Flex, Text, Tooltip, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import cx from 'classnames';
 import React, { PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,16 +11,24 @@ import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/pl
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { setBearerToken } from '@/services/whitelist';
 import { requestReload } from '@/stores/states/common/reducer';
-import { generateTokenWithMetamask, generateTokenWithOauth, getPublicSaleSummary } from '@/services/public-sale';
-import { BVM_API, TWITTER_CLIENT_ID } from '@/config';
+import {
+  generateTokenWithMetamask,
+  generateTokenWithOauth,
+  generateTokenWithWalletBTC,
+  getPublicSaleSummary,
+} from '@/services/public-sale';
+import { BVM_API, CDN_URL_ICONS, TWITTER_CLIENT_ID } from '@/config';
 import { formatCurrency } from '@/utils/format';
 import { useAppSelector } from '@/stores/hooks';
 import { setUserToken } from '@/stores/states/user/reducer';
 import AppLoading from '@/components/AppLoading';
 import { getError } from '@/utils/error';
 import toast from 'react-hot-toast';
-import { signMessage } from '@/utils/metamask-helper';
 import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
+import useConnect from '@/hooks/useConnect';
+import Image from 'next/image';
+import { WalletType } from '@/interfaces/wallet';
+import useLoginBTC from '@/hooks/useLoginBTC';
 
 interface IAuthForBuyV2 extends PropsWithChildren {
   renderWithoutLogin?: (onClick: any) => any;
@@ -39,6 +47,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
   const uuid = getUuid();
   const [showManualCheck, setShowManualCheck] = useState(false);
   const [showManualCheckModal, setShowManualCheckModal] = useState(false);
+  const { signMessage } = useLoginBTC();
 
   const userToken = useSelector(userTokenSelector);
 
@@ -77,6 +86,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
         AuthenStorage.setAuthenKey(result?.token);
         setBearerToken(result?.token);
         dispatch(setUserToken(result?.token))
+        toast.success("Connect successfully.")
       }
       setSubmitting(false);
       dispatch(requestReload());
@@ -84,17 +94,17 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
     }
   };
 
-  useEffect(() => {
-    if (!user?.twitter_id) {
-      handleVerifyTwitterWithUUID();
-      timer.current = setInterval(async () => {
-        handleVerifyTwitterWithUUID();
-      }, 2000);
-    }
-    return () => {
-      clearInterval(timer.current);
-    };
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user?.twitter_id) {
+  //     handleVerifyTwitterWithUUID();
+  //     timer.current = setInterval(async () => {
+  //       handleVerifyTwitterWithUUID();
+  //     }, 2000);
+  //   }
+  //   return () => {
+  //     clearInterval(timer.current);
+  //   };
+  // }, [user]);
 
   const handleVerifyTwitterWithUUID = async (): Promise<void> => {
     try {
@@ -171,6 +181,30 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
     }, 10000);
   };
 
+  const handleLoginBitcoin = async (type: WalletType) => {
+    try {
+      const response = await signMessage(type);
+      if (response) {
+        const result = await generateTokenWithWalletBTC({
+          address: response.address,
+          message: response.message,
+          pub_key: response.pubKey,
+          signature: response.signature
+        })
+        if (result && !!result.token) {
+          AuthenStorage.setAuthenKey(result.token as string);
+          setBearerToken(result.token  as string);
+          dispatch(setUserToken(result.token as string))
+          toast.success("Connect successfully.")
+        }
+      }
+    } catch (error) {
+      const { message } = getError(error);
+      toast.error(message);
+    }
+  }
+
+
   const handleLoginMetamask = async () => {
     try {
       const { signature, message, address } = await signMessage((address: string) => {
@@ -181,6 +215,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
         AuthenStorage.setAuthenKey(result.token as string);
         setBearerToken(result.token  as string);
         dispatch(setUserToken(result.token  as string))
+        toast.success("Connect successfully.")
       }
     } catch (error) {
       const { message } = getError(error)
@@ -276,7 +311,6 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
             {/*      </clipPath>*/}
             {/*    </defs>*/}
             {/*  </svg>*/}
-
             {/*  <Text>Authorize</Text>*/}
             {/*</Button>*/}
             <Button className={cx(s.btnContainer)} onClick={handleLoginMetamask}>
@@ -374,6 +408,14 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
               </svg>
 
               <Text>Connect your Metamask</Text>
+            </Button>
+            <Button className={cx(s.btnContainer)} onClick={() => handleLoginBitcoin(WalletType.unisat)}>
+              <Image width={36} height={36} src={`${CDN_URL_ICONS}/ic-unisat.svg`} alt="icon unisat" />
+              <Text>Unisat</Text>
+            </Button>
+            <Button className={cx(s.btnContainer)} onClick={() => handleLoginBitcoin(WalletType.xverse)}>
+              <Image width={36} height={36} src={`${CDN_URL_ICONS}/ic-xverse.svg`} alt="icon xverse" />
+              <Text>Xverse</Text>
             </Button>
           </Flex>
         </BaseModal>
