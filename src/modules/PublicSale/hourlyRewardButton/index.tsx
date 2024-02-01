@@ -1,4 +1,5 @@
 import {
+  Box,
   Center,
   Flex,
   Popover,
@@ -301,7 +302,9 @@ const HourlyRewardButton = ({ className }: any) => {
                           </Text>
                         </Flex>
                       ) : (
-                        <AuthForBuy hideBuyAndStake={true}/>
+                        <Box className={s.buyWrapper}>
+                          <AuthForBuy hideBuyAndStake={true}/>
+                        </Box>
                       )
                     }
                     </>

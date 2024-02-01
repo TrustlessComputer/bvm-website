@@ -140,6 +140,16 @@ $time:10s; // including 1 flip
     }
   }
 
+  .buyWrapper {
+    width: 100%;
+    button {
+      padding: 8px 45px !important;
+      height: 32px !important;
+      font-size: 12px !important;
+      font-weight: 400 !important;
+    }
+  }
+
   :global {
     .hourglass {
       animation:flip $time ease-in-out infinite;
