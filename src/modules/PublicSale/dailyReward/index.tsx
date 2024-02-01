@@ -1,11 +1,11 @@
 import s from './styles.module.scss';
-import { Divider, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import dayjs from 'dayjs';
 import RaffleButton from '@/modules/PublicSale/raffleButton';
-import RewardButton from '@/modules/PublicSale/rewardButton';
 import React, { useEffect, useState } from 'react';
 import { getPublicSaleProgram, IPublicSalePrograme } from '@/services/public-sale';
+import HourlyReward from '@/modules/PublicSale/hourlyReward';
 
 const DailyReward = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,24 +27,28 @@ const DailyReward = () => {
   };
 
   return (
-    <Flex className={s.container}>
-      <Flex justifyContent={"space-between"} alignItems={"center"}>
-        <Text fontSize={"11px"} fontWeight={400} color={"rgba(255, 255, 255, 0.7)"}>Daily Reward</Text>
-        <Flex gap={'6px'} className={s.timeWrapper}>
-          <Countdown
-            className={s.time}
-            expiredTime={dayjs
-              .utc(programeInfo?.end_date, 'YYYY-MM-DD HH:mm:ss')
-              .toString()}
-            hideIcon={true}
-            onRefreshEnd={() => setIsEnd(true)}
-          />
+    <Flex direction={"column"} className={s.wrapper}>
+      <HourlyReward />
+      <Flex className={s.container}>
+        <Flex justifyContent={"space-between"} alignItems={"center"}>
+          <Text fontSize={"11px"} fontWeight={400} color={"rgba(255, 255, 255, 0.7)"}>Daily Reward</Text>
+          <Flex gap={'6px'} className={s.timeWrapper}>
+            <Countdown
+              className={s.time}
+              expiredTime={dayjs
+                .utc(programeInfo?.end_date, 'YYYY-MM-DD HH:mm:ss')
+                .toString()}
+              hideIcon={true}
+              onRefreshEnd={() => setIsEnd(true)}
+            />
+          </Flex>
         </Flex>
+        <RaffleButton />
+        {/*<Divider />*/}
+        {/*<RewardButton />*/}
       </Flex>
-      <RaffleButton />
-      <Divider />
-      <RewardButton />
     </Flex>
+
   )
 }
 

@@ -117,7 +117,7 @@ const RaffleButton = ({ className }: any) => {
       <Popover onClose={onClose} isOpen={isOpen}>
         <PopoverTrigger>
           <Flex className={cx(s.container, className)}>
-            <Flex onMouseOver={mobileScreen ? undefined : onOpen} onClick={mobileScreen ? onOpen : undefined} gap={'8px'} alignItems={'flex-start'}>
+            <Flex onMouseOver={mobileScreen ? undefined : onOpen} onClick={mobileScreen ? onOpen : undefined} gap={'8px'} direction={"column"} alignItems={'center'}>
               <Center
                 cursor={programeInfo?.link ? 'pointer' : 'default'}
                 className={s.raffleBgIcon}
@@ -129,7 +129,7 @@ const RaffleButton = ({ className }: any) => {
               >
                 <img src={programeInfo?.image} alt="raffleBtnBg" />
               </Center>
-              <Flex direction={"column"} alignItems={"flex-start"} flex={1}>
+              <Flex direction={"column"} w={"100%"} alignItems={'center'} flex={1}>
                 <Flex
                   direction={"column"}
                   onClick={() =>

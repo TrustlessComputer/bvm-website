@@ -24,7 +24,7 @@ import {
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { formatCurrency } from '@/utils/format';
 import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
-import { requestReload } from '@/stores/states/common/reducer';
+import { requestReload, setPublicSaleDailyReward } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
 import { IAuthenCode } from '@/modules/Whitelist/steps';
 import { getLink } from '@/utils/helpers';
@@ -35,6 +35,7 @@ import dayjs from 'dayjs';
 import { PUBLIC_SALE_START } from '@/modules/Whitelist';
 import { commonSelector } from '@/stores/states/common/selector';
 import useWindowSize from '@/hooks/useWindowSize';
+import SvgInset from '@/components/SvgInset';
 
 const RaffleButton = ({ className }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -101,6 +102,7 @@ const RaffleButton = ({ className }: any) => {
     try {
       const res = await getPublicSaleDailyReward();
       setDailyReward(res);
+      dispatch(setPublicSaleDailyReward(res));
     } catch (e) {
     } finally {
       setIsLoading(false);
@@ -151,7 +153,7 @@ const RaffleButton = ({ className }: any) => {
     } else if (Number(dailyReward?.pending) > 0) {
       return `Your Estimated Reward for Day ${currentDay.diffDay + 1}`;
     }
-    return 'Today’s $BVM Reward';
+    return `Today's Total Reward`;
   }, [rewardValue, dailyReward]);
 
   const generateLinkTweet = async () => {
@@ -249,29 +251,9 @@ const RaffleButton = ({ className }: any) => {
                       >
                         {
                           rewardValue > 0 ? (
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <rect width="24" height="24" fill="white"/>
-                              <g clip-path="url(#clip0_30630_9258)">
-                                <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="black"/>
-                              </g>
-                              <defs>
-                                <clipPath id="clip0_30630_9258">
-                                  <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
-                                </clipPath>
-                              </defs>
-                            </svg>
+                              <SvgInset svgUrl={`public-sale/tw_white.svg`} />
                           ) : (
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <rect width="24" height="24" fill="black"/>
-                              <g clip-path="url(#clip0_30640_11775)">
-                                <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="white"/>
-                              </g>
-                              <defs>
-                                <clipPath id="clip0_30640_11775">
-                                  <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
-                                </clipPath>
-                              </defs>
-                            </svg>
+                            <SvgInset svgUrl={`public-sale/tw_black.svg`} />
                           )
                         }
                         <Text lineHeight={'100%'} fontSize={'12px'} color={rewardValue > 0 ? "#FFFFFF" : "#000000"}>
