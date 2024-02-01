@@ -12,25 +12,36 @@ const submitReferralCode = async () => {
     const code = ReferralStorage.getReferralCode();
     if (code) {
       await apiClient.put('/user/update-referrer', {
-        "referral_code": code,
+        referral_code: code,
       });
     }
-  } catch (error) {
-  }
-}
+  } catch (error) {}
+};
 
 const getUser = async (): Promise<User | undefined> => {
   try {
-    const userInfo = await apiClient.get('/user/info') as User | undefined;
+    const userInfo = (await apiClient.get('/user/info')) as User | undefined;
     submitReferralCode();
-    return userInfo
+    return userInfo;
   } catch (e) {
     return undefined;
   }
 };
 
+const submitReferralModularCode = async () => {
+  try {
+    const code = ReferralStorage.getReferralModular();
+    if (code) {
+      await apiClient.post('/user/modular-refer', {
+        referral_code: code,
+      });
+    }
+  } catch (error) {}
+};
+
 const userServices = {
   getUser,
-}
+  submitReferralModularCode,
+};
 
 export default userServices;

@@ -21,6 +21,7 @@ import { getError } from '@/utils/error';
 import toast from 'react-hot-toast';
 import { signMessage } from '@/utils/metamask-helper';
 import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
+import userServices from '@/services/user';
 
 interface IAuthForBuyV2 extends PropsWithChildren {
   renderWithoutLogin?: (onClick: any) => any;
@@ -45,6 +46,18 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
   const isLogged = useMemo(() => Boolean(userToken), [userToken]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    if (isLogged) {
+      submitReferralModular();
+    }
+  }, [isLogged]);
+
+  const submitReferralModular = async () => {
+    try {
+      await userServices.submitReferralModularCode();
+    } catch (error) {}
+  };
 
   useEffect(() => {
     if (authenCode?.public_code) {
