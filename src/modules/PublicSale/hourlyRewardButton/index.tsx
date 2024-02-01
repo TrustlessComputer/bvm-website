@@ -320,15 +320,15 @@ const HourlyRewardButton = ({ className }: any) => {
             <PopoverBody mt={4}>
               <Flex gap={6} direction={['column', 'row']} maxW={"350px"}>
                 <Flex direction={'column'} gap={4}>
-                  <Text className={s.title}>Contribute Early and Earn Extra BVM Tokens</Text>
+                  <Text className={s.title}>Earn Extra $BVM Daily for Your Contribution</Text>
                   <img className={s.imgDemo} src={'/public-sale/dailyReward.png'} alt={'dailyReward'} />
                   <Flex direction={"column"} gap={"12px"}
                         className={s.desc}
                   >
-                    <Text>We are offering 200,000 $BVM in daily rewards to all BVM public sale participants!</Text>
-                    <Text>Within 7 days of the sale, the daily reward pool will diminish by half each day, similar to Bitcoin Halving Block Reward</Text>
-                    <Text>This means the earlier you join, the more extra $BVM reward you are eligible to claim</Text>
-                    <Text>Furthermore, the rewards will be distributed proportionally based on your contribution amount</Text>
+                    <Text>We are offering <span style={{color: '#FA4E0E'}}>200,000 $BVM</span> in daily rewards to all BVM public sale participants!</Text>
+                    <Text>Within 7 days of the sale, the daily reward pool will diminish by half each day, similar to Bitcoin Halving Block Reward.</Text>
+                    <Text>This means the earlier you join, the more extra $BVM reward you are eligible to claim.</Text>
+                    <Text>Furthermore, the rewards will be distributed proportionally EVERY HOUR based on your contribution amount.</Text>
                     <Text>Be an early $BVM backer!</Text>
                   </Flex>
                 </Flex>
