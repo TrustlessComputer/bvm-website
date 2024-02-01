@@ -172,7 +172,7 @@ const RaffleButton = ({ className }: any) => {
       'BTC',
       false,
     )} early contributors who've committed ${formatCurrency(
-      saleSummary.total_usdt_value || '0',
+      saleSummary.total_usdt_value_not_boost || '0',
       0,
       0,
       'BTC',
