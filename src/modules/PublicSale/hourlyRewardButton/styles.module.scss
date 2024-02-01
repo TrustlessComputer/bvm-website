@@ -6,13 +6,10 @@ $time:10s; // including 1 flip
   gap: 8px;
   transition: all 0.3s;
   position: relative;
-  background: url('/public-sale/hourly_bg.svg');
-  background-size: cover;
-  background-repeat: no-repeat;
   //cursor: pointer;
   width: 165px;
-  height: 99px;
-  padding: 6px;
+  //height: 99px;
+  //padding: 6px;
 
   .title {
     font-size: 12px;
@@ -20,6 +17,19 @@ $time:10s; // including 1 flip
     font-weight: 400;
     color: #894D1C;
     padding-top: 1px;
+  }
+
+  .topWrapper {
+    background: url('/public-sale/hourly_bg.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 99px;
+    padding: 6px;
+  }
+
+  .bottomWrapper {
+    gap: 8px;
+    align-items: center;
   }
 
   .icon {
@@ -35,6 +45,15 @@ $time:10s; // including 1 flip
   .text_text {
     display: block;
     margin-bottom: 4px;
+    font-size: 12px;
+    line-height: 100%;
+    font-weight: 400;
+    color: #894D1C;
+
+    &.notBuy {
+      text-align: center;
+      line-height: 140%;
+    }
   }
 
   .timeWrapper {
@@ -50,6 +69,17 @@ $time:10s; // including 1 flip
     //margin-bottom: 8px;
   }
 
+  .rewardValue {
+    font-size: 14px;
+    line-height: 100%;
+    font-weight: 500;
+    text-transform: uppercase;
+    background: linear-gradient(180deg, #DF7E2E -12.5%, #894D1C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
   .time {
     //margin-top: 10px;
     font-size: 12px;
@@ -58,7 +88,6 @@ $time:10s; // including 1 flip
     text-transform: uppercase;
     width: fit-content;
     color: #894D1C;
-
     p {
       font-size: inherit !important;
       font-weight: inherit !important;
@@ -89,20 +118,36 @@ $time:10s; // including 1 flip
       }
     }
 
-    @include is-mobile {
-      font-size: 14px;
-    }
+    //@include is-mobile {
+    //  font-size: 14px;
+    //}
 
     &.claimable {
-      background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
-      -webkit-background-clip: text; /* clip the background to the text inside the tag*/
+      background: linear-gradient(180deg, #DF7E2E -12.5%, #894D1C 100%);
+      -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
     }
   }
 
   .hourglassWrapper {
     transform: scale(0.2);
     margin-top: 25px;
+
+    @media screen and (min-width: 1920px) {
+      transform: scale(0.15);
+    }
+  }
+
+  .buyWrapper {
+    width: 100%;
+    button {
+      padding: 8px 45px !important;
+      height: 32px !important;
+      font-size: 12px !important;
+      font-weight: 400 !important;
+    }
   }
 
   :global {
@@ -180,7 +225,81 @@ $time:10s; // including 1 flip
         }
       }
     }
+  }
 
+  :global {
+    .chakra-popover__body {
+      padding: 0;
+      margin: 0 !important;
+    }
+  }
+}
 
+.learnMoreWrapper {
+  background: #ffffff;
+  padding: 4px 12px 4px 4px;
+  color: #000000;
+  font-size: 14px;
+  align-items: center;
+  //justify-content: center;
+  height: 32px;
+  gap: 8px;
+  width: 100%;
+
+  &.isDisable {
+    opacity: 70%;
+    cursor: not-allowed;
+  }
+}
+
+.menuContent {
+  border: 1px solid #ffffff26;
+  padding: 20px;
+  background: linear-gradient(180deg, #282828 0%, #131313 146.93%),
+  linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) !important;
+  min-width: 400px;
+  border-radius: 0 !important;
+
+  &:focus-visible {
+    box-shadow: none !important;
+  }
+
+  @include is-mobile {
+    min-width: 85vw;
+  }
+
+  .title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+  }
+
+  .imgDemo {
+    max-width: 350px;
+  }
+
+  .desc {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+    margin-top: 8px;
+    white-space: pre-wrap;
+
+    article {
+      display: inline-flex;
+
+      &::before {
+        content: '-';
+        display: block;
+        padding-right: 5px;
+      }
+    }
+  }
+
+  :global {
+    .chakra-popover__body {
+      padding: 0;
+      margin-top: 0;
+    }
   }
 }

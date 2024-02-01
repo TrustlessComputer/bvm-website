@@ -62,14 +62,18 @@ const Activities = React.memo(() => {
         tag: 'Day 1',
         title: 'Fully on-chain gaming on Bitcoin',
         src: 'public-sale/playGame.png',
-        ctas: [],
+        ctas: [{
+          title: "Play game in Arcade",
+          type: 'link',
+          link: 'https://play.bitcoinarcade.xyz'
+        }],
         type: ActivityType.Day1,
         desc: `
-Bitcoin Arcade is a Bitcoin L2 designed for gaming (aka. the Immutable of Bitcoin). It’s powered by BVM with these modules: Bitcoin for security, EigenDA for data availability, and Optimism for execution.<br/><br/>
-On the first day of BVM’s launch, you’ll play incredibly fun games. These are the first fully on-chain on Bitcoin. Both the game logic and game states are stored on-chain.<br/><br/>
-🎁 Rewards: <strong>30 million $ARCA testnet tokens</strong>, which can be converted to the $ARCA mainnet tokens in March.<br/><br/>
-🎮 How to play: Go to <a href='https://play.bitcoinarcade.xyz' target='_blank' style='text-decoration: underline; color: #FA4E0E'>https://play.bitcoinarcade.xyz</a> and enter the private invite code ARCADE.<br/><br/>
-Good luck and have fun!
+Bitcoin Arcade is a Bitcoin L2 for gaming using Bitcoin for security, EigenDA for data availability, and Optimism for execution.<br/><br/>
+Let's play to earn $ARCA testnet tokens, convertible to $ARCA mainnet tokens in March.<br/><br/>
+🎁 Rewards: <strong>30M $ARCA</strong><br/><br/>
+🎮 Play now at <a href='https://play.bitcoinarcade.xyz' target='_blank' style='text-decoration: underline; color: #FA4E0E'>play.bitcoinarcade.xyz</a> with the invite code ARCADE.<br/><br/>
+<img src='public-sale/banner-game.png' width="100%" />
 `,
       },
       {
@@ -93,8 +97,8 @@ Good luck and have fun!
           },
         ],
         desc:
-          'NakaChain is a low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps, enabling the payment of gas fees in Bitcoin. It’s powered by BVM with these modules: Bitcoin for security, Polygon for data availability, and Optimism for execution.' +
-          "<br/><br/>On the second day of awesomeness, challenge yourself to dominate the market by trading futures on BRC-20 tokens' prices. Every four hours, the top gainer will earn $50 in Bitcoin.\n"
+          'NakaChain is a low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps using Bitcoin for security, Polygon for data availability, and Optimism for execution.' +
+          "<br/><br/>Trade perpetual on $ORDI and $SATS to earn $50 every 4 hours.<br/>"
           // '<br/><br/>Total rewards: <span style="color: #FA4E0E">$1,000</span>',
       },
       {
@@ -107,10 +111,15 @@ Good luck and have fun!
           {
             title: 'Play with modular blocks',
             type: 'link',
-            link: 'https://playmodular.com/',
+            link: 'https://playmodular.com/workshop',
           },
         ],
-        desc: 'Build whatever on Bitcoin with modular blocks powered by the BVM network.',
+        // https://
+        desc: 'Build whatever on Bitcoin with modular blocks powered by the BVM network.' +
+          '<br/><br/>' +
+          'Share your build for a chance to get <a style="text-decoration: underline; color: white" target="_blank" href="https://magiceden.io/ordinals/item-details/ea283fe32ce8666960ec43febb6b09857c095f24b8a723140f57aacca34c35eci0">Bitcoin Punk Inscription #18108</a> - one of the earliest Bitcoin Punk ever inscribed.' +
+          '<br/><br/>' +
+          '<video src="public-sale/modular-video.mp4" controls autoplay loop />',
       },
       {
         key: 3,
