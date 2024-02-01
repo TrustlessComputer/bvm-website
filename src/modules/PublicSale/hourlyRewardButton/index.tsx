@@ -155,15 +155,15 @@ const HourlyRewardButton = ({ className }: any) => {
       return `Congrats! You Have Earned`;
     } else if (Number(dailyReward?.pending) > 0) {
       return `Your Estimated Reward`;
-    } else if (!dailyReward) {
+    } else if (rewardValue === 0) {
       return `Contribute early & earn extra $BVM`;
     }
     return `Today's Total Reward`;
   }, [rewardValue, dailyReward]);
 
-  const isBuy = useMemo(() => {
-    return !!dailyReward;
-  }, [dailyReward]);
+  const needBuy = useMemo(() => {
+    return rewardValue === 0 && Number(dailyReward?.pending || "0") === 0;
+  }, [rewardValue, dailyReward]);
 
   const generateLinkTweet = async () => {
     let code = '';
@@ -268,22 +268,22 @@ const HourlyRewardButton = ({ className }: any) => {
                 </Flex>
                 <Flex className={s.bottomWrapper} direction={"column"}>
                   <Text
-                    className={cx(s.text_text, !isBuy && s.notBuy)}
+                    className={cx(s.text_text, needBuy && s.notBuy)}
                   >
                     {titleReward}
                   </Text>
 
                   {
-                    isBuy && (
+                    !needBuy && (
                       <Flex gap={'6px'} className={s.timeWrapper}>
-                        <Text className={cx(s.rewardValue, rewardValue > 0 ? s.claimable : '')}>{formatCurrency(rewardValue || dailyReward?.pending || currentDayReward, MIN_DECIMAL, MIN_DECIMAL, 'BTC', false)} BVM</Text>
+                        <Text className={cx(s.rewardValue, s.claimable)}>{formatCurrency(rewardValue || dailyReward?.pending, MIN_DECIMAL, MIN_DECIMAL, 'BTC', false)} BVM</Text>
                       </Flex>
                     )
                   }
                   <Flex gap={4} w={"100%"}>
                     <>
                     {
-                      isBuy ? (
+                      !needBuy ? (
                         <Flex
                           className={cx(s.learnMoreWrapper)}
                           gap={2}
