@@ -86,7 +86,7 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
   };
 
   return (
-    <Flex className={s.container}>
+    <Flex className={s.container} direction={"column"}>
       {
         submitting ? (
           <Flex alignItems={'center'} justifyContent={'center'}>
@@ -101,12 +101,12 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
                     reward ? (
                       <>
                         <img src={envelopSrc} />
-                        <Text className={s.reward}>Better luck next time</Text>
+                        <Text className={s.reward}>Claim successfully! You received {currentLuckyMoney?.bvm_amount} BVM</Text>
                       </>
                     ) : (
                       <>
-                        <Text>Better luck next time</Text>
                         <img src={envelopSrc} />
+                        <Text className={s.reward}>Better luck next time</Text>
                       </>
                     )
                   }
