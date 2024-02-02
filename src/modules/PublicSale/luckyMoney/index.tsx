@@ -204,16 +204,16 @@ export default function LuckyMoney() {
   const timeouts = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
   useEffect(() => {
     console.log(timeouts);
-    if (timeouts.current[currentLuckyMoney?.id]) {
+    if ((timeouts.current as any)?.[(currentLuckyMoney as any)?.id]) {
       console.log('_________clear', currentLuckyMoney?.id);
-      clearTimeout(timeouts.current[currentLuckyMoney?.id]);
+      clearTimeout((timeouts.current as any)?.[(currentLuckyMoney as any)?.id]);
     }
     if (currentLuckyMoney?.created_at) {
       const timeSpan = dayjs(currentLuckyMoney?.created_at).diff(dayjs());
 
       if (timeSpan > 0) {
         console.log('_________set', currentLuckyMoney?.id, timeSpan);
-        timeouts.current[currentLuckyMoney?.id] = setTimeout(() => {
+        (timeouts.current as any)[(currentLuckyMoney as any)?.id] = setTimeout(() => {
           makeInRain();
           getListLuckyMoney();
         }, timeSpan);
