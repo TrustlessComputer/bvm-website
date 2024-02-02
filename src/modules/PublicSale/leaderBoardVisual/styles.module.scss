@@ -48,9 +48,10 @@
   justify-content: center;
   flex-wrap: wrap;
   align-content: flex-start;
+  padding-bottom: 5px;
 
   @include is-mobile {
-    margin-top: 360px;
+    padding-top: 400px;
   }
 }
 
