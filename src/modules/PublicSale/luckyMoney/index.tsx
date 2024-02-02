@@ -61,7 +61,7 @@ export default function LuckyMoney() {
 
         money.currentFrame += 1;
         money.y += money.speed;
-        money.angle += money.direction * 0.1;
+        money.angle += money.direction * 0.05;
         const radius = money.direction * (5 + (index % 6));
         money.x +=
           Math.sin((money.currentFrame + index) / (2 * Math.PI)) * radius;
@@ -69,7 +69,7 @@ export default function LuckyMoney() {
     }
 
     const initAnimation = () => {
-      const numMoney = Math.floor(Math.random() * 5);
+      const numMoney = Math.floor(Math.random() * 10);
       const speedOffset = 5;
       const speedRange = 5;
       const numImages = 6;
