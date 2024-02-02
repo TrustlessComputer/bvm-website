@@ -150,11 +150,7 @@ table {
       .isActiveRow {
         background-color: #ffffff !important;
         p {
-          color: #000000 !important;
-        }
-
-        .claimed {
-          color: #fa4e0e !important;
+          color: #000000 !important;;
         }
 
         td:last-child {
@@ -164,6 +160,12 @@ table {
                 path {
                   fill: black !important;
                 }
+              }
+            }
+
+            p {
+              &.claimed {
+                color: #fa4e0e !important;
               }
             }
           }

@@ -87,7 +87,7 @@ const LeaderBoard = (props: IProps) => {
       dispatch(setPublicSaleDailyReward(res));
     } catch (e) {
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
