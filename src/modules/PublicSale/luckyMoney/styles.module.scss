@@ -9,9 +9,12 @@
 
 .Modal {
   padding: 0;
+  background: transparent !important;
+  box-shadow: none !important;
 
   :global(.chakra-modal__body) {
     padding: 0 !important;
+    box-shadow: none !important;
   }
 
   :global(.modal-header-wrap) {
@@ -26,17 +29,47 @@
     }
   }
 
-  .reward {
+  .content {
     position: absolute;
-    width: 100%;
     top: 20%;
+    width: 65%;
+    transform: translateX(45%);
+  }
+
+  .betterTitle {
+    width: 100%;
     text-align: center;
     font-size: 24px;
     font-weight: 500;
     padding: 20px;
+    color: #FFFFFF;
+  }
+
+  .betterDesc {
+    font-size: 16px;
+    font-weight: 300;
+    color: #FFFFFF;
   }
 
   .container {
     position: relative;
+  }
+
+  .closeBtn {
+    padding: 20px !important;
+    background-color: transparent !important;
+    position: absolute;
+    right: 0;
+    top: -2px;
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:hover {
+      .closeIcon {
+        transform: scale(1.2);
+        transition: all 0.3s;
+      }
+    }
   }
 }

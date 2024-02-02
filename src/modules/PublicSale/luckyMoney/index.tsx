@@ -100,7 +100,7 @@ export default function LuckyMoney() {
                   id: 'lucky-money-dialog',
                   disableBgClose: true,
                   contentPadding: 0,
-                  // hideCloseButton: true,
+                  // hideCloseButton: false,
                   className: s.Modal,
                   render: () => <LuckyMoneyModal envelopSrc={envelop.src} />,
                 }),

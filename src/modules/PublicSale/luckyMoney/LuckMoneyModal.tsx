@@ -9,6 +9,7 @@ import { Flex, Text } from '@chakra-ui/react';
 import Loading from '@/components/Loading';
 import s from './styles.module.scss';
 import { closeModal } from '@/stores/states/modal/reducer';
+import SvgInset from '@/components/SvgInset';
 
 type Props = {
   envelopSrc: string;
@@ -75,18 +76,32 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
         toast.error('Something went wrong. Please try again.');
       }
       getLatestCurrentLuckyMoney();
-      dispatch(
-        closeModal({
-          id: 'lucky-money-dialog',
-        }),
-      );
+      onHide();
     } finally {
       setSubmitting(false);
     }
   };
 
+  const onHide = () => {
+    dispatch(
+      closeModal({
+        id: 'lucky-money-dialog',
+      }),
+    );
+  }
+
   return (
     <Flex className={s.container} direction={"column"}>
+      {
+        subbmited && (
+          <button onClick={onHide} className={s.closeBtn}>
+            <SvgInset
+              className={s.closeIcon}
+              svgUrl={`/icons/ic_close_modal.svg`}
+            />
+          </button>
+        )
+      }
       {
         submitting ? (
           <Flex alignItems={'center'} justifyContent={'center'}>
@@ -101,12 +116,15 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
                     reward ? (
                       <>
                         <img src={envelopSrc} />
-                        <Text className={s.reward}>Claim successfully! You received {currentLuckyMoney?.bvm_amount} BVM</Text>
+                        <Text className={s.betterTitle}>Claim successfully! You received {currentLuckyMoney?.bvm_amount} BVM</Text>
                       </>
                     ) : (
                       <>
-                        <img src={envelopSrc} />
-                        <Text className={s.reward}>Better luck next time</Text>
+                        <img src={'public-sale/lucky_normal_bg.png'} />
+                        <Flex direction={"column"} className={s.content}>
+                          <Text className={s.betterTitle}>Better luck next time!</Text>
+                          <Text className={s.betterDesc}>We are still dropping tons of Lucky Red Packets for early $BVM contributors until the end of the public sale</Text>
+                        </Flex>
                       </>
                     )
                   }
