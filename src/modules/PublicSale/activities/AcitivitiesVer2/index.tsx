@@ -204,22 +204,36 @@ const ActivitiesVer2 = React.memo(() => {
             key: "games played",
             value: gameReport.total_game.toString(),
           });
-          component2 = ReportRow({
-            key: "transactions",
-            value: gameReport.total_txs.toString(),
-          })
+          component2 = (
+            <Flex cursor="pointer" onClick={() => {
+              window.open("https://explorer.testnet.bitcoinarcade.xyz/", "_blank")
+            }}>
+              {ReportRow({
+                key: "transactions",
+                value: gameReport.total_txs.toString(),
+              })}
+            </Flex>
+          )
         }
         break;
       }
       case ActivityType.Naka: {
         const nakaVolume = numberReport.nakaVolume
         if (nakaVolume && nakaVolume.usd_volume) {
-          component1 = ReportRow({
-            key: "volume",
-            value: nakaVolume.usd_volume.toString(),
-            maxDigit: 2,
-            prefix: "$"
-          });
+          component1 = (
+            <Flex cursor="pointer" onClick={() => {
+              window.open("https://explorer.nakachain.xyz/address/0x43eF235efF5d8Aa29D34bCB7AE42dCFA6A86477e", "_blank")
+            }}>
+              {
+                ReportRow({
+                  key: "volume",
+                  value: nakaVolume.usd_volume.toString(),
+                  maxDigit: 2,
+                  prefix: "$"
+                })
+              }
+            </Flex>
+          );
         }
         break;
       }
