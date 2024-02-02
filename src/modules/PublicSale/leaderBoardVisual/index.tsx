@@ -36,7 +36,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const needCheckDeposit = useAppSelector(commonSelector).needCheckDeposit;
   const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
   const { mobileScreen } = useWindowSize();
-  const TOTALs = 39;
+  const TOTALs = 95;
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -150,7 +150,7 @@ const LeaderBoardVisual = (props: IProps) => {
   useEffect(() => {
 
     let refLevel = 0;
-    const levels = mobileScreen ? [1, 3, 4, 4, 5, 5, 5, 5, 5] : [1, 3, 5, 6, 8, 8, 8];
+    const levels = mobileScreen ? [1, 3, 4, 4, 5, 5, 5, 5, 5] : [1, 3, 5, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8];
     const missingLength = (mobileScreen ? (TOTALs - 1) : TOTALs) - list.length;
     const missingArray = Array.from({ length: missingLength }).map((u, i) => ({
       ranking: 1000,
