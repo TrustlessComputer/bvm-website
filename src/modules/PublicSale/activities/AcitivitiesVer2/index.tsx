@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import styles from './styles.module.scss';
 
 interface ICTA {
@@ -9,7 +9,6 @@ interface ICTA {
   link?: string;
 }
 
-
 export interface GameItemProps {
   title: string;
   desc: string | any;
@@ -17,6 +16,14 @@ export interface GameItemProps {
   banner?: string,
   link?: string,
 }
+
+const GAME_LINK = {
+  ARCA: "https://play.bitcoinarcade.xyz",
+  NAKA: "https://nakachain.xyz/perpetual",
+  MODULAR: "https://playmodular.com/workshop",
+  ALPHA: "https://app.alpha.wtf/"
+}
+
 
 export const NormalRow = (p: { key: string, value: string }) => {
   return (
@@ -72,11 +79,11 @@ const ActivitiesVer2 = React.memo(() => {
           <ul>
             ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
             ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
-            ${LinkRow({ key: "Where:", value: "Naka", link: "https://nakachain.xyz/app" })}
+            ${LinkRow({ key: "Where:", value: "Naka", link: GAME_LINK.ARCA })}
           </ul>
         `,
         banner: 'banner-02.png',
-        link: 'https://nakachain.xyz/app',
+        link: GAME_LINK.ARCA,
       },
       {
         title: 'Modular on Bitcoin',
@@ -84,11 +91,11 @@ const ActivitiesVer2 = React.memo(() => {
           <ul>
             ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
             ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
-            ${LinkRow({ key: "Where:", value: "Modular", link: "https://play.bitcoinarcade.xyz" })}
+            ${LinkRow({ key: "Where:", value: "Modular", link: GAME_LINK.NAKA })}
           </ul>
         `,
         banner: 'banner-03.png',
-        link: 'https://nakachain.xyz/app',
+        link: GAME_LINK.NAKA,
       },
       {
         title: 'Running on Bitcoin',
@@ -96,11 +103,11 @@ const ActivitiesVer2 = React.memo(() => {
           <ul>
             ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
             ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
-            ${LinkRow({ key: "Where:", value: "Alpha", link: "https://play.bitcoinarcade.xyz" })}
+            ${LinkRow({ key: "Where:", value: "Alpha", link: GAME_LINK.ALPHA })}
           </ul>
         `,
         banner: 'banner-04.png',
-        link: 'https://nakachain.xyz/app',
+        link: GAME_LINK.ALPHA,
       },
       {
         title: 'AI x Bitcoin (Soon)',
@@ -108,11 +115,9 @@ const ActivitiesVer2 = React.memo(() => {
           <ul>
             ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
             ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
-            ${LinkRow({ key: "Where:", value: "Eternal AI", link: "https://play.bitcoinarcade.xyz" })}
           </ul>
         `,
         banner: 'banner-05.png',
-        link: 'https://nakachain.xyz/app',
       },
     ]
   }, [])
@@ -130,8 +135,15 @@ const ActivitiesVer2 = React.memo(() => {
         </div>
         <div className={styles.container_item_media}>
           {!!item.banner && (
-            <a href={item.link} target='_blank'>
-              <img src={`public-sale/${item.banner}`} style={{ width: "100%" }}  alt="banner"/></a>
+            !!item.link ?
+              (
+                <a href={item.link || ""} target='_blank'>
+                  <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: "100%" }}  alt="banner"/>
+                </a>
+              ) :
+              (
+                <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: "100%" }}  alt="banner"/>
+              )
           )}
         </div>
       </Flex>
