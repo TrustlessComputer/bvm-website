@@ -46,11 +46,14 @@ const LuckyMoneyWinner = () => {
         </div>
         <div>
           <div className={s.textMessage}>
-            John just snatched a red packet successfully and got{' '}
+            <strong>{winner?.user.twitter_name || '---'}</strong> just snatched
+            a red packet successfully and got{' '}
             <strong>{winner?.bvm_amount} BVM</strong>.
           </div>
           <div className={s.time}>
-            {winner?.updated_at ? dayjs(winner?.updated_at).fromNow() : '--:--'}
+            {winner?.updated_at
+              ? dayjs(winner?.updated_at).fromNow(true)
+              : '--:--'}
           </div>
         </div>
       </div>
