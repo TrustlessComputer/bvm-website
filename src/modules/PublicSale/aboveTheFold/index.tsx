@@ -50,7 +50,6 @@ const AboveTheFold = () => {
           direction={'column'}
           justifyContent={'flex-start'}
         >
-          {!mobileScreen && <Box height="40px" bg="#1b1b1b" />}
           <LeaderBoardVisual />
           {/*<AddMoreContribution />*/}
           <DailyReward />
