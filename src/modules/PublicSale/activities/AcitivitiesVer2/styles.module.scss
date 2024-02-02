@@ -20,17 +20,17 @@
   &_item {
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.30);
     background: rgba(255, 255, 255, 0.05);
     padding-bottom: 12px;
     ul {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
     &_header {
       padding: 10px 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     }
     &_content {
       padding: 12px 12px 12px 34px;

@@ -43,7 +43,7 @@ const AboveTheFold = () => {
       <SimpleGrid
         className={`${s.content}`}
         gridTemplateColumns={{ lg: '1fr', xl: '6.5fr 3.5fr' }}
-        gap={[0, '20px']}
+        gap={[0, '40px']}
       >
         <Flex
           className={s.leftSection}
