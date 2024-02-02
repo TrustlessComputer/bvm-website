@@ -99,7 +99,7 @@ Let's play to earn $ARCA testnet tokens, convertible to $ARCA mainnet tokens in 
         ],
         desc:
           'NakaChain is a low-cost and lightning-fast Bitcoin Layer 2 blockchain designed for DeFi apps using Bitcoin for security, Polygon for data availability, and Optimism for execution.' +
-          "<br/><br/>Trade perpetual on $ORDI and $SATS to earn $50 every 4 hours.<br/>"
+          "<br/><br/>Trade perpetual on $BTC and $ORDI to earn $50 every 4 hours.<br/>"
           // '<br/><br/>Total rewards: <span style="color: #FA4E0E">$1,000</span>',
       },
       {
