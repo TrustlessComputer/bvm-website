@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { closeModal, openModal } from '@/stores/states/modal/reducer';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import s from './styles.module.scss';
 import range from 'lodash/range';
@@ -201,30 +201,25 @@ export default function LuckyMoney() {
     }
   };
 
+  const timeouts = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
+    console.log(timeouts);
+    if (timeouts.current[currentLuckyMoney?.id]) {
+      console.log('_________clear', currentLuckyMoney?.id);
+      clearTimeout(timeouts.current[currentLuckyMoney?.id]);
+    }
     if (currentLuckyMoney?.created_at) {
       const timeSpan = dayjs(currentLuckyMoney?.created_at).diff(dayjs());
-      console.log('_________', currentLuckyMoney, timeSpan);
+
       if (timeSpan > 0) {
-        timeout = setTimeout(() => {
-          // dispatch(
-          //   closeModal({
-          //     id: 'lucky-money-dialog',
-          //   }),
-          // );
+        console.log('_________set', currentLuckyMoney?.id, timeSpan);
+        timeouts.current[currentLuckyMoney?.id] = setTimeout(() => {
           makeInRain();
           getListLuckyMoney();
         }, timeSpan);
       }
     }
-
-    return () => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-    };
-  }, [currentLuckyMoney]);
+  }, [currentLuckyMoney?.id]);
 
   if (typeof window !== 'undefined') {
     (window as any).makeItRain = makeInRain;

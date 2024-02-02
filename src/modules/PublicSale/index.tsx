@@ -19,7 +19,6 @@ const PublicSaleModule = () => {
       <div className={s.contentTop}>
         <div className="container">
           <TopContent />
-          <LuckyMoney />
           <AboveTheFold />
         </div>
       </div>
