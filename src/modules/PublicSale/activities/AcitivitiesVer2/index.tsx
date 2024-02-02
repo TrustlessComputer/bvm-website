@@ -110,7 +110,7 @@ const ActivitiesVer2 = React.memo(() => {
         link: GAME_LINK.ALPHA,
       },
       {
-        title: 'AI x Bitcoin (Soon)',
+        title: 'AI x Bitcoin',
         desc: `
           <ul>
             ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
