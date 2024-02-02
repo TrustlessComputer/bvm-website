@@ -177,7 +177,7 @@ export default function LuckyMoney() {
 
   useEffect(() => {
     getListLuckyMoney();
-  }, []);
+  }, [needReload]);
 
   const getListLuckyMoney = async () => {
     const res = await getPublicSaleLuckyMoney();
@@ -201,31 +201,24 @@ export default function LuckyMoney() {
     }
   };
 
-  const timeouts = useRef<ReturnType<typeof setTimeout>>();
+  const timeouts = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
   useEffect(() => {
     console.log(timeouts);
-    if (timeouts.current) {
-      console.log('_________clear', timeouts.current);
-      clearTimeout(timeouts.current);
+    if (timeouts.current[currentLuckyMoney?.id]) {
+      console.log('_________clear', currentLuckyMoney?.id);
+      clearTimeout(timeouts.current[currentLuckyMoney?.id]);
     }
     if (currentLuckyMoney?.created_at) {
       const timeSpan = dayjs(currentLuckyMoney?.created_at).diff(dayjs());
 
       if (timeSpan > 0) {
         console.log('_________set', currentLuckyMoney?.id, timeSpan);
-        timeouts.current = setTimeout(() => {
+        timeouts.current[currentLuckyMoney?.id] = setTimeout(() => {
           makeInRain();
           getListLuckyMoney();
         }, timeSpan);
       }
     }
-
-    return () => {
-      if (timeouts.current) {
-        console.log('_________clear', timeouts.current);
-        clearTimeout(timeouts.current);
-      }
-    };
   }, [currentLuckyMoney?.id]);
 
   if (typeof window !== 'undefined') {
