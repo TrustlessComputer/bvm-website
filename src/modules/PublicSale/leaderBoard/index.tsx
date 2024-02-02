@@ -403,7 +403,7 @@ const LeaderBoard = (props: IProps) => {
                 </Flex>
               </Flex>
               {data?.need_active &&
-                <Text textAlign={"right"} fontSize={"12px"} className={s.claimed}> Claimed: {formatCurrency(dailyReward?.claimed, 0, 0, 'BTC', false)} BVM</Text>
+                <Flex justifyContent={"flex-end"} fontSize={"12px"} color={"#fa4e0e !important;"}> Claimed: {formatCurrency(dailyReward?.claimed, 0, 0, 'BTC', false)} BVM</Flex>
               }
             </Flex>
           );
