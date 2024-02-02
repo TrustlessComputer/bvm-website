@@ -144,7 +144,7 @@ const ActivitiesVer2 = React.memo(() => {
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Trade BRC-20 perpetual futures on-chain." })}
-            ${NormalRow({ key: "Prizes:", value: "$50 every 4 hours & 100k Naka points every hours." })}
+            ${NormalRow({ key: "Prizes:", value: "$50 every 4 hours & 100k Naka points every hour." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Naka", link: GAME_LINK.NAKA })}
           </ul>
         `,
@@ -156,7 +156,7 @@ const ActivitiesVer2 = React.memo(() => {
         title: 'Education on Bitcoin',
         desc: `
           <ul>
-            ${NormalRow({ key: "Activities:", value: "Learn about modular blockchain architecture via an exciting Lego game." })}
+            ${NormalRow({ key: "Activities:", value: "Learn about modular blockchain architecture via a fun Lego game." })}
             ${NormalRow({ key: "Prizes:", value: "Bitcoin Punk 686 (1st), Rare Modular (2nd), Modular (3rd)." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Modular", link: GAME_LINK.MODULAR })}
           </ul>
@@ -327,11 +327,14 @@ const ActivitiesVer2 = React.memo(() => {
     <Box className={styles.wrap}>
       <Flex flexDir="column" gap="20px" className={styles.container}>
         <Flex id="HEADER" flexDir="column" className={styles.container_header}>
+          <Text color="white" fontSize="24px" lineHeight="140%">
+            🎮🏃️💹🧱🧠
+          </Text>
           <Text color="white" fontSize={{ base: "18px", md: "24px" }} lineHeight="140%">
             BITCOIN L2 HOPPING WEEKEND.
           </Text>
           <Text color="white" fontSize={{ base: "18px", md: "24px" }} lineHeight="140%" opacity={0.7}>
-            EXPLORE BITCOIN LIKE NEVER BEFORE.
+            EXPERIENCE BITCOIN LIKE NEVER BEFORE.
           </Text>
           <Text color="white" fontSize={{ base: "14px", md: "16px" }} lineHeight="140%" opacity={0.7} mt="10px">
             Hop from one Bitcoin L2 to another to play on-chain games, trade BRC-20 futures, run for charity, learn about modular architecture, and more! Events end on Monday, Feb 5, at 3:30 am UTC.

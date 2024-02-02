@@ -18,7 +18,7 @@ const ContributorInfo = ({ data }: {data?: ILeaderBoardPoint}) => {
   return (
     <Flex direction={'column'} w={'284px'} gap={3} className={s.container}>
       {!!user && (isEVM || isBTC) ? (
-        <HorizontalItem className={s.rowData} color={"#000000"} label="ADDRESS" value={ellipsisCenter({ str: user?.twitter_id, limit: 6 })} />
+        <HorizontalItem className={s.rowData} color={"#000000"} label="ADDRESS" value={formatString(user?.twitter_id, isEVM ? 6 : 8, '')} />
       ) : (
         <HorizontalItem className={s.rowData} color={"#000000"} label={'USER'} value={formatString(data?.twitter_name, 16)} />
       )}
