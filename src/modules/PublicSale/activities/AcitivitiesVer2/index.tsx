@@ -301,7 +301,7 @@ const ActivitiesVer2 = React.memo(() => {
       <Flex flexDir="column" gap="16px" className={styles.container}>
         <Flex id="HEADER" flexDir="column" gap="8px" className={styles.container_header}>
           <Text color="white" fontSize={{ base: "18px", md: "24px" }} lineHeight="140%">
-            BITCOIN L2 HOPING WEEKEND
+            BITCOIN L2 HOPPING WEEKEND
           </Text>
           <Text color="white" fontSize={{ base: "14px", md: "16px" }} lineHeight="140%" opacity={0.7}>
             Explore Bitcoin like never before. Hop from one Bitcoin L2 to another to play on-chain games, trade BRC-20 futures, run for charity, learn about modular architecture, and more!

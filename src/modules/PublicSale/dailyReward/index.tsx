@@ -29,7 +29,7 @@ const DailyReward = () => {
   return (
     <Flex direction={"column"} className={s.wrapper}>
       <HourlyReward />
-      {/*<Flex className={s.container}>
+      <Flex className={s.container}>
         <Flex justifyContent={"space-between"} alignItems={"center"}>
           <Text fontSize={"11px"} fontWeight={400} color={"rgba(255, 255, 255, 0.7)"}>Daily Reward</Text>
           <Flex gap={'6px'} className={s.timeWrapper}>
@@ -43,10 +43,10 @@ const DailyReward = () => {
             />
           </Flex>
         </Flex>
-        <RaffleButton />*/}
+        <RaffleButton />
         {/*<Divider />*/}
         {/*<RewardButton />*/}
-{/*      </Flex>*/}
+      </Flex>
     </Flex>
 
   )
