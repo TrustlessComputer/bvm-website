@@ -153,7 +153,7 @@ const IncreaseNumber = React.memo((props: IProp) => {
     };
   }, [prev, next, timeSpan, formatValue, minStep]);
 
-  return <span ref={ref} />;
+  return <span ref={ref} style={{ fontSize: 12, fontWeight: "500", lineHeight: "140%" }} />;
 })
 
 IncreaseNumber.displayName = "IncreaseNumber";

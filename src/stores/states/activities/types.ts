@@ -25,10 +25,16 @@ export interface NakaVolumeReport {
   usd_volume: string;
 }
 
+export interface GameReport {
+  total_txs: number;
+  total_game: number;
+}
+
 export interface NumberReport {
   modular: ModularReport;
   alphaRun: AlphaRunReport;
-  nakaVolume: NakaVolumeReport
+  nakaVolume: NakaVolumeReport;
+  gameReport: GameReport;
 }
 
 export interface ActivitiesState {

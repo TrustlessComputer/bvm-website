@@ -269,11 +269,12 @@ export const requestRewardDailyShareCode = async (): Promise<any> => {
 
 export const getActivitiesReport = async (): Promise<NumberReport | undefined> => {
   try {
-    const [modular, alphaRun, nakaVolume] = (
+    const [modular, alphaRun, nakaVolume, gameReport] = (
       await Promise.allSettled([
         apiReport.get("https://generative.xyz/generative/api/modular-workshop/statistic"),
         apiReport.get("https://stag-perp-api.fprotocol.io/api/run-together/statistics"),
-        apiReport.get("https://api.bvm.network/api/future/report")
+        apiReport.get("https://api.bvm.network/api/future/report"),
+        apiReport.get("https://game-state.bitcoinarcade.xyz/api/network-stats")
       ])
     ) as any[];
 
@@ -281,6 +282,7 @@ export const getActivitiesReport = async (): Promise<NumberReport | undefined> =
       modular: modular?.value,
       alphaRun: alphaRun?.value,
       nakaVolume: nakaVolume?.value,
+      gameReport: gameReport?.value
     }
 
   } catch (error) {
