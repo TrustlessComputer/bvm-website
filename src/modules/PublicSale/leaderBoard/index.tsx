@@ -5,37 +5,22 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
-import {
-  AvatarGroup,
-  Avatar as AvatarImg,
-  Box,
-  Flex,
-  Text,
-  Tooltip,
-} from '@chakra-ui/react';
+import { Avatar as AvatarImg, AvatarGroup, Box, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import clsx from 'classnames';
 import AppLoading from '@/components/AppLoading';
-import { CDN_URL_ICONS } from '@/config';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import {
-  publicSaleLeaderBoardSelector,
-  userSelector,
-} from '@/stores/states/user/selector';
-import {
-  clearPublicSaleLeaderBoard,
-  setPublicSaleLeaderBoard,
-} from '@/stores/states/user/reducer';
-import { getPublicSaleLeaderBoards } from '@/services/public-sale';
-import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
-import SvgInset from '@/components/SvgInset';
-import ContributorDetailInfo from '@/modules/PublicSale/components/contributorDetailInfo';
+import { publicSaleLeaderBoardSelector, userSelector } from '@/stores/states/user/selector';
+import { clearPublicSaleLeaderBoard, setPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
+import { getPublicSaleDailyReward, getPublicSaleLeaderBoards, IPublicSaleDailyReward } from '@/services/public-sale';
+import { MIN_DECIMAL } from '@/constants/constants';
 import { tokenIcons } from '@/modules/PublicSale/depositModal/constants';
 import { compareString } from '@/utils/string';
+import { setPublicSaleDailyReward } from '@/stores/states/common/reducer';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -64,6 +49,8 @@ const LeaderBoard = (props: IProps) => {
   const [refreshing, setRefreshing] = useState(false);
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
+  const [dailyReward
+    , setDailyReward] = useState<IPublicSaleDailyReward | null>();
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -83,6 +70,7 @@ const LeaderBoard = (props: IProps) => {
 
   useEffect(() => {
     fetchData(true);
+    getProgramInfo();
   }, [needReload]);
 
   useEffect(() => {
@@ -91,6 +79,17 @@ const LeaderBoard = (props: IProps) => {
       fetchData(true);
     }
   }, [isSearch]);
+
+  const getProgramInfo = async () => {
+    try {
+      const res = await getPublicSaleDailyReward();
+      setDailyReward(res);
+      dispatch(setPublicSaleDailyReward(res));
+    } catch (e) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const fetchData = async (isNew?: boolean) => {
     try {
@@ -404,7 +403,7 @@ const LeaderBoard = (props: IProps) => {
                 </Flex>
               </Flex>
               {data?.need_active &&
-                <Text textAlign={"right"} fontSize={"12px"} className={s.claimed}> Claimed: 0 BVM</Text>
+                <Text textAlign={"right"} fontSize={"12px"} className={s.claimed}> Claimed: {formatCurrency(dailyReward?.claimed, 0, 0, 'BTC', false)} BVM</Text>
               }
             </Flex>
           );
