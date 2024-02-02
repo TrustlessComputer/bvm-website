@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { closeModal, openModal } from '@/stores/states/modal/reducer';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import s from './styles.module.scss';
 import range from 'lodash/range';
@@ -177,7 +177,7 @@ export default function LuckyMoney() {
 
   useEffect(() => {
     getListLuckyMoney();
-  }, [needReload]);
+  }, []);
 
   const getListLuckyMoney = async () => {
     const res = await getPublicSaleLuckyMoney();
@@ -201,18 +201,19 @@ export default function LuckyMoney() {
     }
   };
 
+  const timeouts = useRef<ReturnType<typeof setTimeout>>();
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
+    console.log(timeouts);
+    if (timeouts.current) {
+      console.log('_________clear', timeouts.current);
+      clearTimeout(timeouts.current);
+    }
     if (currentLuckyMoney?.created_at) {
       const timeSpan = dayjs(currentLuckyMoney?.created_at).diff(dayjs());
-      console.log('_________', currentLuckyMoney, timeSpan);
+
       if (timeSpan > 0) {
-        timeout = setTimeout(() => {
-          // dispatch(
-          //   closeModal({
-          //     id: 'lucky-money-dialog',
-          //   }),
-          // );
+        console.log('_________set', currentLuckyMoney?.id, timeSpan);
+        timeouts.current = setTimeout(() => {
           makeInRain();
           getListLuckyMoney();
         }, timeSpan);
@@ -220,11 +221,12 @@ export default function LuckyMoney() {
     }
 
     return () => {
-      if (timeout) {
-        clearTimeout(timeout);
+      if (timeouts.current) {
+        console.log('_________clear', timeouts.current);
+        clearTimeout(timeouts.current);
       }
     };
-  }, [currentLuckyMoney]);
+  }, [currentLuckyMoney?.id]);
 
   if (typeof window !== 'undefined') {
     (window as any).makeItRain = makeInRain;
