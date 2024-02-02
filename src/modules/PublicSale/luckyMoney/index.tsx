@@ -319,11 +319,7 @@ export default function Wrapper() {
     };
   }, [needReload]);
 
-  if (
-    dailyReward?.total ||
-    dailyReward?.pending ||
-    userContributeInfo?.usdt_value
-  ) {
+  if (userContributeInfo?.usdt_value) {
     return <LuckyMoney />;
   }
 
