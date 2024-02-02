@@ -109,17 +109,17 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                 </div>
               )}
               <Flex flexDir="column" marginTop="20px">
-                <Flex alignItems="center" gap="4px" justifyContent="center">
-                  <span style={{ color: "#FA4E0E", fontWeight: "700", textAlign: 'center' }}>${formatCurrency(
-                    totalDeposit || '0',
-                    0,
-                    0,
-                    'BTC',
-                    true,
-                  )}
-                  </span>
-                  <span style={{ color: "white", fontWeight: "700", textAlign: 'center', paddingBottom: "2px" }}>raised</span>
-                </Flex>
+                {/*<Flex alignItems="center" gap="4px" justifyContent="center">*/}
+                {/*  <span style={{ color: "#FA4E0E", fontWeight: "700", textAlign: 'center' }}>${formatCurrency(*/}
+                {/*    totalDeposit || '0',*/}
+                {/*    0,*/}
+                {/*    0,*/}
+                {/*    'BTC',*/}
+                {/*    true,*/}
+                {/*  )}*/}
+                {/*  </span>*/}
+                {/*  <span style={{ color: "white", fontWeight: "700", textAlign: 'center', paddingBottom: "2px" }}>raised</span>*/}
+                {/*</Flex>*/}
                 <Flex gap="8px" flexDir="column" className={s.countDown_wrapper}>
                   <Flex alignItems="end">
                     <Countdown

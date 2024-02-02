@@ -41,7 +41,7 @@ const TopContent = () => {
             Bitcoin Virtual Machine
           </Text>
           <Text className={s.title}>Bitcoin, reimagined.</Text>
-          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin beyond just a currency — the next internet with gaming, DeFi, AI, SocialFi, and more. Join <strong>{formatCurrency(totalUser || 800, 0, 0)} backers</strong> shaping the future of Bitcoin.</Text>
+          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin beyond just a currency — the next internet with gaming, DeFi, AI, SocialFi, and more. Join {formatCurrency(totalUser || 800, 0, 0)} backers shaping the future of Bitcoin.</Text>
         </Flex>
         <ul className={s.actions}>
           <li>
