@@ -78,7 +78,7 @@ const ActivitiesVer2 = React.memo(() => {
   const TASKS = React.useMemo<GameItemProps[]>(() => {
     return [
       {
-        title: 'Gaming on Bitcoin',
+        title: 'GameFi on Bitcoin',
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Play 8 different fully on-chain games to earn rewards." })}
@@ -94,7 +94,7 @@ const ActivitiesVer2 = React.memo(() => {
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Trade BRC-20 perpetual futures on-chain." })}
-            ${NormalRow({ key: "Rewards:", value: "$50 every 4 hours." })}
+            ${NormalRow({ key: "Rewards:", value: "$50 every 4 hours & 100k Naka points every hours." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Naka", link: GAME_LINK.NAKA })}
           </ul>
         `,
@@ -102,7 +102,7 @@ const ActivitiesVer2 = React.memo(() => {
         link: GAME_LINK.NAKA,
       },
       {
-        title: 'Modular on Bitcoin',
+        title: 'Education on Bitcoin',
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Learn about modular blockchain architecture via an exciting Lego game." })}
@@ -114,7 +114,7 @@ const ActivitiesVer2 = React.memo(() => {
         link: GAME_LINK.MODULAR,
       },
       {
-        title: 'Running on Bitcoin',
+        title: 'SocialFi on Bitcoin',
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Participate in a charity run." })}
