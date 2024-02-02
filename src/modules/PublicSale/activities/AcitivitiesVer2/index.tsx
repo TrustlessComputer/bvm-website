@@ -91,11 +91,11 @@ const ActivitiesVer2 = React.memo(() => {
           <ul>
             ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
             ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
-            ${LinkRow({ key: "Where:", value: "Modular", link: GAME_LINK.NAKA })}
+            ${LinkRow({ key: "Where:", value: "Modular", link: GAME_LINK.MODULAR })}
           </ul>
         `,
         banner: 'banner-03.png',
-        link: GAME_LINK.NAKA,
+        link: GAME_LINK.MODULAR,
       },
       {
         title: 'Running on Bitcoin',
