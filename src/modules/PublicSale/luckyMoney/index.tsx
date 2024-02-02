@@ -207,11 +207,11 @@ export default function LuckyMoney() {
       console.log('_________', timeSpan);
       if (timeSpan) {
         timeout = setTimeout(() => {
-          dispatch(
-            closeModal({
-              id: 'lucky-money-dialog',
-            }),
-          );
+          // dispatch(
+          //   closeModal({
+          //     id: 'lucky-money-dialog',
+          //   }),
+          // );
           makeInRain();
         }, timeSpan);
       }
