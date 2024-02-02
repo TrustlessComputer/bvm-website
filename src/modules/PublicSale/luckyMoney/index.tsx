@@ -8,14 +8,17 @@ import random from 'lodash/random';
 import { ENVELOPS } from './constants';
 import { commonSelector } from '@/stores/states/common/selector';
 import {
+  IPublicSaleDailyReward,
   IPublicSaleLuckyMoney,
   claimPublicSaleLuckyMoney,
+  getPublicSaleDailyReward,
   getPublicSaleLuckyMoney,
 } from '@/services/public-sale';
 import {
   requestReload,
   setCurrentLuckyMoney,
   setLuckyMoneyList,
+  setPublicSaleDailyReward,
 } from '@/stores/states/common/reducer';
 import dayjs from 'dayjs';
 
@@ -26,7 +29,7 @@ import {
 } from './helpers';
 import LuckyMoneyModal from './LuckMoneyModal';
 
-export default function LuckyMoney() {
+function LuckyMoney() {
   const dispatch = useAppDispatch();
 
   const needReload = useAppSelector(commonSelector).needReload;
@@ -247,6 +250,48 @@ export default function LuckyMoney() {
 
   if (typeof window !== 'undefined') {
     (window as any).makeItRain = makeInRain;
+  }
+
+  return <></>;
+}
+
+export default function Wrapper() {
+  const needReload = useAppSelector(commonSelector).needReload;
+  const dispatch = useAppDispatch();
+  const [dailyReward, setDailyReward] =
+    useState<IPublicSaleDailyReward | null>();
+  const refInterval = useRef<any>(undefined);
+
+  const getProgramInfo = async () => {
+    try {
+      const res = await getPublicSaleDailyReward();
+      setDailyReward(res);
+      dispatch(setPublicSaleDailyReward(res));
+    } catch (e) {
+    } finally {
+    }
+  };
+
+  useEffect(() => {
+    getProgramInfo();
+
+    if (refInterval?.current) {
+      clearInterval(refInterval.current);
+    }
+
+    refInterval.current = setInterval(() => {
+      getProgramInfo();
+    }, 300000);
+
+    return () => {
+      if (refInterval?.current) {
+        clearInterval(refInterval.current);
+      }
+    };
+  }, [needReload]);
+
+  if (dailyReward?.total || dailyReward?.pending) {
+    return <LuckyMoney />;
   }
 
   return <></>;

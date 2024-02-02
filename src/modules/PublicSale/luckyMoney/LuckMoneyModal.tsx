@@ -1,5 +1,6 @@
 import {
   claimPublicSaleLuckyMoney,
+  getPublicSaleSummary,
   IPublicSaleLuckyMoney,
 } from '@/services/public-sale';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
@@ -19,6 +20,7 @@ import SvgInset from '@/components/SvgInset';
 import bg from '@/public/images/lucky-money-envelops/lucky-money-background-conffeti.png';
 import bgSuccess from '@/public/images/lucky-money-envelops/lucky-money-success.png';
 import { formatAmount, formatCurrency } from '@/utils/format';
+import { userSelector } from '@/stores/states/user/selector';
 
 type Props = {
   envelopSrc: string;
@@ -26,6 +28,7 @@ type Props = {
 
 export default function LuckyMoneyModal({ envelopSrc }: Props) {
   const dispatch = useAppDispatch();
+  const user = useAppSelector(userSelector);
   const needReload = useAppSelector(commonSelector).needReload;
   const luckyMoneyList = useAppSelector(commonSelector).luckyMoneyList;
   const currentLuckyMoney = useAppSelector(commonSelector).currentLuckyMoney;
@@ -102,8 +105,37 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
     );
   };
 
-  const handleShareTw = () => {
-    window.open('https://twitter.com', '_blank');
+  const handleShareTw = async () => {
+    // window.open('https://twitter.com', '_blank');
+
+    const shareUrl = !user?.referral_code
+      ? 'bvm.network/public-sale'
+      : `bvm.network/public-sale?refer=${user?.referral_code}`;
+
+    const saleSummary = await getPublicSaleSummary();
+
+    const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
+      saleSummary.total_user || '0',
+      0,
+      0,
+      'BTC',
+      false,
+    )} early contributors who've committed $${formatCurrency(
+      saleSummary.total_usdt_value_not_boost || '0',
+      0,
+      0,
+      'BTC',
+      true,
+    )} to building Bitcoin's future with @BVMnetwork\n\n`;
+
+    setTimeout(() => {
+      return window.open(
+        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+          content,
+        )}`,
+        '_blank',
+      );
+    }, 300);
   };
 
   const renderLoading = () => {
