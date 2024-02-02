@@ -86,7 +86,7 @@ const ActivitiesVer2 = React.memo(() => {
             ${LinkRow({ key: "Bitcoin L2:", value: "Bitcoin Arcade", link: GAME_LINK.ARCA })}
           </ul>
         `,
-        banner: 'banner-01.png',
+        banner: 'banner-01_1.png',
         link: GAME_LINK.ARCA,
       },
       {
