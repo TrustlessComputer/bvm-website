@@ -18,12 +18,12 @@ export function pointInConvexHull(
   hull: [Point, Point, Point, Point],
 ) {
   const n = hull.length;
-  let isInside = true;
+  let isInside = false;
 
   for (let i = 0, j = n - 1; i < n; j = i++) {
     if (
       hull[i].y > point.y !== hull[j].y > point.y &&
-      point.x <
+      point.x >
         ((hull[j].x - hull[i].x) * (point.y - hull[i].y)) /
           (hull[j].y - hull[i].y) +
           hull[i].x
