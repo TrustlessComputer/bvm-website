@@ -10,9 +10,11 @@ import TopContent from '@/modules/PublicSale/topContent';
 import React from 'react';
 import IntroVideos from '@/modules/PublicSale/IntroVideos';
 import useTradeNakaEvent from '@/modules/PublicSale/activities/hooks/useTradeNakaEvent';
+import useGetNumberReport from '@/modules/PublicSale/activities/hooks/useGetNumberReport';
 
 const PublicSaleModule = () => {
   useTradeNakaEvent();
+  useGetNumberReport();
   return (
     <Box className={s.container}>
       <div className={s.contentTop}>
