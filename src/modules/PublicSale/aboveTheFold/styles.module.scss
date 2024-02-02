@@ -22,11 +22,10 @@
   }
 
   .leftSection {
-    background: #1b1b1b;
-    padding-top: 40px;
     position: relative;
     @include is-mobile {
       padding-top: 130px;
+      background: #1b1b1b;
     }
   }
 
