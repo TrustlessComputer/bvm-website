@@ -137,6 +137,7 @@ const RaffleButton = ({ className }: any) => {
                       ? window.open(programeInfo?.link, '_blank')
                       : undefined
                   }
+                  alignItems={"center"}
                 >
                   <Text
                     className={s.text_text}
@@ -145,10 +146,10 @@ const RaffleButton = ({ className }: any) => {
                     fontWeight={500}
                     textTransform={"uppercase"}
                   >
-                    WEEKEND REWARDS
+                    PERCEPTRON #121
                   </Text>
                   <Flex gap={'6px'} className={s.timeWrapper}>
-                    <Text className={s.time} color={"#FFFFFF"}>{programeInfo?.sub_title}</Text>
+                    <Text className={s.time} color={"#FFFFFF"}>by Fingerprints DAO x Generative</Text>
                   </Flex>
                 </Flex>
                 <Flex gap={4} w={"100%"}>

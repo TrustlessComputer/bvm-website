@@ -31,7 +31,7 @@ const DailyReward = () => {
       <HourlyReward />
       <Flex className={s.container}>
         <Flex justifyContent={"space-between"} alignItems={"center"} gap={"4px"}>
-          <Text fontSize={"11px"} fontWeight={400} color={"rgba(255, 255, 255, 0.7)"}>Weekend Rewards</Text>
+          <Text fontSize={"11px"} fontWeight={400} color={"rgba(255, 255, 255, 0.7)"}>RAFFLE</Text>
           <Flex gap={'6px'} className={s.timeWrapper}>
             <Countdown
               className={s.time}
