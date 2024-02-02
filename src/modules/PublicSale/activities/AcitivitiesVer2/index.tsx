@@ -67,11 +67,11 @@ const ActivitiesVer2 = React.memo(() => {
           <ul>
             ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
             ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
-            ${LinkRow({ key: "Where:", value: "Play fully on-chain games", link: "https://play.bitcoinarcade.xyz" })}
+            ${LinkRow({ key: "Where:", value: "Play fully on-chain games", link: GAME_LINK.ARCA })}
           </ul>
         `,
         banner: 'banner-01.png',
-        link: 'https://play.bitcoinarcade.xyz',
+        link: GAME_LINK.ARCA,
       },
       {
         title: 'DeFi on Bitcoin',
@@ -79,11 +79,11 @@ const ActivitiesVer2 = React.memo(() => {
           <ul>
             ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
             ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
-            ${LinkRow({ key: "Where:", value: "Naka", link: GAME_LINK.ARCA })}
+            ${LinkRow({ key: "Where:", value: "Naka", link: GAME_LINK.NAKA })}
           </ul>
         `,
         banner: 'banner-02.png',
-        link: GAME_LINK.ARCA,
+        link: GAME_LINK.NAKA,
       },
       {
         title: 'Modular on Bitcoin',
