@@ -7,6 +7,8 @@ import { numberReportSelector } from '@/stores/states/activities/selector';
 import { formatCurrency } from '@/utils/format';
 import { value } from 'valibot';
 import BigNumber from 'bignumber.js';
+import { coinPricesSelector } from '@/stores/states/common/selector';
+import { Coin } from '@/stores/states/common/types';
 
 interface ICTA {
   title: string;
@@ -117,7 +119,8 @@ export const ReportRow = (p: { key: string, value: string, prefix?: string, maxD
 
 
 const ActivitiesVer2 = React.memo(() => {
-  const numberReport = useAppSelector(numberReportSelector)
+  const numberReport = useAppSelector(numberReportSelector);
+  const btcPrice = useAppSelector(coinPricesSelector)?.[Coin.BTC];
   const TASKS = React.useMemo<GameItemProps[]>(() => {
     return [
       {
@@ -243,7 +246,7 @@ const ActivitiesVer2 = React.memo(() => {
           });
           component2 = ReportRow({
             key: "Fund raised",
-            value: alphaRun.total_reward.toString(),
+            value: new BigNumber(alphaRun.total_reward.toString()).div(1e8).times(btcPrice).toString(),
             maxDigit: 2,
             prefix: "$"
           });
