@@ -253,7 +253,7 @@ const HourlyRewardButton = ({ className }: any) => {
                     </div>
                   </Center>
                   <Flex gap={'6px'} className={s.timeWrapper}>
-                    <Text className={s.title}>End in</Text>
+                    <Text className={s.title}>Ends in</Text>
                     <Countdown
                       className={s.time}
                       expiredTime={dayjs
