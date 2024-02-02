@@ -5,6 +5,39 @@ export interface IDaySecond {
   bestPNL?: CurrentBestPNL
 }
 
+export interface ModularReport {
+  total_owner: number;
+  total_model: number;
+}
+
+export interface AlphaRunReport {
+  total_circle: number;
+  total_twitter_id: number;
+  total_distance: number;
+  reward_per_km: number;
+  total_reward: number;
+  total_reward_running: number;
+  total_reward_donation: number;
+}
+
+export interface NakaVolumeReport {
+  volume: string;
+  usd_volume: string;
+}
+
+export interface GameReport {
+  total_txs: number;
+  total_game: number;
+}
+
+export interface NumberReport {
+  modular: ModularReport;
+  alphaRun: AlphaRunReport;
+  nakaVolume: NakaVolumeReport;
+  gameReport: GameReport;
+}
+
 export interface ActivitiesState {
-  daySecond: IDaySecond
+  daySecond: IDaySecond;
+  numberReport?: NumberReport;
 }

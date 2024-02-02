@@ -1,6 +1,14 @@
 import React from 'react';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import styles from './styles.module.scss';
+import IncreaseNumber from '@/modules/PublicSale/activities/components/IncreaseNumber';
+import { useAppSelector } from '@/stores/hooks';
+import { numberReportSelector } from '@/stores/states/activities/selector';
+import { formatCurrency } from '@/utils/format';
+import { value } from 'valibot';
+import BigNumber from 'bignumber.js';
+import { coinPricesSelector } from '@/stores/states/common/selector';
+import { Coin } from '@/stores/states/common/types';
 
 interface ICTA {
   title: string;
@@ -9,6 +17,16 @@ interface ICTA {
   link?: string;
 }
 
+enum ActivityType {
+  Game,
+  Naka,
+  Modular,
+  Social,
+  AI
+}
+
+const MODULAR_TW_LINK = "https://twitter.com/BVMnetwork/status/1752952381007171646";
+
 export interface GameItemProps {
   title: string;
   subTitle?: string;
@@ -16,6 +34,8 @@ export interface GameItemProps {
   ctas?: ICTA[];
   banner?: string,
   link?: string,
+  type: ActivityType,
+  bannerLink?: string
 }
 
 const GAME_LINK = {
@@ -29,7 +49,6 @@ const GAME_LINK = {
 
 export const NormalRow = (p: { key: string, value?: string, mask?: boolean }) => {
   if (p.mask) {
-
     return (
       `
         <li>
@@ -72,73 +91,207 @@ export const LinkRow = (p: { key: string, value: string, link: string }) => {
   );
 };
 
+export const ReportRow = (p: { key: string, value: string, prefix?: string, maxDigit?: number, diffNumb?: number }) => {
+  return (
+    <Flex flexDir="row" alignItems="end">
+      {p.prefix && (
+        <span style={{ fontWeight: '500', fontSize: "12px", lineHeight: "140%" }}>
+          {p.prefix || ""}
+        </span>
+      )}
+      <IncreaseNumber
+        from={
+        new BigNumber(new BigNumber(p.value)
+          .minus(new BigNumber(p.value)
+            .div((p.diffNumb || 300))
+          )
+          .toFixed(0, BigNumber.ROUND_CEIL))
+          .toNumber()
+      }
+        to={new BigNumber(new BigNumber(p.value).toFixed(0, BigNumber.ROUND_CEIL)).toNumber()}
+        format={(_value: number) => {
+          return formatCurrency(_value, 0, p.maxDigit || 0)
+        }}
+      />
+      <Text fontSize="12px" lineHeight="120%" color="white" opacity={0.7} fontWeight="400" ml="4px">
+        {p.key}
+      </Text>
+    </Flex>
+  );
+};
+
 
 const ActivitiesVer2 = React.memo(() => {
-
+  const numberReport = useAppSelector(numberReportSelector);
+  const btcPrice = useAppSelector(coinPricesSelector)?.[Coin.BTC];
   const TASKS = React.useMemo<GameItemProps[]>(() => {
     return [
       {
-        title: 'Gaming on Bitcoin',
+        title: 'GameFi on Bitcoin',
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Play 8 different fully on-chain games to earn rewards." })}
-            ${NormalRow({ key: "Rewards:", value: "Each game: $100 (1st place), $50 (2nd place), $30 (3rd place), $10 (4th), $10 (5th)." })}
+            ${NormalRow({ key: "Prizes:", value: "Each game: $100 (1st), $50 (2nd), $30 (3rd), $10 (4th), $10 (5th)." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Bitcoin Arcade", link: GAME_LINK.ARCA })}
           </ul>
         `,
-        banner: 'banner-01.png',
+        banner: 'banner-01_1.png',
         link: GAME_LINK.ARCA,
+        type: ActivityType.Game,
       },
       {
         title: 'DeFi on Bitcoin',
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Trade BRC-20 perpetual futures on-chain." })}
-            ${NormalRow({ key: "Rewards:", value: "$50 every 4 hours." })}
+            ${NormalRow({ key: "Prizes:", value: "$50 every 4 hours & 100k Naka points every hours." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Naka", link: GAME_LINK.NAKA })}
           </ul>
         `,
         banner: 'banner-02.png',
         link: GAME_LINK.NAKA,
+        type: ActivityType.Naka,
       },
       {
-        title: 'Modular on Bitcoin',
+        title: 'Education on Bitcoin',
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Learn about modular blockchain architecture via an exciting Lego game." })}
-            ${NormalRow({ key: "Rewards:", value: "Bitcoin Punk 686 (1st place), Rare Modular (2nd place), Common Modular (3rd place)." })}
+            ${NormalRow({ key: "Prizes:", value: "Bitcoin Punk 686 (1st), Rare Modular (2nd), Modular (3rd)." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Modular", link: GAME_LINK.MODULAR })}
           </ul>
         `,
         banner: 'banner-03.png',
         link: GAME_LINK.MODULAR,
+        type: ActivityType.Modular,
+        bannerLink: MODULAR_TW_LINK
       },
       {
-        title: 'Running on Bitcoin',
+        title: 'SocialFi on Bitcoin',
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Participate in a charity run." })}
-            ${NormalRow({ key: "Rewards:", value: "For every km you run, you’ll raise $1 for charity and earn 10,000 Alpha points." })}
+            ${NormalRow({ key: "Prizes:", value: "Raise $1 for charity & earn 10K Alpha points for each km you run." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Alpha", link: GAME_LINK.ALPHA })}
           </ul>
         `,
         banner: 'banner-04.png',
         link: GAME_LINK.ALPHA,
+        type: ActivityType.Social,
       },
       {
         title: 'AI on Bitcoin',
         subTitle: " (Available on Monday)",
         desc: `
           <ul>
-            ${NormalRow({ key: "Rewards:", value: undefined, mask: true })}
-            ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
+            ${NormalRow({ key: "Prizes:", value: undefined, mask: true })}
+            ${NormalRow({ key: "Activities:", value: "Train your fully on-chain AI." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Eternal AI", link: GAME_LINK.AI })}
           </ul>
         `,
         banner: 'banner-05.png',
+        link: GAME_LINK.AI,
+        type: ActivityType.AI,
       },
     ]
-  }, [])
+  }, []);
+
+  const renderReport = React.useCallback((type: ActivityType) => {
+    if (!numberReport || type === ActivityType.AI) return <></>;
+    let component1: any | undefined = undefined;
+    let component2: any | undefined = undefined;
+    switch (type) {
+      case ActivityType.Game: {
+        const gameReport = numberReport.gameReport
+        if (gameReport && gameReport.total_game && gameReport.total_txs) {
+          component1 = ReportRow({
+            key: "games played",
+            value: gameReport.total_game.toString(),
+          });
+          component2 = (
+            <Flex cursor="pointer" onClick={() => {
+              window.open("https://explorer.testnet.bitcoinarcade.xyz/", "_blank")
+            }}>
+              {ReportRow({
+                key: "transactions",
+                value: gameReport.total_txs.toString(),
+              })}
+            </Flex>
+          )
+        }
+        break;
+      }
+      case ActivityType.Naka: {
+        const nakaVolume = numberReport.nakaVolume
+        if (nakaVolume && nakaVolume.usd_volume) {
+          component1 = (
+            <Flex cursor="pointer" onClick={() => {
+              window.open("https://explorer.nakachain.xyz/address/0x43eF235efF5d8Aa29D34bCB7AE42dCFA6A86477e", "_blank")
+            }}>
+              {
+                ReportRow({
+                  key: "volume",
+                  value: nakaVolume.usd_volume.toString(),
+                  maxDigit: 2,
+                  prefix: "$"
+                })
+              }
+            </Flex>
+          );
+        }
+        break;
+      }
+      case ActivityType.Modular: {
+        const modular = numberReport.modular
+        if (modular && modular.total_owner && modular.total_model) {
+          component1 = ReportRow({
+            key: "builders",
+            value: modular.total_owner.toString()
+          });
+          component2 = ReportRow({
+            key: "builds",
+            value: modular.total_model.toString()
+          });
+        }
+        break;
+      }
+      case ActivityType.Social: {
+        const alphaRun = numberReport.alphaRun
+        if (alphaRun && alphaRun.total_distance && alphaRun.total_reward) {
+          component1 = ReportRow({
+            key: "km ran",
+            value: alphaRun.total_distance.toString()
+          });
+          component2 = ReportRow({
+            key: "charity raised",
+            value: new BigNumber(alphaRun.total_reward.toString()).div(1e8).times(btcPrice).toString(),
+            maxDigit: 2,
+            prefix: "$"
+          });
+        }
+        break;
+      }
+    }
+    if (!component1 && !component2) return <></>;
+    const isModular = type === ActivityType.Modular;
+
+    return (
+      <Flex alignItems="center" gap="8px" cursor={isModular ? "pointer" : "unset"} onClick={() => {
+        if(!isModular) return;
+        window.open(MODULAR_TW_LINK, "_blank")
+      }}>
+        {!!component1 && (
+          component1
+        )}
+        {!!component2 && (
+          <Box w="1px" height="9px" bg="white" opacity={0.7}/>
+        )}
+        {!!component2 && (
+          component2
+        )}
+      </Flex>
+    )
+  }, [numberReport]);
 
   const renderItem = (item: GameItemProps) => {
     return (
@@ -148,15 +301,16 @@ const ActivitiesVer2 = React.memo(() => {
             {item.title}
             {!!item.subTitle && <span style={{ fontWeight: "400" }}>{item.subTitle}</span>}
           </Text>
+          {renderReport(item.type)}
         </div>
         <div className={styles.container_item_content}>
           <div dangerouslySetInnerHTML={{ __html: item.desc }}/>
         </div>
         <div className={styles.container_item_media}>
           {!!item.banner && (
-            !!item.link ?
+            (!!item.link || !!item.bannerLink) ?
               (
-                <a href={item.link || ""} target='_blank'>
+                <a href={item.bannerLink || item.link || ""} target='_blank'>
                   <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: "100%" }}  alt="banner"/>
                 </a>
               ) :
@@ -171,16 +325,16 @@ const ActivitiesVer2 = React.memo(() => {
 
   return (
     <Box className={styles.wrap}>
-      <Flex flexDir="column" gap="16px" className={styles.container}>
-        <Flex id="HEADER" flexDir="column" gap="8px" className={styles.container_header}>
+      <Flex flexDir="column" gap="20px" className={styles.container}>
+        <Flex id="HEADER" flexDir="column" className={styles.container_header}>
           <Text color="white" fontSize={{ base: "18px", md: "24px" }} lineHeight="140%">
-            BITCOIN L2 HOPING WEEKEND
+            BITCOIN L2 HOPPING WEEKEND.
           </Text>
-          <Text color="white" fontSize={{ base: "14px", md: "16px" }} lineHeight="140%" opacity={0.7}>
-            Explore Bitcoin like never before. Hop from one Bitcoin L2 to another to play on-chain games, trade BRC-20 futures, run for charity, learn about modular architecture, and more!
+          <Text color="white" fontSize={{ base: "18px", md: "24px" }} lineHeight="140%" opacity={0.7}>
+            EXPLORE BITCOIN LIKE NEVER BEFORE.
           </Text>
-          <Text color="white" fontSize={{ base: "14px", md: "16px" }} lineHeight="140%" opacity={0.7}>
-            Time: from now to 3:30 am UTC Monday, Feb 5
+          <Text color="white" fontSize={{ base: "14px", md: "16px" }} lineHeight="140%" opacity={0.7} mt="10px">
+            Hop from one Bitcoin L2 to another to play on-chain games, trade BRC-20 futures, run for charity, learn about modular architecture, and more! Events end on Monday, Feb 5, at 3:30 am UTC.
           </Text>
         </Flex>
         <Flex flexDir="column" gap="20px">

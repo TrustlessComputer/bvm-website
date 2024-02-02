@@ -23,12 +23,12 @@ const ContributorInfo = ({ data }: {data?: ILeaderBoardPoint}) => {
         <HorizontalItem className={s.rowData} color={"#000000"} label={'USER'} value={formatString(data?.twitter_name, 16)} />
       )}
       <HorizontalItem className={s.rowData} color={"#000000"} label={'RANK'} value={formatCurrency(data?.ranking, 0, 0, 'BTC', true)} />
-      <HorizontalItem className={s.rowData} color={"#000000"} label={'ALLOCATION'} value={
-        <Flex gap={1} flexDirection="column">
-          <Text color={'#FF5312'}>{formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)} BVM</Text>
-          <Text color={'#000000'}>({formatCurrency(data?.bvm_percent, MIN_DECIMAL, MIN_DECIMAL)}%)</Text>
-        </Flex>
-      }/>
+      {/*<HorizontalItem className={s.rowData} color={"#000000"} label={'ALLOCATION'} value={*/}
+      {/*  <Flex gap={1} flexDirection="column">*/}
+      {/*    <Text color={'#FF5312'}>{formatCurrency(data?.bvm_balance, MIN_DECIMAL, MAX_DECIMAL)} BVM</Text>*/}
+      {/*    <Text color={'#000000'}>({formatCurrency(data?.bvm_percent, MIN_DECIMAL, MIN_DECIMAL)}%)</Text>*/}
+      {/*  </Flex>*/}
+      {/*}/>*/}
     </Flex>
   );
 };
