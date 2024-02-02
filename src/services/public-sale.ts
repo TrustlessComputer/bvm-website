@@ -272,7 +272,7 @@ export const getActivitiesReport = async (): Promise<NumberReport | undefined> =
     const [modular, alphaRun, nakaVolume, gameReport] = (
       await Promise.allSettled([
         apiReport.get("https://generative.xyz/generative/api/modular-workshop/statistic"),
-        apiReport.get("https://stag-perp-api.fprotocol.io/api/run-together/statistics"),
+        apiReport.get("https://perp-api.fprotocol.io/api/run-together/statistics"),
         apiReport.get("https://api.bvm.network/api/future/report"),
         apiReport.get("https://game-state.bitcoinarcade.xyz/api/network-stats")
       ])
