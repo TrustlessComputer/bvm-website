@@ -114,19 +114,11 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
 
     const saleSummary = await getPublicSaleSummary();
 
-    const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
-      saleSummary.total_user || '0',
-      0,
-      0,
-      'BTC',
-      false,
-    )} early contributors who've committed $${formatCurrency(
-      saleSummary.total_usdt_value_not_boost || '0',
-      0,
-      0,
-      'BTC',
-      true,
-    )} to building Bitcoin's future with @BVMnetwork\n\n`;
+    const content = `Just got ${
+      reward?.bvm_amount || 0
+    } $BVM from the Red Packet giveaway at BVM public sale 🧧\n\n@BVMnetwork is the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s!\n\nJoin me and the ${
+      saleSummary.total_user || '0'
+    } early contributors to build the Bitcoin's future with $BVM\n\n`;
 
     setTimeout(() => {
       return window.open(
