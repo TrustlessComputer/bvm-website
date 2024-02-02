@@ -1,6 +1,9 @@
 import React from 'react';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import styles from './styles.module.scss';
+import IncreaseNumber from '@/modules/PublicSale/activities/components/IncreaseNumber';
+import { useAppSelector } from '@/stores/hooks';
+import { numberReportSelector } from '@/stores/states/activities/selector';
 
 interface ICTA {
   title: string;
@@ -29,7 +32,6 @@ const GAME_LINK = {
 
 export const NormalRow = (p: { key: string, value?: string, mask?: boolean }) => {
   if (p.mask) {
-
     return (
       `
         <li>
@@ -74,7 +76,7 @@ export const LinkRow = (p: { key: string, value: string, link: string }) => {
 
 
 const ActivitiesVer2 = React.memo(() => {
-
+  const numberReport = useAppSelector(numberReportSelector)
   const TASKS = React.useMemo<GameItemProps[]>(() => {
     return [
       {
