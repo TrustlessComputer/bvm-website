@@ -201,11 +201,11 @@ const ActivitiesVer2 = React.memo(() => {
         const gameReport = numberReport.gameReport
         if (gameReport && gameReport.total_game && gameReport.total_txs) {
           component1 = ReportRow({
-            key: "Game plays",
+            key: "Games played",
             value: gameReport.total_game.toString(),
           });
           component2 = ReportRow({
-            key: "Tx",
+            key: "Transactions",
             value: gameReport.total_txs.toString(),
           })
         }
@@ -215,7 +215,7 @@ const ActivitiesVer2 = React.memo(() => {
         const nakaVolume = numberReport.nakaVolume
         if (nakaVolume && nakaVolume.usd_volume) {
           component1 = ReportRow({
-            key: "Vols",
+            key: "Volume",
             value: nakaVolume.usd_volume.toString(),
             maxDigit: 2,
             prefix: "$"
@@ -241,11 +241,11 @@ const ActivitiesVer2 = React.memo(() => {
         const alphaRun = numberReport.alphaRun
         if (alphaRun && alphaRun.total_distance && alphaRun.total_reward) {
           component1 = ReportRow({
-            key: "Km",
+            key: "Km ran",
             value: alphaRun.total_distance.toString()
           });
           component2 = ReportRow({
-            key: "Fund raised",
+            key: "charity raised",
             value: new BigNumber(alphaRun.total_reward.toString()).div(1e8).times(btcPrice).toString(),
             maxDigit: 2,
             prefix: "$"
