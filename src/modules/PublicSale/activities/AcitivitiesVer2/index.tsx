@@ -189,7 +189,7 @@ const ActivitiesVer2 = React.memo(() => {
     ]
   }, []);
 
-  const renderReport = (type: ActivityType) => {
+  const renderReport = React.useCallback((type: ActivityType) => {
     if (!numberReport || type === ActivityType.AI) return <></>;
     let component1: any | undefined = undefined;
     let component2: any | undefined = undefined;
@@ -234,20 +234,22 @@ const ActivitiesVer2 = React.memo(() => {
         }
         break;
       }
-      // case ActivityType.Social: {
-      //   const alphaRun = numberReport.alphaRun
-      //   if (alphaRun && alphaRun.total_distance && alphaRun.total_reward) {
-      //     component1 = ReportRow({
-      //       key: `${formatCurrency(alphaRun.total_distance, 0, 2)}`,
-      //       value: "Km"
-      //     });
-      //     component2 = ReportRow({
-      //       key: `$${formatCurrency(alphaRun.total_reward, 0, 2)}`,
-      //       value: "Fund raised"
-      //     });
-      //   }
-      //   break;
-      // }
+      case ActivityType.Social: {
+        const alphaRun = numberReport.alphaRun
+        if (alphaRun && alphaRun.total_distance && alphaRun.total_reward) {
+          component1 = ReportRow({
+            key: "Km",
+            value: alphaRun.total_distance.toString()
+          });
+          component2 = ReportRow({
+            key: "Fund raised",
+            value: alphaRun.total_reward.toString(),
+            maxDigit: 2,
+            prefix: "$"
+          });
+        }
+        break;
+      }
     }
     if (!component1 && !component2) return <></>;
 
@@ -264,7 +266,7 @@ const ActivitiesVer2 = React.memo(() => {
         )}
       </Flex>
     )
-  }
+  }, []);
 
   const renderItem = (item: GameItemProps) => {
     return (
