@@ -6,10 +6,32 @@ import DropDown from '@/components/DropList';
 import { WHITEPAPER_DOC_URL } from '@/config';
 import Image from 'next/image';
 import ModalVideo from 'react-modal-video';
+import { getPublicSaleSummary } from '@/services/public-sale';
+import { getTopLeaderBoards } from '@/services/whitelist';
+import { formatCurrency } from '@/utils/format';
 
 const TopContent = () => {
   const router = useRouter();
   const [isOpen, setOpen] = useState(false);
+  const [totalUser, setTotalUser] = useState<string>('');
+  const [totalDeposit, setTotalDeposit] = useState('');
+
+  const getCount = async () => {
+    try {
+      const response = await getPublicSaleSummary();
+      setTotalUser(response.total_user.toString());
+      setTotalDeposit(response.total_usdt_value_not_boost.toString())
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  React.useEffect(() => {
+    getCount();
+    setInterval(() => {
+
+    }, 10000)
+  }, []);
 
   return (
     <div className={s.container}>
@@ -18,8 +40,8 @@ const TopContent = () => {
           <Text fontSize={"16px"} fontWeight={400} lineHeight={'24px'} className={s.subTitle}>
             Bitcoin Virtual Machine
           </Text>
-          <Text className={s.title}>Welcome to the future of Bitcoin</Text>
-          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin to make it work for everyone. Gear up, get ready, and join the ride!</Text>
+          <Text className={s.title}>Bitcoin, reimagined.</Text>
+          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin beyond just a currency — the next internet with gaming, DeFi, AI, SocialFi, and more. Join <strong>{formatCurrency(totalUser || 800, 0, 0)} backers</strong> shaping the future of Bitcoin.</Text>
         </Flex>
         <ul className={s.actions}>
           <li>

@@ -1,4 +1,14 @@
-import { Box, Button, Flex, Text, Tooltip } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex, FocusLock,
+  Popover, PopoverArrow, PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
+  Text,
+  Tooltip,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
 import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
@@ -277,27 +287,13 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     );
   });
 
-  const renderLoginTooltip = useCallback(() => {
-    return (
-      token ? (
-        <Tooltip
-          minW="220px"
-          bg="white"
-          boxShadow="0px 0px 24px -6px #0000001F"
-          borderRadius="4px"
-          padding="16px"
-          hasArrow
-          label={<ContributorInfo data={userContributeInfo} />}
-        >
-          <ContributorBlock
-            className={cx(s.contributorBlock, s.blockItem)}
-          />
-        </Tooltip>
-      ) : (
-        <ContributorBlock className={s.blockItem} />
-      )
-    )
-  }, [token, userContributeInfo]);
+  const firstFieldRef = React.useRef(null);
+  const {
+    onClose: onClose,
+    onOpen: onOpen,
+    isOpen: isOpen,
+  } = useDisclosure();
+
 
   return (
     <div className={s.container}>
@@ -312,7 +308,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 color={'black'}
                 mb={'12px'}
               >
-                Total
+                BVM Public Sale
               </Text>
               <Flex alignItems="start" gap="12px">
                 <Text className={s.fundValue}>
@@ -411,7 +407,34 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             </div>
             <div className={s.grid_item}>
               {
-                renderLoginTooltip()
+                token ? (
+                  <Popover
+                    isOpen={isOpen}
+                    initialFocusRef={firstFieldRef}
+                    onOpen={onOpen}
+                    onClose={onClose}
+                    closeOnBlur={true}
+                    placement="top-end"
+                  >
+                    <PopoverTrigger>
+                      <Flex cursor="pointer">
+                        <ContributorBlock
+                          className={cx(s.contributorBlock, s.blockItem)}
+                        />
+                      </Flex>
+                    </PopoverTrigger>
+                    <PopoverContent padding="12px 12px 12px 16px" bg="white" border="1px solid rgba(1, 1, 1, 0.3)">
+                      <FocusLock persistentFocus={false}>
+                        <PopoverArrow opacity={0}/>
+                        <PopoverCloseButton color='black' />
+                        <Box height="24px"/>
+                        <ContributorInfo data={userContributeInfo} />
+                      </FocusLock>
+                    </PopoverContent>
+                  </Popover>
+                ) : (
+                  <ContributorBlock className={s.blockItem} />
+                )
               }
             </div>
           </div>
@@ -426,7 +449,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 // loadingText={'Submitting...'}
                 className={s.button}
               >
-                Buy $BVM
+                Back our mission
               </Button>
             </AuthForBuy>
           </Flex>

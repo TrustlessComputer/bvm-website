@@ -32,7 +32,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
         <AuthForBuyV2
           renderWithoutLogin={(onClick: any) => (
             <Button onClick={onClick} type="button" className={s.btnContainer}>
-              Buy $BVM
+              Back our mission
             </Button>
           )}
         >
@@ -44,38 +44,38 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
             type="button"
             className={s.btnContainer}
           >
-            Buy $BVM
+            Back our mission
           </Button>
         </AuthForBuyV2>
-        {
-          !hideBuyAndStake && (
-            <AuthForBuyV2>
-              <Tooltip
-                minW="220px"
-                bg="#006149"
-                boxShadow="0px 0px 40px rgba(0, 0, 0, 0.12)"
-                borderRadius="4px"
-                padding="16px"
-                hasArrow
-                label={
-                  'Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.'
-                }
-                color={'#FFFFFF'}
-              >
-                <Button
-                  onClick={() => {
-                    setHasStaked(true);
-                    onOpen();
-                  }}
-                  type="button"
-                  className={cx(s.btnContainer, s.btnBuyAndStake)}
-                >
-                  Buy & Stake $BVM
-                </Button>
-              </Tooltip>
-            </AuthForBuyV2>
-          )
-        }
+        {/*{*/}
+        {/*  !hideBuyAndStake && (*/}
+        {/*    <AuthForBuyV2>*/}
+        {/*      <Tooltip*/}
+        {/*        minW="220px"*/}
+        {/*        bg="#006149"*/}
+        {/*        boxShadow="0px 0px 40px rgba(0, 0, 0, 0.12)"*/}
+        {/*        borderRadius="4px"*/}
+        {/*        padding="16px"*/}
+        {/*        hasArrow*/}
+        {/*        label={*/}
+        {/*          'Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.'*/}
+        {/*        }*/}
+        {/*        color={'#FFFFFF'}*/}
+        {/*      >*/}
+        {/*        <Button*/}
+        {/*          onClick={() => {*/}
+        {/*            setHasStaked(true);*/}
+        {/*            onOpen();*/}
+        {/*          }}*/}
+        {/*          type="button"*/}
+        {/*          className={cx(s.btnContainer, s.btnBuyAndStake)}*/}
+        {/*        >*/}
+        {/*          Buy & Stake $BVM*/}
+        {/*        </Button>*/}
+        {/*      </Tooltip>*/}
+        {/*    </AuthForBuyV2>*/}
+        {/*  )*/}
+        {/*}*/}
       </Flex>
       <GoogleReCaptchaProvider
         reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"

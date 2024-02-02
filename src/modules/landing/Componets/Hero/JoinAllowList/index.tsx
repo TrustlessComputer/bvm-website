@@ -65,14 +65,7 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                 (!!totalUser && Number(totalUser || 0)) ? (
                   <Chars delay={delay + .4}>
                     {/*Join <span>{formatCurrency(totalUser, 0, 0)}</span> people backing us building the future of Bitcoin.*/}
-                    Join the <span>{formatCurrency(totalUser, 0, 0)}</span> early contributors backing us with
-                    {" "}<span>${formatCurrency(
-                      totalDeposit || '0',
-                      0,
-                      0,
-                      'BTC',
-                      true,
-                    )}</span> to build the future of Bitcoin.
+                    Join <span>{formatCurrency(totalUser, 0, 0)}</span> backers on our mission to evolve Bitcoin beyond currency — into the next internet era with gaming, DeFi, AI, and beyond.
                   </Chars>
                 ) : (
                   <Chars delay={delay + .4}>
@@ -115,14 +108,28 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                   </div>
                 </div>
               )}
-              <Flex gap="8px" className={s.countDown_wrapper}>
-                <img style={{ width: 18 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>
-                <p className={s.countDown_title}>{isPublicSale ? 'Ends' : 'Public sale starting'} in</p>
-                <Countdown
-                  className={s.countDown_time}
-                  expiredTime={dayjs.utc(isPublicSale ? PUBLIC_SALE_END : PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
-                  hideIcon={true}
-                />
+              <Flex flexDir="column" marginTop="20px">
+                <Flex alignItems="center" gap="4px" justifyContent="center">
+                  <span style={{ color: "#FA4E0E", fontWeight: "700", textAlign: 'center' }}>${formatCurrency(
+                    totalDeposit || '0',
+                    0,
+                    0,
+                    'BTC',
+                    true,
+                  )}
+                  </span>
+                  <span style={{ color: "white", fontWeight: "700", textAlign: 'center', paddingBottom: "2px" }}>raised</span>
+                </Flex>
+                <Flex gap="8px" flexDir="column" className={s.countDown_wrapper}>
+                  <Flex alignItems="end">
+                    <Countdown
+                      className={s.countDown_time}
+                      expiredTime={dayjs.utc(isPublicSale ? PUBLIC_SALE_END : PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
+                      hideIcon={true}
+                    />
+                    <span style={{ marginLeft: "4px", lineHeight: "100%" }}>left</span>
+                  </Flex>
+                </Flex>
               </Flex>
             </Fade>
           </Flex>
