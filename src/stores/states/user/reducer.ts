@@ -100,8 +100,8 @@ const slice = createSlice({
       AuthenStorage.setAuthenKey(action.payload);
     },
     removeUserToken: (state) => {
-      state.userToken = undefined;
-      state.user = undefined;
+      (state as any).userToken = undefined;
+      (state as any).user = undefined;
       AuthenStorage.setAuthenKey("");
       AuthenStorage.setGuestAuthenKey("");
     },
