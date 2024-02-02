@@ -11,6 +11,7 @@ interface ICTA {
 
 export interface GameItemProps {
   title: string;
+  subTitle?: string;
   desc: string | any;
   ctas?: ICTA[];
   banner?: string,
@@ -21,17 +22,32 @@ const GAME_LINK = {
   ARCA: "https://play.bitcoinarcade.xyz",
   NAKA: "https://nakachain.xyz/perpetual",
   MODULAR: "https://playmodular.com/workshop",
-  ALPHA: "https://app.alpha.wtf/"
+  ALPHA: "https://alpha.wtf/",
+  AI: "https://eternalai.org/",
 }
 
 
-export const NormalRow = (p: { key: string, value: string }) => {
+export const NormalRow = (p: { key: string, value?: string, mask?: boolean }) => {
+  if (p.mask) {
+
+    return (
+      `
+        <li>
+          <div style="display: flex; flex-direction: row">
+            <span style="font-size: 14px; line-height: 160%; color: white; font-weight: 700">${p.key}</span>
+            <div style="background-color: white; opacity: 0.3; width: 152px; height: 22px; margin-left: 8px" />
+          </div
+        </li>
+      `
+    )
+  }
+
   return (
     `
       <li>
         <p style="font-size: 14px; line-height: 160%">
           <span style="color: white; font-weight: 700">${p.key}</span>
-          <span style="color: white; font-weight: 400; opacity: 0.7; margin-left: 8px;">${p.value}</span>
+         <span style="color: white; font-weight: 400; opacity: 0.7; margin-left: 4px;">${p.value}</span>
         </p>
       </li>
     `
@@ -65,9 +81,9 @@ const ActivitiesVer2 = React.memo(() => {
         title: 'Gaming on Bitcoin',
         desc: `
           <ul>
-            ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
-            ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
-            ${LinkRow({ key: "Where:", value: "Play fully on-chain games", link: GAME_LINK.ARCA })}
+            ${NormalRow({ key: "Activities:", value: "Play 8 different fully on-chain games to earn rewards." })}
+            ${NormalRow({ key: "Rewards:", value: "Each game: $100 (1st place), $50 (2nd place), $30 (3rd place), $10 (4th), $10 (5th)." })}
+            ${LinkRow({ key: "Bitcoin L2:", value: "Bitcoin Arcade", link: GAME_LINK.ARCA })}
           </ul>
         `,
         banner: 'banner-01.png',
@@ -77,9 +93,9 @@ const ActivitiesVer2 = React.memo(() => {
         title: 'DeFi on Bitcoin',
         desc: `
           <ul>
-            ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
-            ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
-            ${LinkRow({ key: "Where:", value: "Naka", link: GAME_LINK.NAKA })}
+            ${NormalRow({ key: "Activities:", value: "Trade BRC-20 perpetual futures on-chain." })}
+            ${NormalRow({ key: "Rewards:", value: "$50 every 4 hours." })}
+            ${LinkRow({ key: "Bitcoin L2:", value: "Naka", link: GAME_LINK.NAKA })}
           </ul>
         `,
         banner: 'banner-02.png',
@@ -89,9 +105,9 @@ const ActivitiesVer2 = React.memo(() => {
         title: 'Modular on Bitcoin',
         desc: `
           <ul>
-            ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
-            ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
-            ${LinkRow({ key: "Where:", value: "Modular", link: GAME_LINK.MODULAR })}
+            ${NormalRow({ key: "Activities:", value: "Learn about modular blockchain architecture via an exciting Lego game." })}
+            ${NormalRow({ key: "Rewards:", value: "Bitcoin Punk 686 (1st place), Rare Modular (2nd place), Common Modular (3rd place)." })}
+            ${LinkRow({ key: "Bitcoin L2:", value: "Modular", link: GAME_LINK.MODULAR })}
           </ul>
         `,
         banner: 'banner-03.png',
@@ -101,20 +117,22 @@ const ActivitiesVer2 = React.memo(() => {
         title: 'Running on Bitcoin',
         desc: `
           <ul>
-            ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
-            ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
-            ${LinkRow({ key: "Where:", value: "Alpha", link: GAME_LINK.ALPHA })}
+            ${NormalRow({ key: "Activities:", value: "Participate in a charity run." })}
+            ${NormalRow({ key: "Rewards:", value: "For every km you run, you’ll raise $1 for charity and earn 10,000 Alpha points." })}
+            ${LinkRow({ key: "Bitcoin L2:", value: "Alpha", link: GAME_LINK.ALPHA })}
           </ul>
         `,
         banner: 'banner-04.png',
         link: GAME_LINK.ALPHA,
       },
       {
-        title: 'AI x Bitcoin',
+        title: 'AI on Bitcoin',
+        subTitle: " (Available on Monday)",
         desc: `
           <ul>
-            ${NormalRow({ key: "Rewards:", value: "$1000 (1st place), $500 (2nd place), $250 (3rd place)" })}
+            ${NormalRow({ key: "Rewards:", value: undefined, mask: true })}
             ${NormalRow({ key: "Activities:", value: "Play fully on-chain games" })}
+            ${LinkRow({ key: "Bitcoin L2:", value: "Eternal AI", link: GAME_LINK.AI })}
           </ul>
         `,
         banner: 'banner-05.png',
@@ -128,6 +146,7 @@ const ActivitiesVer2 = React.memo(() => {
         <div className={styles.container_item_header}>
           <Text color="white" fontSize="16px" fontWeight="500">
             {item.title}
+            {!!item.subTitle && <span style={{ fontWeight: "400" }}>{item.subTitle}</span>}
           </Text>
         </div>
         <div className={styles.container_item_content}>
@@ -158,10 +177,13 @@ const ActivitiesVer2 = React.memo(() => {
             BITCOIN L2 HOPING WEEKEND
           </Text>
           <Text color="white" fontSize={{ base: "14px", md: "16px" }} lineHeight="140%" opacity={0.7}>
-            Explore Bitcoin like never before. Hop from Bitcoin L2 to Bitcoin L2 to play onchain games, run for charity, trade BRC-20 futures, and more.
+            Explore Bitcoin like never before. Hop from one Bitcoin L2 to another to play on-chain games, trade BRC-20 futures, run for charity, learn about modular architecture, and more!
+          </Text>
+          <Text color="white" fontSize={{ base: "14px", md: "16px" }} lineHeight="140%" opacity={0.7}>
+            Time: from now to 3:30 am UTC Monday, Feb 5
           </Text>
         </Flex>
-        <Flex flexDir="column" gap="8px">
+        <Flex flexDir="column" gap="20px">
           {TASKS.map(renderItem)}
         </Flex>
       </Flex>

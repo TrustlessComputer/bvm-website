@@ -261,3 +261,35 @@ export const requestRewardDailyShareCode = async (): Promise<any> => {
   }
   return;
 };
+
+export interface IPublicSaleLuckyMoney {
+  id: number,
+  created_at: string,
+  bvm_amount: string,
+  share_code: string,
+  is_claimed?: boolean
+}
+
+export const getPublicSaleLuckyMoney = async (): Promise<IPublicSaleLuckyMoney[]> => {
+  try {
+    const res = (await apiClient.get(
+      `/bvm/lucky/current`,
+    )) as unknown as IPublicSaleLuckyMoney[];
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return [];
+};
+
+export const claimPublicSaleLuckyMoney = async (id: number): Promise<any> => {
+  try {
+    const res = (await apiClient.post(
+      `/bvm/lucky/claim/${id}`,
+    ));
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};

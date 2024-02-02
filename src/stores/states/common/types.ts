@@ -1,5 +1,5 @@
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
-import { IPublicSaleDailyReward } from '@/services/public-sale';
+import { IPublicSaleDailyReward, IPublicSaleLuckyMoney } from '@/services/public-sale';
 
 export type CoinPrices = {
   [key in Coin]: string
@@ -19,4 +19,6 @@ export interface CommonState {
   needCheckDeposit: boolean;
   animatedLatestContributors: ILeaderBoardPoint[];
   publicSaleDailyReward?: IPublicSaleDailyReward;
+  luckyMoneyList: IPublicSaleLuckyMoney[];
+  currentLuckyMoney: IPublicSaleLuckyMoney | undefined;
 }
