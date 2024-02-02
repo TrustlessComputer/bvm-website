@@ -201,11 +201,11 @@ const ActivitiesVer2 = React.memo(() => {
         const gameReport = numberReport.gameReport
         if (gameReport && gameReport.total_game && gameReport.total_txs) {
           component1 = ReportRow({
-            key: "Games played",
+            key: "games played",
             value: gameReport.total_game.toString(),
           });
           component2 = ReportRow({
-            key: "Transactions",
+            key: "transactions",
             value: gameReport.total_txs.toString(),
           })
         }
@@ -215,7 +215,7 @@ const ActivitiesVer2 = React.memo(() => {
         const nakaVolume = numberReport.nakaVolume
         if (nakaVolume && nakaVolume.usd_volume) {
           component1 = ReportRow({
-            key: "Volume",
+            key: "volume",
             value: nakaVolume.usd_volume.toString(),
             maxDigit: 2,
             prefix: "$"
@@ -227,11 +227,11 @@ const ActivitiesVer2 = React.memo(() => {
         const modular = numberReport.modular
         if (modular && modular.total_owner && modular.total_model) {
           component1 = ReportRow({
-            key: "Builders",
+            key: "builders",
             value: modular.total_owner.toString()
           });
           component2 = ReportRow({
-            key: "Builds",
+            key: "builds",
             value: modular.total_model.toString()
           });
         }
@@ -241,7 +241,7 @@ const ActivitiesVer2 = React.memo(() => {
         const alphaRun = numberReport.alphaRun
         if (alphaRun && alphaRun.total_distance && alphaRun.total_reward) {
           component1 = ReportRow({
-            key: "Km ran",
+            key: "km ran",
             value: alphaRun.total_distance.toString()
           });
           component2 = ReportRow({
@@ -303,16 +303,16 @@ const ActivitiesVer2 = React.memo(() => {
 
   return (
     <Box className={styles.wrap}>
-      <Flex flexDir="column" gap="16px" className={styles.container}>
-        <Flex id="HEADER" flexDir="column" gap="8px" className={styles.container_header}>
+      <Flex flexDir="column" gap="20px" className={styles.container}>
+        <Flex id="HEADER" flexDir="column" className={styles.container_header}>
           <Text color="white" fontSize={{ base: "18px", md: "24px" }} lineHeight="140%">
             BITCOIN L2 HOPPING WEEKEND
           </Text>
-          <Text color="white" fontSize={{ base: "14px", md: "16px" }} lineHeight="140%" opacity={0.7}>
-            Explore Bitcoin like never before. Hop from one Bitcoin L2 to another to play on-chain games, trade BRC-20 futures, run for charity, learn about modular architecture, and more!
+          <Text color="white" fontSize={{ base: "18px", md: "24px" }} lineHeight="140%" opacity={0.7}>
+            EXPLORE BITCOIN LIKE NEVER BEFORE.
           </Text>
-          <Text color="white" fontSize={{ base: "14px", md: "16px" }} lineHeight="140%" opacity={0.7}>
-            Time: from now to 3:30 am UTC Monday, Feb 5
+          <Text color="white" fontSize={{ base: "14px", md: "16px" }} lineHeight="140%" opacity={0.7} mt="10px">
+            Hop from one Bitcoin L2 to another to play on-chain games, trade BRC-20 futures, run for charity, learn about modular architecture, and more! Events end on Monday, Feb 5, at 3:30 am UTC.
           </Text>
         </Flex>
         <Flex flexDir="column" gap="20px">
