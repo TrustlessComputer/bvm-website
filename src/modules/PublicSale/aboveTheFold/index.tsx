@@ -1,5 +1,5 @@
 import s from './styles.module.scss';
-import { Flex, SimpleGrid } from '@chakra-ui/react';
+import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import useAnimationStore from '@/stores/useAnimationStore';
 import BuyForm from '@/modules/PublicSale/BuyForm';
@@ -11,6 +11,7 @@ import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
 import Activities from '@/modules/PublicSale/activities';
 import useWindowSize from '@/hooks/useWindowSize';
 import DailyReward from '@/modules/PublicSale/dailyReward';
+import ActivitiesVer2 from '@/modules/PublicSale/activities/AcitivitiesVer2';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -42,7 +43,7 @@ const AboveTheFold = () => {
       <SimpleGrid
         className={`${s.content}`}
         gridTemplateColumns={{ lg: '1fr', xl: '6.5fr 3.5fr' }}
-        gap={[0, '20px']}
+        gap={[0, '40px']}
       >
         <Flex
           className={s.leftSection}
@@ -54,13 +55,13 @@ const AboveTheFold = () => {
           <DailyReward />
           {/*<HourlyReward />*/}
           {/*<LeaderBoardSwitch classNames={s.boardSwitch} />*/}
-          {mobileScreen && <Activities />}
+          {mobileScreen && <ActivitiesVer2 />}
         </Flex>
         <Flex className={s.rightSection} direction={'column'}>
           <BuyForm vcInfo={vcInfo} />
           {/*<Welcome />*/}
           {/*<Playgame />*/}
-          {!mobileScreen && <Activities />}
+          {!mobileScreen && <ActivitiesVer2 />}
         </Flex>
       </SimpleGrid>
     </Flex>

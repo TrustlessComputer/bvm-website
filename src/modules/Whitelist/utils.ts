@@ -1,6 +1,6 @@
 import { SignatureStatus } from '@/interfaces/whitelist';
 import { EVMFieldType } from '@/stores/states/user/types';
-import { PUBLIC_SALE_START } from '@/modules/Whitelist/index';
+import { PUBLIC_SALE_END, PUBLIC_SALE_START } from '@/modules/Whitelist/index';
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
@@ -37,8 +37,7 @@ const checkIsPublicSale = () => {
 }
 
 const checkIsEndPublicSale = () => {
-  const diffDays = dayjs().utc().diff(dayjs.utc(PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss'));
-  return diffDays >= 8
+  return dayjs().utc().isAfter(dayjs.utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss'));
 }
 
 export {
