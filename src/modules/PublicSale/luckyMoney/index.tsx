@@ -92,6 +92,7 @@ export default function LuckyMoney() {
             );
 
             if (isPointInsideRotatedObject(mouseX, mouseY, coordinates)) {
+              console.log('grabbed package');
               dispatch(
                 openModal({
                   id: 'lucky-money-dialog',
@@ -205,7 +206,7 @@ export default function LuckyMoney() {
     if (currentLuckyMoney?.created_at) {
       const timeSpan = dayjs(currentLuckyMoney?.created_at).diff(dayjs());
       console.log('_________', currentLuckyMoney, timeSpan);
-      if (timeSpan) {
+      if (timeSpan > 0) {
         timeout = setTimeout(() => {
           // dispatch(
           //   closeModal({
@@ -213,6 +214,7 @@ export default function LuckyMoney() {
           //   }),
           // );
           makeInRain();
+          getListLuckyMoney();
         }, timeSpan);
       }
     }
