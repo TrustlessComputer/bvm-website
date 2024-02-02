@@ -9,14 +9,19 @@ import { PERP_API_URL } from '@/config';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import axios from 'axios';
 import { camelCaseKeys } from '@/utils/normalize';
-import { AlphaRunReport, ModularReport, NakaVolumeReport, NumberReport } from '@/stores/states/activities/types';
+import {
+  AlphaRunReport,
+  ModularReport,
+  NakaVolumeReport,
+  NumberReport,
+} from '@/stores/states/activities/types';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
 });
 
 const apiReport = createAxiosInstance({
-  baseURL: "",
+  baseURL: '',
 });
 
 export const getPublicsaleWalletInfo = async (): Promise<
@@ -73,27 +78,32 @@ export const generateTokenWithOauth = async (
   return res;
 };
 
-export const generateTokenWithMetamask = async (
-  params: { address: string, message: string, signature: string }
-): Promise<IGenerateTOkenWithSecretCode> => {
+export const generateTokenWithMetamask = async (params: {
+  address: string;
+  message: string;
+  signature: string;
+}): Promise<IGenerateTOkenWithSecretCode> => {
   const res = (await apiClient.post(`/bvm/generate-token-with-wallet`, {
-    "wallet_type": "ethereum",
-    "address": params.address,
-    "message": params.message,
-    "signature": params.signature
+    wallet_type: 'ethereum',
+    address: params.address,
+    message: params.message,
+    signature: params.signature,
   })) as unknown as IGenerateTOkenWithSecretCode;
   return res;
 };
 
-export const generateTokenWithWalletBTC = async (
-  params: { address: string, message: string, signature: string, pub_key: string }
-): Promise<IGenerateTOkenWithSecretCode> => {
+export const generateTokenWithWalletBTC = async (params: {
+  address: string;
+  message: string;
+  signature: string;
+  pub_key: string;
+}): Promise<IGenerateTOkenWithSecretCode> => {
   const res = (await apiClient.post(`/bvm/generate-token-with-wallet`, {
-    "wallet_type": "bitcoin",
-    "address": params.address,
-    "message": params.message,
-    "signature": params.signature,
-    "pub_key": params.pub_key
+    wallet_type: 'bitcoin',
+    address: params.address,
+    message: params.message,
+    signature: params.signature,
+    pub_key: params.pub_key,
   })) as unknown as IGenerateTOkenWithSecretCode;
   return res;
 };
@@ -216,18 +226,19 @@ export interface IPublicSaleDailyReward {
   pending: string;
 }
 
-export const getPublicSaleDailyReward = async (): Promise<IPublicSaleDailyReward | null> => {
-  try {
-    const res = (await apiClient.get(
-      `/bvm/user/halving`,
-    )) as unknown as IPublicSaleDailyReward;
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
+export const getPublicSaleDailyReward =
+  async (): Promise<IPublicSaleDailyReward | null> => {
+    try {
+      const res = (await apiClient.get(
+        `/bvm/user/halving`,
+      )) as unknown as IPublicSaleDailyReward;
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
 
-  return null;
-};
+    return null;
+  };
 
 export const claimPublicSaleDailyReward = async (): Promise<any> => {
   try {
@@ -267,38 +278,17 @@ export const requestRewardDailyShareCode = async (): Promise<any> => {
   return;
 };
 
-export const getActivitiesReport = async (): Promise<NumberReport | undefined> => {
-  try {
-    const [modular, alphaRun, nakaVolume, gameReport] = (
-      await Promise.allSettled([
-        apiReport.get("https://generative.xyz/generative/api/modular-workshop/statistic"),
-        apiReport.get("https://perp-api.fprotocol.io/api/run-together/statistics"),
-        apiReport.get("https://api.bvm.network/api/future/report"),
-        apiReport.get("https://game-state.bitcoinarcade.xyz/api/network-stats")
-      ])
-    ) as any[];
-
-    return {
-      modular: modular?.value,
-      alphaRun: alphaRun?.value,
-      nakaVolume: nakaVolume?.value,
-      gameReport: gameReport?.value
-    }
-
-  } catch (error) {
-    return undefined;
-  }
-}
-
 export interface IPublicSaleLuckyMoney {
-  id: number,
-  created_at: string,
-  bvm_amount: string,
-  share_code: string,
-  is_claimed?: boolean
+  id: number;
+  created_at: string;
+  bvm_amount: string;
+  share_code: string;
+  is_claimed?: boolean;
 }
 
-export const getPublicSaleLuckyMoney = async (): Promise<IPublicSaleLuckyMoney[]> => {
+export const getPublicSaleLuckyMoney = async (): Promise<
+  IPublicSaleLuckyMoney[]
+> => {
   try {
     const res = (await apiClient.get(
       `/bvm/lucky/current`,
@@ -313,34 +303,36 @@ export const getPublicSaleLuckyMoney = async (): Promise<IPublicSaleLuckyMoney[]
 
 export const claimPublicSaleLuckyMoney = async (id: number): Promise<any> => {
   try {
-    const res = (await apiClient.post(
-      `/bvm/lucky/claim/${id}`,
-    ));
+    const res = await apiClient.post(`/bvm/lucky/claim/${id}`);
     return res;
   } catch (error) {
     throw error;
   }
 };
 
-export const getActivitiesReport = async (): Promise<NumberReport | undefined> => {
+export const getActivitiesReport = async (): Promise<
+  NumberReport | undefined
+> => {
   try {
-    const [modular, alphaRun, nakaVolume, gameReport] = (
-      await Promise.allSettled([
-        apiReport.get("https://generative.xyz/generative/api/modular-workshop/statistic"),
-        apiReport.get("https://stag-perp-api.fprotocol.io/api/run-together/statistics"),
-        apiReport.get("https://api.bvm.network/api/future/report"),
-        apiReport.get("https://game-state.bitcoinarcade.xyz/api/network-stats")
-      ])
-    ) as any[];
+    const [modular, alphaRun, nakaVolume, gameReport] =
+      (await Promise.allSettled([
+        apiReport.get(
+          'https://generative.xyz/generative/api/modular-workshop/statistic',
+        ),
+        apiReport.get(
+          'https://stag-perp-api.fprotocol.io/api/run-together/statistics',
+        ),
+        apiReport.get('https://api.bvm.network/api/future/report'),
+        apiReport.get('https://game-state.bitcoinarcade.xyz/api/network-stats'),
+      ])) as any[];
 
     return {
       modular: modular?.value,
       alphaRun: alphaRun?.value,
       nakaVolume: nakaVolume?.value,
-      gameReport: gameReport?.value
-    }
-
+      gameReport: gameReport?.value,
+    };
   } catch (error) {
     return undefined;
   }
-}
+};
