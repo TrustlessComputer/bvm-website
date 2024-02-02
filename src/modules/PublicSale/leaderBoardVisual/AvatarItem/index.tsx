@@ -3,7 +3,7 @@ import { getUrlAvatarTwitter } from '@/utils/twitter';
 import React, { forwardRef, ReactElement, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
-import { formatCurrency } from '@/utils/format';
+import { formatCurrency, formatName2 } from '@/utils/format';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import { gsap } from 'gsap';
 import { useAppSelector } from '@/stores/hooks';
@@ -122,7 +122,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         <div className={s.meta}>
           <p className={s.price} ref={refInertMoney}></p>
           {
-            !isYou && <p className={s.name}>{data?.twitter_name}</p>
+            !isYou && <p className={s.name}>{formatName2(data?.twitter_name)}</p>
           }
           {
             isYou && <p className={cx(s.name, s.isYou)}>You</p>

@@ -87,6 +87,17 @@ export const formatName = (name: string, length = 12): string => {
   }
 };
 
+export const formatName2 = (name: string, length = 12): string => {
+  if (!name) return '';
+  if (ethers.utils.isAddress(name)) {
+    return name.substring(0, 6);
+  } else if (name.startsWith('bc1p')) {
+    return name.substring(0, 8);
+  } else {
+    return name?.length > length ? name.substring(0, length) + '...' : name;
+  }
+};
+
 export const formatCurrencyV2 = (params: {
   amount: string | number;
   decimals?: number;

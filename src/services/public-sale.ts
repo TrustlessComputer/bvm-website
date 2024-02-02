@@ -267,6 +267,29 @@ export const requestRewardDailyShareCode = async (): Promise<any> => {
   return;
 };
 
+export const getActivitiesReport = async (): Promise<NumberReport | undefined> => {
+  try {
+    const [modular, alphaRun, nakaVolume, gameReport] = (
+      await Promise.allSettled([
+        apiReport.get("https://generative.xyz/generative/api/modular-workshop/statistic"),
+        apiReport.get("https://perp-api.fprotocol.io/api/run-together/statistics"),
+        apiReport.get("https://api.bvm.network/api/future/report"),
+        apiReport.get("https://game-state.bitcoinarcade.xyz/api/network-stats")
+      ])
+    ) as any[];
+
+    return {
+      modular: modular?.value,
+      alphaRun: alphaRun?.value,
+      nakaVolume: nakaVolume?.value,
+      gameReport: gameReport?.value
+    }
+
+  } catch (error) {
+    return undefined;
+  }
+}
+
 export interface IPublicSaleLuckyMoney {
   id: number,
   created_at: string,

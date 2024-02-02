@@ -30,8 +30,8 @@ const DailyReward = () => {
     <Flex direction={"column"} className={s.wrapper}>
       <HourlyReward />
       <Flex className={s.container}>
-        <Flex justifyContent={"space-between"} alignItems={"center"}>
-          <Text fontSize={"11px"} fontWeight={400} color={"rgba(255, 255, 255, 0.7)"}>Daily Reward</Text>
+        <Flex justifyContent={"space-between"} alignItems={"center"} gap={"4px"}>
+          <Text fontSize={"11px"} fontWeight={400} color={"rgba(255, 255, 255, 0.7)"}>RAFFLE</Text>
           <Flex gap={'6px'} className={s.timeWrapper}>
             <Countdown
               className={s.time}
@@ -40,6 +40,7 @@ const DailyReward = () => {
                 .toString()}
               hideIcon={true}
               onRefreshEnd={() => setIsEnd(true)}
+              isHideSecond={true}
             />
           </Flex>
         </Flex>
