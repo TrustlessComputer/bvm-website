@@ -87,6 +87,42 @@ function LuckyMoney() {
       });
     }
 
+    const mouseDownHandler = (evt: any) => {
+      const mouseX = evt.clientX - canvas.getBoundingClientRect().left;
+      const mouseY = evt.clientY - canvas.getBoundingClientRect().top;
+
+      let grabbedIndex = -1;
+      fallingMoney.forEach(function (money, index) {
+        const coordinates = getRotatedObjectCoordinates(
+          money.x,
+          money.y,
+          currentImageWidth,
+          currentImageHeight,
+          money.angle,
+        );
+
+        if (isPointInsideRotatedObject(mouseX, mouseY, coordinates)) {
+          console.log('grabbed package');
+          grabbedIndex = index;
+          dispatch(
+            openModal({
+              id: 'lucky-money-dialog',
+              disableBgClose: true,
+              contentPadding: 0,
+              hideCloseButton: true,
+              className: s.Modal,
+              render: () => <LuckyMoneyModal envelopSrc={envelop.src} />,
+            }),
+          );
+        }
+
+        if (grabbedIndex !== -1) {
+          fallingMoney.splice(grabbedIndex, 1);
+          draw();
+        }
+      });
+    };
+
     const initAnimation = () => {
       const numMoney = Math.floor(Math.random() * 10);
       const speedOffset = 5;
@@ -97,41 +133,7 @@ function LuckyMoney() {
 
       const canvas = document.getElementById(id) as HTMLCanvasElement;
       if (canvas) {
-        canvas.addEventListener('mousedown', (evt) => {
-          const mouseX = evt.clientX - canvas.getBoundingClientRect().left;
-          const mouseY = evt.clientY - canvas.getBoundingClientRect().top;
-
-          let grabbedIndex = -1;
-          fallingMoney.forEach(function (money, index) {
-            const coordinates = getRotatedObjectCoordinates(
-              money.x,
-              money.y,
-              currentImageWidth,
-              currentImageHeight,
-              money.angle,
-            );
-
-            if (isPointInsideRotatedObject(mouseX, mouseY, coordinates)) {
-              console.log('grabbed package');
-              grabbedIndex = index;
-              dispatch(
-                openModal({
-                  id: 'lucky-money-dialog',
-                  disableBgClose: true,
-                  contentPadding: 0,
-                  hideCloseButton: true,
-                  className: s.Modal,
-                  render: () => <LuckyMoneyModal envelopSrc={envelop.src} />,
-                }),
-              );
-            }
-
-            if (grabbedIndex !== -1) {
-              fallingMoney.splice(grabbedIndex, 1);
-              draw();
-            }
-          });
-        });
+        document.addEventListener('mousedown', mouseDownHandler);
 
         canvasContext = canvas.getContext('2d');
         range(numMoney).forEach(function (index) {
@@ -184,6 +186,7 @@ function LuckyMoney() {
     }
 
     function endAnimation() {
+      document.removeEventListener('mousedown', mouseDownHandler);
       clearInterval(interval);
       fallingMoney = [];
       canvas?.remove();
