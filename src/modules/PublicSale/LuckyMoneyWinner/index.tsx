@@ -8,6 +8,7 @@ import background from '@/public/images/lucky-money-envelops/lucky-money-winner-
 import Avatar from '@/components/Avatar';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { settingMomentFromNow } from '@/utils/helpers';
+import { formatString } from '@/utils/format';
 
 dayjs.extend(relativeTime);
 
@@ -43,7 +44,7 @@ const LuckyMoneyWinner = () => {
         </div>
         <div>
           <div className={s.textMessage}>
-            <strong>{winner?.user.twitter_name || '---'}</strong> just snatched
+            <strong>{formatString(winner?.user.twitter_name || '---', 6, '')}</strong> just snatched
             a red packet successfully and{' '}
             <strong>got {winner?.bvm_amount} BVM</strong>.
           </div>
