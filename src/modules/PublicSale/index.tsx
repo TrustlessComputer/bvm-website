@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import s from './styles.module.scss';
 import { Box } from '@chakra-ui/react';
@@ -10,13 +10,14 @@ import TopContent from '@/modules/PublicSale/topContent';
 import React from 'react';
 import IntroVideos from '@/modules/PublicSale/IntroVideos';
 import useTradeNakaEvent from '@/modules/PublicSale/activities/hooks/useTradeNakaEvent';
+import LuckyMoney from './luckyMoney';
 
 const PublicSaleModule = () => {
   useTradeNakaEvent();
   return (
     <Box className={s.container}>
       <div className={s.contentTop}>
-        <div className='container'>
+        <div className="container">
           <TopContent />
           <AboveTheFold />
         </div>
@@ -25,6 +26,7 @@ const PublicSaleModule = () => {
       <RoadmapModule />
       <Allocation />
       <FAQContent />
+      <LuckyMoney />
     </Box>
   );
 };
