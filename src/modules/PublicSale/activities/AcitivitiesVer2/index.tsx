@@ -328,7 +328,7 @@ const ActivitiesVer2 = React.memo(() => {
       <Flex flexDir="column" gap="20px" className={styles.container}>
         <Flex id="HEADER" flexDir="column" className={styles.container_header}>
           <Text color="white" fontSize={{ base: "18px", md: "24px" }} lineHeight="140%">
-            BITCOIN L2 HOPPING WEEKEND
+            BITCOIN L2 HOPPING WEEKEND.
           </Text>
           <Text color="white" fontSize={{ base: "18px", md: "24px" }} lineHeight="140%" opacity={0.7}>
             EXPLORE BITCOIN LIKE NEVER BEFORE.
