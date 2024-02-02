@@ -17,4 +17,18 @@
   :global(.modal-header-wrap) {
     display: none !important;
   }
+
+  .loading {
+    img {
+      height: 44px;
+    }
+  }
+
+  .reward {
+    position: absolute;
+  }
+
+  .container {
+    position: relative;
+  }
 }

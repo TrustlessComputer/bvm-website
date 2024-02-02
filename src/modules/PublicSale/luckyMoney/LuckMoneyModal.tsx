@@ -9,8 +9,11 @@ import {
 } from '@/stores/states/common/reducer';
 import { commonSelector } from '@/stores/states/common/selector';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { Flex, Text } from '@chakra-ui/react';
+import Loading from '@/components/Loading';
+import s from './styles.module.scss';
 
 type Props = {
   envelopSrc: string;
@@ -23,6 +26,8 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
   const currentLuckyMoney = useAppSelector(commonSelector).currentLuckyMoney;
 
   const [submitting, setSubmitting] = useState(false);
+  const [reward, setReward] = useState(null);
+  const [subbmited, setSubmitted] = useState(false);
 
   useEffect(() => {
     handleClaim();
@@ -48,13 +53,16 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
         currentLuckyMoney?.id as number,
       );
 
-      if (res) {
-        toast.success(
-          `Claim successfully! You received ${currentLuckyMoney?.bvm_amount} BVM`,
-        );
-      } else {
-        toast.success('Better luck next time!');
-      }
+      setSubmitted(true);
+      setReward(res);
+
+      // if (res) {
+      //   toast.success(
+      //     `Claim successfully! You received ${currentLuckyMoney?.bvm_amount} BVM`,
+      //   );
+      // } else {
+      //   toast.success('Better luck next time!');
+      // }
 
       const index = luckyMoneyList.indexOf(
         currentLuckyMoney as IPublicSaleLuckyMoney,
@@ -78,8 +86,36 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
   };
 
   return (
-    <div>
-      <img src={envelopSrc} />
-    </div>
+    <Flex className={s.container}>
+      {
+        submitting ? (
+          <Flex alignItems={'center'} justifyContent={'center'}>
+            <Loading className={s.loading} />
+          </Flex>
+        ) : (
+          <>
+            {
+              subbmited && (
+                <>
+                  {
+                    reward ? (
+                      <>
+                        <img src={envelopSrc} />
+                        <Text className={s.reward}>Better luck next time</Text>
+                      </>
+                    ) : (
+                      <>
+                        <Text>Better luck next time</Text>
+                        <img src={envelopSrc} />
+                      </>
+                    )
+                  }
+                </>
+              )
+            }
+          </>
+        )
+      }
+    </Flex>
   );
 }
