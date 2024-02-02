@@ -224,11 +224,11 @@ const ActivitiesVer2 = React.memo(() => {
         const modular = numberReport.modular
         if (modular && modular.total_owner && modular.total_model) {
           component1 = ReportRow({
-            key: "Builder",
+            key: "Builders",
             value: modular.total_owner.toString()
           });
           component2 = ReportRow({
-            key: "Build",
+            key: "Builds",
             value: modular.total_model.toString()
           });
         }
