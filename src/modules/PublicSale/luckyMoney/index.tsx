@@ -33,6 +33,19 @@ export default function LuckyMoney() {
   const luckyMoneyList = useAppSelector(commonSelector).luckyMoneyList;
   const currentLuckyMoney = useAppSelector(commonSelector).currentLuckyMoney;
 
+  // useEffect(() => {
+  //   dispatch(
+  //     openModal({
+  //       id: 'lucky-money-dialog',
+  //       disableBgClose: true,
+  //       contentPadding: 0,
+  //       hideCloseButton: true,
+  //       className: s.Modal,
+  //       render: () => <LuckyMoneyModal envelopSrc={ENVELOPS[0].src} />,
+  //     }),
+  //   );
+  // }, []);
+
   const makeInRain = () => {
     let width: number;
     let height: number;
@@ -100,7 +113,7 @@ export default function LuckyMoney() {
                   id: 'lucky-money-dialog',
                   disableBgClose: true,
                   contentPadding: 0,
-                  // hideCloseButton: false,
+                  hideCloseButton: true,
                   className: s.Modal,
                   render: () => <LuckyMoneyModal envelopSrc={envelop.src} />,
                 }),
@@ -221,10 +234,13 @@ export default function LuckyMoney() {
 
       if (timeSpan > 0) {
         console.log('_________set', currentLuckyMoney?.id, timeSpan);
-        (timeouts.current as any)[(currentLuckyMoney as any)?.id] = setTimeout(() => {
-          makeInRain();
-          getListLuckyMoney();
-        }, timeSpan);
+        (timeouts.current as any)[(currentLuckyMoney as any)?.id] = setTimeout(
+          () => {
+            makeInRain();
+            getListLuckyMoney();
+          },
+          timeSpan,
+        );
       }
     }
   }, [currentLuckyMoney?.id]);
