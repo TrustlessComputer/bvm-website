@@ -82,6 +82,7 @@ export default function LuckyMoney() {
           const mouseX = evt.clientX - canvas.getBoundingClientRect().left;
           const mouseY = evt.clientY - canvas.getBoundingClientRect().top;
 
+          let grabbedIndex = -1;
           fallingMoney.forEach(function (money, index) {
             const coordinates = getRotatedObjectCoordinates(
               money.x,
@@ -93,15 +94,22 @@ export default function LuckyMoney() {
 
             if (isPointInsideRotatedObject(mouseX, mouseY, coordinates)) {
               console.log('grabbed package');
+              grabbedIndex = index;
               dispatch(
                 openModal({
                   id: 'lucky-money-dialog',
+                  disableBgClose: true,
                   contentPadding: 0,
                   // hideCloseButton: true,
                   className: s.Modal,
                   render: () => <LuckyMoneyModal envelopSrc={envelop.src} />,
                 }),
               );
+            }
+
+            if (grabbedIndex !== -1) {
+              fallingMoney.splice(grabbedIndex, 1);
+              draw();
             }
           });
         });

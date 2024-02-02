@@ -15,7 +15,9 @@
   }
 
   :global(.modal-header-wrap) {
-    display: none !important;
+    // display: none !important;
+    height: 0px !important;
+    margin-bottom: 0 !important;
   }
 
   .loading {
