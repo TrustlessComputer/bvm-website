@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Coin, CommonState } from './types';
+import { IPublicSaleLuckyMoney } from '@/services/public-sale';
 
 const initialState: CommonState = {
   needReload: 0,
@@ -13,6 +14,8 @@ const initialState: CommonState = {
   needCheckDeposit: false,
   animatedLatestContributors: [],
   publicSaleDailyReward: undefined,
+  luckyMoneyList: [],
+  currentLuckyMoney: undefined
 };
 
 const slice = createSlice({
@@ -40,6 +43,12 @@ const slice = createSlice({
     setPublicSaleDailyReward: (state, action) => {
       state.publicSaleDailyReward = action.payload;
     },
+    setLuckyMoneyList: (state, action) => {
+      state.luckyMoneyList = action.payload;
+    },
+    setCurrentLuckyMoney: (state, action) => {
+      state.currentLuckyMoney = action.payload;
+    },
   },
 });
 
@@ -50,7 +59,9 @@ export const {
   setLeaderBoardMode,
   setNeedCheckDeposit,
   setAnimatedLatestContributors,
-  setPublicSaleDailyReward
+  setPublicSaleDailyReward,
+  setLuckyMoneyList,
+  setCurrentLuckyMoney
 } = slice.actions;
 
 export default slice.reducer;
