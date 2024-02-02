@@ -22,7 +22,7 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
   const currentLuckyMoney = useAppSelector(commonSelector).currentLuckyMoney;
 
   const [submitting, setSubmitting] = useState(false);
-  const [reward, setReward] = useState(null);
+  const [reward, setReward] = useState<IPublicSaleLuckyMoney>();
   const [subbmited, setSubmitted] = useState(false);
 
   useEffect(() => {
@@ -90,6 +90,10 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
     );
   }
 
+  const handleShareTw = () => {
+
+  }
+
   return (
     <Flex className={s.container} direction={"column"}>
       {
@@ -115,8 +119,19 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
                   {
                     reward ? (
                       <>
-                        <img src={envelopSrc} />
-                        <Text className={s.betterTitle}>Claim successfully! You received {currentLuckyMoney?.bvm_amount} BVM</Text>
+                        <img src={'public-sale/lucky_reward_bg.png'} />
+                        <Flex direction={"column"} className={s.content}>
+                          <Text className={s.rewardValue}>You have snatched</Text>
+                          <Text className={s.rewardValue}>{reward?.bvm_amount}</Text>
+                          <Text className={s.rewardUnit}>BVM tokens</Text>
+                          <Flex className={s.btnShare} gap={2} alignItems={"center"} onClick={handleShareTw}>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <rect width="16" height="16" rx="8" fill="black"/>
+                              <path d="M10.875 3.46875H12.4087L9.05875 7.3075L13 12.5313H9.91437L7.4975 9.3625L4.73187 12.5313H3.1975L6.78062 8.425L3 3.46875H6.16438L8.34875 6.36438L10.875 3.46875ZM10.3375 11.6113H11.1875L5.70187 4.34063H4.79062L10.3375 11.6113Z" fill="white"/>
+                            </svg>
+                            <Text>Share to claim</Text>
+                          </Flex>
+                        </Flex>
                       </>
                     ) : (
                       <>
