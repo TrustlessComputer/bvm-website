@@ -126,8 +126,8 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                       className={s.countDown_time}
                       expiredTime={dayjs.utc(isPublicSale ? PUBLIC_SALE_END : PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
                       hideIcon={true}
+                      suffix="left"
                     />
-                    <span style={{ marginLeft: "4px", lineHeight: "100%" }}>left</span>
                   </Flex>
                 </Flex>
               </Flex>
