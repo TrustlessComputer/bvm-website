@@ -204,7 +204,7 @@ export default function LuckyMoney() {
     let timeout: ReturnType<typeof setTimeout>;
     if (currentLuckyMoney?.created_at) {
       const timeSpan = dayjs(currentLuckyMoney?.created_at).diff(dayjs());
-      console.log('_________', timeSpan);
+      console.log('_________', currentLuckyMoney, timeSpan);
       if (timeSpan) {
         timeout = setTimeout(() => {
           // dispatch(
