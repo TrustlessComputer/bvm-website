@@ -1,0 +1,162 @@
+.canvas {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  // opacity: 0.7;
+  opacity: 1;
+}
+
+.Modal {
+  padding: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+
+  :global(.chakra-modal__body) {
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  :global(.modal-header-wrap) {
+    // display: none !important;
+    height: 0px !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+.LuckMoneyModal {
+  position: relative;
+
+  .closeBtn {
+    z-index: 20;
+    padding: 5px !important;
+    background-color: transparent !important;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:hover {
+      .closeIcon {
+        transform: scale(1.2);
+        transition: all 0.3s;
+      }
+    }
+  }
+
+  .background {
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .Container {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding-left: 30px;
+
+    .ContainerBody {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .waiting {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .failed {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-left: 60px;
+      padding-right: 60px;
+      height: 100%;
+      padding-top: 100px;
+
+      .betterTitle {
+        text-align: center;
+        font-size: 24px;
+        font-weight: 500;
+        padding-top: 20px;
+        color: #ffffff;
+      }
+
+      .betterDesc {
+        padding-top: 20px;
+        font-size: 16px;
+        font-weight: 300;
+        color: #ffffff;
+        text-align: center;
+      }
+    }
+
+    .success {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-left: 60px;
+      padding-right: 90px;
+      height: 100%;
+      padding-top: 100px;
+
+      .rewardTitle {
+        width: 100%;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 300;
+        padding: 20px;
+        color: #ffffff;
+      }
+
+      .rewardValue {
+        font-size: 32px;
+        font-weight: 700;
+        color: #ffea92;
+        text-align: center;
+      }
+
+      .rewardUnit {
+        font-size: 16px;
+        font-weight: 300;
+        text-align: center;
+        color: #ffffff;
+      }
+
+      .btnShare {
+        margin-top: 28px;
+
+        padding: 8px 48px 8px 48px;
+        border-radius: 100px;
+        background: rgba(255, 255, 255, 1);
+
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+
+        span {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 12px;
+          letter-spacing: 0em;
+          text-align: left;
+          color: rgba(0, 0, 0, 1);
+        }
+      }
+    }
+  }
+}
