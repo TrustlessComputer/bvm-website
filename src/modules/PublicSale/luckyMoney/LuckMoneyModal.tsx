@@ -1,12 +1,6 @@
-import {
-  claimPublicSaleLuckyMoney,
-  IPublicSaleLuckyMoney,
-} from '@/services/public-sale';
+import { claimPublicSaleLuckyMoney, IPublicSaleLuckyMoney } from '@/services/public-sale';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import {
-  requestReload,
-  setCurrentLuckyMoney,
-} from '@/stores/states/common/reducer';
+import { requestReload, setCurrentLuckyMoney } from '@/stores/states/common/reducer';
 import { commonSelector } from '@/stores/states/common/selector';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
@@ -14,6 +8,7 @@ import { toast } from 'react-hot-toast';
 import { Flex, Text } from '@chakra-ui/react';
 import Loading from '@/components/Loading';
 import s from './styles.module.scss';
+import { closeModal } from '@/stores/states/modal/reducer';
 
 type Props = {
   envelopSrc: string;
@@ -80,6 +75,11 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
         toast.error('Something went wrong. Please try again.');
       }
       getLatestCurrentLuckyMoney();
+      dispatch(
+        closeModal({
+          id: 'lucky-money-dialog',
+        }),
+      );
     } finally {
       setSubmitting(false);
     }
