@@ -12,6 +12,7 @@ import {
   IPublicSaleLuckyMoney,
   claimPublicSaleLuckyMoney,
   getPublicSaleDailyReward,
+  getPublicSaleLeaderBoards,
   getPublicSaleLuckyMoney,
 } from '@/services/public-sale';
 import {
@@ -28,6 +29,8 @@ import {
   isPointInsideRotatedObject,
 } from './helpers';
 import LuckyMoneyModal from './LuckMoneyModal';
+import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
+import AuthenStorage from '@/utils/storage/authen.storage';
 
 function LuckyMoney() {
   const dispatch = useAppDispatch();
@@ -261,9 +264,26 @@ export default function Wrapper() {
   const [dailyReward, setDailyReward] =
     useState<IPublicSaleDailyReward | null>();
   const refInterval = useRef<any>(undefined);
+  const [userContributeInfo, setUserContributeInfo] =
+    useState<ILeaderBoardPoint>();
+
+  const token =
+    AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
+
+  const getUserContributeInfo = async () => {
+    const { data } = await getPublicSaleLeaderBoards({
+      page: 1,
+      limit: 0,
+    });
+
+    if (data[0]?.need_active) {
+      setUserContributeInfo(data[0]);
+    }
+  };
 
   const getProgramInfo = async () => {
     try {
+      console.log('____________');
       const res = await getPublicSaleDailyReward();
       setDailyReward(res);
       dispatch(setPublicSaleDailyReward(res));
@@ -271,6 +291,12 @@ export default function Wrapper() {
     } finally {
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      getUserContributeInfo();
+    }
+  }, [token, needReload]);
 
   useEffect(() => {
     getProgramInfo();
@@ -290,7 +316,11 @@ export default function Wrapper() {
     };
   }, [needReload]);
 
-  if (dailyReward?.total || dailyReward?.pending) {
+  if (
+    dailyReward?.total ||
+    dailyReward?.pending ||
+    userContributeInfo?.usdt_value
+  ) {
     return <LuckyMoney />;
   }
 
