@@ -9,9 +9,14 @@ import { PERP_API_URL } from '@/config';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import axios from 'axios';
 import { camelCaseKeys } from '@/utils/normalize';
+import { AlphaRunReport, ModularReport, NakaVolumeReport, NumberReport } from '@/stores/states/activities/types';
 
 const apiClient = createAxiosInstance({
   baseURL: `${PERP_API_URL}/api`,
+});
+
+const apiReport = createAxiosInstance({
+  baseURL: "",
 });
 
 export const getPublicsaleWalletInfo = async (): Promise<
@@ -293,3 +298,26 @@ export const claimPublicSaleLuckyMoney = async (id: number): Promise<any> => {
     throw error;
   }
 };
+
+export const getActivitiesReport = async (): Promise<NumberReport | undefined> => {
+  try {
+    const [modular, alphaRun, nakaVolume, gameReport] = (
+      await Promise.allSettled([
+        apiReport.get("https://generative.xyz/generative/api/modular-workshop/statistic"),
+        apiReport.get("https://stag-perp-api.fprotocol.io/api/run-together/statistics"),
+        apiReport.get("https://api.bvm.network/api/future/report"),
+        apiReport.get("https://game-state.bitcoinarcade.xyz/api/network-stats")
+      ])
+    ) as any[];
+
+    return {
+      modular: modular?.value,
+      alphaRun: alphaRun?.value,
+      nakaVolume: nakaVolume?.value,
+      gameReport: gameReport?.value
+    }
+
+  } catch (error) {
+    return undefined;
+  }
+}
