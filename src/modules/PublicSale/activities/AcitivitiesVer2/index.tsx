@@ -25,6 +25,8 @@ enum ActivityType {
   AI
 }
 
+const MODULAR_TW_LINK = "https://twitter.com/BVMnetwork/status/1752952381007171646";
+
 export interface GameItemProps {
   title: string;
   subTitle?: string;
@@ -32,7 +34,8 @@ export interface GameItemProps {
   ctas?: ICTA[];
   banner?: string,
   link?: string,
-  type: ActivityType
+  type: ActivityType,
+  bannerLink?: string
 }
 
 const GAME_LINK = {
@@ -161,6 +164,7 @@ const ActivitiesVer2 = React.memo(() => {
         banner: 'banner-03.png',
         link: GAME_LINK.MODULAR,
         type: ActivityType.Modular,
+        bannerLink: MODULAR_TW_LINK
       },
       {
         title: 'SocialFi on Bitcoin',
@@ -269,9 +273,13 @@ const ActivitiesVer2 = React.memo(() => {
       }
     }
     if (!component1 && !component2) return <></>;
+    const isModular = type === ActivityType.Modular;
 
     return (
-      <Flex alignItems="center" gap="8px">
+      <Flex alignItems="center" gap="8px" cursor={isModular ? "pointer" : "unset"} onClick={() => {
+        if(!isModular) return;
+        window.open(MODULAR_TW_LINK, "_blank")
+      }}>
         {!!component1 && (
           component1
         )}
@@ -283,7 +291,7 @@ const ActivitiesVer2 = React.memo(() => {
         )}
       </Flex>
     )
-  }, []);
+  }, [numberReport]);
 
   const renderItem = (item: GameItemProps) => {
     return (
@@ -300,9 +308,9 @@ const ActivitiesVer2 = React.memo(() => {
         </div>
         <div className={styles.container_item_media}>
           {!!item.banner && (
-            !!item.link ?
+            (!!item.link || !!item.bannerLink) ?
               (
-                <a href={item.link || ""} target='_blank'>
+                <a href={item.bannerLink || item.link || ""} target='_blank'>
                   <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: "100%" }}  alt="banner"/>
                 </a>
               ) :
@@ -320,7 +328,7 @@ const ActivitiesVer2 = React.memo(() => {
       <Flex flexDir="column" gap="20px" className={styles.container}>
         <Flex id="HEADER" flexDir="column" className={styles.container_header}>
           <Text color="white" fontSize={{ base: "18px", md: "24px" }} lineHeight="140%">
-            BITCOIN L2 HOPPING WEEKEND
+            BITCOIN L2 HOPPING WEEKEND.
           </Text>
           <Text color="white" fontSize={{ base: "18px", md: "24px" }} lineHeight="140%" opacity={0.7}>
             EXPLORE BITCOIN LIKE NEVER BEFORE.
