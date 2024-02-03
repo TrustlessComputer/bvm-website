@@ -1,6 +1,6 @@
 import s from './styles.module.scss';
 import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   getLuckyMoneyLastWinner,
   LuckyMoneyWinner,
@@ -21,13 +21,26 @@ settingMomentFromNow();
 const LuckyMoneyWinner = () => {
   const currentLuckyMoney = useAppSelector(commonSelector).currentLuckyMoney;
   const [winner, setWinner] = useState<LuckyMoneyWinner>();
+  const refTimeout = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
-    setWinner(undefined);
+    if (refTimeout.current) {
+      clearInterval(refTimeout.current);
+    }
 
-    getLuckyMoneyLastWinner().then((res) => {
-      setWinner(res);
-    });
+    const fetchData = () => {
+      setWinner(undefined);
+
+      getLuckyMoneyLastWinner().then((res) => {
+        setWinner(res);
+      });
+    };
+
+    fetchData();
+
+    refTimeout.current = setInterval(() => {
+      fetchData();
+    }, 30000);
   }, [currentLuckyMoney?.id]);
 
   const renderWinner = () => {

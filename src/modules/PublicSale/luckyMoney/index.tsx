@@ -286,7 +286,6 @@ export default function Wrapper() {
 
   const getProgramInfo = async () => {
     try {
-      console.log('____________');
       const res = await getPublicSaleDailyReward();
       setDailyReward(res);
       dispatch(setPublicSaleDailyReward(res));
