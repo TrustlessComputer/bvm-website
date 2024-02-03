@@ -57,8 +57,8 @@ const LuckyMoneyWinner = () => {
             <strong>
               {formatNameOrAddress(winner?.user.twitter_name || '---')}
             </strong>{' '}
-            just snatched a red packet successfully and{' '}
-            <strong>got {winner?.bvm_amount || '--'} BVM</strong>.
+            is the lucky man. Just snatched a red packet{' '}
+            <strong>with {winner?.bvm_amount || '--'} BVM inside</strong>.
           </div>
           <div className={s.time}>
             {winner?.updated_at
