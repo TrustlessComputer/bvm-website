@@ -44,13 +44,7 @@ const LuckyMoneyWinner = () => {
         }}
       >
         <div className={s.avatar}>
-          <Avatar
-            width={40}
-            url={getUrlAvatarTwitter(
-              (winner?.user?.twitter_avatar as string) || '',
-              'normal',
-            )}
-          />
+          <Avatar width={40} url={winner?.user?.twitter_avatar} />
         </div>
         <div>
           <div className={s.textMessage}>
