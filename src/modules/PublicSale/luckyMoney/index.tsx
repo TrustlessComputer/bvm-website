@@ -67,6 +67,8 @@ function LuckyMoney() {
     let canvasContext: CanvasRenderingContext2D | null = null;
 
     const envelop = ENVELOPS[Math.floor(Math.random() * 7)];
+    const angles = Array.from(Array(10)).map(() => Math.random() * 0.1);
+    const radiusRandom = Array.from(Array(10)).map(() => Math.random() * 10);
 
     function clearWindow() {
       canvasContext?.clearRect(0, 0, width, height);
@@ -80,8 +82,8 @@ function LuckyMoney() {
 
         money.currentFrame += 1;
         money.y += money.speed;
-        money.angle += money.direction * 0.05;
-        const radius = money.direction * (5 + (index % 6));
+        money.angle += money.direction * angles[index];
+        const radius = money.direction * (radiusRandom[index] + (index % 6));
         money.x +=
           Math.sin((money.currentFrame + index) / (2 * Math.PI)) * radius;
       });
