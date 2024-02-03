@@ -328,7 +328,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             <div className={s.grid_item}>
               <div
                 className={s.backer}
-                onClick={() => setShowContributorModal(true)}
+                // onClick={() => setShowContributorModal(true)}
               >
                 <Text
                   className={s.tLabel}
