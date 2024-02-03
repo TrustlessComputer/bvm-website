@@ -25,7 +25,7 @@
 
       .winner {
         padding: 6px;
-        min-height: 20%;
+        min-height: 80px;
         width: 100%;
         background: linear-gradient(
           180deg,
@@ -40,9 +40,9 @@
         gap: 6px;
 
         .textMessage {
-          font-size: 10px;
+          font-size: 12px;
           font-weight: 400;
-          line-height: 10px;
+          line-height: 12px;
           letter-spacing: 0em;
           text-align: left;
           color: rgba(137, 77, 28, 1);

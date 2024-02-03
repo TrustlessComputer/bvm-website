@@ -1,7 +1,10 @@
 import s from './styles.module.scss';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { getLuckyMoneyLastWinner, LuckyMoneyWinner } from '@/services/public-sale';
+import {
+  getLuckyMoneyLastWinner,
+  LuckyMoneyWinner,
+} from '@/services/public-sale';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import background from '@/public/images/lucky-money-envelops/lucky-money-winner-background.png';
@@ -9,6 +12,7 @@ import Avatar from '@/components/Avatar';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { settingMomentFromNow } from '@/utils/helpers';
 import { formatNameOrAddress, formatString } from '@/utils/format';
+import { getUrlAvatarTwitter } from '@/utils/twitter';
 
 dayjs.extend(relativeTime);
 
@@ -40,13 +44,21 @@ const LuckyMoneyWinner = () => {
         }}
       >
         <div className={s.avatar}>
-          <Avatar width={40} url={winner?.user?.twitter_avatar} />
+          <Avatar
+            width={40}
+            url={getUrlAvatarTwitter(
+              (winner?.user?.twitter_avatar as string) || '',
+              'normal',
+            )}
+          />
         </div>
         <div>
           <div className={s.textMessage}>
-            <strong>{formatNameOrAddress(winner?.user.twitter_name || '---')}</strong> just snatched
-            a red packet successfully and{' '}
-            <strong>got {winner?.bvm_amount} BVM</strong>.
+            <strong>
+              {formatNameOrAddress(winner?.user.twitter_name || '---')}
+            </strong>{' '}
+            just snatched a red packet successfully and{' '}
+            <strong>got {winner?.bvm_amount || '--'} BVM</strong>.
           </div>
           <div className={s.time}>
             {winner?.updated_at
