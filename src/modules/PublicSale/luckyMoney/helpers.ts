@@ -60,6 +60,31 @@ export function isPointInsideRotatedObject(
   return isInsideConvexHull;
 }
 
+export function getRectangleCoordinates(
+  topLeftX: number,
+  topLeftY: number,
+  angleInRadians: number,
+  width: number,
+  height: number,
+) {
+  // Calculate the other three corners relative to the top-left point
+  const topRightX = topLeftX + width * Math.cos(angleInRadians);
+  const topRightY = topLeftY + width * Math.sin(angleInRadians);
+
+  const bottomLeftX = topLeftX - height * Math.sin(angleInRadians);
+  const bottomLeftY = topLeftY + height * Math.cos(angleInRadians);
+
+  const bottomRightX = topRightX - height * Math.sin(angleInRadians);
+  const bottomRightY = topRightY + height * Math.cos(angleInRadians);
+
+  return {
+    topLeft: { x: topLeftX, y: topLeftY },
+    topRight: { x: topRightX, y: topRightY },
+    bottomLeft: { x: bottomLeftX, y: bottomLeftY },
+    bottomRight: { x: bottomRightX, y: bottomRightY },
+  };
+}
+
 export function getRotatedObjectCoordinates(
   centerX: number,
   centerY: number,

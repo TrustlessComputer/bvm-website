@@ -25,6 +25,7 @@ import dayjs from 'dayjs';
 
 import {
   Money,
+  getRectangleCoordinates,
   getRotatedObjectCoordinates,
   isPointInsideRotatedObject,
 } from './helpers';
@@ -95,12 +96,12 @@ function LuckyMoney() {
 
       let grabbedIndex = -1;
       fallingMoney.forEach(function (money, index) {
-        const coordinates = getRotatedObjectCoordinates(
+        const coordinates = getRectangleCoordinates(
           money.x,
           money.y,
+          money.angle,
           currentImageWidth,
           currentImageHeight,
-          money.angle,
         );
 
         if (isPointInsideRotatedObject(mouseX, mouseY, coordinates)) {
