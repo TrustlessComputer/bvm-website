@@ -125,11 +125,11 @@ function LuckyMoney() {
 
     const initAnimation = () => {
       const numMoney = Math.floor(Math.random() * 10);
-      const speedOffset = 5;
+      const speedOffset = 3.5;
       const speedRange = 5;
       const numImages = 6;
       const frameRate = 1000 / 30; // 30 frames per second
-      const animationLength = 10000; // 10 seconds
+      const animationLength = 15000; // 10 seconds
 
       const canvas = document.getElementById(id) as HTMLCanvasElement;
       if (canvas) {
