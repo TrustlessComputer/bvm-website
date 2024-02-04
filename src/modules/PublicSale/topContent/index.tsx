@@ -1,37 +1,17 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { useRouter } from 'next/navigation';
 import s from './styles.module.scss';
 import React, { useState } from 'react';
 import DropDown from '@/components/DropList';
 import { WHITEPAPER_DOC_URL } from '@/config';
 import Image from 'next/image';
 import ModalVideo from 'react-modal-video';
-import { getPublicSaleSummary } from '@/services/public-sale';
-import { getTopLeaderBoards } from '@/services/whitelist';
 import { formatCurrency } from '@/utils/format';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
 
 const TopContent = () => {
-  const router = useRouter();
   const [isOpen, setOpen] = useState(false);
-  const [totalUser, setTotalUser] = useState<string>('');
-  const [totalDeposit, setTotalDeposit] = useState('');
-
-  const getCount = async () => {
-    try {
-      const response = await getPublicSaleSummary();
-      setTotalUser(response.total_user.toString());
-      setTotalDeposit(response.total_usdt_value_not_boost.toString())
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  React.useEffect(() => {
-    getCount();
-    setInterval(() => {
-
-    }, 10000)
-  }, []);
+  const publicSaleSummary = useAppSelector(commonSelector).publicSaleSummary;
 
   return (
     <div className={s.container}>
@@ -41,7 +21,7 @@ const TopContent = () => {
             Bitcoin Virtual Machine
           </Text>
           <Text className={s.title}>Bitcoin, reimagined.</Text>
-          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin beyond just a currency — the next internet with gaming, DeFi, AI, SocialFi, and more. Join {formatCurrency(totalUser || 800, 0, 0)} backers shaping the future of Bitcoin.</Text>
+          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin beyond just a currency — the next internet with gaming, DeFi, AI, SocialFi, and more. Join {formatCurrency(publicSaleSummary?.total_user || 800, 0, 0)} backers shaping the future of Bitcoin.</Text>
         </Flex>
         <ul className={s.actions}>
           <li>

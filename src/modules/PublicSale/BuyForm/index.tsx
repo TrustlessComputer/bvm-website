@@ -1,16 +1,18 @@
 import {
   Box,
   Button,
-  Flex, FocusLock,
-  Popover, PopoverArrow, PopoverCloseButton,
+  Flex,
+  FocusLock,
+  Popover,
+  PopoverArrow,
+  PopoverCloseButton,
   PopoverContent,
   PopoverTrigger,
   Text,
-  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
-import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import {
   getPublicSaleLeaderBoards,
@@ -18,7 +20,7 @@ import {
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
 import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
-import { ellipsisCenter, formatCurrency, formatName, formatString } from '@/utils/format';
+import { formatCurrency } from '@/utils/format';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
@@ -33,20 +35,13 @@ import AuthenStorage from '@/utils/storage/authen.storage';
 import { PUBLIC_SALE_END } from '@/modules/Whitelist';
 import NumberScale from '@/components/NumberScale';
 import { GuestCodeHere } from '../depositModal/deposit.guest.code';
-import LoginTooltip from '@/modules/PublicSale/depositModal/login.tooltip';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import IcHelp from '@/components/InfoTooltip/IcHelp';
 import AuthForBuyV2 from '@/modules/PublicSale/AuthForBuyV2';
-import { userSelector } from '@/stores/states/user/selector';
-import { isAddress } from '@ethersproject/address';
-import { validate } from 'bitcoin-address-validation';
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import Avatar from '@/components/Avatar';
-import { getUrlAvatarTwitter } from '@/utils/twitter';
-import Image from 'next/image';
-import { CDN_URL_ICONS } from '@/config';
 import UserLoggedAvatar from '@/modules/PublicSale/BuyForm/UserLoggedAvatar';
+import { useDispatch } from 'react-redux';
+import { setPublicSaleSummary } from '@/stores/states/common/reducer';
 
 interface FormValues {
   tokenAmount: string;
@@ -107,6 +102,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   const timeIntervalSummary = useRef<any>(undefined);
   const { needReload } = useAppSelector(commonSelector);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getContributeInfo();
@@ -130,6 +126,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       res.total_usdt_value_not_boost || '0',
     );
     setContributeInfo(res);
+    dispatch(setPublicSaleSummary(res));
   };
 
   const getUserContributeInfo = async () => {
