@@ -1,5 +1,5 @@
 import s from './styles.module.scss';
-import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
+import { Flex, SimpleGrid } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import useAnimationStore from '@/stores/useAnimationStore';
 import BuyForm from '@/modules/PublicSale/BuyForm';
@@ -8,10 +8,10 @@ import { KEY_VC_TYPE } from '@/constants/storage-key';
 import { getVCInformation } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
 import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
-import Activities from '@/modules/PublicSale/activities';
 import useWindowSize from '@/hooks/useWindowSize';
 import DailyReward from '@/modules/PublicSale/dailyReward';
 import ActivitiesVer2 from '@/modules/PublicSale/activities/AcitivitiesVer2';
+import LuckyMoneyShare from '@/modules/PublicSale/luckyMoneyShare';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -59,6 +59,7 @@ const AboveTheFold = () => {
         </Flex>
         <Flex className={s.rightSection} direction={'column'}>
           <BuyForm vcInfo={vcInfo} />
+          <LuckyMoneyShare />
           {/*<Welcome />*/}
           {/*<Playgame />*/}
           {!mobileScreen && <ActivitiesVer2 />}

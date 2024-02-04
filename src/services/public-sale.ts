@@ -412,3 +412,21 @@ export const getLuckyMoneyLastWinner = async (): Promise<LuckyMoneyWinner> => {
     throw error;
   }
 };
+
+export const getLuckyMoneyShare = async (): Promise<any> => {
+  try {
+    const res = await apiClient.get(`/bvm/lucky-share/share`);
+    return res as any;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const claimLuckyMoneyShare = async (): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/lucky-share/share`);
+    return res as any;
+  } catch (error) {
+    throw error;
+  }
+};
