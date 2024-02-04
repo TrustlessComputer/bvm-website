@@ -278,6 +278,33 @@ export const requestRewardDailyShareCode = async (): Promise<any> => {
   return;
 };
 
+export const getActivitiesReport = async (): Promise<
+  NumberReport | undefined
+> => {
+  try {
+    const [modular, alphaRun, nakaVolume, gameReport] =
+      (await Promise.allSettled([
+        apiReport.get(
+          'https://generative.xyz/generative/api/modular-workshop/statistic',
+        ),
+        apiReport.get(
+          'https://perp-api.fprotocol.io/api/run-together/statistics',
+        ),
+        apiReport.get('https://api.bvm.network/api/future/report'),
+        apiReport.get('https://game-state.bitcoinarcade.xyz/api/network-stats'),
+      ])) as any[];
+
+    return {
+      modular: modular?.value,
+      alphaRun: alphaRun?.value,
+      nakaVolume: nakaVolume?.value,
+      gameReport: gameReport?.value,
+    };
+  } catch (error) {
+    return undefined;
+  }
+};
+
 export interface IPublicSaleLuckyMoney {
   id: number;
   created_at: string;
@@ -334,5 +361,99 @@ export const getActivitiesReport = async (): Promise<
     };
   } catch (error) {
     return undefined;
+  }
+};
+
+export type LuckyMoneyWinner = {
+  bvm_amount: number;
+  created_at: string;
+  id: number;
+  share_code: string;
+  updated_at: string;
+  user: {
+    alpha_point: number;
+    arb_balance: string;
+    arb_point: number;
+    arbeth_balance: number;
+    base_point: number;
+    baseeth_balance: string;
+    blast_point: number;
+    boost: string;
+    btc_balance: string;
+    bvm_balance: string;
+    bvm_balance_not_boost: string;
+    bvm_percent: string;
+    bvm_point: number;
+    celestia_point: number;
+    coin_balances: null;
+    content_point: number;
+    deposit_id: number;
+    deposited_at: string;
+    eco_point: number;
+    eigenlayer_point: number;
+    eth_balance: string;
+    game_point: number;
+    gas_point: number;
+    gmx_point: number;
+    id: number;
+    manta_point: number;
+    naka_point: number;
+    need_active: false;
+    network: string;
+    num_like: number;
+    num_post: number;
+    num_quote: number;
+    num_retweet: number;
+    num_view: number;
+    op_balance: string;
+    opeth_balance: string;
+    optimism_point: number;
+    ordi_balance: string;
+    point: number;
+    polygon_point: number;
+    ranking: number;
+    refer_point: number;
+    referral_at: string;
+    referral_code: string;
+    referrer_code: string;
+    referrer_twitter_id: string;
+    sats_balance: string;
+    tia_balance: string;
+    twitter_avatar: string;
+    twitter_id: string;
+    twitter_name: string;
+    twitter_username: string;
+    type: string;
+    usdc_balance: string;
+    usdt_balance: string;
+    usdt_value: string;
+    view_boost: string;
+  };
+};
+
+export const getLuckyMoneyLastWinner = async (): Promise<LuckyMoneyWinner> => {
+  try {
+    const res = await apiClient.get(`/bvm/lucky/lastest-winer`);
+    return res as any;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getLuckyMoneyShare = async (): Promise<any> => {
+  try {
+    const res = await apiClient.get(`/bvm/lucky-share/share`);
+    return res as any;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const claimLuckyMoneyShare = async (): Promise<any> => {
+  try {
+    const res = await apiClient.post(`/bvm/lucky-share/share`);
+    return res as any;
+  } catch (error) {
+    throw error;
   }
 };

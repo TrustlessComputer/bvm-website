@@ -33,6 +33,12 @@ const Vesting = () => {
               <td>6 months</td>
               <td>Monthly</td>
             </tr>
+            <tr>
+              <td>Community</td>
+              <td>5 years</td>
+              <td>No cliff</td>
+              <td>Monthly</td>
+            </tr>
           </tbody>
         </table>
       </Box>

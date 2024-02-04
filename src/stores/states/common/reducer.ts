@@ -15,7 +15,9 @@ const initialState: CommonState = {
   animatedLatestContributors: [],
   publicSaleDailyReward: undefined,
   luckyMoneyList: [],
-  currentLuckyMoney: undefined
+  currentLuckyMoney: undefined,
+  publicSaleSummary: undefined,
+  userContributeInfo: undefined,
 };
 
 const slice = createSlice({
@@ -49,6 +51,12 @@ const slice = createSlice({
     setCurrentLuckyMoney: (state, action) => {
       state.currentLuckyMoney = action.payload;
     },
+    setPublicSaleSummary: (state, action) => {
+      state.publicSaleSummary = action.payload;
+    },
+    setUserContributeInfo: (state, action) => {
+      state.userContributeInfo = action.payload;
+    },
   },
 });
 
@@ -61,7 +69,9 @@ export const {
   setAnimatedLatestContributors,
   setPublicSaleDailyReward,
   setLuckyMoneyList,
-  setCurrentLuckyMoney
+  setCurrentLuckyMoney,
+  setPublicSaleSummary,
+  setUserContributeInfo,
 } = slice.actions;
 
 export default slice.reducer;

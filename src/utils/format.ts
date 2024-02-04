@@ -3,6 +3,8 @@ import { ethers } from 'ethers';
 import { MAX_DECIMAL } from '@/constants/constants';
 import { compareString } from './string';
 import dayjs from 'dayjs';
+import { isAddress } from '@ethersproject/address';
+import { validate } from 'bitcoin-address-validation';
 
 export const isInValidAmount = (amount?: string | number) => {
   if (!amount) return true;
@@ -164,6 +166,16 @@ export function formatString(
 ) {
   if (str?.length && str.length > length) {
     return str.slice(0, length) + suffix;
+  }
+  return str;
+}
+
+export function formatNameOrAddress(str: string | undefined) {
+  const isEVM = isAddress(str || "");
+  const isBTC = validate(str || "");
+  const length = isBTC ? 4 : isEVM ? 6 : 12;
+  if (str?.length && str.length > length) {
+    return str.slice(0, length);
   }
   return str;
 }

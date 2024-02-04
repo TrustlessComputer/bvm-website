@@ -14,7 +14,7 @@ import { userSelector } from '@/stores/states/user/selector';
 const IMAGE_SIZE = 14;
 
 const UserLoggedAvatar = () => {
-  const user = useAppSelector(userSelector)
+  const user = useAppSelector(userSelector);
   const renderUser = () => {
     if (!user) return '';
     const isEVM = isAddress(user.twitter_id);

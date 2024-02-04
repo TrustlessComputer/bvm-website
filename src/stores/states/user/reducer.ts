@@ -99,6 +99,12 @@ const slice = createSlice({
       state.userToken = action.payload;
       AuthenStorage.setAuthenKey(action.payload);
     },
+    removeUserToken: (state) => {
+      (state as any).userToken = undefined;
+      (state as any).user = undefined;
+      AuthenStorage.setAuthenKey("");
+      AuthenStorage.setGuestAuthenKey("");
+    },
   },
 });
 
@@ -117,6 +123,7 @@ export const {
   setPublicSaleLeaderBoardVisual,
   setGuestSecretCode,
   setUserToken,
+  removeUserToken
 } = slice.actions;
 
 export default slice.reducer;

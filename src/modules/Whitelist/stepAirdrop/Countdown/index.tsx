@@ -10,9 +10,10 @@ interface IProps {
   isHideSecond?: boolean;
   className?: string;
   onRefreshEnd?: () => void;
-  type?: 'row' | 'column',
-  hideZeroHour?: boolean
-  showColon?: boolean
+  type?: 'row' | 'column';
+  hideZeroHour?: boolean;
+  showColon?: boolean;
+  suffix?: string
 }
 
 const Countdown: React.FC<IProps> = ({
@@ -23,7 +24,8 @@ const Countdown: React.FC<IProps> = ({
    type = 'row',
    isHideSecond,
    hideZeroHour = false,
-   showColon = false
+   showColon = false,
+                                       suffix = ""
  }: IProps): React.ReactElement => {
   const refCallEnd = useRef(false);
   const {
@@ -38,7 +40,7 @@ const Countdown: React.FC<IProps> = ({
     if (hideZeroHour) {
       return <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hideZeroHour && !hours ? `${hours}h : ` : ''} ${minutes}m : ${isHideSecond ? '' : `${seconds}s`}`}</Text>
     } else if (!isHideSecond) {
-      return <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m : ${seconds}s`}</Text>
+      return <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m : ${seconds}s${!!suffix ? ` ${suffix}` : ""}`}</Text>
     }
     return <Text className={s.text}>{`${showDay ? `${days}d : ` : ''}${hours}h : ${minutes}m`}</Text>
   }

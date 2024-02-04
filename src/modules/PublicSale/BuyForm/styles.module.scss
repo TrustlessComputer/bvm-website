@@ -198,16 +198,16 @@
   }
 
   .backer {
-    cursor: pointer;
+    //cursor: pointer;
 
-    &:hover {
-      p:last-child {
-        > div {
-          color: #FA4E0E;
-          text-decoration: underline;
-        }
-      }
-    }
+    //&:hover {
+    //  p:last-child {
+    //    > div {
+    //      color: #FA4E0E;
+    //      text-decoration: underline;
+    //    }
+    //  }
+    //}
   }
 
   :global {

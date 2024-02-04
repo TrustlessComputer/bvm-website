@@ -25,6 +25,7 @@ import dayjs from 'dayjs';
 
 import {
   Money,
+  getRectangleCoordinates,
   getRotatedObjectCoordinates,
   isPointInsideRotatedObject,
 } from './helpers';
@@ -67,6 +68,8 @@ function LuckyMoney() {
     let canvasContext: CanvasRenderingContext2D | null = null;
 
     const envelop = ENVELOPS[Math.floor(Math.random() * 7)];
+    const angles = Array.from(Array(10)).map(() => Math.random() * 0.1);
+    const radiusRandom = Array.from(Array(10)).map(() => Math.random() * 10);
 
     function clearWindow() {
       canvasContext?.clearRect(0, 0, width, height);
@@ -80,58 +83,60 @@ function LuckyMoney() {
 
         money.currentFrame += 1;
         money.y += money.speed;
-        money.angle += money.direction * 0.05;
-        const radius = money.direction * (5 + (index % 6));
+        money.angle += money.direction * angles[index];
+        const radius = money.direction * (radiusRandom[index] + (index % 6));
         money.x +=
           Math.sin((money.currentFrame + index) / (2 * Math.PI)) * radius;
       });
     }
 
+    const mouseDownHandler = (evt: any) => {
+      const mouseX = evt.clientX - canvas.getBoundingClientRect().left;
+      const mouseY = evt.clientY - canvas.getBoundingClientRect().top;
+
+      let grabbedIndex = -1;
+      fallingMoney.forEach(function (money, index) {
+        const coordinates = getRectangleCoordinates(
+          money.x,
+          money.y,
+          money.angle,
+          currentImageWidth,
+          currentImageHeight,
+        );
+
+        if (isPointInsideRotatedObject(mouseX, mouseY, coordinates)) {
+          console.log('grabbed package');
+          grabbedIndex = index;
+          dispatch(
+            openModal({
+              id: 'lucky-money-dialog',
+              disableBgClose: true,
+              contentPadding: 0,
+              hideCloseButton: true,
+              className: s.Modal,
+              render: () => <LuckyMoneyModal envelopSrc={envelop.src} />,
+            }),
+          );
+        }
+
+        if (grabbedIndex !== -1) {
+          fallingMoney.splice(grabbedIndex, 1);
+          draw();
+        }
+      });
+    };
+
     const initAnimation = () => {
       const numMoney = Math.floor(Math.random() * 10);
-      const speedOffset = 5;
+      const speedOffset = 3.5;
       const speedRange = 5;
       const numImages = 6;
       const frameRate = 1000 / 30; // 30 frames per second
-      const animationLength = 10000; // 10 seconds
+      const animationLength = 15000; // 10 seconds
 
       const canvas = document.getElementById(id) as HTMLCanvasElement;
       if (canvas) {
-        canvas.addEventListener('mousedown', (evt) => {
-          const mouseX = evt.clientX - canvas.getBoundingClientRect().left;
-          const mouseY = evt.clientY - canvas.getBoundingClientRect().top;
-
-          let grabbedIndex = -1;
-          fallingMoney.forEach(function (money, index) {
-            const coordinates = getRotatedObjectCoordinates(
-              money.x,
-              money.y,
-              currentImageWidth,
-              currentImageHeight,
-              money.angle,
-            );
-
-            if (isPointInsideRotatedObject(mouseX, mouseY, coordinates)) {
-              console.log('grabbed package');
-              grabbedIndex = index;
-              dispatch(
-                openModal({
-                  id: 'lucky-money-dialog',
-                  disableBgClose: true,
-                  contentPadding: 0,
-                  hideCloseButton: true,
-                  className: s.Modal,
-                  render: () => <LuckyMoneyModal envelopSrc={envelop.src} />,
-                }),
-              );
-            }
-
-            if (grabbedIndex !== -1) {
-              fallingMoney.splice(grabbedIndex, 1);
-              draw();
-            }
-          });
-        });
+        document.addEventListener('mousedown', mouseDownHandler);
 
         canvasContext = canvas.getContext('2d');
         range(numMoney).forEach(function (index) {
@@ -184,6 +189,7 @@ function LuckyMoney() {
     }
 
     function endAnimation() {
+      document.removeEventListener('mousedown', mouseDownHandler);
       clearInterval(interval);
       fallingMoney = [];
       canvas?.remove();
@@ -283,7 +289,6 @@ export default function Wrapper() {
 
   const getProgramInfo = async () => {
     try {
-      console.log('____________');
       const res = await getPublicSaleDailyReward();
       setDailyReward(res);
       dispatch(setPublicSaleDailyReward(res));
@@ -316,11 +321,7 @@ export default function Wrapper() {
     };
   }, [needReload]);
 
-  if (
-    dailyReward?.total ||
-    dailyReward?.pending ||
-    userContributeInfo?.usdt_value
-  ) {
+  if (userContributeInfo?.usdt_value) {
     return <LuckyMoney />;
   }
 

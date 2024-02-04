@@ -1,6 +1,18 @@
-import { Box, Button, Flex, Text, Tooltip } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  FocusLock,
+  Popover,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
-import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import {
   getPublicSaleLeaderBoards,
@@ -8,7 +20,7 @@ import {
   postPublicsaleWalletInfoManualCheck,
 } from '@/services/public-sale';
 import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
-import { ellipsisCenter, formatCurrency, formatName, formatString } from '@/utils/format';
+import { formatCurrency } from '@/utils/format';
 import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
@@ -23,20 +35,13 @@ import AuthenStorage from '@/utils/storage/authen.storage';
 import { PUBLIC_SALE_END } from '@/modules/Whitelist';
 import NumberScale from '@/components/NumberScale';
 import { GuestCodeHere } from '../depositModal/deposit.guest.code';
-import LoginTooltip from '@/modules/PublicSale/depositModal/login.tooltip';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import IcHelp from '@/components/InfoTooltip/IcHelp';
 import AuthForBuyV2 from '@/modules/PublicSale/AuthForBuyV2';
-import { userSelector } from '@/stores/states/user/selector';
-import { isAddress } from '@ethersproject/address';
-import { validate } from 'bitcoin-address-validation';
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import Avatar from '@/components/Avatar';
-import { getUrlAvatarTwitter } from '@/utils/twitter';
-import Image from 'next/image';
-import { CDN_URL_ICONS } from '@/config';
 import UserLoggedAvatar from '@/modules/PublicSale/BuyForm/UserLoggedAvatar';
+import { useDispatch } from 'react-redux';
+import { setPublicSaleSummary, setUserContributeInfo } from '@/stores/states/common/reducer';
 
 interface FormValues {
   tokenAmount: string;
@@ -86,8 +91,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       .isBefore(dayjs().utc().format()),
   );
   const [showContributorModal, setShowContributorModal] = useState(false);
-  const [userContributeInfo, setUserContributeInfo] =
-    useState<ILeaderBoardPoint>();
   const token =
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
@@ -96,7 +99,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   }, []);
 
   const timeIntervalSummary = useRef<any>(undefined);
-  const { needReload } = useAppSelector(commonSelector);
+  const { needReload, userContributeInfo } = useAppSelector(commonSelector);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getContributeInfo();
@@ -120,6 +124,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       res.total_usdt_value_not_boost || '0',
     );
     setContributeInfo(res);
+    dispatch(setPublicSaleSummary(res));
   };
 
   const getUserContributeInfo = async () => {
@@ -129,7 +134,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     });
 
     if (data[0]?.need_active) {
-      setUserContributeInfo(data[0]);
+      dispatch(setUserContributeInfo(data[0]));
     }
   };
 
@@ -277,27 +282,13 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     );
   });
 
-  const renderLoginTooltip = useCallback(() => {
-    return (
-      token ? (
-        <Tooltip
-          minW="220px"
-          bg="white"
-          boxShadow="0px 0px 24px -6px #0000001F"
-          borderRadius="4px"
-          padding="16px"
-          hasArrow
-          label={<ContributorInfo data={userContributeInfo} />}
-        >
-          <ContributorBlock
-            className={cx(s.contributorBlock, s.blockItem)}
-          />
-        </Tooltip>
-      ) : (
-        <ContributorBlock className={s.blockItem} />
-      )
-    )
-  }, [token, userContributeInfo]);
+  const firstFieldRef = React.useRef(null);
+  const {
+    onClose: onClose,
+    onOpen: onOpen,
+    isOpen: isOpen,
+  } = useDisclosure();
+
 
   return (
     <div className={s.container}>
@@ -312,7 +303,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 color={'black'}
                 mb={'12px'}
               >
-                Total
+                BVM Public Sale
               </Text>
               <Flex alignItems="start" gap="12px">
                 <Text className={s.fundValue}>
@@ -332,7 +323,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             <div className={s.grid_item}>
               <div
                 className={s.backer}
-                onClick={() => setShowContributorModal(true)}
+                // onClick={() => setShowContributorModal(true)}
               >
                 <Text
                   className={s.tLabel}
@@ -411,7 +402,34 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             </div>
             <div className={s.grid_item}>
               {
-                renderLoginTooltip()
+                token ? (
+                  <Popover
+                    isOpen={isOpen}
+                    initialFocusRef={firstFieldRef}
+                    onOpen={onOpen}
+                    onClose={onClose}
+                    closeOnBlur={true}
+                    placement="top-end"
+                  >
+                    <PopoverTrigger>
+                      <Flex cursor="pointer">
+                        <ContributorBlock
+                          className={cx(s.contributorBlock, s.blockItem)}
+                        />
+                      </Flex>
+                    </PopoverTrigger>
+                    <PopoverContent padding="12px 12px 12px 16px" bg="white" border="1px solid rgba(1, 1, 1, 0.3)">
+                      <FocusLock persistentFocus={false}>
+                        <PopoverArrow opacity={0}/>
+                        <PopoverCloseButton color='black' />
+                        <Box height="24px"/>
+                        <ContributorInfo data={userContributeInfo} />
+                      </FocusLock>
+                    </PopoverContent>
+                  </Popover>
+                ) : (
+                  <ContributorBlock className={s.blockItem} />
+                )
               }
             </div>
           </div>
@@ -426,7 +444,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 // loadingText={'Submitting...'}
                 className={s.button}
               >
-                Buy $BVM
+                Back our mission
               </Button>
             </AuthForBuy>
           </Flex>

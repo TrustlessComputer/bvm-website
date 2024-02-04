@@ -20,7 +20,7 @@
       white-space: nowrap;
       font-size: 14px;
       font-weight: 400;
-      margin-top: 20px;
+      margin-top: 8px;
       justify-content: center;
     }
 
@@ -34,7 +34,7 @@
 
     &_time {
       width: fit-content;
-      text-transform: uppercase;
+      //text-transform: uppercase;
     }
   }
 
@@ -86,18 +86,18 @@
     font-style: normal;
     font-weight: 400;
     line-height: 130%;
-    max-width: 620px;
+    max-width: 820px;
 
     @include is-mobile {
-      font-size: 20px;
+      font-size: 18px;
     }
 
     @include is-tablet {
-      font-size: 24px;
+      font-size: 20px;
     }
 
     @include is-pc {
-      font-size: 32px;
+      font-size: 28px;
     }
 
     span {
@@ -264,6 +264,7 @@
 }
 
 .countDown_wrapper {
+  align-items: center;
   * {
     font-size: 14px !important;
     line-height: 1.4 !important;

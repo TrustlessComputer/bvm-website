@@ -4,6 +4,7 @@ import modal from '@/stores/states/modal/reducer';
 import user from '@/stores/states/user/reducer';
 import activities from '@/stores/states/activities/reducer';
 import airdrop from '@/stores/states/airdrop/reducer';
+import luckyMoney from '@/stores/states/luckyMoney/reducer';
 
 export default {
   common,
@@ -11,4 +12,5 @@ export default {
   user,
   activities,
   airdrop,
+  luckyMoney,
 };
