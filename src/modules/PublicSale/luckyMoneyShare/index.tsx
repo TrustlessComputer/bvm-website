@@ -11,14 +11,14 @@ import { useDispatch } from 'react-redux';
 import LuckyMoneyShareModal from '@/modules/PublicSale/luckyMoney/LuckMoneyShareModal';
 
 const LuckyMoneyShare = () => {
-  const { userContributeInfo } = useAppSelector(commonSelector);
+  const { needReload, userContributeInfo } = useAppSelector(commonSelector);
   const user = useAppSelector(userSelector);
   const [luckyMoneyShare, setLuckyMoneyShare] = useState();
   const dispatch = useDispatch();
 
   useEffect(() => {
     getLuckyMoneyShareInfo();
-  }, []);
+  }, [needReload]);
 
   const getLuckyMoneyShareInfo = async () => {
     try {
@@ -58,9 +58,9 @@ const LuckyMoneyShare = () => {
     const saleSummary = await getPublicSaleSummary();
 
     const content = `I just aped in the $BVM public sale - the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s!\n\nJoin me and the ${
-      saleSummary.total_user || '0'
-    } early contributors who've committed ${
-      formatCurrency(saleSummary.total_usdt_value_not_boost || '0', 0, 0, 'BTC', false)
+      formatCurrency(saleSummary.total_user || '0', 0, 0)
+    } early contributors who've committed $${
+      formatCurrency(saleSummary.total_usdt_value_not_boost || '0', 0, 0, 'BTC', true)
     } to building Bitcoin's future with @BVMnetwork\n\n`;
 
     setTimeout(() => {

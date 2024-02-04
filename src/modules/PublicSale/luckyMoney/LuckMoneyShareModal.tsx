@@ -8,6 +8,7 @@ import SvgInset from '@/components/SvgInset';
 import bg from '@/public/images/lucky-money-envelops/lucky-money-background-conffeti.png';
 import bgSuccess from '@/public/images/lucky-money-envelops/lucky-money-success.png';
 import { formatCurrency } from '@/utils/format';
+import { requestReload } from '@/stores/states/common/reducer';
 
 type Props = {
 };
@@ -30,7 +31,7 @@ export default function LuckyMoneyShareModal({  }: Props) {
 
       setSubmitted(true);
       setReward(res);
-
+      dispatch(requestReload());
     } catch (e: any) {
       // if (e?.code === -2010) {
       //   toast.error('Already claimed.');
