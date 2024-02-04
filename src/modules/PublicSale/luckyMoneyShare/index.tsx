@@ -1,16 +1,20 @@
-import { Flex, Text, useSteps } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { claimLuckyMoneyShare, getLuckyMoneyShare, getPublicSaleSummary } from '@/services/public-sale';
+import { getLuckyMoneyShare, getPublicSaleSummary } from '@/services/public-sale';
 import { userSelector } from '@/stores/states/user/selector';
 import { formatCurrency } from '@/utils/format';
 import { useEffect, useState } from 'react';
+import { openModal } from '@/stores/states/modal/reducer';
+import { useDispatch } from 'react-redux';
+import LuckyMoneyShareModal from '@/modules/PublicSale/luckyMoney/LuckMoneyShareModal';
 
 const LuckyMoneyShare = () => {
   const { userContributeInfo } = useAppSelector(commonSelector);
   const user = useAppSelector(userSelector);
   const [luckyMoneyShare, setLuckyMoneyShare] = useState();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getLuckyMoneyShareInfo();
@@ -29,7 +33,16 @@ const LuckyMoneyShare = () => {
 
   const handleClaimLuckyMoneyShare = async () => {
     try {
-      await claimLuckyMoneyShare();
+      dispatch(
+        openModal({
+          id: 'lucky-money-share-dialog',
+          disableBgClose: true,
+          contentPadding: 0,
+          hideCloseButton: true,
+          className: s.Modal,
+          render: () => <LuckyMoneyShareModal />,
+        }),
+      );
     } catch (e) {
 
     } finally {
@@ -61,8 +74,6 @@ const LuckyMoneyShare = () => {
 
     handleClaimLuckyMoneyShare();
   };
-
-  // console.log('userContributeInfo', userContributeInfo);
 
   return Number(userContributeInfo?.usdt_value || '0') > 0 && !luckyMoneyShare && (
     <Flex className={s.container} direction={"column"} gap={"24px"}>

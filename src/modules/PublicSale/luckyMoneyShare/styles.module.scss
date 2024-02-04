@@ -45,3 +45,20 @@
     width: 100px;
   }
 }
+
+.Modal {
+  padding: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+
+  :global(.chakra-modal__body) {
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  :global(.modal-header-wrap) {
+    // display: none !important;
+    height: 0px !important;
+    margin-bottom: 0 !important;
+  }
+}
