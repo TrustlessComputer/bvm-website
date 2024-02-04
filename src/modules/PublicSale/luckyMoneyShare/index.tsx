@@ -78,7 +78,7 @@ const LuckyMoneyShare = () => {
   return Number(userContributeInfo?.usdt_value || '0') > 0 && !luckyMoneyShare && (
     <Flex className={s.container} direction={"column"} gap={"24px"}>
       <Flex gap={8}>
-        <Flex direction={"column"} gap={"8px"}>
+        <Flex direction={"column"} gap={"12px"}>
           <Text className={s.title}>You’ve got a Red Packet</Text>
           <Text className={s.desc}>Thank you for backing our mission of building the future of Bitcoin. Here is a small gift from the core team. Wish you the best of luck in the crypto bull run year.</Text>
         </Flex>
