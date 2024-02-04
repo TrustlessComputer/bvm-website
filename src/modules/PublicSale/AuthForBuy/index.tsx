@@ -1,14 +1,14 @@
 import BaseModal from '@/components/BaseModal';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
-import { Button, Flex, Tooltip, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import cs from 'classnames';
 import React, { PropsWithChildren, useMemo, useState } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import DepositContent from '../depositModal/deposit.content';
 import s from './styles.module.scss';
-import cx from 'clsx';
 import AuthForBuyV2 from '../AuthForBuyV2';
+import { commonSelector } from '@/stores/states/common/selector';
 
 interface IAuthForBuy extends PropsWithChildren {
   hideBuyAndStake?: boolean;
@@ -18,6 +18,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
   const user = useAppSelector(userSelector);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasStaked, setHasStaked] = useState(false);
+  const { userContributeInfo } = useAppSelector(commonSelector);
 
   const isSigned = useMemo(() => {
     if (user?.guest_code || user?.twitter_id) {
@@ -26,13 +27,21 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
     return false;
   }, [user]);
 
+  const textAction = useMemo(() => {
+    if(Number(userContributeInfo?.usdt_value) > 0) {
+      return 'Contribute more';
+    }
+
+    return 'Back our mission';
+  }, [userContributeInfo?.usdt_value]);
+
   return (
     <>
       <Flex className={s.btnWrapper}>
         <AuthForBuyV2
           renderWithoutLogin={(onClick: any) => (
             <Button onClick={onClick} type="button" className={s.btnContainer}>
-              Back our mission
+              {textAction}
             </Button>
           )}
         >
@@ -44,7 +53,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
             type="button"
             className={s.btnContainer}
           >
-            Back our mission
+            {textAction}
           </Button>
         </AuthForBuyV2>
         {/*{*/}

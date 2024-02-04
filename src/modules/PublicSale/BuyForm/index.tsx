@@ -41,7 +41,7 @@ import IcHelp from '@/components/InfoTooltip/IcHelp';
 import AuthForBuyV2 from '@/modules/PublicSale/AuthForBuyV2';
 import UserLoggedAvatar from '@/modules/PublicSale/BuyForm/UserLoggedAvatar';
 import { useDispatch } from 'react-redux';
-import { setPublicSaleSummary } from '@/stores/states/common/reducer';
+import { setPublicSaleSummary, setUserContributeInfo } from '@/stores/states/common/reducer';
 
 interface FormValues {
   tokenAmount: string;
@@ -91,8 +91,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
       .isBefore(dayjs().utc().format()),
   );
   const [showContributorModal, setShowContributorModal] = useState(false);
-  const [userContributeInfo, setUserContributeInfo] =
-    useState<ILeaderBoardPoint>();
   const token =
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
@@ -101,7 +99,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   }, []);
 
   const timeIntervalSummary = useRef<any>(undefined);
-  const { needReload } = useAppSelector(commonSelector);
+  const { needReload, userContributeInfo } = useAppSelector(commonSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -136,7 +134,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     });
 
     if (data[0]?.need_active) {
-      setUserContributeInfo(data[0]);
+      dispatch(setUserContributeInfo(data[0]));
     }
   };
 

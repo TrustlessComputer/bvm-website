@@ -23,4 +23,5 @@ export interface CommonState {
   luckyMoneyList: IPublicSaleLuckyMoney[];
   currentLuckyMoney: IPublicSaleLuckyMoney | undefined;
   publicSaleSummary: IPublicSaleDepositInfo | undefined;
+  userContributeInfo: ILeaderBoardPoint | undefined;
 }
