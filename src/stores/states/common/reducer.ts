@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Coin, CommonState } from './types';
-import { IPublicSaleLuckyMoney } from '@/services/public-sale';
+import { defaultSummary } from '@/interfaces/vc';
 
 const initialState: CommonState = {
   needReload: 0,
@@ -16,7 +16,7 @@ const initialState: CommonState = {
   publicSaleDailyReward: undefined,
   luckyMoneyList: [],
   currentLuckyMoney: undefined,
-  publicSaleSummary: undefined,
+  publicSaleSummary: defaultSummary,
   userContributeInfo: undefined,
 };
 

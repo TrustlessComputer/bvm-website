@@ -146,10 +146,10 @@ const RaffleButton = ({ className }: any) => {
                     fontWeight={500}
                     textTransform={"uppercase"}
                   >
-                    PERCEPTRON #121
+                    RSIC #17496
                   </Text>
                   <Flex gap={'6px'} className={s.timeWrapper}>
-                    <Text className={s.time} color={"#FFFFFF"}>by Fingerprints DAO x Generative</Text>
+                    {/*<Text className={s.time} color={"#FFFFFF"}>{programeInfo?.sub_title}</Text>*/}
                   </Flex>
                 </Flex>
                 <Flex gap={4} w={"100%"}>
