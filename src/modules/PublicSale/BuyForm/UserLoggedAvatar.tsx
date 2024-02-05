@@ -55,7 +55,7 @@ const UserLoggedAvatar = () => {
               'normal',
             )}
             address={''}
-            width={IMAGE_SIZE}
+            width={IMAGE_SIZE - 2}
             name={user.twitter_name || user.twitter_username || ''}
           />
           {/*<Text color="black" fontSize="14px" fontWeight="500">{formatString(user.twitter_name, 12)}</Text>*/}
