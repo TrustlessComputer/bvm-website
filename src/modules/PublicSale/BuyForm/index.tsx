@@ -9,6 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
@@ -379,7 +380,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
                   .toString()}
                 hideIcon={true}
-                isHideSecond={true}
                 onRefreshEnd={() => setIsEnd(true)}
               />
 
@@ -407,6 +407,49 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
               {/*  </div>*/}
               {/*)}*/}
+            </div>
+            <div className={s.grid_item}>
+              <Tooltip
+                minW="220px"
+                bg="#007659"
+                // boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                borderRadius="4px"
+                padding="16px"
+                label={
+                  <Flex direction="column" color="white" gap={"4px"}>
+                    <Text>Fully Diluted Valuation (FDV) is the market cap if the maximum supply is in circulation.</Text>
+                    <Text>The BVM public sale allocation is 15% (15M). The BVM max supply is 100M.</Text>
+                    <Text>Price = Total Public Sale / 15,000,000</Text>
+                    <Text>FDV = Price x 100,000,000</Text>
+                  </Flex>
+                }
+              >
+                <Text
+                  fontSize={20}
+                  lineHeight={1}
+                  fontWeight={400}
+                  className={s.tLabel}
+                  color={'rgba(0,0,0,0.7)'}
+                >
+                  <Flex>
+                    Current FDV
+                    <Flex bg="#b5b5b5" borderRadius={12} mt="-2px" ml="4px" w={"16px"} h={"16px"}>
+                      <IcHelp />
+                    </Flex>
+                  </Flex>
+                </Text>
+              </Tooltip>
+
+              <Text
+                className={s.tValue}
+                fontSize={20}
+                lineHeight={1}
+                fontWeight={400}
+                color={'#000'}
+              >
+                $10M
+              </Text>
+
             </div>
             <div className={s.grid_item}>
               {
