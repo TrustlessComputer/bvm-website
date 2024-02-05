@@ -19,6 +19,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasStaked, setHasStaked] = useState(false);
   const { userContributeInfo } = useAppSelector(commonSelector);
+  const [isBanned, setIsBanned] = useState(false);
 
   const isSigned = useMemo(() => {
     if (user?.guest_code || user?.twitter_id) {
@@ -100,10 +101,10 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
           onHide={onClose}
           title={isSigned ? 'Buy $BVM' : 'Buy $BVM'}
           headerClassName={s.modalHeader}
-          className={cs(s.modalContent, isSigned ? s.deposit : s.notSignModal)}
+          className={cs(s.modalContent, isSigned ? s.deposit : s.notSignModal, { [s.banned]: isBanned })}
           // size={modalSize}
         >
-          <DepositContent hasStaked={hasStaked} />
+          <DepositContent hasStaked={hasStaked} setBanned={setIsBanned} />
 
           {/* {isSigned ? (
           <>
