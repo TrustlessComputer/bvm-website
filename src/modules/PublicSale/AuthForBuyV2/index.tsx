@@ -30,7 +30,7 @@ import { WalletType } from '@/interfaces/wallet';
 import useLoginBTC from '@/hooks/useLoginBTC';
 import { signMessage as signMessageMetamask } from '@/utils/metamask-helper';
 import userServices from '@/services/user';
-import { getTimeEnd, postToLogin } from '@/utils/twitter';
+import { getTimeEnd } from '@/utils/twitter';
 import { labelAmountOrNumberAdds } from '@/utils/string';
 import { IPublicSaleDepositInfo } from '@/interfaces/vc';
 
