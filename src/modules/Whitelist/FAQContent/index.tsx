@@ -321,7 +321,9 @@ const FAQContent: React.FC = (): React.ReactElement => {
                     </AccordionButton>
                   </h2>
                   <AccordionPanel>
+                    <p className={s.faqContent}>Your contribution should appear shortly. If you don't see it after 60 minutes, please contact our team at @BVMnetwork on X.</p>
                     <p className={s.faqContent}>
+                      If you contributed in ORDI, SATS, or TIA, please {" "}
                       <GoogleReCaptchaProvider
                         reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
                         scriptProps={{
@@ -332,10 +334,9 @@ const FAQContent: React.FC = (): React.ReactElement => {
                         }}
                       >
                         <DepositCheckItHere>
-                          <a>Check the status</a>
+                          <a>click here to check the status.</a>
                         </DepositCheckItHere>
                       </GoogleReCaptchaProvider>
-                      .
                     </p>
                   </AccordionPanel>
                 </>
