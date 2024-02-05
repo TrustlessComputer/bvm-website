@@ -180,7 +180,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
     const shareUrl = 'bvm.network/public-sale'
 
     const { endHours, endMins } = getTimeEnd()
-    const content = `The $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}\n\nSo far:\n🚀$${formatCurrency(saleSummary?.total_usdt_value_not_boost || 0, 0, 2)} raised\n💪${formatCurrency(saleSummary?.total_user || 0, 0, 0)} backers\n👉${shareUrl}\n\n@BVMnetwork is the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s\nNo doubt BVM will be leading the Bitcoin L2 meta.\n${code}`;
+    const content = `The $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}! So far:\n\n🚀$${formatCurrency(saleSummary?.total_usdt_value_not_boost || 0, 0, 2)} raised\n💪${formatCurrency(saleSummary?.total_user || 0, 0, 0)} backers\n👉${shareUrl}\n\n@BVMnetwork is the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s. No doubt BVM will be leading the Bitcoin L2 meta.\n${code}`;
     return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       content,
     )}`;

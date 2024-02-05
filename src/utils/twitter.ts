@@ -73,7 +73,7 @@ export const shareRaffal = async (code: string | undefined) => {
 
   const { endHours, endMins } = getTimeEnd()
 
-  const content = `The $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}\n\nSo far:\n🚀$${formatCurrency(saleSummary.total_usdt_value_not_boost, 0, 2)} raised\n💪${formatCurrency(saleSummary.total_user, 0, 0)} backers\n👉${shareUrl}\n\n@BVMnetwork is the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s\nNo doubt BVM will be leading the Bitcoin L2 meta.\n\n`
+  const content = `The $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}! So far:\n\n🚀$${formatCurrency(saleSummary.total_usdt_value_not_boost, 0, 2)} raised\n💪${formatCurrency(saleSummary.total_user, 0, 0)} backers\n👉${shareUrl}\n\n@BVMnetwork is the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s. No doubt BVM will be leading the Bitcoin L2 meta.\n\n`
 
   setTimeout(() => {
     return window.open(
@@ -95,7 +95,7 @@ export const shareLuckyPackage = async ({ code, amount }: { code: string | undef
 
   const { endHours, endMins } = getTimeEnd()
 
-  const content = `Just got a Red Packet of ${amount} $BVM from BVM public sale 🧧\n\nThe $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}\n\nSo far:\n🚀$${formatCurrency(saleSummary.total_usdt_value_not_boost, 0, 2)} raised\n💪${formatCurrency(saleSummary.total_user, 0, 0)} backers\n👉${shareUrl}\n\n@BVMnetwork is the 1st modular blockchain metaprotocol that will power thousands of Bitcoin L2s\n\n`
+  const content = `Just got a Red Packet of ${amount} $BVM from BVM public sale 🧧\n\nThe $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}! So far:\n\n🚀$${formatCurrency(saleSummary.total_usdt_value_not_boost, 0, 2)} raised\n💪${formatCurrency(saleSummary.total_user, 0, 0)} backers\n👉${shareUrl}\n\n@BVMnetwork is the 1st modular blockchain metaprotocol that will power thousands of Bitcoin L2s\n\n`
 
   setTimeout(() => {
     return window.open(
@@ -117,7 +117,7 @@ export const shareContributorLuckyPackage = async ({ code }: { code: string | un
 
   const { endHours, endMins } = getTimeEnd()
 
-  const content = `I just aped in the @BVMnetwork public sale - the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s!\n\nThe $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}\n\nSo far:\n🚀$${formatCurrency(saleSummary.total_usdt_value_not_boost, 0, 2)} raised\n💪${formatCurrency(saleSummary.total_user, 0, 0)} backers\n👉${shareUrl}\n\nThe future of Bitcoin is here!\n\n`
+  const content = `I just aped in the @BVMnetwork public sale - the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s!\n\nThe $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}! So far:\n\n🚀$${formatCurrency(saleSummary.total_usdt_value_not_boost, 0, 2)} raised\n💪${formatCurrency(saleSummary.total_user, 0, 0)} backers\n👉${shareUrl}\n\nThe future of Bitcoin is here!\n\n`
 
   setTimeout(() => {
     return window.open(
