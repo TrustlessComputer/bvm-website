@@ -165,7 +165,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
       const [authenCode, summary] = (await Promise.all([
         await requestAuthenByShareCode(),
         await getPublicSaleSummary()
-      ])) as [any];
+      ])) as [any, any];
       setAuthenCode(authenCode);
       saleSummary = summary;
       code = `#${authenCode?.public_code}\n`;
