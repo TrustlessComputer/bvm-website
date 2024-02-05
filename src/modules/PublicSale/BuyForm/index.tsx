@@ -42,6 +42,8 @@ import AuthForBuyV2 from '@/modules/PublicSale/AuthForBuyV2';
 import UserLoggedAvatar from '@/modules/PublicSale/BuyForm/UserLoggedAvatar';
 import { useDispatch } from 'react-redux';
 import { setPublicSaleSummary, setUserContributeInfo } from '@/stores/states/common/reducer';
+import { checkIsEndPublicSale } from '@/modules/Whitelist/utils';
+import cs from 'classnames';
 
 interface FormValues {
   tokenAmount: string;
@@ -78,6 +80,8 @@ const Column = forwardRef((props: IColumnProps, ref: any) => {
 const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const cachedTotalUSD =
     window.localStorage.getItem('LAST_TOTAL_USDT_NON_BOOST') || '0';
+
+  const isEnded = checkIsEndPublicSale();
 
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
@@ -323,8 +327,11 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           <div className={s.grid}>
             <div className={s.grid_item}>
               <div
-                className={s.backer}
-                // onClick={() => setShowContributorModal(true)}
+                className={cs(s.backer, {[s.backer__ended]: isEnded})}
+                onClick={() => {
+                  if (!isEnded) return;
+                  setShowContributorModal(true)
+                }}
               >
                 <Text
                   className={s.tLabel}
@@ -436,19 +443,41 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
           </div>
 
           <Box mt={'32px'} />
-          <Flex gap={6} direction={'column'} width={'100%'}>
-            <AuthForBuy>
-              <Button
-                type="submit"
-                isDisabled={isCreating}
-                isLoading={isCreating}
-                // loadingText={'Submitting...'}
-                className={s.button}
-              >
-                Back our mission
-              </Button>
-            </AuthForBuy>
-          </Flex>
+          {isEnded ? (
+            <Flex gap="12px" direction={'column'} width={'100%'}>
+              <AuthForBuyV2 renderWithoutLogin={(onClick: any) => (
+                <Button
+                  type="button"
+                  onClick={onClick}
+                  isDisabled={isCreating}
+                  isLoading={isCreating}
+                  className={s.button}
+                >
+                  Connect with BVM to view your allocation
+                </Button>
+              )}>
+              </AuthForBuyV2>
+              <Box className={s.endBanner}>
+                <p className={s.endBanner_endMessage}>
+                  The TGE will around March, at the same time as BVM exchange listings.
+                </p>
+              </Box>
+            </Flex>
+          ) : (
+            <Flex gap={6} direction={'column'} width={'100%'}>
+              <AuthForBuy>
+                <Button
+                  type="submit"
+                  isDisabled={isCreating}
+                  isLoading={isCreating}
+                  // loadingText={'Submitting...'}
+                  className={s.button}
+                >
+                  Back our mission
+                </Button>
+              </AuthForBuy>
+            </Flex>
+          )}
           {parseFloat(userContributeInfo?.usdt_value || '0') > 0 && (
             <GuestCodeHere theme="light" />
           )}

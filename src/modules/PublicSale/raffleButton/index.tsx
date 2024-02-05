@@ -27,6 +27,7 @@ import { formatCurrency } from '@/utils/format';
 import BigNumber from 'bignumber.js';
 import { PUBLIC_SALE_START } from '@/modules/Whitelist';
 import useWindowSize from '@/hooks/useWindowSize';
+import { shareRaffal } from '@/utils/twitter';
 
 const RaffleButton = ({ className }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -70,34 +71,35 @@ const RaffleButton = ({ className }: any) => {
   };
 
   const onShareNow = async () => {
-    const shareUrl = !user?.referral_code
-      ? 'bvm.network/public-sale'
-      : `bvm.network/public-sale?refer=${user?.referral_code}`;
-
-    const saleSummary = await getPublicSaleSummary();
-
-    const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
-      saleSummary.total_user || '0',
-      0,
-      0,
-      'BTC',
-      false,
-    )} early contributors who've committed $${formatCurrency(
-      saleSummary.total_usdt_value_not_boost || '0',
-      0,
-      0,
-      'BTC',
-      true,
-    )} to building Bitcoin's future with @BVMnetwork\n\n`;
-
-    setTimeout(() => {
-      return window.open(
-        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-          content,
-        )}`,
-        '_blank',
-      );
-    }, 300);
+    await shareRaffal(user?.referral_code)
+    // const shareUrl = !user?.referral_code
+    //   ? 'bvm.network/public-sale'
+    //   : `bvm.network/public-sale?refer=${user?.referral_code}`;
+    //
+    // const saleSummary = await getPublicSaleSummary();
+    //
+    // const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
+    //   saleSummary.total_user || '0',
+    //   0,
+    //   0,
+    //   'BTC',
+    //   false,
+    // )} early contributors who've committed $${formatCurrency(
+    //   saleSummary.total_usdt_value_not_boost || '0',
+    //   0,
+    //   0,
+    //   'BTC',
+    //   true,
+    // )} to building Bitcoin's future with @BVMnetwork\n\n`;
+    //
+    // setTimeout(() => {
+    //   return window.open(
+    //     `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+    //       content,
+    //     )}`,
+    //     '_blank',
+    //   );
+    // }, 300);
   };
 
   const currentDay = React.useMemo(() => {

@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { openModal } from '@/stores/states/modal/reducer';
 import { useDispatch } from 'react-redux';
 import LuckyMoneyShareModal from '@/modules/PublicSale/luckyMoney/LuckMoneyShareModal';
+import { shareContributorLuckyPackage } from '@/utils/twitter';
 
 const LuckyMoneyShare = () => {
   const { needReload, userContributeInfo } = useAppSelector(commonSelector);
@@ -51,26 +52,30 @@ const LuckyMoneyShare = () => {
   }
 
   const handleShareTw = async () => {
-    const shareUrl = !user?.referral_code
-      ? 'bvm.network/public-sale'
-      : `bvm.network/public-sale?refer=${user?.referral_code}`;
+    // const shareUrl = !user?.referral_code
+    //   ? 'bvm.network/public-sale'
+    //   : `bvm.network/public-sale?refer=${user?.referral_code}`;
+    //
+    // const saleSummary = await getPublicSaleSummary();
+    //
+    // const content = `I just aped in the $BVM public sale - the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s!\n\nJoin me and the ${
+    //   formatCurrency(saleSummary.total_user || '0', 0, 0)
+    // } early contributors who've committed $${
+    //   formatCurrency(saleSummary.total_usdt_value_not_boost || '0', 0, 0, 'BTC', true)
+    // } to building Bitcoin's future with @BVMnetwork\n\n`;
+    //
+    // setTimeout(() => {
+    //   return window.open(
+    //     `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+    //       content,
+    //     )}`,
+    //     '_blank',
+    //   );
+    // }, 300);
 
-    const saleSummary = await getPublicSaleSummary();
+    // shareContributorLuckyPackage()
 
-    const content = `I just aped in the $BVM public sale - the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s!\n\nJoin me and the ${
-      formatCurrency(saleSummary.total_user || '0', 0, 0)
-    } early contributors who've committed $${
-      formatCurrency(saleSummary.total_usdt_value_not_boost || '0', 0, 0, 'BTC', true)
-    } to building Bitcoin's future with @BVMnetwork\n\n`;
-
-    setTimeout(() => {
-      return window.open(
-        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-          content,
-        )}`,
-        '_blank',
-      );
-    }, 300);
+    await shareContributorLuckyPackage({ code: user?.referral_code })
 
     handleClaimLuckyMoneyShare();
   };

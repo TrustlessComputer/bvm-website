@@ -25,7 +25,7 @@ import { isProduction } from '@/config';
 const CONTAINER_ID = 'WHITE_LIST_CONTAINER_ID';
 
 export const PUBLIC_SALE_START = isProduction ? '2024-01-30 03:30:00' : '2024-01-29 03:30:00'
-export const PUBLIC_SALE_END = '2024-02-06 03:30:00'
+export const PUBLIC_SALE_END = isProduction ? '2024-02-06 03:30:00' : '2024-02-05 03:30:00'
 
 const Whitelist = () => {
   useAllowBTC();
