@@ -45,6 +45,7 @@ import { useDispatch } from 'react-redux';
 import { setPublicSaleSummary, setUserContributeInfo } from '@/stores/states/common/reducer';
 import { checkIsEndPublicSale } from '@/modules/Whitelist/utils';
 import cs from 'classnames';
+import BigNumber from 'bignumber.js';
 
 interface FormValues {
   tokenAmount: string;
@@ -123,6 +124,14 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     };
   }, [token, needReload]);
 
+  const currentFDV = useMemo(() => {
+    if(publicSaleSummary?.total_usdt_value_not_boost) {
+      return new BigNumber(publicSaleSummary?.total_usdt_value_not_boost).multipliedBy(100).dividedBy(15).toString();
+    }
+
+    return "0";
+  }, [publicSaleSummary?.total_usdt_value_not_boost]);
+
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
     window.localStorage.setItem(
@@ -194,8 +203,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
         >
           <Flex
             className={s.tLabel}
-            fontSize={20}
-            lineHeight={1}
+            fontSize={"14px"}
+            lineHeight={"14px"}
             fontWeight={400}
             color="rgba(0,0,0,0.7)"
             gap={1}
@@ -433,8 +442,10 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 >
                   <Flex>
                     Current FDV
-                    <Flex bg="#b5b5b5" borderRadius={12} mt="-2px" ml="4px" w={"16px"} h={"16px"}>
-                      <IcHelp />
+                    <Flex ml="4px" w={"14px"} h={"14px"}>
+                      <svg width="14px" height="14px" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.66667 0.333984C2.98667 0.333984 0 3.32065 0 7.00065C0 10.6807 2.98667 13.6673 6.66667 13.6673C10.3467 13.6673 13.3333 10.6807 13.3333 7.00065C13.3333 3.32065 10.3467 0.333984 6.66667 0.333984ZM7.33333 10.334H6V6.33398H7.33333V10.334ZM7.33333 5.00065H6V3.66732H7.33333V5.00065Z" fill="#007659"/>
+                      </svg>
                     </Flex>
                   </Flex>
                 </Text>
@@ -447,7 +458,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 fontWeight={400}
                 color={'#000'}
               >
-                $10M
+                ${formatCurrency(currentFDV, 0, 0, 'BTC', false)}
               </Text>
 
             </div>
