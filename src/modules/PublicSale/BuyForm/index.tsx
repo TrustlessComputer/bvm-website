@@ -81,8 +81,9 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
+  const publicSaleSummary = useAppSelector(commonSelector).publicSaleSummary as IPublicSaleDepositInfo;
   const [contributeInfo, setContributeInfo] = useState<IPublicSaleDepositInfo>({
-    ...defaultSummary,
+    ...publicSaleSummary,
     total_usdt_value_not_boost: cachedTotalUSD,
   });
   const [isEnd, setIsEnd] = React.useState(

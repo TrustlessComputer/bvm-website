@@ -10,7 +10,7 @@ const reducers = combineReducers(reducer);
 const persistConfig = getPersistConfig({
   key: 'root',
   storage: persistLocalStorage,
-  whitelist: ['common.poolTabIndex', 'common.coinPrices', 'airdrop', 'user', "activities.numberReport"],
+  whitelist: ['common.poolTabIndex', 'common.coinPrices', 'airdrop', 'user', "activities.numberReport", 'common.publicSaleSummary'],
   rootReducer: reducers,
 });
 
