@@ -22,6 +22,7 @@ const initialState: UserState = {
   airdropGenerativeUsers: null,
   airdropPerceptronsHolders: null,
   userToken: null,
+  depositAddress: null
 } as any;
 
 const slice = createSlice({
@@ -105,6 +106,15 @@ const slice = createSlice({
       AuthenStorage.setAuthenKey("");
       AuthenStorage.setGuestAuthenKey("");
     },
+    setDepositAddress: (state, action) => {
+      const key = state.userToken || AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
+      if(key && typeof key === 'string') {
+        state.depositAddress = {
+          ...(state.depositAddress || {}),
+          [(key as string).toLowerCase()]: action.payload
+        }
+      }
+    }
   },
 });
 
@@ -123,7 +133,8 @@ export const {
   setPublicSaleLeaderBoardVisual,
   setGuestSecretCode,
   setUserToken,
-  removeUserToken
+  removeUserToken,
+  setDepositAddress,
 } = slice.actions;
 
 export default slice.reducer;

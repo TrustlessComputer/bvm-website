@@ -3,9 +3,12 @@ import { EVMFieldType, User } from '@/stores/states/user/types';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { SignatureStatus } from '@/interfaces/whitelist';
 import AuthenStorage from '@/utils/storage/authen.storage';
+import { createSelector } from 'reselect';
 
 export const userSelector = (state: RootState) =>
   state.user?.user as User | undefined;
+export const userStateSelector = (state: RootState) =>  state.user;
+
 export const userTokenSelector = (state: RootState) => state.user?.userToken || AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 export const leaderBoardSelector = (state: RootState) => ({
   list: (state.user?.leaderBoard || []) as ILeaderBoardPoint[],
@@ -46,3 +49,9 @@ export const publicSaleLeaderBoardSelector = (state: RootState) => ({
 export const publicSaleLeaderBoardVisualSelector = (state: RootState) => ({
   list: (state.user?.publicSaleLeaderBoardVisual || []) as ILeaderBoardPoint[],
 });
+
+export const depositAddressSelector = createSelector([userStateSelector, userTokenSelector], (user, token) => {
+  if (!!token && typeof token === 'string' && !!user && user.depositAddress) {
+    return user.depositAddress[token.toLowerCase()];
+  }
+})

@@ -47,4 +47,5 @@ export interface UserState {
   publicSaleLeaderBoard: ILeaderBoardPoint[];
   publicSaleLeaderBoardVisual: ILeaderBoardPoint[];
   userToken: string;
+  depositAddress: any;
 }
