@@ -61,12 +61,24 @@ export const NormalRow = (p: { key: string, value?: string, mask?: boolean }) =>
     )
   }
 
+  if (!p.key) {
+    return (
+      `
+        <li>
+          <p style="font-size: 14px; line-height: 160%">
+            <span style="color: white; font-weight: 400; opacity: 0.7;">${p.value}</span>
+          </p>
+        </li>
+      `
+    )
+  }
+
   return (
     `
       <li>
         <p style="font-size: 14px; line-height: 160%">
           <span style="color: white; font-weight: 700">${p.key}</span>
-         <span style="color: white; font-weight: 400; opacity: 0.7; margin-left: 4px;">${p.value}</span>
+          <span style="color: white; font-weight: 400; opacity: 0.7; margin-left: 4px;">${p.value}</span>
         </p>
       </li>
     `
@@ -131,7 +143,7 @@ const ActivitiesVer2 = React.memo(() => {
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Play 8 different fully on-chain games to earn rewards." })}
-            ${NormalRow({ key: "Prizes:", value: "Each game: $100 (1st), $50 (2nd), $30 (3rd), $10 (4th), $10 (5th)." })}
+            ${NormalRow({ key: "", value: "Each game: $100 (1st), $50 (2nd), $30 (3rd), $10 (4th), $10 (5th)." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Bitcoin Arcade", link: GAME_LINK.ARCA })}
           </ul>
         `,
@@ -144,7 +156,7 @@ const ActivitiesVer2 = React.memo(() => {
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Trade BRC-20 perpetual futures on-chain." })}
-            ${NormalRow({ key: "Prizes:", value: "$50 every 4 hours & 100k Naka points every hour." })}
+            ${NormalRow({ key: "", value: "$50 every 4 hours & 100k Naka points every hour." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Naka", link: GAME_LINK.NAKA })}
           </ul>
         `,
@@ -157,7 +169,7 @@ const ActivitiesVer2 = React.memo(() => {
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Learn about modular blockchain architecture via a fun Lego game." })}
-            ${NormalRow({ key: "Prizes:", value: "Bitcoin Punk 686 (1st), Rare Modular (2nd), Modular (3rd)." })}
+            ${NormalRow({ key: "", value: "Bitcoin Punk 686 (1st), Rare Modular (2nd), Modular (3rd)." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Modular", link: GAME_LINK.MODULAR })}
           </ul>
         `,
@@ -171,7 +183,7 @@ const ActivitiesVer2 = React.memo(() => {
         desc: `
           <ul>
             ${NormalRow({ key: "Activities:", value: "Participate in a charity run." })}
-            ${NormalRow({ key: "Prizes:", value: "Raise $1 for charity & earn 10K Alpha points for each km you run." })}
+            ${NormalRow({ key: "", value: "Raise $1 for charity & earn 10K Alpha points for each km you run." })}
             ${LinkRow({ key: "Bitcoin L2:", value: "Alpha", link: GAME_LINK.ALPHA })}
           </ul>
         `,
