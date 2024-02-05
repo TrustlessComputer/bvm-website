@@ -25,7 +25,6 @@ interface IProps {
 const LeaderBoardVisual = (props: IProps) => {
   const { list } = useAppSelector(publicSaleLeaderBoardVisualSelector);
   const [listRender, setListRender] = useState<ILeaderBoardPoint[]>([]);
-  const [listMissingRender, setListMissingRender] = useState<ILeaderBoardPoint[]>([]);
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
   const leaderBoardMode = LEADER_BOARD_MODE.ALL;
@@ -179,7 +178,6 @@ const LeaderBoardVisual = (props: IProps) => {
     });
 
     setListRender(tmsss.slice(0, mobileScreen ? (TOTALs - 7) : TOTALs));
-    setListMissingRender(missingArray);
   }, [list, mobileScreen]);
 
   return (
