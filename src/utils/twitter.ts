@@ -47,8 +47,12 @@ export const getUrlAvatarTwitter = (
 };
 
 export const getTimeEnd = () => {
-  const endHours = dayjs.utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss').diff(dayjs.utc(), 'hours')
+  let endHours = dayjs.utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss').diff(dayjs.utc(), 'hours')
   const endMins = dayjs.utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss').diff(dayjs.utc(), 'minutes') || 1;
+
+  if (!endHours || endHours <= 0) {
+    endHours = 0
+  }
 
   return {
     endHours,
