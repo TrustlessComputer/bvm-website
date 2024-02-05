@@ -21,6 +21,9 @@ import bg from '@/public/images/lucky-money-envelops/lucky-money-background-conf
 import bgSuccess from '@/public/images/lucky-money-envelops/lucky-money-success.png';
 import { formatAmount, formatCurrency } from '@/utils/format';
 import { userSelector } from '@/stores/states/user/selector';
+import { PUBLIC_SALE_END } from '@/modules/Whitelist';
+import { labelAmountOrNumberAdds } from '@/utils/string';
+import { shareLuckyPackage } from '@/utils/twitter';
 
 type Props = {
   envelopSrc: string;
@@ -106,28 +109,34 @@ export default function LuckyMoneyModal({ envelopSrc }: Props) {
   };
 
   const handleShareTw = async () => {
+    await shareLuckyPackage({ code: user?.referral_code, amount: reward?.bvm_amount || 0 })
     // window.open('https://twitter.com', '_blank');
-
-    const shareUrl = !user?.referral_code
-      ? 'bvm.network/public-sale'
-      : `bvm.network/public-sale?refer=${user?.referral_code}`;
-
-    const saleSummary = await getPublicSaleSummary();
-
-    const content = `Just got ${
-      reward?.bvm_amount || 0
-    } $BVM from the Red Packet giveaway at BVM public sale 🧧\n\n@BVMnetwork is the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s!\n\nJoin me and the ${
-      saleSummary.total_user || '0'
-    } early contributors to build the Bitcoin's future with $BVM\n\n`;
-
-    setTimeout(() => {
-      return window.open(
-        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-          content,
-        )}`,
-        '_blank',
-      );
-    }, 300);
+    //
+    // const shareUrl = !user?.referral_code
+    //   ? 'bvm.network/public-sale'
+    //   : `bvm.network/public-sale?refer=${user?.referral_code}`;
+    //
+    // const saleSummary = await getPublicSaleSummary();
+    //
+    // const endHours = dayjs.utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss').diff(dayjs.utc(), 'hours')
+    // const endMins = dayjs.utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss').diff(dayjs.utc(), 'minutes') || 1
+    //
+    // // const content = `Just got ${
+    // //   reward?.bvm_amount || 0
+    // // } $BVM from the Red Packet giveaway at BVM public sale 🧧\n\n@BVMnetwork is the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s!\n\nJoin me and the ${
+    // //   saleSummary.total_user || '0'
+    // // } early contributors to build the Bitcoin's future with $BVM\n\n`;
+    //
+    // const content = `The $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} minute${labelAmountOrNumberAdds(endMins)}` : ''}\n\nSo far:\n\n🚀: $${formatCurrency(saleSummary.total_usdt_value_not_boost, 0, 2)} raised\n💪: ${formatCurrency(saleSummary.total_user, 0, 0)} backers\n💪: ${shareUrl}\n\n@BVMnetwork is the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s\nNo doubt BVM will be the leader of the Bitcoin L2 meta`
+    //
+    // setTimeout(() => {
+    //   return window.open(
+    //     `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+    //       content,
+    //     )}`,
+    //     '_blank',
+    //   );
+    // }, 300);
   };
 
   const renderLoading = () => {

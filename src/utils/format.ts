@@ -4,7 +4,11 @@ import { MAX_DECIMAL } from '@/constants/constants';
 import { compareString } from './string';
 import dayjs from 'dayjs';
 import { isAddress } from '@ethersproject/address';
-import { validate } from 'bitcoin-address-validation';
+import {
+  validate,
+  getAddressInfo,
+  AddressType,
+} from 'bitcoin-address-validation';
 
 export const isInValidAmount = (amount?: string | number) => {
   if (!amount) return true;
@@ -171,8 +175,8 @@ export function formatString(
 }
 
 export function formatNameOrAddress(str: string | undefined) {
-  const isEVM = isAddress(str || "");
-  const isBTC = validate(str || "");
+  const isEVM = isAddress(str || '');
+  const isBTC = validate(str || '');
   const length = isBTC ? 4 : isEVM ? 6 : 12;
   if (str?.length && str.length > length) {
     return str.slice(0, length);
@@ -180,11 +184,13 @@ export function formatNameOrAddress(str: string | undefined) {
   return str;
 }
 
-
 export const zeroPad = (num: number, places: number) =>
   String(num).padStart(places, '0');
 
-export const formatMaxDecimals = (params: { value: any; maxDecimals?: number }) => {
+export const formatMaxDecimals = (params: {
+  value: any;
+  maxDecimals?: number;
+}) => {
   const value = params.value;
   const maxDecimals = params.maxDecimals !== undefined ? params.maxDecimals : 3;
 
@@ -198,11 +204,32 @@ export const formatMaxDecimals = (params: { value: any; maxDecimals?: number }) 
   return value;
 };
 
-export const ellipsisCenter = ({ str, chars = '...', limit = 4 }: { str: string, limit?: number, chars?: string }) => {
+export const ellipsisCenter = ({
+  str,
+  chars = '...',
+  limit = 4,
+}: {
+  str: string;
+  limit?: number;
+  chars?: string;
+}) => {
   if (str.length > limit * 2) {
     const prefix = str.slice(0, limit);
     const suffix = str.slice(str.length - limit, str.length);
     return prefix + chars + suffix;
   }
   return str;
-}
+};
+
+export const validateBTCAddress = (_address: string): boolean => {
+  return validate(_address);
+};
+
+export const validateBTCAddressTaproot = (_address: string): boolean => {
+  const isBTCAddress = validate(_address);
+  if (isBTCAddress) {
+    const addressInfo = getAddressInfo(_address);
+    return addressInfo.type === AddressType.p2tr;
+  }
+  return false;
+};

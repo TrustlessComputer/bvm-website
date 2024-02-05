@@ -86,7 +86,7 @@ export default function ItemCommunity({
   const airdrops = useSelector(airdropSelector).airdrops;
 
   const airdropContent = useMemo(() => {
-    return airdrops.find((v) => compareString(v.type, content.step));
+    return airdrops.find((v) => compareString(v?.type, content.step));
   }, [airdrops, content]);
 
   const isRunning = useMemo(() => {

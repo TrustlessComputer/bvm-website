@@ -198,16 +198,18 @@
   }
 
   .backer {
-    //cursor: pointer;
+    &__ended {
+      cursor: pointer;
 
-    //&:hover {
-    //  p:last-child {
-    //    > div {
-    //      color: #FA4E0E;
-    //      text-decoration: underline;
-    //    }
-    //  }
-    //}
+      &:hover {
+        p:last-child {
+          > div {
+            color: #FA4E0E;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
   }
 
   :global {
@@ -282,5 +284,26 @@
     &:hover {
       opacity: 0.9;
     }
+  }
+}
+
+.endBanner {
+  display: flex;
+  height: 60px;
+  padding: 0px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border: 1px solid rgba(15, 187, 120, 0.40);
+  background: rgba(15, 187, 120, 0.11);
+
+  &_endMessage {
+    color: #0FBB78;
+    text-align: center;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
   }
 }
