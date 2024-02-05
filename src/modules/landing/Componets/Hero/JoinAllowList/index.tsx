@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import { PUBLIC_SALE_END, PUBLIC_SALE_START } from '@/modules/Whitelist';
 import { CDN_URL_ICONS } from '@/config';
 import { getPublicSaleSummary } from '@/services/public-sale';
-import { checkIsPublicSale } from '@/modules/Whitelist/utils';
+import { checkIsEndPublicSale, checkIsPublicSale } from '@/modules/Whitelist/utils';
 import cs from 'classnames';
 import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 
@@ -48,6 +48,8 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
     getCount();
   }, [isPublicSale]);
 
+  const isEnded = React.useMemo(() => checkIsEndPublicSale(), [])
+
   const delay = isFooter ? 0 : DELAY;
 
   return (
@@ -64,8 +66,14 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
               {isPublicSale ? (
                 (!!totalUser && Number(totalUser || 0)) ? (
                   <Chars delay={delay + .4}>
-                    {/*Join <span>{formatCurrency(totalUser, 0, 0)}</span> people backing us building the future of Bitcoin.*/}
-                    Join <span>{formatCurrency(totalUser, 0, 0)}</span> backers on our mission to evolve Bitcoin beyond currency — into the next internet era with gaming, DeFi, AI, and beyond.
+                    Join the <span>{formatCurrency(totalUser, 0, 0)}</span> early contributors backing us with
+                    {" "}<span>${formatCurrency(
+                    totalDeposit || '0',
+                    0,
+                    0,
+                    'BTC',
+                    true,
+                  )}</span> to build the future of Bitcoin.
                   </Chars>
                 ) : (
                   <Chars delay={delay + .4}>
@@ -120,16 +128,17 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                 {/*  </span>*/}
                 {/*  <span style={{ color: "white", fontWeight: "700", textAlign: 'center', paddingBottom: "2px" }}>raised</span>*/}
                 {/*</Flex>*/}
-                <Flex gap="8px" flexDir="column" className={s.countDown_wrapper}>
-                  <Flex alignItems="end">
+                {!isEnded && (
+                  <Flex gap="8px" alignItems="center" className={s.countDown_wrapper}>
+                    <img style={{ width: 18 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>
+                    <p className={s.countDown_title}>Ends in</p>
                     <Countdown
                       className={s.countDown_time}
-                      expiredTime={dayjs.utc(isPublicSale ? PUBLIC_SALE_END : PUBLIC_SALE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
+                      expiredTime={dayjs.utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss').toString()}
                       hideIcon={true}
-                      suffix="left"
                     />
                   </Flex>
-                </Flex>
+                )}
               </Flex>
             </Fade>
           </Flex>
