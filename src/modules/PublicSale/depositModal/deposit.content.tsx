@@ -8,8 +8,8 @@ import {
 } from '@/services/public-sale';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { setGuestSecretCode } from '@/stores/states/user/reducer';
-import { userSelector } from '@/stores/states/user/selector';
+import { setDepositAddress, setGuestSecretCode } from '@/stores/states/user/reducer';
+import { depositAddressSelector, userSelector } from '@/stores/states/user/selector';
 import { generateRandomString } from '@/utils/encryption';
 import { formatCurrency } from '@/utils/format';
 import AuthenStorage from '@/utils/storage/authen.storage';
@@ -52,13 +52,14 @@ const DepositContent: React.FC<IDepositContent> = ({
   const { onClose, onOpen, isOpen } = useDisclosure();
 
   const user = useAppSelector(userSelector);
+  const depositAddress = useAppSelector(depositAddressSelector);
   const [loading, setLoading] = useState(true);
   const [checkingLocation, setCheckingLocation] = useState(true);
   const [isBanned, setIsBanned] = useState(false);
   const [tokens, setTokens] = useState<PublicSaleWalletTokenDeposit[]>([]);
   const [selectToken, setSelectToken] = useState<
     PublicSaleWalletTokenDeposit | undefined
-  >(undefined);
+  >(depositAddress ? depositAddress[0] : undefined);
   const secretCode = user?.guest_code;
   const token = AuthenStorage.getAuthenKey();
   const [isDepositAnotherAccount, setIsDepositAnotherAccount] = useState(false);
@@ -136,11 +137,16 @@ const DepositContent: React.FC<IDepositContent> = ({
 
   const getTokens = async () => {
     try {
-      const rs = await getPublicsaleWalletInfo();
-      if (rs.length > 0 && !selectToken) {
-        setSelectToken(rs[0]);
+      if(!depositAddress) {
+        const rs = await getPublicsaleWalletInfo();
+        if (rs.length > 0 && !selectToken) {
+          setSelectToken(rs[0]);
+        }
+        setTokens(rs);
+        dispatch(setDepositAddress(rs));
+      } else {
+        setTokens(depositAddress);
       }
-      setTokens(rs);
     } catch (error) {
     } finally {
       setLoading(false);
