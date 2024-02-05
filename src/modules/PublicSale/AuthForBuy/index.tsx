@@ -29,10 +29,10 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
 
   const textAction = useMemo(() => {
     if(Number(userContributeInfo?.usdt_value) > 0) {
-      return 'Contribute more';
+      return 'Buy $BVM';
     }
 
-    return 'Back our mission';
+    return 'Buy $BVM';
   }, [userContributeInfo?.usdt_value]);
 
   return (
