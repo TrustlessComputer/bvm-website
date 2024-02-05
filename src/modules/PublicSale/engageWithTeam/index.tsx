@@ -9,7 +9,7 @@ const EngageWithTeam = () => {
           <Text className={s.title}>Engage with the team and fellow backers!</Text>
           <OrderedList className={s.desc}>
             <ListItem><a href={"https://app.alpha.wtf/"} style={{textDecoration: 'underline'}} target={"_blank"}>Install Alpha</a></ListItem>
-            <ListItem>Receive fractional keys to join the BVM circle</ListItem>
+            <ListItem>As a backer, you will receive fractional keys to join the BVM circle</ListItem>
             <ListItem>Chat with the core team and the community</ListItem>
           </OrderedList>
         </Flex>
