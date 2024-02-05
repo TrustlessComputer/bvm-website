@@ -168,14 +168,16 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
       ])) as [any, any];
       setAuthenCode(authenCode);
       saleSummary = summary;
-      code = `#${authenCode?.public_code}\n`;
+      code = `#${authenCode?.public_code}\n\n`;
     } else {
       saleSummary = await getPublicSaleSummary();
     }
 
-    const shareUrl = !user?.referral_code
-      ? 'bvm.network/public-sale'
-      : getLink(user?.referral_code || '');
+    // const shareUrl = !user?.referral_code
+    //   ? 'bvm.network/public-sale'
+    //   : getLink(user?.referral_code || '');
+
+    const shareUrl = 'bvm.network/public-sale'
 
     const { endHours, endMins } = getTimeEnd()
     const content = `The $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}\n\nSo far:\n🚀$${formatCurrency(saleSummary?.total_usdt_value_not_boost || 0, 0, 2)} raised\n💪${formatCurrency(saleSummary?.total_user || 0, 0, 0)} backers\n👉${shareUrl}\n\n@BVMnetwork is the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s\nNo doubt BVM will be leading the Bitcoin L2 meta.\n${code}`;
