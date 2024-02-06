@@ -12,6 +12,7 @@ import useWindowSize from '@/hooks/useWindowSize';
 import DailyReward from '@/modules/PublicSale/dailyReward';
 import ActivitiesVer2 from '@/modules/PublicSale/activities/AcitivitiesVer2';
 import LuckyMoneyShare from '@/modules/PublicSale/luckyMoneyShare';
+import EngageWithTeam from '@/modules/PublicSale/engageWithTeam';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -60,6 +61,7 @@ const AboveTheFold = () => {
         <Flex className={s.rightSection} direction={'column'}>
           <BuyForm vcInfo={vcInfo} />
           <LuckyMoneyShare />
+          <EngageWithTeam />
           {/*<Welcome />*/}
           {/*<Playgame />*/}
           {!mobileScreen && <ActivitiesVer2 />}

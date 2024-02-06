@@ -17,7 +17,7 @@ import { compareString } from '@/utils/string';
 import {
   Box,
   Center,
-  Flex,
+  Flex, Image,
   Menu,
   MenuButton,
   MenuList,
@@ -41,14 +41,16 @@ import s from './styles.module.scss';
 interface IDepositContent {
   amount_usd?: string;
   hasStaked?: any;
+  setBanned?: (_: boolean) => void
 }
 
 const COUNTRY_BANNED: any[] = ['US'];
 
-const DepositContent: React.FC<IDepositContent> = ({
-  amount_usd,
-  hasStaked,
-}) => {
+const DepositContent = ({
+    amount_usd,
+    hasStaked,
+    setBanned,
+  }: IDepositContent) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
 
   const user = useAppSelector(userSelector);
@@ -59,7 +61,7 @@ const DepositContent: React.FC<IDepositContent> = ({
   const [tokens, setTokens] = useState<PublicSaleWalletTokenDeposit[]>([]);
   const [selectToken, setSelectToken] = useState<
     PublicSaleWalletTokenDeposit | undefined
-  >(depositAddress ? depositAddress[0] : undefined);
+    >(depositAddress ? depositAddress[0] : undefined);
   const secretCode = user?.guest_code;
   const token = AuthenStorage.getAuthenKey();
   const [isDepositAnotherAccount, setIsDepositAnotherAccount] = useState(false);
@@ -128,7 +130,9 @@ const DepositContent: React.FC<IDepositContent> = ({
       const rs = await getLocation();
       const country_code = rs?.data?.result;
 
-      setIsBanned(COUNTRY_BANNED.includes(country_code?.toUpperCase?.()));
+      const banned = COUNTRY_BANNED.includes(country_code?.toUpperCase?.());
+      setIsBanned(banned);
+      if (setBanned) setBanned(banned)
     } catch (error) {
     } finally {
       setCheckingLocation(false);
@@ -186,9 +190,27 @@ const DepositContent: React.FC<IDepositContent> = ({
 
   if (isBanned) {
     return (
-      <Center>
-        <Text>The public sale is open to everyone except US citizens.</Text>
-      </Center>
+      <Flex className={s.banned} gap="44px" alignItems="center" pb="32px" flexDir={{ base: 'column', lg: "row" }}>
+        <Flex flexDir="column" gap={{ base: "24px", md: "32px" }} flex={1}>
+          <Text className={s.banned_title}>
+            Looks like you’re from the US.
+          </Text>
+          <Flex flexDir="column" gap="12px">
+            <Text className={s.banned_content}>
+              The BVM public sale is not open to US citizens. But you can explore utilities on various Bitcoin L2 blockchains powered by BVM, such as <a href="https://bitcoinarcade.xyz/" target="_blank">Gaming</a>, <a href="https://nakachain.xyz/perpetual" target="_blank">DeFi</a>, <a href="https://alpha.wtf/" target="_blank">SocialFi</a>, <a href="https://playmodular.com/workshop" target="_blank">Education</a>, and <a href="https://eternalai.org/" target="_blank">AI</a>.
+            </Text>
+            <Text className={s.banned_content}>
+              We’re planning to list BVM on exchanges soon. So you can purchase BVM on exchanges in the future.
+            </Text>
+            <Text className={s.banned_content}>
+              Welcome to the future of Bitcoin.
+            </Text>
+          </Flex>
+        </Flex>
+        <Flex maxW="340px" display={{ base: "none", lg: "initial" }}>
+          <Image src="public-sale/banned_img.png" />
+        </Flex>
+      </Flex>
     );
   }
 
@@ -352,8 +374,4 @@ DepositContent.defaultProps = {
   amount_usd: '0',
 };
 
-const DepositContentContainer: React.FC<IDepositContent> = (props) => {
-  return <DepositContent {...props} />;
-};
-
-export default DepositContentContainer;
+export default DepositContent;

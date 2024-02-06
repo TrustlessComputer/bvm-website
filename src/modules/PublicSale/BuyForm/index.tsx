@@ -9,6 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
@@ -44,6 +45,7 @@ import { useDispatch } from 'react-redux';
 import { setPublicSaleSummary, setUserContributeInfo } from '@/stores/states/common/reducer';
 import { checkIsEndPublicSale } from '@/modules/Whitelist/utils';
 import cs from 'classnames';
+import BigNumber from 'bignumber.js';
 
 interface FormValues {
   tokenAmount: string;
@@ -122,6 +124,14 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     };
   }, [token, needReload]);
 
+  const currentFDV = useMemo(() => {
+    if(publicSaleSummary?.total_usdt_value_not_boost) {
+      return new BigNumber(publicSaleSummary?.total_usdt_value_not_boost).multipliedBy(100).dividedBy(15).toString();
+    }
+
+    return "0";
+  }, [publicSaleSummary?.total_usdt_value_not_boost]);
+
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
     window.localStorage.setItem(
@@ -193,8 +203,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
         >
           <Flex
             className={s.tLabel}
-            fontSize={20}
-            lineHeight={1}
+            fontSize={"14px"}
+            lineHeight={"14px"}
             fontWeight={400}
             color="rgba(0,0,0,0.7)"
             gap={1}
@@ -251,7 +261,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             {/*    : '-'}{' '}*/}
             {/*  BVM*/}
             {/*</Text>*/}
-            {Boolean(userContributeInfo?.view_boost) && (
+            {Boolean(userContributeInfo?.view_boost) && !!Number(userContributeInfo?.view_boost || 0) && (
               <Flex
                 gap={'2px'}
                 alignItems={'center'}
@@ -293,6 +303,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
     onOpen: onOpen,
     isOpen: isOpen,
   } = useDisclosure();
+  const { isOpen: isOpenFDV, onToggle: onToggleFDV, onClose: onCloseFDV, onOpen: onOpenFDV } = useDisclosure();
 
 
   return (
@@ -379,7 +390,6 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                   .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
                   .toString()}
                 hideIcon={true}
-                isHideSecond={true}
                 onRefreshEnd={() => setIsEnd(true)}
               />
 
@@ -407,6 +417,55 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
               {/*  </div>*/}
               {/*)}*/}
+            </div>
+            <div className={s.grid_item}>
+              <Tooltip
+                minW="220px"
+                bg="#007659"
+                isOpen={isOpenFDV}
+                // boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                borderRadius="4px"
+                padding="16px"
+                label={
+                  <Flex direction="column" color="white" gap={"4px"}>
+                    <Text>Fully Diluted Valuation (FDV) is the market cap if the maximum supply is in circulation.</Text>
+                    <Text>The BVM public sale allocation is 15% (15M). The BVM max supply is 100M.</Text>
+                    <Text>Price = Total Public Sale / 15,000,000</Text>
+                    <Text>FDV = Price x 100,000,000</Text>
+                  </Flex>
+                }
+              >
+                <Text
+                  fontSize={20}
+                  lineHeight={1}
+                  fontWeight={400}
+                  className={s.tLabel}
+                  color={'rgba(0,0,0,0.7)'}
+                  onClick={onToggleFDV}
+                  onMouseEnter={onOpenFDV}
+                  onMouseLeave={onCloseFDV}
+                >
+                  <Flex alignItems="center">
+                    Current FDV
+                    <Flex ml="4px" w={"14px"} h={"14px"} mt="-2px">
+                      <svg width="14px" height="14px" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.66667 0.333984C2.98667 0.333984 0 3.32065 0 7.00065C0 10.6807 2.98667 13.6673 6.66667 13.6673C10.3467 13.6673 13.3333 10.6807 13.3333 7.00065C13.3333 3.32065 10.3467 0.333984 6.66667 0.333984ZM7.33333 10.334H6V6.33398H7.33333V10.334ZM7.33333 5.00065H6V3.66732H7.33333V5.00065Z" fill="#007659"/>
+                      </svg>
+                    </Flex>
+                  </Flex>
+                </Text>
+              </Tooltip>
+
+              <Text
+                className={s.tValue}
+                fontSize={20}
+                lineHeight={1}
+                fontWeight={400}
+                color={'#000'}
+              >
+                ${formatCurrency(currentFDV, 0, 0, 'BTC', false)}
+              </Text>
+
             </div>
             <div className={s.grid_item}>
               {

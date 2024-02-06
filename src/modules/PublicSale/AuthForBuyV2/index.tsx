@@ -30,6 +30,10 @@ import { WalletType } from '@/interfaces/wallet';
 import useLoginBTC from '@/hooks/useLoginBTC';
 import { signMessage as signMessageMetamask } from '@/utils/metamask-helper';
 import userServices from '@/services/user';
+import { getTimeEnd } from '@/utils/twitter';
+import { labelAmountOrNumberAdds } from '@/utils/string';
+import { IPublicSaleDepositInfo } from '@/interfaces/vc';
+import { checkIsEndPublicSale } from '@/modules/Whitelist/utils';
 
 interface IAuthForBuyV2 extends PropsWithChildren {
   renderWithoutLogin?: (onClick: any) => any;
@@ -156,33 +160,41 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
 
   const generateLinkTweet = async () => {
     let code = '';
-    if (!userToken) {
-      const res: any = await requestAuthenByShareCode();
-      setAuthenCode(res);
-      code = `\n\n#${res?.public_code}`;
+    const shareUrl = 'bvm.network/public-sale'
+
+    const isEnded = checkIsEndPublicSale();
+    if (isEnded) {
+      if (!userToken) {
+        const authenCode = await requestAuthenByShareCode();
+        setAuthenCode(authenCode);
+        code = `\n\n#${authenCode?.public_code}`;
+      }
+      const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks${code}\n\nbvm.network`;
+      return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        content,
+      )}`;
+    } else {
+      let saleSummary: IPublicSaleDepositInfo | undefined = undefined
+      if (!userToken) {
+        // const res: any = await requestAuthenByShareCode();
+        const [authenCode, summary] = (await Promise.all([
+          await requestAuthenByShareCode(),
+          await getPublicSaleSummary()
+        ])) as [any, any];
+        setAuthenCode(authenCode);
+        saleSummary = summary;
+        code = `#${authenCode?.public_code}\n\n`;
+      } else {
+        saleSummary = await getPublicSaleSummary();
+      }
+
+
+      const { endHours, endMins } = getTimeEnd()
+      const content = `The $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}! So far:\n\n🚀$${formatCurrency(saleSummary?.total_usdt_value_not_boost || 0, 0, 2)} raised\n💪${formatCurrency(saleSummary?.total_user || 0, 0, 0)} backers\n👉${shareUrl}\n\n@BVMnetwork is the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s. No doubt BVM will be leading the Bitcoin L2 meta.\n${code}`;
+      return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        content,
+      )}`;
     }
-
-    const shareUrl = !user?.referral_code
-      ? 'bvm.network/public-sale'
-      : getLink(user?.referral_code || '');
-
-    const saleSummary = await getPublicSaleSummary();
-    const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
-      saleSummary.total_user || '0',
-      0,
-      0,
-      'BTC',
-      false,
-    )} early contributors who've committed $${formatCurrency(
-      saleSummary.total_usdt_value_not_boost || '0',
-      0,
-      0,
-      'BTC',
-      false,
-    )} to build Bitcoin's future with @BVMnetwork.${code}`;
-    return `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-      content,
-    )}`;
   };
 
   const handleShareTw = async () => {
