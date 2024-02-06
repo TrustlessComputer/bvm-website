@@ -60,7 +60,9 @@ const RaffleButton = ({ className }: any) => {
       // const res = await getPublicSaleProgram();
       const res = {
         link: 'https://www.ord.io/56742212',
-        image: 'https://cdn.bvm.network/internal/93319e07-75fa-48ac-ac78-bf5f0952bcab.png'
+        image: 'https://cdn.bvm.network/internal/93319e07-75fa-48ac-ac78-bf5f0952bcab.png',
+        title: 'HOPPING WEEKEND GIVEAWAY: RSIC #17496',
+        description: `<article>This is the first "not first" rune on bitcoin</article><article>Top trending Inscriptions</article><article>Floor price: 0.08 BTC</article><article>100% stored on Bitcoin</article>`
       } as IPublicSalePrograme;
       setProgrameInfo(res);
     } catch (e) {
