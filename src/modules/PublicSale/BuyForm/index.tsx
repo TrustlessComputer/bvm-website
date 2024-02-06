@@ -202,7 +202,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const ContributorBlock = forwardRef((props: any, ref: any) => {
     const { className, ...rest } = props;
     return (
-      <div>
+      <Box onMouseEnter={onOpen}>
         <div
           className={s.tValue}
           gap={'5px'}
@@ -303,7 +303,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             }
           </Flex>
         </div>
-      </div>
+      </Box>
     );
   });
 
