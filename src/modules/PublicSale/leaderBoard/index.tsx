@@ -57,7 +57,7 @@ const LeaderBoard = (props: IProps) => {
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: 50,
+    limit: 20,
     search: '',
   });
 

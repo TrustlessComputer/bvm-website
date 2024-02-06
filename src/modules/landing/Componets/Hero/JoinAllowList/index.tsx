@@ -143,9 +143,6 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
             </Fade>
           </Flex>
         </div>
-        <div className={`${s.hero_inner} ${s.hero_inner__desktop}`}>
-          <HeroLabel />
-        </div>
         {/*</form>*/}
       </div>
     </Fade>
