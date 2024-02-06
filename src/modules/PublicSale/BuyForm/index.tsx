@@ -384,12 +384,13 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </Text>
 
               <Countdown
-                className={s.tValue}
+                className={cx(s.tValue, s.blink_me)}
                 expiredTime={dayjs
                   .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
                   .toString()}
                 hideIcon={true}
                 onRefreshEnd={() => setIsEnd(true)}
+                hideZeroHour={true}
               />
 
               {/*{remainDay === 0 ? (*/}
