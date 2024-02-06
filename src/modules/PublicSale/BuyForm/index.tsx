@@ -261,7 +261,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             {/*    : '-'}{' '}*/}
             {/*  BVM*/}
             {/*</Text>*/}
-            {Boolean(userContributeInfo?.view_boost) && (
+            {Boolean(userContributeInfo?.view_boost) && !!Number(userContributeInfo?.view_boost || 0) && (
               <Flex
                 gap={'2px'}
                 alignItems={'center'}
@@ -340,7 +340,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               <div
                 className={cs(s.backer, {[s.backer__ended]: isEnded})}
                 onClick={() => {
-                  if (!isEnded) return;
+                  // if (!isEnded) return;
                   setShowContributorModal(true)
                 }}
               >
