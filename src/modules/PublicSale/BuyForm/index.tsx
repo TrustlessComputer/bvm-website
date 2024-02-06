@@ -16,6 +16,7 @@ import { FormikProps, useFormik } from 'formik';
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import {
+  getBlockReward,
   getPublicSaleLeaderBoards,
   getPublicSaleSummary,
   postPublicsaleWalletInfoManualCheck,
@@ -85,6 +86,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   const isEnded = checkIsEndPublicSale();
 
+  const [blockReward, setBlockReward] = React.useState(undefined)
+
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
   const publicSaleSummary = useAppSelector(commonSelector).publicSaleSummary as IPublicSaleDepositInfo;
@@ -111,9 +114,11 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   useEffect(() => {
     getContributeInfo();
+    getBlockRewardInfo();
 
     timeIntervalSummary.current = setInterval(() => {
       getContributeInfo();
+      getBlockRewardInfo();
     }, 10000);
 
     if (token) {
@@ -131,6 +136,11 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
     return "0";
   }, [publicSaleSummary?.total_usdt_value_not_boost]);
+
+  const getBlockRewardInfo = async () => {
+    const data = await getBlockReward();
+    setBlockReward(data)
+  }
 
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
@@ -491,7 +501,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                         <PopoverArrow opacity={0}/>
                         <PopoverCloseButton color='black' />
                         <Box height="24px"/>
-                        <ContributorInfo data={userContributeInfo} />
+                        <ContributorInfo data={userContributeInfo} blockReward={blockReward} />
                       </FocusLock>
                     </PopoverContent>
                   </Popover>

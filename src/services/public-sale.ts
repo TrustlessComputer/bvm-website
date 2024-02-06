@@ -251,6 +251,16 @@ export const claimPublicSaleDailyReward = async (): Promise<any> => {
   return null;
 };
 
+export const getBlockReward = async (): Promise<any> => {
+  try {
+    const res = await apiClient.get(`/bvm/user/halving`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+  return null;
+};
+
 export const claimRewardDailyWithPost = async (
   uuid: string,
   link?: string,

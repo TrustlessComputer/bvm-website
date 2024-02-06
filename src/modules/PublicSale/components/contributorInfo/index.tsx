@@ -12,7 +12,7 @@ import { validate } from 'bitcoin-address-validation';
 import { removeUserToken } from '@/stores/states/user/reducer';
 import { checkIsEndPublicSale } from '@/modules/Whitelist/utils';
 
-const ContributorInfo = ({ data }: {data?: ILeaderBoardPoint}) => {
+const ContributorInfo = ({ data, blockReward }: { data?: ILeaderBoardPoint, blockReward?: any }) => {
   const user = useAppSelector(userSelector)
   const isEVM = isAddress(user?.twitter_id || "");
   const isBTC = validate(user?.twitter_id || "");
@@ -47,6 +47,9 @@ const ContributorInfo = ({ data }: {data?: ILeaderBoardPoint}) => {
       )}
       {Boolean(isEnded && !!Number(data?.bvm_lucky_balance || 0)) && (
         <HorizontalItem className={s.rowData} color={"#000000"} label={'BONUS BALANCE'} value={`${formatCurrency(data?.bvm_lucky_balance, 0, MIN_DECIMAL)} BVM`} />
+      )}
+      {Boolean(isEnded && !!Number(blockReward?.total || 0)) && (
+        <HorizontalItem className={s.rowData} color={"#000000"} label={'BLOCK REWARD'} value={`${formatCurrency(blockReward?.total, 0, MIN_DECIMAL)} BVM`} />
       )}
       <Button onClick={onDisconnect} bg="black" color="white" borderRadius="0px" fontWeight="400" mt="12px" _hover={{ backgroundColor: "rgba(0, 0, 0, 0.9)" }}>
         Disconnect
