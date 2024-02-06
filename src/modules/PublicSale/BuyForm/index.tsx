@@ -518,8 +518,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </AuthForBuyV2>
               <Box className={s.endBanner}>
                 <p className={s.endBanner_endMessage}>
-                  Thank you for your contribution! You will be able to claim your $BVM allocation at TGE in March 2024. Together we build the future of Bitcoin!
-                </p>
+                  Thank you for your contribution! You will be able to claim your $BVM allocation at TGE in March 2024. Stay tuned for more updates. Together we build the future of Bitcoin!                </p>
               </Box>
             </Flex>
           ) : (
