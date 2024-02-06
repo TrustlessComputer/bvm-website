@@ -340,7 +340,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               <div
                 className={cs(s.backer, {[s.backer__ended]: isEnded})}
                 onClick={() => {
-                  // if (!isEnded) return;
+                  if (!isEnded) return;
                   setShowContributorModal(true)
                 }}
               >
