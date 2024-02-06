@@ -25,7 +25,7 @@ const DrawerMobileMenu = (props: HeaderProps) => {
     >
       <DrawerOverlay />
       <DrawerContent zIndex={3}>
-        <DrawerBody bgColor={'#F3F1E8'}>{<MobileNav />}</DrawerBody>
+        <DrawerBody bgColor={'#F3F1E8'}>{<MobileNav primaryColor = 'black'/>}</DrawerBody>
         <DrawerFooter
           bgColor={'#F3F1E8'}
           justifyContent={'center'}
