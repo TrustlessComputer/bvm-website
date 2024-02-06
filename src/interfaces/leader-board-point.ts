@@ -44,4 +44,5 @@ export interface ILeaderBoardPoint {
   bvm_percent?:string;
   coin_balances?:IContributionCoin[];
   deposit_id:string;
+  bvm_lucky_balance: string;
 }

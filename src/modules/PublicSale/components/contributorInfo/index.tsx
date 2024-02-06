@@ -45,6 +45,9 @@ const ContributorInfo = ({ data }: {data?: ILeaderBoardPoint}) => {
           </Flex>
         } />
       )}
+      {Boolean(isEnded && !!Number(data?.bvm_lucky_balance || 0)) && (
+        <HorizontalItem className={s.rowData} color={"#000000"} label={'BONUS BALANCE'} value={`${formatCurrency(data?.bvm_lucky_balance, 0, MIN_DECIMAL)} BVM`} />
+      )}
       <Button onClick={onDisconnect} bg="black" color="white" borderRadius="0px" fontWeight="400" mt="12px" _hover={{ backgroundColor: "rgba(0, 0, 0, 0.9)" }}>
         Disconnect
       </Button>
