@@ -518,7 +518,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </AuthForBuyV2>
               <Box className={s.endBanner}>
                 <p className={s.endBanner_endMessage}>
-                  The TGE will around March, at the same time as BVM exchange listings.
+                  Thank you for your contribution! You will be able to claim your $BVM allocation at TGE in March 2024. Together we build the future of Bitcoin!
                 </p>
               </Box>
             </Flex>
