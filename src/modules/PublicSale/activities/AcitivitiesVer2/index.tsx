@@ -139,20 +139,6 @@ const ActivitiesVer2 = React.memo(() => {
   const TASKS = React.useMemo<GameItemProps[]>(() => {
     return [
       {
-        title: 'AI on Bitcoin',
-        subTitle: " (Available on Wednesday)",
-        desc: `
-          <ul>
-            ${NormalRow({ key: "Prizes:", value: undefined, mask: true })}
-            ${NormalRow({ key: "Activities:", value: "Train your fully on-chain AI." })}
-            ${LinkRow({ key: "Bitcoin L2:", value: "Eternal AI", link: GAME_LINK.AI })}
-          </ul>
-        `,
-        banner: 'banner-05.png',
-        link: GAME_LINK.AI,
-        type: ActivityType.AI,
-      },
-      {
         title: 'GameFi on Bitcoin',
         desc: `
           <ul>
@@ -200,6 +186,20 @@ const ActivitiesVer2 = React.memo(() => {
         banner: 'banner-04.png',
         link: GAME_LINK.ALPHA,
         type: ActivityType.Social,
+      },
+      {
+        title: 'AI on Bitcoin',
+        subTitle: " (Available on Wednesday)",
+        desc: `
+          <ul>
+            ${NormalRow({ key: "Prizes:", value: undefined, mask: true })}
+            ${NormalRow({ key: "Activities:", value: "Train your fully on-chain AI." })}
+            ${LinkRow({ key: "Bitcoin L2:", value: "Eternal AI", link: GAME_LINK.AI })}
+          </ul>
+        `,
+        banner: 'banner-05.png',
+        link: GAME_LINK.AI,
+        type: ActivityType.AI,
       },
     ]
   }, []);
