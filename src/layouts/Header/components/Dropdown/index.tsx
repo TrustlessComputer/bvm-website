@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
 import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
+import { NavItem } from '@/layouts/Header/menuConfig';
 
 type PropD = {
-  title: string, lists: string[], primaryColor?: string
+  title: string, lists: NavItem[], primaryColor?: string
 };
 const DropDown = ({ title, lists, primaryColor }: PropD): ReactElement => {
 
@@ -14,11 +15,11 @@ const DropDown = ({ title, lists, primaryColor }: PropD): ReactElement => {
     </span>
     <ul className={s.dropMenu_list}>
       {
-        lists.map((link: any) => {
+        lists.map((item) => {
           return (<li className={s.listItem}>
-            <a href={link.link} target={link?.isNewWindow ? '_blank' : '_self'} style={{ color: primaryColor || 'black' }}>
+            <a href={item.href} target={item?.isNewWindow ? '_blank' : '_self'} style={{ color: primaryColor || 'black' }}>
               {
-                link.title
+                item.label
               }
               <SvgInset svgUrl={`landing/images/basil_arrow-up-outline.svg`} />
             </a>

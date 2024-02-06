@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  .label {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-weight: 500;
+    justify-content: space-between;
+
+    &.black {
+      color: black;
+
+      svg path {
+        stroke: black !important;
+      }
+    }
+
+    img, svg {
+      transform: translateY(.05em);
+    }
+
+    &.isOpen {
+      img, svg {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}
