@@ -59,21 +59,14 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
           <Flex flexDirection={'column'} gap={'8px'}>
             <Fade delay={delay + .2}>
               <div className={s.titleWrapper}>
-                <div className={cs(s.title)}>{"BVM PUBLIC SALE"}</div>
+                <div className={cs(s.title)}>{"WELCOME TO THE FUTURE OF BITCOIN"}</div>
               </div>
             </Fade>
             <div className={cs(s.desc)}>
               {isPublicSale ? (
                 (!!totalUser && Number(totalUser || 0)) ? (
                   <Chars delay={delay + .4}>
-                    A big thank you to our <span>{formatCurrency(totalUser, 0, 0)}</span> backers for helping build the future of Bitcoin with
-                    {" "}<span>${formatCurrency(
-                    totalDeposit || '0',
-                    0,
-                    0,
-                    'BTC',
-                    true,
-                  )}</span>
+                    Customize and launch your own Bitcoin L2 blockchain in a few clicks. No code required.
                   </Chars>
                 ) : (
                   <Chars delay={delay + .4}>
@@ -99,13 +92,27 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                 loadingText={'Submitting...'}
                 className={s.button}
                 onClick={() => {
-                  router.push('/public-sale')
+                  router.push('/blockchains/customize');
                 }}
               >
-                Check your allocation
+                Launch your Bitcoin L2
 
               </Button>
-              {!isPublicSale && (
+              <div className={s.whiteList} onClick={() => {
+                window.open('https://docs.google.com/forms/d/e/1FAIpQLSejQvjHQE91B4DL4p9pzt4IPhWi05nxdwSI9wktra1i15ieqQ/viewform', "_blank");
+              }}
+                   style={{cursor: 'pointer'}}
+              >
+                <div className={s.whiteList_users} style={{color: '#fa4e0e'}}>
+                  Apply for a Developer Grant
+                </div>
+                <div className={s.whiteList_total}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                    <path d="M14.4613 8.50018C14.4359 8.56151 14.3994 8.61678 14.3534 8.66278L9.68669 13.3294C9.58935 13.4268 9.46133 13.4761 9.33333 13.4761C9.20533 13.4761 9.07731 13.4274 8.97998 13.3294C8.78465 13.1341 8.78465 12.8174 8.97998 12.6221L12.7933 8.80877H2C1.724 8.80877 1.5 8.58477 1.5 8.30877C1.5 8.03277 1.724 7.80877 2 7.80877H12.7926L8.97933 3.99546C8.784 3.80013 8.784 3.48343 8.97933 3.2881C9.17466 3.09277 9.49135 3.09277 9.68669 3.2881L14.3534 7.95477C14.3994 8.00077 14.4359 8.05603 14.4613 8.11737C14.5119 8.24003 14.5119 8.37751 14.4613 8.50018Z" fill="#FA4E0E"/>
+                  </svg>
+                </div>
+              </div>
+              {/*{!isPublicSale && (
                 <div className={s.whiteList}>
                   <div className={s.whiteList_users}>
                     <Image src={'/landing/allow-avatars.png'} quality={100} width={88} height={24}
@@ -115,8 +122,8 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                     <span>{formatCurrency(totalUser, 0,0)}&nbsp;people</span>&nbsp;{isPublicSale ? "made contributions" : "are on the allowlist"}
                   </div>
                 </div>
-              )}
-              <Flex flexDir="column" marginTop="20px">
+              )}*/}
+              <Flex flexDir="column" marginTop="0px">
                 {/*<Flex alignItems="center" gap="4px" justifyContent="center">*/}
                 {/*  <span style={{ color: "#FA4E0E", fontWeight: "700", textAlign: 'center' }}>${formatCurrency(*/}
                 {/*    totalDeposit || '0',*/}

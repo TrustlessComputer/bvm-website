@@ -21,14 +21,14 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Module Store',
-    href: '/module-store',
+    label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
+    href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
     isNewWindow: false,
     isHide: false,
   },
   {
-    label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
-    href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
+    label: 'Module Store',
+    href: '/module-store',
     isNewWindow: false,
     isHide: false,
   },
@@ -93,16 +93,16 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
   },
   {
+    label: 'Module Store',
+    href: '/module-store',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
     label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
     href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
     isNewWindow: false,
     isStrong: false,
-    isHide: false,
-  },
-  {
-    label: 'Module Store',
-    href: '/module-store',
-    isNewWindow: false,
     isHide: false,
   },
 ].filter((item) => !item.isHide);
