@@ -57,7 +57,11 @@ const RaffleButton = ({ className }: any) => {
 
   const getProgramInfo = async () => {
     try {
-      const res = await getPublicSaleProgram();
+      // const res = await getPublicSaleProgram();
+      const res = {
+        link: 'https://www.ord.io/56742212',
+        image: 'https://cdn.bvm.network/internal/93319e07-75fa-48ac-ac78-bf5f0952bcab.png'
+      } as IPublicSalePrograme;
       setProgrameInfo(res);
     } catch (e) {
     } finally {
