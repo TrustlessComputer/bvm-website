@@ -65,9 +65,9 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
           </div>
         </div>
         <div>
-          <Fade delay={delay + 0.8}>
+          <Fade delay={isMobile ? delay : delay + 0.8}>
             <a href={'#'} onClick={() => setOpen(true)}>
-              <img src={`/public-sale/btn-play-3.png`} width={331} alt={'right'} />
+              <img src={`/public-sale/btn-play-3.png`} width={331} alt={'right'} style={{margin: 'auto'}}/>
             </a>
           </Fade>
         </div>

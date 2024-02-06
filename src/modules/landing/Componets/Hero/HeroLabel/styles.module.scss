@@ -71,5 +71,10 @@
   .content {
     display: flex;
     justify-content: space-between;
+
+    @include is-mobile {
+      flex-direction: column-reverse;
+      gap: 20px;
+    }
   }
 }
