@@ -66,14 +66,14 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
               {isPublicSale ? (
                 (!!totalUser && Number(totalUser || 0)) ? (
                   <Chars delay={delay + .4}>
-                    Join the <span>{formatCurrency(totalUser, 0, 0)}</span> early contributors backing us with
+                    A big thank you to our <span>{formatCurrency(totalUser, 0, 0)}</span> backers for helping build the future of Bitcoin with
                     {" "}<span>${formatCurrency(
                     totalDeposit || '0',
                     0,
                     0,
                     'BTC',
                     true,
-                  )}</span> to build the future of Bitcoin.
+                  )}</span>
                   </Chars>
                 ) : (
                   <Chars delay={delay + .4}>
@@ -99,11 +99,11 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                 loadingText={'Submitting...'}
                 className={s.button}
                 onClick={() => {
-                  if (isPublicSale) return router.push('/public-sale')
-                  router.push('/allowlist');
+                  router.push('/public-sale')
                 }}
               >
-                {isPublicSale ? "Join the BVM public sale" : "Get on the allowlist"}
+                Check your allocation
+
               </Button>
               {!isPublicSale && (
                 <div className={s.whiteList}>
