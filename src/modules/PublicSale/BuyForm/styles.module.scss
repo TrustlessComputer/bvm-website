@@ -243,6 +243,7 @@
 .grid {
   display: flex;
   gap: 32px;
+  justify-content: space-between;
 
   @include is-mobile {
     flex-wrap: wrap;

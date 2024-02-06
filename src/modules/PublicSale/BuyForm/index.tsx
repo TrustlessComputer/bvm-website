@@ -47,6 +47,7 @@ import { setPublicSaleSummary, setUserContributeInfo } from '@/stores/states/com
 import { checkIsEndPublicSale } from '@/modules/Whitelist/utils';
 import cs from 'classnames';
 import BigNumber from 'bignumber.js';
+import { clearPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
 
 interface FormValues {
   tokenAmount: string;
@@ -285,8 +286,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 <Text
                   fontSize={'14'}
                   fontWeight={'500'}
-                  className={s.boost}
                   color={'#000'}
+                  className={s.boost}
                 >
                   {token
                     ? `+${formatCurrency(
@@ -350,6 +351,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               <div
                 className={cs(s.backer, {[s.backer__ended]: isEnded})}
                 onClick={() => {
+                  dispatch(clearPublicSaleLeaderBoard())
                   if (!isEnded) return;
                   setShowContributorModal(true)
                 }}
@@ -429,7 +431,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               {/*  </div>*/}
               {/*)}*/}
             </div>
-            <div className={s.grid_item}>
+            {/*<div className={s.grid_item}>
               <Tooltip
                 minW="220px"
                 bg="#007659"
@@ -477,7 +479,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 ${formatCurrency(currentFDV, 0, 0, 'BTC', false)}
               </Text>
 
-            </div>
+            </div>*/}
             <div className={s.grid_item}>
               {
                 token ? (

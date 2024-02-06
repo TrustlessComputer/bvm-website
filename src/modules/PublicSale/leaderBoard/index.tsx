@@ -320,108 +320,133 @@ const LeaderBoard = (props: IProps) => {
                     }
                   /> */}
               </Flex>
+              {Boolean(!!data?.view_boost && Number(data?.view_boost || 0)) && (
+                <Flex
+                  bg={
+                    'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'
+                  }
+                  borderRadius={'100px'}
+                  p={'3px 12px'}
+                  width={'fit-content'}
+                >
+                  <Text
+                    fontSize={'14'}
+                    mt="2px"
+                    fontWeight={'400'}
+                    className={s.boost}
+                  >
+                    {`+${formatCurrency(
+                      data?.view_boost,
+                      0,
+                      0,
+                      'BTC',
+                      true,
+                    )}% boost`}
+                  </Text>
+                </Flex>
+              )}
             </Flex>
           );
         },
       },
-      // {
-      //   id: 'refer',
-      //   label: (
-      //     <Flex
-      //       style={{
-      //         justifyContent: 'flex-end',
-      //         alignSelf: 'center',
-      //         width: '100%',
-      //         textTransform: 'uppercase',
-      //       }}
-      //       gap="3px"
-      //     >
-      //       <p style={{ textTransform: 'uppercase' }}>ALLOCATION</p>
-      //     </Flex>
-      //   ),
-      //   labelConfig,
-      //   config: {
-      //     borderBottom: 'none',
-      //     fontSize: '14px',
-      //     fontWeight: 500,
-      //     verticalAlign: 'middle',
-      //     letterSpacing: '-0.5px',
-      //   },
-      //   render(data: ILeaderBoardPoint) {
-      //     return (
-      //       <Flex direction={"column"} justifyContent={"flex-end"}>
-      //         <Flex
-      //           gap={3}
-      //           alignItems={'center'}
-      //           width={'100%'}
-      //           justifyContent={'flex-end'}
-      //         >
-      //           <Flex alignItems={'center'} gap={2}>
-      //             {parseFloat(data?.view_boost || '0') > 0 &&
-      //               user?.twitter_id &&
-      //               compareString(data?.twitter_id, user?.twitter_id) && (
-      //                 <Flex justifyContent="flex-start" alignItems="center">
-      //                   <Flex
-      //                     flexDirection="row"
-      //                     gap="4px"
-      //                     alignItems="center"
-      //                     className={clsx(
-      //                       s.tagBoost,
-      //                       (Number(data?.view_boost) || 0) <= 10
-      //                         ? s.boostNormal
-      //                         : '',
-      //                       data.need_active && s.isActiveRowContent,
-      //                     )}
-      //                   >
-      //                     <svg
-      //                       width="16"
-      //                       height="16"
-      //                       viewBox="0 0 16 16"
-      //                       fill="none"
-      //                       xmlns="http://www.w3.org/2000/svg"
-      //                     >
-      //                       <path
-      //                         d="M13.3337 6.54474H8.97002L9.93972 0.726562L2.66699 9.45383H7.03063L6.06093 15.272L13.3337 6.54474Z"
-      //                         fill="#008456"
-      //                       />
-      //                     </svg>
-      //
-      //                     <Text
-      //                       className={cs(
-      //                         s.title,
-      //                         // s.multiplier,
-      //                         s[valueToClassName[`${data?.view_boost}`]],
-      //                         data.need_active && s.isActiveRow,
-      //                       )}
-      //                     >
-      //                       {data?.view_boost || 0}%
-      //                     </Text>
-      //                   </Flex>
-      //                 </Flex>
-      //               )}
-      //
-      //             <Text className={s.bvm_amount}>
-      //               {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MIN_DECIMAL)}{' '}
-      //               BVM
-      //             </Text>
-      //             <Text className={s.bvm_percent}>
-      //               (
-      //               {formatCurrency(
-      //                 Number(data?.bvm_percent) * 100,
-      //                 MIN_DECIMAL,
-      //                 MIN_DECIMAL,
-      //               )}
-      //               %)
-      //             </Text>
-      //           </Flex>
-      //         </Flex>
-      //         {/*{data?.need_active &&*/}
-      //         {/*  <Flex justifyContent={"flex-end"} fontSize={"12px"} color={"#fa4e0e !important;"}> Claimed: {formatCurrency(dailyReward?.claimed, 0, 0, 'BTC', false)} BVM</Flex>*/}
-      //         {/*}*/}
-      //       </Flex>
-      //     );
-      //   },
-      // },
+      {
+        id: 'refer',
+        label: (
+          <Flex
+            style={{
+              justifyContent: 'flex-end',
+              alignSelf: 'center',
+              width: '100%',
+              textTransform: 'uppercase',
+            }}
+            gap="3px"
+          >
+            <p style={{ textTransform: 'uppercase' }}>ALLOCATION</p>
+          </Flex>
+        ),
+        labelConfig,
+        config: {
+          borderBottom: 'none',
+          fontSize: '14px',
+          fontWeight: 500,
+          verticalAlign: 'middle',
+          letterSpacing: '-0.5px',
+        },
+        render(data: ILeaderBoardPoint) {
+          return (
+            <Flex direction={"column"} justifyContent={"flex-end"}>
+              <Flex
+                gap={3}
+                alignItems={'center'}
+                width={'100%'}
+                justifyContent={'flex-end'}
+              >
+                <Flex alignItems={'center'} gap={2}>
+                  {parseFloat(data?.view_boost || '0') > 0 &&
+                    user?.twitter_id &&
+                    compareString(data?.twitter_id, user?.twitter_id) && (
+                      <Flex justifyContent="flex-start" alignItems="center">
+                        <Flex
+                          flexDirection="row"
+                          gap="4px"
+                          alignItems="center"
+                          className={clsx(
+                            s.tagBoost,
+                            (Number(data?.view_boost) || 0) <= 10
+                              ? s.boostNormal
+                              : '',
+                            data.need_active && s.isActiveRowContent,
+                          )}
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M13.3337 6.54474H8.97002L9.93972 0.726562L2.66699 9.45383H7.03063L6.06093 15.272L13.3337 6.54474Z"
+                              fill="#008456"
+                            />
+                          </svg>
+
+                          <Text
+                            className={cs(
+                              s.title,
+                              // s.multiplier,
+                              s[valueToClassName[`${data?.view_boost}`]],
+                              data.need_active && s.isActiveRow,
+                            )}
+                          >
+                            {data?.view_boost || 0}%
+                          </Text>
+                        </Flex>
+                      </Flex>
+                    )}
+
+                  <Text className={s.bvm_amount}>
+                    {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MIN_DECIMAL)}{' '}
+                    BVM
+                  </Text>
+                  <Text className={s.bvm_percent}>
+                    (
+                    {formatCurrency(
+                      Number(data?.bvm_percent) * 100,
+                      MIN_DECIMAL,
+                      MIN_DECIMAL,
+                    )}
+                    %)
+                  </Text>
+                </Flex>
+              </Flex>
+              {/*{data?.need_active &&*/}
+              {/*  <Flex justifyContent={"flex-end"} fontSize={"12px"} color={"#fa4e0e !important;"}> Claimed: {formatCurrency(dailyReward?.claimed, 0, 0, 'BTC', false)} BVM</Flex>*/}
+              {/*}*/}
+            </Flex>
+          );
+        },
+      },
     ];
   }, [user?.referral_code, user?.twitter_id]);
 
