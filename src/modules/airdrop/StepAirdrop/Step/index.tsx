@@ -262,7 +262,7 @@ export default function ItemCommunity({
                       {user?.twitter_name} - Airdrop:{' '}
                       {formatCurrency(airdropAlphaUsers?.balance)} $BVM -
                       Vesting at:{' '}
-                      {dayjs(airdropAlphaUsers?.claimeable_at).format(
+                      {airdropAlphaUsers?.claimeable_at && dayjs(airdropAlphaUsers?.claimeable_at).format(
                         'MMM D, YYYY',
                       )}
                     </Text>
@@ -285,7 +285,7 @@ export default function ItemCommunity({
                         <Text color={'#000000'}>
                           Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
                           $BVM - Vesting at:{' '}
-                          {dayjs(airdropContent?.claimeable_at).format(
+                          {airdropAlphaUsers?.claimeable_at && dayjs(airdropContent?.claimeable_at).format(
                             'MMM D, YYYY',
                           )}
                         </Text>
@@ -310,7 +310,7 @@ export default function ItemCommunity({
                         <Text color={'#000000'}>
                           Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
                           $BVM - Vesting at:{' '}
-                          {dayjs(airdropContent?.claimeable_at).format(
+                          {airdropAlphaUsers?.claimeable_at && dayjs(airdropContent?.claimeable_at).format(
                             'MMM D, YYYY',
                           )}
                         </Text>
@@ -335,7 +335,7 @@ export default function ItemCommunity({
                         <Text color={'#000000'}>
                           Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
                           $BVM - Vesting at:{' '}
-                          {dayjs(airdropContent?.claimeable_at).format(
+                          {airdropAlphaUsers?.claimeable_at && dayjs(airdropContent?.claimeable_at).format(
                             'MMM D, YYYY',
                           )}
                         </Text>
