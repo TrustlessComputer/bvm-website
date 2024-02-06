@@ -9,6 +9,7 @@ import { ReactElement } from 'react';
 import SvgInset from '@/components/SvgInset';
 import s from './styles.module.scss';
 import { IcGit } from '@/layouts/Header/components/IcGit';
+import DropDown from '@/layouts/Header/components/Dropdown';
 
 type Props = {
   primaryColor?: 'black' | 'white';
@@ -104,31 +105,4 @@ export const DesktopNavRight = (props: Props) => {
       </Link>
     </HStack>
   );
-};
-
-type PropD = {
-  title: string, lists: string[], primaryColor?: string
-};
-const DropDown = ({ title, lists, primaryColor }: PropD): ReactElement => {
-
-  return <div className={s.dropMenu}>
-    <span className={`${s.dropMenu_label} ${s[primaryColor || 'black']}`}>
-       {title}
-      <SvgInset svgUrl={`icons/ic-submenu.svg`} />
-    </span>
-    <ul className={s.dropMenu_list}>
-      {
-        lists.map((link: any) => {
-          return (<li className={s.listItem}>
-            <a href={link.link} target={'_blank'} style={{ color: primaryColor || 'black' }}>
-              {
-                link.title
-              }
-              <SvgInset svgUrl={`landing/images/basil_arrow-up-outline.svg`} />
-            </a>
-          </li>);
-        })
-      }
-    </ul>
-  </div>;
 };
