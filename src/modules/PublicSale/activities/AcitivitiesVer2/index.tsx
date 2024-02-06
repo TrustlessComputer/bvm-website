@@ -189,7 +189,7 @@ const ActivitiesVer2 = React.memo(() => {
       },
       {
         title: 'AI on Bitcoin',
-        subTitle: "",
+        subTitle: " (Available on Wednesday)",
         desc: `
           <ul>
             ${NormalRow({ key: "Prizes:", value: undefined, mask: true })}
