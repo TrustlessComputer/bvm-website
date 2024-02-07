@@ -169,7 +169,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
         setAuthenCode(authenCode);
         code = `\n\n#${authenCode?.public_code}`;
       }
-      const content = `Welcome to the future of Bitcoin with @BVMnetwork\n\nBitcoin Virtual Machine is the first modular blockchain metaprotocol that lets you launch your Bitcoin L2 blockchain protocol in a few clicks${code}\n\nbvm.network`;
+      const content = `Modular has arrived on #Bitcoin!\n\n@BVMnetwork is the first modular blockchain metaprotocol that lets you customize and launch your own Bitcoin L2s in a few clicks${code}\n\nThe future of Bitcoin is here:\n\nbvm.network`;
       return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
         content,
       )}`;
