@@ -112,12 +112,13 @@ export const shareContributorLuckyPackage = async ({ code }: { code: string | un
   // const shareUrl = !code
   //   ? 'bvm.network/public-sale'
   //   : `bvm.network/public-sale?refer=${code}`;
-  const shareUrl = 'bvm.network/public-sale';
-  const saleSummary = await getPublicSaleSummary();
-
-  const { endHours, endMins } = getTimeEnd()
-
-  const content = `I just aped in the @BVMnetwork public sale - the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s!\n\nThe $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}! So far:\n\n🚀$${formatCurrency(saleSummary.total_usdt_value_not_boost, 0, 2)} raised\n💪${formatCurrency(saleSummary.total_user, 0, 0)} backers\n👉${shareUrl}\n\nThe future of Bitcoin is here!\n\n`
+  // const shareUrl = 'bvm.network/public-sale';
+  // const saleSummary = await getPublicSaleSummary();
+  //
+  // const { endHours, endMins } = getTimeEnd()
+  //
+  // const content = `I just aped in the @BVMnetwork public sale - the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s!\n\nThe $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}! So far:\n\n🚀$${formatCurrency(saleSummary.total_usdt_value_not_boost, 0, 2)} raised\n💪${formatCurrency(saleSummary.total_user, 0, 0)} backers\n👉${shareUrl}\n\nThe future of Bitcoin is here!\n\n`
+  const content = `Modular has arrived on #Bitcoin!\n\n@BVMnetwork is the first modular blockchain metaprotocol that lets you customize and launch your own Bitcoin L2s in a few clicks\n\nThe future of Bitcoin is here:\n\nbvm.network`;
 
   setTimeout(() => {
     return window.open(
