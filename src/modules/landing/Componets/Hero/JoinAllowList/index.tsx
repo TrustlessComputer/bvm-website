@@ -6,17 +6,16 @@ import Fade from '@/interactive/Fade';
 import Chars from '@/interactive/Chars';
 import { getTopLeaderBoards } from '@/services/whitelist';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
-import Image from 'next/image';
-import { formatCurrency } from '@/utils/format';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import dayjs from 'dayjs';
-import { PUBLIC_SALE_END, PUBLIC_SALE_START } from '@/modules/Whitelist';
+import { PUBLIC_SALE_END } from '@/modules/Whitelist';
 import { CDN_URL_ICONS } from '@/config';
 import { getPublicSaleSummary } from '@/services/public-sale';
 import { checkIsEndPublicSale, checkIsPublicSale } from '@/modules/Whitelist/utils';
 import cs from 'classnames';
-import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 import ModalVideo from 'react-modal-video';
+import SvgInset from '@/components/SvgInset';
+import { MenuBuild } from '@/layouts/Header/menuConfig';
 
 const DELAY = 2;
 const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
@@ -83,7 +82,7 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                 </Chars>
               )}
             </div>
-            <Flex gap={"24px"} marginTop={"16px"}>
+            <Flex direction={["column", "row"]} alignItems={"center"} gap={"24px"} marginTop={"16px"}>
               <Button
                 className={s.button}
                 onClick={() => {
@@ -92,11 +91,27 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
               >
                 Use Bitcoin
               </Button>
-              <Button
-                className={s.buttonBuild}
-              >
-                Build on Bitcoin
-              </Button>
+              <div className={s.dropMenu}>
+                <Button
+                  className={s.buttonBuild}
+                >
+                  Build on Bitcoin
+                </Button>
+                <ul className={s.dropMenu_list}>
+                  {
+                    MenuBuild?.subMenu.map((item) => {
+                      return (<li className={s.listItem}>
+                        <a href={item.href} target={item?.isNewWindow ? '_blank' : '_self'} style={{ color: 'black' }}>
+                          {
+                            item.label
+                          }
+                          <SvgInset svgUrl={`landing/images/basil_arrow-up-outline.svg`} />
+                        </a>
+                      </li>);
+                    })
+                  }
+                </ul>
+              </div>
             </Flex>
           </Flex>
 
