@@ -1,4 +1,4 @@
-import { DEVELOPERS_DOC_URL, WHITEPAPER_DOC_URL } from '@/config';
+import { DEVELOPERS_DOC_URL, DEVELOPERS_GRANTS_URL, WHITEPAPER_DOC_URL } from '@/config';
 import { checkIsPublicSale } from '@/modules/Whitelist/utils';
 
 export interface NavItem {
@@ -39,6 +39,11 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
       {
         href: DEVELOPERS_DOC_URL,
         label: 'Developer Docs',
+        isNewWindow: true,
+      },
+      {
+        href: DEVELOPERS_GRANTS_URL,
+        label: 'Developer Grants',
         isNewWindow: true,
       },
     ],
