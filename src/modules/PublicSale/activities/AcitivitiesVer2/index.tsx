@@ -217,7 +217,7 @@ const ActivitiesVer2 = React.memo(() => {
   }, []);
 
   const renderReport = React.useCallback((type: ActivityType) => {
-    if (!numberReport || type === ActivityType.AI) return <></>;
+    if (!numberReport) return <></>;
     let component1: any | undefined = undefined;
     let component2: any | undefined = undefined;
     switch (type) {
@@ -287,6 +287,20 @@ const ActivitiesVer2 = React.memo(() => {
             value: new BigNumber(alphaRun.total_reward.toString()).div(1e8).times(btcPrice).toString(),
             maxDigit: 2,
             prefix: "$"
+          });
+        }
+        break;
+      }
+      case ActivityType.AI: {
+        const aiReport = numberReport.aiReport
+        if (aiReport && aiReport.total_model) {
+          component1 = ReportRow({
+            key: "AI models",
+            value: aiReport.total_model.toString()
+          });
+          component2 = ReportRow({
+            key: "AI challenges",
+            value: aiReport.total_challenge.toString()
           });
         }
         break;
