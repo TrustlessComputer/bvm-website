@@ -44,6 +44,13 @@
     }
     &_content {
       padding: 12px 12px 12px 34px;
+      position: relative;
+
+      .aiPrizeIcon {
+        position: absolute;
+        left: 235px;
+        top: 17px;
+      }
     }
     &_media {
       padding: 0px 12px;
