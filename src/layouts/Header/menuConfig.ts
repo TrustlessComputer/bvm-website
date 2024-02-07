@@ -48,6 +48,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     href: '/use-bitcoin',
     isNewWindow: false,
     isHide: false,
+    isStrong: true
   },
   {
     label: 'Build',
