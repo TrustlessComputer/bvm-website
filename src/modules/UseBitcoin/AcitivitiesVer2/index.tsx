@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, SimpleGrid, Text, Tooltip, useDisclosure } from '@chakra-ui/react';
 import styles from './styles.module.scss';
 import IncreaseNumber from '@/modules/PublicSale/activities/components/IncreaseNumber';
 import { useAppSelector } from '@/stores/hooks';
@@ -148,6 +148,8 @@ export const ReportRow = (p: { key: string, value: string, prefix?: string, maxD
 const ActivitiesVer2 = React.memo(() => {
   const numberReport = useAppSelector(numberReportSelector);
   const btcPrice = useAppSelector(coinPricesSelector)?.[Coin.BTC];
+  const { isOpen: isOpenFDV, onToggle: onToggleFDV, onClose: onCloseFDV, onOpen: onOpenFDV } = useDisclosure();
+
   const TASKS = React.useMemo<GameItemProps[]>(() => {
     return [
       {
@@ -155,7 +157,7 @@ const ActivitiesVer2 = React.memo(() => {
         subTitle: '',
         desc: `
           <ul>
-            ${NormalRow({ key: 'Prizes:', value: '1,000 testnet $EAI per AI model created' })}
+            ${NormalRow({ key: 'Prizes:', value: '50 million $EAI tokens' })}
             ${NormalRow({ key: 'Activities:', value: 'Experience fully onchain AI on Bitcoin and win prizes.' })}
             ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI, isSpecial: true })}
           </ul>
@@ -344,6 +346,42 @@ const ActivitiesVer2 = React.memo(() => {
         </div>
         <div className={styles.container_item_content}>
           <div dangerouslySetInnerHTML={{ __html: item.desc }} />
+          {
+            [ActivityType.AI].includes(item?.type) && (
+              <div>
+                <Tooltip
+                  minW="220px"
+                  bg="#007659"
+                  isOpen={isOpenFDV}
+                  // boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+                  borderRadius="4px"
+                  padding="16px"
+                  label={
+                    <Flex direction="column" color="white" gap={"4px"}>
+                      <Text>- Receive 1,000 testnet $EAI for each AI model created.</Text>
+                      <Text>- Token Airdrop for the Top 3 most-used models - To Be Announced.</Text>
+                      <Text>- Token Airdrop for the Top 3 AI models with the most likes on X.</Text>
+                      <Text>- Token Airdrop for the Top 3 users who use the AI models the most.</Text>
+                      <Text>- Token Airdrop for the Top 3 users who use the AI models the most.</Text>
+                      <Text>- Token Airdrop also extends to $BVM holders, $GM holders, Perceptrons holders, Alpha OGs, NakaChain OGs, Bitcoin Arcade OGs, and users of other Bitcoin L2 platforms powered by BVM.</Text>
+                    </Flex>
+                  }
+                  className={styles.aiPrizeInfo}
+                >
+                  <Flex alignItems="center"
+                        onClick={onToggleFDV}
+                        onMouseEnter={onOpenFDV}
+                        onMouseLeave={onCloseFDV}
+                        className={styles.aiPrizeIcon}
+                  >
+                    <svg width="14px" height="14px" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.66667 0.333984C2.98667 0.333984 0 3.32065 0 7.00065C0 10.6807 2.98667 13.6673 6.66667 13.6673C10.3467 13.6673 13.3333 10.6807 13.3333 7.00065C13.3333 3.32065 10.3467 0.333984 6.66667 0.333984ZM7.33333 10.334H6V6.33398H7.33333V10.334ZM7.33333 5.00065H6V3.66732H7.33333V5.00065Z" fill="#FFFFFF"/>
+                    </svg>
+                  </Flex>
+                </Tooltip>
+              </div>
+            )
+          }
         </div>
         <div className={styles.container_item_media}>
           {!!item.banner && (
