@@ -13,6 +13,35 @@ export interface NavItem {
   subMenu?: any;
 }
 
+export const MenuBuild = {
+  label: 'Build',
+  // href: DEVELOPERS_DOC_URL,
+  isNewWindow: false,
+  isHide: false,
+  subMenu: [
+    {
+      href: '/blockchains',
+      label: 'Bitcoin L2s',
+      isNewWindow: false,
+    },
+    {
+      href: '/module-store',
+      label: 'Module Store',
+      isNewWindow: false,
+    },
+    {
+      href: DEVELOPERS_DOC_URL,
+      label: 'Developer Docs',
+      isNewWindow: true,
+    },
+    {
+      href: DEVELOPERS_GRANTS_URL,
+      label: 'Developer Grants',
+      isNewWindow: true,
+    },
+  ],
+};
+
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
   {
     label: 'Use Bitcoin',

@@ -40,7 +40,7 @@ const DELAY = 1.8;
 
 export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
   const delay = !isMobile ? DELAY  : 0;
-  const [isOpen, setOpen] = useState(false);
+
   return (
     <div className={`container ${s.heroLabel} ${isMobile && s.heroLabel__mobile}`}>
       <div className={s.content}>
@@ -64,22 +64,8 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
             })}
           </div>
         </div>
-        <div>
-          <Fade delay={isMobile ? delay : delay + 0.8}>
-            <a href={'#'} onClick={() => setOpen(true)}>
-              <img src={`/public-sale/btn-play-3.png`} width={331} alt={'right'} style={{margin: 'auto'}}/>
-            </a>
-          </Fade>
-        </div>
       </div>
-      <ModalVideo
-        channel="custom"
-        url={'/public-sale/public_sale_video_2.mp4'}
-        isOpen={isOpen}
-        onClose={() => {
-          setOpen(false);
-        }}
-      />
+
     </div>
   );
 }
