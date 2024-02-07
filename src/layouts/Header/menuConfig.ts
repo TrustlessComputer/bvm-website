@@ -41,11 +41,11 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
         label: 'Developer Docs',
         isNewWindow: true,
       },
-      {
-        href: DEVELOPERS_GRANTS_URL,
-        label: 'Developer Grants',
-        isNewWindow: true,
-      },
+      // {
+      //   href: DEVELOPERS_GRANTS_URL,
+      //   label: 'Developer Grants',
+      //   isNewWindow: true,
+      // },
     ],
   },
   {
