@@ -156,7 +156,7 @@ const ActivitiesVer2 = React.memo(() => {
         desc: `
           <ul>
             ${NormalRow({ key: 'Prizes:', value: '1,000 testnet $EAI per AI model created' })}
-            ${NormalRow({ key: 'Activities:', value: 'Train your fully on-chain AI.' })}
+            ${NormalRow({ key: 'Activities:', value: 'Experience fully onchain AI on Bitcoin and win prizes.' })}
             ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI, isSpecial: true })}
           </ul>
         `,
@@ -220,43 +220,43 @@ const ActivitiesVer2 = React.memo(() => {
   }, []);
 
   const renderReport = React.useCallback((type: ActivityType) => {
-    if (!numberReport || type === ActivityType.AI) return <></>;
+    if (!numberReport) return <></>;
     let component1: any | undefined = undefined;
     let component2: any | undefined = undefined;
     switch (type) {
       case ActivityType.Game: {
-        const gameReport = numberReport.gameReport;
+        const gameReport = numberReport.gameReport
         if (gameReport && gameReport.total_game && gameReport.total_txs) {
           component1 = ReportRow({
-            key: 'games played',
+            key: "games played",
             value: gameReport.total_game.toString(),
           });
           component2 = (
-            <Flex cursor='pointer' onClick={() => {
-              window.open('https://explorer.testnet.bitcoinarcade.xyz/', '_blank');
+            <Flex cursor="pointer" onClick={() => {
+              window.open("https://explorer.testnet.bitcoinarcade.xyz/", "_blank")
             }}>
               {ReportRow({
-                key: 'transactions',
+                key: "transactions",
                 value: gameReport.total_txs.toString(),
               })}
             </Flex>
-          );
+          )
         }
         break;
       }
       case ActivityType.Naka: {
-        const nakaVolume = numberReport.nakaVolume;
+        const nakaVolume = numberReport.nakaVolume
         if (nakaVolume && nakaVolume.usd_volume) {
           component1 = (
-            <Flex cursor='pointer' onClick={() => {
-              window.open('https://explorer.nakachain.xyz/address/0x43eF235efF5d8Aa29D34bCB7AE42dCFA6A86477e', '_blank');
+            <Flex cursor="pointer" onClick={() => {
+              window.open("https://explorer.nakachain.xyz/address/0x43eF235efF5d8Aa29D34bCB7AE42dCFA6A86477e", "_blank")
             }}>
               {
                 ReportRow({
-                  key: 'volume',
+                  key: "volume",
                   value: nakaVolume.usd_volume.toString(),
                   maxDigit: 2,
-                  prefix: '$',
+                  prefix: "$"
                 })
               }
             </Flex>
@@ -265,31 +265,45 @@ const ActivitiesVer2 = React.memo(() => {
         break;
       }
       case ActivityType.Modular: {
-        const modular = numberReport.modular;
+        const modular = numberReport.modular
         if (modular && modular.total_owner && modular.total_model) {
           component1 = ReportRow({
-            key: 'builders',
-            value: modular.total_owner.toString(),
+            key: "builders",
+            value: modular.total_owner.toString()
           });
           component2 = ReportRow({
-            key: 'builds',
-            value: modular.total_model.toString(),
+            key: "builds",
+            value: modular.total_model.toString()
           });
         }
         break;
       }
       case ActivityType.Social: {
-        const alphaRun = numberReport.alphaRun;
+        const alphaRun = numberReport.alphaRun
         if (alphaRun && alphaRun.total_distance && alphaRun.total_reward) {
           component1 = ReportRow({
-            key: 'km ran',
-            value: alphaRun.total_distance.toString(),
+            key: "km ran",
+            value: alphaRun.total_distance.toString()
           });
           component2 = ReportRow({
-            key: 'charity raised',
+            key: "charity raised",
             value: new BigNumber(alphaRun.total_reward.toString()).div(1e8).times(btcPrice).toString(),
             maxDigit: 2,
-            prefix: '$',
+            prefix: "$"
+          });
+        }
+        break;
+      }
+      case ActivityType.AI: {
+        const aiReport = numberReport.aiReport
+        if (aiReport && aiReport.total_model) {
+          component1 = ReportRow({
+            key: "AI models",
+            value: aiReport.total_model.toString()
+          });
+          component2 = ReportRow({
+            key: "AI challenges",
+            value: aiReport.total_challenge.toString()
           });
         }
         break;
@@ -299,21 +313,21 @@ const ActivitiesVer2 = React.memo(() => {
     const isModular = type === ActivityType.Modular;
 
     return (
-      <Flex alignItems='center' gap='8px' cursor={isModular ? 'pointer' : 'unset'} onClick={() => {
-        if (!isModular) return;
-        window.open(MODULAR_TW_LINK, '_blank');
+      <Flex alignItems="center" gap="8px" cursor={isModular ? "pointer" : "unset"} onClick={() => {
+        if(!isModular) return;
+        window.open(MODULAR_TW_LINK, "_blank")
       }}>
         {!!component1 && (
           component1
         )}
         {!!component2 && (
-          <Box w='1px' height='9px' bg='white' opacity={0.7} />
+          <Box w="1px" height="9px" bg="white" opacity={0.7}/>
         )}
         {!!component2 && (
           component2
         )}
       </Flex>
-    );
+    )
   }, [numberReport]);
 
   const renderItem = (item: GameItemProps) => {

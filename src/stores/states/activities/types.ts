@@ -30,11 +30,17 @@ export interface GameReport {
   total_game: number;
 }
 
+export interface AIReport {
+  total_model: number;
+  total_challenge: number;
+}
+
 export interface NumberReport {
   modular: ModularReport;
   alphaRun: AlphaRunReport;
   nakaVolume: NakaVolumeReport;
   gameReport: GameReport;
+  aiReport: AIReport;
 }
 
 export interface ActivitiesState {
