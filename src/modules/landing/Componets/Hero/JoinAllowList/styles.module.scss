@@ -345,6 +345,7 @@
     visibility: hidden;
 
     @include is-mobile {
+      bottom: 48px;
       right: 0;
     }
   }
