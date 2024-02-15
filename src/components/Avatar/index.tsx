@@ -94,18 +94,23 @@ const DefaultAvatar = ({
   }
 
   return (
-    <Box style={{
-      ...placeHolderStyles,
-      alignItems: 'center',
-      justifyContent: 'center',
-      display: 'flex',
-    }} className={'imgError'}>
-      {!hideDefault && <Image
-        src="icons/icDefaultAvatar.svg"
-        alt="default avatar"
-        width="44"
-        height="44"
-      />}
+    <Box
+      style={{
+        ...placeHolderStyles,
+        alignItems: 'center',
+        justifyContent: 'center',
+        display: 'flex',
+      }}
+      className={'imgError'}
+    >
+      {!hideDefault && (
+        <Image
+          src="https://storage.googleapis.com/tc-cdn-prod/images/alpha_avatar_default.png"
+          alt="default avatar"
+          width="44"
+          height="44"
+        />
+      )}
     </Box>
   );
 };

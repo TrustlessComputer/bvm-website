@@ -1,15 +1,17 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { useRouter } from 'next/navigation';
 import s from './styles.module.scss';
 import React, { useState } from 'react';
 import DropDown from '@/components/DropList';
 import { WHITEPAPER_DOC_URL } from '@/config';
 import Image from 'next/image';
 import ModalVideo from 'react-modal-video';
+import { formatCurrency } from '@/utils/format';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
 
 const TopContent = () => {
-  const router = useRouter();
   const [isOpen, setOpen] = useState(false);
+  const publicSaleSummary = useAppSelector(commonSelector).publicSaleSummary;
 
   return (
     <div className={s.container}>
@@ -18,8 +20,8 @@ const TopContent = () => {
           <Text fontSize={"16px"} fontWeight={400} lineHeight={'24px'} className={s.subTitle}>
             Bitcoin Virtual Machine
           </Text>
-          <Text className={s.title}>Welcome to the future of Bitcoin</Text>
-          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin to make it work for everyone. Gear up, get ready, and join the ride!</Text>
+          <Text className={s.title}>Bitcoin, reimagined.</Text>
+          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin beyond just a currency — the next internet with gaming, DeFi, AI, SocialFi, and more. Join {formatCurrency(publicSaleSummary?.total_user || 800, 0, 0)} backers shaping the future of Bitcoin.</Text>
         </Flex>
         <ul className={s.actions}>
           <li>

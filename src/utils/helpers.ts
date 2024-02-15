@@ -3,6 +3,7 @@ import { UUID } from '@/constants/storage-key';
 import { APP_ENV } from '@/config';
 import { formatCurrency } from '@/utils/format';
 import BigNumber from 'bignumber.js';
+import dayjs from 'dayjs';
 
 export const getUuid = (): string => {
   let uuidText = window.localStorage.getItem(UUID) as string;
@@ -121,4 +122,24 @@ export const getAvatarName = (name: string): string => {
     }
   }
   return words;
+};
+
+export const settingMomentFromNow = () => {
+  dayjs.locale('en', {
+    relativeTime: {
+      future: 'in %s',
+      past: '%s',
+      s: '%ds',
+      m: '1m',
+      mm: '%dm',
+      h: '1h',
+      hh: '%dh',
+      d: '1d',
+      dd: '%dd',
+      M: '1M',
+      MM: '%dM',
+      y: '1Y',
+      yy: '%dY',
+    },
+  });
 };

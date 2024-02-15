@@ -1,5 +1,5 @@
 import { userSelector, userTokenSelector } from '@/stores/states/user/selector';
-import { Button, Flex, Text, Tooltip, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import cx from 'classnames';
 import React, { PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,17 +11,29 @@ import { generateTokenWithTwPost, requestAuthenByShareCode } from '@/services/pl
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { setBearerToken } from '@/services/whitelist';
 import { requestReload } from '@/stores/states/common/reducer';
-import { generateTokenWithMetamask, generateTokenWithOauth, getPublicSaleSummary } from '@/services/public-sale';
-import { BVM_API, TWITTER_CLIENT_ID } from '@/config';
+import {
+  generateTokenWithMetamask,
+  generateTokenWithOauth,
+  generateTokenWithWalletBTC,
+  getPublicSaleSummary,
+} from '@/services/public-sale';
+import { BVM_API, CDN_URL_ICONS, TWITTER_CLIENT_ID } from '@/config';
 import { formatCurrency } from '@/utils/format';
 import { useAppSelector } from '@/stores/hooks';
 import { setUserToken } from '@/stores/states/user/reducer';
 import AppLoading from '@/components/AppLoading';
 import { getError } from '@/utils/error';
 import toast from 'react-hot-toast';
-import { signMessage } from '@/utils/metamask-helper';
 import VerifyTwModal from '@/modules/Whitelist/steps/VerifyTwModal';
+import Image from 'next/image';
+import { WalletType } from '@/interfaces/wallet';
+import useLoginBTC from '@/hooks/useLoginBTC';
+import { signMessage as signMessageMetamask } from '@/utils/metamask-helper';
 import userServices from '@/services/user';
+import { getTimeEnd } from '@/utils/twitter';
+import { labelAmountOrNumberAdds } from '@/utils/string';
+import { IPublicSaleDepositInfo } from '@/interfaces/vc';
+import { checkIsEndPublicSale } from '@/modules/Whitelist/utils';
 
 interface IAuthForBuyV2 extends PropsWithChildren {
   renderWithoutLogin?: (onClick: any) => any;
@@ -40,6 +52,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
   const uuid = getUuid();
   const [showManualCheck, setShowManualCheck] = useState(false);
   const [showManualCheckModal, setShowManualCheckModal] = useState(false);
+  const { signMessage } = useLoginBTC();
 
   const userToken = useSelector(userTokenSelector);
 
@@ -90,6 +103,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
         AuthenStorage.setAuthenKey(result?.token);
         setBearerToken(result?.token);
         dispatch(setUserToken(result?.token))
+        toast.success("Connect successfully.")
       }
       setSubmitting(false);
       dispatch(requestReload());
@@ -97,17 +111,17 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
     }
   };
 
-  useEffect(() => {
-    if (!user?.twitter_id) {
-      handleVerifyTwitterWithUUID();
-      timer.current = setInterval(async () => {
-        handleVerifyTwitterWithUUID();
-      }, 2000);
-    }
-    return () => {
-      clearInterval(timer.current);
-    };
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user?.twitter_id) {
+  //     handleVerifyTwitterWithUUID();
+  //     timer.current = setInterval(async () => {
+  //       handleVerifyTwitterWithUUID();
+  //     }, 2000);
+  //   }
+  //   return () => {
+  //     clearInterval(timer.current);
+  //   };
+  // }, [user]);
 
   const handleVerifyTwitterWithUUID = async (): Promise<void> => {
     try {
@@ -146,33 +160,41 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
 
   const generateLinkTweet = async () => {
     let code = '';
-    if (!userToken) {
-      const res: any = await requestAuthenByShareCode();
-      setAuthenCode(res);
-      code = `\n\n#${res?.public_code}`;
+    const shareUrl = 'bvm.network/public-sale'
+
+    const isEnded = checkIsEndPublicSale();
+    if (isEnded) {
+      if (!userToken) {
+        const authenCode = await requestAuthenByShareCode();
+        setAuthenCode(authenCode);
+        code = `\n\n#${authenCode?.public_code}`;
+      }
+      const content = `Modular has arrived on #Bitcoin!\n\n@BVMnetwork is the first modular blockchain metaprotocol that lets you customize and launch your own Bitcoin L2s in a few clicks${code}\n\nThe future of Bitcoin is here:\n\nbvm.network`;
+      return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        content,
+      )}`;
+    } else {
+      let saleSummary: IPublicSaleDepositInfo | undefined = undefined
+      if (!userToken) {
+        // const res: any = await requestAuthenByShareCode();
+        const [authenCode, summary] = (await Promise.all([
+          await requestAuthenByShareCode(),
+          await getPublicSaleSummary()
+        ])) as [any, any];
+        setAuthenCode(authenCode);
+        saleSummary = summary;
+        code = `#${authenCode?.public_code}\n\n`;
+      } else {
+        saleSummary = await getPublicSaleSummary();
+      }
+
+
+      const { endHours, endMins } = getTimeEnd()
+      const content = `The $BVM public sale is ending in ${endHours ? `${endHours} hour${labelAmountOrNumberAdds(endHours)}` : ''}${!endHours ? `${endMins} min${labelAmountOrNumberAdds(endMins)}` : ''}! So far:\n\n🚀$${formatCurrency(saleSummary?.total_usdt_value_not_boost || 0, 0, 2)} raised\n💪${formatCurrency(saleSummary?.total_user || 0, 0, 0)} backers\n👉${shareUrl}\n\n@BVMnetwork is the first modular blockchain metaprotocol that will power thousands of Bitcoin L2s. No doubt BVM will be leading the Bitcoin L2 meta.\n${code}`;
+      return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        content,
+      )}`;
     }
-
-    const shareUrl = !user?.referral_code
-      ? 'bvm.network/public-sale'
-      : getLink(user?.referral_code || '');
-
-    const saleSummary = await getPublicSaleSummary();
-    const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
-      saleSummary.total_user || '0',
-      0,
-      0,
-      'BTC',
-      false,
-    )} early contributors who've committed $${formatCurrency(
-      saleSummary.total_usdt_value_not_boost || '0',
-      0,
-      0,
-      'BTC',
-      false,
-    )} to build Bitcoin's future with @BVMnetwork.${code}`;
-    return `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-      content,
-    )}`;
   };
 
   const handleShareTw = async () => {
@@ -184,9 +206,33 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
     }, 10000);
   };
 
+  const handleLoginBitcoin = async (type: WalletType) => {
+    try {
+      const response = await signMessage(type);
+      if (response) {
+        const result = await generateTokenWithWalletBTC({
+          address: response.address,
+          message: response.message,
+          pub_key: response.pubKey,
+          signature: response.signature
+        })
+        if (result && !!result.token) {
+          AuthenStorage.setAuthenKey(result.token as string);
+          setBearerToken(result.token  as string);
+          dispatch(setUserToken(result.token as string))
+          toast.success("Connect successfully.")
+        }
+      }
+    } catch (error) {
+      const { message } = getError(error);
+      toast.error(message);
+    }
+  }
+
+
   const handleLoginMetamask = async () => {
     try {
-      const { signature, message, address } = await signMessage((address: string) => {
+      const { signature, message, address } = await signMessageMetamask((address: string) => {
         return `This action verifies the ownership of ${address} and allows you to join the $BVM public sale.`
       })
       const result = await generateTokenWithMetamask({ message, signature, address })
@@ -194,6 +240,7 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
         AuthenStorage.setAuthenKey(result.token as string);
         setBearerToken(result.token  as string);
         dispatch(setUserToken(result.token  as string))
+        toast.success("Connect successfully.")
       }
     } catch (error) {
       const { message } = getError(error)
@@ -289,7 +336,6 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
             {/*      </clipPath>*/}
             {/*    </defs>*/}
             {/*  </svg>*/}
-
             {/*  <Text>Authorize</Text>*/}
             {/*</Button>*/}
             <Button className={cx(s.btnContainer)} onClick={handleLoginMetamask}>
@@ -387,6 +433,14 @@ const AuthForBuyV2: React.FC<IAuthForBuyV2> = ({
               </svg>
 
               <Text>Connect your Metamask</Text>
+            </Button>
+            <Button className={cx(s.btnContainer)} onClick={() => handleLoginBitcoin(WalletType.unisat)}>
+              <Image width={36} height={36} src={`${CDN_URL_ICONS}/ic-unisat.svg`} alt="icon unisat" />
+              <Text>Unisat</Text>
+            </Button>
+            <Button className={cx(s.btnContainer)} onClick={() => handleLoginBitcoin(WalletType.xverse)}>
+              <Image width={36} height={36} src={`${CDN_URL_ICONS}/ic-xverse.svg`} alt="icon xverse" />
+              <Text>Xverse</Text>
             </Button>
           </Flex>
         </BaseModal>

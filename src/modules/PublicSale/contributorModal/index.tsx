@@ -5,6 +5,8 @@ import s from './styles.module.scss';
 import LeaderBoard from '@/modules/PublicSale/leaderBoard';
 import { FormikProps, useFormik } from 'formik';
 import { toast } from 'react-hot-toast';
+import { clearPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
+import { useAppDispatch } from '@/stores/hooks';
 
 interface FormValues {
   userName: string;
@@ -12,6 +14,7 @@ interface FormValues {
 
 const ContributorsModal = ({ isShow, onHide }: any) => {
   const [submitting, setSubmitting] = useState(false);
+  const dispatch = useAppDispatch()
 
   const onSubmit = async (values: FormValues) => {
     try {
@@ -38,6 +41,12 @@ const ContributorsModal = ({ isShow, onHide }: any) => {
       userName: e.target.value,
     }));
   };
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(clearPublicSaleLeaderBoard())
+    }
+  }, [])
 
   return (
     <BaseModal

@@ -1,21 +1,25 @@
 import BaseModal from '@/components/BaseModal';
 import { useAppSelector } from '@/stores/hooks';
 import { userSelector } from '@/stores/states/user/selector';
-import { Button, Flex, Tooltip, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import cs from 'classnames';
 import React, { PropsWithChildren, useMemo, useState } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import DepositContent from '../depositModal/deposit.content';
 import s from './styles.module.scss';
-import cx from 'clsx';
 import AuthForBuyV2 from '../AuthForBuyV2';
+import { commonSelector } from '@/stores/states/common/selector';
 
-interface IAuthForBuy extends PropsWithChildren {}
+interface IAuthForBuy extends PropsWithChildren {
+  hideBuyAndStake?: boolean;
+}
 
-const AuthForBuy: React.FC<IAuthForBuy> = () => {
+const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
   const user = useAppSelector(userSelector);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasStaked, setHasStaked] = useState(false);
+  const { userContributeInfo } = useAppSelector(commonSelector);
+  const [isBanned, setIsBanned] = useState(false);
 
   const isSigned = useMemo(() => {
     if (user?.guest_code || user?.twitter_id) {
@@ -24,13 +28,21 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
     return false;
   }, [user]);
 
+  const textAction = useMemo(() => {
+    if(Number(userContributeInfo?.usdt_value) > 0) {
+      return 'Buy $BVM';
+    }
+
+    return 'Buy $BVM';
+  }, [userContributeInfo?.usdt_value]);
+
   return (
     <>
       <Flex className={s.btnWrapper}>
         <AuthForBuyV2
           renderWithoutLogin={(onClick: any) => (
             <Button onClick={onClick} type="button" className={s.btnContainer}>
-              Buy $BVM
+              {textAction}
             </Button>
           )}
         >
@@ -42,34 +54,38 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
             type="button"
             className={s.btnContainer}
           >
-            Buy $BVM
+            {textAction}
           </Button>
         </AuthForBuyV2>
-        <AuthForBuyV2>
-          <Tooltip
-            minW="220px"
-            bg="#006149"
-            boxShadow="0px 0px 40px rgba(0, 0, 0, 0.12)"
-            borderRadius="4px"
-            padding="16px"
-            hasArrow
-            label={
-              'Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.'
-            }
-            color={'#FFFFFF'}
-          >
-            <Button
-              onClick={() => {
-                setHasStaked(true);
-                onOpen();
-              }}
-              type="button"
-              className={cx(s.btnContainer, s.btnBuyAndStake)}
-            >
-              Buy & Stake $BVM
-            </Button>
-          </Tooltip>
-        </AuthForBuyV2>
+        {/*{*/}
+        {/*  !hideBuyAndStake && (*/}
+        {/*    <AuthForBuyV2>*/}
+        {/*      <Tooltip*/}
+        {/*        minW="220px"*/}
+        {/*        bg="#006149"*/}
+        {/*        boxShadow="0px 0px 40px rgba(0, 0, 0, 0.12)"*/}
+        {/*        borderRadius="4px"*/}
+        {/*        padding="16px"*/}
+        {/*        hasArrow*/}
+        {/*        label={*/}
+        {/*          'Buy and stake your $BVM to earn rewards from the BVM ecosystem and our collaborative Bitcoin L2s and dApps partners. Your $BVM will be automatically staked after the public sale, and you can choose to unstake at any time.'*/}
+        {/*        }*/}
+        {/*        color={'#FFFFFF'}*/}
+        {/*      >*/}
+        {/*        <Button*/}
+        {/*          onClick={() => {*/}
+        {/*            setHasStaked(true);*/}
+        {/*            onOpen();*/}
+        {/*          }}*/}
+        {/*          type="button"*/}
+        {/*          className={cx(s.btnContainer, s.btnBuyAndStake)}*/}
+        {/*        >*/}
+        {/*          Buy & Stake $BVM*/}
+        {/*        </Button>*/}
+        {/*      </Tooltip>*/}
+        {/*    </AuthForBuyV2>*/}
+        {/*  )*/}
+        {/*}*/}
       </Flex>
       <GoogleReCaptchaProvider
         reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
@@ -85,10 +101,10 @@ const AuthForBuy: React.FC<IAuthForBuy> = () => {
           onHide={onClose}
           title={isSigned ? 'Buy $BVM' : 'Buy $BVM'}
           headerClassName={s.modalHeader}
-          className={cs(s.modalContent, isSigned ? s.deposit : s.notSignModal)}
+          className={cs(s.modalContent, isSigned ? s.deposit : s.notSignModal, { [s.banned]: isBanned })}
           // size={modalSize}
         >
-          <DepositContent hasStaked={hasStaked} />
+          <DepositContent hasStaked={hasStaked} setBanned={setIsBanned} />
 
           {/* {isSigned ? (
           <>

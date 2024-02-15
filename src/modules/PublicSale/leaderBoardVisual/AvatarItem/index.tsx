@@ -3,13 +3,14 @@ import { getUrlAvatarTwitter } from '@/utils/twitter';
 import React, { forwardRef, ReactElement, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
-import { formatCurrency } from '@/utils/format';
+import { formatCurrency, formatName2 } from '@/utils/format';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import { gsap } from 'gsap';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { proxy } from 'valtio';
 import cx from 'clsx';
+import { ethers } from 'ethers';
 
 interface IProps {
   data: ILeaderBoardPoint,
@@ -100,7 +101,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         <div
           className={s.avatarItem_avatar}
           onClick={() => {
-            if (!isNaN(Number(data?.twitter_id))) {
+            if (!isNaN(Number(data?.twitter_id)) && !ethers.utils.isAddress(data?.twitter_id) && !data?.twitter_id?.startsWith('bc1p')) {
               window.open(`https://twitter.com/${data?.twitter_username}`);
             }
           }}
@@ -122,7 +123,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         <div className={s.meta}>
           <p className={s.price} ref={refInertMoney}></p>
           {
-            !isYou && <p className={s.name}>{data?.twitter_name}</p>
+            !isYou && <p className={s.name}>{formatName2(data?.twitter_name)}</p>
           }
           {
             isYou && <p className={cx(s.name, s.isYou)}>You</p>

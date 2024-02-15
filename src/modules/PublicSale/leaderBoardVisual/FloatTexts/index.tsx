@@ -26,7 +26,7 @@ const AnimatedText = ({latestContributors} : {latestContributors: ILeaderBoardPo
     element.style.cssText = `right:${offset}px; transform:scale(${scale}); animation-duration:${duration}s`;
     element.innerHTML = `<div><img src=${contributor?.twitter_avatar || '/none-avatar.jpeg'} /> <span>+ $${formatCurrency(money, 0,0)}</span></div>`;
 
-     window.setTimeout(() => remove(element), Math.max(duration, 1) * 1000);
+     window.setTimeout(() => remove(element), Math.max(duration, 1) * 1500);
   };
 
   const remove = (element: any) => {

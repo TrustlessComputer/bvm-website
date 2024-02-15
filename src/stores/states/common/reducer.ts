@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Coin, CommonState } from './types';
+import { defaultSummary } from '@/interfaces/vc';
 
 const initialState: CommonState = {
   needReload: 0,
@@ -12,6 +13,11 @@ const initialState: CommonState = {
   leaderBoardMode: 1,
   needCheckDeposit: false,
   animatedLatestContributors: [],
+  publicSaleDailyReward: undefined,
+  luckyMoneyList: [],
+  currentLuckyMoney: undefined,
+  publicSaleSummary: defaultSummary,
+  userContributeInfo: undefined,
 };
 
 const slice = createSlice({
@@ -36,6 +42,21 @@ const slice = createSlice({
     setAnimatedLatestContributors: (state, action) => {
       state.animatedLatestContributors = action.payload;
     },
+    setPublicSaleDailyReward: (state, action) => {
+      state.publicSaleDailyReward = action.payload;
+    },
+    setLuckyMoneyList: (state, action) => {
+      state.luckyMoneyList = action.payload;
+    },
+    setCurrentLuckyMoney: (state, action) => {
+      state.currentLuckyMoney = action.payload;
+    },
+    setPublicSaleSummary: (state, action) => {
+      state.publicSaleSummary = action.payload;
+    },
+    setUserContributeInfo: (state, action) => {
+      state.userContributeInfo = action.payload;
+    },
   },
 });
 
@@ -45,7 +66,12 @@ export const {
   setConfigs,
   setLeaderBoardMode,
   setNeedCheckDeposit,
-  setAnimatedLatestContributors
+  setAnimatedLatestContributors,
+  setPublicSaleDailyReward,
+  setLuckyMoneyList,
+  setCurrentLuckyMoney,
+  setPublicSaleSummary,
+  setUserContributeInfo,
 } = slice.actions;
 
 export default slice.reducer;

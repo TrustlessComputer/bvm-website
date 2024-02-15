@@ -8,10 +8,11 @@ import { KEY_VC_TYPE } from '@/constants/storage-key';
 import { getVCInformation } from '@/services/player-share';
 import { VCInfo } from '@/interfaces/vc';
 import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
-import Activities from '@/modules/PublicSale/activities';
 import useWindowSize from '@/hooks/useWindowSize';
 import DailyReward from '@/modules/PublicSale/dailyReward';
-import HourlyReward from '@/modules/PublicSale/hourlyReward';
+import ActivitiesVer2 from '@/modules/PublicSale/activities/AcitivitiesVer2';
+import LuckyMoneyShare from '@/modules/PublicSale/luckyMoneyShare';
+import EngageWithTeam from '@/modules/PublicSale/engageWithTeam';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -43,7 +44,7 @@ const AboveTheFold = () => {
       <SimpleGrid
         className={`${s.content}`}
         gridTemplateColumns={{ lg: '1fr', xl: '6.5fr 3.5fr' }}
-        gap={[0, '20px']}
+        gap={[0, '40px']}
       >
         <Flex
           className={s.leftSection}
@@ -53,15 +54,17 @@ const AboveTheFold = () => {
           <LeaderBoardVisual />
           {/*<AddMoreContribution />*/}
           <DailyReward />
-          <HourlyReward />
+          {/*<HourlyReward />*/}
           {/*<LeaderBoardSwitch classNames={s.boardSwitch} />*/}
-          {mobileScreen && <Activities />}
+          {mobileScreen && <ActivitiesVer2 />}
         </Flex>
         <Flex className={s.rightSection} direction={'column'}>
           <BuyForm vcInfo={vcInfo} />
+          <LuckyMoneyShare />
+          <EngageWithTeam />
           {/*<Welcome />*/}
           {/*<Playgame />*/}
-          {!mobileScreen && <Activities />}
+          {!mobileScreen && <ActivitiesVer2 />}
         </Flex>
       </SimpleGrid>
     </Flex>

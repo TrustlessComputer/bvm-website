@@ -5,13 +5,27 @@
   padding: 24px;
   width: 100%;
   max-width: 826px;
-  margin: 0 auto;
   box-shadow: 0px 0px 24px -6px #00000014;
   background: #FFFFFF;
-  margin-bottom: 24px;
+  margin: 0 auto 20px;
 
   @include is-mobile {
     padding: 14px;
+    margin-bottom: 24px;
+  }
+
+  .blink_me {
+    animation: blinker 1s linear infinite;
+    color: red !important;
+    p {
+      color: inherit;
+    }
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0.2;
+    }
   }
 
   .title {
@@ -27,7 +41,7 @@
     font-size: 52px;
     font-weight: 400;
     line-height: 100%;
-    width: 100%;
+    //width: 100%;
     color: #FA4E0E;
 
     @include is-mobile {
@@ -198,13 +212,15 @@
   }
 
   .backer {
-    cursor: pointer;
+    &__ended {
+      cursor: pointer;
 
-    &:hover {
-      p:last-child {
-        > div {
-          color: #FA4E0E;
-          text-decoration: underline;
+      &:hover {
+        p:last-child {
+          > div {
+            color: #FA4E0E;
+            text-decoration: underline;
+          }
         }
       }
     }
@@ -226,7 +242,8 @@
 
 .grid {
   display: flex;
-  gap: 68px;
+  gap: 32px;
+  justify-content: space-between;
 
   @include is-mobile {
     flex-wrap: wrap;
@@ -242,7 +259,7 @@
 }
 
 .tValue {
-  min-height: 25px;
+  //min-height: 25px;
 
   font-size: 20px;
   font-weight: 400;
@@ -265,4 +282,43 @@
   line-height: 14px !important;
   text-align: left;
   margin-bottom: 12px;
+  white-space: nowrap;
+}
+
+.profileBox {
+  display: flex;
+  justify-content: center;
+  border-radius: 100px;
+  border: 1px solid rgba(1, 1, 1, 0.3);
+  height: fit-content;
+  width: fit-content;
+  &_content {
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.endBanner {
+  display: flex;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border: 1px solid rgba(15, 187, 120, 0.40);
+  background: rgba(15, 187, 120, 0.11);
+
+  &_endMessage {
+    color: #0FBB78;
+    text-align: center;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+  }
 }

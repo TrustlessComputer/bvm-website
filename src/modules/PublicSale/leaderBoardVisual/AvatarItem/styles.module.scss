@@ -140,7 +140,7 @@
   }
 
   &:global(.level-0) {
-    margin-bottom: 80px;
+    margin-bottom: 130px;
     margin-top: 24px;
 
     .price {
@@ -165,7 +165,7 @@
   }
 
   &:global(.level-1) {
-    margin-bottom: 80px;
+    margin-bottom: 130px;
 
     margin-left: clamp(14px, #{vw(60px)}, 18px);
     margin-right: clamp(14px, #{vw(60px)}, 18px);
@@ -188,7 +188,7 @@
   }
 
   &:global(.level-2) {
-    margin-bottom: 80px;
+    margin-bottom: 130px;
     margin-left: clamp(14px, #{vw(48px)}, 20px);
     margin-right: clamp(14px, #{vw(48px)}, 20px);
 
@@ -206,7 +206,7 @@
 
   &:global(.level-3) {
 
-    margin-bottom: 80px;
+    margin-bottom: 130px;
     margin-left: clamp(14px, #{vw(48px)}, 20px);
     margin-right: clamp(14px, #{vw(48px)}, 20px);
 
@@ -223,7 +223,7 @@
   }
 
   &:global(.level-4) {
-    margin-bottom: 80px;
+    margin-bottom: 130px;
     margin-left: clamp(12px, #{vw(32px)}, 18px);
     margin-right: clamp(12px, #{vw(32px)}, 18px);
 
@@ -247,7 +247,7 @@
   }
 
   &:global(.level-5) {
-    margin-bottom: 80px;
+    margin-bottom: 130px;
     margin-left: clamp(12px, #{vw(32px)}, 18px);
     margin-right: clamp(12px, #{vw(32px)}, 18px);
 
@@ -271,7 +271,7 @@
   }
 
   &:global(.level-6) {
-    margin-bottom: 80px;
+    margin-bottom: 130px;
     margin-left: clamp(12px, #{vw(32px)}, 18px);
     margin-right: clamp(12px, #{vw(32px)}, 18px);
 
@@ -295,7 +295,7 @@
   }
 
   &:global(.level-7) {
-    margin-bottom: 80px;
+    margin-bottom: 130px;
     margin-left: clamp(12px, #{vw(32px)}, 18px);
     margin-right: clamp(12px, #{vw(32px)}, 18px);
 
@@ -319,7 +319,7 @@
   }
 
   &:global(.level-8) {
-    margin-bottom: 80px;
+    margin-bottom: 130px;
     margin-left: clamp(12px, #{vw(32px)}, 18px);
     margin-right: clamp(12px, #{vw(32px)}, 18px);
 
@@ -342,8 +342,16 @@
     }
   }
 
-  &:global(.level-9) {
-    margin-bottom: 80px;
+  &:global(.level-9),
+  &:global(.level-10),
+  &:global(.level-11),
+  &:global(.level-12),
+  &:global(.level-13),
+  &:global(.level-14),
+  &:global(.level-15),
+  &:global(.level-16),
+  &:global(.level-17) {
+    margin-bottom: 130px;
     margin-left: clamp(12px, #{vw(32px)}, 18px);
     margin-right: clamp(12px, #{vw(32px)}, 18px);
 
@@ -387,14 +395,29 @@
       transform: translateY(-2px);
     }
 
-    &__16, &__21,&__24, &__29, &__32, &__37 {
+    &__16, &__21,
+    &__24, &__29,
+    &__32, &__37,
+    &__40, &__45,
+    &__48, &__53,
+    &__56, &__61,
+    &__64, &__69,
+    &__72, &__77,
+    &__80, &__85
+    {
       transform: translateY(-10px);
     }
 
-    &__15, &__22, &__23, &__30, &__31, &__38 {
+    &__15, &__22, &__23, &__30, &__31, &__38,
+    &__39, &__46,
+    &__47, &__54,
+    &__55, &__62,
+    &__63, &__70,
+    &__71, &__78,
+    &__79, &__86,
+    &__87, &__94 {
       transform: translateY(-32px);
     }
-
 
   }
 

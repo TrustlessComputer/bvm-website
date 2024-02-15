@@ -2,6 +2,8 @@ import s from './styles.module.scss';
 import ItemHero from '@/modules/landing/Componets/Hero/ItemHero';
 import Image from 'next/image';
 import Fade from '@/interactive/Fade';
+import ModalVideo from 'react-modal-video';
+import React, { useState } from 'react';
 
 const DATA_HERO = [
   {
@@ -38,28 +40,32 @@ const DELAY = 1.8;
 
 export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
   const delay = !isMobile ? DELAY  : 0;
+
   return (
     <div className={`container ${s.heroLabel} ${isMobile && s.heroLabel__mobile}`}>
-      <div className={`${s.inner} heroLabel_inner`}>
-        <Fade delay={delay + .4}>
-          <div className={s.heroLabel_content}>
-            <Image
-              src={'/landing/svg/lego_icon_cube.svg'}
-              alt='cube'
-              width={32}
-              height={32}
-            />
-            <p className={s.heroLabel_content_text}>
-              Powered by the best-of-breed modules
-            </p>
+      <div className={s.content}>
+        <div className={`${s.inner} heroLabel_inner`}>
+          <Fade delay={delay + .4}>
+            <div className={s.heroLabel_content}>
+              <Image
+                src={'/landing/svg/lego_icon_cube.svg'}
+                alt='cube'
+                width={32}
+                height={32}
+              />
+              <p className={s.heroLabel_content_text}>
+                Powered by the best-of-breed modules
+              </p>
+            </div>
+          </Fade>
+          <div className={`${s.heroLabel_listHero} ${isMobile && s.heroLabel_listHero__mobile}`}>
+            {DATA_HERO.map((item, index) => {
+              return <ItemHero key={index} delay={delay + index / 10} data={item} />;
+            })}
           </div>
-        </Fade>
-        <div className={`${s.heroLabel_listHero} ${isMobile && s.heroLabel_listHero__mobile}`}>
-          {DATA_HERO.map((item, index) => {
-            return <ItemHero key={index} delay={delay + index / 10} data={item} />;
-          })}
         </div>
       </div>
+
     </div>
   );
 }

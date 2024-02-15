@@ -27,6 +27,7 @@ import { formatCurrency } from '@/utils/format';
 import BigNumber from 'bignumber.js';
 import { PUBLIC_SALE_START } from '@/modules/Whitelist';
 import useWindowSize from '@/hooks/useWindowSize';
+import { shareRaffal } from '@/utils/twitter';
 
 const RaffleButton = ({ className }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,7 +57,13 @@ const RaffleButton = ({ className }: any) => {
 
   const getProgramInfo = async () => {
     try {
-      const res = await getPublicSaleProgram();
+      // const res = await getPublicSaleProgram();
+      const res = {
+        link: 'https://www.ord.io/56742212',
+        image: 'https://cdn.bvm.network/internal/93319e07-75fa-48ac-ac78-bf5f0952bcab.png',
+        title: 'HOPPING WEEKEND GIVEAWAY: RSIC #17496',
+        description: `<article>This is the first "not first" rune on bitcoin</article><article>Top trending Inscriptions</article><article>Floor price: 0.08 BTC</article><article>100% stored on Bitcoin</article>`
+      } as IPublicSalePrograme;
       setProgrameInfo(res);
     } catch (e) {
     } finally {
@@ -70,34 +77,35 @@ const RaffleButton = ({ className }: any) => {
   };
 
   const onShareNow = async () => {
-    const shareUrl = !user?.referral_code
-      ? 'bvm.network/public-sale'
-      : `bvm.network/public-sale?refer=${user?.referral_code}`;
-
-    const saleSummary = await getPublicSaleSummary();
-
-    const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
-      saleSummary.total_user || '0',
-      0,
-      0,
-      'BTC',
-      false,
-    )} early contributors who've committed $${formatCurrency(
-      saleSummary.total_usdt_value_not_boost || '0',
-      0,
-      0,
-      'BTC',
-      true,
-    )} to building Bitcoin's future with @BVMnetwork\n\n`;
-
-    setTimeout(() => {
-      return window.open(
-        `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
-          content,
-        )}`,
-        '_blank',
-      );
-    }, 300);
+    await shareRaffal(user?.referral_code)
+    // const shareUrl = !user?.referral_code
+    //   ? 'bvm.network/public-sale'
+    //   : `bvm.network/public-sale?refer=${user?.referral_code}`;
+    //
+    // const saleSummary = await getPublicSaleSummary();
+    //
+    // const content = `Welcome to the future of Bitcoin!\n\n$BVM is the 1st modular blockchain meta-protocol that allows launching Bitcoin L2 in a few clicks\n\nJoin the ${formatCurrency(
+    //   saleSummary.total_user || '0',
+    //   0,
+    //   0,
+    //   'BTC',
+    //   false,
+    // )} early contributors who've committed $${formatCurrency(
+    //   saleSummary.total_usdt_value_not_boost || '0',
+    //   0,
+    //   0,
+    //   'BTC',
+    //   true,
+    // )} to building Bitcoin's future with @BVMnetwork\n\n`;
+    //
+    // setTimeout(() => {
+    //   return window.open(
+    //     `https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(
+    //       content,
+    //     )}`,
+    //     '_blank',
+    //   );
+    // }, 300);
   };
 
   const currentDay = React.useMemo(() => {
@@ -117,7 +125,7 @@ const RaffleButton = ({ className }: any) => {
       <Popover onClose={onClose} isOpen={isOpen}>
         <PopoverTrigger>
           <Flex className={cx(s.container, className)}>
-            <Flex onMouseOver={mobileScreen ? undefined : onOpen} onClick={mobileScreen ? onOpen : undefined} gap={'8px'} alignItems={'flex-start'}>
+            <Flex onMouseOver={mobileScreen ? undefined : onOpen} onClick={mobileScreen ? onOpen : undefined} gap={'8px'} direction={"column"} alignItems={'center'}>
               <Center
                 cursor={programeInfo?.link ? 'pointer' : 'default'}
                 className={s.raffleBgIcon}
@@ -129,7 +137,7 @@ const RaffleButton = ({ className }: any) => {
               >
                 <img src={programeInfo?.image} alt="raffleBtnBg" />
               </Center>
-              <Flex direction={"column"} alignItems={"flex-start"} flex={1}>
+              <Flex direction={"column"} w={"100%"} alignItems={'center'} flex={1}>
                 <Flex
                   direction={"column"}
                   onClick={() =>
@@ -137,6 +145,7 @@ const RaffleButton = ({ className }: any) => {
                       ? window.open(programeInfo?.link, '_blank')
                       : undefined
                   }
+                  alignItems={"center"}
                 >
                   <Text
                     className={s.text_text}
@@ -145,10 +154,10 @@ const RaffleButton = ({ className }: any) => {
                     fontWeight={500}
                     textTransform={"uppercase"}
                   >
-                    Day {currentDay?.diffDay + 1} Raffle
+                    RSIC #17496
                   </Text>
                   <Flex gap={'6px'} className={s.timeWrapper}>
-                    <Text className={s.time} color={"#FFFFFF"}>{programeInfo?.sub_title}</Text>
+                    {/*<Text className={s.time} color={"#FFFFFF"}>{programeInfo?.sub_title}</Text>*/}
                   </Flex>
                 </Flex>
                 <Flex gap={4} w={"100%"}>
@@ -229,18 +238,8 @@ const RaffleButton = ({ className }: any) => {
                       }}
                       cursor="pointer"
                       w={"100%"}
+                      justifyContent={"center"}
                     >
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="24" height="24" fill="black"/>
-                        <g clip-path="url(#clip0_30591_7687)">
-                          <path d="M16.0256 5.67383H18.1722L13.4823 11.0347L19 18.3281H14.6798L11.2965 13.9041L7.42433 18.3281H5.2765L10.2932 12.5939L5 5.67441H9.42983L12.4882 9.71808L16.0256 5.67383ZM15.2725 17.0436H16.4619L8.7835 6.89124H7.50717L15.2725 17.0436Z" fill="white"/>
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_30591_7687">
-                            <rect width="14" height="14" fill="white" transform="translate(5 5)"/>
-                          </clipPath>
-                        </defs>
-                      </svg>
                       <Text lineHeight={'100%'} fontSize={'12px'}>
                         Tweet to enter
                       </Text>

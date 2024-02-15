@@ -57,13 +57,12 @@ const HourlyReward = () => {
     return (REWARDS[currentDay.diffDay] as number) / 24;
   }, [currentDay, REWARDS])
 
-  return null;
   return (
     <Flex className={s.container}>
-      <Flex justifyContent={"space-between"} alignItems={"center"}>
+      <Flex justifyContent={"space-between"} alignItems={"center"} gap={"6px"}>
         <Text className={s.title}>Hourly Reward</Text>
         <Flex className={s.timeWrapper}>
-          <Text className={s.time}>{formatCurrency(currentHourReward, MIN_DECIMAL, MIN_DECIMAL, 'BTC', false)} BVM</Text>
+          <Text className={s.time}>{formatCurrency(currentHourReward, 0, 0, 'BTC', false)} BVM</Text>
         </Flex>
       </Flex>
       <HourlyRewardButton />

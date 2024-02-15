@@ -3,6 +3,7 @@ import Intro from '@/modules/landing/Componets/Intro';
 import BgHero from '@/modules/landing/Componets/Hero/Bg';
 import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 import JoinAllowList from './JoinAllowList';
+import React from 'react';
 
 export default function Hero() {
   return (
@@ -11,7 +12,9 @@ export default function Hero() {
       <div className={s.hero}>
         <div className={s.hero_wrap}>
           <BgHero />
-
+        </div>
+        <div className={`${s.hero_inner} ${s.hero_inner__desktop}`}>
+          <HeroLabel />
         </div>
         <JoinAllowList />
         <Intro />

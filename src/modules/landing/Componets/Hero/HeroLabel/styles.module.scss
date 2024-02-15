@@ -11,9 +11,10 @@
   .inner{
     display: flex;
     gap: 12px;
+    flex-direction: column;
     @include is-min-table{
-      justify-content: space-between;
-      align-items: center;
+      //justify-content: space-between;
+      //align-items: center;
     }
 
     @include is-mobile{
@@ -41,8 +42,8 @@
     }
 
     &_text {
-      font-size: 20px;
-      line-height: 36px;
+      font-size: 16px;
+      line-height: 140%;
       font-weight: 400;
       color: #fff;
 
@@ -64,6 +65,18 @@
     gap: 4px;
     @include is-mobile {
       justify-content: center;
+    }
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    @include is-mobile {
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 20px;
     }
   }
 }

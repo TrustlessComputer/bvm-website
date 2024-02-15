@@ -86,7 +86,7 @@ export default function ItemCommunity({
   const airdrops = useSelector(airdropSelector).airdrops;
 
   const airdropContent = useMemo(() => {
-    return airdrops.find((v) => compareString(v.type, content.step));
+    return airdrops.find((v) => compareString(v?.type, content.step));
   }, [airdrops, content]);
 
   const isRunning = useMemo(() => {
@@ -261,10 +261,7 @@ export default function ItemCommunity({
                     <Text color={'#000000'}>
                       {user?.twitter_name} - Airdrop:{' '}
                       {formatCurrency(airdropAlphaUsers?.balance)} $BVM -
-                      Vesting at:{' '}
-                      {dayjs(airdropAlphaUsers?.claimeable_at).format(
-                        'MMM D, YYYY',
-                      )}
+                      Vesting at: Jul 24, 2024
                     </Text>
                   </Flex>
                 ) : (
@@ -284,10 +281,7 @@ export default function ItemCommunity({
                       <Flex direction="column" gap="8px" mt="4px">
                         <Text color={'#000000'}>
                           Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
-                          $BVM - Vesting at:{' '}
-                          {dayjs(airdropContent?.claimeable_at).format(
-                            'MMM D, YYYY',
-                          )}
+                          $BVM - Vesting at: Jul 24, 2024
                         </Text>
                       </Flex>
                     ) : (
@@ -309,10 +303,7 @@ export default function ItemCommunity({
                       <Flex direction="column" gap="8px" mt="4px">
                         <Text color={'#000000'}>
                           Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
-                          $BVM - Vesting at:{' '}
-                          {dayjs(airdropContent?.claimeable_at).format(
-                            'MMM D, YYYY',
-                          )}
+                          $BVM - Vesting at: Jul 24, 2024
                         </Text>
                       </Flex>
                     ) : (
@@ -334,10 +325,7 @@ export default function ItemCommunity({
                       <Flex direction="column" gap="8px" mt="4px">
                         <Text color={'#000000'}>
                           Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
-                          $BVM - Vesting at:{' '}
-                          {dayjs(airdropContent?.claimeable_at).format(
-                            'MMM D, YYYY',
-                          )}
+                          $BVM - Vesting at: Jul 24, 2024
                         </Text>
                       </Flex>
                     ) : (

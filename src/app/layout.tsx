@@ -13,6 +13,7 @@ import chakraThemes from '@/themes/chakra-themes';
 import { ChakraProvider } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
+import ModalManager from '@/components/ModalManage';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -58,7 +59,10 @@ export default function RootLayout({
             <UserProvider>
               <XVerseProvider>
                 <UnisatProvider>
-                  <Hydrated>{children}</Hydrated>
+                  <Hydrated>
+                    <ModalManager />
+                    {children}
+                  </Hydrated>
                   <ToastOverlay />
                 </UnisatProvider>
               </XVerseProvider>

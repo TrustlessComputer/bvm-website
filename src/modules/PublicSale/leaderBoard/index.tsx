@@ -5,37 +5,24 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
-import {
-  AvatarGroup,
-  Avatar as AvatarImg,
-  Box,
-  Flex,
-  Text,
-  Tooltip,
-} from '@chakra-ui/react';
+import { Avatar as AvatarImg, AvatarGroup, Box, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import clsx from 'classnames';
 import AppLoading from '@/components/AppLoading';
-import { CDN_URL_ICONS } from '@/config';
 import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import {
-  publicSaleLeaderBoardSelector,
-  userSelector,
-} from '@/stores/states/user/selector';
-import {
-  clearPublicSaleLeaderBoard,
-  setPublicSaleLeaderBoard,
-} from '@/stores/states/user/reducer';
-import { getPublicSaleLeaderBoards } from '@/services/public-sale';
-import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
-import SvgInset from '@/components/SvgInset';
-import ContributorDetailInfo from '@/modules/PublicSale/components/contributorDetailInfo';
+import { publicSaleLeaderBoardSelector, userSelector } from '@/stores/states/user/selector';
+import { clearPublicSaleLeaderBoard, setPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
+import { getPublicSaleDailyReward, getPublicSaleLeaderBoards, IPublicSaleDailyReward } from '@/services/public-sale';
+import { MIN_DECIMAL } from '@/constants/constants';
 import { tokenIcons } from '@/modules/PublicSale/depositModal/constants';
 import { compareString } from '@/utils/string';
+import { setPublicSaleDailyReward } from '@/stores/states/common/reducer';
+import { isAddress } from '@ethersproject/address';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 
 const valueToClassName: any = {
   '10': 'boost_10',
@@ -64,11 +51,13 @@ const LeaderBoard = (props: IProps) => {
   const [refreshing, setRefreshing] = useState(false);
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
+  const [dailyReward
+    , setDailyReward] = useState<IPublicSaleDailyReward | null>();
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: 50,
+    limit: 20,
     search: '',
   });
 
@@ -83,6 +72,7 @@ const LeaderBoard = (props: IProps) => {
 
   useEffect(() => {
     fetchData(true);
+    getProgramInfo();
   }, [needReload]);
 
   useEffect(() => {
@@ -91,6 +81,17 @@ const LeaderBoard = (props: IProps) => {
       fetchData(true);
     }
   }, [isSearch]);
+
+  const getProgramInfo = async () => {
+    try {
+      const res = await getPublicSaleDailyReward();
+      setDailyReward(res);
+      dispatch(setPublicSaleDailyReward(res));
+    } catch (e) {
+    } finally {
+      // setIsLoading(false);
+    }
+  };
 
   const fetchData = async (isNew?: boolean) => {
     try {
@@ -220,15 +221,26 @@ const LeaderBoard = (props: IProps) => {
               }}
             >
               <Flex flex={1} gap={2} alignItems={'center'}>
-                <Avatar
-                  url={getUrlAvatarTwitter(
-                    data?.twitter_avatar as string,
-                    'normal',
+                {isAddress(data?.twitter_name || data?.twitter_username || "")
+                  ? (
+                    <Flex>
+                      <Jazzicon
+                        diameter={40}
+                        seed={jsNumberForAddress(data?.twitter_name || data?.twitter_username || "")}
+                      />
+                    </Flex>
+                  ) : (
+                    <Avatar
+                      url={getUrlAvatarTwitter(
+                        data?.twitter_avatar as string,
+                        'normal',
+                      )}
+                      address={''}
+                      width={40}
+                      name={data?.twitter_name || data?.twitter_username || ''}
+                    />
                   )}
-                  address={''}
-                  width={40}
-                  name={data?.twitter_name || data?.twitter_username || ''}
-                />
+
                 <Flex width={'100%'} gap={'4px'} direction={'column'}>
                   <p className={s.title}>{data?.twitter_name || ''}</p>
                   {data?.need_active && <Text className={s.subTitle}>YOU</Text>}
@@ -308,6 +320,31 @@ const LeaderBoard = (props: IProps) => {
                     }
                   /> */}
               </Flex>
+              {Boolean(!!data?.view_boost && Number(data?.view_boost || 0)) && (
+                <Flex
+                  bg={
+                    'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'
+                  }
+                  borderRadius={'100px'}
+                  p={'3px 12px'}
+                  width={'fit-content'}
+                >
+                  <Text
+                    fontSize={'14'}
+                    mt="2px"
+                    fontWeight={'400'}
+                    className={s.boost}
+                  >
+                    {`+${formatCurrency(
+                      data?.view_boost,
+                      0,
+                      0,
+                      'BTC',
+                      true,
+                    )}% boost`}
+                  </Text>
+                </Flex>
+              )}
             </Flex>
           );
         },
@@ -337,70 +374,75 @@ const LeaderBoard = (props: IProps) => {
         },
         render(data: ILeaderBoardPoint) {
           return (
-            <Flex
-              gap={3}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'flex-end'}
-            >
-              <Flex alignItems={'center'} gap={2}>
-                {parseFloat(data?.view_boost || '0') > 0 &&
-                  user?.twitter_id &&
-                  compareString(data?.twitter_id, user?.twitter_id) && (
-                    <Flex justifyContent="flex-start" alignItems="center">
-                      <Flex
-                        flexDirection="row"
-                        gap="4px"
-                        alignItems="center"
-                        className={clsx(
-                          s.tagBoost,
-                          (Number(data?.view_boost) || 0) <= 10
-                            ? s.boostNormal
-                            : '',
-                          data.need_active && s.isActiveRowContent,
-                        )}
-                      >
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M13.3337 6.54474H8.97002L9.93972 0.726562L2.66699 9.45383H7.03063L6.06093 15.272L13.3337 6.54474Z"
-                            fill="#008456"
-                          />
-                        </svg>
-
-                        <Text
-                          className={cs(
-                            s.title,
-                            // s.multiplier,
-                            s[valueToClassName[`${data?.view_boost}`]],
-                            data.need_active && s.isActiveRow,
+            <Flex direction={"column"} justifyContent={"flex-end"}>
+              <Flex
+                gap={3}
+                alignItems={'center'}
+                width={'100%'}
+                justifyContent={'flex-end'}
+              >
+                <Flex alignItems={'center'} gap={2}>
+                  {parseFloat(data?.view_boost || '0') > 0 &&
+                    user?.twitter_id &&
+                    compareString(data?.twitter_id, user?.twitter_id) && (
+                      <Flex justifyContent="flex-start" alignItems="center">
+                        <Flex
+                          flexDirection="row"
+                          gap="4px"
+                          alignItems="center"
+                          className={clsx(
+                            s.tagBoost,
+                            (Number(data?.view_boost) || 0) <= 10
+                              ? s.boostNormal
+                              : '',
+                            data.need_active && s.isActiveRowContent,
                           )}
                         >
-                          {data?.view_boost || 0}%
-                        </Text>
-                      </Flex>
-                    </Flex>
-                  )}
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M13.3337 6.54474H8.97002L9.93972 0.726562L2.66699 9.45383H7.03063L6.06093 15.272L13.3337 6.54474Z"
+                              fill="#008456"
+                            />
+                          </svg>
 
-                <Text className={s.bvm_amount}>
-                  {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MIN_DECIMAL)}{' '}
-                  BVM
-                </Text>
-                <Text className={s.bvm_percent}>
-                  (
-                  {formatCurrency(
-                    Number(data?.bvm_percent) * 100,
-                    MIN_DECIMAL,
-                    MIN_DECIMAL,
-                  )}
-                  %)
-                </Text>
+                          <Text
+                            className={cs(
+                              s.title,
+                              // s.multiplier,
+                              s[valueToClassName[`${data?.view_boost}`]],
+                              data.need_active && s.isActiveRow,
+                            )}
+                          >
+                            {data?.view_boost || 0}%
+                          </Text>
+                        </Flex>
+                      </Flex>
+                    )}
+
+                  <Text className={s.bvm_amount}>
+                    {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MIN_DECIMAL)}{' '}
+                    BVM
+                  </Text>
+                  <Text className={s.bvm_percent}>
+                    (
+                    {formatCurrency(
+                      Number(data?.bvm_percent) * 100,
+                      MIN_DECIMAL,
+                      MIN_DECIMAL,
+                    )}
+                    %)
+                  </Text>
+                </Flex>
               </Flex>
+              {/*{data?.need_active &&*/}
+              {/*  <Flex justifyContent={"flex-end"} fontSize={"12px"} color={"#fa4e0e !important;"}> Claimed: {formatCurrency(dailyReward?.claimed, 0, 0, 'BTC', false)} BVM</Flex>*/}
+              {/*}*/}
             </Flex>
           );
         },

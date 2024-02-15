@@ -96,6 +96,35 @@ const FAQContent: React.FC = (): React.ReactElement => {
                 <>
                   <h2>
                     <AccordionButton justifyContent={'space-between'}>
+                        <span className={s.faqTitle}>
+                          How much is my $BVM allocation based on my contribution?
+                        </span>
+                      <button>
+                        <img
+                          className={isExpanded ? s.downArrow : ''}
+                          src={`${CDN_URL}/icons/chevron-right-ic-32.svg`}
+                          alt="chevron-right-ic"
+                        />
+                      </button>
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel>
+                    <p className={s.faqContent}>
+                      Your $BVM allocation will be determined based on the total fund raised at the end of the public sale<br/>
+                    </p>
+                    <p className={s.faqContent}>
+                      Your $BVM allocation = (Your contribution amount / Total contribution at the end) * 15M $BVM
+                    </p>
+                  </AccordionPanel>
+                </>
+              )}
+            </AccordionItem>
+
+            <AccordionItem className={s.faqItem}>
+              {({ isExpanded }) => (
+                <>
+                  <h2>
+                    <AccordionButton justifyContent={'space-between'}>
                       <span className={s.faqTitle}>
                         What is the BVM token standard?
                       </span>
@@ -292,7 +321,9 @@ const FAQContent: React.FC = (): React.ReactElement => {
                     </AccordionButton>
                   </h2>
                   <AccordionPanel>
+                    <p className={s.faqContent}>Your contribution should appear shortly. If you don't see it after 60 minutes, please contact our team at @BVMnetwork on X.</p>
                     <p className={s.faqContent}>
+                      If you contributed in ORDI, SATS, or TIA, please {" "}
                       <GoogleReCaptchaProvider
                         reCaptchaKey="6LdrclkpAAAAAD1Xu6EVj_QB3e7SFtMVCKBuHb24"
                         scriptProps={{
@@ -303,10 +334,9 @@ const FAQContent: React.FC = (): React.ReactElement => {
                         }}
                       >
                         <DepositCheckItHere>
-                          <a>Check the status</a>
+                          <a>click here to check the status.</a>
                         </DepositCheckItHere>
                       </GoogleReCaptchaProvider>
-                      .
                     </p>
                   </AccordionPanel>
                 </>

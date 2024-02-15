@@ -25,7 +25,6 @@ interface IProps {
 const LeaderBoardVisual = (props: IProps) => {
   const { list } = useAppSelector(publicSaleLeaderBoardVisualSelector);
   const [listRender, setListRender] = useState<ILeaderBoardPoint[]>([]);
-  const [listMissingRender, setListMissingRender] = useState<ILeaderBoardPoint[]>([]);
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
   const leaderBoardMode = LEADER_BOARD_MODE.ALL;
@@ -36,7 +35,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const needCheckDeposit = useAppSelector(commonSelector).needCheckDeposit;
   const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
   const { mobileScreen } = useWindowSize();
-  const TOTALs = 39;
+  const TOTALs = 79;
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -89,7 +88,7 @@ const LeaderBoardVisual = (props: IProps) => {
       const fnLoadData = leaderBoardMode === LEADER_BOARD_MODE.DAY ? getPublicSaleTop : getPublicSaleLeaderBoards;
 
       const getLimit = () => {
-        const limitMobile = mobileScreen ? (TOTALs - 2) : TOTALs;
+        const limitMobile = mobileScreen ? (TOTALs - 7) : TOTALs;
         return leaderBoardMode === LEADER_BOARD_MODE.DAY ? limitMobile : token ? (TOTALs - 1) : limitMobile;
       };
 
@@ -150,7 +149,7 @@ const LeaderBoardVisual = (props: IProps) => {
   useEffect(() => {
 
     let refLevel = 0;
-    const levels = mobileScreen ? [1, 3, 4, 4, 5, 5, 5, 5, 5] : [1, 3, 5, 6, 8, 8, 8];
+    const levels = mobileScreen ? [1, 3, 4, 4, 5] : [1, 3, 5, 6, 8, 8, 8, 8, 8, 8, 8, 8];
     const missingLength = (mobileScreen ? (TOTALs - 1) : TOTALs) - list.length;
     const missingArray = Array.from({ length: missingLength }).map((u, i) => ({
       ranking: 1000,
@@ -178,8 +177,7 @@ const LeaderBoardVisual = (props: IProps) => {
       return tmp;
     });
 
-    setListRender(tmsss.slice(0, mobileScreen ? (TOTALs - 2) : TOTALs));
-    setListMissingRender(missingArray);
+    setListRender(tmsss.slice(0, mobileScreen ? (TOTALs - 7) : TOTALs));
   }, [list, mobileScreen]);
 
   return (

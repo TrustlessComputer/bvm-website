@@ -1,0 +1,75 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  width: 100%;
+  max-width: 826px;
+  background: #FFFFFF;
+
+
+  margin: 0 auto 42px;
+
+  @include is-mobile {
+    padding: 14px;
+    margin-bottom: 24px;
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    width: 100%;
+    color: #000000;
+  }
+
+  .desc {
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000;
+    line-height: 150%;
+    margin-top: 4px;
+
+    a {
+      color: #FA4E0E;
+    }
+
+    li {
+      margin-top: 8px;
+    }
+
+    li::marker {
+      font-size: 14px;
+      font-weight: 500;
+      color: #FA4E0E;
+    }
+  }
+
+  .btnShare {
+    background: #F02020;
+    height: 48px;
+    width: 100%;
+  }
+
+  .img {
+    width: 108px;
+    height: 127px;
+  }
+}
+
+.Modal {
+  padding: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+
+  :global(.chakra-modal__body) {
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  :global(.modal-header-wrap) {
+    // display: none !important;
+    height: 0px !important;
+    margin-bottom: 0 !important;
+  }
+}

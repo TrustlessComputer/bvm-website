@@ -20,7 +20,7 @@
       white-space: nowrap;
       font-size: 14px;
       font-weight: 400;
-      margin-top: 20px;
+      margin-top: 8px;
       justify-content: center;
     }
 
@@ -34,7 +34,7 @@
 
     &_time {
       width: fit-content;
-      text-transform: uppercase;
+      //text-transform: uppercase;
     }
   }
 
@@ -48,7 +48,7 @@
 
   .content {
     display: flex;
-    align-items: center;
+    //align-items: center;
     flex-direction: column;
     gap: 24px;
 
@@ -89,15 +89,15 @@
     max-width: 620px;
 
     @include is-mobile {
-      font-size: 20px;
+      font-size: 18px;
     }
 
     @include is-tablet {
-      font-size: 24px;
+      font-size: 20px;
     }
 
     @include is-pc {
-      font-size: 32px;
+      font-size: 36px;
     }
 
     span {
@@ -148,13 +148,24 @@
   }
 
   .button {
-    height: 60px !important;
+    height: 48px !important;
     border-radius: 0px !important;
     background: #fa4e0e !important;
     color: #fff !important;
-    width: 331px !important;
+    width: 200px !important;
     font-weight: normal !important;
-    font-size: 20px;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .buttonBuild {
+    height: 48px !important;
+    border-radius: 0px !important;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    width: 200px !important;
+    font-weight: normal !important;
+    font-size: 16px;
     line-height: 1.3;
   }
 }
@@ -264,6 +275,7 @@
 }
 
 .countDown_wrapper {
+  align-items: center;
   * {
     font-size: 14px !important;
     line-height: 1.4 !important;
@@ -286,3 +298,80 @@
     }
   }
 }
+
+.dropMenu {
+  position: relative;
+  color: white;
+
+  &_label {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-weight: 500;
+
+    &.black {
+      color: black;
+
+      svg path {
+        stroke: black !important;
+      }
+    }
+
+    img, svg {
+      transform: translateY(.05em);
+    }
+  }
+
+  &:hover {
+    .dropMenu_list {
+      opacity: 1;
+      visibility: visible;
+      z-index: 2 !important;
+    }
+  }
+
+  &_list {
+    opacity: 0;
+    width: 240px;
+    background: #f6f6f6;
+    position: absolute;
+    right: -100%;
+    bottom: 0;
+    list-style: none;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    visibility: hidden;
+
+    @include is-mobile {
+      bottom: 48px;
+      right: 0;
+    }
+  }
+}
+
+.listItem {
+
+  a {
+    color: #000000 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    svg * {
+      transition: fill .4s var(--easeOutQuart);
+    }
+
+    &:hover {
+      rect {
+        fill: red;
+      }
+
+      path {
+        fill: white
+      }
+    }
+  }
+}
+

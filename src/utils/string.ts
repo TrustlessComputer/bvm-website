@@ -20,8 +20,13 @@ const compareString = (a: unknown, b: unknown) => {
   return a?.toString?.()?.toLowerCase?.() === b?.toString?.()?.toLowerCase?.();
 };
 
+export const labelAmountOrNumberAdds = (amount: number | string) => {
+  return Number(amount) !== 1 ? 's' : '';
+};
+
+
 
 export {
   getAvatarName,
-  compareString
+  compareString,
 }
