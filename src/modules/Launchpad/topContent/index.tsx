@@ -61,7 +61,7 @@ const TopContent = () => {
         <ul className={s.actions}>
           <li>
             <a href={'#'} onClick={() => setOpen(true)}>
-              <Image src={launchpadDetail?.intro?.image} width={168} height={90}
+              <Image src={launchpadDetail?.intro?.image || `/public-sale/btn-play-3.png`} width={168} height={90}
                      alt={'right'} />
               {launchpadDetail?.intro?.title}</a>
             {
