@@ -1,28 +1,48 @@
 import { Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DropDown from '@/components/DropList';
 import { WHITEPAPER_DOC_URL } from '@/config';
 import Image from 'next/image';
 import ModalVideo from 'react-modal-video';
-import { formatCurrency } from '@/utils/format';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import cx from 'clsx';
+import { getLaunchpadDetail } from '@/services/launchpad';
+import { useParams } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { ILaunchpadDetail } from '@/services/interfaces/launchpad';
 
 const TopContent = () => {
+  const params = useParams();
+
   const [isOpen, setOpen] = useState(false);
   const publicSaleSummary = useAppSelector(commonSelector).publicSaleSummary;
+  const needReload = useSelector(commonSelector).needReload;
+  const [launchpadDetail, setLaunchpadDetail] = useState<ILaunchpadDetail>();
+
+  const id = params?.id;
+
+  useEffect(() => {
+    if(id) {
+      getLaunchpadInfo(id as unknown as number);
+    }
+  }, [id, needReload]);
+
+  const getLaunchpadInfo = async (id: number) => {
+    const res = await getLaunchpadDetail({id: id});
+    setLaunchpadDetail(res);
+  }
 
   return (
     <div className={cx(s.container, 'container')}>
       <div className={s.content}>
         <Flex direction={'column'} gap={3}>
           <Text fontSize={"16px"} fontWeight={400} lineHeight={'24px'} className={s.subTitle}>
-            Bitcoin Virtual Machine
+            {launchpadDetail?.name}
           </Text>
-          <Text className={s.title}>Bitcoin, reimagined.</Text>
-          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>We’re on a mission to reinvent Bitcoin beyond just a currency — the next internet with gaming, DeFi, AI, SocialFi, and more. Join {formatCurrency(publicSaleSummary?.total_user || 800, 0, 0)} backers shaping the future of Bitcoin.</Text>
+          <Text className={s.title}>{launchpadDetail?.title}</Text>
+          <Text fontSize={16} fontWeight={400} lineHeight={'24px'} className={s.desc}>{launchpadDetail?.description}</Text>
         </Flex>
         <ul className={s.actions}>
           <li>
