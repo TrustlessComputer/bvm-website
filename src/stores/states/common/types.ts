@@ -14,8 +14,8 @@ export enum Coin {
 
 export interface CommonState {
   needReload: number;
-  coinPrices: CoinPrices,
-  configs: any,
+  coinPrices: CoinPrices;
+  configs: any;
   leaderBoardMode: 0 | 1;
   needCheckDeposit: boolean;
   animatedLatestContributors: ILeaderBoardPoint[];
