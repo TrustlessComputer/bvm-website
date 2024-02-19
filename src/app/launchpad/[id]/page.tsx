@@ -4,9 +4,7 @@ import LaunchpadDetailModule from '@/modules/Launchpad';
 const LaunchpadDetailPage = () => {
   return (
     <MainLayout
-      headerProps={{
-        color: 'black',
-      }}
+      headerProps={{bgColor: '#0E0E0E'}}
     >
       <LaunchpadDetailModule />
     </MainLayout>
