@@ -5,4 +5,6 @@ export interface ILaunchpadDetail {
   description: string;
   intro: any;
   docs: any[];
+  start_date: string;
+  end_date: string;
 }

@@ -2,8 +2,8 @@ import s from './styles.module.scss';
 import { Flex, SimpleGrid } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import useAnimationStore from '@/stores/useAnimationStore';
-import BuyForm from '@/modules/PublicSale/BuyForm';
 import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
+import LaunchpadBuyForm from '@/modules/Launchpad/BuyForm';
 
 const AboveTheFold = () => {
   const { setPlay } = useAnimationStore();
@@ -31,7 +31,7 @@ const AboveTheFold = () => {
           <LeaderBoardVisual />
         </Flex>
         <Flex className={s.rightSection} direction={'column'}>
-          <BuyForm />
+          <LaunchpadBuyForm />
         </Flex>
       </SimpleGrid>
     </Flex>

@@ -1,0 +1,324 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  width: 100%;
+  max-width: 826px;
+  box-shadow: 0px 0px 24px -6px #00000014;
+  background: #FFFFFF;
+  margin: 0 auto 20px;
+
+  @include is-mobile {
+    padding: 14px;
+    margin-bottom: 24px;
+  }
+
+  .blink_me {
+    animation: blinker 1s linear infinite;
+    color: red !important;
+    p {
+      color: inherit;
+    }
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0.2;
+    }
+  }
+
+  .title {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%;
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .fundValue {
+    font-size: 52px;
+    font-weight: 400;
+    line-height: 100%;
+    //width: 100%;
+    color: #FA4E0E;
+
+    @include is-mobile {
+      font-size: 48px;
+    }
+  }
+
+  .boxInfo {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    grid-gap: 16px;
+    grid-template-columns: 2fr 1fr;
+
+    .blockItem {
+      border: 1px solid #434343;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 16px 20px;
+      height: 100%;
+      width: 100%;
+    }
+
+    @include is-mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .time {
+    justify-content: flex-start;
+
+    * {
+      color: #000;
+      font-size: 20px;
+      font-weight: 400 !important;
+      line-height: 1;
+    }
+  }
+
+  .boost {
+    color: #007659;
+    padding-bottom: .05em;
+  }
+
+  .youGet {
+    //background: -webkit-linear-gradient(90deg, #00f5a0 0%, #00d9f5 100%);
+    //background: -moz-linear-gradient(90deg, #00f5a0 0%, #00d9f5 100%);
+    //background: linear-gradient(90deg, #00f5a0 0%, #00d9f5 100%);
+    //-webkit-background-clip: text;
+    //-webkit-text-fill-color: transparent;
+    color: #FA4E0E;
+  }
+
+  .price {
+    font-weight: 400;
+    font-size: 32px;
+    text-transform: uppercase;
+    color: #ffffff;
+
+    @include is-mobile {
+      font-size: 24px;
+    }
+  }
+
+  .launchText {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 150%;
+    text-align: center;
+
+    @include is-mobile {
+      font-size: 24px;
+    }
+  }
+
+  .textCountdown {
+    @include is-mobile {
+      > div {
+        gap: 24px;
+
+        > div {
+          p:first-child {
+            font-size: 56px;
+          }
+
+          p:last-child {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .desc {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 150%;
+    color: #ffffff;
+    margin-bottom: 40px;
+    margin-top: 16px;
+    text-align: center;
+
+    @include is-mobile {
+      font-size: 16px;
+    }
+
+    span {
+      color: #fa4e0e;
+    }
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .inputContainer {
+    border-radius: 0px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #cecece;
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .input {
+    height: 100%;
+    overflow: hidden;
+    color: #ffffff;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    background-color: transparent;
+    width: 100%;
+    letter-spacing: 0.01em;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &::-ms-input-placeholder {
+      /* Edge 12-18 */
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .button {
+    height: 48px !important;
+    padding: 8px 60px !important;
+    border-radius: 0px !important;
+    background: #fa4e0e !important;
+    color: #fff !important;
+    width: 100%;
+    font-weight: normal !important;
+  }
+
+  .depositValue {
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  .contributorBlock {
+    cursor: pointer;
+  }
+
+  .backer {
+    &__ended {
+      cursor: pointer;
+
+      &:hover {
+        p:last-child {
+          > div {
+            color: #FA4E0E;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  :global {
+    .chakra-popover__popper {
+      z-index: 999999;
+
+      .chakra-popover__content {
+        &:focus-visible {
+          outline: none !important;
+          box-shadow: 0px 0px 24px -6px #0000001F !important;
+        }
+      }
+    }
+  }
+}
+
+.grid {
+  display: flex;
+  gap: 32px;
+  justify-content: space-between;
+
+  @include is-mobile {
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  &_item {
+    @include is-mobile {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+  }
+}
+
+.tValue {
+  //min-height: 25px;
+
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1;
+  text-align: left;
+  justify-content: flex-start;
+  white-space: nowrap;
+
+  *{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+    color: #000;
+  }
+}
+
+.tLabel {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 14px !important;
+  text-align: left;
+  margin-bottom: 12px;
+  white-space: nowrap;
+}
+
+.profileBox {
+  display: flex;
+  justify-content: center;
+  border-radius: 100px;
+  border: 1px solid rgba(1, 1, 1, 0.3);
+  height: fit-content;
+  width: fit-content;
+  &_content {
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.endBanner {
+  display: flex;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border: 1px solid rgba(15, 187, 120, 0.40);
+  background: rgba(15, 187, 120, 0.11);
+
+  &_endMessage {
+    color: #0FBB78;
+    text-align: center;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+  }
+}
