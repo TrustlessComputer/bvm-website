@@ -36,8 +36,8 @@ const checkIsPublicSale = () => {
     .isBefore(dayjs().utc().format());
 }
 
-const checkIsEndPublicSale = () => {
-  return dayjs().utc().isAfter(dayjs.utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss'));
+const checkIsEndPublicSale = (endDate?: string) => {
+  return dayjs().utc().isAfter(dayjs.utc(endDate || PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss'));
 }
 
 export {

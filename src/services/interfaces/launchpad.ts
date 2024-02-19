@@ -7,4 +7,5 @@ export interface ILaunchpadDetail {
   docs: any[];
   start_date: string;
   end_date: string;
+  token: any;
 }

@@ -34,7 +34,13 @@ export const getLaunchpadDetail = async (params: {id: number}): Promise<ILaunchp
       },
     ],
     start_date: '2024-01-30 03:30:00',
-    end_date: '2024-02-06 03:30:00',
+    end_date: '2024-04-06 03:30:00',
+    token: {
+      symbol: 'UAV',
+      name: 'Bitcoin Virtual Machine',
+      decimals: 18,
+      address: '0x1234567890'
+    }
   }
   return res;
 };

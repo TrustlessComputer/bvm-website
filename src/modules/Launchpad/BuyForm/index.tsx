@@ -22,7 +22,6 @@ import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import DepositModal from '@/modules/PublicSale/depositModal';
 import ContributorsModal from '@/modules/PublicSale/contributorModal';
 import { MIN_DECIMAL } from '@/constants/constants';
-import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import cx from 'classnames';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import NumberScale from '@/components/NumberScale';
@@ -38,19 +37,25 @@ import { clearPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
 import AuthForBuy from '@/modules/PublicSale/AuthForBuy';
 import { GuestCodeHere } from '@/modules/PublicSale/depositModal/deposit.guest.code';
 import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import ContributorInfo from '../components/contributorInfo';
+import { ILaunchpadDetail } from '@/services/interfaces/launchpad';
 
 interface FormValues {
   tokenAmount: string;
 }
 
 const LaunchpadBuyForm = () => {
-  const isEnded = checkIsEndPublicSale();
-
   const [blockReward, setBlockReward] = React.useState(undefined)
 
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
-  const { launchpadDetail, launchpadSummary, setCurrentLaunchpadSummary, setCurrentUserContributeInfo } = useLaunchpadContext();
+  const {
+    launchpadDetail,
+    launchpadSummary,
+    userContributeInfo,
+    setCurrentLaunchpadSummary,
+    setCurrentUserContributeInfo
+  } = useLaunchpadContext();
   const [contributeInfo, setContributeInfo] = useState<IPublicSaleDepositInfo>({
     ...(launchpadSummary as IPublicSaleDepositInfo),
   });
@@ -67,8 +72,11 @@ const LaunchpadBuyForm = () => {
     return dayjs(launchpadDetail?.end_date).diff(dayjs(), 'hour');
   }, [launchpadDetail?.end_date]);
 
+  const isEnded = React.useMemo(() => checkIsEndPublicSale(launchpadDetail?.end_date), [launchpadDetail?.end_date]);
+
   const timeIntervalSummary = useRef<any>(undefined);
-  const { needReload, userContributeInfo } = useAppSelector(commonSelector);
+  const { needReload } = useAppSelector(commonSelector);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -434,7 +442,7 @@ const LaunchpadBuyForm = () => {
                         <PopoverArrow opacity={0}/>
                         <PopoverCloseButton color='black' />
                         <Box height="24px"/>
-                        <ContributorInfo data={userContributeInfo} blockReward={blockReward} />
+                        <ContributorInfo launchpadDetail={launchpadDetail as ILaunchpadDetail} data={userContributeInfo} blockReward={blockReward} />
                       </FocusLock>
                     </PopoverContent>
                   </Popover>
