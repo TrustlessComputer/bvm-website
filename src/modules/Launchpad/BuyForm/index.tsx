@@ -9,31 +9,22 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
-  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
 import { FormikProps, useFormik } from 'formik';
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
-import {
-  getBlockReward,
-  getPublicSaleLeaderBoards,
-  getPublicSaleSummary,
-  postPublicsaleWalletInfoManualCheck,
-} from '@/services/public-sale';
-import { defaultSummary, IPublicSaleDepositInfo, VCInfo } from '@/interfaces/vc';
+import { getBlockReward, getPublicSaleLeaderBoards, getPublicSaleSummary } from '@/services/public-sale';
+import { IPublicSaleDepositInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
-import { toast } from 'react-hot-toast';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
 import DepositModal from '@/modules/PublicSale/depositModal';
 import ContributorsModal from '@/modules/PublicSale/contributorModal';
 import { MIN_DECIMAL } from '@/constants/constants';
-import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import ContributorInfo from '@/modules/PublicSale/components/contributorInfo';
 import cx from 'classnames';
 import AuthenStorage from '@/utils/storage/authen.storage';
-import { PUBLIC_SALE_END } from '@/modules/Whitelist';
 import NumberScale from '@/components/NumberScale';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
@@ -41,22 +32,15 @@ import IcHelp from '@/components/InfoTooltip/IcHelp';
 import AuthForBuyV2 from '@/modules/PublicSale/AuthForBuyV2';
 import UserLoggedAvatar from '@/modules/PublicSale/BuyForm/UserLoggedAvatar';
 import { useDispatch } from 'react-redux';
-import { setPublicSaleSummary, setUserContributeInfo } from '@/stores/states/common/reducer';
 import { checkIsEndPublicSale } from '@/modules/Whitelist/utils';
-import cs from 'classnames';
 import BigNumber from 'bignumber.js';
 import { clearPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
 import AuthForBuy from '@/modules/PublicSale/AuthForBuy';
 import { GuestCodeHere } from '@/modules/PublicSale/depositModal/deposit.guest.code';
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
 
 interface FormValues {
   tokenAmount: string;
-}
-
-interface IColumnProps {
-  value: any;
-  title: any;
-  className?: any;
 }
 
 const LaunchpadBuyForm = () => {
@@ -66,22 +50,22 @@ const LaunchpadBuyForm = () => {
 
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
-  const publicSaleSummary = useAppSelector(commonSelector).publicSaleSummary as IPublicSaleDepositInfo;
+  const { launchpadDetail, launchpadSummary, setCurrentLaunchpadSummary, setCurrentUserContributeInfo } = useLaunchpadContext();
   const [contributeInfo, setContributeInfo] = useState<IPublicSaleDepositInfo>({
-    ...publicSaleSummary,
+    ...(launchpadSummary as IPublicSaleDepositInfo),
   });
   const [isEnd, setIsEnd] = React.useState(
     dayjs
-      .utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss')
+      .utc(launchpadDetail?.end_date, 'YYYY-MM-DD HH:mm:ss')
       .isBefore(dayjs().utc().format()),
   );
   const [showContributorModal, setShowContributorModal] = useState(false);
   const token =
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
 
-  const remainDay = useMemo(() => {
-    return dayjs(PUBLIC_SALE_END).diff(dayjs(), 'day');
-  }, []);
+  const remainHour = useMemo(() => {
+    return dayjs(launchpadDetail?.end_date).diff(dayjs(), 'hour');
+  }, [launchpadDetail?.end_date]);
 
   const timeIntervalSummary = useRef<any>(undefined);
   const { needReload, userContributeInfo } = useAppSelector(commonSelector);
@@ -105,12 +89,12 @@ const LaunchpadBuyForm = () => {
   }, [token, needReload]);
 
   const currentFDV = useMemo(() => {
-    if(publicSaleSummary?.total_usdt_value_not_boost) {
-      return new BigNumber(publicSaleSummary?.total_usdt_value_not_boost).multipliedBy(100).dividedBy(15).toString();
+    if(launchpadSummary?.total_usdt_value_not_boost) {
+      return new BigNumber(launchpadSummary?.total_usdt_value_not_boost).multipliedBy(100).dividedBy(15).toString();
     }
 
     return "0";
-  }, [publicSaleSummary?.total_usdt_value_not_boost]);
+  }, [launchpadSummary?.total_usdt_value_not_boost]);
 
   const getBlockRewardInfo = async () => {
     const data = await getBlockReward();
@@ -120,7 +104,7 @@ const LaunchpadBuyForm = () => {
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
     setContributeInfo(res);
-    dispatch(setPublicSaleSummary(res));
+    setCurrentLaunchpadSummary(res);
   };
 
   const getUserContributeInfo = async () => {
@@ -130,27 +114,12 @@ const LaunchpadBuyForm = () => {
     });
 
     if (data[0]?.need_active) {
-      dispatch(setUserContributeInfo(data[0]));
+      setCurrentUserContributeInfo(data[0]);
     }
-  };
-
-  const handleRecheckDeposit = async () => {
-    await postPublicsaleWalletInfoManualCheck();
-    toast.success('Recheck deposit amount successfully!');
   };
 
   const onSubmit = async (values: FormValues) => {
     setShowQrCode(true);
-    // try {
-    //   setIsCreating(true);
-    //   const result = await postPublicsaleWalletInfo();
-    //   setSaleWalletInfo(result);
-    //   setShowQrCode(true);
-    // } catch (error) {
-    //   toast.error('Can not verify the post.');
-    // } finally {
-    //   setIsCreating(false);
-    // }
   };
 
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
@@ -161,14 +130,6 @@ const LaunchpadBuyForm = () => {
   const formValues = React.useMemo(() => {
     return formik.values;
   }, [formik.values]);
-
-  const onChangeText = (e: any) => {
-    formik.setValues((values: any) => ({
-      ...values,
-      tokenAmount: e.target.value,
-    }));
-  };
-
 
   const ContributorBlock = forwardRef((props: any, ref: any) => {
     const { className, ...rest } = props;
@@ -309,7 +270,7 @@ const LaunchpadBuyForm = () => {
                     couters={Number(contributeInfo?.total_usdt_value_not_boost)}
                     maximumFractionDigits={0}
                     minimumFractionDigits={0}
-                    defaultFrom={cachedTotalUSD}
+                    defaultFrom={launchpadSummary?.total_usdt_value_not_boost}
                   />
                 </Text>
               </Flex>
@@ -319,7 +280,7 @@ const LaunchpadBuyForm = () => {
           <div className={s.grid}>
             <div className={s.grid_item}>
               <div
-                className={cs(s.backer, {[s.backer__ended]: isEnded})}
+                className={cx(s.backer, {[s.backer__ended]: isEnded})}
                 onClick={() => {
                   dispatch(clearPublicSaleLeaderBoard())
                   if (!isEnded) return;
@@ -367,9 +328,9 @@ const LaunchpadBuyForm = () => {
               </Text>
 
               <Countdown
-                className={cx(s.tValue, s.blink_me)}
+                className={cx(s.tValue, remainHour < 2 ? s.blink_me : '')}
                 expiredTime={dayjs
-                  .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
+                  .utc(launchpadDetail?.end_date, 'YYYY-MM-DD')
                   .toString()}
                 hideIcon={true}
                 onRefreshEnd={() => setIsEnd(true)}

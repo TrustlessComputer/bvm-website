@@ -1,26 +1,15 @@
 import { Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import DropDown from '@/components/DropList';
 import Image from 'next/image';
 import ModalVideo from 'react-modal-video';
-import { useAppSelector } from '@/stores/hooks';
-import { commonSelector } from '@/stores/states/common/selector';
-import { getLaunchpadDetail } from '@/services/launchpad';
-import { useParams } from 'next/navigation';
-import { useSelector } from 'react-redux';
-import { ILaunchpadDetail } from '@/services/interfaces/launchpad';
 import { getYouTubeID } from '@/utils/helpers';
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
 
 const TopContent = () => {
-  const params = useParams();
-
   const [isOpen, setOpen] = useState(false);
-  const publicSaleSummary = useAppSelector(commonSelector).publicSaleSummary;
-  const needReload = useSelector(commonSelector).needReload;
-  const [launchpadDetail, setLaunchpadDetail] = useState<ILaunchpadDetail>();
-
-  const id = params?.id;
+  const {launchpadDetail} = useLaunchpadContext();
 
   const isYoutube = useMemo(() => {
     return (
@@ -36,16 +25,6 @@ const TopContent = () => {
     return '';
   }, [launchpadDetail?.intro?.link]);
 
-  useEffect(() => {
-    if(id) {
-      getLaunchpadInfo(id as unknown as number);
-    }
-  }, [id, needReload]);
-
-  const getLaunchpadInfo = async (id: number) => {
-    const res = await getLaunchpadDetail({id: id});
-    setLaunchpadDetail(res);
-  }
 
   return (
     <div className={s.container}>

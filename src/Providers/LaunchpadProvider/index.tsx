@@ -1,27 +1,49 @@
+'use client';
+
 import { ILaunchpadContext } from '@/Providers/LaunchpadProvider/types';
 import React, { PropsWithChildren, useMemo, useState } from 'react';
 import { IPublicSaleDepositInfo } from '@/interfaces/vc';
+import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
+import { ILaunchpadDetail } from '@/services/interfaces/launchpad';
 
 const initialValue: ILaunchpadContext = {
+  launchpadDetail: undefined,
+  setCurrentLaunchpadDetail:(_:ILaunchpadDetail) => {},
   launchpadSummary: undefined,
-  setCurrentLaunchpadSummary:(_:IPublicSaleDepositInfo) => {}
+  setCurrentLaunchpadSummary:(_:IPublicSaleDepositInfo) => {},
+  userContributeInfo: undefined,
+  setCurrentUserContributeInfo:(_:ILeaderBoardPoint) => {}
 };
 
 export const LaunchpadContext = React.createContext<ILaunchpadContext>(initialValue);
 
 export const LaunchpadProvider: React.FC<PropsWithChildren> = ({children}: PropsWithChildren): React.ReactElement => {
+  const [launchpadDetail, setLaunchpadDetail] = useState<ILaunchpadDetail>();
   const [launchpadSummary, setLaunchpadSummary] = useState<IPublicSaleDepositInfo>();
+  const [userContributeInfo, setUserContributeInfo] = useState<ILeaderBoardPoint>();
+
+  const setCurrentLaunchpadDetail = (detail: ILaunchpadDetail) => {
+    setLaunchpadDetail(detail);
+  }
 
   const setCurrentLaunchpadSummary = (summary: IPublicSaleDepositInfo) => {
     setLaunchpadSummary(summary);
   }
 
+  const setCurrentUserContributeInfo = (contributeInfo: ILeaderBoardPoint) => {
+    setUserContributeInfo(contributeInfo);
+  }
+
   const values: ILaunchpadContext = useMemo(() => {
     return {
+      launchpadDetail,
+      setCurrentLaunchpadDetail,
       launchpadSummary,
-      setCurrentLaunchpadSummary
+      setCurrentLaunchpadSummary,
+      userContributeInfo,
+      setCurrentUserContributeInfo,
     };
-  }, []);
+  }, [launchpadDetail, launchpadSummary, userContributeInfo]);
 
   return (
     <LaunchpadContext.Provider value={values}>
