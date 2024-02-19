@@ -6,7 +6,6 @@ import Image from 'next/image';
 import ModalVideo from 'react-modal-video';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import cx from 'clsx';
 import { getLaunchpadDetail } from '@/services/launchpad';
 import { useParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
@@ -49,7 +48,7 @@ const TopContent = () => {
   }
 
   return (
-    <div className={cx(s.container, 'container')}>
+    <div className={s.container}>
       <div className={s.content}>
         <Flex direction={'column'} gap={3}>
           <Text fontSize={"16px"} fontWeight={400} lineHeight={'24px'} className={s.subTitle}>

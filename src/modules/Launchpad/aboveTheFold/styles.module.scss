@@ -1,0 +1,94 @@
+.container {
+  background-size: cover;
+  background-repeat: no-repeat;
+  gap: 80px;
+  width: 100%;
+
+  :global {
+    --top-spacing: 20px;
+    --item-spacing: 12px;
+  }
+
+  @include w-min(1920px) {
+    min-height: 800px;
+  }
+
+  .content {
+    width: 100%;
+    @include is-mobile {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+
+  .leftSection {
+    background: #1b1b1b;
+    padding-top: 40px;
+    position: relative;
+    @include is-mobile {
+      padding-top: 130px;
+    }
+  }
+
+  .rightSection {
+    @include w-max(768px) {
+      height: unset;
+    }
+
+    @include is-mobile {
+      padding-top: unset;
+      height: unset;
+    }
+  }
+
+  .title {
+    font-size: 68px;
+    font-weight: 400;
+    line-height: 100%;
+    color: #ffffff;
+
+    @include is-mobile {
+      font-size: 32px;
+    }
+  }
+
+  .subTitle {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 100%;
+    color: #ffffff;
+
+    @include w-max(768px) {
+      font-size: 24px;
+    }
+  }
+
+  .hightlight {
+    color: #ff7e21;
+  }
+
+  .desc {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    white-space: pre-wrap;
+
+    @include w-max(768px) {
+      font-size: 16px;
+    }
+  }
+
+  .boardSwitch {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: fit-content;
+    @include is-mobile {
+      width: calc(100% - 32px);
+      right: 16px;
+      top: calc(calc(var(--item-spacing) * 5) + 150px + var(--item-spacing));
+    }
+  }
+}
