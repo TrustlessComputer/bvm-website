@@ -2,6 +2,18 @@
   background-color: black;
   padding-top: 180px;
   padding-bottom: 86px;
+  position: relative;
+
+  video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: .2;
+    filter: blur(5px);
+  }
 }
 
 .topContent {

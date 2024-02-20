@@ -6,10 +6,12 @@ import classNames from 'classnames';
 import IConContent from '@/modules/builder-landing/IconContent';
 import BoxParallaxMouseMove from '@/interactive/MouseMove';
 import { useRouter } from 'next/navigation';
+import { CDN_URL, CDN_URL_VIDEOS } from '@/config';
 
 export default function BuilderHero() {
   const router = useRouter();
   return <div className={s.builderHero}>
+    <video src={CDN_URL_VIDEOS + '/bg-bulder.mp4'} loop muted playsInline autoPlay />
     <div className={`container ${s.builderHero_container}`}>
 
       <div className={s.topContent}>
