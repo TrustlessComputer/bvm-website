@@ -1,6 +1,7 @@
 .categories {
-  padding: 120px 0;
   background-color: #fff;
+  padding-top: var(--builder-padding-size);
+  padding-bottom: var(--builder-padding-size);
 
   &_inner {
     margin-left: auto;
@@ -14,23 +15,39 @@
     max-width: 652px;
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 60px;
+    padding-bottom: 32px;
+
+    @include is-min-table {
+      padding-bottom: 60px;
+    }
   }
 
   &_title {
     width: 100%;
     color: #000;
     font-weight: 500;
-    font-size: 68px;
+    font-size: 34px;
     line-height: 109%;
     text-align: center;
+
+    @include is-min-table {
+      font-size: 48px;
+    }
+    @include is-pc {
+      font-size: 68px;
+      margin-bottom: 48px;
+    }
   }
   &_desc {
     width: 100%;
     text-align: center;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 150%;
     color: #000;
+
+    @include is-min-table {
+      font-size: 18px;
+    }
   }
 
   &_content {

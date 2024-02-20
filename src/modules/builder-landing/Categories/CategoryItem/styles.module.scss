@@ -1,9 +1,13 @@
 .item {
-  padding: 26.5px 0;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 16px 0;
+
+  @include is-min-table {
+    padding: 26.5px 0;
+  }
 
   &__even {
     background-color: #ececec80;
@@ -13,13 +17,19 @@
     background-color: #0000000a;
   }
   &_title {
-    padding-left: 24px;
-    width: 202px;
-    font-size: 18px;
     line-height: 140%;
     color: #000;
     font-weight: 500;
     flex-shrink: 0;
+    font-size: 16px;
+    width: 121px;
+    padding-left: 12px;
+
+    @include is-min-table {
+      font-size: 18px;
+      width: 202px;
+      padding-left: 24px;
+    }
   }
 
   &_details {
@@ -28,11 +38,22 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding-right: 24px;
+    padding-right: 12px;
+    gap: 12px;
+    @include is-min-table {
+      padding-right: 24px;
+      gap: 24px;
+    }
 
     &_desc {
       color: #000;
-      margin-left: 24px;
+      font-size: 12px;
+      padding-left: 12px;
+
+      @include is-min-table {
+        font-size: 14px;
+        padding-left: 24px;
+      }
     }
 
     &_btn {
@@ -43,7 +64,12 @@
       &_text {
         color: #fa4e0e;
         font-weight: 500;
-        font-size: 14px;
+        white-space: nowrap;
+        font-size: 10px;
+
+        @include is-min-table {
+          font-size: 14px;
+        }
       }
     }
   }
