@@ -5,6 +5,7 @@ import React, { PropsWithChildren, useMemo, useState } from 'react';
 import { IPublicSaleDepositInfo } from '@/interfaces/vc';
 import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { ILaunchpadDetail } from '@/services/interfaces/launchpad';
+import uniqueBy from '@popperjs/core/lib/utils/uniqueBy';
 
 const initialValue: ILaunchpadContext = {
   launchpadDetail: undefined,
@@ -13,6 +14,11 @@ const initialValue: ILaunchpadContext = {
   setCurrentLaunchpadSummary:(_:IPublicSaleDepositInfo) => {},
   userContributeInfo: undefined,
   setCurrentUserContributeInfo:(_:ILeaderBoardPoint) => {},
+  launchpadLeaderBoard: [],
+  setCurrentLaunchpadLeaderBoard:(_:ILeaderBoardPoint[]) => {},
+  clearPublicSaleLeaderBoard:() => {},
+  launchpadLeaderBoardVisual: [],
+  setCurrentLaunchpadLeaderBoardVisual:(_:ILeaderBoardPoint[]) => {}
 };
 
 export const LaunchpadContext = React.createContext<ILaunchpadContext>(initialValue);
@@ -21,6 +27,8 @@ export const LaunchpadProvider: React.FC<PropsWithChildren> = ({children}: Props
   const [launchpadDetail, setLaunchpadDetail] = useState<ILaunchpadDetail>();
   const [launchpadSummary, setLaunchpadSummary] = useState<IPublicSaleDepositInfo>();
   const [userContributeInfo, setUserContributeInfo] = useState<ILeaderBoardPoint>();
+  const [launchpadLeaderBoard, setLaunchpadLeaderBoard] = useState<ILeaderBoardPoint[]>([]);
+  const [launchpadLeaderBoardVisual, setLaunchpadLeaderBoardVisual] = useState<ILeaderBoardPoint[]>([]);
 
   const setCurrentLaunchpadDetail = (detail: ILaunchpadDetail) => {
     setLaunchpadDetail(detail);
@@ -34,6 +42,26 @@ export const LaunchpadProvider: React.FC<PropsWithChildren> = ({children}: Props
     setUserContributeInfo(contributeInfo);
   }
 
+  const setCurrentLaunchpadLeaderBoard = (payload: ILeaderBoardPoint[]) => {
+    const res = uniqueBy(
+      [...launchpadLeaderBoard, ...payload],
+      (item) => item.twitter_id,
+    )
+    setLaunchpadLeaderBoard(res);
+  }
+
+  const clearPublicSaleLeaderBoard = () => {
+    setLaunchpadLeaderBoard([]);
+  }
+
+  const setCurrentLaunchpadLeaderBoardVisual = (payload: ILeaderBoardPoint[]) => {
+    const res = uniqueBy(
+      [...payload],
+      (item) => item.twitter_id,
+    );
+    setLaunchpadLeaderBoardVisual(res);
+  }
+
   const values: ILaunchpadContext = useMemo(() => {
     return {
       launchpadDetail,
@@ -42,8 +70,19 @@ export const LaunchpadProvider: React.FC<PropsWithChildren> = ({children}: Props
       setCurrentLaunchpadSummary,
       userContributeInfo,
       setCurrentUserContributeInfo,
+      launchpadLeaderBoard,
+      setCurrentLaunchpadLeaderBoard,
+      clearPublicSaleLeaderBoard,
+      launchpadLeaderBoardVisual,
+      setCurrentLaunchpadLeaderBoardVisual,
     };
-  }, [launchpadDetail, launchpadSummary, userContributeInfo]);
+  }, [
+    launchpadDetail,
+    launchpadSummary,
+    userContributeInfo,
+    launchpadLeaderBoard,
+    launchpadLeaderBoardVisual
+  ]);
 
   return (
     <LaunchpadContext.Provider value={values}>

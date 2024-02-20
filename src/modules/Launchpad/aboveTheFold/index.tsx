@@ -2,7 +2,7 @@ import s from './styles.module.scss';
 import { Flex, SimpleGrid } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import useAnimationStore from '@/stores/useAnimationStore';
-import LeaderBoardVisual from '@/modules/PublicSale/leaderBoardVisual';
+import LeaderBoardVisual from '@/modules/Launchpad/leaderBoardVisual';
 import LaunchpadBuyForm from '@/modules/Launchpad/BuyForm';
 
 const AboveTheFold = () => {

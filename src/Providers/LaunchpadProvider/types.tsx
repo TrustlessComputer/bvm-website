@@ -9,4 +9,9 @@ export interface ILaunchpadContext {
   setCurrentLaunchpadSummary:(_:IPublicSaleDepositInfo) => void;
   userContributeInfo: ILeaderBoardPoint | undefined;
   setCurrentUserContributeInfo:(_:ILeaderBoardPoint) => void;
+  launchpadLeaderBoard: ILeaderBoardPoint[];
+  setCurrentLaunchpadLeaderBoard:(_:ILeaderBoardPoint[]) => void;
+  clearPublicSaleLeaderBoard:() => void;
+  launchpadLeaderBoardVisual: ILeaderBoardPoint[];
+  setCurrentLaunchpadLeaderBoardVisual:(_:ILeaderBoardPoint[]) => void;
 }
