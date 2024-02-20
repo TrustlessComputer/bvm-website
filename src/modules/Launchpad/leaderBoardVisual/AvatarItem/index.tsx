@@ -6,8 +6,6 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency, formatName2 } from '@/utils/format';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import { gsap } from 'gsap';
-import { useAppSelector } from '@/stores/hooks';
-import { commonSelector } from '@/stores/states/common/selector';
 import { proxy } from 'valtio';
 import cx from 'clsx';
 import { ethers } from 'ethers';
@@ -34,16 +32,12 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
   const lottieRef = useRef<any>();
   const [error, setError] = useState<boolean>(false);
   const refMoney = proxy<{ value: number }>({ value: Number(data?.usdt_value) || 0 });
-  // const refMoney = useRef<{ value: number }>({ value: Number(data?.usdt_value) || 0 });
   const refInertMoney = useRef<HTMLParagraphElement>(null);
   const [isLoopDone, setIsLoopDone] = useState(true);
-  const refTime = useRef<NodeJS.Timeout>();
-  const needCheckDeposit = useAppSelector(commonSelector).needCheckDeposit;
-  const animatedLatestContributors = useAppSelector(commonSelector).animatedLatestContributors;
 
   const newTotalMoney = useMemo((): number => {
-    if (needCheckDeposit) {
-      const add = animatedLatestContributors?.find(c => c.twitter_id === data?.twitter_id);
+    if (latestContributors?.length > 0) {
+      const add = latestContributors?.find(c => c.twitter_id === data?.twitter_id);
 
       if (add) {
         return refMoney.value + Number(add.usdt_value);
@@ -53,7 +47,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
     } else {
       return refMoney.value;
     }
-  }, [needCheckDeposit, JSON.stringify(latestContributors), data]);
+  }, [JSON.stringify(latestContributors), data]);
 
   useEffect(() => {
 

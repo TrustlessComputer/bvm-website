@@ -8,10 +8,10 @@ import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { userSelector } from '@/stores/states/user/selector';
 import { getPublicSaleContributionLatest, getPublicSaleLeaderBoards, getPublicSaleTop } from '@/services/public-sale';
-import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
+import AvatarItem from '@/modules/Launchpad/leaderBoardVisual/AvatarItem';
 import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
 import { LEADER_BOARD_MODE } from '@/modules/PublicSale/leaderBoardSwitch';
-import { requestReload, setAnimatedLatestContributors, setNeedCheckDeposit } from '@/stores/states/common/reducer';
+import { requestReload } from '@/stores/states/common/reducer';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import useWindowSize from '@/hooks/useWindowSize';
 import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
@@ -30,7 +30,7 @@ const LeaderBoardVisual = (props: IProps) => {
   const animatedLatestContributors = useRef<ILeaderBoardPoint[]>([]);
   const user = useAppSelector(userSelector);
   const refInterval = useRef<any>();
-  const needCheckDeposit = useAppSelector(commonSelector).needCheckDeposit;
+  const [needCheckDeposit, setNeedCheckDeposit] = useState(false);
   const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
   const { mobileScreen } = useWindowSize();
   const TOTALs = 31;
@@ -44,14 +44,14 @@ const LeaderBoardVisual = (props: IProps) => {
   const refInitial = useRef(false);
 
   useEffect(() => {
-    dispatch(setNeedCheckDeposit(false));
+    setNeedCheckDeposit(false);
     fetchLatestData();
     const interval = setInterval(() => {
       fetchLatestData();
     }, 10000);
 
     setTimeout(() => {
-      dispatch(setNeedCheckDeposit(true));
+      setNeedCheckDeposit(true);
     }, 12000);
 
     return () => {
@@ -132,7 +132,6 @@ const LeaderBoardVisual = (props: IProps) => {
       dispatch(requestReload());
     }
     animatedLatestContributors.current = newRes || [];
-    dispatch(setAnimatedLatestContributors(newRes || []));
   };
 
   useEffect(() => {
@@ -184,8 +183,14 @@ const LeaderBoardVisual = (props: IProps) => {
         {
           listRender.map((item, index) => {
             return <>
-              <AvatarItem data={item} idx={index} isShowName={index < 4}
-                          isYou={user?.twitter_id === item?.twitter_id} key={item?.twitter_id || item?.twitter_username}/>
+              <AvatarItem
+                data={item}
+                idx={index}
+                isShowName={index < 4}
+                isYou={user?.twitter_id === item?.twitter_id}
+                key={item?.twitter_id || item?.twitter_username}
+                latestContributors={needCheckDeposit ? animatedLatestContributors?.current : []}
+              />
               {
                 item?.lastRender &&
                 <span className={`${styles.lastRender} ${styles[`lastRender__${item?.levelRender}`]}`}></span>
