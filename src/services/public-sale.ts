@@ -324,23 +324,34 @@ export const getActivitiesReport = async (): Promise<
   NumberReport | undefined
 > => {
   try {
-    const [modular, alphaRun, nakaVolume, gameReport] =
+    const [modular, alphaRun, nakaVolume, gameReport, aiReport] =
       (await Promise.allSettled([
         apiReport.get(
           'https://generative.xyz/generative/api/modular-workshop/statistic',
         ),
         apiReport.get(
-          'https://stag-perp-api.fprotocol.io/api/run-together/statistics',
+          'https://perp-api.fprotocol.io/api/run-together/statistics',
         ),
         apiReport.get('https://api.bvm.network/api/future/report'),
         apiReport.get('https://game-state.bitcoinarcade.xyz/api/network-stats'),
+        apiReport.get('https://api-dojo.dev.eternalai.org/api/dojo/list-onchain?limit=1000&offset=0'),
       ])) as any[];
+
+    const initialValue = 0;
+    const totalChallenge = aiReport?.value?.reduce(
+      (accumulator: number, currentValue: any) => accumulator + currentValue?.predict_number,
+      initialValue,
+    );
 
     return {
       modular: modular?.value,
       alphaRun: alphaRun?.value,
       nakaVolume: nakaVolume?.value,
       gameReport: gameReport?.value,
+      aiReport: {
+        total_model: aiReport?.value?.length || 0,
+        total_challenge: totalChallenge,
+      },
     };
   } catch (error) {
     return undefined;
