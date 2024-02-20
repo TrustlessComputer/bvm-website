@@ -1,6 +1,7 @@
 .categories {
-  padding: var(--builder-padding-size) 0;
   background-color: #fff;
+  padding-top: var(--builder-padding-size);
+  padding-bottom: var(--builder-padding-size);
 
   &_inner {
     margin-left: auto;
@@ -17,11 +18,9 @@
     margin-right: auto;
     padding-bottom: 34px;
 
-
-    @include is-min-table{
-     padding-bottom: 60px;
-
-   }
+    @include is-min-table {
+      padding-bottom: 60px;
+    }
   }
 
   &_title {
@@ -32,11 +31,11 @@
     line-height: 109%;
     text-align: center;
 
-    @include is-min-table{
+    @include is-min-table {
       font-size: 48px;
     }
 
-    @include is-pc{
+    @include is-pc {
       font-size: 68px;
     }
   }
@@ -48,11 +47,10 @@
     line-height: 150%;
     color: #000;
 
-
-    @include is-min-table{
+    @include is-min-table {
       font-size: 16px;
     }
-    @include is-pc{
+    @include is-pc {
       font-size: 18px;
     }
   }
