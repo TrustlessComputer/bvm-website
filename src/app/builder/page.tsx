@@ -1,12 +1,12 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
-import Landing from '@/modules/landing';
+import BuilderLading from '@/modules/builder-landing';
 
-export default function Home() {
+export default function Builder() {
   return (
     <MainLayout>
-      <Landing />
+      <BuilderLading />
     </MainLayout>
   );
 }
