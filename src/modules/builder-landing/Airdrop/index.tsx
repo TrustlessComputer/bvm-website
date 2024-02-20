@@ -25,7 +25,7 @@ const Airdrop = (): React.JSX.Element => {
             Launch your Bitcoin L2 on BVM by May 21st with positive TVL, and share 1,000,000 $BVM in rewards!
           </Fade>
           <Fade from={{ y: 10 }} to={{ y: 0 }} delay={.2} className={`${s.desc} ${s.desc__right}`}>
-            Launch your Bitcoin L2 on BVM by May 21st with positive TVL, and share 1,000,000 $BVM in rewards!
+            1M $BVM will be distributed proportionally among all projects based on their TVL.
           </Fade>
         </div>
         <Fade>
