@@ -81,14 +81,14 @@ export default function BuilderHero() {
           </Fade>
         </li>
         <li className={s.exItem}>
-          <Fade delay={1.4}>
+          <Fade delay={1}>
             <IConContent icon={'builder/bitcoin-icons_node-1-connection-outline.svg'}>
               CONNECT WITH INVESTORS
             </IConContent>
           </Fade>
         </li>
         <li className={s.exItem}>
-          <Fade delay={1.6}>
+          <Fade delay={1.3}>
             <IConContent icon={'builder/mingcute_usd-coin-usdc-line.svg'}>
               EARN THE BVM AIRDROP
             </IConContent>

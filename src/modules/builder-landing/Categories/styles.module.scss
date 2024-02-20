@@ -8,6 +8,7 @@
     margin-right: auto;
     max-width: 881px;
   }
+
   &_heading {
     display: flex;
     flex-direction: column;
@@ -15,7 +16,7 @@
     max-width: 652px;
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 32px;
+    padding-bottom: 34px;
 
     @include is-min-table {
       padding-bottom: 60px;
@@ -33,11 +34,12 @@
     @include is-min-table {
       font-size: 48px;
     }
+
     @include is-pc {
       font-size: 68px;
-      margin-bottom: 48px;
     }
   }
+
   &_desc {
     width: 100%;
     text-align: center;
@@ -46,6 +48,9 @@
     color: #000;
 
     @include is-min-table {
+      font-size: 16px;
+    }
+    @include is-pc {
       font-size: 18px;
     }
   }

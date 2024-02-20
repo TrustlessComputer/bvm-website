@@ -2,27 +2,34 @@ import React from 'react';
 import cn from 'classnames';
 import s from './styles.module.scss';
 import CategoryItem from './CategoryItem';
+import Chars from '@/interactive/Chars';
+import Lines from '@/interactive/Lines';
+import Fade from '@/interactive/Fade';
 
 const DATA_CATEGORIES = [
   {
     leftTitle: 'Gamefi',
     midTitle: 'Blockchain for Gaming.',
     rightTitle: 'Bitcoin Arcade',
+    link: 'https://play.bitcoinarcade.xyz/'
   },
   {
     leftTitle: 'DeFi',
     midTitle: 'Blockchain for Spot Dexs or Perpetual Dexs.',
     rightTitle: 'Naka Chain',
+    link: 'https://nakachain.xyz/perpetual'
   },
   {
     leftTitle: 'AI',
     midTitle: 'Blockchain for on-chain AI.',
     rightTitle: 'Eternal AI',
+    link: 'https://eternalai.org/'
   },
   {
     leftTitle: 'SocialFi',
     midTitle: 'Blockchain for social products.',
     rightTitle: 'Alpha',
+    link: 'https://alpha.wtf/'
   },
   {
     leftTitle: 'Lending protocols',
@@ -49,20 +56,28 @@ const DATA_CATEGORIES = [
 
 export default function Categories() {
   return (
-    <div className={cn(s.categories, 'container')}>
+    <div className={cn(s.categories)}>
+      <div className={'container'}>
       <div className={s.categories_inner}>
         <div className={s.categories_heading}>
-          <h3 className={s.categories_title}>Categories</h3>
-          <p className={s.categories_desc}>
-            BVM empowers you to build any Bitcoin Layer 2 across diverse
-            categories. Explore featured categories below for inspiration.
-          </p>
+          <h3 className={s.categories_title}>
+            <Chars>
+              Categories
+            </Chars>
+          </h3>
+          <div className={s.categories_desc}>
+           <Lines>
+             BVM empowers you to build any Bitcoin Layer 2 across diverse
+             categories. Explore featured categories below for inspiration.
+           </Lines>
+          </div>
         </div>
-        <div className={s.categories_content}>
+        <Fade className={s.categories_content}>
           {DATA_CATEGORIES.map((item, index) => {
             return <CategoryItem data={item} index={index} key={index} />;
           })}
-        </div>
+        </Fade>
+      </div>
       </div>
     </div>
   );

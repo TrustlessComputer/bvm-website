@@ -8,6 +8,19 @@
   @include is-min-table {
     padding: 26.5px 0;
   }
+  &.link {
+    cursor: pointer;
+
+    &:hover {
+      .item_details_btn_text {
+        color: black;
+      }
+
+      svg rect {
+        fill: black;
+      }
+    }
+  }
 
   &__even {
     background-color: #ececec80;
@@ -16,6 +29,7 @@
   &__odd {
     background-color: #0000000a;
   }
+
   &_title {
     line-height: 140%;
     color: #000;
@@ -61,15 +75,23 @@
       flex-direction: row;
       align-items: center;
       gap: 8px;
+
       &_text {
         color: #fa4e0e;
         font-weight: 500;
+
+        transition: color 0.4s var(--easeOutQuart);
+
         white-space: nowrap;
         font-size: 10px;
 
         @include is-min-table {
           font-size: 14px;
         }
+      }
+
+      rect {
+        transition: fill 0.4s var(--easeOutQuart);
       }
     }
   }
