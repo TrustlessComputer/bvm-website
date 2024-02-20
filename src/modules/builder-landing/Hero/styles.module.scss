@@ -11,7 +11,7 @@
   max-width: calc(956px + 120px);
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 120px;
+  margin-bottom: var(--builder-padding-size);
 }
 
 .heading {
@@ -74,15 +74,23 @@
   list-style: none;
   padding-left: 0;
   gap: 24px;
-  @include is-min-table{
+  @include is-min-table {
     gap: 48px;
   }
 }
 
 .exItem {
-  flex: 1;
+
   max-width: 359px;
   text-align: center;
+
+  flex: 0 0 100%;
+  @include is-min-table {
+    flex: 0 0 50%;
+  }
+  @include is-pc {
+    flex: 1;
+  }
 }
 
 .actions {
@@ -117,6 +125,7 @@
   &:nth-child(1) {
     left: calc(var(--size) * -2);
     top: 0;
+
     img {
       width: calc(var(--size) * .8);
     }
@@ -135,6 +144,7 @@
   &:nth-child(4) {
     right: calc(var(--size) * -1);
     bottom: 0;
+
     img {
       width: calc(var(--size) / 2);
     }

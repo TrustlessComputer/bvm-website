@@ -44,12 +44,12 @@ export default function Started() {
           </li>
         </ul>
 
-        <Fade>
-          <div className={s.lbContent}>
-            BVM allows Ethereum developers to migrate their Solidity smart contracts and dApps from Ethereum to Bitcoin
-            with minimal or no modifications.
-          </div>
-        </Fade>
+        {/*<Fade>*/}
+        {/*  <div className={s.lbContent}>*/}
+        {/*    BVM allows Ethereum developers to migrate their Solidity smart contracts and dApps from Ethereum to Bitcoin*/}
+        {/*    with minimal or no modifications.*/}
+        {/*  </div>*/}
+        {/*</Fade>*/}
       </div>
 
     </div>
