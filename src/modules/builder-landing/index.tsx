@@ -3,6 +3,7 @@ import BuilderHero from '@/modules/builder-landing/Hero';
 import Loader from '@/modules/builder-landing/Loader';
 import Started from '@/modules/builder-landing/Started';
 import BuilderVideo from '@/modules/builder-landing/VideoSection';
+import Footer from '@/modules/builder-landing/Footer';
 
 export default function BuilderLading(){
 
@@ -12,5 +13,6 @@ export default function BuilderLading(){
     <BuilderHero />
     <BuilderVideo />
     <Started />
+    <Footer />
   </div>
 }
