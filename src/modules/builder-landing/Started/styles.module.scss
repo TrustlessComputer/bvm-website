@@ -1,10 +1,10 @@
 .started {
   background-color: black;
   padding-top: 120px;
-  padding-bottom: 120px;
+  padding-bottom: 40px;
 }
 
-.wrapHeading{
+.wrapHeading {
   display: flex;
   justify-content: center;
 }
@@ -40,7 +40,7 @@
   list-style: none;
   padding-left: 0;
   gap: 24px;
-  @include is-min-table{
+  @include is-min-table {
     gap: 48px;
   }
 }
@@ -49,6 +49,16 @@
   flex: 1;
   max-width: 359px;
   text-align: center;
+
+  &:nth-child(1) {
+    :global {
+      .content {
+        max-width: 205px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
 }
 
 .listIcons {
@@ -76,7 +86,7 @@
   font-size: 14px;
   padding: 8px;
 
-  @include is-min-table{
+  @include is-min-table {
     font-size: 16px;
     padding: 16px;
   }
