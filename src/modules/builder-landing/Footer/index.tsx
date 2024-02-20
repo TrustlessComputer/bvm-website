@@ -39,7 +39,7 @@ const Footer = (): React.JSX.Element => {
             Ready to launch the next big Bitcoin L2?
           </Chars>
         </h2>
-        <Fade>
+        <Fade className={s.btn}>
           <Button
             bgColor={'#EF601B'}
             color={'#fff'}

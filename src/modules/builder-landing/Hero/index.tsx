@@ -13,7 +13,6 @@ export default function BuilderHero() {
   return <div className={s.builderHero}>
     <video src={CDN_URL_VIDEOS + '/bg-bulder.mp4'} loop muted playsInline autoPlay />
     <div className={`container ${s.builderHero_container}`}>
-
       <div className={s.topContent}>
         <ul className={s.listIcons}>
           <li className={s.icon}>
