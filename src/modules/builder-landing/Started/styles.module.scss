@@ -1,6 +1,6 @@
 .started {
   background-color: black;
-  padding-top: 120px;
+  padding-top: var(--builder-padding-size);
   padding-bottom: 40px;
 }
 
@@ -46,9 +46,18 @@
 }
 
 .exItem {
-  flex: 1;
+
   max-width: 359px;
   text-align: center;
+  flex: 0 0 100%;
+
+  @include is-min-table{
+    flex: 0 0 50%;
+  }
+
+  @include is-pc{
+    flex: 1;
+  }
 
   &:nth-child(1) {
     :global {
