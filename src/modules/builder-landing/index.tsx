@@ -3,11 +3,8 @@ import BuilderHero from '@/modules/builder-landing/Hero';
 import Loader from '@/modules/builder-landing/Loader';
 import Started from '@/modules/builder-landing/Started';
 import BuilderVideo from '@/modules/builder-landing/VideoSection';
-<<<<<<< HEAD
 import Footer from '@/modules/builder-landing/Footer';
-=======
 import Airdrop from '@/modules/builder-landing/Airdrop';
->>>>>>> origin/sett/builder-page
 
 export default function BuilderLading() {
 
@@ -18,10 +15,6 @@ export default function BuilderLading() {
     <BuilderVideo />
     <Airdrop />
     <Started />
-<<<<<<< HEAD
     <Footer />
-  </div>
-=======
   </div>;
->>>>>>> origin/sett/builder-page
 }
