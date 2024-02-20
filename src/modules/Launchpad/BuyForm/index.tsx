@@ -19,8 +19,6 @@ import { IPublicSaleDepositInfo } from '@/interfaces/vc';
 import { formatCurrency } from '@/utils/format';
 import dayjs from 'dayjs';
 import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
-import DepositModal from '@/modules/PublicSale/depositModal';
-import ContributorsModal from '@/modules/PublicSale/contributorModal';
 import { MIN_DECIMAL } from '@/constants/constants';
 import cx from 'classnames';
 import AuthenStorage from '@/utils/storage/authen.storage';
@@ -39,6 +37,7 @@ import ContributorInfo from '../components/contributorInfo';
 import { ILaunchpadDetail } from '@/services/interfaces/launchpad';
 import AuthForBuy from '@/modules/Launchpad/AuthForBuy';
 import AuthForBuyV2 from '@/modules/Launchpad/AuthForBuyV2';
+import ContributorsModal from '../contributorModal';
 
 interface FormValues {
   tokenAmount: string;

@@ -1,0 +1,223 @@
+.container {
+  width: 100%;
+}
+
+.wrapScroll {
+  overflow-x: auto;
+}
+
+table {
+  &.tableContainer {
+    thead {
+      tr {
+        th {
+          padding-bottom: 16px !important;
+        }
+      }
+    }
+
+    thead,
+    tbody {
+      tr {
+        th,
+        td {
+          padding-right: 18px !important;
+          &:nth-child(1) {
+            width: 55px !important;
+          }
+          &:nth-child(3) {
+            min-width: 110px !important;
+          }
+        }
+      }
+    }
+
+    .title {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 120%;
+      color: #ffffff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+
+    .bvm_amount {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 120%;
+      color: #fa4e0e;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 85px;
+    }
+
+    .bvm_percent {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 120%;
+      color: #ffffff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 85px;
+    }
+
+    .button {
+      display: flex;
+      width: 48px !important;
+      height: 24px;
+      padding: 12px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border-radius: 4px;
+      background: #fa4e0e;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%;
+      margin-left: 4px;
+    }
+
+    .subTitle {
+      font-size: 14px;
+    }
+
+    .desc {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 120%;
+      color: var(--chakra-colors-blue-600);
+    }
+
+    .tagBoost {
+      padding: 6px 8px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(
+        90deg,
+        rgba(0, 245, 160, 0.15) 0%,
+        rgba(0, 217, 245, 0.15) 100%
+      );
+      &.isActiveRowContent {
+        background: linear-gradient(
+          90deg,
+          rgba(0, 245, 160, 0.15) 0%,
+          rgba(0, 217, 245, 0.15) 100%
+        );
+        p {
+          color: #008456 !important;
+          background: transparent !important;
+          -webkit-background-clip: unset !important;
+          -webkit-text-fill-color: unset !important;
+        }
+      }
+
+      p {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 120%;
+        /* or 18px */
+        text-align: center;
+
+        background: linear-gradient(90deg, #00f5a0 0%, #00d9f5 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      &.boostNormal {
+        svg {
+          g {
+            path {
+              fill: white;
+            }
+          }
+        }
+      }
+    }
+
+    :global {
+      tbody {
+        tr {
+          height: 62px;
+        }
+      }
+
+      .isActiveRow {
+        background-color: #ffffff !important;
+        p {
+          color: #000000 !important;;
+        }
+
+        td:last-child {
+          > div {
+            svg {
+              g {
+                path {
+                  fill: black !important;
+                }
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+
+.loading {
+  margin-top: 16px;
+}
+
+.multiplier {
+  background: black;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  color: white;
+
+  &.boost_30 {
+    background: linear-gradient(90deg, #007659 0%, #35cca6 100%);
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &.boost_20 {
+    background: linear-gradient(90deg, #ffd73b 0%, #a05700 100%);
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &.isActiveRow {
+    background: linear-gradient(90deg, #007659 0%, #35cca6 100%);
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.boost {
+  color: white !important;
+  padding-bottom: .05em;
+}
