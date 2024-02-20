@@ -1,0 +1,39 @@
+.categories {
+  padding: 120px 0;
+  background-color: #fff;
+
+  &_inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 881px;
+  }
+  &_heading {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 652px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 60px;
+  }
+
+  &_title {
+    width: 100%;
+    color: #000;
+    font-weight: 500;
+    font-size: 68px;
+    line-height: 109%;
+    text-align: center;
+  }
+  &_desc {
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    line-height: 150%;
+    color: #000;
+  }
+
+  &_content {
+    background-color: #f6f6f6;
+  }
+}

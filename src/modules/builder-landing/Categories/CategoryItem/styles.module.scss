@@ -1,0 +1,50 @@
+.item {
+  padding: 26.5px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &__even {
+    background-color: #ececec80;
+  }
+
+  &__odd {
+    background-color: #0000000a;
+  }
+  &_title {
+    padding-left: 24px;
+    width: 202px;
+    font-size: 18px;
+    line-height: 140%;
+    color: #000;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  &_details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 24px;
+
+    &_desc {
+      color: #000;
+      margin-left: 24px;
+    }
+
+    &_btn {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      &_text {
+        color: #fa4e0e;
+        font-weight: 500;
+        font-size: 14px;
+      }
+    }
+  }
+}
