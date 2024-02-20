@@ -1,0 +1,165 @@
+.builderHero {
+  background-color: black;
+  padding-top: 180px;
+  padding-bottom: 86px;
+}
+
+.topContent {
+  position: relative;
+  text-align: center;
+  color: white;
+  max-width: calc(956px + 120px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 120px;
+}
+
+.heading {
+
+  font-weight: 500;
+  line-height: (75/68);
+  text-align: center;
+  font-size: 34px;
+  margin-bottom: 12px;
+
+  @include is-min-table {
+    font-size: 48px;
+
+  }
+  @include is-pc {
+    font-size: 68px;
+    margin-bottom: 20px;
+  }
+
+}
+
+.label {
+  font-weight: 500;
+  line-height: (36/16);
+  text-transform: uppercase;
+
+  background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+
+  @include is-min-table {
+    font-size: 16px;
+  }
+}
+
+.desc {
+  font-weight: 400;
+  line-height: (36/22);
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 16px;
+
+  @include is-min-table {
+    font-size: 18px;
+  }
+  @include is-pc {
+    margin-bottom: 32px;
+    font-size: 22px;
+  }
+}
+
+.extends {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding-left: 0;
+  gap: 48px;
+}
+
+.exItem {
+  flex: 1;
+  max-width: 359px;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.listIcons {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  padding-left: 0;
+}
+
+.icon {
+  position: absolute;
+  --size: 72px;
+
+  img {
+    width: var(--size);
+    object-fit: contain;
+    height: auto;
+  }
+
+  &:nth-child(1) {
+    left: calc(var(--size) * -2);
+    top: 0;
+    img {
+      width: calc(var(--size) * .8);
+    }
+  }
+
+  &:nth-child(2) {
+    right: calc(var(--size) * -2);
+    top: 0;
+  }
+
+  &:nth-child(3) {
+    left: calc(var(--size) * -1);
+    bottom: 70px;
+  }
+
+  &:nth-child(4) {
+    right: calc(var(--size) * -1);
+    bottom: 0;
+    img {
+      width: calc(var(--size) / 2);
+    }
+  }
+}
+
+
+.btn {
+  height: 48px;
+  min-width: 175px;
+  padding-left: 18px;
+  padding-right: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color .4s var(--easeOutQuart);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0.01em;
+  text-align: center;
+
+  &__red {
+
+    background: #FA4E0E;
+    color: white;
+
+    &:hover {
+      background: #e64e0e;
+    }
+  }
+}

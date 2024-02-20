@@ -13,7 +13,6 @@ export default function Fade({ children, delay, from, to }: IProps) {
   const refContent = useRef<HTMLDivElement>(null);
 
   const initAnimation = useCallback((): void => {
-    console.log('____Dsds', {...{ opacity: 0 },...from})
     refContent.current && gsap.set(refContent.current, {...{ opacity: 0 },...from});
   }, []);
 
