@@ -16,6 +16,7 @@ import { FormikProps, useFormik } from 'formik';
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import {
+  getBlockReward,
   getPublicSaleLeaderBoards,
   getPublicSaleSummary,
   postPublicsaleWalletInfoManualCheck,
@@ -46,6 +47,7 @@ import { setPublicSaleSummary, setUserContributeInfo } from '@/stores/states/com
 import { checkIsEndPublicSale } from '@/modules/Whitelist/utils';
 import cs from 'classnames';
 import BigNumber from 'bignumber.js';
+import { clearPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
 
 interface FormValues {
   tokenAmount: string;
@@ -85,6 +87,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   const isEnded = checkIsEndPublicSale();
 
+  const [blockReward, setBlockReward] = React.useState(undefined)
+
   const [isCreating, setIsCreating] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
   const publicSaleSummary = useAppSelector(commonSelector).publicSaleSummary as IPublicSaleDepositInfo;
@@ -111,9 +115,11 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
   useEffect(() => {
     getContributeInfo();
+    getBlockRewardInfo();
 
     timeIntervalSummary.current = setInterval(() => {
       getContributeInfo();
+      getBlockRewardInfo();
     }, 10000);
 
     if (token) {
@@ -131,6 +137,11 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
 
     return "0";
   }, [publicSaleSummary?.total_usdt_value_not_boost]);
+
+  const getBlockRewardInfo = async () => {
+    const data = await getBlockReward();
+    setBlockReward(data)
+  }
 
   const getContributeInfo = async () => {
     const res = await getPublicSaleSummary();
@@ -192,7 +203,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
   const ContributorBlock = forwardRef((props: any, ref: any) => {
     const { className, ...rest } = props;
     return (
-      <div>
+      <Box onMouseEnter={onOpen}>
         <div
           className={s.tValue}
           gap={'5px'}
@@ -275,8 +286,8 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 <Text
                   fontSize={'14'}
                   fontWeight={'500'}
-                  className={s.boost}
                   color={'#000'}
+                  className={s.boost}
                 >
                   {token
                     ? `+${formatCurrency(
@@ -293,7 +304,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
             }
           </Flex>
         </div>
-      </div>
+      </Box>
     );
   });
 
@@ -340,6 +351,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               <div
                 className={cs(s.backer, {[s.backer__ended]: isEnded})}
                 onClick={() => {
+                  dispatch(clearPublicSaleLeaderBoard())
                   if (!isEnded) return;
                   setShowContributorModal(true)
                 }}
@@ -385,12 +397,13 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </Text>
 
               <Countdown
-                className={s.tValue}
+                className={cx(s.tValue, s.blink_me)}
                 expiredTime={dayjs
                   .utc(PUBLIC_SALE_END, 'YYYY-MM-DD')
                   .toString()}
                 hideIcon={true}
                 onRefreshEnd={() => setIsEnd(true)}
+                hideZeroHour={true}
               />
 
               {/*{remainDay === 0 ? (*/}
@@ -418,7 +431,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               {/*  </div>*/}
               {/*)}*/}
             </div>
-            <div className={s.grid_item}>
+            {/*<div className={s.grid_item}>
               <Tooltip
                 minW="220px"
                 bg="#007659"
@@ -466,7 +479,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                 ${formatCurrency(currentFDV, 0, 0, 'BTC', false)}
               </Text>
 
-            </div>
+            </div>*/}
             <div className={s.grid_item}>
               {
                 token ? (
@@ -490,7 +503,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
                         <PopoverArrow opacity={0}/>
                         <PopoverCloseButton color='black' />
                         <Box height="24px"/>
-                        <ContributorInfo data={userContributeInfo} />
+                        <ContributorInfo data={userContributeInfo} blockReward={blockReward} />
                       </FocusLock>
                     </PopoverContent>
                   </Popover>
@@ -518,8 +531,7 @@ const PrivateSaleForm = ({ vcInfo }: { vcInfo?: VCInfo }) => {
               </AuthForBuyV2>
               <Box className={s.endBanner}>
                 <p className={s.endBanner_endMessage}>
-                  The TGE will around March, at the same time as BVM exchange listings.
-                </p>
+                  Thank you for your contribution! You will be able to claim your $BVM allocation at TGE in March 2024. Stay tuned for more updates. Together we build the future of Bitcoin!                </p>
               </Box>
             </Flex>
           ) : (

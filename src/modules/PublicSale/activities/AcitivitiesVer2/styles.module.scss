@@ -44,9 +44,26 @@
     }
     &_content {
       padding: 12px 12px 12px 34px;
+      position: relative;
+
+      .aiPrizeIcon {
+        position: absolute;
+        left: 235px;
+        top: 17px;
+      }
     }
     &_media {
       padding: 0px 12px;
+    }
+    &.special {
+      background: linear-gradient(90deg, rgba(0, 245, 160, 0.5) 0%, rgba(0, 217, 245, 0.5) 100%),
+      linear-gradient(0deg, rgba(250, 78, 14, 0.3), rgba(250, 78, 14, 0.3));
+
+      .container_item_content {
+        a {
+          color: #FFA888 !important;
+        }
+      }
     }
   }
 }

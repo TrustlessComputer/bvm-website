@@ -8,15 +8,23 @@
     padding-bottom: 0;
   }
 
-  .inner{
+  &:not(.heroLabel__mobile) {
+    display: none;
+    @include is-pc {
+      display: block;
+    }
+  }
+
+  .inner {
     display: flex;
     gap: 12px;
-    @include is-min-table{
-      justify-content: space-between;
-      align-items: center;
+    flex-direction: column;
+    @include is-min-table {
+      //justify-content: space-between;
+      //align-items: center;
     }
 
-    @include is-mobile{
+    @include is-mobile {
       flex-direction: column;
     }
   }
@@ -31,6 +39,7 @@
     @include is-mobile {
       flex-direction: column;
       justify-content: center;
+      text-align: center;
       gap: 8px;
     }
 
@@ -41,8 +50,8 @@
     }
 
     &_text {
-      font-size: 20px;
-      line-height: 36px;
+      font-size: 16px;
+      line-height: 140%;
       font-weight: 400;
       color: #fff;
 
@@ -62,8 +71,22 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 4px;
+    justify-content: center;
+
+    @include is-pc {
+      justify-content: flex-start;
+    }
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
     @include is-mobile {
-      justify-content: center;
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 20px;
     }
   }
 }

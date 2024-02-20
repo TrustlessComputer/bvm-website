@@ -29,11 +29,10 @@
     display: none;
 
     @include is-pc {
-      bottom: 210px;
+      bottom: 240px;
       display: block;
     }
   }
-
 }
 
 .hero_wrap__mobile {

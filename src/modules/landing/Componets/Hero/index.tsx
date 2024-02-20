@@ -2,7 +2,10 @@ import s from './styles.module.scss';
 import Intro from '@/modules/landing/Componets/Intro';
 import BgHero from '@/modules/landing/Componets/Hero/Bg';
 import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
-import JoinAllowList from './JoinAllowList';
+import HeroContent from '@/modules/landing/Componets/Hero/Content';
+import JoinAllowList from '@/modules/landing/Componets/Hero/JoinAllowList';
+import React from 'react';
+import JoinAllowListHero from '@/modules/landing/Componets/Hero/JoinAllowListHero';
 
 export default function Hero() {
   return (
@@ -11,9 +14,9 @@ export default function Hero() {
       <div className={s.hero}>
         <div className={s.hero_wrap}>
           <BgHero />
-
         </div>
-        <JoinAllowList />
+        <HeroContent />
+        <JoinAllowListHero />
         <Intro />
       </div>
       <div className={s.hero_wrap__mobile}>

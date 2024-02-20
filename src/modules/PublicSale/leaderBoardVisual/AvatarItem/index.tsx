@@ -10,6 +10,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import { proxy } from 'valtio';
 import cx from 'clsx';
+import { ethers } from 'ethers';
 
 interface IProps {
   data: ILeaderBoardPoint,
@@ -100,7 +101,7 @@ const AvatarItem = forwardRef((props: IProps, ref: any) => {
         <div
           className={s.avatarItem_avatar}
           onClick={() => {
-            if (!isNaN(Number(data?.twitter_id))) {
+            if (!isNaN(Number(data?.twitter_id)) && !ethers.utils.isAddress(data?.twitter_id) && !data?.twitter_id?.startsWith('bc1p')) {
               window.open(`https://twitter.com/${data?.twitter_username}`);
             }
           }}

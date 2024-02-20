@@ -14,6 +14,20 @@
     margin-bottom: 24px;
   }
 
+  .blink_me {
+    animation: blinker 1s linear infinite;
+    color: red !important;
+    p {
+      color: inherit;
+    }
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0.2;
+    }
+  }
+
   .title {
     font-size: 14px;
     font-weight: 400;
@@ -229,6 +243,7 @@
 .grid {
   display: flex;
   gap: 32px;
+  justify-content: space-between;
 
   @include is-mobile {
     flex-wrap: wrap;
@@ -290,8 +305,7 @@
 
 .endBanner {
   display: flex;
-  height: 60px;
-  padding: 0px 12px;
+  padding: 12px;
   justify-content: center;
   align-items: center;
   gap: 8px;

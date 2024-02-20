@@ -57,7 +57,7 @@ const LeaderBoard = (props: IProps) => {
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
     page: 1,
-    limit: 50,
+    limit: 20,
     search: '',
   });
 
@@ -320,6 +320,31 @@ const LeaderBoard = (props: IProps) => {
                     }
                   /> */}
               </Flex>
+              {Boolean(!!data?.view_boost && Number(data?.view_boost || 0)) && (
+                <Flex
+                  bg={
+                    'linear-gradient(90deg, rgba(0, 245, 160, 0.15) 0%, rgba(0, 217, 245, 0.15) 100%)'
+                  }
+                  borderRadius={'100px'}
+                  p={'3px 12px'}
+                  width={'fit-content'}
+                >
+                  <Text
+                    fontSize={'14'}
+                    mt="2px"
+                    fontWeight={'400'}
+                    className={s.boost}
+                  >
+                    {`+${formatCurrency(
+                      data?.view_boost,
+                      0,
+                      0,
+                      'BTC',
+                      true,
+                    )}% boost`}
+                  </Text>
+                </Flex>
+              )}
             </Flex>
           );
         },

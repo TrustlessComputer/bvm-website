@@ -1,4 +1,4 @@
-import { DEVELOPERS_DOC_URL, WHITEPAPER_DOC_URL } from '@/config';
+import { DEVELOPERS_DOC_URL, DEVELOPERS_GRANTS_URL, WHITEPAPER_DOC_URL } from '@/config';
 import { checkIsPublicSale } from '@/modules/Whitelist/utils';
 
 export interface NavItem {
@@ -13,16 +13,119 @@ export interface NavItem {
   subMenu?: any;
 }
 
-export const NAV_ITEMS: Array<NavItem> = [
+export const MenuBuild = {
+  label: 'Build',
+  // href: DEVELOPERS_DOC_URL,
+  isNewWindow: false,
+  isHide: false,
+  subMenu: [
+    {
+      href: '/blockchains',
+      label: 'Bitcoin L2s',
+      isNewWindow: false,
+    },
+    {
+      href: '/module-store',
+      label: 'Module Store',
+      isNewWindow: false,
+    },
+    {
+      href: DEVELOPERS_DOC_URL,
+      label: 'Developer Docs',
+      isNewWindow: true,
+    },
+    {
+      href: DEVELOPERS_GRANTS_URL,
+      label: 'Developer Grants',
+      isNewWindow: true,
+    },
+  ],
+};
+
+export const NAV_ITEMS_LEFT: Array<NavItem> = [
   {
-    label: 'Bitcoin L2s',
-    href: '/blockchains',
+    label: 'Use Bitcoin',
+    href: '/use-bitcoin',
     isNewWindow: false,
     isHide: false,
+    isStrong: true
   },
   {
-    label: 'Module Store',
-    href: '/module-store',
+    label: 'Build',
+    // href: DEVELOPERS_DOC_URL,
+    isNewWindow: false,
+    isHide: false,
+    subMenu: [
+      {
+        href: '/blockchains',
+        label: 'Bitcoin L2s',
+        isNewWindow: false,
+      },
+      {
+        href: '/module-store',
+        label: 'Module Store',
+        isNewWindow: false,
+      },
+      {
+        href: DEVELOPERS_DOC_URL,
+        label: 'Developer Docs',
+        isNewWindow: true,
+      },
+      {
+        href: DEVELOPERS_GRANTS_URL,
+        label: 'Developer Grants',
+        isNewWindow: true,
+      },
+    ],
+  },
+  {
+    label: 'Learn',
+    // href: DEVELOPERS_DOC_URL,
+    isNewWindow: true,
+    isHide: false,
+    subMenu: [
+      {
+        href: 'https://bvm.network/onepager.pdf',
+        label: 'Onepager',
+        isNewWindow: true,
+      },
+      {
+        href: 'https://bvm.network/deck.pdf',
+        label: 'Deck',
+        isNewWindow: true,
+      },
+      {
+        href: WHITEPAPER_DOC_URL,
+        label: 'Whitepaper',
+        isNewWindow: true,
+      },
+    ],
+  },
+  // {
+  //   label: 'Bitcoin L2s',
+  //   href: '/blockchains',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
+  // {
+  //   label: 'Module Store',
+  //   href: '/module-store',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
+  // {
+  //   label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
+  //   href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
+  //   isNewWindow: false,
+  //   isStrong: false,
+  //   isHide: false,
+  // },
+].filter((item) => !item.isHide);
+
+export const NAV_ITEMS_RIGHT: Array<NavItem> = [
+  {
+    label: '$BVM',
+    href: '/bvm',
     isNewWindow: false,
     isHide: false,
   },
@@ -30,12 +133,7 @@ export const NAV_ITEMS: Array<NavItem> = [
     label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
     href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
     isNewWindow: false,
-    isHide: false,
-  },
-  {
-    label: '$BVM',
-    href: '/bvm',
-    isNewWindow: false,
+    isStrong: false,
     isHide: false,
   },
   {
@@ -44,31 +142,38 @@ export const NAV_ITEMS: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
-  {
-    label: 'Onepager',
-    href: 'https://bvm.network/onepager.pdf',
-    isNewWindow: true,
-    isHide: false,
-  },
+  // {
+  //   label: 'Learn',
+  //   href: DEVELOPERS_DOC_URL,
+  //   isNewWindow: true,
+  //   isHide: false,
+  //   subMenu: [
+  //     {
+  //       href: 'https://bvm.network/onepager.pdf',
+  //       label: 'Onepager',
+  //     },
+  //     {
+  //       href: 'https://bvm.network/deck.pdf',
+  //       label: 'Deck',
+  //     },
+  //     {
+  //       href: WHITEPAPER_DOC_URL,
+  //       label: 'Whitepaper',
+  //     },
+  //   ],
+  // },
+  // {
+  //   label: 'Build',
+  //   href: DEVELOPERS_DOC_URL,
+  //   isNewWindow: true,
+  //   isHide: false,
+  // },
 
-  {
-    label: 'Deck',
-    href: 'https://bvm.network/deck.pdf',
-    isNewWindow: true,
-    isHide: false,
-  },
-  {
-    label: 'Whitepaper',
-    href: WHITEPAPER_DOC_URL,
-    isNewWindow: true,
-    isHide: false,
-  },
-  {
-    label: 'Developers',
-    href: DEVELOPERS_DOC_URL,
-    isNewWindow: true,
-    isHide: false,
-  },
+].filter((item) => !item.isHide);
+
+export const NAV_ITEMS: Array<NavItem> = [
+  ...NAV_ITEMS_LEFT,
+  ...NAV_ITEMS_RIGHT,
   {
     label: 'Twitter',
     isTwitter: true,
@@ -83,68 +188,4 @@ export const NAV_ITEMS: Array<NavItem> = [
     isNewWindow: true,
     isHide: false,
   },
-].filter((item) => !item.isHide);
-
-export const NAV_ITEMS_LEFT: Array<NavItem> = [
-  {
-    label: 'Bitcoin L2s',
-    href: '/blockchains',
-    isNewWindow: false,
-    isHide: false,
-  },
-  {
-    label: 'Module Store',
-    href: '/module-store',
-    isNewWindow: false,
-    isHide: false,
-  },
-  {
-    label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
-    href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
-    isNewWindow: false,
-    isStrong: checkIsPublicSale(),
-    isHide: false,
-  },
-].filter((item) => !item.isHide);
-
-export const NAV_ITEMS_RIGHT: Array<NavItem> = [
-  {
-    label: '$BVM',
-    href: '/bvm',
-    isNewWindow: false,
-    isHide: false,
-  },
-  {
-    label: 'Roadmap',
-    href: '/roadmap',
-    isNewWindow: false,
-    isHide: false,
-  },
-  {
-    label: 'Learn',
-    href: DEVELOPERS_DOC_URL,
-    isNewWindow: true,
-    isHide: false,
-    subMenu: [
-      {
-        link: 'https://bvm.network/onepager.pdf',
-        title: 'Onepager',
-      },
-      {
-        link: 'https://bvm.network/deck.pdf',
-        title: 'Deck',
-      },
-      {
-        link: WHITEPAPER_DOC_URL,
-        title: 'Whitepaper',
-      },
-    ],
-  },
-  {
-    label: 'Build',
-    href: DEVELOPERS_DOC_URL,
-    isNewWindow: true,
-    isHide: false,
-  },
-
 ].filter((item) => !item.isHide);
