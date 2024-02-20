@@ -10,7 +10,7 @@ export default function BuilderLading(){
   return <div className={s.builderLading}>
     <Loader />
     <BuilderHero />
-<BuilderVideo />
+    <BuilderVideo />
     <Started />
   </div>
 }
