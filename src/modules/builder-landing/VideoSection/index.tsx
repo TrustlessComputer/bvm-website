@@ -3,6 +3,8 @@ import { Button, Flex, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
+import Chars from '@/interactive/Chars';
+import Fade from '@/interactive/Fade';
 
 export default function BuilderVideo(){
   const router = useRouter();
@@ -13,40 +15,41 @@ export default function BuilderVideo(){
       <div className={`${s.builderWrapper} `}>
         <div className={`${s.wrapperContent}`}>
           <div style={{ lineHeight: '62px' }}>
-            <Text className={s.title}>Bitcoin L2 chains are thriving.</Text>
-            <Text className={s.title}>This is your chance to be on of the first.</Text>
-            <Text className={s.title}>Launch the next big one here.</Text>
+            <Chars classNames={s.title}>Bitcoin L2 chains are thriving.</Chars>
+            <Chars classNames={s.title}>This is your chance to be on of the first.</Chars>
+            <Chars classNames={s.title}>Launch the next big one here.</Chars>
           </div>
-
-          <Button
-            bgColor={'#EF601B'}
-            color={'#fff'}
-            borderRadius={0}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            px={'41px'}
-            py={'14px'}
-            w={['172px']}
-            h={'48px'}
-            fontWeight={400}
-            marginTop={'32px'}
-            fontSize={'16px'}
-            onClick={() => {
-              router.push('/blockchains/customize');
-            }}
-            _hover={{
-              opacity: 0.8,
-            }}
-          >
-            Launch now
-          </Button>
+          <Fade>
+            <Button
+              bgColor={'#EF601B'}
+              color={'#fff'}
+              borderRadius={0}
+              display={'flex'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              px={'41px'}
+              py={'14px'}
+              w={['172px']}
+              h={'48px'}
+              fontWeight={400}
+              marginTop={'32px'}
+              fontSize={'16px'}
+              onClick={() => {
+                router.push('/blockchains/customize');
+              }}
+              _hover={{
+                opacity: 0.8,
+              }}
+            >
+              Launch now
+            </Button>
+          </Fade>
         </div>
-        <div className={`${s.wrapperVideo}`}>
+        <Fade delay={.2} className={`${s.wrapperVideo}`}>
           <a href={'#'} onClick={() => setOpen(true)}>
             <img src={`/public-sale/btn-play-5.png`} width={657} alt={'right'} />
           </a>
-        </div>
+        </Fade>
       </div>
 
     </div>

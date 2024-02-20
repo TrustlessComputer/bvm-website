@@ -4,6 +4,8 @@ import Loader from '@/modules/builder-landing/Loader';
 import Started from '@/modules/builder-landing/Started';
 import BuilderVideo from '@/modules/builder-landing/VideoSection';
 import Categories from './Categories';
+import Footer from '@/modules/builder-landing/Footer';
+import Airdrop from '@/modules/builder-landing/Airdrop';
 
 export default function BuilderLading() {
   return (
@@ -11,8 +13,10 @@ export default function BuilderLading() {
       <Loader />
       <BuilderHero />
       <BuilderVideo />
+      <Airdrop />
       <Started />
       <Categories />
+      <Footer />
     </div>
   );
 }

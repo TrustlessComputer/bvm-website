@@ -4,31 +4,36 @@
 
 .builderWrapper {
   display: flex;
-  padding: 120px 0;
+  padding: var(--builder-padding-size) 0;
   flex-direction: column;
+
   @include is-pc {
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
   }
+
   .wrapperContent {
     .title {
-      font-size: 30px;
+      font-size: 24px;
+      line-height: 1.5;
       font-weight: 400;
       color: #000000;
       @include is-min-table {
-        font-size: 40px;
+        font-size: 34px;
       }
       @include is-pc {
         font-size: 48px;
       }
     }
   }
+
   .wrapperVideo {
     margin-top: 50px;
     @include is-pc {
       margin-top: 0;
     }
+
     img {
       width: 100%;
     }
