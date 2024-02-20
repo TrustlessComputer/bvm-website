@@ -269,7 +269,7 @@ const LaunchpadBuyForm = () => {
                 color={'black'}
                 mb={'12px'}
               >
-                BVM Public Sale
+                {launchpadDetail?.token?.symbol} Public Sale
               </Text>
               <Flex alignItems="start" gap="12px">
                 <Text className={s.fundValue}>
