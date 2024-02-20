@@ -27,7 +27,7 @@
     a {
       flex: 0 0 100%;
       @include is-min-table {
-        flex: 1;
+        flex: 0 0 auto;
         text-align: left;
         display: block;
       }
