@@ -28,17 +28,17 @@ import NumberScale from '@/components/NumberScale';
 import { useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import IcHelp from '@/components/InfoTooltip/IcHelp';
-import AuthForBuyV2 from '@/modules/PublicSale/AuthForBuyV2';
 import UserLoggedAvatar from '@/modules/PublicSale/BuyForm/UserLoggedAvatar';
 import { useDispatch } from 'react-redux';
 import { checkIsEndPublicSale } from '@/modules/Whitelist/utils';
 import BigNumber from 'bignumber.js';
 import { clearPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
-import AuthForBuy from '@/modules/PublicSale/AuthForBuy';
 import { GuestCodeHere } from '@/modules/PublicSale/depositModal/deposit.guest.code';
 import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
 import ContributorInfo from '../components/contributorInfo';
 import { ILaunchpadDetail } from '@/services/interfaces/launchpad';
+import AuthForBuy from '@/modules/Launchpad/AuthForBuy';
+import AuthForBuyV2 from '@/modules/Launchpad/AuthForBuyV2';
 
 interface FormValues {
   tokenAmount: string;
@@ -475,27 +475,12 @@ const LaunchpadBuyForm = () => {
             </Flex>
           ) : (
             <Flex gap={6} direction={'column'} width={'100%'}>
-              <AuthForBuy>
-                <Button
-                  type="submit"
-                  isDisabled={isCreating}
-                  isLoading={isCreating}
-                  // loadingText={'Submitting...'}
-                  className={s.button}
-                >
-                  Back our mission
-                </Button>
-              </AuthForBuy>
+              <AuthForBuy launchpadDetail={launchpadDetail}/>
             </Flex>
           )}
           {parseFloat(userContributeInfo?.usdt_value || '0') > 0 && (
             <GuestCodeHere theme="light" />
           )}
-
-          <DepositModal
-            isShow={showQrCode}
-            onHide={() => setShowQrCode(false)}
-          />
           <ContributorsModal
             isShow={showContributorModal}
             onHide={() => setShowContributorModal(false)}

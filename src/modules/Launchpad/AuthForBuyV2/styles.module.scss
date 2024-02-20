@@ -1,0 +1,37 @@
+.btnWrapper {
+  grid-gap: 16px;
+  grid-template-columns: 2fr 1fr;
+
+  @include is-mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.loginModal {
+  max-width: 400px !important;
+  header {
+    p {
+      color: white;
+    }
+  }
+}
+
+.btnContainer {
+  height: 48px !important;
+  padding: 6px !important;
+  border-radius: 0px !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  width: 100%;
+  font-weight: normal !important;
+  gap: 8px;
+  justify-content: flex-start !important;
+  &.btnPrimary {
+    background: #fa4e0e !important;
+    color: #fff !important;
+  }
+  &.btnBuyAndStake {
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+}

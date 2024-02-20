@@ -12,7 +12,7 @@ const initialValue: ILaunchpadContext = {
   launchpadSummary: undefined,
   setCurrentLaunchpadSummary:(_:IPublicSaleDepositInfo) => {},
   userContributeInfo: undefined,
-  setCurrentUserContributeInfo:(_:ILeaderBoardPoint) => {}
+  setCurrentUserContributeInfo:(_:ILeaderBoardPoint) => {},
 };
 
 export const LaunchpadContext = React.createContext<ILaunchpadContext>(initialValue);

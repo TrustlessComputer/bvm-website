@@ -37,11 +37,13 @@ import DepositContentItem, {
   DepositContentItem2,
 } from './deposit.content.item';
 import s from './styles.module.scss';
+import { ILaunchpadDetail } from '@/services/interfaces/launchpad';
 
 interface IDepositContent {
   amount_usd?: string;
   hasStaked?: any;
-  setBanned?: (_: boolean) => void
+  setBanned?: (_: boolean) => void;
+  launchpadDetail?: ILaunchpadDetail
 }
 
 const COUNTRY_BANNED: any[] = ['US'];
