@@ -3,7 +3,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  max-width: 814px;
+  max-width: calc(814px + 120px);
   width: 100%;
   top: 100px;
   padding-left: 16px;
@@ -66,7 +66,7 @@
     margin-top: rem(16px);
 
     @include is-pc{
-      margin-top: rem(32px);
+      margin-top: rem(20px);
     }
   }
 }
