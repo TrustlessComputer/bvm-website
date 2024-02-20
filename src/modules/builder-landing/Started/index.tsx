@@ -14,7 +14,7 @@ export default function Started() {
       <ul className={s.extends}>
         <li className={s.exItem}>
           <Fade delay={.1}>
-            <IConContent step={1} link={'#'} icon={'builder/icon-step-1.svg'}>
+            <IConContent step={1} link={'/blockchains/customize'} icon={'builder/icon-step-1.svg'}>
               Launch BTC L2 in a <br/> few clicks.
             </IConContent>
           </Fade>
