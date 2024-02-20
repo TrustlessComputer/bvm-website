@@ -11,8 +11,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    opacity: .2;
-    filter: blur(5px);
+    opacity: .15;
   }
 }
 
@@ -139,7 +138,7 @@
     top: 0;
 
     img {
-      width: calc(var(--size) * .8);
+      width: calc(var(--size) * .9);
     }
   }
 
@@ -158,7 +157,7 @@
     bottom: 0;
 
     img {
-      width: calc(var(--size) / 2);
+      width: calc(var(--size) * 1.5);
     }
   }
 }
