@@ -5,11 +5,11 @@ import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import cs from 'classnames';
 import React, { PropsWithChildren, useMemo, useState } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import DepositContent from '@/modules/PublicSale/depositModal/deposit.content';
 import s from './styles.module.scss';
 import AuthForBuyV2 from '../AuthForBuyV2';
 import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
 import { ILaunchpadDetail } from '@/services/interfaces/launchpad';
+import DepositContent from '@/modules/Launchpad/depositModal/deposit.content';
 
 interface IAuthForBuy extends PropsWithChildren {
   hideBuyAndStake?: boolean;
