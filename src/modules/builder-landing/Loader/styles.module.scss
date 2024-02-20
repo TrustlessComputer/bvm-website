@@ -1,0 +1,10 @@
+.loader {
+  height: 100svh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  overflow: hidden;
+  background-color: black;
+}

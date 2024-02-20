@@ -1,0 +1,60 @@
+.iconContent {
+  position: relative;
+  text-align: center;
+  padding-bottom: 16px;
+
+  .icon {
+    height: 72px;
+    width: 72px;
+    margin-bottom: 24px;
+    display: inline-block;
+  }
+
+  .content {
+    text-transform: uppercase;
+
+    font-weight: 500;
+    line-height: (26/20);
+    text-align: center;
+    font-size: 16px;
+
+    @include is-min-table {
+      font-size: 20px;
+    }
+  }
+}
+
+.step {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: (18/14);
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: #FA4E0E;
+
+  @include is-min-table {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+}
+
+.link {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: (18/14);
+  text-align: center;
+  text-decoration: underline;
+  display: inline-block;
+  margin-top: 8px;
+
+  @include is-min-table {
+    font-size: 14px;
+    margin-top: 12px;
+  }
+
+  &, :is(a) {
+    color: #FA4E0E;
+  }
+}

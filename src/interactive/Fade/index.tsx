@@ -5,15 +5,15 @@ import { gsap } from 'gsap';
 
 interface IProps extends PropsWithChildren {
   delay?: number,
+  className?: string,
   from?: gsap.TweenVars
   to?: gsap.TweenVars
 };
 
-export default function Fade({ children, delay, from, to }: IProps) {
+export default function Fade({ children, delay, from, to,className }: IProps) {
   const refContent = useRef<HTMLDivElement>(null);
 
   const initAnimation = useCallback((): void => {
-    console.log('____Dsds', {...{ opacity: 0 },...from})
     refContent.current && gsap.set(refContent.current, {...{ opacity: 0 },...from});
   }, []);
 
@@ -28,7 +28,7 @@ export default function Fade({ children, delay, from, to }: IProps) {
     threshold: 30,
   });
 
-  return <div ref={refContent} className={`${s.fade} fade`}>
+  return <div ref={refContent} className={`${s.fade} fade ${className}`}>
     {children}
   </div>;
 }

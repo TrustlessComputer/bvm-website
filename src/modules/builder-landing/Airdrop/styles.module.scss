@@ -1,0 +1,92 @@
+.airdrop {
+  background-color: white;
+  padding: 120px 0;
+}
+
+.content {
+  max-width: 934px;
+  margin-right: auto;
+  margin-left: auto;
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin-top: 48px;
+
+    @include is-min-table {
+      margin-top: 80px;
+    }
+  }
+}
+
+
+.descs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.desc {
+  font-weight: 400;
+  line-height: (27/18);
+  text-align: left;
+  font-size: 16px;
+  padding: 16px;
+  flex: 0 0 100%;
+
+  @include is-min-table {
+    font-size: 18px;
+    flex: 1;
+  }
+
+  &__left {
+    border: 1px solid #ECECEC;
+    background: linear-gradient(0deg, #ECECEC, #ECECEC),
+    linear-gradient(0deg, rgba(246, 246, 246, 0.8), rgba(246, 246, 246, 0.8));
+    color: black;
+  }
+
+  &__right {
+    color: #FA4E0E;
+    border: 1px solid #FF7E214D;
+    background: linear-gradient(0deg, rgba(255, 126, 33, 0.3), rgba(255, 126, 33, 0.3)),
+    linear-gradient(0deg, rgba(255, 126, 33, 0.06), rgba(255, 126, 33, 0.06));
+
+  }
+}
+
+.label {
+
+  font-weight: 500;
+  line-height: (21/16);
+  text-align: center;
+  font-size: 14px;
+  color: black;
+  display: block;
+
+  @include is-min-table {
+    font-size: 16px;
+  }
+
+}
+
+.val {
+
+  display: block;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: center;
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: #FA4E0E;
+
+  @include is-min-table {
+    font-size: 64px;
+    margin-bottom: 24px;
+  }
+
+  @include is-pc {
+    font-size: 100px;
+  }
+}
