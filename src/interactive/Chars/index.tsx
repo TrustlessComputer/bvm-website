@@ -8,9 +8,10 @@ interface IProp extends PropsWithChildren {
   delay?: number;
   from?: gsap.TweenVars;
   to?: gsap.TweenVars;
+  classNames?: string
 }
 
-export default function Chars({ children, delay = 0, from, to }: IProp) {
+export default function Chars({ children, delay = 0, from, to, classNames }: IProp) {
   const refContent = useRef<HTMLDivElement>(null);
   const refChars = useRef<any>();
 
@@ -43,7 +44,7 @@ export default function Chars({ children, delay = 0, from, to }: IProp) {
   });
 
   return (
-    <div ref={refContent} className={s.chars}>
+    <div ref={refContent} className={`${s.chars} ${classNames}`}>
       {children}
     </div>
   );

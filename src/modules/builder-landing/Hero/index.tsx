@@ -71,7 +71,7 @@ export default function BuilderHero() {
         <li className={s.exItem}>
           <Fade delay={1.2}>
             <IConContent icon={'builder/game-icons_incoming-rocket.svg'}>
-              BE A PIONEER TO SHAPE THE FUTURE OF BITCOIN
+              BE A PIONEER TO SHAPE THE <br/> FUTURE OF BITCOIN
             </IConContent>
           </Fade>
         </li>
