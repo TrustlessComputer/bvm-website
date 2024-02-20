@@ -5,6 +5,20 @@
   flex-direction: row;
   align-items: center;
 
+  &.link {
+    cursor: pointer;
+
+    &:hover {
+      .item_details_btn_text {
+        color: black;
+      }
+
+      svg rect {
+        fill: black;
+      }
+    }
+  }
+
   &__even {
     background-color: #ececec80;
   }
@@ -12,6 +26,7 @@
   &__odd {
     background-color: #0000000a;
   }
+
   &_title {
     padding-left: 24px;
     width: 202px;
@@ -40,10 +55,16 @@
       flex-direction: row;
       align-items: center;
       gap: 8px;
+
       &_text {
         color: #fa4e0e;
         font-weight: 500;
         font-size: 14px;
+        transition: color .4s var(--easeOutQuart);
+      }
+
+      rect{
+        transition: fill .4s var(--easeOutQuart);
       }
     }
   }

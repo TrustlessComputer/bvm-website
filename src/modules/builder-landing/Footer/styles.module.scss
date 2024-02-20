@@ -1,6 +1,7 @@
 .footer {
   background-repeat: no-repeat;
   background-size: cover;
+
   .footerContent {
     padding: 48px 0;
     display: flex;
@@ -9,43 +10,72 @@
     align-items: center;
     text-align: center;
   }
+
   .footerSocial {
-    border-top: 1px solid  rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 24px 0;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 32px;
+    gap: 16px;
+
+    @include is-min-table {
+      gap: 32px;
+    }
+
+    a {
+      flex: 0 0 100%;
+      @include is-min-table {
+        flex: 1;
+        text-align: left;
+        display: block;
+      }
+
+      :global{
+        .fade{
+          display: flex;
+          justify-content: center;
+          text-align: center;
+          @include is-min-table {
+            text-align: left;
+            display: block;
+          }
+        }
+      }
+    }
+
     .footerSocialItem {
       display: flex;
       align-items: center;
       gap: 8px;
+
       & p {
         font-weight: 400;
-        line-height: 16.7px;
+        line-height: (16/14);
         font-size: 14px;
       }
     }
   }
 }
 
-.btn{
+.btn {
   display: flex;
   justify-content: center;
 }
 
 
-.heading{
+.heading {
 
   font-weight: 400;
   line-height: (52/40);
   text-align: center;
   font-size: 24px;
 
-  @include is-min-table{
+  @include is-min-table {
     font-size: 34px;
   }
-  @include is-pc{
+  @include is-pc {
     font-size: 40px;
   }
 }

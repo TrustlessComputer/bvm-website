@@ -121,6 +121,11 @@
   height: 100%;
   list-style: none;
   padding-left: 0;
+  display: none;
+
+  @include is-min-table {
+    display: block;
+  }
 }
 
 .icon {
