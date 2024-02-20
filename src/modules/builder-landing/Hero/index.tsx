@@ -5,8 +5,10 @@ import Lines from '@/interactive/Lines';
 import classNames from 'classnames';
 import IConContent from '@/modules/builder-landing/IconContent';
 import BoxParallaxMouseMove from '@/interactive/MouseMove';
+import { useRouter } from 'next/navigation';
 
 export default function BuilderHero() {
+  const router = useRouter();
   return <div className={s.builderHero}>
     <div className={`container ${s.builderHero_container}`}>
 
@@ -60,7 +62,9 @@ export default function BuilderHero() {
         <ul className={s.actions}>
           <li className={s.item}>
             <Fade delay={1}>
-              <button className={classNames(s.btn, s.btn__red)}>
+              <button onClick={()=>{
+                router.push('/blockchains/customize');
+              }} className={classNames(s.btn, s.btn__red)}>
                 Launch now
               </button>
             </Fade>

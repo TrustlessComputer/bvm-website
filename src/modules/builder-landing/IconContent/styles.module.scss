@@ -22,12 +22,6 @@
       font-size: 20px;
     }
   }
-
-  &:hover {
-    .icon {
-      animation: bounce2 1.6s ease forwards;
-    }
-  }
 }
 
 .step {
@@ -37,6 +31,7 @@
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 8px;
+  color: #FA4E0E;
 
   @include is-min-table {
     font-size: 14px;
@@ -61,17 +56,5 @@
 
   &, :is(a) {
     color: #FA4E0E;
-  }
-}
-
-@keyframes bounce2 {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-30px);
-  }
-  60% {
-    transform: translateY(-15px);
   }
 }
