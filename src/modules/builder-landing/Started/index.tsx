@@ -31,7 +31,7 @@ export default function Started() {
           <li className={s.exItem}>
             <Fade delay={.3}>
               <IConContent step={3} icon={'builder/icon-step-3.svg'}>
-                Grow user base with.
+                Grow user base.
               </IConContent>
             </Fade>
           </li>

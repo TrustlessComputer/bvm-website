@@ -56,8 +56,7 @@ export default function BuilderHero() {
         </Chars>
         <Lines>
           <div className={s.desc}>
-            Bitcoin L2 chains are thriving. This is your chance to get in front of 2,721 backers and 50k supporters.
-            Launch the next big one here.
+            Bitcoin L2 chains are thriving. This is your chance to take the lead and shape the future of Bitcoin!
           </div>
         </Lines>
         <ul className={s.actions}>
