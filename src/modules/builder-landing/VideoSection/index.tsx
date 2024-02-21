@@ -16,7 +16,7 @@ export default function BuilderVideo(){
         <div className={`${s.wrapperContent}`}>
           <div style={{ lineHeight: '62px' }}>
             <Chars classNames={s.title}>Bitcoin L2 chains are thriving.</Chars>
-            <Chars classNames={s.title}>This is your chance to be on of the first.</Chars>
+            <Chars classNames={s.title}>This is your chance to be one of the first.</Chars>
             <Chars classNames={s.title}>Launch the next big one here.</Chars>
           </div>
           <Fade>
