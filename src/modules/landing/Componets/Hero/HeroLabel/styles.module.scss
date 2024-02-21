@@ -35,6 +35,7 @@
     flex-direction: row;
     align-items: center;
     gap: 12px;
+    justify-content: center;
 
     @include is-mobile {
       flex-direction: column;
@@ -45,7 +46,7 @@
 
     @include is-tablet {
       flex-direction: column;
-      justify-content: center;
+
       gap: 8px;
     }
 
@@ -73,9 +74,9 @@
     gap: 4px;
     justify-content: center;
 
-    @include is-pc {
-      justify-content: flex-start;
-    }
+    //@include is-pc {
+    //  justify-content: flex-start;
+    //}
   }
 
   .content {

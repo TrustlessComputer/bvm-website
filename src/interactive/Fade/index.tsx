@@ -10,7 +10,7 @@ interface IProps extends PropsWithChildren {
   to?: gsap.TweenVars
 };
 
-export default function Fade({ children, delay, from, to,className }: IProps) {
+export default function Fade({ children, delay, from, to, className }: IProps) {
   const refContent = useRef<HTMLDivElement>(null);
 
   const initAnimation = useCallback((): void => {

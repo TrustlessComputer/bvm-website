@@ -3,7 +3,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  max-width: calc(814px + 120px);
+  max-width: calc(814px + 140px);
   width: 100%;
   top: 100px;
   padding-left: 16px;
@@ -60,12 +60,14 @@
     display: flex;
     gap: 16px;
     padding-left: 0;
-    margin-bottom: 0;
     justify-content: center;
     list-style: none !important;
     margin-top: rem(16px);
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 2;
 
-    @include is-pc{
+    @include is-pc {
       margin-top: rem(20px);
     }
   }
@@ -178,5 +180,20 @@
         fill: white
       }
     }
+  }
+}
+
+
+.vid {
+  position: relative;
+  padding-top: 16px;
+
+  .br {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 240px;
+    transform: translateX(-50%);
+    border-bottom: 1px solid rgba(white, .25)
   }
 }
