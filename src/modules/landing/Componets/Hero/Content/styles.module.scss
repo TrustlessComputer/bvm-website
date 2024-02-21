@@ -3,7 +3,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  max-width: calc(814px + 140px);
+  max-width: calc(740px + 100px);
   width: 100%;
   top: 100px;
   padding-left: 16px;
@@ -35,6 +35,11 @@
 
   &_inner {
     padding-bottom: 28px;
+
+    &_heading {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   &_heading {
@@ -42,9 +47,8 @@
     font-weight: 500;
     line-height: (79/72);
     text-align: center;
-
     font-size: 34px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     color: white;
 
     @include is-min-table {
@@ -67,10 +71,7 @@
     position: relative;
     z-index: 2;
     flex-wrap: wrap;
-
-    @include is-pc {
-      margin-top: rem(20px);
-    }
+    align-items: center;
   }
 }
 
@@ -98,6 +99,43 @@
     padding-right: 28px;
   }
 
+  &__clean {
+    height: 34px !important;
+    justify-content: flex-start;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    span{
+      overflow: hidden;
+      position: relative;
+      width: fit-content !important;
+      display: block;
+      transform: translateY(.12em);
+
+      &:after {
+        content: '';
+        display: block;
+        border-bottom: 1px solid white;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        transition: transform .4s var(--easeOutQuart);
+      }
+    }
+
+    &:hover {
+      span:after {
+        transform: translateX(0%);
+      }
+    }
+
+    @include is-pc {
+      font-size: 14px;
+    }
+  }
+
   &__play {
 
     gap: 6px;
@@ -111,12 +149,12 @@
       height: 32px;
     }
 
-    rect{
+    rect {
       transition: fill .4s var(--easeOutQuart);
     }
 
     &:hover {
-      rect{
+      rect {
         fill: #FA4E0E;
       }
     }
