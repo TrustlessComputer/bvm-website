@@ -43,7 +43,7 @@ export default function HeroContent() {
               <Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .6}>
                 <button
                   onClick={() => {
-                    router.push('/blockchains');
+                    router.push('/use-bitcoin');
                   }}
                   className={classNames(s.btn, s.btn__clean, s.buttonBuild)}
                 >
@@ -57,7 +57,7 @@ export default function HeroContent() {
                 <a
                   className={classNames(s.btn, s.btn__clean, s.buttonBuild)}
                   href={'#'} onClick={() => setOpen(true)}>
-                  <span>What is BVM</span>
+                  <span>Watch the film</span>
                   <img src={`/builder/arr-r.svg`} alt={'right'} />
                 </a>
               </Fade>
