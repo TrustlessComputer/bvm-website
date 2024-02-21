@@ -66,6 +66,7 @@
     margin-bottom: 16px;
     position: relative;
     z-index: 2;
+    flex-wrap: wrap;
 
     @include is-pc {
       margin-top: rem(20px);
@@ -97,6 +98,29 @@
     padding-right: 28px;
   }
 
+  &__play {
+
+    gap: 6px;
+    padding-right: 8px !important;
+    @include is-min-table {
+      gap: 20px;
+    }
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    rect{
+      transition: fill .4s var(--easeOutQuart);
+    }
+
+    &:hover {
+      rect{
+        fill: #FA4E0E;
+      }
+    }
+  }
 
   &__red {
     background: #FA4E0E;

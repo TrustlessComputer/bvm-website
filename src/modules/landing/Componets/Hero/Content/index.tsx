@@ -69,19 +69,17 @@ export default function HeroContent() {
                 </div>
               </Fade>
             </li>
-          </ul>
-          <Flex className={s.vid} gap={5} flexDirection={'column'}>
-            <Fade className={s.br} delay={DELAY + .7} />
-            <Fade delay={DELAY + .7}>
-              <div>
-                <a href={'#'} onClick={() => setOpen(true)} style={{ textAlign: 'center', display: 'block' }}>
-                  <img src={`/builder/video-thumbnail.png`} width={168} alt={'right'}
-                       style={{ margin: 'auto', marginBottom: '8px' }} />
-                  <span style={{ fontSize: '14px', fontWeight: 400 }}>What is BVM?</span>
+            <li>
+              <Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .7}>
+                <a
+                  className={classNames(s.btn, s.btn__white, s.btn__play, s.buttonBuild)}
+                  href={'#'} onClick={() => setOpen(true)}>
+                  Watch the flim
+                  <SvgInset svgUrl={`/builder/icon-play.svg`} alt={'right'} />
                 </a>
-              </div>
-            </Fade>
-          </Flex>
+              </Fade>
+            </li>
+          </ul>
         </div>
       </div>
       <ModalVideo
