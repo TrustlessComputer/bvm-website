@@ -39,9 +39,8 @@ export const BlockDataList: BlockItemType[] = [
         name: 'NearDA',
       },
       {
-        logoUrl: '/images/avali_coming_soon.png',
+        logoUrl: '/images/lego_avail.svg',
         name: 'Avail',
-        isComingSoon: true,
       },
     ],
     // bgColor: '#7069DC',

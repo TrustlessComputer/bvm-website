@@ -10,7 +10,6 @@ interface IProp extends PropsWithChildren {
   delay?: number;
   from?: gsap.TweenVars;
   to?: gsap.TweenVars;
-  classNames?: string
 }
 
 export default function Chars({ children, delay = 0, from, to, classNames }: IProp) {
