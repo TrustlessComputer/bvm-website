@@ -11,7 +11,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    opacity: .15;
+    opacity: 0.15;
   }
 }
 
@@ -26,7 +26,6 @@
 }
 
 .heading {
-
   font-weight: 500;
   line-height: (75/68);
   text-align: center;
@@ -35,13 +34,11 @@
 
   @include is-min-table {
     font-size: 48px;
-
   }
   @include is-pc {
     font-size: 68px;
     margin-bottom: 20px;
   }
-
 }
 
 .label {
@@ -49,7 +46,7 @@
   line-height: (36/16);
   text-transform: uppercase;
 
-  background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
+  background: linear-gradient(90deg, #00f5a0 0%, #00d9f5 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
@@ -91,7 +88,6 @@
 }
 
 .exItem {
-
   max-width: 359px;
   text-align: center;
 
@@ -110,6 +106,12 @@
   gap: 12px;
   list-style: none;
   padding-left: 0;
+  flex-direction: column;
+  align-items: center;
+  @include is-min-table {
+    flex-direction: row;
+    gap: 16px;
+  }
 }
 
 .listIcons {
@@ -143,7 +145,7 @@
     top: 0;
 
     img {
-      width: calc(var(--size) * .9);
+      width: calc(var(--size) * 0.9);
     }
   }
 
@@ -166,7 +168,32 @@
     }
   }
 }
+.item_details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 175px;
 
+  &_inner {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    align-items: center;
+    height: 24px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include is-min-table {
+      margin: unset;
+    }
+    &_text {
+      line-height: 1.19;
+    }
+    &_svg {
+      margin-top: -2px;
+    }
+  }
+}
 
 .btn {
   height: 48px;
@@ -176,7 +203,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background-color .4s var(--easeOutQuart);
+  transition: background-color 0.4s var(--easeOutQuart);
   font-size: 16px;
   font-weight: 400;
   line-height: 19px;
@@ -184,8 +211,7 @@
   text-align: center;
 
   &__red {
-
-    background: #FA4E0E;
+    background: #fa4e0e;
     color: white;
 
     &:hover {

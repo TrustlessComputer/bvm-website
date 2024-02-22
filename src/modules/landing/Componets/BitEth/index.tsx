@@ -11,60 +11,75 @@ import Chars from '@/interactive/Chars';
 import ContentSection from '@/modules/landing/Componets/ContentSection';
 
 export default function BitEth() {
-
   const router = useRouter();
   const { mobileScreen } = useWindowSize();
 
-  return <div className={s.bitEth}>
-    <div className={`${s.bitEth_inner} container`}>
-      <div className={s.bitEth_content}>
-        <Scale>
-          <Image className={s.thumb} quality={100} src={'/landing/biteth.png'} alt={'biteth.svg'} width={251} height={80}
-                 loading={'eager'} />
-        </Scale>
-        <HeadingSection className={s.heading}>
-          <Chars delay={.2}>
-            <b>Minimal effort to migrate</b> from Ethereum to Bitcoin.
-          </Chars>
-        </HeadingSection>
-        <ContentSection className={s.content}>
-          <Lines delay={.3}>
-            BVM is EVM equivalent. It allows Ethereum developers to migrate their Solidity smart contracts and dapps
-            from Ethereum to Bitcoin with minimal or no modifications.
-          </Lines>
-        </ContentSection>
-        <div className={s.actions}>
-          <Fade delay={0.5}>
-            <Button
-              bgColor={'#EF601B'}
-              color={'#fff'}
-              borderRadius={0}
-              display={'flex'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              px={'24px'}
-              py={'10px'}
-              minW={['180px']}
-              width={mobileScreen ? '100%' : ''}
-              height={'48px'}
-              fontWeight={400}
-              fontSize={'16px'}
-              _hover={{
-                bgColor: '#000',
-              }}
-              onClick={() => {
-                window.open('https://docs.bvm.network', '_blank');
-                // router.push('/blockchains/customize');
-              }}
-            >
-              {`Read developer docs`}
-            </Button>
-          </Fade>
+  return (
+    <div className={s.bitEth}>
+      <div className={`${s.bitEth_inner} container`}>
+        <div className={s.bitEth_content}>
+          <Scale>
+            <Image
+              className={s.thumb}
+              quality={100}
+              src={'/landing/biteth.png'}
+              alt={'biteth.svg'}
+              width={251}
+              height={80}
+              loading={'eager'}
+            />
+          </Scale>
+          <HeadingSection className={s.heading}>
+            <Chars delay={0.2}>
+              <b>Minimal effort </b>to migrate from Ethereum to Bitcoin.
+            </Chars>
+          </HeadingSection>
+          <ContentSection className={s.content}>
+            <Lines delay={0.3}>
+              BVM is EVM equivalent. It allows Ethereum developers to migrate
+              their Solidity smart contracts and dapps from Ethereum to Bitcoin
+              with minimal or no modifications.
+            </Lines>
+          </ContentSection>
+          <div className={s.actions}>
+            <Fade delay={0.5}>
+              <Button
+                bgColor={'#EF601B'}
+                color={'#fff'}
+                borderRadius={0}
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                px={'24px'}
+                py={'10px'}
+                minW={['180px']}
+                width={mobileScreen ? '100%' : ''}
+                height={'48px'}
+                fontWeight={400}
+                fontSize={'16px'}
+                _hover={{
+                  bgColor: '#000',
+                }}
+                onClick={() => {
+                  window.open('https://docs.bvm.network', '_blank');
+                  // router.push('/blockchains/customize');
+                }}
+              >
+                {`Build your Bitcoin L2`}
+              </Button>
+            </Fade>
+          </div>
         </div>
+        <Scale>
+          <Image
+            className={s.full}
+            src={'/landing/carbon.jpg'}
+            alt={'carbon'}
+            width={1600}
+            height={570}
+          />
+        </Scale>
       </div>
-      <Scale>
-        <Image className={s.full} src={'/landing/carbon.jpg'} alt={'carbon'} width={1600} height={570} />
-      </Scale>
     </div>
-  </div>;
+  );
 }

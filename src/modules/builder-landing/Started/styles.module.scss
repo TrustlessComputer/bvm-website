@@ -10,7 +10,6 @@
 }
 
 .heading {
-
   font-weight: 500;
   line-height: (75/68);
   text-align: center;
@@ -23,15 +22,12 @@
 
   @include is-min-table {
     font-size: 48px;
-
   }
   @include is-pc {
     font-size: 68px;
     margin-bottom: 48px;
   }
-
 }
-
 
 .extends {
   display: flex;
@@ -46,16 +42,15 @@
 }
 
 .exItem {
-
-  max-width: 359px;
+  max-width: 299px;
   text-align: center;
   flex: 0 0 100%;
 
-  @include is-min-table{
+  @include is-min-table {
     flex: 0 0 50%;
   }
 
-  @include is-pc{
+  @include is-pc {
     flex: 1;
   }
 
@@ -82,9 +77,13 @@
 }
 
 .lbContent {
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)),
-  linear-gradient(0deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.07));
-  border: 1px solid #FFFFFF26;
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.15),
+      rgba(255, 255, 255, 0.15)
+    ),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.07));
+  border: 1px solid #ffffff26;
   font-weight: 400;
   line-height: (24/16);
   text-align: center;
@@ -99,5 +98,4 @@
     font-size: 16px;
     padding: 16px;
   }
-
 }

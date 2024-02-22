@@ -19,7 +19,7 @@
     font-size: 16px;
 
     @include is-min-table {
-      font-size: 18px;
+      font-size: 20px;
     }
   }
 }
@@ -31,13 +31,12 @@
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 8px;
-  color: #FA4E0E;
+  color: #fa4e0e;
 
   @include is-min-table {
     font-size: 14px;
     margin-bottom: 12px;
   }
-
 }
 
 .link {
@@ -54,7 +53,8 @@
     margin-top: 12px;
   }
 
-  &, :is(a) {
-    color: #FA4E0E;
+  &,
+  :is(a) {
+    color: #fa4e0e;
   }
 }

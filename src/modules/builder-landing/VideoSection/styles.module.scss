@@ -19,11 +19,16 @@
       line-height: 1.5;
       font-weight: 400;
       color: #000000;
+
+      span {
+        color: #0000008c;
+      }
       @include is-min-table {
         font-size: 34px;
       }
       @include is-pc {
         font-size: 48px;
+        max-width: 883px;
       }
     }
   }
