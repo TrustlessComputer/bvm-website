@@ -36,16 +36,16 @@ const DATA_HERO = [
   },
 ];
 
-const DELAY = 1.8;
+const DELAY = 6.5;
 
 export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
   const delay = !isMobile ? DELAY  : 0;
 
   return (
-    <div className={`container ${s.heroLabel} ${isMobile && s.heroLabel__mobile}`}>
+    <div className={`${s.heroLabel} ${isMobile && s.heroLabel__mobile}`}>
       <div className={s.content}>
         <div className={`${s.inner} heroLabel_inner`}>
-          <Fade delay={delay + .4}>
+          <Fade delay={delay}>
             <div className={s.heroLabel_content}>
               <Image
                 src={'/landing/svg/lego_icon_cube.svg'}

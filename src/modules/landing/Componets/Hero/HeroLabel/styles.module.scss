@@ -8,16 +8,23 @@
     padding-bottom: 0;
   }
 
-  .inner{
+  &:not(.heroLabel__mobile) {
+    display: none;
+    @include is-pc {
+      display: block;
+    }
+  }
+
+  .inner {
     display: flex;
     gap: 12px;
     flex-direction: column;
-    @include is-min-table{
+    @include is-min-table {
       //justify-content: space-between;
       //align-items: center;
     }
 
-    @include is-mobile{
+    @include is-mobile {
       flex-direction: column;
     }
   }
@@ -28,16 +35,18 @@
     flex-direction: row;
     align-items: center;
     gap: 12px;
+    justify-content: center;
 
     @include is-mobile {
       flex-direction: column;
       justify-content: center;
+      text-align: center;
       gap: 8px;
     }
 
     @include is-tablet {
       flex-direction: column;
-      justify-content: center;
+
       gap: 8px;
     }
 
@@ -63,9 +72,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 4px;
-    @include is-mobile {
-      justify-content: center;
-    }
+    justify-content: center;
+
+    //@include is-pc {
+    //  justify-content: flex-start;
+    //}
   }
 
   .content {

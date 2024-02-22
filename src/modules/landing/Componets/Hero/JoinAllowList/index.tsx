@@ -161,30 +161,30 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                   </div>
                 </div>
               )}*/}
-              <Flex flexDir="column" marginTop="0px">
-                {/*<Flex alignItems="center" gap="4px" justifyContent="center">*/}
-                {/*  <span style={{ color: "#FA4E0E", fontWeight: "700", textAlign: 'center' }}>${formatCurrency(*/}
-                {/*    totalDeposit || '0',*/}
-                {/*    0,*/}
-                {/*    0,*/}
-                {/*    'BTC',*/}
-                {/*    true,*/}
-                {/*  )}*/}
-                {/*  </span>*/}
-                {/*  <span style={{ color: "white", fontWeight: "700", textAlign: 'center', paddingBottom: "2px" }}>raised</span>*/}
-                {/*</Flex>*/}
-                {!isEnded && (
-                  <Flex gap="8px" alignItems="center" className={s.countDown_wrapper}>
-                    <img style={{ width: 18 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>
-                    <p className={s.countDown_title}>Ends in</p>
-                    <Countdown
-                      className={s.countDown_time}
-                      expiredTime={dayjs.utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss').toString()}
-                      hideIcon={true}
-                    />
-                  </Flex>
-                )}
-              </Flex>
+              {/*<Flex flexDir="column" marginTop="0px">*/}
+              {/*  /!*<Flex alignItems="center" gap="4px" justifyContent="center">*!/*/}
+              {/*  /!*  <span style={{ color: "#FA4E0E", fontWeight: "700", textAlign: 'center' }}>${formatCurrency(*!/*/}
+              {/*  /!*    totalDeposit || '0',*!/*/}
+              {/*  /!*    0,*!/*/}
+              {/*  /!*    0,*!/*/}
+              {/*  /!*    'BTC',*!/*/}
+              {/*  /!*    true,*!/*/}
+              {/*  /!*  )}*!/*/}
+              {/*  /!*  </span>*!/*/}
+              {/*  /!*  <span style={{ color: "white", fontWeight: "700", textAlign: 'center', paddingBottom: "2px" }}>raised</span>*!/*/}
+              {/*  /!*</Flex>*!/*/}
+              {/*  {!isEnded && (*/}
+              {/*    <Flex gap="8px" alignItems="center" className={s.countDown_wrapper}>*/}
+              {/*      <img style={{ width: 18 }} src={`${CDN_URL_ICONS}/hourglass.png`}/>*/}
+              {/*      <p className={s.countDown_title}>Ends in</p>*/}
+              {/*      <Countdown*/}
+              {/*        className={s.countDown_time}*/}
+              {/*        expiredTime={dayjs.utc(PUBLIC_SALE_END, 'YYYY-MM-DD HH:mm:ss').toString()}*/}
+              {/*        hideIcon={true}*/}
+              {/*      />*/}
+              {/*    </Flex>*/}
+              {/*  )}*/}
+              {/*</Flex>*/}
             </Fade>
           </Flex>
         </div>

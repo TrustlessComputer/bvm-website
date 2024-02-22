@@ -82,14 +82,18 @@
 
   .desc {
 
-    text-align: left;
     font-style: normal;
     font-weight: 400;
     line-height: 130%;
     max-width: 620px;
+    text-align: center;
 
     @include is-mobile {
       font-size: 18px;
+    }
+
+    @include is-min-table{
+      text-align: left;
     }
 
     @include is-tablet {
