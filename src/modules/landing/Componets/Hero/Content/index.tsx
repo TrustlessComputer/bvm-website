@@ -4,9 +4,6 @@ import Chars from '@/interactive/Chars';
 import classNames from 'classnames';
 import Fade from '@/interactive/Fade';
 import { useRouter } from 'next/navigation';
-import { Button, Flex } from '@chakra-ui/react';
-import { MenuBuild } from '@/layouts/Header/menuConfig';
-import SvgInset from '@/components/SvgInset';
 import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
 
@@ -26,12 +23,13 @@ export default function HeroContent() {
           </Chars>
           <div className={s.heroContent_content}>
             <Lines delay={DELAY + .1}>
-              Developers use BVM to launch their own Bitcoin L2 blockchain in a few clicks, write smart contracts, deploy decentralized applications, and collectively change Bitcoin forever.
+              Developers use BVM to launch their own Bitcoin L2 blockchain in a few clicks, write smart contracts,
+              deploy decentralized applications, and collectively change Bitcoin forever.
             </Lines>
           </div>
           <ul className={s.heroContent_actions}>
             <li>
-              <Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .5}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + .5}>
                 <button onClick={() => {
                   router.push('/blockchains/customize');
                 }} className={classNames(s.btn, s.btn__red)}>
@@ -40,10 +38,10 @@ export default function HeroContent() {
               </Fade>
             </li>
             <li>
-              <Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .6}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + .6}>
                 <button
                   onClick={() => {
-                    router.push('/blockchains');
+                    router.push('/use-bitcoin');
                   }}
                   className={classNames(s.btn, s.btn__clean, s.buttonBuild)}
                 >
@@ -53,11 +51,11 @@ export default function HeroContent() {
                   <img src={`/builder/arr-r.svg`} alt={'right'} />
                 </button>
               </Fade>
-              <Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .7}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + .7}>
                 <a
                   className={classNames(s.btn, s.btn__clean, s.buttonBuild)}
                   href={'#'} onClick={() => setOpen(true)}>
-                  <span>What is BVM</span>
+                  <span>Watch the film</span>
                   <img src={`/builder/arr-r.svg`} alt={'right'} />
                 </a>
               </Fade>

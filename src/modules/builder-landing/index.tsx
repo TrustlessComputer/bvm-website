@@ -6,6 +6,7 @@ import BuilderVideo from '@/modules/builder-landing/VideoSection';
 import Categories from './Categories';
 import Footer from '@/modules/builder-landing/Footer';
 import Airdrop from '@/modules/builder-landing/Airdrop';
+import Connect from './Connect';
 
 export default function BuilderLading() {
   return (
@@ -13,6 +14,7 @@ export default function BuilderLading() {
       <Loader />
       <BuilderHero />
       <BuilderVideo />
+      <Connect />
       <Airdrop />
       <Started />
       <Categories />

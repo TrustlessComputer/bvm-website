@@ -36,7 +36,7 @@ const DATA_HERO = [
   },
 ];
 
-const DELAY = 6.5;
+const DELAY = 7;
 
 export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
   const delay = !isMobile ? DELAY  : 0;
