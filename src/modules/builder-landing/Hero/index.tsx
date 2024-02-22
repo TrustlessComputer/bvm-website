@@ -77,12 +77,12 @@ export default function BuilderHero() {
               The BVM Builder Program: Launch the next big Bitcoin L2
             </h1>
           </Chars>
-          <Lines>
+          {/* <Lines>
             <div className={s.desc}>
               Bitcoin L2 chains are thriving. This is your chance to take the
               lead and shape the future of Bitcoin!
             </div>
-          </Lines>
+          </Lines> */}
           <ul className={s.actions}>
             <li className={s.item}>
               <Fade delay={1}>

@@ -25,14 +25,16 @@ export default function Connect() {
           </div>
         </div>
 
-        <Image
-          quality={100}
-          alt="background"
-          src={'/builder/background_connect.png'}
-          width={1170}
-          height={537}
-          className={s.connect_bg}
-        />
+        <Fade delay={0.4}>
+          <Image
+            quality={100}
+            alt="background"
+            src={'/builder/background_connect.png'}
+            width={1170}
+            height={537}
+            className={s.connect_bg}
+          />
+        </Fade>
       </div>
     </div>
   );

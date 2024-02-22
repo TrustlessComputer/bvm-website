@@ -3,6 +3,12 @@
   padding-top: 180px;
   padding-bottom: 86px;
   position: relative;
+  overflow: hidden;
+
+  @include is-min-table {
+    padding-top: 224px;
+    padding-bottom: 130px;
+  }
 
   video {
     object-fit: cover;
@@ -30,14 +36,15 @@
   line-height: (75/68);
   text-align: center;
   font-size: 34px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 
   @include is-min-table {
     font-size: 48px;
+    margin-bottom: 24px;
   }
   @include is-pc {
     font-size: 68px;
-    margin-bottom: 20px;
+    margin-bottom: 32px;
   }
 }
 
@@ -124,7 +131,6 @@
   list-style: none;
   padding-left: 0;
   display: none;
-
   @include is-pc {
     display: block;
   }
