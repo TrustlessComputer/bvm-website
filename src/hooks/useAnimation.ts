@@ -1,6 +1,7 @@
 import { MutableRefObject, useEffect, useRef } from 'react';
 import {MathMap} from "@/utils/mathUtils";
 import useAnimationStore from '@/stores/useAnimationStore';
+import { useGSAP } from '@gsap/react';
 
 interface IProps {
   trigger: MutableRefObject<HTMLDivElement | null>;
@@ -23,11 +24,11 @@ export default function useAnimation({
   const {play} = useAnimationStore();
   const refObserver = useRef<IntersectionObserver | null>(null);
 
-  useEffect(() => {
-     setTimeout(initAnimation, 150);
-  }, [initAnimation]);
+  useGSAP(() => {
+    initAnimation();
+  }, {dependencies: [initAnimation]});
 
-  useEffect(() => {
+  useGSAP(() => {
 
       let calcTheshold = threshold || 0;
 
@@ -55,6 +56,6 @@ export default function useAnimation({
     return () => {
       refObserver.current?.disconnect();
     };
-  }, [play, playAnimation]);
+  }, {dependencies: [play, playAnimation]});
 
 }

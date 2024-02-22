@@ -3,6 +3,7 @@ import s from './styles.module.scss';
 import { gsap } from 'gsap';
 import SplitType from 'split-type';
 import useAnimation from '@/hooks/useAnimation';
+import { useGSAP } from '@gsap/react';
 
 interface IProp extends PropsWithChildren {
   delay?: number,
@@ -12,22 +13,24 @@ interface IProp extends PropsWithChildren {
 export default function Lines({ children, delay, from, to }: IProp) {
   const refContent = useRef<HTMLDivElement>(null);
   const refWords = useRef<any>();
+  const { contextSafe } = useGSAP(() => {
+  }, { scope: refContent });
 
-  const initAnimation = useCallback(() => {
+  const initAnimation = contextSafe(() => {
     if (!refContent.current) return;
     const text = new SplitType(refContent.current, { types: 'lines,words' });
     gsap.set(text.lines, { ...{ opacity: 0, y: '100%' }, ...from });
     refWords.current = text.lines;
-  }, []);
+  });
 
-  const playAnimation = useCallback(() => {
+  const playAnimation = contextSafe(() => {
     refWords.current && gsap.to(refWords.current, {
       ...{
         delay,
         opacity: 1, y: '0%', ease: 'power3.out', duration: .8, stagger: .05,
       }, ...to,
     });
-  }, []);
+  });
 
   useAnimation({
     trigger: refContent,

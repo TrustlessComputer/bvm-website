@@ -26,12 +26,13 @@ export default function HeroContent() {
           </Chars>
           <div className={s.heroContent_content}>
             <Lines delay={DELAY + .1}>
-              Developers use BVM to launch their own Bitcoin L2 blockchain in a few clicks, write smart contracts, deploy decentralized applications, and collectively change Bitcoin forever.
+              Developers use BVM to launch their own Bitcoin L2 blockchain in a few clicks, write smart contracts,
+              deploy decentralized applications, and collectively change Bitcoin forever.
             </Lines>
           </div>
           <ul className={s.heroContent_actions}>
             <li>
-              <Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .5}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 22.5}>
                 <button onClick={() => {
                   router.push('/blockchains/customize');
                 }} className={classNames(s.btn, s.btn__red)}>
@@ -40,7 +41,7 @@ export default function HeroContent() {
               </Fade>
             </li>
             <li>
-              <Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .6}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 22.6}>
                 <button
                   onClick={() => {
                     router.push('/use-bitcoin');
@@ -53,7 +54,7 @@ export default function HeroContent() {
                   <img src={`/builder/arr-r.svg`} alt={'right'} />
                 </button>
               </Fade>
-              <Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .7}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 22.7}>
                 <a
                   className={classNames(s.btn, s.btn__clean, s.buttonBuild)}
                   href={'#'} onClick={() => setOpen(true)}>
