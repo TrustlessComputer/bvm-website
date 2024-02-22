@@ -35,7 +35,7 @@ export default function BuilderVideo() {
                 w={['172px']}
                 h={'48px'}
                 fontWeight={400}
-                marginTop={'24px'}
+                marginTop={'32px'}
                 fontSize={'16px'}
                 onClick={() => {
                   router.push('/blockchains/customize');
