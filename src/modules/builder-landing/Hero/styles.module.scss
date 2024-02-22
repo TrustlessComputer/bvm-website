@@ -125,7 +125,7 @@
   padding-left: 0;
   display: none;
 
-  @include is-min-table {
+  @include is-pc {
     display: block;
   }
 }

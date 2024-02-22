@@ -42,7 +42,7 @@ export default function BuilderHero() {
                 delay={0.6}
               >
                 <BoxParallaxMouseMove offset={0.2}>
-                  <img src="/builder/hero-icon-2.png" alt="hero-icon-1.png" />
+                  <img src="/builder/hero-icon-3.png" alt="hero-icon-1.png" />
                 </BoxParallaxMouseMove>
               </Fade>
             </li>
@@ -53,7 +53,7 @@ export default function BuilderHero() {
                 delay={0.8}
               >
                 <BoxParallaxMouseMove offset={0.25}>
-                  <img src="/builder/hero-icon-3.png" alt="hero-icon-1.png" />
+                  <img src="/builder/hero-icon-4.png" alt="hero-icon-1.png" />
                 </BoxParallaxMouseMove>
               </Fade>
             </li>
@@ -64,7 +64,7 @@ export default function BuilderHero() {
                 delay={1}
               >
                 <BoxParallaxMouseMove offset={0.1}>
-                  <img src="/builder/hero-icon-4.png" alt="hero-icon-1.png" />
+                  <img src="/builder/hero-icon-2.png" alt="hero-icon-1.png" />
                 </BoxParallaxMouseMove>
               </Fade>
             </li>
