@@ -5,6 +5,7 @@ import useAnimationStore from '@/stores/useAnimationStore';
 import { MathMap } from '@/utils/mathUtils';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import Image from 'next/image';
+import { useGSAP } from '@gsap/react';
 
 const FRAMES = 169;
 
@@ -23,11 +24,11 @@ export default function Intro() {
   const refSky = useRef<HTMLDivElement>(null);
 
 
-  useEffect(() => {
+ const {contextSafe} =  useGSAP(() => {
     played && completed();
-  }, [played]);
+  }, {dependencies: [played], scope: refContent});
 
-  useEffect(() => {
+  useGSAP(() => {
     if (typeof document !== undefined) {
       document.body.style.overflow = 'hidden';
     }
@@ -38,8 +39,8 @@ export default function Intro() {
     quickFillter.current = gsap.quickTo(refThumb.current, '--clipPath', {
       duration: 0.2,
     });
-  }, []);
-  const completed = () => {
+  }, {dependencies: []});
+  const completed = contextSafe(() => {
 
     gsap.fromTo(
       refContent.current,
@@ -57,9 +58,9 @@ export default function Intro() {
       },
     );
     setTimeout(setPlay, 300);
-  };
+  });
 
-  const playCompleted = () => {
+  const playCompleted = contextSafe(() => {
     refActions.current.isComplete = true;
     const tm = { value: refActions.current.xFrame };
     gsap.to(tm, {
@@ -70,7 +71,7 @@ export default function Intro() {
     });
     gsap.to(refFlare.current, { '--bg': 1, '--shadown': '500px', ease: 'power3.inOut', duration: .6 });
     gsap.to(refSky.current, { '--bg': 1, duration: 1.2, ease: 'power3.inOut' });
-  };
+  });
 
   const onMouseUp = () => {
     if (refActions.current.isComplete || !refBtn.current || !refWrap.current)
@@ -235,7 +236,6 @@ export default function Intro() {
               </button>
             </div>
           </div>
-
         </div>
       )}
       <div className={s.sky} ref={refSky}></div>
