@@ -12,10 +12,12 @@ type TCategoryItem = {
 };
 export default function CategoryItem({
   data,
+  isIntroduce,
   index,
 }: {
   data: TCategoryItem;
   index: number;
+  isIntroduce?: boolean;
 }) {
   const isEven = index % 2 === 0;
   return (
@@ -27,15 +29,31 @@ export default function CategoryItem({
         s.item,
         isEven ? s.item__even : s.item__odd,
         data.link && s.link,
+        isIntroduce && s.item__introduce,
       )}
     >
-      <h5 className={s.item_title}>{data.leftTitle}</h5>
+      <h5 className={cn(s.item_title, isIntroduce && s.item__introduce_text)}>
+        {data.leftTitle}
+      </h5>
       <div className={s.item_details}>
-        <p className={s.item_details_desc}>{data.midTitle}</p>
+        <p
+          className={cn(
+            s.item_details_desc,
+            isIntroduce && s.item__introduce_text,
+          )}
+        >
+          {data.midTitle}
+        </p>
         {data.rightTitle && (
           <div className={s.item_details_btn}>
-            <p className={s.item_details_btn_text}>{data.rightTitle}</p>
-            <SvgInset svgUrl="/builder/icon-categories.svg" size={20} />
+            {isIntroduce ? (
+              <p className={s.item__introduce_text}>{data.rightTitle}</p>
+            ) : (
+              <>
+                <p className={s.item_details_btn_text}>{data.rightTitle}</p>
+                <SvgInset svgUrl="/builder/icon-categories.svg" size={20} />
+              </>
+            )}
           </div>
         )}
       </div>

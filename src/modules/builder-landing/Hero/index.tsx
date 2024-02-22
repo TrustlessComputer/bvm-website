@@ -97,18 +97,22 @@ export default function BuilderHero() {
               </Fade>
             </li>
             <li className={s.item_details}>
-              <div className={s.item_details_inner}>
-                <p className={s.item_details_inner_text}>What is BVM</p>
-                <span className={s.item_details_inner_svg}>
-                  <SvgInset svgUrl="/builder/arr-r.svg" height={24} />
-                </span>
-              </div>
-              <div className={s.item_details_inner}>
-                <p className={s.item_details_inner_text}>Developer guides</p>
-                <span className={s.item_details_inner_svg}>
-                  <SvgInset svgUrl="/builder/arr-r.svg" height={24} />
-                </span>
-              </div>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={1.2}>
+                <div className={s.item_details_inner}>
+                  <p className={s.item_details_inner_text}>What is BVM</p>
+                  <span className={s.item_details_inner_svg}>
+                    <SvgInset svgUrl="/builder/arr-r.svg" height={24} />
+                  </span>
+                </div>
+              </Fade>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={1.4}>
+                <div className={s.item_details_inner}>
+                  <p className={s.item_details_inner_text}>Developer guides</p>
+                  <span className={s.item_details_inner_svg}>
+                    <SvgInset svgUrl="/builder/arr-r.svg" height={24} />
+                  </span>
+                </div>
+              </Fade>
             </li>
           </ul>
         </div>

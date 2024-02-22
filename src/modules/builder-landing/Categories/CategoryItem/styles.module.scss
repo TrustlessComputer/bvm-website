@@ -6,7 +6,7 @@
   padding: 16px 0;
 
   @include is-min-table {
-    padding: 26.5px 0;
+    padding: 25px 0;
   }
   &.link {
     cursor: pointer;
@@ -93,6 +93,24 @@
       rect {
         transition: fill 0.4s var(--easeOutQuart);
       }
+    }
+  }
+
+  &__introduce {
+    background-color: #fff;
+    font-weight: 500;
+    padding: 12px 0;
+    &_text {
+      color: rgba(0, 0, 0, 0.7);
+      text-transform: uppercase;
+      font-size: 10px;
+
+      @include is-min-table {
+        font-size: 14px;
+      }
+    }
+    @include is-min-table {
+      padding: 20px 0;
     }
   }
 }

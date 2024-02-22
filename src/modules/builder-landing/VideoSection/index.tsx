@@ -44,7 +44,7 @@ export default function BuilderVideo() {
                   opacity: 0.8,
                 }}
               >
-                Try for free
+                Launch now
               </Button>
             </Fade>
           </div>
