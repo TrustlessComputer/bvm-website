@@ -34,12 +34,16 @@ const DATA_HERO = [
     icon: '/landing/ic-near.svg',
     title: 'Near',
   },
+  {
+    icon: '/landing/ic-avail.svg',
+    title: 'Avail',
+  },
 ];
 
 const DELAY = 7;
 
 export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
-  const delay = !isMobile ? DELAY  : 0;
+  const delay = !isMobile ? DELAY : 0;
 
   return (
     <div className={`${s.heroLabel} ${isMobile && s.heroLabel__mobile}`}>
@@ -49,7 +53,7 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
             <div className={s.heroLabel_content}>
               <Image
                 src={'/landing/svg/lego_icon_cube.svg'}
-                alt='cube'
+                alt="cube"
                 width={32}
                 height={32}
               />
@@ -58,14 +62,19 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
               </p>
             </div>
           </Fade>
-          <div className={`${s.heroLabel_listHero} ${isMobile && s.heroLabel_listHero__mobile}`}>
+          <div
+            className={`${s.heroLabel_listHero} ${
+              isMobile && s.heroLabel_listHero__mobile
+            }`}
+          >
             {DATA_HERO.map((item, index) => {
-              return <ItemHero key={index} delay={delay + index / 10} data={item} />;
+              return (
+                <ItemHero key={index} delay={delay + index / 10} data={item} />
+              );
             })}
           </div>
         </div>
       </div>
-
     </div>
   );
 }
