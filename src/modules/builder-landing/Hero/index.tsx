@@ -1,14 +1,12 @@
 import s from './styles.module.scss';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
-import Lines from '@/interactive/Lines';
 import classNames from 'classnames';
 import IConContent from '@/modules/builder-landing/IconContent';
 import BoxParallaxMouseMove from '@/interactive/MouseMove';
 import { useRouter } from 'next/navigation';
 import { CDN_URL, CDN_URL_VIDEOS } from '@/config';
 import SvgInset from '@/components/SvgInset';
-import waveSetting from '../../../../../../../pj_flc/definent/src/components/Experience/waveSetting';
 
 export default function BuilderHero() {
   const router = useRouter();
