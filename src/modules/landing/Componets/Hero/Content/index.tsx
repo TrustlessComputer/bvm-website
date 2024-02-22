@@ -4,9 +4,6 @@ import Chars from '@/interactive/Chars';
 import classNames from 'classnames';
 import Fade from '@/interactive/Fade';
 import { useRouter } from 'next/navigation';
-import { Button, Flex } from '@chakra-ui/react';
-import { MenuBuild } from '@/layouts/Header/menuConfig';
-import SvgInset from '@/components/SvgInset';
 import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
 
@@ -32,7 +29,7 @@ export default function HeroContent() {
           </div>
           <ul className={s.heroContent_actions}>
             <li>
-              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 22.5}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + .5}>
                 <button onClick={() => {
                   router.push('/blockchains/customize');
                 }} className={classNames(s.btn, s.btn__red)}>
@@ -41,7 +38,7 @@ export default function HeroContent() {
               </Fade>
             </li>
             <li>
-              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 22.6}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + .6}>
                 <button
                   onClick={() => {
                     router.push('/use-bitcoin');
@@ -54,7 +51,7 @@ export default function HeroContent() {
                   <img src={`/builder/arr-r.svg`} alt={'right'} />
                 </button>
               </Fade>
-              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 22.7}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + .7}>
                 <a
                   className={classNames(s.btn, s.btn__clean, s.buttonBuild)}
                   href={'#'} onClick={() => setOpen(true)}>
