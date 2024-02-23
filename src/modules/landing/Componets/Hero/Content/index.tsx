@@ -6,7 +6,7 @@ import Fade from '@/interactive/Fade';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
-
+import Banner from '../Banner';
 
 const DELAY = 6;
 export default function HeroContent() {
@@ -22,39 +22,43 @@ export default function HeroContent() {
             <h1 className={s.heroContent_heading}>Bitcoin, upgraded.</h1>
           </Chars>
           <div className={s.heroContent_content}>
-            <Lines delay={DELAY + .1}>
-              Developers use BVM to launch their own Bitcoin L2 blockchain in a few clicks, write smart contracts,
-              deploy decentralized applications, and collectively change Bitcoin forever.
+            <Lines delay={DELAY + 0.1}>
+              Developers use BVM to launch their own Bitcoin L2 blockchain in a
+              few clicks, write smart contracts, deploy decentralized
+              applications, and collectively change Bitcoin forever.
             </Lines>
           </div>
           <ul className={s.heroContent_actions}>
             <li>
-              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + .5}>
-                <button onClick={() => {
-                  router.push('/blockchains/customize');
-                }} className={classNames(s.btn, s.btn__red)}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 0.5}>
+                <button
+                  onClick={() => {
+                    router.push('/blockchains/customize');
+                  }}
+                  className={classNames(s.btn, s.btn__red)}
+                >
                   Try for free
                 </button>
               </Fade>
             </li>
             <li>
-              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + .6}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 0.6}>
                 <button
                   onClick={() => {
                     router.push('/use-bitcoin');
                   }}
                   className={classNames(s.btn, s.btn__clean, s.buttonBuild)}
                 >
-                  <span>
-                    Explore Bitcoin L2s
-                  </span>
+                  <span>Explore Bitcoin L2s</span>
                   <img src={`/builder/arr-r.svg`} alt={'right'} />
                 </button>
               </Fade>
-              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + .7}>
+              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 0.7}>
                 <a
                   className={classNames(s.btn, s.btn__clean, s.buttonBuild)}
-                  href={'#'} onClick={() => setOpen(true)}>
+                  href={'#'}
+                  onClick={() => setOpen(true)}
+                >
                   <span>Watch the film</span>
                   <img src={`/builder/arr-r.svg`} alt={'right'} />
                 </a>
@@ -100,7 +104,7 @@ export default function HeroContent() {
         </div>
       </div>
       <ModalVideo
-        channel='custom'
+        channel="custom"
         url={'/public-sale/public_sale_video_2.mp4'}
         isOpen={isOpen}
         onClose={() => {

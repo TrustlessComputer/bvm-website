@@ -5,14 +5,14 @@
   z-index: 2;
   max-width: calc(740px + 100px);
   width: 100%;
-  top: 100px;
+  top: 120px;
   padding-left: 16px;
   padding-right: 16px;
 
   @include is-min-table {
     padding-left: rem(32px);
     padding-right: rem(32px);
-    top: 124px;
+    top: 160px;
   }
 
   &_content {
@@ -105,7 +105,7 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
 
-    span{
+    span {
       overflow: hidden;
       position: relative;
       width: fit-content !important;
@@ -140,6 +140,7 @@
 
     gap: 6px;
     padding-right: 8px !important;
+
     @include is-min-table {
       gap: 20px;
     }
