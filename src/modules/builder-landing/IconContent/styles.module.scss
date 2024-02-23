@@ -2,23 +2,23 @@
   position: relative;
   text-align: center;
   padding-bottom: 16px;
+
   .icon {
-    height: 72px;
-    width: 72px;
-    margin-bottom: 24px;
+    height: 60px;
+    width: 60px;
+    margin-bottom: 20px;
     display: inline-block;
   }
 
   .content {
     text-transform: uppercase;
-
     font-weight: 500;
     line-height: (26/20);
     text-align: center;
     font-size: 16px;
 
     @include is-min-table {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 }
@@ -28,9 +28,17 @@
   font-weight: 500;
   line-height: (18/14);
   text-align: center;
-  text-transform: uppercase;
   margin-bottom: 8px;
   color: #fa4e0e;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+
+  :global {
+    .react-tooltip {
+      width: 260px;
+    }
+  }
 
   @include is-min-table {
     font-size: 14px;

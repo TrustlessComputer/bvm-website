@@ -2,6 +2,7 @@
   background-color: white;
   padding: var(--builder-padding-size) 0;
 }
+
 .inner {
   display: flex;
   flex-direction: column;
@@ -20,6 +21,7 @@
     }
   }
 }
+
 .content {
   max-width: 934px;
 
@@ -57,7 +59,7 @@
   &__left {
     border: 1px solid #ececec;
     background: linear-gradient(0deg, #ececec, #ececec),
-      linear-gradient(0deg, rgba(246, 246, 246, 0.8), rgba(246, 246, 246, 0.8));
+    linear-gradient(0deg, rgba(246, 246, 246, 0.8), rgba(246, 246, 246, 0.8));
     color: black;
   }
 
@@ -65,11 +67,11 @@
     color: #fa4e0e;
     border: 1px solid #ff7e214d;
     background: linear-gradient(
-        0deg,
-        rgba(255, 126, 33, 0.3),
-        rgba(255, 126, 33, 0.3)
-      ),
-      linear-gradient(0deg, rgba(255, 126, 33, 0.06), rgba(255, 126, 33, 0.06));
+                    0deg,
+                    rgba(255, 126, 33, 0.3),
+                    rgba(255, 126, 33, 0.3)
+    ),
+    linear-gradient(0deg, rgba(255, 126, 33, 0.06), rgba(255, 126, 33, 0.06));
   }
 }
 
@@ -85,6 +87,7 @@
     font-size: 16px;
   }
 }
+
 .details {
   margin-top: 32px;
   display: flex;
@@ -102,6 +105,7 @@
       gap: 8px;
       padding-left: 20px;
     }
+
     &_val {
       font-size: 32px;
       font-weight: 400;
@@ -116,11 +120,26 @@
       font-size: 12px;
       line-height: 150%;
       font-weight: 400;
-      color: #000;
+      color: rgba(#000, .7);
       display: flex;
       flex-direction: row;
       gap: 4px;
       align-items: center;
+
+      :global {
+        .react-tooltip {
+          max-width: 320px;
+        }
+      }
+
+      a {
+        transform: translateY(-.15em);
+        display: block;
+      }
+
+      img {
+        margin-top: 0 !important;
+      }
 
       @include is-min-table {
         font-size: 16px;
@@ -138,6 +157,7 @@
     gap: 40px;
   }
 }
+
 .val {
   display: block;
   font-weight: 400;

@@ -18,8 +18,8 @@ export default function Connect() {
             </Chars>
             <Fade from={{ y: 10 }} to={{ y: 0 }} delay={0.2}>
               <p className={s.heading_desc}>
-                BVM will help you connect with 20+ Crypto VCs and angel
-                investors looking to deploy millions into potential Bitcoin L2s.
+                BVM can help eligible projects connect with 20+ crypto VCs and angel investors looking to deploy
+                millions into potential Bitcoin L2s.
               </p>
             </Fade>
           </div>
@@ -28,7 +28,7 @@ export default function Connect() {
         <Fade delay={0.4}>
           <Image
             quality={100}
-            alt="background"
+            alt='background'
             src={'/builder/background_connect.png'}
             width={1170}
             height={537}

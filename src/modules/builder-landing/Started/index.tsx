@@ -12,35 +12,44 @@ export default function Started() {
         <div className={`container ${s.started_container}`}>
           <HeadingSection className={s.heading}>
             <Chars delay={0.2}>
-              It’s simple to get started
+              It’s easy to get started
             </Chars>
           </HeadingSection>
-          {/*<Chars classNames={s.wrapHeading}>*/}
-          {/*  <h1 className={s.heading}>It’s simple to get started</h1>*/}
-          {/*</Chars>*/}
           <ul className={s.extends}>
             <li className={s.exItem}>
               <Fade delay={0.1}>
                 <IConContent
                   step={1}
+                  title={'Launch now'}
                   link={'/blockchains/customize'}
-                  icon={'builder/icon-step-1.svg'}
+                  icon={'builder/step-1.png'}
                 >
-                  Launch BTC L2 in a few clicks.
+                  Launch Bitcoin L2 testnet FOR FREE in a few clicks
                 </IConContent>
               </Fade>
             </li>
             <li className={s.exItem}>
               <Fade delay={0.2}>
-                <IConContent step={2} icon={'builder/icon-step-2.svg'}>
-                  Deploy or Migrate your EVM dapps effortlessly.
+                <IConContent step={2}
+                             lock={true}
+                             content={`BVM allows Ethereum developers to migrate their Solidity smart contracts and dApps from
+Ethereum to Bitcoin with minimal or no modifications.`}
+                             title={'Developer guides'}
+                             blank={true}
+                             link={'https://docs.bvm.network/bvm/'}
+                             icon={'builder/step-2.png'}>
+                  Deploy or Migrate your EVM Dapps effortlessly
                 </IConContent>
               </Fade>
             </li>
             <li className={s.exItem}>
               <Fade delay={0.3}>
-                <IConContent step={3} icon={'builder/icon-step-3.svg'}>
-                  Grow user base.
+                <IConContent
+                  title={'Submit Form'}
+                  blank={true}
+                  link={'https://forms.gle/eUbL7nHuTPA3HLRz8'}
+                  step={3} icon={'builder/step-3.png'}>
+                  Launch your Bitcoin L2 on mainnet
                 </IConContent>
               </Fade>
             </li>
@@ -48,9 +57,9 @@ export default function Started() {
               <Fade delay={0.4}>
                 <IConContent
                   step={4}
-                  icon={'builder/mingcute_usd-coin-usdc-line.svg'}
+                  icon={'builder/step-4.png'}
                 >
-                  Earn BVM airdrop.
+                  Grow TVL and Earn $BVM airdrop
                 </IConContent>
               </Fade>
             </li>
@@ -64,7 +73,9 @@ export default function Started() {
           {/*</Fade>*/}
         </div>
       </div>
-      <BitEth />
+      <div id={'read-doc'}>
+        <BitEth />
+      </div>
     </>
   );
 }

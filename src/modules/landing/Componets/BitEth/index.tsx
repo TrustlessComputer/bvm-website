@@ -58,14 +58,14 @@ export default function BitEth() {
                 fontWeight={400}
                 fontSize={'16px'}
                 _hover={{
-                  bgColor: '#000',
+                  bgColor: '#e5601b',
                 }}
                 onClick={() => {
                   window.open('https://docs.bvm.network', '_blank');
                   // router.push('/blockchains/customize');
                 }}
               >
-                {`Build your Bitcoin L2`}
+                {`Read developer docs`}
               </Button>
             </Fade>
           </div>

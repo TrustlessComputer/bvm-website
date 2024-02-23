@@ -6,6 +6,7 @@
   display: flex;
   padding: var(--builder-padding-size) 0;
   flex-direction: column;
+  gap: 34px;
 
   @include is-pc {
     align-items: center;
@@ -23,12 +24,13 @@
       span {
         color: #0000008c;
       }
+
       @include is-min-table {
         font-size: 34px;
       }
       @include is-pc {
         font-size: 48px;
-        max-width: 883px;
+        max-width: 918px;
       }
     }
   }
@@ -40,7 +42,8 @@
     }
 
     img {
-      width: 100%;
+      width: 622px;
+      height: auto;
     }
   }
 }
