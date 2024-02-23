@@ -10,10 +10,10 @@
 }
 
 .heading {
-  font-weight: 500;
-  line-height: (75/68);
+  //font-weight: 500;
+  //line-height: (75/68);
   text-align: center;
-  font-size: 34px;
+  //font-size: 34px;
   margin-bottom: 34px;
   color: white;
   margin-right: auto;
@@ -21,10 +21,10 @@
   width: fit-content;
 
   @include is-min-table {
-    font-size: 48px;
+    //font-size: 48px;
   }
   @include is-pc {
-    font-size: 68px;
+    //font-size: 68px;
     margin-bottom: 48px;
   }
 }
