@@ -16,7 +16,7 @@ const DATA_CATEGORIES = [
   },
   {
     leftTitle: 'DeFi',
-    midTitle: 'Blockchain for Spot Dexs or Perpetual Dexs.',
+    midTitle: 'Blockchain for Spot DEXs or Perpetual DEXs.',
     rightTitle: 'Naka Chain',
     link: 'https://nakachain.xyz/perpetual',
   },

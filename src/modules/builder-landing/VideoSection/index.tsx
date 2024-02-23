@@ -15,38 +15,35 @@ export default function BuilderVideo() {
       <div className={'container'}>
         <div className={`${s.builderWrapper} `}>
           <div className={`${s.wrapperContent}`}>
-            <div style={{ lineHeight: '62px' }}>
-              <Chars classNames={s.title}>
-                Bitcoin L2 chains are thriving. This is your chance to
-                {''} <span>take the lead</span> and <span>shape</span> the
-                future of Bitcoin!
-              </Chars>
-            </div>
-            <Fade>
-              <Button
-                bgColor={'#EF601B'}
-                color={'#fff'}
-                borderRadius={0}
-                display={'flex'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                px={'41px'}
-                py={'14px'}
-                w={['172px']}
-                h={'48px'}
-                fontWeight={400}
-                marginTop={'32px'}
-                fontSize={'16px'}
-                onClick={() => {
-                  router.push('/blockchains/customize');
-                }}
-                _hover={{
-                  opacity: 0.8,
-                }}
-              >
-                Launch now
-              </Button>
-            </Fade>
+            <Chars classNames={s.title}>
+              BVM is the first modular metaprotocol that lets you launch your own Bitcoin L2 in just a few clicks!
+              This is your chance to take the lead and shape the future of Bitcoin!
+            </Chars>
+            {/*<Fade>*/}
+            {/*  <Button*/}
+            {/*    bgColor={'#EF601B'}*/}
+            {/*    color={'#fff'}*/}
+            {/*    borderRadius={0}*/}
+            {/*    display={'flex'}*/}
+            {/*    justifyContent={'center'}*/}
+            {/*    alignItems={'center'}*/}
+            {/*    px={'41px'}*/}
+            {/*    py={'14px'}*/}
+            {/*    w={['172px']}*/}
+            {/*    h={'48px'}*/}
+            {/*    fontWeight={400}*/}
+            {/*    marginTop={'32px'}*/}
+            {/*    fontSize={'16px'}*/}
+            {/*    onClick={() => {*/}
+            {/*      router.push('/blockchains/customize');*/}
+            {/*    }}*/}
+            {/*    _hover={{*/}
+            {/*      opacity: 0.8,*/}
+            {/*    }}*/}
+            {/*  >*/}
+            {/*    Launch now*/}
+            {/*  </Button>*/}
+            {/*</Fade>*/}
           </div>
           <Fade delay={0.2} className={`${s.wrapperVideo}`}>
             <a href={'#'} onClick={() => setOpen(true)}>
@@ -60,7 +57,7 @@ export default function BuilderVideo() {
         </div>
       </div>
       <ModalVideo
-        channel="custom"
+        channel='custom'
         url={'/public-sale/public_sale_video_2.mp4'}
         isOpen={isOpen}
         onClose={() => {

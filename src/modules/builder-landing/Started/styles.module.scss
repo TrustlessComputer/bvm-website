@@ -33,16 +33,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
   list-style: none;
   padding-left: 0;
   gap: 24px;
-  @include is-min-table {
-    gap: 48px;
-  }
 }
 
 .exItem {
-  max-width: 299px;
   text-align: center;
   flex: 0 0 100%;
 
@@ -51,17 +48,7 @@
   }
 
   @include is-pc {
-    flex: 1;
-  }
-
-  &:nth-child(1) {
-    :global {
-      .content {
-        max-width: 205px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
+    flex: 0 0 322px;
   }
 }
 

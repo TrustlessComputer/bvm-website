@@ -1,37 +1,39 @@
 import React from 'react';
-import s from './styles.module.scss'
+import s from './styles.module.scss';
 import { Button, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
+import useScrollTo from '@/modules/builder-landing/useScrollTo';
 
 const dataSocial = [
-  {
-    id: 0,
-    title: 'Developer guides',
-    link: 'https://docs.bvm.network/bvm/',
-    image: '/public-sale/iconTopRight.svg',
-    alt: 'bvm'
-  },
+  // {
+  //   id: 0,
+  //   title: 'Developer guides',
+  //   link: 'https://docs.bvm.network/bvm/',
+  //   image: '/public-sale/iconTopRight.svg',
+  //   alt: 'bvm'
+  // },
   {
     id: 1,
     title: 'Twitter',
-    link: 'https://twitter.com/BVMnetwork',
-    image: '/public-sale/tw_footer.svg',
-    alt: 'twitter'
+    link: 'https://twitter.com/bird_2836',
+    image: '/builder/tw_icon.svg',
+    alt: 'twitter',
   },
   {
     id: 2,
     title: 'Telegram',
     link: 'https://t.me/bird2836',
-    image: '/public-sale/tele.svg',
-    alt: 'telegram'
-  }
-]
+    image: '/builder/tele_icon.svg',
+    alt: 'telegram',
+  },
+];
 
 const Footer = (): React.JSX.Element => {
   const router = useRouter();
-  return <div className={`${s.footer}`} style={{backgroundImage: 'url(/public-sale/bg_footer.png)'}}>
+  const {scrollTo} = useScrollTo();
+  return <div className={`${s.footer}`} style={{ backgroundImage: 'url(/public-sale/bg_footer.png)' }}>
     <div className={'container'}>
       <div className={`${s.footerContent}`}>
         <h2 className={s.heading}>
@@ -55,34 +57,41 @@ const Footer = (): React.JSX.Element => {
             marginTop={'24px'}
             fontSize={'16px'}
             onClick={() => {
-              router.push('/blockchains/customize');
+              scrollTo();
+              // router.push('/blockchains/customize');
             }}
             _hover={{
               opacity: 0.8,
             }}
           >
-            Launch now
+            Build Your Bitcoin L2
           </Button>
         </Fade>
       </div>
+
       <div className={`${s.footerSocial}`}>
-        {
-          dataSocial.map((item, index) => (
-            <a href={item.link} key={item.id} target={'_blank'}>
-              <Fade delay={index / 5}>
-              <div className={`${s.footerSocialItem}`}>
-                <Text>{item.title}</Text>
-                <div>
-                  <img src={item.image} width={23} alt={item.alt} />
-                </div>
-              </div>
-              </Fade>
-            </a>
-          ))
-        }
+        <div className={s.footerSocial_title}>
+          Have question? Get in touch with our team member
+        </div>
+        <div className={s.footerSocial_inner}>
+          {
+            dataSocial.map((item, index) => (
+              <a href={item.link} key={item.id} target={'_blank'}>
+                <Fade delay={index / 5}>
+                  <div className={`${s.footerSocialItem}`}>
+                    <div>
+                      <img src={item.image} width={23} alt={item.alt} />
+                    </div>
+                    <Text>{item.title}</Text>
+                  </div>
+                </Fade>
+              </a>
+            ))
+          }
+        </div>
       </div>
     </div>
-  </div>
-}
+  </div>;
+};
 
 export default Footer;
