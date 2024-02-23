@@ -5,6 +5,7 @@ import CategoryItem from './CategoryItem';
 import Chars from '@/interactive/Chars';
 import Lines from '@/interactive/Lines';
 import Fade from '@/interactive/Fade';
+import HeadingSection from '@/modules/landing/Componets/HeadingSection';
 
 const DATA_CATEGORIES = [
   {
@@ -60,9 +61,14 @@ export default function Categories() {
       <div className={'container'}>
         <div className={s.categories_inner}>
           <div className={s.categories_heading}>
-            <h3 className={s.categories_title}>
-              <Chars>Categories</Chars>
-            </h3>
+            {/*<h3 className={s.categories_title}>*/}
+            {/*  <Chars>Categories</Chars>*/}
+            {/*</h3>*/}
+            <HeadingSection className={s.heading2}>
+              <Chars delay={0.2}>
+                Categories
+              </Chars>
+            </HeadingSection>
             <div className={s.categories_desc}>
               <Lines>
                 BVM empowers you to build any Bitcoin Layer 2 across diverse

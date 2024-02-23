@@ -3,15 +3,21 @@ import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
 import IConContent from '@/modules/builder-landing/IconContent';
 import BitEth from '@/modules/landing/Componets/BitEth';
+import HeadingSection from '@/modules/landing/Componets/HeadingSection';
 
 export default function Started() {
   return (
     <>
       <div className={s.started}>
         <div className={`container ${s.started_container}`}>
-          <Chars classNames={s.wrapHeading}>
-            <h1 className={s.heading}>It’s simple to get started</h1>
-          </Chars>
+          <HeadingSection className={s.heading}>
+            <Chars delay={0.2}>
+              It’s simple to get started
+            </Chars>
+          </HeadingSection>
+          {/*<Chars classNames={s.wrapHeading}>*/}
+          {/*  <h1 className={s.heading}>It’s simple to get started</h1>*/}
+          {/*</Chars>*/}
           <ul className={s.extends}>
             <li className={s.exItem}>
               <Fade delay={0.1}>

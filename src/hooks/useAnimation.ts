@@ -30,6 +30,7 @@ export default function useAnimation({
 
   useGSAP(() => {
 
+    if(!play) return ;
     let calcTheshold = threshold || 0;
 
     if (calcTheshold === undefined && trigger.current) {
