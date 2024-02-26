@@ -4,7 +4,7 @@ import UseBitcoinModule from '@/modules/UseBitcoin';
 
 const UseBitcoin = () => {
   return (
-    <MainLayout headerProps={{bgColor: '#0E0E0E'}}>
+    <MainLayout headerProps={{bgColor: '#FFFFFF', color: 'black'}}>
       <div className={s.container}>
         <UseBitcoinModule />
       </div>

@@ -159,7 +159,7 @@ const ActivitiesVer2 = React.memo(() => {
           <ul>
             ${NormalRow({ key: 'Prizes:', value: '50 million $EAI tokens' })}
             ${NormalRow({ key: 'Activities:', value: 'Experience fully onchain AI on Bitcoin and win prizes.' })}
-            ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI, isSpecial: true })}
+            ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI })}
           </ul>
         `,
         banner: 'banner-05.png',
