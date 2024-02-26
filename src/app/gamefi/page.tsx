@@ -1,7 +1,7 @@
 import GameFiModule from '@/modules/gamefi';
 import MainLayout from '@/layouts/MainLayout';
 
-const UpcomingPage = () => {
+const GameFiPage = () => {
   return (
     <MainLayout
       headerProps={{
@@ -14,4 +14,4 @@ const UpcomingPage = () => {
 
 };
 
-export default UpcomingPage;
+export default GameFiPage;
