@@ -2,6 +2,7 @@
 
 import { Box } from '@chakra-ui/react';
 import BoxContent from '@/layouts/BoxContent';
+import Categories from '@/modules/gamefi/Categories';
 import Section1 from './Section_1';
 import SectionFooter from './SectionFooter';
 // import Section2 from './Section_2';

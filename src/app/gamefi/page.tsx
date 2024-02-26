@@ -11,6 +11,7 @@ const UpcomingPage = () => {
       <GameFiModule />
     </MainLayout>
   );
+
 };
 
 export default UpcomingPage;
