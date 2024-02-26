@@ -1,0 +1,14 @@
+.price {
+
+  background-color: white;
+  padding-top: 180px;
+  padding-bottom: 80px;
+  min-height: calc(100vh - 180px);
+  width: 100%;
+  overflow-x: auto;
+
+  &_container {
+    display: flex;
+    min-width: 1360px;
+  }
+}
