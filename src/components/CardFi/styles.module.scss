@@ -1,0 +1,34 @@
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 90px;
+  gap: 80px;
+  align-items: center;
+
+  @include is-pc {
+    align-items: start;
+    flex-direction: row;
+  }
+  .imageWrapper {
+    padding: 20px 120px;
+    max-width: 500px;
+    width: 100%;
+    height: 300px;
+    img {
+      width: 260px;
+      height: 260px;
+      object-fit: contain;
+    }
+  }
+  .contentWrapper {
+    max-width: 1020px;
+    width: 100%;
+    color: #000;
+    text-align: center;
+
+    @include is-pc {
+      text-align: start;
+    }
+  }
+}
