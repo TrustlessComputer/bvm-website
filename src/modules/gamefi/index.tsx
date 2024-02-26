@@ -2,22 +2,26 @@
 
 import { Box } from '@chakra-ui/react';
 import BoxContent from '@/layouts/BoxContent';
-import Categories from '@/modules/gamefi/Categories';
-import Section1 from './Section_1';
-import SectionFooter from './SectionFooter';
-// import Section2 from './Section_2';
+import CategorySection from '@/modules/gamefi/CategorySection';
+import FooterSection from '@/modules/gamefi/FooterSection';
+import HeroSection from '@/modules/gamefi/HeroSection';
 import s from './styles.module.scss';
 
 const GameFiModule = () => {
   return (
-    <Box className={s.container} bgColor={'#fff'}>
-      <BoxContent minH={'70dvh'}>
-        <Box h={['20px', '140px']} />
-        <Section1 />
-      </BoxContent>
-        <Categories />
-        <Box h={['20px', '40px']} />
-        <SectionFooter />
+    <Box className={s.container} bgColor={'#F3F1E8'}>
+      <Box h={['20px', '80px']} />
+      <div className={s.heroSection}>
+        <BoxContent>
+          <HeroSection />
+        </BoxContent>
+      </div>
+      <div className={s.categorySection}>
+        <BoxContent pt={['80px']}>
+          <CategorySection />
+        </BoxContent>
+      </div>
+      <FooterSection />
     </Box>
   );
 };
