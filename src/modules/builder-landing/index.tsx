@@ -7,6 +7,7 @@ import Categories from './Categories';
 import Footer from '@/modules/builder-landing/Footer';
 import Airdrop from '@/modules/builder-landing/Airdrop';
 import Connect from './Connect';
+import GetBVMSection from '@/components/GetBVMSection';
 
 export default function BuilderLading() {
   return (
@@ -18,6 +19,8 @@ export default function BuilderLading() {
       <Airdrop />
       <Started />
       <Categories />
+      {/*<GetBVMSection rowReverse={true} title={'Engineering moves faster in Slack'} label={'Engineering'} list={true}/>*/}
+      {/*<GetBVMSection rowReverse={false} title={'Maximize uptime with a speedy response'} label={'SOLVE ISSUES FASTER'} list={false}/>*/}
       <Footer />
     </div>
   );
