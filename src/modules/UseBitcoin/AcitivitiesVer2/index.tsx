@@ -155,14 +155,18 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'AI on Bitcoin',
         desc: `
-          <ul style='color: black; columns: 2'>
-            ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI })}
-            ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
-            ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Avail' })}
-            ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
-            ${NormalRow({ key: 'Deployer:', value: 'NBC team' })}
-            ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
-          </ul>
+          <div style='display: flex;justify-content: space-between; color: black'>
+            <ul style='width: 50%'>
+              ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI })}
+              ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
+              ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Avail' })}
+            </ul>
+            <ul style='width: 50%'>
+              ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
+              ${NormalRow({ key: 'Deployer:', value: 'NBC team' })}
+              ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
+            </ul>
+          </div>
         `,
         subTitle: '',
         banner: 'banner-05.png',
@@ -184,14 +188,18 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'DeFi on Bitcoin',
         desc: `
-          <ul style='color: black'>
-            ${LinkRow({ key: 'Bitcoin L2:', value: 'Naka', link: GAME_LINK.NAKA })}
-            ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
-            ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Polygon' })}
-            ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
-            ${NormalRow({ key: 'Deployer:', value: 'Naka team' })}
-            ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
-          </ul>
+          <div style='display: flex;justify-content: space-between; color: black'>
+            <ul style='width: 50%'>
+              ${LinkRow({ key: 'Bitcoin L2:', value: 'Naka', link: GAME_LINK.NAKA })}
+              ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
+              ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Polygon' })}
+            </ul>
+            <ul style='width: 50%'>
+              ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
+              ${NormalRow({ key: 'Deployer:', value: 'Naka team' })}
+              ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
+            </ul>
+          </div>
         `,
         banner: 'banner-02.png',
         link: GAME_LINK.NAKA,
@@ -216,14 +224,18 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'SocialFi on Bitcoin',
         desc: `
-          <ul style='color: black'>
-            ${LinkRow({ key: 'Bitcoin L2:', value: 'Alpha', link: GAME_LINK.ALPHA })}
-            ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
-            ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Polygon' })}
-            ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
-            ${NormalRow({ key: 'Deployer:', value: 'NBC team' })}
-            ${NormalRow({ key: 'Launch date:', value: 'June 27, 2023' })}
-          </ul>
+          <div style='display: flex;justify-content: space-between; color: black'>
+            <ul style='width: 50%'>
+              ${LinkRow({ key: 'Bitcoin L2:', value: 'Alpha', link: GAME_LINK.ALPHA })}
+              ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
+              ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Polygon' })}
+            </ul>
+            <ul style='width: 50%'>
+              ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
+              ${NormalRow({ key: 'Deployer:', value: 'NBC team' })}
+              ${NormalRow({ key: 'Launch date:', value: 'June 27, 2023' })}
+            </ul>
+          </div>
         `,
         banner: 'banner-04.png',
         link: GAME_LINK.ALPHA,
