@@ -154,14 +154,17 @@ const ActivitiesVer2 = React.memo(() => {
     return [
       {
         title: 'AI on Bitcoin',
-        subTitle: '',
         desc: `
-          <ul style='color: black'>
-            ${NormalRow({ key: 'Prizes:', value: '50 million $EAI tokens' })}
-            ${NormalRow({ key: 'Activities:', value: 'Experience fully onchain AI on Bitcoin and win prizes.' })}
+          <ul style='color: black; columns: 2'>
             ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI })}
+            ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
+            ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Avail' })}
+            ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
+            ${NormalRow({ key: 'Deployer:', value: 'NBC team' })}
+            ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
           </ul>
         `,
+        subTitle: '',
         banner: 'banner-05.png',
         link: GAME_LINK.AI,
         type: ActivityType.AI,
@@ -182,8 +185,12 @@ const ActivitiesVer2 = React.memo(() => {
         title: 'DeFi on Bitcoin',
         desc: `
           <ul style='color: black'>
-            ${NormalRow({ key: 'Activities:', value: 'Trade BRC-20 perpetual futures on-chain.' })}
             ${LinkRow({ key: 'Bitcoin L2:', value: 'Naka', link: GAME_LINK.NAKA })}
+            ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
+            ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Polygon' })}
+            ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
+            ${NormalRow({ key: 'Deployer:', value: 'Naka team' })}
+            ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
           </ul>
         `,
         banner: 'banner-02.png',
@@ -210,8 +217,12 @@ const ActivitiesVer2 = React.memo(() => {
         title: 'SocialFi on Bitcoin',
         desc: `
           <ul style='color: black'>
-            ${NormalRow({ key: 'Activities:', value: 'Participate in a charity run.' })}
             ${LinkRow({ key: 'Bitcoin L2:', value: 'Alpha', link: GAME_LINK.ALPHA })}
+            ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
+            ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Polygon' })}
+            ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
+            ${NormalRow({ key: 'Deployer:', value: 'NBC team' })}
+            ${NormalRow({ key: 'Launch date:', value: 'June 27, 2023' })}
           </ul>
         `,
         banner: 'banner-04.png',
