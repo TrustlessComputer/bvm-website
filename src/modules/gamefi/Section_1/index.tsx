@@ -12,12 +12,9 @@ const Section_1 = () => {
         base: 'column',
         lg: 'row',
       }}
-      align={'start'}
+      align={['center', 'start']}
       bgColor={'#fff'}
-      px={['60px']}
       py={['30px']}
-      minH={['300px']}
-      borderRadius={'8px'}
       gap={{
         base: '40px',
         '2xl': '0px',
@@ -30,7 +27,7 @@ const Section_1 = () => {
           base: 'center',
           lg: 'flex-start',
         }}
-        gap={['18px']}
+        gap={['12px', '18px']}
       >
         <Text
           fontSize={['20px']}
@@ -41,14 +38,15 @@ const Section_1 = () => {
           GameFi
         </Text>
         <Text
-          fontSize={['16px', '40px']}
+          fontSize={['20px', '40px']}
+          align={'center'}
           lineHeight={'48px'}
           fontWeight={500}
           color={'#000'}
         >
           Designed for Game builders
         </Text>
-        <Text fontSize={['18px', '20px']} fontWeight={400} color={'#000'}>
+        <Text fontSize={['18px', '20px']} fontWeight={400} color={'#000'} textAlign={'center'}>
           Shaping the Future of Gaming on Bitcoin
         </Text>
         <Button
@@ -75,6 +73,30 @@ const Section_1 = () => {
         >
           {`Create your own GameFi L2`}
         </Button>
+        <Button
+          marginTop={'5px'}
+          bgColor={''}
+          color={'#FA4E0E'}
+          borderRadius={0}
+          display={'flex'}
+          justifyContent={'start'}
+          alignItems={'start'}
+          px={'0'}
+          py={'10px'}
+          minW={['180px']}
+          height={'48px'}
+          fontWeight={400}
+          fontSize={'16px'}
+          gap={['8px']}
+          onClick={() => {
+            window.open(BUY_TC_URL, '_blank');
+          }}
+          _hover={{
+            opacity: 0.8,
+          }}
+        >
+          {`Need an example? Explore Bitcoin Arcade now! `}
+        </Button>
       </Flex>
       <Flex flex={1} justify={'flex-end'}>
         <Image
@@ -83,7 +105,6 @@ const Section_1 = () => {
           src={`/gamefi/compress/gamefi.png`}
           w={'100%'}
           h="auto"
-          // src={`${CDN_URL}/nbc/images/token_banner.svg`}
         />
       </Flex>
     </Flex>
