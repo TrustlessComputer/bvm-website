@@ -1,12 +1,12 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
-import BuilderLading from '@/modules/builder-landing';
+import BvmSctLanding from '@/modules/bvm-sct-landing';
 
 export default function Builder() {
   return (
     <MainLayout>
-      <BuilderLading />
+      <BvmSctLanding />
     </MainLayout>
   );
 }
