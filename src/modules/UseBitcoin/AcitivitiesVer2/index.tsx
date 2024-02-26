@@ -53,8 +53,8 @@ export const NormalRow = (p: { key: string, value?: string, mask?: boolean }) =>
       `
         <li>
           <div style='display: flex; flex-direction: row'>
-            <span style='font-size: 14px; line-height: 160%; color: white; font-weight: 700'>${p.key}</span>
-            <div style='background-color: white; opacity: 0.3; width: 152px; height: 22px; margin-left: 8px' />
+            <span style='font-size: 14px; line-height: 160%; color: black; font-weight: 700'>${p.key}</span>
+            <div style='background-color: black; opacity: 0.3; width: 152px; height: 22px; margin-left: 8px' />
           </div
         </li>
       `
@@ -66,7 +66,7 @@ export const NormalRow = (p: { key: string, value?: string, mask?: boolean }) =>
       `
         <li>
           <p style='font-size: 14px; line-height: 160%'>
-            <span style='color: white; font-weight: 400; opacity: 0.7;'>${p.value}</span>
+            <span style='color: black; font-weight: 400; opacity: 0.7;'>${p.value}</span>
           </p>
         </li>
       `
@@ -77,8 +77,8 @@ export const NormalRow = (p: { key: string, value?: string, mask?: boolean }) =>
     `
       <li>
         <p style='font-size: 14px; line-height: 160%'>
-          <span style='color: white; font-weight: 700'>${p.key}</span>
-          <span style='color: white; font-weight: 400; opacity: 0.7; margin-left: 4px;'>${p.value}</span>
+          <span style='color: black; font-weight: 700'>${p.key}</span>
+          <span style='color: black; font-weight: 400; opacity: 0.7; margin-left: 4px;'>${p.value}</span>
         </p>
       </li>
     `
@@ -90,7 +90,7 @@ export const LinkRow = (p: { key: string, value: string, link: string, isSpecial
     `
     <li>
       <div style='display: flex; flex-direction: row; align-items: end'>
-        <span style='font-size: 14px; line-height: 160%; color: white; font-weight: 700'>${p.key}</span>
+        <span style='font-size: 14px; line-height: 160%; color: black; font-weight: 700'>${p.key}</span>
         <a href='${p.link}' target='_blank'
            style='display: flex; flex-direction: row; gap: 8px; align-items: center; font-size: 14px; color: #FA4E0E; font-weight: 400; margin-left: 8px;'>
           ${p.value}
@@ -117,7 +117,7 @@ export const LinkRow = (p: { key: string, value: string, link: string, isSpecial
 
 export const ReportRow = (p: { key: string, value: string, prefix?: string, maxDigit?: number, diffNumb?: number }) => {
   return (
-    <Flex flexDir='row' alignItems='end'>
+    <Flex flexDir='row' alignItems='end' color='black'>
       {p.prefix && (
         <span style={{ fontWeight: '500', fontSize: '12px', lineHeight: '140%' }}>
           {p.prefix || ''}
@@ -137,7 +137,7 @@ export const ReportRow = (p: { key: string, value: string, prefix?: string, maxD
           return formatCurrency(_value, 0, p.maxDigit || 0);
         }}
       />
-      <Text fontSize='12px' lineHeight='120%' color='white' opacity={0.7} fontWeight='400' ml='4px'>
+      <Text fontSize='12px' lineHeight='120%' color='black' opacity={0.7} fontWeight='400' ml='4px'>
         {p.key}
       </Text>
     </Flex>
@@ -156,7 +156,7 @@ const ActivitiesVer2 = React.memo(() => {
         title: 'AI on Bitcoin',
         subTitle: '',
         desc: `
-          <ul>
+          <ul style='color: black'>
             ${NormalRow({ key: 'Prizes:', value: '50 million $EAI tokens' })}
             ${NormalRow({ key: 'Activities:', value: 'Experience fully onchain AI on Bitcoin and win prizes.' })}
             ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI })}
@@ -169,7 +169,7 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'GameFi on Bitcoin',
         desc: `
-          <ul>
+          <ul style='color: black'>
             ${NormalRow({ key: 'Activities:', value: 'Play 8 different fully on-chain games to earn rewards.' })}
             ${LinkRow({ key: 'Bitcoin L2:', value: 'Bitcoin Arcade', link: GAME_LINK.ARCA })}
           </ul>
@@ -181,7 +181,7 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'DeFi on Bitcoin',
         desc: `
-          <ul>
+          <ul style='color: black'>
             ${NormalRow({ key: 'Activities:', value: 'Trade BRC-20 perpetual futures on-chain.' })}
             ${LinkRow({ key: 'Bitcoin L2:', value: 'Naka', link: GAME_LINK.NAKA })}
           </ul>
@@ -193,7 +193,7 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'Education on Bitcoin',
         desc: `
-          <ul>
+          <ul style='color: black'>
             ${NormalRow({
           key: 'Activities:',
           value: 'Learn about modular blockchain architecture via a fun Lego game.',
@@ -209,7 +209,7 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'SocialFi on Bitcoin',
         desc: `
-          <ul>
+          <ul style='color: black'>
             ${NormalRow({ key: 'Activities:', value: 'Participate in a charity run.' })}
             ${LinkRow({ key: 'Bitcoin L2:', value: 'Alpha', link: GAME_LINK.ALPHA })}
           </ul>
@@ -323,7 +323,7 @@ const ActivitiesVer2 = React.memo(() => {
           component1
         )}
         {!!component2 && (
-          <Box w="1px" height="9px" bg="white" opacity={0.7}/>
+          <Box w="1px" height="9px" bg="black" opacity={0.7}/>
         )}
         {!!component2 && (
           component2
@@ -335,10 +335,10 @@ const ActivitiesVer2 = React.memo(() => {
   const renderItem = (item: GameItemProps) => {
     return (
       <Flex flexDir='column'
-            className={cx(styles.container_item, [ActivityType.AI].includes(item?.type) ? styles.special : '')}
+            className={cx(styles.container_item, /*[ActivityType.AI].includes(item?.type) ? styles.special : ''*/)}
             key={item.title}>
         <div className={styles.container_item_header}>
-          <Text color='white' fontSize='16px' fontWeight='500'>
+          <Text color='black' fontSize='16px' fontWeight='500'>
             {item.title}
             {!!item.subTitle && <span style={{ fontWeight: '400' }}>{item.subTitle}</span>}
           </Text>
@@ -403,7 +403,7 @@ const ActivitiesVer2 = React.memo(() => {
   return (
     <Box className={styles.wrap}>
       <Flex flexDir='column' gap='20px' className={styles.container}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} gap='20px'>
+        <SimpleGrid columns={{ base: 1, md: 1 }} gap='20px'>
           {TASKS.map(renderItem)}
         </SimpleGrid>
       </Flex>
