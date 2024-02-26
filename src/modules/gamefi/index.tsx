@@ -11,14 +11,13 @@ import s from './styles.module.scss';
 const GameFiModule = () => {
   return (
     <Box className={s.container} bgColor={'#fff'}>
-      <BoxContent minH={'100dvh'}>
+      <BoxContent minH={'70dvh'}>
         <Box h={['20px', '140px']} />
         <Section1 />
-        <Box h={['30px', '35px', '48px']} />
-        {/* <Section2 /> */}
-        <Box h={['20px', '40px']} />
-        <SectionFooter/>
       </BoxContent>
+        <Categories />
+        <Box h={['20px', '40px']} />
+        <SectionFooter />
     </Box>
   );
 };
