@@ -10,7 +10,14 @@ import HeadingSection from '../HeadingSection';
 import Chars from '@/interactive/Chars';
 import ContentSection from '@/modules/landing/Componets/ContentSection';
 
-export default function BitEth() {
+type TBitEthProps = {
+  headings?: string;
+  description?: string;
+  textBtn?: string;
+  btnLink?: string;
+}
+
+export default function BitEth({...props}: TBitEthProps) {
   const router = useRouter();
   const { mobileScreen } = useWindowSize();
 
@@ -30,15 +37,21 @@ export default function BitEth() {
             />
           </Scale>
           <HeadingSection className={s.heading}>
+
             <Chars delay={0.2}>
-              <b>Minimal effort </b>to migrate from Ethereum to Bitcoin.
+              {/*<b>Minimal effort </b>to migrate from Ethereum to Bitcoin.*/}
+              {
+                props.headings ? (props.headings) : (<><b>Minimal effort </b>to migrate from Ethereum to Bitcoin.</>)
+              }
             </Chars>
           </HeadingSection>
           <ContentSection className={s.content}>
             <Lines delay={0.3}>
-              BVM is EVM equivalent. It allows Ethereum developers to migrate
-              their Solidity smart contracts and dapps from Ethereum to Bitcoin
-              with minimal or no modifications.
+              {
+                props.description ? (props.description) : (<>BVM is EVM equivalent. It allows Ethereum developers to migrate
+                  their Solidity smart contracts and dapps from Ethereum to Bitcoin
+                  with minimal or no modifications.</>)
+              }
             </Lines>
           </ContentSection>
           <div className={s.actions}>
@@ -65,7 +78,10 @@ export default function BitEth() {
                   // router.push('/blockchains/customize');
                 }}
               >
-                {`Read developer docs`}
+                {
+                  props.textBtn ? (props.textBtn) : (`Read developer docs`)
+                }
+                {/*{`Read developer docs`}*/}
               </Button>
             </Fade>
           </div>

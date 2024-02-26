@@ -18,6 +18,7 @@
   @include is-mobile {
     width: auto;
   }
+
   @include is-tablet {
     width: 100%;
   }
@@ -37,7 +38,75 @@
 
 .hero_wrap__mobile {
   background: white;
+
   @include is-pc {
     display: none;
   }
+}
+
+.banner {
+  // position: absolute;
+  // top: 80px;
+}
+
+.banner_container {
+  position: absolute;
+  left: 0;
+  bottom: 24px;
+  width: 100vw;
+
+  @include is-pc {
+    top: 80px;
+
+    bottom: auto;
+  }
+
+}
+
+.banner_wrapper {
+  // transform: translateY(-80px);
+  // top: 80px;
+
+  background: linear-gradient(90deg, #7F00FF 0%, #E100FF 100%);
+  z-index: 100;
+  padding: 18px 0;
+  justify-content: center;
+
+  align-items: center;
+  color: #fff;
+  line-height: (20 / 16);
+  font-size: 12px;
+  padding: 8px 16px;
+
+  @include is-min-table {
+    font-size: 14px;
+    padding: 16px 24px;
+  }
+
+
+  @include is-pc {
+    display: flex;
+    font-size: 16px;
+
+
+  }
+
+  .banner_link {
+    text-decoration: underline;
+    font-weight: 500;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    @include is-min-table {
+      margin-left: 8px;
+
+    }
+
+
+
+
+  }
+
 }
