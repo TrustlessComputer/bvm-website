@@ -34,7 +34,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      border-bottom: 1px solid #E9E9E9;
       @include is-mobile {
         flex-direction: column;
         justify-content: flex-start;
