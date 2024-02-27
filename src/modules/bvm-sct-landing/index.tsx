@@ -13,7 +13,6 @@ export default function BvmSctLanding() {
     <Loader />
     <BitEth headings={'Smart contracts on Bitcoin'} description={'Write smart contracts and build decentralized applications (dapps) on Bitcoin.'} textBtn={'Build your Bitcoin L2'}/>
     <Architecture />
-    {/*<Categories />*/}
     <RoadMap />
   </div>;
 }
