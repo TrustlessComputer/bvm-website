@@ -11,6 +11,7 @@ const footerAIData = [
     thumbnail: '/ai/eternal_thumbnail.png',
     btnTitle: 'Need an example? Explore Bitcoin Arcade now!',
     endFooter: 'Powered by Bitcoin Virtual Machine',
+    href: '#',
   },
 ];
 

@@ -9,6 +9,7 @@ const footerDeFiData = [
     thumbnail: '/defi/compress/naka_thumbnail.png',
     btnTitle: 'Need an example? Explore Nakachain now!',
     endFooter: 'Powered by Bitcoin Virtual Machine',
+    href: '#',
   },
 ];
 

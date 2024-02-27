@@ -11,6 +11,7 @@ type TFooterFiProps = {
   thumbnail: string;
   btnTitle: string;
   endFooter: string;
+  href: string;
 };
 
 const FooterFi = ({ ...props }: TFooterFiProps) => {
@@ -106,7 +107,7 @@ const FooterFi = ({ ...props }: TFooterFiProps) => {
           fontSize={'16px'}
           gap={['8px']}
           onClick={() => {
-            window.open(BUY_TC_URL, '_blank');
+            window.open(props.href, '_blank');
           }}
           _hover={{
             opacity: 0.8,
