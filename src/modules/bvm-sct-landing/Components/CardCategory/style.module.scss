@@ -1,0 +1,47 @@
+.cardWrapper {
+  color: #000;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 60px;
+  @include is-tablet {
+
+  }
+  @include is-pc {
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .imageWrapper {
+    max-width: 780px;
+    height: 480px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      object-fit: cover;
+      width: 360px;
+      height: 360px;
+    }
+  }
+  .contentWrapper {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+
+    @include is-pc {
+      text-align: start;
+    }
+    .heading {
+      font-size: 32px;
+      color: #000;
+      margin-top: 20px;
+      @include is-pc {
+        text-align: start;
+        margin-top: 0;
+      }
+    }
+  }
+}

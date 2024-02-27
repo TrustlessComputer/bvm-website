@@ -1,0 +1,16 @@
+.architectureWrapper {
+  background-color: #eeeeee;
+  color: #000000;
+  padding-top: 98px;
+  padding-bottom: 60px;
+  .heading {
+    font-size: 48px;
+    font-weight: 400;
+  }
+  .content {
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
