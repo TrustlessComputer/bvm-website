@@ -3,12 +3,8 @@
 import { Box, HStack, Text } from '@chakra-ui/react';
 
 import Link from 'next/link';
-import { NAV_ITEMS, NAV_ITEMS_RIGHT } from '../menuConfig';
-import { IcTW } from './IcTW';
-import { ReactElement } from 'react';
-import SvgInset from '@/components/SvgInset';
+import { NAV_ITEMS_RIGHT } from '../menuConfig';
 import s from './styles.module.scss';
-import { IcGit } from '@/layouts/Header/components/IcGit';
 import DropDown from '@/layouts/Header/components/Dropdown';
 
 type Props = {
