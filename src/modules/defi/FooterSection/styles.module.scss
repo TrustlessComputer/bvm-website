@@ -1,0 +1,30 @@
+.footerContainer {
+  width: 100%;
+  padding: 0;
+  background: #000;
+
+  .footerContent {
+    width: 100%;
+    height: 100%;
+  }
+
+  .footerTitle {
+    @include is-tablet {
+      display: flex;
+      padding: 60px 0;
+      flex-direction: column;
+    }
+  }
+
+  .footerThumbnail {
+    @include is-tablet {
+      padding: 60px 0;
+    }
+  }
+
+  .footerBtn {
+    @include is-tablet {
+      min-width: 80%;
+    }
+  }
+}
