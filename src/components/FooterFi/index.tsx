@@ -2,6 +2,7 @@ import s from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import SvgInset from '../SvgInset';
+import ContainerDiv from '../Container';
 
 type TFooterFiProps = {
   fTitle: string;
