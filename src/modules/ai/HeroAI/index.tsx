@@ -11,8 +11,8 @@ const heroAIData = [
     subBtnTitle: 'Need an example? Explore Eternal AI now! ',
     subBtnIcon: '/icons/arrow-right.svg',
     heroThumbnail: '/ai/ai-hero.png',
-    btnHref: '#',
-    subBtnIconHref: '#',
+    btnHref: '/blockchains/customize',
+    subBtnIconHref: 'https://eternalai.org/',
   },
 ];
 

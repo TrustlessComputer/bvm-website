@@ -22,7 +22,7 @@ const HeroFi = ({ ...props }: THeroFiProps) => {
         <h2 className={s.heroContent_title}>{props.title}</h2>
         <p className={s.heroContent_subTitle}>{props.subTitle}</p>
         <Link href={props.btnHref} className={s.heroContent_button}>{props.btnTitle}</Link>
-        <Link href={props.subBtnIconHref} className={s.heroContent_link}>
+        <Link href={props.subBtnIconHref} className={s.heroContent_link} target={'_blank'}>
           {props.subBtnTitle}
           <Image
             width={20}

@@ -9,7 +9,7 @@ const footerGameFiData = [
     thumbnail: '/socialfi/compress/banner_public_sale.png',
     btnTitle: 'Need an example? Explore Alpha now!',
     endFooter: 'Powered by Bitcoin Virtual Machine',
-    href:'#'
+    href:'https://alpha.wtf/'
   },
 ];
 

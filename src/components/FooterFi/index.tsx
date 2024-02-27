@@ -34,7 +34,7 @@ const FooterFi = ({ ...props }: TFooterFiProps) => {
               <span className={s.footerContent_subTitle}>{props.sTitle}</span>
             )}
           </p>
-          <Link href={props.href} className={s.footerContent_button}>
+          <Link href={props.href} className={s.footerContent_button} target={'_blank'}>
             {props.btnTitle}
           </Link>
           <Image

@@ -10,7 +10,7 @@ const footerGameFiData = [
     thumbnail: '/gamefi/compress/banner_public_sale.png',
     btnTitle: 'Need an example? Explore Bitcoin Arcade now!',
     endFooter: 'Powered by Bitcoin Virtual Machine',
-    href: '#',
+    href: 'https://play.bitcoinarcade.xyz',
   },
 ];
 

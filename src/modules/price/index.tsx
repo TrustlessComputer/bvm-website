@@ -84,8 +84,8 @@ const PriceModule = () => {
             packageX={'isCustom'}
             network={'Design a custom Bitcoin L2 — available for businesses with large transaction volume or unique business models.'}
             support={'Dedicated account manager'}
-            titleAction={'Contact sales'}
-            action={'#'}
+            // titleAction={'Contact sales'}
+            // action={'#'}
           >
             <h1>Custom Price</h1>
           </PriceCard>

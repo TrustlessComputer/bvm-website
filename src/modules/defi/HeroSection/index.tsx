@@ -12,8 +12,8 @@ const heroGameFiData = [
     subBtnTitle: 'Need an example? Explore Bitcoin Arcade now!',
     subBtnIcon: '/icons/arrow-right.svg',
     heroThumbnail: '/defi/compress/deFi_hero.png',
-    btnHref: '#',
-    subBtnIconHref: '#',
+    btnHref: '/blockchains/customize',
+    subBtnIconHref: 'https://nakachain.xyz/perpetual',
   },
 ];
 
