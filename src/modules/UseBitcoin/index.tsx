@@ -17,7 +17,7 @@ const UseBitcoinModule = () => {
       <div className={s.contentTop}>
         <div className="container">
           <TopContent />
-          <SimpleGrid gridTemplateColumns={"2fr 1fr"} gap={"80px"}>
+          <SimpleGrid gridTemplateColumns={["1fr", "2fr 1fr"]} gap={["40px", "80px"]}>
             <ActivitiesVer2 />
             <Contact />
           </SimpleGrid>
