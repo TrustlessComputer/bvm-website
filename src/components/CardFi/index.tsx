@@ -15,8 +15,10 @@ const CardFi = ({ ...props }: TCardFiProps) => {
         <Image width={260} height={260} src={props.image} alt={props.image} />
       </div>
       <div className={s.cardFiContent}>
-        <p className={s.cardFiContent_title}>{props.title}</p>
-        <p className={s.cardFiContent_des}>{props.description}</p>
+        <div className={s.cardFiContent_inner}>
+          <p className={s.cardFiContent_title}>{props.title}</p>
+          <p className={s.cardFiContent_des}>{props.description}</p>
+        </div>
       </div>
     </div>
   );
