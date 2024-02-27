@@ -5,7 +5,11 @@ import PriceModule from '@/modules/price';
 
 export default function Builder() {
   return (
-    <MainLayout>
+    <MainLayout
+      headerProps={{
+        color: 'black',
+      }}
+    >
       <PriceModule />
     </MainLayout>
   );

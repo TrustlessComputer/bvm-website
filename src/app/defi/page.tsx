@@ -6,8 +6,8 @@ const DeFiPage = () => {
   return (
     <MainLayout
       headerProps={{
-        color: 'black',
-      }}
+      color: 'black',
+    }}
     >
       <DeFiModule />
     </MainLayout>

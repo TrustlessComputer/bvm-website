@@ -5,6 +5,10 @@ const PriceModule = () => {
 
   return (
     <div className={s.price}>
+      <div className={s.price_top}>
+        <span>Plans built for every team</span>
+        <h1>Developer-first pricing</h1>
+      </div>
       <div className={`${s.price_container} container`}>
         <PriceCard
           isPlaceholder={true}
