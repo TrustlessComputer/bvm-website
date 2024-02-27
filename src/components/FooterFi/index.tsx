@@ -1,8 +1,9 @@
-import s from './styles.module.scss';
 import Image, { StaticImageData } from 'next/image';
+
+import ContainerDiv from '../Container';
 import Link from 'next/link';
 import SvgInset from '../SvgInset';
-import ContainerDiv from '../Container';
+import s from './styles.module.scss';
 
 type TFooterFiProps = {
   fTitle: string;
