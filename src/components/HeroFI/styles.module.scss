@@ -4,6 +4,7 @@
   padding: 0 0 rem(40px) 0;
   flex-direction: column-reverse;
   text-align: center;
+  margin-top: 0;
 
   @include min-md {
     padding: rem(80px) 0 rem(40px) 0;
@@ -14,9 +15,11 @@
     gap: rem(120px);
     padding: rem(80px) 0;
     text-align: left;
+    margin-top: rem(80px);
   }
 
   .heroContent {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -83,11 +86,15 @@
   }
 
   .heroImg {
-    flex: 1;
+    width: 100%;
 
     img {
       width: 100%;
       height: auto;
+    }
+
+    @include min-xl {
+      max-width: rem(780px);
     }
   }
 }
