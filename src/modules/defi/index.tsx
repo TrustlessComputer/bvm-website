@@ -10,16 +10,11 @@ import s from '../gamefi/styles.module.scss';
 const DeFiModule = () => {
   return (
     <Box className={s.container} bgColor={'#f6f6f6'}>
-      <Box h={['20px', '80px']} />
       <div className={s.heroSection}>
-        <BoxContent>
-          <HeroSection />
-        </BoxContent>
+        <HeroSection />
       </div>
       <div className={s.categorySection}>
-        <BoxContent pt={['80px']}>
-          <CategorySection />
-        </BoxContent>
+        <CategorySection />
       </div>
       <FooterSection />
     </Box>

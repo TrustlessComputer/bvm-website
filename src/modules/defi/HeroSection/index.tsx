@@ -1,3 +1,4 @@
+import ContainerDiv from '@/components/Container';
 import HeroFi from '@/components/HeroFI';
 
 const heroGameFiData = [
@@ -17,11 +18,11 @@ const heroGameFiData = [
 
 const HeroSection = () => {
   return (
-    <>
+    <ContainerDiv>
       {heroGameFiData.map((fiData, id) => {
         return <HeroFi key={id} {...fiData} />;
       })}
-    </>
+    </ContainerDiv>
   );
 };
 export default HeroSection;

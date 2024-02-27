@@ -1,45 +1,45 @@
 .cardFiContainer {
-  @include is-tablet {
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: flex-start;
-    overflow: hidden;
-  }
-
+  display: flex;
+  gap: rem(30px);
+  flex-direction: column;
+  max-width: rem(1600px);
   .cardFiImage {
-    @include is-tablet {
+    padding: rem(20px) rem(70px);
+
+    img {
       width: 100%;
-      height: 100%;
-      min-width: 100%;
-      max-height: 400px;
-      margin-bottom: -30px;
+      height: auto;
+    }
+
+    @include min-md {
+      padding: rem(20px) rem(120px);
+    }
+
+    @include min-ml {
+      img {
+        width: rem(260px);
+      }
     }
   }
 
   .cardFiContent {
-    @include is-tablet {
-      width: 100%;
-      height: 100%;
-    }
+    flex: 1;
 
-    .cardFiContentTitle {
-      @include is-tablet {
-        line-height: 44px;
-        font-size: 36px;
-        font-weight: 400;
+    .cardFiContent_title {
+      font-size: rem(28px);
+      line-height: rem(32px);
+      margin-bottom: rem(12px);
+
+      @include min-ml {
+        font-size: rem(32px);
+        line-height: rem(38px);
+        margin-bottom: rem(16px);
       }
     }
+  }
 
-    .cardFiContentDes {
-      @include is-tablet {
-        margin-top: 5px;
-        line-height: 40px;
-        font-size: 24px;
-        font-weight: 400;
-      }
-    }
+  @include min-ml {
+    flex-direction: row;
+    gap: rem(120px);
   }
 }

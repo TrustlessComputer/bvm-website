@@ -1,5 +1,5 @@
 import CardFi from '@/components/CardFi';
-import s from './style.module.scss';
+import s from '@/modules/gamefi/CategorySection/style.module.scss';
 
 const cardGameFiData = [
   {
