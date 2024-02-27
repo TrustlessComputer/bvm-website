@@ -1,9 +1,10 @@
-import FooterFi from '@/components/FooterFi';
+import FooterFi from "@/components/FooterFi";
+
 
 const footerGameFiData = [
   {
     id: 0,
-    fTitle: 'Ushering the new golden era of',
+    fTitle: 'Ushering the new golden era of ',
     sTitle: 'Gaming on Bitcoin',
     description: 'The first ever fully on-chain gaming blockchain on Bitcoin',
     image: '/gamefi/compress/arcade_gamefi.svg',

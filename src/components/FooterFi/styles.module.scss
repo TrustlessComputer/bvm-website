@@ -2,7 +2,7 @@
   width: 100%;
   padding: 0;
   background: #000;
-  padding: rem(80px) 0;
+  padding: 80px 0;
   color: #fff;
 
   .footerContent {
@@ -11,41 +11,53 @@
     align-items: center;
 
     &_logo {
-      margin-bottom: rem(28px);
+      margin-bottom: 28px;
     }
 
     &_desc {
-      font-size: rem(24px);
-      line-height: rem(36px);
-      margin-bottom: rem(4px);
+      font-size: 24px;
+      line-height: 36px;
+      margin-bottom: 4px;
       text-transform: uppercase;
     }
 
     &_title {
-      font-size: rem(48px);
-      line-height: rem(57px);
-      margin-bottom: rem(20px);
+      font-size: 48px;
+      line-height: 57px;
+      margin-bottom: 20px;
     }
 
-    &_subItem {
+    &_subTitle {
       color: #FA4E0E;
     }
 
     &_button {
       display: block;
       width: fit-content;
-      padding: rem(10.5px) rem(20px);
+      padding: 10.5px 20px;
       background: #FA4E0E;
-      font-size: rem(14px);
-      line-height: rem(19.09px);
+      font-size: 14px;
+      line-height: 19.09px;
       color: #fff;
-      margin-bottom: rem(20px);
+      margin-bottom: 20px;
 
       @include min-ml {
-        font-size: rem(16px);
-        padding: rem(14.5px) rem(40px);
-        margin-bottom: rem(60px);
+        font-size: 16px;
+        padding: 14.5px 40px;
+        margin-bottom: 60px;
       }
+    }
+
+    &_thumbnail {
+      width: 100%;
+      height: auto;
+      margin-bottom: 60px;
+    }
+
+    &_bvm {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
   }
 }

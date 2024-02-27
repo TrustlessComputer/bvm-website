@@ -42,13 +42,13 @@ const FooterFi = ({ ...props }: TFooterFiProps) => {
             height={100}
             src={props.thumbnail}
             alt={props.thumbnail}
-            className={s.footerThumbnail}
+            className={s.footerContent_thumbnail}
           />
 
           <div className={s.footerContent_bvm}>
             <Image
-              width={100}
-              height={100}
+              width={30}
+              height={40}
               src={'/gamefi/compress/bvm.png'}
               alt={'BVM'}
             />
