@@ -248,18 +248,25 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
 export const NAV_ITEMS: Array<NavItem> = [
   ...NAV_ITEMS_LEFT,
   ...NAV_ITEMS_RIGHT,
+  // {
+  //   label: 'Twitter',
+  //   isTwitter: true,
+  //   href: 'https://twitter.com/bvmnetwork',
+  //   isNewWindow: true,
+  //   isHide: false,
+  // },
+  // {
+  //   label: 'Github',
+  //   isTwitter: true,
+  //   href: 'https://github.com/trustlesscomputer/',
+  //   isNewWindow: true,
+  //   isHide: false,
+  // },
   {
-    label: 'Twitter',
+    label: 'Try BVM',
     isTwitter: true,
-    href: 'https://twitter.com/bvmnetwork',
-    isNewWindow: true,
-    isHide: false,
-  },
-  {
-    label: 'Github',
-    isTwitter: true,
-    href: 'https://github.com/trustlesscomputer/',
-    isNewWindow: true,
+    href: '/blockchains/customize',
+    isNewWindow: false,
     isHide: false,
   },
 ].filter((item) => !item.isHide);

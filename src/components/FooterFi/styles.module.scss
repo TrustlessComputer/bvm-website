@@ -11,6 +11,10 @@
     align-items: center;
     text-align: center;
 
+    &_top {
+      text-align: center;
+    }
+
     &_logo {
       margin-bottom: 20px;
 
@@ -62,6 +66,10 @@
         padding: 14.5px 40px;
         margin-bottom: 60px;
       }
+    }
+
+    .thumb {
+      width: 100%;
     }
 
     &_thumbnail {

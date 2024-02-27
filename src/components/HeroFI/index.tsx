@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import s from './styles.module.scss';
+import Fade from '@/interactive/Fade';
+import ImagePlaceholder from '@/components/ImagePlaceholder';
 
 type THeroFiProps = {
   mainTitle: string;
@@ -17,8 +19,8 @@ type THeroFiProps = {
 const HeroFi = ({ ...props }: THeroFiProps) => {
   return (
     <div className={s.heroContainer}>
-      <div className={s.heroContent}>
-        <p className={s.heroContent_mainTitle}>{props.mainTitle}</p>
+      <Fade from={{ y: 40 }} to={{ y: 0 }} className={s.heroContent}>
+        <p className={s.heroContent_mainTitle}>Bitcoin L2 for {props.mainTitle}</p>
         <h2 className={s.heroContent_title}>{props.title}</h2>
         <p className={s.heroContent_subTitle}>{props.subTitle}</p>
         <Link href={props.btnHref} className={s.heroContent_button}>{props.btnTitle}</Link>
@@ -27,19 +29,21 @@ const HeroFi = ({ ...props }: THeroFiProps) => {
           <Image
             width={20}
             height={20}
+            loading={'eager'}
             src={props.subBtnIcon}
             alt={props.subBtnIcon}
           />
         </Link>
-      </div>
-      <div className={s.heroImg}>
-        <Image
+      </Fade>
+      <Fade className={s.heroImg}>
+        <ImagePlaceholder
           width={780}
           height={440}
+          loading={'eager'}
           src={props.heroThumbnail}
           alt={props.heroThumbnail}
         />
-      </div>
+      </Fade>
     </div>
   );
 };
