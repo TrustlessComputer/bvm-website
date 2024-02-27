@@ -1,3 +1,4 @@
+import ContainerDiv from '@/components/Container';
 import FooterFi from '@/components/FooterFi';
 
 const footerAIData = [
@@ -15,11 +16,11 @@ const footerAIData = [
 
 const FooterAI = () => {
   return (
-    <>
+    <ContainerDiv>
       {footerAIData.map((fiData, id) => {
         return <FooterFi key={id} {...fiData} />;
       })}
-    </>
+    </ContainerDiv>
   );
 }
 
