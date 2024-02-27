@@ -1,21 +1,21 @@
 .heroContainer {
   display: flex;
-  gap: rem(30px);
-  padding: 0 0 rem(40px) 0;
+  gap: 30px;
+  padding: 0 0 40px 0;
   flex-direction: column-reverse;
   text-align: center;
   margin-top: 0;
 
   @include min-md {
-    padding: rem(80px) 0 rem(40px) 0;
+    padding: 80px 0 40px 0;
   }
 
-  @include min-ml {
+  @include min-xl {
     flex-direction: row;
-    gap: rem(120px);
-    padding: rem(80px) 0;
+    gap: 120px;
+    padding: 80px 0;
     text-align: left;
-    margin-top: rem(80px);
+    margin-top: 80px;
   }
 
   .heroContent {
@@ -25,45 +25,45 @@
     align-items: center;
 
     &_mainTitle {
-      margin-bottom: rem(8px);
-      line-height: rem(24px);
+      margin-bottom: 8px;
+      line-height: 24px;
     }
 
     &_title {
-      font-size: rem(28px);
-      line-height: rem(32px);
-      margin-bottom: rem(12px);
+      font-size: 28px;
+      line-height: 32px;
+      margin-bottom: 12px;
 
-      @include min-ml {
-        font-size: rem(40px);
-        line-height: rem(48px);
-        margin-bottom: rem(24px);
+      @include min-xl {
+        font-size: 40px;
+        line-height: 48px;
+        margin-bottom: 24px;
       }
     }
 
     &_subTitle {
-      margin-bottom: rem(12px);
+      margin-bottom: 12px;
 
-      @include min-ml {
-        margin-bottom: rem(24px);
+      @include min-xl {
+        margin-bottom: 24px;
       }
     }
 
     &_button {
       display: block;
       width: fit-content;
-      padding: rem(10.5px) rem(20px);
+      padding: 10.5px 20px;
       background: #FA4E0E;
-      font-size: rem(14px);
-      line-height: rem(19.09px);
+      font-size: 14px;
+      line-height: 19.09px;
       color: #fff;
-      margin-bottom: rem(20px);
+      margin-bottom: 20px;
       ;
 
-      @include min-ml {
-        font-size: rem(16px);
-        padding: rem(14.5px) rem(40px);
-        margin-bottom: rem(40px);
+      @include min-xl {
+        font-size: 16px;
+        padding: 14.5px 40px;
+        margin-bottom: 40px;
       }
     }
 
@@ -71,16 +71,16 @@
       color: #FA4E0E;
       display: flex;
       align-items: center;
-      gap: rem(8px);
-      font-size: rem(14px);
-      line-height: rem(19.09px);
+      gap: 8px;
+      font-size: 14px;
+      line-height: 19.09px;
 
-      @include min-ml {
-        font-size: rem(16px);
+      @include min-xl {
+        font-size: 16px;
       }
     }
 
-    @include min-ml {
+    @include min-xl {
       align-items: flex-start;
     }
   }
@@ -94,7 +94,7 @@
     }
 
     @include min-xl {
-      max-width: rem(780px);
+      max-width: 780px;
     }
   }
 }

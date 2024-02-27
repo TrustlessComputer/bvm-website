@@ -1,7 +1,7 @@
 .container {
   width: 100%;
-  max-width: rem(1600px);
-  padding: 0 rem(20px);
+  max-width: 1600px;
+  padding: 0 20px;
   margin: 0 auto;
 
   @include min-xxxl {
