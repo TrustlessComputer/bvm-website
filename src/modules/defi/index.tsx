@@ -1,7 +1,6 @@
 'use client';
 
 import { Box } from '@chakra-ui/react';
-import BoxContent from '@/layouts/BoxContent';
 import CategorySection from './CategorySection';
 import FooterSection from './FooterSection';
 import HeroSection from './HeroSection';

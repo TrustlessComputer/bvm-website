@@ -1,4 +1,3 @@
-import ContainerDiv from '@/components/Container';
 import FooterFi from '@/components/FooterFi';
 
 const footerGameFiData = [
@@ -10,17 +9,17 @@ const footerGameFiData = [
     thumbnail: '/socialfi/compress/banner_public_sale.png',
     btnTitle: 'Need an example? Explore Alpha now!',
     endFooter: 'Powered by Bitcoin Virtual Machine',
-    href: '#',
+    href:'#'
   },
 ];
 
 const FooterSection = () => {
   return (
-    <ContainerDiv>
+    <>
       {footerGameFiData.map((fiData, id) => {
         return <FooterFi key={id} {...fiData} />;
       })}
-    </ContainerDiv>
+    </>
   );
 }
 

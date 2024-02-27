@@ -1,6 +1,5 @@
-import Image, { StaticImageData } from 'next/image';
-
-import ContainerDiv from '../Container';
+import s from './styles.module.scss';
+import Image from 'next/image';
 import Link from 'next/link';
 import SvgInset from '../SvgInset';
 import s from './styles.module.scss';
@@ -9,7 +8,7 @@ type TFooterFiProps = {
   fTitle: string;
   sTitle?: string;
   description?: string;
-  image: StaticImageData;
+  image: string;
   thumbnail: string;
   btnTitle: string;
   endFooter: string;

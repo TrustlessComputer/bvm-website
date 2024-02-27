@@ -1,5 +1,4 @@
-import ContainerDiv from '@/components/Container';
-import FooterFi from '@/components/FooterFi';
+import FooterFi from "@/components/FooterFi";
 
 const footerDeFiData = [
   {
@@ -9,17 +8,17 @@ const footerDeFiData = [
     thumbnail: '/defi/compress/naka_thumbnail.png',
     btnTitle: 'Need an example? Explore Nakachain now!',
     endFooter: 'Powered by Bitcoin Virtual Machine',
-    href: "#",
+    href: '#',
   },
 ];
 
 const FooterSection = () => {
   return (
-    <ContainerDiv>
+    <>
       {footerDeFiData.map((fiData, id) => {
         return <FooterFi key={id} {...fiData} />;
       })}
-    </ContainerDiv>
+    </>
   );
 };
 

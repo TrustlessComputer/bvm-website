@@ -1,5 +1,4 @@
-import ContainerDiv from '@/components/Container';
-import FooterFi from '@/components/FooterFi';
+import FooterFi from "@/components/FooterFi";
 
 const footerAIData = [
   {
@@ -11,17 +10,17 @@ const footerAIData = [
     thumbnail: '/ai/eternal_thumbnail.png',
     btnTitle: 'Need an example? Explore Bitcoin Arcade now!',
     endFooter: 'Powered by Bitcoin Virtual Machine',
-    href: "#",
+    href:'#'
   },
 ];
 
 const FooterAI = () => {
   return (
-    <ContainerDiv>
+    <>
       {footerAIData.map((fiData, id) => {
         return <FooterFi key={id} {...fiData} />;
       })}
-    </ContainerDiv>
+    </>
   );
 }
 
