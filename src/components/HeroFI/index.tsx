@@ -23,7 +23,7 @@ const HeroFi = ({ ...props }: THeroFiProps) => {
         lg: 'row',
       }}
       align={['center', 'start']}
-      bgColor={'#F3F1E8'}
+      bgColor={'#f6f6f6'}
       py={['60px', '80px']}
       gap={{
         base: '40px',
@@ -51,7 +51,7 @@ const HeroFi = ({ ...props }: THeroFiProps) => {
         </Text>
         <Text
           fontSize={['24px', '40px']}
-          textAlign={'center'}
+          textAlign={['center', 'start']}
           lineHeight={'48px'}
           fontWeight={400}
           color={'#000'}
@@ -97,7 +97,7 @@ const HeroFi = ({ ...props }: THeroFiProps) => {
           color={'#FA4E0E'}
           borderRadius={0}
           display={'flex'}
-          justifyContent={'center'}
+          justifyContent={['center', 'start']}
           alignItems={'center'}
           px={'0'}
           minW={['auto', '376px']}
@@ -134,7 +134,7 @@ const HeroFi = ({ ...props }: THeroFiProps) => {
           maxWidth={['100%', '780px']}
           src={props.heroThumbnail}
           w={'100%'}
-          h={['340px', 'auto']}
+          h={['340px', '440px']}
         />
       </Flex>
     </Flex>
