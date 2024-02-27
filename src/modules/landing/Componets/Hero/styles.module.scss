@@ -69,7 +69,6 @@
 
   background: linear-gradient(90deg, #7F00FF 0%, #E100FF 100%);
   z-index: 100;
-  padding: 18px 0;
   justify-content: center;
 
   align-items: center;
@@ -77,6 +76,11 @@
   line-height: (20 / 16);
   font-size: 12px;
   padding: 8px 16px;
+
+  .text{
+    transform: translateY(.15em);
+  }
+
 
   @include is-min-table {
     font-size: 14px;

@@ -11,7 +11,7 @@ const Banner = (props: Props) => {
     <div className={s.banner_container}>
       <Fade from={{ y: 0 }} to={{ y: 0 }} delay={6 + 0.01}>
         <div className={s.banner_wrapper}>
-          <span>
+          <span className={s.text}>
             Be a pioneer Bitcoin L2 builder and earn up to 1,000,000 $BVM
             airdrop!
           </span>

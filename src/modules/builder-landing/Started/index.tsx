@@ -8,7 +8,7 @@ import HeadingSection from '@/modules/landing/Componets/HeadingSection';
 export default function Started() {
   return (
     <>
-      <div className={s.started}>
+      <div className={s.started} id={'read-doc'}>
         <div className={`container ${s.started_container}`}>
           <HeadingSection className={s.heading}>
             <Chars delay={0.2}>
@@ -73,7 +73,7 @@ Ethereum to Bitcoin with minimal or no modifications.`}
           {/*</Fade>*/}
         </div>
       </div>
-      <div id={'read-doc'}>
+      <div>
         <BitEth />
       </div>
     </>
