@@ -1,6 +1,5 @@
 import FooterFi from "@/components/FooterFi";
 
-
 const footerGameFiData = [
   {
     id: 0,

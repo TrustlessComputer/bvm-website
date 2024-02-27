@@ -5,10 +5,11 @@ const footerDeFiData = [
   {
     id: 0,
     fTitle: 'Making DeFi on Bitcoin possible and accessible to everyone',
-    image: '/defi/compress/naka_logo.png',
+    image: '/defi/compress/naka_logo.svg',
     thumbnail: '/defi/compress/naka_thumbnail.png',
     btnTitle: 'Need an example? Explore Nakachain now!',
     endFooter: 'Powered by Bitcoin Virtual Machine',
+    href: "#",
   },
 ];
 
