@@ -1,4 +1,4 @@
-import s from './styles.module.scss'
+import s from './styles.module.scss';
 import HeadingSection from '@/modules/landing/Componets/HeadingSection';
 import React from 'react';
 import Fade from '@/interactive/Fade';

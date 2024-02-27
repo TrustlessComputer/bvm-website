@@ -19,7 +19,6 @@ export default function BvmSctLanding() {
       requiring additional modules, such as network or consensus protocols. <br/> There are 4 most important components needed to explain: the local mempool, Ethereum-like VM, TxWriter, and
       TxReader.
     </Architecture>
-    {/*<Categories />*/}
     <RoadMap />
   </div>;
 }

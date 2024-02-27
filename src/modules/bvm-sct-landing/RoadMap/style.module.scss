@@ -1,19 +1,29 @@
 .roadMapWrapper {
   background-color: #eeeeee;
   color: #000000;
-  padding: 60px 0;
+  padding: 0 0 48px 0;
+  @include is-min-table {
+    padding: 60px 0;
+  }
+
   .wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 80px;
+
+    gap: 48px;
+    @include is-min-table{
+      gap: 80px;
+    }
     @include is-pc {
       gap: 120px;
     }
+
     .wrapperImage {
       max-width: 412px;
       width: 100%;
     }
+
     .wrapperContent {
       display: flex;
       flex-direction: column;
@@ -21,9 +31,11 @@
       @include is-pc {
         gap: 60px;
       }
+
       .wrapperItem {
         max-width: 600px;
         width: 100%;
+
         .heading {
           text-align: center;
           font-size: 32px;
@@ -31,6 +43,7 @@
             text-align: start;
           }
         }
+
         p {
           text-align: center;
           @include is-pc {
