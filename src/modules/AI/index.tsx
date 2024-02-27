@@ -1,29 +1,29 @@
 'use client';
 
 import { Box } from '@chakra-ui/react';
+import s from '@/modules/gamefi/styles.module.scss';
 import BoxContent from '@/layouts/BoxContent';
-import CategorySection from '@/modules/gamefi/CategorySection';
-import FooterSection from '@/modules/gamefi/FooterSection';
-import HeroSection from '@/modules/gamefi/HeroSection';
-import s from './styles.module.scss';
+import HeroAI from '@/modules/AI/HeroAI';
+import CategoryAI from '@/modules/AI/CategoryAI';
+import FooterAI from '@/modules/AI/FooterAI';
 
-const GameFiModule = () => {
+const AIPage = () => {
   return (
     <Box className={s.container} bgColor={'#f6f6f6'}>
       <Box h={['20px', '80px']} />
       <div className={s.heroSection}>
         <BoxContent>
-          <HeroSection />
+          <HeroAI />
         </BoxContent>
       </div>
       <div className={s.categorySection}>
         <BoxContent pt={['80px']}>
-          <CategorySection />
+          <CategoryAI />
         </BoxContent>
       </div>
-      <FooterSection />
+      <FooterAI />
     </Box>
-  );
-};
+  )
+}
 
-export default GameFiModule;
+export default AIPage
