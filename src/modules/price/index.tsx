@@ -27,7 +27,7 @@ const PriceModule = () => {
             network={'Bitcoin testnet'}
             portocol={'Optimistic rollups'}
             layer={'Bitcoin (Regtest) or Ethereum (Goerli)'}
-            time={'2s or 5s or 10s'}
+            time={'2s, 5s, 10s'}
             support={'Discord support'}
             titleAction={'Get started'}
             action={'/blockchains/customize'}
@@ -36,21 +36,21 @@ const PriceModule = () => {
           </PriceCard>
           <PriceCard
             iseSelected={true}
-            label={'Essentials'}
+            label={'Growth'}
             packageX={'isEss'}
             subtitle={'(Setup cost: 6 BVM)'}
             network={'Bitcoin testnet'}
             portocol={'Optimistic rollups'}
             layer={'Bitcoin + Polygon'}
-            time={'2s or 5s or 10s'}
+            time={'2s, 5s, 10s'}
             support={'Discord support'}
             titleAction={'Get started'}
             action={'/blockchains/customize'}
           >
-            <h1> 71257 BVM<small>/month</small></h1>
+            <h1> 71,257 BVM<small>/month</small></h1>
           </PriceCard>
           <PriceCard
-            label={'Professional'}
+            label={'Scale'}
             packageX={'isPro'}
             subtitle={'(Setup cost: 6 BVM)'}
             network={'Bitcoin testnet'}
@@ -77,7 +77,7 @@ const PriceModule = () => {
             titleAction={'Get started'}
             action={'/blockchains/customize'}
           >
-            <h1>538683 BVM<small>/month</small></h1>
+            <h1>538,683 BVM<small>/month</small></h1>
           </PriceCard>
           <PriceCard
             label={'Custom'}
