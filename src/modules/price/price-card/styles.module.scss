@@ -23,10 +23,13 @@
   }
 
   &.isPlaceholder {
-    position: sticky;
-    left: 16px;
     background: white;
     z-index: 2;
+
+    @include is-pc {
+      position: sticky;
+      left: 0;
+    }
 
     .action {
       button {
