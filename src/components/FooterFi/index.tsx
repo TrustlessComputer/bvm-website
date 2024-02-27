@@ -23,6 +23,7 @@ const FooterFi = ({ ...props }: TFooterFiProps) => {
   return (
     <div className={s.footerContainer}>
       <ContainerDiv>
+        <div className={s.case}>Case Study</div>
         <div className={s.footerContent}>
           <Fade className={s.footerContent_top}>
             <SvgInset

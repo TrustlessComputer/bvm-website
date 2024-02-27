@@ -5,8 +5,8 @@ const heroGameFiData = [
   {
     id: 0,
     mainTitle: 'GameFi',
-    title: 'Designed for Game builders',
-    subTitle: 'Shaping the Future of Gaming on Bitcoin',
+    title: 'Shaping the Future of Gaming on Bitcoin',
+    subTitle: 'Designed for Game builders',
     btnTitle: 'Create your own GameFi L2',
     subBtnTitle: 'Need an example? Explore Bitcoin Arcade now!',
     subBtnIcon: '/icons/arrow-right.svg',
