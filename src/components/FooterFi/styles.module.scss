@@ -18,6 +18,11 @@
     &_logo {
       margin-bottom: 20px;
 
+      >div {
+        display: flex;
+        justify-content: center;
+      }
+
       @include min-xl {
         margin-bottom: 28px;
       }
@@ -87,6 +92,7 @@
     &_bvm {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 16px;
       font-size: 18px;
 
