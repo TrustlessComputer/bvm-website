@@ -1,3 +1,4 @@
+import ContainerDiv from '@/components/Container';
 import FooterFi from '@/components/FooterFi';
 
 const footerGameFiData = [
@@ -14,11 +15,11 @@ const footerGameFiData = [
 
 const FooterSection = () => {
   return (
-    <>
+    <ContainerDiv>
       {footerGameFiData.map((fiData, id) => {
         return <FooterFi key={id} {...fiData} />;
       })}
-    </>
+    </ContainerDiv>
   );
 }
 

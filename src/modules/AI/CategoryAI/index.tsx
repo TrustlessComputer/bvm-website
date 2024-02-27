@@ -1,12 +1,12 @@
-import s from '@/modules/gamefi/CategorySection/style.module.scss';
 import CardFi from '@/components/CardFi';
+import ContainerDiv from '@/components/Container';
+import s from '@/modules/gamefi/CategorySection/style.module.scss';
 
 const cardAIData = [
   {
     id: 0,
     title: 'Fully on-chain AI',
-    description:
-      'Traditional AI models, which are limited by their size and computational requirements, may now operate seamlessly on the blockchain. This technological breakthrough isn\'t just about bringing AI to Bitcoin; it\'s about redefining what\'s possible and transforming the way we build AI and interact with it in our daily lives.',
+    description: "Traditional AI models, which are limited by their size and computational requirements, may now operate seamlessly on the blockchain. This technological breakthrough isn't just about bringing AI to Bitcoin; it's about redefining what's possible and transforming the way we build AI and interact with it in our daily lives.",
     image: '/ai/ai1.png',
     bgColorImage: '#35cca6',
   },
@@ -28,14 +28,15 @@ const cardAIData = [
   },
 ];
 
-
 const CategoryAI = () => {
   return (
-    <div className={`${s.cateWrapper}`}>
-      {cardAIData.map((item, id) => {
-        return <CardFi key={id} {...item} />;
-      })}
-    </div>
+    <ContainerDiv>
+      <div className={`${s.cateWrapper}`}>
+        {cardAIData.map((item, id) => {
+          return <CardFi key={id} {...item} />;
+        })}
+      </div>
+    </ContainerDiv>
   );
 };
 export default CategoryAI;

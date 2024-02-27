@@ -1,4 +1,5 @@
 import CardFi from '@/components/CardFi';
+import ContainerDiv from '@/components/Container';
 import s from '@/modules/gamefi/CategorySection/style.module.scss';
 
 const cardGameFiData = [
@@ -30,11 +31,13 @@ const cardGameFiData = [
 
 const CategorySection = () => {
   return (
-    <div className={`${s.cateWrapper}`}>
-      {cardGameFiData.map((item, id) => {
-        return <CardFi key={id} {...item} />;
-      })}
-    </div>
+    <ContainerDiv>
+      <div className={`${s.cateWrapper}`}>
+        {cardGameFiData.map((item, id) => {
+          return <CardFi key={id} {...item} />;
+        })}
+      </div>
+    </ContainerDiv>
   );
 };
 export default CategorySection;

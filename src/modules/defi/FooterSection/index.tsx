@@ -1,3 +1,4 @@
+import ContainerDiv from '@/components/Container';
 import FooterFi from '@/components/FooterFi';
 
 const footerDeFiData = [
@@ -13,12 +14,12 @@ const footerDeFiData = [
 
 const FooterSection = () => {
   return (
-    <>
+    <ContainerDiv>
       {footerDeFiData.map((fiData, id) => {
         return <FooterFi key={id} {...fiData} />;
       })}
-    </>
+    </ContainerDiv>
   );
-}
+};
 
 export default FooterSection;
