@@ -35,10 +35,7 @@
     .heading {
       font-size: 32px;
       margin-bottom: 16px;
-      text-align: center;
-      @include is-pc {
-        text-align: start;
-      }
+      text-align: start;
     }
     .cardContentItem {
       margin-bottom: 32px;
