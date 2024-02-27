@@ -47,5 +47,17 @@
         margin-bottom: rem(60px);
       }
     }
+
+    &_thumbnail {
+      width: 100%;
+      height: auto;
+      margin-bottom: rem(60px);
+    }
+
+    &_bvm {
+      display: flex;
+      align-items: center;
+      gap: rem(16px);
+    }
   }
 }
