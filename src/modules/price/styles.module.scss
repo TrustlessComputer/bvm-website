@@ -47,3 +47,18 @@
     min-width: 1360px;
   }
 }
+
+
+.tooltip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  img {
+    transform: translateY(-.1em);
+  }
+
+  ul{
+    list-style: inside;
+  }
+}

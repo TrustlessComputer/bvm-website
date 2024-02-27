@@ -1,5 +1,7 @@
 import s from './styles.module.scss';
 import PriceCard from '@/modules/price/price-card';
+import { Tooltip } from 'react-tooltip';
+import React, { ReactElement } from 'react';
 
 const PriceModule = () => {
 
@@ -28,7 +30,7 @@ const PriceModule = () => {
             time={'2s or 5s or 10s'}
             support={'Discord support'}
             titleAction={'Get started'}
-            action={'#'}
+            action={'/blockchains/customize'}
           >
             <h1>7-day free trial</h1>
           </PriceCard>
@@ -43,9 +45,9 @@ const PriceModule = () => {
             time={'2s or 5s or 10s'}
             support={'Discord support'}
             titleAction={'Get started'}
-            action={'#'}
+            action={'/blockchains/customize'}
           >
-            <h1>39319 BVM<small>/month</small></h1>
+            <h1> 71257 BVM<small>/month</small></h1>
           </PriceCard>
           <PriceCard
             label={'Professional'}
@@ -54,12 +56,28 @@ const PriceModule = () => {
             network={'Bitcoin testnet'}
             portocol={'Optimistic rollups'}
             layer={'Bitcoin'}
-            time={'2s or 5s or 10s'}
+            time={(<div className={s.tooltip}>
+              10s
+               <span>
+                      <a id='my-anchor-element_ic_sharp_50'><img src='/builder/svg-details.svg' alt='ic_sharp' /></a>
+                      <Tooltip
+                        anchorSelect='#my-anchor-element_ic_sharp_50'
+                      >
+                        <div>
+                          <b>Optional</b>
+                          <ul>
+                           <li> Block Time: 5s (+1685 BVM monthly)</li>
+
+                  <li>Block Time: 2s (+6740 BVM monthly)</li>
+                          </ul>
+                        </div>
+                      </Tooltip>
+                    </span></div>)}
             support={'Dedicated account manager'}
             titleAction={'Get started'}
-            action={'#'}
+            action={'/blockchains/customize'}
           >
-            <h1>39319 BVM<small>/month</small></h1>
+            <h1>538683 BVM<small>/month</small></h1>
           </PriceCard>
           <PriceCard
             label={'Custom'}
@@ -69,7 +87,7 @@ const PriceModule = () => {
             titleAction={'Contact sales'}
             action={'#'}
           >
-            <h1>39319 BVM<small>/month</small></h1>
+            <h1>Custom Price</h1>
           </PriceCard>
         </div>
       </div>
