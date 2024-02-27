@@ -9,7 +9,7 @@ const cardDeFiData = [
     description:
       "With a 2-second block time and transaction costs of less than $0.001, it is substantially faster and cheaper than Bitcoin's mainnet, providing great efficiency.",
     image: '/defi/compress/DeFi_1.png',
-    bgColorImage: '#35CCA6',
+    bgColorImage: '#fac4ff',
   },
   {
     id: 1,
@@ -17,7 +17,7 @@ const cardDeFiData = [
     description:
       'It enables developers to transfer dApps from Ethereum to Bitcoin with little or no change.',
     image: '/defi/compress/DeFi_2.png',
-    bgColorImage: '#459443',
+    bgColorImage: '#8cd3c2',
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const cardDeFiData = [
     description:
       'Enjoy the flexibility of paying gas fees in either Bitcoin or your native tokens',
     image: '/defi/compress/DeFi_3.png',
-    bgColorImage: '#74C9E4',
+    bgColorImage: '#ffd73b',
   },
 ];
 
