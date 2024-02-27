@@ -1,7 +1,7 @@
 'use client';
 
 import { Box } from '@chakra-ui/react';
-import s from './style.module.scss';
+import s from '../gamefi/styles.module.scss';
 import BoxContent from '@/layouts/BoxContent';
 import HeroSection from '@/modules/socialfi/HeroSection';
 import CategorySection from '@/modules/socialfi/CategorySection';

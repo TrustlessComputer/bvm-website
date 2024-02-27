@@ -1,12 +1,51 @@
 .heroContainer {
+  display: flex;
+  gap: rem(120px);
+  padding-top: rem(80px);
+  padding-bottom: rem(80px);
+
   .heroContent {
-    @include is-tablet {
-      width: 100%;
-      height: 100%;
+    &_mainTitle {
+      margin-bottom: rem(8px);
+      line-height: rem(24px);
+    }
+
+    &_title {
+      font-size: rem(40px);
+      line-height: rem(48px);
+      margin-bottom: rem(24px);
+    }
+
+    &_subTitle {
+      margin-bottom: rem(24px);
+    }
+
+    &_button {
+      display: block;
+      width: fit-content;
+      padding: rem(14.5px) rem(40px);
+      background: #FA4E0E;
+      font-size: rem(16px);
+      line-height: rem(19.09px);
+      letter-spacing: 1.6%;
+      color: #fff;
+      margin-bottom: rem(40px);
+    }
+
+    &_link {
+      color: #FA4E0E;
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 0;
+      gap: rem(8px);
+    }
+  }
+
+  .heroImg {
+    flex: 1;
+
+    img {
+      width: 100%;
+      height: auto;
     }
   }
 }

@@ -1,7 +1,6 @@
-import { Button, Flex, Image, Text } from '@chakra-ui/react';
-
-import { BUY_TC_URL } from '@/config';
+import Link from 'next/link';
 import s from './styles.module.scss';
+import Image from 'next/image';
 
 type THeroFiProps = {
   mainTitle: string;
@@ -11,133 +10,37 @@ type THeroFiProps = {
   subBtnTitle: string;
   subBtnIcon: string;
   heroThumbnail: string;
+  btnHref: string;
+  subBtnIconHref: string;
 };
 
 const HeroFi = ({ ...props }: THeroFiProps) => {
   return (
-    <Flex
-      w={'100%'}
-      minH={['100vh', '100%']}
-      flexDir={{
-        base: 'column',
-        lg: 'row',
-      }}
-      align={['center', 'start']}
-      bgColor={'#f6f6f6'}
-      py={['60px', '80px']}
-      gap={{
-        base: '40px',
-        '2xl': '0px',
-      }}
-      className={s.heroContainer}
-    >
-      <Flex
-        className={s.heroContent}
-        flexDir={'column'}
-        flex={['', 1]}
-        alignItems={{
-          base: 'center',
-          lg: 'flex-start',
-        }}
-        gap={['12px', '18px']}
-      >
-        <Text
-          fontSize={['16px', '20px']}
-          lineHeight={['20px', '24px']}
-          fontWeight={400}
-          color={'#000'}
-        >
-          {props.mainTitle}
-        </Text>
-        <Text
-          fontSize={['24px', '40px']}
-          textAlign={['center', 'start']}
-          lineHeight={'48px'}
-          fontWeight={400}
-          color={'#000'}
-        >
-          {props.title}
-        </Text>
-        <Text
-          fontSize={['16px', '20px']}
-          lineHeight={['20px', '24px']}
-          fontWeight={400}
-          color={'#000'}
-          textAlign={'center'}
-        >
-          {props.subTitle}
-        </Text>
-        <Button
-          bgColor={'#FA4E0E'}
-          color={'#fff'}
-          borderRadius={0}
-          display={'flex'}
-          justifyContent={'center'}
-          alignItems={'center'}
-          px={'24px'}
-          py={'10px'}
-          my={['10px', '0']}
-          lineHeight={'19.09px'}
-          minW={['100%', '285px']}
-          height={'48px'}
-          fontWeight={400}
-          fontSize={'16px'}
-          letterSpacing={'1%'}
-          gap={['8px']}
-          onClick={() => {
-            window.open(BUY_TC_URL, '_blank');
-          }}
-          _hover={{
-            opacity: 0.8,
-          }}
-        >
-          {props.btnTitle}
-        </Button>
-        <Button
-          color={'#FA4E0E'}
-          borderRadius={0}
-          display={'flex'}
-          justifyContent={['center', 'start']}
-          alignItems={'center'}
-          px={'0'}
-          minW={['auto', '376px']}
-          height={'48px'}
-          fontWeight={400}
-          lineHeight={'19.09px'}
-          fontSize={'16px'}
-          letterSpacing={'1%'}
-          gap={['8px']}
-          onClick={() => {
-            window.open(BUY_TC_URL, '_blank');
-          }}
-          _hover={{
-            opacity: 0.8,
-          }}
-        >
-          <>
-            {props.subBtnTitle}
-            <Image
-              alignSelf={'center'}
-              maxWidth={'20px'}
-              maxHeight={'20px'}
-              src={props.subBtnIcon}
-              w={'100%'}
-              h="auto"
-            />
-          </>
-        </Button>
-      </Flex>
-      <Flex justify={'flex-end'}>
+    <div className={s.heroContainer}>
+      <div className={s.heroContent}>
+        <p className={s.heroContent_mainTitle}>{props.mainTitle}</p>
+        <h2 className={s.heroContent_title}>{props.title}</h2>
+        <p className={s.heroContent_subTitle}>{props.subTitle}</p>
+        <Link href={props.btnHref} className={s.heroContent_button}>{props.btnTitle}</Link>
+        <Link href={props.subBtnIconHref} className={s.heroContent_link}>
+          {props.subBtnTitle}
+          <Image
+            width={20}
+            height={20}
+            src={props.subBtnIcon}
+            alt={props.subBtnIcon}
+          />
+        </Link>
+      </div>
+      <div className={s.heroImg}>
         <Image
-          alignSelf={'center'}
-          objectFit={'cover'}
-          maxWidth={['100%', '780px']}
+          width={780}
+          height={440}
           src={props.heroThumbnail}
-          w={'100%'}
-          h={['340px', '440px']}
+          alt={props.heroThumbnail}
         />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
 
