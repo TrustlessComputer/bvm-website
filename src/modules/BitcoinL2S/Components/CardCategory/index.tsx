@@ -1,7 +1,8 @@
-import s from './style.module.scss'
+import s from './style.module.scss';
 import Chars from '@/interactive/Chars';
 import HeadingSection from '@/modules/landing/Componets/HeadingSection';
 import React from 'react';
+import Fade from '@/interactive/Fade';
 
 type TCardCategoryProps = {
   title: string;
@@ -11,7 +12,7 @@ type TCardCategoryProps = {
 }
 
 
-const CardCategory = ({...props}: TCardCategoryProps) => {
+const CardCategory = ({ ...props }: TCardCategoryProps) => {
   return (
     <div className={`${s.wrapperCard} ${props.className}`}>
       <div className={s.cardImage}>
@@ -19,29 +20,29 @@ const CardCategory = ({...props}: TCardCategoryProps) => {
       </div>
       <div className={s.cardContent}>
         <HeadingSection className={s.heading}>
-          <Chars delay={0.2}>
+          <Chars>
             {props.title}
           </Chars>
         </HeadingSection>
         {
-          props.content.map((content) => {
+          props.content.map((content, index) => {
             return (
               <div className={s.cardContentItem}>
-                <HeadingSection className={s.cardContentItemHeading}>
-                  <Chars delay={0.2}>
+                <Fade from={{ y: 30 }} to={{ y: 0 }} delay={index / 10}>
+                  <HeadingSection className={s.cardContentItemHeading}>
                     {content.heading}
-                  </Chars>
-                </HeadingSection>
-                <div className={s.cardContentMarkdown}>
-                  {content.description}
-                </div>
+                  </HeadingSection>
+                  <div className={s.cardContentMarkdown}>
+                    {content.description}
+                  </div>
+                </Fade>
               </div>
-            )
+            );
           })
         }
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CardCategory
+export default CardCategory;
