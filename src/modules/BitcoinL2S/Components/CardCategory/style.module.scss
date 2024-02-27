@@ -1,0 +1,73 @@
+.wrapperCard {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  gap: 40px;
+  padding-bottom: 80px;
+  flex-wrap: wrap;
+
+  @include is-min-table {
+    gap: 50px;
+  }
+  @include is-pc {
+    flex-wrap: nowrap;
+
+    gap: 120px;
+  }
+  .cardImage {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    @include is-pc {
+      margin: 0;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .cardContent {
+    text-align: start;
+    color: #000;
+    max-width: 750px;
+    width: 100%;
+    .heading {
+      font-size: 32px;
+      margin-bottom: 16px;
+      text-align: start;
+    }
+    .cardContentItem {
+      margin-bottom: 32px;
+      .cardContentItemHeading {
+        font-size: 24px;
+        text-align: start;
+        font-weight: 500;
+      }
+      .cardContentMarkdown {
+        p {
+          font-size: 20px;
+          text-align: start;
+          font-weight: 400;
+          margin-bottom: 15px;
+        }
+        strong {
+          font-size: 20px;
+          text-align: start;
+          font-weight: 500;
+        }
+        ol {
+          margin: 15px 0;
+          li {
+            list-style-position: inside;
+            font-size: 20px;
+            font-weight: 400;
+          }
+        }
+        u {
+          text-underline-position: under;
+        }
+      }
+    }
+  }
+}

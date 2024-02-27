@@ -43,21 +43,27 @@ export const MenuBuild = {
 };
 
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
+  // {
+  //   label: 'Use Bitcoin',
+  //   href: '/use-bitcoin',
+  //   isNewWindow: false,
+  //   isHide: false,
+  //   isStrong: true
+  // },
+
   {
-    label: 'Use Bitcoin',
-    href: '/use-bitcoin',
-    isNewWindow: false,
-    isHide: false,
-    isStrong: true
-  },
-  {
-    label: 'Build',
+    label: 'Products',
     // href: DEVELOPERS_DOC_URL,
     isNewWindow: false,
     isHide: false,
     subMenu: [
       {
-        href: '/blockchains',
+        href: '/smart-contracts-on-bitcoin',
+        label: 'Smart contracts on Bitcoin',
+        isNewWindow: false,
+      },
+      {
+        href: '/bitcoin-l2s',
         label: 'Bitcoin L2s',
         isNewWindow: false,
       },
@@ -66,41 +72,103 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
         label: 'Module Store',
         isNewWindow: false,
       },
-      {
-        href: DEVELOPERS_DOC_URL,
-        label: 'Developer Docs',
-        isNewWindow: true,
-      },
-      {
-        href: DEVELOPERS_GRANTS_URL,
-        label: 'Developer Grants',
-        isNewWindow: true,
-      },
     ],
   },
+
   {
-    label: 'Learn',
+    label: 'Solution',
     // href: DEVELOPERS_DOC_URL,
-    isNewWindow: true,
+    isNewWindow: false,
     isHide: false,
     subMenu: [
       {
-        href: 'https://bvm.network/onepager.pdf',
-        label: 'Onepager',
-        isNewWindow: true,
+        href: '/gamefi',
+        label: 'Bitcoin L2 for GameFi',
+        isNewWindow: false,
       },
       {
-        href: 'https://bvm.network/deck.pdf',
-        label: 'Deck',
-        isNewWindow: true,
+        href: '/defi',
+        label: 'Bitcoin L2 for DeFi',
+        isNewWindow: false,
       },
       {
-        href: WHITEPAPER_DOC_URL,
-        label: 'Whitepaper',
-        isNewWindow: true,
+        href: '/ai',
+        label: 'Bitcoin L2 for AI',
+        isNewWindow: false,
+      },
+      {
+        href: '/socialfi',
+        label: 'Bitcoin L2 for SocialFi',
+        isNewWindow: false,
       },
     ],
   },
+
+  {
+    label: 'Pricing',
+    href: '/pricing',
+    isNewWindow: false,
+    isHide: false,
+  },
+
+  {
+    label: '$BVM',
+    href: '/bvm',
+    isNewWindow: false,
+    isHide: false,
+  },
+
+  // {
+  //   label: 'Build',
+  //   // href: DEVELOPERS_DOC_URL,
+  //   isNewWindow: false,
+  //   isHide: false,
+  //   subMenu: [
+  //     {
+  //       href: '/blockchains',
+  //       label: 'Bitcoin L2s',
+  //       isNewWindow: false,
+  //     },
+  //     {
+  //       href: '/module-store',
+  //       label: 'Module Store',
+  //       isNewWindow: false,
+  //     },
+  //     {
+  //       href: DEVELOPERS_DOC_URL,
+  //       label: 'Developer Docs',
+  //       isNewWindow: true,
+  //     },
+  //     {
+  //       href: DEVELOPERS_GRANTS_URL,
+  //       label: 'Developer Grants',
+  //       isNewWindow: true,
+  //     },
+  //   ],
+  // },
+  // {
+  //   label: 'Learn',
+  //   // href: DEVELOPERS_DOC_URL,
+  //   isNewWindow: true,
+  //   isHide: false,
+  //   subMenu: [
+  //     {
+  //       href: 'https://bvm.network/onepager.pdf',
+  //       label: 'Onepager',
+  //       isNewWindow: true,
+  //     },
+  //     {
+  //       href: 'https://bvm.network/deck.pdf',
+  //       label: 'Deck',
+  //       isNewWindow: true,
+  //     },
+  //     {
+  //       href: WHITEPAPER_DOC_URL,
+  //       label: 'Whitepaper',
+  //       isNewWindow: true,
+  //     },
+  //   ],
+  // },
   // {
   //   label: 'Bitcoin L2s',
   //   href: '/blockchains',
@@ -123,23 +191,29 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
 ].filter((item) => !item.isHide);
 
 export const NAV_ITEMS_RIGHT: Array<NavItem> = [
+
+  // {
+  //   label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
+  //   href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
+  //   isNewWindow: false,
+  //   isStrong: false,
+  //   isHide: false,
+  // },
+  // {
+  //   label: 'Roadmap',
+  //   href: '/roadmap',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
   {
-    label: '$BVM',
-    href: '/bvm',
+    label: 'Explore Bitcoin L2s',
+    href: '/use-bitcoin',
     isNewWindow: false,
     isHide: false,
-  },
-  {
-    label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
-    href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
-    isNewWindow: false,
-    isStrong: false,
-    isHide: false,
-  },
-  {
-    label: 'Roadmap',
-    href: '/roadmap',
-    isNewWindow: false,
+  },{
+    label: 'Join the community',
+    href: 'https://discord.gg/U8WHhx3WH3',
+    isNewWindow: true,
     isHide: false,
   },
   // {

@@ -44,65 +44,66 @@ export const DesktopNavRight = (props: Props) => {
                 </Text>
               </Link>
           }
-
-
-
         </>
       ))}
 
-      <Link
-        href={'https://github.com/trustlesscomputer/'}
-        target={ '_blank'}
-        color={props?.primaryColor || 'white'}
-      >
-
-        <Box
-          m={0}
-          p={'0'}
-          display={'flex'}
-          alignItems={'center'}
-          borderRadius={100}
-          bgColor={
-            props?.primaryColor === 'white' ? '#fff' : '#fefefec5'
-          }
-          justifyContent={'center'}
-          _hover={{
-            opacity: 0.7,
-          }}
-          onClick={() => {
-            window.open('https://github.com/trustlesscomputer/', '_blank');
-          }}
-        >
-          <IcGit fillColor={'#000000'} />
-        </Box>
+      <Link href={'/blockchains/customize'} className={s.tryBVm}>
+        Try BVM
       </Link>
 
-      <Link
-        href={'https://twitter.com/bvmnetwork'}
-        target={ '_blank'}
-        color={props?.primaryColor || 'white'}
-      >
+      {/*<Link*/}
+      {/*  href={'https://github.com/trustlesscomputer/'}*/}
+      {/*  target={'_blank'}*/}
+      {/*  color={props?.primaryColor || 'white'}*/}
+      {/*>*/}
 
-        <Box
-          m={0}
-          p={'0'}
-          display={'flex'}
-          alignItems={'center'}
-          borderRadius={100}
-          bgColor={
-            props?.primaryColor === 'white' ? '#fff' : '#fefefec5'
-          }
-          justifyContent={'center'}
-          _hover={{
-            opacity: 0.7,
-          }}
-          onClick={() => {
-            window.open('https://twitter.com/bvmnetwork', '_blank');
-          }}
-        >
-          <IcTW fillColor={'#000000'} />
-        </Box>
-      </Link>
+      {/*  <Box*/}
+      {/*    m={0}*/}
+      {/*    p={'0'}*/}
+      {/*    display={'flex'}*/}
+      {/*    alignItems={'center'}*/}
+      {/*    borderRadius={100}*/}
+      {/*    bgColor={*/}
+      {/*      props?.primaryColor === 'white' ? '#fff' : '#fefefec5'*/}
+      {/*    }*/}
+      {/*    justifyContent={'center'}*/}
+      {/*    _hover={{*/}
+      {/*      opacity: 0.7,*/}
+      {/*    }}*/}
+      {/*    onClick={() => {*/}
+      {/*      window.open('https://github.com/trustlesscomputer/', '_blank');*/}
+      {/*    }}*/}
+      {/*  >*/}
+      {/*    <IcGit fillColor={'#000000'} />*/}
+      {/*  </Box>*/}
+      {/*</Link>*/}
+
+      {/*<Link*/}
+      {/*  href={'https://twitter.com/bvmnetwork'}*/}
+      {/*  target={'_blank'}*/}
+      {/*  color={props?.primaryColor || 'white'}*/}
+      {/*>*/}
+
+      {/*  <Box*/}
+      {/*    m={0}*/}
+      {/*    p={'0'}*/}
+      {/*    display={'flex'}*/}
+      {/*    alignItems={'center'}*/}
+      {/*    borderRadius={100}*/}
+      {/*    bgColor={*/}
+      {/*      props?.primaryColor === 'white' ? '#fff' : '#fefefec5'*/}
+      {/*    }*/}
+      {/*    justifyContent={'center'}*/}
+      {/*    _hover={{*/}
+      {/*      opacity: 0.7,*/}
+      {/*    }}*/}
+      {/*    onClick={() => {*/}
+      {/*      window.open('https://twitter.com/bvmnetwork', '_blank');*/}
+      {/*    }}*/}
+      {/*  >*/}
+      {/*    <IcTW fillColor={'#000000'} />*/}
+      {/*  </Box>*/}
+      {/*</Link>*/}
     </HStack>
   );
 };

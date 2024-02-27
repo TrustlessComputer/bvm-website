@@ -24,32 +24,32 @@ const dataCategory = [
     title: 'TxReader',
     description: 'This module is responsible for filtering BVM transactions in every new Bitcoin block and ensuring that the state of the BVM is consistent across all BVM nodes in the network, even in the event of a reorg.',
   },
-]
+];
 
-export default function RoadMap () {
+export default function RoadMap() {
   return <div className={`${s.roadMapWrapper}`}>
     <div className={'container'}>
       <div className={`${s.wrapper}`}>
         <div className={`${s.wrapperImage}`}>
-          <img src="/bvm-sct/map.png" alt="map" />
+          <img src='/bvm-sct/map2.png' alt='map' />
         </div>
         <div className={`${s.wrapperContent}`}>
           {
             dataCategory.map((item) => {
               return (
                 <div className={`${s.wrapperItem}`} key={item.id}>
-                  <HeadingSection className={s.heading}>
-                    {item.title}
-                  </HeadingSection>
-                  <Fade delay={0.2}>
-                    <p> {item.description}</p>
+                  <Fade delay={item.id / 10}>
+                    <HeadingSection className={s.heading}>
+                      {item.title}
+                    </HeadingSection>
+                    <p>{item.description}</p>
                   </Fade>
                 </div>
-              )
+              );
             })
           }
         </div>
       </div>
     </div>
-  </div>
+  </div>;
 }

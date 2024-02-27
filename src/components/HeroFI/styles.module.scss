@@ -1,0 +1,100 @@
+.heroContainer {
+  display: flex;
+  gap: 30px;
+  padding: 0 0 40px 0;
+  flex-direction: column-reverse;
+  text-align: center;
+  margin-top: 0;
+
+  @include min-md {
+    padding: 80px 0 40px 0;
+  }
+
+  @include min-xl {
+    flex-direction: row;
+    gap: 120px;
+    padding: 80px 0;
+    text-align: left;
+    margin-top: 80px;
+  }
+
+  .heroContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &_mainTitle {
+      margin-bottom: 8px;
+      line-height: 24px;
+    }
+
+    &_title {
+      font-size: 28px;
+      line-height: 32px;
+      margin-bottom: 12px;
+
+      @include min-xl {
+        font-size: 40px;
+        line-height: 48px;
+        margin-bottom: 24px;
+      }
+    }
+
+    &_subTitle {
+      margin-bottom: 12px;
+
+      @include min-xl {
+        margin-bottom: 24px;
+      }
+    }
+
+    &_button {
+      display: block;
+      width: fit-content;
+      padding: 10.5px 20px;
+      background: #FA4E0E;
+      font-size: 14px;
+      line-height: 19.09px;
+      color: #fff;
+      margin-bottom: 20px;
+      ;
+
+      @include min-xl {
+        font-size: 16px;
+        padding: 14.5px 40px;
+        margin-bottom: 40px;
+      }
+    }
+
+    &_link {
+      color: #FA4E0E;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      line-height: 19.09px;
+
+      @include min-xl {
+        font-size: 16px;
+      }
+    }
+
+    @include min-xl {
+      align-items: flex-start;
+    }
+  }
+
+  .heroImg {
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    @include min-xl {
+      max-width: 780px;
+    }
+  }
+}
