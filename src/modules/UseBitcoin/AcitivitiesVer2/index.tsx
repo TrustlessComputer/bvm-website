@@ -9,6 +9,7 @@ import BigNumber from 'bignumber.js';
 import { coinPricesSelector } from '@/stores/states/common/selector';
 import { Coin } from '@/stores/states/common/types';
 import cx from 'clsx';
+import { isMobile } from 'react-device-detect';
 
 interface ICTA {
   title: string;
@@ -155,13 +156,13 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'AI on Bitcoin',
         desc: `
-          <div style='display: flex;justify-content: space-between; color: black'>
-            <ul style='width: 50%'>
+          <div style='display: flex; flex-direction: ${isMobile ? "column" : "row"};justify-content: space-between; color: black'>
+            <ul style='width: ${isMobile ? "100%" : "50%"}'>
               ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI })}
               ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
               ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Avail' })}
             </ul>
-            <ul style='width: 50%'>
+            <ul style='width: ${isMobile ? "100%" : "50%"}'>
               ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
               ${NormalRow({ key: 'Deployer:', value: 'NBC team' })}
               ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
@@ -176,13 +177,13 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'GameFi on Bitcoin',
         desc: `
-          <div style='display: flex;justify-content: space-between; color: black'>
-            <ul style='width: 50%'>
+          <div style='display: flex; flex-direction: ${isMobile ? "column" : "row"};justify-content: space-between; color: black'>
+            <ul style='width: ${isMobile ? "100%" : "50%"}'>
               ${LinkRow({ key: 'Bitcoin L2:', value: 'Bitcoin Arcade', link: GAME_LINK.ARCA })}
               ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
               ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Polygon' })}
             </ul>
-            <ul style='width: 50%'>
+            <ul style='width: ${isMobile ? "100%" : "50%"}'>
               ${NormalRow({ key: 'Network type:', value: 'Bitcoin Testnet' })}
               ${NormalRow({ key: 'Deployer:', value: 'Arcade team' })}
               ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
@@ -196,13 +197,13 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'DeFi on Bitcoin',
         desc: `
-          <div style='display: flex;justify-content: space-between; color: black'>
-            <ul style='width: 50%'>
+          <div style='display: flex; flex-direction: ${isMobile ? "column" : "row"};justify-content: space-between; color: black'>
+            <ul style='width: ${isMobile ? "100%" : "50%"}'>
               ${LinkRow({ key: 'Bitcoin L2:', value: 'Naka', link: GAME_LINK.NAKA })}
               ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
               ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Polygon' })}
             </ul>
-            <ul style='width: 50%'>
+            <ul style='width: ${isMobile ? "100%" : "50%"}'>
               ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
               ${NormalRow({ key: 'Deployer:', value: 'Naka team' })}
               ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
@@ -232,13 +233,13 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'SocialFi on Bitcoin',
         desc: `
-          <div style='display: flex;justify-content: space-between; color: black'>
-            <ul style='width: 50%'>
+          <div style='display: flex; flex-direction: ${isMobile ? "column" : "row"};justify-content: space-between; color: black'>
+            <ul style='width: ${isMobile ? "100%" : "50%"}'>
               ${LinkRow({ key: 'Bitcoin L2:', value: 'Alpha', link: GAME_LINK.ALPHA })}
               ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
               ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Polygon' })}
             </ul>
-            <ul style='width: 50%'>
+            <ul style='width: ${isMobile ? "100%" : "50%"}'>
               ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
               ${NormalRow({ key: 'Deployer:', value: 'NBC team' })}
               ${NormalRow({ key: 'Launch date:', value: 'June 27, 2023' })}
