@@ -120,11 +120,11 @@ export const ReportRow = (p: { key: string, value: string, prefix?: string, maxD
   return (
     <Flex flexDir='row' alignItems='end' color='black'>
       {p.prefix && (
-        <span style={{ fontWeight: '500', fontSize: '12px', lineHeight: '140%' }}>
+        <span style={{ fontWeight: '500', fontSize: '16px', lineHeight: '140%' }}>
           {p.prefix || ''}
         </span>
       )}
-      <IncreaseNumber
+      {/*<IncreaseNumber
         from={
           new BigNumber(new BigNumber(p.value)
             .minus(new BigNumber(p.value)
@@ -137,8 +137,11 @@ export const ReportRow = (p: { key: string, value: string, prefix?: string, maxD
         format={(_value: number) => {
           return formatCurrency(_value, 0, p.maxDigit || 0);
         }}
-      />
-      <Text fontSize='12px' lineHeight='120%' color='black' opacity={0.7} fontWeight='400' ml='4px'>
+      />*/}
+      <Text fontSize='16px' lineHeight='140%' color='black' fontWeight='500'>
+        {formatCurrency(new BigNumber(new BigNumber(p.value).toFixed(0, BigNumber.ROUND_CEIL)).toNumber(), 0, 0, 'BTC', false)}
+      </Text>
+      <Text fontSize='16px' lineHeight='120%' color='black' opacity={0.7} fontWeight='400' ml='4px'>
         {p.key}
       </Text>
     </Flex>
@@ -194,22 +197,6 @@ const ActivitiesVer2 = React.memo(() => {
         type: ActivityType.Naka,
       },
       {
-        title: 'Education on Bitcoin',
-        desc: `
-          <ul style='color: black'>
-            ${NormalRow({
-          key: 'Activities:',
-          value: 'Learn about modular blockchain architecture via a fun Lego game.',
-        })}
-            ${LinkRow({ key: 'Bitcoin L2:', value: 'Modular', link: GAME_LINK.MODULAR })}
-          </ul>
-        `,
-        banner: 'banner-03.png',
-        link: GAME_LINK.MODULAR,
-        type: ActivityType.Modular,
-        bannerLink: MODULAR_TW_LINK,
-      },
-      {
         title: 'SocialFi on Bitcoin',
         desc: `
           <div style='display: flex; flex-direction: ${isMobile ? "column" : "row"};justify-content: space-between; color: black'>
@@ -249,6 +236,22 @@ const ActivitiesVer2 = React.memo(() => {
         banner: 'banner-05.png',
         link: GAME_LINK.AI,
         type: ActivityType.AI,
+      },
+      {
+        title: 'Education on Bitcoin',
+        desc: `
+          <ul style='color: black'>
+            ${NormalRow({
+          key: 'Activities:',
+          value: 'Learn about modular blockchain architecture via a fun Lego game.',
+        })}
+            ${LinkRow({ key: 'Bitcoin L2:', value: 'Modular', link: GAME_LINK.MODULAR })}
+          </ul>
+        `,
+        banner: 'banner-03.png',
+        link: GAME_LINK.MODULAR,
+        type: ActivityType.Modular,
+        bannerLink: MODULAR_TW_LINK,
       },
     ];
   }, []);
@@ -370,7 +373,7 @@ const ActivitiesVer2 = React.memo(() => {
             className={cx(styles.container_item, /*[ActivityType.AI].includes(item?.type) ? styles.special : ''*/)}
             key={item.title}>
         <div className={styles.container_item_header}>
-          <Text color='black' fontSize='16px' fontWeight='500'>
+          <Text color='black' fontSize='20px' fontWeight='500'>
             {item.title}
             {!!item.subTitle && <span style={{ fontWeight: '400' }}>{item.subTitle}</span>}
           </Text>
