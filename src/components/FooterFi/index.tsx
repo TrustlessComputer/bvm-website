@@ -6,7 +6,7 @@ import s from './styles.module.scss';
 type TFooterFiProps = {
   fTitle: string;
   sTitle?: string;
-  description: string;
+  description?: string;
   image: string;
   thumbnail: string;
   btnTitle: string;

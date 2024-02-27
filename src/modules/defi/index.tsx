@@ -2,10 +2,10 @@
 
 import { Box } from '@chakra-ui/react';
 import BoxContent from '@/layouts/BoxContent';
-import s from '../gamefi/styles.module.scss';
-import HeroSection from './HeroSection';
 import CategorySection from './CategorySection';
 import FooterSection from './FooterSection';
+import HeroSection from './HeroSection';
+import s from '../gamefi/styles.module.scss';
 
 const DeFiModule = () => {
   return (
