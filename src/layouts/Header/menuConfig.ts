@@ -97,7 +97,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
         isNewWindow: false,
       },
       {
-        href: '/socailfi',
+        href: '/socialfi',
         label: 'Bitcoin L2 for SocialFi',
         isNewWindow: false,
       },
