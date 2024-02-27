@@ -9,7 +9,7 @@ const cardGameFiData = [
     description:
       'Connect with others through chats, posts, and community activities',
     image: '/socialfi/SocialFi_1.png',
-    bgColorImage: '#f2ffc1',
+    bgColorImage: '#d175c8',
   },
   {
     id: 1,
@@ -17,7 +17,7 @@ const cardGameFiData = [
     description:
       'Easily integrate games or other kinds of engaging activities with 2-second block time and low transaction fees (less than $0.001 per transaction)',
     image: '/socialfi/SocialFi_2.png',
-    bgColorImage: '#d175c8',
+    bgColorImage: '#f2ffc1',
   },
   {
     id: 2,
