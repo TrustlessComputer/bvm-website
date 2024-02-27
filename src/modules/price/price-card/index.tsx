@@ -62,7 +62,7 @@ export default function PriceCard({
     <div className={`${s.support} ${s.rowVal}`}>{
       support
     }</div>
-    <div className={`${s.action} ${s.rowVal}`}>
+    <div className={`${s.action} ${s.rowVal} ${!action && s.none}`}>
       {
         <button>
           {action && titleAction}

@@ -76,6 +76,13 @@
     &.emp {
       border-top: none !important;
     }
+
+    &.none {
+      * {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
   }
 }
 
