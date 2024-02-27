@@ -2,7 +2,7 @@
   width: 100%;
   padding: 0;
   background: #000;
-  padding: 80px 0;
+  padding: 40px 0;
   color: #fff;
 
   .footerContent {
@@ -11,20 +11,35 @@
     align-items: center;
 
     &_logo {
-      margin-bottom: 28px;
+      margin-bottom: 20px;
+
+      @include min-xl {
+        margin-bottom: 28px;
+      }
     }
 
     &_desc {
-      font-size: 24px;
-      line-height: 36px;
+      font-size: 20px;
+      line-height: 32px;
       margin-bottom: 4px;
       text-transform: uppercase;
+
+      @include min-xl {
+        font-size: 24px;
+        line-height: 36px;
+      }
     }
 
     &_title {
-      font-size: 48px;
-      line-height: 57px;
+      font-size: 32px;
+      line-height: 42px;
       margin-bottom: 20px;
+
+
+      @include min-xl {
+        font-size: 48px;
+        line-height: 57px;
+      }
     }
 
     &_subTitle {
@@ -51,13 +66,39 @@
     &_thumbnail {
       width: 100%;
       height: auto;
-      margin-bottom: 60px;
+      margin-bottom: 30px;
+
+      @include min-ml {
+        font-size: 16px;
+        padding: 14.5px 40px;
+        margin-bottom: 60px;
+      }
     }
 
     &_bvm {
       display: flex;
       align-items: center;
       gap: 16px;
+      font-size: 18px;
+
+      img {
+        width: 20px;
+        height: auto;
+      }
+
+
+      @include min-ml {
+        gap: 16px;
+        font-size: 24px;
+
+        img {
+          width: unset;
+        }
+      }
     }
+  }
+
+  @include min-xl {
+    padding: 80px 0;
   }
 }

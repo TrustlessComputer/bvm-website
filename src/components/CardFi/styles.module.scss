@@ -15,7 +15,7 @@
       padding: 20px 120px;
     }
 
-    @include min-ml {
+    @include min-xl {
       img {
         width: 260px;
       }
@@ -30,7 +30,7 @@
       line-height: 32px;
       margin-bottom: 12px;
 
-      @include min-ml {
+      @include min-xl {
         font-size: 32px;
         line-height: 38px;
         margin-bottom: 16px;
@@ -38,7 +38,7 @@
     }
   }
 
-  @include min-ml {
+  @include min-xl {
     flex-direction: row;
     gap: 120px;
   }
