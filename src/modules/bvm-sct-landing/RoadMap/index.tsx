@@ -31,7 +31,7 @@ export default function RoadMap () {
     <div className={'container'}>
       <div className={`${s.wrapper}`}>
         <div className={`${s.wrapperImage}`}>
-          <img src="/bvm-sct/map.png" alt="map" />
+          <img src="/bvm-sct/map2.png" alt="map" />
         </div>
         <div className={`${s.wrapperContent}`}>
           {
