@@ -84,64 +84,14 @@ const Contact = () => {
 
   const renderGroupButton = () => {
     return (
+
       <Flex
         display={'flex'}
         flex={1}
         flexDirection={'column'}
         gap={['20px', '24px']}
       >
-        <Flex
-          flexDir={'column'}
-          align={'left'}
-          // gap={'24px'}
-          p={['18px', '20px']}
-          bgColor={'#F8F8F8'}
-          borderColor={'#ECECEC'}
-          borderWidth={1}
-        >
-          <Text
-            fontSize={['20px', '24px']}
-            lineHeight={['30px', '33px']}
-            fontWeight={400}
-            color={'#000'}
-          >
-            Contact the team
-          </Text>
 
-          <Box h={'8px'}></Box>
-          <Text
-            fontSize={['16px', '18px']}
-            lineHeight={['22px', '26px']}
-            fontWeight={400}
-            color={'#000'}
-          >
-            If you want your Bitcoin L2 launch to be listed here, contact us.
-          </Text>
-          <Box h={'24px'}></Box>
-          <Button
-            bgColor={'#000'}
-            color={'#fff'}
-            borderRadius={0}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            px={'24px'}
-            py={'16px'}
-            w={['217px']}
-            h={'48px'}
-            fontWeight={400}
-            fontSize={'16px'}
-            onClick={() => {
-              //TO DO
-              window.open('https://twitter.com/bvmnetwork', '_blank');
-            }}
-            _hover={{
-              opacity: 0.8,
-            }}
-          >
-            Contact
-          </Button>
-        </Flex>
         <Flex
           flexDir={'column'}
           align={'left'}
@@ -192,6 +142,59 @@ const Contact = () => {
             Launch your Bitcoin L2
           </Button>
         </Flex>
+        {/*<Flex*/}
+        {/*  flexDir={'column'}*/}
+        {/*  align={'left'}*/}
+        {/*  // gap={'24px'}*/}
+        {/*  p={['18px', '20px']}*/}
+        {/*  bgColor={'#F8F8F8'}*/}
+        {/*  borderColor={'#ECECEC'}*/}
+        {/*  borderWidth={1}*/}
+        {/*>*/}
+        {/*  <Text*/}
+        {/*    fontSize={['20px', '24px']}*/}
+        {/*    lineHeight={['30px', '33px']}*/}
+        {/*    fontWeight={400}*/}
+        {/*    color={'#000'}*/}
+        {/*  >*/}
+        {/*    Manage your Bitcoin L2s*/}
+        {/*  </Text>*/}
+
+        {/*  <Box h={'8px'}></Box>*/}
+        {/*  <Text*/}
+        {/*    fontSize={['16px', '18px']}*/}
+        {/*    lineHeight={['22px', '26px']}*/}
+        {/*    fontWeight={400}*/}
+        {/*    color={'#000'}*/}
+        {/*  >*/}
+        {/*    Access all information about your Bitcoin L2s here.*/}
+        {/*  </Text>*/}
+        {/*  <Box h={'24px'}></Box>*/}
+        {/*  <Button*/}
+        {/*    bgColor={'#000'}*/}
+        {/*    color={'#fff'}*/}
+        {/*    borderRadius={0}*/}
+        {/*    display={'flex'}*/}
+        {/*    justifyContent={'center'}*/}
+        {/*    alignItems={'center'}*/}
+        {/*    px={'24px'}*/}
+        {/*    py={'16px'}*/}
+        {/*    w={['217px']}*/}
+        {/*    h={'48px'}*/}
+        {/*    fontWeight={400}*/}
+        {/*    fontSize={'16px'}*/}
+        {/*    onClick={() => {*/}
+        {/*      //TO DO*/}
+        {/*      window.open('https://twitter.com/bvmnetwork', '_blank');*/}
+        {/*    }}*/}
+        {/*    _hover={{*/}
+        {/*      opacity: 0.8,*/}
+        {/*    }}*/}
+        {/*  >*/}
+        {/*    View details*/}
+        {/*  </Button>*/}
+        {/*</Flex>*/}
+
       </Flex>
     );
   };

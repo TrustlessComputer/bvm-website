@@ -1,5 +1,5 @@
 import s from './styles.module.scss';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactElement, ReactNode } from 'react';
 
 
 interface IProp extends PropsWithChildren {
@@ -7,7 +7,7 @@ interface IProp extends PropsWithChildren {
   network: string,
   portocol?: string,
   layer?: string,
-  time?: string,
+  time?: string | ReactElement | ReactNode,
   support: string,
   titleAction?: string,
   action?: string,
