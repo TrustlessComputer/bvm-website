@@ -154,27 +154,6 @@ const ActivitiesVer2 = React.memo(() => {
   const TASKS = React.useMemo<GameItemProps[]>(() => {
     return [
       {
-        title: 'AI on Bitcoin',
-        desc: `
-          <div style='display: flex; flex-direction: ${isMobile ? "column" : "row"};justify-content: space-between; color: black'>
-            <ul style='width: ${isMobile ? "100%" : "50%"}'>
-              ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI })}
-              ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
-              ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Avail' })}
-            </ul>
-            <ul style='width: ${isMobile ? "100%" : "50%"}'>
-              ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
-              ${NormalRow({ key: 'Deployer:', value: 'NBC team' })}
-              ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
-            </ul>
-          </div>
-        `,
-        subTitle: '',
-        banner: 'banner-05.png',
-        link: GAME_LINK.AI,
-        type: ActivityType.AI,
-      },
-      {
         title: 'GameFi on Bitcoin',
         desc: `
           <div style='display: flex; flex-direction: ${isMobile ? "column" : "row"};justify-content: space-between; color: black'>
@@ -249,6 +228,27 @@ const ActivitiesVer2 = React.memo(() => {
         banner: 'banner-04.png',
         link: GAME_LINK.ALPHA,
         type: ActivityType.Social,
+      },
+      {
+        title: 'AI on Bitcoin',
+        desc: `
+          <div style='display: flex; flex-direction: ${isMobile ? "column" : "row"};justify-content: space-between; color: black'>
+            <ul style='width: ${isMobile ? "100%" : "50%"}'>
+              ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI })}
+              ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
+              ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Avail' })}
+            </ul>
+            <ul style='width: ${isMobile ? "100%" : "50%"}'>
+              ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
+              ${NormalRow({ key: 'Deployer:', value: 'NBC team' })}
+              ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
+            </ul>
+          </div>
+        `,
+        subTitle: '',
+        banner: 'banner-05.png',
+        link: GAME_LINK.AI,
+        type: ActivityType.AI,
       },
     ];
   }, []);
