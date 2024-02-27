@@ -21,7 +21,7 @@ const FooterFi = ({ ...props }: TFooterFiProps) => {
       <ContainerDiv>
         <div className={s.footerContent}>
           <SvgInset
-            svgUrl={`landing/images/basil_arrow-up-outline.png`}
+            svgUrl={props.image}
             className={s.footerContent_logo}
           />
 
