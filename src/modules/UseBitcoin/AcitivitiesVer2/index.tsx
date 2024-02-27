@@ -176,10 +176,18 @@ const ActivitiesVer2 = React.memo(() => {
       {
         title: 'GameFi on Bitcoin',
         desc: `
-          <ul style='color: black'>
-            ${NormalRow({ key: 'Activities:', value: 'Play 8 different fully on-chain games to earn rewards.' })}
-            ${LinkRow({ key: 'Bitcoin L2:', value: 'Bitcoin Arcade', link: GAME_LINK.ARCA })}
-          </ul>
+          <div style='display: flex;justify-content: space-between; color: black'>
+            <ul style='width: 50%'>
+              ${LinkRow({ key: 'Bitcoin L2:', value: 'Bitcoin Arcade', link: GAME_LINK.ARCA })}
+              ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
+              ${NormalRow({ key: 'Data availability layer:', value: 'Bitcoin + Polygon' })}
+            </ul>
+            <ul style='width: 50%'>
+              ${NormalRow({ key: 'Network type:', value: 'Bitcoin Testnet' })}
+              ${NormalRow({ key: 'Deployer:', value: 'Arcade team' })}
+              ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
+            </ul>
+          </div>
         `,
         banner: 'banner-01_1.png',
         link: GAME_LINK.ARCA,
