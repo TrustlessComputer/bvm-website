@@ -1,0 +1,45 @@
+.cardFiContainer {
+  display: flex;
+  gap: rem(30px);
+  flex-direction: column;
+  max-width: rem(1600px);
+  .cardFiImage {
+    padding: rem(20px) rem(70px);
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    @include min-md {
+      padding: rem(20px) rem(120px);
+    }
+
+    @include min-ml {
+      img {
+        width: rem(260px);
+      }
+    }
+  }
+
+  .cardFiContent {
+    flex: 1;
+
+    .cardFiContent_title {
+      font-size: rem(28px);
+      line-height: rem(32px);
+      margin-bottom: rem(12px);
+
+      @include min-ml {
+        font-size: rem(32px);
+        line-height: rem(38px);
+        margin-bottom: rem(16px);
+      }
+    }
+  }
+
+  @include min-ml {
+    flex-direction: row;
+    gap: rem(120px);
+  }
+}

@@ -1,0 +1,17 @@
+.cateWrapper {
+  background-color: #ffffff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: rem(40px) 0;
+  gap: rem(40px);
+
+  @include min-md {
+    padding: rem(40px) 0;
+  }
+
+  @include min-ml {
+    padding: rem(80px) 0;
+    gap: rem(80px);
+  }
+}
