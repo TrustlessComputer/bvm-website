@@ -15,7 +15,7 @@ const ImagePlaceholder = forwardRef<HTMLImageElement, ImageProps>((props, ref) =
         onLoad={(): void => {
           setIsLoaded(true);
         }}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        sizes="100vw"
         {...props}
         alt={props.alt}
       />

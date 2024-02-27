@@ -1,3 +1,5 @@
+'use client';
+
 import s from './styles.module.scss';
 import { useRef } from 'react';
 import { gsap } from 'gsap';
