@@ -391,11 +391,11 @@ const ActivitiesVer2 = React.memo(() => {
                 (!!item.bannerLink) ?
                   (
                     <a href={item.bannerLink || ''} target='_blank'>
-                      <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='banner' />
+                      <Image draggable={false} src={`use-bitcoin/${item.banner}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='banner' />
                     </a>
                   ) :
                   (
-                    <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='banner' />
+                    <Image draggable={false} src={`use-bitcoin/${item.banner}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='banner' />
                   )
               )}
             </Box>
