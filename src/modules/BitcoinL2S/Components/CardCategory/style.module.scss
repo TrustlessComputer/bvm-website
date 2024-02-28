@@ -64,7 +64,9 @@
             font-weight: 400;
           }
         }
-        u {
+        a {
+          text-decoration: underline;
+          text-underline-offset: -4px;
           text-underline-position: under;
         }
       }
