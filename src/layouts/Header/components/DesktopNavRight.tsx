@@ -6,42 +6,53 @@ import Link from 'next/link';
 import { NAV_ITEMS_RIGHT } from '../menuConfig';
 import s from './styles.module.scss';
 import DropDown from '@/layouts/Header/components/Dropdown';
+import ButtonLoginTwitter from './ButtonLoginTwitter';
+import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
+import UserInforBox from './UserInforBox';
 
 type Props = {
   primaryColor?: 'black' | 'white';
 };
 
 export const DesktopNavRight = (props: Props) => {
+  const { isLogged } = useWeb3Authenticated();
   return (
     <HStack direction={'row'} spacing={['40px', '40px']}>
       {NAV_ITEMS_RIGHT.map((navItem) => (
         <>
-
-          {
-            navItem.subMenu ?
-              <DropDown primaryColor={props.primaryColor} title={navItem.label} lists={navItem.subMenu} />
-              :
-              <Link
-                key={navItem.label}
-                href={navItem.href ?? '#'}
-                target={navItem.isNewWindow ? '_blank' : '_self'}
-                color={props?.primaryColor || 'white'}
+          {navItem.subMenu ? (
+            <DropDown
+              primaryColor={props.primaryColor}
+              title={navItem.label}
+              lists={navItem.subMenu}
+            />
+          ) : (
+            <Link
+              key={navItem.label}
+              href={navItem.href ?? '#'}
+              target={navItem.isNewWindow ? '_blank' : '_self'}
+              color={props?.primaryColor || 'white'}
+            >
+              <Text
+                textAlign={'center'}
+                fontSize={['14px', '16px']}
+                lineHeight={'110%'}
+                fontWeight={500}
+                color={props.primaryColor || 'black'}
+                _hover={{}}
               >
-
-                <Text
-                  textAlign={'center'}
-                  fontSize={['14px', '16px']}
-                  lineHeight={'110%'}
-                  fontWeight={500}
-                  color={props.primaryColor || 'black'}
-                  _hover={{}}
-                >
-                  {navItem.label}
-                </Text>
-              </Link>
-          }
+                {navItem.label}
+              </Text>
+            </Link>
+          )}
         </>
       ))}
+
+      {!isLogged ? (
+        <ButtonLoginTwitter color={props.primaryColor || 'black'} />
+      ) : (
+        <UserInforBox />
+      )}
 
       <Link href={'/blockchains/customize'} className={s.tryBVm}>
         Try BVM
