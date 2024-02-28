@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Flex, GridItem, Image, SimpleGrid, Text, Tooltip, useDisclosure } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Divider, Flex, GridItem, Image, SimpleGrid, Text, Tooltip, useDisclosure } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
 import { numberReportSelector } from '@/stores/states/activities/selector';
@@ -10,6 +10,9 @@ import { Coin } from '@/stores/states/common/types';
 import cx from 'clsx';
 import useCursorStore from '@/modules/landing/Componets/Chain/Cursor/useCursorStore';
 import Cursor from '@/modules/landing/Componets/Chain/Cursor';
+import BaseModal from '@/components/BaseModal';
+import { DATA_CHAINS, IChain } from '@/modules/UseBitcoin/AcitivitiesVer2/data';
+import HorizontalItem from '@/components/HorizontalItem';
 
 interface ICTA {
   title: string;
@@ -155,6 +158,8 @@ const ActivitiesVer2 = React.memo(() => {
   const numberReport = useAppSelector(numberReportSelector);
   const btcPrice = useAppSelector(coinPricesSelector)?.[Coin.BTC];
   const { isOpen: isOpenFDV, onToggle: onToggleFDV, onClose: onCloseFDV, onOpen: onOpenFDV } = useDisclosure();
+  const { onClose: onCloseInfo, onOpen: onOpenInfo, isOpen: isOpenInfo } = useDisclosure();
+  const [currentDataChain, setCurrentDataChain] = useState<IChain>();
 
   const TASKS = React.useMemo<GameItemProps[]>(() => {
     return [
@@ -361,6 +366,8 @@ const ActivitiesVer2 = React.memo(() => {
   const { show, hide } = useCursorStore();
 
   const renderItem = (item: GameItemProps) => {
+    const dataChain = DATA_CHAINS[item?.type];
+
     return (
       <Box
         className={cx(s.container_item /*[ActivityType.AI].includes(item?.type) ? styles.special : ''*/)}
@@ -371,20 +378,18 @@ const ActivitiesVer2 = React.memo(() => {
           className={cx(s.container_item_inner, s[ActivityKey[item?.type]] /*[ActivityType.AI].includes(item?.type) ? styles.special : ''*/)}
         >
           <GridItem
-            onMouseEnter={show}
-            onMouseLeave={hide}
+            onMouseEnter={dataChain && show}
+            onMouseLeave={dataChain && hide}
+            onClick={() => {
+              if(dataChain) {
+                setCurrentDataChain(DATA_CHAINS[item?.type]);
+                onOpenInfo();
+              }
+            }}
           >
             <Box className={s.container_item_media}>
               {!!item.banner && (
-                (!!item.link || !!item.bannerLink) ?
-                  (
-                    <a href={item.bannerLink || item.link || ''} target='_blank'>
-                      <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='banner' />
-                    </a>
-                  ) :
-                  (
-                    <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='banner' />
-                  )
+                <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='banner' />
               )}
             </Box>
           </GridItem>
@@ -444,72 +449,74 @@ const ActivitiesVer2 = React.memo(() => {
       </Box>
 
     );
-    return (
-      <Flex flexDir='column'
-            className={cx(s.container_item, /*[ActivityType.AI].includes(item?.type) ? styles.special : ''*/)}
-            key={item.title}>
-        <div className={s.container_item_header}>
-          <Text color='white' fontSize='20px' fontWeight='500'>
-            {item.title}
-            {!!item.subTitle && <span style={{ fontWeight: '400' }}>{item.subTitle}</span>}
-          </Text>
-          {renderReport(item.type)}
-        </div>
-        <div className={s.container_item_content}>
-          <div dangerouslySetInnerHTML={{ __html: item.desc }} />
-          {
-            [ActivityType.AI].includes(item?.type) && (
-              <div>
-                <Tooltip
-                  minW="220px"
-                  bg="#007659"
-                  isOpen={isOpenFDV}
-                  // boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-                  borderRadius="4px"
-                  padding="16px"
-                  label={
-                    <Flex direction="column" color="white" gap={"4px"}>
-                      <Text>- Receive 1,000 testnet $EAI for each AI model created.</Text>
-                      <Text>- Token Airdrop for the Top 3 most-used models - To Be Announced.</Text>
-                      <Text>- Token Airdrop for the Top 3 AI models with the most likes on X.</Text>
-                      <Text>- Token Airdrop for the Top 3 users who use the AI models the most.</Text>
-                      <Text>- Token Airdrop for the Top 3 users who use the AI models the most.</Text>
-                      <Text>- Token Airdrop also extends to $BVM holders, $GM holders, Perceptrons holders, Alpha OGs, NakaChain OGs, Bitcoin Arcade OGs, and users of other Bitcoin L2 platforms powered by BVM.</Text>
-                    </Flex>
-                  }
-                  className={s.aiPrizeInfo}
-                >
-                  <Flex alignItems="center"
-                        onClick={onToggleFDV}
-                        onMouseEnter={onOpenFDV}
-                        onMouseLeave={onCloseFDV}
-                        className={s.aiPrizeIcon}
-                  >
-                    <svg width="14px" height="14px" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M6.66667 0.333984C2.98667 0.333984 0 3.32065 0 7.00065C0 10.6807 2.98667 13.6673 6.66667 13.6673C10.3467 13.6673 13.3333 10.6807 13.3333 7.00065C13.3333 3.32065 10.3467 0.333984 6.66667 0.333984ZM7.33333 10.334H6V6.33398H7.33333V10.334ZM7.33333 5.00065H6V3.66732H7.33333V5.00065Z" fill="#FFFFFF"/>
-                    </svg>
-                  </Flex>
-                </Tooltip>
-              </div>
-            )
-          }
-        </div>
-        <div className={s.container_item_media}>
-          {!!item.banner && (
-            (!!item.link || !!item.bannerLink) ?
-              (
-                <a href={item.bannerLink || item.link || ''} target='_blank'>
-                  <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%' }} alt='banner' />
-                </a>
-              ) :
-              (
-                <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%' }} alt='banner' />
-              )
-          )}
-        </div>
-      </Flex>
-    );
+    // return (
+    //   <Flex flexDir='column'
+    //         className={cx(s.container_item, /*[ActivityType.AI].includes(item?.type) ? styles.special : ''*/)}
+    //         key={item.title}>
+    //     <div className={s.container_item_header}>
+    //       <Text color='white' fontSize='20px' fontWeight='500'>
+    //         {item.title}
+    //         {!!item.subTitle && <span style={{ fontWeight: '400' }}>{item.subTitle}</span>}
+    //       </Text>
+    //       {renderReport(item.type)}
+    //     </div>
+    //     <div className={s.container_item_content}>
+    //       <div dangerouslySetInnerHTML={{ __html: item.desc }} />
+    //       {
+    //         [ActivityType.AI].includes(item?.type) && (
+    //           <div>
+    //             <Tooltip
+    //               minW="220px"
+    //               bg="#007659"
+    //               isOpen={isOpenFDV}
+    //               // boxShadow="rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
+    //               borderRadius="4px"
+    //               padding="16px"
+    //               label={
+    //                 <Flex direction="column" color="white" gap={"4px"}>
+    //                   <Text>- Receive 1,000 testnet $EAI for each AI model created.</Text>
+    //                   <Text>- Token Airdrop for the Top 3 most-used models - To Be Announced.</Text>
+    //                   <Text>- Token Airdrop for the Top 3 AI models with the most likes on X.</Text>
+    //                   <Text>- Token Airdrop for the Top 3 users who use the AI models the most.</Text>
+    //                   <Text>- Token Airdrop for the Top 3 users who use the AI models the most.</Text>
+    //                   <Text>- Token Airdrop also extends to $BVM holders, $GM holders, Perceptrons holders, Alpha OGs, NakaChain OGs, Bitcoin Arcade OGs, and users of other Bitcoin L2 platforms powered by BVM.</Text>
+    //                 </Flex>
+    //               }
+    //               className={s.aiPrizeInfo}
+    //             >
+    //               <Flex alignItems="center"
+    //                     onClick={onToggleFDV}
+    //                     onMouseEnter={onOpenFDV}
+    //                     onMouseLeave={onCloseFDV}
+    //                     className={s.aiPrizeIcon}
+    //               >
+    //                 <svg width="14px" height="14px" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    //                   <path d="M6.66667 0.333984C2.98667 0.333984 0 3.32065 0 7.00065C0 10.6807 2.98667 13.6673 6.66667 13.6673C10.3467 13.6673 13.3333 10.6807 13.3333 7.00065C13.3333 3.32065 10.3467 0.333984 6.66667 0.333984ZM7.33333 10.334H6V6.33398H7.33333V10.334ZM7.33333 5.00065H6V3.66732H7.33333V5.00065Z" fill="#FFFFFF"/>
+    //                 </svg>
+    //               </Flex>
+    //             </Tooltip>
+    //           </div>
+    //         )
+    //       }
+    //     </div>
+    //     <div className={s.container_item_media}>
+    //       {!!item.banner && (
+    //         (!!item.link || !!item.bannerLink) ?
+    //           (
+    //             <a href={item.bannerLink || item.link || ''} target='_blank'>
+    //               <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%' }} alt='banner' />
+    //             </a>
+    //           ) :
+    //           (
+    //             <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%' }} alt='banner' />
+    //           )
+    //       )}
+    //     </div>
+    //   </Flex>
+    // );
   };
+
+  console.log('currentChain', currentDataChain);
 
   return (
     <Cursor>
@@ -519,6 +526,28 @@ const ActivitiesVer2 = React.memo(() => {
             {TASKS.map(renderItem)}
           </SimpleGrid>
         </Flex>
+        <BaseModal
+          isShow={isOpenInfo}
+          onHide={onCloseInfo}
+          title={''}
+          headerClassName={s.modalManualHeader}
+          className={s.modalContent}
+          size={"small"}
+        >
+          <Flex direction={'column'} gap={"8px"} p={"24px 0"}>
+            <HorizontalItem label={currentDataChain?.name?.title} value={currentDataChain?.name?.value}/>
+            <HorizontalItem label={currentDataChain?.rollup?.title} value={currentDataChain?.rollup?.value}/>
+            <HorizontalItem label={currentDataChain?.block_time?.title} value={currentDataChain?.block_time?.value}/>
+            <HorizontalItem label={currentDataChain?.withdraw_period?.title} value={currentDataChain?.withdraw_period?.value}/>
+            <HorizontalItem label={currentDataChain?.network_type?.title} value={currentDataChain?.network_type?.value}/>
+            <Divider orientation={"horizontal"} />
+            <HorizontalItem label={currentDataChain?.native_token?.title} value={currentDataChain?.native_token?.value}/>
+            <HorizontalItem label={currentDataChain?.rpc_url?.title} value={currentDataChain?.rpc_url?.value}/>
+            <HorizontalItem label={currentDataChain?.chain_id?.title} value={currentDataChain?.chain_id?.value}/>
+            <HorizontalItem label={currentDataChain?.explorer_url?.title} value={currentDataChain?.explorer_url?.value}/>
+            <HorizontalItem label={currentDataChain?.status?.title} value={<Text color={"rgb(14, 192, 14)"}>{currentDataChain?.status?.value}</Text>}/>
+          </Flex>
+        </BaseModal>
       </Box>
     </Cursor>
   );
