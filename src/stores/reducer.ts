@@ -5,6 +5,7 @@ import user from '@/stores/states/user/reducer';
 import activities from '@/stores/states/activities/reducer';
 import airdrop from '@/stores/states/airdrop/reducer';
 import luckyMoney from '@/stores/states/luckyMoney/reducer';
+import auth from '@/stores/states/auth/reducer';
 
 export default {
   common,
@@ -13,4 +14,5 @@ export default {
   activities,
   airdrop,
   luckyMoney,
+  auth,
 };

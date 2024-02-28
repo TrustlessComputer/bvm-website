@@ -1,4 +1,8 @@
-import { DEVELOPERS_DOC_URL, DEVELOPERS_GRANTS_URL, WHITEPAPER_DOC_URL } from '@/config';
+import {
+  DEVELOPERS_DOC_URL,
+  DEVELOPERS_GRANTS_URL,
+  WHITEPAPER_DOC_URL,
+} from '@/config';
 import { checkIsPublicSale } from '@/modules/Whitelist/utils';
 
 export interface NavItem {
@@ -191,7 +195,6 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
 ].filter((item) => !item.isHide);
 
 export const NAV_ITEMS_RIGHT: Array<NavItem> = [
-
   // {
   //   label: checkIsPublicSale() ? 'Public Sale' : 'Launchpad',
   //   href: checkIsPublicSale() ? '/public-sale' : '/launchpad',
@@ -210,7 +213,8 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
     href: '/use-bitcoin',
     isNewWindow: false,
     isHide: false,
-  },{
+  },
+  {
     label: 'Join the community',
     href: 'https://discord.gg/U8WHhx3WH3',
     isNewWindow: true,
@@ -242,7 +246,6 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   //   isNewWindow: true,
   //   isHide: false,
   // },
-
 ].filter((item) => !item.isHide);
 
 export const NAV_ITEMS: Array<NavItem> = [
