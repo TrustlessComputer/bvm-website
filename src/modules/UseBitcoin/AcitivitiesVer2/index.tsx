@@ -8,6 +8,8 @@ import BigNumber from 'bignumber.js';
 import { coinPricesSelector } from '@/stores/states/common/selector';
 import { Coin } from '@/stores/states/common/types';
 import cx from 'clsx';
+import useCursorStore from '@/modules/landing/Componets/Chain/Cursor/useCursorStore';
+import Cursor from '@/modules/landing/Componets/Chain/Cursor';
 
 interface ICTA {
   title: string;
@@ -356,6 +358,8 @@ const ActivitiesVer2 = React.memo(() => {
     )
   }, [numberReport]);
 
+  const { show, hide } = useCursorStore();
+
   const renderItem = (item: GameItemProps) => {
     return (
       <Box
@@ -366,7 +370,10 @@ const ActivitiesVer2 = React.memo(() => {
           columns={[1, 1, 2]}
           className={cx(s.container_item_inner, s[ActivityKey[item?.type]] /*[ActivityType.AI].includes(item?.type) ? styles.special : ''*/)}
         >
-          <GridItem>
+          <GridItem
+            onMouseEnter={show}
+            onMouseLeave={hide}
+          >
             <Box className={s.container_item_media}>
               {!!item.banner && (
                 (!!item.link || !!item.bannerLink) ?
@@ -505,13 +512,15 @@ const ActivitiesVer2 = React.memo(() => {
   };
 
   return (
-    <Box className={s.wrap}>
-      <Flex flexDir='column' gap='20px' className={s.container}>
-        <SimpleGrid columns={{ base: 1, md: 1 }} gap='20px'>
-          {TASKS.map(renderItem)}
-        </SimpleGrid>
-      </Flex>
-    </Box>
+    <Cursor>
+      <Box className={s.wrap}>
+        <Flex flexDir='column' gap='20px' className={s.container}>
+          <SimpleGrid columns={{ base: 1, md: 1 }} gap='20px'>
+            {TASKS.map(renderItem)}
+          </SimpleGrid>
+        </Flex>
+      </Box>
+    </Cursor>
   );
 });
 
