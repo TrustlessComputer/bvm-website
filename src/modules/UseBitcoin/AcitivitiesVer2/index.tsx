@@ -377,6 +377,7 @@ const ActivitiesVer2 = React.memo(() => {
           className={cx(s.container_item_inner, s[ActivityKey[item?.type]] /*[ActivityType.AI].includes(item?.type) ? styles.special : ''*/)}
         >
           <GridItem
+            cursor={"pointer"}
             onMouseEnter={show}
             onMouseLeave={hide}
             onClick={() => {
