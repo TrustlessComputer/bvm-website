@@ -378,8 +378,8 @@ const ActivitiesVer2 = React.memo(() => {
           className={cx(s.container_item_inner, s[ActivityKey[item?.type]] /*[ActivityType.AI].includes(item?.type) ? styles.special : ''*/)}
         >
           <GridItem
-            onMouseEnter={dataChain && show}
-            onMouseLeave={dataChain && hide}
+            onMouseEnter={show}
+            onMouseLeave={hide}
             onClick={() => {
               if(dataChain) {
                 setCurrentDataChain(DATA_CHAINS[item?.type]);
@@ -389,7 +389,15 @@ const ActivitiesVer2 = React.memo(() => {
           >
             <Box className={s.container_item_media}>
               {!!item.banner && (
-                <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='banner' />
+                (!!item.bannerLink) ?
+                  (
+                    <a href={item.bannerLink || ''} target='_blank'>
+                      <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='banner' />
+                    </a>
+                  ) :
+                  (
+                    <Image draggable={false} src={`public-sale/${item.banner}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='banner' />
+                  )
               )}
             </Box>
           </GridItem>
@@ -515,8 +523,6 @@ const ActivitiesVer2 = React.memo(() => {
     //   </Flex>
     // );
   };
-
-  console.log('currentChain', currentDataChain);
 
   return (
     <Cursor>
