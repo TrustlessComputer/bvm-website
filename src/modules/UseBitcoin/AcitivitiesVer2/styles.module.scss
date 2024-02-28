@@ -22,7 +22,67 @@
     flex-direction: column;
     border: 1px solid #EFEFEF;
     background: #FAFAFA;
-    padding-bottom: 12px;
+    padding: 12px;
+
+    &_inner {
+      //'game', 'nake', 'modular', 'social', 'ai'
+      &.game {
+        > div {
+          &:first-child {
+            background-color: #FFD73B;
+          }
+          &:last-child {
+            background-color: #A05700;
+          }
+        }
+      }
+
+      &.naka {
+        > div {
+          &:first-child {
+            background-color: #FF9999;
+          }
+          &:last-child {
+            background-color: #B74D4D;
+          }
+        }
+      }
+
+      &.modular {
+        > div {
+          &:first-child {
+            background-color: #F0B9FE;
+          }
+          &:last-child {
+            background-color: #A459A6;
+          }
+        }
+      }
+
+      &.social {
+        > div {
+          &:first-child {
+            background-color: #99C8FF;
+          }
+          &:last-child {
+            background-color: #4D77B7;
+          }
+        }
+      }
+
+      &.ai {
+        > div {
+          &:first-child {
+            background-color: #35CCA6;
+          }
+          &:last-child {
+            background-color: #007659;
+          }
+        }
+      }
+
+    }
+
     ul {
       display: flex;
       flex-direction: column;
@@ -34,7 +94,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 16px;
-      border-bottom: 1px solid #E9E9E9;
+      //border-bottom: 1px solid #E9E9E9;
       @include is-mobile {
         flex-direction: column;
         justify-content: flex-start;
@@ -53,7 +113,16 @@
       }
     }
     &_media {
-      padding: 0px 12px;
+      height: 100%;
+      padding: 16px 12px;
+    }
+
+    &_footer {
+      padding: 8px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #FFFFFF26;
     }
 
     &.special {
@@ -65,6 +134,18 @@
           color: #FFA888 !important;
         }
       }
+    }
+  }
+}
+
+.modalContent {
+  //background: #262626 !important;
+
+  :global {
+    .chakra-modal__body {
+      //padding-left: rem(24) !important;
+      //padding-right: rem(24) !important;
+      //padding-bottom: rem(24) !important;
     }
   }
 }
