@@ -400,7 +400,7 @@ const ActivitiesVer2 = React.memo(() => {
               )}
             </Box>
           </GridItem>
-          <GridItem>
+          <Flex direction={"column"} justifyContent={"space-between"}>
             <Box p={"8px 8px"}>
               <div className={s.container_item_header}>
                 <Text color='white' fontSize='20px' fontWeight='500'>
@@ -451,7 +451,7 @@ const ActivitiesVer2 = React.memo(() => {
             <div className={s.container_item_footer}>
               {renderReport(item.type)}
             </div>
-          </GridItem>
+          </Flex>
         </SimpleGrid>
       </Box>
 
