@@ -174,7 +174,6 @@ const ActivitiesVer2 = React.memo(() => {
               ${NormalRow({ key: 'Rollups:', value: 'Optimistic' })}
               ${NormalRow({ key: 'Data Validity:', value: 'Bitcoin' })}
               ${NormalRow({ key: 'Data Availability:', value: 'Polygon' })}
-              ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
             </ul>
         `,
         banner: 'banner-01_1.png',
@@ -192,7 +191,7 @@ const ActivitiesVer2 = React.memo(() => {
               ${NormalRow({ key: 'Rollups:', value: 'Optimistic' })}
               ${NormalRow({ key: 'Data Validity:', value: 'Bitcoin' })}
               ${NormalRow({ key: 'Data Availability:', value: 'Polygon' })}
-              ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
+              ${NormalRow({ key: 'Launch date:', value: 'January 15, 2024' })}
             </ul>
         `,
         banner: 'banner-02.png',
@@ -224,11 +223,11 @@ const ActivitiesVer2 = React.memo(() => {
               ${LinkRow({ key: 'Bitcoin L2:', value: 'Eternal AI', link: GAME_LINK.AI })}
               ${NormalRow({ key: 'Block time:', value: '2 seconds' })}
               ${NormalRow({ key: 'Network type:', value: 'Bitcoin Mainnet' })}
-              ${NormalRow({ key: 'Deployer:', value: 'NBC team' })}
+              ${NormalRow({ key: 'Deployer:', value: 'Eternal AI team' })}
               ${NormalRow({ key: 'Rollups:', value: 'Optimistic' })}
               ${NormalRow({ key: 'Data Validity:', value: 'Bitcoin' })}
               ${NormalRow({ key: 'Data Availability:', value: 'Avail' })}
-              ${NormalRow({ key: 'Launch date:', value: 'January 01, 2024' })}
+              ${NormalRow({ key: 'Launch date:', value: 'February 05, 2024' })}
             </ul>
         `,
         subTitle: '',

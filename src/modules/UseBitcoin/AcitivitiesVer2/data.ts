@@ -20,7 +20,7 @@ export const DATA_CHAINS: any[] = [
   {
     name: {
       title: 'Bitcoin L2 Name',
-      value: 'Naka Chain'
+      value: 'Bitcoin Arcade Chain'
     },
     rollup: {
       title: 'Rollup protocol',
@@ -44,15 +44,15 @@ export const DATA_CHAINS: any[] = [
     },
     rpc_url: {
       title: 'RPC URL',
-      value: 'https://node.nakachain.xyz/'
+      value: 'https://testnet.bitcoinarcade.xyz/rpc'
     },
     chain_id: {
       title: 'Chain ID',
-      value: '42223',
+      value: '23508',
     },
     explorer_url: {
       title: 'Block explorer URL',
-      value: 'https://explorer.nakachain.xyz/'
+      value: 'https://testnet.bitcoinarcade.xyz'
     },
     status: {
       title: 'Status',
@@ -147,7 +147,7 @@ export const DATA_CHAINS: any[] = [
   {
     name: {
       title: 'Bitcoin L2 Name',
-      value: 'Naka Chain'
+      value: 'External AI Chain'
     },
     rollup: {
       title: 'Rollup protocol',
@@ -163,7 +163,7 @@ export const DATA_CHAINS: any[] = [
     },
     network_type: {
       title: 'Network type',
-      value: 'Bitcoin Mainnet',
+      value: 'Bitcoin Testnet',
     },
     native_token: {
       title: 'Native token',
@@ -171,15 +171,15 @@ export const DATA_CHAINS: any[] = [
     },
     rpc_url: {
       title: 'RPC URL',
-      value: 'https://node.nakachain.xyz/'
+      value: 'https://testnet.eternalai.org/rpc'
     },
     chain_id: {
       title: 'Chain ID',
-      value: '42223',
+      value: '45551',
     },
     explorer_url: {
       title: 'Block explorer URL',
-      value: 'https://explorer.nakachain.xyz/'
+      value: 'https://testnet.eternalai.org/'
     },
     status: {
       title: 'Status',
