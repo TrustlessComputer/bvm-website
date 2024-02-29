@@ -23,22 +23,26 @@ const UserInforBox: React.FC = (): React.ReactElement => {
 
   const getBgColor = () => {
     if (pathname === '/') {
-      return 'transparent';
+      return '#FFFFFF1A';
     }
     if (pathname?.includes('blockchains')) {
-      return '#F3F1E8';
+      // return '#F3F1E8';
+      return '#0000000D';
     }
-    return '#F6F6F6';
+    // return '#F6F6F6';
+    return '#0000000D';
   };
 
   const getBorderColor = () => {
     if (pathname === '/') {
-      return 'white';
+      return '#FFFFFF4D';
     }
     if (pathname?.includes('blockchains')) {
-      return '#d5d5d5';
+      // return '#d5d5d5';
+      return '#FFFFFF1A';
     }
-    return '#ECECEC';
+    // return '#ECECEC';
+    return '#FFFFFF1A';
   };
 
   if (!isShow) return <></>;
@@ -48,8 +52,8 @@ const UserInforBox: React.FC = (): React.ReactElement => {
       align={'center'}
       gap="5px"
       bgColor={getBgColor()}
-      px={'5px'}
-      py={'3px'}
+      px={'7px'}
+      py={'4px'}
       borderRadius={'100px'}
       borderColor={getBorderColor()}
       borderWidth={'1px'}
@@ -87,7 +91,7 @@ const UserInforBox: React.FC = (): React.ReactElement => {
           textOverflow={'ellipsis'}
           whiteSpace={'nowrap'}
         >
-          {userInfor?.name}
+          {userInfor?.name || ''}
         </Text>
       </Flex>
     </Flex>
