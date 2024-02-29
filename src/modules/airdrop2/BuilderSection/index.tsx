@@ -138,7 +138,7 @@ const BuilderSection = () => {
             <Text className={s.title}>Live Bitcoin L2s</Text>
             <TableContainer
               w={{ base: 'calc(100vw - 40px)', md: '100%' }}
-              overflowX={'scroll'}
+              overflowX={'auto'}
             >
               <Table variant="simple" className={s.customizeTable}>
                 <Thead>
