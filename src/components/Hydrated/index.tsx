@@ -34,10 +34,10 @@ const Hydrated = ({ children }: { children?: any }) => {
   const loginWeb3AuthHandler = async () => {
     try {
       // await onLoginMetamask();
-      console.log('loginWeb3AuthHandler 1 ', login);
+      console.log('loginWeb3AuthHandler -- ', login);
       await login();
     } catch (err: unknown) {
-      console.log('loginWeb3AuthHandler 2 ERROR ', err);
+      console.log('loginWeb3AuthHandler -- ERROR ', err);
       toast.error(
         (err as Error).message ||
           'Something went wrong. Please try again later.',
@@ -55,10 +55,7 @@ const Hydrated = ({ children }: { children?: any }) => {
             case IframeEventName.trustless_computer_change_route: {
               const subUrl = (eventData.url || '').split('/');
               const message = eventData.message;
-              console.log('PostMessage --- message  ', message);
               if (message === 'REQUIRED_LOGIN') {
-                // TO DO
-                console.log('PostMessage --- REQUIRED_LOGIN GO GO  ');
                 loginWeb3AuthHandler();
               } else if (subUrl.length > 0) {
                 let lastSubUrl: string = subUrl[subUrl.length - 1];
