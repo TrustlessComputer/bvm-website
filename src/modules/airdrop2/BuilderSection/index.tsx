@@ -1,38 +1,164 @@
 'use client';
 
-import { Flex, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+} from '@chakra-ui/react';
+import cn from 'classnames';
+
+import SvgInset from '@/components/SvgInset';
+
+import s from './styles.module.scss';
+
+const BUILDER_POINTS = [
+  {
+    id: 0,
+    title: 'Your Bitcoin L2 testnet goes live',
+    point: '+1,000 PTS',
+    description:
+      'Simply customize and launch your own Bitcoin L2 block for free in just a few clicks.',
+    renderFooter: (
+      <button className={s.activeBtn}>
+        Launch Bitcoin L2 Testnet For Free Now
+      </button>
+    ),
+  },
+  {
+    id: 1,
+    title: 'Deploy a smart contract on testnet',
+    point: '+5,000 PTS',
+    description:
+      'Since BVM is EVM equivalent, you can migrate your Solidity smart contracts and dapps from Ethereum (or other chains) to your Bitcoin L2 with minimal or no modification.',
+    renderFooter: <button className={s.activeBtn}>Developer guides</button>,
+  },
+  {
+    id: 2,
+    title: 'Number of active wallets on testnet',
+    point: '+1 PTS',
+    description:
+      'The more active wallets in your Bitcoin L2 blockchain, the more Builder Points you get.',
+    renderFooter: <button className={s.activeBtn}>Developer guides</button>,
+  },
+  {
+    id: 3,
+    title: 'Your Bitcoin L2 mainnet goes live',
+    point: '+1,000,000 PTS',
+    description:
+      'Once you are ready, our team will support your Bitcoin L2 project to move from testnet to mainnet.',
+    renderFooter: (
+      <Box>
+        <Text>Get in touch with us</Text>
+        <Flex gap="12px">
+          <a
+            className={s.shareLink}
+            href="https://twitter.com/bird_2836"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <SvgInset svgUrl={`airdrop/tw_white.svg`} />
+            Twitter
+          </a>
+          <a
+            className={cn(s.shareLink, s.telegramBtn)}
+            href="https://t.me/bird2836"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <SvgInset svgUrl={`airdrop/ic_telegram.svg`} />
+            Telegram
+          </a>
+        </Flex>
+      </Box>
+    ),
+  },
+  {
+    id: 4,
+    title: 'TVL of your Bitcoin L2 mainnet',
+    point: '+10 PTS',
+    description:
+      'The higher the TVL in your Bitcoin L2 blockchain, the more Builder Points you get.',
+    renderFooter: null,
+  },
+];
 
 const BuilderSection = () => {
   return (
     <Flex
       w={'100%'}
+      py="80px"
       flexDir={'column'}
-      bgColor={'transparent'}
-      gap={['16px']}
+      bgColor={'#000000'}
+      gap="60px"
       align={'center'}
     >
-      <Text
-        fontSize={['16px', '40px']}
-        lineHeight={'48px'}
-        fontWeight={400}
-        color={'#000'}
-      >
-        Airdrop
-      </Text>
-      <Text
-        fontSize={['14px', '20px']}
-        lineHeight={'36px'}
-        fontWeight={400}
-        color={'#000'}
-        maxW={'744px'}
-        textAlign="center"
-      >
-        Thanks for supporting our 2023 'testnet'. In 2024 mainnet, an airdrop
-        awaits users of BVM products including Generative, Perceptrons, GM, and
-        Alpha.
-        <br />
-        Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
-      </Text>
+      <Text className={s.textHeadline}>For Builders</Text>
+      <Box>
+        <Flex>
+          <Box>
+            <Text className={s.title}>Live Bitcoin L2s</Text>
+            <TableContainer>
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th>Rank</Th>
+                    <Th>Live Bitcoin L2s</Th>
+                    <Th isNumeric>Builder Points</Th>
+                    <Th>Learn More</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>#1</Td>
+                    <Td>Arcade Chain</Td>
+                    <Td isNumeric>1,500,069</Td>
+                    <Td>Bitcoin Arcade</Td>
+                  </Tr>
+                  <Tr>
+                    <Td>#2</Td>
+                    <Td>Arcade Chain</Td>
+                    <Td isNumeric>1,500,069</Td>
+                    <Td>Bitcoin Arcade</Td>
+                  </Tr>
+                  <Tr>
+                    <Td>#3</Td>
+                    <Td>Arcade Chain</Td>
+                    <Td isNumeric>1,500,069</Td>
+                    <Td>Bitcoin Arcade</Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </Box>
+
+          <Box>
+            <Text className={s.title}>Builder Points </Text>
+            <Flex direction="column" gap="20px">
+              {BUILDER_POINTS.map((item) => (
+                <Box key={item.id} className={s.itemPoint}>
+                  <Flex>
+                    <Box>
+                      <Text>{item.title}</Text>
+                      <Text>{item.description}</Text>
+                    </Box>
+                    <Box>
+                      <Text>{item.point}</Text>
+                    </Box>
+                  </Flex>
+                  {item.renderFooter}
+                </Box>
+              ))}
+            </Flex>
+          </Box>
+        </Flex>
+      </Box>
     </Flex>
   );
 };
