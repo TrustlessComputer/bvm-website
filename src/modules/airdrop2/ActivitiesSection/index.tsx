@@ -455,7 +455,7 @@ const ActivitiesSection = React.memo(() => {
                   borderRadius="4px"
                   padding="16px"
                   label={
-                    <Flex direction="column" color="black" gap={'4px'}>
+                    <Flex direction="column" color="white" gap={'4px'}>
                       <Text>
                         - Receive 1,000 testnet $EAI for each AI model created.
                       </Text>

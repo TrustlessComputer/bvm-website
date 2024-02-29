@@ -1,7 +1,7 @@
 .wrapper {
     background-repeat: no-repeat;
     background-size: cover;
-    width: 100vw;
+    width: calc(100vw - 15px);
 
     .footerContent {
         padding: 48px 0;
