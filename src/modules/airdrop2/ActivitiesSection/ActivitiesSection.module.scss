@@ -62,8 +62,13 @@
 
             .aiPrizeIcon {
                 position: absolute;
-                left: 235px;
+                left: 445px;
                 top: 17px;
+
+                svg,
+                path {
+                    fill: #000;
+                }
             }
         }
 
