@@ -1,36 +1,61 @@
-'use client';
+// 'use client';
 
-import { Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import s from '../styles.module.scss';
+import Link from 'next/link';
+import { BUILD_ON_BITCOIN_URL } from '@/constants/route-path';
+import Image from 'next/image';
+import { CDN_URL_IMAGES } from '@/config';
+import Airdrop from '@/modules/builder-landing/Airdrop';
+import Fade from '@/interactive/Fade';
 
 const TopSection = () => {
   return (
-    <Flex
-      w={'100%'}
-      flexDir={'column'}
-      bgColor={'transparent'}
-      gap={['16px']}
-      align={'center'}
-    >
-      <Text
-        fontSize={['16px', '40px']}
-        lineHeight={'48px'}
-        fontWeight={400}
-        color={'#000'}
+    <div className={s.top_section}>
+      <Flex
+        w={'100%'}
+        flexDir={'column'}
+        bgColor={'transparent'}
+        align={'center'}
       >
-        Airdrop
-      </Text>
-      <Text
-        fontSize={['14px', '20px']}
-        lineHeight={'36px'}
-        fontWeight={400}
-        color={'#000'}
-        maxW={'744px'}
-        textAlign="center"
-      >
-        Thanks for supporting our 2023 'testnet'. In 2024 mainnet, an airdrop awaits users of BVM products including Generative, Perceptrons, GM, and Alpha.<br/>
-        Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
-      </Text>
-    </Flex>
+        <Fade from={{ y: 10 }} to={{ y: 0 }}>
+          <Text
+            fontSize={['14px', '16x']}
+            lineHeight={['20px', '36px']}
+            fontWeight={500}
+            textTransform={'uppercase'}
+            className={s.gradientText}
+            mb="8px"
+          >
+            Feb 23, 2024 - May 23, 2024
+          </Text>
+        </Fade>
+        <Fade from={{ y: 10 }} to={{ y: 0 }} delay={0.2}>
+          <Text
+            fontSize={['40px', '56px']}
+            lineHeight={'110%'}
+            fontWeight={500}
+            color={'#000'}
+            textAlign="center"
+            mb="32px"
+          >
+            BVM AIRDROP SEASON 2
+          </Text>
+        </Fade>
+        <Fade from={{ y: 10 }} to={{ y: 0 }} delay={0.4}>
+          <Button
+            bgColor={'#FA4E0E'}
+            h="48px"
+            px="28px"
+            borderRadius={0}
+            _hover={{ bgColor: '#e64e0e' }}
+          >
+            <Link href={BUILD_ON_BITCOIN_URL}>Build Your Bitcoin L2</Link>
+          </Button>
+        </Fade>
+      </Flex>
+      <Airdrop />
+    </div>
   );
 };
 
