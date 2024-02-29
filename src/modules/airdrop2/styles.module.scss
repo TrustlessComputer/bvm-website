@@ -32,3 +32,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.top_section {
+  @include is-mobile {
+    margin-top: 80px;
+  }
+}

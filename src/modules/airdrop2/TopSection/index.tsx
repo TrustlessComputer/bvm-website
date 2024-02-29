@@ -25,6 +25,7 @@ const TopSection = () => {
             fontWeight={500}
             textTransform={'uppercase'}
             className={s.gradientText}
+            textAlign={'center'}
             mb="8px"
           >
             Feb 23, 2024 - May 23, 2024
@@ -42,7 +43,12 @@ const TopSection = () => {
             BVM AIRDROP SEASON 2
           </Text>
         </Fade>
-        <Fade from={{ y: 10 }} to={{ y: 0 }} delay={0.4}>
+        <Fade
+          from={{ y: 10 }}
+          to={{ y: 0 }}
+          delay={0.4}
+          className="flex-center"
+        >
           <Button
             bgColor={'#FA4E0E'}
             h="48px"
