@@ -87,7 +87,7 @@ const Hydrated = ({ children }: { children?: any }) => {
         } catch (error) {}
       };
     }
-  }, [hydration]);
+  }, [hydration, login]);
 
   return hydration ? children : null;
 };
