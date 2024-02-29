@@ -400,21 +400,20 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
       .catch(() => {
         init();
       });
-  }, [dispatch, getPlayerInfo, provider]);
+  }, [dispatch, getPlayerInfo, provider, window]);
 
   const login = useCallback(async () => {
     if (!web3Auth) {
       console.log('AuthenticatedProvider', 'web3auth not initialized yet');
       return;
     }
-
     try {
       await web3Auth.connect();
     } catch (error: any) {
       console.log('web3Auth login ==> ERROR', error);
       //
     }
-  }, [web3Auth]);
+  }, [web3Auth, window]);
 
   const logout = useCallback(async () => {
     revokeAuthentication();
@@ -434,7 +433,7 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
       logout,
       getPlayerInfo,
     }),
-    [login, logout, getPlayerInfo],
+    [login, logout, getPlayerInfo, window],
   );
 
   return (
