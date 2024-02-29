@@ -14,9 +14,11 @@ import {
 } from '@chakra-ui/react';
 import cn from 'classnames';
 
+import { getListBuilders } from '@/services/builder';
 import SvgInset from '@/components/SvgInset';
 
 import s from './styles.module.scss';
+import { useEffect, useState } from 'react';
 
 const BUILDER_POINTS = [
   {
@@ -90,6 +92,20 @@ const BUILDER_POINTS = [
 ];
 
 const BuilderSection = () => {
+  const [listBuilders, setListBuilders] = useState<
+    Record<string, number | string>[]
+  >([]);
+
+  const fetchData = async () => {
+    const result = await getListBuilders({});
+    setListBuilders(result);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+  console.log(111, listBuilders);
+
   return (
     <Flex
       w={'100%'}
@@ -100,9 +116,9 @@ const BuilderSection = () => {
       align={'center'}
     >
       <Text className={s.textHeadline}>For Builders</Text>
-      <Box>
-        <Flex>
-          <Box>
+      <Box className="container">
+        <Flex gap="80px">
+          <Box w="70%">
             <Text className={s.title}>Live Bitcoin L2s</Text>
             <TableContainer>
               <Table variant="simple">
@@ -115,30 +131,31 @@ const BuilderSection = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  <Tr>
-                    <Td>#1</Td>
-                    <Td>Arcade Chain</Td>
-                    <Td isNumeric>1,500,069</Td>
-                    <Td>Bitcoin Arcade</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>#2</Td>
-                    <Td>Arcade Chain</Td>
-                    <Td isNumeric>1,500,069</Td>
-                    <Td>Bitcoin Arcade</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>#3</Td>
-                    <Td>Arcade Chain</Td>
-                    <Td isNumeric>1,500,069</Td>
-                    <Td>Bitcoin Arcade</Td>
-                  </Tr>
+                  {listBuilders?.map?.((item) => (
+                    <Tr key={item.id}>
+                      <Td>#{item.ranking}</Td>
+                      <Td>
+                        <Text>{item.name}</Text>
+                        <Text>{item.evn}</Text>
+                      </Td>
+                      <Td isNumeric>{item.point}</Td>
+                      <Td>
+                        <a
+                          href="http://"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {item.name}
+                        </a>
+                      </Td>
+                    </Tr>
+                  ))}
                 </Tbody>
               </Table>
             </TableContainer>
           </Box>
 
-          <Box>
+          <Box w="30%">
             <Text className={s.title}>Builder Points </Text>
             <Flex direction="column" gap="20px">
               {BUILDER_POINTS.map((item) => (
