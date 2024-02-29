@@ -65,6 +65,9 @@
 }
 
 .customizeTable {
+  overflow-x: scroll;
+  min-width: 560px;
+
   thead {
     tr {
       background: rgba(255, 255, 255, 0.30);
