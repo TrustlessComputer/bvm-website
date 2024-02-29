@@ -57,19 +57,19 @@ export default function RootLayout({
         <StoreProvider>
           <ChakraProvider theme={chakraThemes}>
             <ChakraFontsFace />
-            <AuthenticatedProvider>
-              <UserProvider>
-                <XVerseProvider>
-                  <UnisatProvider>
-                    <Hydrated>
+            <UserProvider>
+              <XVerseProvider>
+                <UnisatProvider>
+                  <Hydrated>
+                    <AuthenticatedProvider>
                       <ModalManager />
                       {children}
-                    </Hydrated>
-                    <ToastOverlay />
-                  </UnisatProvider>
-                </XVerseProvider>
-              </UserProvider>
-            </AuthenticatedProvider>
+                    </AuthenticatedProvider>
+                  </Hydrated>
+                  <ToastOverlay />
+                </UnisatProvider>
+              </XVerseProvider>
+            </UserProvider>
           </ChakraProvider>
         </StoreProvider>
       </body>
