@@ -1,5 +1,5 @@
 import MainLayout from '@/layouts/MainLayout';
-import UpcomingModule from '@/modules/airdrop';
+import AirdropModule from '@/modules/airdrop2';
 
 const Airdrop2Page = () => {
   return (
@@ -8,7 +8,7 @@ const Airdrop2Page = () => {
         color: 'black',
       }}
     >
-      <UpcomingModule />
+      <AirdropModule />
     </MainLayout>
   );
 };
