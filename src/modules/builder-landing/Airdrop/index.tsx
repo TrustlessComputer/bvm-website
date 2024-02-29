@@ -9,7 +9,7 @@ import { Tooltip } from 'react-tooltip';
 const Airdrop = ({
   isAirdrop2Page = false,
 }: {
-  isAirdrop2Page: boolean;
+  isAirdrop2Page?: boolean;
 }): React.JSX.Element => {
   return (
     <div className={s.airdrop}>
