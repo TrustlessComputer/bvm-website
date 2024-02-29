@@ -2,7 +2,7 @@
 
 import { Flex, Text } from '@chakra-ui/react';
 
-const Section_1 = () => {
+const TopSection = () => {
   return (
     <Flex
       w={'100%'}
@@ -34,4 +34,4 @@ const Section_1 = () => {
   );
 };
 
-export default Section_1;
+export default TopSection;
