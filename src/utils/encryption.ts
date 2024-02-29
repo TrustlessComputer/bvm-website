@@ -1,5 +1,10 @@
 import * as CryptoJS from 'crypto-js';
 
+interface EncryptParams {
+  value: string;
+  pass: string;
+}
+
 class ErrorHelper extends Error {
   message: string;
   constructor(message: string) {
@@ -14,6 +19,11 @@ class ErrorHelper extends Error {
 const doubleHash = (key: string) => {
   const hash = CryptoJS.SHA256(key);
   return CryptoJS.SHA256(hash).toString();
+};
+const encryptAES = (params: EncryptParams) => {
+  const { value, pass } = params;
+  const password = doubleHash(pass);
+  return CryptoJS.AES.encrypt(value, password).toString();
 };
 
 const decryptAES = (cipherText: string, key: string, isDoubleHash = true) => {
@@ -43,4 +53,4 @@ const generateRandomString = (length = 24) => {
   return result;
 };
 
-export { decryptAES, generateRandomString };
+export { decryptAES, generateRandomString, encryptAES };

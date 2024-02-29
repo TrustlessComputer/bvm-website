@@ -14,6 +14,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import ModalManager from '@/components/ModalManage';
+import { AuthenticatedProvider } from '@/Providers/AuthenticatedProvider';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -26,52 +27,52 @@ const ChakraFontsFace = dynamic(
 );
 
 export default function RootLayout({
-                                     children,
-                                   }: {
+  children,
+}: {
   children: React.ReactNode;
 }) {
-
-
   return (
-    <html lang='en'>
-    <head>
-      <Script
-        async
-        src='https://www.googletagmanager.com/gtag/js?id=G-D9T7LSF6BJ'
-      ></Script>
-      <Script>
-        {`window.dataLayer = window.dataLayer || [];
+    <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-D9T7LSF6BJ"
+        ></Script>
+        <Script>
+          {`window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
             gtag('config', 'G-D9T7LSF6BJ');`}
-      </Script>
-      <Script>
-        {`(function(c,l,a,r,i,t,y){
+        </Script>
+        <Script>
+          {`(function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "ktq824k12x");`}
-      </Script>
-    </head>
-    <body>
-    <StoreProvider>
-      <ChakraProvider theme={chakraThemes}>
-        <ChakraFontsFace />
-        <UserProvider>
-          <XVerseProvider>
-            <UnisatProvider>
-              <Hydrated>
-                <ModalManager />
-                {children}
-              </Hydrated>
-              <ToastOverlay />
-            </UnisatProvider>
-          </XVerseProvider>
-        </UserProvider>
-      </ChakraProvider>
-    </StoreProvider>
-    </body>
+        </Script>
+      </head>
+      <body>
+        <StoreProvider>
+          <ChakraProvider theme={chakraThemes}>
+            <ChakraFontsFace />
+            <AuthenticatedProvider>
+              <UserProvider>
+                <XVerseProvider>
+                  <UnisatProvider>
+                    <Hydrated>
+                      <ModalManager />
+                      {children}
+                    </Hydrated>
+                    <ToastOverlay />
+                  </UnisatProvider>
+                </XVerseProvider>
+              </UserProvider>
+            </AuthenticatedProvider>
+          </ChakraProvider>
+        </StoreProvider>
+      </body>
     </html>
   );
 }

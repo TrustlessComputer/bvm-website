@@ -33,7 +33,15 @@ export const BUY_TC_URL = NEW_BITCOIN_CITY + 'topup';
 // export const PDF_DOC_URL = DOMAIN_URL + '/bvm.pdf';
 
 export const DEVELOPERS_DOC_URL = 'https://docs.bvm.network/';
-export const DEVELOPERS_GRANTS_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSejQvjHQE91B4DL4p9pzt4IPhWi05nxdwSI9wktra1i15ieqQ/viewform';
+export const DEVELOPERS_GRANTS_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSejQvjHQE91B4DL4p9pzt4IPhWi05nxdwSI9wktra1i15ieqQ/viewform';
 export const WHITEPAPER_DOC_URL = 'https://bvm.network/bvm.pdf/';
+
+// Web3Auth
+export const WEB3_AUTH_CLIENT_ID: string = process.env
+  .NEXT_PUBLIC_WEB3_AUTH_CLIENT_ID! as string;
+
+// API
+export const API_BASE_URL: string = process.env.NEXT_PUBLIC_API_URL! as string;
 
 export { MetadataConfig, ViewportConfig };
