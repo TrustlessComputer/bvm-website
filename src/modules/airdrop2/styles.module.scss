@@ -16,6 +16,7 @@
   margin-top: 6px;
   margin-bottom: 6px;
   color: #ffffff !important;
+
   @include is-mobile {
     margin-left: 0;
   }
@@ -23,4 +24,11 @@
   &:hover {
     opacity: 0.8;
   }
+}
+
+.gradientText {
+  background: var(--q, linear-gradient(180deg, #FF9776 0%, #FF8139 32.81%, #E04300 100%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
