@@ -8,7 +8,7 @@ import LocalStorage from '@/libs/localStorage';
 import commonStorage from '@/libs/localStorage/common.storage';
 import walletStorage from '@/libs/localStorage/wallet.storage';
 import {
-  EternalAIAPI,
+  L2Service,
   getChallenge,
   getProfile,
   revokeAuthentication,
@@ -125,11 +125,11 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
       const user = await web3auth.getUserInfo();
       try {
         if (user.idToken) {
-          const apiAccessToken = await EternalAIAPI.register(user.idToken);
+          const apiAccessToken = await L2Service.register(user.idToken);
           LocalStorage.setItem(STORAGE_KEYS.API_ACCESS_TOKEN, apiAccessToken);
           console.log('[getUserInfo] apiAccessToken ---- ', apiAccessToken);
 
-          const userProfileWeb3 = await EternalAIAPI.getProfile();
+          const userProfileWeb3 = await L2Service.getProfile();
           console.log('[getUserInfo]  userProfileWeb3 ----  ', userProfileWeb3);
           LocalStorage.setItem(STORAGE_KEYS.API_ACCESS_TOKEN, apiAccessToken);
           LocalStorage.setItem(STORAGE_KEYS.WEB3_AUTH_TOKEN, user.idToken);
