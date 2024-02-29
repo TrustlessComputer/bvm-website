@@ -3,6 +3,12 @@
     background-size: cover;
     width: calc(100vw - 15px);
 
+
+    @media screen and (max-width: 767.98px) {
+        width: 100vw;
+    }
+
+
     .footerContent {
         padding: 48px 0;
         display: flex;

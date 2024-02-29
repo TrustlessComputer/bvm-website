@@ -6,10 +6,14 @@ import Chars from '@/interactive/Chars';
 import SvgInset from '@/components/SvgInset';
 import { Tooltip } from 'react-tooltip';
 
-const Airdrop = (): React.JSX.Element => {
+const Airdrop = ({
+  isAirdrop2Page = false,
+}: {
+  isAirdrop2Page: boolean;
+}): React.JSX.Element => {
   return (
     <div className={s.airdrop}>
-      <div className="container">
+      <div className={isAirdrop2Page ? '' : 'container'}>
         <div className={s.inner}>
           <div className={s.content}>
             <Fade>

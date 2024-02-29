@@ -124,7 +124,7 @@ const BuilderSection = () => {
 
   return (
     <Flex
-      w={'calc(100vw - 15px)'}
+      w={{ base: '100vw', md: 'calc(100vw - 15px)' }}
       py="80px"
       flexDir={'column'}
       bgColor={'#000000'}

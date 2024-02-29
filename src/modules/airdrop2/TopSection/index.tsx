@@ -60,7 +60,7 @@ const TopSection = () => {
           </Button>
         </Fade>
       </Flex>
-      <Airdrop />
+      <Airdrop isAirdrop2Page />
     </div>
   );
 };

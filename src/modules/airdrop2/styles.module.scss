@@ -4,7 +4,6 @@
   flex-direction: column;
   align-items: center;
   background-color: #f3f1e8;
-  width: calc(100vw - 15px);
 }
 
 .btnClaim {
@@ -35,6 +34,8 @@
 }
 
 .top_section {
+  width: 100%;
+
   @include is-mobile {
     margin-top: 80px;
   }
