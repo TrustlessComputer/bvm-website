@@ -86,7 +86,7 @@ export const getProfile = async (): Promise<UserProfile> => {
   }
 };
 
-export const EternalAIAPI = {
+export const L2Service = {
   register,
   getProfile,
 };
