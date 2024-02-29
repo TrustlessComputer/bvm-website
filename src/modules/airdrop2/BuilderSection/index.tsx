@@ -124,7 +124,7 @@ const BuilderSection = () => {
 
   return (
     <Flex
-      w={'100vw'}
+      w={'calc(100vw - 15px)'}
       py="80px"
       flexDir={'column'}
       bgColor={'#000000'}
@@ -138,7 +138,7 @@ const BuilderSection = () => {
             <Text className={s.title}>Live Bitcoin L2s</Text>
             <TableContainer
               w={{ base: 'calc(100vw - 40px)', md: '100%' }}
-              overflowX={'scroll'}
+              overflowX={{ base: 'scroll', md: 'unset' }}
             >
               <Table variant="simple" className={s.customizeTable}>
                 <Thead>
