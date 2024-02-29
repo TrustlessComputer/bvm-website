@@ -17,7 +17,7 @@ const AirdropModule = () => {
         <TopSection />
         <Box h={['30px', '35px', '48px']} />
         <BuilderSection />
-        <Box h={['20px', '40px']} />
+        {/* <Box h={['20px', '40px']} /> */}
         <PinoneerSection />
         <Box h={['20px', '40px']} />
         <ActivitiesSection />

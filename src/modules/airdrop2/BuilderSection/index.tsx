@@ -114,7 +114,7 @@ const BuilderSection = () => {
 
   return (
     <Flex
-      w={'100%'}
+      w={'100vw'}
       py="80px"
       flexDir={'column'}
       bgColor={'#000000'}
@@ -123,10 +123,13 @@ const BuilderSection = () => {
     >
       <Text className={s.textHeadline}>For Builders</Text>
       <Box className="container">
-        <Flex gap="80px">
-          <Box w="70%">
+        <Flex gap="80px" flexDir={{ base: 'column', lg: 'row' }}>
+          <Box w={{ base: '100%', lg: '70%' }}>
             <Text className={s.title}>Live Bitcoin L2s</Text>
-            <TableContainer>
+            <TableContainer
+              w={{ base: 'calc(100vw - 40px)', md: '100%' }}
+              overflowX={'scroll'}
+            >
               <Table variant="simple" className={s.customizeTable}>
                 <Thead>
                   <Tr>
@@ -173,7 +176,7 @@ const BuilderSection = () => {
             </TableContainer>
           </Box>
 
-          <Box w="30%">
+          <Box w={{ base: '100%', lg: '30%' }}>
             <Text className={s.title}>Builder Points </Text>
             <Flex direction="column" gap="20px">
               {BUILDER_POINTS.map((item) => (
