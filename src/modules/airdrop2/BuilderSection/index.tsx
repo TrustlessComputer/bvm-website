@@ -50,7 +50,7 @@ const BUILDER_POINTS = [
     extraText: 'per active wallet',
     description:
       'The more active wallets in your Bitcoin L2 blockchain, the more Builder Points you get.',
-    renderFooter: <button className={s.activeBtn}>Developer guides</button>,
+    renderFooter: null,
   },
   {
     id: 3,
@@ -59,8 +59,10 @@ const BUILDER_POINTS = [
     description:
       'Once you are ready, our team will support your Bitcoin L2 project to move from testnet to mainnet.',
     renderFooter: (
-      <Box>
-        <Text>Get in touch with us</Text>
+      <Box mt="12px">
+        <Text fontSize={'14px'} lineHeight={'26px'} opacity={0.7}>
+          Get in touch with us
+        </Text>
         <Flex gap="12px">
           <a
             className={s.shareLink}
@@ -164,13 +166,25 @@ const BuilderSection = () => {
               {BUILDER_POINTS.map((item) => (
                 <Box key={item.id} className={s.itemPoint}>
                   <Flex gap="24px">
-                    <Box>
-                      <Text>{item.title}</Text>
-                      <Text>{item.description}</Text>
+                    <Box flex="1">
+                      <Text fontSize={'18px'} lineHeight={'26px'}>
+                        {item.title}
+                      </Text>
+                      <Text fontSize={'14px'} lineHeight={'26px'} opacity={0.7}>
+                        {item.description}
+                      </Text>
                     </Box>
                     <Box>
-                      <Text>{item.point}</Text>
-                      <Text>{item.extraText}</Text>
+                      <Text
+                        fontSize={'18px'}
+                        lineHeight={'26px'}
+                        textAlign={'right'}
+                      >
+                        {item.point}
+                      </Text>
+                      <Text fontSize={'14px'} lineHeight={'26px'} opacity={0.7}>
+                        {item.extraText}
+                      </Text>
                     </Box>
                   </Flex>
                   {item.renderFooter}
