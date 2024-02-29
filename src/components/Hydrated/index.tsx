@@ -29,7 +29,7 @@ const Hydrated = ({ children }: { children?: any }) => {
     if (typeof window !== 'undefined') {
       setHydration(true);
     }
-  }, []);
+  }, [login, window]);
 
   const loginWeb3AuthHandler = async () => {
     try {
@@ -87,7 +87,7 @@ const Hydrated = ({ children }: { children?: any }) => {
         } catch (error) {}
       };
     }
-  }, [hydration, login]);
+  }, [hydration, login, window]);
 
   return hydration ? children : null;
 };
