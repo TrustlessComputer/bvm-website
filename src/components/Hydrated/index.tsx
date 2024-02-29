@@ -47,14 +47,16 @@ const Hydrated = ({ children }: { children?: any }) => {
       window.onmessage = function (event: IFrameEvent & any) {
         try {
           const eventData = JSON.parse(event.data);
-          console.log;
+          console.log('PostMessage --- eventData  ', eventData);
+
           switch (eventData.name) {
             case IframeEventName.trustless_computer_change_route: {
               const subUrl = (eventData.url || '').split('/');
               const message = eventData.message;
-
+              console.log('PostMessage --- message  ', message);
               if (message === 'REQUIRED_LOGIN') {
                 // TO DO
+                console.log('PostMessage --- REQUIRED_LOGIN GO GO  ');
                 loginWeb3AuthHandler();
               } else if (subUrl.length > 0) {
                 let lastSubUrl: string = subUrl[subUrl.length - 1];
