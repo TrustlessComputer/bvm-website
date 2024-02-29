@@ -71,7 +71,7 @@ const BUILDER_POINTS = [
       'Once you are ready, our team will support your Bitcoin L2 project to move from testnet to mainnet.',
     renderFooter: (
       <Box mt="12px">
-        <Text fontSize={'14px'} lineHeight={'26px'} opacity={0.7}>
+        <Text mb="12px" fontSize={'14px'} lineHeight={'26px'} opacity={0.7}>
           Get in touch with us
         </Text>
         <Flex gap="12px">
@@ -193,10 +193,15 @@ const BuilderSection = () => {
                 <Box key={item.id} className={s.itemPoint}>
                   <Flex gap="24px">
                     <Box flex="1">
-                      <Text fontSize={'18px'} lineHeight={'26px'}>
+                      <Text mb="8px" fontSize={'18px'} lineHeight={'26px'}>
                         {item.title}
                       </Text>
-                      <Text fontSize={'14px'} lineHeight={'26px'} opacity={0.7}>
+                      <Text
+                        fontSize={'14px'}
+                        lineHeight={'26px'}
+                        opacity={0.7}
+                        fontWeight={400}
+                      >
                         {item.description}
                       </Text>
                     </Box>
