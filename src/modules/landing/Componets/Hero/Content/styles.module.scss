@@ -139,15 +139,15 @@
   &__play {
 
     gap: 6px;
-    padding-right: 8px !important;
-
-    @include is-min-table {
-      gap: 20px;
+    span{
+      display: block;
+      transform: translateY(.065em);
     }
 
+
     svg {
-      width: 32px;
-      height: 32px;
+      width: 16px;
+      height: 16px;
     }
 
     rect {
