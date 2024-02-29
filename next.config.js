@@ -10,6 +10,7 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 const isDevEnv = process.env.NODE_ENV === 'development';
+const isProduction = process.env.NODE_ENV === 'production';
 
 const nextConfig = {
   swcMinify: true,
@@ -61,8 +62,8 @@ const nextConfig = {
         source: '/blockchains/buy',
         destination: '/blockchains/customize',
         permanent: false,
-      }
-    ]
+      },
+    ];
     //
     // if (isPublicSale) {
     //   redirects.push({
@@ -120,7 +121,7 @@ const nextConfig = {
   },
 
   compiler: {
-    removeConsole: !isDevEnv
+    removeConsole: isProduction
       ? {
           exclude: ['error'],
         }
