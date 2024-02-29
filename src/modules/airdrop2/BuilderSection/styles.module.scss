@@ -63,3 +63,67 @@
   background: #2AABEE;
   color: #fff;
 }
+
+.customizeTable {
+  thead {
+    tr {
+      background: rgba(255, 255, 255, 0.30);
+
+      th {
+        padding: 20px 24px;
+        color: #FFF;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%;
+        opacity: 0.7;
+        text-transform: none;
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &:nth-child(even) {
+        background: rgba(255, 255, 255, 0.10);
+      }
+
+      td {
+        padding: 24px;
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%;
+      }
+    }
+  }
+}
+
+.chainLink {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 8px;
+  color: #FA4E0E;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+
+  &_arrow {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    padding: 1px 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #FA4E0E;
+  }
+}

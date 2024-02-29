@@ -5,7 +5,7 @@ export type ListBuilder = Record<string, number | string>[];
 
 export const getListBuilders = async ({
   page = 1,
-  limit = 50,
+  limit = 100,
 }: {
   page?: number;
   limit?: number;

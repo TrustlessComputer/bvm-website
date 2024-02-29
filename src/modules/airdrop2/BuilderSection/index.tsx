@@ -15,6 +15,7 @@ import {
 import cn from 'classnames';
 
 import { getListBuilders } from '@/services/builder';
+import { formatCurrency } from '@/utils/format';
 import SvgInset from '@/components/SvgInset';
 
 import s from './styles.module.scss';
@@ -126,7 +127,7 @@ const BuilderSection = () => {
           <Box w="70%">
             <Text className={s.title}>Live Bitcoin L2s</Text>
             <TableContainer>
-              <Table variant="simple">
+              <Table variant="simple" className={s.customizeTable}>
                 <Thead>
                   <Tr>
                     <Th>Rank</Th>
@@ -140,17 +141,29 @@ const BuilderSection = () => {
                     <Tr key={item.id}>
                       <Td>#{item.ranking}</Td>
                       <Td>
-                        <Text>{item.name}</Text>
-                        <Text>{item.evn}</Text>
+                        <Flex gap="4px" direction="column">
+                          <Text>{item.name}</Text>
+                          <Text fontSize={12} fontWeight={400} opacity={0.7}>
+                            {item.evn}
+                          </Text>
+                        </Flex>
                       </Td>
-                      <Td isNumeric>{item.point}</Td>
+                      <Td isNumeric>
+                        <Text fontSize={14} fontWeight={400}>
+                          {formatCurrency(item.point, 0, 0, '', true)}
+                        </Text>
+                      </Td>
                       <Td>
                         <a
-                          href="http://"
+                          className={s.chainLink}
+                          href={item.link as string}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           {item.name}
+                          <Box className={s.chainLink_arrow}>
+                            <SvgInset svgUrl={`airdrop/ic_arrow.svg`} />
+                          </Box>
                         </a>
                       </Td>
                     </Tr>
