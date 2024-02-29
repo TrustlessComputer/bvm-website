@@ -63,7 +63,6 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
       );
       if (!storageAuthToken) {
         const { address } = wallet;
-        console.log('PHAT Wallet ', wallet);
         const challenge = await getChallenge(address);
         const signature = await wallet.signMessage(challenge);
         const authToken = await verifyChallenge(signature, address);
@@ -124,65 +123,61 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
 
     const getUserInfo = async (web3auth: Web3Auth) => {
       const user = await web3auth.getUserInfo();
-
-      console.log('PHAT user ---- ', user);
-
       try {
         if (user.idToken) {
           const apiAccessToken = await EternalAIAPI.register(user.idToken);
           LocalStorage.setItem(STORAGE_KEYS.API_ACCESS_TOKEN, apiAccessToken);
-          console.log('PHAT apiAccessToken ---- ', apiAccessToken);
+          console.log('[getUserInfo] apiAccessToken ---- ', apiAccessToken);
 
           const userProfileWeb3 = await EternalAIAPI.getProfile();
-          console.log('PHAT userProfileWeb3 ----  ', userProfileWeb3);
+          console.log('[getUserInfo]  userProfileWeb3 ----  ', userProfileWeb3);
           LocalStorage.setItem(STORAGE_KEYS.API_ACCESS_TOKEN, apiAccessToken);
           LocalStorage.setItem(STORAGE_KEYS.WEB3_AUTH_TOKEN, user.idToken);
           dispatch(setUserInfo(userProfileWeb3));
         }
       } catch (error) {
-        console.log('getUserInfo ERROR ', error);
+        console.log('[getUserInfo] ERROR -- ', error);
       }
     };
 
     const subscribeAuthEvents = async (web3auth: Web3Auth) => {
       // Can subscribe to all ADAPTER_EVENTS and LOGIN_MODAL_EVENTS
       web3auth.on(ADAPTER_EVENTS.CONNECTED, async () => {
-        console.log('LOG -- AuthenticatedProvider 1');
+        console.log('[subscribeAuthEvents] -- ', ADAPTER_EVENTS.CONNECTED);
         getUserInfo(web3auth);
         await getWallet(web3auth);
         // sendEvent(APP_ARCADE_EVENT_NAMES.LOGIN_SUCCESS);
       });
 
       web3auth.on(ADAPTER_EVENTS.CONNECTING, () => {
-        console.log('LOG -- AuthenticatedProvider 2');
+        console.log('[subscribeAuthEvents] -- ', ADAPTER_EVENTS.CONNECTING);
       });
 
       web3auth.on(ADAPTER_EVENTS.DISCONNECTED, () => {
-        console.log('LOG -- AuthenticatedProvider 3');
+        console.log('[subscribeAuthEvents] -- ', ADAPTER_EVENTS.DISCONNECTED);
       });
 
       web3auth.on(ADAPTER_EVENTS.ERRORED, (error: unknown) => {
-        console.log('LOG -- AuthenticatedProvider 4');
+        console.log('[subscribeAuthEvents] -- ', ADAPTER_EVENTS.ERRORED, error);
       });
 
       web3auth.on(ADAPTER_EVENTS.ADAPTER_DATA_UPDATED, () => {
         console.log(
-          'AuthenticatedProvider',
+          '[subscribeAuthEvents] -- ',
           ADAPTER_EVENTS.ADAPTER_DATA_UPDATED,
         );
-        console.log('LOG -- AuthenticatedProvider 5');
       });
 
       web3auth.on(ADAPTER_EVENTS.CACHE_CLEAR, () => {
-        console.log('LOG -- AuthenticatedProvider 6');
+        console.log('[subscribeAuthEvents] -- ', ADAPTER_EVENTS.CACHE_CLEAR);
       });
 
       web3auth.on(ADAPTER_EVENTS.NOT_READY, () => {
-        console.log('LOG -- AuthenticatedProvider 7');
+        console.log('[subscribeAuthEvents] -- ', ADAPTER_EVENTS.NOT_READY);
       });
 
       web3auth.on(ADAPTER_EVENTS.READY, () => {
-        console.log('LOG -- AuthenticatedProvider 8');
+        console.log('[subscribeAuthEvents] -- ', ADAPTER_EVENTS.READY);
       });
     };
 
