@@ -40,6 +40,10 @@
   &:hover {
     opacity: 0.8,
   }
+
+  @include is-mobile {
+    height: auto;
+  }
 }
 
 .shareLink {
