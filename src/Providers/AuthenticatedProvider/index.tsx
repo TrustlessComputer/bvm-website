@@ -411,6 +411,7 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
     try {
       await web3Auth.connect();
     } catch (error: any) {
+      console.log('web3Auth login ==> ERROR', error);
       //
     }
   }, [web3Auth]);
