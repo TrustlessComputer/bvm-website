@@ -4,9 +4,10 @@ import { Box } from '@chakra-ui/react';
 import s from './styles.module.scss';
 
 import BoxContent from '@/layouts/BoxContent';
-import TopSection from './TopSection';
-import Section2 from './Section_2';
+import ActivitiesSection from './ActivitiesSection';
 import BuilderSection from './BuilderSection';
+import PinoneerSection from './PinoneerSection';
+import TopSection from './TopSection';
 
 const AirdropModule = () => {
   return (
@@ -17,7 +18,9 @@ const AirdropModule = () => {
         <Box h={['30px', '35px', '48px']} />
         <BuilderSection />
         <Box h={['20px', '40px']} />
-        <Section2 />
+        <PinoneerSection />
+        <Box h={['20px', '40px']} />
+        <ActivitiesSection />
         <Box h={['20px', '40px']} />
       </BoxContent>
     </Box>
