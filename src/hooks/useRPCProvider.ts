@@ -2,7 +2,7 @@ import { isProduction } from '@/utils/common';
 import { ethers } from 'ethers';
 
 export const NOS_RPC_URL = isProduction()
-  ? 'https://l2-node.trustless.computer'
+  ? 'https://node.l2.trustless.computer'
   : 'https://l2-node.regtest.trustless.computer';
 
 export const blockExplorer = isProduction()

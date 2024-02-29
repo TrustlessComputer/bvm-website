@@ -72,7 +72,7 @@ export const CHAIN_CONFIG = {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
     chainId: NOS_CHAIN_ID.toString(16),
     rpcTarget: isProduction()
-      ? 'https://l2-node.trustless.computer'
+      ? 'https://node.l2.trustless.computer'
       : 'https://l2-node.regtest.trustless.computer',
     blockExplorer: isProduction()
       ? 'https://explorer.l2.trustless.computer/'
