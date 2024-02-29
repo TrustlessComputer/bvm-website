@@ -85,7 +85,7 @@ const dataCategory = [
           <strong>For example, to deposit BTC from Bitcoin to Alpha:</strong>
           <ol>
             <li>Wrap BTC to WBTC via Trustless Bridge</li>
-            <li>Deposit WBTC to NOS via <u>L1StandardBridge</u> contract</li>
+            <li>Deposit WBTC to NOS via <a href={'https://github.com/ethereum-optimism/optimism/blob/develop/packages/contracts-bedrock/contracts/L1/L1StandardBridge.sol'} target={'_blank'}>L1StandardBridge</a> contract</li>
           </ol>
           <strong>To withdraw BTC from NOS to Bitcoin</strong>
           <ol>

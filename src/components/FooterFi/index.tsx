@@ -46,7 +46,7 @@ const FooterFi = ({ ...props }: TFooterFiProps) => {
               )}
             </Chars>
           </p>
-          <Fade delay={.3}>
+          <Fade delay={.3} className={s.wrapButton}>
             <Link href={props.href} className={s.footerContent_button} target={'_blank'}>
               {props.btnTitle}
             </Link>

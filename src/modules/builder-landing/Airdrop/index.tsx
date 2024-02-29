@@ -6,10 +6,14 @@ import Chars from '@/interactive/Chars';
 import SvgInset from '@/components/SvgInset';
 import { Tooltip } from 'react-tooltip';
 
-const Airdrop = (): React.JSX.Element => {
+const Airdrop = ({
+  isAirdrop2Page = false,
+}: {
+  isAirdrop2Page: boolean;
+}): React.JSX.Element => {
   return (
     <div className={s.airdrop}>
-      <div className='container'>
+      <div className={isAirdrop2Page ? '' : 'container'}>
         <div className={s.inner}>
           <div className={s.content}>
             <Fade>
@@ -26,17 +30,20 @@ const Airdrop = (): React.JSX.Element => {
                 </Fade>
                 <Fade from={{ y: 10 }} to={{ y: 0 }} delay={0.2}>
                   <p className={s.details_item_text}>
-                    For builders and projects with mainnet Bitcoin L2s powered by BVM
+                    For builders and projects with mainnet Bitcoin L2s powered
+                    by BVM
                     <span>
-                      <a id='my-anchor-element_ic_sharp_50'><img src='/builder/svg-details.svg' alt='ic_sharp' /></a>
-                      <Tooltip
-                        anchorSelect='#my-anchor-element_ic_sharp_50'
-                      >
-                        <b>500,000 $BVM</b> will be distributed proportionally among all projects with mainnet Bitcoin L2s based on their TVL
-<b> 200,000 $BVM</b> will be used as grants to help eligible projects cover their Bitcoin L2 launching cost
+                      <a id="my-anchor-element_ic_sharp_50">
+                        <img src="/builder/svg-details.svg" alt="ic_sharp" />
+                      </a>
+                      <Tooltip anchorSelect="#my-anchor-element_ic_sharp_50">
+                        <b>500,000 $BVM</b> will be distributed proportionally
+                        among all projects with mainnet Bitcoin L2s based on
+                        their TVL
+                        <b> 200,000 $BVM</b> will be used as grants to help
+                        eligible projects cover their Bitcoin L2 launching cost
                       </Tooltip>
                     </span>
-
                     {/*<span>*/}
                     {/*  <SvgInset svgUrl="/builder/svg-details.svg" />*/}
                     {/*</span>*/}
@@ -51,7 +58,8 @@ const Airdrop = (): React.JSX.Element => {
 
                 <Fade from={{ y: 10 }} to={{ y: 0 }} delay={0.6}>
                   <p className={s.details_item_text}>
-                    For all users who contribute and interact with dapps of any Bitcoin L2 within the BVM ecosystem.
+                    For all users who contribute and interact with dapps of any
+                    Bitcoin L2 within the BVM ecosystem.
                   </p>
                 </Fade>
               </div>
