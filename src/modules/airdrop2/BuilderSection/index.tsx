@@ -13,6 +13,7 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import cn from 'classnames';
+import Link from 'next/link';
 
 import { getListBuilders } from '@/services/builder';
 import { formatCurrency } from '@/utils/format';
@@ -30,9 +31,9 @@ const BUILDER_POINTS = [
     description:
       'Simply customize and launch your own Bitcoin L2 block for free in just a few clicks.',
     renderFooter: (
-      <button className={s.activeBtn}>
+      <Link className={s.activeBtn} href={'/blockchains/customize'}>
         Launch Bitcoin L2 Testnet For Free Now
-      </button>
+      </Link>
     ),
   },
   {
@@ -42,7 +43,16 @@ const BUILDER_POINTS = [
     extraText: null,
     description:
       'Since BVM is EVM equivalent, you can migrate your Solidity smart contracts and dapps from Ethereum (or other chains) to your Bitcoin L2 with minimal or no modification.',
-    renderFooter: <button className={s.activeBtn}>Developer guides</button>,
+    renderFooter: (
+      <a
+        className={s.activeBtn}
+        target="_blank"
+        href="https://docs.bvm.network/bvm"
+        rel="noopener noreferrer"
+      >
+        Developer guides
+      </a>
+    ),
   },
   {
     id: 2,
