@@ -3,7 +3,7 @@ import { CHAIN_NAMESPACES } from '@web3auth/base';
 
 import { isProduction } from '@/utils/common';
 
-export const NOS_CHAIN_ID = isProduction() ? 23508 : 42070;
+export const NOS_CHAIN_ID = isProduction() ? 42213 : 42070;
 
 export const EAI_ID = isProduction() ? 45551 : 45551;
 
