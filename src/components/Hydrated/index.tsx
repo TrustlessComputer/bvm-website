@@ -34,8 +34,10 @@ const Hydrated = ({ children }: { children?: any }) => {
   const loginWeb3AuthHandler = async () => {
     try {
       // await onLoginMetamask();
+      console.log('loginWeb3AuthHandler 1 ', login);
       await login();
     } catch (err: unknown) {
+      console.log('loginWeb3AuthHandler 2 ERROR ', err);
       toast.error(
         (err as Error).message ||
           'Something went wrong. Please try again later.',
