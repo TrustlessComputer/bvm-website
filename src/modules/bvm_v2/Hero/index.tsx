@@ -73,7 +73,7 @@ export default function Hero() {
 
       <div className={s.boxContent}>
         <div className={s.boxContent_icon}>
-          <Image width={48} height={48} src={'/builder/icons-tw.svg'} alt={'icon'} />
+          <Image width={48} height={48} src={'/builder/icon-buy.svg'} alt={'icon'} />
         </div>
         <div className={s.boxContent_text}>
           <div className={s.desc}>
