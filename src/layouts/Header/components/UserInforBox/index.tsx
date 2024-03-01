@@ -39,10 +39,10 @@ const UserInforBox: React.FC = (): React.ReactElement => {
     }
     if (pathname?.includes('blockchains')) {
       // return '#d5d5d5';
-      return '#FFFFFF1A';
+      return '#0000001A';
     }
     // return '#ECECEC';
-    return '#FFFFFF1A';
+    return '#0000001A';
   };
 
   if (!isShow) return <></>;
@@ -52,9 +52,7 @@ const UserInforBox: React.FC = (): React.ReactElement => {
       align={'center'}
       gap="5px"
       bgColor={getBgColor()}
-      px={'7px'}
-      py={'4px'}
-      borderRadius={'100px'}
+      p={'4px'}
       borderColor={getBorderColor()}
       borderWidth={'1px'}
       maxW={'156px'}
@@ -65,7 +63,12 @@ const UserInforBox: React.FC = (): React.ReactElement => {
         router.push('/blockchains');
       }}
     >
-      <Avatar url={userInfor?.profile_image || ''} width={36} />
+      <Avatar
+        url={userInfor?.profile_image || ''}
+        width={36}
+        square={true}
+        circle={false}
+      />
       <Flex flexDir={'row'} align={'center'} gap={'2px'} overflow={'hidden'}>
         {/* <Text
             textAlign={'center'}
@@ -84,7 +87,7 @@ const UserInforBox: React.FC = (): React.ReactElement => {
         <Text
           textAlign={'center'}
           fontSize={'14px'}
-          lineHeight={'20px'}
+          lineHeight={'16.8px'}
           fontWeight={400}
           overflow={'hidden'}
           color={pathname === '/' ? 'white' : 'black'}
