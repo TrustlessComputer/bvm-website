@@ -40,13 +40,14 @@ import {
 import { CHAIN_CONFIG } from './chainConfig';
 import { authenticatedInContext } from './constants';
 import { generateRandomString } from './helpers';
+import useAnimationStore from '@/stores/useAnimationStore';
 
 export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
   children,
 }: PropsWithChildren): React.ReactElement => {
   const dispatch = useAppDispatch();
   const provider = useRPCProvider();
-
+  const { setPlayed, played } = useAnimationStore();
   const [web3Auth, setWeb3Auth] = useState<Web3Auth | null>(null);
   // const { sendEvent } = useGa();
 
@@ -125,6 +126,9 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
       const user = await web3auth.getUserInfo();
       try {
         if (user.idToken) {
+          //Turn off animation when begin of throught the website
+          setPlayed && setPlayed();
+
           const apiAccessToken = await L2Service.register(user.idToken);
           LocalStorage.setItem(STORAGE_KEYS.API_ACCESS_TOKEN, apiAccessToken);
           console.log('[getUserInfo] apiAccessToken ---- ', apiAccessToken);
@@ -429,8 +433,9 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
       login,
       logout,
       getPlayerInfo,
+      web3Auth,
     }),
-    [login, logout, getPlayerInfo, window],
+    [login, logout, getPlayerInfo, window, web3Auth],
   );
 
   return (
