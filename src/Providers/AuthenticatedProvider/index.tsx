@@ -337,13 +337,15 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
 
         const isForceLogin = commonStorage.getForceLogin();
 
+        console.log('FORCE LOGIN ---- ', isForceLogin);
+
         if (!isForceLogin) {
           // sendEvent(APP_ARCADE_EVENT_NAMES.OPEN_LOGIN);
           // web3AuthInstance.connect();
           commonStorage.setAlreadyForceLogin();
         }
       } catch (error) {
-        // console.log('AuthenticatedProvider', 'init', 'error', error);
+        console.log('AuthenticatedProvider -- ERROR -- [1] ', error);
       } finally {
         console.log('AuthenticatedProvider', 'init', 'ended');
         dispatch(setAutoReconnecting(false));

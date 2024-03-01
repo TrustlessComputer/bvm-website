@@ -3,7 +3,7 @@ import { CHAIN_NAMESPACES } from '@web3auth/base';
 
 import { isProduction } from '@/utils/common';
 
-export const NOS_CHAIN_ID = isProduction() ? 23508 : 42070;
+export const NOS_CHAIN_ID = isProduction() ? 42213 : 42070;
 
 export const EAI_ID = isProduction() ? 45551 : 45551;
 
@@ -72,7 +72,7 @@ export const CHAIN_CONFIG = {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
     chainId: NOS_CHAIN_ID.toString(16),
     rpcTarget: isProduction()
-      ? 'https://l2-node.trustless.computer'
+      ? 'https://node.l2.trustless.computer'
       : 'https://l2-node.regtest.trustless.computer',
     blockExplorer: isProduction()
       ? 'https://explorer.l2.trustless.computer/'

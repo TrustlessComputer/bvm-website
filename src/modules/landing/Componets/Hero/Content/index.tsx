@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
 import Banner from '../Banner';
+import SvgInset from '@/components/SvgInset';
 
 const DELAY = 6;
 export default function HeroContent() {
@@ -41,65 +42,65 @@ export default function HeroContent() {
                 </button>
               </Fade>
             </li>
-            <li>
-              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 0.6}>
-                <button
-                  onClick={() => {
-                    router.push('/use-bitcoin');
-                  }}
-                  className={classNames(s.btn, s.btn__clean, s.buttonBuild)}
-                >
-                  <span>Explore Bitcoin L2s</span>
-                  <img src={`/builder/arr-r.svg`} alt={'right'} />
-                </button>
-              </Fade>
-              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 0.7}>
-                <a
-                  className={classNames(s.btn, s.btn__clean, s.buttonBuild)}
-                  href={'#'}
-                  onClick={() => setOpen(true)}
-                >
-                  <span>Watch the film</span>
-                  <img src={`/builder/arr-r.svg`} alt={'right'} />
-                </a>
-              </Fade>
-              {/*<Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .6}>*/}
-              {/*  /!*<button className={classNames(s.btn, s.btn__white)}>*!/*/}
-              {/*  /!*  Build on Bitcoin*!/*/}
-              {/*  /!*</button>*!/*/}
-              {/*  <div className={classNames( s.dropMenu)}>*/}
-              {/*    <button*/}
-              {/*      className={classNames(s.btn, s.btn__white,s.buttonBuild)}*/}
-              {/*    >*/}
-              {/*      Build on Bitcoin*/}
-              {/*    </button>*/}
-              {/*    <ul className={s.dropMenu_list}>*/}
-              {/*      {*/}
-              {/*        MenuBuild?.subMenu.map((item) => {*/}
-              {/*          return (<li className={s.listItem}>*/}
-              {/*            <a href={item.href} target={item?.isNewWindow ? '_blank' : '_self'} style={{ color: 'black' }}>*/}
-              {/*              {*/}
-              {/*                item.label*/}
-              {/*              }*/}
-              {/*              <SvgInset svgUrl={`landing/images/basil_arrow-up-outline.svg`} />*/}
-              {/*            </a>*/}
-              {/*          </li>);*/}
-              {/*        })*/}
-              {/*      }*/}
-              {/*    </ul>*/}
-              {/*  </div>*/}
-              {/*</Fade>*/}
-            </li>
             {/*<li>*/}
-            {/*  <Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .7}>*/}
+            {/*  <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 0.6}>*/}
+            {/*    <button*/}
+            {/*      onClick={() => {*/}
+            {/*        router.push('/use-bitcoin');*/}
+            {/*      }}*/}
+            {/*      className={classNames(s.btn, s.btn__clean, s.buttonBuild)}*/}
+            {/*    >*/}
+            {/*      <span>Explore Bitcoin L2s</span>*/}
+            {/*      <img src={`/builder/arr-r.svg`} alt={'right'} />*/}
+            {/*    </button>*/}
+            {/*  </Fade>*/}
+            {/*  <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 0.7}>*/}
             {/*    <a*/}
-            {/*      className={classNames(s.btn, s.btn__white, s.btn__play, s.buttonBuild)}*/}
-            {/*      href={'#'} onClick={() => setOpen(true)}>*/}
-            {/*      Watch the flim*/}
-            {/*      <SvgInset svgUrl={`/builder/icon-play.svg`} alt={'right'} />*/}
+            {/*      className={classNames(s.btn, s.btn__clean, s.buttonBuild)}*/}
+            {/*      href={'#'}*/}
+            {/*      onClick={() => setOpen(true)}*/}
+            {/*    >*/}
+            {/*      <span>Watch the film</span>*/}
+            {/*      <img src={`/builder/arr-r.svg`} alt={'right'} />*/}
             {/*    </a>*/}
             {/*  </Fade>*/}
+            {/*  /!*<Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .6}>*!/*/}
+            {/*  /!*  /!*<button className={classNames(s.btn, s.btn__white)}>*!/*!/*/}
+            {/*  /!*  /!*  Build on Bitcoin*!/*!/*/}
+            {/*  /!*  /!*</button>*!/*!/*/}
+            {/*  /!*  <div className={classNames( s.dropMenu)}>*!/*/}
+            {/*  /!*    <button*!/*/}
+            {/*  /!*      className={classNames(s.btn, s.btn__white,s.buttonBuild)}*!/*/}
+            {/*  /!*    >*!/*/}
+            {/*  /!*      Build on Bitcoin*!/*/}
+            {/*  /!*    </button>*!/*/}
+            {/*  /!*    <ul className={s.dropMenu_list}>*!/*/}
+            {/*  /!*      {*!/*/}
+            {/*  /!*        MenuBuild?.subMenu.map((item) => {*!/*/}
+            {/*  /!*          return (<li className={s.listItem}>*!/*/}
+            {/*  /!*            <a href={item.href} target={item?.isNewWindow ? '_blank' : '_self'} style={{ color: 'black' }}>*!/*/}
+            {/*  /!*              {*!/*/}
+            {/*  /!*                item.label*!/*/}
+            {/*  /!*              }*!/*/}
+            {/*  /!*              <SvgInset svgUrl={`landing/images/basil_arrow-up-outline.svg`} />*!/*/}
+            {/*  /!*            </a>*!/*/}
+            {/*  /!*          </li>);*!/*/}
+            {/*  /!*        })*!/*/}
+            {/*  /!*      }*!/*/}
+            {/*  /!*    </ul>*!/*/}
+            {/*  /!*  </div>*!/*/}
+            {/*  /!*</Fade>*!/*/}
             {/*</li>*/}
+            <li>
+              <Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .7}>
+                <a
+                  className={classNames(s.btn, s.btn__white, s.btn__play, s.buttonBuild)}
+                  href={'#'} onClick={() => setOpen(true)}>
+                  <span>Watch the flim</span>
+                  <SvgInset svgUrl={`/landing/icon-play.svg`} />
+                </a>
+              </Fade>
+            </li>
           </ul>
         </div>
       </div>

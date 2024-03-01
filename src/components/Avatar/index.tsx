@@ -28,6 +28,7 @@ interface IAvatarProps {
   fontSize?: number;
   imgStyles?: React.CSSProperties;
   circle?: boolean;
+  square?: boolean;
   onLoaded?: () => void;
   hideDefault?: boolean;
 }
@@ -124,8 +125,9 @@ const Avatar: React.FC<IAvatarProps> = ({
   name,
   fontSize,
   imgStyles,
-  circle = false,
+  circle = true,
   hideDefault,
+  square = false,
   onLoaded = () => {},
 }: IAvatarProps) => {
   const targetRef = useRef<HTMLDivElement | null>(null);
@@ -164,7 +166,6 @@ const Avatar: React.FC<IAvatarProps> = ({
       height: `${width}px`,
       width: `${width}px`,
       minWidth: `${width}px`,
-      borderRadius: '50%',
       overflow: 'hidden',
     };
   }, [width]);
@@ -192,6 +193,7 @@ const Avatar: React.FC<IAvatarProps> = ({
         onClick={handleOnClick}
         className={cx(styles.container, className, {
           [styles.container__circle || '']: circle,
+          [styles.container__square || '']: square,
         })}
         style={centerStyles}
       >
@@ -210,7 +212,10 @@ const Avatar: React.FC<IAvatarProps> = ({
   return (
     <Center
       onClick={handleOnClick}
-      className={cx(styles.container, className)}
+      className={cx(styles.container, className, {
+        [styles.container__circle || '']: circle,
+        [styles.container__square || '']: square,
+      })}
       style={centerStyles}
       ref={targetRef}
     >

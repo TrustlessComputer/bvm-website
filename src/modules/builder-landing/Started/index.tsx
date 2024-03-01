@@ -45,9 +45,9 @@ Ethereum to Bitcoin with minimal or no modifications.`}
             <li className={s.exItem}>
               <Fade delay={0.3}>
                 <IConContent
-                  title={'Submit Form'}
-                  blank={true}
-                  link={'https://forms.gle/eUbL7nHuTPA3HLRz8'}
+                  // title={'Submit Form'}
+                  // blank={true}
+                  // link={'https://forms.gle/eUbL7nHuTPA3HLRz8'}
                   step={3} icon={'builder/step-3.png'}>
                   Launch your Bitcoin L2 on mainnet
                 </IConContent>

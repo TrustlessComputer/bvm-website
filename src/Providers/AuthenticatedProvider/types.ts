@@ -34,11 +34,5 @@ export interface AuthenticatedActionsContext {
 
 export type AuthenticatedDataContext = AuthState;
 
-export type AIModelMethods = {
-  deployAIModel?: () => Promise<void>;
-  evaluateAIModel?: () => Promise<void>;
-};
-
 export type AuthenticatedContext = AuthenticatedActionsContext &
-  AuthenticatedDataContext &
-  AIModelMethods;
+  AuthenticatedDataContext;

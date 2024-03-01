@@ -121,7 +121,7 @@ const nextConfig = {
   },
 
   compiler: {
-    removeConsole: false
+    removeConsole: !isDevEnv
       ? {
           exclude: ['error'],
         }

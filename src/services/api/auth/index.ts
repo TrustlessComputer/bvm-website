@@ -44,7 +44,7 @@ export const revokeAuthentication = async (): Promise<void> => {
 };
 
 // ------------------------------------------------------------
-// Eternal AI API
+// L2 Service API
 // ------------------------------------------------------------
 
 export const getAPIAcessToken = () => {
