@@ -435,7 +435,7 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
       getPlayerInfo,
       web3Auth,
     }),
-    [login, logout, getPlayerInfo, window, web3Auth],
+    [login, logout, getPlayerInfo, window],
   );
 
   return (
