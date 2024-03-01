@@ -21,6 +21,7 @@ import SvgInset from '@/components/SvgInset';
 
 import s from './styles.module.scss';
 import { useEffect, useState } from 'react';
+import Fade from '@/interactive/Fade';
 
 const BUILDER_POINTS = [
   {
@@ -131,97 +132,106 @@ const BuilderSection = () => {
       gap="60px"
       align={'center'}
     >
-      <Text className={s.textHeadline}>For Builders</Text>
+      <Fade from={{ y: 10 }} to={{ y: 0 }} delay={0}>
+        <Text className={s.textHeadline}>For Builders</Text>
+      </Fade>
       <Box className="container">
         <Flex gap="80px" flexDir={{ base: 'column', lg: 'row' }}>
           <Box w={{ base: '100%', lg: '70%' }}>
-            <Text className={s.title}>Live Bitcoin L2s</Text>
-            <TableContainer
-              w={{ base: 'calc(100vw - 40px)', md: '100%' }}
-              overflowX={{ base: 'scroll', md: 'unset' }}
-            >
-              <Table variant="simple" className={s.customizeTable}>
-                <Thead>
-                  <Tr>
-                    <Th>Rank</Th>
-                    <Th>Live Bitcoin L2s</Th>
-                    <Th isNumeric>Builder Points</Th>
-                    <Th>Learn More</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {listBuilders?.map?.((item) => (
-                    <Tr key={item.id}>
-                      <Td>#{item.ranking}</Td>
-                      <Td>
-                        <Flex gap="4px" direction="column">
-                          <Text>{item.name}</Text>
-                          <Text fontSize={12} fontWeight={400} opacity={0.7}>
-                            {item.evn}
-                          </Text>
-                        </Flex>
-                      </Td>
-                      <Td isNumeric>
-                        <Text fontSize={14} fontWeight={400}>
-                          {formatCurrency(item.point, 0, 0, '', true)}
-                        </Text>
-                      </Td>
-                      <Td>
-                        <a
-                          className={s.chainLink}
-                          href={item.link as string}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {item.name}
-                          <Box className={s.chainLink_arrow}>
-                            <SvgInset svgUrl={`airdrop/ic_arrow.svg`} />
-                          </Box>
-                        </a>
-                      </Td>
+            <Fade from={{ y: 10 }} to={{ y: 0 }} delay={0.2}>
+              <Text className={s.title}>Live Bitcoin L2s</Text>
+              <TableContainer
+                w={{ base: 'calc(100vw - 40px)', md: '100%' }}
+                overflowX={{ base: 'scroll', md: 'unset' }}
+              >
+                <Table variant="simple" className={s.customizeTable}>
+                  <Thead>
+                    <Tr>
+                      <Th>Rank</Th>
+                      <Th>Live Bitcoin L2s</Th>
+                      <Th isNumeric>Builder Points</Th>
+                      <Th>Learn More</Th>
                     </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </TableContainer>
+                  </Thead>
+                  <Tbody>
+                    {listBuilders?.map?.((item) => (
+                      <Tr key={item.id}>
+                        <Td>#{item.ranking}</Td>
+                        <Td>
+                          <Flex gap="4px" direction="column">
+                            <Text>{item.name}</Text>
+                            <Text fontSize={12} fontWeight={400} opacity={0.7}>
+                              {item.evn}
+                            </Text>
+                          </Flex>
+                        </Td>
+                        <Td isNumeric>
+                          <Text fontSize={14} fontWeight={400}>
+                            {formatCurrency(item.point, 0, 0, '', true)}
+                          </Text>
+                        </Td>
+                        <Td>
+                          <a
+                            className={s.chainLink}
+                            href={item.link as string}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {item.name}
+                            <Box className={s.chainLink_arrow}>
+                              <SvgInset svgUrl={`airdrop/ic_arrow.svg`} />
+                            </Box>
+                          </a>
+                        </Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </Fade>
           </Box>
-
           <Box w={{ base: '100%', lg: '30%' }}>
-            <Text className={s.title}>Builder Points </Text>
-            <Flex direction="column" gap="20px">
-              {BUILDER_POINTS.map((item) => (
-                <Box key={item.id} className={s.itemPoint}>
-                  <Flex gap="24px">
-                    <Box flex="1">
-                      <Text mb="8px" fontSize={'18px'} lineHeight={'26px'}>
-                        {item.title}
-                      </Text>
-                      <Text
-                        fontSize={'14px'}
-                        lineHeight={'26px'}
-                        opacity={0.7}
-                        fontWeight={400}
-                      >
-                        {item.description}
-                      </Text>
-                    </Box>
-                    <Box>
-                      <Text
-                        fontSize={'18px'}
-                        lineHeight={'26px'}
-                        textAlign={'right'}
-                      >
-                        {item.point}
-                      </Text>
-                      <Text fontSize={'14px'} lineHeight={'26px'} opacity={0.7}>
-                        {item.extraText}
-                      </Text>
-                    </Box>
-                  </Flex>
-                  {item.renderFooter}
-                </Box>
-              ))}
-            </Flex>
+            <Fade from={{ y: 10 }} to={{ y: 0 }} delay={0.2}>
+              <Text className={s.title}>Builder Points </Text>
+              <Flex direction="column" gap="20px">
+                {BUILDER_POINTS.map((item) => (
+                  <Box key={item.id} className={s.itemPoint}>
+                    <Flex gap="24px">
+                      <Box flex="1">
+                        <Text mb="8px" fontSize={'18px'} lineHeight={'26px'}>
+                          {item.title}
+                        </Text>
+                        <Text
+                          fontSize={'14px'}
+                          lineHeight={'26px'}
+                          opacity={0.7}
+                          fontWeight={400}
+                        >
+                          {item.description}
+                        </Text>
+                      </Box>
+                      <Box>
+                        <Text
+                          fontSize={'18px'}
+                          lineHeight={'26px'}
+                          textAlign={'right'}
+                        >
+                          {item.point}
+                        </Text>
+                        <Text
+                          fontSize={'14px'}
+                          lineHeight={'26px'}
+                          opacity={0.7}
+                        >
+                          {item.extraText}
+                        </Text>
+                      </Box>
+                    </Flex>
+                    {item.renderFooter}
+                  </Box>
+                ))}
+              </Flex>
+            </Fade>
           </Box>
         </Flex>
       </Box>
