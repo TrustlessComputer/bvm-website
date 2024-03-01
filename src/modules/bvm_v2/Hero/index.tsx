@@ -1,5 +1,10 @@
 import Image from 'next/image';
 import s from './style.module.scss';
+import dayjs from 'dayjs';
+import Countdown from '@/modules/Whitelist/stepAirdrop/Countdown';
+import React from 'react';
+
+const BVM_TGE_START = '2024-03-05 08:30:00';
 
 export default function Hero() {
 
@@ -8,7 +13,14 @@ export default function Hero() {
       <div className='hero_inner'>
         <h1>$BVM TGE is coming on March 5th on Naka DEX</h1>
       </div>
-      <div className={s.hero_countdown}>
+      <Countdown
+        className={s.countDown_time}
+        expiredTime={dayjs.utc(BVM_TGE_START, 'YYYY-MM-DD HH:mm:ss').toString()}
+        hideIcon={true}
+        type="column"
+        hideZeroHour={true}
+      />
+      {/*<div className={s.hero_countdown}>
         <div className={s.hero_countdown_item}>
           <div className={s.val}>7</div>
           <div className={s.label}>Days</div>
@@ -25,7 +37,7 @@ export default function Hero() {
           <div className={s.val}>44</div>
           <div className={s.label}>Seconds</div>
         </div>
-      </div>
+      </div>*/}
       <div className={s.boxContent}>
         <div className={s.boxContent_icon}>
           <Image width={48} height={48} src={'/builder/icons-tw.svg'} alt={'icon'} />

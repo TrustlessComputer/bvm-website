@@ -126,3 +126,32 @@
     font-size: 16px;
   }
 }
+
+.countDown {
+  &_title {
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+  }
+
+  &_time {
+    > div {
+      gap: 60px;
+    }
+    :global {
+      .chakra-text {
+        color: #000;
+        font-size: 80px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 100%;
+        text-transform: uppercase;
+        @include is-mobile {
+          font-size: 35px;
+        }
+      }
+    }
+  }
+}

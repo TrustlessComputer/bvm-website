@@ -92,7 +92,7 @@ const Countdown: React.FC<IProps> = ({
                   }
                 </>
               )}
-              {!!hideZeroHour && !hours && (
+              {!!hideZeroHour && hours !== "0" && (
                 <>
                   <Flex flexDirection='column' alignItems='center'>
                     <Text className={s.text}>{hours}</Text>
