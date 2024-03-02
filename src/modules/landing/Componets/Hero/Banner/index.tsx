@@ -16,7 +16,7 @@ const Banner = (props: Props) => {
             Be a pioneer Bitcoin L2 builder and earn up to 1,000,000 $BVM
             airdrop!
           </span>
-      <Link href={BUILD_ON_BITCOIN_URL} className={s.banner_link}>
+      <Link href={'/bvm'} className={s.banner_link}>
         Join the Bitcoin L2 Builder Program here
         <svg
           xmlns='http://www.w3.org/2000/svg'
