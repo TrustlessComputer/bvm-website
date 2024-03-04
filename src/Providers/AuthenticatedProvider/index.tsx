@@ -55,7 +55,7 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
     const res = await getProfile();
     dispatch(setUserInfo(res));
     return res;
-  }, [dispatch]);
+  }, [dispatch, getProfile]);
 
   useEffect(() => {
     const getAndSetAuthToken = async (wallet: Wallet) => {
