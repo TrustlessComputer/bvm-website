@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import s from '../styles.module.scss';
 import Link from 'next/link';
-import { BUILD_ON_BITCOIN_URL } from '@/constants/route-path';
 import Fade from '@/interactive/Fade';
 
 type Props = {
@@ -9,15 +8,13 @@ type Props = {
 };
 
 const Banner = (props: Props) => {
-
   const ContentReder = (): ReactElement => {
     return <div className={s.banner_wrapper}>
           <span className={s.text}>
-            Be a pioneer Bitcoin L2 builder and earn up to 1,000,000 $BVM
-            airdrop!
+           $BVM TGE is coming on March 5th. Be one of the first to
           </span>
       <Link href={'/bvm'} className={s.banner_link}>
-        Join the Bitcoin L2 Builder Program here
+        Claim, Stake and Trade $BVM here
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'
