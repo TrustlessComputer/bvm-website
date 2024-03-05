@@ -9,6 +9,7 @@ import DropDown from '@/layouts/Header/components/Dropdown';
 import ButtonLoginTwitter from './ButtonLoginTwitter';
 import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import UserInforBox from './UserInforBox';
+import ContactUs from './ContactUs';
 
 type Props = {
   primaryColor?: 'black' | 'white';
@@ -48,11 +49,17 @@ export const DesktopNavRight = (props: Props) => {
         </>
       ))}
 
+<<<<<<< HEAD
       {!isLogged ? (
         <ButtonLoginTwitter color={props.primaryColor || 'black'} />
       ) : (
         <UserInforBox />
       )}
+=======
+      {<ContactUs />}
+
+      {!isLogged ? <ButtonLoginTwitter color={'white'} /> : <UserInforBox />}
+>>>>>>> d39c4248 (Add contct us)
 
       <Link href={'/blockchains/customize'} className={s.tryBVm}>
         Try BVM

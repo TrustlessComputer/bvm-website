@@ -1,4 +1,4 @@
-interface IOrderBuyReq {
+export interface IOrderBuyReq {
   serviceType: number;
   domain: string;
   chainId: string;
@@ -20,9 +20,21 @@ interface IOrderBuyReq {
   bitcoinValidity: number;
 }
 
-interface IOrderBuyEstimateRespone {
+export interface IOrderBuyEstimateRespone {
   SetupCode: string;
   OperationCost: string;
   RollupCost: string;
   TotalCost: string;
 }
+
+export type SubmitFormParams = {
+  bitcoinL2Name: string;
+  bitcoinL2Description: string;
+  network: string;
+  dataAvailability: string;
+  blockTime: string;
+  rollupProtocol: string;
+  withdrawPeriod: string;
+  twName: string;
+  telegram: string;
+};
