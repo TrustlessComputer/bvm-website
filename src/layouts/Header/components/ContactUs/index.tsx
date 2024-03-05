@@ -9,7 +9,7 @@ import ContactUsModal from '@/components/ContactUsModal';
 import ContactUsSuccessModal from '@/components/ContactUsSuccessModal';
 
 type Props = {
-  color: 'black' | 'white';
+  color?: 'black' | 'white';
 };
 
 const ContactUs = (props: Props) => {

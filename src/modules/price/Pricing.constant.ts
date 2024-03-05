@@ -1,3 +1,5 @@
+import { IOrderBuyReq } from '@/services/api/l2services/types';
+
 export const ParamsEstCostDABitcoinPolygon: IOrderBuyReq = {
   serviceType: 1,
   domain: '',
