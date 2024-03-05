@@ -1,9 +1,52 @@
 import s from './styles.module.scss';
 import PriceCard from '@/modules/price/price-card';
 import { Tooltip } from 'react-tooltip';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { estimateTotalCostAPI } from '@/services/api/l2services';
+import {
+  ParamsEstCostDABitcoinPolygon,
+  ParamsEstCostOnlyBitcoin,
+} from './Pricing.constant';
+import Loading from '@/components/Loading';
+import { dataFormater } from './Pricing.helper';
+
+const RETRY_MAX = 3;
+let retryCount = 0;
 
 const PriceModule = () => {
+  const [isFetchignData, setFetchingData] = useState(false);
+  const [apiData, setAPIData] = useState<IOrderBuyEstimateRespone[]>([]);
+
+  const fetchData = async () => {
+    try {
+      setFetchingData(true);
+      const [bitcoinPolygonData, onlyBitcoinDat] = await Promise.all([
+        estimateTotalCostAPI(ParamsEstCostDABitcoinPolygon),
+        estimateTotalCostAPI(ParamsEstCostOnlyBitcoin),
+      ]);
+
+      const bitcoinPolygonDataFormater = dataFormater(bitcoinPolygonData);
+      const onlyBitcoinDataFormater = dataFormater(onlyBitcoinDat);
+
+      setAPIData([bitcoinPolygonDataFormater, onlyBitcoinDataFormater]);
+      retryCount = 0;
+    } catch (error) {
+      console.log('[fetchData] ERROR --- ', error);
+      if (retryCount < RETRY_MAX) {
+        retryCount++;
+        fetchData();
+      }
+    } finally {
+      setFetchingData(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (isFetchignData) return <></>;
+
   return (
     <div className={s.price}>
       <div className={s.price_top}>
@@ -48,7 +91,7 @@ const PriceModule = () => {
           >
             <h1>
               {' '}
-              71,257 BVM<small>/month</small>
+              {`${apiData[0]?.TotalCost || 0}`} BVM<small>/month</small>
             </h1>
           </PriceCard>
           <PriceCard
@@ -78,12 +121,12 @@ const PriceModule = () => {
                 </span>
               </div>
             }
-            support={'Dedicated account manager'}
+            support={'Dedicated support'}
             titleAction={'Get started'}
             action={'/blockchains/customize'}
           >
             <h1>
-              538,683 BVM<small>/month</small>
+              {`${apiData[1]?.TotalCost || 0}`} BVM<small>/month</small>
             </h1>
           </PriceCard>
           <PriceCard
@@ -92,7 +135,7 @@ const PriceModule = () => {
             network={
               'Design a custom Bitcoin L2 — available for businesses with large transaction volume or unique business models.'
             }
-            support={'Dedicated account manager'}
+            support={'Dedicated support'}
             // titleAction={'Contact sales'}
             // action={'#'}
           >
@@ -105,3 +148,8 @@ const PriceModule = () => {
 };
 
 export default PriceModule;
+function estimateDataFormater(
+  ParamsEstCostDABitcoinPolygon: IOrderBuyReq,
+): IOrderBuyReq {
+  throw new Error('Function not implemented.');
+}
