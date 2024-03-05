@@ -39,8 +39,10 @@ export type TButtonTGE = (typeof DATA_BTN)[number];
 export default function SectionButton() {
   return (
     <div className={s.sectionBtn}>
-      {DATA_BTN.map((item) => {
-        return <ItemSectionButton key={item.number} data={item} />;
+      {DATA_BTN.map((item, index) => {
+        return (
+          <ItemSectionButton delay={index / 5} key={item.number} data={item} />
+        );
       })}
     </div>
   );
