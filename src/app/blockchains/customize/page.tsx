@@ -3,9 +3,7 @@
 import { DOMAIN_URL, isDevelop, isLocal } from '@/config';
 import MainLayout from '@/layouts/MainLayout';
 import dynamic from 'next/dynamic';
-import Banner from '@/modules/landing/Componets/Hero/Banner';
 import React from 'react';
-import s from './sytles.module.scss'
 
 const pathUrl = '/bvm-website-sats-iframe/buy';
 
@@ -26,9 +24,6 @@ const TCPage = () => {
         bgColor: '#F3F1E8',
       }}
     >
-      <div className={s.banner}>
-        <Banner disabledAnimation={true} />
-      </div>
       <IframeTCDynamic iframeURL={`${iframeL2ServicesDomain}${pathUrl}`} />
     </MainLayout>
   );

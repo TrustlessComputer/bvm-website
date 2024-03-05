@@ -33,7 +33,7 @@ const Banner = (props: Props) => {
   };
 
   return (
-    <div className={s.banner_container}>
+    <div className={`${s.banner_container} banner_container`}>
       {
         !props.disabledAnimation ? <Fade from={{ y: 0 }} to={{ y: 0 }} delay={6 + 0.01}>
           <>
