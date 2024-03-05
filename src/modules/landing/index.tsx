@@ -22,13 +22,14 @@ export default function Landing() {
     <div className={s.landing}>
       {/*<Hero />*/}
       <BasicHero />
+
       <Chain />
       <LegoV2 />
       <BitEth />
       <Ecosystem />
       {mobileScreen || tabletScreen ? <ScaleableMobile /> : <ScalableSlide />}
       {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
-      <JoinAllowList isFooter={true}/>
+      <JoinAllowList isFooter={true} />
     </div>
   );
 }

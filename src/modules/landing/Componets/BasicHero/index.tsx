@@ -3,29 +3,50 @@ import ModalVideo from 'react-modal-video';
 import React, { useState } from 'react';
 import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 import Intro from '@/modules/landing/Componets/Intro';
+import Scale from '@/interactive/Scale';
+import Fade from '@/interactive/Fade';
+import Lines from '@/interactive/Lines';
+import Chars from '@/interactive/Chars';
+
 
 export default function BasicHero() {
   const [isOpen, setOpen] = useState(false);
+  const delay = 1;
 
   return <div className={s.basicHero}>
     <div className={`${s.basicHero_container} container`}>
       <div className={s.left}>
-        <h1 className={s.heading}>Bitcoin L2
-          as a Service</h1>
-        <p className={s.desc}>
-          Powerful infrastructure to build and scale your own Bitcoin L2 with ease.
-        </p>
+        <h1 className={s.heading}>
+          <Chars delay={delay}>
+            Bitcoin L2
+            as a Service
+          </Chars>
+        </h1>
+        <div className={s.desc}>
+          <Lines delay={delay + .2}>
+            Powerful infrastructure to build and scale your own Bitcoin L2 with ease.
+          </Lines>
+        </div>
         <ul className={s.actions}>
           <li>
-            <button className={`${s.btn} ${s.btn__red}`}>Launch your Bitcoin L2</button>
+            <Fade delay={delay + .4}>
+              <button className={`${s.btn} ${s.btn__red}`}>Launch your Bitcoin L2</button>
+            </Fade>
           </li>
           <li>
-            <button className={`${s.btn}`}>Contact us</button>
+            <Fade delay={delay + .5}>
+              <button className={`${s.btn}`}>Contact us</button>
+            </Fade>
+
           </li>
         </ul>
       </div>
-      <div className={s.right}>
-        <img src='/public-sale/bvm-website.png' alt='banner-video' />
+      <div className={s.right} onClick={() => {
+        setOpen(true);
+      }}>
+        <Scale delay={delay}>
+          <img src='/landing/btn-video-play.png' alt='banner-video' />
+        </Scale>
       </div>
     </div>
     <ModalVideo

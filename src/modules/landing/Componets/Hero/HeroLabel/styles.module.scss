@@ -9,18 +9,20 @@
   //  padding-bottom: 0;
   //}
 
-  &:not(.heroLabel__mobile) {
-    display: none;
-    @include is-pc {
-      display: block;
-    }
-  }
+  //&:not(.heroLabel__mobile) {
+  //  display: none;
+  //  @include is-pc {
+  //    display: block;
+  //  }
+  //}
 
   .inner {
     display: flex;
     gap: 12px;
     flex-direction: column;
     width: 100%;
+    justify-content: space-between;
+
     @include is-min-table {
       //justify-content: space-between;
       //align-items: center;

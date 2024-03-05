@@ -47,13 +47,12 @@ const DATA_HERO = [
   },
 ];
 
-const DELAY = .5;
 
 export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
-  const delay = !isMobile ? DELAY : 0;
+  const delay = !isMobile ? 1.5 : 0;
 
   return (
-    <div className={`${s.heroLabel} ${isMobile && s.heroLabel__mobile}`}>
+    <div className={`${s.heroLabel}`}>
       <div className={s.content}>
         <div className={`${s.inner} heroLabel_inner`}>
           <Fade delay={delay}>
