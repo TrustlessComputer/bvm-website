@@ -1,0 +1,15 @@
+.sectionBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  gap: 16px;
+
+  @include is-pc {
+    flex-direction: row;
+    padding-top: 80px;
+    padding-bottom: 0;
+    gap: 54px;
+  }
+}

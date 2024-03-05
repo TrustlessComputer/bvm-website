@@ -1,0 +1,20 @@
+.heading {
+  color: rgba(250, 78, 14, 1);
+  font-weight: 700;
+  font-size: 48px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-text-stroke: 2px rgba(169, 53, 10, 1);
+  text-shadow: 4px 6px 4px #fa4e0e4d;
+  margin-bottom: 0;
+  @include is-tablet {
+    font-size: 64px;
+    -webkit-text-stroke: 5px rgba(169, 53, 10, 1);
+    text-shadow: 4px 6px 4px #fa4e0e4d;
+  }
+
+  @include is-pc {
+    font-size: 80px;
+  }
+}
