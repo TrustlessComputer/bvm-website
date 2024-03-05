@@ -108,12 +108,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     ],
   },
 
-  {
-    label: 'Pricing',
-    href: '/pricing',
-    isNewWindow: false,
-    isHide: false,
-  },
+  // {
+  //   label: 'Pricing',
+  //   href: '/pricing',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
 
   {
     label: '$BVM',
@@ -208,17 +208,17 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   //   isNewWindow: false,
   //   isHide: false,
   // },
-  {
-    label: 'Explore Bitcoin L2s',
-    href: '/use-bitcoin',
-    isNewWindow: false,
-    isHide: false,
-  },
+  // {
+  //   label: 'Explore Bitcoin L2s',
+  //   href: '/use-bitcoin',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
   {
     label: 'Join the community',
     href: 'https://t.me/+rT0cmRXjs01kMzY1',
     isNewWindow: true,
-    isHide: false,
+    isHide: true,
   },
   // {
   //   label: 'Learn',
