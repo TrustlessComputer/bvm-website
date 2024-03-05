@@ -45,22 +45,17 @@ export default function BasicHero() {
           {/*</li>*/}
         </ul>
       </div>
-      <div className={s.right} onClick={() => {
-        setOpen(true);
-      }}>
+      <div className={s.right}>
         <Scale delay={delay}>
-          <img src='/landing/btn-video-play.png' alt='banner-video' />
+          <div className={`${s.wrapVideo} ${isOpen ? s.isplay : ''}`} onClick={() => {
+            setOpen(true);
+          }}>
+            <video controls src='/public-sale/public_sale_video_2.mp4'></video>
+            <img className={s.bg} src={'/landing/btn-video-play.png'} />
+          </div>
         </Scale>
       </div>
     </div>
-    <ModalVideo
-      channel='custom'
-      url={'/public-sale/public_sale_video_2.mp4'}
-      isOpen={isOpen}
-      onClose={() => {
-        setOpen(false);
-      }}
-    />
     <HeroLabel />
   </div>;
 }
