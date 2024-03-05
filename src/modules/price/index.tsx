@@ -9,6 +9,10 @@ import {
 } from './Pricing.constant';
 import Loading from '@/components/Loading';
 import { dataFormater } from './Pricing.helper';
+import {
+  IOrderBuyEstimateRespone,
+  IOrderBuyReq,
+} from '@/services/api/l2services/types';
 
 const RETRY_MAX = 3;
 let retryCount = 0;
@@ -148,8 +152,3 @@ const PriceModule = () => {
 };
 
 export default PriceModule;
-function estimateDataFormater(
-  ParamsEstCostDABitcoinPolygon: IOrderBuyReq,
-): IOrderBuyReq {
-  throw new Error('Function not implemented.');
-}
