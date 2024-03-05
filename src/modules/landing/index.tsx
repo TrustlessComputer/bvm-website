@@ -1,6 +1,5 @@
 import useWindowSize from '@/hooks/useWindowSize';
 import Chain from './Componets/Chain';
-import Hero from './Componets/Hero';
 import ScaleableMobile from './Componets/ScaleableMobile';
 import s from './styles.module.scss';
 import Section_7 from '@/modules/landing/Componets/Section_7';
@@ -20,9 +19,7 @@ export default function Landing() {
   }, []);
   return (
     <div className={s.landing}>
-      {/*<Hero />*/}
       <BasicHero />
-
       <Chain />
       <LegoV2 />
       <BitEth />

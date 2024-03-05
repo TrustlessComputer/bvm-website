@@ -2,7 +2,6 @@ import s from './styles.module.scss';
 import ItemHero from '@/modules/landing/Componets/Hero/ItemHero';
 import Image from 'next/image';
 import Fade from '@/interactive/Fade';
-import ModalVideo from 'react-modal-video';
 import React, { useState } from 'react';
 
 const DATA_HERO = [
