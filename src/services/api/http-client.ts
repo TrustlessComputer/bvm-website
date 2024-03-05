@@ -32,7 +32,7 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
 
   instance.interceptors.response.use(
     (res) => {
-      const result = res?.data?.data || res?.data?.result;
+      const result = res?.data?.data || res?.data?.result || res?.data;
       if (res?.data?.count !== undefined) {
         result.count = res.data.count;
       }
@@ -40,7 +40,6 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
       if (error && Object.keys(error).length) {
         return Promise.reject(error);
       }
-
       if (!result) {
         return Promise.resolve(result);
       }
