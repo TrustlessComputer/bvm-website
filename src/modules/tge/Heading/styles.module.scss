@@ -10,11 +10,13 @@
   margin-bottom: 0;
   @include is-tablet {
     font-size: 64px;
-    -webkit-text-stroke: 5px rgba(169, 53, 10, 1);
+    -webkit-text-stroke: 3px rgba(169, 53, 10, 1);
     text-shadow: 4px 6px 4px #fa4e0e4d;
   }
 
   @include is-pc {
     font-size: 80px;
+    -webkit-text-stroke: 5px rgba(169, 53, 10, 1);
+    text-shadow: 4px 6px 4px #fa4e0e4d;
   }
 }
