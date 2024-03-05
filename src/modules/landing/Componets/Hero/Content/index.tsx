@@ -96,7 +96,7 @@ export default function HeroContent() {
                 <a
                   className={classNames(s.btn, s.btn__white, s.btn__play, s.buttonBuild)}
                   href={'#'} onClick={() => setOpen(true)}>
-                  <span>Watch the flim</span>
+                  <span>Watch the film</span>
                   <SvgInset svgUrl={`/landing/icon-play.svg`} />
                 </a>
               </Fade>
