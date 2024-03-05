@@ -19,16 +19,16 @@ export default function Lines({ children, delay, delayEnter = undefined, from, t
 
   const initAnimation = contextSafe(() => {
     if (!refContent.current) return;
-    const text = new SplitType(refContent.current, { types: 'lines,words' });
-    gsap.set(text.lines, { ...{ opacity: 0, y: '100%' }, ...from });
-    refWords.current = text.lines;
+    const text = new SplitType(refContent.current, { types: 'words' });
+    gsap.set(text.words, { ...{ opacity: 0, y: '100%' }, ...from });
+    refWords.current = text.words;
   });
 
   const playAnimation = contextSafe((dl = 0) => {
     refWords.current && gsap.to(refWords.current, {
       ...{
         delay: dl,
-        opacity: 1, y: '0%', ease: 'power3.out', duration: .8, stagger: .05,
+        opacity: 1, y: '0%', ease: 'power3.out', duration: .8, stagger: .015,
       }, ...to,
     });
   });
