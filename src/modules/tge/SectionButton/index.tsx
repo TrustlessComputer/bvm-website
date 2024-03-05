@@ -41,7 +41,7 @@ export default function SectionButton() {
     <div className={s.sectionBtn}>
       {DATA_BTN.map((item, index) => {
         return (
-          <ItemSectionButton delay={index / 5} key={item.number} data={item} />
+          <ItemSectionButton delay={(.2 + index / 5)} key={item.number} data={item} />
         );
       })}
     </div>

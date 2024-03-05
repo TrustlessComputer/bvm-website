@@ -4,10 +4,12 @@ import cn from 'classnames';
 import s from './styles.module.scss';
 import SectionButton from './SectionButton';
 import Image from 'next/image';
+import Loader from '@/modules/builder-landing/Loader';
 
 export default function TgeModule() {
   return (
     <div className={s.wrapper}>
+      <Loader />
       <div className={cn(s.inner, 'container')}>
         <Heading /> 
         <SectionButton />
