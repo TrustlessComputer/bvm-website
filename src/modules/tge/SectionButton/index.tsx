@@ -19,7 +19,7 @@ const DATA_BTN = [
     title: 'Stake',
     desc: (
       <>
-        Earn up to<b> 50% APR </b> and airdrops from Bitcoin L2 projects
+        Earn up to <b>50% APR</b> and airdrops from Bitcoin L2 projects
       </>
     ),
     btnTitle: 'Stake',
