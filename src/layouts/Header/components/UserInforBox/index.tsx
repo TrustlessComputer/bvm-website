@@ -23,7 +23,7 @@ const UserInforBox: React.FC = (): React.ReactElement => {
 
   const getBgColor = () => {
     if (pathname === '/') {
-      return '#FFFFFF1A';
+      return '#0000000D';
     }
     if (pathname?.includes('blockchains')) {
       // return '#F3F1E8';
@@ -35,7 +35,7 @@ const UserInforBox: React.FC = (): React.ReactElement => {
 
   const getBorderColor = () => {
     if (pathname === '/') {
-      return '#FFFFFF4D';
+      return '#0000001A';
     }
     if (pathname?.includes('blockchains')) {
       // return '#d5d5d5';

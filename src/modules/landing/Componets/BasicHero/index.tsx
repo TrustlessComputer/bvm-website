@@ -61,6 +61,5 @@ export default function BasicHero() {
       }}
     />
     <HeroLabel />
-    <Intro />
   </div>;
 }

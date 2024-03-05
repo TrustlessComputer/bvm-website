@@ -11,6 +11,7 @@ import Ecosystem from './Componets/Ecosystem';
 import LegoV2 from '@/modules/landing/Componets/LegoV2';
 import JoinAllowList from '@/modules/landing/Componets/Hero/JoinAllowList';
 import BasicHero from '@/modules/landing/Componets/BasicHero';
+import Loader from '@/modules/builder-landing/Loader';
 
 export default function Landing() {
   const { mobileScreen, tabletScreen } = useWindowSize();
@@ -19,6 +20,7 @@ export default function Landing() {
   }, []);
   return (
     <div className={s.landing}>
+      <Loader />
       <BasicHero />
       <Chain />
       <LegoV2 />
