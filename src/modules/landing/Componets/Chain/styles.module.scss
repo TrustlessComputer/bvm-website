@@ -18,7 +18,7 @@
 }
 
 .chain {
-  background: #f6f6f6;
+  background: #FFFFFF;
   overflow: hidden;
 
   &_case {
@@ -49,7 +49,7 @@
   }
 
   &_inner {
-    background: #f6f6f6;
+    background: #FFFFFF;
     padding: 100px 0;
 
     @include is-mobile {

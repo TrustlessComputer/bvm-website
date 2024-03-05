@@ -8,11 +8,12 @@ import { useGSAP } from '@gsap/react';
 interface IProp extends PropsWithChildren {
   classNames?: string;
   delay?: number;
+  delayEnter?: number;
   from?: gsap.TweenVars;
   to?: gsap.TweenVars;
 }
 
-export default function Chars({ children, delay = 0, from, to, classNames }: IProp) {
+export default function Chars({ children, delay = 0, delayEnter = undefined, from, to, classNames }: IProp) {
   const refContent = useRef<HTMLDivElement>(null);
   const refChars = useRef<any>();
   const { contextSafe } = useGSAP(() => {
@@ -25,14 +26,14 @@ export default function Chars({ children, delay = 0, from, to, classNames }: IPr
     refChars.current = text.chars;
   });
 
-  const playAnimation = contextSafe(() => {
+  const playAnimation = contextSafe((clDelay = 0) => {
     refChars.current &&
     gsap.to(refChars.current, {
       ...{
         opacity: 1,
         ease: 'power3.inOut',
         duration: 0.8,
-        delay,
+        delay: clDelay,
         stagger: {
           from: 'random',
           amount: 0.3,
@@ -46,6 +47,8 @@ export default function Chars({ children, delay = 0, from, to, classNames }: IPr
     playAnimation,
     initAnimation,
     threshold: 50,
+    delayEnter,
+    delay,
   });
 
   return (

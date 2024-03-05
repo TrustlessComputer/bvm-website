@@ -11,6 +11,7 @@ import BitEth from '@/modules/landing/Componets/BitEth';
 import Ecosystem from './Componets/Ecosystem';
 import LegoV2 from '@/modules/landing/Componets/LegoV2';
 import JoinAllowList from '@/modules/landing/Componets/Hero/JoinAllowList';
+import BasicHero from '@/modules/landing/Componets/BasicHero';
 
 export default function Landing() {
   const { mobileScreen, tabletScreen } = useWindowSize();
@@ -19,14 +20,16 @@ export default function Landing() {
   }, []);
   return (
     <div className={s.landing}>
-      <Hero />
+      {/*<Hero />*/}
+      <BasicHero />
+
       <Chain />
       <LegoV2 />
       <BitEth />
       <Ecosystem />
       {mobileScreen || tabletScreen ? <ScaleableMobile /> : <ScalableSlide />}
       {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
-      <JoinAllowList isFooter={true}/>
+      <JoinAllowList isFooter={true} />
     </div>
   );
 }

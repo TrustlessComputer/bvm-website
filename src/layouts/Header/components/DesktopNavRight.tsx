@@ -49,14 +49,14 @@ export const DesktopNavRight = (props: Props) => {
       ))}
 
       {!isLogged ? (
-        <ButtonLoginTwitter color={props.primaryColor || 'black'} />
+        <ButtonLoginTwitter color={'white'} />
       ) : (
         <UserInforBox />
       )}
 
-      <Link href={'/blockchains/customize'} className={s.tryBVm}>
-        Try BVM
-      </Link>
+      {/*<Link href={'/blockchains/customize'} className={s.tryBVm}>*/}
+      {/*  Try BVM*/}
+      {/*</Link>*/}
 
       {/*<Link*/}
       {/*  href={'https://github.com/trustlesscomputer/'}*/}

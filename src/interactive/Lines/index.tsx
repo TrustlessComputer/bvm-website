@@ -6,11 +6,12 @@ import useAnimation from '@/hooks/useAnimation';
 import { useGSAP } from '@gsap/react';
 
 interface IProp extends PropsWithChildren {
-  delay?: number,
+  delay?: number;
+  delayEnter?: number;
   from?: gsap.TweenVars
   to?: gsap.TweenVars
 };
-export default function Lines({ children, delay, from, to }: IProp) {
+export default function Lines({ children, delay, delayEnter = undefined, from, to }: IProp) {
   const refContent = useRef<HTMLDivElement>(null);
   const refWords = useRef<any>();
   const { contextSafe } = useGSAP(() => {
@@ -23,10 +24,10 @@ export default function Lines({ children, delay, from, to }: IProp) {
     refWords.current = text.lines;
   });
 
-  const playAnimation = contextSafe(() => {
+  const playAnimation = contextSafe((dl = 0) => {
     refWords.current && gsap.to(refWords.current, {
       ...{
-        delay,
+        delay: dl,
         opacity: 1, y: '0%', ease: 'power3.out', duration: .8, stagger: .05,
       }, ...to,
     });
@@ -37,6 +38,8 @@ export default function Lines({ children, delay, from, to }: IProp) {
     playAnimation,
     initAnimation,
     threshold: 50,
+    delayEnter,
+    delay
   });
 
   return <div ref={refContent} className={s.chars}>
