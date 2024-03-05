@@ -4,7 +4,14 @@
   width: 100vw;
   width: 100%;
   background-color: white;
-  height: calc(100vh - 76px);
+  height: 100%;
+
+  @include is-tablet {
+    height: calc(100vh - 76px);
+  }
+  @include is-pc {
+    height: calc(100vh - 76px);
+  }
 
   &_bg {
     position: absolute;
