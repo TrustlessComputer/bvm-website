@@ -1,0 +1,164 @@
+.basicHero {
+  background: #F3F1E8;
+  color: black;
+  padding-top: 80px;
+
+  @include is-min-table {
+    padding-top: 220px;
+  }
+
+  &_container {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: revert;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 80px;
+
+    @include is-min-table {
+      padding-bottom: 170px;
+    }
+
+    @include is-min-table {
+      flex-flow: row;
+    }
+  }
+
+  .left {
+    flex: 0 0 100%;
+    margin-bottom: 34px;
+    text-align: center;
+
+    @include is-pc {
+      flex: 0 0 600px;
+      text-align: left;
+      margin-bottom: 0;
+    }
+  }
+
+  .right {
+    flex: 0 0 100%;
+    text-align: center;
+
+    @include is-pc {
+      text-align: left;
+      flex: 0 0 860px;
+    }
+
+    video {
+      object-fit: contain;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+
+  .heading {
+
+    font-weight: 400;
+    line-height: (77/64);
+    letter-spacing: 0em;
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 24px;
+
+    @include is-min-table {
+      font-size: 48px;
+    }
+
+    @include is-pc {
+      text-align: left;
+      font-size: 64px;
+    }
+  }
+
+  .desc {
+
+    font-weight: 400;
+    line-height: (36/24);
+    letter-spacing: 0em;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 24px;
+
+    @include is-min-table {
+      font-size: 18px;
+    }
+
+    @include is-pc {
+      font-size: 24px;
+      text-align: left;
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    list-style: none;
+    justify-content: center;
+
+    @include is-pc {
+      justify-content: flex-start;
+    }
+  }
+
+
+  .btn {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 400;
+    line-height: (19/16);
+    letter-spacing: 0.01em;
+    text-align: center;
+    transition: background-color .4s var(--easeOutQuart);
+    font-size: 14px;
+    height: 48px;
+    padding-left: 18px;
+    padding-right: 18px;
+    color: #FA4E0E;
+
+
+    @include is-pc {
+      font-size: 16px;
+      padding-left: 28px;
+      padding-right: 28px;
+    }
+
+    &__red {
+      background: #FA4E0E;
+      color: white;
+
+      &:hover {
+        background: #e64e0e;
+      }
+    }
+  }
+}
+
+
+.wrapVideo {
+  position: relative;
+
+  &.isplay {
+    .bg {
+      opacity: 0;
+    }
+  }
+
+  .bg {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    object-fit: cover;
+    position: absolute;
+    opacity: 1;
+    transition: opacity .4s ease-out;
+    pointer-events: none;
+  }
+}

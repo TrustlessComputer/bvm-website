@@ -5,7 +5,11 @@ import Landing from '@/modules/landing';
 
 export default function Home() {
   return (
-    <MainLayout>
+    <MainLayout
+      headerProps={{
+        color: 'black',
+      }}
+    >
       <Landing />
     </MainLayout>
   );

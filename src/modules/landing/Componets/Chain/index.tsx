@@ -130,15 +130,17 @@ export default function Chain() {
   return (
     <Cursor>
       <div className={s.chain}>
-        <div className="container">
+        <div className='container'>
           <section className={s.chain_inner}>
-            <p className={s.chain_case}>Case studies</p>
+            <p className={s.chain_case}><Fade delayEnter={1.8}>
+              Case studies
+            </Fade></p>
             <HeadingSection className={s.chain_heading}>
-              <Chars>
+              <Chars delayEnter={2}>
                 Say hello to the first <b>modular Bitcoin L2 blockchains</b> powered by BVM.
               </Chars>
             </HeadingSection>
-            <Fade delay={0.6}>
+            <Fade delay={0.6} delayEnter={2.2}>
               <HStack
                 justify={'center'}
                 align={'center'}

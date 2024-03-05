@@ -2,7 +2,6 @@ import s from './styles.module.scss';
 import ItemHero from '@/modules/landing/Componets/Hero/ItemHero';
 import Image from 'next/image';
 import Fade from '@/interactive/Fade';
-import ModalVideo from 'react-modal-video';
 import React, { useState } from 'react';
 
 const DATA_HERO = [
@@ -37,23 +36,32 @@ const DATA_HERO = [
   {
     icon: '/landing/ic-avail.svg',
     title: 'Avail',
+  }, {
+    icon: '/icons/filecoin.svg',
+    title: 'Filecoin',
+  },
+  {
+    icon: '/icons/syscoin.svg',
+    title: 'Syscoin',
+  },  {
+    icon: '/icons/bitcoin-stamps.svg',
+    title: 'Bitcoin Stamps',
   },
 ];
 
-const DELAY = 7;
 
 export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
-  const delay = !isMobile ? DELAY : 0;
+  const delay = !isMobile ? 1.5 : 0;
 
   return (
-    <div className={`${s.heroLabel} ${isMobile && s.heroLabel__mobile}`}>
+    <div className={`${s.heroLabel}`}>
       <div className={s.content}>
         <div className={`${s.inner} heroLabel_inner`}>
           <Fade delay={delay}>
             <div className={s.heroLabel_content}>
               <Image
                 src={'/landing/svg/lego_icon_cube.svg'}
-                alt="cube"
+                alt='cube'
                 width={32}
                 height={32}
               />

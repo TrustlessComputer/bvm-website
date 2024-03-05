@@ -49,13 +49,21 @@ export const DesktopNavRight = (props: Props) => {
         </>
       ))}
 
+<<<<<<< HEAD
       {<ContactUs />}
 
       {!isLogged ? <ButtonLoginTwitter color={'white'} /> : <UserInforBox />}
+=======
+      {!isLogged ? (
+        <ButtonLoginTwitter color={'white'} />
+      ) : (
+        <UserInforBox />
+      )}
+>>>>>>> main
 
-      <Link href={'/blockchains/customize'} className={s.tryBVm}>
-        Try BVM
-      </Link>
+      {/*<Link href={'/blockchains/customize'} className={s.tryBVm}>*/}
+      {/*  Try BVM*/}
+      {/*</Link>*/}
 
       {/*<Link*/}
       {/*  href={'https://github.com/trustlesscomputer/'}*/}

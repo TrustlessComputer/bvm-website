@@ -2,27 +2,14 @@
 
   padding-top: 48px;
   padding-bottom: 48px;
-
-  @include is-pc {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  &:not(.heroLabel__mobile) {
-    display: none;
-    @include is-pc {
-      display: block;
-    }
-  }
+  background: #F6F6F6;
 
   .inner {
     display: flex;
     gap: 12px;
     flex-direction: column;
-    @include is-min-table {
-      //justify-content: space-between;
-      //align-items: center;
-    }
+    width: 100%;
+    justify-content: space-between;
 
     @include is-mobile {
       flex-direction: column;
@@ -54,7 +41,7 @@
       font-size: 16px;
       line-height: 140%;
       font-weight: 400;
-      color: #fff;
+      color: #000;
 
       @include is-mobile {
         color: #000;
@@ -73,10 +60,6 @@
     flex-wrap: wrap;
     gap: 4px;
     justify-content: center;
-
-    //@include is-pc {
-    //  justify-content: flex-start;
-    //}
   }
 
   .content {

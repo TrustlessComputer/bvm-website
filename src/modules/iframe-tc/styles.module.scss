@@ -5,8 +5,21 @@
   justify-content: flex-start;
   min-height: 100dvh;
   background-color: #F3F1E8;
+  --s-top: 80px;
+  @include is-pc {
+    --s-top: 88px;
+  }
+  --mr-top: calc(var(--s-top) + 52px);
 
-  iframe{
-    height: calc(100dvh - 70px);
+  :global {
+    .banner_container {
+      bottom: auto !important;
+      top: var(--s-top) !important;
+    }
+  }
+
+  iframe {
+    height: calc(100dvh - var(--mr-top) - 2px);
+    margin-top: var(--mr-top);
   }
 }

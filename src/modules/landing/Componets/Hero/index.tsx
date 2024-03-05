@@ -3,7 +3,6 @@ import Intro from '@/modules/landing/Componets/Intro';
 import BgHero from '@/modules/landing/Componets/Hero/Bg';
 import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 import HeroContent from '@/modules/landing/Componets/Hero/Content';
-import JoinAllowList from '@/modules/landing/Componets/Hero/JoinAllowList';
 import React from 'react';
 import JoinAllowListHero from '@/modules/landing/Componets/Hero/JoinAllowListHero';
 import Banner from './Banner';

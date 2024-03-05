@@ -1,0 +1,48 @@
+.heading {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 335px;
+
+  @include is-tablet {
+    max-width: unset;
+    width: 560px;
+  }
+  @include is-pc {
+    max-width: unset;
+    width: 798px;
+  }
+
+  svg {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.wrap {
+
+}
+
+.desc {
+
+  margin-top: 16px;
+  font-weight: 400;
+  line-height: (29/24);
+  letter-spacing: 0em;
+  text-align: center;
+  color: black;
+  font-size: 16px;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include is-min-table {
+    font-size: 18px;
+    max-width: 100%;
+  }
+
+  @include is-pc {
+
+    font-size: 24px;
+  }
+}

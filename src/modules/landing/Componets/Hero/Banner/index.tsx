@@ -11,10 +11,10 @@ const Banner = (props: Props) => {
   const ContentReder = (): ReactElement => {
     return <div className={s.banner_wrapper}>
           <span className={s.text}>
-           $BVM TGE is coming on March 5th. Be one of the first to
+            The BVM Token Generation Event (TGE) is here.
           </span>
-      <Link href={'/bvm'} className={s.banner_link}>
-        Claim, Stake and Trade $BVM here
+      <Link href={'/tge'} className={s.banner_link}>
+        Be the first to claim
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'
@@ -33,9 +33,9 @@ const Banner = (props: Props) => {
   };
 
   return (
-    <div className={s.banner_container}>
+    <div className={`${s.banner_container} banner_container`}>
       {
-        !props.disabledAnimation ? <Fade from={{ y: 0 }} to={{ y: 0 }} delay={6 + 0.01}>
+        !props.disabledAnimation ? <Fade from={{ y: 0 }} to={{ y: 0 }} delay={.1}>
           <>
             {ContentReder()}
           </>

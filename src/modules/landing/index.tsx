@@ -1,6 +1,5 @@
 import useWindowSize from '@/hooks/useWindowSize';
 import Chain from './Componets/Chain';
-import Hero from './Componets/Hero';
 import ScaleableMobile from './Componets/ScaleableMobile';
 import s from './styles.module.scss';
 import Section_7 from '@/modules/landing/Componets/Section_7';
@@ -11,6 +10,8 @@ import BitEth from '@/modules/landing/Componets/BitEth';
 import Ecosystem from './Componets/Ecosystem';
 import LegoV2 from '@/modules/landing/Componets/LegoV2';
 import JoinAllowList from '@/modules/landing/Componets/Hero/JoinAllowList';
+import BasicHero from '@/modules/landing/Componets/BasicHero';
+import Loader from '@/modules/builder-landing/Loader';
 
 export default function Landing() {
   const { mobileScreen, tabletScreen } = useWindowSize();
@@ -19,14 +20,15 @@ export default function Landing() {
   }, []);
   return (
     <div className={s.landing}>
-      <Hero />
+      <Loader />
+      <BasicHero />
       <Chain />
       <LegoV2 />
       <BitEth />
       <Ecosystem />
       {mobileScreen || tabletScreen ? <ScaleableMobile /> : <ScalableSlide />}
       {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
-      <JoinAllowList isFooter={true}/>
+      <JoinAllowList isFooter={true} />
     </div>
   );
 }

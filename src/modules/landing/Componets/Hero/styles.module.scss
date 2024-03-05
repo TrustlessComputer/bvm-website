@@ -44,27 +44,21 @@
   }
 }
 
-.banner {
-  // position: absolute;
-  // top: 80px;
-}
-
 .banner_container {
   position: absolute;
   left: 0;
-  bottom: 0;
+  //bottom: 0;
+  top: 80px;
   width: 100vw;
 
   @include is-pc {
-    top: 80px;
-    bottom: auto;
+    top: 88px;
+    //bottom: auto;
   }
 
 }
 
 .banner_wrapper {
-  // transform: translateY(-80px);
-  // top: 80px;
 
   background: linear-gradient(90deg, #7F00FF 0%, #E100FF 100%);
   z-index: 100;
