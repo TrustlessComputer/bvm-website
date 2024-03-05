@@ -9,7 +9,7 @@ export default function TgeModule() {
   return (
     <div className={s.wrapper}>
       <div className={cn(s.inner, 'container')}>
-        <Heading />
+        <Heading /> 
         <SectionButton />
       </div>
       <Image

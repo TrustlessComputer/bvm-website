@@ -20,11 +20,11 @@
   max-width: 1087px;
   z-index: 222;
   position: relative;
-  padding-top: 0px;
+  padding-top: 120px;
   @include is-tablet {
-    padding-top: 120px;
+    padding-top: 240px;
   }
   @include is-pc {
-    padding-top: 160px;
+    padding-top: 284px;
   }
 }
