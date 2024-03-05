@@ -186,7 +186,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 textTransform={'uppercase'}
                 color={'#5B5B5B'}
               >
-                Your telegram handle (Optional)
+                Your telegram handle
               </Text>
               <Input
                 border="1px solid #CECECE"
@@ -234,7 +234,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 textTransform={'uppercase'}
                 color={'#5B5B5B'}
               >
-                Tell us more about your plan with your Bitcoin L2 (Optional)
+                Tell us more about your plan with your Bitcoin L2
               </Text>
               <Textarea
                 border="1px solid #CECECE"
