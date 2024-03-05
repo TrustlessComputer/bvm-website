@@ -2,11 +2,13 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  width: 335px;
+  max-width: 335px;
   @include is-tablet {
+    max-width: unset;
     width: 560px;
   }
   @include is-pc {
+    max-width: unset;
     width: 798px;
   }
 
