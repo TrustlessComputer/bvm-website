@@ -1,5 +1,5 @@
 import s from './styles.module.scss';
-import ModalVideo from 'react-modal-video';
+// import ModalVideo from 'react-modal-video';
 import React, { useState } from 'react';
 import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 import Scale from '@/interactive/Scale';
