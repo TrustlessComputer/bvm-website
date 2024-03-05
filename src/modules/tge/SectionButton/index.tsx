@@ -32,7 +32,7 @@ const DATA_BTN = [
         BVM stakers will earn tickets to <br/> participate in the $NAKA launchpad at <br/> <b>$1M FDV.</b>
       </>
     ),
-    btnTitle: 'Launchpad',
+    btnTitle: 'Join',
     link: 'https://nakachain.xyz/launchpad/detail/1'
   },
 ];
