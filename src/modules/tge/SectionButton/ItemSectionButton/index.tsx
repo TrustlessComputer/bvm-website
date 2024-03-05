@@ -28,8 +28,8 @@ export default function ItemSectionButton({
       <Lines delay={delay + 0.2}>
         <p className={s.item_desc}> {data.desc} </p>
       </Lines>
-      <Fade delay={delay + 0.3} from={{ y: 20 }} to={{ y: 0 }}>
-        <div className={s.item_btn}>
+      <div className={s.item_btn}>
+        <Fade delay={delay + 0.3} from={{ y: 20 }} to={{ y: 0 }}>
           <Button
             bgColor={'rgba(250, 78, 14, 1)'}
             color={'#fff'}
@@ -49,8 +49,8 @@ export default function ItemSectionButton({
           >
             {data.btnTitle}
           </Button>
-        </div>
-      </Fade>
+        </Fade>
+      </div>
     </div>
   );
 }
