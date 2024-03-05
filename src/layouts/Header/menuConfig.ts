@@ -216,7 +216,7 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   },
   {
     label: 'Join the community',
-    href: 'https://discord.gg/U8WHhx3WH3',
+    href: 'https://t.me/+rT0cmRXjs01kMzY1',
     isNewWindow: true,
     isHide: false,
   },
