@@ -20,7 +20,7 @@ export default function Lines({ children, delay, delayEnter = undefined, from, t
   const initAnimation = contextSafe(() => {
     if (!refContent.current) return;
     const text = new SplitType(refContent.current, { types: 'words' });
-    gsap.set(text.words, { ...{ opacity: 0, y: '100%' }, ...from });
+    gsap.set(text.words, { ...{ opacity: 0, y: '50%' }, ...from });
     refWords.current = text.words;
   });
 
@@ -28,7 +28,7 @@ export default function Lines({ children, delay, delayEnter = undefined, from, t
     refWords.current && gsap.to(refWords.current, {
       ...{
         delay: dl,
-        opacity: 1, y: '0%', ease: 'power3.out', duration: .8, stagger: .015,
+        opacity: 1, y: '0%', ease: 'power3.out', duration: .6, stagger: .005,
       }, ...to,
     });
   });

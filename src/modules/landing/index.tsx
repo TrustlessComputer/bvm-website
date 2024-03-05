@@ -22,7 +22,7 @@ export default function Landing() {
     <div className={s.landing}>
       <Loader />
       <BasicHero />
-      <Chain />
+      {/*<Chain />*/}
       <LegoV2 />
       <BitEth />
       <Ecosystem />

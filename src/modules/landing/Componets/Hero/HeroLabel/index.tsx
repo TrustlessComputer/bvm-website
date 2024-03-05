@@ -47,6 +47,14 @@ const DATA_HERO = [
     icon: '/icons/bitcoin-stamps.svg',
     title: 'Bitcoin Stamps',
   },
+  {
+    icon: '/icons/arweave.svg',
+    title: 'Arweave',
+  },
+  {
+    icon: '/icons/jackal.svg',
+    title: 'Jackal',
+  },
 ];
 
 

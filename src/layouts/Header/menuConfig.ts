@@ -114,6 +114,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isNewWindow: false,
   //   isHide: false,
   // },
+  {
+    label: 'Success Stories',
+    href: '/use-bitcoin',
+    isNewWindow: false,
+    isHide: false,
+  },
 
   {
     label: '$BVM',
