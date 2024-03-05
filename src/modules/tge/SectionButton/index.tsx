@@ -4,11 +4,10 @@ import s from './styles.module.scss';
 const DATA_BTN = [
   {
     number: 1,
-    title: 'Claim',
+    title: 'CLAIM',
     desc: (
       <>
-        The future of Bitcoin starts here! $BVM will be available for trading on{' '}
-        <b>Mar 12th</b>
+        You can now claim your $BVM tokens <br/> on Naka, <b>the first DeFi Bitcoin L2</b> <br/> powered by BVM.
       </>
     ),
     btnTitle: 'Claim',
@@ -16,10 +15,10 @@ const DATA_BTN = [
   },
   {
     number: 2,
-    title: 'Stake',
+    title: 'STAKE',
     desc: (
       <>
-        Earn up to <b>50% APR</b> and airdrops from Bitcoin L2 projects
+        Earn up to <b>58% APY</b> on your BVM and <br/> receive airdrops from upcoming Bitcoin <br/> L2 projects.
       </>
     ),
     btnTitle: 'Stake',
@@ -27,10 +26,10 @@ const DATA_BTN = [
   },
   {
     number: 3,
-    title: 'Launchpad',
+    title: 'LAUNCHPAD',
     desc: (
       <>
-        $BVM stakers will earn tickets to join $NAKA launchpad at <b>$1M FDV</b>
+        BVM stakers will earn tickets to <br/> participate in the $NAKA launchpad at <br/> <b>$1M FDV.</b>
       </>
     ),
     btnTitle: 'Launchpad',
