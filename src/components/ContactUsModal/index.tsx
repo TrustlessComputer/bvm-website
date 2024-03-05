@@ -61,12 +61,12 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
       if (!valideYourXAcc(yourXAcc)) {
         valid = false;
       }
-      if (!valideYourTelegramAcc(yourTelegramAcc)) {
-        valid = false;
-      }
-      if (!valideYourPlan(yourPlan)) {
-        valid = false;
-      }
+      // if (!valideYourTelegramAcc(yourTelegramAcc)) {
+      //   valid = false;
+      // }
+      // if (!valideYourPlan(yourPlan)) {
+      //   valid = false;
+      // }
 
       console.log('valid ', valid);
       if (valid) {
@@ -137,10 +137,11 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 color={'#5B5B5B'}
               >
                 Your X handle
+                <span className={s.reuiqredLabel}>(*)</span>
               </Text>
               <Input
                 border="1px solid #CECECE"
-                placeholder="Paste your X profile link here"
+                placeholder="Enter here"
                 _placeholder={{
                   color: 'grey',
                 }}
@@ -185,11 +186,11 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 textTransform={'uppercase'}
                 color={'#5B5B5B'}
               >
-                Your telegram handle
+                Your telegram handle (Optional)
               </Text>
               <Input
                 border="1px solid #CECECE"
-                placeholder="Paste your telegram link here"
+                placeholder="Enter here"
                 _placeholder={{
                   color: 'grey',
                 }}
@@ -199,7 +200,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 value={yourTelegramAcc}
                 onChange={(e: any) => {
                   setYourTelegramAcc(e.target.value);
-                  valideYourTelegramAcc(e.target.value);
+                  // valideYourTelegramAcc(e.target.value);
                 }}
               />
               {yourTelegramAccErrMgs && (
@@ -233,7 +234,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 textTransform={'uppercase'}
                 color={'#5B5B5B'}
               >
-                Tell us more about your plan with your Bitcoin L2
+                Tell us more about your plan with your Bitcoin L2 (Optional)
               </Text>
               <Textarea
                 border="1px solid #CECECE"
@@ -247,7 +248,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 value={yourPlan}
                 onChange={(e: any) => {
                   setYouPlan(e.target.value);
-                  valideYourXAcc(e.target.value);
+                  // valideYourXAcc(e.target.value);
                 }}
               />
               {yourPlanErrMgs && (
