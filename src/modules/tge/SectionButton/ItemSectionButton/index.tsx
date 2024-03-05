@@ -9,9 +9,9 @@ import Chars from '@/interactive/Chars';
 import Lines from '@/interactive/Lines';
 
 export default function ItemSectionButton({
-  data,
-  delay,
-}: {
+                                            data,
+                                            delay,
+                                          }: {
   data: TButtonTGE;
   delay: number;
 }) {
@@ -31,6 +31,9 @@ export default function ItemSectionButton({
       <div className={s.item_btn}>
         <Fade delay={delay + 0.3} from={{ y: 20 }} to={{ y: 0 }}>
           <Button
+            onClick={() => {
+              window.open(data.link);
+            }}
             bgColor={'rgba(250, 78, 14, 1)'}
             color={'#fff'}
             borderRadius={0}

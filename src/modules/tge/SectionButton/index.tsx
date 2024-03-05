@@ -12,6 +12,7 @@ const DATA_BTN = [
       </>
     ),
     btnTitle: 'Claim',
+    link: 'https://nakachain.xyz/bvm-claim'
   },
   {
     number: 2,
@@ -22,6 +23,7 @@ const DATA_BTN = [
       </>
     ),
     btnTitle: 'Stake',
+    link: 'https://nakachain.xyz/staking'
   },
   {
     number: 3,
@@ -32,6 +34,7 @@ const DATA_BTN = [
       </>
     ),
     btnTitle: 'Launchpad',
+    link: 'https://nakachain.xyz/launchpad/detail/1'
   },
 ];
 export type TButtonTGE = (typeof DATA_BTN)[number];
