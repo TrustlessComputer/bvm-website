@@ -18,10 +18,11 @@ export default function BasicHero() {
       <div className={s.left}>
         <h1 className={s.heading}>
           <Chars delay={delay}>
-            Bitcoin L2
+            Bitcoin L2 <br />
             as a Service
           </Chars>
         </h1>
+
         <div className={s.desc}>
           <Lines delay={delay + .2}>
             Powerful infrastructure to build and scale your own Bitcoin L2 with ease.
@@ -37,7 +38,6 @@ export default function BasicHero() {
             <Fade delay={delay + .5}>
               <button className={`${s.btn}`}>Contact us</button>
             </Fade>
-
           </li>
         </ul>
       </div>
