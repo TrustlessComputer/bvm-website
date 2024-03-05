@@ -5,8 +5,10 @@
   justify-content: flex-start;
   min-height: 100dvh;
   background-color: #F3F1E8;
+  --s-top: 88px;
 
-  iframe{
-    height: calc(100dvh - 70px);
+  iframe {
+    height: calc(100dvh - var(--s-top));
+    margin-top: var(--s-top);
   }
 }

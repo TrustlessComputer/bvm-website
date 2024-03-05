@@ -3,6 +3,7 @@
 import { DOMAIN_URL, isDevelop, isLocal } from '@/config';
 import MainLayout from '@/layouts/MainLayout';
 import dynamic from 'next/dynamic';
+import React from 'react';
 
 const pathUrl = '/bvm-website-sats-iframe/buy';
 

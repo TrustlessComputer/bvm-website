@@ -2,9 +2,10 @@
 
 import useWindowSize from '@/hooks/useWindowSize';
 import { Flex, Spinner } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './styles.module.scss';
 import BoxContent from '@/layouts/BoxContent';
+import Banner from '@/modules/landing/Componets/Hero/Banner';
 
 interface IProps {
   iframeURL: string;
@@ -31,6 +32,9 @@ const IframeTC = (props: IProps) => {
   }
   return (
     <div className={s.container}>
+      <div className={s.banner}>
+        <Banner disabledAnimation={true} />
+      </div>
       <iframe
         id="TC_PAGE_IFRAME"
         src={props.iframeURL}
@@ -39,7 +43,6 @@ const IframeTC = (props: IProps) => {
         style={{
           border: 'none',
           opacity: iframeLoading ? 0 : 1,
-          marginTop: '70px',
         }}
         onLoad={() => {
           setIframeLoading(false);
