@@ -40,7 +40,7 @@ export default function SectionButton() {
   return (
     <div className={s.sectionBtn}>
       {DATA_BTN.map((item) => {
-        return <ItemSectionButton data={item} />;
+        return <ItemSectionButton key={item.number} data={item} />;
       })}
     </div>
   );
