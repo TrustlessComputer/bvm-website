@@ -2,16 +2,17 @@ import s from './styles.module.scss';
 import ModalVideo from 'react-modal-video';
 import React, { useState } from 'react';
 import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
-import Intro from '@/modules/landing/Componets/Intro';
 import Scale from '@/interactive/Scale';
 import Fade from '@/interactive/Fade';
 import Lines from '@/interactive/Lines';
 import Chars from '@/interactive/Chars';
 import Banner from '@/modules/landing/Componets/Hero/Banner';
+import { useRouter } from 'next/navigation';
 
 export default function BasicHero() {
   const [isOpen, setOpen] = useState(false);
   const delay = 1;
+  const router = useRouter();
 
   return <div className={s.basicHero}>
     <div className={s.hero_wrap}>
@@ -34,7 +35,7 @@ export default function BasicHero() {
         <ul className={s.actions}>
           <li>
             <Fade delay={delay + .4}>
-              <button className={`${s.btn} ${s.btn__red}`}>Launch your Bitcoin L2</button>
+              <button onClick={()=>router.push('/blockchains/customize')} className={`${s.btn} ${s.btn__red}`}>Launch your Bitcoin L2</button>
             </Fade>
           </li>
           {/*<li>*/}
