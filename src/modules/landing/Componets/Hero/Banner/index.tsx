@@ -13,7 +13,7 @@ const Banner = (props: Props) => {
           <span className={s.text}>
            $BVM TGE is coming on March 5th. Be one of the first to
           </span>
-      <Link href={'/bvm'} className={s.banner_link}>
+      <Link href={'/tge'} className={s.banner_link}>
         Claim, Stake and Trade $BVM here
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -35,7 +35,7 @@ const Banner = (props: Props) => {
   return (
     <div className={`${s.banner_container} banner_container`}>
       {
-        !props.disabledAnimation ? <Fade from={{ y: 0 }} to={{ y: 0 }} delay={6 + 0.01}>
+        !props.disabledAnimation ? <Fade from={{ y: 0 }} to={{ y: 0 }} delay={.1}>
           <>
             {ContentReder()}
           </>

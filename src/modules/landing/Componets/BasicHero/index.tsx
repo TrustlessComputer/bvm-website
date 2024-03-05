@@ -7,13 +7,16 @@ import Scale from '@/interactive/Scale';
 import Fade from '@/interactive/Fade';
 import Lines from '@/interactive/Lines';
 import Chars from '@/interactive/Chars';
-
+import Banner from '@/modules/landing/Componets/Hero/Banner';
 
 export default function BasicHero() {
   const [isOpen, setOpen] = useState(false);
   const delay = 1;
 
   return <div className={s.basicHero}>
+    <div className={s.hero_wrap}>
+      <Banner />
+    </div>
     <div className={`${s.basicHero_container} container`}>
       <div className={s.left}>
         <h1 className={s.heading}>
