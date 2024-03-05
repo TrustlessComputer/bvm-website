@@ -90,7 +90,7 @@ const UserInforBox: React.FC = (): React.ReactElement => {
           lineHeight={'16.8px'}
           fontWeight={400}
           overflow={'hidden'}
-          color={pathname === '/' ? 'white' : 'black'}
+          color={pathname === '/' ? 'black' : 'black'}
           textOverflow={'ellipsis'}
           whiteSpace={'nowrap'}
         >
