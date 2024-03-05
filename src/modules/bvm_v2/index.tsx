@@ -14,10 +14,10 @@ import Hero from './Hero';
 const BVMModule = () => {
   return (
     <div>
-      <div className={s.topHero}>
-        <Box h={['80px', '140px']} />
-        <Hero />
-      </div>
+      {/*<div className={s.topHero}>*/}
+      {/*  <Box h={['80px', '140px']} />*/}
+      {/*  <Hero />*/}
+      {/*</div>*/}
       <Box className={s.container}>
         <BoxContent minH={'100dvh'}>
           <Box h={['80px', '140px']} />
