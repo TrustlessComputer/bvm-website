@@ -43,6 +43,9 @@ const DATA_HERO = [
   {
     icon: '/icons/syscoin.svg',
     title: 'Syscoin',
+  },  {
+    icon: '/icons/bitcoin-stamps.svg',
+    title: 'Bitcoin Stamps',
   },
 ];
 

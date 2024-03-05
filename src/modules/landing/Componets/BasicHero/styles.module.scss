@@ -1,14 +1,23 @@
 .basicHero {
   background: #F3F1E8;
   color: black;
-  padding-top: 220px;
+  padding-top: 80px;
+
+  @include is-min-table {
+    padding-top: 220px;
+  }
 
   &_container {
     display: flex;
     justify-content: space-between;
     flex-flow: revert;
     align-items: center;
-    padding-bottom: 170px;
+    flex-wrap: wrap;
+    padding-top: 80px;
+
+    @include is-min-table {
+      padding-bottom: 170px;
+    }
 
     @include is-min-table {
       flex-flow: row;
@@ -16,11 +25,25 @@
   }
 
   .left {
-    flex: 0 0 600px;
+    flex: 0 0 100%;
+    margin-bottom: 34px;
+    text-align: center;
+
+    @include is-pc {
+      flex: 0 0 600px;
+      text-align: left;
+      margin-bottom: 0;
+    }
   }
 
   .right {
-    flex: 0 0 860px;
+    flex: 0 0 100%;
+    text-align: center;
+
+    @include is-pc {
+      text-align: left;
+      flex: 0 0 860px;
+    }
 
     img {
       width: 100%;
@@ -34,7 +57,7 @@
     font-weight: 400;
     line-height: (77/64);
     letter-spacing: 0em;
-    text-align: left;
+    text-align: center;
     font-size: 34px;
     margin-bottom: 24px;
 
@@ -43,6 +66,7 @@
     }
 
     @include is-pc {
+      text-align: left;
       font-size: 64px;
     }
   }
@@ -52,7 +76,7 @@
     font-weight: 400;
     line-height: (36/24);
     letter-spacing: 0em;
-    text-align: left;
+    text-align: center;
     font-size: 14px;
     margin-bottom: 24px;
 
@@ -62,6 +86,7 @@
 
     @include is-pc {
       font-size: 24px;
+      text-align: left;
     }
   }
 
@@ -70,6 +95,11 @@
     align-items: center;
     gap: 10px;
     list-style: none;
+    justify-content: center;
+
+    @include is-pc {
+      justify-content: flex-start;
+    }
   }
 
 

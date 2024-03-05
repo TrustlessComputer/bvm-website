@@ -47,12 +47,13 @@
 .banner_container {
   position: absolute;
   left: 0;
-  bottom: 0;
+  //bottom: 0;
+  top: 80px;
   width: 100vw;
 
   @include is-pc {
     top: 88px;
-    bottom: auto;
+    //bottom: auto;
   }
 
 }

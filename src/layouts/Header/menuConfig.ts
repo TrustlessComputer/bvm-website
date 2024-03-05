@@ -265,11 +265,11 @@ export const NAV_ITEMS: Array<NavItem> = [
   //   isNewWindow: true,
   //   isHide: false,
   // },
-  {
-    label: 'Try BVM',
-    isTwitter: true,
-    href: '/blockchains/customize',
-    isNewWindow: false,
-    isHide: false,
-  },
+  // {
+  //   label: 'Try BVM',
+  //   isTwitter: true,
+  //   href: '/blockchains/customize',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
 ].filter((item) => !item.isHide);
