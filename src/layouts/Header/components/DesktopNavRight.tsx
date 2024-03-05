@@ -49,17 +49,9 @@ export const DesktopNavRight = (props: Props) => {
         </>
       ))}
 
-<<<<<<< HEAD
-      {!isLogged ? (
-        <ButtonLoginTwitter color={props.primaryColor || 'black'} />
-      ) : (
-        <UserInforBox />
-      )}
-=======
       {<ContactUs />}
 
       {!isLogged ? <ButtonLoginTwitter color={'white'} /> : <UserInforBox />}
->>>>>>> d39c4248 (Add contct us)
 
       <Link href={'/blockchains/customize'} className={s.tryBVm}>
         Try BVM
