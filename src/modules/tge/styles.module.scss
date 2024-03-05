@@ -5,11 +5,12 @@
   width: 100%;
   background-color: white;
   height: 100%;
+  min-height: calc(100vh - 76px);
 
   @include is-tablet {
-    height: calc(100vh - 76px);
   }
   @include is-pc {
+    min-height: unset;
     height: calc(100vh - 76px);
   }
 
@@ -27,11 +28,16 @@
   max-width: 1087px;
   z-index: 222;
   position: relative;
-  padding-top: 120px;
+  padding-top: 60px;
+
   @include is-tablet {
-    padding-top: 240px;
+    padding-top: 120px;
   }
   @include is-pc {
-    padding-top: 301px;
+    position: absolute;
+    padding-top: 0px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
