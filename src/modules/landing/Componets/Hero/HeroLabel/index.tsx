@@ -37,10 +37,17 @@ const DATA_HERO = [
   {
     icon: '/landing/ic-avail.svg',
     title: 'Avail',
+  }, {
+    icon: '/icons/filecoin.svg',
+    title: 'Filecoin',
+  },
+  {
+    icon: '/icons/syscoin.svg',
+    title: 'Syscoin',
   },
 ];
 
-const DELAY = 7;
+const DELAY = .5;
 
 export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
   const delay = !isMobile ? DELAY : 0;
@@ -53,7 +60,7 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
             <div className={s.heroLabel_content}>
               <Image
                 src={'/landing/svg/lego_icon_cube.svg'}
-                alt="cube"
+                alt='cube'
                 width={32}
                 height={32}
               />

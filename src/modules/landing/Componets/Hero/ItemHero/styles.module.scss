@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff33;
+    background: #FFFFFF;
     height: 80px;
     width: fit-content;
     padding-left: 12px;
@@ -21,14 +21,14 @@
     }
 
     @include is-mobile {
-      background-color: #f6f6f6;
+      //background-color: #f6f6f6;
       width: calc(33vw - 30px);
       align-items: center;
       aspect-ratio: 1;
     }
 
     @include is-tablet {
-      background-color: #f6f6f6;
+      //background-color: #f6f6f6;
       width: calc(33vw - 30px);
       align-items: center;
       aspect-ratio: 1;
@@ -51,7 +51,7 @@
       line-height: 16px;
       font-weight: 400;
       text-align: center;
-      color: #fff;
+      color: #000;
 
       @include is-mobile {
         color: #000;
