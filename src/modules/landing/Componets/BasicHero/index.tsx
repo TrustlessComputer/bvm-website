@@ -37,11 +37,11 @@ export default function BasicHero() {
               <button className={`${s.btn} ${s.btn__red}`}>Launch your Bitcoin L2</button>
             </Fade>
           </li>
-          <li>
-            <Fade delay={delay + .5}>
-              <button className={`${s.btn}`}>Contact us</button>
-            </Fade>
-          </li>
+          {/*<li>*/}
+          {/*  <Fade delay={delay + .5}>*/}
+          {/*    <button className={`${s.btn}`}>Contact us</button>*/}
+          {/*  </Fade>*/}
+          {/*</li>*/}
         </ul>
       </div>
       <div className={s.right} onClick={() => {
