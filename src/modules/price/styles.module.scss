@@ -1,5 +1,4 @@
 .price {
-
   background-color: white;
   padding-top: 180px;
   padding-bottom: 80px;
@@ -20,7 +19,6 @@
     }
 
     span {
-
       line-height: 1.3;
       font-size: 16px;
 
@@ -30,7 +28,6 @@
     }
 
     h1 {
-
       line-height: 1.3;
       font-weight: 600;
       font-size: 34px;
@@ -38,7 +35,6 @@
       @include is-min-table {
         font-size: 56px;
       }
-
     }
   }
 
@@ -48,17 +44,16 @@
   }
 }
 
-
 .tooltip {
   display: flex;
   align-items: center;
   gap: 5px;
 
   img {
-    transform: translateY(-.1em);
+    transform: translateY(-0.1em);
   }
 
-  ul{
+  ul {
     list-style: inside;
   }
 }

@@ -19,6 +19,7 @@ export interface IBaseModalProps {
   size?: 'small' | 'normal' | 'extra' | 'custom';
   description?: string;
   headerClassName?: string;
+  icCloseUrl?: string;
 }
 
 const BaseModal = (
@@ -33,6 +34,7 @@ const BaseModal = (
     description,
     headerClassName,
     size = 'normal',
+    icCloseUrl = '/icons/ic_close_modal.svg',
   } = props;
 
   return (
@@ -42,10 +44,7 @@ const BaseModal = (
         <ModalHeader className={cs(s.modalHeader, headerClassName)}>
           <Flex justifyContent="space-between" alignItems="center">
             <button onClick={onHide} className={s.modalHeader_closeBtn}>
-              <SvgInset
-                className={s.closeIcon}
-                svgUrl={`/icons/ic_close_modal.svg`}
-              />
+              <SvgInset className={s.closeIcon} svgUrl={icCloseUrl} />
             </button>
             <p className={s.modalHeader_title}>{title || ''}</p>
           </Flex>
