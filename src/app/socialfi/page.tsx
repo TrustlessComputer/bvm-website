@@ -10,10 +10,10 @@ const SocialFiPage = () => {
         color: 'black',
       }}
     >
-     <>
-       <Loader />
-       <SocialFiModule />
-     </>
+      <>
+        <Loader />
+        <SocialFiModule />
+      </>
     </MainLayout>
   );
 };
