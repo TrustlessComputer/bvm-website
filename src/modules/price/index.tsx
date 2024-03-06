@@ -6,6 +6,7 @@ import { estimateTotalCostAPI } from '@/services/api/l2services';
 import {
   ParamsEstCostDABitcoinPolygon,
   ParamsEstCostOnlyBitcoin,
+  getParamsEstCostOnlyBitcoin,
 } from './Pricing.constant';
 import Loading from '@/components/Loading';
 import { dataFormater } from './Pricing.helper';
@@ -24,15 +25,29 @@ const PriceModule = () => {
   const fetchData = async () => {
     try {
       setFetchingData(true);
-      const [bitcoinPolygonData, onlyBitcoinDat] = await Promise.all([
+      const [
+        bitcoinPolygonData,
+        onlyBitcoinData_10s,
+        onlyBitcoinData_5s,
+        onlyBitcoinData_2s,
+      ] = await Promise.all([
         estimateTotalCostAPI(ParamsEstCostDABitcoinPolygon),
-        estimateTotalCostAPI(ParamsEstCostOnlyBitcoin),
+        estimateTotalCostAPI(getParamsEstCostOnlyBitcoin(10)),
+        estimateTotalCostAPI(getParamsEstCostOnlyBitcoin(5)),
+        estimateTotalCostAPI(getParamsEstCostOnlyBitcoin(2)),
       ]);
 
       const bitcoinPolygonDataFormater = dataFormater(bitcoinPolygonData);
-      const onlyBitcoinDataFormater = dataFormater(onlyBitcoinDat);
+      const onlyBitcoinData_10s_Formater = dataFormater(onlyBitcoinData_10s);
+      const onlyBitcoinData_5s_Formater = dataFormater(onlyBitcoinData_5s);
+      const onlyBitcoinData_2s_Formater = dataFormater(onlyBitcoinData_2s);
 
-      setAPIData([bitcoinPolygonDataFormater, onlyBitcoinDataFormater]);
+      setAPIData([
+        bitcoinPolygonDataFormater,
+        onlyBitcoinData_10s_Formater,
+        onlyBitcoinData_5s_Formater,
+        onlyBitcoinData_2s_Formater,
+      ]);
       retryCount = 0;
     } catch (error) {
       console.log('[fetchData] ERROR --- ', error);
@@ -60,6 +75,9 @@ const PriceModule = () => {
       <div className={s.price_inner}>
         <div className={`${s.price_container} container`}>
           <PriceCard
+            style={{
+              flex: 0.7,
+            }}
             isPlaceholder={true}
             network={'Network'}
             portocol={'Rollup Protocol'}
@@ -116,9 +134,16 @@ const PriceModule = () => {
                     <div>
                       <b>Optional</b>
                       <ul>
-                        <li> Block Time: 5s (+1685 BVM monthly)</li>
+                        <li>
+                          {' '}
+                          Block Time: 5s (+{apiData[2]?.TotalCost || 0} BVM
+                          monthly)
+                        </li>
 
-                        <li>Block Time: 2s (+6740 BVM monthly)</li>
+                        <li>
+                          Block Time: 2s (+{apiData[3]?.TotalCost || 0} BVM
+                          monthly)
+                        </li>
                       </ul>
                     </div>
                   </Tooltip>
