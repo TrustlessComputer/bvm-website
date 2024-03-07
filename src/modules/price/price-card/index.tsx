@@ -14,6 +14,7 @@ interface IProp extends PropsWithChildren {
   isPlaceholder?: boolean;
   iseSelected?: boolean;
   packageX?: 'isFree' | 'isEss' | 'isPro' | 'isCustom';
+  style?: any;
 }
 
 export default function PriceCard({
@@ -30,9 +31,11 @@ export default function PriceCard({
   iseSelected,
   packageX,
   children,
+  style,
 }: IProp) {
   return (
     <div
+      style={style}
       className={`${s.priceCard} ${isPlaceholder && s.isPlaceholder} ${
         iseSelected && s.iseSelected
       }`}

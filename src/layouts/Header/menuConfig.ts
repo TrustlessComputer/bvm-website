@@ -80,7 +80,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   },
 
   {
-    label: 'Solution',
+    label: 'Solutions',
     // href: DEVELOPERS_DOC_URL,
     isNewWindow: false,
     isHide: false,
@@ -114,6 +114,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isNewWindow: false,
   //   isHide: false,
   // },
+  {
+    label: 'Success Stories',
+    href: '/use-bitcoin',
+    isNewWindow: false,
+    isHide: false,
+  },
 
   {
     label: '$BVM',

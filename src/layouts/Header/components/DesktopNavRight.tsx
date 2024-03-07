@@ -38,7 +38,7 @@ export const DesktopNavRight = (props: Props) => {
                 textAlign={'center'}
                 fontSize={['14px', '16px']}
                 lineHeight={'110%'}
-                fontWeight={500}
+                fontWeight={400}
                 color={props.primaryColor || 'black'}
                 _hover={{}}
               >

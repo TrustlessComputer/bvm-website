@@ -1,6 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 import floor from 'lodash/floor';
 import { ceil } from 'lodash';
+import { IOrderBuyEstimateRespone } from '@/services/api/l2services/types';
 
 interface IAmount {
   originalAmount?: number;

@@ -1,5 +1,7 @@
+import 'react-tooltip/dist/react-tooltip.css';
 import { Button, Flex } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { Tooltip } from 'react-tooltip';
+import React, { useEffect, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import Fade from '@/interactive/Fade';
@@ -11,28 +13,33 @@ import dayjs from 'dayjs';
 import { PUBLIC_SALE_END } from '@/modules/Whitelist';
 import { CDN_URL_ICONS } from '@/config';
 import { getPublicSaleSummary } from '@/services/public-sale';
-import { checkIsEndPublicSale, checkIsPublicSale } from '@/modules/Whitelist/utils';
+import {
+  checkIsEndPublicSale,
+  checkIsPublicSale,
+} from '@/modules/Whitelist/utils';
 import cs from 'classnames';
 import ModalVideo from 'react-modal-video';
 import SvgInset from '@/components/SvgInset';
 import { MenuBuild } from '@/layouts/Header/menuConfig';
+import useWindowSize from '@/hooks/useWindowSize';
 
 const DELAY = 2;
-const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
+const JoinAllowList = ({ isFooter }: { isFooter?: boolean }) => {
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
   const [totalUser, setTotalUser] = useState<string>('');
   const [totalDeposit, setTotalDeposit] = useState('');
   const [listUser, setListUser] = useState<ILeaderBoardPoint[]>([]);
-
-  const isPublicSale = React.useMemo(() => checkIsPublicSale(), [])
-
+  const [isCopied, setIsCopied] = useState<boolean>(false);
+  const isPublicSale = React.useMemo(() => checkIsPublicSale(), []);
+  const addressRef = useRef<HTMLParagraphElement>(null);
+  const { isDesktop } = useWindowSize();
   const getCount = async () => {
     try {
       if (isPublicSale) {
         const response = await getPublicSaleSummary();
         setTotalUser(response.total_user.toString());
-        setTotalDeposit(response.total_usdt_value_not_boost.toString())
+        setTotalDeposit(response.total_usdt_value_not_boost.toString());
       } else {
         const response = await getTopLeaderBoards({ page: 1, limit: 20 });
         const topWhiteList = response.data.filter((item, index) => index < 5);
@@ -48,16 +55,36 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
     getCount();
   }, [isPublicSale]);
 
-  const isEnded = React.useMemo(() => checkIsEndPublicSale(), [])
+  const isEnded = React.useMemo(() => checkIsEndPublicSale(), []);
 
   const delay = isFooter ? 0 : DELAY;
   const [isOpen, setOpen] = useState(false);
 
+  const handleCoppy = () => {
+    var textField = document.createElement('textarea');
+    textField.innerText = addressRef.current!.textContent!;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand('copy');
+    textField.remove();
+    setIsCopied(true);
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsCopied(false);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [isCopied]);
   return (
     <Fade delay={delay}>
       <div className={`${s.container} ${isFooter && s.isFooter}`}>
         <div className={`container ${s.content}`}>
-          <Flex flexDirection={'column'} gap={'8px'}>
+          <Flex
+            flexDirection={'column'}
+            alignItems={isDesktop ? 'unset' : 'center'}
+            gap={'8px'}
+          >
             {/*<Fade delay={delay + .2}>
               <div className={s.titleWrapper}>
                 <div className={cs(s.title)}>{"WELCOME TO THE FUTURE OF BITCOIN"}</div>
@@ -65,24 +92,29 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
             </Fade>*/}
             <div className={cs(s.desc)}>
               {isPublicSale ? (
-                (!!totalUser && Number(totalUser || 0)) ? (
-                  <Chars delay={delay + .4}>
+                !!totalUser && Number(totalUser || 0) ? (
+                  <Chars delay={delay + 0.4}>
                     Experience Bitcoin like never before.
                   </Chars>
                 ) : (
-                  <Chars delay={delay + .4}>
+                  <Chars delay={delay + 0.4}>
                     Back us building the future of Bitcoin
                   </Chars>
                 )
               ) : (
-                <Chars delay={delay + .4}>
+                <Chars delay={delay + 0.4}>
                   Be the first to know.
                   <br />
                   Allowlisters get up to <span>&nbsp;30% extra tokens</span>.
                 </Chars>
               )}
             </div>
-            <Flex direction={["column", "row"]} alignItems={"center"} gap={"24px"} marginTop={"16px"}>
+            <Flex
+              direction={['column', 'row']}
+              alignItems={'center'}
+              gap={'24px'}
+              marginTop={'16px'}
+            >
               <Button
                 className={s.button}
                 onClick={() => {
@@ -92,35 +124,59 @@ const JoinAllowList = ({isFooter}: {isFooter?: boolean}) => {
                 Use Bitcoin
               </Button>
               <div className={s.dropMenu}>
-                <Button
-                  className={s.buttonBuild}
-                >
-                  Build on Bitcoin
-                </Button>
+                <Button className={s.buttonBuild}>Build on Bitcoin</Button>
                 <ul className={s.dropMenu_list}>
-                  {
-                    MenuBuild?.subMenu.map((item) => {
-                      return (<li className={s.listItem}>
-                        <a href={item.href} target={item?.isNewWindow ? '_blank' : '_self'} style={{ color: 'black' }}>
-                          {
-                            item.label
-                          }
-                          <SvgInset svgUrl={`landing/images/basil_arrow-up-outline.svg`} />
+                  {MenuBuild?.subMenu.map((item) => {
+                    return (
+                      <li className={s.listItem}>
+                        <a
+                          href={item.href}
+                          target={item?.isNewWindow ? '_blank' : '_self'}
+                          style={{ color: 'black' }}
+                        >
+                          {item.label}
+                          <SvgInset
+                            svgUrl={`landing/images/basil_arrow-up-outline.svg`}
+                          />
                         </a>
-                      </li>);
-                    })
-                  }
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </Flex>
+            <Fade delay={delay + 0.3} className={s.contract_fade}>
+              <div id="coppy" onClick={handleCoppy} className={cs(s.contract)}>
+                <p>
+                  <b>BVM token contract: &nbsp;</b>
+                  <span ref={addressRef}>
+                    0x069d89974f4edabde69450f9cf5cf7d8cbd2568d
+                  </span>
+                </p>
+              </div>
+            </Fade>
+            <Tooltip anchorSelect="#coppy" clickable>
+              <p>{isCopied ? 'Copied' : 'Copy'}</p>
+            </Tooltip>
           </Flex>
 
           <Flex gap={5} flexDirection={'column'}>
-            <Fade delay={delay + .6}>
+            <Fade delay={delay + 0.6}>
               <div>
-                <a href={'#'} onClick={() => setOpen(true)} style={{textAlign: 'center', display: 'block'}}>
-                  <img src={`/public-sale/btn-play-4.png`} width={224} alt={'right'} style={{margin: 'auto', marginBottom: '8px'}}/>
-                  <span style={{fontSize: '14px', fontWeight: 400}}>What is BVM?</span>
+                <a
+                  href={'#'}
+                  onClick={() => setOpen(true)}
+                  style={{ textAlign: 'center', display: 'block' }}
+                >
+                  <img
+                    src={`/public-sale/btn-play-4.png`}
+                    width={224}
+                    alt={'right'}
+                    style={{ margin: 'auto', marginBottom: '8px' }}
+                  />
+                  <span style={{ fontSize: '14px', fontWeight: 400 }}>
+                    What is BVM?
+                  </span>
                 </a>
               </div>
               {/*<Button

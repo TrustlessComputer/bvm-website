@@ -1,5 +1,5 @@
 .basicHero {
-  background: #F3F1E8;
+  background: #f3f1e8;
   color: black;
   padding-top: 80px;
 
@@ -20,7 +20,12 @@
     }
 
     @include is-min-table {
-      flex-flow: row;
+      flex-flow: row wrap;
+      justify-content: center;
+    }
+    @include is-pc-wide {
+      gap: unset;
+      justify-content: space-between;
     }
   }
 
@@ -32,6 +37,9 @@
     @include is-pc {
       flex: 0 0 600px;
       text-align: left;
+    }
+
+    @include is-pc-wide {
       margin-bottom: 0;
     }
   }
@@ -45,15 +53,14 @@
       flex: 0 0 860px;
     }
 
-    img {
+    video {
+      object-fit: contain;
       width: 100%;
       height: auto;
     }
   }
 
-
   .heading {
-
     font-weight: 400;
     line-height: (77/64);
     letter-spacing: 0em;
@@ -72,7 +79,6 @@
   }
 
   .desc {
-
     font-weight: 400;
     line-height: (36/24);
     letter-spacing: 0em;
@@ -102,9 +108,7 @@
     }
   }
 
-
   .btn {
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,13 +117,12 @@
     line-height: (19/16);
     letter-spacing: 0.01em;
     text-align: center;
-    transition: background-color .4s var(--easeOutQuart);
+    transition: background-color 0.4s var(--easeOutQuart);
     font-size: 14px;
     height: 48px;
     padding-left: 18px;
     padding-right: 18px;
-    color: #FA4E0E;
-
+    color: #fa4e0e;
 
     @include is-pc {
       font-size: 16px;
@@ -128,12 +131,35 @@
     }
 
     &__red {
-      background: #FA4E0E;
+      background: #fa4e0e;
       color: white;
 
       &:hover {
         background: #e64e0e;
       }
     }
+  }
+}
+
+.wrapVideo {
+  position: relative;
+
+  &.isplay {
+    .bg {
+      opacity: 0;
+    }
+  }
+
+  .bg {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    object-fit: cover;
+    position: absolute;
+    opacity: 1;
+    transition: opacity 0.4s ease-out;
+    pointer-events: none;
   }
 }

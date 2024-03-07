@@ -200,7 +200,7 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
           clientId: WEB3_AUTH_CLIENT_ID,
           uiConfig: {
             loginMethodsOrder: ['twitter'],
-            appName: 'BVM website',
+            appName: 'website',
             logoLight:
               'https://storage.googleapis.com/tc-cdn-prod/nbc/icons/bvm-icons/logo.png',
             logoDark:

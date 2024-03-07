@@ -61,12 +61,12 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
       if (!valideYourXAcc(yourXAcc)) {
         valid = false;
       }
-      if (!valideYourTelegramAcc(yourTelegramAcc)) {
-        valid = false;
-      }
-      if (!valideYourPlan(yourPlan)) {
-        valid = false;
-      }
+      // if (!valideYourTelegramAcc(yourTelegramAcc)) {
+      //   valid = false;
+      // }
+      // if (!valideYourPlan(yourPlan)) {
+      //   valid = false;
+      // }
 
       console.log('valid ', valid);
       if (valid) {
@@ -137,10 +137,18 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 color={'#5B5B5B'}
               >
                 Your X handle
+<<<<<<< HEAD
               </Text>
               <Input
                 border="1px solid #CECECE"
                 placeholder="Paste your X profile link here"
+=======
+                <span className={s.reuiqredLabel}>(*)</span>
+              </Text>
+              <Input
+                border="1px solid #CECECE"
+                placeholder="Enter here"
+>>>>>>> main
                 _placeholder={{
                   color: 'grey',
                 }}
@@ -189,7 +197,11 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
               </Text>
               <Input
                 border="1px solid #CECECE"
+<<<<<<< HEAD
                 placeholder="Paste your telegram link here"
+=======
+                placeholder="Enter here"
+>>>>>>> main
                 _placeholder={{
                   color: 'grey',
                 }}
@@ -199,7 +211,11 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 value={yourTelegramAcc}
                 onChange={(e: any) => {
                   setYourTelegramAcc(e.target.value);
+<<<<<<< HEAD
                   valideYourTelegramAcc(e.target.value);
+=======
+                  // valideYourTelegramAcc(e.target.value);
+>>>>>>> main
                 }}
               />
               {yourTelegramAccErrMgs && (
@@ -247,7 +263,11 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 value={yourPlan}
                 onChange={(e: any) => {
                   setYouPlan(e.target.value);
+<<<<<<< HEAD
                   valideYourXAcc(e.target.value);
+=======
+                  // valideYourXAcc(e.target.value);
+>>>>>>> main
                 }}
               />
               {yourPlanErrMgs && (

@@ -32,7 +32,6 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
 
   instance.interceptors.response.use(
     (res) => {
-      console.log('PHAT 0 ', res);
       const result = res?.data?.data || res?.data?.result || res?.data;
       if (res?.data?.count !== undefined) {
         result.count = res.data.count;

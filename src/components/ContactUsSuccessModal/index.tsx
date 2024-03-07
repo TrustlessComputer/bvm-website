@@ -28,14 +28,14 @@ const ContactUsSuccessModal = ({ isShow, onHide }: any) => {
           maxW={'78px'}
           maxH={'78px'}
         />
-        <Text
+        {/* <Text
           fontSize={'32px'}
           fontWeight={500}
           lineHeight={'34px'}
           color={'#1C1C1C'}
         >
           Submission Received
-        </Text>
+        </Text> */}
         <Text
           fontSize={'20px'}
           fontWeight={400}
