@@ -7,7 +7,8 @@ import { NAV_ITEMS_RIGHT } from '../menuConfig';
 import s from './styles.module.scss';
 import DropDown from '@/layouts/Header/components/Dropdown';
 import ButtonLoginTwitter from './ButtonLoginTwitter';
-import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
+// import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
+import { useWeb3Auth } from '@/Providers/AuthenticatedProvider_vs2/Web3Auth.hook';
 import UserInforBox from './UserInforBox';
 import ContactUs from './ContactUs';
 
@@ -16,7 +17,8 @@ type Props = {
 };
 
 export const DesktopNavRight = (props: Props) => {
-  const { isLogged } = useWeb3Authenticated();
+  // const { isLogged } = useWeb3Authenticated();
+  const { loggedIn } = useWeb3Auth();
   return (
     <HStack direction={'row'} spacing={['40px', '40px']}>
       {NAV_ITEMS_RIGHT.map((navItem) => (
@@ -51,7 +53,7 @@ export const DesktopNavRight = (props: Props) => {
 
       {<ContactUs />}
 
-      {!isLogged ? <ButtonLoginTwitter color={'white'} /> : <UserInforBox />}
+      {!loggedIn ? <ButtonLoginTwitter color={'white'} /> : <UserInforBox />}
 
       {/*<Link href={'/blockchains/customize'} className={s.tryBVm}>*/}
       {/*  Try BVM*/}
