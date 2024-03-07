@@ -145,10 +145,14 @@ const JoinAllowList = ({ isFooter }: { isFooter?: boolean }) => {
                 </ul>
               </div>
             </Flex>
-            <div id="coppy" onClick={handleCoppy} className={cs(s.contract)}>
-              <b>BVM token contract: &nbsp;</b>
-              <p ref={addressRef}>0x069d89974f4edabde69450f9cf5cf7d8cbd2568d</p>
-            </div>
+            <Fade delay={delay + 0.3} className={s.contract_fade}>
+              <div id="coppy" onClick={handleCoppy} className={cs(s.contract)}>
+                <b>BVM token contract: &nbsp;</b>
+                <p ref={addressRef}>
+                  0x069d89974f4edabde69450f9cf5cf7d8cbd2568d
+                </p>
+              </div>
+            </Fade>
             <Tooltip anchorSelect="#coppy" clickable>
               <p>{isCopied ? 'Copied' : 'Copy'}</p>
             </Tooltip>

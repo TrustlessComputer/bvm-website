@@ -108,12 +108,16 @@
   .contract {
     margin-top: 4px;
     display: flex;
-
+    width: auto;
     cursor: pointer;
     flex-direction: column;
 
     @include is-min-table {
       flex-direction: row;
+    }
+
+    &_fade {
+      width: auto;
     }
     b {
       font-size: 12px;
