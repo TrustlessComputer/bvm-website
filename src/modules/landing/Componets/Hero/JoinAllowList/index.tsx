@@ -150,7 +150,7 @@ const JoinAllowList = ({ isFooter }: { isFooter?: boolean }) => {
               <p ref={addressRef}>0x069d89974f4edabde69450f9cf5cf7d8cbd2568d</p>
             </div>
             <Tooltip anchorSelect="#coppy" clickable>
-              <p>{isCopied ? 'Coppied' : 'Copy'}</p>
+              <p>{isCopied ? 'Copied' : 'Copy'}</p>
             </Tooltip>
           </Flex>
 
