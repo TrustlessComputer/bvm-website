@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
-import MainLayout from '@/layouts/MainLayout';
-import TgeModule from '@/modules/tge';
-import { useRouter } from 'next/navigation';
+'use client';
 
-const TgePage = () => {
+import MainLayout from '@/layouts/MainLayout';
+// import BVMModule from '@/modules/bvm';
+import BVMModule from '@/modules/bvm_v2';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+
+const BVMPage = () => {
+
   const router = useRouter();
   useEffect(() => {
     router.push('/buy-bvm');
@@ -12,12 +16,11 @@ const TgePage = () => {
     <MainLayout
       headerProps={{
         color: 'black',
-        bgColor: 'white',
       }}
     >
-        <TgeModule />
+      <BVMModule />
     </MainLayout>
   );
 };
 
-export default TgePage;
+export default BVMPage;
