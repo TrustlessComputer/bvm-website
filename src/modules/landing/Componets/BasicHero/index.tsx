@@ -50,6 +50,16 @@ export default function BasicHero() {
               </Fade>
             </li>
             <li>
+              <Fade delay={delay + 0.4}>
+                <button
+                  onClick={() => router.push('')}
+                  className={`${s.btn} ${s.btn__red}`}
+                >
+                  Deploy a Bitcoin dapp
+                </button>
+              </Fade>
+            </li>
+            {/* <li>
               <Fade delay={delay + 0.5}>
                 <button
                   className={`${s.btn}`}
@@ -58,8 +68,15 @@ export default function BasicHero() {
                   Contact us
                 </button>
               </Fade>
-            </li>
+            </li> */}
           </ul>
+
+          <div className={s.contact}>
+            <p>
+              Question?{' '}
+              <span onClick={() => setContactUsModal(true)}>Contact us</span>
+            </p>
+          </div>
         </div>
         <div className={s.right}>
           <Scale delay={delay}>
