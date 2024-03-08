@@ -10,6 +10,7 @@ import ButtonLoginTwitter from './ButtonLoginTwitter';
 import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import UserInforBox from './UserInforBox';
 import ContactUs from './ContactUs';
+import Community from './Community';
 
 type Props = {
   primaryColor?: 'black' | 'white';
@@ -48,7 +49,7 @@ export const DesktopNavRight = (props: Props) => {
           )}
         </>
       ))}
-
+      {<Community />}
       {<ContactUs />}
 
       {!isLogged ? <ButtonLoginTwitter color={'white'} /> : <UserInforBox />}
