@@ -34,8 +34,7 @@ export default function BasicHero() {
 
           <div className={s.desc}>
             <Lines delay={delay + 0.2}>
-              Powerful infrastructure to build and scale your own Bitcoin L2
-              with ease.
+              Powerful infrastructure and tools to build and scale your own Bitcoin L2 with ease.
             </Lines>
           </div>
           <ul className={s.actions}>
@@ -52,7 +51,7 @@ export default function BasicHero() {
             <li>
               <Fade delay={delay + 0.4}>
                 <button
-                  onClick={() => router.push('')}
+                  onClick={() => window.open('https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps')}
                   className={`${s.btn} ${s.btn__red}`}
                 >
                   Deploy a Bitcoin dapp
@@ -72,10 +71,12 @@ export default function BasicHero() {
           </ul>
 
           <div className={s.contact}>
-            <p>
-              Question?{' '}
-              <span onClick={() => setContactUsModal(true)}>Contact us</span>
-            </p>
+            <Fade delay={delay + 0.5}>
+              <p>
+                Question?{' '}
+                <span onClick={() => setContactUsModal(true)}>Contact us</span>
+              </p>
+            </Fade>
           </div>
         </div>
         <div className={s.right}>
