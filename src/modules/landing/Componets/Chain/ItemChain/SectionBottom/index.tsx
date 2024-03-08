@@ -32,7 +32,9 @@ export default function SectionBottom({
 }) {
   return (
     <div
-      className={`${s.sectionBottom} ${s[`sectionBottom__${data.bgBottom}`]}`}
+      className={`${s.sectionBottom} ${s[`sectionBottom__${data.bgBottom}`]}  ${
+        isYourChain && s[`sectionBottom__isYourChain`]
+      }`}
     >
       <div className={s.sectionBottom_title}>
         <h6
@@ -52,7 +54,7 @@ export default function SectionBottom({
       </div>
 
       {isYourChain && (
-        <ul className={s.sectionBottom_listInfo}>
+        <ul className={`${s.sectionBottom_listInfo}`}>
           <Lines delay={delay + 0.15}>
             <p className={s.sectionBottom_yourChain_desc}>{data.description}</p>
           </Lines>
