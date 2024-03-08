@@ -220,12 +220,12 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   //   isNewWindow: false,
   //   isHide: false,
   // },
-  {
-    label: 'Community',
-    href: 'https://t.me/+rT0cmRXjs01kMzY1',
-    isNewWindow: true,
-    isHide: false,
-  },
+  // {
+  //   label: 'Community',
+  //   href: 'https://t.me/+rT0cmRXjs01kMzY1',
+  //   isNewWindow: true,
+  //   isHide: false,
+  // },
   // {
   //   label: 'Learn',
   //   href: DEVELOPERS_DOC_URL,
