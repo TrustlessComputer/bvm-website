@@ -22,7 +22,8 @@ export default function Heading() {
       </Fade>
       <p className={s.desc}>
         <Lines delay={0.3}>
-          We’re excited to partner with you to build the future of Bitcoin.
+          BVM is the native cryptocurrency of the BVM ecosystem that binds all
+          Bitcoin L2 blockchains together.
         </Lines>
       </p>
     </div>
