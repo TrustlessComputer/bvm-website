@@ -3,7 +3,6 @@ import {
   DEVELOPERS_GRANTS_URL,
   WHITEPAPER_DOC_URL,
 } from '@/config';
-import { checkIsPublicSale } from '@/modules/Whitelist/utils';
 
 export interface NavItem {
   label: string;
@@ -123,7 +122,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
 
   {
     label: 'Buy $BVM',
-    href: '/buy-bvm',
+    href: '/bvm',
     isNewWindow: false,
     isHide: false,
     isStrong: true,
