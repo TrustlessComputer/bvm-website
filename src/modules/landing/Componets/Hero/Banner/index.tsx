@@ -14,7 +14,7 @@ const Banner = (props: Props) => {
             Get 58% APY with $BVM Staking.
           </span>
       <Link href={'/bvm'} className={s.banner_link}>
-        Learn more
+        Start here
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'

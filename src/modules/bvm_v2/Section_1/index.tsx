@@ -16,7 +16,7 @@ const Section_1 = () => {
         fontWeight={400}
         color={'#000'}
       >
-        $BVM
+        BVM Utilities
       </Text>
       <Text
         fontSize={['16px', '20px']}
