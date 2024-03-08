@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: center;
   padding: 40px 0;
-  gap: 48px;
   width: 100%;
   @include is-tablet {
     gap: 32px;
@@ -14,6 +13,6 @@
     flex-direction: row;
     padding-top: 48px;
     padding-bottom: 0;
-    gap: 68px;
+    gap: 48px;
   }
 }
