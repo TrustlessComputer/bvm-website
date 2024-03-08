@@ -5,9 +5,7 @@
   justify-content: center;
   padding: 40px 0;
   width: 100%;
-  @include is-tablet {
-    gap: 32px;
-  }
+  gap: 32px;
 
   @include is-pc {
     flex-direction: row;

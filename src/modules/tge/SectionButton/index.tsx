@@ -50,36 +50,37 @@ const DATA = [
     id: 0,
     title: 'BUY',
     description: 'The fastest and cheapest way to buy BVM is on Naka, a Bitcoin L2 designed for DeFi on Bitcoin. You can also buy BVM on other exchanges.',
-    color: 'green',
+
     buttons: [
       {
         btnTitle: 'Buy on Naka',
-        link: 'https://nakachain.xyz/market',
-        active: true,
+        link: 'https://nakachain.xyz/swap',
+        color: 'green',
       },
       {
         btnTitle: 'Uniswap',
-        link: '',
+        color: 'border',
+        link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
       },
-      {
-        btnTitle: 'Unisat',
-        link: '',
-      }
-    ]
+      // {
+      //   btnTitle: 'Unisat',
+      //   link: '',
+      // }
+    ],
   },
   {
     id: 1,
     title: 'STAKE',
     description: 'Earn up to 58% APY on your BVM and receive airdrops from upcoming Bitcoin L2 projects.',
-    color: 'orange',
     buttons: [
       {
         btnTitle: 'Stake',
+        color: 'red',
         link: 'https://nakachain.xyz/staking',
-      }
-    ]
-  }
-]
+      },
+    ],
+  },
+];
 
 export default function SectionButton() {
   return (
@@ -97,8 +98,8 @@ export default function SectionButton() {
       {
         DATA.map((item) => {
           return (
-            <CardItem key={item.id} {...item}/>
-          )
+            <CardItem key={item.id} {...item} />
+          );
         })
       }
     </div>
