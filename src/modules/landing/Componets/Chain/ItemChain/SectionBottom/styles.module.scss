@@ -61,6 +61,9 @@
     font-weight: 400;
     font-size: 14px;
   }
+  &__isYourChain {
+    gap: 12px;
+  }
   &_listInfo {
     display: flex;
     flex-direction: column;

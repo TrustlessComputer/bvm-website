@@ -132,7 +132,7 @@ const DATA_CHAINS = [
     data: [
       {
         left: 'Currency',
-        right: 'Polygon',
+        right: 'AI',
         icon: '/landing/svg/lego_icon_flat.svg',
       },
       {
