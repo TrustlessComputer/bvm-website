@@ -3,8 +3,9 @@
   width: 100%;
 
   &_inner{
-    border: 1px solid rgba(33, 255, 122, 0.3);
-    background-color: #f4fff8;
+
+    border: 1px solid rgba(0, 118, 89, 0.3);
+    background: #00FFC01A;
     padding: 40px 24px;
     border-radius: 16px;
 
@@ -41,7 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 24px;
 
     .broder {
       border: 1px solid #00ae84;

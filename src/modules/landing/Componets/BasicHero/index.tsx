@@ -73,7 +73,7 @@ export default function BasicHero() {
             <div className={s.contact}>
               <p>
                 Questions?{' '}
-                <span onClick={() => setContactUsModal(true)}>Contact us</span>
+                <span className={s.contact_item} onClick={() => setContactUsModal(true)}>Contact us</span>
               </p>
             </div>
           </Fade>
