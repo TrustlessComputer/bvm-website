@@ -3,6 +3,7 @@ import s from './styles.module.scss';
 import Image from 'next/image';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
+import { Button } from '@chakra-ui/react';
 
 type TSectionBottom = {
   title: string;
@@ -13,17 +14,20 @@ type TSectionBottom = {
     icon: string;
   }[];
   bgBottom: string;
+  description?: string;
 };
 
 export default function SectionBottom({
   data,
   delay,
   isLaunch = false,
+  isYourChain = false,
 }: {
   data: TSectionBottom;
   delay: number;
   isLaunch?: boolean;
   subText?: string;
+  isYourChain?: boolean;
 }) {
   return (
     <div
@@ -33,7 +37,9 @@ export default function SectionBottom({
         <h6
           className={`${s.sectionBottom_title_main} ${
             isLaunch && s[`sectionBottom_title_main_isLaunch`]
-          }`}
+          } 
+             ${isYourChain && s[`sectionBottom_title_main_isYourChain`]}
+          `}
         >
           <Chars delay={delay}>{data.title}</Chars>
         </h6>
@@ -44,7 +50,36 @@ export default function SectionBottom({
         </Chars>
       </div>
 
-      {!isLaunch && (
+      {isYourChain && (
+        <ul className={s.sectionBottom_listInfo}>
+          <p className={s.sectionBottom_yourChain_desc}>{data.description}</p>
+          <Button
+            bgColor={'#EF601B'}
+            color={'#fff'}
+            borderRadius={0}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            px={'40px'}
+            py={'11.5px'}
+            w={['100%']}
+            h={'40px'}
+            fontWeight={400}
+            marginTop={'12px'}
+            fontSize={'14px'}
+            onClick={() => {
+              scrollTo();
+              // router.push('/blockchains/customize');
+            }}
+            _hover={{
+              opacity: 0.8,
+            }}
+          >
+            Build
+          </Button>
+        </ul>
+      )}
+      {!isLaunch && !isYourChain && (
         <ul className={s.sectionBottom_listInfo}>
           {data.data &&
             data.data.map((item, index) => {
@@ -55,8 +90,8 @@ export default function SectionBottom({
                       <Image
                         src={item.icon}
                         alt="icon"
-                        width={24}
-                        height={24}
+                        width={16}
+                        height={16}
                       />
                       <p className={s.sectionBottom_listInfo_item__left_text}>
                         {item.left}

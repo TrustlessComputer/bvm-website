@@ -3,8 +3,10 @@ import ItemChain from './ItemChain';
 import s from './styles.module.scss';
 
 import chain_1 from 'public/landing/compress/app-chain.png';
-import chain_2 from 'public/landing/compress/naka-chain.png';
 import chain_3 from 'public/landing/images/arcade-chain.jpg';
+import chain_4 from 'public/landing/images/chain_4.png';
+import chain_5 from 'public/landing/images/chain_5.png';
+import chain_6 from 'public/landing/images/chain_6.png';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
 import { Button, HStack } from '@chakra-ui/react';
@@ -17,19 +19,19 @@ import HeadingSection from '../HeadingSection';
 const DATA_CHAINS = [
   {
     img: chain_1,
-    title: 'Alpha Chain',
+    title: 'Naka Chain',
     subTitle: '',
     stud: 1,
     link: 'https://alpha.wtf',
     data: [
       {
         left: 'Currency',
-        right: 'BVM',
+        right: 'BTC',
         icon: '/landing/svg/lego_icon_flat.svg',
       },
       {
         left: 'Use Case',
-        right: 'SocialFi',
+        right: 'DeFi',
         icon: '/landing/svg/lego_icon_rect.svg',
       },
       {
@@ -38,13 +40,13 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
-        left: 'Data Validity',
+        left: 'Data Validation',
         right: 'Bitcoin',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
         left: 'Data Availability',
-        right: 'Polygon',
+        right: 'NearDA',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
@@ -53,9 +55,9 @@ const DATA_CHAINS = [
     bgBottom: '007659',
   },
   {
-    img: chain_2,
+    img: chain_1,
     title: 'Naka Chain',
-    stud: 2,
+    stud: 1,
     link: 'https://nakachain.xyz/',
     data: [
       {
@@ -74,7 +76,7 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
-        left: 'Data Validity',
+        left: 'Data Validation',
         right: 'Bitcoin',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
@@ -89,18 +91,18 @@ const DATA_CHAINS = [
   },
   {
     img: chain_3,
-    title: 'Arcade Chain',
-    stud: 3,
+    title: 'Naka Chain',
+    stud: 1,
     link: 'https://bitcoinarcade.xyz/',
     data: [
       {
         left: 'Currency',
-        right: 'GAME',
+        right: 'BTC',
         icon: '/landing/svg/lego_icon_flat.svg',
       },
       {
         left: 'Use Case',
-        right: 'GameFi',
+        right: 'DeFi',
         icon: '/landing/svg/lego_icon_rect.svg',
       },
       {
@@ -109,18 +111,100 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
-        left: 'Data Validity',
+        left: 'Data Validation',
         right: 'Bitcoin',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
         left: 'Data Availability',
-        right: 'EigenDA',
+        right: 'NearDA',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
     bgTop: '4DBDE0',
     bgBottom: '0074BB',
+  },
+  {
+    img: chain_4,
+    title: 'Eternal AI',
+    stud: 1,
+    link: 'https://bitcoinarcade.xyz/',
+    data: [
+      {
+        left: 'Currency',
+        right: 'Polygon',
+        icon: '/landing/svg/lego_icon_flat.svg',
+      },
+      {
+        left: 'Use Case',
+        right: 'Crypto x AI',
+        icon: '/landing/svg/lego_icon_rect.svg',
+      },
+      {
+        left: 'Rollups',
+        right: 'Optimism',
+        icon: '/landing/svg/lego_icon_rollup.svg',
+      },
+      {
+        left: 'Data Validation',
+        right: 'Bitcoin Ordinals',
+        icon: '/landing/svg/lego_icon_cube.svg',
+      },
+      {
+        left: 'Data Availability',
+        right: 'Polygon',
+        icon: '/landing/svg/lego_icon_cube.svg',
+      },
+    ],
+    bgTop: 'FF9999',
+    bgBottom: 'B74D4D',
+  },
+  {
+    img: chain_5,
+    title: 'Swamps',
+    stud: 1,
+    link: 'https://bitcoinarcade.xyz/',
+    data: [
+      {
+        left: 'Currency',
+        right: 'SWP',
+        icon: '/landing/svg/lego_icon_flat.svg',
+      },
+      {
+        left: 'Use Case',
+        right: 'SRC-20 trading',
+        icon: '/landing/svg/lego_icon_rect.svg',
+      },
+      {
+        left: 'Rollups',
+        right: 'Optimistic, Sovereign',
+        icon: '/landing/svg/lego_icon_rollup.svg',
+      },
+      {
+        left: 'Data Validation',
+        right: 'Bitcoin Stamps',
+        icon: '/landing/svg/lego_icon_cube.svg',
+      },
+      {
+        left: 'Data Availability',
+        right: 'Polygon',
+        icon: '/landing/svg/lego_icon_cube.svg',
+      },
+    ],
+    bgTop: 'F0B9FE',
+    bgBottom: 'A459A6',
+  },
+  {
+    img: chain_6,
+    title: 'Your chain',
+    stud: 1,
+    link: 'https://bitcoinarcade.xyz/',
+    data: [],
+    description:
+      'Powerful infrastructure and tools to build and scale your own Bitcoin L2 with ease.',
+    isYourChain: true,
+    bgTop: 'E5E5E5',
+    bgBottom: 'FFFFFF',
   },
 ];
 
@@ -130,14 +214,15 @@ export default function Chain() {
   return (
     <Cursor>
       <div className={s.chain}>
-        <div className='container'>
+        <div className="container">
           <section className={s.chain_inner}>
-            <p className={s.chain_case}><Fade delayEnter={1.8}>
-              Case studies
-            </Fade></p>
+            <p className={s.chain_case}>
+              <Fade delayEnter={1.8}>THE GROWING BVM ECOSYSTEM</Fade>
+            </p>
             <HeadingSection className={s.chain_heading}>
               <Chars delayEnter={2}>
-                Say hello to the first <b>modular Bitcoin L2 blockchains</b> powered by BVM.
+                Say hello to the first <b>modular Bitcoin L2 blockchains</b>{' '}
+                powered by BVM.
               </Chars>
             </HeadingSection>
             <Fade delay={0.6} delayEnter={2.2}>
@@ -147,7 +232,7 @@ export default function Chain() {
                 paddingLeft={mobileScreen ? '20px' : ''}
                 spacing={['6px', '18px']}
                 mt={!mobileScreen ? ['20px'] : ['24px']}
-                mb={!mobileScreen ? ['60px'] : ['24px']}
+                mb={!mobileScreen ? ['68px'] : ['24px']}
               >
                 <Button
                   bgColor={'#EF601B'}
