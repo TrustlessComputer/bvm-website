@@ -3,8 +3,9 @@
 import configs from '@/constants/l2ass.constant';
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
+// import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import toast from 'react-hot-toast';
+import { useWeb3Auth } from '@/Providers/AuthenticatedProvider_vs2/Web3Auth.hook';
 
 export enum IframeEventName {
   topup = 'topup',
@@ -23,19 +24,23 @@ export interface IFrameEvent {
 const Hydrated = ({ children }: { children?: any }) => {
   const [hydration, setHydration] = useState(false);
   const router = useRouter();
-  const { login } = useWeb3Authenticated();
+
+  const { setShowLoginModalCustomize } = useWeb3Auth();
+
+  // const { login } = useWeb3Authenticated();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setHydration(true);
     }
-  }, [login, window]);
+  }, [setShowLoginModalCustomize, window]);
 
   const loginWeb3AuthHandler = async () => {
     try {
       // await onLoginMetamask();
-      console.log('loginWeb3AuthHandler -- ', login);
-      await login();
+      console.log('loginWeb3AuthHandler -- ', setShowLoginModalCustomize);
+      // await login();
+      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } catch (err: unknown) {
       console.log('loginWeb3AuthHandler -- ERROR ', err);
       toast.error(
@@ -84,7 +89,7 @@ const Hydrated = ({ children }: { children?: any }) => {
         } catch (error) {}
       };
     }
-  }, [hydration, login, window]);
+  }, [hydration, setShowLoginModalCustomize, window]);
 
   return hydration ? children : null;
 };
