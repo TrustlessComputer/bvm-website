@@ -16,7 +16,7 @@ const CardItem = ({ ...props }) => {
       alignItems={'center'}
       px={'24px'}
       py={'10px'}
-      width={'140px'}
+      width={'160px'}
       height={'48px'}
       fontWeight={500}
       fontSize={'16px'}
@@ -42,7 +42,7 @@ const CardItem = ({ ...props }) => {
       alignItems={'center'}
       px={'24px'}
       py={'10px'}
-      width={'140px'}
+      width={'160px'}
       height={'48px'}
       fontWeight={500}
       fontSize={'16px'}
@@ -68,7 +68,7 @@ const CardItem = ({ ...props }) => {
       alignItems={'center'}
       px={'24px'}
       py={'10px'}
-      width={'140px'}
+      width={'160px'}
       height={'48px'}
       fontWeight={500}
       onClick={() => {
@@ -84,23 +84,28 @@ const CardItem = ({ ...props }) => {
   };
 
   return (
-    <div className={`${s.cardWrapper}`}>
-      <h4 className={`${s.cardTitle}`}>
-        {props.title}
-      </h4>
-      <p className={`${s.description}`}>
-        {props.description}
-      </p>
-      <div className={`${s.wrapperBtn}`}>
-        {
-          props.buttons.map((button: any) => {
-            return (
-              button.color === 'red' ? <BtnRed key={button.link} {...button} /> : button.color === 'green' ? <BtnGreen key={button.link} {...button} /> :
-                <BtnBorder key={button.link} {...button} />
-            );
-          })
-        }
-      </div>
+    <div className={`${s.cardWrapper} ${props.isRed ? s.isRed : ''}`}>
+      <Fade delayEnter={.5 + (props.idx / 10)}>
+        <div className={s.cardWrapper_inner}>
+          <h4 className={`${s.cardTitle}`}>
+            {props.title}
+          </h4>
+          <div className={`${s.description}`}>
+            {props.description}
+          </div>
+          <div className={`${s.wrapperBtn}`}>
+            {
+              props.buttons.map((button: any) => {
+                return (
+                  button.color === 'red' ? <BtnRed key={button.link} {...button} /> : button.color === 'green' ?
+                    <BtnGreen key={button.link} {...button} /> :
+                    <BtnBorder key={button.link} {...button} />
+                );
+              })
+            }
+          </div>
+        </div>
+      </Fade>
     </div>
   );
 };

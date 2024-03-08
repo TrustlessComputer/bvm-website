@@ -3,12 +3,7 @@
   top: 76px;
   width: 100%;
   background-color: white;
-  height: auto;
-
-  @include is-pc {
-    min-height: unset;
-    height: calc(100vh - 76px);
-  }
+  height: max-content;
 
   &_bg {
     position: absolute;
@@ -25,17 +20,12 @@
   width: 100%;
   z-index: 222;
   position: relative;
-  padding-top: 60px;
+  padding-top: 80px;
+  padding-bottom: 80px;
 
-  @include is-tablet {
-    padding-top: 120px;
-  }
   @include is-pc {
-    position: absolute;
-    padding-top: 0px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     min-width: 1159px;
+    padding-top: 120px;
+    padding-bottom: 120px;
   }
 }

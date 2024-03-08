@@ -58,7 +58,7 @@ const DATA = [
         color: 'green',
       },
       {
-        btnTitle: 'Uniswap',
+        btnTitle: 'Buy on Uniswap',
         color: 'border',
         link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
       },
@@ -71,7 +71,8 @@ const DATA = [
   {
     id: 1,
     title: 'STAKE',
-    description: 'Earn up to 58% APY on your BVM and receive airdrops from upcoming Bitcoin L2 projects.',
+    description: (<>Earn up to <b>58% APY</b> on your BVM and receive airdrops from upcoming Bitcoin L2 projects.</>),
+    isRed: true,
     buttons: [
       {
         btnTitle: 'Stake',
@@ -96,9 +97,9 @@ export default function SectionButton() {
       {/*  );*/}
       {/*})}*/}
       {
-        DATA.map((item) => {
+        DATA.map((item, index) => {
           return (
-            <CardItem key={item.id} {...item} />
+            <CardItem idx={index} key={item.id} {...item} />
           );
         })
       }
