@@ -2,8 +2,10 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  max-width: 335px;
-
+  max-width: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @include is-tablet {
     max-width: unset;
     width: 560px;
@@ -20,12 +22,10 @@
 }
 
 .wrap {
-
 }
 
 .desc {
-
-  margin-top: 16px;
+  margin-top: 20px;
   font-weight: 400;
   line-height: (29/24);
   letter-spacing: 0em;
@@ -42,7 +42,6 @@
   }
 
   @include is-pc {
-
     font-size: 24px;
   }
 }
