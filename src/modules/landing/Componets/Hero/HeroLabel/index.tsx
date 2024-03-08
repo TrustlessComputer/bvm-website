@@ -1,11 +1,13 @@
 import s from './styles.module.scss';
 import ItemHero from '@/modules/landing/Componets/Hero/ItemHero';
-import Image from 'next/image';
-import Fade from '@/interactive/Fade';
+// import Image from 'next/image';
+// import Fade from '@/interactive/Fade';
 import React, { useState } from 'react';
 
 import '@splidejs/react-splide/css/core';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
+import Fade from '@/interactive/Fade';
 
 const DATA_HERO = [
   {
@@ -62,45 +64,36 @@ const DATA_HERO = [
   },
 ];
 
-export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
+export default function HeroLabel({ isMobile }: {
+  isMobile?: boolean
+}) {
   const delay = !isMobile ? 1.5 : 0;
 
   return (
     <div className={`${s.heroLabel}`}>
-      <div className="container">
+      <Fade delayEnter={delay}>
         <div className={s.content}>
           <div className={`${s.inner} heroLabel_inner`}>
-            {/* <Fade delay={delay}>
-            <div className={s.heroLabel_content}>
-              <Image
-                src={'/landing/svg/lego_icon_cube.svg'}
-                alt='cube'
-                width={32}
-                height={32}
-              />
-              <p className={s.heroLabel_content_text}>
-                Powered by the best-of-breed modules
-              </p>
-            </div>
-          </Fade> */}
-
             <div
               className={`${s.heroLabel_listHero} ${
                 isMobile && s.heroLabel_listHero__mobile
               }`}
             >
               <Splide
-                aria-label="My Favorite Images"
+                aria-label='My Favorite Images'
+                extensions={{ AutoScroll }}
                 options={{
                   type: 'loop',
-                  autoplay: true,
-                  interval: 1000,
-                  speed: 1000,
+                  drag: 'free',
+                  focus: 'center',
                   pagination: false,
                   arrows: false,
                   gap: 48,
                   perPage: 12,
                   perMove: 1,
+                  autoScroll: {
+                    speed: 2,
+                  },
                   breakpoints: {
                     1500: {
                       perPage: 8,
@@ -128,7 +121,7 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
             </div>
           </div>
         </div>
-      </div>
+      </Fade>
     </div>
   );
 }
