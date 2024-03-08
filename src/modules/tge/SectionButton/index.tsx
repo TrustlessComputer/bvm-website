@@ -7,8 +7,8 @@ const DATA_BTN = [
     title: 'CLAIM',
     desc: (
       <>
-        You can now claim your $BVM <br /> tokens on Naka,{' '}
-        <b>the first DeFi Bitcoin L2</b> powered by BVM.
+        If you participate in the BVM public sale, you <br /> can now claim your
+        BVM.
       </>
     ),
     btnTitle: 'Claim',
@@ -16,40 +16,27 @@ const DATA_BTN = [
   },
   {
     number: 2,
-    title: 'STAKE',
+    title: 'BUY',
     desc: (
       <>
-        Earn up to <b>58% APY</b> on your <br /> BVM and receive airdrops from{' '}
-        <br />
-        upcoming Bitcoin L2 projects.
+        The easiest way is to buy BVM on Naka, a <br />
+        Bitcoin L2 for DeFi on Bitcoin.
       </>
     ),
-    btnTitle: 'Stake',
-    link: 'https://nakachain.xyz/staking',
+    btnTitle: 'Buy',
+    link: 'https://nakachain.xyz/market',
   },
   {
     number: 3,
-    title: 'LAUNCHPAD',
+    title: 'STAKE',
     desc: (
       <>
-        BVM stakers will earn tickets to
-        <br /> participate in the $NAKA <br />
-        launchpad at <b>$1M FDV.</b>
+        Earn up to <b>58% APY</b> on your BVM and receive <br />
+        airdrops from upcoming Bitcoin L2 projects.
       </>
     ),
-    btnTitle: 'Join',
-    link: 'https://nakachain.xyz/launchpad/detail/1',
-  },
-  {
-    number: 4,
-    title: 'TRADE',
-    desc: (
-      <>
-        Swap BVM and add liquidity to <br /> <b> earn trading fees.</b>
-      </>
-    ),
-    btnTitle: 'Trade',
-    link: 'https://nakachain.xyz/market',
+    btnTitle: 'STAKE',
+    link: 'https://nakachain.xyz/staking',
   },
 ];
 export type TButtonTGE = (typeof DATA_BTN)[number];
@@ -63,6 +50,7 @@ export default function SectionButton() {
             delay={0.2 + index / 5}
             key={item.number}
             data={item}
+            isLast={index === 2}
           />
         );
       })}
