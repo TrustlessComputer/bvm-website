@@ -8,7 +8,7 @@ const CardItem = ({ ...props }) => {
 
   const BtnBorder = (pr: any): ReactElement => {
     return (<Button
-      color={'#009973'}
+      color={'#007659'}
       borderRadius={0}
       className={s.broder}
       display={'flex'}
@@ -24,7 +24,7 @@ const CardItem = ({ ...props }) => {
         window.open(pr.link);
       }}
       _hover={{
-        bgColor: '#009973',
+        bgColor: '#008665',
         color: 'white',
       }}
     >
@@ -60,7 +60,7 @@ const CardItem = ({ ...props }) => {
   const BtnGreen = (pr: any): ReactElement => {
 
     return <Button
-      bgColor={'#00ae84'}
+      bgColor={'#007659'}
       color={'#fff'}
       borderRadius={0}
       display={'flex'}
@@ -76,7 +76,7 @@ const CardItem = ({ ...props }) => {
       }}
       fontSize={'16px'}
       _hover={{
-        bgColor: '#009973',
+        bgColor: '#008263',
       }}
     >
       {pr.btnTitle}
