@@ -93,7 +93,7 @@ const DATA_CHAINS = [
     img: chain_3,
     title: 'Naka Chain',
     stud: 1,
-    link: 'https://bitcoinarcade.xyz/',
+    link: 'https://nakachain.xyz/',
     data: [
       {
         left: 'Currency',
@@ -128,7 +128,7 @@ const DATA_CHAINS = [
     img: chain_4,
     title: 'Eternal AI',
     stud: 1,
-    link: 'https://bitcoinarcade.xyz/',
+    link: 'https://eternalai.org/',
     data: [
       {
         left: 'Currency',
@@ -163,7 +163,7 @@ const DATA_CHAINS = [
     img: chain_5,
     title: 'Swamps',
     stud: 1,
-    link: 'https://bitcoinarcade.xyz/',
+    link: 'https://stampchain.io/',
     data: [
       {
         left: 'Currency',
@@ -194,18 +194,18 @@ const DATA_CHAINS = [
     bgTop: 'F0B9FE',
     bgBottom: 'A459A6',
   },
-  {
-    img: chain_6,
-    title: 'Your chain',
-    stud: 1,
-    link: 'https://bitcoinarcade.xyz/',
-    data: [],
-    description:
-      'Powerful infrastructure and tools to build and scale your own Bitcoin L2 with ease.',
-    isYourChain: true,
-    bgTop: 'E5E5E5',
-    bgBottom: 'FFFFFF',
-  },
+  // {
+  //   img: chain_6,
+  //   title: 'Your chain',
+  //   stud: 1,
+  //   link: 'https://bitcoinarcade.xyz/',
+  //   data: [],
+  //   description:
+  //     'Powerful infrastructure and tools to build and scale your own Bitcoin L2 with ease.',
+  //   isYourChain: true,
+  //   bgTop: 'E5E5E5',
+  //   bgBottom: 'FFFFFF',
+  // },
 ];
 
 export default function Chain() {

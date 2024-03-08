@@ -69,34 +69,34 @@ const UserInforBox: React.FC = (): React.ReactElement => {
         square={true}
         circle={false}
       />
-      <Flex flexDir={'row'} align={'center'} gap={'2px'} overflow={'hidden'}>
-        {/* <Text
-            textAlign={'center'}
-            fontSize={'14px'}
-            lineHeight={'20px'}
-            fontWeight={400}
-            textStyle="third"
-            opacity={0.6}
-          >
-            {ellipsisCenter({
-              str: walletAddress || '',
-              limit: 4,
-            })}
-          </Text> */}
+      {/*<Flex flexDir={'row'} align={'center'} gap={'2px'} overflow={'hidden'}>*/}
+      {/*  /!* <Text*/}
+      {/*      textAlign={'center'}*/}
+      {/*      fontSize={'14px'}*/}
+      {/*      lineHeight={'20px'}*/}
+      {/*      fontWeight={400}*/}
+      {/*      textStyle="third"*/}
+      {/*      opacity={0.6}*/}
+      {/*    >*/}
+      {/*      {ellipsisCenter({*/}
+      {/*        str: walletAddress || '',*/}
+      {/*        limit: 4,*/}
+      {/*      })}*/}
+      {/*    </Text> *!/*/}
 
-        <Text
-          textAlign={'center'}
-          fontSize={'14px'}
-          lineHeight={'16.8px'}
-          fontWeight={400}
-          overflow={'hidden'}
-          color={pathname === '/' ? 'black' : 'black'}
-          textOverflow={'ellipsis'}
-          whiteSpace={'nowrap'}
-        >
-          {userInfor?.name || ''}
-        </Text>
-      </Flex>
+      {/*  /!*<Text*!/*/}
+      {/*  /!*  textAlign={'center'}*!/*/}
+      {/*  /!*  fontSize={'14px'}*!/*/}
+      {/*  /!*  lineHeight={'16.8px'}*!/*/}
+      {/*  /!*  fontWeight={400}*!/*/}
+      {/*  /!*  overflow={'hidden'}*!/*/}
+      {/*  /!*  color={pathname === '/' ? 'black' : 'black'}*!/*/}
+      {/*  /!*  textOverflow={'ellipsis'}*!/*/}
+      {/*  /!*  whiteSpace={'nowrap'}*!/*/}
+      {/*  /!*>*!/*/}
+      {/*  /!*  {userInfor?.name || ''}*!/*/}
+      {/*  /!*</Text>*!/*/}
+      {/*</Flex>*/}
     </Flex>
   );
 };
