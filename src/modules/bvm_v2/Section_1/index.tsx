@@ -1,7 +1,9 @@
 'use client';
 
+import SvgInset from '@/components/SvgInset';
 import { BUY_TC_URL } from '@/config';
 import { Button, Flex, Image, Text } from '@chakra-ui/react';
+import s from './styles.module.scss';
 
 const Section_1 = () => {
   return (
@@ -28,27 +30,52 @@ const Section_1 = () => {
         color={'#000'}
         maxW={'709px'}
       >
-        BVM is the native cryptocurrency used within the BVM ecosystem to empower builders building the future of Bitcoin.
+        BVM is the native cryptocurrency used within the BVM ecosystem to
+        empower builders building the future of Bitcoin.
       </Text>
-      {/* <Button
-        bgColor={'#FA4E0E'}
-        color={'#fff'}
-        minW={['66px']}
-        minH={'16px'}
-        borderRadius={0}
-        py={'16px'}
-        px={'40px'}
-        fontWeight={400}
-        fontSize={'16px'}
-        onClick={() => {
-          window.open(BUY_TC_URL, '_blank');
-        }}
-        _hover={{
-          opacity: 0.8,
-        }}
-      >
-        {`Get BVM`}
-      </Button> */}
+      <Flex flexDir={'column'} gap={'12px'} paddingTop={'8px'}>
+        <Button
+          bgColor={'#FA4E0E'}
+          color={'#fff'}
+          minW={['256px']}
+          minH={'48px'}
+          borderRadius={0}
+          py={'16px'}
+          px={'40px'}
+          fontWeight={400}
+          fontSize={'16px'}
+          _hover={{
+            opacity: 0.8,
+          }}
+        >
+          {'Buy BVM'}
+        </Button>
+
+        <Button
+          bgColor={'#FA4E0E0D'}
+          color={'#000000'}
+          border={'1px solid #FA4E0E4D'}
+          minW={['256px']}
+          minH={'48px'}
+          borderRadius={0}
+          lineHeight={'19px'}
+          py={'16px'}
+          px={'40px'}
+          fontWeight={400}
+          fontSize={'16px'}
+          onClick={() => {
+            window.open('https://nakachain.xyz/staking', '_blank');
+          }}
+          _hover={{
+            opacity: 0.8,
+          }}
+        >
+          25%-58% APY.
+          <span className={s.btn_sub}>
+            Stake BVM <SvgInset size={20} svgUrl="/bvm-sct/icon-arrow-r.svg" />
+          </span>
+        </Button>
+      </Flex>
     </Flex>
   );
 };

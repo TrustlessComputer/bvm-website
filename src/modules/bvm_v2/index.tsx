@@ -20,7 +20,7 @@ const BVMModule = () => {
       {/*</div>*/}
       <Box className={s.container}>
         <BoxContent minH={'100dvh'}>
-          <Box h={['80px', '140px']} />
+          <Box h={['80px', '180px']} />
           <Section1 />
           <Box h={['20px', '80px']} />
           <Section2 />

@@ -25,7 +25,7 @@
   }
 }
 .inner {
-  max-width: 1087px;
+  width: 100%;
   z-index: 222;
   position: relative;
   padding-top: 60px;
@@ -39,5 +39,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 1159px;
   }
 }

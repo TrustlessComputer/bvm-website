@@ -9,9 +9,9 @@ import Chars from '@/interactive/Chars';
 import Lines from '@/interactive/Lines';
 
 export default function ItemSectionButton({
-                                            data,
-                                            delay,
-                                          }: {
+  data,
+  delay,
+}: {
   data: TButtonTGE;
   delay: number;
 }) {
