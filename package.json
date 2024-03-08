@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "local": "cp ./envs/.env.local .env && next dev",
-    "dev": "cp ./envs/.env.develop .env && next dev -p 9001",
+    "dev": "next dev -p 9001",
     "ld": "export PORT=3001 && cp ./envs/.env.develop .env  && rm -rf .next && next dev",
     "ls": "export PORT=3002 && cp ./envs/.env.staging .env  && rm -rf .next && next dev",
     "lp": "export PORT=3003 && cp ./envs/.env.production .env  && rm -rf .next && next dev",
@@ -32,6 +32,7 @@
     "@metamask/providers": "^14.0.2",
     "@next/bundle-analyzer": "^14.0.4",
     "@reduxjs/toolkit": "^2.0.1",
+    "@splidejs/react-splide": "^0.7.12",
     "@unisat/wallet-utils": "^1.0.0",
     "@walletconnect/sign-client": "^2.11.0",
     "@web3auth/base": "^7.2.1",

@@ -18,7 +18,7 @@ type Props = {
 export const DesktopNavRight = (props: Props) => {
   const { isLogged } = useWeb3Authenticated();
   return (
-    <HStack direction={'row'} spacing={['40px', '40px']}>
+    <HStack direction={'row'} spacing={['40px', '32px']}>
       {NAV_ITEMS_RIGHT.map((navItem) => (
         <>
           {navItem.subMenu ? (

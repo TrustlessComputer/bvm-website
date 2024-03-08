@@ -10,6 +10,7 @@ import Allocation from '@/modules/bvm_v2/Allocation';
 import Vesting from '@/modules/bvm_v2/Vesting';
 import Schedule from '@/modules/bvm_v2/Schedule';
 import Hero from './Hero';
+import TgeModule from '../tge';
 
 const BVMModule = () => {
   return (
@@ -19,8 +20,11 @@ const BVMModule = () => {
       {/*  <Hero />*/}
       {/*</div>*/}
       <Box className={s.container}>
+        <TgeModule />
+        <Box h={['20px', '40px']} />
         <BoxContent minH={'100dvh'}>
-          <Box h={['80px', '140px']} />
+          {/* <Box h={['80px', '180px']} /> */}
+          <Box h={['20px', '80px']} />
           <Section1 />
           <Box h={['20px', '80px']} />
           <Section2 />

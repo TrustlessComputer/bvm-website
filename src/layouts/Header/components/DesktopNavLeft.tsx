@@ -30,7 +30,7 @@ export const DesktopNavLeft = (props: Props) => {
               color={props?.primaryColor || 'white'}
               className={navItem.isStrong ? s.isStrong : ''}
             >
-              {navItem.isStrong && <span className={s.strongText}>✨</span>}
+              {/* {navItem.isStrong && <span className={s.strongText}>✨</span>} */}
               <Text
                 textAlign={'center'}
                 fontSize={['14px', '16px']}

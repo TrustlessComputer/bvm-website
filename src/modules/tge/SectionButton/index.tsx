@@ -7,33 +7,36 @@ const DATA_BTN = [
     title: 'CLAIM',
     desc: (
       <>
-        You can now claim your $BVM tokens <br/> on Naka, <b>the first DeFi Bitcoin L2</b> <br/> powered by BVM.
+        If you participate in the BVM public sale, you <br /> can now claim your
+        BVM.
       </>
     ),
     btnTitle: 'Claim',
-    link: 'https://nakachain.xyz/bvm-claim'
+    link: 'https://nakachain.xyz/bvm-claim',
   },
   {
     number: 2,
-    title: 'STAKE',
+    title: 'BUY',
     desc: (
       <>
-        Earn up to <b>58% APY</b> on your BVM and <br/> receive airdrops from upcoming Bitcoin <br/> L2 projects.
+        The easiest way is to buy BVM on Naka, a <br />
+        Bitcoin L2 for DeFi on Bitcoin.
       </>
     ),
-    btnTitle: 'Stake',
-    link: 'https://nakachain.xyz/staking'
+    btnTitle: 'Buy',
+    link: 'https://nakachain.xyz/market',
   },
   {
     number: 3,
-    title: 'LAUNCHPAD',
+    title: 'STAKE',
     desc: (
       <>
-        BVM stakers will earn tickets to <br/> participate in the $NAKA launchpad at <br/> <b>$1M FDV.</b>
+        Earn up to <b>58% APY</b> on your BVM and receive <br />
+        airdrops from upcoming Bitcoin L2 projects.
       </>
     ),
-    btnTitle: 'Join',
-    link: 'https://nakachain.xyz/launchpad/detail/1'
+    btnTitle: 'STAKE',
+    link: 'https://nakachain.xyz/staking',
   },
 ];
 export type TButtonTGE = (typeof DATA_BTN)[number];
@@ -43,7 +46,12 @@ export default function SectionButton() {
     <div className={s.sectionBtn}>
       {DATA_BTN.map((item, index) => {
         return (
-          <ItemSectionButton delay={(.2 + index / 5)} key={item.number} data={item} />
+          <ItemSectionButton
+            delay={0.2 + index / 5}
+            key={item.number}
+            data={item}
+            isLast={index === 2}
+          />
         );
       })}
     </div>

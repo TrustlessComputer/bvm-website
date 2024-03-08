@@ -1,7 +1,6 @@
 .wrapper {
   position: relative;
   top: 76px;
-  width: 100vw;
   width: 100%;
   background-color: white;
   height: 100%;
@@ -25,7 +24,7 @@
   }
 }
 .inner {
-  max-width: 1087px;
+  width: 100%;
   z-index: 222;
   position: relative;
   padding-top: 60px;
@@ -39,5 +38,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    min-width: 1159px;
   }
 }
