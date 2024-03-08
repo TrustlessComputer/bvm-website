@@ -13,11 +13,11 @@
     padding-right: 12px;
 
     @include is-min-table {
-      width: 90px;
+      // width: 90px;
       padding-left: 0px;
       padding-right: 0px;
       aspect-ratio: 1;
-      height: 80px;
+      // height: 80px;
     }
 
     @include is-mobile {

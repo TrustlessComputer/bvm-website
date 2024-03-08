@@ -3,7 +3,6 @@
   width: 100%;
 
   &_inner{
-
     border: 1px solid rgba(33, 255, 122, 0.3);
     background-color: #f4fff8;
     padding: 40px 24px;
@@ -15,8 +14,8 @@
     gap: 24px;
   }
 
-  &.isRed{
-    .cardTitle_inner{
+  &.isRed {
+    & .cardWrapper_inner{
       border: 1px solid #FF7E214D !important;
       background: #FF7E210D !important;
     }

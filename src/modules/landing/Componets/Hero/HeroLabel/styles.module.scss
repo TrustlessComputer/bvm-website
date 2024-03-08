@@ -1,8 +1,6 @@
 .heroLabel {
-
   padding: 40px 0 38px 0;
-  background: #F6F6F6;
-  overflow: hidden;
+  background: #fff;
 
   .inner {
     display: flex;
@@ -56,17 +54,9 @@
   }
 
   &_listHero {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    max-width: 100%;
     margin-right: auto;
     margin-left: auto;
-
-    @include is-pc {
-      gap: 44px;
-    }
   }
 
   .content {

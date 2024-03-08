@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { TButtonTGE } from '..';
 import s from './styles.module.scss';
 import { Button } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
@@ -13,7 +12,7 @@ export default function ItemSectionButton({
   delay,
   isLast,
 }: {
-  data: TButtonTGE;
+  data: any;
   delay: number;
   isLast: boolean;
 }) {
