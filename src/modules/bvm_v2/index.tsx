@@ -22,16 +22,17 @@ const BVMModule = () => {
       <Box className={s.container}>
         <TgeModule />
         <Box h={['20px', '40px']} />
-        <BoxContent minH={'100dvh'}>
-          {/* <Box h={['80px', '180px']} /> */}
-          <Box h={['20px', '80px']} />
-          <Section1 />
-          <Box h={['20px', '80px']} />
-          <Section2 />
-          <Box h={['20px', '40px']} />
-          {/*<Vesting />*/}
-          {/*<Schedule />*/}
-        </BoxContent>
+        <div className={s.container_section_tow}>
+          <BoxContent minH={'100dvh'}>
+            <Box h={['120px', '180px']} />
+            <Section1 />
+            <Box h={['20px', '80px']} />
+            <Section2 />
+            <Box h={['20px', '40px']} />
+            {/*<Vesting />*/}
+            {/*<Schedule />*/}
+          </BoxContent>
+        </div>
         <Allocation />
       </Box>
     </div>

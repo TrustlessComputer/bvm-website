@@ -1,9 +1,5 @@
 'use client';
-
-import SvgInset from '@/components/SvgInset';
-import { BUY_TC_URL } from '@/config';
 import { Button, Flex, Image, Text } from '@chakra-ui/react';
-import s from './styles.module.scss';
 
 const Section_1 = () => {
   return (
@@ -20,7 +16,7 @@ const Section_1 = () => {
         fontWeight={400}
         color={'#000'}
       >
-        $BVM
+        BVM Utilities
       </Text>
       <Text
         fontSize={['16px', '20px']}
@@ -30,8 +26,8 @@ const Section_1 = () => {
         color={'#000'}
         maxW={'709px'}
       >
-        BVM is the native cryptocurrency used within the BVM ecosystem to
-        empower builders building the future of Bitcoin.
+        BVM is the governance and utility token used within the BVM ecosystem to empower builders and users to build the
+        future of Bitcoin.
       </Text>
       {/* <Flex flexDir={'column'} gap={'12px'} paddingTop={'8px'}>
         <Button
