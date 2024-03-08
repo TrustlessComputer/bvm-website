@@ -122,10 +122,11 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   },
 
   {
-    label: '$BVM',
-    href: '/bvm',
+    label: 'Buy $BVM',
+    href: '/buy-bvm',
     isNewWindow: false,
     isHide: false,
+    isStrong: true,
   },
 
   // {
@@ -208,12 +209,12 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   //   isStrong: false,
   //   isHide: false,
   // },
-  // {
-  //   label: 'Roadmap',
-  //   href: '/roadmap',
-  //   isNewWindow: false,
-  //   isHide: false,
-  // },
+  {
+    label: 'Roadmap',
+    href: '/roadmap',
+    isNewWindow: false,
+    isHide: false,
+  },
   // {
   //   label: 'Explore Bitcoin L2s',
   //   href: '/use-bitcoin',
@@ -221,10 +222,10 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   //   isHide: false,
   // },
   {
-    label: 'Join the community',
+    label: 'Community',
     href: 'https://t.me/+rT0cmRXjs01kMzY1',
     isNewWindow: true,
-    isHide: true,
+    isHide: false,
   },
   // {
   //   label: 'Learn',

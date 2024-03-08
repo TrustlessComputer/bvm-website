@@ -33,10 +33,11 @@ const DATA_HERO = [
     icon: '/landing/ic-near.svg',
     title: 'Near',
   },
-  {
-    icon: '/landing/ic-avail.svg',
-    title: 'Avail',
-  }, {
+  // {
+  //   icon: '/landing/ic-avail.svg',
+  //   title: 'Avail',
+  // },
+   {
     icon: '/icons/filecoin.svg',
     title: 'Filecoin',
   },
@@ -65,7 +66,7 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
     <div className={`${s.heroLabel}`}>
       <div className={s.content}>
         <div className={`${s.inner} heroLabel_inner`}>
-          <Fade delay={delay}>
+          {/* <Fade delay={delay}>
             <div className={s.heroLabel_content}>
               <Image
                 src={'/landing/svg/lego_icon_cube.svg'}
@@ -77,7 +78,7 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
                 Powered by the best-of-breed modules
               </p>
             </div>
-          </Fade>
+          </Fade> */}
           <div
             className={`${s.heroLabel_listHero} ${
               isMobile && s.heroLabel_listHero__mobile
