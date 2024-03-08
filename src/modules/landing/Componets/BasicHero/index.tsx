@@ -44,7 +44,7 @@ export default function BasicHero() {
                   onClick={() => router.push('/blockchains/customize')}
                   className={`${s.btn} ${s.btn__red}`}
                 >
-                  Launch your Bitcoin L2
+                  Deploy a Bitcoin L2
                 </button>
               </Fade>
             </li>
@@ -73,7 +73,7 @@ export default function BasicHero() {
           <div className={s.contact}>
             <Fade delay={delay + 0.5}>
               <p>
-                Question?{' '}
+                Questions?{' '}
                 <span onClick={() => setContactUsModal(true)}>Contact us</span>
               </p>
             </Fade>
