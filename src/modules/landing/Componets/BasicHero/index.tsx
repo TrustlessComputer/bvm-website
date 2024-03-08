@@ -72,7 +72,7 @@ export default function BasicHero() {
           <Fade delay={delay + 0.5}>
             <div className={s.contact}>
               <p>
-                Question?{' '}
+                Questions?{' '}
                 <span onClick={() => setContactUsModal(true)}>Contact us</span>
               </p>
             </div>
