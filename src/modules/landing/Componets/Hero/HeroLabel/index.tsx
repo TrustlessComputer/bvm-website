@@ -4,6 +4,9 @@ import Image from 'next/image';
 import Fade from '@/interactive/Fade';
 import React, { useState } from 'react';
 
+import '@splidejs/react-splide/css/core';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+
 const DATA_HERO = [
   {
     icon: '/landing/svg/lego_coin.svg',
@@ -37,14 +40,15 @@ const DATA_HERO = [
   //   icon: '/landing/ic-avail.svg',
   //   title: 'Avail',
   // },
-   {
+  {
     icon: '/icons/filecoin.svg',
     title: 'Filecoin',
   },
   {
     icon: '/icons/syscoin.svg',
     title: 'Syscoin',
-  },  {
+  },
+  {
     icon: '/icons/bitcoin-stamps.svg',
     title: 'Bitcoin Stamps',
   },
@@ -58,15 +62,15 @@ const DATA_HERO = [
   },
 ];
 
-
 export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
   const delay = !isMobile ? 1.5 : 0;
 
   return (
     <div className={`${s.heroLabel}`}>
-      <div className={s.content}>
-        <div className={`${s.inner} heroLabel_inner`}>
-          {/* <Fade delay={delay}>
+      <div className="container">
+        <div className={s.content}>
+          <div className={`${s.inner} heroLabel_inner`}>
+            {/* <Fade delay={delay}>
             <div className={s.heroLabel_content}>
               <Image
                 src={'/landing/svg/lego_icon_cube.svg'}
@@ -79,16 +83,47 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
               </p>
             </div>
           </Fade> */}
-          <div
-            className={`${s.heroLabel_listHero} ${
-              isMobile && s.heroLabel_listHero__mobile
-            }`}
-          >
-            {DATA_HERO.map((item, index) => {
-              return (
-                <ItemHero key={index} delay={delay + index / 10} data={item} />
-              );
-            })}
+
+            <div
+              className={`${s.heroLabel_listHero} ${
+                isMobile && s.heroLabel_listHero__mobile
+              }`}
+            >
+              <Splide
+                aria-label="My Favorite Images"
+                options={{
+                  type: 'loop',
+                  autoplay: true,
+                  pagination: false,
+                  arrows: false,
+                  gap: 48,
+                  perPage: 12,
+                  perMove: 1,
+                  breakpoints: {
+                    1500: {
+                      perPage: 8,
+                      gap: 40,
+                    },
+                    1024: {
+                      perPage: 5,
+                      gap: 30,
+                    },
+                    768: {
+                      perPage: 4,
+                      gap: 20,
+                    },
+                  },
+                }}
+              >
+                {DATA_HERO.map((item, index) => {
+                  return (
+                    <SplideSlide key={index}>
+                      <ItemHero delay={delay + index / 10} data={item} />
+                    </SplideSlide>
+                  );
+                })}
+              </Splide>
+            </div>
           </div>
         </div>
       </div>

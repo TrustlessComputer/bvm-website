@@ -1,4 +1,5 @@
 .container {
+  overflow: hidden;
   width: 100%;
   background: url('/landing/images/hero-bg-allow.jpg');
   background-repeat: no-repeat;
@@ -9,6 +10,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
+
     @include is-min-table {
       padding: 30px 0;
     }
@@ -105,6 +107,7 @@
       color: #fa4e0e;
     }
   }
+
   .contract {
     margin-top: 4px;
     // display: flex;
@@ -119,23 +122,28 @@
     &_fade {
       width: auto;
     }
+
     b {
       font-size: 12px;
+
       @include is-min-table {
         font-size: 16px;
         font-weight: 700;
       }
     }
+
     p {
       font-size: 12px;
       font-weight: 400;
       text-align: center;
+
       @include is-min-table {
         font-size: 16px;
         text-align: left;
       }
     }
   }
+
   .form {
     width: 100%;
   }
@@ -307,6 +315,7 @@
 
 .countDown_wrapper {
   align-items: center;
+
   * {
     font-size: 14px !important;
     line-height: 1.4 !important;
@@ -316,6 +325,7 @@
 
 .hero_inner__desktop {
   display: none;
+
   @include is-min-table {
     display: block;
   }
