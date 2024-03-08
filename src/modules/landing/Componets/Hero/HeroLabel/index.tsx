@@ -94,6 +94,8 @@ export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
                 options={{
                   type: 'loop',
                   autoplay: true,
+                  interval: 1000,
+                  speed: 1000,
                   pagination: false,
                   arrows: false,
                   gap: 48,
