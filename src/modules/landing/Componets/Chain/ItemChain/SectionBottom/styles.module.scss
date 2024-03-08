@@ -12,10 +12,10 @@
     //justify-content: space-between;
 
     &_main {
-      font-size: 20px;
+      font-size: 16px;
       color: #fff;
       font-weight: 500;
-      line-height: 26.4px;
+      line-height: 1.1;
 
       &_isLaunch {
         text-align: center;
@@ -32,11 +32,11 @@
       }
 
       @include is-tablet {
-        font-size: 16px;
+        font-size: 14px;
       }
 
       @include is-mobile {
-        font-size: 14px;
+        font-size: 12px;
         line-height: 19.8px;
       }
     }
@@ -78,7 +78,7 @@
 
         &_text {
           font-size: 14px;
-          line-height: 25.2px;
+          line-height: 1.4;
           color: rgba(255, 255, 255, 0.7);
           white-space: nowrap;
           @include is-tablet {
@@ -94,7 +94,7 @@
 
       &__right {
         font-size: 14px;
-        line-height: 25.2px;
+        line-height: 1.4;
         font-weight: 400;
         white-space: nowrap;
 

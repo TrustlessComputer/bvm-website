@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
 import { Button } from '@chakra-ui/react';
+import Lines from '@/interactive/Lines';
 
 type TSectionBottom = {
   title: string;
@@ -52,31 +53,35 @@ export default function SectionBottom({
 
       {isYourChain && (
         <ul className={s.sectionBottom_listInfo}>
-          <p className={s.sectionBottom_yourChain_desc}>{data.description}</p>
-          <Button
-            bgColor={'#EF601B'}
-            color={'#fff'}
-            borderRadius={0}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            px={'40px'}
-            py={'11.5px'}
-            w={['100%']}
-            h={'40px'}
-            fontWeight={400}
-            marginTop={'12px'}
-            fontSize={'14px'}
-            onClick={() => {
-              scrollTo();
-              // router.push('/blockchains/customize');
-            }}
-            _hover={{
-              opacity: 0.8,
-            }}
-          >
-            Build
-          </Button>
+          <Lines delay={delay + 0.15}>
+            <p className={s.sectionBottom_yourChain_desc}>{data.description}</p>
+          </Lines>
+          <Fade delay={delay + 0.3}>
+            <Button
+              bgColor={'#EF601B'}
+              color={'#fff'}
+              borderRadius={0}
+              display={'flex'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              px={'40px'}
+              py={'11.5px'}
+              w={['100%']}
+              h={'40px'}
+              fontWeight={400}
+              marginTop={'12px'}
+              fontSize={'14px'}
+              onClick={() => {
+                scrollTo();
+                // router.push('/blockchains/customize');
+              }}
+              _hover={{
+                opacity: 0.8,
+              }}
+            >
+              Build
+            </Button>
+          </Fade>
         </ul>
       )}
       {!isLaunch && !isYourChain && (
