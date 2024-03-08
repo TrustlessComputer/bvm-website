@@ -1,5 +1,5 @@
 .sectionBottom {
-  padding: 51px 24px 24px;
+  padding: 26px 12px 17px 12px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -12,27 +12,31 @@
     //justify-content: space-between;
 
     &_main {
-      font-size: 24px;
+      font-size: 16px;
       color: #fff;
       font-weight: 500;
-      line-height: 26.4px;
+      line-height: 1.1;
 
       &_isLaunch {
-
         text-align: center;
         padding: 0;
-        @include is-pc{
+        @include is-pc {
           padding: 0 40px;
           padding-bottom: 24px;
         }
       }
+      &_isYourChain {
+        text-align: left;
+        padding: 0;
+        color: #000;
+      }
 
       @include is-tablet {
-        font-size: 20px;
+        font-size: 14px;
       }
 
       @include is-mobile {
-        font-size: 18px;
+        font-size: 12px;
         line-height: 19.8px;
       }
     }
@@ -52,11 +56,15 @@
       }
     }
   }
-
+  &_yourChain_desc {
+    color: #000000b2;
+    font-weight: 400;
+    font-size: 14px;
+  }
   &_listInfo {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
 
     &_item {
       display: flex;
@@ -69,33 +77,34 @@
         gap: 12px;
 
         &_text {
-          font-size: 18px;
-          line-height: 25.2px;
+          font-size: 14px;
+          line-height: 1.4;
           color: rgba(255, 255, 255, 0.7);
-
+          white-space: nowrap;
           @include is-tablet {
-            font-size: 14px;
+            font-size: 12px;
           }
 
           @include is-mobile {
-            font-size: 14px;
+            font-size: 10px;
             line-height: 19.6px;
           }
         }
       }
 
       &__right {
-        font-size: 18px;
-        line-height: 25.2px;
+        font-size: 14px;
+        line-height: 1.4;
         font-weight: 400;
+        white-space: nowrap;
 
         @include is-mobile {
-          font-size: 14px;
+          font-size: 12px;
           line-height: 19.6px;
         }
 
         @include is-tablet {
-          font-size: 14px;
+          font-size: 10px;
         }
       }
     }
@@ -123,5 +132,14 @@
 
   &__7D8AA7 {
     background: #7d8aa7;
+  }
+  &__FFFFFF {
+    background: #fff;
+  }
+  &__B74D4D {
+    background: #b74d4d;
+  }
+  &__A459A6 {
+    background: #a459a6;
   }
 }

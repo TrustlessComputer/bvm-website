@@ -1,10 +1,11 @@
 .listChains {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 36px;
   flex-wrap: wrap;
   overflow: hidden;
-
+  justify-content: center;
   @include is-mobile {
     width: 100%;
     padding: 0 20px;
@@ -15,10 +16,17 @@
     gap: 0;
     justify-content: center;
   }
+
+  @include is-pc {
+    gap: 10px;
+  }
+  @include is-pc-wide {
+    flex-wrap: nowrap;
+  }
 }
 
 .chain {
-  background: #FFFFFF;
+  background: #f6f6f6;
   overflow: hidden;
 
   &_case {
@@ -49,8 +57,9 @@
   }
 
   &_inner {
-    background: #FFFFFF;
-    padding: 100px 0;
+    background: #f6f6f6;
+    padding-top: 100px;
+    padding-bottom: 82px;
 
     @include is-mobile {
       position: relative;

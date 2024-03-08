@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useEffect } from 'react';
@@ -18,7 +17,7 @@ const TgePage = () => {
         bgColor: 'white',
       }}
     >
-        <TgeModule />
+      <TgeModule />
     </MainLayout>
   );
 };

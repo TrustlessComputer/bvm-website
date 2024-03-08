@@ -11,7 +11,6 @@ export default function Heading() {
     <div className={s.wrap}>
       <Fade delay={0.2}>
         <div className={s.heading}>
-          {/* <IconHeading /> */}
           <Image
             src={'/tge/heading.png'}
             width={340}
