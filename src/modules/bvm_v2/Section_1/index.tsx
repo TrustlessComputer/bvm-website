@@ -33,7 +33,7 @@ const Section_1 = () => {
         BVM is the native cryptocurrency used within the BVM ecosystem to
         empower builders building the future of Bitcoin.
       </Text>
-      <Flex flexDir={'column'} gap={'12px'} paddingTop={'8px'}>
+      {/* <Flex flexDir={'column'} gap={'12px'} paddingTop={'8px'}>
         <Button
           bgColor={'#FA4E0E'}
           color={'#fff'}
@@ -75,7 +75,7 @@ const Section_1 = () => {
             Stake BVM <SvgInset size={20} svgUrl="/bvm-sct/icon-arrow-r.svg" />
           </span>
         </Button>
-      </Flex>
+      </Flex> */}
     </Flex>
   );
 };
