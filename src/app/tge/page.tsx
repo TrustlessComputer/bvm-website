@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 const TgePage = () => {
   const router = useRouter();
   useEffect(() => {
-    router.push('/buy-bvm');
+    router.push('/bvm');
   }, []);
   return (
     <MainLayout
