@@ -34,11 +34,12 @@
     flex: 0 0 100%;
     margin-bottom: 34px;
     text-align: center;
-    padding-left: 20px;
+
 
     @include is-pc {
       flex: 0 0 ((600/1460) * 100%);
       text-align: left;
+      padding-left: 20px;
     }
 
     @include is-pc-wide {
@@ -49,10 +50,10 @@
   .right {
     flex: 0 0 100%;
     text-align: center;
-    padding-left: 20px;
 
     @include is-pc {
       text-align: left;
+      padding-left: 20px;
       flex: 0 0 ((860/1460) * 100%);
     }
 
