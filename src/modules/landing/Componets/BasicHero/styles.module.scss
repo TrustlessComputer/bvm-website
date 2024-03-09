@@ -34,9 +34,10 @@
     flex: 0 0 100%;
     margin-bottom: 34px;
     text-align: center;
+    padding-left: 20px;
 
     @include is-pc {
-      flex: 0 0 600px;
+      flex: 0 0 ((600/1460) * 100%);
       text-align: left;
     }
 
@@ -48,10 +49,11 @@
   .right {
     flex: 0 0 100%;
     text-align: center;
+    padding-left: 20px;
 
     @include is-pc {
       text-align: left;
-      flex: 0 0 860px;
+      flex: 0 0 ((860/1460) * 100%);
     }
 
     video {
