@@ -155,7 +155,7 @@ const CommunityModal = ({ isShow, onHide, onSuccesCB }: any) => {
             <div className={s.wrapQr}>
               <p className={s.text}>Or simply scan the QR code.</p>
               <div className={s.imgQr}>
-                <img src="/images/qr-alpha.png" alt="" />
+                <img src="/qr-alpha.svg" alt="alpha" />
               </div>
             </div>
             <div className={s.available}>
