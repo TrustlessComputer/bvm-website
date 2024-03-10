@@ -3,6 +3,7 @@ import ItemChain from './ItemChain';
 import s from './styles.module.scss';
 
 import chain_1 from 'public/landing/compress/app-chain.png';
+import chain_2 from 'public/landing/compress/naka-chain.png';
 import chain_3 from 'public/landing/images/arcade-chain.jpg';
 import chain_4 from 'public/landing/images/chain_4.png';
 import chain_5 from 'public/landing/images/chain_5.png';
@@ -19,19 +20,19 @@ import HeadingSection from '../HeadingSection';
 const DATA_CHAINS = [
   {
     img: chain_1,
-    title: 'Naka Chain',
+    title: 'Alpha Chain',
     subTitle: '',
     stud: 1,
     link: 'https://alpha.wtf',
     data: [
       {
         left: 'Currency',
-        right: 'BTC',
+        right: 'BVM',
         icon: '/landing/svg/lego_icon_flat.svg',
       },
       {
         left: 'Use Case',
-        right: 'DeFi',
+        right: 'SocialFi',
         icon: '/landing/svg/lego_icon_rect.svg',
       },
       {
@@ -40,13 +41,13 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
-        left: 'Data Validation',
+        left: 'Data Validity',
         right: 'Bitcoin',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
         left: 'Data Availability',
-        right: 'NearDA',
+        right: 'Polygon',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
@@ -55,9 +56,9 @@ const DATA_CHAINS = [
     bgBottom: '007659',
   },
   {
-    img: chain_1,
+    img: chain_2,
     title: 'Naka Chain',
-    stud: 1,
+    stud: 2,
     link: 'https://nakachain.xyz/',
     data: [
       {
@@ -76,7 +77,7 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
-        left: 'Data Validation',
+        left: 'Data Validity',
         right: 'Bitcoin',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
@@ -91,18 +92,18 @@ const DATA_CHAINS = [
   },
   {
     img: chain_3,
-    title: 'Naka Chain',
-    stud: 1,
-    link: 'https://nakachain.xyz/',
+    title: 'Arcade Chain',
+    stud: 3,
+    link: 'https://bitcoinarcade.xyz/',
     data: [
       {
         left: 'Currency',
-        right: 'BTC',
+        right: 'GAME',
         icon: '/landing/svg/lego_icon_flat.svg',
       },
       {
         left: 'Use Case',
-        right: 'DeFi',
+        right: 'GameFi',
         icon: '/landing/svg/lego_icon_rect.svg',
       },
       {
@@ -111,13 +112,13 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
-        left: 'Data Validation',
+        left: 'Data Validity',
         right: 'Bitcoin',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
         left: 'Data Availability',
-        right: 'NearDA',
+        right: 'EigenDA',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
