@@ -16,21 +16,25 @@ export default function ItemHero({
   delay: number;
 }) {
   return (
-    <div className={`${s.itemHero} itemHero`}>
-      <Fade from={{ x: 20 }} to={{ x: 0 }} delay={delay}>
-        <div className={s.itemHero_inner}>
-          <div className={s.itemHero_content}>
-            <Image
-              className={s.itemHero_img}
-              src={data.icon}
-              alt={data.title}
-              width={45}
-              height={45}
-            />
-            <p className={`${s.itemHero_content_title} itemHero_content_title`}>{data.title}</p>
+      <div className={`${s.itemHero} itemHero`}>
+        {/* <Fade from={{ x: 20 }} to={{ x: 0 }} delay={delay}> */}
+          <div className={s.itemHero_inner}>
+            <div className={s.itemHero_content}>
+              <Image
+                className={s.itemHero_img}
+                src={data.icon}
+                alt={data.title}
+                width={45}
+                height={45}
+              />
+              <p
+                className={`${s.itemHero_content_title} itemHero_content_title`}
+              >
+                {data.title}
+              </p>
+            </div>
           </div>
-        </div>
-      </Fade>
-    </div>
+        {/* </Fade> */}
+      </div>
   );
 }

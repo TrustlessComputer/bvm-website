@@ -1,13 +1,15 @@
 .itemChain {
   width: fit-content;
   flex: 1;
+  flex-shrink: 0;
   cursor: pointer;
 
-  &_inner{
+  &_inner {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 5px 6px;
     background-color: #fff;
+    height: 100%;
   }
 
   @include is-mobile {
@@ -22,10 +24,15 @@
     width: 50%;
     padding: 12px;
   }
+  @include is-pc {
+    flex: 0 0 259px;
+    min-width: 259px;
+  }
 
   :global {
     .fade {
       width: 100%;
+      height: 100%;
     }
 
     .sectionTop_img {
@@ -53,11 +60,11 @@
 .itemLaunch:nth-child(3n) {
   grid-column: span 2;
   grid-column-start: 2;
-  @include is-tablet{
+  @include is-tablet {
     grid-column-start: 1;
   }
 
-  @include is-mobile{
+  @include is-mobile {
     grid-column-start: 1;
   }
 }

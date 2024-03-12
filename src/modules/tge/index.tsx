@@ -11,7 +11,7 @@ export default function TgeModule() {
     <div className={s.wrapper}>
       <Loader />
       <div className={cn(s.inner, 'container')}>
-        <Heading /> 
+        <Heading />
         <SectionButton />
       </div>
       <Image

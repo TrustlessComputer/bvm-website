@@ -63,19 +63,19 @@ const RoadmapModule = () => {
         desc: 'After a year of building on Bitcoin with battle-tested protocol and infrastructure, the BVM token sale is open with one single public sale round to facilitate greater involvement and support the project\'s continued growth.'
       },
       {
-        color: '#9E9E9E',
+        color: '#75CDAD',
         time: 'March 2024',
         title: 'TGE & Listing',
-        button: '',
-        link: '',
+        button: 'Learn more',
+        link: 'https://twitter.com/BVMnetwork/status/1764925124262985839',
         desc: '• Investors can claim BVM tokens from the public sale.<br/>• BVM token to be listed on several exchanges<br/>'
       },
       {
-        color: '#9E9E9E',
+        color: '#FF6868',
         time: 'April 2024',
         title: 'BVM Staking',
-        button: '',
-        link: '',
+        button: 'Learn more',
+        link: 'https://twitter.com/BVMnetwork/status/1764925124262985839',
         desc: '• Stake BVM tokens and earn staking rewards from different Bitcoin L2 blockchains within the BVM ecosystem'
       },
       {
@@ -98,8 +98,8 @@ const RoadmapModule = () => {
   }, [])
 
   const renderItem = (item: IRoadMap, index: number) => {
-    const isDone = index < 4;
-    const isFeature = index > 4;
+    const isDone = index < 6;
+    const isFeature = index > 6;
     return (
       <GridItem className={cs(s.item, {[s.item__public]: index === 4, [s.item__feature]: isFeature})}>
         <Box

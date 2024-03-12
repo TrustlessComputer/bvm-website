@@ -11,13 +11,17 @@ type TItemChain = {
   title: string;
   stud: number;
   link?: string;
-  data?: {
-    left: string;
-    right: string;
-    icon: string;
-  }[];
+  data?:
+    | {
+        left: string;
+        right: string;
+        icon: string;
+      }[];
+
   bgTop: string;
   bgBottom: string;
+  isYourChain?: boolean;
+  description?: string;
 };
 
 export default function ItemChain({
@@ -49,9 +53,14 @@ export default function ItemChain({
               delay={delay + 0.2}
               isLaunch={isLaunch}
               data={dataSectionBottom}
+              isYourChain={data.isYourChain}
             />
           ) : (
-            <SectionBottom delay={delay + 0.2} data={dataSectionBottom} />
+            <SectionBottom
+              delay={delay + 0.2}
+              data={dataSectionBottom}
+              isYourChain={data.isYourChain}
+            />
           )}
         </div>
       </Fade>

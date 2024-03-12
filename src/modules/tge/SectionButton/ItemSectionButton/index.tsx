@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { TButtonTGE } from '..';
 import s from './styles.module.scss';
 import { Button } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
@@ -9,11 +8,13 @@ import Chars from '@/interactive/Chars';
 import Lines from '@/interactive/Lines';
 
 export default function ItemSectionButton({
-                                            data,
-                                            delay,
-                                          }: {
-  data: TButtonTGE;
+  data,
+  delay,
+  isLast,
+}: {
+  data: any;
   delay: number;
+  isLast: boolean;
 }) {
   return (
     <div className={s.item}>
@@ -23,7 +24,9 @@ export default function ItemSectionButton({
         </div>
       </Fade>
       <Chars delay={delay + 0.1}>
-        <h4 className={s.item_title}>{data.title}</h4>
+        <h4 className={`${s.item_title} ${isLast && s.isLast}`}>
+          {data.title}
+        </h4>
       </Chars>
       <Lines delay={delay + 0.2}>
         <p className={s.item_desc}> {data.desc} </p>

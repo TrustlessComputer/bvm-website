@@ -11,6 +11,7 @@ import ButtonLoginTwitter from './ButtonLoginTwitter';
 import { useWeb3Auth } from '@/Providers/AuthenticatedProvider_vs2/Web3Auth.hook';
 import UserInforBox from './UserInforBox';
 import ContactUs from './ContactUs';
+import Community from './Community';
 
 type Props = {
   primaryColor?: 'black' | 'white';
@@ -20,7 +21,7 @@ export const DesktopNavRight = (props: Props) => {
   // const { isLogged } = useWeb3Authenticated();
   const { loggedIn } = useWeb3Auth();
   return (
-    <HStack direction={'row'} spacing={['40px', '40px']}>
+    <HStack direction={'row'} spacing={['40px', '32px']}>
       {NAV_ITEMS_RIGHT.map((navItem) => (
         <>
           {navItem.subMenu ? (
@@ -50,7 +51,7 @@ export const DesktopNavRight = (props: Props) => {
           )}
         </>
       ))}
-
+      {<Community />}
       {<ContactUs />}
 
       {!loggedIn ? <ButtonLoginTwitter color={'white'} /> : <UserInforBox />}
