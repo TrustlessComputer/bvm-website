@@ -39,7 +39,6 @@ export const contactAPI = async (
 export const submitContact = async (params: SubmitFormParams) => {
   try {
     const data = await apiClient.post(`api/service/contact`, params);
-    console.log('submitContact 12345', data);
     return data;
   } catch (error: any) {
     console.log('[submitContact] error ', error);
