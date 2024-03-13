@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
 
-import CommunityModal from '@/components/CommunityModal';
+import CommunityModal from '@/components/CommunityModal/v2';
 
 type Props = {
   color?: 'black' | 'white';
