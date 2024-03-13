@@ -58,29 +58,34 @@ const DATA = [
         color: 'green',
       },
       {
-        btnTitle: 'Buy on Uniswap',
+        btnTitle: 'Uniswap',
         color: 'border',
         link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
+        icon: '/bvm/uniswap.svg'
       },
       {
-        btnTitle: 'Buy on Unisat',
+        btnTitle: 'Unisat',
         color: 'border',
         link: 'https://unisat.io/market/brc20?tick=BVMN',
+        icon: '/bvm/unisat.svg'
       },
       {
-        btnTitle: 'Buy on Bitmart',
+        btnTitle: 'Bitmart',
         color: 'border',
         link: 'https://www.bitmart.com/trade/en-US?symbol=BVM_USDT',
+        icon: '/bvm/bitmart.svg'
       },
       {
-        btnTitle: 'Buy on Poloniex',
+        btnTitle: 'Poloniex',
         color: 'border',
         link: 'https://poloniex.com/trade/BVM_USDT/?type=spot',
+        icon: '/bvm/poloniex.svg'
       },
       {
-        btnTitle: 'Buy on Gate.io',
+        btnTitle: 'Gate.io',
         color: 'border',
         link: '#',
+        icon: '/bvm/gateio.svg',
         disable: true
       },
       // {

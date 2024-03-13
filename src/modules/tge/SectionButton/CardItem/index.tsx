@@ -1,3 +1,4 @@
+import SvgInset from '@/components/SvgInset';
 import s from './styles.module.scss';
 import Fade from '@/interactive/Fade';
 import { Button } from '@chakra-ui/react';
@@ -13,6 +14,7 @@ const CardItem = ({ ...props }) => {
         display={'flex'}
         justifyContent={'center'}
         alignItems={'center'}
+        gap={'8px'}
         px={'24px'}
         py={'10px'}
         width={'150px'}
@@ -29,6 +31,7 @@ const CardItem = ({ ...props }) => {
           color: 'white',
         }}
       >
+        <SvgInset svgUrl={pr.icon} />
         {pr.btnTitle}
       </Button>
     );
@@ -56,6 +59,7 @@ const CardItem = ({ ...props }) => {
           bgColor: '#e64e0e',
         }}
       >
+        <SvgInset svgUrl={pr.icon} />
         {pr.btnTitle}
       </Button>
     );
@@ -83,6 +87,7 @@ const CardItem = ({ ...props }) => {
           bgColor: '#008263',
         }}
       >
+        <SvgInset svgUrl={pr.icon} />
         {pr.btnTitle}
       </Button>
     );
