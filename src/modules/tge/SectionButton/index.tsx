@@ -62,6 +62,27 @@ const DATA = [
         color: 'border',
         link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
       },
+      {
+        btnTitle: 'Buy on Unisat',
+        color: 'border',
+        link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
+      },
+      {
+        btnTitle: 'Buy on Bitmart',
+        color: 'border',
+        link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
+      },
+      {
+        btnTitle: 'Buy on Poloniex',
+        color: 'border',
+        link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
+      },
+      {
+        btnTitle: 'Buy on Gate.io',
+        color: 'border',
+        link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
+        disable: true
+      },
       // {
       //   btnTitle: 'Unisat',
       //   link: '',
