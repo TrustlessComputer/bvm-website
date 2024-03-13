@@ -107,7 +107,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
       >
         <Flex direction={'column'} color={'black'} w={'100%'} gap={'20px'}>
           <Text fontSize={['24px']} fontWeight={500} lineHeight={'34px'}>
-            Tell us a bit about you
+            How can we help you?
           </Text>
 
           <Flex
@@ -142,7 +142,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
               </Text>
               <Input
                 border="1px solid #CECECE"
-                placeholder="Enter here"
+                placeholder=""
                 _placeholder={{
                   color: 'grey',
                 }}
@@ -191,7 +191,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
               </Text>
               <Input
                 border="1px solid #CECECE"
-                placeholder="Enter here"
+                placeholder=""
                 _placeholder={{
                   color: 'grey',
                 }}
@@ -235,11 +235,11 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 textTransform={'uppercase'}
                 color={'#5B5B5B'}
               >
-                Tell us more about your plan with your Bitcoin L2
+                Please provide us with more details.
               </Text>
               <Textarea
                 border="1px solid #CECECE"
-                placeholder="Enter your plan here"
+                placeholder=""
                 _placeholder={{
                   color: 'grey',
                 }}
