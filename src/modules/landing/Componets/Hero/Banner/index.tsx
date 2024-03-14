@@ -11,7 +11,7 @@ const Banner = (props: Props) => {
   const ContentReder = (): ReactElement => {
     return <div className={s.banner_wrapper}>
           <span className={s.text}>
-            Get 58% APY with $BVM Staking.
+            Get 58% interest with $BVM Staking.
           </span>
       <Link href={'/bvm'} className={s.banner_link}>
         Start here
