@@ -97,7 +97,7 @@ const DATA = [
   {
     id: 1,
     title: 'STAKE',
-    description: (<>Earn up to <b>58% APY</b> on your BVM and receive airdrops from upcoming Bitcoin L2 projects.</>),
+    description: (<>Earn up to <b>58% interest</b> on your BVM and receive airdrops from upcoming Bitcoin L2 projects.</>),
     isRed: true,
     buttons: [
       {
