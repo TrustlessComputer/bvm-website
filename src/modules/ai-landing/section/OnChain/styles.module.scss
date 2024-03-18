@@ -26,8 +26,8 @@
       }
 
       @include is-pc {
-        gap: 64px;
-        align-items: start;
+        // gap: 64px;
+        align-items: center;
         flex-direction: row;
         padding: 160px 0;
       }
@@ -37,8 +37,8 @@
         position: relative;
         left: 0;
         @include is-pc {
-          top: 100px;
-          position: sticky;
+          // top: 100px;
+          // position: sticky;
         }
 
         .mainHeading {
@@ -48,8 +48,26 @@
           font-size: 36px;
           line-height: 1.1;
           @include is-pc {
-            margin-top: 24px;
+            margin-top: 16px;
             font-size: 68px;
+          }
+
+          &_decs {
+            font-size: 16px;
+            color: #000;
+            line-height: 1.5;
+            font-weight: 400;
+            margin: 24px 0;
+            @include is-pc {
+              font-size: 20px;
+              max-width: 768px;
+            }
+          }
+
+          &_buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
           }
         }
       }
