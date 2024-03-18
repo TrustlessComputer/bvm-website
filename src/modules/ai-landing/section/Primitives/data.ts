@@ -7,7 +7,7 @@ export const FAKE_DATA = [
       'Generative Collection Identification Challenge. Can you tell if the submitted image is part of a generative collection? \n This AI model can!',
     image: '/ai-landing/primitive_1.png',
     link: '/use',
-    linkTitle: 'Give It A Try'
+    linkTitle: 'Give it a try',
   },
   {
     id: 1,
@@ -19,15 +19,15 @@ export const FAKE_DATA = [
   },
   {
     id: 2,
-    caseStudy: 'Music',
+    caseStudy: 'Melody Composer AI',
     title: 'Melody Composer AI.',
     description:
-      'Whether you\'re a seasoned musician or just getting started, this AI model can help you release your creativity and compose beautiful melodies with ease.',
+      "Whether you're a seasoned musician or just getting started, this AI model can help you release your creativity and compose beautiful melodies with ease.",
     image: '/ai-landing/primitive_3.png',
   },
   {
     id: 3,
-    caseStudy: 'Image',
+    caseStudy: 'Punk or Not',
     title: ' Find your perfect match!',
     description:
       'Submit your image, and this AI model will analyze it to find which Crypto Punk avatar best fits you.',
