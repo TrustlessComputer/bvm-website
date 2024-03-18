@@ -6,7 +6,7 @@ import ModalVideo from 'react-modal-video';
 import SvgInset from '@/components/SvgInset';
 import { ModuleData } from './moduleData';
 import ModuleItem from './ModuleItem';
-
+import s from './styles.module.scss';
 const DELAY = 2;
 const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
   const delay = isFooter ? 0 : DELAY;
