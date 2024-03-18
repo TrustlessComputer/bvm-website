@@ -71,7 +71,7 @@
       height: 100%;
       display: flex;
       align-items: start;
-      justify-content: center;
+      justify-content: flex-end;
       flex-direction: column;
       max-width: 1023px;
       width: 100%;
@@ -90,7 +90,7 @@
         margin-top: 16px;
         text-transform: none;
         margin-bottom: 20px;
-        text-align: start;
+        text-align: center;
         font-size: 40px;
 
         @include is-tablet {
@@ -101,17 +101,20 @@
 
         @include is-pc {
           font-size: 72px;
+          text-align: left;
         }
       }
 
       .desc {
         font-size: 22px;
         margin: 0 auto 32px auto;
+        text-align: center;
 
         @include is-pc {
           margin-bottom: 32px;
           margin-left: 0;
           margin-right: 0;
+          text-align: left;
         }
       }
 
@@ -154,17 +157,19 @@
   width: 100%;
   padding-top: 40px;
   display: flex;
-  justify-content: flex-start;
-  text-align: left !important;
+  justify-content: center;
+  text-align: center;
 
   &_text {
     text-transform: uppercase;
-    display: flex;
-    justify-content: flex-start;
     margin-bottom: 12px;
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
   }
 
+  @include is-pc {
+    text-align: left !important;
+    justify-content: flex-start;
+  }
 }
