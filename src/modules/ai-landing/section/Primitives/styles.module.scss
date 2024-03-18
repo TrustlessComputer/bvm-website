@@ -9,11 +9,14 @@
   .container {
     width: 100%;
     .wrapperContent {
-      padding-top: 80px;
-      padding-bottom: 85px;
+      padding: 32px 0;
+
+      @include is-tablet {
+        padding: 80px 0;
+      }
+
       @include is-pc {
-        padding-top: 160px;
-        padding-bottom: 171px;
+        padding: 160px 0;
       }
       .title {
         width: 100%;
@@ -29,14 +32,11 @@
         gap: 12px;
         flex-wrap: wrap;
         justify-content: center;
-        //height: 54px;
-
         @include is-pc {
           justify-content: flex-start;
           margin-top: 68px;
         }
         .btn {
-          // text-transform: uppercase;
           padding: 12px 20px;
           @include is-mobile {
             width: 100%;
