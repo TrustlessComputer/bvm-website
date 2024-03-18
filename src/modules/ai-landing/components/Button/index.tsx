@@ -13,6 +13,7 @@ import gsap from 'gsap';
 
 type IButton = {
   isWhite?: boolean;
+  isOrange?: boolean;
   isDisabled?: boolean;
   className?: string;
   link?: string;
@@ -22,7 +23,7 @@ type IButton = {
 };
 
 const Button = forwardRef<HTMLButtonElement, IButton>(
-  ({ children, className, isWhite, isDisabled, onClick, id = -2 }, ref) => {
+  ({ children, className, isWhite,isOrange, isDisabled, onClick, id = -2 }, ref) => {
     const bgRef = useRef<HTMLSpanElement>(null);
     const { contextSafe } = useGSAP();
     const contentRef = useRef<HTMLParagraphElement>(null);
@@ -78,7 +79,7 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
     return (
       <button
         ref={ref}
-        className={`${s.btn} ${className} ${isWhite ? s.white : ''} ${isDisabled ? s.isDisabled : ''}`}
+        className={`${s.btn} ${className} ${isWhite ? s.white : ''} ${isOrange ? s.orange : ''} ${isDisabled ? s.isDisabled : ''}`}
         onClick={onClick}
       >
         <span ref={bgRef} className={s.btn_bg}></span>

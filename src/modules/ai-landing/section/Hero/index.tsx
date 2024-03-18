@@ -105,7 +105,7 @@ export default function Hero(): React.JSX.Element {
                     onClick={() => {
                       router.push('/build');
                     }}
-                    isWhite={true}
+                    isOrange={true}
                     className={`${s.btn}`}
                   >
                     Build AI
@@ -122,6 +122,7 @@ export default function Hero(): React.JSX.Element {
                       router.push('/use');
                     }}
                     className={`${s.btn}`}
+                    isWhite
                   >
                     Use AI
                   </Button>
