@@ -13,7 +13,6 @@ const Community = (props: Props) => {
   const [showContactUsModal, setContactUsModal] = useState(false);
   const [showSubmitSuccessModal, setShowSubmitSuccessModal] = useState(false);
 
-  console.log('____props?.color', props?.color);
   return (
     <>
       <Flex
@@ -24,7 +23,6 @@ const Community = (props: Props) => {
         borderRadius={'4px'}
         justify={'center'}
         align={'center'}
-        px={'10px'}
         py={'5px'}
         className={s.btnLogin}
         color={props?.color || 'white'}

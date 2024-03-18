@@ -37,7 +37,6 @@ const ContactUs = (props: Props) => {
         borderRadius={'4px'}
         justify={'center'}
         align={'center'}
-        px={'10px'}
         py={'5px'}
         className={s.btnLogin}
         color={props?.color || 'white'}
