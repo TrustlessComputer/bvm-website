@@ -8,8 +8,8 @@ export const ModuleData = [
     title: 'Optimism',
   },
   {
-    logoUrl: '/images/lego_celestia.svg',
-    title: 'Celestia',
+    logoUrl: '/images/lego_filecoin.svg',
+    title: 'Filecoin',
   },
   {
     logoUrl: '/images/lego_polygon.svg',
@@ -20,8 +20,8 @@ export const ModuleData = [
     title: 'Uniswap',
   },
   {
-    logoUrl: '/images/lego_ordinals.svg',
-    title: 'Ordinals',
+    logoUrl: '/images/lego_celestia.svg',
+    title: 'Celestia',
   },
   {
     logoUrl: '/images/lego_near.svg',
