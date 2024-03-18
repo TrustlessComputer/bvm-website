@@ -13,7 +13,6 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 10;
   }
 
   &.blur {
@@ -36,7 +35,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 3;
+      z-index: 2;
       pointer-events: none;
       transition: opacity 0.6s ease-in-out;
     }
@@ -58,14 +57,14 @@
 
     &__loop {
       opacity: 0;
-      z-index: 2;
+      z-index: 1;
     }
   }
 
   .container {
     height: 100%;
     position: relative;
-    z-index: 4;
+    z-index: 2;
 
     .contentWrapper {
       color: #fff;

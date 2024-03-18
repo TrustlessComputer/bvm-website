@@ -70,7 +70,7 @@ export default function Hero(): React.JSX.Element {
           width={10}
           height={10}
           className={s.hero_bg}
-          src={`${VIDEOS_CDN}/LP_Banner_03.mp4`}
+          src={`${VIDEOS_CDN}/LP_Banner_03_compress.mp4`}
           preload={'auto'}
           playsInline
           muted
@@ -80,7 +80,7 @@ export default function Hero(): React.JSX.Element {
           width={10}
           height={10}
           className={`${s.hero_bg} ${s.hero_bg__loop}`}
-          src={`${VIDEOS_CDN}/lp_banner_loop_hero.mp4`}
+          src={`${VIDEOS_CDN}/LP_Banner_Loop_01_compress.mp4`}
           loop
           preload={'auto'}
           playsInline
@@ -94,8 +94,7 @@ export default function Hero(): React.JSX.Element {
             </HomeTitle>
             <Fade delayEnter={1.5}>
               <p className={s.desc}>
-                An open AI infrastructure that benefits humankind — owned by
-                none.
+                An open AI infrastructure that benefits all humankind and is owned by none.
               </p>
             </Fade>
             <div className={`${s.wrapperBtn}`}>
