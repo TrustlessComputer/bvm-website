@@ -10,10 +10,12 @@ export default function ButtonInner({
                                       title,
                                       link,
                                       id,
+                                      isOpen
                                     }: {
   title?: string;
   link?: string;
   id?: number;
+  isOpen?: boolean;
 }) {
   const { idPrimitive } = useStorePrimitive();
   const idDebouncePrimitive = useDebounce(idPrimitive, 300);
@@ -38,7 +40,7 @@ export default function ButtonInner({
     <>
       {
         link ? <Button onClick={() => {
-          rounter.push(link);
+          isOpen ? window.open(link) : rounter.push(link);
         }} ref={buttonRef} isWhite className={`${s.contentTab_button_inner}`}>
           {title}
         </Button> : <Button ref={buttonRef} isDisabled className={`${s.contentTab_button_inner}`}>

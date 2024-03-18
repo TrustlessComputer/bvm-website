@@ -91,12 +91,11 @@ export default function Hero(): React.JSX.Element {
           <HomeContainer className={`${s.container}`}>
             <div className={`${s.contentWrapper}`}>
               <HomeTitle className={`${s.mainHeading}`}>
-                Project Truly Open AI
+                <span>Project</span> Truly Open AI
               </HomeTitle>
               <Fade delayEnter={1.5}>
                 <p className={s.desc}>
-                  An open AI infrastructure that benefits humankind — owned by
-                  none.
+                  An open AI infrastructure that benefits all humankind and is owned by none.
                 </p>
               </Fade>
               <div className={`${s.wrapperBtn}`}>
@@ -119,7 +118,7 @@ export default function Hero(): React.JSX.Element {
                 <Fade delayEnter={2}>
                   <Button
                     onClick={() => {
-                      window.open('https://bvm.network/blockchains/customize');
+                      router.push('/blockchains/customize');
                     }}
                     className={`${s.btn}`}
                     isWhite
@@ -145,7 +144,7 @@ export default function Hero(): React.JSX.Element {
                   <a
                     href={'#'}
                     onClick={() => setOpen(true)}
-                    style={{display: 'block', position: 'relative' }}
+                    style={{ display: 'block', position: 'relative' }}
                   >
                     <p className={s.videoWrapper_text}>Watch the film</p>
                     <img

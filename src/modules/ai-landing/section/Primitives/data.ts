@@ -6,8 +6,9 @@ export const FAKE_DATA = [
     description:
       'Generative Collection Identification Challenge. Can you tell if the submitted image is part of a generative collection? \n This AI model can!',
     image: '/ai-landing/primitive_1.png',
-    link: '/use',
+    link: 'https://eternalai.org/use',
     linkTitle: 'Give it a try',
+    isOpen: true,
   },
   {
     id: 1,

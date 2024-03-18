@@ -7,9 +7,12 @@ import HomeTitle from '../../components/HomeTitle';
 import LinesRandom from '@interactive/Signal/Lines/Random';
 import { VIDEOS_CDN } from '@constants/common';
 import Button from '../../components/Button';
+import { useRouter } from 'next/navigation';
+import Fade from '@interactive/Signal/Fade';
 
 export default function OnChain(): React.JSX.Element {
   const refContainer = useRef<HTMLDivElement>(null);
+  const router= useRouter();
 
   useEffect(() => {
     // hande center content
@@ -41,12 +44,20 @@ export default function OnChain(): React.JSX.Element {
               </p>
             </LinesRandom>
             <div className={s.mainHeading_buttons}>
-              <Button className={s.mainHeading_buttons_item} isOrange>
-                Deploy an AI chain
-              </Button>
-              <Button className={s.mainHeading_buttons_item} isOrange>
-                Deploy an AI dapp
-              </Button>
+             <Fade>
+               <Button className={s.mainHeading_buttons_item} onClick={
+                 ()=>{
+                   router.push('/blockchains/customize')
+                 }
+               } isOrange>
+                 Deploy an AI chain
+               </Button>
+             </Fade>
+              {/*<Fade delayTrigger={.2}>*/}
+              {/*  <Button className={s.mainHeading_buttons_item} isOrange>*/}
+              {/*    Deploy an AI dapp*/}
+              {/*  </Button>*/}
+              {/*</Fade>*/}
             </div>
           </div>
 

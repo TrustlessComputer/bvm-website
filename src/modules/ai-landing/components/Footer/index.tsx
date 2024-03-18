@@ -23,7 +23,7 @@ const Footer = () => {
           />
           <p className={`${s.title}`}>ETERNAL AI</p>
           <p className={`${s.description}`}>
-            An open AI infrastructure that benefits humankind — owned by none.
+            An open AI infrastructure that benefits all humankind and is owned by none.
           </p>
           <div className={`${s.wrapperBtn}`}>
             {/*<Button isWhite onClick={()=>{*/}
@@ -42,7 +42,7 @@ const Footer = () => {
             <Fade delayEnter={1.8}>
               <Button
                 onClick={() => {
-                  router.push('https://eternalai.org/');
+                  window.open('https://eternalai.org/');
                 }}
                 isOrange={true}
                 className={`${s.btn}`}
@@ -53,7 +53,7 @@ const Footer = () => {
             <Fade delayEnter={2}>
               <Button
                 onClick={() => {
-                  router.push('https://bvm.network/blockchains/customize');
+                  router.push('/blockchains/customize');
                 }}
                 className={`${s.btn}`}
                 isWhite
