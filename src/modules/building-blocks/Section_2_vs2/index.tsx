@@ -145,7 +145,7 @@ const Section2 = () => {
           </Text>
           <Box h={'24px'}></Box>
           <Button
-            bgColor={'#EF601B'}
+            bgColor={'#FA4E0E'}
             color={'#fff'}
             borderRadius={0}
             display={'flex'}

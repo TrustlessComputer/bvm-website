@@ -72,7 +72,7 @@ export default function LegoV2() {
           <Fade delay={0.4}>
             <Flex justify={'center'}>
               <Button
-                bgColor={'#EF601B'}
+                bgColor={'#FA4E0E'}
                 color={'#fff'}
                 borderRadius={0}
                 display={'flex'}

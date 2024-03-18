@@ -44,7 +44,7 @@ const Section_1 = () => {
         </Text>
         <Button
           marginTop={'5px'}
-          bgColor={'#EF601B'}
+          bgColor={'#FA4E0E'}
           color={'#fff'}
           borderRadius={100}
           display={'flex'}

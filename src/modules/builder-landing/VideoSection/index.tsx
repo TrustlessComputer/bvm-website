@@ -21,7 +21,7 @@ export default function BuilderVideo() {
             </Chars>
             {/*<Fade>*/}
             {/*  <Button*/}
-            {/*    bgColor={'#EF601B'}*/}
+            {/*    bgColor={'#FA4E0E'}*/}
             {/*    color={'#fff'}*/}
             {/*    borderRadius={0}*/}
             {/*    display={'flex'}*/}

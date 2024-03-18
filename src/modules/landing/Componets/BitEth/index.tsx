@@ -57,7 +57,7 @@ export default function BitEth({...props}: TBitEthProps) {
           <div className={s.actions}>
             <Fade delay={0.5}>
               <Button
-                bgColor={'#EF601B'}
+                bgColor={'#FA4E0E'}
                 color={'#fff'}
                 borderRadius={0}
                 display={'flex'}
