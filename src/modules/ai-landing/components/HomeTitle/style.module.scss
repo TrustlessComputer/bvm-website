@@ -6,7 +6,8 @@
   line-height: 1.1;
   color: #fff;
   text-transform: uppercase;
-  text-align: center;
+  // text-align: center;
+  text-align: left;
 
   &.spanOpacity {
     span {
@@ -27,6 +28,5 @@
 
   @include is-pc {
     font-size: 68px;
-    text-align: left;
   }
 }

@@ -88,10 +88,16 @@
 
       .mainHeading {
         margin-top: 16px;
-        text-transform: none;
+        text-transform: uppercase;
         margin-bottom: 20px;
         text-align: center;
         font-size: 40px;
+        width: 100%;
+
+        >span{
+          opacity: .6;
+        }
+
 
         @include is-tablet {
           text-align: center;

@@ -23,7 +23,7 @@ export default function PrimitivesTab({ data }: {
         </div>
         <div className={s.contentTab_button}>
           {data.map((item, index) => {
-            return <ButtonInner title={item.linkTitle} link={item.link} id={index} />;
+            return <ButtonInner title={item.linkTitle} isOpen={item.isOpen} link={item.link} id={index} />;
           })}
         </div>
       </div>
