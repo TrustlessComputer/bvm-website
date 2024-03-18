@@ -84,7 +84,7 @@ const Simple = () => {
         <div className={s.simple_bg} ref={wrapBgRef}></div>
         <HomeContainer className={s.container}>
           <h2 className={s.simple_title} ref={titleHeadingRef}>
-            <span>BUILT BY THE WORLD’S </span> AI EXPERTS
+            <span> BUILT BY THE</span> WORLD’S AI EXPERTS<span> AND </span>CRYPTO EXPERTS
           </h2>
           {isDesktop ? (
             <div className={s.wrapContent} ref={contentRef}>
