@@ -13,6 +13,7 @@ import { gsap } from 'gsap';
 import React, { useRef } from 'react';
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
+import Banner from '@/modules/landing/Componets/Hero/Banner';
 
 export default function Hero(): React.JSX.Element {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -63,6 +64,11 @@ export default function Hero(): React.JSX.Element {
   });
   return (
     <div className={`${s.hero}`} ref={heroRef}>
+      <div className={s.hero_wrap}>
+      <Banner disabledAnimation />
+
+      </div>
+
       <BoxParallax offset={0.35}>
         <div className={s.hero_parallax}>
           <video
@@ -87,15 +93,21 @@ export default function Hero(): React.JSX.Element {
             muted
           />
           <HomeContainer className={`${s.container}`}>
+
             <div className={`${s.contentWrapper}`}>
               <HomeTitle className={`${s.mainHeading}`}>
-                A Bitcoin L2 <br/>designed for <br/> fully on-chain AI
+                A Bitcoin L2 <br />
+                designed for <br /> fully on-chain AI
               </HomeTitle>
               <div className={`${s.wrapperBtn}`}>
                 <Fade delayEnter={1.8}>
-                  <Button onClick={()=>{
-                    router.push('/build')
-                  }} isWhite={true} className={`${s.btn}`}>
+                  <Button
+                    onClick={() => {
+                      router.push('/build');
+                    }}
+                    isWhite={true}
+                    className={`${s.btn}`}
+                  >
                     Build AI
                   </Button>
                   {/*<Button onClick={()=>{*/}
@@ -105,9 +117,14 @@ export default function Hero(): React.JSX.Element {
                   {/*</Button>*/}
                 </Fade>
                 <Fade delayEnter={2}>
-                  <Button onClick={()=>{
-                    router.push('/use')
-                  }} className={`${s.btn}`}>Use AI</Button>
+                  <Button
+                    onClick={() => {
+                      router.push('/use');
+                    }}
+                    className={`${s.btn}`}
+                  >
+                    Use AI
+                  </Button>
                 </Fade>
               </div>
             </div>

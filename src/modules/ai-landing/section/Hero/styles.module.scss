@@ -8,6 +8,14 @@
   overflow: hidden;
   background: #000;
 
+  .hero_wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
   &.blur {
     .hero_parallax:before {
       opacity: 0.4;
