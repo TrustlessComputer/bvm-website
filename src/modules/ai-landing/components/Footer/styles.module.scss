@@ -1,0 +1,95 @@
+.footerBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.footer {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 100%;
+  background-color: #191919;
+  background-image: url('/images/bgFooter.png');
+
+  .mainContent {
+    max-width: rem(403px);
+    width: 100%;
+    padding: rem(40px) 0;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Urbanist';
+
+    .logo {
+      max-width: rem(80);
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .title {
+      font-size: rem(20px);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: rem(16px);
+      margin-bottom: rem(24px);
+    }
+
+    .description {
+      font-weight: 500;
+      font-size: rem(14px);
+    }
+
+    .wrapperBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: rem(24px);
+      gap: rem(16);
+      flex-direction: column;
+      @include is-tablet {
+        flex-direction: row;
+      }
+      @include is-pc {
+        flex-direction: row;
+      }
+
+      &_btn {
+        width: 100%;
+        padding: rem(7.5px) 3.2rem;
+        font-size: rem(14px);
+        height: auto !important;
+
+        p {
+          margin-top: 0 !important;
+        }
+
+        @include is-pc {
+          width: fit-content;
+          min-width: rem(160px);
+        }
+      }
+    }
+
+    @include is-pc {
+      padding: rem(80px) 0;
+    }
+  }
+
+  .wrapperLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: rem(48px);
+    width: 100%;
+    background-color: #191919;
+    padding: rem(24px) 0;
+
+    @include is-mobile {
+      flex-wrap: wrap;
+      gap: rem(24px);
+    }
+  }
+}
