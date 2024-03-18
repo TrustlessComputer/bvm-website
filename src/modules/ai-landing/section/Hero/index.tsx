@@ -13,7 +13,6 @@ import { gsap } from 'gsap';
 import React, { useRef } from 'react';
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
-import Banner from '@/modules/landing/Componets/Hero/Banner';
 
 export default function Hero(): React.JSX.Element {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -64,9 +63,6 @@ export default function Hero(): React.JSX.Element {
   });
   return (
     <div className={`${s.hero}`} ref={heroRef}>
-      <div className={s.hero_wrap}>
-        <Banner disabledAnimation />
-      </div>
 
       <BoxParallax offset={0.35}>
         <div className={s.hero_parallax}>
