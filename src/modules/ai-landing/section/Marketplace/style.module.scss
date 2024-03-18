@@ -1,8 +1,9 @@
 .marketplace {
   background: #ffffff;
-  padding-top: rem(32px) ;
+  padding-top: rem(32px);
   font-family: 'Urbanist';
   overflow: hidden;
+
   @include is-pc {
     padding-top: rem(160px);
   }
@@ -13,6 +14,11 @@
     color: #000;
     text-align: center;
     margin: 0 auto rem(34px) auto;
+
+    @include is-tablet {
+      max-width: 100%;
+    }
+
     @include is-pc {
       margin-bottom: rem(68px);
     }
@@ -22,6 +28,7 @@
     margin-bottom: rem(24px);
     text-align: start;
     font-size: rem(36px);
+
     @include is-pc {
       text-align: center;
       font-size: rem(68px);
@@ -31,6 +38,7 @@
   &_content {
     text-align: start;
     font-size: rem(14px);
+
     @include is-pc {
       text-align: center;
       font-size: rem(20px);
