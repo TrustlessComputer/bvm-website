@@ -106,7 +106,12 @@
 
       .desc {
         font-size: 22px;
-        margin-bottom: 32px;
+        margin: 0 auto 32px auto;
+        @include is-pc {
+          margin-bottom: 32px;
+          margin-left: 0;
+          margin-right: 0;
+        }
       }
 
       .wrapperBtn {

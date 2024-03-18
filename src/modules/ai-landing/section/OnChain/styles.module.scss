@@ -56,9 +56,10 @@
       }
 
       .right {
-        max-width: 598px;
         width: 100%;
-
+        @include is-pc {
+          max-width: 598px;
+        }
         &_inner {
           aspect-ratio: 1/1;
           margin: 24px 0;
@@ -79,7 +80,10 @@
         }
 
         .descImage {
+          font-family: "Helvetica Neue";
           font-size: 14px;
+          line-height: 30px;
+          font-weight: 400;
           color: #000;
           @include is-pc {
             font-size: 20px;
