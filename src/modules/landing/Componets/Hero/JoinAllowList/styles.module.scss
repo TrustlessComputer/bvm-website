@@ -1,5 +1,9 @@
+.isFooter {
+  position: relative;
+  z-index: 4;
+}
+
 .container {
-  overflow: hidden;
   width: 100%;
   background: url('/landing/images/hero-bg-allow.jpg');
   background-repeat: no-repeat;
@@ -41,6 +45,7 @@
 
   &.isFooter {
     padding: 30px 0;
+    z-index: 5;
   }
 
   @include is-min-table {
