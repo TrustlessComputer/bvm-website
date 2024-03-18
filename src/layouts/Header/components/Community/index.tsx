@@ -13,6 +13,7 @@ const Community = (props: Props) => {
   const [showContactUsModal, setContactUsModal] = useState(false);
   const [showSubmitSuccessModal, setShowSubmitSuccessModal] = useState(false);
 
+  console.log('____props?.color', props?.color);
   return (
     <>
       <Flex
@@ -26,7 +27,7 @@ const Community = (props: Props) => {
         px={'10px'}
         py={'5px'}
         className={s.btnLogin}
-        color={props?.color === 'black' ? 'white' : 'black'}
+        color={props?.color || 'white'}
         gap={'10px'}
         _hover={{
           cursor: 'pointer',

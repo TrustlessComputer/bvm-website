@@ -77,7 +77,7 @@ const JoinAllowList = ({ isFooter }: { isFooter?: boolean }) => {
     return () => clearInterval(timer);
   }, [isCopied]);
   return (
-    <Fade delay={delay}>
+    <Fade delay={delay} className={`${isFooter && s.isFooter}`}>
       <div className={`${s.container} ${isFooter && s.isFooter}`}>
         <div className={`container ${s.content}`}>
           <Flex

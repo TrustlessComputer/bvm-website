@@ -49,8 +49,8 @@ export const DesktopNavRight = (props: Props) => {
           )}
         </>
       ))}
-      {<Community />}
-      {<ContactUs />}
+      {<Community color={props.primaryColor || 'white'} />}
+      {<ContactUs color={props.primaryColor || 'white'} />}
 
       {!isLogged ? <ButtonLoginTwitter color={'white'} /> : <UserInforBox />}
 
