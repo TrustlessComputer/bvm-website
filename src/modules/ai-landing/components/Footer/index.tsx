@@ -23,8 +23,7 @@ const Footer = () => {
           />
           <p className={`${s.title}`}>ETERNAL AI</p>
           <p className={`${s.description}`}>
-            Eternal AI is a Bitcoin L2 powering programmable and composable
-            real-life AI models on Bitcoin
+            An open AI infrastructure that benefits humankind — owned by none.
           </p>
           <div className={`${s.wrapperBtn}`}>
             {/*<Button isWhite onClick={()=>{*/}
@@ -43,12 +42,23 @@ const Footer = () => {
             <Fade delayEnter={1.8}>
               <Button
                 onClick={() => {
-                  router.push('/build');
+                  router.push('https://eternalai.org/');
                 }}
                 isOrange={true}
                 className={`${s.btn}`}
               >
-                Build AI
+                Explore demos
+              </Button>
+            </Fade>
+            <Fade delayEnter={2}>
+              <Button
+                onClick={() => {
+                  router.push('https://bvm.network/blockchains/customize');
+                }}
+                className={`${s.btn}`}
+                isWhite
+              >
+                Deploy an AI chain
               </Button>
             </Fade>
             <Fade delayEnter={2}>
@@ -59,7 +69,7 @@ const Footer = () => {
                 className={`${s.btn}`}
                 isWhite
               >
-                Use AI
+                Deploy an AI dapp
               </Button>
             </Fade>
           </div>
