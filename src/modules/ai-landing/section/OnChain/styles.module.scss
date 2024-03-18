@@ -8,6 +8,7 @@
 
   .container {
     width: 100%;
+
     @include is-pc {
       position: sticky;
       top: 9vh;
@@ -36,6 +37,7 @@
         width: 100%;
         position: relative;
         left: 0;
+
         @include is-pc {
           // top: 100px;
           // position: sticky;
@@ -47,6 +49,7 @@
           text-align: start;
           font-size: 36px;
           line-height: 1.1;
+
           @include is-pc {
             margin-top: 16px;
             font-size: 68px;
@@ -58,6 +61,7 @@
             line-height: 1.5;
             font-weight: 400;
             margin: 24px 0;
+
             @include is-pc {
               font-size: 20px;
               max-width: 768px;
@@ -68,18 +72,25 @@
             display: flex;
             flex-direction: row;
             gap: 16px;
+
+            @include is-mobile {
+              justify-content: center;
+            }
           }
         }
       }
 
       .right {
         width: 100%;
+
         @include is-pc {
           max-width: 598px;
         }
+
         &_inner {
           aspect-ratio: 1/1;
           margin: 24px 0;
+
           @include is-pc {
             margin: 0;
           }
@@ -102,6 +113,7 @@
           line-height: 1.5;
           font-weight: 400;
           color: #000;
+
           @include is-pc {
             font-size: 20px;
           }
@@ -118,6 +130,7 @@
   text-align: start;
 
   color: #000;
+
   @include is-pc {
     font-size: 14px;
   }
