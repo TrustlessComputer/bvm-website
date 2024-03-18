@@ -31,6 +31,7 @@
       }
 
       .decsContent {
+        font-family: 'Helvetica Neue';
         margin-top: 24px;
         margin-bottom: 34px;
         font-size: 16px;
@@ -59,7 +60,6 @@
 
 .wrapperImageCode {
   max-width: 1138px;
-  width: 100%;
   @include is-pc {
     aspect-ratio: 1165/530;
   }
