@@ -106,11 +106,12 @@
       }
 
       .desc {
-        font-size: 22px;
+        font-size: 16px;
         margin: 0 auto 32px auto;
         text-align: center;
 
         @include is-pc {
+          font-size: 22px;
           margin-bottom: 32px;
           margin-left: 0;
           margin-right: 0;
