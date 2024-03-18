@@ -31,7 +31,7 @@ const AiPage = () => {
   return (
     <MainLayout
       headerProps={{
-        color: 'black',
+        color: 'white',
       }}
     >
       <VisualLanding/>
