@@ -41,8 +41,12 @@ export default function OnChain(): React.JSX.Element {
               </p>
             </LinesRandom>
             <div className={s.mainHeading_buttons}>
-              <Button isOrange>Deploy an AI chain</Button>
-              <Button isOrange>Deploy an AI dapp</Button>
+              <Button className={s.mainHeading_buttons_item} isOrange>
+                Deploy an AI chain
+              </Button>
+              <Button className={s.mainHeading_buttons_item} isOrange>
+                Deploy an AI dapp
+              </Button>
             </div>
           </div>
 

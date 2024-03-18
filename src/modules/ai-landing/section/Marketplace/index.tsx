@@ -17,7 +17,7 @@ const Marketplace = () => {
             <p className={`${s.mainLable}`}>Create your own AI.</p>
           </LinesRandom>
           <HomeTitle isBlack className={s.marketplace_title}>
-            FOR USERS
+            <span>FOR</span> USERS
           </HomeTitle>
           <LinesRandom>
             <p className={s.marketplace_content}>
@@ -28,7 +28,7 @@ const Marketplace = () => {
           <p className={s.action}>
             <Button
               onClick={() => {
-                window.open('https://eternalai.org/');
+                window.open('https://eternalai.org/build');
               }}
               isOrange={true}
               className={`${s.btn}`}

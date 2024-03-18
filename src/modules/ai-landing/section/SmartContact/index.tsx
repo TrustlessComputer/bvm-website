@@ -61,7 +61,7 @@ export default function SmartContract(): React.JSX.Element {
       <HomeContainer className={`${s.container}`}>
         <div className={`${s.wrapperContent}`}>
           <HomeTitle className={`${s.mainHeading}`} spanWhite={true}>
-            <span>FOR DEVELOPERS</span>
+            FOR <span>DEVELOPERS</span>
           </HomeTitle>
           <LinesRandom>
             <p className={s.decsContent}>

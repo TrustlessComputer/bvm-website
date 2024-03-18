@@ -1,6 +1,7 @@
 .simple {
   width: 100%;
   overflow: hidden;
+
   &_inner {
     padding: 32px 0;
     background-image: url('/ai-landing/simple.jpg');
@@ -38,7 +39,7 @@
   }
 
   &_title {
-    max-width: 714px;
+    max-width: 1220px;
     margin-bottom: 36px;
     font-family: 'Urbanist';
     font-size: 36px;
@@ -99,6 +100,7 @@
     }
   }
 }
+
 .container {
   width: 100%;
 }
