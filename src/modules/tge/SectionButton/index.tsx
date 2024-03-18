@@ -76,12 +76,12 @@ const DATA = [
         link: 'https://www.bitmart.com/trade/en-US?symbol=BVM_USDT',
         icon: '/bvm/bitmart.svg'
       },
-      {
-        btnTitle: 'Poloniex',
-        color: 'border',
-        link: 'https://poloniex.com/trade/BVM_USDT/?type=spot',
-        icon: '/bvm/poloniex.svg'
-      },
+      // {
+      //   btnTitle: 'Poloniex',
+      //   color: 'border',
+      //   link: 'https://poloniex.com/trade/BVM_USDT/?type=spot',
+      //   icon: '/bvm/poloniex.svg'
+      // },
       {
         btnTitle: 'Unisat',
         color: 'border',
