@@ -161,7 +161,7 @@ export default function Hero(): React.JSX.Element {
           {/* <HeroLabel /> */}
           <ModalVideo
             channel='custom'
-            url={'/public-sale/public_sale_video_2.mp4'}
+            url={`${VIDEOS_CDN}/Intro_ver03.mp4`}
             isOpen={isOpen}
             onClose={() => {
               setOpen(false);
