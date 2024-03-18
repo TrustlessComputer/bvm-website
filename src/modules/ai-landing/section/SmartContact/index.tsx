@@ -14,7 +14,7 @@ import sol from 'react-syntax-highlighter/dist/esm/languages/prism/solidity';
 import { coldarkDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import s from './styles.module.scss';
 import { useSignalEffect } from '@preact/signals-react';
-import useWindowResize, { useIsMobile } from '@hooks/useWindowResize';
+import { useIsMobile } from '@hooks/useWindowResize';
 
 SyntaxHighlighter.registerLanguage('sol', sol);
 
