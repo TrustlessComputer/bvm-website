@@ -155,24 +155,19 @@
 
 .videoWrapper {
   width: 100%;
-  padding-top: 32px;
+  padding-top: 40px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  text-align: left !important;
 
-  .descVid {
-    position: absolute;
-    left: 50%;
-    bottom: 22px;
-    transform: translateX(-50%);
+  &_text {
     text-transform: uppercase;
-  }
-
-  @include is-tablet {
-    max-width: 100%;
-  }
-
-  @include is-pc {
+    display: flex;
     justify-content: flex-start;
-    max-width: 726px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
   }
+
 }
