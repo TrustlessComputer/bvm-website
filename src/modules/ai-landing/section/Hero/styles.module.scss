@@ -144,3 +144,21 @@
     }
   }
 }
+
+.videoWrapper {
+  width: 100%;
+  max-width: 726px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba($color: #fff, $alpha: 0.2);
+  display: flex;
+  justify-content: flex-start;
+
+  .descVid {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    text-transform: uppercase;
+  }
+}

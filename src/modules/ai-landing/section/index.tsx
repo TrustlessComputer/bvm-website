@@ -6,11 +6,13 @@ import SmartContract from '@/modules/ai-landing/section/SmartContact';
 import Marketplace from '@/modules/ai-landing/section/Marketplace';
 import Simple from '@/modules/ai-landing/section/Simple';
 import Primitives from '@/modules/ai-landing/section/Primitives';
+import HeroLabel from '@/modules/landing/Componets/Hero/HeroLabel';
 
 const LandingSection = () => {
   return (
     <div>
       <Hero />
+      <HeroLabel />
       <OnChain />
       <SmartContract />
       {/*<OpenAI />*/}

@@ -1,7 +1,6 @@
+'use client';
 import s from './styles.module.scss';
 import ItemHero from '@/modules/landing/Componets/Hero/ItemHero';
-// import Image from 'next/image';
-// import Fade from '@/interactive/Fade';
 import React, { useState } from 'react';
 
 import '@splidejs/react-splide/css/core';
@@ -64,14 +63,12 @@ const DATA_HERO = [
   },
 ];
 
-export default function HeroLabel({ isMobile }: {
-  isMobile?: boolean
-}) {
+export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
   const delay = !isMobile ? 1.5 : 0;
 
   return (
     <div className={`${s.heroLabel}`}>
-      <Fade delayEnter={delay}>
+      {/* <Fade delayEnter={delay}> */}
         <div className={s.content}>
           <div className={`${s.inner} heroLabel_inner`}>
             <div
@@ -80,7 +77,7 @@ export default function HeroLabel({ isMobile }: {
               }`}
             >
               <Splide
-                aria-label='My Favorite Images'
+                aria-label="My Favorite Images"
                 extensions={{ AutoScroll }}
                 options={{
                   type: 'loop',
@@ -121,7 +118,7 @@ export default function HeroLabel({ isMobile }: {
             </div>
           </div>
         </div>
-      </Fade>
+      {/* </Fade> */}
     </div>
   );
 }
