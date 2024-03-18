@@ -31,7 +31,8 @@ const CommunityModal = ({ isShow, onHide, onSuccesCB }: any) => {
           </div>
           <div className={s.colRight}>
             <div className={s.title}>
-              Open the link in a phone browser to <br /> install the Alpha app.
+              For deeper conversations and a wider range of activities <br />{' '}
+              like gaming and gifting, join our Alpha community.
             </div>
             <button
               className={s.joinBtn}

@@ -132,11 +132,12 @@
 
       .title {
         font-size: 20px;
-        font-weight: 700;
-        line-height: 32px;
+        font-weight: 500;
+        line-height: 28px;
         letter-spacing: 0em;
         text-align: center;
-        color: #000000;
+        margin-bottom: 24px;
+        color: black;
 
         @media screen and (max-width: 800px) {
           font-size: 16px;

@@ -1,0 +1,106 @@
+.simple {
+  width: 100%;
+  overflow: hidden;
+
+  &_inner {
+    padding: 32px 0;
+    background-image: url('/ai-landing/simple.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    @include is-tablet {
+      padding: 80px 0;
+    }
+
+    @include is-pc {
+      padding: vh(160px) 0;
+      background: unset;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &_bg {
+    display: none;
+    @include is-pc {
+      display: block;
+      position: absolute;
+      height: 100vh;
+      width: 100%;
+      top: 0;
+      z-index: -1;
+      left: 0;
+      background-image: url('/ai-landing/simple.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: bottom;
+    }
+  }
+
+  &_title {
+    max-width: 1220px;
+    margin-bottom: 36px;
+    font-family: 'Urbanist';
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: start;
+
+    span {
+      opacity: 0.6;
+    }
+
+    &.black {
+      color: #000;
+    }
+
+    @include is-pc {
+      margin-bottom: 68px;
+      font-size: 68px;
+    }
+  }
+
+  .wrapContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &_list {
+      margin-bottom: 40px;
+      @include is-pc {
+        position: relative;
+        width: 1045px;
+        margin-bottom: 0;
+        min-height: 400px;
+      }
+    }
+
+    &_tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  @include is-pc {
+    height: 600vh;
+    // height: 100vh;
+    position: relative;
+
+    .wrapContent {
+      flex-direction: row;
+
+      &_tabs {
+        gap: 48px;
+      }
+    }
+  }
+}
+
+.container {
+  width: 100%;
+}

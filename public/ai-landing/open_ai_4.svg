@@ -1,0 +1,14 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="21" cy="21" r="6" transform="rotate(90 21 21)" fill="white" fill-opacity="0.3"/>
+<circle cx="21" cy="60" r="6" transform="rotate(90 21 60)" fill="white" fill-opacity="0.3"/>
+<circle cx="21" cy="99" r="6" transform="rotate(90 21 99)" fill="white" fill-opacity="0.3"/>
+<circle cx="47" cy="21" r="6" transform="rotate(90 47 21)" fill="white" fill-opacity="0.3"/>
+<circle cx="47" cy="60" r="6" transform="rotate(90 47 60)" fill="white" fill-opacity="0.3"/>
+<circle cx="47" cy="99" r="6" transform="rotate(90 47 99)" fill="white" fill-opacity="0.3"/>
+<circle cx="73" cy="21" r="5.5" transform="rotate(90 73 21)" fill="white" stroke="white"/>
+<circle cx="73" cy="60" r="5.5" transform="rotate(90 73 60)" fill="white" stroke="white"/>
+<circle cx="73" cy="99" r="5.5" transform="rotate(90 73 99)" fill="white" stroke="white"/>
+<circle cx="99" cy="21" r="6" transform="rotate(90 99 21)" fill="white" fill-opacity="0.3"/>
+<circle cx="99" cy="60" r="6" transform="rotate(90 99 60)" fill="white" fill-opacity="0.3"/>
+<circle cx="99" cy="99" r="6" transform="rotate(90 99 99)" fill="white" fill-opacity="0.3"/>
+</svg>

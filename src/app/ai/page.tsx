@@ -1,9 +1,8 @@
 import MainLayout from '@/layouts/MainLayout';
-import AIModule from '@/modules/ai';
-import Loader from '@/modules/builder-landing/Loader';
 
 import { CDN_URL } from '@/config';
 import { APP_NAME } from '@/config/metadata';
+import VisualLanding from '@/modules/ai-landing';
 
 export const metadata = {
   openGraph: {
@@ -32,13 +31,10 @@ const AiPage = () => {
   return (
     <MainLayout
       headerProps={{
-        color: 'black',
+        color: 'white',
       }}
     >
-      <>
-        <Loader />
-        <AIModule />
-      </>
+      <VisualLanding/>
     </MainLayout>
   );
 };
