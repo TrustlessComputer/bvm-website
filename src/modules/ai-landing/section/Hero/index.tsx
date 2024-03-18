@@ -91,7 +91,7 @@ export default function Hero(): React.JSX.Element {
           <HomeContainer className={`${s.container}`}>
             <div className={`${s.contentWrapper}`}>
               <HomeTitle className={`${s.mainHeading}`}>
-                Project Truly Open AI
+                Project Truly <p>Open AI</p>
               </HomeTitle>
               <Fade delayEnter={1.5}>
                 <p className={s.desc}>
