@@ -96,7 +96,8 @@ export default function Hero(): React.JSX.Element {
               </HomeTitle>
               <Fade delayEnter={1.5}>
                 <p className={s.desc}>
-                  An open AI infrastructure that benefits all humankind and is owned by none.
+                  An open AI infrastructure that benefits all humankind and is
+                  owned by none.
                 </p>
               </Fade>
               <div className={`${s.wrapperBtn}`}>
@@ -157,11 +158,11 @@ export default function Hero(): React.JSX.Element {
                   </a>
                 </div>
               </Fade> */}
+              <HeroLabel />
             </div>
           </HomeContainer>
-          <HeroLabel />
           <ModalVideo
-            channel='custom'
+            channel="custom"
             url={`${VIDEOS_CDN}/Intro_ver03_02.mp4`}
             isOpen={isOpen}
             onClose={() => {

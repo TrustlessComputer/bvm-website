@@ -20,8 +20,24 @@
       &_list {
         display: flex;
         gap: 3.6px;
+
+        @include is-mobile {
+          flex-wrap: wrap;
+        }
       }
     }
+
+    @include is-mobile {
+      padding: 0;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  @include is-mobile {
+    position: relative;
+    bottom: 0;
+    margin-top: 20px;
   }
 }
 
@@ -29,6 +45,11 @@
   padding: 10px 13px;
   background: rgba($color: #fff, $alpha: 0.1);
   backdrop-filter: blur(3px);
+
+  svg {
+    width: auto;
+    height: 35px;
+  }
 
   p {
     margin-top: 7px;
@@ -38,4 +59,3 @@
     text-align: center;
   }
 }
-
