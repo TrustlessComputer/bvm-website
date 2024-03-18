@@ -42,19 +42,23 @@
       .decsContent {
         font-family: 'Helvetica Neue';
         margin-top: 24px;
-        margin-bottom: 34px;
+        margin-bottom: 24px;
         font-size: 16px;
         max-width: 768px;
         width: 100%;
-        text-align: start ;
+        text-align: start;
         @include is-pc {
           text-align: center;
-          margin-bottom: 68px;
           font-size: 20px;
         }
       }
 
-
+      .action {
+        margin-bottom: 48px;
+        @include is-pc {
+          margin-bottom: 80px;
+        }
+      }
 
     }
   }

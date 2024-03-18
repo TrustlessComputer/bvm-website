@@ -14,7 +14,7 @@
 
   .wrapContent {
     width: 100%;
-    max-width: 800px;
+    max-width: 620px;
     color: #000;
     text-align: center;
     margin: 0 auto 34px auto;
@@ -61,4 +61,21 @@
       height: auto;
     }
   }
+}
+
+.mainLable {
+  font-family: 'Space Mono';
+  font-size: 12px;
+  text-transform: uppercase;
+  text-align: center;
+
+  color: #000;
+  @include is-pc {
+    font-size: 14px;
+  }
+}
+
+
+.action {
+  margin-top: 24px;
 }
