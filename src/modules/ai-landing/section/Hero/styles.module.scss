@@ -94,7 +94,7 @@
         font-size: 40px;
         width: 100%;
 
-        >span{
+        > span {
           opacity: .6;
         }
 
@@ -146,13 +146,16 @@
           width: 100%;
           font-size: 12px;
           height: auto !important;
-          max-width: 256px;
+          padding: 14px 20px;
+
+          > p{
+            transform: translateY(.05em);
+          }
 
           @include is-pc {
             font-size: 16px;
             width: fit-content;
-            min-width: 164px;
-            padding: 14.5px 13.5px;
+            padding: 14px 20px;
           }
         }
       }
