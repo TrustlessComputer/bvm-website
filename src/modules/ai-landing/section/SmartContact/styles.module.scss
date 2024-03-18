@@ -16,9 +16,18 @@
       align-items: center;
       width: 100%;
       justify-content: center;
-      padding-top: 80px;
-      padding-bottom: 62px;
+      padding: 32px 0;
       max-width: 1138px;
+
+      @include is-tablet {
+        padding: 80px 0;
+
+      }
+
+      @include is-pc {
+        padding: 160px 0;
+
+      }
 
       .mainHeading {
         text-align: start;
@@ -40,20 +49,13 @@
         text-align: start ;
         @include is-pc {
           text-align: center;
-        }
-      }
-
-
-      @include is-pc {
-        padding-top: 160px;
-        padding-bottom: 122px;
-
-        .decsContent {
           margin-bottom: 68px;
           font-size: 20px;
-
         }
       }
+
+
+
     }
   }
 }
