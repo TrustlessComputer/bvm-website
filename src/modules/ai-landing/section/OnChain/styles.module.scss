@@ -44,10 +44,15 @@
         .mainHeading {
           color: #000;
           margin-top: 12px;
-          text-align: start;
+          text-align: center;
           font-size: 36px;
           line-height: 1.1;
+          @include is-tablet {
+            text-align: start;
+          }
           @include is-pc {
+            text-align: start;
+
             margin-top: 16px;
             font-size: 68px;
           }
@@ -58,7 +63,13 @@
             line-height: 1.5;
             font-weight: 400;
             margin: 24px 0;
+            text-align: center;
+
+            @include is-tablet {
+              text-align: start;
+            }
             @include is-pc {
+              text-align: start;
               font-size: 20px;
               max-width: 768px;
             }
@@ -68,6 +79,7 @@
             display: flex;
             justify-content: center;
             gap: 12px;
+            align-items: center;
             flex-direction: column;
             @include is-tablet {
               justify-content: flex-start;
@@ -82,6 +94,11 @@
               padding-top: 14.5px;
               padding-bottom: 14.5px;
               min-width: 164px;
+              max-width: 256px;
+
+              @include is-mobile {
+                width: 100%;
+              }
             }
           }
         }
