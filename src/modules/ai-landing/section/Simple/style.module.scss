@@ -85,8 +85,8 @@
   }
 
   @include is-pc {
-    // height: 600vh;
-    height: 100vh;
+    height: 600vh;
+    // height: 100vh;
     position: relative;
 
     .wrapContent {

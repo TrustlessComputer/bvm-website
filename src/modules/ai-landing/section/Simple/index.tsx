@@ -14,8 +14,8 @@ import { useIsDesktop } from '@/hooks/useWindowResize';
 import SimpleMobile from './SimpleMobile';
 import { useGSAP } from '@gsap/react';
 import { MathMap } from '@/utils/mathUtils';
-import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
+import gsap from 'gsap';
 
 const Simple = () => {
   const [tab, setTab] = useState<number>(0);
@@ -43,38 +43,39 @@ const Simple = () => {
     }
   });
 
-  // useGSAP(
-  //   () => {
-  //     initAnimation();
-  //     const lengthData = SimpleData.length - 1;
-  //     const mm = gsap.matchMedia();
+  useGSAP(
+    () => {
+      gsap.registerPlugin(ScrollTrigger);
+      initAnimation();
+      const lengthData = SimpleData.length - 1;
+      const mm = gsap.matchMedia();
 
-  //     mm.add('(min-width: 1200px)', () => {
-  //       ScrollTrigger.create({
-  //         trigger: wrapContent.current,
-  //         start: `top top`,
-  //         end: 'bottom bottom',
-  //         pin: wrapContent_inner.current,
-  //         pinSpacing: false,
-  //         onUpdate: ({ progress }) => {
-  //           const id = Math.min(
-  //             lengthData,
-  //             Math.round(MathMap(progress, 0, 1, 0, lengthData)),
-  //           );
-  //           setIdSimple(id);
-  //         },
-  //       });
-  //       // ScrollTrigger.create({
-  //       //   trigger: wrapContent.current,
-  //       //   start: 'top top',
-  //       //   pinSpacing: false,
-  //       //   end: 'bottom bottom',
-  //       //   pin: wrapBgRef.current,
-  //       // });
-  //     });
-  //   },
-  //   { scope: wrapContent },
-  // );
+      mm.add('(min-width: 1200px)', () => {
+        ScrollTrigger.create({
+          trigger: wrapContent.current,
+          start: `top top`,
+          end: 'bottom bottom',
+          pin: wrapContent_inner.current,
+          pinSpacing: false,
+          onUpdate: ({ progress }) => {
+            const id = Math.min(
+              lengthData,
+              Math.round(MathMap(progress, 0, 1, 0, lengthData)),
+            );
+            setIdSimple(id);
+          },
+        });
+        // ScrollTrigger.create({
+        //   trigger: wrapContent.current,
+        //   start: 'top top',
+        //   pinSpacing: false,
+        //   end: 'bottom bottom',
+        //   pin: wrapBgRef.current,
+        // });
+      });
+    },
+    { scope: wrapContent },
+  );
 
   return (
     <div className={s.simple} ref={wrapContent}>
