@@ -43,7 +43,7 @@ const Footer = (): React.JSX.Element => {
         </h2>
         <Fade className={s.btn}>
           <Button
-            bgColor={'#EF601B'}
+            bgColor={'#FA4E0E'}
             color={'#fff'}
             borderRadius={0}
             display={'flex'}

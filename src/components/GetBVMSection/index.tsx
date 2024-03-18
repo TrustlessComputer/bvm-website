@@ -51,7 +51,7 @@ const GetBVMSection = ({...props}:TGetBVMSectionProps): React.JSX.Element => {
           }
           <Fade className={s.btn}>
             <Button
-              bgColor={'#EF601B'}
+              bgColor={'#FA4E0E'}
               color={'#fff'}
               borderRadius={0}
               display={'flex'}

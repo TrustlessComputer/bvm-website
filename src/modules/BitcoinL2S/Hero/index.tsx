@@ -21,7 +21,7 @@ const Hero = () => {
             </Fade>
             <Fade delay={1.2}>
               <Button
-                bgColor={'#EF601B'}
+                bgColor={'#FA4E0E'}
                 color={'#fff'}
                 borderRadius={0}
                 display={'flex'}
