@@ -14,6 +14,7 @@ import React, { useRef } from 'react';
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import Banner from '@/modules/landing/Componets/Hero/Banner';
+import HeroLabel from '../../components/HeroLabel';
 
 export default function Hero(): React.JSX.Element {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -146,6 +147,8 @@ export default function Hero(): React.JSX.Element {
           </HomeContainer>
         </div>
       </BoxParallax>
+
+      <HeroLabel />
     </div>
   );
 }
