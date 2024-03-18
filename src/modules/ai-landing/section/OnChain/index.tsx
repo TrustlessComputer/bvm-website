@@ -6,6 +6,7 @@ import HomeContainer from '../../components/HomeContainer';
 import HomeTitle from '../../components/HomeTitle';
 import LinesRandom from '@interactive/Signal/Lines/Random';
 import { VIDEOS_CDN } from '@constants/common';
+import Button from '../../components/Button';
 
 export default function OnChain(): React.JSX.Element {
   const refContainer = useRef<HTMLDivElement>(null);
@@ -25,12 +26,24 @@ export default function OnChain(): React.JSX.Element {
         <div className={`${s.wrapperContent}`}>
           <div className={`${s.left}`}>
             <LinesRandom>
-              <p className={`${s.mainLable}`}>Welcome to The Future of Decentralized AI</p>
+              <p className={`${s.mainLable}`}>Say hello to decentralized AI.</p>
             </LinesRandom>
 
             <HomeTitle className={`${s.mainHeading}`}>
-              Say Hello to <br /> <span>fully onchain</span> ai
+              <span>FULLY ONCHAIN</span> AI
             </HomeTitle>
+            <LinesRandom>
+              <p className={s.mainHeading_decs}>
+                Powerful infrastructure, libraries, and tools to build AI smart
+                contracts: AI decentralized applications that run exactly as
+                programmed without the risk of being stopped, censored, or
+                tricked.
+              </p>
+            </LinesRandom>
+            <div className={s.mainHeading_buttons}>
+              <Button isOrange>Deploy an AI chain</Button>
+              <Button isOrange>Deploy an AI dapp</Button>
+            </div>
           </div>
 
           <div className={`${s.right}`}>
@@ -44,7 +57,7 @@ export default function OnChain(): React.JSX.Element {
                 loop
               />
             </div>
-            <LinesRandom>
+            {/* <LinesRandom>
               <p className={`${s.mainLable} ${s.mainLable__right}`}>BUILD UNSTOPPABLE AI</p>
             </LinesRandom>
             <LinesRandom>
@@ -53,7 +66,7 @@ export default function OnChain(): React.JSX.Element {
                 as programmed without the risk of being stopped, censored, or tricked. <br />It’s a safe and reliable
                 way for everyone to use advanced AI.
               </p>
-            </LinesRandom>
+            </LinesRandom> */}
           </div>
         </div>
       </HomeContainer>
