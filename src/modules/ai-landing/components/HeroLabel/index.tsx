@@ -1,9 +1,9 @@
 import 'react-tooltip/dist/react-tooltip.css';
 import { Flex } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import s from './styles.module.scss';
 import Fade from '@/interactive/Fade';
 import ModalVideo from 'react-modal-video';
+import s from './styles.module.scss';
 
 const DELAY = 2;
 const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
@@ -11,8 +11,8 @@ const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <Fade delay={delay} className={`${isFooter && s.isFooter}`}>
-      <div className={`${s.container} ${isFooter && s.isFooter}`}>
+    <Fade delay={delay}>
+      <div className={`${s.container}`}>
         <div className={`container ${s.content}`}>
           <div>
             MOdules
