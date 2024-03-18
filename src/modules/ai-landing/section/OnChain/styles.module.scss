@@ -46,11 +46,10 @@
           margin-top: 12px;
           text-align: start;
           font-size: 36px;
-          line-height: 39px;
+          line-height: 1.1;
           @include is-pc {
             margin-top: 24px;
             font-size: 68px;
-            line-height: 74px;
           }
         }
       }
@@ -80,9 +79,9 @@
         }
 
         .descImage {
-          font-family: "Helvetica Neue";
+          font-family: 'Helvetica Neue';
           font-size: 14px;
-          line-height: 30px;
+          line-height: 1.5;
           font-weight: 400;
           color: #000;
           @include is-pc {

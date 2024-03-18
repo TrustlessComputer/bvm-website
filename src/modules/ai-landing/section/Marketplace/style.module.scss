@@ -28,7 +28,7 @@
     margin-bottom: 24px;
     text-align: start;
     font-size: 36px;
-
+    line-height: 1.1;
     @include is-pc {
       text-align: center;
       font-size: 68px;
@@ -39,7 +39,8 @@
     text-align: start;
     font-size: 14px;
     font-weight: 400;
-    font-family: "Helvetica Neue";
+    font-family: 'Helvetica Neue';
+    line-height: 1.5;
     @include is-pc {
       text-align: center;
       font-size: 20px;
