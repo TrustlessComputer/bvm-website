@@ -9,18 +9,19 @@ import { useGSAP } from '@gsap/react';
 import LinesRandom from '@interactive/Signal/Lines/Random';
 import gsap from 'gsap';
 import React, { useRef } from 'react';
-import { PrismLight as SyntaxHighlighter, createElement  } from 'react-syntax-highlighter';
+import { PrismLight as SyntaxHighlighter, createElement } from 'react-syntax-highlighter';
 import sol from 'react-syntax-highlighter/dist/esm/languages/prism/solidity';
 import { coldarkDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import s from './styles.module.scss';
 import { useSignalEffect } from '@preact/signals-react';
 import { useIsMobile } from '@hooks/useWindowResize';
+import Button from '@/modules/ai-landing/components/Button';
 
 SyntaxHighlighter.registerLanguage('sol', sol);
 
 export default function SmartContract(): React.JSX.Element {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
   const { visible } = useIsInViewportSignal({
     ref: wrapperRef,
     options: { threshold: 0.8 },
@@ -60,23 +61,35 @@ export default function SmartContract(): React.JSX.Element {
       <HomeContainer className={`${s.container}`}>
         <div className={`${s.wrapperContent}`}>
           <HomeTitle className={`${s.mainHeading}`} spanWhite={true}>
-            Write smart contracts that don’t just run. <span>They think.</span>
+            <span>FOR DEVELOPERS</span>
           </HomeTitle>
           <LinesRandom>
             <p className={s.decsContent}>
-              Eternal AI is EVM equivalent. It allows smart contract developers to code their neural networks in solidity. Eternal AI smart contracts help developers accelerate their time to market by reusing battle-tested libraries of smart contracts for AI.
+              Write smart contracts that don’t just run. They think. BVM is EVM-compatible. BVM AI Contracts Library
+              makes it easy for developers to code their neural networks in Solidity and embed AI into their dapps.
             </p>
           </LinesRandom>
+          <p className={s.action}>
+            <Button
+              onClick={() => {
+                window.open('https://docs.bvm.network/bvm');
+              }}
+              isOrange={true}
+              className={`${s.btn}`}
+            >
+              Read Developer Docs
+            </Button>
+          </p>
           <div className={`${s.wrapperImageCode}`} ref={wrapperRef}>
             <ImagePlaceholder
-              src={ isMobile ? '/ai-landing/headerCodeMobile.png' : '/ai-landing/headerCode.png'}
+              src={isMobile ? '/ai-landing/headerCodeMobile.png' : '/ai-landing/headerCode.png'}
               alt={'contract'}
               width={1080}
               height={1080}
               className={`${s.thumbnail}`}
             />
             <SyntaxHighlighter
-              language="solidity"
+              language='solidity'
               className={`${s.codeWrapper}`}
               style={coldarkDark}
               showLineNumbers
