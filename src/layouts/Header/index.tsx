@@ -54,8 +54,8 @@ const Header = (props: HeaderProps) => {
         top={0}
         left={0}
         right={0}
-        zIndex={2}
-        className={cn(isHome ? s.isHome : '', play ? s.play : '')}
+        zIndex={5}
+        className={cn(s.header, isHome ? s.isHome : '', play ? s.play : '')}
       >
         <BoxContent id='HEADER_CONTENT'>
           <Flex

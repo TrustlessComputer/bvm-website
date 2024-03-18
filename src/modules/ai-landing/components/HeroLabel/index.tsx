@@ -39,13 +39,13 @@ const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
               style={{ textAlign: 'center', display: 'block' }}
             >
               <img
-                src={`/public-sale/btn-play-4.png`}
+                src={`/ai-landing/ai_video.png`}
                 width={224}
                 alt={'right'}
                 style={{ margin: 'auto', marginBottom: '8px' }}
               />
               <span style={{ fontSize: '14px', fontWeight: 400 }}>
-                What is BVM?
+                Watch the film
               </span>
             </a>
           </div>
