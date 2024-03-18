@@ -67,7 +67,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
+    @include is-pc-wide {
+      gap: 308px;
+    }
     &_list {
       margin-bottom: 40px;
       @include is-pc {
