@@ -1,7 +1,7 @@
 import LandingSection from './section';
 import Animate from '@layouts/Animation';
-import PreLoader from '@/modules/ai-landing/PreLoader';
 import Footer from '@/modules/ai-landing/components/Footer';
+import Loader from '@/modules/ai-landing/Loader';
 
 export default function VisualLanding() {
 
@@ -9,7 +9,7 @@ export default function VisualLanding() {
   return (
     <>
       <Animate>
-        <PreLoader />
+        <Loader />
         <LandingSection />
       </Animate>
       <Footer/>
