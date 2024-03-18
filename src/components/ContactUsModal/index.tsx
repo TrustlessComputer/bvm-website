@@ -8,8 +8,20 @@ import { submitContact } from '@/services/api/l2services';
 import { SubmitFormParams } from '@/services/api/l2services/types';
 import { getError } from '@/utils/error';
 import toast from 'react-hot-toast';
+import { Select } from '@chakra-ui/react';
+
+const SUBJECT_LIST = [
+  `I'd like to build a Bitcoin L2`,
+  `I'd like to make a partnership proposal`,
+  `I have an issue with the deposit/withdrawal process`,
+  `I'm having trouble locating my transaction records`,
+  `I'm seeking assistance with navigating the process`,
+  `Others`,
+];
 
 const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
+  const [subject, setSubject] = useState(0);
+
   const [yourXAcc, setYourXAcc] = useState('');
   const [yourXAccErrMsg, setYourXAccErrMsg] = useState<string | undefined>(
     undefined,
@@ -81,6 +93,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
           twName: yourXAcc,
           telegram: yourTelegramAcc,
           isContractUs: true,
+          subject: SUBJECT_LIST[subject],
         };
         const result = await submitContact(params);
         console.log('[submitHandler] result: ', result);
@@ -119,7 +132,107 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
             w={'100%'}
             gap={'20px'}
           >
-            {/* Your X handle" */}
+            <Flex w={'100%'} flexDir={'row'} align={'center'} gap={'20px'}>
+              {/* Your X handle */}
+              <Flex
+                direction={'column'}
+                display={'flex'}
+                alignItems={'center'}
+                justify={'flex-start'}
+                textAlign={'left'}
+                w={'100%'}
+                gap={'8px'}
+              >
+                <Text
+                  fontSize={'12px'}
+                  fontWeight={500}
+                  lineHeight={'20px'}
+                  alignSelf={'flex-start'}
+                  textTransform={'uppercase'}
+                  color={'#5B5B5B'}
+                >
+                  Your X handle
+                  <span className={s.reuiqredLabel}>(*)</span>
+                </Text>
+                <Input
+                  border="1px solid #CECECE"
+                  placeholder=""
+                  _placeholder={{
+                    color: 'grey',
+                  }}
+                  _hover={{}}
+                  height={'48px'}
+                  p={'11px'}
+                  value={yourXAcc}
+                  onChange={(e: any) => {
+                    setYourXAcc(e.target.value);
+                    valideYourXAcc(e.target.value);
+                  }}
+                />
+
+                {yourXAccErrMsg && (
+                  <Text
+                    fontSize={'12px'}
+                    fontWeight={500}
+                    lineHeight={'20px'}
+                    alignSelf={'flex-start'}
+                    color={'red'}
+                  >
+                    {yourXAccErrMsg}
+                  </Text>
+                )}
+              </Flex>
+
+              {/* Your Telegram handle" */}
+              <Flex
+                direction={'column'}
+                display={'flex'}
+                alignItems={'center'}
+                justify={'flex-start'}
+                textAlign={'left'}
+                w={'100%'}
+                gap={'8px'}
+              >
+                <Text
+                  fontSize={'12px'}
+                  fontWeight={500}
+                  lineHeight={'20px'}
+                  alignSelf={'flex-start'}
+                  textTransform={'uppercase'}
+                  color={'#5B5B5B'}
+                >
+                  Your telegram handle
+                </Text>
+                <Input
+                  border="1px solid #CECECE"
+                  placeholder=""
+                  _placeholder={{
+                    color: 'grey',
+                  }}
+                  _hover={{}}
+                  height={'48px'}
+                  p={'11px'}
+                  value={yourTelegramAcc}
+                  onChange={(e: any) => {
+                    setYourTelegramAcc(e.target.value);
+                    // valideYourTelegramAcc(e.target.value);
+                  }}
+                />
+                {yourTelegramAccErrMgs && (
+                  <Text
+                    fontSize={'12px'}
+                    fontWeight={500}
+                    lineHeight={'20px'}
+                    alignSelf={'flex-start'}
+                    color={'red'}
+                  >
+                    {yourTelegramAccErrMgs}
+                  </Text>
+                )}
+              </Flex>
+            </Flex>
+
+            {/* Common reasons. */}
             <Flex
               direction={'column'}
               display={'flex'}
@@ -137,87 +250,29 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 textTransform={'uppercase'}
                 color={'#5B5B5B'}
               >
-                Your X handle
-                <span className={s.reuiqredLabel}>(*)</span>
+                Subject
               </Text>
-              <Input
-                border="1px solid #CECECE"
-                placeholder=""
-                _placeholder={{
-                  color: 'grey',
-                }}
+              <Select
+                defaultValue={SUBJECT_LIST[subject]}
+                height={'50px'}
+                borderRadius={'8px'}
+                border={'0.5px solid #c2c2c2'}
                 _hover={{}}
-                height={'48px'}
-                p={'11px'}
-                value={yourXAcc}
-                onChange={(e: any) => {
-                  setYourXAcc(e.target.value);
-                  valideYourXAcc(e.target.value);
+                onChange={(e) => {
+                  setSubject(Number(e.target.value));
                 }}
-              />
-
-              {yourXAccErrMsg && (
-                <Text
-                  fontSize={'12px'}
-                  fontWeight={500}
-                  lineHeight={'20px'}
-                  alignSelf={'flex-start'}
-                  color={'red'}
-                >
-                  {yourXAccErrMsg}
-                </Text>
-              )}
-            </Flex>
-
-            {/* Your X handle" */}
-            <Flex
-              direction={'column'}
-              display={'flex'}
-              alignItems={'center'}
-              justify={'flex-start'}
-              textAlign={'left'}
-              w={'100%'}
-              gap={'8px'}
-            >
-              <Text
-                fontSize={'12px'}
-                fontWeight={500}
-                lineHeight={'20px'}
-                alignSelf={'flex-start'}
-                textTransform={'uppercase'}
-                color={'#5B5B5B'}
               >
-                Your telegram handle
-              </Text>
-              <Input
-                border="1px solid #CECECE"
-                placeholder=""
-                _placeholder={{
-                  color: 'grey',
-                }}
-                _hover={{}}
-                height={'48px'}
-                p={'11px'}
-                value={yourTelegramAcc}
-                onChange={(e: any) => {
-                  setYourTelegramAcc(e.target.value);
-                  // valideYourTelegramAcc(e.target.value);
-                }}
-              />
-              {yourTelegramAccErrMgs && (
-                <Text
-                  fontSize={'12px'}
-                  fontWeight={500}
-                  lineHeight={'20px'}
-                  alignSelf={'flex-start'}
-                  color={'red'}
-                >
-                  {yourTelegramAccErrMgs}
-                </Text>
-              )}
+                {SUBJECT_LIST.map((subject, index) => {
+                  return (
+                    <option key={subject + index} value={index}>
+                      {SUBJECT_LIST[index]}
+                    </option>
+                  );
+                })}
+              </Select>
             </Flex>
 
-            {/* Tell us more about your plan with your Bitcoin L2 */}
+            {/* PLEASE PROVIDE US WITH MORE DETAILS. */}
             <Flex
               direction={'column'}
               display={'flex'}

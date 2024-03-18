@@ -5,6 +5,8 @@ import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import toast from 'react-hot-toast';
+import ContactUsModal from '../ContactUsModal';
+import ContactUsSuccessModal from '../ContactUsSuccessModal';
 
 export enum IframeEventName {
   topup = 'topup',
@@ -23,6 +25,9 @@ export interface IFrameEvent {
 const Hydrated = ({ children }: { children?: any }) => {
   const [hydration, setHydration] = useState(false);
   const router = useRouter();
+  const [showContactUsModal, setContactUsModal] = useState(false);
+  const [showSubmitSuccessModal, setShowSubmitSuccessModal] = useState(false);
+
   const { login } = useWeb3Authenticated();
 
   useEffect(() => {
@@ -55,7 +60,9 @@ const Hydrated = ({ children }: { children?: any }) => {
             case IframeEventName.trustless_computer_change_route: {
               const subUrl = (eventData.url || '').split('/');
               const message = eventData.message;
-              if (message === 'REQUIRED_LOGIN') {
+              if (message === 'REQUEST_CONTACT_US') {
+                setContactUsModal(true);
+              } else if (message === 'REQUIRED_LOGIN') {
                 loginWeb3AuthHandler();
               } else if (subUrl.length > 0) {
                 let lastSubUrl: string = subUrl[subUrl.length - 1];
@@ -86,7 +93,27 @@ const Hydrated = ({ children }: { children?: any }) => {
     }
   }, [hydration, login, window]);
 
-  return hydration ? children : null;
+  return hydration ? (
+    <>
+      {children}
+      {showContactUsModal && (
+        <ContactUsModal
+          isShow={true}
+          onHide={() => setContactUsModal(false)}
+          onSuccesCB={() => {
+            setContactUsModal(false);
+            setShowSubmitSuccessModal(true);
+          }}
+        />
+      )}
+      {showSubmitSuccessModal && (
+        <ContactUsSuccessModal
+          isShow={true}
+          onHide={() => setShowSubmitSuccessModal(false)}
+        />
+      )}
+    </>
+  ) : null;
 };
 
 export default Hydrated;
