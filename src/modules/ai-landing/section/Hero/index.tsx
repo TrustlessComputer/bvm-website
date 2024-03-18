@@ -65,8 +65,7 @@ export default function Hero(): React.JSX.Element {
   return (
     <div className={`${s.hero}`} ref={heroRef}>
       <div className={s.hero_wrap}>
-      <Banner disabledAnimation />
-
+        <Banner disabledAnimation />
       </div>
 
       <BoxParallax offset={0.35}>
@@ -93,12 +92,11 @@ export default function Hero(): React.JSX.Element {
             muted
           />
           <HomeContainer className={`${s.container}`}>
-
             <div className={`${s.contentWrapper}`}>
               <HomeTitle className={`${s.mainHeading}`}>
-                A Bitcoin L2 <br />
-                designed for <br /> fully on-chain AI
+                Project Truly Open AI
               </HomeTitle>
+              <p className={s.desc}>An open AI infrastructure that benefits humankind — owned by none.</p>
               <div className={`${s.wrapperBtn}`}>
                 <Fade delayEnter={1.8}>
                   <Button
