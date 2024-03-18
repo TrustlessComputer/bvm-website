@@ -20,7 +20,7 @@ const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
           <div className={s.module}>
             <p className={s.module_title}>
               <SvgInset svgUrl="/ai-landing/storage.svg" />
-              Powered by
+              Powered by the best-of-breed modules
             </p>
             <div className={s.module_list}>
               {ModuleData.map((item, index) => (

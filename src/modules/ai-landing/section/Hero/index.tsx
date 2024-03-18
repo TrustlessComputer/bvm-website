@@ -125,7 +125,7 @@ export default function Hero(): React.JSX.Element {
                     className={`${s.btn}`}
                     isWhite
                   >
-                    Deploy an AI chain
+                    Deploy a Bitcoin L2 for AI
                   </Button>
                 </Fade>
                 {/* <Fade delayEnter={2}>

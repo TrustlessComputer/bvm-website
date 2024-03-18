@@ -16,10 +16,6 @@ export const ModuleData = [
     title: 'Polygon',
   },
   {
-    logoUrl: '/images/lego_uniswap.svg',
-    title: 'Uniswap',
-  },
-  {
     logoUrl: '/images/lego_celestia.svg',
     title: 'Celestia',
   },
