@@ -30,7 +30,7 @@ export default function OnChain(): React.JSX.Element {
             </LinesRandom>
 
             <HomeTitle className={`${s.mainHeading}`}>
-              FULLY ONCHAIN AI
+              <span>FULLY ONCHAIN</span> AI
             </HomeTitle>
             <LinesRandom>
               <p className={s.mainHeading_decs}>
