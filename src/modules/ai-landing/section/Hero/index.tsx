@@ -145,7 +145,7 @@ export default function Hero(): React.JSX.Element {
                   <a
                     href={'#'}
                     onClick={() => setOpen(true)}
-                    style={{ textAlign: 'center', display: 'block', position: 'relative' }}
+                    style={{display: 'block', position: 'relative' }}
                   >
                     <p className={s.videoWrapper_text}>Watch the film</p>
                     <img
