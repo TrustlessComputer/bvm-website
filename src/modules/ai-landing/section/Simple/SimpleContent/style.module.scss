@@ -5,17 +5,17 @@
   height: 100%;
   display: flex;
   align-items: center;
-  gap: rem(34px);
+  gap: 34px;
   height: auto;
   display: flex;
   flex-direction: column;
-  margin-top: rem(40px);
+  margin-top: 40px;
   font-family: 'Urbanist';
 
   &_image {
     width: 100%;
     max-width: 70%;
-    max-width: rem(400px);
+    max-width: 400px;
     height: auto;
     height: 100%;
     position: relative;
@@ -49,10 +49,10 @@
 
   &_title {
     font-family: 'Space Mono';
-    font-size: rem(20px);
+    font-size: 20px;
     line-height: 1.2;
     text-transform: uppercase;
-    margin-bottom: rem(12px);
+    margin-bottom: 12px;
     position: relative;
     min-height: 31px;
     width: 100%;
@@ -66,19 +66,19 @@
   }
 
   &_content {
-    line-height: rem(24px);
-    margin-bottom: rem(12px);
+    line-height: 24px;
+    margin-bottom: 12px;
     overflow: hidden;
     width: 100%;
     position: relative;
-    min-height: rem(100px);
+    min-height: 100px;
 
     @include is-pc {
-      min-height: rem(224px);
+      min-height: 224px;
     }
 
     &_inner {
-      font-size: rem(20px);
+      font-size: 20px;
       position: absolute;
       display: block;
       top: 0;
@@ -88,8 +88,8 @@
   }
 
   &_button {
-    max-width: rem(173px);
-    height: rem(54px);
+    max-width: 173px;
+    height: 54px;
     position: relative;
 
     //hide
@@ -111,12 +111,12 @@
 
   @include is-mobile {
     &_title {
-      min-height: rem(70px);
+      min-height: 70px;
     }
   }
 
   @include is-pc {
-    gap: rem(68px);
+    gap: 68px;
     flex-direction: row;
     height: 100%;
     position: absolute;
@@ -124,7 +124,7 @@
     margin-bottom: 0;
 
     &_image {
-      max-width: rem(400px);
+      max-width: 400px;
       width: 100%;
 
       @include is-pc {
@@ -144,18 +144,18 @@
 
     &_wrap {
       height: 100%;
-      max-width: rem(574px);
+      max-width: 574px;
     }
 
     &_title {
       margin-bottom: 0;
-      font-size: rem(24px);
+      font-size: 24px;
     }
 
     &_content {
       margin-bottom: 0;
-      font-size: rem(16px);
-      line-height: rem(32px);
+      font-size: 16px;
+      line-height: 32px;
       position: relative;
     }
   }

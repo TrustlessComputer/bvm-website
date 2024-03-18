@@ -1,7 +1,7 @@
 .simpleMobile {
   display: flex;
   flex-direction: column;
-  gap: rem(48px);
+  gap: 48px;
   font-family: 'Urbanist';
 
   &_item {
@@ -11,7 +11,7 @@
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: center;
-      gap: rem(32px);
+      gap: 32px;
     }
     &_content {
       @include is-tablet {
@@ -21,29 +21,29 @@
     }
     &_title {
       font-family: 'Space Mono';
-      font-size: rem(16px);
+      font-size: 16px;
       line-height: 1.1;
       text-transform: uppercase;
-      margin-bottom: rem(16px);
+      margin-bottom: 16px;
       width: 100%;
     }
     &_decs {
-      font-size: rem(14px);
+      font-size: 14px;
       width: 100%;
-      max-width: rem(263px);
-      margin-bottom: rem(37px);
+      max-width: 263px;
+      margin-bottom: 37px;
     }
     &_image {
       width: 100%;
       aspect-ratio: 1;
-      margin-bottom: rem(16px);
+      margin-bottom: 16px;
 
       @include is-tablet {
         width: 50%;
       }
     }
     &_button {
-      max-width: rem(254px);
+      max-width: 254px;
       margin: 0 auto;
     }
   }

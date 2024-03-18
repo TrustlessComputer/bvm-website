@@ -4,16 +4,16 @@
   font-family: 'Space Mono';
   display: flex;
   align-items: center;
-  font-size: rem(16px);
-  line-height: rem(17.6px);
-  gap: rem(20px);
+  font-size: 16px;
+  line-height: 17.6px;
+  gap: 20px;
   text-transform: uppercase;
   opacity: 0.5;
   cursor: pointer;
   transition: opacity 0.6s var(--easeOutQuart);
   span {
     position: relative;
-    padding: rem(2px) rem(8px);
+    padding: 2px 8px;
     background-image: url('/ai-landing/corner.png');
     background-size: 100% 100%;
   }
