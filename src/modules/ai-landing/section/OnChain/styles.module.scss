@@ -153,11 +153,15 @@
   font-family: 'Space Mono';
   font-size: 12px;
   text-transform: uppercase;
-  text-align: start;
+  text-align: center;
 
   color: #000;
 
+  @include is-tablet {
+    text-align: start;
+  }
   @include is-pc {
+    text-align: start;
     font-size: 14px;
   }
 
