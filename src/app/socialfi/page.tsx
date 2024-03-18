@@ -11,7 +11,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: `${CDN_URL}/images/socialfi.png`,
+        url: `https://storage.googleapis.com/tc-cdn-prod/images/socialfi.png`,
         width: 1200,
         height: 630,
         alt: APP_NAME,
@@ -22,7 +22,7 @@ export const metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: `${CDN_URL}/images/socialfi.png`,
+        url: `https://storage.googleapis.com/tc-cdn-prod/images/socialfi.png`,
         alt: APP_NAME,
       },
     ],

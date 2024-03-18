@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
 
-import CommunityModal from '@/components/CommunityModal';
+import CommunityModal from '@/components/CommunityModal/v2';
 
 type Props = {
   color?: 'black' | 'white';
@@ -13,6 +13,7 @@ const Community = (props: Props) => {
   const [showContactUsModal, setContactUsModal] = useState(false);
   const [showSubmitSuccessModal, setShowSubmitSuccessModal] = useState(false);
 
+  console.log('____props?.color', props?.color);
   return (
     <>
       <Flex
@@ -26,7 +27,7 @@ const Community = (props: Props) => {
         px={'10px'}
         py={'5px'}
         className={s.btnLogin}
-        color={props?.color === 'black' ? 'white' : 'black'}
+        color={props?.color || 'white'}
         gap={'10px'}
         _hover={{
           cursor: 'pointer',

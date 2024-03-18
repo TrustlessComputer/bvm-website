@@ -58,9 +58,35 @@ const DATA = [
         color: 'green',
       },
       {
-        btnTitle: 'Buy on Uniswap',
+        btnTitle: 'Uniswap',
         color: 'border',
         link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
+        icon: '/bvm/uniswap.svg'
+      },
+      {
+        btnTitle: 'Gate.io',
+        color: 'border',
+        link: 'https://www.gate.io/trade/BVM_USDT',
+        icon: '/bvm/gateio.svg',
+        // disable: true
+      },
+      {
+        btnTitle: 'Bitmart',
+        color: 'border',
+        link: 'https://www.bitmart.com/trade/en-US?symbol=BVM_USDT',
+        icon: '/bvm/bitmart.svg'
+      },
+      // {
+      //   btnTitle: 'Poloniex',
+      //   color: 'border',
+      //   link: 'https://poloniex.com/trade/BVM_USDT/?type=spot',
+      //   icon: '/bvm/poloniex.svg'
+      // },
+      {
+        btnTitle: 'Unisat',
+        color: 'border',
+        link: 'https://unisat.io/market/brc20?tick=BVMN',
+        icon: '/bvm/unisat.svg'
       },
       // {
       //   btnTitle: 'Unisat',
@@ -71,7 +97,7 @@ const DATA = [
   {
     id: 1,
     title: 'STAKE',
-    description: (<>Earn up to <b>58% APY</b> on your BVM and receive airdrops from upcoming Bitcoin L2 projects.</>),
+    description: (<>Earn up to <b>58% interest</b> on your BVM and receive airdrops from upcoming Bitcoin L2 projects.</>),
     isRed: true,
     buttons: [
       {

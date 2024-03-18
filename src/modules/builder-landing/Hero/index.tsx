@@ -70,7 +70,7 @@ export default function BuilderHero() {
             </li>
           </ul>
           <Fade>
-            <span className={s.label}>Feb 23, 2024 - May 23, 2024</span>
+            <span className={s.label}>FEB 23, 2024 - JUL 23, 2024</span>
           </Fade>
           <Chars>
             <h1 className={s.heading}>

@@ -40,7 +40,7 @@ const ContactUs = (props: Props) => {
         px={'10px'}
         py={'5px'}
         className={s.btnLogin}
-        color={props?.color === 'black' ? 'white' : 'black'}
+        color={props?.color || 'white'}
         gap={'10px'}
         _hover={{
           cursor: 'pointer',

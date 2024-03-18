@@ -2,7 +2,8 @@
   max-width: 526px;
   width: 100%;
 
-  &_inner{
+  &_inner {
+    min-height: 376px;
 
     border: 1px solid rgba(0, 118, 89, 0.3);
     background: #00FFC01A;
@@ -16,7 +17,7 @@
   }
 
   &.isRed {
-    & .cardWrapper_inner{
+    & .cardWrapper_inner {
       border: 1px solid #FF7E214D !important;
       background: #FF7E210D !important;
     }
@@ -32,7 +33,8 @@
     color: #000;
     text-align: center;
     min-height: 84px;
-    b{
+
+    b {
       color: #FA4E0E;
     }
   }
@@ -42,12 +44,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
 
     .broder {
       border: 1px solid #00ae84;
     }
   }
 }
-
-

@@ -42,7 +42,7 @@ const DATA_CHAINS = [
       },
       {
         left: 'Data Validity',
-        right: 'Bitcoin',
+        right: 'Bitcoin Ordinals',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
@@ -78,12 +78,12 @@ const DATA_CHAINS = [
       },
       {
         left: 'Data Validity',
-        right: 'Bitcoin',
+        right: 'Bitcoin Ordinals',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
         left: 'Data Availability',
-        right: 'NearDA',
+        right: 'Polygon',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
@@ -113,7 +113,7 @@ const DATA_CHAINS = [
       },
       {
         left: 'Data Validity',
-        right: 'Bitcoin',
+        right: 'Bitcoin Ordinals',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
@@ -143,17 +143,17 @@ const DATA_CHAINS = [
       },
       {
         left: 'Rollups',
-        right: 'Optimism',
+        right: 'Optimistic, Sovereign',
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
-        left: 'Data Validation',
+        left: 'Data Validity',
         right: 'Bitcoin Ordinals',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
       {
         left: 'Data Availability',
-        right: 'Polygon',
+        right: 'NearDA',
         icon: '/landing/svg/lego_icon_cube.svg',
       },
     ],
@@ -182,7 +182,7 @@ const DATA_CHAINS = [
         icon: '/landing/svg/lego_icon_rollup.svg',
       },
       {
-        left: 'Data Validation',
+        left: 'Data Validity',
         right: 'Bitcoin Stamps',
         icon: '/landing/svg/lego_icon_cube.svg',
       },

@@ -80,6 +80,7 @@ const CommunityModal = ({ isShow, onHide, onSuccesCB }: any) => {
           withdrawPeriod: '',
           twName: yourXAcc,
           telegram: yourTelegramAcc,
+          isContractUs: true,
         };
         const result = await submitContact(params);
         console.log('[submitHandler] result: ', result);
