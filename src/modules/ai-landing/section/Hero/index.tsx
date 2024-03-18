@@ -147,15 +147,13 @@ export default function Hero(): React.JSX.Element {
                     onClick={() => setOpen(true)}
                     style={{ textAlign: 'center', display: 'block', position: 'relative' }}
                   >
+                    <p className={s.videoWrapper_text}>Watch the film</p>
                     <img
-                      src={`/ai-landing/ai_video.png`}
+                      src={`/ai-landing/btn-video.png`}
                       width={224}
                       alt={'right'}
                       style={{ margin: 'auto', marginBottom: '8px' }}
                     />
-                    <span className={s.descVid} style={{ fontSize: '12px', fontWeight: 400 }}>
-                    Watch the film
-                  </span>
                   </a>
                 </div>
               </Fade>
@@ -163,7 +161,7 @@ export default function Hero(): React.JSX.Element {
           </HomeContainer>
           {/* <HeroLabel /> */}
           <ModalVideo
-            channel="custom"
+            channel='custom'
             url={'/public-sale/public_sale_video_2.mp4'}
             isOpen={isOpen}
             onClose={() => {
