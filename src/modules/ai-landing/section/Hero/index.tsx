@@ -96,17 +96,22 @@ export default function Hero(): React.JSX.Element {
               <HomeTitle className={`${s.mainHeading}`}>
                 Project Truly Open AI
               </HomeTitle>
-              <p className={s.desc}>An open AI infrastructure that benefits humankind — owned by none.</p>
+              <Fade delayEnter={1.5}>
+                <p className={s.desc}>
+                  An open AI infrastructure that benefits humankind — owned by
+                  none.
+                </p>
+              </Fade>
               <div className={`${s.wrapperBtn}`}>
                 <Fade delayEnter={1.8}>
                   <Button
                     onClick={() => {
-                      router.push('/build');
+                      window.open('https://eternalai.org/');
                     }}
                     isOrange={true}
                     className={`${s.btn}`}
                   >
-                    Build AI
+                    Explore demos
                   </Button>
                   {/*<Button onClick={()=>{*/}
                   {/*  window.open('https://nakachain.xyz/launchpad')*/}
@@ -117,14 +122,25 @@ export default function Hero(): React.JSX.Element {
                 <Fade delayEnter={2}>
                   <Button
                     onClick={() => {
+                      window.open('https://bvm.network/blockchains/customize');
+                    }}
+                    className={`${s.btn}`}
+                    isWhite
+                  >
+                    Deploy an AI chain
+                  </Button>
+                </Fade>
+                {/* <Fade delayEnter={2}>
+                  <Button
+                    onClick={() => {
                       router.push('/use');
                     }}
                     className={`${s.btn}`}
                     isWhite
                   >
-                    Use AI
+                   Deploy an AI dapp
                   </Button>
-                </Fade>
+                </Fade> */}
               </div>
             </div>
           </HomeContainer>
