@@ -1,3 +1,41 @@
-.container {
+.heroLabel {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  width: 100%;
+  z-index: 5;
 
+  .content {
+    display: flex;
+    justify-content: space-between;
+
+    .module {
+      &_title {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      &_list {
+        display: flex;
+        gap: 3.6px;
+      }
+    }
+  }
+}
+
+.moduleItem {
+  padding: 10px 13px;
+  background: rgba($color: #fff, $alpha: 0.1);
+  backdrop-filter: blur(3px);
+
+  svg {
+    margin-top: 7px;
+  }
+
+  p {
+    font-size: 10.79px;
+    line-height: 15.1px;
+  }
 }
