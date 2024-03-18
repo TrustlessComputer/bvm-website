@@ -65,7 +65,6 @@ export default function Hero(): React.JSX.Element {
   });
   return (
     <div className={`${s.hero}`} ref={heroRef}>
-
       <BoxParallax offset={0.35}>
         <div className={s.hero_parallax}>
           <video
@@ -142,10 +141,9 @@ export default function Hero(): React.JSX.Element {
               </div>
             </div>
           </HomeContainer>
+          <HeroLabel />
         </div>
       </BoxParallax>
-
-      <HeroLabel />
     </div>
   );
 }

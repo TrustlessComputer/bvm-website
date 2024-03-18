@@ -30,12 +30,11 @@
   background: rgba($color: #fff, $alpha: 0.1);
   backdrop-filter: blur(3px);
 
-  svg {
-    margin-top: 7px;
-  }
-
   p {
+    margin-top: 7px;
+
     font-size: 10.79px;
     line-height: 15.1px;
+    text-align: center;
   }
 }
