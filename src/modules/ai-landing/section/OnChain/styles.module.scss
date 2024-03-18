@@ -26,7 +26,7 @@
       }
 
       @include is-pc {
-        // gap: 64px;
+        gap: 64px;
         align-items: center;
         flex-direction: row;
         padding: 160px 0;
