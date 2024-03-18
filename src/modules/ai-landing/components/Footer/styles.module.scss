@@ -65,6 +65,9 @@
         font-size: 14px;
         font-weight: 400;
         height: auto !important;
+        @include is-mobile {
+          max-width: 256px;
+        }
 
         p {
           margin-top: 0 !important;
