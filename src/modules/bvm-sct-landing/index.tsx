@@ -11,7 +11,7 @@ import RoadMap from '@/modules/bvm-sct-landing/RoadMap';
 export default function BvmSctLanding() {
   return <div className={`${s.BvmSctWrapper}`}>
     <Loader />
-    <BitEth headings={'Smart contracts on Bitcoin'} description={'BVM is EVM equivalent. It allows Ethereum developers to migrate their Solidity smart contracts and dapps from Ethereum to Bitcoin with minimal or no modifications.'} textBtn={'Build your Bitcoin L2'}/>
+    <BitEth headings={'Smart contracts on Bitcoin'} description={'BVM is EVM equivalent. It allows Ethereum developers to migrate their Solidity smart contracts and dapps from Ethereum to Bitcoin with minimal or no modifications.'} textBtn={'Deploy an app on Bitcoin'} btnLink={'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps'}/>
     <Architecture>
       BVM is a state machine similar to Ethereum-VM that utilizes the Bitcoin blockchain as a
       data layer to achieve transaction-level consensus. This approach allows BVM to function as a general-purpose

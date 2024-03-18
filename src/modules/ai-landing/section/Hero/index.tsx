@@ -13,6 +13,7 @@ import React, { useRef, useState } from 'react';
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import ModalVideo from 'react-modal-video';
+import HeroLabel from '../../components/HeroLabel';
 
 export default function Hero(): React.JSX.Element {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -139,7 +140,7 @@ export default function Hero(): React.JSX.Element {
                 </Fade> */}
               </div>
 
-              <Fade delayEnter={2.2}>
+              {/* <Fade delayEnter={2.2}>
                 <div className={s.videoWrapper}>
                   <a
                     href={'#'}
@@ -155,10 +156,10 @@ export default function Hero(): React.JSX.Element {
                     />
                   </a>
                 </div>
-              </Fade>
+              </Fade> */}
             </div>
           </HomeContainer>
-          {/* <HeroLabel /> */}
+          <HeroLabel />
           <ModalVideo
             channel='custom'
             url={`${VIDEOS_CDN}/Intro_ver03_02.mp4`}

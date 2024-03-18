@@ -12,7 +12,7 @@ const LandingSection = () => {
   return (
     <div>
       <Hero />
-      <HeroLabel />
+      {/*<HeroLabel />*/}
       <OnChain />
       <SmartContract />
       {/*<OpenAI />*/}

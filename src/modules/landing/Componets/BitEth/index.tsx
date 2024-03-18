@@ -15,6 +15,7 @@ type TBitEthProps = {
   description?: string;
   textBtn?: string;
   btnLink?: string;
+  isHidenBtn?:boolean
 }
 
 export default function BitEth({...props}: TBitEthProps) {
@@ -55,35 +56,38 @@ export default function BitEth({...props}: TBitEthProps) {
             </Lines>
           </ContentSection>
           <div className={s.actions}>
-            <Fade delay={0.5}>
-              <Button
-                bgColor={'#FA4E0E'}
-                color={'#fff'}
-                borderRadius={0}
-                display={'flex'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                px={'24px'}
-                py={'10px'}
-                minW={['180px']}
-                width={mobileScreen ? '100%' : ''}
-                height={'48px'}
-                fontWeight={400}
-                fontSize={'16px'}
-                _hover={{
-                  bgColor: '#e5601b',
-                }}
-                onClick={() => {
-                  window.open('https://docs.bvm.network', '_blank');
-                  // router.push('/blockchains/customize');
-                }}
-              >
-                {
-                  props.textBtn ? (props.textBtn) : (`Read developer docs`)
-                }
-                {/*{`Read developer docs`}*/}
-              </Button>
-            </Fade>
+            {
+              !props.isHidenBtn &&<Fade delay={0.5}>
+                <Button
+                  bgColor={'#FA4E0E'}
+                  color={'#fff'}
+                  borderRadius={0}
+                  display={'flex'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  px={'24px'}
+                  py={'10px'}
+                  minW={['180px']}
+                  width={mobileScreen ? '100%' : ''}
+                  height={'48px'}
+                  fontWeight={400}
+                  fontSize={'16px'}
+                  _hover={{
+                    bgColor: '#e5601b',
+                  }}
+                  onClick={() => {
+                    window.open(props.btnLink || 'https://docs.bvm.network', '_blank');
+                    // router.push('/blockchains/customize');
+                  }}
+                >
+                  {
+                    props.textBtn ? (props.textBtn) : (`Read developer docs`)
+                  }
+                  {/*{`Read developer docs`}*/}
+                </Button>
+              </Fade>
+            }
+
           </div>
         </div>
         <Scale>

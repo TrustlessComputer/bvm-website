@@ -60,12 +60,15 @@ export default function SmartContract(): React.JSX.Element {
     >
       <HomeContainer className={`${s.container}`}>
         <div className={`${s.wrapperContent}`}>
+          <LinesRandom>
+            <p className={`${s.mainLable}`}>FOR DEVELOPERS</p>
+          </LinesRandom>
           <HomeTitle className={`${s.mainHeading}`} spanWhite={true}>
-            FOR <span>DEVELOPERS</span>
+            Write smart contracts that don’t just run. <span>They think.</span>
           </HomeTitle>
           <LinesRandom>
             <p className={s.decsContent}>
-              Write smart contracts that don’t just run. They think. BVM is EVM-compatible. BVM AI Contracts Library
+              BVM is EVM-compatible. BVM AI Contracts Library
               makes it easy for developers to code their neural networks in Solidity and embed AI into their dapps.
             </p>
           </LinesRandom>

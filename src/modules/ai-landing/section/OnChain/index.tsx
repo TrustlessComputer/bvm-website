@@ -29,11 +29,10 @@ export default function OnChain(): React.JSX.Element {
         <div className={`${s.wrapperContent}`}>
           <div className={`${s.left}`}>
             <LinesRandom>
-              <p className={`${s.mainLable}`}>Say hello to decentralized AI.</p>
+              <p className={`${s.mainLable}`}>FULLY ONCHAIN AI</p>
             </LinesRandom>
-
             <HomeTitle className={`${s.mainHeading}`}>
-              <span>FULLY ONCHAIN</span> AI
+              <span>Say hello</span> to decentralized AI.
             </HomeTitle>
             <LinesRandom>
               <p className={s.mainHeading_decs}>
