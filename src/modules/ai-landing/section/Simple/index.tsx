@@ -12,6 +12,10 @@ import { useIsInViewportSignal } from '@/hooks/useIsInViewportSignal';
 import { useSignalEffect } from '@preact/signals-react';
 import { useIsDesktop } from '@/hooks/useWindowResize';
 import SimpleMobile from './SimpleMobile';
+import { useGSAP } from '@gsap/react';
+import { MathMap } from '@/utils/mathUtils';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
 
 const Simple = () => {
   const [tab, setTab] = useState<number>(0);

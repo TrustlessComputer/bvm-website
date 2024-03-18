@@ -9,39 +9,38 @@
   .container {
     width: 100%;
     .wrapperContent {
-      padding-top: rem(80px);
-      padding-bottom: rem(85px);
+      padding-top: 80px;
+      padding-bottom: 85px;
       @include is-pc {
-        padding-top: rem(160px);
-        padding-bottom: rem(171px);
+        padding-top: 160px;
+        padding-bottom: 171px;
       }
       .title {
         width: 100%;
 
         @include is-pc {
-          max-width: rem(800px);
+          max-width: 800px;
         }
       }
       .wrapperBtn {
-        margin-top: rem(34px);
+        margin-top: 34px;
         display: flex;
         align-items: center;
-        gap: rem(12px);
+        gap: 12px;
         flex-wrap: wrap;
         justify-content: center;
-        //height: rem(54px);
+        //height: 54px;
 
         @include is-pc {
           justify-content: flex-start;
-
-          margin-top: rem(68px);
+          margin-top: 68px;
         }
         .btn {
           text-transform: uppercase;
-          padding: rem(12px) rem(20px);
+          padding: 12px 20px;
           @include is-mobile {
             width: 100%;
-            max-width: rem(160px);
+            max-width: 160px;
           }
         }
       }
@@ -49,11 +48,11 @@
   }
 }
 .title {
-  //max-width: rem(714px);
-  margin-bottom: rem(68px);
+  //max-width: 714px;
+  margin-bottom: 68px;
   font-family: 'Urbanist';
-  font-size: rem(36px);
-  line-height: rem(52px);
+  font-size: 36px;
+  line-height: 52px;
   font-weight: 800;
   color: #fff;
   text-transform: uppercase;
@@ -68,8 +67,8 @@
   }
 
   @include is-pc {
-    font-size: rem(68px);
-    line-height: rem(74.8px);
+    font-size: 68px;
+    line-height: 74.8px;
     text-align: left;
   }
 }

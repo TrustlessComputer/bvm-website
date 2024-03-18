@@ -1,7 +1,7 @@
 .aiSection {
   background: #000;
-  padding-bottom: rem(31px);
-  padding-top: rem(200px);
+  padding-bottom: 31px;
+  padding-top: 200px;
   @include is-pc {
     padding-top: 0px;
   }
@@ -11,7 +11,6 @@
     flex-direction: column;
     @include is-pc {
       flex-direction: row;
-
     }
   }
 
@@ -20,15 +19,15 @@
     text-align: start;
     @include is-pc {
       position: sticky;
-      top: rem(120px);
+      top: 120px;
       left: 0;
     }
   }
   &_desc {
-    font-size: rem(14px);
+    font-size: 14px;
     font-weight: 400;
-    margin-top: rem(16px);
-    margin-bottom: rem(24px);
+    margin-top: 16px;
+    margin-bottom: 24px;
     font-family: 'Urbanist';
     @include is-pc {
       display: none;
@@ -36,12 +35,12 @@
   }
 
   .wrapTitle {
-    padding-top: rem(60px);
-    //padding-bottom: rem(65px);
+    padding-top: 60px;
+    //padding-bottom: 65px;
     flex: 1;
     @include is-pc {
-      padding-top: rem(120px);
-      padding-bottom: rem(154px);
+      padding-top: 120px;
+      padding-bottom: 154px;
     }
   }
 
@@ -49,27 +48,31 @@
     position: relative;
     padding-top: 0;
     overflow-x: hidden;
-    padding-bottom: rem(63px);
+    padding-bottom: 63px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: rem(40px);
+    gap: 40px;
     @include is-pc {
-      padding: rem(123px) 0;
-      gap: rem(80px);
-      max-width: rem(715px);
+      padding: 123px 0;
+      gap: 80px;
+      max-width: 715px;
       align-items: flex-end;
 
       &::before {
         position: absolute;
         content: '';
-        left: rem(18px);
+        left: 18px;
         transform: translateX(-50%);
         top: 0;
-        width: rem(1px);
+        width: 1px;
         height: 100%;
-        background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+        background: linear-gradient(
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 1),
+          rgba(255, 255, 255, 0)
+        );
       }
     }
   }

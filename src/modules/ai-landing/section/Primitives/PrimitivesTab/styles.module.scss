@@ -1,10 +1,10 @@
 .wrapperTab {
-  margin-top: rem(24px);
+  margin-top: 24px;
   display: none;
   justify-content: space-between;
   //align-items: center;
   border: 1px solid #444444;
-  border-radius: rem(32px);
+  border-radius: 32px;
   overflow: hidden;
   background: rgb(255, 255, 255);
   background: linear-gradient(
@@ -17,22 +17,22 @@
     display: flex;
   }
   @include is-tablet {
-    gap: rem(30px);
+    gap: 30px;
   }
 
   @include is-pc {
     gap: 0;
     flex-direction: row;
-    min-height: rem(500px);
+    min-height: 500px;
     //align-items: center;
   }
 
   .contentTab {
-    max-width: rem(466px);
+    max-width: 466px;
     width: 100%;
     text-align: center;
     margin: 0 auto;
-    padding: rem(30px) 0;
+    padding: 30px 0;
 
     display: flex;
     align-items: center;
@@ -46,11 +46,11 @@
       padding: 0;
       align-self: center;
       text-align: start;
-      margin-left: rem(95px);
+      margin-left: 95px;
     }
     &_title {
       position: relative;
-      min-height: rem(33px);
+      min-height: 33px;
       width: 100%;
       &_inner {
         position: absolute;
@@ -61,25 +61,25 @@
         text-transform: uppercase;
         text-align: center;
         width: 100%;
-        font-size: rem(20px);
+        font-size: 20px;
 
         @include is-tablet {
-          font-size: rem(24px);
+          font-size: 24px;
         }
         @include is-pc {
           text-align: start;
           display: block;
-          font-size: rem(24px);
+          font-size: 24px;
         }
       }
     }
     &_decs {
       position: relative;
-      margin: rem(24px) 0;
+      margin: 24px 0;
       width: 100%;
-      min-height: rem(128px);
+      min-height: 128px;
       @include is-pc {
-        //min-height: rem(96px);
+        //min-height: 96px;
       }
 
       &_inner {
@@ -88,25 +88,25 @@
         left: 0;
         font-family: 'Urbanist';
         font-weight: 400;
-        line-height: rem(32px);
-        padding: 0 rem(12px);
-        font-size: rem(16px);
+        line-height: 32px;
+        padding: 0 12px;
+        font-size: 16px;
 
         @include is-tablet {
           padding: 0;
-          font-size: rem(20px);
+          font-size: 20px;
         }
         @include is-pc {
           padding: 0;
-          font-size: rem(20px);
+          font-size: 20px;
         }
       }
     }
     &_button {
       position: relative;
-      max-width: rem(256px);
+      max-width: 256px;
       width: 100%;
-      height: rem(54px);
+      height: 54px;
 
       @include is-mobile {
         margin: 0 auto;
@@ -117,7 +117,7 @@
         top: 0;
         left: 0;
         height: 100%;
-        padding: rem(16.5px) rem(32px);
+        padding: 16.5px 32px;
         @include is-mobile {
           right: 0;
         }
@@ -147,14 +147,14 @@
       }
     }
     @include is-tablet {
-      //max-width: rem(600px);
+      //max-width: 600px;
     }
 
     @include is-pc {
-      // max-width: rem(880px);
-      width: rem(1019px);
+      // max-width: 880px;
+      width: 1019px;
       aspect-ratio: 1019 / 465;
-      margin-right: rem(48px);
+      margin-right: 48px;
     }
   }
 }
