@@ -2647,6 +2647,16 @@
   resolved "https://registry.npmjs.org/@floating-ui/utils/-/utils-0.2.1.tgz"
   integrity sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==
 
+"@fontsource/space-mono@^5.0.19":
+  version "5.0.19"
+  resolved "https://registry.yarnpkg.com/@fontsource/space-mono/-/space-mono-5.0.19.tgz#8911fdaed36107f58196849f3035715cdf65ac7e"
+  integrity sha512-gz9yaKtXCY+HutNvQ4APc15xwZ1f6pWXve5N55x5m/hOoGqgB9Auf3l7CitHNhNJkSKEmaM45M29b0rFeudXlg==
+
+"@fontsource/urbanist@^5.0.19":
+  version "5.0.19"
+  resolved "https://registry.yarnpkg.com/@fontsource/urbanist/-/urbanist-5.0.19.tgz#223f3a24c5f1bb6cc58cf5186f419a852f02000d"
+  integrity sha512-MFA+4XInWsSNY/k0oJcVfwuQ2Zn5ZOJ/kaWpOk8B6QDBK7wOwHpgB4xTrUzeYthN4NWpBnbitRig+f5lXv8kJQ==
+
 "@gsap/react@^2.1.0":
   version "2.1.0"
   resolved "https://registry.npmjs.org/@gsap/react/-/react-2.1.0.tgz"
