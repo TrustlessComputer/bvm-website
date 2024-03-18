@@ -1,0 +1,80 @@
+.wrapperSection {
+  background-color: #000;
+  overflow: hidden;
+
+  @include is-pc {
+    // height: 100vh;
+  }
+
+  .container {
+    width: 100%;
+    .wrapperContent {
+      padding-top: rem(80px);
+      padding-bottom: rem(85px);
+      @include is-pc {
+        padding-top: rem(160px);
+        padding-bottom: rem(171px);
+      }
+      .title {
+        width: 100%;
+
+        @include is-pc {
+          max-width: rem(800px);
+        }
+      }
+      .wrapperBtn {
+        margin-top: rem(34px);
+        display: flex;
+        align-items: center;
+        gap: rem(12px);
+        flex-wrap: wrap;
+        justify-content: center;
+        //height: rem(54px);
+
+        @include is-pc {
+          justify-content: flex-start;
+
+          margin-top: rem(68px);
+        }
+        .btn {
+          text-transform: uppercase;
+          padding: rem(12px) rem(20px);
+          @include is-mobile {
+            width: 100%;
+            max-width: rem(160px);
+          }
+        }
+      }
+    }
+  }
+}
+.title {
+  //max-width: rem(714px);
+  margin-bottom: rem(68px);
+  font-family: 'Urbanist';
+  font-size: rem(40px);
+  line-height: rem(52px);
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+
+  span {
+    opacity: 0.6;
+  }
+
+  &.black {
+    color: #000;
+  }
+
+  @include is-tablet {
+    font-size: rem(60px);
+    line-height: rem(74.8px);
+  }
+
+  @include is-pc {
+    font-size: rem(68px);
+    line-height: rem(74.8px);
+    text-align: start;
+  }
+}

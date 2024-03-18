@@ -1,0 +1,111 @@
+.wrapper {
+  background-color: #fff;
+  font-family: 'Urbanist';
+
+  @include is-pc {
+    height: calc(130dvh);
+  }
+
+  .container {
+    width: 100%;
+    @include is-pc {
+      position: sticky;
+      top: 9vh;
+    }
+
+    .wrapperContent {
+      padding: rem(60px) 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+
+      @include is-tablet {
+        gap: rem(20px);
+        padding: rem(160px) 0;
+      }
+
+      @include is-pc {
+        gap: rem(64px);
+        align-items: start;
+        flex-direction: row;
+        padding: rem(120px) 0;
+      }
+
+      .left {
+        width: 100%;
+        position: relative;
+        left: 0;
+        @include is-pc {
+          top: rem(100px);
+          position: sticky;
+        }
+
+
+        .mainHeading {
+          color: #000;
+          margin-top: rem(12px);
+          text-align: start;
+          font-size: rem(36px);
+          line-height: rem(39px);
+          @include is-pc {
+            margin-top: rem(24px);
+            font-size: rem(68px);
+            line-height: rem(74px);
+          }
+        }
+      }
+
+      .right {
+        max-width: rem(598px);
+        width: 100%;
+
+        &_inner {
+          aspect-ratio: 1/1;
+          margin: rem(24px) 0;
+          @include is-pc {
+            margin: 0;
+          }
+        }
+
+        video {
+          width: 100%;
+          height: 100%;
+          aspect-ratio: 783/783;
+          object-fit: cover;
+        }
+
+        .thumnail {
+          width: 100%;
+        }
+
+        .descImage {
+
+          font-size: rem(14px);
+          color: #000;
+          @include is-pc {
+            font-size: rem(20px);
+          }
+        }
+      }
+    }
+  }
+}
+
+.mainLable {
+  font-family: 'Space Mono';
+  font-size: rem(12px);
+  text-transform: uppercase;
+  text-align: start;
+
+  color: #000;
+  @include is-pc {
+    font-size: rem(16px);
+  }
+
+  &__right {
+    margin-top: rem(28px);
+    margin-bottom: rem(12px);
+    font-weight: 800;
+  }
+}

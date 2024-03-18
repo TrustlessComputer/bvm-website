@@ -1,0 +1,52 @@
+.marketplace {
+  background: #ffffff;
+  padding-top: rem(32px) ;
+  font-family: 'Urbanist';
+  overflow: hidden;
+  @include is-pc {
+    padding-top: rem(160px);
+  }
+
+  .wrapContent {
+    width: 100%;
+    max-width: rem(800px);
+    color: #000;
+    text-align: center;
+    margin: 0 auto rem(34px) auto;
+    @include is-pc {
+      margin-bottom: rem(68px);
+    }
+  }
+
+  &_title {
+    margin-bottom: rem(24px);
+    text-align: start;
+    font-size: rem(36px);
+    @include is-pc {
+      text-align: center;
+      font-size: rem(68px);
+    }
+  }
+
+  &_content {
+    text-align: start;
+    font-size: rem(14px);
+    @include is-pc {
+      text-align: center;
+      font-size: rem(20px);
+    }
+  }
+
+  &_image {
+    width: 100%;
+    max-width: rem(1313px);
+    margin: 0 auto;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+
+}

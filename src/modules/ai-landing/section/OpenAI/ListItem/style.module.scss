@@ -1,0 +1,102 @@
+.listItem {
+  position: relative;
+
+  &_inner {
+    padding: rem(24px) rem(16px) rem(16px);
+    border: rem(1px) solid rgba($color: #fff, $alpha: 0.2);
+    border-radius: rem(20px);
+    color: #fff;
+    width: 100%;
+  }
+
+  &_dot {
+    position: absolute;
+    top: 50%;
+    left: rem(-64px);
+    transform: translateY(-50%);
+    width: rem(32px);
+    height: rem(32px);
+    border-radius: rem(100px);
+    background: #1a1a1a;
+    display: none;
+
+    &::before {
+      position: absolute;
+      content: '';
+      background: #fff;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: rem(12px);
+      height: rem(12px);
+      border-radius: 100px;
+    }
+  }
+
+  .icon {
+    margin-bottom: rem(12px);
+
+    svg {
+      width: rem(60px) !important;
+      height: auto;
+    }
+  }
+
+  &_title {
+    font-family: 'Space Mono';
+    font-size: rem(16px);
+    line-height: rem(17.6px);
+    margin-bottom: rem(16px);
+    text-transform: uppercase;
+    @include is-pc {
+      font-size: rem(24px);
+      line-height: rem(26.4px);
+      margin-bottom: rem(24px);
+    }
+  }
+
+  &_content {
+    font-family: 'Urbanist';
+    padding: rem(20px);
+    border-radius: rem(20px);
+    background: radial-gradient(50% 387.77% at 50% 50%, rgba(255, 255, 255, 0.15) 0%, rgba(153, 153, 153, 0.15) 100%, rgba(255, 255, 255, 0.15) 100%);
+
+    p {
+      font-size: rem(14px);
+      line-height: rem(22px);
+      @include is-pc {
+        font-size: rem(16px);
+        line-height: rem(24px);
+      }
+    }
+
+    &_subContent {
+      margin-top: rem(20px);
+    }
+  }
+
+  @include is-tablet {
+    max-width: 80%;
+  }
+
+  @include is-pc {
+    max-width: rem(650px);
+
+    &_dot {
+      display: block;
+    }
+
+    &_content {
+      p {
+        font-size: rem(20px);
+        line-height: rem(32px);
+      }
+    }
+
+    .icon {
+      svg {
+        width: rem(120px) !important;
+      }
+    }
+  }
+}

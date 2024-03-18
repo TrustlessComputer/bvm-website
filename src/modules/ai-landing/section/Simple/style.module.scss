@@ -1,0 +1,105 @@
+.simple {
+  &_inner {
+    padding: rem(32px) 0;
+    background-image: url('/ai-landing/simple.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    @include is-tablet {
+      padding: rem(80px) 0;
+    }
+
+    @include is-pc {
+      padding: vh(160px) 0;
+      background: unset;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &_bg {
+    display: none;
+    @include is-pc {
+      display: block;
+      position: absolute;
+      height: 100vh;
+      width: 100%;
+      top: 0;
+      z-index: -1;
+      left: 0;
+      background-image: url('/ai-landing/simple.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: bottom;
+    }
+  }
+
+  &_title {
+    max-width: rem(714px);
+    margin-bottom: rem(65px);
+    font-family: 'Urbanist';
+    font-size: rem(40px);
+    line-height: rem(52px);
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: start;
+
+    span {
+      opacity: 0.6;
+    }
+
+    &.black {
+      color: #000;
+    }
+
+    @include is-tablet {
+      font-size: rem(60px);
+      line-height: rem(74.8px);
+    }
+
+    @include is-pc {
+      margin-bottom: rem(68px);
+      font-size: rem(68px);
+      line-height: rem(74.8px);
+    }
+  }
+
+  .wrapContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &_list {
+      margin-bottom: rem(40px);
+      @include is-pc {
+        position: relative;
+        width: rem(1045px);
+        margin-bottom: 0;
+        min-height: rem(400px);
+      }
+    }
+
+    &_tabs {
+      display: flex;
+      flex-direction: column;
+      gap: rem(20px);
+    }
+  }
+
+  @include is-pc {
+    // height: 600vh;
+    height: 100vh;
+    position: relative;
+
+    .wrapContent {
+      flex-direction: row;
+
+      &_tabs {
+        gap: rem(48px);
+      }
+    }
+  }
+}
