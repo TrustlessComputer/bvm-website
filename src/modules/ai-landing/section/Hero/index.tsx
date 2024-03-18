@@ -65,8 +65,7 @@ export default function Hero(): React.JSX.Element {
   return (
     <div className={`${s.hero}`} ref={heroRef}>
       <div className={s.hero_wrap}>
-      <Banner disabledAnimation />
-
+        <Banner disabledAnimation />
       </div>
 
       <BoxParallax offset={0.35}>
@@ -93,22 +92,26 @@ export default function Hero(): React.JSX.Element {
             muted
           />
           <HomeContainer className={`${s.container}`}>
-
             <div className={`${s.contentWrapper}`}>
               <HomeTitle className={`${s.mainHeading}`}>
-                A Bitcoin L2 <br />
-                designed for <br /> fully on-chain AI
+                Project Truly Open AI
               </HomeTitle>
+              <Fade delayEnter={1.5}>
+                <p className={s.desc}>
+                  An open AI infrastructure that benefits humankind — owned by
+                  none.
+                </p>
+              </Fade>
               <div className={`${s.wrapperBtn}`}>
                 <Fade delayEnter={1.8}>
                   <Button
                     onClick={() => {
-                      router.push('/build');
+                      window.open('https://eternalai.org/');
                     }}
                     isOrange={true}
                     className={`${s.btn}`}
                   >
-                    Build AI
+                    Explore demos
                   </Button>
                   {/*<Button onClick={()=>{*/}
                   {/*  window.open('https://nakachain.xyz/launchpad')*/}
@@ -119,14 +122,25 @@ export default function Hero(): React.JSX.Element {
                 <Fade delayEnter={2}>
                   <Button
                     onClick={() => {
+                      window.open('https://bvm.network/blockchains/customize');
+                    }}
+                    className={`${s.btn}`}
+                    isWhite
+                  >
+                    Deploy an AI chain
+                  </Button>
+                </Fade>
+                {/* <Fade delayEnter={2}>
+                  <Button
+                    onClick={() => {
                       router.push('/use');
                     }}
                     className={`${s.btn}`}
                     isWhite
                   >
-                    Use AI
+                   Deploy an AI dapp
                   </Button>
-                </Fade>
+                </Fade> */}
               </div>
             </div>
           </HomeContainer>
