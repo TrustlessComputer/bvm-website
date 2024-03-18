@@ -14,10 +14,10 @@ const Marketplace = () => {
       <HomeContainer className={s.container}>
         <div className={s.wrapContent}>
           <LinesRandom>
-            <p className={`${s.mainLable}`}>Create your own AI.</p>
+            <p className={`${s.mainLable}`}>FOR USERS</p>
           </LinesRandom>
           <HomeTitle isBlack className={s.marketplace_title}>
-            <span>FOR</span> USERS
+            <span>Create</span> your own AI.
           </HomeTitle>
           <LinesRandom>
             <p className={s.marketplace_content}>

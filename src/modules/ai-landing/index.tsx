@@ -7,12 +7,9 @@ export default function VisualLanding() {
 
 
   return (
-    <>
-      <Animate>
-        <Loader />
-        <LandingSection />
-      </Animate>
-      <Footer/>
-    </>
+    <Animate>
+      <Loader />
+      <LandingSection />
+    </Animate>
   );
 }
