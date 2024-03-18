@@ -61,17 +61,17 @@ const Footer = () => {
                 Deploy an AI chain
               </Button>
             </Fade>
-            <Fade delayEnter={2}>
-              <Button
-                onClick={() => {
-                  router.push('/use');
-                }}
-                className={`${s.btn}`}
-                isWhite
-              >
-                Deploy an AI dapp
-              </Button>
-            </Fade>
+            {/*<Fade delayEnter={2}>*/}
+            {/*  <Button*/}
+            {/*    onClick={() => {*/}
+            {/*      router.push('/use');*/}
+            {/*    }}*/}
+            {/*    className={`${s.btn}`}*/}
+            {/*    isWhite*/}
+            {/*  >*/}
+            {/*    Deploy an AI dapp*/}
+            {/*  </Button>*/}
+            {/*</Fade>*/}
           </div>
         </div>
       </HomeContainer>
