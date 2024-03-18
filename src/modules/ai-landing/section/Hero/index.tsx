@@ -140,23 +140,25 @@ export default function Hero(): React.JSX.Element {
                 </Fade> */}
               </div>
 
-              <div className={s.videoWrapper}>
-                <a
-                  href={'#'}
-                  onClick={() => setOpen(true)}
-                  style={{ textAlign: 'center', display: 'block', position: 'relative' }}
-                >
-                  <img
-                    src={`/ai-landing/ai_video.png`}
-                    width={224}
-                    alt={'right'}
-                    style={{ margin: 'auto', marginBottom: '8px' }}
-                  />
-                  <span className={s.descVid} style={{ fontSize: '12px', fontWeight: 400 }}>
+              <Fade delayEnter={2.2}>
+                <div className={s.videoWrapper}>
+                  <a
+                    href={'#'}
+                    onClick={() => setOpen(true)}
+                    style={{ textAlign: 'center', display: 'block', position: 'relative' }}
+                  >
+                    <img
+                      src={`/ai-landing/ai_video.png`}
+                      width={224}
+                      alt={'right'}
+                      style={{ margin: 'auto', marginBottom: '8px' }}
+                    />
+                    <span className={s.descVid} style={{ fontSize: '12px', fontWeight: 400 }}>
                     Watch the film
                   </span>
-                </a>
-              </div>
+                  </a>
+                </div>
+              </Fade>
             </div>
           </HomeContainer>
           {/* <HeroLabel /> */}
