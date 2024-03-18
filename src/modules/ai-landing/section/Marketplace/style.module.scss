@@ -4,6 +4,10 @@
   font-family: 'Urbanist';
   overflow: hidden;
 
+  @include is-tablet {
+    padding-top: 80px;
+  }
+
   @include is-pc {
     padding-top: 160px;
   }
