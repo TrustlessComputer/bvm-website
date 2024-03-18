@@ -15,8 +15,9 @@ const ImagePlaceholder = forwardRef<HTMLImageElement, ImageProps>((props, ref) =
         onLoad={(): void => {
           setIsLoaded(true);
         }}
-        sizes="100vw"
+        sizes='100vw'
         {...props}
+        quality={100}
         alt={props.alt}
       />
       <Image
@@ -24,8 +25,8 @@ const ImagePlaceholder = forwardRef<HTMLImageElement, ImageProps>((props, ref) =
         src={props.src}
         width={50}
         height={50}
-        loading="eager"
-        alt="eager"
+        loading='eager'
+        alt='eager'
       />
     </div>
   );

@@ -8,6 +8,12 @@
   overflow: hidden;
   background: #000;
 
+  :global{
+    .modal-video-body{
+      max-width: 1600px;
+    }
+  }
+
   .hero_wrap {
     position: absolute;
     top: 0;
