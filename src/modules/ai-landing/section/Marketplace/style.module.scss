@@ -38,7 +38,8 @@
   &_content {
     text-align: start;
     font-size: 14px;
-
+    font-weight: 400;
+    font-family: "Helvetica Neue";
     @include is-pc {
       text-align: center;
       font-size: 20px;
