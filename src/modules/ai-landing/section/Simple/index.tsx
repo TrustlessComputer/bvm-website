@@ -30,8 +30,8 @@ const Simple = () => {
   const isDesktop = useIsDesktop();
 
   useEffect(() => {
-    if (!wrapContent.current) return;
-    gsap.to(window, { scrollTo: { y: wrapContent.current, offsetY:  -(tab * window.innerHeight) }, ease: 'power2', duration: .1 });
+    if (!wrapContent.current || !visible.value) return;
+    gsap.to(window, { scrollTo: { y: wrapContent.current, offsetY: -(tab * window.innerHeight) }, ease: 'power2', duration: .1 });
   }, [tab]);
 
   useEffect(() => {
