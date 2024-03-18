@@ -1,5 +1,6 @@
 import '@/styles/index.scss';
 
+
 import { Metadata, Viewport } from 'next';
 
 import StoreProvider from '@/Providers/StoreProvider';
