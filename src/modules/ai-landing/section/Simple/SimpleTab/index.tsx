@@ -11,9 +11,9 @@ type ISimpleTab = {
 };
 
 const SimpleTab = ({ content, id, active, setTab }: ISimpleTab) => {
-  const { idSimple, setIdSimple } = useStoreSimple();
+  const { idSimple } = useStoreSimple();
   const clickHandler = () => {
-    setIdSimple(id);
+    setTab(id);
   };
   const isActive = id === idSimple;
   return (

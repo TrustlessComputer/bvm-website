@@ -14,8 +14,10 @@ import { useIsDesktop } from '@/hooks/useWindowResize';
 import SimpleMobile from './SimpleMobile';
 import { useGSAP } from '@gsap/react';
 import { MathMap } from '@/utils/mathUtils';
-import { ScrollTrigger } from 'gsap/all';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import gsap from 'gsap';
+
 
 const Simple = () => {
   const [tab, setTab] = useState<number>(0);
@@ -26,6 +28,11 @@ const Simple = () => {
   const wrapBgRef = useRef<HTMLDivElement>(null);
   const titleHeadingRef = useRef<HTMLHeadingElement>(null);
   const isDesktop = useIsDesktop();
+
+  useEffect(() => {
+    if (!wrapContent.current) return;
+    gsap.to(window, { scrollTo: { y: wrapContent.current, offsetY:  -(tab * window.innerHeight) }, ease: 'power2', duration: .1 });
+  }, [tab]);
 
   useEffect(() => {
     !isDesktop && setIdSimple(0);
@@ -46,6 +53,7 @@ const Simple = () => {
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(ScrollToPlugin);
       initAnimation();
       const lengthData = SimpleData.length - 1;
       const mm = gsap.matchMedia();
@@ -65,13 +73,6 @@ const Simple = () => {
             setIdSimple(id);
           },
         });
-        // ScrollTrigger.create({
-        //   trigger: wrapContent.current,
-        //   start: 'top top',
-        //   pinSpacing: false,
-        //   end: 'bottom bottom',
-        //   pin: wrapBgRef.current,
-        // });
       });
     },
     { scope: wrapContent },
