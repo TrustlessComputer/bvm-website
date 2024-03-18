@@ -52,7 +52,7 @@
   margin-bottom: 68px;
   font-family: 'Urbanist';
   font-size: 36px;
-  line-height: 52px;
+  line-height: 1.1;
   font-weight: 800;
   color: #fff;
   text-transform: uppercase;
@@ -68,7 +68,6 @@
 
   @include is-pc {
     font-size: 68px;
-    line-height: 74.8px;
     text-align: left;
   }
 }
