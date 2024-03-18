@@ -66,9 +66,18 @@
 
           &_buttons {
             display: flex;
-            flex-direction: row;
-            gap: 16px;
-
+            justify-content: center;
+            gap: 12px;
+            flex-direction: column;
+            @include is-tablet {
+              justify-content: flex-start;
+              flex-direction: row;
+            }
+            @include is-pc {
+              gap: 16px;
+              flex-direction: row;
+              justify-content: flex-start;
+            }
             &_item {
               padding-top: 14.5px;
               padding-bottom: 14.5px;
