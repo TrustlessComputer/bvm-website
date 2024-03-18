@@ -1,7 +1,6 @@
 import 'react-tooltip/dist/react-tooltip.css';
 import { Flex } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import s from './styles.module.scss';
 import Fade from '@/interactive/Fade';
 import ModalVideo from 'react-modal-video';
 import SvgInset from '@/components/SvgInset';

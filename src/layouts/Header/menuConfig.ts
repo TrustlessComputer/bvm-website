@@ -209,6 +209,12 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   //   isHide: false,
   // },
   {
+    label: 'Builder',
+    href: '/build-on-bitcoin',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
     label: 'Roadmap',
     href: '/roadmap',
     isNewWindow: false,

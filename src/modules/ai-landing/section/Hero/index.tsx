@@ -65,9 +65,6 @@ export default function Hero(): React.JSX.Element {
   });
   return (
     <div className={`${s.hero}`} ref={heroRef}>
-      <div className={s.hero_wrap}>
-        <Banner disabledAnimation />
-      </div>
 
       <BoxParallax offset={0.35}>
         <div className={s.hero_parallax}>
