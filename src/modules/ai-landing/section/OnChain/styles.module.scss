@@ -14,7 +14,7 @@
     }
 
     .wrapperContent {
-      padding: 60px 0;
+      padding: 32px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -22,14 +22,14 @@
 
       @include is-tablet {
         gap: 20px;
-        padding: 160px 0;
+        padding: 80px 0;
       }
 
       @include is-pc {
         gap: 64px;
         align-items: start;
         flex-direction: row;
-        padding: 120px 0;
+        padding: 160px 0;
       }
 
       .left {
@@ -46,11 +46,10 @@
           margin-top: 12px;
           text-align: start;
           font-size: 36px;
-          line-height: 39px;
+          line-height: 1.1;
           @include is-pc {
             margin-top: 24px;
             font-size: 68px;
-            line-height: 74px;
           }
         }
       }
@@ -80,9 +79,9 @@
         }
 
         .descImage {
-          font-family: "Helvetica Neue";
+          font-family: 'Helvetica Neue';
           font-size: 14px;
-          line-height: 30px;
+          line-height: 1.5;
           font-weight: 400;
           color: #000;
           @include is-pc {
