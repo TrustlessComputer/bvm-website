@@ -1,4 +1,5 @@
 .simple {
+  width: 100%;
   &_inner {
     padding: 32px 0;
     background-image: url('/ai-landing/simple.jpg');
@@ -66,7 +67,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
+    @include is-pc-wide {
+      gap: 308px;
+    }
     &_list {
       margin-bottom: 40px;
       @include is-pc {
