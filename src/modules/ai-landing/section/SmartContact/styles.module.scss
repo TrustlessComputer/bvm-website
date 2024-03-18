@@ -16,25 +16,25 @@
       align-items: center;
       width: 100%;
       justify-content: center;
-      padding-top: rem(80px);
-      padding-bottom: rem(62px);
-      max-width: rem(1138px);
+      padding-top: 80px;
+      padding-bottom: 62px;
+      max-width: 1138px;
 
       .mainHeading {
         text-align: start;
-        font-size: rem(36px);
+        font-size: 36px;
         display: inline-block;
         @include is-pc {
           text-align: center;
-          font-size: rem(68px);
+          font-size: 68px;
         }
       }
 
       .decsContent {
-        margin-top: rem(24px);
-        margin-bottom: rem(34px);
-        font-size: rem(16px);
-        max-width: rem(768px);
+        margin-top: 24px;
+        margin-bottom: 34px;
+        font-size: 16px;
+        max-width: 768px;
         width: 100%;
         text-align: start ;
         @include is-pc {
@@ -44,12 +44,12 @@
 
 
       @include is-pc {
-        padding-top: rem(160px);
-        padding-bottom: rem(122px);
+        padding-top: 160px;
+        padding-bottom: 122px;
 
         .decsContent {
-          margin-bottom: rem(68px);
-          font-size: rem(20px);
+          margin-bottom: 68px;
+          font-size: 20px;
 
         }
       }
@@ -58,8 +58,8 @@
 }
 
 .wrapperImageCode {
-  max-width: rem(1138px);
-  //width: 100%;
+  max-width: 1138px;
+  width: 100%;
   @include is-pc {
     aspect-ratio: 1165/530;
   }

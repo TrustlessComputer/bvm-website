@@ -1,8 +1,8 @@
 .title {
   font-family: 'Helvetica Neue';
-  font-size: rem(36px);
-  line-height: rem(39px);
-  font-weight: 800;
+  font-size: 36px;
+  line-height: 79.2px;
+  font-weight: 500;
   color: #fff;
   text-transform: uppercase;
   text-align: center;
@@ -25,8 +25,8 @@
   }
 
   @include is-pc {
-    font-size: rem(68px);
-    line-height: rem(74.8px);
+    font-size: 68px;
+    line-height: 74.8px;
     text-align: left;
 
   }

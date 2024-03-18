@@ -9,7 +9,7 @@ type HomeContaienr = {
 const HomeContainer = forwardRef<HTMLDivElement, HomeContaienr>(
   ({ children, className }, ref) => {
     return (
-      <div ref={ref} className={`${s.homeContainer} ${className}`}>
+      <div ref={ref} className={`${'container'} ${className}`}>
         {children}
       </div>
     );

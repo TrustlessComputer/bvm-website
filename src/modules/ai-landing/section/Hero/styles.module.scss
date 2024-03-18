@@ -77,9 +77,11 @@
       max-width: 1023px;
       width: 100%;
       padding-bottom: 24px;
+
       @include is-tablet {
         justify-content: center;
       }
+
       @include is-pc {
         margin: auto 0;
         justify-content: center;
@@ -91,11 +93,13 @@
         margin-bottom: 32px;
         text-align: start;
         font-size: 40px;
+
         @include is-tablet {
           text-align: center;
           margin-left: auto;
           margin-right: auto;
         }
+
         @include is-pc {
           font-size: 68px;
         }
@@ -108,9 +112,11 @@
         width: 100%;
         justify-content: center;
         flex-direction: column;
+
         @include is-tablet {
           flex-direction: row;
         }
+
         @include is-pc {
           justify-content: start;
           flex-direction: row;
@@ -118,10 +124,10 @@
 
         .btn {
           width: 100%;
-          padding: 1.65rem 3.2rem;
           font-size: 14px;
           height: auto !important;
           max-width: 256px;
+
           @include is-pc {
             width: fit-content;
             min-width: 160px;

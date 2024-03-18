@@ -1,16 +1,12 @@
 .btn {
   --color: #fff;
-
-  font-family: 'Space Mono';
-  padding: rem(12px) rem(20px);
-  font-size: rem(16px);
+  padding: 12px 14px;
+  font-size: 16px;
   border: 1px solid #ffffff25;
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(3px);
-  text-transform: uppercase;
   text-align: center;
   position: relative;
-  height: rem(39px);
   z-index: 2;
 
   &_content {
@@ -52,7 +48,7 @@
   }
 
   @include is-mobile {
-    font-size: rem(10px);
-    padding: rem(12px) rem(28px);
+    font-size: 10px;
+    padding: 12px 28px;
   }
 }
