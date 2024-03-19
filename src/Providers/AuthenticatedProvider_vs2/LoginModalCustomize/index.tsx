@@ -95,7 +95,7 @@ const Web3AuthLoginModalCustomize = (props: Props) => {
           We do not store any data related to your social logins.
         </Text>
 
-        <Box height={'100px'}></Box>
+        <Box height={'200px'}></Box>
 
         <Flex
           flexDirection={'column'}
