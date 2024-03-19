@@ -2,22 +2,26 @@
 import React from 'react';
 import cs from 'classnames';
 import { toast } from 'react-hot-toast';
-import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
+// import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import { Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
+import { useWeb3Auth } from '@/Providers/AuthenticatedProvider_vs2/Web3Auth.hook';
 
 type Props = {
   color: 'black' | 'white';
 };
 const ButtonLoginTwitter = (props: Props) => {
-  const { login } = useWeb3Authenticated();
+  // const { login } = useWeb3Authenticated();
+  const { setShowLoginModalCustomize } = useWeb3Auth();
+
   const handleConnect = async () => {
     try {
-      await login();
+      // login && (await login());
+      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } catch (err: unknown) {
       toast.error(
         (err as Error).message ||
-        'Something went wrong. Please try again later.',
+          'Something went wrong. Please try again later.',
       );
     }
   };

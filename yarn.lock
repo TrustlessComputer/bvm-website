@@ -2251,7 +2251,7 @@
     "@ethereumjs/util" "^8.1.0"
     ethereum-cryptography "^2.0.0"
 
-"@ethereumjs/tx@^5.1.0":
+"@ethereumjs/tx@^5.1.0", "@ethereumjs/tx@^5.2.1":
   version "5.2.1"
   resolved "https://registry.npmjs.org/@ethereumjs/tx/-/tx-5.2.1.tgz"
   integrity sha512-BzdtUaa7KtP8T5NxJWRxo/RBoJzxYeCdx2n2C4zZLuWJBYVccfcyMiyDgr6W78Utmu/jIfGXknfh2t06+rTkiw==
@@ -3637,6 +3637,23 @@
     lodash "^4.17.21"
     loglevel "^1.8.1"
 
+"@toruslabs/base-controllers@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@toruslabs/base-controllers/-/base-controllers-5.5.1.tgz#8a72c23680373b9f3c0cabf2557ff919f0b798a5"
+  integrity sha512-jQV5Ma5lsbkX55PGJegCTWQv7A7DTGVcD0hejZlimw5nxsqiakxBiW03I6vDZI0sAxOqt/w1Rg2fACerg67KeA==
+  dependencies:
+    "@ethereumjs/util" "^9.0.2"
+    "@metamask/rpc-errors" "^6.1.0"
+    "@toruslabs/broadcast-channel" "^9.0.1"
+    "@toruslabs/http-helpers" "^6.0.0"
+    "@toruslabs/openlogin-jrpc" "^7.0.0"
+    "@toruslabs/openlogin-utils" "^7.0.4"
+    async-mutex "^0.4.1"
+    bignumber.js "^9.1.2"
+    bowser "^2.11.0"
+    lodash "^4.17.21"
+    loglevel "^1.9.1"
+
 "@toruslabs/base-session-manager@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@toruslabs/base-session-manager/-/base-session-manager-1.1.0.tgz"
@@ -3815,6 +3832,19 @@
     pump "^3.0.0"
     readable-stream "^4.5.2"
 
+"@toruslabs/openlogin-jrpc@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@toruslabs/openlogin-jrpc/-/openlogin-jrpc-7.0.0.tgz#84201709540b8c4c06ad0db68cc0b7d867153790"
+  integrity sha512-5alUJPwaGniUVUsbN7Y5T3DVfrtOfBNTXy8NhXxO8bszEYxbl/EXChe1FwmZ40LjHhGmRF3MCvZxjA3BkWZoGQ==
+  dependencies:
+    "@metamask/rpc-errors" "^6.1.0"
+    end-of-stream "^1.4.4"
+    events "^3.3.0"
+    fast-safe-stringify "^2.1.1"
+    once "^1.4.0"
+    pump "^3.0.0"
+    readable-stream "^4.5.2"
+
 "@toruslabs/openlogin-session-manager@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@toruslabs/openlogin-session-manager/-/openlogin-session-manager-1.1.0.tgz"
@@ -3856,6 +3886,15 @@
     "@toruslabs/constants" "^13.1.0"
     base64url "^3.0.1"
 
+"@toruslabs/openlogin-utils@^7.0.4":
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/@toruslabs/openlogin-utils/-/openlogin-utils-7.0.4.tgz#d04cfc9defb8497a46d76c6e7c129fd0b299f146"
+  integrity sha512-9V0HU5EO36bGgQVP/XqASCGp5bHH/zA/xDudh/lx1E3KCyPVp6+GxllSXv7amCe7AoYpQSzk4tPIza1OvAaAXA==
+  dependencies:
+    "@toruslabs/constants" "^13.1.0"
+    base64url "^3.0.1"
+    color "^4.2.3"
+
 "@toruslabs/openlogin@^4.7.2":
   version "4.7.2"
   resolved "https://registry.npmjs.org/@toruslabs/openlogin/-/openlogin-4.7.2.tgz"
@@ -3884,6 +3923,22 @@
     bowser "^2.11.0"
     events "^3.3.0"
     loglevel "^1.8.1"
+    ts-custom-error "^3.3.1"
+
+"@toruslabs/openlogin@^7.0.4":
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/@toruslabs/openlogin/-/openlogin-7.0.4.tgz#18be672439927192b6709bfa192ac4793e1320b3"
+  integrity sha512-uwrP1Rz/clUtPAwgt2FI83rS5YbRszmHPcE7oHkFBQQ8R/GBAmHoNI3gtbeU20lrAjnEWu4Inpq7jj3YbCPagA==
+  dependencies:
+    "@toruslabs/constants" "^13.1.0"
+    "@toruslabs/eccrypto" "^4.0.0"
+    "@toruslabs/metadata-helpers" "^5.0.0"
+    "@toruslabs/openlogin-session-manager" "^3.0.0"
+    "@toruslabs/openlogin-utils" "^7.0.4"
+    "@toruslabs/secure-pub-sub" "^0.0.1"
+    bowser "^2.11.0"
+    events "^3.3.0"
+    loglevel "^1.9.1"
     ts-custom-error "^3.3.1"
 
 "@toruslabs/secure-pub-sub@^0.0.1":
@@ -4375,6 +4430,13 @@
   dependencies:
     "@web3auth/base" "^7.3.2"
 
+"@web3auth/base-plugin@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@web3auth/base-plugin/-/base-plugin-8.0.1.tgz#bc664ac605d314f0043faf16589d8413155a58ef"
+  integrity sha512-6iJmFaVrIH31lC8UJefnGm3QGuih8abPqE5EVTCT0Mmnrlj4pkLyu4P481L5ERuMZM47Q5ix+dLwsChAKRIziA==
+  dependencies:
+    "@web3auth/base" "^8.0.0"
+
 "@web3auth/base-provider@^6.1.7":
   version "6.1.7"
   resolved "https://registry.npmjs.org/@web3auth/base-provider/-/base-provider-6.1.7.tgz"
@@ -4395,6 +4457,17 @@
     "@toruslabs/base-controllers" "^4.11.0"
     "@toruslabs/openlogin-jrpc" "^6.2.11"
     "@web3auth/base" "^7.3.2"
+    json-rpc-random-id "^1.0.1"
+
+"@web3auth/base-provider@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@web3auth/base-provider/-/base-provider-8.0.1.tgz#5ac661bf20a111bdbb1e6719f729c530debe5743"
+  integrity sha512-DVpP5tz7zt3DRkZ4/sPDUt940zStpV9tMzImEhGy2KijYOSHHiduAB5bT/kYReyyikCLu6RPHjLrxuUwlli5Zg==
+  dependencies:
+    "@metamask/rpc-errors" "^6.1.0"
+    "@toruslabs/base-controllers" "^5.5.1"
+    "@toruslabs/openlogin-jrpc" "^7.0.0"
+    "@web3auth/base" "^8.0.0"
     json-rpc-random-id "^1.0.1"
 
 "@web3auth/base-solana-adapter@^7.3.2":
@@ -4418,7 +4491,7 @@
     loglevel "^1.8.1"
     ts-custom-error "^3.3.1"
 
-"@web3auth/base@^7.2.1", "@web3auth/base@^7.3.2":
+"@web3auth/base@^7.3.2":
   version "7.3.2"
   resolved "https://registry.npmjs.org/@web3auth/base/-/base-7.3.2.tgz"
   integrity sha512-Bg5Mjqr51ETTRtya+4+v2G/OUjHPbkuRbtLGFjQ4uzrBuFokbEaE70kodnR7ZpIhOn41p8nciSxEo1ZJT+rBUQ==
@@ -4429,6 +4502,19 @@
     "@toruslabs/openlogin-utils" "^6.2.11"
     jwt-decode "^4.0.0"
     loglevel "^1.8.1"
+    ts-custom-error "^3.3.1"
+
+"@web3auth/base@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@web3auth/base/-/base-8.0.0.tgz#0b736c5770186172193ad5c247038bcb644efd80"
+  integrity sha512-3EYGHe73huRHXQ6DBWx/uL8hxlzDoiJXO+KSdonrBci4u5zY5ZVznaVXEbO4bTaT208MWaFAkFhEztFFYA0g3g==
+  dependencies:
+    "@toruslabs/http-helpers" "^6.0.0"
+    "@toruslabs/openlogin" "^7.0.4"
+    "@toruslabs/openlogin-jrpc" "^7.0.0"
+    "@toruslabs/openlogin-utils" "^7.0.4"
+    jwt-decode "^4.0.0"
+    loglevel "^1.9.1"
     ts-custom-error "^3.3.1"
 
 "@web3auth/ethereum-provider@^6.1.8":
@@ -4474,6 +4560,27 @@
     bn.js "^5.2.1"
     jsonschema "^1.4.1"
 
+"@web3auth/ethereum-provider@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@web3auth/ethereum-provider/-/ethereum-provider-8.0.1.tgz#4c7b09032b511318da54e4fe42702b5cec1c9a88"
+  integrity sha512-uyEDWNmpB1AO0257fm1FbMIK4weVdKB5rpAEvqwT/F76A2tJ4nCKmTJZk+/VDB4bAa/ntF2mQ2BG9ADOImuujA==
+  dependencies:
+    "@ethereumjs/common" "^4.2.0"
+    "@ethereumjs/tx" "^5.2.1"
+    "@ethereumjs/util" "^9.0.2"
+    "@metamask/eth-sig-util" "^7.0.1"
+    "@metamask/rpc-errors" "^6.1.0"
+    "@toruslabs/base-controllers" "^5.5.1"
+    "@toruslabs/http-helpers" "^6.0.0"
+    "@toruslabs/openlogin-jrpc" "^7.0.0"
+    "@walletconnect/utils" "^2.11.1"
+    "@web3auth/base" "^8.0.0"
+    "@web3auth/base-provider" "^8.0.1"
+    assert "^2.1.0"
+    bignumber.js "^9.1.2"
+    bn.js "^5.2.1"
+    jsonschema "^1.4.1"
+
 "@web3auth/metamask-adapter@^7.3.2":
   version "7.3.2"
   resolved "https://registry.npmjs.org/@web3auth/metamask-adapter/-/metamask-adapter-7.3.2.tgz"
@@ -4501,7 +4608,7 @@
     "@web3auth/ui" "^7.3.2"
     "@web3auth/wallet-connect-v2-adapter" "^7.3.2"
 
-"@web3auth/no-modal@^7.2.1", "@web3auth/no-modal@^7.3.2":
+"@web3auth/no-modal@^7.3.2":
   version "7.3.2"
   resolved "https://registry.npmjs.org/@web3auth/no-modal/-/no-modal-7.3.2.tgz"
   integrity sha512-n+XxERUoJWy87WzJw15PRw4xeRi5JWP+zSFrHF2zF0oilLjdWNnHK/AyjVtE68RdMNZ7/TW6rR1kYeNUI0YgmQ==
@@ -4513,7 +4620,19 @@
     "@web3auth/base-plugin" "^7.3.2"
     "@web3auth/base-provider" "^7.3.2"
 
-"@web3auth/openlogin-adapter@^7.2.1", "@web3auth/openlogin-adapter@^7.3.2":
+"@web3auth/no-modal@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@web3auth/no-modal/-/no-modal-8.0.1.tgz#a41b934bc5886e8099b0faf5e46a7f283640d8f5"
+  integrity sha512-FjvwE2W79ZnHgJZnPP1eM6d9iXvNHSMndQOwq/fkotStXx1A651lj/hndmmLuX3j3blQ+p2wzSNaaWN+800CDw==
+  dependencies:
+    "@toruslabs/openlogin" "^7.0.4"
+    "@toruslabs/openlogin-jrpc" "^7.0.0"
+    "@toruslabs/openlogin-utils" "^7.0.4"
+    "@web3auth/base" "^8.0.0"
+    "@web3auth/base-plugin" "^8.0.1"
+    "@web3auth/base-provider" "^8.0.1"
+
+"@web3auth/openlogin-adapter@^7.3.2":
   version "7.3.2"
   resolved "https://registry.npmjs.org/@web3auth/openlogin-adapter/-/openlogin-adapter-7.3.2.tgz"
   integrity sha512-XglDc+lvOuy9JGW8xvIQymAmjOU6rHU8GZiyNV1CAN9PySfpAekfDYQEc791G4Pgg24Ka0EJTfEOh96r88OUlg==
@@ -4522,6 +4641,17 @@
     "@toruslabs/openlogin-utils" "^6.2.11"
     "@web3auth/base" "^7.3.2"
     "@web3auth/base-provider" "^7.3.2"
+    lodash.merge "^4.6.2"
+
+"@web3auth/openlogin-adapter@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@web3auth/openlogin-adapter/-/openlogin-adapter-8.0.1.tgz#60d1d4839153e9e11dbbd60074ed5951c9b9fbcb"
+  integrity sha512-NIbsxyradfUK8KMpIb3D22K+NVl32lap+l+S3ET4ye4Wtk2XkVzzn84atOfyE1b0O81MfPX9xLMSstqdQJo+Mg==
+  dependencies:
+    "@toruslabs/openlogin" "^7.0.4"
+    "@toruslabs/openlogin-utils" "^7.0.4"
+    "@web3auth/base" "^8.0.0"
+    "@web3auth/base-provider" "^8.0.1"
     lodash.merge "^4.6.2"
 
 "@web3auth/phantom-adapter@^7.3.2":
@@ -4857,7 +4987,7 @@ ast-types-flow@^0.0.8:
   resolved "https://registry.npmjs.org/ast-types-flow/-/ast-types-flow-0.0.8.tgz"
   integrity sha512-OH/2E5Fg20h2aPrbe+QL8JZQFko0YZaF+j4mnQ7BGhfavO7OpSLa8a0y9sBwomHdSbkhTS8TQNayBfnW5DwbvQ==
 
-async-mutex@^0.4.0:
+async-mutex@^0.4.0, async-mutex@^0.4.1:
   version "0.4.1"
   resolved "https://registry.npmjs.org/async-mutex/-/async-mutex-0.4.1.tgz"
   integrity sha512-WfoBo4E/TbCX1G95XTjbWTE3X2XLG0m1Xbv2cwOtuPdyH9CZvnaA5nCt1ucjaKEgW2A5IF71hxrRhr83Je5xjA==
@@ -8032,7 +8162,7 @@ lodash@^4.0.0, lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21:
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
-loglevel@^1.8.1:
+loglevel@^1.8.1, loglevel@^1.9.1:
   version "1.9.1"
   resolved "https://registry.npmjs.org/loglevel/-/loglevel-1.9.1.tgz"
   integrity sha512-hP3I3kCrDIMuRwAwHltphhDM1r8i55H33GgqjXbrisuJhF4kRhW1dNuxsRklp4bXl8DSdLaNLuiL4A/LWRfxvg==

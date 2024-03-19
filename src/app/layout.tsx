@@ -58,7 +58,7 @@ export default function RootLayout({
         <StoreProvider>
           <ChakraProvider theme={chakraThemes}>
             <ChakraFontsFace />
-            <AuthenticatedProvider>
+            <Web3AuthProvider>
               <UserProvider>
                 <XVerseProvider>
                   <UnisatProvider>
@@ -72,7 +72,7 @@ export default function RootLayout({
                   </UnisatProvider>
                 </XVerseProvider>
               </UserProvider>
-            </AuthenticatedProvider>
+            </Web3AuthProvider>
           </ChakraProvider>
         </StoreProvider>
       </body>
