@@ -1,5 +1,13 @@
+import Hero from './section/Hero';
+import ModuleArchi from './section/ModuleArchi';
+
 const AiLandingModule = () => {
-  return <div> AiLandingModule</div>
-}
+  return (
+    <>
+      <Hero />
+      <ModuleArchi />
+    </>
+  );
+};
 
 export default AiLandingModule;
