@@ -1,5 +1,9 @@
+import ModuleArchitectureCard from '@/modules/aiLandingModule/components/ModuleArchitectureCard';
+
 const AiLandingModule = () => {
-  return <div> AiLandingModule</div>
+  return <div>
+    <ModuleArchitectureCard/>
+  </div>
 }
 
 export default AiLandingModule;
