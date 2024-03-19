@@ -50,7 +50,7 @@ export const SimpleData: ISimpleData[] = [
     title: 'DATA AVAILABILITY MODULE',
     image: '/ai-landing/2.png',
     content:
-      'BVM adopts a pragmatic approach by storing only transaction hashes on Bitcoin, with actual data on DA networks like Near, Filecoin, Eigen, and Avail. This strategy leverages Bitcoin’s top-notch security and the cost efficiency of DA platforms, ensuring a balanced blend of security and economic feasibility.',
+      'BVM adopts a pragmatic approach by storing only transaction hashes on Bitcoin, with actual data on DA networks like Polygon, Filecoin, Near and Celestia. This strategy leverages Bitcoin’s top-notch security and the cost efficiency of DA platforms, ensuring a balanced blend of security and economic feasibility.',
     link: '#',
   },
   {

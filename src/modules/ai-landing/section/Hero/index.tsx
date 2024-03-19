@@ -12,7 +12,6 @@ import { gsap } from 'gsap';
 import React, { useRef, useState } from 'react';
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
-import ModalVideo from 'react-modal-video';
 import HeroLabel from '../../components/HeroLabel';
 
 export default function Hero(): React.JSX.Element {
@@ -22,6 +21,7 @@ export default function Hero(): React.JSX.Element {
   const { contextSafe } = useGSAP({ scope: heroRef });
   const router = useRouter();
   const [isOpen, setOpen] = useState(false);
+  const DELAY = 2;
 
   const onEnedVideo = contextSafe(() => {
     gsap.to(refVideoBgLoop.current, {
@@ -91,17 +91,17 @@ export default function Hero(): React.JSX.Element {
 
           <HomeContainer className={`${s.container}`}>
             <div className={`${s.contentWrapper}`}>
-              <HomeTitle className={`${s.mainHeading}`}>
+              <HomeTitle delayEnter={DELAY} className={`${s.mainHeading}`}>
                 <span>Project</span> Truly Open AI
               </HomeTitle>
-              <Fade delayEnter={1.5}>
+              <Fade delayEnter={DELAY + .1}>
                 <p className={s.desc}>
                   An open AI infrastructure that benefits all humankind and is
                   owned by none.
                 </p>
               </Fade>
               <div className={`${s.wrapperBtn}`}>
-                <Fade delayEnter={1.8}>
+                <Fade delayEnter={DELAY + .2}>
                   <Button
                     onClick={() => {
                       window.open('https://eternalai.org/');
@@ -117,7 +117,7 @@ export default function Hero(): React.JSX.Element {
                   {/*  Launchpad*/}
                   {/*</Button>*/}
                 </Fade>
-                <Fade delayEnter={2}>
+                <Fade delayEnter={DELAY + .3}>
                   <Button
                     onClick={() => {
                       router.push('/blockchains/customize');
@@ -158,7 +158,9 @@ export default function Hero(): React.JSX.Element {
                   </a>
                 </div>
               </Fade> */}
-              <HeroLabel />
+              <Fade delayEnter={DELAY + .5}>
+                <div><HeroLabel /></div>
+              </Fade>
             </div>
           </HomeContainer>
           {/*<ModalVideo*/}
