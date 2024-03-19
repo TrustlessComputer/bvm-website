@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: "Helvetica Neue";
+  color: #000;
+  h3 {
+    font-size: 32px;
+    font-weight: 400;
+  }
+  .decs {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 36px;
+    ul li {
+      list-style: inside;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.wrapper {
+  display: flex;
+  gap: 120px;
+  .image {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+  }
+  .wrapperContent {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    @include is-pc {
+      gap: 60px;
+    }
+  }
+}
