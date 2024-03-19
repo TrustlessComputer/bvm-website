@@ -9,14 +9,12 @@ type IHeading = {
 
 const Heading = ({ className, title, desc }: IHeading) => {
   return (
-    <div className={`${s.heading} ${className}`}>
-      <div className={`${s.container} container`}>
-        <h2 className={s.heading_title}>Decentralized AI Module</h2>
-        <p className={s.heading_desc}>
-          Provide the requisite infrastructure and tools essential for defining,
-          training, deploying neural network models and conducting effective
-          on-chain inference with these models.
-        </p>
+    <div className={`${s.container} container`}>
+      <div
+        className={`${s.heading} ${className}`}
+      >
+        <h2 className={s.heading_title}>{title}</h2>
+        <p className={s.heading_desc}>{desc}</p>
       </div>
     </div>
   );
