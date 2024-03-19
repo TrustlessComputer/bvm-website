@@ -59,7 +59,7 @@ const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
             </div>
             <div className={s.video}>
               <a
-                href={'/ai/whitepaper.pdf'}
+                href={'/truly-open-ai.pdf'}
                 target={'_blank'}
                 style={{ textAlign: 'center', display: 'block' }}
               >
