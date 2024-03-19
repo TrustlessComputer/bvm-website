@@ -1,20 +1,15 @@
 // import { CDN_URL } from '@constants/config';
 import React, { useState } from 'react';
-import cs from 'classnames';
-import { toast } from 'react-hot-toast';
-import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import { Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import ContactUsModal from '@/components/ContactUsModal';
-import ContactUsSuccessModal from '@/components/ContactUsSuccessModal';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 type Props = {
   color?: 'black' | 'white';
 };
 
 const ContactUs = (props: Props) => {
-  const [showContactUsModal, setContactUsModal] = useState(false);
-  const [showSubmitSuccessModal, setShowSubmitSuccessModal] = useState(false);
+  const { showContactUsModal } = useContactUs();
 
   // const handleConnect = async () => {
   //   try {
@@ -31,7 +26,7 @@ const ContactUs = (props: Props) => {
     <>
       <Flex
         onClick={() => {
-          setContactUsModal(true);
+          showContactUsModal();
         }}
         flexDir={'row'}
         borderRadius={'4px'}
@@ -48,23 +43,6 @@ const ContactUs = (props: Props) => {
       >
         Contact us
       </Flex>
-
-      {showContactUsModal && (
-        <ContactUsModal
-          isShow={true}
-          onHide={() => setContactUsModal(false)}
-          onSuccesCB={() => {
-            setContactUsModal(false);
-            setShowSubmitSuccessModal(true);
-          }}
-        />
-      )}
-      {showSubmitSuccessModal && (
-        <ContactUsSuccessModal
-          isShow={true}
-          onHide={() => setShowSubmitSuccessModal(false)}
-        />
-      )}
     </>
   );
 };
