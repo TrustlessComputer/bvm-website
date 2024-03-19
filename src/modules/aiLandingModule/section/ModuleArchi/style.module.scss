@@ -1,5 +1,6 @@
 .wrapper {
   background-color: #eeeeee;
+  padding-bottom: 100px;
   .wrapperHeading {
     max-width: 1054px;
     padding: 98px 0 60px 0;
@@ -8,10 +9,16 @@
     max-width: 1420px;
     width: 100%;
   }
+
   .card:not(:first-child) {
     margin-top: 60px;
   }
+
   .card:nth-child(even) {
-    flex-direction: row-reverse;
+    flex-direction: column;
+
+    @include is-pc {
+      flex-direction: row-reverse;
+    }
   }
 }

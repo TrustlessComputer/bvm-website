@@ -5,7 +5,8 @@ const AiModule = () => {
   return (
     <MainLayout
       headerProps={{
-        color: 'white',
+        color: 'black',
+        bgColor: '#fff',
       }}
     >
       <AiLandingModule />
