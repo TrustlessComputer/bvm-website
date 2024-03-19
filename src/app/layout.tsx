@@ -17,6 +17,7 @@ import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import ModalManager from '@/components/ModalManage';
 import { AuthenticatedProvider } from '@/Providers/AuthenticatedProvider';
+import { ContactUsProvider } from '@/Providers/ContactUsProvider';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -63,10 +64,12 @@ export default function RootLayout({
               <UserProvider>
                 <XVerseProvider>
                   <UnisatProvider>
-                    <Hydrated>
-                      <ModalManager />
-                      {children}
-                    </Hydrated>
+                    <ContactUsProvider>
+                      <Hydrated>
+                        <ModalManager />
+                        {children}
+                      </Hydrated>
+                    </ContactUsProvider>
                     <ToastOverlay />
                   </UnisatProvider>
                 </XVerseProvider>

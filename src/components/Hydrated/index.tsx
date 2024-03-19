@@ -1,12 +1,10 @@
 'use client';
 
-import configs from '@/constants/l2ass.constant';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import toast from 'react-hot-toast';
-import ContactUsModal from '../ContactUsModal';
-import ContactUsSuccessModal from '../ContactUsSuccessModal';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 export enum IframeEventName {
   topup = 'topup',
@@ -25,8 +23,8 @@ export interface IFrameEvent {
 const Hydrated = ({ children }: { children?: any }) => {
   const [hydration, setHydration] = useState(false);
   const router = useRouter();
-  const [showContactUsModal, setContactUsModal] = useState(false);
-  const [showSubmitSuccessModal, setShowSubmitSuccessModal] = useState(false);
+
+  const { showContactUsModal } = useContactUs();
 
   const { login } = useWeb3Authenticated();
 
@@ -61,7 +59,7 @@ const Hydrated = ({ children }: { children?: any }) => {
               const subUrl = (eventData.url || '').split('/');
               const message = eventData.message;
               if (message === 'REQUEST_CONTACT_US') {
-                setContactUsModal(true);
+                showContactUsModal();
               } else if (message === 'REQUIRED_LOGIN') {
                 loginWeb3AuthHandler();
               } else if (subUrl.length > 0) {
@@ -93,27 +91,7 @@ const Hydrated = ({ children }: { children?: any }) => {
     }
   }, [hydration, login, window]);
 
-  return hydration ? (
-    <>
-      {children}
-      {showContactUsModal && (
-        <ContactUsModal
-          isShow={true}
-          onHide={() => setContactUsModal(false)}
-          onSuccesCB={() => {
-            setContactUsModal(false);
-            setShowSubmitSuccessModal(true);
-          }}
-        />
-      )}
-      {showSubmitSuccessModal && (
-        <ContactUsSuccessModal
-          isShow={true}
-          onHide={() => setShowSubmitSuccessModal(false)}
-        />
-      )}
-    </>
-  ) : null;
+  return hydration ? children : null;
 };
 
 export default Hydrated;
