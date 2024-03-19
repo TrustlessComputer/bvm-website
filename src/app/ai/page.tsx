@@ -9,7 +9,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: `${CDN_URL}/images/screenshort.jpeg`,
+        url: `${CDN_URL}/nbc/images/screenshort.jpeg`,
         width: 1200,
         height: 630,
         alt: APP_NAME,
@@ -20,7 +20,7 @@ export const metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: `${CDN_URL}/images/screenshort.jpeg`,
+        url: `${CDN_URL}/nbc/images/screenshort.jpeg`,
         alt: APP_NAME,
       },
     ],
