@@ -38,4 +38,5 @@ export type SubmitFormParams = {
   twName: string;
   telegram: string;
   isContractUs: boolean;
+  subject: string;
 };

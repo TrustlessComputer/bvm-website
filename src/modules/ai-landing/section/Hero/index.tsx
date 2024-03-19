@@ -125,7 +125,7 @@ export default function Hero(): React.JSX.Element {
                     className={`${s.btn}`}
                     isWhite
                   >
-                    Deploy an AI chain
+                    Deploy a Bitcoin L2 for AI
                   </Button>
                 </Fade>
                 {/* <Fade delayEnter={2}>
@@ -161,14 +161,14 @@ export default function Hero(): React.JSX.Element {
               <HeroLabel />
             </div>
           </HomeContainer>
-          <ModalVideo
-            channel="custom"
-            url={`${VIDEOS_CDN}/Intro_ver03_02.mp4`}
-            isOpen={isOpen}
-            onClose={() => {
-              setOpen(false);
-            }}
-          />
+          {/*<ModalVideo*/}
+          {/*  channel="custom"*/}
+          {/*  url={`${VIDEOS_CDN}/Intro_ver03_02.mp4`}*/}
+          {/*  isOpen={isOpen}*/}
+          {/*  onClose={() => {*/}
+          {/*    setOpen(false);*/}
+          {/*  }}*/}
+          {/*/>*/}
         </div>
       </div>
     </>

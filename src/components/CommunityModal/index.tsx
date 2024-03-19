@@ -81,6 +81,7 @@ const CommunityModal = ({ isShow, onHide, onSuccesCB }: any) => {
           twName: yourXAcc,
           telegram: yourTelegramAcc,
           isContractUs: true,
+          subject: `I'd like to build a Bitcoin L2`,
         };
         const result = await submitContact(params);
         console.log('[submitHandler] result: ', result);

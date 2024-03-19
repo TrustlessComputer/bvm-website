@@ -172,6 +172,22 @@ export const BlockDataList: BlockItemType[] = [
     bgColor: 'transparent',
     bgCircle: '#54A155',
     zIndex: 4,
+    isLastItem: false,
+    isHide: false,
+  },
+  {
+    key: 'AI',
+    label: 'AI',
+    networkList: [
+      {
+        logoUrl: '/images/lego_ai.svg',
+        name: 'AI Contracts Library',
+      },
+    ],
+    // bgColor: '#29892A',
+    bgColor: 'transparent',
+    bgCircle: '#54A155',
+    zIndex: 3,
     isLastItem: true,
     isHide: false,
   },

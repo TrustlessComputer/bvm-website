@@ -7,6 +7,7 @@ import SvgInset from '@/components/SvgInset';
 import { ModuleData } from './moduleData';
 import ModuleItem from './ModuleItem';
 import s from './styles.module.scss';
+import { VIDEOS_CDN } from '@constants/common';
 const DELAY = 2;
 const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
   const delay = isFooter ? 0 : DELAY;
@@ -19,7 +20,7 @@ const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
           <div className={s.module}>
             <p className={s.module_title}>
               <SvgInset svgUrl="/ai-landing/storage.svg" />
-              Powered by
+              Powered by the best-of-breed modules
             </p>
             <div className={s.module_list}>
               {ModuleData.map((item, index) => (
@@ -52,7 +53,7 @@ const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
         </div>
         <ModalVideo
           channel="custom"
-          url={'/public-sale/public_sale_video_2.mp4'}
+          url={`${VIDEOS_CDN}/Intro_ver03_02.mp4`}
           isOpen={isOpen}
           onClose={() => {
             setOpen(false);
