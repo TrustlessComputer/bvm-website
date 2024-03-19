@@ -14,6 +14,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import gsap from 'gsap';
 
 type IButton = {
+  isBorder?: boolean;
   isWhite?: boolean;
   isOrange?: boolean;
   isDisabled?: boolean;
@@ -25,7 +26,7 @@ type IButton = {
 };
 
 const Button = forwardRef<HTMLButtonElement, IButton>(
-  ({ children, className, isWhite,isOrange, isDisabled, onClick, id = -2 }, ref) => {
+  ({ children, className, isWhite, isBorder,isOrange, isDisabled, onClick, id = -2 }, ref) => {
     const bgRef = useRef<HTMLSpanElement>(null);
     const { contextSafe } = useGSAP();
     const contentRef = useRef<HTMLParagraphElement>(null);
@@ -81,7 +82,7 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
     return (
       <button
         ref={ref}
-        className={`${s.btn} ${className} ${isWhite ? s.white : ''} ${isOrange ? s.orange : ''} ${isDisabled ? s.isDisabled : ''}`}
+        className={`${s.btn} ${className} ${isWhite ? s.white : ''} ${isBorder ? s.border : ''} ${isOrange ? s.orange : ''} ${isDisabled ? s.isDisabled : ''}`}
         onClick={onClick}
       >
         <span ref={bgRef} className={s.btn_bg}></span>
