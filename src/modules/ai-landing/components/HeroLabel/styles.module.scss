@@ -7,7 +7,11 @@
 
   .content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+
+    @include is-pc {
+      justify-content: space-between;
+    }
 
     .module {
       &_title {
@@ -15,19 +19,27 @@
         gap: 12px;
         align-items: center;
         margin-bottom: 12px;
+        justify-content: center;
+        @include is-pc {
+          justify-content: flex-start;
+        }
       }
 
       &_list {
         display: flex;
         gap: 3.6px;
 
-        @include is-mobile {
-          flex-wrap: wrap;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        @include is-pc {
+          justify-content: flex-start;
+          flex-wrap: nowrap;
         }
       }
     }
 
-    @include is-mobile {
+    @media (max-width: 768px) {
       padding: 0;
       flex-direction: column;
       gap: 20px;
@@ -53,9 +65,52 @@
 
   p {
     margin-top: 7px;
-
-    font-size: 10.79px;
-    line-height: 15.1px;
+    font-size: 10px;
+    line-height: 15px;
     text-align: center;
+  }
+}
+
+
+.video {
+
+  text-transform: uppercase;
+  margin-top: 8px;
+
+  .wrapImgs {
+    position: relative;
+  }
+
+  .lb {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cdn {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    object-fit: contain;
+    top: 0;
+    left: 0;
+  }
+
+  span {
+    font-size: 12px !important;
+    @include is-min-table {
+      font-size: 14px !important;
+    }
+  }
+
+
+}
+
+.listActions {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  @include is-pc {
+    justify-content: flex-end;
   }
 }

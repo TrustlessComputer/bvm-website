@@ -10,7 +10,7 @@ type Props = {
 const Banner = (props: Props) => {
   const ContentReder = (): ReactElement => {
     return <div className={s.banner_wrapper}>
-      Say hello to project Truly Open AI.
+      <p className={s.text}>Say hello to project Truly Open AI.</p>
       <Link href={'/ai'} className={s.banner_link}>
         {` Learn more`}
         <svg
