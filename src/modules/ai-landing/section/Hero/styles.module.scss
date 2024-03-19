@@ -8,8 +8,8 @@
   overflow: hidden;
   background: #000;
 
-  :global{
-    .modal-video-body{
+  :global {
+    .modal-video-body {
       max-width: 1600px;
     }
   }
@@ -154,7 +154,7 @@
           height: auto !important;
           padding: 14px 20px;
 
-          > p{
+          > p {
             transform: translateY(.05em);
           }
 
@@ -186,6 +186,27 @@
 
   @include is-pc {
     text-align: left !important;
+    justify-content: flex-start;
+  }
+}
+
+.whitepaper {
+  gap: 5px;
+
+  width: fit-content;
+  display: flex;
+  background: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
+.whitepaperWrap {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  margin-top: 20px;
+  @include is-pc {
     justify-content: flex-start;
   }
 }
