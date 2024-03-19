@@ -1,0 +1,53 @@
+.btn {
+  --color: #fff;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1px solid #ffffff25;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+
+  &_content {
+    color: var(--color);
+    z-index: 1;
+    line-height: 1.1;
+  }
+
+  &.white {
+    background-color: #fff;
+
+    p {
+      color: #000;
+    }
+  }
+  &.orange {
+    background-color: #FA4E0E;
+
+    p {
+      color: #fff;
+    }
+  }
+
+  &.isDisabled {
+    background: rgba(white, .07);
+    pointer-events: none;
+  }
+
+  &_bg {
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    transform: scaleX(0);
+  }
+
+  @include is-mobile {
+    font-size: 12px;
+    padding: 12px 28px;
+  }
+}

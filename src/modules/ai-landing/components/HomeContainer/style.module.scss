@@ -1,0 +1,13 @@
+.homeContainer {
+  width: 100%;
+  max-width: rem(1920px);
+  margin: 0 auto;
+  width: -webkit-fill-available;
+  padding: 0 rem(20px);
+  @include is-tablet {
+    padding: 0 rem(40px);
+  }
+  @include is-pc {
+    padding: 0 rem(100px);
+  }
+}

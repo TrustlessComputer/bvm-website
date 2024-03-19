@@ -1,0 +1,54 @@
+.cardWrapper {
+  max-width: 526px;
+  width: 100%;
+
+  &_inner {
+    min-height: 376px;
+
+    border: 1px solid rgba(0, 118, 89, 0.3);
+    background: #00FFC01A;
+    padding: 40px 24px;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &.isRed {
+    & .cardWrapper_inner {
+      border: 1px solid #FF7E214D !important;
+      background: #FF7E210D !important;
+    }
+  }
+
+  .cardTitle {
+    font-size: 36px;
+    color: #000;
+  }
+
+  .description {
+    font-size: 18px;
+    color: #000;
+    text-align: center;
+    min-height: 84px;
+
+    b {
+      color: #FA4E0E;
+    }
+  }
+
+  .wrapperBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .broder {
+      border: 1px solid #00ae84;
+    }
+  }
+}

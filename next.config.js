@@ -63,6 +63,11 @@ const nextConfig = {
         destination: '/blockchains/customize',
         permanent: false,
       },
+      {
+        source: '/tge',
+        destination: '/bvm',
+        permanent: false,
+      },
     ];
     //
     // if (isPublicSale) {

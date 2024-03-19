@@ -1,0 +1,87 @@
+.footerBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.footer {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 100%;
+  background-color: #191919;
+  background-image: url('/ai-landing/bgFooter.png');
+
+  .mainContent {
+    max-width: 520px;
+    width: 100%;
+    padding: 90px 0;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Urbanist';
+
+    .logo {
+      max-width: 80px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 16px;
+      margin-bottom: 24px;
+    }
+
+    .description {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      opacity: 0.7;
+    }
+
+    .wrapperBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 24px;
+      gap: 16px;
+      flex-direction: column;
+      @include is-tablet {
+        flex-direction: row;
+      }
+      @include is-pc {
+        flex-direction: row;
+      }
+
+      & .btn {
+        width: 100%;
+        font-family: "Helvetica Neue";
+        padding: 9px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        height: auto !important;
+        @include is-mobile {
+          max-width: 256px;
+        }
+
+        p {
+          transform: translateY(.1em);
+        }
+
+        @include is-pc {
+          width: fit-content;
+          min-width: 144px;
+        }
+      }
+    }
+
+    @include is-pc {
+      padding: 80px 0;
+    }
+  }
+}

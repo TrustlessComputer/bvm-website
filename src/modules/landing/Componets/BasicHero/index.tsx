@@ -8,15 +8,13 @@ import Lines from '@/interactive/Lines';
 import Chars from '@/interactive/Chars';
 import Banner from '@/modules/landing/Componets/Hero/Banner';
 import { useRouter } from 'next/navigation';
-import ContactUsModal from '@/components/ContactUsModal';
-import ContactUsSuccessModal from '@/components/ContactUsSuccessModal';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 export default function BasicHero() {
   const [isOpen, setOpen] = useState(false);
   const delay = 1;
   const router = useRouter();
-  const [showContactUsModal, setContactUsModal] = useState(false);
-  const [showSubmitSuccessModal, setShowSubmitSuccessModal] = useState(false);
+  const { showContactUsModal } = useContactUs();
 
   return (
     <div className={s.basicHero}>
@@ -34,8 +32,8 @@ export default function BasicHero() {
 
           <div className={s.desc}>
             <Lines delay={delay + 0.2}>
-              Powerful infrastructure to build and scale your own Bitcoin L2
-              with ease.
+              Powerful infrastructure and tools to build and scale your own
+              Bitcoin L2 with ease.
             </Lines>
           </div>
           <ul className={s.actions}>
@@ -45,11 +43,25 @@ export default function BasicHero() {
                   onClick={() => router.push('/blockchains/customize')}
                   className={`${s.btn} ${s.btn__red}`}
                 >
-                  Launch your Bitcoin L2
+                  Deploy a Bitcoin L2
                 </button>
               </Fade>
             </li>
             <li>
+              <Fade delay={delay + 0.4}>
+                <button
+                  onClick={() =>
+                    window.open(
+                      'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps',
+                    )
+                  }
+                  className={`${s.btn} ${s.btn__red}`}
+                >
+                  Deploy a Bitcoin dapp
+                </button>
+              </Fade>
+            </li>
+            {/* <li>
               <Fade delay={delay + 0.5}>
                 <button
                   className={`${s.btn}`}
@@ -58,8 +70,21 @@ export default function BasicHero() {
                   Contact us
                 </button>
               </Fade>
-            </li>
+            </li> */}
           </ul>
+          <Fade delay={delay + 0.5}>
+            <div className={s.contact}>
+              <p>
+                Questions?{' '}
+                <span
+                  className={s.contact_item}
+                  onClick={() => showContactUsModal()}
+                >
+                  Contact us
+                </span>
+              </p>
+            </div>
+          </Fade>
         </div>
         <div className={s.right}>
           <Scale delay={delay}>
@@ -79,23 +104,6 @@ export default function BasicHero() {
         </div>
       </div>
       <HeroLabel />
-
-      {showContactUsModal && (
-        <ContactUsModal
-          isShow={true}
-          onHide={() => setContactUsModal(false)}
-          onSuccesCB={() => {
-            setContactUsModal(false);
-            setShowSubmitSuccessModal(true);
-          }}
-        />
-      )}
-      {showSubmitSuccessModal && (
-        <ContactUsSuccessModal
-          isShow={true}
-          onHide={() => setShowSubmitSuccessModal(false)}
-        />
-      )}
     </div>
   );
 }

@@ -1,5 +1,9 @@
-.container {
+.isFooter {
+  position: relative;
+  z-index: 4;
+}
 
+.container {
   width: 100%;
   background: url('/landing/images/hero-bg-allow.jpg');
   background-repeat: no-repeat;
@@ -10,6 +14,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
+
     @include is-min-table {
       padding: 30px 0;
     }
@@ -40,6 +45,7 @@
 
   &.isFooter {
     padding: 30px 0;
+    z-index: 5;
   }
 
   @include is-min-table {
@@ -64,7 +70,6 @@
   }
 
   .title {
-
     font-size: 12px;
     line-height: normal;
     font-weight: 500;
@@ -81,7 +86,6 @@
   }
 
   .desc {
-
     font-style: normal;
     font-weight: 400;
     line-height: 130%;
@@ -92,7 +96,7 @@
       font-size: 18px;
     }
 
-    @include is-min-table{
+    @include is-min-table {
       text-align: left;
     }
 
@@ -101,11 +105,47 @@
     }
 
     @include is-pc {
-      font-size: 36px;
+      font-size: 32px;
     }
 
     span {
       color: #fa4e0e;
+    }
+  }
+
+  .contract {
+    margin-top: 4px;
+    // display: flex;
+    width: auto;
+    cursor: pointer;
+    flex-direction: column;
+
+    @include is-min-table {
+      flex-direction: row;
+    }
+
+    &_fade {
+      width: auto;
+    }
+
+    b {
+      font-size: 12px;
+
+      @include is-min-table {
+        font-size: 16px;
+        font-weight: 700;
+      }
+    }
+
+    p {
+      font-size: 12px;
+      font-weight: 400;
+      text-align: center;
+
+      @include is-min-table {
+        font-size: 16px;
+        text-align: left;
+      }
     }
   }
 
@@ -165,7 +205,7 @@
   .buttonBuild {
     height: 48px !important;
     border-radius: 0px !important;
-    background: #FFFFFF !important;
+    background: #ffffff !important;
     color: #000000 !important;
     width: 200px !important;
     font-weight: normal !important;
@@ -280,6 +320,7 @@
 
 .countDown_wrapper {
   align-items: center;
+
   * {
     font-size: 14px !important;
     line-height: 1.4 !important;
@@ -287,16 +328,16 @@
   }
 }
 
-
 .hero_inner__desktop {
   display: none;
+
   @include is-min-table {
     display: block;
   }
 
   :global {
     .heroLabel_inner {
-      border-top: 1px solid #FFFFFF26;
+      border-top: 1px solid #ffffff26;
       padding-top: 28px;
       margin-top: 28px;
     }
@@ -321,8 +362,9 @@
       }
     }
 
-    img, svg {
-      transform: translateY(.05em);
+    img,
+    svg {
+      transform: translateY(0.05em);
     }
   }
 
@@ -356,7 +398,6 @@
 }
 
 .listItem {
-
   a {
     color: #000000 !important;
     display: flex;
@@ -364,7 +405,7 @@
     justify-content: space-between;
 
     svg * {
-      transition: fill .4s var(--easeOutQuart);
+      transition: fill 0.4s var(--easeOutQuart);
     }
 
     &:hover {
@@ -373,9 +414,8 @@
       }
 
       path {
-        fill: white
+        fill: white;
       }
     }
   }
 }
-

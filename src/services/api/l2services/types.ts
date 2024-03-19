@@ -37,4 +37,6 @@ export type SubmitFormParams = {
   withdrawPeriod: string;
   twName: string;
   telegram: string;
+  isContractUs: boolean;
+  subject: string;
 };

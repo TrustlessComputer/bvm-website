@@ -1,0 +1,171 @@
+.wrapper {
+  background-color: #fff;
+  font-family: 'Helvetica Neue';
+
+  @include is-pc {
+    height: calc(130dvh);
+  }
+
+  .container {
+    width: 100%;
+
+    @include is-pc {
+      position: sticky;
+      top: 9vh;
+    }
+
+    .wrapperContent {
+      padding: 32px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+
+      @include is-tablet {
+        gap: 20px;
+        padding: 80px 0;
+      }
+
+      @include is-pc {
+        gap: 64px;
+        align-items: center;
+        flex-direction: row;
+        padding: 160px 0;
+      }
+
+      .left {
+        width: 100%;
+        position: relative;
+        left: 0;
+
+        @include is-pc {
+          // top: 100px;
+          // position: sticky;
+        }
+
+        .mainHeading {
+          color: #000;
+          margin-top: 12px;
+          text-align: center;
+          font-size: 36px;
+          line-height: 1.1;
+          @include is-tablet {
+            text-align: start;
+          }
+          @include is-pc {
+            text-align: start;
+
+            margin-top: 16px;
+            font-size: 68px;
+          }
+
+          &_decs {
+            font-size: 16px;
+            color: #000;
+            line-height: 1.5;
+            font-weight: 400;
+            margin: 24px 0;
+            text-align: center;
+
+            @include is-tablet {
+              text-align: start;
+            }
+            @include is-pc {
+              text-align: start;
+              font-size: 20px;
+              max-width: 768px;
+            }
+          }
+
+          &_buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            align-items: center;
+            flex-direction: column;
+            @include is-tablet {
+              justify-content: flex-start;
+              flex-direction: row;
+            }
+            @include is-pc {
+              gap: 16px;
+              flex-direction: row;
+              justify-content: flex-start;
+            }
+            &_item {
+              padding-top: 14.5px;
+              padding-bottom: 14.5px;
+              min-width: 164px;
+              max-width: 256px;
+
+              @include is-mobile {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+
+      .right {
+        width: 100%;
+
+        @include is-pc {
+          max-width: 598px;
+        }
+
+        &_inner {
+          aspect-ratio: 1/1;
+          margin: 24px 0;
+
+          @include is-pc {
+            margin: 0;
+          }
+        }
+
+        video {
+          width: 100%;
+          height: 100%;
+          aspect-ratio: 783/783;
+          object-fit: cover;
+        }
+
+        .thumnail {
+          width: 100%;
+        }
+
+        .descImage {
+          font-size: 14px;
+          line-height: 1.5;
+          font-weight: 400;
+          color: #000;
+
+          @include is-pc {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.mainLable {
+  font-size: 12px;
+  text-transform: uppercase;
+  text-align: center;
+
+  color: #000;
+
+  @include is-tablet {
+    text-align: start;
+  }
+  @include is-pc {
+    text-align: start;
+    font-size: 14px;
+  }
+
+  &__right {
+    margin-top: 28px;
+    margin-bottom: 12px;
+    font-weight: 800;
+  }
+}

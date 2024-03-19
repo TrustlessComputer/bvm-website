@@ -1,4 +1,6 @@
 import '@/styles/index.scss';
+import '@fontsource/space-mono';
+import '@fontsource/urbanist';
 
 import { Metadata, Viewport } from 'next';
 
@@ -16,6 +18,7 @@ import Script from 'next/script';
 import ModalManager from '@/components/ModalManage';
 // import { AuthenticatedProvider } from '@/Providers/AuthenticatedProvider';
 import { Web3AuthProvider } from '@/Providers/AuthenticatedProvider_vs2/Web3AuthProvider';
+import { ContactUsProvider } from '@/Providers/ContactUsProvider';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -62,10 +65,12 @@ export default function RootLayout({
               <UserProvider>
                 <XVerseProvider>
                   <UnisatProvider>
-                    <Hydrated>
-                      <ModalManager />
-                      {children}
-                    </Hydrated>
+                    <ContactUsProvider>
+                      <Hydrated>
+                        <ModalManager />
+                        {children}
+                      </Hydrated>
+                    </ContactUsProvider>
                     <ToastOverlay />
                   </UnisatProvider>
                 </XVerseProvider>

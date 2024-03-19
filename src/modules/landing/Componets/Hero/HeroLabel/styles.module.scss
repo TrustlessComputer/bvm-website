@@ -1,8 +1,6 @@
 .heroLabel {
-
-  padding-top: 48px;
-  padding-bottom: 48px;
-  background: #F6F6F6;
+  padding: 40px 0 38px 0;
+  background: #fff;
 
   .inner {
     display: flex;
@@ -33,7 +31,6 @@
 
     @include is-tablet {
       flex-direction: column;
-
       gap: 8px;
     }
 
@@ -48,6 +45,7 @@
         font-size: 16px;
         line-height: 24px;
       }
+
       @include is-tablet {
         color: #000;
       }
@@ -55,12 +53,7 @@
   }
 
   &_listHero {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    max-width: 805px;
+    max-width: 100%;
     margin-right: auto;
     margin-left: auto;
   }

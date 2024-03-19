@@ -10,11 +10,9 @@ type Props = {
 const Banner = (props: Props) => {
   const ContentReder = (): ReactElement => {
     return <div className={s.banner_wrapper}>
-          <span className={s.text}>
-            The BVM Token Generation Event (TGE) is here.
-          </span>
-      <Link href={'/tge'} className={s.banner_link}>
-        Be the first to claim
+      <p className={s.text}>Say hello to project Truly Open AI.</p>
+      <Link href={'/ai'} className={s.banner_link}>
+        {` Learn more`}
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'

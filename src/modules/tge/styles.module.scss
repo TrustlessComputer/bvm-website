@@ -1,18 +1,9 @@
 .wrapper {
   position: relative;
   top: 76px;
-  width: 100vw;
   width: 100%;
   background-color: white;
-  height: 100%;
-  min-height: calc(100vh - 76px);
-
-  @include is-tablet {
-  }
-  @include is-pc {
-    min-height: unset;
-    height: calc(100vh - 76px);
-  }
+  height: max-content;
 
   &_bg {
     position: absolute;
@@ -24,20 +15,16 @@
     object-fit: cover;
   }
 }
-.inner {
-  max-width: 1087px;
-  z-index: 222;
-  position: relative;
-  padding-top: 60px;
 
-  @include is-tablet {
-    padding-top: 120px;
-  }
+.inner {
+  width: 100%;
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 80px;
+
   @include is-pc {
-    position: absolute;
-    padding-top: 0px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    min-width: 1159px;
+    padding-top: 120px;
+    padding-bottom: 120px;
   }
 }

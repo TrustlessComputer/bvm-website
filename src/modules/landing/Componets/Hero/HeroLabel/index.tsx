@@ -1,8 +1,12 @@
+'use client';
 import s from './styles.module.scss';
 import ItemHero from '@/modules/landing/Componets/Hero/ItemHero';
-import Image from 'next/image';
-import Fade from '@/interactive/Fade';
 import React, { useState } from 'react';
+
+import '@splidejs/react-splide/css/core';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
+import Fade from '@/interactive/Fade';
 
 const DATA_HERO = [
   {
@@ -33,17 +37,19 @@ const DATA_HERO = [
     icon: '/landing/ic-near.svg',
     title: 'Near',
   },
+  // {
+  //   icon: '/landing/ic-avail.svg',
+  //   title: 'Avail',
+  // },
   {
-    icon: '/landing/ic-avail.svg',
-    title: 'Avail',
-  }, {
     icon: '/icons/filecoin.svg',
     title: 'Filecoin',
   },
   {
     icon: '/icons/syscoin.svg',
     title: 'Syscoin',
-  },  {
+  },
+  {
     icon: '/icons/bitcoin-stamps.svg',
     title: 'Bitcoin Stamps',
   },
@@ -57,40 +63,62 @@ const DATA_HERO = [
   },
 ];
 
-
 export default function HeroLabel({ isMobile }: { isMobile?: boolean }) {
   const delay = !isMobile ? 1.5 : 0;
 
   return (
     <div className={`${s.heroLabel}`}>
-      <div className={s.content}>
-        <div className={`${s.inner} heroLabel_inner`}>
-          <Fade delay={delay}>
-            <div className={s.heroLabel_content}>
-              <Image
-                src={'/landing/svg/lego_icon_cube.svg'}
-                alt='cube'
-                width={32}
-                height={32}
-              />
-              <p className={s.heroLabel_content_text}>
-                Powered by the best-of-breed modules
-              </p>
+      {/* <Fade delayEnter={delay}> */}
+        <div className={s.content}>
+          <div className={`${s.inner} heroLabel_inner`}>
+            <div
+              className={`${s.heroLabel_listHero} ${
+                isMobile && s.heroLabel_listHero__mobile
+              }`}
+            >
+              <Splide
+                aria-label="My Favorite Images"
+                extensions={{ AutoScroll }}
+                options={{
+                  type: 'loop',
+                  drag: 'free',
+                  focus: 'center',
+                  pagination: false,
+                  arrows: false,
+                  gap: 48,
+                  perPage: 12,
+                  perMove: 1,
+                  autoScroll: {
+                    speed: 2,
+                  },
+                  breakpoints: {
+                    1500: {
+                      perPage: 8,
+                      gap: 40,
+                    },
+                    1024: {
+                      perPage: 5,
+                      gap: 30,
+                    },
+                    768: {
+                      perPage: 4,
+                      gap: 20,
+                    },
+                  },
+                }}
+              >
+                {DATA_HERO.map((item, index) => {
+                  return (
+                    <SplideSlide key={index}>
+                      <ItemHero delay={delay + index / 10} data={item} />
+                    </SplideSlide>
+                  );
+                })}
+              </Splide>
             </div>
-          </Fade>
-          <div
-            className={`${s.heroLabel_listHero} ${
-              isMobile && s.heroLabel_listHero__mobile
-            }`}
-          >
-            {DATA_HERO.map((item, index) => {
-              return (
-                <ItemHero key={index} delay={delay + index / 10} data={item} />
-              );
-            })}
           </div>
         </div>
-      </div>
+      {/* </Fade> */}
     </div>
   );
 }

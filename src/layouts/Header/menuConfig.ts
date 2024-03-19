@@ -3,7 +3,6 @@ import {
   DEVELOPERS_GRANTS_URL,
   WHITEPAPER_DOC_URL,
 } from '@/config';
-import { checkIsPublicSale } from '@/modules/Whitelist/utils';
 
 export interface NavItem {
   label: string;
@@ -86,6 +85,11 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
     subMenu: [
       {
+        href: '/ai',
+        label: 'Bitcoin L2 for AI',
+        isNewWindow: false,
+      },
+      {
         href: '/gamefi',
         label: 'Bitcoin L2 for GameFi',
         isNewWindow: false,
@@ -93,11 +97,6 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
       {
         href: '/defi',
         label: 'Bitcoin L2 for DeFi',
-        isNewWindow: false,
-      },
-      {
-        href: '/ai',
-        label: 'Bitcoin L2 for AI',
         isNewWindow: false,
       },
       {
@@ -122,10 +121,11 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   },
 
   {
-    label: '$BVM',
+    label: 'Buy $BVM',
     href: '/bvm',
     isNewWindow: false,
     isHide: false,
+    isStrong: true,
   },
 
   // {
@@ -208,24 +208,30 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   //   isStrong: false,
   //   isHide: false,
   // },
-  // {
-  //   label: 'Roadmap',
-  //   href: '/roadmap',
-  //   isNewWindow: false,
-  //   isHide: false,
-  // },
+  {
+    label: 'BUIDL Airdrop',
+    href: '/build-on-bitcoin',
+    isNewWindow: false,
+    isHide: false,
+  },
+  {
+    label: 'Roadmap',
+    href: '/roadmap',
+    isNewWindow: false,
+    isHide: false,
+  },
   // {
   //   label: 'Explore Bitcoin L2s',
   //   href: '/use-bitcoin',
   //   isNewWindow: false,
   //   isHide: false,
   // },
-  {
-    label: 'Join the community',
-    href: 'https://t.me/+rT0cmRXjs01kMzY1',
-    isNewWindow: true,
-    isHide: true,
-  },
+  // {
+  //   label: 'Community',
+  //   href: 'https://t.me/+rT0cmRXjs01kMzY1',
+  //   isNewWindow: true,
+  //   isHide: false,
+  // },
   // {
   //   label: 'Learn',
   //   href: DEVELOPERS_DOC_URL,

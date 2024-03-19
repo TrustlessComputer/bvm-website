@@ -1,0 +1,107 @@
+.listItem {
+  position: relative;
+
+  &_inner {
+    padding: 24px 16px 16px;
+    border: 1px solid rgba($color: #fff, $alpha: 0.2);
+    border-radius: 20px;
+    color: #fff;
+    width: 100%;
+  }
+
+  &_dot {
+    position: absolute;
+    top: 50%;
+    left: -64px;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    background: #1a1a1a;
+    display: none;
+
+    &::before {
+      position: absolute;
+      content: '';
+      background: #fff;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 100px;
+    }
+  }
+
+  .icon {
+    margin-bottom: 12px;
+
+    svg {
+      width: 60px !important;
+      height: auto;
+    }
+  }
+
+  &_title {
+    font-family: 'Space Mono';
+    font-size: 16px;
+    line-height: 17.6px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    @include is-pc {
+      font-size: 24px;
+      line-height: 26.4px;
+      margin-bottom: 24px;
+    }
+  }
+
+  &_content {
+    font-family: 'Urbanist';
+    padding: 20px;
+    border-radius: 20px;
+    background: radial-gradient(
+      50% 387.77% at 50% 50%,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(153, 153, 153, 0.15) 100%,
+      rgba(255, 255, 255, 0.15) 100%
+    );
+
+    p {
+      font-size: 14px;
+      line-height: 22px;
+      @include is-pc {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+
+    &_subContent {
+      margin-top: 20px;
+    }
+  }
+
+  @include is-tablet {
+    max-width: 80%;
+  }
+
+  @include is-pc {
+    max-width: 650px;
+
+    &_dot {
+      display: block;
+    }
+
+    &_content {
+      p {
+        font-size: 20px;
+        line-height: 32px;
+      }
+    }
+
+    .icon {
+      svg {
+        width: 120px !important;
+      }
+    }
+  }
+}
