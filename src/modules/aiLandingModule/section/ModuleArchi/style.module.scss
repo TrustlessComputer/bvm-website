@@ -1,13 +1,20 @@
 .wrapper {
   background-color: #eeeeee;
+
   .container {
     max-width: 1420px;
     width: 100%;
   }
+
   .card:not(:first-child) {
     margin-top: 60px;
   }
+
   .card:nth-child(even) {
-    flex-direction: row-reverse;
+    flex-direction: column;
+
+    @include is-pc {
+      flex-direction: row-reverse;
+    }
   }
 }
