@@ -8,6 +8,8 @@ import { ModuleData } from './moduleData';
 import ModuleItem from './ModuleItem';
 import s from './styles.module.scss';
 import { VIDEOS_CDN } from '@constants/common';
+import { CDN_URL } from '@/config';
+
 const DELAY = 2;
 const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
   const delay = isFooter ? 0 : DELAY;
@@ -19,7 +21,7 @@ const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
         <div className={`container ${s.content}`}>
           <div className={s.module}>
             <p className={s.module_title}>
-              <SvgInset svgUrl="/ai-landing/storage.svg" />
+              <SvgInset svgUrl='/ai-landing/storage.svg' />
               Powered by the best-of-breed modules
             </p>
             <div className={s.module_list}>
@@ -33,26 +35,50 @@ const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
             </div>
           </div>
 
-          <div className={s.video}>
-            <a
-              href={'#'}
-              onClick={() => setOpen(true)}
-              style={{ textAlign: 'center', display: 'block' }}
-            >
-              <img
-                src={`/ai-landing/ai_video.png`}
-                width={224}
-                alt={'right'}
-                style={{ margin: 'auto', marginBottom: '8px' }}
-              />
-              <span style={{ fontSize: '14px', fontWeight: 400 }}>
+          <div className={s.listActions}>
+            <div className={s.video}>
+              <a
+                href={'#'}
+                onClick={() => setOpen(true)}
+                style={{ textAlign: 'center', display: 'block' }}
+              >
+                <div className={s.wrapImgs}>
+                  <img className={s.cdn} src={`${CDN_URL}/nbc/images/Gif_01-ezgif.com-video-to-gif-converter%20(1).gif`} alt='converter' />
+                  <img
+                    className={s.lb}
+                    src={`/ai-landing/btn-video-hero.png`}
+                    width={224}
+                    alt={'right'}
+                    style={{ margin: 'auto', marginBottom: '8px' }}
+                  />
+                </div>
+                <span style={{ fontSize: '14px', fontWeight: 400 }}>
                 Watch the film
               </span>
-            </a>
+              </a>
+            </div>
+            <div className={s.video}>
+              <a
+                href={'/ai/whitepaper.pdf'}
+                target={'_blank'}
+                style={{ textAlign: 'center', display: 'block' }}
+              >
+                <img
+                  src={`/ai-landing/btn-whitepaper.png`}
+                  width={224}
+                  alt={'right'}
+                  style={{ margin: 'auto', marginBottom: '8px' }}
+                />
+                <span style={{ fontSize: '14px', fontWeight: 400 }}>
+                Read the WhitePaper
+              </span>
+              </a>
+            </div>
           </div>
+
         </div>
         <ModalVideo
-          channel="custom"
+          channel='custom'
           url={`${VIDEOS_CDN}/Intro_ver03_02.mp4`}
           isOpen={isOpen}
           onClose={() => {

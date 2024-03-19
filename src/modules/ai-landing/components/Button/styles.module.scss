@@ -30,6 +30,13 @@
     }
   }
 
+  &.border{
+    background-color: black;
+    p {
+      color: white;
+    }
+  }
+
   &.isDisabled {
     background: rgba(white, .07);
     pointer-events: none;
