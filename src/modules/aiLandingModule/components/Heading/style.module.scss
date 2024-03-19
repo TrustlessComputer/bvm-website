@@ -5,15 +5,23 @@
   color: #000;
 
   &_title {
-    font-size: 48px;
+    font-size: 36px;
     line-height: 1.2;
     margin-bottom: 20px;
   }
 
   &_desc {
-    font-size: 24px;
+    font-size: 18px;
     line-height: 1.5;
   }
 
+  @include is-pc {
+    &_title {
+      font-size: 48px;
+    }
 
+    &_desc {
+      font-size: 24px;
+    }
+  }
 }
