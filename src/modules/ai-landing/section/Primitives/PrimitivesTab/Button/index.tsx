@@ -10,7 +10,7 @@ export default function ButtonInner({
                                       title,
                                       link,
                                       id,
-                                      isOpen
+                                      isOpen,
                                     }: {
   title?: string;
   link?: string;
@@ -32,7 +32,11 @@ export default function ButtonInner({
   useEffect(() => {
     if (id === idDebouncePrimitive) {
       btnIn();
+      if(buttonRef.current)
+      buttonRef.current.style.pointerEvents = 'auto';
     } else {
+      if(buttonRef.current)
+      buttonRef.current.style.pointerEvents = 'none';
       btnOut();
     }
   }, [idDebouncePrimitive]);
