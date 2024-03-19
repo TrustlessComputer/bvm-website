@@ -140,17 +140,6 @@ export default function Hero(): React.JSX.Element {
                   </Button>
                 </Fade>
               </div>
-              <Fade delayEnter={DELAY + .4}>
-                <div className={s.whitepaperWrap}>
-                  <a className={s.whitepaper} href='/ai/whitepaper.pdf' target={'_blank'}>Read the whitepaper
-                    <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                      <path
-                        d='M9.99978 16.7498C9.80778 16.7498 9.61575 16.6768 9.46975 16.5298C9.17675 16.2368 9.17675 15.7618 9.46975 15.4688L12.9397 11.9988L9.46975 8.52883C9.17675 8.23583 9.17675 7.7608 9.46975 7.4678C9.76275 7.1748 10.2378 7.1748 10.5308 7.4678L14.5308 11.4678C14.8238 11.7608 14.8238 12.2358 14.5308 12.5288L10.5308 16.5288C10.3838 16.6768 10.1918 16.7498 9.99978 16.7498Z'
-                        fill='white' />
-                    </svg>
-                  </a>
-                </div>
-              </Fade>
 
               {/* <Fade delayEnter={2.2}>
                 <div className={s.videoWrapper}>
