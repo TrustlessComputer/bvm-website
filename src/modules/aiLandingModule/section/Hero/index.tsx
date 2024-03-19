@@ -4,7 +4,7 @@ import ImagePlaceholder from '@/components/ImagePlaceholder';
 const Hero = () => {
   return (
     <div className={s.hero}>
-      <ImagePlaceholder src={} alt={'hero'}/>
+      {/*<ImagePlaceholder src={} alt={'hero'}/>*/}
     </div>
   );
 };
