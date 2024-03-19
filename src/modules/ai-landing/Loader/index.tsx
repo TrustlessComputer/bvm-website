@@ -20,7 +20,7 @@ export default function Loader() {
           if (refLoader.current) refLoader.current.style.display = 'none';
         },
       });
-    }, 300);
+    }, 500);
 
     return () => {
       clearTimeout(timeRef.current);
