@@ -10,11 +10,13 @@ type Props = {
 const Banner = (props: Props) => {
   const ContentReder = (): ReactElement => {
     return <div className={s.banner_wrapper}>
-          <span className={s.text}>
-            Get 58% interest with $BVM Staking.
-          </span>
-      <Link href={'/bvm'} className={s.banner_link}>
-        Start here
+          {/*<span className={s.text}>*/}
+          {/*  Say hello to Project Truly Open AI*/}
+          {/*  /!*Get 58% interest with $BVM Staking.*!/*/}
+          {/*</span>*/}
+      <Link href={'/ai'} className={s.banner_link}>
+        Say hello to Project Truly Open AI
+        {/*Start here*/}
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'
