@@ -1,6 +1,5 @@
 import MainLayout from '@/layouts/MainLayout';
 
-import { CDN_URL } from '@/config';
 import { APP_NAME } from '@/config/metadata';
 import VisualLanding from '@/modules/ai-landing';
 
@@ -9,7 +8,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: `${CDN_URL}/nbc/images/screenshort.jpeg`,
+        url: `/ai-landing/bvm-eternal.jpeg`,
         width: 1200,
         height: 630,
         alt: APP_NAME,
@@ -20,7 +19,7 @@ export const metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: `${CDN_URL}/nbc/images/screenshort.jpeg`,
+        url: `/ai-landing/bvm-eternal.jpeg`,
         alt: APP_NAME,
       },
     ],
