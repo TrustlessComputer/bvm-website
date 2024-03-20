@@ -79,7 +79,7 @@ const HeroLabel = ({ isFooter }: { isFooter?: boolean }) => {
         </div>
         <ModalVideo
           channel='custom'
-          url={`${VIDEOS_CDN}/Intro_ver03_02.mp4`}
+          url={`${CDN_URL}/nbc/videos/Intro_ver03_03%20(1).mp4`}
           isOpen={isOpen}
           onClose={() => {
             setOpen(false);
