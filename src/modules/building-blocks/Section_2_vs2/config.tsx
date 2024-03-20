@@ -15,8 +15,8 @@ export type BlockItemType = {
 
 export const BlockDataList: BlockItemType[] = [
   {
-    key: 'AI Module',
-    label: 'AI Module',
+    key: 'AI',
+    label: 'AI',
     networkList: [
       {
         logoUrl: '/images/lego_tensors.svg',
@@ -37,6 +37,7 @@ export const BlockDataList: BlockItemType[] = [
       {
         logoUrl: '/images/lego_transformer.svg',
         name: 'Transformer',
+        isComingSoon: true,
       },
     ],
     // bgColor: '#29892A',
