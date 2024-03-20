@@ -14,16 +14,16 @@ interface IProps extends IAnimationProps, IValueHookAnimation {
 }
 
 export default function useAnimationTriggerV2({
-  trigger,
-  initAnimation,
-  playAnimation,
-  isObserver,
-  threshold,
-  start,
-  horizontal,
-  markers,
-  isInPopup,
-}: IProps): void {
+                                                trigger,
+                                                initAnimation,
+                                                playAnimation,
+                                                isObserver,
+                                                threshold,
+                                                start,
+                                                horizontal,
+                                                markers,
+                                                isInPopup,
+                                              }: IProps): void {
   const refObserver = useRef<IntersectionObserver | null>(null);
   const { registerLoad, unRegisterLoad } = useLoadManageSignal();
 
@@ -46,8 +46,9 @@ export default function useAnimationTriggerV2({
     }
   });
 
-  const onHandleAnimation = contextSafe((): void => {
+  const onHandleAnimation = contextSafe((): (() => void) => {
     let calcTheshold = threshold || 0;
+    let triggerTl: ScrollTrigger | null = null;
     if (calcTheshold === 0 && trigger.current) {
       const { height, top } = trigger.current.getBoundingClientRect();
       if (top >= window.innerHeight) {
@@ -57,13 +58,13 @@ export default function useAnimationTriggerV2({
     }
 
     if (!isObserver) {
-      ScrollTrigger.create({
+      triggerTl = ScrollTrigger.create({
         trigger: trigger.current,
         onEnter: () => playAnimation(),
         start: start || `top+=${calcTheshold}% bottom`,
         horizontal,
         once: true,
-        markers,
+        markers: true,
       });
     } else {
       refObserver.current = new IntersectionObserver(
@@ -74,13 +75,22 @@ export default function useAnimationTriggerV2({
             refObserver.current?.disconnect();
           }
         },
-        { threshold: calcTheshold / 100 }
+        { threshold: calcTheshold / 100 },
       );
       trigger.current && refObserver.current?.observe(trigger.current);
     }
+
+    return (): void => {
+      trigger.current && refObserver.current?.unobserve(trigger.current);
+      refObserver.current?.disconnect();
+      triggerTl && triggerTl?.kill();
+    };
   });
 
   useSignalEffect(() => {
-    isPlayTrigger.value && onHandleAnimation();
+    const clear = isPlayTrigger.value && onHandleAnimation() || null;
+    return () => {
+      clear && clear();
+    };
   });
 }

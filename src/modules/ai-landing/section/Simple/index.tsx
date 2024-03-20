@@ -65,6 +65,7 @@ const Simple = () => {
           end: 'bottom bottom',
           pin: wrapContent_inner.current,
           pinSpacing: false,
+          markers: true,
           onUpdate: ({ progress }) => {
             const id = Math.min(
               lengthData,

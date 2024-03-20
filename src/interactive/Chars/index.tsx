@@ -26,9 +26,8 @@ export default function Chars({ children, delay = 0, delayEnter = undefined, fro
   });
 
   const playAnimation = contextSafe((clDelay = 0) => {
-    console.log('____refChars.current', refChars.current);
-    // if (!refChars.current || !refChars.current.length) return;
-    const tl = gsap.to(refChars.current, {
+    if (!refChars.current || !refChars.current.length) return;
+    gsap.to(refChars.current, {
       ...{
         opacity: 1,
         ease: 'power3.inOut',
@@ -41,11 +40,6 @@ export default function Chars({ children, delay = 0, delayEnter = undefined, fro
       }, ...to,
     });
 
-
-    return () => {
-      console.log('____killl')
-      tl.kill();
-    };
   });
 
   useAnimation({

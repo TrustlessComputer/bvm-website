@@ -1,8 +1,7 @@
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useRef } from 'react';
 import { MathMap } from '@/utils/mathUtils';
 import useAnimationStore from '@/stores/useAnimationStore';
 import { useGSAP } from '@gsap/react';
-import { gsap } from 'gsap';
 
 interface IProps {
   trigger: MutableRefObject<HTMLDivElement | null>;
@@ -55,7 +54,7 @@ export default function useAnimation({
           const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
           const dl = scrollTop === 0 && top < window.innerHeight ? (delayEnter !== undefined ? delayEnter : delay) : delay;
 
-          tl.current = (trigger.current && playAnimation(dl)) || null ;
+          trigger.current && playAnimation(dl);
           trigger.current && refObserver.current?.unobserve(trigger.current);
           refObserver.current?.disconnect();
         }
@@ -66,8 +65,6 @@ export default function useAnimation({
     refObserver.current?.observe(trigger.current);
 
     return () => {
-      console.log('____uuuuu')
-      tl.current && tl.current();
       trigger.current && refObserver.current?.unobserve(trigger.current);
       refObserver.current?.disconnect();
     };
