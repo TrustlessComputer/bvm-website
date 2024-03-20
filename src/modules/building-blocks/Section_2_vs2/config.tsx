@@ -19,20 +19,24 @@ export const BlockDataList: BlockItemType[] = [
     label: 'AI Module',
     networkList: [
       {
-        logoUrl: '/images/lego_polygon.svg',
-        name: 'Polygon',
+        logoUrl: '/images/lego_tensors.svg',
+        name: 'Tensors',
       },
       {
-        logoUrl: '/images/lego_filecoin.svg',
-        name: 'Filecoin',
+        logoUrl: '/images/lego_cnn.svg',
+        name: 'CNN',
       },
       {
-        logoUrl: '/images/lego_near.svg',
-        name: 'Near',
+        logoUrl: '/images/lego_dense.svg',
+        name: 'DENSE',
       },
       {
-        logoUrl: '/images/lego_celestia.svg',
-        name: 'Celestia',
+        logoUrl: '/images/lego_lstm.svg',
+        name: 'LSTM',
+      },
+      {
+        logoUrl: '/images/lego_transformer.svg',
+        name: 'Transformer',
       },
     ],
     // bgColor: '#29892A',
