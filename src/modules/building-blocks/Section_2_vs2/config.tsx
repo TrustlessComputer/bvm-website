@@ -15,6 +15,34 @@ export type BlockItemType = {
 
 export const BlockDataList: BlockItemType[] = [
   {
+    key: 'AI Module',
+    label: 'AI Module',
+    networkList: [
+      {
+        logoUrl: '/images/lego_polygon.svg',
+        name: 'Polygon',
+      },
+      {
+        logoUrl: '/images/lego_filecoin.svg',
+        name: 'Filecoin',
+      },
+      {
+        logoUrl: '/images/lego_near.svg',
+        name: 'Near',
+      },
+      {
+        logoUrl: '/images/lego_celestia.svg',
+        name: 'Celestia',
+      },
+    ],
+    // bgColor: '#29892A',
+    bgColor: 'transparent',
+    bgCircle: '#54A155',
+    zIndex: 3,
+    isLastItem: true,
+    isHide: false,
+  },
+  {
     key: 'Data Availability',
     label: 'Data Availability',
     networkList: [
@@ -47,6 +75,22 @@ export const BlockDataList: BlockItemType[] = [
     bgColor: 'transparent',
     bgCircle: '#8D87E3',
     zIndex: 10,
+    isLastItem: false,
+    isHide: false,
+  },
+  {
+    key: 'Settlement',
+    label: 'Settlement',
+    networkList: [
+      {
+        logoUrl: '/images/lego_bitcoin.svg',
+        name: 'Bitcoin',
+      },
+    ],
+    // bgColor: '#29892A',
+    bgColor: 'transparent',
+    bgCircle: '#54A155',
+    zIndex: 4,
     isLastItem: false,
     isHide: false,
   },
@@ -157,38 +201,6 @@ export const BlockDataList: BlockItemType[] = [
     bgCircle: '#FF7D7D',
     zIndex: 5,
     isLastItem: false,
-    isHide: false,
-  },
-  {
-    key: 'Settlement',
-    label: 'Settlement',
-    networkList: [
-      {
-        logoUrl: '/images/lego_bitcoin.svg',
-        name: 'Bitcoin',
-      },
-    ],
-    // bgColor: '#29892A',
-    bgColor: 'transparent',
-    bgCircle: '#54A155',
-    zIndex: 4,
-    isLastItem: false,
-    isHide: false,
-  },
-  {
-    key: 'AI',
-    label: 'AI',
-    networkList: [
-      {
-        logoUrl: '/images/lego_ai.svg',
-        name: 'AI Contracts Library',
-      },
-    ],
-    // bgColor: '#29892A',
-    bgColor: 'transparent',
-    bgCircle: '#54A155',
-    zIndex: 3,
-    isLastItem: true,
     isHide: false,
   },
 ].filter((item) => !item.isHide);
