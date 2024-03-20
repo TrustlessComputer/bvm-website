@@ -88,6 +88,12 @@ const DATA = [
         link: 'https://unisat.io/market/brc20?tick=BVMN',
         icon: '/bvm/unisat.svg'
       },
+      {
+        btnTitle: 'OKX Web3',
+        color: 'border',
+        link: 'https://www.okx.com/web3/dex-swap#inputChain=1&inputCurrency=0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE&outputChain=1&outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
+        icon: '/bvm/okx.svg'
+      },
       // {
       //   btnTitle: 'Unisat',
       //   link: '',

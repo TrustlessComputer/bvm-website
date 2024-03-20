@@ -6,7 +6,7 @@
     min-height: 376px;
 
     border: 1px solid rgba(0, 118, 89, 0.3);
-    background: #00FFC01A;
+    background: #00ffc01a;
     padding: 40px 24px;
     border-radius: 16px;
 
@@ -18,8 +18,8 @@
 
   &.isRed {
     & .cardWrapper_inner {
-      border: 1px solid #FF7E214D !important;
-      background: #FF7E210D !important;
+      border: 1px solid #ff7e214d !important;
+      background: #ff7e210d !important;
     }
   }
 
@@ -35,7 +35,7 @@
     min-height: 84px;
 
     b {
-      color: #FA4E0E;
+      color: #fa4e0e;
     }
   }
 
@@ -49,6 +49,10 @@
 
     .broder {
       border: 1px solid #00ae84;
+      svg {
+        // width: 24px;
+        min-height: 24px;
+      }
     }
   }
 }
