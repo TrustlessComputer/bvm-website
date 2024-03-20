@@ -10,7 +10,7 @@ type TModuleArchitectureCard = {
 const ModuleArchitectureCard = ({ data, className }: TModuleArchitectureCard) => {
   return <div className={`${s.wrapper} ${className}`}>
     <div className={s.image}>
-      <ImagePlaceholder src={data.thumbnail} alt={'chart01'} width={600} height={600}/>
+      <ImagePlaceholder src={data.thumbnail} alt={'chart01'} width={800} height={600}/>
     </div>
 
     <div className={s.wrapperContent}>

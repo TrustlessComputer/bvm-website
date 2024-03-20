@@ -35,19 +35,21 @@ const FAKE_DATA = [
         id: 3,
         heading: 'Notable Features',
         description: <ul>
-          <li>[✓] Define models as multi-layered neural networks.</li>
-          <li>[✓] Several types of layers are supported, such as Dense, Rescale, CONV, LSTM, etc. with more in the working</li>
-          <li>[✓] Model collection to manage ownership of neural networks</li>
-          <li>[✓] Make on-chain inferences or predictions using pre-deployed models</li>
+          <li>Define models as multi-layered neural networks.</li>
+          <li>Several types of layers are supported, such as Dense, Rescale, CONV, LSTM, etc. with more in the working
+          </li>
+          <li>Store models on the blockchain</li>
+          <li>Model collection to manage ownership of neural networks</li>
+          <li>Make on-chain inferences or predictions using pre-deployed models</li>
         </ul>
       },
       {
         id: 4,
         heading: 'Upcoming Features',
         description: <ul>
-          <li>[ ] Train / reinforce models</li>
-          <li>[ ] Support transformers</li>
-          <li>[ ] Add segmented layers to effectively support very large models</li>
+          <li>Train / reinforce models</li>
+          <li>Support transformers</li>
+          <li>Add segmented layers to effectively support very large models</li>
         </ul>,
       },
     ]
