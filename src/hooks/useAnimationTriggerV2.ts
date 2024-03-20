@@ -64,7 +64,7 @@ export default function useAnimationTriggerV2({
         start: start || `top+=${calcTheshold}% bottom`,
         horizontal,
         once: true,
-        markers: true,
+        markers,
       });
     } else {
       refObserver.current = new IntersectionObserver(
