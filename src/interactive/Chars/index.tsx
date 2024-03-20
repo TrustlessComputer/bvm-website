@@ -1,6 +1,6 @@
 import useAnimation from '@/hooks/useAnimation';
 import { gsap } from 'gsap';
-import { PropsWithChildren, useCallback, useRef } from 'react';
+import { PropsWithChildren, useRef } from 'react';
 import SplitType from 'split-type';
 import s from './styles.module.scss';
 import { useGSAP } from '@gsap/react';
@@ -16,19 +16,19 @@ interface IProp extends PropsWithChildren {
 export default function Chars({ children, delay = 0, delayEnter = undefined, from, to, classNames }: IProp) {
   const refContent = useRef<HTMLDivElement>(null);
   const refChars = useRef<any>();
-  const { contextSafe } = useGSAP(() => {
-  }, { scope: refContent });
+  const { contextSafe } = useGSAP({ scope: refContent });
 
   const initAnimation = contextSafe(() => {
     if (!refContent.current) return;
     const text = new SplitType(refContent.current, { types: 'words,chars' });
-    gsap.set(text.chars, { ...{ opacity: 0 }, ...from });
+    text.chars?.length && gsap.set(text.chars, { ...{ opacity: 0 }, ...from });
     refChars.current = text.chars;
   });
 
   const playAnimation = contextSafe((clDelay = 0) => {
-    refChars.current &&
-    gsap.to(refChars.current, {
+    console.log('____refChars.current', refChars.current);
+    // if (!refChars.current || !refChars.current.length) return;
+    const tl = gsap.to(refChars.current, {
       ...{
         opacity: 1,
         ease: 'power3.inOut',
@@ -40,6 +40,12 @@ export default function Chars({ children, delay = 0, delayEnter = undefined, fro
         },
       }, ...to,
     });
+
+
+    return () => {
+      console.log('____killl')
+      tl.kill();
+    };
   });
 
   useAnimation({
