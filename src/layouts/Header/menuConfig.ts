@@ -62,7 +62,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     subMenu: [
       {
         href: '/ai-module',
-        label: 'AI Module',
+        label: 'AI on Bitcoin',
         isNewWindow: false,
       },
       {
