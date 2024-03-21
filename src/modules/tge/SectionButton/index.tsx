@@ -93,6 +93,11 @@ const DATA = [
         color: 'border',
         link: 'https://www.okx.com/web3/dex-swap#inputChain=1&inputCurrency=0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE&outputChain=1&outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
         icon: '/bvm/okx.svg'
+      },{
+        btnTitle: 'MEXC',
+        color: 'border',
+        link: 'https://www.mexc.com/exchange/BVM_USDT',
+        icon: '/bvm/mexc.svg'
       },
       // {
       //   btnTitle: 'Unisat',
