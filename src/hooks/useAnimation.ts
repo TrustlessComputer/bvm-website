@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useRef } from 'react';
 import { MathMap } from '@/utils/mathUtils';
 import useAnimationStore from '@/stores/useAnimationStore';
 import { useGSAP } from '@gsap/react';
@@ -13,7 +13,7 @@ interface IProps {
   delayEnter?: number,
   horizontal?: boolean;
   initAnimation: () => void;
-  playAnimation: (d?: number) => void;
+  playAnimation: (d?: number) => (() => void) | void;
 }
 
 export default function useAnimation({
@@ -27,10 +27,11 @@ export default function useAnimation({
 
   const { play, fontReady } = useAnimationStore();
   const refObserver = useRef<IntersectionObserver | null>(null);
+  const tl = useRef<null | (() => void)>(null);
 
-  useGSAP(() => {
-    initAnimation();
-  }, { dependencies: [fontReady] });
+  useGSAP((context, contextSafe) => {
+    trigger.current && initAnimation();
+  }, { scope: trigger, dependencies: [fontReady] });
 
   useGSAP(() => {
 
@@ -51,9 +52,9 @@ export default function useAnimation({
         if ((entries[0] as any).isIntersecting && play) {
 
           const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-          const dl = scrollTop === 0 && top < window.innerHeight ? (delayEnter !==undefined ? delayEnter : delay) : delay;
+          const dl = scrollTop === 0 && top < window.innerHeight ? (delayEnter !== undefined ? delayEnter : delay) : delay;
 
-          playAnimation(dl);
+          trigger.current && playAnimation(dl);
           trigger.current && refObserver.current?.unobserve(trigger.current);
           refObserver.current?.disconnect();
         }
@@ -64,8 +65,9 @@ export default function useAnimation({
     refObserver.current?.observe(trigger.current);
 
     return () => {
+      trigger.current && refObserver.current?.unobserve(trigger.current);
       refObserver.current?.disconnect();
     };
-  }, { dependencies: [play, fontReady] });
+  }, { scope: trigger, dependencies: [play, fontReady] });
 
 }

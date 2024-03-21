@@ -2,14 +2,16 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-
+  @include is-pc {
+    flex-direction: row;
+    gap: 120px;
+  }
   .image {
-    max-width: 100%;
+    //max-width: 100%;
     width: 100%;
     height: auto;
-
     @include is-pc {
-      max-width: 600px;
+      max-width: 800px;
 
     }
   }
@@ -18,14 +20,11 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-
+    flex: 1;
     @include is-pc {
       gap: 60px;
     }
   }
 
-  @include is-pc {
-    flex-direction: row;
-    gap: 120px;
-  }
+
 }
