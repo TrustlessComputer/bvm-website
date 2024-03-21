@@ -12,7 +12,7 @@
   @include is-min-table {
     padding-left: rem(32px);
     padding-right: rem(32px);
-    top: 180px;
+    top: 200px;
   }
 
   &_content {
@@ -23,7 +23,7 @@
     font-size: 16px;
     text-align: center;
 
-    @include is-tablet {
+    @include is-pc {
       font-size: 20px;
     }
 
@@ -82,7 +82,7 @@
   letter-spacing: 0.01em;
   text-align: center;
   transition: background-color .4s var(--easeOutQuart);
-  font-size: 14px;
+  font-size: 16px;
   height: 48px;
   padding-left: 18px;
   padding-right: 18px;
@@ -90,7 +90,7 @@
 
   @include is-pc {
     height: 60px;
-    font-size: 16px;
+    font-size: 18px;
     padding-left: 28px;
     padding-right: 28px;
   }
@@ -259,13 +259,19 @@
 }
 
 .contact {
-  font-size: 16px;
+
   line-height: 19.09px;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
+  font-size: 16px;
+  font-weight: 500;
+
+  @include is-pc{
+    font-size: 18px;
+  }
 
   span {
     color: #FA4E0E;

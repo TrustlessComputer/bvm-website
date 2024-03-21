@@ -53,6 +53,7 @@ export default function Intro() {
         onComplete: () => {
           document.body.style.overflow = 'auto';
           setPlayed();
+          localStorage.setItem('bvmloaded', '1');
           if (refContent.current) refContent.current.style.display = 'none';
         },
       },
