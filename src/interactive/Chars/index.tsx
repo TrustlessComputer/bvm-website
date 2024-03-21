@@ -27,6 +27,7 @@ export default function Chars({ children, delay = 0, delayEnter = undefined, fro
 
   const playAnimation = contextSafe((clDelay = 0) => {
     if (!refChars.current || !refChars.current.length) return;
+
     gsap.to(refChars.current, {
       ...{
         opacity: 1,
