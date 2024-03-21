@@ -71,7 +71,7 @@ export default function HeroContent() {
             style={{ textAlign: 'center', display: 'block' }}
           >
             <img
-              src={`/public-sale/btn-play-4.png`}
+              src={`/landing/btn-hero-play-v2.png`}
               width={224}
               alt={'right'}
               style={{ margin: 'auto', marginBottom: '8px' }}

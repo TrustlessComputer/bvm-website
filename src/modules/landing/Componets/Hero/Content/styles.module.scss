@@ -27,10 +27,6 @@
       font-size: 20px;
     }
 
-    @include is-pc {
-      font-size: 22px;
-    }
-
   }
 
   &_inner {
