@@ -15,7 +15,7 @@ const AboveTheFold = () => {
         <Flex className={s.inner}>
           <Text className={s.title}>Top SHARD miners</Text>
           <Flex className={s.content}>
-            <Text className={s.description}>Join the staking program to earn up to <span>58% interest</span>, receive airdrops, and gain exclusive access to launchpads.</Text>
+            <Text className={s.description}>Stake to mine SHARD, earn more BVM, receive airdrops, and gain exclusive access to launchpads.</Text>
             <Flex direction={["column", "column"]} gap={"16px"}>
               <Button
                 onClick={() => {
@@ -24,7 +24,7 @@ const AboveTheFold = () => {
                 className={`${s.btn}`}
                 isOrange
               >
-                Staking
+                Stake
               </Button>
               <Button
                 onClick={() => {
@@ -32,7 +32,7 @@ const AboveTheFold = () => {
                 }}
                 className={`${s.btn} ${s.btnBorder}`}
               >
-                View my staking records
+                View SHARD dashboard
               </Button>
             </Flex>
           </Flex>
