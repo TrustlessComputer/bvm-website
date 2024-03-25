@@ -6,6 +6,10 @@
   padding: 40px 0;
   gap: 40px;
 
+  > div > div {
+    align-items: flex-start;
+  }
+
   @include min-md {
     padding: 40px 0;
   }

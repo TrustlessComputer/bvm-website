@@ -5,27 +5,35 @@ import ContainerDiv from '@components/Container';
 const cardGameFiData = [
   {
     id: 0,
-    title: 'Unlock unparalleled performance',
+    title: 'Governance',
     description:
-      'Experience lightning-fast 2-second block times and ultra-low gas fees (less than $0.001 per transaction).',
-    image: '/gamefi/GameFi_1.png',
-    bgColorImage: '#35cca6',
+      'Co-manage the $200M BVM treasury with other SHARD holders.',
+    image: '/shards/shard_1.webp',
+    bgColorImage: '#FAC5FF',
   },
   {
     id: 1,
-    title: 'Migrate games seamlessly',
+    title: 'Airdrop',
     description:
-      'Effortlessly transition existing games from EVM-compatible chains like Ethereum, BSC, or Fantom to your new Bitcoin L2 without the need for a new toolkit.',
-    image: '/gamefi/GameFi_2.png',
-    bgColorImage: '#459443',
+      'The more SHARDs you have, the more airdrops you’ll receive.',
+    image: '/shards/shard_2.webp',
+    bgColorImage: '#8CD3C2',
   },
   {
     id: 2,
-    title: 'Enhance Scalability and Security',
+    title: 'Earn BVM',
     description:
-      'Leverage optimistic rollup technology for massive scalability and Bitcoin-grade security.',
-    image: '/gamefi/GameFi_3.png',
-    bgColorImage: '#74c9e4',
+      'Enjoy 25%-58% BVM interest on the BVM you stake - in addition to the SHARDS you mine.',
+    image: '/shards/shard_3.webp',
+    bgColorImage: '#FFD73B',
+  },
+  {
+    id: 3,
+    title: 'Dealflow',
+    description:
+      'Your exclusive access to new crypto deals.',
+    image: '/shards/shard_4.webp',
+    bgColorImage: '#B3FFBF',
   },
 ];
 
