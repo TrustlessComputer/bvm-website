@@ -139,7 +139,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   },
   {
     label: 'Mine SHARD',
-    href: '/shards',
+    href: '/shard',
     isNewWindow: false,
     isHide: false,
   },
