@@ -7,6 +7,9 @@
   line-height: 24px;
   color: #000;
   padding-top: 80px;
+  row-gap: 40px;
+  max-height: 100dvh;
+  overflow: hidden;
 
   @include min-md {
     padding-top: 0;
