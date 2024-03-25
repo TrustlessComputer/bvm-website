@@ -132,6 +132,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
     isStrong: true,
   },
+  {
+    label: 'SHARDs',
+    href: '/shards',
+    isNewWindow: false,
+    isHide: false,
+  },
 
   // {
   //   label: 'Build',
