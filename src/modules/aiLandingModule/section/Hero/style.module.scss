@@ -1,6 +1,6 @@
 .hero {
   padding-top: 88px;
-  background-image: url('/bvm-eternal/ai-module-hero.jpg');
+  background-image: url('/shard/top_bg.webp');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;
@@ -26,7 +26,21 @@
     }
   }
 
+  &_icon {
+    max-width: 200px;
+  }
+
   &_content {
     color: #fff;
+  }
+
+  &_action {
+    display: flex;
+    column-gap: 32px;
+    align-items: center;
+
+    @include w-max(767px) {
+      flex-direction: column;
+    }
   }
 }

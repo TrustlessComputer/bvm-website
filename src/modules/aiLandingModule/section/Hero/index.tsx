@@ -12,16 +12,28 @@ const Hero = () => {
 
   return (
     <div className={s.hero}>
+      <img className={s.hero_icon} src={'/shard/shard_icon.webp'} alt={"shard_icon`"}/>
       <Heading title={title} desc={desc} className={s.hero_content} />
-      <Button
-        onClick={() => {
-          router.push('/blockchains/customize');
-        }}
-        className={`${s.btn}`}
-        isOrange
-      >
-        Build your AI module
-      </Button>
+      <div className={s.hero_action}>
+        <Button
+          onClick={() => {
+            router.push('/blockchains/customize');
+          }}
+          className={`${s.btn}`}
+          isOrange
+        >
+          Top SHARD miners
+        </Button>
+        <Button
+          onClick={() => {
+            router.push('/blockchains/customize');
+          }}
+          className={`${s.btn}`}
+          isOrange
+        >
+          How to mine SHARDS
+        </Button>
+      </div>
     </div>
   );
 };
