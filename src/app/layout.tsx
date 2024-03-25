@@ -16,8 +16,8 @@ import { ChakraProvider } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import ModalManager from '@/components/ModalManage';
-import { AuthenticatedProvider } from '@/Providers/AuthenticatedProvider';
 import { ContactUsProvider } from '@/Providers/ContactUsProvider';
+import { Web3AuthProvider } from '@/Providers/AuthenticatedProvider_vs2/Web3AuthProvider';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -60,7 +60,7 @@ export default function RootLayout({
         <StoreProvider>
           <ChakraProvider theme={chakraThemes}>
             <ChakraFontsFace />
-            <AuthenticatedProvider>
+            <Web3AuthProvider>
               <UserProvider>
                 <XVerseProvider>
                   <UnisatProvider>
@@ -74,7 +74,7 @@ export default function RootLayout({
                   </UnisatProvider>
                 </XVerseProvider>
               </UserProvider>
-            </AuthenticatedProvider>
+            </Web3AuthProvider>
           </ChakraProvider>
         </StoreProvider>
       </body>

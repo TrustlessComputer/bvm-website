@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
+// import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import toast from 'react-hot-toast';
-import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { useWeb3Auth } from '@/Providers/AuthenticatedProvider_vs2/Web3Auth.hook';
 
 export enum IframeEventName {
   topup = 'topup',
@@ -24,26 +24,27 @@ const Hydrated = ({ children }: { children?: any }) => {
   const [hydration, setHydration] = useState(false);
   const router = useRouter();
 
-  const { showContactUsModal } = useContactUs();
+  const { setShowLoginModalCustomize } = useWeb3Auth();
 
-  const { login } = useWeb3Authenticated();
+  // const { login } = useWeb3Authenticated();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setHydration(true);
     }
-  }, [login, window]);
+  }, [setShowLoginModalCustomize, window]);
 
   const loginWeb3AuthHandler = async () => {
     try {
       // await onLoginMetamask();
-      console.log('loginWeb3AuthHandler -- ', login);
-      await login();
+      console.log('loginWeb3AuthHandler -- ', setShowLoginModalCustomize);
+      // await login();
+      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } catch (err: unknown) {
       console.log('loginWeb3AuthHandler -- ERROR ', err);
       toast.error(
         (err as Error).message ||
-          'Something went wrong. Please try again later.',
+        'Something went wrong. Please try again later.',
       );
     }
   };
@@ -58,9 +59,7 @@ const Hydrated = ({ children }: { children?: any }) => {
             case IframeEventName.trustless_computer_change_route: {
               const subUrl = (eventData.url || '').split('/');
               const message = eventData.message;
-              if (message === 'REQUEST_CONTACT_US') {
-                showContactUsModal();
-              } else if (message === 'REQUIRED_LOGIN') {
+              if (message === 'REQUIRED_LOGIN') {
                 loginWeb3AuthHandler();
               } else if (subUrl.length > 0) {
                 let lastSubUrl: string = subUrl[subUrl.length - 1];
@@ -89,7 +88,7 @@ const Hydrated = ({ children }: { children?: any }) => {
         } catch (error) {}
       };
     }
-  }, [hydration, login, window]);
+  }, [hydration, setShowLoginModalCustomize, window]);
 
   return hydration ? children : null;
 };
