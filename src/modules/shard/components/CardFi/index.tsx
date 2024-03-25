@@ -1,12 +1,16 @@
 import s from './styles.module.scss';
 import Fade from '@/interactive/Fade';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
+import Button from '@/modules/ai-landing/components/Button';
+import React from 'react';
 
 type TCardFiProps = {
   title: string;
   description: string;
   image: string;
   bgColorImage: string;
+  actionTitle: string;
+  actionUrl: string;
 };
 
 const CardFi = ({ ...props }: TCardFiProps) => {
@@ -20,6 +24,17 @@ const CardFi = ({ ...props }: TCardFiProps) => {
           <div className={s.cardFiContent_inner}>
             <p className={s.cardFiContent_title}>{props.title}</p>
             <div className={s.cardFiContent_des} dangerouslySetInnerHTML={{__html: props.description}}></div>
+            <div style={{marginTop: '16px'}}>
+              <Button
+                onClick={() => {
+                  window.open(props.actionUrl, props.actionUrl.includes("https") ? '_blank' : '_self');
+                }}
+                className={`${s.btn}`}
+                isOrange
+              >
+                <div dangerouslySetInnerHTML={{__html: props.actionTitle}}/>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
