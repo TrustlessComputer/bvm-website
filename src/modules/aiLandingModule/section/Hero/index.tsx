@@ -5,7 +5,6 @@ import Heading from '../../components/Heading';
 import { HeroData } from '../../data';
 import Button from '@/modules/ai-landing/components/Button';
 import { useRouter } from 'next/navigation';
-import { SHARD_TOP_MINERS } from '@constants/route-path';
 
 const Hero = () => {
   const { title, desc, link } = HeroData;
@@ -13,28 +12,16 @@ const Hero = () => {
 
   return (
     <div className={s.hero}>
-      <img className={s.hero_icon} src={'/shards/shard_icon.webp'} alt={"shard_icon`"}/>
       <Heading title={title} desc={desc} className={s.hero_content} />
-      <div className={s.hero_action}>
-        <Button
-          onClick={() => {
-            router.push(SHARD_TOP_MINERS);
-          }}
-          className={`${s.btn}`}
-          isOrange
-        >
-          Top SHARD miners
-        </Button>
-        <Button
-          onClick={() => {
-            window.open('https://nakachain.xyz/staking/dashboard', '_blank');
-          }}
-          className={`${s.btn}`}
-          isOrange
-        >
-          How to mine SHARDS
-        </Button>
-      </div>
+      <Button
+        onClick={() => {
+          router.push('/blockchains/customize');
+        }}
+        className={`${s.btn}`}
+        isOrange
+      >
+        Build your AI module
+      </Button>
     </div>
   );
 };

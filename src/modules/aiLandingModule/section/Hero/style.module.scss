@@ -26,25 +26,7 @@
     }
   }
 
-  &_icon {
-    max-width: 200px;
-  }
-
   &_content {
     color: #fff;
-  }
-
-  &_action {
-    display: flex;
-    column-gap: 32px;
-    align-items: center;
-
-    button {
-      min-width: 200px;
-    }
-
-    @include w-max(767px) {
-      flex-direction: column;
-    }
   }
 }
