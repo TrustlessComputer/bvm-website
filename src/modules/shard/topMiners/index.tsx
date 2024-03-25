@@ -1,12 +1,12 @@
 'use client';
 
 import MainLayout from '@layouts/MainLayout';
-import Category from '@/modules/shard/section/Category';
 import s from '@/modules/gamefi/styles.module.scss';
 import { Box } from '@chakra-ui/react';
 import Loader from '@/modules/builder-landing/Loader';
 import React from 'react';
 import AboveTheFold from '@/modules/shard/topMiners/aboveTheFold';
+import Leaderboard from '@/modules/shard/topMiners/Leaderboard';
 
 const ShardTopMinersModule = () => {
   return (
@@ -21,7 +21,7 @@ const ShardTopMinersModule = () => {
           <AboveTheFold />
         </div>
         <div className={s.categorySection}>
-          <Category />
+          <Leaderboard />
         </div>
       </Box>
     </MainLayout>

@@ -1,0 +1,103 @@
+.container {
+  height: 550px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 0;
+  background: #ECECEC;
+  overflow: hidden;
+
+  * {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+table {
+  &.tableContainer {
+    thead {
+      box-shadow: unset !important;
+      tr {
+        background-color: #ECECEC;
+        th, td {
+          font-size: 16px !important;
+          padding: 16px 8px !important;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+          &:first-child {
+            padding-left: 28px !important;;
+          }
+          &:not(:first-child):not(:last-child) {
+            > div {
+              justify-content: center;
+              min-height: 24px;
+            }
+          }
+          &:last-child {
+            padding-right: 28px !important;
+            > div {
+              justify-content: flex-end;
+            }
+          }
+        }
+      }
+    }
+
+    tbody {
+      background: white;
+      tr {
+        td {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.leaderBoardItem {
+  &_active {
+    background: rgba(16, 200, 0, 0.1);
+  }
+  td {
+    padding: 24px 0px !important;
+    > div {
+      height: 32px !important;
+    }
+    &:first-child {
+      padding-left: 28px !important;
+    }
+    &:last-child {
+      padding-right: 28px !important;
+    }
+    &:not(:first-child):not(:last-child) {
+      padding-left: 8px !important;
+      padding-right: 8px !important;
+      > div {
+        justify-content: center;
+      }
+    }
+  }
+  &_amount {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 120%;
+    color: black !important;
+  }
+  &_name {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 120%;
+    color: black !important;
+  }
+  &_award {
+    color: #10C800;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 120%;
+  }
+
+  &_needActive {
+    background-color: black
+  }
+}
