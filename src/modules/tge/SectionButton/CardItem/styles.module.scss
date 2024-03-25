@@ -2,13 +2,29 @@
   max-width: 526px;
   width: 100%;
 
-  &_inner {
-    min-height: 376px;
+  :global{
+    .fade{
+      height: 100%;
+    }
 
+    .chakra-button{
+      @include is-mobile{
+        width: 100% !important;
+      }
+    }
+  }
+
+  &_inner {
+
+    height: 100%;
     border: 1px solid rgba(0, 118, 89, 0.3);
     background: #00ffc01a;
     padding: 40px 24px;
     border-radius: 16px;
+
+    @include is-min-table{
+      min-height: 376px;
+    }
 
     display: flex;
     flex-direction: column;
