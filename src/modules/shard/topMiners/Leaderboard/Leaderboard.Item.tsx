@@ -92,7 +92,7 @@ const LeaderboardItem = ({ data }: IProps) => {
                 {data?.twitter_name ? (
                   <>
                     <p className={styles.leaderBoardItem_name}>
-                      {formatName(data?.twitter_name as string, 8)}
+                      {formatName(data?.twitter_name as string, data?.twitter_name?.length)}
                     </p>
                     {data.need_active &&
                       compareString(data?.address, address) && (
@@ -101,7 +101,7 @@ const LeaderboardItem = ({ data }: IProps) => {
                   </>
                 ) : (
                   <p className={styles.leaderBoardItem_name}>
-                    {shortCryptoAddress(data?.address || ('' as string), 8)}
+                    {shortCryptoAddress(data?.address || ('' as string), data?.address?.length)}
                     {data.need_active &&
                       compareString(data?.address, address) && (
                         <Text color="black !important">(YOU)</Text>
