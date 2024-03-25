@@ -12,7 +12,7 @@ const Hero = () => {
 
   return (
     <div className={s.hero}>
-      <img className={s.hero_icon} src={'/shard/shard_icon.webp'} alt={"shard_icon`"}/>
+      <img className={s.hero_icon} src={'/shards/shard_icon.webp'} alt={"shard_icon`"}/>
       <Heading title={title} desc={desc} className={s.hero_content} />
       <div className={s.hero_action}>
         <Button
