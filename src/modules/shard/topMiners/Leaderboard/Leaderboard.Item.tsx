@@ -140,7 +140,7 @@ const LeaderboardItem = ({ data }: IProps) => {
         <Td>
           <Flex gap="4px" alignItems="center">
             <Image
-              src={`${CDN_URL_ICONS}/ic-bvm.svg`}
+              src={`https://cdn.nakaswap.org/naka/icons/ic-bvm.svg`}
               width="18px"
               borderRadius="32px"
             />

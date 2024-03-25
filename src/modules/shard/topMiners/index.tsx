@@ -1,7 +1,7 @@
 'use client';
 
 import MainLayout from '@layouts/MainLayout';
-import s from '@/modules/gamefi/styles.module.scss';
+import s from './styles.module.scss';
 import { Box } from '@chakra-ui/react';
 import Loader from '@/modules/builder-landing/Loader';
 import React from 'react';
