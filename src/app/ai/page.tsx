@@ -1,16 +1,14 @@
 import MainLayout from '@/layouts/MainLayout';
-import AIModule from '@/modules/ai';
-import Loader from '@/modules/builder-landing/Loader';
 
-import { CDN_URL } from '@/config';
 import { APP_NAME } from '@/config/metadata';
+import VisualLanding from '@/modules/ai-landing';
 
 export const metadata = {
   openGraph: {
     type: 'website',
     images: [
       {
-        url: `${CDN_URL}/images/ai.png`,
+        url: `/ai-landing/bvm-eternal.jpeg`,
         width: 1200,
         height: 630,
         alt: APP_NAME,
@@ -21,7 +19,7 @@ export const metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: `${CDN_URL}/images/ai.png`,
+        url: `/ai-landing/bvm-eternal.jpeg`,
         alt: APP_NAME,
       },
     ],
@@ -32,13 +30,10 @@ const AiPage = () => {
   return (
     <MainLayout
       headerProps={{
-        color: 'black',
+        color: 'white',
       }}
     >
-      <>
-        <Loader />
-        <AIModule />
-      </>
+      <VisualLanding/>
     </MainLayout>
   );
 };

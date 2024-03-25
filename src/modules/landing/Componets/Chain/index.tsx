@@ -236,7 +236,7 @@ export default function Chain() {
                 mb={!mobileScreen ? ['68px'] : ['24px']}
               >
                 <Button
-                  bgColor={'#EF601B'}
+                  bgColor={'#FA4E0E'}
                   color={'#fff'}
                   borderRadius={0}
                   display={'flex'}

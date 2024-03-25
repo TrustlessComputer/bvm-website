@@ -1,4 +1,6 @@
 import '@/styles/index.scss';
+import '@fontsource/space-mono';
+import '@fontsource/urbanist';
 
 import { Metadata, Viewport } from 'next';
 

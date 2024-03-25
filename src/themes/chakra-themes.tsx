@@ -198,6 +198,17 @@ const chakraThemes = extendTheme({
       },
     },
   },
+  textStyles: {
+    primary: {
+      fontFamily: 'BandeinsSans',
+    },
+    secondary: {
+      fontFamily: 'Urbanist',
+    },
+    third: {
+      fontFamily: 'Space Mono',
+    },
+  },
 });
 
 export default chakraThemes;

@@ -1,111 +1,89 @@
 import Lines from '@/interactive/Lines';
 import s from './styles.module.scss';
 import Chars from '@/interactive/Chars';
-import classNames from 'classnames';
 import Fade from '@/interactive/Fade';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
-import Banner from '../Banner';
-import SvgInset from '@/components/SvgInset';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
-const DELAY = 6;
 export default function HeroContent() {
   const router = useRouter();
+  const { showContactUsModal } = useContactUs();
   const [isOpen, setOpen] = useState(false);
 
-  const delay = DELAY;
   return (
     <>
       <div className={s.heroContent}>
         <div className={s.heroContent_inner}>
-          <Chars classNames={s.heroContent_inner_heading} delay={DELAY}>
-            <h1 className={s.heroContent_heading}>Bitcoin, upgraded.</h1>
+          <Chars classNames={s.heroContent_inner_heading} delayEnter={6}>
+            <h1 className={s.heroContent_heading}>Bitcoin L2 as a Service</h1>
           </Chars>
           <div className={s.heroContent_content}>
-            <Lines delay={DELAY + 0.1}>
-              Developers use BVM to launch their own Bitcoin L2 blockchain in a
-              few clicks, write smart contracts, deploy decentralized
-              applications, and collectively change Bitcoin forever.
+            <Lines delayEnter={6.1}>
+              Powerful infrastructure and tools to build and scale your own Bitcoin L2 with ease.
             </Lines>
           </div>
           <ul className={s.heroContent_actions}>
             <li>
-              <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 0.5}>
+              <Fade delayEnter={6.5}>
                 <button
-                  onClick={() => {
-                    router.push('/blockchains/customize');
-                  }}
-                  className={classNames(s.btn, s.btn__red)}
+                  onClick={() => router.push('/blockchains/customize')}
+                  className={`${s.btn} ${s.btn__red}`}
                 >
-                  Try for free
+                  Deploy a Bitcoin L2
                 </button>
               </Fade>
             </li>
-            {/*<li>*/}
-            {/*  <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 0.6}>*/}
-            {/*    <button*/}
-            {/*      onClick={() => {*/}
-            {/*        router.push('/use-bitcoin');*/}
-            {/*      }}*/}
-            {/*      className={classNames(s.btn, s.btn__clean, s.buttonBuild)}*/}
-            {/*    >*/}
-            {/*      <span>Explore Bitcoin L2s</span>*/}
-            {/*      <img src={`/builder/arr-r.svg`} alt={'right'} />*/}
-            {/*    </button>*/}
-            {/*  </Fade>*/}
-            {/*  <Fade from={{ y: 10 }} to={{ y: 0 }} delay={DELAY + 0.7}>*/}
-            {/*    <a*/}
-            {/*      className={classNames(s.btn, s.btn__clean, s.buttonBuild)}*/}
-            {/*      href={'#'}*/}
-            {/*      onClick={() => setOpen(true)}*/}
-            {/*    >*/}
-            {/*      <span>Watch the film</span>*/}
-            {/*      <img src={`/builder/arr-r.svg`} alt={'right'} />*/}
-            {/*    </a>*/}
-            {/*  </Fade>*/}
-            {/*  /!*<Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .6}>*!/*/}
-            {/*  /!*  /!*<button className={classNames(s.btn, s.btn__white)}>*!/*!/*/}
-            {/*  /!*  /!*  Build on Bitcoin*!/*!/*/}
-            {/*  /!*  /!*</button>*!/*!/*/}
-            {/*  /!*  <div className={classNames( s.dropMenu)}>*!/*/}
-            {/*  /!*    <button*!/*/}
-            {/*  /!*      className={classNames(s.btn, s.btn__white,s.buttonBuild)}*!/*/}
-            {/*  /!*    >*!/*/}
-            {/*  /!*      Build on Bitcoin*!/*/}
-            {/*  /!*    </button>*!/*/}
-            {/*  /!*    <ul className={s.dropMenu_list}>*!/*/}
-            {/*  /!*      {*!/*/}
-            {/*  /!*        MenuBuild?.subMenu.map((item) => {*!/*/}
-            {/*  /!*          return (<li className={s.listItem}>*!/*/}
-            {/*  /!*            <a href={item.href} target={item?.isNewWindow ? '_blank' : '_self'} style={{ color: 'black' }}>*!/*/}
-            {/*  /!*              {*!/*/}
-            {/*  /!*                item.label*!/*/}
-            {/*  /!*              }*!/*/}
-            {/*  /!*              <SvgInset svgUrl={`landing/images/basil_arrow-up-outline.svg`} />*!/*/}
-            {/*  /!*            </a>*!/*/}
-            {/*  /!*          </li>);*!/*/}
-            {/*  /!*        })*!/*/}
-            {/*  /!*      }*!/*/}
-            {/*  /!*    </ul>*!/*/}
-            {/*  /!*  </div>*!/*/}
-            {/*  /!*</Fade>*!/*/}
-            {/*</li>*/}
             <li>
-              <Fade from={{ y: 10 }}  to={{ y: 0 }} delay={DELAY + .7}>
-                <a
-                  className={classNames(s.btn, s.btn__white, s.btn__play, s.buttonBuild)}
-                  href={'#'} onClick={() => setOpen(true)}>
-                  <span>Watch the film</span>
-                  <SvgInset svgUrl={`/landing/icon-play.svg`} />
-                </a>
+              <Fade delayEnter={6.6}>
+                <button
+                  onClick={() =>
+                    window.open(
+                      'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps',
+                    )
+                  }
+                  className={`${s.btn} ${s.btn__red}`}
+                >
+                  Deploy a Bitcoin dapp
+                </button>
               </Fade>
             </li>
           </ul>
+          <Fade delay={6.7}>
+            <div className={s.contact}>
+              Questions?{' '}
+              <span
+                className={s.contact_item}
+                onClick={() => showContactUsModal()}
+              >
+                  Contact us
+                </span>
+            </div>
+          </Fade>
         </div>
       </div>
+      <Fade delay={6.8}>
+        <div className={s.btnVideo}>
+          <a
+            href={'#'}
+            onClick={() => setOpen(true)}
+            style={{ textAlign: 'center', display: 'block' }}
+          >
+            <img
+              src={`/landing/btn-hero-play-v2.png`}
+              width={224}
+              alt={'right'}
+              style={{ margin: 'auto', marginBottom: '8px' }}
+            />
+            <span style={{ fontSize: '14px', fontWeight: 400 }}>
+                    Watch the film
+                  </span>
+          </a>
+        </div>
+      </Fade>
       <ModalVideo
-        channel="custom"
+        channel='custom'
         url={'/public-sale/public_sale_video_2.mp4'}
         isOpen={isOpen}
         onClose={() => {

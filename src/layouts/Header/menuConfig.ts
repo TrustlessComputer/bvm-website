@@ -61,6 +61,11 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
     subMenu: [
       {
+        href: '/ai-on-bitcoin',
+        label: 'AI on Bitcoin',
+        isNewWindow: false,
+      },
+      {
         href: '/smart-contracts-on-bitcoin',
         label: 'Smart contracts on Bitcoin',
         isNewWindow: false,
@@ -85,6 +90,11 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
     subMenu: [
       {
+        href: '/ai',
+        label: 'Bitcoin L2 for AI',
+        isNewWindow: false,
+      },
+      {
         href: '/gamefi',
         label: 'Bitcoin L2 for GameFi',
         isNewWindow: false,
@@ -92,11 +102,6 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
       {
         href: '/defi',
         label: 'Bitcoin L2 for DeFi',
-        isNewWindow: false,
-      },
-      {
-        href: '/ai',
-        label: 'Bitcoin L2 for AI',
         isNewWindow: false,
       },
       {
@@ -209,7 +214,7 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   //   isHide: false,
   // },
   {
-    label: 'Builder',
+    label: 'BUIDL Airdrop',
     href: '/build-on-bitcoin',
     isNewWindow: false,
     isHide: false,

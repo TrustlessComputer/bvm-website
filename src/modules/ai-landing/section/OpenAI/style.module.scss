@@ -1,0 +1,79 @@
+.aiSection {
+  background: #000;
+  padding-bottom: 31px;
+  padding-top: 200px;
+  @include is-pc {
+    padding-top: 0px;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    @include is-pc {
+      flex-direction: row;
+    }
+  }
+
+  &_title {
+    position: relative;
+    text-align: start;
+    @include is-pc {
+      position: sticky;
+      top: 120px;
+      left: 0;
+    }
+  }
+  &_desc {
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 16px;
+    margin-bottom: 24px;
+    font-family: 'Urbanist';
+    @include is-pc {
+      display: none;
+    }
+  }
+
+  .wrapTitle {
+    padding-top: 60px;
+    //padding-bottom: 65px;
+    flex: 1;
+    @include is-pc {
+      padding-top: 120px;
+      padding-bottom: 154px;
+    }
+  }
+
+  &_list {
+    position: relative;
+    padding-top: 0;
+    overflow-x: hidden;
+    padding-bottom: 63px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    @include is-pc {
+      padding: 123px 0;
+      gap: 80px;
+      max-width: 715px;
+      align-items: flex-end;
+
+      &::before {
+        position: absolute;
+        content: '';
+        left: 18px;
+        transform: translateX(-50%);
+        top: 0;
+        width: 1px;
+        height: 100%;
+        background: linear-gradient(
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 1),
+          rgba(255, 255, 255, 0)
+        );
+      }
+    }
+  }
+}

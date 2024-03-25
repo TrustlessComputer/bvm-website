@@ -60,7 +60,7 @@ export default function SectionBottom({
           </Lines>
           <Fade delay={delay + 0.3}>
             <Button
-              bgColor={'#EF601B'}
+              bgColor={'#FA4E0E'}
               color={'#fff'}
               borderRadius={0}
               display={'flex'}
