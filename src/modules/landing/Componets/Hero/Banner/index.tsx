@@ -10,9 +10,9 @@ type Props = {
 const Banner = (props: Props) => {
   const ContentReder = (): ReactElement => {
     return <div className={s.banner_wrapper}>
-      <p className={s.text}>Say hello to project Truly Open AI.</p>
-      <Link href={'/ai'} className={s.banner_link}>
-        {` Learn more`}
+      <p className={s.text}>Say hello to Eternal AI, a Bitcoin L2 designed for decentralized AI.</p>
+      <Link href={'https://nakachain.xyz/launchpad/detail/2'} target={'_blank'} className={s.banner_link}>
+        {` Join the public sale`}
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'
