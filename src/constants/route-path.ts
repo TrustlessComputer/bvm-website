@@ -5,3 +5,4 @@ export const TEST_LOAD_VIDEO_URL = '/test-load-video';
 export const INITIAL = '/initial';
 export const ALLOW_LIST_URL = '/allowlist';
 export const BUILD_ON_BITCOIN_URL = '/build-on-bitcoin';
+export const SHARD_TOP_MINERS = '/shard/top-miners';

@@ -6,6 +6,7 @@ import activities from '@/stores/states/activities/reducer';
 import airdrop from '@/stores/states/airdrop/reducer';
 import luckyMoney from '@/stores/states/luckyMoney/reducer';
 import auth from '@/stores/states/auth/reducer';
+import stakingV2 from '@/stores/states/stakingV2/reducer';
 
 export default {
   common,
@@ -15,4 +16,5 @@ export default {
   airdrop,
   luckyMoney,
   auth,
+  stakingV2,
 };
