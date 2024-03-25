@@ -1,6 +1,6 @@
 export const HeroData = {
-  title: 'Decentralized AI Module',
-  desc: 'Provide the requisite infrastructure and tools essential for defining, training, deploying neural network models and conducting effective on-chain inference with these models.',
+  title: 'Bitcoin Shards',
+  desc: 'Bitcoin Shards (SHARD) are the governance tokens of the entire BVM ecosystem. SHARD holders have the power to make decisions and shape the direction of the BVM ecosystem. They also enjoy many benefits, such as airdrops, high yields, and exclusive access to new Bitcoin L2 launches.',
   link: '#',
 }
 

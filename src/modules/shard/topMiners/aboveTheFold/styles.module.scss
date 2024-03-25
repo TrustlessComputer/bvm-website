@@ -1,0 +1,55 @@
+.container {
+  padding-top: 168px;
+  position: relative;
+  width: 100%;
+  //min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 32px;
+
+  .inner {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 65px;
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: 44px;
+    font-weight: 400;
+    color: #000;
+  }
+
+  .content {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .description {
+    max-width: 660px;
+    font-size: 28px;
+    font-weight: 400;
+
+    span {
+      color: #FA4E0E;
+    }
+  }
+
+  .btn {
+    min-width: 300px;
+
+    &.btnBorder {
+      border: 1px solid #FA4E0E;
+      background-color: #FFF;
+      p {
+        color: #FA4E0E !important;
+      }
+    }
+  }
+
+}

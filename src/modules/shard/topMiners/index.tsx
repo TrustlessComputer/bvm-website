@@ -1,24 +1,24 @@
 'use client';
 
 import MainLayout from '@layouts/MainLayout';
-import Hero from './section/Hero';
-import Category from './section/Category';
+import Category from '@/modules/shard/section/Category';
 import s from '@/modules/gamefi/styles.module.scss';
 import { Box } from '@chakra-ui/react';
 import Loader from '@/modules/builder-landing/Loader';
 import React from 'react';
+import AboveTheFold from '@/modules/shard/topMiners/aboveTheFold';
 
-const ShardModule = () => {
+const ShardTopMinersModule = () => {
   return (
     <MainLayout
       headerProps={{
-        color: 'white',
+        color: 'black',
       }}
     >
       <Loader />
-      <Box className={s.container} bgColor={'#f6f6f6'}>
+      <Box className={s.container} bgColor={'#FFF'}>
         <div className={s.heroSection}>
-          <Hero />
+          <AboveTheFold />
         </div>
         <div className={s.categorySection}>
           <Category />
@@ -28,4 +28,4 @@ const ShardModule = () => {
   )
 };
 
-export default ShardModule;
+export default ShardTopMinersModule;
