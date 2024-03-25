@@ -40,7 +40,7 @@ const cardGameFiData = [
       'You’ll have exclusive access to new crypto deals and exclusive launchpad projects — just for you. We’ll set aside some allocation for you. That’s why it’s incredible to be a SHARD holder.',
     image: '/shard/shard_4.webp',
     bgColorImage: '#B3FFBF',
-    actionTitle: `Join the upcoming project: <strong>Eternal AI</strong>`,
+    actionTitle: `Upcoming project: <strong>Eternal AI</strong>`,
     actionUrl: 'https://nakachain.xyz/launchpad/detail/2',
   },
 ];

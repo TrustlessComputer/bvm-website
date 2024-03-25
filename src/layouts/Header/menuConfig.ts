@@ -131,7 +131,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   // },
 
   {
-    label: 'Buy $BVM',
+    label: 'Buy BVM',
     href: '/bvm',
     isNewWindow: false,
     isHide: false,
