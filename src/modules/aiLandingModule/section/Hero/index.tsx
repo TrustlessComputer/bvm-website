@@ -5,6 +5,7 @@ import Heading from '../../components/Heading';
 import { HeroData } from '../../data';
 import Button from '@/modules/ai-landing/components/Button';
 import { useRouter } from 'next/navigation';
+import { SHARD_TOP_MINERS } from '@constants/route-path';
 
 const Hero = () => {
   const { title, desc, link } = HeroData;
@@ -17,7 +18,7 @@ const Hero = () => {
       <div className={s.hero_action}>
         <Button
           onClick={() => {
-            router.push('/blockchains/customize');
+            router.push(SHARD_TOP_MINERS);
           }}
           className={`${s.btn}`}
           isOrange
