@@ -73,15 +73,15 @@ export default function SmartContract(): React.JSX.Element {
             </p>
           </LinesRandom>
           <p className={s.action}>
-            {/*<Button*/}
-            {/*  onClick={() => {*/}
-            {/*    window.open('https://docs.bvm.network/bvm');*/}
-            {/*  }}*/}
-            {/*  isOrange={true}*/}
-            {/*  className={`${s.btn}`}*/}
-            {/*>*/}
-            {/*  Read Developer Docs*/}
-            {/*</Button>*/}
+            <Button
+              onClick={() => {
+                window.open('https://docs.bvm.network/bvm/build-ai-on-bitcoin/decentralized-ai-beginner');
+              }}
+              isOrange={true}
+              className={`${s.btn}`}
+            >
+              Read Developer Docs
+            </Button>
           </p>
           <div className={`${s.wrapperImageCode}`} ref={wrapperRef}>
             <ImagePlaceholder

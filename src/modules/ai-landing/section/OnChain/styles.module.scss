@@ -1,6 +1,6 @@
 .wrapper {
   background-color: #fff;
-  font-family: 'Urbanist';
+  font-family: 'Helvetica Neue';
 
   @include is-pc {
     height: calc(130dvh);
@@ -134,7 +134,6 @@
         }
 
         .descImage {
-          font-family: 'Helvetica Neue';
           font-size: 14px;
           line-height: 1.5;
           font-weight: 400;
@@ -150,7 +149,6 @@
 }
 
 .mainLable {
-  font-family: 'Space Mono';
   font-size: 12px;
   text-transform: uppercase;
   text-align: center;

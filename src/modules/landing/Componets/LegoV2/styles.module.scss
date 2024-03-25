@@ -10,7 +10,7 @@
   }
 
   &_heading {
-    max-width: 989px;
+    max-width: 1400px;
     padding-bottom: 68px;
     margin-left: auto;
     margin-right: auto;
@@ -28,6 +28,9 @@
     &_description {
       color: #000;
       text-align: center;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
       //text-align: unset !important;
 
       @include is-mobile {

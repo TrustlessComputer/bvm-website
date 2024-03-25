@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: "Helvetica Neue";
+  color: #000;
+  //max-width: 1200px;
+  //width: 100%;
+  h3 {
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 400;
+
+    @include is-pc {
+      font-size: 32px;
+    }
+  }
+
+  .decs {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 36px;
+    ul {
+      margin-left: 20px;
+      li {
+        list-style: outside;
+
+      }
+    }
+
+
+    @include is-pc {
+      font-size: 20px;
+    }
+  }
+}

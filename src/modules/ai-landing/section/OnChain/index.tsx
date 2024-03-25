@@ -52,11 +52,13 @@ export default function OnChain(): React.JSX.Element {
                  Deploy an AI chain
                </Button>
              </Fade>
-              {/*<Fade delayTrigger={.2}>*/}
-              {/*  <Button className={s.mainHeading_buttons_item} isOrange>*/}
-              {/*    Deploy an AI dapp*/}
-              {/*  </Button>*/}
-              {/*</Fade>*/}
+              <Fade delayTrigger={.2}>
+                <Button isBorder onClick={()=>{
+                  window.open('https://docs.bvm.network/bvm/build-ai-on-bitcoin/decentralized-ai-beginner')
+                }} className={s.mainHeading_buttons_item} isOrange>
+                  Deploy an AI dapp
+                </Button>
+              </Fade>
             </div>
           </div>
 

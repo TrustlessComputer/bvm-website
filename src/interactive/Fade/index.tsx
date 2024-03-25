@@ -1,4 +1,4 @@
-import { PropsWithChildren, useCallback, useEffect, useRef } from 'react';
+import { PropsWithChildren, useRef } from 'react';
 import useAnimation from '@/hooks/useAnimation';
 import s from './styles.module.scss';
 import { gsap } from 'gsap';
@@ -14,14 +14,14 @@ interface IProps extends PropsWithChildren {
 
 export default function Fade({ children, delay, delayEnter = undefined, from, to, className }: IProps) {
   const refContent = useRef<HTMLDivElement>(null);
-  const { contextSafe } = useGSAP(() => {
-  }, { scope: refContent });
+  const { contextSafe } = useGSAP();
 
   const initAnimation = contextSafe((): void => {
     refContent.current && gsap.set(refContent.current, { ...{ opacity: 0 }, ...from });
   });
 
   const playAnimation = contextSafe((dl = 0): void => {
+
     refContent.current && gsap.to(refContent.current, {
       ...{
         opacity: 1,

@@ -4,6 +4,7 @@ import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 import { Signal, useComputed, useSignal, useSignalEffect } from '@preact/signals-react';
 import { debounce } from 'lodash';
 import { useState } from 'react';
+import { useGSAP } from '@gsap/react';
 
 interface IDimension {
   width: Signal<number>;
@@ -18,10 +19,21 @@ const useWindowResize = (): IDimension => {
   const width = useSignal(0);
   const height = useSignal(0);
   const scrollHeight = useSignal(0);
+
+  useGSAP(() => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      scrollHeight.value = document.body.scrollHeight;
+    });
+
+    resizeObserver.observe(document.body);
+    return () => {
+      resizeObserver.unobserve(document.body);
+      resizeObserver.disconnect();
+    };
+  });
   const listener = (): void => {
     width.value = window.innerWidth || document.body.clientWidth || 0;
     height.value = window.innerHeight || document.body.clientHeight || 0;
-    scrollHeight.value = document.body.scrollHeight;
   };
 
   const deBounceListener = debounce(listener, 150);

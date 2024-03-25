@@ -15,7 +15,6 @@ const SUBJECT_LIST = [
   `I'd like to make a partnership proposal`,
   `I have an issue with the deposit/withdrawal process`,
   `I'm having trouble locating my transaction records`,
-  `I'm seeking assistance with navigating the process`,
   `Others`,
 ];
 

@@ -125,20 +125,20 @@ export default function Hero(): React.JSX.Element {
                     className={`${s.btn}`}
                     isWhite
                   >
-                    Deploy a Bitcoin L2 for AI
+                    Deploy an AI chain
                   </Button>
                 </Fade>
-                {/* <Fade delayEnter={2}>
+                <Fade delayEnter={DELAY + .4}>
                   <Button
                     onClick={() => {
-                      router.push('/use');
+                      window.open('https://docs.bvm.network/bvm/build-ai-on-bitcoin/decentralized-ai-beginner')
                     }}
                     className={`${s.btn}`}
                     isWhite
                   >
                    Deploy an AI dapp
                   </Button>
-                </Fade> */}
+                </Fade>
               </div>
 
               {/* <Fade delayEnter={2.2}>
