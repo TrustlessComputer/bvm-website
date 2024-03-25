@@ -16,7 +16,7 @@ const ShardTopMinersModule = () => {
       }}
     >
       <Loader />
-      <Box className={s.container} bgColor={'#f6f6f6'}>
+      <Box className={s.container} bgColor={'#FFF'}>
         <div className={s.heroSection}>
           <AboveTheFold />
         </div>
