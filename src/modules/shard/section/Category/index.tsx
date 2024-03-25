@@ -15,7 +15,7 @@ const cardGameFiData = [
     id: 1,
     title: 'Receive airdrops from different Bitcoin L2s',
     description:
-      'While we don’t want to spoil any surprises, you can expect some hot airdrops from Bitcoin L2 projects powered by BVM.<br/><br/>The more SHARD you have, the bigger airdrops you’ll likely receive.',
+      'While we don’t want to spoil any surprises, you can expect some hot airdrops from Bitcoin L2 projects powered by BVM. The more SHARD you have, the bigger airdrops you’ll likely receive.',
     image: '/shards/shard_2.webp',
     bgColorImage: '#8CD3C2',
   },
