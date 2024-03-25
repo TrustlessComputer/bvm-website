@@ -103,7 +103,7 @@ const Leaderboard = () => {
         id: 'Captain',
         label: (
           <Text fontSize="12px" textTransform="uppercase">
-            Captain
+            User
           </Text>
         ),
         labelConfig,
