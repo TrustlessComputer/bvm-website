@@ -1,5 +1,6 @@
 .container {
-  height: 510px;
+  height: calc(100dvh - 400px);
+  min-height: 550px;
   //border-radius: 20px;
   //border: 1px solid rgba(255, 255, 255, 0.10);
   padding: 0;
@@ -54,7 +55,7 @@ table {
           &:first-child {
             padding-left: 28px !important;;
           }
-          &:not(:first-child):not(:last-child) {
+          &:not(:first-child):not(:last-child):not(:nth-child(2)) {
             > div {
               justify-content: center;
               min-height: 24px;
@@ -96,7 +97,8 @@ table {
     &:last-child {
       padding-right: 28px !important;
     }
-    &:not(:first-child):not(:last-child) {
+
+    &:not(:first-child):not(:last-child):not(:nth-child(2)) {
       padding-left: 8px !important;
       padding-right: 8px !important;
       > div {
@@ -125,7 +127,11 @@ table {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-
+  }
+  &_member {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 70%;
   }
 
   &_needActive {
