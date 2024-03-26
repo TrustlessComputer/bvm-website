@@ -1,6 +1,6 @@
-import { StakeLeaderBoard, StakeMember } from '@/services/interfaces/stakeV2';
+import { StakeLeaderBoard } from '@/services/interfaces/stakeV2';
 import { Flex, Image, Td, Text, Tr } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React from 'react';
 import { formatCurrency, formatName } from '@/utils/format';
 import styles from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
@@ -13,7 +13,6 @@ import { getUrlAvatarTwitter } from '@utils/twitter';
 import { shortCryptoAddress } from '@utils/address';
 import { STAKE_MAX_DECIMAL } from '@/modules/shard/topMiners/constant';
 import useShareStakeOnX from '@/modules/shard/topMiners/hooks/useShareStakeOnX';
-import stakeV2Services from '@/services/stakeV2';
 
 interface IProps {
   data: StakeLeaderBoard;
@@ -21,10 +20,10 @@ interface IProps {
   cols: any[];
 }
 
-const LeaderboardItem = ({ data }: IProps) => {
+const LeaderboardItem = ({ data, i }: IProps) => {
+  console.log('data', data);
   // const { address } = useAuthen();
   const address = '';
-  const [members, setMembers] = useState<StakeMember[]>();
   const { onShareStakeOnX } = useShareStakeOnX();
   // const target = React.useMemo(() => {
   //   return getTarget({
@@ -34,41 +33,13 @@ const LeaderboardItem = ({ data }: IProps) => {
   //   });
   // }, [data?.principle_balance]);
 
-  useEffect(() => {
-    if(data) {
-      getStakeMembers();
-    }
-  }, [data]);
-
-  const firstMember = useMemo(() => {
-    if(members && members.length > 0) {
-      return members[0].user;
-    } else {
-      return null;
-    }
-  }, [members]);
-
-  const getStakeMembers = async () => {
-    if (!data?.team_code) {
-      return;
-    }
-    try {
-      const members = await stakeV2Services.getTeamMembers({
-        teamCode: data?.team_code || '',
-      });
-      setMembers(members);
-    } catch (e) {
-      setMembers([]);
-    }
-  };
-
   const isEther = React.useMemo(() => {
     return ethers.utils.isAddress(data?.twitter_username || data?.address);
   }, [data?.twitter_avatar]);
 
-  const isEtherFirstMember = React.useMemo(() => {
-    return ethers.utils.isAddress((firstMember?.twitter_username || firstMember?.address) as string);
-  }, [firstMember?.twitter_avatar]);
+  const isEtherCaptain = React.useMemo(() => {
+    return ethers.utils.isAddress((data?.captain_twitter_username || data?.captain_address) as string);
+  }, [data?.captain_twitter_avatar]);
 
   const onAvatarClick = () => {
     if (isEther) {
@@ -81,13 +52,13 @@ const LeaderboardItem = ({ data }: IProps) => {
   };
 
   const onFirstMemberAvatarClick = () => {
-    if (isEtherFirstMember) {
+    if (isEtherCaptain) {
       return window.open(
-        `https://explorer.nakachain.xyz/address/${firstMember?.address}`,
+        `https://explorer.nakachain.xyz/address/${data?.captain_address}`,
       );
     }
 
-    window.open(`https://twitter.com/${firstMember?.twitter_username}`);
+    window.open(`https://twitter.com/${data?.captain_twitter_username}`);
   };
 
   return (
@@ -98,6 +69,11 @@ const LeaderboardItem = ({ data }: IProps) => {
           [styles.leaderBoardItem_active as string]: data?.need_active,
         })}
       >
+        <Td>
+          <p className={styles.leaderBoardItem_name}>
+            {i + 1}
+          </p>
+        </Td>
         <Td>
           <Flex
             cursor="pointer"
@@ -183,20 +159,20 @@ const LeaderboardItem = ({ data }: IProps) => {
             gap="8px"
             alignItems="center"
           >
-            {isEtherFirstMember ? (
+            {isEtherCaptain ? (
               <Jazzicon
                 diameter={32}
-                seed={jsNumberForAddress((firstMember?.twitter_username || firstMember?.address) as string)}
+                seed={jsNumberForAddress((data?.captain_twitter_name || data?.captain_address) as string)}
               />
             ) : (
               <Avatar
                 url={getUrlAvatarTwitter(
-                  firstMember?.twitter_avatar as string,
+                  data?.captain_twitter_avatar as string,
                   'normal',
                 )}
-                address={firstMember?.address || ''}
+                address={data?.captain_address || ''}
                 width={32}
-                name={firstMember?.twitter_username || ''}
+                name={data?.captain_twitter_username || ''}
               />
             )}
             <Flex
@@ -206,15 +182,15 @@ const LeaderboardItem = ({ data }: IProps) => {
               alignItems="center"
             >
               <Flex flexDirection="column">
-                {firstMember?.twitter_name ? (
+                {data?.captain_twitter_name ? (
                   <>
                     <p className={styles.leaderBoardItem_name}>
-                      {formatName(firstMember?.twitter_name as string, 16)}
+                      {formatName(data?.captain_twitter_name as string, 16)}
                     </p>
                   </>
                 ) : (
                   <p className={styles.leaderBoardItem_name}>
-                    {shortCryptoAddress(firstMember?.address || ('' as string), 16)}
+                    {shortCryptoAddress(data?.captain_address || ('' as string), 16)}
                   </p>
                 )}
                 <p className={styles.leaderBoardItem_member}>{data.total_members} Member{labelAmountOrNumberAdds(data.total_members)}</p>
@@ -259,8 +235,16 @@ const LeaderboardItem = ({ data }: IProps) => {
         <Td>
           <Flex gap="4px" alignItems="center" justifyContent="flex-end">
             {/*<Image src={`/icons/stake_active.svg`} width="18px" height="18px" />*/}
-            <p className={styles.leaderBoardItem_award}>
+            <p className={styles.leaderBoardItem_amount}>
               +{formatCurrency(data.rewarded, 0, 2, 'BTC', false, 1000)} BVM
+            </p>
+          </Flex>
+        </Td>
+        <Td>
+          <Flex gap="4px" alignItems="center" justifyContent="flex-end">
+            {/*<Image src={`/icons/stake_active.svg`} width="18px" height="18px" />*/}
+            <p className={styles.leaderBoardItem_award}>
+              +{formatCurrency(data.multiplier_point, 0, 2, 'BTC', false, 1000)} BVM
             </p>
           </Flex>
         </Td>

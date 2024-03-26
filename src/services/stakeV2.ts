@@ -38,7 +38,7 @@ const getStakeHistory = async (params: {
 
 const getLeaderBoard = async (params: { page: number; limit: number }) => {
   const leaderBoards = (await apiClient.get(
-    `sttoken/leaderboards?page=${params.page}&limit=${params.limit}`,
+    `sttoken/leaderboards/v2?page=${params.page}&limit=${params.limit}`,
   )) as StakeLeaderBoard[];
   return leaderBoards || [];
 };

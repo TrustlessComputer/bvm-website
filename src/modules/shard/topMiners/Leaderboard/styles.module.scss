@@ -55,7 +55,7 @@ table {
           &:first-child {
             padding-left: 28px !important;;
           }
-          &:not(:first-child):not(:last-child):not(:nth-child(2)) {
+          &:not(:first-child):not(:last-child):not(:nth-child(2)):not(:nth-child(3)) {
             > div {
               justify-content: center;
               min-height: 24px;
@@ -98,7 +98,7 @@ table {
       padding-right: 28px !important;
     }
 
-    &:not(:first-child):not(:last-child):not(:nth-child(2)) {
+    &:not(:first-child):not(:last-child):not(:nth-child(2)):not(:nth-child(3)) {
       padding-left: 8px !important;
       padding-right: 8px !important;
       > div {
