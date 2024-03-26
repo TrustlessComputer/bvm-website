@@ -23,9 +23,10 @@ const CardFi = ({ ...props }: TCardFiProps) => {
         <div className={s.cardFiContent}>
           <div className={s.cardFiContent_inner}>
             <p className={s.cardFiContent_title}>{props.title}</p>
-            <div className={s.cardFiContent_des} dangerouslySetInnerHTML={{__html: props.description}}></div>
-            <div style={{marginTop: '16px'}}>
-              <Button
+            <div className={s.cardFiContent_desc} dangerouslySetInnerHTML={{__html: props.description}}></div>
+            <div style={{marginTop: '16px'}} >
+              <div className={s.cardFiContent_desc} dangerouslySetInnerHTML={{__html: props.actionTitle}}/>
+              {/*<Button
                 onClick={() => {
                   window.open(props.actionUrl, props.actionUrl.includes("https") ? '_blank' : '_self');
                 }}
@@ -33,7 +34,7 @@ const CardFi = ({ ...props }: TCardFiProps) => {
                 isOrange
               >
                 <div dangerouslySetInnerHTML={{__html: props.actionTitle}}/>
-              </Button>
+              </Button>*/}
             </div>
           </div>
         </div>

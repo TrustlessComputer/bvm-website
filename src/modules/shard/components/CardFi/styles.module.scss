@@ -41,6 +41,12 @@
         margin-bottom: 16px;
       }
     }
+
+    .cardFiContent_desc {
+      a {
+        text-decoration: underline;
+      }
+    }
   }
 
   @include min-xl {
