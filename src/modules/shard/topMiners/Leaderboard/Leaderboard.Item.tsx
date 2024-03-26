@@ -63,11 +63,11 @@ const LeaderboardItem = ({ data }: IProps) => {
   };
 
   const isEther = React.useMemo(() => {
-    return ethers.utils.isAddress(data?.twitter_username || '');
+    return ethers.utils.isAddress(data?.twitter_username || data?.address);
   }, [data?.twitter_avatar]);
 
   const isEtherFirstMember = React.useMemo(() => {
-    return ethers.utils.isAddress(firstMember?.twitter_username || '');
+    return ethers.utils.isAddress((firstMember?.twitter_username || firstMember?.address) as string);
   }, [firstMember?.twitter_avatar]);
 
   const onAvatarClick = () => {
@@ -108,7 +108,7 @@ const LeaderboardItem = ({ data }: IProps) => {
             {isEther ? (
               <Jazzicon
                 diameter={32}
-                seed={jsNumberForAddress(data?.twitter_username || '')}
+                seed={jsNumberForAddress(data?.twitter_username || data?.address)}
               />
             ) : (
               <Avatar
@@ -186,7 +186,7 @@ const LeaderboardItem = ({ data }: IProps) => {
             {isEtherFirstMember ? (
               <Jazzicon
                 diameter={32}
-                seed={jsNumberForAddress(firstMember?.twitter_username || '')}
+                seed={jsNumberForAddress((firstMember?.twitter_username || firstMember?.address) as string)}
               />
             ) : (
               <Avatar
