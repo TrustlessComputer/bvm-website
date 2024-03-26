@@ -27,7 +27,8 @@ const Contents: Array<IContent> = [
   },
   {
     title: 'Co-own and co-run the network',
-    desc: 'BVM is the BVM ecosystem’s governance token, allowing BVM holders to participate in key governance votes and shape the future of the BVM ecosystem.',
+    // desc: 'BVM is the BVM ecosystem’s governance token, allowing BVM holders to participate in key governance votes and shape the future of the BVM ecosystem.',
+    desc: 'Stake BVM to mine SHARD, the BVM ecosystem’s governance token, allowing BVM holders to participate in key governance votes and shape the future of the BVM ecosystem.',
     img: `/images/bvm_image3.png`,
     bgColor: '#A05700',
   },

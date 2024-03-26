@@ -26,8 +26,9 @@ const Section_1 = () => {
         color={'#000'}
         maxW={'709px'}
       >
-        BVM is the governance and utility token used within the BVM ecosystem to empower builders and users to build the
-        future of Bitcoin.
+        {/*BVM is the governance and utility token used within the BVM ecosystem to empower builders and users to build the*/}
+        {/*future of Bitcoin.*/}
+        BVM is the native cryptocurrency used within the BVM ecosystem to empower builders and users to build the future of Bitcoin.
       </Text>
       {/* <Flex flexDir={'column'} gap={'12px'} paddingTop={'8px'}>
         <Button
