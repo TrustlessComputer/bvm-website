@@ -15,7 +15,7 @@ const cardGameFiData = [
       '<!--As of March 25, 2024, the BVM Treasury is <strong>$195,035,230</strong>.<br/><br/>-->SHARD holders collectively make decisions and steer the direction of the BVM ecosystem. SHARD holders can propose and vote on various initiatives, including launching a marketing campaign, building a new product, or funding an ambitious Bitcoin L2 builder.',
     image: '/shard/shard_1.webp',
     bgColorImage: '#FAC5FF',
-    actionTitle: `Treasury <strong>50,000,000 BVM</strong>. <a href='/bvm' target='_self'>Learn more</a>`,
+    actionTitle: `Treasury <strong>50,000,000 BVM $treasuryValue</strong>. <a href='/bvm' target='_self'>Learn more</a>`,
     actionUrl: '/bvm',
   },
   {
@@ -61,7 +61,7 @@ const Category = () => {
           const treasuryValue = new BigNumberJS(50000000).multipliedBy(bvmPrice).toFixed(0);
           const data = {
             ...item,
-            actionTitle: id === 0 ? `Treasury <strong>50,000,000 BVM ($${formatCurrency(treasuryValue, 0, 0, 'BTC', true)})</strong>. <a href='/bvm' target='_self'>Learn more</a>` : item.actionTitle,
+            actionTitle: id === 0 ? item.actionTitle.replace('$treasuryValue', `($${formatCurrency(treasuryValue, 0, 0, 'BTC', true)})`) : item.actionTitle,
           }
           return <CardFi key={id} {...data} />;
         })}
