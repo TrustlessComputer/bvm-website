@@ -1,6 +1,11 @@
 import s from './style.module.scss';
 import ContainerDiv from '@components/Container';
 import CardFi from '@/modules/shard/components/CardFi';
+import { useSelector } from 'react-redux';
+import { commonSelector } from '@/stores/states/common/selector';
+import { useMemo } from 'react';
+import BigNumberJS from 'bignumber.js';
+import { formatCurrency } from '@utils/format';
 
 const cardGameFiData = [
   {
@@ -20,7 +25,7 @@ const cardGameFiData = [
       'While we don’t want to spoil any surprises, you can expect some hot airdrops from Bitcoin L2 projects powered by BVM. The more SHARD you have, the bigger airdrops you’ll likely receive.',
     image: '/shard/shard_2.webp',
     bgColorImage: '#8CD3C2',
-    actionTitle: `Upcoming airdrop: <strong>Eternal AI</strong>`,
+    actionTitle: `Upcoming airdrop: <strong>SHARD holders are among recipients of the 50,000,000 $EAI airdrop program</strong>`,
     actionUrl: 'https://eternalai.org/',
   },
   {
@@ -30,7 +35,7 @@ const cardGameFiData = [
       'When you stake BVM, you’ll both mine SHARD and earn BVM with a 25% - 58% interest.',
     image: '/shard/shard_3.webp',
     bgColorImage: '#FFD73B',
-    actionTitle: `Learn more`,
+    actionTitle: `Stake and earn up to 58% interest`,
     actionUrl: 'https://nakachain.xyz/staking/dashboard',
   },
   {
@@ -40,17 +45,26 @@ const cardGameFiData = [
       'You’ll have exclusive access to new crypto deals and exclusive launchpad projects — just for you. We’ll set aside some allocation for you. That’s why it’s incredible to be a SHARD holder.',
     image: '/shard/shard_4.webp',
     bgColorImage: '#B3FFBF',
-    actionTitle: `Upcoming project: <strong>Eternal AI</strong>`,
+    actionTitle: `Upcoming deal: <strong>Up to 30% bonus token from Eternal AI public sale</strong>`,
     actionUrl: 'https://nakachain.xyz/launchpad/detail/2',
   },
 ];
 
 const Category = () => {
+  const coinPrices = useSelector(commonSelector).coinPrices;
+  const bvmPrice = useMemo(() => coinPrices?.['BVM'] || '0', [coinPrices]);
+  console.log('bvmPrice', bvmPrice);
+
   return (
     <ContainerDiv>
       <div className={`${s.cateWrapper}`}>
         {cardGameFiData.map((item, id) => {
-          return <CardFi key={id} {...item} />;
+          const treasuryValue = new BigNumberJS(50000000).multipliedBy(bvmPrice).toFixed(0);
+          const data = {
+            ...item,
+            actionTitle: id === 0 ? `Treasury <strong>50,000,000 BVM ($${formatCurrency(treasuryValue, 0, 0, 'BTC', true)})</strong>` : item.actionTitle,
+          }
+          return <CardFi key={id} {...data} />;
         })}
       </div>
     </ContainerDiv>
