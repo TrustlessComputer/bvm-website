@@ -23,7 +23,7 @@ const Hero = () => {
           className={`${s.btn}`}
           isOrange
         >
-          Top SHARD miners
+          TOP SHARD MINERS
         </Button>
         <Button
           onClick={() => {
