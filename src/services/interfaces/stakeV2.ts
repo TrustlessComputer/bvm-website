@@ -102,4 +102,10 @@ export interface StakeLeaderBoard {
   twitter_username: string;
   twitter_avatar: string;
   rewarded: string;
+  captain_address: string;
+  captain_twitter_id: string;
+  captain_twitter_name: string;
+  captain_twitter_username: string;
+  captain_twitter_avatar: string;
+  multiplier_point: string;
 }

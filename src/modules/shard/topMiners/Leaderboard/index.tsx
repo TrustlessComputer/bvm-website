@@ -100,6 +100,15 @@ const Leaderboard = () => {
   const columns: ColumnProp[] = useMemo(() => {
     return [
       {
+        id: 'Rank',
+        label: (
+          <Text fontSize="12px" textTransform="uppercase">
+            Rank
+          </Text>
+        ),
+        labelConfig,
+      },
+      {
         id: 'Captain',
         label: (
           <Text fontSize="12px" textTransform="uppercase">
@@ -139,7 +148,16 @@ const Leaderboard = () => {
         id: 'Earned',
         label: (
           <Text textAlign="center" fontSize="12px" textTransform="uppercase">
-            Earned
+            Earned BVM
+          </Text>
+        ),
+        labelConfig,
+      },
+      {
+        id: 'Mined',
+        label: (
+          <Text textAlign="center" fontSize="12px" textTransform="uppercase">
+            Mined Shard
           </Text>
         ),
         labelConfig,
