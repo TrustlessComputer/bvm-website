@@ -5,6 +5,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  ModalFooter,
 } from '@chakra-ui/modal';
 import { Flex } from '@chakra-ui/react';
 import cs from 'classnames';
@@ -20,6 +21,7 @@ export interface IBaseModalProps {
   description?: string;
   headerClassName?: string;
   icCloseUrl?: string;
+  footerElement?: any;
 }
 
 const BaseModal = (
@@ -35,6 +37,7 @@ const BaseModal = (
     headerClassName,
     size = 'normal',
     icCloseUrl = '/icons/ic_close_modal.svg',
+    footerElement,
   } = props;
 
   return (
@@ -55,6 +58,7 @@ const BaseModal = (
           )}
           {children}
         </ModalBody>
+        {footerElement && <ModalFooter>{footerElement}</ModalFooter>}
       </ModalContent>
     </Modal>
   );

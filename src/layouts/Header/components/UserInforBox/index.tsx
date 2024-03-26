@@ -1,11 +1,13 @@
-import { useAuthenticatedUserInfo } from '@/Providers/AuthenticatedProvider/hooks';
+// import { useAuthenticatedUserInfo } from '@/Providers/AuthenticatedProvider/hooks';
+import { useWeb3Auth } from '@/Providers/AuthenticatedProvider_vs2/Web3Auth.hook';
 import Avatar from '@/components/Avatar';
 import { Flex, Text } from '@chakra-ui/react';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const UserInforBox: React.FC = (): React.ReactElement => {
-  const userInfor = useAuthenticatedUserInfo();
+  // const userInfor = useAuthenticatedUserInfo();
+  const { userInfo } = useWeb3Auth();
   const router = useRouter();
   const pathname = usePathname();
   const [isShow, setShow] = useState(true);
@@ -64,7 +66,7 @@ const UserInforBox: React.FC = (): React.ReactElement => {
       }}
     >
       <Avatar
-        url={userInfor?.profile_image || ''}
+        url={userInfo?.profileImage || ''}
         width={36}
         square={true}
         circle={false}
