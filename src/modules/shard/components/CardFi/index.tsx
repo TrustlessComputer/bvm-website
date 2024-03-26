@@ -10,7 +10,6 @@ type TCardFiProps = {
   image: string;
   bgColorImage: string;
   actionTitle: string;
-  actionUrl: string;
 };
 
 const CardFi = ({ ...props }: TCardFiProps) => {

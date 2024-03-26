@@ -13,9 +13,11 @@ const AboveTheFold = () => {
     <Flex className={s.container}>
       <BoxContent>
         <Flex className={s.inner}>
-          <Text className={s.title}>Top SHARD miners</Text>
           <Flex className={s.content}>
-            <Text className={s.description}>Stake to mine SHARD, earn more BVM, receive airdrops, and gain exclusive access to launchpads.</Text>
+            <Flex direction={"column"} gap={"12px"}>
+              <Text className={s.title}>Top SHARD miners</Text>
+              <Text className={s.description}>Stake to mine SHARD, earn more BVM, receive airdrops, and gain exclusive access to launchpads.</Text>
+            </Flex>
             <Flex direction={["column", "column"]} gap={"16px"}>
               <Button
                 onClick={() => {
