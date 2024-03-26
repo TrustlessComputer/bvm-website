@@ -24,7 +24,7 @@ const AboveTheFold = () => {
                 className={`${s.btn}`}
                 isOrange
               >
-                Stake
+                Stake BVM
               </Button>
               <Button
                 onClick={() => {
@@ -32,7 +32,7 @@ const AboveTheFold = () => {
                 }}
                 className={`${s.btn} ${s.btnBorder}`}
               >
-                View SHARD dashboard
+                Mine SHARD
               </Button>
             </Flex>
           </Flex>
