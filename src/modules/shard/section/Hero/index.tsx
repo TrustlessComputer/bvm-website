@@ -32,7 +32,7 @@ const Hero = () => {
           className={`${s.btn}`}
           isOrange
         >
-          Mine SHARD
+          START MINING SHARD
         </Button>
       </div>
     </div>
