@@ -39,6 +39,7 @@ export const formatCurrency = (
   maximumFractionDigits = 2,
   symbol = 'TC',
   hideAbbr = false,
+  numNeedAbbr = 100000,
 ): string => {
   if (isNaN(Number(value))) return '0';
 
@@ -54,7 +55,12 @@ export const formatCurrency = (
         minimumFractionDigits: 0,
       };
     } else {
-      if (Number(value) < 0.001) {
+      if (Number(value) < 0.00000001) {
+        config = {
+          maximumFractionDigits: 13,
+          minimumFractionDigits: 0,
+        };
+      } else if (Number(value) < 0.01) {
         config = {
           maximumFractionDigits: 7,
           minimumFractionDigits: 0,
@@ -71,7 +77,7 @@ export const formatCurrency = (
       maximumFractionDigits: maximumFractionDigits,
       minimumFractionDigits: minimumFractionDigits,
     };
-  } else if (Number(value) >= 10000 && !hideAbbr) {
+  } else if (Number(value) >= numNeedAbbr && !hideAbbr) {
     return abbreviateNumber(value);
   } else if (Number(value) >= 1000) {
     config = {
@@ -81,7 +87,7 @@ export const formatCurrency = (
   }
 
   const result = new Intl.NumberFormat('en-US', config);
-  return result.format(value);
+  return result.format(parseFloat(value));
 };
 
 export const formatName = (name: string, length = 12): string => {
