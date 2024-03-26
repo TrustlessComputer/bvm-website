@@ -16,7 +16,7 @@ const Hero = () => {
       <img className={s.hero_icon} src={'/shard/shard_icon.webp'} alt={"shard_icon`"}/>
       <Heading title={title} desc={desc} className={s.hero_content} />
       <div className={s.hero_action}>
-        {/*<Button
+        <Button
           onClick={() => {
             router.push(SHARD_TOP_MINERS);
           }}
@@ -24,7 +24,7 @@ const Hero = () => {
           isOrange
         >
           Top SHARD miners
-        </Button>*/}
+        </Button>
         <Button
           onClick={() => {
             window.open('https://nakachain.xyz/staking/dashboard', '_blank');
