@@ -109,23 +109,32 @@ const Leaderboard = () => {
         labelConfig,
       },
       {
-        id: 'Total',
+        id: 'SquaD',
         label: (
           <Text fontSize="12px" textTransform="uppercase">
-            Total staking
+            SquaD
           </Text>
         ),
         labelConfig,
       },
       {
-        id: 'Members',
+        id: 'Total',
         label: (
-          <Text textAlign="center" fontSize="12px" textTransform="uppercase">
-            Members
+          <Text fontSize="12px" textTransform="uppercase">
+            Staking AMOUNT
           </Text>
         ),
         labelConfig,
       },
+      // {
+      //   id: 'Members',
+      //   label: (
+      //     <Text textAlign="center" fontSize="12px" textTransform="uppercase">
+      //       Members
+      //     </Text>
+      //   ),
+      //   labelConfig,
+      // },
       {
         id: 'Earned',
         label: (

@@ -1,22 +1,19 @@
-import { StakeLeaderBoard } from '@/services/interfaces/stakeV2';
+import { StakeLeaderBoard, StakeMember } from '@/services/interfaces/stakeV2';
 import { Flex, Image, Td, Text, Tr } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { formatCurrency, formatName } from '@/utils/format';
 import styles from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 import cs from 'classnames';
-import { stakeUserSelector } from '@/stores/states/stakingV2/selector';
-import { StakeV2Role } from '@/contract/stakeV2/types';
 import Avatar from '@/components/Avatar';
 import { ethers } from 'ethers';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { compareString } from '@/utils/string';
+import { compareString, labelAmountOrNumberAdds } from '@/utils/string';
 import { getUrlAvatarTwitter } from '@utils/twitter';
 import { shortCryptoAddress } from '@utils/address';
-import { CDN_URL_ICONS } from '@/config';
-import { useAppSelector } from '@/stores/hooks';
 import { STAKE_MAX_DECIMAL } from '@/modules/shard/topMiners/constant';
 import useShareStakeOnX from '@/modules/shard/topMiners/hooks/useShareStakeOnX';
+import stakeV2Services from '@/services/stakeV2';
 
 interface IProps {
   data: StakeLeaderBoard;
@@ -27,7 +24,7 @@ interface IProps {
 const LeaderboardItem = ({ data }: IProps) => {
   // const { address } = useAuthen();
   const address = '';
-  const stakeUser = useAppSelector(stakeUserSelector);
+  const [members, setMembers] = useState<StakeMember[]>();
   const { onShareStakeOnX } = useShareStakeOnX();
   // const target = React.useMemo(() => {
   //   return getTarget({
@@ -37,9 +34,41 @@ const LeaderboardItem = ({ data }: IProps) => {
   //   });
   // }, [data?.principle_balance]);
 
+  useEffect(() => {
+    if(data) {
+      getStakeMembers();
+    }
+  }, [data]);
+
+  const firstMember = useMemo(() => {
+    if(members && members.length > 0) {
+      return members[0].user;
+    } else {
+      return null;
+    }
+  }, [members]);
+
+  const getStakeMembers = async () => {
+    if (!data?.team_code) {
+      return;
+    }
+    try {
+      const members = await stakeV2Services.getTeamMembers({
+        teamCode: data?.team_code || '',
+      });
+      setMembers(members);
+    } catch (e) {
+      setMembers([]);
+    }
+  };
+
   const isEther = React.useMemo(() => {
     return ethers.utils.isAddress(data?.twitter_username || '');
   }, [data?.twitter_avatar]);
+
+  const isEtherFirstMember = React.useMemo(() => {
+    return ethers.utils.isAddress(firstMember?.twitter_username || '');
+  }, [firstMember?.twitter_avatar]);
 
   const onAvatarClick = () => {
     if (isEther) {
@@ -49,6 +78,16 @@ const LeaderboardItem = ({ data }: IProps) => {
     }
 
     window.open(`https://twitter.com/${data?.twitter_username}`);
+  };
+
+  const onFirstMemberAvatarClick = () => {
+    if (isEtherFirstMember) {
+      return window.open(
+        `https://explorer.nakachain.xyz/address/${firstMember?.address}`,
+      );
+    }
+
+    window.open(`https://twitter.com/${firstMember?.twitter_username}`);
   };
 
   return (
@@ -92,7 +131,7 @@ const LeaderboardItem = ({ data }: IProps) => {
                 {data?.twitter_name ? (
                   <>
                     <p className={styles.leaderBoardItem_name}>
-                      {formatName(data?.twitter_name as string, data?.twitter_name?.length)}
+                      {formatName(data?.twitter_name as string, 16)}
                     </p>
                     {data.need_active &&
                       compareString(data?.address, address) && (
@@ -101,7 +140,7 @@ const LeaderboardItem = ({ data }: IProps) => {
                   </>
                 ) : (
                   <p className={styles.leaderBoardItem_name}>
-                    {shortCryptoAddress(data?.address || ('' as string), data?.address?.length)}
+                    {shortCryptoAddress(data?.address || ('' as string), 16)}
                     {data.need_active &&
                       compareString(data?.address, address) && (
                         <Text color="black !important">(YOU)</Text>
@@ -138,6 +177,52 @@ const LeaderboardItem = ({ data }: IProps) => {
           </Flex>
         </Td>
         <Td>
+          <Flex
+            cursor="pointer"
+            onClick={onFirstMemberAvatarClick}
+            gap="8px"
+            alignItems="center"
+          >
+            {isEtherFirstMember ? (
+              <Jazzicon
+                diameter={32}
+                seed={jsNumberForAddress(firstMember?.twitter_username || '')}
+              />
+            ) : (
+              <Avatar
+                url={getUrlAvatarTwitter(
+                  firstMember?.twitter_avatar as string,
+                  'normal',
+                )}
+                address={firstMember?.address || ''}
+                width={32}
+                name={firstMember?.twitter_username || ''}
+              />
+            )}
+            <Flex
+              width={'100%'}
+              gap={'12px'}
+              direction={'row'}
+              alignItems="center"
+            >
+              <Flex flexDirection="column">
+                {firstMember?.twitter_name ? (
+                  <>
+                    <p className={styles.leaderBoardItem_name}>
+                      {formatName(firstMember?.twitter_name as string, 16)}
+                    </p>
+                  </>
+                ) : (
+                  <p className={styles.leaderBoardItem_name}>
+                    {shortCryptoAddress(firstMember?.address || ('' as string), 16)}
+                  </p>
+                )}
+                <p className={styles.leaderBoardItem_member}>{data.total_members} Member{labelAmountOrNumberAdds(data.total_members)}</p>
+              </Flex>
+            </Flex>
+          </Flex>
+        </Td>
+        <Td>
           <Flex gap="4px" alignItems="center">
             <Image
               src={`/shard/bvm_icon.svg`}
@@ -156,7 +241,7 @@ const LeaderboardItem = ({ data }: IProps) => {
             </p>
           </Flex>
         </Td>
-        <Td>
+        {/*<Td>
           <Flex gap="8px" alignItems="center">
             <Text
               fontSize="16px"
@@ -167,17 +252,9 @@ const LeaderboardItem = ({ data }: IProps) => {
               color="black !important"
             >
               {data.total_members}
-              {data.need_active &&
-              stakeUser?.teamRole === StakeV2Role.member ? (
-                <span style={{ fontSize: '12px', color: 'black' }}>{`\n(YOU +${
-                  Number(data.total_members || 0) - 1
-                })`}</span>
-              ) : (
-                ''
-              )}
             </Text>
           </Flex>
-        </Td>
+        </Td>*/}
         <Td>
           <Flex gap="4px" alignItems="center" justifyContent="flex-end">
             {/*<Image src={`/icons/stake_active.svg`} width="18px" height="18px" />*/}
