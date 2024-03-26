@@ -63,11 +63,11 @@ const LeaderboardItem = ({ data }: IProps) => {
   };
 
   const isEther = React.useMemo(() => {
-    return ethers.utils.isAddress(data?.twitter_username || '');
+    return ethers.utils.isAddress(data?.twitter_username || data?.address);
   }, [data?.twitter_avatar]);
 
   const isEtherFirstMember = React.useMemo(() => {
-    return ethers.utils.isAddress(firstMember?.twitter_username || '');
+    return ethers.utils.isAddress((firstMember?.twitter_username || firstMember?.address) as string);
   }, [firstMember?.twitter_avatar]);
 
   const onAvatarClick = () => {
@@ -108,7 +108,7 @@ const LeaderboardItem = ({ data }: IProps) => {
             {isEther ? (
               <Jazzicon
                 diameter={32}
-                seed={jsNumberForAddress(data?.twitter_username || '')}
+                seed={jsNumberForAddress(data?.twitter_username || data?.address)}
               />
             ) : (
               <Avatar
@@ -186,7 +186,7 @@ const LeaderboardItem = ({ data }: IProps) => {
             {isEtherFirstMember ? (
               <Jazzicon
                 diameter={32}
-                seed={jsNumberForAddress(firstMember?.twitter_username || '')}
+                seed={jsNumberForAddress((firstMember?.twitter_username || firstMember?.address) as string)}
               />
             ) : (
               <Avatar
@@ -236,6 +236,7 @@ const LeaderboardItem = ({ data }: IProps) => {
                 STAKE_MAX_DECIMAL,
                 'BTC',
                 false,
+                1000
               )}{' '}
               BVM
             </p>
@@ -259,7 +260,7 @@ const LeaderboardItem = ({ data }: IProps) => {
           <Flex gap="4px" alignItems="center" justifyContent="flex-end">
             {/*<Image src={`/icons/stake_active.svg`} width="18px" height="18px" />*/}
             <p className={styles.leaderBoardItem_award}>
-              +{formatCurrency(data.rewarded, 0, 2, 'BTC', false)} BVM
+              +{formatCurrency(data.rewarded, 0, 2, 'BTC', false, 1000)} BVM
             </p>
           </Flex>
         </Td>
