@@ -53,7 +53,6 @@ const cardGameFiData = [
 const Category = () => {
   const coinPrices = useSelector(commonSelector).coinPrices;
   const bvmPrice = useMemo(() => coinPrices?.['BVM'] || '0', [coinPrices]);
-  console.log('bvmPrice', bvmPrice);
 
   return (
     <ContainerDiv>
