@@ -1,6 +1,6 @@
-import { StakeLeaderBoard, StakeMember } from '@/services/interfaces/stakeV2';
+import { StakeLeaderBoard } from '@/services/interfaces/stakeV2';
 import { Flex, Image, Td, Text, Tr } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React from 'react';
 import { formatCurrency, formatName } from '@/utils/format';
 import styles from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
@@ -13,7 +13,6 @@ import { getUrlAvatarTwitter } from '@utils/twitter';
 import { shortCryptoAddress } from '@utils/address';
 import { STAKE_MAX_DECIMAL } from '@/modules/shard/topMiners/constant';
 import useShareStakeOnX from '@/modules/shard/topMiners/hooks/useShareStakeOnX';
-import stakeV2Services from '@/services/stakeV2';
 
 interface IProps {
   data: StakeLeaderBoard;
