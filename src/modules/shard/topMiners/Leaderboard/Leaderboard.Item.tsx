@@ -244,7 +244,7 @@ const LeaderboardItem = ({ data, i }: IProps) => {
           <Flex gap="4px" alignItems="center" justifyContent="flex-end">
             {/*<Image src={`/icons/stake_active.svg`} width="18px" height="18px" />*/}
             <p className={styles.leaderBoardItem_award}>
-              +{formatCurrency(data.multiplier_point, 0, 2, 'BTC', false, 1000)} BVM
+              +{formatCurrency(data.multiplier_point, 0, 2, 'BTC', false, 1000)} SHARD
             </p>
           </Flex>
         </Td>

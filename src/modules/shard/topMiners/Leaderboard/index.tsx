@@ -25,17 +25,14 @@ const Leaderboard = () => {
   });
 
   const sortList = (arr: StakeLeaderBoard[]): StakeLeaderBoard[] => {
-    return uniqBy(
-      orderBy(
-        arr,
-        [
-          (item: StakeLeaderBoard) =>
-            compareString(item.team_code, stakeUser?.userTeamCode),
-          (item: StakeLeaderBoard) => new BigNumberJS(item.rewarded).toNumber(),
-        ],
-        ['desc', 'desc'],
-      ),
-      (item: StakeLeaderBoard) => item.team_code,
+    return orderBy(
+      arr,
+      [
+        (item: StakeLeaderBoard) =>
+          compareString(item.team_code, stakeUser?.userTeamCode),
+        (item: StakeLeaderBoard) => new BigNumberJS(item.rewarded).toNumber(),
+      ],
+      ['desc', 'desc'],
     );
   };
 
