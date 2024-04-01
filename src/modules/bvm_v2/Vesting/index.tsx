@@ -1,7 +1,7 @@
-import { Box, Table, Text, Flex } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import s from './Vesting.module.scss';
-import BoxContent from '@/layouts/BoxContent';
+// import BoxContent from '@/layouts/BoxContent';
 import { apiClient } from '@/services/index';
 import { DEX_API } from '@/config';
 import { abbreviateNumber } from '@/utils/format';
@@ -20,7 +20,7 @@ interface IVesting {
 
 const Vesting = () => {
   const [vestings, setVestings] = useState<IVesting[]>();
-  const [showDetail, setShowDetail] = useState(false);
+  const [showDetail, _] = useState(true);
 
   useEffect(() => {
     onGetVesting();
@@ -49,15 +49,17 @@ const Vesting = () => {
     } catch (error) {}
   };
 
-  const onClickVesting = () => {
-    setShowDetail(!showDetail);
-  };
+  // const onClickVesting = () => {
+  //   setShowDetail(!showDetail);
+  // };
 
   return (
     <Box className={s.wrapper} position={'relative'}>
       <Box className={s.table_wrapper}>
-        <Text fontSize="24px">BVM Vesting 5 Year Schedule</Text>
-        <Flex w="100%" justifyContent="center" alignItems="center">
+        <Text mb={{ base: '24px', lg: '32px' }} fontSize="24px">
+          BVM 5 Year Vesting
+        </Text>
+        {/* <Flex w="100%" justifyContent="center" alignItems="center">
           <Text
             mt={{ base: '24px', lg: '32px' }}
             mb={'12px'}
@@ -71,7 +73,7 @@ const Vesting = () => {
           >
             {showDetail ? 'Back' : 'More details'}
           </Text>
-        </Flex>
+        </Flex> */}
         <table className={s.vesting_table}>
           <thead>
             {showDetail ? (
