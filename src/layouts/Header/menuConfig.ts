@@ -90,6 +90,11 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
     subMenu: [
       {
+        href: '/use-bitcoin',
+        label: 'Success Stories',
+        isNewWindow: false,
+      },
+      {
         href: '/ai',
         label: 'Bitcoin L2 for AI',
         isNewWindow: false,
@@ -118,19 +123,25 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isNewWindow: false,
   //   isHide: false,
   // },
-  {
-    label: 'Success Stories',
-    href: '/use-bitcoin',
-    isNewWindow: false,
-    isHide: false,
-  },
+  // {
+  //   label: 'Success Stories',
+  //   href: '/use-bitcoin',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
 
   {
-    label: 'Buy $BVM',
+    label: 'Buy BVM',
     href: '/bvm',
     isNewWindow: false,
     isHide: false,
     isStrong: true,
+  },
+  {
+    label: 'Mine SHARD',
+    href: '/shard',
+    isNewWindow: false,
+    isHide: false,
   },
 
   // {

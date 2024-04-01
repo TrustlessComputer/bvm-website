@@ -10,6 +10,7 @@ export enum Coin {
   BTC = 'BTC',
   ETH = 'ETH',
   TIA = 'TIA',
+  BVM = 'BVM',
 }
 
 export interface CommonState {
