@@ -103,7 +103,8 @@ const Vesting = () => {
                           {abbreviateNumber(vesting?.unclocked)}
                         </td>
                         <td style={{ textAlign: 'center' }}>
-                          {dayjs(vesting?.next_vesting).format('MMM D, YYYY')}
+                          {dayjs(vesting?.next_vesting).isAfter(new Date()) &&
+                            dayjs(vesting?.next_vesting).format('MMM D, YYYY')}
                         </td>
                         <td style={{ textAlign: 'center' }}>
                           {abbreviateNumber(vesting?.next_vesting_amount)}
@@ -130,19 +131,23 @@ const Vesting = () => {
             )}
           </tbody>
         </table>
-        {/* <Flex w="100%" justifyContent="center" alignItems="center">
+        <Flex w="100%" justifyContent="center" alignItems="center">
           <Text
             mt={{ base: '24px', lg: '32px' }}
-            fontSize="16px"
+            fontSize="20px"
             w="fit-content"
             textAlign="center"
             cursor={'pointer'}
-            opacity={0.8}
-            textDecoration={'underline'}
+            color="#FFA888"
+            onClick={() =>
+              window.open(
+                'https://explorer.nakachain.xyz/address/0x79a7B81D47431E5D866A4Ad5900185795bb92723',
+              )
+            }
           >
-            {'View contract'}
+            {'Smart contract'}
           </Text>
-        </Flex> */}
+        </Flex>
       </Box>
     </Box>
   );
