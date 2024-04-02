@@ -42,14 +42,14 @@ const Tokens = () => {
         color: '#FF5717',
       },
       {
-        title: 'liquidity',
-        value: Number(liquidityPercent),
-        color: '#0B99FF',
-      },
-      {
         title: 'staked',
         value: Number(stakedPercent),
         color: '#B77AE1',
+      },
+      {
+        title: 'liquidity',
+        value: Number(liquidityPercent),
+        color: '#0B99FF',
       },
       {
         title: 'vesting',
