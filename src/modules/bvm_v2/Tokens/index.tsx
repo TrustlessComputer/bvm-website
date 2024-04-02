@@ -88,7 +88,7 @@ const Tokens = () => {
         <Text as="h4" className={s.heading}>
           Tokens
         </Text>
-        <Text className={s.desc}>Platform, ...</Text>
+        <Text className={s.desc}></Text>
         <Flex direction="column" className={s.content}>
           <Flex
             className={s.wContent}

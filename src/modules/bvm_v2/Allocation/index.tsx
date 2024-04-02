@@ -13,9 +13,9 @@ const Allocation = () => {
     >
       <Box maxW={{ base: '100vw', lg: 1500 }} px={'24px'} position={'relative'}>
         <Text as="h4" className={s.heading}>
-          Vesting
+          Vesting schedule
         </Text>
-        <Text className={s.desc}>Platform, ...</Text>
+        <Text className={s.desc}></Text>
         <Flex direction="column" className={s.content}>
           <Flex
             className={s.wContent}
@@ -25,7 +25,13 @@ const Allocation = () => {
             justifyContent="space-between"
           >
             <Text className={s.title}>BVM Unlock Schedule</Text>
-            <a className={s.link}>Smart contract ↗</a>
+            <a
+              href="https://explorer.nakachain.xyz/address/0x79a7B81D47431E5D866A4Ad5900185795bb92723"
+              target="_blank"
+              className={s.link}
+            >
+              Smart contract ↗
+            </a>
           </Flex>
           <Flex w="100%" flex={1} justifyContent="center">
             <BoxContent>
