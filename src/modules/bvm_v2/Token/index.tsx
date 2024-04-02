@@ -152,7 +152,7 @@ const Tokens = () => {
                     <Text className={s.priceValue}>
                       $
                       {formatCurrency(
-                        new BigNumber(report?.market_cap).multipliedBy(
+                        new BigNumber('25000000').multipliedBy(
                           Number(report?.bvm_price).toString(),
                         ),
                         0,
