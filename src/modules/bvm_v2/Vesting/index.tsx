@@ -145,7 +145,7 @@ const Vesting = () => {
               )
             }
           >
-            {'Smart contract'}
+            {'Smart contract ↗'}
           </Text>
         </Flex>
       </Box>
