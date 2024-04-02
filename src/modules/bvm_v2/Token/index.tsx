@@ -91,8 +91,14 @@ const Tokens = () => {
         px={'24px'}
         position={'relative'}
       >
-        <Text as="h4" className={s.heading}>
-          Token
+        <Text
+          fontSize={['28px', '40px']}
+          lineHeight={{ base: '140%', md: '120%' }}
+          fontWeight={400}
+          textAlign={'center'}
+          mb={{ base: '24px', md: '40px' }}
+        >
+          Overview
         </Text>
         <Flex direction="column" className={s.content}>
           <Flex w="100%" flex={1} justifyContent="center">

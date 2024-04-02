@@ -24,10 +24,10 @@ const BVMModule = () => {
       <Box className={s.container}>
         <TgeModule />
         <Box h={['20px', '40px']} />
-
+        <Tokens />
         <div className={s.container_section_tow}>
           <BoxContent minH={'100dvh'}>
-            <Box h={['120px', '180px']} />
+            <Box h={['120px', '80px']} />
             <Fade delayEnter={0.6}>
               <Section1 />
             </Fade>
@@ -40,7 +40,7 @@ const BVMModule = () => {
             {/*<Schedule />*/}
           </BoxContent>
         </div>
-        <Tokens />
+
         <Allocation />
       </Box>
     </div>
