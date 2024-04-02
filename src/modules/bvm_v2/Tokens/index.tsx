@@ -1,6 +1,9 @@
 import BoxContent from '@/layouts/BoxContent';
+import { apiClient } from '@/services/index';
+import { formatCurrency } from '@/utils/format';
 import { Box, Flex, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import BigNumber from 'bignumber.js';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useHover, useLayer, useMousePositionAsTrigger } from 'react-laag';
 import { PieChart } from 'react-minimal-pie-chart';
 import s from './Tokens.module.scss';
@@ -20,19 +23,55 @@ const Tokens = () => {
     trigger,
   });
 
-  const _data = [
-    { title: 'liquidity', value: 10, color: '#99D95F' },
-    { title: 'staked', value: 15, color: '#FF5717' },
-    { title: 'not staked', value: 20, color: '#0B99FF' },
-  ];
-
   const [hovered, setHovered] = useState<number | null>(null);
+
+  const [report, setReport] = useState<any>();
+
+  const _data = useMemo(() => {
+    const liquidityPercent =
+      (Number(report?.liquidity) / Number(report?.circulating_supply)) * 100;
+    const stakedPercent =
+      (Number(report?.stake_balance) / Number(report?.circulating_supply)) *
+      100;
+    const notStakedPercent = 100 - (liquidityPercent + stakedPercent);
+    return [
+      {
+        title: 'not staked',
+        value: Number(notStakedPercent.toFixed(0)),
+        color: '#FF5717',
+      },
+      {
+        title: 'liquidity',
+        value: Number(liquidityPercent.toFixed(0)),
+        color: '#0B99FF',
+      },
+      {
+        title: 'staked',
+        value: Number(stakedPercent.toFixed(0)),
+        color: '#99D95F',
+      },
+    ];
+  }, [report]);
+
   const data = _data.map(({ title, ...entry }) => {
     return {
       ...entry,
       tooltip: title,
     };
   });
+
+  useEffect(() => {
+    onGetReport();
+  }, []);
+
+  const onGetReport = async () => {
+    try {
+      const result = await apiClient.get(
+        `https://api.nakachain.xyz/api/bvm/report`,
+      );
+      setReport(result);
+    } catch (error) {}
+  };
 
   return (
     <Box
@@ -70,7 +109,7 @@ const Tokens = () => {
                 p={'20px'}
               >
                 <Flex
-                  flex={{ base: 1, lg: 0.7 }}
+                  flex={{ base: 1, lg: 0.5 }}
                   w="100%"
                   direction="column"
                   gap="8px"
@@ -78,26 +117,46 @@ const Tokens = () => {
                 >
                   <Flex className={s.priceItem}>
                     <Text className={s.price}> • Price</Text>
-                    <a className={s.link}>Extra link ↗</a>
+                    <Text className={s.priceValue}>
+                      ${formatCurrency(report?.bvm_price)}
+                    </Text>
                   </Flex>
                   <Flex className={s.priceItem}>
                     <Text className={s.price}> • Supply</Text>
-                    <Text className={s.priceValue}>$675,774,146</Text>
+                    <Text className={s.priceValue}>100,000,000 BVM</Text>
                   </Flex>
                   <Flex className={s.priceItem}>
                     <Text className={s.price}> • Total Staked</Text>
-                    <Text className={s.priceValue}>$675,774,146</Text>
+                    <Text className={s.priceValue}>
+                      $
+                      {formatCurrency(
+                        new BigNumber(report?.stake_balance).multipliedBy(
+                          Number(report?.bvm_price).toString(),
+                        ),
+                        0,
+                        0,
+                        '',
+                        true,
+                      )}
+                    </Text>
                   </Flex>
                   <Flex className={s.priceItem}>
                     <Text className={s.price}> • Market Cap</Text>
-                    <Text className={s.priceValue}>$675,774,146</Text>
-                  </Flex>
-                  <Flex className={s.priceItem}>
-                    <Text className={s.price}> • Vesting</Text>
-                    <Text className={s.priceValue}>$675,774,146</Text>
+                    <Text className={s.priceValue}>
+                      $
+                      {formatCurrency(
+                        new BigNumber(report?.market_cap).multipliedBy(
+                          Number(report?.bvm_price).toString(),
+                        ),
+                        0,
+                        0,
+                        '',
+                        true,
+                      )}
+                    </Text>
                   </Flex>
                 </Flex>
-                <Flex flex={0.3} justifyContent="center" ref={parentRef}>
+                <Flex flex={0.5} justifyContent="center" ref={parentRef}>
                   <Box
                     position="relative"
                     className={s.pieChart}
@@ -110,6 +169,7 @@ const Tokens = () => {
                       onMouseOver={(_, index) => {
                         setHovered(index);
                       }}
+                      totalValue={100}
                     />
                     <Box
                       position="absolute"
@@ -126,7 +186,7 @@ const Tokens = () => {
                         alignItems="center"
                         h="100%"
                       >
-                        <Text color="#FF6126" fontWeight="500">
+                        <Text color="#FF6126" fontSize="18px" fontWeight="500">
                           $BVM
                         </Text>
                       </Box>
@@ -134,9 +194,9 @@ const Tokens = () => {
                     {isOver &&
                       renderLayer(
                         <div className={s.tooltip} {...layerProps}>
-                          {typeof hovered === 'number'
-                            ? makeTooltipContent(_data[hovered])
-                            : null}
+                          {typeof hovered === 'number' && (
+                            <p>{makeTooltipContent(_data[hovered])}</p>
+                          )}
                         </div>,
                       )}
                   </Box>

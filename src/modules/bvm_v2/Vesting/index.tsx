@@ -105,7 +105,8 @@ const Vesting = () => {
                           {abbreviateNumber(vesting?.unclocked)}
                         </td>
                         <td style={{ textAlign: 'center' }}>
-                          {dayjs(vesting?.next_vesting).format('MMM D, YYYY')}
+                          {dayjs(vesting?.next_vesting).isAfter(new Date()) &&
+                            dayjs(vesting?.next_vesting).format('MMM D, YYYY')}
                         </td>
                         <td style={{ textAlign: 'center' }}>
                           {abbreviateNumber(vesting?.next_vesting_amount)}

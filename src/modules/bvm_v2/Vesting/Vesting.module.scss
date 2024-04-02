@@ -1,6 +1,8 @@
 .wrapper {
   width: 100%;
   text-align: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
 
   .header {
     width: 100%;
@@ -33,7 +35,7 @@
     th {
       color: #000;
       font-size: 18px;
-      opacity: 0.7;
+      // opacity: 0.7;
       font-weight: 500;
       line-height: 140%; /* 25.2px */
       letter-spacing: 0.18px;
