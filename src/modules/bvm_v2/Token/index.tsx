@@ -124,18 +124,7 @@ const Tokens = () => {
                   </Flex>
                   <Flex className={s.priceItem}>
                     <Text className={s.price}> • Circulating supply</Text>
-                    <Text className={s.priceValue}>
-                      $
-                      {formatCurrency(
-                        new BigNumber(report?.circulating_supply).multipliedBy(
-                          Number(report?.bvm_price).toString(),
-                        ),
-                        0,
-                        0,
-                        '',
-                        true,
-                      )}
-                    </Text>
+                    <Text className={s.priceValue}>25,000,000 BVM</Text>
                   </Flex>
                   <Flex className={s.priceItem}>
                     <Text className={s.price}> • Total Staked</Text>
