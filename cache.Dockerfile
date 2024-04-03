@@ -6,6 +6,12 @@ FROM base AS deps
 
 WORKDIR /app
 
+ARG SECRET_DEPLOY_GITHUB_TOKEN=""
+ARG SECRET_DEPLOY_GITHUB_USER=""
+ENV SECRET_DEPLOY_GITHUB_TOKEN $SECRET_DEPLOY_GITHUB_TOKEN
+ENV SECRET_DEPLOY_GITHUB_USER $SECRET_DEPLOY_GITHUB_USER
+RUN git config --global url."https://${SECRET_DEPLOY_GITHUB_USER}:${SECRET_DEPLOY_GITHUB_TOKEN}@github.com/TrustlessComputer/".insteadOf "https://github.com/TrustlessComputer/"
+
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN yarn install
