@@ -52,7 +52,7 @@ const Tokens = () => {
         color: '#0B99FF',
       },
       {
-        title: 'vesting',
+        title: 'is locked. Vesting in 5 years.',
         value: 75,
         color: '#99D95F',
       },
@@ -133,7 +133,7 @@ const Tokens = () => {
                     <Text className={s.priceValue}>25,000,000 BVM</Text>
                   </Flex>
                   <Flex className={s.priceItem}>
-                    <Text className={s.price}> • Total Staked</Text>
+                    <Text className={s.price}> • Total staking value</Text>
                     <Tooltip
                       minH="40px"
                       bg="#ffffff"
@@ -149,7 +149,7 @@ const Tokens = () => {
                         >
                           <p>
                             <span style={{ color: '#6C6F93' }}>
-                              Total staked
+                              Total staking amount
                             </span>{' '}
                             {formatCurrency(
                               report?.stake_balance,
