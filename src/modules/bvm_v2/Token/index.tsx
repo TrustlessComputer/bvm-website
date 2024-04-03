@@ -54,7 +54,7 @@ const Tokens = () => {
       {
         title: 'is locked. Vesting in 5 years.',
         value: 75,
-        color: '#99D95F',
+        color: '#7A7A7A',
       },
     ];
   }, [report]);
