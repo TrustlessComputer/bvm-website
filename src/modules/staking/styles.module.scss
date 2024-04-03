@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+
+  max-width: 120rem;
+  padding: 80px 100px;
+
+  @include is-mobile {
+    margin-top: 24px;
+    padding: 0;
+  }
+
+  @include min-md {
+    padding-top: 0;
+  }
+
+  @include min-ml {
+    font-size: 20px;
+    line-height: 36px;
+  }
+}

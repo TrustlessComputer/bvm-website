@@ -1,5 +1,6 @@
 import { default as MetadataConfig } from './metadata';
 import { default as ViewportConfig } from './viewport';
+import process from 'process';
 
 export const APP_ENV: string = process.env.NEXT_PUBLIC_APP_ENV!;
 export const API_UR: string = process.env.NEXT_PUBLIC_API_URL!;
@@ -43,5 +44,7 @@ export const WEB3_AUTH_CLIENT_ID: string = process.env
 
 // API
 export const API_BASE_URL: string = process.env.NEXT_PUBLIC_API_URL! as string;
+
+export const NAKA_RPC_URL: string = process.env.NEXT_PUBLIC_NAKA_RPC!;
 
 export { MetadataConfig, ViewportConfig };

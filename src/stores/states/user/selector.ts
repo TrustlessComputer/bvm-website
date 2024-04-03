@@ -55,3 +55,7 @@ export const depositAddressSelector = createSelector([userStateSelector, userTok
     return user.depositAddress[token.toLowerCase()];
   }
 })
+
+export const nakaAddressSelector = createSelector([userStateSelector], (user): string => {
+  return user?.nakaUser?.address || ''
+})
