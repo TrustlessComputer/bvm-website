@@ -1,0 +1,120 @@
+.headerText {
+  color: #FFF;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Helvetica Neue";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 44.8px */
+  letter-spacing: 0.64px;
+}
+
+.headerDesc {
+  color: #B7B7B7;
+  font-family: "Helvetica Neue";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 25.2px */
+  // opacity: 0.7;
+
+  a {
+    cursor: pointer;
+    color: #10C800 !important;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  @include is-mobile {
+    flex-direction: column;
+  }
+}
+
+.mining {
+  // background-image: url("~/public/icons/staking/bg-mining.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 405px;
+  // flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  width: 100%;
+  position: relative;
+
+  // @include is-mobile {
+  //   height: 220px;
+  // }
+  &_text {
+    color: #FFF;
+    font-family: "Helvetica Neue";
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%; /* 35.2px */
+    span {
+      color: #10C800;
+      font-weight: 700;
+    }
+  }
+}
+
+.restakeBox {
+  display: flex;
+  // padding: 16px;
+  flex-direction: column;
+  // align-items: center;
+  align-self: stretch;
+  justify-content: flex-end;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 238, 238, 0.15);
+  // justify-content: space-between;
+  width: 100%;
+  height: 405px;
+  background-image: url("~/public/icons/staking/bg_restake.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 405px;
+  position: relative;
+  padding: 16px;
+
+  img {
+    width: 100%;
+    // height: 300px;
+    object-fit: cover;
+    @include is-mobile {
+      width: 100%;
+      height: 150px;
+    }
+  }
+}
+
+.tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 14px 12px 14px 12px;
+  gap: 10px;
+  border-radius: 8px;
+  background-color: #FFF;
+  color: #000;
+  z-index: 999;
+}
+
+.tagBurn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 14px 12px 14px 12px;
+  gap: 10px;
+  border-radius: 8px;
+  background: #FF47474D;
+  color: #FF4747;
+  z-index: 999;
+}

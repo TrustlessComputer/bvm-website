@@ -131,7 +131,7 @@ const Vesting = () => {
             )}
           </tbody>
         </table>
-        <Flex w="100%" justifyContent="center" alignItems="center">
+        {/* <Flex w="100%" justifyContent="center" alignItems="center">
           <Text
             mt={{ base: '24px', lg: '32px' }}
             fontSize="20px"
@@ -147,7 +147,7 @@ const Vesting = () => {
           >
             {'Smart contract ↗'}
           </Text>
-        </Flex>
+        </Flex> */}
       </Box>
     </Box>
   );

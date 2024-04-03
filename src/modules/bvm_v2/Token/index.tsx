@@ -1,7 +1,7 @@
 import BoxContent from '@/layouts/BoxContent';
 import { apiClient } from '@/services/index';
 import { formatCurrency } from '@/utils/format';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useHover, useLayer, useMousePositionAsTrigger } from 'react-laag';
@@ -52,7 +52,7 @@ const Tokens = () => {
         color: '#0B99FF',
       },
       {
-        title: 'vesting',
+        title: 'is locked. Vesting in 5 years.',
         value: 75,
         color: '#99D95F',
       },
@@ -133,26 +133,60 @@ const Tokens = () => {
                     <Text className={s.priceValue}>25,000,000 BVM</Text>
                   </Flex>
                   <Flex className={s.priceItem}>
-                    <Text className={s.price}> • Total Staked</Text>
-                    <Text className={s.priceValue}>
-                      $
-                      {formatCurrency(
-                        new BigNumber(report?.stake_balance).multipliedBy(
-                          Number(report?.bvm_price).toString(),
-                        ),
-                        0,
-                        0,
-                        '',
-                        true,
-                      )}
-                    </Text>
+                    <Text className={s.price}> • Total staking value</Text>
+                    <Tooltip
+                      minH="40px"
+                      bg="#ffffff"
+                      boxShadow="0px 0px 24px 0px #00000014"
+                      borderRadius="8px"
+                      label={
+                        <Flex
+                          minH="40px"
+                          alignItems="center"
+                          justifyContent="center"
+                          direction="column"
+                          color="#000"
+                        >
+                          <p>
+                            <span style={{ color: '#6C6F93' }}>
+                              Total staking amount
+                            </span>{' '}
+                            {formatCurrency(
+                              report?.stake_balance,
+                              0,
+                              0,
+                              '',
+                              true,
+                            )}{' '}
+                            BVM
+                          </p>
+                        </Flex>
+                      }
+                    >
+                      <Text
+                        cursor="help"
+                        textDecoration="underline"
+                        className={s.priceValue}
+                      >
+                        $
+                        {formatCurrency(
+                          new BigNumber(report?.stake_balance).multipliedBy(
+                            Number(report?.bvm_price).toString(),
+                          ),
+                          0,
+                          0,
+                          '',
+                          true,
+                        )}
+                      </Text>
+                    </Tooltip>
                   </Flex>
                   <Flex className={s.priceItem}>
                     <Text className={s.price}> • Market cap</Text>
                     <Text className={s.priceValue}>
                       $
                       {formatCurrency(
-                        new BigNumber(report?.market_cap).multipliedBy(
+                        new BigNumber('25000000').multipliedBy(
                           Number(report?.bvm_price).toString(),
                         ),
                         0,

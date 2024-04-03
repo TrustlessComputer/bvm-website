@@ -1,0 +1,65 @@
+.content {
+  width: 100%;
+  display: flex;
+  padding: 20px 24px;
+  gap: 24px;
+  align-self: stretch;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  margin-top: 20px;
+  flex-wrap: wrap;
+  background: #1D1D1D;
+
+  @include is-min-table {
+    flex-wrap: nowrap;
+  }
+
+  &_img {
+    @include is-mobile {
+      width: 100% !important;
+      height: auto !important;
+    }
+  }
+
+  &_title {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 38.4px;
+    text-align: left;
+  }
+
+  &_desc {
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 25.2px;
+    text-align: left;
+    opacity: .7;
+    margin-bottom: 24px;
+  }
+
+  svg {
+    path {
+      stroke: white;
+    }
+  }
+}
+
+
+.boxTitle {
+  color: #FFF;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: 0.48px;
+
+  font-size: 24px;
+  color: rgba(#FFF, .7);
+
+  b {
+    color: white;
+    font-weight: 500;
+  }
+}
+
