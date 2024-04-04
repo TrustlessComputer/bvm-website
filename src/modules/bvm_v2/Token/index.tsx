@@ -142,7 +142,7 @@ const Tokens = () => {
                       label={
                         <Flex
                           minH="40px"
-                          alignItems="center"
+                          // alignItems="center"
                           justifyContent="center"
                           direction="column"
                           color="#000"
@@ -159,6 +159,19 @@ const Tokens = () => {
                               true,
                             )}{' '}
                             BVM
+                          </p>
+                          <p>
+                            <span style={{ color: '#6C6F93' }}>
+                              Total shard
+                            </span>{' '}
+                            {formatCurrency(
+                              report?.total_shard,
+                              0,
+                              0,
+                              '',
+                              true,
+                            )}{' '}
+                            SHARD
                           </p>
                         </Flex>
                       }
