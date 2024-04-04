@@ -1,0 +1,37 @@
+.section {
+  padding: 120px 0;
+}
+
+.wrapper {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 60px;
+  @include is-min-table {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @include is-pc {
+    margin-top: 80px;
+    grid-template-columns: repeat(6, 1fr);
+    padding: 0 140px;
+  }
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+}
+
+.itemImage {
+  width: 75px;
+  height: 75px;
+}
+
+.itemLabel {
+  color: #989AB3;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Helvetica Neue";
+}
