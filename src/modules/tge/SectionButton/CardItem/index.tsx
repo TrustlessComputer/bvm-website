@@ -93,8 +93,6 @@ const CardItem = ({ ...props }) => {
     );
   };
 
-  console.log('SANG TEST: ', props);
-
   return (
     <div className={`${s.cardWrapper} ${props.isRed ? s.isRed : ''}`}>
       <Fade delayEnter={0.5 + props.idx / 10}>
