@@ -177,6 +177,9 @@ const StakeRole = React.memo(() => {
               type="button"
               minW="80px"
               color="black"
+              fontWeight="400"
+              fontSize="16px"
+              borderRadius="100px"
             >
               {stakeRole === StakeV2Role.captain ? 'Generate Code' : 'Join'}
             </Button>

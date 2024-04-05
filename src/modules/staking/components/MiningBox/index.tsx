@@ -187,6 +187,7 @@ const MiningBox = () => {
               fontWeight='700'
               mt='16px'
               height='50px'
+              borderRadius="100px"
               width={isAvailRestake ? '100%' : 'fit-content'}
               isDisabled={loading}
               isLoading={isLoading}
