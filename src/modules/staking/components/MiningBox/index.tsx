@@ -172,32 +172,34 @@ const MiningBox = () => {
       <Box className={styles.container}>
         <Flex className={styles.mining}
               style={{ backgroundImage: `url(/icons/staking/${isAvailRestake ? 'bg_mining' : 'bg-mining'}.png)` }}>
-          {!!dayLeft && (
-            <p id='mining-text' className={styles.mining_text}>
-              Your mining rate is <span>{dayLeft.neededGems} SHARD</span> every {dayLeft.times}. The
-              next <span>SHARD</span> will be mined in <span>{nextTimeMinedLeft}</span>.
-            </p>
-          )}
-          <Button
-            padding='14px 48p !important'
-            backgroundColor='#10C800'
-            fontSize='16px'
-            fontWeight='700'
-            mt='16px'
-            height='50px'
-            width={isAvailRestake ? '100%' : 'fit-content'}
-            isDisabled={loading}
-            isLoading={isLoading}
-            onClick={() => {
-              if (isAuthen) {
-                return window.open(STAKING_URL, '_blank')
-              }
-              return requestAccount()
-            }}
-          >
-            Stake more BVM to mine more SHARD
-          </Button>
           <div className={styles.tag}>SHARD Mining</div>
+          <Flex flexDirection="column">
+            {!!dayLeft && (
+              <p id='mining-text' className={styles.mining_text}>
+                Your mining rate is <span>{dayLeft.neededGems} SHARD</span> every {dayLeft.times}. The
+                next <span>SHARD</span> will be mined in <span>{nextTimeMinedLeft}</span>.
+              </p>
+            )}
+            <Button
+              padding='14px 48p !important'
+              backgroundColor='#10C800'
+              fontSize='16px'
+              fontWeight='700'
+              mt='16px'
+              height='50px'
+              width={isAvailRestake ? '100%' : 'fit-content'}
+              isDisabled={loading}
+              isLoading={isLoading}
+              onClick={() => {
+                if (isAuthen) {
+                  return window.open(STAKING_URL, '_blank');
+                }
+                return requestAccount();
+              }}
+            >
+              Stake more BVM to mine more SHARD
+            </Button>
+          </Flex>
         </Flex>
 
         {isAvailRestake && (<Flex className={styles.restakeBox}>
