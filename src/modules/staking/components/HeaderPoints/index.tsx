@@ -157,10 +157,12 @@ const HeaderPoints = () => {
           width={size || TOKEN_ICON_SIZE}
           height={TOKEN_ICON_SIZE}
         />
-        <p className={styles.box_amount}>
-          <span>{value}</span>
-        </p>
-        <p className={styles.box_desc}>{title}</p>
+        <Flex flexDirection="column" alignItems="center">
+          <p className={styles.box_amount}>
+            <span>{value}</span>
+          </p>
+          <p className={styles.box_desc}>{title}</p>
+        </Flex>
       </Flex>
     );
   };
@@ -254,10 +256,47 @@ const HeaderPoints = () => {
                   10000,
                 )} BVM`,
               )}
+              {
+                renderItem(
+                  'Mined',
+                  '/icons/staking/gem-icon.png',
+                  <p>
+                    {isAmount(stakeUser?.multiplierPoint)
+                      ? `${formatCurrency(
+                        formatAmountToClient(stakeUser?.shardMined || '0'),
+                        0,
+                        3,
+                        'TC',
+                      )}`
+                      : '+0'}{' '}
+                    {MULTIPLE_POINT_SYMBOL}
+                  </p>,
+                  TOKEN_ICON_SIZE - 10,
+                )
+              }
+              {
+                renderItem(
+                  'Mining',
+                  '/icons/staking/gem-icon.png',
+                  <p style={{ color: '#6FFE43', fontSize: '20px' }}>
+                    <NumberScale
+                      label={'+'}
+                      couters={new BigNumberJS(
+                        formatAmountToClient(stakeUser?.shardMining || '0'),
+                      ).toNumber()}
+                      maximumFractionDigits={3}
+                      minimumFractionDigits={3}
+                      subLabel={` SHARDS`}
+                    />
+                  </p>,
+                  TOKEN_ICON_SIZE - 10,
+                )
+              }
+
               {renderItem(
                 'Interest earned',
                 '/icons/staking/ic-interest-rate.svg',
-                <p>
+                <p style={{ color: '#6FFE43', fontSize: '20px' }}>
                   <NumberScale
                     label={'+'}
                     couters={new BigNumberJS(counterBonus.to).toNumber()}
@@ -267,22 +306,7 @@ const HeaderPoints = () => {
                     subLabel={` BVM`}
                   />
                 </p>,
-              )}
-              {renderItem(
-                'Mined',
-                '/icons/staking/gem-icon.png',
-                <p style={{ color: '#6FFE43' }}>
-                  {isAmount(stakeUser?.multiplierPoint)
-                    ? `+${formatCurrency(
-                        formatAmountToClient(stakeUser?.multiplierPoint || '0'),
-                        0,
-                        6,
-                        'TC',
-                      )}`
-                    : '+0'}{' '}
-                  {MULTIPLE_POINT_SYMBOL}
-                </p>,
-                TOKEN_ICON_SIZE - 10,
+                TOKEN_ICON_SIZE,
               )}
             </Box>
           </Flex>

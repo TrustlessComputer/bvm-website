@@ -34,4 +34,6 @@ export interface StakeUser {
   isStaked: boolean;
   isHaveTeam: boolean;
   stakingPercent: string;
+  shardMined: string;
+  shardMining: string;
 }
