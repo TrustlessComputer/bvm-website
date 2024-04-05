@@ -27,7 +27,7 @@ const Hero = () => {
         </Button>
         <Button
           onClick={() => {
-            window.open('https://nakachain.xyz/staking/dashboard', '_blank');
+            router.push('/staking');
           }}
           className={`${s.btn}`}
           isOrange
