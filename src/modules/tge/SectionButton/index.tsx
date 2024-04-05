@@ -117,7 +117,18 @@ const DATA = [
   {
     id: 1,
     title: 'STAKE',
-    description: (<>Earn up to <b>58% interest</b> on your BVM and receive airdrops from upcoming Bitcoin L2 projects.</>),
+    description: (
+      <>
+        <p>Stake $BVM to mine <b>SHARD</b>, the governance token of the BVM ecosystem</p>
+      </>
+    ),
+    description2: (
+      <ul style={{ fontSize: "16px", textAlign: "start", gap: "4px", display: "flex", flexDirection: "column", padding: "0px 24px", marginTop: '12px' }}>
+        <li>Govern the BVM DAO treasury, which has 50M $BVM and other assets</li>
+        <li>Eligible for various airdrops</li>
+        <li>Increase your staking APR from 25% to 50%</li>
+      </ul>
+    ),
     isRed: true,
     buttons: [
       {

@@ -30,7 +30,7 @@ const Leaderboard = () => {
       [
         (item: StakeLeaderBoard) =>
           compareString(item.team_code, stakeUser?.userTeamCode),
-        (item: StakeLeaderBoard) => new BigNumberJS(item.rewarded).toNumber(),
+        (item: StakeLeaderBoard) => new BigNumberJS(item.multiplier_point || 0).toNumber(),
       ],
       ['desc', 'desc'],
     );

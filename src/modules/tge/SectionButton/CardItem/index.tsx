@@ -154,6 +154,9 @@ const CardItem = ({ ...props }) => {
               );
             })}
           </div>
+          {!!props.description2 && (
+            <div className={`${s.description}`}>{props.description2}</div>
+          )}
         </div>
       </Fade>
     </div>
