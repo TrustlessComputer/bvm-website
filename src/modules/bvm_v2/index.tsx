@@ -13,6 +13,7 @@ import Allocation from '@/modules/bvm_v2/Allocation';
 import TgeModule from '../tge';
 import Fade from '@/interactive/Fade';
 import Tokens from './Token';
+import Partners from '@/modules/bvm_v2/Partners';
 
 const BVMModule = () => {
   return (
@@ -25,6 +26,7 @@ const BVMModule = () => {
         <TgeModule />
         <Box h={['20px', '40px']} />
         <Tokens />
+        <Partners />
         <div className={s.container_section_tow}>
           <BoxContent minH={'100dvh'}>
             <Box h={['120px', '80px']} />

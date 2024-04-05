@@ -13,20 +13,12 @@
   }
 
   @include is-mobile {
-    width: 90vw;
-    flex: 0 0 auto;
     padding: 7.64px;
     flex-grow: 1;
   }
 
   @include is-tablet {
-    flex: 0 0 auto;
-    width: 50%;
     padding: 12px;
-  }
-  @include is-pc {
-    flex: 0 0 259px;
-    min-width: 259px;
   }
 
   :global {
