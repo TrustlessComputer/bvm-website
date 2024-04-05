@@ -186,17 +186,20 @@ const HeaderPoints = () => {
               </p>
               <Popover trigger={'click'} isLazy placement="bottom-start">
                 <PopoverTrigger>
-                  <Image
-                    src="/icons/staking/menu-dots.svg"
-                    height={20}
-                    width={20}
-                    alt="menu-dots.svg"
-                    style={{
-                      rotate: '90deg',
-                      marginLeft: '4px',
-                      cursor: 'pointer',
-                    }}
-                  />
+                  {isAuthen ? (
+                    <Image
+                      src="/icons/staking/menu-dots.svg"
+                      height={20}
+                      width={20}
+                      alt="menu-dots.svg"
+                      style={{
+                        rotate: '90deg',
+                        marginLeft: '4px',
+                        cursor: 'pointer',
+                      }}
+                    />
+                  ) : <></>}
+
                 </PopoverTrigger>
                 <PopoverContent
                   maxWidth="120px"
