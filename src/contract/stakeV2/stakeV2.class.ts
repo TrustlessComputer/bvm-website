@@ -62,6 +62,18 @@ class CStakeV2 extends CContractBase {
         contract.getTeamPrincipleBalance(userTeamCodeByte32),
       ])) as [TeamRewardRatio, BigNumber];
 
+      const shardERC20Contract = this.getERC20Contract({
+        contractAddress: STAKE_TOKEN.BVM.shardAddress,
+      });
+
+      const shardMined = (
+        await shardERC20Contract.balanceOf(address)
+      ).toString();
+
+      const shardMining = new BigNumberJS(multiplierPoint)
+        .minus(shardMined)
+        .toString();
+
       const isEmpty = teamRole === StakeV2Role.empty;
       const isCaptain = teamRole === StakeV2Role.captain;
 
@@ -90,6 +102,8 @@ class CStakeV2 extends CContractBase {
         isStaked: new BigNumberJS(principleBalance).gt(0),
         isHaveTeam: !!userTeamCode,
         stakingPercent: new BigNumberJS(percent.toFixed(3)).toString(),
+        shardMined,
+        shardMining,
       };
     }
   };

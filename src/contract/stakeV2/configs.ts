@@ -6,13 +6,15 @@ const BVM_ADDRESS = isProduction()
       bvm: '0x215cABba65a71E3753381842eb743705834493aD',
       addressSendBVMForFaucet: '0xF792F60eF56F1588FEdA9A64ec595745e80EF098',
       claimAddress: '0x248A5a121190C85d39b355e90cc351134a21d392',
+      shardAddress: '0x381e5FFEBa287750e5fA2c5dEF763A261A9ce2c7'
     }
   : {
       stBVM: '0xB4A36D0e01649A77fF212FEAE2d3bF26c4E0E040',
       bvm: '0x39E999A4b117a822699B7524b87F8C5d87776966',
       addressSendBVMForFaucet: '0x3CF37eDbce1c873d95ba7D6dA8a91A84EE4f1eD0',
       claimAddress: '0x248A5a121190C85d39b355e90cc351134a21d392',
-    };
+      shardAddress: '0xB5741d9de9fae76633BE78c6Fabf2957E8bF3a03'
+  };
 
 export const MAX_LENGTH_CODE = 5;
 
