@@ -1,7 +1,7 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
-import Landing from '@/modules/landing';
+import LandingV2 from '@/modules/landingV2';
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
         color: 'white',
       }}
     >
-      <Landing />
+      <LandingV2 />
     </MainLayout>
   );
 }
