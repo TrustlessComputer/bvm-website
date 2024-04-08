@@ -17,7 +17,7 @@ export default function Landing() {
       <Learning />
       <Solutions />
       <Modules />
-      <Section_7 />
+      {/* <Section_7 /> */}
     </div>
   );
 }
