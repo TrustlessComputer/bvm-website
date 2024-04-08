@@ -10,7 +10,7 @@ export default function SubCardText({ decs, title }: TSubCardText) {
   return (
     <div className={s.botSection}>
       <h3 className={s.botSection_title}>{title}</h3>
-      <p className={s.botSection_desc}>{decs}</p>
+      <p className={s.botSection_decs}>{decs}</p>
     </div>
   );
 }

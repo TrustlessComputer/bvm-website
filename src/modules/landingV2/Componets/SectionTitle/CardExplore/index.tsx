@@ -27,8 +27,14 @@ export default function CardExplore({
   icon,
 }: TCardExplore) {
   return (
-    <div className={cn(s.wrapper, !backgroundImg && s.wrapper_bg)}>
-      {backgroundImg && (
+    <div
+      className={cn(
+        s.wrapper,
+        backgroundImg ? s.wrapper_image : s.wrapper_color,
+      )}
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
+      {/* {backgroundImg && (
         <Image
           alt={`img${title}`}
           src={backgroundImg}
@@ -36,7 +42,7 @@ export default function CardExplore({
           height={289}
           className={s.wrapper_image}
         />
-      )}
+      )} */}
       <div className={s.inner}>
         <div className={s.inner_topSection}>
           <div
