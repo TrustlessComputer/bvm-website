@@ -64,8 +64,8 @@ export default function Solutions() {
         </SectionTitle>
 
         <div className={s.wrapper_list}>
-          {DATA_SOLUTIONS.map((item) => {
-            return <CardExplore {...item} type="solutions" />;
+          {DATA_SOLUTIONS.map((item, index) => {
+            return <CardExplore {...item} type="solutions" key={index} />;
           })}
         </div>
       </div>

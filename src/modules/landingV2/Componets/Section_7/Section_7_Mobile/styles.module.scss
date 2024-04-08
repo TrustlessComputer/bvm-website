@@ -1,0 +1,18 @@
+.wrapper {
+  background: #fff;
+  padding: 40px 0;
+
+  &_title {
+    color: #000;
+  }
+  &_lists {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 36px;
+    row-gap: 24px;
+    @include is-mobile {
+      grid-template-columns: 1fr;
+      row-gap: 24px;
+    }
+  }
+}
