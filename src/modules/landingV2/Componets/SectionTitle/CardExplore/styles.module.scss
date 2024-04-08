@@ -1,0 +1,107 @@
+.wrapper {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  min-height: 289px;
+  z-index: 2;
+
+  &_bg {
+    background-color: #f0f1f4;
+  }
+  &_image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .inner {
+    padding: 16px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &_topSection {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      &_subTitle {
+        border-radius: 20px;
+
+        height: 40px;
+        padding: 12px 28px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+
+        &__modules {
+          background-color: #fff;
+        }
+        &__solutions {
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(4px);
+        }
+
+        &_text {
+          color: #fff;
+          text-align: center;
+          font-family: var(--font-hind);
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 1;
+
+          &__7E7CFF {
+            color: #7e7cff;
+          }
+          &__FE6420 {
+            color: #fe6420;
+          }
+          &__66BCFF {
+            color: #66bcff;
+          }
+          &__7EBD4E {
+            color: #7ebd4e;
+          }
+          &__7E7CFF {
+            color: #7e7cff;
+          }
+          &__FF0420 {
+            color: #ff0420;
+          }
+        }
+      }
+      &_button {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        padding: 4px 20px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        background-color: #fff;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background-color 0.3s var(--easeOutQuart);
+
+        &:hover {
+          background-color: #fa4e0e;
+          transition: background-color 0.3s var(--easeOutQuart);
+          svg path {
+            transition: all 0.3s var(--easeOutQuart);
+            stroke: #fff;
+          }
+        }
+      }
+    }
+  }
+}
