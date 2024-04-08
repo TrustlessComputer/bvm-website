@@ -14,23 +14,24 @@ type IMainProps = {
 };
 
 const MainLayout = ({
-                      hideHeader = false,
-                      hideFooter = false,
-                      headerProps,
-                      children,
-                    }: IMainProps) => {
-
+  hideHeader = false,
+  hideFooter = false,
+  headerProps,
+  children,
+}: IMainProps) => {
   const pathName = usePathname();
   const { resetPlay } = useAnimationStore();
   useEffect(() => {
     resetPlay();
   }, [pathName]);
 
-  return <>
-    {!hideHeader && <Header {...headerProps} />}
-    <HeaderV2 />
-    {children}
-  </>;
+  return (
+    <>
+      {!hideHeader && <Header {...headerProps} />}
+      <HeaderV2 />
+      {children}
+    </>
+  );
 };
 
 export default MainLayout;

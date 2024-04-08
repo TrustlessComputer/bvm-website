@@ -2,7 +2,7 @@ import React from 'react';
 import s from './styles.module.scss';
 import cn from 'classnames';
 import SectionTitle from '../SectionTitle';
-import CardExplore from '../SectionTitle/CardExplore';
+import CardExplore from '../Modules/CardExplore';
 
 const DATA_SOLUTIONS = [
   {

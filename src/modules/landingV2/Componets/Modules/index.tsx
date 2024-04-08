@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './styles.module.scss';
 import SectionTitle from '../SectionTitle';
-import CardExplore from '../SectionTitle/CardExplore';
 import cn from 'classnames';
+import CardExplore from './CardExplore';
 
 const DATA_MODULES = [
   {
