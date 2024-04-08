@@ -1,5 +1,5 @@
 .botSection {
-  max-width: 355px;
+  max-width: 428px;
   &_title {
     color: #fff;
     font-family: var(--font-hind);
@@ -17,5 +17,6 @@
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
+    min-height: 54px;
   }
 }
