@@ -55,7 +55,10 @@ const Footer = () => {
               </div>
               <a
                 href={'#'}
-                onClick={() => setOpen(true)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(true);
+                }}
                 className={s.footer_video}
               >
                 <Image
