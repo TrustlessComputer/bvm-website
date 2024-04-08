@@ -1,0 +1,155 @@
+.container {
+  margin-top: 148px;
+  border-radius: 16px;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: #1D1D1D;
+  .line {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.10);
+    width: 100%;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  .box_title {
+    font-weight: 500;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+  }
+
+  .footer {
+    margin-left: 20px;
+    margin-right: 20px;
+    @include is-mobile {
+      margin-left: 12px;
+      margin-right: 12px;
+    }
+  }
+  .history {
+    color: rgba(255, 255, 255, 0.50);
+    font-family: "Helvetica Neue";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 19.6px */
+    text-transform: uppercase;
+
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+      text-decoration: underline;
+    }
+  }
+}
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 16px;
+  flex: 1;
+  margin-left: 20px;
+  margin-right: 20px;
+  @include is-mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-left: 12px;
+    margin-right: 12px;
+    button {
+      width: 100% !important;
+    }
+  }
+}
+
+.box {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  margin-left: 80px;
+
+  @include is-mobile {
+    flex-direction: column;
+    gap: 16px;
+    margin-left: 0px;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    @include is-mobile {
+      flex-direction: row;
+      gap: 4px;
+    }
+  }
+
+  p {
+    font-family: "Helvetica Neue";
+  }
+  &_title {
+    color: #FFF;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 28px */
+    margin-left: 16px;
+    @include is-mobile {
+      font-size: 16px;
+    }
+  }
+  &_amount {
+    margin-top: 8px;
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 33.6px */
+    text-transform: uppercase;
+    text-align: center;
+    span {
+      color: #FFF;
+      text-transform: uppercase;
+    }
+
+    @include is-mobile {
+      font-size: 18px;
+    }
+  }
+
+  &_desc {
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19.6px;
+    text-align: left;
+    opacity: 0.8;
+  }
+}
+
+.interestRate {
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  // line-height: 140%; /* 19.6px */
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #FDFC47 0%, #24FE41 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sBtn {
+  background: transparent !important;
+  padding: 0px !important;
+  margin-top: 2px;
+}

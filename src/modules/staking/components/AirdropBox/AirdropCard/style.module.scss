@@ -1,0 +1,107 @@
+.airdropCard {
+  border: 1px solid #FFEEEE26;
+  border-radius: 16px;
+  padding: 16px;
+  width: 100%;
+
+  flex: 0 0 100%;
+  @include is-min-table {
+    flex: 0 0 calc(50% - 20px);
+  }
+  @include is-pc {
+    flex: 1;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 4px;
+
+    .airdropAmount {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 44.2px;
+      text-align: left;
+      color: #6FFE43;
+    }
+
+    .socials {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 24px;
+    }
+
+    &_title {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 38.4px;
+      text-align: left;
+      color: #ffffff;
+    }
+    &_desc {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 25.2px;
+      text-align: left;
+      color: #B7B7B7;
+    }
+  }
+
+  &_thumbnail {
+    margin-bottom: 10px;
+    aspect-ratio: 1/1;
+    width: 100%;
+    max-width: 240px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &_ct {
+    background: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22.4px;
+    text-align: center;
+    color: black;
+    padding: 15px;
+    padding-top: 17px;
+    padding-bottom: 13px;
+    border-radius: 8px;
+  }
+
+  &_release {
+    display: flex;
+    justify-content: space-between;
+
+    .token {
+      color: #6C6F93;
+      display: flex;
+      gap: 4px;
+    }
+
+    .date {
+      font-weight: 500;
+    }
+  }
+
+  &.isComming {
+    .airdropCard_ct {
+      // text-transform: uppercase;
+    }
+  }
+
+  &.isDone {
+    .airdropCard_ct {
+      color: rgba(white, .7);
+      background: #1D1D1D;
+      // text-transform: uppercase;
+    }
+  }
+}

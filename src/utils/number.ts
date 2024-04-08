@@ -82,3 +82,7 @@ export const formatDecimal = (params: {
 
   return new BigNumber(amount).toFormat(decimals, BigNumber.ROUND_DOWN, fmt);
 };
+
+export const isAmount = (amount: any) => {
+  return amount && !isNaN(Number(amount)) && Number(amount);
+};

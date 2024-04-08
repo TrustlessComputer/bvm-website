@@ -9,6 +9,7 @@ import {
   getAddressInfo,
   AddressType,
 } from 'bitcoin-address-validation';
+import moment from 'moment';
 
 export const isInValidAmount = (amount?: string | number) => {
   if (!amount) return true;
@@ -238,4 +239,17 @@ export const validateBTCAddressTaproot = (_address: string): boolean => {
     return addressInfo.type === AddressType.p2tr;
   }
   return false;
+};
+
+
+export const formatDate = (date: string, format = 'D MMM, HH:mm:ss') => {
+  try {
+    return moment.utc(date).local().format(format);
+  } catch (error) {
+    return new Date(date).toLocaleDateString('utc', {
+      month: 'short',
+      year: 'numeric',
+      day: 'numeric',
+    });
+  }
 };

@@ -18,6 +18,7 @@ import Script from 'next/script';
 import ModalManager from '@/components/ModalManage';
 import { AuthenticatedProvider } from '@/Providers/AuthenticatedProvider';
 import { ContactUsProvider } from '@/Providers/ContactUsProvider';
+import { NakaConnectProvider } from '@/Providers/NakaConnectProvider';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -64,12 +65,14 @@ export default function RootLayout({
               <UserProvider>
                 <XVerseProvider>
                   <UnisatProvider>
-                    <ContactUsProvider>
-                      <Hydrated>
-                        <ModalManager />
-                        {children}
-                      </Hydrated>
-                    </ContactUsProvider>
+                    <NakaConnectProvider>
+                      <ContactUsProvider>
+                        <Hydrated>
+                          <ModalManager />
+                          {children}
+                        </Hydrated>
+                      </ContactUsProvider>
+                    </NakaConnectProvider>
                     <ToastOverlay />
                   </UnisatProvider>
                 </XVerseProvider>

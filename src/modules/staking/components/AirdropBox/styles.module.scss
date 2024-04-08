@@ -1,0 +1,66 @@
+.content {
+  width: 100%;
+  
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  @include not-pc {
+    grid-template-columns: 1fr;
+
+    // display: flex;
+    // align-items: center;
+    // gap: 20px;
+    // align-self: stretch;
+    // flex-wrap: wrap;
+  }
+
+  &_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 130px;
+    flex: 1;
+    gap: 10px;
+
+    &__blur {
+      filter: blur(5px);
+    }
+
+    &_text {
+      color: #FFF;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%; /* 24px */
+    }
+
+    &_textFocus {
+      color: #5AFE43;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%; /* 19.2px */
+    }
+  }
+}
+
+
+.boxTitle {
+  font-family: "Helvetica Neue";
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 33.6px */
+  letter-spacing: 0.48px;
+
+  font-size: 24px;
+  color: white;
+  margin-top: 20px;
+  b {
+    color: rgba(#FFF, .7);
+    font-weight: 400;
+  }
+}
+

@@ -1,5 +1,6 @@
 .modalContent {
   background: white;
+  padding-bottom: 16px;
   &.small {
     max-width: 500px;
   }
@@ -22,6 +23,10 @@
     color: black;
     //margin-top: rem(18) !important;
     line-height: 140%;
+
+    &_dark {
+      color: white;
+    }
   }
 
   &_description {
