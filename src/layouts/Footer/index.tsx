@@ -1,11 +1,12 @@
 'use client';
 
-import s from './styles.module.scss'
+import s from './styles.module.scss';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import ModalVideo from 'react-modal-video';
 // import { Box, Container, Stack, Text } from '@chakra-ui/react';
+import cn from 'classnames';
 
 const Footer = () => {
   const [isOpen, setOpen] = useState(false);
@@ -27,35 +28,60 @@ const Footer = () => {
   // );
 
   return (
-    <div className="container">
-      <div className={`${s.footer}`} style={{ backgroundImage: 'url(/footer/bgFooter.png)' }}>
-        <div className={s.main}>
-          <div className={s.mainLeft}>
-            <p className={s.mainContent}>Experience Bitcoin like never before.</p>
-            <div className={s.wrapperBtns}>
-              <Link href={''} className={s.mainBtn}>Use Bitcoin</Link>
-              <Link href={''} className={s.normalBtn}>Build on Bitcoin</Link>
+    <div className={s.wrapper}>
+      <div className="container">
+        <div
+          className={`${s.footer}`}
+          style={{ backgroundImage: 'url(/footer/bgFooter.png)' }}
+        >
+          <div className={s.main}>
+            <div className={s.main_top}>
+              <div className={s.main_top_left}>
+                <p className={s.mainContent}>
+                  Experience Bitcoin like never before.
+                </p>
+                <div>
+                  <div className={s.footer_wrapBtns}>
+                    <Link href={''} className={cn(s.mainBtn, s.footer_btn)}>
+                      Use Bitcoin
+                    </Link>
+                    <Link href={''} className={cn(s.normalBtn, s.footer_btn)}>
+                      Build on Bitcoin
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <a
+                href={'#'}
+                onClick={() => setOpen(true)}
+                className={s.footer_video}
+              >
+                <Image
+                  src={`/public-sale/btn-play-3.png`}
+                  width={224}
+                  height={120}
+                  alt={'right'}
+                />
+              </a>
+              <ModalVideo
+                channel="custom"
+                url={'/public-sale/public_sale_video_2.mp4'}
+                isOpen={isOpen}
+                onClose={() => {
+                  setOpen(false);
+                }}
+              />
             </div>
           </div>
-          <div>
-            <a href={'#'} onClick={() => setOpen(true)}>
-              <Image src={`/public-sale/btn-play-3.png`} width={168} height={90}
-                     alt={'right'} />
-              What is BVM? </a>
-            <ModalVideo
-              channel="custom"
-              url={'/public-sale/public_sale_video_2.mp4'}
-              isOpen={isOpen}
-              onClose={() => {
-                setOpen(false);
-              }}
-            />
-          </div>
+          <div className={s.footer_line}></div>
+          <p className={s.footer_contract}>
+            <span>BVM token contract:</span>{' '}
+            0x069d89974f4edabde69450f9cf5cf7d8cbd2568d
+          </p>
         </div>
       </div>
     </div>
-
-  )
+  );
 };
 
 export default Footer;
