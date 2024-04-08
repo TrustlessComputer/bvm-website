@@ -5,8 +5,10 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import ModalVideo from 'react-modal-video';
+import copy from 'copy-to-clipboard';
 // import { Box, Container, Stack, Text } from '@chakra-ui/react';
 import cn from 'classnames';
+import toast from 'react-hot-toast';
 
 const Footer = () => {
   const [isOpen, setOpen] = useState(false);
@@ -74,7 +76,13 @@ const Footer = () => {
             </div>
           </div>
           <div className={s.footer_line}></div>
-          <p className={s.footer_contract}>
+          <p
+            className={s.footer_contract}
+            onClick={() => {
+              toast.success('Successfully copied.');
+              copy('0x069d89974f4edabde69450f9cf5cf7d8cbd2568d');
+            }}
+          >
             <span>BVM token contract:</span>{' '}
             0x069d89974f4edabde69450f9cf5cf7d8cbd2568d
           </p>
