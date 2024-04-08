@@ -4,6 +4,7 @@ import Header, { HeaderProps } from '@/layouts/Header';
 import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import useAnimationStore from '@/stores/useAnimationStore';
+import HeaderV2 from '@layouts/HeaderV2';
 
 type IMainProps = {
   hideHeader?: boolean;
@@ -27,6 +28,7 @@ const MainLayout = ({
 
   return <>
     {!hideHeader && <Header {...headerProps} />}
+    <HeaderV2 />
     {children}
   </>;
 };
