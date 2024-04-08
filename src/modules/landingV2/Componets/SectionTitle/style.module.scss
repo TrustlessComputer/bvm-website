@@ -1,0 +1,12 @@
+.heading {
+  font-family: var(--font-hind);
+  font-size: 56px;
+  font-weight: 700;
+  line-height: (67/56);
+  text-align: center;
+  margin-bottom: rem(68px);
+
+  &__left {
+    text-align: left;
+  }
+}

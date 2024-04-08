@@ -1,6 +1,7 @@
-import useWindowSize from '@/hooks/useWindowSize';
 import s from './styles.module.scss';
 import { useEffect } from 'react';
+import SectionTitle from '@/modules/landingV2/Componets/SectionTitle';
+
 export default function Landing() {
 
   useEffect(() => {
@@ -9,7 +10,7 @@ export default function Landing() {
 
   return (
     <div className={s.landing}>
-        <h1>hello v2</h1>
+      <SectionTitle>hello v2</SectionTitle>
     </div>
   );
 }

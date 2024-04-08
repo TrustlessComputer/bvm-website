@@ -1,9 +1,13 @@
 import s from './style.module.scss';
 import { PropsWithChildren } from 'react';
 
-export default function SectionTitle({ children }: PropsWithChildren) {
+interface IProp extends PropsWithChildren {
+  textAlign?: 'left' | 'center';
+}
+
+export default function SectionTitle({ children, textAlign = 'center' }: IProp) {
 
   return <div>
-    <h2 className={s.heading}>{children}</h2>
+    <h2 className={`${s.heading} ${s[`heading__${textAlign}`]}`}>{children}</h2>
   </div>;
 }

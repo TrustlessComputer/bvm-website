@@ -12,6 +12,7 @@
 
 
   --builder-padding-size: 56px;
+  --font-hind: "Hind Siliguri", sans-serif;
 
   @include is-min-table {
     --builder-padding-size: 80px;

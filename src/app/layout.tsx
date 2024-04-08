@@ -29,6 +29,7 @@ const ChakraFontsFace = dynamic(
   },
 );
 
+
 export default function RootLayout({
   children,
 }: {
