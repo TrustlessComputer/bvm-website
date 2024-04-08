@@ -11,7 +11,7 @@ const DATA_SOLUTIONS = [
     color: '',
     title: 'Bitcoin l2 for defi',
     backgroundImg: '/landing-v2/images/card_1.jpg',
-    decs: 'Powerful infrastructure and tools to build and scale your own Bitcoin L2 with.',
+    decs: '2-second block time. $0.0001 transaction fee. 100% permissionless.',
   },
   {
     subTitle: 'Gaming',
@@ -19,7 +19,7 @@ const DATA_SOLUTIONS = [
     color: '',
     title: 'Bitcoin l2 for gamefi',
     backgroundImg: '/landing-v2/images/card_2.jpg',
-    decs: 'Powerful infrastructure and tools to build and scale your own Bitcoin L2 with.',
+    decs: 'Experience unparalleled performance with high throughput, lightning-fast speeds, and low gas fees.',
   },
   {
     subTitle: 'Social',
@@ -27,7 +27,7 @@ const DATA_SOLUTIONS = [
     color: '',
     title: 'Bitcoin l2 for socialfi',
     backgroundImg: '/landing-v2/images/card_3.jpg',
-    decs: 'Powerful infrastructure and tools to build and scale your own Bitcoin L2 with.',
+    decs: 'Connect, engage and earn through personalized social experiences via chats, posts and community activities.',
   },
   {
     subTitle: 'AI',
@@ -35,7 +35,7 @@ const DATA_SOLUTIONS = [
     color: '',
     title: 'Bitcoin l2 for ai',
     backgroundImg: '/landing-v2/images/card_4.jpg',
-    decs: 'Powerful infrastructure and tools to build and scale your own Bitcoin L2 with.',
+    decs: 'Powerful infrastructure, libraries, and tools to build eternal AI smart contracts.',
   },
   {
     subTitle: 'Payment & Commerece',
@@ -43,15 +43,15 @@ const DATA_SOLUTIONS = [
     color: '',
     title: 'Bitcoin l2 for payments',
     backgroundImg: '/landing-v2/images/card_5.jpg',
-    decs: 'Powerful infrastructure and tools to build and scale your own Bitcoin L2 with.',
+    decs: 'Coming soon.',
   },
   {
-    subTitle: 'Payment & Commerece',
+    subTitle: 'Artists & Creator',
     link: '',
     color: '',
     title: 'Bitcoin l2 for incriptions',
     backgroundImg: '/landing-v2/images/card_6.jpg',
-    decs: 'Powerful infrastructure and tools to build and scale your own Bitcoin L2 with.',
+    decs: 'Coming soon.',
   },
 ];
 
