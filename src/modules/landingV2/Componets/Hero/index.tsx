@@ -20,6 +20,7 @@ export default function HeroV2() {
         type: 'loop',
         focus: 'center',
         autoWidth: true,
+        updateOnMove: true,
       }}>
         <SplideTrack>
           <SplideSlide>
