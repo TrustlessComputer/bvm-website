@@ -1,11 +1,10 @@
-import s from './styles.module.scss';
-import { useEffect } from 'react';
-import SectionTitle from '@/modules/landingV2/Componets/SectionTitle';
-import Modules from './Componets/Modules';
-import Solutions from './Componets/Solutions';
 import HeroV2 from '@/modules/landingV2/Componets/Hero';
-import Section_7 from '../home/Section_7';
+import { useEffect } from 'react';
 import Learning from './Componets/Learning';
+import Modules from './Componets/Modules';
+import Section_7 from './Componets/Section_7';
+import Solutions from './Componets/Solutions';
+import s from './styles.module.scss';
 
 export default function Landing() {
   useEffect(() => {
