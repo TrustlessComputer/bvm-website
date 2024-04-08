@@ -1,10 +1,11 @@
 import s from './styles.module.scss';
 import { useEffect } from 'react';
 import SectionTitle from '@/modules/landingV2/Componets/SectionTitle';
+import Modules from './Componets/Modules';
+import Solutions from './Componets/Solutions';
 import HeroV2 from '@/modules/landingV2/Componets/Hero';
 
 export default function Landing() {
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -12,7 +13,8 @@ export default function Landing() {
   return (
     <div className={s.landing}>
       <HeroV2 />
-      <SectionTitle>hello v2</SectionTitle>
+      <Solutions />
+      <Modules />
     </div>
   );
 }
