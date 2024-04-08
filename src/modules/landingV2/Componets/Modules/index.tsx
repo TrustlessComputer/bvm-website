@@ -62,6 +62,7 @@ const DATA_MODULES = [
 ];
 
 export default function Modules() {
+
   return (
     <div className={cn(s.wrapper)}>
       <div className="container">

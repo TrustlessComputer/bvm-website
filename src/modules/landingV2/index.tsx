@@ -15,7 +15,6 @@ export default function Landing() {
   return (
     <div className={s.landing}>
       <HeroV2 />
-      {/* <SectionTitle>hello v2</SectionTitle>  */}
       <Learning />
       <Solutions />
       <Modules />
