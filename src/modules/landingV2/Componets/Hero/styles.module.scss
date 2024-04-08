@@ -1,5 +1,8 @@
 .hero {
 
+  background: white;
+  padding-top: 60px;
+
   :global {
     .splide__list {
       gap: 24px;
@@ -7,12 +10,50 @@
 
     .splide {
       padding: 0 !important;
+      border-radius: 32px;
+      overflow: hidden;
+    }
+
+    .splide__arrow {
+      opacity: 1 !important;
+      width: auto !important;
+      height: auto !important;
+
+      span {
+        transition: transform .4s ease-out;
+        background: white;
+        border-radius: 50%;
+        height: 68px;
+        width: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &:hover {
+        span {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .slideItem_item {
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+
+    .splide__slide.is-active {
+      .slideItem_item {
+        opacity: 1;
+      }
     }
   }
 }
 
 .slideItem {
   position: relative;
+  border-radius: 32px;
+  overflow: hidden;
 
   &_item {
     position: absolute;

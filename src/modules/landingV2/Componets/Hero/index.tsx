@@ -16,10 +16,10 @@ export default function HeroV2() {
 
   return <div className={s.hero}>
     <Container>
-      <Splide aria-label='My Favorite Images' options={{
+      <Splide hasTrack={false} options={{
         type: 'loop',
         focus: 'center',
-        // autoWidth: true,
+        autoWidth: true,
       }}>
         <SplideTrack>
           <SplideSlide>
@@ -40,8 +40,15 @@ export default function HeroV2() {
         </SplideTrack>
 
         <div className='splide__arrows'>
-          <button className='splide__arrow splide__arrow--prev'>Prev</button>
-          <button className='splide__arrow splide__arrow--next'>Next</button>
+          <button className='splide__arrow splide__arrow--prev'>
+            <span>
+              <img src={'/landing-v2/arrow-right.svg'} alt={'arrow-right'} className={'reverse'} />
+            </span>
+          </button>
+          <button className='splide__arrow splide__arrow--next'>
+          <span><img src={'/landing-v2/arrow-right.svg'}
+                     alt={'arrow-right'} /></span>
+          </button>
         </div>
       </Splide>
     </Container>

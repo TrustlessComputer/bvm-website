@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react';
 
 export default function Container({ children }: PropsWithChildren) {
 
-  return <div className={s.container}>
+  return <div className={`${s.container} container`}>
     {children}
   </div>;
 }

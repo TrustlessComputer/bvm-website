@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <MainLayout
       headerProps={{
-        color: 'white',
+        color: 'black',
       }}
     >
       <LandingV2 />
