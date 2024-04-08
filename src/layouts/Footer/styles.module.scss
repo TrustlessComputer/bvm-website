@@ -1,7 +1,41 @@
-.footerBar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
+.footer {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  padding: 0 48px;
+  border-radius: 32px;
+  .main {
+    padding-top: 48px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.mainLeft {
+  font-family: var(--font-hind);
+  .mainContent {
+    font-size: 40px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 700;
+  }
+  .wrapperBtns {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    a {
+      font-weight: 500;
+      padding: 14px 32px;
+    }
+  }
+}
+
+.mainBtn {
+ background-color: #FA4E0E;
+}
+
+.normalBtn {
+  color: #000;
+  background-color: #fff;
 }
