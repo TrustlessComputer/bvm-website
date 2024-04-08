@@ -143,6 +143,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
+  {
+    label: 'Stake',
+    href: '/staking',
+    isNewWindow: false,
+    isHide: false,
+  },
 
   // {
   //   label: 'Build',
