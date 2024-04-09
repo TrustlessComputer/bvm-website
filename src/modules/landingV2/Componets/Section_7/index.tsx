@@ -1,8 +1,6 @@
 'use client';
 
-import { Box, Card, CardBody, Image, Text, VStack } from '@chakra-ui/react';
-
-import { isMobile, isTablet } from 'react-device-detect';
+import { Box, Card, CardBody, Image, VStack } from '@chakra-ui/react';
 import s from './styles.module.scss';
 
 const SliderSlick = dynamic(
@@ -14,12 +12,14 @@ const SliderSlick = dynamic(
 
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
-import { BLOGS, IBlog, LOGOS } from './constant';
 import SectionTitle from '../SectionTitle';
+import { BLOGS, IBlog, LOGOS } from './constant';
+import { useIsMobile, useIsTablet } from '@/hooks/useWindowResize';
 
 const Section_7 = () => {
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const numberSlide = isMobile ? 1 : isTablet ? 2 : 4;
-
   const renderCard = (item: IBlog) => {
     const getLogo = useMemo((): string => {
       const tmp = LOGOS.filter((itemLogo) => {
@@ -36,7 +36,7 @@ const Section_7 = () => {
         }}
       >
         <Card bgColor={'#fff'} boxShadow={'none'}>
-          <CardBody p={[0]} paddingRight={['32px']}>
+          <CardBody p={[0]}>
             {getLogo ? (
               <div className={s.cardLogo}>
                 <Image
@@ -88,7 +88,6 @@ const Section_7 = () => {
             autoplay={false}
             nextArrow={<br />}
             prevArrow={<br />}
-            centerPadding={'45px'}
           >
             {BLOGS.map(renderCard)}
           </SliderSlick>

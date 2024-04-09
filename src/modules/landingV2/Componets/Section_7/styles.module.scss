@@ -18,8 +18,15 @@
   }
 
   /* the parent */
-  .slick-list {
-    margin: 0 27px !important;
+  :global {
+    .slick-slide {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+    .slick-slider {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
   }
 
   .slick-next:before {
