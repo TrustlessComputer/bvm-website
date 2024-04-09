@@ -23,6 +23,9 @@ const Main = () => {
           );
         })}
       </div>
+      <Link href={'/'} className={s.logo}>
+        <img src='/landing-v2/svg/header-logo.svg' alt='header-logo' />
+      </Link>
       <div className={s.right}>
         <div className={s.contact}>
           <ContactUs color="black" />
