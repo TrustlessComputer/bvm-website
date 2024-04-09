@@ -9,6 +9,8 @@ import copy from 'copy-to-clipboard';
 // import { Box, Container, Stack, Text } from '@chakra-ui/react';
 import cn from 'classnames';
 import toast from 'react-hot-toast';
+import { MenuBuild } from '../HeaderV2/menuConfig';
+import SvgInset from '@/components/SvgInset';
 
 const Footer = () => {
   const [isOpen, setOpen] = useState(false);
@@ -50,9 +52,30 @@ const Footer = () => {
                     >
                       Use Bitcoin
                     </Link>
-                    <Link href={''} className={cn(s.normalBtn, s.footer_btn)}>
-                      Build on Bitcoin
-                    </Link>
+
+                    <div className={s.dropMenu}>
+                      <Link href={''} className={cn(s.normalBtn, s.footer_btn)}>
+                        Build on Bitcoin
+                      </Link>
+                      <ul className={s.dropMenu_list}>
+                        {MenuBuild?.subMenu.map((item) => {
+                          return (
+                            <li className={s.listItem}>
+                              <a
+                                href={item.href}
+                                target={item?.isNewWindow ? '_blank' : '_self'}
+                                style={{ color: 'black' }}
+                              >
+                                {item.label}
+                                <SvgInset
+                                  svgUrl={`landing/images/basil_arrow-up-outline.svg`}
+                                />
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>

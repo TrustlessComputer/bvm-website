@@ -13,7 +13,7 @@
   border-radius: 32px;
 
   @include is-mobile {
-    padding: 24px;
+    padding: 20px;
   }
   &_wrapBtns {
     width: max-content;
@@ -21,15 +21,16 @@
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    padding-top: 24px;
+    padding-top: 20px;
     width: 100%;
     margin: 0 auto;
 
     @include is-tablet {
-      flex-direction: row;
       width: 80%;
+      flex-direction: row;
     }
     @include is-pc {
+      padding-top: 24px;
       flex-direction: row;
       width: auto;
     }
@@ -50,6 +51,11 @@
     line-height: normal;
     letter-spacing: 0.16px;
     width: 100%;
+    text-transform: uppercase;
+
+    @include is-mobile {
+      font-size: 14px;
+    }
 
     @include is-pc {
       width: auto;
@@ -63,16 +69,20 @@
     line-height: 120%;
     cursor: pointer;
     color: #fff;
-    padding-top: 24px;
+    padding-top: 16px;
+
+    @include is-pc {
+      padding-top: 24px;
+    }
     span {
       color: rgba(255, 255, 255, 0.6);
     }
   }
   &_video {
-    width: 50%;
+    width: 100%;
     max-width: 400px;
     margin: 0 auto;
-    margin-top: 24px;
+    margin-top: 32px;
 
     @include is-pc {
       margin: 0;
@@ -97,7 +107,10 @@
   width: 100%;
   justify-content: space-between;
   flex-direction: column;
-  padding-bottom: 40px;
+  padding-bottom: 24px;
+  @include is-pc {
+    padding-bottom: 40px;
+  }
 
   &_top {
     font-family: var(--font-hind);
@@ -115,14 +128,13 @@
       font-weight: 700;
       line-height: 120%;
       text-transform: uppercase;
-      text-align: center;
-      font-size: 28px;
-
+      font-size: 32px;
+      text-align: left;
+      letter-spacing: -0.32px;
       @include is-tablet {
         font-size: 40px;
       }
       @include is-pc {
-        text-align: left;
         font-size: 40px;
       }
     }
@@ -132,9 +144,111 @@
 .mainBtn {
   background-color: #fa4e0e;
   color: #fff;
+
+  @include is-mobile {
+    display: none;
+  }
 }
 
 .normalBtn {
   color: #000;
   background-color: #fff;
+
+  @include is-mobile {
+    background-color: #fa4e0e;
+    color: #fff;
+  }
+}
+
+.dropMenu {
+  position: relative;
+  color: white;
+  width: 100%;
+
+  @include is-mobile {
+    max-width: 400px;
+  }
+  @include is-pc {
+    width: auto;
+  }
+
+  &_label {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-weight: 500;
+
+    &.black {
+      color: black;
+
+      svg path {
+        stroke: black !important;
+      }
+    }
+
+    img,
+    svg {
+      transform: translateY(0.05em);
+    }
+  }
+
+  &:hover {
+    .dropMenu_list {
+      opacity: 1;
+      visibility: visible;
+      z-index: 2 !important;
+    }
+  }
+
+  &_list {
+    opacity: 0;
+    width: 240px;
+    background: #f7f7f7;
+    position: absolute;
+    right: -100%;
+    bottom: 0;
+    list-style: none;
+    padding: 12px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    visibility: hidden;
+    border-radius: 8px;
+
+    @include is-mobile {
+      bottom: 48px;
+      right: 0;
+    }
+  }
+}
+
+.listItem {
+  a {
+    color: #000000 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    font-family: var(--font-hind);
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    svg * {
+      transition: fill 0.4s var(--easeOutQuart);
+    }
+
+    &:hover {
+      rect {
+        fill: #fa4e0e;
+      }
+
+      path {
+        fill: white;
+      }
+    }
+  }
+
+  &_svg {
+    border-radius: 999px;
+  }
 }
