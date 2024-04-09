@@ -1,6 +1,7 @@
 .wrapper {
+  position: relative;
   color: #000;
-  padding: 20px 0;
+  padding-top: 16px;
   align-items: center;
   justify-content: space-between;
   display: none;
@@ -19,7 +20,12 @@
     align-items: center;
   }
 }
-
+.logo {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
 .itemWrapper {
   .item {
     font-family: var(--font-hind);
