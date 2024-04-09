@@ -43,31 +43,9 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'Customers',
-    href: '',
+    href: '/use-bitcoin',
     isNewWindow: false,
     isHide: false,
-    subMenu: [
-      {
-        href: '/ai-on-bitcoin',
-        label: 'AI on Bitcoin',
-        isNewWindow: false,
-      },
-      {
-        href: '/smart-contracts-on-bitcoin',
-        label: 'Smart contracts on Bitcoin',
-        isNewWindow: false,
-      },
-      {
-        href: '/bitcoin-l2s',
-        label: 'Bitcoin L2s',
-        isNewWindow: false,
-      },
-      {
-        href: '/module-store',
-        label: 'Module Store',
-        isNewWindow: false,
-      },
-    ],
   },
   {
     label: 'Roadmap',
@@ -130,31 +108,9 @@ export const NAV_ITEMS_MOBILE: Array<NavItem> = [
   },
   {
     label: 'Customers',
-    href: '',
+    href: '/use-bitcoin',
     isNewWindow: false,
     isHide: false,
-    subMenu: [
-      {
-        href: '/ai-on-bitcoin',
-        label: 'AI on Bitcoin',
-        isNewWindow: false,
-      },
-      {
-        href: '/smart-contracts-on-bitcoin',
-        label: 'Smart contracts on Bitcoin',
-        isNewWindow: false,
-      },
-      {
-        href: '/bitcoin-l2s',
-        label: 'Bitcoin L2s',
-        isNewWindow: false,
-      },
-      {
-        href: '/module-store',
-        label: 'Module Store',
-        isNewWindow: false,
-      },
-    ],
   },
   {
     label: 'Roadmap',
@@ -196,13 +152,12 @@ export const COMMUNITY_ITEMS = [
   {
     icon: './icons/tele-ic-2.svg',
     alt: 'telegram',
-    link: '',
-    // link: 'https://t.me/bird2836',
+    link: 'https://t.me/BVMofficialcommunity',
   },
   {
-    link: '',
     icon: './icons/x-ic.svg',
     // link: 'https://twitter.com/bird_2836',
     alt: 'x',
+    link: 'https://twitter.com/BVMnetwork',
   },
 ];
