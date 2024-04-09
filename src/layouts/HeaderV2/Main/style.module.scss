@@ -5,20 +5,24 @@
   align-items: center;
   justify-content: space-between;
   display: none;
+  position: relative;
+
   @include is-pc {
     display: flex;
   }
-  .left {
-    color: #000;
-    display: flex;
-    align-items: center;
-    gap: 32px;
-  }
-  .right {
-    display: flex;
-    gap: 32px;
-    align-items: center;
-  }
+}
+
+.left {
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.right {
+  display: flex;
+  gap: 32px;
+  align-items: center;
 }
 .logo {
   position: absolute;
@@ -46,6 +50,7 @@
 .icon {
   max-width: 20px;
   width: 100%;
+
   img {
     width: 100%;
     height: 100%;
@@ -56,6 +61,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
+
   .mainLabel {
     font-family: var(--font-hind);
     font-weight: 500;
@@ -74,3 +80,11 @@
   border-radius: 1000px;
   background-color: #fa4e0e;
 }
+
+// .logo {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: 2;
+// }
