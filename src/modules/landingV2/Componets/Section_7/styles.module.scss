@@ -1,0 +1,192 @@
+.wrapper {
+  background-color: #fff;
+  padding-top: 80px;
+  padding-bottom: 80px;
+
+  @include is-mobile {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  &_title {
+    color: #000;
+  }
+}
+.sliderContainer {
+  max-width: 1600px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* the parent */
+  :global {
+    .slick-slide {
+      padding-left: 16px;
+      padding-right: 16px;
+
+      @include is-mobile {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+    .slick-slider {
+      margin-left: -16px;
+      margin-right: -16px;
+
+      @include is-mobile {
+        margin-left: -8px;
+        margin-right: -8px;
+      }
+    }
+  }
+
+  .slick-next:before {
+    content: none;
+  }
+
+  .slick-prev:before {
+    content: none;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
+
+  .slick-slide {
+    border-radius: 16px !important;
+    margin: 20px 40px !important;
+    overflow: hidden !important;
+    margin-right: 30px;
+    display: flex !important;
+  }
+
+  .slick-arrow .slick-next,
+  .slick-arrow .slick-prev {
+    z-index: 100;
+    width: fit-content !important;
+    height: fit-content !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .slick-slider .slick-initialized {
+    display: flex !important;
+  }
+
+  .slick-next {
+    right: 0;
+  }
+
+  .slick-prev {
+    left: 0;
+  }
+
+  .slick-active .slick-current {
+    margin-right: 20px !important;
+    margin-left: 20 !important;
+  }
+
+  .slick-active {
+    margin-left: 10px !important;
+  }
+
+  .slick-slide .slick-active .slick-current {
+    margin-right: 20px !important;
+    display: flex !important;
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000;
+  gap: 20px;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.heading {
+  span {
+    color: #fa4e0e;
+  }
+}
+
+.slide {
+  padding-top: 48px;
+  padding-bottom: 48px;
+
+  @include is-tablet {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  @include is-pc {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  :global {
+    .slick-arrow {
+      top: -80px;
+      right: 18px;
+      border-radius: 0;
+      transition: opacity 0.4s ease-out;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &.slick-prev {
+        right: 80px;
+      }
+    }
+
+    .slick-arrow .slick-next,
+    .slick-arrow .slick-prev {
+      z-index: 100;
+      width: fit-content !important;
+      height: fit-content !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+  }
+}
+
+.cardLogo {
+  img {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+  }
+  &_title {
+    color: #000;
+    font-family: var(--font-hind);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%;
+    text-transform: uppercase;
+    min-height: 87px;
+  }
+  &_decs {
+    color: #515478;
+    font-family: var(--font-hind);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+  &_img {
+    height: 186px;
+    margin-top: 20px;
+    border-radius: 32px;
+    overflow: hidden;
+  }
+}

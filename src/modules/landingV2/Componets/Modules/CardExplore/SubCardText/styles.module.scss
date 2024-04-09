@@ -1,0 +1,22 @@
+.botSection {
+  max-width: 428px;
+  &_title {
+    color: #fff;
+    font-family: var(--font-hind);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%;
+    text-transform: uppercase;
+  }
+  &_decs {
+    padding-top: 8px;
+    color: #fff;
+    font-family: var(--font-hind);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    min-height: 54px;
+  }
+}

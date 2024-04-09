@@ -1,5 +1,5 @@
 import { StakeLeaderBoard } from '@/services/interfaces/stakeV2';
-import { Flex, Image, Td, Text, Tr } from '@chakra-ui/react';
+import { Box, Flex, Image, Td, Text, Tr } from '@chakra-ui/react';
 import React from 'react';
 import { formatCurrency, formatName } from '@/utils/format';
 import styles from './styles.module.scss';
@@ -10,7 +10,6 @@ import { ethers } from 'ethers';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { compareString, labelAmountOrNumberAdds } from '@/utils/string';
 import { getUrlAvatarTwitter } from '@utils/twitter';
-import { shortCryptoAddress } from '@utils/address';
 import { STAKE_MAX_DECIMAL } from '@/modules/shard/topMiners/constant';
 import useShareStakeOnX from '@/modules/shard/topMiners/hooks/useShareStakeOnX';
 
@@ -82,10 +81,12 @@ const LeaderboardItem = ({ data, i }: IProps) => {
             alignItems="center"
           >
             {isEther ? (
-              <Jazzicon
-                diameter={32}
-                seed={jsNumberForAddress(data?.twitter_username || data?.address)}
-              />
+              <Box>
+                <Jazzicon
+                  diameter={32}
+                  seed={jsNumberForAddress(data?.twitter_username || data?.address)}
+                />
+              </Box>
             ) : (
               <Avatar
                 url={getUrlAvatarTwitter(
@@ -116,7 +117,13 @@ const LeaderboardItem = ({ data, i }: IProps) => {
                   </>
                 ) : (
                   <p className={styles.leaderBoardItem_name}>
-                    {shortCryptoAddress(data?.address || ('' as string), 16)}
+                    {
+                      ethers.utils.isAddress(data?.address || '') ?
+                        (data?.address || '' as string).slice(0, 8).replace('0x', '').toUpperCase()
+                        :
+                        data?.address
+                    }
+                    {/*{shortCryptoAddress(data?.address || ('' as string), 16)}*/}
                     {data.need_active &&
                       compareString(data?.address, address) && (
                         <Text color="black !important">(YOU)</Text>
@@ -190,7 +197,13 @@ const LeaderboardItem = ({ data, i }: IProps) => {
                   </>
                 ) : (
                   <p className={styles.leaderBoardItem_name}>
-                    {shortCryptoAddress(data?.captain_address || ('' as string), 16)}
+                    {
+                      ethers.utils.isAddress(data?.address || '') ?
+                        (data?.captain_address || '' as string).slice(0, 8).replace('0x', '').toUpperCase()
+                        :
+                        data?.address
+                    }
+                    {/*{shortCryptoAddress(data?.captain_address || ('' as string), 16)}*/}
                   </p>
                 )}
                 <p className={styles.leaderBoardItem_member}>{data.total_members} Member{labelAmountOrNumberAdds(data.total_members)}</p>

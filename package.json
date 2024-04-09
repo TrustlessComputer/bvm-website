@@ -98,6 +98,7 @@
     "split-type": "^0.3.4",
     "svg-react-loader": "^0.4.6",
     "url-loader": "^4.1.1",
+    "use-async-effect": "^2.2.7",
     "uuid": "^9.0.1",
     "valtio": "^1.13.0",
     "zustand": "^4.4.7"

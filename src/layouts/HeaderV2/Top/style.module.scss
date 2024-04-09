@@ -1,0 +1,49 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #000000;
+  padding: 16px 0;
+  font-family: var(--font-hind);
+  border-bottom: 1px solid #ececec;
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+}
+
+.treasury {
+  color: #b2b2b2;
+  background-color: #000;
+  padding: 4px 20px;
+  border-radius: 1000px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-hind);
+  text-transform: uppercase;
+  span {
+    color: #fff;
+  }
+}
+
+.leftToken {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.token {
+  font-size: 14px;
+  font-weight: 500;
+  &__orange {
+    color: #FA4E0E;
+  }
+  &__green {
+    color: #00AA6C;
+  }
+}

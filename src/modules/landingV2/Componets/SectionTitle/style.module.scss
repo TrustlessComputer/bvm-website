@@ -1,0 +1,23 @@
+.heading {
+  font-family: var(--font-hind);
+  font-size: 56px;
+  font-weight: 700;
+  line-height: (67/56);
+  text-align: center;
+  margin-bottom: 68px;
+  text-transform: uppercase;
+
+  @include is-mobile {
+    font-size: 32px;
+    line-height: (48/40);
+    margin-bottom: 32px;
+  }
+
+  &__left {
+    text-align: left;
+
+    @include is-mobile {
+      text-align: center;
+    }
+  }
+}

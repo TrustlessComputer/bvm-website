@@ -1,0 +1,238 @@
+.hero {
+  background: white;
+  padding-top: 24px;
+  padding-bottom: 48px;
+
+  @include is-min-table {
+    padding-bottom: 80px;
+    padding-top: 60px;
+  }
+
+  :global {
+
+    .splide__pagination {
+      bottom: -1rem;
+    }
+
+    .splide__arrow--prev {
+      left: 20px;
+      @include is-min-table {
+        left: 5.6rem;
+      }
+    }
+
+    .splide__arrow--next {
+      left: calc(20px + 36px + 16px);
+      right: auto;
+      @include is-min-table {
+        left: auto;
+        right: 5.6rem;
+      }
+    }
+
+    .splide {
+      padding: 0 !important;
+      border-radius: 32px;
+      overflow: hidden;
+    }
+
+    .splide__arrow {
+      opacity: 1 !important;
+      width: auto !important;
+      height: auto !important;
+      box-shadow: none;
+      outline: none;
+
+      span {
+
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s var(--easeOutQuart);
+        height: 36px;
+        width: 36px;
+        background: rgba(white, .5);
+
+        @include is-min-table {
+          background: white;
+          height: 68px;
+          width: 68px;
+        }
+      }
+
+
+      svg {
+        fill: transparent !important;
+        width: 20px;
+        height: 20px;
+
+        @include is-min-table {
+          width: 24px;
+          height: 24px;
+        }
+
+        path {
+          stroke: white;
+          @include is-min-table {
+            stroke: black;
+          }
+        }
+      }
+
+      &:hover span {
+        background-color: #fa4e0e;
+        transition: background-color 0.3s var(--easeOutQuart);
+
+        svg path {
+          transition: all 0.3s var(--easeOutQuart);
+          stroke: #fff;
+        }
+      }
+    }
+
+    .slideItem_item {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+
+    }
+
+    .splide__track {
+      :has([aria-busy='true']) {
+        .slideItem_item {
+          opacity: 0;
+        }
+      }
+    }
+
+    .splide__slide {
+
+      padding-right: 8px;
+      padding-left: 8px;
+
+      @include is-mobile {
+        height: 400px;
+        width: calc(100% + 64px);
+        max-width: 1056px;
+      }
+
+      @include is-min-table {
+        padding-right: 12px;
+        padding-left: 12px;
+
+      }
+    }
+
+    .splide__slide.is-active {
+      .slideItem_item {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.slideItem {
+  position: relative;
+  border-radius: 32px;
+  overflow: hidden;
+
+  @include is-mobile {
+    height: 100%;
+    width: 100%;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &_item {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 12px;
+
+    @include is-min-table {
+      flex-wrap: nowrap;
+      gap: 124px;
+      padding: 24px 32px;
+    }
+
+    &_left {
+      flex: 0 0 100%;
+      @include is-min-table {
+        flex: 1;
+      }
+    }
+
+    &_action {
+      flex: 0 0 auto;
+      width: 100%;
+      padding-bottom: .4em;
+      @include is-min-table {
+        width: fit-content;
+      }
+    }
+  }
+}
+
+.heading {
+  font-family: var(--font-hind);
+
+  font-weight: 700;
+  line-height: (48/40);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-size: 32px;
+
+  @include is-min-table {
+    font-size: 40px;
+  }
+}
+
+.desc {
+  font-family: var(--font-hind);
+  font-weight: 400;
+  line-height: 1.3;
+  font-size: 14px;
+
+  @include is-min-table {
+    font-size: 20px;
+  }
+}
+
+.btn {
+  height: 48px;
+
+  text-transform: uppercase;
+  font-family: var(--font-hind);
+  font-weight: 500;
+  line-height: (25/16);
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: black;
+  border-radius: 100px;
+  font-size: 14px;
+  width: 100%;
+  flex: 0 0 100%;
+  transition: all .4s ease-out;
+
+  &:hover{
+    background: #fa4e0e;
+    color: white;
+  }
+
+  @include is-min-table {
+    font-size: 16px;
+    width: 152px;
+    flex: 0 0 auto;
+  }
+}

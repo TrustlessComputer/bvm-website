@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google';
+import { Hind_Siliguri } from 'next/font/google';
 import localFont from 'next/font/local';
 
 const OpenSansFontConfig = localFont({
@@ -73,4 +74,4 @@ const HelveticaNeueFontConfig = localFont({
 
 const InterFontConfig = Inter({ subsets: ['latin'] });
 
-export { InterFontConfig, OpenSansFontConfig, HelveticaNeueFontConfig };
+export { InterFontConfig, Hind_Siliguri, OpenSansFontConfig, HelveticaNeueFontConfig };

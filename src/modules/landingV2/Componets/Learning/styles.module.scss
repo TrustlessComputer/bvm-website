@@ -1,0 +1,28 @@
+.wrapper {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  background-color: #fff;
+
+  @include is-mobile {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+  &_title {
+    color: #000;
+  }
+
+  &_list {
+    display: grid;
+    gap: 32px;
+
+    grid-template-columns: repeat(1, 1fr);
+
+    @include is-tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include is-pc {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}

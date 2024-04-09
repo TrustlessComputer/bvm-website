@@ -51,18 +51,48 @@ const DATA = [
     title: 'BUY',
     description: 'The fastest and cheapest way to buy BVM is on Naka, a Bitcoin L2 designed for DeFi on Bitcoin. You can also buy BVM on other exchanges.',
 
-    buttons: [
+    buttonsDex: [
       {
         btnTitle: 'Buy on Naka',
         link: 'https://nakachain.xyz/swap',
         color: 'green',
       },
       {
-        btnTitle: 'Uniswap',
+        btnTitle: 'Uniswap (Ethereum)',
         color: 'border',
-        link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
+        link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
         icon: '/bvm/uniswap.svg'
       },
+      {
+        btnTitle: 'Uniswap (Arbitrum)',
+        color: 'border',
+        link: 'https://app.uniswap.org/swap?outputCurrency=0x694A7eF60ACe282E2a55a9bc6AdD56730e5Ee8B6&chain=arbitrum',
+        icon: '/bvm/uniswap.svg'
+      },
+      {
+        btnTitle: 'OKX Web3',
+        color: 'border',
+        link: 'https://www.okx.com/web3/dex-swap#inputChain=1&inputCurrency=0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE&outputChain=1&outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
+        icon: '/bvm/okx.svg'
+      },
+      {
+        btnTitle: 'Unisat',
+        color: 'border',
+        link: 'https://unisat.io/market/brc20?tick=BVMN',
+        icon: '/bvm/unisat.svg'
+      },
+      // {
+      //   btnTitle: 'Poloniex',
+      //   color: 'border',
+      //   link: 'https://poloniex.com/trade/BVM_USDT/?type=spot',
+      //   icon: '/bvm/poloniex.svg'
+      // },
+      // {
+      //   btnTitle: 'Unisat',
+      //   link: '',
+      // }
+    ],
+    buttonsCex: [
       {
         btnTitle: 'Gate.io',
         color: 'border',
@@ -71,44 +101,34 @@ const DATA = [
         // disable: true
       },
       {
-        btnTitle: 'Bitmart',
-        color: 'border',
-        link: 'https://www.bitmart.com/trade/en-US?symbol=BVM_USDT',
-        icon: '/bvm/bitmart.svg'
-      },
-      // {
-      //   btnTitle: 'Poloniex',
-      //   color: 'border',
-      //   link: 'https://poloniex.com/trade/BVM_USDT/?type=spot',
-      //   icon: '/bvm/poloniex.svg'
-      // },
-      {
-        btnTitle: 'Unisat',
-        color: 'border',
-        link: 'https://unisat.io/market/brc20?tick=BVMN',
-        icon: '/bvm/unisat.svg'
-      },
-      {
-        btnTitle: 'OKX Web3',
-        color: 'border',
-        link: 'https://www.okx.com/web3/dex-swap#inputChain=1&inputCurrency=0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE&outputChain=1&outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
-        icon: '/bvm/okx.svg'
-      },{
         btnTitle: 'MEXC',
         color: 'border',
         link: 'https://www.mexc.com/exchange/BVM_USDT',
         icon: '/bvm/mexc.svg'
       },
-      // {
-      //   btnTitle: 'Unisat',
-      //   link: '',
-      // }
-    ],
+      {
+        btnTitle: 'Bitmart',
+        color: 'border',
+        link: 'https://www.bitmart.com/trade/en-US?symbol=BVM_USDT',
+        icon: '/bvm/bitmart.svg'
+      },
+    ]
   },
   {
     id: 1,
     title: 'STAKE',
-    description: (<>Earn up to <b>58% interest</b> on your BVM and receive airdrops from upcoming Bitcoin L2 projects.</>),
+    description: (
+      <>
+        <p>Stake $BVM to mine <b>SHARD</b>, the governance token of the BVM ecosystem</p>
+      </>
+    ),
+    description2: (
+      <ul style={{ fontSize: "16px", textAlign: "start", gap: "4px", display: "flex", flexDirection: "column", padding: "0px 24px", marginTop: '12px' }}>
+        <li>Govern the BVM DAO treasury, which has 50M $BVM and other assets</li>
+        <li>Eligible for various airdrops</li>
+        <li>Increase your staking APR from 25% to 50%</li>
+      </ul>
+    ),
     isRed: true,
     buttons: [
       {
@@ -123,16 +143,6 @@ const DATA = [
 export default function SectionButton() {
   return (
     <div className={s.sectionBtn}>
-      {/*{DATA_BTN.map((item, index) => {*/}
-      {/*  return (*/}
-      {/*    <ItemSectionButton*/}
-      {/*      delay={0.2 + index / 5}*/}
-      {/*      key={item.number}*/}
-      {/*      data={item}*/}
-      {/*      isLast={index === 2}*/}
-      {/*    />*/}
-      {/*  );*/}
-      {/*})}*/}
       {
         DATA.map((item, index) => {
           return (

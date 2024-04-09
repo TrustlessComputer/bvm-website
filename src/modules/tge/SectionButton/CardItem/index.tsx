@@ -1,7 +1,7 @@
 import SvgInset from '@/components/SvgInset';
 import s from './styles.module.scss';
 import Fade from '@/interactive/Fade';
-import { Button } from '@chakra-ui/react';
+import { Button, Flex, Grid, Text } from '@chakra-ui/react';
 import React, { ReactElement } from 'react';
 
 const CardItem = ({ ...props }) => {
@@ -17,7 +17,7 @@ const CardItem = ({ ...props }) => {
         gap={'8px'}
         px={'24px'}
         py={'10px'}
-        width={'150px'}
+        width={'100%'}
         height={'48px'}
         fontWeight={500}
         fontSize={'16px'}
@@ -76,7 +76,7 @@ const CardItem = ({ ...props }) => {
         alignItems={'center'}
         px={'24px'}
         py={'10px'}
-        width={'150px'}
+        width={'100%'}
         height={'48px'}
         fontWeight={500}
         onClick={() => {
@@ -100,7 +100,51 @@ const CardItem = ({ ...props }) => {
           <h4 className={`${s.cardTitle}`}>{props.title}</h4>
           <div className={`${s.description}`}>{props.description}</div>
           <div className={`${s.wrapperBtn}`}>
-            {props.buttons.map((button: any) => {
+            {!!props?.buttonsDex && (
+              <Grid gridTemplateColumns={{ base: '1fr', md: '1fr 1fr' }} gap="24px">
+                <Flex flexDirection="column" gap="8px">
+                  <Text
+                    fontSize="12px"
+                    color="black"
+                    fontWeight="500"
+                    textAlign="center"
+                    opacity={0.7}
+                  >
+                    BUY ON DEX
+                  </Text>
+                  {props?.buttonsDex?.map((button: any) => {
+                    return button.color === 'red' ? (
+                      <BtnRed key={button.link} {...button} />
+                    ) : button.color === 'green' ? (
+                      <BtnGreen key={button.link} {...button} />
+                    ) : (
+                      <BtnBorder key={button.link} {...button} />
+                    );
+                  })}
+                </Flex>
+                <Flex flexDirection="column" gap="8px">
+                  <Text
+                    fontSize="12px"
+                    color="black"
+                    fontWeight="500"
+                    textAlign="center"
+                    opacity={0.7}
+                  >
+                    BUY ON CEX
+                  </Text>
+                  {props?.buttonsCex?.map((button: any) => {
+                    return button.color === 'red' ? (
+                      <BtnRed key={button.link} {...button} />
+                    ) : button.color === 'green' ? (
+                      <BtnGreen key={button.link} {...button} />
+                    ) : (
+                      <BtnBorder key={button.link} {...button} />
+                    );
+                  })}
+                </Flex>
+              </Grid>
+            )}
+            {props?.buttons?.map((button: any) => {
               return button.color === 'red' ? (
                 <BtnRed key={button.link} {...button} />
               ) : button.color === 'green' ? (
@@ -110,6 +154,9 @@ const CardItem = ({ ...props }) => {
               );
             })}
           </div>
+          {!!props.description2 && (
+            <div className={`${s.description}`}>{props.description2}</div>
+          )}
         </div>
       </Fade>
     </div>
