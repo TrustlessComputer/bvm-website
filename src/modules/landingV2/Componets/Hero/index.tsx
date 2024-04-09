@@ -22,6 +22,7 @@ export default function HeroV2() {
         autoWidth: true,
         padding: '24px',
         updateOnMove: true,
+        pagination: false
       }}>
         <SplideTrack>
           <SplideSlide>
