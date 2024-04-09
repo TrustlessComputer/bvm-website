@@ -1,6 +1,7 @@
 .wrapper {
+  position: relative;
   color: #000;
-  padding: 20px 0;
+  padding: 16px 0;
   align-items: center;
   justify-content: space-between;
   display: none;
@@ -23,7 +24,12 @@
   gap: 32px;
   align-items: center;
 }
-
+.logo {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 .itemWrapper {
   .item {
     font-family: var(--font-hind);
@@ -75,10 +81,10 @@
   background-color: #fa4e0e;
 }
 
-.logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
+// .logo {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: 2;
+// }
