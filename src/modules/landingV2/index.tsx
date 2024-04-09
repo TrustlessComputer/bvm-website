@@ -5,8 +5,12 @@ import Modules from './Componets/Modules';
 import Section_7 from './Componets/Section_7';
 import Solutions from './Componets/Solutions';
 import s from './styles.module.scss';
+import useWindowSize from '@/hooks/useWindowSize';
+import Section7Mobile from './Componets/Section_7/Section_7_Mobile';
 
 export default function Landing() {
+  const { mobileScreen, tabletScreen } = useWindowSize();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -17,7 +21,7 @@ export default function Landing() {
       <Learning />
       <Solutions />
       <Modules />
-      <Section_7 />
+      {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
     </div>
   );
 }
