@@ -10,9 +10,13 @@ const Main = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.left}>
-        {NAV_ITEMS.map((item, index) => {
+        {NAV_ITEMS.map((item) => {
           return item.subMenu ? (
-            <DropDown title={item.label} lists={item.subMenu} />
+            <DropDown
+              key={item.label}
+              title={item.label}
+              lists={item.subMenu}
+            />
           ) : (
             <Link
               key={item.label}

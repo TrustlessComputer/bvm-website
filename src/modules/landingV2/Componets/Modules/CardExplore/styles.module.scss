@@ -43,6 +43,10 @@
     flex-direction: column;
     justify-content: space-between;
 
+    @include is-mobile {
+      gap: 32px;
+    }
+
     &_topSection {
       display: flex;
       flex-direction: row;
@@ -51,7 +55,7 @@
       margin-bottom: 69px;
 
       @include is-mobile {
-        margin-bottom: 50px;
+        margin-bottom: 0;
       }
 
       &_subTitle {
@@ -137,4 +141,9 @@
       }
     }
   }
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
 }

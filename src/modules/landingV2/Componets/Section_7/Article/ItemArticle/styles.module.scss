@@ -33,6 +33,9 @@
       @include is-mobile {
         font-size: 16px;
       }
+      @include is-tablet {
+        min-height: 46px;
+      }
     }
     &_description {
       color: #515478;
