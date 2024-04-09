@@ -11,6 +11,7 @@ dayjs.extend(duration);
 const THIRTY_MINUTES_IN_SECS = 1800;
 
 const useCountdown = (utcTime: string) => {
+  const [asDays, setAsDays] = useState<number | null>(0);
   const [days, setDays] = useState<number | null>(0);
   const [hours, setHours] = useState<number | null>(0);
   const [minutes, setMinutes] = useState<number | null>(0);
@@ -30,6 +31,7 @@ const useCountdown = (utcTime: string) => {
       const diff = dayjs.duration(dayjs.utc(utcTime).diff(now));
       if (diff.milliseconds() <= 0) {
         clearInterval(interval);
+        setAsDays(null);
         setDays(null);
         setHours(null);
         setMinutes(null);
@@ -40,6 +42,7 @@ const useCountdown = (utcTime: string) => {
         return;
       }
       setEnded(false);
+      setAsDays(diff.asDays());
       setDays(diff.days());
       setHours(diff.hours());
       setMinutes(diff.minutes());
@@ -53,6 +56,7 @@ const useCountdown = (utcTime: string) => {
   }, [utcTime]);
 
   return {
+    asDays: Number(asDays),
     days,
     hours: hours !== null ? zeroPad(hours, 2) : null,
     minutes: minutes !== null ? zeroPad(minutes, 2) : null,

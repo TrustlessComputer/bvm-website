@@ -11,4 +11,6 @@ jobs:
     with:
       DOCKER_IMAGE_NAME: bvm-website
       DOCKERFILE_NAME: cache.Dockerfile
+      SECRET_DEPLOY_GITHUB_USER: ${{ secrets.SECRET_DEPLOY_GITHUB_USER }}
+      SECRET_DEPLOY_GITHUB_TOKEN: ${{ secrets.SECRET_DEPLOY_GITHUB_TOKEN }}
 

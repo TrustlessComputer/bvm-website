@@ -30,9 +30,14 @@
       "@interactive/*": ["./src/interactive/*"],
       "@constants/*": ["./src/constants/*"],
       "@components/*": ["./src/components/*"],
-      "@types/*": ["./src/types/*"],
-    },
+      "@types/*": ["./src/types/*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "node_modules/next/dist/build/webpack/loaders/next-style-loader/runtime/injectStylesIntoLinkTag.d.ts"
+  ],
   "exclude": ["node_modules"]
 }

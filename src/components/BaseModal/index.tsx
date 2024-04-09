@@ -20,6 +20,7 @@ export interface IBaseModalProps {
   description?: string;
   headerClassName?: string;
   icCloseUrl?: string;
+  theme?: 'dark' | 'light'
 }
 
 const BaseModal = (
@@ -35,6 +36,7 @@ const BaseModal = (
     headerClassName,
     size = 'normal',
     icCloseUrl = '/icons/ic_close_modal.svg',
+    theme,
   } = props;
 
   return (
@@ -46,7 +48,7 @@ const BaseModal = (
             <button onClick={onHide} className={s.modalHeader_closeBtn}>
               <SvgInset className={s.closeIcon} svgUrl={icCloseUrl} />
             </button>
-            <p className={s.modalHeader_title}>{title || ''}</p>
+            <p className={`${s.modalHeader_title} ${theme === 'dark' && s.modalHeader_title_dark}`}>{title || ''}</p>
           </Flex>
         </ModalHeader>
         <ModalBody>

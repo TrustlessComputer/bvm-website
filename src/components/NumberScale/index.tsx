@@ -9,6 +9,7 @@ interface IProp {
   maximumFractionDigits: number;
   label: string;
   defaultFrom?: string;
+  subLabel?: string;
 }
 export default function NumberScale({
   couters,
@@ -16,6 +17,7 @@ export default function NumberScale({
   maximumFractionDigits,
   label,
   defaultFrom,
+  subLabel
 }: IProp) {
   const cx = proxy<{ value: number }>({
     value: parseFloat(defaultFrom || '0'),
@@ -37,7 +39,8 @@ export default function NumberScale({
               maximumFractionDigits,
               '',
               true,
-            );
+            ) +
+            `${subLabel || ''}`;
         }
       },
     });
@@ -55,7 +58,8 @@ export default function NumberScale({
               maximumFractionDigits,
               '',
               true,
-            );
+            ) +
+            `${subLabel || ''}`;
           refFrom.current = couters;
         }
       },

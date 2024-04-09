@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { EVMFieldType, UserState } from './types';
 import uniqueBy from '@popperjs/core/lib/utils/uniqueBy';
 import AuthenStorage from '@/utils/storage/authen.storage';
+import NakaUserStorage from '@utils/storage/naka.storage';
 
 const initialState: UserState = {
   user: undefined,
@@ -22,7 +23,8 @@ const initialState: UserState = {
   airdropGenerativeUsers: null,
   airdropPerceptronsHolders: null,
   userToken: null,
-  depositAddress: null
+  depositAddress: null,
+  nakaUser: undefined,
 } as any;
 
 const slice = createSlice({
@@ -114,6 +116,19 @@ const slice = createSlice({
           [(key as string).toLowerCase()]: action.payload
         }
       }
+    },
+    setNakaUser: (state, action) => {
+      const address = action?.payload?.address;
+      const token = action?.payload?.token;
+      if (!!address && !!token) {
+        state.nakaUser = {
+          address: address,
+          token: token
+        }
+        NakaUserStorage.setWalletToken(token)
+        NakaUserStorage.setUserAddress(address)
+      }
+
     }
   },
 });
@@ -135,6 +150,7 @@ export const {
   setUserToken,
   removeUserToken,
   setDepositAddress,
+  setNakaUser,
 } = slice.actions;
 
 export default slice.reducer;

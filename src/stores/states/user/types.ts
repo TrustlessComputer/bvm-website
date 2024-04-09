@@ -48,4 +48,8 @@ export interface UserState {
   publicSaleLeaderBoardVisual: ILeaderBoardPoint[];
   userToken: string;
   depositAddress: any;
+  nakaUser?: {
+    address: string;
+    token: string
+  };
 }
