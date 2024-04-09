@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import s from './styles.module.scss';
 import SectionTitle from '../SectionTitle';
 import cn from 'classnames';
@@ -29,7 +29,7 @@ const DATA_MODULES = [
     color: '66BCFF',
     title: 'Celestia',
     backgroundImg: '',
-    icon: '/landing-v2/logos/stamp.png',
+    icon: '/landing-v2/logos/celestia.png',
     decs: 'Make it easy for anyone to securely launch their own blockchain.',
   },
   {
@@ -38,7 +38,7 @@ const DATA_MODULES = [
     color: 'FF7E21',
     title: 'Optimism',
     backgroundImg: '',
-    icon: '/landing-v2/logos/pptimism.png',
+    icon: '/landing-v2/logos/optimism.png',
     decs: 'Optimistic Rollups allow transactions to be executed off-chain while still leveraging the security of the main chain.',
   },
   {
@@ -47,7 +47,7 @@ const DATA_MODULES = [
     color: '7E7CFF',
     title: 'DAO',
     backgroundImg: '',
-    icon: '/landing-v2/logos/uniswap.png',
+    icon: '/landing-v2/logos/dao.png',
     decs: 'Incorporate a DAO into your blockchain setup.',
   },
   {
@@ -82,7 +82,7 @@ const DATA_MODULES = [
     color: '66BCFF',
     title: 'EigenDA',
     backgroundImg: '',
-    icon: '/landing-v2/logos/eigen-da.png',
+    icon: '/landing-v2/logos/eigenda.png',
     decs: 'Provide low-cost, hyperscale data availability to rollups.',
   },
   {
@@ -127,7 +127,7 @@ const DATA_MODULES = [
     color: '66BCFF',
     title: 'NearDA',
     backgroundImg: '',
-    icon: '/landing-v2/logos/nearda.png',
+    icon: '/landing-v2/logos/near-da.png',
     decs: 'Delivering on the promises of Web3, with Chain Abstraction.',
   },
   {
@@ -161,6 +161,14 @@ const DATA_MODULES = [
 
 export default function Modules() {
 
+  const cols = (start: number, end: number) => {
+    return DATA_MODULES.slice(start, end);
+  };
+
+  const avg = useMemo(() => {
+    return Math.floor(DATA_MODULES.length / 3) + 1;
+  }, []);
+
   return (
     <div className={cn(s.wrapper)}>
       <div className='container'>
@@ -169,9 +177,23 @@ export default function Modules() {
         </SectionTitle>
 
         <div className={s.wrapper_list}>
-          {DATA_MODULES.map((item, index) => {
-            return <CardExplore {...item} type='modules' key={index} />;
-          })}
+          <div className={s.listCol}>
+            {cols(0, avg).map((item, index) => {
+              return <div className={s.listCol_item}>
+                <CardExplore {...item} type='modules' key={index} />
+              </div>;
+            })}
+          </div>
+          <div className={s.listCol}>
+            {cols(avg, avg * 2).map((item, index) => {
+              return <div className={s.listCol_item}><CardExplore {...item} type='modules' key={index} /></div>;
+            })}
+          </div>
+          <div className={s.listCol}>
+            {cols(avg * 2, avg * 3).map((item, index) => {
+              return <div className={s.listCol_item}><CardExplore {...item} type='modules' key={index} /></div>;
+            })}
+          </div>
         </div>
       </div>
     </div>

@@ -12,13 +12,16 @@
 
   &_color {
     background-color: #f0f1f4;
+    min-height: auto;
   }
+
   &_image {
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
   }
+
   &:hover .inner_topSection_button {
     background-color: #fa4e0e;
     transition: background-color 0.3s var(--easeOutQuart);
@@ -28,6 +31,7 @@
       stroke: #fff;
     }
   }
+
   .inner {
     padding: 16px;
     // position: absolute;
@@ -43,7 +47,7 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 100px;
+      margin-bottom: 69px;
 
       @include is-mobile {
         margin-bottom: 50px;
@@ -64,6 +68,7 @@
         &__modules {
           background-color: #fff;
         }
+
         &__solutions {
           border: 1px solid rgba(255, 255, 255, 0.2);
           background: rgba(255, 255, 255, 0.1);
@@ -87,23 +92,33 @@
           &__7E7CFF {
             color: #7e7cff;
           }
+
           &__FE6420 {
             color: #fe6420;
           }
+
           &__66BCFF {
             color: #66bcff;
           }
+
           &__7EBD4E {
             color: #7ebd4e;
           }
+
           &__7E7CFF {
             color: #7e7cff;
           }
+
           &__FF0420 {
             color: #ff0420;
           }
+
+          &__FF7E21 {
+            color: #FF7E21;
+          }
         }
       }
+
       &_button {
         display: flex;
         height: 100%;

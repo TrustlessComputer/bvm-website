@@ -2,18 +2,22 @@
   display: flex;
   flex-direction: row;
   gap: 8px;
-  align-items: center;
 
   &_left {
     display: flex;
     width: 117px;
-    height: 117px;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
     background-color: #fff;
     border-radius: 20px;
     position: relative;
+
+    &_icon{
+      width: 54px;
+      height: auto;
+      object-fit: contain;
+    }
 
     @include is-mobile {
       display: none;
@@ -25,7 +29,6 @@
       height: 25px;
       width: 20px;
       left: 100%;
-      z-index: -1;
       top: 50%;
       transform: translateY(-50%);
       background-color: #fff;
