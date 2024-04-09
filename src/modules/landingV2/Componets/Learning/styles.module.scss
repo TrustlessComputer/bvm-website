@@ -3,6 +3,10 @@
   padding-bottom: 80px;
   background-color: #fff;
 
+  @include is-mobile {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
   &_title {
     color: #000;
   }

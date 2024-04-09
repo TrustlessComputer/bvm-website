@@ -1,10 +1,8 @@
 .hero {
-
   background: white;
   padding-top: 60px;
 
   :global {
-
     .splide__list {
       gap: 24px;
     }
@@ -21,7 +19,7 @@
       height: auto !important;
 
       span {
-        transition: transform .4s ease-out;
+        transition: transform 0.4s ease-out;
         background: white;
         border-radius: 50%;
         height: 68px;
@@ -40,12 +38,12 @@
 
     .slideItem_item {
       opacity: 0;
-      transition: opacity .4s ease;
+      transition: opacity 0.4s ease;
     }
 
-    .splide__track{
-      :has([aria-busy='true']){
-        .slideItem_item{
+    .splide__track {
+      :has([aria-busy='true']) {
+        .slideItem_item {
           opacity: 0;
         }
       }
@@ -75,7 +73,6 @@
     justify-content: space-between;
 
     &_left {
-
     }
 
     &_action {
@@ -83,7 +80,6 @@
       width: fit-content;
     }
   }
-
 }
 
 .heading {

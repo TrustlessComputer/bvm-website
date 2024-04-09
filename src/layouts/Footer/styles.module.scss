@@ -11,6 +11,10 @@
   padding-top: 48px;
   padding-bottom: 24px;
   border-radius: 32px;
+
+  @include is-mobile {
+    padding: 24px;
+  }
   &_wrapBtns {
     width: max-content;
     display: flex;
@@ -18,11 +22,12 @@
     align-items: center;
     gap: 16px;
     padding-top: 24px;
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
 
     @include is-tablet {
       flex-direction: row;
+      width: 80%;
     }
     @include is-pc {
       flex-direction: row;
@@ -111,7 +116,7 @@
       line-height: 120%;
       text-transform: uppercase;
       text-align: center;
-      font-size: 32px;
+      font-size: 28px;
 
       @include is-tablet {
         font-size: 40px;

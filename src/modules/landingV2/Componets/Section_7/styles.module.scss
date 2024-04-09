@@ -3,6 +3,11 @@
   padding-top: 80px;
   padding-bottom: 80px;
 
+  @include is-mobile {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
   &_title {
     color: #000;
   }
@@ -20,12 +25,22 @@
   /* the parent */
   :global {
     .slick-slide {
-      padding-left: 16px !important;
-      padding-right: 16px !important;
+      padding-left: 16px;
+      padding-right: 16px;
+
+      @include is-mobile {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
     }
     .slick-slider {
       padding-left: 16px;
       padding-right: 16px;
+
+      @include is-mobile {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
     }
   }
 
