@@ -17,15 +17,16 @@
 
   &_list {
     display: grid;
-    gap: 32px;
-
+    gap: 20px;
     grid-template-columns: repeat(1, 1fr);
 
     @include is-tablet {
+      gap: 32px;
       grid-template-columns: repeat(2, 1fr);
     }
 
     @include is-pc {
+      gap: 32px;
       grid-template-columns: repeat(4, 1fr);
     }
   }
