@@ -3,13 +3,13 @@
 import { Box, HStack, Text } from '@chakra-ui/react';
 
 import Link from 'next/link';
-import s from './styles.module.scss';
 import DropDown from '@/layouts/Header/components/Dropdown';
 import ButtonLoginTwitter from './ButtonLoginTwitter';
 import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import UserInforBox from './UserInforBox';
 import ContactUs from './ContactUs';
 import Community from './Community';
+import { NAV_ITEMS_RIGHT } from '@layouts/Header/menuConfig';
 
 type Props = {
   primaryColor?: 'black' | 'white';
