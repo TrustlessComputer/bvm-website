@@ -27,11 +27,18 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: background-color 0.3s var(--easeOutQuart);
       }
+      svg {
+        fill: transparent !important;
+      }
+      &:hover span {
+        background-color: #fa4e0e;
+        transition: background-color 0.3s var(--easeOutQuart);
 
-      &:hover {
-        span {
-          transform: scale(1.05);
+        svg path {
+          transition: all 0.3s var(--easeOutQuart);
+          stroke: #fff;
         }
       }
     }
