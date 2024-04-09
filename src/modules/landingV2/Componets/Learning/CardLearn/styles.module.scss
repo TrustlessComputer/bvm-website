@@ -15,6 +15,10 @@
     height: 100%;
     width: 100%;
 
+    @include is-mobile {
+      padding: 20px;
+    }
+
     &_wrapImg {
       width: 100%;
       position: relative;
@@ -45,6 +49,10 @@
       font-weight: 700;
       line-height: 130%; /* 28.6px */
       text-transform: uppercase;
+
+      @include is-mobile {
+        font-size: 16px;
+      }
     }
 
     &_decs {
@@ -56,6 +64,11 @@
       font-style: normal;
       font-weight: 400;
       line-height: 150%;
+
+      @include is-mobile {
+        font-size: 14px;
+        padding-top: 20px;
+      }
     }
   }
 }
