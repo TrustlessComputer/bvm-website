@@ -25,7 +25,7 @@ export default function ItemArticle({ data }: { data: IBlog }) {
           />
         </div>
       ) : (
-        <Box height={'28px'} />
+        <Box height={'28px'} marginBottom={'16px'} />
       )}
       <figure className={s.itemArticle_wrapImg}>
         <Image

@@ -8,8 +8,7 @@
   display: block;
 
   @include is-mobile {
-    min-height: unset;
-    height: 194px;
+    min-height: 194px;
   }
 
   &_color {
@@ -43,6 +42,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    @include is-mobile {
+      gap: 32px;
+    }
 
     &_topSection {
       display: flex;

@@ -213,8 +213,7 @@
     width: 240px;
     background: #f7f7f7;
     position: absolute;
-    right: -100%;
-    bottom: 0;
+    bottom: 40px;
     list-style: none;
     padding: 12px 24px;
     display: flex;
@@ -222,7 +221,10 @@
     gap: 24px;
     visibility: hidden;
     border-radius: 8px;
-
+    right: 0;
+    @include is-pc {
+      right: -100%;
+    }
     @include is-mobile {
       bottom: 48px;
       right: 0;
