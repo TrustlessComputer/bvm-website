@@ -1,11 +1,25 @@
 .hero {
   background: white;
   padding-top: 60px;
+  padding-bottom: 80px;
 
   :global {
-    .splide__list {
-      gap: 24px;
+
+    .splide__pagination{
+      bottom: -1rem;
     }
+
+    .splide__arrow--prev{
+      left: 5.6rem;
+    }
+
+    .splide__arrow--next{
+      right: 5.6rem;
+    }
+
+    //.splide__list {
+    //  gap: 24px;
+    //}
 
     .splide {
       padding: 0 !important;
@@ -47,6 +61,11 @@
           opacity: 0;
         }
       }
+    }
+
+    .splide__slide{
+      padding-right: 12px;
+      padding-left: 12px;
     }
 
     .splide__slide.is-active {
