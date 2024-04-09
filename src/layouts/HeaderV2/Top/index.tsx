@@ -1,4 +1,5 @@
 import s from './style.module.scss'
+import Treasury from '@layouts/HeaderV2/Top/treasury';
 
 
 const Top = () => {
@@ -6,7 +7,7 @@ const Top = () => {
     <div className={s.wrapper}>
       <div className={s.left}>
         <div className={s.treasury}>
-          <p>Treasury: <span>$123M</span></p>
+          <Treasury />
         </div>
         <p className={s.leftToken}>DAO</p>
       </div>
