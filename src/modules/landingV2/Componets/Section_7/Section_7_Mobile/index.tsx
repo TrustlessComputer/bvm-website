@@ -3,8 +3,8 @@
 import React from 'react';
 import s from './styles.module.scss';
 import { BLOGS } from '../constant';
-import ItemArticle from '@/modules/landing/Componets/Article/ItemArticle';
 import SectionTitle from '../../SectionTitle';
+import ItemArticle from '../Article/ItemArticle';
 
 export default function Section7Mobile() {
   return (

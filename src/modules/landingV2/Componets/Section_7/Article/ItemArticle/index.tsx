@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import s from './styles.module.scss';
-import { IBlog, LOGOS } from '../../Section_7/constant';
-import { Image } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import useWindowSize from '@/hooks/useWindowSize';
+import { IBlog, LOGOS } from '../../constant';
 
 export default function ItemArticle({ data }: { data: IBlog }) {
   const { mobileScreen } = useWindowSize();
@@ -14,14 +14,7 @@ export default function ItemArticle({ data }: { data: IBlog }) {
   }, [data]);
   return (
     <div className={s.itemArticle}>
-      <Image
-        className={s.itemArticle_img}
-        src={data.imageUrl}
-        alt={data.title}
-        width={'100%'}
-        height={mobileScreen ? 'auto' : '250px'}
-      />
-      {getLogo && (
+      {getLogo ? (
         <div className={s.cardLogo}>
           <Image
             src={getLogo}
@@ -31,7 +24,19 @@ export default function ItemArticle({ data }: { data: IBlog }) {
             objectFit={'contain'}
           />
         </div>
+      ) : (
+        <Box height={'28px'} />
       )}
+      <figure className={s.itemArticle_wrapImg}>
+        <Image
+          className={s.itemArticle_wrapImg_img}
+          src={data.imageUrl}
+          alt={data.title}
+          width={'100%'}
+          height={mobileScreen ? 'auto' : '250px'}
+        />
+      </figure>
+
       <div className={s.itemArticle_content}>
         <h5 className={s.itemArticle_content_title}>{data.title}</h5>
         <p className={s.itemArticle_content_description}>{data.desc}</p>
