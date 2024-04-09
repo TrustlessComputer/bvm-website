@@ -151,7 +151,7 @@
     bottom: 0;
     left: 0;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 20px;
@@ -166,13 +166,14 @@
     &_left {
       flex: 0 0 100%;
       @include is-min-table {
-        flex: 0 0 1;
+        flex: 1;
       }
     }
 
     &_action {
       flex: 0 0 auto;
       width: 100%;
+      padding-bottom: .4em;
       @include is-min-table {
         width: fit-content;
       }
@@ -222,6 +223,12 @@
   font-size: 14px;
   width: 100%;
   flex: 0 0 100%;
+  transition: all .4s ease-out;
+
+  &:hover{
+    background: #fa4e0e;
+    color: white;
+  }
 
   @include is-min-table {
     font-size: 16px;
