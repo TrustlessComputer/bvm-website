@@ -1,6 +1,6 @@
-import s from './style.module.scss';
-import Top from '@layouts/HeaderV2/Top';
 import Main from '@layouts/HeaderV2/Main';
+import Top from '@layouts/HeaderV2/Top';
+import s from './style.module.scss';
 
 export type HeaderV2Props = {
   position?: 'absolute' | 'relative';
