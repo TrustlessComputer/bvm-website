@@ -8,15 +8,35 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
     subMenu: [
       {
-        href: '/ai-on-bitcoin',
-        label: 'AI on Bitcoin',
+        href: '/use-bitcoin',
+        label: 'Success Stories',
+        isNewWindow: false,
+      },
+      {
+        href: '/ai',
+        label: 'Bitcoin L2 for AI',
+        isNewWindow: false,
+      },
+      {
+        href: '/gamefi',
+        label: 'Bitcoin L2 for GameFi',
+        isNewWindow: false,
+      },
+      {
+        href: '/defi',
+        label: 'Bitcoin L2 for DeFi',
+        isNewWindow: false,
+      },
+      {
+        href: '/socialfi',
+        label: 'Bitcoin L2 for SocialFi',
         isNewWindow: false,
       },
     ],
   },
   {
     label: 'Modules',
-    href: '',
+    href: '/module-store',
     isNewWindow: false,
     isHide: false,
   },
@@ -35,11 +55,11 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'Roadmap',
-    href: '',
     isNewWindow: false,
     isHide: false,
+    href: '/roadmap',
   },
-]
+];
 
 export const COMMUNITY_ITEMS = [
   {
@@ -51,6 +71,5 @@ export const COMMUNITY_ITEMS = [
     icon: './icons/x-ic.svg',
     link: '',
     alt: 'x',
-  }
-
-]
+  },
+];

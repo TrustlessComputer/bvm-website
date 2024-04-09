@@ -44,7 +44,10 @@ const Footer = () => {
                 </p>
                 <div>
                   <div className={s.footer_wrapBtns}>
-                    <Link href={''} className={cn(s.mainBtn, s.footer_btn)}>
+                    <Link
+                      href={'/use-bitcoin'}
+                      className={cn(s.mainBtn, s.footer_btn)}
+                    >
                       Use Bitcoin
                     </Link>
                     <Link href={''} className={cn(s.normalBtn, s.footer_btn)}>
