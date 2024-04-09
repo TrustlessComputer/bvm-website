@@ -8,7 +8,8 @@
   display: block;
 
   @include is-mobile {
-    min-height: 194px;
+    min-height: unset;
+    height: 194px;
   }
 
   &_color {
@@ -51,7 +52,7 @@
       margin-bottom: 69px;
 
       @include is-mobile {
-        margin-bottom: 50px;
+        margin-bottom: 0;
       }
 
       &_subTitle {
