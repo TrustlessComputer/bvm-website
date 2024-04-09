@@ -13,7 +13,7 @@
     border-radius: 20px;
     position: relative;
 
-    &_icon{
+    &_icon {
       width: 54px;
       height: auto;
       object-fit: contain;
@@ -58,6 +58,9 @@
 
           @include is-mobile {
             display: block;
+            height: auto;
+            width: 24px;
+            object-fit: contain;
           }
         }
         &_text {
