@@ -4,7 +4,7 @@
   overflow: hidden;
   min-height: 289px;
   z-index: 2;
-
+  cursor: pointer;
   &_color {
     background-color: #f0f1f4;
   }
@@ -14,7 +14,15 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+  &:hover .inner_topSection_button {
+    background-color: #fa4e0e;
+    transition: background-color 0.3s var(--easeOutQuart);
 
+    svg path {
+      transition: all 0.3s var(--easeOutQuart);
+      stroke: #fff;
+    }
+  }
   .inner {
     padding: 16px;
     // position: absolute;
@@ -93,15 +101,6 @@
         border-radius: 999px;
         cursor: pointer;
         transition: background-color 0.3s var(--easeOutQuart);
-
-        &:hover {
-          background-color: #fa4e0e;
-          transition: background-color 0.3s var(--easeOutQuart);
-          svg path {
-            transition: all 0.3s var(--easeOutQuart);
-            stroke: #fff;
-          }
-        }
       }
     }
   }
