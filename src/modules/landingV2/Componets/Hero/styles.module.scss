@@ -1,11 +1,11 @@
 .hero {
   background: white;
-  padding-top: 24px;
+  padding-top: 8px;
   padding-bottom: 24px;
 
   @include is-min-table {
     padding-bottom: 80px;
-    padding-top: 60px;
+    padding-top: 44px;
   }
 
   :global {
