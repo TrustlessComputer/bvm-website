@@ -173,21 +173,6 @@ export default function Modules() {
 
   const { isDesktop } = useWindowSize();
 
-  const cols = (start: number, end: number) => {
-    return DATA_MODULES.slice(start, end);
-  };
-
-  const arrrs = useMemo(() => {
-    console.log('___isDesktop', isDesktop);
-    return isDesktop ? [0, 1, 2] : [0, 1];
-  }, [isDesktop]);
-
-  const avg = useMemo(() => {
-    console.log('____arrrs', arrrs);
-    return Math.floor(DATA_MODULES.length / arrrs.length) + 1;
-  }, [arrrs]);
-
-
   return (
     <div className={cn(s.wrapper)}>
       <div className='container'>
@@ -196,17 +181,54 @@ export default function Modules() {
         </SectionTitle>
 
         <div className={s.wrapper_list}>
+
           {
-            arrrs.map((idx) => {
-              return (<div className={s.listCol}>
-                {cols(avg * idx, avg * (idx + 1)).map((item, index) => {
-                  return <div className={s.listCol_item}>
-                    <CardExplore {...item} type='modules' key={index} />
-                  </div>;
-                })}
-              </div>);
-            })
+            isDesktop ? (<>
+                <div className={s.listCol}>
+                  {DATA_MODULES.slice(0, 6).map((item, index) => {
+                    return <div className={s.listCol_item}>
+                      <CardExplore {...item} type='modules' key={index} />
+                    </div>;
+                  })}
+                </div>
+
+                <div className={s.listCol}>
+                  {DATA_MODULES.slice(6, 11).map((item, index) => {
+                    return <div className={s.listCol_item}>
+                      <CardExplore {...item} type='modules' key={index} />
+                    </div>;
+                  })}
+                </div>
+
+                <div className={s.listCol}>
+                  {DATA_MODULES.slice(11, 16).map((item, index) => {
+                    return <div className={s.listCol_item}>
+                      <CardExplore {...item} type='modules' key={index} />
+                    </div>;
+                  })}
+                </div>
+              </>) :
+              (<>
+                  <div className={s.listCol}>
+                    {DATA_MODULES.slice(0, 8).map((item, index) => {
+                      return <div className={s.listCol_item}>
+                        <CardExplore {...item} type='modules' key={index} />
+                      </div>;
+                    })}
+                  </div>
+
+                  <div className={s.listCol}>
+                    {DATA_MODULES.slice(8, 16).map((item, index) => {
+                      return <div className={s.listCol_item}>
+                        <CardExplore {...item} type='modules' key={index} />
+                      </div>;
+                    })}
+                  </div>
+                </>
+              )
           }
+
+
         </div>
       </div>
     </div>
