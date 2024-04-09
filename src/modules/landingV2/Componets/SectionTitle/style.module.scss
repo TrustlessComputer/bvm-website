@@ -8,7 +8,7 @@
   text-transform: uppercase;
 
   @include is-mobile {
-    font-size: 40px;
+    font-size: 32px;
     line-height: (48/40);
     margin-bottom: 32px;
   }
