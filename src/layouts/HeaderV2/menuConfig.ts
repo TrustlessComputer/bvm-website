@@ -14,9 +14,9 @@ export const NAV_ITEMS: Array<NavItem> = [
         isNewWindow: false,
       },
       {
-        href: '/ai',
+        href: 'https://eternalai.org',
         label: 'Bitcoin L2 for AI',
-        isNewWindow: false,
+        isNewWindow: true,
       },
       {
         href: '/gamefi',
