@@ -5,7 +5,10 @@
   color: #000000;
   padding: 16px 0;
   font-family: var(--font-hind);
-  border-bottom: 1px solid #ececec;
+  @include is-pc {
+    border-bottom: 1px solid #ececec;
+  }
+
   .left {
     display: flex;
     align-items: center;
