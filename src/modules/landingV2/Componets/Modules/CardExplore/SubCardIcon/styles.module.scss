@@ -2,12 +2,10 @@
   display: flex;
   flex-direction: row;
   gap: 8px;
-  align-items: center;
 
   &_left {
     display: flex;
     width: 117px;
-    height: 117px;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
@@ -15,13 +13,22 @@
     border-radius: 20px;
     position: relative;
 
+    &_icon {
+      width: 54px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    @include is-mobile {
+      display: none;
+    }
+
     &::before {
       position: absolute;
       content: '';
       height: 25px;
       width: 20px;
       left: 100%;
-      z-index: -1;
       top: 50%;
       transform: translateY(-50%);
       background-color: #fff;
@@ -31,18 +38,45 @@
   &_right {
     border-radius: 20px;
     background-color: #fff;
+
+    @include is-mobile {
+      width: 100%;
+    }
     &_inner {
       padding: 12px 20px;
       width: 100%;
       height: 100%;
+      display: flex;
+      flex-direction: column;
+
       &_title {
-        color: #000;
-        font-family: var(--font-hind);
-        font-size: 22px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 130%; /* 28.6px */
-        text-transform: uppercase;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        &_icon {
+          display: none;
+
+          @include is-mobile {
+            display: block;
+            height: auto;
+            width: 24px;
+            object-fit: contain;
+          }
+        }
+        &_text {
+          flex-shrink: 0;
+          color: #000;
+          font-family: var(--font-hind);
+          font-size: 22px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 130%; /* 28.6px */
+          text-transform: uppercase;
+
+          @include is-mobile {
+            font-size: 16px;
+          }
+        }
       }
 
       &_decs {
@@ -53,6 +87,11 @@
         font-style: normal;
         font-weight: 400;
         line-height: 150%;
+
+        @include is-mobile {
+          font-size: 14px;
+          padding-top: 9.5px;
+        }
       }
     }
   }

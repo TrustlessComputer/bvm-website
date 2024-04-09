@@ -4,6 +4,10 @@
   padding-bottom: 80px;
 
   @include is-mobile {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  @include is-tablet {
     padding-top: 32px;
     padding-bottom: 32px;
   }

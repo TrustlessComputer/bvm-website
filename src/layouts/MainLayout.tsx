@@ -28,8 +28,8 @@ const MainLayout = ({
 
   return (
     <>
-      {!hideHeader && <Header {...headerProps} />}
-      <HeaderV2 />
+      {/* {<Header {...headerProps} />} */}
+      {!hideHeader && <HeaderV2 {...headerProps} />}
       {children}
       <Footer />
     </>

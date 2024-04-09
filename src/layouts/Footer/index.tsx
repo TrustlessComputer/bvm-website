@@ -54,9 +54,9 @@ const Footer = () => {
                     </Link>
 
                     <div className={s.dropMenu}>
-                      <Link href={''} className={cn(s.normalBtn, s.footer_btn)}>
+                      <div className={cn(s.normalBtn, s.footer_btn)}>
                         Build on Bitcoin
-                      </Link>
+                      </div>
                       <ul className={s.dropMenu_list}>
                         {MenuBuild?.subMenu.map((item) => {
                           return (

@@ -10,14 +10,11 @@
   @include is-mobile {
     font-size: 32px;
     line-height: (48/40);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+    text-align: left;
   }
 
   &__left {
     text-align: left;
-
-    @include is-mobile {
-      text-align: center;
-    }
   }
 }

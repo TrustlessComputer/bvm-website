@@ -4,6 +4,7 @@ import { COMMUNITY_ITEMS, NAV_ITEMS } from '@layouts/HeaderV2/menuConfig';
 import Link from 'next/link';
 import DropDown from '../components/Dropdown';
 import ContactUs from '../components/ContactUs';
+import { Image } from '@chakra-ui/react';
 
 const Main = () => {
   return (
@@ -22,6 +23,11 @@ const Main = () => {
             </Link>
           );
         })}
+      </div>
+      <div className={s.logo}>
+        <Link href={'/'}>
+          <Image src={'/landing-v2/svg/logo.svg'} />
+        </Link>
       </div>
       <div className={s.right}>
         <div className={s.contact}>

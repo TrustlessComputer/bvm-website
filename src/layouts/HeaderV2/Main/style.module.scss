@@ -1,22 +1,35 @@
 .wrapper {
+  position: relative;
   color: #000;
-  display: flex;
-  padding: 20px 0;
+  padding: 16px 0;
   align-items: center;
   justify-content: space-between;
-  .left {
-    color: #000;
+  display: none;
+  position: relative;
+
+  @include is-pc {
     display: flex;
-    align-items: center;
-    gap: 32px;
-  }
-  .right {
-    display: flex;
-    gap: 32px;
-    align-items: center;
   }
 }
 
+.left {
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.right {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+.logo {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 .itemWrapper {
   .item {
     font-family: var(--font-hind);
@@ -37,6 +50,7 @@
 .icon {
   max-width: 20px;
   width: 100%;
+
   img {
     width: 100%;
     height: 100%;
@@ -47,6 +61,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
+
   .mainLabel {
     font-family: var(--font-hind);
     font-weight: 500;
@@ -65,3 +80,11 @@
   border-radius: 1000px;
   background-color: #fa4e0e;
 }
+
+// .logo {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: 2;
+// }

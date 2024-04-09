@@ -5,15 +5,24 @@
   min-height: 289px;
   z-index: 2;
   cursor: pointer;
+  display: block;
+
+  @include is-mobile {
+    min-height: 194px;
+  }
+
   &_color {
     background-color: #f0f1f4;
+    min-height: auto;
   }
+
   &_image {
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
   }
+
   &:hover .inner_topSection_button {
     background-color: #fa4e0e;
     transition: background-color 0.3s var(--easeOutQuart);
@@ -23,6 +32,7 @@
       stroke: #fff;
     }
   }
+
   .inner {
     padding: 16px;
     // position: absolute;
@@ -38,21 +48,28 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 100px;
+      margin-bottom: 69px;
+
+      @include is-mobile {
+        margin-bottom: 50px;
+      }
 
       &_subTitle {
         border-radius: 20px;
-
-        height: 40px;
         padding: 12px 28px;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 8px;
 
+        @include is-mobile {
+          padding: 10px 20px;
+        }
+
         &__modules {
           background-color: #fff;
         }
+
         &__solutions {
           border: 1px solid rgba(255, 255, 255, 0.2);
           background: rgba(255, 255, 255, 0.1);
@@ -68,39 +85,55 @@
           font-weight: 700;
           line-height: 1;
 
+          @include is-mobile {
+            font-size: 12px;
+            line-height: 1;
+          }
+
           &__7E7CFF {
             color: #7e7cff;
           }
+
           &__FE6420 {
             color: #fe6420;
           }
+
           &__66BCFF {
             color: #66bcff;
           }
+
           &__7EBD4E {
             color: #7ebd4e;
           }
+
           &__7E7CFF {
             color: #7e7cff;
           }
+
           &__FF0420 {
             color: #ff0420;
           }
+
+          &__FF7E21 {
+            color: #ff7e21;
+          }
         }
       }
+
       &_button {
         display: flex;
-        width: 40px;
-        height: 40px;
-        padding: 4px 20px;
         justify-content: center;
         align-items: center;
-        gap: 8px;
-        flex-shrink: 0;
         background-color: #fff;
         border-radius: 999px;
         cursor: pointer;
         transition: background-color 0.3s var(--easeOutQuart);
+        width: 40px;
+        height: 40px;
+        @include is-mobile {
+          width: 32px;
+          height: 32px;
+        }
       }
     }
   }

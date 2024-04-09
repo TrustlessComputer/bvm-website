@@ -1,7 +1,7 @@
 'use client';
 
 import { Link, StackDivider, VStack } from '@chakra-ui/react';
-import { NAV_ITEMS } from '../menuConfig';
+import { NAV_ITEMS, NAV_ITEMS_MOBILE } from '../menuConfig';
 import MobileDropdown from '@/layouts/Header/components/MobileDropdown';
 import Community from './Community';
 
@@ -18,7 +18,7 @@ export const MobileNav = (props: Props) => {
       px={'24px'}
       py={'32px'}
     >
-      {NAV_ITEMS.map((item) => (
+      {NAV_ITEMS_MOBILE.map((item) => (
         <>
           {item.subMenu ? (
             <MobileDropdown
@@ -41,7 +41,7 @@ export const MobileNav = (props: Props) => {
           )}
         </>
       ))}
-      <Community />
+      <Community color="black" />
     </VStack>
   );
 };
