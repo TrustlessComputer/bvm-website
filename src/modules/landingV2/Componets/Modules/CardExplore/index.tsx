@@ -8,15 +8,16 @@ import SubCardIcon from './SubCardIcon';
 import Link from 'next/link';
 
 type TCardExplore = {
-  subTitle: string;
+  subTitle?: string;
   link: string;
-  color: string;
+  color?: string;
   title: string;
   target?: string;
   backgroundImg: string;
   decs: string;
   type: 'solutions' | 'modules';
   icon?: string;
+  tags?: { subTitle: string, color: string }[]
 };
 export default function CardExplore({
                                       color,
@@ -28,6 +29,7 @@ export default function CardExplore({
                                       type,
                                       icon,
                                       target,
+                                      tags,
                                     }: TCardExplore) {
 
   const isLink = useMemo(() => {
@@ -35,33 +37,55 @@ export default function CardExplore({
   }, [link]);
   return (
     <Link href={link} target={target}
-      className={cn(
-        s.wrapper,
-        backgroundImg ? s.wrapper_image : s.wrapper_color,
-      )}
-      style={{ backgroundImage: `url(${backgroundImg})` }}
+          className={cn(
+            s.wrapper,
+            backgroundImg ? s.wrapper_image : s.wrapper_color,
+          )}
+          style={{ backgroundImage: `url(${backgroundImg})` }}
     >
       <div className={s.inner}>
         <div className={s.inner_topSection}>
-          <div
-            className={cn(
-              s.inner_topSection_subTitle,
-              s[`inner_topSection_subTitle__${type}`],
-            )}
-          >
-            <p
+          {
+            tags ? (<div className={s.tags}>
+              {
+                tags.map((tag) => {
+                  return (<div
+                    className={cn(
+                      s.inner_topSection_subTitle,
+                      s[`inner_topSection_subTitle__${type}`],
+                    )}
+                  >
+                    <p
+                      className={cn(
+                        s.inner_topSection_subTitle_text,
+                        tag.color && s[`inner_topSection_subTitle_text__${tag.color}`],
+                      )}
+                    >
+                      {tag.subTitle}
+                    </p>
+                  </div>);
+                })
+              }
+            </div>) : (<div
               className={cn(
-                s.inner_topSection_subTitle_text,
-                color && s[`inner_topSection_subTitle_text__${color}`],
+                s.inner_topSection_subTitle,
+                s[`inner_topSection_subTitle__${type}`],
               )}
             >
-              {subTitle}
-            </p>
-          </div>
+              <p
+                className={cn(
+                  s.inner_topSection_subTitle_text,
+                  color && s[`inner_topSection_subTitle_text__${color}`],
+                )}
+              >
+                {subTitle}
+              </p>
+            </div>)
+          }
           {isLink && (
             <SvgInset
               className={s.inner_topSection_button}
-              svgUrl="/landing-v2/svg/arrow-r-t.svg"
+              svgUrl='/landing-v2/svg/arrow-r-t.svg'
               size={20}
             />
           )}

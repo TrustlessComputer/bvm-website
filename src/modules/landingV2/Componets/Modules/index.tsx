@@ -8,9 +8,16 @@ import useWindowSize from '@hooks/useWindowSize';
 
 const DATA_MODULES = [
   {
-    subTitle: 'Data Validity',
     link: '',
-    color: '7E7CFF',
+    tags: [{
+      subTitle: 'Data Validity',
+      color: 'FF0420',
+    },
+      {
+        subTitle: 'Data Availability',
+        color: '66BCFF',
+      },
+    ],
     title: 'Ordinals',
     backgroundImg: '',
     decs: 'Data is organized into batches within the DA layer and stored as transaction hashes on Bitcoin (Ordinals) to ensure the integrity and reliability of data stored on the blockchain.',
@@ -123,15 +130,6 @@ const DATA_MODULES = [
   },
   {
     subTitle: 'Data Availability',
-    link: '',
-    color: '66BCFF',
-    title: 'Ordinals',
-    backgroundImg: '',
-    icon: '/landing-v2/logos/ordinals.png',
-    decs: 'Data is organized into batches within the DA layer and stored as transaction hashes on Bitcoin (Ordinals) to ensure the integrity and reliability of data stored on the blockchain.',
-  },
-  {
-    subTitle: 'Data Availability',
     link: 'https://twitter.com/NEARProtocol',
     target: '_blank',
     color: '66BCFF',
@@ -173,22 +171,21 @@ const DATA_MODULES = [
 
 export default function Modules() {
 
-  const {isDesktop} = useWindowSize();
+  const { isDesktop } = useWindowSize();
 
   const cols = (start: number, end: number) => {
     return DATA_MODULES.slice(start, end);
   };
 
-  const arrrs = useMemo(()=>{
-    console.log('___isDesktop', isDesktop)
-      return isDesktop ? [0,1,2] : [0,1];
-  }, [isDesktop])
+  const arrrs = useMemo(() => {
+    console.log('___isDesktop', isDesktop);
+    return isDesktop ? [0, 1, 2] : [0, 1];
+  }, [isDesktop]);
 
   const avg = useMemo(() => {
-    console.log('____arrrs', arrrs)
+    console.log('____arrrs', arrrs);
     return Math.floor(DATA_MODULES.length / arrrs.length) + 1;
   }, [arrrs]);
-
 
 
   return (
@@ -200,14 +197,14 @@ export default function Modules() {
 
         <div className={s.wrapper_list}>
           {
-            arrrs.map((idx)=>{
-              return ( <div className={s.listCol}>
+            arrrs.map((idx) => {
+              return (<div className={s.listCol}>
                 {cols(avg * idx, avg * (idx + 1)).map((item, index) => {
                   return <div className={s.listCol_item}>
                     <CardExplore {...item} type='modules' key={index} />
                   </div>;
                 })}
-              </div>)
+              </div>);
             })
           }
         </div>
