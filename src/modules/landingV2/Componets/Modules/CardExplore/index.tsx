@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import cn from 'classnames';
@@ -17,15 +17,19 @@ type TCardExplore = {
   icon?: string;
 };
 export default function CardExplore({
-  color,
-  decs,
-  backgroundImg,
-  link,
-  subTitle,
-  title,
-  type,
-  icon,
-}: TCardExplore) {
+                                      color,
+                                      decs,
+                                      backgroundImg,
+                                      link,
+                                      subTitle,
+                                      title,
+                                      type,
+                                      icon,
+                                    }: TCardExplore) {
+
+  const isLink = useMemo(() => {
+    return link !== '';
+  }, [link]);
   return (
     <div
       className={cn(
@@ -51,11 +55,13 @@ export default function CardExplore({
               {subTitle}
             </p>
           </div>
-          <SvgInset
-            className={s.inner_topSection_button}
-            svgUrl="/landing-v2/svg/arrow-r-t.svg"
-            size={20}
-          />
+          {
+            isLink && <SvgInset
+              className={s.inner_topSection_button}
+              svgUrl='/landing-v2/svg/arrow-r-t.svg'
+              size={20}
+            />
+          }
         </div>
         {type === 'modules' ? (
           <SubCardIcon decs={decs} title={title} icon={icon as string} />

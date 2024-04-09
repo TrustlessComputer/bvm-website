@@ -11,7 +11,7 @@ export default function SubCardIcon({ decs, icon, title }: TSubCardIcon) {
   return (
     <div className={s.botSection}>
       <div className={s.botSection_left}>
-        <SvgInset svgUrl={icon} className={s.botSection_left_icon} />
+        <img src={icon} className={s.botSection_left_icon} />
       </div>
       <div className={s.botSection_right}>
         <div className={s.botSection_right_inner}>

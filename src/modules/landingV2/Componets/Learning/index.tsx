@@ -26,7 +26,7 @@ export default function Learning() {
     <div className={s.wrapper}>
       <div className="container">
         <SectionTitle className={s.wrapper_title}>
-          Learn what bvm products can do for you
+          Learn what BVM Products can do for you
         </SectionTitle>
 
         <div className={s.wrapper_list}>
