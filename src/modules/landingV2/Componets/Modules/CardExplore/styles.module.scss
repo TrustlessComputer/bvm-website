@@ -115,24 +115,21 @@
           }
 
           &__FF7E21 {
-            color: #FF7E21;
+            color: #ff7e21;
           }
         }
       }
 
       &_button {
         display: flex;
-        height: 100%;
-        aspect-ratio: 1;
         justify-content: center;
         align-items: center;
-        gap: 8px;
-        flex-shrink: 0;
         background-color: #fff;
         border-radius: 999px;
         cursor: pointer;
         transition: background-color 0.3s var(--easeOutQuart);
-
+        width: 40px;
+        height: 40px;
         @include is-mobile {
           width: 32px;
           height: 32px;

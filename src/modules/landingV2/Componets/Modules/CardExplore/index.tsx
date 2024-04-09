@@ -58,13 +58,13 @@ export default function CardExplore({
               {subTitle}
             </p>
           </div>
-          {
-            isLink && <SvgInset
+          {isLink && (
+            <SvgInset
               className={s.inner_topSection_button}
-              svgUrl='/landing-v2/svg/arrow-r-t.svg'
+              svgUrl="/landing-v2/svg/arrow-r-t.svg"
               size={20}
             />
-          }
+          )}
         </div>
         {type === 'modules' ? (
           <SubCardIcon decs={decs} title={title} icon={icon as string} />
