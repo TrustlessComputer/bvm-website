@@ -41,7 +41,7 @@ export default function HeroV2() {
             <SplideSlide>
               <SlideItem
                 title={'Rune Chain'}
-                src={'/landing-v2/images/naka-chain-hero.jpeg'}
+                src={'/landing-v2/images/rune-chain-hero.jpeg'}
                 action={'https://runechain.com/'}
                 target={'_blank'}
               >
@@ -52,7 +52,7 @@ export default function HeroV2() {
             <SplideSlide>
               <SlideItem
                 title={'Naka Chain'}
-                src={'/landing-v2/images/rune-chain-hero.jpeg'}
+                src={'/landing-v2/images/naka-chain-hero.jpeg'}
                 action={'https://nakachain.xyz/'}
                 target={'_blank'}
               >
