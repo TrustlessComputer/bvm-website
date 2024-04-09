@@ -20,6 +20,7 @@ const DATA_MODULES = [
     color: '66BCFF',
     title: 'Polygon',
     backgroundImg: '',
+    target: '_blank',
     icon: '/landing-v2/logos/polygon.png',
     decs: 'Empowering builders to build anything on Bitcoin from DeFi, GameFi, to A.I.',
   },
@@ -29,6 +30,7 @@ const DATA_MODULES = [
     color: '66BCFF',
     title: 'Celestia',
     backgroundImg: '',
+    target: '_blank',
     icon: '/landing-v2/logos/celestia.png',
     decs: 'Make it easy for anyone to securely launch their own blockchain.',
   },
@@ -61,6 +63,7 @@ const DATA_MODULES = [
   }, {
     subTitle: 'Data Validity',
     link: 'https://twitter.com/Stampchain',
+    target: '_blank',
     color: 'FF0420',
     title: 'Stamps',
     backgroundImg: '',
@@ -70,6 +73,7 @@ const DATA_MODULES = [
   {
     subTitle: 'Data Availability',
     link: 'https://twitter.com/filecoin',
+    target: '_blank',
     color: '66BCFF',
     title: 'Filecoin',
     backgroundImg: '',
@@ -79,6 +83,7 @@ const DATA_MODULES = [
   {
     subTitle: 'Data Availability',
     link: 'https://twitter.com/eigen_da',
+    target: '_blank',
     color: '66BCFF',
     title: 'EigenDA',
     backgroundImg: '',
@@ -88,6 +93,7 @@ const DATA_MODULES = [
   {
     subTitle: 'Rollup protocol',
     link: 'https://twitter.com/zksync',
+    target: '_blank',
     color: 'FF7E21',
     title: 'ZK Sync',
     backgroundImg: '',
@@ -97,6 +103,7 @@ const DATA_MODULES = [
   {
     subTitle: 'dApps',
     link: 'https://twitter.com/GMX_IO',
+    target: '_blank',
     color: '7E7CFF',
     title: 'GMX',
     backgroundImg: '',
@@ -105,7 +112,7 @@ const DATA_MODULES = [
   },
   {
     subTitle: 'Cross-chain bridges',
-    link: 'https://twitter.com/GMX_IO',
+    link: '',
     color: '7EBD4E',
     title: 'BRC-20',
     backgroundImg: '',
@@ -124,6 +131,7 @@ const DATA_MODULES = [
   {
     subTitle: 'Data Availability',
     link: 'https://twitter.com/NEARProtocol',
+    target: '_blank',
     color: '66BCFF',
     title: 'NearDA',
     backgroundImg: '',
@@ -133,6 +141,7 @@ const DATA_MODULES = [
   {
     subTitle: 'Data Availability',
     link: 'https://twitter.com/AvailProject',
+    target: '_blank',
     color: '66BCFF',
     title: 'Avail',
     backgroundImg: '',
@@ -142,6 +151,7 @@ const DATA_MODULES = [
   {
     subTitle: 'dApps',
     link: 'https://twitter.com/Uniswap',
+    target: '_blank',
     color: '7E7CFF',
     title: 'Uniswap',
     backgroundImg: '',

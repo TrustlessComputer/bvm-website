@@ -14,7 +14,9 @@ const Top = () => {
         <div className={s.treasury}>
           <Treasury />
         </div>
-        <p className={s.leftToken}>DAO</p>
+        <p onClick={(): void=>{
+          window.open('https://nakachain.xyz/proposal-dashboard', '_blank');
+        }} className={s.leftToken}>DAO</p>
       </div>
       {isDesktop ? (
         <div className={s.right}>

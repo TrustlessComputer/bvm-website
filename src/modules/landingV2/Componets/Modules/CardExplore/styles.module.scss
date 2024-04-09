@@ -5,6 +5,7 @@
   min-height: 289px;
   z-index: 2;
   cursor: pointer;
+  display: block;
 
   @include is-mobile {
     min-height: 194px;

@@ -7,7 +7,7 @@ import CardExplore from '../Modules/CardExplore';
 const DATA_SOLUTIONS = [
   {
     subTitle: 'DeFi',
-    link: '',
+    link: '/defi',
     color: '',
     title: 'Bitcoin l2 for defi',
     backgroundImg: '/landing-v2/images/card_1.jpg',
@@ -15,7 +15,7 @@ const DATA_SOLUTIONS = [
   },
   {
     subTitle: 'Gaming',
-    link: '',
+    link: '/gamefi',
     color: '',
     title: 'Bitcoin l2 for gamefi',
     backgroundImg: '/landing-v2/images/card_2.jpg',
@@ -23,7 +23,7 @@ const DATA_SOLUTIONS = [
   },
   {
     subTitle: 'Social',
-    link: '',
+    link: '/social',
     color: '',
     title: 'Bitcoin l2 for socialfi',
     backgroundImg: '/landing-v2/images/card_3.jpg',
@@ -31,7 +31,8 @@ const DATA_SOLUTIONS = [
   },
   {
     subTitle: 'AI',
-    link: '',
+    link: 'https://eternalai.org/',
+    target: '_blank',
     color: '',
     title: 'Bitcoin l2 for ai',
     backgroundImg: '/landing-v2/images/card_4.jpg',

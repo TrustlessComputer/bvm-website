@@ -5,12 +5,14 @@ import cn from 'classnames';
 import SvgInset from '@/components/SvgInset';
 import SubCardText from './SubCardText';
 import SubCardIcon from './SubCardIcon';
+import Link from 'next/link';
 
 type TCardExplore = {
   subTitle: string;
   link: string;
   color: string;
   title: string;
+  target?: string;
   backgroundImg: string;
   decs: string;
   type: 'solutions' | 'modules';
@@ -25,13 +27,14 @@ export default function CardExplore({
                                       title,
                                       type,
                                       icon,
+                                      target,
                                     }: TCardExplore) {
 
   const isLink = useMemo(() => {
     return link !== '';
   }, [link]);
   return (
-    <div
+    <Link href={link} target={target}
       className={cn(
         s.wrapper,
         backgroundImg ? s.wrapper_image : s.wrapper_color,
@@ -69,6 +72,6 @@ export default function CardExplore({
           <SubCardText decs={decs} title={title} />
         )}
       </div>
-    </div>
+    </Link>
   );
 }
