@@ -1,7 +1,7 @@
 .hero {
   background: white;
   padding-top: 24px;
-  padding-bottom: 48px;
+  padding-bottom: 24px;
 
   @include is-min-table {
     padding-bottom: 80px;
@@ -9,7 +9,6 @@
   }
 
   :global {
-
     .splide__pagination {
       bottom: -1rem;
     }
@@ -44,7 +43,6 @@
       outline: none;
 
       span {
-
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -52,7 +50,7 @@
         transition: background-color 0.3s var(--easeOutQuart);
         height: 36px;
         width: 36px;
-        background: rgba(white, .5);
+        background: rgba(white, 0.5);
 
         @include is-min-table {
           background: white;
@@ -60,7 +58,6 @@
           width: 68px;
         }
       }
-
 
       svg {
         fill: transparent !important;
@@ -94,7 +91,6 @@
     .slideItem_item {
       opacity: 0;
       transition: opacity 0.4s ease;
-
     }
 
     .splide__track {
@@ -106,7 +102,6 @@
     }
 
     .splide__slide {
-
       padding-right: 8px;
       padding-left: 8px;
 
@@ -119,7 +114,6 @@
       @include is-min-table {
         padding-right: 12px;
         padding-left: 12px;
-
       }
     }
 
@@ -173,7 +167,7 @@
     &_action {
       flex: 0 0 auto;
       width: 100%;
-      padding-bottom: .4em;
+      padding-bottom: 0.4em;
       @include is-min-table {
         width: fit-content;
       }
@@ -223,9 +217,9 @@
   font-size: 14px;
   width: 100%;
   flex: 0 0 100%;
-  transition: all .4s ease-out;
+  transition: all 0.4s ease-out;
 
-  &:hover{
+  &:hover {
     background: #fa4e0e;
     color: white;
   }
