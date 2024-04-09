@@ -3,9 +3,9 @@
 import { HStack, Text } from '@chakra-ui/react';
 
 import Link from 'next/link';
-import { NAV_ITEMS_LEFT } from '../menuConfig';
 import DropDown from '@/layouts/Header/components/Dropdown';
 import s from './styles.module.scss';
+import { NAV_ITEMS_LEFT } from '@layouts/Header/menuConfig';
 
 type Props = {
   primaryColor?: 'black' | 'white';
