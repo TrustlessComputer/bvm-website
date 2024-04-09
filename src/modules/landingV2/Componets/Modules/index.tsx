@@ -3,6 +3,8 @@ import s from './styles.module.scss';
 import SectionTitle from '../SectionTitle';
 import cn from 'classnames';
 import CardExplore from './CardExplore';
+import useWindowResize from '@hooks/useWindowResize';
+import useWindowSize from '@hooks/useWindowSize';
 
 const DATA_MODULES = [
   {
@@ -171,13 +173,23 @@ const DATA_MODULES = [
 
 export default function Modules() {
 
+  const {isDesktop} = useWindowSize();
+
   const cols = (start: number, end: number) => {
     return DATA_MODULES.slice(start, end);
   };
 
+  const arrrs = useMemo(()=>{
+    console.log('___isDesktop', isDesktop)
+      return isDesktop ? [0,1,2] : [0,1];
+  }, [isDesktop])
+
   const avg = useMemo(() => {
-    return Math.floor(DATA_MODULES.length / 3) + 1;
-  }, []);
+    console.log('____arrrs', arrrs)
+    return Math.floor(DATA_MODULES.length / arrrs.length) + 1;
+  }, [arrrs]);
+
+
 
   return (
     <div className={cn(s.wrapper)}>
@@ -187,23 +199,17 @@ export default function Modules() {
         </SectionTitle>
 
         <div className={s.wrapper_list}>
-          <div className={s.listCol}>
-            {cols(0, avg).map((item, index) => {
-              return <div className={s.listCol_item}>
-                <CardExplore {...item} type='modules' key={index} />
-              </div>;
-            })}
-          </div>
-          <div className={s.listCol}>
-            {cols(avg, avg * 2).map((item, index) => {
-              return <div className={s.listCol_item}><CardExplore {...item} type='modules' key={index} /></div>;
-            })}
-          </div>
-          <div className={s.listCol}>
-            {cols(avg * 2, avg * 3).map((item, index) => {
-              return <div className={s.listCol_item}><CardExplore {...item} type='modules' key={index} /></div>;
-            })}
-          </div>
+          {
+            arrrs.map((idx)=>{
+              return ( <div className={s.listCol}>
+                {cols(avg * idx, avg * (idx + 1)).map((item, index) => {
+                  return <div className={s.listCol_item}>
+                    <CardExplore {...item} type='modules' key={index} />
+                  </div>;
+                })}
+              </div>)
+            })
+          }
         </div>
       </div>
     </div>
