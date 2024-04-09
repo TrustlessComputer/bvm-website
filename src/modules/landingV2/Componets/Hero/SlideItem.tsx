@@ -7,6 +7,7 @@ interface IProp extends PropsWithChildren {
   title: string,
   action: string,
   src: string,
+  target: string
 }
 
 export default function SlideItem({ title, children, action, target }: IProp) {
