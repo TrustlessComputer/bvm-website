@@ -34,15 +34,6 @@ export default function CardExplore({
       )}
       style={{ backgroundImage: `url(${backgroundImg})` }}
     >
-      {/* {backgroundImg && (
-        <Image
-          alt={`img${title}`}
-          src={backgroundImg}
-          width={511}
-          height={289}
-          className={s.wrapper_image}
-        />
-      )} */}
       <div className={s.inner}>
         <div className={s.inner_topSection}>
           <div

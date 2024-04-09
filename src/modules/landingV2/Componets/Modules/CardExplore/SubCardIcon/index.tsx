@@ -15,7 +15,14 @@ export default function SubCardIcon({ decs, icon, title }: TSubCardIcon) {
       </div>
       <div className={s.botSection_right}>
         <div className={s.botSection_right_inner}>
-          <h3 className={s.botSection_right_inner_title}>{title}</h3>
+          <div className={s.botSection_right_inner_title}>
+            <h3 className={s.botSection_right_inner_title_text}>{title}</h3>
+            <SvgInset
+              svgUrl={icon}
+              size={24}
+              className={s.botSection_right_inner_title_icon}
+            />
+          </div>
           <p className={s.botSection_right_inner_decs}>{decs}</p>
         </div>
       </div>

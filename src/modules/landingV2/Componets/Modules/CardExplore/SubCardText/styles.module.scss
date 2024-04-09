@@ -1,5 +1,9 @@
 .botSection {
   max-width: 428px;
+
+  @include is-mobile {
+    max-width: unset;
+  }
   &_title {
     color: #fff;
     font-family: var(--font-hind);
@@ -8,6 +12,10 @@
     font-weight: 700;
     line-height: 130%;
     text-transform: uppercase;
+
+    @include is-mobile {
+      font-size: 16px;
+    }
   }
   &_decs {
     padding-top: 8px;
@@ -18,5 +26,9 @@
     font-weight: 400;
     line-height: 150%;
     min-height: 54px;
+
+    @include is-mobile {
+      font-size: 14px;
+    }
   }
 }

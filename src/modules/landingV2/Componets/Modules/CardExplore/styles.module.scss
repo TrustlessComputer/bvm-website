@@ -5,6 +5,11 @@
   min-height: 289px;
   z-index: 2;
   cursor: pointer;
+
+  @include is-mobile {
+    min-height: 194px;
+  }
+
   &_color {
     background-color: #f0f1f4;
   }
@@ -40,15 +45,21 @@
       align-items: center;
       margin-bottom: 100px;
 
+      @include is-mobile {
+        margin-bottom: 50px;
+      }
+
       &_subTitle {
         border-radius: 20px;
-
-        height: 40px;
         padding: 12px 28px;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 8px;
+
+        @include is-mobile {
+          padding: 10px 20px;
+        }
 
         &__modules {
           background-color: #fff;
@@ -67,6 +78,11 @@
           font-style: normal;
           font-weight: 700;
           line-height: 1;
+
+          @include is-mobile {
+            font-size: 12px;
+            line-height: 0.9;
+          }
 
           &__7E7CFF {
             color: #7e7cff;
@@ -90,9 +106,8 @@
       }
       &_button {
         display: flex;
-        width: 40px;
-        height: 40px;
-        padding: 4px 20px;
+        height: 100%;
+        aspect-ratio: 1;
         justify-content: center;
         align-items: center;
         gap: 8px;
@@ -101,6 +116,11 @@
         border-radius: 999px;
         cursor: pointer;
         transition: background-color 0.3s var(--easeOutQuart);
+
+        @include is-mobile {
+          width: 32px;
+          height: 32px;
+        }
       }
     }
   }
