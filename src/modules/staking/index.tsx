@@ -28,7 +28,7 @@ const StakingUser = () => {
       }}
     >
       <Loader />
-      <Box className={styles.container} bgColor="rgba(15, 15, 15, 1)">
+      <Box className={styles.container}>
         <HeaderPoints />
         {stakeUser?.isHaveTeam ? <TeamPoints /> : <StakeRole />}
         <MiningBox />
