@@ -7,12 +7,13 @@ interface IProp extends PropsWithChildren {
   title: string,
   action: string,
   src: string,
+  target: string
 }
 
-export default function SlideItem({ title, children, action, target }: IProp) {
+export default function SlideItem({ title, src, children, action, target }: IProp) {
 
   return <div className={s.slideItem}>
-    <Image src={'/landing-v2/hero-slide-item.jpeg'} alt={'hero-slide-item.jpeg'} width={1056} height={572} />
+    <Image src={src} alt={'hero-slide-item.jpeg'} width={1056} height={572} />
     <div className={`${s.slideItem_item} slideItem_item`}>
       <div className={s.slideItem_item_left}>
         <h2 className={s.heading}>{title}</h2>
