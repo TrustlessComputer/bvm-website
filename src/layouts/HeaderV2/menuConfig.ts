@@ -9,11 +9,6 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
     subMenu: [
       {
-        href: '/use-bitcoin',
-        label: 'Success Stories',
-        isNewWindow: false,
-      },
-      {
         href: 'https://eternalai.org',
         label: 'Bitcoin L2 for AI',
         isNewWindow: true,
