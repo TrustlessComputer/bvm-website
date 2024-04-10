@@ -10,7 +10,7 @@ const DATA_SOLUTIONS = [
     link: '/defi',
     color: '',
     title: 'Bitcoin l2 for DeFi',
-    backgroundImg: '/landing-v2/images/card_v__1.jpg',
+    backgroundImg: '/landing-v2/images/card__v__1.jpg',
     decs: '2-second block time. $0.0001 transaction fee. 100% permissionless.',
   },
   {
@@ -18,7 +18,7 @@ const DATA_SOLUTIONS = [
     link: '/gamefi',
     color: '',
     title: 'Bitcoin l2 for GameFi',
-    backgroundImg: '/landing-v2/images/card_v__2.jpg',
+    backgroundImg: '/landing-v2/images/card__v__2.jpg',
     decs: 'Experience unparalleled performance with high throughput, lightning-fast speeds, and low gas fees.',
   },
   {
@@ -26,7 +26,7 @@ const DATA_SOLUTIONS = [
     link: '/socialfi',
     color: '',
     title: 'Bitcoin l2 for SocialFi',
-    backgroundImg: '/landing-v2/images/card_v__3.jpg',
+    backgroundImg: '/landing-v2/images/card__v__3.jpg',
     decs: 'Connect, engage and earn through personalized social experiences via chats, posts and community activities.',
   },
   {
@@ -35,7 +35,7 @@ const DATA_SOLUTIONS = [
     target: '_blank',
     color: '',
     title: 'Bitcoin l2 for AI',
-    backgroundImg: '/landing-v2/images/card_v__4.jpg',
+    backgroundImg: '/landing-v2/images/card__v__4.jpg',
     decs: 'Powerful infrastructure, libraries, and tools to build eternal AI smart contracts.',
   },
   {
@@ -43,7 +43,7 @@ const DATA_SOLUTIONS = [
     link: '',
     color: '',
     title: 'Bitcoin l2 for Payments',
-    backgroundImg: '/landing-v2/images/card_v__5.jpg',
+    backgroundImg: '/landing-v2/images/card__v__5.jpg',
     decs: 'Coming soon.',
   },
   {
@@ -51,7 +51,7 @@ const DATA_SOLUTIONS = [
     link: '',
     color: '',
     title: 'Bitcoin l2 for Incriptions',
-    backgroundImg: '/landing-v2/images/card_v__6.jpg',
+    backgroundImg: '/landing-v2/images/card__v__6.jpg',
     decs: 'Coming soon.',
   },
 ];
