@@ -15,17 +15,26 @@
 
     .splide__arrow--prev {
       left: 20px;
+
+      @include is-tablet {
+        left: calc(100% - 108px);
+      }
       @include is-pc {
-        left: 5.6rem;
+        left: 3.8rem;
       }
     }
 
     .splide__arrow--next {
       left: calc(20px + 36px + 16px);
       right: auto;
+
+      @include is-tablet {
+        right: 20px;
+        left: auto;
+      }
       @include is-pc {
         left: auto;
-        right: 5.6rem;
+        right: 3.8rem;
       }
     }
     .splide:hover .splide__arrow {
@@ -48,6 +57,11 @@
       @include is-mobile {
         top: 40px;
       }
+      @include is-tablet {
+        top: unset;
+        bottom: 0.4em;
+      }
+
       @media (hover: hover) {
         opacity: 0 !important;
       }
@@ -128,7 +142,7 @@
       }
 
       @include is-tablet {
-        height: 400px;
+        height: auto;
         width: calc(100% + 64px);
         max-width: 1056px;
       }
@@ -183,6 +197,9 @@
       padding: 24px 32px;
     }
 
+    @include is-tablet {
+      max-width: 600px;
+    }
     &_left {
       flex: 0 0 100%;
       @include is-pc {

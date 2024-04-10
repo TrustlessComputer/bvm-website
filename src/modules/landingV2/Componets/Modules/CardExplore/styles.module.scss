@@ -18,6 +18,7 @@
 
   &_image {
     border: 1px solid #ececec;
+    box-shadow: 0px 0px 24px -6px rgba(0, 0, 0, 0.1);
   }
 
   &:hover .inner_topSection_button {
@@ -70,6 +71,7 @@
         align-items: start;
         border-radius: 16px;
         margin-bottom: 0;
+
         .inner_topSection_content {
           padding: 16px;
         }
