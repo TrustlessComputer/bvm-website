@@ -19,13 +19,16 @@
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(1, 1fr);
-
+    background-color: #f0f1f4;
+    padding: 20px;
+    border-radius: 24px;
     @include is-tablet {
       gap: 32px;
       grid-template-columns: repeat(2, 1fr);
     }
 
     @include is-pc {
+      padding: 32px;
       gap: 32px;
       grid-template-columns: repeat(4, 1fr);
     }
