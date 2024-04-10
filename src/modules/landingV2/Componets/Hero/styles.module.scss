@@ -78,12 +78,14 @@
       }
 
       &:hover span {
-        background-color: #fa4e0e;
-        transition: background-color 0.3s var(--easeOutQuart);
+        @include is-pc {
+          background-color: #fa4e0e;
+          transition: background-color 0.3s var(--easeOutQuart);
 
-        svg path {
-          transition: all 0.3s var(--easeOutQuart);
-          stroke: #fff;
+          svg path {
+            transition: all 0.3s var(--easeOutQuart);
+            stroke: #fff;
+          }
         }
       }
     }
@@ -111,12 +113,11 @@
         max-width: 1056px;
       }
 
-      @include is-tablet{
+      @include is-tablet {
         height: 400px;
         width: calc(100% + 64px);
         max-width: 1056px;
       }
-
 
       @include is-pc {
         padding-right: 12px;

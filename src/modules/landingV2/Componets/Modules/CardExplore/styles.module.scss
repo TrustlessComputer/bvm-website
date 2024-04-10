@@ -24,12 +24,14 @@
   }
 
   &:hover .inner_topSection_button {
-    background-color: #fa4e0e;
-    transition: background-color 0.3s var(--easeOutQuart);
+    @include is-pc {
+      background-color: #fa4e0e;
+      transition: background-color 0.3s var(--easeOutQuart);
 
-    svg path {
-      transition: all 0.3s var(--easeOutQuart);
-      stroke: #fff;
+      svg path {
+        transition: all 0.3s var(--easeOutQuart);
+        stroke: #fff;
+      }
     }
   }
 

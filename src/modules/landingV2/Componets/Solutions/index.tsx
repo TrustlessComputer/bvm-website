@@ -23,7 +23,7 @@ const DATA_SOLUTIONS = [
   },
   {
     subTitle: 'Social',
-    link: '/social',
+    link: '/socialfi',
     color: '',
     title: 'Bitcoin l2 for socialfi',
     backgroundImg: '/landing-v2/images/3.jpeg',
