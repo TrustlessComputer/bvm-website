@@ -7,10 +7,11 @@ import Solutions from './Componets/Solutions';
 import s from './styles.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
 import Section7Mobile from './Componets/Section_7/Section_7_Mobile';
+import useWhiteBackground from '@/hooks/useWhiteBackground';
 
 export default function Landing() {
   const { mobileScreen, tabletScreen } = useWindowSize();
-
+  useWhiteBackground();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

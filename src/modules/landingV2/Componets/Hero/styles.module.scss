@@ -41,7 +41,9 @@
       height: auto !important;
       box-shadow: none;
       outline: none;
-
+      @include is-mobile {
+        top: 40px;
+      }
       span {
         border-radius: 50%;
         display: flex;
@@ -50,10 +52,11 @@
         transition: background-color 0.3s var(--easeOutQuart);
         height: 36px;
         width: 36px;
-        background: rgba(white, 0.5);
+        // background: rgba(white, 0.5);
+        background: white;
 
         @include is-pc {
-          background: white;
+          // background: white;
           height: 68px;
           width: 68px;
         }
@@ -70,10 +73,12 @@
         }
 
         path {
-          stroke: white;
-          @include is-pc {
-            stroke: black;
-          }
+          stroke: black;
+
+          // stroke: white;
+          // @include is-pc {
+          //   stroke: black;
+          // }
         }
       }
 

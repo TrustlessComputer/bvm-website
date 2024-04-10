@@ -9,10 +9,11 @@ import useWindowSize from '@hooks/useWindowSize';
 const DATA_MODULES = [
   {
     link: '',
-    tags: [{
-      subTitle: 'Data Validity',
-      color: 'FF0420',
-    },
+    tags: [
+      {
+        subTitle: 'Data Validity',
+        color: 'FF0420',
+      },
       {
         subTitle: 'Data Availability',
         color: '66BCFF',
@@ -20,7 +21,7 @@ const DATA_MODULES = [
     ],
     title: 'Ordinals',
     backgroundImg: '',
-    decs: 'Data is organized into batches within the DA layer and stored as transaction hashes on Bitcoin (Ordinals) to ensure the integrity and reliability of data stored on the blockchain.',
+    decs: 'Roll up to Bitcoin as Ordinals, ensuring the integrity and reliability of data stored on the blockchain.',
     icon: '/landing-v2/logos/ordinals.png',
   },
   {
@@ -59,7 +60,7 @@ const DATA_MODULES = [
     title: 'DAO',
     backgroundImg: '',
     icon: '/landing-v2/logos/dao.png',
-    decs: 'Incorporate a DAO into your blockchain setup.',
+    decs: 'Include a DAO as a pre-installed component in your layer 2 blockchain setup.',
   },
   {
     subTitle: 'Cross-chain bridges',
@@ -69,7 +70,8 @@ const DATA_MODULES = [
     backgroundImg: '',
     icon: '/landing-v2/logos/ethereum.png',
     decs: 'Install a bridge for seamless asset transfers between Ethereum and Bitcoin L2s powered by BVM.',
-  }, {
+  },
+  {
     subTitle: 'Data Validity',
     link: 'https://twitter.com/Stampchain',
     target: '_blank',
@@ -77,7 +79,7 @@ const DATA_MODULES = [
     title: 'Stamps',
     backgroundImg: '',
     icon: '/landing-v2/logos/stamps.png',
-    decs: 'Roll up to Bitcoin as Stamps, ensuring perpetual storage that can\'t be altered or lost.',
+    decs: "Roll up to Bitcoin as Stamps, ensuring perpetual storage that can't be altered or lost.",
   },
   {
     subTitle: 'Data Availability',
@@ -107,7 +109,7 @@ const DATA_MODULES = [
     title: 'ZK Sync',
     backgroundImg: '',
     icon: '/landing-v2/logos/zk-sync.png',
-    decs: 'Zero-Knowledge enables validity proofs to ensure the hyperchains\' ecosystem state can\'t be corrupted and invalid transactions can\'t exist.',
+    decs: "Zero-Knowledge enables validity proofs to ensure the state can't be corrupted and invalid transactions can't exist.",
   },
   {
     subTitle: 'dApps',
@@ -117,7 +119,7 @@ const DATA_MODULES = [
     title: 'GMX',
     backgroundImg: '',
     icon: '/landing-v2/logos/gmx.png',
-    decs: 'Integrate a decentralized perpetual exchange into your Bitcoin L2s.',
+    decs: 'Integrate a decentralized perpetual exchange as a pre-installed component  into your Bitcoin L2s.',
   },
   {
     subTitle: 'Cross-chain bridges',
@@ -170,65 +172,71 @@ const DATA_MODULES = [
 ];
 
 export default function Modules() {
-
   const { isDesktop } = useWindowSize();
 
   return (
     <div className={cn(s.wrapper)}>
-      <div className='container'>
+      <div className="container">
         <SectionTitle className={s.wrapper_title}>
           Explore our bitcoin modules
         </SectionTitle>
 
         <div className={s.wrapper_list}>
+          {isDesktop ? (
+            <>
+              <div className={s.listCol}>
+                {DATA_MODULES.slice(0, 6).map((item, index) => {
+                  return (
+                    <div className={s.listCol_item}>
+                      <CardExplore {...item} type="modules" key={index} />
+                    </div>
+                  );
+                })}
+              </div>
 
-          {
-            isDesktop ? (<>
-                <div className={s.listCol}>
-                  {DATA_MODULES.slice(0, 6).map((item, index) => {
-                    return <div className={s.listCol_item}>
-                      <CardExplore {...item} type='modules' key={index} />
-                    </div>;
-                  })}
-                </div>
+              <div className={s.listCol}>
+                {DATA_MODULES.slice(6, 11).map((item, index) => {
+                  return (
+                    <div className={s.listCol_item}>
+                      <CardExplore {...item} type="modules" key={index} />
+                    </div>
+                  );
+                })}
+              </div>
 
-                <div className={s.listCol}>
-                  {DATA_MODULES.slice(6, 11).map((item, index) => {
-                    return <div className={s.listCol_item}>
-                      <CardExplore {...item} type='modules' key={index} />
-                    </div>;
-                  })}
-                </div>
+              <div className={s.listCol}>
+                {DATA_MODULES.slice(11, 16).map((item, index) => {
+                  return (
+                    <div className={s.listCol_item}>
+                      <CardExplore {...item} type="modules" key={index} />
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className={s.listCol}>
+                {DATA_MODULES.slice(0, 8).map((item, index) => {
+                  return (
+                    <div className={s.listCol_item}>
+                      <CardExplore {...item} type="modules" key={index} />
+                    </div>
+                  );
+                })}
+              </div>
 
-                <div className={s.listCol}>
-                  {DATA_MODULES.slice(11, 16).map((item, index) => {
-                    return <div className={s.listCol_item}>
-                      <CardExplore {...item} type='modules' key={index} />
-                    </div>;
-                  })}
-                </div>
-              </>) :
-              (<>
-                  <div className={s.listCol}>
-                    {DATA_MODULES.slice(0, 8).map((item, index) => {
-                      return <div className={s.listCol_item}>
-                        <CardExplore {...item} type='modules' key={index} />
-                      </div>;
-                    })}
-                  </div>
-
-                  <div className={s.listCol}>
-                    {DATA_MODULES.slice(8, 16).map((item, index) => {
-                      return <div className={s.listCol_item}>
-                        <CardExplore {...item} type='modules' key={index} />
-                      </div>;
-                    })}
-                  </div>
-                </>
-              )
-          }
-
-
+              <div className={s.listCol}>
+                {DATA_MODULES.slice(8, 16).map((item, index) => {
+                  return (
+                    <div className={s.listCol_item}>
+                      <CardExplore {...item} type="modules" key={index} />
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

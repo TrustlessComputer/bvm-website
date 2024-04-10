@@ -83,6 +83,7 @@
             left: 0;
             z-index: -1;
             height: 100%;
+            width: 100%;
           }
         }
       }
@@ -93,14 +94,14 @@
       }
       &_subTitle {
         border-radius: 20px;
-        padding: 12px 28px;
+        padding: 2px 28px;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 8px;
 
         @include is-mobile {
-          padding: 10px 20px;
+          padding: 0px 20px;
         }
 
         &__modules {
@@ -112,17 +113,18 @@
         }
 
         &_text {
-          color: #000f;
+          color: #000;
           text-align: center;
           font-family: var(--font-hind);
           font-size: 14px;
           font-style: normal;
           font-weight: 700;
-          line-height: 1;
+          line-height: (36 / 14);
 
           @include is-mobile {
             font-size: 12px;
             line-height: 1;
+            line-height: (32 / 12);
           }
 
           &__7E7CFF {
