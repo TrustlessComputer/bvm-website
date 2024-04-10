@@ -29,7 +29,7 @@
       }
     }
     .splide:hover .splide__arrow {
-      opacity: 1;
+      opacity: 1 !important;
       transition: all 0.4s var(--easeOutQuart);
     }
     .splide {
@@ -39,7 +39,7 @@
     }
 
     .splide__arrow {
-      opacity: 0;
+      opacity: 1 !important;
       transition: all 0.4s var(--easeOutQuart);
       width: auto !important;
       height: auto !important;
@@ -47,6 +47,9 @@
       outline: none;
       @include is-mobile {
         top: 40px;
+      }
+      @media (hover: hover) {
+        opacity: 0 !important;
       }
       span {
         border-radius: 50%;
