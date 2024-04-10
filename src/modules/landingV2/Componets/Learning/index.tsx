@@ -6,7 +6,7 @@ import CardLearn from './CardLearn';
 const DATA_LEARN = [
   {
     title: 'Deyloy your own Bitcoin L2 with BVM modules.',
-    decs: 'Choose a rollup module, select a data availability module, and then launch to the world - it’s that easy. ',
+    decs: 'Choose a rollup module, select a data availability module, and then launch to the world - it’s that easy.',
   },
   {
     title: 'Write Smart contracts and build dapps on bitcoin.',
@@ -26,7 +26,7 @@ export default function Learning() {
     <div className={s.wrapper}>
       <div className="container">
         <SectionTitle className={s.wrapper_title}>
-          Learn what BVM Products can do for you
+          Learn what BVM pRoducts can do for you
         </SectionTitle>
 
         <div className={s.wrapper_list}>
