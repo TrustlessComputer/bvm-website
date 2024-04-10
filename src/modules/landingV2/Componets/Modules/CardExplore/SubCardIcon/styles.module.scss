@@ -67,12 +67,12 @@
           flex-shrink: 0;
           color: #000;
           font-family: var(--font-hind);
-          font-size: 22px;
+          font-weight: 700;
+          line-height: 130%;
+          font-size: 20px;
           font-style: normal;
           font-weight: 700;
-          line-height: 130%; /* 28.6px */
-          text-transform: uppercase;
-
+          line-height: 130%;
           @include is-mobile {
             font-size: 16px;
           }

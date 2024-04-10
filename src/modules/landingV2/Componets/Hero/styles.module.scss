@@ -41,7 +41,9 @@
       height: auto !important;
       box-shadow: none;
       outline: none;
-
+      @include is-mobile {
+        top: 40px;
+      }
       span {
         border-radius: 50%;
         display: flex;
@@ -50,10 +52,11 @@
         transition: background-color 0.3s var(--easeOutQuart);
         height: 36px;
         width: 36px;
-        background: rgba(white, 0.5);
+        // background: rgba(white, 0.5);
+        background: white;
 
         @include is-pc {
-          background: white;
+          // background: white;
           height: 68px;
           width: 68px;
         }
@@ -70,20 +73,24 @@
         }
 
         path {
-          stroke: white;
-          @include is-pc {
-            stroke: black;
-          }
+          stroke: black;
+
+          // stroke: white;
+          // @include is-pc {
+          //   stroke: black;
+          // }
         }
       }
 
       &:hover span {
-        background-color: #fa4e0e;
-        transition: background-color 0.3s var(--easeOutQuart);
+        @include is-pc {
+          background-color: #fa4e0e;
+          transition: background-color 0.3s var(--easeOutQuart);
 
-        svg path {
-          transition: all 0.3s var(--easeOutQuart);
-          stroke: #fff;
+          svg path {
+            transition: all 0.3s var(--easeOutQuart);
+            stroke: #fff;
+          }
         }
       }
     }
@@ -111,12 +118,11 @@
         max-width: 1056px;
       }
 
-      @include is-tablet{
+      @include is-tablet {
         height: 400px;
         width: calc(100% + 64px);
         max-width: 1056px;
       }
-
 
       @include is-pc {
         padding-right: 12px;

@@ -67,57 +67,7 @@ export const NAV_ITEMS_MOBILE: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
-  {
-    label: 'Solutions',
-    href: '',
-    isNewWindow: false,
-    isHide: false,
-    subMenu: [
-      {
-        href: '/use-bitcoin',
-        label: 'Success Stories',
-        isNewWindow: false,
-      },
-      {
-        href: '/ai',
-        label: 'Bitcoin L2 for AI',
-        isNewWindow: false,
-      },
-      {
-        href: '/gamefi',
-        label: 'Bitcoin L2 for GameFi',
-        isNewWindow: false,
-      },
-      {
-        href: '/defi',
-        label: 'Bitcoin L2 for DeFi',
-        isNewWindow: false,
-      },
-      {
-        href: '/socialfi',
-        label: 'Bitcoin L2 for SocialFi',
-        isNewWindow: false,
-      },
-    ],
-  },
-  {
-    label: 'Modules',
-    href: '/module-store',
-    isNewWindow: false,
-    isHide: false,
-  },
-  {
-    label: 'Customers',
-    href: '/use-bitcoin',
-    isNewWindow: false,
-    isHide: false,
-  },
-  {
-    label: 'Roadmap',
-    isNewWindow: false,
-    isHide: false,
-    href: '/roadmap',
-  },
+  ...NAV_ITEMS,
 ];
 export const MenuBuild = {
   label: 'Build',
@@ -150,12 +100,12 @@ export const MenuBuild = {
 
 export const COMMUNITY_ITEMS = [
   {
-    icon: './icons/tele-ic-2.svg',
+    icon: '/icons/tele-ic-2.svg',
     alt: 'telegram',
     link: 'https://t.me/BVMofficialcommunity',
   },
   {
-    icon: './icons/x-ic.svg',
+    icon: '/icons/x-ic.svg',
     // link: 'https://twitter.com/bird_2836',
     alt: 'x',
     link: 'https://twitter.com/BVMnetwork',

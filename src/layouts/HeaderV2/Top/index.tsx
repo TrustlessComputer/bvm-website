@@ -14,9 +14,14 @@ const Top = () => {
         <div className={s.treasury}>
           <Treasury />
         </div>
-        <p onClick={(): void=>{
-          window.open('https://nakachain.xyz/proposal-dashboard', '_blank');
-        }} className={s.leftToken}>DAO</p>
+        <p
+          onClick={(): void => {
+            window.open('https://nakachain.xyz/proposal-dashboard', '_blank');
+          }}
+          className={s.leftToken}
+        >
+          DAO
+        </p>
       </div>
       {isDesktop ? (
         <div className={s.right}>
@@ -30,6 +35,7 @@ const Top = () => {
       ) : (
         <IconButton
           onClick={onToggle}
+          height={'24px'}
           icon={
             <Image
               src={'/landing-v2/svg/ic-menu-mobile.svg'}
