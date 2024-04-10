@@ -17,10 +17,7 @@
   }
 
   &_image {
-    width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    border: 1px solid #ececec;
   }
 
   &:hover .inner_topSection_button {
@@ -36,14 +33,19 @@
   }
 
   .inner {
-    padding: 16px;
-    // position: absolute;
     width: 100%;
     height: 100%;
     z-index: 2;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+
+    &__modules {
+      padding: 16px;
+    }
+    &__solutions {
+      padding: 20px;
+      gap: 24px;
+    }
 
     @include is-mobile {
       gap: 32px;
@@ -55,11 +57,40 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 69px;
+      position: relative;
 
       @include is-mobile {
         margin-bottom: 0;
       }
 
+      &__solutions {
+        width: 100%;
+        aspect-ratio: 472 / 282;
+        overflow: hidden;
+        align-items: start;
+        border-radius: 16px;
+        margin-bottom: 0;
+        .inner_topSection_content {
+          padding: 16px;
+        }
+        &_wrapImg {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          &_img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            height: 100%;
+          }
+        }
+      }
+      &_content {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
       &_subTitle {
         border-radius: 20px;
         padding: 12px 28px;
@@ -77,13 +108,11 @@
         }
 
         &__solutions {
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(4px);
+          background-color: #fff;
         }
 
         &_text {
-          color: #fff;
+          color: #000f;
           text-align: center;
           font-family: var(--font-hind);
           font-size: 14px;

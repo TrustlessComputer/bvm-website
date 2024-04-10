@@ -5,27 +5,26 @@
     max-width: unset;
   }
   &_title {
-    color: #fff;
+    color: #000;
     font-family: var(--font-hind);
-    font-size: 22px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 700;
     line-height: 130%;
-    text-transform: uppercase;
-
     @include is-mobile {
       font-size: 16px;
     }
   }
   &_decs {
     padding-top: 8px;
-    color: #fff;
     font-family: var(--font-hind);
     font-size: 18px;
     font-style: normal;
-    font-weight: 400;
-    line-height: 150%;
     min-height: 54px;
+    color: #000;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
 
     @include is-mobile {
       font-size: 14px;

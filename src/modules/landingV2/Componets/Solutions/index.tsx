@@ -10,7 +10,7 @@ const DATA_SOLUTIONS = [
     link: '/defi',
     color: '',
     title: 'Bitcoin l2 for defi',
-    backgroundImg: '/landing-v2/images/1.jpeg',
+    backgroundImg: '/landing-v2/images/card_v_1.jpg',
     decs: '2-second block time. $0.0001 transaction fee. 100% permissionless.',
   },
   {
@@ -18,7 +18,7 @@ const DATA_SOLUTIONS = [
     link: '/gamefi',
     color: '',
     title: 'Bitcoin l2 for gamefi',
-    backgroundImg: '/landing-v2/images/2.jpeg',
+    backgroundImg: '/landing-v2/images/card_v_2.jpg',
     decs: 'Experience unparalleled performance with high throughput, lightning-fast speeds, and low gas fees.',
   },
   {
@@ -26,7 +26,7 @@ const DATA_SOLUTIONS = [
     link: '/socialfi',
     color: '',
     title: 'Bitcoin l2 for socialfi',
-    backgroundImg: '/landing-v2/images/3.jpeg',
+    backgroundImg: '/landing-v2/images/card_v_3.jpg',
     decs: 'Connect, engage and earn through personalized social experiences via chats, posts and community activities.',
   },
   {
@@ -35,7 +35,7 @@ const DATA_SOLUTIONS = [
     target: '_blank',
     color: '',
     title: 'Bitcoin l2 for ai',
-    backgroundImg: '/landing-v2/images/4.jpeg',
+    backgroundImg: '/landing-v2/images/card_v_4.jpg',
     decs: 'Powerful infrastructure, libraries, and tools to build eternal AI smart contracts.',
   },
   {
@@ -43,7 +43,7 @@ const DATA_SOLUTIONS = [
     link: '',
     color: '',
     title: 'Bitcoin l2 for payments',
-    backgroundImg: '/landing-v2/images/5.jpeg',
+    backgroundImg: '/landing-v2/images/card_v_5.jpg',
     decs: 'Coming soon.',
   },
   {
@@ -51,7 +51,7 @@ const DATA_SOLUTIONS = [
     link: '',
     color: '',
     title: 'Bitcoin l2 for incriptions',
-    backgroundImg: '/landing-v2/images/6.jpeg',
+    backgroundImg: '/landing-v2/images/card_v_6.jpg',
     decs: 'Coming soon.',
   },
 ];
@@ -61,7 +61,7 @@ export default function Solutions() {
     <div className={cn(s.wrapper)}>
       <div className="container">
         <SectionTitle className={s.wrapper_title}>
-          Explore our bitcoin l2 sulotions
+          Explore our bitcoin l2 solutions
         </SectionTitle>
 
         <div className={s.wrapper_list}>
