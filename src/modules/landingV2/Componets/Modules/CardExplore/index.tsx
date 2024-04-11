@@ -36,6 +36,9 @@ export default function CardExplore({
     <Link
       href={link}
       target={target}
+      onClick={(e) => {
+        e.preventDefault();
+      }}
       className={cn(s.wrapper, s[`wrapper__${type}`])}
     >
       <div className={cn(s.inner, s[`inner__${type}`])}>
@@ -65,6 +68,7 @@ export default function CardExplore({
             title={title}
             icon={icon as string}
             tags={tags}
+            link={link}
           />
         )}
       </div>

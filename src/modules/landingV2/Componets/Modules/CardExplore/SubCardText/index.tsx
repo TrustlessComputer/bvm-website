@@ -16,10 +16,12 @@ export default function SubCardText({ decs, title, link }: TSubCardText) {
         <p className={s.botSection_decs}>{decs}</p>
       </div>
 
-      <span className={s.botSection_button}>
-        <p>Learn more</p>
-        <SvgInset svgUrl="/landing-v2/svg/arrow-r-v2.svg" size={14} />
-      </span>
+      {link && (
+        <span className={s.botSection_button}>
+          <p>Learn more</p>
+          <SvgInset svgUrl="/landing-v2/svg/arrow-r-v2.svg" size={14} />
+        </span>
+      )}
     </div>
   );
 }

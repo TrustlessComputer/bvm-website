@@ -7,8 +7,15 @@ type TSubCardIcon = {
   title: string;
   decs: string;
   tags: TSubTag;
+  link: string;
 };
-export default function SubCardIcon({ decs, icon, title, tags }: TSubCardIcon) {
+export default function SubCardIcon({
+  decs,
+  icon,
+  title,
+  tags,
+  link,
+}: TSubCardIcon) {
   return (
     <div className={s.botSection}>
       <div className={s.botSection_left}>
@@ -25,10 +32,12 @@ export default function SubCardIcon({ decs, icon, title, tags }: TSubCardIcon) {
           <p className={s.botSection_right_inner_decs}>{decs}</p>
           <div className={s.botSection_right_inner_tags}>
             <SubTag tags={tags} type="modules" />
-            <span className={s.botSection_button}>
-              <p>Learn more</p>
-              <SvgInset svgUrl="/landing-v2/svg/arrow-r-v2.svg" size={14} />
-            </span>
+            {link && (
+              <span className={s.botSection_button}>
+                <p>Learn more</p>
+                <SvgInset svgUrl="/landing-v2/svg/arrow-r-v2.svg" size={14} />
+              </span>
+            )}
           </div>
         </div>
       </div>
