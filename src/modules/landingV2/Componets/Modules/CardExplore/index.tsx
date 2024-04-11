@@ -37,7 +37,9 @@ export default function CardExplore({
       href={link}
       target={target}
       onClick={(e) => {
-        e.preventDefault();
+        if (!link) {
+          e.preventDefault();
+        }
       }}
       className={cn(s.wrapper, s[`wrapper__${type}`])}
     >
