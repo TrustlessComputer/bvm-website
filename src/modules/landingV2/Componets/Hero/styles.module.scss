@@ -49,6 +49,7 @@
     }
 
     .splide__arrow {
+      pointer-events: all;
       opacity: 1 !important;
       transition: all 0.4s var(--easeOutQuart);
       // width: auto !important;
@@ -255,6 +256,7 @@
   transform: translateX(-50%);
   top: 0;
   max-width: 1600px !important;
+  pointer-events: none;
 }
 .heading {
   font-family: var(--font-dmsans);
