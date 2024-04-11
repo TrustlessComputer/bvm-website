@@ -1,15 +1,13 @@
 .heading {
-  font-family: var(--font-hind);
-  font-size: 42px;
-  font-weight: 700;
-  line-height: (50.4/42);
-  text-align: center;
-  margin-bottom: 68px;
-  text-transform: uppercase;
+  font-family: var(--font-dmsans);
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  margin-bottom: 60px;
 
   @include is-mobile {
     font-size: 32px;
-    line-height: (48/40);
     margin-bottom: 24px;
     text-align: left;
   }

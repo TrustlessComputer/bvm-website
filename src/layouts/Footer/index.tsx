@@ -33,11 +33,11 @@ const Footer = () => {
 
   return (
     <div className={s.wrapper}>
-      <div className="container">
-        <div
-          className={`${s.footer}`}
-          style={{ backgroundImage: 'url(/footer/bgFooter.png)' }}
-        >
+      <div
+        className={`${s.footer}`}
+        style={{ backgroundImage: 'url(/footer/bgFooter.png)' }}
+      >
+        <div className="container">
           <div className={s.main}>
             <div className={s.main_top}>
               <div className={s.main_top_left}>
@@ -46,17 +46,8 @@ const Footer = () => {
                 </p>
                 <div>
                   <div className={s.footer_wrapBtns}>
-                    <Link
-                      href={'/use-bitcoin'}
-                      className={cn(s.mainBtn, s.footer_btn)}
-                    >
-                      Use Bitcoin
-                    </Link>
-
                     <div className={s.dropMenu}>
-                      <div className={cn(s.normalBtn, s.footer_btn)}>
-                        Build on Bitcoin
-                      </div>
+                      <p className={cn(s.footer_btn)}>Build on Bitcoin</p>
                       <ul className={s.dropMenu_list}>
                         {MenuBuild?.subMenu.map((item) => {
                           return (
@@ -105,7 +96,7 @@ const Footer = () => {
             </div>
           </div>
           <div className={s.footer_line}></div>
-          <p
+          {/* <p
             className={s.footer_contract}
             onClick={() => {
               toast.success('Successfully copied.');
@@ -114,7 +105,23 @@ const Footer = () => {
           >
             <span>BVM token contract:</span>{' '}
             0x069d89974f4edabde69450f9cf5cf7d8cbd2568d
-          </p>
+          </p> */}
+          <div className={s.links}>
+            <Link
+              href={
+                'https://etherscan.io/address/0x069d89974f4edabde69450f9cf5cf7d8cbd2568d'
+              }
+              target="_blank"
+            >
+              <p className={s.links_item}>ETHERScan</p>
+            </Link>
+            <Link href={'https://twitter.com/BVMnetwork'} target="_blank">
+              <p className={s.links_item}>twtter</p>
+            </Link>
+            <Link href={'https://t.me/BVMofficialcommunity'} target="_blank">
+              <p className={s.links_item}>telegram</p>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

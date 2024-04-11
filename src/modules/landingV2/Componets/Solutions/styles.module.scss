@@ -1,6 +1,6 @@
 .wrapper {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 160px;
+  padding-bottom: 160px;
   background-color: #fff;
 
   @include is-mobile {
@@ -25,7 +25,8 @@
     }
 
     @include is-pc {
-      gap: 32px;
+      column-gap: 32px;
+      row-gap: 48px;
       grid-template-columns: repeat(3, 1fr);
     }
   }

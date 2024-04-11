@@ -32,7 +32,7 @@
 }
 .itemWrapper {
   .item {
-    font-family: var(--font-hind);
+    font-family: var(--font-dmsans);
     text-transform: uppercase;
     display: flex;
     align-items: center;
@@ -41,7 +41,7 @@
 }
 
 .itemLabel {
-  font-family: var(--font-hind);
+  font-family: var(--font-dmsans);
   font-weight: 500;
   font-size: 14px;
   text-transform: uppercase;
@@ -63,7 +63,7 @@
   gap: 16px;
 
   .mainLabel {
-    font-family: var(--font-hind);
+    font-family: var(--font-dmsans);
     font-weight: 500;
     text-transform: uppercase;
     font-size: 14px;
@@ -72,13 +72,16 @@
 
 .btnBuild {
   color: white;
-  font-family: var(--font-hind);
-  font-size: 14px;
-  padding: 6px 16px;
-  font-weight: 500;
-  text-transform: uppercase;
+  font-family: var(--font-dmsans);
+  padding: 7px 16px;
   border-radius: 1000px;
   background-color: #fa4e0e;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.14px;
 }
 
 // .logo {

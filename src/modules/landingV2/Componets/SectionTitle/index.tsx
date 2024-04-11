@@ -8,7 +8,7 @@ interface IProp extends PropsWithChildren {
 
 export default function SectionTitle({
   children,
-  textAlign = 'center',
+  textAlign = 'left',
   className,
 }: IProp) {
   return (

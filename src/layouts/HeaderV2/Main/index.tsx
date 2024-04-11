@@ -10,6 +10,9 @@ const Main = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.left}>
+        <Link href={'/'}>
+          <Image src={'/landing-v2/svg/logo.svg'} />
+        </Link>
         {NAV_ITEMS.map((item) => {
           return item.subMenu ? (
             <DropDown
@@ -28,11 +31,7 @@ const Main = () => {
           );
         })}
       </div>
-      <div className={s.logo}>
-        <Link href={'/'}>
-          <Image src={'/landing-v2/svg/logo.svg'} />
-        </Link>
-      </div>
+      {/* <div className={s.logo}></div> */}
       <div className={s.right}>
         <div className={s.contact}>
           <ContactUs color="black" />

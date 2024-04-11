@@ -4,7 +4,7 @@
   align-items: center;
   color: #000000;
   padding: 16px 0;
-  font-family: var(--font-hind);
+  font-family: var(--font-dmsans);
   @include is-pc {
     border-bottom: 1px solid #ececec;
   }
@@ -18,19 +18,35 @@
     display: flex;
     align-items: center;
     gap: 32px;
+
+    &_btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
   }
 }
 
 .treasury {
   color: #b2b2b2;
   background-color: #000;
-  padding: 9px 20px;
+  padding: 8px 16px;
   border-radius: 1000px;
   font-size: 14px;
   font-weight: 500;
-  font-family: var(--font-hind);
-  text-transform: uppercase;
+  font-family: var(--font-dmsans);
   line-height: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+
+  &_cost {
+    padding-left: 2px;
+  }
+  p {
+    font-weight: 500;
+  }
   @include is-mobile {
     font-size: 10px;
     padding: 7px 12px;
@@ -54,12 +70,11 @@
 }
 
 .token {
+  color: #000;
+  text-align: center;
+  font-family: var(--font-dmsans);
   font-size: 14px;
-  font-weight: 500;
-  &__orange {
-    color: #fa4e0e;
-  }
-  &__green {
-    color: #00aa6c;
-  }
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
