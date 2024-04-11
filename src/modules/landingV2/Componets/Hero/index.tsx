@@ -11,6 +11,7 @@ import SlideItem from '@/modules/landingV2/Componets/Hero/SlideItem';
 import s from './styles.module.scss';
 import Container from '@/modules/landingV2/Componets/Container';
 import SvgInset from '@/components/SvgInset';
+import cn from 'classnames';
 
 export default function HeroV2() {
   return (
@@ -62,8 +63,8 @@ export default function HeroV2() {
           </SplideSlide>
         </SplideTrack>
 
-        <div className="splide__arrows">
-          <button className="splide__arrow splide__arrow--prev">
+        <div className={cn('splide__arrows container', s.arrows)}>
+          <button className="splide__arrow splide__arrow--prev ">
             <span>
               <SvgInset
                 svgUrl={'/landing-v2/svg/arrow-l.svg'}
@@ -71,7 +72,7 @@ export default function HeroV2() {
               />
             </span>
           </button>
-          <button className="splide__arrow splide__arrow--next">
+          <button className="splide__arrow splide__arrow--next ">
             <span>
               <SvgInset svgUrl={'/landing-v2/svg/arrow-r.svg'} />
             </span>

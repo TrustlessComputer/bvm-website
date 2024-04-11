@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { PropsWithChildren } from 'react';
 import Link from 'next/link';
 import Container from '../Container';
+import cn from 'classnames';
 
 interface IProp extends PropsWithChildren {
   title: string;
@@ -32,15 +33,17 @@ export default function SlideItem({
       ) : (
         <video src={srcVideo} width={1920} height={572} muted autoPlay loop />
       )}
-      <div className={`${s.slideItem_item} slideItem_item `}>
-        <div className={s.slideItem_item_left}>
-          <h2 className={s.heading}>{title}</h2>
-          <p className={s.desc}>{children}</p>
-        </div>
-        <div className={s.slideItem_item_action}>
-          <Link className={s.btn} href={action} target={target}>
-            Learn more
-          </Link>
+      <div className={cn(s.slideItem_inner)}>
+        <div className={`${s.slideItem_item} slideItem_item `}>
+          <div className={s.slideItem_item_left}>
+            <h2 className={s.heading}>{title}</h2>
+            <p className={s.desc}>{children}</p>
+          </div>
+          <div className={s.slideItem_item_action}>
+            <Link className={s.btn} href={action} target={target}>
+              Learn more
+            </Link>
+          </div>
         </div>
       </div>
     </div>
