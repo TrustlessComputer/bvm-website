@@ -5,7 +5,8 @@ import useAsyncEffect from 'use-async-effect';
 import { Coin } from '@/stores/states/common/types';
 import { priceBVM } from '@/services/price';
 import BigNumber from 'bignumber.js';
-
+import SvgInset from '@/components/SvgInset';
+import s from './style.module.scss';
 export default function Treasury() {
   const [price, setPrice] = useState(0);
   const hard = 50000000;
@@ -16,10 +17,18 @@ export default function Treasury() {
 
   useAsyncEffect(async () => {
     const data = await priceBVM();
-    setPrice(data[Coin.BVM])
+    setPrice(data[Coin.BVM]);
   }, []);
 
-  return <div>
-    <p>Treasury: <span>${formatCurrency(treasuryPrice, 0, 0, '')}</span></p>
-  </div>;
+  return (
+    <div className={s.treasury}>
+      <SvgInset svgUrl="/landing-v2/svg/dola.svg" size={16} />{' '}
+      <p>
+        Treasury{' '}
+        <span className={s.treasury_cost}>
+          ${formatCurrency(treasuryPrice, 0, 0, '')}
+        </span>
+      </p>
+    </div>
+  );
 }

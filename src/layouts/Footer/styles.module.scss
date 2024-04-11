@@ -1,24 +1,13 @@
 .wrapper {
   width: 100%;
   background-color: #fff;
-  padding-bottom: 60px;
-  padding-top: 80px;
-
-  @include is-mobile {
-    padding-top: 24px;
-  }
-  @include is-tablet {
-    padding-top: 32px;
-  }
 }
 .footer {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  padding: 0 48px;
   padding-top: 48px;
   padding-bottom: 24px;
-  border-radius: 32px;
 
   @include is-mobile {
     padding: 20px;
@@ -44,23 +33,14 @@
     }
   }
   &_btn {
-    display: flex;
-    height: 54px;
-    padding: 16px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    border-radius: 1000px;
-    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    font-family: var(--font-dmsans);
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    text-align: center;
-    font-family: var(--font-hind);
     line-height: normal;
-    letter-spacing: 0.16px;
-    width: 100%;
-    text-transform: uppercase;
-
+    letter-spacing: 0.14px;
     @include is-mobile {
       font-size: 14px;
     }
@@ -70,7 +50,7 @@
     }
   }
   &_contract {
-    font-family: var(--font-hind);
+    font-family: var(--font-dmsans);
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -121,7 +101,7 @@
   }
 
   &_top {
-    font-family: var(--font-hind);
+    font-family: var(--font-dmsans);
     flex-direction: column;
     display: flex;
     justify-content: space-between;
@@ -132,18 +112,14 @@
 
     .mainContent {
       color: #fff;
+      font-family: var(--font-dmsans);
+      font-size: 24px;
       font-style: normal;
-      font-weight: 700;
-      line-height: 120%;
-      text-transform: uppercase;
-      font-size: 32px;
-      text-align: left;
-      letter-spacing: -0.32px;
-      @include is-tablet {
-        font-size: 40px;
-      }
+      font-weight: 400;
+      line-height: 120%; /* 38.4px */
+
       @include is-pc {
-        font-size: 40px;
+        font-size: 32px;
       }
     }
   }
@@ -159,7 +135,6 @@
 }
 
 .normalBtn {
-  color: #000;
   background-color: #fff;
 
   @include is-mobile {
@@ -172,7 +147,23 @@
   position: relative;
   color: white;
   width: 100%;
+  display: flex;
+  height: 44px;
+  padding: 16px 32px;
+  justify-content: center;
+  background-color: #fa4e0e;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s var(--easeOutQuart);
+  &:hover {
+    background-color: #fff;
 
+    p {
+      transition: all 0.3s var(--easeOutQuart);
+      color: #fa4e0e;
+    }
+  }
   @include is-mobile {
     max-width: 400px;
   }
@@ -239,7 +230,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    font-family: var(--font-hind);
+    font-family: var(--font-dmsans);
     font-weight: 500;
     font-size: 14px;
     text-transform: uppercase;
@@ -260,5 +251,21 @@
 
   &_svg {
     border-radius: 999px;
+  }
+}
+.links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  padding-top: 20px;
+  &_item {
+    color: #fff;
+    font-family: var(--font-dmsans);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 18px */
+    text-transform: uppercase;
   }
 }

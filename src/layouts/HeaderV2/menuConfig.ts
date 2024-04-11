@@ -43,10 +43,26 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Roadmap',
+    label: 'Learn',
     isNewWindow: false,
     isHide: false,
-    href: '/roadmap',
+    subMenu: [
+      {
+        href: '/roadmap',
+        label: 'Roadmap',
+        isNewWindow: false,
+      },
+      {
+        href: 'https://docs.bvm.network/bvm',
+        label: 'Developer Docs',
+        isNewWindow: true,
+      },
+      {
+        href: '/whitepaper.pdf',
+        label: 'WhitePaper',
+        isNewWindow: false,
+      },
+    ],
   },
 ];
 export const NAV_ITEMS_MOBILE: Array<NavItem> = [

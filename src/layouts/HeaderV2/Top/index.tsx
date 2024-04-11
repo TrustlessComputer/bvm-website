@@ -11,9 +11,8 @@ const Top = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.left}>
-        <div className={s.treasury}>
-          <Treasury />
-        </div>
+        <Treasury />
+
         <p
           onClick={(): void => {
             window.open('https://nakachain.xyz/proposal-dashboard', '_blank');
@@ -25,11 +24,21 @@ const Top = () => {
       </div>
       {isDesktop ? (
         <div className={s.right}>
-          <Link href={'/bvm'}>
-            <p className={s.token__orange}>$BVM</p>
+          <Link className={s.right_btn} href={'/bvm'}>
+            <Image
+              src="/landing-v2/images/btc_header.png"
+              width={'20px'}
+              height={'20px'}
+            />
+            <p className={s.token}>$BVM</p>
           </Link>
-          <Link href={'/shard'}>
-            <p className={s.token__green}>$SHARD</p>
+          <Link className={s.right_btn} href={'/shard'}>
+            <Image
+              src="/landing-v2/images/crystal_header.png"
+              width={'20px'}
+              height={'20px'}
+            />
+            <p className={s.token}>$SHARD</p>
           </Link>
         </div>
       ) : (

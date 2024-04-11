@@ -4,7 +4,7 @@
 
   &_wrapImg {
     width: 100%;
-    border-radius: 24px;
+    border-radius: 16px;
     overflow: hidden;
 
     &_img {
@@ -24,7 +24,7 @@
     &_title {
       font-weight: 400;
       color: #000;
-      font-family: var(--font-hind);
+      font-family: var(--font-dmsans);
       font-size: 18px;
       font-style: normal;
       font-weight: 700;
@@ -38,7 +38,7 @@
     }
     &_description {
       color: #515478;
-      font-family: var(--font-hind);
+      font-family: var(--font-dmsans);
       font-size: 16px;
       font-style: normal;
       font-weight: 400;

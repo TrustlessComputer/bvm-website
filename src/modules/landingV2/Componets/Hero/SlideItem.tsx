@@ -2,25 +2,37 @@ import s from './styles.module.scss';
 import Image from 'next/image';
 import { PropsWithChildren } from 'react';
 import Link from 'next/link';
+import Container from '../Container';
 
 interface IProp extends PropsWithChildren {
   title: string;
   action: string;
-  src: string;
+  srcImg?: string;
+  srcVideo?: string;
   target: string;
 }
 
 export default function SlideItem({
   title,
-  src,
+  srcImg,
+  srcVideo,
   children,
   action,
   target,
 }: IProp) {
   return (
     <div className={s.slideItem}>
-      <Image src={src} alt={'hero-slide-item.jpeg'} width={1194} height={572} />
-      <div className={`${s.slideItem_item} slideItem_item`}>
+      {srcImg ? (
+        <Image
+          src={srcImg}
+          alt={'hero-slide-item.jpeg'}
+          width={1920}
+          height={572}
+        />
+      ) : (
+        <video src={srcVideo} width={1920} height={572} muted autoPlay loop />
+      )}
+      <div className={`${s.slideItem_item} slideItem_item `}>
         <div className={s.slideItem_item_left}>
           <h2 className={s.heading}>{title}</h2>
           <p className={s.desc}>{children}</p>

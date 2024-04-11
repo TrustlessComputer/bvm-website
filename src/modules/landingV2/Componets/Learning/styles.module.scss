@@ -1,6 +1,5 @@
 .wrapper {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 160px;
   background-color: #fff;
 
   @include is-mobile {
@@ -15,22 +14,75 @@
     color: #000;
   }
 
+  .inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &_video {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    &_left {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      &_text {
+        color: #515478;
+        font-family: var(--font-dmsans);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 150%; /* 18px */
+        text-transform: uppercase;
+      }
+      &_title {
+        margin-bottom: 0;
+        color: #000;
+        max-width: 550px;
+      }
+      &_wrapImg {
+        max-width: 295px;
+        height: 100%;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+
+        img {
+          width: 60px;
+          height: 60px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 2;
+
+          @include is-mobile {
+            width: 40px;
+            height: 40px;
+          }
+        }
+        video {
+          height: 100%;
+          aspect-ratio: 295/143;
+          object-fit: cover;
+          width: 100%;
+          transform: scale(1.25);
+        }
+      }
+    }
+  }
+
   &_list {
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat(1, 1fr);
-    background-color: #f0f1f4;
-    padding: 20px;
-    border-radius: 24px;
     @include is-tablet {
       gap: 32px;
-      grid-template-columns: repeat(2, 1fr);
     }
 
     @include is-pc {
-      padding: 32px;
-      gap: 32px;
-      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
     }
   }
 }

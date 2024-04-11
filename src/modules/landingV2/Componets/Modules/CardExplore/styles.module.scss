@@ -1,6 +1,6 @@
 .wrapper {
   // position: relative;
-  border-radius: 24px;
+  border-radius: 16px;
   overflow: hidden;
   min-height: 289px;
   z-index: 2;
@@ -11,14 +11,13 @@
     min-height: 194px;
   }
 
-  &_color {
-    background-color: #f0f1f4;
+  &__modules {
+    background-color: #ffffff1a;
     min-height: auto;
   }
 
-  &_image {
-    border: 1px solid #ececec;
-    box-shadow: 0px 0px 24px -6px rgba(0, 0, 0, 0.1);
+  &__solutions {
+    border-radius: 0;
   }
 
   &:hover .inner_topSection_button {
@@ -41,11 +40,10 @@
     flex-direction: column;
 
     &__modules {
-      padding: 16px;
+      padding: 24px;
     }
     &__solutions {
-      padding: 20px;
-      gap: 24px;
+      gap: 23px;
     }
 
     @include is-mobile {
@@ -63,7 +61,9 @@
       @include is-mobile {
         margin-bottom: 0;
       }
-
+      &__modules {
+        margin-bottom: 0;
+      }
       &__solutions {
         width: 100%;
         aspect-ratio: 472 / 282;
@@ -94,76 +94,11 @@
         width: 100%;
         justify-content: space-between;
       }
-      &_subTitle {
-        border-radius: 20px;
-        padding: 2px 28px;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-
-        @include is-mobile {
-          padding: 0px 20px;
-        }
-
-        &__modules {
-          background-color: #fff;
-        }
-
-        &__solutions {
-          background-color: #fff;
-        }
-
-        &_text {
-          color: #000;
-          text-align: center;
-          font-family: var(--font-hind);
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 700;
-          line-height: (36 / 14);
-
-          @include is-mobile {
-            font-size: 12px;
-            line-height: 1;
-            line-height: (32 / 12);
-          }
-
-          &__7E7CFF {
-            color: #7e7cff;
-          }
-
-          &__FE6420 {
-            color: #fe6420;
-          }
-
-          &__66BCFF {
-            color: #66bcff;
-          }
-
-          &__7EBD4E {
-            color: #7ebd4e;
-          }
-
-          &__7E7CFF {
-            color: #7e7cff;
-          }
-
-          &__FF0420 {
-            color: #ff0420;
-          }
-
-          &__FF7E21 {
-            color: #ff7e21;
-          }
-        }
-      }
 
       &_button {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #fff;
         border-radius: 999px;
         cursor: pointer;
         transition: background-color 0.3s var(--easeOutQuart);

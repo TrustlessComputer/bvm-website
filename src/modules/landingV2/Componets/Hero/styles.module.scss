@@ -4,8 +4,7 @@
   padding-bottom: 24px;
 
   @include is-min-table {
-    padding-bottom: 80px;
-    padding-top: 44px;
+    padding-top: 16px;
   }
 
   :global {
@@ -20,7 +19,9 @@
         left: calc(100% - 108px);
       }
       @include is-pc {
-        left: 3.8rem;
+        // left: 3.8rem;
+        left: auto;
+        right: 232px;
       }
     }
 
@@ -34,7 +35,7 @@
       }
       @include is-pc {
         left: auto;
-        right: 3.8rem;
+        right: 160px;
       }
     }
     .splide:hover .splide__arrow {
@@ -43,17 +44,18 @@
     }
     .splide {
       padding: 0 !important;
-      border-radius: 32px;
+      // border-radius: 32px;
       overflow: hidden;
     }
 
     .splide__arrow {
       opacity: 1 !important;
       transition: all 0.4s var(--easeOutQuart);
-      width: auto !important;
+      // width: auto !important;
       height: auto !important;
       box-shadow: none;
       outline: none;
+      width: min-content !important;
       @include is-mobile {
         top: 40px;
       }
@@ -61,7 +63,10 @@
         top: unset;
         bottom: 0.4em;
       }
-
+      @include is-pc {
+        top: unset;
+        bottom: 8px;
+      }
       @media (hover: hover) {
         opacity: 0 !important;
       }
@@ -78,8 +83,8 @@
 
         @include is-pc {
           // background: white;
-          height: 68px;
-          width: 68px;
+          height: 48px;
+          width: 48px;
         }
       }
 
@@ -130,8 +135,8 @@
     }
 
     .splide__slide {
-      padding-right: 8px;
-      padding-left: 8px;
+      // padding-right: 8px;
+      // padding-left: 8px;
       img {
         filter: blur(14px);
       }
@@ -148,8 +153,8 @@
       }
 
       @include is-pc {
-        padding-right: 8px;
-        padding-left: 8px;
+        // padding-right: 8px;
+        // padding-left: 8px;
       }
     }
 
@@ -166,8 +171,19 @@
 
 .slideItem {
   position: relative;
-  border-radius: 32px;
+  // border-radius: 32px;
   overflow: hidden;
+
+  @include is-pc {
+    height: 576px;
+    width: 100%;
+
+    video {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
 
   @include is-mobile {
     height: 100%;
@@ -194,7 +210,7 @@
     @include is-pc {
       flex-wrap: nowrap;
       gap: 24px;
-      padding: 24px 32px;
+      padding: 32px 160px;
     }
 
     @include is-tablet {
@@ -219,34 +235,35 @@
 }
 
 .heading {
-  font-family: var(--font-hind);
-
-  font-weight: 700;
-  line-height: (48/40);
-  margin-bottom: 8px;
+  font-family: var(--font-dmsans);
+  color: #fff;
   font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
 
   @include is-pc {
-    font-size: 40px;
+    font-size: 60px;
   }
 }
 
 .desc {
-  font-family: var(--font-hind);
-  font-weight: 400;
-  line-height: 1.3;
+  font-family: var(--font-dmsans);
+  color: #fff;
   font-size: 14px;
-
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  padding-top: 12px;
   @include is-pc {
     font-size: 20px;
+    max-width: 555px;
   }
 }
 
 .btn {
   height: 44px;
-
-  text-transform: uppercase;
-  font-family: var(--font-hind);
+  font-family: var(--font-dmsans);
   font-weight: 500;
   line-height: (25/16);
   letter-spacing: 0.01em;
@@ -268,7 +285,7 @@
 
   @include is-pc {
     font-size: 14px;
-    width: 152px;
+    width: 123px;
     flex: 0 0 auto;
   }
 }

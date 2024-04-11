@@ -1,7 +1,7 @@
 .wrapper {
   background-color: #fff;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 160px;
+  padding-bottom: 160px;
 
   @include is-mobile {
     padding-top: 24px;
@@ -171,16 +171,15 @@
   }
   &_title {
     color: #000;
-    font-family: var(--font-hind);
+    font-family: var(--font-dmsans);
+    font-size: 22px;
     font-style: normal;
-    font-weight: 700;
-    line-height: 130%;
-    min-height: 78px;
-    font-size: 20px;
+    font-weight: 500;
+    line-height: 150%;
   }
   &_decs {
     color: #515478;
-    font-family: var(--font-hind);
+    font-family: var(--font-dmsans);
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -189,7 +188,7 @@
   &_img {
     height: 186px;
     margin-top: 20px;
-    border-radius: 32px;
+    border-radius: 16px;
     overflow: hidden;
   }
 }
