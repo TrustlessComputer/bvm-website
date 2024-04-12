@@ -4,6 +4,7 @@ import Treasury from '@layouts/HeaderV2/Top/treasury';
 import DrawerMobileMenu from '../components/DrawerMenu';
 import { IconButton, Image, useDisclosure } from '@chakra-ui/react';
 import Link from 'next/link';
+import SvgInset from '@/components/SvgInset';
 
 const Top = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -25,19 +26,12 @@ const Top = () => {
       {isDesktop ? (
         <div className={s.right}>
           <Link className={s.right_btn} href={'/bvm'}>
-            <Image
-              src="/landing-v2/images/btc_header.png"
-              width={'20px'}
-              height={'20px'}
-            />
+            <SvgInset svgUrl="/landing-v2/svg/bvm.svg" size={20} />
             <p className={s.token}>$BVM</p>
           </Link>
           <Link className={s.right_btn} href={'/shard'}>
-            <Image
-              src="/landing-v2/images/crystal_header.png"
-              width={'20px'}
-              height={'20px'}
-            />
+            <SvgInset svgUrl="/landing-v2/svg/crystal.svg" height={20} />
+
             <p className={s.token}>$SHARD</p>
           </Link>
         </div>

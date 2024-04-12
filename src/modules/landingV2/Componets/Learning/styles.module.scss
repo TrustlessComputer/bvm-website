@@ -16,8 +16,13 @@
 
   .inner {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 40px;
+    @include is-pc {
+      flex-direction: row;
+      gap: unset;
+      justify-content: space-between;
+    }
 
     &_video {
       display: flex;
@@ -48,6 +53,11 @@
         position: relative;
         border-radius: 12px;
         overflow: hidden;
+
+        @include is-mobile {
+          width: 100%;
+          max-width: unset;
+        }
 
         img {
           width: 60px;
