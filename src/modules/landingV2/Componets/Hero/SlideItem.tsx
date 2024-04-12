@@ -1,9 +1,8 @@
-import s from './styles.module.scss';
-import Image from 'next/image';
-import { PropsWithChildren, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import Container from '../Container';
 import cn from 'classnames';
+import Image from 'next/image';
+import Link from 'next/link';
+import { PropsWithChildren } from 'react';
+import s from './styles.module.scss';
 
 interface IProp extends PropsWithChildren {
   title: string;
@@ -21,12 +20,6 @@ export default function SlideItem({
   action,
   target,
 }: IProp) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    if (videoRef.current?.muted === false) {
-      videoRef.current.muted = true;
-    }
-  }, [videoRef]);
   return (
     <div className={s.slideItem}>
       {srcImg ? (
@@ -38,12 +31,12 @@ export default function SlideItem({
         />
       ) : (
         <video
-          ref={videoRef}
           src={srcVideo}
           width={1920}
           height={572}
-          muted
+          muted={true}
           autoPlay
+          playsInline
           loop
         />
       )}
