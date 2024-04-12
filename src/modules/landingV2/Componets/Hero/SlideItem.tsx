@@ -1,6 +1,6 @@
 import s from './styles.module.scss';
 import Image from 'next/image';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Container from '../Container';
 import cn from 'classnames';
@@ -21,6 +21,12 @@ export default function SlideItem({
   action,
   target,
 }: IProp) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (videoRef.current?.muted === false) {
+      videoRef.current.muted = true;
+    }
+  }, [videoRef]);
   return (
     <div className={s.slideItem}>
       {srcImg ? (
@@ -31,9 +37,17 @@ export default function SlideItem({
           height={572}
         />
       ) : (
-        <video src={srcVideo} width={1920} height={572} muted autoPlay loop />
+        <video
+          ref={videoRef}
+          src={srcVideo}
+          width={1920}
+          height={572}
+          muted
+          autoPlay
+          loop
+        />
       )}
-      <div className={cn(s.slideItem_inner)}>
+      <div className={cn(s.slideItem_inner, 'container')}>
         <div className={`${s.slideItem_item} slideItem_item `}>
           <div className={s.slideItem_item_left}>
             <h2 className={s.heading}>{title}</h2>

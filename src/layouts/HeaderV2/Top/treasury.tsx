@@ -22,7 +22,7 @@ export default function Treasury() {
 
   return (
     <div className={s.treasury}>
-      <SvgInset svgUrl="/landing-v2/svg/dola.svg" size={16} />{' '}
+      {/* <SvgInset svgUrl="/landing-v2/svg/dola.svg" size={16} />{' '} */}
       <p>
         Treasury{' '}
         <span className={s.treasury_cost}>

@@ -14,7 +14,7 @@ const DATA_LEARN = [
     decs: 'BVM is EVM equivalent. It allows Ethereum developers to migrate their dApps from Ethereum to Bitcoin with minimal modificiations.',
   },
   {
-    title: 'Kickstart your BITcoin L2 with a CROWDSALE',
+    title: 'Kickstart your Bitcoin L2 with a Crowdsale',
     decs: 'Already deployed a Bitcoin L2? You can do a public sale to raise funds and grow your Bitcoin L2 via the BVM launchpad.',
   },
 ];

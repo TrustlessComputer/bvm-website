@@ -46,10 +46,6 @@
       gap: 23px;
     }
 
-    @include is-mobile {
-      gap: 32px;
-    }
-
     &_topSection {
       display: flex;
       flex-direction: row;

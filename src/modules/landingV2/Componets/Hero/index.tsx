@@ -2,16 +2,15 @@
 import '@splidejs/react-splide/css';
 
 // or other themes
-import '@splidejs/react-splide/css/skyblue';
 import '@splidejs/react-splide/css/sea-green';
+import '@splidejs/react-splide/css/skyblue';
 // or only core styles
-import '@splidejs/react-splide/css/core';
-import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
-import SlideItem from '@/modules/landingV2/Componets/Hero/SlideItem';
-import s from './styles.module.scss';
-import Container from '@/modules/landingV2/Componets/Container';
 import SvgInset from '@/components/SvgInset';
+import SlideItem from '@/modules/landingV2/Componets/Hero/SlideItem';
+import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css/core';
 import cn from 'classnames';
+import s from './styles.module.scss';
 
 export default function HeroV2() {
   return (
@@ -21,6 +20,7 @@ export default function HeroV2() {
         options={{
           type: 'loop',
           focus: 'center',
+
           // autoWidth: true,
           updateOnMove: true,
           perPage: 1,
@@ -41,7 +41,7 @@ export default function HeroV2() {
           <SplideSlide>
             <SlideItem
               title={'Rune Chain'}
-              srcVideo={'/landing-v2/video/Runechain_Teaser_02.mp4'}
+              srcVideo={'/landing-v2/video/Runechain_Teaser.mp4'}
               action={'https://runechain.com/'}
               target={'_blank'}
             >

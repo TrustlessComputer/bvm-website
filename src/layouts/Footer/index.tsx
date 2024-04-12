@@ -107,14 +107,14 @@ const Footer = () => {
             0x069d89974f4edabde69450f9cf5cf7d8cbd2568d
           </p> */}
           <div className={s.links}>
-            <Link
+            {/* <Link
               href={
                 'https://etherscan.io/address/0x069d89974f4edabde69450f9cf5cf7d8cbd2568d'
               }
               target="_blank"
             >
               <p className={s.links_item}>ETHERScan</p>
-            </Link>
+            </Link> */}
             <Link href={'https://twitter.com/BVMnetwork'} target="_blank">
               <p className={s.links_item}>twtter</p>
             </Link>
