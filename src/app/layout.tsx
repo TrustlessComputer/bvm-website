@@ -65,14 +65,14 @@ export default function RootLayout({
               <UserProvider>
                 <XVerseProvider>
                   <UnisatProvider>
-                    {/* <NakaConnectProvider> */}
-                    <ContactUsProvider>
-                      <Hydrated>
-                        <ModalManager />
-                        {children}
-                      </Hydrated>
-                    </ContactUsProvider>
-                    {/* </NakaConnectProvider> */}
+                    <NakaConnectProvider>
+                      <ContactUsProvider>
+                        <Hydrated>
+                          <ModalManager />
+                          {children}
+                        </Hydrated>
+                      </ContactUsProvider>
+                    </NakaConnectProvider>
                     <ToastOverlay />
                   </UnisatProvider>
                 </XVerseProvider>
