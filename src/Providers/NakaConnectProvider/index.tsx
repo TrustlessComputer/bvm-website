@@ -11,10 +11,12 @@ import { setNakaUser } from '@/stores/states/user/reducer';
 export interface INakaConnectContext {
   getConnector: () => DappConnect;
   loading: LoadingType | undefined;
-  requestAccount: () => Promise<void>
+  requestAccount: () => Promise<void>;
 }
 
-export const WALLET_URL = isProduction ? 'https://nakachain.xyz' : 'https://dev.nakachain.xyz';
+export const WALLET_URL = isProduction
+  ? 'https://nakachain.xyz'
+  : 'https://dev.nakachain.xyz';
 export const STAKING_URL = `${WALLET_URL}/staking`;
 
 type LoadingType = 'account' | 'sign-message' | 'sign-transaction';
@@ -22,7 +24,7 @@ type LoadingType = 'account' | 'sign-message' | 'sign-transaction';
 const initialValue: INakaConnectContext = {
   getConnector: () => undefined as any,
   loading: undefined,
-  requestAccount: async () => undefined
+  requestAccount: async () => undefined,
 };
 
 export const NakaConnectContext =
@@ -38,36 +40,33 @@ export const NakaConnectProvider: React.FC<PropsWithChildren> = ({
   const address = useAppSelector(nakaAddressSelector);
 
   const getConnector = () => {
-    return new nakaConnect.DappConnect(
-      PERP_API_URL,
-      WALLET_URL,
-    );
+    return new nakaConnect.DappConnect(PERP_API_URL, WALLET_URL);
   };
 
   const requestAccount = async () => {
     const connector = getConnector();
 
     try {
-      setLoading('account')
+      setLoading('account');
       const data = await connector.requestAccount({
         target: '_blank',
       });
 
       if (data?.accounts && data?.accounts?.length) {
         const account = data.accounts[0];
-        dispatch(setNakaUser({
-          address: account.address,
-          token: account.authToken,
-        }))
+        dispatch(
+          setNakaUser({
+            address: account.address,
+            token: account.authToken,
+          }),
+        );
       }
-
     } catch (error: any) {
       const message = error?.message || '';
       toast.error(message);
     } finally {
       setLoading(undefined);
     }
-
   };
 
   const contextValues = useMemo((): INakaConnectContext => {
