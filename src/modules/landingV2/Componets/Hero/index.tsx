@@ -29,17 +29,6 @@ export default function HeroV2() {
         <SplideTrack>
           <SplideSlide>
             <SlideItem
-              title={'Eternal AI'}
-              srcVideo={'/landing-v2/video/LP_Banner_03.mp4'}
-              action={'https://eternalai.org/'}
-              target={'_blank'}
-            >
-              A Bitcoin L2 powering programmable and composable real-life AI
-              models on Bitcoin
-            </SlideItem>
-          </SplideSlide>
-          <SplideSlide>
-            <SlideItem
               title={'Rune Chain'}
               srcVideo={'/landing-v2/video/Runechain_Teaser.mp4'}
               action={'https://runechain.com/'}
@@ -50,6 +39,18 @@ export default function HeroV2() {
               and a nimble 1-second block time.
             </SlideItem>
           </SplideSlide>
+          <SplideSlide>
+            <SlideItem
+              title={'Eternal AI'}
+              srcVideo={'/landing-v2/video/LP_Banner_03.mp4'}
+              action={'https://eternalai.org/'}
+              target={'_blank'}
+            >
+              A Bitcoin L2 powering programmable and composable real-life AI
+              models on Bitcoin
+            </SlideItem>
+          </SplideSlide>
+
           <SplideSlide>
             <SlideItem
               title={'Naka Chain'}
