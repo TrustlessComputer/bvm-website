@@ -31,6 +31,7 @@ export default function HeroV2() {
             <SlideItem
               title={'Rune Chain'}
               srcVideo={'/landing-v2/video/Runechain_Teaser.mp4'}
+              poster={'/landing-v2/video/runechain-post.jpg'}
               action={'https://runechain.com/'}
               target={'_blank'}
             >
@@ -43,6 +44,7 @@ export default function HeroV2() {
             <SlideItem
               title={'Eternal AI'}
               srcVideo={'/landing-v2/video/LP_Banner_03.mp4'}
+              poster={'/landing-v2/video/eai-poster.jpg'}
               action={'https://eternalai.org/'}
               target={'_blank'}
             >
