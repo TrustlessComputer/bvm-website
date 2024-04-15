@@ -224,7 +224,7 @@ const MiningBox = () => {
               fontWeight="700"
               mt="16px"
               height="50px"
-              margin={{ base: '0 auto', lg: 'unset' }}
+              margin={{ base: '0 auto', sm: 'unset' }}
               borderRadius="100px"
               width={isAvailRestake ? '100%' : 'fit-content'}
               isDisabled={loading}
