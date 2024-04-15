@@ -4,11 +4,11 @@
   width: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: #1D1D1D;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1d1d1d;
   .line {
     height: 1px;
-    background: rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.1);
     width: 100%;
     margin-top: 16px;
     margin-bottom: 16px;
@@ -31,8 +31,8 @@
     }
   }
   .history {
-    color: rgba(255, 255, 255, 0.50);
-    font-family: "Helvetica Neue";
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Helvetica Neue';
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -64,6 +64,13 @@
       width: 100% !important;
     }
   }
+  @include is-tablet {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
 }
 
 .box {
@@ -86,15 +93,16 @@
 
     @include is-mobile {
       flex-direction: row;
-      gap: 4px;
+      justify-content: unset;
+      gap: 8px;
     }
   }
 
   p {
-    font-family: "Helvetica Neue";
+    font-family: 'Helvetica Neue';
   }
   &_title {
-    color: #FFF;
+    color: #fff;
     text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     font-size: 16px;
     font-style: normal;
@@ -107,7 +115,7 @@
   }
   &_amount {
     margin-top: 8px;
-    color: rgba(255, 255, 255, 0.50);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
@@ -115,12 +123,13 @@
     text-transform: uppercase;
     text-align: center;
     span {
-      color: #FFF;
+      color: #fff;
       text-transform: uppercase;
     }
 
     @include is-mobile {
       font-size: 18px;
+      text-align: left;
     }
   }
 
@@ -142,7 +151,7 @@
   // line-height: 140%; /* 19.6px */
   letter-spacing: -1px;
   text-transform: uppercase;
-  background: linear-gradient(90deg, #FDFC47 0%, #24FE41 100%);
+  background: linear-gradient(90deg, #fdfc47 0%, #24fe41 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

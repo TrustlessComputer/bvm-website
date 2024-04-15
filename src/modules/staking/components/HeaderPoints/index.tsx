@@ -22,14 +22,21 @@ import BigNumberJS from 'bignumber.js';
 import NumberScale from '@/components/NumberScale';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { nakaAddressSelector } from '@/stores/states/user/selector';
-import { historySelector, isFetchedStakeUserSelector, stakeUserSelector } from '@/stores/states/stakingV2/selector';
+import {
+  historySelector,
+  isFetchedStakeUserSelector,
+  stakeUserSelector,
+} from '@/stores/states/stakingV2/selector';
 import { STAKE_MAX_DECIMAL } from '@/modules/shard/topMiners/constant';
 import { requestReload } from '@/stores/states/common/reducer';
 import { isAmount } from '@utils/number';
 import { sleep } from '@toruslabs/base-controllers';
 import TOKEN_ADDRESS from '@constants/token';
 import { CDN_URL_ICONS } from '@/config';
-import { NakaConnectContext, STAKING_URL } from '@/Providers/NakaConnectProvider';
+import {
+  NakaConnectContext,
+  STAKING_URL,
+} from '@/Providers/NakaConnectProvider';
 import STAKE_TOKEN from '@/contract/stakeV2/configs';
 import toast from 'react-hot-toast';
 import UnStakeModal from '@/modules/staking/components/UnStakeModal';
@@ -46,7 +53,7 @@ const HeaderPoints = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useAppDispatch();
   const { getConnector } = useContext(NakaConnectContext);
-  const { buttonText, requestAccount, isAuthen, loading } = useNakaAuthen()
+  const { buttonText, requestAccount, isAuthen, loading } = useNakaAuthen();
 
   const {
     isOpen: isOpenUnStake,
@@ -61,8 +68,7 @@ const HeaderPoints = () => {
   } = useDisclosure();
 
   const address = useAppSelector(nakaAddressSelector);
-  const isFetched =
-    useAppSelector(isFetchedStakeUserSelector) || !address;
+  const isFetched = useAppSelector(isFetchedStakeUserSelector) || !address;
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
@@ -129,15 +135,15 @@ const HeaderPoints = () => {
       const calldata = cStake.createClaimRewardCallData();
       await connector.requestSign({
         calldata,
-        target: "_blank",
+        target: '_blank',
         to: STAKE_TOKEN.BVM.stBVM || '',
         functionType: 'Claim Reward',
-      })
+      });
       dispatch(requestReload());
       await sleep(2);
-      toast.success('Successfully.')
+      toast.success('Successfully.');
     } catch (error: any) {
-      toast.error(error?.message || 'Something went wrong!')
+      toast.error(error?.message || 'Something went wrong!');
     } finally {
       setIsLoading(false);
     }
@@ -151,13 +157,18 @@ const HeaderPoints = () => {
   ) => {
     return (
       <Flex className={styles.item}>
-        <Image
-          src={icon}
-          alt={title}
-          width={size || TOKEN_ICON_SIZE}
-          height={TOKEN_ICON_SIZE}
-        />
-        <Flex flexDirection="column" alignItems="center">
+        <Flex width={'20px'} height={'20px'} alignItems={'center'}>
+          <Image
+            src={icon}
+            alt={title}
+            width={size || TOKEN_ICON_SIZE}
+            height={TOKEN_ICON_SIZE}
+          />
+        </Flex>
+        <Flex
+          flexDirection="column"
+          alignItems={{ base: 'flex-start', md: 'center' }}
+        >
           <p className={styles.box_amount}>
             <span>{value}</span>
           </p>
@@ -198,8 +209,9 @@ const HeaderPoints = () => {
                         cursor: 'pointer',
                       }}
                     />
-                  ) : <></>}
-
+                  ) : (
+                    <></>
+                  )}
                 </PopoverTrigger>
                 <PopoverContent
                   maxWidth="120px"
@@ -259,42 +271,38 @@ const HeaderPoints = () => {
                   10000,
                 )} BVM`,
               )}
-              {
-                renderItem(
-                  'Mined',
-                  '/icons/staking/gem-icon.png',
-                  <p>
-                    {isAmount(stakeUser?.multiplierPoint)
-                      ? `${formatCurrency(
+              {renderItem(
+                'Mined',
+                '/icons/staking/gem-icon.png',
+                <p>
+                  {isAmount(stakeUser?.multiplierPoint)
+                    ? `${formatCurrency(
                         formatAmountToClient(stakeUser?.shardMined || '0'),
                         0,
                         3,
                         'TC',
                       )}`
-                      : '+0'}{' '}
-                    {MULTIPLE_POINT_SYMBOL}
-                  </p>,
-                  TOKEN_ICON_SIZE - 10,
-                )
-              }
-              {
-                renderItem(
-                  'Mining',
-                  '/icons/staking/gem-icon.png',
-                  <p style={{ color: '#6FFE43', fontSize: '20px' }}>
-                    <NumberScale
-                      label={'+'}
-                      couters={new BigNumberJS(
-                        formatAmountToClient(stakeUser?.shardMining || '0'),
-                      ).toNumber()}
-                      maximumFractionDigits={3}
-                      minimumFractionDigits={3}
-                      subLabel={` SHARDS`}
-                    />
-                  </p>,
-                  TOKEN_ICON_SIZE - 10,
-                )
-              }
+                    : '+0'}{' '}
+                  {MULTIPLE_POINT_SYMBOL}
+                </p>,
+                TOKEN_ICON_SIZE - 10,
+              )}
+              {renderItem(
+                'Mining',
+                '/icons/staking/gem-icon.png',
+                <p style={{ color: '#6FFE43', fontSize: '20px' }}>
+                  <NumberScale
+                    label={'+'}
+                    couters={new BigNumberJS(
+                      formatAmountToClient(stakeUser?.shardMining || '0'),
+                    ).toNumber()}
+                    maximumFractionDigits={3}
+                    minimumFractionDigits={3}
+                    subLabel={` SHARDS`}
+                  />
+                </p>,
+                TOKEN_ICON_SIZE - 10,
+              )}
 
               {renderItem(
                 'Interest earned',
@@ -341,9 +349,9 @@ const HeaderPoints = () => {
             isLoading={isLoading}
             onClick={() => {
               if (isAuthen) {
-                return window.open(STAKING_URL, '_blank')
+                return window.open(STAKING_URL, '_blank');
               }
-              return requestAccount()
+              return requestAccount();
             }}
           >
             {buttonText ? buttonText : 'Stake'}
