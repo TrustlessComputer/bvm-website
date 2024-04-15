@@ -10,9 +10,9 @@
   -webkit-font-smoothing: antialiased; // Firefox
   -moz-osx-font-smoothing: grayscale !important; // Firefox
 
-
   --builder-padding-size: 56px;
-
+  --font-hind: 'Hind Siliguri', sans-serif;
+  --font-dmsans: 'DM Sans', sans-serif;
   @include is-min-table {
     --builder-padding-size: 80px;
   }

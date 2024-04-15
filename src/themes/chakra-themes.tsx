@@ -7,6 +7,8 @@ import { Global } from '@emotion/react';
 export const ChakraFontsFace = () => (
   <Global
     styles={`
+    
+     @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;700&display=swap');
      @font-face {
   font-family: 'Helvetica Neue';
   src: local('Helvetica Neue Thin Italic'), local('HelveticaNeue-ThinItalic'),

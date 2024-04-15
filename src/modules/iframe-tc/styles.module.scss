@@ -4,10 +4,10 @@
   align-items: center;
   justify-content: flex-start;
   min-height: 100dvh;
-  background-color: #F3F1E8;
-  --s-top: 80px;
+  background-color: #f3f1e8;
+  --s-top: 57px;
   @include is-pc {
-    --s-top: 88px;
+    --s-top: 131px;
   }
   --mr-top: calc(var(--s-top) + 52px);
 

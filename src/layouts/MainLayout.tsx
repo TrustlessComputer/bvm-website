@@ -4,6 +4,8 @@ import Header, { HeaderProps } from '@/layouts/Header';
 import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import useAnimationStore from '@/stores/useAnimationStore';
+import HeaderV2 from '@layouts/HeaderV2';
+import Footer from '@layouts/Footer';
 
 type IMainProps = {
   hideHeader?: boolean;
@@ -13,22 +15,25 @@ type IMainProps = {
 };
 
 const MainLayout = ({
-                      hideHeader = false,
-                      hideFooter = false,
-                      headerProps,
-                      children,
-                    }: IMainProps) => {
-
+  hideHeader = false,
+  hideFooter = false,
+  headerProps,
+  children,
+}: IMainProps) => {
   const pathName = usePathname();
   const { resetPlay } = useAnimationStore();
   useEffect(() => {
     resetPlay();
   }, [pathName]);
 
-  return <>
-    {!hideHeader && <Header {...headerProps} />}
-    {children}
-  </>;
+  return (
+    <>
+      {/* {<Header {...headerProps} />} */}
+      {!hideHeader && <HeaderV2 {...headerProps} />}
+      {children}
+      <Footer />
+    </>
+  );
 };
 
 export default MainLayout;
