@@ -17,7 +17,7 @@ import EternalSeeds from '@/modules/staking/components/EternalSeeds';
 import { Box } from '@chakra-ui/react';
 
 const StakingUser = () => {
-  useFetchStakingData()
+  useFetchStakingData();
 
   const stakeUser = useAppSelector(stakeUserSelector);
 
@@ -37,7 +37,7 @@ const StakingUser = () => {
         <EternalSeeds />
       </Box>
     </MainLayout>
-  )
+  );
 };
 
 export default StakingUser;
