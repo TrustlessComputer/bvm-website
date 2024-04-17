@@ -1,6 +1,6 @@
-import { APP_NAME } from '@/config/metadata';
-import { Box } from '@chakra-ui/react';
 import React from 'react';
+import { APP_NAME } from '@/config/metadata';
+import { Box, Flex } from '@chakra-ui/react';
 
 export const metadata = {
   openGraph: {
@@ -27,7 +27,7 @@ export const metadata = {
 
 const StakeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Box minH="100vh" bgColor={'rgba(15, 15, 15, 1)'}>
+    <Box minH="100vh" bgColor="rgba(15, 15, 15, 1)">
       {children}
     </Box>
   );
