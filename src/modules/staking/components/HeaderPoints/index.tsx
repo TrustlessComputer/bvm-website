@@ -113,12 +113,18 @@ const HeaderPoints = () => {
   }, [stakeUser?.rewardAmount, stakeUser?.teamPrincipleBalance, bonusReward]);
 
   const isLoadingReward = !isFetched || isLoading;
-  const isDisableReward =
-    isLoadingReward ||
-    !isAmount(stakeUser?.rewardAmount || 0) ||
-    new BigNumberJS(formatAmountToClient(stakeUser?.rewardAmount || 0)).lt(
-      0.000001,
+
+  const isHasReward = React.useMemo(() => {
+    return new BigNumberJS(formatAmountToClient(stakeUser?.rewardAmount || 0)).gt(
+      0.00001,
     );
+  }, [stakeUser?.rewardAmount])
+
+  const isDisableReward = React.useMemo(() => {
+    return isLoadingReward ||
+      !isAmount(stakeUser?.rewardAmount || 0) ||
+      !isHasReward
+  }, [isLoadingReward, stakeUser?.rewardAmount, isHasReward]);
 
   const cStake = new CStakeV2();
 
@@ -186,7 +192,7 @@ const HeaderPoints = () => {
               </p>
               <Popover trigger={'click'} isLazy placement="bottom-start">
                 <PopoverTrigger>
-                  {isAuthen ? (
+                  {isAuthen && (!!histories.length || stakeUser?.isStaked || isHasReward) ? (
                     <Image
                       src="/icons/staking/menu-dots.svg"
                       height={20}
@@ -217,7 +223,7 @@ const HeaderPoints = () => {
                         History
                       </Text>
                     )}
-                    {stakeUser?.isStaked && (
+                    {isHasReward && (
                       <Button
                         isLoading={isLoadingReward}
                         isDisabled={isDisableReward}

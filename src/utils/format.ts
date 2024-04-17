@@ -158,8 +158,12 @@ export const formatToHumanAmount = (params: IFormatToHuman) => {
 };
 
 export const formatAmountToClient = (amount: any, _decimals = 18) => {
-  if (amount) {
-    return ethers.utils.formatEther(amount);
+  try {
+    if (amount) {
+      return ethers.utils.formatEther(amount);
+    }
+  } catch (e) {
+    // TODO
   }
   return '0';
 };
