@@ -52,9 +52,10 @@ const UnStakeModal = ({ show, onHide }: IProps) => {
 
       await connector.requestSign({
         calldata,
-        target: "_blank",
+        target: "popup",
         to: STAKE_TOKEN.BVM.stBVM || '',
         functionType: 'Unstake',
+        chainType: "NAKA"
       })
       dispatch(requestReload());
       await sleep(2);

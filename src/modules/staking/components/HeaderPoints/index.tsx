@@ -141,9 +141,10 @@ const HeaderPoints = () => {
       const calldata = cStake.createClaimRewardCallData();
       await connector.requestSign({
         calldata,
-        target: '_blank',
+        target: 'popup',
         to: STAKE_TOKEN.BVM.stBVM || '',
         functionType: 'Claim Reward',
+        chainType: "NAKA"
       });
       dispatch(requestReload());
       await sleep(2);

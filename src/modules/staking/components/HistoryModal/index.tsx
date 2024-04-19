@@ -61,9 +61,10 @@ const StakeHistoryModal = (props: IProps) => {
       const connector = getConnector();
       await connector.requestSign({
         calldata,
-        target: "_blank",
+        target: "popup",
         to: STAKE_TOKEN.BVM.stBVM || '',
         functionType: 'Claim Unstake',
+        chainType: "NAKA"
       })
       dispatch(requestReload());
       await sleep(2);

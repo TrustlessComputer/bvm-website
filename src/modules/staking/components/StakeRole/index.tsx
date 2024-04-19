@@ -72,9 +72,10 @@ const StakeRole = React.memo(() => {
       const connector = getConnector();
       await connector.requestSign({
         calldata,
-        target: "_blank",
+        target: "popup",
         to: STAKE_TOKEN.BVM.stBVM || '',
         functionType: 'Stake role',
+        chainType: "NAKA"
       })
 
       dispatch(requestReload());

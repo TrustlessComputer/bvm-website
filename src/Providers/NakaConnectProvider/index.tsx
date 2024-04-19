@@ -49,7 +49,7 @@ export const NakaConnectProvider: React.FC<PropsWithChildren> = ({
     try {
       setLoading('account');
       const data = await connector.requestAccount({
-        target: '_blank',
+        target: 'popup',
       });
 
       if (data?.accounts && data?.accounts?.length) {

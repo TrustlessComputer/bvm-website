@@ -87,9 +87,10 @@ const MiningBox = () => {
       const calldata = cStake.createRestake();
       await connector.requestSign({
         calldata,
-        target: '_blank',
+        target: 'popup',
         to: STAKE_TOKEN.BVM.stBVM || '',
         functionType: 'Restake',
+        chainType: "NAKA"
       });
       toast.success('Re-Stake successfully.');
     } catch (error: any) {
