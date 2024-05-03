@@ -11,6 +11,7 @@ import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css/core';
 import cn from 'classnames';
 import s from './styles.module.scss';
+import { CDN_URL_IMAGES, CDN_URL_VIDEOS } from '@/config';
 
 export default function HeroV2() {
   return (
@@ -30,8 +31,8 @@ export default function HeroV2() {
           <SplideSlide>
             <SlideItem
               title={'Eternal AI'}
-              srcVideo={'/landing-v2/video/LP_Banner_03.mp4'}
-              poster={'/landing-v2/video/eai-poster.jpg'}
+              srcVideo={`${CDN_URL_VIDEOS}/Visual_01_Anim.mp4`}
+              poster={`${CDN_URL_IMAGES}/Visual_01_Anim_0000_min.jpeg`}
               action={'https://eternalai.org/'}
               target={'_blank'}
             >
@@ -39,8 +40,6 @@ export default function HeroV2() {
               models on Bitcoin
             </SlideItem>
           </SplideSlide>
-
-
 
           <SplideSlide>
             <SlideItem
