@@ -29,19 +29,6 @@ export default function HeroV2() {
         <SplideTrack>
           <SplideSlide>
             <SlideItem
-              title={'Rune Chain'}
-              srcVideo={'/landing-v2/video/Runechain_Teaser.mp4'}
-              poster={'/landing-v2/video/runechain-post.jpg'}
-              action={'https://runechain.com/'}
-              target={'_blank'}
-            >
-              A Bitcoin L2 that scales Bitcoin for rune trading. It’s made for
-              mass adoption with a rock bottom $0.001 average transaction fee
-              and a nimble 1-second block time.
-            </SlideItem>
-          </SplideSlide>
-          <SplideSlide>
-            <SlideItem
               title={'Eternal AI'}
               srcVideo={'/landing-v2/video/LP_Banner_03.mp4'}
               poster={'/landing-v2/video/eai-poster.jpg'}
@@ -53,6 +40,8 @@ export default function HeroV2() {
             </SlideItem>
           </SplideSlide>
 
+
+
           <SplideSlide>
             <SlideItem
               title={'Naka Chain'}
@@ -62,6 +51,20 @@ export default function HeroV2() {
             >
               A powerful Bitcoin L2 for DeFi. 2-second block time. $0.0001
               transaction fee. 100% permissionless.
+            </SlideItem>
+          </SplideSlide>
+
+          <SplideSlide>
+            <SlideItem
+              title={'Rune Chain'}
+              srcVideo={'/landing-v2/video/Runechain_Teaser.mp4'}
+              poster={'/landing-v2/video/runechain-post.jpg'}
+              action={'https://runechain.com/'}
+              target={'_blank'}
+            >
+              A Bitcoin L2 that scales Bitcoin for rune trading. It’s made for
+              mass adoption with a rock bottom $0.001 average transaction fee
+              and a nimble 1-second block time.
             </SlideItem>
           </SplideSlide>
         </SplideTrack>
