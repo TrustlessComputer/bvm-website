@@ -25,9 +25,6 @@ export default function Landing() {
       <Learning />
       <Solutions />
       <Modules />
-      <RetroCard/>
-      <RetroHero />
-      <RetroCaseStudy />
       {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
     </div>
   );

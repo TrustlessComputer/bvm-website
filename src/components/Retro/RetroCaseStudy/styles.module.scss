@@ -87,8 +87,11 @@
 
 
 .right {
-  max-width: 968px;
   width: 100%;
+  @include is-min-table {
+    max-width: 968px;
+
+  }
   img {
     width: 100%;
     height: auto;
