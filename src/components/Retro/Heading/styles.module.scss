@@ -1,0 +1,12 @@
+.heading {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 120%;
+  color: #000000;
+  margin-bottom: 68px;
+
+  &.white {
+    color: white;
+  }
+}
