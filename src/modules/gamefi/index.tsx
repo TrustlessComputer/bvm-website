@@ -8,14 +8,15 @@ import RetroCaseStudy from '@components/Retro/RetroCaseStudy';
 const GameFiModule = () => {
   return (
     <div className={s.gamefi}>
-      <RetroHero label={'Designed for Game builders'} btn1={{
+      <RetroHero label={'Designed for Game builders'} subTitle={'Bitcoin L2 for GameFi'} btn1={{
         title: 'Create your own GameFi L2',
-        link: '#',
+        link: '/blockchains/customize',
       }}
                  btn2={{
                    title: 'Explore Bitcoin Arcade now',
                    label: 'Need an example?',
-                   link: '#',
+                   link: 'https://play.bitcoinarcade.xyz/',
+                   target: '_blank',
                  }}
                  src={'/retro/hero.png'}
       >

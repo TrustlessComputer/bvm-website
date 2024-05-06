@@ -14,6 +14,7 @@ export interface IHeroBtn_2 extends IHeroBtn_1 {
 }
 
 export interface IRetroHero extends PropsWithChildren {
+  subTitle: string,
   label: string,
   btn1: IHeroBtn_1,
   btn2: IHeroBtn_2,
@@ -21,7 +22,7 @@ export interface IRetroHero extends PropsWithChildren {
   isVideo?: boolean
 }
 
-function RetroHero({ label, children, btn1, btn2, src, isVideo }: IRetroHero): React.JSX.Element {
+function RetroHero({ label, subTitle, children, btn1, btn2, src, isVideo }: IRetroHero): React.JSX.Element {
   return (
     <div className={s.wrapper}>
       {
@@ -30,14 +31,17 @@ function RetroHero({ label, children, btn1, btn2, src, isVideo }: IRetroHero): R
       }
       <div className={`container ${s.container}`}>
         <div className={s.wrapperContent}>
-          <p className={s.label}>{label}</p>
+          <p className={s.subTitle}>{subTitle}</p>
           <p className={s.heading}>{children}</p>
-          <Link href={btn1.link} target={btn1.target} className={s.btn}>{btn1.title}</Link>
-          <div className={s.linkBottom}>
-            <p>{btn2.label}</p>
-            <Link href={btn2.link} target={btn2.target}>{btn2.title}</Link>
-            <div className={s.icon}>
-              <Image src={'/retro/ic_arrowTR.svg'} alt={'icon'} width={12} height={12} />
+          <p className={s.label}>{label}</p>
+          <div>
+            <Link href={btn1.link} target={btn1.target} className={s.btn}>{btn1.title}</Link>
+            <div className={s.linkBottom}>
+              <p>{btn2.label}</p>
+              <Link href={btn2.link} target={btn2.target}>{btn2.title}</Link>
+              <div className={s.icon}>
+                <Image src={'/retro/ic_arrowTR.svg'} alt={'icon'} width={12} height={12} />
+              </div>
             </div>
           </div>
         </div>
