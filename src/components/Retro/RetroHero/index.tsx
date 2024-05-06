@@ -1,27 +1,49 @@
-import React from 'react';
-import s from './styles.module.scss'
+import React, { PropsWithChildren } from 'react';
+import s from './styles.module.scss';
 import Link from 'next/link';
-import Image from 'next/image'
+import Image from 'next/image';
 
-function RetroHero(): React.JSX.Element {
+export interface IHeroBtn_1 {
+  title: string,
+  link: string,
+  target?: '_blank' | ''
+}
+
+export interface IHeroBtn_2 extends IHeroBtn_1 {
+  label: string;
+}
+
+export interface IRetroHero extends PropsWithChildren {
+  label: string,
+  btn1: IHeroBtn_1,
+  btn2: IHeroBtn_2,
+  src: string,
+  isVideo?: boolean
+}
+
+function RetroHero({ label, children, btn1, btn2, src, isVideo }: IRetroHero): React.JSX.Element {
   return (
-    <div className={s.wrapper} style={{backgroundImage: 'url(/retro/hero.png)'}}>
-      <div className={'container'}>
+    <div className={s.wrapper}>
+      {
+        isVideo ? <video src={src} className={s.bg} autoPlay loop playsInline muted></video> :
+          <Image className={s.bg} src={src} width={1920} height={1080} alt={'bg-hero'} />
+      }
+      <div className={`container ${s.container}`}>
         <div className={s.wrapperContent}>
-          <p className={s.label}>Designed for Game builders</p>
-          <p className={s.heading}>Shape the Future of Gaming on Bitcoin</p>
-          <Link href={''} className={s.btn}>Create your own GameFi L2</Link>
+          <p className={s.label}>{label}</p>
+          <p className={s.heading}>{children}</p>
+          <Link href={btn1.link} target={btn1.target} className={s.btn}>{btn1.title}</Link>
           <div className={s.linkBottom}>
-            <p>Need an example?</p>
-            <Link href={''}>Explore Bitcoin Arcade now</Link>
+            <p>{btn2.label}</p>
+            <Link href={btn2.link} target={btn2.target}>{btn2.title}</Link>
             <div className={s.icon}>
-              <Image src={'/retro/ic_arrowTR.svg'} alt={'icon'} width={12} height={12}/>
+              <Image src={'/retro/ic_arrowTR.svg'} alt={'icon'} width={12} height={12} />
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default RetroHero
+export default RetroHero;

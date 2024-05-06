@@ -15,6 +15,7 @@
   &_title {
     color: #fff;
   }
+
   &_subTitle {
     border-radius: 20px;
     padding: 2px 12px;
@@ -49,6 +50,7 @@
       }
     }
   }
+
   &_list {
     display: grid;
     gap: 20px;
@@ -72,5 +74,44 @@
 
   &:last-child {
     margin-bottom: 0;
+  }
+}
+
+
+.listPreview {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(1, 1fr);
+  align-items: flex-start;
+
+  @include is-tablet {
+    gap: 32px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include is-pc {
+    gap: 32px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.btnReview {
+  height: 48px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 48px;
+  padding-right: 48px;
+  text-align: center;
+  background: white;
+  border-radius: 24px;
+  color: black;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+
+  @include is-min-table {
+    font-size: 16px;
   }
 }
