@@ -10,14 +10,18 @@ function CaseStudy(): React.JSX.Element {
         <div className={s.left}>
           <div className={s.label}>
             <p>Case Study</p>
-            <ImagePlaceholder src={'/retro/brand.png'} alt={'brand'} height={51} width={260} />
+            <div className={s.imageLabel}>
+              <ImagePlaceholder src={'/retro/brand.png'} alt={'brand'} height={51} width={260} />
+            </div>
           </div>
           <p className={s.heading}>Ushering the new golden era of Gaming on Bitcoin</p>
-          <p className={s.description}>Ushering the new golden era of Gaming on Bitcoin</p>
-          <Link href={''} className={s.btn}>Create your own GameFi L2</Link>
+          <p className={s.description}>The first ever Fully On-Chain blockchain on Bitcoin</p>
+          <div className={s.wrapperBtn}>
+            <Link href={''} className={s.btn}>Create your own GameFi L2</Link>
+          </div>
         </div>
         <div className={s.right}>
-          <ImagePlaceholder src={'/retro/imageRight.ong'} alt={'imageRight'} width={1960} height={1050}/>
+          <ImagePlaceholder src={'/retro/imageRight.png'} alt={'imageRight'} width={1960} height={1050}/>
         </div>
       </div>
     </div>
