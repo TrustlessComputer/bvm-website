@@ -1,31 +1,48 @@
-import React from 'react';
-import s from './styles.module.scss'
+import React, { PropsWithChildren } from 'react';
+import s from './styles.module.scss';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import Link from 'next/link';
 
-function CaseStudy(): React.JSX.Element {
+
+interface RetroCaseStudyProps extends PropsWithChildren {
+  subTitle: string,
+  src: string,
+  heading: string
+  btn: {
+    title: string,
+    link: string
+  }
+}
+
+function CaseStudy({
+                     subTitle,
+                     heading,
+                     src,
+                     children,
+                     btn
+                   }: RetroCaseStudyProps): React.JSX.Element {
   return <div className={s.wrapper}>
-    <div className="container">
+    <div className='container'>
       <div className={s.contentWrapper}>
         <div className={s.left}>
           <div className={s.label}>
-            <p>Case Study</p>
+            <p>{subTitle}</p>
             <div className={s.imageLabel}>
               <ImagePlaceholder src={'/retro/brand.png'} alt={'brand'} height={51} width={260} />
             </div>
           </div>
-          <p className={s.heading}>Ushering the new golden era of Gaming on Bitcoin</p>
-          <p className={s.description}>The first ever Fully On-Chain blockchain on Bitcoin</p>
+          <h2 className={s.heading}>{heading}</h2>
+          <div className={s.description}>{children}</div>
           <div className={s.wrapperBtn}>
-            <Link href={''} className={s.btn}>Create your own GameFi L2</Link>
+            <Link href={btn.link} className={s.btn}>{btn.title}</Link>
           </div>
         </div>
         <div className={s.right}>
-          <ImagePlaceholder src={'/retro/imageRight.png'} alt={'imageRight'} width={1960} height={1050}/>
+          <ImagePlaceholder src={src} alt={'imageRight'} width={1960} height={1050} />
         </div>
       </div>
     </div>
-  </div>
+  </div>;
 }
 
-export default CaseStudy
+export default CaseStudy;

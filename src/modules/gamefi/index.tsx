@@ -22,7 +22,11 @@ const GameFiModule = () => {
         Shape the Future of Gaming on Bitcoin
       </RetroHero>
       <ListInfo />
-      <RetroCaseStudy />
+      <RetroCaseStudy subTitle={'Case Study'} btn={{
+        title: 'Explore Bitcoin Arcade now!',
+        link: '#',
+      }} src={'/retro/imageRight.png'} heading={'Ushering the new golden era of Gaming on Bitcoin'}>The first
+        ever Fully On-Chain blockchain on Bitcoin</RetroCaseStudy>
     </div>
   );
 };
