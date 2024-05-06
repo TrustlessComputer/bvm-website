@@ -9,7 +9,7 @@ import Section2 from './Section_2';
 import Allocation from '@/modules/bvm_v2/Allocation';
 // import Vesting from '@/modules/bvm_v2/Vesting';
 // import Schedule from '@/modules/bvm_v2/Schedule';
-// import Hero from './Hero';
+// import RetroHero from './RetroHero';
 import TgeModule from '../tge';
 import Fade from '@/interactive/Fade';
 import Tokens from './Token';
@@ -20,7 +20,7 @@ const BVMModule = () => {
     <div>
       {/*<div className={s.topHero}>*/}
       {/*  <Box h={['80px', '140px']} />*/}
-      {/*  <Hero />*/}
+      {/*  <RetroHero />*/}
       {/*</div>*/}
       <Box className={s.container}>
         <TgeModule />

@@ -8,6 +8,9 @@ import s from './styles.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
 import Section7Mobile from './Componets/Section_7/Section_7_Mobile';
 import useWhiteBackground from '@/hooks/useWhiteBackground';
+import RetroCard from '@components/Retro/RetroCard';
+import RetroHero from '@components/Retro/RetroHero';
+import RetroCaseStudy from '@components/Retro/RetroCaseStudy';
 
 export default function Landing() {
   const { mobileScreen, tabletScreen } = useWindowSize();
@@ -22,6 +25,9 @@ export default function Landing() {
       <Learning />
       <Solutions />
       <Modules />
+      {/*<RetroCard/>*/}
+      {/*<RetroHero />*/}
+      {/*<RetroCaseStudy />*/}
       {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
     </div>
   );
