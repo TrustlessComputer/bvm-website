@@ -110,6 +110,7 @@
   align-items: center;
   justify-content: center;
   width: fit-content;
+  padding-top: 4px;
 
   @include is-min-table {
     font-size: 16px;
