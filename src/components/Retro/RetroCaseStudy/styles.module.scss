@@ -5,15 +5,30 @@
 
 .contentWrapper {
   display: flex;
+  flex-wrap: wrap;
   gap: 120px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 160px 0;
+  @include is-pc {
+    justify-content: space-between;
+
+  }
 }
 
 .left {
   max-width: 512px;
   width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @include is-pc {
+    margin: 0;
+    align-items: start;
+    justify-content: start;
+  }
 }
 
 .label {
@@ -44,6 +59,10 @@
   font-size: 48px;
   margin-top: 12px;
   line-height: 57.6px;
+  text-align: center;
+  @include is-pc {
+    text-align: start;
+  }
 }
 
 .description {
