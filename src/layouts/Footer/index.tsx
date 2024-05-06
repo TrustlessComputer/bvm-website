@@ -116,7 +116,7 @@ const Footer = () => {
               <p className={s.links_item}>ETHERScan</p>
             </Link> */}
             <Link href={'https://twitter.com/BVMnetwork'} target="_blank">
-              <p className={s.links_item}>twtter</p>
+              <p className={s.links_item}>twitter</p>
             </Link>
             <Link href={'https://t.me/BVMofficialcommunity'} target="_blank">
               <p className={s.links_item}>telegram</p>

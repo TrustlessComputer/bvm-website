@@ -1,6 +1,6 @@
 import React from 'react';
 import { APP_NAME } from '@/config/metadata';
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 
 export const metadata = {
   openGraph: {
@@ -25,12 +25,12 @@ export const metadata = {
   },
 };
 
-const StakeLayout = ({children}: {children: React.ReactNode}) => {
+const StakeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Flex flex={1} minH="100vh" bgColor="rgba(15, 15, 15, 1)" justifyContent='center'>
+    <Box minH="100vh" bgColor="rgba(15, 15, 15, 1)">
       {children}
-    </Flex>
-  )
+    </Box>
+  );
 };
 
 export default StakeLayout;

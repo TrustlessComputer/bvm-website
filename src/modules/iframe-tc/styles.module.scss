@@ -7,7 +7,7 @@
   background-color: #f3f1e8;
   --s-top: 57px;
   @include is-pc {
-    --s-top: 131px;
+    --s-top: 128px;
   }
   --mr-top: calc(var(--s-top) + 52px);
 

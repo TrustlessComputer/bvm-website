@@ -15,7 +15,7 @@
   }
   @include is-pc {
     margin-top: 80px;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     padding: 0 140px;
   }
   .item {
@@ -30,21 +30,19 @@
 .itemImage {
   width: 65px;
   height: 65px;
-  @include is-min-table{
+  @include is-min-table {
     width: 75px;
     height: 75px;
   }
-
 }
 
 .itemLabel {
-  color: #989AB3;
+  color: #989ab3;
   font-size: 14px;
   text-align: center;
   font-weight: 500;
-  font-family: "Helvetica Neue";
+  font-family: 'Helvetica Neue';
   @include is-min-table {
     font-size: 18px;
-
   }
 }

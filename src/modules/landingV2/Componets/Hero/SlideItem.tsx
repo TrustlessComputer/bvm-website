@@ -8,6 +8,7 @@ interface IProp extends PropsWithChildren {
   title: string;
   action: string;
   srcImg?: string;
+  poster?: string;
   srcVideo?: string;
   target: string;
 }
@@ -18,6 +19,7 @@ export default function SlideItem({
   srcVideo,
   children,
   action,
+                                    poster,
   target,
 }: IProp) {
   return (
@@ -30,15 +32,18 @@ export default function SlideItem({
           height={572}
         />
       ) : (
-        <video
-          src={srcVideo}
-          width={1920}
-          height={572}
-          muted={true}
-          autoPlay
-          playsInline
-          loop
-        />
+        <>
+          <video
+            src={srcVideo}
+            width={1920}
+            height={572}
+            muted={true}
+            poster={poster}
+            autoPlay
+            playsInline
+            loop
+          />
+        </>
       )}
       <div className={cn(s.slideItem_inner, 'container')}>
         <div className={`${s.slideItem_item} slideItem_item `}>
