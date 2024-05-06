@@ -3,6 +3,8 @@ import s from './style.module.scss';
 import React, { useMemo } from 'react';
 // import SocialToken from '@/modules/Launchpad/components/Social';
 import { Button, Flex } from '@chakra-ui/react';
+import { formatCurrency, formatDate } from '@/utils/format';
+import moment from 'moment';
 
 export type IAirdropCard = {
   title: string;
@@ -13,11 +15,11 @@ export type IAirdropCard = {
   socials?: any;
   desc?: any;
   airdropStr?: string;
-  claimAble?: boolean;
-  isClaimed?: boolean;
-  isClaiming?: boolean;
+  claimingId?: number;
   claimAmount?: string;
-  onClickClaim?: () => void;
+  airdrops?: any[];
+  symbol?: string;
+  onClickClaim?: (id: number) => void;
 };
 export default function AirdropCard({
   src,
@@ -27,10 +29,9 @@ export default function AirdropCard({
   subTitle,
   desc,
   airdropStr,
-  claimAble,
-  isClaimed,
-  isClaiming,
-  claimAmount,
+  claimingId,
+  airdrops,
+  symbol,
   onClickClaim,
 }: IAirdropCard) {
   const isComming = useMemo((): boolean => {
@@ -57,24 +58,57 @@ export default function AirdropCard({
             <p>{desc}</p>
           </Flex>
         </div>
-        {claimAble ? (
-          <>
-            {isClaimed ? (
-              <p className={s.airdropCard_ct}>{title}</p>
-            ) : (
-              <Button
-                w="100%"
-                minH="56px"
-                className={`${s.airdropCard_release} ${s.airdropCard_ct}`}
-                onClick={onClickClaim}
-                disabled={isClaiming}
-                isLoading={isClaiming}
-              >
-                <span className={s.token}>{claimAmount}</span>
-                <span className={s.date}>Claim</span>
-              </Button>
-            )}
-          </>
+        {airdrops && airdrops.length > 0 ? (
+          <Flex direction="column" gap="8px">
+            {airdrops.map((airdrop) => {
+              const isClaimed =
+                airdrop && (airdrop.is_claimed || Number(airdrop.amount) <= 0);
+              const claimable =
+                airdrop.claimable || moment().isAfter(moment(airdrop.valid_at));
+              return (
+                <>
+                  {isClaimed ? (
+                    <p className={s.airdropCard_ct}>
+                      {Number(airdrop.amount) <= 0
+                        ? `You missed the ${symbol} airdrop. Don't miss out on the next one!`
+                        : `RECEIVED ${formatCurrency(
+                            airdrop.amount,
+                            0,
+                            3,
+                          )} $${symbol}`}
+                    </p>
+                  ) : (
+                    <Button
+                      w="100%"
+                      minH="56px"
+                      className={`${s.airdropCard_release} ${s.airdropCard_ct}`}
+                      onClick={() =>
+                        claimable &&
+                        onClickClaim &&
+                        onClickClaim(airdrop?.id || 0)
+                      }
+                      cursor={claimable ? 'pointer' : 'not-allowed'}
+                      isLoading={
+                        claimingId ? claimingId === airdrop?.id : false
+                      }
+                    >
+                      <span className={s.token}>
+                        {formatCurrency(airdrop.amount, 0, 3)} ${symbol}
+                      </span>
+                      <span className={s.date}>
+                        {claimable
+                          ? 'Claim'
+                          : `in ${formatDate(
+                              airdrop.valid_at,
+                              'D MMMM, HH:mm',
+                            )}`}
+                      </span>
+                    </Button>
+                  )}
+                </>
+              );
+            })}
+          </Flex>
         ) : (
           <>
             {release ? (

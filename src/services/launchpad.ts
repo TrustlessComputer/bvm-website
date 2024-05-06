@@ -28,10 +28,13 @@ class CLaunchpadAPI {
     }
   };
 
-  public requestClaimSwampAirdrop = async (body: any): Promise<any> => {
+  public requestClaimSwampAirdrop = async (
+    id: number,
+    body: any,
+  ): Promise<any> => {
     try {
       const prefix = `${PERP_API_URL}/api/`;
-      const rs: any = this.apiClient.post(`${prefix}swamps/airdop`, body);
+      const rs: any = this.apiClient.post(`${prefix}swamps/airdop/${id}`, body);
       return rs;
     } catch (error) {
       throw error;

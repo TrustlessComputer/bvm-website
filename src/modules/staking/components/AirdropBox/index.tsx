@@ -12,15 +12,19 @@ import sleep from '@/utils/sleep';
 import toast from 'react-hot-toast';
 import { useAppSelector } from '@/stores/hooks';
 import { nakaAddressSelector } from '@/stores/states/user/selector';
+import { commonSelector } from '@/stores/states/common/selector';
+import { useDispatch } from 'react-redux';
+import { requestReload } from '@/stores/states/common/reducer';
 
 const AirdropBox = () => {
   const { getConnector } = useContext(NakaConnectContext);
   const address = useAppSelector(nakaAddressSelector);
+  const { needReload } = useAppSelector(commonSelector);
+  const dispatch = useDispatch();
 
   const [_amountNAKAAirdrop, setAmountNAKAAirdrop] = useState(0);
-  const [swampAirdrop, setSwampAirdrop] = useState<any>();
-  const [claiming, setClaiming] = useState(false);
-  const [claimed, setClaimed] = useState(false);
+  const [swampAirdrops, setSwampAirdrops] = useState<any[]>();
+  const [claimingId, setClaimingId] = useState(-1);
 
   const launchpadApi = useRef(new CLaunchpadAPI()).current;
 
@@ -38,19 +42,22 @@ const AirdropBox = () => {
       const [response]: any = await Promise.all([
         launchpadApi.getLaunchpadSwampAirdrop(),
       ]);
-      setSwampAirdrop(response);
+      setSwampAirdrops(response);
     } catch (err) {}
   };
 
   React.useEffect(() => {
     getLaunchpadInfo();
-    getLaunchpadInfoSwamp();
   }, []);
 
-  const onClickClaimSwamp = async () => {
+  React.useEffect(() => {
+    getLaunchpadInfoSwamp();
+  }, [needReload]);
+
+  const onClickClaimSwamp = async (id: number) => {
     if (!address) return;
     try {
-      setClaiming(true);
+      setClaimingId(id);
       const message = 'claim_GSWP_' + address;
       const connector = getConnector();
       const { signature } = await connector.requestSignMessage({
@@ -58,18 +65,18 @@ const AirdropBox = () => {
         signMessage: message,
         fromAddress: address,
       });
-      await launchpadApi.requestClaimSwampAirdrop({
+      await launchpadApi.requestClaimSwampAirdrop(id, {
         address: address as string,
         message: message,
         signature,
       });
       await sleep(2);
-      setClaimed(true);
+      dispatch(requestReload());
       toast.success('You has claimed successfully!');
     } catch (error) {
       toast.error(error?.message);
     } finally {
-      setClaiming(false);
+      setClaimingId(-1);
     }
   };
 
@@ -123,26 +130,20 @@ const AirdropBox = () => {
       },
       {
         src: '/images/stake/stake-swamps.png',
-        title: swampAirdrop
-          ? Number(swampAirdrop.amount) <= 0
+        title:
+          swampAirdrops && swampAirdrops.length === 0
             ? `You missed the GSWP airdrop. Don't miss out on the next one!`
-            : `RECEIVED ${formatCurrency(swampAirdrop.amount, 0, 3)} $GSWP`
-          : '',
-        claimAble: swampAirdrop && swampAirdrop.claimable,
-        claimAmount: swampAirdrop
-          ? `${formatCurrency(swampAirdrop.amount, 0, 3)} $GSWP`
-          : '',
-        isClaiming: claiming,
-        isClaimed:
-          swampAirdrop &&
-          (swampAirdrop.is_claimed ||
-            Number(swampAirdrop.amount) <= 0 ||
-            claimed),
+            : '',
+        symbol: 'GSWP',
+        claimingId: claimingId,
+        airdrops: swampAirdrops,
         onClickClaim: onClickClaimSwamp,
-        release: {
-          token: '$GSWP',
-          date: 'May 2024',
-        },
+        release: swampAirdrops
+          ? undefined
+          : {
+              token: '$GSWP',
+              date: 'May 2024',
+            },
         socials: {
           website: 'https://www.swamps.fi/',
           twitter: 'https://twitter.com/swamps_src20',
@@ -182,7 +183,7 @@ const AirdropBox = () => {
         ),
       },
     ];
-  }, [_amountNAKAAirdrop, swampAirdrop, claimed, claiming]);
+  }, [_amountNAKAAirdrop, swampAirdrops, claimingId]);
 
   return (
     <Box width="100%">
@@ -202,11 +203,10 @@ const AirdropBox = () => {
             subTitle,
             desc,
             airdropStr,
-            claimAble,
-            claimAmount,
-            isClaimed,
-            isClaiming,
+            airdrops,
+            claimingId,
             onClickClaim,
+            symbol,
           }) => {
             return (
               <AirdropCard
@@ -219,10 +219,9 @@ const AirdropBox = () => {
                 subTitle={subTitle}
                 desc={desc}
                 airdropStr={airdropStr || ''}
-                claimAble={claimAble}
-                claimAmount={claimAmount}
-                isClaimed={isClaimed}
-                isClaiming={isClaiming}
+                claimingId={claimingId}
+                airdrops={airdrops}
+                symbol={symbol}
                 onClickClaim={onClickClaim}
               />
             );
