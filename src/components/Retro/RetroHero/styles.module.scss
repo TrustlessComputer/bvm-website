@@ -32,16 +32,29 @@
   }
 }
 
+.subTitle {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  text-align: left;
+  color: white;
+  display: block;
+  margin-bottom: 34px;
+}
+
 .label {
   font-weight: 500;
   font-size: 20px;
+  margin-bottom: 24px;
+  display: block;
 }
 
 .heading {
   margin-top: 12px;
   font-weight: 400;
   font-size: 60px;
-  margin-bottom: 34px;
+  margin-bottom: 12px;
   line-height: 110%;
   text-align: center;
   @include is-min-table {
@@ -56,6 +69,7 @@
   font-weight: 500;
   line-height: 18.23px;
   border-radius: 1000px;
+  display: inline-block;
 }
 
 .linkBottom {
