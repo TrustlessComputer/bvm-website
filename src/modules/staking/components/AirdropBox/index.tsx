@@ -73,7 +73,7 @@ const AirdropBox = () => {
       await sleep(2);
       dispatch(requestReload());
       toast.success('You has claimed successfully!');
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error?.message);
     } finally {
       setClaimingId(-1);
