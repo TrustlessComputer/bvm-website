@@ -19,33 +19,30 @@
   max-width: 661px;
   width: 100%;
   padding: 143px 0;
-
   color: #fff;
-
-  .label {
-    font-weight: 500;
-    font-size: 20px;
-  }
-
-  .heading {
-    margin-top: 12px;
-    font-weight: 400;
-    font-size: 60px;
-    margin-bottom: 34px;
-    line-height: 110%;
-  }
-
-  .btn {
-    background-color: #fa4e0e;
-    padding: 13px 24px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 18.23px;
-    border-radius: 1000px;
-  }
-
 }
 
+.label {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.heading {
+  margin-top: 12px;
+  font-weight: 400;
+  font-size: 60px;
+  margin-bottom: 34px;
+  line-height: 110%;
+}
+
+.btn {
+  background-color: #fa4e0e;
+  padding: 13px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18.23px;
+  border-radius: 1000px;
+}
 
 .linkBottom {
   display: flex;
