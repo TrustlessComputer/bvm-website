@@ -17,6 +17,26 @@ class CLaunchpadAPI {
       throw error;
     }
   };
+
+  public getLaunchpadSwampAirdrop = async (): Promise<any> => {
+    try {
+      const prefix = `${PERP_API_URL}/api/`;
+      const res = (await this.apiClient.get(`${prefix}swamps/airdop`)) as any;
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  public requestClaimSwampAirdrop = async (body: any): Promise<any> => {
+    try {
+      const prefix = `${PERP_API_URL}/api/`;
+      const rs: any = this.apiClient.post(`${prefix}swamps/airdop`, body);
+      return rs;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 export default CLaunchpadAPI;
