@@ -5,7 +5,10 @@
   line-height: 120%;
   color: #000000;
   margin-bottom: 68px;
-
+  text-align: center;
+  @include is-min-table {
+    text-align: start;
+  }
   &.white {
     color: white;
   }

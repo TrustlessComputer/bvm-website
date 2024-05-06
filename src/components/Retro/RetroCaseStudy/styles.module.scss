@@ -39,15 +39,19 @@
   padding: 8px 12px;
   gap: 10px;
   width: fit-content;
+
   p {
     font-size: 12px;
     font-weight: 400;
     opacity: 0.6;
-    margin-top: 2.5px;
+
+    @include is-min-table {
+      margin-top: 2.5px;
+    }
   }
   .imageLabel {
     max-width: 129px;
-    height: 24px;
+    height: auto;
     img {
       width: 100%;
       height: auto;

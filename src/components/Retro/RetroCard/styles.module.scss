@@ -23,11 +23,18 @@
 
 .content {
   margin-top: 24px;
-
+  text-align: center;
+  @include is-min-table {
+    text-align: start;
+  }
   .title {
     color: #000;
     font-weight: 500;
-    font-size: 22px;
+    font-size: 25px;
+    @include is-min-table {
+      font-size: 22px;
+
+    }
   }
 
   .desc {

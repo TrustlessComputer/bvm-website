@@ -34,7 +34,7 @@ function RetroHero({ label, subTitle, children, btn1, btn2, src, isVideo }: IRet
           <p className={s.subTitle}>{subTitle}</p>
           <p className={s.heading}>{children}</p>
           <p className={s.label}>{label}</p>
-          <div>
+          <div className={s.wrapperLink}>
             <Link href={btn1.link} target={btn1.target} className={s.btn}>{btn1.title}</Link>
             <div className={s.linkBottom}>
               <p>{btn2.label}</p>

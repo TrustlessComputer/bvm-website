@@ -28,7 +28,7 @@ function CaseStudy({
           <div className={s.label}>
             <p>{subTitle}</p>
             <div className={s.imageLabel}>
-              <ImagePlaceholder src={'/retro/brand.png'} alt={'brand'} height={51} width={260} />
+              <ImagePlaceholder src={'/retro/brand.png'} alt={'brand'} height={51} width={260} className={s.image}/>
             </div>
           </div>
           <h2 className={s.heading}>{heading}</h2>
