@@ -1,0 +1,38 @@
+.retroCardFullWidth {
+  max-width: 930px;
+  width: 100%;
+  background-color: #000000;
+  border-radius: 20px;
+  margin: 20px 0;
+}
+
+.image {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.info {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 33px;
+  padding: 20px 24px;
+}
+
+.inner {
+  border-radius: 20px;
+  color: #fff;
+}
+
+.metaData {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 8px;
+  margin-top: 16px;
+  @include is-min-table {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include is-pc {
+    grid-template-columns: repeat(4, 1fr);
+
+  }
+}
