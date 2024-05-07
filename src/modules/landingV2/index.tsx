@@ -9,6 +9,7 @@ import useWindowSize from '@/hooks/useWindowSize';
 import Section7Mobile from './Componets/Section_7/Section_7_Mobile';
 import useWhiteBackground from '@/hooks/useWhiteBackground';
 
+
 export default function Landing() {
   const { mobileScreen, tabletScreen } = useWindowSize();
   useWhiteBackground();
