@@ -10,7 +10,8 @@ interface RetroCaseStudyProps extends PropsWithChildren {
   heading: string
   btn: {
     title: string,
-    link: string
+    link: string,
+    target?: '_blank' | ''
   }
 }
 
@@ -19,7 +20,7 @@ function CaseStudy({
                      heading,
                      src,
                      children,
-                     btn
+                     btn,
                    }: RetroCaseStudyProps): React.JSX.Element {
   return <div className={s.wrapper}>
     <div className='container'>
@@ -28,13 +29,13 @@ function CaseStudy({
           <div className={s.label}>
             <p>{subTitle}</p>
             <div className={s.imageLabel}>
-              <ImagePlaceholder src={'/retro/brand.png'} alt={'brand'} height={51} width={260} className={s.image}/>
+              <ImagePlaceholder src={'/retro/brand.png'} alt={'brand'} height={51} width={260} className={s.image} />
             </div>
           </div>
           <h2 className={s.heading}>{heading}</h2>
           <div className={s.description}>{children}</div>
           <div className={s.wrapperBtn}>
-            <Link href={btn.link} className={s.btn}>{btn.title}</Link>
+            <Link target={btn.target} href={btn.link} className={s.btn}>{btn.title}</Link>
           </div>
         </div>
         <div className={s.right}>

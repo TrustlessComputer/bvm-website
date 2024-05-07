@@ -25,7 +25,8 @@ const GameFiModule = () => {
       <ListInfo />
       <RetroCaseStudy subTitle={'Case Study'} btn={{
         title: 'Explore Bitcoin Arcade now!',
-        link: '#',
+        link: 'https://play.bitcoinarcade.xyz',
+        target: '_blank'
       }} src={'/retro/imageRight.png'} heading={'Ushering the new golden era of Gaming on Bitcoin'}>The first
         ever Fully On-Chain blockchain on Bitcoin</RetroCaseStudy>
     </div>
