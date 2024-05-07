@@ -3,6 +3,7 @@
 import { DOMAIN_URL, isDevelop, isLocal } from '@/config';
 import MainLayout from '@/layouts/MainLayout';
 import dynamic from 'next/dynamic';
+import Page from '@/modules/blockchains';
 
 const pathUrl = '/bvm-website-sats-iframe/computers';
 
@@ -23,7 +24,8 @@ const TCPage = () => {
         bgColor: '#F3F1E8',
       }}
     >
-      <IframeTCDynamic iframeURL={`${iframeL2ServicesDomain}${pathUrl}`} />
+      {/* <IframeTCDynamic iframeURL={`${iframeL2ServicesDomain}${pathUrl}`} /> */}
+      <Page />
     </MainLayout>
   );
 };

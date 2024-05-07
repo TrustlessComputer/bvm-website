@@ -9,6 +9,8 @@ const pathUrl = '/bvm-website-sats-iframe/buy';
 
 const iframeL2ServicesDomain = isLocal ? 'http://localhost:6009' : DOMAIN_URL;
 
+import Page from '@/modules/blockchains/customize';
+
 const IframeTCDynamic = dynamic(
   () => import('@/modules/iframe-tc').then((m) => m.default),
   {
@@ -24,7 +26,8 @@ const TCPage = () => {
         bgColor: '#F3F1E8',
       }}
     >
-      <IframeTCDynamic iframeURL={`${iframeL2ServicesDomain}${pathUrl}`} />
+      {/* <IframeTCDynamic iframeURL={`${iframeL2ServicesDomain}${pathUrl}`} /> */}
+      <Page />
     </MainLayout>
   );
 };
