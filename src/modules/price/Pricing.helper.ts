@@ -92,7 +92,7 @@ const toFixed = (payload: IToFixed) => {
   });
 };
 
-const formatAmount = (payload: IAmount) => {
+export const formatAmount = (payload: IAmount) => {
   const {
     originalAmount,
     humanAmount,

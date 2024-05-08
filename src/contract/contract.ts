@@ -1,9 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import ERC20ABI from '@/contract/abis/ERC20.json';
-import {
-  ContractParams,
-  ERC20Chain,
-} from '@/contract/interfaces';
+import { ContractParams, ERC20Chain } from '@/contract/interfaces';
 import getRPCByChain, { getDataPrepareTx } from '@/contract/utils/RPC';
 import { ERC20 } from './interfaces/ERC20';
 import { ethers } from 'ethers';
