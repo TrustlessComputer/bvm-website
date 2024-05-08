@@ -33,14 +33,14 @@ const BalanceInfor = (props: IProps) => {
           {'Your Balance'}
         </Text>
       </Flex>
-      {/* <Flex flex={1} flexDir={'column'} align={'center'} justify={'center'}>
+      <Flex flex={1} flexDir={'column'} align={'center'} justify={'center'}>
         <Text
           fontSize={'32px'}
           fontWeight={600}
           color={'#FF4747'}
           textAlign={'right'}
         >
-          {'100 BVM'}
+          {'0 BVM'}
         </Text>
         <Text
           fontSize={'14px'}
@@ -51,7 +51,7 @@ const BalanceInfor = (props: IProps) => {
         >
           {'Your Usage'}
         </Text>
-      </Flex> */}
+      </Flex>
     </Flex>
   );
 };
