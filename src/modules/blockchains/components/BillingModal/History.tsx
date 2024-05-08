@@ -146,19 +146,18 @@ export default () => {
             top={0}
             zIndex={1}
           >
-            <Th width="20%" fontWeight={600} fontSize={'16px'}>
+            <Th width="20%" fontWeight={600} fontSize={'15px'}>
               Date
             </Th>
-            <Th width="20%" fontWeight={600} fontSize={'16px'}>
+            <Th width="20%" fontWeight={600} fontSize={'15px'}>
               Description
             </Th>
-            <Th width="50%" fontWeight={600} fontSize={'16px'}>
+            <Th width="50%" fontWeight={600} fontSize={'15px'}>
               Status
             </Th>
-            <Th width="20%" fontWeight={600} fontSize={'16px'}>
+            <Th width="20%" fontWeight={600} fontSize={'15px'}>
               Amount
             </Th>
-            {/* <Th width="20%"></Th> */}
           </Tr>
         </Thead>
 
