@@ -6,3 +6,5 @@ export const INITIAL = '/initial';
 export const ALLOW_LIST_URL = '/allowlist';
 export const BUILD_ON_BITCOIN_URL = '/build-on-bitcoin';
 export const SHARD_TOP_MINERS = '/shard/top-miners';
+export const LAUNCHPAD_URL = '/launchpad';
+export const LAUNCHPAD_DETAIL_URL = '/launchpad/detail';
