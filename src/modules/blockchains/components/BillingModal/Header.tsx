@@ -32,7 +32,7 @@ const Header = (props: IProps) => {
           opacity: 0.8,
         }}
       >
-        Payment
+        Topup
       </Text>
     </Flex>
   );

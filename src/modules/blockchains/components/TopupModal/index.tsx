@@ -108,7 +108,7 @@ const TopupModal = (props: IProps) => {
           <QRCode size={184} value={paymentAddress} />
         </Flex>
 
-        {/* <Text
+        <Text
           mt={'20px'}
           fontSize={'15px'}
           fontWeight={400}
@@ -124,7 +124,7 @@ const TopupModal = (props: IProps) => {
           textAlign={'center'}
         >
           Naka
-        </Text> */}
+        </Text>
 
         {/* <Flex
           mt={'20px'}
