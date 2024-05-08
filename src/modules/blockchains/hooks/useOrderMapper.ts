@@ -6,9 +6,9 @@ import { CHAIN_ID } from '@/services/api/l2services/constants';
 
 const APP_NAME = 'Bitcoin L2';
 
-const useOrderMapper = (order: OrderItem) => {
+const useOrderMapper = (order: OrderItem | undefined) => {
   const convertSecondsToHours = () => {
-    const seconds = Number(order.finalizationPeriod || 0);
+    const seconds = Number(order?.finalizationPeriod || 0);
     const days = Math.floor(seconds / (3600 * 24));
     const hours = Math.floor((seconds % (3600 * 24)) / 3600);
     let result = '';
@@ -26,7 +26,7 @@ const useOrderMapper = (order: OrderItem) => {
   };
 
   const convertSecondsToMinutes = () => {
-    const seconds = Number(order.blockTime || 0);
+    const seconds = Number(order?.blockTime || 0);
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     let result = '';
@@ -53,10 +53,10 @@ const useOrderMapper = (order: OrderItem) => {
     let color;
     const finalizationPeriod = convertSecondsToHours();
     const nextBillingFormatted = formatUnixDateTime({
-      dateTime: order.nextBillingAt || 0,
+      dateTime: order?.nextBillingAt || 0,
     });
 
-    switch (order.status) {
+    switch (order?.status) {
       case OrderStatus.Rejected:
         status = 'Failed';
         // color = Color.Failed;
@@ -105,18 +105,18 @@ const useOrderMapper = (order: OrderItem) => {
     }
 
     const dataAvailabilityLayer = (DALayerEnumMap as any)[
-      order.dataAvaibilityChain
+      order?.dataAvaibilityChain as number
     ];
 
     let computerIndexer = '';
-    if (order.isConstant) {
-      computerIndexer = `${APP_NAME} #${order.index}`;
-    } else if (order.index !== 0) {
-      computerIndexer = `${APP_NAME} #${order.index}`;
+    if (order?.isConstant) {
+      computerIndexer = `${APP_NAME} #${order?.index}`;
+    } else if (order?.index !== 0) {
+      computerIndexer = `${APP_NAME} #${order?.index}`;
     }
 
     const deployer =
-      order.userName || (order.tcAddress ? order.tcAddress.slice(0, 6) : '');
+      order?.userName || (order?.tcAddress ? order?.tcAddress.slice(0, 6) : '');
 
     return {
       status,
@@ -126,7 +126,7 @@ const useOrderMapper = (order: OrderItem) => {
       blockTime: convertSecondsToMinutes(),
       dataAvailabilityLayer,
       computerIndexer,
-      isShowLink: order.status === OrderStatus.Started,
+      isShowLink: order?.status === OrderStatus.Started,
       subStatus,
       deployer,
       isLayer1:

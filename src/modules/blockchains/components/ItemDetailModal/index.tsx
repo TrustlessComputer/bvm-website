@@ -17,7 +17,7 @@ interface IProps {
 
 const CustomizeTokenModal = (props: IProps) => {
   const { show, onClose, item, onSuccess } = props;
-  const order = useAppSelector(getOrderByIDSelector)(item?.orderId!);
+  const order = item;
   const isHasValue = (value: string) => {
     return value && value !== '0';
   };
