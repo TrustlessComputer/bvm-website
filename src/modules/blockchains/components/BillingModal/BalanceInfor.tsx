@@ -30,7 +30,7 @@ const BalanceInfor = (props: IProps) => {
           opacity={0.7}
           textAlign={'left'}
         >
-          {'Your Usage'}
+          {'Your Balance'}
         </Text>
       </Flex>
       {/* <Flex flex={1} flexDir={'column'} align={'center'} justify={'center'}>

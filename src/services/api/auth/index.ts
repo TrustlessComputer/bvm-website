@@ -68,22 +68,21 @@ export const register = async (idToken: string): Promise<any> => {
   }
 };
 
-export const getProfile = async (): Promise<UserProfile> => {
-  console.log('[API][getProfile] --- ');
-  try {
-    const res = await apiClient.get(`/account/profile`, {
-      headers: {
-        ...getHeaderDefault(),
-        Authorization: getAPIAcessToken(),
-      },
-    });
-
-    console.log('[API][getProfile] res --- ', res);
-    return res as any;
-  } catch (error) {
-    console.log('[API][register] ERROR', error);
-    throw error;
-  }
+export const getProfile = async (): Promise<UserProfile | any> => {
+  // console.log('[API][getProfile] --- ');
+  // try {
+  //   const res = await apiClient.get(`/account/profile`, {
+  //     headers: {
+  //       ...getHeaderDefault(),
+  //       Authorization: getAPIAcessToken(),
+  //     },
+  //   });
+  //   console.log('[API][getProfile] res --- ', res);
+  //   return res as any;
+  // } catch (error) {
+  //   console.log('[API][register] ERROR', error);
+  //   throw error;
+  // }
 };
 
 export const L2Service = {

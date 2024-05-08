@@ -14,7 +14,12 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import { HistoryStatusColorMap, HistoryStatusMap } from './History.types';
+import {
+  HistoryStatusColorMap,
+  HistoryStatusMap,
+  HistoryType,
+  HistoryTypeMap,
+} from './History.types';
 
 export default () => {
   const { historyList } = useAppSelector(historyInfoSelector);
@@ -44,19 +49,52 @@ export default () => {
   };
 
   const renderItem = (item: HistoryItemResp, index: number) => {
-    const { created_at, status, amount } = item;
+    const { created_at, amount, status, type } = item;
+
+    const formatAmountColor = () => {
+      const result = {
+        color: '#000',
+        prefix: '',
+      };
+
+      switch (type) {
+        case HistoryType.HistoryType_Topup:
+          {
+            result.color = '#0ec00e';
+            result.prefix = '+';
+          }
+          break;
+        case HistoryType.HistoryType_WithdrawBalance:
+        case HistoryType.HistoryType_ChargeOperationFee:
+        case HistoryType.HistoryType_ChargeServiceFee:
+          {
+            result.color = '#FF4747';
+            result.prefix = '-';
+          }
+          break;
+        default:
+      }
+      return result;
+    };
+
+    const formatValue = formatAmountColor();
+
     return (
-      <Tr key={index} h={'70px'} fontWeight={600}>
+      <Tr key={index} h={'70px'} fontWeight={500}>
         <Th width="20%">
           {formatDateTime({
             dateTime: new Date(created_at).getTime(),
           }).toLocaleString()}
         </Th>
+        <Th width="50%" color={'#000'}>
+          {HistoryTypeMap[type] || '--'}
+        </Th>
         <Th width="50%" color={HistoryStatusColorMap[status] || '#000'}>
           {HistoryStatusMap[status] || '--'}
         </Th>
-        <Th width="20%" color={HistoryStatusColorMap[status] || '#000'}>
-          {formatAmountV3(amount) + ' BVM'}
+
+        <Th width="20%" color={formatValue.color}>
+          {formatValue.prefix + ` ` + formatAmountV3(amount) + ' BVM'}
         </Th>
         {/* <Th width="20%">
           <Image
@@ -108,16 +146,18 @@ export default () => {
             top={0}
             zIndex={1}
           >
-            <Th width="20%" fontWeight={600} fontSize={'16px'}>
+            <Th width="20%" fontWeight={600} fontSize={'15px'}>
               Date
             </Th>
-            <Th width="50%" fontWeight={600} fontSize={'16px'}>
+            <Th width="20%" fontWeight={600} fontSize={'15px'}>
               Description
             </Th>
-            <Th width="20%" fontWeight={600} fontSize={'16px'}>
+            <Th width="50%" fontWeight={600} fontSize={'15px'}>
+              Status
+            </Th>
+            <Th width="20%" fontWeight={600} fontSize={'15px'}>
               Amount
             </Th>
-            {/* <Th width="20%"></Th> */}
           </Tr>
         </Thead>
 
