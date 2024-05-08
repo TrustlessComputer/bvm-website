@@ -207,6 +207,19 @@ const fetchHistoryAPI = async (): Promise<any> => {
   }
 };
 
+export const getInstanceDetailByID = async (
+  id: string,
+): Promise<OrderItem | undefined> => {
+  try {
+    const data = (await httpClient.get(`/order/instance/${id}`)) as any;
+    if (data && data.status === false) return undefined;
+    return data as OrderItem;
+  } catch (error: any) {
+    console.log('[getInstanceDetailByID] ERROR ', error);
+    return undefined;
+  }
+};
+
 const setAccesTokenHeader = (accessToken: string) => {
   httpClient.defaults.headers.Authorization = `Bearer ${accessToken}`;
 };
@@ -237,6 +250,7 @@ const l2ServicesAPI = {
 
   setAccesTokenHeader,
   removeAccesTokenHeader,
+  getInstanceDetailByID,
 };
 
 export default l2ServicesAPI;
