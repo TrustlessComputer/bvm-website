@@ -9,7 +9,7 @@ import {
   IPublicSalePrograme,
 } from '@/services/public-sale';
 import HourlyReward from '@/modules/PublicSale/hourlyReward';
-import LuckyMoneyWinner from '../LuckyMoneyWinner';
+import LuckyMoneyWinnerView from '../LuckyMoneyWinner';
 
 const DailyReward = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +33,7 @@ const DailyReward = () => {
   return (
     <Flex direction={'column'} className={s.wrapper}>
       {/* <HourlyReward /> */}
-      <LuckyMoneyWinner />
+      <LuckyMoneyWinnerView />
       <Flex className={s.container}>
         <Flex
           justifyContent={'space-between'}

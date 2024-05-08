@@ -1,5 +1,4 @@
 // import { useFetchUserData, useIsAuthenticated } from '@/state/user/hooks';
-import { getErrorMessage } from '@/utils/error';
 import sleep from '@/utils/sleep';
 import BigNumber from 'bignumber.js';
 import { debounce, isEmpty } from 'lodash';
@@ -45,7 +44,7 @@ import {
   SubmitFormParams,
 } from '@/services/api/l2services/types';
 import { ServiceTypeEnum } from '../Buy/Buy.constanst';
-import {
+import l2ServicesAPI, {
   estimateTotalCostAPI,
   fetchAvailableList,
   orderBuyAPI,
@@ -53,6 +52,10 @@ import {
 } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
+import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
+import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
+import { getErrorMessage } from '@/utils/errorV2';
 
 export type IField = {
   value?: string;
@@ -68,7 +71,20 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   children,
 }: PropsWithChildren): React.ReactElement => {
   const dispatch = useAppDispatch();
-  const { login, isLogged } = useWeb3Authenticated();
+  const {
+    requestAccount,
+    requestSignMessage,
+    isAuthen: isNakaWalletAuthed,
+    loading: isNakaWalletLoading,
+    nakaAddress,
+  } = useNakaAuthen();
+
+  const {
+    onLoginL2Service,
+    isL2ServiceLogged,
+    isNeededRequestSignMessageFromNakaWallet,
+  } = useL2ServiceAuth();
+
   // const { onSuccess } = props;
   const goDashboardPage = (flag1: boolean, flag2: boolean) => {}; //TODO A
   // const { onConnect } = useContext(WalletContext);
@@ -293,21 +309,61 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     subject: '',
   };
 
-  const confirmBtnTitle = useMemo(() => {
-    if (!isLogged) {
-      return 'Login';
-    } else if (isMainnet) {
-      return 'Submit';
-    } else {
-      return 'Submit';
+  const onVerify = async (tcAddress: string) => {
+    let isValid = false;
+    try {
+      const token = L2ServiceAuthStorage.getToken(tcAddress);
+      if (token) {
+        // this account is logged in
+        const { isValid: validAPI } = await l2ServicesAPI.verifyAccessToken({
+          tcAddress: token.tcAddress,
+        });
+        if (!validAPI) {
+          // onRemoveAuthen(token.tcAddress);
+          isValid = false;
+        } else {
+          // dispatch(setAuthen({ tcAddress: token.tcAddress, isAuthen: true }));
+          // axiosSetAccessToken(token.accessToken);
+          isValid = true;
+        }
+      }
+    } catch (error) {
+      const { message } = getErrorMessage(error, 'Failed to verify token');
+      toast.error(message);
+      // onRemoveAuthen(tcAddress);
+      isValid = false;
     }
-  }, [isMainnet, accountInfo, isLogged]);
+
+    return isValid;
+  };
+
+  const confirmBtnTitle = useMemo(() => {
+    // if (!isNakaWalletAuthed) {
+    //   return 'Connect';
+    // }
+    // if (isNeededRequestSignMessageFromNakaWallet) {
+    //   return 'Connect';
+    // } else if (isMainnet) {
+    //   return 'Submit';
+    // } else {
+    //   return 'Submit';
+    // }
+    return 'Submit';
+  }, [
+    isMainnet,
+    accountInfo,
+    isNakaWalletAuthed,
+    isNeededRequestSignMessageFromNakaWallet,
+    isL2ServiceLogged,
+  ]);
 
   useEffect(() => {
     setInterval(() => {
       // setIsAuthenticated(useIsAuthenticated()); //TODO A
     }, 500);
   }, []);
+
+  useEffect(() => {}, [nakaAddress]);
 
   const fetchAvailableListHandler = async () => {
     try {
@@ -507,11 +563,21 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
   const submitHandler = async (onSuccess?: any) => {
     try {
-      console.log('submitHandler --- isAuthenticated ', isLogged);
-      if (!isLogged) {
-        login();
-        return;
-      }
+      console.log('submitHandler --- isNakaWalletAuthed ', isNakaWalletAuthed);
+      // if (!isNakaWalletAuthed) {
+      //   // login();
+      //   const result = await requestAccount();
+      //   if (result && result.accounts && result.accounts.length > 0) {
+      //     const addressObject = result.accounts[0];
+      //     const address = addressObject.address;
+      //     await onLoginL2Service(address);
+      //   }
+      //   return;
+      // }
+      // if (isNeededRequestSignMessageFromNakaWallet) {
+      //   await onLoginL2Service(nakaAddress);
+      // }
+
       if (validateAllFormFields()) {
         // orderBuyHandler(onSuccess)
         setShowSubmitForm(true);

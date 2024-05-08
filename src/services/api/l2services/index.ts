@@ -9,13 +9,21 @@ import { IAvailableList } from '@/modules/blockchains/Buy/Buy.types';
 import {
   AccountInfo,
   AccountInfoResp,
+  HistoryItemResp,
+  IGetNonceReq,
+  IGetNonceResp,
   IQuickStart,
+  IVerifySignatureReq,
+  IVerifySignatureResp,
+  IVerifyTokenReq,
+  IVerifyTokenResp,
   OrderItem,
   OrderItemResp,
   OrderStatus,
 } from '@/stores/states/l2services/types';
 import { builderAccountInfo, builderOrderList } from './helper';
 import { COMPUTERS } from './constants';
+import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
 
 export const estimateTotalCostAPI = async (
   params: IOrderBuyReq,
@@ -143,6 +151,70 @@ const getQuickStart = async (): Promise<Array<IQuickStart> | undefined> => {
   return data;
 };
 
+const verifySignature = async (
+  params: IVerifySignatureReq,
+): Promise<IVerifySignatureResp> => {
+  const result = (await httpClient.post(`/auth/verify`, {
+    tcAddress: params.tcAddress,
+    signature: params.signature,
+  })) as IVerifySignatureResp;
+  return result;
+};
+
+const verifyAccessToken = async (
+  params: IVerifyTokenReq,
+): Promise<IVerifyTokenResp> => {
+  const storageToken = L2ServiceAuthStorage.getToken(params.tcAddress);
+  const isValid =
+    storageToken?.tcAddress.toLowerCase() === params.tcAddress.toLowerCase();
+  if (!isValid || !storageToken?.accessToken) {
+    return {
+      isValid: false,
+    };
+  }
+  const result = (await httpClient.post(
+    `/auth/verify-access-token`,
+    {
+      tcAddress: params.tcAddress,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${storageToken.accessToken}`,
+      },
+    },
+  )) as IVerifyTokenResp;
+  return result;
+};
+
+const getNonce = async (params: IGetNonceReq): Promise<IGetNonceResp> => {
+  const data = (await httpClient.get(
+    `/auth/nonce?tcAddress=${params.tcAddress}`,
+  )) as IGetNonceResp;
+  return data;
+};
+
+const fetchHistoryAPI = async (): Promise<any> => {
+  try {
+    const histories = (await httpClient.get(
+      `/account/history`,
+    )) as HistoryItemResp[];
+    return histories?.sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    );
+  } catch (error) {
+    return [];
+  }
+};
+
+const setAccesTokenHeader = (accessToken: string) => {
+  httpClient.defaults.headers.Authorization = `Bearer ${accessToken}`;
+};
+
+const removeAccesTokenHeader = () => {
+  httpClient.defaults.headers.Authorization = ``;
+};
+
 const l2ServicesAPI = {
   fetchOrderListAPI,
   orderBuyAPI,
@@ -150,6 +222,7 @@ const l2ServicesAPI = {
   validateSubDomainAPI,
 
   fetchAvailableList,
+  fetchHistoryAPI,
   estimateTotalCostAPI,
   submitContact,
   submitContactVS2,
@@ -157,6 +230,13 @@ const l2ServicesAPI = {
   getAllOrders,
   accountGetInfo,
   getQuickStart,
+
+  getNonce,
+  verifySignature,
+  verifyAccessToken,
+
+  setAccesTokenHeader,
+  removeAccesTokenHeader,
 };
 
 export default l2ServicesAPI;

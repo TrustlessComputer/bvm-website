@@ -1,4 +1,8 @@
 import { DALayerEnum } from '@/modules/blockchains/Buy/Buy.constanst';
+import {
+  HistoryStatus,
+  HistoryType,
+} from '@/modules/blockchains/components/BillingModal/History.types';
 
 interface IVerifySignatureReq {
   signature: string;
@@ -95,8 +99,8 @@ interface HistoryItemResp {
   id: string;
   orderId: string;
   tcAddress: string;
-  type: number;
-  status: number;
+  type: HistoryType;
+  status: HistoryStatus;
   amount: string;
   txProcess: string;
   note: string;
@@ -211,8 +215,13 @@ interface L2ServicesState {
   allOrders: OrderItem[];
   orderSelected: OrderItem | undefined;
 
+  historyList: HistoryItemResp[];
+
   viewMode: ViewMode;
   showOnlyMyOrder: boolean;
+
+  accountInforL2Service: AccountInfo | undefined;
+  isL2ServiceLogged: boolean;
 }
 
 export type {

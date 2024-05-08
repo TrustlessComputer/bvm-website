@@ -60,6 +60,19 @@ const getQuickStart = createAsyncThunk(`${PREFIX}/getQuickStart`, async () => {
   }
 });
 
+const fetchL2ServiceHistory = createAsyncThunk(
+  `${PREFIX}/fetchHistory`,
+  async () => {
+    try {
+      const data = await l2ServicesAPI.fetchHistoryAPI();
+      return data;
+    } catch (error) {
+      // console.log('[fetchHistory] ERROR ', error);
+      return [];
+    }
+  },
+);
+
 // const actionCreators = {
 //   setOrderSelected,
 // };
@@ -73,5 +86,6 @@ export {
   orderBuy,
   fetchAllOrders,
   fetchAccountInfo,
+  fetchL2ServiceHistory,
   getQuickStart,
 };

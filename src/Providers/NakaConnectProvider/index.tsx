@@ -11,7 +11,8 @@ import { setNakaUser } from '@/stores/states/user/reducer';
 export interface INakaConnectContext {
   getConnector: () => DappConnect;
   loading: LoadingType | undefined;
-  requestAccount: () => Promise<void>;
+  requestAccount: () => Promise<any>;
+  requestSignMessage: (message: string) => Promise<string | undefined>;
 }
 
 export const WALLET_URL = isProduction
@@ -23,6 +24,7 @@ type LoadingType = 'account' | 'sign-message' | 'sign-transaction';
 
 const initialValue: INakaConnectContext = {
   getConnector: () => undefined as any,
+  requestSignMessage: () => undefined as any,
   loading: undefined,
   requestAccount: async () => undefined,
 };
@@ -45,7 +47,6 @@ export const NakaConnectProvider: React.FC<PropsWithChildren> = ({
 
   const requestAccount = async () => {
     const connector = getConnector();
-
     try {
       setLoading('account');
       const data = await connector.requestAccount({
@@ -61,17 +62,38 @@ export const NakaConnectProvider: React.FC<PropsWithChildren> = ({
           }),
         );
       }
+      return data;
     } catch (error: any) {
       const message = error?.message || '';
       toast.error(message);
+      return undefined;
+    } finally {
+      setLoading(undefined);
+    }
+  };
+
+  const requestSignMessage = async (message: string) => {
+    const connector = getConnector();
+    try {
+      setLoading('account');
+      const { signature } = await connector.requestSignMessage({
+        fromAddress: address,
+        signMessage: message,
+        target: 'popup',
+      });
+      return signature;
+    } catch (error: any) {
+      const message = error?.message || '';
+      toast.error(message);
+      return undefined;
     } finally {
       setLoading(undefined);
     }
   };
 
   const contextValues = useMemo((): INakaConnectContext => {
-    return { getConnector, loading, requestAccount };
-  }, [getConnector, requestAccount, loading]);
+    return { getConnector, loading, requestAccount, requestSignMessage };
+  }, [getConnector, requestAccount, loading, requestSignMessage]);
 
   return (
     <NakaConnectContext.Provider value={contextValues}>

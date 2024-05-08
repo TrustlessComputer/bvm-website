@@ -13,6 +13,11 @@ import LeftView from './components2/LeftView';
 import RightView from './components2/RightView';
 import FooterView from './FooterView';
 import { ChevronRightIcon } from '@chakra-ui/icons';
+import { BlockieAvatar } from '../components/BlockieAvatar';
+import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import s from './styles.module.scss';
 
 export type Props = {
   onSuccess?: () => void;
@@ -33,12 +38,7 @@ export const BuyPage = React.memo((props: Props) => {
 
   if (isAvailableListFetching)
     return (
-      <Flex
-        width={'100dvw'}
-        height={'100dvh'}
-        align={'center'}
-        justify={'center'}
-      >
+      <Flex height={'100dvh'} align={'center'} justify={'center'}>
         <Spinner color="#000" size="xl" />
       </Flex>
     );
@@ -46,20 +46,41 @@ export const BuyPage = React.memo((props: Props) => {
   if (!availableListData) return <></>;
 
   return (
-    <Flex direction={'column'} maxH={'100dvh'} py="20px" gap={'20px'}>
-      <Breadcrumb
-        spacing="8px"
-        color={'#000'}
-        separator={<ChevronRightIcon color="gray.500" />}
-      >
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/blockchains">Blockchains</BreadcrumbLink>
-        </BreadcrumbItem>
+    <Flex
+      direction={'column'}
+      maxH={'100dvh'}
+      py="20px"
+      gap={'20px'}
+      className={s.container}
+    >
+      <Flex direction={'row'} align={'center'} justify={'space-between'}>
+        <Breadcrumb
+          spacing="8px"
+          color={'#3f51bc'}
+          fontWeight={600}
+          separator={<ChevronRightIcon color="gray.500" />}
+        >
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/blockchains">Blockchains</BreadcrumbLink>
+          </BreadcrumbItem>
 
-        <BreadcrumbItem isCurrentPage>
-          <BreadcrumbLink href="#">Customize</BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink href="#">Customize</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
+        {/* {isL2ServiceLogged &&
+          accountInforL2Service &&
+          accountInforL2Service.topUpWalletAddress && (
+            <Flex bgColor={'red'} width={'200px'}>
+              <BlockieAvatar
+                address={accountInforL2Service.topUpWalletAddress}
+                size={30}
+                ensImage={null}
+              />
+            </Flex>
+          )} */}
+      </Flex>
+
       <Flex
         p={'30px'}
         direction={'column'}

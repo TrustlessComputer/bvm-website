@@ -6,24 +6,24 @@ import {
   getL2ServicesStateSelector,
   orderListSelector,
 } from '@/stores/states/l2services/selector';
-import { Flex, SimpleGrid, Text, Image } from '@chakra-ui/react';
-import L2Instance from './L2Instance';
+import { OrderItem } from '@/stores/states/l2services/types';
+import { Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
-import {
-  ListType,
-  NetworkType,
-  OrderItem,
-} from '@/stores/states/l2services/types';
 import ItemDetailModal from '../ItemDetailModal';
+import TopupModal from '../TopupModal';
+import L2Instance from './L2Instance';
 
 const BodyGridView = () => {
   const myOrders = useAppSelector(orderListSelector);
   const allOrders = useAppSelector(allOrdersSelector);
-  const { viewMode, showOnlyMyOrder } = useAppSelector(
+  const { viewMode, showOnlyMyOrder, accountInforL2Service } = useAppSelector(
     getL2ServicesStateSelector,
   );
 
   const [showItemDetailModal, setShowItemDetailModal] = useState(false);
+  const [showTopupModal, setShowTopupModal] = useState(false);
+  const [showBillingModal, setShowBillingModal] = useState(false);
+
   const [itemDetailSelected, setItemDetailSelected] = useState<
     undefined | OrderItem
   >(undefined);
@@ -83,7 +83,7 @@ const BodyGridView = () => {
         {serviceDataList.map((item) => (
           <L2Instance
             item={item}
-            isOwner={true}
+            isOwner={item.tcAddress === accountInforL2Service?.tcAddress}
             onClick={() => {
               setShowItemDetailModal(true);
               setItemDetailSelected(item);
@@ -94,7 +94,7 @@ const BodyGridView = () => {
     );
   };
 
-  console.log('serviceDataList 12345 ', serviceDataList);
+  // console.log('serviceDataList --- ', serviceDataList);
 
   return (
     <Flex overflow={'hidden'}>
@@ -105,6 +105,19 @@ const BodyGridView = () => {
           item={itemDetailSelected!}
           onClose={() => {
             setShowItemDetailModal(false);
+          }}
+          onSuccess={async () => {}}
+        />
+      )}
+
+      {showTopupModal && (
+        <TopupModal
+          show={showTopupModal}
+          infor={{
+            paymentAddress: accountInforL2Service?.topUpWalletAddress,
+          }}
+          onClose={() => {
+            setShowTopupModal(false);
           }}
           onSuccess={async () => {}}
         />

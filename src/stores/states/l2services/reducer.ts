@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchAllOrders, fetchOrderList, orderBuy } from './actions';
+import {
+  fetchAllOrders,
+  fetchOrderList,
+  orderBuy,
+  fetchAccountInfo,
+  fetchL2ServiceHistory,
+} from './actions';
 import { PREFIX } from './constants';
 import { L2ServicesState, OrderItem, ViewMode } from './types';
 
@@ -13,8 +19,13 @@ export const initialState: L2ServicesState = {
   allOrders: [],
   orderSelected: undefined,
 
+  historyList: [],
+
   viewMode: 'Mainnet',
   showOnlyMyOrder: false,
+
+  accountInforL2Service: undefined,
+  isL2ServiceLogged: false,
 };
 
 const slice = createSlice({
@@ -23,6 +34,9 @@ const slice = createSlice({
   reducers: {
     setViewMode(state, action: PayloadAction<ViewMode>) {
       state.viewMode = action.payload;
+    },
+    setL2ServiceAuth(state, action: PayloadAction<boolean>) {
+      state.isL2ServiceLogged = action.payload;
     },
     setShowOnlyMyOrder(state, action: PayloadAction<boolean>) {
       state.showOnlyMyOrder = action.payload;
@@ -40,6 +54,28 @@ const slice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      .addCase(fetchAccountInfo.pending, (state) => {
+        state.isFetching = true;
+      })
+      .addCase(fetchAccountInfo.fulfilled, (state, action) => {
+        state.isFetching = false;
+        state.isFetched = true;
+        state.accountInforL2Service = action.payload;
+      })
+      .addCase(fetchAccountInfo.rejected, (state, _) => {
+        state.isFetching = false;
+        state.isFetched = true;
+        state.accountInforL2Service = undefined;
+      })
+
+      .addCase(fetchL2ServiceHistory.pending, (state) => {})
+      .addCase(fetchL2ServiceHistory.fulfilled, (state, action) => {
+        state.historyList = action.payload;
+      })
+      .addCase(fetchL2ServiceHistory.rejected, (state, _) => {
+        state.historyList = [];
+      })
+
       .addCase(fetchOrderList.pending, (state) => {
         state.isFetching = true;
       })
@@ -79,5 +115,6 @@ export const {
   resetOrders,
   setViewMode,
   setShowOnlyMyOrder,
+  setL2ServiceAuth,
 } = slice.actions;
 export default slice.reducer;

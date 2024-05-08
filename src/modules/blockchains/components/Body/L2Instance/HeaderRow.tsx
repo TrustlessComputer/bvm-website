@@ -14,8 +14,6 @@ const HeaderRow = (props: Props) => {
   const { item, isOwner } = props;
   const mapper = useOrderMapper(item);
 
-  console.log('COLOR : ', mapper.color);
-
   const renderStatus = () => {
     return (
       <Flex flexDir={'row'} align={'center'} gap={'20px'}>

@@ -73,6 +73,15 @@ const isFetchingAllDataSelector = createSelector(
     );
   },
 );
+const historyInfoSelector = createSelector(
+  getL2ServicesStateSelector,
+  (state) => {
+    const { historyList } = state;
+    return {
+      historyList,
+    };
+  },
+);
 
 export {
   getL2ServicesStateSelector,
@@ -82,4 +91,5 @@ export {
   getOrderByIDSelector,
   allOrdersSelector,
   isFetchingAllDataSelector,
+  historyInfoSelector,
 };

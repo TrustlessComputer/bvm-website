@@ -62,8 +62,6 @@ export const getErrorMessage = (error: unknown, name: string = '') => {
     desc = error;
   }
 
-  console.error('TC ERROR: ', desc, name);
-
   return {
     message: `${message} ${name ? `[${name}]` : ''}`,
     desc: `${desc}`,

@@ -4,7 +4,7 @@ import reducer from './reducer';
 import { persistCombineReducers, persistStore } from 'redux-persist';
 import { getPersistConfig } from 'redux-deep-persist';
 import persistLocalStorage from 'redux-persist/lib/storage';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 
 const reducers = combineReducers(reducer);
 
@@ -35,7 +35,7 @@ export const makeStore = () => {
       getDefaultMiddleware({
         serializableCheck: false,
         immutableCheck: false,
-      }).concat(isProduction() ? [logger] : [logger]),
+      }).concat(isProduction() ? [] : []),
   });
 };
 

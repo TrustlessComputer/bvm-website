@@ -1,5 +1,7 @@
 'use client';
 
+import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
+import { useAppSelector } from '@/stores/hooks';
 import {
   setShowOnlyMyOrder,
   setViewMode,
@@ -12,8 +14,11 @@ import { useDispatch, useSelector } from 'react-redux';
 const HeaderView = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { onLogin } = useL2ServiceAuth();
 
-  const { viewMode, showOnlyMyOrder } = useSelector(getL2ServicesStateSelector);
+  const { viewMode, showOnlyMyOrder, isL2ServiceLogged } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
 
   const isMainnnet = viewMode === 'Mainnet';
 
@@ -62,21 +67,38 @@ const HeaderView = () => {
           {'Testnet'}
         </Button>
 
-        <Flex py={'8px'} px={'10px'} bgColor={'#fff'}>
-          <Checkbox
-            color={'black'}
-            fontWeight={400}
-            fontSize={'16px'}
-            checked={showOnlyMyOrder}
-            // colorScheme="#828282"
-            borderColor={'#828282'}
-            onChange={() => {
-              dispatch(setShowOnlyMyOrder(!showOnlyMyOrder));
+        {!isL2ServiceLogged ? (
+          <Button
+            px={'30px'}
+            borderRadius={'14px'}
+            minH={'40px'}
+            bgColor={'#17066C'}
+            color={'#fff'}
+            _hover={{
+              opacity: 0.8,
             }}
+            fontSize={'15px'}
+            onClick={() => onLogin()}
           >
-            {'Show only my Bitcoin L2s'}
-          </Checkbox>
-        </Flex>
+            {'Connect'}
+          </Button>
+        ) : (
+          <Flex py={'8px'} px={'10px'} bgColor={'#fff'}>
+            <Checkbox
+              color={'black'}
+              fontWeight={400}
+              fontSize={'16px'}
+              checked={showOnlyMyOrder}
+              // colorScheme="#828282"
+              borderColor={'#828282'}
+              onChange={() => {
+                dispatch(setShowOnlyMyOrder(!showOnlyMyOrder));
+              }}
+            >
+              {'Show only my Bitcoin L2s'}
+            </Checkbox>
+          </Flex>
+        )}
       </Flex>
 
       <Flex align={'flex-end'}>
