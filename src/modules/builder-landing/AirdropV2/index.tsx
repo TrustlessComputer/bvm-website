@@ -59,7 +59,8 @@ function AirdropV2(): React.JSX.Element {
             src={'/builder/airdropV2.png'}
             width={1910}
             height={1892}
-            alt={'airdrop'}
+            alt={'airdrop'} 
+            className={s.inner_image_img}
           />
         </Fade>
       </div>
