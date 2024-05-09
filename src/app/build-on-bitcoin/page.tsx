@@ -5,7 +5,7 @@ import BuilderLading from '@/modules/builder-landing';
 
 export default function Builder() {
   return (
-    <MainLayout hideFooter>
+    <MainLayout>
       <BuilderLading />
     </MainLayout>
   );
