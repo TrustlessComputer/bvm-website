@@ -22,7 +22,7 @@ export const initialState: L2ServicesState = {
   historyList: [],
 
   viewMode: 'Mainnet',
-  showOnlyMyOrder: false,
+  showOnlyMyOrder: true,
 
   accountInforL2Service: undefined,
   isL2ServiceLogged: false,
