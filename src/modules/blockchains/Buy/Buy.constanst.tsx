@@ -131,11 +131,13 @@ export const Layer1EnumMap = {
 export enum NativeTokenPayingGasEnum {
   NativeTokenPayingGas_BVM = 0, //Default
   NativeTokenPayingGas_PreMint = 1,
+  NativeTokenPayingGas_BTC = 2,
 }
 
 export const NativeTokenPayingGasMap = {
   [NativeTokenPayingGasEnum.NativeTokenPayingGas_BVM]: 'BVM',
   [NativeTokenPayingGasEnum.NativeTokenPayingGas_PreMint]: 'Customized',
+  [NativeTokenPayingGasEnum.NativeTokenPayingGas_BTC]: 'BTC',
 };
 
 export enum FormFields {

@@ -139,7 +139,7 @@ export const BuyPage = React.memo((props: Props) => {
       </Flex>
 
       <Flex
-        p={'30px'}
+        p={'50px'}
         direction={'column'}
         borderRadius={'20px'}
         display={'flex'}
