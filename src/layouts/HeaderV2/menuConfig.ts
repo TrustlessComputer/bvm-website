@@ -102,8 +102,8 @@ export const MenuBuild = {
       isNewWindow: true,
     },
     {
-      href: DEVELOPERS_GRANTS_URL,
-      label: 'Developer Grants',
+      href: '/build-on-bitcoin',
+      label: 'Builder Program',
       isNewWindow: true,
     },
   ],

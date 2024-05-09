@@ -23,7 +23,7 @@ export default function BuilderLading() {
       <Connect />
       <Started />
       <Categories />
-      {/* <Footer /> */}
+       {/*<Footer />*/}
     </div>
   );
 }
