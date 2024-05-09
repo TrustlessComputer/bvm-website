@@ -200,3 +200,6 @@ export const PriceTypeList = [
   PriceType.PROFESSIONAL,
   PriceType.ENTERPRISE,
 ];
+
+export const StandardValues = {};
+export const AdvancedValues = {};

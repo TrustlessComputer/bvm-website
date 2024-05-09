@@ -147,7 +147,7 @@ export const formatAmount = (params: IFormat) => {
 
 export const formatAmountV3 = (amount: string) => {
   if (!amount) return '--';
-  return new BigNumber(amount).dividedBy(1e18).decimalPlaces(6).toFixed();
+  return new BigNumber(amount).dividedBy(1e18).decimalPlaces(2).toFixed();
 };
 
 interface IFormatToHuman extends IFormat {
