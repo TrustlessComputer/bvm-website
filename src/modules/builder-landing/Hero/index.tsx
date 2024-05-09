@@ -11,7 +11,7 @@ import useScrollTo from '@/modules/builder-landing/useScrollTo';
 
 export default function BuilderHero() {
   const router = useRouter();
-  const {scrollTo} = useScrollTo();
+  const { scrollTo } = useScrollTo();
   return (
     <div className={s.builderHero}>
       <video
@@ -75,6 +75,7 @@ export default function BuilderHero() {
           <Chars>
             <h1 className={s.heading}>
               The Bitcoin L2 Builder Program:
+              <br />
               Launch the next big Bitcoin L2 with BVM
             </h1>
           </Chars>
@@ -128,9 +129,7 @@ export default function BuilderHero() {
           </li>
           <li className={s.exItem}>
             <Fade delay={1}>
-              <IConContent
-                icon={'builder/game-icons_incoming-rocket_2.png'}
-              >
+              <IConContent icon={'builder/game-icons_incoming-rocket_2.png'}>
                 CONNECT WITH INVESTORS
               </IConContent>
             </Fade>
