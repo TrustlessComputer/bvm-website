@@ -5,20 +5,21 @@ import MetaItem from '@components/Retro/RetroCardFullWidth/MetaItem';
 export interface RetroCardFullWidthProps {
   width?: number;
   height?: number;
-  src: string,
   heading: string,
+  banner: string,
+  backgroundColor: string,
   metaData: {
     label: string;
     value: string;
   }[]
 }
 
-export default function RetroCardFullWidth({ heading, width, src, height, metaData }: RetroCardFullWidthProps) {
+export default function RetroCardFullWidth({ heading, width, banner, backgroundColor,  height, metaData }: RetroCardFullWidthProps) {
 
   return <div className={s.retroCardFullWidth}>
     <div className={s.inner}>
-      <div className='thumbnail'>
-        <Image src={src} alt={'thumbnail'} width={width || 930} height={height || 529} className={s.image} />
+      <div className={s.thumbnail} style={{backgroundColor}}>
+        <Image src={`/use-bitcoin/${banner}`} alt={'thumbnail'} width={width || 930} height={height || 529} className={s.image} />
       </div>
       <div className={s.info}>
         <h2 className={s.heading}>{heading}</h2>

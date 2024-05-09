@@ -1,6 +1,8 @@
 export const DATA_CHAINS = [
   {
     heading: 'GameFi on Bitcoin',
+    banner: 'banner-01_1.png',
+    backgroundColor: '#ffd73b',
     desc: [
       {
         label: 'Bitcoin L2: ',
@@ -34,6 +36,8 @@ export const DATA_CHAINS = [
   },
   {
     heading: 'DeFi on Bitcoin',
+    banner: 'banner-02.png',
+    backgroundColor: '#ff9999',
     desc: [
       {
         label: 'Bitcoin L2: ',
@@ -71,6 +75,8 @@ export const DATA_CHAINS = [
   },
   {
     heading: 'SocialFi on Bitcoin',
+    banner: 'banner-03.png',
+    backgroundColor: '#99c8ff',
     desc: [
       {
         label: 'Bitcoin L2: ',
@@ -108,6 +114,9 @@ export const DATA_CHAINS = [
   },
   {
     heading: 'AI on Bitcoin',
+    banner: 'banner-04.png',
+    backgroundColor: '#35cca6',
+
     desc: [
       {
         label: 'Bitcoin L2: ',
@@ -145,6 +154,8 @@ export const DATA_CHAINS = [
   },
   {
     heading: 'Education on Bitcoin',
+    banner: 'banner-05.png',
+    backgroundColor: '#f0b9fe',
     desc: [
       {
         label: 'Bitcoin L2: ',

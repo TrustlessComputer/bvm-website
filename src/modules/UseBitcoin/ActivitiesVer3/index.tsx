@@ -9,7 +9,7 @@ function ActivitiesVer3(): React.JSX.Element {
       {
         DATA_CHAINS.map(item => {
           return (
-            <RetroCardFullWidth key={item.heading} src={'/test.png'} heading={item.heading} metaData={item.desc}/>
+            <RetroCardFullWidth key={item.heading} heading={item.heading} metaData={item.desc} banner={item.banner} backgroundColor={item.backgroundColor}/>
           )
         })
       }
