@@ -7,7 +7,8 @@ import Link from 'next/link';
 interface RetroCaseStudyProps extends PropsWithChildren {
   subTitle: string,
   src: string,
-  heading: string
+  heading: string,
+  brand: string,
   btn: {
     title: string,
     link: string,
@@ -21,6 +22,7 @@ function CaseStudy({
                      src,
                      children,
                      btn,
+                     brand
                    }: RetroCaseStudyProps): React.JSX.Element {
   return <div className={s.wrapper}>
     <div className='container'>
@@ -29,7 +31,7 @@ function CaseStudy({
           <div className={s.label}>
             <p>{subTitle}</p>
             <div className={s.imageLabel}>
-              <ImagePlaceholder src={'/retro/brand.png'} alt={'brand'} height={51} width={260} className={s.image} />
+              <ImagePlaceholder src={brand} alt={'brand'} height={51} width={260} className={s.image} />
             </div>
           </div>
           <h2 className={s.heading}>{heading}</h2>
