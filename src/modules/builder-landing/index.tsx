@@ -13,9 +13,11 @@ export default function BuilderLading() {
     <div className={s.builderLading}>
       <Loader />
       <BuilderHero />
-      <BuilderVideo />
-      <Connect />
+      {/*<BuilderVideo />*/}
+      {/*Component 1M $BVM*/}
       <Airdrop />
+
+      <Connect />
       <Started />
       <Categories />
       <Footer />
