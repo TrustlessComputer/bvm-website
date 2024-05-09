@@ -75,7 +75,7 @@ export const DATA_CHAINS = [
   },
   {
     heading: 'SocialFi on Bitcoin',
-    banner: 'banner-03.png',
+    banner: 'banner-04.png',
     backgroundColor: '#99c8ff',
     desc: [
       {
@@ -114,7 +114,7 @@ export const DATA_CHAINS = [
   },
   {
     heading: 'AI on Bitcoin',
-    banner: 'banner-04.png',
+    banner: 'banner-05.png',
     backgroundColor: '#35cca6',
 
     desc: [
@@ -154,7 +154,7 @@ export const DATA_CHAINS = [
   },
   {
     heading: 'Education on Bitcoin',
-    banner: 'banner-05.png',
+    banner: 'banner-03.png',
     backgroundColor: '#f0b9fe',
     desc: [
       {
