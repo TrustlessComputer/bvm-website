@@ -22,7 +22,7 @@ export default () => {
           </BuyProvider>
       </Flex> */}
 
-      <BoxContent minH={'100dvh'} overflow={'hidden'} py={'60px'}>
+      <BoxContent minH={'100dvh'} overflow={'hidden'} py={'40px'}>
         <BuyProvider>
           <BuyPage />
         </BuyProvider>

@@ -4,6 +4,8 @@ import {
   BreadcrumbLink,
   Flex,
   Spinner,
+  Text,
+  Button,
 } from '@chakra-ui/react';
 import React from 'react';
 import { useBuy } from '../providers/Buy.hook';
@@ -18,6 +20,7 @@ import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import s from './styles.module.scss';
+import { useRouter } from 'next/navigation';
 
 export type Props = {
   onSuccess?: () => void;
@@ -35,6 +38,8 @@ export const BuyPage = React.memo((props: Props) => {
     setShowSubmitFormResult,
     rollupProtocolSelected,
   } = useBuy();
+  const router = useRouter();
+  const { isL2ServiceLogged, onLogin } = useL2ServiceAuth();
 
   if (isAvailableListFetching)
     return (
@@ -79,6 +84,58 @@ export const BuyPage = React.memo((props: Props) => {
               />
             </Flex>
           )} */}
+
+        {!isL2ServiceLogged ? (
+          <Flex
+            align={'center'}
+            fontSize={'16px'}
+            fontWeight={500}
+            color={'#000'}
+          >
+            <Text>
+              {`Check Your Bitcoin L2 Setup and Status - `}
+              <Text
+                as="span"
+                color={'#4E4A8D'}
+                textDecorationLine={'underline'}
+                textUnderlineOffset={2}
+                _hover={{
+                  cursor: 'pointer',
+                  opacity: 0.8,
+                }}
+                onClick={() => {
+                  onLogin();
+                }}
+              >
+                {`Connect wallet`}
+              </Text>
+            </Text>
+          </Flex>
+        ) : (
+          <Button
+            bgColor={'#FA4E0E'}
+            color={'#fff'}
+            borderRadius={0}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            alignSelf={'flex-end'}
+            px={'28px'}
+            py={'16px'}
+            minW={['180px']}
+            height={'48px'}
+            fontWeight={400}
+            fontSize={'16px'}
+            _hover={{
+              bgColor: '#e5601b',
+            }}
+            onClick={() => {
+              router.push('/blockchains');
+            }}
+          >
+            Check your Bitcoin L2
+          </Button>
+        )}
       </Flex>
 
       <Flex
