@@ -1,0 +1,35 @@
+.container {
+  width: 100%;
+  min-height: 400px;
+  background-image: url("/images/launchpad/upcoming/banner_bg.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+
+  @include w-max(767px) {
+    padding: 24px;
+    margin-top: 24px;
+  }
+
+  .title {
+    font-size: 32px;
+    font-weight: 500;
+    color: #FFF;
+    text-align: center;
+  }
+
+  .btnAction {
+    font-size: 18px;
+    font-weight: 500;
+    color: #6E16FE;
+    height: 54px;
+    width: 100%;
+    background: #FFF !important;
+  }
+}

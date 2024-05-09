@@ -13,7 +13,7 @@ const DropDown = ({ title, lists, primaryColor }: PropD): ReactElement => {
     <div className={s.dropMenu}>
       <span className={`${s.dropMenu_label} ${s[primaryColor || 'black']}`}>
         {title}
-        <SvgInset svgUrl={`icons/ic-submenu.svg`} />
+        <SvgInset svgUrl={`/icons/ic-submenu.svg`} />
       </span>
       <ul className={s.dropMenu_list}>
         {lists.map((item) => {
@@ -27,7 +27,7 @@ const DropDown = ({ title, lists, primaryColor }: PropD): ReactElement => {
                 {item.label}
                 <SvgInset
                   className={s.listItem_svg}
-                  svgUrl={`landing/images/basil_arrow-up-outline.svg`}
+                  svgUrl={`/landing/images/basil_arrow-up-outline.svg`}
                 />
               </a>
             </li>

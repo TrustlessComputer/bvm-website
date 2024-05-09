@@ -1,10 +1,12 @@
-import useWindowSize from '@/hooks/useWindowSize';
-import s from './style.module.scss';
-import Treasury from '@layouts/HeaderV2/Top/treasury';
-import DrawerMobileMenu from '../components/DrawerMenu';
-import { IconButton, Image, useDisclosure } from '@chakra-ui/react';
-import Link from 'next/link';
 import SvgInset from '@/components/SvgInset';
+import useWindowSize from '@/hooks/useWindowSize';
+import { IconButton, Image, useDisclosure } from '@chakra-ui/react';
+import Treasury from '@layouts/HeaderV2/Top/treasury';
+import Link from 'next/link';
+import DrawerMobileMenu from '../components/DrawerMenu';
+import DropDown from '../components/Dropdown';
+import { TOP_NAV_ITEMS } from '../menuConfig';
+import s from './style.module.scss';
 
 const Top = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -22,6 +24,23 @@ const Top = () => {
         >
           DAO
         </p>
+        {TOP_NAV_ITEMS.map((item) => {
+          return item.subMenu ? (
+            <DropDown
+              key={item.label}
+              title={item.label}
+              lists={item.subMenu}
+            />
+          ) : (
+            <Link
+              key={item.label}
+              href={item.href ?? '#'}
+              target={item.isNewWindow ? '_blank' : '_self'}
+            >
+              <p className={s.itemLabel}>{item.label}</p>
+            </Link>
+          );
+        })}
       </div>
       {isDesktop ? (
         <div className={s.right}>

@@ -1,0 +1,133 @@
+import { createSlice } from '@reduxjs/toolkit';
+import { LaunchpadState } from './types';
+import { RootState } from '@/stores';
+
+const initialState: LaunchpadState = {
+  create_step: 0,
+  create_body: {},
+  create_fee_options: [],
+  created_launchpad_id: undefined,
+  oldCountCurrentLeaderboard: 0,
+  countCurrentLeaderboard: 0,
+  oldCountTotalTickets: 0,
+  countTotalTickets: 0,
+  leaderBoards: [],
+  blockScout: {
+    address: 0,
+    total_blocks: 0,
+    total_transactions: 0,
+    tvl: '0',
+  },
+  oldBlockScout: {
+    address: 0,
+    total_blocks: 0,
+    total_transactions: 0,
+    tvl: '0',
+  },
+  myDataLeaderBoard: {
+    id: 0,
+    network: '',
+    twitter_id: '',
+    twitter_username: '',
+    twitter_name: '',
+    twitter_avatar: '',
+    ranking: 0,
+    need_active: false,
+    point: 0,
+    bvm_point: 0,
+    gas_point: 0,
+    content_point: 0,
+    boost: '',
+    view_boost: '',
+    num_view: '',
+    num_retweet: '',
+    num_like: '',
+    num_quote: '',
+    num_post: '',
+    refer_point: '',
+    celestia_point: '',
+    naka_point: '',
+    eco_point: '',
+    optimism_point: '',
+    blast_point: '',
+    base_point: '',
+    arb_point: '',
+    eigenlayer_point: '',
+    polygon_point: '',
+    game_point: '',
+    alpha_point: '',
+    manta_amount: '',
+    manta_point: '',
+    bvm_balance: '',
+    bvm_balance_not_boost: '',
+    eth_balance: '',
+    btc_balance: '',
+    deposit_id: '',
+    bvm_lucky_balance: '',
+  },
+};
+
+const slice = createSlice({
+  name: 'launchpad',
+  initialState,
+  reducers: {
+    setCreateStep: (state, actions) => {
+      state.create_step = actions.payload as number;
+    },
+    setCreateBody: (state, actions) => {
+      state.create_body = {
+        ...state.create_body,
+        ...actions.payload,
+      };
+    },
+    setCreateFeeOptions: (state, actions) => {
+      state.create_fee_options = actions.payload;
+    },
+    setCreatedLaunchpadId: (state, actions) => {
+      state.created_launchpad_id = actions.payload;
+    },
+    setCountCurrentLeaderboard: (state, actions) => {
+      state.countCurrentLeaderboard = actions.payload;
+    },
+    setOldCountCurrentLeaderboard: (state, actions) => {
+      state.oldCountCurrentLeaderboard = actions.payload;
+    },
+    setCountTotalTickets: (state, actions) => {
+      state.countTotalTickets = actions.payload;
+    },
+    setOldCountTotalTickets: (state, actions) => {
+      state.oldCountTotalTickets = actions.payload;
+    },
+    setLeaderboards: (state, actions) => {
+      state.leaderBoards = actions.payload;
+    },
+    setBlockScout: (state, actions) => {
+      state.blockScout = actions.payload;
+    },
+    setOldBlockScout: (state, actions) => {
+      state.oldBlockScout = actions.payload;
+    },
+    setMyDataLeaderBoard: (state, actions) => {
+      state.myDataLeaderBoard = actions.payload;
+    },
+  },
+});
+
+export const {
+  setCreateStep,
+  setCreateBody,
+  setCreateFeeOptions,
+  setCreatedLaunchpadId,
+  setCountCurrentLeaderboard,
+  setOldCountCurrentLeaderboard,
+  setCountTotalTickets,
+  setOldCountTotalTickets,
+  setLeaderboards,
+  setOldBlockScout,
+  setBlockScout,
+  setMyDataLeaderBoard,
+} = slice.actions;
+
+export const launchpadSelector = (state: RootState) => state.launchpad;
+
+export default slice.reducer;

@@ -245,7 +245,6 @@ export const validateBTCAddressTaproot = (_address: string): boolean => {
   return false;
 };
 
-
 export const formatDate = (date: string, format = 'D MMM, HH:mm:ss') => {
   try {
     return moment.utc(date).local().format(format);
@@ -255,5 +254,16 @@ export const formatDate = (date: string, format = 'D MMM, HH:mm:ss') => {
       year: 'numeric',
       day: 'numeric',
     });
+  }
+};
+
+export const formatAddressOrName = (name: string, length = 12): string => {
+  if (!name) return '';
+  if (ethers.utils.isAddress(name)) {
+    return name.substring(0, 6);
+  } else if (name.startsWith('bc1p')) {
+    return name.substring(0, 8);
+  } else {
+    return name?.length > length ? name.substring(0, length) + '...' : name;
   }
 };

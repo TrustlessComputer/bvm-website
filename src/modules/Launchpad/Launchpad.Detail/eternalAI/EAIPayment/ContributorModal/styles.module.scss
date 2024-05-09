@@ -1,0 +1,112 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    //color: #1c1c1c;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+
+    margin-top: 8px;
+  }
+
+  .desc {
+    //color: rgba(255, 255, 255, 0.7);
+    color: #1c1c1c;
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .inputContainer {
+    border-radius: 0px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    padding: 8px 10px;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+
+    &:has(input:focus) {
+      border: 1px solid #cecece;
+    }
+  }
+
+  .input {
+    height: 100%;
+    overflow: hidden;
+    color: #ffffff;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    height: 22px;
+    line-height: 22px;
+    background-color: transparent;
+    width: 100%;
+    letter-spacing: 0.01em;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &::-ms-input-placeholder {
+      /* Edge 12-18 */
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .button {
+    height: 40px !important;
+    padding: 8px 60px !important;
+    border-radius: 0px !important;
+    background: #fff !important;
+    color: #000 !important;
+    width: 131px;
+    font-weight: normal !important;
+    font-size: 14px !important;
+  }
+}
+
+.modalManualHeader {
+  padding-bottom: 8px;
+  padding-left: 24px;
+
+  p {
+    margin-top: 12px;
+    color: #ffffff !important;
+  }
+
+  button {
+    display: none;
+  }
+}
+
+.modalContent {
+  background: #262626 !important;
+
+  :global {
+    .chakra-modal__body {
+      //padding-left: rem(24) !important;
+      //padding-right: rem(24) !important;
+      //padding-bottom: rem(24) !important;
+    }
+  }
+}

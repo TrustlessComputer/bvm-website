@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: rem(720);
+  gap: 12px;
+
+  p {
+    color: var(--naka-text);
+  }
+
+  @include w-max(768px) {
+  }
+}

@@ -28,6 +28,10 @@ export interface User {
 
 export type EVMFieldType = 'allowOptimism';
 
+export interface IAuthSetting {
+  naka_fee_enabled: boolean;
+}
+
 export interface UserState {
   user?: User | undefined;
   leaderBoard: ILeaderBoardPoint[];
@@ -50,6 +54,42 @@ export interface UserState {
   depositAddress: any;
   nakaUser?: {
     address: string;
-    token: string
+    token: string;
   };
+
+  allow404: {
+    status: SignatureStatus[];
+    loaded: boolean;
+  };
+  stakingBVM: {
+    status: SignatureStatus[];
+    loaded: boolean;
+  };
+  holdingBTC: {
+    status: SignatureStatus[];
+    loaded: boolean;
+  };
+  allowSAVM: {
+    status: SignatureStatus[];
+    loaded: boolean;
+  };
+  holdingEAI: {
+    status: SignatureStatus[];
+    loaded: boolean;
+  };
+  holdingRDNR: {
+    status: SignatureStatus[];
+    loaded: boolean;
+  };
+  holdingSWPL2: {
+    status: SignatureStatus[];
+    loaded: boolean;
+  };
+  holdingSWPSRC20: {
+    status: SignatureStatus[];
+    loaded: boolean;
+  };
+
+  x_token?: string;
+  authSetting: IAuthSetting;
 }

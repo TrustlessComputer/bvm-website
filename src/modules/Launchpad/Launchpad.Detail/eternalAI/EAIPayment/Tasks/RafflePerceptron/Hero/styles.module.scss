@@ -1,0 +1,133 @@
+.slider {
+  margin-top: 12px;
+  height: calc(100% - #{rem(12px)});
+  border-radius: 8px;
+  overflow: hidden;
+  :global(.slick-arrow) {
+    display: none !important;
+  }
+
+  div {
+    height: 100%;
+  }
+
+  :global(.slick-slide) {
+    font-size: 0;
+
+    div div {
+      position: relative;
+      padding-bottom: 465/886 * 100%;
+
+      img,
+      video {
+        object-position: center;
+        position: absolute;
+        object-fit: cover;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  :global(.slick-thumb) {
+    display: flex !important;
+    margin-top: rem(24px);
+    z-index: 2;
+    padding-left: rem(20px);
+    padding-right: rem(20px);
+    gap: rem(6px);
+    width: 100%;
+    justify-content: center;
+
+    @include min-tablet {
+      bottom: rem(32px);
+      right: rem(16px);
+      position: absolute;
+      padding: 0;
+      justify-content: flex-end;
+      width: fit-content;
+    }
+
+    @include min-pc {
+      gap: rem(8px);
+      bottom: rem(16px);
+    }
+
+    li {
+      flex: 0 0 rem(45px);
+
+      @include min-tablet {
+        flex: 0 0 rem(68px);
+      }
+
+      a {
+        display: block;
+        padding-bottom: (85/128) * 100%;
+        position: relative;
+        width: 100%;
+        border-radius: 2px;
+        border: 1px solid transparent;
+
+        img {
+          position: absolute;
+          border-radius: 2px;
+          top: 0;
+          left: 0;
+          object-fit: cover;
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+
+    :global(.slick-active) a {
+      border: 1px solid $white;
+    }
+  }
+}
+
+.hero_left_inner {
+  padding-right: rem(10px);
+}
+
+.hero {
+  //max-width: 600px;
+  margin-top: 12px;
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  ul {
+    list-style: none;
+  }
+  @include is-mobile {
+    display: none;
+  }
+  .btnVideo {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    //z-index: 99;
+    background-color: transparent;
+    margin-top: auto;
+    margin-bottom: auto;
+    //gap: 12px;
+    //
+    //background: #000;
+    //color: #fff;
+    //text-align: center;
+    //font-family: Urbanist;
+
+    div {
+      height: auto !important;
+      padding-bottom: 0 !important;
+    }
+  }
+}
