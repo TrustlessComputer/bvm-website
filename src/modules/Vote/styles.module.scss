@@ -1,0 +1,27 @@
+.container {
+  background: #f6f7fa;
+  padding-top: 60px;
+  padding-bottom: 24px;
+  * {
+    font-family: 'Urbanist';
+  }
+
+  @include w-max(768px) {
+    padding-top: 30px;
+  }
+
+  .content {
+    padding: 0 100px;
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+
+    @include w-min(1220px) {
+      padding: 0 120px;
+    }
+
+    @include w-max(768px) {
+      padding: 0 16px;
+    }
+  }
+}

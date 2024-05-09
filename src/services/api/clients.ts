@@ -6,7 +6,7 @@ export const apiClient = createAxiosInstance({
 });
 
 export const L2ServiceAPI = createAxiosInstance({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE_URL + '/api',
 });
 
 // export const bridgeClient = createAxiosInstance({

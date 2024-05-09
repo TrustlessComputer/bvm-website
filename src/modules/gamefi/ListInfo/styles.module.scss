@@ -1,0 +1,21 @@
+.listInfo {
+  padding: 160px 0;
+  background: white;
+}
+
+.list {
+  //display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  //@include
+  display: grid;
+  gap: 48px;
+  grid-template-columns: repeat(1, 1fr);
+  @include is-min-table {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include is-pc {
+    grid-template-columns: repeat(3, 1fr);
+
+  }
+}
