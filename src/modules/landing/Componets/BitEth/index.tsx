@@ -15,10 +15,10 @@ type TBitEthProps = {
   description?: string;
   textBtn?: string;
   btnLink?: string;
-  isHidenBtn?:boolean
-}
+  isHidenBtn?: boolean;
+};
 
-export default function BitEth({...props}: TBitEthProps) {
+export default function BitEth({ ...props }: TBitEthProps) {
   const router = useRouter();
   const { mobileScreen } = useWindowSize();
 
@@ -38,28 +38,35 @@ export default function BitEth({...props}: TBitEthProps) {
             />
           </Scale>
           <HeadingSection className={s.heading}>
-
             <Chars delay={0.2}>
               {/*<b>Minimal effort </b>to migrate from Ethereum to Bitcoin.*/}
-              {
-                props.headings ? (props.headings) : (<><b>Minimal effort </b>to migrate from Ethereum to Bitcoin.</>)
-              }
+              {props.headings ? (
+                props.headings
+              ) : (
+                <>
+                  <b>Minimal effort </b>to migrate from Ethereum to Bitcoin.
+                </>
+              )}
             </Chars>
           </HeadingSection>
           <ContentSection className={s.content}>
             <Lines delay={0.3}>
-              {
-                props.description ? (props.description) : (<>BVM is EVM equivalent. It allows Ethereum developers to migrate
-                  their Solidity smart contracts and dapps from Ethereum to Bitcoin
-                  with minimal or no modifications.</>)
-              }
+              {props.description ? (
+                props.description
+              ) : (
+                <>
+                  BVM is EVM equivalent. It allows Ethereum developers to
+                  migrate their Solidity smart contracts and dapps from Ethereum
+                  to Bitcoin with minimal or no modifications.
+                </>
+              )}
             </Lines>
           </ContentSection>
           <div className={s.actions}>
-            {
-              !props.isHidenBtn &&<Fade delay={0.5}>
+            {!props.isHidenBtn && (
+              <Fade delay={0.5}>
                 <Button
-                  bgColor={'#FA4E0E'}
+                  bgColor={'#FFFFFF1A'}
                   color={'#fff'}
                   borderRadius={0}
                   display={'flex'}
@@ -73,21 +80,48 @@ export default function BitEth({...props}: TBitEthProps) {
                   fontWeight={400}
                   fontSize={'16px'}
                   _hover={{
-                    bgColor: '#e5601b',
+                    bgColor: '#FFFFFF2A',
                   }}
                   onClick={() => {
-                    window.open(props.btnLink || 'https://docs.bvm.network', '_blank');
+                    window.open(
+                      props.btnLink || 'https://docs.bvm.network',
+                      '_blank',
+                    );
                     // router.push('/blockchains/customize');
                   }}
                 >
-                  {
-                    props.textBtn ? (props.textBtn) : (`Read developer docs`)
-                  }
+                  {props.textBtn ? props.textBtn : `Read developer docs`}
                   {/*{`Read developer docs`}*/}
                 </Button>
               </Fade>
-            }
-
+            )}
+            <Fade delay={0.75}>
+              <Button
+                bgColor={'#FA4E0E'}
+                color={'#fff'}
+                borderRadius={0}
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                px={'24px'}
+                py={'10px'}
+                minW={['180px']}
+                width={mobileScreen ? '100%' : ''}
+                height={'48px'}
+                fontWeight={400}
+                fontSize={'16px'}
+                _hover={{
+                  bgColor: '#e5601b',
+                }}
+                onClick={() => {
+                  window.open('/bvm');
+                  // router.push('/blockchains/customize');
+                }}
+              >
+                {props.textBtn ? props.textBtn : `Launch Bitcoin L2 Now`}
+                {/*{`Read developer docs`}*/}
+              </Button>
+            </Fade>
           </div>
         </div>
         <Scale>
