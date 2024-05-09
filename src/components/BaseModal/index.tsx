@@ -23,9 +23,7 @@ export interface IBaseModalProps {
   theme?: 'dark' | 'light';
 }
 
-const BaseModal = (
-  props: PropsWithChildren<IBaseModalProps>,
-): React.ReactNode => {
+const BaseModal = (props: PropsWithChildren<IBaseModalProps>): any => {
   const {
     isShow,
     onHide,
