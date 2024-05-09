@@ -31,7 +31,7 @@ const MainLayout = ({
       {/* {<Header {...headerProps} />} */}
       {!hideHeader && <HeaderV2 {...headerProps} />}
       {children}
-      <Footer />
+      {!hideFooter && <Footer />}
     </>
   );
 };
