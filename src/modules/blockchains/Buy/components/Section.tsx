@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Image } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import DescriptionModal from './DescriptionModal/DescriptionModal';
 
@@ -42,17 +42,42 @@ const Section = React.memo((props: Props) => {
       )}
 
       {description && (
-        <Text
-          fontSize={'18px'}
-          fontWeight={600}
-          color={'#2b35e4'}
+        <Flex
+          flexDir={'row'}
+          align={'center'}
+          gap={'5px'}
           _hover={{
             cursor: 'pointer',
           }}
           onClick={() => setIsShowModal(true)}
         >
-          {description}
-        </Text>
+          <Text fontSize={'18px'} fontWeight={600} color={'#2b35e4'}>
+            {description}
+          </Text>
+          {descriptionDetail && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2b35e4"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          )}
+          {/* <Image
+            src={'/blockchains/customize/ic-infor.svg'}
+            w={'25px'}
+            h={'auto'}
+            objectFit={'contain'}
+          /> */}
+        </Flex>
       )}
 
       {children}

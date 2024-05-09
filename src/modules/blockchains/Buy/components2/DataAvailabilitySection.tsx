@@ -3,7 +3,7 @@ import { ItemDetail } from '../Buy.types';
 import Item from '../components/Item';
 import Section from '../components/Section';
 import { useBuy } from '../../providers/Buy.hook';
-import { Text } from '@chakra-ui/react';
+import { Select, Text } from '@chakra-ui/react';
 
 const DataAvailabilitySection = () => {
   const {
