@@ -1,0 +1,89 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.dropDownLabel { 
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: left;
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.dropDownToggle {
+  padding: 3px 0px;
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: transparent !important;
+
+  width: 100%;
+  min-height: 54px;
+
+  border-radius: 0px !important;
+  border: 1px solid #ccc !important;
+}
+
+.rowDropDownItem {
+  padding: 0px 0px;
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  // background-color: #323022;
+
+  width: 100%;
+  min-height: 54px;
+
+  overflow: hidden;
+  z-index: 99999;
+
+  background: transparent !important;
+
+  .groupIconName {
+    flex: 1;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+
+    .tokenSymbol {
+      font-size: 15px;
+      font-weight: 500;
+      text-align: left;
+      color: #000000;
+    }
+  }
+}
+
+.menuList {
+  border-radius: 8px !important;
+  // border: 1px solid rgb(75, 75, 75) !important;
+  padding: 0 !important;
+  // min-width: 72.5vw !important;
+  --menu-border-radius: 12px;
+  --menu-bg: #ffffff !important;
+  outline: 0 !important;
+  outline-offset: 0 !important;
+  overflow: hidden !important;
+
+  button {
+    padding: 8px 12px !important;
+    // border-bottom: 0.5px solid rgb(75, 75, 75);
+    border-top: 0.5px solid rgb(75, 75, 75);
+    background-color:  #ffffff !important;
+  }
+}
+
+.dropdown-toggle {
+  width: 100%;
+}
+
+
+.lastItem{
+  border-bottom: none;
+}

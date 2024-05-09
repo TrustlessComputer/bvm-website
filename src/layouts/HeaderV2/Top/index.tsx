@@ -16,7 +16,7 @@ const Top = () => {
 
         <p
           onClick={(): void => {
-            window.open('https://nakachain.xyz/proposal-dashboard', '_blank');
+            window.open('/proposal-dashboard', '_blank');
           }}
           className={s.leftToken}
         >

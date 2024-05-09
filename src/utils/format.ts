@@ -145,6 +145,11 @@ export const formatAmount = (params: IFormat) => {
   ).toString();
 };
 
+export const formatAmountV3 = (amount: string) => {
+  if (!amount) return '--';
+  return new BigNumber(amount).dividedBy(1e18).decimalPlaces(6).toFixed();
+};
+
 interface IFormatToHuman extends IFormat {
   decimals?: number;
 }
@@ -244,7 +249,6 @@ export const validateBTCAddressTaproot = (_address: string): boolean => {
   }
   return false;
 };
-
 
 export const formatDate = (date: string, format = 'D MMM, HH:mm:ss') => {
   try {
