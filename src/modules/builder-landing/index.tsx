@@ -8,6 +8,7 @@ import Footer from '@/modules/builder-landing/Footer';
 import Airdrop from '@/modules/builder-landing/Airdrop';
 import Connect from './Connect';
 import Header from '@/layouts/Header';
+import AirdropV2 from '@/modules/builder-landing/AirdropV2';
 
 export default function BuilderLading() {
   return (
@@ -17,8 +18,8 @@ export default function BuilderLading() {
       <BuilderHero />
       {/*<BuilderVideo />*/}
       {/*Component 1M $BVM*/}
-      <Airdrop />
-
+      {/*<Airdrop />*/}
+      <AirdropV2 />
       <Connect />
       <Started />
       <Categories />
