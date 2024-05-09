@@ -232,7 +232,7 @@ const ProposalVote = ({
         alignItems={{ base: 'flex-start', lg: 'center' }}
         gap="16px"
       >
-        {!isAuthen && <p className={s.heading}>Sign in to vote.</p>}
+        {!isAuthen && <p className={s.heading}>Connect wallet to vote.</p>}
         {isAuthen && !voteProposalAble && (
           <p className={s.heading}>Voting is only open to SHARD holders.</p>
         )}
