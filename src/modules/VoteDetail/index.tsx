@@ -1,6 +1,6 @@
 'use client';
 
-import AppLoading from '@/components/AppLoading';
+import Loader from '@/modules/builder-landing/Loader';
 import { TEXT_DIRTY_CONFIG } from '@/constants/constants';
 import CProposal from '@/contract/proposal';
 import { BVM_GOVERNOR_ADDRESS } from '@/contract/proposal/configs';
@@ -215,7 +215,7 @@ const VoteDetail = () => {
     );
   }, [expiredTimeAt, status, isAfterEndVote]);
 
-  if (!proposalDetail) return <AppLoading />;
+  if (!proposalDetail) return <Loader />;
 
   const isProposalProject =
     getProposalType(proposalDetail?.proposal) === ProposalType.project;

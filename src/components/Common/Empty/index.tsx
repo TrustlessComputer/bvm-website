@@ -2,10 +2,8 @@
 import React from 'react';
 import cn from 'classnames';
 
-import IconEmptySVG from 'public/icons/icon-empty.svg';
-
 import s from './styles.module.scss';
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Image } from '@chakra-ui/react';
 
 const Empty = ({
   className,
@@ -18,7 +16,7 @@ const Empty = ({
 }) => {
   return (
     <Flex className={cn(s.empty, className)}>
-      {!hideIcon && <IconEmptySVG />}
+      {!hideIcon && <Image src={`/icons/icon-empty.svg`} />}
 
       {text && <Text className={s.empty_text}>{text}</Text>}
     </Flex>
