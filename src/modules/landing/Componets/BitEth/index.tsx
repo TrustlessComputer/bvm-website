@@ -9,6 +9,7 @@ import Lines from '@/interactive/Lines';
 import HeadingSection from '../HeadingSection';
 import Chars from '@/interactive/Chars';
 import ContentSection from '@/modules/landing/Componets/ContentSection';
+import { isMobile } from 'react-device-detect';
 
 type TBitEthProps = {
   headings?: string;
@@ -75,7 +76,7 @@ export default function BitEth({ ...props }: TBitEthProps) {
                   px={'24px'}
                   py={'10px'}
                   minW={['180px']}
-                  width={mobileScreen ? '100%' : ''}
+                  width={isMobile ? '100%' : ''}
                   height={'48px'}
                   fontWeight={400}
                   fontSize={'16px'}
@@ -103,10 +104,11 @@ export default function BitEth({ ...props }: TBitEthProps) {
                 display={'flex'}
                 justifyContent={'center'}
                 alignItems={'center'}
+                margin={isMobile ? '0 auto' : ''}
                 px={'24px'}
                 py={'10px'}
                 minW={['180px']}
-                width={mobileScreen ? '100%' : ''}
+                width={isMobile ? '100%' : ''}
                 height={'48px'}
                 fontWeight={400}
                 fontSize={'16px'}
