@@ -1,0 +1,23 @@
+
+.listVote {
+  margin-top: 20px;
+  @include w-max(968px) {
+    display: none;
+  }
+}
+
+.timer {
+  width: unset;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  :global {
+    .chakra-text {
+      font-size: 14px !important;
+      font-weight: 600;
+    }
+  }
+}

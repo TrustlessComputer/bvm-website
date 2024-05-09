@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  background: #ffffff;
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0px 0px 12px 0px #00000014;
+
+  @include is-mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+.container:hover {
+  opacity: 0.8;
+}
+
+.title {
+  font-size: 19px !important;
+  font-weight: 700;
+  color: #000000;
+
+  span {
+    color: #6C6F93;
+  }
+}
+
+.timer {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #F6F6F6;
+  width: max-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+
+  * span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6C6F93;
+  }
+}
+
+.status {
+  padding: 8px 16px;
+  // color: #ffffff !important;
+  border-radius: 8px;
+  font-size: 15px !important;
+  font-weight: 600;
+  height: fit-content;
+  width: fit-content;
+
+  &.new {
+    color: #00aa6c;
+    background: #00AA6C26;
+  }
+
+  &.excuted {
+    color: #4f43e2;
+    background: #4F43E226;
+  }
+
+  &.defeated {
+    color: #ff4747;
+    background: #FF474726;
+  }
+
+  &.cancel {
+    color: gray;
+    background: lightgray;
+  }
+
+  &.end {
+    color: gray;
+    background: lightgray;
+  }
+}

@@ -1,0 +1,279 @@
+.container {
+  background: #f6f7fa;
+  padding-top: 60px;
+
+  * {
+    font-family: 'Urbanist';
+  }
+
+  @include w-max(768px) {
+    padding-top: 30px;
+  }
+
+  .wContainer {
+    padding: 0 100px;
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+
+    @include w-min(1240px) {
+      padding: 0 120px;
+    }
+
+    @include w-max(768px) {
+      padding: 0 16px;
+      flex-direction: column;
+    }
+  }
+
+  .btnBack {
+    // border: 1px solid #E5E5E5;
+    border-radius: 50%;
+    padding: 12px;
+    background: white;
+    cursor: pointer;
+    color: #000;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 24px;
+    box-shadow: 0px 0px 24px 0px #00000014;
+
+    &:hover {
+      background: #f4f4f8;
+    }
+  }
+
+  .content {
+    width: 100%;
+
+    .title {
+      font-size: 16px;
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0px 0px 24px 0px #00000014;
+      padding: 8px 16px;
+      border-radius: 100px;
+      background: #ffffff;
+      text-transform: uppercase;
+      white-space: pre;
+
+      span {
+        // font-weight: 900;
+      }
+    }
+
+    .status {
+      padding: 8px 16px;
+      // color: #0000 !important;
+      border-radius: 100px;
+      font-size: 16px !important;
+      font-weight: 700;
+      box-shadow: 0px 0px 24px 0px #00000014;
+      background: #ffffff;
+      text-transform: uppercase;
+
+      span {
+        color: #000;
+        text-transform: initial;
+      }
+
+      &.new {
+        color: #00aa6c !important;
+      }
+
+      &.excuted {
+        color: #4f43e2 !important;
+      }
+
+      &.defeated {
+        color: #ff4747 !important;
+      }
+
+      &.cancel {
+        color: gray !important;
+      }
+
+      &.end {
+        color: gray !important;
+      }
+    }
+
+    .desc {
+      margin-top: 8px;
+      font-size: 36px;
+      font-weight: 800;
+      color: #14161b;
+      line-height: 120%;
+      letter-spacing: -0.3px;
+
+      @include w-max(768px) {
+        font-size: 32px;
+      }
+    }
+
+    .proposedBy {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 21.6px;
+      text-align: left;
+      color: #8c8d93;
+
+      a,
+      span {
+        color: #000;
+      }
+
+      a {
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .headingDesc {
+      font-size: 28px;
+      font-weight: 800;
+      color: #14161b;
+      letter-spacing: -1px;
+
+      @include w-max(768px) {
+        font-size: 24px;
+      }
+    }
+
+    .contentDesc {
+      > p {
+        font-size: 18px !important;
+      }
+      * {
+        color: #000 !important;
+      }
+      * a {
+        > * {
+          text-decoration: underline;
+          color: #d63c5e !important;
+        }
+      }
+    }
+
+    .descContent {
+      background: #ffffff;
+      box-shadow: 0px 0px 24px 0px #00000014;
+      border-radius: 12px;
+      padding: 20px;
+    }
+  }
+}
+
+.sideWrapper {
+  background: #ffffff;
+  box-shadow: 0px 0px 24px 0px #00000014;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  margin-top: 16px;
+  // max-width: 288px;
+
+  :global {
+    .side-title {
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: -0.3px;
+    }
+
+    .side-total {
+      font-weight: 600;
+      font-size: 24px;
+      color: #000;
+    }
+  }
+}
+
+.sideFor {
+  :global {
+    .side-title {
+      color: #04c57f;
+    }
+
+    .progress-bar {
+      background: rgba(4, 197, 127, 0.2);
+      border-radius: 8px;
+
+      > div:first-child {
+        background: #04c57f;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+
+.sideAgainst {
+  :global {
+    .side-title {
+      color: #bb0505;
+    }
+
+    .progress-bar {
+      background: rgba(187, 5, 5, 0.2);
+      border-radius: 8px;
+
+      > div:first-child {
+        background: #bb0505;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+
+.sideAbstain {
+  :global {
+    .side-title {
+      color: #8c8d93;
+    }
+
+    .progress-bar {
+      background: #e9e9ee;
+      border-radius: 8px;
+
+      > div:first-child {
+        background: #8c8d93;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+
+.btnAgainst {
+  background: #bb0505 !important;
+  width: 100%;
+  min-height: 44px !important;
+  font-size: 16px !important;
+
+  &.voted {
+    background: #bb050533 !important;
+    color: #bb0505 !important;
+    opacity: 1 !important;
+  }
+}
+
+.btnFor {
+  background: #04c47f;
+  width: 100%;
+  min-height: 44px !important;
+  font-size: 16px !important;
+
+  &.voted {
+    background: #04c47f33 !important;
+    color: #04c47f !important;
+    opacity: 1 !important;
+  }
+}
