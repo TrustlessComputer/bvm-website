@@ -15,6 +15,7 @@ import RollupProtocolSection from '../components2/RollupProtocolSection';
 import TokenPayingGasSection from '../components2/TokenPayingGasSection';
 import WithdrawalPeriodSection from '../components2/WithdrawalPeriodSection';
 import ConfigurationOptionsSection from './ConfigurationOptionsSection';
+import ComputerNameSection from './ComputerNameSection';
 
 export type Props = {};
 
@@ -44,7 +45,7 @@ const RightView = React.memo((props: Props) => {
       </Text>
       <Flex flexDir={'column'} gap={'20px'}>
         {/* Computer Name */}
-        {/* <ComputerNameSection /> */}
+        <ComputerNameSection />
 
         {/* Computer Description  */}
         <ComputerDescriptionSection />
