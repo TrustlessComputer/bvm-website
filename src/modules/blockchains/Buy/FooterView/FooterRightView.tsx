@@ -10,7 +10,8 @@ const FooterRightView = ({ onSuccess }: { onSuccess?: any }) => {
     confirmBtnTitle,
     rollupProtocolSelected,
   } = useBuy();
-  if (!isMainnet)
+
+  const renderOption1 = () => {
     return (
       <Flex
         flex={1}
@@ -51,82 +52,95 @@ const FooterRightView = ({ onSuccess }: { onSuccess?: any }) => {
         </Button>
       </Flex>
     );
+  };
 
-  return (
-    <Flex flex={1} width={'50%'} height="auto" flexDir={'column'} gap={'20px'}>
-      <Flex flexDir={'row'} align={'center'} gap={'10px'}>
-        <Image
-          src={'/blockchains/customize/ic-computer.svg'}
-          w={'35px'}
-          h={'auto'}
-          objectFit={'contain'}
-        />
-        <Text fontSize={'20px'} fontWeight={600} color={'#000'}>
-          Service costs
-        </Text>
+  const renderOption2 = () => {
+    return (
+      <Flex
+        flex={1}
+        width={'50%'}
+        height="auto"
+        flexDir={'column'}
+        gap={'20px'}
+      >
+        <Flex flexDir={'row'} align={'center'} gap={'10px'}>
+          <Image
+            src={'/blockchains/customize/ic-computer.svg'}
+            w={'35px'}
+            h={'auto'}
+            objectFit={'contain'}
+          />
+          <Text fontSize={'20px'} fontWeight={600} color={'#000'}>
+            Service costs
+          </Text>
+        </Flex>
+
+        <Flex flexDir={'column'} gap={'10px'} color="#000">
+          <Flex gap={'5px'}>
+            <Text fontSize={'18px'} fontWeight={500}>
+              • Setup cost:
+            </Text>
+            <Text fontSize={'18px'} fontWeight={400} color={'#1c1c1c'}>
+              {estimateTotalCostData?.SetupCode || '0'}
+            </Text>
+          </Flex>
+
+          <Flex gap={'5px'} alignItems={'flex-end'}>
+            <Text fontSize={'18px'} fontWeight={500}>
+              • Operation cost:
+            </Text>
+            <Text fontSize={'18px'} fontWeight={400} color={'#1c1c1c'}>
+              {estimateTotalCostData?.OperationCost || '0'}
+            </Text>
+          </Flex>
+
+          <Flex gap={'5px'}>
+            <Text fontSize={'18px'} fontWeight={500}>
+              • Rollup cost:
+            </Text>
+            <Text fontSize={'18px'} fontWeight={400} color={'#1c1c1c'}>
+              {estimateTotalCostData?.RollupCost || '0'}
+            </Text>
+          </Flex>
+
+          <Flex align={'center'} gap={'30px'}>
+            <Text fontSize={'25px'} fontWeight={600}>
+              {`Total: ${estimateTotalCostData?.TotalCost} BVM`}
+            </Text>
+            <Button
+              px={'30px'}
+              borderRadius={'14px'}
+              minH={'50px'}
+              minW={'160px'}
+              bgColor={'#17066C'}
+              color={'#fff'}
+              _hover={{
+                opacity: 0.8,
+              }}
+              fontSize={'18px'}
+              leftIcon={
+                <Image
+                  src={'/blockchains/customize/ic-rocket.svg'}
+                  w={'25px'}
+                  h={'auto'}
+                  style={{ filter: 'invert(100%)' }}
+                  objectFit={'contain'}
+                />
+              }
+              disabled={!!estimateTotalCostFetching}
+              onClick={() => submitHandler(onSuccess)}
+            >
+              {confirmBtnTitle}
+            </Button>
+          </Flex>
+        </Flex>
       </Flex>
+    );
+  };
 
-      <Flex flexDir={'column'} gap={'10px'} color="#000">
-        <Flex gap={'5px'}>
-          <Text fontSize={'18px'} fontWeight={500}>
-            • Setup cost:
-          </Text>
-          <Text fontSize={'18px'} fontWeight={400} color={'#1c1c1c'}>
-            {estimateTotalCostData?.SetupCode || '0'}
-          </Text>
-        </Flex>
+  // if !isMainnet ? renderOption1() :  renderOption2()
 
-        <Flex gap={'5px'} alignItems={'flex-end'}>
-          <Text fontSize={'18px'} fontWeight={500}>
-            • Operation cost:
-          </Text>
-          <Text fontSize={'18px'} fontWeight={400} color={'#1c1c1c'}>
-            {estimateTotalCostData?.OperationCost || '0'}
-          </Text>
-        </Flex>
-
-        <Flex gap={'5px'}>
-          <Text fontSize={'18px'} fontWeight={500}>
-            • Rollup cost:
-          </Text>
-          <Text fontSize={'18px'} fontWeight={400} color={'#1c1c1c'}>
-            {estimateTotalCostData?.RollupCost || '0'}
-          </Text>
-        </Flex>
-
-        <Flex align={'center'} gap={'30px'}>
-          <Text fontSize={'25px'} fontWeight={600}>
-            {`Total: ${estimateTotalCostData?.TotalCost} BVM`}
-          </Text>
-          <Button
-            px={'30px'}
-            borderRadius={'14px'}
-            minH={'50px'}
-            minW={'160px'}
-            bgColor={'#17066C'}
-            color={'#fff'}
-            _hover={{
-              opacity: 0.8,
-            }}
-            fontSize={'18px'}
-            leftIcon={
-              <Image
-                src={'/blockchains/customize/ic-rocket.svg'}
-                w={'25px'}
-                h={'auto'}
-                style={{ filter: 'invert(100%)' }}
-                objectFit={'contain'}
-              />
-            }
-            disabled={!!estimateTotalCostFetching}
-            onClick={() => submitHandler(onSuccess)}
-          >
-            {confirmBtnTitle}
-          </Button>
-        </Flex>
-      </Flex>
-    </Flex>
-  );
+  return renderOption1();
 };
 
 export default FooterRightView;

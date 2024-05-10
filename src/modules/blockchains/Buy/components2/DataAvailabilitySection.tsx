@@ -3,7 +3,7 @@ import { ItemDetail } from '../Buy.types';
 import Item from '../components/Item';
 import Section from '../components/Section';
 import { useBuy } from '../../providers/Buy.hook';
-import { Text } from '@chakra-ui/react';
+import { Select, Text } from '@chakra-ui/react';
 
 const DataAvailabilitySection = () => {
   const {
@@ -20,6 +20,60 @@ const DataAvailabilitySection = () => {
   const dataList: ItemDetail[] = isMainnet
     ? dataWithNetwork[NetworkEnum.Network_Mainnet]
     : dataWithNetwork[NetworkEnum.Network_Testnet];
+
+  const renderDropDownList = () => {
+    return (
+      <Select
+        defaultValue={dataValiditySelected}
+        height={'60px'}
+        fontSize={'19px'}
+        borderRadius={'8px'}
+        border={'1px solid #c2c2c2'}
+        color={'#000'}
+        _hover={{
+          border: '1px solid #2c2c2',
+        }}
+        onChange={(e) => {
+          setDataValiditySelected(Number(e.target.value));
+        }}
+      >
+        {dataList?.map((item, index) => {
+          return (
+            <option key={index} value={item.value}>
+              {item.valueStr}
+            </option>
+          );
+        })}
+      </Select>
+    );
+  };
+
+  const renderFlattenList = () => {
+    return dataList?.map((item, index) => {
+      const isBitCoinSyscoin = item.value === DALayerEnum.DALayer_SYSCOIN;
+      return (
+        <Item
+          key={`${item.valueStr} ${index}`}
+          isMainnet={isMainnet}
+          item={item}
+          value={item.value}
+          isSelected={item.value === dataValiditySelected}
+          title={item.valueStr}
+          content={item.price}
+          priceNote={item.priceNote}
+          onClickCallback={(value) => {}}
+          onClickCB={(item) => {
+            setDataValiditySelected(item.value!);
+          }}
+          infor={
+            isBitCoinSyscoin
+              ? "Your rollup will use Syscoin's DA protocol called BitcoinDA, which secures your rollup with Bitcoin's network through merged mining while supplementing with an additive decentralized finality. Syscoin's solution intersects Bitcoin yet is scalable and cost-effective"
+              : undefined
+          }
+        />
+      );
+    });
+  };
 
   return (
     <Section
@@ -53,30 +107,8 @@ const DataAvailabilitySection = () => {
         ),
       }}
     >
-      {dataList?.map((item, index) => {
-        const isBitCoinSyscoin = item.value === DALayerEnum.DALayer_SYSCOIN;
-        return (
-          <Item
-            key={`${item.valueStr} ${index}`}
-            isMainnet={isMainnet}
-            item={item}
-            value={item.value}
-            isSelected={item.value === dataValiditySelected}
-            title={item.valueStr}
-            content={item.price}
-            priceNote={item.priceNote}
-            onClickCallback={(value) => {}}
-            onClickCB={(item) => {
-              setDataValiditySelected(item.value!);
-            }}
-            infor={
-              isBitCoinSyscoin
-                ? "Your rollup will use Syscoin's DA protocol called BitcoinDA, which secures your rollup with Bitcoin's network through merged mining while supplementing with an additive decentralized finality. Syscoin's solution intersects Bitcoin yet is scalable and cost-effective"
-                : undefined
-            }
-          />
-        );
-      })}
+      {/* {renderFlattenList()} */}
+      {renderDropDownList()}
     </Section>
   );
 };

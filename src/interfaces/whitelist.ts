@@ -1,20 +1,41 @@
 export interface SignatureStatus {
-  id: string | number,
-  address: string,
-  num_txs: string,
-  btc_fee: string,
-  gas_point: string,
-  blast_amount: string,
-  blast_point: string,
-  status: "pending" | "unclaimed" | "done",
-  base_point: string,
-  arb_point: string,
-  base_amount: string,
-  arb_amount: string,
-  eigenlayer_point: string,
-  eigenlayer_amount: string,
-  polygon_point: string,
-  polygon_amount: string,
+  id: string | number;
+  address: string;
+  num_txs: string;
+  btc_fee: string;
+  gas_point: string;
+  blast_amount: string;
+  blast_point: string;
+  status: 'pending' | 'unclaimed' | 'done';
+  base_point: string;
+  arb_point: string;
+  base_amount: string;
+  arb_amount: string;
+  eigenlayer_point: string;
+  eigenlayer_amount: string;
+  polygon_point: string;
+  polygon_amount: string;
   manta_amount: string;
   manta_point: string;
+
+  gas_amount: string;
+  merlin_amount: string;
+  merlin_point: string;
+  brc404_point: string;
+  staking_point: string;
+  deposit_point: string;
+  deposit_amount: string;
+  staking_amount: string;
+  savm_amount: string;
+  savm_point: string;
+  testnet_point: string;
+  render_amount: string;
+  render_airdrop: string;
+  fet_amount: string;
+  fet_airdrop: string;
+  point_type: string;
+  swamps_amount: string;
+  swamps_point: string;
+  src20_amount: string;
+  src20_point: string;
 }

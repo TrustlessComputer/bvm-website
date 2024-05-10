@@ -200,6 +200,22 @@ const VoteDetail = () => {
     }
   };
 
+  const getInfoLaunchpad = (data: any) => {
+    try {
+      if (data || data.description) {
+        const _data = JSON.parse(data.description as string);
+        return {
+          supply: _data.supply,
+          hardcap: _data.hardcap,
+          liquidityPercent: _data.liquidityPercent,
+          airdrop: _data.airdrop,
+        };
+      }
+    } catch (error) {
+      return undefined;
+    }
+  };
+
   const renderCountdown = React.useCallback(() => {
     return (
       <Text className={cx(s.status, s[status])} whiteSpace="pre">
@@ -216,6 +232,8 @@ const VoteDetail = () => {
   }, [expiredTimeAt, status, isAfterEndVote]);
 
   if (!proposalDetail) return <Loader />;
+
+  const infoLaunchPad = getInfoLaunchpad(proposalDetail?.proposal);
 
   const isProposalProject =
     getProposalType(proposalDetail?.proposal) === ProposalType.project;
@@ -286,6 +304,30 @@ const VoteDetail = () => {
                     : 'Funding request for BVM community growth'}
                 </span>
               </p>
+              {isProposalProject && infoLaunchPad && (
+                <>
+                  <p className={s.proposedBy}>
+                    Supply{' '}
+                    <span>
+                      {formatCurrency(infoLaunchPad.supply, 0, 0, '', true)}
+                    </span>
+                  </p>
+                  <p className={s.proposedBy}>
+                    Hardcap{' '}
+                    <span>
+                      {formatCurrency(infoLaunchPad.hardcap, 0, 0, '', true)}{' '}
+                      USD
+                    </span>
+                  </p>
+                  <p className={s.proposedBy}>
+                    Liquidity percentage{' '}
+                    <span>{infoLaunchPad.liquidityPercent}%</span>
+                  </p>
+                  <p className={s.proposedBy}>
+                    Airdrop <span>{infoLaunchPad.airdrop}%</span>
+                  </p>
+                </>
+              )}
               {!isProposalProject && proposalData.length > 1 && (
                 <p className={s.proposedBy}>
                   Requested amount{' '}

@@ -1,0 +1,192 @@
+.wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  flex-direction: column;
+  margin-top: 80px;
+  gap: 20px;
+}
+
+.container {
+  box-shadow: 0px 2px 10px 0px #00000026;
+  padding: 40px;
+  border-radius: 12px;
+  background-color: #fff;
+  border: 1px solid #efefef;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  @include is-mobile {
+    margin-top: 30px;
+    max-width: 90vw;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 34px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #000;
+    span {
+      color: #1aaceb;
+    }
+  }
+
+  .desc {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: #000;
+  }
+
+  .balanceWrapper {
+    background: linear-gradient(
+      90deg,
+      rgba(71, 155, 253, 0.1) 0%,
+      rgba(102, 51, 206, 0.1) 100%
+    );
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    .balanceTitle {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.02em;
+      text-align: center;
+      text-transform: uppercase;
+      color: #000;
+    }
+    .balanceBalance {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 100%;
+      letter-spacing: 0.02em;
+      text-align: center;
+      color: #000;
+    }
+  }
+
+  .btnClaimed {
+    margin-top: 10px;
+    background-color: #1aaceb;
+    width: 100%;
+    flex-direction: column;
+    padding: 12px !important;
+    height: fit-content;
+    // gap: 4px;
+    p {
+      &:first-child {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: white;
+      }
+      &:last-child {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: white;
+      }
+    }
+  }
+  .linkClaimed {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: #000;
+    text-transform: uppercase;
+    text-decoration: underline;
+    cursor: pointer;
+    // margin-top: 5px;
+    background-color: transparent;
+    padding: 0px !important;
+  }
+
+  .countdownTime {
+    margin-top: 5px;
+    p {
+      color: #fff !important;
+      font-size: 30px !important;
+    }
+  }
+
+  .claimedBox {
+    background: rgba(172, 248, 199, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 20px;
+    position: absolute;
+    top: -5px;
+    left: -30px;
+    transform: rotate(-45deg);
+    padding-bottom: 0;
+
+    p {
+      color: #000;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 12px;
+    }
+  }
+}
+
+.faqContainer {
+  width: 100%;
+  .title {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 34px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #000;
+  }
+
+  :global {
+    .faqs-wrapper {
+      & > div {
+        & > div {
+          padding: 0;
+        }
+      }
+      .chakra-accordion__button {
+        padding: 0;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        p {
+          color: #000;
+          font-size: 20px;
+        }
+      }
+      .chakra-collapse {
+        padding-top: 0;
+        p {
+          color: #000;
+        }
+      }
+    }
+  }
+}
+
+.tooltipIcon2 {
+  width: 16px;
+  cursor: pointer;
+  opacity: 0.7;
+  filter: invert(1);
+  display: inline-block;
+  margin-left: 4px;
+}

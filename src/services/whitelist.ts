@@ -3,7 +3,10 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import createAxiosInstance from './http-client';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { SignatureStatus } from '@/interfaces/whitelist';
-import celestiaHelper, { CelestiaAddress, CelestiaSignature } from '@/utils/celestia';
+import celestiaHelper, {
+  CelestiaAddress,
+  CelestiaSignature,
+} from '@/utils/celestia';
 import { EVMFieldType } from '@/stores/states/user/types';
 
 const apiClient = createAxiosInstance({
@@ -25,33 +28,35 @@ export const setBearerToken = (token: string) => {
   }
 };
 
-setBearerToken((AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey()) as string);
+setBearerToken(
+  (AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey()) as string,
+);
 
 const getTopLeaderBoards = async (params: {
   page?: number;
   limit?: number;
-}): Promise<{ data: ILeaderBoardPoint[], count: string }> => {
+}): Promise<{ data: ILeaderBoardPoint[]; count: string }> => {
   const res = (await apiClient.get(`/bvm/leaderboards`, {
     params,
   })) as any;
 
-  const data: ILeaderBoardPoint[] = res?.data
-  const count: string = res?.count
+  const data: ILeaderBoardPoint[] = res?.data;
+  const count: string = res?.count;
 
   return {
-    data: (data || []).map(item => ({
+    data: (data || []).map((item) => ({
       ...item,
       boost: Number(item.boost || '0').toString(),
-    })),
-    count: count
+    })) as any,
+    count: count,
   };
 };
 
 const verifyBTCSignature = async (params: {
-  address: string,
-  message: string,
-  signature: string,
-  pubKey: string,
+  address: string;
+  message: string;
+  signature: string;
+  pubKey: string;
 }) => {
   const res = (await apiClient.post(`/bvm/verify-btc-address`, {
     address: params.address,
@@ -59,13 +64,15 @@ const verifyBTCSignature = async (params: {
     signature: params.signature,
     pub_key: params.pubKey,
   })) as any;
-  return res
+  return res;
 };
 
 const getAllowBTCStatus = async (): Promise<SignatureStatus[]> => {
-  const res = (await apiClient.get(`/bvm/verify-btc-address`)) as SignatureStatus[];
-  return res
-}
+  const res = (await apiClient.get(
+    `/bvm/verify-btc-address`,
+  )) as SignatureStatus[];
+  return res;
+};
 
 const requestClaimBTCPoint = async (status: SignatureStatus[]) => {
   for (let i = 0; i < status.length; i++) {
@@ -81,9 +88,11 @@ const requestClaimBTCPoint = async (status: SignatureStatus[]) => {
 };
 
 const getAllowCelestiaStatus = async (): Promise<SignatureStatus[]> => {
-  const res = (await apiClient.get(`/bvm/verify-celestia-address`)) as SignatureStatus[];
+  const res = (await apiClient.get(
+    `/bvm/verify-celestia-address`,
+  )) as SignatureStatus[];
   return res;
-}
+};
 
 const requestClaimCelestiaPoint = async (status: SignatureStatus[]) => {
   for (let i = 0; i < status.length; i++) {
@@ -98,40 +107,65 @@ const requestClaimCelestiaPoint = async (status: SignatureStatus[]) => {
   }
 };
 
-const verifyCelestiaSignature = async (params: { address: CelestiaAddress, signature: CelestiaSignature }) => {
+const verifyCelestiaSignature = async (params: {
+  address: CelestiaAddress;
+  signature: CelestiaSignature;
+}) => {
   const res = (await apiClient.post(`/bvm/verify-celestia-address`, {
     address: params.address.bech32Address,
     message: celestiaHelper.CelestiaConfig.messageForSign,
     signature: params.signature.signature,
     pub_key: params.signature.pub_key.value,
   })) as any;
-  return res
-}
+  return res;
+};
 
-const verifyEigenlayerSignature = async (params: { address: string, signature: string, message: string }) => {
-  const res = (await apiClient.post(`/bvm/verify-celestia-address?network=ethereum`, {
-    address: params.address,
-    message: params.message,
-    signature: params.signature,
-  })) as any;
-  return res
-}
+const verifyEigenlayerSignature = async (params: {
+  address: string;
+  signature: string;
+  message: string;
+}) => {
+  const res = (await apiClient.post(
+    `/bvm/verify-celestia-address?network=ethereum`,
+    {
+      address: params.address,
+      message: params.message,
+      signature: params.signature,
+    },
+  )) as any;
+  return res;
+};
 
-const verifyEVMSignature = async (params: { address: string, signature: string, message: string, network: string }) => {
+const verifyEVMSignature = async (params: {
+  address: string;
+  signature: string;
+  message: string;
+  network: string;
+}) => {
   const res = (await apiClient.post(`/bvm/verify/?network=${params.network}`, {
     address: params.address,
     message: params.message,
     signature: params.signature,
   })) as any;
-  return res
-}
-
-const getAllowEVMStatus = async (network: string): Promise<SignatureStatus[]> => {
-  const res = (await apiClient.get(`/bvm/verify/?network=${network}`)) as SignatureStatus[];
   return res;
-}
+};
 
-const requestClaimEVMPoint = async ({ status, network }: { status: SignatureStatus[], network: string }) => {
+const getAllowEVMStatus = async (
+  network: string,
+): Promise<SignatureStatus[]> => {
+  const res = (await apiClient.get(
+    `/bvm/verify/?network=${network}`,
+  )) as SignatureStatus[];
+  return res;
+};
+
+const requestClaimEVMPoint = async ({
+  status,
+  network,
+}: {
+  status: SignatureStatus[];
+  network: string;
+}) => {
   for (let i = 0; i < status.length; i++) {
     try {
       const item = status[i];
@@ -144,7 +178,6 @@ const requestClaimEVMPoint = async ({ status, network }: { status: SignatureStat
   }
 };
 
-
 export {
   getTopLeaderBoards,
   verifyBTCSignature,
@@ -156,5 +189,5 @@ export {
   verifyEVMSignature,
   getAllowEVMStatus,
   requestClaimEVMPoint,
-  verifyEigenlayerSignature
-}
+  verifyEigenlayerSignature,
+};

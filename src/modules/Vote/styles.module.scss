@@ -3,7 +3,7 @@
   padding-top: 60px;
   padding-bottom: 24px;
   * {
-    font-family: 'Urbanist';
+    font-family: var(--font-dmsans);
   }
 
   @include w-max(768px) {

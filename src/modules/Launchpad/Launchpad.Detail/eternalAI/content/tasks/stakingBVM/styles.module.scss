@@ -1,0 +1,30 @@
+.tier_container {
+  border: 1px solid #ECECEC99;
+  box-shadow: 0px 0px 20px -6px #0000000F;
+  background: #FFFFFF;
+  padding: 16px;
+  border-radius: 12px;
+
+  .tier_index {
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .tier_title {
+    color: #6C6F93;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .tier_description {
+    color: #000000;
+    font-size: 16px;
+    font-weight: 400;
+
+    span {
+      color: #00AA6C;
+      font-weight: 600;
+    }
+  }
+}

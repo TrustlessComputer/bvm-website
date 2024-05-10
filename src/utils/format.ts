@@ -147,7 +147,7 @@ export const formatAmount = (params: IFormat) => {
 
 export const formatAmountV3 = (amount: string) => {
   if (!amount) return '--';
-  return new BigNumber(amount).dividedBy(1e18).decimalPlaces(6).toFixed();
+  return new BigNumber(amount).dividedBy(1e18).decimalPlaces(2).toFixed();
 };
 
 interface IFormatToHuman extends IFormat {
@@ -259,5 +259,16 @@ export const formatDate = (date: string, format = 'D MMM, HH:mm:ss') => {
       year: 'numeric',
       day: 'numeric',
     });
+  }
+};
+
+export const formatAddressOrName = (name: string, length = 12): string => {
+  if (!name) return '';
+  if (ethers.utils.isAddress(name)) {
+    return name.substring(0, 6);
+  } else if (name.startsWith('bc1p')) {
+    return name.substring(0, 8);
+  } else {
+    return name?.length > length ? name.substring(0, length) + '...' : name;
   }
 };

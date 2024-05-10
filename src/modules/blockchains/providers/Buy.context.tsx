@@ -221,6 +221,10 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     [networkSelected],
   );
 
+  useEffect(() => {
+    setDataValiditySelected(DALayerEnum.DALayer_BTC);
+  }, [isMainnet]);
+
   const orderBuyReq = useMemo(() => {
     // const computerName = computerNameField.value || '';
     const computerName = getRandonComputerName_VS2(isMainnet);

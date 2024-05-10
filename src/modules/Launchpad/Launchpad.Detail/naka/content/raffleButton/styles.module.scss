@@ -1,0 +1,173 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.3s;
+  position: relative;
+  background: #FAFAFA;
+  border: 1px solid #CECECE;
+  cursor: pointer;
+  border-radius: 8px;
+
+  .text_text {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .timeWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .time {
+    //margin-top: 10px;
+    font-size: 11px;
+    font-weight: 400;
+    //text-transform: uppercase;
+
+    p {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      white-space: pre;
+    }
+
+    @include is-mobile {
+      font-size: 14px;
+    }
+  }
+  .raffleBgIcon {
+    background: url('/images/launchpad/raffle/raffle_frame.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 4px;
+    align-items: flex-start;
+    width: 104px;
+    height: 104px;
+
+    > img {
+      min-width: 96px;
+      min-height: 96px;
+      max-width: 96px;
+      max-height: 96px;
+    }
+  }
+}
+
+.menuContent {
+  border: 1px solid #CECECE;
+  padding: 20px;
+  background: #FFFFFF !important;
+  min-width: 500px;
+  border-radius: 8px !important;
+
+  &:focus-visible {
+    box-shadow: none !important;
+  }
+
+  @include is-mobile {
+    min-width: 85vw;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+  }
+
+  .desc {
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000;
+    margin-top: 8px;
+    white-space: pre-wrap;
+    article {
+      display: inline-flex;
+      &::before {
+        content: '-';
+        display: block;
+        padding-right: 5px;
+      }
+    }
+  }
+
+  .shareNow {
+    background-color: #fa4e0e;
+    // align-self: flex-start;
+    margin-top: 8px;
+    border-radius: 0;
+  }
+
+  .yourRaffleCode {
+    margin-top: 10px;
+    font-size: 14px;
+
+    > div {
+      padding: 8px 16px;
+
+      &:first-child {
+        color: #ffffff;
+        background: #ffffff12;
+      }
+
+      &:last-child {
+        color: #000000;
+        background: #ffffff;
+      }
+    }
+  }
+
+  .raffleBg {
+    background: url('/images/launchpad/raffle/raffle_frame.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 8px;
+    align-items: flex-start;
+    width: 156px;
+    height: 156px;
+
+    > img {
+      min-width: 140px;
+      min-height: 140px;
+      max-width: 140px;
+      max-height: 140px;
+    }
+  }
+
+  :global {
+    .chakra-popover__body {
+      padding: 0;
+      background: #ffffff !important;
+      margin-top: 0 !important;
+    }
+  }
+}
+.flexContainer {
+  gap: 10px;
+}
+
+.learnMoreWrapper {
+  background: #6633CE;
+  padding: 4px 12px 4px 4px;
+  color: #FFFFFF;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  gap: 8px;
+  width: 100%;
+  min-width: 180px;
+  border-radius: 100px;
+
+  &.isDisable {
+    opacity: 70%;
+    cursor: not-allowed;
+  }
+
+  p {
+    color: #ffffff !important;
+  }
+}

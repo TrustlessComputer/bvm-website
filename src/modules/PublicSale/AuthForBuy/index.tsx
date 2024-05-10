@@ -14,7 +14,7 @@ interface IAuthForBuy extends PropsWithChildren {
   hideBuyAndStake?: boolean;
 }
 
-const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
+const AuthForBuy: React.FC<IAuthForBuy> = ({ hideBuyAndStake }) => {
   const user = useAppSelector(userSelector);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasStaked, setHasStaked] = useState(false);
@@ -29,7 +29,7 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
   }, [user]);
 
   const textAction = useMemo(() => {
-    if(Number(userContributeInfo?.usdt_value) > 0) {
+    if (Number(userContributeInfo?.usdt_value) > 0) {
       return 'Buy $BVM';
     }
 
@@ -101,7 +101,9 @@ const AuthForBuy: React.FC<IAuthForBuy> = ({hideBuyAndStake}) => {
           onHide={onClose}
           title={isSigned ? 'Buy $BVM' : 'Buy $BVM'}
           headerClassName={s.modalHeader}
-          className={cs(s.modalContent, isSigned ? s.deposit : s.notSignModal, { [s.banned]: isBanned })}
+          className={cs(s.modalContent, isSigned ? s.deposit : s.notSignModal, {
+            [s.banned]: isBanned,
+          })}
           // size={modalSize}
         >
           <DepositContent hasStaked={hasStaked} setBanned={setIsBanned} />

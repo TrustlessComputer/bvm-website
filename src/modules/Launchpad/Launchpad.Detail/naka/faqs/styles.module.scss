@@ -1,0 +1,61 @@
+.container {
+  //margin: 4rem auto;
+  //width: 744px;
+  align-self: center;
+  //background: #1e1e22;
+  //border: 1px solid #353945;
+  //box-shadow: 0px 5px 16px rgba(8, 15, 52, 0.06);
+  //border-radius: 12px;
+
+  :global {
+    .chakra-heading {
+      color: #000000;
+    }
+
+    .faq-question {
+      color: #000000;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .faq-answer {
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 16px;
+      font-weight: 400;
+      white-space: unset;
+
+      p {
+        color: inherit;
+      }
+    }
+
+    .faqs-wrapper {
+      > div > div {
+        padding: 0;
+      }
+    }
+
+    .chakra-accordion {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .chakra-accordion__button {
+      background-color: transparent;
+
+      &:hover {
+        background-color: transparent;
+      }
+      &:focus-visible {
+        box-shadow: none;
+      }
+    }
+
+    .chakra-accordion__panel {
+      background-color: transparent;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    // width: 100vw;
+  }
+}

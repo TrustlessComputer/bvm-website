@@ -78,7 +78,7 @@ const SubmitProposal = ({
         <Button
           minH="44px"
           fontSize="16px"
-          bg={isAuthen && !submitProposalAble ? '#10C800' : '#fa4e0e'}
+          bg={'#fa4e0e'}
           color="#fff"
           borderRadius="100px"
           onClick={onSubmitProposal}

@@ -44,6 +44,7 @@ const NetworkSection = () => {
             onClickCB={(item) => {
               setNetworkSelected(item.value);
             }}
+            showLeftView={false}
           />
         );
       })}

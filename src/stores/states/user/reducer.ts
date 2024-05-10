@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { EVMFieldType, UserState } from './types';
+import { EVMFieldType, IAuthSetting, UserState } from './types';
 import uniqueBy from '@popperjs/core/lib/utils/uniqueBy';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import NakaUserStorage from '@utils/storage/naka.storage';
@@ -25,6 +25,43 @@ const initialState: UserState = {
   userToken: null,
   depositAddress: null,
   nakaUser: undefined,
+
+  x_token: undefined,
+  authSetting: {
+    naka_fee_enabled: false,
+  },
+  allow404: {
+    status: [],
+    loaded: false,
+  },
+  stakingBVM: {
+    status: [],
+    loaded: false,
+  },
+  holdingBTC: {
+    status: [],
+    loaded: false,
+  },
+  allowSAVM: {
+    status: [],
+    loaded: false,
+  },
+  holdingEAI: {
+    status: [],
+    loaded: false,
+  },
+  holdingRDNR: {
+    status: [],
+    loaded: false,
+  },
+  holdingSWPL2: {
+    status: [],
+    loaded: false,
+  },
+  holdingSWPSRC20: {
+    status: [],
+    loaded: false,
+  },
 } as any;
 
 const slice = createSlice({
@@ -105,16 +142,19 @@ const slice = createSlice({
     removeUserToken: (state) => {
       (state as any).userToken = undefined;
       (state as any).user = undefined;
-      AuthenStorage.setAuthenKey("");
-      AuthenStorage.setGuestAuthenKey("");
+      AuthenStorage.setAuthenKey('');
+      AuthenStorage.setGuestAuthenKey('');
     },
     setDepositAddress: (state, action) => {
-      const key = state.userToken || AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
-      if(key && typeof key === 'string') {
+      const key =
+        state.userToken ||
+        AuthenStorage.getAuthenKey() ||
+        AuthenStorage.getGuestAuthenKey();
+      if (key && typeof key === 'string') {
         state.depositAddress = {
           ...(state.depositAddress || {}),
-          [(key as string).toLowerCase()]: action.payload
-        }
+          [(key as string).toLowerCase()]: action.payload,
+        };
       }
     },
     setNakaUser: (state, action) => {
@@ -123,13 +163,69 @@ const slice = createSlice({
       if (!!address && !!token) {
         state.nakaUser = {
           address: address,
-          token: token
-        }
-        NakaUserStorage.setWalletToken(token)
-        NakaUserStorage.setUserAddress(address)
+          token: token,
+        };
+        NakaUserStorage.setWalletToken(token);
+        NakaUserStorage.setUserAddress(address);
       }
-
-    }
+    },
+    setAuthSetting: (state, action) => {
+      state.authSetting = {
+        ...state.authSetting,
+        ...action.payload,
+      } as IAuthSetting;
+    },
+    setXToken: (state, action) => {
+      state.x_token = action.payload;
+    },
+    setAllow404: (state, action) => {
+      state.allow404 = {
+        status: action.payload.status,
+        loaded: action.payload.loaded,
+      };
+    },
+    setStakingBVM: (state, action) => {
+      state.stakingBVM = {
+        status: action.payload.status,
+        loaded: action.payload.loaded,
+      };
+    },
+    setHoldingBTC: (state, action) => {
+      state.holdingBTC = {
+        status: action.payload.status,
+        loaded: action.payload.loaded,
+      };
+    },
+    setAllowSAVM: (state, action) => {
+      state.allowSAVM = {
+        status: action.payload.status,
+        loaded: action.payload.loaded,
+      };
+    },
+    setHoldingEAI: (state, action) => {
+      state.holdingEAI = {
+        status: action.payload.status,
+        loaded: action.payload.loaded,
+      };
+    },
+    setHoldingRNDR: (state, action) => {
+      state.holdingRDNR = {
+        status: action.payload.status,
+        loaded: action.payload.loaded,
+      };
+    },
+    setHoldingSWPL2: (state, action) => {
+      state.holdingSWPL2 = {
+        status: action.payload.status,
+        loaded: action.payload.loaded,
+      };
+    },
+    setHoldingSWPSRC20: (state, action) => {
+      state.holdingSWPSRC20 = {
+        status: action.payload.status,
+        loaded: action.payload.loaded,
+      };
+    },
   },
 });
 
@@ -151,6 +247,16 @@ export const {
   removeUserToken,
   setDepositAddress,
   setNakaUser,
+  setXToken,
+  setAllow404,
+  setStakingBVM,
+  setHoldingBTC,
+  setAllowSAVM,
+  setHoldingEAI,
+  setHoldingRNDR,
+  setHoldingSWPL2,
+  setHoldingSWPSRC20,
+  setAuthSetting,
 } = slice.actions;
 
 export default slice.reducer;

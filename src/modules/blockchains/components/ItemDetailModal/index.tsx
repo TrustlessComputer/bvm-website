@@ -7,6 +7,7 @@ import { OrderItem } from '@/stores/states/l2services/types';
 import { useAppSelector } from '@/stores/hooks';
 import { getOrderByIDSelector } from '@/stores/states/l2services/selector';
 import useOrderMapper from '../../hooks/useOrderMapper';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 interface IProps {
   show: boolean;
@@ -31,6 +32,7 @@ const CustomizeTokenModal = (props: IProps) => {
     content = '',
     isLink = false,
     contentColorStr = '#1c1c1c',
+    iconShareLink = false,
   ) => {
     return (
       <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
@@ -38,19 +40,41 @@ const CustomizeTokenModal = (props: IProps) => {
           {label}
         </Text>
         {isLink ? (
-          <Link
-            fontSize={'18px'}
-            fontWeight={400}
-            color={'#1c1c1c'}
-            href={`${content}`}
-            textDecorationStyle={'solid'}
-            textDecorationLine={`${content.length > 0 ? 'underline' : 'none'}`}
-            textDecorationColor={'#000'}
-            alignSelf={'flex-end'}
-            textAlign={'end'}
-          >
-            {`${content.length > 0 ? content : '--'}`}
-          </Link>
+          <Flex flexDir={'row'} align={'center'} gap={'5px'}>
+            <Link
+              fontSize={'18px'}
+              fontWeight={400}
+              color={'#1c1c1c'}
+              href={
+                iconShareLink
+                  ? `https://bvm.network/blockchains/${content || ''}`
+                  : `${content}`
+              }
+              target={'_blank'}
+              textDecorationStyle={'solid'}
+              textDecorationLine={`${
+                content.length > 0 ? 'underline' : 'none'
+              }`}
+              textDecorationColor={'#000'}
+              alignSelf={'flex-end'}
+              textAlign={'end'}
+            >
+              {`${content.length > 0 ? content : '--'}`}
+            </Link>
+            {iconShareLink && (
+              <ExternalLinkIcon
+                w={'20px'}
+                h={'20px'}
+                color={'#777777'}
+                onClick={() => {
+                  window.open(
+                    `https://bvm.network/blockchains/${content || ''}`,
+                    '_blank',
+                  );
+                }}
+              ></ExternalLinkIcon>
+            )}
+          </Flex>
         ) : (
           <Text
             fontSize={'18px'}
@@ -79,6 +103,13 @@ const CustomizeTokenModal = (props: IProps) => {
           {mapper.computerIndexer || ''}
         </Text>
         <Flex flexDir={'column'} gap={'20px'} mt={'20px'}>
+          {renderRowInfor(
+            'Instance ID',
+            `${order.instanceId || ''}`,
+            true,
+            '#1c1c1c',
+            true,
+          )}
           {renderRowInfor('Bitcoin L2 Name', `${order.chainName}`)}
           {!mapper.isLayer1 &&
             renderRowInfor('Rollup protocol', 'Optimistic rollups')}

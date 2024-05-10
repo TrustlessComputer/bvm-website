@@ -54,7 +54,7 @@ export const BuyPage = React.memo((props: Props) => {
     <Flex
       direction={'column'}
       maxH={'100dvh'}
-      py="20px"
+      py="10px"
       gap={'20px'}
       className={s.container}
     >
@@ -139,7 +139,8 @@ export const BuyPage = React.memo((props: Props) => {
       </Flex>
 
       <Flex
-        p={'30px'}
+        px={'50px'}
+        py={'20px'}
         direction={'column'}
         borderRadius={'20px'}
         display={'flex'}
