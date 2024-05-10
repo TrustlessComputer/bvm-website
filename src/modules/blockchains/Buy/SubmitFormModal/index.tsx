@@ -1,21 +1,27 @@
 import BaseModal from '@/components/BaseModal';
 import { Button, Divider, Flex, Text } from '@chakra-ui/react';
 
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useBuy } from '../../providers/Buy.hook';
 import { RollupEnum } from '../Buy.constanst';
 import s from './styles.module.scss';
+import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import BigNumber from 'bignumber.js';
 
-const MAX_CLICK = 5;
+// const MAX_CLICK = 5;
+const MIN_BVM_REQUIRED = 1;
 
 interface IProps {
   show: boolean;
   onClose?: (() => void) | any;
   onSuccess?: () => Promise<void>;
+  onTopupNow?: () => Promise<void>;
 }
 
-const CustomizeTokenModal = (props: IProps) => {
-  const { show, onClose, onSuccess } = props;
+const SubmitFormModal = (props: IProps) => {
+  const { show, onClose, onSuccess, onTopupNow } = props;
   const {
     computerNameField,
     projectWebSiteField,
@@ -23,9 +29,45 @@ const CustomizeTokenModal = (props: IProps) => {
     submitFormParams,
     orderBuyHandler,
     rollupProtocolSelected,
+    isMainnet,
+    isSubmiting,
   } = useBuy();
 
-  const [countClick, setCountClick] = useState(0);
+  const { isL2ServiceLogged, onLogin } = useL2ServiceAuth();
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+
+  // const [countClick, setCountClick] = useState(0);
+
+  const buttonSubmitObj = useMemo(() => {
+    let title = 'Submit';
+    let exec: any = () => {};
+
+    if (isMainnet) {
+      title = 'Submit';
+      exec = onSuccess;
+    } else {
+      if (!isL2ServiceLogged || !accountInforL2Service) {
+        title = 'Connect Wallet';
+        exec = onLogin;
+      } else {
+        const isNotEnoughtBalance = new BigNumber(
+          accountInforL2Service.balanceFormatted,
+        ).lt(MIN_BVM_REQUIRED); // balance < 1 BVM
+
+        if (isNotEnoughtBalance) {
+          title = 'Topup Now';
+          exec = onTopupNow;
+        } else {
+          title = 'Submit';
+          exec = onSuccess;
+        }
+      }
+    }
+    return {
+      title,
+      exec,
+    };
+  }, [accountInforL2Service, onLogin, onSuccess, isL2ServiceLogged, isMainnet]);
 
   const renderRowInfor = (label = '', content = '') => {
     return (
@@ -49,7 +91,7 @@ const CustomizeTokenModal = (props: IProps) => {
       icCloseUrl="/icons/ic-close-grey.svg"
     >
       <Flex flexDir={'column'}>
-        <Button
+        {/* <Button
           position={'absolute'}
           top={0}
           left={0}
@@ -66,9 +108,10 @@ const CustomizeTokenModal = (props: IProps) => {
               onClose && onClose();
             }
           }}
-        />
+        /> */}
 
         <Flex flexDir={'column'} gap={'20px'} mt={'20px'}>
+          {renderRowInfor('Bitcoin L2 Name:', submitFormParams?.bitcoinL2Name)}
           {renderRowInfor('Network:', submitFormParams?.network)}
           {renderRowInfor('Block Time:', submitFormParams?.blockTime)}
           {renderRowInfor('Rollup Protocol:', submitFormParams?.rollupProtocol)}
@@ -100,7 +143,7 @@ const CustomizeTokenModal = (props: IProps) => {
               borderWidth={'1px'}
               onClick={onClose}
             >
-              Cancel
+              {'Cancel'}
             </Button>
             <Button
               flex={1}
@@ -108,12 +151,13 @@ const CustomizeTokenModal = (props: IProps) => {
               color={'#fff'}
               borderRadius={'100px'}
               minH={'50px'}
+              isLoading={isSubmiting}
               _hover={{
                 opacity: 0.8,
               }}
-              onClick={onSuccess}
+              onClick={buttonSubmitObj.exec}
             >
-              Submit
+              {buttonSubmitObj.title}
             </Button>
           </Flex>
         </Flex>
@@ -122,4 +166,4 @@ const CustomizeTokenModal = (props: IProps) => {
   );
 };
 
-export default CustomizeTokenModal;
+export default SubmitFormModal;

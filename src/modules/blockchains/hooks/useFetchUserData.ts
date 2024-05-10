@@ -10,7 +10,7 @@ import { nakaAddressSelector } from '@/stores/states/user/selector';
 import { useEffect, useRef } from 'react';
 import { batch } from 'react-redux';
 
-const TIMER_INTERVAL = 10000; //10s
+const TIMER_INTERVAL = 6000; //6s
 
 export const useFetchUserData = () => {
   const dispatch = useAppDispatch();
@@ -36,7 +36,7 @@ export const useFetchUserData = () => {
     batch(() => {
       dispatch(fetchOrderList());
       dispatch(fetchAllOrders());
-      dispatch(getQuickStart());
+      // dispatch(getQuickStart());
     });
   };
 

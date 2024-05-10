@@ -157,6 +157,9 @@ export type IBuyContext = ComputerNameSection &
     showSubmitFormResult: boolean;
     setShowSubmitFormResult: (value: boolean) => void;
 
+    showTopupModal: boolean;
+    setShowTopupModal: (value: boolean) => void;
+
     // Action
     submitHandler: (onSuccess?: any) => Promise<void>;
     confirmSubmitHandler: () => Promise<void>;
@@ -201,6 +204,9 @@ export const BuyContextInit: IBuyContext = {
 
   showSubmitFormResult: false,
   setShowSubmitFormResult: () => {},
+
+  showTopupModal: false,
+  setShowTopupModal: () => {},
 
   // ------------------------------------------------------------
   computerNameField: {},
