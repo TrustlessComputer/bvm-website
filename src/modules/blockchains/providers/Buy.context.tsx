@@ -53,12 +53,17 @@ import l2ServicesAPI, {
   orderBuyAPI,
   submitContactVS2,
 } from '@/services/api/l2services';
-import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
+import { useAppDispatch } from '@/stores/hooks';
 import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
 import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
 import { getErrorMessage } from '@/utils/errorV2';
+import { useFetchUserData } from '../hooks/useFetchUserData';
+import {
+  setShowOnlyMyOrder,
+  setViewMode,
+} from '@/stores/states/l2services/reducer';
+import { useRouter } from 'next/navigation';
 
 export type IField = {
   value?: string;
@@ -83,28 +88,16 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     nakaAddress,
   } = useNakaAuthen();
 
+  const router = useRouter();
+
   const {
     onLoginL2Service,
     isL2ServiceLogged,
     isNeededRequestSignMessageFromNakaWallet,
   } = useL2ServiceAuth();
 
-  // const { onSuccess } = props;
-  const goDashboardPage = (flag1: boolean, flag2: boolean) => {}; //TODO A
-  // const { onConnect } = useContext(WalletContext);
-  const requiredLogin = () => {}; //TODO A
-  // const accountInfo = useAppSelector(accountInfoSelector);
   const accountInfo = true;
-  // const onFetchData = useFetchUserData();
-  const onFetchData = () => {}; //TODO A
-
-  // const { search } = useLocation();
-  // const { toggleContact } = useContext(ModalsContext);
-
-  // const urlParams = new URLSearchParams(search);
-  // const typeData = urlParams?.get('type')?.replace('/', '') || undefined;
-  // const builderStateInit = getBuyBuilderStateInit(typeData);
-  // const [buyBuilderState, setBuyBuilderState] = useState<BuyBuilderSelectState>(builderStateInit);
+  const onFetchData = useFetchUserData();
 
   // ------------------------------------------------------------
   // Text and TextArea Fields
@@ -209,6 +202,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   const [showSubmitFormResult, setShowSubmitFormResult] =
     useState<boolean>(false);
 
+  const [showTopupModal, setShowTopupModal] = useState(false);
   // ------------------------------------------------------------
   // API DATA
   // ------------------------------------------------------------
@@ -327,6 +321,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     totalSupplyField,
     tickerField,
     receivingAddressField,
+    computerNameField,
   ]);
 
   const submitFormParams: SubmitFormParams = {
@@ -585,8 +580,14 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
   const confirmSubmitHandler = async () => {
     try {
-      await submitContactVS2(submitFormParams);
-      setShowSubmitFormResult(true);
+      if (isMainnet) {
+        // Call API Contact and Push Slack Notification (team Growth will contact to user)
+        await submitContactVS2(submitFormParams);
+        setShowSubmitFormResult(true);
+      } else {
+        // Call API Register Instance
+        await orderBuyHandler();
+      }
     } catch (error) {
       console.log('[confirmSubmitHandler] ERROR 1: ', error);
       const { message, desc } = getErrorMessage(error);
@@ -602,37 +603,46 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     try {
       setSubmiting(true);
 
-      const twitterAccessToken = parent?.localStorage?.getItem('TWITTER_TOKEN');
-      let twitterID;
-      let userTwitterInfor;
+      // const twitterAccessToken = parent?.localStorage?.getItem('TWITTER_TOKEN');
+      // let twitterID;
+      // let userTwitterInfor;
 
-      if (twitterAccessToken && twitterAccessToken.length > 0) {
-        userTwitterInfor = await getUser(twitterAccessToken);
-        twitterID = userTwitterInfor?.twitter_id;
-      }
+      // if (twitterAccessToken && twitterAccessToken.length > 0) {
+      //   userTwitterInfor = await getUser(twitterAccessToken);
+      //   twitterID = userTwitterInfor?.twitter_id;
+      // }
 
       let orderBuyReqParams: IOrderBuyReq = {
         ...orderBuyReq,
-        twitter_id: twitterID,
+        twitter_id: '',
       };
 
-      // console.log('DEBUG [orderBuyHandler] params: --- ', orderBuyReqParams);
+      console.log('Register Instance Params: ', orderBuyReqParams);
 
       const result = await orderBuyAPI(orderBuyReqParams);
-      await sleep(2);
+
+      await sleep(1);
+
       if (result) {
-        onFetchData();
-        await sleep(1);
+        // Show Toast Success
         toast.success('Order successful', {
           duration: 1000,
         });
-        goDashboardPage(isMainnet, true);
+
+        await sleep(1);
+
+        //Navigate to BlockChain (checkbox "Your Bitcoin L2" have been selected )
+
+        dispatch(setViewMode('Testnet'));
+        dispatch(setShowOnlyMyOrder(true));
+        onFetchData();
+        router.push('/blockchains');
       }
-      onSuccess && onSuccess();
     } catch (error) {
       const { message } = getErrorMessage(error);
       toast.error(message);
     } finally {
+      console.log('[orderBuyHandler] finally: ');
       setSubmiting(false);
     }
   };
@@ -758,6 +768,9 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
     submitFormParams,
     orderBuyHandler,
+
+    showTopupModal,
+    setShowTopupModal,
 
     isStandardMode,
   };

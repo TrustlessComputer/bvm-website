@@ -21,6 +21,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
+import TopupModal from '../components/TopupModal';
 
 export type Props = {
   onSuccess?: () => void;
@@ -37,9 +38,13 @@ export const BuyPage = React.memo((props: Props) => {
     showSubmitFormResult,
     setShowSubmitFormResult,
     rollupProtocolSelected,
+    showTopupModal,
+    setShowTopupModal,
+    isMainnet,
   } = useBuy();
   const router = useRouter();
   const { isL2ServiceLogged, onLogin } = useL2ServiceAuth();
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
 
   if (isAvailableListFetching)
     return (
@@ -158,6 +163,9 @@ export const BuyPage = React.memo((props: Props) => {
           onSuccess={async () => {
             confirmSubmitHandler();
           }}
+          onTopupNow={async () => {
+            setShowTopupModal(true);
+          }}
         />
       )}
 
@@ -166,6 +174,22 @@ export const BuyPage = React.memo((props: Props) => {
           show={showSubmitFormResult}
           onClose={() => {
             setShowSubmitFormResult(false);
+          }}
+          onSuccess={async () => {}}
+        />
+      )}
+
+      {showTopupModal && (
+        <TopupModal
+          show={showTopupModal}
+          warningMessage={
+            'Operating your Bitcoin L2 testnet requires 1 $BVM per day.'
+          }
+          infor={{
+            paymentAddress: `${accountInforL2Service?.topUpWalletAddress}`,
+          }}
+          onClose={() => {
+            setShowTopupModal(false);
           }}
           onSuccess={async () => {}}
         />
