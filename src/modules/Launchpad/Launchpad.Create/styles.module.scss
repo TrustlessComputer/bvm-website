@@ -1,0 +1,63 @@
+.container {
+  text-align: center;
+
+  margin-bottom: 32px;
+  padding-top: 120px;
+  :global {
+    .chakra-step {
+      align-items: flex-start !important;
+      .chakra-step__indicator {
+        &[data-status='complete'] {
+          background: var(--naka-btn-bg);
+        }
+        &[data-status='active'] {
+          border-color: var(--naka-btn-bg);
+        }
+      }
+      .chakra-step__separator {
+        background: var(--naka-btn-bg);
+      }
+    }
+    .chakra-stepper {
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: flex-start !important;
+      .chakra-step__title,
+      .chakra-step__description {
+        text-align: left;
+      }
+      .chakra-step__description {
+        max-width: 200px;
+      }
+      .chakra-step__separator {
+        margin-top: 16px;
+      }
+      .chakra-step__description {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--input-bg);
+  border-radius: 8px;
+  padding: 16px;
+  .btnCreateToken {
+    cursor: pointer;
+    color: var(--primary-color);
+    font-size: 12px;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  .tokenInfoItem {
+    flex-direction: row;
+  }
+
+  .btnBack {
+    background: #bcbcbc;
+  }
+}
