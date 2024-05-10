@@ -51,13 +51,7 @@ export const BuyPage = React.memo((props: Props) => {
   if (!availableListData) return <></>;
 
   return (
-    <Flex
-      direction={'column'}
-      maxH={'100dvh'}
-      py="10px"
-      gap={'20px'}
-      className={s.container}
-    >
+    <Flex direction={'column'} py="10px" gap={'20px'} className={s.container}>
       <Flex direction={'row'} align={'center'} justify={'space-between'}>
         <Breadcrumb
           spacing="8px"

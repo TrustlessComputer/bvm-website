@@ -1,3 +1,4 @@
+import { LegacyRef } from 'react';
 import {
   BitcoinValidityEnum,
   BlockTimeEnum,
@@ -18,6 +19,7 @@ export type IField = {
   hasError?: boolean;
   isRequired?: boolean;
   errorMessage?: string;
+  ref?: any;
 };
 
 export type ComputerNameSection = {
