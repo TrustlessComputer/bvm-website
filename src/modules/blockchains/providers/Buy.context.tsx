@@ -321,6 +321,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     totalSupplyField,
     tickerField,
     receivingAddressField,
+    computerNameField,
   ]);
 
   const submitFormParams: SubmitFormParams = {
