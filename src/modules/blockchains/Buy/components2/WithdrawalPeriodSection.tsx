@@ -49,7 +49,8 @@ const WithdrawalPeriodSection = () => {
       <Flex flexDir={'column'} px={'20px'}>
         <Slider
           onChange={onChange}
-          defaultValue={7}
+          defaultValue={withdrawalPeriodSelected}
+          value={withdrawalPeriodSelected}
           min={0}
           max={7}
           step={0.1}

@@ -17,6 +17,7 @@ import {
   BitcoinValidityEnum,
   BlockTimeEnum,
   BlockTimeEnumMap,
+  ConfigurationOptionEnum,
   DALayerEnum,
   DALayerEnumMap,
   FormFields,
@@ -29,6 +30,7 @@ import {
   PluginEnum,
   RollupEnum,
   RollupEnumMap,
+  STANDARD_VALUES,
   WITHDRAWAL_PERIOD,
 } from '../Buy/Buy.constanst';
 import {
@@ -183,6 +185,8 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     useState<number>(WITHDRAWAL_PERIOD);
   const [nativeTokenPayingGasSelected, setNativeTokenPayingGasSelected] =
     useState<number>(NativeTokenPayingGasEnum.NativeTokenPayingGas_BVM);
+  const [configuratinOptionSelected, setConfiguratinOptionSelected] =
+    useState<number>(ConfigurationOptionEnum.Standard);
   const [preInstallDAppSelected, setPreInstallDAppSelected] = useState<
     number[]
   >([PluginEnum.Plugin_Bridge]);
@@ -217,12 +221,38 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   // Other State values
   // ------------------------------------------------------------
   const isMainnet = useMemo(
-    () => !!(networkSelected == NetworkEnum.Network_Mainnet),
+    () => !!(networkSelected === NetworkEnum.Network_Mainnet),
     [networkSelected],
   );
 
+  const isStandardMode = useMemo(
+    () => !!(configuratinOptionSelected === ConfigurationOptionEnum.Standard),
+    [configuratinOptionSelected],
+  );
+
   useEffect(() => {
-    setDataValiditySelected(DALayerEnum.DALayer_BTC);
+    if (isStandardMode) {
+      setRollupProtocolSelected(STANDARD_VALUES.rollupProtocol);
+      setBitcoinValiditySelected(STANDARD_VALUES.bitcoinValidity);
+      setDataValiditySelected(STANDARD_VALUES.dataAvailability);
+      setBlockTimeSelected(STANDARD_VALUES.blockTime);
+      setMinGasPriceField({
+        ...minGasPriceField,
+        value: String(STANDARD_VALUES.minGasPrice),
+      });
+      setBlockGasLimitField({
+        ...blockGasLimitField,
+        value: String(STANDARD_VALUES.blockGasLimit),
+      });
+      setWithdrawalPeriodSelected(STANDARD_VALUES.withdrawalPeriod);
+      setNativeTokenPayingGasSelected(STANDARD_VALUES.nativeTokenPayingGas);
+    }
+  }, [isStandardMode]);
+
+  useEffect(() => {
+    if (isMainnet) {
+      setDataValiditySelected(DALayerEnum.DALayer_BTC);
+    }
   }, [isMainnet]);
 
   const orderBuyReq = useMemo(() => {
@@ -659,6 +689,9 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     preInstallDAppSelected,
     setPreInstallDAppSelected,
 
+    configuratinOptionSelected,
+    setConfiguratinOptionSelected,
+
     isMainnet,
     chainIdRandom,
     orderBuyReq,
@@ -676,6 +709,8 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
     submitFormParams,
     orderBuyHandler,
+
+    isStandardMode,
   };
 
   // console.log('[DEBUG] Buy Provider ALL DATA: ', values);

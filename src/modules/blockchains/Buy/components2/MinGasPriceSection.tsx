@@ -6,7 +6,7 @@ import Section from '../components/Section';
 import { useBuy } from '../../providers/Buy.hook';
 
 const MinGasPriceSection = () => {
-  const { minGasPriceField, setMinGasPriceField } = useBuy();
+  const { minGasPriceField, setMinGasPriceField, isStandardMode } = useBuy();
   const { value, hasFocused, errorMessage, hasError } = minGasPriceField;
   const fieldName = FormFields.MIN_GAS_PRICE;
 
@@ -56,6 +56,7 @@ const MinGasPriceSection = () => {
         onBlur={onChangeHandler}
         onChange={onChangeHandler}
         type="number"
+        isDisabled={isStandardMode}
       />
       {hasFocused && hasError && <ErrorMessage message={errorMessage} />}
     </Section>

@@ -12,6 +12,8 @@ import { useBuy } from '../../providers/Buy.hook';
 import { ethers } from 'ethers';
 import { Flex, RadioGroup, Stack, Radio, Text } from '@chakra-ui/react';
 import Section from '../components/Section';
+import { useMemo } from 'react';
+import orderBy from 'lodash/orderBy';
 
 const TokenPayingGasSection = () => {
   const {
@@ -25,6 +27,7 @@ const TokenPayingGasSection = () => {
     setTotalSupplyField,
     receivingAddressField,
     setReceivingAddressField,
+    isStandardMode,
   } = useBuy();
 
   const TICKER_ID = FormFields.TICKER;
@@ -35,9 +38,21 @@ const TokenPayingGasSection = () => {
 
   if (!nativeTokenPayingGas) return <></>;
 
-  const dataList: ItemDetail[] = isMainnet
+  let dataList: ItemDetail[] = isMainnet
     ? nativeTokenPayingGas[NetworkEnum.Network_Mainnet]
     : nativeTokenPayingGas[NetworkEnum.Network_Testnet];
+
+  dataList = useMemo(() => {
+    return orderBy(
+      dataList,
+      (item) => [
+        item.value === NativeTokenPayingGasEnum.NativeTokenPayingGas_BVM,
+        item.value === NativeTokenPayingGasEnum.NativeTokenPayingGas_BTC,
+        item.value === NativeTokenPayingGasEnum.NativeTokenPayingGas_PreMint,
+      ],
+      ['desc'],
+    );
+  }, []);
 
   const onChangeHandler = async (field: FormFields, e: any) => {
     const text = e.target.value;
@@ -80,6 +95,116 @@ const TokenPayingGasSection = () => {
     }
   };
 
+  const renderBTCExpandView = () => {
+    return (
+      <Flex gap={'10px'} flexDir={'column'} mt={'10px'}>
+        <Flex gap={'3px'} flexDir={'column'}>
+          <Section
+            title={'Receiving address'}
+            titleFontSize="16px"
+            isRequired
+          />
+          <TextInput
+            placeholder=""
+            id={RECEIVING_ADDRESS_ID}
+            name={RECEIVING_ADDRESS_ID}
+            value={receivingAddressField.value}
+            isInvalid={
+              receivingAddressField.hasFocused && receivingAddressField.hasError
+            }
+            onChange={(e) => {
+              onChangeHandler(RECEIVING_ADDRESS_ID, e);
+            }}
+            onBlur={(e: any) => {
+              onChangeHandler(RECEIVING_ADDRESS_ID, e);
+            }}
+          />
+          {receivingAddressField.hasFocused &&
+            receivingAddressField.hasError && (
+              <ErrorMessage message={receivingAddressField.errorMessage} />
+            )}
+        </Flex>
+      </Flex>
+    );
+  };
+
+  const renderCustomNativeTokenExpandView = () => {
+    return (
+      <Flex gap={'10px'} flexDir={'column'} mt={'10px'}>
+        <Flex gap={'3px'} flexDir={'column'}>
+          <Section title={'Ticker'} titleFontSize="16px" isRequired />
+          <TextInput
+            placeholder=""
+            isInvalid={tickerField.hasFocused && tickerField.hasError}
+            id={TICKER_ID}
+            name={TICKER_ID}
+            value={tickerField.value}
+            className={`${
+              tickerField.hasFocused && tickerField.hasError ? 'error' : ''
+            }`}
+            onChange={(e) => {
+              onChangeHandler(TICKER_ID, e);
+            }}
+            onBlur={(e: any) => {
+              onChangeHandler(TICKER_ID, e);
+            }}
+          />
+          {tickerField.hasFocused && tickerField.hasError && (
+            <ErrorMessage message={tickerField.errorMessage} />
+          )}
+        </Flex>
+
+        <Flex gap={'3px'} flexDir={'column'}>
+          <Section title={'Total Supply'} titleFontSize="16px" isRequired />
+          <TextInput
+            placeholder=""
+            id={TOTAL_SUPPLY_ID}
+            name={TOTAL_SUPPLY_ID}
+            value={totalSupplyField.value}
+            isInvalid={totalSupplyField.hasFocused && totalSupplyField.hasError}
+            onChange={(e) => {
+              onChangeHandler(TOTAL_SUPPLY_ID, e);
+            }}
+            onBlur={(e: any) => {
+              onChangeHandler(TOTAL_SUPPLY_ID, e);
+            }}
+            type="number"
+          />
+          {totalSupplyField.hasFocused && totalSupplyField.hasError && (
+            <ErrorMessage message={totalSupplyField.errorMessage} />
+          )}{' '}
+        </Flex>
+
+        <Flex gap={'3px'} flexDir={'column'}>
+          <Section
+            title={'Receiving address'}
+            titleFontSize="16px"
+            isRequired
+          />
+          <TextInput
+            placeholder=""
+            id={RECEIVING_ADDRESS_ID}
+            name={RECEIVING_ADDRESS_ID}
+            value={receivingAddressField.value}
+            isInvalid={
+              receivingAddressField.hasFocused && receivingAddressField.hasError
+            }
+            onChange={(e) => {
+              onChangeHandler(RECEIVING_ADDRESS_ID, e);
+            }}
+            onBlur={(e: any) => {
+              onChangeHandler(RECEIVING_ADDRESS_ID, e);
+            }}
+          />
+          {receivingAddressField.hasFocused &&
+            receivingAddressField.hasError && (
+              <ErrorMessage message={receivingAddressField.errorMessage} />
+            )}
+        </Flex>
+      </Flex>
+    );
+  };
+
   return (
     <Section
       title={'Native token for paying transaction gas'}
@@ -96,7 +221,7 @@ const TokenPayingGasSection = () => {
           }}
           value={nativeTokenPayingGasSelected?.toString()}
         >
-          <Stack direction="column">
+          <Stack direction="column" gap={'20px'}>
             {dataList.map((item, index) => {
               return (
                 <Radio
@@ -112,84 +237,14 @@ const TokenPayingGasSection = () => {
             })}
           </Stack>
         </RadioGroup>
+
         {nativeTokenPayingGasSelected ===
-          NativeTokenPayingGasEnum.NativeTokenPayingGas_PreMint && (
-          <Flex gap={'10px'} flexDir={'column'} mt={'10px'}>
-            <Flex gap={'3px'} flexDir={'column'}>
-              <Section title={'Ticker'} titleFontSize="16px" isRequired />
-              <TextInput
-                placeholder=""
-                isInvalid={tickerField.hasFocused && tickerField.hasError}
-                id={TICKER_ID}
-                name={TICKER_ID}
-                value={tickerField.value}
-                className={`${
-                  tickerField.hasFocused && tickerField.hasError ? 'error' : ''
-                }`}
-                onChange={(e) => {
-                  onChangeHandler(TICKER_ID, e);
-                }}
-                onBlur={(e: any) => {
-                  onChangeHandler(TICKER_ID, e);
-                }}
-              />
-              {tickerField.hasFocused && tickerField.hasError && (
-                <ErrorMessage message={tickerField.errorMessage} />
-              )}
-            </Flex>
+          NativeTokenPayingGasEnum.NativeTokenPayingGas_BTC &&
+          renderBTCExpandView()}
 
-            <Flex gap={'3px'} flexDir={'column'}>
-              <Section title={'Total Supply'} titleFontSize="16px" isRequired />
-              <TextInput
-                placeholder=""
-                id={TOTAL_SUPPLY_ID}
-                name={TOTAL_SUPPLY_ID}
-                value={totalSupplyField.value}
-                isInvalid={
-                  totalSupplyField.hasFocused && totalSupplyField.hasError
-                }
-                onChange={(e) => {
-                  onChangeHandler(TOTAL_SUPPLY_ID, e);
-                }}
-                onBlur={(e: any) => {
-                  onChangeHandler(TOTAL_SUPPLY_ID, e);
-                }}
-                type="number"
-              />
-              {totalSupplyField.hasFocused && totalSupplyField.hasError && (
-                <ErrorMessage message={totalSupplyField.errorMessage} />
-              )}{' '}
-            </Flex>
-
-            <Flex gap={'3px'} flexDir={'column'}>
-              <Section
-                title={'Receiving address'}
-                titleFontSize="16px"
-                isRequired
-              />
-              <TextInput
-                placeholder=""
-                id={RECEIVING_ADDRESS_ID}
-                name={RECEIVING_ADDRESS_ID}
-                value={receivingAddressField.value}
-                isInvalid={
-                  receivingAddressField.hasFocused &&
-                  receivingAddressField.hasError
-                }
-                onChange={(e) => {
-                  onChangeHandler(RECEIVING_ADDRESS_ID, e);
-                }}
-                onBlur={(e: any) => {
-                  onChangeHandler(RECEIVING_ADDRESS_ID, e);
-                }}
-              />
-              {receivingAddressField.hasFocused &&
-                receivingAddressField.hasError && (
-                  <ErrorMessage message={receivingAddressField.errorMessage} />
-                )}
-            </Flex>
-          </Flex>
-        )}
+        {nativeTokenPayingGasSelected ===
+          NativeTokenPayingGasEnum.NativeTokenPayingGas_PreMint &&
+          renderCustomNativeTokenExpandView()}
       </Flex>
     </Section>
   );

@@ -10,6 +10,10 @@ const InputWrapper = (props: InputProps) => {
       borderColor={'#d9d9d9'}
       color={'#000'}
       aria-activedescendant=""
+      _disabled={{
+        color: '#000',
+        cursor: 'no-drop',
+      }}
       _placeholder={{
         caretColor: '#2b35e4',
         color: '#5a5a5a7b',
