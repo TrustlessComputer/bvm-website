@@ -15,21 +15,10 @@ const BalanceInfor = (props: IProps) => {
   return (
     <Flex flex={1} flexDir={'row'} align={'center'} mt="20px">
       <Flex flex={1} flexDir={'column'} align={'center'} justify={'center'}>
-        <Text
-          fontSize={'32px'}
-          fontWeight={600}
-          color={'#00AA6C'}
-          textAlign={'right'}
-        >
+        <Text fontSize={'32px'} fontWeight={700} color={'#00AA6C'}>
           {`${accountInforL2Service?.balanceFormatted || 0} BVM`}
         </Text>
-        <Text
-          fontSize={'14px'}
-          fontWeight={400}
-          color={'#000'}
-          opacity={0.7}
-          textAlign={'left'}
-        >
+        <Text fontSize={'14px'} fontWeight={400} color={'#000'} opacity={0.7}>
           {'Your Balance'}
         </Text>
       </Flex>
