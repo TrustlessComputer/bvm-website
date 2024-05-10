@@ -51,8 +51,6 @@ const ListProposal = () => {
     refresh();
   }, [needReload]);
 
-  console.log('===dataInfinite', dataInfinite);
-
   const renderLoading = () => <AppLoading />;
 
   const renderItem = (data: any) => {
