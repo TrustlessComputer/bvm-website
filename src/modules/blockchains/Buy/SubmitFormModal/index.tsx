@@ -54,6 +54,8 @@ const SubmitFormModal = (props: IProps) => {
           accountInforL2Service.balanceFormatted,
         ).lt(MIN_BVM_REQUIRED); // balance < 1 BVM
 
+        // const isNotEnoughtBalance = true;
+
         if (isNotEnoughtBalance) {
           title = 'Topup Now';
           exec = onTopupNow;
