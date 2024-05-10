@@ -1,0 +1,169 @@
+.containerInfo {
+  position: absolute;
+  right: 0;
+  top: 24px;
+  @include is-mobile {
+    position: relative;
+    top: 0;
+  }
+  .boxCountdown {
+    background: #ffffff;
+    border: 1px solid #a87eff;
+    box-shadow: 0px 0px 32px -6px #a87eff33;
+    padding: 16px 24px;
+    border-radius: 16px;
+    min-width: 220px;
+
+    @include w-max(767px) {
+      width: 100%;
+    }
+
+    .countdownTime {
+      justify-content: flex-start;
+      p {
+        font-size: 24px;
+        font-weight: 600 !important;
+        line-height: 140%;
+      }
+
+      &.highLight {
+        -webkit-animation: flash linear 1s infinite;
+        animation: flash linear 1s infinite;
+        p {
+          color: #ff7e21;
+          white-space: nowrap;
+        }
+      }
+
+      @include w-max(767px) {
+        justify-content: center;
+      }
+    }
+
+    @-webkit-keyframes flash {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.6;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @keyframes flash {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.6;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+  .boxParticipants {
+    background: #ffffff;
+    border: 1px solid #a87eff;
+    box-shadow: 0px 0px 32px -6px #a87eff33;
+    padding: 16px 24px;
+    border-radius: 16px;
+    text-align: center;
+    cursor: pointer;
+
+    @include w-max(767px) {
+      width: 100%;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  row-gap: 16px;
+  position: relative;
+
+  .projectLogo {
+    height: 16px;
+  }
+
+  .projectName {
+    background: #ffffff;
+    box-shadow: 0px 0px 24px -6px #0000001f;
+    padding: 4px 12px;
+    gap: 8px;
+    border-radius: 1000px 0px 0px 0px;
+    border-radius: 100px;
+    align-items: center;
+
+    p {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 150%;
+
+      background: linear-gradient(
+        166deg,
+        #1aaceb 12%,
+        #97b5cc 58%,
+        #1aaceb 72%,
+        #dbd2ad 91%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+  }
+
+  .title {
+    font-size: 54px;
+    font-weight: 700;
+    color: #000;
+
+    @include w-max(767px) {
+      font-size: 36px;
+      line-height: 120%;
+      text-align: center;
+    }
+  }
+
+  .description {
+    font-size: 18px;
+    font-weight: 400;
+    color: #000;
+    max-width: 900px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .listInfo {
+    column-gap: 30px;
+    justify-content: center;
+
+    @include w-max(767px) {
+      column-gap: 12px;
+    }
+
+    p {
+      font-size: 12px;
+      font-weight: 400;
+      color: #000;
+    }
+  }
+
+  .frameWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 4px;
+    cursor: pointer;
+  }
+
+  .frameImage {
+    width: 132px;
+    height: 80px;
+  }
+}

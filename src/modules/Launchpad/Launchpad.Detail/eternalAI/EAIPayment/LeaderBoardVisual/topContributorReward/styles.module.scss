@@ -1,0 +1,43 @@
+.container {
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffffff;
+  }
+
+  .desc {
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000;
+    margin-top: 8px;
+  }
+
+  .learnMoreWrapper {
+    background: #FA4E0E;
+    padding: 6px 6px 6px 16px;
+    width: fit-content;
+    color: #FFFFFF;
+    margin-top: 10px;
+    font-size: 12px;
+    align-items: center;
+
+    &.isDisable {
+      opacity: 70%;
+      cursor: not-allowed;
+    }
+  }
+
+  .raffleBg {
+    background: url("/public-sale/raffle_frame.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 8px;
+
+    > img {
+      min-width: 88px;
+      min-height: 88px;
+      max-width: 88px;
+      max-height: 88px;
+    }
+  }
+}

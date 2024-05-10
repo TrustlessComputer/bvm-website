@@ -1,0 +1,706 @@
+.headerRolling {
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 20px;
+
+  p {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 140%;
+
+    color: #ffffff;
+  }
+}
+
+.container {
+  position: relative;
+
+  @include is-mobile {
+    margin-bottom: 0px;
+  }
+
+  .title1 {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: black;
+    text-transform: uppercase;
+
+    @include w-max(768px) {
+      font-size: 20px;
+    }
+  }
+
+  .indicator {
+    background-color: #ffffff;
+    width: 58px;
+    height: 2px;
+    opacity: 0.7;
+  }
+}
+
+.wrapScroll {
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding-bottom: 22px;
+
+  @include is-mobile {
+    // padding-top: 470px;
+  }
+}
+
+table {
+  &.tableContainer {
+    :global {
+      tbody {
+        tr {
+          height: 62px;
+        }
+      }
+
+      .isActiveRow {
+        background-color: #007659 !important;
+
+        p {
+          color: white !important;
+        }
+
+        .boost_25 {
+          // background: linear-gradient(
+          //   90deg,
+          //   #00f5a0 0%,
+          //   #00d9f5 100%
+          // ) !important;
+        }
+
+        .boost_2 {
+          // background: linear-gradient(
+          //   90deg,
+          //   #ffe259 0%,
+          //   #ffa751 100%
+          // ) !important;
+        }
+
+        .boost_15 {
+          // background: linear-gradient(
+          //   90deg,
+          //   #a770ef 0%,
+          //   #cf8bf3 50%,
+          //   #fdb99b 100%
+          // ) !important;
+        }
+
+        .boost_1 {
+          // background: rgba(0, 0, 0, 1) !important;
+          p {
+            color: white !important;
+          }
+        }
+      }
+    }
+
+    thead {
+      tr {
+        th {
+          padding-bottom: 16px !important;
+        }
+      }
+    }
+
+    thead,
+    tbody {
+      tr {
+        th,
+        td {
+          padding-right: 18px !important;
+
+          &:nth-child(1) {
+            width: 55px !important;
+          }
+
+          &:nth-child(3) {
+            min-width: 110px !important;
+          }
+        }
+      }
+    }
+
+    .title {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 140%;
+      color: black;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 85px;
+    }
+
+    .button {
+      display: flex;
+      width: 48px !important;
+      height: 24px;
+      padding: 12px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border-radius: 4px;
+      background: #FA4E0E;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%;
+      margin-left: 4px;
+    }
+
+    .subTitle {
+      font-size: 14px;
+    }
+
+    .desc {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 140%;
+      color: var(--chakra-colors-blue-600);
+    }
+
+    .tagBoost {
+      padding: 7px 9px;
+      // background: rgba(255, 255, 255, 0.15);
+      border-radius: 100px;
+      // width: 60px;
+      display: flex;
+      align-items: center;
+
+      p {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 140%;
+        /* or 18px */
+        text-align: center;
+
+        color: #ffffff;
+      }
+
+      &.boost_25 {
+        // background: linear-gradient(
+        //   90deg,
+        //   rgba(0, 245, 160, 0.15) 0%,
+        //   rgba(0, 217, 245, 0.15) 100%
+        // );
+        p {
+          color: rgba(0, 245, 160, 1);
+        }
+      }
+
+      &.boost_2 {
+        // background: linear-gradient(
+        //   90deg,
+        //   rgba(255, 226, 89, 0.15) 0%,
+        //   rgba(255, 167, 81, 0.15) 100%
+        // );
+
+        p {
+          color: rgba(255, 226, 89, 1);
+        }
+      }
+
+      &.boost_15 {
+        // background: linear-gradient(
+        //   90deg,
+        //   rgba(167, 112, 239, 0.15) 0%,
+        //   rgba(207, 139, 243, 0.15) 50%,
+        //   rgba(253, 185, 155, 0.15) 100%
+        // );
+
+        p {
+          color: rgba(167, 112, 239, 1);
+        }
+      }
+    }
+  }
+}
+
+.container {
+  overflow: hidden;
+  width: 100%;
+
+  .title {
+    font-size: 28px;
+    @include w-max(968px) {
+      font-size: 20px;
+    }
+  }
+}
+
+.banner {
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  padding-bottom: 12px;
+}
+
+.countDown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .time {
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.7;
+  }
+}
+
+.loading {
+  margin-top: 16px;
+}
+
+.tooltipIcon {
+  width: 14px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.tooltipIconActive {
+  cursor: pointer;
+
+  svg {
+    path {
+      fill: white;
+    }
+  }
+}
+
+.timeLine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: rgba(1, 1, 1, 0.7);
+  margin-bottom: rem(32);
+
+  span {
+    color: rgb(1, 1, 1);
+    font-weight: 500;
+  }
+
+  p {
+    width: fit-content;
+  }
+
+}
+
+.multiplier {
+  background: black;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  &.boost_30 {
+    background: linear-gradient(90deg, #007659 0%, #35cca6 100%);
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &.boost_20 {
+    background: linear-gradient(90deg, #ffd73b 0%, #a05700 100%);
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &.isActiveRow {
+    background: linear-gradient(90deg, #ffffff 0%, #35cca6 100%);
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+
+.lastRender {
+  display: block;
+  flex: 0 0 100%;
+  position: relative;
+  pointer-events: none;
+
+  &:after {
+    z-index: 0;
+    @include is-mobile {
+      display: none !important;
+    }
+  }
+
+  &.lastRender__0 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 78px;
+      width: 321px;
+      left: 50%;
+      bottom: 150px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-1-1.svg");
+    }
+  }
+
+  &.lastRender__1 {
+    &:after {
+      content: '';
+      display: block;
+      height: 107px;
+      width: 510px;
+      left: 50%;
+      bottom: 150px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-2-1.svg");
+    }
+  }
+
+  &.lastRender__2 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 107px;
+      width: 672px;
+      left: 50%;
+      bottom: 150px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-3-1.svg");
+    }
+  }
+
+  &.lastRender__3 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 138px;
+      width: 812px;
+      left: 50%;
+      bottom: 150px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-4-1.svg");
+    }
+  }
+
+  &.lastRender__4 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__5 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__6 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__7 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__8 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__9 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__10 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__11 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__12 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__13 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__14 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__15 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__16 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__17 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__18 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__19 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__20 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+
+  &.lastRender__21 {
+
+    &:after {
+      content: '';
+      display: block;
+      height: 157px;
+      width: 976px;
+      left: 50%;
+      bottom: 140px;
+      transform: translateX(-50%);
+      position: absolute;
+      background: url("/icons/public-sale/oval-5-1.svg");
+    }
+  }
+}
+
+.emptyArray {
+  display: grid;
+  gap: 28px;
+  width: 100%;
+  margin-top: 24px;
+  padding-bottom: 24px;
+  justify-content: center;
+  grid-template-columns: repeat(13, 1fr);
+}
+
+.emptyArray_label {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50%;
+  border: 3px solid white;
+  max-width: none;
+}

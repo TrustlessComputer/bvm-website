@@ -4,7 +4,10 @@ import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
 import { WalletOperationReturn } from '@/interfaces/wallet';
 import { isMobile } from 'react-device-detect';
-import { METAMASK_DOWNLOAD_PAGE, NATIVE_ETH_ADDRESS } from '@/constants/constants';
+import {
+  METAMASK_DOWNLOAD_PAGE,
+  NATIVE_ETH_ADDRESS,
+} from '@/constants/constants';
 
 export const openMetamaskDeeplink = (url?: string): void => {
   const appURL =
@@ -103,9 +106,10 @@ const connect = async (): Promise<WalletOperationReturn<string | null>> => {
   }
 };
 
-export const signMessage = async (message: any): Promise<{ message: string, address: string, signature: string }> => {
+export const signMessage = async (
+  message: any,
+): Promise<{ message: string; address: string; signature: string }> => {
   try {
-
     if (!isMetamaskInstalled()) {
       window.open(METAMASK_DOWNLOAD_PAGE);
       throw Error(WalletError.NO_METAMASK);
@@ -115,12 +119,15 @@ export const signMessage = async (message: any): Promise<{ message: string, addr
       throw Error(WalletError.NO_INSTANCE);
     }
 
-    const web3Provider = new ethers.providers.Web3Provider((window as any).ethereum);
+    const web3Provider = new ethers.providers.Web3Provider(
+      (window as any).ethereum,
+    );
     const addresses = await web3Provider.send('eth_requestAccounts', []);
     const signer = web3Provider.getSigner();
 
     const address = addresses && Array.isArray(addresses) ? addresses[0] : '';
-    const messageForSign = typeof message === 'function' ? message(address) : message;
+    const messageForSign =
+      typeof message === 'function' ? message(address) : message;
     const signature = await signer.signMessage(messageForSign);
     return {
       address,
@@ -131,4 +138,3 @@ export const signMessage = async (message: any): Promise<{ message: string, addr
     throw err;
   }
 };
-

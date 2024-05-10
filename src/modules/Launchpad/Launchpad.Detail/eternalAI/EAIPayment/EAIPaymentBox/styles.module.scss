@@ -1,0 +1,145 @@
+.container {
+  display: flex;
+  width: 100%;
+  padding: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: #000;
+  box-shadow: 0px 0px 24px -6px rgba(0, 0, 0, 0.2);
+
+  --naka-primary: white;
+  --naka-text: #rgba(255, 255, 255, 0.6);
+
+  &_title {
+    color: var(--naka-text);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+  }
+
+  &_amount {
+    color: var(--naka-primary);
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; /* 48px */
+    white-space: pre;
+  }
+
+  .button {
+    background: linear-gradient(90deg, #fdfc47 0%, #24fe41 100%);
+    display: flex;
+    height: 54px;
+    padding: 8px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    align-self: stretch;
+    color: #000;
+
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+  }
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  &_title {
+    color: white;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 14px */
+    opacity: 0.6;
+  }
+  &_value {
+    color: white;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%;
+    .countdownTime {
+      justify-content: flex-start;
+      -webkit-animation: flash linear 1s infinite;
+      animation: flash linear 1s infinite;
+      p {
+        font-size: 20px;
+        font-weight: 500 !important;
+        line-height: 160%;
+      }
+
+      &.highLight {
+        p {
+          color: #ff4747;
+          white-space: nowrap;
+        }
+      }
+
+      //@include w-max(767px) {
+      //justify-content: center;
+      //}
+    }
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.thankBox {
+  display: flex;
+  padding: 12px;
+  flex-direction: column;
+  gap: 12px;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid #fdfc47;
+  background: linear-gradient(
+    90deg,
+    rgba(253, 252, 71, 0.1) 0%,
+    rgba(36, 254, 65, 0.1) 100%
+  );
+  &_title {
+    font-family: Urbanist;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    background: linear-gradient(90deg, #fdfc47 0%, #24fe41 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    span {
+      background: #ffff00;
+      background-clip: text;
+    }
+  }
+  &_content {
+    color: #fff;
+    font-family: Urbanist;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 19.6px */
+  }
+}

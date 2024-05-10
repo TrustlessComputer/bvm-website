@@ -1,11 +1,11 @@
 // CSS CALCULATE UNIT MIXINS
 
 @function rem($px, $base: $font_size_rem) {
-  @if  unitless($px) {
+  @if unitless($px) {
     $px: $px * 1px;
   }
 
-  @if  unitless($base) {
+  @if unitless($base) {
     $base: $base * 1px;
   }
 
@@ -13,11 +13,11 @@
 }
 
 @function em($px, $base: 16px) {
-  @if  unitless($px) {
+  @if unitless($px) {
     $px: $px * 1px;
   }
 
-  @if  unitless($base) {
+  @if unitless($base) {
     $base: $base * 1px;
   }
 
@@ -615,8 +615,8 @@ $mixin-text-p-book-font-size: rem(14px);
     @for $i from 1 through $item-count {
       &:nth-of-type(#{$i}) {
         transform: rotate($rot * 1deg)
-        translate($circle-size / 2)
-        rotate($rot * -1deg);
+          translate($circle-size / 2)
+          rotate($rot * -1deg);
       }
 
       $rot: $rot + $angle;
@@ -636,4 +636,16 @@ $mixin-text-p-book-font-size: rem(14px);
   white-space: nowrap;
 
   display: block;
+}
+
+@mixin min-tablet {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin min-pc {
+  @media screen and (min-width: 1280px) {
+    @content;
+  }
 }

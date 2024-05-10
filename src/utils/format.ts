@@ -261,3 +261,14 @@ export const formatDate = (date: string, format = 'D MMM, HH:mm:ss') => {
     });
   }
 };
+
+export const formatAddressOrName = (name: string, length = 12): string => {
+  if (!name) return '';
+  if (ethers.utils.isAddress(name)) {
+    return name.substring(0, 6);
+  } else if (name.startsWith('bc1p')) {
+    return name.substring(0, 8);
+  } else {
+    return name?.length > length ? name.substring(0, length) + '...' : name;
+  }
+};

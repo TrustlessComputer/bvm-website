@@ -1,0 +1,22 @@
+.container {
+  .progressBar {
+    position: relative;
+    > div {
+      background: rgba(255, 255, 255, 0.2);
+
+      > div:first-child {
+        background: linear-gradient(90deg, rgb(102, 51, 206) 0%, rgb(124, 61, 253) 100%);
+      }
+    }
+
+    .fireImg {
+      position: absolute;
+      left: -5px;
+      bottom: 0;
+
+      @media screen and (max-width: 768px) {
+        left: -3px;
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+.wrapper {
+  width: 100%;
+  flex-direction: column;
+}
+
+.container {
+  //box-shadow: 0px 2px 10px 0px #00000026;
+  //padding: 40px;
+  //border-radius: 12px;
+  //background-color: #fff;
+  //border: 1px solid #efefef;
+  width: 100%;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  //@include is-mobile {
+  //  margin-top: 30px;
+  //  max-width: 90vw;
+  //}
+
+
+  .balanceWrapper {
+    background: linear-gradient(90deg, rgba(253, 252, 71, 0.1) 0%, rgba(36, 254, 65, 0.1) 100%);
+    border: 1px solid #1E5E18;
+
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    .balanceTitle {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 140%;
+      text-align: center;
+      text-transform: uppercase;
+      color: #FFF;
+      opacity: 50%;
+    }
+    .balanceBalance {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 110%;
+      letter-spacing: 0.02em;
+      text-align: center;
+      background: linear-gradient(90deg, #FDFC47 0%, #24FE41 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  .btnClaimed {
+    font-size: 18px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #FDFC47 0%, #24FE41 100%);
+    flex-direction: column;
+    height: 54px;
+    color: #000;
+  }
+
+  .linkClaimed {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    color: #000;
+    background-color: #FFF;
+    height: 54px;
+  }
+
+  .countdownTime {
+    margin-top: 5px;
+    p {
+      color: #fff !important;
+      font-size: 30px !important;
+    }
+  }
+
+  .claimedBox {
+    background: rgba(172, 248, 199, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 20px;
+    position: absolute;
+    top: -5px;
+    left: -30px;
+    transform: rotate(-45deg);
+    padding-bottom: 0;
+
+    p {
+      color: #FFF;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 12px;
+    }
+  }
+}

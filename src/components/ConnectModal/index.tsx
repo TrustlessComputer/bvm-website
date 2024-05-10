@@ -16,7 +16,7 @@ import cs from 'classnames';
 
 interface IProps {
   isShow: boolean;
-  onHide: () => void;
+  onHide: (_: any) => void;
   needVerifyBTCAddress?: boolean;
 }
 
@@ -51,9 +51,9 @@ const ConnectModal = React.memo(
       try {
         if (loading) return;
         setLoading(true);
-        await signMessage(type, needVerifyBTCAddress);
+        const res = await signMessage(type, needVerifyBTCAddress);
         dispatch(requestReload());
-        onHide();
+        onHide(res);
       } catch (error) {
         const { message } = getError(error);
         toast.error(message);
@@ -100,7 +100,7 @@ const ConnectModal = React.memo(
       <BaseModal
         className={styles.modal}
         isShow={isShow}
-        onHide={onHide}
+        onHide={() => onHide(undefined)}
         title="Choose your wallet"
         size={!!xverseCtx.capabilityMessage ? 'normal' : 'small'}
       >

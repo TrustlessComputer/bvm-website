@@ -1,0 +1,95 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  row-gap: 8px;
+  margin-top: 32px;
+
+  .projectName {
+    background: #ffffff;
+    box-shadow: 0px 0px 24px -6px #0000001f;
+    padding: 4px 12px;
+    gap: 8px;
+    border-radius: 1000px 0px 0px 0px;
+    border-radius: 100px;
+
+    p {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 150%;
+
+      background: linear-gradient(90deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+  }
+
+  .title {
+    font-size: 54px;
+    font-weight: 700;
+    color: #000;
+
+    @include w-max(767px) {
+      font-size: 36px;
+      line-height: 120%;
+      text-align: center;
+    }
+  }
+
+  .description {
+    font-size: 22px;
+    font-weight: 400;
+    color: #000;
+    max-width: 900px;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+
+.listInfo {
+  column-gap: 30px;
+  justify-content: center;
+
+  @include w-max(767px) {
+    column-gap: 6px;
+  }
+
+  .frameWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 4px;
+    cursor: pointer;
+    //padding: 4px;
+    position: relative;
+  }
+
+  .frameImage {
+    width: 132px;
+    height: 80px;
+    position: relative;
+  }
+
+  .imgGif {
+    position: absolute;
+    top: 5px;
+    width: 124px;
+    object-fit: contain;
+  }
+}
+
+.frameWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 4px;
+  cursor: pointer;
+}
+
+.frameImage {
+  width: 132px;
+  height: 80px;
+}
