@@ -325,64 +325,71 @@ const VoteDetail = () => {
                 </p>
               )}
             </Flex>
-            {isProposalProject && infoLaunchPad && (
-              <Flex
-                display="grid"
-                gap="12px"
-                mt="8px"
-                gridTemplateColumns={{
-                  lg: '1fr 1fr 1fr 1fr',
-                  base: '1fr 1fr',
-                }}
-              >
-                <div className={s.supply}>
-                  <p className={s.supplyTitle}>Token presale percentage</p>
-                  <p className={s.supplyValue}>
-                    {formatCurrency(
-                      infoLaunchPad?.presalePercent,
-                      0,
-                      0,
-                      '',
-                      true,
-                    )}
-                    %
-                  </p>
-                </div>
+            {isProposalProject &&
+              infoLaunchPad &&
+              infoLaunchPad.presalePercent && (
+                <Flex
+                  display="grid"
+                  gap="12px"
+                  mt="8px"
+                  gridTemplateColumns={{
+                    lg: '1fr 1fr 1fr 1fr',
+                    base: '1fr 1fr',
+                  }}
+                >
+                  <div className={s.supply}>
+                    <p className={s.supplyTitle}>Token presale percentage</p>
+                    <p className={s.supplyValue}>
+                      {formatCurrency(
+                        infoLaunchPad?.presalePercent,
+                        0,
+                        0,
+                        '',
+                        true,
+                      )}
+                      %
+                    </p>
+                  </div>
 
-                <div className={s.supply}>
-                  <p className={s.supplyTitle}>Hardcap</p>
-                  <p className={s.supplyValue}>
-                    {infoLaunchPad?.hardcap &&
-                    Number(infoLaunchPad?.hardcap) > 0
-                      ? formatCurrency(infoLaunchPad.hardcap, 0, 0, '', true) +
-                        ' USD'
-                      : 'Without hardcap'}
-                  </p>
-                </div>
+                  <div className={s.supply}>
+                    <p className={s.supplyTitle}>Hardcap</p>
+                    <p className={s.supplyValue}>
+                      {infoLaunchPad?.hardcap &&
+                      Number(infoLaunchPad?.hardcap) > 0
+                        ? formatCurrency(
+                            infoLaunchPad.hardcap,
+                            0,
+                            0,
+                            '',
+                            true,
+                          ) + ' USD'
+                        : 'Without hardcap'}
+                    </p>
+                  </div>
 
-                <div className={s.supply}>
-                  <Flex direction="row" gap="4px" alignItems="center">
-                    <p className={s.supplyTitle}>Liquidity percentage</p>
-                    <InfoTooltip
-                      iconSize="sm"
-                      placement="top-start"
-                      label="This allocation can help ensure that there is enough liquidity available for traders to buy and sell the token without experiencing significant price slippage"
-                    />
-                  </Flex>
+                  <div className={s.supply}>
+                    <Flex direction="row" gap="4px" alignItems="center">
+                      <p className={s.supplyTitle}>Liquidity percentage</p>
+                      <InfoTooltip
+                        iconSize="sm"
+                        placement="top-start"
+                        label="This allocation can help ensure that there is enough liquidity available for traders to buy and sell the token without experiencing significant price slippage"
+                      />
+                    </Flex>
 
-                  <p className={s.supplyValue}>
-                    {infoLaunchPad.liquidityPercent}%
-                  </p>
-                </div>
+                    <p className={s.supplyValue}>
+                      {infoLaunchPad.liquidityPercent}%
+                    </p>
+                  </div>
 
-                <div className={s.supply}>
-                  <p className={s.supplyTitle}>Vesting fund</p>
-                  <p className={s.supplyValue}>
-                    {infoLaunchPad.vesting} months
-                  </p>
-                </div>
-              </Flex>
-            )}
+                  <div className={s.supply}>
+                    <p className={s.supplyTitle}>Vesting fund</p>
+                    <p className={s.supplyValue}>
+                      {infoLaunchPad.vesting} months
+                    </p>
+                  </div>
+                </Flex>
+              )}
           </Flex>
 
           <Flex

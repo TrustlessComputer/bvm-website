@@ -114,7 +114,7 @@ const FormModal: React.FC<IFormModal> = forwardRef(
               <Flex direction="row" gap="12px">
                 <InputWrapper
                   className={s.inputWrapper}
-                  label="Liquidity Percentage"
+                  label="Liquidity percentage"
                   theme="light"
                   labelColor="#000"
                   desc="A general guideline could be to allocate around 20% to 30% of the funds raised to liquidity provision. This allocation can help ensure that there is enough liquidity available for traders to buy and sell the token without experiencing significant price slippage."
