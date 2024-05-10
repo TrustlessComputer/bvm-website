@@ -29,6 +29,7 @@ import Countdown from './Countdown';
 import ProposalCancel from './ProposalCancel';
 import ProposalSide from './ProposalSide';
 import s from './styles.module.scss';
+import InfoTooltip from '@/components/Form/InfoTooltip';
 
 const VoteDetail = () => {
   const params = useParams();
@@ -205,10 +206,10 @@ const VoteDetail = () => {
       if (data || data.description) {
         const _data = JSON.parse(data.description as string);
         return {
-          supply: _data.supply,
+          presalePercent: _data.presalePercent,
           hardcap: _data.hardcap,
           liquidityPercent: _data.liquidityPercent,
-          airdrop: _data.airdrop,
+          vesting: _data.vesting,
         };
       }
     } catch (error) {
@@ -304,30 +305,6 @@ const VoteDetail = () => {
                     : 'Funding request for BVM community growth'}
                 </span>
               </p>
-              {isProposalProject && infoLaunchPad && (
-                <>
-                  <p className={s.proposedBy}>
-                    Supply{' '}
-                    <span>
-                      {formatCurrency(infoLaunchPad.supply, 0, 0, '', true)}
-                    </span>
-                  </p>
-                  <p className={s.proposedBy}>
-                    Hardcap{' '}
-                    <span>
-                      {formatCurrency(infoLaunchPad.hardcap, 0, 0, '', true)}{' '}
-                      USD
-                    </span>
-                  </p>
-                  <p className={s.proposedBy}>
-                    Liquidity percentage{' '}
-                    <span>{infoLaunchPad.liquidityPercent}%</span>
-                  </p>
-                  <p className={s.proposedBy}>
-                    Airdrop <span>{infoLaunchPad.airdrop}%</span>
-                  </p>
-                </>
-              )}
               {!isProposalProject && proposalData.length > 1 && (
                 <p className={s.proposedBy}>
                   Requested amount{' '}
@@ -348,6 +325,64 @@ const VoteDetail = () => {
                 </p>
               )}
             </Flex>
+            {isProposalProject && infoLaunchPad && (
+              <Flex
+                display="grid"
+                gap="12px"
+                mt="8px"
+                gridTemplateColumns={{
+                  lg: '1fr 1fr 1fr 1fr',
+                  base: '1fr 1fr',
+                }}
+              >
+                <div className={s.supply}>
+                  <p className={s.supplyTitle}>Token presale percentage</p>
+                  <p className={s.supplyValue}>
+                    {formatCurrency(
+                      infoLaunchPad?.presalePercent,
+                      0,
+                      0,
+                      '',
+                      true,
+                    )}
+                    %
+                  </p>
+                </div>
+
+                <div className={s.supply}>
+                  <p className={s.supplyTitle}>Hardcap</p>
+                  <p className={s.supplyValue}>
+                    {infoLaunchPad?.hardcap &&
+                    Number(infoLaunchPad?.hardcap) > 0
+                      ? formatCurrency(infoLaunchPad.hardcap, 0, 0, '', true) +
+                        ' USD'
+                      : 'Without hardcap'}
+                  </p>
+                </div>
+
+                <div className={s.supply}>
+                  <Flex direction="row" gap="4px" alignItems="center">
+                    <p className={s.supplyTitle}>Liquidity percentage</p>
+                    <InfoTooltip
+                      iconSize="sm"
+                      placement="top-start"
+                      label="This allocation can help ensure that there is enough liquidity available for traders to buy and sell the token without experiencing significant price slippage"
+                    />
+                  </Flex>
+
+                  <p className={s.supplyValue}>
+                    {infoLaunchPad.liquidityPercent}%
+                  </p>
+                </div>
+
+                <div className={s.supply}>
+                  <p className={s.supplyTitle}>Vesting fund</p>
+                  <p className={s.supplyValue}>
+                    {infoLaunchPad.vesting} months
+                  </p>
+                </div>
+              </Flex>
+            )}
           </Flex>
 
           <Flex
