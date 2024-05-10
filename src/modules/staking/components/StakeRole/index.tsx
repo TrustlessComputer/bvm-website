@@ -17,10 +17,10 @@ import { stakeUserSelector } from '@/stores/states/stakingV2/selector';
 
 const StakeRole = React.memo(() => {
   const cStake = new CStakeV2();
-  const address  = useAppSelector(nakaAddressSelector);
+  const address = useAppSelector(nakaAddressSelector);
   const { getConnector } = useContext(NakaConnectContext);
   const isAuthenticated = React.useMemo(() => {
-    return !!address
+    return !!address;
   }, [address]);
 
   const stakeUser = useAppSelector(stakeUserSelector);
@@ -72,15 +72,15 @@ const StakeRole = React.memo(() => {
       const connector = getConnector();
       await connector.requestSign({
         calldata,
-        target: "popup",
+        target: 'popup',
         to: STAKE_TOKEN.BVM.stBVM || '',
         functionType: 'Stake role',
-        chainType: "NAKA"
-      })
+        chainType: 'NAKA',
+      });
 
       dispatch(requestReload());
       await sleep(2);
-      toast.success('Successfully.')
+      toast.success('Successfully.');
 
       dispatch(requestReload());
     } catch (error: any) {

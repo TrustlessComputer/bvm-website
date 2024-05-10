@@ -1,27 +1,24 @@
-import { setBearerToken } from '@/services/leaderboard';
-import { setBearerToken as setBearerTokenUser } from '@/services/user';
 import {
   generateTokenWithTwPost,
   requestAuthenByShareCode,
 } from '@/services/player-share';
-import AuthenStorage from '@/storage/authen.storage';
-import { requestReload } from '@/store/states/common/reducer';
-import { openModal } from '@/store/states/modal/reducer';
 import { Box, Button, Center, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import s from '@/modules/Launchpad/Launchpad.Detail/naka/content/tasks/item.module.scss';
 import VerifyTwModal, { VerifyTwModalID } from './verifyTwModal';
-import { useLaunchpadContext } from '@/providers/LaunchpadProvider/hooks/useLaunchpadContext';
-import { useAppSelector } from '@/store/hooks';
-import { userSelector } from '@/store/states/user/selector';
-import useAuthen from '@/hooks/useAuthen';
 import AppLoading from '@/components/AppLoading';
-import { setBVMClaimToken } from '@/store/states/bvmClaim/reducer';
-import { setXToken } from '@/store/states/user/reducer';
 import { shareURLWithReferralCode } from '@/utils/helpers';
 import { useParams } from 'next/navigation';
 import { showSuccess } from '@/components/toast';
+import AuthenStorage from '@/utils/storage/authen.storage';
+import { userSelector } from '@/stores/states/user/selector';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import { openModal } from '@/stores/states/modal/reducer';
+import { setBearerToken } from '@/services/whitelist';
+import { setXToken } from '@/stores/states/user/reducer';
+import { requestReload } from '@/stores/states/common/reducer';
 
 interface IAuthenCode {
   public_code: string;
@@ -40,10 +37,10 @@ const ShareTw = (props: IShareTw) => {
   const [submitting, setSubmitting] = useState(false);
   const dispatch = useDispatch();
   const token = AuthenStorage.getAuthenKey();
-  const user = useAppSelector(userSelector);
+  const user = useSelector(userSelector);
   const params = useParams();
 
-  const { isAuthenticated, openSignView } = useAuthen();
+  const { isAuthen, requestAccount } = useNakaAuthen();
 
   const [showManualCheck, setShowManualCheck] = useState(false);
 
@@ -119,8 +116,8 @@ const ShareTw = (props: IShareTw) => {
       if (!twitterToken || twitterToken !== result?.token) {
         AuthenStorage.setAuthenKey(result?.token);
         setBearerToken(result?.token);
-        setBearerTokenUser(result?.token);
-        dispatch(setBVMClaimToken(result?.token));
+        // setBearerTokenUser(result?.token);
+        // dispatch(setBVMClaimToken(result?.token));
         dispatch(setXToken(result?.token));
         props.onVerifySuccess();
       }
@@ -212,10 +209,10 @@ const ShareTw = (props: IShareTw) => {
               className={s.btnShare}
               // isLoading={submitting}
               // loadingText="Submitting..."
-              onClick={isAuthenticated ? onClickShare : openSignView}
+              onClick={isAuthen ? onClickShare : requestAccount}
               isDisabled={isDisabled}
             >
-              {isAuthenticated ? 'Post' : 'Sign in'}
+              {isAuthen ? 'Post' : 'Sign in'}
             </Button>
           )}
         </Flex>

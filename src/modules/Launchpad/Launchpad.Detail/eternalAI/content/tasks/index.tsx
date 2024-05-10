@@ -1,10 +1,9 @@
-import {Flex} from '@chakra-ui/react';
-import React, {useMemo} from 'react';
+import { Flex } from '@chakra-ui/react';
+import React, { useMemo } from 'react';
 import s from './styles.module.scss';
-import {useLaunchpadContext} from '@/providers/LaunchpadProvider/hooks/useLaunchpadContext';
-import StakingBVM from "@/modules/Launchpad/Launchpad.Detail/eternalAI/content/tasks/stakingBVM2";
-import useAllowStaking
-  from "@/modules/Launchpad/Launchpad.Detail/naka/content/tasks/helpers/stakingBVMMessage/useAllowStaking";
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import StakingBVM from '@/modules/Launchpad/Launchpad.Detail/eternalAI/content/tasks/stakingBVM2';
+import useAllowStaking from '@/modules/Launchpad/Launchpad.Detail/naka/content/tasks/helpers/stakingBVMMessage/useAllowStaking';
 
 const Tasks = () => {
   // const token = AuthenStorage.getAuthenKey();
@@ -30,7 +29,7 @@ const Tasks = () => {
   }
 
   return (
-    <Flex className={s.container} id={"list-task"}>
+    <Flex className={s.container} id={'list-task'}>
       {/*{!isDone && (
         <ShareTw
           onVerifySuccess={() => setIsVerifyTW(true)}

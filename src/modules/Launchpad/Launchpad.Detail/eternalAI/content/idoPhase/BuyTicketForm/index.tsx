@@ -1,30 +1,22 @@
-import { useFormik } from 'formik';
-import styles from './styles.module.scss';
-import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
-import React, { useMemo } from 'react';
-import BigNumberJS, { BigNumber } from 'bignumber.js';
-import { isAmount } from '@/modules/Swap/utils';
-import CContractBase from '@/contract/base';
-import { getErrorMessage } from '@/utils/error';
-import { showError, showSuccess } from '@/components/toast';
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import { showError } from '@/components/toast';
 import BVM_ADDRESS from '@/contract/stakeV2/configs';
-import { useLaunchpadContext } from '@/providers/LaunchpadProvider/hooks/useLaunchpadContext';
-import { ethers } from 'ethers';
-import { getDataPrepareTx } from '@/contract/utils/RPC';
-import { useWallet } from '@/providers/WalletProvider/hooks/useWallet';
-import { useAppDispatch } from '@/store/hooks';
-import { requestReload } from '@/store/states/common/reducer';
-import useERC20Balance from '@/components/ERC20Balance/useERC20Balance';
-import CTradeAPI from '@/services/trade';
-import sleep from '@/utils/sleep';
-import { formatCurrency } from '@/utils/format';
-import useAuthen from '@/hooks/useAuthen';
-import { labelAmountOrNumberAdds } from '@/constants/constants';
-import { SWAP_URL } from '@/constants/route-path';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import SuccessModal from '@/modules/Launchpad/Launchpad.Detail/naka/idoPhase/SuccessModal';
+import useERC20Balance from '@/modules/Launchpad/components/ERC20Balance/useERC20Balance';
+import { launchpadSelector } from '@/modules/Launchpad/store/reducer';
+import { getErrorMessage } from '@/utils/errorV2';
+import { formatCurrency } from '@/utils/format';
+import { getUrlToSwap } from '@/utils/helpers';
+import { isAmount } from '@/utils/number';
+import sleep from '@/utils/sleep';
+import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import BigNumberJS, { BigNumber } from 'bignumber.js';
+import { useFormik } from 'formik';
+import React, { useMemo } from 'react';
 import { isDesktop } from 'react-device-detect';
 import { useSelector } from 'react-redux';
-import { launchpadSelector } from '@/store/states/launchpad/reducer';
+import styles from './styles.module.scss';
 // import useTransactionFee from '@/hooks/useTransactionFee';
 // import { ETypes } from '@/contract/player-share';
 
@@ -34,14 +26,12 @@ interface IFormValues {
 
 const BuyTicketForm = () => {
   const { currentLaunchpad } = useLaunchpadContext();
-  const { isAuthenticated, authenText, openSignView } = useAuthen();
-  const wallet = useWallet()?.wallet;
-  const dispatch = useAppDispatch();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const cBaseContract = new CContractBase();
-  const cTradeAPI = new CTradeAPI();
+  const { isAuthen, requestAccount } = useNakaAuthen();
+
+  // const cTradeAPI = new CTradeAPI();
   const { myDataLeaderBoard } = useSelector(launchpadSelector);
 
   const viewBoost = useMemo(() => {
@@ -59,7 +49,7 @@ const BuyTicketForm = () => {
 
   const { balance, loaded } = useERC20Balance({
     token: {
-      address: BVM_ADDRESS.bvm,
+      address: BVM_ADDRESS.BVM.bvm,
     },
   });
 
@@ -67,43 +57,43 @@ const BuyTicketForm = () => {
 
   const onSubmit = async (values: IFormValues) => {
     try {
-      const amount = getNumberBVM(values.tickets).toString();
+      // const amount = getNumberBVM(values.tickets).toString();
       const adminAddress = currentLaunchpad?.admin_address;
       if (!adminAddress) throw new Error('Empty admin address.');
 
-      await cBaseContract.checkNakaGasFee();
+      // await cBaseContract.checkNakaGasFee();
 
-      const { nonce, gasPrice } = await getDataPrepareTx({
-        address: wallet?.address || '',
-      });
+      // const { nonce, gasPrice } = await getDataPrepareTx({
+      //   address: wallet?.address || '',
+      // });
 
-      const contract = await cBaseContract
-        .getERC20Contract({
-          contractAddress: BVM_ADDRESS.bvm,
-        })
-        .connect(wallet!);
+      // const contract = await cBaseContract
+      //   .getERC20Contract({
+      //     contractAddress: BVM_ADDRESS.bvm,
+      //   })
+      //   .connect(wallet!);
 
-      const sendBVMTx = await contract.transfer(
-        adminAddress,
-        ethers.utils.parseEther(String(amount)),
-        {
-          gasPrice: gasPrice, //wei (Or using gasPriceRaw)
-          nonce,
-        },
-      );
+      // const sendBVMTx = await contract.transfer(
+      //   adminAddress,
+      //   ethers.utils.parseEther(String(amount)),
+      //   {
+      //     gasPrice: gasPrice, //wei (Or using gasPriceRaw)
+      //     nonce,
+      //   },
+      // );
 
-      await sendBVMTx.wait();
+      // await sendBVMTx.wait();
 
-      await cTradeAPI.scanTrxERC20({ tx_hash: sendBVMTx.hash });
+      // await cTradeAPI.scanTrxERC20({ tx_hash: sendBVMTx.hash });
 
-      dispatch(requestReload());
-      showSuccess({
-        message: `Your purchase of ${
-          values.tickets
-        } ticket${labelAmountOrNumberAdds(
-          Number(values.tickets),
-        )} was successful.`,
-      });
+      // dispatch(requestReload());
+      // showSuccess({
+      //   message: `Your purchase of ${
+      //     values.tickets
+      //   } ticket${labelAmountOrNumberAdds(
+      //     Number(values.tickets),
+      //   )} was successful.`,
+      // });
       onOpen();
       await sleep(0.2);
     } catch (error) {
@@ -123,7 +113,7 @@ const BuyTicketForm = () => {
         <p className={styles.error}>
           Insufficient balance.{' '}
           <a
-            href={SWAP_URL}
+            href={getUrlToSwap({})}
             style={{
               textDecoration: 'underline',
               color: '#7038E2',
@@ -217,7 +207,10 @@ const BuyTicketForm = () => {
               }}
               value={formik.values.tickets}
               autoFocus={true}
-              style={{ maxWidth: '50%', cursor: allowBuy ? 'pointer' : 'not-allowed' }}
+              style={{
+                maxWidth: '50%',
+                cursor: allowBuy ? 'pointer' : 'not-allowed',
+              }}
               disabled={!allowBuy}
             />
             {isDesktop && <>{renderTicketPrice()}</>}
@@ -231,9 +224,9 @@ const BuyTicketForm = () => {
         </div>
       </Flex>
       <Flex flexDirection="column" gap="12px">
-        {!isAuthenticated ? (
-          <Button type="button" height="48px" onClick={openSignView}>
-            {authenText}
+        {!isAuthen ? (
+          <Button type="button" height="48px" onClick={requestAccount}>
+            {'Connect Naka wallet'}
           </Button>
         ) : (
           <Button

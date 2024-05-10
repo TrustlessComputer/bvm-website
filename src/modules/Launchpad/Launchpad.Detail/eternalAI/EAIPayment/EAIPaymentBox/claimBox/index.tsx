@@ -1,27 +1,37 @@
 'use client';
 
-import CContract from '@/contract/contract';
+import { NakaConnectContext } from '@/Providers/NakaConnectProvider';
+import { showError, showSuccess } from '@/components/toast';
+import { MIN_DECIMAL } from '@/constants/constants';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
+import { ILaunchpadClaimParams } from '@/modules/Launchpad/services/launchpad.interfaces';
+import CPaymentEAIAPI from '@/modules/Launchpad/services/payment.eai';
+import { userContributeSelector } from '@/modules/Launchpad/store/lpEAIPayment/selector';
+import { requestReload } from '@/stores/states/common/reducer';
+import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrency } from '@/utils/format';
+import sleep from '@/utils/sleep';
 import { Button, Center, Flex, Text } from '@chakra-ui/react';
 import BigNumberJS from 'bignumber.js';
 import cx from 'classnames';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import React, {
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import s from './styles.module.scss';
-import { MIN_DECIMAL } from '@/constants/constants';
-import { useRouter } from 'next/navigation';
-import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
-import CPaymentEAIAPI from '@/modules/Launchpad/services/payment.eai';
-import { userContributeSelector } from '@/modules/Launchpad/store/lpEAIPayment/selector';
-import { ILaunchpadClaimParams } from '@/modules/Launchpad/services/launchpad.interfaces';
-import { requestReload } from '@/stores/states/common/reducer';
 
 const ClaimBox = () => {
   const dispatch = useDispatch();
-  const wallet = useAuthenticatedWallet();
+
+  const { requestAccount, isAuthen, loading, nakaAddress } = useNakaAuthen();
+  const { getConnector } = useContext(NakaConnectContext);
 
   const launchpadApi = useRef(new CPaymentEAIAPI()).current;
-  const contract = useRef(new CContract()).current;
 
   const [claiming, setClaiming] = useState(false);
   const [isClaimWithStake, setIsClaimWithStake] = useState(true);
@@ -29,7 +39,6 @@ const ClaimBox = () => {
 
   const currentClaim2Stake = useRef(false);
   const userContribute = useSelector(userContributeSelector);
-  // const { openSignView } = useAuthen();
   const router = useRouter();
 
   const claimableAmount = React.useMemo(() => {
@@ -46,21 +55,31 @@ const ClaimBox = () => {
   const isClaimed = useMemo(() => userContribute?.is_claimed, [userContribute]);
 
   const isDisabled = useMemo(() => {
-    return claiming || parseFloat(claimableAmount) === 0;
-  }, [claimableAmount, claiming]);
+    if (isAuthen && parseFloat(claimableAmount) === 0) {
+      return true;
+    }
+
+    return claiming || loading;
+  }, [claimableAmount, claiming, loading, isAuthen]);
 
   const onClaimBVM = async () => {
     try {
-      const message = 'claim_EAI_' + wallet?.address;
-      // const signature = await (await contract.getWalle()).signMessage(message);
-      // const body: ILaunchpadClaimParams = {
-      //   address: wallet?.address as string,
-      //   message: message,
-      //   signature,
-      //   is_stake: currentClaim2Stake.current,
-      // };
+      const message = 'claim_EAI_' + nakaAddress;
+      const connector = getConnector();
+      const signature = await connector.requestSignMessage({
+        signMessage: message,
+        target: 'popup',
+        fromAddress: nakaAddress,
+      });
 
-      // return await launchpadApi.requestClaimIDO(body);
+      const body: ILaunchpadClaimParams = {
+        address: nakaAddress as string,
+        message: message,
+        signature: signature.signature,
+        is_stake: currentClaim2Stake.current,
+      };
+
+      return await launchpadApi.requestClaimIDO(body);
     } catch (error) {
       throw error;
     }
@@ -72,56 +91,18 @@ const ClaimBox = () => {
       setIsClaimWithStake(false);
       setClaiming(true);
       await onClaimBVM();
-      // await sleep(2);
+      await sleep(2);
       setClaimed(true);
-      // showSuccess({
-      //   message: 'You has claimed successfully!',
-      // });
+      showSuccess({
+        message: 'You has claimed successfully!',
+      });
       dispatch(requestReload());
     } catch (error) {
-      // showError(getErrorMessage(error));
+      showError(getErrorMessage(error));
     } finally {
       setClaiming(false);
     }
   };
-
-  // const onClaimBVMWithStake = async () => {
-  //   try {
-  //     currentClaim2Stake.current = true;
-  //     setIsClaimWithStake(true);
-  //     setClaiming(true);
-  //     await onClaimBVM();
-  //     await sleep(1);
-  //
-  //     // let teamCode = ethers.utils.formatBytes32String(
-  //     //   StakeV2Role.empty.toString(),
-  //     // );
-  //     // if (stakeUser && stakeUser?.userTeamCode) {
-  //     //   teamCode = ethers.utils.formatBytes32String(stakeUser.userTeamCode);
-  //     // }
-  //     // const tx = await cStake.createStake({
-  //     //   amount: claimableAmount,
-  //     //   code: teamCode,
-  //     //   role: stakeUser?.teamRole || StakeV2Role.empty,
-  //     // });
-  //     //
-  //     // await launchpadApi.updateHashForStakeBVM(Number(id), tx.hash);
-  //
-  //     showSuccess({
-  //       message: 'You has claimed & stake successfully!',
-  //       linkText: 'Check my staking',
-  //       url: '/staking/dashboard',
-  //     });
-  //     setClaimed(true);
-  //     dispatch(requestReload());
-  //   } catch (error) {
-  //     console.log('error', error);
-  //
-  //     showError(getErrorMessage(error));
-  //   } finally {
-  //     setClaiming(false);
-  //   }
-  // };
 
   const renderTokenVesting = useCallback(() => {
     return (
@@ -157,13 +138,13 @@ const ClaimBox = () => {
             )} $EAI`}</Text>
           </Flex>
           {renderTokenVesting()}
-          {!wallet?.address && (
+          {!isAuthen && (
             <Flex gap={'24px'} w={'100%'} mt={'12px'}>
               <Button
-                // isLoading={isClaimWithStake && claiming}
-                // isDisabled={isDisabled}
+                isLoading={isClaimWithStake && claiming}
+                isDisabled={isDisabled}
                 className={s.linkClaimed}
-                // onClick={openSignView}
+                onClick={requestAccount}
                 flex={1}
               >
                 Sign in to claim

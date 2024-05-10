@@ -1,8 +1,8 @@
 import { SignatureStatus } from '@/interfaces/whitelist';
-import { useAppSelector } from '@/store/hooks';
-import { holdingSWPL2Selector } from '@/store/states/user/selector';
+import { holdingSWPL2Selector } from '@/stores/states/user/selector';
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 export const checkIsAllowState = (status: SignatureStatus[]) => {
   return {
@@ -18,7 +18,7 @@ interface IAmount {
 }
 
 const useFormatHoldingSWPL2 = () => {
-  const { loaded, status } = useAppSelector(holdingSWPL2Selector);
+  const { loaded, status } = useSelector(holdingSWPL2Selector);
   const { isProcessing, isUnclaimed } = React.useMemo(() => {
     return checkIsAllowState(status);
   }, [status]);

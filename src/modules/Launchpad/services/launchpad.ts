@@ -1,5 +1,10 @@
 /* eslint-disable no-useless-catch */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
+import { SignatureStatus } from '@/interfaces/whitelist';
+import CApiClient from '@/services/apiClient';
+import { isProduction } from '@/utils/commons';
+import queryString from 'query-string';
 import {
   ILaunchpad,
   ILaunchpadClaimParams,
@@ -8,16 +13,10 @@ import {
   IPagingParams,
   WalletTokenDeposit,
 } from './launchpad.interfaces';
-import queryString from 'query-string';
-import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
-import { SignatureStatus } from '@/interfaces/whitelist';
-import { isProduction } from '@/utils/commons';
-import CApiClient from '@/services/apiClient';
-import { PERP_NAKA_API_URL } from '@/config';
 
 class CLaunchpadAPI {
   private apiClient = new CApiClient().api;
-  private prefix = `${PERP_NAKA_API_URL}/api/launchpad`;
+  private prefix = `/api/launchpad`;
 
   public getLaunchpadOptions = async (): Promise<ILaunchpadFeeOption[]> => {
     try {

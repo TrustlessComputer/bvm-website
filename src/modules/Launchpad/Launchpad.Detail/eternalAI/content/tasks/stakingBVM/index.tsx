@@ -14,22 +14,20 @@ import {
 import cs from 'classnames';
 import React, { useMemo, useRef } from 'react';
 import s from '../item.module.scss';
-import { useRouter } from 'next-nprogress-bar';
 import { EARN_URL } from '@/constants/route-path';
 import ButtonConnected from '@/components/ButtonConnected';
 import { formatCurrency } from '@/utils/format';
-import { useLaunchpadContext } from '@/providers/LaunchpadProvider/hooks/useLaunchpadContext';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import CLaunchpadAPI from '@/services/api/launchpad';
-import { userSelector } from '@/store/states/user/selector';
 import useFormatAllowStaking from '@/modules/Launchpad/Launchpad.Detail/naka/content/tasks/helpers/stakingBVMMessage/useFormatAllowStaking';
-import { requestReload } from '@/store/states/common/reducer';
-import { shareURLWithReferralCode } from '@/utils/helpers';
-import { useParams } from 'next/navigation';
+import { getUrlToSwap, shareURLWithReferralCode } from '@/utils/helpers';
+import { useParams, useRouter } from 'next/navigation';
 import { isDesktop } from 'react-device-detect';
-import { getUrlToSwap } from '@/utils/url';
 import BVM_ADDRESS from '@/contract/stakeV2/configs';
 import ss from './styles.module.scss';
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import { useDispatch, useSelector } from 'react-redux';
+import CLaunchpadAPI from '@/modules/Launchpad/services/launchpad';
+import { userSelector } from '@/stores/states/user/selector';
+import { requestReload } from '@/stores/states/common/reducer';
 
 interface IReferFriend {
   isVerifyTW?: boolean;
@@ -44,26 +42,26 @@ interface IStakingTier {
 const STAKING_TIER: IStakingTier[] = [
   {
     title: 'Top 2% allowlist participants',
-    desc: `<span>30%</span> bonus tokens + <span>$100,000</span> IDO contribution max cap.`
+    desc: `<span>30%</span> bonus tokens + <span>$100,000</span> IDO contribution max cap.`,
   },
   {
     title: 'Next 8% allowlist participants',
-    desc: `<span>20%</span> bonus tokens + <span>$50,000</span> IDO contribution max cap.`
+    desc: `<span>20%</span> bonus tokens + <span>$50,000</span> IDO contribution max cap.`,
   },
   {
     title: 'The remaining allowlist participants',
-    desc: `<span>10%</span> bonus tokens + <span>$20,000</span> IDO contribution max cap.`
+    desc: `<span>10%</span> bonus tokens + <span>$20,000</span> IDO contribution max cap.`,
   },
-]
+];
 
 const StakingBVM = (props: IReferFriend) => {
   const router = useRouter();
   const { currentLaunchpad } = useLaunchpadContext();
   const allowStaking = useFormatAllowStaking();
   const isNeedClaimBTCPoint = allowStaking.isUnclaimed;
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const launchpadApi = new CLaunchpadAPI();
-  const user = useAppSelector(userSelector);
+  const user = useSelector(userSelector);
   const params = useParams();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const initRef = useRef<any>();
@@ -120,7 +118,12 @@ const StakingBVM = (props: IReferFriend) => {
       <Flex className={s.shareTw}>
         <Flex justifyContent={'space-between'} gap={'12px'}>
           <Flex direction="column">
-            <Flex justifyContent={'space-between'} gap={"12px"} alignItems={"center"} flexWrap={"wrap"}>
+            <Flex
+              justifyContent={'space-between'}
+              gap={'12px'}
+              alignItems={'center'}
+              flexWrap={'wrap'}
+            >
               <Text className={s.title}>
                 Buy & Stake $BVM to join allowlist
               </Text>
@@ -178,7 +181,7 @@ const StakingBVM = (props: IReferFriend) => {
                         that binds all Bitcoin L2 blockchains together.{' '}
                         <a
                           style={{ textDecoration: 'underline' }}
-                          href={getUrlToSwap({ to_token: BVM_ADDRESS.bvm })}
+                          href={getUrlToSwap({ to_token: BVM_ADDRESS.BVM.bvm })}
                         >
                           Buy BVM
                         </a>
@@ -191,22 +194,25 @@ const StakingBVM = (props: IReferFriend) => {
             <Text className={s.desc}>
               The more $BVM you stake, the higher allowlist tier you get:
             </Text>
-            <Flex direction={"column"} gap={"8px"} mt={"12px"}>
-              {
-                STAKING_TIER.map((tier: IStakingTier, index: number) => {
-                  return (
-                    <Flex direction={"column"} gap={"8px"} className={ss.tier_container}>
-                      <Flex gap={"8px"}>
-                        <Text className={ss.tier_index}>TIER {index +  1}</Text>
-                        <Text className={ss.tier_title}>{tier?.title}</Text>
-                      </Flex>
-                      <Text className={ss.tier_description}
-                            dangerouslySetInnerHTML={{__html: tier?.desc}}
-                      />
+            <Flex direction={'column'} gap={'8px'} mt={'12px'}>
+              {STAKING_TIER.map((tier: IStakingTier, index: number) => {
+                return (
+                  <Flex
+                    direction={'column'}
+                    gap={'8px'}
+                    className={ss.tier_container}
+                  >
+                    <Flex gap={'8px'}>
+                      <Text className={ss.tier_index}>TIER {index + 1}</Text>
+                      <Text className={ss.tier_title}>{tier?.title}</Text>
                     </Flex>
-                  )
-                })
-              }
+                    <Text
+                      className={ss.tier_description}
+                      dangerouslySetInnerHTML={{ __html: tier?.desc }}
+                    />
+                  </Flex>
+                );
+              })}
             </Flex>
           </Flex>
           {/*<Flex direction="column" minW={'110px'} alignItems={'flex-end'}>
@@ -216,14 +222,29 @@ const StakingBVM = (props: IReferFriend) => {
           </Flex>*/}
         </Flex>
         <Flex direction={'column'} w={'100%'}>
-          <Flex columnGap={"20px"} rowGap={"12px"} direction={["column", "row"]}>
-            <ButtonConnected className={cs(s.btnShare, s.btnSignIn)} title={"BUY $BVM"}>
-              <Button className={s.btnBuy} onClick={() => {
-                router.push(getUrlToSwap({ to_token: BVM_ADDRESS.bvm }))
-              }}>BUY $BVM</Button>
+          <Flex
+            columnGap={'20px'}
+            rowGap={'12px'}
+            direction={['column', 'row']}
+          >
+            <ButtonConnected
+              className={cs(s.btnShare, s.btnSignIn)}
+              title={'BUY $BVM'}
+            >
+              <Button
+                className={s.btnBuy}
+                onClick={() => {
+                  router.push(getUrlToSwap({ to_token: BVM_ADDRESS.BVM.bvm }));
+                }}
+              >
+                BUY $BVM
+              </Button>
             </ButtonConnected>
-            <Flex direction={"column"} alignItems={"center"} flex={1}>
-              <ButtonConnected className={cs(s.btnShare, s.btnSignIn)} title={"Stake now"}>
+            <Flex direction={'column'} alignItems={'center'} flex={1}>
+              <ButtonConnected
+                className={cs(s.btnShare, s.btnSignIn)}
+                title={'Stake now'}
+              >
                 <Button
                   className={s.btnShare}
                   loadingText="Submitting..."
@@ -233,8 +254,8 @@ const StakingBVM = (props: IReferFriend) => {
                   {isNeedClaimBTCPoint
                     ? `Tweet to claim`
                     : Number(allowStaking.amount.staking_amount) > 0
-                      ? 'Stake now'
-                      : 'Stake now'}
+                    ? 'Stake now'
+                    : 'Stake now'}
                 </Button>
               </ButtonConnected>
               <Text

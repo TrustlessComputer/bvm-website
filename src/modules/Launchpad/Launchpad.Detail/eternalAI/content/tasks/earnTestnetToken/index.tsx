@@ -1,20 +1,18 @@
-import {Button, Center, Flex, Link, Text} from '@chakra-ui/react';
+import { Button, Center, Flex, Link, Text } from '@chakra-ui/react';
 import cs from 'classnames';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import s from '../item.module.scss';
-import useFormatHoldingEAI
-  from "@/modules/Launchpad/Launchpad.Detail/eternalAI/content/tasks/helpers/holdingEAIMessage/useFormatHoldingEAI";
-import {useAppDispatch, useAppSelector} from "@/store/hooks";
-import {userSelector} from "@/store/states/user/selector";
-import {ethers} from "ethers";
-import {formatCurrency} from "@/utils/format";
-import {shareURLWithReferralCode} from "@/utils/helpers";
-import {requestReload} from "@/store/states/common/reducer";
-import {useSelector} from "react-redux";
-import {commonSelector} from "@/store/states/common/selector";
-import {useLaunchpadContext} from "@/providers/LaunchpadProvider/hooks/useLaunchpadContext";
-import CLaunchpadAPI from "@/services/api/launchpad";
-import {useParams} from "next/navigation";
+import useFormatHoldingEAI from '@/modules/Launchpad/Launchpad.Detail/eternalAI/content/tasks/helpers/holdingEAIMessage/useFormatHoldingEAI';
+import { ethers } from 'ethers';
+import { formatCurrency } from '@/utils/format';
+import { shareURLWithReferralCode } from '@/utils/helpers';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'next/navigation';
+import { commonSelector } from '@/stores/states/common/selector';
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import { userSelector } from '@/stores/states/user/selector';
+import CLaunchpadAPI from '@/modules/Launchpad/services/launchpad';
+import { requestReload } from '@/stores/states/common/reducer';
 
 interface IReferFriend {
   isVerifyTW?: boolean;
@@ -22,15 +20,15 @@ interface IReferFriend {
 }
 
 const EarnTestnetToken = (props: IReferFriend) => {
-  const user = useAppSelector(userSelector);
+  const user = useSelector(userSelector);
   const needReload = useSelector(commonSelector).needReload;
   const { currentLaunchpad } = useLaunchpadContext();
   const holdingEAI = useFormatHoldingEAI();
   const isNeedClaimBTCPoint = holdingEAI.isUnclaimed;
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const launchpadApi = new CLaunchpadAPI();
   const params = useParams();
-  const [amountEAI, setAmountEAI] = useState("0");
+  const [amountEAI, setAmountEAI] = useState('0');
 
   useEffect(() => {
     onLoadBalance();
@@ -40,9 +38,9 @@ const EarnTestnetToken = (props: IReferFriend) => {
     try {
       if (!user?.twitter_username) return;
       const [balance] = await Promise.all([
-        launchpadApi.getLaunchpadEAIAirdrop(
-          {twitter_username: user?.twitter_username as string}
-        )
+        launchpadApi.getLaunchpadEAIAirdrop({
+          twitter_username: user?.twitter_username as string,
+        }),
       ]);
 
       setAmountEAI(balance);
@@ -73,45 +71,72 @@ const EarnTestnetToken = (props: IReferFriend) => {
   };
 
   const onClickShare = async () => {
-    if(isNeedClaimBTCPoint) {
+    if (isNeedClaimBTCPoint) {
       shareTw();
       setTimeout(() => {
         launchpadApi.requestClaimBTCPoint(holdingEAI.status);
         dispatch(requestReload());
       }, 10000);
     } else {
-      window.open('https://eternalai.org/build', "_blank");
+      window.open('https://eternalai.org/build', '_blank');
     }
   };
 
   return (
-    <Flex className={cs(s.container, { [`${s.container_disable}`]: !props.isVerifyTW })}>
+    <Flex
+      className={cs(s.container, {
+        [`${s.container_disable}`]: !props.isVerifyTW,
+      })}
+    >
       <Center className={s.index}>{props.index}</Center>
       <Flex className={s.shareTw}>
-        <Flex justifyContent={"space-between"} gap={"12px"}>
+        <Flex justifyContent={'space-between'} gap={'12px'}>
           <Flex direction="column">
             <Text className={s.title}>Earn testnet tokens on Eternal AI</Text>
             <Text className={s.desc}>
-              The more $EAI testnet tokens you have, the more points you'll receive.<br/>
-              Build and utilize AI models on the platform to earn more $EAI testnet tokens.&nbsp;
-              <Link href={"https://eternalai.org/"} target={"_blank"} cursor={"pointer"} textDecoration={"underline"}>https://eternalai.org/</Link>
+              The more $EAI testnet tokens you have, the more points you'll
+              receive.
+              <br />
+              Build and utilize AI models on the platform to earn more $EAI
+              testnet tokens.&nbsp;
+              <Link
+                href={'https://eternalai.org/'}
+                target={'_blank'}
+                cursor={'pointer'}
+                textDecoration={'underline'}
+              >
+                https://eternalai.org/
+              </Link>
             </Text>
           </Flex>
-          <Flex direction="column" minW={"110px"} alignItems={"flex-end"}>
+          <Flex direction="column" minW={'110px'} alignItems={'flex-end'}>
             <Text className={s.title}>+1,000 pts</Text>
             <Text className={s.desc}>per 1,000 $EAI</Text>
           </Flex>
         </Flex>
-        {
-          user && (
-            <Text>
-              {`You're signing in with the ${user?.twitter_name} account - `}
-              Balance: <span style={{ color: '#6633CE' }}>{ethers.utils.formatEther(amountEAI).toString()}</span> EAI
-            </Text>
-          )
-        }
-        <Button className={s.btnShare} loadingText="Submitting..." onClick={onClickShare} isDisabled={isDisabled}>
-          {isNeedClaimBTCPoint ? `Tweet to claim ${formatCurrency(holdingEAI.amount.unClaimedPoint, 0, 0)} pts` : 'Build your AI now'}
+        {user && (
+          <Text>
+            {`You're signing in with the ${user?.twitter_name} account - `}
+            Balance:{' '}
+            <span style={{ color: '#6633CE' }}>
+              {ethers.utils.formatEther(amountEAI).toString()}
+            </span>{' '}
+            EAI
+          </Text>
+        )}
+        <Button
+          className={s.btnShare}
+          loadingText="Submitting..."
+          onClick={onClickShare}
+          isDisabled={isDisabled}
+        >
+          {isNeedClaimBTCPoint
+            ? `Tweet to claim ${formatCurrency(
+                holdingEAI.amount.unClaimedPoint,
+                0,
+                0,
+              )} pts`
+            : 'Build your AI now'}
         </Button>
       </Flex>
     </Flex>

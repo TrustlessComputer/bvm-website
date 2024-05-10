@@ -2,16 +2,32 @@ import { ReactElement } from 'react';
 import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 import { NavItem } from '@/layouts/Header/menuConfig';
+import { openExtraLink } from '@/utils/helpers';
 
 type PropD = {
   title: string;
   lists: NavItem[];
   primaryColor?: string;
+  href?: string;
+  target?: string;
 };
-const DropDown = ({ title, lists, primaryColor }: PropD): ReactElement => {
+const DropDown = ({
+  title,
+  lists,
+  primaryColor,
+  href,
+  target,
+}: PropD): ReactElement => {
   return (
     <div className={s.dropMenu}>
-      <span className={`${s.dropMenu_label} ${s[primaryColor || 'black']}`}>
+      <span
+        onClick={() => {
+          if (href) {
+            return window.open(href, target);
+          }
+        }}
+        className={`${s.dropMenu_label} ${s[primaryColor || 'black']}`}
+      >
         {title}
         <SvgInset svgUrl={`/icons/ic-submenu.svg`} />
       </span>

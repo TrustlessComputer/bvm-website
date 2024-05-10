@@ -1,14 +1,14 @@
 import s from './styles.module.scss';
 import React, { forwardRef, ReactElement, useState } from 'react';
 import Image from 'next/image';
-import { useAppSelector } from '@/store/hooks';
-import { userSelector } from '@/store/states/user/selector';
 import { getUrlAvatarTwitter } from '@/utils/helpers';
+import { userSelector } from '@/stores/states/user/selector';
+import { useSelector } from 'react-redux';
 
 const AvatarYou = forwardRef((props: any, ref: any) => {
   const { ...rest } = props;
   const [error, setError] = useState<boolean>(false);
-  const user = useAppSelector(userSelector);
+  const user = useSelector(userSelector);
   const PlaceImage = (): ReactElement => {
     return (
       <Image

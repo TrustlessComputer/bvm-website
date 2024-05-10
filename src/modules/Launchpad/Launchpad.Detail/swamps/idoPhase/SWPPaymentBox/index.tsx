@@ -1,26 +1,26 @@
-import styles from './styles.module.scss';
-import { Box, Button, Flex, useDisclosure } from '@chakra-ui/react';
-import BlockInfo from './BlockInfo';
-import DepositAddressModal from '@/modules/Launchpad/Launchpad.Detail/swamps/idoPhase/DepositAddressModal';
 import NumberScale from '@/components/NumberScale';
-import React, { useMemo } from 'react';
-import dayjs from 'dayjs';
-import ThankBackingBox from './ThankBackingBox';
-import { TOKEN_BTC_ADDRESS } from '@/modules/Launchpad/Launchpad.Detail/swamps/idoPhase/DepositAddressModal/Deposit.naka';
+import TOKEN_ADDRESS from '@/constants/token';
 import BVM_ADDRESS from '@/contract/stakeV2/configs';
-import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
-import { useSelector } from 'react-redux';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
+import useERC20Balance from '@/modules/Launchpad/components/ERC20Balance/useERC20Balance';
+import DepositAddressModal from '@/modules/Launchpad/Launchpad.Detail/swamps/idoPhase/DepositAddressModal';
+import { TOKEN_BTC_ADDRESS } from '@/modules/Launchpad/Launchpad.Detail/swamps/idoPhase/DepositAddressModal/Deposit.naka';
 import {
   oldSummarySelector,
   summarySelector,
 } from '@/modules/Launchpad/store/lpEAIPayment/selector';
-import useERC20Balance from '@/modules/Launchpad/components/ERC20Balance/useERC20Balance';
-import TOKEN_ADDRESS from '@/constants/token';
+import { Box, Button, Flex, useDisclosure } from '@chakra-ui/react';
+import dayjs from 'dayjs';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import BlockInfo from './BlockInfo';
+import styles from './styles.module.scss';
+import ThankBackingBox from './ThankBackingBox';
 // import ClaimBox from "@/modules/Launchpad/Launchpad.Detail/swamps/idoPhase/SWPPaymentBox/claimBox";
 
 const EAIPaymentBox = () => {
-  const wallet = useAuthenticatedWallet();
-  const isAuthenticated = wallet?.address;
+  const { isAuthen } = useNakaAuthen();
+  const isAuthenticated = isAuthen;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const summary = useSelector(summarySelector);
   const oldSummary = useSelector(oldSummarySelector);

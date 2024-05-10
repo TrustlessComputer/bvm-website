@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 import s from './styles.module.scss';
-import { useLaunchpadContext } from '@/providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
 import FollowTwitter from '@/modules/Launchpad/Launchpad.Detail/swamps/content/tasks/followTwitter';
 
 const Follow = () => {

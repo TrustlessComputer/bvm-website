@@ -1,13 +1,12 @@
 import BaseModal from '@/components/BaseModal';
-import {Button, Flex, Image, Text} from '@chakra-ui/react';
-import {useAppSelector} from '@/store/hooks';
-import {userSelector} from '@/store/states/user/selector';
-import {shareURLWithReferralCode} from '@/utils/helpers';
-import {labelAmountOrNumberAdds} from '@/constants/constants';
-import {formatCurrency} from "@/utils/format";
-import {useParams} from "next/navigation";
-import {useSelector} from "react-redux";
-import {launchpadSelector} from "@/store/states/launchpad/reducer";
+import { Button, Flex, Image, Text } from '@chakra-ui/react';
+import { shareURLWithReferralCode } from '@/utils/helpers';
+import { formatCurrency } from '@/utils/format';
+import { useParams } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { launchpadSelector } from '@/modules/Launchpad/store/reducer';
+import { userSelector } from '@/stores/states/user/selector';
+import { labelAmountOrNumberAdds } from '@/utils/string';
 
 interface IProps {
   isShow: boolean;
@@ -16,9 +15,9 @@ interface IProps {
 }
 
 const SuccessModal = ({ isShow, onHide, amount }: IProps) => {
-  const user = useAppSelector(userSelector);
+  const user = useSelector(userSelector);
   const params = useParams();
-  const {blockScout} = useSelector(launchpadSelector);
+  const { blockScout } = useSelector(launchpadSelector);
 
   const onShare = () => {
     const url = shareURLWithReferralCode({
@@ -26,9 +25,28 @@ const SuccessModal = ({ isShow, onHide, amount }: IProps) => {
       user: user,
     });
 
-    const content = `Just discovered @naka_chain - the first Bitcoin L2 for DeFi! Impressive growth for a new Bitcoin L2:\n\n🔥$${formatCurrency(blockScout.tvl, 0, 0, 'BTC', false)}+ TVL
-🔥${formatCurrency(blockScout.address, 0, 0, 'BTC', false, 1000)}+ active wallets
-🔥${formatCurrency(blockScout.total_transactions, 0, 0, 'BTC', false)}+ transactions\n\nYou can buy $NAKA now at very low valuation ($1M FDV) on $NAKA launchpad IDO now:\n👉${url}`;
+    const content = `Just discovered @naka_chain - the first Bitcoin L2 for DeFi! Impressive growth for a new Bitcoin L2:\n\n🔥$${formatCurrency(
+      blockScout.tvl,
+      0,
+      0,
+      'BTC',
+      false,
+    )}+ TVL
+🔥${formatCurrency(
+      blockScout.address,
+      0,
+      0,
+      'BTC',
+      false,
+      1000,
+    )}+ active wallets
+🔥${formatCurrency(
+      blockScout.total_transactions,
+      0,
+      0,
+      'BTC',
+      false,
+    )}+ transactions\n\nYou can buy $NAKA now at very low valuation ($1M FDV) on $NAKA launchpad IDO now:\n👉${url}`;
 
     setTimeout(() => {
       window.open(
@@ -39,7 +57,7 @@ const SuccessModal = ({ isShow, onHide, amount }: IProps) => {
   };
 
   return (
-    <BaseModal isShow={isShow} onHide={onHide} title="" size="supperSmall">
+    <BaseModal isShow={isShow} onHide={onHide} title="" size="small">
       <Flex
         flexDirection="column"
         alignItems="center"

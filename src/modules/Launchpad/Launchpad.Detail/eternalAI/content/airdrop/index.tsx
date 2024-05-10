@@ -1,11 +1,10 @@
-import {Flex} from '@chakra-ui/react';
-import React, {useMemo} from 'react';
+import { Flex } from '@chakra-ui/react';
+import React, { useMemo } from 'react';
 import s from './styles.module.scss';
-import {useLaunchpadContext} from '@/providers/LaunchpadProvider/hooks/useLaunchpadContext';
-import HoldRNDRAirdrop from "@/modules/Launchpad/Launchpad.Detail/eternalAI/content/tasks/holdRNDRAirdrop";
-import useHoldingAirdrop
-  from "@/modules/Launchpad/Launchpad.Detail/eternalAI/content/tasks/helpers/holdingAirdropMessage/useHoldingAirdrop";
-import HoldFETAirdrop from "@/modules/Launchpad/Launchpad.Detail/eternalAI/content/tasks/holdFETAirdrop";
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import HoldRNDRAirdrop from '@/modules/Launchpad/Launchpad.Detail/eternalAI/content/tasks/holdRNDRAirdrop';
+import useHoldingAirdrop from '@/modules/Launchpad/Launchpad.Detail/eternalAI/content/tasks/helpers/holdingAirdropMessage/useHoldingAirdrop';
+import HoldFETAirdrop from '@/modules/Launchpad/Launchpad.Detail/eternalAI/content/tasks/holdFETAirdrop';
 
 const Airdrop = () => {
   // const token = AuthenStorage.getAuthenKey();
@@ -31,7 +30,7 @@ const Airdrop = () => {
   }
 
   return (
-    <Flex className={s.container} id={"list-airdrop"}>
+    <Flex className={s.container} id={'list-airdrop'}>
       <HoldRNDRAirdrop isVerifyTW={isDone} index={index + 1} />
       <HoldFETAirdrop isVerifyTW={isDone} index={index + 2} />
     </Flex>

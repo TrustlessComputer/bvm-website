@@ -89,6 +89,7 @@ export const TOP_NAV_ITEMS: Array<NavItem> = [
     label: 'Launchpad',
     isNewWindow: false,
     isHide: false,
+    href: `${LAUNCHPAD_DETAIL_URL}/3`,
     subMenu: [
       {
         href: `${LAUNCHPAD_DETAIL_URL}/3`,
@@ -140,8 +141,8 @@ export const MenuBuild = {
       isNewWindow: true,
     },
     {
-      href: DEVELOPERS_GRANTS_URL,
-      label: 'Developer Grants',
+      href: '/build-on-bitcoin',
+      label: 'Builder Program',
       isNewWindow: true,
     },
   ],

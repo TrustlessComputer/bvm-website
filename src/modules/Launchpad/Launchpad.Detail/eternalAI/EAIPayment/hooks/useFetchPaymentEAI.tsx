@@ -1,23 +1,26 @@
-import React, { useRef } from 'react';
-import throttle from 'lodash/throttle';
-import CPaymentEAIAPI from '@/modules/Launchpad/services/payment.eai';
-import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
-import { useDispatch, useSelector } from 'react-redux';
-import { commonSelector } from '@/stores/states/common/selector';
-import { ILeaderBoardEAI } from '@/modules/Launchpad/services/laupEAI-payment.interfaces';
-import { setPublicSaleSummary, setUserContributeInfo, setWalletDeposit } from '@/modules/Launchpad/store/lpEAIPayment/reducer';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import { WalletTokenDeposit } from '@/modules/Launchpad/services/launchpad.interfaces';
+import { ILeaderBoardEAI } from '@/modules/Launchpad/services/laupEAI-payment.interfaces';
+import CPaymentEAIAPI from '@/modules/Launchpad/services/payment.eai';
+import {
+  setPublicSaleSummary,
+  setUserContributeInfo,
+  setWalletDeposit,
+} from '@/modules/Launchpad/store/lpEAIPayment/reducer';
+import { commonSelector } from '@/stores/states/common/selector';
+import throttle from 'lodash/throttle';
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useFetchPaymentEAI = () => {
   const cpaymentEAIAPI = useRef(new CPaymentEAIAPI()).current;
-  const wallet = useAuthenticatedWallet();
-  const address = wallet?.address;
+  const { nakaAddress } = useNakaAuthen();
   const dispatch = useDispatch();
   const needReload = useSelector(commonSelector).needReload;
   // const [counter, setCounter] = React.useState(0);
 
   const getUserContributeInfo = async (address?: string) => {
-    if (!address) return;
+    if (!nakaAddress) return;
     const { data } = await cpaymentEAIAPI.getPublicSaleLeaderBoards({
       page: 1,
       limit: 0,
@@ -63,14 +66,14 @@ const useFetchPaymentEAI = () => {
   // }, []);
 
   React.useEffect(() => {
-    if (!address) return;
-    fetchDepositAddress(address);
-  }, [address]);
+    if (!nakaAddress) return;
+    fetchDepositAddress(nakaAddress);
+  }, [nakaAddress]);
 
   React.useEffect(() => {
     thGetSummary();
-    getUserContributeInfo(address);
-  }, [address, needReload]);
+    getUserContributeInfo(nakaAddress);
+  }, [nakaAddress, needReload]);
 };
 
 export default useFetchPaymentEAI;

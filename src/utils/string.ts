@@ -24,9 +24,13 @@ export const labelAmountOrNumberAdds = (amount: number | string) => {
   return Number(amount) !== 1 ? 's' : '';
 };
 
+const formatAddressCenter = (address: string, length = 4): string => {
+  if (!address) return '';
+  return address.length > length * 2
+    ? address.substring(0, length) +
+        '...' +
+        address.substring(address.length - length, address.length)
+    : address;
+};
 
-
-export {
-  getAvatarName,
-  compareString,
-}
+export { getAvatarName, compareString, formatAddressCenter };

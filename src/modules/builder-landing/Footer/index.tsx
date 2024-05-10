@@ -51,20 +51,20 @@ const Footer = (): React.JSX.Element => {
             alignItems={'center'}
             px={'41px'}
             py={'14px'}
-            w={['172px']}
+            w={['180px']}
             h={'48px'}
             fontWeight={400}
             marginTop={'24px'}
             fontSize={'16px'}
             onClick={() => {
-              scrollTo();
-              // router.push('/blockchains/customize');
+              // scrollTo();
+              router.push('/blockchains/customize');
             }}
             _hover={{
               opacity: 0.8,
             }}
           >
-            Build Your Bitcoin L2
+            Launch Bitcoin L2 now
           </Button>
         </Fade>
       </div>

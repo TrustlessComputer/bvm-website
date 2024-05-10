@@ -47,4 +47,24 @@ export interface ILeaderBoardPoint {
   testnet_point?: number;
   src20_point?: number;
   swamps_point?: number;
+  view_boost?: any;
+  usdt_value?: any;
+  coin_balances?: any;
+  bvm_balance?: any;
+  bvm_lucky_balance?: any;
+  bvm_percent?: any;
+  levelRender?: any;
+  deposit_id?: any;
+  lastRender?: any;
+  celestia_point?: any;
+  eigenlayer_point?: any;
+  polygon_point?: any;
+  manta_point?: any;
+  optimism_point?: any;
+  blast_point?: any;
+  base_point?: any;
+  arb_point?: any;
+  game_point?: any;
+  alpha_point?: any;
+  naka_point?: any;
 }

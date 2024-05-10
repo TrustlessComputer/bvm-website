@@ -1,9 +1,9 @@
 import { INFO_TOKENS } from '@/modules/Launchpad/Launchpad.Detail/eternalAI/EAIPayment/DepositAddressModal/tokens';
-import { WalletTokenDeposit } from '@/services/interfaces/launchpad';
 import { Avatar, Flex, MenuItem, Text } from '@chakra-ui/react';
 import cs from 'classnames';
 import React, { useMemo } from 'react';
 import s from './styles.module.scss';
+import { WalletTokenDeposit } from '@/modules/Launchpad/services/launchpad.interfaces';
 
 interface IDepositContentItem {
   token: WalletTokenDeposit | undefined;

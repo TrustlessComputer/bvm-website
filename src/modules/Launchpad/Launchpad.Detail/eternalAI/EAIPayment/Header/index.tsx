@@ -1,13 +1,13 @@
 import { Box, Flex, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import { TOKEN_ICON_DEFAULT } from '@/constants/constants';
 import SocialToken from '@/modules/Launchpad/components/Social';
 import React, { useMemo } from 'react';
 import Link from 'next/link';
 import dayjs from 'dayjs';
-import { useAppSelector } from '@/store/hooks';
-import { summarySelector } from '@/store/states/lpEAIPayment/selector';
 import { LAUNCHPAD_AI_NAME } from '@/modules/Launchpad/Launchpad.Detail/eternalAI/EAIPayment/configs';
+import { TOKEN_ICON_DEFAULT } from '@/constants/token';
+import { summarySelector } from '@/modules/Launchpad/store/lpEAIPayment/selector';
+import { useSelector } from 'react-redux';
 
 const EAIHeader = () => {
   const socials = useMemo(() => {
@@ -17,7 +17,7 @@ const EAIHeader = () => {
     };
   }, []);
 
-  const summary = useAppSelector(summarySelector);
+  const summary = useSelector(summarySelector);
 
   return (
     <Box className={s.container}>

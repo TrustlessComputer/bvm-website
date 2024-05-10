@@ -1,5 +1,6 @@
 // import { PERP_API_URL } from '@/configs';
 
+import CApiClient from '@/services/apiClient';
 import {
   ILaunchpad,
   ILaunchpadClaimParams,
@@ -10,13 +11,11 @@ import {
   IPublicSaleDepositInfo,
   IResUpdateTwitter,
 } from './laupEAI-payment.interfaces';
-import CApiClient from '@/services/apiClient';
-import { PERP_NAKA_API_URL } from '@/config';
 
 class CPaymentSWPAPI {
   private apiClient = new CApiClient().api;
-  private prefix = `${PERP_NAKA_API_URL}/api/swamps/sale`;
-  private prefixOriginal = `${PERP_NAKA_API_URL}/api/swamps`;
+  private prefix = `/api/swamps/sale`;
+  private prefixOriginal = `/api/swamps`;
 
   mapLeaderboard = (arr: any[]) => {
     return ((arr || []) as ILeaderBoardEAI[]).map((item) => {

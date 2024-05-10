@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import React from 'react';
-import { ILaunchpad } from '@/services/interfaces/launchpad';
+import { ILaunchpad } from '../../services/launchpad.interfaces';
 
 const IdoDescription = ({
   launchpadDetail,

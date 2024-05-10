@@ -1,35 +1,35 @@
+import CLaunchpadAPI from '@/modules/Launchpad/services/launchpad';
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import { commonSelector } from '@/stores/states/common/selector';
+import { setAllow404 } from '@/stores/states/user/reducer';
+import AuthenStorage from '@/utils/storage/authen.storage';
 import React from 'react';
-import {useAppDispatch, useAppSelector} from "@/store/hooks";
-import {commonSelector} from "@/store/states/common/selector";
-import AuthenStorage from "@/storage/authen.storage";
-import {setAllow404} from "@/store/states/user/reducer";
-import CLaunchpadAPI from "@/services/api/launchpad";
-import {useLaunchpadContext} from "@/providers/LaunchpadProvider/hooks/useLaunchpadContext";
+import { useDispatch, useSelector } from 'react-redux';
 
 let interval: any = undefined;
 const useAllow404 = () => {
-  const needReload = useAppSelector(commonSelector).needReload;
-  const dispatch = useAppDispatch();
+  const needReload = useSelector(commonSelector).needReload;
+  const dispatch = useDispatch();
   const launchpadApi = new CLaunchpadAPI();
   const { currentLaunchpad } = useLaunchpadContext();
 
   const fetchData = async () => {
     try {
-      const response  = await launchpadApi.getAllowBTCStatus(
-        {
-          launchpad_id: currentLaunchpad?.id as number,
-          network: 'naka',
-          type: 'brc404'
-        }
+      const response = await launchpadApi.getAllowBTCStatus({
+        launchpad_id: currentLaunchpad?.id as number,
+        network: 'naka',
+        type: 'brc404',
+      });
+      dispatch(
+        setAllow404({
+          status: response || [],
+          loaded: true,
+        }),
       );
-      dispatch(setAllow404({
-        status: response || [],
-        loaded: true
-      }))
     } catch (error) {
       console.log('ERROR: ', error);
     }
-  }
+  };
 
   React.useEffect(() => {
     const authenKey = AuthenStorage.getAuthenKey();
@@ -37,14 +37,14 @@ const useAllow404 = () => {
     if (!authenKey) return;
     if (interval) {
       clearInterval(interval);
-      interval = undefined
+      interval = undefined;
     }
 
     fetchData();
     interval = setInterval(() => {
       fetchData();
-    }, 10000)
+    }, 10000);
   }, [needReload]);
-}
+};
 
 export default useAllow404;

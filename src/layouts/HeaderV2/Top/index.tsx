@@ -18,7 +18,7 @@ const Top = () => {
 
         <p
           onClick={(): void => {
-            window.open('https://nakachain.xyz/proposal-dashboard', '_blank');
+            window.open('/proposal-dashboard', '_blank');
           }}
           className={s.leftToken}
         >
@@ -30,6 +30,8 @@ const Top = () => {
               key={item.label}
               title={item.label}
               lists={item.subMenu}
+              href={item.href}
+              target={item.isNewWindow ? '_blank' : '_self'}
             />
           ) : (
             <Link

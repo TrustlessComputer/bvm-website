@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import s from './styles.module.scss';
 import { MathMap } from '@/utils/mathUtils';
 import { formatCurrency } from '@/utils/format';
-import { ILeaderBoardEAI } from '@/interfaces/laupEAI-payment';
+import { ILeaderBoardEAI } from '@/modules/Launchpad/services/laupEAI-payment.interfaces';
 
 const AnimatedText = ({
   latestContributors,

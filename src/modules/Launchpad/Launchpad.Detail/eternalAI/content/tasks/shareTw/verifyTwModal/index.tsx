@@ -5,7 +5,7 @@ import s from './styles.module.scss';
 import { generateTokenWithTwPost } from '@/services/player-share';
 import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { closeModal } from '@/store/states/modal/reducer';
+import { closeModal } from '@/stores/states/modal/reducer';
 
 interface FormValues {
   postUrl: string;
@@ -20,7 +20,10 @@ const VerifyTwModal = ({ secretCode, onSuccess }: any) => {
   const onSubmit = async (values: FormValues) => {
     try {
       setIsCreating(true);
-      const result = await generateTokenWithTwPost(secretCode as string, values.postUrl);
+      const result = await generateTokenWithTwPost(
+        secretCode as string,
+        values.postUrl,
+      );
       onSuccess && onSuccess(result);
       dispatch(closeModal({ id: VerifyTwModalID }));
     } catch (error) {
@@ -39,7 +42,6 @@ const VerifyTwModal = ({ secretCode, onSuccess }: any) => {
     return formik.values;
   }, [formik.values]);
 
-
   const onChangeText = (e: any) => {
     formik.setValues((values: any) => ({
       ...values,
@@ -52,7 +54,10 @@ const VerifyTwModal = ({ secretCode, onSuccess }: any) => {
       <div className={s.content}>
         <form className={s.form} onSubmit={formik.handleSubmit}>
           <div className={s.title}>Missing from the Leaderboard?</div>
-          <div className={s.desc}>Simply paste the URL of your tweet below to verify manually and we'll take care of the rest.</div>
+          <div className={s.desc}>
+            Simply paste the URL of your tweet below to verify manually and
+            we'll take care of the rest.
+          </div>
           <div className={s.inputContainer}>
             <input
               id="postUrl"

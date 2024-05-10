@@ -11,6 +11,7 @@ const DeFiModule = () => {
   return (
     <>
       <Box className={s.container} bgColor={'#f6f6f6'}>
+
         <div className={s.heroSection}>
           <HeroSection />
         </div>

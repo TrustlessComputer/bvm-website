@@ -1,18 +1,18 @@
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
+import CLaunchpadAPI from '@/modules/Launchpad/services/launchpad';
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import { commonSelector } from '@/stores/states/common/selector';
+import { setAllowSAVM } from '@/stores/states/user/reducer';
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { commonSelector } from '@/store/states/common/selector';
-import { setAllowSAVM } from '@/store/states/user/reducer';
-import CLaunchpadAPI from '@/services/api/launchpad';
-import { useLaunchpadContext } from '@/providers/LaunchpadProvider/hooks/useLaunchpadContext';
-import useAuthen from '@/hooks/useAuthen';
+import { useDispatch, useSelector } from 'react-redux';
 
 let interval: any = undefined;
 const useAllowSAVM = () => {
-  const needReload = useAppSelector(commonSelector).needReload;
-  const dispatch = useAppDispatch();
+  const needReload = useSelector(commonSelector).needReload;
+  const dispatch = useDispatch();
   const launchpadApi = new CLaunchpadAPI();
   const { currentLaunchpad } = useLaunchpadContext();
-  const { isAuthenticated } = useAuthen();
+  const { isAuthen } = useNakaAuthen();
 
   const fetchData = async () => {
     try {
@@ -43,7 +43,7 @@ const useAllowSAVM = () => {
     interval = setInterval(() => {
       fetchData();
     }, 10000);
-  }, [needReload, isAuthenticated]);
+  }, [needReload, isAuthen]);
 };
 
 export default useAllowSAVM;

@@ -1,0 +1,12 @@
+.wrapper {
+
+  .heading {
+    font-size: 16px;
+    font-weight: 500;
+    color: #8C8D93;
+  }
+
+  @include is-mobile {
+
+  }
+}

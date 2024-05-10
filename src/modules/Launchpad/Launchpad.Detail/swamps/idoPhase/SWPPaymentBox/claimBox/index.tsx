@@ -1,33 +1,40 @@
 'use client';
 
-import {showError, showSuccess} from '@/components/toast';
+import { showError, showSuccess } from '@/components/toast';
 import CContract from '@/contract/contract';
-import {useWallet} from '@/providers/WalletProvider/hooks/useWallet';
-import {ILaunchpadClaimParams,} from '@/services/interfaces/launchpad';
-import {requestReload} from '@/store/states/common/reducer';
-import {commonSelector} from '@/store/states/common/selector';
-import {getErrorMessage} from '@/utils/error';
-import {formatCurrency} from '@/utils/format';
+import { formatCurrency } from '@/utils/format';
 import sleep from '@/utils/sleep';
-import { Button, Center, Flex, Skeleton, Spinner, Text,} from '@chakra-ui/react';
+import {
+  Button,
+  Center,
+  Flex,
+  Skeleton,
+  Spinner,
+  Text,
+} from '@chakra-ui/react';
 import cx from 'classnames';
-import {first} from 'lodash';
-import {useParams} from 'next/navigation';
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { first } from 'lodash';
+import { useParams } from 'next/navigation';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import s from './styles.module.scss';
-// import {useLaunchpadContext} from "@/providers/LaunchpadProvider/hooks/useLaunchpadContext";
-import CPaymentSWPAPI from "@/services/api/payment.swp";
-import {ILeaderBoardEAI} from "@/interfaces/laupEAI-payment";
-import useAuthen from "@/hooks/useAuthen";
+import { commonSelector } from '@/stores/states/common/selector';
+import CPaymentSWPAPI from '@/modules/Launchpad/services/payment.swp';
+import { ILeaderBoardEAI } from '@/modules/Launchpad/services/laupEAI-payment.interfaces';
+import { ILaunchpadClaimParams } from '@/modules/Launchpad/services/launchpad.interfaces';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
+import { NakaConnectContext } from '@/Providers/NakaConnectProvider';
+import { requestReload } from '@/stores/states/common/reducer';
+import { getErrorMessage } from '@/utils/errorV2';
 
 const ClaimBox = () => {
+  const { getConnector } = useContext(NakaConnectContext);
   const dispatch = useDispatch();
   const params = useParams();
   const needReload = useSelector(commonSelector).needReload;
   const [loading, setLoading] = useState<boolean>(true);
-  const { wallet } = useWallet();
-  const { openSignView } = useAuthen();
+
+  const { nakaAddress, isAuthen, requestAccount } = useNakaAuthen();
 
   const id = params?.id;
   const [currentLeaderboard, setCurrentLeaderboard] = useState<
@@ -72,8 +79,7 @@ const ClaimBox = () => {
   };
 
   const amountAllocation = useMemo(
-    () =>
-      currentLeaderboard?.token_balance || "0",
+    () => currentLeaderboard?.token_balance || '0',
     [currentLeaderboard],
   );
 
@@ -93,12 +99,18 @@ const ClaimBox = () => {
 
   const onClaim = async () => {
     try {
-      const message = 'claim_GSWP_' + wallet?.address;
-      const signature = await (await contract.getWallet()).signMessage(message);
+      const message = 'claim_GSWP_' + nakaAddress;
+      const connector = getConnector();
+      const signature = await connector.requestSignMessage({
+        signMessage: message,
+        target: 'popup',
+        fromAddress: nakaAddress,
+      });
+
       const body: ILaunchpadClaimParams = {
-        address: wallet?.address as string,
+        address: nakaAddress as string,
         message: message,
-        signature,
+        signature: signature.signature,
       };
 
       return await launchpadApi.requestClaimIDO(body);
@@ -129,7 +141,7 @@ const ClaimBox = () => {
 
     if (loading) {
       content = <Spinner color={'#000'} />;
-    } else if (!isClaimable && !wallet?.address) {
+    } else if (!isClaimable && !isAuthen) {
       content = (
         <Flex className={s.balanceWrapper} flexDirection={'column'}>
           <Text className={s.balanceTitle}>Claimable balance</Text>
@@ -140,12 +152,8 @@ const ClaimBox = () => {
               2,
             )} $GSWP`}</Text>
           </Skeleton>
-          <Flex gap={"24px"} w={"100%"} mt="20px">
-            <Button
-              className={s.linkClaimed}
-              onClick={openSignView}
-              flex={1}
-            >
+          <Flex gap={'24px'} w={'100%'} mt="20px">
+            <Button className={s.linkClaimed} onClick={requestAccount} flex={1}>
               Sign in to claim
             </Button>
           </Flex>
@@ -180,7 +188,7 @@ const ClaimBox = () => {
               )}
             </Flex>
           </Flex>
-          <Flex gap={"24px"} w={"100%"}>
+          <Flex gap={'24px'} w={'100%'}>
             <Button
               isDisabled={isDisabled}
               onClick={onClickClaim}

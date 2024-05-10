@@ -1,13 +1,12 @@
 import { showError, showSuccess } from '@/components/toast';
-import useAuthen from '@/hooks/useAuthen';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import useFormatHoldingSWPL2 from '@/modules/Launchpad/Launchpad.Detail/swamps/content/tasks/helpers/holdingAirdropMessage/useFormatHoldingSWPL2';
-import { useLaunchpadContext } from '@/providers/LaunchpadProvider/hooks/useLaunchpadContext';
-import CLaunchpadAPI from '@/services/api/launchpad';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { requestReload } from '@/store/states/common/reducer';
-import { userSelector } from '@/store/states/user/selector';
-import { User } from '@/store/states/user/types';
-import { getErrorMessage } from '@/utils/error';
+import CLaunchpadAPI from '@/modules/Launchpad/services/launchpad';
+import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import { requestReload } from '@/stores/states/common/reducer';
+import { userSelector } from '@/stores/states/user/selector';
+import { User } from '@/stores/states/user/types';
+import { getErrorMessage } from '@/utils/errorV2';
 import { formatCurrency } from '@/utils/format';
 import { openExtraLink, shareURLWithReferralCode } from '@/utils/helpers';
 import { signMessage as signMessageMetamask } from '@/utils/metamask-helper';
@@ -17,6 +16,7 @@ import cx from 'clsx';
 import throttle from 'lodash/throttle';
 import { useParams } from 'next/navigation';
 import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import HoldingSWPL2Message from '../helpers/holdingAirdropMessage';
 import s from '../item.module.scss';
 
@@ -56,12 +56,12 @@ export const shareTw = (params: {
 const HoldSWPOnBTCL2 = (props: { index: number; isVerifyTW?: boolean }) => {
   const { currentLaunchpad } = useLaunchpadContext();
   const allowSAVM = useFormatHoldingSWPL2();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const launchpadApi = new CLaunchpadAPI();
-  const user = useAppSelector(userSelector);
+  const user = useSelector(userSelector);
   const paramsURL = useParams();
 
-  const { isAuthenticated, openSignView, authenText } = useAuthen();
+  const { isAuthen, requestAccount } = useNakaAuthen();
 
   const [loading, setLoading] = React.useState(false);
 
@@ -73,7 +73,6 @@ const HoldSWPOnBTCL2 = (props: { index: number; isVerifyTW?: boolean }) => {
         (address: string) => {
           return `This action verifies the ownership of ${address}.`;
         },
-        [SWAMP_L2_CONFIG],
       );
 
       await launchpadApi.verifyBTCSignature({
@@ -121,7 +120,7 @@ const HoldSWPOnBTCL2 = (props: { index: number; isVerifyTW?: boolean }) => {
   }, [currentLaunchpad?.status, loading]);
 
   const onClickShare = async () => {
-    if (!isAuthenticated) return openSignView();
+    if (!isAuthen) return requestAccount();
     try {
       if (isNeedClaimBTCPoint) {
         shareTw({
@@ -168,15 +167,15 @@ const HoldSWPOnBTCL2 = (props: { index: number; isVerifyTW?: boolean }) => {
             onClick={onClickShare}
             isDisabled={isDisabled}
           >
-            {!isAuthenticated
-              ? authenText
+            {!isAuthen
+              ? 'Connect Naka wallet'
               : isNeedClaimBTCPoint
-                ? `Tweet to claim ${formatCurrency(
-                    allowSAVM.amount.unClaimedPoint,
-                    0,
-                    0,
-                  )} pts`
-                : 'Verify now'}
+              ? `Tweet to claim ${formatCurrency(
+                  allowSAVM.amount.unClaimedPoint,
+                  0,
+                  0,
+                )} pts`
+              : 'Verify now'}
           </Button>
           {isNeedClaimBTCPoint && (
             <Button

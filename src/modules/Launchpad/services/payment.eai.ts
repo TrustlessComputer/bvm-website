@@ -1,5 +1,6 @@
 // import { PERP_API_URL } from '@/configs';
 
+import CApiClient from '@/services/apiClient';
 import {
   ILaunchpad,
   ILaunchpadClaimParams,
@@ -10,13 +11,11 @@ import {
   IPublicSaleDepositInfo,
   IResUpdateTwitter,
 } from './laupEAI-payment.interfaces';
-import { PERP_NAKA_API_URL } from '@/config';
-import CApiClient from '@/services/apiClient';
 
 class CPaymentEAIAPI {
   private apiClient = new CApiClient().api;
-  private prefix = `${PERP_NAKA_API_URL}/api/eternal-ai/sale`;
-  private prefixOriginal = `${PERP_NAKA_API_URL}/api/eternal-ai`;
+  private prefix = `/api/eternal-ai/sale`;
+  private prefixOriginal = `/api/eternal-ai`;
 
   mapLeaderboard = (arr: any[]) => {
     return ((arr || []) as ILeaderBoardEAI[]).map((item) => {

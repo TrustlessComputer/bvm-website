@@ -2,11 +2,11 @@ import s from './styles.module.scss';
 import { Box, Center, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import cx from 'clsx';
-import { useAppSelector } from '@/store/hooks';
-import { userSelector } from '@/store/states/user/selector';
+import { userSelector } from '@/stores/states/user/selector';
+import { useSelector } from 'react-redux';
 
 const TopContributorReward = () => {
-  const user = useAppSelector(userSelector);
+  const user = useSelector(userSelector);
   console.log(user);
   const handleShareTw = () => {
     // const shareUrl = getLink(user?.referral_code || '');

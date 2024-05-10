@@ -48,6 +48,9 @@
   :global {
     .chakra-table__container {
       border-radius: 8px;
+      .chakra-table {
+        background-color: #fff;
+      }
     }
   }
 }
@@ -74,8 +77,8 @@ table {
       tr {
         th {
           padding-bottom: 16px !important;
-          background: #FFF;
-          color: #6C6F93;
+          background: #fff;
+          color: #6c6f93;
           font-size: 12px;
           font-weight: 400 !important;
           text-transform: uppercase !important;
