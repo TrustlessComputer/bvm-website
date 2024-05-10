@@ -13,14 +13,14 @@ export const AppThumbnail = {
   stake: 'meta_stake-min.png',
   eternal_ai: 'meta_eternal_ai_3.png',
   naka_ido: 'metadata-ido.png',
-  page: 'metadata-ido-1.png',
+  page: 'metadata_5.png',
 };
 
 export const getMetadata = (params: {
   thumbnail: string;
   description?: string;
 }) => {
-  const CDN = 'https://cdn.nakaswap.org/naka/images/';
+  const CDN = 'https://cdn.newbitcoincity.com/nbc/icons/bvm-icons/';
   const appThumbnail = CDN + params.thumbnail;
 
   return {
