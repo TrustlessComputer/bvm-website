@@ -4,7 +4,10 @@ import s from './styles.module.scss';
 
 const PhaseItem = ({ data, className }: { data: any; className?: string }) => {
   return (
-    <Badge className={cx(s.container, s[data.status], className)}>
+    <Badge
+      display={'flex'}
+      className={cx(s.container, s[data.status], className)}
+    >
       <span>{data.key}</span>
       {data.title}
       {data.status === 'done' && (
