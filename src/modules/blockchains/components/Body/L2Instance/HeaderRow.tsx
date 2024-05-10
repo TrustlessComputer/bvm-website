@@ -23,7 +23,7 @@ const HeaderRow = (props: Props) => {
           fontWeight={500}
           color={mapper.color || 'transparent'}
         >
-          Healthy
+          {mapper.status || ''}
         </Text>
       </Flex>
     );
