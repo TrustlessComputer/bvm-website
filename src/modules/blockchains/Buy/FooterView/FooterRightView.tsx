@@ -23,7 +23,9 @@ const FooterRightView = () => {
         justify={'flex-end'}
       >
         <Text fontSize={'25px'} fontWeight={600} color={'#000'}>
-          Free
+          {isMainnet
+            ? 'Cost: Our team will send you the quotation'
+            : 'Cost: 1 BVM/day'}
         </Text>
         <Button
           px={'30px'}
@@ -48,7 +50,7 @@ const FooterRightView = () => {
           disabled={!!estimateTotalCostFetching}
           onClick={() => submitHandler()}
         >
-          {confirmBtnTitle}
+          {isMainnet ? 'Contact us' : confirmBtnTitle}
         </Button>
       </Flex>
     );

@@ -90,7 +90,7 @@ const RightView = React.memo((props: Props) => {
         {!isStandardMode && <TokenPayingGasSection />}
 
         {/* Plugin */}
-        {!isStandardMode && <PreInstalledDappsSection />}
+        {/* {!isStandardMode && <PreInstalledDappsSection />} */}
       </Flex>
     </Flex>
   );
