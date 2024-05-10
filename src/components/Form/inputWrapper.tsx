@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './styles.module.scss';
 import { Box, Flex } from '@chakra-ui/react';
 import cx from 'clsx';
-import InfoTooltip from '@/components/InfoTooltip';
+import InfoTooltip from './InfoTooltip';
 
 interface InputWrapperProps {
   label?: string | React.ReactNode;
