@@ -6,7 +6,8 @@ import ErrorMessage from '../components/ErrorMessage';
 import Section from '../components/Section';
 
 const BlockGasLimitSection = () => {
-  const { blockGasLimitField, setBlockGasLimitField } = useBuy();
+  const { blockGasLimitField, setBlockGasLimitField, isStandardMode } =
+    useBuy();
   const { value, hasFocused, errorMessage, hasError } = blockGasLimitField;
   const fieldName = FormFields.MIN_GAS_PRICE;
 
@@ -48,6 +49,7 @@ const BlockGasLimitSection = () => {
         onBlur={onChangeHandler}
         onChange={onChangeHandler}
         type="number"
+        isDisabled={isStandardMode}
       />
       {hasFocused && hasError && <ErrorMessage message={errorMessage} />}
     </Section>

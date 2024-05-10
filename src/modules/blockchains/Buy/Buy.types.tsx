@@ -39,7 +39,7 @@ export type ItemDetail = {
   price: string;
   priceNote?: string;
 
-  intervalChargeTime: IntervalChargeTimeEnum;
+  intervalChargeTime: IntervalChargeTimeEnum | number;
   pluginType?: number;
 };
 
