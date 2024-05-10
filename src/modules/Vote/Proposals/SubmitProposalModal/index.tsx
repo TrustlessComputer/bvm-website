@@ -83,15 +83,15 @@ const FormModal: React.FC<IFormModal> = forwardRef(
               <Flex direction="row" gap="12px">
                 <InputWrapper
                   className={s.inputWrapper}
-                  label="Total supply"
+                  label="Token presale percentage"
                   theme="light"
                   labelColor="#000"
                 >
                   <Field
-                    name="supply"
+                    name="presalePercent"
                     component={FieldAmount}
                     validate={composeValidators(requiredAmount)}
-                    placeholder="100000000"
+                    placeholder="10%"
                     decimals={0}
                     bgColor="transparent"
                   />
@@ -105,7 +105,6 @@ const FormModal: React.FC<IFormModal> = forwardRef(
                   <Field
                     name="hardcap"
                     component={FieldAmount}
-                    validate={composeValidators(requiredAmount)}
                     placeholder="2000000 USD"
                     decimals={0}
                     bgColor="transparent"
@@ -131,16 +130,16 @@ const FormModal: React.FC<IFormModal> = forwardRef(
                 </InputWrapper>
                 <InputWrapper
                   className={s.inputWrapper}
-                  label="Airdrop"
+                  label="Vesting fund"
                   theme="light"
                   labelColor="#000"
-                  desc="The percentage of airdrop to BVM holder (SHARD holder)."
+                  desc="The vesting fund operates on a monthly release basis contingent upon community approval."
                 >
                   <Field
-                    name="airdrop"
+                    name="vesting"
                     component={FieldAmount}
                     validate={composeValidators(requiredAmount)}
-                    placeholder="3%"
+                    placeholder="3 months"
                     decimals={0}
                     bgColor="transparent"
                   />
@@ -278,10 +277,10 @@ const SubmitProposalModal = (props: IProps) => {
               title: values.title,
               desc: sanitizeHtml(values.desc, TEXT_DIRTY_CONFIG),
               proposalType: values.proposalType,
-              supply: values.supply,
+              presalePercent: values.presalePercent,
               hardcap: values.hardcap,
               liquidityPercent: values.liquidityPercent,
-              airdrop: values.airdrop,
+              vesting: values.vesting,
             })
           : JSON.stringify({
               title: values.title,
