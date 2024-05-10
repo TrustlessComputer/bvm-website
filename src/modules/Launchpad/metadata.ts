@@ -1,8 +1,8 @@
-const APP_NAME = 'NakaChain';
-const APP_DEFAULT_TITLE = 'NakaChain';
-const APP_TITLE_TEMPLATE = '%s - NakaChain';
+const APP_NAME = 'Bitcoin Virtual Machine';
+const APP_DEFAULT_TITLE = 'Bitcoin Virtual Machine';
+const APP_TITLE_TEMPLATE = '%s - Bitcoin Virtual Machine';
 const APP_DESCRIPTION =
-  'Bitcoin L2 - Only 2 seconds block time - Almost 0 transaction fee - Solidity smart contract';
+  'BVM is the first modular Bitcoin L2 metaprotocol on Bitcoin. With a few clicks, anyone can plug and play the best-of-breed blockchain modules to launch their own Bitcoin L2.';
 
 export const AppThumbnail = {
   earn: 'meta_earn-min.png',
