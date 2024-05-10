@@ -29,10 +29,8 @@ const ConfigurationOptionsSection = () => {
           if (
             e === ConfigurationOptionEnumMap[ConfigurationOptionEnum.Standard]
           ) {
-            console.log('PHAT SET Standard');
             setConfiguratinOptionSelected(ConfigurationOptionEnum.Standard);
           } else {
-            console.log('PHAT SET Advanced');
             setConfiguratinOptionSelected(ConfigurationOptionEnum.Advanced);
           }
         }}
