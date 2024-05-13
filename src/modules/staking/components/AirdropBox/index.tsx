@@ -137,6 +137,12 @@ const AirdropBox = () => {
         symbol: 'GSWP',
         claimingId: claimingId,
         airdrops: swampAirdrops,
+        totalClaimed:
+          swampAirdrops && swampAirdrops.length > 0
+            ? swampAirdrops
+                .filter((air) => air.status === 'done')
+                .reduce((n, { amount }) => n + Number(amount), 0)
+            : undefined,
         onClickClaim: onClickClaimSwamp,
         release: swampAirdrops
           ? undefined
@@ -205,6 +211,7 @@ const AirdropBox = () => {
             airdropStr,
             airdrops,
             claimingId,
+            totalClaimed,
             onClickClaim,
             symbol,
           }) => {
@@ -223,6 +230,7 @@ const AirdropBox = () => {
                 airdrops={airdrops}
                 symbol={symbol}
                 onClickClaim={onClickClaim}
+                totalClaimed={totalClaimed}
               />
             );
           },
