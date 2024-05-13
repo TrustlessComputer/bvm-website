@@ -17,14 +17,14 @@
 .label {
   font-size: 14px;
   font-weight: 500;
-  line-height: 21px;
+  line-height: calc(21 / 14);
   text-align: center;
 }
 
 .heading {
   font-weight: 400;
   font-size: 60px;
-  line-height: 66px;
+  line-height: calc(66 / 60);
   text-align: center;
   margin-top: 12px;
 }
@@ -32,7 +32,7 @@
 .description {
   font-weight: 500;
   font-size: 20px;
-  line-height: 30px;
+  line-height: calc(30 / 20);
   text-align: center;
   margin: 24px 0;
 }

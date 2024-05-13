@@ -45,7 +45,8 @@ export default function RetroCardFullWidth({ heading, noteHeading, videoSrc, wid
 
       </div>
       <div className={s.info}>
-        <h2 className={s.heading}>{heading} <span>{noteHeading}</span></h2>
+        {/*<h2 className={s.heading}>{heading} <span>{noteHeading}</span></h2>*/}
+        <h2 className={s.heading}>{heading}</h2>
         <p className={s.decs}>
           {desc}
         </p>
