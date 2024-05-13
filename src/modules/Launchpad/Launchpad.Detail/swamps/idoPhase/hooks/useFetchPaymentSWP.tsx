@@ -1,22 +1,22 @@
-import React, { useRef } from 'react';
-import throttle from 'lodash/throttle';
-import CPaymentSWPAPI from '@/modules/Launchpad/services/payment.swp';
-import { useDispatch } from 'react-redux';
-import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
+import { WalletTokenDeposit } from '@/modules/Launchpad/services/launchpad.interfaces';
 import { ILeaderBoardEAI } from '@/modules/Launchpad/services/laupEAI-payment.interfaces';
+import CPaymentSWPAPI from '@/modules/Launchpad/services/payment.swp';
 import {
   setPublicSaleSummary,
   setUserContributeInfo,
   setWalletDeposit,
 } from '@/modules/Launchpad/store/lpEAIPayment/reducer';
-import { WalletTokenDeposit } from '@/modules/Launchpad/services/launchpad.interfaces';
+import throttle from 'lodash/throttle';
+import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 const useFetchPaymentSWP = () => {
   const cpaymentSWPAPI = useRef(new CPaymentSWPAPI()).current;
-  const wallet = useAuthenticatedWallet();
+  const wallet = useNakaAuthen();
   const dispatch = useDispatch();
 
-  const address = wallet?.address;
+  const address = wallet?.nakaAddress;
 
   const [counter, setCounter] = React.useState(0);
 

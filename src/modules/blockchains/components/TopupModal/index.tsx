@@ -62,7 +62,7 @@ const TopupModal = (props: IProps) => {
           <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
             {` BVM `}
           </Text>
-          to the follow address
+          to the following wallet address
         </Text>
 
         {/* Adderss Bar */}

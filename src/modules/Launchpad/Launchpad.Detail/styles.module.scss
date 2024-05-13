@@ -55,7 +55,7 @@
 
   &.bgGrey {
     font-family: 'Urbanist';
-    background: #F6F7FA !important;
+    background: #f6f7fa !important;
   }
 
   // position: fixed;
@@ -74,7 +74,9 @@
     padding: 0 100px;
     //padding-top: 16px;
     width: 100%;
-    max-width: rem(1920px);
+    max-width: 1664px;
+    padding-left: 32px;
+    padding-right: 32px;
     margin: 0 auto;
 
     // @include is-mobile {
@@ -140,7 +142,9 @@
   > div {
     padding: 16px 100px;
     //padding-top: 16px;
-    max-width: rem(1920px);
+    max-width: 1664px;
+    padding-left: 32px;
+    padding-right: 32px;
     margin: 0 auto;
     position: relative;
 
@@ -186,8 +190,6 @@
       padding-bottom: 0;
     }
   }
-
-
 
   .countdownTime {
     justify-content: flex-start;
