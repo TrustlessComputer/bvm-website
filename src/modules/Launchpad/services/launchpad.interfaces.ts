@@ -72,6 +72,12 @@ export interface ILaunchpadCreateBody {
   twitter?: string;
   telegram?: string;
   discord?: string;
+  hard_cap?: string;
+  liquidity?: string;
+  vesting?: string;
+  pre_sale?: boolean;
+  pre_launch_start_date?: boolean;
+  pre_launch_end_date?: boolean;
 }
 
 export interface ILaunchpadTicket {

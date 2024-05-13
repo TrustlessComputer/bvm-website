@@ -50,7 +50,7 @@ export const NakaConnectProvider: React.FC<PropsWithChildren> = ({
     try {
       setLoading('account');
       const data = await connector.requestAccount({
-        target: 'popup',
+        target: 'popup' as any,
       });
 
       if (data?.accounts && data?.accounts?.length) {
@@ -79,7 +79,7 @@ export const NakaConnectProvider: React.FC<PropsWithChildren> = ({
       const { signature } = await connector.requestSignMessage({
         fromAddress: address,
         signMessage: message,
-        target: 'popup',
+        target: 'popup' as any,
       });
       return signature;
     } catch (error: any) {

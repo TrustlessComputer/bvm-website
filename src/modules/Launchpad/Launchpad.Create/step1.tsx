@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import dayjs from 'dayjs';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Field, Form, useForm, useFormState } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
 import s from './styles.module.scss';
@@ -49,11 +49,11 @@ const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
   const your_token_balance = values?.your_token_balance;
   const symbol = values?.symbol;
 
-  // const isDisabled = useMemo(() => !symbol, [symbol]);
+  const isDisabled = useMemo(() => !symbol, [symbol]);
 
-  // useEffect(() => {
-  //   onValidateAddress();
-  // }, [token_address]);
+  useEffect(() => {
+    onValidateAddress(token_address);
+  }, [token_address]);
 
   useEffect(() => {
     //Price per ticket la = Allocation / Total ticket * Price
@@ -82,11 +82,11 @@ const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
     }
     try {
       setCheckToken(true);
-      // const rs = await contractBase.getTokenInfo(token_address);
-      // change('token_name', rs?.name);
-      // change('total_supply', rs?.supply);
-      // change('your_token_balance', rs?.balance);
-      // change('symbol', rs?.symbol);
+      const rs = await contractBase.getTokenInfo(token_address);
+      change('token_name', rs?.name);
+      change('total_supply', rs?.supply);
+      change('your_token_balance', rs?.balance);
+      change('symbol', rs?.symbol);
       return undefined;
     } catch (error) {
       return 'Token not found';
@@ -305,7 +305,9 @@ const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
       </InputWrapper>
       <Box mt={6} />
       <Flex justifyContent={'center'}>
-        <Button type="submit">Next</Button>
+        <Button isDisabled={isDisabled} type="submit">
+          Next
+        </Button>
       </Flex>
     </form>
   );

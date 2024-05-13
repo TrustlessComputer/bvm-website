@@ -187,6 +187,7 @@
 
   :global .react-datepicker-popper {
     z-index: 999 !important;
+    width: max-content;
     .react-datepicker,
     .react-datepicker__time-list {
       background: rgb(39, 38, 44);
