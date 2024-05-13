@@ -16,8 +16,8 @@ type Props = {
 };
 
 export const DesktopNavRight = (props: Props) => {
-  // const { isLogged } = useWeb3Authenticated();
-  const { buttonText, requestAccount, isAuthen, loading, nakaAddress } = useNakaAuthen()
+  const { buttonText, requestAccount, isAuthen, loading, nakaAddress } =
+    useNakaAuthen();
 
   return (
     <HStack direction={'row'} spacing={['40px', '32px']}>
@@ -72,10 +72,17 @@ export const DesktopNavRight = (props: Props) => {
           cursor="pointer"
           as="a"
           target="_blank"
-          href={(isProduction ? 'https://explorer.nakachain.xyz/' : 'https://nos-explorer.regtest.trustless.computer/')
-            + `address/${nakaAddress}`}
+          href={
+            (isProduction
+              ? 'https://explorer.nakachain.xyz/'
+              : 'https://nos-explorer.regtest.trustless.computer/') +
+            `address/${nakaAddress}`
+          }
         >
-          <Jazzicon diameter={32} seed={jsNumberForAddress(nakaAddress || "")} />
+          <Jazzicon
+            diameter={32}
+            seed={jsNumberForAddress(nakaAddress || '')}
+          />
         </Box>
       )}
 
