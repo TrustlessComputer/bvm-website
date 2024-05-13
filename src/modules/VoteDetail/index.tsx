@@ -382,12 +382,14 @@ const VoteDetail = () => {
                     </p>
                   </div>
 
-                  <div className={s.supply}>
-                    <p className={s.supplyTitle}>Vesting fund</p>
-                    <p className={s.supplyValue}>
-                      {infoLaunchPad.vesting} months
-                    </p>
-                  </div>
+                  {infoLaunchPad?.vesting && (
+                    <div className={s.supply}>
+                      <p className={s.supplyTitle}>Vesting fund</p>
+                      <p className={s.supplyValue}>
+                        {infoLaunchPad.vesting} months
+                      </p>
+                    </div>
+                  )}
                 </Flex>
               )}
           </Flex>

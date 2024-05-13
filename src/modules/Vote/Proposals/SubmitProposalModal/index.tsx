@@ -138,7 +138,7 @@ const FormModal: React.FC<IFormModal> = forwardRef(
                   <Field
                     name="vesting"
                     component={FieldAmount}
-                    validate={composeValidators(requiredAmount)}
+                    // validate={composeValidators(requiredAmount)}
                     placeholder="3 months"
                     decimals={0}
                     bgColor="transparent"
