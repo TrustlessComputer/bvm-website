@@ -18,7 +18,7 @@ import MainLayout from '@/layouts/MainLayout';
 
 const Home = () => {
   return (
-    <Flex flexDirection={'column'} minHeight={'100vh'}>
+    <Flex background={'#fff'} flexDirection={'column'} minHeight={'100vh'}>
       <MainLayout>
         <Box className={styles.container}>
           {/*<EAIHeader />*/}
