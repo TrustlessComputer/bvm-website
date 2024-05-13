@@ -22,6 +22,7 @@ import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector'
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import TopupModal from '../components/TopupModal';
+import SendFormModal from '../components/SendFormModal';
 
 export type Props = {
   onSuccess?: () => void;
@@ -40,6 +41,8 @@ export const BuyPage = React.memo((props: Props) => {
     rollupProtocolSelected,
     showTopupModal,
     setShowTopupModal,
+    showSendFormModal,
+    setShowSendFormModal,
     isMainnet,
   } = useBuy();
   const router = useRouter();
@@ -192,6 +195,21 @@ export const BuyPage = React.memo((props: Props) => {
             setShowTopupModal(false);
           }}
           onSuccess={async () => {}}
+          payWithNakaWalletCB={() => {
+            setShowSendFormModal(true);
+          }}
+        />
+      )}
+
+      {showSendFormModal && (
+        <SendFormModal
+          show={showSendFormModal}
+          onClose={() => {
+            setShowSendFormModal(false);
+          }}
+          onSuccess={async () => {
+            setShowSendFormModal(false);
+          }}
         />
       )}
     </Flex>
