@@ -60,7 +60,9 @@ export default function AirdropCard({
               <>
                 {isClaimed ? (
                   <Flex
-                    className={s.airdropCard_ct}
+                    className={`${s.airdropCard_ct} ${
+                      Number(airdrop.amount) <= 0 ? s.airdropCard_ctp : ''
+                    }`}
                     justifyContent="center"
                     w="100%"
                   >
@@ -160,7 +162,9 @@ export default function AirdropCard({
                   <span className={s.date}>{release.date}</span>
                 </div>
               ) : (
-                <p className={s.airdropCard_ct}>{title}</p>
+                <p className={`${s.airdropCard_ct} ${s.airdropCard_ctp}`}>
+                  {title}
+                </p>
               )}
             </>
           )}

@@ -162,6 +162,7 @@ const AirdropBox = () => {
           telegram: '',
           discord: '',
         },
+        isDone: true,
         subTitle: 'Swamps',
         airdropStr: '30,000,000 GSWP',
         desc: (
