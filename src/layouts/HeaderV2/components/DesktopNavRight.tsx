@@ -5,7 +5,6 @@ import { Box, HStack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import DropDown from '@/layouts/Header/components/Dropdown';
 import ButtonLoginTwitter from './ButtonLoginTwitter';
-import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import UserInforBox from './UserInforBox';
 import ContactUs from './ContactUs';
 import Community from './Community';
@@ -16,7 +15,6 @@ type Props = {
 };
 
 export const DesktopNavRight = (props: Props) => {
-  const { isLogged } = useWeb3Authenticated();
   return (
     <HStack direction={'row'} spacing={['40px', '32px']}>
       {NAV_ITEMS_RIGHT.map((navItem) => (
@@ -51,7 +49,7 @@ export const DesktopNavRight = (props: Props) => {
       {<Community color={props.primaryColor || 'white'} />}
       {<ContactUs color={props.primaryColor || 'white'} />}
 
-      {!isLogged ? <ButtonLoginTwitter color={'white'} /> : <UserInforBox />}
+      {/* {!isLogged ? <ButtonLoginTwitter color={'white'} /> : <UserInforBox />} */}
 
       {/*<Link href={'/blockchains/customize'} className={s.tryBVm}>*/}
       {/*  Try BVM*/}

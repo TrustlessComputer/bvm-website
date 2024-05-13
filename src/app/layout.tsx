@@ -16,7 +16,6 @@ import { ChakraProvider } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import ModalManager from '@/components/ModalManage';
-import { AuthenticatedProvider } from '@/Providers/AuthenticatedProvider';
 import { ContactUsProvider } from '@/Providers/ContactUsProvider';
 import { NakaConnectProvider } from '@/Providers/NakaConnectProvider';
 
@@ -61,23 +60,19 @@ export default function RootLayout({
         <StoreProvider>
           <ChakraProvider theme={chakraThemes}>
             <ChakraFontsFace />
-            <AuthenticatedProvider>
-              <UserProvider>
-                <XVerseProvider>
-                  <UnisatProvider>
-                    <NakaConnectProvider>
-                      <ContactUsProvider>
-                        <Hydrated>
-                          <ModalManager />
-                          {children}
-                        </Hydrated>
-                      </ContactUsProvider>
-                    </NakaConnectProvider>
-                    <ToastOverlay />
-                  </UnisatProvider>
-                </XVerseProvider>
-              </UserProvider>
-            </AuthenticatedProvider>
+            <UserProvider>
+              <XVerseProvider>
+                <UnisatProvider>
+                  <NakaConnectProvider>
+                    <ContactUsProvider>
+                      <ModalManager />
+                      {children}
+                    </ContactUsProvider>
+                  </NakaConnectProvider>
+                  <ToastOverlay />
+                </UnisatProvider>
+              </XVerseProvider>
+            </UserProvider>
           </ChakraProvider>
         </StoreProvider>
       </body>
