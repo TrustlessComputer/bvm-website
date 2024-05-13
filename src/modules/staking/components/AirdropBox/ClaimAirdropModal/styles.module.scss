@@ -12,10 +12,6 @@
     flex: 1;
   }
 
-  &_inner {
-    flex-direction: column;
-  }
-
   .header {
     display: flex;
     flex-direction: row;
@@ -94,7 +90,6 @@
       font-weight: 500;
     }
   }
-
   &.isComming {
     .airdropCard_ct {
       // text-transform: uppercase;

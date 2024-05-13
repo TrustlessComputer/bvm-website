@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import styles from './styles.module.scss';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 import { formatCurrency } from '@/utils/format';
 import AirdropCard, {
   IAirdropCard,
@@ -15,6 +15,8 @@ import { nakaAddressSelector } from '@/stores/states/user/selector';
 import { commonSelector } from '@/stores/states/common/selector';
 import { useDispatch } from 'react-redux';
 import { requestReload } from '@/stores/states/common/reducer';
+import { isProduction } from '@/config';
+import dayjs from 'dayjs';
 
 const AirdropBox = () => {
   const { getConnector } = useContext(NakaConnectContext);
@@ -27,6 +29,13 @@ const AirdropBox = () => {
   const [claimingId, setClaimingId] = useState(-1);
 
   const launchpadApi = useRef(new CLaunchpadAPI()).current;
+
+  const isAbleClaimSwamp = useMemo(() => {
+    const TIME_CLAIM = isProduction
+      ? '2024-05-14T10:00:00+00:00'
+      : '2024-05-13T10:00:00+00:00';
+    return dayjs().diff(dayjs(TIME_CLAIM)) >= 0;
+  }, []);
 
   const getLaunchpadInfo = async () => {
     try {
@@ -130,15 +139,18 @@ const AirdropBox = () => {
       },
       {
         src: '/images/stake/stake-swamps.png',
-        title:
-          swampAirdrops && swampAirdrops.length === 0
-            ? `You missed the GSWP airdrop. Don't miss out on the next one!`
-            : '',
+        title: `You missed the GSWP airdrop. Don't miss out on the next one!`,
         symbol: 'GSWP',
         claimingId: claimingId,
-        airdrops: swampAirdrops,
+        airdrops: isAbleClaimSwamp ? swampAirdrops : [],
+        totalClaimed:
+          swampAirdrops && swampAirdrops.length > 0
+            ? swampAirdrops
+                .filter((air) => air.status === 'done')
+                .reduce((n, { amount }) => n + Number(amount), 0)
+            : undefined,
         onClickClaim: onClickClaimSwamp,
-        release: swampAirdrops
+        release: isAbleClaimSwamp
           ? undefined
           : {
               token: '$GSWP',
@@ -183,7 +195,7 @@ const AirdropBox = () => {
         ),
       },
     ];
-  }, [_amountNAKAAirdrop, swampAirdrops, claimingId]);
+  }, [_amountNAKAAirdrop, swampAirdrops, claimingId, isAbleClaimSwamp]);
 
   return (
     <Box width="100%">
@@ -205,6 +217,7 @@ const AirdropBox = () => {
             airdropStr,
             airdrops,
             claimingId,
+            totalClaimed,
             onClickClaim,
             symbol,
           }) => {
@@ -223,6 +236,7 @@ const AirdropBox = () => {
                 airdrops={airdrops}
                 symbol={symbol}
                 onClickClaim={onClickClaim}
+                totalClaimed={totalClaimed}
               />
             );
           },
