@@ -18,7 +18,7 @@ const Top = () => {
 
         <p
           onClick={(): void => {
-            window.open('/proposal-dashboard', '_blank');
+            window.open('/proposal-dashboard', '_self');
           }}
           className={s.leftToken}
         >

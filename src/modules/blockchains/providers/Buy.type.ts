@@ -1,3 +1,4 @@
+import { LegacyRef } from 'react';
 import {
   BitcoinValidityEnum,
   BlockTimeEnum,
@@ -18,6 +19,7 @@ export type IField = {
   hasError?: boolean;
   isRequired?: boolean;
   errorMessage?: string;
+  ref?: any;
 };
 
 export type ComputerNameSection = {
@@ -155,6 +157,9 @@ export type IBuyContext = ComputerNameSection &
     showSubmitFormResult: boolean;
     setShowSubmitFormResult: (value: boolean) => void;
 
+    showTopupModal: boolean;
+    setShowTopupModal: (value: boolean) => void;
+
     // Action
     submitHandler: (onSuccess?: any) => Promise<void>;
     confirmSubmitHandler: () => Promise<void>;
@@ -199,6 +204,9 @@ export const BuyContextInit: IBuyContext = {
 
   showSubmitFormResult: false,
   setShowSubmitFormResult: () => {},
+
+  showTopupModal: false,
+  setShowTopupModal: () => {},
 
   // ------------------------------------------------------------
   computerNameField: {},

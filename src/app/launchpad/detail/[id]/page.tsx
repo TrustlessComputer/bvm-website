@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     thumbnail: launchpad?.seo_image || AppThumbnail.page,
     description:
       launchpad?.seo_description ||
-      'Bitcoin L2 - Only 2 seconds block time - Almost 0 transaction fee - Solidity smart contract',
+      'BVM is the first modular Bitcoin L2 metaprotocol on Bitcoin. With a few clicks, anyone can plug and play the best-of-breed blockchain modules to launch their own Bitcoin L2.',
   });
 
   return {

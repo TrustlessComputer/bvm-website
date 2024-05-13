@@ -12,7 +12,7 @@ import { useBuy } from '../../providers/Buy.hook';
 import { ethers } from 'ethers';
 import { Flex, RadioGroup, Stack, Radio, Text } from '@chakra-ui/react';
 import Section from '../components/Section';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import orderBy from 'lodash/orderBy';
 
 const TokenPayingGasSection = () => {
@@ -53,6 +53,50 @@ const TokenPayingGasSection = () => {
       ['desc'],
     );
   }, []);
+
+  useEffect(() => {
+    if (
+      nativeTokenPayingGasSelected ===
+      NativeTokenPayingGasEnum.NativeTokenPayingGas_BTC
+    ) {
+      setTickerField({
+        ...tickerField,
+        value: 'BTC',
+        hasFocused: true,
+        hasError: false,
+      });
+      setTotalSupplyField({
+        ...totalSupplyField,
+        value: '21000000',
+        hasFocused: true,
+        hasError: false,
+      });
+    }
+
+    if (
+      nativeTokenPayingGasSelected ===
+      NativeTokenPayingGasEnum.NativeTokenPayingGas_PreMint
+    ) {
+      setTickerField({
+        ...tickerField,
+        value: '',
+        hasFocused: true,
+        hasError: false,
+      });
+      setTotalSupplyField({
+        ...totalSupplyField,
+        value: '',
+        hasFocused: true,
+        hasError: false,
+      });
+      setReceivingAddressField({
+        ...receivingAddressField,
+        value: '',
+        hasFocused: true,
+        hasError: false,
+      });
+    }
+  }, [nativeTokenPayingGasSelected]);
 
   const onChangeHandler = async (field: FormFields, e: any) => {
     const text = e.target.value;
@@ -98,7 +142,7 @@ const TokenPayingGasSection = () => {
   const renderBTCExpandView = () => {
     return (
       <Flex gap={'10px'} flexDir={'column'} mt={'10px'}>
-        <Flex gap={'3px'} flexDir={'column'}>
+        <Flex gap={'3px'} flexDir={'column'} ref={receivingAddressField.ref}>
           <Section
             title={'Receiving address'}
             titleFontSize="16px"
@@ -131,7 +175,7 @@ const TokenPayingGasSection = () => {
   const renderCustomNativeTokenExpandView = () => {
     return (
       <Flex gap={'10px'} flexDir={'column'} mt={'10px'}>
-        <Flex gap={'3px'} flexDir={'column'}>
+        <Flex gap={'3px'} flexDir={'column'} ref={tickerField.ref}>
           <Section title={'Ticker'} titleFontSize="16px" isRequired />
           <TextInput
             placeholder=""
@@ -154,7 +198,7 @@ const TokenPayingGasSection = () => {
           )}
         </Flex>
 
-        <Flex gap={'3px'} flexDir={'column'}>
+        <Flex gap={'3px'} flexDir={'column'} ref={totalSupplyField.ref}>
           <Section title={'Total Supply'} titleFontSize="16px" isRequired />
           <TextInput
             placeholder=""
@@ -175,7 +219,7 @@ const TokenPayingGasSection = () => {
           )}{' '}
         </Flex>
 
-        <Flex gap={'3px'} flexDir={'column'}>
+        <Flex gap={'3px'} flexDir={'column'} ref={receivingAddressField.ref}>
           <Section
             title={'Receiving address'}
             titleFontSize="16px"

@@ -1,7 +1,7 @@
 import { Button, Flex, Image, Text } from '@chakra-ui/react';
 import { useBuy } from '../../providers/Buy.hook';
 
-const FooterRightView = ({ onSuccess }: { onSuccess?: any }) => {
+const FooterRightView = () => {
   const {
     isMainnet,
     estimateTotalCostFetching,
@@ -46,7 +46,7 @@ const FooterRightView = ({ onSuccess }: { onSuccess?: any }) => {
             />
           }
           disabled={!!estimateTotalCostFetching}
-          onClick={() => submitHandler(onSuccess)}
+          onClick={() => submitHandler()}
         >
           {confirmBtnTitle}
         </Button>
@@ -128,7 +128,7 @@ const FooterRightView = ({ onSuccess }: { onSuccess?: any }) => {
                 />
               }
               disabled={!!estimateTotalCostFetching}
-              onClick={() => submitHandler(onSuccess)}
+              onClick={() => submitHandler()}
             >
               {confirmBtnTitle}
             </Button>
