@@ -14,8 +14,10 @@ import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import BlockInfo from './BlockInfo';
+import ClaimBox from './claimBox';
 import styles from './styles.module.scss';
 import ThankBackingBox from './ThankBackingBox';
+import { isProduction } from '@/config';
 // import ClaimBox from "@/modules/Launchpad/Launchpad.Detail/swamps/idoPhase/SWPPaymentBox/claimBox";
 
 const EAIPaymentBox = () => {
@@ -66,6 +68,16 @@ const EAIPaymentBox = () => {
     }
   }, [endTime, summary?.total_usdt]);
 
+  const isClaim = useMemo(() => {
+    if (isEnd) {
+      const TIME_CLAIM = isProduction
+        ? '2024-05-14T10:00:00+00:00'
+        : '2024-05-13T08:00:00+00:00';
+      return dayjs().diff(dayjs(TIME_CLAIM)) >= 0;
+    }
+    return false;
+  }, [isEnd]);
+
   return (
     <Box className={styles.container}>
       <Flex flexDirection="column" gap="12px">
@@ -93,14 +105,13 @@ const EAIPaymentBox = () => {
           {isEnd ? (
             <>
               <ThankBackingBox />
-              {/* <ClaimBox /> */}
+              {isClaim && <ClaimBox />}
             </>
           ) : (
             <Button
               className={styles.button}
               disabled={isEnd}
               onClick={() => {
-                // if (!isAuthenticated) return openSignView();
                 onOpen();
               }}
             >
