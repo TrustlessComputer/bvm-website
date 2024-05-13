@@ -35,12 +35,13 @@ const Item = React.memo((props: Props) => {
     showLeftView = true,
   } = props;
 
-  const selectedClassName = isSelected ? 'selected' : 'non-select';
-  const disabledClassName = disabled ? 'disabled' : '';
-  const sufixStr = disabled ? ' (coming soon)' : '';
+  // const selectedClassName = isSelected ? 'selected' : 'non-select';
+  // const disabledClassName = disabled ? 'disabled' : '';
+  // const sufixStr = disabled ? ' (coming soon)' : '';
 
   return (
     <Flex
+      flex={1}
       justify={'space-between'}
       borderWidth={'1.5px'}
       borderColor={'#d9d9d9'}
@@ -54,18 +55,19 @@ const Item = React.memo((props: Props) => {
       aria-selected={isSelected}
       aria-disabled={disabled}
       _hover={{
-        cursor: 'pointer',
-        borderColor: '#2b35e4',
+        cursor: disabled ? 'no-drop' : 'pointer',
+        borderColor: disabled ? '' : '#2b35e4',
       }}
       _active={{
-        borderColor: '#2b35e4',
+        borderColor: disabled ? '' : '#2b35e4',
       }}
       _selected={{
-        borderColor: '#2b35e4',
+        borderColor: disabled ? '' : '#2b35e4',
       }}
       _disabled={{
         opacity: 0.5,
-        pointerEvents: 'none',
+        // pointerEvents: 'none',
+        pointerEvents: disabled ? 'no-drop' : 'none',
       }}
       key={key}
       onClick={() => {
@@ -76,7 +78,7 @@ const Item = React.memo((props: Props) => {
     >
       {/* LeftView */}
       <Flex>
-        <Text>{title + sufixStr}</Text>
+        <Text>{title}</Text>
       </Flex>
 
       {/* RightView */}

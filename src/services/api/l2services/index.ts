@@ -24,6 +24,10 @@ import {
 import { builderAccountInfo, builderOrderList } from './helper';
 import { COMPUTERS } from './constants';
 import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
+import {
+  NativeTokenPayingGasEnum,
+  NetworkEnum,
+} from '@/modules/blockchains/Buy/Buy.constanst';
 
 export const estimateTotalCostAPI = async (
   params: IOrderBuyReq,
@@ -55,7 +59,33 @@ export const fetchAvailableList = async (): Promise<IAvailableList> => {
     let data = (await httpClient.get(
       `/order/available-list`,
     )) as IAvailableList;
-    return data;
+
+    // HARD CODE, CUSTOME Native Token BTC, because API not support BTC
+    return {
+      ...data,
+      nativeTokenPayingGas: {
+        [NetworkEnum.Network_Testnet]: [
+          ...data.nativeTokenPayingGas[NetworkEnum.Network_Testnet],
+          {
+            intervalChargeTime: 0,
+            price: '',
+            priceNote: '',
+            value: NativeTokenPayingGasEnum.NativeTokenPayingGas_BTC,
+            valueStr: 'BTC',
+          },
+        ],
+        [NetworkEnum.Network_Mainnet]: [
+          ...data.nativeTokenPayingGas[NetworkEnum.Network_Mainnet],
+          {
+            intervalChargeTime: 0,
+            price: '',
+            priceNote: '',
+            value: NativeTokenPayingGasEnum.NativeTokenPayingGas_BTC,
+            valueStr: 'BTC',
+          },
+        ],
+      },
+    };
   } catch (error) {
     // console.log('[fetchAvailableList] ERROR: ', error);
     throw error;

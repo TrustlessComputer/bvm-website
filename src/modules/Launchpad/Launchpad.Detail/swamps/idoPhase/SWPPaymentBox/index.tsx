@@ -19,7 +19,7 @@ import ThankBackingBox from './ThankBackingBox';
 // import ClaimBox from "@/modules/Launchpad/Launchpad.Detail/swamps/idoPhase/SWPPaymentBox/claimBox";
 
 const EAIPaymentBox = () => {
-  const { isAuthen } = useNakaAuthen();
+  const { isAuthen, requestAccount } = useNakaAuthen();
   const isAuthenticated = isAuthen;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const summary = useSelector(summarySelector);
@@ -87,22 +87,39 @@ const EAIPaymentBox = () => {
         </Flex>
       </Flex>
       <BlockInfo isEnd={isEnd} />
-      {isEnd ? (
+
+      {isAuthenticated ? (
         <>
-          <ThankBackingBox />
-          {/* <ClaimBox /> */}
+          {isEnd ? (
+            <>
+              <ThankBackingBox />
+              {/* <ClaimBox /> */}
+            </>
+          ) : (
+            <Button
+              className={styles.button}
+              disabled={isEnd}
+              onClick={() => {
+                // if (!isAuthenticated) return openSignView();
+                onOpen();
+              }}
+            >
+              {'BUY $GSWP NOW'}
+            </Button>
+          )}
         </>
       ) : (
-        <Button
-          className={styles.button}
-          disabled={isEnd}
-          onClick={() => {
-            // if (!isAuthenticated) return openSignView();
-            onOpen();
-          }}
-        >
-          {isAuthenticated ? 'BUY $GSWP NOW' : 'Connect naka wallet'}
-        </Button>
+        <>
+          <Button
+            className={styles.button}
+            disabled={isEnd}
+            onClick={() => {
+              requestAccount();
+            }}
+          >
+            {'Connect Naka wallet'}
+          </Button>
+        </>
       )}
 
       {!isEnd && isOpen && (

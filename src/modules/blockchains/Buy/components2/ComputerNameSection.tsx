@@ -1,14 +1,16 @@
 import TextInput from '@/components/TextInput/TextInput';
 import { debounce, isEmpty } from 'lodash';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { FormFields, FormFieldsErrorMessage } from '../Buy.constanst';
 import ErrorMessage from '../components/ErrorMessage';
 import { useBuy } from '../../providers/Buy.hook';
 import { validateSubDomainAPI } from '@/services/api/l2services';
 import Section from '../components/Section';
+import { Box, Flex } from '@chakra-ui/react';
+import { getRandonComputerName } from '../Buy.helpers';
 
 const ComputerNameSection = () => {
-  const { computerNameField, setComputerNameField } = useBuy();
+  const { computerNameField, setComputerNameField, isMainnet } = useBuy();
   const { value, hasFocused, errorMessage, hasError } = computerNameField;
 
   const fieldID = FormFields.COMPUTER_NAME;
@@ -38,27 +40,42 @@ const ComputerNameSection = () => {
     [],
   );
 
+  useEffect(() => {
+    const computerName = getRandonComputerName(isMainnet);
+    setComputerNameField({
+      ...computerNameField,
+      value: computerName,
+      hasFocused: true,
+      hasError: false,
+      errorMessage: undefined,
+    });
+  }, [isMainnet]);
+
   return (
-    <Section title="Bitcoin L2 Name" isRequired>
-      <TextInput
-        placeholder="Your computer name"
-        id={fieldID}
-        name={fieldID}
-        isInvalid={hasFocused && hasError}
-        value={value}
-        onBlur={onChangeHandler}
-        onFocus={(e: any) => {}}
-        onChange={(e) => {
-          const text = e.target.value;
-          setComputerNameField({
-            ...computerNameField,
-            value: text,
-          });
-          onChangeHandler(e);
-        }}
-      />
-      {hasFocused && hasError && <ErrorMessage message={errorMessage} />}
-    </Section>
+    <>
+      <Section title="Bitcoin L2 Name" isRequired>
+        <TextInput
+          placeholder="Your computer name"
+          id={fieldID}
+          name={fieldID}
+          isInvalid={hasFocused && hasError}
+          value={value}
+          onBlur={onChangeHandler}
+          onFocus={(e: any) => {}}
+          onChange={(e) => {
+            const text = e.target.value;
+            setComputerNameField({
+              ...computerNameField,
+              value: text,
+            });
+            onChangeHandler(e);
+          }}
+        />
+
+        {hasFocused && hasError && <ErrorMessage message={errorMessage} />}
+      </Section>
+      <Box ref={computerNameField.ref}></Box>
+    </>
   );
 };
 

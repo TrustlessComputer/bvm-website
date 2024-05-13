@@ -10,6 +10,7 @@ import { OrderItem } from '@/stores/states/l2services/types';
 import { useEffect, useRef } from 'react';
 import { useAppDispatch } from '@/stores/hooks';
 import { fetchL2ServiceHistory } from '@/stores/states/l2services/actions';
+import WarningMessageView from './WarningMessageView';
 
 interface IProps {
   show: boolean;
@@ -62,6 +63,7 @@ const BillingModal = (props: IProps) => {
       >
         <Header item={item} viewPaymentOnClick={viewPaymentOnClick} />
         <BalanceInfor item={item} />
+        <WarningMessageView />
         <History />
       </Flex>
     </BaseModal>

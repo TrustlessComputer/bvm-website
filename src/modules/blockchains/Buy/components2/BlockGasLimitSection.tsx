@@ -4,9 +4,11 @@ import { useBuy } from '../../providers/Buy.hook';
 import { FormFields, FormFieldsErrorMessage } from '../Buy.constanst';
 import ErrorMessage from '../components/ErrorMessage';
 import Section from '../components/Section';
+import { Box } from '@chakra-ui/react';
 
 const BlockGasLimitSection = () => {
-  const { blockGasLimitField, setBlockGasLimitField } = useBuy();
+  const { blockGasLimitField, setBlockGasLimitField, isStandardMode } =
+    useBuy();
   const { value, hasFocused, errorMessage, hasError } = blockGasLimitField;
   const fieldName = FormFields.MIN_GAS_PRICE;
 
@@ -33,24 +35,28 @@ const BlockGasLimitSection = () => {
   };
 
   return (
-    <Section
-      isRequired
-      title={'Block gas limit'}
-      description={'Which block gas limit is right for you?'}
-      descriptionDetail={undefined}
-    >
-      <TextInput
-        placeholder="Gas limit"
-        id={fieldName}
-        name={fieldName}
-        value={value}
-        isInvalid={hasFocused && hasError}
-        onBlur={onChangeHandler}
-        onChange={onChangeHandler}
-        type="number"
-      />
-      {hasFocused && hasError && <ErrorMessage message={errorMessage} />}
-    </Section>
+    <>
+      <Section
+        isRequired
+        title={'Block gas limit'}
+        description={'Which block gas limit is right for you?'}
+        descriptionDetail={undefined}
+      >
+        <TextInput
+          placeholder="Gas limit"
+          id={fieldName}
+          name={fieldName}
+          value={value}
+          isInvalid={hasFocused && hasError}
+          onBlur={onChangeHandler}
+          onChange={onChangeHandler}
+          type="number"
+          isDisabled={isStandardMode}
+        />
+        {hasFocused && hasError && <ErrorMessage message={errorMessage} />}
+      </Section>
+      <Box ref={blockGasLimitField.ref}></Box>
+    </>
   );
 };
 
