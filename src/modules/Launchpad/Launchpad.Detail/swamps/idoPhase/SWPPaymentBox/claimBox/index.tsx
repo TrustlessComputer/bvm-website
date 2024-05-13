@@ -171,6 +171,19 @@ const ClaimBox = () => {
               )} GSWP tokens.`}
             </Text>
           </Flex>
+          <Flex gap={'24px'} w={'100%'} mt={'12px'}>
+            <Button
+              className={s.btnClaimed}
+              onClick={() => {
+                window.open(
+                  `https://swamps-explorer.tc.l2aas.com/address/${nakaAddress}`,
+                );
+              }}
+              flex={1}
+            >
+              View your $GSWP
+            </Button>
+          </Flex>
         </>
       );
     } else if (!(isClaimed || claimed) && isClaimable) {

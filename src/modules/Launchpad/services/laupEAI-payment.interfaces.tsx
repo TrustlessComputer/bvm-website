@@ -34,6 +34,8 @@ export interface ILeaderBoardEAI extends ILeaderBoardPoint {
   reach_top_balance: number;
   vesting_token_balance: string;
   over_cap_usdt_value: string;
+  claimable?: boolean;
+  is_claimed?: boolean;
 }
 
 export interface IContributionCoin {

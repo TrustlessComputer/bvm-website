@@ -19,10 +19,13 @@
   //  max-width: 90vw;
   //}
 
-
   .balanceWrapper {
-    background: linear-gradient(90deg, rgba(253, 252, 71, 0.1) 0%, rgba(36, 254, 65, 0.1) 100%);
-    border: 1px solid #1E5E18;
+    background: linear-gradient(
+      90deg,
+      rgba(253, 252, 71, 0.1) 0%,
+      rgba(36, 254, 65, 0.1) 100%
+    );
+    border: 1px solid #1e5e18;
 
     flex-direction: column;
     gap: 4px;
@@ -37,7 +40,7 @@
       line-height: 140%;
       text-align: center;
       text-transform: uppercase;
-      color: #FFF;
+      color: #fff;
       opacity: 50%;
     }
     .balanceBalance {
@@ -46,7 +49,7 @@
       line-height: 110%;
       letter-spacing: 0.02em;
       text-align: center;
-      background: linear-gradient(90deg, #FDFC47 0%, #24FE41 100%);
+      background: linear-gradient(90deg, #fdfc47 0%, #24fe41 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -56,7 +59,7 @@
   .btnClaimed {
     font-size: 18px;
     font-weight: 600;
-    background: linear-gradient(90deg, #FDFC47 0%, #24FE41 100%);
+    background: linear-gradient(90deg, #fdfc47 0%, #24fe41 100%);
     flex-direction: column;
     height: 54px;
     width: 100%;
@@ -68,7 +71,7 @@
     font-weight: 600;
     text-align: center;
     color: #000;
-    background-color: #FFF;
+    background-color: #fff;
     height: 54px;
   }
 
@@ -93,7 +96,7 @@
     padding-bottom: 0;
 
     p {
-      color: #FFF;
+      color: #fff;
       text-transform: uppercase;
       font-weight: 500;
       font-size: 12px;
