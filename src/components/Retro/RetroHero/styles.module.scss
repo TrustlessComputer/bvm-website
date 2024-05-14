@@ -40,7 +40,6 @@
   text-align: left;
   color: white;
   display: block;
-  margin-bottom: 34px;
 }
 
 .label {
@@ -51,10 +50,9 @@
 }
 
 .heading {
-  margin-top: 12px;
+  margin: 12px 0;
   font-weight: 400;
   font-size: 60px;
-  margin-bottom: 12px;
   line-height: 110%;
   text-align: center;
   @include is-min-table {

@@ -1,8 +1,8 @@
 'use client';
 import React, { PropsWithChildren, useMemo } from 'react';
-import * as nakaConnect from 'naka-connect';
+import * as nakaConnect from 'naka-connect-js';
 import { isProduction, PERP_API_URL } from '@/config';
-import { DappConnect } from 'naka-connect';
+import { DappConnect } from 'naka-connect-js';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { nakaAddressSelector } from '@/stores/states/user/selector';
 import toast from 'react-hot-toast';

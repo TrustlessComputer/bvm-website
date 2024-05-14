@@ -398,7 +398,14 @@ const VoteDetail = () => {
 
                   {infoLaunchPad?.vesting && (
                     <div className={s.supply}>
-                      <p className={s.supplyTitle}>Vesting fund</p>
+                      <Flex direction="row" gap="4px" alignItems="center">
+                        <p className={s.supplyTitle}>Vesting fund</p>
+                        <InfoTooltip
+                          iconSize="sm"
+                          placement="top-start"
+                          label="Vesting of 0 months means that 100% of the raised funds will be sent to the project team immediately, with no vesting period"
+                        />
+                      </Flex>
                       <p className={s.supplyValue}>
                         {infoLaunchPad.vesting} months
                       </p>
