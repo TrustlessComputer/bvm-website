@@ -37,7 +37,7 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Customers',
+    label: 'Ecosystem',
     href: '/use-bitcoin',
     isNewWindow: false,
     isHide: false,

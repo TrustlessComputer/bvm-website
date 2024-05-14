@@ -54,9 +54,9 @@ const DeFiModule = () => {
         link: '/blockchains/customize',
       }}
                  btn2={{
-                   title: 'Explore Bitcoin Arcade now',
+                   title: 'Explore Nakachain now',
                    label: 'Need an example?',
-                   link: 'https://play.bitcoinarcade.xyz/',
+                   link: 'https://nakachain.xyz',
                    target: '_blank',
                  }}
                  src={'/defi/defi-hero.png'}
@@ -66,7 +66,7 @@ const DeFiModule = () => {
       <ListInfo list_info={DEFI_LIST_INFO} heading={'Learn what BVM products can do for you '} />
       <RetroCaseStudy subTitle={'Case Study'} btn={{
         title: 'Explore NakaChain now',
-        link: 'https://play.bitcoinarcade.xyz',
+        link: 'https://nakachain.xyz',
         target: '_blank'
       }} src={'/defi/case-study.png'} brand={'/defi/brand.png'}
                       heading={'Making DeFi on Bitcoin possible and accessible to everyone'}></RetroCaseStudy>

@@ -43,14 +43,14 @@ const SocialFiModule = () => {
   // );
   return (
     <div className={s.socialfi}>
-      <RetroHero label={'Optimized for content creators.'} subTitle={'Bitcoin L2 for SocialFi'} btn1={{
-        title: 'Create your own Defi L2',
+      <RetroHero label={'Optimized for content creators.'} subTitle={'Bitcoin L2 for SocialFi'} btn1={{
+        title: 'Create your own SocialFi L2',
         link: '/blockchains/customize',
       }}
                  btn2={{
                    title: 'Explore Alpha now! ',
                    label: 'Need an example?',
-                   link: 'https://play.bitcoinarcade.xyz/',
+                   link: 'https://alpha.wtf/',
                    target: '_blank',
                  }}
                  src={'/socialfi/socialFiHero.png'}
@@ -60,7 +60,7 @@ const SocialFiModule = () => {
       <ListInfo list_info={AIFI_LIST_INFO} heading={'Learn what BVM products can do for you '}/>
       <RetroCaseStudy subTitle={'Case Study'} backgroundColor={'#000000'} bgCaseStudy={'#191919'} btn={{
         title: 'Explore Alpha now!',
-        link: 'https://play.bitcoinarcade.xyz',
+        link: 'https://alpha.wtf/',
         target: '_blank'
       }} src={'/socialfi/case-study.png'} brand={'/ai/brand.png'} heading={'The first social app on Bitcoin'}>$2.7M paid to creators as of today.</RetroCaseStudy>
     </div>
