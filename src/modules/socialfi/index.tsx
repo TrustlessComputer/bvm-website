@@ -44,25 +44,25 @@ const SocialFiModule = () => {
   return (
     <div className={s.socialfi}>
       <RetroHero label={'Optimized for content creators.'} subTitle={'Bitcoin L2 for SocialFi'} btn1={{
-        title: 'Create your own SocialFi L2',
+        title: 'Create your own Defi L2',
         link: '/blockchains/customize',
       }}
                  btn2={{
-                   title: 'Explore Bitcoin Arcade now',
+                   title: 'Explore Alpha now! ',
                    label: 'Need an example?',
                    link: 'https://play.bitcoinarcade.xyz/',
                    target: '_blank',
                  }}
-                 src={'/ai/ai-hero-2.png'}
+                 src={'/socialfi/socialFiHero.png'}
       >
         Connect, hang out, have fun, and earn.
       </RetroHero>
       <ListInfo list_info={AIFI_LIST_INFO} heading={'Learn what BVM products can do for you '}/>
-      <RetroCaseStudy subTitle={'Case Study'} btn={{
-        title: 'Explore Bitcoin Arcade now!',
+      <RetroCaseStudy subTitle={'Case Study'} backgroundColor={'#000000'} bgCaseStudy={'#191919'} btn={{
+        title: 'Explore Alpha now!',
         link: 'https://play.bitcoinarcade.xyz',
         target: '_blank'
-      }} src={'/ai/case-study.png'} brand={'/ai/brand.png'} heading={'Making DeFi on Bitcoin possible and accessible to everyone'}>The first ever Fully On-Chain blockchain on Bitcoin</RetroCaseStudy>
+      }} src={'/socialfi/case-study.png'} brand={'/ai/brand.png'} heading={'The first social app on Bitcoin'}>$2.7M paid to creators as of today.</RetroCaseStudy>
     </div>
   );
 };

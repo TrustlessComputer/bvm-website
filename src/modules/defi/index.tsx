@@ -49,8 +49,8 @@ const DeFiModule = () => {
 
   return (
     <div className={s.defi}>
-      <RetroHero label={'Unlocking Bitcoin\'s $250B treasury chest'} subTitle={'Bitcoin L2 for SocialFi'} btn1={{
-        title: 'Bitcoin L2 for DeFi',
+      <RetroHero label={'Unlocking Bitcoin\'s $250B treasury chest'} subTitle={'Bitcoin L2 for DeFi'} btn1={{
+        title: 'Create your own DeFi L2',
         link: '/blockchains/customize',
       }}
                  btn2={{
@@ -65,12 +65,11 @@ const DeFiModule = () => {
       </RetroHero>
       <ListInfo list_info={DEFI_LIST_INFO} heading={'Learn what BVM products can do for you '} />
       <RetroCaseStudy subTitle={'Case Study'} btn={{
-        title: 'Explore Bitcoin Arcade now!',
+        title: 'Explore NakaChain now',
         link: 'https://play.bitcoinarcade.xyz',
         target: '_blank'
       }} src={'/defi/case-study.png'} brand={'/defi/brand.png'}
-                      heading={'Making DeFi on Bitcoin possible and accessible to everyone'}>The first ever Fully
-        On-Chain blockchain on Bitcoin</RetroCaseStudy>
+                      heading={'Making DeFi on Bitcoin possible and accessible to everyone'}></RetroCaseStudy>
     </div>
   )
 };

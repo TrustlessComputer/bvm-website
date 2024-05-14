@@ -37,7 +37,7 @@ const GameFiModule = () => {
                    link: 'https://play.bitcoinarcade.xyz/',
                    target: '_blank',
                  }}
-                 src={'/retro/hero.png'}
+                 src={'/gamefi/gamefiHero.png'}
       >
         Shape the Future of Gaming on Bitcoin
       </RetroHero>

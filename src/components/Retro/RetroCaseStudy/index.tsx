@@ -9,6 +9,8 @@ interface RetroCaseStudyProps extends PropsWithChildren {
   src: string,
   heading: string,
   brand: string,
+  backgroundColor?: string;
+  bgCaseStudy?: string;
   btn: {
     title: string,
     link: string,
@@ -22,13 +24,15 @@ function CaseStudy({
                      src,
                      children,
                      btn,
-                     brand
+                     brand,
+                     backgroundColor = '#180031',
+                     bgCaseStudy = '#2f1946',
                    }: RetroCaseStudyProps): React.JSX.Element {
-  return <div className={s.wrapper}>
+  return <div className={s.wrapper} style={{ backgroundColor }}>
     <div className='container'>
       <div className={s.contentWrapper}>
         <div className={s.left}>
-          <div className={s.label}>
+          <div className={s.label} style={{ backgroundColor: bgCaseStudy }}>
             <p>{subTitle}</p>
             <div className={s.imageLabel}>
               <ImagePlaceholder src={brand} alt={'brand'} height={51} width={260} className={s.image} />
