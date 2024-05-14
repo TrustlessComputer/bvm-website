@@ -31,12 +31,12 @@ export const PHASES_SWAMPS: any[] = [
   {
     key: 2,
     title: 'LAUNCH',
-    status: 'running',
+    status: 'done',
   },
   {
     key: 3,
     title: 'TGE',
-    status: 'pending',
+    status: 'running',
   },
   {
     key: 4,

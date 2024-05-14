@@ -6,6 +6,7 @@ import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import { formatCurrency, formatDate } from '@/utils/format';
 import moment from 'moment';
 import ClaimAirdropModal from '../ClaimAirdropModal';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 
 export type IAirdropCard = {
   title: string;
@@ -46,6 +47,7 @@ export default function AirdropCard({
     onOpen: onOpenClaimAirdrop,
     onClose: onCloseClaimAirdrop,
   } = useDisclosure();
+  const { nakaAddress } = useNakaAuthen();
 
   const renderAirdrop = (airdrops: any[]) => {
     return (
@@ -65,6 +67,12 @@ export default function AirdropCard({
                     }`}
                     justifyContent="center"
                     w="100%"
+                    cursor={Number(airdrop.amount) <= 0 ? 'auto' : 'pointer'}
+                    onClick={() =>
+                      window.open(
+                        `https://swamps-explorer.tc.l2aas.com/address/${nakaAddress}`,
+                      )
+                    }
                   >
                     <p>
                       {Number(airdrop.amount) <= 0
@@ -105,6 +113,7 @@ export default function AirdropCard({
           <Flex
             cursor="pointer"
             w="48px"
+            h="100%"
             minH="52px"
             _hover={{ opacity: 0.8 }}
             justifyContent="center"
