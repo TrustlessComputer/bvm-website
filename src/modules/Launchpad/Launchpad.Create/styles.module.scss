@@ -1,7 +1,7 @@
 .container {
   text-align: center;
+  padding: 32px;
 
- 
   :global {
     .chakra-step {
       align-items: flex-start !important;
@@ -39,11 +39,7 @@
 }
 
 .content {
-  max-width: 1200px;
-  margin: 0 auto;
-  background: var(--input-bg);
   border-radius: 8px;
-  padding: 16px;
   .btnCreateToken {
     cursor: pointer;
     color: var(--primary-color);
@@ -59,4 +55,18 @@
   .btnBack {
     background: #bcbcbc;
   }
+}
+
+.setupPreLaunch {
+  flex-direction: column;
+  width: 100%;
+}
+
+.itemTaskContainer {
+  background: var(--input-bg);
+  padding: 12px;
+  border-radius: 8px;
+  text-align: left;
+  align-items: center;
+  justify-content: space-between;
 }

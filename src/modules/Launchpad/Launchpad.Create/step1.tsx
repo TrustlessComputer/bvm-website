@@ -1,39 +1,37 @@
+import FieldDateTime from '@/components/Form/Field.DateTime';
+import FieldText from '@/components/Form/Field.Text';
+import FieldAmount from '@/components/Form/fieldAmount';
+import InputWrapper from '@/components/Form/inputWrapper';
 import { composeValidators, required } from '@/utils/form-validate';
 import { formatCurrency } from '@/utils/format';
-import { requiredAmount, validateEVMAddress } from '@/utils/validate';
+import { requiredAmount } from '@/utils/validate';
 import {
   Box,
   Button,
   Flex,
   Radio,
   RadioGroup,
-  Spinner,
   Stack,
   Text,
 } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import dayjs from 'dayjs';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Field, Form, useForm, useFormState } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
-import s from './styles.module.scss';
-import CContractBase from '@/contract/base';
 import {
   launchpadSelector,
   setCreateBody,
   setCreateStep,
 } from '../store/reducer';
-import InputWrapper from '@/components/Form/inputWrapper';
-import FieldText from '@/components/Form/Field.Text';
-import FieldAmount from '@/components/Form/fieldAmount';
-import FieldDateTime from '@/components/Form/Field.DateTime';
+import SetupPreLaunch from './SetupPreLaunch';
 
 const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
   const { values } = useFormState();
   const { change } = useForm();
-  const contractBase = useRef(new CContractBase()).current;
+  // const contractBase = useRef(new CContractBase()).current;
 
-  const [checkToken, setCheckToken] = useState(false);
+  // const [checkToken, setCheckToken] = useState(false);
 
   const create_fee_options = useSelector(launchpadSelector).create_fee_options;
 
@@ -45,15 +43,15 @@ const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
   const launchpad_fee_option_id = values?.launchpad_fee_option_id || '1';
   const start_date = values?.start_date;
   const end_date = values?.end_date;
-  const token_address = values?.token_address;
+  // const token_address = values?.token_address;
   const your_token_balance = values?.your_token_balance;
   const symbol = values?.symbol;
 
-  const isDisabled = useMemo(() => !symbol, [symbol]);
+  const isDisabled = useMemo(() => false, []);
 
-  useEffect(() => {
-    onValidateAddress(token_address);
-  }, [token_address]);
+  // useEffect(() => {
+  //   onValidateAddress(token_address);
+  // }, [token_address]);
 
   useEffect(() => {
     //Price per ticket la = Allocation / Total ticket * Price
@@ -76,30 +74,30 @@ const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
     }
   }, [price_allocation_ticket, allocation_ticket]);
 
-  const onValidateAddress = async (value: string) => {
-    if (!validateEVMAddress(value)) {
-      return 'Token address invalid';
-    }
-    try {
-      setCheckToken(true);
-      const rs = await contractBase.getTokenInfo(token_address);
-      change('token_name', rs?.name);
-      change('total_supply', rs?.supply);
-      change('your_token_balance', rs?.balance);
-      change('symbol', rs?.symbol);
-      return undefined;
-    } catch (error) {
-      return 'Token not found';
-      //
-    } finally {
-      setCheckToken(false);
-    }
-  };
+  // const onValidateAddress = async (value: string) => {
+  //   if (!validateEVMAddress(value)) {
+  //     return 'Token address invalid';
+  //   }
+  //   try {
+  //     setCheckToken(true);
+  //     const rs = await contractBase.getTokenInfo(token_address);
+  //     change('token_name', rs?.name);
+  //     change('total_supply', rs?.supply);
+  //     change('your_token_balance', rs?.balance);
+  //     change('symbol', rs?.symbol);
+  //     return undefined;
+  //   } catch (error) {
+  //     return 'Token not found';
+  //     //
+  //   } finally {
+  //     setCheckToken(false);
+  //   }
+  // };
 
   return (
     <form onSubmit={handleSubmit}>
       <Flex gap={6}>
-        <Box flex={1}>
+        {/* <Box flex={1}>
           <InputWrapper
             label="Token address"
             rightLabel={
@@ -131,11 +129,21 @@ const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
               }
             />
           </InputWrapper>
-        </Box>
+        </Box> */}
         <Box flex={1}>
           <InputWrapper label="Token name">
             <Field
-              placeholder="Naka"
+              placeholder="Bitcoin Virtual Network"
+              name="name"
+              component={FieldText}
+              validate={composeValidators(required)}
+            />
+          </InputWrapper>
+        </Box>
+        <Box flex={1}>
+          <InputWrapper label="Token symbol">
+            <Field
+              placeholder="BVM"
               name="token_name"
               component={FieldText}
               validate={composeValidators(required)}
@@ -238,12 +246,12 @@ const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
               component={FieldDateTime}
               validate={composeValidators(required)}
               showTimeSelect={true}
-              minDate={dayjs().add(3, 'days').format()}
-              maxDate={
-                end_date
-                  ? dayjs().subtract(end_date, 'days').format()
-                  : undefined
-              }
+              // minDate={dayjs().add(3, 'days').format()}
+              // maxDate={
+              //   end_date
+              //     ? dayjs().subtract(end_date, 'days').format()
+              //     : undefined
+              // }
             />
           </InputWrapper>
         </Box>
@@ -289,6 +297,8 @@ const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
         </Box>
       </Flex>
       <Box mt={6} />
+      <SetupPreLaunch />
+      <Box mt={6} />
       <InputWrapper label="Fee Options">
         <RadioGroup
           onChange={(e) => change('launchpad_fee_option_id', e)}
@@ -327,6 +337,8 @@ const CreateLaunchpadStep1 = () => {
     }
   };
 
+  console.log('step_values', step_values);
+
   return (
     <Form
       onSubmit={onSubmit}
@@ -344,6 +356,7 @@ const CreateLaunchpadStep1 = () => {
         start_date: step_values.start_date,
         end_ido_date: step_values.end_ido_date,
         end_date: step_values.end_date,
+        pre_sale: step_values.pre_sale,
       }}
     >
       {({ handleSubmit }) => (

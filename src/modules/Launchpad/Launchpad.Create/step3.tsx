@@ -114,6 +114,10 @@ const CreateLaunchpadStep3 = () => {
       };
       const rs = await launchpadApi.createLaunchpad(values);
 
+      if (values?.tasks && values?.tasks?.length > 0 && values?.pre_sale) {
+        await launchpadApi.postPreLaunchpadTasks(rs.id, values?.tasks);
+      }
+
       dispatch(setCreatedLaunchpadId(rs.id));
       dispatch(setCreateStep(3));
     } catch (error) {

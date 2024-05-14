@@ -74,7 +74,7 @@ const CreateLaunchpad = () => {
   }, [activeStep]);
 
   return (
-    <Box className={cx(s.container, 'container')}>
+    <Box className={cx(s.container)}>
       <Stepper index={activeStep}>
         {CREATE_STEPS.map((step, index) => (
           <Step key={index}>
