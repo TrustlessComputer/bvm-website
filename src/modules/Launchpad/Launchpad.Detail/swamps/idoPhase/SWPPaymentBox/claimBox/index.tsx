@@ -37,9 +37,8 @@ const ClaimBox = () => {
   const { nakaAddress, isAuthen, requestAccount } = useNakaAuthen();
 
   const id = params?.id;
-  const [currentLeaderboard, setCurrentLeaderboard] = useState<
-    ILeaderBoardEAI | undefined
-  >(undefined);
+  const [currentLeaderboard, setCurrentLeaderboard] =
+    useState<ILeaderBoardEAI | undefined>(undefined);
   const launchpadApi = useRef(new CPaymentSWPAPI()).current;
   const contract = useRef(new CContract()).current;
 
@@ -171,7 +170,7 @@ const ClaimBox = () => {
               )} GSWP tokens.`}
             </Text>
           </Flex>
-          <Flex gap={'24px'} w={'100%'} mt={'12px'}>
+          <Flex gap={'24px'} w={'100%'}>
             <Button
               className={s.btnClaimed}
               onClick={() => {
