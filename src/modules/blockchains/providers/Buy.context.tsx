@@ -203,6 +203,8 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     useState<boolean>(false);
 
   const [showTopupModal, setShowTopupModal] = useState(false);
+  const [showSendFormModal, setShowSendFormModal] = useState(false);
+
   // ------------------------------------------------------------
   // API DATA
   // ------------------------------------------------------------
@@ -771,6 +773,9 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
     showTopupModal,
     setShowTopupModal,
+
+    showSendFormModal,
+    setShowSendFormModal,
 
     isStandardMode,
   };

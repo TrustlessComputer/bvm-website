@@ -19,8 +19,6 @@ import MainLayout from '@/layouts/MainLayout';
 const DetailNaka = () => {
   const { currentLaunchpad } = useLaunchpadContext();
 
-  console.log('currentLaunchpad', currentLaunchpad);
-
   const renderHeader = () => {
     return <AboveTheFold />;
   };

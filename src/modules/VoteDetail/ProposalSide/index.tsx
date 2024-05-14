@@ -165,7 +165,7 @@ const ProposalSide = ({
             ))}
           </Flex>
           <Flex
-            mt="8px"
+            mt="12px"
             direction="row"
             alignItems="center"
             gap="28px"

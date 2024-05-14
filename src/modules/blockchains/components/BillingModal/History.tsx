@@ -21,6 +21,8 @@ import {
   HistoryTypeMap,
 } from './History.types';
 
+import s from './styles.module.scss';
+
 export default () => {
   const { historyList } = useAppSelector(historyInfoSelector);
 
@@ -80,20 +82,36 @@ export default () => {
     const formatValue = formatAmountColor();
 
     return (
-      <Tr key={index} h={'70px'} fontWeight={500}>
-        <Th width="20%">
+      <Tr
+        key={index}
+        h={'70px'}
+        fontWeight={500}
+        fontSize={'16px'}
+        className={s.font}
+      >
+        <Th width="20%" className={s.font}>
           {formatDateTime({
             dateTime: new Date(created_at).getTime(),
           }).toLocaleString()}
         </Th>
-        <Th width="50%" color={'#000'}>
+        <Th
+          width="50%"
+          color={'#000'}
+          textTransform={'capitalize'}
+          className={s.font}
+        >
           {HistoryTypeMap[type] || '--'}
         </Th>
-        <Th width="50%" color={HistoryStatusColorMap[status] || '#000'}>
+        <Th
+          width="50%"
+          color={HistoryStatusColorMap[status] || '#000'}
+          textTransform={'capitalize'}
+          className={s.font}
+        >
           {HistoryStatusMap[status] || '--'}
         </Th>
 
-        <Th width="20%" color={formatValue.color}>
+        <Th width="20%" color={formatValue.color} className={s.font}>
           {formatValue.prefix + ` ` + formatAmountV3(amount) + ' BVM'}
         </Th>
         {/* <Th width="20%">
@@ -118,6 +136,7 @@ export default () => {
       maxH="600px"
       overflowY="auto"
       color={'#000'}
+      className={s.font}
       css={{
         '&::-webkit-scrollbar': {
           width: '6px',
@@ -139,23 +158,68 @@ export default () => {
           zIndex={1}
         >
           <Tr
-            h={'70px'}
+            h="46px"
             bgColor={'#F6F6F6'}
             overflow="auto"
             position={'sticky'}
             top={0}
             zIndex={1}
+            fontWeight={700}
+            fontSize={'12px'}
+            className={s.font}
           >
-            <Th width="20%" fontWeight={600} fontSize={'15px'}>
+            <Th
+              width="20%"
+              fontWeight={700}
+              fontSize={'12px'}
+              className={s.font}
+              style={{
+                fontSize: 12,
+              }}
+            >
               Date
             </Th>
-            <Th width="20%" fontWeight={600} fontSize={'15px'}>
-              Description
+            <Th
+              width="20%"
+              fontWeight={700}
+              fontSize={'12px'}
+              className={s.font}
+              style={{
+                fontSize: 12,
+              }}
+            >
+              <Flex flexDir={'row'} align="center" gap={'5px'}>
+                <Text fontSize={'12px'} fontWeight={700}>
+                  Description
+                </Text>
+                <Image
+                  src={'/blockchains/customize/ic-black-infor.svg'}
+                  w={'15px'}
+                  h={'auto'}
+                  objectFit={'contain'}
+                />
+              </Flex>
             </Th>
-            <Th width="50%" fontWeight={600} fontSize={'15px'}>
+            <Th
+              width="50%"
+              fontWeight={700}
+              fontSize={'12px'}
+              className={s.font}
+              style={{
+                fontSize: 12,
+              }}
+            >
               Status
             </Th>
-            <Th width="20%" fontWeight={600} fontSize={'15px'}>
+            <Th
+              width="20%"
+              fontWeight={700}
+              fontSize={'12px'}
+              className={s.font}
+              style={{
+                fontSize: 12,
+              }}
+            >
               Amount
             </Th>
           </Tr>

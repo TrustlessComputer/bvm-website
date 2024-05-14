@@ -109,19 +109,6 @@ const BodyGridView = () => {
           onSuccess={async () => {}}
         />
       )}
-
-      {showTopupModal && (
-        <TopupModal
-          show={showTopupModal}
-          infor={{
-            paymentAddress: accountInforL2Service?.topUpWalletAddress,
-          }}
-          onClose={() => {
-            setShowTopupModal(false);
-          }}
-          onSuccess={async () => {}}
-        />
-      )}
     </Flex>
   );
 };

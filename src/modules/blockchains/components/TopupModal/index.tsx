@@ -1,5 +1,5 @@
 import BaseModal from '@/components/BaseModal';
-import { Flex, Image, Text } from '@chakra-ui/react';
+import { Flex, Image, Text, Button } from '@chakra-ui/react';
 import copy from 'copy-to-clipboard';
 import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
@@ -13,12 +13,20 @@ interface IProps {
   show: boolean;
   onClose?: (() => void) | any;
   onSuccess?: () => Promise<void>;
+  payWithNakaWalletCB?: () => void;
   infor: TopUpInfor;
   warningMessage?: string;
 }
 
 const TopupModal = (props: IProps) => {
-  const { show, onClose, infor, onSuccess, warningMessage } = props;
+  const {
+    show,
+    onClose,
+    infor,
+    onSuccess,
+    warningMessage,
+    payWithNakaWalletCB,
+  } = props;
   if (!infor || !infor.paymentAddress) return <></>;
 
   const { paymentAddress } = infor;
@@ -62,7 +70,7 @@ const TopupModal = (props: IProps) => {
           <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
             {` BVM `}
           </Text>
-          to the follow address
+          to the following wallet address
         </Text>
 
         {/* Adderss Bar */}
@@ -133,7 +141,7 @@ const TopupModal = (props: IProps) => {
           Naka Chain
         </Text>
 
-        {/* <Flex
+        <Flex
           mt={'20px'}
           width={'45%'}
           bgColor={'#B6B6B6'}
@@ -149,9 +157,9 @@ const TopupModal = (props: IProps) => {
           textAlign={'center'}
         >
           Or with faster method
-        </Text> */}
+        </Text>
 
-        {/* <Button
+        <Button
           mt={'20px'}
           bgColor={'#130E67'}
           color={'#fff'}
@@ -165,9 +173,10 @@ const TopupModal = (props: IProps) => {
           _hover={{
             opacity: 0.8,
           }}
+          onClick={payWithNakaWalletCB}
         >
           Pay with Naka wallet
-        </Button> */}
+        </Button>
       </Flex>
     </BaseModal>
   );

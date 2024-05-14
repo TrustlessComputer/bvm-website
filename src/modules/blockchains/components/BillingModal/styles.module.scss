@@ -2,5 +2,9 @@
   background-color: #fff !important;
   min-width: 800px !important;
   min-height: 800px !important;
-  font-family: var(--font-dmsans);
+  font-family: var(--font-dmsans) !important;
+}
+
+.font {
+  font-family: var(--font-dmsans) !important;
 }

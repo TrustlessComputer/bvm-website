@@ -4,7 +4,7 @@ import { ceil } from 'lodash';
 import { IOrderBuyEstimateRespone } from '@/services/api/l2services/types';
 
 interface IAmount {
-  originalAmount?: number;
+  originalAmount?: number | string;
   humanAmount?: number;
   decimals: number;
   clipAmount?: boolean;

@@ -10,9 +10,13 @@ const Header = (props: IProps) => {
   const { item, viewPaymentOnClick } = props;
 
   return (
-    <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
+    <Flex
+      flexDir={'row'}
+      align={'center'}
+      justify={'space-between'}
+      mt={'20px'}
+    >
       <Text
-        mt={'20px'}
         fontSize={'32px'}
         fontWeight={700}
         color={'#1C1C1C'}
@@ -21,11 +25,15 @@ const Header = (props: IProps) => {
         Billing
       </Text>
       <Text
-        mt={'20px'}
-        fontSize={'20px'}
-        fontWeight={400}
-        color={'#0A00B3'}
-        textAlign={'right'}
+        px={'40px'}
+        py={'12px'}
+        color={'#fff'}
+        h="45px"
+        rounded={'1000px'}
+        fontSize={'16px'}
+        fontWeight={500}
+        bgColor={'#FA4E0E'}
+        textAlign={'center'}
         onClick={viewPaymentOnClick}
         _hover={{
           cursor: 'pointer',

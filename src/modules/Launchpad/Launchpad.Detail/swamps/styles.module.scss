@@ -41,7 +41,9 @@
     padding: 0 100px;
     //padding-top: 16px;
     width: 100%;
-    max-width: rem(1920px);
+    max-width: 1664px;
+    padding-left: 32px;
+    padding-right: 32px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -52,7 +54,7 @@
     // }
 
     @include w-min(1920px) {
-      padding: 0 120px;
+      // padding: 0 120px;
     }
 
     @include w-max(768px) {

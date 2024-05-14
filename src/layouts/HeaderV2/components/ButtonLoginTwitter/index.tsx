@@ -2,7 +2,6 @@
 import React from 'react';
 import cs from 'classnames';
 import { toast } from 'react-hot-toast';
-import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import { Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 
@@ -10,14 +9,13 @@ type Props = {
   color: 'black' | 'white';
 };
 const ButtonLoginTwitter = (props: Props) => {
-  const { login } = useWeb3Authenticated();
   const handleConnect = async () => {
     try {
-      await login();
+      // await login();
     } catch (err: unknown) {
       toast.error(
         (err as Error).message ||
-        'Something went wrong. Please try again later.',
+          'Something went wrong. Please try again later.',
       );
     }
   };
