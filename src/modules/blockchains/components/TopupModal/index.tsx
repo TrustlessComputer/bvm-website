@@ -1,15 +1,9 @@
 import BaseModal from '@/components/BaseModal';
-import { Divider, Flex, Text, Link, Image, Button } from '@chakra-ui/react';
-
-import { useState } from 'react';
-import s from './styles.module.scss';
-import { OrderItem } from '@/stores/states/l2services/types';
-import { useAppSelector } from '@/stores/hooks';
-import { getOrderByIDSelector } from '@/stores/states/l2services/selector';
-import useOrderMapper from '../../hooks/useOrderMapper';
-import QRCode from 'react-qr-code';
-import toast from 'react-hot-toast';
+import { Flex, Image, Text, Button } from '@chakra-ui/react';
 import copy from 'copy-to-clipboard';
+import toast from 'react-hot-toast';
+import QRCode from 'react-qr-code';
+import s from './styles.module.scss';
 
 interface TopUpInfor {
   paymentAddress?: string;
@@ -19,11 +13,20 @@ interface IProps {
   show: boolean;
   onClose?: (() => void) | any;
   onSuccess?: () => Promise<void>;
+  payWithNakaWalletCB?: () => void;
   infor: TopUpInfor;
+  warningMessage?: string;
 }
 
 const TopupModal = (props: IProps) => {
-  const { show, onClose, infor, onSuccess } = props;
+  const {
+    show,
+    onClose,
+    infor,
+    onSuccess,
+    warningMessage,
+    payWithNakaWalletCB,
+  } = props;
   if (!infor || !infor.paymentAddress) return <></>;
 
   const { paymentAddress } = infor;
@@ -45,6 +48,18 @@ const TopupModal = (props: IProps) => {
         borderRadius={'10px'}
         p={'20px'}
       >
+        {warningMessage && (
+          <Text
+            fontSize={'15px'}
+            fontWeight={500}
+            color={'#e6922c'}
+            textAlign={'center'}
+            mb={'10px'}
+          >
+            {warningMessage}
+          </Text>
+        )}
+
         <Text
           fontSize={'15px'}
           fontWeight={400}
@@ -55,7 +70,7 @@ const TopupModal = (props: IProps) => {
           <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
             {` BVM `}
           </Text>
-          to the follow address
+          to the following wallet address
         </Text>
 
         {/* Adderss Bar */}
@@ -123,10 +138,10 @@ const TopupModal = (props: IProps) => {
           color={'#000'}
           textAlign={'center'}
         >
-          Naka
+          Naka Chain
         </Text>
 
-        {/* <Flex
+        <Flex
           mt={'20px'}
           width={'45%'}
           bgColor={'#B6B6B6'}
@@ -142,9 +157,9 @@ const TopupModal = (props: IProps) => {
           textAlign={'center'}
         >
           Or with faster method
-        </Text> */}
+        </Text>
 
-        {/* <Button
+        <Button
           mt={'20px'}
           bgColor={'#130E67'}
           color={'#fff'}
@@ -158,9 +173,10 @@ const TopupModal = (props: IProps) => {
           _hover={{
             opacity: 0.8,
           }}
+          onClick={payWithNakaWalletCB}
         >
           Pay with Naka wallet
-        </Button> */}
+        </Button>
       </Flex>
     </BaseModal>
   );

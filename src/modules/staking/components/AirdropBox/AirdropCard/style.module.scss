@@ -1,8 +1,8 @@
 .airdropCard {
-  border: 1px solid #FFEEEE26;
-  border-radius: 16px;
-  padding: 16px;
-  width: 100%;
+  border: 1px solid #ffeeee26;
+  border-radius: 16px !important;
+  padding: 16px !important;
+  width: 100% !important;
 
   flex: 0 0 100%;
   @include is-min-table {
@@ -10,6 +10,10 @@
   }
   @include is-pc {
     flex: 1;
+  }
+
+  &_inner {
+    flex-direction: column;
   }
 
   .header {
@@ -24,7 +28,7 @@
       font-weight: 700;
       line-height: 44.2px;
       text-align: left;
-      color: #6FFE43;
+      color: #6ffe43;
     }
 
     .socials {
@@ -46,7 +50,7 @@
       font-weight: 400;
       line-height: 25.2px;
       text-align: left;
-      color: #B7B7B7;
+      color: #b7b7b7;
     }
   }
 
@@ -64,24 +68,24 @@
   }
 
   &_ct {
-    background: white;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 22.4px;
-    text-align: center;
-    color: black;
-    padding: 15px;
-    padding-top: 17px;
-    padding-bottom: 13px;
-    border-radius: 8px;
+    background: white !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 22.4px !important;
+    text-align: center !important;
+    color: black !important;
+    padding: 15px !important;
+    padding-top: 17px !important;
+    padding-bottom: 13px !important;
+    border-radius: 8px !important;
   }
 
   &_release {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between !important;
 
     .token {
-      color: #6C6F93;
+      color: #6c6f93;
       display: flex;
       gap: 4px;
     }
@@ -99,8 +103,14 @@
 
   &.isDone {
     .airdropCard_ct {
-      color: rgba(white, .7);
-      background: #1D1D1D;
+      color: rgba(white, 0.7);
+      background: #1d1d1d;
+      // text-transform: uppercase;
+    }
+
+    .airdropCard_ctp {
+      color: rgba(white, 0.7) !important;
+      background: #1d1d1d !important;
       // text-transform: uppercase;
     }
   }

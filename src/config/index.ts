@@ -47,4 +47,13 @@ export const API_BASE_URL: string = process.env.NEXT_PUBLIC_API_URL! as string;
 
 export const NAKA_RPC_URL: string = process.env.NEXT_PUBLIC_NAKA_RPC!;
 
+export const TC_EXPLORER: string = process.env.NEXT_PUBLIC_TC_EXPLORER!;
+export const TC_LAYER2_EXPLORER: string =
+  process.env.NEXT_PUBLIC_TC_LAYER2_EXPLORER!;
+export const RUNE_EXPLORER: string = process.env.NEXT_PUBLIC_RUNE_EXPLORER!;
+export const EAI_EXPLORER: string = process.env.NEXT_PUBLIC_EAI_EXPLORER!;
+
+
+export const NAKA_WEB: string = process.env.NEXT_PUBLIC_NAKA_WEB!;
+
 export { MetadataConfig, ViewportConfig };

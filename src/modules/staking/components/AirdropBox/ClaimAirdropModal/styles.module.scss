@@ -1,0 +1,106 @@
+.airdropCard {
+  border: 1px solid #ffeeee26;
+  border-radius: 16px !important;
+  padding: 16px !important;
+  width: 100% !important;
+
+  flex: 0 0 100%;
+  @include is-min-table {
+    flex: 0 0 calc(50% - 20px);
+  }
+  @include is-pc {
+    flex: 1;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 4px;
+
+    .airdropAmount {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 44.2px;
+      text-align: left;
+      color: #6ffe43;
+    }
+
+    .socials {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 24px;
+    }
+
+    &_title {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 38.4px;
+      text-align: left;
+      color: #ffffff;
+    }
+    &_desc {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 25.2px;
+      text-align: left;
+      color: #b7b7b7;
+    }
+  }
+
+  &_thumbnail {
+    margin-bottom: 10px;
+    aspect-ratio: 1/1;
+    width: 100%;
+    max-width: 240px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &_ct {
+    background: white !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 22.4px !important;
+    text-align: center !important;
+    color: black !important;
+    padding: 15px !important;
+    padding-top: 17px !important;
+    padding-bottom: 13px !important;
+    border-radius: 8px !important;
+  }
+
+  &_release {
+    display: flex;
+    justify-content: space-between !important;
+
+    .token {
+      color: #6c6f93;
+      display: flex;
+      gap: 4px;
+    }
+
+    .date {
+      font-weight: 500;
+    }
+  }
+  &.isComming {
+    .airdropCard_ct {
+      // text-transform: uppercase;
+    }
+  }
+
+  &.isDone {
+    .airdropCard_ct {
+      color: rgba(white, 0.7);
+      background: #1d1d1d;
+      // text-transform: uppercase;
+    }
+  }
+}

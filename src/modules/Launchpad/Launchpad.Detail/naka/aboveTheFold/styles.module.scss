@@ -1,0 +1,145 @@
+.container {
+  @include is-mobile {
+    max-width: calc(100vw - 32px);
+  }
+  .launchpadAvatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    image-rendering: pixelated;
+  }
+
+  .boxProposalId {
+    padding: 4px 16px;
+    background: #e7e7e7;
+    border-radius: 100px;
+    width: fit-content;
+    font-size: 14px;
+    font-weight: 500;
+    color: #898989;
+  }
+
+  p {
+    color: #000000;
+  }
+
+  .boxTime {
+    padding: 0px 0px 0;
+    width: fit-content;
+
+    @include w-max(767px) {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    > div {
+      flex: 1;
+      min-width: 200px;
+
+      @include w-max(768px) {
+        min-width: unset;
+      }
+    }
+  }
+
+  .countdownTime {
+    justify-content: flex-start;
+    p {
+      font-size: 32px;
+      font-weight: 500 !important;
+      line-height: 100% !important;
+    }
+
+    &.highLight {
+      -webkit-animation: flash linear 1s infinite;
+      animation: flash linear 1s infinite;
+      p {
+        color: #000;
+        white-space: nowrap;
+        line-height: 100% !important;
+      }
+    }
+
+    @include w-max(767px) {
+      justify-content: center;
+    }
+  }
+
+  .boxCountdown {
+    background: #FFFFFF;
+    border: 1px solid #A87EFF;
+    box-shadow: 0px 0px 32px -6px #A87EFF33;
+    padding: 16px 24px;
+    border-radius: 16px;
+    min-width: 330px;
+
+    @include w-max(767px) {
+      width: 100%;
+    }
+  }
+
+  .boxParticipants {
+    background: #FFFFFF;
+    border: 1px solid #A87EFF;
+    box-shadow: 0px 0px 32px -6px #A87EFF33;
+    padding: 16px 24px;
+    border-radius: 16px;
+    text-align: center;
+    cursor: pointer;
+
+    @include w-max(767px) {
+      width: 100%;
+    }
+  }
+
+  .description {
+    font-size: 16px;
+    font-weight: 400;
+
+    a {
+      text-decoration: underline;
+      color: #6e16fe;
+    }
+  }
+
+  .boxRaisedFund {
+    display: flex;
+    width: 600px;
+    padding: 20px 24px;
+    justify-content: space-between;
+    align-items: center;
+    //gap: 24px;
+    border-radius: 16px;
+    border: 1px solid #ECECEC;
+    background: #FFF;
+    box-shadow: 0px 0px 20px -6px rgba(0, 0, 0, 0.08);
+
+    @include w-max(767px) {
+      width: 100%;
+    }
+  }
+}
+
+@-webkit-keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}

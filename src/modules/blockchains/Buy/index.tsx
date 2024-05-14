@@ -21,6 +21,8 @@ import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
+import TopupModal from '../components/TopupModal';
+import SendFormModal from '../components/SendFormModal';
 
 export type Props = {
   onSuccess?: () => void;
@@ -37,9 +39,15 @@ export const BuyPage = React.memo((props: Props) => {
     showSubmitFormResult,
     setShowSubmitFormResult,
     rollupProtocolSelected,
+    showTopupModal,
+    setShowTopupModal,
+    showSendFormModal,
+    setShowSendFormModal,
+    isMainnet,
   } = useBuy();
   const router = useRouter();
   const { isL2ServiceLogged, onLogin } = useL2ServiceAuth();
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
 
   if (isAvailableListFetching)
     return (
@@ -51,13 +59,7 @@ export const BuyPage = React.memo((props: Props) => {
   if (!availableListData) return <></>;
 
   return (
-    <Flex
-      direction={'column'}
-      maxH={'100dvh'}
-      py="20px"
-      gap={'20px'}
-      className={s.container}
-    >
+    <Flex direction={'column'} py="10px" gap={'20px'} className={s.container}>
       <Flex direction={'row'} align={'center'} justify={'space-between'}>
         <Breadcrumb
           spacing="8px"
@@ -139,7 +141,8 @@ export const BuyPage = React.memo((props: Props) => {
       </Flex>
 
       <Flex
-        p={'50px'}
+        px={'50px'}
+        py={'20px'}
         direction={'column'}
         borderRadius={'20px'}
         display={'flex'}
@@ -163,6 +166,9 @@ export const BuyPage = React.memo((props: Props) => {
           onSuccess={async () => {
             confirmSubmitHandler();
           }}
+          onTopupNow={async () => {
+            setShowTopupModal(true);
+          }}
         />
       )}
 
@@ -173,6 +179,37 @@ export const BuyPage = React.memo((props: Props) => {
             setShowSubmitFormResult(false);
           }}
           onSuccess={async () => {}}
+        />
+      )}
+
+      {showTopupModal && (
+        <TopupModal
+          show={showTopupModal}
+          warningMessage={
+            'Operating your Bitcoin L2 testnet requires 1 $BVM per day.'
+          }
+          infor={{
+            paymentAddress: `${accountInforL2Service?.topUpWalletAddress}`,
+          }}
+          onClose={() => {
+            setShowTopupModal(false);
+          }}
+          onSuccess={async () => {}}
+          payWithNakaWalletCB={() => {
+            setShowSendFormModal(true);
+          }}
+        />
+      )}
+
+      {showSendFormModal && (
+        <SendFormModal
+          show={showSendFormModal}
+          onClose={() => {
+            setShowSendFormModal(false);
+          }}
+          onSuccess={async () => {
+            setShowSendFormModal(false);
+          }}
         />
       )}
     </Flex>

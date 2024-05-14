@@ -129,9 +129,9 @@ export const Layer1EnumMap = {
 //
 
 export enum NativeTokenPayingGasEnum {
-  NativeTokenPayingGas_BVM = 0, //Default
+  NativeTokenPayingGas_BVM = 0, // Default
   NativeTokenPayingGas_PreMint = 1,
-  NativeTokenPayingGas_BTC = 2,
+  NativeTokenPayingGas_BTC = 2, // NEW
 }
 
 export const NativeTokenPayingGasMap = {
@@ -200,3 +200,26 @@ export const PriceTypeList = [
   PriceType.PROFESSIONAL,
   PriceType.ENTERPRISE,
 ];
+
+export enum ConfigurationOptionEnum {
+  Standard = 0,
+  Advanced = 1,
+}
+
+export const ConfigurationOptionEnumMap = {
+  [ConfigurationOptionEnum.Standard]: 'Standard',
+  [ConfigurationOptionEnum.Advanced]: 'Advanced',
+};
+
+export const STANDARD_VALUES = {
+  rollupProtocol: RollupEnum.Rollup_OpStack,
+  bitcoinValidity: BitcoinValidityEnum.BitcoinValidity_Ordinals,
+  dataAvailability: DALayerEnum.DALayer_Celestia,
+  blockTime: BlockTimeEnum.BlockTime_10s,
+  minGasPrice: MIN_GAS_PRICE,
+  blockGasLimit: GAS_LITMIT,
+  withdrawalPeriod: WITHDRAWAL_PERIOD,
+  nativeTokenPayingGas: NativeTokenPayingGasEnum.NativeTokenPayingGas_BVM,
+};
+
+export const ADVANCED_VALUES = {};

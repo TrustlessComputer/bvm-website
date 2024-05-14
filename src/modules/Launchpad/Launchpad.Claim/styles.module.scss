@@ -1,0 +1,33 @@
+.container {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background-color: #ffffff;
+  background-image: url('/images/launchpad/detail_bg.webp');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
+  --naka-text: #000;
+
+  height: calc(100dvh - 124px);
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  -webkit-scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  @include w-max(767px) {
+    background-size: 100% 100%;
+  }
+
+  &.loadingContainer {
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+}

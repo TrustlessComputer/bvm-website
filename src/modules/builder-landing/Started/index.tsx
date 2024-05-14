@@ -46,8 +46,8 @@ Ethereum to Bitcoin with minimal or no modifications.`}
               <Fade delay={0.3}>
                 <IConContent
                   title={'Submit Form'}
-                  blank={true}
-                  link={'https://forms.gle/eUbL7nHuTPA3HLRz8'}
+                  // blank={true}
+                  // link={'https://forms.gle/eUbL7nHuTPA3HLRz8'}
                   step={3}
                   icon={'builder/step-3.png'}
                 >

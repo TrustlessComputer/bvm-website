@@ -8,6 +8,7 @@ import { ProposalType } from '@/contract/proposal/proposal.interface';
 import {
   NakaConnectContext,
   INakaConnectContext,
+  STAKING_URL,
 } from '@/Providers/NakaConnectProvider';
 import { getProposalDetail } from '@/services/governor';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
@@ -29,16 +30,20 @@ import Countdown from './Countdown';
 import ProposalCancel from './ProposalCancel';
 import ProposalSide from './ProposalSide';
 import s from './styles.module.scss';
+import InfoTooltip from '@/components/Form/InfoTooltip';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
+import { useRouter } from 'next/navigation';
 
 const VoteDetail = () => {
   const params = useParams();
   const proposalId = params?.id;
   const dispatch = useAppDispatch();
   const address = useAppSelector(nakaAddressSelector);
-
   const { getConnector } = useContext(
     NakaConnectContext,
   ) as INakaConnectContext;
+  const { requestAccount, isAuthen } = useNakaAuthen();
+  const router = useRouter();
 
   const needReload = useAppSelector(commonSelector).needReload;
   const proposalContract = useRef(new CProposal()).current;
@@ -135,6 +140,16 @@ const VoteDetail = () => {
     }
   }, [JSON.stringify(proposalDetail)]);
 
+  const onStakeBVM = () => {
+    if (isAuthen) {
+      if (!voteProposalAble) {
+        router.push(STAKING_URL);
+      }
+    } else {
+      requestAccount();
+    }
+  };
+
   const onSubmit = async (value: string) => {
     try {
       if (!proposalDetail) return;
@@ -200,6 +215,22 @@ const VoteDetail = () => {
     }
   };
 
+  const getInfoLaunchpad = (data: any) => {
+    try {
+      if (data || data.description) {
+        const _data = JSON.parse(data.description as string);
+        return {
+          presalePercent: _data.presalePercent,
+          hardcap: _data.hardcap,
+          liquidityPercent: _data.liquidityPercent,
+          vesting: _data.vesting,
+        };
+      }
+    } catch (error) {
+      return undefined;
+    }
+  };
+
   const renderCountdown = React.useCallback(() => {
     return (
       <Text className={cx(s.status, s[status])} whiteSpace="pre">
@@ -216,6 +247,8 @@ const VoteDetail = () => {
   }, [expiredTimeAt, status, isAfterEndVote]);
 
   if (!proposalDetail) return <Loader />;
+
+  const infoLaunchPad = getInfoLaunchpad(proposalDetail?.proposal);
 
   const isProposalProject =
     getProposalType(proposalDetail?.proposal) === ProposalType.project;
@@ -306,6 +339,80 @@ const VoteDetail = () => {
                 </p>
               )}
             </Flex>
+            {isProposalProject &&
+              infoLaunchPad &&
+              infoLaunchPad.presalePercent && (
+                <Flex
+                  display="grid"
+                  gap="12px"
+                  mt="8px"
+                  gridTemplateColumns={{
+                    lg: '1fr 1fr 1fr 1fr',
+                    base: '1fr 1fr',
+                  }}
+                >
+                  <div className={s.supply}>
+                    <p className={s.supplyTitle}>Token presale percentage</p>
+                    <p className={s.supplyValue}>
+                      {formatCurrency(
+                        infoLaunchPad?.presalePercent,
+                        0,
+                        0,
+                        '',
+                        true,
+                      )}
+                      %
+                    </p>
+                  </div>
+
+                  <div className={s.supply}>
+                    <p className={s.supplyTitle}>Hardcap</p>
+                    <p className={s.supplyValue}>
+                      {infoLaunchPad?.hardcap &&
+                      Number(infoLaunchPad?.hardcap) > 0
+                        ? formatCurrency(
+                            infoLaunchPad.hardcap,
+                            0,
+                            0,
+                            '',
+                            true,
+                          ) + ' USD'
+                        : 'Without hardcap'}
+                    </p>
+                  </div>
+
+                  <div className={s.supply}>
+                    <Flex direction="row" gap="4px" alignItems="center">
+                      <p className={s.supplyTitle}>Liquidity percentage</p>
+                      <InfoTooltip
+                        iconSize="sm"
+                        placement="top-start"
+                        label="This allocation can help ensure that there is enough liquidity available for traders to buy and sell the token without experiencing significant price slippage"
+                      />
+                    </Flex>
+
+                    <p className={s.supplyValue}>
+                      {infoLaunchPad.liquidityPercent}%
+                    </p>
+                  </div>
+
+                  {infoLaunchPad?.vesting && (
+                    <div className={s.supply}>
+                      <Flex direction="row" gap="4px" alignItems="center">
+                        <p className={s.supplyTitle}>Vesting fund</p>
+                        <InfoTooltip
+                          iconSize="sm"
+                          placement="top-start"
+                          label="Vesting of 0 months means that 100% of the raised funds will be sent to the project team immediately, with no vesting period"
+                        />
+                      </Flex>
+                      <p className={s.supplyValue}>
+                        {infoLaunchPad.vesting} months
+                      </p>
+                    </div>
+                  )}
+                </Flex>
+              )}
           </Flex>
 
           <Flex
@@ -323,7 +430,7 @@ const VoteDetail = () => {
               subElement={() => {
                 return (
                   <>
-                    {allowVote && (
+                    {allowVote ? (
                       <Button
                         isDisabled={
                           submitting ||
@@ -339,6 +446,10 @@ const VoteDetail = () => {
                       >
                         {isVotedFor ? 'You voted "FOR"' : 'FOR'}
                       </Button>
+                    ) : (
+                      <p className={s.votingBvm} onClick={onStakeBVM}>
+                        Voting is only open to SHARD holders.
+                      </p>
                     )}
                   </>
                 );
@@ -353,7 +464,7 @@ const VoteDetail = () => {
               subElement={() => {
                 return (
                   <>
-                    {allowVote && (
+                    {allowVote ? (
                       <Button
                         isDisabled={
                           submitting ||
@@ -369,6 +480,10 @@ const VoteDetail = () => {
                       >
                         {isVotedAgain ? 'You voted "AGAINST"' : 'AGAINST'}
                       </Button>
+                    ) : (
+                      <p className={s.votingBvm} onClick={onStakeBVM}>
+                        Voting is only open to SHARD holders.
+                      </p>
                     )}
                   </>
                 );

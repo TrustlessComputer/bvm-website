@@ -122,7 +122,7 @@ export const getBuyBuilderStateInit = (
 export const getRandonComputerName = (isMainnet: boolean) => {
   const prefix = 'Bitcoin L2';
   const suffix = isMainnet ? '' : '(Testnet)';
-  const randomNumber = Math.floor(Math.random() * 9000) + 1000; //random from 100 -> 999
+  const randomNumber = Math.floor(Math.random() * 900000) + 100000; //random from 100 -> 999
   return `${prefix}-${randomNumber}${suffix ? `-${suffix}` : ''}`;
 };
 

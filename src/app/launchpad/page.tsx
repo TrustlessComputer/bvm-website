@@ -1,15 +1,20 @@
+'use client';
+
 import MainLayout from '@/layouts/MainLayout';
-import UpcomingModule from '@/modules/upcoming';
+import LaunchpadModule from '@/modules/Launchpad';
+import { Flex } from '@chakra-ui/react';
 
 const UpcomingPage = () => {
   return (
-    <MainLayout
-      headerProps={{
-        color: 'black',
-      }}
-    >
-      <UpcomingModule />
-    </MainLayout>
+    <Flex flexDirection={'column'} minHeight={'100vh'}>
+      <MainLayout
+        headerProps={{
+          color: 'black',
+        }}
+      >
+        <LaunchpadModule />
+      </MainLayout>
+    </Flex>
   );
 };
 

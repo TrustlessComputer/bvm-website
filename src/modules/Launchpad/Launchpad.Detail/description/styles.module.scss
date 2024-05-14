@@ -1,0 +1,62 @@
+.container {
+  color: #000;
+  white-space: pre-line;
+  font-size: 16px;
+  padding-bottom: 24px;
+
+  .contentLink {
+    color: #1588ff;
+    text-decoration: underline;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  ul {
+    list-style: none; /* Remove default bullets */
+  }
+
+  ul li::before {
+    content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: rgba(255, 255, 255, 0.7); /* Change the color */
+    font-weight: bold; /* If you want it to be bold */
+    display: inline-block; /* Needed to add space between the bullet and the text */
+    width: 1em; /* Also needed for space (tweak if needed) */
+    margin-left: -1em; /* Also needed for space (tweak if needed) */
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #6633CE;
+    margin-top: 24px;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  table {
+    border: 1px solid black;
+    margin-top: 12px;
+  }
+  th {
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  td {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  th, td {
+    padding: 4px 16px;
+    border: 1px solid black;
+    min-width: 135px;
+    text-align: center;
+    color: black;
+  }
+}

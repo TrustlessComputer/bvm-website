@@ -33,7 +33,7 @@ const ContactInformationSection = () => {
 
   return (
     <Flex flexDir={'row'} gap={'20px'}>
-      <Flex flex={1} flexDir={'column'}>
+      <Flex flex={1} flexDir={'column'} ref={yourXField.ref}>
         <Section title="Your X handle" isRequired>
           <TextInput
             placeholder="Enter your X handle"

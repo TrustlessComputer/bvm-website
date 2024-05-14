@@ -14,11 +14,13 @@ import PreInstalledDappsSection from '../components2/PreInstalledDappsSection';
 import RollupProtocolSection from '../components2/RollupProtocolSection';
 import TokenPayingGasSection from '../components2/TokenPayingGasSection';
 import WithdrawalPeriodSection from '../components2/WithdrawalPeriodSection';
+import ConfigurationOptionsSection from './ConfigurationOptionsSection';
+import ComputerNameSection from './ComputerNameSection';
 
 export type Props = {};
 
 const RightView = React.memo((props: Props) => {
-  const { rollupProtocolSelected } = useBuy();
+  const { rollupProtocolSelected, isStandardMode } = useBuy();
 
   return (
     <Flex
@@ -43,7 +45,7 @@ const RightView = React.memo((props: Props) => {
       </Text>
       <Flex flexDir={'column'} gap={'20px'}>
         {/* Computer Name */}
-        {/* <ComputerNameSection /> */}
+        <ComputerNameSection />
 
         {/* Computer Description  */}
         <ComputerDescriptionSection />
@@ -57,34 +59,38 @@ const RightView = React.memo((props: Props) => {
         {/* Network */}
         <NetworkSection />
 
+        {/* Configuration Options */}
+        <ConfigurationOptionsSection />
+
         {/* Rollup Protocol */}
-        <RollupProtocolSection />
+        {!isStandardMode && <RollupProtocolSection />}
 
         {/* Bitcoin Validity */}
-        <BitcoinValiditySection />
+        {!isStandardMode && <BitcoinValiditySection />}
 
         {/* DataAvaibility Chain */}
-        <DataAvailabilitySection />
+        {!isStandardMode && <DataAvailabilitySection />}
 
         {/* Block Time */}
-        <BlockTimeSection />
+        {!isStandardMode && <BlockTimeSection />}
 
         {/* Min Gas Price */}
-        <MinGasPriceSection />
+        {!isStandardMode && <MinGasPriceSection />}
 
         {/* Gas Limit */}
-        <BlockGasLimitSection />
+        {!isStandardMode && <BlockGasLimitSection />}
 
         {/* Withdrawal Period (SLIDER)*/}
-        {rollupProtocolSelected === RollupEnum.Rollup_OpStack && (
-          <WithdrawalPeriodSection />
-        )}
+        {!isStandardMode &&
+          rollupProtocolSelected === RollupEnum.Rollup_OpStack && (
+            <WithdrawalPeriodSection />
+          )}
 
         {/* Token for paying Transaction Gas */}
-        <TokenPayingGasSection />
+        {!isStandardMode && <TokenPayingGasSection />}
 
         {/* Plugin */}
-        <PreInstalledDappsSection />
+        {/* {!isStandardMode && <PreInstalledDappsSection />} */}
       </Flex>
     </Flex>
   );

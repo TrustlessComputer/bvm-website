@@ -3,9 +3,11 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration';
 import { zeroPad } from '@/utils/format';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 dayjs.extend(utc);
 dayjs.extend(duration);
+dayjs.extend(localizedFormat);
 
 // const FIVE_MINUTES_IN_SECS = 300;
 const THIRTY_MINUTES_IN_SECS = 1800;

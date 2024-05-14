@@ -1,6 +1,8 @@
+import { LegacyRef } from 'react';
 import {
   BitcoinValidityEnum,
   BlockTimeEnum,
+  ConfigurationOptionEnum,
   DALayerEnum,
   NetworkEnum,
   RollupEnum,
@@ -17,6 +19,7 @@ export type IField = {
   hasError?: boolean;
   isRequired?: boolean;
   errorMessage?: string;
+  ref?: any;
 };
 
 export type ComputerNameSection = {
@@ -95,6 +98,11 @@ export type PreInstallDAppSection = {
   setPreInstallDAppSelected: (value: number[]) => void;
 };
 
+export type ConfiguratinOptionSection = {
+  configuratinOptionSelected: ConfigurationOptionEnum;
+  setConfiguratinOptionSelected: (value: number) => void;
+};
+
 // Custom Native Token --- Fields
 
 export type CustomNativeTokenSection = {
@@ -125,7 +133,8 @@ export type IBuyContext = ComputerNameSection &
   BlockGasLimitSection &
   NativeTokenPayingGasSection &
   PreInstallDAppSection &
-  CustomNativeTokenSection & {
+  CustomNativeTokenSection &
+  ConfiguratinOptionSection & {
     // Data API
     availableListData?: IAvailableList;
     isAvailableListFetching?: boolean;
@@ -148,6 +157,12 @@ export type IBuyContext = ComputerNameSection &
     showSubmitFormResult: boolean;
     setShowSubmitFormResult: (value: boolean) => void;
 
+    showTopupModal: boolean;
+    setShowTopupModal: (value: boolean) => void;
+
+    showSendFormModal: boolean;
+    setShowSendFormModal: (value: boolean) => void;
+
     // Action
     submitHandler: (onSuccess?: any) => Promise<void>;
     confirmSubmitHandler: () => Promise<void>;
@@ -155,6 +170,8 @@ export type IBuyContext = ComputerNameSection &
     orderBuyHandler: () => Promise<void>;
 
     submitFormParams: SubmitFormParams | undefined;
+
+    isStandardMode: boolean;
   };
 
 export const BuyContextInit: IBuyContext = {
@@ -166,6 +183,7 @@ export const BuyContextInit: IBuyContext = {
   setWithdrawalPeriodSelected: () => {},
   setNativeTokenPayingGasSelected: () => {},
   setPreInstallDAppSelected: () => {},
+  setConfiguratinOptionSelected: () => {},
 
   submitHandler: async () => {},
   confirmSubmitHandler: async () => {},
@@ -189,6 +207,12 @@ export const BuyContextInit: IBuyContext = {
 
   showSubmitFormResult: false,
   setShowSubmitFormResult: () => {},
+
+  showTopupModal: false,
+  setShowTopupModal: () => {},
+
+  showSendFormModal: false,
+  setShowSendFormModal: () => {},
 
   // ------------------------------------------------------------
   computerNameField: {},
@@ -225,4 +249,7 @@ export const BuyContextInit: IBuyContext = {
 
   receivingAddressField: {},
   setReceivingAddressField: () => {},
+
+  configuratinOptionSelected: ConfigurationOptionEnum.Standard,
+  isStandardMode: true,
 };

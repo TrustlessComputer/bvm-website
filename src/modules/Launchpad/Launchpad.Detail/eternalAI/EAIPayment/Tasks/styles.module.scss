@@ -1,0 +1,113 @@
+.container {
+  display: flex;
+  width: 100%;
+  padding: 24px;
+  flex-direction: column;
+  gap: 12px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.08);
+
+
+  &_tag {
+    display: flex;
+    padding: 4px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: start;
+    background: rgba(16, 200, 0, 0.10);
+    border-radius: 1000px;
+    p {
+      color: #10C800;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 140%;
+      font-family: Urbanist;
+      border-radius: 1000px;
+    }
+  }
+
+  &_title {
+    color: #000;
+    font-size: 24px;
+    font-style: normal;
+    line-height: 140%; /* 33.6px */
+    font-weight: 600;
+
+    &_bold {
+      color: #000;
+    }
+
+    &_blur {
+      color: rgba(0, 0, 0, 0.60);
+    }
+  }
+
+  &_content {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: 0.02em;
+  }
+
+  &_bonus {
+    color: rgba(16, 200, 0, 1);
+    font-size: 24px !important;
+    font-weight: 600;
+    line-height: 140%;
+  }
+
+  &_link {
+    color: black;
+    font-size: 16px !important;
+    font-weight: 600;
+    line-height: 140%;
+    white-space: pre;
+
+    * {
+      svg {
+        path {
+          stroke: rgba(16, 200, 0, 1);
+        }
+      }
+    }
+  }
+
+  .button {
+    display: flex;
+    min-height: 54px;
+    padding: 8px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 100px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+
+    @include is-mobile {
+      font-size: 14px;
+    }
+
+    &_gradient {
+      color: black;
+      background: linear-gradient(90deg, #FDFC47 0%, #24FE41 100%);
+    }
+
+    &.hasCode {
+      background: #F6F6F6;
+      font-size: 14px;
+      color: #000 !important;
+      cursor: not-allowed;
+      opacity: 1 !important;
+    }
+  }
+}

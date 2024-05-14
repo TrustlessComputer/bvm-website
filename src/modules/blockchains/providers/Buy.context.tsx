@@ -5,6 +5,7 @@ import { debounce, isEmpty } from 'lodash';
 import React, {
   PropsWithChildren,
   createContext,
+  createRef,
   useCallback,
   useEffect,
   useMemo,
@@ -17,6 +18,7 @@ import {
   BitcoinValidityEnum,
   BlockTimeEnum,
   BlockTimeEnumMap,
+  ConfigurationOptionEnum,
   DALayerEnum,
   DALayerEnumMap,
   FormFields,
@@ -29,6 +31,7 @@ import {
   PluginEnum,
   RollupEnum,
   RollupEnumMap,
+  STANDARD_VALUES,
   WITHDRAWAL_PERIOD,
 } from '../Buy/Buy.constanst';
 import {
@@ -50,12 +53,17 @@ import l2ServicesAPI, {
   orderBuyAPI,
   submitContactVS2,
 } from '@/services/api/l2services';
-import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
+import { useAppDispatch } from '@/stores/hooks';
 import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
 import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
 import { getErrorMessage } from '@/utils/errorV2';
+import { useFetchUserData } from '../hooks/useFetchUserData';
+import {
+  setShowOnlyMyOrder,
+  setViewMode,
+} from '@/stores/states/l2services/reducer';
+import { useRouter } from 'next/navigation';
 
 export type IField = {
   value?: string;
@@ -63,6 +71,7 @@ export type IField = {
   hasError?: boolean;
   isRequired?: boolean;
   errorMessage?: string;
+  ref?: any;
 };
 
 export const BuyContext = createContext<IBuyContext>(BuyContextInit);
@@ -79,35 +88,24 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     nakaAddress,
   } = useNakaAuthen();
 
+  const router = useRouter();
+
   const {
     onLoginL2Service,
     isL2ServiceLogged,
     isNeededRequestSignMessageFromNakaWallet,
   } = useL2ServiceAuth();
 
-  // const { onSuccess } = props;
-  const goDashboardPage = (flag1: boolean, flag2: boolean) => {}; //TODO A
-  // const { onConnect } = useContext(WalletContext);
-  const requiredLogin = () => {}; //TODO A
-  // const accountInfo = useAppSelector(accountInfoSelector);
   const accountInfo = true;
-  // const onFetchData = useFetchUserData();
-  const onFetchData = () => {}; //TODO A
-
-  // const { search } = useLocation();
-  // const { toggleContact } = useContext(ModalsContext);
-
-  // const urlParams = new URLSearchParams(search);
-  // const typeData = urlParams?.get('type')?.replace('/', '') || undefined;
-  // const builderStateInit = getBuyBuilderStateInit(typeData);
-  // const [buyBuilderState, setBuyBuilderState] = useState<BuyBuilderSelectState>(builderStateInit);
+  const onFetchData = useFetchUserData();
 
   // ------------------------------------------------------------
   // Text and TextArea Fields
   // ------------------------------------------------------------
   const [computerNameField, setComputerNameField] = useState<IField>({
-    isRequired: false,
+    isRequired: true,
     errorMessage: FormFieldsErrorMessage[FormFields.COMPUTER_NAME],
+    ref: createRef<HTMLElement>(),
   });
 
   const [computerDescriptionField, setComputerDescriptionField] =
@@ -126,6 +124,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   const [yourXField, setYourXField] = useState<IField>({
     isRequired: true,
     errorMessage: FormFieldsErrorMessage[FormFields.YOUR_X_ACC],
+    ref: createRef<HTMLElement>(),
   });
 
   const [yourTelegramField, setYourTelegramField] = useState<IField>({});
@@ -134,30 +133,35 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     isRequired: true,
     value: String(MIN_GAS_PRICE),
     errorMessage: FormFieldsErrorMessage[FormFields.MIN_GAS_PRICE],
+    ref: createRef<HTMLElement>(),
   });
 
   const [blockGasLimitField, setBlockGasLimitField] = useState<IField>({
     isRequired: true,
     value: String(GAS_LITMIT),
     errorMessage: FormFieldsErrorMessage[FormFields.BLOCK_GAS_LIMIT],
+    ref: createRef<HTMLElement>(),
   });
 
   const [tickerField, setTickerField] = useState<IField>({
     isRequired: true,
     value: '',
     errorMessage: FormFieldsErrorMessage[FormFields.TICKER],
+    ref: createRef<HTMLElement>(),
   });
 
   const [totalSupplyField, setTotalSupplyField] = useState<IField>({
     isRequired: true,
     value: '',
     errorMessage: FormFieldsErrorMessage[FormFields.TOTAL_SUPPLY],
+    ref: createRef<HTMLElement>(),
   });
 
   const [receivingAddressField, setReceivingAddressField] = useState<IField>({
     isRequired: true,
     value: '',
     errorMessage: FormFieldsErrorMessage[FormFields.RECEIVING_ADDRESS],
+    ref: createRef<HTMLElement>(),
   });
 
   // ------------------------------------------------------------
@@ -183,6 +187,8 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     useState<number>(WITHDRAWAL_PERIOD);
   const [nativeTokenPayingGasSelected, setNativeTokenPayingGasSelected] =
     useState<number>(NativeTokenPayingGasEnum.NativeTokenPayingGas_BVM);
+  const [configuratinOptionSelected, setConfiguratinOptionSelected] =
+    useState<number>(ConfigurationOptionEnum.Standard);
   const [preInstallDAppSelected, setPreInstallDAppSelected] = useState<
     number[]
   >([PluginEnum.Plugin_Bridge]);
@@ -195,6 +201,9 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   const [showSubmitForm, setShowSubmitForm] = useState<boolean>(false);
   const [showSubmitFormResult, setShowSubmitFormResult] =
     useState<boolean>(false);
+
+  const [showTopupModal, setShowTopupModal] = useState(false);
+  const [showSendFormModal, setShowSendFormModal] = useState(false);
 
   // ------------------------------------------------------------
   // API DATA
@@ -217,13 +226,43 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   // Other State values
   // ------------------------------------------------------------
   const isMainnet = useMemo(
-    () => !!(networkSelected == NetworkEnum.Network_Mainnet),
+    () => !!(networkSelected === NetworkEnum.Network_Mainnet),
     [networkSelected],
   );
 
+  const isStandardMode = useMemo(
+    () => !!(configuratinOptionSelected === ConfigurationOptionEnum.Standard),
+    [configuratinOptionSelected],
+  );
+
+  useEffect(() => {
+    if (isStandardMode) {
+      setRollupProtocolSelected(STANDARD_VALUES.rollupProtocol);
+      setBitcoinValiditySelected(STANDARD_VALUES.bitcoinValidity);
+      setDataValiditySelected(STANDARD_VALUES.dataAvailability);
+      setBlockTimeSelected(STANDARD_VALUES.blockTime);
+      setMinGasPriceField({
+        ...minGasPriceField,
+        value: String(STANDARD_VALUES.minGasPrice),
+      });
+      setBlockGasLimitField({
+        ...blockGasLimitField,
+        value: String(STANDARD_VALUES.blockGasLimit),
+      });
+      setWithdrawalPeriodSelected(STANDARD_VALUES.withdrawalPeriod);
+      setNativeTokenPayingGasSelected(STANDARD_VALUES.nativeTokenPayingGas);
+    }
+  }, [isStandardMode]);
+
+  useEffect(() => {
+    if (isMainnet) {
+      setDataValiditySelected(DALayerEnum.DALayer_BTC);
+    }
+  }, [isMainnet]);
+
   const orderBuyReq = useMemo(() => {
-    // const computerName = computerNameField.value || '';
-    const computerName = getRandonComputerName_VS2(isMainnet);
+    const computerName = computerNameField.value || '';
+    // const computerName = getRandonComputerName_VS2(isMainnet);
     const finalizationPeriodSeconds = convertDayToSeconds(
       withdrawalPeriodSelected,
     );
@@ -284,11 +323,12 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     totalSupplyField,
     tickerField,
     receivingAddressField,
+    computerNameField,
   ]);
 
   const submitFormParams: SubmitFormParams = {
-    // bitcoinL2Name: computerNameField.value || '--',
-    bitcoinL2Name: getRandonComputerName_VS2(isMainnet) || '--',
+    bitcoinL2Name: computerNameField.value || '--',
+    // bitcoinL2Name: getRandonComputerName_VS2(isMainnet) || '--',
     bitcoinL2Description: computerDescriptionField.value || '--',
     network: networkSelected
       ? `Bitcoin ${NetworkEnumMap[networkSelected]}`
@@ -357,14 +397,6 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     isL2ServiceLogged,
   ]);
 
-  useEffect(() => {
-    setInterval(() => {
-      // setIsAuthenticated(useIsAuthenticated()); //TODO A
-    }, 500);
-  }, []);
-
-  useEffect(() => {}, [nakaAddress]);
-
   const fetchAvailableListHandler = async () => {
     try {
       setAvailableListFetching(true);
@@ -394,12 +426,18 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
   const validateAllFormFields = () => {
     let isValid = true;
+    let refElementErrorID = undefined;
 
     // Computer Name
-    // if (computerNameField.isRequired && isEmpty(computerNameField.value)) {
-    //   isValid = false;
-    //   setComputerNameField({ ...computerNameField, hasFocused: true, hasError: true });
-    // }
+    if (computerNameField.isRequired && isEmpty(computerNameField.value)) {
+      isValid = false;
+      setComputerNameField({
+        ...computerNameField,
+        hasFocused: true,
+        hasError: true,
+      });
+      refElementErrorID = refElementErrorID || computerNameField.ref;
+    }
 
     // Computer Description
     // if (computerDescriptionField.isRequired && isEmpty(computerDescriptionField.value)) {
@@ -417,6 +455,8 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     if (yourXField.isRequired && isEmpty(yourXField.value)) {
       isValid = false;
       setYourXField({ ...yourXField, hasFocused: true, hasError: true });
+
+      refElementErrorID = refElementErrorID || yourXField.ref;
     }
 
     // Min Gas Price
@@ -427,6 +467,8 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
         hasFocused: true,
         hasError: true,
       });
+
+      refElementErrorID = refElementErrorID || minGasPriceField.ref;
     }
 
     // Gas Litmit
@@ -437,9 +479,11 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
         hasFocused: true,
         hasError: true,
       });
+
+      refElementErrorID = refElementErrorID || blockGasLimitField.ref;
     }
 
-    // Token Paying Gas (Custom Naitve Token)
+    // Token Paying Gas (BTC TOKEN)
     if (
       nativeTokenPayingGasSelected ===
       NativeTokenPayingGasEnum.NativeTokenPayingGas_PreMint
@@ -448,6 +492,8 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       if (tickerField.isRequired && isEmpty(tickerField.value)) {
         isValid = false;
         setTickerField({ ...tickerField, hasFocused: true, hasError: true });
+
+        refElementErrorID = refElementErrorID || tickerField.ref;
       }
 
       // Total Supply
@@ -458,6 +504,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
           hasFocused: true,
           hasError: true,
         });
+        refElementErrorID = refElementErrorID || totalSupplyField.ref;
       }
 
       // Receiving Address
@@ -471,9 +518,35 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
           hasFocused: true,
           hasError: true,
         });
+
+        refElementErrorID = refElementErrorID || receivingAddressField.ref;
       }
     }
-    return isValid;
+
+    // Token Paying Gas (Custom Naitve Token)
+    if (
+      nativeTokenPayingGasSelected ===
+      NativeTokenPayingGasEnum.NativeTokenPayingGas_BTC
+    ) {
+      // Receiving Address
+      if (
+        receivingAddressField.isRequired &&
+        isEmpty(receivingAddressField.value)
+      ) {
+        isValid = false;
+        setReceivingAddressField({
+          ...receivingAddressField,
+          hasFocused: true,
+          hasError: true,
+        });
+        refElementErrorID = receivingAddressField.ref;
+      }
+    }
+
+    return {
+      isValid,
+      refElementErrorID,
+    };
   };
 
   const fetchEstimateTotalCostDebouce = useCallback(
@@ -509,8 +582,14 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
   const confirmSubmitHandler = async () => {
     try {
-      await submitContactVS2(submitFormParams);
-      setShowSubmitFormResult(true);
+      if (isMainnet) {
+        // Call API Contact and Push Slack Notification (team Growth will contact to user)
+        await submitContactVS2(submitFormParams);
+        setShowSubmitFormResult(true);
+      } else {
+        // Call API Register Instance
+        await orderBuyHandler();
+      }
     } catch (error) {
       console.log('[confirmSubmitHandler] ERROR 1: ', error);
       const { message, desc } = getErrorMessage(error);
@@ -526,37 +605,46 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     try {
       setSubmiting(true);
 
-      const twitterAccessToken = parent?.localStorage?.getItem('TWITTER_TOKEN');
-      let twitterID;
-      let userTwitterInfor;
+      // const twitterAccessToken = parent?.localStorage?.getItem('TWITTER_TOKEN');
+      // let twitterID;
+      // let userTwitterInfor;
 
-      if (twitterAccessToken && twitterAccessToken.length > 0) {
-        userTwitterInfor = await getUser(twitterAccessToken);
-        twitterID = userTwitterInfor?.twitter_id;
-      }
+      // if (twitterAccessToken && twitterAccessToken.length > 0) {
+      //   userTwitterInfor = await getUser(twitterAccessToken);
+      //   twitterID = userTwitterInfor?.twitter_id;
+      // }
 
       let orderBuyReqParams: IOrderBuyReq = {
         ...orderBuyReq,
-        twitter_id: twitterID,
+        twitter_id: '',
       };
 
-      // console.log('DEBUG [orderBuyHandler] params: --- ', orderBuyReqParams);
+      console.log('Register Instance Params: ', orderBuyReqParams);
 
       const result = await orderBuyAPI(orderBuyReqParams);
-      await sleep(2);
+
+      await sleep(1);
+
       if (result) {
-        onFetchData();
-        await sleep(1);
+        // Show Toast Success
         toast.success('Order successful', {
           duration: 1000,
         });
-        goDashboardPage(isMainnet, true);
+
+        await sleep(1);
+
+        //Navigate to BlockChain (checkbox "Your Bitcoin L2" have been selected )
+
+        dispatch(setViewMode('Testnet'));
+        dispatch(setShowOnlyMyOrder(true));
+        onFetchData();
+        router.push('/blockchains');
       }
-      onSuccess && onSuccess();
     } catch (error) {
       const { message } = getErrorMessage(error);
       toast.error(message);
     } finally {
+      console.log('[orderBuyHandler] finally: ');
       setSubmiting(false);
     }
   };
@@ -578,9 +666,16 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       //   await onLoginL2Service(nakaAddress);
       // }
 
-      if (validateAllFormFields()) {
+      const { isValid, refElementErrorID } = validateAllFormFields();
+      if (isValid) {
         // orderBuyHandler(onSuccess)
         setShowSubmitForm(true);
+      } else {
+        refElementErrorID?.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest',
+        });
       }
     } catch (error) {
       const { message } = getErrorMessage(error);
@@ -655,6 +750,9 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     preInstallDAppSelected,
     setPreInstallDAppSelected,
 
+    configuratinOptionSelected,
+    setConfiguratinOptionSelected,
+
     isMainnet,
     chainIdRandom,
     orderBuyReq,
@@ -672,9 +770,20 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
     submitFormParams,
     orderBuyHandler,
+
+    showTopupModal,
+    setShowTopupModal,
+
+    showSendFormModal,
+    setShowSendFormModal,
+
+    isStandardMode,
   };
 
-  // console.log('[DEBUG] Buy Provider ALL DATA: ', values);
+  // console.log('[DEBUG] Buy Provider ALL DATA: ', {
+  //   values: values,
+  //   orderBuyReq,
+  // });
 
   return <BuyContext.Provider value={values}>{children}</BuyContext.Provider>;
 };

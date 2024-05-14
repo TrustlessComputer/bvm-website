@@ -1,9 +1,9 @@
-import { NetworkEnum, RollupEnum } from '../Buy.constanst';
+import { NetworkEnum, RollupEnum, STANDARD_VALUES } from '../Buy.constanst';
 import { ItemDetail } from '../Buy.types';
 import Item from '../components/Item';
 import Section from '../components/Section';
 import { useBuy } from '../../providers/Buy.hook';
-import { Text } from '@chakra-ui/react';
+import { Text, Flex } from '@chakra-ui/react';
 
 const RollupProtocolSection = () => {
   const {
@@ -11,6 +11,8 @@ const RollupProtocolSection = () => {
     isMainnet,
     rollupProtocolSelected,
     setRollupProtocolSelected,
+    configuratinOptionSelected,
+    isStandardMode,
   } = useBuy();
 
   const dataWithNetwork = availableListData?.rollupProtocol;
@@ -51,24 +53,29 @@ const RollupProtocolSection = () => {
         ),
       }}
     >
-      {dataList?.map((item, index) => {
-        return (
-          <Item
-            key={`${item.valueStr} ${index}`}
-            isMainnet={isMainnet}
-            item={item}
-            value={item.value}
-            isSelected={item.value === rollupProtocolSelected}
-            title={item.valueStr}
-            content={item.price}
-            priceNote={item.priceNote}
-            onClickCallback={(value) => {}}
-            onClickCB={(item) => {
-              setRollupProtocolSelected(item.value!);
-            }}
-          />
-        );
-      })}
+      <Flex flexDir={'row'} align={'center'} gap={'10px'}>
+        {dataList?.map((item, index) => {
+          return (
+            <Item
+              key={`${item.valueStr} ${index}`}
+              isMainnet={isMainnet}
+              item={item}
+              value={item.value}
+              isSelected={item.value === rollupProtocolSelected}
+              disabled={
+                isStandardMode && item.value !== STANDARD_VALUES.rollupProtocol
+              }
+              title={item.valueStr}
+              content={item.price}
+              priceNote={item.priceNote}
+              onClickCallback={(value) => {}}
+              onClickCB={(item) => {
+                setRollupProtocolSelected(item.value!);
+              }}
+            />
+          );
+        })}
+      </Flex>
     </Section>
   );
 };

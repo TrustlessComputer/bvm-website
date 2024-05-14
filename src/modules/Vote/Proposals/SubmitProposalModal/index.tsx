@@ -53,7 +53,7 @@ const FormModal: React.FC<IFormModal> = forwardRef(
 
     return (
       <form onSubmit={handleSubmit}>
-        <Flex direction="column" gap="12px" mt="24px">
+        <Flex direction="column" gap="8px" mt="20px">
           <InputWrapper
             className={s.inputWrapper}
             label="Subject"
@@ -78,6 +78,75 @@ const FormModal: React.FC<IFormModal> = forwardRef(
               onItemSelected={(value) => change('proposalType', value)}
             />
           </InputWrapper>
+          {values?.proposalType === ProposalType.project && (
+            <>
+              <Flex direction="row" gap="12px">
+                <InputWrapper
+                  className={s.inputWrapper}
+                  label="Token presale percentage"
+                  theme="light"
+                  labelColor="#000"
+                >
+                  <Field
+                    name="presalePercent"
+                    component={FieldAmount}
+                    validate={composeValidators(requiredAmount)}
+                    placeholder="10%"
+                    decimals={0}
+                    bgColor="transparent"
+                  />
+                </InputWrapper>
+                <InputWrapper
+                  className={s.inputWrapper}
+                  label="Hardcap"
+                  theme="light"
+                  labelColor="#000"
+                >
+                  <Field
+                    name="hardcap"
+                    component={FieldAmount}
+                    placeholder="2000000 USD"
+                    decimals={0}
+                    bgColor="transparent"
+                  />
+                </InputWrapper>
+              </Flex>
+              <Flex direction="row" gap="12px">
+                <InputWrapper
+                  className={s.inputWrapper}
+                  label="Liquidity percentage"
+                  theme="light"
+                  labelColor="#000"
+                  desc="A general guideline could be to allocate around 20% to 30% of the funds raised to liquidity provision. This allocation can help ensure that there is enough liquidity available for traders to buy and sell the token without experiencing significant price slippage."
+                >
+                  <Field
+                    name="liquidityPercent"
+                    component={FieldAmount}
+                    validate={composeValidators(requiredAmount)}
+                    placeholder="30%"
+                    decimals={0}
+                    bgColor="transparent"
+                  />
+                </InputWrapper>
+                <InputWrapper
+                  className={s.inputWrapper}
+                  label="Vesting fund"
+                  theme="light"
+                  labelColor="#000"
+                  desc="The vesting fund operates on a monthly release basis contingent upon community approval."
+                >
+                  <Field
+                    name="vesting"
+                    component={FieldAmount}
+                    // validate={composeValidators(requiredAmount)}
+                    placeholder="3 months"
+                    decimals={0}
+                    bgColor="transparent"
+                  />
+                </InputWrapper>
+              </Flex>
+            </>
+          )}
           {values?.proposalType === ProposalType.marketing && (
             <InputWrapper
               className={s.inputWrapper}
@@ -202,11 +271,22 @@ const SubmitProposalModal = (props: IProps) => {
   const onSubmit = async (values: any) => {
     try {
       const connector = getConnector();
-      const description = JSON.stringify({
-        title: values.title,
-        desc: sanitizeHtml(values.desc, TEXT_DIRTY_CONFIG),
-        proposalType: values.proposalType,
-      });
+      const description =
+        values.proposalType === ProposalType.project
+          ? JSON.stringify({
+              title: values.title,
+              desc: sanitizeHtml(values.desc, TEXT_DIRTY_CONFIG),
+              proposalType: values.proposalType,
+              presalePercent: values.presalePercent,
+              hardcap: values.hardcap,
+              liquidityPercent: values.liquidityPercent,
+              vesting: values.vesting,
+            })
+          : JSON.stringify({
+              title: values.title,
+              desc: sanitizeHtml(values.desc, TEXT_DIRTY_CONFIG),
+              proposalType: values.proposalType,
+            });
       const calldata = proposalContract.createProposalCallData({
         receipient: values.address,
         amount: values.amount,

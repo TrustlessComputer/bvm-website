@@ -1,0 +1,165 @@
+.faqList {
+}
+
+.faqWrapper {
+  padding-bottom: 100px;
+  width: 100%;
+  max-width: 946px;
+
+  @include is-mobile {
+    padding: 0 !important;
+    padding-bottom: 10px !important;
+  }
+
+  :global {
+    .chakra-collapse {
+      width: 100% !important;
+      //> [role='region'] {
+      //  background-color: red !important;
+      //}
+    }
+  }
+
+  @include w-max(768px) {
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 80px;
+  }
+
+  .downArrow {
+    transform: rotate(90deg);
+    svg {
+      path {
+        stroke: black;
+      }
+    }
+  }
+  .rightArrow {
+    svg {
+      path {
+        stroke: black;
+      }
+    }
+  }
+
+  .sectionTitle {
+    font-family: Urbanist;
+    color: black;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 54px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%; /* 39.2px */
+    letter-spacing: 0.56px;
+    text-align: center;
+    @include is-mobile {
+      font-size: 32px;
+    }
+  }
+
+  :global(.chakra-accordion__panel),
+  :global(.chakra-accordion__button) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  :global(.chakra-accordion__item) {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .faqItem {
+    display: flex;
+    padding: 20px;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 24px;
+    background: #fff;
+    box-shadow: 0px 0px 24px -6px rgba(0, 0, 0, 0.08);
+    @include is-mobile {
+      margin-bottom: 5px;
+    }
+  }
+
+  .faqContainer {
+    //max-width: 820px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faqTitle {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 28px */
+    letter-spacing: 0.4px;
+    text-align: left;
+    color: black;
+    @include is-mobile {
+      font-size: 16px;
+    }
+  }
+
+  .faqContent {
+    color: #6c6f93;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 22.4px */
+    letter-spacing: 0.32px;
+    white-space: break-spaces;
+    a {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    @include is-mobile {
+      font-size: 14px;
+    }
+
+    &:not(:last-child) {
+      //margin-bottom: 16px;
+    }
+  }
+
+  .contentPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  .contentList {
+    padding-left: 28px;
+
+    @include w-max(768px) {
+      margin-bottom: 16px;
+    }
+  }
+
+  .contentListItem {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    color: #5b5b5b;
+    letter-spacing: -0.01em;
+
+    &:before {
+      content: '\2022';
+      color: #5b5b5b;
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+  }
+}

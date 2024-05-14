@@ -1,10 +1,10 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { DALayerEnum, NetworkEnum } from '../Buy.constanst';
 import { ItemDetail } from '../Buy.types';
 import Item from '../components/Item';
 import Section from '../components/Section';
 import { useBuy } from '../../providers/Buy.hook';
-import { Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 
 const BlockTimeSection = () => {
   const {
@@ -13,6 +13,7 @@ const BlockTimeSection = () => {
     blockTimeSelected,
     setBlockTimeSelected,
     dataValiditySelected,
+    isStandardMode,
   } = useBuy();
 
   const blockTime = availableListData?.blockTime;
@@ -23,7 +24,15 @@ const BlockTimeSection = () => {
     : blockTime[NetworkEnum.Network_Testnet];
   const DAValue = dataValiditySelected || DALayerEnum.DALayer_BTC;
 
-  const blockTimeList = dataWithNetwork[DAValue];
+  let blockTimeList = dataWithNetwork[DAValue];
+
+  blockTimeList = useMemo(() => {
+    if (isStandardMode) {
+      return blockTimeList.sort((a, b) => b.value - a.value);
+    } else {
+      return blockTimeList;
+    }
+  }, [isStandardMode, blockTimeList]);
 
   return (
     <Section
@@ -59,24 +68,28 @@ const BlockTimeSection = () => {
         ),
       }}
     >
-      {blockTimeList?.map((item, index) => {
-        return (
-          <Item
-            key={`${item.valueStr} ${index}`}
-            isMainnet={isMainnet}
-            item={item}
-            value={item.value}
-            isSelected={item.value === blockTimeSelected}
-            title={item.valueStr}
-            content={item.price}
-            priceNote={item.priceNote}
-            onClickCallback={(value) => {}}
-            onClickCB={(item) => {
-              setBlockTimeSelected(item.value!);
-            }}
-          />
-        );
-      })}
+      <Flex flexDir={'row'} align={'center'} gap={'10px'}>
+        {blockTimeList?.map((item, index) => {
+          return (
+            <Item
+              key={`${item.valueStr} ${index}`}
+              isMainnet={isMainnet}
+              item={item}
+              value={item.value}
+              isSelected={item.value === blockTimeSelected}
+              disabled={isStandardMode && item.value !== blockTimeSelected}
+              title={item.valueStr}
+              content={item.price}
+              priceNote={item.priceNote}
+              onClickCallback={(value) => {}}
+              onClickCB={(item) => {
+                setBlockTimeSelected(item.value!);
+              }}
+              showLeftView={false}
+            />
+          );
+        })}
+      </Flex>
     </Section>
   );
 };

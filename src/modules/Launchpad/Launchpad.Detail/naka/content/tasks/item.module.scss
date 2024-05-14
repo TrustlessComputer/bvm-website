@@ -1,0 +1,118 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: #fafafa;
+  padding: 12px 12px;
+  border: 1px solid #cecece;
+  border-radius: 8px;
+  gap: 12px;
+
+  &_disable {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .index {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 4px;
+    background: #efefef;
+    color: #000000;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 100px;
+  }
+
+  .shareTw {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    // justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+
+    @include w-max(768px) {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 110%;
+      margin-bottom: 5px;
+    }
+
+    .desc {
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.7;
+    }
+
+    .btnShare {
+      min-width: 140px;
+      background: linear-gradient(180deg, #7c3dfd 0%, #6633ce 100%);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100px;
+
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      letter-spacing: 0em;
+      text-align: center;
+      color: #fff;
+      width: 100%;
+
+      &.btnSecondary {
+        background: white;
+        color: black;
+        border: 1px solid black;
+      }
+    }
+  }
+
+  .descContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    margin-top: 12px;
+
+    @include w-max(768px) {
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0em;
+      text-align: center;
+      color: #fff;
+      opacity: 0.7;
+
+      span {
+        color: #ba98ff;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.modalContent {
+  :global {
+    border-radius: 0px !important;
+    .chakra-modal__body {
+      padding-left: rem(24) !important;
+      padding-right: rem(24) !important;
+      padding-bottom: rem(24) !important;
+    }
+  }
+}

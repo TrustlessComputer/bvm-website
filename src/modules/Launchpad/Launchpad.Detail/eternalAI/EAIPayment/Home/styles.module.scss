@@ -1,0 +1,96 @@
+.container {
+  width: 100%;
+  gap: 48px;
+  flex-direction: column;
+  max-width: 1664px;
+  padding-left: 32px;
+  padding-right: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+
+  height: 76px;
+  min-height: 76px;
+  flex: 1;
+  background-color: white;
+
+  @include w-min(1441px) {
+    // padding: 0 120px;
+  }
+
+  @include w-max(1440px) {
+    // padding: 0 16px;
+  }
+
+  @include is-mobile {
+    gap: 24px;
+  }
+
+  * {
+    font-family: Urbanist;
+  }
+
+  // padding: 0 100px;
+
+  @include w-min(1920px) {
+    // padding: 0 120px;
+  }
+
+  @include w-max(768px) {
+    padding: 0 16px;
+    height: 50px;
+    min-height: 50px;
+  }
+
+  --naka-text: #000;
+
+  @include w-max(767px) {
+    background-size: 100% 100%;
+  }
+}
+
+.content {
+  width: 100%;
+  @include is-mobile {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  &_leftSection {
+    border-radius: 16px;
+    background: rgba(92, 111, 121, 0.05);
+    position: relative;
+    padding-top: 32px;
+
+    @include is-mobile {
+      background: transparent;
+      padding-top: 30px;
+    }
+  }
+
+  &_rightSection {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @include w-max(768px) {
+      height: unset;
+    }
+
+    @include is-mobile {
+      padding-top: unset;
+      height: unset;
+    }
+  }
+}
+
+.above {
+  p {
+    color: black;
+  }
+}
+
+.theme {
+  background: #f6f7fa;
+}

@@ -116,8 +116,7 @@ export default function BitEth({ ...props }: TBitEthProps) {
                   bgColor: '#e5601b',
                 }}
                 onClick={() => {
-                  window.open('/bvm');
-                  // router.push('/blockchains/customize');
+                  router.push('/blockchains/customize');
                 }}
               >
                 {props.textBtn ? props.textBtn : `Launch Bitcoin L2 Now`}

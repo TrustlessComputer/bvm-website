@@ -6,21 +6,31 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { publicSaleLeaderBoardVisualSelector, userSelector } from '@/stores/states/user/selector';
+import {
+  publicSaleLeaderBoardVisualSelector,
+  userSelector,
+} from '@/stores/states/user/selector';
 import { setPublicSaleLeaderBoardVisual } from '@/stores/states/user/reducer';
-import { getPublicSaleContributionLatest, getPublicSaleLeaderBoards, getPublicSaleTop } from '@/services/public-sale';
+import {
+  getPublicSaleContributionLatest,
+  getPublicSaleLeaderBoards,
+  getPublicSaleTop,
+} from '@/services/public-sale';
 import AvatarItem from '@/modules/PublicSale/leaderBoardVisual/AvatarItem';
 import AnimatedText from '@/modules/PublicSale/leaderBoardVisual/FloatTexts';
 import { useSelector } from 'react-redux';
 import { LEADER_BOARD_MODE } from '@/modules/PublicSale/leaderBoardSwitch';
-import { requestReload, setAnimatedLatestContributors, setNeedCheckDeposit } from '@/stores/states/common/reducer';
+import {
+  requestReload,
+  setAnimatedLatestContributors,
+  setNeedCheckDeposit,
+} from '@/stores/states/common/reducer';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import useWindowSize from '@/hooks/useWindowSize';
 
 export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
-interface IProps {
-}
+interface IProps {}
 
 const LeaderBoardVisual = (props: IProps) => {
   const { list } = useAppSelector(publicSaleLeaderBoardVisualSelector);
@@ -33,7 +43,8 @@ const LeaderBoardVisual = (props: IProps) => {
   const user = useAppSelector(userSelector);
   const refInterval = useRef<any>();
   const needCheckDeposit = useAppSelector(commonSelector).needCheckDeposit;
-  const token = AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
+  const token =
+    AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
   const { mobileScreen } = useWindowSize();
   const TOTALs = 79;
 
@@ -85,11 +96,18 @@ const LeaderBoardVisual = (props: IProps) => {
         );
       };
 
-      const fnLoadData = leaderBoardMode === LEADER_BOARD_MODE.DAY ? getPublicSaleTop : getPublicSaleLeaderBoards;
+      const fnLoadData =
+        leaderBoardMode === LEADER_BOARD_MODE.DAY
+          ? getPublicSaleTop
+          : getPublicSaleLeaderBoards;
 
       const getLimit = () => {
-        const limitMobile = mobileScreen ? (TOTALs - 7) : TOTALs;
-        return leaderBoardMode === LEADER_BOARD_MODE.DAY ? limitMobile : token ? (TOTALs - 1) : limitMobile;
+        const limitMobile = mobileScreen ? TOTALs - 7 : TOTALs;
+        return leaderBoardMode === LEADER_BOARD_MODE.DAY
+          ? limitMobile
+          : token
+          ? TOTALs - 1
+          : limitMobile;
       };
 
       const { data: response, count } = await fnLoadData({
@@ -134,12 +152,16 @@ const LeaderBoardVisual = (props: IProps) => {
     let res = await getPublicSaleContributionLatest();
     const oldContributors = latestContributors?.current;
 
-    const newRes = res.filter(function(el) {
-      return oldContributors?.findIndex(a => a.deposit_id === el.deposit_id) < 0;
+    const newRes = res.filter(function (el) {
+      return (
+        oldContributors?.findIndex((a) => a.deposit_id === el.deposit_id) < 0
+      );
     });
 
     if (newRes?.length > 0) {
-      latestContributors.current = [...newRes].concat(latestContributors.current);
+      latestContributors.current = [...newRes].concat(
+        latestContributors.current,
+      );
       dispatch(requestReload());
     }
     animatedLatestContributors.current = newRes || [];
@@ -147,10 +169,11 @@ const LeaderBoardVisual = (props: IProps) => {
   };
 
   useEffect(() => {
-
     let refLevel = 0;
-    const levels = mobileScreen ? [1, 3, 4, 4, 5] : [1, 3, 5, 6, 8, 8, 8, 8, 8, 8, 8, 8];
-    const missingLength = (mobileScreen ? (TOTALs - 1) : TOTALs) - list.length;
+    const levels = mobileScreen
+      ? [1, 3, 4, 4, 5]
+      : [1, 3, 5, 6, 8, 8, 8, 8, 8, 8, 8, 8];
+    const missingLength = (mobileScreen ? TOTALs - 1 : TOTALs) - list.length;
     const missingArray = Array.from({ length: missingLength }).map((u, i) => ({
       ranking: 1000,
       usdt_value: 0,
@@ -161,10 +184,14 @@ const LeaderBoardVisual = (props: IProps) => {
 
     let sortList = [...list].sort((a, b) => {
       return Number(b?.usdt_value) - Number(a?.usdt_value);
-    })
+    });
 
     const tmsss = sortList.concat(missingArray).map((el, index) => {
-      const tmp: ILeaderBoardPoint = { ...el, levelRender: refLevel, lastRender: false };
+      const tmp: ILeaderBoardPoint = {
+        ...el,
+        levelRender: refLevel,
+        lastRender: false,
+      };
       tmp.levelRender = refLevel;
       if (levels[refLevel] > 0) {
         levels[refLevel]--;
@@ -177,7 +204,7 @@ const LeaderBoardVisual = (props: IProps) => {
       return tmp;
     });
 
-    setListRender(tmsss.slice(0, mobileScreen ? (TOTALs - 7) : TOTALs));
+    setListRender(tmsss.slice(0, mobileScreen ? TOTALs - 7 : TOTALs));
   }, [list, mobileScreen]);
 
   return (
@@ -186,26 +213,36 @@ const LeaderBoardVisual = (props: IProps) => {
         hasIncrementedPageRef={hasIncrementedPageRef}
         wrapClassName={styles.wrapScroll}
         hideScrollBar={false}
-        onFetch={() => {
-        }}
+        onFetch={() => {}}
         isFetching={true}
-        onFetchNewData={() => {
-        }}
+        onFetchNewData={() => {}}
       >
-        {
-          listRender.map((item, index) => {
-            return <>
-              <AvatarItem data={item} idx={index} isShowName={index < 4}
-                          isYou={user?.twitter_id === item?.twitter_id} key={item?.twitter_id || item?.twitter_username}/>
-              {
-                item?.lastRender &&
-                <span className={`${styles.lastRender} ${styles[`lastRender__${item?.levelRender}`]}`}></span>
-              }
-            </>;
-          })
-        }
+        {listRender.map((item, index) => {
+          return (
+            <>
+              <AvatarItem
+                data={item}
+                idx={index}
+                isShowName={index < 4}
+                isYou={user?.twitter_id === item?.twitter_id}
+                key={item?.twitter_id || item?.twitter_username}
+              />
+              {item?.lastRender && (
+                <span
+                  className={`${styles.lastRender} ${
+                    styles[`lastRender__${item?.levelRender}`]
+                  }`}
+                ></span>
+              )}
+            </>
+          );
+        })}
       </ScrollWrapper>
-      <AnimatedText latestContributors={needCheckDeposit ? animatedLatestContributors?.current : []} />
+      <AnimatedText
+        latestContributors={
+          needCheckDeposit ? animatedLatestContributors?.current : []
+        }
+      />
     </div>
   );
 };

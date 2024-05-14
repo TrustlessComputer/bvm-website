@@ -1,0 +1,122 @@
+.container {
+  position: relative;
+  border-radius: 24px;
+
+  .imageApp {
+    object-fit: cover;
+    width: 400px;
+    height: 300px;
+    border-radius: 8px;
+    border: 1px solid #2E2E2E;
+
+    @include w-max(767px) {
+      width: 100%;
+    }
+  }
+
+  .status {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+
+  .name {
+    font-weight: 600;
+    font-size: 28px;
+    color: #FFF;
+    line-height: 110%;
+  }
+
+  .desc {
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFF;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 20px;
+    color: #000000;
+
+    @include w-max(767px) {
+      font-size: 18px;
+    }
+  }
+
+  .info {
+    > div {
+      font-size: 16px;
+      flex: 1;
+
+      &:first-child {
+        font-weight: 500;
+      }
+
+      &:last-child {
+        font-weight: 600;
+      }
+    }
+
+    &.redacted {
+      > div {
+        &:last-child {
+          filter: blur(4px);
+        }
+      }
+    }
+  }
+
+  .countdownTime {
+    justify-content: flex-start;
+    p {
+      font-size: 20px;
+      font-weight: 600 !important;
+      line-height: 150% !important;
+    }
+  }
+
+  .btnParticipate {
+    background: #ACF8C6;
+    border-radius: 100px;
+    height: 60px;
+    width: 260px;
+    padding: 16px 40px;
+
+    p {
+      color: #000;
+    }
+
+    &[disabled], &.isEnd {
+      p {
+        color: #FFF;
+      }
+
+      img {
+        filter: invert(1);
+      }
+    }
+
+    &.isEnd {
+      border: 1px solid #FFFFFF;
+      background: #000000;
+    }
+  }
+
+  :global {
+    .social-container {
+      > div {
+        background: #FFFFFF33;
+        box-shadow: 0px 0px 16px 6px #00000014;
+
+        img {
+          filter: invert(1);
+        }
+      }
+    }
+
+    .chakra-divider {
+      margin: 0 !important;
+      border-color: #898989 !important;
+    }
+  }
+}
