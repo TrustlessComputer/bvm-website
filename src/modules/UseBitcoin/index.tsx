@@ -19,13 +19,13 @@ const UseBitcoinModule = () => {
     <Box className={s.container}>
       <div className={s.contentTop}>
         <div className="container">
-          <TopContent />
-          {/*<TopContentV2 />*/}
-          {/*<ActivitiesVer3 />*/}
-          <SimpleGrid gridTemplateColumns={["1fr", "720px 468px"]} gap={["40px", "80px"]} m={"0 auto"} w={"fit-content"}>
-            <ActivitiesVer2 />
-            <Contact />
-          </SimpleGrid>
+          {/*<TopContent />*/}
+          <TopContentV2 />
+          <ActivitiesVer3 />
+          {/*<SimpleGrid gridTemplateColumns={["1fr", "720px 468px"]} gap={["40px", "80px"]} m={"0 auto"} w={"fit-content"}>*/}
+          {/*  <ActivitiesVer2 />*/}
+          {/*  <Contact />*/}
+          {/*</SimpleGrid>*/}
         </div>
       </div>
     </Box>

@@ -13,6 +13,10 @@ import {
   IPagingParams,
   WalletTokenDeposit,
 } from './launchpad.interfaces';
+import {
+  ILaunchpadBodyTask,
+  ILaunchpadSetupTask,
+} from './lauchpad.create.interface';
 
 class CLaunchpadAPI {
   private apiClient = new CApiClient().api;
@@ -353,6 +357,43 @@ class CLaunchpadAPI {
         network: ['bitcoin'],
       },
     ];
+  };
+
+  public getPreLaunchpadTasks = async (): Promise<ILaunchpadSetupTask[]> => {
+    try {
+      const rs: ILaunchpadSetupTask[] = await this.apiClient.get(
+        `${this.prefix}/prelaunch/list-task`,
+      );
+      return rs;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  public postPreLaunchpadTasks = async (
+    launchpad_id: number,
+    tasks: ILaunchpadBodyTask[],
+  ) => {
+    try {
+      const rs = await this.apiClient.post(
+        `${this.prefix}/prelaunch/tasks/${launchpad_id}`,
+        tasks,
+      );
+      return rs;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  public getPreLaunchpadTasksById = async (launchpad_id: string) => {
+    try {
+      const rs = await this.apiClient.get(
+        `${this.prefix}/prelaunch/task/${launchpad_id}`,
+      );
+      return rs;
+    } catch (error) {
+      return [];
+    }
   };
 }
 

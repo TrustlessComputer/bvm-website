@@ -10,6 +10,7 @@ import BillingModal from '../../BillingModal';
 import TopupModal from '../../TopupModal';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { useAppSelector } from '@/stores/hooks';
+import SendFormModal from '../../SendFormModal';
 
 type Props = {
   item: OrderItem;
@@ -23,6 +24,7 @@ const L2Instance = (props: Props) => {
 
   const [showBillingModal, setShowBillingModal] = useState(false);
   const [showTopupModal, setShowTopupModal] = useState(false);
+  const [showSendFormModal, setShowSendFormModal] = useState(false);
 
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
 
@@ -77,6 +79,7 @@ const L2Instance = (props: Props) => {
           onSuccess={async () => {}}
         />
       )}
+
       {showTopupModal && (
         <TopupModal
           show={showTopupModal}
@@ -85,6 +88,19 @@ const L2Instance = (props: Props) => {
           }}
           onClose={() => {
             setShowTopupModal(false);
+          }}
+          onSuccess={async () => {}}
+          payWithNakaWalletCB={() => {
+            setShowSendFormModal(true);
+          }}
+        />
+      )}
+
+      {showSendFormModal && (
+        <SendFormModal
+          show={showSendFormModal}
+          onClose={() => {
+            setShowSendFormModal(false);
           }}
           onSuccess={async () => {}}
         />

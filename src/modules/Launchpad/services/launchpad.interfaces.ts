@@ -1,3 +1,5 @@
+import { ILaunchpadBodyTask } from './lauchpad.create.interface';
+
 export interface IPagingParams {
   limit?: number;
   page?: number;
@@ -72,6 +74,13 @@ export interface ILaunchpadCreateBody {
   twitter?: string;
   telegram?: string;
   discord?: string;
+  hard_cap?: string;
+  liquidity?: string;
+  vesting?: string;
+  pre_sale?: boolean;
+  pre_launch_start_date?: boolean;
+  pre_launch_end_date?: boolean;
+  tasks?: ILaunchpadBodyTask[];
 }
 
 export interface ILaunchpadTicket {

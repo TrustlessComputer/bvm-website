@@ -7,7 +7,10 @@ import Link from 'next/link';
 interface RetroCaseStudyProps extends PropsWithChildren {
   subTitle: string,
   src: string,
-  heading: string
+  heading: string,
+  brand: string,
+  backgroundColor?: string;
+  bgCaseStudy?: string;
   btn: {
     title: string,
     link: string,
@@ -21,15 +24,18 @@ function CaseStudy({
                      src,
                      children,
                      btn,
+                     brand,
+                     backgroundColor = '#180031',
+                     bgCaseStudy = '#2f1946',
                    }: RetroCaseStudyProps): React.JSX.Element {
-  return <div className={s.wrapper}>
+  return <div className={s.wrapper} style={{ backgroundColor }}>
     <div className='container'>
       <div className={s.contentWrapper}>
         <div className={s.left}>
-          <div className={s.label}>
+          <div className={s.label} style={{ backgroundColor: bgCaseStudy }}>
             <p>{subTitle}</p>
             <div className={s.imageLabel}>
-              <ImagePlaceholder src={'/retro/brand.png'} alt={'brand'} height={51} width={260} className={s.image} />
+              <ImagePlaceholder src={brand} alt={'brand'} height={51} width={260} className={s.image} />
             </div>
           </div>
           <h2 className={s.heading}>{heading}</h2>

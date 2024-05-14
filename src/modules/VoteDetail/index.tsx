@@ -8,6 +8,7 @@ import { ProposalType } from '@/contract/proposal/proposal.interface';
 import {
   NakaConnectContext,
   INakaConnectContext,
+  STAKING_URL,
 } from '@/Providers/NakaConnectProvider';
 import { getProposalDetail } from '@/services/governor';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
@@ -30,16 +31,19 @@ import ProposalCancel from './ProposalCancel';
 import ProposalSide from './ProposalSide';
 import s from './styles.module.scss';
 import InfoTooltip from '@/components/Form/InfoTooltip';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
+import { useRouter } from 'next/navigation';
 
 const VoteDetail = () => {
   const params = useParams();
   const proposalId = params?.id;
   const dispatch = useAppDispatch();
   const address = useAppSelector(nakaAddressSelector);
-
   const { getConnector } = useContext(
     NakaConnectContext,
   ) as INakaConnectContext;
+  const { requestAccount, isAuthen } = useNakaAuthen();
+  const router = useRouter();
 
   const needReload = useAppSelector(commonSelector).needReload;
   const proposalContract = useRef(new CProposal()).current;
@@ -135,6 +139,16 @@ const VoteDetail = () => {
       setVoteValue(proposalDetail?.proposal?.voted_support);
     }
   }, [JSON.stringify(proposalDetail)]);
+
+  const onStakeBVM = () => {
+    if (isAuthen) {
+      if (!voteProposalAble) {
+        router.push(STAKING_URL);
+      }
+    } else {
+      requestAccount();
+    }
+  };
 
   const onSubmit = async (value: string) => {
     try {
@@ -384,7 +398,14 @@ const VoteDetail = () => {
 
                   {infoLaunchPad?.vesting && (
                     <div className={s.supply}>
-                      <p className={s.supplyTitle}>Vesting fund</p>
+                      <Flex direction="row" gap="4px" alignItems="center">
+                        <p className={s.supplyTitle}>Vesting fund</p>
+                        <InfoTooltip
+                          iconSize="sm"
+                          placement="top-start"
+                          label="Vesting of 0 months means that 100% of the raised funds will be sent to the project team immediately, with no vesting period"
+                        />
+                      </Flex>
                       <p className={s.supplyValue}>
                         {infoLaunchPad.vesting} months
                       </p>
@@ -409,7 +430,7 @@ const VoteDetail = () => {
               subElement={() => {
                 return (
                   <>
-                    {allowVote && (
+                    {allowVote ? (
                       <Button
                         isDisabled={
                           submitting ||
@@ -425,6 +446,10 @@ const VoteDetail = () => {
                       >
                         {isVotedFor ? 'You voted "FOR"' : 'FOR'}
                       </Button>
+                    ) : (
+                      <p className={s.votingBvm} onClick={onStakeBVM}>
+                        Voting is only open to SHARD holders.
+                      </p>
                     )}
                   </>
                 );
@@ -439,7 +464,7 @@ const VoteDetail = () => {
               subElement={() => {
                 return (
                   <>
-                    {allowVote && (
+                    {allowVote ? (
                       <Button
                         isDisabled={
                           submitting ||
@@ -455,6 +480,10 @@ const VoteDetail = () => {
                       >
                         {isVotedAgain ? 'You voted "AGAINST"' : 'AGAINST'}
                       </Button>
+                    ) : (
+                      <p className={s.votingBvm} onClick={onStakeBVM}>
+                        Voting is only open to SHARD holders.
+                      </p>
                     )}
                   </>
                 );

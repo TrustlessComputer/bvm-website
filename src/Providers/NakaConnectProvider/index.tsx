@@ -1,8 +1,8 @@
 'use client';
 import React, { PropsWithChildren, useMemo } from 'react';
-import * as nakaConnect from 'naka-connect';
+import * as nakaConnect from 'naka-connect-js';
 import { isProduction, PERP_API_URL } from '@/config';
-import { DappConnect } from 'naka-connect';
+import { DappConnect } from 'naka-connect-js';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { nakaAddressSelector } from '@/stores/states/user/selector';
 import toast from 'react-hot-toast';
@@ -50,7 +50,7 @@ export const NakaConnectProvider: React.FC<PropsWithChildren> = ({
     try {
       setLoading('account');
       const data = await connector.requestAccount({
-        target: 'popup',
+        target: 'popup' as any,
       });
 
       if (data?.accounts && data?.accounts?.length) {
@@ -79,7 +79,7 @@ export const NakaConnectProvider: React.FC<PropsWithChildren> = ({
       const { signature } = await connector.requestSignMessage({
         fromAddress: address,
         signMessage: message,
-        target: 'popup',
+        target: 'popup' as any,
       });
       return signature;
     } catch (error: any) {

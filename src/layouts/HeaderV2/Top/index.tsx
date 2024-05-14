@@ -39,7 +39,7 @@ const Top = () => {
               href={item.href ?? '#'}
               target={item.isNewWindow ? '_blank' : '_self'}
             >
-              <p className={s.itemLabel}>{item.label}</p>
+              <p className={s.leftToken}>{item.label}</p>
             </Link>
           );
         })}

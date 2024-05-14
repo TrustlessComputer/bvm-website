@@ -20,6 +20,9 @@
   @include is-pc {
     --builder-padding-size: 120px;
   }
+
+  --block-bg: #292929;
+  --input-bg: #ffffff1a;
 }
 
 .slick-slider {

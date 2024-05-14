@@ -1,0 +1,72 @@
+.container {
+  text-align: center;
+  padding: 32px;
+
+  :global {
+    .chakra-step {
+      align-items: flex-start !important;
+      .chakra-step__indicator {
+        &[data-status='complete'] {
+          background: var(--naka-btn-bg);
+        }
+        &[data-status='active'] {
+          border-color: var(--naka-btn-bg);
+        }
+      }
+      .chakra-step__separator {
+        background: var(--naka-btn-bg);
+      }
+    }
+    .chakra-stepper {
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: flex-start !important;
+      .chakra-step__title,
+      .chakra-step__description {
+        text-align: left;
+      }
+      .chakra-step__description {
+        max-width: 200px;
+      }
+      .chakra-step__separator {
+        margin-top: 16px;
+      }
+      .chakra-step__description {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.content {
+  border-radius: 8px;
+  .btnCreateToken {
+    cursor: pointer;
+    color: var(--primary-color);
+    font-size: 12px;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  .tokenInfoItem {
+    flex-direction: row;
+  }
+
+  .btnBack {
+    background: #bcbcbc;
+  }
+}
+
+.setupPreLaunch {
+  flex-direction: column;
+  width: 100%;
+}
+
+.itemTaskContainer {
+  background: var(--input-bg);
+  padding: 12px;
+  border-radius: 8px;
+  text-align: left;
+  align-items: center;
+  justify-content: space-between;
+}

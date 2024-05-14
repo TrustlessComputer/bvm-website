@@ -289,7 +289,7 @@
 }
 
 .btnFor {
-  background: #04c47f;
+  background: #04c47f !important;
   width: 100%;
   min-height: 44px !important;
   font-size: 16px !important;
@@ -299,4 +299,10 @@
     color: #04c47f !important;
     opacity: 1 !important;
   }
+}
+
+.votingBvm {
+  cursor: pointer;
+  color: #fa4e0e;
+  text-align: center;
 }
