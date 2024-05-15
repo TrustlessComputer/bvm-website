@@ -294,6 +294,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       nativeTokenPayingGas: nativeTokenPayingGasSelected,
       gasLimit: GAS_LITMIT,
       bitcoinValidity: bitcoinValidity,
+      twitter_id: yourXField.value?.trim(),
     };
 
     if (
@@ -613,10 +614,9 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       //   userTwitterInfor = await getUser(twitterAccessToken);
       //   twitterID = userTwitterInfor?.twitter_id;
       // }
-
       let orderBuyReqParams: IOrderBuyReq = {
         ...orderBuyReq,
-        twitter_id: '',
+        twitter_id: yourXField.value?.trim(),
       };
 
       console.log('Register Instance Params: ', orderBuyReqParams);
