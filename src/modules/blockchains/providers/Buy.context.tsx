@@ -311,6 +311,22 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       };
     }
 
+    if (
+      nativeTokenPayingGasSelected ===
+      NativeTokenPayingGasEnum.NativeTokenPayingGas_BTC
+    ) {
+      params = {
+        ...params,
+        nativeTokenPayingGas:
+          NativeTokenPayingGasEnum.NativeTokenPayingGas_PreMint,
+        preMintAmount: new BigNumber(totalSupplyField.value || '21000000')
+          .multipliedBy(1e18)
+          .toFixed(),
+        preMintAddress: receivingAddressField.value,
+        ticker: tickerField.value || 'BTC',
+      };
+    }
+
     return params;
   }, [
     isMainnet,
@@ -484,7 +500,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       refElementErrorID = refElementErrorID || blockGasLimitField.ref;
     }
 
-    // Token Paying Gas (BTC TOKEN)
+    // Token Paying Gas (Custom Naitve Token)
     if (
       nativeTokenPayingGasSelected ===
       NativeTokenPayingGasEnum.NativeTokenPayingGas_PreMint
@@ -524,7 +540,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       }
     }
 
-    // Token Paying Gas (Custom Naitve Token)
+    // Token Paying Gas (BTC TOKEN)
     if (
       nativeTokenPayingGasSelected ===
       NativeTokenPayingGasEnum.NativeTokenPayingGas_BTC
