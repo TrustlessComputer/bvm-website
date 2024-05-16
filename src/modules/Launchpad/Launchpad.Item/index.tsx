@@ -68,8 +68,6 @@ const LaunchpadItem = (props: IProps) => {
       ? 'Participate Now'
       : data?.status === 'prelaunch'
       ? 'Participate Now'
-      : data?.status === 'upcoming'
-      ? 'Coming soon'
       : '';
   }, [data]);
 

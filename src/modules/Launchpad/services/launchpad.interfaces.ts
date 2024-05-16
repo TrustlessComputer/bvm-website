@@ -5,6 +5,16 @@ export interface IPagingParams {
   page?: number;
 }
 
+export enum ELaunchpadStatus {
+  new = 'new',
+  voting = 'voting',
+  prelaunch = 'prelaunch',
+  ido = 'ido',
+  ended = 'ended',
+  tge = 'tge',
+  listing = 'listing',
+}
+
 export interface ILaunchpad {
   id: number;
   name?: string;
@@ -32,7 +42,7 @@ export interface ILaunchpad {
   discord?: string;
   token_name?: string;
   blockchain?: string;
-  status?: 'prelaunch' | 'ido' | 'ended' | 'upcoming';
+  status?: ELaunchpadStatus;
   admin_address?: string;
   pre_launch_start_date?: string;
   pre_launch_end_date?: string;
@@ -46,6 +56,10 @@ export interface ILaunchpad {
   price?: string;
   total_committed?: string;
   hard_cap?: string;
+  pre_sale?: boolean;
+  tasks?: ILaunchpadBodyTask[];
+  pre_sale_duration?: number;
+  public_sale_duration?: number;
 }
 
 export interface ILaunchpadCreateBody {
@@ -81,6 +95,8 @@ export interface ILaunchpadCreateBody {
   pre_launch_start_date?: boolean;
   pre_launch_end_date?: boolean;
   tasks?: ILaunchpadBodyTask[];
+  pre_sale_duration?: number;
+  public_sale_duration?: number;
 }
 
 export interface ILaunchpadTicket {
@@ -117,4 +133,51 @@ export interface WalletTokenDeposit {
   address: string;
   coin: string;
   network: string[];
+}
+
+export interface IPreLaunchpadTask {
+  launchpad_project_id?: number;
+  launchpad_task_id?: number;
+  launchpad_task?: IPreLaunchpadItemTask;
+  point_type?: string;
+  input_values?: IPreLaunchpadTaskInput[];
+}
+
+export interface IPreLaunchpadTaskInput {
+  key?: IPreLaunchpadTaskKey;
+  value?: string;
+  name?: IPreLaunchpadTaskDescription;
+  description?: IPreLaunchpadTaskDescription;
+}
+
+export enum IPreLaunchpadTaskDescription {
+  Empty = '',
+  Point = 'Point',
+  PointPer000025BTC = 'Point per 0.00025 BTC',
+  TwitterUsername = 'Twitter Username',
+}
+
+export enum IPreLaunchpadTaskKey {
+  Point = 'point',
+  PointPerAmount = 'point_per_amount',
+  Text = 'text',
+}
+
+export interface IPreLaunchpadItemTask {
+  id?: number;
+  name?: string;
+  description?: string;
+  link?: string;
+  image?: string;
+  point_type?: string;
+  input_fileds?: IPreLaunchpadTaskInput[];
+}
+
+export enum IPreLaunchpadPointType {
+  Staking = 'staking',
+  Refer = 'refer',
+  FollowOnX = 'follow_on_x',
+  SpreadOnX = 'spread_on_x',
+  LikeOnX = 'like_on_x',
+  Portfolio = 'portfolio',
 }

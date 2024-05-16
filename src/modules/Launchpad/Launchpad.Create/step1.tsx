@@ -1,4 +1,3 @@
-import FieldDateTime from '@/components/Form/Field.DateTime';
 import FieldText from '@/components/Form/Field.Text';
 import FieldAmount from '@/components/Form/fieldAmount';
 import InputWrapper from '@/components/Form/inputWrapper';
@@ -11,11 +10,10 @@ import {
   Flex,
   Radio,
   RadioGroup,
+  SimpleGrid,
   Stack,
-  Text,
 } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
-import dayjs from 'dayjs';
 import { useEffect, useMemo } from 'react';
 import { Field, Form, useForm, useFormState } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,9 +27,6 @@ import SetupPreLaunch from './SetupPreLaunch';
 const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
   const { values } = useFormState();
   const { change } = useForm();
-  // const contractBase = useRef(new CContractBase()).current;
-
-  // const [checkToken, setCheckToken] = useState(false);
 
   const create_fee_options = useSelector(launchpadSelector).create_fee_options;
 
@@ -39,19 +34,14 @@ const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
   const allocation_ticket = values?.allocation_ticket || '0';
   const launchpad_allocation = values?.launchpad_allocation || '0';
   const price_allocation_ticket = values?.price_allocation_ticket || '0';
-  const total_launchpad_valuation = values?.total_launchpad_valuation || '0';
   const launchpad_fee_option_id = values?.launchpad_fee_option_id || '1';
-  const start_date = values?.start_date;
-  const end_date = values?.end_date;
-  // const token_address = values?.token_address;
-  const your_token_balance = values?.your_token_balance;
-  const symbol = values?.symbol;
+  const public_sale_allocation = values?.public_sale_allocation;
+  const liquidity_fund_ratio = values?.liquidity_fund_ratio;
+  const liquidity_allocation = values?.liquidity_allocation;
+  const airdrop_ratio = values?.airdrop_ratio;
+  const airdrop = values?.airdrop;
 
   const isDisabled = useMemo(() => false, []);
-
-  // useEffect(() => {
-  //   onValidateAddress(token_address);
-  // }, [token_address]);
 
   useEffect(() => {
     //Price per ticket la = Allocation / Total ticket * Price
@@ -74,232 +64,134 @@ const FormCreateLaunchpadStep1 = ({ handleSubmit }: any) => {
     }
   }, [price_allocation_ticket, allocation_ticket]);
 
-  // const onValidateAddress = async (value: string) => {
-  //   if (!validateEVMAddress(value)) {
-  //     return 'Token address invalid';
-  //   }
-  //   try {
-  //     setCheckToken(true);
-  //     const rs = await contractBase.getTokenInfo(token_address);
-  //     change('token_name', rs?.name);
-  //     change('total_supply', rs?.supply);
-  //     change('your_token_balance', rs?.balance);
-  //     change('symbol', rs?.symbol);
-  //     return undefined;
-  //   } catch (error) {
-  //     return 'Token not found';
-  //     //
-  //   } finally {
-  //     setCheckToken(false);
-  //   }
-  // };
+  useEffect(() => {
+    if (liquidity_fund_ratio && public_sale_allocation) {
+      const value = new BigNumber(liquidity_fund_ratio)
+        .multipliedBy(public_sale_allocation)
+        .dividedBy(100)
+        .toString();
+      change('liquidity_allocation', value);
+    }
+  }, [liquidity_fund_ratio, public_sale_allocation]);
+
+  useEffect(() => {
+    if (liquidity_fund_ratio && airdrop_ratio) {
+      const value = new BigNumber(public_sale_allocation)
+        .multipliedBy(airdrop_ratio)
+        .dividedBy(100)
+        .toString();
+      change('airdrop', value);
+    }
+  }, [airdrop_ratio, public_sale_allocation]);
 
   return (
     <form onSubmit={handleSubmit}>
-      <Flex gap={6}>
-        {/* <Box flex={1}>
-          <InputWrapper
-            label="Token address"
-            rightLabel={
-              <Text
-                onClick={() =>
-                  window.open(
-                    'https://newbitcoincity.com/tc?referral=%24%7BreferralCode%7D',
-                    '_blank',
-                  )
-                }
-                className={s.btnCreateToken}
-              >
-                + Create token
-              </Text>
-            }
-          >
-            <Field
-              placeholder="0x...."
-              name="token_address"
-              component={FieldText}
-              validate={composeValidators(required, onValidateAddress)}
-              isDisabled={checkToken}
-              inputRight={
-                checkToken && (
-                  <Flex pr={'12px'}>
-                    <Spinner size={'sm'} />
-                  </Flex>
-                )
-              }
-            />
-          </InputWrapper>
-        </Box> */}
-        <Box flex={1}>
-          <InputWrapper label="Token name">
-            <Field
-              placeholder="Bitcoin Virtual Network"
-              name="name"
-              component={FieldText}
-              validate={composeValidators(required)}
-            />
-          </InputWrapper>
-        </Box>
-        <Box flex={1}>
-          <InputWrapper label="Token symbol">
-            <Field
-              placeholder="BVM"
-              name="token_name"
-              component={FieldText}
-              validate={composeValidators(required)}
-            />
-          </InputWrapper>
-        </Box>
-      </Flex>
-      <Box mt={2} />
-      <Flex gap={6}>
-        <Box flex={1}>
-          <InputWrapper label="Price (BTC)">
-            <Field
-              name="launchpad_price"
-              component={FieldAmount}
-              validate={composeValidators(requiredAmount)}
-              decimals={8}
-            />
-          </InputWrapper>
-        </Box>
-        <Box flex={1}>
-          <InputWrapper
-            label="Allocation"
-            rightLabel={`Balance: ${formatCurrency(your_token_balance)} ${
-              symbol || ''
-            }`}
-          >
-            <Field
-              name="launchpad_allocation"
-              component={FieldAmount}
-              validate={composeValidators(requiredAmount)}
-              decimals={8}
-            />
-          </InputWrapper>
-        </Box>
-        <Box flex={1}>
-          <InputWrapper label="Total ticket">
-            <Field
-              name="allocation_ticket"
-              component={FieldAmount}
-              validate={composeValidators(requiredAmount)}
-              decimals={8}
-            />
-          </InputWrapper>
-        </Box>
-      </Flex>
-      <Box mt={2} />
-      <Flex gap={6}>
-        <Box flex={1}>
-          <InputWrapper label="Price per ticket (BTC)">
-            {/* <Field
-              name="allocation_ticket"
-              component={FieldAmount}
-              validate={composeValidators(requiredAmount)}
-              isDisabled={true}
-            /> */}
+      <SimpleGrid columns={3} gap={'12px'}>
+        <InputWrapper label="Token name">
+          <Field
+            placeholder="Bitcoin Virtual Network"
+            name="name"
+            component={FieldText}
+            validate={composeValidators(required)}
+          />
+        </InputWrapper>
+        <InputWrapper label="Token symbol">
+          <Field
+            placeholder="BVM"
+            name="token_name"
+            component={FieldText}
+            validate={composeValidators(required)}
+          />
+        </InputWrapper>
+        <InputWrapper label="Total supply">
+          <Field
+            placeholder="21,000,000"
+            name="total_supply"
+            component={FieldAmount}
+            validate={composeValidators(requiredAmount)}
+            decimals={0}
+          />
+        </InputWrapper>
+        <InputWrapper label="Hardcap (USDT)">
+          <Field
+            name="hard_cap"
+            component={FieldAmount}
+            validate={composeValidators(requiredAmount)}
+          />
+        </InputWrapper>
+        <InputWrapper label="Total Tokens for Presale">
+          <Field
+            name="public_sale_allocation"
+            component={FieldAmount}
+            validate={composeValidators(requiredAmount)}
+            decimals={0}
+          />
+        </InputWrapper>
+        <InputWrapper
+          label="Liquidity Percentage (%)"
+          rightLabel={`Total Tokens for Liquidity: ${formatCurrency(
+            liquidity_allocation,
+            0,
+            2,
+            'BTC',
+            true,
+          )}`}
+        >
+          <Field
+            placeholder="30%"
+            name="liquidity_fund_ratio"
+            component={FieldAmount}
+            validate={composeValidators(requiredAmount)}
+            decimals={0}
+          />
+        </InputWrapper>
+        {/* <InputWrapper label="Total Tokens for Liquidity">
+          <Flex height={'48px'} alignItems={'center'}>
+            <Text fontSize={'20px'}>
+              {formatCurrency(liquidity_allocation, 0, 2, 'BTC', true)}
+            </Text>
+          </Flex>
+        </InputWrapper> */}
+        <InputWrapper label="Public sale duration (days)">
+          <Field
+            name="public_sale_duration"
+            component={FieldAmount}
+            validate={composeValidators(required)}
+            decimals={2}
+          />
+        </InputWrapper>
+        <InputWrapper
+          label="Airdrop"
+          desc="The percentage of airdrop to Shard holder (stake BVM)"
+          rightLabel={`Total Tokens for Airdrop: ${formatCurrency(
+            airdrop,
+            0,
+            2,
+            'BTC',
+            true,
+          )}`}
+        >
+          <Field
+            placeholder="3%"
+            name="airdrop_ratio"
+            component={FieldAmount}
+            validate={composeValidators(requiredAmount)}
+            decimals={2}
+          />
+        </InputWrapper>
+        {/* <InputWrapper label="Total Tokens for Airdrop">
+          <Flex height={'48px'} alignItems={'center'}>
+            <Text fontSize={'20px'}>
+              {formatCurrency(airdrop, 0, 2, 'BTC', true)}
+            </Text>
+          </Flex>
+        </InputWrapper> */}
+      </SimpleGrid>
 
-            <Flex height={'48px'} alignItems={'center'}>
-              <Text fontSize={'20px'}>
-                {formatCurrency(price_allocation_ticket, 0, 2, 'BTC', true)}
-              </Text>
-            </Flex>
-          </InputWrapper>
-        </Box>
-        <Box flex={1}>
-          <InputWrapper label="Total valuation">
-            {/* <Field
-              placeholder="Total ticket * Price per ticket"
-              name="total_launchpad_valuation"
-              component={FieldAmount}
-              isDisabled={true}
-              validate={composeValidators(requiredAmount)}
-              decimals={8}
-            /> */}
-            <Flex height={'48px'} alignItems={'center'}>
-              <Text fontSize={'20px'}>
-                {formatCurrency(total_launchpad_valuation, 0, 2, 'BTC', true)}
-              </Text>
-            </Flex>
-          </InputWrapper>
-        </Box>
-        <Box flex={1}>
-          <InputWrapper label="Total supply">
-            <Field
-              placeholder="21,000,000"
-              name="total_supply"
-              component={FieldAmount}
-              validate={composeValidators(requiredAmount)}
-              decimals={8}
-            />
-          </InputWrapper>
-        </Box>
-      </Flex>
-
-      <Box mt={6} />
-      <Flex gap={6}>
-        <Box flex={1}>
-          <InputWrapper label="Start date">
-            <Field
-              name="start_date"
-              component={FieldDateTime}
-              validate={composeValidators(required)}
-              showTimeSelect={true}
-              // minDate={dayjs().add(3, 'days').format()}
-              // maxDate={
-              //   end_date
-              //     ? dayjs().subtract(end_date, 'days').format()
-              //     : undefined
-              // }
-            />
-          </InputWrapper>
-        </Box>
-        <Box flex={1}>
-          <InputWrapper label="End IDO date">
-            <Field
-              name="end_ido_date"
-              component={FieldDateTime}
-              validate={composeValidators(required)}
-              showTimeSelect={true}
-              minDate={
-                start_date
-                  ? dayjs(start_date).add(7, 'days').format()
-                  : dayjs().add(10, 'days').format()
-              }
-              maxDate={
-                end_date
-                  ? dayjs(end_date).add(30, 'days').format()
-                  : dayjs().add(30, 'days').format()
-              }
-            />
-          </InputWrapper>
-        </Box>
-        <Box flex={1}>
-          <InputWrapper label="End date">
-            <Field
-              name="end_date"
-              component={FieldDateTime}
-              validate={composeValidators(required)}
-              showTimeSelect={true}
-              minDate={
-                start_date
-                  ? dayjs(start_date).add(7, 'days').format()
-                  : dayjs().add(10, 'days').format()
-              }
-              maxDate={
-                start_date
-                  ? dayjs(start_date).add(30, 'days').format()
-                  : dayjs().add(30, 'days').format()
-              }
-            />
-          </InputWrapper>
-        </Box>
-      </Flex>
       <Box mt={6} />
       <SetupPreLaunch />
       <Box mt={6} />
-      <InputWrapper label="Fee Options">
+      <InputWrapper label="Fee">
         <RadioGroup
           onChange={(e) => change('launchpad_fee_option_id', e)}
           defaultValue={launchpad_fee_option_id}
@@ -336,8 +228,6 @@ const CreateLaunchpadStep1 = () => {
       //
     }
   };
-
-  console.log('step_values', step_values);
 
   return (
     <Form

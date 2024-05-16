@@ -50,7 +50,6 @@ const CreateLaunchpad = () => {
       const [resFeeOptions] = await Promise.all([
         launchpadApi.getLaunchpadOptions(),
       ]);
-      console.log('resFeeOptions', resFeeOptions);
       dispatch(setCreateFeeOptions(resFeeOptions));
     } catch (error) {
       //
