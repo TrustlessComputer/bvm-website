@@ -4,15 +4,17 @@ import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import addChain from '@/utils/addChain';
 import { Flex, Image, Text, Button } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
+import { EditIcon } from '@chakra-ui/icons';
 
 type Props = {
   item: OrderItem;
   isOwner?: boolean;
   viewBillingOnClick?: () => void;
+  bridgeOnClick?: () => void;
 };
 
 const BottomInfor = (props: Props) => {
-  const { item, isOwner, viewBillingOnClick } = props;
+  const { item, isOwner, viewBillingOnClick, bridgeOnClick } = props;
 
   const [adding, setAdding] = useState(false);
 
@@ -59,17 +61,32 @@ const BottomInfor = (props: Props) => {
     return (
       <Flex
         flexDir={'row'}
+        pos={'relative'}
         gap={'10px'}
         align={'center'}
         p="10px"
         bgColor={'#d7d5d54b'}
         maxW={'max-content'}
         borderRadius={'6px'}
+        onClick={(event: any) => {
+          if (event.stopPropagation) event.stopPropagation();
+          isOwner && bridgeOnClick && bridgeOnClick();
+        }}
       >
         <Image src={icURL} w={'40px'} h={'auto'} objectFit={'contain'} />
         <Text fontSize={'16px'} fontWeight={500} color={'#000'}>
           {dAppName || '--'}
         </Text>
+        {isOwner && (
+          <EditIcon
+            color={'#484848'}
+            position={'absolute'}
+            top={'-8px'}
+            right={'-8px'}
+            w={'20px'}
+            height={'auto'}
+          />
+        )}
       </Flex>
     );
   };

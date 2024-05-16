@@ -224,6 +224,26 @@ interface L2ServicesState {
   isL2ServiceLogged: boolean;
 }
 
+type MetaConfig = {
+  favIconUrl: string;
+  tabTitle: string;
+  tabDesc: string;
+  thumbImgUrl: string;
+};
+
+type ThemeConfig = {
+  mode?: 'light' | 'dark';
+  primaryColor: string;
+  secondaryColor: string;
+};
+
+type WebsiteConfig = {
+  metaConfig: MetaConfig;
+  themeConfig: ThemeConfig;
+  networkName: string;
+  orderId: string;
+};
+
 export type {
   IVerifySignatureReq,
   IVerifySignatureResp,
@@ -244,4 +264,7 @@ export type {
   IOrderBuyEstimateRespone,
   L2ServicesState,
   ViewMode,
+  MetaConfig,
+  ThemeConfig,
+  WebsiteConfig,
 };
