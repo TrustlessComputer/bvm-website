@@ -11,6 +11,7 @@ import {
   ILaunchpadCreateBody,
   ILaunchpadFeeOption,
   IPagingParams,
+  IPreLaunchpadTask,
   WalletTokenDeposit,
 } from './launchpad.interfaces';
 import {
@@ -385,12 +386,14 @@ class CLaunchpadAPI {
     }
   };
 
-  public getPreLaunchpadTasksById = async (launchpad_id: string) => {
+  public getPreLaunchpadTasksById = async (
+    launchpad_id: number,
+  ): Promise<IPreLaunchpadTask[]> => {
     try {
       const rs = await this.apiClient.get(
-        `${this.prefix}/prelaunch/task/${launchpad_id}`,
+        `${this.prefix}/prelaunch/tasks/${launchpad_id}`,
       );
-      return rs;
+      return rs as unknown as IPreLaunchpadTask[];
     } catch (error) {
       return [];
     }

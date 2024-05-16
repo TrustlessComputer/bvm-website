@@ -4,13 +4,14 @@ import { compareString } from '@/utils/string';
 import { Box, Spinner } from '@chakra-ui/react';
 import cx from 'clsx';
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { LAUNCHPAD_DETAIL } from './constant';
 import s from './styles.module.scss';
 import DetailNaka from '@/modules/Launchpad/Launchpad.Detail/naka';
 import DetailEternalAI from '@/modules/Launchpad/Launchpad.Detail/eternalAI';
 import DetailSwamps from '@/modules/Launchpad/Launchpad.Detail/swamps';
 import { useRouter } from 'next/navigation';
+import LaunchpadDetailCommon from './detail/index';
 
 const LaunchpadDetail = () => {
   const router = useRouter();
@@ -27,6 +28,19 @@ const LaunchpadDetail = () => {
     }
   }, [currentLaunchpad?.id]);
 
+  const renderContent = useMemo(() => {
+    if (compareString(currentLaunchpad?.id, LAUNCHPAD_DETAIL.NAKACHAIN)) {
+      return <DetailNaka />;
+    } else if (compareString(currentLaunchpad?.id, LAUNCHPAD_DETAIL.EAI)) {
+      return <DetailEternalAI />;
+    } else if (compareString(currentLaunchpad?.id, LAUNCHPAD_DETAIL.SWAMPS)) {
+      return <DetailSwamps />;
+    } else if (currentLaunchpad?.id) {
+      return <LaunchpadDetailCommon />;
+    }
+    return <></>;
+  }, [currentLaunchpad?.id]);
+
   if (loading) {
     return (
       <Box className={cx(s.container, s.loadingContainer)}>
@@ -35,14 +49,7 @@ const LaunchpadDetail = () => {
     );
   }
 
-  if (compareString(currentLaunchpad?.id, LAUNCHPAD_DETAIL.NAKACHAIN)) {
-    return <DetailNaka />;
-  } else if (compareString(currentLaunchpad?.id, LAUNCHPAD_DETAIL.EAI)) {
-    return <DetailEternalAI />;
-  } else if (compareString(currentLaunchpad?.id, LAUNCHPAD_DETAIL.SWAMPS)) {
-    return <DetailSwamps />;
-  }
-  return <></>;
+  return renderContent;
 };
 
 export default LaunchpadDetail;

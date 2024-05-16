@@ -28,6 +28,7 @@ import { Field, useFormState } from 'react-final-form';
 import FieldDateTime from '@/components/Form/Field.DateTime';
 import { composeValidators, required } from '@/utils/form-validate';
 import dayjs from 'dayjs';
+import FieldAmount from '@/components/Form/fieldAmount';
 
 const TaskModal = ({
   task,
@@ -199,8 +200,7 @@ const SetupPreLaunchpadTasks = ({ isOpen }: { isOpen: boolean }) => {
 
   const { values } = useFormState();
 
-  const pre_launch_start_date = values?.pre_launch_start_date;
-  const pre_launch_end_date = values?.pre_launch_end_date;
+  const pre_launch_start_date = values?.pre_sale_duration;
 
   useEffect(() => {
     getData();
@@ -229,40 +229,15 @@ const SetupPreLaunchpadTasks = ({ isOpen }: { isOpen: boolean }) => {
     >
       <Flex mt={'12px'} gap={6}>
         <Box flex={1}>
-          <InputWrapper label="Start date">
+          <InputWrapper label="Duration (days)">
             <Field
-              name="pre_launch_start_date"
-              component={FieldDateTime}
+              name="pre_sale_duration"
+              component={FieldAmount}
               validate={composeValidators(required)}
-              showTimeSelect={true}
-              minDate={
-                pre_launch_start_date
-                  ? dayjs(pre_launch_start_date).add(7, 'days').format()
-                  : dayjs().add(10, 'days').format()
-              }
-              maxDate={
-                pre_launch_end_date
-                  ? dayjs(pre_launch_end_date).format()
-                  : dayjs().add(30, 'days').format()
-              }
             />
           </InputWrapper>
         </Box>
-        <Box flex={1}>
-          <InputWrapper label="End date">
-            <Field
-              name="pre_launch_end_date"
-              component={FieldDateTime}
-              validate={composeValidators(required)}
-              showTimeSelect={true}
-              minDate={
-                pre_launch_start_date
-                  ? dayjs(pre_launch_start_date).add(7, 'days').format()
-                  : dayjs().add(10, 'days').format()
-              }
-            />
-          </InputWrapper>
-        </Box>
+        <Box flex={1}></Box>
       </Flex>
 
       <SimpleGrid minHeight={'108px'} gap={'12px'} columns={3} mt={'12px'}>

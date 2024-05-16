@@ -15,6 +15,7 @@ import {
 } from '../store/reducer';
 import CLaunchpadAPI from '../services/launchpad';
 import { ILaunchpadCreateBody } from '../services/launchpad.interfaces';
+import BigNumber from 'bignumber.js';
 
 export const FormCreateLaunchpadStep3 = ({ handleSubmit, submitting }: any) => {
   const dispatch = useDispatch();
@@ -111,6 +112,18 @@ const CreateLaunchpadStep3 = () => {
         launchpad_fee_option_id: parseFloat(
           create_body.launchpad_fee_option_id as unknown as any,
         ),
+        pre_sale_duration: new BigNumber(create_body?.pre_sale_duration || '0')
+          .multipliedBy(24)
+          .multipliedBy(60)
+          .multipliedBy(60)
+          .toNumber(),
+        public_sale_duration: new BigNumber(
+          create_body?.public_sale_duration || '0',
+        )
+          .multipliedBy(24)
+          .multipliedBy(60)
+          .multipliedBy(60)
+          .toNumber(),
       };
       const rs = await launchpadApi.createLaunchpad(values);
 
