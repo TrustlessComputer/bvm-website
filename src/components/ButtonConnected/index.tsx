@@ -1,3 +1,4 @@
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
 import { Button } from '@chakra-ui/react';
 import React, { PropsWithChildren } from 'react';
@@ -12,15 +13,11 @@ const ButtonConnected: React.FC<IButtonConnectedProps> = ({
   className,
   title,
 }) => {
-  const wallet = useAuthenticatedWallet();
+  const { isAuthen, requestAccount } = useNakaAuthen();
 
-  const isAuthenticated = wallet?.address;
-
-  const openSignView = () => {};
-
-  if (!isAuthenticated) {
+  if (!isAuthen) {
     return (
-      <Button className={className} onClick={openSignView} type="button">
+      <Button className={className} onClick={requestAccount} type="button">
         {title || 'Connect Naka wallet'}
       </Button>
     );

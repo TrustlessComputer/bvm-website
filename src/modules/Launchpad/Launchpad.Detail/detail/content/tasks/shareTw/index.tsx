@@ -3,23 +3,30 @@ import {
   requestAuthenByShareCode,
 } from '@/services/player-share';
 import { Box, Button, Center, Flex, Text } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import s from '../item.module.scss';
 import VerifyTwModal, { VerifyTwModalID } from './verifyTwModal';
 
 import AppLoading from '@/components/AppLoading';
-import { openExtraLink, shareURLWithReferralCode } from '@/utils/helpers';
-import { useParams } from 'next/navigation';
-import AuthenStorage from '@/utils/storage/authen.storage';
-import { userSelector } from '@/stores/states/user/selector';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import CLaunchpadAPI from '@/modules/Launchpad/services/launchpad';
-import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
+import {
+  IPreLaunchpadTask,
+  IPreLaunchpadTaskKey,
+} from '@/modules/Launchpad/services/launchpad.interfaces';
 import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
 import { setBearerToken } from '@/services/whitelist';
-import { setXToken } from '@/stores/states/user/reducer';
 import { requestReload } from '@/stores/states/common/reducer';
 import { openModal } from '@/stores/states/modal/reducer';
+import { setXToken } from '@/stores/states/user/reducer';
+import { userSelector } from '@/stores/states/user/selector';
+import { formatCurrency } from '@/utils/format';
+import { openExtraLink, shareURLWithReferralCode } from '@/utils/helpers';
+import AuthenStorage from '@/utils/storage/authen.storage';
+import { compareString } from '@/utils/string';
+import { useParams } from 'next/navigation';
+import useTasks from '../useTasks';
 
 interface IAuthenCode {
   public_code: string;
@@ -28,9 +35,9 @@ interface IAuthenCode {
 
 interface IShareTw {
   onVerifySuccess: () => void;
-  index: number;
+  index?: number;
   isDone?: boolean;
-  content: string;
+  data: IPreLaunchpadTask;
 }
 
 const ShareTw = (props: IShareTw) => {
@@ -43,13 +50,17 @@ const ShareTw = (props: IShareTw) => {
   const user = useSelector(userSelector);
   const params = useParams();
 
-  const wallet = useAuthenticatedWallet();
+  const data = props.data;
 
-  const isAuthenticated = wallet?.address;
+  const { requestAccount, isAuthen } = useNakaAuthen();
+
+  const isAuthenticated = isAuthen;
 
   const [showManualCheck, setShowManualCheck] = useState(false);
 
   const { currentLaunchpad } = useLaunchpadContext();
+
+  const { point, xData } = useTasks({ task: data });
 
   const isDisabled = useMemo(() => {
     return currentLaunchpad?.status !== 'prelaunch';
@@ -75,7 +86,7 @@ const ShareTw = (props: IShareTw) => {
         user: user,
       });
 
-      const content = `${props.content}${code}\n\n${url}`;
+      const content = `Can't wait to see how $${currentLaunchpad?.token_name}. IDO soon on @naka_chain! You don't wanna miss this out${code}\n\n${url}`;
 
       return openExtraLink(
         `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
@@ -101,7 +112,7 @@ const ShareTw = (props: IShareTw) => {
   const handleVerifyTwitter = async (): Promise<void> => {
     try {
       launchpadApi.requestClaimFollow(currentLaunchpad?.id as number, {
-        type: 'spread_on_x',
+        type: data?.point_type,
       });
       const result = await generateTokenWithTwPost(
         authenCode?.secret_code as string,
@@ -158,12 +169,14 @@ const ShareTw = (props: IShareTw) => {
       <Flex className={s.shareTw}>
         <Flex justifyContent={'space-between'} gap={'12px'}>
           <Flex direction="column">
-            <Text className={s.title}>
-              Publish a tweet mentioning @swamps_src20
-            </Text>
+            <Text
+              className={s.title}
+            >{`${data?.launchpad_task?.name} @${xData?.value}`}</Text>
           </Flex>
           <Flex direction="column" minW={'110px'} alignItems={'flex-end'}>
-            <Text className={s.title}>+500 pts</Text>
+            <Text className={s.title}>
+              +{formatCurrency(point?.value, 0, 2)} pts
+            </Text>
           </Flex>
         </Flex>
         <Flex direction="column" w={'100%'}>
@@ -214,7 +227,7 @@ const ShareTw = (props: IShareTw) => {
               className={s.btnShare}
               // isLoading={submitting}
               // loadingText="Submitting..."
-              onClick={isAuthenticated ? onClickShare : undefined}
+              onClick={isAuthenticated ? onClickShare : requestAccount}
               isDisabled={isDisabled}
             >
               {isAuthenticated ? 'Post to join the allowlist' : 'Sign in'}

@@ -2,12 +2,12 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 20px 12px;
   //border: 1px solid #cecece;
   border-radius: 8px;
   gap: 12px;
-  box-shadow: 0px 0px 24px -6px #0000000A;
+  box-shadow: 0px 0px 24px -6px #0000000a;
 
   &_disable {
     opacity: 0.5;
@@ -25,8 +25,8 @@
     font-size: 14px;
     font-weight: 700;
     //margin-top: 4px;
-    background: #6E16FE26;
-    color: #6E16FE;
+    background: #6e16fe26;
+    color: #6e16fe;
     width: 36px;
     height: 36px;
     min-width: 36px;
@@ -53,6 +53,7 @@
       font-weight: 500;
       line-height: 100%;
       //margin-bottom: 5px;
+      color: #000;
     }
 
     .desc {
@@ -63,9 +64,9 @@
     }
 
     .btnBuy {
-      color: #6E16FE;
-      border: 1px solid #6E16FE;
-      background-color: #FFF;
+      color: #6e16fe;
+      border: 1px solid #6e16fe;
+      background-color: #fff;
       width: 150px;
 
       @include w-max(767px) {
@@ -75,7 +76,7 @@
 
     .btnShare {
       min-width: 140px;
-      background: #6E16FE;
+      background: #6e16fe;
       padding: 12px 16px;
       display: flex;
       justify-content: center;
@@ -99,7 +100,7 @@
 
       &.btnLink {
         background: unset !important;
-        color: #6E16FE !important;
+        color: #6e16fe !important;
         padding: 0 !important;
         height: unset !important;
       }
@@ -143,7 +144,7 @@
       padding: 4px 8px; */
       width: 32px;
       height: 32px;
-      background: #FFFFFF;
+      background: #ffffff;
       box-shadow: 0px 0px 16px 6px rgba(0, 0, 0, 0.08);
       border-radius: 100px;
 

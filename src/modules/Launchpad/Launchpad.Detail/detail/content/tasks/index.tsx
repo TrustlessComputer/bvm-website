@@ -10,6 +10,11 @@ import { compareString } from '@/utils/string';
 import ShareTw from './shareTw';
 import { LaunchpadContext } from '@/Providers/LaunchpadProvider';
 import AuthenStorage from '@/utils/storage/authen.storage';
+import ReferFriend from './referFriend';
+import HoldingBTC from './holdingBTC';
+import StakingBVM from './stakingBVM';
+import FollowTwitter from './followTwitter';
+import LikeTwitter from './likeTwitter';
 
 const PreLaunchpadTasks = ({ tasks }: { tasks: IPreLaunchpadTask[] }) => {
   const { currentLaunchpad } = useContext(LaunchpadContext);
@@ -17,21 +22,32 @@ const PreLaunchpadTasks = ({ tasks }: { tasks: IPreLaunchpadTask[] }) => {
   const token = AuthenStorage.getAuthenKey();
   const [_, setIsVerifyTW] = useState(!!token);
 
-  const referTW = useMemo(
-    () =>
-      tasks.find((v) =>
-        compareString(v.point_type, IPreLaunchpadPointType.Refer),
-      ),
-    [tasks],
-  );
+  const renderTasks = (t: IPreLaunchpadTask) => {
+    switch (t.point_type) {
+      case IPreLaunchpadPointType.Refer:
+        return <ReferFriend index={t.launchpad_task_id} data={t} />;
+      case IPreLaunchpadPointType.SpreadOnX:
+        return (
+          <ShareTw
+            onVerifySuccess={() => setIsVerifyTW(true)}
+            index={t.launchpad_task_id}
+            isDone={false}
+            data={t}
+          />
+        );
+      case IPreLaunchpadPointType.Portfolio:
+        return <HoldingBTC data={t} index={t.launchpad_task_id} />;
+      case IPreLaunchpadPointType.Staking:
+        return <StakingBVM data={t} index={t.launchpad_task_id} />;
+      case IPreLaunchpadPointType.FollowOnX:
+        return <FollowTwitter data={t} index={t.launchpad_task_id} />;
+      case IPreLaunchpadPointType.LikeOnX:
+        return <LikeTwitter data={t} index={t.launchpad_task_id} />;
 
-  const isDone = useMemo(() => {
-    return true;
-  }, []);
-
-  const index = useMemo(() => {
-    return isDone ? 0 : 0;
-  }, [isDone]);
+      default:
+        return <></>;
+    }
+  };
 
   if (compareString(currentLaunchpad?.status, ELaunchpadStatus.ended)) {
     return <></>;
@@ -39,14 +55,9 @@ const PreLaunchpadTasks = ({ tasks }: { tasks: IPreLaunchpadTask[] }) => {
 
   return (
     <Flex className={s.container} id={'list-task'}>
-      {referTW && (
-        <ShareTw
-          onVerifySuccess={() => setIsVerifyTW(true)}
-          index={index + 1}
-          isDone={false}
-          content={`Can't wait to see how $${currentLaunchpad?.token_name}. IDO soon on @naka_chain! You don't wanna miss this out`}
-        />
-      )}
+      {tasks?.map((t) => (
+        <div key={t.launchpad_task_id}>{renderTasks(t)}</div>
+      ))}
     </Flex>
   );
 };
