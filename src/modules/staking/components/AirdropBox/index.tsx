@@ -47,9 +47,10 @@ const AirdropBox = () => {
   };
 
   const getLaunchpadInfoSwamp = async () => {
+    if (!address) return;
     try {
       const [response]: any = await Promise.all([
-        launchpadApi.getLaunchpadSwampAirdrop(),
+        launchpadApi.getLaunchpadSwampAirdrop(address),
       ]);
       setSwampAirdrops(response);
     } catch (err) {}
@@ -61,7 +62,7 @@ const AirdropBox = () => {
 
   React.useEffect(() => {
     getLaunchpadInfoSwamp();
-  }, [needReload]);
+  }, [address, needReload]);
 
   const onClickClaimSwamp = async (id: number) => {
     if (!address) return;
@@ -142,7 +143,7 @@ const AirdropBox = () => {
         title: `You missed the GSWP airdrop. Don't miss out on the next one!`,
         symbol: 'GSWP',
         claimingId: claimingId,
-        airdrops: isAbleClaimSwamp ? swampAirdrops : [],
+        airdrops: swampAirdrops,
         totalClaimed:
           swampAirdrops && swampAirdrops.length > 0
             ? swampAirdrops
@@ -150,12 +151,7 @@ const AirdropBox = () => {
                 .reduce((n, { amount }) => n + Number(amount), 0)
             : undefined,
         onClickClaim: onClickClaimSwamp,
-        release: isAbleClaimSwamp
-          ? undefined
-          : {
-              token: '$GSWP',
-              date: 'May 2024',
-            },
+        release: undefined,
         socials: {
           website: 'https://www.swamps.fi/',
           twitter: 'https://twitter.com/swamps_src20',

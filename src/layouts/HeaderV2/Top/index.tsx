@@ -1,16 +1,20 @@
 import SvgInset from '@/components/SvgInset';
 import useWindowSize from '@/hooks/useWindowSize';
-import { IconButton, Image, useDisclosure } from '@chakra-ui/react';
+import { Button, IconButton, Image, useDisclosure } from '@chakra-ui/react';
 import Treasury from '@layouts/HeaderV2/Top/treasury';
 import Link from 'next/link';
 import DrawerMobileMenu from '../components/DrawerMenu';
 import DropDown from '../components/Dropdown';
 import { TOP_NAV_ITEMS } from '../menuConfig';
 import s from './style.module.scss';
+import { shortCryptoAddress } from '@utils/address';
+import { WALLET_URL } from '@/Providers/NakaConnectProvider';
+import Connect from '@layouts/HeaderV2/Top/connect';
 
 const Top = () => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
+
   return (
     <div className={s.wrapper}>
       <div className={s.left}>
@@ -52,9 +56,9 @@ const Top = () => {
           </Link>
           <Link className={s.right_btn} href={'/shard'}>
             <SvgInset svgUrl="/landing-v2/svg/crystal.svg" height={20} />
-
             <p className={s.token}>$SHARD</p>
           </Link>
+          <Connect />
         </div>
       ) : (
         <IconButton

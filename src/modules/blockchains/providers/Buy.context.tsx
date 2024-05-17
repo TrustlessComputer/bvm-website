@@ -294,6 +294,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       nativeTokenPayingGas: nativeTokenPayingGasSelected,
       gasLimit: GAS_LITMIT,
       bitcoinValidity: bitcoinValidity,
+      twitter_id: yourXField.value?.trim(),
     };
 
     if (
@@ -307,6 +308,22 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
           .toFixed(),
         preMintAddress: receivingAddressField.value,
         ticker: tickerField.value,
+      };
+    }
+
+    if (
+      nativeTokenPayingGasSelected ===
+      NativeTokenPayingGasEnum.NativeTokenPayingGas_BTC
+    ) {
+      params = {
+        ...params,
+        nativeTokenPayingGas:
+          NativeTokenPayingGasEnum.NativeTokenPayingGas_PreMint,
+        preMintAmount: new BigNumber(totalSupplyField.value || '21000000')
+          .multipliedBy(1e18)
+          .toFixed(),
+        preMintAddress: receivingAddressField.value,
+        ticker: tickerField.value || 'BTC',
       };
     }
 
@@ -483,7 +500,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       refElementErrorID = refElementErrorID || blockGasLimitField.ref;
     }
 
-    // Token Paying Gas (BTC TOKEN)
+    // Token Paying Gas (Custom Naitve Token)
     if (
       nativeTokenPayingGasSelected ===
       NativeTokenPayingGasEnum.NativeTokenPayingGas_PreMint
@@ -523,7 +540,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       }
     }
 
-    // Token Paying Gas (Custom Naitve Token)
+    // Token Paying Gas (BTC TOKEN)
     if (
       nativeTokenPayingGasSelected ===
       NativeTokenPayingGasEnum.NativeTokenPayingGas_BTC
@@ -613,10 +630,9 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       //   userTwitterInfor = await getUser(twitterAccessToken);
       //   twitterID = userTwitterInfor?.twitter_id;
       // }
-
       let orderBuyReqParams: IOrderBuyReq = {
         ...orderBuyReq,
-        twitter_id: '',
+        twitter_id: yourXField.value?.trim(),
       };
 
       console.log('Register Instance Params: ', orderBuyReqParams);

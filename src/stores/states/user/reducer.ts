@@ -3,6 +3,7 @@ import { EVMFieldType, IAuthSetting, UserState } from './types';
 import uniqueBy from '@popperjs/core/lib/utils/uniqueBy';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import NakaUserStorage from '@utils/storage/naka.storage';
+import { stateMethods } from '@walletconnect/legacy-types';
 
 const initialState: UserState = {
   user: undefined,
@@ -64,9 +65,14 @@ const initialState: UserState = {
   },
 } as any;
 
+
+const _initialState: UserState = {
+  ...initialState
+}
+
 const slice = createSlice({
   name: 'userState',
-  initialState,
+  initialState: _initialState,
   reducers: {
     setUser: (state, action) => {
       state.user = {
@@ -226,6 +232,11 @@ const slice = createSlice({
         loaded: action.payload.loaded,
       };
     },
+    resetUser: (state) => {
+      state.nakaUser = undefined;
+      NakaUserStorage.removeWalletToken();
+      NakaUserStorage.removeUserAddress();
+    }
   },
 });
 
@@ -257,6 +268,7 @@ export const {
   setHoldingSWPL2,
   setHoldingSWPSRC20,
   setAuthSetting,
+  resetUser,
 } = slice.actions;
 
 export default slice.reducer;

@@ -20,6 +20,7 @@ import {
   OrderItem,
   OrderItemResp,
   OrderStatus,
+  WebsiteConfig,
 } from '@/stores/states/l2services/types';
 import { builderAccountInfo, builderOrderList } from './helper';
 import { COMPUTERS } from './constants';
@@ -250,6 +251,40 @@ export const getInstanceDetailByID = async (
   }
 };
 
+const getConfigInfor = async (
+  networkName: string,
+): Promise<WebsiteConfig | undefined> => {
+  try {
+    const data = (await httpClient.get(
+      `/config/bridge-site/${networkName}`,
+    )) as any;
+
+    if (data && data.status === false) return undefined;
+    return data as WebsiteConfig;
+  } catch (error: any) {
+    console.log('[getConfigInfor] ERROR ', error);
+    throw error;
+  }
+};
+
+const updateConfigInfor = async (
+  networkName: string,
+  configData: WebsiteConfig,
+): Promise<WebsiteConfig | undefined> => {
+  try {
+    const data = (await httpClient.put(
+      `/config/bridge-site/${networkName}`,
+      configData,
+    )) as any;
+    console.log('PHAT === data ', data);
+    if (data && data.status === false) return undefined;
+    return data as WebsiteConfig;
+  } catch (error: any) {
+    console.log('[updateConfigInfor] ERROR ', error);
+    return undefined;
+  }
+};
+
 const setAccesTokenHeader = (accessToken: string) => {
   httpClient.defaults.headers.Authorization = `Bearer ${accessToken}`;
 };
@@ -281,6 +316,9 @@ const l2ServicesAPI = {
   setAccesTokenHeader,
   removeAccesTokenHeader,
   getInstanceDetailByID,
+
+  getConfigInfor,
+  updateConfigInfor,
 };
 
 export default l2ServicesAPI;

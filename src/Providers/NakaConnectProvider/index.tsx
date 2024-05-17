@@ -42,7 +42,7 @@ export const NakaConnectProvider: React.FC<PropsWithChildren> = ({
   const address = useAppSelector(nakaAddressSelector);
 
   const getConnector = () => {
-    return new nakaConnect.DappConnect(PERP_API_URL, WALLET_URL);
+    return new nakaConnect.DappConnect(PERP_API_URL, WALLET_URL + '/signer');
   };
 
   const requestAccount = async () => {
