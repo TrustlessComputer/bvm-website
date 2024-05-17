@@ -47,9 +47,10 @@ const AirdropBox = () => {
   };
 
   const getLaunchpadInfoSwamp = async () => {
+    if (!address) return;
     try {
       const [response]: any = await Promise.all([
-        launchpadApi.getLaunchpadSwampAirdrop(),
+        launchpadApi.getLaunchpadSwampAirdrop(address),
       ]);
       setSwampAirdrops(response);
     } catch (err) {}
