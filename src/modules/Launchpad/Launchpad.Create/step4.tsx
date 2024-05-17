@@ -104,14 +104,6 @@ const CreateLaunchpadStep4 = () => {
       <Box mt={6} />
       <Flex gap={4} justifyContent={'center'}>
         <Button
-          className={s.btnBack}
-          onClick={() => dispatch(setCreateStep(2))}
-          type="button"
-          isDisabled={submitting}
-        >
-          Back
-        </Button>
-        <Button
           onClick={onSubmit}
           isDisabled={submitting}
           isLoading={submitting}
