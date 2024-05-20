@@ -14,9 +14,9 @@ import WarningMessageView from './WarningMessageView';
 
 interface IProps {
   show: boolean;
-  item: OrderItem;
+  item?: OrderItem;
   onClose?: (() => void) | any;
-  onSuccess?: () => Promise<void>;
+  onSuccess: () => void;
   viewPaymentOnClick?: () => void;
 }
 
@@ -44,6 +44,8 @@ const BillingModal = (props: IProps) => {
       timerRef.current = undefined;
     };
   }, []);
+
+  if (!item) return null;
 
   return (
     <BaseModal

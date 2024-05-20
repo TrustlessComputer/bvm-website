@@ -20,7 +20,7 @@ const INTERVAL_TIMER = 6000; // only Layer 2!
 interface IProps {
   show: boolean;
   onClose?: (() => void) | any;
-  onSuccess?: () => Promise<void>;
+  onSuccess?: () => void;
 }
 
 const SendFormModal = (props: IProps) => {

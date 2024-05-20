@@ -11,9 +11,8 @@ import { isFetchingAllDataSelector } from '@/stores/states/l2services/selector';
 import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
 import s from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
-import { enhance } from './Dashboard.enhance';
 
-const Page = () => {
+export default () => {
   const fetcher = useFetchUserData();
   const isFetchingAllData = useAppSelector(isFetchingAllDataSelector);
   const { isL2ServiceLogged, isNeededRequestSignMessageFromNakaWallet } =
@@ -53,5 +52,3 @@ const Page = () => {
     </Flex>
   );
 };
-
-export default enhance(Page);
