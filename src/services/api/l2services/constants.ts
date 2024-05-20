@@ -11,6 +11,13 @@ import {
 } from '@/stores/states/l2services/types';
 
 const FinalizationPeriod = 604800 + ''; // 7 days
+
+export const getBridgeLink = (isProduction: boolean, networkName: string) => {
+  return isProduction
+    ? `${networkName}.trustlessbridge.io`
+    : `https://testnet.trustlessbridge.io/bridge/${networkName}`;
+};
+
 export const CHAIN_ID = {
   NOS: 42213,
   NOS_TEST: 42070,
@@ -23,23 +30,18 @@ export const CHAIN_ID = {
 
 const getPlugins = ({
   isProduction,
-  fromNetwork = 'bitcoin',
-  toNetwork = 'trustless-computer',
+  networkName,
 }: {
   isProduction: boolean;
-  fromNetwork?: string;
-  toNetwork?: string;
+  networkName: string;
 }): Array<IPlugin> => {
   const plugins = [
     {
       name: 'Trustless Bridge',
-      description: '',
+      description:
+        'A two-way bridge that enables seamless transfer of assets between Bitcoin and Trustless Computer.',
       image: 'https://cdn.trustless.domains/icons/ic-bridge.svg',
-      link:
-        (isProduction
-          ? 'https://trustlessbridge.io/'
-          : 'https://testnet.trustlessbridge.io/') +
-        `?tab=transfer&from=${fromNetwork}&to=${toNetwork}`,
+      link: getBridgeLink(isProduction, networkName),
     },
   ];
 
@@ -81,8 +83,7 @@ const TRUSTLESS_COMPUTER_MAINNET: OrderItemResp = {
   ticker: 'BTC',
   plugins: getPlugins({
     isProduction: true,
-    fromNetwork: 'bitcoin',
-    toNetwork: 'trustless-computer',
+    networkName: 'trustless-computer',
   }),
 };
 
@@ -121,8 +122,7 @@ const TRUSTLESS_COMPUTER_TESTNET: OrderItemResp = {
   ticker: 'BTC',
   plugins: getPlugins({
     isProduction: false,
-    fromNetwork: 'bitcoin',
-    toNetwork: 'trustless-computer',
+    networkName: 'trustless-computer',
   }),
 };
 
@@ -162,8 +162,7 @@ const ALPHA_MAINNET: OrderItemResp = {
   ticker: 'BVM',
   plugins: getPlugins({
     isProduction: true,
-    fromNetwork: 'bitcoin',
-    toNetwork: 'alpha',
+    networkName: 'trustlessLayer2',
   }),
 };
 
@@ -203,8 +202,7 @@ const ALPHA_TESTNET: OrderItemResp = {
   ticker: 'BVM',
   plugins: getPlugins({
     isProduction: false,
-    fromNetwork: 'bitcoin',
-    toNetwork: 'alpha',
+    networkName: 'trustlessLayer2',
   }),
 };
 
@@ -243,8 +241,7 @@ const NAKA_TESTNET: OrderItemResp = {
   ticker: 'BTC',
   plugins: getPlugins({
     isProduction: false,
-    fromNetwork: 'bitcoin',
-    toNetwork: 'trustless-computer',
+    networkName: '',
   }),
 };
 
@@ -285,8 +282,7 @@ const NAKA_MAINNET: OrderItemResp = {
   ticker: 'BTC',
   plugins: getPlugins({
     isProduction: true,
-    fromNetwork: 'bitcoin',
-    toNetwork: 'naka',
+    networkName: '',
   }),
 };
 
@@ -326,8 +322,7 @@ const RUNECHAIN_MAINNET: OrderItemResp = {
   ticker: 'BVM',
   plugins: getPlugins({
     isProduction: true,
-    fromNetwork: 'bitcoin',
-    toNetwork: 'runechain',
+    networkName: '',
   }),
 };
 
@@ -367,8 +362,7 @@ const ETERNAL_AI_MAINNET: OrderItemResp = {
   ticker: 'EAI',
   plugins: getPlugins({
     isProduction: true,
-    fromNetwork: 'bitcoin',
-    toNetwork: 'eternaiai',
+    networkName: '',
   }),
 };
 

@@ -11,11 +11,17 @@ type Props = {
   isOwner?: boolean;
   viewBillingOnClick?: () => void;
   bridgeOnClick?: () => void;
+  editConfigBridgeOnClick?: () => void;
 };
 
 const BottomInfor = (props: Props) => {
-  const { item, isOwner, viewBillingOnClick, bridgeOnClick } = props;
-
+  const {
+    item,
+    isOwner,
+    viewBillingOnClick,
+    bridgeOnClick,
+    editConfigBridgeOnClick,
+  } = props;
   const [adding, setAdding] = useState(false);
 
   const isAddToMetamask = useMemo(() => {
@@ -70,7 +76,7 @@ const BottomInfor = (props: Props) => {
         borderRadius={'6px'}
         onClick={(event: any) => {
           if (event.stopPropagation) event.stopPropagation();
-          isOwner && bridgeOnClick && bridgeOnClick();
+          bridgeOnClick && bridgeOnClick();
         }}
       >
         <Image src={icURL} w={'40px'} h={'auto'} objectFit={'contain'} />
@@ -78,14 +84,22 @@ const BottomInfor = (props: Props) => {
           {dAppName || '--'}
         </Text>
         {isOwner && (
-          <EditIcon
-            color={'#484848'}
-            position={'absolute'}
-            top={'-8px'}
-            right={'-8px'}
-            w={'20px'}
-            height={'auto'}
-          />
+          <Flex
+            p={'5px'}
+            onClick={(event: any) => {
+              if (event.stopPropagation) event.stopPropagation();
+              editConfigBridgeOnClick && editConfigBridgeOnClick();
+            }}
+          >
+            <EditIcon
+              color={'#484848'}
+              position={'absolute'}
+              top={'-8px'}
+              right={'-8px'}
+              w={'20px'}
+              height={'auto'}
+            />
+          </Flex>
         )}
       </Flex>
     );

@@ -8,6 +8,7 @@ import BodyInfor from './BodyInfor';
 import BottomInfor from './BottomInfor';
 import HeaderRow from './HeaderRow';
 import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
+import { getBridgeLink } from '@/services/api/l2services/constants';
 
 type Props = {
   item: OrderItem;
@@ -54,6 +55,15 @@ const L2Instance = (props: Props) => {
               onOpenBillingModal && onOpenBillingModal();
             }}
             bridgeOnClick={() => {
+              dispatch(setOrderSelected(item));
+              if (!item.isMainnet) {
+                window.open(
+                  getBridgeLink(item.isMainnet, item.domain),
+                  '_blank',
+                );
+              }
+            }}
+            editConfigBridgeOnClick={() => {
               dispatch(setOrderSelected(item));
               onOpenEditConfigModal && onOpenEditConfigModal();
             }}
