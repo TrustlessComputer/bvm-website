@@ -1,6 +1,7 @@
 'use client';
 
-import { useAppSelector } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   allOrdersSelector,
   getL2ServicesStateSelector,
@@ -8,25 +9,18 @@ import {
 } from '@/stores/states/l2services/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';
-import { useMemo, useState } from 'react';
-import ItemDetailModal from '../ItemDetailModal';
-import TopupModal from '../TopupModal';
+import { useMemo } from 'react';
 import L2Instance from './L2Instance';
+import { useDashboard } from '../../providers/DashboardProvider';
 
 const BodyGridView = () => {
+  const dispatch = useAppDispatch();
+  const { onOpenOpenOrderDetailModal } = useDashboard();
   const myOrders = useAppSelector(orderListSelector);
   const allOrders = useAppSelector(allOrdersSelector);
   const { viewMode, showOnlyMyOrder, accountInforL2Service } = useAppSelector(
     getL2ServicesStateSelector,
   );
-
-  const [showItemDetailModal, setShowItemDetailModal] = useState(false);
-  const [showTopupModal, setShowTopupModal] = useState(false);
-  const [showBillingModal, setShowBillingModal] = useState(false);
-
-  const [itemDetailSelected, setItemDetailSelected] = useState<
-    undefined | OrderItem
-  >(undefined);
 
   const serviceDataList = useMemo(() => {
     const filterByNetwork = (orders: OrderItem[]) => {
@@ -85,8 +79,8 @@ const BodyGridView = () => {
             item={item}
             isOwner={item.tcAddress === accountInforL2Service?.tcAddress}
             onClick={() => {
-              setShowItemDetailModal(true);
-              setItemDetailSelected(item);
+              dispatch(setOrderSelected(item));
+              onOpenOpenOrderDetailModal && onOpenOpenOrderDetailModal();
             }}
           />
         ))}
@@ -94,21 +88,9 @@ const BodyGridView = () => {
     );
   };
 
-  // console.log('serviceDataList --- ', serviceDataList);
-
   return (
     <Flex overflow={'hidden'}>
       {isEmptyData ? renderEmptyView() : renderDataList()}
-      {showItemDetailModal && itemDetailSelected && (
-        <ItemDetailModal
-          show={showItemDetailModal}
-          item={itemDetailSelected!}
-          onClose={() => {
-            setShowItemDetailModal(false);
-          }}
-          onSuccess={async () => {}}
-        />
-      )}
     </Flex>
   );
 };

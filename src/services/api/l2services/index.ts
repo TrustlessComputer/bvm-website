@@ -166,13 +166,16 @@ const getAllOrders = async (): Promise<OrderItem[]> => {
 };
 
 const accountGetInfo = async (): Promise<AccountInfo> => {
-  const account = (await httpClient.get(
-    `/account/get-info`,
-  )) as AccountInfoResp;
-  // TODO: remove this
-  return builderAccountInfo({
-    ...account,
-  });
+  try {
+    const account = (await httpClient.get(
+      `/account/get-info`,
+    )) as AccountInfoResp;
+    return builderAccountInfo({
+      ...account,
+    });
+  } catch (error) {
+    throw error;
+  }
 };
 
 const getQuickStart = async (): Promise<Array<IQuickStart> | undefined> => {

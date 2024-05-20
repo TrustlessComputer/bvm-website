@@ -35,9 +35,9 @@ const LOGOURL_INVALID_ERROR_MESSAGE = 'Logo url is invalid format';
 
 interface IProps {
   show: boolean;
-  item: OrderItem;
+  item?: OrderItem;
   onClose?: (() => void) | any;
-  onSuccess?: () => Promise<void>;
+  onSuccess?: () => void;
 }
 
 const EditConfigModal = (props: IProps) => {
@@ -60,6 +60,10 @@ const EditConfigModal = (props: IProps) => {
   const [isFetchingData, setFetchingData] = useState<boolean>(false);
   const [isUpdating, setUpdating] = useState<boolean>(false);
 
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined,
+  );
+
   const isSubmitDisabled = useMemo(() => {
     return isFetchingData || isUpdating;
   }, [isFetchingData, isUpdating]);
@@ -77,7 +81,7 @@ const EditConfigModal = (props: IProps) => {
     try {
       setFetchingData(true);
       const data = (await l2ServicesAPI.getConfigInfor(
-        item.domain,
+        item?.domain!,
       )) as WebsiteConfig;
       setConfigObj(data);
       if (data) {
@@ -87,8 +91,9 @@ const EditConfigModal = (props: IProps) => {
       }
     } catch (error) {
       const { message } = getErrorMessage(error);
+      setErrorMessage(message);
       // toast.error(message); //Show Toast Error if Needed
-      onClose & onClose();
+      // onClose & onClose();
     } finally {
       setFetchingData(false);
     }
@@ -112,7 +117,7 @@ const EditConfigModal = (props: IProps) => {
           ...configObj.themeConfig,
         },
       };
-      const data = await l2ServicesAPI.updateConfigInfor(item.domain, params);
+      const data = await l2ServicesAPI.updateConfigInfor(item?.domain!, params);
       if (data) {
         setTitle(data.metaConfig?.tabTitle);
         setDesc(data.metaConfig?.tabDesc);
@@ -389,6 +394,18 @@ const EditConfigModal = (props: IProps) => {
   };
 
   const renderContent = () => {
+    if (errorMessage)
+      return (
+        <Text
+          fontSize={'24px'}
+          fontWeight={600}
+          color={'#000'}
+          lineHeight={'20px'}
+          align={'center'}
+        >
+          {errorMessage}
+        </Text>
+      );
     return (
       <Flex
         mt={'20px'}
@@ -435,6 +452,8 @@ const EditConfigModal = (props: IProps) => {
       </Flex>
     );
   };
+
+  if (!item) return null;
 
   return (
     <BaseModal
