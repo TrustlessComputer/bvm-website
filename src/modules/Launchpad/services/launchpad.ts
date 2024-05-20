@@ -22,6 +22,7 @@ import {
 class CLaunchpadAPI {
   private apiClient = new CApiClient().api;
   private prefix = `/api/launchpad`;
+  private prefixSync = `/api/sync`;
 
   public getLaunchpadOptions = async (): Promise<ILaunchpadFeeOption[]> => {
     try {
@@ -396,6 +397,27 @@ class CLaunchpadAPI {
       return rs as unknown as IPreLaunchpadTask[];
     } catch (error) {
       return [];
+    }
+  };
+
+  public scanTrxAlpha = async ({
+    tx_hash,
+  }: {
+    tx_hash: string;
+  }): Promise<any> => {
+    try {
+      const rs = await this.apiClient.get(
+        `${this.prefixSync}/scan-transaction-hash`,
+        {
+          params: {
+            tx_hash,
+            network: 'naka',
+          },
+        },
+      );
+      return rs;
+    } catch (e) {
+      // throw e;
     }
   };
 }
