@@ -98,6 +98,10 @@ const CreateLaunchpadStep2 = () => {
     <Form
       initialValues={{
         description: step_values.description,
+        web: step_values.web,
+        twitter: step_values.twitter,
+        telegram: step_values.telegram,
+        discord: step_values.discord,
       }}
       onSubmit={onSubmit}
     >

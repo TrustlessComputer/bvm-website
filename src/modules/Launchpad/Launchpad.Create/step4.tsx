@@ -14,15 +14,18 @@ import { compareString } from '@/utils/string';
 import { Box, Button, Center, Flex, Spinner, Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import { formatEther, isAddress } from 'ethers/lib/utils';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Field, Form, useForm, useFormState } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
 import CLaunchpadAPI from '../services/launchpad';
 import {
+  clearCreateBody,
   launchpadSelector,
   setCreatedLaunchpadId,
   setCreateStep,
 } from '../store/reducer';
+import { ELaunchpadStatus } from '../services/launchpad.interfaces';
+import { useRouter } from 'next/navigation';
 
 interface IFormCreateLaunchpadStep4 {
   handleSubmit: any;
@@ -44,6 +47,7 @@ const FormCreateLaunchpadStep4 = ({
   handleSubmit,
   submitting,
 }: IFormCreateLaunchpadStep4) => {
+  const router = useRouter();
   const needReload = useSelector(commonSelector).needReload;
   const Token = useRef(new CToken()).current;
   const launchpadApi = useRef(new CLaunchpadAPI()).current;
@@ -114,7 +118,6 @@ const FormCreateLaunchpadStep4 = ({
           contractAddress: TOKEN_ADDRESS.BVM_TOKEN_ADDRESS,
         }).balanceOf(detail?.admin_address),
       ]);
-      console.log('isApproved', rs[0]);
 
       change('isApproved', !rs[0]);
 
@@ -130,6 +133,14 @@ const FormCreateLaunchpadStep4 = ({
       //
     }
   };
+
+  const isVoting = useMemo(() => {
+    return compareString(detail?.status, ELaunchpadStatus.voting);
+  }, [detail]);
+
+  const isNew = useMemo(() => {
+    return compareString(detail?.status, ELaunchpadStatus.new);
+  }, [detail]);
 
   const onFieldChange = async (value: string) => {
     try {
@@ -147,6 +158,28 @@ const FormCreateLaunchpadStep4 = ({
     } finally {
       setChecking(false);
     }
+  };
+
+  const renderButton = () => {
+    let title = 'Submit Launchpad';
+
+    if (saleTokenInfo) {
+      if (!isTransferBVMFeeAmount) {
+        title = `Transfer Fee Amount BVM`;
+      } else if (!isApproved && saleTokenInfo) {
+        title = `Approve ${saleTokenInfo?.symbol}`;
+      }
+    }
+
+    return (
+      <Button
+        type="submit"
+        isDisabled={submitting || checking}
+        isLoading={submitting}
+      >
+        {title}
+      </Button>
+    );
   };
 
   if (loading) {
@@ -173,27 +206,26 @@ const FormCreateLaunchpadStep4 = ({
     );
   }
 
-  const renderButton = () => {
-    let title = 'Submit Launchpad';
-
-    if (saleTokenInfo) {
-      if (!isTransferBVMFeeAmount) {
-        title = `Transfer Fee Amount BVM`;
-      } else if (!isApproved && saleTokenInfo) {
-        title = `Approve ${saleTokenInfo?.symbol}`;
-      }
-    }
-
+  if (isNew) {
     return (
-      <Button
-        type="submit"
-        isDisabled={submitting || checking}
-        isLoading={submitting}
-      >
-        {title}
-      </Button>
+      <Center flexDirection={'column'} minH={'200px'} gap={'15px'}>
+        <Text>This launchpad has submitted. Waiting for voting</Text>
+      </Center>
     );
-  };
+  }
+
+  if (isVoting) {
+    return (
+      <Center flexDirection={'column'} minH={'200px'} gap={'15px'}>
+        <Text>This launchpad is voting</Text>
+        <Button
+          onClick={() => router.push(`/proposal-dashboard/${detail?.id}`)}
+        >
+          Go to DAO
+        </Button>
+      </Center>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -294,6 +326,8 @@ const CreateLaunchpadStep4 = () => {
         showSuccess({
           message: `Submitted Launchpad Successfully!`,
         });
+        dispatch(setCreateStep(0));
+        dispatch(clearCreateBody());
       }
     } catch (error) {
       console.log('error', error);

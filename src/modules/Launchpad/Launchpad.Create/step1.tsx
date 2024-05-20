@@ -247,6 +247,13 @@ const CreateLaunchpadStep1 = () => {
         end_ido_date: step_values.end_ido_date,
         end_date: step_values.end_date,
         pre_sale: step_values.pre_sale,
+        name: step_values.name,
+        hard_cap: step_values.hard_cap,
+        public_sale_allocation: step_values.public_sale_allocation,
+        liquidity_fund_ratio: step_values.liquidity_fund_ratio,
+        airdrop_ratio: step_values.airdrop_ratio,
+        public_sale_duration: step_values.public_sale_duration,
+        pre_sale_duration: step_values.pre_sale_duration,
       }}
     >
       {({ handleSubmit }) => (
