@@ -13,7 +13,7 @@ import { setMyDataLeaderBoard } from '@/modules/Launchpad/store/reducer';
 import ListTable, {
   ColumnProp,
 } from '@/modules/Whitelist/leaderBoard/ListTable';
-import { useLaunchpadContext } from '@/Providers/LaunchpadProvider/hooks/useLaunchpadContext';
+import { LaunchpadContext } from '@/Providers/LaunchpadProvider';
 import { commonSelector } from '@/stores/states/common/selector';
 import { shortCryptoAddress } from '@/utils/address';
 import { formatCurrency, formatName } from '@/utils/format';
@@ -25,7 +25,7 @@ import { BigNumber } from 'bignumber.js';
 import clsx from 'classnames';
 import { orderBy, uniqBy } from 'lodash';
 import { useParams } from 'next/navigation';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { isDesktop } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
 import s from './styles.module.scss';
@@ -38,6 +38,7 @@ const valueToClassName: any = {
 };
 
 const LeaderBoard = ({ tasks = [] }: { tasks?: IPreLaunchpadTask[] }) => {
+  const { currentLaunchpad } = useContext(LaunchpadContext);
   const needReload = useSelector(commonSelector).needReload;
   const [data, setData] = useState<ILeaderBoardPoint[]>([]);
 
@@ -52,12 +53,11 @@ const LeaderBoard = ({ tasks = [] }: { tasks?: IPreLaunchpadTask[] }) => {
   const params = useParams();
   const id = params?.id;
 
-  const { currentLaunchpad } = useLaunchpadContext();
   const dispatch = useDispatch();
 
   useEffect(() => {
     fetchData(true);
-  }, [id, needReload]);
+  }, [needReload, currentLaunchpad]);
 
   const sortList = (arr: ILeaderBoardPoint[]) => {
     return uniqBy(
@@ -68,6 +68,9 @@ const LeaderBoard = ({ tasks = [] }: { tasks?: IPreLaunchpadTask[] }) => {
 
   const fetchData = async (isNew?: boolean) => {
     try {
+      if (!currentLaunchpad?.id) {
+        return;
+      }
       if (isNew) {
         refParams.current = {
           ...refParams.current,
@@ -75,18 +78,33 @@ const LeaderBoard = ({ tasks = [] }: { tasks?: IPreLaunchpadTask[] }) => {
         };
       }
 
-      const response = await launchpadApi.getPrelaunchLeaderBoards(Number(id), {
-        ...refParams.current,
-      });
+      let response = [];
+      let response2 = [];
+
+      if (compareString(currentLaunchpad?.status, ELaunchpadStatus.prelaunch)) {
+        response = await launchpadApi.getPrelaunchLeaderBoards(Number(id), {
+          ...refParams.current,
+        });
+      } else {
+        response = await launchpadApi.getLaunchIDOLeaderBoards(Number(id), {
+          ...refParams.current,
+        });
+      }
 
       if (isNew) {
-        const response2 = await launchpadApi.getPrelaunchLeaderBoards(
-          Number(id),
-          {
+        if (
+          compareString(currentLaunchpad?.status, ELaunchpadStatus.prelaunch)
+        ) {
+          response2 = await launchpadApi.getPrelaunchLeaderBoards(Number(id), {
             page: 1,
             limit: 0,
-          },
-        );
+          });
+        } else {
+          response2 = await launchpadApi.getLaunchIDOLeaderBoards(Number(id), {
+            page: 1,
+            limit: 0,
+          });
+        }
 
         dispatch(setMyDataLeaderBoard(response2?.rows[0]));
 

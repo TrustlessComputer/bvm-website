@@ -1,6 +1,6 @@
-import TOKEN_ADDRESS from '@/constants/token';
+import TOKEN_ADDRESS, { isNativeToken } from '@/constants/token';
 import { ethers } from 'ethers';
-import { parseEther } from 'ethers/lib/utils';
+import { formatEther, formatUnits, parseEther } from 'ethers/lib/utils';
 import CContractBase from '../base';
 import CToken from '../token';
 import { LaunchpadPool } from './abis/launchpadPool';
@@ -60,6 +60,12 @@ class CLaunchpad extends CContractBase {
     try {
       const connector = this.nakaConnectContext.getConnector();
 
+      let value = '0';
+
+      if (isNativeToken(body.depositTokenAddress)) {
+        value = body.depositAmount;
+      }
+
       const calldata = this.getLaunchPool(
         body.launchPoolAddress,
       ).interface.encodeFunctionData('deposit', [
@@ -73,6 +79,7 @@ class CLaunchpad extends CContractBase {
         to: body.launchPoolAddress,
         functionType: 'Deposit launchpad',
         chainType: 'NAKA',
+        value: body.depositAmountOriginal,
       });
       return tx;
     } catch (error) {
