@@ -44,6 +44,9 @@ const stakingV2Slice = createSlice({
     setStakeLeaderBoard: (state, action) => {
       state.leaderBoards = action.payload;
     },
+    resetStake: (state) => {
+      state.stakeUser = undefined;
+    }
   },
 });
 
@@ -55,6 +58,7 @@ export const {
   setHistory,
   setStakingPercent,
   setStakeLeaderBoard,
+  resetStake,
 } = stakingV2Slice.actions;
 
 export default stakingV2Slice.reducer;

@@ -124,6 +124,11 @@ const CreateLaunchpadStep3 = () => {
           .multipliedBy(60)
           .multipliedBy(60)
           .toNumber(),
+        liquidity_fund_ratio: new BigNumber(
+          create_body?.liquidity_fund_ratio || '0',
+        )
+          .dividedBy(100)
+          .toNumber(),
       };
       const rs = await launchpadApi.createLaunchpad(values);
 

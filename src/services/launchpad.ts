@@ -18,10 +18,14 @@ class CLaunchpadAPI {
     }
   };
 
-  public getLaunchpadSwampAirdrop = async (): Promise<any> => {
+  public getLaunchpadSwampAirdrop = async (address: string): Promise<any> => {
     try {
       const prefix = `${PERP_API_URL}/api/`;
-      const res = (await this.apiClient.get(`${prefix}swamps/airdop`)) as any;
+      const res = (await this.apiClient.get(`${prefix}swamps/airdop`, {
+        params: {
+          address,
+        },
+      })) as any;
       return res;
     } catch (error) {
       throw error;

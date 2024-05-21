@@ -18,10 +18,13 @@ import {
   ILaunchpadBodyTask,
   ILaunchpadSetupTask,
 } from './lauchpad.create.interface';
+import { camelCaseKeys } from '@/utils/normalize';
 
 class CLaunchpadAPI {
   private apiClient = new CApiClient().api;
   private prefix = `/api/launchpad`;
+  private prefixBVM = `/api/bvm`;
+  private prefixSync = `/api/sync`;
 
   public getLaunchpadOptions = async (): Promise<ILaunchpadFeeOption[]> => {
     try {
@@ -319,43 +322,59 @@ class CLaunchpadAPI {
         address: '0x7156916594bca9933db68cf85c239f8b54560ec9',
         coin: 'ETH',
         network: ['ethereum', 'arbitrum', 'optimism', 'base', 'alpha'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address: '1K6KoYC69NnafWJ7YgtrpwJxBLiijWqwa6',
         coin: 'BTC',
         network: ['bitcoin'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address: '0x7156916594bca9933db68cf85c239f8b54560ec9',
         coin: 'USDT',
         network: ['ethereum'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address: '0x7156916594bca9933db68cf85c239f8b54560ec9',
         coin: 'USDC',
         network: ['ethereum'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address: '0x7156916594bca9933db68cf85c239f8b54560ec9',
         coin: 'OP',
         network: ['optimism'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address: '0x7156916594bca9933db68cf85c239f8b54560ec9',
         coin: 'ARB',
         network: ['arbitrum'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address:
           'bc1pfga8evq6zu2h8a5nhrewfwll4puf5z7cshkzx9g29kpqhkxhx6vqqzwtru',
         coin: 'ORDI',
         network: ['bitcoin'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address:
           'bc1pfga8evq6zu2h8a5nhrewfwll4puf5z7cshkzx9g29kpqhkxhx6vqqzwtru',
         coin: 'SATS',
         network: ['bitcoin'],
+        symbol: 'ETH',
+        decimals: 18,
       },
     ];
   };
@@ -396,6 +415,56 @@ class CLaunchpadAPI {
       return rs as unknown as IPreLaunchpadTask[];
     } catch (error) {
       return [];
+    }
+  };
+
+  public scanTrxAlpha = async ({
+    tx_hash,
+  }: {
+    tx_hash: string;
+  }): Promise<any> => {
+    try {
+      const rs = await this.apiClient.get(
+        `${this.prefixSync}/scan-transaction-hash`,
+        {
+          params: {
+            tx_hash,
+            network: 'naka',
+          },
+        },
+      );
+      return rs;
+    } catch (e) {
+      // throw e;
+    }
+  };
+
+  public requestAuthenByShareCode = async (): Promise<any> => {
+    try {
+      const res = await this.apiClient.post(
+        `${this.prefixBVM}/request-auth-by-share-code`,
+      );
+      return res;
+    } catch (e) {
+      // throw e;
+    }
+  };
+
+  public generateTokenWithTwPost = async (
+    uuid: string,
+    link?: string,
+  ): Promise<any> => {
+    try {
+      const res = await this.apiClient.post(
+        `${this.prefixBVM}/generate-token-with-twitter-post`,
+        {
+          secret_code: uuid,
+          link: link,
+        },
+      );
+      return Object(camelCaseKeys(res));
+    } catch (e) {
+      // throw e;
     }
   };
 }

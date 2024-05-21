@@ -79,7 +79,7 @@ const CreateLaunchpad = () => {
           <Step key={index}>
             <StepIndicator>
               <StepStatus
-                complete={<StepIcon />}
+                complete={<StepIcon color={'green'} />}
                 incomplete={<StepNumber />}
                 active={<StepNumber />}
               />

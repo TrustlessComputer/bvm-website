@@ -6,7 +6,7 @@ export const CREATE_STEPS = [
   },
   { title: 'Add Additional Info', description: 'Let people know who you are' },
   { title: 'Submit', description: 'Review & Submit your information' },
-  { title: 'Finish', description: 'Deposit $BVM' },
+  { title: 'Finish', description: 'Deposit $BVM & Sale token' },
 ];
 
 export const CREATE_FEES = [

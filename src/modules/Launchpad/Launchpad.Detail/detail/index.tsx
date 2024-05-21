@@ -20,8 +20,14 @@ const LaunchpadDetailCommon = () => {
       dayjs().isBefore(dayjs(currentLaunchpad?.pre_launch_end_date))
     ) {
       return <ContentPreLaunch />;
-    } else {
+    } else if (
+      compareString(currentLaunchpad?.status, ELaunchpadStatus.ido) ||
+      compareString(currentLaunchpad?.status, ELaunchpadStatus.listing) ||
+      compareString(currentLaunchpad?.status, ELaunchpadStatus.tge)
+    ) {
       return <ContentIDO />;
+    } else {
+      return <></>;
     }
   };
 

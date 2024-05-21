@@ -60,9 +60,12 @@ export interface ILaunchpad {
   tasks?: ILaunchpadBodyTask[];
   pre_sale_duration?: number;
   public_sale_duration?: number;
+  payment_tokens?: WalletTokenDeposit[];
+  pool_address?: string;
 }
 
 export interface ILaunchpadCreateBody {
+  name?: string;
   token_name?: string;
   token_symbol?: string;
   token_decimals?: string;
@@ -84,7 +87,7 @@ export interface ILaunchpadCreateBody {
   end_date?: string;
   launchpad_fee_option_id?: number;
   allocation_ticket?: number;
-  website?: string;
+  web?: string;
   twitter?: string;
   telegram?: string;
   discord?: string;
@@ -97,6 +100,9 @@ export interface ILaunchpadCreateBody {
   tasks?: ILaunchpadBodyTask[];
   pre_sale_duration?: number;
   public_sale_duration?: number;
+  public_sale_allocation?: number;
+  liquidity_fund_ratio?: number;
+  airdrop_ratio?: number;
 }
 
 export interface ILaunchpadTicket {
@@ -132,7 +138,9 @@ export interface ILaunchpadClaimParams {
 export interface WalletTokenDeposit {
   address: string;
   coin: string;
+  symbol: string;
   network: string[];
+  decimals: number;
 }
 
 export interface IPreLaunchpadTask {

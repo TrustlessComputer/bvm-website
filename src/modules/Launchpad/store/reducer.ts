@@ -34,6 +34,9 @@ const slice = createSlice({
     setCreateStep: (state, actions) => {
       state.create_step = actions.payload as number;
     },
+    clearCreateBody: (state) => {
+      state.create_body = {};
+    },
     setCreateBody: (state, actions) => {
       state.create_body = {
         ...state.create_body,
@@ -86,6 +89,7 @@ export const {
   setOldBlockScout,
   setBlockScout,
   setMyDataLeaderBoard,
+  clearCreateBody,
 } = slice.actions;
 
 export const launchpadSelector = (state: RootState) => state.launchpad;

@@ -1,10 +1,13 @@
 /* eslint-disable no-useless-catch */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable prefer-const */
+import { isProduction } from '@/config';
 import useNakaAuthen from '@/hooks/useRequestNakaAccount';
+import { BigNumber, Wallet } from 'ethers';
+import { parseUnits } from 'ethers/lib/utils';
 import CContract from './contract';
-import { Wallet } from 'ethers';
-import { formatUnits } from 'ethers/lib/utils';
+import { useContext } from 'react';
+import { NakaConnectContext } from '@/Providers/NakaConnectProvider';
 
 export enum ETypes {
   staking = 'staking',
@@ -16,6 +19,7 @@ export const typeToFee = {
 
 class CContractBase extends CContract {
   private nakaWallet = useNakaAuthen();
+  public nakaConnectContext = useContext(NakaConnectContext);
 
   private wallet: Wallet | undefined = undefined;
 
@@ -28,36 +32,8 @@ class CContractBase extends CContract {
     return this.wallet;
   };
 
-  public getTokenInfo = async (token_address: string) => {
-    try {
-      const _wallet = await this.getWallet();
-      const tokenERC20 = this.getERC20Contract({
-        contractAddress: token_address,
-      });
-      const [name, supply, symbol, decimals] = await Promise.all([
-        tokenERC20.name(),
-        tokenERC20.totalSupply(),
-        tokenERC20.symbol(),
-        tokenERC20.decimals(),
-      ]);
-      let balance: any = 0;
-      if (_wallet?.address) {
-        balance = await this.getERC20Contract({
-          contractAddress: token_address,
-        }).balanceOf(_wallet.address);
-
-        balance = formatUnits(balance, decimals);
-      }
-      return {
-        name,
-        supply: formatUnits(supply, decimals),
-        symbol,
-        decimals,
-        balance,
-      };
-    } catch (error) {
-      throw error;
-    }
+  public getGasPrice = async () => {
+    return BigNumber.from(isProduction ? '100000' : parseUnits('2', 9));
   };
 }
 

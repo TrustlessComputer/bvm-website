@@ -114,7 +114,7 @@ const ShareTw = (props: IShareTw) => {
       launchpadApi.requestClaimFollow(currentLaunchpad?.id as number, {
         type: data?.point_type,
       });
-      const result = await generateTokenWithTwPost(
+      const result = await launchpadApi.generateTokenWithTwPost(
         authenCode?.secret_code as string,
       );
       onVerifyTwSuccess(result);
@@ -153,7 +153,7 @@ const ShareTw = (props: IShareTw) => {
         modalProps: {
           size: 'lg',
         },
-        render: (
+        render: () => (
           <VerifyTwModal
             secretCode={authenCode?.secret_code}
             onSuccess={onVerifyTwSuccess}
@@ -199,6 +199,7 @@ const ShareTw = (props: IShareTw) => {
                     fontSize={'14px !important'}
                     textAlign={'center'}
                     fontWeight={'500'}
+                    style={{ color: '#000' }}
                   >
                     {`If it doesn't update quickly, do it manually `}
                     <Text

@@ -37,7 +37,7 @@ const valueToClassName: any = {
   '1.1': 'boost_1',
 };
 
-const LeaderBoard = ({ tasks }: { tasks: IPreLaunchpadTask[] }) => {
+const LeaderBoard = ({ tasks = [] }: { tasks?: IPreLaunchpadTask[] }) => {
   const needReload = useSelector(commonSelector).needReload;
   const [data, setData] = useState<ILeaderBoardPoint[]>([]);
 

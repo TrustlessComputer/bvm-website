@@ -1,9 +1,9 @@
-import { camelCaseKeys } from '@/utils/normalize';
 import { PERP_API_URL } from '@/config';
+import { VCInfo, VCWalletInfo } from '@/interfaces/vc';
 import createAxiosInstance from '@/services/http-client';
-import TimeChainStorage from '@/utils/storage/timechain.storage';
-import { PublicSaleWalletInfo, VCInfo, VCWalletInfo } from '@/interfaces/vc';
+import { camelCaseKeys } from '@/utils/normalize';
 import AirdropStorage from '@/utils/storage/airdrop.storage';
+import TimeChainStorage from '@/utils/storage/timechain.storage';
 import axios from 'axios';
 
 const apiClient = createAxiosInstance({
@@ -96,7 +96,7 @@ export const getRaffleJoin = async (): Promise<any> => {
 export const joinRaffle = async (): Promise<any> => {
   try {
     const res = await apiClient.post(`/bvm/raffle/join`);
-    AirdropStorage.setTimeChainClicked()
+    AirdropStorage.setTimeChainClicked();
     TimeChainStorage.setTimeChainClicked();
     return res;
   } catch (error) {
@@ -117,15 +117,22 @@ export const getRaffleUsers = async (params: any): Promise<any> => {
   return null;
 };
 
-export const getVCWalletInfo = async ({vc_type, wallet_id}: any): Promise<VCWalletInfo> => {
-  const res = (await apiClient.get(`/bvm/vc/wallet?vc_type=${vc_type}&wallet_id=${wallet_id}`)) as unknown as VCWalletInfo;
+export const getVCWalletInfo = async ({
+  vc_type,
+  wallet_id,
+}: any): Promise<VCWalletInfo> => {
+  const res = (await apiClient.get(
+    `/bvm/vc/wallet?vc_type=${vc_type}&wallet_id=${wallet_id}`,
+  )) as unknown as VCWalletInfo;
   return res;
-}
+};
 
-export const getVCInformation = async ({vc_type}: any): Promise<VCInfo> => {
-  const res = (await apiClient.get(`/bvm/vc/info?vc_type=${vc_type}`)) as unknown as VCInfo;
+export const getVCInformation = async ({ vc_type }: any): Promise<VCInfo> => {
+  const res = (await apiClient.get(
+    `/bvm/vc/info?vc_type=${vc_type}`,
+  )) as unknown as VCInfo;
   return res;
-}
+};
 
 export const getBVMAirdrop = async (params: any): Promise<any> => {
   try {
