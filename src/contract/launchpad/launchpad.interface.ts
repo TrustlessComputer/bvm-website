@@ -12,4 +12,5 @@ export interface IBodyDepositLaunchpad {
   launchPoolAddress: string;
   depositTokenAddress: string;
   depositAmount: string;
+  depositAmountOriginal: string;
 }

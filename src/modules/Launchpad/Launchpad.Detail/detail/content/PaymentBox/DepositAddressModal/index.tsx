@@ -80,14 +80,6 @@ const DepositAddressModal = (props: IProps) => {
   const [country, setCountry] = useState<ICountry | undefined>(undefined);
 
   const depositNakaState = React.useMemo(() => {
-    console.log(
-      'depositNakaState',
-      btcBalance,
-      isLoadedBTC,
-      ethBalance,
-      isLoadedETH,
-    );
-
     const isLoading = !isLoadedBTC || !isLoadedETH || !isLoadedBVM;
     const isHasETH = new BigNumberJS(ethBalance).gt(0.03); // 105$
     const isHasBTC = new BigNumberJS(btcBalance).gt(0.0015); // 105$

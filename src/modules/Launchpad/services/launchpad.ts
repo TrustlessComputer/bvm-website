@@ -97,6 +97,23 @@ class CLaunchpadAPI {
     return res;
   };
 
+  public getLaunchIDOLeaderBoards = async (
+    id: number,
+    params: {
+      page?: number;
+      limit?: number;
+    },
+  ): Promise<any> => {
+    const res: ILeaderBoardPoint[] = await this.apiClient.get(
+      `${this.prefix}/sale/leaderboards/${id}`,
+      {
+        params,
+      },
+    );
+
+    return res;
+  };
+
   public getTopLeaderBoards = async (
     id: number,
     params: {

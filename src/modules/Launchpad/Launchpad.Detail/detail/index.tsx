@@ -22,6 +22,7 @@ const LaunchpadDetailCommon = () => {
       return <ContentPreLaunch />;
     } else if (
       compareString(currentLaunchpad?.status, ELaunchpadStatus.ido) ||
+      compareString(currentLaunchpad?.status, ELaunchpadStatus.ended) ||
       compareString(currentLaunchpad?.status, ELaunchpadStatus.listing) ||
       compareString(currentLaunchpad?.status, ELaunchpadStatus.tge)
     ) {

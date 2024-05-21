@@ -151,6 +151,7 @@ const DepositFromNaka = ({
           ).toString(),
           launchPoolAddress: currentLaunchpad?.pool_address as string,
           depositTokenAddress: selectToken?.address || '',
+          depositAmountOriginal: values.amount,
         });
         await launchpadAPI.scanTrxAlpha({ tx_hash: tx.hash });
       } else {
