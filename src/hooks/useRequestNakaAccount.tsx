@@ -30,7 +30,7 @@ const useNakaAuthen = () => {
     setTimeout(() => {
       window.location.reload();
     }, 300);
-  }, []);
+  }, [nakaAddress]);
 
   return {
     nakaAddress,
