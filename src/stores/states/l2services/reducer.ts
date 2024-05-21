@@ -49,6 +49,9 @@ const slice = createSlice({
       state.isFetched = false;
       state.orderList = [];
       state.orderSelected = undefined;
+      state.accountInforL2Service = undefined;
+      state.isL2ServiceLogged = false;
+      state.allOrders = [];
     },
   },
 

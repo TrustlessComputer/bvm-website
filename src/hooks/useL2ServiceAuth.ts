@@ -176,6 +176,7 @@ const useL2ServiceAuth = () => {
     onLogin,
     onLoginL2Service,
     onVerifyAccessToken,
+    onRemoveAuthen,
     isL2ServiceLogged,
     isNeededRequestSignMessageFromNakaWallet,
   };
