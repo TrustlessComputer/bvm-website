@@ -322,43 +322,59 @@ class CLaunchpadAPI {
         address: '0x7156916594bca9933db68cf85c239f8b54560ec9',
         coin: 'ETH',
         network: ['ethereum', 'arbitrum', 'optimism', 'base', 'alpha'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address: '1K6KoYC69NnafWJ7YgtrpwJxBLiijWqwa6',
         coin: 'BTC',
         network: ['bitcoin'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address: '0x7156916594bca9933db68cf85c239f8b54560ec9',
         coin: 'USDT',
         network: ['ethereum'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address: '0x7156916594bca9933db68cf85c239f8b54560ec9',
         coin: 'USDC',
         network: ['ethereum'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address: '0x7156916594bca9933db68cf85c239f8b54560ec9',
         coin: 'OP',
         network: ['optimism'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address: '0x7156916594bca9933db68cf85c239f8b54560ec9',
         coin: 'ARB',
         network: ['arbitrum'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address:
           'bc1pfga8evq6zu2h8a5nhrewfwll4puf5z7cshkzx9g29kpqhkxhx6vqqzwtru',
         coin: 'ORDI',
         network: ['bitcoin'],
+        symbol: 'ETH',
+        decimals: 18,
       },
       {
         address:
           'bc1pfga8evq6zu2h8a5nhrewfwll4puf5z7cshkzx9g29kpqhkxhx6vqqzwtru',
         coin: 'SATS',
         network: ['bitcoin'],
+        symbol: 'ETH',
+        decimals: 18,
       },
     ];
   };
