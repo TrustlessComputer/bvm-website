@@ -60,6 +60,8 @@ export interface ILaunchpad {
   tasks?: ILaunchpadBodyTask[];
   pre_sale_duration?: number;
   public_sale_duration?: number;
+  payment_tokens?: WalletTokenDeposit[];
+  pool_address?: string;
 }
 
 export interface ILaunchpadCreateBody {
@@ -136,7 +138,9 @@ export interface ILaunchpadClaimParams {
 export interface WalletTokenDeposit {
   address: string;
   coin: string;
+  symbol: string;
   network: string[];
+  decimals: number;
 }
 
 export interface IPreLaunchpadTask {

@@ -3,12 +3,13 @@ import TOKEN_ADDRESS from '@/constants/token';
 import BVM_ADDRESS from '@/contract/stakeV2/configs';
 import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import useERC20Balance from '@/modules/Launchpad/components/ERC20Balance/useERC20Balance';
-import DepositAddressModal from '@/modules/Launchpad/Launchpad.Detail/swamps/idoPhase/DepositAddressModal';
-import { TOKEN_BTC_ADDRESS } from '@/modules/Launchpad/Launchpad.Detail/swamps/idoPhase/DepositAddressModal/Deposit.naka';
+import { ELaunchpadStatus } from '@/modules/Launchpad/services/launchpad.interfaces';
 import {
   oldSummarySelector,
   summarySelector,
 } from '@/modules/Launchpad/store/lpEAIPayment/selector';
+import { LaunchpadContext } from '@/Providers/LaunchpadProvider';
+import { compareString } from '@/utils/string';
 import { Box, Button, Flex, useDisclosure } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import React, { useContext, useMemo, useRef } from 'react';
@@ -17,10 +18,7 @@ import BlockInfo from './BlockInfo';
 import ClaimBox from './claimBox';
 import styles from './styles.module.scss';
 import ThankBackingBox from './ThankBackingBox';
-import { isProduction } from '@/config';
-import { compareString } from '@/utils/string';
-import { LaunchpadContext } from '@/Providers/LaunchpadProvider';
-import { ELaunchpadStatus } from '@/modules/Launchpad/services/launchpad.interfaces';
+import DepositAddressModal from './DepositAddressModal';
 // import ClaimBox from "@/modules/Launchpad/Launchpad.Detail/swamps/idoPhase/SWPPaymentBox/claimBox";
 
 const PaymentBox = () => {
@@ -33,7 +31,7 @@ const PaymentBox = () => {
 
   const { balance: btcBalance, loaded: isLoadedBTC } = useERC20Balance({
     token: {
-      address: TOKEN_BTC_ADDRESS,
+      address: TOKEN_ADDRESS.BTC_ADDRESS_L2,
     },
   });
 
@@ -57,7 +55,7 @@ const PaymentBox = () => {
       return summary?.end_time;
     }
     return cachedEndTime.current;
-  }, []);
+  }, [summary]);
 
   const isEnd = React.useMemo(() => {
     if (!endTime) return false;
@@ -107,7 +105,7 @@ const PaymentBox = () => {
                 onOpen();
               }}
             >
-              {'BUY $GSWP NOW'}
+              {`BUY $${currentLaunchpad?.token_name} NOW`}
             </Button>
           )}
         </>

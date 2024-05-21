@@ -18,10 +18,12 @@ import {
   ILaunchpadBodyTask,
   ILaunchpadSetupTask,
 } from './lauchpad.create.interface';
+import { camelCaseKeys } from '@/utils/normalize';
 
 class CLaunchpadAPI {
   private apiClient = new CApiClient().api;
   private prefix = `/api/launchpad`;
+  private prefixBVM = `/api/bvm`;
   private prefixSync = `/api/sync`;
 
   public getLaunchpadOptions = async (): Promise<ILaunchpadFeeOption[]> => {
@@ -416,6 +418,35 @@ class CLaunchpadAPI {
         },
       );
       return rs;
+    } catch (e) {
+      // throw e;
+    }
+  };
+
+  public requestAuthenByShareCode = async (): Promise<any> => {
+    try {
+      const res = await this.apiClient.post(
+        `${this.prefixBVM}/request-auth-by-share-code`,
+      );
+      return res;
+    } catch (e) {
+      // throw e;
+    }
+  };
+
+  public generateTokenWithTwPost = async (
+    uuid: string,
+    link?: string,
+  ): Promise<any> => {
+    try {
+      const res = await this.apiClient.post(
+        `${this.prefixBVM}/generate-token-with-twitter-post`,
+        {
+          secret_code: uuid,
+          link: link,
+        },
+      );
+      return Object(camelCaseKeys(res));
     } catch (e) {
       // throw e;
     }

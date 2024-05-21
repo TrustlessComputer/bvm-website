@@ -1,8 +1,9 @@
+import CToken from '@/contract/token';
+import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import { commonSelector } from '@/stores/states/common/selector';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { IToken } from './types';
-import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
 export interface IProps {
   token?: IToken | undefined;
   onBalanceChange?: (_amount: string | undefined) => void;
@@ -15,8 +16,9 @@ const useERC20Balance = (props: IProps) => {
   const [balance, setBalance] = useState('0');
   const needReload = useSelector(commonSelector).needReload;
   // const playerShareContract = useTradeKey().playerShareContract;
-  const wallet = useAuthenticatedWallet();
-  const address = wallet?.address;
+  const Token = useRef(new CToken()).current;
+  const wallet = useNakaAuthen();
+  const address = wallet?.nakaAddress;
 
   const fetchBalance = async () => {
     try {
@@ -38,8 +40,7 @@ const useERC20Balance = (props: IProps) => {
   const getTokenBalance = async (token: IToken | undefined) => {
     if (!token) return '0';
     try {
-      // const response = await playerShareContract.getTokenBalance(token.address);
-      const response = '0';
+      const response = await Token.getTokenBalance(token.address);
       return response || '0';
     } catch (error) {
       console.log('error', error);
@@ -49,12 +50,12 @@ const useERC20Balance = (props: IProps) => {
   };
 
   useEffect(() => {
-    if (token?.address && wallet?.privateKey) {
+    if (token?.address) {
       fetchBalance();
     } else {
       setLoaded(true);
     }
-  }, [token?.address, needReload, address, wallet?.privateKey]);
+  }, [token?.address, needReload, address]);
 
   return {
     loading,

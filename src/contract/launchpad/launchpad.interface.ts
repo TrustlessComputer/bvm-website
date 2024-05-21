@@ -7,3 +7,9 @@ export interface IBodyTransferBVMLaunchpad {
   amountBVM: string;
   adminAddress: string;
 }
+
+export interface IBodyDepositLaunchpad {
+  launchPoolAddress: string;
+  depositTokenAddress: string;
+  depositAmount: string;
+}

@@ -295,8 +295,6 @@ const CreateLaunchpadStep4 = () => {
       const isApproved = values?.isApproved;
       const detail = values?.detail;
 
-      console.log('detail', detail);
-
       setSubmitting(true);
 
       if (!isTransferBVMFeeAmount) {

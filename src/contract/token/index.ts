@@ -126,6 +126,36 @@ class CToken extends CContractBase {
       throw error;
     }
   };
+
+  public transfer = async ({
+    token_address,
+    to_address,
+    amount,
+  }: {
+    token_address: string;
+    to_address: string;
+    amount: string;
+  }) => {
+    try {
+      const connector = this.nakaConnectContext.getConnector();
+      const calldata = this.getERC20Contract({
+        contractAddress: token_address,
+      }).interface.encodeFunctionData('transfer', [
+        to_address,
+        parseEther(amount),
+      ]);
+      const tx = await connector.requestSign({
+        calldata,
+        target: 'popup' as any,
+        to: token_address,
+        functionType: `Transfer to ${to_address}`,
+        chainType: 'NAKA',
+      });
+      return tx;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 export default CToken;

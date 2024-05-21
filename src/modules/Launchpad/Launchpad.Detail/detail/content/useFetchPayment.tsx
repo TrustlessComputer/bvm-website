@@ -4,8 +4,10 @@ import CPaymentAPI from '@/modules/Launchpad/services/payment';
 import {
   setPublicSaleSummary,
   setUserContributeInfo,
+  setWalletDeposit,
 } from '@/modules/Launchpad/store/lpEAIPayment/reducer';
 import { LaunchpadContext } from '@/Providers/LaunchpadProvider';
+import { compareString } from '@/utils/string';
 import throttle from 'lodash/throttle';
 import React, { useContext, useRef } from 'react';
 import { useDispatch } from 'react-redux';
@@ -13,10 +15,10 @@ import { useDispatch } from 'react-redux';
 const useFetchPayment = () => {
   const { currentLaunchpad } = useContext(LaunchpadContext);
   const cpaymentAPI = useRef(new CPaymentAPI()).current;
-  const wallet = useNakaAuthen();
+  const { nakaAddress } = useNakaAuthen();
   const dispatch = useDispatch();
 
-  const address = wallet?.nakaAddress;
+  const address = nakaAddress;
 
   const [counter, setCounter] = React.useState(0);
 
@@ -37,19 +39,28 @@ const useFetchPayment = () => {
   };
 
   const fetchDepositAddress = async (address: string) => {
+    const addresses = currentLaunchpad?.payment_tokens || [];
+
+    const depositExternal = addresses.filter(
+      (v) => !compareString(v.network, 'naka'),
+    );
+    const depositNaka = addresses.filter((v) =>
+      compareString(v.network, 'naka'),
+    );
+
     // const [depositExternal, depositNaka] = (await Promise.all([
     //   await cpaymentAPI.getPublicSaleWalletInfo(currentLaunchpad?.id),
     //   await cpaymentAPI.getDepositNaka(),
     // ])) as [WalletTokenDeposit[], WalletTokenDeposit[]];
-    // if (depositExternal && depositNaka) {
-    //   dispatch(
-    //     setWalletDeposit({
-    //       address: address,
-    //       depositExternal,
-    //       depositNaka,
-    //     }),
-    //   );
-    // }
+    if (addresses) {
+      dispatch(
+        setWalletDeposit({
+          address: address,
+          depositExternal,
+          depositNaka,
+        }),
+      );
+    }
   };
 
   const getSummary = async () => {
