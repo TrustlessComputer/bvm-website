@@ -29,15 +29,9 @@ const Phases = () => {
       },
       {
         key: 3,
-        title: 'TGE',
+        title: 'TGE & LISTING',
         status: 'pending',
-        type: ELaunchpadStatus.tge,
-      },
-      {
-        key: 4,
-        title: 'LISTING',
-        status: 'pending',
-        type: ELaunchpadStatus.listing,
+        type: ELaunchpadStatus.ended,
         note: '',
       },
     ];

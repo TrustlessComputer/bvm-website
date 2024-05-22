@@ -11,6 +11,7 @@ export const SHARD_TOP_MINERS = '/shard/top-miners';
 export const STAKING_URL = '/staking';
 export const LAUNCHPAD_URL = '/launchpad';
 export const LAUNCHPAD_DETAIL_URL = '/launchpad/detail';
+export const LAUNCHPAD_MANAGE_URL = '/launchpad/manage';
 export const PUBLIC_SALE_EAI_URL = '/public-sale/eai';
 export const EARN_URL = `${NAKA_WEB}/staking`;
 export const ERC404 = `${NAKA_WEB}/brc-404`;
