@@ -5,13 +5,13 @@ import { BuyPage } from '../Buy';
 import { Flex } from '@chakra-ui/react';
 import BoxContent from '@/layouts/BoxContent';
 import { useEffect } from 'react';
-import { useFetchUserData } from '../hooks/useFetchUserData';
+import useL2Service from '@/hooks/useL2Service';
 
 export default () => {
-  const fetcher = useFetchUserData();
+  const { onVerifyLoginFirstTime } = useL2Service();
 
   useEffect(() => {
-    fetcher();
+    onVerifyLoginFirstTime();
   }, []);
 
   return (

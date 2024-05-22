@@ -7,15 +7,14 @@ import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { nakaAddressSelector } from '@/stores/states/user/selector';
 import { resetUser } from '@/stores/states/user/reducer';
 import { resetStake } from '@/stores/states/stakingV2/reducer';
-import useL2ServiceAuth from '@hooks/useL2ServiceAuth';
-import { resetOrders } from '@/stores/states/l2services/reducer';
-import { onRemoveAuthen } from '@hooks/useL2ServiceAuth_V2';
+import { useL2ServiceHelper } from '@hooks/useL2ServiceHelper';
 
 const useNakaAuthen = () => {
   const { requestAccount, loading, requestSignMessage } = useContext(
     NakaConnectContext,
   ) as INakaConnectContext;
   const nakaAddress = useAppSelector(nakaAddressSelector);
+  const { onLogout: onL2ServiceLogout } = useL2ServiceHelper();
 
   const dispatch = useAppDispatch();
 
@@ -26,7 +25,7 @@ const useNakaAuthen = () => {
       dispatch(resetUser());
       dispatch(resetStake());
     }, 200);
-    onRemoveAuthen(nakaAddress);
+    onL2ServiceLogout(nakaAddress);
     setTimeout(() => {
       window.location.reload();
     }, 300);

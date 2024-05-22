@@ -16,7 +16,7 @@ import RightView from './components2/RightView';
 import FooterView from './FooterView';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { BlockieAvatar } from '../components/BlockieAvatar';
-import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
+import useL2Service from '@/hooks/useL2Service';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import s from './styles.module.scss';
@@ -46,7 +46,7 @@ export const BuyPage = React.memo((props: Props) => {
     isMainnet,
   } = useBuy();
   const router = useRouter();
-  const { isL2ServiceLogged, onLogin } = useL2ServiceAuth();
+  const { isL2ServiceLogged, onConnect } = useL2Service();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
 
   if (isAvailableListFetching)
@@ -106,7 +106,8 @@ export const BuyPage = React.memo((props: Props) => {
                   opacity: 0.8,
                 }}
                 onClick={() => {
-                  onLogin();
+                  // onLogin();
+                  onConnect && onConnect();
                 }}
               >
                 {`Connect wallet`}

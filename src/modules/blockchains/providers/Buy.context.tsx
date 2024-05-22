@@ -1,4 +1,3 @@
-// import { useFetchUserData, useIsAuthenticated } from '@/state/user/hooks';
 import sleep from '@/utils/sleep';
 import BigNumber from 'bignumber.js';
 import { debounce, isEmpty } from 'lodash';
@@ -12,7 +11,6 @@ import React, {
   useState,
 } from 'react';
 import toast from 'react-hot-toast';
-import { getUser } from '../Buy/Buy.TwitterUtil';
 import { dayDescribe, getRandonComputerName_VS2 } from '../Buy/Buy.helpers';
 import {
   BitcoinValidityEnum,
@@ -56,14 +54,13 @@ import l2ServicesAPI, {
 import { useAppDispatch } from '@/stores/hooks';
 import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
-import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
 import { getErrorMessage } from '@/utils/errorV2';
-import { useFetchUserData } from '../hooks/useFetchUserData';
 import {
   setShowOnlyMyOrder,
   setViewMode,
 } from '@/stores/states/l2services/reducer';
 import { useRouter } from 'next/navigation';
+import useL2Service from '@/hooks/useL2Service';
 
 export type IField = {
   value?: string;
@@ -90,14 +87,8 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
   const router = useRouter();
 
-  const {
-    onLoginL2Service,
-    isL2ServiceLogged,
-    isNeededRequestSignMessageFromNakaWallet,
-  } = useL2ServiceAuth();
-
   const accountInfo = true;
-  const onFetchData = useFetchUserData();
+  const { fetchAllData, isL2ServiceLogged } = useL2Service();
 
   // ------------------------------------------------------------
   // Text and TextArea Fields
@@ -406,13 +397,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     //   return 'Submit';
     // }
     return 'Submit';
-  }, [
-    isMainnet,
-    accountInfo,
-    isNakaWalletAuthed,
-    isNeededRequestSignMessageFromNakaWallet,
-    isL2ServiceLogged,
-  ]);
+  }, [isMainnet, accountInfo, isNakaWalletAuthed, isL2ServiceLogged]);
 
   const fetchAvailableListHandler = async () => {
     try {
@@ -653,7 +638,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
         dispatch(setViewMode('Testnet'));
         dispatch(setShowOnlyMyOrder(true));
-        onFetchData();
+        fetchAllData();
         router.push('/blockchains');
       }
     } catch (error) {

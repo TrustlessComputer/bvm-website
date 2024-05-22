@@ -5,21 +5,33 @@ import { Flex, Spinner, Box } from '@chakra-ui/react';
 import HeaderView from './components/Header';
 import BodyView from './components/Body';
 import BoxContent from '@/layouts/BoxContent';
-import { useFetchUserData } from './hooks/useFetchUserData';
-import { useEffect } from 'react';
 import { isFetchingAllDataSelector } from '@/stores/states/l2services/selector';
-import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
 import s from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
+import { enhance } from './Dashboard.enhance';
+import useL2Service from '@/hooks/useL2Service';
+import { useEffect } from 'react';
 
-export default () => {
-  const fetcher = useFetchUserData();
+const Page = () => {
+  const {
+    loopFetchAccountInfor,
+    onVerifyLoginFirstTime,
+    fetchAllData,
+    isL2ServiceLogged,
+  } = useL2Service();
   const isFetchingAllData = useAppSelector(isFetchingAllDataSelector);
-  const { isL2ServiceLogged, isNeededRequestSignMessageFromNakaWallet } =
-    useL2ServiceAuth();
 
   useEffect(() => {
-    fetcher();
+    onVerifyLoginFirstTime();
+  }, []);
+
+  useEffect(() => {
+    fetchAllData();
+  }, []);
+
+  useEffect(() => {
+    fetchAllData();
+    loopFetchAccountInfor();
   }, [isL2ServiceLogged]);
 
   const renderContent = () => {
@@ -52,3 +64,5 @@ export default () => {
     </Flex>
   );
 };
+
+export default enhance(Page);
