@@ -85,24 +85,12 @@ export const NAV_ITEMS: Array<NavItem> = [
 ];
 
 export const TOP_NAV_ITEMS: Array<NavItem> = [
-  {
-    label: 'Launchpad',
-    isNewWindow: false,
-    isHide: false,
-    href: LAUNCHPAD_URL,
-    // subMenu: [
-    //   {
-    //     href: `${LAUNCHPAD_DETAIL_URL}/3`,
-    //     label: 'Current project',
-    //     isNewWindow: false,
-    //   },
-    //   {
-    //     href: LAUNCHPAD_URL,
-    //     label: 'View all projects',
-    //     isNewWindow: false,
-    //   },
-    // ],
-  },
+  // {
+  //   label: 'Launchpad',
+  //   isNewWindow: false,
+  //   isHide: false,
+  //   href: LAUNCHPAD_URL,
+  // },
 ];
 export const NAV_ITEMS_MOBILE: Array<NavItem> = [
   {
