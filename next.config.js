@@ -68,16 +68,16 @@ const nextConfig = {
         destination: '/bvm',
         permanent: false,
       },
-      {
-        source: '/launchpad',
-        destination: `/`,
-        permanent: true,
-      },
-      {
-        source: '/launchpad/detail/:slug',
-        destination: `/`,
-        permanent: true,
-      },
+      // {
+      //   source: '/launchpad',
+      //   destination: `/`,
+      //   permanent: true,
+      // },
+      // {
+      //   source: '/launchpad/detail/:slug',
+      //   destination: `/`,
+      //   permanent: true,
+      // },
     ];
     //
     // if (isPublicSale) {
