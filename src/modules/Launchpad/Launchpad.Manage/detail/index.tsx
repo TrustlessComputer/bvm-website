@@ -1,13 +1,17 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import { Box } from '@chakra-ui/react';
 import { useParams } from 'next/navigation';
 import CLaunchpadAPI from '../../services/launchpad';
-import { ILaunchpad } from '../../services/launchpad.interfaces';
+import {
+  ELaunchpadStatus,
+  ILaunchpad,
+} from '../../services/launchpad.interfaces';
 import { useSelector } from 'react-redux';
 import { commonSelector } from '@/stores/states/common/selector';
+import { compareString } from '@/utils/string';
 
 const LaunchpadManageDetail = () => {
   const params = useParams();
@@ -39,7 +43,11 @@ const LaunchpadManageDetail = () => {
     }
   };
 
-  return <Box className={s.container}></Box>;
+  const canTGE = useMemo(() => {
+    return compareString(currentLaunchpad?.status, ELaunchpadStatus.ended);
+  }, [currentLaunchpad]);
+
+  return <Box className={s.container}>{}</Box>;
 };
 
 export default LaunchpadManageDetail;
