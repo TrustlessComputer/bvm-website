@@ -8,11 +8,25 @@ import { useEffect } from 'react';
 import useL2Service from '@/hooks/useL2Service';
 
 export default () => {
-  const { onVerifyLoginFirstTime } = useL2Service();
+  const {
+    loopFetchAccountInfor,
+    onVerifyLoginFirstTime,
+    fetchAllData,
+    isL2ServiceLogged,
+  } = useL2Service();
 
   useEffect(() => {
     onVerifyLoginFirstTime();
   }, []);
+
+  useEffect(() => {
+    fetchAllData();
+  }, []);
+
+  useEffect(() => {
+    fetchAllData();
+    loopFetchAccountInfor();
+  }, [isL2ServiceLogged]);
 
   return (
     <Flex bgColor={'#f3f1e8'} flexDir={'column'} alignItems={'center'}>

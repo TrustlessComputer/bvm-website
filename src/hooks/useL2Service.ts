@@ -9,7 +9,7 @@ import { setL2ServiceAuth } from '@/stores/states/l2services/reducer';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { getErrorMessage } from '@/utils/errorV2';
 import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import toast from 'react-hot-toast';
 import useNakaAuthen from './useRequestNakaAccount';
 
@@ -31,9 +31,18 @@ const useL2Service = () => {
     timerRef.current = undefined;
   };
 
-  const { isL2ServiceLogged } = useAppSelector(getL2ServicesStateSelector);
+  const { isL2ServiceLogged, isFetching, isFetched } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
 
   const dispatch = useAppDispatch();
+
+  const isLoading = useMemo(() => {
+    if (isFetched || !isNakaWalletLoading) {
+      return false;
+    }
+    return true;
+  }, [isFetched, isFetching, isNakaWalletLoading]);
 
   const fetchAllData = () => {
     dispatch(fetchAllOrders());
@@ -108,8 +117,6 @@ const useL2Service = () => {
         if (result && result.accounts && result.accounts.length > 0) {
           const addressObject = result.accounts[0];
           const address = addressObject.address; //
-
-          console.log('TTTTT address ', address);
           await onLoginL2Service(address);
         }
       }
@@ -187,6 +194,7 @@ const useL2Service = () => {
     onVerifyLoginFirstTime,
     loopFetchAccountInfor,
     isL2ServiceLogged,
+    isLoading,
   };
 };
 

@@ -33,7 +33,7 @@ const SubmitFormModal = (props: IProps) => {
     isSubmiting,
   } = useBuy();
 
-  const { isL2ServiceLogged, onConnect } = useL2Service();
+  const { isL2ServiceLogged, onConnect, isLoading } = useL2Service();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
 
   // const [countClick, setCountClick] = useState(0);
@@ -159,7 +159,7 @@ const SubmitFormModal = (props: IProps) => {
               color={'#fff'}
               borderRadius={'100px'}
               minH={'50px'}
-              isLoading={isSubmiting}
+              isLoading={isSubmiting || isLoading}
               _hover={{
                 opacity: 0.8,
               }}
