@@ -1,6 +1,6 @@
 'use client';
 
-import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
+import useL2Service from '@/hooks/useL2Service';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   setShowOnlyMyOrder,
@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 const HeaderView = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { onLogin } = useL2ServiceAuth();
+  const { onConnect } = useL2Service();
 
   const { viewMode, showOnlyMyOrder, isL2ServiceLogged } = useAppSelector(
     getL2ServicesStateSelector,
@@ -155,7 +155,7 @@ const HeaderView = () => {
                 opacity: 0.8,
               }}
               onClick={() => {
-                onLogin();
+                onConnect();
               }}
             >
               {`Connect wallet`}

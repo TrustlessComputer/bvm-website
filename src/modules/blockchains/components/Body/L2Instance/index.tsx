@@ -1,46 +1,27 @@
 'use client';
 
-import { Divider, Flex, Box } from '@chakra-ui/react';
+import { useAppDispatch } from '@/stores/hooks';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
+import { OrderItem } from '@/stores/states/l2services/types';
+import { Box, Divider, Flex } from '@chakra-ui/react';
 import BodyInfor from './BodyInfor';
 import BottomInfor from './BottomInfor';
 import HeaderRow from './HeaderRow';
-import { OrderItem } from '@/stores/states/l2services/types';
-import { useState } from 'react';
-import BillingModal from '../../BillingModal';
-import TopupModal from '../../TopupModal';
-import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
-import { useAppSelector } from '@/stores/hooks';
-import SendFormModal from '../../SendFormModal';
-import EditConfigModal from '../../EditConfigModal';
+import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
+import { getBridgeLink } from '@/services/api/l2services/constants';
 
 type Props = {
   item: OrderItem;
   onClick: () => void;
-  viewBillingCB?: () => void;
   isOwner?: boolean;
 };
 
 const L2Instance = (props: Props) => {
-  const { item, onClick, isOwner, viewBillingCB } = props;
+  const dispatch = useAppDispatch();
 
-  const [showBillingModal, setShowBillingModal] = useState(false);
-  const [showTopupModal, setShowTopupModal] = useState(false);
-  const [showSendFormModal, setShowSendFormModal] = useState(false);
-  const [showEditConfigModal, setShowEditConfigModal] = useState(false);
+  const { item, onClick, isOwner } = props;
 
-  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
-
-  const viewBillingOnClickHandler = () => {
-    setShowBillingModal(true);
-  };
-
-  const bridgeOnClickHandler = () => {
-    setShowEditConfigModal(true);
-  };
-
-  const viewPaymentOnClickHandler = () => {
-    setShowTopupModal(true);
-  };
+  const { onOpenBillingModal, onOpenEditConfigModal } = useDashboard();
 
   return (
     <>
@@ -69,58 +50,26 @@ const L2Instance = (props: Props) => {
           <BottomInfor
             item={item}
             isOwner={isOwner}
-            viewBillingOnClick={viewBillingOnClickHandler}
-            bridgeOnClick={bridgeOnClickHandler}
+            viewBillingOnClick={() => {
+              dispatch(setOrderSelected(item));
+              onOpenBillingModal && onOpenBillingModal();
+            }}
+            bridgeOnClick={() => {
+              dispatch(setOrderSelected(item));
+              if (!item.isMainnet) {
+                window.open(
+                  getBridgeLink(item.isMainnet, item.domain),
+                  '_blank',
+                );
+              }
+            }}
+            editConfigBridgeOnClick={() => {
+              dispatch(setOrderSelected(item));
+              onOpenEditConfigModal && onOpenEditConfigModal();
+            }}
           />
         </Box>
       </Flex>
-      {showBillingModal && (
-        <BillingModal
-          show={showBillingModal}
-          item={item}
-          viewPaymentOnClick={viewPaymentOnClickHandler}
-          onClose={() => {
-            setShowBillingModal(false);
-          }}
-          onSuccess={async () => {}}
-        />
-      )}
-      {showTopupModal && (
-        <TopupModal
-          show={showTopupModal}
-          infor={{
-            paymentAddress: accountInforL2Service?.topUpWalletAddress,
-          }}
-          onClose={() => {
-            setShowTopupModal(false);
-          }}
-          onSuccess={async () => {}}
-          payWithNakaWalletCB={() => {
-            setShowSendFormModal(true);
-          }}
-        />
-      )}
-      {showSendFormModal && (
-        <SendFormModal
-          show={showSendFormModal}
-          onClose={() => {
-            setShowSendFormModal(false);
-          }}
-          onSuccess={async () => {}}
-        />
-      )}
-      {showEditConfigModal && (
-        <EditConfigModal
-          item={item}
-          show={showEditConfigModal}
-          onClose={() => {
-            setShowEditConfigModal(false);
-          }}
-          onSuccess={async () => {
-            setShowEditConfigModal(false);
-          }}
-        />
-      )}
     </>
   );
 };

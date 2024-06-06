@@ -8,6 +8,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { getOrderByIDSelector } from '@/stores/states/l2services/selector';
 import useOrderMapper from '../../hooks/useOrderMapper';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { isEmpty } from 'lodash';
 
 interface IProps {
   show: boolean;
@@ -103,13 +104,15 @@ const CustomizeTokenModal = (props: IProps) => {
           {mapper.computerIndexer || ''}
         </Text>
         <Flex flexDir={'column'} gap={'20px'} mt={'20px'}>
-          {renderRowInfor(
-            'Instance ID',
-            `${order.instanceId || ''}`,
-            true,
-            '#1c1c1c',
-            true,
-          )}
+          {order.instanceId &&
+            isEmpty(order.instanceId) &&
+            renderRowInfor(
+              'Instance ID',
+              `${order.instanceId || ''}`,
+              true,
+              '#1c1c1c',
+              true,
+            )}
           {renderRowInfor('Bitcoin L2 Name', `${order.chainName}`)}
           {!mapper.isLayer1 &&
             renderRowInfor('Rollup protocol', 'Optimistic rollups')}

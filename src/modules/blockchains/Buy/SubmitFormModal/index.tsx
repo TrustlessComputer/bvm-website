@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useBuy } from '../../providers/Buy.hook';
 import { RollupEnum } from '../Buy.constanst';
 import s from './styles.module.scss';
-import useL2ServiceAuth from '@/hooks/useL2ServiceAuth';
+import useL2Service from '@/hooks/useL2Service';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import BigNumber from 'bignumber.js';
@@ -33,7 +33,7 @@ const SubmitFormModal = (props: IProps) => {
     isSubmiting,
   } = useBuy();
 
-  const { isL2ServiceLogged, onLogin } = useL2ServiceAuth();
+  const { isL2ServiceLogged, onConnect, isLoading } = useL2Service();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
 
   // const [countClick, setCountClick] = useState(0);
@@ -48,7 +48,7 @@ const SubmitFormModal = (props: IProps) => {
     } else {
       if (!isL2ServiceLogged || !accountInforL2Service) {
         title = 'Connect Wallet';
-        exec = onLogin;
+        exec = onConnect;
       } else {
         const isNotEnoughtBalance = new BigNumber(
           accountInforL2Service.balanceFormatted,
@@ -69,7 +69,13 @@ const SubmitFormModal = (props: IProps) => {
       title,
       exec,
     };
-  }, [accountInforL2Service, onLogin, onSuccess, isL2ServiceLogged, isMainnet]);
+  }, [
+    accountInforL2Service,
+    onConnect,
+    onSuccess,
+    isL2ServiceLogged,
+    isMainnet,
+  ]);
 
   const renderRowInfor = (label = '', content = '') => {
     return (
@@ -153,7 +159,7 @@ const SubmitFormModal = (props: IProps) => {
               color={'#fff'}
               borderRadius={'100px'}
               minH={'50px'}
-              isLoading={isSubmiting}
+              isLoading={isSubmiting || isLoading}
               _hover={{
                 opacity: 0.8,
               }}
