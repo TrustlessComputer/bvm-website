@@ -78,7 +78,7 @@ const LeaderBoard = ({ tasks = [] }: { tasks?: IPreLaunchpadTask[] }) => {
         };
       }
 
-      let response = [];
+      let response: any = [];
       let response2 = [];
 
       if (compareString(currentLaunchpad?.status, ELaunchpadStatus.prelaunch)) {
@@ -112,9 +112,11 @@ const LeaderBoard = ({ tasks = [] }: { tasks?: IPreLaunchpadTask[] }) => {
           ...refParams.current,
           page: 1,
         };
-        setData(sortList(response2?.rows.concat(response?.rows)));
+        const rows = (response as any)?.rows || [];
+        setData(sortList(response2?.rows.concat(rows)));
       } else {
-        setData((_data) => sortList([..._data, ...response?.rows]));
+        const rows = (response as any)?.rows || [];
+        setData((_data) => sortList([..._data, ...rows]));
       }
     } catch (error) {
       console.log('errorerror', error);
