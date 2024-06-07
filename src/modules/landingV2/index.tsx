@@ -20,13 +20,15 @@ export default function Landing() {
   }, []);
 
   return (
-    <div className={s.landing}>
+    <>
       <Loader />
-      <HeroV1 />
-      <Learning />
-      <Solutions />
-      <Modules />
-      {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
-    </div>
+      <div className={s.landing}>
+        <HeroV1 />
+        <Learning />
+        <Solutions />
+        <Modules />
+        {mobileScreen || tabletScreen ? <Section7Mobile /> : <Section_7 />}
+      </div>
+    </>
   );
 }
