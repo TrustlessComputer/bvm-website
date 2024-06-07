@@ -10,7 +10,7 @@ import Section7Mobile from './Componets/Section_7/Section_7_Mobile';
 import useWhiteBackground from '@/hooks/useWhiteBackground';
 import PreLoader from '@/modules/landing/Componets/PreLoader';
 import Loader from '@/modules/builder-landing/Loader';
-
+import Hero from '../landing/Componets/Hero';
 
 export default function Landing() {
   const { mobileScreen, tabletScreen } = useWindowSize();
@@ -23,7 +23,8 @@ export default function Landing() {
     <>
       <Loader />
       <div className={s.landing}>
-        <HeroV1 />
+        {/* <HeroV1 /> */}
+        <Hero />
         <Learning />
         <Solutions />
         <Modules />
