@@ -4,13 +4,13 @@ import Chars from '@/interactive/Chars';
 import Fade from '@/interactive/Fade';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import ModalVideo from 'react-modal-video';
+// import ModalVideo from 'react-modal-video';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 export default function HeroContent() {
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
-  const [isOpen, setOpen] = useState(false);
+  // const [isOpen, setOpen] = useState(false);
 
   return (
     <>
