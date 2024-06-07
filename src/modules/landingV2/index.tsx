@@ -9,6 +9,7 @@ import useWindowSize from '@/hooks/useWindowSize';
 import Section7Mobile from './Componets/Section_7/Section_7_Mobile';
 import useWhiteBackground from '@/hooks/useWhiteBackground';
 import PreLoader from '@/modules/landing/Componets/PreLoader';
+import Loader from '@/modules/builder-landing/Loader';
 
 
 export default function Landing() {
@@ -20,7 +21,7 @@ export default function Landing() {
 
   return (
     <div className={s.landing}>
-      <PreLoader />
+      <Loader />
       <HeroV1 />
       <Learning />
       <Solutions />
