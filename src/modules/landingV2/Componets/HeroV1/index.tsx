@@ -1,8 +1,8 @@
 import s from './styles.module.scss';
 import BgHero from '@/modules/landingV2/Componets/HeroV1/Bg';
-import HeroLabel from '@/modules/landingV2/Componets/HeroV1/HeroLabel';
 import HeroContent from '@/modules/landingV2/Componets/HeroV1/Content';
 import React from 'react';
+import HeroLabelCard from '@/modules/landingV2/Componets/HeroV1/HeroLabelCard';
 
 export default function Hero() {
   return (
@@ -12,8 +12,8 @@ export default function Hero() {
           <BgHero />
         </div>
         <HeroContent />
+        <HeroLabelCard />
       </div>
-      <HeroLabel />
     </>
   );
 }

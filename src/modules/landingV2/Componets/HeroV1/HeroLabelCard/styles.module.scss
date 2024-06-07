@@ -1,0 +1,116 @@
+.heroLabel {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  width: 100%;
+  z-index: 5;
+
+  .content {
+    display: flex;
+    justify-content: center;
+
+    @include is-pc {
+      justify-content: space-between;
+    }
+
+    .module {
+      &_title {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+        justify-content: center;
+        @include is-pc {
+          justify-content: flex-start;
+        }
+      }
+
+      &_list {
+        display: flex;
+        gap: 3.6px;
+
+        justify-content: center;
+        flex-wrap: wrap;
+
+        @include is-pc {
+          justify-content: flex-start;
+          flex-wrap: nowrap;
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding: 0;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  @include is-mobile {
+    position: relative;
+    bottom: 0;
+    margin-top: 20px;
+  }
+}
+
+.moduleItem {
+  padding: 10px 13px;
+  background: rgba($color: #fff, $alpha: 0.1);
+  backdrop-filter: blur(3px);
+
+  svg {
+    width: auto;
+    height: 35px;
+  }
+
+  p {
+    margin-top: 7px;
+    font-size: 10px;
+    line-height: 15px;
+    text-align: center;
+  }
+}
+
+
+.video {
+
+  text-transform: uppercase;
+  margin-top: 8px;
+
+  .wrapImgs {
+    position: relative;
+  }
+
+  .lb {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cdn {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    object-fit: contain;
+    top: 0;
+    left: 0;
+  }
+
+  span {
+    font-size: 12px !important;
+    @include is-min-table {
+      font-size: 14px !important;
+    }
+  }
+
+
+}
+
+.listActions {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  @include is-pc {
+    justify-content: flex-end;
+  }
+}
