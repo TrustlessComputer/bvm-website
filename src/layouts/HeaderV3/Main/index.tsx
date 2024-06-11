@@ -93,8 +93,8 @@ const NAV_ITEMS: Array<NavItem> = [
 ];
 const Main = () => {
   return (
-    <div className={`${s.wrapper} container`}>
-      <div className={s.inner}>
+    <div className={`${s.wrapper}`}>
+      <div className={`${s.inner} containerV3`}>
         <div className={s.logo}>
           <IconLogo />
           <h6 className={s.logo_text}>Bitcoin Virtual Machine</h6>

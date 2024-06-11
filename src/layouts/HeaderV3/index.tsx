@@ -8,9 +8,7 @@ export type HeaderV3Props = {
 const HeaderV3 = ({ position = 'absolute' }: HeaderV3Props) => {
   return (
     <div className={`${s.header}`}>
-      <div className="container">
-        <Main />
-      </div>
+      <Main />
     </div>
   );
 };
