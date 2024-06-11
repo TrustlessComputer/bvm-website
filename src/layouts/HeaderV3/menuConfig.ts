@@ -1,9 +1,90 @@
 import { DEVELOPERS_DOC_URL } from '@/config';
 import { NavItem } from '@layouts/Header/menuConfig';
 
+// export const NAV_ITEMS: Array<NavItem> = [
+//   {
+//     label: 'Solutions',
+//     href: '',
+//     isNewWindow: false,
+//     isHide: false,
+//     subMenu: [
+//       {
+//         href: 'https://eternalai.org',
+//         label: 'Bitcoin L2 for AI',
+//         isNewWindow: true,
+//       },
+//       {
+//         href: '/gamefi',
+//         label: 'Bitcoin L2 for GameFi',
+//         isNewWindow: false,
+//       },
+//       {
+//         href: '/defi',
+//         label: 'Bitcoin L2 for DeFi',
+//         isNewWindow: false,
+//       },
+//       {
+//         href: '/socialfi',
+//         label: 'Bitcoin L2 for SocialFi',
+//         isNewWindow: false,
+//       },
+//     ],
+//   },
+//   {
+//     label: 'Modules',
+//     href: '/module-store',
+//     isNewWindow: false,
+//     isHide: false,
+//   },
+//   {
+//     label: 'Ecosystem',
+//     href: '/use-bitcoin',
+//     isNewWindow: false,
+//     isHide: false,
+//   },
+//   {
+//     label: 'Learn',
+//     isNewWindow: false,
+//     isHide: false,
+//     subMenu: [
+//       {
+//         href: '/roadmap',
+//         label: 'Roadmap',
+//         isNewWindow: false,
+//       },
+//       {
+//         href: 'https://docs.bvm.network/bvm',
+//         label: 'Developer Docs',
+//         isNewWindow: true,
+//       },
+//       {
+//         href: '/whitepaper.pdf',
+//         label: 'WhitePaper',
+//         isNewWindow: false,
+//       },
+//     ],
+//   },
+//   // {
+//   //   label: 'Launchpad',
+//   //   isNewWindow: false,
+//   //   isHide: false,
+//   //   subMenu: [
+//   //     {
+//   //       href: `${LAUNCHPAD_DETAIL_URL}/3`,
+//   //       label: 'Current project',
+//   //       isNewWindow: false,
+//   //     },
+//   //     {
+//   //       href: LAUNCHPAD_URL,
+//   //       label: 'View all projects',
+//   //       isNewWindow: false,
+//   //     },
+//   //   ],
+//   // },
+// ];
 export const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Solutions',
+    label: 'Chains',
     href: '',
     isNewWindow: false,
     isHide: false,
@@ -37,13 +118,13 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Ecosystem',
+    label: 'Research',
     href: '/use-bitcoin',
     isNewWindow: false,
     isHide: false,
   },
   {
-    label: 'Learn',
+    label: 'Docs',
     isNewWindow: false,
     isHide: false,
     subMenu: [
@@ -64,25 +145,29 @@ export const NAV_ITEMS: Array<NavItem> = [
       },
     ],
   },
-  // {
-  //   label: 'Launchpad',
-  //   isNewWindow: false,
-  //   isHide: false,
-  //   subMenu: [
-  //     {
-  //       href: `${LAUNCHPAD_DETAIL_URL}/3`,
-  //       label: 'Current project',
-  //       isNewWindow: false,
-  //     },
-  //     {
-  //       href: LAUNCHPAD_URL,
-  //       label: 'View all projects',
-  //       isNewWindow: false,
-  //     },
-  //   ],
-  // },
+  {
+    label: 'BVM',
+    isNewWindow: false,
+    isHide: false,
+    subMenu: [
+      {
+        href: '/roadmap',
+        label: 'Roadmap',
+        isNewWindow: false,
+      },
+      {
+        href: 'https://docs.bvm.network/bvm',
+        label: 'Developer Docs',
+        isNewWindow: true,
+      },
+      {
+        href: '/whitepaper.pdf',
+        label: 'WhitePaper',
+        isNewWindow: false,
+      },
+    ],
+  },
 ];
-
 export const TOP_NAV_ITEMS: Array<NavItem> = [
   // {
   //   label: 'Launchpad',

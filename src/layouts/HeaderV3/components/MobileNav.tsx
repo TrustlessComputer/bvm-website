@@ -18,7 +18,7 @@ export const MobileNav = (props: Props) => {
       px={'24px'}
       py={'32px'}
     >
-      {NAV_ITEMS_MOBILE.map((item) => (
+      {NAV_ITEMS.map((item) => (
         <>
           {item.subMenu ? (
             <MobileDropdown
