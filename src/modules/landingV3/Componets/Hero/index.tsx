@@ -14,7 +14,6 @@ export default function HeroV3() {
           <p className={s.label}>From $99 per chain/month</p>
         </div>
       </div>
-
     </div>
   );
 }
