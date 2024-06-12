@@ -140,8 +140,8 @@ const ThreeJSComponent: React.FC = () => {
     if (!mountRef.current) return;
 
 
-    const COLOR = new THREE.Color('#ff5c22');
-    const COLOR_DARKER = new THREE.Color('#c44718');
+    const COLOR = new THREE.Color('#ffd322');
+    const COLOR_DARKER = new THREE.Color('#e87500');
     const COLOR_SKY = new THREE.Color('#782402');
     const createMaterial = (type: string, color: any, isTip: number, changeColor: boolean) => {
       const mat =
