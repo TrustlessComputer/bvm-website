@@ -31,12 +31,12 @@ export default function Experience() {
     var materials: Record<string, THREE.Material | THREE.Material[]> = {};
     var params = {
       exposure: 1,
-      bloomStrength: 0.9,
-      bloomThreshold: 0.2,
+      bloomStrength: 2.5,
+      bloomThreshold: 0,
       bloomRadius: 0,
     };
     var ENTIRE_SCENE = 0,
-      BLOOM_SCENE = 1;
+      BLOOM_SCENE = 0;
     var bloomLayer = new THREE.Layers();
     bloomLayer.set(BLOOM_SCENE);
 
@@ -47,7 +47,7 @@ export default function Experience() {
       1,
       1000,
     );
-    camera.position.set(0, 30, 10);
+    camera.position.set(0, 4, 10);
     var renderer = new THREE.WebGLRenderer({
       antialias: true,
     });
@@ -126,13 +126,13 @@ export default function Experience() {
 
     let inst1 = new THREE.Mesh(
       instGeom,
-      createMaterial('standard', '#FF5252', 0, false),
+      createMaterial('standard', 'red', 0, false),
     );
     scene.add(inst1);
 
     let inst2 = new THREE.Mesh(
       instGeom,
-      createMaterial('basic', '#FF5252', 1, true),
+      createMaterial('basic', 'red', 1, true),
     );
     inst2.layers.enable(BLOOM_SCENE);
     scene.add(inst2);
@@ -162,12 +162,12 @@ export default function Experience() {
       materialShaders.current.forEach((m, idx) => {
         m.shader.uniforms.time.value = time * 0.5;
         m.shader.uniforms.isTip.value = m.isTip;
-        if (m.changeColor)
-          materialInst.current[idx].color.setHSL(
-            (time * 0.1) % 1.0,
-            0.625,
-            0.375,
-          );
+        // if (m.changeColor)
+        //   materialInst.current[idx].color.setHSL(
+        //     (time * 0.1) % 1.0,
+        //     0.625,
+        //     0.375,
+        //   );
       });
 
       // render scene with bloom
@@ -183,7 +183,7 @@ export default function Experience() {
     }
     function darkenNonBloomed(obj: THREE.Object3D) {
       // non-bloomed stuff must be black, including scene background
-      if (obj instanceof THREE.Mesh && bloomLayer.test(obj.layers) === false) {
+      if (obj instanceof THREE.Mesh) {
         materials[obj.uuid] = obj.material;
         obj.material = darkMaterial;
       }
@@ -241,7 +241,7 @@ export default function Experience() {
       ip.y = wave * 3.5;
       float lim = 2.0;
       bool tip = isTip < 0.5 ? ip.y > lim : ip.y <= lim;
-      transformed *= tip ? 0.0 : 1.0;
+     transformed *= tip ? 0.0 : 1.0;
 
       transformed = transformed + ip;
     `,
@@ -250,7 +250,7 @@ export default function Experience() {
           id: 'mat' + materialShaders.current.length,
           shader: shader,
           isTip: isTip,
-          changeColor: changeColor,
+          changeColor: false, //changeColor,
         });
         materialInst.current.push(mat);
       };
