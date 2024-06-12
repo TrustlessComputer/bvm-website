@@ -35,6 +35,24 @@ input[type='number'] {
   }
 }
 
+.containerV3 {
+  max-width: calc(1400px + 40px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  @include is-tablet {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @include is-mobile {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
 .anim-scale {
   width: 100%;
 }

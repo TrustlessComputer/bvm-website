@@ -1,7 +1,7 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
-import LandingV2 from '@/modules/landingV2';
+import LandingV3 from '@/modules/landingV3';
 
 export default function Home() {
   return (
@@ -9,8 +9,9 @@ export default function Home() {
       headerProps={{
         color: 'black',
       }}
+      hideFooter={true}
     >
-      <LandingV2 />
+      <LandingV3 />
     </MainLayout>
   );
 }

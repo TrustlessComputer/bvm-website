@@ -1,0 +1,40 @@
+.wrapper {
+  height: 0;
+}
+
+.inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+
+  &_text {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: (21 / 15);
+    color: #fff;
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+}
+
+.itemLabel {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: (20 / 14);
+  text-align: center;
+}
