@@ -4,7 +4,8 @@
 
 .inner {
   position: relative;
-  background-color: #E54104;
+  // background-color: #E54104;
+  background-color: transparent;
   height: 100vh;
 }
 
@@ -38,7 +39,7 @@
   color: #000;
   line-height: calc(70 / 45);
   font-size: 45px;
-  font-family: "JetBrains Mono";
+  font-family: 'JetBrains Mono';
   text-transform: uppercase;
   @include min-tablet {
     line-height: calc(100 / 80);
@@ -48,7 +49,6 @@
   @include is-pc {
     line-height: calc(120 / 100);
     font-size: 100px;
-
   }
   span {
     color: #fff;
@@ -70,7 +70,7 @@
 
 .label {
   font-weight: 500;
-  font-family: "JetBrains Mono";
+  font-family: 'JetBrains Mono';
   font-size: 14px;
   line-height: calc(20 / 14);
 }
