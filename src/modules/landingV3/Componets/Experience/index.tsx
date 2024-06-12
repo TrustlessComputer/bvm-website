@@ -262,7 +262,7 @@ const ThreeJSComponent: React.FC = () => {
     loader.load('/lego.glb', (gltf) => {
       const model = gltf.scene;
 
-      const ob = model.getObjectByName('group1822638002');
+      const ob: any = model.getObjectByName('group1822638002');
 
      const boxGeom = ob.geometry;
       boxGeom.scale(3, 3, 3);
