@@ -5,6 +5,8 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+
 
 import s from './styles.module.scss';
 
@@ -252,28 +254,42 @@ const ThreeJSComponent: React.FC = () => {
 
     const boxPos = new THREE.PlaneGeometry(120, 120, 50, 50);
     boxPos.rotateX(-Math.PI * 0.5);
-    const boxGeom = new THREE.BoxGeometry(2, 2, 2, 2);
+    const boxGeom = null;
 
     const instGeom = new THREE.InstancedBufferGeometry();
-    instGeom.attributes.position = boxGeom.attributes.position;
-    instGeom.attributes.normal = boxGeom.attributes.normal;
-    instGeom.index = boxGeom.index;
-    instGeom.setAttribute(
-      'instPosition',
-      new THREE.InstancedBufferAttribute(boxPos.attributes.position.array, 3),
-    );
-    instGeom.setAttribute(
-      'instUv',
-      new THREE.InstancedBufferAttribute(boxPos.attributes.uv.array, 2),
-    );
-
     const darkMaterial = createMaterial('basic', COLOR_DARKER, 0, false);
-    const inst1 = new THREE.Mesh(instGeom, createMaterial('standard', COLOR, 0, false));
-    scene.add(inst1);
+    const loader = new GLTFLoader();
+    loader.load('/lego.glb', (gltf) => {
+      const model = gltf.scene;
 
-    const inst2 = new THREE.Mesh(instGeom, createMaterial('basic', COLOR, 1, true));
-    inst2.layers.enable(BLOOM_SCENE);
-    scene.add(inst2);
+      const ob = model.getObjectByName('group1822638002');
+
+     const boxGeom = ob.geometry;
+      boxGeom.scale(3, 3, 3);
+      instGeom.attributes.position = boxGeom.attributes.position;
+      instGeom.attributes.normal = boxGeom.attributes.normal;
+      instGeom.index = boxGeom.index;
+      instGeom.setAttribute(
+        'instPosition',
+        new THREE.InstancedBufferAttribute(boxPos.attributes.position.array, 3),
+      );
+      instGeom.setAttribute(
+        'instUv',
+        new THREE.InstancedBufferAttribute(boxPos.attributes.uv.array, 2),
+      );
+
+
+      const inst1 = new THREE.Mesh(instGeom, createMaterial('standard', COLOR, 0, false));
+      scene.add(inst1);
+
+      const inst2 = new THREE.Mesh(instGeom, createMaterial('basic', COLOR, 1, true));
+      inst2.layers.enable(BLOOM_SCENE);
+      scene.add(inst2);
+
+    });
+
+
+
 
     let time = 0;
 
