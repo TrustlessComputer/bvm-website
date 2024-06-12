@@ -9,6 +9,7 @@ import useL2Service from '@/hooks/useL2Service';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import BigNumber from 'bignumber.js';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 // const MAX_CLICK = 5;
 const MIN_BVM_REQUIRED = 1;
@@ -36,6 +37,8 @@ const SubmitFormModal = (props: IProps) => {
   const { isL2ServiceLogged, onConnect, isLoading } = useL2Service();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
 
+  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
+
   // const [countClick, setCountClick] = useState(0);
 
   const buttonSubmitObj = useMemo(() => {
@@ -46,24 +49,26 @@ const SubmitFormModal = (props: IProps) => {
       title = 'Submit';
       exec = onSuccess;
     } else {
-      if (!isL2ServiceLogged || !accountInforL2Service) {
-        title = 'Connect Wallet';
-        exec = onConnect;
-      } else {
-        const isNotEnoughtBalance = new BigNumber(
-          accountInforL2Service.balanceFormatted,
-        ).lt(MIN_BVM_REQUIRED); // balance < 1 BVM
+      // if (!isL2ServiceLogged || !accountInforL2Service) {
+      //   title = 'Connect Wallet';
+      //   exec = onConnect;
+      // } else {
+      //   const isNotEnoughtBalance = new BigNumber(
+      //     accountInforL2Service.balanceFormatted,
+      //   ).lt(MIN_BVM_REQUIRED); // balance < 1 BVM
 
-        // const isNotEnoughtBalance = true;
+      //   // const isNotEnoughtBalance = true;
 
-        if (isNotEnoughtBalance) {
-          title = 'Topup Now';
-          exec = onTopupNow;
-        } else {
-          title = 'Submit';
-          exec = onSuccess;
-        }
-      }
+      //   if (isNotEnoughtBalance) {
+      //     title = 'Topup Now';
+      //     exec = onTopupNow;
+      //   } else {
+      //     title = 'Submit';
+      //     exec = onSuccess;
+      //   }
+      // }
+      title = 'Submit';
+      exec = onSuccess;
     }
     return {
       title,
@@ -75,6 +80,8 @@ const SubmitFormModal = (props: IProps) => {
     onSuccess,
     isL2ServiceLogged,
     isMainnet,
+    loggedIn,
+    setShowLoginModalCustomize,
   ]);
 
   const renderRowInfor = (label = '', content = '') => {

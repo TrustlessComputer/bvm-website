@@ -53,7 +53,6 @@ export const TC_LAYER2_EXPLORER: string =
 export const RUNE_EXPLORER: string = process.env.NEXT_PUBLIC_RUNE_EXPLORER!;
 export const EAI_EXPLORER: string = process.env.NEXT_PUBLIC_EAI_EXPLORER!;
 
-
 export const NAKA_WEB: string = process.env.NEXT_PUBLIC_NAKA_WEB!;
 
 export { MetadataConfig, ViewportConfig };

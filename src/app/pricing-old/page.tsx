@@ -1,7 +1,7 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
-import PricingV2 from '@/modules/PricingV2';
+import PriceModule from '@/modules/price';
 
 export default function Builder() {
   return (
@@ -10,7 +10,7 @@ export default function Builder() {
         color: 'black',
       }}
     >
-      <PricingV2 />
+      <PriceModule />
     </MainLayout>
   );
 }

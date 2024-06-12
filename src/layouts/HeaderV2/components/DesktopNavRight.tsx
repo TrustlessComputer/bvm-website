@@ -17,17 +17,18 @@ type Props = {
 export const DesktopNavRight = (props: Props) => {
   return (
     <HStack direction={'row'} spacing={['40px', '32px']}>
-      {NAV_ITEMS_RIGHT.map((navItem) => (
+      {NAV_ITEMS_RIGHT.map((navItem, index) => (
         <>
           {navItem.subMenu ? (
             <DropDown
+              key={`${navItem.label}-${index}`}
               primaryColor={props.primaryColor}
               title={navItem.label}
               lists={navItem.subMenu}
             />
           ) : (
             <Link
-              key={navItem.label}
+              key={`${navItem.label}-${index}`}
               href={navItem.href ?? '#'}
               target={navItem.isNewWindow ? '_blank' : '_self'}
               color={props?.primaryColor || 'white'}

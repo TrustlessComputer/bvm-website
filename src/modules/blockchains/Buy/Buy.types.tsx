@@ -30,6 +30,12 @@ export type IAvailableList = {
   bitcoinValidity: {
     [key in NetworkEnum]: ItemDetail[];
   };
+  prover: {
+    [key in NetworkEnum]: ItemDetail[];
+  };
+  package: {
+    [key in NetworkEnum]: ItemDetail[];
+  };
 };
 
 export type ItemDetail = {

@@ -74,8 +74,9 @@ const BodyGridView = () => {
   const renderDataList = () => {
     return (
       <SimpleGrid columns={[1, 2]} spacing="20px" width={'100%'} height={'80%'}>
-        {serviceDataList.map((item) => (
+        {serviceDataList.map((item, index) => (
           <L2Instance
+            key={`${item.domain}-${index}`}
             item={item}
             isOwner={item.tcAddress === accountInforL2Service?.tcAddress}
             onClick={() => {

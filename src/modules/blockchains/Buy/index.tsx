@@ -23,6 +23,7 @@ import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import TopupModal from '../components/TopupModal';
 import SendFormModal from '../components/SendFormModal';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 export type Props = {
   onSuccess?: () => void;
@@ -46,9 +47,11 @@ export const BuyPage = React.memo((props: Props) => {
     isMainnet,
   } = useBuy();
   const router = useRouter();
-  const { isL2ServiceLogged, onConnect } = useL2Service();
+  // const { isL2ServiceLogged, onConnect } = useL2Service();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
+  console.log('PHAT --- loggedIn --- ', loggedIn);
   if (isAvailableListFetching)
     return (
       <Flex height={'100dvh'} align={'center'} justify={'center'}>
@@ -87,7 +90,7 @@ export const BuyPage = React.memo((props: Props) => {
             </Flex>
           )} */}
 
-        {!isL2ServiceLogged ? (
+        {!loggedIn ? (
           <Flex
             align={'center'}
             fontSize={'16px'}
@@ -107,7 +110,9 @@ export const BuyPage = React.memo((props: Props) => {
                 }}
                 onClick={() => {
                   // onLogin();
-                  onConnect && onConnect();
+                  // onConnect && onConnect();
+                  setShowLoginModalCustomize &&
+                    setShowLoginModalCustomize(true);
                 }}
               >
                 {`Connect wallet`}

@@ -1,5 +1,6 @@
 'use client';
 
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import useL2Service from '@/hooks/useL2Service';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
@@ -19,6 +20,7 @@ const HeaderView = () => {
   const { viewMode, showOnlyMyOrder, isL2ServiceLogged } = useAppSelector(
     getL2ServicesStateSelector,
   );
+  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
   const isMainnnet = viewMode === 'Mainnet';
 
@@ -77,7 +79,7 @@ const HeaderView = () => {
           {'Testnet'}
         </Button>
 
-        {!isL2ServiceLogged ? (
+        {!loggedIn ? (
           // <Button
           //   px={'30px'}
           //   borderRadius={'14px'}
@@ -118,7 +120,7 @@ const HeaderView = () => {
         fontWeight={500}
         color={'#000'}
       >
-        {isL2ServiceLogged ? (
+        {loggedIn ? (
           <Button
             bgColor={'#FA4E0E'}
             color={'#fff'}
@@ -137,7 +139,8 @@ const HeaderView = () => {
               bgColor: '#e5601b',
             }}
             onClick={() => {
-              router.push('/blockchains/customize');
+              // router.push('/blockchains/customize');
+              router.push('/pricing');
             }}
           >
             Build your Bitcoin L2
@@ -155,7 +158,8 @@ const HeaderView = () => {
                 opacity: 0.8,
               }}
               onClick={() => {
-                onConnect();
+                // onConnect();
+                setShowLoginModalCustomize && setShowLoginModalCustomize(true);
               }}
             >
               {`Connect wallet`}

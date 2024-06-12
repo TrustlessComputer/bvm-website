@@ -5,6 +5,7 @@ import {
   orderBuy,
   fetchAccountInfo,
   fetchL2ServiceHistory,
+  fetchAvailableList,
 } from './actions';
 import { PREFIX } from './constants';
 import { L2ServicesState, OrderItem, ViewMode } from './types';
@@ -26,6 +27,10 @@ export const initialState: L2ServicesState = {
 
   accountInforL2Service: undefined,
   isL2ServiceLogged: false,
+
+  availableListFetching: false,
+  availableListFetched: false,
+  availableList: undefined,
 };
 
 const slice = createSlice({
@@ -109,6 +114,20 @@ const slice = createSlice({
         state.isFetchingAllOrders = false;
         state.isFetchedAllOrders = true;
         state.allOrders = [];
+      })
+
+      .addCase(fetchAvailableList.pending, (state) => {
+        state.availableListFetched = true;
+      })
+      .addCase(fetchAvailableList.fulfilled, (state, action) => {
+        state.availableListFetching = false;
+        state.availableListFetched = true;
+        state.availableList = action.payload;
+      })
+      .addCase(fetchAvailableList.rejected, (state, _) => {
+        state.availableListFetching = false;
+        state.availableListFetched = true;
+        state.availableList = undefined;
       });
   },
 });

@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { L2ServiceAPI as httpClient } from '@/services/api/clients';
-import {
-  IOrderBuyEstimateRespone,
-  IOrderBuyReq,
-  SubmitFormParams,
-} from './types';
+import { IOrderBuyEstimateRespone, SubmitFormParams } from './types';
 import { IAvailableList } from '@/modules/blockchains/Buy/Buy.types';
 import {
   AccountInfo,
@@ -12,6 +8,7 @@ import {
   HistoryItemResp,
   IGetNonceReq,
   IGetNonceResp,
+  IOrderBuyReq,
   IQuickStart,
   IVerifySignatureReq,
   IVerifySignatureResp,
@@ -289,7 +286,7 @@ const updateConfigInfor = async (
 };
 
 const setAccesTokenHeader = (accessToken: string) => {
-  httpClient.defaults.headers.Authorization = `Bearer ${accessToken}`;
+  httpClient.defaults.headers.Authorization = `${accessToken}`;
 };
 
 const removeAccesTokenHeader = () => {

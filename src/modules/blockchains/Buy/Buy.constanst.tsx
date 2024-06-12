@@ -1,6 +1,7 @@
 export const MIN_GAS_PRICE = 1; // 1 gweis
 export const GAS_LITMIT = 30000000; //
-export const WITHDRAWAL_PERIOD = 7; //
+export const WITHDRAWAL_PERIOD = 7; // 7 days
+export const WITHDRAWAL_PERIOD_BOOTSTRAP = 2; // 2 hours
 
 // ------------------------------------------------------------------------------------
 export enum NetworkEnum {
@@ -223,3 +224,35 @@ export const STANDARD_VALUES = {
 };
 
 export const ADVANCED_VALUES = {};
+
+export enum ProverEnum {
+  NO = 0,
+  YES = 1,
+}
+
+export const ProverEnumMap = {
+  [ProverEnum.NO]: 'No',
+  [ProverEnum.YES]: 'Yes',
+};
+
+export enum PricingPackageEnum {
+  Bootstrap = 1,
+  Growth = 2,
+}
+
+export const PricingPackageEnumMap = {
+  [PricingPackageEnum.Bootstrap]: 'Bootstrap',
+  [PricingPackageEnum.Growth]: 'Growth',
+};
+
+export const HardwareBootstrap = {
+  cpu: 8,
+  ram: 16,
+  storage: 320,
+};
+
+export const HardwareGrowth = {
+  cpu: 32,
+  ram: 64,
+  storage: 650,
+};

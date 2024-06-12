@@ -11,6 +11,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { enhance } from './Dashboard.enhance';
 import useL2Service from '@/hooks/useL2Service';
 import { useEffect } from 'react';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 const Page = () => {
   const {
@@ -19,6 +20,9 @@ const Page = () => {
     fetchAllData,
     isL2ServiceLogged,
   } = useL2Service();
+
+  const { loggedIn } = useWeb3Auth();
+
   const isFetchingAllData = useAppSelector(isFetchingAllDataSelector);
 
   useEffect(() => {
@@ -32,7 +36,7 @@ const Page = () => {
   useEffect(() => {
     fetchAllData();
     loopFetchAccountInfor();
-  }, [isL2ServiceLogged]);
+  }, [isL2ServiceLogged, loggedIn]);
 
   const renderContent = () => {
     return (

@@ -41,7 +41,6 @@ import { IAvailableList } from '../Buy/Buy.types';
 import { BuyContextInit, IBuyContext } from './Buy.type';
 import {
   IOrderBuyEstimateRespone,
-  IOrderBuyReq,
   SubmitFormParams,
 } from '@/services/api/l2services/types';
 import { ServiceTypeEnum } from '../Buy/Buy.constanst';
@@ -61,6 +60,8 @@ import {
 } from '@/stores/states/l2services/reducer';
 import { useRouter } from 'next/navigation';
 import useL2Service from '@/hooks/useL2Service';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { IOrderBuyReq } from '@/stores/states/l2services/types';
 
 export type IField = {
   value?: string;
@@ -89,6 +90,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
   const accountInfo = true;
   const { fetchAllData, isL2ServiceLogged } = useL2Service();
+  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
   // ------------------------------------------------------------
   // Text and TextArea Fields
@@ -396,8 +398,15 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     // } else {
     //   return 'Submit';
     // }
-    return 'Submit';
-  }, [isMainnet, accountInfo, isNakaWalletAuthed, isL2ServiceLogged]);
+
+    // return 'Submit';
+
+    if (!loggedIn) {
+      return 'Sign In';
+    } else {
+      return 'Submit';
+    }
+  }, [isMainnet, accountInfo, isNakaWalletAuthed, isL2ServiceLogged, loggedIn]);
 
   const fetchAvailableListHandler = async () => {
     try {
@@ -652,7 +661,12 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
   const submitHandler = async (onSuccess?: any) => {
     try {
-      console.log('submitHandler --- isNakaWalletAuthed ', isNakaWalletAuthed);
+      if (!loggedIn) {
+        setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+        return;
+      }
+
+      // console.log('submitHandler --- isNakaWalletAuthed ', isNakaWalletAuthed);
       // if (!isNakaWalletAuthed) {
       //   // login();
       //   const result = await requestAccount();

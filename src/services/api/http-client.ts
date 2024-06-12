@@ -32,6 +32,7 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
 
   instance.interceptors.response.use(
     (res) => {
+      // console.log('RESPONE OK: ', res);
       const result = res?.data?.data || res?.data?.result || res?.data;
       if (res?.data?.count !== undefined) {
         result.count = res.data.count;
@@ -50,8 +51,17 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
       return Promise.resolve(result);
     },
     (error: any) => {
+      // console.log('RESPONE ERROR: ', error);
       if (!error.response) {
         return Promise.reject(error);
+      }
+      const statusCode = error?.response?.status;
+
+      if (statusCode >= 500) {
+        return Promise.reject(`${statusCode}: Internal Server Error`);
+      }
+      if (statusCode === 401) {
+        return Promise.reject(`${statusCode}: Unauthenticated`);
       }
       const response = error?.response?.data || error;
       const errorMessage =

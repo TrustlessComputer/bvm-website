@@ -1,4 +1,5 @@
 import { DALayerEnum } from '@/modules/blockchains/Buy/Buy.constanst';
+import { IAvailableList } from '@/modules/blockchains/Buy/Buy.types';
 import {
   HistoryStatus,
   HistoryType,
@@ -161,6 +162,12 @@ interface IOrderBuyReq {
   gasLimit: number;
   twitter_id?: string | null;
   bitcoinValidity: number;
+  email?: string;
+  cpu?: number;
+  ram?: number;
+  storage?: number;
+  package?: number;
+  rollupProtocol?: number;
 }
 
 interface IOrderBuyEstimateRespone {
@@ -222,6 +229,10 @@ interface L2ServicesState {
 
   accountInforL2Service: AccountInfo | undefined;
   isL2ServiceLogged: boolean;
+
+  availableListFetching: boolean;
+  availableListFetched: boolean;
+  availableList?: IAvailableList;
 }
 
 type MetaConfig = {
