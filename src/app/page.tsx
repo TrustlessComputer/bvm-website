@@ -9,6 +9,7 @@ export default function Home() {
       headerProps={{
         color: 'black',
       }}
+      hideFooter={true}
     >
       <LandingV3 />
     </MainLayout>

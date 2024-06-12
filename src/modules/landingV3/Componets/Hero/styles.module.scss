@@ -5,7 +5,7 @@
 .inner {
   position: relative;
   background-color: #E54104;
-
+  height: 100vh;
 }
 
 .overlay {
@@ -25,17 +25,11 @@
   flex-direction: column;
   justify-content: center;
   max-width: 1321px;
-  padding: 160px 0;
   width: 100%;
-  margin: 0 auto;
+  height: 100%;
+  margin: auto;
   z-index: 2;
   position: relative;
-  @include min-tablet {
-    padding: 200px 0;
-  }
-  @include is-pc {
-    padding: 295px 0;
-  }
 }
 
 .title {
