@@ -13,6 +13,8 @@
   --builder-padding-size: 56px;
   --font-hind: 'Hind Siliguri', sans-serif;
   --font-dmsans: 'DM Sans', sans-serif;
+  --font-jetbrains: 'JetBrains Mono', sans-serif;
+
   @include is-min-table {
     --builder-padding-size: 80px;
   }

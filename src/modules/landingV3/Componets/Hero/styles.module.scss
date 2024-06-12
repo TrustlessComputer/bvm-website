@@ -39,7 +39,7 @@
   color: #000;
   line-height: calc(70 / 45);
   font-size: 45px;
-  font-family: 'JetBrains Mono';
+  font-family: var(--font-jetbrains);
   text-transform: uppercase;
   @include min-tablet {
     line-height: calc(100 / 80);
@@ -65,12 +65,12 @@
   border-radius: 1000px;
   margin-top: 40px;
   margin-bottom: 16px;
-  font-family: 'SF Pro';
+  font-family: "SF Pro";
 }
 
 .label {
   font-weight: 500;
-  font-family: 'JetBrains Mono';
+  font-family: var(--font-jetbrains);
   font-size: 14px;
   line-height: calc(20 / 14);
 }
