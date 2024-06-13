@@ -1,9 +1,9 @@
 import React from 'react';
-import ResearchModule from '@/modules/research';
+import Lab from '@/modules/Lab';
 
 
 const ChainsModule = (): React.JSX.Element => {
-  return <ResearchModule />
+  return <Lab />
 }
 
 export default ChainsModule;
