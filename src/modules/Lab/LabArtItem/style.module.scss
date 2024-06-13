@@ -132,6 +132,10 @@
 .isLowercase {
   text-transform: unset !important;
 }
+.isFilled.tag {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
 @keyframes wrapImage {
   0% {
     clip-path: inset(100% 0 0 0);

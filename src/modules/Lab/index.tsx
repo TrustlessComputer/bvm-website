@@ -33,14 +33,13 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
             <LabContent
               paddingX
               imageRect
+              isTagFilled
               landingData={Modules}
-              heading={
-                <>
-                  Modules
-                </>
-              }
+              heading={<>Modules</>}
             >
-              We build and open source project that advance Bitcoin ecosystem. We believe in doing so even when there may not be a direct commercial incentive.
+              We build and open source project that advance Bitcoin ecosystem.
+              We believe in doing so even when there may not be a direct
+              commercial incentive.
             </LabContent>
           </div>
         );

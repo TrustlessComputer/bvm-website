@@ -11,6 +11,7 @@ interface Iprops extends PropsWithChildren {
   isHaveNumber?: boolean;
   paddingX?: boolean;
   imageRect?: boolean;
+  isTagFilled?: boolean;
 }
 
 export default function LabContent({
@@ -19,8 +20,9 @@ export default function LabContent({
   landingData,
   isLowercaseTitle,
   isHaveNumber,
+  isTagFilled,
   paddingX,
-  imageRect
+  imageRect,
 }: Iprops) {
   const { isFirst } = useLabStore();
 
@@ -42,6 +44,7 @@ export default function LabContent({
             data={item}
             isLowercaseTitle={isLowercaseTitle}
             delay={index / 10}
+            isTagFilled={isTagFilled}
             imageRect={imageRect}
           />
         ))}

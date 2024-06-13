@@ -10,10 +10,18 @@ type ILabArtItem = {
   data: ILabItemContent;
   delay: number;
   isLowercaseTitle?: boolean;
+  isTagFilled?: boolean;
   imageRect?: boolean;
 };
 
-const LabArtItem = ({ data, delay, index, isLowercaseTitle, imageRect }: ILabArtItem) => {
+const LabArtItem = ({
+  data,
+  delay,
+  index,
+  isLowercaseTitle,
+  imageRect,
+  isTagFilled,
+}: ILabArtItem) => {
   const { image, title, content, link, disabled, tags, video } = data;
   const [isLoaded, setIsLoaded] = useState(false);
   const refHeading = useRef<{ onHover: () => void }>();
@@ -29,7 +37,9 @@ const LabArtItem = ({ data, delay, index, isLowercaseTitle, imageRect }: ILabArt
           className={`${s.labArtItem_img} ${isLoaded && s.isLoaded}`}
           onMouseEnter={onMouseEnter}
         >
-          <div className={`${s.labArtItem_img_inner} ${imageRect && s.image_rect}`}>
+          <div
+            className={`${s.labArtItem_img_inner} ${imageRect && s.image_rect}`}
+          >
             {video ? (
               <video
                 src={video}
@@ -101,7 +111,11 @@ const LabArtItem = ({ data, delay, index, isLowercaseTitle, imageRect }: ILabArt
           {tags && (
             <ul className={s.labArtItem_tags}>
               {tags.map((tag) => {
-                return <li className={s.tag}>{tag}</li>;
+                return (
+                  <li className={`${s.tag} ${isTagFilled && s.isFilled}`}>
+                    {tag}
+                  </li>
+                );
               })}
             </ul>
           )}
