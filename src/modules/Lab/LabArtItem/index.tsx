@@ -10,9 +10,16 @@ type ILabArtItem = {
   data: ILabItemContent;
   delay: number;
   isLowercaseTitle?: boolean;
+  isTagFilled?: boolean;
 };
 
-const LabArtItem = ({ data, delay, index, isLowercaseTitle }: ILabArtItem) => {
+const LabArtItem = ({
+  data,
+  delay,
+  index,
+  isLowercaseTitle,
+  isTagFilled,
+}: ILabArtItem) => {
   const { image, title, content, link, disabled, tags, video } = data;
   const [isLoaded, setIsLoaded] = useState(false);
   const refHeading = useRef<{ onHover: () => void }>();
@@ -100,7 +107,11 @@ const LabArtItem = ({ data, delay, index, isLowercaseTitle }: ILabArtItem) => {
           {tags && (
             <ul className={s.labArtItem_tags}>
               {tags.map((tag) => {
-                return <li className={s.tag}>{tag}</li>;
+                return (
+                  <li className={`${s.tag} ${isTagFilled && s.isFilled}`}>
+                    {tag}
+                  </li>
+                );
               })}
             </ul>
           )}

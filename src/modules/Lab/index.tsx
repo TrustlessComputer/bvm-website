@@ -28,7 +28,11 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
       case 2:
         return (
           <div>
-            <LabContent landingData={Modules} heading={<>Modules</>}>
+            <LabContent
+              landingData={Modules}
+              heading={<>Modules</>}
+              isTagFilled
+            >
               We build and open source project that advance Bitcoin ecosystem.
               We believe in doing so even when there may not be a direct
               commercial incentive.

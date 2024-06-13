@@ -9,6 +9,7 @@ interface Iprops extends PropsWithChildren {
   landingData: ILabItemContent[];
   isLowercaseTitle?: boolean;
   isHaveNumber?: boolean;
+  isTagFilled?: boolean;
 }
 
 export default function LabContent({
@@ -17,6 +18,7 @@ export default function LabContent({
   landingData,
   isLowercaseTitle,
   isHaveNumber,
+  isTagFilled,
 }: Iprops) {
   const { isFirst } = useLabStore();
 
@@ -38,6 +40,7 @@ export default function LabContent({
             data={item}
             isLowercaseTitle={isLowercaseTitle}
             delay={index / 10}
+            isTagFilled={isTagFilled}
           />
         ))}
       </div>
