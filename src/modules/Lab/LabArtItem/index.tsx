@@ -80,7 +80,7 @@ const LabArtItem = ({ data, delay, index, isLowercaseTitle }: ILabArtItem) => {
               </RandomText>
             ) : (
               <>
-                {index && (
+                {index !== undefined && (
                   <span className={s.labArtItem_title_label}>
                     0{index + 1}.
                   </span>
