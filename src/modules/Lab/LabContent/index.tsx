@@ -8,6 +8,8 @@ interface Iprops extends PropsWithChildren {
   heading: string | React.ReactElement;
   landingData: ILabItemContent[];
   isLowercaseTitle?: boolean;
+  paddingX?: boolean;
+  imageRect?: boolean;
 }
 
 export default function LabContent({
@@ -15,11 +17,13 @@ export default function LabContent({
   children,
   landingData,
   isLowercaseTitle,
+  paddingX,
+  imageRect
 }: Iprops) {
   const { isFirst } = useLabStore();
 
   return (
-    <div className={`${s.container} container`}>
+    <div className={`${s.container} ${paddingX && s.paddingX} container`}>
       <div className={s.labHeadline}>
         <h2 className={`${s.labHeadline_title}`}>{heading}</h2>
         <p className={`${s.labHeadline_content} ${isFirst && s.isIN}`}>
@@ -36,6 +40,7 @@ export default function LabContent({
             data={item}
             isLowercaseTitle={isLowercaseTitle}
             delay={index / 10}
+            imageRect={imageRect}
           />
         ))}
       </div>

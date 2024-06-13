@@ -10,9 +10,10 @@ type ILabArtItem = {
   data: ILabItemContent;
   delay: number;
   isLowercaseTitle?: boolean;
+  imageRect?: boolean;
 };
 
-const LabArtItem = ({ data, delay, index, isLowercaseTitle }: ILabArtItem) => {
+const LabArtItem = ({ data, delay, index, isLowercaseTitle, imageRect }: ILabArtItem) => {
   const { image, title, content, link, disabled, tags, video } = data;
   const [isLoaded, setIsLoaded] = useState(false);
   const refHeading = useRef<{ onHover: () => void }>();
@@ -28,7 +29,7 @@ const LabArtItem = ({ data, delay, index, isLowercaseTitle }: ILabArtItem) => {
           className={`${s.labArtItem_img} ${isLoaded && s.isLoaded}`}
           onMouseEnter={onMouseEnter}
         >
-          <div className={s.labArtItem_img_inner}>
+          <div className={`${s.labArtItem_img_inner} ${imageRect && s.image_rect}`}>
             {video ? (
               <video
                 src={video}
