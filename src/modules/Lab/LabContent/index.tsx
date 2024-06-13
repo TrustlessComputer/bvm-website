@@ -21,18 +21,18 @@ export default function LabContent({ heading, children, landingData }: Iprops) {
         </p>
       </div>
 
-      {isFirst && (
-        <div className={s.labArtList}>
-          {landingData.map((item, index) => (
-            <LabArtItem
-              key={index}
-              index={index}
-              data={item}
-              delay={index / 10}
-            />
-          ))}
-        </div>
-      )}
+      {/* {isFirst && ( */}
+      <div className={s.labArtList}>
+        {landingData.map((item, index) => (
+          <LabArtItem
+            key={index}
+            index={index}
+            data={item}
+            delay={index / 10}
+          />
+        ))}
+      </div>
+      {/* )} */}
     </div>
   );
 }
