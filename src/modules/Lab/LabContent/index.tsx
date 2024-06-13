@@ -7,9 +7,15 @@ import LabArtItem from '../LabArtItem';
 interface Iprops extends PropsWithChildren {
   heading: string | React.ReactElement;
   landingData: ILabItemContent[];
+  isLowercaseTitle?: boolean;
 }
 
-export default function LabContent({ heading, children, landingData }: Iprops) {
+export default function LabContent({
+  heading,
+  children,
+  landingData,
+  isLowercaseTitle,
+}: Iprops) {
   const { isFirst } = useLabStore();
 
   return (
@@ -28,6 +34,7 @@ export default function LabContent({ heading, children, landingData }: Iprops) {
             key={index}
             index={index}
             data={item}
+            isLowercaseTitle={isLowercaseTitle}
             delay={index / 10}
           />
         ))}

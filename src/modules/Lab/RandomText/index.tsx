@@ -7,8 +7,13 @@ import {
 } from 'react';
 
 const RandomText = forwardRef(
-  (props: PropsWithChildren, ref): React.ReactElement => {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  (
+    props: PropsWithChildren & { isLowerCase?: boolean },
+    ref,
+  ): React.ReactElement => {
+    const letters = props.isLowerCase
+      ? 'abcdefghijklmnopqrstuvwxyz'
+      : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const refInterval = useRef<NodeJS.Timeout>();
     const refClear = useRef<NodeJS.Timeout>();
     const refIteration = useRef<number>(0);
@@ -58,7 +63,7 @@ const RandomText = forwardRef(
         {props.children}
       </div>
     );
-  }
+  },
 );
 
 export default RandomText;

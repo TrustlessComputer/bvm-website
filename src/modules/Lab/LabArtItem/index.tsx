@@ -9,9 +9,10 @@ type ILabArtItem = {
   index: number;
   data: ILabItemContent;
   delay: number;
+  isLowercaseTitle?: boolean;
 };
 
-const LabArtItem = ({ data, delay, index }: ILabArtItem) => {
+const LabArtItem = ({ data, delay, index, isLowercaseTitle }: ILabArtItem) => {
   const { image, title, content, link, disabled, tags, video } = data;
   const [isLoaded, setIsLoaded] = useState(false);
   const refHeading = useRef<{ onHover: () => void }>();
@@ -62,11 +63,34 @@ const LabArtItem = ({ data, delay, index }: ILabArtItem) => {
           </div>
         </div>
         <div className={s.labArtItem_info}>
-          <div className={s.labArtItem_info_top}>
-            <span className={s.labArtItem_title_label}>0{index + 1}.</span>
-            <RandomText ref={refHeading} {...{ className: s.labArtItem_title }}>
-              {title}
-            </RandomText>
+          <div
+            className={`${s.labArtItem_info_top} ${
+              isLowercaseTitle && s.isLowercase
+            }`}
+          >
+            {isLowercaseTitle ? (
+              <RandomText
+                isLowerCase
+                ref={refHeading}
+                {...{
+                  className: `${s.labArtItem_title} `,
+                }}
+              >
+                {title}
+              </RandomText>
+            ) : (
+              <>
+                <span className={s.labArtItem_title_label}>0{index + 1}.</span>
+                <RandomText
+                  ref={refHeading}
+                  {...{
+                    className: `${s.labArtItem_title}`,
+                  }}
+                >
+                  {title}
+                </RandomText>
+              </>
+            )}
           </div>
           <p className={s.labArtItem_content}>{content}</p>
           {tags && (

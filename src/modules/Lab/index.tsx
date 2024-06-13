@@ -13,7 +13,11 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
       case 1:
         return (
           <div>
-            <LabContent landingData={Research} heading={<>Research</>}>
+            <LabContent
+              landingData={Research}
+              heading={<>Research</>}
+              isLowercaseTitle
+            >
               We believe that our research will eventually make Bitcoin vastly
               more useful than just a currency. We hope builders find our
               research helpful and start building DeFi, Gaming, NFTs, Payments,

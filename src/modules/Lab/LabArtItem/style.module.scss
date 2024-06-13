@@ -1,6 +1,6 @@
 .labArtItem {
   --delay-in: 0s;
-  --delay: calc(.6s + var(--delay-in));
+  --delay: calc(0.6s + var(--delay-in));
 
   &:hover {
     .labArtItem_img_inner {
@@ -13,29 +13,30 @@
     margin-bottom: 16px;
     overflow: hidden;
     clip-path: inset(100% 0 0 0);
-    animation: wrapImage .8s calc(var(--delay) + 0s) $easeOutCubic forwards;
+    animation: wrapImage 0.8s calc(var(--delay) + 0s) $easeOutCubic forwards;
     position: relative;
     border-radius: 16px;
 
     &_inner {
-      transition: transform .4s $easeOutCubic;
+      transition: transform 0.4s $easeOutCubic;
       aspect-ratio: 472/236;
     }
 
-    img, video {
+    img,
+    video {
       width: 100%;
       height: calc(100% + 1px);
       aspect-ratio: 472/236;
       will-change: transform;
       object-fit: cover;
       transform: scale(1.5);
-      animation: inImage .8s calc(var(--delay) + .1s) $easeOutCubic forwards;
+      animation: inImage 0.8s calc(var(--delay) + 0.1s) $easeOutCubic forwards;
     }
 
     &_clo {
       position: relative;
       z-index: 2;
-      transition: opacity .1s ease-out;
+      transition: opacity 0.1s ease-out;
     }
 
     &_ori {
@@ -68,10 +69,10 @@
     opacity: 0;
     will-change: transform, opacity;
     transform: translateY(20px);
-    animation: fadeIn .6s calc(var(--delay) + .2s) $easeOutCubic forwards;
+    animation: fadeIn 0.6s calc(var(--delay) + 0.2s) $easeOutCubic forwards;
     font-family: var(--font-jetbrains);
     &_label {
-      color: #ED5A00;
+      color: #ed5a00;
       font-size: 14px;
       font-family: var(--font-jetbrains);
       line-height: calc(24 / 14);
@@ -79,7 +80,7 @@
       opacity: 0;
       will-change: transform, opacity;
       transform: translateY(20px);
-      animation: fadeIn .6s calc(var(--delay) + .2s) $easeOutCubic forwards;
+      animation: fadeIn 0.6s calc(var(--delay) + 0.2s) $easeOutCubic forwards;
     }
   }
 
@@ -91,12 +92,12 @@
     opacity: 0;
     will-change: transform, opacity;
     transform: translateY(20px);
-    animation: fadeIn .6s calc(var(--delay) + .3s) $easeOutCubic forwards;
+    animation: fadeIn 0.6s calc(var(--delay) + 0.3s) $easeOutCubic forwards;
   }
 
   &.disabled {
     .labArtItem_info {
-      opacity: .3;
+      opacity: 0.3;
     }
   }
 
@@ -111,12 +112,12 @@
     color: #000;
     will-change: transform, opacity;
     transform: translateY(20px);
-    animation: fadeIn .6s calc(var(--delay) + .4s) $easeOutCubic forwards;
+    animation: fadeIn 0.6s calc(var(--delay) + 0.4s) $easeOutCubic forwards;
   }
 }
 
 .tag {
-  background: #F6F6F6;
+  background: #f6f6f6;
   padding: 5px 8px;
   font-size: 10px;
   font-weight: 400;
@@ -128,7 +129,9 @@
   width: fit-content;
   flex: 0 0 auto;
 }
-
+.isLowercase {
+  text-transform: unset !important;
+}
 @keyframes wrapImage {
   0% {
     clip-path: inset(100% 0 0 0);
