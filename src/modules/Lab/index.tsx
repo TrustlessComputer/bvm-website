@@ -13,7 +13,6 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
         return (
           <div>
             <LabContent
-              paddingX
               imageRect
               landingData={Research}
               heading={<>Research</>}
@@ -31,7 +30,6 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
         return (
           <div>
             <LabContent
-              paddingX
               imageRect
               isTagFilled
               landingData={Modules}

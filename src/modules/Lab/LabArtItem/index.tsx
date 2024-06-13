@@ -34,11 +34,11 @@ const LabArtItem = ({
     return (
       <>
         <div
-          className={`${s.labArtItem_img} ${isLoaded && s.isLoaded}`}
+          className={`${s.labArtItem_img} ${isLoaded && s.isLoaded} ${imageRect && s.smallBigBorder}`}
           onMouseEnter={onMouseEnter}
         >
           <div
-            className={`${s.labArtItem_img_inner} ${imageRect && s.image_rect}`}
+            className={`${s.labArtItem_img_inner} ${imageRect && s.image_rect} `}
           >
             {video ? (
               <video

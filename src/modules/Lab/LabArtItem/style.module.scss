@@ -86,7 +86,7 @@
 
   &_content {
     font-size: 14px;
-    line-height: rem(19.6px);
+    line-height: calc(19.6 / 14);
     color: var(--gray-color);
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     opacity: 0;
@@ -170,5 +170,8 @@
 
 .image_rect {
   aspect-ratio: 368/236;
+}
+
+.smallBigBorder {
   border-radius: 8px;
 }

@@ -9,7 +9,7 @@
   --active-color: #86919e;
 
   .container {
-    padding-top: rem(70px);
+    padding-top: 138px;
     padding-bottom: rem(105px);
     max-width: 1440px;
     margin-left: auto;
@@ -23,9 +23,10 @@
       flex-wrap: wrap;
 
       &_title {
-        font-size: rem(42px);
+        font-size: 72px;
         line-height: rem(52px);
         letter-spacing: 2px;
+        font-family: var(--font-jetbrains);
         color: var(--black-color);
         //font-family: 'JetBrains Mono', monospace;
         margin-bottom: rem(16px);
