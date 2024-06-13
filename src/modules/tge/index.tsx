@@ -16,7 +16,7 @@ export default function TgeModule() {
       </div>
       <Image
         className={s.wrapper_bg}
-        src={'/tge/bg.png'}
+        src={'/tge/bg2.png'}
         width={1920}
         height={1004}
         alt="bg"
