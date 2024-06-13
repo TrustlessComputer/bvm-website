@@ -1,0 +1,48 @@
+.section {
+  padding: 60px 0;
+  @include is-min-table {
+    padding: 120px 0;
+  }
+}
+
+.wrapper {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 60px;
+  @include is-min-table {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @include is-pc {
+    margin-top: 80px;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 0 140px;
+  }
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+}
+
+.itemImage {
+  width: 65px;
+  height: 65px;
+  @include is-min-table {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+.itemLabel {
+  color: #989ab3;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+  font-family: 'Helvetica Neue';
+  @include is-min-table {
+    font-size: 18px;
+  }
+}
