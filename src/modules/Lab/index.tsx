@@ -7,9 +7,7 @@ import { OpenSource, Portfolio, Research } from './data';
 import HeadingText from './HeadingText';
 import LabHeader from './LabHeader';
 
-const Lab = () => {
-  const [tab, setTab] = useState<number>(0);
-  const [isDark, setIsDark] = useState<boolean>(false);
+const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
   const TabContent = (): ReactElement => {
     switch (tab) {
       case 1:
@@ -59,7 +57,7 @@ const Lab = () => {
                   <HeadingText
                     first={'Chains'}
                     headings={[
-                      ''
+                      '',
                       // 'Chains',
                       // 'DeFi on Bitcoin',
                       // 'NFTs on Bitcoin',
@@ -72,7 +70,10 @@ const Lab = () => {
               }
               landingData={Portfolio}
             >
-              We partner with bold builders to build apps and protocols that reinvent Bitcoin. As technical investors, we invest at the earliest stage and take a hands-on approach to help builders build and launch.
+              We partner with bold builders to build apps and protocols that
+              reinvent Bitcoin. As technical investors, we invest at the
+              earliest stage and take a hands-on approach to help builders build
+              and launch.
             </LabContent>
           </div>
         );

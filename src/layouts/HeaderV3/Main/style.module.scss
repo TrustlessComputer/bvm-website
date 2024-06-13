@@ -26,11 +26,10 @@
   &_black {
     svg {
       path {
-       fill: #000;
+        fill: #000;
       }
     }
   }
-
 }
 
 .menu {
@@ -48,3 +47,5 @@
   line-height: (20 / 14);
   text-align: center;
 }
+.active { 
+} 

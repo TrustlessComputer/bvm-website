@@ -6,33 +6,43 @@ import { IconButton, Image, useDisclosure } from '@chakra-ui/react';
 import useWindowSize from '@/hooks/useWindowSize';
 import DrawerMobileMenu from '@/layouts/HeaderV3/components/DrawerMenu';
 import { NAV_ITEMS } from '../menuConfig';
+import { usePathname } from 'next/navigation';
 
 export type TMainHeader = {
   color?: string;
   colorLogo?: 'white' | 'black';
-}
+};
 
-const Main = ({color = '#000', colorLogo  = 'black' }: TMainHeader) => {
+const Main = ({ color = '#000', colorLogo = 'black' }: TMainHeader) => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
+  const pathname = usePathname();
 
   return (
     <div className={`${s.wrapper}`}>
       <div className={`${s.inner} containerV3`}>
-        <div className={`${s.logo} ${colorLogo === 'black' && s.logo_black }`}>
+        <div className={`${s.logo} ${colorLogo === 'black' && s.logo_black}`}>
           <IconLogo />
-          <h6 className={s.logo_text} style={{color: color}}>Bitcoin Virtual Machine</h6>
+          <h6 className={s.logo_text} style={{ color: color }}>
+            Bitcoin Virtual Machine
+          </h6>
         </div>
         {isDesktop ? (
           <div className={s.menu}>
             {NAV_ITEMS.map((item) => {
+              const isActive = pathname === `/${item.href}`;
               return (
                 <Link
                   key={item.label}
                   href={item.href ?? '#'}
                   target={item.isNewWindow ? '_blank' : '_self'}
                 >
-                  <p className={s.itemLabel} style={{color: color}}>{item.label}</p>
+                  <p
+                    className={`${s.itemLabel} ${isActive && s.active}`}
+                    style={{ color: color }}
+                  >
+                    {item.label}
+                  </p>
                 </Link>
               );
             })}
