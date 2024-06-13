@@ -7,6 +7,7 @@ import useWindowSize from '@/hooks/useWindowSize';
 import DrawerMobileMenu from '@/layouts/HeaderV3/components/DrawerMenu';
 import { NAV_ITEMS } from '../menuConfig';
 import { usePathname, useRouter } from 'next/navigation';
+import IcMenuMobile from '../components/IcMenuMobile';
 
 export type TMainHeader = {
   color?: 'black' | 'white';
@@ -60,16 +61,11 @@ const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader) => {
             <IconButton
               onClick={onToggle}
               height={'24px'}
-              icon={
-                <Image
-                  src={'/landingV3/svg/ic-menu-mobile.svg'}
-                  w={'24px'}
-                  h={'24px'}
-                  color={'white'}
-                  filter={'invert(0)'}
-                />
-              }
-              color={'white'}
+              icon={<IcMenuMobile />}
+              className={`${s.icon} ${
+                colorLogo === 'black' ? s.icon_black : s.icon_white
+              }`}
+              color={color}
               aria-label={'Toggle Menu'}
               _hover={{
                 bgColor: 'transparent',
