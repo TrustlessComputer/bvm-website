@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
@@ -9,6 +9,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
 import s from './styles.module.scss';
+import { MathLerp, MathMap } from '@utils/mathUtils';
 
 const vertexrt = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 ); }`;
 const fragment = `varying vec2 vUv;
@@ -135,11 +136,14 @@ const ThreeJSComponent: React.FC = () => {
     bloomThreshold: 0,
     bloomRadius: 0,
   });
+  const mouse = useRef({ x: 0, y: 0 });
+  const refCamPo = useRef({x: 16, y: 10, z: 16})
 
   useEffect(() => {
     if (!mountRef.current) return;
 
 
+    const camTp = new THREE.Vector3(0,0,0);
     const COLOR = new THREE.Color('#ffd322');
     const COLOR_DARKER = new THREE.Color('#e87500');
     const COLOR_SKY = new THREE.Color('#782402');
@@ -203,7 +207,8 @@ const ThreeJSComponent: React.FC = () => {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.set(20, 10, 20);
+    camera.position.set(refCamPo.current.x, refCamPo.current.y, refCamPo.current.z);
+    camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -242,7 +247,7 @@ const ThreeJSComponent: React.FC = () => {
     finalComposer.addPass(renderScene);
     finalComposer.addPass(finalPass);
 
-    const controls = new OrbitControls(camera, document.body);
+    // const controls = new OrbitControls(camera, document.body);
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(1, 10, 1);
     scene.add(light);
@@ -264,7 +269,7 @@ const ThreeJSComponent: React.FC = () => {
 
       const ob: any = model.getObjectByName('group1822638002');
 
-     const boxGeom = ob.geometry;
+      const boxGeom = ob.geometry;
       boxGeom.scale(3, 3, 3);
       instGeom.attributes.position = boxGeom.attributes.position;
       instGeom.attributes.normal = boxGeom.attributes.normal;
@@ -289,12 +294,13 @@ const ThreeJSComponent: React.FC = () => {
     });
 
 
-
-
     let time = 0;
 
     const render = () => {
       time = performance.now() / 1000;
+
+      updateCameraPosition(camera, 10);
+
       materialShaders.current.forEach((m, idx) => {
         m.shader.uniforms.time.value = time * 0.5;
         m.shader.uniforms.isTip.value = m.isTip;
@@ -346,7 +352,23 @@ const ThreeJSComponent: React.FC = () => {
       );
     };
 
-    const onMove = () => {
+    const updateCameraPosition = (camera: THREE.PerspectiveCamera, radius: number) => {
+      const angleX = (mouse.current.x * Math.PI) * .85;
+      const angleY = (mouse.current.y * (Math.PI / 2)) * .85;
+
+      const x = refCamPo.current.x + Math.cos(angleY) * Math.sin(angleX);
+      const y = refCamPo.current.y + Math.sin(angleY);
+      const z = refCamPo.current.z + Math.cos(angleY) * Math.cos(angleX);
+
+
+      camera.position.lerp(new THREE.Vector3(x, y, z), .1)
+      camera.lookAt(new THREE.Vector3(0, 0, 0));
+    };
+
+
+    const onMove = (event: MouseEvent) => {
+      mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
     };
 
