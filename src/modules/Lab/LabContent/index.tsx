@@ -8,6 +8,7 @@ interface Iprops extends PropsWithChildren {
   heading: string | React.ReactElement;
   landingData: ILabItemContent[];
   isLowercaseTitle?: boolean;
+  isHaveNumber?: boolean;
 }
 
 export default function LabContent({
@@ -15,6 +16,7 @@ export default function LabContent({
   children,
   landingData,
   isLowercaseTitle,
+  isHaveNumber,
 }: Iprops) {
   const { isFirst } = useLabStore();
 
@@ -32,7 +34,7 @@ export default function LabContent({
         {landingData.map((item, index) => (
           <LabArtItem
             key={index}
-            index={index}
+            index={isHaveNumber ? index : undefined}
             data={item}
             isLowercaseTitle={isLowercaseTitle}
             delay={index / 10}
