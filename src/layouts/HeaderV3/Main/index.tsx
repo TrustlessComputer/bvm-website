@@ -6,7 +6,7 @@ import { IconButton, Image, useDisclosure } from '@chakra-ui/react';
 import useWindowSize from '@/hooks/useWindowSize';
 import DrawerMobileMenu from '@/layouts/HeaderV3/components/DrawerMenu';
 import { NAV_ITEMS } from '../menuConfig';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export type TMainHeader = {
   color?: string;
@@ -17,11 +17,12 @@ const Main = ({ color = '#000', colorLogo = 'black' }: TMainHeader) => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
   const pathname = usePathname();
+  const  router = useRouter();
 
   return (
     <div className={`${s.wrapper}`}>
       <div className={`${s.inner} containerV3`}>
-        <div className={`${s.logo} ${colorLogo === 'black' && s.logo_black}`}>
+        <div className={`${s.logo} ${colorLogo === 'black' && s.logo_black}`} onClick={() => router.push('/') }>
           <IconLogo />
           <h6 className={s.logo_text} style={{ color: color }}>
             Bitcoin Virtual Machine

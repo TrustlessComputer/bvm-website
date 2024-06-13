@@ -15,7 +15,7 @@
   flex-direction: row;
   align-items: center;
   gap: 12px;
-
+  cursor: pointer;
   &_text {
     font-family: var(--font-jetbrains);
     font-size: 15px;
