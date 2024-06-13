@@ -1,11 +1,10 @@
 'use client';
 
-import React, { ReactElement, useMemo, useState } from 'react';
-import s from './style.module.scss';
-import LabContent from './LabContent';
-import { OpenSource, Portfolio, Research, Modules } from './data';
+import { ReactElement, useMemo } from 'react';
 import HeadingText from './HeadingText';
-import LabHeader from './LabHeader';
+import LabContent from './LabContent';
+import { Modules, Portfolio, Research } from './data';
+import s from './style.module.scss';
 
 const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
   const TabContent = (): ReactElement => {
@@ -50,6 +49,7 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
         return (
           <div>
             <LabContent
+              isHaveNumber
               heading={
                 <>
                   <HeadingText

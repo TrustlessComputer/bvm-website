@@ -6,7 +6,7 @@ import { ILabItemContent } from '../data';
 import RandomText from '../RandomText';
 
 type ILabArtItem = {
-  index: number;
+  index?: number;
   data: ILabItemContent;
   delay: number;
   isLowercaseTitle?: boolean;
@@ -81,7 +81,11 @@ const LabArtItem = ({ data, delay, index, isLowercaseTitle, imageRect }: ILabArt
               </RandomText>
             ) : (
               <>
-                <span className={s.labArtItem_title_label}>0{index + 1}.</span>
+                {index && (
+                  <span className={s.labArtItem_title_label}>
+                    0{index + 1}.
+                  </span>
+                )}
                 <RandomText
                   ref={refHeading}
                   {...{
