@@ -7,6 +7,7 @@ export default function Page() {
     <MainLayout
       headerProps={{
         color: 'white',
+        colorLogo: 'white'
       }}
       hideFooter={true}
     >
