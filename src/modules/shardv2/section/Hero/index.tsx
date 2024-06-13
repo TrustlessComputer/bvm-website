@@ -13,27 +13,25 @@ const Hero = () => {
 
   return (
     <div className={s.hero}>
-      <img className={s.hero_icon} src={'/shard/shard_icon.webp'} alt={"shard_icon`"}/>
+      {/* <img className={s.hero_icon} src={'/shard/shard_icon.webp'} alt={"shard_icon`"}/> */}
       <Heading title={title} desc={desc} className={s.hero_content} />
       <div className={s.hero_action}>
-        <Button
+        <div
           onClick={() => {
             router.push(SHARD_TOP_MINERS);
           }}
           className={`${s.btn}`}
-          isOrange
         >
-          TOP SHARD MINERS
-        </Button>
-        <Button
+          <p>Top share miners</p>
+        </div>
+        <div
           onClick={() => {
             router.push('/staking');
           }}
           className={`${s.btn}`}
-          isOrange
         >
-          START MINING SHARD
-        </Button>
+          <p>Start mining shard</p>
+        </div>
       </div>
     </div>
   );

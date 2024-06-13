@@ -5,14 +5,26 @@
   color: #000;
 
   &_title {
-    font-size: 36px;
-    line-height: 1.2;
-    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    font-family: 'JetBrains Mono';
+    font-size: 68px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%; /* 81.6px */
+    text-transform: uppercase;
   }
 
   &_desc {
+    color: #fff;
+    text-align: center;
+    font-family: 'Helvetica Neue';
     font-size: 18px;
-    line-height: 1.5;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.9px;
+    padding-top: 24px;
   }
 
   @include is-pc {
