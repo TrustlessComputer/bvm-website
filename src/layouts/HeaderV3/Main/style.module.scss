@@ -53,3 +53,16 @@
 .activeLight {
   color: #86919e !important;
 }
+
+.icon {
+  &_black {
+    svg path {
+      stroke: #000;
+    }
+  }
+  &_white {
+    svg path {
+      stroke: #fff;
+    }
+  }
+}

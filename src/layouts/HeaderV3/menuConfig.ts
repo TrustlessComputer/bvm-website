@@ -88,28 +88,28 @@ export const NAV_ITEMS: Array<NavItem> = [
     href: '/chains',
     isNewWindow: false,
     isHide: false,
-    subMenu: [
-      {
-        href: 'https://eternalai.org',
-        label: 'Bitcoin L2 for AI',
-        isNewWindow: true,
-      },
-      {
-        href: '/gamefi',
-        label: 'Bitcoin L2 for GameFi',
-        isNewWindow: false,
-      },
-      {
-        href: '/defi',
-        label: 'Bitcoin L2 for DeFi',
-        isNewWindow: false,
-      },
-      {
-        href: '/socialfi',
-        label: 'Bitcoin L2 for SocialFi',
-        isNewWindow: false,
-      },
-    ],
+    // subMenu: [
+    //   {
+    //     href: 'https://eternalai.org',
+    //     label: 'Bitcoin L2 for AI',
+    //     isNewWindow: true,
+    //   },
+    //   {
+    //     href: '/gamefi',
+    //     label: 'Bitcoin L2 for GameFi',
+    //     isNewWindow: false,
+    //   },
+    //   {
+    //     href: '/defi',
+    //     label: 'Bitcoin L2 for DeFi',
+    //     isNewWindow: false,
+    //   },
+    //   {
+    //     href: '/socialfi',
+    //     label: 'Bitcoin L2 for SocialFi',
+    //     isNewWindow: false,
+    //   },
+    // ],
   },
   {
     label: 'Modules',
