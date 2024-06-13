@@ -9,20 +9,23 @@ import { NAV_ITEMS } from '../menuConfig';
 import { usePathname, useRouter } from 'next/navigation';
 
 export type TMainHeader = {
-  color?: string;
+  color?: 'black' | 'white';
   colorLogo?: 'white' | 'black';
 };
 
-const Main = ({ color = '#000', colorLogo = 'black' }: TMainHeader) => {
+const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader) => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
   const pathname = usePathname();
-  const  router = useRouter();
+  const router = useRouter();
 
   return (
     <div className={`${s.wrapper}`}>
       <div className={`${s.inner} containerV3`}>
-        <div className={`${s.logo} ${colorLogo === 'black' && s.logo_black}`} onClick={() => router.push('/') }>
+        <div
+          className={`${s.logo} ${colorLogo === 'black' && s.logo_black}`}
+          onClick={() => router.push('/')}
+        >
           <IconLogo />
           <h6 className={s.logo_text} style={{ color: color }}>
             Bitcoin Virtual Machine
@@ -32,7 +35,6 @@ const Main = ({ color = '#000', colorLogo = 'black' }: TMainHeader) => {
           <div className={s.menu}>
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.href;
-              console.log(pathname, item.href);
               const isActiveDark = isActive && color === 'white';
               const isActiveLight = isActive && color === 'black';
               return (

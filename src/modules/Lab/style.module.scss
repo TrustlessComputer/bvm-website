@@ -2,11 +2,11 @@
   position: relative;
   min-height: 100vh;
 
-  --delay: .5s;
+  --delay: 0.5s;
   --black-color: #000;
   --grey-color: #cecece;
-  --gray-color: #5D6875;
-  --active-color: #86919E;
+  --gray-color: #5d6875;
+  --active-color: #86919e;
 
   .container {
     padding-top: rem(70px);
@@ -37,10 +37,10 @@
 
         //width: 100%;
 
-        &:not(.isHome){
+        &:not(.isHome) {
           opacity: 0;
           transform: translateY(40px);
-          animation: fadeIn .6s var(--delay) $easeOutCubic forwards;
+          animation: fadeIn 0.6s var(--delay) $easeOutCubic forwards;
         }
 
         @include min-pc {
@@ -58,8 +58,9 @@
         opacity: 0;
         transform: translateY(40px);
 
-        &.isIN{
-          animation: fadeIn .6s calc(var(--delay) + .1s) $easeOutCubic forwards;
+        &.isIN {
+          animation: fadeIn 0.6s calc(var(--delay) + 0.1s) $easeOutCubic
+            forwards;
         }
 
         //@include min-tablet{
@@ -69,7 +70,6 @@
         @include min-pc {
           max-width: 500px;
         }
-
       }
     }
 
@@ -92,7 +92,7 @@
   &.darkTheme {
     --black-color: #fff;
     --grey-color: #fff;
-    --gray-color: #{rgba(#fff, .7)};
+    --gray-color: #{rgba(#fff, 0.7)};
   }
 }
 
@@ -109,6 +109,6 @@
 }
 
 .paddingX {
-  padding-left: rem(156px);
-  padding-right: rem(156px);
+  padding-left: rem(98px);
+  padding-right: rem(98px);
 }
