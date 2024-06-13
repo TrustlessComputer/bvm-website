@@ -1,6 +1,5 @@
 .wrapper {
-  background-color: #F2F2F2;
-
+  background-color: #f2f2f2;
 }
 .inner {
   display: flex;
@@ -9,34 +8,6 @@
   padding-top: 156px;
 }
 
-.actions {
-  padding: 8px;
-  background-color: #fff;
-  flex-direction: column;
-  display: flex;
-  border-radius: 12px;
-  height: fit-content;
-  box-shadow: 0px 0px 24px -6px rgba(0, 0, 0, 0.08);
-
-  &_button {
-    height: 50px;
-    width: 204px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    background-color: #fff;
-
-    h6 {
-      color: #000;
-      text-align: center;
-      font-family: 'JetBrains Mono';
-      font-size: 20px;
-      font-weight: 400;
-      line-height: 130%;
-    }
-  }
-}
 .container {
   background: #ffffff;
 
@@ -52,12 +23,4 @@
 
 .topHero {
   //background: #F6F6F6;
-}
-
-.active {
-  background-color: #000;
-
-  h6 {
-    color: #fff;
-  }
 }

@@ -1,20 +1,19 @@
 'use client';
 
-import MainLayout from '@layouts/MainLayout';
-import Hero from './section/Hero';
-import Category from './section/Category';
-import s from '@/modules/gamefi/styles.module.scss';
+// import s from '@/modules/gamefi/styles.module.scss';
+import s from './styles.module.scss';
 import { Box } from '@chakra-ui/react';
-import Loader from '@/modules/builder-landing/Loader';
-import React from 'react';
-import Link from 'next/link';
+import MainLayout from '@layouts/MainLayout';
 import Actions from '../bvm_v3/Actions';
+import Category from './section/Category';
+import Hero from './section/Hero';
 
 const ShardModuleV2 = () => {
   return (
     <MainLayout
       headerProps={{
-        color: 'white',
+        color: 'black',
+        colorLogo: 'black',
       }}
     >
       <div className={`${s.wrapper}  `}>
@@ -22,17 +21,19 @@ const ShardModuleV2 = () => {
         {/*  <Box h={['80px', '140px']} />*/}
         {/*  <RetroHero />*/}
         {/*</div>*/}
-        <div className={`${s.inner} containerV3`}>
+        <div className={`${s.inner}  containerV3`}>
           <Actions />
 
-          <Box className={s.container} bgColor={'#f6f6f6'}>
-            <div className={s.heroSection}>
-              <Hero />
-            </div>
-            <div className={s.categorySection}>
-              <Category />
-            </div>
-          </Box>
+          <div className={s.section}>
+            <Box className={s.container} bgColor={'#f6f6f6'}>
+              <div className={s.heroSection}>
+                <Hero />
+              </div>
+              <div className={s.categorySection}>
+                <Category />
+              </div>
+            </Box>
+          </div>
         </div>
       </div>
     </MainLayout>

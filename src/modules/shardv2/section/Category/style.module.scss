@@ -1,9 +1,10 @@
 .cateWrapper {
   background-color: #ffffff;
   width: 100%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   padding: 40px 0;
+
   gap: 40px;
 
   > div > div {
@@ -15,7 +16,7 @@
   }
 
   @include min-ml {
-    padding: 80px 0;
-    gap: 80px;
+    padding-top: 24px;
+    gap: 24px;
   }
 }
