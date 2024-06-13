@@ -24,15 +24,13 @@ export default function LabContent({
   paddingX,
   imageRect,
 }: Iprops) {
-  const { isFirst } = useLabStore();
+  // const { isFirst } = useLabStore();
 
   return (
     <div className={`${s.container} ${paddingX && s.paddingX} container`}>
       <div className={s.labHeadline}>
         <h2 className={`${s.labHeadline_title}`}>{heading}</h2>
-        <p className={`${s.labHeadline_content} ${isFirst && s.isIN}`}>
-          {children}
-        </p>
+        <p className={`${s.labHeadline_content} ${s.isIN}`}>{children}</p>
       </div>
 
       {/* {isFirst && ( */}
