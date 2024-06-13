@@ -13,13 +13,15 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
         return (
           <div>
             <LabContent
+              paddingX
+              imageRect
               landingData={Research}
               heading={<>Research</>}
               isLowercaseTitle
             >
               We believe that our research will eventually make Bitcoin vastly
               more useful than just a currency. We hope builders find our
-              research helpful and start building DeFi, Gaming, NFTs, Payments,
+              research he lpful and start building DeFi, Gaming, NFTs, Payments,
               DAOs, and more on Bitcoin.
             </LabContent>
           </div>
@@ -29,9 +31,11 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
         return (
           <div>
             <LabContent
+              paddingX
+              imageRect
+              isTagFilled
               landingData={Modules}
               heading={<>Modules</>}
-              isTagFilled
             >
               We build and open source project that advance Bitcoin ecosystem.
               We believe in doing so even when there may not be a direct

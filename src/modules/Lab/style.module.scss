@@ -35,7 +35,7 @@
         //  height: rem(100px);
         //}
 
-        width: 100%;
+        //width: 100%;
 
         &:not(.isHome){
           opacity: 0;
@@ -45,7 +45,7 @@
 
         @include min-pc {
           margin-bottom: 0;
-          width: 58%;
+          //width: 58%;
         }
       }
 
@@ -76,8 +76,8 @@
     .labArtList {
       display: grid;
       flex-wrap: wrap;
-      row-gap: rem(48px);
-      column-gap: rem(12px);
+      row-gap: 48px;
+      column-gap: 12px;
 
       grid-template-columns: 1fr;
       @include min-tablet {
@@ -106,4 +106,9 @@
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+.paddingX {
+  padding-left: rem(156px);
+  padding-right: rem(156px);
 }

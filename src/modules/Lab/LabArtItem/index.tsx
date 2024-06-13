@@ -11,6 +11,7 @@ type ILabArtItem = {
   delay: number;
   isLowercaseTitle?: boolean;
   isTagFilled?: boolean;
+  imageRect?: boolean;
 };
 
 const LabArtItem = ({
@@ -18,6 +19,7 @@ const LabArtItem = ({
   delay,
   index,
   isLowercaseTitle,
+  imageRect,
   isTagFilled,
 }: ILabArtItem) => {
   const { image, title, content, link, disabled, tags, video } = data;
@@ -35,7 +37,9 @@ const LabArtItem = ({
           className={`${s.labArtItem_img} ${isLoaded && s.isLoaded}`}
           onMouseEnter={onMouseEnter}
         >
-          <div className={s.labArtItem_img_inner}>
+          <div
+            className={`${s.labArtItem_img_inner} ${imageRect && s.image_rect}`}
+          >
             {video ? (
               <video
                 src={video}

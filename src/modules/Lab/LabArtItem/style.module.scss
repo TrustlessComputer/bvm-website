@@ -15,7 +15,7 @@
     clip-path: inset(100% 0 0 0);
     animation: wrapImage 0.8s calc(var(--delay) + 0s) $easeOutCubic forwards;
     position: relative;
-    border-radius: 16px;
+    border-radius: 12px;
 
     &_inner {
       transition: transform 0.4s $easeOutCubic;
@@ -26,7 +26,7 @@
     video {
       width: 100%;
       height: calc(100% + 1px);
-      aspect-ratio: 472/236;
+      aspect-ratio: inherit;
       will-change: transform;
       object-fit: cover;
       transform: scale(1.5);
@@ -166,4 +166,9 @@
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+.image_rect {
+  aspect-ratio: 368/236;
+  border-radius: 8px;
 }
