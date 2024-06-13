@@ -1,0 +1,157 @@
+.labArtItem {
+  --delay-in: 0s;
+  --delay: calc(.6s + var(--delay-in));
+
+  &:hover {
+    .labArtItem_img_inner {
+      transform: scale(1.1);
+    }
+  }
+
+  &_img {
+    width: 100%;
+    margin-bottom: rem(16px);
+    overflow: hidden;
+    clip-path: inset(100% 0 0 0);
+    animation: wrapImage .8s calc(var(--delay) + 0s) $easeOutCubic forwards;
+    position: relative;
+    border-radius: rem(16px);
+
+    &_inner {
+      transition: transform .4s $easeOutCubic;
+      aspect-ratio: 368/236;
+    }
+
+    img, video {
+      width: 100%;
+      height: calc(100% + 1px);
+      aspect-ratio: 368/236;
+      will-change: transform;
+      object-fit: cover;
+      transform: scale(1.5);
+      animation: inImage .8s calc(var(--delay) + .1s) $easeOutCubic forwards;
+    }
+
+    &_clo {
+      position: relative;
+      z-index: 2;
+      transition: opacity .1s ease-out;
+    }
+
+    &_ori {
+      position: absolute;
+      top: -1px;
+      left: 0;
+    }
+
+    &.isLoaded {
+      .labArtItem_img_clo {
+        opacity: 0;
+      }
+    }
+  }
+
+  &_info {
+    &_top {
+      display: flex;
+      gap: 10px;
+      text-transform: uppercase;
+    }
+  }
+
+  &_title {
+    font-size: rem(14px);
+    line-height: rem(22.4px);
+    font-weight: 500;
+    margin-bottom: rem(8px);
+    color: var(--black-color);
+    opacity: 0;
+    will-change: transform, opacity;
+    transform: translateY(20px);
+    animation: fadeIn .6s calc(var(--delay) + .2s) $easeOutCubic forwards;
+    font-family: 'JetBrains Mono', monospace;
+
+    &_label {
+      color: #ED5A00;
+      font-size: rem(14px);
+      line-height: rem(22.4px);
+      font-weight: 500;
+      opacity: 0;
+      will-change: transform, opacity;
+      transform: translateY(20px);
+      animation: fadeIn .6s calc(var(--delay) + .2s) $easeOutCubic forwards;
+    }
+  }
+
+  &_content {
+    font-size: rem(14px);
+    line-height: rem(19.6px);
+    color: var(--gray-color);
+    opacity: 0;
+    will-change: transform, opacity;
+    transform: translateY(20px);
+    animation: fadeIn .6s calc(var(--delay) + .3s) $easeOutCubic forwards;
+  }
+
+  &.disabled {
+    .labArtItem_info {
+      opacity: .3;
+    }
+  }
+
+  &_tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+    opacity: 0;
+    will-change: transform, opacity;
+    transform: translateY(20px);
+    animation: fadeIn .6s calc(var(--delay) + .4s) $easeOutCubic forwards;
+  }
+}
+
+.tag {
+  background: #F6F6F6;
+  padding: 5px 8px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 14px;
+  text-align: center;
+  border-radius: 100px;
+  text-transform: uppercase;
+  width: fit-content;
+  flex: 0 0 auto;
+}
+
+@keyframes wrapImage {
+  0% {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  100% {
+    clip-path: inset(0% 0 0 0);
+  }
+}
+
+@keyframes inImage {
+  0% {
+    transform: scale(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

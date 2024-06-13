@@ -25,7 +25,8 @@ export const CDN_URL_ICONS: string = CDN_URL + '/nbc/icons/bvm-icons';
 export const CDN_APP_ICON_URL: string = CDN_URL + '/l2aas/icons';
 export const CDN_URL_IMAGES: string = CDN_URL + '/l2aas/images';
 export const CDN_URL_VIDEOS: string = CDN_URL + '/l2aas/videos';
-
+export const CDN_URL_IMAGES_NBC: string = CDN_URL + '/nbc/images';
+export const CDN_URL_VIDEOS_NBC: string = CDN_URL + '/nbc/videos';
 export const NEW_BITCOIN_CITY = isProduction
   ? 'https://newbitcoincity.com/'
   : 'https://dev.newbitcoincity.com/';
@@ -52,7 +53,6 @@ export const TC_LAYER2_EXPLORER: string =
   process.env.NEXT_PUBLIC_TC_LAYER2_EXPLORER!;
 export const RUNE_EXPLORER: string = process.env.NEXT_PUBLIC_RUNE_EXPLORER!;
 export const EAI_EXPLORER: string = process.env.NEXT_PUBLIC_EAI_EXPLORER!;
-
 
 export const NAKA_WEB: string = process.env.NEXT_PUBLIC_NAKA_WEB!;
 

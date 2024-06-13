@@ -1,0 +1,108 @@
+.lab {
+  position: relative;
+  min-height: 100vh;
+
+  --delay: .5s;
+  --black-color: #000;
+  --grey-color: #cecece;
+  --gray-color: #5D6875;
+  --active-color: #86919E;
+
+  .container {
+    padding-top: rem(70px);
+    padding-bottom: rem(105px);
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .labHeadline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: rem(80px);
+      flex-wrap: wrap;
+
+      &_title {
+        font-size: rem(42px);
+        line-height: rem(52px);
+        letter-spacing: 2px;
+        color: var(--black-color);
+        font-family: 'JetBrains Mono', monospace;
+        margin-bottom: rem(16px);
+        height: rem(160px);
+
+        @include min-tablet{
+          height: rem(100px);
+        }
+
+        width: 100%;
+
+        &:not(.isHome){
+          opacity: 0;
+          transform: translateY(40px);
+          animation: fadeIn .6s var(--delay) $easeOutCubic forwards;
+        }
+
+        @include min-pc {
+          margin-bottom: 0;
+          width: 58%;
+        }
+      }
+
+      &_content {
+        font-size: rem(18px);
+        line-height: 1.5;
+        color: var(--gray-color);
+        max-width: unset;
+        opacity: 0;
+        transform: translateY(40px);
+
+        &.isIN{
+          animation: fadeIn .6s calc(var(--delay) + .1s) $easeOutCubic forwards;
+        }
+
+        @include min-tablet{
+          max-width: 60%;
+        }
+
+        @include min-pc {
+          max-width: 42%;
+        }
+
+      }
+    }
+
+    .labArtList {
+      display: grid;
+      flex-wrap: wrap;
+      row-gap: rem(48px);
+      column-gap: rem(12px);
+
+      grid-template-columns: 1fr;
+      @include min-tablet {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @include min-pc {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  &.darkTheme {
+    --black-color: #fff;
+    --grey-color: #fff;
+    --gray-color: #{rgba(#fff, .7)};
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
