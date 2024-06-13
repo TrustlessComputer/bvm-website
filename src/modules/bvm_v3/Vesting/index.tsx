@@ -56,22 +56,22 @@ const Vesting = () => {
   return (
     <Box className={s.wrapper} position={'relative'}>
       <Box className={s.table_wrapper}>
-        <Text fontSize="24px">BVM Vesting 5 Year Schedule</Text>
-        <Flex w="100%" justifyContent="center" alignItems="center">
-          <Text
-            mt={{ base: '24px', lg: '32px' }}
-            mb={'12px'}
-            onClick={onClickVesting}
-            fontSize="16px"
-            w="fit-content"
-            textAlign="center"
-            cursor={'pointer'}
-            opacity={0.8}
-            textDecoration={'underline'}
-          >
-            {showDetail ? 'Back' : 'More details'}
-          </Text>
-        </Flex>
+        <Text fontSize="14px" className={s.heading}>BVM Vesting 5 Year Schedule</Text>
+        {/*<Flex w="100%" justifyContent="center" alignItems="center">*/}
+        {/*  <Text*/}
+        {/*    mt={{ base: '24px', lg: '32px' }}*/}
+        {/*    mb={'12px'}*/}
+        {/*    onClick={onClickVesting}*/}
+        {/*    fontSize="16px"*/}
+        {/*    w="fit-content"*/}
+        {/*    textAlign="center"*/}
+        {/*    cursor={'pointer'}*/}
+        {/*    opacity={0.8}*/}
+        {/*    textDecoration={'underline'}*/}
+        {/*  >*/}
+        {/*    {showDetail ? 'Back' : 'More details'}*/}
+        {/*  </Text>*/}
+        {/*</Flex>*/}
         <table className={s.vesting_table}>
           <thead>
             {showDetail ? (
@@ -91,50 +91,62 @@ const Vesting = () => {
             )}
           </thead>
           <tbody>
-            {showDetail ? (
-              <>
-                {vestings &&
-                  vestings.length > 0 &&
-                  vestings.map((vesting) => {
-                    return (
-                      <tr>
-                        <td>{vesting.role}</td>
-                        <td style={{ textAlign: 'center' }}>
-                          {abbreviateNumber(vesting?.unclocked)}
-                        </td>
-                        <td style={{ textAlign: 'center' }}>
-                          {dayjs(vesting?.next_vesting).isAfter(new Date()) &&
-                            dayjs(vesting?.next_vesting).format('MMM D, YYYY')}
-                        </td>
-                        <td style={{ textAlign: 'center' }}>
-                          {abbreviateNumber(vesting?.next_vesting_amount)}
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </>
-            ) : (
-              <>
-                {vestings &&
-                  vestings.length > 0 &&
-                  vestings.map((vesting) => {
-                    return (
-                      <tr>
-                        <td>{vesting.role}</td>
-                        <td>{vesting.length}</td>
-                        <td>{vesting.cliff}</td>
-                        <td>{vesting.frequency}</td>
-                      </tr>
-                    );
-                  })}
-              </>
-            )}
+          {showDetail ? (
+            <>
+              {vestings &&
+                vestings.length > 0 &&
+                vestings.map((vesting) => {
+                  return (
+                    <tr>
+                      <td>{vesting.role}</td>
+                      <td style={{ textAlign: 'center' }}>
+                        {abbreviateNumber(vesting?.unclocked)}
+                      </td>
+                      <td style={{ textAlign: 'center' }}>
+                        {dayjs(vesting?.next_vesting).isAfter(new Date()) &&
+                          dayjs(vesting?.next_vesting).format('MMM D, YYYY')}
+                      </td>
+                      <td style={{ textAlign: 'center' }}>
+                        {abbreviateNumber(vesting?.next_vesting_amount)}
+                      </td>
+                    </tr>
+                  );
+                })}
+            </>
+          ) : (
+            <>
+              {vestings &&
+                vestings.length > 0 &&
+                vestings.map((vesting) => {
+                  return (
+                    <tr>
+                      <td>{vesting.role}</td>
+                      <td>{vesting.length}</td>
+                      <td>{vesting.cliff}</td>
+                      <td>{vesting.frequency}</td>
+                    </tr>
+                  );
+                })}
+            </>
+          )}
+          <tr>
+            <td>Team</td>
+            <td>5 years</td>
+            <td>12 months</td>
+            <td>Monthly</td>
+          </tr>
+          <tr>
+            <td>Advisors</td>
+            <td>3 years</td>
+            <td>6 months</td>
+            <td>Monthly</td>
+          </tr>
           </tbody>
         </table>
-        {/* <Flex w="100%" justifyContent="center" alignItems="center">
+        <Flex w="100%" justifyContent="center" alignItems="center">
           <Text
-            mt={{ base: '24px', lg: '32px' }}
-            fontSize="20px"
+            mt={{ base: '24px', lg: '37px' }}
+            fontSize="12px"
             w="fit-content"
             textAlign="center"
             cursor={'pointer'}
@@ -147,7 +159,7 @@ const Vesting = () => {
           >
             {'Smart contract ↗'}
           </Text>
-        </Flex> */}
+        </Flex>
       </Box>
     </Box>
   );

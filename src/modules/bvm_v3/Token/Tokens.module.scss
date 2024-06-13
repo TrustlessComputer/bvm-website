@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: #eeeeee;
+  background-color: #ffff;
   color: #000000;
 
   .heading {
@@ -22,7 +22,8 @@
   }
 
   .content {
-    background: #fafafa;
+    border-radius: 12px;
+    background: #F4F4F4;
     border: 1px solid #efefef;
     padding-top: 24px;
     padding-bottom: 24px;
@@ -57,6 +58,7 @@
   .price {
     font-size: 18px;
     font-weight: 700;
+    font-family: var(--font-jetbrains);
     line-height: 27.6px;
     text-align: left;
     color: #000000;
@@ -68,6 +70,7 @@
     line-height: 27.6px;
     text-align: right;
     color: #000000b2;
+    font-family: var(--font-jetbrains);
   }
 
   .pieChart {

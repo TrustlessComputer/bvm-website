@@ -7,6 +7,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useHover, useLayer, useMousePositionAsTrigger } from 'react-laag';
 import { PieChart } from 'react-minimal-pie-chart';
 import s from './Tokens.module.scss';
+import ImagePlaceholder from '@components/ImagePlaceholder';
 
 function makeTooltipContent(entry: any) {
   return `${entry.value}% in ${entry.title}`;
@@ -82,7 +83,7 @@ const Tokens = () => {
   return (
     <Box
       className={s.wrapper}
-      py={{ base: '60px', md: '120px' }}
+      // py={{ base: '60px', md: '120px' }}
       position={'relative'}
     >
       <Box
@@ -91,15 +92,15 @@ const Tokens = () => {
         px={'24px'}
         position={'relative'}
       >
-        <Text
-          fontSize={['28px', '40px']}
-          lineHeight={{ base: '140%', md: '120%' }}
-          fontWeight={400}
-          textAlign={'center'}
-          mb={{ base: '24px', md: '40px' }}
-        >
-          Overview
-        </Text>
+        {/*<Text*/}
+        {/*  fontSize={['28px', '40px']}*/}
+        {/*  lineHeight={{ base: '140%', md: '120%' }}*/}
+        {/*  fontWeight={400}*/}
+        {/*  textAlign={'center'}*/}
+        {/*  mb={{ base: '24px', md: '40px' }}*/}
+        {/*>*/}
+        {/*  Overview*/}
+        {/*</Text>*/}
         <Flex direction="column" className={s.content}>
           <Flex w="100%" flex={1} justifyContent="center">
             <BoxContent>
@@ -108,32 +109,32 @@ const Tokens = () => {
                 flexDir={{ base: 'column', lg: 'row' }}
                 alignItems={{ base: 'flex-start', lg: 'center' }}
                 gap={{ base: '32px' }}
+                justifyContent={'space-between'}
                 p={'20px'}
               >
                 <Flex
-                  flex={{ base: 1, lg: 0.5 }}
                   w="100%"
-                  maxW="500px"
+                  maxW="502px"
                   direction="column"
                   gap="8px"
                   ml={{ base: '0px', lg: '16px' }}
                 >
                   <Flex className={s.priceItem}>
-                    <Text className={s.price}> • Price</Text>
+                    <Text className={s.price}>Price</Text>
                     <Text className={s.priceValue}>
                       ${formatCurrency(report?.bvm_price)}
                     </Text>
                   </Flex>
                   <Flex className={s.priceItem}>
-                    <Text className={s.price}> • Total supply</Text>
+                    <Text className={s.price}>Total supply</Text>
                     <Text className={s.priceValue}>100,000,000 BVM</Text>
                   </Flex>
                   <Flex className={s.priceItem}>
-                    <Text className={s.price}> • Circulating supply</Text>
+                    <Text className={s.price}>Circulating supply</Text>
                     <Text className={s.priceValue}>25,000,000 BVM</Text>
                   </Flex>
                   <Flex className={s.priceItem}>
-                    <Text className={s.price}> • Total staking value</Text>
+                    <Text className={s.price}>Total staking value</Text>
                     <Tooltip
                       minH="40px"
                       bg="#ffffff"
@@ -177,8 +178,7 @@ const Tokens = () => {
                       }
                     >
                       <Text
-                        cursor="help"
-                        textDecoration="underline"
+                        // cursor="help"
                         className={s.priceValue}
                       >
                         $
@@ -195,7 +195,7 @@ const Tokens = () => {
                     </Tooltip>
                   </Flex>
                   <Flex className={s.priceItem}>
-                    <Text className={s.price}> • Market cap</Text>
+                    <Text className={s.price}>Market cap</Text>
                     <Text className={s.priceValue}>
                       $
                       {formatCurrency(
@@ -210,56 +210,59 @@ const Tokens = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Flex
-                  flex={0.5}
-                  alignItems="center"
-                  justifyContent="flex-end"
-                  ref={parentRef}
-                >
-                  <Box
-                    position="relative"
-                    className={s.pieChart}
-                    {...hoverProps}
-                    onMouseMove={handleMouseEvent}
-                  >
-                    <PieChart
-                      data={data}
-                      lineWidth={40}
-                      onMouseOver={(_, index) => {
-                        setHovered(index);
-                      }}
-                      totalValue={100}
-                    />
-                    <Box
-                      position="absolute"
-                      left="23%"
-                      top="23%"
-                      w="54%"
-                      h="54%"
-                      borderRadius="50%"
-                      onMouseEnter={() => setHovered(null)}
-                    >
-                      <Box
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        h="100%"
-                      >
-                        <Text color="#FF6126" fontSize="24px" fontWeight="500">
-                          $BVM
-                        </Text>
-                      </Box>
-                    </Box>
-                    {isOver &&
-                      renderLayer(
-                        <div className={s.tooltip} {...layerProps}>
-                          {typeof hovered === 'number' && (
-                            <p>{makeTooltipContent(_data[hovered])}</p>
-                          )}
-                        </div>,
-                      )}
-                  </Box>
-                </Flex>
+                {/*<Flex*/}
+                {/*  flex={0.5}*/}
+                {/*  alignItems="center"*/}
+                {/*  justifyContent="flex-end"*/}
+                {/*  ref={parentRef}*/}
+                {/*>*/}
+                {/*  <Box*/}
+                {/*    position="relative"*/}
+                {/*    className={s.pieChart}*/}
+                {/*    {...hoverProps}*/}
+                {/*    onMouseMove={handleMouseEvent}*/}
+                {/*  >*/}
+                {/*    <PieChart*/}
+                {/*      data={data}*/}
+                {/*      lineWidth={40}*/}
+                {/*      onMouseOver={(_, index) => {*/}
+                {/*        setHovered(index);*/}
+                {/*      }}*/}
+                {/*      totalValue={100}*/}
+                {/*    />*/}
+                {/*    <Box*/}
+                {/*      position="absolute"*/}
+                {/*      left="23%"*/}
+                {/*      top="23%"*/}
+                {/*      w="54%"*/}
+                {/*      h="54%"*/}
+                {/*      borderRadius="50%"*/}
+                {/*      onMouseEnter={() => setHovered(null)}*/}
+                {/*    >*/}
+                {/*      <Box*/}
+                {/*        display="flex"*/}
+                {/*        justifyContent="center"*/}
+                {/*        alignItems="center"*/}
+                {/*        h="100%"*/}
+                {/*      >*/}
+                {/*        <Text color="#FF6126" fontSize="24px" fontWeight="500">*/}
+                {/*          $BVM*/}
+                {/*        </Text>*/}
+                {/*      </Box>*/}
+                {/*    </Box>*/}
+                {/*    {isOver &&*/}
+                {/*      renderLayer(*/}
+                {/*        <div className={s.tooltip} {...layerProps}>*/}
+                {/*          {typeof hovered === 'number' && (*/}
+                {/*            <p>{makeTooltipContent(_data[hovered])}</p>*/}
+                {/*          )}*/}
+                {/*        </div>,*/}
+                {/*      )}*/}
+                {/*  </Box>*/}
+                {/*</Flex>*/}
+                <div>
+                  <ImagePlaceholder src={'/pie.png'} alt={'pie'} width={558} height={293}/>
+                </div>
               </Flex>
             </BoxContent>
           </Flex>

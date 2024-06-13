@@ -17,7 +17,7 @@ const CardItem = ({ ...props }) => {
         gap={'8px'}
         px={'24px'}
         py={'10px'}
-        width={'100%'}
+        width={'150px'}
         height={'48px'}
         fontWeight={500}
         fontSize={'16px'}
@@ -42,7 +42,7 @@ const CardItem = ({ ...props }) => {
       <Button
         bgColor={'#FA4E0E'}
         color={'#fff'}
-        borderRadius={0}
+        borderRadius={'100px'}
         display={'flex'}
         justifyContent={'center'}
         alignItems={'center'}
@@ -76,7 +76,7 @@ const CardItem = ({ ...props }) => {
         alignItems={'center'}
         px={'24px'}
         py={'10px'}
-        width={'100%'}
+        width={'150px'}
         height={'48px'}
         fontWeight={500}
         onClick={() => {
@@ -101,17 +101,17 @@ const CardItem = ({ ...props }) => {
           <div className={`${s.description}`}>{props.description}</div>
           <div className={`${s.wrapperBtn}`}>
             {!!props?.buttonsDex && (
-              <Grid gridTemplateColumns={{ base: '1fr', md: '1fr 1fr' }} gap="24px">
-                <Flex flexDirection="column" gap="8px">
-                  <Text
-                    fontSize="12px"
-                    color="black"
-                    fontWeight="500"
-                    textAlign="center"
-                    opacity={0.7}
-                  >
-                    BUY ON DEX
-                  </Text>
+              <Grid gridTemplateColumns={{ base: '1fr', md: '1fr ' }} gap="24px">
+                <Grid  gap="8px" gridTemplateColumns={{ base: '1fr', md: '1fr 1fr' }}>
+                  {/*<Text*/}
+                  {/*  fontSize="12px"*/}
+                  {/*  color="black"*/}
+                  {/*  fontWeight="500"*/}
+                  {/*  textAlign="center"*/}
+                  {/*  opacity={0.7}*/}
+                  {/*>*/}
+                  {/*  BUY ON DEX*/}
+                  {/*</Text>*/}
                   {props?.buttonsDex?.map((button: any) => {
                     return button.color === 'red' ? (
                       <BtnRed key={button.link} {...button} />
@@ -121,27 +121,27 @@ const CardItem = ({ ...props }) => {
                       <BtnBorder key={button.link} {...button} />
                     );
                   })}
-                </Flex>
-                <Flex flexDirection="column" gap="8px">
-                  <Text
-                    fontSize="12px"
-                    color="black"
-                    fontWeight="500"
-                    textAlign="center"
-                    opacity={0.7}
-                  >
-                    BUY ON CEX
-                  </Text>
-                  {props?.buttonsCex?.map((button: any) => {
-                    return button.color === 'red' ? (
-                      <BtnRed key={button.link} {...button} />
-                    ) : button.color === 'green' ? (
-                      <BtnGreen key={button.link} {...button} />
-                    ) : (
-                      <BtnBorder key={button.link} {...button} />
-                    );
-                  })}
-                </Flex>
+                </Grid>
+                {/*<Flex flexDirection="column" gap="8px">*/}
+                {/*  <Text*/}
+                {/*    fontSize="12px"*/}
+                {/*    color="black"*/}
+                {/*    fontWeight="500"*/}
+                {/*    textAlign="center"*/}
+                {/*    opacity={0.7}*/}
+                {/*  >*/}
+                {/*    BUY ON CEX*/}
+                {/*  </Text>*/}
+                {/*  {props?.buttonsCex?.map((button: any) => {*/}
+                {/*    return button.color === 'red' ? (*/}
+                {/*      <BtnRed key={button.link} {...button} />*/}
+                {/*    ) : button.color === 'green' ? (*/}
+                {/*      <BtnGreen key={button.link} {...button} />*/}
+                {/*    ) : (*/}
+                {/*      <BtnBorder key={button.link} {...button} />*/}
+                {/*    );*/}
+                {/*  })}*/}
+                {/*</Flex>*/}
               </Grid>
             )}
             {props?.buttons?.map((button: any) => {

@@ -106,7 +106,7 @@ const Section_2 = () => {
   };
 
   return (
-    <Box bgColor={'#F3F1E8'} display={'flex'} flexDirection={'column'}>
+    <Box bgColor={'#fff'} display={'flex'} flexDirection={'column'}>
       <Flex
         flexDirection={{
           base: 'column',

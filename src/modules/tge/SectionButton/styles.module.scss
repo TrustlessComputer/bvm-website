@@ -7,11 +7,19 @@
   gap: 32px;
   position: relative;
   z-index: 2;
+  //width: 95%;
 
   @include is-pc {
     flex-direction: row;
     padding-top: 40px;
     padding-bottom: 0;
     gap: 24px;
+    width: 97%;
+  }
+}
+
+.colorList {
+  li::marker {
+    color: #FA4E0E;
   }
 }
