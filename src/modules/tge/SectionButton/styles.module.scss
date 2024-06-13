@@ -5,11 +5,13 @@
   padding: 40px 0;
   width: 100%;
   gap: 32px;
+  position: relative;
+  z-index: 2;
 
   @include is-pc {
     flex-direction: row;
-    padding-top: 48px;
+    padding-top: 40px;
     padding-bottom: 0;
-    gap: 48px;
+    gap: 24px;
   }
 }

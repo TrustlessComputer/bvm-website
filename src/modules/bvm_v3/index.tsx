@@ -54,7 +54,7 @@ const BVMModule = () => {
 
         <Box className={s.container}>
           <TgeModule />
-          <Box h={['20px', '40px']} />
+          {/*<Box h={['20px', '40px']} />*/}
           <Tokens />
           <Partners />
           <div className={s.container_section_tow}>
