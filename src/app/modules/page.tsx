@@ -1,5 +1,6 @@
 import React from 'react';
 import MainLayout from '@layouts/MainLayout';
+import ModulesPage from '@/modules/ModulesPage';
 
 
 const Modules = () => {
@@ -7,10 +8,11 @@ const Modules = () => {
     <MainLayout
       headerProps={{
         color: 'black',
+        // colorLogo: 'white'
       }}
       hideFooter={true}
     >
-      he
+      <ModulesPage/>
     </MainLayout>
   )
 }
