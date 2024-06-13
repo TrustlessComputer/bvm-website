@@ -7,16 +7,21 @@ import useWindowSize from '@/hooks/useWindowSize';
 import DrawerMobileMenu from '@/layouts/HeaderV3/components/DrawerMenu';
 import { NAV_ITEMS } from '../menuConfig';
 
-const Main = () => {
+export type TMainHeader = {
+  color?: string;
+  colorLogo?: 'white' | 'black';
+}
+
+const Main = ({color = '#000', colorLogo  = 'black' }: TMainHeader) => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
 
   return (
     <div className={`${s.wrapper}`}>
       <div className={`${s.inner} containerV3`}>
-        <div className={s.logo}>
+        <div className={`${s.logo} ${colorLogo === 'black' && s.logo_black }`}>
           <IconLogo />
-          <h6 className={s.logo_text}>Bitcoin Virtual Machine</h6>
+          <h6 className={s.logo_text} style={{color: color}}>Bitcoin Virtual Machine</h6>
         </div>
         {isDesktop ? (
           <div className={s.menu}>
@@ -27,7 +32,7 @@ const Main = () => {
                   href={item.href ?? '#'}
                   target={item.isNewWindow ? '_blank' : '_self'}
                 >
-                  <p className={s.itemLabel}>{item.label}</p>
+                  <p className={s.itemLabel} style={{color: color}}>{item.label}</p>
                 </Link>
               );
             })}

@@ -10,22 +10,22 @@
 
   &_img {
     width: 100%;
-    margin-bottom: rem(16px);
+    margin-bottom: 16px;
     overflow: hidden;
     clip-path: inset(100% 0 0 0);
     animation: wrapImage .8s calc(var(--delay) + 0s) $easeOutCubic forwards;
     position: relative;
-    border-radius: rem(16px);
+    border-radius: 16px;
 
     &_inner {
       transition: transform .4s $easeOutCubic;
-      aspect-ratio: 368/236;
+      aspect-ratio: 472/236;
     }
 
     img, video {
       width: 100%;
       height: calc(100% + 1px);
-      aspect-ratio: 368/236;
+      aspect-ratio: 472/236;
       will-change: transform;
       object-fit: cover;
       transform: scale(1.5);
@@ -60,21 +60,21 @@
   }
 
   &_title {
-    font-size: rem(14px);
-    line-height: rem(22.4px);
+    font-size: 14px;
+    line-height: calc(24 / 14);
     font-weight: 500;
-    margin-bottom: rem(8px);
+    margin-bottom: 8px;
     color: var(--black-color);
     opacity: 0;
     will-change: transform, opacity;
     transform: translateY(20px);
     animation: fadeIn .6s calc(var(--delay) + .2s) $easeOutCubic forwards;
-    font-family: 'JetBrains Mono', monospace;
-
+    font-family: var(--font-jetbrains);
     &_label {
       color: #ED5A00;
-      font-size: rem(14px);
-      line-height: rem(22.4px);
+      font-size: 14px;
+      font-family: var(--font-jetbrains);
+      line-height: calc(24 / 14);
       font-weight: 500;
       opacity: 0;
       will-change: transform, opacity;
@@ -84,9 +84,10 @@
   }
 
   &_content {
-    font-size: rem(14px);
+    font-size: 14px;
     line-height: rem(19.6px);
     color: var(--gray-color);
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     opacity: 0;
     will-change: transform, opacity;
     transform: translateY(20px);
@@ -105,6 +106,9 @@
     gap: 10px;
     margin-top: 12px;
     opacity: 0;
+    font-family: var(--font-jetbrains);
+    list-style: none;
+    color: #000;
     will-change: transform, opacity;
     transform: translateY(20px);
     animation: fadeIn .6s calc(var(--delay) + .4s) $easeOutCubic forwards;
@@ -118,6 +122,7 @@
   font-weight: 400;
   line-height: 14px;
   text-align: center;
+  font-family: var(--font-jetbrains);
   border-radius: 100px;
   text-transform: uppercase;
   width: fit-content;

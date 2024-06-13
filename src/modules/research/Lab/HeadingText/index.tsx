@@ -56,7 +56,6 @@ export default function HeadingText({ children, headings, first }: IProp) {
 
       updateSentence();
     };
-
     reftime.current = setInterval(handleAnimation, speed);
     return () => {
       clearInterval(reftime.current);
@@ -70,18 +69,18 @@ export default function HeadingText({ children, headings, first }: IProp) {
 
     let currentIndex = 0;
     let offset = 0;
-    const sentenceElement = refSpanFirst.current;
+    // const sentenceElement = refSpanFirst.current;
     let forwards = true;
     let skipCount = 0;
     const skipDelay = 30;
     const speed = 70;
 
-    const updateSentence = () => {
-      sentenceElement.textContent = sentences[currentIndex].substring(
-        0,
-        offset
-      );
-    };
+    // const updateSentence = () => {
+    //   sentenceElement.textContent = sentences[currentIndex].substring(
+    //     0,
+    //     offset
+    //   );
+    // };
 
     const handleAnimation = () => {
       if (offset >= sentences[currentIndex].length) setRun(true);
@@ -90,7 +89,7 @@ export default function HeadingText({ children, headings, first }: IProp) {
         offset++;
       }
 
-      updateSentence();
+      // updateSentence();
     };
 
     reftimeDelayFirst.current = setTimeout(() => {
@@ -107,13 +106,13 @@ export default function HeadingText({ children, headings, first }: IProp) {
       {!run && (
         <>
           <span ref={refSpanFirst}></span>
-          <span className={s.heading_mouse}>_</span>
+          {/*<span className={s.heading_mouse}>_</span>*/}
         </>
       )}
       {run && first}
-      <br />
+      {/*<br />*/}
       <span ref={refSpan}></span>
-      {run && <span className={s.heading_mouse}>_</span>}
+      {/*{run && <span className={s.heading_mouse}>_</span>}*/}
     </span>
   );
 }

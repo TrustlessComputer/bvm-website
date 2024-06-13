@@ -27,13 +27,13 @@
         line-height: rem(52px);
         letter-spacing: 2px;
         color: var(--black-color);
-        font-family: 'JetBrains Mono', monospace;
+        //font-family: 'JetBrains Mono', monospace;
         margin-bottom: rem(16px);
-        height: rem(160px);
-
-        @include min-tablet{
-          height: rem(100px);
-        }
+        height: rem(50px);
+        //
+        //@include min-tablet{
+        //  height: rem(100px);
+        //}
 
         width: 100%;
 
@@ -50,7 +50,8 @@
       }
 
       &_content {
-        font-size: rem(18px);
+        font-size: 18px;
+        font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
         line-height: 1.5;
         color: var(--gray-color);
         max-width: unset;
@@ -61,12 +62,12 @@
           animation: fadeIn .6s calc(var(--delay) + .1s) $easeOutCubic forwards;
         }
 
-        @include min-tablet{
-          max-width: 60%;
-        }
+        //@include min-tablet{
+        //  max-width: 60%;
+        //}
 
         @include min-pc {
-          max-width: 42%;
+          max-width: 500px;
         }
 
       }

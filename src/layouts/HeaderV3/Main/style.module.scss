@@ -17,11 +17,20 @@
   gap: 12px;
 
   &_text {
+    font-family: var(--font-jetbrains);
     font-size: 15px;
     font-weight: 500;
     line-height: (21 / 15);
     color: #fff;
   }
+  &_black {
+    svg {
+      path {
+       fill: #000;
+      }
+    }
+  }
+
 }
 
 .menu {
@@ -33,6 +42,7 @@
 
 .itemLabel {
   color: #fff;
+  font-family: var(--font-jetbrains);
   font-size: 14px;
   font-weight: 500;
   line-height: (20 / 14);

@@ -85,7 +85,7 @@ import { NavItem } from '@layouts/Header/menuConfig';
 export const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Chains',
-    href: '',
+    href: '/chains',
     isNewWindow: false,
     isHide: false,
     subMenu: [

@@ -57,24 +57,22 @@ const Lab = () => {
               heading={
                 <>
                   <HeadingText
-                    first={'Welcome to '}
+                    first={'Chains'}
                     headings={[
-                      'the future of Bitcoin',
-                      'DeFi on Bitcoin',
-                      'NFTs on Bitcoin',
-                      'Gaming on Bitcoin',
-                      'AI on Bitcoin',
-                      'DAOs on Bitcoin',
+                      ''
+                      // 'Chains',
+                      // 'DeFi on Bitcoin',
+                      // 'NFTs on Bitcoin',
+                      // 'Gaming on Bitcoin',
+                      // 'AI on Bitcoin',
+                      // 'DAOs on Bitcoin',
                     ]}
                   />
                 </>
               }
               landingData={Portfolio}
             >
-              We back bold founders building the future of Bitcoin. As technical
-              investors, we conduct cutting-edge research on Bitcoin, open
-              source most of our work so builders can build with them, and roll
-              up our sleeves to assist founders in building their products.
+              We partner with bold builders to build apps and protocols that reinvent Bitcoin. As technical investors, we invest at the earliest stage and take a hands-on approach to help builders build and launch.
             </LabContent>
           </div>
         );

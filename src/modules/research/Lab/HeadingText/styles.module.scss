@@ -1,7 +1,11 @@
 .heading {
-  &_mouse{
-    animation: loopFrames .75s ease-out infinite;
-  }
+  //&_mouse{
+  //  animation: loopFrames .75s ease-out infinite;
+  //}
+  font-size: 72px;
+  font-family: var(--font-jetbrains);
+  font-weight: 400;
+  //line-height: calc(93.6 / 72);
 }
 
 @keyframes loopFrames {
