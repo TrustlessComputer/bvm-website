@@ -30,7 +30,10 @@ const Main = ({ color = '#000', colorLogo = 'black' }: TMainHeader) => {
         {isDesktop ? (
           <div className={s.menu}>
             {NAV_ITEMS.map((item) => {
-              const isActive = pathname === `/${item.href}`;
+              const isActive = pathname === item.href;
+              console.log(pathname, item.href);
+              const isActiveDark = isActive && color === 'white';
+              const isActiveLight = isActive && color === 'black';
               return (
                 <Link
                   key={item.label}
@@ -38,7 +41,9 @@ const Main = ({ color = '#000', colorLogo = 'black' }: TMainHeader) => {
                   target={item.isNewWindow ? '_blank' : '_self'}
                 >
                   <p
-                    className={`${s.itemLabel} ${isActive && s.active}`}
+                    className={`${s.itemLabel} ${isActiveDark && s.activeDark} 
+                    ${isActiveLight && s.activeLight}
+                    `}
                     style={{ color: color }}
                   >
                     {item.label}

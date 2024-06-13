@@ -119,7 +119,7 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'Research',
-    href: '/use-bitcoin',
+    href: '/research',
     isNewWindow: false,
     isHide: false,
   },

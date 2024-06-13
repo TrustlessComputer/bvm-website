@@ -13,6 +13,18 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
       case 1:
         return (
           <div>
+            <LabContent landingData={Research} heading={<>Research</>}>
+              We believe that our research will eventually make Bitcoin vastly
+              more useful than just a currency. We hope builders find our
+              research helpful and start building DeFi, Gaming, NFTs, Payments,
+              DAOs, and more on Bitcoin.
+            </LabContent>
+          </div>
+        );
+
+      case 2:
+        return (
+          <div>
             <LabContent
               landingData={Modules}
               heading={
@@ -22,25 +34,6 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
               }
             >
               We build and open source project that advance Bitcoin ecosystem. We believe in doing so even when there may not be a direct commercial incentive.
-            </LabContent>
-          </div>
-        );
-
-      case 2:
-        return (
-          <div>
-            <LabContent
-              landingData={OpenSource}
-              heading={
-                <>
-                  Building
-                  <br /> open-source projects
-                </>
-              }
-            >
-              We hope to make a contribution to the Bitcoin ecosystem by
-              actively releasing open-source projects so builders can experiment
-              and build with them.
             </LabContent>
           </div>
         );
