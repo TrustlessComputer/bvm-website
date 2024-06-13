@@ -1,16 +1,18 @@
 import React from 'react';
 import MainLayout from '@layouts/MainLayout';
+import ModulesPage from '@/modules/ModulesPage';
 
 
 const Modules = () => {
   return (
     <MainLayout
-      headerProps={{
-        color: 'black',
-      }}
+      // headerProps={{
+      //   color: '#fff',
+      //   colorLogo: 'white'
+      // }}
       hideFooter={true}
     >
-      he
+      <ModulesPage/>
     </MainLayout>
   )
 }

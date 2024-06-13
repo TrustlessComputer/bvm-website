@@ -3,7 +3,7 @@
 import React, { ReactElement, useMemo, useState } from 'react';
 import s from './style.module.scss';
 import LabContent from './LabContent';
-import { OpenSource, Portfolio, Research } from './data';
+import { OpenSource, Portfolio, Research, Modules } from './data';
 import HeadingText from './HeadingText';
 import LabHeader from './LabHeader';
 
@@ -14,17 +14,14 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
         return (
           <div>
             <LabContent
-              landingData={Research}
+              landingData={Modules}
               heading={
                 <>
-                  Pioneering research <br /> on Bitcoin
+                  Modules
                 </>
               }
             >
-              We believe that our research will eventually make Bitcoin vastly
-              more useful than just a currency. We hope builders find our
-              research helpful and start building DeFi, Gaming, NFTs, Payments,
-              DAOs, and more on Bitcoin.
+              We build and open source project that advance Bitcoin ecosystem. We believe in doing so even when there may not be a direct commercial incentive.
             </LabContent>
           </div>
         );

@@ -113,7 +113,7 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'Modules',
-    href: '/module-store',
+    href: '/modules',
     isNewWindow: false,
     isHide: false,
   },
