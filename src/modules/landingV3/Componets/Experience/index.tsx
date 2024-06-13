@@ -360,7 +360,6 @@ const ThreeJSComponent: React.FC = () => {
       const y = refCamPo.current.y + Math.sin(angleY);
       const z = refCamPo.current.z + Math.cos(angleY) * Math.cos(angleX);
 
-
       camera.position.lerp(new THREE.Vector3(x, y, z), .1)
       camera.lookAt(new THREE.Vector3(0, 0, 0));
     };
