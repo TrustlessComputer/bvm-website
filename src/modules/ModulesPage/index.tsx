@@ -3,7 +3,7 @@ import Lab from '@/modules/Lab';
 
 
 const ModulesPage = (): React.JSX.Element => {
-  return <Lab tab={1} isDark={false} />
+  return <Lab tab={2} isDark={false} />
 }
 
 

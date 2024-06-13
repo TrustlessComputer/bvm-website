@@ -6,10 +6,10 @@ import ModulesPage from '@/modules/ModulesPage';
 const Modules = () => {
   return (
     <MainLayout
-      // headerProps={{
-      //   color: '#fff',
-      //   colorLogo: 'white'
-      // }}
+      headerProps={{
+        color: 'black',
+        // colorLogo: 'white'
+      }}
       hideFooter={true}
     >
       <ModulesPage/>

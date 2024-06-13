@@ -74,7 +74,7 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
       return '#000';
     } else {
       if (tab === 2) {
-        return '#F3F1E8';
+        return '#fff';
       } else {
         return '#fff';
       }
