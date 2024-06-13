@@ -32,8 +32,8 @@ const CardFi = ({ ...props }: TCardFiProps) => {
           <p className={s.cardFiContent_title}>{props.title}</p>
           <div
             className={s.cardFiContent_desc}
-            dangerouslySetInnerHTML={{ __html: props.description }}
-          ></div>
+            // dangerouslySetInnerHTML={{ __html: props.description }}
+          >{props.description}</div>
           <div className={s.cardFiContent_bottom}>
             <div
               className={`${s.cardFiContent_desc} ${s.cardFiContent_bottom_btn} `}

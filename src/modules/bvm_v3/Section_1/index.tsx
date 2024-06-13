@@ -1,5 +1,6 @@
 'use client';
 import { Button, Flex, Image, Text } from '@chakra-ui/react';
+import s from './styles.module.scss'
 
 const Section_1 = () => {
   return (
@@ -11,24 +12,18 @@ const Section_1 = () => {
       alignItems={'center'}
     >
       <Text
-        fontSize={['28px', '40px']}
-        lineHeight={{ base: '140%', md: '120%' }}
-        fontWeight={400}
         color={'#000'}
+        className={s.heading}
       >
         BVM Utilities
       </Text>
       <Text
-        fontSize={['16px', '20px']}
-        lineHeight={['24px', '36px']}
+        className={s.description}
         textAlign={'center'}
-        fontWeight={400}
         color={'#000'}
-        maxW={'709px'}
+        maxW={'460px'}
       >
-        {/*BVM is the governance and utility token used within the BVM ecosystem to empower builders and users to build the*/}
-        {/*future of Bitcoin.*/}
-        BVM is the native cryptocurrency used within the BVM ecosystem to empower builders and users to build the future of Bitcoin.
+        BVM is the governance and utility token used within the BVM ecosystem to empower builders and users to build the future of Bitcoin.
       </Text>
       {/* <Flex flexDir={'column'} gap={'12px'} paddingTop={'8px'}>
         <Button
