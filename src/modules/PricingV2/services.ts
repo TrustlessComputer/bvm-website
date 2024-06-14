@@ -36,7 +36,7 @@ export const orderRegisterBootstrapParams = async () => {
     .toFixed();
 
   let params: IOrderBuyReq = {
-    serviceType: ServiceTypeEnum.DEFAULT, // hard code
+    serviceType: RollupEnum.Rollup_ZK,
     domain: domain,
     chainId: String(chainID), // random
     chainName: chainName,

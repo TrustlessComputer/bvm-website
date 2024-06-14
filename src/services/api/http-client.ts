@@ -1,3 +1,7 @@
+import web3AuthNoModal from '@/Providers/Web3Auth_vs2/Web3Auth.initNoModal';
+import { STORAGE_KEYS } from '@/constants/storage-key';
+import LocalStorage from '@/libs/localStorage';
+import { store } from '@/stores';
 import axios from 'axios';
 
 export const TIMEOUT = 5 * 60000;
@@ -28,6 +32,7 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
       if (res?.data?.count !== undefined) {
         result.count = res.data.count;
       }
+
       const error = res?.data?.error;
       if (error && Object.keys(error).length) {
         return Promise.reject(error);
@@ -41,17 +46,18 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
       }
       return Promise.resolve(result);
     },
-    (error: any) => {
+    async (error: any) => {
       // console.log('RESPONE ERROR: ', error);
       if (!error.response) {
         return Promise.reject(error);
       }
       const statusCode = error?.response?.status;
-
       if (statusCode >= 500) {
         return Promise.reject(`${statusCode}: Internal Server Error`);
       }
       if (statusCode === 401) {
+        LocalStorage.removeItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2);
+        await web3AuthNoModal?.logout();
         return Promise.reject(`${statusCode}: Unauthenticated`);
       }
       const response = error?.response?.data || error;

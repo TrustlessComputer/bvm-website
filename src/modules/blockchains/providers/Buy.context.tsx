@@ -314,7 +314,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     const dataAvaibilityChain = dataValiditySelected || DALayerEnum.DALayer_BTC;
 
     let params: IOrderBuyReq = {
-      serviceType: ServiceTypeEnum.DEFAULT, // hard code
+      serviceType: RollupEnum.Rollup_OpStack, // hard code
       domain: domain,
       chainId: String(chainID), // random
       chainName: chainName,
@@ -713,6 +713,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
         ...orderBuyReq,
         ...HardwareGrowth,
         rollupProtocol: RollupEnum.Rollup_ZK,
+        serviceType: RollupEnum.Rollup_ZK,
       };
       console.log('Register Instance Params: ', params);
 

@@ -166,7 +166,7 @@ const Page = (props: any) => {
     >
       <BoxContent
         minH={'100dvh'}
-        overflow={'hidden'}
+        overflow={'visible'}
         py={'60px'}
         pos={'relative'}
       >

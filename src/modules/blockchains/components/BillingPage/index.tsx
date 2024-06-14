@@ -89,7 +89,7 @@ const BillingPage = (props: IProps) => {
           lineHeight={'33px'}
           color={'#000'}
         >
-          History billing
+          History
         </Text>
 
         {!historyList || historyList.length < 1 ? (

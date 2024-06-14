@@ -156,11 +156,11 @@ const HeaderView = () => {
               router.push('/pricing');
             }}
           >
-            Build your Bitcoin L2
+            Build your ZK Powered Blockchain
           </Button>
         ) : (
           <Text>
-            {`Check Your Bitcoin L2 Setup and Status - `}
+            {`Check Your ZK Powered Blockchain Setup and Status - `}
             <Text
               as="span"
               color={'#4E4A8D'}

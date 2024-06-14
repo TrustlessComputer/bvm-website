@@ -16,7 +16,7 @@ export default function Lego() {
         <div className={s.lego_content}>
           <HeadingSection className={s.lego_content_title}>
             <Chars>
-              Customize your Bitcoin L2 blockchain with{' '}
+              Customize your ZK Powered Blockchain with{' '}
               <b>the best-of-breed building blocks.</b>
             </Chars>
           </HeadingSection>

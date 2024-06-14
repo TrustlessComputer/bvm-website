@@ -27,7 +27,6 @@ const BodyGridView = () => {
   } = useAppSelector(getL2ServicesStateSelector);
 
   const serviceDataList = useMemo(() => {
-    console.log('---- AAAA ', { showAllChain, viewMode });
     const filterByNetwork = (orders: OrderItem[]) => {
       if (viewMode === 'Mainnet')
         return orders

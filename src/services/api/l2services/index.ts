@@ -167,6 +167,9 @@ export const submitContactVS2 = async (params: SubmitFormParams) => {
 };
 
 export const fetchOrderListAPI = async (): Promise<OrderItem[]> => {
+  const accessToken = getAPIAccessToken();
+  if (!accessToken) return [];
+
   const orders = (await httpClient.get(`/order/get-list`, {
     headers: {
       Authorization: `${getAPIAccessToken()}`,
@@ -206,11 +209,14 @@ export const getAllOrders = async (): Promise<OrderItem[]> => {
   );
 };
 
-export const accountGetInfo = async (): Promise<AccountInfo> => {
+export const accountGetInfo = async (): Promise<AccountInfo | undefined> => {
+  const accessToken = getAPIAccessToken();
+
+  if (!accessToken) return undefined;
   try {
     const account = (await httpClient.get(`/account/get-info`, {
       headers: {
-        Authorization: `${getAPIAccessToken()}`,
+        Authorization: `${accessToken}`,
       },
     })) as AccountInfoResp;
     return builderAccountInfo({
@@ -275,6 +281,8 @@ export const getNonce = async (
 };
 
 export const fetchHistoryAPI = async (): Promise<any> => {
+  const accessToken = getAPIAccessToken();
+  if (!accessToken) return [];
   try {
     const histories = (await httpClient.get(`/account/history`, {
       headers: {

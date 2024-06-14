@@ -32,22 +32,40 @@ export enum DALayerEnum {
   DALayer_FILECOIN = 21,
 }
 
+// export const DALayerEnumMap = {
+//   [DALayerEnum.DALayer_UNKNOW]: 'Unknow',
+//   [DALayerEnum.DALayer_PLG]: 'Bitcoin + Polygon',
+//   [DALayerEnum.DALayer_BTC]: 'Bitcoin Only',
+//   [DALayerEnum.DALayer_Goerli]: 'Bitcoin + Ethereum (Goerli)',
+//   [DALayerEnum.DALayer_Celestia]: 'Bitcoin + Celestia',
+//   [DALayerEnum.DALayer_Eigen]: 'Bitcoin + Eigen',
+//   [DALayerEnum.DALayer_NearDa]: 'Near',
+
+//   [DALayerEnum.DALayer_IPFS]: 'Bitcoin + IPFS',
+//   [DALayerEnum.DALayer_ARWEAVE]: 'Bitcoin + Arweave',
+//   [DALayerEnum.DALayer_AVAIL]: 'Bitcoin + Avail',
+//   [DALayerEnum.DALayer_JACKAL]: 'Bitcoin + Jackal',
+
+//   [DALayerEnum.DALayer_SYSCOIN]: 'Bitcoin + Syscoin',
+//   [DALayerEnum.DALayer_FILECOIN]: 'Bitcoin + Filecoin"',
+// };
+
 export const DALayerEnumMap = {
   [DALayerEnum.DALayer_UNKNOW]: 'Unknow',
-  [DALayerEnum.DALayer_PLG]: 'Bitcoin + Polygon',
+  [DALayerEnum.DALayer_PLG]: 'Polygon',
   [DALayerEnum.DALayer_BTC]: 'Bitcoin Only',
-  [DALayerEnum.DALayer_Goerli]: 'Bitcoin + Ethereum (Goerli)',
-  [DALayerEnum.DALayer_Celestia]: 'Bitcoin + Celestia',
-  [DALayerEnum.DALayer_Eigen]: 'Bitcoin + Eigen',
+  [DALayerEnum.DALayer_Goerli]: 'Ethereum (Goerli)',
+  [DALayerEnum.DALayer_Celestia]: 'Celestia',
+  [DALayerEnum.DALayer_Eigen]: 'Eigen',
   [DALayerEnum.DALayer_NearDa]: 'Near',
 
-  [DALayerEnum.DALayer_IPFS]: 'Bitcoin + IPFS',
-  [DALayerEnum.DALayer_ARWEAVE]: 'Bitcoin + Arweave',
-  [DALayerEnum.DALayer_AVAIL]: 'Bitcoin + Avail',
-  [DALayerEnum.DALayer_JACKAL]: 'Bitcoin + Jackal',
+  [DALayerEnum.DALayer_IPFS]: 'IPFS',
+  [DALayerEnum.DALayer_ARWEAVE]: 'Arweave',
+  [DALayerEnum.DALayer_AVAIL]: 'Avail',
+  [DALayerEnum.DALayer_JACKAL]: 'Jackal',
 
-  [DALayerEnum.DALayer_SYSCOIN]: 'Bitcoin + Syscoin',
-  [DALayerEnum.DALayer_FILECOIN]: 'Bitcoin + Filecoin"',
+  [DALayerEnum.DALayer_SYSCOIN]: 'Syscoin',
+  [DALayerEnum.DALayer_FILECOIN]: 'Filecoin"',
 };
 
 // ------------------------------------------------------------------------------------

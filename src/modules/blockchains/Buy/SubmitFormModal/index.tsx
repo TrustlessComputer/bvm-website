@@ -126,7 +126,10 @@ const SubmitFormModal = (props: IProps) => {
         /> */}
 
         <Flex flexDir={'column'} gap={'20px'} mt={'20px'}>
-          {renderRowInfor('Bitcoin L2 Name:', submitFormParams?.bitcoinL2Name)}
+          {renderRowInfor(
+            'ZK Powered Blockchain:',
+            submitFormParams?.bitcoinL2Name,
+          )}
           {renderRowInfor('Network:', submitFormParams?.network)}
           {renderRowInfor('Block Time:', submitFormParams?.blockTime)}
           {renderRowInfor('Rollup Protocol:', submitFormParams?.rollupProtocol)}

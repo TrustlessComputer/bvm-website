@@ -1,4 +1,7 @@
-import { DALayerEnum } from '@/modules/blockchains/Buy/Buy.constanst';
+import {
+  DALayerEnum,
+  RollupEnum,
+} from '@/modules/blockchains/Buy/Buy.constanst';
 import { IAvailableList } from '@/modules/blockchains/Buy/Buy.types';
 import {
   HistoryStatus,
@@ -60,7 +63,7 @@ interface OrderItemResp {
   createAt: string;
   orderId: string;
   tcAddress: string;
-  serviceType: number;
+  serviceType: RollupEnum;
   serviceFee: string;
   setupCost: string;
   instanceId: string;
@@ -146,7 +149,7 @@ interface AccountInfo extends AccountInfoResp {
 }
 
 interface IOrderBuyReq {
-  serviceType: number;
+  serviceType: RollupEnum;
   domain: string;
   chainId: string;
   chainName: string;

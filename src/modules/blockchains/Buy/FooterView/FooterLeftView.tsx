@@ -62,7 +62,7 @@ const FooterLeftView = () => {
       </Flex>
 
       <Text fontSize={'16px'} fontWeight={400} color={'#363636c2'}>
-        This process can take up to 12 hours
+        This process can take up to 2 hours
       </Text>
     </Flex>
   );

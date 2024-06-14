@@ -10,6 +10,7 @@ const FooterRightView = () => {
     submitHandler,
     confirmBtnTitle,
     rollupProtocolSelected,
+    isSubmiting,
   } = useBuy();
 
   const renderOption1 = () => {
@@ -49,6 +50,7 @@ const FooterRightView = () => {
             />
           }
           disabled={!!estimateTotalCostFetching}
+          isLoading={isSubmiting}
           onClick={() => submitHandler()}
         >
           {isMainnet ? 'Submit' : confirmBtnTitle}
@@ -131,6 +133,7 @@ const FooterRightView = () => {
                 />
               }
               disabled={!!estimateTotalCostFetching}
+              isLoading={isSubmiting}
               onClick={() => submitHandler()}
             >
               {confirmBtnTitle}

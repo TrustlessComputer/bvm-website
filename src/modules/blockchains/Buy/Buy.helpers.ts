@@ -123,14 +123,14 @@ export const getBuyBuilderStateInit = (
 };
 
 export const getRandonComputerName = (isMainnet: boolean) => {
-  const prefix = 'Bitcoin L2';
+  const prefix = 'ZK Powered Blockchain';
   const suffix = isMainnet ? '' : '(Testnet)';
   const randomNumber = Math.floor(Math.random() * 900000) + 100000; //random from 100 -> 999
   return `${prefix}-${randomNumber}${suffix ? `-${suffix}` : ''}`;
 };
 
 export const getRandonComputerName_VS2 = (isMainnet: boolean) => {
-  const prefix = 'Bitcoin L2';
+  const prefix = 'ZK Powered Blockchain';
   const suffix = isMainnet ? '' : '(Testnet)';
   const randomNumber = new Date().getTime();
   return `${prefix}-${randomNumber}${suffix ? `-${suffix}` : ''}`;

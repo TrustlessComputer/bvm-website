@@ -1,7 +1,7 @@
 import { IOrderBuyReq } from '@/stores/states/l2services/types';
 
 export const ParamsEstCostDABitcoinPolygon: IOrderBuyReq = {
-  serviceType: 1,
+  serviceType: 20,
   domain: '',
   chainId: String(1),
   chainName: '',
@@ -19,7 +19,7 @@ export const ParamsEstCostDABitcoinPolygon: IOrderBuyReq = {
 };
 
 export const ParamsEstCostOnlyBitcoin: IOrderBuyReq = {
-  serviceType: 1,
+  serviceType: 20,
   domain: 'xxxx',
   chainId: String('12345'),
   chainName: 'xxxx',
@@ -38,7 +38,7 @@ export const ParamsEstCostOnlyBitcoin: IOrderBuyReq = {
 
 export const getParamsEstCostOnlyBitcoin = (blockTime = 2 | 5 | 10) => {
   return {
-    serviceType: 1,
+    serviceType: 20,
     domain: 'xxxx',
     chainId: String('12345'),
     chainName: 'xxxx',
