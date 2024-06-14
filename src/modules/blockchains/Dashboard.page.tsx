@@ -29,7 +29,7 @@ const Page = (props: any) => {
 
   const dispatch = useAppDispatch();
 
-  const { loggedIn } = useWeb3Auth();
+  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
   const isFetchingAllData = useAppSelector(isFetchingAllDataSelector);
   const { viewPage } = useAppSelector(getL2ServicesStateSelector);
@@ -105,7 +105,11 @@ const Page = (props: any) => {
               bgColor: '#e5601b',
             }}
             onClick={() => {
-              dispatch(setViewPage('Biiling'));
+              if (loggedIn) {
+                dispatch(setViewPage('Biiling'));
+              } else {
+                setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+              }
             }}
           >
             Billing
