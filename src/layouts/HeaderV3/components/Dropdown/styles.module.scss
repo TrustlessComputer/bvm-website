@@ -5,11 +5,12 @@
   &_label {
     display: flex;
     gap: 5px;
-    align-items: center;
-    font-family: var(--font-dmsans);
-    font-weight: 500;
+    color: #fff;
+    font-family: var(--font-jetbrains);
     font-size: 14px;
-    text-transform: uppercase;
+    font-weight: 500;
+    line-height: (20 / 14);
+    text-align: center;
     cursor: pointer;
     &.black {
       color: black;
@@ -38,7 +39,7 @@
     width: max-content;
     background: #f7f7f7;
     position: absolute;
-    left: 0;
+    right: 0;
     list-style: none;
     padding: 12px 24px;
     display: flex;
@@ -56,10 +57,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    font-family: var(--font-dmsans);
-    font-weight: 500;
+    font-family: var(--font-jetbrains);
     font-size: 14px;
-    text-transform: uppercase;
+    font-weight: 500;
+    line-height: (20 / 14);
+    text-align: center;
     svg * {
       transition: fill 0.4s var(--easeOutQuart);
     }

@@ -85,41 +85,41 @@ import { NavItem } from '@layouts/Header/menuConfig';
 export const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Chains',
-    href: '',
+    href: '/chains',
     isNewWindow: false,
     isHide: false,
-    subMenu: [
-      {
-        href: 'https://eternalai.org',
-        label: 'Bitcoin L2 for AI',
-        isNewWindow: true,
-      },
-      {
-        href: '/gamefi',
-        label: 'Bitcoin L2 for GameFi',
-        isNewWindow: false,
-      },
-      {
-        href: '/defi',
-        label: 'Bitcoin L2 for DeFi',
-        isNewWindow: false,
-      },
-      {
-        href: '/socialfi',
-        label: 'Bitcoin L2 for SocialFi',
-        isNewWindow: false,
-      },
-    ],
+    // subMenu: [
+    //   {
+    //     href: 'https://eternalai.org',
+    //     label: 'Bitcoin L2 for AI',
+    //     isNewWindow: true,
+    //   },
+    //   {
+    //     href: '/gamefi',
+    //     label: 'Bitcoin L2 for GameFi',
+    //     isNewWindow: false,
+    //   },
+    //   {
+    //     href: '/defi',
+    //     label: 'Bitcoin L2 for DeFi',
+    //     isNewWindow: false,
+    //   },
+    //   {
+    //     href: '/socialfi',
+    //     label: 'Bitcoin L2 for SocialFi',
+    //     isNewWindow: false,
+    //   },
+    // ],
   },
   {
     label: 'Modules',
-    href: '/module-store',
+    href: '/modules',
     isNewWindow: false,
     isHide: false,
   },
   {
     label: 'Research',
-    href: '/use-bitcoin',
+    href: '/research',
     isNewWindow: false,
     isHide: false,
   },
@@ -147,25 +147,26 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'BVM',
+    href: '/bvm',
     isNewWindow: false,
     isHide: false,
-    subMenu: [
-      {
-        href: '/roadmap',
-        label: 'Roadmap',
-        isNewWindow: false,
-      },
-      {
-        href: 'https://docs.bvm.network/bvm',
-        label: 'Developer Docs',
-        isNewWindow: true,
-      },
-      {
-        href: '/whitepaper.pdf',
-        label: 'WhitePaper',
-        isNewWindow: false,
-      },
-    ],
+    // subMenu: [
+    //   {
+    //     href: '/roadmap',
+    //     label: 'Roadmap',
+    //     isNewWindow: false,
+    //   },
+    //   {
+    //     href: 'https://docs.bvm.network/bvm',
+    //     label: 'Developer Docs',
+    //     isNewWindow: true,
+    //   },
+    //   {
+    //     href: '/whitepaper.pdf',
+    //     label: 'WhitePaper',
+    //     isNewWindow: false,
+    //   },
+    // ],
   },
 ];
 export const TOP_NAV_ITEMS: Array<NavItem> = [

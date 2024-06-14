@@ -13,8 +13,7 @@ export default function HeroV3() {
         </div> */}
         <div className={s.content}>
           <p className={s.title}>
-            Launch your <br /> own <span>ZK-POWeered blockchain</span> on
-            bitcoin
+            Launch your <br /> own <span>ZK-POWered blockchain</span> on bitcoin
           </p>
           <div className={s.btn} onClick={() => router.push('')}>
             Launch now

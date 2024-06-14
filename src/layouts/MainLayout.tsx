@@ -5,13 +5,13 @@ import useAnimationStore from '@/stores/useAnimationStore';
 import Footer from '@layouts/Footer';
 import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
-import HeaderV3 from './HeaderV3';
+import HeaderV3, { HeaderV3Props } from './HeaderV3';
 
 type IMainProps = {
   hideHeader?: boolean;
   hideFooter?: boolean;
   children?: React.ReactNode;
-  headerProps?: HeaderProps;
+  headerProps?: HeaderV3Props;
 };
 
 const MainLayout = ({

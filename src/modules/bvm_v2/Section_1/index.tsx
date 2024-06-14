@@ -6,7 +6,7 @@ const Section_1 = () => {
     <Flex
       w={'100%'}
       flexDir={'column'}
-      bgColor={'transparent'}
+      bgColor={'#fff'}
       gap={{ base: '12px', md: '16px' }}
       alignItems={'center'}
     >

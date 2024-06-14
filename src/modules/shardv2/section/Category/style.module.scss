@@ -1,0 +1,24 @@
+.cateWrapper {
+  background-color: #ffffff;
+  width: 100%;
+  display: grid;
+  gap: 40px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  grid-template-columns: repeat(1, 1fr);
+
+  @include is-pc {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  > div > div {
+    align-items: flex-start;
+  }
+
+  // @include min-md {
+  //   padding: 40px 0;
+  // }
+
+  @include min-ml {
+    gap: 24px;
+  }
+}
