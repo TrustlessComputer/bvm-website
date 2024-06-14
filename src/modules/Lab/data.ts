@@ -161,7 +161,7 @@ export const Modules: ILabItemContent[] = [
     link: 'https://twitter.com/Optimism',
     title: 'Optimism',
     image: '/modules/optimism.png',
-    content: 'Optimistic Rollups allow transactions to be executed off-chain while still leveraging the security of the main chain.',
+    content: 'BVM uses the proven Optimism codebase to bring smart contract capabilities to Bitcoin, enabling high-speed, low-gas Bitcoin L2s.',
   },
   {
     tags: ['Rollup protocol'],
@@ -169,7 +169,7 @@ export const Modules: ILabItemContent[] = [
     // target: '_blank',
     title: 'ZK Sync',
     image: '/modules/zk-sync.png',
-    content: 'Zero-Knowledge enables validity proofs to ensure the state can\'t be corrupted and invalid transactions can\'t exist.',
+    content: 'Opt for ZK Rollups to reduce block time to 1s, validate transactions with zero-knowledge proofs, avoid contest delays, and publish proofs on-chain.',
   },
   {
     tags: ['dApps'],
@@ -177,7 +177,7 @@ export const Modules: ILabItemContent[] = [
     // target: '_blank',
     title: 'Uniswap',
     image: '/modules/uniswap.png',
-    content: 'Include a Dex as a pre-installed component in your layer 2 blockchain setup.',
+    content: 'Include a decentralized exchange (DEX) as a pre-installed component in your Layer 2 blockchain setup.',
   },
   {
     link: '',
@@ -205,7 +205,7 @@ export const Modules: ILabItemContent[] = [
     tags: ['Data Availability'],
     link: 'https://twitter.com/eigen_da',
     // target: '_blank',
-    title: 'EigenDA',
+    title: 'Eigen DA',
     // backgroundImg: '',
     image: '/modules/eigenda.png',
     content: 'Provide low-cost, hyperscale data availability to rollups.',
