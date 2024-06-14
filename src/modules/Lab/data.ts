@@ -142,13 +142,11 @@ export const Modules: ILabItemContent[] = [
     content: 'Make it easy for anyone to securely launch their own blockchain.',
   },
   {
-    tags: ['Data Availability'],
-    link: 'https://twitter.com/eigen_da',
-    // target: '_blank',
-    title: 'EigenDA',
-    // backgroundImg: '',
-    image: '/modules/eigenda.png',
-    content: 'Provide low-cost, hyperscale data availability to rollups.',
+    tags: ['Cross-chain bridges'],
+    link: '',
+    title: 'Ethereum',
+    image: '/modules/ethereum.png',
+    content: 'Install a bridge for seamless asset transfers between Ethereum and Bitcoin L2s powered by BVM.',
   },
   {
     tags: ['Data Availability'],
@@ -204,11 +202,13 @@ export const Modules: ILabItemContent[] = [
     content: 'Install a bridge for seamless asset transfers between Bitcoin and Bitcoin L2s powered by BVM.',
   },
   {
-    tags: ['Cross-chain bridges'],
-    link: '',
-    title: 'Ethereum',
-    image: '/modules/ethereum.png',
-    content: 'Install a bridge for seamless asset transfers between Ethereum and Bitcoin L2s powered by BVM.',
+    tags: ['Data Availability'],
+    link: 'https://twitter.com/eigen_da',
+    // target: '_blank',
+    title: 'EigenDA',
+    // backgroundImg: '',
+    image: '/modules/eigenda.png',
+    content: 'Provide low-cost, hyperscale data availability to rollups.',
   },
 ];
 
