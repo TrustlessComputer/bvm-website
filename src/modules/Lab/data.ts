@@ -89,9 +89,10 @@ export const Portfolio: ILabItemContent[] = [
 export const Modules: ILabItemContent[] = [
   {
     link: '',
-    tags: [ 'Data Validity', 'Data Availability'],
+    tags: ['Data Validity', 'Data Availability'],
     title: 'Ordinals',
-    content: 'Roll up to Bitcoin as Ordinals, ensuring the integrity and reliability of data stored on the blockchain.',
+    content:
+      'Roll up to Bitcoin as Ordinals, ensuring the integrity and reliability of data stored on the blockchain.',
     image: '/modules/ordinals.jpg',
   },
   {
@@ -100,21 +101,24 @@ export const Modules: ILabItemContent[] = [
     // target: '_blank',
     title: 'Stamps',
     image: '/modules/stamps.png',
-    content: 'Roll up to Bitcoin as Stamps, ensuring perpetual storage that can\'t be altered or lost.',
+    content:
+      "Roll up to Bitcoin as Stamps, ensuring perpetual storage that can't be altered or lost.",
   },
   {
     tags: ['Cross-chain bridges'],
     link: '',
     title: 'BRC-20',
     image: '/modules/brc-20.png',
-    content: 'Bridge BRC-20 tokens from the mainnet to Bitcoin L2s powered by BVM and vice versa.',
+    content:
+      'Bridge BRC-20 tokens from the mainnet to Bitcoin L2s powered by BVM and vice versa.',
   },
   {
     link: 'https://twitter.com/0xPolygonEco',
     title: 'Polygon',
     // target: '_blank',
     image: '/modules/polygon.png',
-    content: 'Empowering builders to build anything on Bitcoin from DeFi, GameFi, to A.I.',
+    content:
+      'Allow developers to store data hashes on Bitcoin and data on Polygon PoS, optimizing costs by 7,500x and enabling Bitcoin L2s with 2-sec block times and near-zero transaction fees.',
     tags: ['Data Availability'],
   },
   {
@@ -123,30 +127,34 @@ export const Modules: ILabItemContent[] = [
     // target: '_blank',
     title: 'Filecoin',
     image: '/modules/filecoin.png',
-    content: 'The largest decentralized data storage marketplace, protocol, & cryptocurrency.',
+    content:
+      'By leveraging Filecoin’s decentralized storage, BVM can store transaction archives after they leave a DA layer, simplifying indexing for Bitcoin builders via Lighthouse Node Aggregators.',
   },
   {
     tags: ['Data Availability'],
     link: 'https://twitter.com/NEARProtocol',
     // target: '_blank',
-    title: 'NearDA',
+    title: 'NEAR DA',
     image: '/modules/near-da.png',
-    content: 'Delivering on the promises of Web3, with Chain Abstraction.',
+    content:
+      'Enable developers to store state roots on Bitcoin and transactions on Near, cutting costs by 10,000x and enabling Bitcoin L2s with 2-sec block times and near-zero fees.',
   },
   {
-    tags: ['Data Availability' ],
+    tags: ['Data Availability'],
     link: 'https://twitter.com/CelestiaOrg',
     title: 'Celestia',
     // target: '_blank',
     image: '/modules/celestia.png',
-    content: 'Make it easy for anyone to securely launch their own blockchain.',
+    content:
+      'Unlock massive scalability for Bitcoin by offering the DA solution for not only one, but many Bitcoin L2s!',
   },
   {
     tags: ['Cross-chain bridges'],
     link: '',
     title: 'Ethereum',
     image: '/modules/ethereum.png',
-    content: 'Install a bridge for seamless asset transfers between Ethereum and Bitcoin L2s powered by BVM.',
+    content:
+      'Install a bridge for seamless asset transfers between Ethereum and Bitcoin L2s powered by BVM.',
   },
   {
     tags: ['Data Availability'],
@@ -154,7 +162,8 @@ export const Modules: ILabItemContent[] = [
     // target: '_blank',
     title: 'Avail',
     image: '/modules/avail.png',
-    content: 'A powerful base layer for next generation trust-minimized applications.',
+    content:
+      'Avail DA ensures fast and reliable data integrity, scaling rollups with cutting-edge KZG Polynomial commitments.',
   },
   {
     tags: ['Rollup protocol'],
@@ -184,7 +193,8 @@ export const Modules: ILabItemContent[] = [
     title: 'DAO',
     tags: ['dApps'],
     image: '/modules/dao.png',
-    content: 'Include a DAO as a pre-installed component in your layer 2 blockchain setup.',
+    content:
+      'Include a DAO as a pre-installed component in your layer 2 blockchain setup.',
   },
   {
     tags: ['dApps'],
@@ -192,14 +202,16 @@ export const Modules: ILabItemContent[] = [
     // target: '_blank',
     title: 'GMX',
     image: '/modules/gmx.png',
-    content: 'Integrate a decentralized perpetual exchange as a pre-installed component  into your Bitcoin L2s.',
+    content:
+      'Integrate a decentralized perpetual exchange as a pre-installed component  into your Bitcoin L2s.',
   },
   {
-    tags: ['Cross-chain bridges' ],
+    tags: ['Cross-chain bridges'],
     link: '',
     title: 'Bitcoin',
     image: '/modules/bitcoin.png',
-    content: 'Install a bridge for seamless asset transfers between Bitcoin and Bitcoin L2s powered by BVM.',
+    content:
+      'Install a bridge for seamless asset transfers between Bitcoin and Bitcoin L2s powered by BVM.',
   },
   {
     tags: ['Data Availability'],
