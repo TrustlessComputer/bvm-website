@@ -78,10 +78,10 @@ export const Portfolio: ILabItemContent[] = [
   },
   {
     image: `${CDN_URL_IMAGES_NBC}/protect_v2.jpg`,
-    title: 'Protect (STEALTH)',
+    title: 'Protect',
     content: 'A Bitcoin L2 blockchain for privacy',
     link: '#',
-    disabled: true,
+    disabled: false,
     tags: ['Privacy', 'Bitcoin L2'],
   },
 ];

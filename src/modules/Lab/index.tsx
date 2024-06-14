@@ -18,10 +18,7 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
               heading={<>Research</>}
               isLowercaseTitle
             >
-              We believe that our research will eventually make Bitcoin vastly
-              more useful than just a currency. We hope builders find our
-              research he lpful and start building DeFi, Gaming, NFTs, Payments,
-              DAOs, and more on Bitcoin.
+              We believe our research will eventually lead to making Bitcoin vastly more useful than just a currency. We hope to see DeFi, Gaming, NFTs, Payments, and DAOs, among other user on Bitcoin soon.
             </LabContent>
           </div>
         );
@@ -35,9 +32,7 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
               landingData={Modules}
               heading={<>Modules</>}
             >
-              We build and open source project that advance Bitcoin ecosystem.
-              We believe in doing so even when there may not be a direct
-              commercial incentive.
+              We partner with bold builders to build apps and protocols that reinvent Bitcoin. As technical investors, we invest at the earliest stage and take a hands-on approach to help builders build and launch.
             </LabContent>
           </div>
         );
