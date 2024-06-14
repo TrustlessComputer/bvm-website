@@ -35,7 +35,7 @@ const CancelOrderModal = (props: IProps) => {
           lineHeight={'20px'}
           alignSelf={'flex-start'}
         >
-          {`Activate Your Bitcoin L2`}
+          {`Activate Your ZK Powered Blockchain`}
         </Text>
 
         <Text
@@ -45,7 +45,7 @@ const CancelOrderModal = (props: IProps) => {
           lineHeight={'20px'}
           alignSelf={'flex-start'}
         >
-          {`Waiting for payment to activate your Bitcoin L2. Cancel if you don't want to continue.`}
+          {`Waiting for payment to activate your ZK Powered Blockchain. Cancel if you don't want to continue.`}
         </Text>
 
         <Flex

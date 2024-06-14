@@ -26,7 +26,7 @@ const FooterRightView = () => {
       >
         <Text fontSize={'25px'} fontWeight={600} color={'#000'}>
           {isMainnet
-            ? `Cost: $${estimateTotalCostData_V2?.TotalCostUSD}`
+            ? `Cost: $${estimateTotalCostData_V2?.TotalCostUSD || '--'}`
             : 'Cost: 1 BVM/day'}
         </Text>
         <Button

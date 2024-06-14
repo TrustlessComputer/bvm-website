@@ -22,13 +22,11 @@ import ProverSection from './ProverSection';
 export type Props = {};
 
 const RightView = React.memo((props: Props) => {
-  const { rollupProtocolSelected, isStandardMode } = useBuy();
-
   return (
     <Flex
       width={'50%'}
       direction={'column'}
-      overflowY="auto"
+      overflow="visible"
       css={{
         '&::-webkit-scrollbar': {
           width: '4px',

@@ -78,7 +78,7 @@ const Page = (props: any) => {
         <Flex
           flexDir={'column'}
           pos={'sticky'}
-          top={0}
+          top={'10px'}
           left={0}
           p={'8px'}
           borderRadius={'8px'}

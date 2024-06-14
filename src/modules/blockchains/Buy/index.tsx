@@ -155,7 +155,7 @@ export const BuyPage = React.memo((props: Props) => {
         bgColor={'#fff'}
         gap={'30px'}
       >
-        <Flex direction={'row'} flex={1} overflow={'hidden'}>
+        <Flex direction={'row'} flex={1} overflow={'visible'}>
           <LeftView />
           <RightView />
         </Flex>

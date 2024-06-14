@@ -336,7 +336,6 @@ export const updateConfigInfor = async (
       `/config/bridge-site/${networkName}`,
       configData,
     )) as any;
-    console.log('PHAT === data ', data);
     if (data && data.status === false) return undefined;
     return data as WebsiteConfig;
   } catch (error: any) {

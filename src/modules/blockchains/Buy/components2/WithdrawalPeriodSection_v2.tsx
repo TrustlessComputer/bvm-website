@@ -47,7 +47,7 @@ const WithdrawalPeriodSection = () => {
       // }}
       descriptionDetail={undefined}
     >
-      <Flex flexDir={'column'} px={'20px'}>
+      <Flex flexDir={'column'} px={'0px'} overflow={'visible'}>
         <Slider
           onChange={onChange}
           defaultValue={withdrawalPeriodSelected}
@@ -55,7 +55,6 @@ const WithdrawalPeriodSection = () => {
           min={2} // 2 hours
           max={24} // 24 hours
           step={1}
-          w={'98%'}
         >
           {/* <SliderMark
             value={withdrawalPeriodSelected}

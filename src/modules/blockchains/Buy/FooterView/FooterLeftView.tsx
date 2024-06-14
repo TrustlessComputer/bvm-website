@@ -4,6 +4,7 @@ import {
   DALayerEnum,
   DALayerEnumMap,
   NetworkEnumMap,
+  ProverEnumMap,
   RollupEnum,
   RollupEnumMap,
 } from '../Buy.constanst';
@@ -68,7 +69,7 @@ const FooterLeftView = () => {
         </Flex>
 
         <Flex flexDir={'row'}>
-          {renderRow('• Prover:', `${proverSelected}`, 1)}
+          {renderRow('• Prover:', `${ProverEnumMap[proverSelected || 0]}`, 1)}
           {renderRow(
             '• Withdrawal period :',
             `${withdrawalPeriodSelected} hours`,

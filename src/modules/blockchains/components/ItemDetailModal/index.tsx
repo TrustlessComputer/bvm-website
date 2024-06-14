@@ -124,10 +124,10 @@ const CustomizeTokenModal = (props: IProps) => {
             renderRowInfor('Block time', `${mapper.blockTime}`)}
           {!!isHasValue(order.finalizationPeriod) &&
             renderRowInfor('Withdrawal Period', `${mapper.finalizationPeriod}`)}
-          {renderRowInfor(
+          {/* {renderRowInfor(
             'Network type',
             `${order.isMainnet ? 'Bitcoin Mainnet' : 'Bitcoin Testnet'}`,
-          )}
+          )} */}
         </Flex>
         <Divider my={'20px'} borderColor="gray.200" />
 
