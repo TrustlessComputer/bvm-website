@@ -17,20 +17,19 @@ const Contents: Array<IContent> = [
   {
     title: 'The lifeblood of Bitcoin L2s',
     description: 'BVM fuels Bitcoin L2s, facilitating the payment of block production fees for all Bitcoin L2s.',
-    image: `/images/bvm_image1.png`,
+    image: `/bvm/1.jpg`,
     bgColor: '#007659',
   },
   {
     title: 'Uses for $BVM grow every day',
     description: 'As BVM enables programmability and scalability on Bitcoin, developers can utilize the BVM network to create various applications — DeFi, GameFi, AI, and more.',
-    image: `/images/bvm_image2.png`,
+    image: `/bvm/2.jpg`,
     bgColor: '#0B5509',
   },
   {
     title: 'Co-own and co-run the network',
-    // desc: 'BVM is the BVM ecosystem’s governance token, allowing BVM holders to participate in key governance votes and shape the future of the BVM ecosystem.',
-    description: 'Stake BVM to mine SHARD, the BVM ecosystem’s governance token, allowing BVM holders to participate in key governance votes and shape the future of the BVM ecosystem.',
-    image: `/images/bvm_image3.png`,
+    description: 'BVM is the BVM ecosystem’s governance token, allowing BVM holders to participate in key governance votes and shape the future of the BVM ecosystem.',
+    image: `/bvm/3.jpg`,
     bgColor: '#A05700',
   },
 ];
