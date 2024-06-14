@@ -66,8 +66,10 @@ import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
 import { getErrorMessage } from '@/utils/errorV2';
 import {
+  setShowAllChains,
   setShowOnlyMyOrder,
   setViewMode,
+  setViewPage,
 } from '@/stores/states/l2services/reducer';
 import { useRouter } from 'next/navigation';
 import useL2Service from '@/hooks/useL2Service';
@@ -716,23 +718,24 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
       const result = await orderBuyAPI(params);
 
-      // await sleep(1);
+      await sleep(1);
 
-      // if (result) {
-      //   // Show Toast Success
-      //   toast.success('Order successful', {
-      //     duration: 1000,
-      //   });
+      if (result) {
+        // Show Toast Success
+        toast.success('Order successful', {
+          duration: 1000,
+        });
 
-      //   await sleep(1);
+        await sleep(1);
 
-      //   //Navigate to BlockChain (checkbox "Your Bitcoin L2" have been selected )
+        dispatch(setViewMode('Mainnet'));
+        dispatch(setViewPage('ManageChains'));
+        dispatch(setShowAllChains(false));
 
-      //   dispatch(setViewMode('Testnet'));
-      //   dispatch(setShowOnlyMyOrder(true));
-      //   fetchAllData();
-      //   router.push('/blockchains');
-      // }
+        await sleep(1);
+
+        router.push('/blockchains');
+      }
     } catch (error) {
       const { message } = getErrorMessage(error);
       toast.error(message);
