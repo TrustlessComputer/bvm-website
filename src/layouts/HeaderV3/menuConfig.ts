@@ -150,23 +150,23 @@ export const NAV_ITEMS: Array<NavItem> = [
     href: '/bvm',
     isNewWindow: false,
     isHide: false,
-    subMenu: [
-      {
-        href: '/roadmap',
-        label: 'Roadmap',
-        isNewWindow: false,
-      },
-      {
-        href: 'https://docs.bvm.network/bvm',
-        label: 'Developer Docs',
-        isNewWindow: true,
-      },
-      {
-        href: '/whitepaper.pdf',
-        label: 'WhitePaper',
-        isNewWindow: false,
-      },
-    ],
+    // subMenu: [
+    //   {
+    //     href: '/roadmap',
+    //     label: 'Roadmap',
+    //     isNewWindow: false,
+    //   },
+    //   {
+    //     href: 'https://docs.bvm.network/bvm',
+    //     label: 'Developer Docs',
+    //     isNewWindow: true,
+    //   },
+    //   {
+    //     href: '/whitepaper.pdf',
+    //     label: 'WhitePaper',
+    //     isNewWindow: false,
+    //   },
+    // ],
   },
 ];
 export const TOP_NAV_ITEMS: Array<NavItem> = [

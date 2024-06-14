@@ -8,6 +8,7 @@ import DrawerMobileMenu from '@/layouts/HeaderV3/components/DrawerMenu';
 import { NAV_ITEMS } from '../menuConfig';
 import { usePathname, useRouter } from 'next/navigation';
 import IcMenuMobile from '../components/IcMenuMobile';
+import DropDown from '../components/Dropdown';
 
 export type TMainHeader = {
   color?: 'black' | 'white';
@@ -38,7 +39,13 @@ const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader) => {
               const isActive = pathname === item.href;
               const isActiveDark = isActive && color === 'white';
               const isActiveLight = isActive && color === 'black';
-              return (
+              return item.subMenu ? (
+                <DropDown
+                  key={item.label}
+                  title={item.label}
+                  lists={item.subMenu}
+                />
+              ) : (
                 <Link
                   key={item.label}
                   href={item.href ?? '#'}

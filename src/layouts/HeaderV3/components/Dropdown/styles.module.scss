@@ -9,7 +9,6 @@
     font-family: var(--font-dmsans);
     font-weight: 500;
     font-size: 14px;
-    text-transform: uppercase;
     cursor: pointer;
     &.black {
       color: black;
@@ -59,7 +58,6 @@
     font-family: var(--font-dmsans);
     font-weight: 500;
     font-size: 14px;
-    text-transform: uppercase;
     svg * {
       transition: fill 0.4s var(--easeOutQuart);
     }
