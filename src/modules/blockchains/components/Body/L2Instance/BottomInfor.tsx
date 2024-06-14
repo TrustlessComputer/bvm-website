@@ -109,18 +109,27 @@ const BottomInfor = (props: Props) => {
 
   return (
     <Flex flexDir={'column'} gap={'20px'}>
-      <Text fontSize={'16px'} fontWeight={500} color={'#6d6d6d'}>
-        Pre-Installed Dapps
-      </Text>
+      {Number(!!item.bridgeStatus) === 1 && (
+        <Text fontSize={'16px'} fontWeight={500} color={'#6d6d6d'}>
+          Pre-Installed Dapps
+        </Text>
+      )}
+
       <Flex
         flexDir={'row'}
         gap={'10px'}
         align={'center'}
-        justify={'space-between'}
+        justify={
+          Number(!!item.bridgeStatus) === 1 ? 'space-between' : 'flex-end'
+        }
       >
-        {renderDAppItem(
-          '/blockchains/customize/ic-bridge.svg',
-          'Trustless Bridge',
+        {Number(!!item.bridgeStatus) === 1 ? (
+          renderDAppItem(
+            '/blockchains/customize/ic-bridge.svg',
+            'Trustless Bridge',
+          )
+        ) : (
+          <></>
         )}
 
         <Flex flexDir={'row'} gap={'10px'}>

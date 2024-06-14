@@ -93,6 +93,7 @@ interface OrderItemResp {
   preMintAddress?: string;
   PreMintAmount?: string;
   ticker?: string;
+  bridgeStatus?: number;
 }
 
 interface HistoryItemResp {
@@ -171,6 +172,7 @@ interface IOrderBuyReq {
   package?: number;
   rollupProtocol?: number;
   prover?: number;
+  bridgeStatus?: number;
 }
 
 interface IOrderBuyEstimateRespone {

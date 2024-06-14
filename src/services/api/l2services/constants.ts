@@ -85,6 +85,7 @@ const TRUSTLESS_COMPUTER_MAINNET: OrderItemResp = {
     isProduction: true,
     networkName: 'trustless-computer',
   }),
+  bridgeStatus: 1,
 };
 
 const TRUSTLESS_COMPUTER_TESTNET: OrderItemResp = {
@@ -124,6 +125,7 @@ const TRUSTLESS_COMPUTER_TESTNET: OrderItemResp = {
     isProduction: false,
     networkName: 'trustless-computer',
   }),
+  bridgeStatus: 1,
 };
 
 // ALPHA (NOS old) MAINNET
@@ -164,6 +166,7 @@ const ALPHA_MAINNET: OrderItemResp = {
     isProduction: true,
     networkName: 'trustlessLayer2',
   }),
+  bridgeStatus: 1,
 };
 
 // ALPHA (NOS old) TESTNET
@@ -204,6 +207,7 @@ const ALPHA_TESTNET: OrderItemResp = {
     isProduction: false,
     networkName: 'trustlessLayer2',
   }),
+  bridgeStatus: 1,
 };
 
 const NAKA_TESTNET: OrderItemResp = {
@@ -243,6 +247,7 @@ const NAKA_TESTNET: OrderItemResp = {
     isProduction: false,
     networkName: '',
   }),
+  bridgeStatus: 1,
 };
 
 // NAKA Mainnet
@@ -284,6 +289,7 @@ const NAKA_MAINNET: OrderItemResp = {
     isProduction: true,
     networkName: '',
   }),
+  bridgeStatus: 1,
 };
 
 // Runechain Mainnet
@@ -324,6 +330,7 @@ const RUNECHAIN_MAINNET: OrderItemResp = {
     isProduction: true,
     networkName: '',
   }),
+  bridgeStatus: 1,
 };
 
 // Eternal AI Mainnet
@@ -364,6 +371,7 @@ const ETERNAL_AI_MAINNET: OrderItemResp = {
     isProduction: true,
     networkName: '',
   }),
+  bridgeStatus: 1,
 };
 
 const L2_MAINNET = [
