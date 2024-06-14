@@ -12,7 +12,7 @@ const cardGameFiData = [
     id: 0,
     title: 'Manage the BVM Treasury',
     description:
-      '<!--As of March 25, 2024, the BVM Treasury is <strong>$195,035,230</strong>.<br/><br/>-->SHARD holders collectively make decisions and steer the direction of the BVM ecosystem. SHARD holders can propose and vote on various initiatives, including launching a marketing campaign, building a new product, or funding an ambitious Bitcoin L2 builder.',
+      'SHARD holders collectively make decisions and steer the direction of the BVM ecosystem. SHARD holders can propose and vote on various initiatives, including launching a marketing campaign, building a new product, or funding an ambitious Bitcoin L2 builder.',
     image: '/shard/shard_1.webp',
     bgColorImage: '#FAC5FF',
     actionTitle: `Treasury <strong>50,000,000 BVM $treasuryValue</strong>.<br/> <a href='/bvm' target='_self'>Learn more <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

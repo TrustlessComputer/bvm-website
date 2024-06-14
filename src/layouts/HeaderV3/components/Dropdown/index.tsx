@@ -29,7 +29,7 @@ const DropDown = ({
         className={`${s.dropMenu_label} ${s[primaryColor || 'black']}`}
       >
         {title}
-        <SvgInset svgUrl={`/icons/ic-submenu.svg`} />
+        {/* <SvgInset svgUrl={`/icons/ic-submenu.svg`} /> */}
       </span>
       <ul className={s.dropMenu_list}>
         {lists.map((item) => {
