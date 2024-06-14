@@ -6,7 +6,7 @@
 }
 
 .wrapper {
-  margin-top: 40px;
+  //margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   row-gap: 60px;
@@ -14,7 +14,7 @@
     grid-template-columns: repeat(4, 1fr);
   }
   @include is-pc {
-    margin-top: 80px;
+    margin-top: 40px;
     grid-template-columns: repeat(5, 1fr);
     padding: 0 140px;
   }
@@ -27,12 +27,16 @@
   }
 }
 
+.heading {
+  font-family: var(--font-jetbrains);
+}
+
 .itemImage {
-  width: 65px;
-  height: 65px;
+  width: 48px;
+  height: 48px;
   @include is-min-table {
-    width: 75px;
-    height: 75px;
+    width: 48px;
+    height: 48px;
   }
 }
 
@@ -40,9 +44,10 @@
   color: #989ab3;
   font-size: 14px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 510;
   font-family: 'Helvetica Neue';
   @include is-min-table {
-    font-size: 18px;
+    font-size: 12px;
+    line-height: calc(16.8 / 12);
   }
 }

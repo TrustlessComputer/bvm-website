@@ -1,7 +1,7 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
-import BVMModule from '@/modules/bvm_v2';
+import BVMModule from '@/modules/bvm_v3';
 
 const BVMPage = () => {
   return (

@@ -48,7 +48,7 @@ import CardItem from './CardItem';
 const DATA = [
   {
     id: 0,
-    title: 'BUY',
+    title: 'Buy',
     description: 'The fastest and cheapest way to buy BVM is on Naka, a Bitcoin L2 designed for DeFi on Bitcoin. You can also buy BVM on other exchanges.',
 
     buttonsDex: [
@@ -58,29 +58,47 @@ const DATA = [
         color: 'green',
       },
       {
-        btnTitle: 'Uniswap (Ethereum)',
+        btnTitle: 'Uniswap',
         color: 'border',
         link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
         icon: '/bvm/uniswap.svg'
       },
       {
-        btnTitle: 'Uniswap (Arbitrum)',
+        btnTitle: 'Bitmart',
         color: 'border',
-        link: 'https://app.uniswap.org/swap?outputCurrency=0x694A7eF60ACe282E2a55a9bc6AdD56730e5Ee8B6&chain=arbitrum',
-        icon: '/bvm/uniswap.svg'
+        link: '',
+        icon: '/bvm/bitmart.svg'
       },
       {
-        btnTitle: 'OKX Web3',
+        btnTitle: 'Poloniex',
         color: 'border',
-        link: 'https://www.okx.com/web3/dex-swap#inputChain=1&inputCurrency=0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE&outputChain=1&outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
-        icon: '/bvm/okx.svg'
+        link: '',
+        icon: '/bvm/poloniex.svg'
       },
       {
-        btnTitle: 'Unisat',
+        btnTitle: 'MEXC',
         color: 'border',
-        link: 'https://unisat.io/market/brc20?tick=BVMN',
-        icon: '/bvm/unisat.svg'
+        link: '',
+        icon: '/bvm/mexc.svg'
       },
+      // {
+      //   btnTitle: 'Uniswap (Arbitrum)',
+      //   color: 'border',
+      //   link: 'https://app.uniswap.org/swap?outputCurrency=0x694A7eF60ACe282E2a55a9bc6AdD56730e5Ee8B6&chain=arbitrum',
+      //   icon: '/bvm/uniswap.svg'
+      // },
+      // {
+      //   btnTitle: 'OKX Web3',
+      //   color: 'border',
+      //   link: 'https://www.okx.com/web3/dex-swap#inputChain=1&inputCurrency=0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE&outputChain=1&outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
+      //   icon: '/bvm/okx.svg'
+      // },
+      // {
+      //   btnTitle: 'Unisat',
+      //   color: 'border',
+      //   link: 'https://unisat.io/market/brc20?tick=BVMN',
+      //   icon: '/bvm/unisat.svg'
+      // },
       // {
       //   btnTitle: 'Poloniex',
       //   color: 'border',
@@ -116,17 +134,17 @@ const DATA = [
   },
   {
     id: 1,
-    title: 'STAKE',
+    title: 'Stake',
     description: (
       <>
         <p>Stake $BVM to mine <b>SHARD</b>, the governance token of the BVM ecosystem</p>
       </>
     ),
     description2: (
-      <ul style={{ fontSize: "16px", textAlign: "start", gap: "4px", display: "flex", flexDirection: "column", padding: "0px 24px", marginTop: '12px' }}>
+      <ul style={{ fontSize: "16px", textAlign: "start", gap: "16px", display: "flex", flexDirection: "column", padding: "0px 24px", marginTop: '12px' }} className={s.colorList}>
         <li>Govern the BVM DAO treasury, which has 50M $BVM and other assets</li>
         <li>Eligible for various airdrops</li>
-        <li>Increase your staking APR from 25% to 50%</li>
+        {/*<li>Increase your staking APR from 25% to 50%</li>*/}
       </ul>
     ),
     isRed: true,

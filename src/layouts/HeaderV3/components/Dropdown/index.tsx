@@ -10,6 +10,7 @@ type PropD = {
   primaryColor?: string;
   href?: string;
   target?: string;
+  color?: string;
 };
 const DropDown = ({
   title,
@@ -17,6 +18,7 @@ const DropDown = ({
   primaryColor,
   href,
   target,
+  color,
 }: PropD): ReactElement => {
   return (
     <div className={s.dropMenu}>
@@ -26,10 +28,13 @@ const DropDown = ({
             return window.open(href, target);
           }
         }}
+        style={{
+          color: color,
+        }}
         className={`${s.dropMenu_label} ${s[primaryColor || 'black']}`}
       >
         {title}
-        <SvgInset svgUrl={`/icons/ic-submenu.svg`} />
+        {/* <SvgInset svgUrl={`/icons/ic-submenu.svg`} /> */}
       </span>
       <ul className={s.dropMenu_list}>
         {lists.map((item) => {
