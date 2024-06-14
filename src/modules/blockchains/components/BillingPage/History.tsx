@@ -30,20 +30,17 @@ export default () => {
     return (
       <Flex
         flexDir={'column'}
-        flex={1}
         height={'300px'}
-        width={'100%'}
+        w={'100%'}
         align={'center'}
         justify={'center'}
       >
-        <Text fontSize={'25px'} fontWeight={700} color={'#000'}>
-          No Bitcoin L2s available
-        </Text>
         <Image
           src={'/blockchains/customize/ic-empty.svg'}
           w={'150px'}
           h={'auto'}
           objectFit={'contain'}
+          alignSelf={'center'}
           style={{ filter: 'invert(100%)' }}
         />
       </Flex>
@@ -225,7 +222,7 @@ export default () => {
         </Thead>
 
         <Tbody>
-          {!historyList || historyList.length < 0
+          {!historyList || historyList.length < 1
             ? renderDataEmptyView()
             : renderHistoryList()}
         </Tbody>

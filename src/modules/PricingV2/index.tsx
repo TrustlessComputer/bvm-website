@@ -104,6 +104,9 @@ const PriceModule = () => {
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
+      dispatch(setViewMode('Mainnet'));
+      dispatch(setViewPage('ManageChains'));
+      dispatch(setShowAllChains(false));
       router.push('/blockchains');
     }
   };

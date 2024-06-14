@@ -156,10 +156,13 @@ const BottomInfor = (props: Props) => {
               borderRadius={'15px'}
               minH={'50px'}
               minW={'120px'}
-              color={'#17066c'}
-              bgColor={'#fff'}
+              fontWeight={600}
+              // color={'#17066c'}
+              // bgColor={'#fff'}
               borderWidth={'1px'}
-              borderColor={'#17066c'}
+              // borderColor={'#17066c'}
+              bgColor={'#FA4E0E'}
+              color={'#fff'}
               _hover={{
                 cursor: 'pointer',
                 opacity: 0.6,

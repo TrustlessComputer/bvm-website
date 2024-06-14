@@ -115,7 +115,7 @@ const HeaderView = () => {
               fontWeight={400}
               fontSize={'16px'}
               checked={showAllChain}
-              defaultChecked
+              defaultChecked={showAllChain}
               borderColor={'#828282'}
               onChange={() => {
                 dispatch(setShowAllChains(!showAllChain));

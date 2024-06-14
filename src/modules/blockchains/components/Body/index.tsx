@@ -18,10 +18,16 @@ const BodyGridView = () => {
   const { onOpenOpenOrderDetailModal } = useDashboard();
   const myOrders = useAppSelector(orderListSelector);
   const allOrders = useAppSelector(allOrdersSelector);
-  const { viewMode, showOnlyMyOrder, accountInforL2Service, showAllChain } =
-    useAppSelector(getL2ServicesStateSelector);
+  const {
+    viewMode,
+    showOnlyMyOrder,
+    accountInforL2Service,
+    showAllChain,
+    viewPage,
+  } = useAppSelector(getL2ServicesStateSelector);
 
   const serviceDataList = useMemo(() => {
+    console.log('---- AAAA ', { showAllChain, viewMode });
     const filterByNetwork = (orders: OrderItem[]) => {
       if (viewMode === 'Mainnet')
         return orders
@@ -38,8 +44,7 @@ const BodyGridView = () => {
     } else {
       return filterByNetwork(allOrders);
     }
-    return [];
-  }, [myOrders, allOrders, viewMode, showOnlyMyOrder, showAllChain]);
+  }, [myOrders, allOrders, viewMode, showOnlyMyOrder, showAllChain, viewPage]);
 
   const isEmptyData = useMemo(() => {
     if (!serviceDataList || serviceDataList.length < 1) return true;

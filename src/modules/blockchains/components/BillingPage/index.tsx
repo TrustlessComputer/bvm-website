@@ -1,11 +1,12 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Image } from '@chakra-ui/react';
 
 import AccountInfor from './AccountInfor';
 import History from './History';
 import s from './styles.module.scss';
 import { useEffect, useRef } from 'react';
-import { useAppDispatch } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { fetchL2ServiceHistory } from '@/stores/states/l2services/actions';
+import { historyInfoSelector } from '@/stores/states/l2services/selector';
 
 interface IProps {}
 
@@ -17,12 +18,33 @@ interface IProps {
 
 const BillingPage = (props: IProps) => {
   const { viewPaymentOnClick } = props;
-
+  const { historyList } = useAppSelector(historyInfoSelector);
   const timerRef = useRef<any>();
   const dispatch = useAppDispatch();
 
   const fetchHistory = async () => {
     dispatch(fetchL2ServiceHistory());
+  };
+
+  const renderDataEmptyView = () => {
+    return (
+      <Flex
+        flexDir={'column'}
+        height={'300px'}
+        w={'100%'}
+        align={'center'}
+        justify={'center'}
+      >
+        <Image
+          src={'/blockchains/customize/ic-empty.svg'}
+          w={'150px'}
+          h={'auto'}
+          objectFit={'contain'}
+          alignSelf={'center'}
+          style={{ filter: 'invert(100%)' }}
+        />
+      </Flex>
+    );
   };
 
   useEffect(() => {
@@ -69,7 +91,12 @@ const BillingPage = (props: IProps) => {
         >
           History billing
         </Text>
-        <History />
+
+        {!historyList || historyList.length < 1 ? (
+          renderDataEmptyView()
+        ) : (
+          <History />
+        )}
       </Flex>
     </Flex>
   );
