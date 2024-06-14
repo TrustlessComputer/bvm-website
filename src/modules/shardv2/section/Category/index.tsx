@@ -70,9 +70,9 @@ const Category = () => {
           actionTitle:
             id === 0
               ? item.actionTitle.replace(
-                '$treasuryValue',
-                `($${formatCurrency(treasuryValue, 0, 0, 'BTC', true)})`,
-              )
+                  '$treasuryValue',
+                  `($${formatCurrency(treasuryValue, 0, 0, 'BTC', true)})`,
+                )
               : item.actionTitle,
         };
         return <CardFi key={id} {...data} />;
