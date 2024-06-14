@@ -54,7 +54,12 @@
   }
 
   .price {
-    font-size: 18px;
+    font-size: 13px;
+
+    @include is-pc {
+      font-size: 18px;
+
+    }
     font-weight: 700;
     font-family: var(--font-jetbrains);
     line-height: 27.6px;
@@ -63,7 +68,12 @@
   }
 
   .priceValue {
-    font-size: 18px;
+    font-size: 13px;
+
+    @include is-pc {
+      font-size: 18px;
+
+    }
     font-weight: 400;
     line-height: 27.6px;
     text-align: right;
@@ -107,7 +117,11 @@
 
 
 .imagePie {
-  max-width: 279px;
+  width: 100%;
+  @include is-pc {
+    max-width: 279px;
+
+  }
   img {
     width: 100%;
     height: auto;

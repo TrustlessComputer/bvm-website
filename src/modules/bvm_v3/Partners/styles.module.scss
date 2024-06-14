@@ -5,10 +5,14 @@
   }
 }
 
+.heading {
+  font-family: var(--font-jetbrains);
+}
+
 .wrapper {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   row-gap: 60px;
   @include is-min-table {
     grid-template-columns: repeat(4, 1fr);
@@ -28,11 +32,11 @@
 }
 
 .itemImage {
-  width: 65px;
-  height: 65px;
+  width: 48px;
+  height: 48px;
   @include is-min-table {
-    width: 75px;
-    height: 75px;
+    width: 48px;
+    height: 48px;
   }
 }
 
@@ -40,9 +44,10 @@
   color: #989ab3;
   font-size: 14px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 510;
   font-family: 'Helvetica Neue';
   @include is-min-table {
-    font-size: 18px;
+    font-size: 12px;
+    line-height: calc(16.8 / 12);
   }
 }

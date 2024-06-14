@@ -73,7 +73,7 @@
     // overflow-y: scroll;
 
     .heading {
-      font-size: 40px;
+      font-size: 18px;
       margin-bottom: 12px;
     }
     .desc {
@@ -83,8 +83,7 @@
     }
 
     .table_wrapper {
-      overflow-y: scroll;
-
+      overflow-x: scroll;
       //.vesting_table {
       //  th {
       //    font-size: 16px;

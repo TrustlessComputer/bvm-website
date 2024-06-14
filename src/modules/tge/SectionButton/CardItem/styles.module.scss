@@ -1,6 +1,9 @@
 .cardWrapper {
-  max-width: 443px;
   width: 100%;
+
+  @include is-pc {
+    max-width: 443px;
+  }
 
   :global{
     .fade{

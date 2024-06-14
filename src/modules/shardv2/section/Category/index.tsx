@@ -60,26 +60,24 @@ const Category = () => {
   const bvmPrice = useMemo(() => coinPrices?.['BVM'] || '0', [coinPrices]);
 
   return (
-    <ContainerDiv>
-      <div className={`${s.cateWrapper}`}>
-        {cardGameFiData.map((item, id) => {
-          const treasuryValue = new BigNumberJS(50000000)
-            .multipliedBy(bvmPrice)
-            .toFixed(0);
-          const data = {
-            ...item,
-            actionTitle:
-              id === 0
-                ? item.actionTitle.replace(
-                    '$treasuryValue',
-                    `($${formatCurrency(treasuryValue, 0, 0, 'BTC', true)})`,
-                  )
-                : item.actionTitle,
-          };
-          return <CardFi key={id} {...data} />;
-        })}
-      </div>
-    </ContainerDiv>
+    <div className={`${s.cateWrapper}`}>
+      {cardGameFiData.map((item, id) => {
+        const treasuryValue = new BigNumberJS(50000000)
+          .multipliedBy(bvmPrice)
+          .toFixed(0);
+        const data = {
+          ...item,
+          actionTitle:
+            id === 0
+              ? item.actionTitle.replace(
+                '$treasuryValue',
+                `($${formatCurrency(treasuryValue, 0, 0, 'BTC', true)})`,
+              )
+              : item.actionTitle,
+        };
+        return <CardFi key={id} {...data} />;
+      })}
+    </div>
   );
 };
 export default Category;

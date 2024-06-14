@@ -113,7 +113,7 @@ const Section_2 = () => {
       //   base: 'column',
       //   lg: 'row',
       // }}
-      gridTemplateColumns={'1fr 1fr 1fr'}
+      gridTemplateColumns={{base: '1fr', lg: '1fr 1fr 1fr'}}
       className={'container'}
       // alignSelf={'center'}
       gap={{

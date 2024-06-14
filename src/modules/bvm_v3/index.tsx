@@ -13,7 +13,7 @@ import Allocation from '@/modules/bvm_v3/Allocation';
 import TgeModule from '../tge';
 import Fade from '@/interactive/Fade';
 import Tokens from './Token';
-import Partners from '@/modules/bvm_v2/Partners';
+import Partners from '@/modules/bvm_v3/Partners';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Actions from './Actions';
