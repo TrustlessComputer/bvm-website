@@ -57,7 +57,8 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
       }
       if (statusCode === 401) {
         LocalStorage.removeItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2);
-        await web3AuthNoModal?.logout();
+        // await web3AuthNoModal?.logout();
+        window.location.reload();
         return Promise.reject(`${statusCode}: Unauthenticated`);
       }
       const response = error?.response?.data || error;
