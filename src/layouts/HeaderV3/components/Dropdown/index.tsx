@@ -10,6 +10,7 @@ type PropD = {
   primaryColor?: string;
   href?: string;
   target?: string;
+  color?: string;
 };
 const DropDown = ({
   title,
@@ -17,6 +18,7 @@ const DropDown = ({
   primaryColor,
   href,
   target,
+  color,
 }: PropD): ReactElement => {
   return (
     <div className={s.dropMenu}>
@@ -25,6 +27,9 @@ const DropDown = ({
           if (href) {
             return window.open(href, target);
           }
+        }}
+        style={{
+          color: color,
         }}
         className={`${s.dropMenu_label} ${s[primaryColor || 'black']}`}
       >

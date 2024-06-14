@@ -44,6 +44,7 @@ const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader) => {
                   key={item.label}
                   title={item.label}
                   lists={item.subMenu}
+                  color={color}
                 />
               ) : (
                 <Link
