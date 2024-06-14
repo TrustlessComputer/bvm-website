@@ -5,11 +5,13 @@ import {
   ConfigurationOptionEnum,
   DALayerEnum,
   NetworkEnum,
+  ProverEnum,
   RollupEnum,
 } from '../Buy/Buy.constanst';
 import { IAvailableList } from '../Buy/Buy.types';
 import {
   IOrderBuyEstimateRespone,
+  IOrderBuyEstimateRespone_V2,
   SubmitFormParams,
 } from '@/services/api/l2services/types';
 
@@ -116,6 +118,11 @@ export type CustomNativeTokenSection = {
   setReceivingAddressField: (value: IField) => void;
 };
 
+export type ProverSection = {
+  proverSelected?: ProverEnum;
+  setProverSelected: (value: ProverEnum) => void;
+};
+
 // --------------------------------------------------------------------------------
 // Context Values
 // --------------------------------------------------------------------------------
@@ -134,13 +141,16 @@ export type IBuyContext = ComputerNameSection &
   NativeTokenPayingGasSection &
   PreInstallDAppSection &
   CustomNativeTokenSection &
-  ConfiguratinOptionSection & {
+  ConfiguratinOptionSection &
+  ProverSection & {
     // Data API
     availableListData?: IAvailableList;
     isAvailableListFetching?: boolean;
 
     estimateTotalCostData: IOrderBuyEstimateRespone | undefined;
     estimateTotalCostFetching?: boolean;
+
+    estimateTotalCostData_V2?: IOrderBuyEstimateRespone_V2 | undefined;
 
     // Other State
     isMainnet: boolean;
@@ -252,4 +262,6 @@ export const BuyContextInit: IBuyContext = {
 
   configuratinOptionSelected: ConfigurationOptionEnum.Standard,
   isStandardMode: true,
+
+  setProverSelected: () => {},
 };

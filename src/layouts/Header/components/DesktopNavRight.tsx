@@ -21,10 +21,11 @@ export const DesktopNavRight = (props: Props) => {
 
   return (
     <HStack direction={'row'} spacing={['40px', '32px']}>
-      {NAV_ITEMS_RIGHT.map((navItem) => (
+      {NAV_ITEMS_RIGHT.map((navItem, index) => (
         <>
           {navItem.subMenu ? (
             <DropDown
+              key={`${navItem.label}-${index}`}
               primaryColor={props.primaryColor}
               title={navItem.label}
               lists={navItem.subMenu}

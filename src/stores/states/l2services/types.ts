@@ -1,4 +1,5 @@
 import { DALayerEnum } from '@/modules/blockchains/Buy/Buy.constanst';
+import { IAvailableList } from '@/modules/blockchains/Buy/Buy.types';
 import {
   HistoryStatus,
   HistoryType,
@@ -131,6 +132,7 @@ interface AccountInfoResp {
   needToTopupBalance: string;
   email: string;
   emailVerified: boolean;
+  balanceUSD: string;
 }
 
 interface AccountInfo extends AccountInfoResp {
@@ -139,6 +141,7 @@ interface AccountInfo extends AccountInfoResp {
   isWithdrawable: boolean;
   needToTopupBalanceFormatted: string;
   isNeedTopup: boolean;
+  balanceUSDFormatted: string;
 }
 
 interface IOrderBuyReq {
@@ -152,7 +155,7 @@ interface IOrderBuyReq {
   minGasPrice: string;
   dataAvaibilityChain: number;
   isMainnet: boolean;
-  userName: string;
+  userName?: string;
   pluginIds: number[];
   nativeTokenPayingGas: number;
   preMintAmount?: string;
@@ -161,6 +164,13 @@ interface IOrderBuyReq {
   gasLimit: number;
   twitter_id?: string | null;
   bitcoinValidity: number;
+  email?: string;
+  cpuCore?: number;
+  memory?: number;
+  storage?: number;
+  package?: number;
+  rollupProtocol?: number;
+  prover?: number;
 }
 
 interface IOrderBuyEstimateRespone {
@@ -205,6 +215,7 @@ interface IVerifyEmail {
 }
 
 type ViewMode = 'Mainnet' | 'Testnet';
+type ViewPage = 'Biiling' | 'ManageChains';
 
 interface L2ServicesState {
   isFetching: boolean;
@@ -219,9 +230,15 @@ interface L2ServicesState {
 
   viewMode: ViewMode;
   showOnlyMyOrder: boolean;
+  showAllChain: boolean;
+  viewPage: ViewPage;
 
   accountInforL2Service: AccountInfo | undefined;
   isL2ServiceLogged: boolean;
+
+  availableListFetching: boolean;
+  availableListFetched: boolean;
+  availableList?: IAvailableList;
 }
 
 type MetaConfig = {
@@ -264,6 +281,7 @@ export type {
   IOrderBuyEstimateRespone,
   L2ServicesState,
   ViewMode,
+  ViewPage,
   MetaConfig,
   ThemeConfig,
   WebsiteConfig,

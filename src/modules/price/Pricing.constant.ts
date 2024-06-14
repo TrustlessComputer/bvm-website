@@ -1,4 +1,4 @@
-import { IOrderBuyReq } from '@/services/api/l2services/types';
+import { IOrderBuyReq } from '@/stores/states/l2services/types';
 
 export const ParamsEstCostDABitcoinPolygon: IOrderBuyReq = {
   serviceType: 1,

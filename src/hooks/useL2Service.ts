@@ -12,8 +12,9 @@ import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
 import { useEffect, useMemo, useRef } from 'react';
 import toast from 'react-hot-toast';
 import useNakaAuthen from './useRequestNakaAccount';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
-const TIMER_INTERVAL = 6000; //6s
+const TIMER_INTERVAL = 10000; //10s
 
 const useL2Service = () => {
   const {
@@ -35,6 +36,8 @@ const useL2Service = () => {
     getL2ServicesStateSelector,
   );
 
+  const { loggedIn } = useWeb3Auth();
+
   const dispatch = useAppDispatch();
 
   const isLoading = useMemo(() => {
@@ -46,7 +49,7 @@ const useL2Service = () => {
 
   const fetchAllData = () => {
     dispatch(fetchAllOrders());
-    if (isL2ServiceLogged) {
+    if (isL2ServiceLogged || loggedIn) {
       dispatch(fetchOrderList());
       dispatch(fetchAccountInfo());
     }
@@ -175,7 +178,7 @@ const useL2Service = () => {
   };
 
   const loopFetchAccountInfor = () => {
-    if (isL2ServiceLogged) {
+    if (isL2ServiceLogged || loggedIn) {
       dispatch(fetchAccountInfo());
       if (!timerRef.current) {
         timerRef.current = setInterval(() => {
