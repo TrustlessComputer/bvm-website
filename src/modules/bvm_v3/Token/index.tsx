@@ -260,8 +260,8 @@ const Tokens = () => {
                 {/*      )}*/}
                 {/*  </Box>*/}
                 {/*</Flex>*/}
-                <div>
-                  <ImagePlaceholder src={'/pie.png'} alt={'pie'} width={558} height={293}/>
+                <div className={s.imagePie}>
+                  <ImagePlaceholder src={'/pie.png'} alt={'pie'} width={279} height={293}/>
                 </div>
               </Flex>
             </BoxContent>
