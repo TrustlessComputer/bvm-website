@@ -49,7 +49,7 @@ const AccountInfor = (props: IProps) => {
             lineHeight={'16px'}
             color={'#000000B2'}
           >
-            {`${accountInforL2Service?.topUpWalletAddress}`}
+            {`${accountInforL2Service?.topUpWalletAddress || '--'}`}
           </Text>
           <Image
             src={`/icons/ic-copy-v2.svg`}

@@ -24,27 +24,28 @@ const WithdrawalPeriodSection = () => {
     <Section
       title={'Withdrawal Period'}
       description={'Which withdrawal period is right for you?'}
-      descriptionDetail={{
-        title: 'Withdrawal Period',
-        content: (
-          <p>
-            If you've selected Optimistic Rollups as your rollup protocol, you
-            will need to determine a challenge period for your users'
-            withdrawals. This entails requiring them to wait until the challenge
-            period has passed before they can withdraw the funds held in escrow
-            on Bitcoin Virtual Machine Layer 1.
-            <br />
-            <br />
-            <p>
-              The challenge period must be a value greater than zero, as it
-              takes time for an individual (referred to as the challenger) to
-              identify an invalid state root claim and subsequently initiate the
-              challenge process. Presently, you have the option to select a
-              period lasting from 2 hour to 24 hours.
-            </p>
-          </p>
-        ),
-      }}
+      // descriptionDetail={{
+      //   title: 'Withdrawal Period',
+      //   content: (
+      //     <p>
+      //       If you've selected Optimistic Rollups as your rollup protocol, you
+      //       will need to determine a challenge period for your users'
+      //       withdrawals. This entails requiring them to wait until the challenge
+      //       period has passed before they can withdraw the funds held in escrow
+      //       on Bitcoin Virtual Machine Layer 1.
+      //       <br />
+      //       <br />
+      //       <p>
+      //         The challenge period must be a value greater than zero, as it
+      //         takes time for an individual (referred to as the challenger) to
+      //         identify an invalid state root claim and subsequently initiate the
+      //         challenge process. Presently, you have the option to select a
+      //         period lasting from 2 hour to 24 hours.
+      //       </p>
+      //     </p>
+      //   ),
+      // }}
+      descriptionDetail={undefined}
     >
       <Flex flexDir={'column'} px={'20px'}>
         <Slider

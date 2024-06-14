@@ -140,7 +140,7 @@ export const BuyPage = React.memo((props: Props) => {
               router.push('/blockchains');
             }}
           >
-            Check your Bitcoin L2
+            Check your ZK Powered Blockchain
           </Button>
         )}
       </Flex>
