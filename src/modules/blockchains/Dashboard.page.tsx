@@ -167,7 +167,7 @@ const Page = (props: any) => {
       <BoxContent
         minH={'100dvh'}
         overflow={'visible'}
-        py={'60px'}
+        py={'140px'}
         pos={'relative'}
       >
         {isFetchingAllData ? renderLoading() : renderContent()}

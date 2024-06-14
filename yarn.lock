@@ -3647,25 +3647,7 @@
     lodash "^4.17.21"
     loglevel "^1.8.1"
 
-"@toruslabs/base-controllers@^5.5.5":
-  version "5.8.1"
-  resolved "https://registry.yarnpkg.com/@toruslabs/base-controllers/-/base-controllers-5.8.1.tgz#7859cf9d43c31c19524aec2141d774738f7c1cc1"
-  integrity sha512-9xH0HoNhXsB1egPOAgBf2W2MLFRUyvNcK8ZbBUOdaiKHQ+0Fu3oFMJAY7fPSaPEm0l8m6bIzoob8z4loRTnQlA==
-  dependencies:
-    "@ethereumjs/util" "^9.0.3"
-    "@metamask/rpc-errors" "^6.2.1"
-    "@toruslabs/broadcast-channel" "^10.0.2"
-    "@toruslabs/http-helpers" "^6.1.1"
-    "@toruslabs/openlogin-jrpc" "^8.1.1"
-    "@toruslabs/openlogin-utils" "^8.1.2"
-    async-mutex "^0.5.0"
-    bignumber.js "^9.1.2"
-    bowser "^2.11.0"
-    jwt-decode "^4.0.0"
-    lodash "^4.17.21"
-    loglevel "^1.9.1"
-
-"@toruslabs/base-controllers@^5.7.0":
+"@toruslabs/base-controllers@^5.5.5", "@toruslabs/base-controllers@^5.7.0":
   version "5.8.1"
   resolved "https://registry.yarnpkg.com/@toruslabs/base-controllers/-/base-controllers-5.8.1.tgz#7859cf9d43c31c19524aec2141d774738f7c1cc1"
   integrity sha512-9xH0HoNhXsB1egPOAgBf2W2MLFRUyvNcK8ZbBUOdaiKHQ+0Fu3oFMJAY7fPSaPEm0l8m6bIzoob8z4loRTnQlA==
@@ -3895,7 +3877,7 @@
     "@toruslabs/constants" "^13.1.0"
     base64url "^3.0.1"
 
-"@toruslabs/openlogin-utils@^8.1.0", "@toruslabs/openlogin-utils@^8.1.2":
+"@toruslabs/openlogin-utils@^8.1.2":
   version "8.1.2"
   resolved "https://registry.yarnpkg.com/@toruslabs/openlogin-utils/-/openlogin-utils-8.1.2.tgz#e36b63c4ca397e2c2b5cb52acaf4d737589fce96"
   integrity sha512-UpSb/ubgmu6N8O0wq06ZnUP3NOju8ZBMbVQK/CmbCP2Tba3S5eqvLaHE+7/FBWFeb+szEYX4FTgshEviUvlHjg==

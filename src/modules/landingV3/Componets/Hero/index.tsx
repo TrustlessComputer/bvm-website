@@ -15,7 +15,7 @@ export default function HeroV3() {
           <p className={s.title}>
             Launch your <br /> own <span>ZK-POWered blockchain</span> on bitcoin
           </p>
-          <div className={s.btn} onClick={() => router.push('')}>
+          <div className={s.btn} onClick={() => router.push('/pricing')}>
             Launch now
           </div>
           <p className={s.label}>From $99 per chain/month</p>

@@ -26,7 +26,7 @@ export default () => {
 
   return (
     <Flex bgColor={'#F3F1E8'} flexDir={'column'} alignItems={'center'}>
-      <BoxContent minH={'100dvh'} overflow={'hidden'} py={'40px'}>
+      <BoxContent minH={'100dvh'} overflow={'hidden'} py={'120px'}>
         <BuyProvider>
           <BuyPage />
         </BuyProvider>
