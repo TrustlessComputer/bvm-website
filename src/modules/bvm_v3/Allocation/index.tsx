@@ -54,7 +54,6 @@ const Allocation = () => {
                 />
               </div>
               <Vesting />
-
             </Flex>
           </Flex>
         </Box>

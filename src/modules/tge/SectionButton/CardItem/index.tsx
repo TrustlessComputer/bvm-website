@@ -48,7 +48,7 @@ const CardItem = ({ ...props }) => {
         alignItems={'center'}
         px={'24px'}
         py={'10px'}
-        width={'150px'}
+        width={'129px'}
         height={'48px'}
         fontWeight={500}
         fontSize={'16px'}
