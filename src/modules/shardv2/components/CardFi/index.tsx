@@ -27,21 +27,22 @@ const CardFi = ({ ...props }: TCardFiProps) => {
           alt={props.image}
         />
       </div>
-      <div className={s.cardFiContent}>
-        <div className={s.cardFiContent_inner}>
-          <p className={s.cardFiContent_title}>{props.title}</p>
-          <div
-            className={s.cardFiContent_desc}
-            // dangerouslySetInnerHTML={{ __html: props.description }}
-          >
-            {props.description}
-          </div>
-          <div className={s.cardFiContent_bottom}>
-            <div
-              className={`${s.cardFiContent_desc} ${s.cardFiContent_bottom_btn} `}
-              dangerouslySetInnerHTML={{ __html: props.actionTitle }}
-            />
-            {/*<Button
+
+      {/* <div className={s.cardFiContent}> */}
+      {/* <div className={s.cardFiContent_inner}> */}
+      <p className={s.cardFiContent_title}>{props.title}</p>
+      <div
+        className={s.cardFiContent_desc}
+        // dangerouslySetInnerHTML={{ __html: props.description }}
+      >
+        {props.description}
+      </div>
+      <div className={s.cardFiContent_bottom}>
+        <div
+          className={`${s.cardFiContent_desc} ${s.cardFiContent_bottom_btn} `}
+          dangerouslySetInnerHTML={{ __html: props.actionTitle }}
+        />
+        {/*<Button
                 onClick={() => {
                   window.open(props.actionUrl, props.actionUrl.includes("https") ? '_blank' : '_self');
                 }}
@@ -50,9 +51,9 @@ const CardFi = ({ ...props }: TCardFiProps) => {
               >
                 <div dangerouslySetInnerHTML={{__html: props.actionTitle}}/>
               </Button>*/}
-          </div>
-        </div>
       </div>
+      {/* </div> */}
+      {/* </div> */}
     </div>
     // </Fade>
   );
