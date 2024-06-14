@@ -10,9 +10,10 @@ export default function SubTag({ tags, type }: TSub) {
   return (
     <div className={s.tags}>
       {tags &&
-        tags.map((tag) => {
+        tags.map((tag, index) => {
           return (
             <div
+              key={`${tag.subTitle}-${index}`}
               className={cn(
                 s.tags_item,
                 s[`tags_item__${type}`],

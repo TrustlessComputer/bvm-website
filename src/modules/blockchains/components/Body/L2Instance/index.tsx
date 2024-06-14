@@ -21,7 +21,8 @@ const L2Instance = (props: Props) => {
 
   const { item, onClick, isOwner } = props;
 
-  const { onOpenBillingModal, onOpenEditConfigModal } = useDashboard();
+  const { onOpenBillingModal, onOpenEditConfigModal, onOpenCancelOrderModal } =
+    useDashboard();
 
   return (
     <>
@@ -66,6 +67,10 @@ const L2Instance = (props: Props) => {
             editConfigBridgeOnClick={() => {
               dispatch(setOrderSelected(item));
               onOpenEditConfigModal && onOpenEditConfigModal();
+            }}
+            cancelOrderOnClick={() => {
+              dispatch(setOrderSelected(item));
+              onOpenCancelOrderModal && onOpenCancelOrderModal();
             }}
           />
         </Box>

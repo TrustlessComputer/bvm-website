@@ -28,10 +28,10 @@ const Top = () => {
         >
           DAO
         </p>
-        {TOP_NAV_ITEMS.map((item) => {
+        {TOP_NAV_ITEMS.map((item, index) => {
           return item.subMenu ? (
             <DropDown
-              key={item.label}
+              key={`${item.label}-${index}`}
               title={item.label}
               lists={item.subMenu}
               href={item.href}
@@ -39,7 +39,7 @@ const Top = () => {
             />
           ) : (
             <Link
-              key={item.label}
+              key={`${item.label}-${index}`}
               href={item.href ?? '#'}
               target={item.isNewWindow ? '_blank' : '_self'}
             >

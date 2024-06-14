@@ -189,7 +189,7 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
       try {
         console.log('AuthenticatedProvider', 'init', 'start');
         const web3AuthInstance = new Web3Auth({
-          chainConfig: CHAIN_CONFIG.nos,
+          chainConfig: CHAIN_CONFIG.nos as any,
 
           // please uncomment here for dev when node dead
 
@@ -221,7 +221,7 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
           },
         });
 
-        web3AuthInstance.configureAdapter(adapter);
+        web3AuthInstance.configureAdapter(adapter as any);
         subscribeAuthEvents(web3AuthInstance);
         setWeb3Auth(web3AuthInstance);
 

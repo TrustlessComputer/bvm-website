@@ -1,6 +1,7 @@
 export const MIN_GAS_PRICE = 1; // 1 gweis
 export const GAS_LITMIT = 30000000; //
-export const WITHDRAWAL_PERIOD = 7; //
+export const WITHDRAWAL_PERIOD = 7; // 7 days
+export const WITHDRAWAL_PERIOD_BOOTSTRAP = 2; // 2 hours
 
 // ------------------------------------------------------------------------------------
 export enum NetworkEnum {
@@ -153,6 +154,7 @@ export enum FormFields {
   TICKER = 'TICKER',
   TOTAL_SUPPLY = 'TOTAL_SUPPLY',
   RECEIVING_ADDRESS = 'RECEIVING_ADDRESS',
+  PROVER = 'PROVER',
 }
 
 export const FormFieldsErrorMessage = {
@@ -171,12 +173,14 @@ export const FormFieldsErrorMessage = {
 };
 
 export enum BlockTimeEnum {
+  BlockTime_1s = 1,
   BlockTime_2s = 2,
   BlockTime_5s = 5,
   BlockTime_10s = 10,
 }
 
 export const BlockTimeEnumMap = {
+  [BlockTimeEnum.BlockTime_1s]: '1 seconds',
   [BlockTimeEnum.BlockTime_2s]: '2 seconds',
   [BlockTimeEnum.BlockTime_5s]: '5 seconds',
   [BlockTimeEnum.BlockTime_10s]: '10 seconds',
@@ -223,3 +227,35 @@ export const STANDARD_VALUES = {
 };
 
 export const ADVANCED_VALUES = {};
+
+export enum ProverEnum {
+  NO = 0,
+  YES = 1,
+}
+
+export const ProverEnumMap = {
+  [ProverEnum.NO]: 'No',
+  [ProverEnum.YES]: 'Yes',
+};
+
+export enum PricingPackageEnum {
+  Bootstrap = 0,
+  Growth = 1,
+}
+
+export const PricingPackageEnumMap = {
+  [PricingPackageEnum.Bootstrap]: 'Bootstrap',
+  [PricingPackageEnum.Growth]: 'Growth',
+};
+
+export const HardwareBootstrap = {
+  cpuCore: 8,
+  memory: 16,
+  storage: 320,
+};
+
+export const HardwareGrowth = {
+  cpuCore: 32,
+  memory: 64,
+  storage: 650,
+};

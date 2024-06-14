@@ -18,9 +18,8 @@ const BodyGridView = () => {
   const { onOpenOpenOrderDetailModal } = useDashboard();
   const myOrders = useAppSelector(orderListSelector);
   const allOrders = useAppSelector(allOrdersSelector);
-  const { viewMode, showOnlyMyOrder, accountInforL2Service } = useAppSelector(
-    getL2ServicesStateSelector,
-  );
+  const { viewMode, showOnlyMyOrder, accountInforL2Service, showAllChain } =
+    useAppSelector(getL2ServicesStateSelector);
 
   const serviceDataList = useMemo(() => {
     const filterByNetwork = (orders: OrderItem[]) => {
@@ -34,13 +33,13 @@ const BodyGridView = () => {
           .sort((a, b) => b.index - a.index);
       return [];
     };
-    if (showOnlyMyOrder) {
+    if (!showAllChain) {
       return filterByNetwork(myOrders);
-    } else if (!showOnlyMyOrder) {
+    } else {
       return filterByNetwork(allOrders);
     }
     return [];
-  }, [myOrders, allOrders, viewMode, showOnlyMyOrder]);
+  }, [myOrders, allOrders, viewMode, showOnlyMyOrder, showAllChain]);
 
   const isEmptyData = useMemo(() => {
     if (!serviceDataList || serviceDataList.length < 1) return true;
@@ -74,8 +73,9 @@ const BodyGridView = () => {
   const renderDataList = () => {
     return (
       <SimpleGrid columns={[1, 2]} spacing="20px" width={'100%'} height={'80%'}>
-        {serviceDataList.map((item) => (
+        {serviceDataList.map((item, index) => (
           <L2Instance
+            key={`${item.domain}-${index}`}
             item={item}
             isOwner={item.tcAddress === accountInforL2Service?.tcAddress}
             onClick={() => {

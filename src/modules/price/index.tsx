@@ -10,10 +10,7 @@ import {
 } from './Pricing.constant';
 import Loading from '@/components/Loading';
 import { dataFormater } from './Pricing.helper';
-import {
-  IOrderBuyEstimateRespone,
-  IOrderBuyReq,
-} from '@/services/api/l2services/types';
+import { IOrderBuyEstimateRespone } from '@/services/api/l2services/types';
 
 const RETRY_MAX = 3;
 let retryCount = 0;

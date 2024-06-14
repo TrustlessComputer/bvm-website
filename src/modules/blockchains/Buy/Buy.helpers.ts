@@ -12,7 +12,10 @@ import {
 } from './Buy.constanst';
 
 import { validateChainIdAPI } from '@/services/api/l2services';
-import { IOrderBuyEstimateRespone } from '@/services/api/l2services/types';
+import {
+  IOrderBuyEstimateRespone,
+  IOrderBuyEstimateRespone_V2,
+} from '@/services/api/l2services/types';
 import { formatAmount } from '@/modules/price/Pricing.helper';
 
 export const getChainIDRandom = async () => {
@@ -177,6 +180,46 @@ export const estimateDataFormater = (
     result.OperationCost = operationCostFomatted;
     result.RollupCost = rollupCostFomatted;
     result.TotalCost = totalCostFomatted;
+    return result;
+  }
+};
+
+export const estimateDataFormater_V2 = (
+  estimateData: IOrderBuyEstimateRespone_V2,
+) => {
+  let result = {
+    BVMPrice: '0',
+    TotalCostBVM: '0',
+    TotalCostUSD: '0',
+  };
+  if (!estimateData) {
+    return result;
+  } else {
+    let BVMPriceFomatted = `${formatAmount({
+      originalAmount: Number(estimateData.BVMPrice || '0'),
+      decimals: 18,
+      maxDigits: 2,
+      isCeil: true,
+    })}`;
+
+    let totalCostBVMFomatted = `${formatAmount({
+      originalAmount: Number(estimateData.TotalCostBVM || '0'),
+      decimals: 18,
+      maxDigits: 2,
+      isCeil: true,
+    })}`;
+
+    let totalCostUSDFomatted = `${formatAmount({
+      originalAmount: Number(estimateData.TotalCostUSD || '0'),
+      decimals: 18,
+      maxDigits: 2,
+      isCeil: true,
+    })}`;
+
+    result.BVMPrice = BVMPriceFomatted;
+    result.TotalCostBVM = totalCostBVMFomatted;
+    result.TotalCostUSD = totalCostUSDFomatted;
+
     return result;
   }
 };
