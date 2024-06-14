@@ -2,9 +2,9 @@
   background-color: #ffffff;
   width: 100%;
   display: grid;
-  padding: 40px 0;
-
   gap: 40px;
+  padding-top: 24px;
+  padding-bottom: 24px;
   grid-template-columns: repeat(1, 1fr);
 
   @include is-pc {
@@ -14,12 +14,11 @@
     align-items: flex-start;
   }
 
-  @include min-md {
-    padding: 40px 0;
-  }
+  // @include min-md {
+  //   padding: 40px 0;
+  // }
 
   @include min-ml {
-    padding-top: 24px;
     gap: 24px;
   }
 }
