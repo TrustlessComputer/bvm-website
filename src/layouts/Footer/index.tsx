@@ -49,9 +49,12 @@ const Footer = () => {
                     <div className={s.dropMenu}>
                       <p className={cn(s.footer_btn)}>Build on Bitcoin</p>
                       <ul className={s.dropMenu_list}>
-                        {MenuBuild?.subMenu.map((item) => {
+                        {MenuBuild?.subMenu.map((item, index) => {
                           return (
-                            <li className={s.listItem}>
+                            <li
+                              className={s.listItem}
+                              key={`${item.label}-${index}`}
+                            >
                               <a
                                 href={item.href}
                                 target={item?.isNewWindow ? '_blank' : '_self'}

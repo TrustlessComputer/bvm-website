@@ -23,6 +23,7 @@ import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import TopupModal from '../components/TopupModal';
 import SendFormModal from '../components/SendFormModal';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 export type Props = {
   onSuccess?: () => void;
@@ -46,8 +47,9 @@ export const BuyPage = React.memo((props: Props) => {
     isMainnet,
   } = useBuy();
   const router = useRouter();
-  const { isL2ServiceLogged, onConnect } = useL2Service();
+  // const { isL2ServiceLogged, onConnect } = useL2Service();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
   if (isAvailableListFetching)
     return (
@@ -87,7 +89,7 @@ export const BuyPage = React.memo((props: Props) => {
             </Flex>
           )} */}
 
-        {!isL2ServiceLogged ? (
+        {!loggedIn ? (
           <Flex
             align={'center'}
             fontSize={'16px'}
@@ -107,10 +109,12 @@ export const BuyPage = React.memo((props: Props) => {
                 }}
                 onClick={() => {
                   // onLogin();
-                  onConnect && onConnect();
+                  // onConnect && onConnect();
+                  setShowLoginModalCustomize &&
+                    setShowLoginModalCustomize(true);
                 }}
               >
-                {`Connect wallet`}
+                {`Signin`}
               </Text>
             </Text>
           </Flex>
@@ -118,7 +122,7 @@ export const BuyPage = React.memo((props: Props) => {
           <Button
             bgColor={'#FA4E0E'}
             color={'#fff'}
-            borderRadius={0}
+            borderRadius={'8px'}
             display={'flex'}
             justifyContent={'center'}
             alignItems={'center'}
@@ -136,7 +140,7 @@ export const BuyPage = React.memo((props: Props) => {
               router.push('/blockchains');
             }}
           >
-            Check your Bitcoin L2
+            Check your ZK Powered Blockchain
           </Button>
         )}
       </Flex>
@@ -151,7 +155,7 @@ export const BuyPage = React.memo((props: Props) => {
         bgColor={'#fff'}
         gap={'30px'}
       >
-        <Flex direction={'row'} flex={1} overflow={'hidden'}>
+        <Flex direction={'row'} flex={1} overflow={'visible'}>
           <LeftView />
           <RightView />
         </Flex>
