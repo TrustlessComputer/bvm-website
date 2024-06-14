@@ -37,24 +37,22 @@ const Allocation = () => {
           <Text className={s.desc}>
             The total supply of BVM is permanently fixed at 100M tokens.
           </Text>
-          <Flex w="100%" px={'71px'}>
-            <Flex
-              w="100%"
-              flexDir={{ base: "column", lg: "row" }}
-              gap={{ base: "32px", lg: "74px" }}
-              alignItems={'center'}
-              // mt={{ base: "16px", lg: "60px" }}
-            >
-              <div>
-                <ImagePlaceholder
-                  width={458}
-                  height={365}
-                  src={'/images/pie-chart-7.png'}
-                  alt={'Allocation chart'}
-                />
-              </div>
-              <Vesting />
-            </Flex>
+          <Flex
+            w="100%"
+            flexDir={{ base: "column", md: 'column', lg: "row" }}
+            gap={{ base: "32px", md: '60px', lg: "74px" }}
+            alignItems={'center'}
+            px={{base: '15px' ,lg: '71px'}}
+          >
+            <div className={s.chart}>
+              <ImagePlaceholder
+                width={458}
+                height={365}
+                src={'/images/pie-chart-7.png'}
+                alt={'Allocation chart'}
+              />
+            </div>
+            <Vesting />
           </Flex>
         </Box>
       </Box>

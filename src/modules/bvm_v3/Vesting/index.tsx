@@ -55,8 +55,8 @@ const Vesting = () => {
 
   return (
     <Box className={s.wrapper} position={'relative'}>
+      <Text fontSize="14px" className={s.heading}>BVM Vesting 5 Year Schedule</Text>
       <Box className={s.table_wrapper}>
-        <Text fontSize="14px" className={s.heading}>BVM Vesting 5 Year Schedule</Text>
         {/*<Flex w="100%" justifyContent="center" alignItems="center">*/}
         {/*  <Text*/}
         {/*    mt={{ base: '24px', lg: '32px' }}*/}
@@ -129,18 +129,6 @@ const Vesting = () => {
                 })}
             </>
           )}
-          <tr>
-            <td>Team</td>
-            <td>5 years</td>
-            <td>12 months</td>
-            <td>Monthly</td>
-          </tr>
-          <tr>
-            <td>Advisors</td>
-            <td>3 years</td>
-            <td>6 months</td>
-            <td>Monthly</td>
-          </tr>
           </tbody>
         </table>
         <Flex w="100%" justifyContent="center" alignItems="center">

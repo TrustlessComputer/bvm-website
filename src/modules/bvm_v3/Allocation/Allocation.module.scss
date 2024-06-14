@@ -22,13 +22,23 @@
 
   @include is-mobile {
     .heading {
-      font-size: 40px;
+      font-size: 28px;
       margin-bottom: 12px;
     }
     .desc {
-      font-size: 18px;
+      font-size: 16px;
       line-height: 140%; /* 25.2px */
-      margin-bottom: 24px;
+      margin: 24px 10px;
     }
+  }
+}
+
+.chart {
+  width: 100%;
+  @include is-pc {
+    max-width: 458px;
+  }
+  img {
+    width: 100%;
   }
 }
