@@ -5,10 +5,12 @@
   &_label {
     display: flex;
     gap: 5px;
-    align-items: center;
-    font-family: var(--font-dmsans);
-    font-weight: 500;
+    color: #fff;
+    font-family: var(--font-jetbrains);
     font-size: 14px;
+    font-weight: 500;
+    line-height: (20 / 14);
+    text-align: center;
     cursor: pointer;
     &.black {
       color: black;
@@ -55,9 +57,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    font-family: var(--font-dmsans);
-    font-weight: 500;
+    font-family: var(--font-jetbrains);
     font-size: 14px;
+    font-weight: 500;
+    line-height: (20 / 14);
+    text-align: center;
     svg * {
       transition: fill 0.4s var(--easeOutQuart);
     }
