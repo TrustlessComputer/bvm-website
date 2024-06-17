@@ -61,7 +61,7 @@ const BodyGridView = () => {
         justify={'center'}
       >
         <Text fontSize={'25px'} fontWeight={700} color={'#000'}>
-          No Bitcoin L2s available
+          No ZK-powered Blockchains available
         </Text>
         <Image
           src={'/blockchains/customize/ic-empty.svg'}

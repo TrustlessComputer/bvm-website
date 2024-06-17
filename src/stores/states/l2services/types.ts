@@ -98,6 +98,7 @@ interface OrderItemResp {
   ticker?: string;
   bridgeStatus?: number;
   thumb?: string;
+  needToTopupBalanceUSD?: string;
 }
 
 interface HistoryItemResp {
@@ -126,6 +127,7 @@ interface OrderItem extends OrderItemResp {
   serviceFeeFormatted: string;
   rollupCostFormatted: string;
   isOwner: boolean;
+  needToTopupBalanceUSD?: string;
 }
 
 interface AccountInfoResp {
