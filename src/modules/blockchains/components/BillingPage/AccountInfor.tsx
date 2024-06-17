@@ -53,9 +53,9 @@ const AccountInfor = (props: IProps) => {
           </Text>
           <Image
             src={`/icons/ic-copy-v2.svg`}
-            fit={'cover'}
-            maxW={'15px'}
-            maxH={'15px'}
+            fit={'contain'}
+            maxW={'25px'}
+            maxH={'25px'}
           />
         </Flex>
 
