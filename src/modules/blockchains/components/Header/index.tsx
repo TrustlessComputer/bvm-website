@@ -1,8 +1,10 @@
 'use client';
 
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import useL2Service from '@/hooks/useL2Service';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
+  setShowAllChains,
   setShowOnlyMyOrder,
   setViewMode,
 } from '@/stores/states/l2services/reducer';
@@ -16,9 +18,9 @@ const HeaderView = () => {
   const dispatch = useAppDispatch();
   const { onConnect } = useL2Service();
 
-  const { viewMode, showOnlyMyOrder, isL2ServiceLogged } = useAppSelector(
-    getL2ServicesStateSelector,
-  );
+  const { viewMode, showOnlyMyOrder, showAllChain, isL2ServiceLogged } =
+    useAppSelector(getL2ServicesStateSelector);
+  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
   const isMainnnet = viewMode === 'Mainnet';
 
@@ -38,7 +40,7 @@ const HeaderView = () => {
         <Button
           minH={'40px'}
           minW={'100px'}
-          borderRadius={'0px'}
+          borderRadius={'100px'}
           fontWeight={400}
           fontSize={'16px'}
           borderWidth={isMainnnet ? '1px' : '0px'}
@@ -59,7 +61,7 @@ const HeaderView = () => {
         <Button
           minH={'40px'}
           minW={'100px'}
-          borderRadius={'0px'}
+          borderRadius={'100px'}
           fontWeight={400}
           fontSize={'16px'}
           color={'#000'}
@@ -77,7 +79,7 @@ const HeaderView = () => {
           {'Testnet'}
         </Button>
 
-        {!isL2ServiceLogged ? (
+        {!loggedIn ? (
           // <Button
           //   px={'30px'}
           //   borderRadius={'14px'}
@@ -94,8 +96,8 @@ const HeaderView = () => {
           // </Button>
           <></>
         ) : (
-          <Flex py={'8px'} px={'10px'} bgColor={'#fff'}>
-            <Checkbox
+          <Flex py={'10px'} px={'14px'} bgColor={'#fff'} borderRadius={'100px'}>
+            {/* <Checkbox
               color={'black'}
               fontWeight={400}
               fontSize={'16px'}
@@ -107,6 +109,19 @@ const HeaderView = () => {
               }}
             >
               {'Show only my Bitcoin L2s'}
+            </Checkbox> */}
+            <Checkbox
+              color={'black'}
+              fontWeight={400}
+              fontSize={'16px'}
+              checked={showAllChain}
+              defaultChecked={showAllChain}
+              borderColor={'#828282'}
+              onChange={() => {
+                dispatch(setShowAllChains(!showAllChain));
+              }}
+            >
+              {'Show All Chains'}
             </Checkbox>
           </Flex>
         )}
@@ -118,11 +133,11 @@ const HeaderView = () => {
         fontWeight={500}
         color={'#000'}
       >
-        {isL2ServiceLogged ? (
+        {loggedIn ? (
           <Button
             bgColor={'#FA4E0E'}
             color={'#fff'}
-            borderRadius={0}
+            borderRadius={'8px'}
             display={'flex'}
             justifyContent={'center'}
             alignItems={'center'}
@@ -137,14 +152,15 @@ const HeaderView = () => {
               bgColor: '#e5601b',
             }}
             onClick={() => {
-              router.push('/blockchains/customize');
+              // router.push('/blockchains/customize');
+              router.push('/pricing');
             }}
           >
-            Build your Bitcoin L2
+            Build your ZK-powered Blockchain
           </Button>
         ) : (
           <Text>
-            {`Check Your Bitcoin L2 Setup and Status - `}
+            {`Check Your ZK-powered Blockchain Setup and Status - `}
             <Text
               as="span"
               color={'#4E4A8D'}
@@ -155,10 +171,11 @@ const HeaderView = () => {
                 opacity: 0.8,
               }}
               onClick={() => {
-                onConnect();
+                // onConnect();
+                setShowLoginModalCustomize && setShowLoginModalCustomize(true);
               }}
             >
-              {`Connect wallet`}
+              {`Sign in`}
             </Text>
           </Text>
         )}

@@ -14,6 +14,9 @@
   --font-hind: 'Hind Siliguri', sans-serif;
   --font-dmsans: 'DM Sans', sans-serif;
   --font-jetbrains: 'JetBrains Mono', sans-serif;
+  --font-SFPro: 'SF Pro', sans-serif;
+  --font-SFProDisplay: 'SF Pro Display', sans-serif;
+  --font-JetBrainsMono: 'JetBrains Mono', monospace;
 
   @include is-min-table {
     --builder-padding-size: 80px;

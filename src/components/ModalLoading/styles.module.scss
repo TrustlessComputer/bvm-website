@@ -1,0 +1,10 @@
+.modalContent {
+  background-color: #fff !important;
+  min-width: 400px !important;
+  min-height: 400px !important;
+  font-family: var(--font-dmsans);
+
+  :global(.chakra-modal__body) {
+    background-color: #fff !important;
+  }
+}

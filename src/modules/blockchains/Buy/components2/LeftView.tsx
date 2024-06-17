@@ -23,7 +23,9 @@ const LeftView = React.memo((props: Props) => {
       <Flex align="center" justify="center" gap={'10px'}>
         <Image src={'/blockchains/customize/ic-message.svg'} />
         <Flex flexDir={'column'} align="center" fontSize="14px">
-          <Text color={'#1c1c1c'}>Have questions about Bitcoin L2?</Text>
+          <Text color={'#1c1c1c'}>
+            Have questions about ZK-powered Blockchain?
+          </Text>
           <Text
             color={'#5b67f3'}
             _hover={{

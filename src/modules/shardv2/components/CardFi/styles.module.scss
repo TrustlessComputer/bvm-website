@@ -72,7 +72,7 @@
 
 .cardFiContent_title {
   color: #000;
-  font-family: 'JetBrains Mono';
+  font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -90,9 +90,10 @@
   line-height: 150%; /* 21px */
   opacity: 0.7;
   margin-top: 8px;
+
   a {
     color: #fa4e0e;
-    font-family: 'JetBrains Mono';
+    font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     font-style: normal;
     font-weight: 700;
@@ -100,6 +101,7 @@
     text-transform: uppercase;
     display: inline-flex;
     align-items: center;
+    margin-top: 8px;
   }
 }
 .cardFiContent_bottom {
@@ -107,7 +109,7 @@
 
   &_btn {
     font-size: 10px;
-    font-family: 'JetBrains Mono';
+    font-family: 'JetBrains Mono', monospace;
     text-transform: uppercase;
     line-height: 140%;
   }

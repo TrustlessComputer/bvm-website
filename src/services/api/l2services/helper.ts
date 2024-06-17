@@ -70,6 +70,18 @@ const builderAccountInfo = async (
     decimals: 18,
   });
 
+  // const balanceUSDFormatted = formatter.shorterAmount({
+  //   originalAmount: new BigNumber(account.balanceUSD || 0).toNumber(),
+  //   decimals: 18,
+  // });
+
+  const balanceUSDFormatted = formatter.formatAmount({
+    originalAmount: Number(account.balanceUSD || '0'),
+    decimals: 18,
+    maxDigits: 2,
+    isCeil: true,
+  });
+
   const withdrawableBalanceBignumber = new BigNumber(
     account.withdrawableBalance || 0,
   );
@@ -97,6 +109,7 @@ const builderAccountInfo = async (
   return {
     ...account,
     balanceFormatted,
+    balanceUSDFormatted,
     withdrawableBalanceFormatted,
     isWithdrawable,
     needToTopupBalanceFormatted,

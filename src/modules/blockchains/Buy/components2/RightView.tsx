@@ -37,11 +37,11 @@ const RightView = React.memo((props: Props) => {
       }}
     >
       <Text fontSize={'36px'} color={'black'} fontWeight={600}>
-        Customize your Bitcoin L2
+        Customize your ZK-powered Blockchain
       </Text>
       <Text fontSize={'20px'} color={'#323232'} fontWeight={400} my={'13px'}>
-        Bitcoin L2s are secure, low-cost, and lightning-fast L2 blockchains —
-        fully loaded with DEX, DAO, NFT marketplace, and the whole shebang!
+        ZK-powered Blockchains are secure, low-cost, and lightning-fast — fully
+        loaded with DEX, DAO, NFT marketplace, and the whole shebang!
       </Text>
       <Flex flexDir={'column'} gap={'20px'}>
         {/* Computer Name */}

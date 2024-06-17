@@ -39,7 +39,9 @@ const HeaderRow = (props: Props) => {
           objectFit={'contain'}
         />
         <Text fontSize={'25px'} fontWeight={500} color={'#000'}>
-          {`${mapper.computerIndexer || `Bitcoin L2 #${item.index}`}`}
+          {`${
+            mapper.computerIndexer || `ZK-powered Blockchain #${item.index}`
+          }`}
         </Text>
       </Flex>
 
