@@ -52,6 +52,7 @@ const L2Instance = (props: Props) => {
           <HeaderRow
             item={item}
             depositOnClick={() => {
+              dispatch(setOrderSelected(item));
               onOpenTopUpModal && onOpenTopUpModal();
             }}
           />

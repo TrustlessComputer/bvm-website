@@ -9,6 +9,7 @@ import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { isEmpty } from 'lodash';
 import { RollupEnumMap } from '../../Buy/Buy.constanst';
 import { useDashboard } from '../../providers/DashboardProvider';
+import { formatDateTime } from '@/utils/time';
 
 interface IProps {
   show: boolean;
@@ -200,6 +201,18 @@ const ItemDetailModal = (props: IProps) => {
           {renderRowInfor('Chain ID', `${order.chainId}`)}
           {renderRowInfor('Block explorer URL', `${order.explorer}`, true)}
           {renderRowInfor('Status', `${mapper.status}`, false, mapper.color)}
+          {renderRowInfor(
+            'Need to Topup',
+            `${order.needToTopupBalanceFormatted} BVM`,
+            false,
+          )}
+          {renderRowInfor(
+            'Next Billing At',
+            `${formatDateTime({
+              dateTime: new Date(order.nextBillingAt).getTime(),
+            }).toLocaleString()}`,
+            false,
+          )}
           {rednerButtonRow()}
         </Flex>
       </Flex>

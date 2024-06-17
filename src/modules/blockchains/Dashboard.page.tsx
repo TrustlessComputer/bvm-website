@@ -77,6 +77,7 @@ const Page = (props: any) => {
       />
     );
   };
+
   const renderManageChainsPage = () => {
     return (
       <Flex flexDir={'column'}>
@@ -223,7 +224,7 @@ const Page = (props: any) => {
         pos={'relative'}
         className={s.containerContent}
       >
-        {isFetchingAllData ? renderLoading() : renderTabbar()}
+        {renderTabbar()}
       </Flex>
     </Flex>
   );

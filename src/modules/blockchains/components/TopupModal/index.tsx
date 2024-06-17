@@ -4,6 +4,7 @@ import copy from 'copy-to-clipboard';
 import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
 import s from './styles.module.scss';
+import { OrderItem } from '@/stores/states/l2services/types';
 
 interface TopUpInfor {
   paymentAddress?: string;
@@ -16,6 +17,7 @@ interface IProps {
   payWithNakaWalletCB?: () => void;
   infor: TopUpInfor;
   warningMessage?: string;
+  order?: OrderItem;
 }
 
 const TopupModal = (props: IProps) => {
@@ -26,6 +28,7 @@ const TopupModal = (props: IProps) => {
     onSuccess,
     warningMessage,
     payWithNakaWalletCB,
+    order,
   } = props;
   if (!infor || !infor.paymentAddress) return <></>;
 
@@ -183,32 +186,37 @@ const TopupModal = (props: IProps) => {
         </Text>
       </Flex>
 
-      <Text
-        marginTop={'10px'}
-        fontSize={'15px'}
-        fontWeight={400}
-        color={'#6C6F93'}
-        textAlign={'center'}
-      >
-        Need more BVM?
+      {order && (
         <Text
-          as="span"
-          fontWeight={700}
-          color={'#e6922c'}
+          marginTop={'10px'}
+          fontSize={'15px'}
+          fontWeight={400}
+          color={'#6C6F93'}
           textAlign={'center'}
-          textUnderlineOffset={'2px'}
-          textDecorationLine={'underline'}
-          _hover={{
-            cursor: 'pointer',
-            opacity: 0.8,
-          }}
-          onClick={() => {
-            window.open('https://nakachain.xyz/swap', '_blank');
-          }}
         >
-          {` Buy BVM here!`}
+          {`Must be at least `}
+          <Text as="span" fontWeight={700} color={'#000000'}>
+            {` ${order.needToTopupBalanceFormatted} BVM `}
+          </Text>
+          <Text
+            as="span"
+            fontWeight={700}
+            color={'#e6922c'}
+            textAlign={'center'}
+            textUnderlineOffset={'2px'}
+            textDecorationLine={'underline'}
+            _hover={{
+              cursor: 'pointer',
+              opacity: 0.8,
+            }}
+            onClick={() => {
+              window.open('https://nakachain.xyz/swap', '_blank');
+            }}
+          >
+            {`.Buy now!`}
+          </Text>
         </Text>
-      </Text>
+      )}
     </BaseModal>
   );
 };

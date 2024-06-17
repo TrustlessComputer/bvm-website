@@ -13,6 +13,12 @@ const orderListSelector = createSelector(
   (reducer) => reducer.orderList || [],
 );
 
+const myOrderListSelector = createSelector(orderListSelector, (myOrderList) => {
+  return myOrderList
+    .filter((order) => order.isMainnet)
+    .sort((a, b) => b.index - a.index);
+});
+
 const orderSelectedSelector = createSelector(
   getL2ServicesStateSelector,
   (reducer) => reducer.orderSelected,
@@ -92,4 +98,5 @@ export {
   allOrdersSelector,
   isFetchingAllDataSelector,
   historyInfoSelector,
+  myOrderListSelector,
 };
