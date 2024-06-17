@@ -13,16 +13,16 @@ const Main = () => {
         <Link href={'/'}>
           <Image src={'/landing-v2/svg/logo.svg'} />
         </Link>
-        {NAV_ITEMS.map((item) => {
+        {NAV_ITEMS.map((item, index) => {
           return item.subMenu ? (
             <DropDown
-              key={item.label}
+              key={`${item.label}-${index}`}
               title={item.label}
               lists={item.subMenu}
             />
           ) : (
             <Link
-              key={item.label}
+              key={`${item.label}-${index}`}
               href={item.href ?? '#'}
               target={item.isNewWindow ? '_blank' : '_self'}
             >
@@ -51,7 +51,7 @@ const Main = () => {
             </Link>
           ))}
         </div>
-        <Link href="/blockchains/customize" className={s.btnBuild}>
+        <Link href="/pricing" className={s.btnBuild}>
           Build on Bitcoin
         </Link>
       </div>

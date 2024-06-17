@@ -3,6 +3,18 @@ import { PREFIX } from './constants';
 import { IOrderBuyReq, OrderItem } from './types';
 import l2ServicesAPI from '@/services/api/l2services';
 
+const fetchAvailableList = createAsyncThunk(
+  `${PREFIX}/fetchAvailableList`,
+  async () => {
+    try {
+      const data = await l2ServicesAPI.fetchAvailableList();
+      return data;
+    } catch (error) {
+      return undefined;
+    }
+  },
+);
+
 const fetchAccountInfo = createAsyncThunk(
   `${PREFIX}/fetchAccountInfo`,
   async () => {
@@ -88,4 +100,5 @@ export {
   fetchAccountInfo,
   fetchL2ServiceHistory,
   getQuickStart,
+  fetchAvailableList,
 };

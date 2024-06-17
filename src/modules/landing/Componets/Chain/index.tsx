@@ -256,7 +256,7 @@ export default function Chain() {
                     router.push('/blockchains/customize');
                   }}
                 >
-                  {`Build your Bitcoin L2`}
+                  {`Build your ZK-powered Blockchain`}
                 </Button>
               </HStack>
             </Fade>

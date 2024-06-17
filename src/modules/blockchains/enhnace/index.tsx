@@ -6,6 +6,7 @@ import enhanceEditConfigModal from './enhance.EditConfigModal';
 import enhanceSendFormModal from './enhance.SendFormModal';
 import enhanceTopupModal from './enhance.TopupModal';
 import enhanceOrderDetailModal from './enhance.OrderDetailModal';
+import enhanceCanceOrderModal from './enhance.CanceOrderModal';
 import { DashboardContext } from '../providers/DashboardProvider';
 
 const enhance =
@@ -23,5 +24,6 @@ export default compose<DashboardWrappedComponent>(
   enhanceTopupModal,
   enhanceBillingModal,
   enhanceOrderDetailModal,
+  enhanceCanceOrderModal,
   enhance,
 );

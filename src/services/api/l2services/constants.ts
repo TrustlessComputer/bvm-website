@@ -1,5 +1,6 @@
 import {
   DALayerEnum,
+  RollupEnum,
   ServiceTypeEnum,
 } from '@/modules/blockchains/Buy/Buy.constanst';
 import {
@@ -54,7 +55,7 @@ const TRUSTLESS_COMPUTER_MAINNET: OrderItemResp = {
   isConstant: true,
   createAt: '1679624226',
   tcAddress: '',
-  serviceType: ServiceTypeEnum.DEFAULT,
+  serviceType: RollupEnum.Rollup_OpStack,
   serviceFee: '0',
   setupCost: '0',
   instanceId: '1',
@@ -85,6 +86,7 @@ const TRUSTLESS_COMPUTER_MAINNET: OrderItemResp = {
     isProduction: true,
     networkName: 'trustless-computer',
   }),
+  bridgeStatus: 1,
 };
 
 const TRUSTLESS_COMPUTER_TESTNET: OrderItemResp = {
@@ -93,7 +95,7 @@ const TRUSTLESS_COMPUTER_TESTNET: OrderItemResp = {
   index: 0,
   isConstant: true,
   tcAddress: '',
-  serviceType: ServiceTypeEnum.DEFAULT,
+  serviceType: RollupEnum.Rollup_OpStack,
   serviceFee: '0',
   setupCost: '0',
   instanceId: '3',
@@ -124,6 +126,7 @@ const TRUSTLESS_COMPUTER_TESTNET: OrderItemResp = {
     isProduction: false,
     networkName: 'trustless-computer',
   }),
+  bridgeStatus: 1,
 };
 
 // ALPHA (NOS old) MAINNET
@@ -133,7 +136,7 @@ const ALPHA_MAINNET: OrderItemResp = {
   isConstant: true,
   orderId: '2',
   tcAddress: '',
-  serviceType: ServiceTypeEnum.DEFAULT,
+  serviceType: RollupEnum.Rollup_OpStack,
   serviceFee: '0',
   setupCost: '0',
   instanceId: '1',
@@ -164,6 +167,7 @@ const ALPHA_MAINNET: OrderItemResp = {
     isProduction: true,
     networkName: 'trustlessLayer2',
   }),
+  bridgeStatus: 1,
 };
 
 // ALPHA (NOS old) TESTNET
@@ -173,7 +177,7 @@ const ALPHA_TESTNET: OrderItemResp = {
   isConstant: true,
   orderId: '4',
   tcAddress: '',
-  serviceType: ServiceTypeEnum.DEFAULT,
+  serviceType: RollupEnum.Rollup_OpStack,
   serviceFee: '0',
   setupCost: '0',
   instanceId: '3',
@@ -204,6 +208,7 @@ const ALPHA_TESTNET: OrderItemResp = {
     isProduction: false,
     networkName: 'trustlessLayer2',
   }),
+  bridgeStatus: 1,
 };
 
 const NAKA_TESTNET: OrderItemResp = {
@@ -212,7 +217,7 @@ const NAKA_TESTNET: OrderItemResp = {
   isConstant: true,
   orderId: '4',
   tcAddress: '',
-  serviceType: ServiceTypeEnum.DEFAULT,
+  serviceType: RollupEnum.Rollup_OpStack,
   serviceFee: '0',
   setupCost: '0',
   instanceId: '4',
@@ -243,6 +248,7 @@ const NAKA_TESTNET: OrderItemResp = {
     isProduction: false,
     networkName: '',
   }),
+  bridgeStatus: 1,
 };
 
 // NAKA Mainnet
@@ -253,7 +259,7 @@ const NAKA_MAINNET: OrderItemResp = {
   isConstant: true,
   orderId: '5',
   tcAddress: '',
-  serviceType: ServiceTypeEnum.DEFAULT,
+  serviceType: RollupEnum.Rollup_OpStack,
   serviceFee: '0',
   setupCost: '0',
   instanceId: '1',
@@ -284,6 +290,7 @@ const NAKA_MAINNET: OrderItemResp = {
     isProduction: true,
     networkName: '',
   }),
+  bridgeStatus: 1,
 };
 
 // Runechain Mainnet
@@ -293,7 +300,7 @@ const RUNECHAIN_MAINNET: OrderItemResp = {
   isConstant: true,
   orderId: '6',
   tcAddress: '',
-  serviceType: ServiceTypeEnum.DEFAULT,
+  serviceType: RollupEnum.Rollup_OpStack,
   serviceFee: '0',
   setupCost: '0',
   instanceId: '3',
@@ -324,6 +331,7 @@ const RUNECHAIN_MAINNET: OrderItemResp = {
     isProduction: true,
     networkName: '',
   }),
+  bridgeStatus: 1,
 };
 
 // Eternal AI Mainnet
@@ -333,7 +341,7 @@ const ETERNAL_AI_MAINNET: OrderItemResp = {
   isConstant: true,
   orderId: '7',
   tcAddress: '',
-  serviceType: ServiceTypeEnum.DEFAULT,
+  serviceType: RollupEnum.Rollup_OpStack,
   serviceFee: '0',
   setupCost: '0',
   instanceId: '',
@@ -364,6 +372,7 @@ const ETERNAL_AI_MAINNET: OrderItemResp = {
     isProduction: true,
     networkName: '',
   }),
+  bridgeStatus: 1,
 };
 
 const L2_MAINNET = [
@@ -379,7 +388,7 @@ const COMPUTERS: Array<OrderItemResp> = [...L2_MAINNET, ...L2_TESTNET];
 
 const QUICK_START: Array<IQuickStart> = [
   {
-    title: 'Build your Bitcoin L2',
+    title: 'Build your ZK-powered Blockchain',
     completed: true,
     type: QuickStartTypeEnum.CREATE,
   },

@@ -34,14 +34,14 @@ const BodyInfor = (props: Props) => {
   return (
     <SimpleGrid columns={2} spacing="20px" width={'100%'} height={'auto'}>
       {renderRowInFor('Name', `${item.chainName || ''}`)}
-      {renderRowInFor(
+      {/* {renderRowInFor(
         'Network type',
         `${item.isMainnet ? 'Bitcoin Mainnet' : 'Bitcoin Testnet'}`,
-      )}
+      )} */}
       {renderRowInFor('Block time', `${mapper.blockTime || ''}`)}
       {renderRowInFor('Deployer', `${mapper.deployer}`)}
       {renderRowInFor(
-        'Data availability layer',
+        'Data availability',
         `${mapper.dataAvailabilityLayer || ''}`,
       )}
       {renderRowInFor(

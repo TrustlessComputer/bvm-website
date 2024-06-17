@@ -3,6 +3,7 @@
 import { CDN_URL } from '@/config';
 import { Box, Flex, Grid, Image, Text } from '@chakra-ui/react';
 import CardFi from '@/modules/shardv2/components/CardFi';
+import s from './styles.module.scss';
 
 const ICON_URL = CDN_URL + '/nbc/icons';
 
@@ -37,84 +38,14 @@ const Contents: Array<IContent> = [
 const Section_2 = () => {
   const renderItem = (item: IContent) => {
     return (
-      <CardFi key={item.title} {...item} />
-      // <Box
-      //   alignItems={'center'}
-      //   key={item.title}
-      //   display={'flex'}
-      //   flexDirection={'column'}
-      //   flex={1}
-      //   p={{
-      //     base: '10px',
-      //     lg: '20px',
-      //   }}
-      //   bgColor={'white'}
-      // >
-      //   <Flex
-      //     alignItems={'center'}
-      //     display={'flex'}
-      //     flexDirection={'column'}
-      //     flex={1}
-      //     minH={{
-      //       base: '300px',
-      //       max: '600px',
-      //     }}
-      //     gap={'20px'}
-      //     bgColor={item.bgColor}
-      //   >
-      //     <Image
-      //       src={`${item.img}`}
-      //       fit={'cover'}
-      //       minH={{
-      //         base: '350px',
-      //         lg: '440px',
-      //       }}
-      //     />
-      //
-      //     <Flex
-      //       direction={'column'}
-      //       align={'center'}
-      //       justify={'center'}
-      //       gap={'20px'}
-      //       px={{
-      //         base: '10px',
-      //         lg: '24px',
-      //       }}
-      //     >
-      //       <Text
-      //         fontSize={['18px', '24px']}
-      //         lineHeight={'26.40px'}
-      //         fontWeight={500}
-      //         textAlign={'center'}
-      //         color={'#fff'}
-      //       >
-      //         {item.title}
-      //       </Text>
-      //       <Text
-      //         fontSize={['15px', '18px']}
-      //         lineHeight={'26px'}
-      //         textAlign={'center'}
-      //         fontWeight={400}
-      //         color={'#fff'}
-      //       >
-      //         {item.desc}
-      //       </Text>
-      //       <Box height={'20px'}></Box>
-      //     </Flex>
-      //   </Flex>
-      // </Box>
+      <CardFi key={item.title} {...item} classImage={s.classImage} />
     );
   };
 
   return (
     <Grid
-      // flexDirection={{
-      //   base: 'column',
-      //   lg: 'row',
-      // }}
       gridTemplateColumns={{base: '1fr', lg: '1fr 1fr 1fr'}}
-      className={'container'}
-      // alignSelf={'center'}
+      className={`container ${s.container}`}
       gap={{
         base: '20px',
         lg: '24px',
