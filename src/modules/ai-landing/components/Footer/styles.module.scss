@@ -60,7 +60,7 @@
 
       & .btn {
         width: 100%;
-        font-family: "Helvetica Neue";
+        font-family: 'Helvetica Neue';
         padding: 9px 12px;
         font-size: 14px;
         font-weight: 400;
@@ -70,7 +70,7 @@
         }
 
         p {
-          transform: translateY(.1em);
+          transform: translateY(0.1em);
         }
 
         @include is-pc {
