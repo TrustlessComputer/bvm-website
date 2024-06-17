@@ -17,6 +17,11 @@ import { getErrorMessage } from '@/utils/errorV2';
 import toast from 'react-hot-toast';
 import sleep from '@/utils/sleep';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { useAppDispatch } from '@/stores/hooks';
+import {
+  setOrderSelected,
+  updateOrderByNewOrder,
+} from '@/stores/states/l2services/reducer';
 
 const checkImageURL = (url: string) => {
   return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
@@ -36,6 +41,8 @@ interface IProps {
 
 const UpdateOrderModal = (props: IProps) => {
   const { show, onClose, item, onSuccess } = props;
+
+  const dispatch = useAppDispatch();
 
   console.log('ABCDEF --- ', item);
 
@@ -79,10 +86,17 @@ const UpdateOrderModal = (props: IProps) => {
         thumb: logoUrl,
       };
 
-      const data = await l2ServicesAPI.orderUpdateAPI(params, item?.orderId);
+      const data: OrderItem = await l2ServicesAPI.orderUpdateAPI(
+        params,
+        item?.orderId,
+      );
+
+      console.log('DATA --- ', data);
       if (data) {
         toast.success('Update Successful');
 
+        dispatch(updateOrderByNewOrder(data));
+        dispatch(setOrderSelected(data));
         await sleep(1);
 
         onSuccess && onSuccess();
@@ -102,16 +116,25 @@ const UpdateOrderModal = (props: IProps) => {
       setChainNameError(TITLE_ERROR_MESSAGE);
       setChainNameFocused(true);
       valid = false;
+    } else if (chainNameError) {
+      setChainNameFocused(true);
+      valid = false;
     }
 
     if (isEmpty(desc)) {
       setDescError(DESC_ERROR_MESSAGE);
       setDescFocused(true);
       valid = false;
+    } else if (descError) {
+      setDescFocused(true);
+      valid = false;
     }
 
     if (isEmpty(logoUrl)) {
       setLogoUrlError(LOGOURL_ERROR_MESSAGE);
+      setLogoUrlFocused(true);
+      valid = false;
+    } else if (logoUrlError) {
       setLogoUrlFocused(true);
       valid = false;
     }

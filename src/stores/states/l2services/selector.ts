@@ -10,7 +10,11 @@ const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
 // My Orders
 const orderListSelector = createSelector(
   getL2ServicesStateSelector,
-  (reducer) => reducer.orderList || [],
+  (reducer) => {
+    const result = reducer.orderList || [];
+    console.log('TTTT --- ', result);
+    return result;
+  },
 );
 
 const myOrderListSelector = createSelector(orderListSelector, (myOrderList) => {
