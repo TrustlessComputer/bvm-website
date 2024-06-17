@@ -31,6 +31,47 @@ const TopupModal = (props: IProps) => {
 
   const { paymentAddress } = infor;
 
+  const renderFasterMethod = () => {
+    return (
+      <Flex
+        mt={'20px'}
+        width={'45%'}
+        bgColor={'#B6B6B6'}
+        height={'1px'}
+        alignSelf={'center'}
+      >
+        <Text
+          mt={'20px'}
+          fontSize={'15px'}
+          fontWeight={500}
+          color={'#6C6F93'}
+          textAlign={'center'}
+        >
+          Or with faster method
+        </Text>
+
+        <Button
+          mt={'20px'}
+          bgColor={'#130E67'}
+          color={'#fff'}
+          borderRadius={'30px'}
+          h="45px"
+          minW={'280px'}
+          py="10px"
+          px="20px"
+          w={'max-content'}
+          alignSelf={'center'}
+          _hover={{
+            opacity: 0.8,
+          }}
+          onClick={payWithNakaWalletCB}
+        >
+          Pay with Naka wallet
+        </Button>
+      </Flex>
+    );
+  };
+
   return (
     <BaseModal
       isShow={show}
@@ -66,7 +107,7 @@ const TopupModal = (props: IProps) => {
           color={'#6C6F93'}
           textAlign={'center'}
         >
-          Please sent
+          Please send
           <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
             {` BVM `}
           </Text>
@@ -140,44 +181,34 @@ const TopupModal = (props: IProps) => {
         >
           Naka Chain
         </Text>
+      </Flex>
 
-        {/* <Flex
-          mt={'20px'}
-          width={'45%'}
-          bgColor={'#B6B6B6'}
-          height={'1px'}
-          alignSelf={'center'}
-        ></Flex>
-
+      <Text
+        marginTop={'10px'}
+        fontSize={'15px'}
+        fontWeight={400}
+        color={'#6C6F93'}
+        textAlign={'center'}
+      >
+        Need more BVM?
         <Text
-          mt={'20px'}
-          fontSize={'15px'}
-          fontWeight={500}
-          color={'#6C6F93'}
+          as="span"
+          fontWeight={700}
+          color={'#e6922c'}
           textAlign={'center'}
-        >
-          Or with faster method
-        </Text>
-
-        <Button
-          mt={'20px'}
-          bgColor={'#130E67'}
-          color={'#fff'}
-          borderRadius={'30px'}
-          h="45px"
-          minW={'280px'}
-          py="10px"
-          px="20px"
-          w={'max-content'}
-          alignSelf={'center'}
+          textUnderlineOffset={'2px'}
+          textDecorationLine={'underline'}
           _hover={{
+            cursor: 'pointer',
             opacity: 0.8,
           }}
-          onClick={payWithNakaWalletCB}
+          onClick={() => {
+            window.open('https://nakachain.xyz/swap', '_blank');
+          }}
         >
-          Pay with Naka wallet
-        </Button> */}
-      </Flex>
+          {` Buy BVM here!`}
+        </Text>
+      </Text>
     </BaseModal>
   );
 };

@@ -76,7 +76,7 @@ const BodyGridView = () => {
 
   const renderDataList = () => {
     return (
-      <SimpleGrid columns={[1, 2]} spacing="20px" width={'100%'} height={'80%'}>
+      <SimpleGrid columns={[1, 1]} spacing="20px" width={'100%'} height={'80%'}>
         {serviceDataList.map((item, index) => (
           <L2Instance
             key={`${item.domain}-${index}`}

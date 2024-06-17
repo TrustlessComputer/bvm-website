@@ -13,6 +13,7 @@ import {
   IGetNonceReq,
   IGetNonceResp,
   IOrderBuyReq,
+  IOrderUpdate,
   IQuickStart,
   IVerifySignatureReq,
   IVerifySignatureResp,
@@ -142,6 +143,20 @@ export const orderBuyAPI = async (params: IOrderBuyReq): Promise<any> => {
   // eslint-disable-next-line no-useless-catch
   try {
     const data = (await httpClient.post(`/order/register`, params, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    })) as any;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const orderUpdateAPI = async (params: IOrderUpdate): Promise<any> => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const data = (await httpClient.post(`/order/update`, params, {
       headers: {
         Authorization: `${getAPIAccessToken()}`,
       },

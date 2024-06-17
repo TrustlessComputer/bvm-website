@@ -178,6 +178,12 @@ interface IOrderBuyReq {
   bridgeStatus?: number;
 }
 
+interface IOrderUpdate {
+  chainName: string;
+  description: string;
+  thumb: string;
+}
+
 interface IOrderBuyEstimateRespone {
   SetupCode: string;
   OperationCost: string;
@@ -290,4 +296,5 @@ export type {
   MetaConfig,
   ThemeConfig,
   WebsiteConfig,
+  IOrderUpdate,
 };

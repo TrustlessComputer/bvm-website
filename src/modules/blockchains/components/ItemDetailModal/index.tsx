@@ -1,25 +1,36 @@
 import BaseModal from '@/components/BaseModal';
-import { Divider, Flex, Text, Link } from '@chakra-ui/react';
+import { Divider, Flex, Text, Link, Button } from '@chakra-ui/react';
 
-import { useState } from 'react';
 import s from './styles.module.scss';
-import { OrderItem } from '@/stores/states/l2services/types';
-import { useAppSelector } from '@/stores/hooks';
-import { getOrderByIDSelector } from '@/stores/states/l2services/selector';
+import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import useOrderMapper from '../../hooks/useOrderMapper';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { isEmpty } from 'lodash';
 import { RollupEnumMap } from '../../Buy/Buy.constanst';
+import { useDashboard } from '../../providers/DashboardProvider';
 
 interface IProps {
   show: boolean;
   onClose?: (() => void) | any;
   onSuccess?: () => Promise<void>;
+  cancelOrderOnClick?: () => void;
+  updateOrderOnClick?: () => void;
   item?: OrderItem;
 }
 
-const CustomizeTokenModal = (props: IProps) => {
-  const { show, onClose, item, onSuccess } = props;
+const ItemDetailModal = (props: IProps) => {
+  const {
+    show,
+    onClose,
+    item,
+    onSuccess,
+    cancelOrderOnClick,
+    updateOrderOnClick,
+  } = props;
+  const test111 = useDashboard();
+  const dispatch = useAppDispatch();
+
   const order = item;
   const isHasValue = (value: string) => {
     return value && value !== '0';
@@ -92,6 +103,55 @@ const CustomizeTokenModal = (props: IProps) => {
     );
   };
 
+  const rednerButtonRow = () => {
+    if (order?.status !== OrderStatus.WaitingPayment) return null;
+    return (
+      <Flex flexDir={'row'} align={'center'} gap={'20px'}>
+        <Button
+          bgColor={'#fff'}
+          color={'#FA4E0E'}
+          borderColor={'#FA4E0E'}
+          borderWidth={'1px'}
+          borderRadius={'100px'}
+          h={'54px'}
+          w={'100%'}
+          className={s.fontType3}
+          fontSize={'16px'}
+          fontWeight={500}
+          onClick={(event) => {
+            if (event.stopPropagation) event.stopPropagation();
+            cancelOrderOnClick && cancelOrderOnClick();
+          }}
+          _hover={{
+            opacity: 0.8,
+          }}
+        >
+          Cancel
+        </Button>
+
+        <Button
+          bgColor={'#FA4E0E'}
+          color={'#fff'}
+          borderRadius={'100px'}
+          h={'54px'}
+          w={'100%'}
+          className={s.fontType3}
+          fontSize={'16px'}
+          fontWeight={500}
+          onClick={(event) => {
+            if (event.stopPropagation) event.stopPropagation();
+            updateOrderOnClick && updateOrderOnClick();
+          }}
+          _hover={{
+            opacity: 0.8,
+          }}
+        >
+          Update
+        </Button>
+      </Flex>
+    );
+  };
+
   return (
     <BaseModal
       isShow={show}
@@ -140,10 +200,11 @@ const CustomizeTokenModal = (props: IProps) => {
           {renderRowInfor('Chain ID', `${order.chainId}`)}
           {renderRowInfor('Block explorer URL', `${order.explorer}`, true)}
           {renderRowInfor('Status', `${mapper.status}`, false, mapper.color)}
+          {rednerButtonRow()}
         </Flex>
       </Flex>
     </BaseModal>
   );
 };
 
-export default CustomizeTokenModal;
+export default ItemDetailModal;

@@ -24,7 +24,7 @@ export const initialState: L2ServicesState = {
 
   viewMode: 'Mainnet',
   showOnlyMyOrder: true,
-  showAllChain: true,
+  showAllChain: false,
 
   accountInforL2Service: undefined,
   isL2ServiceLogged: false,
