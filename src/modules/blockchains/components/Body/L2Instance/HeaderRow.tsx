@@ -40,7 +40,7 @@ const HeaderRow = (props: Props) => {
         />
         <Text fontSize={'25px'} fontWeight={500} color={'#000'}>
           {`${
-            mapper.computerIndexer || `ZK Powered Blockchain #${item.index}`
+            mapper.computerIndexer || `ZK-powered Blockchain #${item.index}`
           }`}
         </Text>
       </Flex>

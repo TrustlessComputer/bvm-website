@@ -281,7 +281,7 @@ const PriceModule = () => {
                       opacity: 0.8,
                     }}
                   >
-                    Launch now
+                    Customize your blockchain
                   </Button>
                 }
                 hardwareList={[
@@ -289,7 +289,8 @@ const PriceModule = () => {
                   'CPU: 32 cores',
                   'Storage: 650 GB SSD',
                 ]}
-                blockChainInforsList={['Customize-able']}
+                blockChainInforsList={undefined}
+                isHideBlockchainInfor={true}
               />
               <CardInfor
                 title="Enterprise"

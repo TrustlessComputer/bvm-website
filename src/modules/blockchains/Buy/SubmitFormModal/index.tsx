@@ -127,7 +127,7 @@ const SubmitFormModal = (props: IProps) => {
 
         <Flex flexDir={'column'} gap={'20px'} mt={'20px'}>
           {renderRowInfor(
-            'ZK Powered Blockchain:',
+            'ZK-powered Blockchain:',
             submitFormParams?.bitcoinL2Name,
           )}
           {renderRowInfor('Network:', submitFormParams?.network)}

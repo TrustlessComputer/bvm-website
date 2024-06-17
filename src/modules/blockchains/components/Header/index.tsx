@@ -156,11 +156,11 @@ const HeaderView = () => {
               router.push('/pricing');
             }}
           >
-            Build your ZK Powered Blockchain
+            Build your ZK-powered Blockchain
           </Button>
         ) : (
           <Text>
-            {`Check Your ZK Powered Blockchain Setup and Status - `}
+            {`Check Your ZK-powered Blockchain Setup and Status - `}
             <Text
               as="span"
               color={'#4E4A8D'}
@@ -175,7 +175,7 @@ const HeaderView = () => {
                 setShowLoginModalCustomize && setShowLoginModalCustomize(true);
               }}
             >
-              {`Signin`}
+              {`Sign in`}
             </Text>
           </Text>
         )}
