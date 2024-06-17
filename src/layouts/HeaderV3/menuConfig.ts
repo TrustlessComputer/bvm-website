@@ -140,7 +140,7 @@ export const NAV_ITEMS: Array<NavItem> = [
       },
       {
         href: '/whitepaper.pdf',
-        label: 'Whitepaper (v1)',
+        label: 'Whitepaper v1',
         isNewWindow: false,
       },
     ],
