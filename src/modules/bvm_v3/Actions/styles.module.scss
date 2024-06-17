@@ -9,6 +9,14 @@
   margin: 0 auto;
   // box-shadow: 0px 0px 24px -6px rgba(0, 0, 0, 0.08);
 
+  @include is-mobile {
+    margin: 0;
+  }
+  &_item {
+    @include is-mobile {
+      flex: 1;
+    }
+  }
   &_button {
     height: 50px;
     width: 204px;
@@ -19,8 +27,8 @@
     // background-color: #fff;
 
     @include is-mobile {
+      max-width: 204px;
       width: 100%;
-      margin: 0 auto;
     }
     h6 {
       color: #000;

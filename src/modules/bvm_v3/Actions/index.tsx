@@ -20,7 +20,7 @@ export default function Actions() {
       {ACTIONS.map((item) => {
         const isActive = pathname === item.href;
         return (
-          <Link href={item.href} key={item.href}>
+          <Link href={item.href} key={item.href} className={s.actions_item}>
             <div className={`${s.actions_button} ${isActive ? s.active : ''}`}>
               <h6>{item.label}</h6>
             </div>
