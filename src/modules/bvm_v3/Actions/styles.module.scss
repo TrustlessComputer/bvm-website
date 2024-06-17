@@ -19,7 +19,7 @@
   }
   &_button {
     height: 50px;
-    width: 204px;
+    width: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,7 +27,7 @@
     // background-color: #fff;
 
     @include is-mobile {
-      max-width: 204px;
+      max-width: 200px;
       width: 100%;
     }
     h6 {
