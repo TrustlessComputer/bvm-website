@@ -18,6 +18,7 @@ import Script from 'next/script';
 import ModalManager from '@/components/ModalManage';
 import { ContactUsProvider } from '@/Providers/ContactUsProvider';
 import { NakaConnectProvider } from '@/Providers/NakaConnectProvider';
+import { Web3AuthProvider } from '@/Providers/Web3Auth_vs2/Web3AuthProvider';
 
 export const metadata: Metadata = MetadataConfig;
 export const viewport: Viewport = ViewportConfig;
@@ -60,19 +61,21 @@ export default function RootLayout({
         <StoreProvider>
           <ChakraProvider theme={chakraThemes}>
             <ChakraFontsFace />
-            <UserProvider>
-              <XVerseProvider>
-                <UnisatProvider>
-                  <NakaConnectProvider>
-                    <ContactUsProvider>
-                      <ModalManager />
-                      {children}
-                    </ContactUsProvider>
-                  </NakaConnectProvider>
-                  <ToastOverlay />
-                </UnisatProvider>
-              </XVerseProvider>
-            </UserProvider>
+            <Web3AuthProvider>
+              <UserProvider>
+                <XVerseProvider>
+                  <UnisatProvider>
+                    <NakaConnectProvider>
+                      <ContactUsProvider>
+                        <ModalManager />
+                        {children}
+                      </ContactUsProvider>
+                    </NakaConnectProvider>
+                    <ToastOverlay />
+                  </UnisatProvider>
+                </XVerseProvider>
+              </UserProvider>
+            </Web3AuthProvider>
           </ChakraProvider>
         </StoreProvider>
       </body>

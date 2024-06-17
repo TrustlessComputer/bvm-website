@@ -101,33 +101,34 @@ const DataAvailabilitySection = () => {
     <Section
       title={'Data Availability'}
       description={'Which data availability layer is right for you?'}
-      descriptionDetail={{
-        title: 'Data Availability',
-        content: (
-          <p>
-            Initially, there are two types of data availability options:
-            <br />
-            <br />
-            <Text as={'span'} fontWeight={600}>
-              • Bitcoin + Polygon:
-            </Text>{' '}
-            the data is written to the Polygon network. This is a pragmatic and
-            hybrid approach, where data availability is on Polygon, and data
-            validation is on Bitcoin.
-            <br />
-            <br />
-            <p>
-              <Text as={'span'} fontWeight={600}>
-                • Bitcoin:
-              </Text>{' '}
-              thanks to the Taproot-type transaction, it is now possible to
-              embed any data into a Bitcoin Blockchain, which will be
-              permanently stored on the Bitcoin network and inherit its
-              features, such as availability, immutability, and determinism.
-            </p>
-          </p>
-        ),
-      }}
+      descriptionDetail={undefined}
+      // descriptionDetail={{
+      //   title: 'Data Availability',
+      //   content: (
+      //     <p>
+      //       Initially, there are two types of data availability options:
+      //       <br />
+      //       <br />
+      //       <Text as={'span'} fontWeight={600}>
+      //         • Bitcoin + Polygon:
+      //       </Text>{' '}
+      //       the data is written to the Polygon network. This is a pragmatic and
+      //       hybrid approach, where data availability is on Polygon, and data
+      //       validation is on Bitcoin.
+      //       <br />
+      //       <br />
+      //       <p>
+      //         <Text as={'span'} fontWeight={600}>
+      //           • Bitcoin:
+      //         </Text>{' '}
+      //         thanks to the Taproot-type transaction, it is now possible to
+      //         embed any data into a Bitcoin Blockchain, which will be
+      //         permanently stored on the Bitcoin network and inherit its
+      //         features, such as availability, immutability, and determinism.
+      //       </p>
+      //     </p>
+      //   ),
+      // }}
     >
       {/* {renderFlattenList()} */}
       {renderDropDownList()}

@@ -12,6 +12,7 @@ type Props = {
   viewBillingOnClick?: () => void;
   bridgeOnClick?: () => void;
   editConfigBridgeOnClick?: () => void;
+  cancelOrderOnClick?: () => void;
 };
 
 const BottomInfor = (props: Props) => {
@@ -19,6 +20,7 @@ const BottomInfor = (props: Props) => {
     item,
     isOwner,
     viewBillingOnClick,
+    cancelOrderOnClick,
     bridgeOnClick,
     editConfigBridgeOnClick,
   } = props;
@@ -107,39 +109,70 @@ const BottomInfor = (props: Props) => {
 
   return (
     <Flex flexDir={'column'} gap={'20px'}>
-      <Text fontSize={'16px'} fontWeight={500} color={'#6d6d6d'}>
-        Pre-Installed Dapps
-      </Text>
+      {Number(!!item.bridgeStatus) === 1 && (
+        <Text fontSize={'16px'} fontWeight={500} color={'#6d6d6d'}>
+          Pre-Installed Dapps
+        </Text>
+      )}
+
       <Flex
         flexDir={'row'}
         gap={'10px'}
         align={'center'}
-        justify={'space-between'}
+        justify={
+          Number(!!item.bridgeStatus) === 1 ? 'space-between' : 'flex-end'
+        }
       >
-        {renderDAppItem(
-          '/blockchains/customize/ic-bridge.svg',
-          'Trustless Bridge',
+        {Number(!!item.bridgeStatus) === 1 ? (
+          renderDAppItem(
+            '/blockchains/customize/ic-bridge.svg',
+            'Trustless Bridge',
+          )
+        ) : (
+          <></>
         )}
 
         <Flex flexDir={'row'} gap={'10px'}>
-          {isOwner && (
+          {isOwner && item.status === OrderStatus.WaitingPayment && (
+            // <Button
+            //   borderRadius={'15px'}
+            //   minH={'50px'}
+            //   color={'#17066c'}
+            //   bgColor={'#fff'}
+            //   borderWidth={'1px'}
+            //   borderColor={'#17066c'}
+            //   _hover={{
+            //     cursor: 'pointer',
+            //     opacity: 0.6,
+            //   }}
+            //   onClick={(event) => {
+            //     if (event.stopPropagation) event.stopPropagation();
+            //     viewBillingOnClick && viewBillingOnClick();
+            //   }}
+            // >
+            //   View Billing
+
             <Button
               borderRadius={'15px'}
               minH={'50px'}
-              color={'#17066c'}
-              bgColor={'#fff'}
+              minW={'120px'}
+              fontWeight={600}
+              // color={'#17066c'}
+              // bgColor={'#fff'}
               borderWidth={'1px'}
-              borderColor={'#17066c'}
+              // borderColor={'#17066c'}
+              bgColor={'#FA4E0E'}
+              color={'#fff'}
               _hover={{
                 cursor: 'pointer',
                 opacity: 0.6,
               }}
               onClick={(event) => {
                 if (event.stopPropagation) event.stopPropagation();
-                viewBillingOnClick && viewBillingOnClick();
+                cancelOrderOnClick && cancelOrderOnClick();
               }}
             >
-              View Billing
+              Cancel
             </Button>
           )}
           {isAddToMetamask && (

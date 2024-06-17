@@ -1,0 +1,34 @@
+// .container {
+//   background-color: #f3f1e8;
+//   color: #000;
+//   flex-direction: column;
+//   justify-content: center;
+//   padding-top: 140px;
+//   min-height: calc(100vh - 180px);
+// }
+
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 70px;
+  padding-bottom: 70px;
+  min-height: calc(100vh - 180px);
+
+  background-color: #f3f1e8;
+  color: #000;
+
+  font-family: var(--font-JetBrainsMono) !important;
+
+  .fontType2 {
+    font-family: var(--font-SFProDisplay) !important;
+  }
+
+  .fontType3 {
+    font-family: var(--font-dmsans) !important;
+    font-weight: 500 !important;
+    font-size: 18px;
+  }
+}

@@ -53,7 +53,7 @@ const ComputerNameSection = () => {
 
   return (
     <>
-      <Section title="Bitcoin L2 Name" isRequired>
+      <Section title="ZK Powered Blockchain" isRequired>
         <TextInput
           placeholder="Your computer name"
           id={fieldID}

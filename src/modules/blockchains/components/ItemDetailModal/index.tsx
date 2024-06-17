@@ -9,6 +9,7 @@ import { getOrderByIDSelector } from '@/stores/states/l2services/selector';
 import useOrderMapper from '../../hooks/useOrderMapper';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { isEmpty } from 'lodash';
+import { RollupEnumMap } from '../../Buy/Buy.constanst';
 
 interface IProps {
   show: boolean;
@@ -113,17 +114,20 @@ const CustomizeTokenModal = (props: IProps) => {
               '#1c1c1c',
               true,
             )}
-          {renderRowInfor('Bitcoin L2 Name', `${order.chainName}`)}
+          {renderRowInfor('ZK Powered Blockchain', `${order.chainName}`)}
           {!mapper.isLayer1 &&
-            renderRowInfor('Rollup protocol', 'Optimistic rollups')}
+            renderRowInfor(
+              'Rollup protocol',
+              `${RollupEnumMap[order.serviceType]}`,
+            )}
           {!!isHasValue(order.blockTime) &&
             renderRowInfor('Block time', `${mapper.blockTime}`)}
           {!!isHasValue(order.finalizationPeriod) &&
             renderRowInfor('Withdrawal Period', `${mapper.finalizationPeriod}`)}
-          {renderRowInfor(
+          {/* {renderRowInfor(
             'Network type',
             `${order.isMainnet ? 'Bitcoin Mainnet' : 'Bitcoin Testnet'}`,
-          )}
+          )} */}
         </Flex>
         <Divider my={'20px'} borderColor="gray.200" />
 

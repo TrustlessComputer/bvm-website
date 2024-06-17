@@ -54,7 +54,6 @@ const WithdrawalPeriodSection = () => {
           min={0}
           max={7}
           step={0.1}
-          w={'98%'}
         >
           {/* <SliderMark
             value={withdrawalPeriodSelected}

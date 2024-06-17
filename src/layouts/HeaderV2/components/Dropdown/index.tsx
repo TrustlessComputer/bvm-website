@@ -32,9 +32,9 @@ const DropDown = ({
         <SvgInset svgUrl={`/icons/ic-submenu.svg`} />
       </span>
       <ul className={s.dropMenu_list}>
-        {lists.map((item) => {
+        {lists.map((item, index) => {
           return (
-            <li className={s.listItem}>
+            <li className={s.listItem} key={`${item.label}-${index}`}>
               <a
                 href={item.href}
                 target={item?.isNewWindow ? '_blank' : '_self'}

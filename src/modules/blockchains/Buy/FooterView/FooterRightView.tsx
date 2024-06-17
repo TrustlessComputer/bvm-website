@@ -6,9 +6,11 @@ const FooterRightView = () => {
     isMainnet,
     estimateTotalCostFetching,
     estimateTotalCostData,
+    estimateTotalCostData_V2,
     submitHandler,
     confirmBtnTitle,
     rollupProtocolSelected,
+    isSubmiting,
   } = useBuy();
 
   const renderOption1 = () => {
@@ -24,7 +26,7 @@ const FooterRightView = () => {
       >
         <Text fontSize={'25px'} fontWeight={600} color={'#000'}>
           {isMainnet
-            ? 'Cost: Our team will send you the quotation'
+            ? `Cost: $${estimateTotalCostData_V2?.TotalCostUSD || '--'}`
             : 'Cost: 1 BVM/day'}
         </Text>
         <Button
@@ -48,9 +50,10 @@ const FooterRightView = () => {
             />
           }
           disabled={!!estimateTotalCostFetching}
+          isLoading={isSubmiting}
           onClick={() => submitHandler()}
         >
-          {isMainnet ? 'Contact us' : confirmBtnTitle}
+          {isMainnet ? 'Submit' : confirmBtnTitle}
         </Button>
       </Flex>
     );
@@ -130,6 +133,7 @@ const FooterRightView = () => {
                 />
               }
               disabled={!!estimateTotalCostFetching}
+              isLoading={isSubmiting}
               onClick={() => submitHandler()}
             >
               {confirmBtnTitle}

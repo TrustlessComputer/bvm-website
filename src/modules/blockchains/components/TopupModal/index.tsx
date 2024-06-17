@@ -93,7 +93,7 @@ const TopupModal = (props: IProps) => {
             {paymentAddress}
           </Text>
           <Image
-            src={'/blockchains/customize/ic-copy-green.svg'}
+            src={'/icons/ic-copy-red.svg'}
             w={'20px'}
             h={'auto'}
             objectFit={'contain'}
@@ -141,7 +141,7 @@ const TopupModal = (props: IProps) => {
           Naka Chain
         </Text>
 
-        <Flex
+        {/* <Flex
           mt={'20px'}
           width={'45%'}
           bgColor={'#B6B6B6'}
@@ -176,7 +176,7 @@ const TopupModal = (props: IProps) => {
           onClick={payWithNakaWalletCB}
         >
           Pay with Naka wallet
-        </Button>
+        </Button> */}
       </Flex>
     </BaseModal>
   );
