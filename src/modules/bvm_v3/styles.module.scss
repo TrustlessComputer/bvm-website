@@ -3,11 +3,11 @@
 }
 .inner {
   display: flex;
-  flex-direction: row;
-  gap: 24px;
+  flex-direction: column;
+  gap: 40px;
   padding-top: 156px;
   @include is-mobile {
-    flex-direction: column;
+    gap: 24px;
   }
 }
 

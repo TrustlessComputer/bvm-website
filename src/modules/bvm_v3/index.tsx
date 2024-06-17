@@ -23,7 +23,7 @@ const BVMModule = () => {
           <Tokens />
           <Partners />
           <div className={s.container_section_tow}>
-            <BoxContent >
+            <BoxContent>
               <Fade delayEnter={0.6}>
                 <Section1 />
               </Fade>

@@ -12,6 +12,7 @@ export interface ILabItemContent {
   link: string;
   disabled?: boolean;
   tags?: string[];
+  date?: string
 }
 
 export const Portfolio: ILabItemContent[] = [
@@ -45,20 +46,20 @@ export const Portfolio: ILabItemContent[] = [
     disabled: false,
     tags: ['GameFi', 'Bitcoin L2'],
   },
-  {
-    image: `${CDN_URL_IMAGES_NBC}/apps/generative.jpeg`,
-    title: 'Generative',
-    content: 'A marketplace for arts and collectibles on Bitcoin',
-    link: 'https://generative.xyz/',
-    tags: ['Ordinals'],
-  },
-  {
-    image: `${CDN_URL_IMAGES_NBC}/perceptrons-v5.jpeg`,
-    title: 'Perceptrons',
-    content: 'A portrait of fully onchain neural networks',
-    link: 'https://generative.xyz/ai',
-    tags: ['Ordinals', 'Art', 'AI'],
-  },
+  // {
+  //   image: `${CDN_URL_IMAGES_NBC}/apps/generative.jpeg`,
+  //   title: 'Generative',
+  //   content: 'A marketplace for arts and collectibles on Bitcoin',
+  //   link: 'https://generative.xyz/',
+  //   tags: ['Ordinals'],
+  // },
+  // {
+  //   image: `${CDN_URL_IMAGES_NBC}/perceptrons-v5.jpeg`,
+  //   title: 'Perceptrons',
+  //   content: 'A portrait of fully onchain neural networks',
+  //   link: 'https://generative.xyz/ai',
+  //   tags: ['Ordinals', 'Art', 'AI'],
+  // },
   {
     image: `${CDN_URL_IMAGES_NBC}/ai.png`,
     title: 'Eternal Ai',
@@ -67,15 +68,15 @@ export const Portfolio: ILabItemContent[] = [
     disabled: false,
     tags: ['AI', 'Bitcoin L2'],
   },
-  {
-    image: `${CDN_URL_IMAGES_NBC}/modular-img.jpeg`,
-    video: `${CDN_URL_VIDEOS_NBC}/dragon_2-compress.mp4`,
-    title: 'Modular',
-    content: 'Build whatever on Bitcoin',
-    link: 'https://playmodular.com/',
-    disabled: false,
-    tags: ['Education', 'Bitcoin L2'],
-  },
+  // {
+  //   image: `${CDN_URL_IMAGES_NBC}/modular-img.jpeg`,
+  //   video: `${CDN_URL_VIDEOS_NBC}/dragon_2-compress.mp4`,
+  //   title: 'Modular',
+  //   content: 'Build whatever on Bitcoin',
+  //   link: 'https://playmodular.com/',
+  //   disabled: false,
+  //   tags: ['Education', 'Bitcoin L2'],
+  // },
   // {
   //   image: `${CDN_URL_IMAGES_NBC}/protect_v2.jpg`,
   //   title: 'Protect',
@@ -230,33 +231,52 @@ export const Modules: ILabItemContent[] = [
 export const Research: ILabItemContent[] = [
   {
     image: `${CDN_URL_IMAGES_NBC}/apps/bitcoin-virtual-machine.jpeg`,
+    title: 'ZK Bitcoin L3s',
+    content: 'Decentralized virtual machines for any dapp',
+    link: 'https://x.com/punk3700/status/1796119677577605380',
+    date: 'May 30, 2024'
+  },
+  {
+    image: `${CDN_URL_IMAGES_NBC}/apps/bitcoin-virtual-machine.jpeg`,
+    title: 'zkBVM Light Nodes',
+    content: 'Validate that the state transitions of Bitcoin L2s, committed on the Bitcoin and DA layers, are accurate.',
+    link: 'https://x.com/punk3700/status/1800132735807410681',
+    date: 'Jun 10, 2024'
+  },
+  {
+    image: `${CDN_URL_IMAGES_NBC}/apps/bitcoin-virtual-machine.jpeg`,
     title: 'Recursive Rollups on Bitcoin',
     content: 'Scale Bitcoin indefinitely',
     link: 'https://twitter.com/punk3700/status/1703819001510682709',
+    date: 'Sep 19, 2023'
   },
   {
     image: `${CDN_URL_IMAGES_NBC}/apps/metamask-for-bitcoin.jpeg`,
     title: 'MetaMask for Bitcoin',
     content: 'Use MetaMask to manage Ordinal Inscriptions',
     link: 'https://twitter.com/punk3700/status/1628424255171096577',
+    date: 'Feb 22, 2023'
   },
   {
     image: `${CDN_URL_IMAGES_NBC}/apps/psbt.jpeg`,
     title: 'Smart Contracts for Bitcoin',
     content: 'Build unstoppable applications on Bitcoin',
     link: 'https://twitter.com/punk3700/status/1650524119136628736',
+    date: 'Apr 24, 2023'
   },
   {
     image: `${CDN_URL_IMAGES_NBC}/apps/smart-contracts.jpeg`,
     title: 'Bitcoin File System',
     content: 'Decentralized onchain storage system',
     link: 'https://twitter.com/punk3700/status/1669014135206731776',
+    date: 'Jun 14, 2023'
   },
   {
     image: `${CDN_URL_IMAGES_NBC}/apps/bitcoin-arcade.jpeg`,
     title: 'Fully Onchain Games',
     content: 'Unstoppable games',
     link: 'https://twitter.com/punk3700/status/1672259824191512576',
+    date: 'Jun 23, 2023'
   },
 ];
 export const OpenSource: ILabItemContent[] = [

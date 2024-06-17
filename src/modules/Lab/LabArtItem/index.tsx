@@ -22,7 +22,7 @@ const LabArtItem = ({
   imageRect,
   isTagFilled,
 }: ILabArtItem) => {
-  const { image, title, content, link, disabled, tags, video } = data;
+  const { image, title, content, link, disabled, tags, video, date } = data;
   const [isLoaded, setIsLoaded] = useState(false);
   const refHeading = useRef<{ onHover: () => void }>();
 
@@ -84,7 +84,7 @@ const LabArtItem = ({
                 isLowerCase
                 ref={refHeading}
                 {...{
-                  className: `${s.labArtItem_title} `,
+                  className: `${s.labArtItem_title} ${date && s.isHadDate}`,
                 }}
               >
                 {title}
@@ -99,13 +99,17 @@ const LabArtItem = ({
                 <RandomText
                   ref={refHeading}
                   {...{
-                    className: `${s.labArtItem_title}`,
+                    className: `${s.labArtItem_title} ${date && s.isHadDate}`,
                   }}
                 >
                   {title}
                 </RandomText>
               </>
             )}
+            {
+              date && <span className={s.labArtItem_date}>{date}</span>
+            }
+
           </div>
           <p className={s.labArtItem_content}>{content}</p>
           {tags && (

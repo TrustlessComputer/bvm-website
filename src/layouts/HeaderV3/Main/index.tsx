@@ -28,7 +28,6 @@ const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader) => {
           className={`${s.logo} ${colorLogo === 'black' && s.logo_black}`}
           onClick={() => router.push('/')}
         >
-          <IconLogo />
           <h6 className={s.logo_text} style={{ color: color }}>
             Bitcoin Virtual Machine
           </h6>
