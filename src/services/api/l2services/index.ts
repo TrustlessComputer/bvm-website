@@ -140,7 +140,6 @@ export const validateSubDomainAPI = async (subdomain: string): Promise<any> => {
 // ------------------------------------------------------------------------
 
 export const orderBuyAPI = async (params: IOrderBuyReq): Promise<any> => {
-  // eslint-disable-next-line no-useless-catch
   try {
     const data = (await httpClient.post(`/order/register`, params, {
       headers: {
@@ -153,10 +152,12 @@ export const orderBuyAPI = async (params: IOrderBuyReq): Promise<any> => {
   }
 };
 
-export const orderUpdateAPI = async (params: IOrderUpdate): Promise<any> => {
-  // eslint-disable-next-line no-useless-catch
+export const orderUpdateAPI = async (
+  params: IOrderUpdate,
+  orderId: string,
+): Promise<any> => {
   try {
-    const data = (await httpClient.post(`/order/update`, params, {
+    const data = (await httpClient.put(`/order/update/${orderId}`, params, {
       headers: {
         Authorization: `${getAPIAccessToken()}`,
       },
@@ -395,6 +396,8 @@ const l2ServicesAPI = {
   getConfigInfor,
   updateConfigInfor,
   cancelOrder,
+
+  orderUpdateAPI,
 };
 
 export default l2ServicesAPI;

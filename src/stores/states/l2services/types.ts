@@ -97,6 +97,7 @@ interface OrderItemResp {
   PreMintAmount?: string;
   ticker?: string;
   bridgeStatus?: number;
+  thumb?: string;
 }
 
 interface HistoryItemResp {

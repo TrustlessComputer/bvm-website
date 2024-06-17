@@ -177,9 +177,9 @@ export enum FormFields {
 
 export const FormFieldsErrorMessage = {
   [FormFields.NETWORK]: 'Network is required.',
-  [FormFields.COMPUTER_NAME]: 'Bitcoin L2 name is required.',
+  [FormFields.COMPUTER_NAME]: 'ZK-powered Blockchain is required.',
   [FormFields.PROJECT_WEBSITE]: 'Project website name is required.',
-  [FormFields.DESCRIPTION]: 'Bitcoin L2 description is required.',
+  [FormFields.DESCRIPTION]: 'ZK-powered Blockchain description is required.',
   [FormFields.PROJECT_X]: 'Project X account is required.',
   [FormFields.YOUR_X_ACC]: 'Your X handle is required.',
   [FormFields.MIN_GAS_PRICE]: 'Min gas price is required.',

@@ -8,6 +8,7 @@ import l2ServicesAPI from '@/services/api/l2services';
 import { isEmpty } from 'lodash';
 import ErrorMessage from '../../Buy/components/ErrorMessage';
 import {
+  IOrderUpdate,
   MetaConfig,
   OrderItem,
   WebsiteConfig,
@@ -21,17 +22,10 @@ const checkImageURL = (url: string) => {
   return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
 };
 
-// TO DO
-const checkValidHexColor = (hexColor: string) => {
-  //With transparent support
-  var reg = /^#[0-9A-F]{6}[0-9a-f]{0,2}$/i;
-  return reg.test(hexColor);
-};
-
-const TITLE_ERROR_MESSAGE = 'Title is required';
+const TITLE_ERROR_MESSAGE = 'Chain Name is required';
 const DESC_ERROR_MESSAGE = 'Description is required';
-const LOGOURL_ERROR_MESSAGE = 'LogoUrl is required';
-const LOGOURL_INVALID_ERROR_MESSAGE = 'Logo url is invalid format';
+const LOGOURL_ERROR_MESSAGE = 'Thumb url is required';
+const LOGOURL_INVALID_ERROR_MESSAGE = 'Thumb url is invalid format';
 
 interface IProps {
   show: boolean;
@@ -43,17 +37,17 @@ interface IProps {
 const UpdateOrderModal = (props: IProps) => {
   const { show, onClose, item, onSuccess } = props;
 
-  const [configObj, setConfigObj] = useState<WebsiteConfig>();
+  console.log('ABCDEF --- ', item);
 
-  const [title, setTitle] = useState('');
-  const [titleError, setTitleError] = useState('');
-  const [titleFocused, setTitleFocused] = useState(false);
+  const [chainName, setChainName] = useState(item?.chainName || '');
+  const [chainNameError, setChainNameError] = useState('');
+  const [chainNameFocused, setChainNameFocused] = useState(false);
 
-  const [desc, setDesc] = useState('');
+  const [desc, setDesc] = useState(item?.description || '');
   const [descError, setDescError] = useState('');
   const [descFocused, setDescFocused] = useState(false);
 
-  const [logoUrl, setLogoUrl] = useState('');
+  const [logoUrl, setLogoUrl] = useState(item?.thumb || '');
   const [logoUrlError, setLogoUrlError] = useState('');
   const [logoUrlFocused, setLogoUrlFocused] = useState(false);
 
@@ -73,56 +67,20 @@ const UpdateOrderModal = (props: IProps) => {
     return 'Confirm';
   }, [isFetchingData, isUpdating]);
 
-  useEffect(() => {
-    // fetchConfigInforData();
-  }, []);
-
-  const fetchConfigInforData = async () => {
-    try {
-      setFetchingData(true);
-      const data = (await l2ServicesAPI.getConfigInfor(
-        item?.domain!,
-      )) as WebsiteConfig;
-      setConfigObj(data);
-      if (data) {
-        setTitle(data.metaConfig?.tabTitle);
-        setDesc(data.metaConfig?.tabDesc);
-        setLogoUrl(data.metaConfig?.favIconUrl);
-      }
-    } catch (error) {
-      const { message } = getErrorMessage(error);
-      setErrorMessage(message);
-      // toast.error(message); //Show Toast Error if Needed
-      // onClose & onClose();
-    } finally {
-      setFetchingData(false);
-    }
-  };
-
   const updateInforHandler = async () => {
     try {
-      if (!configObj) return;
+      if (!item || !chainName || !logoUrl || !desc) return;
 
       setUpdating(true);
 
-      const params: WebsiteConfig = {
-        ...configObj,
-        metaConfig: {
-          ...configObj.metaConfig,
-          tabTitle: title,
-          tabDesc: desc,
-          favIconUrl: logoUrl,
-        },
-        themeConfig: {
-          ...configObj.themeConfig,
-        },
+      const params: IOrderUpdate = {
+        chainName: chainName,
+        description: desc,
+        thumb: logoUrl,
       };
-      const data = await l2ServicesAPI.updateConfigInfor(item?.domain!, params);
-      if (data) {
-        setTitle(data.metaConfig?.tabTitle);
-        setDesc(data.metaConfig?.tabDesc);
-        setLogoUrl(data.metaConfig?.favIconUrl);
 
+      const data = await l2ServicesAPI.orderUpdateAPI(params, item?.orderId);
+      if (data) {
         toast.success('Update Successful');
 
         await sleep(1);
@@ -140,9 +98,9 @@ const UpdateOrderModal = (props: IProps) => {
   const checkValidData = () => {
     let valid = true;
 
-    if (isEmpty(title)) {
-      setTitleError(TITLE_ERROR_MESSAGE);
-      setTitleFocused(true);
+    if (isEmpty(chainName)) {
+      setChainNameError(TITLE_ERROR_MESSAGE);
+      setChainNameFocused(true);
       valid = false;
     }
 
@@ -176,7 +134,7 @@ const UpdateOrderModal = (props: IProps) => {
           borderRadius={'14px'}
           minH={'50px'}
           minW={'160px'}
-          bgColor={'#17066C'}
+          bgColor={'#FA4E0E'}
           color={'#fff'}
           _hover={{
             opacity: 0.8,
@@ -196,7 +154,7 @@ const UpdateOrderModal = (props: IProps) => {
     );
   };
 
-  const renderTitleField = () => {
+  const renderChainNameField = () => {
     return (
       <Flex
         direction={'column'}
@@ -218,7 +176,7 @@ const UpdateOrderModal = (props: IProps) => {
             alignSelf={'flex-start'}
             color={'#6C6F93'}
           >
-            {`Title`}
+            {`Chain Name`}
           </Text>
         </Flex>
 
@@ -226,27 +184,29 @@ const UpdateOrderModal = (props: IProps) => {
           borderColor={'#bebebe'}
           minH={'50px'}
           fontSize={'14px'}
-          placeholder="Your title"
+          placeholder="Chain Name"
           id={'TITLE'}
-          isInvalid={!!titleFocused && !!titleError}
-          value={`${title || ''}`}
+          isInvalid={!!chainNameFocused && !!chainNameError}
+          value={`${chainName || ''}`}
           onBlur={() => {
-            setTitleFocused(true);
+            setChainNameFocused(true);
           }}
           onFocus={(e: any) => {
-            setTitleFocused(true);
+            setChainNameFocused(true);
           }}
           onChange={(e) => {
             const value = e.target.value;
             if (!value || value.length < 1) {
-              setTitleError(TITLE_ERROR_MESSAGE);
+              setChainName(TITLE_ERROR_MESSAGE);
             } else {
-              setTitleError('');
+              setChainName('');
             }
-            setTitle(value);
+            setChainName(value);
           }}
         />
-        {titleFocused && titleError && <ErrorMessage message={titleError} />}
+        {chainNameFocused && chainNameError && (
+          <ErrorMessage message={chainNameError} />
+        )}
       </Flex>
     );
   };
@@ -324,7 +284,8 @@ const UpdateOrderModal = (props: IProps) => {
       </Flex>
     );
   };
-  const renderLogoURLField = () => {
+
+  const renderThumbURLField = () => {
     return (
       <Flex
         direction={'column'}
@@ -346,7 +307,7 @@ const UpdateOrderModal = (props: IProps) => {
             alignSelf={'flex-start'}
             color={'#6C6F93'}
           >
-            {`Logo Url`}
+            {`Thumb Url (recommend: 736×473 [w]x[h])`}
           </Text>
         </Flex>
 
@@ -354,7 +315,7 @@ const UpdateOrderModal = (props: IProps) => {
           minH={'50px'}
           borderColor={'#bebebe'}
           fontSize={'14px'}
-          placeholder="Logo url (Ex: http://abc.[png, jpg, jpeg, svg] )"
+          placeholder="Thumb url (Ex: http://abc.[png, jpg, jpeg, svg] )"
           id={'TITLE'}
           name={'TITLE'}
           isInvalid={!!logoUrlError && !!logoUrlFocused}
@@ -368,7 +329,7 @@ const UpdateOrderModal = (props: IProps) => {
           onChange={(e) => {
             const value = e.target.value;
             if (!value || value.length < 1) {
-              setLogoUrlError('LogoUrl is required');
+              setLogoUrlError('Thumb url is required');
             } else if (!checkImageURL(value)) {
               setLogoUrlError(LOGOURL_INVALID_ERROR_MESSAGE);
             } else {
@@ -425,7 +386,7 @@ const UpdateOrderModal = (props: IProps) => {
             lineHeight={'20px'}
             alignSelf={'flex-start'}
           >
-            {`Edit`}
+            {`Update`}
           </Text>
 
           {/* <Flex gap={'5px'} align={'center'}>
@@ -445,8 +406,8 @@ const UpdateOrderModal = (props: IProps) => {
           </Flex> */}
         </Flex>
 
-        {renderTitleField()}
-        {renderLogoURLField()}
+        {renderChainNameField()}
+        {renderThumbURLField()}
         {renderDescField()}
         {renderSubmitButton()}
       </Flex>
@@ -463,7 +424,7 @@ const UpdateOrderModal = (props: IProps) => {
       size="custom"
       icCloseUrl="/icons/ic-close-grey.svg"
     >
-      {true ? renderLoading() : renderContent()}
+      {renderContent()}
     </BaseModal>
   );
 };

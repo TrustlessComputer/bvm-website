@@ -55,7 +55,7 @@ const ComputerNameSection = () => {
     <>
       <Section title="ZK-powered Blockchain" isRequired>
         <TextInput
-          placeholder="Your computer name"
+          placeholder="ZK-powered Blockchain"
           id={fieldID}
           name={fieldID}
           isInvalid={hasFocused && hasError}

@@ -41,7 +41,7 @@ const L2Instance = (props: Props) => {
           bgColor={'#fff'}
           flexDir={'column'}
           minH={'auto'}
-          p={'20px'}
+          p={'40px'}
           borderRadius={'20px'}
           _hover={{
             cursor: 'pointer',
