@@ -1,6 +1,5 @@
 import Main, { TMainHeader } from '@layouts/HeaderV3/Main';
 import s from './style.module.scss';
-import DrawerMobileMenu from '../HeaderV2/components/DrawerMenu';
 
 export type HeaderV3Props = TMainHeader & {
   position?: 'absolute' | 'relative';
