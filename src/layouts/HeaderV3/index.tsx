@@ -4,6 +4,7 @@ import DrawerMobileMenu from '../HeaderV2/components/DrawerMenu';
 
 export type HeaderV3Props = TMainHeader & {
   position?: 'absolute' | 'relative';
+  bgColor?: string;
 };
 
 const HeaderV3 = ({
