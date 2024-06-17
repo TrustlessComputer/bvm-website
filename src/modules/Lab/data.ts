@@ -230,14 +230,14 @@ export const Modules: ILabItemContent[] = [
 
 export const Research: ILabItemContent[] = [
   {
-    image: `/bvm/zk-l3-compress.jpeg`,
+    image: `/bvm/zk-mbv-compress.jpeg`,
     title: 'ZK Bitcoin L3s',
     content: 'Decentralized virtual machines for any dapp',
     link: 'https://x.com/punk3700/status/1796119677577605380',
     date: 'May 30, 2024'
   },
   {
-    image: `/bvm/zk-mbv-compress.jpeg`,
+    image: `/bvm/zk-l3-compress.jpeg`,
     title: 'zkBVM Light Nodes',
     content: 'Validate that the state transitions of Bitcoin L2s, committed on the Bitcoin and DA layers, are accurate.',
     link: 'https://x.com/punk3700/status/1800132735807410681',
