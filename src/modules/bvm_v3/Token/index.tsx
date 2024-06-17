@@ -92,15 +92,6 @@ const Tokens = () => {
         px={'24px'}
         position={'relative'}
       >
-        {/*<Text*/}
-        {/*  fontSize={['28px', '40px']}*/}
-        {/*  lineHeight={{ base: '140%', md: '120%' }}*/}
-        {/*  fontWeight={400}*/}
-        {/*  textAlign={'center'}*/}
-        {/*  mb={{ base: '24px', md: '40px' }}*/}
-        {/*>*/}
-        {/*  Overview*/}
-        {/*</Text>*/}
         <Flex direction="column" className={s.content}>
           <Flex w="100%" flex={1} justifyContent="center">
             <BoxContent>
@@ -143,7 +134,6 @@ const Tokens = () => {
                       label={
                         <Flex
                           minH="40px"
-                          // alignItems="center"
                           justifyContent="center"
                           direction="column"
                           color="#000"
@@ -178,7 +168,7 @@ const Tokens = () => {
                       }
                     >
                       <Text
-                        // cursor="help"
+                        cursor="help"
                         className={s.priceValue}
                       >
                         $
@@ -210,59 +200,56 @@ const Tokens = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                {/*<Flex*/}
-                {/*  flex={0.5}*/}
-                {/*  alignItems="center"*/}
-                {/*  justifyContent="flex-end"*/}
-                {/*  ref={parentRef}*/}
-                {/*>*/}
-                {/*  <Box*/}
-                {/*    position="relative"*/}
-                {/*    className={s.pieChart}*/}
-                {/*    {...hoverProps}*/}
-                {/*    onMouseMove={handleMouseEvent}*/}
-                {/*  >*/}
-                {/*    <PieChart*/}
-                {/*      data={data}*/}
-                {/*      lineWidth={40}*/}
-                {/*      onMouseOver={(_, index) => {*/}
-                {/*        setHovered(index);*/}
-                {/*      }}*/}
-                {/*      totalValue={100}*/}
-                {/*    />*/}
-                {/*    <Box*/}
-                {/*      position="absolute"*/}
-                {/*      left="23%"*/}
-                {/*      top="23%"*/}
-                {/*      w="54%"*/}
-                {/*      h="54%"*/}
-                {/*      borderRadius="50%"*/}
-                {/*      onMouseEnter={() => setHovered(null)}*/}
-                {/*    >*/}
-                {/*      <Box*/}
-                {/*        display="flex"*/}
-                {/*        justifyContent="center"*/}
-                {/*        alignItems="center"*/}
-                {/*        h="100%"*/}
-                {/*      >*/}
-                {/*        <Text color="#FF6126" fontSize="24px" fontWeight="500">*/}
-                {/*          $BVM*/}
-                {/*        </Text>*/}
-                {/*      </Box>*/}
-                {/*    </Box>*/}
-                {/*    {isOver &&*/}
-                {/*      renderLayer(*/}
-                {/*        <div className={s.tooltip} {...layerProps}>*/}
-                {/*          {typeof hovered === 'number' && (*/}
-                {/*            <p>{makeTooltipContent(_data[hovered])}</p>*/}
-                {/*          )}*/}
-                {/*        </div>,*/}
-                {/*      )}*/}
-                {/*  </Box>*/}
-                {/*</Flex>*/}
-                <div className={s.imagePie}>
-                  <ImagePlaceholder src={'/pie.png'} alt={'pie'} width={279} height={293}/>
-                </div>
+                <Flex
+                  flex={0.5}
+                  alignItems="center"
+                  justifyContent="flex-end"
+                  ref={parentRef}
+                >
+                  <Box
+                    position="relative"
+                    className={s.pieChart}
+                    {...hoverProps}
+                    onMouseMove={handleMouseEvent}
+                  >
+                    <PieChart
+                      data={data}
+                      lineWidth={40}
+                      onMouseOver={(_, index) => {
+                        setHovered(index);
+                      }}
+                      totalValue={100}
+                    />
+                    <Box
+                      position="absolute"
+                      left="23%"
+                      top="23%"
+                      w="54%"
+                      h="54%"
+                      borderRadius="50%"
+                      onMouseEnter={() => setHovered(null)}
+                    >
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        h="100%"
+                      >
+                        <Text color="#FF6126" fontSize="24px" fontWeight="500">
+                          $BVM
+                        </Text>
+                      </Box>
+                    </Box>
+                    {isOver &&
+                      renderLayer(
+                        <div className={s.tooltip} {...layerProps}>
+                          {typeof hovered === 'number' && (
+                            <p>{makeTooltipContent(_data[hovered])}</p>
+                          )}
+                        </div>,
+                      )}
+                  </Box>
+                </Flex>
               </Flex>
             </BoxContent>
           </Flex>

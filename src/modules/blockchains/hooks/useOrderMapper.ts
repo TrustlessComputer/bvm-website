@@ -4,7 +4,7 @@ import React from 'react';
 import { DALayerEnumMap } from '../Buy/Buy.constanst';
 import { CHAIN_ID } from '@/services/api/l2services/constants';
 
-const APP_NAME = 'ZK Powered Blockchain';
+const APP_NAME = 'ZK-powered Blockchain';
 
 const useOrderMapper = (order: OrderItem | undefined) => {
   const convertSecondsToHours = () => {

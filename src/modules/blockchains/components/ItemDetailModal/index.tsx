@@ -114,7 +114,7 @@ const CustomizeTokenModal = (props: IProps) => {
               '#1c1c1c',
               true,
             )}
-          {renderRowInfor('ZK Powered Blockchain', `${order.chainName}`)}
+          {renderRowInfor('ZK-powered Blockchain', `${order.chainName}`)}
           {!mapper.isLayer1 &&
             renderRowInfor(
               'Rollup protocol',

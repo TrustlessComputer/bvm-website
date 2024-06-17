@@ -388,7 +388,7 @@ const COMPUTERS: Array<OrderItemResp> = [...L2_MAINNET, ...L2_TESTNET];
 
 const QUICK_START: Array<IQuickStart> = [
   {
-    title: 'Build your ZK Powered Blockchain',
+    title: 'Build your ZK-powered Blockchain',
     completed: true,
     type: QuickStartTypeEnum.CREATE,
   },

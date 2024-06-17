@@ -12,10 +12,12 @@ export default function Heading() {
       <Fade delay={0.2}>
         <div className={s.heading}>
           <Image
-            src={'/tge/heading2.png'}
-            width={340}
-            height={111}
+            src={'/bvm/bvm-v2.png'}
+            width={290}
+            height={131}
             alt="heading"
+            sizes={'100vw'}
+            quality={100}
           />
         </div>
       </Fade>

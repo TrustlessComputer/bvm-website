@@ -3,6 +3,7 @@
 import { CDN_URL } from '@/config';
 import { Box, Flex, Grid, Image, Text } from '@chakra-ui/react';
 import CardFi from '@/modules/shardv2/components/CardFi';
+import s from './styles.module.scss';
 
 const ICON_URL = CDN_URL + '/nbc/icons';
 
@@ -17,19 +18,19 @@ const Contents: Array<IContent> = [
   {
     title: 'The lifeblood of Bitcoin L2s',
     description: 'BVM fuels Bitcoin L2s, facilitating the payment of block production fees for all Bitcoin L2s.',
-    image: `/bvm/1.jpg`,
+    image: `/bvm/bvm-section-item-1.png`,
     bgColor: '#007659',
   },
   {
     title: 'Uses for $BVM grow every day',
     description: 'As BVM enables programmability and scalability on Bitcoin, developers can utilize the BVM network to create various applications — DeFi, GameFi, AI, and more.',
-    image: `/bvm/2.jpg`,
+    image: `/bvm/bvm-section-item-2.png`,
     bgColor: '#0B5509',
   },
   {
     title: 'Co-own and co-run the network',
     description: 'BVM is the BVM ecosystem’s governance token, allowing BVM holders to participate in key governance votes and shape the future of the BVM ecosystem.',
-    image: `/bvm/3.jpg`,
+    image: `/bvm/bvm-section-item-3.png`,
     bgColor: '#A05700',
   },
 ];
@@ -37,84 +38,14 @@ const Contents: Array<IContent> = [
 const Section_2 = () => {
   const renderItem = (item: IContent) => {
     return (
-      <CardFi key={item.title} {...item} />
-      // <Box
-      //   alignItems={'center'}
-      //   key={item.title}
-      //   display={'flex'}
-      //   flexDirection={'column'}
-      //   flex={1}
-      //   p={{
-      //     base: '10px',
-      //     lg: '20px',
-      //   }}
-      //   bgColor={'white'}
-      // >
-      //   <Flex
-      //     alignItems={'center'}
-      //     display={'flex'}
-      //     flexDirection={'column'}
-      //     flex={1}
-      //     minH={{
-      //       base: '300px',
-      //       max: '600px',
-      //     }}
-      //     gap={'20px'}
-      //     bgColor={item.bgColor}
-      //   >
-      //     <Image
-      //       src={`${item.img}`}
-      //       fit={'cover'}
-      //       minH={{
-      //         base: '350px',
-      //         lg: '440px',
-      //       }}
-      //     />
-      //
-      //     <Flex
-      //       direction={'column'}
-      //       align={'center'}
-      //       justify={'center'}
-      //       gap={'20px'}
-      //       px={{
-      //         base: '10px',
-      //         lg: '24px',
-      //       }}
-      //     >
-      //       <Text
-      //         fontSize={['18px', '24px']}
-      //         lineHeight={'26.40px'}
-      //         fontWeight={500}
-      //         textAlign={'center'}
-      //         color={'#fff'}
-      //       >
-      //         {item.title}
-      //       </Text>
-      //       <Text
-      //         fontSize={['15px', '18px']}
-      //         lineHeight={'26px'}
-      //         textAlign={'center'}
-      //         fontWeight={400}
-      //         color={'#fff'}
-      //       >
-      //         {item.desc}
-      //       </Text>
-      //       <Box height={'20px'}></Box>
-      //     </Flex>
-      //   </Flex>
-      // </Box>
+      <CardFi key={item.title} {...item} classImage={s.classImage} />
     );
   };
 
   return (
     <Grid
-      // flexDirection={{
-      //   base: 'column',
-      //   lg: 'row',
-      // }}
       gridTemplateColumns={{base: '1fr', lg: '1fr 1fr 1fr'}}
-      className={'container'}
-      // alignSelf={'center'}
+      className={`container ${s.container}`}
       gap={{
         base: '20px',
         lg: '24px',

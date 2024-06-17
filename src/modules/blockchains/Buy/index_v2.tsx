@@ -99,7 +99,7 @@ export const BuyPage = React.memo((props: Props) => {
             color={'#000'}
           >
             <Text>
-              {`Check Your Bitcoin L2 Setup and Status - `}
+              {`Check Your ZK-powered Blockchain Setup and Status - `}
               <Text
                 as="span"
                 color={'#4E4A8D'}
@@ -116,7 +116,7 @@ export const BuyPage = React.memo((props: Props) => {
                     setShowLoginModalCustomize(true);
                 }}
               >
-                {`Signin`}
+                {`Sign in`}
               </Text>
             </Text>
           </Flex>
@@ -142,7 +142,7 @@ export const BuyPage = React.memo((props: Props) => {
               router.push('/blockchains');
             }}
           >
-            Check your ZK Powered Blockchain
+            Check your ZK-powered Blockchain
           </Button>
         )}
       </Flex>

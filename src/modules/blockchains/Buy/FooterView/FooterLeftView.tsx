@@ -47,7 +47,7 @@ const FooterLeftView = () => {
           objectFit={'contain'}
         />
         <Text fontSize={'20px'} fontWeight={600} color={'#000'}>
-          Bitcoin L2
+          ZK-powered Blockchain
         </Text>
       </Flex>
 
