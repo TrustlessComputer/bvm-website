@@ -183,32 +183,32 @@ export const Modules: ILabItemContent[] = [
     content:
       'Opt for ZK Rollups to reduce block time to 1s, validate transactions with zero-knowledge proofs, avoid contest delays, and publish proofs on-chain.',
   },
-  {
-    tags: ['dApps'],
-    link: 'https://twitter.com/Uniswap',
-    // target: '_blank',
-    title: 'Uniswap',
-    image: '/modules/uniswap.png',
-    content:
-      'Include a decentralized exchange (DEX) as a pre-installed component in your Layer 2 blockchain setup.',
-  },
-  {
-    link: '',
-    title: 'DAO',
-    tags: ['dApps'],
-    image: '/modules/dao.png',
-    content:
-      'Include a DAO as a pre-installed component in your layer 2 blockchain setup.',
-  },
-  {
-    tags: ['dApps'],
-    link: 'https://twitter.com/GMX_IO',
-    // target: '_blank',
-    title: 'GMX',
-    image: '/modules/gmx.png',
-    content:
-      'Integrate a decentralized perpetual exchange as a pre-installed component  into your Bitcoin L2s.',
-  },
+  // {
+  //   tags: ['dApps'],
+  //   link: 'https://twitter.com/Uniswap',
+  //   // target: '_blank',
+  //   title: 'Uniswap',
+  //   image: '/modules/uniswap.png',
+  //   content:
+  //     'Include a decentralized exchange (DEX) as a pre-installed component in your Layer 2 blockchain setup.',
+  // },
+  // {
+  //   link: '',
+  //   title: 'DAO',
+  //   tags: ['dApps'],
+  //   image: '/modules/dao.png',
+  //   content:
+  //     'Include a DAO as a pre-installed component in your layer 2 blockchain setup.',
+  // },
+  // {
+  //   tags: ['dApps'],
+  //   link: 'https://twitter.com/GMX_IO',
+  //   // target: '_blank',
+  //   title: 'GMX',
+  //   image: '/modules/gmx.png',
+  //   content:
+  //     'Integrate a decentralized perpetual exchange as a pre-installed component  into your Bitcoin L2s.',
+  // },
   {
     tags: ['Cross-chain bridges'],
     link: '',
@@ -230,14 +230,14 @@ export const Modules: ILabItemContent[] = [
 
 export const Research: ILabItemContent[] = [
   {
-    image: `${CDN_URL_IMAGES_NBC}/apps/bitcoin-virtual-machine.jpeg`,
+    image: `/bvm/zk-l3-compress.jpeg`,
     title: 'ZK Bitcoin L3s',
     content: 'Decentralized virtual machines for any dapp',
     link: 'https://x.com/punk3700/status/1796119677577605380',
     date: 'May 30, 2024'
   },
   {
-    image: `${CDN_URL_IMAGES_NBC}/apps/bitcoin-virtual-machine.jpeg`,
+    image: `/bvm/zk-mbv-compress.jpeg`,
     title: 'zkBVM Light Nodes',
     content: 'Validate that the state transitions of Bitcoin L2s, committed on the Bitcoin and DA layers, are accurate.',
     link: 'https://x.com/punk3700/status/1800132735807410681',
