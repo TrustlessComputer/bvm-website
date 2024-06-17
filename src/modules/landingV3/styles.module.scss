@@ -1,3 +1,11 @@
 .landing {
   background-color: #fff;
 }
+
+.bottom {
+
+  @include is-min-table {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
