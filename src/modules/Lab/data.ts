@@ -76,14 +76,14 @@ export const Portfolio: ILabItemContent[] = [
     disabled: false,
     tags: ['Education', 'Bitcoin L2'],
   },
-  {
-    image: `${CDN_URL_IMAGES_NBC}/protect_v2.jpg`,
-    title: 'Protect',
-    content: 'A Bitcoin L2 blockchain for privacy',
-    link: '#',
-    disabled: false,
-    tags: ['Privacy', 'Bitcoin L2'],
-  },
+  // {
+  //   image: `${CDN_URL_IMAGES_NBC}/protect_v2.jpg`,
+  //   title: 'Protect',
+  //   content: 'A Bitcoin L2 blockchain for privacy',
+  //   link: '#',
+  //   disabled: false,
+  //   tags: ['Privacy', 'Bitcoin L2'],
+  // },
 ];
 
 export const Modules: ILabItemContent[] = [
@@ -170,7 +170,8 @@ export const Modules: ILabItemContent[] = [
     link: 'https://twitter.com/Optimism',
     title: 'Optimism',
     image: '/modules/optimism.png',
-    content: 'BVM uses the proven Optimism codebase to bring smart contract capabilities to Bitcoin, enabling high-speed, low-gas Bitcoin L2s.',
+    content:
+      'BVM uses the proven Optimism codebase to bring smart contract capabilities to Bitcoin, enabling high-speed, low-gas Bitcoin L2s.',
   },
   {
     tags: ['Rollup protocol'],
@@ -178,7 +179,8 @@ export const Modules: ILabItemContent[] = [
     // target: '_blank',
     title: 'ZK Sync',
     image: '/modules/zk-sync.png',
-    content: 'Opt for ZK Rollups to reduce block time to 1s, validate transactions with zero-knowledge proofs, avoid contest delays, and publish proofs on-chain.',
+    content:
+      'Opt for ZK Rollups to reduce block time to 1s, validate transactions with zero-knowledge proofs, avoid contest delays, and publish proofs on-chain.',
   },
   {
     tags: ['dApps'],
@@ -186,7 +188,8 @@ export const Modules: ILabItemContent[] = [
     // target: '_blank',
     title: 'Uniswap',
     image: '/modules/uniswap.png',
-    content: 'Include a decentralized exchange (DEX) as a pre-installed component in your Layer 2 blockchain setup.',
+    content:
+      'Include a decentralized exchange (DEX) as a pre-installed component in your Layer 2 blockchain setup.',
   },
   {
     link: '',

@@ -178,6 +178,7 @@ const useL2Service = () => {
   };
 
   const loopFetchAccountInfor = () => {
+    clearIntervalTimer();
     if (isL2ServiceLogged || loggedIn) {
       dispatch(fetchAccountInfo());
       if (!timerRef.current) {
