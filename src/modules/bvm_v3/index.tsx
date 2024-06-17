@@ -17,7 +17,7 @@ const BVMModule = () => {
   return (
     <div className={`${s.wrapper}  `}>
       <div className={`${s.inner} containerV3`}>
-        <Actions />
+        {/*<Actions />*/}
         <Box className={s.container}>
           <TgeModule />
           <Tokens />
@@ -36,6 +36,8 @@ const BVMModule = () => {
         </Box>
       </div>
     </div>
+
+
   );
 };
 

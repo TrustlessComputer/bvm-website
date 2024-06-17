@@ -22,7 +22,6 @@ const Allocation = () => {
       <Box
         className={s.wrapper}
         bgColor={'#004B0C'}
-
         py={{ base: '40px', md: '80px' }}
       >
         <Box
@@ -42,7 +41,7 @@ const Allocation = () => {
             flexDir={{ base: "column", md: 'column', lg: "row" }}
             gap={{ base: "32px", md: '60px', lg: "74px" }}
             alignItems={'center'}
-            px={{base: '15px' ,lg: '71px'}}
+            px={{base: '15px' ,lg: '157px'}}
           >
             <div className={s.chart}>
               <ImagePlaceholder
