@@ -38,10 +38,7 @@ const cardGameFiData = [
       'When you stake BVM, you’ll both mine SHARD and earn BVM with a 25% - 58% interest.',
     image: '/shard/shard_3.webp',
     bgColorImage: '#FFD73B',
-    //     actionTitle: `Stake and earn up to 58% interest.<br/> <a href='https://nakachain.xyz/staking/dashboard' target='_blank'>Learn more <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    // <path d="M8.33357 14.1667C8.12023 14.1667 7.90687 14.0851 7.74437 13.9226C7.41854 13.5967 7.41854 13.07 7.74437 12.7442L10.4885 10L7.74437 7.25589C7.41854 6.93006 7.41854 6.40334 7.74437 6.0775C8.07021 5.75167 8.59693 5.75167 8.92276 6.0775L12.2561 9.41084C12.5819 9.73667 12.5819 10.2634 12.2561 10.5892L8.92276 13.9226C8.76026 14.0851 8.5469 14.1667 8.33357 14.1667Z" fill="#FA4E0E"/>
-    // </svg></a>`,
-    actionTitle: `Treasury <strong>50,000,000 BVM $treasuryValue</strong>.<br/> <a href='/bvm' target='_self'>Learn more <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    actionTitle: `Treasury <strong>50,000,000 BVM $treasuryValue</strong>.<br/> <a href='https://nakachain.xyz/staking/dashboard' target='_blank'>Learn more <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.33357 14.1667C8.12023 14.1667 7.90687 14.0851 7.74437 13.9226C7.41854 13.5967 7.41854 13.07 7.74437 12.7442L10.4885 10L7.74437 7.25589C7.41854 6.93006 7.41854 6.40334 7.74437 6.0775C8.07021 5.75167 8.59693 5.75167 8.92276 6.0775L12.2561 9.41084C12.5819 9.73667 12.5819 10.2634 12.2561 10.5892L8.92276 13.9226C8.76026 14.0851 8.5469 14.1667 8.33357 14.1667Z" fill="#FA4E0E"/>
 </svg>
 </a>`,
@@ -53,10 +50,7 @@ const cardGameFiData = [
       'You’ll have exclusive access to new crypto deals and exclusive launchpad projects — just for you. We’ll set aside some allocation for you. That’s why it’s incredible to be a SHARD holder.',
     image: '/shard/shard_4.webp',
     bgColorImage: '#B3FFBF',
-    //     actionTitle: `Upcoming deal: <strong>Up to 30% bonus token from Eternal AI public sale</strong>.<br/> <a href='https://nakachain.xyz/launchpad/detail/2' target='_blank'>Learn more <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    // <path d="M8.33357 14.1667C8.12023 14.1667 7.90687 14.0851 7.74437 13.9226C7.41854 13.5967 7.41854 13.07 7.74437 12.7442L10.4885 10L7.74437 7.25589C7.41854 6.93006 7.41854 6.40334 7.74437 6.0775C8.07021 5.75167 8.59693 5.75167 8.92276 6.0775L12.2561 9.41084C12.5819 9.73667 12.5819 10.2634 12.2561 10.5892L8.92276 13.9226C8.76026 14.0851 8.5469 14.1667 8.33357 14.1667Z" fill="#FA4E0E"/>
-    // </svg></a>`,
-    actionTitle: `Upcoming airdrop: <strong>SHARD holders are among recipients of the 50,000,000 $EAI airdrop program</strong>.<br/> <a href='https://eternalai.org/' target='_blank'> Learn more <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    actionTitle: `Upcoming deal: <strong>Up to 30% bonus token from Eternal AI public sale.</strong>.<br/> <a href='https://nakachain.xyz/launchpad/detail/2' target='_blank'> Learn more <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.33357 14.1667C8.12023 14.1667 7.90687 14.0851 7.74437 13.9226C7.41854 13.5967 7.41854 13.07 7.74437 12.7442L10.4885 10L7.74437 7.25589C7.41854 6.93006 7.41854 6.40334 7.74437 6.0775C8.07021 5.75167 8.59693 5.75167 8.92276 6.0775L12.2561 9.41084C12.5819 9.73667 12.5819 10.2634 12.2561 10.5892L8.92276 13.9226C8.76026 14.0851 8.5469 14.1667 8.33357 14.1667Z" fill="#FA4E0E"/>
 </svg></a>`,
   },

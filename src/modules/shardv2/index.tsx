@@ -17,13 +17,8 @@ const ShardModuleV2 = () => {
       }}
     >
       <div className={`${s.wrapper}  `}>
-        {/*<div className={s.topHero}>*/}
-        {/*  <Box h={['80px', '140px']} />*/}
-        {/*  <RetroHero />*/}
-        {/*</div>*/}
         <div className={`${s.inner}  containerV3`}>
           <Actions />
-
           <div className={s.section}>
             <Box className={s.container} bgColor={'#f6f6f6'}>
               <div className={s.heroSection}>
