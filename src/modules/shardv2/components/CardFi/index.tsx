@@ -11,18 +11,21 @@ type TCardFiProps = {
   bgColorImage?: string;
   actionTitle?: string;
   bgColor?:string;
+  classImage?:string;
+  classNames?:string;
 };
 
 const CardFi = ({ ...props }: TCardFiProps) => {
   return (
     <div className={s.cardFiContainer}>
       <div
-        className={s.cardFiImage}
+        className={`${s.cardFiImage} ${props.classNames} cardFiImage`}
         style={{ backgroundColor: props.bgColorImage || props.bgColor || '' }}
       >
         <ImagePlaceholder
           width={260}
           height={260}
+          className={props.classImage}
           src={props.image}
           alt={props.image}
         />
