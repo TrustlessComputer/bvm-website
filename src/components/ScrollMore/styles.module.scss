@@ -1,0 +1,57 @@
+.scrollMore {
+  position: absolute;
+
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  --size: 24px;
+  bottom: 24px;
+
+  @include is-min-table{
+    bottom: 40px;
+  }
+  @include is-pc {
+    --size: 32px;
+  }
+
+  .text {
+    flex: 0 0 100%;
+    width: 100%;
+    font-family: var(--reem-kufi);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0.03em;
+    text-align: center;
+    text-transform: uppercase;
+    opacity: .75;
+    margin-bottom: 8px;
+    color: white;
+  }
+
+  .dot {
+    animation: scrolling 1.6s ease-in-out infinite;
+    padding: 5px;
+    background: rgba(white, .2);
+    width: fit-content;
+    display: block;
+    height: fit-content;
+    border-radius: 100%;
+  }
+}
+
+@keyframes scrolling {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
