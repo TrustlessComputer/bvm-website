@@ -25,25 +25,22 @@ const BVMModule = () => {
       {/*  <Box h={['80px', '140px']} />*/}
       {/*  <RetroHero />*/}
       {/*</div>*/}
+
       <div className={`${s.inner} containerV3`}>
-        <Actions />
+        {/*<Actions />*/}
 
         <Box className={s.container}>
           <TgeModule />
-          {/*<Box h={['20px', '40px']} />*/}
           <Tokens />
           <Partners />
           <div className={s.container_section_tow}>
-            <BoxContent >
-              {/*<Box h={['120px', '80px']} />*/}
+            <BoxContent>
               <Fade delayEnter={0.6}>
                 <Section1 />
               </Fade>
-              {/*<Box h={['20px', '80px']} />*/}
               <Fade delayEnter={0.7}>
                 <Section2 />
               </Fade>
-              {/*<Box h={['20px', '40px']} />*/}
               {/*<Vesting />*/}
               {/*<Schedule />*/}
             </BoxContent>
@@ -53,6 +50,8 @@ const BVMModule = () => {
         </Box>
       </div>
     </div>
+
+
   );
 };
 
