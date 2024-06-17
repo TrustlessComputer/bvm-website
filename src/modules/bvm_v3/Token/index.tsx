@@ -98,7 +98,7 @@ const Tokens = () => {
               <Flex
                 w="100%"
                 flexDir={{ base: 'column', lg: 'row' }}
-                alignItems={{ base: 'flex-start', lg: 'center' }}
+                alignItems={{ base: 'center', lg: 'center' }}
                 gap={{ base: '32px' }}
                 justifyContent={'space-between'}
                 p={'20px'}
