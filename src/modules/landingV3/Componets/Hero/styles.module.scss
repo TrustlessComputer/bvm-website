@@ -74,15 +74,14 @@
   color: black;
   padding-left: 16px;
   padding-right: 16px;
-  margin-top: 16px;
+  margin-top: 18px;
 
   @include is-min-table {
     font-size: 18px;
     max-width: 720px;
-    margin-top: 8px;
+    margin-top: 12px;
   }
   @include is-pc {
-    margin-top: 0;
     max-width: 1000px;
     font-size: 24px;
   }
@@ -98,6 +97,7 @@
   border-radius: 1000px;
   margin-top: 40px;
   margin-bottom: 16px;
+  cursor: pointer;
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
 
