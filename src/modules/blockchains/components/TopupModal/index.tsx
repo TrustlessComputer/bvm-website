@@ -104,8 +104,8 @@ const TopupModal = (props: IProps) => {
         <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
           {` ${order?.needToTopupBalanceFormatted} BVM `}
         </Text>
-        {`to the following wallet address. Insufficient balance. `}
-        <Text
+        {`to the following wallet address. `}
+        {/* <Text
           as="span"
           fontWeight={700}
           color={'#e6922c'}
@@ -121,7 +121,7 @@ const TopupModal = (props: IProps) => {
           }}
         >
           {`Buy now!`}
-        </Text>
+        </Text> */}
       </Text>
     );
   };
@@ -226,7 +226,7 @@ const TopupModal = (props: IProps) => {
         </Text>
       </Flex>
 
-      {/* {order && (
+      {order && (
         <Text
           marginTop={'10px'}
           fontSize={'15px'}
@@ -234,10 +234,7 @@ const TopupModal = (props: IProps) => {
           color={'#6C6F93'}
           textAlign={'center'}
         >
-          {`Must be at least `}
-          <Text as="span" fontWeight={700} color={'#000000'}>
-            {` ${order.needToTopupBalanceFormatted} BVM `}
-          </Text>
+          {`Insufficient balance.  `}
           <Text
             as="span"
             fontWeight={700}
@@ -253,10 +250,10 @@ const TopupModal = (props: IProps) => {
               window.open('https://nakachain.xyz/swap', '_blank');
             }}
           >
-            {`.Buy now!`}
+            {`Buy now!`}
           </Text>
         </Text>
-      )} */}
+      )}
     </BaseModal>
   );
 };

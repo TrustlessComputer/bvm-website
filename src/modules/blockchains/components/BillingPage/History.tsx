@@ -106,7 +106,10 @@ export default () => {
           textAlign={'center'}
           className={s.font}
         >
-          {instanceInfo?.chainName || '--'}
+          {type === HistoryType.HistoryType_Topup ||
+          type === HistoryType.HistoryType_WithdrawBalance
+            ? '--'
+            : instanceInfo?.chainName || '--'}
         </Th>
 
         <Th

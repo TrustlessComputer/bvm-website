@@ -18,7 +18,7 @@ const accountInforSelector = createSelector(
       ...accountInfor,
     };
 
-    const addressFormatted = accountInfor.tcAddress.substring(0, 10);
+    const addressFormatted = accountInfor.tcAddress?.substring(2, 8) || '--';
 
     return {
       ...result,

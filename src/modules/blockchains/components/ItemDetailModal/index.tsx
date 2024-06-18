@@ -175,7 +175,7 @@ const ItemDetailModal = (props: IProps) => {
               '#1c1c1c',
               true,
             )}
-          {renderRowInfor('ZK-powered Blockchain', `${order.chainName}`)}
+          {renderRowInfor('Blockchain Name', `${order.chainName}`)}
           {!mapper.isLayer1 &&
             renderRowInfor(
               'Rollup protocol',

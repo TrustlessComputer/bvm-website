@@ -3,7 +3,9 @@ import { Button, Flex, Spinner, Text, Textarea } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import TextInput from '@/components/TextInput/TextInput';
-import l2ServicesAPI from '@/services/api/l2services';
+import l2ServicesAPI, {
+  getInstanceDetailByID,
+} from '@/services/api/l2services';
 
 import { isEmpty } from 'lodash';
 import ErrorMessage from '../../Buy/components/ErrorMessage';
@@ -43,8 +45,6 @@ const UpdateOrderModal = (props: IProps) => {
   const { show, onClose, item, onSuccess } = props;
 
   const dispatch = useAppDispatch();
-
-  console.log('ABCDEF --- ', item);
 
   const [chainName, setChainName] = useState(item?.chainName || '');
   const [chainNameError, setChainNameError] = useState('');
@@ -91,15 +91,22 @@ const UpdateOrderModal = (props: IProps) => {
         item?.orderId,
       );
 
-      console.log('DATA --- ', data);
+      console.log('1 DATA --- ', data);
+
       if (data) {
-        toast.success('Update Successful');
+        const newData = await getInstanceDetailByID(item?.orderId);
 
-        dispatch(updateOrderByNewOrder(data));
-        dispatch(setOrderSelected(data));
-        await sleep(1);
+        console.log('2 newData --- ', newData);
 
-        onSuccess && onSuccess();
+        if (newData) {
+          toast.success('Update Successful');
+
+          dispatch(updateOrderByNewOrder(newData));
+          dispatch(setOrderSelected(newData));
+          await sleep(1);
+
+          onSuccess && onSuccess();
+        }
       }
     } catch (error) {
       const { message } = getErrorMessage(error);
@@ -396,7 +403,6 @@ const UpdateOrderModal = (props: IProps) => {
         display={'flex'}
         flexDir={'column'}
         w={'100%'}
-        bgColor={'#ECECEC'}
         borderRadius={'10px'}
         p={'20px'}
         gap={'20px'}

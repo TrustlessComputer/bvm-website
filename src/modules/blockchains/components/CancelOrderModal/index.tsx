@@ -35,10 +35,10 @@ const CancelOrderModal = (props: IProps) => {
           lineHeight={'20px'}
           alignSelf={'flex-start'}
         >
-          {`Activate Your ZK-powered Blockchain`}
+          {`Deactivate Your ZK-powered Blockchain`}
         </Text>
 
-        <Text
+        {/* <Text
           fontSize={'16px'}
           fontWeight={500}
           color={'#000'}
@@ -46,7 +46,7 @@ const CancelOrderModal = (props: IProps) => {
           alignSelf={'flex-start'}
         >
           {`Waiting for payment to activate your ZK-powered Blockchain. Cancel if you don't want to continue.`}
-        </Text>
+        </Text> */}
 
         <Flex
           mt="20px"
@@ -68,12 +68,14 @@ const CancelOrderModal = (props: IProps) => {
             className={s.fontType3}
             fontSize={'18px'}
             fontWeight={500}
-            onClick={onClose}
+            onClick={() => {
+              onSuccess && onSuccess();
+            }}
             _hover={{
               opacity: 0.8,
             }}
           >
-            No
+            Yes
           </Button>
 
           <Button
@@ -86,14 +88,12 @@ const CancelOrderModal = (props: IProps) => {
             className={s.fontType3}
             fontSize={'18px'}
             fontWeight={500}
-            onClick={() => {
-              onSuccess && onSuccess();
-            }}
+            onClick={onClose}
             _hover={{
               opacity: 0.8,
             }}
           >
-            Yes
+            No
           </Button>
         </Flex>
       </Flex>
