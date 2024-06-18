@@ -28,25 +28,25 @@
   }
 
   @include is-pc {
-    flex: 0 0 600px;
-    max-width: 600px;
+    flex: 0 0 753px;
+    max-width: 753px;
   }
 
 }
 
 .section {
 
-  padding-top: 48px;
-  padding-bottom: 48px;
+  padding-top: 64px;
+  padding-bottom: 64px;
 
   @include is-min-table{
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
 
     @include is-pc{
-      padding-top: 80px;
-      padding-bottom: 80px;
+      padding-top: 120px;
+      padding-bottom: 120px;
     }
 }
 

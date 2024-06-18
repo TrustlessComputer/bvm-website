@@ -142,7 +142,7 @@ const ThreeJSComponent: React.FC = () => {
     if (!mountRef.current) return;
 
     const camTp = new THREE.Vector3(0, 0, 0);
-    const COLOR = new THREE.Color('#ffd322');
+    const COLOR = new THREE.Color('#deb81e');
     const COLOR_DARKER = new THREE.Color('#e87500');
     const COLOR_SKY = new THREE.Color('#782402');
     const createMaterial = (
@@ -410,7 +410,6 @@ const ThreeJSComponent: React.FC = () => {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
-      // mountRef.current!.removeChild(renderer.domElement);
     };
   }, []);
 

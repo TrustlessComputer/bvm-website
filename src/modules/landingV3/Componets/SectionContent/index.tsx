@@ -16,7 +16,7 @@ export default function SectionContent({ title, image, children, button, directi
     <div className="containerV3">
       <div className={`${s.inner} ${s['inner__'+ direction]}`}>
         <div className={s.left}>
-          <ImagePlaceholder src={image} width={620} height={493} sizes={'100vw'} quality={100} alt={'image'} />
+          <ImagePlaceholder src={image} width={753} height={460} sizes={'100vw'} quality={100} alt={'image'} />
         </div>
         <div className={s.right}>
           <div className={s.content}>
