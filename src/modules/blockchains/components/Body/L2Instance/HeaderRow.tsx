@@ -9,10 +9,11 @@ type Props = {
   item: OrderItem;
   isOwner?: boolean;
   depositOnClick?: () => void;
+  editOnClick?: () => void;
 };
 
 const HeaderRow = (props: Props) => {
-  const { item, isOwner, depositOnClick } = props;
+  const { item, isOwner, depositOnClick, editOnClick } = props;
   const mapper = useOrderMapper(item);
 
   const renderStatus = () => {
@@ -71,7 +72,7 @@ const HeaderRow = (props: Props) => {
           maxH={'24px'}
           onClick={(event: any) => {
             if (event.stopPropagation) event.stopPropagation();
-            alert('TO DO 2');
+            editOnClick && editOnClick();
           }}
         />
       </Flex>

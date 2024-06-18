@@ -198,7 +198,7 @@ const Page = (props: any) => {
               dispatch(setViewPage('ManageChains'));
             }}
           >
-            Manage Chains
+            Your Rollups
           </Button>
         </Flex>
 

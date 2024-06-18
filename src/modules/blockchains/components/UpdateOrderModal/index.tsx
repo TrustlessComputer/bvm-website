@@ -13,6 +13,7 @@ import {
   IOrderUpdate,
   MetaConfig,
   OrderItem,
+  OrderStatus,
   WebsiteConfig,
 } from '@/stores/states/l2services/types';
 import { getErrorMessage } from '@/utils/errorV2';
@@ -39,10 +40,11 @@ interface IProps {
   item?: OrderItem;
   onClose?: (() => void) | any;
   onSuccess?: () => void;
+  cancelThisRollupOnClick?: () => void;
 }
 
 const UpdateOrderModal = (props: IProps) => {
-  const { show, onClose, item, onSuccess } = props;
+  const { show, onClose, item, onSuccess, cancelThisRollupOnClick } = props;
 
   const dispatch = useAppDispatch();
 
@@ -185,12 +187,14 @@ const UpdateOrderModal = (props: IProps) => {
   };
 
   const renderCancelThisRollup = () => {
+    if (item?.status !== OrderStatus.WaitingPayment) return null;
     return (
       <Text
         marginTop={'20px'}
         opacity={0.7}
         color={'#F44915'}
         _hover={{
+          cursor: 'pointer',
           opacity: 0.8,
         }}
         _disabled={{
@@ -200,7 +204,7 @@ const UpdateOrderModal = (props: IProps) => {
         fontSize={'14px'}
         lineHeight={'19px'}
         onClick={() => {
-          alert('TO DO ');
+          cancelThisRollupOnClick && cancelThisRollupOnClick();
         }}
       >
         {'Cancel this rollup'}
