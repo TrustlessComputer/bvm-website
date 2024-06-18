@@ -1,19 +1,115 @@
-.btnLogin {
-  background: #FA4E0E;
-  border-radius: 0 !important;
-  height: 48px;
+.buttonLogin {
+  --border-color: rgba(255, 255, 255, 0.3);
+  --text-color: #fff;
+  --background-color: rgba(255, 255, 255, 0.3);
+
+  display: flex;
+  width: 100px;
+  height: 36px;
+  padding: 4px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  background: var(--background-color);
+  position: relative;
+  cursor: pointer;
+
+  @include max-sm {
+    width: 100%;
+    max-width: 335px;
+    height: 52px;
+    margin: 0 auto;
+
+    --border-color: #ff4500 !important;
+    --background-color: rgba(255, 69, 0, 0.2) !important;
+    --text-color: #ff4500 !important;
+  }
+  &__light {
+    --border-color: #ff4500;
+    --background-color: rgba(255, 69, 0, 0.2);
+    --text-color: #ff4500;
+  }
+  &__dark {
+    --border-color: rgba(255, 255, 255, 0.3);
+    --text-color: #fff;
+    --background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.inner {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  line-height: (19/16);
-  font-weight: 400;
-  padding-left: 16px !important;
-  padding-right: 16px !important;
+  border-radius: 100px;
+  border: 1px solid var(--border-color);
+  padding: 6px 28px;
+  width: 100%;
+  overflow: hidden;
 
-  @include is-min-table {
-    font-size: 16px;
-    padding-left: 24px !important;
-    padding-right: 24px !important;
+  @include max-sm {
+    height: 100%;
+  }
+}
+
+.text {
+  color: var(--text-color);
+  text-align: center;
+  font-family: 'JetBrains Mono';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 133.333%;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 60px;
+}
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 223px;
+  padding: 12px 0;
+  background-color: #fff;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  border-radius: 12px;
+
+  @include is-mobile {
+    display: none;
+  }
+
+  &_inner {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &_item {
+      padding: 12px 20px;
+      display: flex;
+      flex-direction: row;
+      cursor: pointer;
+      gap: 20px;
+      &:hover {
+        p {
+          color: #ff7f7f;
+        }
+
+        svg path {
+          stroke: #ff7f7f;
+        }
+      }
+      p {
+        text-align: center;
+        font-family: 'JetBrains Mono';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%; /* 19.6px */
+        text-transform: uppercase;
+        color: #000;
+      }
+    }
   }
 }
