@@ -216,13 +216,23 @@ export const cancelOrder = async (orderID: string) => {
 };
 
 export const getAllOrders = async (): Promise<OrderItem[]> => {
-  const orders = (await httpClient.get(`/order/list`)) as OrderItemResp[];
-  return builderOrderList(
-    COMPUTERS.concat(orders || []).filter(
-      (order) => order.status === OrderStatus.Started,
-    ),
-    false,
+  let orders = (await httpClient.get(`/order/list`)) as OrderItemResp[];
+
+  // console.log('Orders: Before Filter ', orders);
+  // return builderOrderList(
+  //   COMPUTERS.concat(orders || []).filter(
+  //     (order) => order.status === OrderStatus.Started && !!order.thumb,
+  //   ),
+  //   false,
+  // );
+
+  orders = orders.filter(
+    (order) => order.status === OrderStatus.Started && !!order.thumb,
   );
+
+  // console.log('Orders: After Filter ', orders);
+
+  return builderOrderList(orders, false);
 };
 
 export const accountGetInfo = async (): Promise<AccountInfo | undefined> => {
@@ -357,6 +367,20 @@ export const updateConfigInfor = async (
   } catch (error: any) {
     console.log('[updateConfigInfor] ERROR ', error);
     return undefined;
+  }
+};
+
+export const revokeAuthentication = async (): Promise<void> => {
+  try {
+    const res = await httpClient.post(`/auth/revoke`, undefined, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    });
+    console.log('revokeAuthentication', res);
+  } catch (error) {
+    console.log('revokeAuthentication error', error);
+    throw error;
   }
 };
 

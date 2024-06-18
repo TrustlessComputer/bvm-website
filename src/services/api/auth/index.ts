@@ -39,7 +39,12 @@ export const verifyChallenge = async (
 };
 
 export const revokeAuthentication = async (): Promise<void> => {
-  const res = await apiClient.post(`/auth/revoke`);
+  const res = await apiClient.post(`/auth/revoke`, {
+    headers: {
+      ...getHeaderDefault(),
+      // Authorization: `${idToken}`,
+    },
+  });
   console.log('revokeAuthentication', res);
 };
 

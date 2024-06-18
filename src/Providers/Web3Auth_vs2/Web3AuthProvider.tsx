@@ -16,14 +16,17 @@ import { useDispatch } from 'react-redux';
 import Web3AuthLoginModalCustomize from './LoginModalCustomize';
 import web3AuthNoModal from './Web3Auth.initNoModal';
 import { IWeb3AuthContext } from './Web3Auth.types';
-import l2ServicesAPI from '@/services/api/l2services';
+import l2ServicesAPI, { revokeAuthentication } from '@/services/api/l2services';
+import { fetchAccountInfo } from '@/stores/states/l2services/actions';
+import { useAppDispatch } from '@/stores/hooks';
+import { setL2ServiceLogout } from '@/stores/states/l2services/reducer';
 
 export const Web3AuthContext = createContext<IWeb3AuthContext>({});
 
 export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
   children,
 }: PropsWithChildren) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [provider, setProvider] = useState<IProvider | undefined | null>(
     undefined,
@@ -96,8 +99,11 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
   const logout = async () => {
     try {
       console.log('[Web3AuthProvider][logout] -- ');
+      revokeAuthentication();
+      dispatch(setL2ServiceLogout());
       await web3AuthNoModal.logout();
       setProvider(null);
+      LocalStorage.removeItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2);
     } catch (error) {
       console.log('[Web3AuthProvider][logout] error -- ', error);
       setProvider(null);
@@ -127,6 +133,7 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
           //Call API register to Service
           const idToken = userInfo.idToken;
           const l2ServiceAccessToken = await L2Service.register(idToken);
+
           // LocalStorage.setItem(STORAGE_KEYS.API_ACCESS_TOKEN, l2ServiceAccessToken);
           // LocalStorage.setItem(STORAGE_KEYS.WEB3_AUTH_TOKEN, idToken);
 
@@ -136,6 +143,7 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
           );
           LocalStorage.setItem(STORAGE_KEYS.WEB3AUTH_ID_TOKEN_V2, idToken);
           l2ServicesAPI.setAccesTokenHeader(l2ServiceAccessToken);
+          dispatch(fetchAccountInfo());
         } else {
           l2ServicesAPI.setAccesTokenHeader(apiAccesstToken);
         }
@@ -192,7 +200,9 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
     const fetchUserProfile = async () => {
       if (loggedIn) {
         const userInfo = await getWeb3AuthUserInfor();
+        console.log('USER INFOR: ', userInfo);
         setUserInfo(userInfo);
+        dispatch(fetchAccountInfo());
         getWallet();
         l2ServicesAPI.setAccesTokenHeader(
           LocalStorage.getItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2),

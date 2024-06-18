@@ -29,10 +29,11 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { setViewMode, setViewPage } from '@/stores/states/l2services/reducer';
 import BillingPage from './components/BillingPage';
 import { TAB_ENUM, TAB_ENUM_MAP } from './Dashboard.constant';
+import { useRouter } from 'next/navigation';
 
 const Page = (props: any) => {
   const { onOpenTopUpModal } = props;
-
+  const router = useRouter();
   const [activeTab, setChatTabIndex] = useState<TAB_ENUM>(
     TAB_ENUM.MANAGE_CHAINS,
   );
@@ -61,8 +62,14 @@ const Page = (props: any) => {
   const { viewPage } = useAppSelector(getL2ServicesStateSelector);
 
   useEffect(() => {
-    onVerifyLoginFirstTime();
+    // onVerifyLoginFirstTime();
   }, []);
+
+  useEffect(() => {
+    if (!loggedIn) {
+      router.push('/');
+    }
+  }, [loggedIn]);
 
   useEffect(() => {
     fetchAllData();

@@ -69,12 +69,14 @@ const slice = createSlice({
       state.showAllChain = action.payload;
     },
     updateOrderByNewOrder(state, action: PayloadAction<OrderItem>) {
-      console.log('BEFORE  ', state.orderList);
       let newList = [action.payload, ...state.orderList];
-      console.log('AFTER  ', newList);
       newList = uniqBy(newList, 'orderId');
-      console.log('FINAL  ', newList);
       state.orderList = [...newList];
+    },
+    setL2ServiceLogout(state) {
+      state.orderSelected = undefined;
+      state.accountInforL2Service = undefined;
+      state.isL2ServiceLogged = false;
     },
   },
 
@@ -159,5 +161,6 @@ export const {
   setShowOnlyMyOrder,
   setL2ServiceAuth,
   updateOrderByNewOrder,
+  setL2ServiceLogout,
 } = slice.actions;
 export default slice.reducer;

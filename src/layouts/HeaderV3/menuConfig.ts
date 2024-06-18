@@ -84,8 +84,8 @@ import { NavItem } from '@layouts/Header/menuConfig';
 // ];
 export const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Chains',
-    href: '/chains',
+    label: 'Rollups',
+    href: '/rollups',
     isNewWindow: false,
     isHide: false,
     // subMenu: [
