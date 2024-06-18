@@ -147,7 +147,7 @@ export const Modules: ILabItemContent[] = [
     // target: '_blank',
     image: '/modules/celestia.png',
     content:
-      'Unlock massive scalability for Bitcoin by offering the DA solution for not only one, but many Bitcoin L2s!',
+      'Unlock massive scalability for Bitcoin by offering the DA solution for not only one, Rbut many Bitcoin L2s!',
   },
   {
     tags: ['Cross-chain bridges'],

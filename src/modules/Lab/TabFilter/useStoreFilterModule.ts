@@ -17,17 +17,17 @@ export const useStoreFilterModule = create<Store>()((set) => ({
             if (tag === 'All')
                 return {
                     ...state,
-                    dataModule: state.dataInit,
+                    // dataModule: state.dataInit,
                     tagCurrent: 'All',
                 };
 
-            const dataRender = state.dataInit.filter((item) =>
-                item.tags?.includes(tag),
-            );
+            // const dataRender = state.dataInit.filter((item) =>
+            //     item.tags?.includes(tag),
+            // );
             return {
                 ...state,
                 tagCurrent: tag,
-                dataModule: dataRender,
+                // dataModule: dataRender,
             };
         }),
 }));

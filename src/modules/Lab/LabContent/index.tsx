@@ -44,12 +44,19 @@ export default function LabContent({
       return;
     }
 
-    const dataRender = landingData.filter((item) => {
-      return item.tags?.includes(tagCurrent);
-    });
-    setRenderData(dataRender);
-  }, [isFilter, landingData, tagCurrent]);
+    const dataFilter: any = [];
 
+    for (let i = 0; i < landingData.length; i++) {
+      const tag = landingData[i].tags;
+      const isExits = tag?.indexOf(tagCurrent);
+
+      if (isExits !== -1) {
+        dataFilter.push(landingData[i]);
+      }
+    }
+
+    setRenderData(dataFilter);
+  }, [isFilter, landingData, tagCurrent]);
   return (
     <div className={`${s.container} ${paddingX && s.paddingX} container`}>
       <div className={s.labHeadline}>
@@ -61,7 +68,7 @@ export default function LabContent({
       <div className={s.labArtList}>
         {renderData.map((item, index) => (
           <LabArtItem
-            key={index}
+            key={item.title}
             index={isHaveNumber ? index : undefined}
             data={item}
             isLowercaseTitle={isLowercaseTitle}
