@@ -75,6 +75,57 @@ const TopupModal = (props: IProps) => {
     );
   };
 
+  const renderMessageDetault = () => {
+    return (
+      <Text
+        fontSize={'15px'}
+        fontWeight={400}
+        color={'#6C6F93'}
+        textAlign={'center'}
+      >
+        Please send
+        <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
+          {` BVM `}
+        </Text>
+        to the following wallet address
+      </Text>
+    );
+  };
+
+  const renderMessageWithTopBVM = () => {
+    return (
+      <Text
+        fontSize={'15px'}
+        fontWeight={400}
+        color={'#6C6F93'}
+        textAlign={'center'}
+      >
+        Please send at least
+        <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
+          {` ${order?.needToTopupBalanceFormatted} BVM `}
+        </Text>
+        {`to the following wallet address. Insufficient balance. `}
+        <Text
+          as="span"
+          fontWeight={700}
+          color={'#e6922c'}
+          textAlign={'center'}
+          textUnderlineOffset={'2px'}
+          textDecorationLine={'underline'}
+          _hover={{
+            cursor: 'pointer',
+            opacity: 0.8,
+          }}
+          onClick={() => {
+            window.open('https://nakachain.xyz/swap', '_blank');
+          }}
+        >
+          {`Buy now!`}
+        </Text>
+      </Text>
+    );
+  };
+
   return (
     <BaseModal
       isShow={show}
@@ -104,18 +155,7 @@ const TopupModal = (props: IProps) => {
           </Text>
         )}
 
-        <Text
-          fontSize={'15px'}
-          fontWeight={400}
-          color={'#6C6F93'}
-          textAlign={'center'}
-        >
-          Please send
-          <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
-            {` BVM `}
-          </Text>
-          to the following wallet address
-        </Text>
+        {order ? renderMessageWithTopBVM() : renderMessageDetault()}
 
         {/* Adderss Bar */}
         <Flex
@@ -186,7 +226,7 @@ const TopupModal = (props: IProps) => {
         </Text>
       </Flex>
 
-      {order && (
+      {/* {order && (
         <Text
           marginTop={'10px'}
           fontSize={'15px'}
@@ -216,7 +256,7 @@ const TopupModal = (props: IProps) => {
             {`.Buy now!`}
           </Text>
         </Text>
-      )}
+      )} */}
     </BaseModal>
   );
 };

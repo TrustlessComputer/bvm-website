@@ -199,12 +199,12 @@ export default () => {
                 <Text fontSize={'12px'} fontWeight={700}>
                   Description
                 </Text>
-                <Image
+                {/* <Image
                   src={'/blockchains/customize/ic-black-infor.svg'}
                   w={'15px'}
                   h={'auto'}
                   objectFit={'contain'}
-                />
+                /> */}
               </Flex>
             </Th>
             <Th
