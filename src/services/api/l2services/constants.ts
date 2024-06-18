@@ -87,6 +87,8 @@ const TRUSTLESS_COMPUTER_MAINNET: OrderItemResp = {
     networkName: 'trustless-computer',
   }),
   bridgeStatus: 1,
+  thumb:
+    'https://cdn.newbitcoincity.com/nbc/images/apps/bitcoin-virtual-machine.jpeg',
 };
 
 const TRUSTLESS_COMPUTER_TESTNET: OrderItemResp = {
@@ -168,6 +170,7 @@ const ALPHA_MAINNET: OrderItemResp = {
     networkName: 'trustlessLayer2',
   }),
   bridgeStatus: 1,
+  thumb: 'https://cdn.newbitcoincity.com/nbc/images/apps/alpha.jpeg',
 };
 
 // ALPHA (NOS old) TESTNET
@@ -249,6 +252,7 @@ const NAKA_TESTNET: OrderItemResp = {
     networkName: '',
   }),
   bridgeStatus: 1,
+  thumb: 'https://cdn.newbitcoincity.com/nbc/images/apps/nakaswap.jpeg',
 };
 
 // NAKA Mainnet
@@ -291,6 +295,7 @@ const NAKA_MAINNET: OrderItemResp = {
     networkName: '',
   }),
   bridgeStatus: 1,
+  thumb: 'https://cdn.newbitcoincity.com/nbc/images/apps/nakaswap.jpeg',
 };
 
 // Runechain Mainnet
@@ -332,6 +337,7 @@ const RUNECHAIN_MAINNET: OrderItemResp = {
     networkName: '',
   }),
   bridgeStatus: 1,
+  thumb: 'https://cdn.newbitcoincity.com/nbc/images/apps/nakaswap.jpeg',
 };
 
 // Eternal AI Mainnet
@@ -373,6 +379,7 @@ const ETERNAL_AI_MAINNET: OrderItemResp = {
     networkName: '',
   }),
   bridgeStatus: 1,
+  thumb: 'https://cdn.newbitcoincity.com/nbc/images/ai.png',
 };
 
 const L2_MAINNET = [

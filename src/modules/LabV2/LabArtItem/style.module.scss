@@ -1,0 +1,215 @@
+.labArtItem {
+  --delay-in: 0s;
+  --delay: calc(0.6s + var(--delay-in));
+
+  &:hover {
+    .labArtItem_img_inner {
+      transform: scale(1.1);
+    }
+  }
+
+  &_img {
+    width: 100%;
+    margin-bottom: 16px;
+    overflow: hidden;
+    clip-path: inset(100% 0 0 0);
+    animation: wrapImage 0.8s calc(var(--delay) + 0s) $easeOutCubic forwards;
+    position: relative;
+    border-radius: 12px;
+
+    &_inner {
+      transition: transform 0.4s $easeOutCubic;
+      aspect-ratio: 472/236;
+    }
+
+    img,
+    video {
+      width: 100%;
+      height: calc(100% + 1px);
+      aspect-ratio: inherit;
+      will-change: transform;
+      object-fit: cover;
+      transform: scale(1.5);
+      animation: inImage 0.8s calc(var(--delay) + 0.1s) $easeOutCubic forwards;
+    }
+
+    &_clo {
+      position: relative;
+      z-index: 2;
+      transition: opacity 0.1s ease-out;
+    }
+
+    &_ori {
+      position: absolute;
+      top: -1px;
+      left: 0;
+    }
+
+    &.isLoaded {
+      .labArtItem_img_clo {
+        opacity: 0;
+      }
+    }
+  }
+
+  &_info {
+    &_top {
+      display: flex;
+      gap: 10px;
+      text-transform: uppercase;
+    }
+  }
+
+  &_title {
+    font-size: 14px;
+    line-height: calc(24 / 14);
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--black-color);
+    opacity: 0;
+    will-change: transform, opacity;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s calc(var(--delay) + 0.2s) $easeOutCubic forwards;
+    font-family: var(--font-jetbrains);
+
+    &.isHadDate{
+      font-size: 16px;
+    }
+
+    &_label {
+      color: #ed5a00;
+      font-size: 14px;
+      &.isHadDate{
+        font-size: 16px;
+      }
+      font-family: var(--font-jetbrains);
+      line-height: calc(24 / 14);
+      font-weight: 500;
+      opacity: 0;
+      will-change: transform, opacity;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s calc(var(--delay) + 0.2s) $easeOutCubic forwards;
+    }
+
+  }
+
+  &_date {
+    font-family: var(--font-jetbrains);
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-align: right;
+    color: rgba(#fff, .7);
+    display: inline-block;
+    transform: translateY(.74em);
+    will-change: transform, opacity;
+    opacity: 0;
+    animation: fadeOnly 0.6s calc(var(--delay) + 0.4s) $easeOutCubic forwards;
+  }
+
+  &_content {
+    font-size: 14px;
+    line-height: calc(19.6 / 14);
+    color: var(--gray-color);
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    opacity: 0;
+    will-change: transform, opacity;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s calc(var(--delay) + 0.3s) $easeOutCubic forwards;
+  }
+
+  &.disabled {
+    .labArtItem_info {
+      opacity: 0.3;
+    }
+  }
+
+  &_tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+    opacity: 0;
+    font-family: var(--font-jetbrains);
+    list-style: none;
+    color: #000;
+    will-change: transform, opacity;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s calc(var(--delay) + 0.4s) $easeOutCubic forwards;
+  }
+}
+
+.tag {
+  background: #f6f6f6;
+  padding: 5px 8px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 14px;
+  text-align: center;
+  font-family: var(--font-jetbrains);
+  border-radius: 100px;
+  text-transform: uppercase;
+  width: fit-content;
+  flex: 0 0 auto;
+}
+
+
+.isLowercase {
+  text-transform: unset !important;
+}
+
+.isFilled.tag {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+@keyframes wrapImage {
+  0% {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  100% {
+    clip-path: inset(0% 0 0 0);
+  }
+}
+
+@keyframes inImage {
+  0% {
+    transform: scale(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOnly {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.image_rect {
+  aspect-ratio: 368/236;
+}
+
+.smallBigBorder {
+  border-radius: 8px;
+}
