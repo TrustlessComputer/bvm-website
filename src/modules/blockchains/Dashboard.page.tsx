@@ -65,11 +65,7 @@ const Page = (props: any) => {
     // onVerifyLoginFirstTime();
   }, []);
 
-  useEffect(() => {
-    if (!loggedIn) {
-      router.push('/');
-    }
-  }, [loggedIn]);
+  useEffect(() => {}, [loggedIn]);
 
   useEffect(() => {
     fetchAllData();
@@ -202,7 +198,7 @@ const Page = (props: any) => {
               dispatch(setViewPage('ManageChains'));
             }}
           >
-            Manage Chains
+            Your Rollups
           </Button>
         </Flex>
 

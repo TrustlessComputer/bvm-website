@@ -1,5 +1,6 @@
 'use client';
 
+import { RollupEnumMap } from '@/modules/blockchains/Buy/Buy.constanst';
 import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { formatUnixDateTime } from '@/utils/time';
@@ -52,18 +53,28 @@ const BodyInfor = (props: Props) => {
       spacingX={'200px'}
     >
       {renderRowInFor('Name', `${item.chainName || ''}`)}
-      {/* {renderRowInFor(
-        'Network type',
-        `${item.isMainnet ? 'Bitcoin Mainnet' : 'Bitcoin Testnet'}`,
-      )} */}
+      {!mapper.isLayer1 &&
+        renderRowInFor(
+          'Rollup protocol',
+          `${RollupEnumMap[item.serviceType] || '--'}`,
+        )}
       {renderRowInFor('Block time', `${mapper.blockTime || ''}`)}
-      {renderRowInFor('Deployer', `${mapper.deployer}`)}
       {renderRowInFor(
         'Data availability',
         `${mapper.dataAvailabilityLayer || ''}`,
       )}
+      {renderRowInFor('Chain ID', `${item.chainId || '--'}`)}
+      {renderRowInFor('RPC URL', `${item.rpc || '--'}`)}
       {renderRowInFor(
-        'Launch data',
+        'Native Token',
+        `${item.preMint === 0 ? 'BVM' : item.ticker || '--'}`,
+      )}
+      {renderRowInFor('Block explorer URL', `${item.explorer || '--'}`)}
+
+      {renderRowInFor('Deployer', `${mapper.deployer || '--'}`)}
+
+      {renderRowInFor(
+        'Launch date',
         `${formatUnixDateTime({
           dateTime: item.createAt,
           formatPattern: 'MMMM DD, YYYY',

@@ -12,7 +12,6 @@ const BlockChainPage = () => {
   const accessToken = LocalStorage.getItem(
     STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2,
   );
-
   if (!accessToken) {
     return router.push('/');
   }

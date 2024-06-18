@@ -3,7 +3,6 @@ import { OrderItem, L2ServicesState } from './types';
 import BigNumber from 'bignumber.js';
 import { RootState } from '@/stores';
 import formatter from '@/modules/price/Pricing.helper';
-import { formatAddressOrName } from '@/utils/format';
 
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
@@ -18,7 +17,7 @@ const accountInforSelector = createSelector(
       ...accountInfor,
     };
 
-    const addressFormatted = accountInfor.tcAddress?.substring(2, 8) || '--';
+    const addressFormatted = accountInfor.tcAddress?.substring(0, 7) || '--';
 
     return {
       ...result,

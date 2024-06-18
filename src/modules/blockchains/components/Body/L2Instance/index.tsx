@@ -26,6 +26,7 @@ const L2Instance = (props: Props) => {
     onOpenEditConfigModal,
     onOpenCancelOrderModal,
     onOpenTopUpModal,
+    onOpenUpdateOrderModal,
   } = useDashboard();
 
   return (
@@ -35,7 +36,7 @@ const L2Instance = (props: Props) => {
         gap={'15px'}
         p={'5px'}
         bgColor={'transparent'}
-        onClick={onClick}
+        // onClick={onClick}
       >
         <Box
           bgColor={'#fff'}
@@ -54,6 +55,10 @@ const L2Instance = (props: Props) => {
             depositOnClick={() => {
               dispatch(setOrderSelected(item));
               onOpenTopUpModal && onOpenTopUpModal();
+            }}
+            editOnClick={() => {
+              dispatch(setOrderSelected(item));
+              onOpenUpdateOrderModal && onOpenUpdateOrderModal();
             }}
           />
           <Divider my={'20px'} borderColor="gray.200" />

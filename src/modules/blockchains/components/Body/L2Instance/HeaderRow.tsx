@@ -9,10 +9,11 @@ type Props = {
   item: OrderItem;
   isOwner?: boolean;
   depositOnClick?: () => void;
+  editOnClick?: () => void;
 };
 
 const HeaderRow = (props: Props) => {
-  const { item, isOwner, depositOnClick } = props;
+  const { item, isOwner, depositOnClick, editOnClick } = props;
   const mapper = useOrderMapper(item);
 
   const renderStatus = () => {
@@ -52,7 +53,7 @@ const HeaderRow = (props: Props) => {
 
   return (
     <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
-      <Flex flexDir={'row'} gap={'10px'}>
+      <Flex flexDir={'row'} gap={'12px'} align={'center'}>
         <Image
           src={'/blockchains/customize/ic-infa.svg'}
           w={'40px'}
@@ -64,6 +65,16 @@ const HeaderRow = (props: Props) => {
             mapper.computerIndexer || `ZK-powered Blockchain #${item.index}`
           }`}
         </Text>
+        <Image
+          src={`/icons/pencil_edit_grey.svg`}
+          fit={'contain'}
+          maxW={'24px'}
+          maxH={'24px'}
+          onClick={(event: any) => {
+            if (event.stopPropagation) event.stopPropagation();
+            editOnClick && editOnClick();
+          }}
+        />
       </Flex>
 
       {renderStatus()}
