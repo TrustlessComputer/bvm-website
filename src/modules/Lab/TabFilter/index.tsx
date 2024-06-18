@@ -20,7 +20,7 @@ export default function TabFilter() {
               onClick={() => {
                 setDataModule(item);
               }}
-              className={`${s.item} ${isActive && s.isActive}`}
+              className={`${s.item} ${isActive && s.item__isActive}`}
               key={index}
             >
               <p> {item}</p>
