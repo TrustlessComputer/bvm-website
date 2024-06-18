@@ -10,15 +10,24 @@ export default function HeroV3() {
       <div className={s.inner}>
         <div className={s.content}>
           <h2 className={s.title}>
-            Be the first to launch a <span>ZK Rollup</span> on Bitcoin
+            BitZK
           </h2>
+          <h3 className={s.subTitle}>
+            Launch a ZK Rollup on Bitcoin for $99/mo.
+          </h3>
           <p className={s.desc}>
-            Secured by advanced math and cryptography, ZK rollups provide unlimited scale for Bitcoin while retaining its security and decentralization. They are high-performance, verifiable, and modular. Oh, and did we mention they are EVM-equivalent, too?
+            BitZK brought Zero Knowledge to Bitcoin, so you can easily launch and scale your own ZK Rollup on Bitcoin.
           </p>
           <div className={s.btn} onClick={() => router.push('/pricing')}>
             Launch now
           </div>
-          <p className={s.label}>From $99 per month</p>
+          <button className={s.read}>
+            Read Docs
+            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.5 12L10.5 8L6.5 4" stroke="black" stroke-width="1.2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+          </button>
         </div>
       </div>
       <ScrollMore />

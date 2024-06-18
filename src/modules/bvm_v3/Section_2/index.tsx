@@ -38,7 +38,7 @@ const Contents: Array<IContent> = [
 const Section_2 = () => {
   const renderItem = (item: IContent) => {
     return (
-      <CardFi key={item.title} {...item} classImage={s.classImage} />
+      <CardFi key={item.title} {...item} classImage={s.classImage} classDesc={s.descFi}/>
     );
   };
 
