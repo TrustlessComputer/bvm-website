@@ -1,0 +1,37 @@
+.tab {
+  padding: 4px;
+  margin-bottom: 24px;
+  border-radius: 100px;
+  border: 1px solid #e7e7e7;
+  width: max-content;
+}
+
+.inner {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.item {
+  padding: 5px 8px;
+  cursor: pointer;
+  p {
+    color: #5b5b5b;
+    text-align: center;
+    font-family: 'JetBrains Mono';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    text-transform: uppercase;
+    min-width: 80px;
+  }
+}
+
+.isActive {
+  border-radius: 100px;
+  background: #ff4500;
+  p {
+    color: #fff;
+  }
+}

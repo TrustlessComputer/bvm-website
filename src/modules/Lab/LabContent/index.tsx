@@ -3,6 +3,7 @@ import React, { PropsWithChildren } from 'react';
 import useLabStore from '../useLabStore';
 import { ILabItemContent } from '../data';
 import LabArtItem from '../LabArtItem';
+import TabFilter from '../TabFilter';
 
 interface Iprops extends PropsWithChildren {
   heading: string | React.ReactElement;
@@ -12,6 +13,7 @@ interface Iprops extends PropsWithChildren {
   paddingX?: boolean;
   imageRect?: boolean;
   isTagFilled?: boolean;
+  isFilter?: boolean;
 }
 
 export default function LabContent({
@@ -23,6 +25,7 @@ export default function LabContent({
   isTagFilled,
   paddingX,
   imageRect,
+  isFilter,
 }: Iprops) {
   // const { isFirst } = useLabStore();
 
@@ -32,7 +35,7 @@ export default function LabContent({
         <h2 className={`${s.labHeadline_title}`}>{heading}</h2>
         <p className={`${s.labHeadline_content} ${s.isIN}`}>{children}</p>
       </div>
-
+      {isFilter && <TabFilter />}
       {/* {isFirst && ( */}
       <div className={s.labArtList}>
         {landingData.map((item, index) => (
