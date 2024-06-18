@@ -12,7 +12,6 @@ const orderListSelector = createSelector(
   getL2ServicesStateSelector,
   (reducer) => {
     const result = reducer.orderList || [];
-    console.log('TTTT --- ', result);
     return result;
   },
 );
