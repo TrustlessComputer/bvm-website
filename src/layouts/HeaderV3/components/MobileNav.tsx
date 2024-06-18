@@ -4,6 +4,7 @@ import { Link, StackDivider, VStack } from '@chakra-ui/react';
 import { NAV_ITEMS, NAV_ITEMS_MOBILE } from '../menuConfig';
 import MobileDropdown from '@/layouts/Header/components/MobileDropdown';
 import Community from './Community';
+import ButtonLoginTwitter from './ButtonLoginTwitter';
 
 type Props = {
   primaryColor?: 'black' | 'white';
@@ -18,6 +19,8 @@ export const MobileNav = (props: Props) => {
       px={'24px'}
       py={'32px'}
     >
+      <ButtonLoginTwitter color={props.primaryColor} />
+
       {NAV_ITEMS.map((item) => (
         <>
           {item.subMenu ? (
