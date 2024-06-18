@@ -5,11 +5,8 @@ import HeadingText from './HeadingText';
 import LabContent from './LabContent';
 import { Modules, Portfolio, Research } from './data';
 import s from './style.module.scss';
-import { useStoreFilterModule } from './TabFilter/useStoreFilterModule';
 
 const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
-  const { dataModule } = useStoreFilterModule();
-
   const TabContent = (): ReactElement => {
     switch (tab) {
       case 1:
@@ -35,7 +32,7 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
             <LabContent
               imageRect
               isTagFilled
-              landingData={dataModule}
+              landingData={Modules}
               isFilter={true}
               heading={<>Modules</>}
             >

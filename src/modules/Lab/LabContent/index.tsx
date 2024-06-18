@@ -31,19 +31,23 @@ export default function LabContent({
   // const { isFirst } = useLabStore();
 
   const [renderData, setRenderData] = useState<ILabItemContent[]>([]);
-  const {tagCurrent} = useStoreFilterModule();
+  const { tagCurrent } = useStoreFilterModule();
 
   useEffect(() => {
-    if(!isFilter) {
+    if (!isFilter) {
       setRenderData(landingData);
       return;
     }
 
-    setRenderData(landingData.filter(()=>{
-      tagCurrent
-      //todo venn
-    }))
+    if (tagCurrent === 'All') {
+      setRenderData(landingData);
+      return;
+    }
 
+    const dataRender = landingData.filter((item) => {
+      return item.tags?.includes(tagCurrent);
+    });
+    setRenderData(dataRender);
   }, [isFilter, landingData, tagCurrent]);
 
   return (
