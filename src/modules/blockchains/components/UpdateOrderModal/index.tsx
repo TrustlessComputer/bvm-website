@@ -3,9 +3,7 @@ import { Button, Flex, Spinner, Text, Textarea } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import TextInput from '@/components/TextInput/TextInput';
-import l2ServicesAPI, {
-  getInstanceDetailByID,
-} from '@/services/api/l2services';
+import l2ServicesAPI, { orderDetailByID } from '@/services/api/l2services';
 
 import { isEmpty } from 'lodash';
 import ErrorMessage from '../../Buy/components/ErrorMessage';
@@ -96,7 +94,7 @@ const UpdateOrderModal = (props: IProps) => {
       console.log('1 DATA --- ', data);
 
       if (data) {
-        const newData = await getInstanceDetailByID(item?.orderId);
+        const newData = await orderDetailByID(item?.orderId);
 
         console.log('2 newData --- ', newData);
 
