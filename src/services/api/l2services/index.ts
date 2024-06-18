@@ -168,6 +168,17 @@ export const orderUpdateAPI = async (
   }
 };
 
+export const orderDetailByID = async (orderId: string): Promise<OrderItem> => {
+  try {
+    const data = (await httpClient.get(
+      `/order/detail/${orderId}`,
+    )) as OrderItem;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
 export const submitContact = async (params: SubmitFormParams) => {
   try {
     const data = await httpClient.post(`/service/contact`, params);
@@ -422,6 +433,7 @@ const l2ServicesAPI = {
   cancelOrder,
 
   orderUpdateAPI,
+  orderDetailByID,
 };
 
 export default l2ServicesAPI;

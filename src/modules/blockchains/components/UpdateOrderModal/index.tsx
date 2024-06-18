@@ -3,9 +3,7 @@ import { Button, Flex, Spinner, Text, Textarea } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import TextInput from '@/components/TextInput/TextInput';
-import l2ServicesAPI, {
-  getInstanceDetailByID,
-} from '@/services/api/l2services';
+import l2ServicesAPI, { orderDetailByID } from '@/services/api/l2services';
 
 import { isEmpty } from 'lodash';
 import ErrorMessage from '../../Buy/components/ErrorMessage';
@@ -13,6 +11,7 @@ import {
   IOrderUpdate,
   MetaConfig,
   OrderItem,
+  OrderStatus,
   WebsiteConfig,
 } from '@/stores/states/l2services/types';
 import { getErrorMessage } from '@/utils/errorV2';
@@ -39,10 +38,11 @@ interface IProps {
   item?: OrderItem;
   onClose?: (() => void) | any;
   onSuccess?: () => void;
+  cancelThisRollupOnClick?: () => void;
 }
 
 const UpdateOrderModal = (props: IProps) => {
-  const { show, onClose, item, onSuccess } = props;
+  const { show, onClose, item, onSuccess, cancelThisRollupOnClick } = props;
 
   const dispatch = useAppDispatch();
 
@@ -94,7 +94,7 @@ const UpdateOrderModal = (props: IProps) => {
       console.log('1 DATA --- ', data);
 
       if (data) {
-        const newData = await getInstanceDetailByID(item?.orderId);
+        const newData = await orderDetailByID(item?.orderId);
 
         console.log('2 newData --- ', newData);
 
@@ -181,6 +181,32 @@ const UpdateOrderModal = (props: IProps) => {
           {buttonTitle}
         </Button>
       </Flex>
+    );
+  };
+
+  const renderCancelThisRollup = () => {
+    if (item?.status !== OrderStatus.WaitingPayment) return null;
+    return (
+      <Text
+        marginTop={'20px'}
+        opacity={0.7}
+        color={'#F44915'}
+        _hover={{
+          cursor: 'pointer',
+          opacity: 0.8,
+        }}
+        _disabled={{
+          opacity: 0.5,
+        }}
+        align={'center'}
+        fontSize={'14px'}
+        lineHeight={'19px'}
+        onClick={() => {
+          cancelThisRollupOnClick && cancelThisRollupOnClick();
+        }}
+      >
+        {'Cancel this rollup'}
+      </Text>
     );
   };
 
@@ -439,6 +465,7 @@ const UpdateOrderModal = (props: IProps) => {
         {renderThumbURLField()}
         {renderDescField()}
         {renderSubmitButton()}
+        {renderCancelThisRollup()}
       </Flex>
     );
   };
