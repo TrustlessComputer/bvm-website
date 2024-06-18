@@ -42,7 +42,7 @@ export const revokeAuthentication = async (): Promise<void> => {
   const res = await apiClient.post(`/auth/revoke`, {
     headers: {
       ...getHeaderDefault(),
-      Authorization: `${idToken}`,
+      // Authorization: `${idToken}`,
     },
   });
   console.log('revokeAuthentication', res);
