@@ -27,9 +27,9 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
 
   const dataList = useMemo(() => {
     const newDataListFromAPI = allOrders.map((item) => orderAdapter(item));
-    console.log('newDataListFromAPI using Adapter', {
-      newDataListFromAPI,
-    });
+    // console.log('newDataListFromAPI using Adapter', {
+    //   newDataListFromAPI,
+    // });
 
     return [...Portfolio, ...newDataListFromAPI];
   }, [Portfolio, isFetchedAllOrders, isFetchingAllOrders, allOrders]);

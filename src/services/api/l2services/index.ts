@@ -370,6 +370,20 @@ export const updateConfigInfor = async (
   }
 };
 
+export const revokeAuthentication = async (): Promise<void> => {
+  try {
+    const res = await httpClient.post(`/auth/revoke`, undefined, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    });
+    console.log('revokeAuthentication', res);
+  } catch (error) {
+    console.log('revokeAuthentication error', error);
+    throw error;
+  }
+};
+
 const setAccesTokenHeader = (accessToken: string) => {
   // httpClient.defaults.headers.Authorization = `${accessToken}`;
 };
