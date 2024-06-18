@@ -9,6 +9,7 @@ import { NAV_ITEMS } from '../menuConfig';
 import { usePathname, useRouter } from 'next/navigation';
 import IcMenuMobile from '../components/IcMenuMobile';
 import DropDown from '../components/Dropdown';
+import ButtonLoginTwitter from '../components/ButtonLoginTwitter';
 
 export type TMainHeader = {
   color?: 'black' | 'white';
@@ -62,6 +63,7 @@ const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader) => {
                 </Link>
               );
             })}
+            <ButtonLoginTwitter color={color} />
           </div>
         ) : (
           <>
