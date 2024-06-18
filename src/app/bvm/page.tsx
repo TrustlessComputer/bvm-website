@@ -9,6 +9,7 @@ const BVMPage = () => {
       headerProps={{
         color: 'black',
       }}
+      hideFooter
     >
       <BVMModule />
     </MainLayout>

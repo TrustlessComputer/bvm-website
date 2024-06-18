@@ -15,12 +15,13 @@ const ShardModuleV2 = () => {
         color: 'black',
         colorLogo: 'black',
       }}
+      hideFooter
     >
       <div className={`${s.wrapper}  `}>
         <div className={`${s.inner}  containerV3`}>
           <Actions />
           <div className={s.section}>
-            <Box className={s.container} bgColor={'#f6f6f6'}>
+            <Box className={s.container} >
               <div className={s.heroSection}>
                 <Hero />
               </div>
