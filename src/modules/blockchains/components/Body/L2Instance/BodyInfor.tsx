@@ -17,14 +17,26 @@ const BodyInfor = (props: Props) => {
     return (
       <Flex
         flexDir={'row'}
-        gap={'30px'}
+        gap={'20px'}
         align={'center'}
         justify={'space-between'}
       >
-        <Text w={'50%'} fontSize={'16px'} fontWeight={600} color={'#000'}>
+        <Text
+          w={'50%'}
+          fontSize={'16px'}
+          fontWeight={600}
+          color={'#000'}
+          textAlign={'left'}
+        >
           {label}
         </Text>
-        <Text w={'50%'} fontSize={'16px'} fontWeight={400} color={'#4d4c4c'}>
+        <Text
+          w={'50%'}
+          fontSize={'16px'}
+          fontWeight={400}
+          color={'#4d4c4c'}
+          textAlign={'right'}
+        >
           {content}
         </Text>
       </Flex>
@@ -32,7 +44,13 @@ const BodyInfor = (props: Props) => {
   };
 
   return (
-    <SimpleGrid columns={2} spacing="20px" width={'100%'} height={'auto'}>
+    <SimpleGrid
+      columns={2}
+      spacing="20px"
+      width={'100%'}
+      height={'auto'}
+      spacingX={'200px'}
+    >
       {renderRowInFor('Name', `${item.chainName || ''}`)}
       {/* {renderRowInFor(
         'Network type',

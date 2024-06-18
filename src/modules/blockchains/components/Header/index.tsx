@@ -34,8 +34,8 @@ const HeaderView = () => {
     }
   }, []);
 
-  return (
-    <Flex flexDir={'row'} alignItems={'center'} justify={'space-between'}>
+  const renderLeftView = () => {
+    return (
       <Flex flexDir={'row'} align={'center'} gap={'15px'}>
         <Button
           minH={'40px'}
@@ -98,18 +98,18 @@ const HeaderView = () => {
         ) : (
           <Flex py={'10px'} px={'14px'} bgColor={'#fff'} borderRadius={'100px'}>
             {/* <Checkbox
-              color={'black'}
-              fontWeight={400}
-              fontSize={'16px'}
-              checked={showOnlyMyOrder}
-              defaultChecked
-              borderColor={'#828282'}
-              onChange={() => {
-                dispatch(setShowOnlyMyOrder(!showOnlyMyOrder));
-              }}
-            >
-              {'Show only my Bitcoin L2s'}
-            </Checkbox> */}
+          color={'black'}
+          fontWeight={400}
+          fontSize={'16px'}
+          checked={showOnlyMyOrder}
+          defaultChecked
+          borderColor={'#828282'}
+          onChange={() => {
+            dispatch(setShowOnlyMyOrder(!showOnlyMyOrder));
+          }}
+        >
+          {'Show only my Bitcoin L2s'}
+        </Checkbox> */}
             <Checkbox
               color={'black'}
               fontWeight={400}
@@ -126,13 +126,18 @@ const HeaderView = () => {
           </Flex>
         )}
       </Flex>
+    );
+  };
 
+  return (
+    <Flex flexDir={'row'} alignItems={'center'} justify={'flex-end'}>
       <Flex
         align={'flex-end'}
         fontSize={'16px'}
         fontWeight={500}
         color={'#000'}
       >
+        {/* {renderLeftView()} */}
         {loggedIn ? (
           <Button
             bgColor={'#FA4E0E'}
