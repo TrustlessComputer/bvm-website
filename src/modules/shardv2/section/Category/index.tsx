@@ -76,7 +76,7 @@ const Category = () => {
                 )
               : item.actionTitle,
         };
-        return <CardFi key={id} {...data} />;
+        return <CardFi key={id} {...data} classNames={s.imageCard} classImage={s.image}/>;
       })}
     </div>
   );

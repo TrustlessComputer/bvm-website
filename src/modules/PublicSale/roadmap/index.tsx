@@ -141,7 +141,7 @@ const RoadmapModule = () => {
   }
 
   return (
-    <Box className={s.container}>
+    <Box className={`containerV3 ${s.container}`}>
       <BoxContent>
         <Text fontSize={{ base: 32, md: 48 }} color="black" textAlign="center" mt={{ base: '24px', md: '60px' }}>
           Roadmap

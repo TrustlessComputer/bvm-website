@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
@@ -8,7 +7,6 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import s from './styles.module.scss';
-import { MathLerp, MathMap } from '@utils/mathUtils';
 
 const vertexrt = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 ); }`;
 const fragment = `varying vec2 vUv;
@@ -142,7 +140,7 @@ const ThreeJSComponent: React.FC = () => {
     if (!mountRef.current) return;
 
     const camTp = new THREE.Vector3(0, 0, 0);
-    const COLOR = new THREE.Color('#ffd322');
+    const COLOR = new THREE.Color('#ff8800');
     const COLOR_DARKER = new THREE.Color('#e87500');
     const COLOR_SKY = new THREE.Color('#782402');
     const createMaterial = (
@@ -223,7 +221,9 @@ const ThreeJSComponent: React.FC = () => {
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    const ratio = Math.min(window.devicePixelRatio, 1.5);
+
+    renderer.setPixelRatio(ratio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ReinhardToneMapping;
     renderer.toneMappingExposure = Math.pow(params.current.exposure, 4.0);
@@ -242,9 +242,10 @@ const ThreeJSComponent: React.FC = () => {
     bloomPass.radius = params.current.bloomRadius;
     const bloomComposer = new EffectComposer(renderer);
     bloomComposer.renderToScreen = false;
+
     bloomComposer.setSize(
-      window.innerWidth * window.devicePixelRatio,
-      window.innerHeight * window.devicePixelRatio,
+      window.innerWidth * ratio,
+      window.innerHeight * ratio,
     );
     bloomComposer.addPass(renderScene);
     bloomComposer.addPass(bloomPass);
@@ -264,8 +265,8 @@ const ThreeJSComponent: React.FC = () => {
     finalPass.needsSwap = true;
     const finalComposer = new EffectComposer(renderer);
     finalComposer.setSize(
-      window.innerWidth * window.devicePixelRatio,
-      window.innerHeight * window.devicePixelRatio,
+      window.innerWidth * ratio,
+      window.innerHeight * ratio
     );
     finalComposer.addPass(renderScene);
     finalComposer.addPass(finalPass);
@@ -281,7 +282,7 @@ const ThreeJSComponent: React.FC = () => {
       BLOOM_SCENE = 1;
     bloomLayer.set(BLOOM_SCENE);
 
-    const boxPos = new THREE.PlaneGeometry(120, 120, 50, 50);
+    const boxPos = new THREE.PlaneGeometry(120, 120, 30, 30);
     boxPos.rotateX(-Math.PI * 0.5);
     const boxGeom = null;
 
@@ -294,7 +295,7 @@ const ThreeJSComponent: React.FC = () => {
       const ob: any = model.getObjectByName('group1822638002');
 
       const boxGeom = ob.geometry;
-      boxGeom.scale(3, 3, 3);
+      boxGeom.scale(5, 5, 5);
       instGeom.attributes.position = boxGeom.attributes.position;
       instGeom.attributes.normal = boxGeom.attributes.normal;
       instGeom.index = boxGeom.index;
@@ -373,13 +374,15 @@ const ThreeJSComponent: React.FC = () => {
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
+
+      const ratio = Math.min(window.devicePixelRatio, 1.5)
       bloomComposer.setSize(
-        width * window.devicePixelRatio,
-        height * window.devicePixelRatio,
+        width * ratio,
+        height * ratio,
       );
       finalComposer.setSize(
-        width * window.devicePixelRatio,
-        height * window.devicePixelRatio,
+        width * ratio,
+        height * ratio,
       );
     };
 
@@ -410,7 +413,6 @@ const ThreeJSComponent: React.FC = () => {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
-      // mountRef.current!.removeChild(renderer.domElement);
     };
   }, []);
 

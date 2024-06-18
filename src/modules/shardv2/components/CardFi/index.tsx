@@ -13,9 +13,10 @@ type TCardFiProps = {
   bgColor?:string;
   classImage?:string;
   classNames?:string;
+  classDesc?:string;
 };
 
-const CardFi = ({ ...props }: TCardFiProps) => {
+const  CardFi = ({ ...props }: TCardFiProps) => {
   return (
     <div className={s.cardFiContainer}>
       <div
@@ -32,7 +33,7 @@ const CardFi = ({ ...props }: TCardFiProps) => {
       </div>
       <p className={s.cardFiContent_title}>{props.title}</p>
       <div
-        className={s.cardFiContent_desc}
+        className={`${s.cardFiContent_desc} ${props.classDesc}`}
       >
         {props.description}
       </div>
