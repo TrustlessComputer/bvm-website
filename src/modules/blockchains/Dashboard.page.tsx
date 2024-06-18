@@ -38,6 +38,11 @@ const Page = (props: any) => {
   );
 
   const onChangeTab = (index: number) => {
+    if (index === TAB_ENUM.MANAGE_CHAINS) {
+      dispatch(setViewPage('ManageChains'));
+    } else {
+      dispatch(setViewPage('Biiling'));
+    }
     setChatTabIndex(index);
   };
 

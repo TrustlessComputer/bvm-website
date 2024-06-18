@@ -13,6 +13,7 @@ const enhanceTopUpModal =
 
     const { onOpenSendFormModal } = props;
     const orderDetail = useAppSelector(orderSelectedSelector);
+    const { viewPage } = useAppSelector(getL2ServicesStateSelector);
     const { accountInforL2Service } = useAppSelector(
       getL2ServicesStateSelector,
     );
@@ -39,7 +40,7 @@ const enhanceTopUpModal =
             infor={{
               paymentAddress: accountInforL2Service?.topUpWalletAddress,
             }}
-            order={orderDetail}
+            order={viewPage === 'Biiling' ? undefined : orderDetail}
             onClose={onCloseTopUpModal}
             payWithNakaWalletCB={onOpenSendFormModal}
           />

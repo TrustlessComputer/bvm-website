@@ -201,7 +201,7 @@ const ItemDetailModal = (props: IProps) => {
           {renderRowInfor('Chain ID', `${order.chainId}`)}
           {renderRowInfor('Block explorer URL', `${order.explorer}`, true)}
           {renderRowInfor('Status', `${mapper.status}`, false, mapper.color)}
-          {renderRowInfor(
+          {/* {renderRowInfor(
             'Need to Topup',
             `${order.needToTopupBalanceFormatted} BVM`,
             false,
@@ -212,7 +212,7 @@ const ItemDetailModal = (props: IProps) => {
               dateTime: new Date(order.nextBillingAt).getTime(),
             }).toLocaleString()}`,
             false,
-          )}
+          )} */}
           {rednerButtonRow()}
         </Flex>
       </Flex>
