@@ -32,6 +32,7 @@ export const metadata = {
 const RoadMapPage = () => {
   return (
     <MainLayout
+      hideFooter={true}
       headerProps={{
         color: 'black',
       }}

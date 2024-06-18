@@ -18,7 +18,10 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
               heading={<>Research</>}
               isLowercaseTitle
             >
-              We believe our research will eventually lead to making Bitcoin vastly more useful than just a currency. We hope to see DeFi, Gaming, NFTs, Payments, and DAOs, among other user on Bitcoin soon.
+              We believe our research will eventually lead to making Bitcoin
+              vastly more useful than just a currency. We hope to see DeFi,
+              Gaming, NFTs, Payments, and DAOs, among other user on Bitcoin
+              soon.
             </LabContent>
           </div>
         );
@@ -30,9 +33,13 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
               imageRect
               isTagFilled
               landingData={Modules}
+              isFilter={true}
               heading={<>Modules</>}
             >
-              We partner with bold builders to build apps and protocols that reinvent Bitcoin. As technical investors, we invest at the earliest stage and take a hands-on approach to help builders build and launch.
+              We partner with bold builders to build apps and protocols that
+              reinvent Bitcoin. As technical investors, we invest at the
+              earliest stage and take a hands-on approach to help builders build
+              and launch.
             </LabContent>
           </div>
         );
@@ -80,6 +87,14 @@ const Lab = ({ tab, isDark }: { tab: number; isDark: boolean }) => {
       }
     }
   }, [tab]);
+
+  const TAB_LIST = [
+    'ALL',
+    'Data Validity',
+    'Data Availability',
+    'CROSS-CHAIN BRIDGES',
+    'Rollup protocol',
+  ];
 
   return (
     <div

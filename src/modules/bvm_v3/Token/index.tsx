@@ -89,7 +89,8 @@ const Tokens = () => {
       <Box
         maxW={{ base: '100vw', lg: 1500 }}
         w="100%"
-        px={'24px'}
+        px={{ base: '24px', lg: '206px' }}
+        py={{ base: '24px', lg: '60px' }}
         position={'relative'}
       >
         <Flex direction="column" className={s.content}>
@@ -107,7 +108,7 @@ const Tokens = () => {
                   w="100%"
                   maxW="502px"
                   direction="column"
-                  gap="8px"
+                  gap="16px"
                   ml={{ base: '0px', lg: '16px' }}
                 >
                   <Flex className={s.priceItem}>
