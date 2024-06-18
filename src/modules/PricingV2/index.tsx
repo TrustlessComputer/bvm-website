@@ -142,7 +142,7 @@ const PriceModule = () => {
               </Text>
 
               {/* Footer */}
-              <Text
+              {/* <Text
                 fontSize={'24px'}
                 fontWeight={500}
                 lineHeight={'33px'}
@@ -157,7 +157,7 @@ const PriceModule = () => {
                 onClick={manageYourChainsOnClick}
               >
                 Manage your chains
-              </Text>
+              </Text> */}
             </Flex>
 
             {/* Body */}
@@ -307,8 +307,12 @@ const PriceModule = () => {
                   'CPU: 32 cores',
                   'Storage: 650 GB SSD',
                 ]}
-                blockChainInforsList={undefined}
-                isHideBlockchainInfor={true}
+                blockChainInforsList={[
+                  'Data availability: Polygon, Celestia',
+                  'Block Gas Limit: 30,000,000 - 100,000,000',
+                  'Prover: Supported',
+                  'Withdrawal Period: 2h - 24h',
+                ]}
               />
               <CardInfor
                 title="Enterprise"
@@ -342,6 +346,15 @@ const PriceModule = () => {
                 }
                 isHideBlockchainInfor={true}
                 isHideHardware={true}
+                includes={[
+                  'Customize-able',
+                  'Unlimited Requests with Auto-scaling',
+                  'Higher Throughput',
+                  'Committed usage discounts',
+                  'Custom on-demand discounts',
+                  'VIP support channels',
+                  'Engineering team access',
+                ]}
               />
             </SimpleGrid>
           </Flex>

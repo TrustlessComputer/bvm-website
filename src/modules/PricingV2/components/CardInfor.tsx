@@ -1,4 +1,4 @@
-import { Flex, ListItem, Text, UnorderedList } from '@chakra-ui/react';
+import { Flex, ListItem, Text, UnorderedList, Image } from '@chakra-ui/react';
 import s from '../styles.module.scss';
 
 export type CardInforProps = {
@@ -13,6 +13,7 @@ export type CardInforProps = {
   isHideBlockchainInfor?: boolean;
   hardwareList?: any[];
   blockChainInforsList?: any[];
+  includes?: any[];
 };
 
 const CardInfor = (props: CardInforProps) => {
@@ -28,6 +29,7 @@ const CardInfor = (props: CardInforProps) => {
     blockChainInforsList,
     isHideHardware = false,
     isHideBlockchainInfor = false,
+    includes,
   } = props;
   return (
     <Flex
@@ -124,6 +126,34 @@ const CardInfor = (props: CardInforProps) => {
               <ListItem key={`${item}-${index}`}>{item}</ListItem>
             ))}
           </UnorderedList>
+        </Flex>
+      )}
+
+      {includes && (
+        <Flex
+          flexDir={'column'}
+          align={'flex-start'}
+          justify={'flex-start'}
+          gap={'20px'}
+          minH={'150px'}
+          w={'100%'}
+        >
+          <Text
+            fontSize={'16px'}
+            lineHeight={'20px'}
+            fontWeight={600}
+            className={s.fontType2}
+          >
+            {'Includes:'}
+          </Text>
+          {includes.map((item) => {
+            return (
+              <Flex align={'center'} flexDir={'row'} gap="8px">
+                <Image src={`/icons/check_green.svg`} />
+                <Text className={s.fontType2}>{item}</Text>
+              </Flex>
+            );
+          })}
         </Flex>
       )}
     </Flex>

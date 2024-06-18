@@ -9,6 +9,7 @@ export default function Builder() {
       headerProps={{
         color: 'black',
       }}
+      hideFooter={true}
     >
       <PricingV2 />
     </MainLayout>

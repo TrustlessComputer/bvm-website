@@ -184,6 +184,30 @@ const UpdateOrderModal = (props: IProps) => {
     );
   };
 
+  const renderCancelThisRollup = () => {
+    return (
+      <Text
+        marginTop={'20px'}
+        opacity={0.7}
+        color={'#F44915'}
+        _hover={{
+          opacity: 0.8,
+        }}
+        _disabled={{
+          opacity: 0.5,
+        }}
+        align={'center'}
+        fontSize={'14px'}
+        lineHeight={'19px'}
+        onClick={() => {
+          alert('TO DO ');
+        }}
+      >
+        {'Cancel this rollup'}
+      </Text>
+    );
+  };
+
   const renderChainNameField = () => {
     return (
       <Flex
@@ -439,6 +463,7 @@ const UpdateOrderModal = (props: IProps) => {
         {renderThumbURLField()}
         {renderDescField()}
         {renderSubmitButton()}
+        {renderCancelThisRollup()}
       </Flex>
     );
   };
