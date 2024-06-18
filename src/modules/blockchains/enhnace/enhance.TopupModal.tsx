@@ -1,7 +1,10 @@
 import { useDisclosure } from '@chakra-ui/react';
 import { DashboardProps, DashboardWrappedComponent } from '../Dashboard.types';
 import { useAppSelector } from '@/stores/hooks';
-import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import {
+  getL2ServicesStateSelector,
+  orderSelectedSelector,
+} from '@/stores/states/l2services/selector';
 import TopupModal from '../components/TopupModal';
 
 const enhanceTopUpModal =
@@ -9,7 +12,7 @@ const enhanceTopUpModal =
     // const dispatch = useAppDispatch();
 
     const { onOpenSendFormModal } = props;
-
+    const orderDetail = useAppSelector(orderSelectedSelector);
     const { accountInforL2Service } = useAppSelector(
       getL2ServicesStateSelector,
     );
@@ -36,6 +39,7 @@ const enhanceTopUpModal =
             infor={{
               paymentAddress: accountInforL2Service?.topUpWalletAddress,
             }}
+            order={orderDetail}
             onClose={onCloseTopUpModal}
             payWithNakaWalletCB={onOpenSendFormModal}
           />

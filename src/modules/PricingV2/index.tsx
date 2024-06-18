@@ -119,7 +119,7 @@ const PriceModule = () => {
             <Spinner></Spinner>
           </Flex>
         ) : (
-          <Flex flexDir={'column'} align={'center'} gap={'70px'}>
+          <Flex flexDir={'column'} align={'center'} gap={'60px'}>
             {/* Heaader*/}
             <Flex flexDir={'column'} gap={'15px'}>
               <Text
@@ -132,13 +132,31 @@ const PriceModule = () => {
               </Text>
               <Text
                 textAlign={'center'}
-                fontSize={'24px'}
-                lineHeight={'33.6px'}
+                fontSize={'20px'}
+                lineHeight={'28px'}
                 fontWeight={400}
                 opacity={0.7}
                 className={s.fontType2}
               >
                 {`Pricing for crypto teams of all sizes.`}
+              </Text>
+
+              {/* Footer */}
+              <Text
+                fontSize={'24px'}
+                fontWeight={500}
+                lineHeight={'33px'}
+                color={'#FA4E0E'}
+                className={s.fontType3}
+                textAlign={'center'}
+                opacity={0.7}
+                _hover={{
+                  opacity: 0.8,
+                  cursor: 'pointer',
+                }}
+                onClick={manageYourChainsOnClick}
+              >
+                Manage your chains
               </Text>
             </Flex>
 
@@ -326,24 +344,6 @@ const PriceModule = () => {
                 isHideHardware={true}
               />
             </SimpleGrid>
-
-            {/* Footer */}
-            <Text
-              fontSize={'20px'}
-              fontWeight={400}
-              lineHeight={'29px'}
-              color={'#FA4E0E'}
-              className={s.fontType3}
-              textAlign={'center'}
-              opacity={0.7}
-              _hover={{
-                opacity: 0.8,
-                cursor: 'pointer',
-              }}
-              onClick={manageYourChainsOnClick}
-            >
-              Manage your chains
-            </Text>
           </Flex>
         )}
       </BoxContent>

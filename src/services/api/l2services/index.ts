@@ -13,6 +13,7 @@ import {
   IGetNonceReq,
   IGetNonceResp,
   IOrderBuyReq,
+  IOrderUpdate,
   IQuickStart,
   IVerifySignatureReq,
   IVerifySignatureResp,
@@ -139,9 +140,24 @@ export const validateSubDomainAPI = async (subdomain: string): Promise<any> => {
 // ------------------------------------------------------------------------
 
 export const orderBuyAPI = async (params: IOrderBuyReq): Promise<any> => {
-  // eslint-disable-next-line no-useless-catch
   try {
     const data = (await httpClient.post(`/order/register`, params, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    })) as any;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const orderUpdateAPI = async (
+  params: IOrderUpdate,
+  orderId: string,
+): Promise<any> => {
+  try {
+    const data = (await httpClient.put(`/order/update/${orderId}`, params, {
       headers: {
         Authorization: `${getAPIAccessToken()}`,
       },
@@ -380,6 +396,8 @@ const l2ServicesAPI = {
   getConfigInfor,
   updateConfigInfor,
   cancelOrder,
+
+  orderUpdateAPI,
 };
 
 export default l2ServicesAPI;

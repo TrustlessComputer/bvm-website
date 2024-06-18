@@ -97,6 +97,8 @@ interface OrderItemResp {
   PreMintAmount?: string;
   ticker?: string;
   bridgeStatus?: number;
+  thumb?: string;
+  needToTopupBalanceUSD?: string;
 }
 
 interface HistoryItemResp {
@@ -125,6 +127,7 @@ interface OrderItem extends OrderItemResp {
   serviceFeeFormatted: string;
   rollupCostFormatted: string;
   isOwner: boolean;
+  needToTopupBalanceUSD?: string;
 }
 
 interface AccountInfoResp {
@@ -176,6 +179,12 @@ interface IOrderBuyReq {
   rollupProtocol?: number;
   prover?: number;
   bridgeStatus?: number;
+}
+
+interface IOrderUpdate {
+  chainName: string;
+  description: string;
+  thumb: string;
 }
 
 interface IOrderBuyEstimateRespone {
@@ -290,4 +299,5 @@ export type {
   MetaConfig,
   ThemeConfig,
   WebsiteConfig,
+  IOrderUpdate,
 };

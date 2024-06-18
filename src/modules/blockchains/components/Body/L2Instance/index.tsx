@@ -21,8 +21,12 @@ const L2Instance = (props: Props) => {
 
   const { item, onClick, isOwner } = props;
 
-  const { onOpenBillingModal, onOpenEditConfigModal, onOpenCancelOrderModal } =
-    useDashboard();
+  const {
+    onOpenBillingModal,
+    onOpenEditConfigModal,
+    onOpenCancelOrderModal,
+    onOpenTopUpModal,
+  } = useDashboard();
 
   return (
     <>
@@ -36,18 +40,25 @@ const L2Instance = (props: Props) => {
         <Box
           bgColor={'#fff'}
           flexDir={'column'}
-          minH={'410px'}
-          p={'20px'}
+          minH={'auto'}
+          p={'40px'}
+          borderRadius={'20px'}
           _hover={{
             cursor: 'pointer',
             borderColor: '#b6b7b7b1',
             boxShadow: 'md',
           }}
         >
-          <HeaderRow item={item} />
+          <HeaderRow
+            item={item}
+            depositOnClick={() => {
+              dispatch(setOrderSelected(item));
+              onOpenTopUpModal && onOpenTopUpModal();
+            }}
+          />
           <Divider my={'20px'} borderColor="gray.200" />
           <BodyInfor item={item} />
-          <Divider my={'20px'} borderColor="gray.200" />
+          {/* <Divider my={'20px'} borderColor="gray.200" /> */}
           <BottomInfor
             item={item}
             isOwner={isOwner}
