@@ -10,15 +10,17 @@ const DATA = [
 
     buttonsDex: [
       {
-        btnTitle: 'Buy on Naka',
-        link: 'https://nakachain.xyz/swap',
-        color: 'green',
-      },
-      {
         btnTitle: 'Uniswap (Ethereum)',
         color: 'border',
         link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
         icon: '/bvm/uniswap.svg',
+      },
+      {
+        btnTitle: 'Naka',
+        link: 'https://nakachain.xyz/swap',
+        // color: 'green',
+        color: 'border',
+        icon: '/bvm/naka.svg',
       },
       {
         btnTitle: 'Uniswap (Arbitrum)',
@@ -27,10 +29,10 @@ const DATA = [
         icon: '/bvm/uniswap.svg',
       },
       {
-        btnTitle: 'OKX Web3',
+        btnTitle: 'OKXWEB3',
         color: 'border',
         link: 'https://www.okx.com/web3/dex-swap#inputChain=1&inputCurrency=0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE&outputChain=1&outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d',
-        icon: '/bvm/okx.svg',
+        icon: '/bvm/okx2.svg',
       },
       {
         btnTitle: 'Unisat',
