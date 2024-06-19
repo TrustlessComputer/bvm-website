@@ -31,11 +31,11 @@ export default function Content() {
             on-chain AI to decentralized financial infrastructure and autonomous
             worlds.
             <br /> <br />
-            The common thread? We wanted to build on Bitcoin.
+            The common thread? We wanted to build on Bitcoin. It could be
+            anything, but it had to be on Bitcoin.
             <br /> <br />
-            It could be anything, but it had to be on Bitcoin. We shared a
-            vision: to make Bitcoin more than a cryptocurrency. We envision art,
-            AI, the Metaverse, DeFi, and games—all on Bitcoin.
+            We shared a vision: to make Bitcoin more than a cryptocurrency. We
+            envision art, AI, the Metaverse, DeFi, and games—all on Bitcoin.
             <br /> <br />
             We wanted to create a radically new way to explore Bitcoin.
             <br /> <br />
