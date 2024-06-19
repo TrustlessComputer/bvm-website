@@ -5,11 +5,10 @@ export default function Heading() {
   return (
     <div className={`containerV3`}>
       <div className={s.headingWrapper}>
-        <h1 className={s.headingWrapper_title}>Our Story</h1>
+        <h1 className={s.headingWrapper_title}>TEAM</h1>
         <p className={s.headingWrapper_decs}>
-          Earlier this year, our team began working on something new. And
-          whenever new ideas come up, we ask each other this question: where do
-          we see this project in 5 years?
+          BVM is a crypto research and development team. Our mission is to
+          upgrade Bitcoin beyond just a currency.
         </p>
       </div>
     </div>
