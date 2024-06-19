@@ -1,0 +1,51 @@
+.dropMenu {
+  position: relative;
+  color: white;
+
+  &_label {
+    display: flex;
+    gap: 5px;
+    color: #fff;
+    font-family: var(--font-jetbrains);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: (20 / 14);
+    text-align: center;
+    cursor: pointer;
+
+    &.black {
+      color: black;
+
+      svg path {
+        stroke: black !important;
+      }
+    }
+
+    img,
+    svg {
+      transform: translateY(0.05em);
+    }
+  }
+
+  &:hover {
+    .dropMenu_list {
+      opacity: 1;
+      visibility: visible;
+      z-index: 2 !important;
+    }
+  }
+
+  &_list {
+    opacity: 0;
+    width: max-content;
+    position: absolute;
+    right: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    visibility: hidden;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+}
