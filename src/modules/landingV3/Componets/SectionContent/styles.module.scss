@@ -11,6 +11,7 @@
   @include is-pc {
     gap: 120px;
     flex-direction: row;
+    max-width: 1440px;
   }
 
   &__left {
@@ -21,8 +22,6 @@
 }
 
 .left {
-
-
   img {
     max-width: 100%;
   }
@@ -31,27 +30,24 @@
     flex: 0 0 753px;
     max-width: 753px;
   }
-
 }
 
 .section {
-
   padding-top: 64px;
   padding-bottom: 64px;
 
-  @include is-min-table{
+  @include is-min-table {
     padding-top: 80px;
     padding-bottom: 80px;
   }
 
-    @include is-pc{
-      padding-top: 120px;
-      padding-bottom: 120px;
-    }
+  @include is-pc {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
 }
 
 .content {
-
   gap: 24px;
   display: flex;
   flex-direction: column;
@@ -67,7 +63,7 @@
 
   &_desc {
     font-family: var(--font-SFProDisplay);
-    color: #5D6875;
+    color: #5d6875;
     font-size: 18px;
     font-weight: 400;
     line-height: 27px;
@@ -82,7 +78,7 @@
     font-weight: 700;
     line-height: 19.6px;
     text-align: center;
-    color: #FA4E0E;
+    color: #fa4e0e;
     text-transform: uppercase;
 
     display: flex;
