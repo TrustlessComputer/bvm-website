@@ -1,7 +1,7 @@
 'use client';
 
 import s from './styles.module.scss';
-import { IconHeading } from '../components/IconSvg';
+// import { IconHeading } from '../components/IconSvg';
 import Fade from '@/interactive/Fade';
 import Lines from '@/interactive/Lines';
 import Image from 'next/image';
@@ -22,13 +22,15 @@ export default function Heading() {
         </div>
       </Fade>
       <p className={s.headingText}>
-        <Lines delay={0.3}>
-          Welcome to the future of Bitcoin
-        </Lines>
+        <Lines delay={0.3}>Welcome to the future of Bitcoin</Lines>
       </p>
       <p className={s.desc}>
         <Lines delay={0.3}>
-          Ethereum’s heyday is over. Bitcoin is the new home for dapps.
+          BVM is the scalable infrastructure to make Bitcoin as generalized as
+          possible — usable for far more than just a currency. Powered by BVM,
+          developers can now build all kinds of infrastructures, like Bitcoin
+          L2s and Bitcoin L3s, and decentralized applications on Bitcoin — DeFi,
+          GameFi, Payments, AI, and more.
         </Lines>
       </p>
     </div>

@@ -15,7 +15,14 @@ export default function HeroV2() {
       <Loader />
       <div className={cn(s.inner, 'container')}>
         <Heading />
-        <Flex alignItems={'center'} flexWrap={'wrap'} justifyContent={'center'} marginTop={'20px'} marginBottom={'40px'} gap={'24px'}>
+        <Flex
+          alignItems={'center'}
+          flexWrap={'wrap'}
+          justifyContent={'center'}
+          marginTop={'24px'}
+          marginBottom={'40px'}
+          gap={'24px'}
+        >
           <Button
             bgColor={'#FA4E0E'}
             color={'#fff'}
