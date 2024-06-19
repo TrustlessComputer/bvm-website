@@ -55,7 +55,7 @@ const Vesting = () => {
 
   return (
     <Box className={s.wrapper} position={'relative'}>
-      <Text fontSize="14px" className={s.heading}>BVM Vesting 5 Year Schedule</Text>
+      <Text fontSize="14.8px" className={s.heading}>BVM Vesting 5 Year Schedule</Text>
       <Box className={s.table_wrapper}>
         {/*<Flex w="100%" justifyContent="center" alignItems="center">*/}
         {/*  <Text*/}
