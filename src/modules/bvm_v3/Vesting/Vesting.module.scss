@@ -1,6 +1,7 @@
 .wrapper {
   width: 100%;
   text-align: center;
+  max-width: 591px;
 
   .header {
     width: 100%;
@@ -24,7 +25,6 @@
     width: 100%;
     //position: relative;
     //z-index: 1;
-
     th,
     td {
       color: white;

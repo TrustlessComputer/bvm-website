@@ -16,12 +16,11 @@ export default function LandingV3() {
     <div className={s.landing}>
       <HeroV3 />
       <Experience />
+
       <div className={s.bottom}>
-        {
-          HOME_DATA_SECTIONS.map((data)=>{
-           return <SectionContent {...data} />
-          })
-        }
+        {HOME_DATA_SECTIONS.map((data) => {
+          return <SectionContent {...data} />;
+        })}
       </div>
     </div>
   );

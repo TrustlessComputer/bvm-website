@@ -1,0 +1,45 @@
+.headingWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  margin: 0 20px;
+  margin: 0 auto;
+  @include is-pc {
+    width: 714px;
+  }
+
+  &_title {
+    font-size: 42px;
+    color: #000;
+    text-align: center;
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    text-transform: uppercase;
+
+    @include is-tablet {
+      font-size: 56px;
+    }
+
+    @include is-pc {
+      font-size: 68px;
+    }
+  }
+
+  &_decs {
+    color: #000;
+    text-align: center;
+    font-family: var(--font-SFProDisplay);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: 1px;
+    @include is-pc {
+      font-size: 20px;
+    }
+  }
+}

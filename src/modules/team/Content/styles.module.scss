@@ -1,0 +1,151 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
+  &_group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+
+    @include is-pc {
+      // max-width: 656px;
+    }
+
+    &_title {
+      font-size: 36px;
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      color: #000;
+      font-weight: 500;
+      line-height: 120%; /* 57.6px */
+      text-transform: uppercase;
+      @include is-pc {
+        font-size: 48px;
+      }
+    }
+
+    &_decs {
+      color: #000;
+      font-family: var(--font-SFProDisplay);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 36px */
+      letter-spacing: 1.2px;
+      font-size: 20px;
+
+      @include is-pc {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+.explore {
+  --line-offset: calc(48px / 2);
+  --line-thickness: 2px;
+  --line-color: red;
+
+  background-color: #fff;
+  border-radius: 20px;
+
+  &_title {
+    color: #000;
+    text-align: center;
+    font-family: 'JetBrains Mono';
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%; /* 38.4px */
+    text-transform: uppercase;
+    max-width: 683px;
+    margin: 0 auto;
+    padding-top: 60px;
+  }
+
+  &_list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px;
+    padding-top: 60px;
+
+    @include min-tablet {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 48px;
+    }
+  }
+  &_item {
+    display: grid;
+    position: relative;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+    gap: 12px;
+  }
+  .grid__item::before,
+  .grid__item::after {
+    content: '';
+    position: absolute;
+    background-color: var(--line-color);
+    z-index: 1;
+  }
+
+  &_title {
+    color: #000;
+    font-family: 'JetBrains Mono';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    text-transform: uppercase;
+  }
+
+  &_decs {
+    color: #000;
+    font-family: var(--font-SFProDisplay);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.9px;
+  }
+}
+.reimagined {
+  padding-top: 100px;
+
+  &_heading {
+    width: 100%;
+    padding-bottom: 60px;
+
+    @include is-pc {
+      max-width: 755px;
+      margin: 0 auto;
+    }
+
+    h4 {
+      text-align: center;
+    }
+    p {
+      text-align: center;
+    }
+  }
+
+  &_image {
+    padding: 8px;
+    border-radius: 20px;
+    border: 1.004px solid rgba(255, 255, 255, 0.1);
+    background: #fff;
+
+    &_inner {
+      width: 100%;
+      aspect-ratio: 1424 / 862;
+      border-radius: 13px;
+    }
+  }
+}
+
+.history {
+  background-color: #000;
+  border-radius: 20px;
+}

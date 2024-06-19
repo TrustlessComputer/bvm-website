@@ -9,6 +9,10 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { MobileNav } from './MobileNav';
+import useHeaderMobile from '@layouts/HeaderV3/useHeaderMobile';
+
+import s from './styles.module.scss';
+import { useEffect } from 'react';
 
 export type HeaderProps = {
   isOpen: boolean;
@@ -16,6 +20,18 @@ export type HeaderProps = {
 };
 
 const DrawerMobileMenu = (props: HeaderProps) => {
+
+  const { isProductionOpen, hide } = useHeaderMobile();
+  const onClose = () => {
+
+    isProductionOpen ? hide() : props.onToggle();
+  };
+
+  console.log('____render', isProductionOpen);
+  useEffect(() => {
+    console.log('___change', isProductionOpen);
+  }, [isProductionOpen]);
+
   return (
     <Drawer
       isOpen={props.isOpen}
@@ -25,7 +41,7 @@ const DrawerMobileMenu = (props: HeaderProps) => {
     >
       <DrawerOverlay />
       <DrawerContent zIndex={3}>
-        <DrawerBody bgColor={'#F3F1E8'}>{<MobileNav primaryColor = 'black'/>}</DrawerBody>
+        <DrawerBody bgColor={'#F3F1E8'}>{<MobileNav primaryColor="black" />}</DrawerBody>
         <DrawerFooter
           bgColor={'#F3F1E8'}
           justifyContent={'center'}
@@ -38,7 +54,8 @@ const DrawerMobileMenu = (props: HeaderProps) => {
             width={50}
             height={50}
             alignSelf={'center'}
-            onClick={props.onToggle}
+            className={s.btnClose}
+            onClick={onClose}
           />
         </DrawerFooter>
       </DrawerContent>
