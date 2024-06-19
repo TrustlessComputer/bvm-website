@@ -113,7 +113,7 @@ const PriceModule = () => {
 
   return (
     <div className={s.container}>
-      <BoxContent>
+      <BoxContent bgColor={'#f3f1e8'}>
         {availableListFetching || !availableList ? (
           <Flex w={'100%'} minH={'500px'} justify={'center'} align={'center'}>
             <Spinner></Spinner>
@@ -236,7 +236,7 @@ const PriceModule = () => {
                   'Data availability: Polygon',
                   'Block Gas Limit: 30,000,000',
                   'Prover: No',
-                  'Withdrawal Period: 2h',
+                  'Withdrawal Period: 6h',
                 ]}
               />
               <CardInfor
