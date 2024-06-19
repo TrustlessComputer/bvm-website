@@ -173,11 +173,11 @@ const DataAvailabilitySection = () => {
               <Text fontSize={'17px'} fontWeight={400} lineHeight={'20px'}>
                 {name}
               </Text>
-              {isCommingSoon && (
+              {/* {isCommingSoon && (
                 <Text fontSize={'17px'} fontWeight={400} lineHeight={'20px'}>
                   {'(Comming soon)'}
                 </Text>
-              )}
+              )} */}
             </Flex>
           );
         })}
