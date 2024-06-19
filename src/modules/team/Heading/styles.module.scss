@@ -33,14 +33,13 @@
     color: #000;
     text-align: center;
     font-family: var(--font-SFProDisplay);
-    font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 150%; /* 27px */
-    letter-spacing: 0.9px;
-
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: 1px;
     @include is-pc {
-      font-size: 18px;
+      font-size: 20px;
     }
   }
 }
