@@ -1,8 +1,6 @@
-import { NavItem } from '@/layouts/Header/menuConfig';
 import Link from 'next/link';
 import s from './style.module.scss';
-import IconLogo from '../components/IcLogo';
-import { IconButton, Image, useDisclosure } from '@chakra-ui/react';
+import { IconButton, useDisclosure } from '@chakra-ui/react';
 import useWindowSize from '@/hooks/useWindowSize';
 import DrawerMobileMenu from '@/layouts/HeaderV3/components/DrawerMenu';
 import { NAV_ITEMS } from '../menuConfig';
@@ -10,6 +8,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import IcMenuMobile from '../components/IcMenuMobile';
 import DropDown from '../components/Dropdown';
 import ButtonLoginTwitter from '../components/ButtonLoginTwitter';
+import GroupDownItem from '@layouts/HeaderV3/components/GroupDownItem';
+import { ReactElement } from 'react';
 
 export type TMainHeader = {
   color?: 'black' | 'white';
@@ -46,6 +46,10 @@ const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader) => {
                   lists={item.subMenu}
                   color={color}
                 />
+              ) : (item.GroupDropDown ? (
+                <GroupDownItem key={item.label}
+                               title={item.label}
+                               color={color}>{item.GroupDropDown()}</GroupDownItem>
               ) : (
                 <Link
                   key={item.label}
@@ -61,7 +65,7 @@ const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader) => {
                     {item.label}
                   </p>
                 </Link>
-              );
+              ));
             })}
             <ButtonLoginTwitter color={color} />
           </div>
