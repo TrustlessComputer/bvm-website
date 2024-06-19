@@ -1,5 +1,6 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import s from './styles.module.scss';
+import useHeaderMobile from '@layouts/HeaderV3/useHeaderMobile';
 
 type PropD = {
   title: string;
@@ -17,15 +18,12 @@ const GroupDownItem = ({
                          color,
                          children,
                        }: PropD): ReactElement => {
+  const { isProductionOpen, show } = useHeaderMobile();
 
   return (
-    <div className={s.dropMenu}>
+
+    <div className={s.dropMenu} onClick={show}>
       <span
-        onClick={() => {
-          if (href) {
-            return window.open(href, target);
-          }
-        }}
         style={{
           color: color,
         }}
@@ -33,7 +31,7 @@ const GroupDownItem = ({
       >
         {title}
       </span>
-      <div className={s.dropMenu_list}>
+      <div className={`${s.dropMenu_list} ${isProductionOpen && s.isOpen}`}>
         {children}
       </div>
     </div>

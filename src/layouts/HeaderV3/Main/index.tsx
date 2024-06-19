@@ -10,13 +10,14 @@ import DropDown from '../components/Dropdown';
 import ButtonLoginTwitter from '../components/ButtonLoginTwitter';
 import GroupDownItem from '@layouts/HeaderV3/components/GroupDownItem';
 import { ReactElement } from 'react';
+import useHeaderMobile from '@layouts/HeaderV3/useHeaderMobile';
 
 export type TMainHeader = {
   color?: 'black' | 'white';
   colorLogo?: 'white' | 'black';
 };
 
-const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader) => {
+const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader): ReactElement => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
   const pathname = usePathname();

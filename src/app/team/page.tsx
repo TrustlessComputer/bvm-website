@@ -1,4 +1,5 @@
 import MainLayout from '@layouts/MainLayout';
+import TeamModule from '@/modules/team';
 
 const TeamPage = () => {
   return (
@@ -8,7 +9,7 @@ const TeamPage = () => {
         color: 'black',
       }}
     >
-      <h1>Is Coming</h1>
+      <TeamModule />
     </MainLayout>
   );
 };
