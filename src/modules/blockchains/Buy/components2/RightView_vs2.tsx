@@ -7,7 +7,8 @@ import BlockGasLimitSection from './BlockGasLimitSection';
 import BlockTimeSection from './BlockTimeSection';
 import ComputerDescriptionSection from './ComputerDescriptionSection';
 import ContactInformationSection from './ContactInformationSection';
-import DataAvailabilitySection from './DataAvailabilitySection';
+// import DataAvailabilitySection from './DataAvailabilitySection';
+import DataAvailabilitySection from './DataAvailabilitySection_V2';
 import MinGasPriceSection from './MinGasPriceSection';
 import NetworkSection from './NetworkSection';
 import PreInstalledDappsSection from './PreInstalledDappsSection';
@@ -17,14 +18,15 @@ import TokenPayingGasSection from './TokenPayingGasSection';
 import WithdrawalPeriodSection from './WithdrawalPeriodSection_v2';
 import ConfigurationOptionsSection from './ConfigurationOptionsSection';
 import ComputerNameSection from './ComputerNameSection';
-import ProverSection from './ProverSection';
+// import ProverSection from './ProverSection';
+import ProverSection from './ProverSection_v2';
 
 export type Props = {};
 
 const RightView = React.memo((props: Props) => {
   return (
     <Flex
-      width={'50%'}
+      width={'100%'}
       direction={'column'}
       overflow="visible"
       css={{
@@ -39,11 +41,11 @@ const RightView = React.memo((props: Props) => {
       <Text fontSize={'36px'} color={'black'} fontWeight={600}>
         Customize your ZK-powered Blockchain
       </Text>
-      <Text fontSize={'20px'} color={'#323232'} fontWeight={400} my={'13px'}>
+      {/* <Text fontSize={'20px'} color={'#323232'} fontWeight={400} my={'13px'}>
         ZK-powered Blockchains are secure, low-cost, and lightning-fast — fully
         loaded with DEX, DAO, NFT marketplace, and the whole shebang!
-      </Text>
-      <Flex flexDir={'column'} gap={'20px'}>
+      </Text> */}
+      <Flex flexDir={'column'} gap={'20px'} mt={'20px'}>
         {/* Computer Name */}
         <ComputerNameSection />
 
@@ -80,7 +82,7 @@ const RightView = React.memo((props: Props) => {
         {/* Gas Limit */}
         {<BlockGasLimitSection />}
 
-        {/* Gas Limit */}
+        {/* Prover */}
         {<ProverSection />}
 
         {/* Withdrawal Period (SLIDER)*/}
