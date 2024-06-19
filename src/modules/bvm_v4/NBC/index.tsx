@@ -65,7 +65,7 @@ const NBC = (): React.JSX.Element => {
       </div>
     </div>
     <div className={s.right}>
-      <ImagePlaceholder src={'/NBC.jpg'} alt={'NBC'} width={660} height={600} className={s.right_img} />
+      <ImagePlaceholder src={'/NBC.jpg'} alt={'NBC'} width={600} height={337} className={s.right_img} />
     </div>
   </div>
 }

@@ -33,13 +33,14 @@ const Allocation = () => {
         <Flex
           w="100%"
           flexDir={{ base: "column", md: 'column', lg: "row" }}
-          gap={{ base: "32px", md: '60px', lg: "74px" }}
+          justifyContent={'space-between'}
+          gap={{ base: "32px", md: '60px', lg: "120px" }}
           alignItems={'center'}
-          px={{base: '15px' , md: '60px' ,lg: '194px'}}
+          px={{base: '15px' , md: '60px' ,lg: '77px'}}
         >
           <div className={s.chart}>
             <ImagePlaceholder
-              width={458}
+              width={573}
               height={365}
               src={'/images/pie-chart-7.png'}
               alt={'Allocation chart'}
