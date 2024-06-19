@@ -308,7 +308,7 @@ const PriceModule = () => {
                   'Storage: 650 GB SSD',
                 ]}
                 blockChainInforsList={[
-                  'Data availability: Polygon, Celestia',
+                  'Data availability: Polygon, Celestia, NearDA, Eigen ...',
                   'Block Gas Limit: 30,000,000 - 100,000,000',
                   'Prover: Supported',
                   'Withdrawal Period: 2h - 24h',

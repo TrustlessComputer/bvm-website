@@ -199,7 +199,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   >(BitcoinValidityEnum.BitcoinValidity_Ordinals);
   const [dataValiditySelected, setDataValiditySelected] = useState<
     DALayerEnum | undefined
-  >(DALayerEnum.DALayer_BTC);
+  >(DALayerEnum.DALayer_PLG);
   const [blockTimeSelected, setBlockTimeSelected] = useState<
     BlockTimeEnum | undefined
   >(BlockTimeEnum.BlockTime_1s);
@@ -289,7 +289,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
   useEffect(() => {
     if (isMainnet) {
-      setDataValiditySelected(DALayerEnum.DALayer_BTC);
+      setDataValiditySelected(DALayerEnum.DALayer_PLG);
     }
   }, [isMainnet]);
 
@@ -311,7 +311,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       .toFixed();
     const bitcoinValidity =
       bitcoinValiditySelected || BitcoinValidityEnum.BitcoinValidity_Ordinals;
-    const dataAvaibilityChain = dataValiditySelected || DALayerEnum.DALayer_BTC;
+    const dataAvaibilityChain = dataValiditySelected || DALayerEnum.DALayer_PLG;
 
     let params: IOrderBuyReq = {
       serviceType: RollupEnum.Rollup_OpStack, // hard code
