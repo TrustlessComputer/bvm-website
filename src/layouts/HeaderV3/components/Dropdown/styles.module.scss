@@ -12,6 +12,7 @@
     line-height: (20 / 14);
     text-align: center;
     cursor: pointer;
+
     &.black {
       color: black;
 
@@ -62,6 +63,7 @@
     font-weight: 500;
     line-height: (20 / 14);
     text-align: center;
+
     svg * {
       transition: fill 0.4s var(--easeOutQuart);
     }
@@ -79,5 +81,28 @@
 
   &_svg {
     border-radius: 999px;
+  }
+}
+
+
+.group_inner {
+  display: flex;
+  gap: 24px;
+}
+
+.group_item{
+  &_list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  &_title{
+    font-family: var(--font-JetBrainsMono);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    text-align: left;
+    color: black;
   }
 }

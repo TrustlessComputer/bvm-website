@@ -3,6 +3,7 @@ import {
   DEVELOPERS_GRANTS_URL,
   WHITEPAPER_DOC_URL,
 } from '@/config';
+import { ReactElement } from 'react';
 
 export interface NavItem {
   label: string;
@@ -14,6 +15,8 @@ export interface NavItem {
   isTwitter?: boolean;
   isStrong?: boolean;
   subMenu?: any;
+  isGroup?: boolean;
+  GroupDropDown?: () => ReactElement;
 }
 
 export const MenuBuild = {
@@ -116,19 +119,6 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
       },
     ],
   },
-
-  // {
-  //   label: 'Pricing',
-  //   href: '/pricing',
-  //   isNewWindow: false,
-  //   isHide: false,
-  // },
-  // {
-  //   label: 'Success Stories',
-  //   href: '/use-bitcoin',
-  //   isNewWindow: false,
-  //   isHide: false,
-  // },
 
   {
     label: 'Buy BVM',

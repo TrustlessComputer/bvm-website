@@ -5,6 +5,7 @@ import { NAV_ITEMS, NAV_ITEMS_MOBILE } from '../menuConfig';
 import MobileDropdown from '@/layouts/Header/components/MobileDropdown';
 import Community from './Community';
 import ButtonLoginTwitter from './ButtonLoginTwitter';
+import GroupDownItem from '@layouts/HeaderV3/components/GroupDownItem';
 
 type Props = {
   primaryColor?: 'black' | 'white';
@@ -29,6 +30,10 @@ export const MobileNav = (props: Props) => {
               title={item.label}
               lists={item.subMenu}
             />
+          ) : (item.GroupDropDown ? (
+            <GroupDownItem key={item.label}
+                           title={item.label}
+                           color={'#000'}>{item.GroupDropDown()}</GroupDownItem>
           ) : (
             <Link
               p={2}
@@ -41,7 +46,7 @@ export const MobileNav = (props: Props) => {
             >
               {item.label}
             </Link>
-          )}
+          ))}
         </>
       ))}
       <Community color="black" />

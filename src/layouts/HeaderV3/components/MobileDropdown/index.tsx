@@ -3,6 +3,7 @@ import { Link, StackDivider, VStack } from '@chakra-ui/react';
 import { NAV_ITEMS, NavItem } from '@/layouts/Header/menuConfig';
 import SvgInset from '@/components/SvgInset';
 import s from './styles.module.scss';
+import GroupDownItem from '@layouts/HeaderV3/components/GroupDownItem';
 
 type PropD = {
   title: string;
@@ -37,17 +38,21 @@ const MobileDropdown = ({ title, lists, primaryColor }: PropD) => {
           py={'32px'}
         >
           {lists.map((item) => (
-            <Link
-              p={2}
-              href={item.href ?? '#'}
-              fontSize={['16px', '16px']}
-              fontWeight={400}
-              color={'#000'}
-              target={item.isNewWindow ? '_blank' : '_self'}
-              _hover={{}}
-            >
-              {item.label}
-            </Link>
+            item.GroupDropDown ? <GroupDownItem title={item.label} key={item.label} color={'#000'}>
+                {item.GroupDropDown()}
+              </GroupDownItem> :
+              <Link
+                p={2}
+                key={item.label}
+                href={item.href ?? '#'}
+                fontSize={['16px', '16px']}
+                fontWeight={400}
+                color={'#000'}
+                target={item.isNewWindow ? '_blank' : '_self'}
+                _hover={{}}
+              >
+                {item.label}
+              </Link>
           ))}
         </VStack>
       )}

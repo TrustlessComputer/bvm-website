@@ -1,0 +1,80 @@
+.cardWrapper {
+  width: 100%;
+
+  @include is-pc {
+    max-width: 500px;
+  }
+
+  :global{
+    .fade{
+      height: 100%;
+    }
+
+    .chakra-button{
+      @include is-mobile{
+        width: 100% !important;
+      }
+    }
+  }
+
+  &_inner {
+
+    height: 100%;
+    //border: 1px solid rgba(0, 118, 89, 0.3);
+    //background: #00ffc01a;
+    //padding: 40px 24px;
+    border-radius: 16px;
+
+    @include is-min-table{
+      min-height: 376px;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &.isRed {
+    & .cardWrapper_inner {
+      border: 1px solid #ff7e214d !important;
+      background: #ff7e210d !important;
+    }
+  }
+
+  .cardTitle {
+    font-size: 36px;
+    color: #000;
+    text-transform: capitalize;
+    font-family: var(--font-jetbrains);
+  }
+
+  .description {
+    font-size: 18px;
+    color: #000;
+    text-align: center;
+    //min-height: 84px;
+
+    b {
+      color: #fa4e0e;
+    }
+  }
+
+  .wrapperBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .broder {
+      border: 1px solid #00ae84;
+      svg {
+        // width: 24px;
+        min-height: 24px;
+        max-width: 24px;
+      }
+    }
+  }
+}

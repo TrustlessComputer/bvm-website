@@ -1,14 +1,17 @@
-'use client';
-
-import MainLayout from '@/layouts/MainLayout';
+import MainLayout from '@layouts/MainLayout';
 import TeamModule from '@/modules/team';
 
-const Team = () => {
+const TeamPage = () => {
   return (
-    <MainLayout headerProps={{ bgColor: '#FFFFFF', color: 'black' }} hideFooter>
+    <MainLayout
+      hideFooter={true}
+      headerProps={{
+        color: 'black',
+      }}
+    >
       <TeamModule />
     </MainLayout>
   );
 };
 
-export default Team;
+export default TeamPage;
