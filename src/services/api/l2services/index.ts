@@ -237,9 +237,7 @@ export const getAllOrders = async (): Promise<OrderItem[]> => {
   //   false,
   // );
 
-  orders = orders.filter(
-    (order) => order.status === OrderStatus.Started && !!order.thumb,
-  );
+  orders = orders.filter((order) => order.status === OrderStatus.Started);
 
   // console.log('Orders: After Filter ', orders);
 

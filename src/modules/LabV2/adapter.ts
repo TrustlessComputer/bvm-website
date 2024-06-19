@@ -8,7 +8,7 @@ export const orderAdapter = (orderItem: OrderItem): ILabItemContent => {
       'https://storage.googleapis.com/tc-cdn-prod/nbc/images/apps/chain_loading_placeholder.png',
     video: '',
     title: orderItem.chainName,
-    content: orderItem.description,
+    content: orderItem.description || orderItem.chainName || '',
     link: '',
     disabled: false,
     tags: [],
