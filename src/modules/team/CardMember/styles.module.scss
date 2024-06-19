@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+.inner {
+  background-color: #fff;
+  padding: 8px;
+
+  @include is-mobile {
+    width: 100%;
+  }
+}
+
+.name {
+  color: #000;
+  font-family: 'JetBrains Mono';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%; /* 18.2px */
+  text-transform: uppercase;
+  text-align: center;
+
+  @include is-pc {
+    font-size: 14px;
+  }
+}
