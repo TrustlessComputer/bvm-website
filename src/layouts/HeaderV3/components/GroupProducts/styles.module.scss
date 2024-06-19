@@ -7,8 +7,11 @@
 .inner {
   display: flex;
   color: black;
+  flex-direction: column;
+  @include is-pc {
+    flex-direction: row;
+  }
 }
-
 
 .group {
   &_inner {
@@ -28,9 +31,10 @@
 
       &_text {
         &_title {
-          &:hover{
+          &:hover {
             text-decoration: underline;
           }
+
           font-family: var(--font-SFProDisplay);
           font-size: 16px;
           font-weight: 500;
@@ -62,10 +66,15 @@
 
 .right {
   background: #F6F9FB;
-  padding: 40px;
+
   display: flex;
   flex-direction: column;
   gap: 60px;
+
+  padding: 40px 40px 140px 40px;
+  @include is-pc {
+    padding: 40px;
+  }
 
   ul {
     list-style: none;
@@ -79,7 +88,6 @@
       text-decoration: underline;
     }
   }
-
 }
 
 .title {
