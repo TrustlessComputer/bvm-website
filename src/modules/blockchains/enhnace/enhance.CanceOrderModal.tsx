@@ -14,7 +14,7 @@ const enhanceCancelOrderModal =
   (WrappedComponent: DashboardWrappedComponent) => (props: DashboardProps) => {
     const dispatch = useAppDispatch();
     const orderDetail = useAppSelector(orderSelectedSelector);
-
+    const { onCloseOpenOrderDetailModal, onCloseUpdateOrderModal } = props;
     const {
       isOpen: isOpenCancelOrderModal,
       onOpen: onOpenCancelOrderModal,
@@ -49,6 +49,8 @@ const enhanceCancelOrderModal =
         toast.success('Cancelled', {
           duration: 1000,
         });
+
+        onCloseUpdateOrderModal && onCloseUpdateOrderModal();
       } catch (error) {
         const { message } = getErrorMessage(error);
         toast.error(message);

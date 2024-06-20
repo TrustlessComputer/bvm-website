@@ -30,7 +30,9 @@ const enhanceUpdateOrderModal =
             show={isOpenUpdateOrderModal}
             item={orderDetail}
             onClose={onCloseUpdateOrderModal}
-            onSuccess={onCloseUpdateOrderModal}
+            onSuccess={() => {
+              onCloseUpdateOrderModal && onCloseUpdateOrderModal();
+            }}
             cancelThisRollupOnClick={() => {
               onOpenCancelOrderModal && onOpenCancelOrderModal();
             }}
