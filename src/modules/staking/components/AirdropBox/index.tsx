@@ -121,7 +121,7 @@ const AirdropBox = () => {
         title: '',
         release: {
           token: '$EAI',
-          date: 'April 2024',
+          date: 'November 2024',
         },
         socials: {
           website: 'https://eternalai.org/',
