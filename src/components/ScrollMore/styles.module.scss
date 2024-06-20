@@ -28,13 +28,13 @@
     text-transform: uppercase;
     opacity: .75;
     margin-bottom: 8px;
-    color: white;
+    color: black;
   }
 
   .dot {
     animation: scrolling 1.6s ease-in-out infinite;
     padding: 5px;
-    background: rgba(white, .2);
+    background: rgba(black, .05);
     width: fit-content;
     display: block;
     height: fit-content;

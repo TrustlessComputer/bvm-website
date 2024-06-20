@@ -1,0 +1,135 @@
+import { Decal, Float, useGLTF, useTexture } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { ReactElement, useEffect, useState } from 'react';
+import { easing } from 'maath';
+import { Euler } from 'three';
+
+export default function Lego(props: any): ReactElement {
+  const { nodes, materials } = useGLTF('/LEGO_3.glb');
+  useFrame((state, delta) => {
+    easing.damp3(state.camera.position, [Math.sin(state.pointer.x / 4) * 9, 1.25 + state.pointer.y, Math.cos(state.pointer.x / 4) * 9], 0.5, delta);
+    state.camera.lookAt(0, 0, 0);
+  });
+
+  const [video] = useState(() => {
+    const vid = document.createElement('video');
+    vid.src = './glb/video.mp4';
+    vid.crossOrigin = 'Anonymous';
+    vid.loop = true;
+    vid.muted = true;
+    vid.play();
+    return vid;
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      video.play();
+    }, 5000);
+  }, []);
+
+
+  const textMap = useTexture('/glb/logo.png');
+  return <Float position={[0, 0.75, 0]}>
+    <group {...props} scale={.8} rotation={[.15, -2.5, -.1]}>
+
+      <mesh castShadow receiveShadow geometry={(nodes.Cube as any).geometry} material={materials.mat12}>
+        <meshStandardMaterial color={'#C7D5E1'} />
+      </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={(nodes.VIDEO_MESH as any).geometry}
+        material={materials.mat12}
+      >
+        <Decal position={[0, 0, -1]} scale={[-2, 1, 1]} rotation={new Euler(0, 0, 0)}>
+          <meshStandardMaterial
+            transparent
+            polygonOffset
+            polygonOffsetFactor={-10}
+          >
+            <videoTexture attach="map" args={[video]} />
+          </meshStandardMaterial>
+        </Decal>
+      </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={(nodes.LOGO_MESH as any).geometry}
+        material={materials.mat12}
+      >
+        <meshStandardMaterial color={'#C7D5E1'} />
+        <Decal position={[1, 0, 0]} scale={.6} rotation={Math.PI as any}>
+          <meshStandardMaterial
+            transparent
+            polygonOffset
+            polygonOffsetFactor={-10}
+            map={textMap}
+            map-flipY={false}
+          />
+        </Decal>
+      </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={(nodes.Cylinder002 as any).geometry}
+        material={materials.mat12}
+        position={[0.654, 0.705, 0.236]}
+        scale={1.162}
+      >
+        <meshStandardMaterial color={'#C7D5E1'} />
+      </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={(nodes.Cylinder003 as any).geometry}
+        material={materials.mat12}
+        position={[0.654, 0.705, -0.237]}
+        scale={1.162}
+      >
+        <meshStandardMaterial color={'#C7D5E1'} />
+      </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={(nodes.Cylinder001 as any).geometry}
+        material={materials.mat12}
+        position={[0.005, 0.705, 0.236]}
+        scale={1.162}
+      >
+        <meshStandardMaterial color={'#C7D5E1'} />
+      </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={(nodes.Cylinder004 as any).geometry}
+        material={materials.mat12}
+        position={[0.005, 0.705, -0.237]}
+        scale={1.162}
+      >
+        <meshStandardMaterial color={'#C7D5E1'} />
+      </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={(nodes.Cylinder005 as any).geometry}
+        material={materials.mat12}
+        position={[-0.76, 0.705, 0.236]}
+        scale={1.162}
+      >
+        <meshStandardMaterial color={'#C7D5E1'} />
+      </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={(nodes.Cylinder006 as any).geometry}
+        material={materials.mat12}
+        position={[-0.76, 0.705, -0.237]}
+        scale={1.162}
+      >
+        <meshStandardMaterial color={'#C7D5E1'} />
+      </mesh>
+
+    </group>
+  </Float>;
+}
+useGLTF.preload('/LEGO_3.glb');

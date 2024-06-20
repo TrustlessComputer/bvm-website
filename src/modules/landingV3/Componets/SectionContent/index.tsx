@@ -7,7 +7,7 @@ import ImagePlaceholder from '@components/ImagePlaceholder';
 interface ISectionContentProps extends PropsWithChildren {
   title: string,
   image: string,
-  button: { link: string, title: string, target?: '_blank' | '_self' | '_top' },
+  button?: { link: string, title: string, target?: '_blank' | '_self' | '_top' },
   direction?: 'left' | 'right'
 }
 
