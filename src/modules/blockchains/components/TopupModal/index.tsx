@@ -88,7 +88,7 @@ const TopupModal = (props: IProps) => {
           <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
             {` BVM `}
           </Text>
-          {`to the following wallet address.`}
+          {`to the following wallet address below.`}
         </Text>
         <Text
           fontSize={'15px'}
@@ -96,7 +96,7 @@ const TopupModal = (props: IProps) => {
           color={'#6C6F93'}
           textAlign={'center'}
         >
-          {` Don't have enough BVM?`}{' '}
+          Not enough BVM? No worries --{' '}
           <Text
             as="span"
             fontWeight={700}
@@ -115,7 +115,7 @@ const TopupModal = (props: IProps) => {
               );
             }}
           >
-            {`Buy here`}
+            {`grab some here!`}
           </Text>
         </Text>
       </Flex>
@@ -169,26 +169,29 @@ const TopupModal = (props: IProps) => {
         <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
           {` ${order?.needToTopupBalanceFormatted} BVM `}
         </Text>
-        {`to the following wallet address. Don't have enough BVM? `}
-        <Text
-          as="span"
-          fontWeight={700}
-          color={'#2352c1'}
-          textAlign={'center'}
-          textUnderlineOffset={'2px'}
-          textDecorationLine={'underline'}
-          _hover={{
-            cursor: 'pointer',
-            opacity: 0.8,
-          }}
-          onClick={() => {
-            window.open(
-              'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
-              '_blank',
-            );
-          }}
-        >
-          {`Buy here`}
+        to the following wallet address below
+        <Text>
+          Not enough BVM? No worries --{' '}
+          <Text
+            as="span"
+            fontWeight={700}
+            color={'#2352c1'}
+            textAlign={'center'}
+            textUnderlineOffset={'2px'}
+            textDecorationLine={'underline'}
+            _hover={{
+              cursor: 'pointer',
+              opacity: 0.8,
+            }}
+            onClick={() => {
+              window.open(
+                'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
+                '_blank',
+              );
+            }}
+          >
+            {`grab some here!`}
+          </Text>
         </Text>
       </Text>
     );
@@ -290,7 +293,7 @@ const TopupModal = (props: IProps) => {
           color={'#000'}
           textAlign={'center'}
         >
-          Naka Chain
+          Ethereum
         </Text>
         {/* {!order && (
           <Flex
