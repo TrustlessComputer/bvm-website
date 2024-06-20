@@ -53,7 +53,7 @@ const ComputerNameSection = () => {
 
   return (
     <>
-      <Section title="Name" isRequired>
+      <Section title="Name">
         <TextInput
           placeholder="Name"
           id={fieldID}

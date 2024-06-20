@@ -52,7 +52,7 @@ const BodyInfor = (props: Props) => {
       height={'auto'}
       spacingX={'200px'}
     >
-      {renderRowInFor('Rollup ID', `${mapper.computerIndexer || ''}`)}
+      {renderRowInFor('Name', `${item.chainName || ''}`)}
       {!mapper.isLayer1 &&
         renderRowInFor(
           'Rollup protocol',

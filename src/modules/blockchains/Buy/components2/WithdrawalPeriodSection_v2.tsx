@@ -9,9 +9,31 @@ import {
 import { useBuy } from '../../providers/Buy.hook';
 import { dayDescribe } from '../Buy.helpers';
 import Section from '../components/Section';
+import { useSearchParams } from 'next/navigation';
+import { useMemo } from 'react';
+import {
+  PRICING_PACKGE,
+  PRICING_PACKGE_DATA,
+} from '@/modules/PricingV2/constants';
 
 const WithdrawalPeriodSection = () => {
   const { withdrawalPeriodSelected, setWithdrawalPeriodSelected } = useBuy();
+  const searchParams = useSearchParams();
+  const packageParam = searchParams.get('package');
+
+  const packageData = useMemo(() => {
+    let result;
+
+    if (!packageParam) {
+      result = PRICING_PACKGE_DATA[PRICING_PACKGE.Hacker];
+    } else {
+      result = PRICING_PACKGE_DATA[Number(packageParam) as PRICING_PACKGE];
+    }
+
+    setWithdrawalPeriodSelected(result.minWithdrawalPeriod);
+
+    return result;
+  }, [packageParam]);
 
   const onChange = (value: number) => {
     if (isNaN(value)) {
@@ -52,8 +74,8 @@ const WithdrawalPeriodSection = () => {
           onChange={onChange}
           defaultValue={withdrawalPeriodSelected}
           value={withdrawalPeriodSelected}
-          min={2} // 2 hours
-          max={24} // 24 hours
+          min={packageData.minWithdrawalPeriod || 2} // 2 hours
+          max={packageData.maxWithdrawalPeriod || 24} // 24 hours
           step={1}
         >
           {/* <SliderMark

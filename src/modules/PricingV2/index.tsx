@@ -30,7 +30,11 @@ import toast from 'react-hot-toast';
 import CardInfor from './components/CardInfor';
 import { orderRegisterBootstrapParams } from './services';
 import s from './styles.module.scss';
-import { ORDER_BUY_NO_PROVER, ORDER_BUY_YES_PROVER } from './constants';
+import {
+  ORDER_BUY_NO_PROVER,
+  ORDER_BUY_YES_PROVER,
+  PRICING_PACKGE,
+} from './constants';
 import { IOrderBuyEstimateRespone_V2 } from '@/services/api/l2services/types';
 import BigNumber from 'bignumber.js';
 
@@ -126,7 +130,7 @@ const PriceModule = () => {
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
-      router.push('/blockchains/customize?period=4');
+      router.push(`/blockchains/customize?package=${PRICING_PACKGE.Growth}`);
     }
   };
 
@@ -134,7 +138,7 @@ const PriceModule = () => {
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
-      router.push('/blockchains/customize?prover=1&period=2');
+      router.push(`/blockchains/customize?package=${PRICING_PACKGE.Secure}`);
     }
   };
 
@@ -206,7 +210,6 @@ const PriceModule = () => {
           </button>
         }
         hardwareList={[
-          'Throughput: 150 tx/min',
           'Memory: 16 GB RAM',
           'CPU: 8 cores',
           'Storage: 320 GB SSD',
@@ -292,7 +295,6 @@ const PriceModule = () => {
           </button>
         }
         hardwareList={[
-          'Throughput: 600 tx/min',
           'Memory: 64 GB RAM',
           'CPU: 32 cores',
           'Storage: 650 GB SSD',
@@ -380,7 +382,6 @@ const PriceModule = () => {
           </button>
         }
         hardwareList={[
-          'Throughput: 600 tx/min',
           'Memory: 64 GB RAM',
           'CPU: 32 cores',
           'Storage: 650 GB SSD',
@@ -439,12 +440,7 @@ const PriceModule = () => {
         //   'VIP support channels',
         //   'Engineering team access',
         // ]}
-        hardwareList={[
-          'Throughput: Custom',
-          'Memory: Custom',
-          'CPU: Custom',
-          'Storage: Custom',
-        ]}
+        hardwareList={['Memory: Custom', 'CPU: Custom', 'Storage: Custom']}
         blockChainInforsList={[
           'Data availability: Custom',
           'Max block gas limit: Custom',
@@ -489,7 +485,7 @@ const PriceModule = () => {
               lineHeight={'52px'}
               fontWeight={400}
             >
-              {`Let’s build on Bitcoin.`}
+              {`Choose the ZK Rollup solutions you need.`}
             </Text>
             <Text
               textAlign={'center'}
@@ -499,7 +495,7 @@ const PriceModule = () => {
               opacity={0.7}
               className={s.fontType2}
             >
-              {`Pricing for crypto teams of all sizes.`}
+              {`It's a great time to build on Bitcoin.`}
             </Text>
 
             {/* Footer */}

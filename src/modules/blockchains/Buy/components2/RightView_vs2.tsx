@@ -3,7 +3,8 @@ import React from 'react';
 import { useBuy } from '../../providers/Buy.hook';
 import { RollupEnum } from '../Buy.constanst';
 import BitcoinValiditySection from './BitcoinValiditySection';
-import BlockGasLimitSection from './BlockGasLimitSection';
+// import BlockGasLimitSection from './BlockGasLimitSection';
+import BlockGasLimitSection from './BlockGasLimitSection_V2';
 import BlockTimeSection from './BlockTimeSection';
 import ComputerDescriptionSection from './ComputerDescriptionSection';
 import ContactInformationSection from './ContactInformationSection';
@@ -39,7 +40,7 @@ const RightView = React.memo((props: Props) => {
       }}
     >
       <Text fontSize={'36px'} color={'black'} fontWeight={600}>
-        Customize your Bitcoin Zk Rollup
+        Customize your Bitcoin ZK Rollup
       </Text>
       {/* <Text fontSize={'20px'} color={'#323232'} fontWeight={400} my={'13px'}>
         ZK-powered Blockchains are secure, low-cost, and lightning-fast — fully
