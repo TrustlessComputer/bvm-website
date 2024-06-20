@@ -67,6 +67,7 @@ const Main = ({
                 <Link
                   key={item.label}
                   href={item.href ?? '#'}
+                  className={'menu-item'}
                   target={item.isNewWindow ? '_blank' : '_self'}
                 >
                   <p

@@ -6,9 +6,11 @@ import Loader from '@/modules/builder-landing/Loader';
 import { Button, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
 import ModalVideo from 'react-modal-video';
+import { useRouter } from 'next/navigation';
 
 export default function HeroV2() {
   const [isOpen, setOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <div className={s.wrapper}>
@@ -37,7 +39,8 @@ export default function HeroV2() {
             fontWeight={500}
             fontSize={'18px'}
             onClick={() => {
-              window.open('');
+              const rectBV = document.getElementById('buyBVMModule');
+              rectBV && window.scrollTo(0, rectBV?.getBoundingClientRect().top);
             }}
             _hover={{
               bgColor: '#e64e0e',
@@ -60,7 +63,7 @@ export default function HeroV2() {
             fontWeight={500}
             fontSize={'18px'}
             onClick={() => {
-              window.open('');
+              router.push('/staking');
             }}
           >
             Stake BVM
