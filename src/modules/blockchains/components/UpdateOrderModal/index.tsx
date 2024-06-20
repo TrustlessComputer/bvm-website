@@ -253,7 +253,7 @@ const UpdateOrderModal = (props: IProps) => {
           onFocus={(e: any) => {
             setChainNameFocused(true);
           }}
-          onChange={(e) => {
+          onChange={(e: any) => {
             const value = e.target.value;
             if (!value || value.length < 1) {
               setChainName(TITLE_ERROR_MESSAGE);
@@ -385,7 +385,7 @@ const UpdateOrderModal = (props: IProps) => {
           onFocus={(e: any) => {
             setLogoUrlFocused(true);
           }}
-          onChange={(e) => {
+          onChange={(e: any) => {
             const value = e.target.value;
             // if (!value || value.length < 1) {
             //   setLogoUrlError('Thumb url is required');

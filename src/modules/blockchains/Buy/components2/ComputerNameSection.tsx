@@ -62,7 +62,7 @@ const ComputerNameSection = () => {
           value={value}
           onBlur={onChangeHandler}
           onFocus={(e: any) => {}}
-          onChange={(e) => {
+          onChange={(e: any) => {
             const text = e.target.value;
             setComputerNameField({
               ...computerNameField,

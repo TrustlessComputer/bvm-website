@@ -1,6 +1,6 @@
 import { Input, InputProps } from '@chakra-ui/react';
 
-const InputWrapper = (props: InputProps) => {
+const InputWrapper = (props: any) => {
   return (
     <Input
       fontSize={'18px'}

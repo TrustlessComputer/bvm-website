@@ -46,7 +46,7 @@ const ProjectInformationSection = () => {
         name={PROJECT_X_ID}
         value={projectXField.value}
         isInvalid={projectXField.hasFocused && projectXField.hasError}
-        onChange={(e) => {
+        onChange={(e: any) => {
           onChangeHandler(PROJECT_X_ID, e);
         }}
         onBlur={(e: any) => {
@@ -64,7 +64,7 @@ const ProjectInformationSection = () => {
         isInvalid={
           projectWebSiteField.hasFocused && projectWebSiteField.hasError
         }
-        onChange={(e) => {
+        onChange={(e: any) => {
           onChangeHandler(PROJECT_WEBSITE_ID, e);
         }}
         onBlur={(e: any) => {
