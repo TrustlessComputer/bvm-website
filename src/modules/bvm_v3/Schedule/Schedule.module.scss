@@ -1,0 +1,15 @@
+.wrapper {
+  .heading {
+    color: #000;
+    font-size: 40px;
+    line-height: 120%; /* 48px */
+    margin-bottom: 40px;
+  }
+
+  @include is-mobile {
+    .heading {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+  }
+}

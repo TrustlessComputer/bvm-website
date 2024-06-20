@@ -58,9 +58,9 @@ export const NAV_ITEMS: Array<NavItem> = [
         isNewWindow: true,
       },
       {
-        href: '/whitepaper.pdf',
+        href: 'https://cdn.bvm.network/docs/whitepaper.pdf',
         label: 'WhitePaper',
-        isNewWindow: false,
+        isNewWindow: true,
       },
     ],
   },

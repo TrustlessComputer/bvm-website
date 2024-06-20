@@ -1,0 +1,15 @@
+.classImage {
+  aspect-ratio: 336/236 !important;
+}
+
+.container {
+  :global {
+    .cardFiImage {
+      //background: none !important;
+    }
+  }
+}
+
+.descFi {
+  font-size: 16px !important;
+}

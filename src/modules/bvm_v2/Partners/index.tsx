@@ -87,14 +87,16 @@ const PartnersData = [
 
 function Partners() {
   return (
-    <div className={` container`}>
+    <div className={`container`}>
       <div className={`${s.section}`}>
         <Text
-          fontSize={['28px', '40px']}
+          fontSize={['28px', '24px']}
           lineHeight={{ base: '140%', md: '120%' }}
-          fontWeight={400}
+          fontWeight={500}
           color={'#000'}
           textAlign={'center'}
+          textTransform={'uppercase'}
+          className={s.heading}
         >
           Partners
         </Text>

@@ -1,0 +1,44 @@
+.wrapper {
+  width: 100%;
+  text-align: center;
+  background-color: white;
+  border-radius: 12px;
+  margin-top: 50px;
+  .heading {
+    font-family: var(--font-jetbrains);
+    font-size: 40px;
+    font-weight: 500;
+    line-height: calc(31.2 / 24); /* 57.6px */
+    margin-bottom: 20px;
+  }
+
+  .desc {
+    font-size: 24px;
+    font-weight: 400;
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    line-height: calc(27 / 18); /* 150% */
+    margin-bottom: 68px;
+  }
+
+  @include is-mobile {
+    .heading {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .desc {
+      font-size: 16px;
+      line-height: 140%; /* 25.2px */
+      margin: 24px 10px;
+    }
+  }
+}
+
+.chart {
+  width: 100%;
+  @include is-pc {
+    max-width: 573px;
+  }
+  img {
+    width: 100%;
+  }
+}

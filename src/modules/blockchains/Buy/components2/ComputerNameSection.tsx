@@ -53,16 +53,16 @@ const ComputerNameSection = () => {
 
   return (
     <>
-      <Section title="Bitcoin L2 Name" isRequired>
+      <Section title="Name" isRequired>
         <TextInput
-          placeholder="Your computer name"
+          placeholder="Name"
           id={fieldID}
           name={fieldID}
           isInvalid={hasFocused && hasError}
           value={value}
           onBlur={onChangeHandler}
           onFocus={(e: any) => {}}
-          onChange={(e) => {
+          onChange={(e: any) => {
             const text = e.target.value;
             setComputerNameField({
               ...computerNameField,

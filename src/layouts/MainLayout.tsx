@@ -1,17 +1,17 @@
 'use client';
 
-import Header, { HeaderProps } from '@/layouts/Header';
-import React, { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { HeaderProps } from '@/layouts/Header';
 import useAnimationStore from '@/stores/useAnimationStore';
-import HeaderV2 from '@layouts/HeaderV2';
 import Footer from '@layouts/Footer';
+import { usePathname } from 'next/navigation';
+import React, { useEffect } from 'react';
+import HeaderV3, { HeaderV3Props } from './HeaderV3';
 
 type IMainProps = {
   hideHeader?: boolean;
   hideFooter?: boolean;
   children?: React.ReactNode;
-  headerProps?: HeaderProps;
+  headerProps?: HeaderV3Props;
 };
 
 const MainLayout = ({
@@ -29,7 +29,7 @@ const MainLayout = ({
   return (
     <>
       {/* {<Header {...headerProps} />} */}
-      {!hideHeader && <HeaderV2 {...headerProps} />}
+      {!hideHeader && <HeaderV3 {...headerProps} />}
       {children}
       {!hideFooter && <Footer />}
     </>

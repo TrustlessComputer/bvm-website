@@ -5,10 +5,11 @@ import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   allOrdersSelector,
   getL2ServicesStateSelector,
+  myOrderListSelector,
   orderListSelector,
 } from '@/stores/states/l2services/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
-import { Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';
+import { Flex, Image, SimpleGrid, Skeleton, Text } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import L2Instance from './L2Instance';
 import { useDashboard } from '../../providers/DashboardProvider';
@@ -16,36 +17,41 @@ import { useDashboard } from '../../providers/DashboardProvider';
 const BodyGridView = () => {
   const dispatch = useAppDispatch();
   const { onOpenOpenOrderDetailModal } = useDashboard();
-  const myOrders = useAppSelector(orderListSelector);
-  const allOrders = useAppSelector(allOrdersSelector);
-  const { viewMode, showOnlyMyOrder, accountInforL2Service } = useAppSelector(
-    getL2ServicesStateSelector,
-  );
+  const { isFetched } = useAppSelector(getL2ServicesStateSelector);
+  // const allOrders = useAppSelector(allOrdersSelector);
+  const myOrders = useAppSelector(myOrderListSelector);
 
-  const serviceDataList = useMemo(() => {
-    const filterByNetwork = (orders: OrderItem[]) => {
-      if (viewMode === 'Mainnet')
-        return orders
-          .filter((order) => order.isMainnet)
-          .sort((a, b) => b.index - a.index);
-      if (viewMode === 'Testnet')
-        return orders
-          .filter((order) => !order.isMainnet)
-          .sort((a, b) => b.index - a.index);
-      return [];
-    };
-    if (showOnlyMyOrder) {
-      return filterByNetwork(myOrders);
-    } else if (!showOnlyMyOrder) {
-      return filterByNetwork(allOrders);
-    }
-    return [];
-  }, [myOrders, allOrders, viewMode, showOnlyMyOrder]);
+  const {
+    viewMode,
+    showOnlyMyOrder,
+    accountInforL2Service,
+    showAllChain,
+    viewPage,
+  } = useAppSelector(getL2ServicesStateSelector);
+
+  // const serviceDataList = useMemo(() => {
+  //   const filterByNetwork = (orders: OrderItem[]) => {
+  //     if (viewMode === 'Mainnet')
+  //       return orders
+  //         .filter((order) => order.isMainnet)
+  //         .sort((a, b) => b.index - a.index);
+  //     if (viewMode === 'Testnet')
+  //       return orders
+  //         .filter((order) => !order.isMainnet)
+  //         .sort((a, b) => b.index - a.index);
+  //     return [];
+  //   };
+  //   if (!showAllChain) {
+  //     return filterByNetwork(myOrders);
+  //   } else {
+  //     return filterByNetwork(allOrders);
+  //   }
+  // }, [myOrders, allOrders, viewMode, showOnlyMyOrder, showAllChain, viewPage]);
 
   const isEmptyData = useMemo(() => {
-    if (!serviceDataList || serviceDataList.length < 1) return true;
+    if (myOrders.length < 1) return true;
     return false;
-  }, [serviceDataList]);
+  }, [myOrders]);
 
   const renderEmptyView = () => {
     return (
@@ -58,7 +64,7 @@ const BodyGridView = () => {
         justify={'center'}
       >
         <Text fontSize={'25px'} fontWeight={700} color={'#000'}>
-          No Bitcoin L2s available
+          No ZK-powered Blockchains available
         </Text>
         <Image
           src={'/blockchains/customize/ic-empty.svg'}
@@ -73,9 +79,10 @@ const BodyGridView = () => {
 
   const renderDataList = () => {
     return (
-      <SimpleGrid columns={[1, 2]} spacing="20px" width={'100%'} height={'80%'}>
-        {serviceDataList.map((item) => (
+      <SimpleGrid columns={[1, 1]} spacing="20px" width={'100%'} height={'80%'}>
+        {myOrders.map((item, index) => (
           <L2Instance
+            key={`${item.domain}-${index}`}
             item={item}
             isOwner={item.tcAddress === accountInforL2Service?.tcAddress}
             onClick={() => {
@@ -88,9 +95,32 @@ const BodyGridView = () => {
     );
   };
 
+  const renderSekeleton = () => {
+    return (
+      <SimpleGrid columns={[1, 1]} spacing="20px" width={'100%'} height={'80%'}>
+        {new Array(4).fill(0).map((item, index) => {
+          return (
+            <Skeleton
+              key={`${item}-${index}`}
+              w={'100%'}
+              height={'300px'}
+              startColor="#2f2f2f"
+              endColor="#656565"
+              borderRadius={'20px'}
+            ></Skeleton>
+          );
+        })}
+      </SimpleGrid>
+    );
+  };
+
   return (
     <Flex overflow={'hidden'}>
-      {isEmptyData ? renderEmptyView() : renderDataList()}
+      {!isFetched
+        ? renderSekeleton()
+        : isEmptyData
+        ? renderEmptyView()
+        : renderDataList()}
     </Flex>
   );
 };

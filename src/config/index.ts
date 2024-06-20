@@ -25,7 +25,8 @@ export const CDN_URL_ICONS: string = CDN_URL + '/nbc/icons/bvm-icons';
 export const CDN_APP_ICON_URL: string = CDN_URL + '/l2aas/icons';
 export const CDN_URL_IMAGES: string = CDN_URL + '/l2aas/images';
 export const CDN_URL_VIDEOS: string = CDN_URL + '/l2aas/videos';
-
+export const CDN_URL_IMAGES_NBC: string = CDN_URL + '/nbc/images';
+export const CDN_URL_VIDEOS_NBC: string = CDN_URL + '/nbc/videos';
 export const NEW_BITCOIN_CITY = isProduction
   ? 'https://newbitcoincity.com/'
   : 'https://dev.newbitcoincity.com/';
@@ -36,7 +37,8 @@ export const BUY_TC_URL = NEW_BITCOIN_CITY + 'topup';
 export const DEVELOPERS_DOC_URL = 'https://docs.bvm.network/';
 export const DEVELOPERS_GRANTS_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSejQvjHQE91B4DL4p9pzt4IPhWi05nxdwSI9wktra1i15ieqQ/viewform';
-export const WHITEPAPER_DOC_URL = 'https://bvm.network/bvm.pdf/';
+export const WHITEPAPER_DOC_URL =
+  'https://cdn.bvm.network/docs/whitepaper.pdf/';
 
 // Web3Auth
 export const WEB3_AUTH_CLIENT_ID: string = process.env
@@ -52,7 +54,6 @@ export const TC_LAYER2_EXPLORER: string =
   process.env.NEXT_PUBLIC_TC_LAYER2_EXPLORER!;
 export const RUNE_EXPLORER: string = process.env.NEXT_PUBLIC_RUNE_EXPLORER!;
 export const EAI_EXPLORER: string = process.env.NEXT_PUBLIC_EAI_EXPLORER!;
-
 
 export const NAKA_WEB: string = process.env.NEXT_PUBLIC_NAKA_WEB!;
 

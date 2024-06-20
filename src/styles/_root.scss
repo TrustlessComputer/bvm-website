@@ -13,6 +13,11 @@
   --builder-padding-size: 56px;
   --font-hind: 'Hind Siliguri', sans-serif;
   --font-dmsans: 'DM Sans', sans-serif;
+  --font-jetbrains: 'JetBrains Mono', sans-serif;
+  --font-SFPro: 'SF Pro', sans-serif;
+  --font-SFProDisplay: 'SF Pro Display', sans-serif;
+  --font-JetBrainsMono: 'JetBrains Mono', monospace;
+
   @include is-min-table {
     --builder-padding-size: 80px;
   }
@@ -20,6 +25,9 @@
   @include is-pc {
     --builder-padding-size: 120px;
   }
+
+  --block-bg: #292929;
+  --input-bg: #ffffff1a;
 }
 
 .slick-slider {

@@ -156,7 +156,7 @@ const TokenPayingGasSection = () => {
             isInvalid={
               receivingAddressField.hasFocused && receivingAddressField.hasError
             }
-            onChange={(e) => {
+            onChange={(e: any) => {
               onChangeHandler(RECEIVING_ADDRESS_ID, e);
             }}
             onBlur={(e: any) => {
@@ -186,7 +186,7 @@ const TokenPayingGasSection = () => {
             className={`${
               tickerField.hasFocused && tickerField.hasError ? 'error' : ''
             }`}
-            onChange={(e) => {
+            onChange={(e: any) => {
               onChangeHandler(TICKER_ID, e);
             }}
             onBlur={(e: any) => {
@@ -206,7 +206,7 @@ const TokenPayingGasSection = () => {
             name={TOTAL_SUPPLY_ID}
             value={totalSupplyField.value}
             isInvalid={totalSupplyField.hasFocused && totalSupplyField.hasError}
-            onChange={(e) => {
+            onChange={(e: any) => {
               onChangeHandler(TOTAL_SUPPLY_ID, e);
             }}
             onBlur={(e: any) => {
@@ -233,7 +233,7 @@ const TokenPayingGasSection = () => {
             isInvalid={
               receivingAddressField.hasFocused && receivingAddressField.hasError
             }
-            onChange={(e) => {
+            onChange={(e: any) => {
               onChangeHandler(RECEIVING_ADDRESS_ID, e);
             }}
             onBlur={(e: any) => {

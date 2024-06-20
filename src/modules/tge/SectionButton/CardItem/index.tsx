@@ -42,7 +42,7 @@ const CardItem = ({ ...props }) => {
       <Button
         bgColor={'#FA4E0E'}
         color={'#fff'}
-        borderRadius={0}
+        borderRadius={100}
         display={'flex'}
         justifyContent={'center'}
         alignItems={'center'}

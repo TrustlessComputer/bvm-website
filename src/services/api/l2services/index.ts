@@ -2,7 +2,7 @@
 import { L2ServiceAPI as httpClient } from '@/services/api/clients';
 import {
   IOrderBuyEstimateRespone,
-  IOrderBuyReq,
+  IOrderBuyEstimateRespone_V2,
   SubmitFormParams,
 } from './types';
 import { IAvailableList } from '@/modules/blockchains/Buy/Buy.types';
@@ -12,6 +12,8 @@ import {
   HistoryItemResp,
   IGetNonceReq,
   IGetNonceResp,
+  IOrderBuyReq,
+  IOrderUpdate,
   IQuickStart,
   IVerifySignatureReq,
   IVerifySignatureResp,
@@ -29,7 +31,20 @@ import {
   NativeTokenPayingGasEnum,
   NetworkEnum,
 } from '@/modules/blockchains/Buy/Buy.constanst';
+import LocalStorage from '@/libs/localStorage';
+import { STORAGE_KEYS } from '@/constants/storage-key';
 
+// ------------------------------------------------------------------------
+// Access Token
+// ------------------------------------------------------------------------
+
+const getAPIAccessToken = () => {
+  return LocalStorage.getItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2);
+};
+
+// ------------------------------------------------------------------------
+// Public API
+// ------------------------------------------------------------------------
 export const estimateTotalCostAPI = async (
   params: IOrderBuyReq,
 ): Promise<IOrderBuyEstimateRespone> => {
@@ -40,17 +55,21 @@ export const estimateTotalCostAPI = async (
     )) as IOrderBuyEstimateRespone;
     return data;
   } catch (error: any) {
-    console.log('[estimateTotalCostAPI] error ', error);
     throw error;
   }
 };
 
-export const submitContact = async (params: SubmitFormParams) => {
+export const estimateTotalCostAPI_V2 = async (
+  params: IOrderBuyReq,
+): Promise<IOrderBuyEstimateRespone_V2> => {
   try {
-    const data = await httpClient.post(`/service/contact`, params);
+    const data = (await httpClient.post(
+      `/order/estimate-total-cost`,
+      params,
+    )) as IOrderBuyEstimateRespone_V2;
     return data;
   } catch (error: any) {
-    console.log('[submitContact] error ', error);
+    console.log('[estimateTotalCostAPI_V2] error ', error);
     throw error;
   }
 };
@@ -93,32 +112,13 @@ export const fetchAvailableList = async (): Promise<IAvailableList> => {
   }
 };
 
-export const submitContactVS2 = async (params: SubmitFormParams) => {
-  await httpClient.post(`/service/contact`, params);
-};
-
-export const orderBuyAPI = async (params: IOrderBuyReq): Promise<any> => {
-  // eslint-disable-next-line no-useless-catch
-  try {
-    const data = (await httpClient.post(`/order/register`, params)) as any;
-    // console.log('[orderBuyAPI] data ', data);
-    return data;
-  } catch (error: any) {
-    // console.log('[orderBuyAPI] error  ', error);
-    throw error;
-  }
-};
-
 export const validateChainIdAPI = async (chainId: string): Promise<any> => {
-  // eslint-disable-next-line no-useless-catch
   try {
     const data = (await httpClient.get(
       `/validate/chainid?id=${chainId}`,
     )) as any;
-    // console.log('[validateChainIdAPI] data ', data);
     return data && data.valid;
   } catch (error: any) {
-    // console.log('[validateChainIdAPI] error ', error);
     throw error;
   }
 };
@@ -129,16 +129,79 @@ export const validateSubDomainAPI = async (subdomain: string): Promise<any> => {
     const data = (await httpClient.get(
       `/validate/subdomain?domain=${subdomain + '.l2aas.trustless.computer'}`,
     )) as any;
-    // console.log('[validateSubDomainAPI] data ', data);
     return data && data.valid;
   } catch (error: any) {
-    // console.log('[validateSubDomainAPI] error ', error);
     throw error;
   }
 };
 
+// ------------------------------------------------------------------------
+// Auth API
+// ------------------------------------------------------------------------
+
+export const orderBuyAPI = async (params: IOrderBuyReq): Promise<any> => {
+  try {
+    const data = (await httpClient.post(`/order/register`, params, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    })) as any;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const orderUpdateAPI = async (
+  params: IOrderUpdate,
+  orderId: string,
+): Promise<any> => {
+  try {
+    const data = (await httpClient.put(`/order/update/${orderId}`, params, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    })) as any;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const orderDetailByID = async (orderId: string): Promise<OrderItem> => {
+  try {
+    const data = (await httpClient.get(
+      `/order/detail/${orderId}`,
+    )) as OrderItem;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const submitContact = async (params: SubmitFormParams) => {
+  try {
+    const data = await httpClient.post(`/service/contact`, params);
+    return data;
+  } catch (error: any) {
+    console.log('[submitContact] error ', error);
+    throw error;
+  }
+};
+
+export const submitContactVS2 = async (params: SubmitFormParams) => {
+  await httpClient.post(`/service/contact`, params);
+};
+
 export const fetchOrderListAPI = async (): Promise<OrderItem[]> => {
-  const orders = (await httpClient.get(`/order/get-list`)) as OrderItemResp[];
+  const accessToken = getAPIAccessToken();
+  if (!accessToken) return [];
+
+  const orders = (await httpClient.get(`/order/get-list`, {
+    headers: {
+      Authorization: `${getAPIAccessToken()}`,
+    },
+  })) as OrderItemResp[];
   return builderOrderList(
     (orders || []).filter(
       (order) =>
@@ -149,27 +212,48 @@ export const fetchOrderListAPI = async (): Promise<OrderItem[]> => {
   );
 };
 
-const cancelOrder = async (orderID: string) => {
-  await httpClient.post(`/order/cancel`, {
-    orderId: orderID,
-  });
-};
-
-const getAllOrders = async (): Promise<OrderItem[]> => {
-  const orders = (await httpClient.get(`/order/list`)) as OrderItemResp[];
-  return builderOrderList(
-    COMPUTERS.concat(orders || []).filter(
-      (order) => order.status === OrderStatus.Started,
-    ),
-    false,
+export const cancelOrder = async (orderID: string) => {
+  await httpClient.post(
+    `/order/cancel`,
+    {
+      orderId: orderID,
+    },
+    {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    },
   );
 };
 
-const accountGetInfo = async (): Promise<AccountInfo> => {
+export const getAllOrders = async (): Promise<OrderItem[]> => {
+  let orders = (await httpClient.get(`/order/list`)) as OrderItemResp[];
+
+  // console.log('Orders: Before Filter ', orders);
+  // return builderOrderList(
+  //   COMPUTERS.concat(orders || []).filter(
+  //     (order) => order.status === OrderStatus.Started && !!order.thumb,
+  //   ),
+  //   false,
+  // );
+
+  orders = orders.filter((order) => order.status === OrderStatus.Started);
+
+  // console.log('Orders: After Filter ', orders);
+
+  return builderOrderList(orders, false);
+};
+
+export const accountGetInfo = async (): Promise<AccountInfo | undefined> => {
+  const accessToken = getAPIAccessToken();
+
+  if (!accessToken) return undefined;
   try {
-    const account = (await httpClient.get(
-      `/account/get-info`,
-    )) as AccountInfoResp;
+    const account = (await httpClient.get(`/account/get-info`, {
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+    })) as AccountInfoResp;
     return builderAccountInfo({
       ...account,
     });
@@ -178,14 +262,16 @@ const accountGetInfo = async (): Promise<AccountInfo> => {
   }
 };
 
-const getQuickStart = async (): Promise<Array<IQuickStart> | undefined> => {
+export const getQuickStart = async (): Promise<
+  Array<IQuickStart> | undefined
+> => {
   const data = (await httpClient.get(`/service/quick-start`)) as
     | Array<IQuickStart>
     | undefined;
   return data;
 };
 
-const verifySignature = async (
+export const verifySignature = async (
   params: IVerifySignatureReq,
 ): Promise<IVerifySignatureResp> => {
   const result = (await httpClient.post(`/auth/verify`, {
@@ -195,7 +281,7 @@ const verifySignature = async (
   return result;
 };
 
-const verifyAccessToken = async (
+export const verifyAccessToken = async (
   params: IVerifyTokenReq,
 ): Promise<IVerifyTokenResp> => {
   const storageToken = L2ServiceAuthStorage.getToken(params.tcAddress);
@@ -220,18 +306,24 @@ const verifyAccessToken = async (
   return result;
 };
 
-const getNonce = async (params: IGetNonceReq): Promise<IGetNonceResp> => {
+export const getNonce = async (
+  params: IGetNonceReq,
+): Promise<IGetNonceResp> => {
   const data = (await httpClient.get(
     `/auth/nonce?tcAddress=${params.tcAddress}`,
   )) as IGetNonceResp;
   return data;
 };
 
-const fetchHistoryAPI = async (): Promise<any> => {
+export const fetchHistoryAPI = async (): Promise<any> => {
+  const accessToken = getAPIAccessToken();
+  if (!accessToken) return [];
   try {
-    const histories = (await httpClient.get(
-      `/account/history`,
-    )) as HistoryItemResp[];
+    const histories = (await httpClient.get(`/account/history`, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    })) as HistoryItemResp[];
     return histories?.sort(
       (a, b) =>
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
@@ -254,7 +346,7 @@ export const getInstanceDetailByID = async (
   }
 };
 
-const getConfigInfor = async (
+export const getConfigInfor = async (
   networkName: string,
 ): Promise<WebsiteConfig | undefined> => {
   try {
@@ -270,7 +362,7 @@ const getConfigInfor = async (
   }
 };
 
-const updateConfigInfor = async (
+export const updateConfigInfor = async (
   networkName: string,
   configData: WebsiteConfig,
 ): Promise<WebsiteConfig | undefined> => {
@@ -279,7 +371,6 @@ const updateConfigInfor = async (
       `/config/bridge-site/${networkName}`,
       configData,
     )) as any;
-    console.log('PHAT === data ', data);
     if (data && data.status === false) return undefined;
     return data as WebsiteConfig;
   } catch (error: any) {
@@ -288,8 +379,22 @@ const updateConfigInfor = async (
   }
 };
 
+export const revokeAuthentication = async (): Promise<void> => {
+  try {
+    const res = await httpClient.post(`/auth/revoke`, undefined, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    });
+    console.log('revokeAuthentication', res);
+  } catch (error) {
+    console.log('revokeAuthentication error', error);
+    throw error;
+  }
+};
+
 const setAccesTokenHeader = (accessToken: string) => {
-  httpClient.defaults.headers.Authorization = `Bearer ${accessToken}`;
+  // httpClient.defaults.headers.Authorization = `${accessToken}`;
 };
 
 const removeAccesTokenHeader = () => {
@@ -305,6 +410,7 @@ const l2ServicesAPI = {
   fetchAvailableList,
   fetchHistoryAPI,
   estimateTotalCostAPI,
+  estimateTotalCostAPI_V2,
   submitContact,
   submitContactVS2,
 
@@ -322,6 +428,10 @@ const l2ServicesAPI = {
 
   getConfigInfor,
   updateConfigInfor,
+  cancelOrder,
+
+  orderUpdateAPI,
+  orderDetailByID,
 };
 
 export default l2ServicesAPI;

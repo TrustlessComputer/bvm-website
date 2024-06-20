@@ -4,6 +4,7 @@ import copy from 'copy-to-clipboard';
 import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
 import s from './styles.module.scss';
+import { OrderItem } from '@/stores/states/l2services/types';
 
 interface TopUpInfor {
   paymentAddress?: string;
@@ -16,6 +17,7 @@ interface IProps {
   payWithNakaWalletCB?: () => void;
   infor: TopUpInfor;
   warningMessage?: string;
+  order?: OrderItem;
 }
 
 const TopupModal = (props: IProps) => {
@@ -26,10 +28,103 @@ const TopupModal = (props: IProps) => {
     onSuccess,
     warningMessage,
     payWithNakaWalletCB,
+    order,
   } = props;
   if (!infor || !infor.paymentAddress) return <></>;
 
   const { paymentAddress } = infor;
+
+  const renderFasterMethod = () => {
+    return (
+      <Flex
+        mt={'20px'}
+        width={'45%'}
+        bgColor={'#B6B6B6'}
+        height={'1px'}
+        alignSelf={'center'}
+      >
+        <Text
+          mt={'20px'}
+          fontSize={'15px'}
+          fontWeight={500}
+          color={'#6C6F93'}
+          textAlign={'center'}
+        >
+          Or with faster method
+        </Text>
+
+        <Button
+          mt={'20px'}
+          bgColor={'#130E67'}
+          color={'#fff'}
+          borderRadius={'30px'}
+          h="45px"
+          minW={'280px'}
+          py="10px"
+          px="20px"
+          w={'max-content'}
+          alignSelf={'center'}
+          _hover={{
+            opacity: 0.8,
+          }}
+          onClick={payWithNakaWalletCB}
+        >
+          Pay with Naka wallet
+        </Button>
+      </Flex>
+    );
+  };
+
+  const renderMessageDetault = () => {
+    return (
+      <Text
+        fontSize={'15px'}
+        fontWeight={400}
+        color={'#6C6F93'}
+        textAlign={'center'}
+      >
+        Please send
+        <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
+          {` BVM `}
+        </Text>
+        to the following wallet address
+      </Text>
+    );
+  };
+
+  const renderMessageWithTopBVM = () => {
+    return (
+      <Text
+        fontSize={'15px'}
+        fontWeight={400}
+        color={'#6C6F93'}
+        textAlign={'center'}
+      >
+        Please send at least
+        <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
+          {` ${order?.needToTopupBalanceFormatted} BVM `}
+        </Text>
+        {`to the following wallet address. `}
+        {/* <Text
+          as="span"
+          fontWeight={700}
+          color={'#e6922c'}
+          textAlign={'center'}
+          textUnderlineOffset={'2px'}
+          textDecorationLine={'underline'}
+          _hover={{
+            cursor: 'pointer',
+            opacity: 0.8,
+          }}
+          onClick={() => {
+            window.open('https://nakachain.xyz/swap', '_blank');
+          }}
+        >
+          {`Buy now!`}
+        </Text> */}
+      </Text>
+    );
+  };
 
   return (
     <BaseModal
@@ -60,18 +155,7 @@ const TopupModal = (props: IProps) => {
           </Text>
         )}
 
-        <Text
-          fontSize={'15px'}
-          fontWeight={400}
-          color={'#6C6F93'}
-          textAlign={'center'}
-        >
-          Please sent
-          <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
-            {` BVM `}
-          </Text>
-          to the following wallet address
-        </Text>
+        {order ? renderMessageWithTopBVM() : renderMessageDetault()}
 
         {/* Adderss Bar */}
         <Flex
@@ -93,7 +177,7 @@ const TopupModal = (props: IProps) => {
             {paymentAddress}
           </Text>
           <Image
-            src={'/blockchains/customize/ic-copy-green.svg'}
+            src={'/icons/ic-copy-red.svg'}
             w={'20px'}
             h={'auto'}
             objectFit={'contain'}
@@ -140,44 +224,36 @@ const TopupModal = (props: IProps) => {
         >
           Naka Chain
         </Text>
+      </Flex>
 
-        <Flex
-          mt={'20px'}
-          width={'45%'}
-          bgColor={'#B6B6B6'}
-          height={'1px'}
-          alignSelf={'center'}
-        ></Flex>
-
+      {order && (
         <Text
-          mt={'20px'}
+          marginTop={'10px'}
           fontSize={'15px'}
-          fontWeight={500}
+          fontWeight={400}
           color={'#6C6F93'}
           textAlign={'center'}
         >
-          Or with faster method
+          {`Insufficient balance.  `}
+          <Text
+            as="span"
+            fontWeight={700}
+            color={'#e6922c'}
+            textAlign={'center'}
+            textUnderlineOffset={'2px'}
+            textDecorationLine={'underline'}
+            _hover={{
+              cursor: 'pointer',
+              opacity: 0.8,
+            }}
+            onClick={() => {
+              window.open('https://nakachain.xyz/swap', '_blank');
+            }}
+          >
+            {`Buy now!`}
+          </Text>
         </Text>
-
-        <Button
-          mt={'20px'}
-          bgColor={'#130E67'}
-          color={'#fff'}
-          borderRadius={'30px'}
-          h="45px"
-          minW={'280px'}
-          py="10px"
-          px="20px"
-          w={'max-content'}
-          alignSelf={'center'}
-          _hover={{
-            opacity: 0.8,
-          }}
-          onClick={payWithNakaWalletCB}
-        >
-          Pay with Naka wallet
-        </Button>
-      </Flex>
+      )}
     </BaseModal>
   );
 };

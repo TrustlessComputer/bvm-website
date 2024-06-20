@@ -1,7 +1,15 @@
 import { Flex, Image, Text } from '@chakra-ui/react';
 import { useBuy } from '../../providers/Buy.hook';
-import { NetworkEnumMap, RollupEnum, RollupEnumMap } from '../Buy.constanst';
+import {
+  DALayerEnum,
+  DALayerEnumMap,
+  NetworkEnumMap,
+  ProverEnumMap,
+  RollupEnum,
+  RollupEnumMap,
+} from '../Buy.constanst';
 import { dayDescribe } from '../Buy.helpers';
+import { formatCurrencyV2 } from '@/utils/format';
 
 const FooterLeftView = () => {
   const {
@@ -9,9 +17,12 @@ const FooterLeftView = () => {
     networkSelected,
     blockTimeSelected,
     rollupProtocolSelected,
+    dataValiditySelected,
+    blockGasLimitField,
+    proverSelected,
   } = useBuy();
   const rollupProcolStr =
-    RollupEnumMap[rollupProtocolSelected || RollupEnum.Rollup_OpStack];
+    RollupEnumMap[rollupProtocolSelected || RollupEnum.Rollup_ZK];
 
   const renderRow = (lable: string, content: string, flex: number) => {
     return (
@@ -36,33 +47,39 @@ const FooterLeftView = () => {
           objectFit={'contain'}
         />
         <Text fontSize={'20px'} fontWeight={600} color={'#000'}>
-          Bitcoin L2
+          ZK-powered Blockchain
         </Text>
       </Flex>
 
       <Flex flexDir={'column'} gap={'10px'} color={'#000'}>
         <Flex flexDir={'row'}>
           {renderRow(
-            '• Network:',
-            `Bitcoin ${NetworkEnumMap[networkSelected || 1]}`,
+            '• Data Availability:',
+            `${DALayerEnumMap[DALayerEnum.DALayer_PLG]}`,
             1,
           )}
-          {renderRow('• Rollup Protocol:', `${rollupProcolStr || '--'}`, 1.7)}
+          {renderRow(
+            '• Block gas limit:',
+            `${formatCurrencyV2({
+              amount: blockGasLimitField.value || 0,
+              decimals: 0,
+            })}`,
+            1,
+          )}
         </Flex>
 
         <Flex flexDir={'row'}>
-          {renderRow('• Bitcoin Time:', `${blockTimeSelected}s`, 1)}
-          {rollupProtocolSelected === RollupEnum.Rollup_OpStack &&
-            renderRow(
-              '• Withdrawal Period:',
-              `${dayDescribe(withdrawalPeriodSelected).timer}s`,
-              1.7,
-            )}
+          {renderRow('• Prover:', `${ProverEnumMap[proverSelected || 0]}`, 1)}
+          {renderRow(
+            '• Withdrawal period :',
+            `${withdrawalPeriodSelected} hours`,
+            1,
+          )}
         </Flex>
       </Flex>
 
       <Text fontSize={'16px'} fontWeight={400} color={'#363636c2'}>
-        This process can take up to 12 hours
+        This process can take up to 2 hours
       </Text>
     </Flex>
   );

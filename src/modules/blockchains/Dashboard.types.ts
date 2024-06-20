@@ -34,11 +34,25 @@ type OrderDetailModalProps = {
   onCloseOpenOrderDetailModal?: () => void;
 };
 
+type CancelOrderModalProps = {
+  isOpenCancelOrderModal?: boolean;
+  onOpenCancelOrderModal?: () => void;
+  onCloseCancelOrderModal?: () => void;
+};
+
+type UpdateOrderModalProps = {
+  isOpenUpdateOrderModal?: boolean;
+  onOpenUpdateOrderModal?: () => void;
+  onCloseUpdateOrderModal?: () => void;
+};
+
 type IModalProps = TopUpModalProps &
   BillingModalProps &
   SendFormModalProps &
   EditConfigModalProps &
-  OrderDetailModalProps;
+  OrderDetailModalProps &
+  CancelOrderModalProps &
+  UpdateOrderModalProps;
 
 export type DashboardProps = IActions & Props & IModalProps & {};
 

@@ -4,7 +4,7 @@ import React from 'react';
 import { DALayerEnumMap } from '../Buy/Buy.constanst';
 import { CHAIN_ID } from '@/services/api/l2services/constants';
 
-const APP_NAME = 'Bitcoin L2';
+const APP_NAME = '';
 
 const useOrderMapper = (order: OrderItem | undefined) => {
   const convertSecondsToHours = () => {
@@ -31,10 +31,18 @@ const useOrderMapper = (order: OrderItem | undefined) => {
     const remainingSeconds = seconds % 60;
     let result = '';
     if (minutes !== 0) {
-      result = `${minutes} minutes `;
+      if (minutes === 1) {
+        result = `${minutes} minute`;
+      } else {
+        result = `${minutes} minutes `;
+      }
     }
     if (remainingSeconds !== 0) {
-      result = `${result}${remainingSeconds} seconds`;
+      if (remainingSeconds === 1) {
+        result = `${result}${remainingSeconds} second`;
+      } else {
+        result = `${result}${remainingSeconds} seconds`;
+      }
     } else {
       result = `${result}`;
     }
@@ -72,7 +80,7 @@ const useOrderMapper = (order: OrderItem | undefined) => {
         // color = Color.Warning;
         subStatus = `(${
           order.isMainnet
-            ? 'This process can take up to 12 hours'
+            ? 'This process can take up to 2 hours'
             : 'This process can take up to 20 minutes'
         })`;
         color = '#FFA500';

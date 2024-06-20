@@ -1,29 +1,71 @@
 'use client';
 
-import { Flex, Spinner, Box } from '@chakra-ui/react';
+import {
+  Flex,
+  Spinner,
+  Box,
+  Button,
+  useDisclosure,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+} from '@chakra-ui/react';
 
 import HeaderView from './components/Header';
 import BodyView from './components/Body';
 import BoxContent from '@/layouts/BoxContent';
-import { isFetchingAllDataSelector } from '@/stores/states/l2services/selector';
+import {
+  getL2ServicesStateSelector,
+  isFetchingAllDataSelector,
+} from '@/stores/states/l2services/selector';
 import s from './styles.module.scss';
-import { useAppSelector } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { enhance } from './Dashboard.enhance';
 import useL2Service from '@/hooks/useL2Service';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { setViewMode, setViewPage } from '@/stores/states/l2services/reducer';
+import BillingPage from './components/BillingPage';
+import { TAB_ENUM, TAB_ENUM_MAP } from './Dashboard.constant';
+import { useRouter } from 'next/navigation';
 
-const Page = () => {
+const Page = (props: any) => {
+  const { onOpenTopUpModal } = props;
+  const router = useRouter();
+  const [activeTab, setChatTabIndex] = useState<TAB_ENUM>(
+    TAB_ENUM.MANAGE_CHAINS,
+  );
+
+  const onChangeTab = (index: number) => {
+    if (index === TAB_ENUM.MANAGE_CHAINS) {
+      dispatch(setViewPage('ManageChains'));
+    } else {
+      dispatch(setViewPage('Biiling'));
+    }
+    setChatTabIndex(index);
+  };
+
   const {
     loopFetchAccountInfor,
     onVerifyLoginFirstTime,
     fetchAllData,
     isL2ServiceLogged,
   } = useL2Service();
+
+  const dispatch = useAppDispatch();
+
+  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
+
   const isFetchingAllData = useAppSelector(isFetchingAllDataSelector);
+  const { viewPage } = useAppSelector(getL2ServicesStateSelector);
 
   useEffect(() => {
-    onVerifyLoginFirstTime();
+    // onVerifyLoginFirstTime();
   }, []);
+
+  useEffect(() => {}, [loggedIn]);
 
   useEffect(() => {
     fetchAllData();
@@ -32,15 +74,141 @@ const Page = () => {
   useEffect(() => {
     fetchAllData();
     loopFetchAccountInfor();
-  }, [isL2ServiceLogged]);
+  }, [isL2ServiceLogged, loggedIn]);
+
+  const renderBillingPage = () => {
+    return (
+      <BillingPage
+        viewPaymentOnClick={() => {
+          onOpenTopUpModal && onOpenTopUpModal();
+        }}
+      />
+    );
+  };
+
+  const renderManageChainsPage = () => {
+    return (
+      <Flex flexDir={'column'}>
+        {/* <HeaderView />
+        <Flex height={'15px'}></Flex> */}
+        <BodyView />
+      </Flex>
+    );
+  };
+
+  const renderTabbar = () => {
+    return (
+      <Tabs
+        className={s.tabContainer}
+        onChange={onChangeTab}
+        defaultIndex={activeTab}
+      >
+        <TabList className={s.tabList}>
+          <Tab>{TAB_ENUM_MAP[TAB_ENUM.MANAGE_CHAINS]}</Tab>
+          <Tab>{TAB_ENUM_MAP[TAB_ENUM.BILLING]}</Tab>
+        </TabList>
+        <TabPanels className={s.tabPanel}>
+          <TabPanel>{renderManageChainsPage()}</TabPanel>
+          <TabPanel>{renderBillingPage()}</TabPanel>
+        </TabPanels>
+      </Tabs>
+    );
+  };
+
+  // const renderContent2 = () => {
+  //   return (
+  //     <>
+  //       {renderTabbar()}
+  //       <Flex flexDir={'column'} w="100%">
+  //         {viewPage === 'ManageChains'
+  //           ? renderManageChainsPage()
+  //           : renderBillingPage()}
+  //       </Flex>
+  //     </>
+  //   );
+  // };
 
   const renderContent = () => {
     return (
-      <Box>
-        <HeaderView />
-        <Flex height={'30px'}></Flex>
-        <BodyView />
-      </Box>
+      <Flex
+        flexDir={'row'}
+        alignItems={'flex-start'}
+        gap={'30px'}
+        pos={'relative'}
+      >
+        {/* LeftView */}
+        <Flex
+          mt={'5px'}
+          flexDir={'column'}
+          pos={'sticky'}
+          left={0}
+          p={'8px'}
+          borderRadius={'8px'}
+          gap={'10px'}
+          minW={'320px'}
+          bgColor={'#fff'}
+        >
+          <Button
+            className={s.font2}
+            bgColor={viewPage === 'Biiling' ? '#FA4E0E' : '#fff'}
+            color={viewPage === 'Biiling' ? '#fff' : '#000'}
+            borderRadius={'8px'}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            px={'28px'}
+            py={'16px'}
+            w={'100%'}
+            height={'48px'}
+            margin={'0 auto'}
+            fontWeight={500}
+            fontSize={'16px'}
+            _hover={{
+              bgColor: '#e5601b',
+            }}
+            onClick={() => {
+              if (loggedIn) {
+                dispatch(setViewPage('Biiling'));
+              } else {
+                setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+              }
+            }}
+          >
+            Billing
+          </Button>
+          <Button
+            className={s.font2}
+            bgColor={viewPage === 'ManageChains' ? '#FA4E0E' : '#fff'}
+            color={viewPage === 'ManageChains' ? '#fff' : '#000'}
+            borderRadius={'8px'}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            px={'28px'}
+            py={'16px'}
+            height={'48px'}
+            w={'100%'}
+            margin={'0 auto'}
+            fontWeight={500}
+            fontSize={'16px'}
+            _hover={{
+              bgColor: '#e5601b',
+            }}
+            onClick={() => {
+              dispatch(setViewPage('ManageChains'));
+            }}
+          >
+            Your Rollups
+          </Button>
+        </Flex>
+
+        {/* RightView */}
+        <Flex flexDir={'column'} w="100%">
+          {viewPage === 'ManageChains'
+            ? renderManageChainsPage()
+            : renderBillingPage()}
+        </Flex>
+      </Flex>
     );
   };
   const renderLoading = () => {
@@ -58,9 +226,14 @@ const Page = () => {
       align={'center'}
       className={s.container}
     >
-      <BoxContent minH={'100dvh'} overflow={'hidden'} py={'60px'}>
-        {isFetchingAllData ? renderLoading() : renderContent()}
-      </BoxContent>
+      <Flex
+        minH={'100dvh'}
+        overflow={'visible'}
+        pos={'relative'}
+        className={s.containerContent}
+      >
+        {renderTabbar()}
+      </Flex>
     </Flex>
   );
 };

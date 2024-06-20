@@ -5,9 +5,11 @@ import {
   orderBuy,
   fetchAccountInfo,
   fetchL2ServiceHistory,
+  fetchAvailableList,
 } from './actions';
 import { PREFIX } from './constants';
-import { L2ServicesState, OrderItem, ViewMode } from './types';
+import { L2ServicesState, OrderItem, ViewMode, ViewPage } from './types';
+import uniqBy from 'lodash/uniqBy';
 
 export const initialState: L2ServicesState = {
   isFetching: false,
@@ -23,9 +25,16 @@ export const initialState: L2ServicesState = {
 
   viewMode: 'Mainnet',
   showOnlyMyOrder: true,
+  showAllChain: false,
 
   accountInforL2Service: undefined,
   isL2ServiceLogged: false,
+
+  availableListFetching: false,
+  availableListFetched: false,
+  availableList: undefined,
+
+  viewPage: 'ManageChains',
 };
 
 const slice = createSlice({
@@ -52,6 +61,22 @@ const slice = createSlice({
       state.accountInforL2Service = undefined;
       state.isL2ServiceLogged = false;
       state.allOrders = [];
+    },
+    setViewPage(state, action: PayloadAction<ViewPage>) {
+      state.viewPage = action.payload;
+    },
+    setShowAllChains(state, action: PayloadAction<boolean>) {
+      state.showAllChain = action.payload;
+    },
+    updateOrderByNewOrder(state, action: PayloadAction<OrderItem>) {
+      let newList = [action.payload, ...state.orderList];
+      newList = uniqBy(newList, 'orderId');
+      state.orderList = [...newList];
+    },
+    setL2ServiceLogout(state) {
+      state.orderSelected = undefined;
+      state.accountInforL2Service = undefined;
+      state.isL2ServiceLogged = false;
     },
   },
 
@@ -109,6 +134,20 @@ const slice = createSlice({
         state.isFetchingAllOrders = false;
         state.isFetchedAllOrders = true;
         state.allOrders = [];
+      })
+
+      .addCase(fetchAvailableList.pending, (state) => {
+        state.availableListFetched = true;
+      })
+      .addCase(fetchAvailableList.fulfilled, (state, action) => {
+        state.availableListFetching = false;
+        state.availableListFetched = true;
+        state.availableList = action.payload;
+      })
+      .addCase(fetchAvailableList.rejected, (state, _) => {
+        state.availableListFetching = false;
+        state.availableListFetched = true;
+        state.availableList = undefined;
       });
   },
 });
@@ -117,7 +156,11 @@ export const {
   setOrderSelected,
   resetOrders,
   setViewMode,
+  setViewPage,
+  setShowAllChains,
   setShowOnlyMyOrder,
   setL2ServiceAuth,
+  updateOrderByNewOrder,
+  setL2ServiceLogout,
 } = slice.actions;
 export default slice.reducer;

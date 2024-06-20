@@ -1,0 +1,131 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #F4F4F4;
+  border-radius: 12px;
+
+  border: 1px solid #efefef;
+  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.08);
+  color: #000000;
+  .heading {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .desc {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+
+  .content {
+
+
+  }
+
+  .wContent {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e9e9e9;
+  }
+
+  .link {
+    color: #ffa888;
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 33.6px;
+    text-align: left;
+    color: #000000;
+  }
+
+  .priceItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .price {
+    font-size: 13px;
+
+    @include is-pc {
+      font-size: 20px;
+
+    }
+    font-weight: 700;
+    font-family: var(--font-jetbrains);
+    line-height: 27.6px;
+    text-align: left;
+    color: #000000;
+  }
+
+  .priceValue {
+    font-size: 13px;
+
+    @include is-pc {
+      font-size: 20px;
+
+    }
+    font-weight: 400;
+    line-height: 27.6px;
+    text-align: right;
+    color: #000000b2;
+    font-family: var(--font-jetbrains);
+  }
+
+  .pieChart {
+    max-width: 280px;
+    padding: 8px;
+    border-radius: 50%;
+    box-shadow: 0px 1.6875px 21.09375px 0px #00000014;
+  }
+
+  @include is-mobile {
+    .heading {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+    .desc {
+      font-size: 18px;
+      line-height: 140%; /* 25.2px */
+      margin-bottom: 16px;
+    }
+    .title {
+      font-size: 16px;
+    }
+  }
+}
+
+.tooltip {
+  p {
+    background: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 18px;
+    color: #000;
+    box-shadow: 0px 1.6875px 21.09375px 0px #00000014;
+  }
+}
+
+
+.imagePie {
+  width: 100%;
+  @include is-pc {
+    max-width: 279px;
+
+  }
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

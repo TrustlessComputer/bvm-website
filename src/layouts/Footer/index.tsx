@@ -37,7 +37,7 @@ const Footer = () => {
         className={`${s.footer}`}
         style={{ backgroundImage: 'url(/footer/bgFooter.png)' }}
       >
-        <div className="container">
+        <div className="containerV3">
           <div className={s.main}>
             <div className={s.main_top}>
               <div className={s.main_top_left}>
@@ -49,9 +49,12 @@ const Footer = () => {
                     <div className={s.dropMenu}>
                       <p className={cn(s.footer_btn)}>Build on Bitcoin</p>
                       <ul className={s.dropMenu_list}>
-                        {MenuBuild?.subMenu.map((item) => {
+                        {MenuBuild?.subMenu.map((item, index) => {
                           return (
-                            <li className={s.listItem}>
+                            <li
+                              className={s.listItem}
+                              key={`${item.label}-${index}`}
+                            >
                               <a
                                 href={item.href}
                                 target={item?.isNewWindow ? '_blank' : '_self'}

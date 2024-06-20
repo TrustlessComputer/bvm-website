@@ -1,0 +1,21 @@
+.heading {
+  //&_mouse{
+  //  animation: loopFrames .75s ease-out infinite;
+  //}
+  font-size: 72px;
+  font-family: var(--font-jetbrains);
+  font-weight: 400;
+  //line-height: calc(93.6 / 72);
+}
+
+@keyframes loopFrames {
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}

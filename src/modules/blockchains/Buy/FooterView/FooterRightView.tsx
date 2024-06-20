@@ -1,14 +1,18 @@
 import { Button, Flex, Image, Text } from '@chakra-ui/react';
 import { useBuy } from '../../providers/Buy.hook';
+import s from './styles.module.scss';
+import BigNumber from 'bignumber.js';
 
 const FooterRightView = () => {
   const {
     isMainnet,
     estimateTotalCostFetching,
     estimateTotalCostData,
+    estimateTotalCostData_V2,
     submitHandler,
     confirmBtnTitle,
     rollupProtocolSelected,
+    isSubmiting,
   } = useBuy();
 
   const renderOption1 = () => {
@@ -21,12 +25,43 @@ const FooterRightView = () => {
         align={'center'}
         gap={'20px'}
         justify={'flex-end'}
+        className={s.container}
       >
-        <Text fontSize={'25px'} fontWeight={600} color={'#000'}>
+        {/* <Text fontSize={'25px'} fontWeight={600} color={'#000'}>
           {isMainnet
-            ? 'Cost: Our team will send you the quotation'
+            ? `Cost: $${estimateTotalCostData_V2?.TotalCostUSD || '--'} `
             : 'Cost: 1 BVM/day'}
-        </Text>
+        </Text> */}
+
+        <Flex
+          flexDir={'column'}
+          align={'flex-end'}
+          justify="flex-end"
+          gap={'3px'}
+        >
+          <Text
+            fontSize={'25px'}
+            fontWeight={600}
+            color={'#000'}
+            textAlign={'center'}
+            lineHeight={'25px'}
+          >
+            {`${new BigNumber(estimateTotalCostData_V2?.TotalCostBVM || 0)
+              .decimalPlaces(2)
+              .toString()} BVM`}
+          </Text>
+          <Text
+            fontSize={'16px'}
+            fontWeight={300}
+            textAlign={'center'}
+            lineHeight={'25px'}
+            opacity={0.7}
+            className={s.fontType2}
+          >
+            {`$${estimateTotalCostData_V2?.TotalCostUSD || '--'}`}
+          </Text>
+        </Flex>
+
         <Button
           px={'30px'}
           borderRadius={'14px'}
@@ -48,9 +83,10 @@ const FooterRightView = () => {
             />
           }
           disabled={!!estimateTotalCostFetching}
+          isLoading={isSubmiting}
           onClick={() => submitHandler()}
         >
-          {isMainnet ? 'Contact us' : confirmBtnTitle}
+          {isMainnet ? 'Launch' : confirmBtnTitle}
         </Button>
       </Flex>
     );
@@ -130,6 +166,7 @@ const FooterRightView = () => {
                 />
               }
               disabled={!!estimateTotalCostFetching}
+              isLoading={isSubmiting}
               onClick={() => submitHandler()}
             >
               {confirmBtnTitle}

@@ -1,0 +1,72 @@
+.heroLabel {
+  padding: 40px 0 38px 0;
+  background: #fff;
+
+  .inner {
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+
+    @include is-mobile {
+      flex-direction: column;
+    }
+  }
+
+
+  &_content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+
+    @include is-mobile {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      gap: 8px;
+    }
+
+    @include is-tablet {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    &_text {
+      font-size: 16px;
+      line-height: 140%;
+      font-weight: 400;
+      color: #000;
+
+      @include is-mobile {
+        color: #000;
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      @include is-tablet {
+        color: #000;
+      }
+    }
+  }
+
+  &_listHero {
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    @include is-mobile {
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+}

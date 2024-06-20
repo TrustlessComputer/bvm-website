@@ -105,7 +105,7 @@ const DATA_MODULES = [
     title: 'Stamps',
     backgroundImg: '',
     icon: '/landing-v2/logos/stamps.png',
-    decs: 'Roll up to Bitcoin as Stamps, ensuring perpetual storage that can\'t be altered or lost.',
+    decs: "Roll up to Bitcoin as Stamps, ensuring perpetual storage that can't be altered or lost.",
   },
   {
     tags: [
@@ -146,7 +146,7 @@ const DATA_MODULES = [
     title: 'ZK Sync',
     backgroundImg: '',
     icon: '/landing-v2/logos/zk-sync.png',
-    decs: 'Zero-Knowledge enables validity proofs to ensure the state can\'t be corrupted and invalid transactions can\'t exist.',
+    decs: "Zero-Knowledge enables validity proofs to ensure the state can't be corrupted and invalid transactions can't exist.",
   },
   {
     tags: [
@@ -237,87 +237,94 @@ export default function Modules({ isFull }: { isFull?: boolean }) {
 
   return (
     <div className={cn(s.wrapper)}>
-      <div className='container'>
+      <div className="container">
         <SectionTitle className={s.wrapper_title}>
           Explore our Bitcoin Modules
         </SectionTitle>
 
         {}
-        {
-          !isFull ? <>
-              <div className={s.listPreview}>
-                {DATA_MODULES.slice(0, 6).map((item, index) => {
-                  return (
-                    <div className={s.listCol_item}>
-                      <CardExplore {...item} type='modules' key={index} />
-                    </div>
-                  );
-                })}
-              </div>
-              <Link className={s.btnReview} href={`/module-store`}>
-                View All
-              </Link>
-            </> :
-            <>
-              <div className={s.wrapper_list}>
-                {isDesktop ? (
-                  <>
-                    <div className={s.listCol}>
-                      {DATA_MODULES.slice(0, 6).map((item, index) => {
-                        return (
-                          <div className={s.listCol_item}>
-                            <CardExplore {...item} type='modules' key={index} />
-                          </div>
-                        );
-                      })}
-                    </div>
+        {!isFull ? (
+          <>
+            <div className={s.listPreview}>
+              {DATA_MODULES.slice(0, 6).map((item, index) => {
+                return (
+                  <div
+                    className={s.listCol_item}
+                    key={`${item.title}-${index}`}
+                  >
+                    <CardExplore {...item} type="modules" key={index} />
+                  </div>
+                );
+              })}
+            </div>
+            <Link className={s.btnReview} href={`/module-store`}>
+              View All
+            </Link>
+          </>
+        ) : (
+          <>
+            <div className={s.wrapper_list}>
+              {isDesktop ? (
+                <>
+                  <div className={s.listCol}>
+                    {DATA_MODULES.slice(0, 6).map((item, index) => {
+                      return (
+                        <div
+                          className={s.listCol_item}
+                          key={`${item.title}-${index}`}
+                        >
+                          <CardExplore {...item} type="modules" key={index} />
+                        </div>
+                      );
+                    })}
+                  </div>
 
-                    <div className={s.listCol}>
-                      {DATA_MODULES.slice(6, 11).map((item, index) => {
-                        return (
-                          <div className={s.listCol_item}>
-                            <CardExplore {...item} type='modules' key={index} />
-                          </div>
-                        );
-                      })}
-                    </div>
+                  <div className={s.listCol}>
+                    {DATA_MODULES.slice(6, 11).map((item, index) => {
+                      return (
+                        <div className={s.listCol_item}>
+                          <CardExplore {...item} type="modules" key={index} />
+                        </div>
+                      );
+                    })}
+                  </div>
 
-                    <div className={s.listCol}>
-                      {DATA_MODULES.slice(11, 16).map((item, index) => {
-                        return (
-                          <div className={s.listCol_item}>
-                            <CardExplore {...item} type='modules' key={index} />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className={s.listCol}>
-                      {DATA_MODULES.slice(0, 8).map((item, index) => {
-                        return (
-                          <div className={s.listCol_item}>
-                            <CardExplore {...item} type='modules' key={index} />
-                          </div>
-                        );
-                      })}
-                    </div>
+                  <div className={s.listCol}>
+                    {DATA_MODULES.slice(11, 16).map((item, index) => {
+                      return (
+                        <div className={s.listCol_item}>
+                          <CardExplore {...item} type="modules" key={index} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className={s.listCol}>
+                    {DATA_MODULES.slice(0, 8).map((item, index) => {
+                      return (
+                        <div className={s.listCol_item}>
+                          <CardExplore {...item} type="modules" key={index} />
+                        </div>
+                      );
+                    })}
+                  </div>
 
-                    <div className={s.listCol}>
-                      {DATA_MODULES.slice(8, 16).map((item, index) => {
-                        return (
-                          <div className={s.listCol_item}>
-                            <CardExplore {...item} type='modules' key={index} />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
-              </div>
-            </>
-        }
+                  <div className={s.listCol}>
+                    {DATA_MODULES.slice(8, 16).map((item, index) => {
+                      return (
+                        <div className={s.listCol_item}>
+                          <CardExplore {...item} type="modules" key={index} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

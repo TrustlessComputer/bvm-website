@@ -1,6 +1,9 @@
 .cardWrapper {
-  max-width: 526px;
   width: 100%;
+
+  @include is-pc {
+    max-width: 500px;
+  }
 
   :global{
     .fade{
@@ -42,6 +45,8 @@
   .cardTitle {
     font-size: 36px;
     color: #000;
+    text-transform: capitalize;
+    font-family: var(--font-jetbrains);
   }
 
   .description {

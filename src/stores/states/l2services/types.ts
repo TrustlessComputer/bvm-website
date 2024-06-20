@@ -1,4 +1,8 @@
-import { DALayerEnum } from '@/modules/blockchains/Buy/Buy.constanst';
+import {
+  DALayerEnum,
+  RollupEnum,
+} from '@/modules/blockchains/Buy/Buy.constanst';
+import { IAvailableList } from '@/modules/blockchains/Buy/Buy.types';
 import {
   HistoryStatus,
   HistoryType,
@@ -59,7 +63,7 @@ interface OrderItemResp {
   createAt: string;
   orderId: string;
   tcAddress: string;
-  serviceType: number;
+  serviceType: RollupEnum;
   serviceFee: string;
   setupCost: string;
   instanceId: string;
@@ -92,6 +96,9 @@ interface OrderItemResp {
   preMintAddress?: string;
   PreMintAmount?: string;
   ticker?: string;
+  bridgeStatus?: number;
+  thumb?: string;
+  needToTopupBalanceUSD?: string;
 }
 
 interface HistoryItemResp {
@@ -120,6 +127,7 @@ interface OrderItem extends OrderItemResp {
   serviceFeeFormatted: string;
   rollupCostFormatted: string;
   isOwner: boolean;
+  needToTopupBalanceUSD?: string;
 }
 
 interface AccountInfoResp {
@@ -131,6 +139,7 @@ interface AccountInfoResp {
   needToTopupBalance: string;
   email: string;
   emailVerified: boolean;
+  balanceUSD: string;
 }
 
 interface AccountInfo extends AccountInfoResp {
@@ -139,10 +148,11 @@ interface AccountInfo extends AccountInfoResp {
   isWithdrawable: boolean;
   needToTopupBalanceFormatted: string;
   isNeedTopup: boolean;
+  balanceUSDFormatted: string;
 }
 
 interface IOrderBuyReq {
-  serviceType: number;
+  serviceType: RollupEnum;
   domain: string;
   chainId: string;
   chainName: string;
@@ -152,7 +162,7 @@ interface IOrderBuyReq {
   minGasPrice: string;
   dataAvaibilityChain: number;
   isMainnet: boolean;
-  userName: string;
+  userName?: string;
   pluginIds: number[];
   nativeTokenPayingGas: number;
   preMintAmount?: string;
@@ -161,6 +171,20 @@ interface IOrderBuyReq {
   gasLimit: number;
   twitter_id?: string | null;
   bitcoinValidity: number;
+  email?: string;
+  cpuCore?: number;
+  memory?: number;
+  storage?: number;
+  package?: number;
+  rollupProtocol?: number;
+  prover?: number;
+  bridgeStatus?: number;
+}
+
+interface IOrderUpdate {
+  chainName: string;
+  description: string;
+  thumb: string;
 }
 
 interface IOrderBuyEstimateRespone {
@@ -205,6 +229,7 @@ interface IVerifyEmail {
 }
 
 type ViewMode = 'Mainnet' | 'Testnet';
+type ViewPage = 'Biiling' | 'ManageChains';
 
 interface L2ServicesState {
   isFetching: boolean;
@@ -219,9 +244,15 @@ interface L2ServicesState {
 
   viewMode: ViewMode;
   showOnlyMyOrder: boolean;
+  showAllChain: boolean;
+  viewPage: ViewPage;
 
   accountInforL2Service: AccountInfo | undefined;
   isL2ServiceLogged: boolean;
+
+  availableListFetching: boolean;
+  availableListFetched: boolean;
+  availableList?: IAvailableList;
 }
 
 type MetaConfig = {
@@ -264,7 +295,9 @@ export type {
   IOrderBuyEstimateRespone,
   L2ServicesState,
   ViewMode,
+  ViewPage,
   MetaConfig,
   ThemeConfig,
   WebsiteConfig,
+  IOrderUpdate,
 };
