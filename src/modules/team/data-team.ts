@@ -1,32 +1,32 @@
 export const DATA_TEAM = [
     {
         avatar: '/landingV3/images/teams/1.jpg',
-        name: 'Punk 3700',
+        name: '3700',
     },
     {
         avatar: '/landingV3/images/teams/2.jpg',
 
-        name: 'Punk 686',
+        name: '686',
     },
     {
-        avatar: '/landingV3/images/teams/3.jpg',
+        avatar: '/bvm/9121.jpg',
 
-        name: 'Punk 3624',
+        name: '9121',
     },
     {
-        avatar: '/landingV3/images/teams/4.jpg',
+        avatar: '/bvm/8800.jpg',
 
-        name: 'Noun 368',
+        name: '8800',
     },
     {
-        avatar: '/landingV3/images/teams/5.jpg',
+        avatar: '/bvm/2836.jpg',
 
-        name: 'Noun 286',
+        name: '2836',
     },
     {
         avatar: '/landingV3/images/teams/6.jpg',
 
-        name: 'Ape 4848',
+        name: '4848',
     },
 ];
 export type TCardMember = (typeof DATA_TEAM)[number];

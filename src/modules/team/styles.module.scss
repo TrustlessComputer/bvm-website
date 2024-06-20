@@ -22,4 +22,9 @@
 .inner {
   padding-top: 173px;
   padding-bottom: 173px;
+
+  @include is-pc {
+    max-width: 984px;
+    margin: 0 auto;
+  }
 }

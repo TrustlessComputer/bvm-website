@@ -5,8 +5,12 @@
 
 .inner {
   position: relative;
-  // background-color: #E54104;
   background-color: transparent;
+  min-height: 867px;
+
+  @include is-min-table {
+    min-height: 920px;
+  }
   height: 100vh;
 }
 
@@ -33,7 +37,11 @@
   margin: auto;
   z-index: 2;
   position: relative;
-  padding-top: 25vh;
+  padding-top: 35vh;
+
+  @include is-min-table {
+    padding-top: 20vh;
+  }
 
   &_heading {
     display: flex;
@@ -43,16 +51,62 @@
   }
 }
 
+.title {
+  font-family: var(--font-JetBrainsMono);
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 120%;
+  text-align: center;
+  color: #FA4E0E;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+
+  @include is-min-table {
+    font-size: 86px;
+    margin-bottom: 18px;
+  }
+
+  @include is-pc {
+
+    margin-bottom: 24px;
+    font-size: 120px;
+  }
+
+  &_image {
+    width: 80px;
+    height: 80px;
+    @include is-min-table {
+      width: 100px;
+      height: 100px;
+    }
+    @include is-pc {
+      width: 120px;
+      height: 120px;
+    }
+  }
+
+}
+
 .subTitle {
   font-family: var(--font-JetBrainsMono);
-  font-size: 64px;
+  font-size: 24px;
   font-weight: 700;
-  line-height: 76.8px;
+  line-height: (76/64);
   text-align: center;
   color: black;
-  max-width: 800px;
+  max-width: 320px;
   margin-left: auto;
   margin-right: auto;
+
+  @include is-min-table {
+    font-size: 34px;
+    max-width: 1200px;
+  }
+
+  @include is-pc {
+    font-size: 44px;
+  }
 
   strong {
     color: #FA4E0E;
@@ -72,15 +126,12 @@
   padding-right: 16px;
   margin-top: 24px;
   font-weight: 500;
-  max-width: 640px;;
 
   @include is-min-table {
     font-size: 18px;
-    // max-width: 720px;
   }
 
   @include is-pc {
-    // max-width: 800px;
     font-size: 20px;
   }
 }
@@ -88,7 +139,6 @@
 .groupBtn {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   margin-top: 40px;
   margin-bottom: 16px;
   padding: 0 12px;
@@ -122,7 +172,6 @@
   &__secondary {
     color: #FA4E0E;
     background-color: transparent;
-    border: 1px solid #FA4E0E;
     font-weight: normal;
   }
 }

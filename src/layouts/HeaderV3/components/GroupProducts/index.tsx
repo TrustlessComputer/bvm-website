@@ -99,7 +99,7 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} src="/menu-icons/menu-icon-ordinal.png" alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Ordinals</span>
-                  <span className={s.group_item_icon_text_bottom}>Use Ordinals for DV</span>
+                  <span className={s.group_item_icon_text_bottom}>Inscribe proofs onto Bitcoin</span>
                 </div>
               </Link>
             </li>
@@ -117,7 +117,7 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} src="/menu-icons/menu-icon-stamp.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Stamps</span>
-                  <span className={s.group_item_icon_text_bottom}>Use Bitcoin Stamps for DV</span>
+                  <span className={s.group_item_icon_text_bottom}>Stamp proofs proofs in an <br /> unprunable way</span>
                 </div>
               </Link>
             </li>
@@ -168,7 +168,7 @@ export default function GroupProducts(): ReactElement {
       </div>
       <div className={s.right}>
         <div className={s.simpleGroup}>
-          <h4 className={s.title}>Rollups</h4>
+          <h4 className={s.title}>Solutions</h4>
           <ul className={s.simpleGroup_list}>
             <li className={s.simpleGroup_link}>
               <Link href={'/defi'}>Bitcoin rollups for DeFi</Link>
