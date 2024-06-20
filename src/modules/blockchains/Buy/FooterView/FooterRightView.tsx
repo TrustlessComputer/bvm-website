@@ -1,5 +1,7 @@
 import { Button, Flex, Image, Text } from '@chakra-ui/react';
 import { useBuy } from '../../providers/Buy.hook';
+import s from './styles.module.scss';
+import BigNumber from 'bignumber.js';
 
 const FooterRightView = () => {
   const {
@@ -23,12 +25,38 @@ const FooterRightView = () => {
         align={'center'}
         gap={'20px'}
         justify={'flex-end'}
+        className={s.container}
       >
-        <Text fontSize={'25px'} fontWeight={600} color={'#000'}>
+        {/* <Text fontSize={'25px'} fontWeight={600} color={'#000'}>
           {isMainnet
-            ? `Cost: $${estimateTotalCostData_V2?.TotalCostUSD || '--'}`
+            ? `Cost: $${estimateTotalCostData_V2?.TotalCostUSD || '--'} `
             : 'Cost: 1 BVM/day'}
-        </Text>
+        </Text> */}
+
+        <Flex flexDir={'row'} align={'center'} gap={'10px'}>
+          <Text
+            fontSize={'25px'}
+            fontWeight={600}
+            color={'#000'}
+            textAlign={'center'}
+            lineHeight={'25px'}
+          >
+            {`Cost: $${estimateTotalCostData_V2?.TotalCostUSD || '--'}`}
+          </Text>
+          <Text
+            fontSize={'18px'}
+            fontWeight={300}
+            textAlign={'center'}
+            lineHeight={'25px'}
+            opacity={0.7}
+            className={s.fontType2}
+          >
+            {`${new BigNumber(estimateTotalCostData_V2?.TotalCostBVM || 0)
+              .decimalPlaces(2)
+              .toString()} BVM`}
+          </Text>
+        </Flex>
+
         <Button
           px={'30px'}
           borderRadius={'14px'}
