@@ -22,7 +22,7 @@ const GroupDownItem = ({
 
   return (
 
-    <div className={s.dropMenu} onClick={show}>
+    <div className={`${s.dropMenu} menu-item`} onClick={show}>
       <span
         style={{
           color: color,

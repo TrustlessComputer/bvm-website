@@ -7,9 +7,11 @@ import { Button, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
 import ModalVideo from 'react-modal-video';
 import Fade from '@/interactive/Fade';
+import { useRouter } from 'next/navigation';
 
 export default function HeroV2() {
   const [isOpen, setOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <div className={s.wrapper}>
@@ -24,7 +26,7 @@ export default function HeroV2() {
           marginBottom={'40px'}
           gap={'24px'}
         >
-          <Fade delay={0.4} delayEnter={0.4} from={{ y: 20 }} to={{ y: 0 }}>
+          <Fade delay={0.3} delayEnter={0.3} from={{ y: 20 }} to={{ y: 0 }}>
             <Button
               bgColor={'#FA4E0E'}
               color={'#fff'}
@@ -39,7 +41,9 @@ export default function HeroV2() {
               fontWeight={500}
               fontSize={'18px'}
               onClick={() => {
-                window.open('');
+                const rectBV = document.getElementById('buyBVMModule');
+                rectBV &&
+                  window.scrollTo(0, rectBV?.getBoundingClientRect().top);
               }}
               _hover={{
                 bgColor: '#e64e0e',
@@ -48,7 +52,7 @@ export default function HeroV2() {
               Buy BVM
             </Button>
           </Fade>
-          <Fade delay={0.6} delayEnter={0.6} from={{ y: 20 }} to={{ y: 0 }}>
+          <Fade delay={0.5} delayEnter={0.5} from={{ y: 20 }} to={{ y: 0 }}>
             <Button
               borderColor={'#FA4E0E'}
               border={'1px'}
@@ -64,7 +68,7 @@ export default function HeroV2() {
               fontWeight={500}
               fontSize={'18px'}
               onClick={() => {
-                window.open('');
+                router.push('/staking');
               }}
             >
               Stake BVM

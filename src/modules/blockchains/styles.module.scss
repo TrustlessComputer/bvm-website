@@ -1,7 +1,73 @@
 .container {
   font-family: var(--font-dmsans);
+  padding-top: 140px;
+
+  .containerContent {
+    max-width: calc(1400px + 40px);
+    min-width: calc(1400px + 40px);
+    margin-left: auto !important;
+    flex-direction: column;
+    margin-right: auto !important;
+    // padding-left: 20px !important;
+    // padding-right: 20px !important;
+    background-color: #f3f1e8;
+    overflow: visible;
+  }
 
   .font2 {
     font-family: var(--font-JetBrainsMono) !important;
+  }
+
+  .tabContainer {
+    flex: 1;
+    padding-bottom: 60px;
+  }
+
+  .tabList {
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #ffffff26;
+
+    > button {
+      background: none;
+      border: none;
+      color: #000;
+      opacity: 50%;
+      font-weight: 400;
+      font-size: 20px;
+      font-family: var(--font-JetBrainsMono) !important;
+      flex: unset;
+      position: relative;
+      text-align: center;
+
+      &[aria-selected='true'] {
+        opacity: 1;
+        font-weight: 700;
+        font-size: 20px;
+        font-family: var(--font-JetBrainsMono) !important;
+        color: #fa4e0e !important;
+
+        &::after {
+          content: '';
+          display: block;
+          height: 1px;
+          width: 160px;
+          background-color: #fa4e0e !important;
+          position: absolute;
+          bottom: 0;
+        }
+      }
+    }
+  }
+
+  .tabPanel {
+    > [role='tabpanel'] {
+      padding: 0;
+      border-color: transparent !important;
+    }
+    border-color: transparent !important;
   }
 }

@@ -48,7 +48,7 @@ export default () => {
   };
 
   const renderItem = (item: HistoryItemResp, index: number) => {
-    const { created_at, amount, status, type } = item;
+    const { created_at, amount, status, type, instanceInfo } = item;
 
     const formatAmountColor = () => {
       const result = {
@@ -92,7 +92,7 @@ export default () => {
           }).toLocaleString()}
         </Th>
         <Th
-          width="50%"
+          width="20%"
           color={'#000'}
           textTransform={'capitalize'}
           className={s.font}
@@ -100,10 +100,24 @@ export default () => {
           {HistoryTypeMap[type] || '--'}
         </Th>
         <Th
-          width="50%"
+          width="20%"
+          color={'#000'}
+          textTransform={'capitalize'}
+          textAlign={'center'}
+          className={s.font}
+        >
+          {type === HistoryType.HistoryType_Topup ||
+          type === HistoryType.HistoryType_WithdrawBalance
+            ? '--'
+            : instanceInfo?.chainName || '--'}
+        </Th>
+
+        <Th
+          width="20%"
           color={HistoryStatusColorMap[status] || '#000'}
           textTransform={'capitalize'}
           className={s.font}
+          textAlign={'center'}
         >
           {HistoryStatusMap[status] || '--'}
         </Th>
@@ -176,7 +190,7 @@ export default () => {
               Date
             </Th>
             <Th
-              width="20%"
+              maxW="20%"
               fontWeight={700}
               fontSize={'12px'}
               className={s.font}
@@ -188,18 +202,31 @@ export default () => {
                 <Text fontSize={'12px'} fontWeight={700}>
                   Description
                 </Text>
-                <Image
+                {/* <Image
                   src={'/blockchains/customize/ic-black-infor.svg'}
                   w={'15px'}
                   h={'auto'}
                   objectFit={'contain'}
-                />
+                /> */}
               </Flex>
             </Th>
             <Th
-              width="50%"
+              width="20%"
               fontWeight={700}
               fontSize={'12px'}
+              className={s.font}
+              textAlign={'center'}
+              style={{
+                fontSize: 12,
+              }}
+            >
+              Chain Name
+            </Th>
+            <Th
+              width="20%"
+              fontWeight={700}
+              fontSize={'12px'}
+              textAlign={'center'}
               className={s.font}
               style={{
                 fontSize: 12,

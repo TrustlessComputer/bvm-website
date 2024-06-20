@@ -1,17 +1,19 @@
 'use client';
 
-import { Flex, Image, Text } from '@chakra-ui/react';
+import { Button, Flex, Image, Text } from '@chakra-ui/react';
 import LivingStatus from './LivingStatus';
-import { OrderItem } from '@/stores/states/l2services/types';
+import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
 
 type Props = {
   item: OrderItem;
   isOwner?: boolean;
+  depositOnClick?: () => void;
+  editOnClick?: () => void;
 };
 
 const HeaderRow = (props: Props) => {
-  const { item, isOwner } = props;
+  const { item, isOwner, depositOnClick, editOnClick } = props;
   const mapper = useOrderMapper(item);
 
   const renderStatus = () => {
@@ -25,13 +27,33 @@ const HeaderRow = (props: Props) => {
         >
           {mapper.status || ''}
         </Text>
+        {item?.status === OrderStatus.WaitingPayment && (
+          <Button
+            bgColor={'#FA4E0E'}
+            color={'#fff'}
+            borderRadius={'100px'}
+            h={'54px'}
+            minW={'140px'}
+            fontSize={'16px'}
+            fontWeight={500}
+            onClick={(event) => {
+              if (event.stopPropagation) event.stopPropagation();
+              depositOnClick && depositOnClick();
+            }}
+            _hover={{
+              opacity: 0.8,
+            }}
+          >
+            Deposit
+          </Button>
+        )}
       </Flex>
     );
   };
 
   return (
     <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
-      <Flex flexDir={'row'} gap={'10px'}>
+      <Flex flexDir={'row'} gap={'12px'} align={'center'}>
         <Image
           src={'/blockchains/customize/ic-infa.svg'}
           w={'40px'}
@@ -43,6 +65,16 @@ const HeaderRow = (props: Props) => {
             mapper.computerIndexer || `ZK-powered Blockchain #${item.index}`
           }`}
         </Text>
+        <Image
+          src={`/icons/pencil_edit_grey.svg`}
+          fit={'contain'}
+          maxW={'24px'}
+          maxH={'24px'}
+          onClick={(event: any) => {
+            if (event.stopPropagation) event.stopPropagation();
+            editOnClick && editOnClick();
+          }}
+        />
       </Flex>
 
       {renderStatus()}

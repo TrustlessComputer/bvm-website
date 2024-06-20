@@ -55,7 +55,13 @@ export const BuyPage = React.memo((props: Props) => {
 
   if (isAvailableListFetching)
     return (
-      <Flex height={'100dvh'} align={'center'} justify={'center'}>
+      <Flex
+        height={'80dvh'}
+        flexDir={'column'}
+        margin={'auto'}
+        align={'center'}
+        justify={'center'}
+      >
         <Spinner color="#000" size="xl" />
       </Flex>
     );
@@ -63,93 +69,9 @@ export const BuyPage = React.memo((props: Props) => {
   if (!availableListData) return <></>;
 
   return (
-    <Flex direction={'column'} py="10px" gap={'20px'} className={s.container}>
-      <Flex direction={'row'} align={'center'} justify={'flex-end'}>
-        {/* <Breadcrumb
-          spacing="8px"
-          color={'#3f51bc'}
-          fontWeight={600}
-          separator={<ChevronRightIcon color="gray.500" />}
-        >
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/blockchains">Blockchains</BreadcrumbLink>
-          </BreadcrumbItem>
-
-          <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink href="#">Customize</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb> */}
-        {/* {isL2ServiceLogged &&
-          accountInforL2Service &&
-          accountInforL2Service.topUpWalletAddress && (
-            <Flex bgColor={'red'} width={'200px'}>
-              <BlockieAvatar
-                address={accountInforL2Service.topUpWalletAddress}
-                size={30}
-                ensImage={null}
-              />
-            </Flex>
-          )} */}
-
-        {!loggedIn ? (
-          <Flex
-            align={'center'}
-            fontSize={'16px'}
-            fontWeight={500}
-            color={'#000'}
-          >
-            <Text>
-              {`Check Your ZK-powered Blockchain Setup and Status - `}
-              <Text
-                as="span"
-                color={'#4E4A8D'}
-                textDecorationLine={'underline'}
-                textUnderlineOffset={2}
-                _hover={{
-                  cursor: 'pointer',
-                  opacity: 0.8,
-                }}
-                onClick={() => {
-                  // onLogin();
-                  // onConnect && onConnect();
-                  setShowLoginModalCustomize &&
-                    setShowLoginModalCustomize(true);
-                }}
-              >
-                {`Sign in`}
-              </Text>
-            </Text>
-          </Flex>
-        ) : (
-          <Button
-            bgColor={'#FA4E0E'}
-            color={'#fff'}
-            borderRadius={'8px'}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            alignSelf={'flex-end'}
-            px={'28px'}
-            py={'16px'}
-            minW={['180px']}
-            height={'48px'}
-            fontWeight={400}
-            fontSize={'16px'}
-            _hover={{
-              bgColor: '#e5601b',
-            }}
-            onClick={() => {
-              router.push('/blockchains');
-            }}
-          >
-            Check your ZK-powered Blockchain
-          </Button>
-        )}
-      </Flex>
-
+    <Flex direction={'column'} p="10px" gap={'20px'} className={s.container}>
       <Flex
-        px={'50px'}
-        py={'20px'}
+        p={'50px'}
         direction={'column'}
         borderRadius={'20px'}
         display={'flex'}
@@ -158,7 +80,7 @@ export const BuyPage = React.memo((props: Props) => {
         gap={'30px'}
       >
         <Flex direction={'row'} flex={1} overflow={'visible'}>
-          <LeftView />
+          {/* <LeftView /> */}
           <RightView />
         </Flex>
         <FooterView />

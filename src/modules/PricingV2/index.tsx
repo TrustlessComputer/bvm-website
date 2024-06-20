@@ -113,13 +113,13 @@ const PriceModule = () => {
 
   return (
     <div className={s.container}>
-      <BoxContent>
+      <BoxContent bgColor={'#f3f1e8'}>
         {availableListFetching || !availableList ? (
           <Flex w={'100%'} minH={'500px'} justify={'center'} align={'center'}>
             <Spinner></Spinner>
           </Flex>
         ) : (
-          <Flex flexDir={'column'} align={'center'} gap={'70px'}>
+          <Flex flexDir={'column'} align={'center'} gap={'60px'}>
             {/* Heaader*/}
             <Flex flexDir={'column'} gap={'15px'}>
               <Text
@@ -132,14 +132,32 @@ const PriceModule = () => {
               </Text>
               <Text
                 textAlign={'center'}
-                fontSize={'24px'}
-                lineHeight={'33.6px'}
+                fontSize={'20px'}
+                lineHeight={'28px'}
                 fontWeight={400}
                 opacity={0.7}
                 className={s.fontType2}
               >
                 {`Pricing for crypto teams of all sizes.`}
               </Text>
+
+              {/* Footer */}
+              {/* <Text
+                fontSize={'24px'}
+                fontWeight={500}
+                lineHeight={'33px'}
+                color={'#FA4E0E'}
+                className={s.fontType3}
+                textAlign={'center'}
+                opacity={0.7}
+                _hover={{
+                  opacity: 0.8,
+                  cursor: 'pointer',
+                }}
+                onClick={manageYourChainsOnClick}
+              >
+                Manage your chains
+              </Text> */}
             </Flex>
 
             {/* Body */}
@@ -218,7 +236,7 @@ const PriceModule = () => {
                   'Data availability: Polygon',
                   'Block Gas Limit: 30,000,000',
                   'Prover: No',
-                  'Withdrawal Period: 2h',
+                  'Withdrawal Period: 6h',
                 ]}
               />
               <CardInfor
@@ -289,8 +307,12 @@ const PriceModule = () => {
                   'CPU: 32 cores',
                   'Storage: 650 GB SSD',
                 ]}
-                blockChainInforsList={undefined}
-                isHideBlockchainInfor={true}
+                blockChainInforsList={[
+                  'Data availability: Polygon, Celestia, NearDA, Eigen ...',
+                  'Block Gas Limit: 30,000,000 - 100,000,000',
+                  'Prover: Supported',
+                  'Withdrawal Period: 2h - 24h',
+                ]}
               />
               <CardInfor
                 title="Enterprise"
@@ -324,26 +346,17 @@ const PriceModule = () => {
                 }
                 isHideBlockchainInfor={true}
                 isHideHardware={true}
+                includes={[
+                  'Customize-able',
+                  'Unlimited Requests with Auto-scaling',
+                  'Higher Throughput',
+                  'Committed usage discounts',
+                  'Custom on-demand discounts',
+                  'VIP support channels',
+                  'Engineering team access',
+                ]}
               />
             </SimpleGrid>
-
-            {/* Footer */}
-            <Text
-              fontSize={'20px'}
-              fontWeight={400}
-              lineHeight={'29px'}
-              color={'#FA4E0E'}
-              className={s.fontType3}
-              textAlign={'center'}
-              opacity={0.7}
-              _hover={{
-                opacity: 0.8,
-                cursor: 'pointer',
-              }}
-              onClick={manageYourChainsOnClick}
-            >
-              Manage your chains
-            </Text>
           </Flex>
         )}
       </BoxContent>

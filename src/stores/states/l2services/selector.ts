@@ -7,11 +7,39 @@ import formatter from '@/modules/price/Pricing.helper';
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
 
+const accountInforSelector = createSelector(
+  getL2ServicesStateSelector,
+  (reducer) => {
+    const accountInfor = reducer.accountInforL2Service;
+    if (!accountInfor) return undefined;
+
+    let result = {
+      ...accountInfor,
+    };
+
+    const addressFormatted = accountInfor.tcAddress?.substring(0, 7) || '--';
+
+    return {
+      ...result,
+      addressFormatted,
+    };
+  },
+);
+
 // My Orders
 const orderListSelector = createSelector(
   getL2ServicesStateSelector,
-  (reducer) => reducer.orderList || [],
+  (reducer) => {
+    const result = reducer.orderList || [];
+    return result;
+  },
 );
+
+const myOrderListSelector = createSelector(orderListSelector, (myOrderList) => {
+  return myOrderList
+    .filter((order) => order.isMainnet)
+    .sort((a, b) => b.index - a.index);
+});
 
 const orderSelectedSelector = createSelector(
   getL2ServicesStateSelector,
@@ -92,4 +120,6 @@ export {
   allOrdersSelector,
   isFetchingAllDataSelector,
   historyInfoSelector,
+  myOrderListSelector,
+  accountInforSelector,
 };

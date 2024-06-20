@@ -9,6 +9,7 @@ import {
 } from './actions';
 import { PREFIX } from './constants';
 import { L2ServicesState, OrderItem, ViewMode, ViewPage } from './types';
+import uniqBy from 'lodash/uniqBy';
 
 export const initialState: L2ServicesState = {
   isFetching: false,
@@ -24,7 +25,7 @@ export const initialState: L2ServicesState = {
 
   viewMode: 'Mainnet',
   showOnlyMyOrder: true,
-  showAllChain: true,
+  showAllChain: false,
 
   accountInforL2Service: undefined,
   isL2ServiceLogged: false,
@@ -66,6 +67,16 @@ const slice = createSlice({
     },
     setShowAllChains(state, action: PayloadAction<boolean>) {
       state.showAllChain = action.payload;
+    },
+    updateOrderByNewOrder(state, action: PayloadAction<OrderItem>) {
+      let newList = [action.payload, ...state.orderList];
+      newList = uniqBy(newList, 'orderId');
+      state.orderList = [...newList];
+    },
+    setL2ServiceLogout(state) {
+      state.orderSelected = undefined;
+      state.accountInforL2Service = undefined;
+      state.isL2ServiceLogged = false;
     },
   },
 
@@ -149,5 +160,7 @@ export const {
   setShowAllChains,
   setShowOnlyMyOrder,
   setL2ServiceAuth,
+  updateOrderByNewOrder,
+  setL2ServiceLogout,
 } = slice.actions;
 export default slice.reducer;

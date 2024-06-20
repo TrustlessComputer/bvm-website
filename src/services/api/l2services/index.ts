@@ -13,6 +13,7 @@ import {
   IGetNonceReq,
   IGetNonceResp,
   IOrderBuyReq,
+  IOrderUpdate,
   IQuickStart,
   IVerifySignatureReq,
   IVerifySignatureResp,
@@ -139,13 +140,39 @@ export const validateSubDomainAPI = async (subdomain: string): Promise<any> => {
 // ------------------------------------------------------------------------
 
 export const orderBuyAPI = async (params: IOrderBuyReq): Promise<any> => {
-  // eslint-disable-next-line no-useless-catch
   try {
     const data = (await httpClient.post(`/order/register`, params, {
       headers: {
         Authorization: `${getAPIAccessToken()}`,
       },
     })) as any;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const orderUpdateAPI = async (
+  params: IOrderUpdate,
+  orderId: string,
+): Promise<any> => {
+  try {
+    const data = (await httpClient.put(`/order/update/${orderId}`, params, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    })) as any;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const orderDetailByID = async (orderId: string): Promise<OrderItem> => {
+  try {
+    const data = (await httpClient.get(
+      `/order/detail/${orderId}`,
+    )) as OrderItem;
     return data;
   } catch (error: any) {
     throw error;
@@ -200,13 +227,21 @@ export const cancelOrder = async (orderID: string) => {
 };
 
 export const getAllOrders = async (): Promise<OrderItem[]> => {
-  const orders = (await httpClient.get(`/order/list`)) as OrderItemResp[];
-  return builderOrderList(
-    COMPUTERS.concat(orders || []).filter(
-      (order) => order.status === OrderStatus.Started,
-    ),
-    false,
-  );
+  let orders = (await httpClient.get(`/order/list`)) as OrderItemResp[];
+
+  // console.log('Orders: Before Filter ', orders);
+  // return builderOrderList(
+  //   COMPUTERS.concat(orders || []).filter(
+  //     (order) => order.status === OrderStatus.Started && !!order.thumb,
+  //   ),
+  //   false,
+  // );
+
+  orders = orders.filter((order) => order.status === OrderStatus.Started);
+
+  // console.log('Orders: After Filter ', orders);
+
+  return builderOrderList(orders, false);
 };
 
 export const accountGetInfo = async (): Promise<AccountInfo | undefined> => {
@@ -344,6 +379,20 @@ export const updateConfigInfor = async (
   }
 };
 
+export const revokeAuthentication = async (): Promise<void> => {
+  try {
+    const res = await httpClient.post(`/auth/revoke`, undefined, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    });
+    console.log('revokeAuthentication', res);
+  } catch (error) {
+    console.log('revokeAuthentication error', error);
+    throw error;
+  }
+};
+
 const setAccesTokenHeader = (accessToken: string) => {
   // httpClient.defaults.headers.Authorization = `${accessToken}`;
 };
@@ -380,6 +429,9 @@ const l2ServicesAPI = {
   getConfigInfor,
   updateConfigInfor,
   cancelOrder,
+
+  orderUpdateAPI,
+  orderDetailByID,
 };
 
 export default l2ServicesAPI;

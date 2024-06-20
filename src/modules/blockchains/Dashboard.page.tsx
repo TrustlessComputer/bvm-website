@@ -1,6 +1,17 @@
 'use client';
 
-import { Flex, Spinner, Box, Button, useDisclosure } from '@chakra-ui/react';
+import {
+  Flex,
+  Spinner,
+  Box,
+  Button,
+  useDisclosure,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+} from '@chakra-ui/react';
 
 import HeaderView from './components/Header';
 import BodyView from './components/Body';
@@ -13,13 +24,29 @@ import s from './styles.module.scss';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { enhance } from './Dashboard.enhance';
 import useL2Service from '@/hooks/useL2Service';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { setViewMode, setViewPage } from '@/stores/states/l2services/reducer';
 import BillingPage from './components/BillingPage';
+import { TAB_ENUM, TAB_ENUM_MAP } from './Dashboard.constant';
+import { useRouter } from 'next/navigation';
 
 const Page = (props: any) => {
   const { onOpenTopUpModal } = props;
+  const router = useRouter();
+  const [activeTab, setChatTabIndex] = useState<TAB_ENUM>(
+    TAB_ENUM.MANAGE_CHAINS,
+  );
+
+  const onChangeTab = (index: number) => {
+    if (index === TAB_ENUM.MANAGE_CHAINS) {
+      dispatch(setViewPage('ManageChains'));
+    } else {
+      dispatch(setViewPage('Biiling'));
+    }
+    setChatTabIndex(index);
+  };
+
   const {
     loopFetchAccountInfor,
     onVerifyLoginFirstTime,
@@ -35,8 +62,10 @@ const Page = (props: any) => {
   const { viewPage } = useAppSelector(getL2ServicesStateSelector);
 
   useEffect(() => {
-    onVerifyLoginFirstTime();
+    // onVerifyLoginFirstTime();
   }, []);
+
+  useEffect(() => {}, [loggedIn]);
 
   useEffect(() => {
     fetchAllData();
@@ -56,15 +85,48 @@ const Page = (props: any) => {
       />
     );
   };
+
   const renderManageChainsPage = () => {
     return (
-      <>
-        <HeaderView />
-        <Flex height={'15px'}></Flex>
+      <Flex flexDir={'column'}>
+        {/* <HeaderView />
+        <Flex height={'15px'}></Flex> */}
         <BodyView />
-      </>
+      </Flex>
     );
   };
+
+  const renderTabbar = () => {
+    return (
+      <Tabs
+        className={s.tabContainer}
+        onChange={onChangeTab}
+        defaultIndex={activeTab}
+      >
+        <TabList className={s.tabList}>
+          <Tab>{TAB_ENUM_MAP[0]}</Tab>
+          <Tab>{TAB_ENUM_MAP[1]}</Tab>
+        </TabList>
+        <TabPanels className={s.tabPanel}>
+          <TabPanel>{renderBillingPage()}</TabPanel>
+          <TabPanel>{renderManageChainsPage()}</TabPanel>
+        </TabPanels>
+      </Tabs>
+    );
+  };
+
+  // const renderContent2 = () => {
+  //   return (
+  //     <>
+  //       {renderTabbar()}
+  //       <Flex flexDir={'column'} w="100%">
+  //         {viewPage === 'ManageChains'
+  //           ? renderManageChainsPage()
+  //           : renderBillingPage()}
+  //       </Flex>
+  //     </>
+  //   );
+  // };
 
   const renderContent = () => {
     return (
@@ -76,14 +138,14 @@ const Page = (props: any) => {
       >
         {/* LeftView */}
         <Flex
+          mt={'5px'}
           flexDir={'column'}
           pos={'sticky'}
-          top={'10px'}
           left={0}
           p={'8px'}
           borderRadius={'8px'}
           gap={'10px'}
-          maxW={'300px'}
+          minW={'320px'}
           bgColor={'#fff'}
         >
           <Button
@@ -96,7 +158,7 @@ const Page = (props: any) => {
             alignItems={'center'}
             px={'28px'}
             py={'16px'}
-            minW={['180px']}
+            w={'100%'}
             height={'48px'}
             margin={'0 auto'}
             fontWeight={500}
@@ -124,8 +186,8 @@ const Page = (props: any) => {
             alignItems={'center'}
             px={'28px'}
             py={'16px'}
-            minW={['180px']}
             height={'48px'}
+            w={'100%'}
             margin={'0 auto'}
             fontWeight={500}
             fontSize={'16px'}
@@ -136,7 +198,7 @@ const Page = (props: any) => {
               dispatch(setViewPage('ManageChains'));
             }}
           >
-            Manage Chains
+            Your Rollups
           </Button>
         </Flex>
 
@@ -164,14 +226,14 @@ const Page = (props: any) => {
       align={'center'}
       className={s.container}
     >
-      <BoxContent
+      <Flex
         minH={'100dvh'}
         overflow={'visible'}
-        py={'140px'}
         pos={'relative'}
+        className={s.containerContent}
       >
-        {isFetchingAllData ? renderLoading() : renderContent()}
-      </BoxContent>
+        {renderTabbar()}
+      </Flex>
     </Flex>
   );
 };

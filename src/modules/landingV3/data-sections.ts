@@ -5,7 +5,7 @@ interface DataSections {
   children: string,
   image: string,
   direction?: 'left' | 'right',
-  button: {
+  button?: {
     link: string,
     title: string,
     target?: '_blank' | '_self' | '_top',
@@ -17,10 +17,10 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     title: 'Tailored to your needs',
     children: `Build faster on Bitcoin with all the best building blocks in the BVM Module Store. BVM provides a modular framework to tailor your ZK rollup to your app.`,
     image: '/bvm/home-section-1.jpg',
-    button: {
-      link: '/module',
-      title: 'Explore BVM Module Store'
-    }
+    // button: {
+    //   link: '/module',
+    //   title: 'Explore BVM Module Store'
+    // }
   },
   {
     title: 'Easy to migrate from Ethereum',
@@ -37,9 +37,9 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     title: 'Be the first to build on Bitcoin',
     children: `Join the next-generation Bitcoin builders to upgrade Bitcoin beyond just a currency. Build DeFi, AI, DAOs, NFTs, payments, and gaming on Bitcoin.`,
     image: '/bvm/home-section-3.jpg',
-    button: {
-      link: '/chains',
-      title: 'Explore the all-new Bitcoin'
-    }
+    // button: {
+    //   link: '/chains',
+    //   title: 'Explore the all-new Bitcoin'
+    // }
   }
 ]

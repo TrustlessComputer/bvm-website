@@ -34,24 +34,6 @@ export default function HeroV3() {
               Connect with a BVM team member
             </div>
           </div>
-          {/* <button className={s.read}>
-            Read Docs
-            <svg
-              width="17"
-              height="16"
-              viewBox="0 0 17 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M6.5 12L10.5 8L6.5 4"
-                stroke="black"
-                stroke-width="1.2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button> */}
         </div>
       </div>
       <ScrollMore />

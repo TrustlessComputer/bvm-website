@@ -8,7 +8,7 @@ import Loader from '@/modules/builder-landing/Loader';
 
 export default function BuyBVMModule() {
   return (
-    <div className={s.wrapper}>
+    <div className={s.wrapper} id={'buyBVMModule'}>
       <Loader />
       <div className={cn(s.inner, 'container')}>
         <Heading />

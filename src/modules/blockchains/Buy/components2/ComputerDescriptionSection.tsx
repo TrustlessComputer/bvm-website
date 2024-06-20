@@ -23,7 +23,7 @@ const ComputerDescriptionSection = () => {
 
   return (
     <Section
-      title="Tell us more about your plan with your Bitcoin L2"
+      title="Tell us more about your plan with your ZK-powered Blockchain"
       isRequired={!!computerDescriptionField.isRequired}
     >
       <Textarea

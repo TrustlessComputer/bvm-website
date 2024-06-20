@@ -48,7 +48,7 @@ const useL2Service = () => {
   }, [isFetched, isFetching, isNakaWalletLoading]);
 
   const fetchAllData = () => {
-    dispatch(fetchAllOrders());
+    // dispatch(fetchAllOrders());
     if (isL2ServiceLogged || loggedIn) {
       dispatch(fetchOrderList());
       dispatch(fetchAccountInfo());
