@@ -1,7 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import styles from './styles.module.scss';
-import React, { useContext, useMemo, useRef, useState } from 'react';
-import { formatCurrency } from '@/utils/format';
+import React, { useContext, useRef, useState } from 'react';
 import AirdropCard, {
   IAirdropCard,
 } from '@/modules/staking/components/AirdropBox/AirdropCard';
@@ -15,8 +14,6 @@ import { nakaAddressSelector } from '@/stores/states/user/selector';
 import { commonSelector } from '@/stores/states/common/selector';
 import { useDispatch } from 'react-redux';
 import { requestReload } from '@/stores/states/common/reducer';
-import { isProduction } from '@/config';
-import dayjs from 'dayjs';
 
 const AirdropBox = () => {
   const { getConnector } = useContext(NakaConnectContext);
@@ -24,27 +21,12 @@ const AirdropBox = () => {
   const { needReload } = useAppSelector(commonSelector);
   const dispatch = useDispatch();
 
-  const [_amountNAKAAirdrop, setAmountNAKAAirdrop] = useState(0);
   const [swampAirdrops, setSwampAirdrops] = useState<any[]>();
   const [claimingId, setClaimingId] = useState(-1);
 
+  const [nakaAirdrops, setNakaAirdrops] = useState<any[]>();
+
   const launchpadApi = useRef(new CLaunchpadAPI()).current;
-
-  const isAbleClaimSwamp = useMemo(() => {
-    const TIME_CLAIM = isProduction
-      ? '2024-05-14T10:00:00+00:00'
-      : '2024-05-13T10:00:00+00:00';
-    return dayjs().diff(dayjs(TIME_CLAIM)) >= 0;
-  }, []);
-
-  const getLaunchpadInfo = async () => {
-    try {
-      const response: any = await Promise.all([
-        launchpadApi.getLaunchpadIDOAirdrop(Number('1')),
-      ]);
-      setAmountNAKAAirdrop(response[0]);
-    } catch (err) {}
-  };
 
   const getLaunchpadInfoSwamp = async () => {
     if (!address) return;
@@ -56,12 +38,19 @@ const AirdropBox = () => {
     } catch (err) {}
   };
 
-  React.useEffect(() => {
-    getLaunchpadInfo();
-  }, []);
+  const getInfoNakaAirdrop = async () => {
+    if (!address) return;
+    try {
+      const [response]: any = await Promise.all([
+        launchpadApi.getLaunchpadNakaAirdrop(address),
+      ]);
+      setNakaAirdrops(response);
+    } catch (err) {}
+  };
 
   React.useEffect(() => {
     getLaunchpadInfoSwamp();
+    getInfoNakaAirdrop();
   }, [address, needReload]);
 
   const onClickClaimSwamp = async (id: number) => {
@@ -90,21 +79,48 @@ const AirdropBox = () => {
     }
   };
 
+  const onClickClaimNaka = async (id: number) => {
+    if (!address) return;
+    try {
+      setClaimingId(id);
+      const message = 'claim_NAKA_' + address;
+      const connector = getConnector();
+      const { signature } = await connector.requestSignMessage({
+        target: 'popup',
+        signMessage: message,
+        fromAddress: address,
+      });
+      await launchpadApi.requestClaimNakaAirdrop(id, {
+        address: address as string,
+        message: message,
+        signature,
+      });
+      await sleep(2);
+      dispatch(requestReload());
+      toast.success('You has claimed successfully!');
+    } catch (error: any) {
+      toast.error(error?.message);
+    } finally {
+      setClaimingId(-1);
+    }
+  };
+
   const AIRBOXDATA: IAirdropCard[] = React.useMemo(() => {
     return [
       {
         src: '/images/stake/naka-stake.png',
-        title:
-          _amountNAKAAirdrop == 0
-            ? `You missed the NAKA airdrop. Don't miss out on the next one!`
-            : `RECEIVED ${formatCurrency(
-                _amountNAKAAirdrop,
-                0,
-                3,
-                'TC',
-                false,
-                1000,
-              )} $NAKA`,
+        title: `You missed the NAKA airdrop. Don't miss out on the next one!`,
+        symbol: 'NAKA',
+        claimingId: claimingId,
+        airdrops: nakaAirdrops,
+        totalClaimed:
+          nakaAirdrops && nakaAirdrops.length > 0
+            ? nakaAirdrops
+                .filter((air) => air.status === 'done')
+                .reduce((n, { amount }) => n + Number(amount), 0)
+            : undefined,
+        onClickClaim: onClickClaimNaka,
+        release: undefined,
         isDone: true,
         socials: {
           website: 'https://nakachain.xyz/',
@@ -192,7 +208,7 @@ const AirdropBox = () => {
         ),
       },
     ];
-  }, [_amountNAKAAirdrop, swampAirdrops, claimingId, isAbleClaimSwamp]);
+  }, [swampAirdrops, nakaAirdrops, claimingId]);
 
   return (
     <Box width="100%">

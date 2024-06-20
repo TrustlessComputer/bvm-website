@@ -44,6 +44,39 @@ class CLaunchpadAPI {
       throw error;
     }
   };
+
+  public getLaunchpadNakaAirdrop = async (address: string): Promise<any> => {
+    try {
+      const prefix = `${PERP_API_URL}/api/`;
+      const res = (await this.apiClient.get(
+        `${prefix}launchpad/airdrop/claimed/1`,
+        {
+          params: {
+            address,
+          },
+        },
+      )) as any;
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  public requestClaimNakaAirdrop = async (
+    id: number,
+    body: any,
+  ): Promise<any> => {
+    try {
+      const prefix = `${PERP_API_URL}/api/`;
+      const rs: any = this.apiClient.post(
+        `${prefix}launchpad/airdrop/claimed/${id}`,
+        body,
+      );
+      return rs;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 export default CLaunchpadAPI;
