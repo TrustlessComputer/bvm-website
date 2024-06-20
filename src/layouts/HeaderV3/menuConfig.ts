@@ -3,11 +3,11 @@ import { NavItem } from '@layouts/Header/menuConfig';
 import GroupProducts from '@layouts/HeaderV3/components/GroupProducts';
 
 export const NAV_ITEMS: Array<NavItem> = [
-  { label: 'Rollups',
-    href: '/rollups',
-    isNewWindow: false,
-    isHide: false,
-  },
+  // { label: 'Rollups',
+  //   href: '/rollups',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
   {
     label: 'Products',
     href: '#',

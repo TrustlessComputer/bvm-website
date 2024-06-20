@@ -11,8 +11,12 @@ export type CardInforProps = {
   ctaButton?: any;
   isHideHardware?: boolean;
   isHideBlockchainInfor?: boolean;
+  isHidePreInstallDapps?: boolean;
+  isHideSupport?: boolean;
   hardwareList?: any[];
   blockChainInforsList?: any[];
+  preInstallDAppList?: any[];
+  supportList?: any[];
   includes?: any[];
 };
 
@@ -27,8 +31,13 @@ const CardInfor = (props: CardInforProps) => {
     hardwareList,
     bgGradient,
     blockChainInforsList,
+    supportList,
+    preInstallDAppList,
+
     isHideHardware = false,
     isHideBlockchainInfor = false,
+    isHidePreInstallDapps = false,
+    isHideSupport = false,
     includes,
   } = props;
   return (
@@ -36,20 +45,20 @@ const CardInfor = (props: CardInforProps) => {
       className={s.container}
       flexDir={'column'}
       alignItems={'center'}
-      p={'32px'}
+      p={'20px'}
       borderRadius={'12px'}
       minH={'600px'}
-      minW={'400px'}
+      width={'auto'}
       gap={'25px'}
       boxShadow="0px 0px 20px rgba(0, 0, 0, 0.15)"
       bgColor={bgColor}
       color={color}
       bgGradient={bgGradient}
     >
-      <Flex flexDir={'column'} gap="20px" minH={'150px'}>
+      <Flex flexDir={'column'} gap="20px" minH={'170px'}>
         <Text
-          fontSize={'20px'}
-          lineHeight={'26px'}
+          fontSize={'18px'}
+          lineHeight={'22px'}
           fontWeight={500}
           textAlign={'center'}
           opacity={0.7}
@@ -57,11 +66,12 @@ const CardInfor = (props: CardInforProps) => {
           {title}
         </Text>
         <Text
-          fontSize={'16px'}
-          lineHeight={'22.4px'}
-          fontWeight={4000}
+          fontSize={'15px'}
+          lineHeight={'20px'}
+          fontWeight={400}
           textAlign={'center'}
-          px={'30px'}
+          px={'10px'}
+          minH={'30px'}
           title={desc}
           className={s.fontType2}
         >
@@ -76,13 +86,13 @@ const CardInfor = (props: CardInforProps) => {
           flexDir={'column'}
           align={'flex-start'}
           justify={'flex-start'}
-          gap={'20px'}
+          gap={'10px'}
           minH={'130px'}
           w={'100%'}
         >
           <Text
-            fontSize={'16px'}
-            lineHeight={'20px'}
+            fontSize={'15px'}
+            lineHeight={'18px'}
             fontWeight={600}
             className={s.fontType2}
           >
@@ -91,6 +101,7 @@ const CardInfor = (props: CardInforProps) => {
           <UnorderedList
             spacing={'10px'}
             paddingLeft={'20px'}
+            fontSize={'14px'}
             className={s.fontType2}
           >
             {hardwareList?.map((item, index) => (
@@ -105,24 +116,85 @@ const CardInfor = (props: CardInforProps) => {
           flexDir={'column'}
           align={'flex-start'}
           justify={'flex-start'}
-          gap={'20px'}
+          gap={'10px'}
           minH={'150px'}
           w={'100%'}
         >
           <Text
-            fontSize={'16px'}
-            lineHeight={'20px'}
+            fontSize={'15px'}
+            lineHeight={'18px'}
             fontWeight={600}
             className={s.fontType2}
           >
-            {'Blockchain Information'}
+            {'Blockchain'}
           </Text>
           <UnorderedList
             spacing={'10px'}
             paddingLeft={'20px'}
             className={s.fontType2}
+            fontSize={'14px'}
           >
             {blockChainInforsList?.map((item, index) => (
+              <ListItem key={`${item}-${index}`}>{item}</ListItem>
+            ))}
+          </UnorderedList>
+        </Flex>
+      )}
+
+      {!isHidePreInstallDapps && (
+        <Flex
+          flexDir={'column'}
+          align={'flex-start'}
+          justify={'flex-start'}
+          gap={'10px'}
+          minH={'150px'}
+          w={'100%'}
+        >
+          <Text
+            fontSize={'15px'}
+            lineHeight={'18px'}
+            fontWeight={600}
+            className={s.fontType2}
+          >
+            {'Pre-installed dapps'}
+          </Text>
+          <UnorderedList
+            spacing={'10px'}
+            paddingLeft={'20px'}
+            className={s.fontType2}
+            fontSize={'14px'}
+          >
+            {preInstallDAppList?.map((item, index) => (
+              <ListItem key={`${item}-${index}`}>{item}</ListItem>
+            ))}
+          </UnorderedList>
+        </Flex>
+      )}
+
+      {!isHideSupport && (
+        <Flex
+          flexDir={'column'}
+          align={'flex-start'}
+          justify={'flex-start'}
+          gap={'10px'}
+          minH={'150px'}
+          w={'100%'}
+        >
+          <Text
+            fontSize={'15px'}
+            lineHeight={'18px'}
+            fontWeight={600}
+            className={s.fontType2}
+          >
+            {'Support'}
+          </Text>
+          <UnorderedList
+            spacing={'10px'}
+            paddingLeft={'20px'}
+            className={s.fontType2}
+            fontSize={'14px'}
+          >
+            {supportList?.map((item, index) => (
               <ListItem key={`${item}-${index}`}>{item}</ListItem>
             ))}
           </UnorderedList>
@@ -134,7 +206,7 @@ const CardInfor = (props: CardInforProps) => {
           flexDir={'column'}
           align={'flex-start'}
           justify={'flex-start'}
-          gap={'20px'}
+          gap={'10px'}
           minH={'150px'}
           w={'100%'}
         >
@@ -149,8 +221,10 @@ const CardInfor = (props: CardInforProps) => {
           {includes.map((item) => {
             return (
               <Flex align={'center'} flexDir={'row'} gap="8px">
-                <Image src={`/icons/check_green.svg`} />
-                <Text className={s.fontType2}>{item}</Text>
+                <Image src={`/icons/check_green.svg`} w={'16px'} h={'16px'} />
+                <Text className={s.fontType2} fontSize={'15px'}>
+                  {item}
+                </Text>
               </Flex>
             );
           })}

@@ -1,7 +1,7 @@
 export const MIN_GAS_PRICE = 1; // 1 gweis
 export const GAS_LITMIT = 30000000; //
 export const WITHDRAWAL_PERIOD = 7; // 7 days
-export const WITHDRAWAL_PERIOD_BOOTSTRAP = 2; // 2 hours
+export const WITHDRAWAL_PERIOD_BOOTSTRAP = 6; // 2 hours
 
 // ------------------------------------------------------------------------------------
 export enum NetworkEnum {
@@ -86,8 +86,8 @@ export const BitcoinValidityEnumMap = {
 };
 
 export const RollupEnumMap = {
-  [RollupEnum.Rollup_OpStack]: 'Optimistic Rollups',
-  [RollupEnum.Rollup_ZK]: 'ZK Rollups',
+  [RollupEnum.Rollup_OpStack]: 'Optimistic',
+  [RollupEnum.Rollup_ZK]: 'ZK',
 };
 
 // ------------------------------------------------------------------------------------

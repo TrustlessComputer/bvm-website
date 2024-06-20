@@ -23,7 +23,7 @@ const BodyInfor = (props: Props) => {
         justify={'space-between'}
       >
         <Text
-          w={'50%'}
+          w={'40%'}
           fontSize={'16px'}
           fontWeight={600}
           color={'#000'}
@@ -32,7 +32,7 @@ const BodyInfor = (props: Props) => {
           {label}
         </Text>
         <Text
-          w={'50%'}
+          w={'60%'}
           fontSize={'16px'}
           fontWeight={400}
           color={'#4d4c4c'}
@@ -52,7 +52,7 @@ const BodyInfor = (props: Props) => {
       height={'auto'}
       spacingX={'200px'}
     >
-      {renderRowInFor('Name', `${item.chainName || ''}`)}
+      {renderRowInFor('Rollup ID', `${mapper.computerIndexer || ''}`)}
       {!mapper.isLayer1 &&
         renderRowInFor(
           'Rollup protocol',
@@ -64,12 +64,15 @@ const BodyInfor = (props: Props) => {
         `${mapper.dataAvailabilityLayer || ''}`,
       )}
       {renderRowInFor('Chain ID', `${item.chainId || '--'}`)}
-      {renderRowInFor('RPC URL', `${item.rpc || '--'}`)}
+      {renderRowInFor('RPC URL', `${item.rpc || 'Pending payment'}`)}
       {renderRowInFor(
-        'Native Token',
+        'Native token',
         `${item.preMint === 0 ? 'BVM' : item.ticker || '--'}`,
       )}
-      {renderRowInFor('Block explorer URL', `${item.explorer || '--'}`)}
+      {renderRowInFor(
+        'Block explorer URL',
+        `${item.explorer || 'Pending payment'}`,
+      )}
 
       {renderRowInFor('Deployer', `${mapper.deployer || '--'}`)}
 
