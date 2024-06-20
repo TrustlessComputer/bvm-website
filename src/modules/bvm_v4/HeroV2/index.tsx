@@ -60,6 +60,7 @@ export default function HeroV2() {
               color={'#FA4E0E'}
               borderRadius={100}
               display={'flex'}
+              a
               justifyContent={'center'}
               alignItems={'center'}
               px={'60px'}
