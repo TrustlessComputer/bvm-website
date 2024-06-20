@@ -2,15 +2,17 @@
   position: absolute;
 
   z-index: 3;
-  display: flex;
+
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
   --size: 24px;
   bottom: 24px;
+  display: none;
 
   @include is-min-table{
     bottom: 40px;
+    display: flex;
   }
   @include is-pc {
     --size: 32px;

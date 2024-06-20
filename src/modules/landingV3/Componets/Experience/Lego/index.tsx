@@ -28,9 +28,9 @@ export default function Lego(props: any): ReactElement {
   }, []);
 
 
-  const textMap = useTexture('/glb/logo.png');
+  const textMap = useTexture('/glb/logo.jpg');
   return <Float position={[0, 0.75, 0]}>
-    <group {...props} scale={.8} rotation={[.15, -2.5, -.1]}>
+    <group {...props} scale={.6} rotation={[.15, -2.5, -.1]}>
 
       <mesh castShadow receiveShadow geometry={(nodes.Cube as any).geometry} material={materials.mat12}>
         <meshStandardMaterial color={'#C7D5E1'} />
@@ -41,15 +41,16 @@ export default function Lego(props: any): ReactElement {
         geometry={(nodes.VIDEO_MESH as any).geometry}
         material={materials.mat12}
       >
-        <Decal position={[0, 0, -1]} scale={[-2, 1, 1]} rotation={new Euler(0, 0, 0)}>
-          <meshStandardMaterial
-            transparent
-            polygonOffset
-            polygonOffsetFactor={-10}
-          >
-            <videoTexture attach="map" args={[video]} />
-          </meshStandardMaterial>
-        </Decal>
+        <meshStandardMaterial color={'#C7D5E1'} />
+        {/*<Decal position={[0, 0, -1]} scale={[-2, 1, 1]} rotation={new Euler(0, 0, 0)}>*/}
+        {/*  <meshStandardMaterial*/}
+        {/*    transparent*/}
+        {/*    polygonOffset*/}
+        {/*    polygonOffsetFactor={-10}*/}
+        {/*  >*/}
+        {/*    <videoTexture attach="map" args={[video]} />*/}
+        {/*  </meshStandardMaterial>*/}
+        {/*</Decal>*/}
       </mesh>
       <mesh
         castShadow
@@ -58,15 +59,15 @@ export default function Lego(props: any): ReactElement {
         material={materials.mat12}
       >
         <meshStandardMaterial color={'#C7D5E1'} />
-        <Decal position={[1, 0, 0]} scale={.6} rotation={Math.PI as any}>
-          <meshStandardMaterial
-            transparent
-            polygonOffset
-            polygonOffsetFactor={-10}
-            map={textMap}
-            map-flipY={false}
-          />
-        </Decal>
+        {/*<Decal castShadow={false} receiveShadow={false} position={[1, 0, 0]} scale={1.1} rotation={Math.PI as any}>*/}
+        {/*  <meshStandardMaterial*/}
+        {/*    color={'#C7D5E1'}*/}
+        {/*    polygonOffset*/}
+        {/*    polygonOffsetFactor={-1}*/}
+        {/*    map={textMap}*/}
+        {/*    map-flipY={false}*/}
+        {/*  />*/}
+        {/*</Decal>*/}
       </mesh>
       <mesh
         castShadow
