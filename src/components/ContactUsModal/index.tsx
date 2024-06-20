@@ -11,10 +11,9 @@ import toast from 'react-hot-toast';
 import { Select } from '@chakra-ui/react';
 
 const SUBJECT_LIST = [
-  `I'd like to build a Bitcoin L2`,
+  `I'd like to build a ZK Rollup on Bitcoin`,
   `I'd like to make a partnership proposal`,
-  `I have an issue with the deposit/withdrawal process`,
-  `I'm having trouble locating my transaction records`,
+  `I have an issue with the payment process`,
   `Others`,
 ];
 
@@ -72,9 +71,9 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
       if (!valideYourXAcc(yourXAcc)) {
         valid = false;
       }
-      // if (!valideYourTelegramAcc(yourTelegramAcc)) {
-      //   valid = false;
-      // }
+      if (!valideYourTelegramAcc(yourTelegramAcc)) {
+        valid = false;
+      }
       // if (!valideYourPlan(yourPlan)) {
       //   valid = false;
       // }
@@ -168,7 +167,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                     valideYourXAcc(e.target.value);
                   }}
                 />
-
+                {/* 
                 {yourXAccErrMsg && (
                   <Text
                     fontSize={'12px'}
@@ -179,7 +178,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                   >
                     {yourXAccErrMsg}
                   </Text>
-                )}
+                )} */}
               </Flex>
 
               {/* Your Telegram handle" */}
@@ -201,6 +200,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                   color={'#5B5B5B'}
                 >
                   Your telegram handle
+                  <span className={s.reuiqredLabel}>(*)</span>
                 </Text>
                 <Input
                   border="1px solid #CECECE"
@@ -214,15 +214,46 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                   value={yourTelegramAcc}
                   onChange={(e: any) => {
                     setYourTelegramAcc(e.target.value);
-                    // valideYourTelegramAcc(e.target.value);
+                    valideYourTelegramAcc(e.target.value);
                   }}
                 />
-                {yourTelegramAccErrMgs && (
+                {/* {yourTelegramAccErrMgs && (
                   <Text
                     fontSize={'12px'}
                     fontWeight={500}
                     lineHeight={'20px'}
                     alignSelf={'flex-start'}
+                    color={'red'}
+                  >
+                    {yourTelegramAccErrMgs}
+                  </Text>
+                )} */}
+              </Flex>
+            </Flex>
+
+            <Flex flexDir={'row'} align={'center'} width={'100%'} mt={'-10px'}>
+              <Flex flex={1}>
+                {yourXAccErrMsg && (
+                  <Text
+                    fontSize={'12px'}
+                    fontWeight={500}
+                    lineHeight={'20px'}
+                    alignSelf={'flex-start'}
+                    color={'red'}
+                  >
+                    {yourXAccErrMsg}
+                  </Text>
+                )}
+              </Flex>
+
+              <Flex flex={1}>
+                {yourTelegramAccErrMgs && (
+                  <Text
+                    marginLeft={'15px'}
+                    fontSize={'12px'}
+                    fontWeight={500}
+                    lineHeight={'20px'}
+                    alignSelf={'flex-end'}
                     color={'red'}
                   >
                     {yourTelegramAccErrMgs}

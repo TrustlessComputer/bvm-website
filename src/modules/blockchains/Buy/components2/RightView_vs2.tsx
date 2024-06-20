@@ -39,7 +39,7 @@ const RightView = React.memo((props: Props) => {
       }}
     >
       <Text fontSize={'36px'} color={'black'} fontWeight={600}>
-        Customize your ZK-powered Blockchain
+        Customize your Bitcoin Zk Rollup
       </Text>
       {/* <Text fontSize={'20px'} color={'#323232'} fontWeight={400} my={'13px'}>
         ZK-powered Blockchains are secure, low-cost, and lightning-fast — fully
@@ -83,7 +83,7 @@ const RightView = React.memo((props: Props) => {
         {<BlockGasLimitSection />}
 
         {/* Prover */}
-        {<ProverSection />}
+        {/* {<ProverSection />} */}
 
         {/* Withdrawal Period (SLIDER)*/}
         <WithdrawalPeriodSection />

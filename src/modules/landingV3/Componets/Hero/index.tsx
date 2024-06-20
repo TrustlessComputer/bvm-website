@@ -1,14 +1,15 @@
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import ScrollMore from '@components/ScrollMore';
-import SvgInset from '@/components/SvgInset';
 import Experience from '@/modules/landingV3/Componets/Experience';
 import { useRef } from 'react';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+
 
 export default function HeroV3() {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
-
+  const { showContactUsModal } = useContactUs();
   return (
     <div className={s.hero} ref={ref}>
       <div className={s.inner}>
@@ -25,7 +26,11 @@ export default function HeroV3() {
               Get started with BitZK
             </div>
             {' '}
-            <div className={`${s.btn} ${s.btn__secondary}`}>
+            <div
+              onClick={() => {
+                showContactUsModal();
+              }}
+              className={`${s.btn} ${s.btn__secondary}`}>
               Connect with a BVM team member
             </div>
           </div>

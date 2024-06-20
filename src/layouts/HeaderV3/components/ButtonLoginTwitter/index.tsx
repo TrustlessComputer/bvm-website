@@ -36,16 +36,19 @@ const ButtonLoginTwitter = (props: Props) => {
       onClick={() => {
         if (!loggedIn) {
           handleConnect();
+        } else {
+          router.push('/blockchains');
         }
       }}
       onMouseEnter={() => setIsHover(true)}
     >
       <div className={s.inner}>
         <p className={s.text}>
-          {!loggedIn ? 'Login' : `${accInfor?.addressFormatted || '--'}`}{' '}
+          {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
+          {!loggedIn ? 'Connect' : `Your Rollups`}
         </p>
       </div>
-      {isHover && loggedIn && (
+      {/* {isHover && loggedIn && (
         <div className={s.dropdown} onMouseLeave={() => setIsHover(false)}>
           <div className={s.dropdown_inner}>
             <div
@@ -70,7 +73,7 @@ const ButtonLoginTwitter = (props: Props) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

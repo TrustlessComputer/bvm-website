@@ -10,6 +10,7 @@ const BlockChainPage = () => {
         color: 'black',
         bgColor: '#F3F1E8',
       }}
+      hideFooter={true}
     >
       <Page />
     </MainLayout>

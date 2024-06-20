@@ -104,12 +104,12 @@ const Page = (props: any) => {
         defaultIndex={activeTab}
       >
         <TabList className={s.tabList}>
-          <Tab>{TAB_ENUM_MAP[0]}</Tab>
-          <Tab>{TAB_ENUM_MAP[1]}</Tab>
+          <Tab>{TAB_ENUM_MAP[TAB_ENUM.MANAGE_CHAINS]}</Tab>
+          <Tab>{TAB_ENUM_MAP[TAB_ENUM.BILLING]}</Tab>
         </TabList>
         <TabPanels className={s.tabPanel}>
-          <TabPanel>{renderBillingPage()}</TabPanel>
           <TabPanel>{renderManageChainsPage()}</TabPanel>
+          <TabPanel>{renderBillingPage()}</TabPanel>
         </TabPanels>
       </Tabs>
     );

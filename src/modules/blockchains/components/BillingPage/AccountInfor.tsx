@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import s from './styles.module.scss';
 import ModalLoading from '@/components/ModalLoading';
+import { formatAddressCenter } from '@/utils/string';
 
 interface IProps {
   viewPaymentOnClick: () => void;
@@ -99,6 +100,10 @@ const AccountInfor = (props: IProps) => {
           <Flex
             flexDir={'row'}
             gap="6px"
+            px="12px"
+            py={'6px'}
+            borderRadius={'8px'}
+            bgColor={'#FAFAFA'}
             onClick={() => {
               if (
                 accountInforL2Service &&
@@ -120,7 +125,12 @@ const AccountInfor = (props: IProps) => {
               lineHeight={'16px'}
               color={'#000000B2'}
             >
-              {`${accountInforL2Service?.topUpWalletAddress || '--'}`}
+              {`${
+                formatAddressCenter(
+                  accountInforL2Service?.topUpWalletAddress || '',
+                  8,
+                ) || '--'
+              }`}
             </Text>
             <Image
               src={`/icons/ic-copy-v2.svg`}

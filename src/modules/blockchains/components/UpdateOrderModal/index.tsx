@@ -28,7 +28,7 @@ const checkImageURL = (url: string) => {
   return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
 };
 
-const TITLE_ERROR_MESSAGE = 'Chain Name is required';
+const TITLE_ERROR_MESSAGE = 'Rollup name is required';
 const DESC_ERROR_MESSAGE = 'Description is required';
 const LOGOURL_ERROR_MESSAGE = 'Thumb url is required';
 const LOGOURL_INVALID_ERROR_MESSAGE = 'Thumb url is invalid format';
@@ -76,7 +76,7 @@ const UpdateOrderModal = (props: IProps) => {
 
   const updateInforHandler = async () => {
     try {
-      if (!item || !chainName || !logoUrl || !desc) return;
+      if (!item || !chainName || !desc) return;
 
       setUpdating(true);
 
@@ -99,7 +99,9 @@ const UpdateOrderModal = (props: IProps) => {
         console.log('2 newData --- ', newData);
 
         if (newData) {
-          toast.success('Update Successful');
+          toast.success(
+            'Your blockchain information has been updated successfully.',
+          );
 
           dispatch(updateOrderByNewOrder(newData));
           dispatch(setOrderSelected(newData));
@@ -137,20 +139,21 @@ const UpdateOrderModal = (props: IProps) => {
       valid = false;
     }
 
-    if (isEmpty(logoUrl)) {
-      setLogoUrlError(LOGOURL_ERROR_MESSAGE);
-      setLogoUrlFocused(true);
-      valid = false;
-    } else if (logoUrlError) {
-      setLogoUrlFocused(true);
-      valid = false;
-    }
+    // if (isEmpty(logoUrl)) {
+    //   setLogoUrlError(LOGOURL_ERROR_MESSAGE);
+    //   setLogoUrlFocused(true);
+    //   valid = false;
+    // } else if (logoUrlError) {
+    //   setLogoUrlFocused(true);
+    //   valid = false;
+    // }
 
     return valid;
   };
 
   const submitHandler = async () => {
     const isValid = checkValidData();
+    console.log('VVV ', isValid);
     if (isValid) {
       updateInforHandler();
     }
@@ -232,7 +235,7 @@ const UpdateOrderModal = (props: IProps) => {
             alignSelf={'flex-start'}
             color={'#6C6F93'}
           >
-            {`Chain Name`}
+            {`Rollup Name`}
           </Text>
         </Flex>
 
@@ -240,7 +243,7 @@ const UpdateOrderModal = (props: IProps) => {
           borderColor={'#bebebe'}
           minH={'50px'}
           fontSize={'14px'}
-          placeholder="Chain Name"
+          placeholder="Rollup Name"
           id={'TITLE'}
           isInvalid={!!chainNameFocused && !!chainNameError}
           value={`${chainName || ''}`}
@@ -363,7 +366,7 @@ const UpdateOrderModal = (props: IProps) => {
             alignSelf={'flex-start'}
             color={'#6C6F93'}
           >
-            {`Thumb Url (recommend: 736×473 [w]x[h])`}
+            {`Logo`}
           </Text>
         </Flex>
 
@@ -371,7 +374,7 @@ const UpdateOrderModal = (props: IProps) => {
           minH={'50px'}
           borderColor={'#bebebe'}
           fontSize={'14px'}
-          placeholder="Thumb url (Ex: http://abc.[png, jpg, jpeg, svg] )"
+          placeholder="Logo (Ex: http://abc.[png, jpg, jpeg, svg] )"
           id={'TITLE'}
           name={'TITLE'}
           isInvalid={!!logoUrlError && !!logoUrlFocused}
@@ -384,13 +387,13 @@ const UpdateOrderModal = (props: IProps) => {
           }}
           onChange={(e) => {
             const value = e.target.value;
-            if (!value || value.length < 1) {
-              setLogoUrlError('Thumb url is required');
-            } else if (!checkImageURL(value)) {
-              setLogoUrlError(LOGOURL_INVALID_ERROR_MESSAGE);
-            } else {
-              setLogoUrlError('');
-            }
+            // if (!value || value.length < 1) {
+            //   setLogoUrlError('Thumb url is required');
+            // } else if (!checkImageURL(value)) {
+            //   setLogoUrlError(LOGOURL_INVALID_ERROR_MESSAGE);
+            // } else {
+            //   setLogoUrlError('');
+            // }
             setLogoUrl(value);
           }}
         />
@@ -465,7 +468,7 @@ const UpdateOrderModal = (props: IProps) => {
         {renderThumbURLField()}
         {renderDescField()}
         {renderSubmitButton()}
-        {renderCancelThisRollup()}
+        {/* {renderCancelThisRollup()} */}
       </Flex>
     );
   };
