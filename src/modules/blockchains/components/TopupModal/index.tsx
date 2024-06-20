@@ -77,18 +77,48 @@ const TopupModal = (props: IProps) => {
 
   const renderMessageDetault = () => {
     return (
-      <Text
-        fontSize={'15px'}
-        fontWeight={400}
-        color={'#6C6F93'}
-        textAlign={'center'}
-      >
-        Please send
-        <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
-          {` BVM `}
+      <Flex flexDir={'column'}>
+        <Text
+          fontSize={'15px'}
+          fontWeight={400}
+          color={'#6C6F93'}
+          textAlign={'center'}
+        >
+          Please send
+          <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
+            {` BVM `}
+          </Text>
+          {`to the following wallet address.`}
         </Text>
-        to the following wallet address
-      </Text>
+        <Text
+          fontSize={'15px'}
+          fontWeight={400}
+          color={'#6C6F93'}
+          textAlign={'center'}
+        >
+          {` Don't have enough BVM?`}{' '}
+          <Text
+            as="span"
+            fontWeight={700}
+            color={'#2352c1'}
+            textAlign={'center'}
+            textUnderlineOffset={'2px'}
+            textDecorationLine={'underline'}
+            _hover={{
+              cursor: 'pointer',
+              opacity: 0.8,
+            }}
+            onClick={() => {
+              window.open(
+                'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
+                '_blank',
+              );
+            }}
+          >
+            {`Buy here`}
+          </Text>
+        </Text>
+      </Flex>
     );
   };
 
