@@ -8,7 +8,9 @@ export default function Home() {
     <MainLayout
       headerProps={{
         color: 'white',
-        colorLogo: 'white'
+        colorLogo: 'white',
+        bgColor: 'transparent',
+        position: 'absolute',
       }}
       hideFooter={true}
     >

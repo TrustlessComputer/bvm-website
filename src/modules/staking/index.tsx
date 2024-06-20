@@ -25,10 +25,11 @@ const StakingUser = () => {
     <MainLayout
       headerProps={{
         color: 'white',
+        bgColor: 'black'
       }}
     >
       <Loader />
-      <Box className={styles.container}>
+      <Box className={`${styles.container} containerV3`}>
         <HeaderPoints />
         {stakeUser?.isHaveTeam ? <TeamPoints /> : <StakeRole />}
         <MiningBox />

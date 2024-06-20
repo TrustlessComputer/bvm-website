@@ -6,7 +6,9 @@ const TeamPage = () => {
     <MainLayout
       hideFooter={true}
       headerProps={{
+        bgColor: 'transparent',
         color: 'black',
+        position: 'absolute',
       }}
     >
       <TeamModule />

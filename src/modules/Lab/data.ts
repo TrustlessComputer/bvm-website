@@ -244,6 +244,13 @@ export const Research: ILabItemContent[] = [
     date: 'Jun 10, 2024'
   },
   {
+    image: `/images/trustless-btc-compress.png`,
+    title: 'Trustless Bitcoin Bridge',
+    content: 'Bridge BTC to Bitcoin L2s trustlessly',
+    link: 'https://x.com/punk3700/status/1800132735807410681',
+    date: 'May 7, 2024'
+  },
+  {
     image: `${CDN_URL_IMAGES_NBC}/apps/bitcoin-virtual-machine.jpeg`,
     title: 'Recursive Rollups on Bitcoin',
     content: 'Scale Bitcoin indefinitely',
