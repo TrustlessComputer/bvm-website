@@ -21,7 +21,6 @@
     .labHeadline {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       margin-bottom: 90px;
       flex-wrap: wrap;
 
@@ -31,18 +30,14 @@
         letter-spacing: 2px;
         font-family: var(--font-jetbrains);
         color: var(--black-color);
-        //font-family: 'JetBrains Mono', monospace;
         margin-bottom: rem(16px);
         height: rem(50px);
-        //
-        //@include min-tablet{
-        //  height: rem(100px);
-        //}
         @include is-tablet {
           font-size: 56px;
         }
         @include is-pc {
           font-size: 72px;
+          margin-top: -.1em;
         }
 
         //width: 100%;
@@ -69,8 +64,7 @@
         transform: translateY(40px);
 
         &.isIN {
-          animation: fadeIn 0.6s calc(var(--delay) + 0.1s) $easeOutCubic
-            forwards;
+          animation: fadeIn 0.6s calc(var(--delay) + 0.1s) $easeOutCubic forwards;
         }
 
         //@include min-tablet{

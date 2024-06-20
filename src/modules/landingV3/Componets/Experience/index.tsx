@@ -11,7 +11,7 @@ export default function Experience({ refParent }: { refParent: MutableRefObject<
       <fog attach="fog" args={['#FAF4ED', 15, 22.5]} />
       <color attach="background" args={['#FAF4ED']} />
       <Lego />
-      <ambientLight intensity={2} color={'#ffffff'} />
+      <ambientLight intensity={2.5} color={'#ffffff'} />
       <directionalLight intensity={1.2} color={'#fff'} position={[2, 5, 5]} />
     </Canvas>
   </div>);
