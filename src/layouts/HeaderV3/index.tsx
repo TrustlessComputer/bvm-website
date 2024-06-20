@@ -6,14 +6,10 @@ export type HeaderV3Props = TMainHeader & {
   bgColor?: string;
 };
 
-const HeaderV3 = ({
-  position = 'absolute',
-  color,
-  colorLogo,
-}: HeaderV3Props) => {
+const HeaderV3 = ({ position, color, colorLogo, bgColor }: HeaderV3Props) => {
   return (
-    <div className={`${s.header}`}>
-      <Main color={color} colorLogo={colorLogo} />
+    <div className={`${s.header}`} style={{ position: position }}>
+      <Main color={color} colorLogo={colorLogo} backgroundColor={bgColor} />
     </div>
   );
 };
