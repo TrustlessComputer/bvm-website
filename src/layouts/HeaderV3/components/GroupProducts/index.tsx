@@ -59,7 +59,7 @@ export default function GroupProducts(): ReactElement {
           <ul className={s.group_inner}>
             <li>
               <Link href={'/#'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/menu-icons/menu-icon-cel.png" alt="menu-icon-cel" />
+                <Image width={48} height={48} src="/menu-icons/menu-icon-ordinal.png" alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Ordinals</span>
                   <span className={s.group_item_icon_text_bottom}>Use Ordinals for DV</span>
@@ -68,7 +68,7 @@ export default function GroupProducts(): ReactElement {
             </li>
             <li>
               <Link href={'/#'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/menu-icons/menu-icon-avail.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} src="/menu-icons/menu-icon-stamp.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Stamps</span>
                   <span className={s.group_item_icon_text_bottom}>Use Bitcoin Stamps for DV</span>
