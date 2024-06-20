@@ -14,6 +14,7 @@ const SUBJECT_LIST = [
   `I'd like to build a ZK Rollup on Bitcoin`,
   `I'd like to make a partnership proposal`,
   `I have an issue with the payment process`,
+  `I'd like to setup an Enterprise account with BVM`,
   `Others`,
 ];
 
@@ -71,9 +72,9 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
       if (!valideYourXAcc(yourXAcc)) {
         valid = false;
       }
-      if (!valideYourTelegramAcc(yourTelegramAcc)) {
-        valid = false;
-      }
+      // if (!valideYourTelegramAcc(yourTelegramAcc)) {
+      //   valid = false;
+      // }
       // if (!valideYourPlan(yourPlan)) {
       //   valid = false;
       // }
@@ -200,7 +201,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                   color={'#5B5B5B'}
                 >
                   Your telegram handle
-                  <span className={s.reuiqredLabel}>(*)</span>
+                  {/* <span className={s.reuiqredLabel}>(*)</span> */}
                 </Text>
                 <Input
                   border="1px solid #CECECE"
@@ -214,7 +215,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                   value={yourTelegramAcc}
                   onChange={(e: any) => {
                     setYourTelegramAcc(e.target.value);
-                    valideYourTelegramAcc(e.target.value);
+                    // valideYourTelegramAcc(e.target.value);
                   }}
                 />
                 {/* {yourTelegramAccErrMgs && (
@@ -246,7 +247,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 )}
               </Flex>
 
-              <Flex flex={1}>
+              {/* <Flex flex={1}>
                 {yourTelegramAccErrMgs && (
                   <Text
                     marginLeft={'15px'}
@@ -259,7 +260,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                     {yourTelegramAccErrMgs}
                   </Text>
                 )}
-              </Flex>
+              </Flex> */}
             </Flex>
 
             {/* Common reasons. */}
