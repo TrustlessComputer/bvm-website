@@ -25,7 +25,7 @@ export default function Content() {
             amount of time to tackle a big, ambitious problem and make an
             impact.
             <br /> <br />
-            So, what did we want to build?
+            <strong>So, what did we want to build?</strong>
             <br /> <br />
             That day, we bounced around various ideas, from generative art and
             on-chain AI to decentralized financial infrastructure and autonomous
@@ -39,7 +39,7 @@ export default function Content() {
             <br /> <br />
             We wanted to create a radically new way to explore Bitcoin.
             <br /> <br />
-            Bitcoin, reimagined.
+            <strong> Bitcoin, reimagined.</strong>
             <br /> <br />
             This is Bitcoin redesigned—for the next generation of Bitcoin
             builders who want to reshape its future.

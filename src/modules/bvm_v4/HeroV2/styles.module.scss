@@ -24,7 +24,11 @@
     padding-bottom: 80px;
   }
 }
-
+.button_wrapper {
+  @include is-mobile {
+    margin: 0 auto;
+  }
+}
 .footer {
   padding-top: 48px;
   padding-bottom: 24px;
@@ -62,7 +66,7 @@
     }
 
     img {
-     margin: 0 auto;
+      margin: 0 auto;
     }
   }
 }
