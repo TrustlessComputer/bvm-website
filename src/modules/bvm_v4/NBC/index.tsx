@@ -10,25 +10,28 @@ const NBC = (): React.JSX.Element => {
       <div className={s.left}>
         <div className={s.left_inner}>
           <Fade delay={0.1} delayEnter={0.1} from={{ y: 20 }} to={{ y: 0 }}>
-            <p className={s.heading}>BVM UTILITIES</p>
+            <p className={s.heading}>BVM Utilities</p>
           </Fade>
           <Fade delay={0.3} delayEnter={0.3} from={{ y: 40 }} to={{ y: 0 }}>
             <div className={s.content}>
               <p className={s.content_text}>
-                Network fees. <span>$BVM</span> is the lifeblood of the BVM
-                network. When you send BVM, use a dapp, or perform a rollup,
-                you’ll pay fees in BVM.
+                <span className={s.content_text_bold}>Network fees.</span>{' '}
+                <span className={s.content_text_orange}>$BVM</span> is the
+                lifeblood of the BVM network. When you send BVM, use a dapp, or
+                perform a rollup, you’ll pay fees in BVM.
               </p>
               <br />
               <p className={s.content_text}>
-                Governance. The community treasure consists of 50% of the BVM
-                supply. This treasury will governed by BVM stakers once the
-                network has become sufficiently decentralized.
+                <span className={s.content_text_bold}>Governance.</span> The
+                community treasure consists of 50% of the BVM supply. This
+                treasury will governed by BVM stakers once the network has
+                become sufficiently decentralized.
               </p>
               <br />
               <p className={s.content_text}>
-                Payments. Along with BTC and developers’ tokens, BVM is a
-                popular currency accepted within many dapps.
+                <span className={s.content_text_bold}>Payments.</span> Along
+                with BTC and developers’ tokens, BVM is a popular currency
+                accepted within many dapps.
               </p>
             </div>
           </Fade>
