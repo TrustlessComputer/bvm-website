@@ -7,6 +7,7 @@ import { formatCurrency, formatDate } from '@/utils/format';
 import moment from 'moment';
 import ClaimAirdropModal from '../ClaimAirdropModal';
 import useNakaAuthen from '@/hooks/useRequestNakaAccount';
+import { getExplorer } from '@/utils/helpers';
 
 export type IAirdropCard = {
   title: string;
@@ -70,7 +71,11 @@ export default function AirdropCard({
                     cursor={Number(airdrop.amount) <= 0 ? 'auto' : 'pointer'}
                     onClick={() =>
                       window.open(
-                        `https://swamps-explorer.tc.l2aas.com/address/${nakaAddress}`,
+                        getExplorer(
+                          nakaAddress,
+                          (symbol?.toLowerCase() as any) || 'naka',
+                          'address',
+                        ),
                       )
                     }
                   >

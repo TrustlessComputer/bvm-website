@@ -192,7 +192,7 @@ export const getUrlAvatarTwitter = (
 
 export const getExplorer = (
   hash?: any,
-  network: 'eth' | 'tc' | 'rune' | 'eai' | 'naka' = 'naka',
+  network: 'eth' | 'tc' | 'rune' | 'eai' | 'naka' | 'gswp' = 'naka',
   type: 'tx' | 'address' = 'tx',
 ) => {
   return `${NETWORK_TO_EXPLORER[network]}/${type}/${hash}`;

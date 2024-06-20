@@ -110,4 +110,5 @@ export const NETWORK_TO_EXPLORER: any = {
   naka: TC_LAYER2_EXPLORER,
   rune: RUNE_EXPLORER,
   eai: EAI_EXPLORER,
+  gswp: 'https://swamps-explorer.tc.l2aas.com',
 };
