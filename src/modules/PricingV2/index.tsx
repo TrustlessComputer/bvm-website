@@ -206,6 +206,7 @@ const PriceModule = () => {
           </button>
         }
         hardwareList={[
+          'Throughput: 150 tx/min',
           'Memory: 16 GB RAM',
           'CPU: 8 cores',
           'Storage: 320 GB SSD',
@@ -291,6 +292,7 @@ const PriceModule = () => {
           </button>
         }
         hardwareList={[
+          'Throughput: 600 tx/min',
           'Memory: 64 GB RAM',
           'CPU: 32 cores',
           'Storage: 650 GB SSD',
@@ -378,6 +380,7 @@ const PriceModule = () => {
           </button>
         }
         hardwareList={[
+          'Throughput: 600 tx/min',
           'Memory: 64 GB RAM',
           'CPU: 32 cores',
           'Storage: 650 GB SSD',
@@ -436,7 +439,12 @@ const PriceModule = () => {
         //   'VIP support channels',
         //   'Engineering team access',
         // ]}
-        hardwareList={['Memory: Custom', 'CPU: Custom', 'Storage: Custom']}
+        hardwareList={[
+          'Throughput: Custom',
+          'Memory: Custom',
+          'CPU: Custom',
+          'Storage: Custom',
+        ]}
         blockChainInforsList={[
           'Data availability: Custom',
           'Max block gas limit: Custom',
