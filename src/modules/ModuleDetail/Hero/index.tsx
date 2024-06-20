@@ -4,8 +4,11 @@ import { Button } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
 import Loader from '@/modules/builder-landing/Loader';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import { useRouter } from 'next/navigation';
 
 export default function Hero(): React.JSX.Element {
+
+  const router = useRouter();
   return (
     <div className={s.wrapper}>
       <Loader />
@@ -34,7 +37,7 @@ export default function Hero(): React.JSX.Element {
               marginTop={'24px'}
               fontSize={'14px'}
               onClick={() => {
-                window.open('');
+                router.push('/pricing');
               }}
               _hover={{
                 bgColor: '#e64e0e',

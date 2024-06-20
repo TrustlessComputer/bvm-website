@@ -32,6 +32,12 @@
       opacity: 1;
       visibility: visible;
       z-index: 2 !important;
+      border: 1px solid #f2f2f2;
+
+      @include is-pc {
+        transform: translateX(-50%);
+        left: calc(50% - 100px);
+      }
     }
   }
 

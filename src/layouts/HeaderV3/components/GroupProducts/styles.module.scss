@@ -21,6 +21,18 @@
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
+    &.isFlex {
+      @include is-pc {
+        flex-wrap: wrap;
+        flex-direction: row;
+        max-width: 600px;
+
+        li {
+          flex: 0 0 calc(50% - 10px);
+        }
+      }
+    }
   }
 
   &_item {
@@ -99,4 +111,8 @@
   color: #000;
   margin-bottom: 20px;
   text-transform: uppercase;
+}
+
+.isDisabled {
+  pointer-events: none;
 }
