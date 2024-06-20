@@ -39,7 +39,7 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} src="/menu-icons/menu-icon-cel.png" alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Celestia</span>
-                  <span className={s.group_item_icon_text_bottom}>Use Celestia for DA</span>
+                  <span className={s.group_item_icon_text_bottom}>Use Celestia with Bitcoin rollups</span>
                 </div>
               </Link>
             </li>
@@ -58,7 +58,7 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} src="/menu-icons/menu-icon-avail.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Avail</span>
-                  <span className={s.group_item_icon_text_bottom}>Use Avail for DA</span>
+                  <span className={s.group_item_icon_text_bottom}>Use Avail with Bitcoin rollups</span>
                 </div>
               </Link>
             </li>
@@ -124,7 +124,7 @@ export default function GroupProducts(): ReactElement {
           </ul>
         </div>
         <div className={s.group}>
-          <h4 className={s.title}>Data validity</h4>
+          <h4 className={s.title}>INTEROPERABILITY</h4>
           <ul className={`${s.group_inner} ${s.isFlex}`}>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
