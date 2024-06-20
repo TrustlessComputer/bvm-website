@@ -72,10 +72,10 @@ const PriceModule = () => {
         estimateTotalCostAPI_V2(ORDER_BUY_YES_PROVER),
       ]);
 
-      console.log('PHAT --- DATA ', {
-        dataNoProver,
-        dataProver,
-      });
+      // console.log('--- DATA API --', {
+      //   dataNoProver,
+      //   dataProver,
+      // });
       setDataNoProver(dataNoProver);
       setDataProver(dataProver);
     } catch (error) {
@@ -126,7 +126,7 @@ const PriceModule = () => {
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
-      router.push('/blockchains/customize');
+      router.push('/blockchains/customize?period=4');
     }
   };
 
@@ -134,7 +134,7 @@ const PriceModule = () => {
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
-      router.push('/blockchains/customize?prover=1');
+      router.push('/blockchains/customize?prover=1&period=2');
     }
   };
 

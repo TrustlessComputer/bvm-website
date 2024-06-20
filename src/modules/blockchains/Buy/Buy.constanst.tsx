@@ -1,7 +1,8 @@
 export const MIN_GAS_PRICE = 1; // 1 gweis
 export const GAS_LITMIT = 30000000; //
 export const WITHDRAWAL_PERIOD = 7; // 7 days
-export const WITHDRAWAL_PERIOD_BOOTSTRAP = 6; // 2 hours
+export const WITHDRAWAL_PERIOD_BOOTSTRAP = 6; // 6 hours
+export const WITHDRAWAL_PERIOD_DEFAULT = 6; // 6  hours
 
 // ------------------------------------------------------------------------------------
 export enum NetworkEnum {
