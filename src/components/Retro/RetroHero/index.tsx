@@ -29,7 +29,7 @@ function RetroHero({ label, subTitle, children, btn1, btn2, src, isVideo }: IRet
         isVideo ? <video src={src} className={s.bg} autoPlay loop playsInline muted></video> :
           <Image className={s.bg} src={src} width={1920} height={567} alt={'bg-hero'} />
       }
-      <div className={`container ${s.container}`}>
+      <div className={` ${s.container} containerV3`}>
         <div className={s.wrapperContent}>
           <p className={s.subTitle}>{subTitle}</p>
           <p className={s.heading}>{children}</p>

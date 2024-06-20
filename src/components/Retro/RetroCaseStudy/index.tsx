@@ -29,7 +29,7 @@ function CaseStudy({
                      bgCaseStudy = '#2f1946',
                    }: RetroCaseStudyProps): React.JSX.Element {
   return <div className={s.wrapper} style={{ backgroundColor }}>
-    <div className='container'>
+    <div className='containerV3'>
       <div className={s.contentWrapper}>
         <div className={s.left}>
           <div className={s.label} style={{ backgroundColor: bgCaseStudy }}>
