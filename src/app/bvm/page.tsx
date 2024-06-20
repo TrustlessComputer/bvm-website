@@ -7,6 +7,7 @@ const BVMPage = () => {
   return (
     <MainLayout
       headerProps={{
+        position: 'absolute',
         color: 'black',
       }}
       hideFooter
