@@ -131,7 +131,7 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} src="/productions/5.png" alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Bridge</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge BTC to your rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Bring BTC to your rollup</span>
                 </div>
               </Link>
             </li>
@@ -140,7 +140,7 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} src="/productions/6.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Ethereum Bridge</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge ETH to you rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Bring ETH to you rollup</span>
                 </div>
               </Link>
             </li>
@@ -149,7 +149,7 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} src="/productions/7.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>BRC-20 Bridge</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge BRC-20 tokens to your rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Bring BRC-20 tokens to your rollup</span>
                 </div>
               </Link>
             </li>
@@ -158,7 +158,7 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} src="/menu-icons/menu-icon-ordinal.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Runes Bridge</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge Runes ro your rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Bring Runes ro your rollup</span>
                 </div>
               </Link>
             </li>

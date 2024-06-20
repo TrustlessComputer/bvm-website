@@ -1,39 +1,42 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 60px;
 
   &_group {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
     width: 100%;
 
-    @include is-pc {
-      // max-width: 656px;
-    }
-
     &_title {
-      font-size: 36px;
-      font-family: 'JetBrains Mono';
+      font-size: 24px;
+      font-family: var(--font-JetBrainsMono);
       font-style: normal;
       color: #000;
       font-weight: 500;
       line-height: 120%; /* 57.6px */
       text-transform: uppercase;
       @include is-pc {
-        font-size: 48px;
+        font-size: 32px;
       }
     }
 
     &_decs {
-      color: #000;
+      color: rgba(#000, .8);
       font-family: var(--font-SFProDisplay);
       font-style: normal;
       font-weight: 400;
       line-height: 150%; /* 36px */
       letter-spacing: 1.2px;
-      font-size: 20px;
+      font-size: 18px;
+
+      p{
+        margin-bottom: 10px;
+        @include is-pc{
+          margin-bottom: 16px;
+        }
+      }
 
       @include is-pc {
         font-size: 24px;
@@ -76,6 +79,7 @@
       gap: 48px;
     }
   }
+
   &_item {
     display: grid;
     position: relative;
@@ -83,6 +87,7 @@
     grid-row: span 3;
     gap: 12px;
   }
+
   .grid__item::before,
   .grid__item::after {
     content: '';
@@ -111,6 +116,7 @@
     letter-spacing: 0.9px;
   }
 }
+
 .reimagined {
   padding-top: 100px;
 
@@ -126,6 +132,7 @@
     h4 {
       text-align: center;
     }
+
     p {
       text-align: center;
     }
