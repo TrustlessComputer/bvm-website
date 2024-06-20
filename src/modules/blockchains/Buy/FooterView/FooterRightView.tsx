@@ -33,7 +33,12 @@ const FooterRightView = () => {
             : 'Cost: 1 BVM/day'}
         </Text> */}
 
-        <Flex flexDir={'row'} align={'center'} gap={'10px'}>
+        <Flex
+          flexDir={'column'}
+          align={'flex-end'}
+          justify="flex-end"
+          gap={'3px'}
+        >
           <Text
             fontSize={'25px'}
             fontWeight={600}
@@ -41,19 +46,19 @@ const FooterRightView = () => {
             textAlign={'center'}
             lineHeight={'25px'}
           >
-            {`Cost: $${estimateTotalCostData_V2?.TotalCostUSD || '--'}`}
+            {`${new BigNumber(estimateTotalCostData_V2?.TotalCostBVM || 0)
+              .decimalPlaces(2)
+              .toString()} BVM`}
           </Text>
           <Text
-            fontSize={'18px'}
+            fontSize={'16px'}
             fontWeight={300}
             textAlign={'center'}
             lineHeight={'25px'}
             opacity={0.7}
             className={s.fontType2}
           >
-            {`${new BigNumber(estimateTotalCostData_V2?.TotalCostBVM || 0)
-              .decimalPlaces(2)
-              .toString()} BVM`}
+            {`$${estimateTotalCostData_V2?.TotalCostUSD || '--'}`}
           </Text>
         </Flex>
 
@@ -81,7 +86,7 @@ const FooterRightView = () => {
           isLoading={isSubmiting}
           onClick={() => submitHandler()}
         >
-          {isMainnet ? 'Submit' : confirmBtnTitle}
+          {isMainnet ? 'Launch' : confirmBtnTitle}
         </Button>
       </Flex>
     );

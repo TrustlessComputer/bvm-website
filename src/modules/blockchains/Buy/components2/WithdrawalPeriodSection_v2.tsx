@@ -22,8 +22,8 @@ const WithdrawalPeriodSection = () => {
 
   return (
     <Section
-      title={'Withdrawal Period'}
-      description={'Which withdrawal period is right for you?'}
+      title={'Withdrawal time'}
+      description={'Which withdrawal time is right for you?'}
       // descriptionDetail={{
       //   title: 'Withdrawal Period',
       //   content: (

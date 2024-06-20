@@ -449,7 +449,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     if (!loggedIn) {
       return 'Sign In';
     } else {
-      return 'Submit';
+      return 'Launch';
     }
   }, [isMainnet, accountInfo, isNakaWalletAuthed, isL2ServiceLogged, loggedIn]);
 
@@ -723,9 +723,9 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
       if (result) {
         // Show Toast Success
-        toast.success('Order successful', {
-          duration: 1000,
-        });
+        // toast.success('Your order has been submitted successfully.', {
+        //   duration: 1000,
+        // });
 
         await sleep(1);
 
@@ -773,9 +773,6 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       if (isValid) {
         // orderBuyHandler(onSuccess)
         // setShowSubmitForm(true); V1
-
-        console.log('TO DO 12345');
-
         // Call API Register Instance --- V2
         await orderBuyHandler();
       } else {

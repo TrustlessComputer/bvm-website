@@ -14,6 +14,7 @@
   align-items: center;
 
   padding-top: 140px;
+  padding-bottom: 70px;
   // min-height: calc(100vh - 180px);
   min-height: 100dvh;
 
@@ -29,6 +30,39 @@
   .fontType3 {
     font-family: var(--font-dmsans) !important;
     font-weight: 500 !important;
-    font-size: 18px;
+    font-size: 16px;
+  }
+  .ctaBtn {
+    background-color: #fa4e0e;
+    color: #fff;
+    border-radius: 100000px;
+    height: 40px;
+    width: 100%;
+    font-family: var(--font-dmsans) !important;
+    font-weight: 500 !important;
+    font-size: 16px;
+    opacity: 1;
+
+    :hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
+
+  .ctaBtn1 {
+    background-color: #fff;
+    color: #000;
+    border-radius: 100000px;
+    height: 40px;
+    width: 100%;
+    font-family: var(--font-dmsans) !important;
+    font-weight: 500 !important;
+    font-size: 16px;
+    opacity: 1;
+
+    :hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
   }
 }

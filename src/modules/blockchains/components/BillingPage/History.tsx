@@ -220,7 +220,7 @@ export default () => {
                 fontSize: 12,
               }}
             >
-              Chain Name
+              Rollup
             </Th>
             <Th
               width="20%"

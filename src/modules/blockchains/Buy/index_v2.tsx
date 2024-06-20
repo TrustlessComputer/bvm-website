@@ -7,7 +7,7 @@ import {
   Text,
   Button,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useBuy } from '../providers/Buy.hook';
 import SubmitFormModal from './SubmitFormModal';
 import SubmitResultFormModal from './SubmitResultFormModal';
@@ -22,10 +22,11 @@ import useL2Service from '@/hooks/useL2Service';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import s from './styles.module.scss';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import TopupModal from '../components/TopupModal';
 import SendFormModal from '../components/SendFormModal';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { ProverEnum } from './Buy.constanst';
 
 export type Props = {
   onSuccess?: () => void;
@@ -46,12 +47,28 @@ export const BuyPage = React.memo((props: Props) => {
     setShowTopupModal,
     showSendFormModal,
     setShowSendFormModal,
+    setProverSelected,
+    proverSelected,
     isMainnet,
   } = useBuy();
   const router = useRouter();
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const prover = searchParams.get('prover');
+
+  // console.log(' --- prover params --- ', prover);
+  // console.log(' --- proverSelected --- ', proverSelected);
+
   // const { isL2ServiceLogged, onConnect } = useL2Service();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
-  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
+
+  useEffect(() => {
+    if (!prover || Number(prover) === 0) {
+      setProverSelected(ProverEnum.NO);
+    } else {
+      setProverSelected(ProverEnum.YES);
+    }
+  }, [prover, setProverSelected]);
 
   if (isAvailableListFetching)
     return (
