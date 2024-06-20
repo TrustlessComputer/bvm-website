@@ -17,7 +17,10 @@ export type TMainHeader = {
   colorLogo?: 'white' | 'black';
 };
 
-const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader): ReactElement => {
+const Main = ({
+  color = 'black',
+  colorLogo = 'black',
+}: TMainHeader): ReactElement => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
   const pathname = usePathname();
@@ -47,10 +50,14 @@ const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader): ReactEleme
                   lists={item.subMenu}
                   color={color}
                 />
-              ) : (item.GroupDropDown ? (
-                <GroupDownItem key={item.label}
-                               title={item.label}
-                               color={color}>{item.GroupDropDown()}</GroupDownItem>
+              ) : item.GroupDropDown ? (
+                <GroupDownItem
+                  key={item.label}
+                  title={item.label}
+                  color={color}
+                >
+                  {item.GroupDropDown()}
+                </GroupDownItem>
               ) : (
                 <Link
                   key={item.label}
@@ -66,7 +73,7 @@ const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader): ReactEleme
                     {item.label}
                   </p>
                 </Link>
-              ));
+              );
             })}
             <ButtonLoginTwitter color={color} />
           </div>
