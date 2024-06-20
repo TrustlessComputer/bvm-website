@@ -5,58 +5,44 @@ import useWhiteBackground from '@hooks/useWhiteBackground';
 import Section from '@/modules/ModuleDetail/Section';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import Fade from '@/interactive/Fade';
+import { useRouter } from 'next/navigation';
 
 const ModuleDetail = (): React.JSX.Element => {
   useWhiteBackground();
+  const router = useRouter()
   return (
     <div className={s.wrapper}>
       <Hero />
-      <Section title={'Why BVM?'}>
+      <Section title={'Why BitZK?'}>
         <Fade delay={0.1} delayEnter={0.1} from={{ y: 40 }} to={{ y: 0 }}>
           <p className={s.desc}>
-            Amazon Elastic Compute Cloud (Amazon EC2) offers the broadest and
-            deepest compute platform, with over 750 instances and choice of the
-            latest processor, storage, networking, operating system, and
-            purchase model to help you best match the needs of your workload. We
-            are the first major cloud provider that supports Intel, AMD, and Arm
-            processors, the only cloud with on-demand EC2 Mac instances, and the
-            only cloud with 400 Gbps Ethernet networking. We offer the best
-            price performance for machine learning training, as well as the
-            lowest cost per inference instances in the cloud. More SAP, high
-            performance computing (HPC), ML, and Windows workloads run on AWS
-            than any other cloud.
+            Bitcoin Zero Knowledge (BitZK) is the first modular ZK rollup platform on Bitcoin. It offers the broadest and deepest choices, with the latest data availability layers, hardware nodes, pre-installed apps, and pricing models to help you best match your app requirements.
           </p>
         </Fade>
       </Section>
-      <Section title={'Benefits of BVM'}>
+      <Section title={'Benefits of BitZK'}>
         <ul>
           <Fade delay={0.1} from={{ y: 40 }} to={{ y: 0 }}>
             <li className={s.item}>
-              <p className={s.heading}>Tailored to your needs</p>
+              <p className={s.heading}>1-click deploy</p>
               <p className={s.desc}>
-                Build faster on Bitcoin with all the best building blocks in the
-                BVM Module Store. BVM provides a modular framework to tailor
-                your ZK rollup to your app.
+                Our intuitive UI makes deploying and managing a Bitcoin ZK rollup simple.
               </p>
             </li>
           </Fade>
           <Fade delay={0.2} from={{ y: 40 }} to={{ y: 0 }}>
             <li className={s.item}>
-              <p className={s.heading}>Tailored to your needs</p>
+              <p className={s.heading}>Scale as your usage grows</p>
               <p className={s.desc}>
-                Build faster on Bitcoin with all the best building blocks in the
-                BVM Module Store. BVM provides a modular framework to tailor
-                your ZK rollup to your app.
+                Optimize performance and cost with flexible plans. You could start with the Bootstrap plan and upgrade to the Growth as your app grows.
               </p>
             </li>
           </Fade>
           <Fade delay={0.3} from={{ y: 40 }} to={{ y: 0 }}>
             <li className={s.item}>
-              <p className={s.heading}>Tailored to your needs</p>
+              <p className={s.heading}>SLA commitment</p>
               <p className={s.desc}>
-                Build faster on Bitcoin with all the best building blocks in the
-                BVM Module Store. BVM provides a modular framework to tailor
-                your ZK rollup to your app.
+                Access reliable, scalable infrastructure on demand. Scale capacity within minutes with an SLA commitment of 99.99% availability.
               </p>
             </li>
           </Fade>
@@ -65,16 +51,18 @@ const ModuleDetail = (): React.JSX.Element => {
       <Section title={'How it works'}>
         <ul>
           <Fade delay={0.1} from={{ y: 40 }} to={{ y: 0 }}>
-            <li className={s.item}>
-              <p className={s.heading}>Tailored to your needs</p>
-              <p className={s.desc}>
-                Build faster on Bitcoin with all the best building blocks in the
-                BVM Module Store. BVM provides a modular framework to tailor
-                your ZK rollup to your app.
-              </p>
-            </li>
+            <p className={s.desc}>
+              BitZK lets you deploy your own ZK rollup on Bitcoin with a few clicks and start building decentralized
+              applications for Bitcoin.
+            </p>
           </Fade>
         </ul>
+        <div className={s.link} onClick={() => router.push('https://x.com/punk3700/status/1796119677577605380')}>
+          <p>Learn more</p>
+          <div className={s.link_icon}>
+            <ImagePlaceholder src={'/icons/ic_chevron_right.svg'} alt={'ic_chevron_right'} width={16} height={16} />
+          </div>
+        </div>
         <Fade delay={0.3} from={{ y: 40 }} to={{ y: 0 }}>
           <div>
             <ImagePlaceholder

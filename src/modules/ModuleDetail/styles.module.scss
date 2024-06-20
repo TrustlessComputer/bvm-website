@@ -22,3 +22,29 @@
 .item {
   margin-bottom: 40px;
 }
+
+.link {
+  display: flex;
+  margin-top: 12px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  gap: 4px;
+  p {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--font-jetbrains);
+    color: #FA4E0E;
+    text-transform: uppercase;
+    line-height: calc(19 / 14);
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &_icon {
+    max-width: 16px;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}

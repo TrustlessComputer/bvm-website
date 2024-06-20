@@ -3,6 +3,7 @@ import s from './styles.module.scss';
 import { Button } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
 import Loader from '@/modules/builder-landing/Loader';
+import ImagePlaceholder from '@components/ImagePlaceholder';
 
 export default function Hero(): React.JSX.Element {
   return (
@@ -12,10 +13,10 @@ export default function Hero(): React.JSX.Element {
         <div className={s.inner}>
           <Fade delay={0.1} delayEnter={0.1} from={{ y: 20 }} to={{ y: 0 }}>
             <div>
-              <p className={s.label}>DaTA Availability</p>
-              <p className={s.heading}>Bitcoin Celestia</p>
+              <p className={s.label}>ROLLUP</p>
+              <p className={s.heading}>Bitcoin Zero Knowledge (BitZK)</p>
               <p className={s.decsription}>
-                Secure and resizable compute capacity for virtually any workload
+                ZK rollups on Bitcoin for virtually any decentralized applications.
               </p>
             </div>
           </Fade>
@@ -39,9 +40,17 @@ export default function Hero(): React.JSX.Element {
                 bgColor: '#e64e0e',
               }}
             >
-              Connect with a BVM team member
+              Get started with BitZK
             </Button>
           </Fade>
+          <div onClick={() => {
+            window.open('');
+          }} className={s.link}>
+            <p>Connect with a BVM team member</p>
+            <div className={s.link_icon}>
+              <ImagePlaceholder src={'/icons/ic_arrow.png'} alt={'icons'} width={20} height={20}/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
