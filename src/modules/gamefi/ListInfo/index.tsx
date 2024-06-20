@@ -28,7 +28,7 @@ interface IListInfo {
 export default function ListInfo( {heading, list_info}: IListInfo ) {
 
   return <div className={s.listInfo}>
-    <div className='container'>
+    <div className='containerV3'>
       <RetroHeading color={'black'}>
         {heading}
       </RetroHeading>

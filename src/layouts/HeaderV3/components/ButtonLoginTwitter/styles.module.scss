@@ -61,6 +61,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 60px;
+  transform: translateY(1px);
 }
 .dropdown {
   position: absolute;

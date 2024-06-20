@@ -12,7 +12,7 @@ export default function GroupProducts(): ReactElement {
           <h4 className={s.title}>Rollups</h4>
           <ul className={s.group_inner}>
             <li>
-              <Link href={'/#'} className={s.group_item_icon}>
+              <Link href={'/module-detail'} className={s.group_item_icon}>
                 <Image width={48} height={48} src="/menu-icons/menu-icon-bvm.png" alt="menu-icon-bvm" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Zero Knowledge (BitZK)</span>
@@ -21,7 +21,7 @@ export default function GroupProducts(): ReactElement {
               </Link>
             </li>
             <li>
-              <Link href={'/#'} className={s.group_item_icon}>
+              <Link href={'/module-detail'} className={s.group_item_icon}>
                 <Image width={48} height={48} src="/menu-icons/menu-icon-op.png" alt="menu-icon-op" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Optimistic (BitOP)</span>
@@ -35,7 +35,7 @@ export default function GroupProducts(): ReactElement {
           <h4 className={s.title}>DaTA Availability</h4>
           <ul className={s.group_inner}>
             <li>
-              <Link href={'/#'} className={s.group_item_icon}>
+              <Link href={'/module-detail'} className={s.group_item_icon}>
                 <Image width={48} height={48} src="/menu-icons/menu-icon-cel.png" alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Celestia</span>
@@ -44,7 +44,7 @@ export default function GroupProducts(): ReactElement {
               </Link>
             </li>
             <li>
-              <Link href={'/#'} className={s.group_item_icon}>
+              <Link href={'/module-detail'} className={s.group_item_icon}>
                 <Image width={48} height={48} src="/menu-icons/menu-icon-avail.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Avail</span>
@@ -58,8 +58,8 @@ export default function GroupProducts(): ReactElement {
           <h4 className={s.title}>Data validity</h4>
           <ul className={s.group_inner}>
             <li>
-              <Link href={'/#'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/menu-icons/menu-icon-cel.png" alt="menu-icon-cel" />
+              <Link href={'/module-detail'} className={s.group_item_icon}>
+                <Image width={48} height={48} src="/menu-icons/menu-icon-ordinal.png" alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Ordinals</span>
                   <span className={s.group_item_icon_text_bottom}>Use Ordinals for DV</span>
@@ -67,8 +67,8 @@ export default function GroupProducts(): ReactElement {
               </Link>
             </li>
             <li>
-              <Link href={'/#'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/menu-icons/menu-icon-avail.png" alt="menu-icon-avail" />
+              <Link href={'/module-detail'} className={s.group_item_icon}>
+                <Image width={48} height={48} src="/menu-icons/menu-icon-stamp.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Stamps</span>
                   <span className={s.group_item_icon_text_bottom}>Use Bitcoin Stamps for DV</span>

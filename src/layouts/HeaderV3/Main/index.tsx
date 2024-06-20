@@ -15,16 +15,24 @@ import useHeaderMobile from '@layouts/HeaderV3/useHeaderMobile';
 export type TMainHeader = {
   color?: 'black' | 'white';
   colorLogo?: 'white' | 'black';
+  backgroundColor?: string;
 };
 
-const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader): ReactElement => {
+const Main = ({
+  color = 'black',
+  colorLogo = 'black',
+  backgroundColor = 'white',
+}: TMainHeader): ReactElement => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
   const pathname = usePathname();
   const router = useRouter();
 
   return (
-    <div className={`${s.wrapper}`}>
+    <div
+      className={`${s.wrapper} `}
+      style={{ backgroundColor: backgroundColor }}
+    >
       <div className={`${s.inner} containerV3`}>
         <div
           className={`${s.logo} ${colorLogo === 'black' && s.logo_black}`}
@@ -47,14 +55,19 @@ const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader): ReactEleme
                   lists={item.subMenu}
                   color={color}
                 />
-              ) : (item.GroupDropDown ? (
-                <GroupDownItem key={item.label}
-                               title={item.label}
-                               color={color}>{item.GroupDropDown()}</GroupDownItem>
+              ) : item.GroupDropDown ? (
+                <GroupDownItem
+                  key={item.label}
+                  title={item.label}
+                  color={color}
+                >
+                  {item.GroupDropDown()}
+                </GroupDownItem>
               ) : (
                 <Link
                   key={item.label}
                   href={item.href ?? '#'}
+                  className={'menu-item'}
                   target={item.isNewWindow ? '_blank' : '_self'}
                 >
                   <p
@@ -66,7 +79,7 @@ const Main = ({ color = 'black', colorLogo = 'black' }: TMainHeader): ReactEleme
                     {item.label}
                   </p>
                 </Link>
-              ));
+              );
             })}
             <ButtonLoginTwitter color={color} />
           </div>

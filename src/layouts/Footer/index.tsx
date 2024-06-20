@@ -37,7 +37,7 @@ const Footer = () => {
         className={`${s.footer}`}
         style={{ backgroundImage: 'url(/footer/bgFooter.png)' }}
       >
-        <div className="container">
+        <div className="containerV3">
           <div className={s.main}>
             <div className={s.main_top}>
               <div className={s.main_top_left}>
