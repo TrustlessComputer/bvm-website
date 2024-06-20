@@ -8,11 +8,11 @@ import Image from 'next/image';
 import ModalVideo from 'react-modal-video';
 import Fade from '@/interactive/Fade';
 import { useRouter } from 'next/navigation';
+import { isDesktop } from 'react-device-detect';
 
 export default function HeroV2() {
   const [isOpen, setOpen] = useState(false);
   const router = useRouter();
-
   return (
     <div className={s.wrapper}>
       <Loader />
@@ -34,6 +34,7 @@ export default function HeroV2() {
               display={'flex'}
               justifyContent={'center'}
               alignItems={'center'}
+              marginX={!isDesktop ? 'auto' : 0}
               px={'60px'}
               py={'17px'}
               width={'200px'}
@@ -66,6 +67,7 @@ export default function HeroV2() {
               width={'200px'}
               height={'54px'}
               fontWeight={500}
+              marginX={!isDesktop ? 'auto' : 0}
               fontSize={'18px'}
               onClick={() => {
                 router.push('/staking');
