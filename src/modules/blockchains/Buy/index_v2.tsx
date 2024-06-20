@@ -26,7 +26,7 @@ import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import TopupModal from '../components/TopupModal';
 import SendFormModal from '../components/SendFormModal';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { ProverEnum } from './Buy.constanst';
+import { ProverEnum, WITHDRAWAL_PERIOD_DEFAULT } from './Buy.constanst';
 
 export type Props = {
   onSuccess?: () => void;
@@ -49,18 +49,28 @@ export const BuyPage = React.memo((props: Props) => {
     setShowSendFormModal,
     setProverSelected,
     proverSelected,
+    setWithdrawalPeriodSelected,
     isMainnet,
   } = useBuy();
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
   const prover = searchParams.get('prover');
+  const period = searchParams.get('period');
 
   // console.log(' --- prover params --- ', prover);
   // console.log(' --- proverSelected --- ', proverSelected);
 
   // const { isL2ServiceLogged, onConnect } = useL2Service();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+
+  useEffect(() => {
+    if (!period) {
+      setWithdrawalPeriodSelected(WITHDRAWAL_PERIOD_DEFAULT);
+    } else {
+      setWithdrawalPeriodSelected(Number(period || WITHDRAWAL_PERIOD_DEFAULT));
+    }
+  }, [period, setWithdrawalPeriodSelected]);
 
   useEffect(() => {
     if (!prover || Number(prover) === 0) {
