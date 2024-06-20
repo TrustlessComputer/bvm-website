@@ -1,12 +1,14 @@
 import s from './styles.module.scss';
 import React from 'react';
 import CardItem from './CardItem';
+import Fade from '@/interactive/Fade';
 
 const DATA = [
   {
     id: 0,
     title: 'Buy',
-    description: 'The fastest and cheapest way to buy BVM is on Naka, a Bitcoin L2 designed for DeFi on Bitcoin. You can also buy BVM on other exchanges.',
+    description:
+      'The fastest and cheapest way to buy BVM is on Naka, a Bitcoin L2 designed for DeFi on Bitcoin. You can also buy BVM on other exchanges.',
 
     buttonsDex: [
       {
@@ -100,13 +102,13 @@ const DATA = [
 export default function SectionButton() {
   return (
     <div className={s.sectionBtn}>
-      {
-        DATA.map((item, index) => {
-          return (
-            <CardItem idx={index} key={item.id} {...item} />
-          );
-        })
-      }
+      {DATA.map((item, index) => {
+        return (
+          <Fade key={item.id} delay={index / 6} from={{ y: 20 }} to={{ y: 0 }}>
+            <CardItem idx={index} {...item} />
+          </Fade>
+        );
+      })}
     </div>
   );
 }
