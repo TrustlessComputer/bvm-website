@@ -15,11 +15,13 @@ import useHeaderMobile from '@layouts/HeaderV3/useHeaderMobile';
 export type TMainHeader = {
   color?: 'black' | 'white';
   colorLogo?: 'white' | 'black';
+  backgroundColor?: string;
 };
 
 const Main = ({
   color = 'black',
   colorLogo = 'black',
+  backgroundColor = 'white',
 }: TMainHeader): ReactElement => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
@@ -27,7 +29,10 @@ const Main = ({
   const router = useRouter();
 
   return (
-    <div className={`${s.wrapper}`}>
+    <div
+      className={`${s.wrapper} `}
+      style={{ backgroundColor: backgroundColor }}
+    >
       <div className={`${s.inner} containerV3`}>
         <div
           className={`${s.logo} ${colorLogo === 'black' && s.logo_black}`}
