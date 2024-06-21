@@ -74,7 +74,7 @@ interface OrderItemResp {
   chainName: string;
   userName: string;
   description: string;
-  finalizationPeriod: string;
+  finalizationPeriod: string | number;
   blockTime: string;
   isMainnet: boolean;
   evmVersion: string;
@@ -99,6 +99,12 @@ interface OrderItemResp {
   bridgeStatus?: number;
   thumb?: string;
   needToTopupBalanceUSD?: string;
+  package?: number;
+  prover?: number;
+  cpuCore?: number;
+  memory?: number;
+  storage?: number;
+  gasLimit?: number;
 }
 
 interface HistoryItemResp {

@@ -47,35 +47,42 @@ export enum PRICING_PACKGE {
   Enterprise = 3,
 }
 
+export const PRICING_PACKGE_MAP = {
+  [PRICING_PACKGE.Hacker]: 'Hacker',
+  [PRICING_PACKGE.Growth]: 'Growth',
+  [PRICING_PACKGE.Secure]: 'Secure',
+  [PRICING_PACKGE.Enterprise]: 'Enterprise',
+};
+
 export const PRICING_PACKGE_DATA = {
   [PRICING_PACKGE.Hacker]: {
-    maxGasLimit: 30000000,
-    minGasLimit: 10000000,
-    stepGasLimit: 1000000,
+    maxGasLimit: 1000000000,
+    minGasLimit: 100000000,
+    stepGasLimit: 10000000,
     minWithdrawalPeriod: 6,
     maxWithdrawalPeriod: 24,
     prover: false,
   },
   [PRICING_PACKGE.Growth]: {
-    maxGasLimit: 50000000,
-    minGasLimit: 10000000,
-    stepGasLimit: 1000000,
+    maxGasLimit: 2000000000,
+    minGasLimit: 1000000000,
+    stepGasLimit: 10000000,
     minWithdrawalPeriod: 4,
     maxWithdrawalPeriod: 24,
     prover: false,
   },
   [PRICING_PACKGE.Secure]: {
-    maxGasLimit: 100000000,
-    minGasLimit: 10000000,
-    stepGasLimit: 1000000,
+    maxGasLimit: 4000000000,
+    minGasLimit: 1000000000,
+    stepGasLimit: 10000000,
     minWithdrawalPeriod: 2,
     maxWithdrawalPeriod: 24,
     prover: true,
   },
   [PRICING_PACKGE.Enterprise]: {
-    maxGasLimit: 30000000,
-    minGasLimit: 10000000,
-    stepGasLimit: 1000000,
+    maxGasLimit: 1000000000,
+    minGasLimit: 100000000,
+    stepGasLimit: 10000000,
     minWithdrawalPeriod: 6,
     maxWithdrawalPeriod: 24,
     prover: false,
