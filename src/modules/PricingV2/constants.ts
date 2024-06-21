@@ -39,3 +39,45 @@ export const ORDER_BUY_YES_PROVER = {
   rollupProtocol: RollupEnum.Rollup_ZK,
   serviceType: RollupEnum.Rollup_ZK,
 };
+
+export enum PRICING_PACKGE {
+  Hacker = 0,
+  Growth = 1,
+  Secure = 2,
+  Enterprise = 3,
+}
+
+export const PRICING_PACKGE_DATA = {
+  [PRICING_PACKGE.Hacker]: {
+    maxGasLimit: 1000000000,
+    minGasLimit: 100000000,
+    stepGasLimit: 10000000,
+    minWithdrawalPeriod: 6,
+    maxWithdrawalPeriod: 24,
+    prover: false,
+  },
+  [PRICING_PACKGE.Growth]: {
+    maxGasLimit: 2000000000,
+    minGasLimit: 1000000000,
+    stepGasLimit: 10000000,
+    minWithdrawalPeriod: 4,
+    maxWithdrawalPeriod: 24,
+    prover: false,
+  },
+  [PRICING_PACKGE.Secure]: {
+    maxGasLimit: 4000000000,
+    minGasLimit: 1000000000,
+    stepGasLimit: 10000000,
+    minWithdrawalPeriod: 2,
+    maxWithdrawalPeriod: 24,
+    prover: true,
+  },
+  [PRICING_PACKGE.Enterprise]: {
+    maxGasLimit: 1000000000,
+    minGasLimit: 100000000,
+    stepGasLimit: 10000000,
+    minWithdrawalPeriod: 6,
+    maxWithdrawalPeriod: 24,
+    prover: false,
+  },
+};

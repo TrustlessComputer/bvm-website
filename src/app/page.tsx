@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <MainLayout
       headerProps={{
-        color: 'white',
-        colorLogo: 'white',
+        color: 'black',
+        colorLogo: 'black',
         bgColor: 'transparent',
         position: 'absolute',
       }}

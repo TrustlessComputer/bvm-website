@@ -1,7 +1,12 @@
 export const MIN_GAS_PRICE = 1; // 1 gweis
 export const GAS_LITMIT = 30000000; //
+export const MIN_GAS_LIMIT = 10000000; //
+export const MAX_GAS_LIMIT = 30000000; //
+export const STEP_GAS_LIMIT = 1000000; //
+
 export const WITHDRAWAL_PERIOD = 7; // 7 days
-export const WITHDRAWAL_PERIOD_BOOTSTRAP = 6; // 2 hours
+export const WITHDRAWAL_PERIOD_BOOTSTRAP = 6; // 6 hours
+export const WITHDRAWAL_PERIOD_DEFAULT = 6; // 6  hours
 
 // ------------------------------------------------------------------------------------
 export enum NetworkEnum {
@@ -177,9 +182,9 @@ export enum FormFields {
 
 export const FormFieldsErrorMessage = {
   [FormFields.NETWORK]: 'Network is required.',
-  [FormFields.COMPUTER_NAME]: 'ZK-powered Blockchain is required.',
+  [FormFields.COMPUTER_NAME]: 'Name is required.',
   [FormFields.PROJECT_WEBSITE]: 'Project website name is required.',
-  [FormFields.DESCRIPTION]: 'ZK-powered Blockchain description is required.',
+  [FormFields.DESCRIPTION]: 'Description is required.',
   [FormFields.PROJECT_X]: 'Project X account is required.',
   [FormFields.YOUR_X_ACC]: 'Your X handle is required.',
   [FormFields.MIN_GAS_PRICE]: 'Min gas price is required.',

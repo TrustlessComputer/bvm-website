@@ -14,6 +14,7 @@
 .heading {
   font-family: var(--font-jetbrains);
   font-weight: 700;
+  max-width: 661px;
   font-size: 60px;
   color: #000;
   margin: 12px 0;
@@ -24,4 +25,29 @@
   color: #000;
   font-size: 20px;
   line-height: calc(30 / 20);
+}
+
+.link {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 16px;
+  cursor: pointer;
+  p {
+    color: #FA4E0E;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: calc(22.64 / 14);
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &_icon {
+    max-width: 40px;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
 }

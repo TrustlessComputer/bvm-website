@@ -21,11 +21,10 @@
 .heading {
   font-size: 40px;
   font-weight: 500;
-  color: #1C1C1C;
+  color: #1c1c1c;
   font-family: var(--font-jetbrains);
   line-height: calc(56 / 40);
 }
-
 
 .right {
   width: 100%;
@@ -51,15 +50,25 @@
   margin: 32px 0;
   width: 100%;
   &_text {
-    color: #5B5B5B;
+    color: #5b5b5b;
+    font-family: var(--font-SFProDisplay);
     font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: -0.2px;
+    &_bold {
+      font-style: normal;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+    }
     a {
-      color: #1588FF;
+      color: #1588ff;
       text-decoration: underline;
       text-underline-position: under;
     }
-    span {
-      color: #FA4E0E;
+    &_orange {
+      color: #fa4e0e;
     }
   }
 }

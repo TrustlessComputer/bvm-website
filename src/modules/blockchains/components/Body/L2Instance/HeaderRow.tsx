@@ -61,10 +61,8 @@ const HeaderRow = (props: Props) => {
           objectFit={'contain'}
         />
         <Text fontSize={'25px'} fontWeight={500} color={'#000'}>
-          {/* {`${
-            mapper.computerIndexer || `ZK-powered Blockchain #${item.index}`
-          }`} */}
-          {`${item.chainName}`}
+          {/* {`${mapper.computerIndexer || `#${item.index}`}`} */}
+          {`${item.chainName || '--'}`}
         </Text>
         <Image
           src={`/icons/pencil_edit_grey.svg`}

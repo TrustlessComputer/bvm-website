@@ -90,6 +90,11 @@ export type WithdrawalPeriodSection = {
   setWithdrawalPeriodSelected: (value: number) => void;
 };
 
+export type BlockGasLitmitSection = {
+  blockGasLimitSelected: number;
+  setBlockGasLimitSelected: (value: number) => void;
+};
+
 export type NativeTokenPayingGasSection = {
   nativeTokenPayingGasSelected?: number;
   setNativeTokenPayingGasSelected: (value: number) => void;
@@ -142,7 +147,8 @@ export type IBuyContext = ComputerNameSection &
   PreInstallDAppSection &
   CustomNativeTokenSection &
   ConfiguratinOptionSection &
-  ProverSection & {
+  ProverSection &
+  BlockGasLitmitSection & {
     // Data API
     availableListData?: IAvailableList;
     isAvailableListFetching?: boolean;
@@ -191,6 +197,7 @@ export const BuyContextInit: IBuyContext = {
   setDataValiditySelected: () => {},
   setBlockTimeSelected: () => {},
   setWithdrawalPeriodSelected: () => {},
+  setBlockGasLimitSelected: () => {},
   setNativeTokenPayingGasSelected: () => {},
   setPreInstallDAppSelected: () => {},
   setConfiguratinOptionSelected: () => {},
@@ -201,6 +208,7 @@ export const BuyContextInit: IBuyContext = {
 
   isMainnet: false,
   withdrawalPeriodSelected: 7,
+  blockGasLimitSelected: 30000000,
   preInstallDAppSelected: [],
 
   chainIdRandom: 0,

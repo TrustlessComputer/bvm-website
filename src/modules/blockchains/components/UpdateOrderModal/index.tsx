@@ -1,5 +1,16 @@
 import BaseModal from '@/components/BaseModal';
-import { Button, Flex, Spinner, Text, Textarea } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  Spinner,
+  Text,
+  Textarea,
+  Image,
+  Popover,
+  PopoverArrow,
+  PopoverContent,
+  PopoverTrigger,
+} from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import TextInput from '@/components/TextInput/TextInput';
@@ -153,7 +164,6 @@ const UpdateOrderModal = (props: IProps) => {
 
   const submitHandler = async () => {
     const isValid = checkValidData();
-    console.log('VVV ', isValid);
     if (isValid) {
       updateInforHandler();
     }
@@ -253,7 +263,7 @@ const UpdateOrderModal = (props: IProps) => {
           onFocus={(e: any) => {
             setChainNameFocused(true);
           }}
-          onChange={(e) => {
+          onChange={(e: any) => {
             const value = e.target.value;
             if (!value || value.length < 1) {
               setChainName(TITLE_ERROR_MESSAGE);
@@ -385,7 +395,7 @@ const UpdateOrderModal = (props: IProps) => {
           onFocus={(e: any) => {
             setLogoUrlFocused(true);
           }}
-          onChange={(e) => {
+          onChange={(e: any) => {
             const value = e.target.value;
             // if (!value || value.length < 1) {
             //   setLogoUrlError('Thumb url is required');
@@ -436,33 +446,36 @@ const UpdateOrderModal = (props: IProps) => {
         p={'20px'}
         gap={'20px'}
       >
-        <Flex align={'center'} justify={'space-between'}>
-          <Text
-            fontSize={'24px'}
-            fontWeight={600}
-            color={'#000'}
-            lineHeight={'20px'}
-            alignSelf={'flex-start'}
-          >
-            {`Update`}
-          </Text>
-
-          {/* <Flex gap={'5px'} align={'center'}>
-            <Link
-              fontSize={'15px'}
+        {item?.status === OrderStatus.WaitingPayment && (
+          <Flex align={'center'} flexDir={'row'}>
+            <Text
+              fontSize={'24px'}
               fontWeight={600}
-              color={'#2e26cd'}
+              color={'#000'}
               lineHeight={'20px'}
               alignSelf={'flex-start'}
-              href={item.plugins[0].link}
-              target="_blank"
-              textDecorationLine={'underline'}
             >
-              {'Your Bridge Page'}
-            </Link>
-            <ExternalLinkIcon w={'18px'} h={'18px'} color={'#2e26cd'} />
-          </Flex> */}
-        </Flex>
+              {`Update`}
+            </Text>
+            <Flex
+              bgColor={'#FAFAFA'}
+              borderRadius={'100px'}
+              p={'8px'}
+              overflow={'hidden'}
+              _hover={{
+                cursor: 'pointer',
+                opacity: 0.8,
+              }}
+            >
+              <Image
+                src={`/icons/three_dots.svg`}
+                onClick={() => {
+                  cancelThisRollupOnClick && cancelThisRollupOnClick();
+                }}
+              />
+            </Flex>
+          </Flex>
+        )}
 
         {renderChainNameField()}
         {renderThumbURLField()}

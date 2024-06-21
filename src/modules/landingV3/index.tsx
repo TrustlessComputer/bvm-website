@@ -15,8 +15,6 @@ export default function LandingV3() {
   return (
     <div className={s.landing}>
       <HeroV3 />
-      <Experience />
-
       <div className={s.bottom}>
         {HOME_DATA_SECTIONS.map((data) => {
           return <SectionContent {...data} />;
