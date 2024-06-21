@@ -1,11 +1,12 @@
 import { Decal, Float, Outlines, useGLTF, useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useRef, useState } from 'react';
 import { easing } from 'maath';
 import { Euler } from 'three';
 
 export default function Lego(props: any): ReactElement {
-  const { nodes, materials } = useGLTF('/LEGO_3.glb');
+  const refGroup = useRef(null);
+  const { nodes, materials } = useGLTF('/LEGO_4.glb');
   useFrame((state, delta) => {
     easing.damp3(
       state.camera.position,
@@ -165,4 +166,4 @@ export default function Lego(props: any): ReactElement {
     </Float>
   );
 }
-useGLTF.preload('/LEGO_3.glb');
+useGLTF.preload('/LEGO_4.glb');

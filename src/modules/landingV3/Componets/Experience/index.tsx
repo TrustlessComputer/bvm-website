@@ -16,8 +16,8 @@ export default function Experience({
         camera={{ position: [0, 0, 10], fov: 25 }}
         eventSource={refParent}
       >
-        <fog attach="fog" args={['#F9f9f9', 15, 22.5]} />
-        <color attach="background" args={['#F9f9f9']} />
+        <fog attach="fog" args={['#FAF4ED', 15, 22.5]} />
+        <color attach="background" args={['#FAF4ED']} />
         <Lego />
         <ambientLight intensity={2.2} color={'#ffffff'} />
         <directionalLight intensity={2.2} color={'#fff'} position={[2, 5, 5]} />
