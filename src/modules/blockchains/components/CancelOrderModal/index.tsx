@@ -35,7 +35,7 @@ const CancelOrderModal = (props: IProps) => {
           lineHeight={'20px'}
           alignSelf={'flex-start'}
         >
-          {`Deactivate Your ZK-powered Blockchain`}
+          {`Cancel your rollup?`}
         </Text>
 
         {/* <Text

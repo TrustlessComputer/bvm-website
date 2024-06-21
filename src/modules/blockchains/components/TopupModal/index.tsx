@@ -96,7 +96,7 @@ const TopupModal = (props: IProps) => {
           color={'#31323d'}
           textAlign={'center'}
         >
-          Not enough BVM? No worries -{' '}
+          Not enough BVM? No worries —{' '}
           <Text
             as="span"
             fontWeight={700}
@@ -171,7 +171,7 @@ const TopupModal = (props: IProps) => {
         </Text>
         to the following wallet address below.
         <Text>
-          Not enough BVM? No worries -{' '}
+          Not enough BVM? No worries —{' '}
           <Text
             as="span"
             fontWeight={700}
