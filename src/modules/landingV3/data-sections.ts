@@ -15,15 +15,15 @@ interface DataSections {
 export const HOME_DATA_SECTIONS: DataSections[] = [
   {
     title: 'Tailored to your needs',
-    children: `Build faster on Bitcoin with all the best building blocks in the BVM Module Store. BVM provides a modular framework to tailor your ZK rollup to your app.`,
-    image: '/bvm/home-section-1.jpg',
+    children: `Build faster on Bitcoin with BVM's fully integrated suite of crypto products. BVM provides a modular framework to tailor your ZK rollup to your app.`,
+    image: '/bvm/home-top-thumbnail.jpg',
     // button: {
     //   link: '/module',
     //   title: 'Explore BVM Module Store'
     // }
   },
   {
-    title: 'Easy to migrate from Ethereum',
+    title: 'Easy to migrate from Ethereum to Bitcoin',
     children: `BVM is EVM-equivalent. It allows developers to migrate dapps from Ethereum to Bitcoin with minimal or no modifications.`,
     image: '/bvm/home-section-2.jpg',
     button: {

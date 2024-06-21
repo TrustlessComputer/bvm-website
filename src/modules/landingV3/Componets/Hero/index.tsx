@@ -19,12 +19,9 @@ export default function HeroV3() {
       <div className={`${s.inner} containerV3`}>
         <div className={s.content}>
           <span className={s.topTitle}>
-            ✨ New project
+            ✨ New product
           </span>
           <h2 className={s.title}>
-            <div className={s.title_logo}>
-              <IcLogoText />
-            </div>
             BitZK
           </h2>
           <h3 className={s.subTitle}>
