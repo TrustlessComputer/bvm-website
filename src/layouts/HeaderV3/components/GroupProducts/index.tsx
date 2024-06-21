@@ -64,7 +64,7 @@ export default function GroupProducts(): ReactElement {
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinnear.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinnearda.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Near DA</span>
                   <span className={s.group_item_icon_text_bottom}>An efficient and robust data avalability layer made by the Near team</span>
