@@ -4,6 +4,7 @@ import { Button, Flex, Image, Text } from '@chakra-ui/react';
 import LivingStatus from './LivingStatus';
 import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 type Props = {
   item: OrderItem;
@@ -15,6 +16,7 @@ type Props = {
 const HeaderRow = (props: Props) => {
   const { item, isOwner, depositOnClick, editOnClick } = props;
   const mapper = useOrderMapper(item);
+  const { tracking } = useL2ServiceTracking();
 
   const renderStatus = () => {
     return (
@@ -38,6 +40,7 @@ const HeaderRow = (props: Props) => {
             fontWeight={500}
             onClick={(event) => {
               if (event.stopPropagation) event.stopPropagation();
+              tracking('PAYNOW');
               depositOnClick && depositOnClick();
             }}
             _hover={{

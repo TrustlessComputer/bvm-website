@@ -45,10 +45,11 @@ import { getErrorMessage } from '@/utils/errorV2';
 import toast from 'react-hot-toast';
 import ModalLoading from '@/components/ModalLoading';
 import BigNumber from 'bignumber.js';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 const PriceModule = () => {
   const dispatch = useAppDispatch();
-
+  const { tracking } = useL2ServiceTracking();
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
   const { loggedIn, setShowLoginModalCustomize, userInfo } = useWeb3Auth();
@@ -105,6 +106,7 @@ const PriceModule = () => {
   }, []);
 
   const bootstrapLaunchOnClick = async () => {
+    tracking('SUBMIT_TIER1');
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
@@ -145,6 +147,7 @@ const PriceModule = () => {
   };
 
   const growthLaunchOnClick = () => {
+    tracking('CUSTOMIZE_TIER2');
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
@@ -153,6 +156,7 @@ const PriceModule = () => {
   };
 
   const bussinessLaunchOnClick = () => {
+    tracking('CUSTOMIZE_TIER3');
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
@@ -161,6 +165,7 @@ const PriceModule = () => {
   };
 
   const enterpriseLaunchOnClick = () => {
+    tracking('CONTACTS_US');
     showContactUsModal();
   };
 

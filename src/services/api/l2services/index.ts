@@ -393,6 +393,27 @@ export const revokeAuthentication = async (): Promise<void> => {
   }
 };
 
+type L2serviceTrackingParams = {
+  eventLabel: string;
+  tcAddress?: string;
+};
+
+export const L2ServiceTracking = async (
+  params: L2serviceTrackingParams,
+): Promise<void> => {
+  try {
+    const res = await httpClient.post(
+      `/log-events?tcAddress=${params.tcAddress}`,
+      {
+        event: 'click',
+        lebel: params.eventLabel,
+      },
+    );
+  } catch (error) {
+    // console.log('L2serviceTracking error', error);
+  }
+};
+
 const setAccesTokenHeader = (accessToken: string) => {
   // httpClient.defaults.headers.Authorization = `${accessToken}`;
 };
@@ -432,6 +453,8 @@ const l2ServicesAPI = {
 
   orderUpdateAPI,
   orderDetailByID,
+
+  L2ServiceTracking,
 };
 
 export default l2ServicesAPI;

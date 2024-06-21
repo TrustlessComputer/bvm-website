@@ -75,6 +75,7 @@ import useL2Service from '@/hooks/useL2Service';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IOrderBuyReq } from '@/stores/states/l2services/types';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 export type IField = {
   value?: string;
@@ -104,6 +105,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   const accountInfo = true;
   const { fetchAllData, isL2ServiceLogged } = useL2Service();
   const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
+  const { tracking } = useL2ServiceTracking();
 
   const searchParams = useSearchParams();
   let packageParam: any = searchParams.get('package');
@@ -719,6 +721,11 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
   const orderBuyHandler = async (onSuccess?: any) => {
     try {
+      tracking(
+        packageParam === PRICING_PACKGE.Growth
+          ? 'SUBMIT_TIER2'
+          : 'SUBMIT_TIER3',
+      );
       setSubmiting(true);
 
       let params: IOrderBuyReq = {
