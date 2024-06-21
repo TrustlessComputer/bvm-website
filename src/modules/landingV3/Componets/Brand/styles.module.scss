@@ -1,0 +1,31 @@
+.wrapper {
+  background-color: #f9f9f9;
+  position: relative;
+  z-index: 2;
+  padding-top: 10px;
+  padding-bottom: 75px;
+  transform: translateY(-2px);
+}
+.brand {
+  display: grid;
+  width: 100%;
+  flex-wrap: wrap;
+  @include is-mobile {
+    row-gap: 32px;
+
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include is-tablet {
+    row-gap: 48px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include is-pc {
+    flex-wrap: nowrap;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  &_item {
+    width: 289px;
+    height: auto;
+  }
+}

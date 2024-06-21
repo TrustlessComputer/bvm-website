@@ -1,15 +1,15 @@
 import { ReactElement } from 'react';
 
 interface DataSections {
-  title: string,
-  children: string,
-  image: string,
-  direction?: 'left' | 'right',
+  title: string;
+  children: string;
+  image: string;
+  direction?: 'left' | 'right';
   button?: {
-    link: string,
-    title: string,
-    target?: '_blank' | '_self' | '_top',
-  }
+    link: string;
+    title: string;
+    target?: '_blank' | '_self' | '_top';
+  };
 }
 
 export const HOME_DATA_SECTIONS: DataSections[] = [
@@ -29,9 +29,9 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     button: {
       target: '_blank',
       link: 'https://docs.bvm.network/bvm',
-      title: 'Migrate to Bitcoin'
+      title: 'Migrate to Bitcoin',
     },
-    direction: 'left'
+    direction: 'left',
   },
   {
     title: 'Be the first to build on Bitcoin',
@@ -41,5 +41,13 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     //   link: '/chains',
     //   title: 'Explore the all-new Bitcoin'
     // }
-  }
-]
+  },
+];
+
+export const DATA_BRAND = [
+  '/bvm/logo-1.png',
+  '/bvm/logo-2.png',
+  '/bvm/logo-3.png',
+  '/bvm/logo-4.png',
+  '/bvm/logo-5.png',
+];

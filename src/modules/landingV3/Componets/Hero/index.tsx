@@ -8,6 +8,7 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import Image from 'next/image';
 import SvgInset from '@/components/SvgInset';
 import IcLogoText from '../IcLogoText';
+import Brand from '../Brand';
 
 export default function HeroV3() {
   const router = useRouter();
@@ -62,8 +63,9 @@ export default function HeroV3() {
             </div>
           </div>
         </div>
+        <ScrollMore />
       </div>
-      <ScrollMore />
+      <Brand />
       <Experience refParent={ref} />
     </div>
   );
