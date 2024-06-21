@@ -131,7 +131,7 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Stamps</span>
-                  <span className={s.group_item_icon_text_bottom}>Stamp proofs proofs in an <br /> unprunable way</span>
+                  <span className={s.group_item_icon_text_bottom}>Stamp proofs in an <br /> unprunable way</span>
                 </div>
               </Link>
             </li>
