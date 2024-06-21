@@ -58,10 +58,10 @@ const Web3AuthLoginModalCustomize = (props: Props) => {
           Connect to your google account to sign in.
         </Text>
 
-        {/* <Box height={'20px'}></Box> */}
+        <Box height={'20px'}></Box>
 
         {/* Button Login Area */}
-        {/* <Button
+        <Button
           bgColor={'#3f83f8'}
           borderRadius={'20px'}
           py={'15px'}
@@ -82,7 +82,7 @@ const Web3AuthLoginModalCustomize = (props: Props) => {
           }
         >
           Continue with Twitter
-        </Button> */}
+        </Button>
 
         <Box height={'10px'}></Box>
 
