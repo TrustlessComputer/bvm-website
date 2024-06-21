@@ -35,6 +35,10 @@
     }
   }
 
+  .dropMenu_list {
+    box-shadow: 0 0 5px -2px #999;
+  }
+
   &.isOpen, &:hover {
     .dropMenu_list {
       opacity: 1;
@@ -44,7 +48,7 @@
 
       @include is-pc {
         transform: translateX(-50%);
-        left: calc(50% - 100px);
+        left: calc(50% + 120px);
       }
     }
   }

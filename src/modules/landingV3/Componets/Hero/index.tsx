@@ -25,11 +25,10 @@ export default function HeroV3() {
             BitZK
           </h2>
           <h3 className={s.subTitle}>
-            ZK Rollups on Bitcoin for <strong>$99/mo.</strong>
+            Launch a ZK Rollup on Bitcoin for <strong>$99/mo</strong>.
           </h3>
           <p className={s.desc}>
-            BVM brought Zero Knowledge to Bitcoin, so you can easily launch and
-            scale your own ZK Rollup on Bitcoin.
+            BVM brought Zero Knowledge to Bitcoin, so you can deploy your own ZK Rollup on Bitcoin.
           </p>
           <div className={s.groupBtn}>
             <div
