@@ -13,6 +13,7 @@ export default function Experience({ refParent }: { refParent: MutableRefObject<
       <Lego />
       <ambientLight intensity={2.2} color={'#ffffff'} />
       <directionalLight intensity={2.2} color={'#fff'} position={[2, 5, 5]} />
+      <directionalLight intensity={1} color={'#fff'} position={[-2, 2, 5]} />
     </Canvas>
   </div>);
 }

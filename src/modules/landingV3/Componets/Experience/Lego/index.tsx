@@ -6,6 +6,9 @@ import { Euler } from 'three';
 
 export default function Lego(props: any): ReactElement {
   const refGroup = useRef(null);
+  const [scale, setScale] = useState(1.6);
+  const [position, setPosition] = useState([1.8, -.2, 0]);
+
   const { nodes, materials } = useGLTF('/LEGO_4.glb');
   useFrame((state, delta) => {
     refGroup.current && easing.damp3((refGroup.current as any).rotation, [.1 + Math.sin(state.pointer.x / 4) * .1, -2.5 + state.pointer.y * .1, -.1 + Math.cos(state.pointer.x / 4) * .1], 0.5, delta);
@@ -37,9 +40,28 @@ export default function Lego(props: any): ReactElement {
     </>;
   };
 
+  useEffect(()=>{
+
+    const resize = ()=>{
+        if(window.innerWidth < 1200 && window.innerWidth >= 768){
+          setScale(1);
+          setPosition([0,.8,0])
+        }else if(window.innerWidth < 768){
+          setScale(1);
+          setPosition([0,1,0]);
+        }else{
+          setScale(1.7);
+          setPosition([1.8, -.25, 0])
+        }
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+  }, [])
+
   const textMap = useTexture('/glb/logo.jpg');
-  return <Float position={[1.4, .4, 0]}>
-    <group ref={refGroup} {...props} scale={1.2} rotation={[.1, -2.5, -.1]}>
+  return <Float position={position}>
+    <group ref={refGroup} {...props} scale={scale} rotation={[.1, -2.5, -.1]}>
       <mesh castShadow receiveShadow geometry={(nodes.Cube as any).geometry} material={materials.mat12}>
         <CustomMesh />
         <mesh
