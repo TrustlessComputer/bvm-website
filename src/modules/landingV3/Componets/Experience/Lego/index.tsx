@@ -13,7 +13,7 @@ export default function Lego(props: any): ReactElement {
 
   const [video] = useState(() => {
     const vid = document.createElement('video');
-    vid.src = './glb/video.mp4';
+    vid.src = './glb/render_2_1.mp4';
     vid.crossOrigin = 'Anonymous';
     vid.loop = true;
     vid.muted = true;

@@ -210,6 +210,9 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   const [withdrawalPeriodSelected, setWithdrawalPeriodSelected] =
     useState<number>(WITHDRAWAL_PERIOD_BOOTSTRAP); // V2
 
+  const [blockGasLimitSelected, setBlockGasLimitSelected] =
+    useState<number>(GAS_LITMIT); // V2
+
   const [nativeTokenPayingGasSelected, setNativeTokenPayingGasSelected] =
     useState<number>(NativeTokenPayingGasEnum.NativeTokenPayingGas_BVM);
   // const [configuratinOptionSelected, setConfiguratinOptionSelected] =
@@ -326,7 +329,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       isMainnet: isMainnet,
       pluginIds: [PluginEnum.Plugin_Bridge],
       nativeTokenPayingGas: nativeTokenPayingGasSelected,
-      gasLimit: Number(blockGasLimitField.value) || GAS_LITMIT,
+      gasLimit: Number(blockGasLimitSelected) || GAS_LITMIT,
       bitcoinValidity: bitcoinValidity,
       twitter_id: yourXField.value?.trim(),
       prover: proverSelected || ProverEnum.NO,
@@ -542,16 +545,16 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     }
 
     // Gas Litmit
-    if (blockGasLimitField.isRequired && isEmpty(blockGasLimitField.value)) {
-      isValid = false;
-      setBlockGasLimitField({
-        ...blockGasLimitField,
-        hasFocused: true,
-        hasError: true,
-      });
+    // if (blockGasLimitField.isRequired && isEmpty(blockGasLimitField.value)) {
+    //   isValid = false;
+    //   setBlockGasLimitField({
+    //     ...blockGasLimitField,
+    //     hasFocused: true,
+    //     hasError: true,
+    //   });
 
-      refElementErrorID = refElementErrorID || blockGasLimitField.ref;
-    }
+    //   refElementErrorID = refElementErrorID || blockGasLimitField.ref;
+    // }
 
     // Token Paying Gas (Custom Naitve Token)
     if (
@@ -633,17 +636,17 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       refElementErrorID = refElementErrorID || computerNameField.ref;
     }
 
-    // Gas Litmit
-    if (blockGasLimitField.isRequired && isEmpty(blockGasLimitField.value)) {
-      isValid = false;
-      setBlockGasLimitField({
-        ...blockGasLimitField,
-        hasFocused: true,
-        hasError: true,
-      });
+    // // Gas Litmit
+    // if (blockGasLimitField.isRequired && isEmpty(blockGasLimitField.value)) {
+    //   isValid = false;
+    //   setBlockGasLimitField({
+    //     ...blockGasLimitField,
+    //     hasFocused: true,
+    //     hasError: true,
+    //   });
 
-      refElementErrorID = refElementErrorID || blockGasLimitField.ref;
-    }
+    //   refElementErrorID = refElementErrorID || blockGasLimitField.ref;
+    // }
 
     return {
       isValid,
@@ -859,6 +862,9 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
     configuratinOptionSelected,
     setConfiguratinOptionSelected,
+
+    blockGasLimitSelected,
+    setBlockGasLimitSelected,
 
     isMainnet,
     chainIdRandom,

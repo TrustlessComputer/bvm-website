@@ -49,7 +49,6 @@ export const MobileNav = (props: Props) => {
           ))}
         </>
       ))}
-      <Community color="black" />
     </VStack>
   );
 };

@@ -44,7 +44,7 @@ const ContactInformationSection = () => {
             onBlur={(e: any) => {
               onChangeHandler(FormFields.YOUR_X_ACC, e);
             }}
-            onChange={(e) => {
+            onChange={(e: any) => {
               onChangeHandler(FormFields.YOUR_X_ACC, e);
             }}
           />
@@ -64,7 +64,7 @@ const ContactInformationSection = () => {
             onBlur={(e: any) => {
               onChangeHandler(FormFields.YOUR_TELEGRAM, e);
             }}
-            onChange={(e) => {
+            onChange={(e: any) => {
               onChangeHandler(FormFields.YOUR_TELEGRAM, e);
             }}
           />

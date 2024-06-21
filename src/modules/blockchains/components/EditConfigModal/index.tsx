@@ -236,7 +236,7 @@ const EditConfigModal = (props: IProps) => {
           onFocus={(e: any) => {
             setTitleFocused(true);
           }}
-          onChange={(e) => {
+          onChange={(e: any) => {
             const value = e.target.value;
             if (!value || value.length < 1) {
               setTitleError(TITLE_ERROR_MESSAGE);
@@ -365,7 +365,7 @@ const EditConfigModal = (props: IProps) => {
           onFocus={(e: any) => {
             setLogoUrlFocused(true);
           }}
-          onChange={(e) => {
+          onChange={(e: any) => {
             const value = e.target.value;
             if (!value || value.length < 1) {
               setLogoUrlError('LogoUrl is required');

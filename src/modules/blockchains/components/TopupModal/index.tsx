@@ -77,51 +77,122 @@ const TopupModal = (props: IProps) => {
 
   const renderMessageDetault = () => {
     return (
-      <Text
-        fontSize={'15px'}
-        fontWeight={400}
-        color={'#6C6F93'}
-        textAlign={'center'}
-      >
-        Please send
-        <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
-          {` BVM `}
+      <Flex flexDir={'column'}>
+        <Text
+          fontSize={'15px'}
+          fontWeight={400}
+          color={'#6C6F93'}
+          textAlign={'center'}
+        >
+          Please send
+          <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
+            {` BVM `}
+          </Text>
+          {`to the following wallet address below.`}
         </Text>
-        to the following wallet address
-      </Text>
+        <Text
+          fontSize={'15px'}
+          fontWeight={400}
+          color={'#6C6F93'}
+          textAlign={'center'}
+        >
+          Not enough BVM? No worries --{' '}
+          <Text
+            as="span"
+            fontWeight={700}
+            color={'#2352c1'}
+            textAlign={'center'}
+            textUnderlineOffset={'2px'}
+            textDecorationLine={'underline'}
+            _hover={{
+              cursor: 'pointer',
+              opacity: 0.8,
+            }}
+            onClick={() => {
+              window.open(
+                'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
+                '_blank',
+              );
+            }}
+          >
+            {`grab some here!`}
+          </Text>
+        </Text>
+      </Flex>
     );
   };
 
-  const renderMessageWithTopBVM = () => {
+  // const renderMessageWithTopBVM = () => {
+  //   return (
+  //     <Text
+  //       fontSize={'15px'}
+  //       fontWeight={400}
+  //       color={'#6C6F93'}
+  //       textAlign={'center'}
+  //     >
+  //       Please send at least
+  //       <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
+  //         {` ${order?.needToTopupBalanceFormatted} BVM `}
+  //       </Text>
+  //       {`to the following wallet address. `}
+  //       {/* <Text
+  //         as="span"
+  //         fontWeight={700}
+  //         color={'#e6922c'}
+  //         textAlign={'center'}
+  //         textUnderlineOffset={'2px'}
+  //         textDecorationLine={'underline'}
+  //         _hover={{
+  //           cursor: 'pointer',
+  //           opacity: 0.8,
+  //         }}
+  //         onClick={() => {
+  //           window.open('https://nakachain.xyz/swap', '_blank');
+  //         }}
+  //       >
+  //         {`Buy now!`}
+  //       </Text> */}
+  //     </Text>
+  //   );
+  // };
+
+  const renderMessageWithTopBVM_V2 = () => {
     return (
       <Text
         fontSize={'15px'}
         fontWeight={400}
         color={'#6C6F93'}
         textAlign={'center'}
+        w={'90%'}
       >
-        Please send at least
+        Send
         <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
           {` ${order?.needToTopupBalanceFormatted} BVM `}
         </Text>
-        {`to the following wallet address. `}
-        {/* <Text
-          as="span"
-          fontWeight={700}
-          color={'#e6922c'}
-          textAlign={'center'}
-          textUnderlineOffset={'2px'}
-          textDecorationLine={'underline'}
-          _hover={{
-            cursor: 'pointer',
-            opacity: 0.8,
-          }}
-          onClick={() => {
-            window.open('https://nakachain.xyz/swap', '_blank');
-          }}
-        >
-          {`Buy now!`}
-        </Text> */}
+        to the following wallet address below
+        <Text>
+          Not enough BVM? No worries --{' '}
+          <Text
+            as="span"
+            fontWeight={700}
+            color={'#2352c1'}
+            textAlign={'center'}
+            textUnderlineOffset={'2px'}
+            textDecorationLine={'underline'}
+            _hover={{
+              cursor: 'pointer',
+              opacity: 0.8,
+            }}
+            onClick={() => {
+              window.open(
+                'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
+                '_blank',
+              );
+            }}
+          >
+            {`grab some here!`}
+          </Text>
+        </Text>
       </Text>
     );
   };
@@ -155,7 +226,7 @@ const TopupModal = (props: IProps) => {
           </Text>
         )}
 
-        {order ? renderMessageWithTopBVM() : renderMessageDetault()}
+        {order ? renderMessageWithTopBVM_V2() : renderMessageDetault()}
 
         {/* Adderss Bar */}
         <Flex
@@ -222,11 +293,57 @@ const TopupModal = (props: IProps) => {
           color={'#000'}
           textAlign={'center'}
         >
-          Naka Chain
+          Ethereum
         </Text>
+        {/* {!order && (
+          <Flex
+            justify={'center'}
+            align={'center'}
+            flexDir={'column'}
+            mt="20px"
+          >
+            <Text
+              as="span"
+              fontWeight={700}
+              color={'#e6922c'}
+              textAlign={'center'}
+              textUnderlineOffset={'2px'}
+              textDecorationLine={'underline'}
+              _hover={{
+                cursor: 'pointer',
+                opacity: 0.8,
+              }}
+              onClick={() => {
+                window.open(
+                  'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
+                  '_blank',
+                );
+              }}
+            >
+              {`Buy BVM now`}
+            </Text>
+
+            <Text
+              fontSize={'15px'}
+              fontWeight={400}
+              color={'#6C6F93'}
+              textAlign={'center'}
+            >
+              Network
+            </Text>
+            <Text
+              fontSize={'15px'}
+              fontWeight={600}
+              color={'#000'}
+              textAlign={'center'}
+            >
+              Ethereum
+            </Text>
+          </Flex>
+        )} */}
       </Flex>
 
-      {order && (
+      {/* {
         <Text
           marginTop={'10px'}
           fontSize={'15px'}
@@ -247,13 +364,16 @@ const TopupModal = (props: IProps) => {
               opacity: 0.8,
             }}
             onClick={() => {
-              window.open('https://nakachain.xyz/swap', '_blank');
+              window.open(
+                'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
+                '_blank',
+              );
             }}
           >
             {`Buy now!`}
           </Text>
         </Text>
-      )}
+      } */}
     </BaseModal>
   );
 };

@@ -13,7 +13,7 @@ export default function GroupProducts(): ReactElement {
           <ul className={s.group_inner}>
             <li>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/menu-icons/menu-icon-bvm.png" alt="menu-icon-bvm" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/menu-icons/menu-icon-bvm.png" alt="menu-icon-bvm" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Zero Knowledge (BitZK)</span>
                   <span className={s.group_item_icon_text_bottom}>ZK rollups on Bitcoin</span>
@@ -22,7 +22,7 @@ export default function GroupProducts(): ReactElement {
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/menu-icons/menu-icon-op.png" alt="menu-icon-op" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/menu-icons/menu-icon-op.png" alt="menu-icon-op" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Optimistic (BitOP)</span>
                   <span className={s.group_item_icon_text_bottom}>Optimistic rollups on Bitcoin</span>
@@ -36,16 +36,16 @@ export default function GroupProducts(): ReactElement {
           <ul className={`${s.group_inner} ${s.isFlex}`}>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/menu-icons/menu-icon-cel.png" alt="menu-icon-cel" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/menu-icons/menu-icon-cel.png" alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Celestia</span>
-                  <span className={s.group_item_icon_text_bottom}>Use Celestia for DA</span>
+                  <span className={s.group_item_icon_text_bottom}>Use Celestia with Bitcoin rollups</span>
                 </div>
               </Link>
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/productions/1.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/productions/1.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Eigen DA</span>
                   <span
@@ -55,16 +55,16 @@ export default function GroupProducts(): ReactElement {
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/menu-icons/menu-icon-avail.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/menu-icons/menu-icon-avail.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Avail</span>
-                  <span className={s.group_item_icon_text_bottom}>Use Avail for DA</span>
+                  <span className={s.group_item_icon_text_bottom}>Use Avail with Bitcoin rollups</span>
                 </div>
               </Link>
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/productions/2.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/productions/2.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Near DA</span>
                   <span className={s.group_item_icon_text_bottom}>An efficient and robust data avalability layer made by the Near team</span>
@@ -73,7 +73,7 @@ export default function GroupProducts(): ReactElement {
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/productions/3.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/productions/3.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Polygon</span>
                   <span className={s.group_item_icon_text_bottom}>Use Polygon with Bitcoin rollups</span>
@@ -82,7 +82,7 @@ export default function GroupProducts(): ReactElement {
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/productions/4.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/productions/4.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Filecoin</span>
                   <span className={s.group_item_icon_text_bottom}>Low-cost decentralized storage</span>
@@ -96,7 +96,7 @@ export default function GroupProducts(): ReactElement {
           <ul className={`${s.group_inner} ${s.isFlex}`}>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/menu-icons/menu-icon-ordinal.png" alt="menu-icon-cel" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/menu-icons/menu-icon-ordinal.png" alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Ordinals</span>
                   <span className={s.group_item_icon_text_bottom}>Inscribe proofs onto Bitcoin</span>
@@ -105,7 +105,7 @@ export default function GroupProducts(): ReactElement {
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/productions/5.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/productions/5.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Taproot</span>
                   <span className={s.group_item_icon_text_bottom}>Embed proofs in Taproot transactions</span>
@@ -114,7 +114,7 @@ export default function GroupProducts(): ReactElement {
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/menu-icons/menu-icon-stamp.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/menu-icons/menu-icon-stamp.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Stamps</span>
                   <span className={s.group_item_icon_text_bottom}>Stamp proofs proofs in an <br /> unprunable way</span>
@@ -124,41 +124,41 @@ export default function GroupProducts(): ReactElement {
           </ul>
         </div>
         <div className={s.group}>
-          <h4 className={s.title}>Data validity</h4>
+          <h4 className={s.title}>INTEROPERABILITY</h4>
           <ul className={`${s.group_inner} ${s.isFlex}`}>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/productions/5.png" alt="menu-icon-cel" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/productions/5.png" alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Bridge</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge BTC to your rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Bring BTC to your rollup</span>
                 </div>
               </Link>
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/productions/6.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/productions/6.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Ethereum Bridge</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge ETH to you rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Bring ETH to you rollup</span>
                 </div>
               </Link>
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/productions/7.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/productions/7.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>BRC-20 Bridge</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge BRC-20 tokens to your rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Bring BRC-20 tokens to your rollup</span>
                 </div>
               </Link>
             </li>
             <li className={s.isDisabled}>
               <Link href={'/module-detail'} className={s.group_item_icon}>
-                <Image width={48} height={48} src="/menu-icons/menu-icon-ordinal.png" alt="menu-icon-avail" />
+                <Image width={48} height={48} sizes="100vw" quality="100" src="/menu-icons/menu-icon-ordinal.png" alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Runes Bridge</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge Runes ro your rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Bring Runes ro your rollup</span>
                 </div>
               </Link>
             </li>
