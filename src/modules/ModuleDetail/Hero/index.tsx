@@ -26,7 +26,7 @@ export default function Hero(): React.JSX.Element {
             </div>
           </Fade>
           <Fade delay={0.3} delayEnter={0.3} from={{ y: 20 }} to={{ y: 0 }}>
-            <Flex alignItems={'center'} marginTop={'24px'} gap={'10px'} flexWrap={'wrap'}>
+            <Flex alignItems={'center'} marginTop={'24px'} gap={'10px'}>
               <Button
                 bgColor={'#FA4E0E'}
                 color={'#fff'}
@@ -34,9 +34,9 @@ export default function Hero(): React.JSX.Element {
                 display={'flex'}
                 justifyContent={'center'}
                 alignItems={'center'}
-                width={350}
                 fontWeight={500}
                 fontSize={'14px'}
+                width={180}
                 onClick={() => {
                   router.push('/pricing');
                 }}
@@ -44,17 +44,16 @@ export default function Hero(): React.JSX.Element {
                   bgColor: '#e64e0e',
                 }}
               >
-                Get started with BitZK
+                Get started
               </Button>
               <Button
                 bgColor={'transparent'}
                 color={'#FA4E0E'}
-                border={'1px solid #FA4E0E'}
+                // border={'1px solid #FA4E0E'}
                 borderRadius={100}
                 display={'flex'}
                 justifyContent={'center'}
                 alignItems={'center'}
-                width={350}
                 fontWeight={500}
                 fontSize={'14px'}
                 onClick={showContactUsModal}
@@ -62,7 +61,11 @@ export default function Hero(): React.JSX.Element {
                   bgColor: 'rgba(248,243,243,0.58)',
                 }}
               >
-                Connect with a BVM team member
+                Contact us
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 12L10 8L6 4" stroke="#FA4E0E" stroke-width="1.2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
               </Button>
             </Flex>
 

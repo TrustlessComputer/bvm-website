@@ -53,8 +53,8 @@ export default function HeroV3() {
           </div>
         </div>
         <Brand />
-        {/*<ScrollMore />*/}
       </div>
+      <ScrollMore />
       <Experience refParent={ref} />
     </div>
   );
