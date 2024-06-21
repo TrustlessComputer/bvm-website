@@ -39,7 +39,7 @@ const BodySection = (props: Props) => {
                   textWrap: 'unset',
                 }}
                 w={index2 === item.length - 1 ? '18%' : '22%'}
-                maxW={index2 === item.length - 1 ? '18%' : '22%'}
+                minW={index2 === item.length - 1 ? '280px' : '22%'}
                 textAlign={'center'}
                 className={s.fontSFProDisplay}
                 borderRightWidth={'1px'}

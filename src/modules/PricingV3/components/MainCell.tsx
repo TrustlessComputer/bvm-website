@@ -145,7 +145,7 @@ const MainCell = (props: Props) => {
             mt={'20px'}
             className={s.fontJetBrains}
           >
-            {`Custom pricing`}
+            {`Custom`}
           </Text>
         </Flex>
       )}

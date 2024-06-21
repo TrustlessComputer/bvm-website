@@ -191,7 +191,7 @@ const PriceModule = () => {
   return (
     <Flex bgColor={'#f3f1e8'} flex={1} className={s.container}>
       <Flex
-        maxW={'1650px'}
+        maxW={'1700px'}
         p="0px"
         bgColor={'#f3f1e8'}
         flexDir={'column'}
@@ -294,7 +294,7 @@ const PriceModule = () => {
                           className={s.ctaBtn}
                           onClick={growthLaunchOnClick}
                         >
-                          {'Customize your rollup'}
+                          {'Customize'}
                         </button>
                       }
                     />
@@ -318,12 +318,12 @@ const PriceModule = () => {
                           className={s.ctaBtn}
                           onClick={bussinessLaunchOnClick}
                         >
-                          {'Customize your rollup'}
+                          {'Customize'}
                         </button>
                       }
                     />
                   </Th>
-                  <Th>
+                  <Th minW={'330px'}>
                     <MainCell
                       type="Enterprise"
                       description="For organizations who need customization, BVM engineering team access, and dedicated support"
