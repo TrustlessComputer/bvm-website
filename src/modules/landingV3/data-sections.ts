@@ -45,9 +45,43 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
 ];
 
 export const DATA_BRAND = [
-  '/bvm/logo-1.png',
-  '/bvm/logo-2.png',
-  '/bvm/logo-3.png',
-  '/bvm/logo-4.png',
-  '/bvm/logo-5.png',
+  {
+    icon: '/bvm/brands/1.png',
+    title: 'Polygon',
+  },
+  {
+    icon: '/bvm/brands/2.png',
+    title: 'Filecoin',
+  }, {
+    icon: '/bvm/brands/3.png',
+    title: 'Bitcoin',
+  },
+  {
+    icon: '/bvm/brands/4.png',
+    title: 'zkSync',
+  },
+  {
+    icon: '/bvm/brands/5.png',
+    title: 'Bitcoin Stamps',
+  },
+  {
+    icon: '/bvm/brands/6.png',
+    title: 'Near',
+  },
+  {
+    icon: '/bvm/brands/7.png',
+    title: 'Celestia',
+  },
+  {
+    icon: '/bvm/brands/8.png',
+    title: 'Optimism',
+  },
+  {
+    icon: '/bvm/brands/9.png',
+    title: 'Eigen',
+  },
+  {
+    icon: '/bvm/brands/10.png',
+    title: 'Ordinals',
+  },
 ];

@@ -250,6 +250,13 @@ export const Research: ILabItemContent[] = [
     link: 'https://twitter.com/punk3700/status/1787868153181081794',
     date: 'May 7, 2024'
   },
+
+  {
+    image: `/bvm/whitepagper.jpg`,
+    title: 'Whitepaper',
+    content: 'Welcome to the future of Bitcoin.',
+    link: 'https://bvm.network/whitepaper.pdf'
+  },
   {
     image: `${CDN_URL_IMAGES_NBC}/apps/bitcoin-virtual-machine.jpeg`,
     title: 'Recursive Rollups on Bitcoin',
