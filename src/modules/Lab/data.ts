@@ -230,6 +230,13 @@ export const Modules: ILabItemContent[] = [
 
 export const Research: ILabItemContent[] = [
   {
+    image: `/bvm/whitepagper.jpg`,
+    title: 'BVM Whitepaper v1',
+    content: 'Hyperscale Bitcoin indefinitely',
+    link: 'https://bvm.network/whitepaper.pdf',
+    date: 'Jan 15, 2024'
+  },
+  {
     image: `/bvm/btc-l3.jpg`,
     title: 'ZK Bitcoin L3s',
     content: 'Decentralized virtual machines for any dapp',
@@ -249,13 +256,6 @@ export const Research: ILabItemContent[] = [
     content: 'Bridge BTC to Bitcoin L2s trustlessly',
     link: 'https://twitter.com/punk3700/status/1787868153181081794',
     date: 'May 7, 2024'
-  },
-
-  {
-    image: `/bvm/whitepagper.jpg`,
-    title: 'Whitepaper',
-    content: 'Welcome to the future of Bitcoin.',
-    link: 'https://bvm.network/whitepaper.pdf'
   },
   {
     image: `${CDN_URL_IMAGES_NBC}/apps/bitcoin-virtual-machine.jpeg`,
