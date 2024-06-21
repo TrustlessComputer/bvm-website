@@ -24,7 +24,6 @@
 
 .content {
   display: flex;
-  align-items: flex-start;
   flex-direction: column;
   justify-content: center;
   max-width: 1321px;
@@ -32,11 +31,20 @@
   height: 100%;
   z-index: 2;
   position: relative;
-  padding-top: vh(220px, 1200px);
-  padding-bottom: vh(128px, 1200px);
+  padding-top: 280px;
+  align-items: center;
 
-  @include is-min-table {
-    max-width: 533px;
+  @include is-min-table{
+
+    padding-bottom: 40px;
+    padding-top: 400px;
+  }
+
+  @include is-pc {
+    padding-bottom: 154px;
+    padding-top: 216px;
+    align-items: flex-start;
+    max-width: 600px;
   }
 
   &_heading {
@@ -49,53 +57,28 @@
 
 .title {
   font-family: var(--font-JetBrainsMono);
-  font-size: 56px;
-  font-weight: 500;
+  font-size: 52px;
+  font-weight: 900;
   line-height: 120%;
-  // text-align: center;
   color: #fa4e0e;
-  margin-bottom: 12px;
+  margin-bottom: 9px;
   display: flex;
   align-items: center;
 
-  @include is-min-table {
-    font-size: 86px;
-    margin-bottom: 18px;
-  }
-
-  @include is-pc {
-    margin-bottom: 24px;
-    font-size: 120px;
-  }
-
   &_logo {
-    width: 64px;
-    height: 64px;
-    background-color: #fff;
-    border-radius: 99999px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 24px;
-
-    @include is-min-table {
-      width: 100px;
-      height: 100px;
-    }
-    @include is-pc {
-      width: 120px;
-      height: 120px;
-    }
+    margin-right: 12px;
 
     svg {
       width: 24px;
       height: auto;
+      fill: #fa4e0e !important;
 
       @include is-tablet {
-        width: 32px;
-      }
-      @include is-pc {
-        width: 48px;
+        width: 52px;
       }
     }
   }
@@ -103,19 +86,20 @@
 
 .subTitle {
   font-family: var(--font-JetBrainsMono);
-  font-size: 24px;
+  font-size: 34px;
   font-weight: 700;
   line-height: (76/64);
   color: black;
-  max-width: 320px;
+  text-align: center;
 
   @include is-min-table {
-    font-size: 34px;
+    font-size: 48px;
     max-width: 1200px;
   }
 
   @include is-pc {
-    font-size: 44px;
+    text-align: left;
+    font-size: 52px;
   }
 
   strong {
@@ -130,12 +114,14 @@
   color: black;
   margin-top: 24px;
   font-weight: 600;
+  text-align: center;
 
   @include is-min-table {
     font-size: 18px;
   }
 
   @include is-pc {
+    text-align: left;
     font-size: 20px;
   }
 }

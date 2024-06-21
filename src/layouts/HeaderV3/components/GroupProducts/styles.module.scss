@@ -17,7 +17,7 @@
   &_inner {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
@@ -41,6 +41,11 @@
       align-items: center;
       gap: 12px;
 
+      img {
+        width: 36px;
+        height: 36px;
+      }
+
       &_text {
         &_title {
           &:hover {
@@ -48,18 +53,18 @@
           }
 
           font-family: var(--font-SFProDisplay);
-          font-size: 16px;
+          font-size: 14px;
           font-weight: 500;
-          line-height: 20.8px;
+          line-height: (20/16);
           text-align: left;
           display: block;
         }
 
         &_bottom {
           font-family: var(--font-SFProDisplay);
-          font-size: 14px;
+          font-size: 12px;
           font-weight: 500;
-          line-height: 18.2px;
+          line-height: (18/14);
           text-align: left;
           display: block;
           color: rgba(#000000, .5);
@@ -73,7 +78,7 @@
   padding: 40px;
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 32px;
 }
 
 .right {
@@ -94,7 +99,7 @@
     padding-left: 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
 
     a:hover {
       text-decoration: underline;

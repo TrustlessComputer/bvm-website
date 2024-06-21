@@ -6,26 +6,25 @@
   padding-bottom: 75px;
   transform: translateY(-2px);
 }
-.brand {
-  display: grid;
-  width: 100%;
-  flex-wrap: wrap;
-  @include is-mobile {
-    row-gap: 32px;
 
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include is-tablet {
-    row-gap: 48px;
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @include is-pc {
-    flex-wrap: nowrap;
-    grid-template-columns: repeat(5, 1fr);
-  }
+.brand {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 
   &_item {
-    width: 289px;
+    flex: 0 0 auto;
     height: auto;
+    width: 50%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    @include is-min-table {
+      width: 33.333%;
+    }
+
+    @include is-pc {
+      width: 20%;
+    }
   }
 }
