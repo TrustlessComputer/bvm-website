@@ -4,9 +4,9 @@ import TitleSection from './TitleSection';
 import BodySection from './BodySection';
 
 const DATA_LIST = [
-  ['Memory', '16GB RAM', '64GB RAM', ' 64GB RAM', 'Custom'],
-  ['CPU', '8 cores', '32 cores', '32 cores', 'Custom'],
-  ['Storage', '320GB SSD', '650GB SSD', '650GB SSD', 'Custom'],
+  ['Memory', '16 GB RAM', '32 GB RAM', ' 64 GB RAM', 'Custom'],
+  ['CPU', '8 cores', '16 cores', '32 cores', 'Custom'],
+  ['Storage', '320 GB SSD', '400 GB SSD', '650 GB SSD', 'Custom'],
 ];
 
 const HackerSection = () => {
