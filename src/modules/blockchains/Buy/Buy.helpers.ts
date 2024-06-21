@@ -45,6 +45,11 @@ export const convertHoursToSeconds = (hours: number) => {
   return hours * 60 * 60; //second
 };
 
+export const convertSecondsToHours = (seconds: number) => {
+  if (!seconds || seconds === 0) return 0;
+  return seconds / 60 / 60; //hours
+};
+
 export const dayDescribe = (day: number) => {
   let str;
   let timer;

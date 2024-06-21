@@ -47,6 +47,13 @@ export enum PRICING_PACKGE {
   Enterprise = 3,
 }
 
+export const PRICING_PACKGE_MAP = {
+  [PRICING_PACKGE.Hacker]: 'Hacker',
+  [PRICING_PACKGE.Growth]: 'Growth',
+  [PRICING_PACKGE.Secure]: 'Secure',
+  [PRICING_PACKGE.Enterprise]: 'Enterprise',
+};
+
 export const PRICING_PACKGE_DATA = {
   [PRICING_PACKGE.Hacker]: {
     maxGasLimit: 1000000000,

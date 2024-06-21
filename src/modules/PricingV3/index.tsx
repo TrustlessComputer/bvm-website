@@ -238,9 +238,10 @@ const PriceModule = () => {
           >
             <Table variant="unstyled">
               <Thead>
-                <Tr bgColor={'#fff'}>
+                <Tr bgColor={'#fff'} borderRadius={'15px'}>
                   <Th
                     h="100px"
+                    borderRadius={'15px'}
                     borderRightWidth={'1px'}
                     borderRightColor={'#E7E7E7'}
                   ></Th>

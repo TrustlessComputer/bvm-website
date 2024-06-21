@@ -6,6 +6,12 @@ import { OrderItem } from '@/stores/states/l2services/types';
 import { formatUnixDateTime } from '@/utils/time';
 import { Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';
 
+import PackageSection from './PackageSection';
+import HardwareSection from './HardwareSection';
+import BlockchainSection from './BlockchainSection';
+
+import s from '../styleFont.module.scss';
+
 type Props = {
   item: OrderItem;
   isOwner?: boolean;
@@ -13,77 +19,12 @@ type Props = {
 
 const BodyInfor = (props: Props) => {
   const { item, isOwner } = props;
-  const mapper = useOrderMapper(item);
-  const renderRowInFor = (label: string, content: string) => {
-    return (
-      <Flex
-        flexDir={'row'}
-        gap={'20px'}
-        align={'center'}
-        justify={'space-between'}
-      >
-        <Text
-          w={'40%'}
-          fontSize={'16px'}
-          fontWeight={600}
-          color={'#000'}
-          textAlign={'left'}
-        >
-          {label}
-        </Text>
-        <Text
-          w={'60%'}
-          fontSize={'16px'}
-          fontWeight={400}
-          color={'#4d4c4c'}
-          textAlign={'right'}
-        >
-          {content}
-        </Text>
-      </Flex>
-    );
-  };
-
   return (
-    <SimpleGrid
-      columns={2}
-      spacing="20px"
-      width={'100%'}
-      height={'auto'}
-      spacingX={'200px'}
-    >
-      {renderRowInFor('Name', `${item.chainName || ''}`)}
-      {!mapper.isLayer1 &&
-        renderRowInFor(
-          'Rollup protocol',
-          `${RollupEnumMap[item.serviceType] || '--'}`,
-        )}
-      {renderRowInFor('Block time', `${mapper.blockTime || ''}`)}
-      {renderRowInFor(
-        'Data availability',
-        `${mapper.dataAvailabilityLayer || ''}`,
-      )}
-      {renderRowInFor('Chain ID', `${item.chainId || '--'}`)}
-      {renderRowInFor('RPC URL', `${item.rpc || 'Pending payment'}`)}
-      {renderRowInFor(
-        'Native token',
-        `${item.preMint === 0 ? 'BVM' : item.ticker || '--'}`,
-      )}
-      {renderRowInFor(
-        'Block explorer URL',
-        `${item.explorer || 'Pending payment'}`,
-      )}
-
-      {renderRowInFor('Deployer', `${mapper.deployer || '--'}`)}
-
-      {renderRowInFor(
-        'Launch date',
-        `${formatUnixDateTime({
-          dateTime: item.createAt,
-          formatPattern: 'MMMM DD, YYYY',
-        })}`,
-      )}
-    </SimpleGrid>
+    <Flex flexDir={'column'} className={s.container} gap={'28px'}>
+      <PackageSection item={item} />
+      <HardwareSection item={item} />
+      <BlockchainSection item={item} />
+    </Flex>
   );
 };
 
