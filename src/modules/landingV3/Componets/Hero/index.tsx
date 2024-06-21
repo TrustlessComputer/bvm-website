@@ -18,6 +18,9 @@ export default function HeroV3() {
     <div className={s.hero} ref={ref}>
       <div className={`${s.inner} containerV3`}>
         <div className={s.content}>
+          <span className={s.topTitle}>
+            ✨ New project
+          </span>
           <h2 className={s.title}>
             <div className={s.title_logo}>
               <IcLogoText />

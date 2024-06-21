@@ -16,8 +16,39 @@
     flex: 0 0 auto;
     height: auto;
     width: 50%;
-    margin-top: 40px;
-    margin-bottom: 40px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 24px;
+    margin-bottom: 24px;
+
+    @include is-min-table {
+      margin-top: 34px;
+      margin-bottom: 34px;
+    }
+
+    @include is-pc {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+
+    &_img {
+      width: 60px;
+      height: 60px;
+    }
+
+    &_text {
+      font-family: var(--font-SFProDisplay);
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 25.2px;
+      text-align: center;
+      display: block;
+      margin-top: 6px;
+      color: black;
+    }
 
     @include is-min-table {
       width: 33.333%;

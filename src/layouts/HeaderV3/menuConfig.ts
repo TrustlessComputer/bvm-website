@@ -45,11 +45,11 @@ export const NAV_ITEMS: Array<NavItem> = [
   //   ],
   // },
 
-  {
-    href: '/whitepaper.pdf',
-    label: 'Whitepaper',
-    isNewWindow: true,
-  },
+  // {
+  //   href: '/whitepaper.pdf',
+  //   label: 'Whitepaper',
+  //   isNewWindow: true,
+  // },
   {
     label: 'BVM',
     href: '/bvm',
