@@ -1,3 +1,4 @@
+import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import {
   DALayerEnum,
   RollupEnum,
@@ -183,7 +184,7 @@ interface IOrderBuyReq {
   cpuCore?: number;
   memory?: number;
   storage?: number;
-  package?: number;
+  package?: PRICING_PACKGE;
   rollupProtocol?: number;
   prover?: number;
   bridgeStatus?: number;

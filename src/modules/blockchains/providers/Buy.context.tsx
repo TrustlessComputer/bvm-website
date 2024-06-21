@@ -33,7 +33,6 @@ import {
   NetworkEnum,
   NetworkEnumMap,
   PluginEnum,
-  PricingPackageEnum,
   ProverEnum,
   RollupEnum,
   RollupEnumMap,
@@ -71,10 +70,11 @@ import {
   setViewMode,
   setViewPage,
 } from '@/stores/states/l2services/reducer';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import useL2Service from '@/hooks/useL2Service';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IOrderBuyReq } from '@/stores/states/l2services/types';
+import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 
 export type IField = {
   value?: string;
@@ -104,6 +104,15 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   const accountInfo = true;
   const { fetchAllData, isL2ServiceLogged } = useL2Service();
   const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
+
+  const searchParams = useSearchParams();
+  let packageParam: any = searchParams.get('package');
+
+  if (packageParam) {
+    packageParam = Number(packageParam) as PRICING_PACKGE;
+  } else {
+    packageParam = PRICING_PACKGE.Growth;
+  }
 
   // ------------------------------------------------------------
   // Text and TextArea Fields
@@ -333,7 +342,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       bitcoinValidity: bitcoinValidity,
       twitter_id: yourXField.value?.trim(),
       prover: proverSelected || ProverEnum.NO,
-      package: PricingPackageEnum.Growth,
+      package: packageParam as PRICING_PACKGE,
     };
 
     if (

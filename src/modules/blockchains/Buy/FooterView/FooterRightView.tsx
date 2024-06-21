@@ -2,6 +2,12 @@ import { Button, Flex, Image, Text } from '@chakra-ui/react';
 import { useBuy } from '../../providers/Buy.hook';
 import s from './styles.module.scss';
 import BigNumber from 'bignumber.js';
+import { useEffect, useMemo } from 'react';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { useSearchParams } from 'next/navigation';
+import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
+import { fetchAvailableList } from '@/stores/states/l2services/actions';
 
 const FooterRightView = () => {
   const {
@@ -14,6 +20,28 @@ const FooterRightView = () => {
     rollupProtocolSelected,
     isSubmiting,
   } = useBuy();
+
+  const dispatch = useAppDispatch();
+  const { availableListFetching, availableList } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
+  const searchParams = useSearchParams();
+  const packageParam = searchParams.get('package') || PRICING_PACKGE.Growth;
+
+  const tierData = useMemo(() => {
+    const packageData = availableList?.package['2'];
+    const result = packageData?.filter((item, index) => {
+      if (item.value === Number(packageParam)) {
+        return true;
+      }
+      return false;
+    });
+    return result ? result[0] : undefined;
+  }, [availableList, packageParam]);
+
+  useEffect(() => {
+    dispatch(fetchAvailableList());
+  }, []);
 
   const renderOption1 = () => {
     return (
@@ -46,9 +74,11 @@ const FooterRightView = () => {
             textAlign={'center'}
             lineHeight={'25px'}
           >
-            {`${new BigNumber(estimateTotalCostData_V2?.TotalCostBVM || 0)
+            {/* {`${new BigNumber(estimateTotalCostData_V2?.TotalCostBVM || 0)
               .decimalPlaces(2)
-              .toString()} BVM`}
+              .toString()} BVM`} */}
+
+            {`${tierData?.priceNote || '--'}`}
           </Text>
           <Text
             fontSize={'16px'}
@@ -58,7 +88,8 @@ const FooterRightView = () => {
             opacity={0.7}
             className={s.fontType2}
           >
-            {`$${estimateTotalCostData_V2?.TotalCostUSD || '--'}`}
+            {/* {`$${estimateTotalCostData_V2?.TotalCostUSD || '--'}`} */}
+            {`${tierData?.price || '--'}`}
           </Text>
         </Flex>
 

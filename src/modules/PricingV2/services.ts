@@ -9,7 +9,6 @@ import {
   MIN_GAS_PRICE,
   NativeTokenPayingGasEnum,
   PluginEnum,
-  PricingPackageEnum,
   RollupEnum,
   ServiceTypeEnum,
   WITHDRAWAL_PERIOD_BOOTSTRAP,
@@ -19,6 +18,7 @@ import {
   getChainIDRandom,
   getRandonComputerName,
 } from '../blockchains/Buy/Buy.helpers';
+import { PRICING_PACKGE } from './constants';
 
 export const orderRegisterBootstrapParams = async () => {
   const isMainnet = true;
@@ -55,7 +55,7 @@ export const orderRegisterBootstrapParams = async () => {
     // twitter_id: yourXField.value?.trim(),
     rollupProtocol: RollupEnum.Rollup_ZK,
 
-    package: PricingPackageEnum.Bootstrap,
+    package: PRICING_PACKGE.Hacker,
     ...HardwareBootstrap,
   };
 
