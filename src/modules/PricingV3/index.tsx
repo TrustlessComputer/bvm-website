@@ -131,8 +131,13 @@ const PriceModule = () => {
           router.push('/blockchains');
         }
       } catch (error) {
-        const { message } = getErrorMessage(error);
-        toast.error(message);
+        // const { message } = getErrorMessage(error);
+        // toast.error(message);
+        dispatch(setViewMode('Mainnet'));
+        dispatch(setViewPage('ManageChains'));
+        dispatch(setShowAllChains(false));
+
+        router.push('/blockchains?hasOrderFailed=true');
       } finally {
         onCloseLoadingModal();
       }
