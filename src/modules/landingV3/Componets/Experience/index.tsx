@@ -8,8 +8,8 @@ export default function Experience({ refParent }: { refParent: MutableRefObject<
 
   return (<div className={s.wrapper}>
     <Canvas flat shadows camera={{ position: [0, 0, 10], fov: 25 }} eventSource={refParent}>
-      <fog attach="fog" args={['#FAF4ED', 15, 22.5]} />
-      <color attach="background" args={['#FAF4ED']} />
+      <fog attach="fog" args={['#F9F9F9', 15, 22.5]} />
+      <color attach="background" args={['#F9F9F9']} />
       <Lego />
       <ambientLight intensity={2.2} color={'#ffffff'} />
       <directionalLight intensity={2.2} color={'#fff'} position={[2, 5, 5]} />
