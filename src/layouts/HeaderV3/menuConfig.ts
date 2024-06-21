@@ -73,6 +73,12 @@ export const NAV_ITEMS: Array<NavItem> = [
     //   },
     // ],
   },
+  {
+    label: 'Pricing',
+    href: '/pricing',
+    isNewWindow: false,
+    isHide: false,
+  },
 ];
 
 export const NAV_ITEMS_MOBILE: Array<NavItem> = [

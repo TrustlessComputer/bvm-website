@@ -87,15 +87,12 @@
     align-items: center;
     justify-content: center;
     margin-right: 12px;
+    margin-top: -.1em;
 
     svg {
-      width: 24px;
       height: auto;
       fill: #fa4e0e !important;
-
-      @include is-tablet {
-        width: 52px;
-      }
+      width: 30px;
     }
   }
 }
