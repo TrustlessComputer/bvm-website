@@ -9,7 +9,13 @@ const DATA_LIST = [
     'Polygon, Celestia, Near DA, Eigen DA',
     'Custom',
   ],
-  ['Max block gas limit', '30,000,000', '50,000,000', ' 100,000,000', 'Custom'],
+  [
+    'Max block gas limit',
+    '1,000,000,000',
+    '2,000,000,000',
+    '4,000,000,000',
+    'Custom',
+  ],
   ['Zk Prover', false, false, true, 'Custom'],
   ['Withdrawal period', '6 hours', '4 hours', '2 hours', 'Custom'],
 ];

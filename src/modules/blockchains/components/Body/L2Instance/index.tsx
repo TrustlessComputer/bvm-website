@@ -4,7 +4,8 @@ import { useAppDispatch } from '@/stores/hooks';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { Box, Divider, Flex } from '@chakra-ui/react';
-import BodyInfor from './BodyInfor';
+// import BodyInfor from './BodyInfor';
+import BodyInfor from './BodyInfor_V2';
 import BottomInfor from './BottomInfor';
 import HeaderRow from './HeaderRow';
 import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
@@ -62,6 +63,7 @@ const L2Instance = (props: Props) => {
             }}
           />
           <Divider my={'20px'} borderColor="gray.200" />
+          {/* <BodyInfor item={item} /> */}
           <BodyInfor item={item} />
           {/* <Divider my={'20px'} borderColor="gray.200" /> */}
           <BottomInfor
