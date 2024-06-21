@@ -9,6 +9,7 @@ import { SubmitFormParams } from '@/services/api/l2services/types';
 import { getError } from '@/utils/error';
 import toast from 'react-hot-toast';
 import { Select } from '@chakra-ui/react';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 const SUBJECT_LIST = [
   `I'd like to build a ZK Rollup on Bitcoin`,
@@ -20,6 +21,7 @@ const SUBJECT_LIST = [
 
 const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
   const [subject, setSubject] = useState(0);
+  const { tracking } = useL2ServiceTracking();
 
   const [yourXAcc, setYourXAcc] = useState('');
   const [yourXAccErrMsg, setYourXAccErrMsg] = useState<string | undefined>(
@@ -67,6 +69,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
   };
 
   const submitHandler = async () => {
+    tracking('SUBMIT_CONTACT_US');
     try {
       let valid = true;
       if (!valideYourXAcc(yourXAcc)) {
