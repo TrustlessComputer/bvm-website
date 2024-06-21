@@ -54,7 +54,7 @@ export default function Lego(props: any): ReactElement {
         setPosition([0, .8, 0]);
       } else if (window.innerWidth < 768) {
         setScale(1);
-        setPosition([0, 1, 0]);
+        setPosition([0, .8, 0]);
       } else {
         setScale(1.7);
         setPosition([1.8, -.25, 0]);
