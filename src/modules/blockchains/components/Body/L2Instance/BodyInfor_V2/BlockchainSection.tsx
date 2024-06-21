@@ -16,7 +16,7 @@ type Props = {
 const BlockchainSection = (props: Props) => {
   const { item } = props;
   const mapper = useOrderMapper(item);
-  const { finalizationPeriod, gasLimit, rpc, prover, explorer } = item;
+  const { finalizationPeriod, gasLimit, rpc, prover, explorer, chainId } = item;
 
   const formatWithdrawalPeriod = useMemo(() => {
     if (!finalizationPeriod) return '--';
@@ -56,7 +56,7 @@ const BlockchainSection = (props: Props) => {
           title="Zk Prover"
           content={`${prover === 1 ? 'Yes' : 'No'}`}
         />
-        <ColumnInfor
+        {/* <ColumnInfor
           title="Max block gas limit"
           content={`${
             `${formatCurrencyV2({
@@ -64,7 +64,8 @@ const BlockchainSection = (props: Props) => {
               decimals: 0,
             })}` || '--'
           }`}
-        />
+        /> */}
+        <ColumnInfor title="Chain ID" content={`${chainId || '--'}`} />
         <ColumnInfor title="RPC URL" content={`${rpc || 'Pending payment'}`} />
         <ColumnInfor
           title="Block explorer URL"

@@ -196,6 +196,7 @@ const PriceModule = () => {
         p="0px"
         bgColor={'#f3f1e8'}
         flexDir={'column'}
+        align={'center'}
       >
         <Flex flexDir={'column'} gap={'15px'}>
           <Text
