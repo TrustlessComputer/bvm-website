@@ -36,36 +36,25 @@ export default function HeroV3() {
               className={`${s.btn} ${s.btn__primary}`}
               onClick={() => router.push('/pricing')}
             >
-              Get started with BitZK
-            </div>{' '}
+              Get started
+            </div>
+            {' '}
             <div
               onClick={() => {
                 showContactUsModal();
               }}
-              className={`${s.btn} ${s.btn__secondary}`}
-            >
-              Connect with a BVM team member
-              {/* <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M6 12L10 8L6 4"
-                  stroke="#FA4E0E"
-                  stroke-width="1.2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg> */}
+              className={`${s.btn} ${s.btn__secondary}`}>
+              Contact us
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 12L10 8L6 4" stroke="#FA4E0E" stroke-width="1.2" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+              </svg>
             </div>
           </div>
         </div>
-        <ScrollMore />
+        <Brand />
+        {/*<ScrollMore />*/}
       </div>
-      <Brand />
       <Experience refParent={ref} />
     </div>
   );
