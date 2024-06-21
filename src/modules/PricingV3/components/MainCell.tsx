@@ -46,7 +46,7 @@ const MainCell = (props: Props) => {
       overflow={'visible'}
       textTransform={'none'}
     >
-      <Flex
+      {/* <Flex
         position={'absolute'}
         borderRadius={'100px'}
         top={'-40px'}
@@ -64,10 +64,24 @@ const MainCell = (props: Props) => {
         className={s.fontJetBrains}
       >
         {type}
-      </Flex>
+      </Flex> */}
       <Text
-        mt={'30px'}
-        fontSize={'15px'}
+        mt={'20px'}
+        fontSize={'20px'}
+        lineHeight={'26px'}
+        fontWeight={500}
+        textAlign={'center'}
+        className={s.fontJetBrains}
+        style={{
+          textWrap: 'wrap',
+        }}
+        opacity={0.7}
+      >
+        {type}
+      </Text>
+      <Text
+        mt={'10px'}
+        fontSize={'16px'}
         lineHeight={'20px'}
         minH={'70px'}
         fontWeight={400}
@@ -116,7 +130,7 @@ const MainCell = (props: Props) => {
             textAlign={'center'}
             className={s.fontJetBrains}
           >
-            {`per chain / month`}
+            {`per rollup / month`}
           </Text>
         </Flex>
       )}

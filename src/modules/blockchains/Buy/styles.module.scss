@@ -1,4 +1,12 @@
 .container {
   width: 100%;
   font-family: var(--font-dmsans);
+
+  .fontJetBrains {
+    font-family: var(--font-JetBrainsMono) !important;
+  }
+
+  .fontSFProDisplay {
+    font-family: var(--font-SFProDisplay) !important;
+  }
 }

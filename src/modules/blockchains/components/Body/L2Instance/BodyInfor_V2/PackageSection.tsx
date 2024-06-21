@@ -10,6 +10,7 @@ import { Flex, Text } from '@chakra-ui/react';
 import { useMemo } from 'react';
 
 import s from '../styleFont.module.scss';
+import BigNumber from 'bignumber.js';
 
 type Props = {
   item: OrderItem;
@@ -18,8 +19,9 @@ type Props = {
 const PackageSection = (props: Props) => {
   const { item } = props;
   const mapper = useOrderMapper(item);
-  const { package: packageValue } = item;
+  const { package: packageValue, packagePrice, packagePriceUSD } = item;
 
+  console.log('ABCDF ---- packageValue ', packageValue);
   const getColors = useMemo(() => {
     switch (item.package) {
       case PRICING_PACKGE.Hacker:
@@ -56,7 +58,7 @@ const PackageSection = (props: Props) => {
         bgClip={'text'}
       >
         {`${
-          (packageValue &&
+          (packageValue !== undefined &&
             PRICING_PACKGE_MAP[packageValue as PRICING_PACKGE]) ||
           '--'
         }`}
@@ -69,7 +71,9 @@ const PackageSection = (props: Props) => {
         bgGradient={`linear(to-r, ${getColors[0]}, ${getColors[1]})`}
         bgClip={'text'}
       >
-        {`$99/month`}
+        {`$${new BigNumber(packagePriceUSD || 0)
+          .decimalPlaces(2)
+          .toString()}/month`}
       </Text>
     </Flex>
   );

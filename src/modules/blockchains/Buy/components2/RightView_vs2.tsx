@@ -21,6 +21,7 @@ import ConfigurationOptionsSection from './ConfigurationOptionsSection';
 import ComputerNameSection from './ComputerNameSection';
 // import ProverSection from './ProverSection';
 import ProverSection from './ProverSection_v2';
+import TierSection from './TierSection';
 
 export type Props = {};
 
@@ -47,6 +48,8 @@ const RightView = React.memo((props: Props) => {
         loaded with DEX, DAO, NFT marketplace, and the whole shebang!
       </Text> */}
       <Flex flexDir={'column'} gap={'20px'} mt={'20px'}>
+        <TierSection />
+
         {/* Computer Name */}
         <ComputerNameSection />
 

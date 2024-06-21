@@ -191,8 +191,7 @@ const PriceModule = () => {
   return (
     <Flex bgColor={'#f3f1e8'} flex={1} className={s.container}>
       <Flex
-        maxW={'1800px'}
-        minW={'100dvw'}
+        maxW={'1650px'}
         p="0px"
         bgColor={'#f3f1e8'}
         flexDir={'column'}
@@ -250,13 +249,9 @@ const PriceModule = () => {
                     borderRadius={'15px'}
                     borderRightWidth={'1px'}
                     borderRightColor={'#E7E7E7'}
+                    minWidth={'220px'}
                   ></Th>
-                  <Th
-                    w={'22%'}
-                    maxW={'22%'}
-                    borderRightWidth={'1px'}
-                    borderRightColor={'#E7E7E7'}
-                  >
+                  <Th borderRightWidth={'1px'} borderRightColor={'#E7E7E7'}>
                     <MainCell
                       type="Hacker"
                       description="The easiest way to launch your own ZK Rollup on Bitcoin"
@@ -280,12 +275,7 @@ const PriceModule = () => {
                       }
                     />
                   </Th>
-                  <Th
-                    w={'22%'}
-                    maxW={'22%'}
-                    borderRightWidth={'1px'}
-                    borderRightColor={'#E7E7E7'}
-                  >
+                  <Th borderRightWidth={'1px'} borderRightColor={'#E7E7E7'}>
                     <MainCell
                       type="Growth"
                       description="Scale your Bitcoin ZK rollup as you go"
@@ -309,12 +299,7 @@ const PriceModule = () => {
                       }
                     />
                   </Th>
-                  <Th
-                    w={'22%'}
-                    maxW={'22%'}
-                    borderRightWidth={'1px'}
-                    borderRightColor={'#E7E7E7'}
-                  >
+                  <Th borderRightWidth={'1px'} borderRightColor={'#E7E7E7'}>
                     <MainCell
                       type="Secure"
                       description="Fully secure your Bitcoin ZK rollup with a cryptographic prover"
@@ -338,7 +323,7 @@ const PriceModule = () => {
                       }
                     />
                   </Th>
-                  <Th w={'22%'} maxW={'22%'}>
+                  <Th>
                     <MainCell
                       type="Enterprise"
                       description="For organizations who need customization, BVM engineering team access, and dedicated support"

@@ -53,7 +53,7 @@ const BlockchainSection = (props: Props) => {
           content={`${mapper.dataAvailabilityLayer || ''}`}
         />
         <ColumnInfor
-          title="Zk Prover"
+          title="ZK Prover"
           content={`${prover === 1 ? 'Yes' : 'No'}`}
         />
         {/* <ColumnInfor
@@ -66,10 +66,15 @@ const BlockchainSection = (props: Props) => {
           }`}
         /> */}
         <ColumnInfor title="Chain ID" content={`${chainId || '--'}`} />
-        <ColumnInfor title="RPC URL" content={`${rpc || 'Pending payment'}`} />
         <ColumnInfor
-          title="Block explorer URL"
+          title="RPC"
+          content={`${rpc || 'Pending payment'}`}
+          isPendingPayment={!rpc}
+        />
+        <ColumnInfor
+          title="Block explorer"
           content={`${explorer || 'Pending payment'}`}
+          isPendingPayment={!rpc}
         />
         <ColumnInfor
           title="Withdrawal period"

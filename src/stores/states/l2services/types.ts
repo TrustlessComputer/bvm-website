@@ -105,6 +105,8 @@ interface OrderItemResp {
   memory?: number;
   storage?: number;
   gasLimit?: number;
+  packagePrice?: number;
+  packagePriceUSD?: number;
 }
 
 interface HistoryItemResp {

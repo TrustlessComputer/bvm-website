@@ -81,7 +81,7 @@ const TopupModal = (props: IProps) => {
         <Text
           fontSize={'15px'}
           fontWeight={400}
-          color={'#6C6F93'}
+          color={'#31323d'}
           textAlign={'center'}
         >
           Please send
@@ -93,10 +93,10 @@ const TopupModal = (props: IProps) => {
         <Text
           fontSize={'15px'}
           fontWeight={400}
-          color={'#6C6F93'}
+          color={'#31323d'}
           textAlign={'center'}
         >
-          Not enough BVM? No worries --{' '}
+          Not enough BVM? No worries -{' '}
           <Text
             as="span"
             fontWeight={700}
@@ -161,7 +161,7 @@ const TopupModal = (props: IProps) => {
       <Text
         fontSize={'15px'}
         fontWeight={400}
-        color={'#6C6F93'}
+        color={'#31323d'}
         textAlign={'center'}
         w={'90%'}
       >
@@ -169,9 +169,9 @@ const TopupModal = (props: IProps) => {
         <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
           {` ${order?.needToTopupBalanceFormatted} BVM `}
         </Text>
-        to the following wallet address below
+        to the following wallet address below.
         <Text>
-          Not enough BVM? No worries --{' '}
+          Not enough BVM? No worries -{' '}
           <Text
             as="span"
             fontWeight={700}
