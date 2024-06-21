@@ -100,6 +100,7 @@ const PriceModule = () => {
         onOpenLoadingModal();
 
         const orderBuyReq = await orderRegisterBootstrapParams();
+
         const result = await orderBuyAPI(orderBuyReq);
 
         await sleep(1);

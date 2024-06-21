@@ -261,16 +261,6 @@ export const ProverEnumMap = {
   [ProverEnum.YES]: 'Yes',
 };
 
-export enum PricingPackageEnum {
-  Bootstrap = 0,
-  Growth = 1,
-}
-
-export const PricingPackageEnumMap = {
-  [PricingPackageEnum.Bootstrap]: 'Bootstrap',
-  [PricingPackageEnum.Growth]: 'Growth',
-};
-
 export const HardwareBootstrap = {
   cpuCore: 8,
   memory: 16,
