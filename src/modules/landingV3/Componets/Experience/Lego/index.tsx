@@ -7,7 +7,7 @@ import { Euler } from 'three';
 export default function Lego(props: any): ReactElement {
   const refGroup = useRef(null);
   const [scale, setScale] = useState(1.6);
-  const [position, setPosition] = useState([1.8, -.2, 0]);
+  const [position, setPosition] = useState<any>([1.8, -.2, 0]);
 
   const { nodes, materials } = useGLTF('/LEGO_4.glb');
   useFrame((state, delta) => {
