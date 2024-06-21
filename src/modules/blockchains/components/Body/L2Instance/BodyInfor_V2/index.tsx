@@ -6,6 +6,7 @@ import { Flex } from '@chakra-ui/react';
 import BlockchainSection from './BlockchainSection';
 import HardwareSection from './HardwareSection';
 import WarningSection from './WarningSection';
+import PackageSection from './PackageSection';
 
 import s from '../styleFont.module.scss';
 
@@ -19,7 +20,7 @@ const BodyInfor = (props: Props) => {
   return (
     <Flex flexDir={'column'} className={s.container} gap={'28px'}>
       <WarningSection item={item} />
-      {/* <PackageSection item={item} /> */}
+      <PackageSection item={item} />
       <HardwareSection item={item} />
       <BlockchainSection item={item} />
     </Flex>

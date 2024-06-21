@@ -18,6 +18,7 @@ const BodySection = (props: Props) => {
             return (
               <Td
                 key={`${value}-${index2}`}
+                minWidth={'220px'}
                 fontWeight={500}
                 fontSize={'14px'}
                 style={{

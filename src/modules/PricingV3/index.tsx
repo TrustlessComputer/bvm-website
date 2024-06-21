@@ -249,6 +249,7 @@ const PriceModule = () => {
                     borderRadius={'15px'}
                     borderRightWidth={'1px'}
                     borderRightColor={'#E7E7E7'}
+                    minWidth={'220px'}
                   ></Th>
                   <Th borderRightWidth={'1px'} borderRightColor={'#E7E7E7'}>
                     <MainCell
