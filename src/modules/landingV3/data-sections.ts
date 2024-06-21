@@ -16,7 +16,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
   {
     title: 'Tailored to your needs',
     children: `Build faster on Bitcoin with all the best building blocks in the BVM Module Store. BVM provides a modular framework to tailor your ZK rollup to your app.`,
-    image: '/bvm/home-section-1.jpg',
+    image: '/bvm/home-top-thumbnail.jpg',
     // button: {
     //   link: '/module',
     //   title: 'Explore BVM Module Store'

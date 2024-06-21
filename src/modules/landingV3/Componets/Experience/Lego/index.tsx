@@ -2,7 +2,13 @@ import { Decal, Float, Outlines, useGLTF, useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { ReactElement, useEffect, useRef, useState } from 'react';
 import { easing } from 'maath';
-import { Euler } from 'three';
+import {
+  Euler,
+  LinearFilter,
+  LinearMipmapLinearFilter,
+  LinearMipmapNearestFilter,
+  NearestMipmapLinearFilter,
+} from 'three';
 
 export default function Lego(props: any): ReactElement {
   const refGroup = useRef(null);
@@ -40,26 +46,29 @@ export default function Lego(props: any): ReactElement {
     </>;
   };
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    const resize = ()=>{
-        if(window.innerWidth < 1200 && window.innerWidth >= 768){
-          setScale(1);
-          setPosition([0,.8,0])
-        }else if(window.innerWidth < 768){
-          setScale(1);
-          setPosition([0,1,0]);
-        }else{
-          setScale(1.7);
-          setPosition([1.8, -.25, 0])
-        }
-    }
+    const resize = () => {
+      if (window.innerWidth < 1200 && window.innerWidth >= 768) {
+        setScale(1);
+        setPosition([0, .8, 0]);
+      } else if (window.innerWidth < 768) {
+        setScale(1);
+        setPosition([0, 1, 0]);
+      } else {
+        setScale(1.7);
+        setPosition([1.8, -.25, 0]);
+      }
+    };
 
     resize();
     window.addEventListener('resize', resize);
-  }, [])
+  }, []);
 
-  const textMap = useTexture('/glb/logo.jpg');
+  const textMap = useTexture('/glb/logo.jpg', () => {
+    textMap.minFilter = LinearFilter;
+  });
+
   return <Float position={position}>
     <group ref={refGroup} {...props} scale={scale} rotation={[.1, -2.5, -.1]}>
       <mesh castShadow receiveShadow geometry={(nodes.Cube as any).geometry} material={materials.mat12}>
