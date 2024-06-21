@@ -1,4 +1,4 @@
-import { Decal, Float, useGLTF, useTexture } from '@react-three/drei';
+import { Decal, Float, Outlines, useGLTF, useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { ReactElement, useEffect, useState } from 'react';
 import { easing } from 'maath';
@@ -28,12 +28,20 @@ export default function Lego(props: any): ReactElement {
   }, []);
 
 
-  const textMap = useTexture('/glb/logo.jpg');
-  return <Float position={[0, 0.75, 0]}>
-    <group {...props} scale={.6} rotation={[.15, -2.5, -.1]}>
+  const CustomMesh = (): ReactElement=>{
 
+
+    return <>
+      <meshStandardMaterial color={'#C7D5E1'} />
+      <Outlines thickness={0.002} color={'#686A6C'} />
+    </>
+  }
+
+  const textMap = useTexture('/glb/logo.jpg');
+  return <Float position={[1.6, 0, 0]}>
+    <group {...props} scale={.8} rotation={[.1, -2.5, -.1]}>
       <mesh castShadow receiveShadow geometry={(nodes.Cube as any).geometry} material={materials.mat12}>
-        <meshStandardMaterial color={'#C7D5E1'} />
+      <CustomMesh />
       </mesh>
       <mesh
         castShadow
@@ -41,16 +49,16 @@ export default function Lego(props: any): ReactElement {
         geometry={(nodes.VIDEO_MESH as any).geometry}
         material={materials.mat12}
       >
-        <meshStandardMaterial color={'#C7D5E1'} />
-        {/*<Decal position={[0, 0, -1]} scale={[-2, 1, 1]} rotation={new Euler(0, 0, 0)}>*/}
-        {/*  <meshStandardMaterial*/}
-        {/*    transparent*/}
-        {/*    polygonOffset*/}
-        {/*    polygonOffsetFactor={-10}*/}
-        {/*  >*/}
-        {/*    <videoTexture attach="map" args={[video]} />*/}
-        {/*  </meshStandardMaterial>*/}
-        {/*</Decal>*/}
+        <CustomMesh />
+        <Decal position={[0, 0, -1]} scale={[-2, 1, 1]} rotation={new Euler(0, 0, 0)}>
+          <meshStandardMaterial
+            transparent
+            polygonOffset
+            polygonOffsetFactor={-10}
+          >
+            <videoTexture attach="map" args={[video]} />
+          </meshStandardMaterial>
+        </Decal>
       </mesh>
       <mesh
         castShadow
@@ -58,16 +66,16 @@ export default function Lego(props: any): ReactElement {
         geometry={(nodes.LOGO_MESH as any).geometry}
         material={materials.mat12}
       >
-        <meshStandardMaterial color={'#C7D5E1'} />
-        {/*<Decal castShadow={false} receiveShadow={false} position={[1, 0, 0]} scale={1.1} rotation={Math.PI as any}>*/}
-        {/*  <meshStandardMaterial*/}
-        {/*    color={'#C7D5E1'}*/}
-        {/*    polygonOffset*/}
-        {/*    polygonOffsetFactor={-1}*/}
-        {/*    map={textMap}*/}
-        {/*    map-flipY={false}*/}
-        {/*  />*/}
-        {/*</Decal>*/}
+        <CustomMesh />
+        <Decal castShadow={false} receiveShadow={false} position={[1, 0, 0]} scale={1.1} rotation={Math.PI as any}>
+          <meshStandardMaterial
+            color={'#C7D5E1'}
+            polygonOffset
+            polygonOffsetFactor={-1}
+            map={textMap}
+            map-flipY={false}
+          />
+        </Decal>
       </mesh>
       <mesh
         castShadow
@@ -77,7 +85,7 @@ export default function Lego(props: any): ReactElement {
         position={[0.654, 0.705, 0.236]}
         scale={1.162}
       >
-        <meshStandardMaterial color={'#C7D5E1'} />
+        <CustomMesh />
       </mesh>
       <mesh
         castShadow
@@ -87,7 +95,7 @@ export default function Lego(props: any): ReactElement {
         position={[0.654, 0.705, -0.237]}
         scale={1.162}
       >
-        <meshStandardMaterial color={'#C7D5E1'} />
+        <CustomMesh />
       </mesh>
       <mesh
         castShadow
@@ -97,7 +105,7 @@ export default function Lego(props: any): ReactElement {
         position={[0.005, 0.705, 0.236]}
         scale={1.162}
       >
-        <meshStandardMaterial color={'#C7D5E1'} />
+        <CustomMesh />
       </mesh>
       <mesh
         castShadow
@@ -107,7 +115,7 @@ export default function Lego(props: any): ReactElement {
         position={[0.005, 0.705, -0.237]}
         scale={1.162}
       >
-        <meshStandardMaterial color={'#C7D5E1'} />
+        <CustomMesh />
       </mesh>
       <mesh
         castShadow
@@ -117,7 +125,7 @@ export default function Lego(props: any): ReactElement {
         position={[-0.76, 0.705, 0.236]}
         scale={1.162}
       >
-        <meshStandardMaterial color={'#C7D5E1'} />
+        <CustomMesh />
       </mesh>
       <mesh
         castShadow
@@ -127,7 +135,7 @@ export default function Lego(props: any): ReactElement {
         position={[-0.76, 0.705, -0.237]}
         scale={1.162}
       >
-        <meshStandardMaterial color={'#C7D5E1'} />
+        <CustomMesh />
       </mesh>
 
     </group>
