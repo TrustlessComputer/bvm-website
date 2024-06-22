@@ -64,7 +64,7 @@ const BodyGridView = () => {
         justify={'center'}
       >
         <Text fontSize={'25px'} fontWeight={700} color={'#000'}>
-          No ZK-powered Blockchains available
+          No rollups available
         </Text>
         <Image
           src={'/blockchains/customize/ic-empty.svg'}

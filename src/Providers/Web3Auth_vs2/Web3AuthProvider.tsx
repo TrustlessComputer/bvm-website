@@ -12,7 +12,6 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { useDispatch } from 'react-redux';
 import Web3AuthLoginModalCustomize from './LoginModalCustomize';
 import web3AuthNoModal from './Web3Auth.initNoModal';
 import { IWeb3AuthContext } from './Web3Auth.types';
@@ -137,13 +136,15 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
           // LocalStorage.setItem(STORAGE_KEYS.API_ACCESS_TOKEN, l2ServiceAccessToken);
           // LocalStorage.setItem(STORAGE_KEYS.WEB3_AUTH_TOKEN, idToken);
 
-          LocalStorage.setItem(
-            STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2,
-            l2ServiceAccessToken,
-          );
-          LocalStorage.setItem(STORAGE_KEYS.WEB3AUTH_ID_TOKEN_V2, idToken);
-          l2ServicesAPI.setAccesTokenHeader(l2ServiceAccessToken);
-          dispatch(fetchAccountInfo());
+          if (l2ServiceAccessToken) {
+            LocalStorage.setItem(
+              STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2,
+              l2ServiceAccessToken,
+            );
+            LocalStorage.setItem(STORAGE_KEYS.WEB3AUTH_ID_TOKEN_V2, idToken);
+            l2ServicesAPI.setAccesTokenHeader(l2ServiceAccessToken);
+            dispatch(fetchAccountInfo());
+          }
         } else {
           l2ServicesAPI.setAccesTokenHeader(apiAccesstToken);
         }
