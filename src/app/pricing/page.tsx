@@ -3,6 +3,8 @@
 import MainLayout from '@/layouts/MainLayout';
 // import PricingV2 from '@/modules/PricingV2';
 import Pricing from '@/modules/PricingV3';
+import PricingMobile from '@/modules/PricingV3/MobileMode';
+import { isMobile } from 'react-device-detect';
 
 export default function Builder() {
   return (
@@ -13,7 +15,7 @@ export default function Builder() {
       }}
       hideFooter={true}
     >
-      <Pricing />
+      {isMobile ? <PricingMobile /> : <Pricing />}
     </MainLayout>
   );
 }
