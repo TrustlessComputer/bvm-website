@@ -4,7 +4,6 @@ import {
   BitcoinValidityEnum,
   BlockTimeEnum,
   DALayerEnum,
-  GAS_LITMIT,
   HardwareBootstrap,
   MIN_GAS_PRICE,
   NativeTokenPayingGasEnum,
@@ -18,7 +17,7 @@ import {
   getChainIDRandom,
   getRandonComputerName,
 } from '../blockchains/Buy/Buy.helpers';
-import { PRICING_PACKGE } from './constants';
+import { PRICING_PACKGE, PRICING_PACKGE_DATA } from './constants';
 
 export const orderRegisterBootstrapParams = async () => {
   const isMainnet = true;
@@ -50,7 +49,7 @@ export const orderRegisterBootstrapParams = async () => {
     userName: '',
     pluginIds: [PluginEnum.Plugin_Bridge],
     nativeTokenPayingGas: NativeTokenPayingGasEnum.NativeTokenPayingGas_BVM,
-    gasLimit: GAS_LITMIT,
+    gasLimit: PRICING_PACKGE_DATA[PRICING_PACKGE.Hacker].maxGasLimit,
     bitcoinValidity: BitcoinValidityEnum.BitcoinValidity_Ordinals,
     // twitter_id: yourXField.value?.trim(),
     rollupProtocol: RollupEnum.Rollup_ZK,
