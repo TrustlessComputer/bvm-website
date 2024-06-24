@@ -393,6 +393,30 @@ export const revokeAuthentication = async (): Promise<void> => {
   }
 };
 
+export const uploadLogoFile = async (
+  file: File,
+): Promise<string | undefined> => {
+  const accessToken = getAPIAccessToken();
+  if (!accessToken) return undefined;
+  try {
+    let formData = new FormData();
+    formData.append('file', file);
+    const result: string = await httpClient.post(
+      `/order/upload/file`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `${getAPIAccessToken()}`,
+        },
+      },
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 type L2serviceTrackingParams = {
   eventLabel: string;
   tcAddress?: string;
@@ -455,6 +479,7 @@ const l2ServicesAPI = {
   orderDetailByID,
 
   L2ServiceTracking,
+  uploadLogoFile,
 };
 
 export default l2ServicesAPI;

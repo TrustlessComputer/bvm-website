@@ -193,7 +193,8 @@ interface IOrderBuyReq {
 interface IOrderUpdate {
   chainName: string;
   description: string;
-  thumb: string;
+  thumb?: string;
+  logoURL?: string;
 }
 
 interface IOrderBuyEstimateRespone {

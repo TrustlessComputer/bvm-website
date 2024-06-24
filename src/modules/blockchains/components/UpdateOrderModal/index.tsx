@@ -1,7 +1,16 @@
 import BaseModal from '@/components/BaseModal';
 import TextInput from '@/components/TextInput/TextInput';
 import l2ServicesAPI, { orderDetailByID } from '@/services/api/l2services';
-import { Button, Flex, Image, Spinner, Text, Textarea } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  Image,
+  ListItem,
+  Spinner,
+  Text,
+  Textarea,
+  UnorderedList,
+} from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
 
@@ -22,6 +31,7 @@ import toast from 'react-hot-toast';
 import ErrorMessage from '../../Buy/components/ErrorMessage';
 import DropFile from './DropFile';
 
+const MAXIMUM_FILE_UPLOAD = 1; //1 MB
 const TITLE_ERROR_MESSAGE = 'Rollup name is required';
 const DESC_ERROR_MESSAGE = 'Description is required';
 
@@ -45,10 +55,6 @@ const UpdateOrderModal = (props: IProps) => {
   const [desc, setDesc] = useState(item?.description || '');
   const [descError, setDescError] = useState('');
   const [descFocused, setDescFocused] = useState(false);
-
-  const [logoUrl, setLogoUrl] = useState(item?.thumb || '');
-  const [logoUrlError, setLogoUrlError] = useState('');
-  const [logoUrlFocused, setLogoUrlFocused] = useState(false);
 
   const [isFetchingData, setFetchingData] = useState<boolean>(false);
   const [isUpdating, setUpdating] = useState<boolean>(false);
@@ -86,16 +92,27 @@ const UpdateOrderModal = (props: IProps) => {
     return 'Confirm';
   }, [isFetchingData, isUpdating]);
 
+  const uploadLogoHandler = async () => {
+    if (!rawFile) return;
+    try {
+      return l2ServicesAPI.uploadLogoFile(rawFile);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const updateInforHandler = async () => {
     try {
-      if (!item || !chainName || !desc) return;
+      if (!item || !chainName) return;
 
       setUpdating(true);
+
+      const logoURL = await uploadLogoHandler();
 
       const params: IOrderUpdate = {
         chainName: chainName,
         description: desc,
-        thumb: logoUrl,
+        logoURL: logoURL || '',
       };
 
       const data: OrderItem = await l2ServicesAPI.orderUpdateAPI(
@@ -103,12 +120,8 @@ const UpdateOrderModal = (props: IProps) => {
         item?.orderId,
       );
 
-      console.log('1 DATA --- ', data);
-
       if (data) {
         const newData = await orderDetailByID(item?.orderId);
-
-        console.log('2 newData --- ', newData);
 
         if (newData) {
           toast.success(
@@ -321,11 +334,6 @@ const UpdateOrderModal = (props: IProps) => {
   };
 
   const handleChangeFile = (file: File | undefined): void => {
-    console.log('------ FILE ::: ', file);
-    const logBuffer = async () => {
-      console.log('----- buffer ::: ', await file?.arrayBuffer());
-    };
-    logBuffer();
     setRawFile(file);
   };
 
@@ -351,16 +359,22 @@ const UpdateOrderModal = (props: IProps) => {
         </Flex>
 
         <DropFile
-          labelText={'Upload your image file here (png, svg, jpg, jpeg)'}
+          labelText={'Upload your image file here'}
           className={s.dropZoneContainer}
           acceptedFileType={['png', 'svg', 'jpg', 'jpeg']}
-          maxSize={2} //3 MB
+          maxSize={MAXIMUM_FILE_UPLOAD} //unit MB
           onChange={handleChangeFile}
           fileOrFiles={rawFile ? [rawFile] : undefined}
           onErrorCB={(message) => {
             setRawFile(undefined);
           }}
         />
+
+        <UnorderedList color={'#6C6F93'} fontSize={'14px'} fontWeight={500}>
+          <ListItem>{'Supported file formats: svg, png, jpng, jpeg'}</ListItem>
+          <ListItem>{`Maximum file size: ${MAXIMUM_FILE_UPLOAD} MB`}</ListItem>
+          <ListItem>{`Recommended image sizes: 200x200`}</ListItem>
+        </UnorderedList>
       </Flex>
     );
   };
