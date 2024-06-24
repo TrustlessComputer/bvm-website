@@ -1,6 +1,7 @@
 import { DEVELOPERS_DOC_URL } from '@/config';
 import { NavItem } from '@layouts/Header/menuConfig';
 import GroupProducts from '@layouts/HeaderV3/components/GroupProducts';
+import GroupDeveloper from '@layouts/HeaderV3/components/GroupDeveloper';
 
 export const NAV_ITEMS: Array<NavItem> = [
   {
@@ -8,29 +9,32 @@ export const NAV_ITEMS: Array<NavItem> = [
     href: '#',
     isNewWindow: false,
     isHide: false,
+    groupType: 'production',
     GroupDropDown: GroupProducts,
   },
   {
     label: 'Developers',
     isNewWindow: false,
     isHide: false,
-    subMenu: [
-      {
-        href: 'https://docs.bvm.network/bvm/quickstart/create-a-zk-powered-blockchain',
-        label: 'Launch a Bitcoin ZK rollup',
-        isNewWindow: true,
-      },
-      {
-        href: 'https://docs.bvm.network/bvm/quickstart/connect-to-zk-powered-blockchains',
-        label: 'Connect to a Bitcoin ZK rollup',
-        isNewWindow: true,
-      },
-      {
-        href: 'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps',
-        label: 'Build your first Bitcoin dapps',
-        isNewWindow: true,
-      },
-    ],
+    groupType: 'developers',
+    GroupDropDown: GroupDeveloper,
+    // subMenu: [
+    //   {
+    //     href: 'https://docs.bvm.network/bvm/quickstart/create-a-zk-powered-blockchain',
+    //     label: 'Launch a Bitcoin ZK rollup',
+    //     isNewWindow: true,
+    //   },
+    //   {
+    //     href: 'https://docs.bvm.network/bvm/quickstart/connect-to-zk-powered-blockchains',
+    //     label: 'Connect to a Bitcoin ZK rollup',
+    //     isNewWindow: true,
+    //   },
+    //   {
+    //     href: 'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps',
+    //     label: 'Build your first Bitcoin dapps',
+    //     isNewWindow: true,
+    //   },
+    // ],
   },
   {
     label: 'Research',

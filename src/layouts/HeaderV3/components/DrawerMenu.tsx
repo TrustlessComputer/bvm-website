@@ -21,16 +21,12 @@ export type HeaderProps = {
 
 const DrawerMobileMenu = (props: HeaderProps) => {
 
-  const { isProductionOpen, hide } = useHeaderMobile();
+  const { groupType, hide } = useHeaderMobile();
   const onClose = () => {
 
-    isProductionOpen ? hide() : props.onToggle();
+    console.log('___groupType', groupType);
+    groupType !== null ? hide() : props.onToggle();
   };
-
-  console.log('____render', isProductionOpen);
-  useEffect(() => {
-    console.log('___change', isProductionOpen);
-  }, [isProductionOpen]);
 
   return (
     <Drawer

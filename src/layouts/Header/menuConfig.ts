@@ -4,6 +4,7 @@ import {
   WHITEPAPER_DOC_URL,
 } from '@/config';
 import { ReactElement } from 'react';
+import { IGroupType } from '@layouts/HeaderV3/useHeaderMobile';
 
 export interface NavItem {
   label: string;
@@ -16,6 +17,7 @@ export interface NavItem {
   isStrong?: boolean;
   subMenu?: any;
   isGroup?: boolean;
+  groupType?: IGroupType;
   GroupDropDown?: () => ReactElement;
 }
 
