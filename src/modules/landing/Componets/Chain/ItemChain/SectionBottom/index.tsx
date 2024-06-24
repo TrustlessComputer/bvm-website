@@ -75,7 +75,7 @@ export default function SectionBottom({
               fontSize={'14px'}
               onClick={() => {
                 scrollTo();
-                // router.push('/blockchains/customize');
+                // router.push('/rollups/customize');
               }}
               _hover={{
                 opacity: 0.8,

@@ -37,7 +37,7 @@ const ButtonLoginTwitter = (props: Props) => {
         if (!loggedIn) {
           handleConnect();
         } else {
-          router.push('/blockchains');
+          router.push('/rollups');
         }
       }}
       onMouseEnter={() => setIsHover(true)}
@@ -55,7 +55,7 @@ const ButtonLoginTwitter = (props: Props) => {
               className={s.dropdown_inner_item}
               onClick={(e: any) => {
                 if (e.stopPropagation) e.stopPropagation();
-                router.push('/blockchains');
+                router.push('/rollups');
               }}
             >
               <SvgInset svgUrl="/landingV3/svg/chain.svg" />

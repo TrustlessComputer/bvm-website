@@ -74,7 +74,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import useL2Service from '@/hooks/useL2Service';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IOrderBuyReq } from '@/stores/states/l2services/types';
-import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
+import {
+  PRICING_PACKGE,
+  PRICING_PACKGE_DATA,
+} from '@/modules/PricingV2/constants';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 export type IField = {
@@ -115,6 +118,10 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   } else {
     packageParam = PRICING_PACKGE.Growth;
   }
+
+  const pricingPackageValues = useMemo(() => {
+    return PRICING_PACKGE_DATA[packageParam as PRICING_PACKGE];
+  }, [packageParam]);
 
   // ------------------------------------------------------------
   // Text and TextArea Fields
@@ -221,8 +228,9 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   const [withdrawalPeriodSelected, setWithdrawalPeriodSelected] =
     useState<number>(WITHDRAWAL_PERIOD_BOOTSTRAP); // V2
 
-  const [blockGasLimitSelected, setBlockGasLimitSelected] =
-    useState<number>(GAS_LITMIT); // V2
+  const [blockGasLimitSelected, setBlockGasLimitSelected] = useState<number>(
+    pricingPackageValues.maxGasLimit || GAS_LITMIT,
+  ); // V2
 
   const [nativeTokenPayingGasSelected, setNativeTokenPayingGasSelected] =
     useState<number>(NativeTokenPayingGasEnum.NativeTokenPayingGas_BVM);
@@ -340,7 +348,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       isMainnet: isMainnet,
       pluginIds: [PluginEnum.Plugin_Bridge],
       nativeTokenPayingGas: nativeTokenPayingGasSelected,
-      gasLimit: Number(blockGasLimitSelected) || GAS_LITMIT,
+      gasLimit: Number(blockGasLimitSelected),
       bitcoinValidity: bitcoinValidity,
       twitter_id: yourXField.value?.trim(),
       prover: proverSelected || ProverEnum.NO,
@@ -393,6 +401,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     computerNameField,
     proverSelected,
     blockGasLimitField,
+    blockGasLimitSelected,
   ]);
 
   const submitFormParams: SubmitFormParams = {
@@ -754,7 +763,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
         await sleep(1);
 
-        router.push('/blockchains');
+        router.push('/rollups');
       }
     } catch (error) {
       // const { message } = getErrorMessage(error);
@@ -763,7 +772,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       dispatch(setViewMode('Mainnet'));
       dispatch(setViewPage('ManageChains'));
       dispatch(setShowAllChains(false));
-      router.push('/blockchains?hasOrderFailed=true');
+      router.push('/rollups?hasOrderFailed=true');
     } finally {
       console.log('[orderBuyHandler] finally: ');
       setSubmiting(false);

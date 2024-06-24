@@ -16,7 +16,7 @@ const DATA_LIST = [
     '4,000,000,000',
     'Custom',
   ],
-  ['Zk Prover', false, false, true, 'Custom'],
+  ['ZK Prover', false, false, true, 'Custom'],
   ['Withdrawal period', '6 hours', '4 hours', '2 hours', 'Custom'],
 ];
 

@@ -23,7 +23,8 @@ const Footer = () => {
           />
           <p className={`${s.title}`}>ETERNAL AI</p>
           <p className={`${s.description}`}>
-            An open AI infrastructure that benefits all humankind and is owned by none.
+            An open AI infrastructure that benefits all humankind and is owned
+            by none.
           </p>
           <div className={`${s.wrapperBtn}`}>
             {/*<Button isWhite onClick={()=>{*/}
@@ -53,7 +54,7 @@ const Footer = () => {
             <Fade delayEnter={2}>
               <Button
                 onClick={() => {
-                  router.push('/blockchains/customize');
+                  router.push('/rollups/customize');
                 }}
                 className={`${s.btn}`}
                 isWhite

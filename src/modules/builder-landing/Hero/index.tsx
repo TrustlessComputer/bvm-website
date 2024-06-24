@@ -91,7 +91,7 @@ export default function BuilderHero() {
                 <button
                   onClick={() => {
                     scrollTo();
-                    // router.push('/blockchains/customize');
+                    // router.push('/rollups/customize');
                   }}
                   className={classNames(s.btn, s.btn__red)}
                 >

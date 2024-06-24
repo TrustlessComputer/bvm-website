@@ -67,17 +67,17 @@ const Hydrated = ({ children }: { children?: any }) => {
 
                 // lastSubUrl = lastSubUrl.replaceAll('buy', 'customize');
                 // if (lastSubUrl.includes('trustless-computers-iframe')) {
-                //   window.history.replaceState({}, '', '/blockchains');
+                //   window.history.replaceState({}, '', '/rollups');
                 // } else {
                 //   window.history.replaceState(
                 //     {},
                 //     '',
-                //     '/blockchains/' + lastSubUrl,
+                //     '/rollups/' + lastSubUrl,
                 //   );
                 // }
 
                 if (lastSubUrl === 'buy') {
-                  router.replace('/blockchains/customize');
+                  router.replace('/rollups/customize');
                 } else {
                 }
               }

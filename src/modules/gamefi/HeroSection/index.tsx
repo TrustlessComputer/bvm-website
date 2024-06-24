@@ -11,7 +11,7 @@ const heroGameFiData = [
     subBtnTitle: 'Need an example? Explore Bitcoin Arcade now!',
     subBtnIcon: '/icons/arrow-right.svg',
     heroThumbnail: '/gamefi/compress/gamefi_hero.png',
-    btnHref: '/blockchains/customize',
+    btnHref: '/rollups/customize',
     subBtnIconHref: 'https://play.bitcoinarcade.xyz',
   },
 ];

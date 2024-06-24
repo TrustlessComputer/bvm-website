@@ -15,7 +15,7 @@ const Hero = () => {
       <Heading title={title} desc={desc} className={s.hero_content} />
       <Button
         onClick={() => {
-          router.push('/blockchains/customize');
+          router.push('/rollups/customize');
         }}
         className={`${s.btn}`}
         isOrange

@@ -70,7 +70,7 @@ export const BuyPage = React.memo((props: Props) => {
           separator={<ChevronRightIcon color="gray.500" />}
         >
           <BreadcrumbItem>
-            <BreadcrumbLink href="/blockchains">Blockchains</BreadcrumbLink>
+            <BreadcrumbLink href="/rollups">Blockchains</BreadcrumbLink>
           </BreadcrumbItem>
 
           <BreadcrumbItem isCurrentPage>
@@ -137,7 +137,7 @@ export const BuyPage = React.memo((props: Props) => {
               bgColor: '#e5601b',
             }}
             onClick={() => {
-              router.push('/blockchains');
+              router.push('/rollups');
             }}
           >
             Check your ZK-powered Blockchain
