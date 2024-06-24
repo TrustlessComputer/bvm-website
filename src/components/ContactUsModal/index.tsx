@@ -20,7 +20,7 @@ const SUBJECT_LIST = [
 ];
 
 const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
-  const [subject, setSubject] = useState(0);
+  const [subject, setSubject] = useState(3);
   const { tracking } = useL2ServiceTracking();
 
   const [yourXAcc, setYourXAcc] = useState('');
@@ -287,7 +287,8 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 Subject
               </Text>
               <Select
-                defaultValue={SUBJECT_LIST[subject]}
+                defaultValue={SUBJECT_LIST[3]}
+                value={subject}
                 height={'50px'}
                 borderRadius={'8px'}
                 border={'0.5px solid #c2c2c2'}
@@ -298,7 +299,11 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
               >
                 {SUBJECT_LIST.map((subject, index) => {
                   return (
-                    <option key={subject + index} value={index}>
+                    <option
+                      key={subject + index}
+                      value={index}
+                      defaultValue={SUBJECT_LIST[3]}
+                    >
                       {SUBJECT_LIST[index]}
                     </option>
                   );

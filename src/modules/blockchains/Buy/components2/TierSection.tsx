@@ -41,7 +41,7 @@ const TierSection = () => {
 
   return (
     <>
-      <Section title="Tier"></Section>
+      <Section title="Plan"></Section>
       <Flex
         mt={'-4px'}
         flexDir={'row'}
@@ -59,7 +59,17 @@ const TierSection = () => {
             {`${tierData?.valueStr || '--'}`}
           </Text>
           <Text fontSize={'18px'} fontWeight={400} lineHeight={'28px'}>
-            {`${tierData?.price || '--'} per rollup/month`}
+            {`${tierData?.price || '--'}`}
+            <Text
+              as={'span'}
+              fontSize={'15px'}
+              fontWeight={400}
+              lineHeight={'28px'}
+              opacity={0.7}
+            >
+              {` (${tierData?.priceNote || '--'}) `}
+            </Text>
+            per rollup/month
           </Text>
         </Flex>
         <Flex
@@ -74,7 +84,7 @@ const TierSection = () => {
             router.push('/pricing');
           }}
         >
-          Change other tier
+          Switch plan
         </Flex>
       </Flex>
     </>
