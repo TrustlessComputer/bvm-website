@@ -11,29 +11,31 @@ export default function GroupProducts(): ReactElement {
           <h4 className={s.title}>QUICKSTART</h4>
           <ul className={s.group_inner}>
             <li className={s.simpleGroup_link}>
-              <Link href={'https://docs.bvm.network/bvm/quickstart/create-a-zk-rollup-on-bitcoin'} target={'_blank'}>Create
-                a ZK rollup on Bitcoin</Link>
+              <Link href={'https://docs.bvm.network/bvm/quickstart/create-a-zk-rollup-on-bitcoin'} target={'_blank'}>
+                Create a ZK rollup on Bitcoin
+              </Link>
             </li>
             <li className={s.simpleGroup_link}>
               <Link href={'https://docs.bvm.network/bvm/quickstart/issue-your-own-governance-token'}
                     target={'_blank'}>
-                Issue your own governance token</Link>
+                Issue your own governance token
+              </Link>
             </li>
             <li className={s.simpleGroup_link}>
               <Link href={'https://docs.bvm.network/bvm/quickstart/raise-funds-for-your-project-through-a-crowdsale'}
-                    target={'_blank'}>Raise funds for your project through a Crowdsale
+                    target={'_blank'}>Raise funds through a Crowdsale
               </Link>
             </li>
             <li className={s.simpleGroup_link}>
               <Link href={'https://docs.bvm.network/bvm/quickstart/operate-your-community-driven-project-using-a-dao'}
-                    target={'_blank'}>Operate your community-driven project using a DAO
+                    target={'_blank'}>Operate your project using a DAO
               </Link>
             </li>
           </ul>
         </div>
 
         <div className={s.group}>
-          <h4 className={s.title}>Tutorials: BUILD DAPPS ON BITCOIN</h4>
+          <h4 className={s.title}>GUIDES: BUILD DAPPS ON BITCOIN</h4>
           <ul className={s.group_inner}>
             <li className={s.simpleGroup_link}>
               <Link href={'https://docs.bvm.network/bvm/guides-build-dapps-on-bitcoin/brc-721-nfts'} target={'_blank'}>BRC-721:
@@ -55,7 +57,7 @@ export default function GroupProducts(): ReactElement {
         </div>
 
         <div className={s.group}>
-          <h4 className={s.title}>Tutorials: BUILD AI ON BITCOIN</h4>
+          <h4 className={s.title}>GUIDES: BUILD AI ON BITCOIN</h4>
           <ul className={s.group_inner}>
             <li className={s.simpleGroup_link}>
               <Link href={'https://docs.bvm.network/bvm/build-ai-on-bitcoin/decentralized-ai-beginner'}
@@ -69,7 +71,7 @@ export default function GroupProducts(): ReactElement {
         </div>
 
         <div className={s.group}>
-          <h4 className={s.title}>Tutorials: BUILD PROTOCOLS ON BITCOIN</h4>
+          <h4 className={s.title}>GUIDES: BUILD PROTOCOLS ON BITCOIN</h4>
           <ul className={s.group_inner}>
             <li className={s.simpleGroup_link}>
               <Link href={'https://docs.bvm.network/bvm/build-protocols-on-bitcoin/bfs-build-an-ipfs-alternative'}
@@ -91,7 +93,7 @@ export default function GroupProducts(): ReactElement {
       </div>
       <div className={s.right}>
         <div className={s.simpleGroup}>
-          <h4 className={s.title}>How it work</h4>
+          <h4 className={s.title}>How it works</h4>
           <ul className={s.simpleGroup_list}>
             <li className={s.simpleGroup_link}>
               <Link href={'https://docs.bvm.network/bvm/blockchain-architecture/zk-rollups-on-bitcoin'}

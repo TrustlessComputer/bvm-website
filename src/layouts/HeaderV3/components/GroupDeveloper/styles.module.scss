@@ -106,6 +106,8 @@
   padding: 40px 40px 140px 40px;
   @include is-pc {
     padding: 40px;
+    flex: 0 0 auto;
+    width: 300px;
   }
 
   ul {
@@ -137,9 +139,9 @@
   pointer-events: none;
 }
 
-.simpleGroup_link{
-  a{
-    &:hover{
+.simpleGroup_link {
+  a {
+    &:hover {
       text-decoration: underline;
     }
   }
