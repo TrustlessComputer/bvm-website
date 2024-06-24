@@ -405,8 +405,6 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     pricingPackageValues,
   ]);
 
-  console.log('PPPPPPP ----  orderBuyReq ', orderBuyReq);
-
   const submitFormParams: SubmitFormParams = {
     bitcoinL2Name: computerNameField.value || '--',
     // bitcoinL2Name: getRandonComputerName_VS2(isMainnet) || '--',
