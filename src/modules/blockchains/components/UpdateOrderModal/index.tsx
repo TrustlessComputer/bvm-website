@@ -1,48 +1,29 @@
 import BaseModal from '@/components/BaseModal';
-import {
-  Button,
-  Flex,
-  Spinner,
-  Text,
-  Textarea,
-  Image,
-  Popover,
-  PopoverArrow,
-  PopoverContent,
-  PopoverTrigger,
-} from '@chakra-ui/react';
-import { useEffect, useMemo, useState } from 'react';
-import s from './styles.module.scss';
 import TextInput from '@/components/TextInput/TextInput';
 import l2ServicesAPI, { orderDetailByID } from '@/services/api/l2services';
+import { Button, Flex, Image, Spinner, Text, Textarea } from '@chakra-ui/react';
+import { useEffect, useMemo, useState } from 'react';
+import s from './styles.module.scss';
 
-import { isEmpty } from 'lodash';
-import ErrorMessage from '../../Buy/components/ErrorMessage';
-import {
-  IOrderUpdate,
-  MetaConfig,
-  OrderItem,
-  OrderStatus,
-  WebsiteConfig,
-} from '@/stores/states/l2services/types';
-import { getErrorMessage } from '@/utils/errorV2';
-import toast from 'react-hot-toast';
-import sleep from '@/utils/sleep';
-import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { useAppDispatch } from '@/stores/hooks';
 import {
   setOrderSelected,
   updateOrderByNewOrder,
 } from '@/stores/states/l2services/reducer';
-
-const checkImageURL = (url: string) => {
-  return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
-};
+import {
+  IOrderUpdate,
+  OrderItem,
+  OrderStatus,
+} from '@/stores/states/l2services/types';
+import { getErrorMessage } from '@/utils/errorV2';
+import sleep from '@/utils/sleep';
+import { isEmpty } from 'lodash';
+import toast from 'react-hot-toast';
+import ErrorMessage from '../../Buy/components/ErrorMessage';
+import DropFile from './DropFile';
 
 const TITLE_ERROR_MESSAGE = 'Rollup name is required';
 const DESC_ERROR_MESSAGE = 'Description is required';
-const LOGOURL_ERROR_MESSAGE = 'Thumb url is required';
-const LOGOURL_INVALID_ERROR_MESSAGE = 'Thumb url is invalid format';
 
 interface IProps {
   show: boolean;
@@ -75,6 +56,26 @@ const UpdateOrderModal = (props: IProps) => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined,
   );
+
+  const [rawFile, setRawFile] = useState<File | undefined>(undefined);
+
+  const [preview, setPreview] = useState<string | null>(null);
+
+  const floadFilePreview = async (file: File | undefined) => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreview(null);
+    }
+  };
+
+  useEffect(() => {
+    floadFilePreview(rawFile);
+  }, [rawFile]);
 
   const isSubmitDisabled = useMemo(() => {
     return isFetchingData || isUpdating;
@@ -141,21 +142,12 @@ const UpdateOrderModal = (props: IProps) => {
       valid = false;
     }
 
-    if (isEmpty(desc)) {
-      setDescError(DESC_ERROR_MESSAGE);
-      setDescFocused(true);
-      valid = false;
-    } else if (descError) {
-      setDescFocused(true);
-      valid = false;
-    }
-
-    // if (isEmpty(logoUrl)) {
-    //   setLogoUrlError(LOGOURL_ERROR_MESSAGE);
-    //   setLogoUrlFocused(true);
+    // if (isEmpty(desc)) {
+    //   setDescError(DESC_ERROR_MESSAGE);
+    //   setDescFocused(true);
     //   valid = false;
-    // } else if (logoUrlError) {
-    //   setLogoUrlFocused(true);
+    // } else if (descError) {
+    //   setDescFocused(true);
     //   valid = false;
     // }
 
@@ -194,32 +186,6 @@ const UpdateOrderModal = (props: IProps) => {
           {buttonTitle}
         </Button>
       </Flex>
-    );
-  };
-
-  const renderCancelThisRollup = () => {
-    if (item?.status !== OrderStatus.WaitingPayment) return null;
-    return (
-      <Text
-        marginTop={'20px'}
-        opacity={0.7}
-        color={'#F44915'}
-        _hover={{
-          cursor: 'pointer',
-          opacity: 0.8,
-        }}
-        _disabled={{
-          opacity: 0.5,
-        }}
-        align={'center'}
-        fontSize={'14px'}
-        lineHeight={'19px'}
-        onClick={() => {
-          cancelThisRollupOnClick && cancelThisRollupOnClick();
-        }}
-      >
-        {'Cancel this rollup'}
-      </Text>
     );
   };
 
@@ -334,11 +300,11 @@ const UpdateOrderModal = (props: IProps) => {
           }}
           onChange={(e) => {
             const value = e.target.value;
-            if (!value || value.length < 1) {
-              setDescError(DESC_ERROR_MESSAGE);
-            } else {
-              setDescError('');
-            }
+            // if (!value || value.length < 1) {
+            //   setDescError(DESC_ERROR_MESSAGE);
+            // } else {
+            //   setDescError('');
+            // }
             setDesc(value);
           }}
           onFocus={(e: any) => {
@@ -354,7 +320,16 @@ const UpdateOrderModal = (props: IProps) => {
     );
   };
 
-  const renderThumbURLField = () => {
+  const handleChangeFile = (file: File | undefined): void => {
+    console.log('------ FILE ::: ', file);
+    const logBuffer = async () => {
+      console.log('----- buffer ::: ', await file?.arrayBuffer());
+    };
+    logBuffer();
+    setRawFile(file);
+  };
+
+  const renderLogoField = () => {
     return (
       <Flex
         direction={'column'}
@@ -363,12 +338,7 @@ const UpdateOrderModal = (props: IProps) => {
         w={'100%'}
         gap={'8px'}
       >
-        <Flex
-          flexDir={'row'}
-          w={'100%'}
-          align={'center'}
-          justify={'space-between'}
-        >
+        <Flex flexDir={'column'} w={'100%'}>
           <Text
             fontSize={'14px'}
             fontWeight={500}
@@ -380,39 +350,26 @@ const UpdateOrderModal = (props: IProps) => {
           </Text>
         </Flex>
 
-        <TextInput
-          minH={'50px'}
-          borderColor={'#bebebe'}
-          fontSize={'14px'}
-          placeholder="Logo (Ex: http://abc.[png, jpg, jpeg, svg] )"
-          id={'TITLE'}
-          name={'TITLE'}
-          isInvalid={!!logoUrlError && !!logoUrlFocused}
-          value={`${logoUrl || ''}`}
-          onBlur={() => {
-            setLogoUrlFocused(true);
-          }}
-          onFocus={(e: any) => {
-            setLogoUrlFocused(true);
-          }}
-          onChange={(e: any) => {
-            const value = e.target.value;
-            // if (!value || value.length < 1) {
-            //   setLogoUrlError('Thumb url is required');
-            // } else if (!checkImageURL(value)) {
-            //   setLogoUrlError(LOGOURL_INVALID_ERROR_MESSAGE);
-            // } else {
-            //   setLogoUrlError('');
-            // }
-            setLogoUrl(value);
+        <DropFile
+          labelText={'Upload your image file here (png, svg, jpg, jpeg)'}
+          className={s.dropZoneContainer}
+          acceptedFileType={['png', 'svg', 'jpg', 'jpeg']}
+          maxSize={2} //3 MB
+          onChange={handleChangeFile}
+          fileOrFiles={rawFile ? [rawFile] : undefined}
+          onErrorCB={(message) => {
+            setRawFile(undefined);
           }}
         />
-
-        {logoUrlError && logoUrlFocused && (
-          <ErrorMessage message={logoUrlError} />
-        )}
       </Flex>
     );
+  };
+
+  const renderPreviewLogo = () => {
+    if (preview) {
+      return <Image w="auto" h={'150px'} fit={'contain'} src={preview} />;
+    }
+    return null;
   };
 
   const renderLoading = () => {
@@ -478,10 +435,10 @@ const UpdateOrderModal = (props: IProps) => {
         )}
 
         {renderChainNameField()}
-        {renderThumbURLField()}
         {renderDescField()}
+        {renderLogoField()}
+        {renderPreviewLogo()}
         {renderSubmitButton()}
-        {/* {renderCancelThisRollup()} */}
       </Flex>
     );
   };
