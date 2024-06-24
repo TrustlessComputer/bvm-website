@@ -60,7 +60,7 @@
     padding-bottom: 154px;
     padding-top: 216px;
     align-items: flex-start;
-    max-width: 540px;
+    max-width: 640px;
   }
 
   &_heading {
@@ -99,20 +99,20 @@
 
 .subTitle {
   font-family: var(--font-JetBrainsMono);
-  font-size: 34px;
+  font-size: 28px;
   font-weight: 700;
   line-height: (76/64);
   color: black;
   text-align: center;
 
   @include is-min-table {
-    font-size: 48px;
+    font-size: 36px;
     max-width: 1200px;
   }
 
   @include is-pc {
     text-align: left;
-    font-size: 52px;
+    font-size: 44px;
   }
 
   strong {
@@ -136,6 +136,7 @@
   @include is-pc {
     text-align: left;
     font-size: 20px;
+    max-width: 520px;
   }
 }
 
