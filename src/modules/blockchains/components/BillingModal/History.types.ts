@@ -31,6 +31,7 @@ export enum HistoryStatus {
   HistoryStatus_Failed,
   HistoryStatus_Insufficient,
   HistoryStatus_Invalid,
+  HistoryStatus_TimedOut,
 }
 
 export const HistoryStatusMap = {
@@ -40,6 +41,7 @@ export const HistoryStatusMap = {
   [HistoryStatus.HistoryStatus_Failed]: 'Failed',
   [HistoryStatus.HistoryStatus_Insufficient]: 'Insufficient',
   [HistoryStatus.HistoryStatus_Invalid]: 'Invalid',
+  [HistoryStatus.HistoryStatus_TimedOut]: 'TimedOut',
 };
 
 export const HistoryStatusColorMap = {
@@ -49,6 +51,7 @@ export const HistoryStatusColorMap = {
   [HistoryStatus.HistoryStatus_Failed]: '#FF0000',
   [HistoryStatus.HistoryStatus_Insufficient]: '#FFA500',
   [HistoryStatus.HistoryStatus_Invalid]: '#FFA500',
+  [HistoryStatus.HistoryStatus_TimedOut]: '#FFA500',
 };
 
 export type InstanceInfoType = {

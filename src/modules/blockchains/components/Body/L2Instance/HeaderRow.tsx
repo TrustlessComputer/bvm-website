@@ -67,7 +67,20 @@ const HeaderRow = (props: Props) => {
           {/* {`${mapper.computerIndexer || `#${item.index}`}`} */}
           {`${item.chainName || '--'}`}
         </Text>
-        <Image
+        {item.status === OrderStatus.WaitingPayment && (
+          <Image
+            src={`/icons/pencil_edit_grey.svg`}
+            fit={'contain'}
+            maxW={'24px'}
+            maxH={'24px'}
+            onClick={(event: any) => {
+              if (event.stopPropagation) event.stopPropagation();
+              editOnClick && editOnClick();
+            }}
+          />
+        )}
+
+        {/* <Image
           src={`/icons/pencil_edit_grey.svg`}
           fit={'contain'}
           maxW={'24px'}
@@ -76,7 +89,7 @@ const HeaderRow = (props: Props) => {
             if (event.stopPropagation) event.stopPropagation();
             editOnClick && editOnClick();
           }}
-        />
+        /> */}
       </Flex>
 
       {renderStatus()}

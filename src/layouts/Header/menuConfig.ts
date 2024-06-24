@@ -28,7 +28,7 @@ export const MenuBuild = {
   isHide: false,
   subMenu: [
     {
-      href: '/blockchains',
+      href: '/rollups',
       label: 'Bitcoin L2s',
       isNewWindow: false,
     },
@@ -149,7 +149,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isHide: false,
   //   subMenu: [
   //     {
-  //       href: '/blockchains',
+  //       href: '/rollups',
   //       label: 'Bitcoin L2s',
   //       isNewWindow: false,
   //     },
@@ -195,7 +195,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   // },
   // {
   //   label: 'Bitcoin L2s',
-  //   href: '/blockchains',
+  //   href: '/rollups',
   //   isNewWindow: false,
   //   isHide: false,
   // },
@@ -294,7 +294,7 @@ export const NAV_ITEMS: Array<NavItem> = [
   // {
   //   label: 'Try BVM',
   //   isTwitter: true,
-  //   href: '/blockchains/customize',
+  //   href: '/rollups/customize',
   //   isNewWindow: false,
   //   isHide: false,
   // },

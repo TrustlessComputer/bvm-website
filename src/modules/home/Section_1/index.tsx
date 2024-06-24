@@ -80,7 +80,7 @@ const Section_1 = () => {
               fontWeight={400}
               fontSize={'20px'}
               onClick={() => {
-                router.push('/blockchains/customize');
+                router.push('/rollups/customize');
               }}
             >
               {`Build your Bitcoin L2`}

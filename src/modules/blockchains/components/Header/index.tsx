@@ -157,7 +157,7 @@ const HeaderView = () => {
               bgColor: '#e5601b',
             }}
             onClick={() => {
-              // router.push('/blockchains/customize');
+              // router.push('/rollups/customize');
               router.push('/pricing');
             }}
           >

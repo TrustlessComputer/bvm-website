@@ -91,7 +91,7 @@ const PriceModule = () => {
             time={'2s, 5s, 10s'}
             support={'Discord support'}
             titleAction={'Get started'}
-            action={'/blockchains/customize'}
+            action={'/rollups/customize'}
           >
             <h1>Free trial</h1>
           </PriceCard>
@@ -106,7 +106,7 @@ const PriceModule = () => {
             time={'2s, 5s, 10s'}
             support={'Discord support'}
             titleAction={'Get started'}
-            action={'/blockchains/customize'}
+            action={'/rollups/customize'}
           >
             <h1>
               {' '}
@@ -149,7 +149,7 @@ const PriceModule = () => {
             }
             support={'Dedicated support'}
             titleAction={'Get started'}
-            action={'/blockchains/customize'}
+            action={'/rollups/customize'}
           >
             <h1>
               {`${apiData[1]?.TotalCost || 0}`} BVM<small>/month</small>

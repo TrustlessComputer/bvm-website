@@ -40,7 +40,7 @@ export default function BasicHero() {
             <li>
               <Fade delay={delay + 0.4}>
                 <button
-                  onClick={() => router.push('/blockchains/customize')}
+                  onClick={() => router.push('/rollups/customize')}
                   className={`${s.btn} ${s.btn__red}`}
                 >
                   Deploy a Bitcoin L2

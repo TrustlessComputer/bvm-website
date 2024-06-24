@@ -21,14 +21,15 @@ export default function HeroContent() {
           </Chars>
           <div className={s.heroContent_content}>
             <Lines delayEnter={6.1}>
-              Powerful infrastructure and tools to build and scale your own Bitcoin L2 with ease.
+              Powerful infrastructure and tools to build and scale your own
+              Bitcoin L2 with ease.
             </Lines>
           </div>
           <ul className={s.heroContent_actions}>
             <li>
               <Fade delayEnter={6.5}>
                 <button
-                  onClick={() => router.push('/blockchains/customize')}
+                  onClick={() => router.push('/rollups/customize')}
                   className={`${s.btn} ${s.btn__red}`}
                 >
                   Deploy a Bitcoin L2
@@ -57,8 +58,8 @@ export default function HeroContent() {
                 className={s.contact_item}
                 onClick={() => showContactUsModal()}
               >
-                  Contact us
-                </span>
+                Contact us
+              </span>
             </div>
           </Fade>
         </div>
@@ -77,13 +78,13 @@ export default function HeroContent() {
               style={{ margin: 'auto', marginBottom: '8px' }}
             />
             <span style={{ fontSize: '14px', fontWeight: 400 }}>
-                    Watch the film
-                  </span>
+              Watch the film
+            </span>
           </a>
         </div>
       </Fade>
       <ModalVideo
-        channel='custom'
+        channel="custom"
         url={'/public-sale/public_sale_video_2.mp4'}
         isOpen={isOpen}
         onClose={() => {

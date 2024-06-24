@@ -60,7 +60,7 @@ const UserInforBox: React.FC = (): React.ReactElement => {
         cursor: 'pointer',
       }}
       onClick={() => {
-        router.push('/blockchains');
+        router.push('/rollups');
       }}
     >
       <Avatar

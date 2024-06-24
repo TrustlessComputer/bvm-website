@@ -84,14 +84,12 @@ const Contact = () => {
 
   const renderGroupButton = () => {
     return (
-
       <Flex
         display={'flex'}
         flex={1}
         flexDirection={'column'}
         gap={['20px', '24px']}
       >
-
         <Flex
           flexDir={'column'}
           align={'left'}
@@ -116,7 +114,8 @@ const Contact = () => {
             fontWeight={400}
             color={'#000'}
           >
-            It’s easy to customize and launch your own Bitcoin L2 blockchain—just a few clicks.
+            It’s easy to customize and launch your own Bitcoin L2
+            blockchain—just a few clicks.
           </Text>
           <Box h={'24px'}></Box>
           <Button
@@ -133,7 +132,7 @@ const Contact = () => {
             fontWeight={400}
             fontSize={'16px'}
             onClick={() => {
-              router.push('/blockchains/customize');
+              router.push('/rollups/customize');
             }}
             _hover={{
               opacity: 0.8,
@@ -194,7 +193,6 @@ const Contact = () => {
         {/*    View details*/}
         {/*  </Button>*/}
         {/*</Flex>*/}
-
       </Flex>
     );
   };

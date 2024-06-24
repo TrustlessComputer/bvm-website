@@ -1,4 +1,3 @@
-
 import ContainerDiv from '@/components/Container';
 import HeroFi from '@/components/HeroFI';
 
@@ -12,7 +11,7 @@ const heroGameFiData = [
     subBtnTitle: 'Need an example? Explore Bitcoin Arcade now!',
     subBtnIcon: '/icons/arrow-right.svg',
     heroThumbnail: '/defi/compress/deFi_hero.png',
-    btnHref: '/blockchains/customize',
+    btnHref: '/rollups/customize',
     subBtnIconHref: 'https://nakachain.xyz/perpetual',
   },
 ];

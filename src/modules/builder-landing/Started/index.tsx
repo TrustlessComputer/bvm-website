@@ -19,7 +19,7 @@ export default function Started() {
                 <IConContent
                   step={1}
                   title={'Launch now'}
-                  link={'/blockchains/customize'}
+                  link={'/rollups/customize'}
                   icon={'builder/step-1.png'}
                 >
                   Launch Bitcoin L2 testnet FOR FREE in a few clicks

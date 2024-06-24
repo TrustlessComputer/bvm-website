@@ -1,5 +1,5 @@
 export const MIN_GAS_PRICE = 1; // 1 gweis
-export const GAS_LITMIT = 30000000; //
+export const GAS_LITMIT = 1000000000; //
 export const MIN_GAS_LIMIT = 10000000; //
 export const MAX_GAS_LIMIT = 30000000; //
 export const STEP_GAS_LIMIT = 1000000; //

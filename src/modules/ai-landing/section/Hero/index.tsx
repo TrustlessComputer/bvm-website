@@ -94,14 +94,14 @@ export default function Hero(): React.JSX.Element {
               <HomeTitle delayEnter={DELAY} className={`${s.mainHeading}`}>
                 <span>Project</span> Truly Open AI
               </HomeTitle>
-              <Fade delayEnter={DELAY + .1}>
+              <Fade delayEnter={DELAY + 0.1}>
                 <p className={s.desc}>
                   An open AI infrastructure that benefits all humankind and is
                   owned by none.
                 </p>
               </Fade>
               <div className={`${s.wrapperBtn}`}>
-                <Fade delayEnter={DELAY + .2}>
+                <Fade delayEnter={DELAY + 0.2}>
                   <Button
                     onClick={() => {
                       window.open('https://eternalai.org/');
@@ -117,10 +117,10 @@ export default function Hero(): React.JSX.Element {
                   {/*  Launchpad*/}
                   {/*</Button>*/}
                 </Fade>
-                <Fade delayEnter={DELAY + .3}>
+                <Fade delayEnter={DELAY + 0.3}>
                   <Button
                     onClick={() => {
-                      router.push('/blockchains/customize');
+                      router.push('/rollups/customize');
                     }}
                     className={`${s.btn}`}
                     isWhite
@@ -128,15 +128,17 @@ export default function Hero(): React.JSX.Element {
                     Deploy an AI chain
                   </Button>
                 </Fade>
-                <Fade delayEnter={DELAY + .4}>
+                <Fade delayEnter={DELAY + 0.4}>
                   <Button
                     onClick={() => {
-                      window.open('https://docs.bvm.network/bvm/build-ai-on-bitcoin/decentralized-ai-beginner')
+                      window.open(
+                        'https://docs.bvm.network/bvm/build-ai-on-bitcoin/decentralized-ai-beginner',
+                      );
                     }}
                     className={`${s.btn}`}
                     isWhite
                   >
-                   Deploy an AI dapp
+                    Deploy an AI dapp
                   </Button>
                 </Fade>
               </div>
@@ -158,8 +160,10 @@ export default function Hero(): React.JSX.Element {
                   </a>
                 </div>
               </Fade> */}
-              <Fade delayEnter={DELAY + .5}>
-                <div><HeroLabel /></div>
+              <Fade delayEnter={DELAY + 0.5}>
+                <div>
+                  <HeroLabel />
+                </div>
               </Fade>
             </div>
           </HomeContainer>

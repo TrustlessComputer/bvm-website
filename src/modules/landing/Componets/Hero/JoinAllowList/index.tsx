@@ -186,7 +186,7 @@ const JoinAllowList = ({ isFooter }: { isFooter?: boolean }) => {
                 loadingText={'Submitting...'}
                 className={s.button}
                 onClick={() => {
-                  router.push('/blockchains/customize');
+                  router.push('/rollups/customize');
                 }}
               >
                 Launch your Bitcoin L2

@@ -24,14 +24,13 @@ const BlockGasLimitSection = () => {
 
   const packageData = useMemo(() => {
     let result;
-
     if (!packageParam) {
       result = PRICING_PACKGE_DATA[PRICING_PACKGE.Hacker];
     } else {
       result = PRICING_PACKGE_DATA[Number(packageParam) as PRICING_PACKGE];
     }
 
-    setBlockGasLimitSelected(result.minGasLimit);
+    setBlockGasLimitSelected(result.maxGasLimit);
 
     return result;
   }, [packageParam]);
