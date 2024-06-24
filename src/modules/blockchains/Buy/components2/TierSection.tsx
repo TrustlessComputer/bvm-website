@@ -59,17 +59,9 @@ const TierSection = () => {
             {`${tierData?.valueStr || '--'}`}
           </Text>
           <Text fontSize={'18px'} fontWeight={400} lineHeight={'28px'}>
-            {`${tierData?.price || '--'}`}
-            <Text
-              as={'span'}
-              fontSize={'15px'}
-              fontWeight={400}
-              lineHeight={'28px'}
-              opacity={0.7}
-            >
-              {` (${tierData?.priceNote || '--'}) `}
-            </Text>
-            per rollup/month
+            {`${tierData?.price || '--'} (${
+              tierData?.priceNote || '--'
+            }) per rollup/month`}
           </Text>
         </Flex>
         <Flex

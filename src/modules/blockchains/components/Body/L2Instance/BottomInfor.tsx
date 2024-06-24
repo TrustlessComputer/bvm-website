@@ -111,6 +111,7 @@ const BottomInfor = (props: Props) => {
     if (!isAddToMetamask) return null;
     return (
       <Button
+        mt={'15px'}
         borderRadius={'15px'}
         minH={'50px'}
         color={'#17066c'}
