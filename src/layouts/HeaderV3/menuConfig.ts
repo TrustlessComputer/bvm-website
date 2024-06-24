@@ -11,39 +11,41 @@ export const NAV_ITEMS: Array<NavItem> = [
     GroupDropDown: GroupProducts,
   },
   {
+    label: 'Developers',
+    isNewWindow: false,
+    isHide: false,
+    subMenu: [
+      {
+        href: 'https://docs.bvm.network/bvm/quickstart/create-a-zk-powered-blockchain',
+        label: 'Launch a Bitcoin ZK rollup',
+        isNewWindow: true,
+      },
+      {
+        href: 'https://docs.bvm.network/bvm/quickstart/connect-to-zk-powered-blockchains',
+        label: 'Connect to a Bitcoin ZK rollup',
+        isNewWindow: true,
+      },
+      {
+        href: 'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps',
+        label: 'Build your first Bitcoin dapps',
+        isNewWindow: true,
+      },
+    ],
+  },
+  {
     label: 'Research',
     href: '/research',
     isNewWindow: false,
     isHide: false,
   },
+
   {
     label: 'Team',
     href: '/team',
     isNewWindow: false,
     isHide: false,
   },
-  // {
-  //   label: 'Docs',
-  //   isNewWindow: false,
-  //   isHide: false,
-  //   subMenu: [
-  //     {
-  //       href: '/roadmap',
-  //       label: 'Roadmap',
-  //       isNewWindow: false,
-  //     },
-  //     {
-  //       href: 'https://docs.bvm.network/bvm',
-  //       label: 'Developer Docs',
-  //       isNewWindow: true,
-  //     },
-  //     {
-  //       href: '/whitepaper.pdf',
-  //       label: 'Whitepaper v1',
-  //       isNewWindow: false,
-  //     },
-  //   ],
-  // },
+
 
   // {
   //   href: '/whitepaper.pdf',
