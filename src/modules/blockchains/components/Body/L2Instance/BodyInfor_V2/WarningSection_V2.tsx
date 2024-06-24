@@ -53,7 +53,7 @@ const WarningSection = (props: Props) => {
             textDecorationLine={'underline'}
             textUnderlineOffset={'2px'}
             textDecorationThickness={'1px'}
-            color={'#F19100'}
+            color={'#2c04f5'}
             _hover={{
               cursor: 'pointer',
               opacity: 0.8,
