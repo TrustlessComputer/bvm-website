@@ -21,7 +21,6 @@ const PackageSection = (props: Props) => {
   const mapper = useOrderMapper(item);
   const { package: packageValue, packagePrice, packagePriceUSD } = item;
 
-  console.log('ABCDF ---- packageValue ', packageValue);
   const getColors = useMemo(() => {
     switch (item.package) {
       case PRICING_PACKGE.Hacker:
