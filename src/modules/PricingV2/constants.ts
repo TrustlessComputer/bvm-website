@@ -61,7 +61,7 @@ export const PRICING_PACKGE_DATA = {
     stepGasLimit: 10000000,
     minWithdrawalPeriod: 6,
     maxWithdrawalPeriod: 24,
-    prover: false,
+    prover: 0,
   },
   [PRICING_PACKGE.Growth]: {
     maxGasLimit: 2000000000,
@@ -69,7 +69,7 @@ export const PRICING_PACKGE_DATA = {
     stepGasLimit: 10000000,
     minWithdrawalPeriod: 4,
     maxWithdrawalPeriod: 24,
-    prover: false,
+    prover: 0,
   },
   [PRICING_PACKGE.Secure]: {
     maxGasLimit: 4000000000,
@@ -77,7 +77,7 @@ export const PRICING_PACKGE_DATA = {
     stepGasLimit: 10000000,
     minWithdrawalPeriod: 2,
     maxWithdrawalPeriod: 24,
-    prover: true,
+    prover: 1,
   },
   [PRICING_PACKGE.Enterprise]: {
     maxGasLimit: 1000000000,
@@ -85,6 +85,6 @@ export const PRICING_PACKGE_DATA = {
     stepGasLimit: 10000000,
     minWithdrawalPeriod: 6,
     maxWithdrawalPeriod: 24,
-    prover: false,
+    prover: 0,
   },
 };

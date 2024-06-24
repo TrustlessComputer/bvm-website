@@ -351,7 +351,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       gasLimit: Number(blockGasLimitSelected),
       bitcoinValidity: bitcoinValidity,
       twitter_id: yourXField.value?.trim(),
-      prover: proverSelected || ProverEnum.NO,
+      prover: pricingPackageValues.prover || ProverEnum.NO,
       package: packageParam as PRICING_PACKGE,
     };
 
@@ -402,7 +402,10 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     proverSelected,
     blockGasLimitField,
     blockGasLimitSelected,
+    pricingPackageValues,
   ]);
+
+  console.log('PPPPPPP ----  orderBuyReq ', orderBuyReq);
 
   const submitFormParams: SubmitFormParams = {
     bitcoinL2Name: computerNameField.value || '--',
