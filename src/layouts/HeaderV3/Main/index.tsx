@@ -60,6 +60,7 @@ const Main = ({
                   key={item.label}
                   title={item.label}
                   color={color}
+                  typeGroup={item.groupType}
                 >
                   {item.GroupDropDown()}
                 </GroupDownItem>

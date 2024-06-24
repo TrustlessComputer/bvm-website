@@ -1,14 +1,17 @@
 import { create } from 'zustand';
 
+export type IGroupType = 'production' | 'developers' | null
+
 interface IProp {
-  isProductionOpen: boolean,
-  show: ()=>void
+  groupType: IGroupType,
+  show: (groupType: IGroupType)=>void
   hide: ()=>void
 }
+
 const useHeaderMobile =create<IProp>((set) => ({
-  isProductionOpen: false,
-  show: () => set({ isProductionOpen: true }),
-  hide: () => set({ isProductionOpen: false }),
+  groupType: null,
+  show: (groupType: IGroupType) => set({ groupType }),
+  hide: () => set({ groupType: null }),
 }))
 
 export default useHeaderMobile;

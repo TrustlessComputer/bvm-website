@@ -46,7 +46,6 @@
         &_wrap {
           display: flex;
           gap: 5px;
-          align-items: flex-start;
 
           small {
             background: #FFEEEE;
@@ -138,10 +137,9 @@
   pointer-events: none;
 }
 
-
-.simpleGroup_link {
-  a {
-    &:hover {
+.simpleGroup_link{
+  a{
+    &:hover{
       text-decoration: underline;
     }
   }

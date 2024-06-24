@@ -38,7 +38,7 @@ const MobileDropdown = ({ title, lists, primaryColor }: PropD) => {
           py={'32px'}
         >
           {lists.map((item) => (
-            item.GroupDropDown ? <GroupDownItem title={item.label} key={item.label} color={'#000'}>
+            item.GroupDropDown ? <GroupDownItem typeGroup={item.groupType} title={item.label} key={item.label} color={'#000'}>
                 {item.GroupDropDown()}
               </GroupDownItem> :
               <Link
