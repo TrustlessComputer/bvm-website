@@ -102,6 +102,15 @@ const PricingMobileModule = () => {
     }
   };
 
+  const bootstrapLaunchOnClickV2 = async () => {
+    tracking('SUBMIT_TIER1');
+    if (!loggedIn) {
+      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+    } else {
+      router.push(`/rollups/customize?package=${PRICING_PACKGE.Hacker}`);
+    }
+  };
+
   const growthLaunchOnClick = () => {
     tracking('CUSTOMIZE_TIER2');
     if (!loggedIn) {
@@ -138,7 +147,7 @@ const PricingMobileModule = () => {
 
   const ctaButtonOnClick = (value: PRICING_PACKGE) => {
     if (value === PRICING_PACKGE.Hacker) {
-      bootstrapLaunchOnClick();
+      bootstrapLaunchOnClickV2();
     }
     if (value === PRICING_PACKGE.Growth) {
       growthLaunchOnClick();
