@@ -59,6 +59,18 @@ const fetchAllOrders = createAsyncThunk(
   },
 );
 
+const fetchAllOrdersV2 = createAsyncThunk(
+  `${PREFIX}/fetchAllOrdersV2`,
+  async (): Promise<OrderItem[]> => {
+    try {
+      const orders = await l2ServicesAPI.getAllOrdersV2();
+      return orders;
+    } catch (error) {
+      return [];
+    }
+  },
+);
+
 const orderBuy = createAsyncThunk(
   `${PREFIX}/orderBuy`,
   async (params: IOrderBuyReq): Promise<any> => {
@@ -109,4 +121,5 @@ export {
   fetchL2ServiceHistory,
   getQuickStart,
   fetchAvailableList,
+  fetchAllOrdersV2,
 };
