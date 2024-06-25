@@ -80,8 +80,8 @@ export default function GroupProducts(): ReactElement {
                 </div>
               </Link>
             </li>
-            <li className={s.isDisabled}>
-              <Link href={'/module-detail'} className={s.group_item_icon}>
+            <li>
+              <Link href={'/module/bitcoin-polygon'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinpolygon.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
