@@ -17,24 +17,31 @@ import {
   Text,
   Button,
 } from '@chakra-ui/react';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import L2Instance from './L2Instance';
 import { useDashboard } from '../../providers/DashboardProvider';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import s from './styleFont.module.scss';
+import useL2Service from '@/hooks/useL2Service';
 
 const BodyGridView = () => {
   const dispatch = useAppDispatch();
   const { onOpenOpenOrderDetailModal } = useDashboard();
+  const { getMyOrderList } = useL2Service();
   // const allOrders = useAppSelector(allOrdersSelector);
   const myOrders = useAppSelector(myOrderListSelector);
-
   const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
     getL2ServicesStateSelector,
   );
-
   const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
+  useEffect(() => {
+    if (loggedIn) {
+      setTimeout(() => {
+        getMyOrderList();
+      }, 500);
+    }
+  }, [loggedIn, getMyOrderList]);
   const isEmptyData = useMemo(() => {
     if (myOrders.length < 1) return true;
     return false;
@@ -101,31 +108,31 @@ const BodyGridView = () => {
     );
   };
 
-  if (!loggedIn) {
-    return (
-      <Button
-        bgColor={'#000'}
-        color={'#fff'}
-        mt={'30px'}
-        px="12px"
-        py="8px"
-        borderRadius={'100px'}
-        w={'100px'}
-        fontSize={'14px'}
-        alignSelf={'center'}
-        className={s.fontSFProDisplay}
-        onClick={() => {
-          setShowLoginModalCustomize && setShowLoginModalCustomize(true);
-        }}
-        _hover={{
-          cursor: 'pointer',
-          opacity: 0.8,
-        }}
-      >
-        Connect
-      </Button>
-    );
-  }
+  // if (isMyOrderListFetched && !loggedIn) {
+  //   return (
+  //     <Button
+  //       bgColor={'#000'}
+  //       color={'#fff'}
+  //       mt={'30px'}
+  //       px="12px"
+  //       py="8px"
+  //       borderRadius={'100px'}
+  //       w={'100px'}
+  //       fontSize={'14px'}
+  //       alignSelf={'center'}
+  //       className={s.fontSFProDisplay}
+  //       onClick={() => {
+  //         setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+  //       }}
+  //       _hover={{
+  //         cursor: 'pointer',
+  //         opacity: 0.8,
+  //       }}
+  //     >
+  //       Connect
+  //     </Button>
+  //   );
+  // }
 
   return (
     <Flex overflow={'hidden'}>

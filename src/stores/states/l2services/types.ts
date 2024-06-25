@@ -108,6 +108,7 @@ interface OrderItemResp {
   gasLimit?: number;
   packagePrice?: number;
   packagePriceUSD?: number;
+  logoURL?: string;
 }
 
 interface HistoryItemResp {
