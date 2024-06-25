@@ -36,7 +36,15 @@
   }
 
   .dropMenu_list {
-    box-shadow: 0 0 5px -2px #999;
+
+    @include is-pc {
+      padding-top: 12px;
+    }
+
+    &_inner {
+      box-shadow: 0 0 5px -2px #999;
+      border: 1px solid #f2f2f2;
+    }
   }
 
   &.isOpen, &:hover {
@@ -44,7 +52,7 @@
       opacity: 1;
       visibility: visible;
       z-index: 2 !important;
-      border: 1px solid #f2f2f2;
+
 
       @include is-pc {
         transform: translateX(-50%);
