@@ -151,7 +151,7 @@ export const MODULE_DATAS = {
       theme: 'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
       title: 'Bitcoin Avail',
       subTitle: 'DaTA Availability',
-      desc: 'Use Celestia as the DA layer for your Bitcoin L2.',
+      desc: 'Use Avail as the DA layer for your Bitcoin L2.',
       start: {
         text: 'Get started',
         link: '/pricing',
@@ -183,6 +183,47 @@ export const MODULE_DATAS = {
       desc: 'Avail shifts data availability off-chain, reducing the burden on the mainnet, which leads to faster transaction confirmations and lower gas fees for users.',
       action: 'https://x.com/BVMnetwork/status/1793607975380349309',
       thumbnail: '/bvm/hiw-bitcoin-avail.png',
+    },
+  },
+
+
+  bitcoin_polygon: {
+    hero: {
+      theme: 'linear-gradient(180deg, rgba(190, 169, 255, 0.8) -5.57%, rgba(190, 169, 255, 0) 98.47%)',
+      title: 'Bitcoin Polygon',
+      subTitle: 'DaTA Availability',
+      desc: 'Use Polygon as the DA layer for your Bitcoin L2.',
+      start: {
+        text: 'Get started',
+        link: '/pricing',
+      },
+    },
+    why: {
+      title: 'Why Polygon?',
+      desc: `Polygon PoS enables the launch of Bitcoin L2s with high speed (2-sec block time) and near-zero transaction fees.`,
+    },
+    benefit: {
+      title: 'Benefits of Polygon',
+      contents: [
+        {
+          title: 'Reduced Gas Fees',
+          desc: 'Allow developers to store the data hash on Bitcoin and the data on Polygon PoS, optimizing costs by 7,500x',
+        },
+        {
+          title: 'Scalability and Performance',
+          desc: 'Enhance transaction speed and can be multiplied to achieve an elastically scalable ecosystem.',
+        },
+        {
+          title: 'Independent data availability',
+          desc: 'With a dedicated data availability layer and a data availability committee, Polygon provides robust off-chain data access and reliability. This structure ensures substantial data resilience and integrity.',
+        },
+      ],
+    },
+    hiw: {
+      title: 'How it works',
+      desc: 'Polygon PoS is the first Data Availability Layer for Bitcoin L2 blockchains powered by BVM and also the most cost-effective storage solution.',
+      action: 'https://x.com/BVMnetwork/status/1745750669318144051',
+      thumbnail: '/bvm/hiw-bitcoin-polygon.png',
     },
   },
 };
