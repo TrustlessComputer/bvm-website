@@ -252,6 +252,10 @@ interface L2ServicesState {
   isFetchedAllOrders: boolean;
   allOrders: OrderItem[];
 
+  isFetchingAllOrdersV2: boolean;
+  isFetchedAllOrdersV2: boolean;
+  allOrdersV2: OrderItem[];
+
   orderSelected: OrderItem | undefined;
 
   historyList: HistoryItemResp[];

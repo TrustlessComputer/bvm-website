@@ -76,7 +76,6 @@ export const DALayerEnumMap = {
 // ------------------------------------------------------------------------------------
 
 export enum RollupEnum {
-  Rollup_OpStack_OLD = 1,
   Rollup_OpStack = 20,
   Rollup_ZK = 21,
 }
@@ -92,7 +91,6 @@ export const BitcoinValidityEnumMap = {
 };
 
 export const RollupEnumMap = {
-  [RollupEnum.Rollup_OpStack_OLD]: 'Optimistic',
   [RollupEnum.Rollup_OpStack]: 'Optimistic',
   [RollupEnum.Rollup_ZK]: 'ZK',
 };

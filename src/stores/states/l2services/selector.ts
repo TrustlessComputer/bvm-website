@@ -3,7 +3,10 @@ import { OrderItem, L2ServicesState } from './types';
 import BigNumber from 'bignumber.js';
 import { RootState } from '@/stores';
 import formatter from '@/modules/price/Pricing.helper';
-import { NetworkEnum } from '@/modules/blockchains/Buy/Buy.constanst';
+import {
+  NetworkEnum,
+  RollupEnum,
+} from '@/modules/blockchains/Buy/Buy.constanst';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
@@ -48,10 +51,51 @@ const orderSelectedSelector = createSelector(
   (reducer) => reducer.orderSelected,
 );
 
+const viewModeSelector = createSelector(
+  getL2ServicesStateSelector,
+  (reducer) => {
+    const viewMode = reducer.viewMode;
+    const isMainnet = viewMode === 'Mainnet';
+    return isMainnet;
+  },
+);
+
 // All Orders
 const allOrdersSelector = createSelector(
   getL2ServicesStateSelector,
   (reducer) => reducer.allOrders || [],
+);
+
+const allOrdersV2Selector = createSelector(
+  getL2ServicesStateSelector,
+  (reducer) => reducer.allOrdersV2 || [],
+);
+
+const ZKOrdersSelector = createSelector(
+  [allOrdersV2Selector, viewModeSelector],
+  (allOderList, isMainnet) => {
+    return (
+      allOderList.filter(
+        (item) =>
+          item.serviceType === RollupEnum.Rollup_ZK &&
+          item.isMainnet === isMainnet,
+      ) || []
+    );
+  },
+);
+
+const OPOrdersSelector = createSelector(
+  [allOrdersV2Selector, viewModeSelector],
+  (allOderList, isMainnet) => {
+    return (
+      allOderList.filter(
+        (item) =>
+          (item.serviceType === RollupEnum.Rollup_OpStack ||
+            item.serviceType === RollupEnum.Rollup_OpStack_OLD) &&
+          item.isMainnet === isMainnet,
+      ) || []
+    );
+  },
 );
 
 const withdrawableRewardSelector = createSelector(
@@ -130,4 +174,8 @@ export {
   accountInforSelector,
   packageDataSelector,
   packageDetailByPackageEnumSelector,
+
+  //Monitor
+  ZKOrdersSelector,
+  OPOrdersSelector,
 };
