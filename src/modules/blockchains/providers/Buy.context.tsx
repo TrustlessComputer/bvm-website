@@ -716,7 +716,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
       let params: IOrderBuyReq = {
         ...orderBuyReq,
-        ...HardwareGrowth,
+        ...PRICING_PACKGE_DATA[packageParam as PRICING_PACKGE].hardware,
         rollupProtocol: RollupEnum.Rollup_ZK,
         serviceType: RollupEnum.Rollup_ZK,
       };

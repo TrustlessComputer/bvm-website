@@ -12,7 +12,7 @@ const TierSection = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
-  const packageParam = searchParams.get('package') || PRICING_PACKGE.Growth;
+  const packageParam = searchParams.get('package') || PRICING_PACKGE.Hacker;
 
   const { availableListFetching, availableList } = useAppSelector(
     getL2ServicesStateSelector,

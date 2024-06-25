@@ -110,6 +110,15 @@ const PriceModule = () => {
     }
   };
 
+  const bootstrapLaunchOnClickV2 = async () => {
+    tracking('SUBMIT_TIER1');
+    if (!loggedIn) {
+      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+    } else {
+      router.push(`/rollups/customize?package=${PRICING_PACKGE.Hacker}`);
+    }
+  };
+
   const growthLaunchOnClick = () => {
     tracking('CUSTOMIZE_TIER2');
     if (!loggedIn) {
@@ -224,7 +233,7 @@ const PriceModule = () => {
                       ctaButtonElement={
                         <button
                           className={s.ctaBtn}
-                          onClick={bootstrapLaunchOnClick}
+                          onClick={bootstrapLaunchOnClickV2}
                         >
                           {'Launch now with 1-Click'}
                         </button>
