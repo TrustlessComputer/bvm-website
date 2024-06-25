@@ -3,16 +3,16 @@ import s from './styles.module.scss';
 import { Button, Flex } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
 import Loader from '@/modules/builder-landing/Loader';
-import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useRouter } from 'next/navigation';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { IMODULE_HERO } from '@/app/module/data';
 
-export default function Hero({ data }): React.JSX.Element {
+export default function Hero({ data }: {data: IMODULE_HERO}): React.JSX.Element {
 
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
   return (
-    <div className={s.wrapper} style={{'--bg': data.theme}}>
+    <div className={s.wrapper} style={{ '--bg': data.theme } as any}>
       <Loader />
       <div className={'containerV3'}>
         <div className={s.inner}>

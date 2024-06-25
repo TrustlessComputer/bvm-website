@@ -7,8 +7,9 @@ import ImagePlaceholder from '@components/ImagePlaceholder';
 import Fade from '@/interactive/Fade';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { IMODULE } from '@/app/module/data';
 
-const ModuleDetail = ({ data }): React.JSX.Element => {
+const ModuleDetail = ({ data }: {data: IMODULE}): React.JSX.Element => {
   useWhiteBackground();
   const router = useRouter();
   return (

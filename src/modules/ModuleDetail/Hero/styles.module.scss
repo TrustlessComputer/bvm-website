@@ -1,6 +1,12 @@
 .wrapper {
   background: var(--bg);
   padding: 120px 0;
+
+  button {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
 }
 
 .label {
@@ -18,7 +24,7 @@
   font-size: 60px;
   color: #000;
   margin: 12px 0;
-  line-height: calc(66/60);
+  line-height: calc(66 / 60);
 }
 
 .decsription {
@@ -34,17 +40,21 @@
   align-items: center;
   margin-top: 16px;
   cursor: pointer;
+
   p {
     color: #FA4E0E;
     font-weight: 500;
     font-size: 14px;
     line-height: calc(22.64 / 14);
+
     &:hover {
       text-decoration: underline;
     }
   }
+
   &_icon {
     max-width: 40px;
+
     img {
       width: 100%;
       height: auto;
