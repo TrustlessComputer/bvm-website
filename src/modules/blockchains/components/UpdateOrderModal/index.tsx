@@ -380,8 +380,15 @@ const UpdateOrderModal = (props: IProps) => {
   };
 
   const renderPreviewLogo = () => {
-    if (preview) {
-      return <Image w="auto" h={'150px'} fit={'contain'} src={preview} />;
+    if (preview || item) {
+      return (
+        <Image
+          w="auto"
+          h={'150px'}
+          fit={'contain'}
+          src={preview || item?.logoURL}
+        />
+      );
     }
     return null;
   };

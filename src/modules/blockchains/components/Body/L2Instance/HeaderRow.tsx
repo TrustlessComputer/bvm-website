@@ -57,12 +57,22 @@ const HeaderRow = (props: Props) => {
   return (
     <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
       <Flex flexDir={'row'} gap={'12px'} align={'center'}>
-        <Image
-          src={'/blockchains/customize/ic-infa.svg'}
-          w={'40px'}
-          h={'auto'}
-          objectFit={'contain'}
-        />
+        {item.logoURL ? (
+          <Image
+            src={`${item.logoURL}`}
+            w={'40px'}
+            borderRadius={'4px'}
+            h={'auto'}
+            objectFit={'contain'}
+          />
+        ) : (
+          <Image
+            src={'/blockchains/customize/ic-infa.svg'}
+            w={'40px'}
+            h={'auto'}
+            objectFit={'contain'}
+          />
+        )}
         <Text fontSize={'25px'} fontWeight={500} color={'#000'}>
           {/* {`${mapper.computerIndexer || `#${item.index}`}`} */}
           {`${item.chainName || '--'}`}
