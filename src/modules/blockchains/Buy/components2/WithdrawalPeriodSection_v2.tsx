@@ -19,16 +19,12 @@ import {
 const WithdrawalPeriodSection = () => {
   const { withdrawalPeriodSelected, setWithdrawalPeriodSelected } = useBuy();
   const searchParams = useSearchParams();
-  const packageParam = searchParams.get('package');
+  const packageParam = searchParams.get('package') || PRICING_PACKGE.Hacker;
 
   const packageData = useMemo(() => {
     let result;
 
-    if (!packageParam) {
-      result = PRICING_PACKGE_DATA[PRICING_PACKGE.Hacker];
-    } else {
-      result = PRICING_PACKGE_DATA[Number(packageParam) as PRICING_PACKGE];
-    }
+    result = PRICING_PACKGE_DATA[Number(packageParam) as PRICING_PACKGE];
 
     setWithdrawalPeriodSelected(result.minWithdrawalPeriod);
 
@@ -71,6 +67,9 @@ const WithdrawalPeriodSection = () => {
     >
       <Flex flexDir={'column'} px={'0px'} overflow={'visible'}>
         <Slider
+          isDisabled={
+            !!packageParam && Number(packageParam) === PRICING_PACKGE.Hacker
+          }
           onChange={onChange}
           defaultValue={withdrawalPeriodSelected}
           value={withdrawalPeriodSelected}

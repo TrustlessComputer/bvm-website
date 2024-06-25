@@ -20,15 +20,12 @@ import { formatCurrencyV2 } from '@/utils/format';
 const BlockGasLimitSection = () => {
   const { blockGasLimitSelected, setBlockGasLimitSelected } = useBuy();
   const searchParams = useSearchParams();
-  const packageParam = searchParams.get('package');
+  const packageParam = searchParams.get('package') || PRICING_PACKGE.Hacker;
 
   const packageData = useMemo(() => {
     let result;
-    if (!packageParam) {
-      result = PRICING_PACKGE_DATA[PRICING_PACKGE.Hacker];
-    } else {
-      result = PRICING_PACKGE_DATA[Number(packageParam) as PRICING_PACKGE];
-    }
+
+    result = PRICING_PACKGE_DATA[Number(packageParam) as PRICING_PACKGE];
 
     setBlockGasLimitSelected(result.maxGasLimit);
 
@@ -50,6 +47,9 @@ const BlockGasLimitSection = () => {
     >
       <Flex flexDir={'column'} px={'0px'} overflow={'visible'}>
         <Slider
+          isDisabled={
+            !!packageParam && Number(packageParam) === PRICING_PACKGE.Hacker
+          }
           onChange={onChange}
           defaultValue={blockGasLimitSelected}
           value={blockGasLimitSelected}
