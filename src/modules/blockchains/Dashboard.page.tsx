@@ -41,9 +41,7 @@ const Page = (props: any) => {
 
   useEffect(() => {
     if (loggedIn) {
-      console.log('PHAT -- 1 ');
       loopFetchAccountInfor();
-      console.log('PHAT --2 ');
       getMyOrderList();
     }
   }, [loggedIn]);

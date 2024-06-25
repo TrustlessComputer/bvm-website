@@ -48,7 +48,6 @@ const useL2Service = () => {
   }, [isMyOrderListFetched, isMyOrderListFetching, isNakaWalletLoading]);
 
   const getMyOrderList = () => {
-    console.log('PHAT -- 3 ');
     dispatch(fetchOrderList());
   };
 
