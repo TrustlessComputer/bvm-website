@@ -244,6 +244,11 @@ export const getAllOrders = async (): Promise<OrderItem[]> => {
   return builderOrderList(orders, false);
 };
 
+export const getAllOrdersV2 = async (): Promise<OrderItem[]> => {
+  let orders = (await httpClient.get(`/order/all`)) as OrderItemResp[];
+  return builderOrderList(orders, false);
+};
+
 export const accountGetInfo = async (): Promise<AccountInfo | undefined> => {
   const accessToken = getAPIAccessToken();
 
@@ -480,6 +485,7 @@ const l2ServicesAPI = {
 
   L2ServiceTracking,
   uploadLogoFile,
+  getAllOrdersV2,
 };
 
 export default l2ServicesAPI;

@@ -4,6 +4,7 @@ import {
   fetchAccountInfo,
   fetchAllOrders,
   fetchOrderList,
+  fetchAllOrdersV2,
 } from '@/stores/states/l2services/actions';
 import { setL2ServiceAuth } from '@/stores/states/l2services/reducer';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
@@ -53,6 +54,14 @@ const useL2Service = () => {
 
   const getAccountInfor = () => {
     dispatch(fetchAccountInfo());
+  };
+
+  const getAllOrderList = () => {
+    dispatch(fetchAllOrders());
+  };
+
+  const getAllOrderListV2 = () => {
+    dispatch(fetchAllOrdersV2());
   };
 
   const getMessageToSign = async (address: string) => {
@@ -199,6 +208,8 @@ const useL2Service = () => {
     isLoading,
     getMyOrderList,
     getAccountInfor,
+    getAllOrderList,
+    getAllOrderListV2,
   };
 };
 
