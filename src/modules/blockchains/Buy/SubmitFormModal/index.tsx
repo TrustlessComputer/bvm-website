@@ -34,7 +34,7 @@ const SubmitFormModal = (props: IProps) => {
     isSubmiting,
   } = useBuy();
 
-  const { isL2ServiceLogged, onConnect, isLoading } = useL2Service();
+  const { onConnect, isLoading } = useL2Service();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
 
   const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
@@ -78,7 +78,6 @@ const SubmitFormModal = (props: IProps) => {
     accountInforL2Service,
     onConnect,
     onSuccess,
-    isL2ServiceLogged,
     isMainnet,
     loggedIn,
     setShowLoginModalCustomize,

@@ -151,7 +151,6 @@ export type IBuyContext = ComputerNameSection &
   BlockGasLitmitSection & {
     // Data API
     availableListData?: IAvailableList;
-    isAvailableListFetching?: boolean;
 
     estimateTotalCostData: IOrderBuyEstimateRespone | undefined;
     estimateTotalCostFetching?: boolean;

@@ -9,44 +9,31 @@ import {
   orderListSelector,
 } from '@/stores/states/l2services/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
-import { Flex, Image, SimpleGrid, Skeleton, Text } from '@chakra-ui/react';
+import {
+  Flex,
+  Image,
+  SimpleGrid,
+  Skeleton,
+  Text,
+  Button,
+} from '@chakra-ui/react';
 import { useMemo } from 'react';
 import L2Instance from './L2Instance';
 import { useDashboard } from '../../providers/DashboardProvider';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import s from './styleFont.module.scss';
 
 const BodyGridView = () => {
   const dispatch = useAppDispatch();
   const { onOpenOpenOrderDetailModal } = useDashboard();
-  const { isFetched } = useAppSelector(getL2ServicesStateSelector);
   // const allOrders = useAppSelector(allOrdersSelector);
   const myOrders = useAppSelector(myOrderListSelector);
 
-  const {
-    viewMode,
-    showOnlyMyOrder,
-    accountInforL2Service,
-    showAllChain,
-    viewPage,
-  } = useAppSelector(getL2ServicesStateSelector);
+  const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
 
-  // const serviceDataList = useMemo(() => {
-  //   const filterByNetwork = (orders: OrderItem[]) => {
-  //     if (viewMode === 'Mainnet')
-  //       return orders
-  //         .filter((order) => order.isMainnet)
-  //         .sort((a, b) => b.index - a.index);
-  //     if (viewMode === 'Testnet')
-  //       return orders
-  //         .filter((order) => !order.isMainnet)
-  //         .sort((a, b) => b.index - a.index);
-  //     return [];
-  //   };
-  //   if (!showAllChain) {
-  //     return filterByNetwork(myOrders);
-  //   } else {
-  //     return filterByNetwork(allOrders);
-  //   }
-  // }, [myOrders, allOrders, viewMode, showOnlyMyOrder, showAllChain, viewPage]);
+  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
   const isEmptyData = useMemo(() => {
     if (myOrders.length < 1) return true;
@@ -114,9 +101,35 @@ const BodyGridView = () => {
     );
   };
 
+  if (!loggedIn) {
+    return (
+      <Button
+        bgColor={'#000'}
+        color={'#fff'}
+        mt={'30px'}
+        px="12px"
+        py="8px"
+        borderRadius={'100px'}
+        w={'100px'}
+        fontSize={'14px'}
+        alignSelf={'center'}
+        className={s.fontSFProDisplay}
+        onClick={() => {
+          setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+        }}
+        _hover={{
+          cursor: 'pointer',
+          opacity: 0.8,
+        }}
+      >
+        Connect
+      </Button>
+    );
+  }
+
   return (
     <Flex overflow={'hidden'}>
-      {!isFetched
+      {!isMyOrderListFetched
         ? renderSekeleton()
         : isEmptyData
         ? renderEmptyView()

@@ -7,7 +7,6 @@ import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector'
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { useSearchParams } from 'next/navigation';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
-import { fetchAvailableList } from '@/stores/states/l2services/actions';
 
 const FooterRightView = () => {
   const {
@@ -38,10 +37,6 @@ const FooterRightView = () => {
     });
     return result ? result[0] : undefined;
   }, [availableList, packageParam]);
-
-  useEffect(() => {
-    dispatch(fetchAvailableList());
-  }, []);
 
   const renderOption1 = () => {
     return (

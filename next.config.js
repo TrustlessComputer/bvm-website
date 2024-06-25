@@ -44,23 +44,8 @@ const nextConfig = {
   async redirects() {
     const redirects = [
       {
-        source: '/trustless-computers',
-        destination: '/blockchains/computers',
-        permanent: false,
-      },
-      {
-        source: '/bvm-website-sats',
-        destination: '/blockchains',
-        permanent: false,
-      },
-      {
-        source: '/blockchains/computers',
-        destination: '/blockchains',
-        permanent: false,
-      },
-      {
-        source: '/blockchains/buy',
-        destination: '/blockchains/customize',
+        source: '/blockchains',
+        destination: '/rollups',
         permanent: false,
       },
       {
@@ -88,15 +73,6 @@ const nextConfig = {
     //   })
     // }
     return redirects;
-  },
-
-  async rewrites() {
-    return [
-      {
-        source: '/tc',
-        destination: '/blockchains',
-      },
-    ];
   },
 
   webpack: (config, { isServer, dev }) => {

@@ -44,7 +44,6 @@ const PriceModule = () => {
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
   const { loggedIn, setShowLoginModalCustomize, userInfo } = useWeb3Auth();
-  const { fetchAllData } = useL2Service();
   const [dataNoProver, setDataNoProver] = useState<
     IOrderBuyEstimateRespone_V2 | undefined
   >(undefined);

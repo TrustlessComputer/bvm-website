@@ -90,19 +90,6 @@ const getOrderByIDSelector = createSelector(
   },
 );
 
-const isFetchingAllDataSelector = createSelector(
-  getL2ServicesStateSelector,
-  (state) => {
-    const { isFetching, isFetched, isFetchingAllOrders, isFetchedAllOrders } =
-      state;
-    return (
-      !!isFetching &&
-      !!isFetched &&
-      !!isFetchingAllOrders &&
-      !!isFetchedAllOrders
-    );
-  },
-);
 const historyInfoSelector = createSelector(
   getL2ServicesStateSelector,
   (state) => {
@@ -138,7 +125,6 @@ export {
   withdrawableRewardSelector,
   getOrderByIDSelector,
   allOrdersSelector,
-  isFetchingAllDataSelector,
   historyInfoSelector,
   myOrderListSelector,
   accountInforSelector,

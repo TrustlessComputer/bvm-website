@@ -63,7 +63,7 @@ const RightView = React.memo((props: Props) => {
         {/* <ContactInformationSection /> */}
 
         {/* Network */}
-        {/* <NetworkSection /> */}
+        <NetworkSection />
 
         {/* Configuration Options */}
         {/* <ConfigurationOptionsSection /> */}
