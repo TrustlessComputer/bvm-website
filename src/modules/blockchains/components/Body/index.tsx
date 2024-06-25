@@ -35,13 +35,6 @@ const BodyGridView = () => {
   );
   const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
-  useEffect(() => {
-    if (loggedIn) {
-      setTimeout(() => {
-        getMyOrderList();
-      }, 500);
-    }
-  }, [loggedIn, getMyOrderList]);
   const isEmptyData = useMemo(() => {
     if (myOrders.length < 1) return true;
     return false;
