@@ -1,5 +1,5 @@
 .wrapper {
-  background: linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%);
+  background: var(--bg);
   padding: 120px 0;
 }
 
@@ -25,6 +25,7 @@
   color: #000;
   font-size: 20px;
   line-height: calc(30 / 20);
+  max-width: 680px;
 }
 
 .link {

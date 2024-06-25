@@ -2,6 +2,7 @@
 
 import MainLayout from '@/layouts/MainLayout';
 import ModuleDetail from '@/modules/ModuleDetail';
+import { MODULE_DATAS } from '@/app/module/data';
 
 const ModuleDetailPage = () => {
   return (
@@ -12,7 +13,7 @@ const ModuleDetailPage = () => {
       }}
       hideFooter
     >
-      <ModuleDetail />
+      <ModuleDetail data={MODULE_DATAS.bitzk} />
     </MainLayout>
   );
 };

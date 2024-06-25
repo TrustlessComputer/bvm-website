@@ -6,73 +6,58 @@ import Section from '@/modules/ModuleDetail/Section';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import Fade from '@/interactive/Fade';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-const ModuleDetail = (): React.JSX.Element => {
+const ModuleDetail = ({ data }): React.JSX.Element => {
   useWhiteBackground();
   const router = useRouter();
   return (
     <div className={s.wrapper}>
-      <Hero />
-      <Section title={'Why BitZK?'}>
+      <Hero data={data.hero} />
+      <Section title={data.why.title}>
         <Fade delay={0.1} from={{ y: 40 }} to={{ y: 0 }}>
           <p className={s.desc}>
-            Bitcoin Zero Knowledge (BitZK) is the first modular ZK rollup platform on Bitcoin. It offers the broadest
-            and deepest choices, with the latest data availability layers, hardware nodes, pre-installed apps, and
-            pricing models to help you best match your app requirements.
+            {
+              data.why.desc
+            }
           </p>
         </Fade>
       </Section>
-      <Section title={'Benefits of BitZK'}>
+      <Section title={data.benefit.title}>
         <ul>
-          <li className={s.item}>
-            <Fade delay={0.1} from={{ y: 40 }} to={{ y: 0 }}>
-              <p className={s.heading}>1-click deploy</p>
-              <p className={s.desc}>
-                Our intuitive UI makes deploying and managing a Bitcoin ZK rollup simple.
-              </p>
-            </Fade>
-          </li>
-
-          <li className={s.item}>
-            <Fade delay={0.2} from={{ y: 40 }} to={{ y: 0 }}>
-              <p className={s.heading}>Scale as your usage grows</p>
-              <p className={s.desc}>
-                Optimize performance and cost with flexible plans. You could start with the Bootstrap plan and upgrade
-                to the Growth as your app grows.
-              </p>
-            </Fade>
-          </li>
-
-          <li className={s.item}>
-            <Fade delay={0.3} from={{ y: 40 }} to={{ y: 0 }}>
-              <p className={s.heading}>SLA commitment</p>
-              <p className={s.desc}>
-                Access reliable, scalable infrastructure on demand. Scale capacity within minutes with an SLA commitment
-                of 99.99% availability.
-              </p>
-            </Fade>
-          </li>
+          {
+            data.benefit.contents.map(content => {
+              return <li className={s.item}>
+                <Fade delay={0.1} from={{ y: 40 }} to={{ y: 0 }}>
+                  <p className={s.heading}>{content.title}</p>
+                  <p className={s.desc}>
+                    {content.desc}
+                  </p>
+                </Fade>
+              </li>;
+            })
+          }
         </ul>
       </Section>
-      <Section title={'How it works'}>
-
+      <Section title={data.hiw.title}>
         <Fade delay={0.1} from={{ y: 40 }} to={{ y: 0 }}>
           <p className={s.desc}>
-            BitZK lets you deploy your own ZK rollup on Bitcoin with a few clicks and start building decentralized
-            applications for Bitcoin.
+            {
+              data.hiw.desc
+            }
           </p>
-          <div className={s.link} onClick={() => router.push('https://x.com/punk3700/status/1796119677577605380')}>
+          <Link className={s.link} href={data.hiw.action} target="_blank" rel="noopener noreferrer">
             <p>Learn more</p>
             <div className={s.link_icon}>
               <ImagePlaceholder src={'/icons/ic_chevron_right.svg'} alt={'ic_chevron_right'} width={16} height={16} />
             </div>
-          </div>
+          </Link>
         </Fade>
 
         <Fade delay={0.3} from={{ y: 40 }} to={{ y: 0 }}>
           <div>
             <ImagePlaceholder
-              src={'/bvm.jpg'}
+              src={data.hiw.thumbnail}
               alt={'img'}
               width={820}
               height={440}
