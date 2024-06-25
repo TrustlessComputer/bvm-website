@@ -2,13 +2,22 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { PREFIX } from './constants';
 import { IOrderBuyReq, OrderItem } from './types';
 import l2ServicesAPI from '@/services/api/l2services';
+import { RootState } from '@/stores';
 
 const fetchAvailableList = createAsyncThunk(
   `${PREFIX}/fetchAvailableList`,
-  async () => {
+  async (_, { getState }) => {
     try {
-      const data = await l2ServicesAPI.fetchAvailableList();
-      return data;
+      const state = getState() as RootState;
+      const l2ServicesState = state.l2Services;
+      if (
+        !l2ServicesState.availableListFetched ||
+        !l2ServicesState.availableList
+      ) {
+        return await l2ServicesAPI.fetchAvailableList();
+      } else {
+        return l2ServicesState.availableList;
+      }
     } catch (error) {
       return undefined;
     }

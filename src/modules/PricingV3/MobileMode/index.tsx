@@ -1,12 +1,7 @@
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import useL2Service from '@/hooks/useL2Service';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
-import {
-  estimateTotalCostAPI_V2,
-  orderBuyAPI,
-} from '@/services/api/l2services';
-import { IOrderBuyEstimateRespone_V2 } from '@/services/api/l2services/types';
+import { orderBuyAPI } from '@/services/api/l2services';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { fetchAvailableList } from '@/stores/states/l2services/actions';
 import {
@@ -14,7 +9,10 @@ import {
   setViewMode,
   setViewPage,
 } from '@/stores/states/l2services/reducer';
-import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import {
+  getL2ServicesStateSelector,
+  packageDetailByPackageEnumSelector,
+} from '@/stores/states/l2services/selector';
 import sleep from '@/utils/sleep';
 import {
   Flex,
@@ -24,18 +22,13 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
-import {
-  ORDER_BUY_NO_PROVER,
-  ORDER_BUY_YES_PROVER,
-  PRICING_PACKGE,
-} from '../../PricingV2/constants';
+import { useEffect, useMemo } from 'react';
+import { PRICING_PACKGE } from '../../PricingV2/constants';
 import { orderRegisterBootstrapParams } from '../../PricingV2/services';
 import CheckedIcon from '../components/CheckedIcon';
 import NoCheckIcon from '../components/NoCheckIcon';
 import { DATA_LIST, PackageItemType } from './data';
 import s from './styles.module.scss';
-import BigNumber from 'bignumber.js';
 
 const PricingMobileModule = () => {
   const dispatch = useAppDispatch();
@@ -43,14 +36,6 @@ const PricingMobileModule = () => {
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
   const { loggedIn, setShowLoginModalCustomize, userInfo } = useWeb3Auth();
-  const { fetchAllData } = useL2Service();
-  const [dataNoProver, setDataNoProver] = useState<
-    IOrderBuyEstimateRespone_V2 | undefined
-  >(undefined);
-  const [dataProver, setDataProver] = useState<
-    IOrderBuyEstimateRespone_V2 | undefined
-  >(undefined);
-
   const {
     isOpen: isOpenLoadingModal,
     onOpen: onOpenLoadingModal,
@@ -64,30 +49,16 @@ const PricingMobileModule = () => {
     getL2ServicesStateSelector,
   );
 
+  const getPackageDetailFunc = useAppSelector(
+    packageDetailByPackageEnumSelector,
+  );
+
   const isFetchingData = useMemo(() => {
     return availableListFetching || !availableList;
   }, [availableListFetching, availableList]);
 
   useEffect(() => {
     dispatch(fetchAvailableList());
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const [dataNoProver, dataProver] = await Promise.all([
-        estimateTotalCostAPI_V2(ORDER_BUY_NO_PROVER),
-        estimateTotalCostAPI_V2(ORDER_BUY_YES_PROVER),
-      ]);
-
-      setDataNoProver(dataNoProver);
-      setDataProver(dataProver);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
   }, []);
 
   const bootstrapLaunchOnClick = async () => {
@@ -188,30 +159,21 @@ const PricingMobileModule = () => {
 
     if (value === PRICING_PACKGE.Hacker) {
       result.priceUSD =
-        (availableList && availableList['package']?.['2']?.[0]?.price) || '--';
+        getPackageDetailFunc(PRICING_PACKGE.Hacker)?.price || '--';
       result.priceBVM =
-        (availableList && availableList['package']?.['2']?.[0]?.priceNote) ||
-        '--';
+        getPackageDetailFunc(PRICING_PACKGE.Growth)?.price || '--';
     }
     if (value === PRICING_PACKGE.Growth) {
       result.priceUSD =
-        new BigNumber(dataNoProver?.TotalCostUSD || 0)
-          .decimalPlaces(2)
-          .toString() || '--';
+        getPackageDetailFunc(PRICING_PACKGE.Growth)?.price || '--';
       result.priceBVM =
-        new BigNumber(dataNoProver?.TotalCostBVM || 0)
-          .decimalPlaces(1)
-          .toString() || '--';
+        getPackageDetailFunc(PRICING_PACKGE.Growth)?.price || '--';
     }
     if (value === PRICING_PACKGE.Secure) {
       result.priceUSD =
-        new BigNumber(dataProver?.TotalCostUSD || 0)
-          .decimalPlaces(2)
-          .toString() || '--';
+        getPackageDetailFunc(PRICING_PACKGE.Secure)?.price || '--';
       result.priceBVM =
-        new BigNumber(dataProver?.TotalCostBVM || 0)
-          .decimalPlaces(2)
-          .toString() || '--';
+        getPackageDetailFunc(PRICING_PACKGE.Secure)?.price || '--';
     }
     if (value === PRICING_PACKGE.Enterprise) {
       //

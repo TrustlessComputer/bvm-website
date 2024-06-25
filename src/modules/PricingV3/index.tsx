@@ -1,3 +1,20 @@
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import ModalLoading from '@/components/ModalLoading';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
+import { orderBuyAPI } from '@/services/api/l2services';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { fetchAvailableList } from '@/stores/states/l2services/actions';
+import {
+  setShowAllChains,
+  setViewMode,
+  setViewPage,
+} from '@/stores/states/l2services/reducer';
+import {
+  getL2ServicesStateSelector,
+  packageDetailByPackageEnumSelector,
+} from '@/stores/states/l2services/selector';
+import sleep from '@/utils/sleep';
 import {
   Flex,
   Spinner,
@@ -10,42 +27,16 @@ import {
   Tr,
   useDisclosure,
 } from '@chakra-ui/react';
-import s from './styles.module.scss';
-import {
-  estimateTotalCostAPI_V2,
-  orderBuyAPI,
-} from '@/services/api/l2services';
+import { useRouter } from 'next/navigation';
+import { useEffect, useMemo } from 'react';
+import { PRICING_PACKGE } from '../PricingV2/constants';
+import { orderRegisterBootstrapParams } from '../PricingV2/services';
 import BlockchainSection from './components/BlockchainSection';
 import HardwareSection from './components/HardwareSection';
 import MainCell from './components/MainCell';
 import PreInstallDappSection from './components/PreInstallDappSection';
 import SupportSection from './components/SupportSection';
-import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { useContactUs } from '@/Providers/ContactUsProvider/hook';
-import { useRouter } from 'next/navigation';
-import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import useL2Service from '@/hooks/useL2Service';
-import { useEffect, useMemo, useState } from 'react';
-import { IOrderBuyEstimateRespone_V2 } from '@/services/api/l2services/types';
-import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
-import { fetchAvailableList } from '@/stores/states/l2services/actions';
-import {
-  setShowAllChains,
-  setViewMode,
-  setViewPage,
-} from '@/stores/states/l2services/reducer';
-import {
-  ORDER_BUY_NO_PROVER,
-  ORDER_BUY_YES_PROVER,
-  PRICING_PACKGE,
-} from '../PricingV2/constants';
-import { orderRegisterBootstrapParams } from '../PricingV2/services';
-import sleep from '@/utils/sleep';
-import { getErrorMessage } from '@/utils/errorV2';
-import toast from 'react-hot-toast';
-import ModalLoading from '@/components/ModalLoading';
-import BigNumber from 'bignumber.js';
-import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
+import s from './styles.module.scss';
 
 const PriceModule = () => {
   const dispatch = useAppDispatch();
@@ -53,14 +44,6 @@ const PriceModule = () => {
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
   const { loggedIn, setShowLoginModalCustomize, userInfo } = useWeb3Auth();
-  const { fetchAllData } = useL2Service();
-  const [dataNoProver, setDataNoProver] = useState<
-    IOrderBuyEstimateRespone_V2 | undefined
-  >(undefined);
-  const [dataProver, setDataProver] = useState<
-    IOrderBuyEstimateRespone_V2 | undefined
-  >(undefined);
-
   const {
     isOpen: isOpenLoadingModal,
     onOpen: onOpenLoadingModal,
@@ -74,35 +57,16 @@ const PriceModule = () => {
     getL2ServicesStateSelector,
   );
 
+  const getPackageDetailFunc = useAppSelector(
+    packageDetailByPackageEnumSelector,
+  );
+
   const isFetchingData = useMemo(() => {
     return availableListFetching || !availableList;
   }, [availableListFetching, availableList]);
 
   useEffect(() => {
     dispatch(fetchAvailableList());
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const [dataNoProver, dataProver] = await Promise.all([
-        estimateTotalCostAPI_V2(ORDER_BUY_NO_PROVER),
-        estimateTotalCostAPI_V2(ORDER_BUY_YES_PROVER),
-      ]);
-
-      // console.log('--- DATA API --', {
-      //   dataNoProver,
-      //   dataProver,
-      // });
-      setDataNoProver(dataNoProver);
-      setDataProver(dataProver);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  useEffect(() => {
-    // const result = await estimateTotalCostAPI_V2(orderBuyReq);
-    fetchData();
   }, []);
 
   const bootstrapLaunchOnClick = async () => {
@@ -167,17 +131,6 @@ const PriceModule = () => {
   const enterpriseLaunchOnClick = () => {
     tracking('CONTACTS_US');
     showContactUsModal();
-  };
-
-  const manageYourChainsOnClick = () => {
-    if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
-    } else {
-      dispatch(setViewMode('Mainnet'));
-      dispatch(setViewPage('ManageChains'));
-      dispatch(setShowAllChains(false));
-      router.push('/rollups');
-    }
   };
 
   if (isFetchingData) {
@@ -261,14 +214,12 @@ const PriceModule = () => {
                       type="Hacker"
                       description="The easiest way to launch your own ZK Rollup on Bitcoin"
                       priceUSD={`${
-                        (availableList &&
-                          availableList['package']?.['2']?.[0]?.price) ||
+                        getPackageDetailFunc(PRICING_PACKGE.Hacker)?.price ||
                         '--'
                       }`}
                       priceBVM={`${
-                        (availableList &&
-                          availableList['package']?.['2']?.[0]?.priceNote) ||
-                        '--'
+                        getPackageDetailFunc(PRICING_PACKGE.Hacker)
+                          ?.priceNote || '--'
                       }`}
                       ctaButtonElement={
                         <button
@@ -284,16 +235,14 @@ const PriceModule = () => {
                     <MainCell
                       type="Growth"
                       description="Scale your Bitcoin ZK rollup as you go"
-                      priceUSD={`$${
-                        new BigNumber(dataNoProver?.TotalCostUSD || 0)
-                          .decimalPlaces(2)
-                          .toString() || '--'
+                      priceUSD={`${
+                        getPackageDetailFunc(PRICING_PACKGE.Growth)?.price ||
+                        '--'
                       }`}
                       priceBVM={`${
-                        new BigNumber(dataNoProver?.TotalCostBVM || 0)
-                          .decimalPlaces(1)
-                          .toString() || '--'
-                      } BVM`}
+                        getPackageDetailFunc(PRICING_PACKGE.Growth)
+                          ?.priceNote || '--'
+                      }`}
                       ctaButtonElement={
                         <button
                           className={s.ctaBtn}
@@ -308,16 +257,14 @@ const PriceModule = () => {
                     <MainCell
                       type="Secure"
                       description="Fully secure your Bitcoin ZK rollup with a cryptographic prover"
-                      priceUSD={`$${
-                        new BigNumber(dataProver?.TotalCostUSD || 0)
-                          .decimalPlaces(2)
-                          .toString() || '--'
+                      priceUSD={`${
+                        getPackageDetailFunc(PRICING_PACKGE.Secure)?.price ||
+                        '--'
                       }`}
                       priceBVM={`${
-                        new BigNumber(dataProver?.TotalCostBVM || 0)
-                          .decimalPlaces(1)
-                          .toString() || '--'
-                      } BVM`}
+                        getPackageDetailFunc(PRICING_PACKGE.Secure)
+                          ?.priceNote || '--'
+                      }`}
                       ctaButtonElement={
                         <button
                           className={s.ctaBtn}

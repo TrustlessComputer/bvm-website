@@ -3,6 +3,8 @@ import { OrderItem, L2ServicesState } from './types';
 import BigNumber from 'bignumber.js';
 import { RootState } from '@/stores';
 import formatter from '@/modules/price/Pricing.helper';
+import { NetworkEnum } from '@/modules/blockchains/Buy/Buy.constanst';
+import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
@@ -111,6 +113,24 @@ const historyInfoSelector = createSelector(
   },
 );
 
+const packageDataSelector = createSelector(
+  getL2ServicesStateSelector,
+  (state) => {
+    const availableList = state.availableList;
+    if (!availableList) return undefined;
+    const dataMainnet = availableList.package[NetworkEnum.Network_Mainnet];
+    return dataMainnet;
+  },
+);
+
+const packageDetailByPackageEnumSelector = createSelector(
+  packageDataSelector,
+  (data) => (packageEnum: PRICING_PACKGE) => {
+    if (!data) return undefined;
+    return data?.find((item) => item.value === Number(packageEnum));
+  },
+);
+
 export {
   getL2ServicesStateSelector,
   orderListSelector,
@@ -122,4 +142,6 @@ export {
   historyInfoSelector,
   myOrderListSelector,
   accountInforSelector,
+  packageDataSelector,
+  packageDetailByPackageEnumSelector,
 };

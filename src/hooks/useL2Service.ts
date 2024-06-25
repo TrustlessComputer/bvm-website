@@ -183,7 +183,7 @@ const useL2Service = () => {
       dispatch(fetchAccountInfo());
       if (!timerRef.current) {
         timerRef.current = setInterval(() => {
-          loopFetchAccountInfor();
+          dispatch(fetchAccountInfo());
         }, TIMER_INTERVAL);
       }
     } else {
