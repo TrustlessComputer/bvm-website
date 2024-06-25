@@ -18,21 +18,12 @@ const HeaderView = () => {
   const dispatch = useAppDispatch();
   const { onConnect } = useL2Service();
 
-  const { viewMode, showOnlyMyOrder, showAllChain, isL2ServiceLogged } =
-    useAppSelector(getL2ServicesStateSelector);
+  const { viewMode, showOnlyMyOrder, showAllChain } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
   const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
   const isMainnnet = viewMode === 'Mainnet';
-
-  useEffect(() => {
-    dispatch(setShowOnlyMyOrder(isL2ServiceLogged));
-  }, [isL2ServiceLogged]);
-
-  useEffect(() => {
-    if (!isL2ServiceLogged) {
-      dispatch(setShowOnlyMyOrder(false));
-    }
-  }, []);
 
   const renderLeftView = () => {
     return (

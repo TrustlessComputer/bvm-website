@@ -49,7 +49,7 @@ const Item = React.memo((props: Props) => {
       alignItems={'center'}
       py={'10px'}
       px={'16px'}
-      minH={'70px'}
+      minH={'65px'}
       fontSize={'20px'}
       color={'black'}
       aria-selected={isSelected}

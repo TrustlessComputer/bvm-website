@@ -242,12 +242,15 @@ type ViewMode = 'Mainnet' | 'Testnet';
 type ViewPage = 'Biiling' | 'ManageChains';
 
 interface L2ServicesState {
-  isFetching: boolean;
-  isFetched: boolean;
+  //My Order List
+  isMyOrderListFetching: boolean;
+  isMyOrderListFetched: boolean;
   orderList: OrderItem[];
+
   isFetchingAllOrders: boolean;
   isFetchedAllOrders: boolean;
   allOrders: OrderItem[];
+
   orderSelected: OrderItem | undefined;
 
   historyList: HistoryItemResp[];
@@ -257,6 +260,9 @@ interface L2ServicesState {
   showAllChain: boolean;
   viewPage: ViewPage;
 
+  //Account Infor
+  isAccountInforFetching: boolean;
+  isAccountInforFetched: boolean;
   accountInforL2Service: AccountInfo | undefined;
   isL2ServiceLogged: boolean;
 

@@ -32,8 +32,6 @@ export type Props = {
 export const BuyPage = React.memo((props: Props) => {
   const { onSuccess } = props;
   const {
-    availableListData,
-    isAvailableListFetching,
     confirmSubmitHandler,
     showSubmitForm,
     setShowSubmitForm,
@@ -47,18 +45,17 @@ export const BuyPage = React.memo((props: Props) => {
     isMainnet,
   } = useBuy();
   const router = useRouter();
-  // const { isL2ServiceLogged, onConnect } = useL2Service();
-  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const { accountInforL2Service, availableListFetching } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
   const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
-  if (isAvailableListFetching)
+  if (availableListFetching)
     return (
       <Flex height={'100dvh'} align={'center'} justify={'center'}>
         <Spinner color="#000" size="xl" />
       </Flex>
     );
-
-  if (!availableListData) return <></>;
 
   return (
     <Flex direction={'column'} py="10px" gap={'20px'} className={s.container}>
@@ -77,18 +74,6 @@ export const BuyPage = React.memo((props: Props) => {
             <BreadcrumbLink href="#">Customize</BreadcrumbLink>
           </BreadcrumbItem>
         </Breadcrumb>
-        {/* {isL2ServiceLogged &&
-          accountInforL2Service &&
-          accountInforL2Service.topUpWalletAddress && (
-            <Flex bgColor={'red'} width={'200px'}>
-              <BlockieAvatar
-                address={accountInforL2Service.topUpWalletAddress}
-                size={30}
-                ensImage={null}
-              />
-            </Flex>
-          )} */}
-
         {!loggedIn ? (
           <Flex
             align={'center'}

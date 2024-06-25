@@ -51,9 +51,8 @@ export const orderRegisterBootstrapParams = async () => {
     nativeTokenPayingGas: NativeTokenPayingGasEnum.NativeTokenPayingGas_BVM,
     gasLimit: PRICING_PACKGE_DATA[PRICING_PACKGE.Hacker].maxGasLimit,
     bitcoinValidity: BitcoinValidityEnum.BitcoinValidity_Ordinals,
-    // twitter_id: yourXField.value?.trim(),
     rollupProtocol: RollupEnum.Rollup_ZK,
-
+    prover: 0,
     package: PRICING_PACKGE.Hacker,
     ...HardwareBootstrap,
   };

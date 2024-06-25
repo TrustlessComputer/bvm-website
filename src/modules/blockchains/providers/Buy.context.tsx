@@ -56,11 +56,10 @@ import { ServiceTypeEnum } from '../Buy/Buy.constanst';
 import l2ServicesAPI, {
   estimateTotalCostAPI,
   estimateTotalCostAPI_V2,
-  fetchAvailableList,
   orderBuyAPI,
   submitContactVS2,
 } from '@/services/api/l2services';
-import { useAppDispatch } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import useNakaAuthen from '@/hooks/useRequestNakaAccount';
 import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
 import { getErrorMessage } from '@/utils/errorV2';
@@ -79,7 +78,8 @@ import {
   PRICING_PACKGE_DATA,
 } from '@/modules/PricingV2/constants';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
-
+import { fetchAvailableList } from '@/stores/states/l2services/actions';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 export type IField = {
   value?: string;
   hasFocused?: boolean;
@@ -106,7 +106,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   const router = useRouter();
 
   const accountInfo = true;
-  const { fetchAllData, isL2ServiceLogged } = useL2Service();
+  const { availableList } = useAppSelector(getL2ServicesStateSelector);
   const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
   const { tracking } = useL2ServiceTracking();
 
@@ -264,7 +264,6 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   const [availableListData, setAvailableListData] = useState<
     IAvailableList | undefined
   >(undefined);
-  const [isAvailableListFetching, setAvailableListFetching] = useState(false);
 
   // EstimateFee API Data
   const [estimateTotalCostData, setEstimateTotalCostData] = useState<
@@ -289,6 +288,10 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     () => !!(configuratinOptionSelected === ConfigurationOptionEnum.Standard),
     [configuratinOptionSelected],
   );
+
+  useEffect(() => {
+    setAvailableListData(availableList);
+  }, [availableList]);
 
   useEffect(() => {
     if (isStandardMode) {
@@ -457,39 +460,12 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   };
 
   const confirmBtnTitle = useMemo(() => {
-    // if (!isNakaWalletAuthed) {
-    //   return 'Connect';
-    // }
-    // if (isNeededRequestSignMessageFromNakaWallet) {
-    //   return 'Connect';
-    // } else if (isMainnet) {
-    //   return 'Submit';
-    // } else {
-    //   return 'Submit';
-    // }
-
-    // return 'Submit';
-
     if (!loggedIn) {
       return 'Sign In';
     } else {
       return 'Launch';
     }
-  }, [isMainnet, accountInfo, isNakaWalletAuthed, isL2ServiceLogged, loggedIn]);
-
-  const fetchAvailableListHandler = async () => {
-    try {
-      setAvailableListFetching(true);
-      const data = await fetchAvailableList();
-      setAvailableListData(data);
-    } catch (error) {
-      const { message } = getErrorMessage(error);
-      toast.error(message);
-      setAvailableListData(undefined);
-    } finally {
-      setAvailableListFetching(false);
-    }
-  };
+  }, [isMainnet, accountInfo, isNakaWalletAuthed, loggedIn]);
 
   const fetchEstimateTotalCost = async (orderBuyReq: IOrderBuyReq) => {
     try {
@@ -695,7 +671,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   ]);
 
   useEffect(() => {
-    fetchAvailableListHandler();
+    dispatch(fetchAvailableList());
   }, []);
 
   useEffect(() => {
@@ -859,7 +835,6 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     //
 
     availableListData,
-    isAvailableListFetching,
 
     estimateTotalCostData,
     setEstimateTotalCostData,

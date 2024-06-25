@@ -10,13 +10,12 @@ const fetchAvailableList = createAsyncThunk(
     try {
       const state = getState() as RootState;
       const l2ServicesState = state.l2Services;
-      if (
-        !l2ServicesState.availableListFetched ||
-        !l2ServicesState.availableList
-      ) {
+      const { availableListFetched, availableList, availableListFetching } =
+        l2ServicesState;
+      if (!availableListFetched && !availableList) {
         return await l2ServicesAPI.fetchAvailableList();
       } else {
-        return l2ServicesState.availableList;
+        return availableList;
       }
     } catch (error) {
       return undefined;

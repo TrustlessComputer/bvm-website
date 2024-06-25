@@ -287,7 +287,6 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 Subject
               </Text>
               <Select
-                defaultValue={SUBJECT_LIST[3]}
                 value={subject}
                 height={'50px'}
                 borderRadius={'8px'}

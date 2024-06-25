@@ -12,8 +12,8 @@ import { L2ServicesState, OrderItem, ViewMode, ViewPage } from './types';
 import uniqBy from 'lodash/uniqBy';
 
 export const initialState: L2ServicesState = {
-  isFetching: false,
-  isFetched: false,
+  isMyOrderListFetched: false,
+  isMyOrderListFetching: false,
   orderList: [],
 
   isFetchingAllOrders: false,
@@ -23,10 +23,8 @@ export const initialState: L2ServicesState = {
 
   historyList: [],
 
-  viewMode: 'Mainnet',
-  showOnlyMyOrder: true,
-  showAllChain: false,
-
+  isAccountInforFetching: false,
+  isAccountInforFetched: false,
   accountInforL2Service: undefined,
   isL2ServiceLogged: false,
 
@@ -35,6 +33,9 @@ export const initialState: L2ServicesState = {
   availableList: undefined,
 
   viewPage: 'ManageChains',
+  viewMode: 'Mainnet',
+  showOnlyMyOrder: true,
+  showAllChain: false,
 };
 
 const slice = createSlice({
@@ -54,8 +55,8 @@ const slice = createSlice({
       state.orderSelected = action.payload;
     },
     resetOrders(state) {
-      state.isFetching = false;
-      state.isFetched = false;
+      state.isMyOrderListFetched = false;
+      state.isMyOrderListFetching = false;
       state.orderList = [];
       state.orderSelected = undefined;
       state.accountInforL2Service = undefined;
@@ -83,16 +84,16 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAccountInfo.pending, (state) => {
-        state.isFetching = true;
+        state.isAccountInforFetching = true;
       })
       .addCase(fetchAccountInfo.fulfilled, (state, action) => {
-        state.isFetching = false;
-        state.isFetched = true;
+        state.isAccountInforFetching = false;
+        state.isAccountInforFetched = true;
         state.accountInforL2Service = action.payload;
       })
       .addCase(fetchAccountInfo.rejected, (state, _) => {
-        state.isFetching = false;
-        state.isFetched = true;
+        state.isMyOrderListFetching = false;
+        state.isAccountInforFetched = true;
         state.accountInforL2Service = undefined;
       })
 
@@ -105,16 +106,16 @@ const slice = createSlice({
       })
 
       .addCase(fetchOrderList.pending, (state) => {
-        state.isFetching = true;
+        state.isMyOrderListFetching = true;
       })
       .addCase(fetchOrderList.fulfilled, (state, action) => {
-        state.isFetching = false;
-        state.isFetched = true;
+        state.isMyOrderListFetching = false;
+        state.isMyOrderListFetched = true;
         state.orderList = action.payload;
       })
       .addCase(fetchOrderList.rejected, (state, _) => {
-        state.isFetching = false;
-        state.isFetched = true;
+        state.isMyOrderListFetching = false;
+        state.isMyOrderListFetched = true;
         state.orderList = [];
       })
 
@@ -137,7 +138,7 @@ const slice = createSlice({
       })
 
       .addCase(fetchAvailableList.pending, (state) => {
-        state.availableListFetched = true;
+        state.availableListFetching = true;
       })
       .addCase(fetchAvailableList.fulfilled, (state, action) => {
         state.availableListFetching = false;

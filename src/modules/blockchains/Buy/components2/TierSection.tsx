@@ -2,9 +2,8 @@ import { Flex, Text } from '@chakra-ui/react';
 import Section from '../components/Section';
 import s from '../styles.module.scss';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { fetchAvailableList } from '@/stores/states/l2services/actions';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { useSearchParams } from 'next/navigation';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
@@ -32,10 +31,6 @@ const TierSection = () => {
     });
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
-
-  useEffect(() => {
-    dispatch(fetchAvailableList());
-  }, []);
 
   if (isFecthingData) return null;
 
@@ -83,4 +78,4 @@ const TierSection = () => {
   );
 };
 
-export default TierSection;
+export default memo(TierSection);

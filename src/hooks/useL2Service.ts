@@ -32,7 +32,7 @@ const useL2Service = () => {
     timerRef.current = undefined;
   };
 
-  const { isL2ServiceLogged, isFetching, isFetched } = useAppSelector(
+  const { isMyOrderListFetched, isMyOrderListFetching } = useAppSelector(
     getL2ServicesStateSelector,
   );
 
@@ -41,18 +41,19 @@ const useL2Service = () => {
   const dispatch = useAppDispatch();
 
   const isLoading = useMemo(() => {
-    if (isFetched || !isNakaWalletLoading) {
+    if (isMyOrderListFetched || !isNakaWalletLoading) {
       return false;
     }
     return true;
-  }, [isFetched, isFetching, isNakaWalletLoading]);
+  }, [isMyOrderListFetched, isMyOrderListFetching, isNakaWalletLoading]);
 
-  const fetchAllData = () => {
-    // dispatch(fetchAllOrders());
-    if (isL2ServiceLogged || loggedIn) {
-      dispatch(fetchOrderList());
-      dispatch(fetchAccountInfo());
-    }
+  const getMyOrderList = () => {
+    console.log('PHAT -- 3 ');
+    dispatch(fetchOrderList());
+  };
+
+  const getAccountInfor = () => {
+    dispatch(fetchAccountInfo());
   };
 
   const getMessageToSign = async (address: string) => {
@@ -179,11 +180,11 @@ const useL2Service = () => {
 
   const loopFetchAccountInfor = () => {
     clearIntervalTimer();
-    if (isL2ServiceLogged || loggedIn) {
-      dispatch(fetchAccountInfo());
+    if (loggedIn) {
+      getAccountInfor();
       if (!timerRef.current) {
         timerRef.current = setInterval(() => {
-          dispatch(fetchAccountInfo());
+          getAccountInfor();
         }, TIMER_INTERVAL);
       }
     } else {
@@ -194,11 +195,11 @@ const useL2Service = () => {
   return {
     onConnect,
     onLogout,
-    fetchAllData,
     onVerifyLoginFirstTime,
     loopFetchAccountInfor,
-    isL2ServiceLogged,
     isLoading,
+    getMyOrderList,
+    getAccountInfor,
   };
 };
 
