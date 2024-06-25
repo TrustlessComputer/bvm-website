@@ -32,7 +32,9 @@ const GroupDownItem = ({
         {title}
       </span>
       <div className={`${s.dropMenu_list} ${groupType === typeGroup && s.isOpen}`}>
-        {children}
+        <div className={s.dropMenu_list_inner}>
+          {children}
+        </div>
       </div>
     </div>
   );
