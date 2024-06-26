@@ -15,14 +15,17 @@ export default function HeroV2() {
       <div className={`${s.inner} containerV3`}>
         <div className={s.content}>
           <h3 className={s.subTitle}>
-            Launch your own ZK Rollup on Bitcoin for $99/mo.
+            Be the first to launch a ZK Rollup on Bitcoin.
           </h3>
           <div className={s.desc}>
-            <p> Bitcoin Virtual Machines are ZK Rollups on Bitcoin, making it easy to build apps on Bitcoin.</p>
+           <p>Bitcoin Virtual Machines are ZK Rollups on Bitcoin, making it easy to build apps on Bitcoin.</p>
             <p>Spin one up with a single click, deploy some Solidity smart contracts like on Ethereum, and launch your Bitcoin app — it’s that easy.</p>
             <p>It’s Bitcoin, upgraded.</p>
           </div>
           <div className={s.groupBtn}>
+            <div className={s.pricing}>$99
+              <small>per month</small>
+            </div>
             <div
               className={`${s.btn} ${s.btn__primary}`}
               onClick={() => {
@@ -31,30 +34,6 @@ export default function HeroV2() {
               }}
             >
               Get started
-            </div>
-            {' '}
-            <div
-              onClick={() => {
-                window.open('https://docs.bvm.network/bvm')
-              }}
-              className={`${s.btn} ${s.btn__secondary}`}
-            >
-              Developer guides
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M6 12L10 8L6 4"
-                  stroke="#FA4E0E"
-                  stroke-width="1.2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
             </div>
           </div>
         </div>
