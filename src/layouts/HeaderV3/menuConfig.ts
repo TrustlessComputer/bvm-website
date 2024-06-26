@@ -4,14 +4,14 @@ import GroupProducts from '@layouts/HeaderV3/components/GroupProducts';
 import GroupDeveloper from '@layouts/HeaderV3/components/GroupDeveloper';
 
 export const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: 'Products',
-    href: '#',
-    isNewWindow: false,
-    isHide: false,
-    groupType: 'production',
-    GroupDropDown: GroupProducts,
-  },
+  // {
+  //   label: 'Products',
+  //   href: '#',
+  //   isNewWindow: false,
+  //   isHide: false,
+  //   groupType: 'production',
+  //   GroupDropDown: GroupProducts,
+  // },
   {
     label: 'Developers',
     isNewWindow: false,
