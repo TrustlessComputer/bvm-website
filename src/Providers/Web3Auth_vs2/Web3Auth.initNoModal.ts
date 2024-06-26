@@ -33,7 +33,6 @@ const openloginAdapter = new OpenloginAdapter({
   adapterSettings: {
     clientId: WEB3_AUTH_CLIENT_ID,
     uxMode: 'redirect', // "redirect" | "popup",
-    redirectUrl: window.location.href,
   },
 });
 
