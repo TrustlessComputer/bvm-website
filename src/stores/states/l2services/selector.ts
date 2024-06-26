@@ -45,6 +45,35 @@ const myOrderListSelector = createSelector(orderListSelector, (myOrderList) => {
   return [...myOrderList].sort((a, b) => b.index - a.index);
 });
 
+const myOrderListWithNetworkSelector = createSelector(
+  orderListSelector,
+  (myOrderList) => {
+    let result = {
+      mainnetOrderList: [] as OrderItem[],
+      testnetOrderList: [] as OrderItem[],
+    };
+
+    myOrderList.map((item) => {
+      if (item.isMainnet) {
+        result.mainnetOrderList.push(item);
+      } else {
+        result.testnetOrderList.push(item);
+      }
+    });
+
+    return result;
+  },
+);
+
+const myOrderListFilteredByNetwork = createSelector(
+  [getL2ServicesStateSelector, myOrderListWithNetworkSelector],
+  (state, myOrderListByNetwork) => {
+    if (state.viewMode === 'Mainnet')
+      return myOrderListByNetwork.mainnetOrderList;
+    else return myOrderListByNetwork.testnetOrderList;
+  },
+);
+
 const orderSelectedSelector = createSelector(
   getL2ServicesStateSelector,
   (reducer) => reducer.orderSelected,
@@ -173,6 +202,8 @@ export {
   accountInforSelector,
   packageDataSelector,
   packageDetailByPackageEnumSelector,
+  myOrderListWithNetworkSelector,
+  myOrderListFilteredByNetwork,
 
   //Monitor
   ZKOrdersSelector,

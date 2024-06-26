@@ -2,23 +2,24 @@
 
 import {
   Flex,
-  Tabs,
-  TabList,
   Tab,
-  TabPanels,
+  TabList,
   TabPanel,
+  TabPanels,
+  Tabs,
 } from '@chakra-ui/react';
 
-import BodyView from './components/Body';
-import s from './styles.module.scss';
-import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { enhance } from './Dashboard.enhance';
-import useL2Service from '@/hooks/useL2Service';
-import { useEffect, useState } from 'react';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { setViewMode, setViewPage } from '@/stores/states/l2services/reducer';
-import BillingPage from './components/BillingPage';
+import useL2Service from '@/hooks/useL2Service';
+import { useAppDispatch } from '@/stores/hooks';
+import { setViewPage } from '@/stores/states/l2services/reducer';
+import { useEffect, useState } from 'react';
 import { TAB_ENUM, TAB_ENUM_MAP } from './Dashboard.constant';
+import { enhance } from './Dashboard.enhance';
+import BillingPage from './components/BillingPage';
+import BodyView from './components/Body';
+import NetworkBar from './components/NetworkBar';
+import s from './styles.module.scss';
 
 const Page = (props: any) => {
   const { onOpenTopUpModal } = props;
@@ -77,6 +78,7 @@ const Page = (props: any) => {
           <Tab>{TAB_ENUM_MAP[TAB_ENUM.MANAGE_CHAINS]}</Tab>
           <Tab>{TAB_ENUM_MAP[TAB_ENUM.BILLING]}</Tab>
         </TabList>
+        <NetworkBar />
         <TabPanels className={s.tabPanel}>
           <TabPanel>{renderManageChainsPage()}</TabPanel>
           <TabPanel>{renderBillingPage()}</TabPanel>
