@@ -371,7 +371,7 @@ const UpdateOrderModal = (props: IProps) => {
         />
 
         <UnorderedList color={'#6C6F93'} fontSize={'14px'} fontWeight={500}>
-          <ListItem>{'Supported file formats: svg, png, jpng, jpeg'}</ListItem>
+          <ListItem>{'Supported file formats: svg, png, jpg, jpeg'}</ListItem>
           <ListItem>{`Maximum file size: ${MAXIMUM_FILE_UPLOAD} MB`}</ListItem>
           <ListItem>{`Recommended image sizes: 200x200`}</ListItem>
         </UnorderedList>
