@@ -3,10 +3,10 @@ import { Input, InputProps } from '@chakra-ui/react';
 const InputWrapper = (props: any) => {
   return (
     <Input
-      fontSize={'18px'}
+      fontSize={['14px', '16px', ' 18px']}
       borderWidth={'1.5px'}
       borderRadius={'12px'}
-      minH={'60px'}
+      height={['45px', '50px', ' 60px']}
       borderColor={'#d9d9d9'}
       color={'#000'}
       aria-activedescendant=""

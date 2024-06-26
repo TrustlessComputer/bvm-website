@@ -69,9 +69,14 @@ export const BuyPage = React.memo((props: Props) => {
     );
 
   return (
-    <Flex direction={'column'} p="10px" gap={'20px'} className={s.container}>
+    <Flex
+      direction={'column'}
+      p={['2px', '8px', '10px']}
+      gap={'20px'}
+      className={s.container}
+    >
       <Flex
-        p={'50px'}
+        p={['20px', '28px', '40px', '50x']}
         direction={'column'}
         borderRadius={'20px'}
         display={'flex'}

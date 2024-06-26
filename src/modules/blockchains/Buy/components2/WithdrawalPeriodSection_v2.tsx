@@ -93,7 +93,12 @@ const WithdrawalPeriodSection = () => {
         </Slider>
       </Flex>
 
-      <Text fontSize="18px" fontWeight={500} align="left" color={'#000'}>
+      <Text
+        fontSize={['15px', '16px', '18px']}
+        fontWeight={500}
+        align="left"
+        color={'#000'}
+      >
         {`${withdrawalPeriodSelected} hours`}
       </Text>
     </Section>
