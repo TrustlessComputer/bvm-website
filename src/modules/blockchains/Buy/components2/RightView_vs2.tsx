@@ -41,7 +41,7 @@ const RightView = React.memo((props: Props) => {
       }}
     >
       <Text fontSize={'36px'} color={'black'} fontWeight={600}>
-        Customize your Bitcoin ZK Rollup
+        Customize your Bitcoin Virtual Machine
       </Text>
       {/* <Text fontSize={'20px'} color={'#323232'} fontWeight={400} my={'13px'}>
         ZK-powered Blockchains are secure, low-cost, and lightning-fast — fully

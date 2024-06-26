@@ -131,7 +131,7 @@ export const getRandonComputerName = (isMainnet: boolean) => {
   const prefix = 'BVM';
   const suffix = isMainnet ? '' : '(Testnet)';
   const randomNumber = Math.floor(Math.random() * 9000) + 1000; //random from 1000 -> 9999
-  return `${prefix}-${randomNumber}${suffix ? `-${suffix}` : ''}`;
+  return `${prefix} ${randomNumber}${suffix ? ` ${suffix}` : ''}`;
 };
 
 export const getRandonComputerName_VS2 = (isMainnet: boolean) => {

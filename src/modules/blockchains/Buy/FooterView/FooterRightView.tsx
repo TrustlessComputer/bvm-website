@@ -73,7 +73,7 @@ const FooterRightView = () => {
               .decimalPlaces(2)
               .toString()} BVM`} */}
 
-            {`${tierData?.priceNote || '--'}`}
+            {`${tierData?.price || '--'}`}
           </Text>
           <Text
             fontSize={'16px'}
@@ -84,7 +84,7 @@ const FooterRightView = () => {
             className={s.fontType2}
           >
             {/* {`$${estimateTotalCostData_V2?.TotalCostUSD || '--'}`} */}
-            {`${tierData?.price || '--'}`}
+            {`${tierData?.priceNote || '--'}`}
           </Text>
         </Flex>
 
