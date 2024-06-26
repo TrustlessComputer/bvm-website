@@ -33,7 +33,6 @@ const BodyGridView = () => {
   const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
     getL2ServicesStateSelector,
   );
-  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
   const isEmptyData = useMemo(() => {
     if (myOrders.length < 1) return true;
