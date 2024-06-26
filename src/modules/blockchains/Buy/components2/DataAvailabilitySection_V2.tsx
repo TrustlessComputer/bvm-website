@@ -189,7 +189,15 @@ const DataAvailabilitySection = () => {
     <Section
       title={'Data Availability'}
       description={'Which data availability layer is right for you?'}
-      descriptionDetail={undefined}
+      descriptionDetail={{
+        title: 'Data Availability',
+        content: (
+          <p>
+            The data of your blockchain is written to a Data Availability layer
+            such as Polygon, Celestia, NearDA, Eigen, Filecoin or Avail.
+          </p>
+        ),
+      }}
     >
       {/* {renderDropDownList()} */}
       {renderDAList()}
