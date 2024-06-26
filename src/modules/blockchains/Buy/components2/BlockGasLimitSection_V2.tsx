@@ -43,7 +43,17 @@ const BlockGasLimitSection = () => {
     <Section
       title={'Block gas limit'}
       description={'Which block gas limit is right for you?'}
-      descriptionDetail={undefined}
+      descriptionDetail={{
+        title: 'Block Gas Limit',
+        content: (
+          <p>
+            he block gas limit defines the maximum amount of gas that all
+            transactions in a single block can consume. By default, it is set to
+            1,000,000,000, but you can adjust it according to your specific
+            needs.
+          </p>
+        ),
+      }}
     >
       <Flex flexDir={'column'} px={'0px'} overflow={'visible'}>
         <Slider

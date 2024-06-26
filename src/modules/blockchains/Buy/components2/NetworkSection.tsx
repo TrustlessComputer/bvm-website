@@ -22,16 +22,16 @@ const NetworkSection = () => {
     <Section
       title={'Network'}
       description={'Which network is right for you?'}
-      // descriptionDetail={{
-      //   title: 'Network',
-      //   content: (
-      //     <p>
-      //       Select whether you want to create a testnet or deploy a mainnet. The
-      //       testnet is free.
-      //     </p>
-      //   ),
-      // }}
-      descriptionDetail={undefined}
+      descriptionDetail={{
+        title: 'Network',
+        content: (
+          <p>
+            Select whether you want to create a testnet or deploy a mainnet. The
+            testnet is free.
+          </p>
+        ),
+      }}
+      // descriptionDetail={undefined}
     >
       <Flex flexDir={'row'} align={'center'} gap={'10px'}>
         {newDataList?.map((item, index) => {
