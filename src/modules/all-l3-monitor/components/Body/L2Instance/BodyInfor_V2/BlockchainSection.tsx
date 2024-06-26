@@ -75,11 +75,13 @@ const BlockchainSection = (props: Props) => {
           title="RPC"
           content={`${rpc || 'Pending payment'}`}
           isPendingPayment={!rpc}
+          isLink={!!rpc}
         />
         <ColumnInfor
           title="Block explorer"
           content={`${explorer || 'Pending payment'}`}
-          isPendingPayment={!rpc}
+          isPendingPayment={!explorer}
+          isLink={!!explorer}
         />
         <ColumnInfor
           title="Withdrawal period"
