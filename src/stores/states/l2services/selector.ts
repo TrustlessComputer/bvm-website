@@ -41,7 +41,8 @@ const orderListSelector = createSelector(
 );
 
 const myOrderListSelector = createSelector(orderListSelector, (myOrderList) => {
-  return myOrderList.sort((a, b) => b.index - a.index);
+  if (!myOrderList) return [];
+  return [...myOrderList].sort((a, b) => b.index - a.index);
 });
 
 const orderSelectedSelector = createSelector(
