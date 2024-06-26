@@ -1,7 +1,6 @@
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ModalLoading from '@/components/ModalLoading';
-import useL2Service from '@/hooks/useL2Service';
 import {
   estimateTotalCostAPI_V2,
   orderBuyAPI,

@@ -16,7 +16,6 @@ import { useEffect } from 'react';
 const HeaderView = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { onConnect } = useL2Service();
 
   const { viewMode, showOnlyMyOrder, showAllChain } = useAppSelector(
     getL2ServicesStateSelector,
@@ -167,7 +166,6 @@ const HeaderView = () => {
                 opacity: 0.8,
               }}
               onClick={() => {
-                // onConnect();
                 setShowLoginModalCustomize && setShowLoginModalCustomize(true);
               }}
             >
