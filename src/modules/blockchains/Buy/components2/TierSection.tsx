@@ -38,29 +38,44 @@ const TierSection = () => {
     <>
       <Section title="Plan"></Section>
       <Flex
-        mt={'-4px'}
+        mt={['-8px', '-6px', '-4px']}
         flexDir={'row'}
         align={'center'}
         justify={'space-between'}
-        px="13px"
-        py="11px"
+        px={['8px', '11px', '14px']}
+        py={['6px', '8px', '14px']}
         borderRadius={'12px'}
-        gap="12px"
+        gap={['10px', '11px', '12px']}
         bgColor={'#F4F4F4'}
         className={s.fontSFProDisplay}
       >
-        <Flex flexDir={'row'} align={'center'} gap="12px">
-          <Text fontSize={'18px'} fontWeight={600} lineHeight={'28px'}>
+        <Flex flexDir={'row'} align={'center'} gap={['12px']}>
+          <Text
+            fontSize={['15px', '16px', '18px']}
+            lineHeight={['18px', '20px', '28px']}
+            fontWeight={600}
+          >
             {`${tierData?.valueStr || '--'}`}
           </Text>
-          <Text fontSize={'18px'} fontWeight={400} lineHeight={'28px'}>
-            {`${tierData?.price || '--'} (${
-              tierData?.priceNote || '--'
-            }) per rollup/month`}
-          </Text>
+          <Flex flexDir={['column', 'row']}>
+            <Text
+              fontSize={['15px', '16px', '18px']}
+              lineHeight={['18px', '20px', '28px']}
+              fontWeight={400}
+            >
+              {`${tierData?.price || '--'} (${tierData?.priceNote || '--'})`}
+            </Text>
+            <Text
+              fontSize={['15px', '16px', '18px']}
+              lineHeight={['18px', '20px', '28px']}
+              fontWeight={400}
+            >
+              {'per rollup/month'}
+            </Text>
+          </Flex>
         </Flex>
         <Flex
-          fontSize={'18px'}
+          fontSize={['15px', '16px', '18px']}
           fontWeight={400}
           color={'#2A2EE1'}
           _hover={{
