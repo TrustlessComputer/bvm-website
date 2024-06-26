@@ -26,11 +26,14 @@ const web3AuthNoModal = new Web3AuthNoModal({
       'https://storage.googleapis.com/tc-cdn-prod/nbc/icons/bvm-icons/logo.png',
     defaultLanguage: 'en',
   },
+  enableLogging: true,
 });
 
 const openloginAdapter = new OpenloginAdapter({
   adapterSettings: {
-    uxMode: 'redirect', // "redirect" | "popup"
+    clientId: WEB3_AUTH_CLIENT_ID,
+    uxMode: 'redirect', // "redirect" | "popup",
+    redirectUrl: window.location.href,
   },
 });
 
