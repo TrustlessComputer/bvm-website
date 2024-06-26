@@ -50,7 +50,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     direction: 'left',
   },
   {
-    title: '$99/mo for a fully-managed blockchain',
+    title: '$99/mo for a fully managed blockchain',
     subTitle: 'PRICING',
     children: <div>
       <p>Before BVM, you need an army of PhDs, cryptographers, and distributed system engineers to build and scale a blockchain.</p>
@@ -70,7 +70,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
       <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
       <p>Oh, and we really like building things.</p>
     </div>,
-    image: '/bvm/bvm-home-team.png',
+    image: '/bvm/home-team-v2.png',
     direction: 'left',
     button: {
       link: '/research',
@@ -97,15 +97,15 @@ export const DATA_BRAND = [
   },
   {
     icon: '/bvm/brands/4.png',
-    title: 'zkSync',
+    title: 'ZK Stack',
   },
   {
-    icon: '/bvm/brands/5.png',
-    title: 'Bitcoin Stamps',
+    icon: '/bvm/bitcoin-stamp.png',
+    title: 'Avail DA',
   },
   {
     icon: '/bvm/brands/6.png',
-    title: 'Near',
+    title: 'Near DA',
   },
   {
     icon: '/bvm/brands/7.png',
@@ -113,11 +113,11 @@ export const DATA_BRAND = [
   },
   {
     icon: '/bvm/brands/8.png',
-    title: 'Optimism',
+    title: 'OP Stack',
   },
   {
     icon: '/bvm/brands/9.png',
-    title: 'Eigen',
+    title: 'Eigen DA',
   },
   {
     icon: '/bvm/brands/10.png',
