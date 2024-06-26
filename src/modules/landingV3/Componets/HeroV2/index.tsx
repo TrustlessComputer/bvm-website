@@ -18,8 +18,16 @@ export default function HeroV2() {
             Launch your own ZK Rollup on Bitcoin for $99/mo.
           </h3>
           <div className={s.desc}>
-            <p> Bitcoin Virtual Machines are ZK Rollups on Bitcoin, making it easy to build apps on Bitcoin.</p>
-            <p>Spin one up with a single click, deploy some Solidity smart contracts like on Ethereum, and launch your Bitcoin app — it’s that easy.</p>
+            <p>
+              {' '}
+              Bitcoin Virtual Machines are ZK Rollups on Bitcoin, making it easy
+              to build apps on Bitcoin.
+            </p>
+            <p>
+              Spin one up with a single click, deploy some Solidity smart
+              contracts like on Ethereum, and launch your Bitcoin app — it’s
+              that easy.
+            </p>
             <p>It’s Bitcoin, upgraded.</p>
           </div>
           <div className={s.groupBtn}>
@@ -31,11 +39,11 @@ export default function HeroV2() {
               }}
             >
               Get started
-            </div>
-            {' '}
+            </div>{' '}
             <div
               onClick={() => {
-                window.open('https://docs.bvm.network/bvm')
+                tracking('DEVELOPER_GUIDES');
+                window.open('https://docs.bvm.network/bvm');
               }}
               className={`${s.btn} ${s.btn__secondary}`}
             >
@@ -58,7 +66,13 @@ export default function HeroV2() {
             </div>
           </div>
         </div>
-        <ImagePlaceholder className={s.imageHero} src={'/bvm/hero-banner.png'} width="694" height="579" alt={'hero'} />
+        <ImagePlaceholder
+          className={s.imageHero}
+          src={'/bvm/hero-banner.png'}
+          width="694"
+          height="579"
+          alt={'hero'}
+        />
       </div>
       <Brand />
     </div>

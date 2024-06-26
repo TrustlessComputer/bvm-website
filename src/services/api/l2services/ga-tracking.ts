@@ -8,4 +8,5 @@ export const EVENT_LABEL = {
   CONTACTS_US: 'contact - us',
   SUBMIT_CONTACT_US: 'submit - contact - us',
   PAYNOW: 'paynow',
+  DEVELOPER_GUIDES: 'Developer guides',
 };
