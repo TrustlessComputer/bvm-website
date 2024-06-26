@@ -75,7 +75,7 @@ const BlockchainSection = (props: Props) => {
         <ColumnInfor
           title="Block explorer"
           content={`${explorer || 'Pending payment'}`}
-          isPendingPayment={!rpc}
+          isPendingPayment={!explorer}
           isLink={!!explorer}
         />
         <ColumnInfor
