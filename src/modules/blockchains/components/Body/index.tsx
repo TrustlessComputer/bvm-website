@@ -5,6 +5,7 @@ import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import {
   allOrdersSelector,
   getL2ServicesStateSelector,
+  myOrderListFilteredByNetwork,
   myOrderListSelector,
   orderListSelector,
 } from '@/stores/states/l2services/selector';
@@ -21,7 +22,6 @@ import { useEffect, useMemo } from 'react';
 import L2Instance from './L2Instance';
 import { useDashboard } from '../../providers/DashboardProvider';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import s from './styleFont.module.scss';
 import useL2Service from '@/hooks/useL2Service';
 
 const BodyGridView = () => {
@@ -29,7 +29,7 @@ const BodyGridView = () => {
   const { onOpenOpenOrderDetailModal } = useDashboard();
   const { getMyOrderList } = useL2Service();
   // const allOrders = useAppSelector(allOrdersSelector);
-  const myOrders = useAppSelector(myOrderListSelector);
+  const myOrders = useAppSelector(myOrderListFilteredByNetwork);
   const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
     getL2ServicesStateSelector,
   );
