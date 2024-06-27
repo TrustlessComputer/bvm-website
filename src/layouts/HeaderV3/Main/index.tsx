@@ -12,6 +12,7 @@ import GroupDownItem from '@layouts/HeaderV3/components/GroupDownItem';
 import { ReactElement } from 'react';
 import useHeaderMobile from '@layouts/HeaderV3/useHeaderMobile';
 import Image from 'next/image';
+import IconLogo from '../components/IcLogo';
 
 export type TMainHeader = {
   color?: 'black' | 'white';
@@ -86,12 +87,13 @@ const Main = ({
           {/* <h6 className={s.logo_text} style={{ color: color }}>
             Bitcoin Virtual Machine
           </h6> */}
-          <Image
+          {/* <Image
             src={'/landingV3/svg/logo_text.svg'}
             width={27}
             height={36}
-            alt="logo"
-          />
+            alt="logo" 
+          /> */}
+          <IconLogo />
         </div>
         {isDesktop ? (
           <div className={s.menu}>

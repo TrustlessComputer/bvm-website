@@ -32,7 +32,10 @@
     line-height: (21 / 15);
     color: #fff;
   }
-
+  svg {
+    height: auto;
+    width: 27px;
+  }
   &_black {
     svg {
       path {
