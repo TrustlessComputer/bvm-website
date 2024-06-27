@@ -35,7 +35,7 @@ export default function Heading() {
         <a href="https://coinmarketcap.com/currencies/bvm/" className={s.social_icon} target={'_blank'}>
           <ImagePlaceholder src={'/social/mex.png'} alt={'mex'} height={54} width={54}/>
         </a>
-        <a href="" className={s.social_icon} target={'_blank'}>
+        <a href="https://app.uniswap.org/explore/tokens/ethereum/0x069d89974f4edabde69450f9cf5cf7d8cbd2568d" className={s.social_icon} target={'_blank'}>
           <ImagePlaceholder src={'/social/uniswap.png'} alt={'uniswap'} height={54} width={54}/>
         </a>
       </div>
