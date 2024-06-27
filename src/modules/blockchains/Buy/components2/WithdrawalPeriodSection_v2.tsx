@@ -50,8 +50,6 @@ const WithdrawalPeriodSection = () => {
             withdraw their assets from your blockchain back to Supersonic. This
             duration primarily depends on the time required for the prover to
             submit a zk-proof to the verifier contracts deployed on Supersonic.
-            By default, the withdrawal period is set to 2 hours if you have a
-            prover for your blockchain, and 15 minutes if you do not.
           </p>
         ),
       }}

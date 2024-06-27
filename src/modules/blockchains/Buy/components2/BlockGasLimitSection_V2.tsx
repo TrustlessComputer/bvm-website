@@ -47,10 +47,8 @@ const BlockGasLimitSection = () => {
         title: 'Block Gas Limit',
         content: (
           <p>
-            he block gas limit defines the maximum amount of gas that all
-            transactions in a single block can consume. By default, it is set to
-            1,000,000,000, but you can adjust it according to your specific
-            needs.
+            The block gas limit defines the maximum amount of gas that all
+            transactions in a single block can consume.
           </p>
         ),
       }}
