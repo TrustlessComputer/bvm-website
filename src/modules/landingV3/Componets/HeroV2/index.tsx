@@ -41,14 +41,9 @@ export default function HeroV2() {
             >
               Deploy now
             </div>
-            <div className={s.pricing}>
-              <div
-                className={`${s.btn} ${s.btn__secondary}`}
-                onClick={() => {}}
-              >
-                Developer docs
-                <IcArrowRight />
-              </div>
+            <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {}}>
+              Developer docs
+              <IcArrowRight />
             </div>
           </div>
         </div>
