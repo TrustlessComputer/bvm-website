@@ -26,7 +26,7 @@ import useL2Service from '@/hooks/useL2Service';
 
 const BodyGridView = () => {
   const dispatch = useAppDispatch();
-  const { onOpenOpenOrderDetailModal } = useDashboard();
+  const { onOpenWaittingSetingUp } = useDashboard();
   const { getMyOrderList } = useL2Service();
   // const allOrders = useAppSelector(allOrdersSelector);
   const myOrders = useAppSelector(myOrderListFilteredByNetwork);
@@ -73,7 +73,7 @@ const BodyGridView = () => {
             isOwner={item.tcAddress === accountInforL2Service?.tcAddress}
             onClick={() => {
               dispatch(setOrderSelected(item));
-              onOpenOpenOrderDetailModal && onOpenOpenOrderDetailModal();
+              onOpenWaittingSetingUp && onOpenWaittingSetingUp();
             }}
           />
         ))}

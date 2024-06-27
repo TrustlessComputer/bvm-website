@@ -109,6 +109,10 @@ const HeaderRow = (props: Props) => {
             fit={'contain'}
             maxW={'24px'}
             maxH={'24px'}
+            _hover={{
+              cursor: 'pointer',
+              opacity: 0.8,
+            }}
             onClick={(event: any) => {
               if (event.stopPropagation) event.stopPropagation();
               editOnClick && editOnClick();
