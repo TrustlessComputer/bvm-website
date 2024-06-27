@@ -27,8 +27,8 @@ export default function HeroV2() {
           <div className={s.desc}>
             <p>
               Spin one up on Bitcoin with a single click, deploy some Solidity
-              smart contracts like on Ethereum, and launch your app on Bitcoin —
-              it's that easy.
+              smart contracts like on Ethereum, and launch your app on <br />
+              Bitcoin — it's that easy.
             </p>
           </div>
           <div className={s.groupBtn}>
