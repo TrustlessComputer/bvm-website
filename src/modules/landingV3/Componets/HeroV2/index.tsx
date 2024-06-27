@@ -15,7 +15,7 @@ export default function HeroV2() {
       <div className={`${s.inner} containerV3`}>
         <div className={s.content}>
           <h3 className={s.subTitle}>
-            Be the first to launch a ZK Rollup on Bitcoin.
+            Be the first to launch <span>a ZK Rollup</span> on Bitcoin.
           </h3>
           <div className={s.desc}>
            <p>Bitcoin Virtual Machines are ZK Rollups on Bitcoin, making it easy to build apps on Bitcoin.</p>
