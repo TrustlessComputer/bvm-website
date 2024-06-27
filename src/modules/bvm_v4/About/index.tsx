@@ -5,7 +5,7 @@ import s from './style.module.scss'
 const About = (): React.JSX.Element => {
   return (
     <div className={s.wrapper}>
-      <div className={`${s.container} container`}>
+      <div className={`${s.container} containerV3`}>
         <div className={s.content}>
           <h2 className={s.title}>About</h2>
           <p className={s.desc}>
