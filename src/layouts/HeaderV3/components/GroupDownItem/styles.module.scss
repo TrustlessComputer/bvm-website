@@ -36,7 +36,6 @@
   }
 
   .dropMenu_list {
-
     box-shadow: none;
     border: none;
     border-radius: 0;
@@ -53,15 +52,16 @@
     }
   }
 
-  &.isOpen, &:hover {
+  &.isOpen,
+  &:hover {
     .dropMenu_list {
       opacity: 1;
       visibility: visible;
       z-index: 2 !important;
 
       @include is-pc {
-        transform: translateX(-50%);
-        left: calc(50% + 120px);
+        // left: calc(50% + 120px);
+        left: 0;
       }
     }
   }
@@ -90,8 +90,7 @@
       height: auto;
       right: 0;
       left: unset;
-      top: unset;
+      // top: unset;
     }
-
   }
 }

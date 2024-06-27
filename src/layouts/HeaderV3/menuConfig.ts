@@ -99,6 +99,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     href: '/developers',
     isNewWindow: false,
     isHide: false,
+    GroupDropDown: GroupDeveloper,
   },
   {
     label: 'Pricing',
@@ -159,7 +160,6 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
     href: '/research',
     isNewWindow: false,
     isHide: false,
-    GroupDropDown: GroupProducts,
   },
   {
     label: 'Team',
