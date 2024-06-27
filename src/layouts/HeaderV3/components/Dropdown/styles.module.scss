@@ -50,10 +50,25 @@
     gap: 24px;
     visibility: hidden;
     border-radius: 8px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
 }
 
 .listItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+
+  &:hover {
+    rect {
+      fill: #fa4e0e;
+    }
+
+    path {
+      fill: white;
+    }
+  }
   a {
     color: #000000 !important;
     display: flex;
@@ -68,16 +83,6 @@
 
     svg * {
       transition: fill 0.4s var(--easeOutQuart);
-    }
-
-    &:hover {
-      rect {
-        fill: #fa4e0e;
-      }
-
-      path {
-        fill: white;
-      }
     }
   }
 

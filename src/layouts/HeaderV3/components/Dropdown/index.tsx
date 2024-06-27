@@ -2,10 +2,16 @@ import { ReactElement } from 'react';
 import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 import { NavItem } from '@/layouts/Header/menuConfig';
+import Image from 'next/image';
 
 type PropD = {
   title: string;
-  lists: NavItem[];
+  lists: {
+    href: string;
+    label: string;
+    isNewWindow: boolean;
+    icon?: string;
+  }[];
   primaryColor?: string;
   href?: string;
   target?: string;
@@ -27,6 +33,9 @@ const DropDown = ({
         {lists.map((item) => {
           return (
             <li className={s.listItem}>
+              {item.icon && (
+                <Image src={item.icon} width={20} height={20} alt={'icon'} />
+              )}
               <a
                 href={item.href}
                 target={item?.isNewWindow ? '_blank' : '_self'}

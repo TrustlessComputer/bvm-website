@@ -86,7 +86,6 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
 ];
-
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
   {
     label: 'Products',
@@ -178,13 +177,17 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
       {
         icon: '/icons/tele-ic-2.svg',
         alt: 'telegram',
-        link: 'https://t.me/BVMofficialcommunity',
+        isNewWindow: true,
+        label: 'Telegram',
+        href: 'https://t.me/BVMofficialcommunity',
       },
       {
         icon: '/icons/x-ic.svg',
         // link: 'https://twitter.com/bird_2836',
         alt: 'x',
-        link: 'https://twitter.com/BVMnetwork',
+        label: 'Twitter',
+        isNewWindow: true,
+        href: 'https://twitter.com/BVMnetwork',
       },
     ],
   },
