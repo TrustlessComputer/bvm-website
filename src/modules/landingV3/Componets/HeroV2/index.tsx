@@ -4,6 +4,8 @@ import { useRef } from 'react';
 import Brand from '../Brand';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import IcLogoText from '../IcLogoText';
+import IcArrowRight from '../IcArrowRight';
 
 export default function HeroV2() {
   const router = useRouter();
@@ -14,18 +16,22 @@ export default function HeroV2() {
     <div className={s.hero} ref={ref}>
       <div className={`${s.inner} containerV3`}>
         <div className={s.content}>
+          <div className={s.content_sub}>
+            <IcLogoText />
+            <h2 className={s.content_sub_title}>BitZK</h2>
+          </div>
           <h3 className={s.subTitle}>
-            Be the first to launch <span>a ZK Rollup</span> on Bitcoin.
+            ZK Rollups on <br />
+            Bitcoin for $99/mo.
           </h3>
           <div className={s.desc}>
-           <p>Bitcoin Virtual Machines are ZK Rollups on Bitcoin, making it easy to build apps on Bitcoin.</p>
-            <p>Spin one up with a single click, deploy some Solidity smart contracts like on Ethereum, and launch your Bitcoin app — it’s that easy.</p>
-            <p>It’s Bitcoin, upgraded.</p>
+            <p>
+              Spin one up on Bitcoin with a single click, deploy some Solidity
+              smart contracts like on Ethereum, and launch your app on Bitcoin —
+              it's that easy.
+            </p>
           </div>
           <div className={s.groupBtn}>
-            <div className={s.pricing}>$99
-              <small>per month</small>
-            </div>
             <div
               className={`${s.btn} ${s.btn__primary}`}
               onClick={() => {
@@ -33,11 +39,26 @@ export default function HeroV2() {
                 router.push('/pricing');
               }}
             >
-              Get started
+              Deploy now
+            </div>
+            <div className={s.pricing}>
+              <div
+                className={`${s.btn} ${s.btn__secondary}`}
+                onClick={() => {}}
+              >
+                Developer docs
+                <IcArrowRight />
+              </div>
             </div>
           </div>
         </div>
-        <ImagePlaceholder className={s.imageHero} src={'/bvm/hero-banner.png'} width="694" height="579" alt={'hero'} />
+        <ImagePlaceholder
+          className={s.imageHero}
+          src={'/bvm/hero-banner.png'}
+          width="694"
+          height="579"
+          alt={'hero'}
+        />
       </div>
       <Brand />
     </div>
