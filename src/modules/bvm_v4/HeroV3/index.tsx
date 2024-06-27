@@ -37,17 +37,17 @@ const HeroV3 = (): React.JSX.Element => {
                 alt={'right'}
               />
             </a>
-            <ModalVideo
-              channel="custom"
-              url={'/public-sale/public_sale_video_2.mp4'}
-              isOpen={isOpen}
-              onClose={() => {
-                setOpen(false);
-              }}
-            />
           </div>
         </Fade>
       </div>
+      <ModalVideo
+        channel="custom"
+        url={'/public-sale/public_sale_video_2.mp4'}
+        isOpen={isOpen}
+        onClose={() => {
+          setOpen(false);
+        }}
+      />
     </div>
   )
 }
