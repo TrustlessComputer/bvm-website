@@ -65,7 +65,7 @@ const BodyGridView = () => {
 
   const renderDataList = () => {
     return (
-      <SimpleGrid columns={[1, 1]} spacing="20px" width={'100%'} height={'80%'}>
+      <SimpleGrid columns={[1, 1]} w={'100%'}>
         {myOrders.map((item, index) => (
           <L2Instance
             key={`${item.domain}-${index}`}
@@ -83,13 +83,20 @@ const BodyGridView = () => {
 
   const renderSekeleton = () => {
     return (
-      <SimpleGrid columns={[1, 1]} spacing="20px" width={'100%'} height={'80%'}>
+      <SimpleGrid
+        columns={[1, 1]}
+        spacing="20px"
+        w={'100%'}
+        // bgColor={'red'}
+        py={['5px', '10px', '20px']}
+        px={['10px', '5px', '0px']}
+      >
         {new Array(4).fill(0).map((item, index) => {
           return (
             <Skeleton
               key={`${item}-${index}`}
               w={'100%'}
-              height={'300px'}
+              height={'400px'}
               startColor="#2f2f2f"
               endColor="#656565"
               borderRadius={'20px'}
@@ -99,32 +106,6 @@ const BodyGridView = () => {
       </SimpleGrid>
     );
   };
-
-  // if (isMyOrderListFetched && !loggedIn) {
-  //   return (
-  //     <Button
-  //       bgColor={'#000'}
-  //       color={'#fff'}
-  //       mt={'30px'}
-  //       px="12px"
-  //       py="8px"
-  //       borderRadius={'100px'}
-  //       w={'100px'}
-  //       fontSize={'14px'}
-  //       alignSelf={'center'}
-  //       className={s.fontSFProDisplay}
-  //       onClick={() => {
-  //         setShowLoginModalCustomize && setShowLoginModalCustomize(true);
-  //       }}
-  //       _hover={{
-  //         cursor: 'pointer',
-  //         opacity: 0.8,
-  //       }}
-  //     >
-  //       Connect
-  //     </Button>
-  //   );
-  // }
 
   return (
     <Flex overflow={'hidden'}>

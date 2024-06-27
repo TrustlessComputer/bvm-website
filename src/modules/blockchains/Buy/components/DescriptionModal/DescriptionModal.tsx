@@ -22,18 +22,19 @@ const DescriptionModal = (props: IProps) => {
       icCloseUrl="/icons/ic-close-grey.svg"
     >
       <Flex
+        m={['10px', '20px']}
         direction={'column'}
         color={'black'}
-        p={'10px'}
+        p={['7px', '10px']}
         gap={'10px'}
         align={'center'}
       >
         {title && (
-          <Text fontSize={'24px'} fontWeight={600}>
+          <Text fontSize={['18px', '20px', '24px']} fontWeight={600}>
             {title}
           </Text>
         )}
-        {content && <Text fontSize={'18px'}>{content}</Text>}
+        {content && <Text fontSize={['15px', '16px', '18px']}>{content}</Text>}
       </Flex>
     </BaseModal>
   );

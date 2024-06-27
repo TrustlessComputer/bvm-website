@@ -38,8 +38,7 @@ const BlockchainSection = (props: Props) => {
       flexDir={'column'}
     >
       <Text
-        fontSize={'20px'}
-        lineHeight={'28px'}
+        fontSize={['16px', '18px', '20px']}
         fontWeight={600}
         color={'#000'}
         className={s.fontSFProDisplay}
@@ -47,7 +46,11 @@ const BlockchainSection = (props: Props) => {
         {'Blockchain'}
       </Text>
 
-      <SimpleGrid columns={[3]} spacing="20px" width={'100%'}>
+      <SimpleGrid
+        columns={[3]}
+        spacing={['5px', '10px', '20px']}
+        width={'100%'}
+      >
         <ColumnInfor
           title="Data availability"
           content={`${mapper.dataAvailabilityLayer || ''}`}
@@ -66,6 +69,12 @@ const BlockchainSection = (props: Props) => {
           }`}
         /> */}
         <ColumnInfor title="Chain ID" content={`${chainId || '--'}`} />
+      </SimpleGrid>
+      <SimpleGrid
+        columns={[1, 2, 3]}
+        spacing={['5px', '10px', '20px']}
+        width={'100%'}
+      >
         <ColumnInfor
           title="RPC"
           content={`${rpc || 'Pending payment'}`}

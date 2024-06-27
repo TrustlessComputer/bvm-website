@@ -47,26 +47,6 @@ const Page = (props: any) => {
     }
   }, [loggedIn]);
 
-  const renderBillingPage = () => {
-    return (
-      <BillingPage
-        viewPaymentOnClick={() => {
-          onOpenTopUpModal && onOpenTopUpModal();
-        }}
-      />
-    );
-  };
-
-  const renderManageChainsPage = () => {
-    return (
-      <Flex flexDir={'column'}>
-        {/* <HeaderView />
-        <Flex height={'15px'}></Flex> */}
-        <BodyView />
-      </Flex>
-    );
-  };
-
   const renderTabbar = () => {
     return (
       <Tabs
@@ -74,14 +54,22 @@ const Page = (props: any) => {
         onChange={onChangeTab}
         defaultIndex={activeTab}
       >
-        <TabList className={s.tabList}>
+        <TabList className={s.tabList} fontSize={['16px', '18px', ' 20px']}>
           <Tab>{TAB_ENUM_MAP[TAB_ENUM.MANAGE_CHAINS]}</Tab>
           <Tab>{TAB_ENUM_MAP[TAB_ENUM.BILLING]}</Tab>
         </TabList>
         <NetworkBar />
         <TabPanels className={s.tabPanel}>
-          <TabPanel>{renderManageChainsPage()}</TabPanel>
-          <TabPanel>{renderBillingPage()}</TabPanel>
+          <TabPanel>
+            <BodyView />
+          </TabPanel>
+          <TabPanel>
+            <BillingPage
+              viewPaymentOnClick={() => {
+                onOpenTopUpModal && onOpenTopUpModal();
+              }}
+            />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     );
@@ -89,16 +77,22 @@ const Page = (props: any) => {
 
   return (
     <Flex
-      bgColor={'#f3f1e8'}
       flexDir={'column'}
       align={'center'}
+      // bgColor={'blue'}
       className={s.container}
     >
       <Flex
+        flexDir={'column'}
+        align={'center'}
+        w="100%"
         minH={'100dvh'}
         overflow={'visible'}
         pos={'relative'}
-        className={s.containerContent}
+        maxW={'1480px'}
+        // bg={'yellow'}
+        py={['10px', '30px', '60px']}
+        px={'10px'}
       >
         {renderTabbar()}
       </Flex>

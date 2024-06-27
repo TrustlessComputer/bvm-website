@@ -36,8 +36,7 @@ const WarningSection = (props: Props) => {
         minH={'44px'}
       >
         <Text
-          fontSize={'20px'}
-          lineHeight={'28px'}
+          fontSize={['14px', '18px', '20px']}
           fontWeight={300}
           className={s.fontSFProDisplay}
           color={'#F19100'}
@@ -46,9 +45,6 @@ const WarningSection = (props: Props) => {
           or{' '}
           <Text
             as={'span'}
-            fontSize={'20px'}
-            lineHeight={'28px'}
-            fontWeight={300}
             className={s.fontSFProDisplay}
             textDecorationLine={'underline'}
             textUnderlineOffset={'2px'}

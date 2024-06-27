@@ -4,6 +4,7 @@ import cs from 'classnames';
 import { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 import s from './styles.module.scss';
+import { isMobile } from 'react-device-detect';
 
 export interface IProps {
   className: string;
@@ -72,11 +73,26 @@ const DropFile: React.FC<IProps> = ({
           h={'25px'}
         />
         {file ? (
-          <p className={cs(s.dropZoneDescription, s.successText)}>
+          <p
+            className={cs(
+              s.dropZoneDescription,
+              s.successText,
+              isMobile ? s.isMobile : null,
+            )}
+          >
             {`${file.name} (${prettyPrintBytes(file.size)})`}
           </p>
         ) : (
-          !error && <p className={s.dropZoneDescription}>{labelText}</p>
+          !error && (
+            <p
+              className={cs(
+                s.dropZoneDescription,
+                isMobile ? s.isMobile : null,
+              )}
+            >
+              {labelText}
+            </p>
+          )
         )}
         {error && (
           <p className={cs(s.dropZoneDescription, s.errorText)}>{error}</p>

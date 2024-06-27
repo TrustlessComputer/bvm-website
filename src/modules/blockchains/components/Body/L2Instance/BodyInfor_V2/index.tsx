@@ -19,7 +19,11 @@ type Props = {
 const BodyInfor = (props: Props) => {
   const { item, isOwner } = props;
   return (
-    <Flex flexDir={'column'} className={s.container} gap={'28px'}>
+    <Flex
+      flexDir={'column'}
+      className={s.container}
+      gap={['10px', '18px', '28px']}
+    >
       <WarningSection item={item} />
       <PackageSection item={item} />
       <HardwareSection item={item} />

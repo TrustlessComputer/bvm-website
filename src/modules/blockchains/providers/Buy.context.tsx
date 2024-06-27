@@ -328,7 +328,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
       withdrawalPeriodSelected,
     ); //V2
     const chainID = chainIdRandom;
-    const chainName = computerName;
+    const chainName = computerName?.toLowerCase()?.trim().replaceAll(' ', '-');
     const domain = computerName?.toLowerCase()?.trim().replaceAll(' ', '-');
     const blockTime = blockTimeSelected || BlockTimeEnum.BlockTime_10s;
     const minGasPrice = new BigNumber(minGasPriceField.value || 2)

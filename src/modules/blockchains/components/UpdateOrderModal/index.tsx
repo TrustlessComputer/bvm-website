@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
-
+import { isMobile } from 'react-device-detect';
 import { useAppDispatch } from '@/stores/hooks';
 import {
   setOrderSelected,
@@ -30,6 +30,7 @@ import { isEmpty } from 'lodash';
 import toast from 'react-hot-toast';
 import ErrorMessage from '../../Buy/components/ErrorMessage';
 import DropFile from './DropFile';
+import cs from 'classnames';
 
 const MAXIMUM_FILE_UPLOAD = 1; //1 MB
 const TITLE_ERROR_MESSAGE = 'Rollup name is required';
@@ -180,8 +181,8 @@ const UpdateOrderModal = (props: IProps) => {
         <Button
           px={'30px'}
           borderRadius={'14px'}
-          minH={'50px'}
-          minW={'160px'}
+          minH={['40px', '45px', '50px']}
+          minW={['120px', '140px', '160px']}
           bgColor={'#FA4E0E'}
           color={'#fff'}
           _hover={{
@@ -193,7 +194,7 @@ const UpdateOrderModal = (props: IProps) => {
           isDisabled={isSubmitDisabled}
           isLoading={isFetchingData || isUpdating}
           loadingText={buttonTitle}
-          fontSize={'16px'}
+          fontSize={['14px', '15px', '16px']}
           onClick={submitHandler}
         >
           {buttonTitle}
@@ -218,9 +219,8 @@ const UpdateOrderModal = (props: IProps) => {
           justify={'space-between'}
         >
           <Text
-            fontSize={'14px'}
+            fontSize={['12px', '13px', '14px']}
             fontWeight={500}
-            lineHeight={'20px'}
             alignSelf={'flex-start'}
             color={'#6C6F93'}
           >
@@ -230,8 +230,8 @@ const UpdateOrderModal = (props: IProps) => {
 
         <TextInput
           borderColor={'#bebebe'}
-          minH={'50px'}
-          fontSize={'14px'}
+          minH={['40px', '45px', '50px']}
+          fontSize={['12px', '13px', '14px']}
           placeholder="Rollup Name"
           id={'TITLE'}
           isInvalid={!!chainNameFocused && !!chainNameError}
@@ -275,7 +275,7 @@ const UpdateOrderModal = (props: IProps) => {
           justify={'space-between'}
         >
           <Text
-            fontSize={'14px'}
+            fontSize={['12px', '13px', '14px']}
             fontWeight={500}
             lineHeight={'20px'}
             alignSelf={'flex-start'}
@@ -287,7 +287,7 @@ const UpdateOrderModal = (props: IProps) => {
         <Textarea
           borderColor={'#bebebe'}
           color={'#000'}
-          fontSize={'14px'}
+          fontSize={['12px', '13px', '14px']}
           height={'48px'}
           p={'11px'}
           borderWidth={'1px'}
@@ -348,9 +348,8 @@ const UpdateOrderModal = (props: IProps) => {
       >
         <Flex flexDir={'column'} w={'100%'}>
           <Text
-            fontSize={'14px'}
+            fontSize={['12px', '13px', '14px']}
             fontWeight={500}
-            lineHeight={'20px'}
             alignSelf={'flex-start'}
             color={'#6C6F93'}
           >
@@ -370,7 +369,11 @@ const UpdateOrderModal = (props: IProps) => {
           }}
         />
 
-        <UnorderedList color={'#6C6F93'} fontSize={'14px'} fontWeight={500}>
+        <UnorderedList
+          color={'#6C6F93'}
+          fontSize={['12px', '13px', '14px']}
+          fontWeight={500}
+        >
           <ListItem>{'Supported file formats: svg, png, jpg, jpeg'}</ListItem>
           <ListItem>{`Maximum file size: ${MAXIMUM_FILE_UPLOAD} MB`}</ListItem>
           <ListItem>{`Recommended image sizes: 200x200`}</ListItem>
@@ -380,7 +383,7 @@ const UpdateOrderModal = (props: IProps) => {
   };
 
   const renderPreviewLogo = () => {
-    if (preview || item) {
+    if (preview || (item?.logoURL && item?.logoURL.length > 0)) {
       return (
         <Image
           w="auto"
@@ -391,14 +394,6 @@ const UpdateOrderModal = (props: IProps) => {
       );
     }
     return null;
-  };
-
-  const renderLoading = () => {
-    return (
-      <Flex flex={1} w={500} h={500} align={'center'} justify={'center'}>
-        <Spinner color={'#000'} />;
-      </Flex>
-    );
   };
 
   const renderContent = () => {
@@ -427,10 +422,9 @@ const UpdateOrderModal = (props: IProps) => {
         {item?.status === OrderStatus.WaitingPayment && (
           <Flex align={'center'} flexDir={'row'}>
             <Text
-              fontSize={'24px'}
+              fontSize={['18px', '20px', '24px']}
               fontWeight={600}
               color={'#000'}
-              lineHeight={'20px'}
               alignSelf={'flex-start'}
             >
               {`Update`}
@@ -465,12 +459,11 @@ const UpdateOrderModal = (props: IProps) => {
   };
 
   if (!item) return null;
-
   return (
     <BaseModal
       isShow={show}
       onHide={onClose}
-      className={s.modalContent}
+      className={cs(s.modalContent, isMobile ? s.isMobile : {})}
       size="custom"
       icCloseUrl="/icons/ic-close-grey.svg"
     >

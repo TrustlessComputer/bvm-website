@@ -43,7 +43,15 @@ const BlockGasLimitSection = () => {
     <Section
       title={'Block gas limit'}
       description={'Which block gas limit is right for you?'}
-      descriptionDetail={undefined}
+      descriptionDetail={{
+        title: 'Block Gas Limit',
+        content: (
+          <p>
+            The block gas limit defines the maximum amount of gas that all
+            transactions in a single block can consume.
+          </p>
+        ),
+      }}
     >
       <Flex flexDir={'column'} px={'0px'} overflow={'visible'}>
         <Slider
@@ -68,7 +76,12 @@ const BlockGasLimitSection = () => {
         </Slider>
       </Flex>
 
-      <Text fontSize="18px" fontWeight={500} align="left" color={'#000'}>
+      <Text
+        fontSize={['15px', '16px', '18px']}
+        fontWeight={500}
+        align="left"
+        color={'#000'}
+      >
         {`${formatCurrencyV2({
           amount: blockGasLimitSelected || 0,
           decimals: 0,

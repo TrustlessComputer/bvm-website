@@ -14,10 +14,9 @@ const ColumnInfor = (props: Props) => {
   const { title, content, isPendingPayment = false, isLink = false } = props;
 
   return (
-    <Flex flexDir={'column'} align={'flex-start'} gap={'8px'}>
+    <Flex flexDir={'column'} align={'flex-start'} gap={['5px', '6px', '8px']}>
       <Text
-        fontSize={'16px'}
-        lineHeight={'23px'}
+        fontSize={['14px', '15px', '16px']}
         fontWeight={500}
         color={'#000'}
         className={s.fontSFProDisplay}
@@ -26,8 +25,7 @@ const ColumnInfor = (props: Props) => {
       </Text>
       {!isLink ? (
         <Text
-          fontSize={'16px'}
-          lineHeight={'23px'}
+          fontSize={['14px', '15px', '16px']}
           color={isPendingPayment ? '#FFA500' : '#000'}
           opacity={0.7}
           fontWeight={isPendingPayment ? 500 : 400}
@@ -37,8 +35,7 @@ const ColumnInfor = (props: Props) => {
         </Text>
       ) : (
         <Link
-          fontSize={'16px'}
-          lineHeight={'23px'}
+          fontSize={['14px', '15px', '16px']}
           color={isPendingPayment ? '#FFA500' : '#000'}
           opacity={0.7}
           fontWeight={isPendingPayment ? 500 : 400}
