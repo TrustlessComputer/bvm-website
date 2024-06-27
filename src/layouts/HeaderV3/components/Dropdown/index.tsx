@@ -10,37 +10,39 @@ type PropD = {
   href?: string;
   target?: string;
   color?: string;
+  Icon?: () => ReactElement;
 };
 const DropDown = ({
-                    title,
-                    lists,
-                    primaryColor,
-                    href,
-                    target,
-                    color,
-                  }: PropD): ReactElement => {
-
+  title,
+  lists,
+  primaryColor,
+  href,
+  target,
+  color,
+  Icon,
+}: PropD): ReactElement => {
   const SingleList = (): ReactElement => {
-
-    return <ul className={s.dropMenu_list}>
-      {lists.map((item) => {
-        return (
-          <li className={s.listItem}>
-            <a
-              href={item.href}
-              target={item?.isNewWindow ? '_blank' : '_self'}
-              style={{ color: primaryColor || 'black' }}
-            >
-              {item.label}
-              <SvgInset
-                className={s.listItem_svg}
-                svgUrl={`/landing/images/basil_arrow-up-outline.svg`}
-              />
-            </a>
-          </li>
-        );
-      })}
-    </ul>;
+    return (
+      <ul className={s.dropMenu_list}>
+        {lists.map((item) => {
+          return (
+            <li className={s.listItem}>
+              <a
+                href={item.href}
+                target={item?.isNewWindow ? '_blank' : '_self'}
+                style={{ color: primaryColor || 'black' }}
+              >
+                {item.label}
+                <SvgInset
+                  className={s.listItem_svg}
+                  svgUrl={`/landing/images/basil_arrow-up-outline.svg`}
+                />
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    );
   };
 
   return (
@@ -57,6 +59,7 @@ const DropDown = ({
         className={`${s.dropMenu_label} ${s[primaryColor || 'black']}`}
       >
         {title}
+        {Icon && <Icon />}
       </span>
       <SingleList />
     </div>
