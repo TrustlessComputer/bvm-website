@@ -1,10 +1,12 @@
-.contact {
+.btn {
   color: #000;
   text-align: center;
-  font-family: var(--font-dmsans);
+  font-family: var(--font-JetBrainsMono);
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
-  text-transform: uppercase;
+  line-height: 20px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
 }
