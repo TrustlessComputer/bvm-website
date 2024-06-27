@@ -22,8 +22,8 @@ export default function HeroV2() {
             <h2 className={s.content_sub_title}>BitZK</h2>
           </div>
           <h3 className={s.subTitle}>
-            ZK Rollups on <br />
-            Bitcoin for $99/mo.
+            ZK Rollups <span>on
+            Bitcoin</span> <span>for $99/mo.</span>
           </h3>
           <div className={s.desc}>
             <p>

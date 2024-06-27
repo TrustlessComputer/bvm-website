@@ -15,7 +15,7 @@
   &_item {
     flex: 0 0 auto;
     height: auto;
-    width: 50%;
+    width: 33.33%;
 
     display: flex;
     flex-direction: column;
@@ -48,10 +48,6 @@
       display: block;
       margin-top: 6px;
       color: black;
-    }
-
-    @include is-min-table {
-      width: 33.333%;
     }
 
     @include is-pc {
