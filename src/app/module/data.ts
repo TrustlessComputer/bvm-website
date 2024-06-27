@@ -109,7 +109,7 @@ export const MODULE_DATAS = {
   },
   bitcoin_celestia: {
     hero: {
-      theme: 'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
+      theme: 'linear-gradient(180deg, rgba(253, 174, 255, 0.8) -5.57%, rgba(253, 174, 255, 0) 98.47%)',
       title: 'Bitcoin Celestia',
       subTitle: 'DaTA Availability',
       desc: 'Use Celestia as the DA layer for your Bitcoin L2.',
