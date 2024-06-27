@@ -1,6 +1,13 @@
 .modalContent {
   background-color: #fff !important;
-  min-width: 600px !important;
   min-height: 600px !important;
+  max-width: 600px !important;
+  min-height: 600px !important;
+  margin: 20px !important;
   font-family: var(--font-dmsans);
+
+  .isMobile {
+    max-height: 600px !important;
+    overflow: scroll;
+  }
 }

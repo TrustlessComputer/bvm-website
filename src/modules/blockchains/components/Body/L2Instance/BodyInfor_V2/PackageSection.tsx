@@ -49,8 +49,7 @@ const PackageSection = (props: Props) => {
       justify={'space-between'}
     >
       <Text
-        fontSize={'20px'}
-        lineHeight={'28px'}
+        fontSize={['16px', '18px', '20px']}
         fontWeight={600}
         className={s.fontSFProDisplay}
         bgGradient={`linear(to-r, ${getColors[0]}, ${getColors[1]})`}
@@ -63,8 +62,7 @@ const PackageSection = (props: Props) => {
         }`}
       </Text>
       <Text
-        fontSize={'20px'}
-        lineHeight={'28px'}
+        fontSize={['16px', '18px', '20px']}
         fontWeight={500}
         className={s.fontSFProDisplay}
         bgGradient={`linear(to-r, ${getColors[0]}, ${getColors[1]})`}

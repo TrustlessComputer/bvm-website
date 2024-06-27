@@ -63,12 +63,11 @@ const BillingPage = (props: IProps) => {
   return (
     <Flex
       className={s.container}
-      display={'flex'}
       flexDir={'column'}
-      w={'100%'}
-      bgColor={'transparent'}
+      align={'center'}
       p={'10px'}
       gap={'32px'}
+      // bgColor={'greenyellow'}
     >
       <AccountInfor viewPaymentOnClick={viewPaymentOnClick} />
 
@@ -84,9 +83,8 @@ const BillingPage = (props: IProps) => {
       >
         <Text
           className={s.font3}
-          fontSize={'24px'}
+          fontSize={['18px', '20px', '24px']}
           fontWeight={500}
-          lineHeight={'33px'}
           color={'#000'}
         >
           History

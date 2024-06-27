@@ -113,7 +113,8 @@ const BottomInfor = (props: Props) => {
       <Button
         mt={'15px'}
         borderRadius={'15px'}
-        minH={'50px'}
+        minH={['40px', '45px', '50px']}
+        fontSize={['15px', '16px', '18px']}
         color={'#17066c'}
         bgColor={'#fff'}
         borderWidth={'1px'}

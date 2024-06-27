@@ -83,7 +83,7 @@ export default () => {
         key={index}
         h={'70px'}
         fontWeight={500}
-        fontSize={'16px'}
+        fontSize={['14px', '15px', '16px']}
         className={s.font}
       >
         <Th width="20%" className={s.font}>
@@ -125,14 +125,6 @@ export default () => {
         <Th width="20%" color={formatValue.color} className={s.font}>
           {formatValue.prefix + ` ` + formatAmountV3(amount) + ' BVM'}
         </Th>
-        {/* <Th width="20%">
-          <Image
-            src={'/blockchains/customize/ic-copy-1.svg'}
-            w={'18px'}
-            h={'auto'}
-            objectFit={'contain'}
-          ></Image>
-        </Th> */}
       </Tr>
     );
   };
@@ -144,6 +136,7 @@ export default () => {
   return (
     <TableContainer
       maxH="600px"
+      w={'100%'}
       overflowY="auto"
       color={'#000'}
       className={s.font}
@@ -159,7 +152,7 @@ export default () => {
         },
       }}
     >
-      <Table variant="unstyled">
+      <Table variant="unstyled" w={'100%'}>
         <Thead
           position={'sticky'}
           top={0}
@@ -175,13 +168,13 @@ export default () => {
             top={0}
             zIndex={1}
             fontWeight={700}
-            fontSize={'12px'}
+            fontSize={['10px', '11px', '12px']}
             className={s.font}
           >
             <Th
               width="20%"
               fontWeight={700}
-              fontSize={'12px'}
+              fontSize={['10px', '11px', '12px']}
               className={s.font}
               style={{
                 fontSize: 12,
@@ -192,28 +185,26 @@ export default () => {
             <Th
               maxW="20%"
               fontWeight={700}
-              fontSize={'12px'}
+              fontSize={['10px', '11px', '12px']}
               className={s.font}
-              style={{
-                fontSize: 12,
-              }}
             >
               <Flex flexDir={'row'} align="center" gap={'5px'}>
-                <Text fontSize={'12px'} fontWeight={700}>
+                <Text
+                  className={s.font}
+                  fontSize={['10px', '11px', '12px']}
+                  fontWeight={700}
+                  style={{
+                    fontSize: 12,
+                  }}
+                >
                   Description
                 </Text>
-                {/* <Image
-                  src={'/blockchains/customize/ic-black-infor.svg'}
-                  w={'15px'}
-                  h={'auto'}
-                  objectFit={'contain'}
-                /> */}
               </Flex>
             </Th>
             <Th
               width="20%"
               fontWeight={700}
-              fontSize={'12px'}
+              fontSize={['10px', '11px', '12px']}
               className={s.font}
               textAlign={'center'}
               style={{
@@ -225,7 +216,7 @@ export default () => {
             <Th
               width="20%"
               fontWeight={700}
-              fontSize={'12px'}
+              fontSize={['10px', '11px', '12px']}
               textAlign={'center'}
               className={s.font}
               style={{
@@ -237,7 +228,7 @@ export default () => {
             <Th
               width="20%"
               fontWeight={700}
-              fontSize={'12px'}
+              fontSize={['10px', '11px', '12px']}
               className={s.font}
               style={{
                 fontSize: 12,

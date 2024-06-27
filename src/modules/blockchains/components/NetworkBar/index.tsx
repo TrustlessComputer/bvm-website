@@ -43,15 +43,15 @@ const NetworkBar = () => {
       className={s.fontSFProDisplay}
     >
       <Flex
-        px="16px"
-        py={'12px'}
+        px={['12px', '14px', '16px']}
+        py={['8px', '10px', '12px']}
         gap={'8px'}
         flexDir={'row'}
         borderRadius={'100px'}
         borderWidth={isMainnet ? '1px' : '0px'}
         borderColor={isMainnet ? '#000' : 'transparent'}
         bgColor={'#fff'}
-        minW={'120px'}
+        minW={['80px', '100px', '120px']}
         _hover={{
           cursor: 'pointer',
           opacity: 0.8,
@@ -61,9 +61,8 @@ const NetworkBar = () => {
         }}
       >
         <Text
-          fontSize={'14px'}
+          fontSize={['13px', '13px', '14px']}
           fontWeight={500}
-          lineHeight={'20px'}
           color={isMainnet ? '#000' : '#B3B3B3'}
           opacity={isMainnet ? 1 : 0.5}
         >
@@ -71,7 +70,7 @@ const NetworkBar = () => {
         </Text>
         <Flex
           borderRadius={'100px'}
-          px={'8px'}
+          px={['6px', '7px', '8px']}
           py="0px"
           gap={'10px'}
           bgColor={isMainnet ? '#000' : '#B3B3B3'}
@@ -83,14 +82,14 @@ const NetworkBar = () => {
       </Flex>
 
       <Flex
-        px="16px"
-        py={'12px'}
+        px={['12px', '14px', '16px']}
+        py={['8px', '10px', '12px']}
         gap={'8px'}
         borderRadius={'100px'}
         borderWidth={!isMainnet ? '1px' : '0px'}
         borderColor={!isMainnet ? '#000' : 'transparent'}
         bgColor={'#fff'}
-        minW={'120px'}
+        minW={['80px', '100px', '120px']}
         _hover={{
           cursor: 'pointer',
           opacity: 0.8,
@@ -100,9 +99,8 @@ const NetworkBar = () => {
         }}
       >
         <Text
-          fontSize={'14px'}
+          fontSize={['13px', '13px', '14px']}
           fontWeight={500}
-          lineHeight={'20px'}
           opacity={!isMainnet ? 1 : 0.5}
           color={'#000'}
         >
@@ -110,7 +108,7 @@ const NetworkBar = () => {
         </Text>
         <Flex
           borderRadius={'100px'}
-          px={'8px'}
+          px={['6px', '7px', '8px']}
           py="0px"
           gap={'10px'}
           bgColor={!isMainnet ? '#000' : '#B3B3B3'}

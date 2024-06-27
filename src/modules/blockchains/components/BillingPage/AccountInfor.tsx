@@ -85,11 +85,11 @@ const AccountInfor = (props: IProps) => {
 
   return (
     <Flex
-      flex={1}
       flexDir={'row'}
-      p="24px"
+      w={'100%'}
+      p={['12px', '18px', '20px', '24px']}
+      gap={['10px', '20px', '30px', '40px']}
       borderRadius={'18px'}
-      gap={'40px'}
       align={'flex-start'}
       justify={'space-between'}
       bgColor={'#fff'}
@@ -171,8 +171,7 @@ const AccountInfor = (props: IProps) => {
           <Text
             className={s.font3}
             fontWeight={500}
-            fontSize={'36px'}
-            lineHeight={'50px'}
+            fontSize={['18px', '22px', '28px', '36px']}
             color={'#000000'}
           >
             {`${accountInforL2Service?.balanceFormatted || 0} BVM`}
@@ -180,8 +179,7 @@ const AccountInfor = (props: IProps) => {
           <Text
             className={s.font3}
             fontWeight={300}
-            fontSize={'36px'}
-            lineHeight={'50px'}
+            fontSize={['18px', '22px', '28px', '36px']}
             color={'#000000'}
             opacity={0.4}
           >
@@ -192,33 +190,14 @@ const AccountInfor = (props: IProps) => {
 
       {/* RightView */}
       <Flex flexDir={'row'} align={'center'} gap={'10px'}>
-        {/* <Button
-          bgColor={'#fff'}
-          color={'#FA4E0E'}
-          borderColor={'#FA4E0E'}
-          borderWidth={'1px'}
-          borderRadius={'100px'}
-          h={'54px'}
-          minW={'140px'}
-          className={s.fontType3}
-          fontSize={'16px'}
-          fontWeight={500}
-          onClick={() => {}}
-          _hover={{
-            opacity: 0.8,
-          }}
-        >
-          Withdraw
-        </Button> */}
-
         <Button
           bgColor={'#FA4E0E'}
           color={'#fff'}
           borderRadius={'100px'}
-          h={'54px'}
-          minW={'140px'}
+          h={['32px', '36px', '45px', '54px']}
+          minW={['80px', '100px', '120px', '140px']}
           className={s.fontType3}
-          fontSize={'16px'}
+          fontSize={['13px', '14px', '15px', '16px']}
           fontWeight={500}
           onClick={viewPaymentOnClick}
           _hover={{
