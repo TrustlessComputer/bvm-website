@@ -39,13 +39,13 @@
     box-shadow: none;
     border: none;
     border-radius: 0;
+    top: 100%;
 
     @include is-pc {
-      padding-top: 12px;
+      padding-top: 6px;
     }
 
     &_inner {
-      //box-shadow: 0 0 5px -2px #999;
       border: 1px solid #dcdcdc;
       border-radius: 8px;
       overflow: hidden;
@@ -60,8 +60,7 @@
       z-index: 2 !important;
 
       @include is-pc {
-        // left: calc(50% + 120px);
-        left: 0;
+         left: -160px;
       }
     }
   }

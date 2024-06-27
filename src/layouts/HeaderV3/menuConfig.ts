@@ -2,7 +2,7 @@ import { DEVELOPERS_DOC_URL } from '@/config';
 import { NavItem } from '@layouts/Header/menuConfig';
 import GroupProducts from '@layouts/HeaderV3/components/GroupProducts';
 import GroupDeveloper from '@layouts/HeaderV3/components/GroupDeveloper';
-import IcArrow from './components/IcArrow';
+import ContactUs from "@layouts/HeaderV3/components/ContactUs";
 
 export const NAV_ITEMS: Array<NavItem> = [
   {
@@ -168,28 +168,8 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Contact Us',
-    href: '/contact-us',
-    isNewWindow: false,
-    isHide: false,
-    icon: IcArrow,
-    subMenu: [
-      {
-        icon: '/icons/tele-ic-2.svg',
-        alt: 'telegram',
-        isNewWindow: true,
-        label: 'Telegram',
-        href: 'https://t.me/BVMofficialcommunity',
-      },
-      {
-        icon: '/icons/x-ic.svg',
-        // link: 'https://twitter.com/bird_2836',
-        alt: 'x',
-        label: 'Twitter',
-        isNewWindow: true,
-        href: 'https://twitter.com/BVMnetwork',
-      },
-    ],
+    label: 'contact us',
+    MenuItemEl: ContactUs
   },
 ];
 export const NAV_ITEMS_MOBILE: Array<NavItem> = [

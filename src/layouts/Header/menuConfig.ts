@@ -3,8 +3,8 @@ import {
   DEVELOPERS_GRANTS_URL,
   WHITEPAPER_DOC_URL,
 } from '@/config';
-import { ReactElement } from 'react';
-import { IGroupType } from '@layouts/HeaderV3/useHeaderMobile';
+import {ReactElement} from 'react';
+import {IGroupType} from '@layouts/HeaderV3/useHeaderMobile';
 
 export interface NavItem {
   label: string;
@@ -20,6 +20,7 @@ export interface NavItem {
   groupType?: IGroupType;
   GroupDropDown?: () => ReactElement;
   icon?: () => ReactElement;
+  MenuItemEl?: (p: any) => ReactElement;
 }
 
 export const MenuBuild = {

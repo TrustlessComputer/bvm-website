@@ -2,7 +2,7 @@
 
 import { useAppDispatch } from '@/stores/hooks';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
-import { OrderItem } from '@/stores/states/l2services/types';
+import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import { Box, Divider, Flex } from '@chakra-ui/react';
 // import BodyInfor from './BodyInfor';
 import BodyInfor from './BodyInfor_V2';
@@ -20,7 +20,7 @@ type Props = {
 const L2Instance = (props: Props) => {
   const dispatch = useAppDispatch();
 
-  const { item, onClick, isOwner } = props;
+  const { item, onClick: onClickCB, isOwner } = props;
 
   const {
     onOpenBillingModal,
@@ -29,6 +29,8 @@ const L2Instance = (props: Props) => {
     onOpenTopUpModal,
     onOpenUpdateOrderModal,
   } = useDashboard();
+
+  const isProccessing = item.status === OrderStatus.Processing;
 
   return (
     <Flex flexDir={'column'} gap={'15px'} p={'5px'} bgColor={'transparent'}>
@@ -39,9 +41,14 @@ const L2Instance = (props: Props) => {
         p={['10px', '20px', '30px', '40px']}
         borderRadius={'20px'}
         _hover={{
-          cursor: 'pointer',
+          cursor: isProccessing ? 'pointer' : '',
           borderColor: '#b6b7b7b1',
           boxShadow: 'md',
+        }}
+        onClick={() => {
+          if (isProccessing) {
+            onClickCB && onClickCB();
+          }
         }}
       >
         <HeaderRow

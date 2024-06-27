@@ -1,26 +1,15 @@
 // import { CDN_URL } from '@constants/config';
-import React, { useState } from 'react';
-import { Flex, Text } from '@chakra-ui/react';
+import React, {ReactElement, useState} from 'react';
+import {Flex, Text} from '@chakra-ui/react';
 import s from './styles.module.scss';
-import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import {useContactUs} from '@/Providers/ContactUsProvider/hook';
 
 type Props = {
   color?: 'black' | 'white';
 };
 
-const ContactUs = (props: Props) => {
-  const { showContactUsModal } = useContactUs();
-
-  // const handleConnect = async () => {
-  //   try {
-  //     await login();
-  //   } catch (err: unknown) {
-  //     toast.error(
-  //       (err as Error).message ||
-  //         'Something went wrong. Please try again later.',
-  //     );
-  //   }
-  // };
+const ContactUs = (props: Props): ReactElement => {
+  const {showContactUsModal} = useContactUs();
 
   return (
     <>
@@ -29,17 +18,19 @@ const ContactUs = (props: Props) => {
           showContactUsModal();
         }}
         flexDir={'row'}
-        borderRadius={'4px'}
         justify={'center'}
         align={'center'}
-        py={'5px'}
+        className={s.btn}
         color={props?.color || 'white'}
-        gap={'10px'}
         _hover={{
           cursor: 'pointer',
         }}
       >
-        <p className={s.contact}> Contact us</p>
+        Contact Us
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 12L10 8L6 4" stroke="black" stroke-width="1.2" stroke-linecap="round"
+                stroke-linejoin="round"></path>
+        </svg>
       </Flex>
     </>
   );
