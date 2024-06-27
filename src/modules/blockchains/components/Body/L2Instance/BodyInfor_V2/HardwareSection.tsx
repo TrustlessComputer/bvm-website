@@ -24,8 +24,7 @@ const HardwareSection = (props: Props) => {
       flexDir={'column'}
     >
       <Text
-        fontSize={'20px'}
-        lineHeight={'28px'}
+        fontSize={['16px', '18px', '20px']}
         fontWeight={600}
         color={'#000'}
         className={s.fontSFProDisplay}

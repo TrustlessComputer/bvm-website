@@ -63,42 +63,38 @@ const FooterRightView = () => {
           gap={'3px'}
         >
           <Text
-            fontSize={'25px'}
+            fontSize={['18px', '22px', '25px']}
+            lineHeight={['20px', '24px', '28px']}
             fontWeight={600}
             color={'#000'}
             textAlign={'center'}
-            lineHeight={'25px'}
           >
-            {/* {`${new BigNumber(estimateTotalCostData_V2?.TotalCostBVM || 0)
-              .decimalPlaces(2)
-              .toString()} BVM`} */}
-
-            {`${tierData?.priceNote || '--'}`}
+            {`${tierData?.price || '--'}`}
           </Text>
           <Text
-            fontSize={'16px'}
+            fontSize={['14px', '15px', '16px']}
+            lineHeight={['16px', '18px', '20px']}
             fontWeight={300}
             textAlign={'center'}
-            lineHeight={'25px'}
             opacity={0.7}
             className={s.fontType2}
           >
-            {/* {`$${estimateTotalCostData_V2?.TotalCostUSD || '--'}`} */}
-            {`${tierData?.price || '--'}`}
+            {`${tierData?.priceNote || '--'}`}
           </Text>
         </Flex>
 
         <Button
           px={'30px'}
           borderRadius={'14px'}
-          minH={'50px'}
-          minW={'160px'}
+          minH={['45px', '50px']}
+          minW={['140px', '160px']}
           bgColor={'#17066C'}
           color={'#fff'}
           _hover={{
             opacity: 0.8,
           }}
-          fontSize={'18px'}
+          fontSize={['15px', '15px', '18px']}
+          lineHeight={['16px', '18px', '20px']}
           leftIcon={
             <Image
               src={'/blockchains/customize/ic-rocket.svg'}

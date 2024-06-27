@@ -19,6 +19,7 @@ export interface NavItem {
   isGroup?: boolean;
   groupType?: IGroupType;
   GroupDropDown?: () => ReactElement;
+  icon?: () => ReactElement;
 }
 
 export const MenuBuild = {

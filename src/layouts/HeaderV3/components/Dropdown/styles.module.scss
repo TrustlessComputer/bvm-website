@@ -4,7 +4,7 @@
 
   &_label {
     display: flex;
-    gap: 5px;
+    gap: 4px;
     color: #fff;
     font-family: var(--font-jetbrains);
     font-size: 14px;
@@ -12,6 +12,8 @@
     line-height: (20 / 14);
     text-align: center;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 
     &.black {
       color: black;
@@ -48,10 +50,25 @@
     gap: 24px;
     visibility: hidden;
     border-radius: 8px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
 }
 
 .listItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+
+  &:hover {
+    rect {
+      fill: #fa4e0e;
+    }
+
+    path {
+      fill: white;
+    }
+  }
   a {
     color: #000000 !important;
     display: flex;
@@ -67,16 +84,6 @@
     svg * {
       transition: fill 0.4s var(--easeOutQuart);
     }
-
-    &:hover {
-      rect {
-        fill: #fa4e0e;
-      }
-
-      path {
-        fill: white;
-      }
-    }
   }
 
   &_svg {
@@ -84,20 +91,19 @@
   }
 }
 
-
 .group_inner {
   display: flex;
   gap: 24px;
 }
 
-.group_item{
+.group_item {
   &_list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
   }
 
-  &_title{
+  &_title {
     font-family: var(--font-JetBrainsMono);
     font-size: 20px;
     font-weight: 700;

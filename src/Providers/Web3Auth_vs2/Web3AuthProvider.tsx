@@ -59,11 +59,11 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
   const loginTwitter = async () => {
     try {
       console.log('[Web3AuthProvider][login] -- ');
-
       const web3authProvider = await web3AuthNoModal?.connectTo(
         WALLET_ADAPTERS.OPENLOGIN,
         {
           loginProvider: 'twitter',
+          redirectUrl: window.location.href,
         },
       );
       setProvider(web3authProvider);
@@ -76,14 +76,13 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
   const loginGoogle = async () => {
     try {
       console.log('[Web3AuthProvider][login] -- ');
-
       const web3authProvider = await web3AuthNoModal?.connectTo(
         WALLET_ADAPTERS.OPENLOGIN,
         {
           loginProvider: 'google',
+          redirectUrl: window.location.href,
         },
       );
-
       console.log(
         '[Web3AuthProvider][login] --  OKOK  ---- ',
         web3authProvider,

@@ -30,7 +30,8 @@ const web3AuthNoModal = new Web3AuthNoModal({
 
 const openloginAdapter = new OpenloginAdapter({
   adapterSettings: {
-    uxMode: 'redirect', // "redirect" | "popup"
+    clientId: WEB3_AUTH_CLIENT_ID,
+    uxMode: 'redirect', // "redirect" | "popup",
   },
 });
 

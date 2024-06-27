@@ -8,6 +8,8 @@
   justify-content: space-between;
   padding-top: 28px;
   padding-bottom: 28px;
+  position: relative;
+  align-items: center;
 }
 
 .logo {
@@ -17,6 +19,12 @@
   gap: 12px;
   cursor: pointer;
 
+  @include is-pc {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
   &_text {
     font-family: var(--font-jetbrains);
     font-size: 15px;
@@ -43,6 +51,9 @@
   :global {
     .menu-item {
       padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
   }
 }
