@@ -109,7 +109,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   },
   {
     label: '$BVM',
-    href: '/$bvm',
+    href: '/bvm',
     isNewWindow: false,
     isHide: false,
     // subMenu: [
