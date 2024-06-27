@@ -6,6 +6,7 @@ import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import IcLogoText from '../IcLogoText';
 import IcArrowRight from '../IcArrowRight';
+import {WHITEPAPER_DOC_URL} from "@/config";
 
 export default function HeroV2() {
   const router = useRouter();
@@ -41,7 +42,9 @@ export default function HeroV2() {
             >
               Deploy now
             </div>
-            <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {}}>
+            <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
+              window.open('https://docs.bvm.network/bvm')
+            }}>
               Developer docs
               <IcArrowRight />
             </div>

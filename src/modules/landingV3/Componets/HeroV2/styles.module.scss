@@ -235,10 +235,14 @@
   }
 
   &__secondary {
-    transform: translateY(0.15em);
     color: #fa4e0e;
     width: fit-content;
     padding: 0 20px;
+    align-items: center;
+
+    svg, img{
+      transform: translateY(.1em);
+    }
   }
 }
 
