@@ -26,16 +26,16 @@ export default function Heading() {
       </p>
 
       <div className={s.social}>
-        <a href="" className={s.social_icon}>
+        <a href="https://x.com/BVMnetwork" className={s.social_icon} target={'_blank'}>
           <ImagePlaceholder src={'/social/x.png'} alt={'x'} height={54} width={54} />
         </a>
-        <a href="" className={s.social_icon}>
+        <a href="https://t.me/BVMofficialcommunity" className={s.social_icon} target={'_blank'}>
           <ImagePlaceholder src={'/social/tele.png'} alt={'tele'} height={54} width={54}/>
         </a>
-        <a href="" className={s.social_icon}>
+        <a href="https://coinmarketcap.com/currencies/bvm/" className={s.social_icon} target={'_blank'}>
           <ImagePlaceholder src={'/social/mex.png'} alt={'mex'} height={54} width={54}/>
         </a>
-        <a href="" className={s.social_icon}>
+        <a href="" className={s.social_icon} target={'_blank'}>
           <ImagePlaceholder src={'/social/uniswap.png'} alt={'uniswap'} height={54} width={54}/>
         </a>
       </div>

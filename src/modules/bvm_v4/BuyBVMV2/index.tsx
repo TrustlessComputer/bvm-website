@@ -55,12 +55,12 @@ const BuyBVMV2 = (): React.JSX.Element => {
         DATA.map(item => {
 
           return (
-            <div className={s.item}>
+            <a className={s.item} href={item.link} target={'_blank'}>
               <div>
                 <ImagePlaceholder src={item.icon} alt={item.btnTitle} width={52} height={52} className={s.item_icon}/>
               </div>
               <p className={s.item_title}>{item.btnTitle}</p>
-            </div>
+            </a>
           )
         })
       }
