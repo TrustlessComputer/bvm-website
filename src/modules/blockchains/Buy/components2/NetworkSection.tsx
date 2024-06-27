@@ -26,8 +26,7 @@ const NetworkSection = () => {
         title: 'Network',
         content: (
           <p>
-            Select whether you want to create a testnet or deploy a mainnet. The
-            testnet is free.
+            Select whether you want to create a testnet or deploy a mainnet.
           </p>
         ),
       }}
