@@ -15,6 +15,7 @@
   @include is-pc {
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
   }
 
   :global {
@@ -45,7 +46,7 @@
   }
 
   @include is-pc {
-    width: auto;
+    max-width: unset;
     max-height: 579px;
     margin-left: 0;
     transform: translateY(8%);
