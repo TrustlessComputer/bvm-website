@@ -2,19 +2,21 @@
 
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
-import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { Flex, Image, SimpleGrid, Skeleton, Text } from '@chakra-ui/react';
 import { useMemo } from 'react';
+import { useDashboard } from '../../providers/DashboardProvider';
 import L2Instance from './L2Instance';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 
 type Props = {
   dataList: OrderItem[];
 };
 
-const BodyGridView = (porps: Props) => {
-  const { dataList } = porps;
+const BodyGridView = (props: Props) => {
+  const { dataList } = props;
   const dispatch = useAppDispatch();
+  const { onOpenWaittingSetingUp } = useDashboard();
   const { isFetchedAllOrdersV2 } = useAppSelector(getL2ServicesStateSelector);
 
   const isEmptyData = useMemo(() => {
@@ -48,14 +50,14 @@ const BodyGridView = (porps: Props) => {
 
   const renderDataList = () => {
     return (
-      <SimpleGrid columns={[1, 1]} spacing="20px" width={'100%'} height={'80%'}>
+      <SimpleGrid columns={[1, 1]} w={'100%'}>
         {dataList.map((item, index) => (
           <L2Instance
             key={`${item.domain}-${index}`}
             item={item}
-            isOwner={false}
             onClick={() => {
               dispatch(setOrderSelected(item));
+              onOpenWaittingSetingUp && onOpenWaittingSetingUp();
             }}
           />
         ))}
@@ -65,13 +67,20 @@ const BodyGridView = (porps: Props) => {
 
   const renderSekeleton = () => {
     return (
-      <SimpleGrid columns={[1, 1]} spacing="20px" width={'100%'} height={'80%'}>
+      <SimpleGrid
+        columns={[1, 1]}
+        spacing="20px"
+        w={'100%'}
+        // bgColor={'red'}
+        py={['5px', '10px', '20px']}
+        px={['10px', '5px', '0px']}
+      >
         {new Array(4).fill(0).map((item, index) => {
           return (
             <Skeleton
               key={`${item}-${index}`}
               w={'100%'}
-              height={'300px'}
+              height={'400px'}
               startColor="#2f2f2f"
               endColor="#656565"
               borderRadius={'20px'}
