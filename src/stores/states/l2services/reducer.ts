@@ -9,7 +9,13 @@ import {
   fetchAllOrdersV2,
 } from './actions';
 import { PREFIX } from './constants';
-import { L2ServicesState, OrderItem, ViewMode, ViewPage } from './types';
+import {
+  L2ServicesState,
+  OrderItem,
+  ViewMode,
+  ViewPage,
+  MonitorViewPage,
+} from './types';
 import uniqBy from 'lodash/uniqBy';
 
 export const initialState: L2ServicesState = {
@@ -41,6 +47,8 @@ export const initialState: L2ServicesState = {
   isFetchingAllOrdersV2: false,
   isFetchedAllOrdersV2: false,
   allOrdersV2: [],
+
+  monitorViewPage: 'OP',
 };
 
 const slice = createSlice({
@@ -71,6 +79,9 @@ const slice = createSlice({
     },
     setViewPage(state, action: PayloadAction<ViewPage>) {
       state.viewPage = action.payload;
+    },
+    setMonitorViewPage(state, action: PayloadAction<MonitorViewPage>) {
+      state.monitorViewPage = action.payload;
     },
     setShowAllChains(state, action: PayloadAction<boolean>) {
       state.showAllChain = action.payload;
@@ -183,5 +194,6 @@ export const {
   setL2ServiceAuth,
   updateOrderByNewOrder,
   setL2ServiceLogout,
+  setMonitorViewPage,
 } = slice.actions;
 export default slice.reducer;

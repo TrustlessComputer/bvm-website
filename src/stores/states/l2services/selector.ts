@@ -100,29 +100,48 @@ const allOrdersV2Selector = createSelector(
 );
 
 const ZKOrdersSelector = createSelector(
-  [allOrdersV2Selector, viewModeSelector],
-  (allOderList, isMainnet) => {
-    return (
-      allOderList.filter(
-        (item) =>
-          item.serviceType === RollupEnum.Rollup_ZK &&
-          item.isMainnet === isMainnet,
-      ) || []
-    );
+  [allOrdersV2Selector],
+  (allOderList) => {
+    let result = {
+      MainnetList: [] as OrderItem[],
+      TestnetList: [] as OrderItem[],
+    };
+    let orders =
+      allOderList.filter((item) => item.serviceType === RollupEnum.Rollup_ZK) ||
+      [];
+    orders.map((item) => {
+      if (!!item.isMainnet) {
+        result.MainnetList.push(item);
+      } else {
+        result.TestnetList.push(item);
+      }
+    });
+
+    return result;
   },
 );
 
 const OPOrdersSelector = createSelector(
-  [allOrdersV2Selector, viewModeSelector],
-  (allOderList, isMainnet) => {
-    return (
+  [allOrdersV2Selector],
+  (allOderList) => {
+    let result = {
+      MainnetList: [] as OrderItem[],
+      TestnetList: [] as OrderItem[],
+    };
+    let orders =
       allOderList.filter(
         (item) =>
-          (item.serviceType === RollupEnum.Rollup_OpStack ||
-            item.serviceType === RollupEnum.Rollup_OpStack_OLD) &&
-          item.isMainnet === isMainnet,
-      ) || []
-    );
+          item.serviceType === RollupEnum.Rollup_OpStack ||
+          item.serviceType === RollupEnum.Rollup_OpStack_OLD,
+      ) || [];
+    orders.map((item) => {
+      if (!!item.isMainnet) {
+        result.MainnetList.push(item);
+      } else {
+        result.TestnetList.push(item);
+      }
+    });
+    return result;
   },
 );
 

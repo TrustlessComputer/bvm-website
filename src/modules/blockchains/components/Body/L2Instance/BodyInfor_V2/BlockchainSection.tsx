@@ -8,6 +8,7 @@ import s from '../styleFont.module.scss';
 import { convertSecondsToHours } from '@/modules/blockchains/Buy/Buy.helpers';
 import { formatCurrencyV2 } from '@/utils/format';
 import { useMemo } from 'react';
+import { RollupEnum } from '@/modules/blockchains/Buy/Buy.constanst';
 
 type Props = {
   item: OrderItem;
@@ -16,10 +17,18 @@ type Props = {
 const BlockchainSection = (props: Props) => {
   const { item } = props;
   const mapper = useOrderMapper(item);
-  const { finalizationPeriod, gasLimit, rpc, prover, explorer, chainId } = item;
+  const {
+    finalizationPeriod,
+    gasLimit,
+    rpc,
+    prover,
+    explorer,
+    chainId,
+    serviceType,
+    blockTime,
+  } = item;
 
   const formatWithdrawalPeriod = useMemo(() => {
-    if (!finalizationPeriod) return '--';
     const hours = convertSecondsToHours(Number(finalizationPeriod));
 
     if (hours !== 1) {
@@ -55,19 +64,20 @@ const BlockchainSection = (props: Props) => {
           title="Data availability"
           content={`${mapper.dataAvailabilityLayer || ''}`}
         />
-        <ColumnInfor
-          title="ZK Prover"
-          content={`${prover === 1 ? 'Yes' : 'No'}`}
-        />
-        {/* <ColumnInfor
-          title="Max block gas limit"
-          content={`${
-            `${formatCurrencyV2({
-              amount: gasLimit || 0,
-              decimals: 0,
-            })}` || '--'
-          }`}
-        /> */}
+        {item.serviceType === RollupEnum.Rollup_ZK && (
+          <ColumnInfor
+            title="ZK Prover"
+            content={`${prover === 1 ? 'Yes' : 'No'}`}
+          />
+        )}
+        {item.serviceType !== RollupEnum.Rollup_ZK && (
+          <ColumnInfor
+            title="Block Time"
+            content={`${
+              Number(blockTime) === 1 ? '1 second' : `${blockTime} seconds`
+            }`}
+          />
+        )}
         <ColumnInfor title="Chain ID" content={`${chainId || '--'}`} />
       </SimpleGrid>
       <SimpleGrid

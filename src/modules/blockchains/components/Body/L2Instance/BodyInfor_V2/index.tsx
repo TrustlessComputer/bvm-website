@@ -10,6 +10,7 @@ import WarningSection from './WarningSection_V2';
 import PackageSection from './PackageSection';
 
 import s from '../styleFont.module.scss';
+import { RollupEnum } from '@/modules/blockchains/Buy/Buy.constanst';
 
 type Props = {
   item: OrderItem;
@@ -25,8 +26,12 @@ const BodyInfor = (props: Props) => {
       gap={['10px', '18px', '28px']}
     >
       <WarningSection item={item} />
-      <PackageSection item={item} />
-      <HardwareSection item={item} />
+      {item.serviceType === RollupEnum.Rollup_ZK && (
+        <PackageSection item={item} />
+      )}
+      {item.serviceType === RollupEnum.Rollup_ZK && (
+        <HardwareSection item={item} />
+      )}
       <BlockchainSection item={item} />
     </Flex>
   );

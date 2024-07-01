@@ -241,6 +241,7 @@ interface IVerifyEmail {
 
 type ViewMode = 'Mainnet' | 'Testnet';
 type ViewPage = 'Biiling' | 'ManageChains';
+type MonitorViewPage = 'OP' | 'ZK';
 
 interface L2ServicesState {
   //My Order List
@@ -264,6 +265,7 @@ interface L2ServicesState {
   showOnlyMyOrder: boolean;
   showAllChain: boolean;
   viewPage: ViewPage;
+  monitorViewPage: MonitorViewPage;
 
   //Account Infor
   isAccountInforFetching: boolean;
@@ -321,4 +323,5 @@ export type {
   ThemeConfig,
   WebsiteConfig,
   IOrderUpdate,
+  MonitorViewPage,
 };

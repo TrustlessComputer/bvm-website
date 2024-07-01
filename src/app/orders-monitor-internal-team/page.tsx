@@ -1,7 +1,7 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
-import Page from '@/modules/all-l3-monitor';
+import Page from '@/modules/blockchains/feat/monitor';
 
 const BlockChainPage = () => {
   return (

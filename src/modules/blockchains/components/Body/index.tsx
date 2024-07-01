@@ -42,12 +42,12 @@ const BodyGridView = () => {
   const renderEmptyView = () => {
     return (
       <Flex
+        mt={'120px'}
         flexDir={'column'}
-        flex={1}
-        height={'300px'}
+        height={'100dvh'}
         width={'100%'}
         align={'center'}
-        justify={'center'}
+        justify={'flex-start'}
       >
         <Text fontSize={'25px'} fontWeight={700} color={'#000'}>
           No rollups available
