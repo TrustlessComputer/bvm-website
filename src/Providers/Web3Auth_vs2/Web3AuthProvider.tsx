@@ -16,9 +16,9 @@ import Web3AuthLoginModalCustomize from './LoginModalCustomize';
 import web3AuthNoModal from './Web3Auth.initNoModal';
 import { IWeb3AuthContext } from './Web3Auth.types';
 import l2ServicesAPI, { revokeAuthentication } from '@/services/api/l2services';
-import { fetchAccountInfo } from '@/stores/states/l2services/actions';
 import { useAppDispatch } from '@/stores/hooks';
 import { setL2ServiceLogout } from '@/stores/states/l2services/reducer';
+import { useLocalStorage } from 'usehooks-ts';
 
 export const Web3AuthContext = createContext<IWeb3AuthContext>({});
 
@@ -30,14 +30,23 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
   const [provider, setProvider] = useState<IProvider | undefined | null>(
     undefined,
   );
+  const [l2ServiceAccessToken, setL2ServiceAccessToken] = useLocalStorage(
+    STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2,
+    LocalStorage.getItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2) || undefined,
+  );
   const [userInfo, setUserInfo] = useState<Partial<UserInfo> | undefined>();
   const [loggedIn, setLoggedIn] = useState(false);
+  const [web3AuthConencted, setWeb3AuthConencted] = useState(false);
+
   const [wallet, setWallet] = useState<Wallet | undefined>(undefined);
   const [showLoginModalCustomize, setShowLoginModalCustomize] = useState(false);
 
+  useEffect(() => {
+    setLoggedIn(!!l2ServiceAccessToken && !!web3AuthConencted);
+  }, [setLoggedIn, l2ServiceAccessToken, web3AuthConencted]);
+
   const init = async () => {
     try {
-      console.log('[Web3AuthProvider][init] 111 -- ');
       await web3AuthNoModal.init();
       setProvider(web3AuthNoModal.provider);
 
@@ -48,6 +57,8 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
 
       if (web3AuthNoModal.connected) {
         getWeb3AuthUserInfor();
+      } else {
+        setL2ServiceAccessToken(undefined);
       }
     } catch (error) {
       console.log('[Web3AuthProvider][init] -- error ', error);
@@ -83,10 +94,6 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
           redirectUrl: window.location.href,
         },
       );
-      console.log(
-        '[Web3AuthProvider][login] --  OKOK  ---- ',
-        web3authProvider,
-      );
       setProvider(web3authProvider);
     } catch (error) {
       console.log('[Web3AuthProvider][login]  error -- ', error);
@@ -97,11 +104,12 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
   const logout = async () => {
     try {
       console.log('[Web3AuthProvider][logout] -- ');
-      revokeAuthentication();
-      dispatch(setL2ServiceLogout());
+      await revokeAuthentication();
       await web3AuthNoModal.logout();
+      dispatch(setL2ServiceLogout());
       setProvider(null);
-      LocalStorage.removeItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2);
+      setUserInfo(undefined);
+      setL2ServiceAccessToken(undefined);
     } catch (error) {
       console.log('[Web3AuthProvider][logout] error -- ', error);
       setProvider(null);
@@ -119,33 +127,17 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
 
   const registerL2Service = async () => {
     try {
-      console.log(
-        '[Web3AuthProvider][registerL2Service] -- userInfo -- ',
-        userInfo,
-      );
       if (userInfo && userInfo?.idToken) {
-        const apiAccesstToken = LocalStorage.getItem(
-          STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2,
-        );
-        if (!apiAccesstToken) {
+        if (!l2ServiceAccessToken) {
           //Call API register to Service
           const idToken = userInfo.idToken;
-          const l2ServiceAccessToken = await L2Service.register(idToken);
+          const newL2ServiceAccessToken = await L2Service.register(idToken);
 
-          // LocalStorage.setItem(STORAGE_KEYS.API_ACCESS_TOKEN, l2ServiceAccessToken);
-          // LocalStorage.setItem(STORAGE_KEYS.WEB3_AUTH_TOKEN, idToken);
-
-          if (l2ServiceAccessToken) {
-            LocalStorage.setItem(
-              STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2,
-              l2ServiceAccessToken,
-            );
-            LocalStorage.setItem(STORAGE_KEYS.WEB3AUTH_ID_TOKEN_V2, idToken);
-            l2ServicesAPI.setAccesTokenHeader(l2ServiceAccessToken);
-            dispatch(fetchAccountInfo());
+          if (newL2ServiceAccessToken) {
+            setL2ServiceAccessToken(newL2ServiceAccessToken);
           }
         } else {
-          l2ServicesAPI.setAccesTokenHeader(apiAccesstToken);
+          l2ServicesAPI.setAccesTokenHeader(l2ServiceAccessToken);
         }
       }
     } catch (error) {
@@ -156,18 +148,10 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
 
   const getWallet = async () => {
     try {
-      console.log('[Web3AuthProvider][getWallet] -- ');
-
       if (provider && web3AuthNoModal.provider && web3AuthNoModal.connected) {
         const privateKey = await web3AuthNoModal.provider?.request({
           method: 'eth_private_key',
         });
-
-        // console.log(
-        //   '[Web3AuthProvider][getWallet] -- privateKey -- ',
-        //   privateKey,
-        // );
-
         if (privateKey) {
           const wallet = new Wallet(
             privateKey as string,
@@ -190,35 +174,30 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
 
   useEffect(() => {
     if (provider && web3AuthNoModal?.connected) {
-      setLoggedIn(true);
+      setWeb3AuthConencted(true);
     } else {
-      setLoggedIn(false);
+      setWeb3AuthConencted(false);
     }
-  }, [provider, web3AuthNoModal]);
+  }, [provider, web3AuthNoModal, l2ServiceAccessToken]);
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      if (loggedIn) {
+    const fetchWeb3AuthUserProfile = async () => {
+      if (web3AuthConencted) {
         const userInfo = await getWeb3AuthUserInfor();
-        console.log('USER INFOR: ', userInfo);
         setUserInfo(userInfo);
-        dispatch(fetchAccountInfo());
         getWallet();
-        l2ServicesAPI.setAccesTokenHeader(
-          LocalStorage.getItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2),
-        );
       } else {
         setUserInfo(undefined);
       }
     };
-    fetchUserProfile();
-  }, [loggedIn]);
+    fetchWeb3AuthUserProfile();
+  }, [web3AuthConencted]);
 
   useEffect(() => {
-    if (loggedIn && userInfo && userInfo.idToken) {
+    if (web3AuthConencted && userInfo && userInfo.idToken) {
       registerL2Service();
     }
-  }, [loggedIn, userInfo]);
+  }, [web3AuthConencted, userInfo, l2ServiceAccessToken]);
 
   const value = useMemo(
     () => ({
@@ -232,6 +211,7 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
       web3AuthNoModal,
       showLoginModalCustomize,
       setShowLoginModalCustomize,
+      l2ServiceAccessToken,
     }),
     [
       init,
@@ -244,6 +224,7 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
       wallet,
       showLoginModalCustomize,
       setShowLoginModalCustomize,
+      l2ServiceAccessToken,
     ],
   );
 

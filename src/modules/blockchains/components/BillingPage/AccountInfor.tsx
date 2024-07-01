@@ -41,11 +41,9 @@ const AccountInfor = (props: IProps) => {
   const logoutHandler = async () => {
     try {
       onOpenLoadingModal();
-      logout && (await logout());
-      setTimeout(() => {
-        onCloseLoadingModal();
-        router.push('/');
-      }, 1000);
+      if (logout) {
+        await logout();
+      }
     } catch (error) {
       throw error;
     }
