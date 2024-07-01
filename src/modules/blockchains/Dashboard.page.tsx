@@ -7,6 +7,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Text,
 } from '@chakra-ui/react';
 
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
@@ -38,7 +39,7 @@ const Page = (props: any) => {
 
   const { loopFetchAccountInfor, getMyOrderList } = useL2Service();
   const dispatch = useAppDispatch();
-  const { loggedIn } = useWeb3Auth();
+  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
   useEffect(() => {
     if (loggedIn) {
@@ -94,7 +95,36 @@ const Page = (props: any) => {
         py={['10px', '30px', '60px']}
         px={'10px'}
       >
-        {renderTabbar()}
+        {loggedIn ? (
+          renderTabbar()
+        ) : (
+          <Text
+            fontSize={['15px', '16px', '18px']}
+            fontWeight={500}
+            color={'#000'}
+          >
+            To see your ZK rollups -{' '}
+            <Text
+              as="span"
+              fontSize={['15px', '16px', '18px']}
+              fontWeight={500}
+              p="10px"
+              px="20px"
+              bgColor={'#000'}
+              color={'#fff'}
+              borderRadius={'100px'}
+              _hover={{
+                cursor: 'pointer',
+                opacity: 0.8,
+              }}
+              onClick={() => {
+                setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+              }}
+            >
+              Connect
+            </Text>
+          </Text>
+        )}
       </Flex>
     </Flex>
   );

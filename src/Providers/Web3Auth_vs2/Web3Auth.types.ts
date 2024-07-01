@@ -20,6 +20,7 @@ export type IWeb3AuthProps = {
   userInfo?: Partial<UserInfo> | undefined;
   loggedIn?: boolean;
   showLoginModalCustomize?: boolean;
+  l2ServiceAccessToken?: string;
 };
 
 // Context
