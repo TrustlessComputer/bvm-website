@@ -8,20 +8,10 @@
 .heading {
   width: 100%;
   max-width: 300px;
-  //display: flex;
-  //align-items: center;
-  //justify-content: center;
-  //@include is-tablet {
-  //  max-width: unset;
-  //  width: 560px;
-  //}
-  //@include is-pc {
-  //  max-width: unset;
-  //  width: 798px;
-  //}
   @include is-pc {
     max-width: 210px;
   }
+
   img {
     width: 100%;
     height: 100%;
@@ -29,13 +19,14 @@
 }
 
 .headingText {
-  font-size: 40px;
+  font-size: 34px;
   color: #000;
   font-weight: 500;
   text-align: start;
   line-height: calc(60 / 40);
   font-family: var(--font-jetbrains);
   margin: 15px 0;
+
   @include is-pc {
     font-size: 48px;
     margin: 0;
@@ -47,8 +38,45 @@
   display: flex;
   align-items: center;
   gap: 24px;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  @include is-min-table {
+    justify-content: flex-start;
+  }
+
   &_icon {
-    width: 54px;
-    height: 54px;
+    width: 44px;
+    height: 44px;
+    @include min-tablet {
+      width: 54px;
+      height: 54px;
+    }
+  }
+}
+
+
+.staking {
+
+  border-radius: 100px;
+  border: 1px solid black;
+  color: #000;
+  font-weight: 500;
+  text-align: center;
+  padding-left: 12px;
+  padding-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  height: 54px;
+  min-width: 100%;
+
+  @include is-min-table {
+    min-width: 120px;
+  }
+
+  @include is-pc {
+    font-size: 20px;
   }
 }

@@ -2,7 +2,12 @@
   background-color: #fff;
 }
 .inner {
-  padding-top: 156px;
+
+  padding-top: 120px;
+
+  @include min-tablet{
+    padding-top: 156px;
+  }
 
 }
 
