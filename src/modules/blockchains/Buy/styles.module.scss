@@ -10,3 +10,79 @@
     font-family: var(--font-SFProDisplay) !important;
   }
 }
+
+.wrapper {
+  width: 100%;
+}
+
+.inner {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.left {
+
+}
+
+.heading {
+  font-family: 'Bahnschrift';
+  font-size: 20px;
+  font-weight: 500;
+  line-height: calc(30 / 20);
+}
+
+.right {
+  &_top {
+    display: flex;
+    align-items: center;
+    //justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+    &_box {
+      border-radius: 24px;
+      box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
+      background-color: #fff;
+      padding: 7px 24px;
+      display: flex;
+      width: 100%;
+      max-width: 625px;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        font-family: 'Bahnschrift';
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 30 / 20;
+        span {
+          color: rgba(0, 170, 108, 1);
+        }
+      }
+      &_btn {
+        color: rgba(65, 133, 236, 1);
+        font-size: 18px;
+        font-weight: 500;
+        font-family: 'Bahnschrift';
+        line-height: calc(28 / 18);
+      }
+    }
+  }
+}
+
+
+.left_box {
+  margin-top: 31px;
+}
+
+.boxItem {
+
+}
+
+
+.right_box {
+  margin-top: 16px;
+  height: 825px;
+  background-color: #fff;
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 12px;
+}
