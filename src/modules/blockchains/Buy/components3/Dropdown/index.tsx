@@ -22,7 +22,6 @@ export default function Dropdown({
   defaultValue,
 }: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [value, setValue] = useState<string>(options[0].label);
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, () => setIsOpen(false));
 
@@ -31,7 +30,6 @@ export default function Dropdown({
     cb(field, value);
     setIsOpen(false);
   };
-  console.log('defaultValue', defaultValue);
   const icon = options.find((item) => item.value === defaultValue)?.icon;
   return (
     <div className={s.dropdown} onClick={() => setIsOpen(!isOpen)}>
