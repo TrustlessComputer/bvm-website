@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
+import { useOnClickOutside } from '@hooks/useOnClickOutside';
 
 type TDropdown = {
   options: {
@@ -13,10 +14,12 @@ type TDropdown = {
 export default function Dropdown({ options }: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>(options[0].label);
+  const ref = useRef<HTMLDivElement>(null)
+  useOnClickOutside(ref, () => setIsOpen(false))
 
   return (
-    <div className={s.dropdown} onClick={() => setIsOpen(!isOpen)}>
-      <div className={s.dropdown_inner}>
+    <div className={s.dropdown}>
+      <div className={s.dropdown_inner} onClick={() => setIsOpen(!isOpen)}>
         <p className={s.dropdown_text}>{value}</p>
 
         <Image
@@ -31,7 +34,7 @@ export default function Dropdown({ options }: TDropdown) {
       <div
         className={`${s.dropdown_list} ${isOpen && s.dropdown_list__active}`}
       >
-        <div className={s.dropdown_wrap}>
+        <div className={s.dropdown_wrap} ref={ref}>
           <ul className={`${s.dropdown_list_inner} `}>
             {options.map((option, index) => (
               <li
