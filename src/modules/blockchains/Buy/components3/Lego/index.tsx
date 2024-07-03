@@ -4,6 +4,7 @@ import SvgInset from '@/components/SvgInset';
 import Dropdown from '../Dropdown';
 import { TColorLego } from '../BoxOption';
 import { FormOrder } from '../../stores';
+import Slider from '@/modules/blockchains/Buy/components3/Slider';
 
 export type TOptions = {
   label: string;
@@ -47,7 +48,8 @@ export default function Lego({
       <div className={s.inner}>
         <p className={s.label}>{label}</p>
         <div className={s.options}>
-          <Dropdown options={options} cb={cb} field={field} />
+          <Dropdown options={options} />
+          {/*<Slider />*/}
         </div>
       </div>
 

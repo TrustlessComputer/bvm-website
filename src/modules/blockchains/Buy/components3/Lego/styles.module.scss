@@ -1,6 +1,7 @@
 .wrapper {
   --fillBackground: #ff0000;
   --background: #fff;
+  --backgroundSlider: #C73E88;
 
   width: max-content;
   border-radius: 4px;
@@ -44,6 +45,7 @@
   &__green {
     --background: #109465 !important;
     --fillBackground: #15c888 !important;
+    --backgroundSlider: #109465 ;
   }
   &__brown {
     --background: #b2552e !important;
@@ -52,6 +54,7 @@
   &__pink {
     --fillBackground: #fb4fac;
     --background: #c73e88;
+    --backgroundSlider: #C73E88;
   }
 
   &__violet {
