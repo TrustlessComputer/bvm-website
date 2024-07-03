@@ -50,7 +50,7 @@
       padding: 7px 24px;
       display: flex;
       width: 100%;
-      max-width: 620px;
+      max-width: 580px;
       justify-content: space-between;
       align-items: center;
       p {
@@ -85,7 +85,7 @@
 
 .right_box {
   margin-top: 16px;
-  height: 825px;
+  height: 830px;
   background-color: #fff;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
   border-radius: 12px;
@@ -114,5 +114,34 @@
   font-size: 18px;
   &::placeholder {
     color: #0e0e0e;
+  }
+}
+
+.launch {
+  position: absolute;
+  bottom: 7%;
+  right: 4%;
+  border-radius: 24px;
+  padding: 7px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  cursor: not-allowed;
+  mix-blend-mode: luminosity;
+  background: linear-gradient(180deg, #FF9776 0%, #FF8139 32.81%, #E04300 100%);
+  p {
+    font-size: 24px;
+    color: #fff;
+    font-weight: 500;
+  }
+  .icon {
+    max-width: 24px;
+  }
+  &.active {
+    mix-blend-mode: normal;
+    cursor: pointer;
+    &:hover {
+      background: linear-gradient(180deg, #f3ae99 0%, #f5945e 32.81%, #f36627 100%);
+    }
   }
 }

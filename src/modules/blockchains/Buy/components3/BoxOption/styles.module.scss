@@ -25,7 +25,7 @@
       line-height: calc(34 / 24);
     }
   }
-  &:after {
+  &:not(:last-child):after {
     position: absolute;
     content: '';
     background-color: #fff;

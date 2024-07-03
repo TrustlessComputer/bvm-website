@@ -19,6 +19,7 @@ import Lego from './components3/Lego';
 import { DATA_PRICING } from '../data_pricing';
 import Dropdown from './components3/Dropdown';
 import Slider from './components3/Slider';
+import ImagePlaceholder from '@components/ImagePlaceholder';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -275,6 +276,12 @@ const BuyPage = () => {
                   return content();
                 })}
               </Droppable>
+              <div className={`${s.launch} ${s.active}`}>
+                <p>Launch</p>
+                <div className={`${s.icon}`}>
+                  <ImagePlaceholder src={'/launch.png'} alt={'launch'} width={48} height={48}/>
+                </div>
+              </div>
             </div>
           </div>
         </div>
