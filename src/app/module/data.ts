@@ -32,24 +32,24 @@ export const MODULE_DATAS = {
 
     hero: {
       theme: 'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
-      title: 'BitZK',
+      title: 'ZK rollups',
       subTitle: 'ROLLUP',
-      desc: 'ZK rollups on Bitcoin for virtually any decentralized applications.',
+      desc: 'ZK rollups for virtually any decentralized applications.',
       start: {
         text: 'Get started',
         link: '/pricing',
       },
     },
     why: {
-      title: 'Why BitZK?',
-      desc: `Bitcoin Zero Knowledge (BitZK) is the first modular ZK rollup platform on Bitcoin. It offers the broadest and deepest choices, with the latest data availability layers, hardware nodes, pre-installed apps, and pricing models to help you best match your app requirements.`,
+      title: 'Why ZK rollups?',
+      desc: `BVM ZK is the first modular ZK rollup platform. It offers the broadest and deepest choices, with the latest data availability layers, hardware nodes, pre-installed apps, and pricing models to help you best match your app requirements.`,
     },
     benefit: {
-      title: 'Benefits of BitZK',
+      title: 'Benefits of ZK rollups',
       contents: [
         {
           title: '1-click deploy',
-          desc: 'Our intuitive UI makes deploying and managing a Bitcoin ZK rollup simple.',
+          desc: 'Our intuitive UI makes deploying and managing a ZK rollup simple.',
         },
         {
           title: 'Scale as your usage grows',
@@ -63,7 +63,7 @@ export const MODULE_DATAS = {
     },
     hiw: {
       title: 'How it works',
-      desc: 'BitZK lets you deploy your own ZK rollup on Bitcoin with a few clicks and start building decentralized applications for Bitcoin.',
+      desc: 'BVM lets you deploy your own ZK rollup with a few clicks and start building decentralized applications.',
       action: 'https://twitter.com/punk3700/status/1796119677577605380',
       thumbnail: '/bvm/hiw-bitzk.png',
     },
@@ -71,24 +71,24 @@ export const MODULE_DATAS = {
   bitop: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(255, 174, 174, 0.8) -5.57%, rgba(255, 174, 174, 0) 98.47%)',
-      title: 'BitOP',
+      title: 'Optimistic rollups',
       subTitle: 'ROLLUP',
-      desc: 'Optimistic rollups on Bitcoin increase its computation and storage capacity without sacrificing security or decentralization.',
+      desc: 'Optimistic rollups for virtually any decentralized applications.',
       start: {
         text: 'Get started',
         link: '/pricing',
       },
     },
     why: {
-      title: 'Why BitOP?',
-      desc: `BVM is an EVM-equivalent and BitOP module allows developers to write and deploy smart contracts on Bitcoin. `,
+      title: 'Why Optimistic rollups?',
+      desc: `Optimistic rollups increase its computation and storage capacity without sacrificing security or decentralization.`,
     },
     benefit: {
-      title: 'Benefits of BitOP',
+      title: 'Benefits of Optimistic rollups',
       contents: [
         {
           title: 'Smart Contract Capability',
-          desc: 'Adds advanced smart contract functionality to Bitcoin, enabling DeFi, dApps, and automated processes.',
+          desc: 'Adds advanced smart contract functionality, enabling DeFi, dApps, and automated processes.',
         },
         {
           title: 'Enhanced Data Integration',
@@ -102,7 +102,7 @@ export const MODULE_DATAS = {
     },
     hiw: {
       title: 'How it works',
-      desc: 'BitOP lets you deploy your own Optimistic rollup on Bitcoin with a few clicks and start building decentralized applications for Bitcoin.',
+      desc: 'BVM lets you deploy your own Optimistic rollup with a few clicks and start building decentralized applications.',
       action: 'https://docs.bvm.network/bvm/more/optimistic-rollups-on-bitcoin',
       thumbnail: '/bvm/hiw-bitop-07.png',
     },
@@ -110,9 +110,9 @@ export const MODULE_DATAS = {
   bitcoin_celestia: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(253, 174, 255, 0.8) -5.57%, rgba(253, 174, 255, 0) 98.47%)',
-      title: 'Bitcoin Celestia',
+      title: 'BVM Celestia',
       subTitle: 'DaTA Availability',
-      desc: 'Use Celestia as the DA layer for your Bitcoin L2.',
+      desc: 'Use Celestia as the DA layer for your layer-2 blockchain.',
       start: {
         text: 'Get started',
         link: '/pricing',
@@ -149,9 +149,9 @@ export const MODULE_DATAS = {
   bitcoin_avail: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
-      title: 'Bitcoin Avail',
+      title: 'BVM Avail',
       subTitle: 'DaTA Availability',
-      desc: 'Use Avail as the DA layer for your Bitcoin L2.',
+      desc: 'Use Avail as the DA layer for your  layer-2 blockchain.',
       start: {
         text: 'Get started',
         link: '/pricing',
@@ -190,9 +190,9 @@ export const MODULE_DATAS = {
   bitcoin_polygon: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(190, 169, 255, 0.8) -5.57%, rgba(190, 169, 255, 0) 98.47%)',
-      title: 'Bitcoin Polygon',
+      title: 'BVM Polygon',
       subTitle: 'DaTA Availability',
-      desc: 'Use Polygon as the DA layer for your Bitcoin L2.',
+      desc: 'Use Polygon as the DA layer for your layer-2 blockchain.',
       start: {
         text: 'Get started',
         link: '/pricing',
@@ -200,14 +200,14 @@ export const MODULE_DATAS = {
     },
     why: {
       title: 'Why Polygon?',
-      desc: `Polygon PoS enables the launch of Bitcoin L2s with high speed (2-sec block time) and near-zero transaction fees.`,
+      desc: `Polygon PoS enables the launch of L2s with high speed (2-sec block time) and near-zero transaction fees.`,
     },
     benefit: {
       title: 'Benefits of Polygon',
       contents: [
         {
           title: 'Reduced Gas Fees',
-          desc: 'Allow developers to store the data hash on Bitcoin and the data on Polygon PoS, optimizing costs by 7,500x',
+          desc: 'Allow developers to store the data hash on the mainnet and the data on Polygon PoS, optimizing costs by 7,500x',
         },
         {
           title: 'Scalability and Performance',
@@ -221,9 +221,129 @@ export const MODULE_DATAS = {
     },
     hiw: {
       title: 'How it works',
-      desc: 'Polygon PoS is the first Data Availability Layer for Bitcoin L2 blockchains powered by BVM and also the most cost-effective storage solution.',
+      desc: 'Polygon PoS is the first Data Availability Layer for L2 blockchains powered by BVM and also the most cost-effective storage solution.',
       action: 'https://x.com/BVMnetwork/status/1745750669318144051',
       thumbnail: '/bvm/hiw-bitcoin-polygon.png',
+    },
+  },
+
+  bitcoin_eigen: {
+    hero: {
+      theme: 'linear-gradient(180deg, rgba(214, 97, 255, 0.8) -5.57%, rgba(214, 97, 255, 0) 98.47%)',
+      title: 'BVM Eigen',
+      subTitle: 'DaTA Availability',
+      desc: 'Use Eigen as the DA layer for your  layer-2 blockchain.',
+      start: {
+        text: 'Get started',
+        link: '/pricing',
+      },
+    },
+    why: {
+      title: 'Why Eigen?',
+      desc: `EigenDA offers the ability to scale linearly, increasing block size and decreasing block times without sacrificing security or decentralization.`,
+    },
+    benefit: {
+      title: 'Benefits of Eigen',
+      contents: [
+        {
+          title: 'Scalable',
+          desc: 'EigenDA write throughput scales linearly with the number of operators, providing 10 MB/s of write throughput, which is 5x greater than the nearest competitor.',
+        },
+        {
+          title: 'Secure',
+          desc: 'EigenDA is decentralized, consisting of hundreds of operators in EigenLayer whose delegated stakes impose economic costs for misbehavior.',
+        },
+        {
+          title: 'Dencentralized',
+          desc: 'EigenDA avoids trust assumptions on another chain\'s light client, which can be compromised by dishonest validator sets.',
+        },
+      ],
+    },
+    hiw: {
+      title: 'How it works',
+      desc: 'EigenDA addresses data availability by using the mainnet for coordination while its operators handle data storage, eliminating the need for independent consensus. This approach allows linear scalability by moving data availability off-chain, processing only metadata and accountability on-chain, thus increasing throughput without compromising security or decentralization.',
+      action: '#',
+      thumbnail: '',
+    },
+  },
+
+  bitcoin_near: {
+    hero: {
+      theme: 'linear-gradient(180deg, rgba(219, 219, 219, 0.8) -5.57%, rgba(219, 219, 219, 0) 98.47%)',
+      title: 'BVM Near',
+      subTitle: 'DaTA Availability',
+      desc: 'Use Near as the DA layer for your  layer-2 blockchain.',
+      start: {
+        text: 'Get started',
+        link: '/pricing',
+      },
+    },
+    why: {
+      title: 'Why Near?',
+      desc: `Leverage NEAR's DA for your L2s to publish transaction data on a blockchain with a proven trajectory of 100% uptime over its lifetime.`,
+    },
+    benefit: {
+      title: 'Benefits of Near',
+      contents: [
+        {
+          title: 'Drastically reduce your costs',
+          desc: 'Near\'s DA allows developers to store the state root on the mainnet and the batch of transactions on Near, optimizing costs by 10,000x.',
+        },
+        {
+          title: 'Easily validate proofs',
+          desc: 'A trustless off-chain light client for NEAR provides easy access to validate that rollup data was stored on-chain.',
+        },
+        {
+          title: 'Simple to interact with',
+          desc: 'NEAR readily provides an RPC to easily retrieve the on-chain data from anywhere.',
+        },
+      ],
+    },
+    hiw: {
+      title: 'How it works',
+      desc: 'Near\'s DA facilitates the launch of L2s with high speed (2-sec block time) and near-zero transaction fees. Through Near\'s integration, dAppchains on BVM have the potential to optimize their operations with one of the most efficient DA layers, complemented by rollup fees subsidized by Near.',
+      action: 'https://x.com/BVMnetwork/status/1750841776427221255',
+      thumbnail: '',
+    },
+  },
+
+  bitcoin_filecoin: {
+    hero: {
+      theme: 'linear-gradient(180deg, rgba(143, 208, 255, 0.8) -5.57%, rgba(143, 208, 255, 0) 98.47%)',
+      title: 'BVM FileCoin',
+      subTitle: 'DaTA Availability',
+      desc: 'Use FileCoin as a storage layer for your  layer-2 blockchain via Lighthouse. ',
+      start: {
+        text: 'Get started',
+        link: '/pricing',
+      },
+    },
+    why: {
+      title: 'Why FileCoin?',
+      desc: `Filecoin is the largest decentralized data storage marketplace, protocol, & cryptocurrency.  `,
+    },
+    benefit: {
+      title: 'Benefits of FileCoin',
+      contents: [
+        {
+          title: 'Global open-source storage',
+          desc: 'A network that’s built and owned by everyone.',
+        },
+        {
+          title: 'Customized to your specific needs',
+          desc: 'Tune strategies to suit your needs in redundancy, retrieval speed, and cost.',
+        },
+        {
+          title: 'A developer’s playground',
+          desc: 'A rapidly growing ecosystem of tools, libraries, integrations, and providers.',
+        },
+      ],
+    },
+    hiw: {
+      title: 'How it works',
+      desc: 'By leveraging Filecoin’s decentralized storage capabilities, BVM has the unique ability to store transaction archives after they fall out of a DA layer, making indexing easier for builders via the Lighthouse Node Aggregators.',
+      action: 'https://x.com/BVMnetwork/status/1766043822486966576',
+      thumbnail: '',
     },
   },
 };
