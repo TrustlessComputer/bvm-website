@@ -1,0 +1,14 @@
+.wrapper {
+
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 70px;
+  flex-wrap: wrap;
+  @include is-pc {
+    gap: 140px;
+    flex-wrap: nowrap;
+  }
+}

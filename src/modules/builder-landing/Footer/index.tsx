@@ -32,50 +32,51 @@ const dataSocial = [
 
 const Footer = (): React.JSX.Element => {
   const router = useRouter();
-  const {scrollTo} = useScrollTo();
-  return <div className={`${s.footer}`} style={{ backgroundImage: 'url(/public-sale/bg_footer.png)' }}>
-    <div className={'container'}>
-      <div className={`${s.footerContent}`}>
-        <h2 className={s.heading}>
-          <Chars>
-            Ready to launch the next big Bitcoin L2?
-          </Chars>
-        </h2>
-        <Fade className={s.btn}>
-          <Button
-            bgColor={'#FA4E0E'}
-            color={'#fff'}
-            borderRadius={0}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            px={'41px'}
-            py={'14px'}
-            w={['180px']}
-            h={'48px'}
-            fontWeight={400}
-            marginTop={'24px'}
-            fontSize={'16px'}
-            onClick={() => {
-              // scrollTo();
-              router.push('/blockchains/customize');
-            }}
-            _hover={{
-              opacity: 0.8,
-            }}
-          >
-            Launch Bitcoin L2 now
-          </Button>
-        </Fade>
-      </div>
-
-      <div className={`${s.footerSocial}`}>
-        <div className={s.footerSocial_title}>
-          Have question? Get in touch with our team member
+  const { scrollTo } = useScrollTo();
+  return (
+    <div
+      className={`${s.footer}`}
+      style={{ backgroundImage: 'url(/public-sale/bg_footer.png)' }}
+    >
+      <div className={'container'}>
+        <div className={`${s.footerContent}`}>
+          <h2 className={s.heading}>
+            <Chars>Ready to launch the next big Bitcoin L2?</Chars>
+          </h2>
+          <Fade className={s.btn}>
+            <Button
+              bgColor={'#FA4E0E'}
+              color={'#fff'}
+              borderRadius={0}
+              display={'flex'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              px={'41px'}
+              py={'14px'}
+              w={['180px']}
+              h={'48px'}
+              fontWeight={400}
+              marginTop={'24px'}
+              fontSize={'16px'}
+              onClick={() => {
+                // scrollTo();
+                router.push('/rollups/customize');
+              }}
+              _hover={{
+                opacity: 0.8,
+              }}
+            >
+              Launch Bitcoin L2 now
+            </Button>
+          </Fade>
         </div>
-        <div className={s.footerSocial_inner}>
-          {
-            dataSocial.map((item, index) => (
+
+        <div className={`${s.footerSocial}`}>
+          <div className={s.footerSocial_title}>
+            Have question? Get in touch with our team member
+          </div>
+          <div className={s.footerSocial_inner}>
+            {dataSocial.map((item, index) => (
               <a href={item.link} key={item.id} target={'_blank'}>
                 <Fade delay={index / 5}>
                   <div className={`${s.footerSocialItem}`}>
@@ -86,12 +87,12 @@ const Footer = (): React.JSX.Element => {
                   </div>
                 </Fade>
               </a>
-            ))
-          }
+            ))}
+          </div>
         </div>
       </div>
     </div>
-  </div>;
+  );
 };
 
 export default Footer;

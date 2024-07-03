@@ -1,3 +1,4 @@
+import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import {
   DALayerEnum,
   RollupEnum,
@@ -74,7 +75,7 @@ interface OrderItemResp {
   chainName: string;
   userName: string;
   description: string;
-  finalizationPeriod: string;
+  finalizationPeriod: string | number;
   blockTime: string;
   isMainnet: boolean;
   evmVersion: string;
@@ -99,6 +100,15 @@ interface OrderItemResp {
   bridgeStatus?: number;
   thumb?: string;
   needToTopupBalanceUSD?: string;
+  package?: number;
+  prover?: number;
+  cpuCore?: number;
+  memory?: number;
+  storage?: number;
+  gasLimit?: number;
+  packagePrice?: number;
+  packagePriceUSD?: number;
+  logoURL?: string;
 }
 
 interface HistoryItemResp {
@@ -175,7 +185,7 @@ interface IOrderBuyReq {
   cpuCore?: number;
   memory?: number;
   storage?: number;
-  package?: number;
+  package?: PRICING_PACKGE;
   rollupProtocol?: number;
   prover?: number;
   bridgeStatus?: number;
@@ -184,7 +194,8 @@ interface IOrderBuyReq {
 interface IOrderUpdate {
   chainName: string;
   description: string;
-  thumb: string;
+  thumb?: string;
+  logoURL?: string;
 }
 
 interface IOrderBuyEstimateRespone {
@@ -230,14 +241,22 @@ interface IVerifyEmail {
 
 type ViewMode = 'Mainnet' | 'Testnet';
 type ViewPage = 'Biiling' | 'ManageChains';
+type MonitorViewPage = 'OP' | 'ZK';
 
 interface L2ServicesState {
-  isFetching: boolean;
-  isFetched: boolean;
+  //My Order List
+  isMyOrderListFetching: boolean;
+  isMyOrderListFetched: boolean;
   orderList: OrderItem[];
+
   isFetchingAllOrders: boolean;
   isFetchedAllOrders: boolean;
   allOrders: OrderItem[];
+
+  isFetchingAllOrdersV2: boolean;
+  isFetchedAllOrdersV2: boolean;
+  allOrdersV2: OrderItem[];
+
   orderSelected: OrderItem | undefined;
 
   historyList: HistoryItemResp[];
@@ -246,7 +265,11 @@ interface L2ServicesState {
   showOnlyMyOrder: boolean;
   showAllChain: boolean;
   viewPage: ViewPage;
+  monitorViewPage: MonitorViewPage;
 
+  //Account Infor
+  isAccountInforFetching: boolean;
+  isAccountInforFetched: boolean;
   accountInforL2Service: AccountInfo | undefined;
   isL2ServiceLogged: boolean;
 
@@ -300,4 +323,5 @@ export type {
   ThemeConfig,
   WebsiteConfig,
   IOrderUpdate,
+  MonitorViewPage,
 };

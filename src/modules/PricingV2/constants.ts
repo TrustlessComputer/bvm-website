@@ -47,6 +47,13 @@ export enum PRICING_PACKGE {
   Enterprise = 3,
 }
 
+export const PRICING_PACKGE_MAP = {
+  [PRICING_PACKGE.Hacker]: 'Hacker',
+  [PRICING_PACKGE.Growth]: 'Growth',
+  [PRICING_PACKGE.Secure]: 'Secure',
+  [PRICING_PACKGE.Enterprise]: 'Enterprise',
+};
+
 export const PRICING_PACKGE_DATA = {
   [PRICING_PACKGE.Hacker]: {
     maxGasLimit: 1000000000,
@@ -54,7 +61,12 @@ export const PRICING_PACKGE_DATA = {
     stepGasLimit: 10000000,
     minWithdrawalPeriod: 6,
     maxWithdrawalPeriod: 24,
-    prover: false,
+    prover: 0,
+    hardware: {
+      memory: 16,
+      cpuCore: 8,
+      storage: 320,
+    },
   },
   [PRICING_PACKGE.Growth]: {
     maxGasLimit: 2000000000,
@@ -62,7 +74,12 @@ export const PRICING_PACKGE_DATA = {
     stepGasLimit: 10000000,
     minWithdrawalPeriod: 4,
     maxWithdrawalPeriod: 24,
-    prover: false,
+    prover: 0,
+    hardware: {
+      memory: 32,
+      cpuCore: 16,
+      storage: 400,
+    },
   },
   [PRICING_PACKGE.Secure]: {
     maxGasLimit: 4000000000,
@@ -70,7 +87,12 @@ export const PRICING_PACKGE_DATA = {
     stepGasLimit: 10000000,
     minWithdrawalPeriod: 2,
     maxWithdrawalPeriod: 24,
-    prover: true,
+    prover: 1,
+    hardware: {
+      memory: 64,
+      cpuCore: 32,
+      storage: 650,
+    },
   },
   [PRICING_PACKGE.Enterprise]: {
     maxGasLimit: 1000000000,
@@ -78,6 +100,11 @@ export const PRICING_PACKGE_DATA = {
     stepGasLimit: 10000000,
     minWithdrawalPeriod: 6,
     maxWithdrawalPeriod: 24,
-    prover: false,
+    prover: 0,
+    hardware: {
+      memory: 64,
+      cpuCore: 32,
+      storage: 650,
+    },
   },
 };

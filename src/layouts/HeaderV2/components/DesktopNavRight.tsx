@@ -52,7 +52,7 @@ export const DesktopNavRight = (props: Props) => {
 
       {/* {!isLogged ? <ButtonLoginTwitter color={'white'} /> : <UserInforBox />} */}
 
-      {/*<Link href={'/blockchains/customize'} className={s.tryBVm}>*/}
+      {/*<Link href={'/rollups/customize'} className={s.tryBVm}>*/}
       {/*  Try BVM*/}
       {/*</Link>*/}
 

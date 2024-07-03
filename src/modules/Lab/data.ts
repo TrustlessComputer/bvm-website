@@ -230,24 +230,31 @@ export const Modules: ILabItemContent[] = [
 
 export const Research: ILabItemContent[] = [
   {
-    image: `/bvm/zk-mbv-compress.jpeg`,
+    image: `/bvm/whitepagper.jpg`,
+    title: 'BVM Whitepaper v1',
+    content: 'Hyperscale Bitcoin indefinitely',
+    link: 'https://bvm.network/whitepaper.pdf',
+    date: 'Jan 15, 2024'
+  },
+  {
+    image: `/bvm/btc-l3.jpg`,
     title: 'ZK Bitcoin L3s',
     content: 'Decentralized virtual machines for any dapp',
     link: 'https://x.com/punk3700/status/1796119677577605380',
     date: 'May 30, 2024'
   },
   {
-    image: `/bvm/zk-l3-compress.jpeg`,
+    image: `/bvm/zk-bvm.jpg`,
     title: 'zkBVM Light Nodes',
     content: 'Validate that the state transitions of Bitcoin L2s, committed on the Bitcoin and DA layers, are accurate.',
     link: 'https://x.com/punk3700/status/1800132735807410681',
     date: 'Jun 10, 2024'
   },
   {
-    image: `/images/trustless-btc-compress.png`,
+    image: `/bvm/trbtc.jpg`,
     title: 'Trustless Bitcoin Bridge',
     content: 'Bridge BTC to Bitcoin L2s trustlessly',
-    link: 'https://x.com/punk3700/status/1800132735807410681',
+    link: 'https://twitter.com/punk3700/status/1787868153181081794',
     date: 'May 7, 2024'
   },
   {

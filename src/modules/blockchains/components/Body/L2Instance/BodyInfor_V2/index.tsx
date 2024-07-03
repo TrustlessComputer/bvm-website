@@ -1,10 +1,16 @@
 'use client';
 
-import { RollupEnumMap } from '@/modules/blockchains/Buy/Buy.constanst';
-import useOrderMapper from '@/modules/blockchains/hooks/useOrderMapper';
 import { OrderItem } from '@/stores/states/l2services/types';
-import { formatUnixDateTime } from '@/utils/time';
-import { Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+
+import BlockchainSection from './BlockchainSection';
+import HardwareSection from './HardwareSection';
+// import WarningSection from './WarningSection';
+import WarningSection from './WarningSection_V2';
+import PackageSection from './PackageSection';
+
+import s from '../styleFont.module.scss';
+import { RollupEnum } from '@/modules/blockchains/Buy/Buy.constanst';
 
 type Props = {
   item: OrderItem;
@@ -13,77 +19,21 @@ type Props = {
 
 const BodyInfor = (props: Props) => {
   const { item, isOwner } = props;
-  const mapper = useOrderMapper(item);
-  const renderRowInFor = (label: string, content: string) => {
-    return (
-      <Flex
-        flexDir={'row'}
-        gap={'20px'}
-        align={'center'}
-        justify={'space-between'}
-      >
-        <Text
-          w={'40%'}
-          fontSize={'16px'}
-          fontWeight={600}
-          color={'#000'}
-          textAlign={'left'}
-        >
-          {label}
-        </Text>
-        <Text
-          w={'60%'}
-          fontSize={'16px'}
-          fontWeight={400}
-          color={'#4d4c4c'}
-          textAlign={'right'}
-        >
-          {content}
-        </Text>
-      </Flex>
-    );
-  };
-
   return (
-    <SimpleGrid
-      columns={2}
-      spacing="20px"
-      width={'100%'}
-      height={'auto'}
-      spacingX={'200px'}
+    <Flex
+      flexDir={'column'}
+      className={s.container}
+      gap={['10px', '18px', '28px']}
     >
-      {renderRowInFor('Name', `${item.chainName || ''}`)}
-      {!mapper.isLayer1 &&
-        renderRowInFor(
-          'Rollup protocol',
-          `${RollupEnumMap[item.serviceType] || '--'}`,
-        )}
-      {renderRowInFor('Block time', `${mapper.blockTime || ''}`)}
-      {renderRowInFor(
-        'Data availability',
-        `${mapper.dataAvailabilityLayer || ''}`,
+      <WarningSection item={item} />
+      {item.serviceType === RollupEnum.Rollup_ZK && (
+        <PackageSection item={item} />
       )}
-      {renderRowInFor('Chain ID', `${item.chainId || '--'}`)}
-      {renderRowInFor('RPC URL', `${item.rpc || 'Pending payment'}`)}
-      {renderRowInFor(
-        'Native token',
-        `${item.preMint === 0 ? 'BVM' : item.ticker || '--'}`,
+      {item.serviceType === RollupEnum.Rollup_ZK && (
+        <HardwareSection item={item} />
       )}
-      {renderRowInFor(
-        'Block explorer URL',
-        `${item.explorer || 'Pending payment'}`,
-      )}
-
-      {renderRowInFor('Deployer', `${mapper.deployer || '--'}`)}
-
-      {renderRowInFor(
-        'Launch date',
-        `${formatUnixDateTime({
-          dateTime: item.createAt,
-          formatPattern: 'MMMM DD, YYYY',
-        })}`,
-      )}
-    </SimpleGrid>
+      <BlockchainSection item={item} />
+    </Flex>
   );
 };
 

@@ -35,8 +35,6 @@ export type Props = {
 export const BuyPage = React.memo((props: Props) => {
   const { onSuccess } = props;
   const {
-    availableListData,
-    isAvailableListFetching,
     confirmSubmitHandler,
     showSubmitForm,
     setShowSubmitForm,
@@ -53,9 +51,11 @@ export const BuyPage = React.memo((props: Props) => {
     isMainnet,
   } = useBuy();
 
-  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const { accountInforL2Service, availableListFetching } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
 
-  if (isAvailableListFetching)
+  if (availableListFetching)
     return (
       <Flex
         height={'80dvh'}
@@ -68,12 +68,15 @@ export const BuyPage = React.memo((props: Props) => {
       </Flex>
     );
 
-  if (!availableListData) return <></>;
-
   return (
-    <Flex direction={'column'} p="10px" gap={'20px'} className={s.container}>
+    <Flex
+      direction={'column'}
+      p={['2px', '8px', '10px']}
+      gap={'20px'}
+      className={s.container}
+    >
       <Flex
-        p={'50px'}
+        p={['20px', '28px', '40px', '50x']}
         direction={'column'}
         borderRadius={'20px'}
         display={'flex'}

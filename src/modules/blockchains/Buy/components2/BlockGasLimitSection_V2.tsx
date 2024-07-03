@@ -20,18 +20,14 @@ import { formatCurrencyV2 } from '@/utils/format';
 const BlockGasLimitSection = () => {
   const { blockGasLimitSelected, setBlockGasLimitSelected } = useBuy();
   const searchParams = useSearchParams();
-  const packageParam = searchParams.get('package');
+  const packageParam = searchParams.get('package') || PRICING_PACKGE.Hacker;
 
   const packageData = useMemo(() => {
     let result;
 
-    if (!packageParam) {
-      result = PRICING_PACKGE_DATA[PRICING_PACKGE.Hacker];
-    } else {
-      result = PRICING_PACKGE_DATA[Number(packageParam) as PRICING_PACKGE];
-    }
+    result = PRICING_PACKGE_DATA[Number(packageParam) as PRICING_PACKGE];
 
-    setBlockGasLimitSelected(result.minGasLimit);
+    setBlockGasLimitSelected(result.maxGasLimit);
 
     return result;
   }, [packageParam]);
@@ -47,10 +43,21 @@ const BlockGasLimitSection = () => {
     <Section
       title={'Block gas limit'}
       description={'Which block gas limit is right for you?'}
-      descriptionDetail={undefined}
+      descriptionDetail={{
+        title: 'Block Gas Limit',
+        content: (
+          <p>
+            The block gas limit defines the maximum amount of gas that all
+            transactions in a single block can consume.
+          </p>
+        ),
+      }}
     >
       <Flex flexDir={'column'} px={'0px'} overflow={'visible'}>
         <Slider
+          isDisabled={
+            !!packageParam && Number(packageParam) === PRICING_PACKGE.Hacker
+          }
           onChange={onChange}
           defaultValue={blockGasLimitSelected}
           value={blockGasLimitSelected}
@@ -69,7 +76,12 @@ const BlockGasLimitSection = () => {
         </Slider>
       </Flex>
 
-      <Text fontSize="18px" fontWeight={500} align="left" color={'#000'}>
+      <Text
+        fontSize={['15px', '16px', '18px']}
+        fontWeight={500}
+        align="left"
+        color={'#000'}
+      >
         {`${formatCurrencyV2({
           amount: blockGasLimitSelected || 0,
           decimals: 0,

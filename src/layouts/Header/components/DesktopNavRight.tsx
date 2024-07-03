@@ -87,7 +87,7 @@ export const DesktopNavRight = (props: Props) => {
         </Box>
       )}
 
-      {/*<Link href={'/blockchains/customize'} className={s.tryBVm}>*/}
+      {/*<Link href={'/rollups/customize'} className={s.tryBVm}>*/}
       {/*  Try BVM*/}
       {/*</Link>*/}
 

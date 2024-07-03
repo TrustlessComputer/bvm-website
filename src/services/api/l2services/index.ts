@@ -244,6 +244,11 @@ export const getAllOrders = async (): Promise<OrderItem[]> => {
   return builderOrderList(orders, false);
 };
 
+export const getAllOrdersV2 = async (): Promise<OrderItem[]> => {
+  let orders = (await httpClient.get(`/order/all`)) as OrderItemResp[];
+  return builderOrderList(orders, false);
+};
+
 export const accountGetInfo = async (): Promise<AccountInfo | undefined> => {
   const accessToken = getAPIAccessToken();
 
@@ -393,6 +398,51 @@ export const revokeAuthentication = async (): Promise<void> => {
   }
 };
 
+export const uploadLogoFile = async (
+  file: File,
+): Promise<string | undefined> => {
+  const accessToken = getAPIAccessToken();
+  if (!accessToken) return undefined;
+  try {
+    let formData = new FormData();
+    formData.append('file', file);
+    const result: string = await httpClient.post(
+      `/order/upload/file`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `${getAPIAccessToken()}`,
+        },
+      },
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+type L2serviceTrackingParams = {
+  eventLabel: string;
+  tcAddress?: string;
+};
+
+export const L2ServiceTracking = async (
+  params: L2serviceTrackingParams,
+): Promise<void> => {
+  try {
+    const res = await httpClient.post(
+      `/log-events?tcAddress=${params.tcAddress}`,
+      {
+        event: 'click',
+        lebel: params.eventLabel,
+      },
+    );
+  } catch (error) {
+    // console.log('L2serviceTracking error', error);
+  }
+};
+
 const setAccesTokenHeader = (accessToken: string) => {
   // httpClient.defaults.headers.Authorization = `${accessToken}`;
 };
@@ -432,6 +482,10 @@ const l2ServicesAPI = {
 
   orderUpdateAPI,
   orderDetailByID,
+
+  L2ServiceTracking,
+  uploadLogoFile,
+  getAllOrdersV2,
 };
 
 export default l2ServicesAPI;

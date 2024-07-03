@@ -18,7 +18,7 @@ const BodySection = (props: Props) => {
             return (
               <Td
                 key={`${value}-${index2}`}
-                maxWidth={'200px'}
+                minWidth={'250px'}
                 fontWeight={500}
                 fontSize={'14px'}
                 style={{
@@ -38,8 +38,8 @@ const BodySection = (props: Props) => {
                 style={{
                   textWrap: 'unset',
                 }}
-                w={'22%'}
-                maxW={'22%'}
+                w={index2 === item.length - 1 ? '18%' : '22%'}
+                minW={index2 === item.length - 1 ? '280px' : '22%'}
                 textAlign={'center'}
                 className={s.fontSFProDisplay}
                 borderRightWidth={'1px'}

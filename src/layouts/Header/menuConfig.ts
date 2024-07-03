@@ -3,7 +3,8 @@ import {
   DEVELOPERS_GRANTS_URL,
   WHITEPAPER_DOC_URL,
 } from '@/config';
-import { ReactElement } from 'react';
+import {ReactElement} from 'react';
+import {IGroupType} from '@layouts/HeaderV3/useHeaderMobile';
 
 export interface NavItem {
   label: string;
@@ -16,7 +17,10 @@ export interface NavItem {
   isStrong?: boolean;
   subMenu?: any;
   isGroup?: boolean;
+  groupType?: IGroupType;
   GroupDropDown?: () => ReactElement;
+  icon?: () => ReactElement;
+  MenuItemEl?: (p: any) => ReactElement;
 }
 
 export const MenuBuild = {
@@ -26,7 +30,7 @@ export const MenuBuild = {
   isHide: false,
   subMenu: [
     {
-      href: '/blockchains',
+      href: '/rollups',
       label: 'Bitcoin L2s',
       isNewWindow: false,
     },
@@ -147,7 +151,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isHide: false,
   //   subMenu: [
   //     {
-  //       href: '/blockchains',
+  //       href: '/rollups',
   //       label: 'Bitcoin L2s',
   //       isNewWindow: false,
   //     },
@@ -193,7 +197,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   // },
   // {
   //   label: 'Bitcoin L2s',
-  //   href: '/blockchains',
+  //   href: '/rollups',
   //   isNewWindow: false,
   //   isHide: false,
   // },
@@ -292,7 +296,7 @@ export const NAV_ITEMS: Array<NavItem> = [
   // {
   //   label: 'Try BVM',
   //   isTwitter: true,
-  //   href: '/blockchains/customize',
+  //   href: '/rollups/customize',
   //   isNewWindow: false,
   //   isHide: false,
   // },

@@ -2,38 +2,28 @@
 
 import {
   Flex,
-  Spinner,
-  Box,
-  Button,
-  useDisclosure,
-  Tabs,
-  TabList,
   Tab,
-  TabPanels,
+  TabList,
   TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
 } from '@chakra-ui/react';
 
-import HeaderView from './components/Header';
-import BodyView from './components/Body';
-import BoxContent from '@/layouts/BoxContent';
-import {
-  getL2ServicesStateSelector,
-  isFetchingAllDataSelector,
-} from '@/stores/states/l2services/selector';
-import s from './styles.module.scss';
-import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { enhance } from './Dashboard.enhance';
-import useL2Service from '@/hooks/useL2Service';
-import { useEffect, useState } from 'react';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { setViewMode, setViewPage } from '@/stores/states/l2services/reducer';
-import BillingPage from './components/BillingPage';
+import useL2Service from '@/hooks/useL2Service';
+import { useAppDispatch } from '@/stores/hooks';
+import { setViewPage } from '@/stores/states/l2services/reducer';
+import { useEffect, useState } from 'react';
 import { TAB_ENUM, TAB_ENUM_MAP } from './Dashboard.constant';
-import { useRouter } from 'next/navigation';
+import { enhance } from './Dashboard.enhance';
+import BillingPage from './components/BillingPage';
+import BodyView from './components/Body';
+import NetworkBar from './components/NetworkBar';
+import s from './styles.module.scss';
 
 const Page = (props: any) => {
   const { onOpenTopUpModal } = props;
-  const router = useRouter();
   const [activeTab, setChatTabIndex] = useState<TAB_ENUM>(
     TAB_ENUM.MANAGE_CHAINS,
   );
@@ -47,54 +37,16 @@ const Page = (props: any) => {
     setChatTabIndex(index);
   };
 
-  const {
-    loopFetchAccountInfor,
-    onVerifyLoginFirstTime,
-    fetchAllData,
-    isL2ServiceLogged,
-  } = useL2Service();
-
+  const { loopFetchAccountInfor, getMyOrderList } = useL2Service();
   const dispatch = useAppDispatch();
-
   const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
-  const isFetchingAllData = useAppSelector(isFetchingAllDataSelector);
-  const { viewPage } = useAppSelector(getL2ServicesStateSelector);
-
   useEffect(() => {
-    // onVerifyLoginFirstTime();
-  }, []);
-
-  useEffect(() => {}, [loggedIn]);
-
-  useEffect(() => {
-    fetchAllData();
-  }, []);
-
-  useEffect(() => {
-    fetchAllData();
-    loopFetchAccountInfor();
-  }, [isL2ServiceLogged, loggedIn]);
-
-  const renderBillingPage = () => {
-    return (
-      <BillingPage
-        viewPaymentOnClick={() => {
-          onOpenTopUpModal && onOpenTopUpModal();
-        }}
-      />
-    );
-  };
-
-  const renderManageChainsPage = () => {
-    return (
-      <Flex flexDir={'column'}>
-        {/* <HeaderView />
-        <Flex height={'15px'}></Flex> */}
-        <BodyView />
-      </Flex>
-    );
-  };
+    if (loggedIn) {
+      loopFetchAccountInfor();
+      getMyOrderList();
+    }
+  }, [loggedIn]);
 
   const renderTabbar = () => {
     return (
@@ -103,136 +55,76 @@ const Page = (props: any) => {
         onChange={onChangeTab}
         defaultIndex={activeTab}
       >
-        <TabList className={s.tabList}>
+        <TabList className={s.tabList} fontSize={['16px', '18px', ' 20px']}>
           <Tab>{TAB_ENUM_MAP[TAB_ENUM.MANAGE_CHAINS]}</Tab>
           <Tab>{TAB_ENUM_MAP[TAB_ENUM.BILLING]}</Tab>
         </TabList>
+        <NetworkBar />
         <TabPanels className={s.tabPanel}>
-          <TabPanel>{renderManageChainsPage()}</TabPanel>
-          <TabPanel>{renderBillingPage()}</TabPanel>
+          <TabPanel>
+            <BodyView />
+          </TabPanel>
+          <TabPanel>
+            <BillingPage
+              viewPaymentOnClick={() => {
+                onOpenTopUpModal && onOpenTopUpModal();
+              }}
+            />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     );
   };
 
-  // const renderContent2 = () => {
-  //   return (
-  //     <>
-  //       {renderTabbar()}
-  //       <Flex flexDir={'column'} w="100%">
-  //         {viewPage === 'ManageChains'
-  //           ? renderManageChainsPage()
-  //           : renderBillingPage()}
-  //       </Flex>
-  //     </>
-  //   );
-  // };
-
-  const renderContent = () => {
-    return (
-      <Flex
-        flexDir={'row'}
-        alignItems={'flex-start'}
-        gap={'30px'}
-        pos={'relative'}
-      >
-        {/* LeftView */}
-        <Flex
-          mt={'5px'}
-          flexDir={'column'}
-          pos={'sticky'}
-          left={0}
-          p={'8px'}
-          borderRadius={'8px'}
-          gap={'10px'}
-          minW={'320px'}
-          bgColor={'#fff'}
-        >
-          <Button
-            className={s.font2}
-            bgColor={viewPage === 'Biiling' ? '#FA4E0E' : '#fff'}
-            color={viewPage === 'Biiling' ? '#fff' : '#000'}
-            borderRadius={'8px'}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            px={'28px'}
-            py={'16px'}
-            w={'100%'}
-            height={'48px'}
-            margin={'0 auto'}
-            fontWeight={500}
-            fontSize={'16px'}
-            _hover={{
-              bgColor: '#e5601b',
-            }}
-            onClick={() => {
-              if (loggedIn) {
-                dispatch(setViewPage('Biiling'));
-              } else {
-                setShowLoginModalCustomize && setShowLoginModalCustomize(true);
-              }
-            }}
-          >
-            Billing
-          </Button>
-          <Button
-            className={s.font2}
-            bgColor={viewPage === 'ManageChains' ? '#FA4E0E' : '#fff'}
-            color={viewPage === 'ManageChains' ? '#fff' : '#000'}
-            borderRadius={'8px'}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            px={'28px'}
-            py={'16px'}
-            height={'48px'}
-            w={'100%'}
-            margin={'0 auto'}
-            fontWeight={500}
-            fontSize={'16px'}
-            _hover={{
-              bgColor: '#e5601b',
-            }}
-            onClick={() => {
-              dispatch(setViewPage('ManageChains'));
-            }}
-          >
-            Your Rollups
-          </Button>
-        </Flex>
-
-        {/* RightView */}
-        <Flex flexDir={'column'} w="100%">
-          {viewPage === 'ManageChains'
-            ? renderManageChainsPage()
-            : renderBillingPage()}
-        </Flex>
-      </Flex>
-    );
-  };
-  const renderLoading = () => {
-    return (
-      <Flex flex={1} justify={'center'} align={'center'}>
-        <Spinner color="#000" size={'lg'} />;
-      </Flex>
-    );
-  };
-
   return (
     <Flex
-      bgColor={'#f3f1e8'}
       flexDir={'column'}
       align={'center'}
+      // bgColor={'blue'}
       className={s.container}
     >
       <Flex
+        flexDir={'column'}
+        align={'center'}
+        w="100%"
         minH={'100dvh'}
         overflow={'visible'}
         pos={'relative'}
-        className={s.containerContent}
+        maxW={'1480px'}
+        // bg={'yellow'}
+        py={['10px', '30px', '60px']}
+        px={'10px'}
       >
-        {renderTabbar()}
+        {loggedIn ? (
+          renderTabbar()
+        ) : (
+          <Text
+            fontSize={['15px', '16px', '18px']}
+            fontWeight={500}
+            color={'#000'}
+          >
+            To see your ZK rollups -{' '}
+            <Text
+              as="span"
+              fontSize={['15px', '16px', '18px']}
+              fontWeight={500}
+              p="10px"
+              px="20px"
+              bgColor={'#000'}
+              color={'#fff'}
+              borderRadius={'100px'}
+              _hover={{
+                cursor: 'pointer',
+                opacity: 0.8,
+              }}
+              onClick={() => {
+                setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+              }}
+            >
+              Connect
+            </Text>
+          </Text>
+        )}
       </Flex>
     </Flex>
   );

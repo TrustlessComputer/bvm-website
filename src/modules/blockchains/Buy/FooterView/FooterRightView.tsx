@@ -2,6 +2,11 @@ import { Button, Flex, Image, Text } from '@chakra-ui/react';
 import { useBuy } from '../../providers/Buy.hook';
 import s from './styles.module.scss';
 import BigNumber from 'bignumber.js';
+import { useEffect, useMemo } from 'react';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { useSearchParams } from 'next/navigation';
+import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 
 const FooterRightView = () => {
   const {
@@ -14,6 +19,24 @@ const FooterRightView = () => {
     rollupProtocolSelected,
     isSubmiting,
   } = useBuy();
+
+  const dispatch = useAppDispatch();
+  const { availableListFetching, availableList } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
+  const searchParams = useSearchParams();
+  const packageParam = searchParams.get('package') || PRICING_PACKGE.Growth;
+
+  const tierData = useMemo(() => {
+    const packageData = availableList?.package['2'];
+    const result = packageData?.filter((item, index) => {
+      if (item.value === Number(packageParam)) {
+        return true;
+      }
+      return false;
+    });
+    return result ? result[0] : undefined;
+  }, [availableList, packageParam]);
 
   const renderOption1 = () => {
     return (
@@ -40,39 +63,38 @@ const FooterRightView = () => {
           gap={'3px'}
         >
           <Text
-            fontSize={'25px'}
+            fontSize={['18px', '22px', '25px']}
+            lineHeight={['20px', '24px', '28px']}
             fontWeight={600}
             color={'#000'}
             textAlign={'center'}
-            lineHeight={'25px'}
           >
-            {`${new BigNumber(estimateTotalCostData_V2?.TotalCostBVM || 0)
-              .decimalPlaces(2)
-              .toString()} BVM`}
+            {`${tierData?.price || '--'}`}
           </Text>
           <Text
-            fontSize={'16px'}
+            fontSize={['14px', '15px', '16px']}
+            lineHeight={['16px', '18px', '20px']}
             fontWeight={300}
             textAlign={'center'}
-            lineHeight={'25px'}
             opacity={0.7}
             className={s.fontType2}
           >
-            {`$${estimateTotalCostData_V2?.TotalCostUSD || '--'}`}
+            {`${tierData?.priceNote || '--'}`}
           </Text>
         </Flex>
 
         <Button
           px={'30px'}
           borderRadius={'14px'}
-          minH={'50px'}
-          minW={'160px'}
+          minH={['45px', '50px']}
+          minW={['140px', '160px']}
           bgColor={'#17066C'}
           color={'#fff'}
           _hover={{
             opacity: 0.8,
           }}
-          fontSize={'18px'}
+          fontSize={['15px', '15px', '18px']}
+          lineHeight={['16px', '18px', '20px']}
           leftIcon={
             <Image
               src={'/blockchains/customize/ic-rocket.svg'}

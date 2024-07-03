@@ -1,15 +1,20 @@
-import MainLayout from '@layouts/MainLayout';
-// import ChainsModule from '@/modules/Chains';
-import ChainsModule from '@/modules/ChainsV2';
-export default function Chains() {
+'use client';
+
+import MainLayout from '@/layouts/MainLayout';
+import Page from '@/modules/blockchains';
+
+const BlockChainPage = () => {
   return (
     <MainLayout
       headerProps={{
         color: 'black',
+        bgColor: '#F3F1E8',
       }}
       hideFooter={true}
     >
-      <ChainsModule />
+      <Page />
     </MainLayout>
   );
-}
+};
+
+export default BlockChainPage;

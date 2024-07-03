@@ -26,7 +26,7 @@
       @include is-pc {
         flex-wrap: wrap;
         flex-direction: row;
-        max-width: 600px;
+        max-width: 660px;
 
         li {
           flex: 0 0 calc(50% - 10px);
@@ -41,7 +41,34 @@
       align-items: center;
       gap: 12px;
 
+      img{
+        flex: 0 0 48px;
+        width: 48px;
+        aspect-ratio: 1/1;
+      }
+
       &_text {
+
+        &_wrap {
+          display: flex;
+          gap: 5px;
+          align-items: flex-start;
+
+          small {
+            background: #FFEEEE;
+            font-family: var(--font-SFProDisplay);
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 15.6px;
+            text-align: left;
+            color: #FF4747;
+            padding: 2px 4px;
+            border-radius: 4px;
+            display: block;
+            text-decoration: none !important;
+          }
+        }
+
         &_title {
           &:hover {
             text-decoration: underline;
@@ -115,4 +142,13 @@
 
 .isDisabled {
   pointer-events: none;
+}
+
+
+.simpleGroup_link {
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

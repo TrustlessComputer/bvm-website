@@ -33,6 +33,7 @@ export const MobileNav = (props: Props) => {
           ) : (item.GroupDropDown ? (
             <GroupDownItem key={item.label}
                            title={item.label}
+                           typeGroup={item.groupType}
                            color={'#000'}>{item.GroupDropDown()}</GroupDownItem>
           ) : (
             <Link
@@ -49,7 +50,6 @@ export const MobileNav = (props: Props) => {
           ))}
         </>
       ))}
-      <Community color="black" />
     </VStack>
   );
 };

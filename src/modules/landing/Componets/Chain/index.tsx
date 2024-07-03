@@ -253,7 +253,7 @@ export default function Chain() {
                   }}
                   className={s.chain_btn}
                   onClick={() => {
-                    router.push('/blockchains/customize');
+                    router.push('/rollups/customize');
                   }}
                 >
                   {`Build your ZK-powered Blockchain`}

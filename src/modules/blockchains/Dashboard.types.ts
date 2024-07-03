@@ -46,13 +46,20 @@ type UpdateOrderModalProps = {
   onCloseUpdateOrderModal?: () => void;
 };
 
+type WaittingSettingUpModalProps = {
+  isOpenWaittingSetingUp?: boolean;
+  onOpenWaittingSetingUp?: () => void;
+  onCloseWaittingSetingUp?: () => void;
+};
+
 type IModalProps = TopUpModalProps &
   BillingModalProps &
   SendFormModalProps &
   EditConfigModalProps &
   OrderDetailModalProps &
   CancelOrderModalProps &
-  UpdateOrderModalProps;
+  UpdateOrderModalProps &
+  WaittingSettingUpModalProps;
 
 export type DashboardProps = IActions & Props & IModalProps & {};
 

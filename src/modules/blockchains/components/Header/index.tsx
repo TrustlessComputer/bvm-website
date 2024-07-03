@@ -16,23 +16,13 @@ import { useEffect } from 'react';
 const HeaderView = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { onConnect } = useL2Service();
 
-  const { viewMode, showOnlyMyOrder, showAllChain, isL2ServiceLogged } =
-    useAppSelector(getL2ServicesStateSelector);
+  const { viewMode, showOnlyMyOrder, showAllChain } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
   const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
 
   const isMainnnet = viewMode === 'Mainnet';
-
-  useEffect(() => {
-    dispatch(setShowOnlyMyOrder(isL2ServiceLogged));
-  }, [isL2ServiceLogged]);
-
-  useEffect(() => {
-    if (!isL2ServiceLogged) {
-      dispatch(setShowOnlyMyOrder(false));
-    }
-  }, []);
 
   const renderLeftView = () => {
     return (
@@ -157,7 +147,7 @@ const HeaderView = () => {
               bgColor: '#e5601b',
             }}
             onClick={() => {
-              // router.push('/blockchains/customize');
+              // router.push('/rollups/customize');
               router.push('/pricing');
             }}
           >
@@ -176,7 +166,6 @@ const HeaderView = () => {
                 opacity: 0.8,
               }}
               onClick={() => {
-                // onConnect();
                 setShowLoginModalCustomize && setShowLoginModalCustomize(true);
               }}
             >

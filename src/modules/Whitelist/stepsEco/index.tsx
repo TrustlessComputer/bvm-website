@@ -10,31 +10,30 @@ import DownloadAlphaModal from '@/modules/Whitelist/stepsEco/DownloadAlphaModal'
 import DownloadBitcoinArcadeModal from '@/modules/Whitelist/stepsEco/DownloadBitcoinArcadeModal';
 
 export const LearnMore = (href: string, text?: string) => {
-  return (
-    `<a href='${href}' style="color: #FA4E0E" target="_blank">
+  return `<a href='${href}' style="color: #FA4E0E" target="_blank">
       <div style="display: inline-flex; flex-direction: row; align-items: center; gap: 4px;">
-        <p>${text ? text : "Learn more"}</p>
+        <p>${text ? text : 'Learn more'}</p>
         <img style="width: 16px; height: 16px;" src="https://storage.googleapis.com/tc-cdn-prod/nbc/icons/bvm-icons/arrow-right.svg" />
       </div>
-    </a>`
-  );
+    </a>`;
 };
 
 interface IProps {
-  setTabIndex: (_: number) => void
+  setTabIndex: (_: number) => void;
 }
 
 const StepsEco = ({ setTabIndex }: IProps) => {
   const token = AuthenStorage.getAuthenKey();
   const [showSyncBVM, setShowSyncBVM] = useState(false);
   const [showDownloadAlphaApp, setShowDownloadAlphhaApp] = useState(false);
-  const [showDownloadBitcoinArcadeApp, setShowDownloadBitcoinArcadeApp] = useState(false);
+  const [showDownloadBitcoinArcadeApp, setShowDownloadBitcoinArcadeApp] =
+    useState(false);
 
   const DATA_COMMUNITY = useMemo<IItemCommunity[]>(() => {
     return [
       {
         project: 'Bitcoin L2 for GameFi',
-        title: "Bitcoin Arcade",
+        title: 'Bitcoin Arcade',
         desc: `<span style='font-style: italic'>The first ever fully on-chain gaming blockchain on Bitcoin.</span>${LearnMore(
           'https://bitcoinarcade.xyz/',
         )}<br/>
@@ -45,7 +44,7 @@ const StepsEco = ({ setTabIndex }: IProps) => {
         isActive: true,
         actionHandle: () => {
           if (!token) {
-            return setTabIndex(0)
+            return setTabIndex(0);
           }
           setShowDownloadBitcoinArcadeApp(true);
         },
@@ -73,21 +72,24 @@ const StepsEco = ({ setTabIndex }: IProps) => {
           title: '+2000 PTS',
           desc: 'per 0.001 BTC',
         },
-        tag: StepTagType.NEW
+        tag: StepTagType.NEW,
       },
       {
         project: 'Bitcoin L2s',
         title: 'Launch your own Bitcoin L2',
-        desc: `Developers? It’s easy to customize and launch your own Bitcoin L2 blockchain — with just a few clicks. ${LearnMore("https://docs.bvm.network/bvm/quickstart/create-a-bitcoin-virtual-machine", "Read the whitepaper")}`,
+        desc: `Developers? It’s easy to customize and launch your own Bitcoin L2 blockchain — with just a few clicks. ${LearnMore(
+          'https://docs.bvm.network/bvm/quickstart/create-a-bitcoin-virtual-machine',
+          'Read the whitepaper',
+        )}`,
         actionText: token ? 'Launch now' : 'Craft a tweet about BVM first',
         image: 'ic-create-bvm.svg',
         actionHandle: () => {
           setTimeout(() => {
             if (!token) {
-              return setTabIndex(0)
+              return setTabIndex(0);
             }
-            window.open('https://bvm.network/blockchains/customize', '_blank')
-          }, 200)
+            window.open('https://bvm.network/rollups/customize', '_blank');
+          }, 200);
         },
         isActive: true,
         right: {

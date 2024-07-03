@@ -49,8 +49,8 @@ const Item = React.memo((props: Props) => {
       alignItems={'center'}
       py={'10px'}
       px={'16px'}
-      minH={'70px'}
-      fontSize={'20px'}
+      height={['45px', '50px', ' 60px']}
+      fontSize={['16px', '18px', ' 20px']}
       color={'black'}
       aria-selected={isSelected}
       aria-disabled={disabled}

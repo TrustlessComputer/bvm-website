@@ -21,40 +21,31 @@ const CancelOrderModal = (props: IProps) => {
       icCloseUrl="/icons/ic-close-grey.svg"
     >
       <Flex
-        mt={'20px'}
+        mt={['15px', '18px', '20px']}
         flexDir={'column'}
         bgColor={'#fff'}
         borderRadius={'10px'}
         p={'20px'}
-        gap={'20px'}
+        gap={['15px', '18px', '20px']}
       >
         <Text
-          fontSize={'24px'}
+          fontSize={['18px', '20px', '24px']}
           fontWeight={600}
           color={'#000'}
-          lineHeight={'20px'}
           alignSelf={'flex-start'}
         >
-          {`Deactivate Your ZK-powered Blockchain`}
+          {`Cancel your rollup?`}
         </Text>
 
-        {/* <Text
-          fontSize={'16px'}
-          fontWeight={500}
-          color={'#000'}
-          lineHeight={'20px'}
-          alignSelf={'flex-start'}
-        >
-          {`Waiting for payment to activate your ZK-powered Blockchain. Cancel if you don't want to continue.`}
-        </Text> */}
-
         <Flex
-          mt="20px"
+          mt={['15px', '18px', '20px']}
           flexDir={'row'}
           align={'center'}
           justify={'space-between'}
           width={'100%'}
-          gap="30px"
+          gap={['18px', '20px', '30px']}
+          fontSize={['15px', '16px', '18px']}
+          fontWeight={500}
         >
           <Button
             width={'100%'}
@@ -63,11 +54,9 @@ const CancelOrderModal = (props: IProps) => {
             borderColor={'#FA4E0E'}
             borderWidth={'1px'}
             borderRadius={'100px'}
-            h={'50px'}
+            h={['40px', '45px', '50px']}
             minW={'140px'}
             className={s.fontType3}
-            fontSize={'18px'}
-            fontWeight={500}
             onClick={() => {
               onSuccess && onSuccess();
             }}
@@ -83,10 +72,9 @@ const CancelOrderModal = (props: IProps) => {
             bgColor={'#FA4E0E'}
             color={'#fff'}
             borderRadius={'100px'}
-            h={'50px'}
+            h={['40px', '45px', '50px']}
             minW={'140px'}
             className={s.fontType3}
-            fontSize={'18px'}
             fontWeight={500}
             onClick={onClose}
             _hover={{

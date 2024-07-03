@@ -6,14 +6,21 @@ import {
   fetchAccountInfo,
   fetchL2ServiceHistory,
   fetchAvailableList,
+  fetchAllOrdersV2,
 } from './actions';
 import { PREFIX } from './constants';
-import { L2ServicesState, OrderItem, ViewMode, ViewPage } from './types';
+import {
+  L2ServicesState,
+  OrderItem,
+  ViewMode,
+  ViewPage,
+  MonitorViewPage,
+} from './types';
 import uniqBy from 'lodash/uniqBy';
 
 export const initialState: L2ServicesState = {
-  isFetching: false,
-  isFetched: false,
+  isMyOrderListFetched: false,
+  isMyOrderListFetching: false,
   orderList: [],
 
   isFetchingAllOrders: false,
@@ -23,10 +30,8 @@ export const initialState: L2ServicesState = {
 
   historyList: [],
 
-  viewMode: 'Mainnet',
-  showOnlyMyOrder: true,
-  showAllChain: false,
-
+  isAccountInforFetching: false,
+  isAccountInforFetched: false,
   accountInforL2Service: undefined,
   isL2ServiceLogged: false,
 
@@ -35,6 +40,15 @@ export const initialState: L2ServicesState = {
   availableList: undefined,
 
   viewPage: 'ManageChains',
+  viewMode: 'Mainnet',
+  showOnlyMyOrder: true,
+  showAllChain: false,
+
+  isFetchingAllOrdersV2: false,
+  isFetchedAllOrdersV2: false,
+  allOrdersV2: [],
+
+  monitorViewPage: 'OP',
 };
 
 const slice = createSlice({
@@ -54,16 +68,20 @@ const slice = createSlice({
       state.orderSelected = action.payload;
     },
     resetOrders(state) {
-      state.isFetching = false;
-      state.isFetched = false;
+      state.isMyOrderListFetched = false;
+      state.isMyOrderListFetching = false;
       state.orderList = [];
       state.orderSelected = undefined;
       state.accountInforL2Service = undefined;
       state.isL2ServiceLogged = false;
       state.allOrders = [];
+      state.allOrdersV2 = [];
     },
     setViewPage(state, action: PayloadAction<ViewPage>) {
       state.viewPage = action.payload;
+    },
+    setMonitorViewPage(state, action: PayloadAction<MonitorViewPage>) {
+      state.monitorViewPage = action.payload;
     },
     setShowAllChains(state, action: PayloadAction<boolean>) {
       state.showAllChain = action.payload;
@@ -83,16 +101,16 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAccountInfo.pending, (state) => {
-        state.isFetching = true;
+        state.isAccountInforFetching = true;
       })
       .addCase(fetchAccountInfo.fulfilled, (state, action) => {
-        state.isFetching = false;
-        state.isFetched = true;
+        state.isAccountInforFetching = false;
+        state.isAccountInforFetched = true;
         state.accountInforL2Service = action.payload;
       })
       .addCase(fetchAccountInfo.rejected, (state, _) => {
-        state.isFetching = false;
-        state.isFetched = true;
+        state.isMyOrderListFetching = false;
+        state.isAccountInforFetched = true;
         state.accountInforL2Service = undefined;
       })
 
@@ -105,16 +123,16 @@ const slice = createSlice({
       })
 
       .addCase(fetchOrderList.pending, (state) => {
-        state.isFetching = true;
+        state.isMyOrderListFetching = true;
       })
       .addCase(fetchOrderList.fulfilled, (state, action) => {
-        state.isFetching = false;
-        state.isFetched = true;
+        state.isMyOrderListFetching = false;
+        state.isMyOrderListFetched = true;
         state.orderList = action.payload;
       })
       .addCase(fetchOrderList.rejected, (state, _) => {
-        state.isFetching = false;
-        state.isFetched = true;
+        state.isMyOrderListFetching = false;
+        state.isMyOrderListFetched = true;
         state.orderList = [];
       })
 
@@ -136,8 +154,22 @@ const slice = createSlice({
         state.allOrders = [];
       })
 
+      .addCase(fetchAllOrdersV2.pending, (state) => {
+        state.isFetchingAllOrdersV2 = true;
+      })
+      .addCase(fetchAllOrdersV2.fulfilled, (state, action) => {
+        state.isFetchingAllOrdersV2 = false;
+        state.isFetchedAllOrdersV2 = true;
+        state.allOrdersV2 = action.payload;
+      })
+      .addCase(fetchAllOrdersV2.rejected, (state, _) => {
+        state.isFetchingAllOrdersV2 = false;
+        state.isFetchedAllOrdersV2 = true;
+        state.allOrdersV2 = [];
+      })
+
       .addCase(fetchAvailableList.pending, (state) => {
-        state.availableListFetched = true;
+        state.availableListFetching = true;
       })
       .addCase(fetchAvailableList.fulfilled, (state, action) => {
         state.availableListFetching = false;
@@ -162,5 +194,6 @@ export const {
   setL2ServiceAuth,
   updateOrderByNewOrder,
   setL2ServiceLogout,
+  setMonitorViewPage,
 } = slice.actions;
 export default slice.reducer;

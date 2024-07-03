@@ -3,6 +3,7 @@ import Item from '../components/Item';
 import Section from '../components/Section';
 import { useBuy } from '../../providers/Buy.hook';
 import { Flex } from '@chakra-ui/react';
+import { useMemo } from 'react';
 
 const NetworkSection = () => {
   const { availableListData, isMainnet, networkSelected, setNetworkSelected } =
@@ -10,7 +11,12 @@ const NetworkSection = () => {
 
   const dataList = availableListData?.network;
 
-  if (!dataList) return <></>;
+  const newDataList = useMemo(() => {
+    if (!dataList || dataList.length < 1) return [];
+    return [...dataList].sort((a, b) => b.value - a.value);
+  }, [dataList]);
+
+  if (!newDataList) return <></>;
 
   return (
     <Section
@@ -20,14 +26,14 @@ const NetworkSection = () => {
         title: 'Network',
         content: (
           <p>
-            Select whether you want to create a testnet or deploy a mainnet. The
-            testnet is free.
+            Select whether you want to create a testnet or deploy a mainnet.
           </p>
         ),
       }}
+      // descriptionDetail={undefined}
     >
       <Flex flexDir={'row'} align={'center'} gap={'10px'}>
-        {dataList?.map((item, index) => {
+        {newDataList?.map((item, index) => {
           const contentValue =
             item.value === NetworkEnum.Network_Mainnet
               ? item.price

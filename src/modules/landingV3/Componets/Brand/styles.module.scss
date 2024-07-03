@@ -1,0 +1,57 @@
+.wrapper {
+  background-color: #f9f9f9;
+  position: relative;
+  z-index: 2;
+  padding-top: 10px;
+  padding-bottom: 75px;
+  transform: translateY(-2px);
+}
+
+.brand {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &_item {
+    flex: 0 0 auto;
+    height: auto;
+    width: 33.33%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 24px;
+    margin-bottom: 24px;
+
+    @include is-min-table {
+      margin-top: 34px;
+      margin-bottom: 34px;
+    }
+
+    @include is-pc {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+
+    &_img {
+      width: 60px;
+      height: 60px;
+    }
+
+    &_text {
+      font-family: var(--font-SFProDisplay);
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 25.2px;
+      text-align: center;
+      display: block;
+      margin-top: 6px;
+      color: black;
+    }
+
+    @include is-pc {
+      width: 20%;
+    }
+  }
+}

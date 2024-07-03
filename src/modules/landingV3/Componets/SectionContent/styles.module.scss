@@ -48,9 +48,17 @@
 }
 
 .content {
-  gap: 24px;
-  display: flex;
-  flex-direction: column;
+
+  .subTitle {
+    font-family: var(--font-SFProDisplay);
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    text-align: left;
+    color: black;
+    text-transform: uppercase;
+  }
 
   &_title {
     font-family: var(--font-JetBrainsMono);
@@ -59,6 +67,7 @@
     line-height: 41.6px;
     text-align: left;
     color: black;
+    margin-bottom: 24px;
   }
 
   &_desc {
@@ -70,6 +79,11 @@
     letter-spacing: 0.05em;
     text-align: left;
     max-width: 600px;
+    margin-bottom: 24px;
+
+    p:not(:last-child ) {
+      margin-bottom: 24px;
+    }
   }
 
   .button {
@@ -84,6 +98,10 @@
     display: flex;
     gap: 5px;
     align-items: center;
+
+    &__2 {
+      margin-top: 24px;
+    }
 
     svg {
       transform: translateY(-.07em);

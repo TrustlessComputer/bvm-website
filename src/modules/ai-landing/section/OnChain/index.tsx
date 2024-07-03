@@ -12,7 +12,7 @@ import Fade from '@interactive/Signal/Fade';
 
 export default function OnChain(): React.JSX.Element {
   const refContainer = useRef<HTMLDivElement>(null);
-  const router= useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     // hande center content
@@ -43,19 +43,28 @@ export default function OnChain(): React.JSX.Element {
               </p>
             </LinesRandom>
             <div className={s.mainHeading_buttons}>
-             <Fade>
-               <Button className={s.mainHeading_buttons_item} onClick={
-                 ()=>{
-                   router.push('/blockchains/customize')
-                 }
-               } isOrange>
-                 Deploy an AI chain
-               </Button>
-             </Fade>
-              <Fade delayTrigger={.2}>
-                <Button isBorder onClick={()=>{
-                  window.open('https://docs.bvm.network/bvm/build-ai-on-bitcoin/decentralized-ai-beginner')
-                }} className={s.mainHeading_buttons_item} isOrange>
+              <Fade>
+                <Button
+                  className={s.mainHeading_buttons_item}
+                  onClick={() => {
+                    router.push('/rollups/customize');
+                  }}
+                  isOrange
+                >
+                  Deploy an AI chain
+                </Button>
+              </Fade>
+              <Fade delayTrigger={0.2}>
+                <Button
+                  isBorder
+                  onClick={() => {
+                    window.open(
+                      'https://docs.bvm.network/bvm/build-ai-on-bitcoin/decentralized-ai-beginner',
+                    );
+                  }}
+                  className={s.mainHeading_buttons_item}
+                  isOrange
+                >
                   Deploy an AI dapp
                 </Button>
               </Fade>

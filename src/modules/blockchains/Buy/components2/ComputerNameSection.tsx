@@ -52,7 +52,7 @@ const ComputerNameSection = () => {
   }, [isMainnet]);
 
   return (
-    <>
+    <Box>
       <Section title="Name">
         <TextInput
           placeholder="Name"
@@ -71,11 +71,10 @@ const ComputerNameSection = () => {
             onChangeHandler(e);
           }}
         />
-
         {hasFocused && hasError && <ErrorMessage message={errorMessage} />}
       </Section>
       <Box ref={computerNameField.ref}></Box>
-    </>
+    </Box>
   );
 };
 

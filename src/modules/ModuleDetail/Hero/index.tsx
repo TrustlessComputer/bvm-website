@@ -1,58 +1,73 @@
 import React from 'react';
 import s from './styles.module.scss';
-import { Button } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
 import Loader from '@/modules/builder-landing/Loader';
-import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useRouter } from 'next/navigation';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { IMODULE_HERO } from '@/app/module/data';
 
-export default function Hero(): React.JSX.Element {
+export default function Hero({ data }: {data: IMODULE_HERO}): React.JSX.Element {
 
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
   return (
-    <div className={s.wrapper}>
+    <div className={s.wrapper} style={{ '--bg': data.theme } as any}>
       <Loader />
       <div className={'containerV3'}>
         <div className={s.inner}>
           <Fade delay={0.1} delayEnter={0.1} from={{ y: 20 }} to={{ y: 0 }}>
             <div>
-              <p className={s.label}>ROLLUP</p>
-              <p className={s.heading}>BitZK</p>
+              <p className={s.label}>{data.subTitle}</p>
+              <p className={s.heading}>{data.title}</p>
               <p className={s.decsription}>
-                ZK rollups on Bitcoin for virtually any decentralized applications.
+                {data.desc}
               </p>
             </div>
           </Fade>
           <Fade delay={0.3} delayEnter={0.3} from={{ y: 20 }} to={{ y: 0 }}>
-            <Button
-              bgColor={'#FA4E0E'}
-              color={'#fff'}
-              borderRadius={100}
-              display={'flex'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              px={'24px'}
-              py={'13px'}
-              fontWeight={500}
-              marginTop={'24px'}
-              fontSize={'14px'}
-              onClick={() => {
-                router.push('/pricing');
-              }}
-              _hover={{
-                bgColor: '#e64e0e',
-              }}
-            >
-              Get started with BitZK
-            </Button>
-            <div onClick={showContactUsModal} className={s.link}>
-              <p>Connect with a BVM team member</p>
-              <div className={s.link_icon}>
-                <ImagePlaceholder src={'/icons/ic_arrow.png'} alt={'icons'} width={20} height={20} />
-              </div>
-            </div>
+            <Flex alignItems={'center'} marginTop={'24px'} gap={'20px'}>
+              {
+                data.start && <Button
+                  bgColor={'#FA4E0E'}
+                  color={'#fff'}
+                  borderRadius={100}
+                  display={'flex'}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  fontWeight={500}
+                  fontSize={'14px'}
+                  width={180}
+                  onClick={() => {
+                    router.push(data.start.link);
+                  }}
+                  _hover={{
+                    bgColor: '#e64e0e',
+                  }}
+                >
+                  {data.start.text}
+                </Button>
+              }
+
+              <Button
+                bgColor={'transparent'}
+                color={'#FA4E0E'}
+                padding={[10, 0, 10, 0]}
+                borderRadius={100}
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                fontWeight={500}
+                fontSize={'14px'}
+                onClick={showContactUsModal}
+              >
+                Contact us
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 12L10 8L6 4" stroke="#FA4E0E" stroke-width="1.2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+              </Button>
+            </Flex>
           </Fade>
         </div>
       </div>

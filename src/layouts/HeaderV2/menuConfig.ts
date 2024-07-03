@@ -113,7 +113,7 @@ export const MenuBuild = {
   isHide: false,
   subMenu: [
     {
-      href: '/blockchains',
+      href: '/rollups',
       label: 'Bitcoin L2s',
       isNewWindow: false,
     },

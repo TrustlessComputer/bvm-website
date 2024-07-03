@@ -183,7 +183,7 @@ const ItemDetailModal = (props: IProps) => {
             )}
           {!!isHasValue(order.blockTime) &&
             renderRowInfor('Block time', `${mapper.blockTime}`)}
-          {!!isHasValue(order.finalizationPeriod) &&
+          {!!isHasValue(String(order.finalizationPeriod)) &&
             renderRowInfor('Withdrawal Period', `${mapper.finalizationPeriod}`)}
           {/* {renderRowInfor(
             'Network type',

@@ -1,3 +1,20 @@
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import ModalLoading from '@/components/ModalLoading';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
+import { orderBuyAPI } from '@/services/api/l2services';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { fetchAvailableList } from '@/stores/states/l2services/actions';
+import {
+  setShowAllChains,
+  setViewMode,
+  setViewPage,
+} from '@/stores/states/l2services/reducer';
+import {
+  getL2ServicesStateSelector,
+  packageDetailByPackageEnumSelector,
+} from '@/stores/states/l2services/selector';
+import sleep from '@/utils/sleep';
 import {
   Flex,
   Spinner,
@@ -10,56 +27,23 @@ import {
   Tr,
   useDisclosure,
 } from '@chakra-ui/react';
-import s from './styles.module.scss';
-import {
-  estimateTotalCostAPI_V2,
-  orderBuyAPI,
-} from '@/services/api/l2services';
+import { useRouter } from 'next/navigation';
+import { useEffect, useMemo } from 'react';
+import { PRICING_PACKGE } from '../PricingV2/constants';
+import { orderRegisterBootstrapParams } from '../PricingV2/services';
 import BlockchainSection from './components/BlockchainSection';
 import HardwareSection from './components/HardwareSection';
 import MainCell from './components/MainCell';
 import PreInstallDappSection from './components/PreInstallDappSection';
 import SupportSection from './components/SupportSection';
-import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { useContactUs } from '@/Providers/ContactUsProvider/hook';
-import { useRouter } from 'next/navigation';
-import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import useL2Service from '@/hooks/useL2Service';
-import { useEffect, useMemo, useState } from 'react';
-import { IOrderBuyEstimateRespone_V2 } from '@/services/api/l2services/types';
-import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
-import { fetchAvailableList } from '@/stores/states/l2services/actions';
-import {
-  setShowAllChains,
-  setViewMode,
-  setViewPage,
-} from '@/stores/states/l2services/reducer';
-import {
-  ORDER_BUY_NO_PROVER,
-  ORDER_BUY_YES_PROVER,
-  PRICING_PACKGE,
-} from '../PricingV2/constants';
-import { orderRegisterBootstrapParams } from '../PricingV2/services';
-import sleep from '@/utils/sleep';
-import { getErrorMessage } from '@/utils/errorV2';
-import toast from 'react-hot-toast';
-import ModalLoading from '@/components/ModalLoading';
-import BigNumber from 'bignumber.js';
+import s from './styles.module.scss';
 
 const PriceModule = () => {
   const dispatch = useAppDispatch();
-
+  const { tracking } = useL2ServiceTracking();
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
   const { loggedIn, setShowLoginModalCustomize, userInfo } = useWeb3Auth();
-  const { fetchAllData } = useL2Service();
-  const [dataNoProver, setDataNoProver] = useState<
-    IOrderBuyEstimateRespone_V2 | undefined
-  >(undefined);
-  const [dataProver, setDataProver] = useState<
-    IOrderBuyEstimateRespone_V2 | undefined
-  >(undefined);
-
   const {
     isOpen: isOpenLoadingModal,
     onOpen: onOpenLoadingModal,
@@ -73,6 +57,10 @@ const PriceModule = () => {
     getL2ServicesStateSelector,
   );
 
+  const getPackageDetailFunc = useAppSelector(
+    packageDetailByPackageEnumSelector,
+  );
+
   const isFetchingData = useMemo(() => {
     return availableListFetching || !availableList;
   }, [availableListFetching, availableList]);
@@ -81,30 +69,8 @@ const PriceModule = () => {
     dispatch(fetchAvailableList());
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const [dataNoProver, dataProver] = await Promise.all([
-        estimateTotalCostAPI_V2(ORDER_BUY_NO_PROVER),
-        estimateTotalCostAPI_V2(ORDER_BUY_YES_PROVER),
-      ]);
-
-      // console.log('--- DATA API --', {
-      //   dataNoProver,
-      //   dataProver,
-      // });
-      setDataNoProver(dataNoProver);
-      setDataProver(dataProver);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  useEffect(() => {
-    // const result = await estimateTotalCostAPI_V2(orderBuyReq);
-    fetchData();
-  }, []);
-
   const bootstrapLaunchOnClick = async () => {
+    tracking('SUBMIT_TIER1');
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
@@ -128,46 +94,52 @@ const PriceModule = () => {
           dispatch(setViewPage('ManageChains'));
           dispatch(setShowAllChains(false));
 
-          router.push('/blockchains');
+          router.push('/rollups');
         }
       } catch (error) {
-        const { message } = getErrorMessage(error);
-        toast.error(message);
+        // const { message } = getErrorMessage(error);
+        // toast.error(message);
+        dispatch(setViewMode('Mainnet'));
+        dispatch(setViewPage('ManageChains'));
+        dispatch(setShowAllChains(false));
+
+        router.push('/rollups?hasOrderFailed=true');
       } finally {
         onCloseLoadingModal();
       }
     }
   };
 
-  const growthLaunchOnClick = () => {
+  const bootstrapLaunchOnClickV2 = async () => {
+    tracking('SUBMIT_TIER1');
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
-      router.push(`/blockchains/customize?package=${PRICING_PACKGE.Growth}`);
+      router.push(`/rollups/customize?package=${PRICING_PACKGE.Hacker}`);
+    }
+  };
+
+  const growthLaunchOnClick = () => {
+    tracking('CUSTOMIZE_TIER2');
+    if (!loggedIn) {
+      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+    } else {
+      router.push(`/rollups/customize?package=${PRICING_PACKGE.Growth}`);
     }
   };
 
   const bussinessLaunchOnClick = () => {
+    tracking('CUSTOMIZE_TIER3');
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
-      router.push(`/blockchains/customize?package=${PRICING_PACKGE.Secure}`);
+      router.push(`/rollups/customize?package=${PRICING_PACKGE.Secure}`);
     }
   };
 
   const enterpriseLaunchOnClick = () => {
+    tracking('CONTACTS_US');
     showContactUsModal();
-  };
-
-  const manageYourChainsOnClick = () => {
-    if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
-    } else {
-      dispatch(setViewMode('Mainnet'));
-      dispatch(setViewPage('ManageChains'));
-      dispatch(setShowAllChains(false));
-      router.push('/blockchains');
-    }
   };
 
   if (isFetchingData) {
@@ -186,11 +158,11 @@ const PriceModule = () => {
   return (
     <Flex bgColor={'#f3f1e8'} flex={1} className={s.container}>
       <Flex
-        maxW={'1800px'}
-        minW={'100dvw'}
+        maxW={'1700px'}
         p="0px"
         bgColor={'#f3f1e8'}
         flexDir={'column'}
+        align={'center'}
       >
         <Flex flexDir={'column'} gap={'15px'}>
           <Text
@@ -238,100 +210,81 @@ const PriceModule = () => {
           >
             <Table variant="unstyled">
               <Thead>
-                <Tr bgColor={'#fff'}>
+                <Tr bgColor={'#fff'} borderRadius={'15px'}>
                   <Th
                     h="100px"
+                    borderRadius={'15px'}
                     borderRightWidth={'1px'}
                     borderRightColor={'#E7E7E7'}
+                    minWidth={'220px'}
                   ></Th>
-                  <Th
-                    w={'22%'}
-                    maxW={'22%'}
-                    borderRightWidth={'1px'}
-                    borderRightColor={'#E7E7E7'}
-                  >
+                  <Th borderRightWidth={'1px'} borderRightColor={'#E7E7E7'}>
                     <MainCell
                       type="Hacker"
                       description="The easiest way to launch your own ZK Rollup on Bitcoin"
                       priceUSD={`${
-                        (availableList &&
-                          availableList['package']?.['2']?.[0]?.price) ||
+                        getPackageDetailFunc(PRICING_PACKGE.Hacker)?.price ||
                         '--'
                       }`}
                       priceBVM={`${
-                        (availableList &&
-                          availableList['package']?.['2']?.[0]?.priceNote) ||
-                        '--'
+                        getPackageDetailFunc(PRICING_PACKGE.Hacker)
+                          ?.priceNote || '--'
                       }`}
                       ctaButtonElement={
                         <button
                           className={s.ctaBtn}
-                          onClick={bootstrapLaunchOnClick}
+                          onClick={bootstrapLaunchOnClickV2}
                         >
                           {'Launch now with 1-Click'}
                         </button>
                       }
                     />
                   </Th>
-                  <Th
-                    w={'22%'}
-                    maxW={'22%'}
-                    borderRightWidth={'1px'}
-                    borderRightColor={'#E7E7E7'}
-                  >
+                  <Th borderRightWidth={'1px'} borderRightColor={'#E7E7E7'}>
                     <MainCell
                       type="Growth"
                       description="Scale your Bitcoin ZK rollup as you go"
-                      priceUSD={`$${
-                        new BigNumber(dataNoProver?.TotalCostUSD || 0)
-                          .decimalPlaces(2)
-                          .toString() || '--'
+                      priceUSD={`${
+                        getPackageDetailFunc(PRICING_PACKGE.Growth)?.price ||
+                        '--'
                       }`}
                       priceBVM={`${
-                        new BigNumber(dataNoProver?.TotalCostBVM || 0)
-                          .decimalPlaces(1)
-                          .toString() || '--'
-                      } BVM`}
+                        getPackageDetailFunc(PRICING_PACKGE.Growth)
+                          ?.priceNote || '--'
+                      }`}
                       ctaButtonElement={
                         <button
                           className={s.ctaBtn}
                           onClick={growthLaunchOnClick}
                         >
-                          {'Customize your rollup'}
+                          {'Customize'}
                         </button>
                       }
                     />
                   </Th>
-                  <Th
-                    w={'22%'}
-                    maxW={'22%'}
-                    borderRightWidth={'1px'}
-                    borderRightColor={'#E7E7E7'}
-                  >
+                  <Th borderRightWidth={'1px'} borderRightColor={'#E7E7E7'}>
                     <MainCell
                       type="Secure"
                       description="Fully secure your Bitcoin ZK rollup with a cryptographic prover"
-                      priceUSD={`$${
-                        new BigNumber(dataProver?.TotalCostUSD || 0)
-                          .decimalPlaces(2)
-                          .toString() || '--'
+                      priceUSD={`${
+                        getPackageDetailFunc(PRICING_PACKGE.Secure)?.price ||
+                        '--'
                       }`}
                       priceBVM={`${
-                        new BigNumber(dataProver?.TotalCostBVM || 0)
-                          .decimalPlaces(1)
-                          .toString() || '--'
-                      } BVM`}
+                        getPackageDetailFunc(PRICING_PACKGE.Secure)
+                          ?.priceNote || '--'
+                      }`}
                       ctaButtonElement={
                         <button
                           className={s.ctaBtn}
                           onClick={bussinessLaunchOnClick}
                         >
-                          {'Customize your rollup'}
+                          {'Customize'}
                         </button>
                       }
                     />
                   </Th>
-                  <Th w={'22%'} maxW={'22%'}>
+                  <Th minW={'330px'}>
                     <MainCell
                       type="Enterprise"
                       description="For organizations who need customization, BVM engineering team access, and dedicated support"

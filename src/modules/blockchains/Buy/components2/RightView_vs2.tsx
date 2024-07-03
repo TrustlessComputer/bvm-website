@@ -21,6 +21,7 @@ import ConfigurationOptionsSection from './ConfigurationOptionsSection';
 import ComputerNameSection from './ComputerNameSection';
 // import ProverSection from './ProverSection';
 import ProverSection from './ProverSection_v2';
+import TierSection from './TierSection';
 
 export type Props = {};
 
@@ -39,14 +40,21 @@ const RightView = React.memo((props: Props) => {
         },
       }}
     >
-      <Text fontSize={'36px'} color={'black'} fontWeight={600}>
-        Customize your Bitcoin ZK Rollup
+      <Text
+        fontSize={['20px', '28px', '36px']}
+        color={'black'}
+        fontWeight={600}
+        textAlign={['center', 'left']}
+      >
+        Customize your ZK Rollup on Bitcoin
       </Text>
       {/* <Text fontSize={'20px'} color={'#323232'} fontWeight={400} my={'13px'}>
         ZK-powered Blockchains are secure, low-cost, and lightning-fast — fully
         loaded with DEX, DAO, NFT marketplace, and the whole shebang!
       </Text> */}
       <Flex flexDir={'column'} gap={'20px'} mt={'20px'}>
+        <TierSection />
+
         {/* Computer Name */}
         <ComputerNameSection />
 
@@ -60,7 +68,7 @@ const RightView = React.memo((props: Props) => {
         {/* <ContactInformationSection /> */}
 
         {/* Network */}
-        {/* <NetworkSection /> */}
+        <NetworkSection />
 
         {/* Configuration Options */}
         {/* <ConfigurationOptionsSection /> */}

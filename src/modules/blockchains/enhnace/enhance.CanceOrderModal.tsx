@@ -9,12 +9,15 @@ import { useDisclosure } from '@chakra-ui/react';
 import toast from 'react-hot-toast';
 import { DashboardProps, DashboardWrappedComponent } from '../Dashboard.types';
 import CancelOrderModal from '../components/CancelOrderModal';
+import { routeros } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { useRouter } from 'next/navigation';
 
 const enhanceCancelOrderModal =
   (WrappedComponent: DashboardWrappedComponent) => (props: DashboardProps) => {
     const dispatch = useAppDispatch();
+    const router = useRouter();
     const orderDetail = useAppSelector(orderSelectedSelector);
-    const { onCloseOpenOrderDetailModal, onCloseUpdateOrderModal } = props;
+    const { onCloseUpdateOrderModal } = props;
     const {
       isOpen: isOpenCancelOrderModal,
       onOpen: onOpenCancelOrderModal,
@@ -51,6 +54,10 @@ const enhanceCancelOrderModal =
         });
 
         onCloseUpdateOrderModal && onCloseUpdateOrderModal();
+
+        sleep(1);
+
+        router.push('/pricing');
       } catch (error) {
         const { message } = getErrorMessage(error);
         toast.error(message);

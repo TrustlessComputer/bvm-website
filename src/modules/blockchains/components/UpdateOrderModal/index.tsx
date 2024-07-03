@@ -1,48 +1,40 @@
 import BaseModal from '@/components/BaseModal';
+import TextInput from '@/components/TextInput/TextInput';
+import l2ServicesAPI, { orderDetailByID } from '@/services/api/l2services';
 import {
   Button,
   Flex,
+  Image,
+  ListItem,
   Spinner,
   Text,
   Textarea,
-  Image,
-  Popover,
-  PopoverArrow,
-  PopoverContent,
-  PopoverTrigger,
+  UnorderedList,
 } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 import s from './styles.module.scss';
-import TextInput from '@/components/TextInput/TextInput';
-import l2ServicesAPI, { orderDetailByID } from '@/services/api/l2services';
-
-import { isEmpty } from 'lodash';
-import ErrorMessage from '../../Buy/components/ErrorMessage';
-import {
-  IOrderUpdate,
-  MetaConfig,
-  OrderItem,
-  OrderStatus,
-  WebsiteConfig,
-} from '@/stores/states/l2services/types';
-import { getErrorMessage } from '@/utils/errorV2';
-import toast from 'react-hot-toast';
-import sleep from '@/utils/sleep';
-import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { isMobile } from 'react-device-detect';
 import { useAppDispatch } from '@/stores/hooks';
 import {
   setOrderSelected,
   updateOrderByNewOrder,
 } from '@/stores/states/l2services/reducer';
+import {
+  IOrderUpdate,
+  OrderItem,
+  OrderStatus,
+} from '@/stores/states/l2services/types';
+import { getErrorMessage } from '@/utils/errorV2';
+import sleep from '@/utils/sleep';
+import { isEmpty } from 'lodash';
+import toast from 'react-hot-toast';
+import ErrorMessage from '../../Buy/components/ErrorMessage';
+import DropFile from './DropFile';
+import cs from 'classnames';
 
-const checkImageURL = (url: string) => {
-  return url.match(/\.(jpeg|jpg|gif|png|svg)$/) != null;
-};
-
+const MAXIMUM_FILE_UPLOAD = 1; //1 MB
 const TITLE_ERROR_MESSAGE = 'Rollup name is required';
 const DESC_ERROR_MESSAGE = 'Description is required';
-const LOGOURL_ERROR_MESSAGE = 'Thumb url is required';
-const LOGOURL_INVALID_ERROR_MESSAGE = 'Thumb url is invalid format';
 
 interface IProps {
   show: boolean;
@@ -65,16 +57,32 @@ const UpdateOrderModal = (props: IProps) => {
   const [descError, setDescError] = useState('');
   const [descFocused, setDescFocused] = useState(false);
 
-  const [logoUrl, setLogoUrl] = useState(item?.thumb || '');
-  const [logoUrlError, setLogoUrlError] = useState('');
-  const [logoUrlFocused, setLogoUrlFocused] = useState(false);
-
   const [isFetchingData, setFetchingData] = useState<boolean>(false);
   const [isUpdating, setUpdating] = useState<boolean>(false);
 
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined,
   );
+
+  const [rawFile, setRawFile] = useState<File | undefined>(undefined);
+
+  const [preview, setPreview] = useState<string | null>(null);
+
+  const floadFilePreview = async (file: File | undefined) => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreview(null);
+    }
+  };
+
+  useEffect(() => {
+    floadFilePreview(rawFile);
+  }, [rawFile]);
 
   const isSubmitDisabled = useMemo(() => {
     return isFetchingData || isUpdating;
@@ -85,16 +93,27 @@ const UpdateOrderModal = (props: IProps) => {
     return 'Confirm';
   }, [isFetchingData, isUpdating]);
 
+  const uploadLogoHandler = async () => {
+    if (!rawFile) return;
+    try {
+      return l2ServicesAPI.uploadLogoFile(rawFile);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const updateInforHandler = async () => {
     try {
-      if (!item || !chainName || !desc) return;
+      if (!item || !chainName) return;
 
       setUpdating(true);
+
+      const logoURL = await uploadLogoHandler();
 
       const params: IOrderUpdate = {
         chainName: chainName,
         description: desc,
-        thumb: logoUrl,
+        logoURL: logoURL || '',
       };
 
       const data: OrderItem = await l2ServicesAPI.orderUpdateAPI(
@@ -102,12 +121,8 @@ const UpdateOrderModal = (props: IProps) => {
         item?.orderId,
       );
 
-      console.log('1 DATA --- ', data);
-
       if (data) {
         const newData = await orderDetailByID(item?.orderId);
-
-        console.log('2 newData --- ', newData);
 
         if (newData) {
           toast.success(
@@ -141,21 +156,12 @@ const UpdateOrderModal = (props: IProps) => {
       valid = false;
     }
 
-    if (isEmpty(desc)) {
-      setDescError(DESC_ERROR_MESSAGE);
-      setDescFocused(true);
-      valid = false;
-    } else if (descError) {
-      setDescFocused(true);
-      valid = false;
-    }
-
-    // if (isEmpty(logoUrl)) {
-    //   setLogoUrlError(LOGOURL_ERROR_MESSAGE);
-    //   setLogoUrlFocused(true);
+    // if (isEmpty(desc)) {
+    //   setDescError(DESC_ERROR_MESSAGE);
+    //   setDescFocused(true);
     //   valid = false;
-    // } else if (logoUrlError) {
-    //   setLogoUrlFocused(true);
+    // } else if (descError) {
+    //   setDescFocused(true);
     //   valid = false;
     // }
 
@@ -175,8 +181,8 @@ const UpdateOrderModal = (props: IProps) => {
         <Button
           px={'30px'}
           borderRadius={'14px'}
-          minH={'50px'}
-          minW={'160px'}
+          minH={['40px', '45px', '50px']}
+          minW={['120px', '140px', '160px']}
           bgColor={'#FA4E0E'}
           color={'#fff'}
           _hover={{
@@ -188,38 +194,12 @@ const UpdateOrderModal = (props: IProps) => {
           isDisabled={isSubmitDisabled}
           isLoading={isFetchingData || isUpdating}
           loadingText={buttonTitle}
-          fontSize={'16px'}
+          fontSize={['14px', '15px', '16px']}
           onClick={submitHandler}
         >
           {buttonTitle}
         </Button>
       </Flex>
-    );
-  };
-
-  const renderCancelThisRollup = () => {
-    if (item?.status !== OrderStatus.WaitingPayment) return null;
-    return (
-      <Text
-        marginTop={'20px'}
-        opacity={0.7}
-        color={'#F44915'}
-        _hover={{
-          cursor: 'pointer',
-          opacity: 0.8,
-        }}
-        _disabled={{
-          opacity: 0.5,
-        }}
-        align={'center'}
-        fontSize={'14px'}
-        lineHeight={'19px'}
-        onClick={() => {
-          cancelThisRollupOnClick && cancelThisRollupOnClick();
-        }}
-      >
-        {'Cancel this rollup'}
-      </Text>
     );
   };
 
@@ -239,9 +219,8 @@ const UpdateOrderModal = (props: IProps) => {
           justify={'space-between'}
         >
           <Text
-            fontSize={'14px'}
+            fontSize={['12px', '13px', '14px']}
             fontWeight={500}
-            lineHeight={'20px'}
             alignSelf={'flex-start'}
             color={'#6C6F93'}
           >
@@ -251,8 +230,8 @@ const UpdateOrderModal = (props: IProps) => {
 
         <TextInput
           borderColor={'#bebebe'}
-          minH={'50px'}
-          fontSize={'14px'}
+          minH={['40px', '45px', '50px']}
+          fontSize={['12px', '13px', '14px']}
           placeholder="Rollup Name"
           id={'TITLE'}
           isInvalid={!!chainNameFocused && !!chainNameError}
@@ -296,7 +275,7 @@ const UpdateOrderModal = (props: IProps) => {
           justify={'space-between'}
         >
           <Text
-            fontSize={'14px'}
+            fontSize={['12px', '13px', '14px']}
             fontWeight={500}
             lineHeight={'20px'}
             alignSelf={'flex-start'}
@@ -308,7 +287,7 @@ const UpdateOrderModal = (props: IProps) => {
         <Textarea
           borderColor={'#bebebe'}
           color={'#000'}
-          fontSize={'14px'}
+          fontSize={['12px', '13px', '14px']}
           height={'48px'}
           p={'11px'}
           borderWidth={'1px'}
@@ -334,11 +313,11 @@ const UpdateOrderModal = (props: IProps) => {
           }}
           onChange={(e) => {
             const value = e.target.value;
-            if (!value || value.length < 1) {
-              setDescError(DESC_ERROR_MESSAGE);
-            } else {
-              setDescError('');
-            }
+            // if (!value || value.length < 1) {
+            //   setDescError(DESC_ERROR_MESSAGE);
+            // } else {
+            //   setDescError('');
+            // }
             setDesc(value);
           }}
           onFocus={(e: any) => {
@@ -354,7 +333,11 @@ const UpdateOrderModal = (props: IProps) => {
     );
   };
 
-  const renderThumbURLField = () => {
+  const handleChangeFile = (file: File | undefined): void => {
+    setRawFile(file);
+  };
+
+  const renderLogoField = () => {
     return (
       <Flex
         direction={'column'}
@@ -363,16 +346,10 @@ const UpdateOrderModal = (props: IProps) => {
         w={'100%'}
         gap={'8px'}
       >
-        <Flex
-          flexDir={'row'}
-          w={'100%'}
-          align={'center'}
-          justify={'space-between'}
-        >
+        <Flex flexDir={'column'} w={'100%'}>
           <Text
-            fontSize={'14px'}
+            fontSize={['12px', '13px', '14px']}
             fontWeight={500}
-            lineHeight={'20px'}
             alignSelf={'flex-start'}
             color={'#6C6F93'}
           >
@@ -380,47 +357,43 @@ const UpdateOrderModal = (props: IProps) => {
           </Text>
         </Flex>
 
-        <TextInput
-          minH={'50px'}
-          borderColor={'#bebebe'}
-          fontSize={'14px'}
-          placeholder="Logo (Ex: http://abc.[png, jpg, jpeg, svg] )"
-          id={'TITLE'}
-          name={'TITLE'}
-          isInvalid={!!logoUrlError && !!logoUrlFocused}
-          value={`${logoUrl || ''}`}
-          onBlur={() => {
-            setLogoUrlFocused(true);
-          }}
-          onFocus={(e: any) => {
-            setLogoUrlFocused(true);
-          }}
-          onChange={(e: any) => {
-            const value = e.target.value;
-            // if (!value || value.length < 1) {
-            //   setLogoUrlError('Thumb url is required');
-            // } else if (!checkImageURL(value)) {
-            //   setLogoUrlError(LOGOURL_INVALID_ERROR_MESSAGE);
-            // } else {
-            //   setLogoUrlError('');
-            // }
-            setLogoUrl(value);
+        <DropFile
+          labelText={'Upload your image file here'}
+          className={s.dropZoneContainer}
+          acceptedFileType={['png', 'svg', 'jpg', 'jpeg']}
+          maxSize={MAXIMUM_FILE_UPLOAD} //unit MB
+          onChange={handleChangeFile}
+          fileOrFiles={rawFile ? [rawFile] : undefined}
+          onErrorCB={(message) => {
+            setRawFile(undefined);
           }}
         />
 
-        {logoUrlError && logoUrlFocused && (
-          <ErrorMessage message={logoUrlError} />
-        )}
+        <UnorderedList
+          color={'#6C6F93'}
+          fontSize={['12px', '13px', '14px']}
+          fontWeight={500}
+        >
+          <ListItem>{'Supported file formats: svg, png, jpg, jpeg'}</ListItem>
+          <ListItem>{`Maximum file size: ${MAXIMUM_FILE_UPLOAD} MB`}</ListItem>
+          <ListItem>{`Recommended image sizes: 200x200`}</ListItem>
+        </UnorderedList>
       </Flex>
     );
   };
 
-  const renderLoading = () => {
-    return (
-      <Flex flex={1} w={500} h={500} align={'center'} justify={'center'}>
-        <Spinner color={'#000'} />;
-      </Flex>
-    );
+  const renderPreviewLogo = () => {
+    if (preview || (item?.logoURL && item?.logoURL.length > 0)) {
+      return (
+        <Image
+          w="auto"
+          h={'150px'}
+          fit={'contain'}
+          src={preview || item?.logoURL}
+        />
+      );
+    }
+    return null;
   };
 
   const renderContent = () => {
@@ -449,10 +422,9 @@ const UpdateOrderModal = (props: IProps) => {
         {item?.status === OrderStatus.WaitingPayment && (
           <Flex align={'center'} flexDir={'row'}>
             <Text
-              fontSize={'24px'}
+              fontSize={['18px', '20px', '24px']}
               fontWeight={600}
               color={'#000'}
-              lineHeight={'20px'}
               alignSelf={'flex-start'}
             >
               {`Update`}
@@ -478,21 +450,20 @@ const UpdateOrderModal = (props: IProps) => {
         )}
 
         {renderChainNameField()}
-        {renderThumbURLField()}
         {renderDescField()}
+        {renderLogoField()}
+        {renderPreviewLogo()}
         {renderSubmitButton()}
-        {/* {renderCancelThisRollup()} */}
       </Flex>
     );
   };
 
   if (!item) return null;
-
   return (
     <BaseModal
       isShow={show}
       onHide={onClose}
-      className={s.modalContent}
+      className={cs(s.modalContent, isMobile ? s.isMobile : {})}
       size="custom"
       icCloseUrl="/icons/ic-close-grey.svg"
     >

@@ -146,7 +146,7 @@ const Vesting = () => {
         <Flex w="100%" justifyContent="center" alignItems="center">
           <Text
             mt={{ base: '24px', lg: '37px' }}
-            fontSize="12px"
+            fontSize="15.42px"
             w="fit-content"
             textAlign="center"
             cursor={'pointer'}

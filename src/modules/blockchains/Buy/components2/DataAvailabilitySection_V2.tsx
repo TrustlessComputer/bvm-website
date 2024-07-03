@@ -144,7 +144,7 @@ const DataAvailabilitySection = () => {
 
   const renderDAList = () => {
     return (
-      <SimpleGrid columns={3} spacing={'10px'}>
+      <SimpleGrid columns={[2, 3]} spacing={'10px'}>
         {DATA_LIST.map((item, index) => {
           const { isCommingSoon, name, imageUrl, value } = item;
           const isSelected = value === 1; //Polygon = 1 (HARD CODE)
@@ -157,7 +157,7 @@ const DataAvailabilitySection = () => {
               borderWidth={'1px'}
               borderColor={isSelected ? '#2b35e4' : '#B6B6B6'}
               p="12px"
-              minH={'65px'}
+              h={['45px', '55px', '65px']}
               gap={'8px'}
               opacity={isCommingSoon ? 0.5 : 1}
               _hover={
@@ -170,7 +170,11 @@ const DataAvailabilitySection = () => {
               }
             >
               <Image src={item.imageUrl} width={'25px'} height={'25px'} />
-              <Text fontSize={'17px'} fontWeight={400} lineHeight={'20px'}>
+              <Text
+                fontSize={['14px', '15px', '17px']}
+                fontWeight={400}
+                lineHeight={'20px'}
+              >
                 {name}
               </Text>
               {/* {isCommingSoon && (
@@ -189,7 +193,15 @@ const DataAvailabilitySection = () => {
     <Section
       title={'Data Availability'}
       description={'Which data availability layer is right for you?'}
-      descriptionDetail={undefined}
+      descriptionDetail={{
+        title: 'Data Availability',
+        content: (
+          <p>
+            The data of your blockchain is written to a Data Availability layer
+            such as Polygon, Celestia, NearDA, Eigen, Filecoin or Avail.
+          </p>
+        ),
+      }}
     >
       {/* {renderDropDownList()} */}
       {renderDAList()}

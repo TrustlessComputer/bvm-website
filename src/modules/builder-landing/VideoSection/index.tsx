@@ -16,8 +16,9 @@ export default function BuilderVideo() {
         <div className={`${s.builderWrapper} `}>
           <div className={`${s.wrapperContent}`}>
             <Chars classNames={s.title}>
-              BVM is the first modular metaprotocol that lets you launch your own Bitcoin L2 in just a few clicks!
-              This is your chance to take the lead and shape the future of Bitcoin!
+              BVM is the first modular metaprotocol that lets you launch your
+              own Bitcoin L2 in just a few clicks! This is your chance to take
+              the lead and shape the future of Bitcoin!
             </Chars>
             {/*<Fade>*/}
             {/*  <Button*/}
@@ -35,7 +36,7 @@ export default function BuilderVideo() {
             {/*    marginTop={'32px'}*/}
             {/*    fontSize={'16px'}*/}
             {/*    onClick={() => {*/}
-            {/*      router.push('/blockchains/customize');*/}
+            {/*      router.push('/rollups/customize');*/}
             {/*    }}*/}
             {/*    _hover={{*/}
             {/*      opacity: 0.8,*/}
@@ -57,7 +58,7 @@ export default function BuilderVideo() {
         </div>
       </div>
       <ModalVideo
-        channel='custom'
+        channel="custom"
         url={'/public-sale/public_sale_video_2.mp4'}
         isOpen={isOpen}
         onClose={() => {

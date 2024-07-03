@@ -2,7 +2,7 @@
 
 import { useAppDispatch } from '@/stores/hooks';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
-import { OrderItem } from '@/stores/states/l2services/types';
+import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import { Box, Divider, Flex } from '@chakra-ui/react';
 // import BodyInfor from './BodyInfor';
 import BodyInfor from './BodyInfor_V2';
@@ -20,7 +20,7 @@ type Props = {
 const L2Instance = (props: Props) => {
   const dispatch = useAppDispatch();
 
-  const { item, onClick, isOwner } = props;
+  const { item, onClick: onClickCB, isOwner } = props;
 
   const {
     onOpenBillingModal,
@@ -30,70 +30,66 @@ const L2Instance = (props: Props) => {
     onOpenUpdateOrderModal,
   } = useDashboard();
 
+  const isProccessing = item.status === OrderStatus.Processing;
+
   return (
-    <>
-      <Flex
+    <Flex flexDir={'column'} gap={'15px'} p={'5px'} bgColor={'transparent'}>
+      <Box
+        bgColor={'#fff'}
         flexDir={'column'}
-        gap={'15px'}
-        p={'5px'}
-        bgColor={'transparent'}
-        // onClick={onClick}
+        minH={'auto'}
+        p={['10px', '20px', '30px', '40px']}
+        borderRadius={'20px'}
+        _hover={{
+          cursor: isProccessing ? 'pointer' : '',
+          borderColor: '#b6b7b7b1',
+          boxShadow: 'md',
+        }}
+        onClick={() => {
+          if (isProccessing) {
+            onClickCB && onClickCB();
+          }
+        }}
       >
-        <Box
-          bgColor={'#fff'}
-          flexDir={'column'}
-          minH={'auto'}
-          p={'40px'}
-          borderRadius={'20px'}
-          _hover={{
-            cursor: 'pointer',
-            borderColor: '#b6b7b7b1',
-            boxShadow: 'md',
+        <HeaderRow
+          item={item}
+          depositOnClick={() => {
+            dispatch(setOrderSelected(item));
+            onOpenTopUpModal && onOpenTopUpModal();
           }}
-        >
-          <HeaderRow
-            item={item}
-            depositOnClick={() => {
-              dispatch(setOrderSelected(item));
-              onOpenTopUpModal && onOpenTopUpModal();
-            }}
-            editOnClick={() => {
-              dispatch(setOrderSelected(item));
-              onOpenUpdateOrderModal && onOpenUpdateOrderModal();
-            }}
-          />
-          <Divider my={'20px'} borderColor="gray.200" />
-          {/* <BodyInfor item={item} /> */}
-          <BodyInfor item={item} />
-          {/* <Divider my={'20px'} borderColor="gray.200" /> */}
-          <BottomInfor
-            item={item}
-            isOwner={isOwner}
-            viewBillingOnClick={() => {
-              dispatch(setOrderSelected(item));
-              onOpenBillingModal && onOpenBillingModal();
-            }}
-            bridgeOnClick={() => {
-              dispatch(setOrderSelected(item));
-              if (!item.isMainnet) {
-                window.open(
-                  getBridgeLink(item.isMainnet, item.domain),
-                  '_blank',
-                );
-              }
-            }}
-            editConfigBridgeOnClick={() => {
-              dispatch(setOrderSelected(item));
-              onOpenEditConfigModal && onOpenEditConfigModal();
-            }}
-            cancelOrderOnClick={() => {
-              dispatch(setOrderSelected(item));
-              onOpenCancelOrderModal && onOpenCancelOrderModal();
-            }}
-          />
-        </Box>
-      </Flex>
-    </>
+          editOnClick={() => {
+            dispatch(setOrderSelected(item));
+            onOpenUpdateOrderModal && onOpenUpdateOrderModal();
+          }}
+        />
+        <Divider my={'20px'} borderColor="gray.200" />
+        {/* <BodyInfor item={item} /> */}
+        <BodyInfor item={item} />
+        {/* <Divider my={'20px'} borderColor="gray.200" /> */}
+        <BottomInfor
+          item={item}
+          isOwner={isOwner}
+          viewBillingOnClick={() => {
+            dispatch(setOrderSelected(item));
+            onOpenBillingModal && onOpenBillingModal();
+          }}
+          bridgeOnClick={() => {
+            dispatch(setOrderSelected(item));
+            if (!item.isMainnet) {
+              window.open(getBridgeLink(item.isMainnet, item.domain), '_blank');
+            }
+          }}
+          editConfigBridgeOnClick={() => {
+            dispatch(setOrderSelected(item));
+            onOpenEditConfigModal && onOpenEditConfigModal();
+          }}
+          cancelOrderOnClick={() => {
+            dispatch(setOrderSelected(item));
+            onOpenCancelOrderModal && onOpenCancelOrderModal();
+          }}
+        />
+      </Box>
+    </Flex>
   );
 };
 

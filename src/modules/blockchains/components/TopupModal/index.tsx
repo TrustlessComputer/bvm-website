@@ -79,9 +79,9 @@ const TopupModal = (props: IProps) => {
     return (
       <Flex flexDir={'column'}>
         <Text
-          fontSize={'15px'}
+          fontSize={['13px', '14px', '15px']}
           fontWeight={400}
-          color={'#6C6F93'}
+          color={'#31323d'}
           textAlign={'center'}
         >
           Please send
@@ -91,12 +91,12 @@ const TopupModal = (props: IProps) => {
           {`to the following wallet address below.`}
         </Text>
         <Text
-          fontSize={'15px'}
+          fontSize={['12px', '14px', '15px']}
           fontWeight={400}
-          color={'#6C6F93'}
+          color={'#31323d'}
           textAlign={'center'}
         >
-          Not enough BVM? No worries --{' '}
+          Not enough BVM? No worries —{' '}
           <Text
             as="span"
             fontWeight={700}
@@ -122,56 +122,22 @@ const TopupModal = (props: IProps) => {
     );
   };
 
-  // const renderMessageWithTopBVM = () => {
-  //   return (
-  //     <Text
-  //       fontSize={'15px'}
-  //       fontWeight={400}
-  //       color={'#6C6F93'}
-  //       textAlign={'center'}
-  //     >
-  //       Please send at least
-  //       <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
-  //         {` ${order?.needToTopupBalanceFormatted} BVM `}
-  //       </Text>
-  //       {`to the following wallet address. `}
-  //       {/* <Text
-  //         as="span"
-  //         fontWeight={700}
-  //         color={'#e6922c'}
-  //         textAlign={'center'}
-  //         textUnderlineOffset={'2px'}
-  //         textDecorationLine={'underline'}
-  //         _hover={{
-  //           cursor: 'pointer',
-  //           opacity: 0.8,
-  //         }}
-  //         onClick={() => {
-  //           window.open('https://nakachain.xyz/swap', '_blank');
-  //         }}
-  //       >
-  //         {`Buy now!`}
-  //       </Text> */}
-  //     </Text>
-  //   );
-  // };
-
   const renderMessageWithTopBVM_V2 = () => {
     return (
       <Text
-        fontSize={'15px'}
+        fontSize={['13px', '14px', '15px']}
         fontWeight={400}
-        color={'#6C6F93'}
+        color={'#31323d'}
         textAlign={'center'}
-        w={'90%'}
+        w={['100%', '90%']}
       >
-        Send
+        Please send
         <Text as="span" fontWeight={700} color={'#000'} textAlign={'center'}>
           {` ${order?.needToTopupBalanceFormatted} BVM `}
         </Text>
-        to the following wallet address below
-        <Text>
-          Not enough BVM? No worries --{' '}
+        to the following wallet address below.
+        <Text fontSize={['12px', '14px', '15px']}>
+          Not enough BVM? No worries —{' '}
           <Text
             as="span"
             fontWeight={700}
@@ -209,14 +175,14 @@ const TopupModal = (props: IProps) => {
         mt={'20px'}
         display={'flex'}
         flexDir={'column'}
-        w={'100%'}
+        w={['100%', '90%']}
         bgColor={'#ECECEC'}
         borderRadius={'10px'}
         p={'20px'}
       >
         {warningMessage && (
           <Text
-            fontSize={'15px'}
+            fontSize={['13px', '14px', '15px']}
             fontWeight={500}
             color={'#e6922c'}
             textAlign={'center'}
@@ -233,10 +199,11 @@ const TopupModal = (props: IProps) => {
           mt={'20px'}
           flexDir={'row'}
           py="10px"
-          px={'20px'}
+          px={['8px', '14px', '20px']}
           bgColor={'#fff'}
           color={'#000'}
           borderRadius={'12px'}
+          w={'100%'}
           gap="10px"
           width={'max-content'}
           alignSelf={'center'}
@@ -244,12 +211,16 @@ const TopupModal = (props: IProps) => {
             console.log('TO DO ');
           }}
         >
-          <Text fontSize={'15px'} fontWeight={600} textAlign={'center'}>
+          <Text
+            fontSize={['11px', '14px', '15px']}
+            fontWeight={600}
+            textAlign={'center'}
+          >
             {paymentAddress}
           </Text>
           <Image
             src={'/icons/ic-copy-red.svg'}
-            w={'20px'}
+            w={['16px', '18px', '20px']}
             h={'auto'}
             objectFit={'contain'}
             _hover={{
@@ -280,7 +251,7 @@ const TopupModal = (props: IProps) => {
 
         <Text
           mt={'20px'}
-          fontSize={'15px'}
+          fontSize={['11px', '14px', '15px']}
           fontWeight={400}
           color={'#6C6F93'}
           textAlign={'center'}
@@ -288,92 +259,14 @@ const TopupModal = (props: IProps) => {
           Network
         </Text>
         <Text
-          fontSize={'15px'}
+          fontSize={['11px', '14px', '15px']}
           fontWeight={600}
           color={'#000'}
           textAlign={'center'}
         >
           Ethereum
         </Text>
-        {/* {!order && (
-          <Flex
-            justify={'center'}
-            align={'center'}
-            flexDir={'column'}
-            mt="20px"
-          >
-            <Text
-              as="span"
-              fontWeight={700}
-              color={'#e6922c'}
-              textAlign={'center'}
-              textUnderlineOffset={'2px'}
-              textDecorationLine={'underline'}
-              _hover={{
-                cursor: 'pointer',
-                opacity: 0.8,
-              }}
-              onClick={() => {
-                window.open(
-                  'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
-                  '_blank',
-                );
-              }}
-            >
-              {`Buy BVM now`}
-            </Text>
-
-            <Text
-              fontSize={'15px'}
-              fontWeight={400}
-              color={'#6C6F93'}
-              textAlign={'center'}
-            >
-              Network
-            </Text>
-            <Text
-              fontSize={'15px'}
-              fontWeight={600}
-              color={'#000'}
-              textAlign={'center'}
-            >
-              Ethereum
-            </Text>
-          </Flex>
-        )} */}
       </Flex>
-
-      {/* {
-        <Text
-          marginTop={'10px'}
-          fontSize={'15px'}
-          fontWeight={400}
-          color={'#6C6F93'}
-          textAlign={'center'}
-        >
-          {`Insufficient balance.  `}
-          <Text
-            as="span"
-            fontWeight={700}
-            color={'#e6922c'}
-            textAlign={'center'}
-            textUnderlineOffset={'2px'}
-            textDecorationLine={'underline'}
-            _hover={{
-              cursor: 'pointer',
-              opacity: 0.8,
-            }}
-            onClick={() => {
-              window.open(
-                'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
-                '_blank',
-              );
-            }}
-          >
-            {`Buy now!`}
-          </Text>
-        </Text>
-      } */}
     </BaseModal>
   );
 };

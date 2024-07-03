@@ -45,6 +45,11 @@ export const convertHoursToSeconds = (hours: number) => {
   return hours * 60 * 60; //second
 };
 
+export const convertSecondsToHours = (seconds: number) => {
+  if (!seconds || seconds === 0) return 0;
+  return seconds / 60 / 60; //hours
+};
+
 export const dayDescribe = (day: number) => {
   let str;
   let timer;
@@ -126,7 +131,7 @@ export const getRandonComputerName = (isMainnet: boolean) => {
   const prefix = 'BVM';
   const suffix = isMainnet ? '' : '(Testnet)';
   const randomNumber = Math.floor(Math.random() * 9000) + 1000; //random from 1000 -> 9999
-  return `${prefix}-${randomNumber}${suffix ? `-${suffix}` : ''}`;
+  return `${prefix} ${randomNumber}${suffix ? ` ${suffix}` : ''}`;
 };
 
 export const getRandonComputerName_VS2 = (isMainnet: boolean) => {

@@ -1,17 +1,13 @@
 .hero {
-  position: relative;
+  position: relative !important;
   user-select: none;
+  min-height: 100vh;
+  background: #F9F9F9;
 }
 
 .inner {
   position: relative;
   background-color: transparent;
-  min-height: 867px;
-
-  @include is-min-table {
-    min-height: 920px;
-  }
-  height: 100vh;
 }
 
 .overlay {
@@ -26,21 +22,45 @@
   }
 }
 
+.topTitle {
+  font-family: var(--font-SFProDisplay);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+  padding: 6px 12px;
+  border-radius: 100px;
+  background: #FFFFFF;
+  color: black;
+  text-transform: uppercase;
+  box-shadow: 0px 0px 12px -6px #FA4E0E1F;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
 .content {
   display: flex;
-  align-items: center;
   flex-direction: column;
   justify-content: center;
   max-width: 1321px;
   width: 100%;
   height: 100%;
-  margin: auto;
   z-index: 2;
   position: relative;
-  padding-top: 35vh;
+  padding-top: 280px;
+  align-items: center;
 
   @include is-min-table {
-    padding-top: 20vh;
+
+    padding-bottom: 40px;
+    padding-top: 400px;
+  }
+
+  @include is-pc {
+    padding-bottom: 154px;
+    padding-top: 216px;
+    align-items: flex-start;
+    max-width: 640px;
   }
 
   &_heading {
@@ -53,98 +73,83 @@
 
 .title {
   font-family: var(--font-JetBrainsMono);
-  font-size: 56px;
-  font-weight: 500;
+  font-size: 52px;
+  font-weight: 900;
   line-height: 120%;
-  text-align: center;
-  color: #FA4E0E;
-  margin-bottom: 12px;
+  color: #fa4e0e;
+  margin-bottom: 9px;
   display: flex;
   align-items: center;
 
-  @include is-min-table {
-    font-size: 86px;
-    margin-bottom: 18px;
-  }
+  &_logo {
 
-  @include is-pc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    margin-top: -.1em;
 
-    margin-bottom: 24px;
-    font-size: 120px;
-  }
-
-  &_image {
-    width: 80px;
-    height: 80px;
-    @include is-min-table {
-      width: 100px;
-      height: 100px;
-    }
-    @include is-pc {
-      width: 120px;
-      height: 120px;
+    svg {
+      height: auto;
+      fill: #fa4e0e !important;
+      width: 30px;
     }
   }
-
 }
 
 .subTitle {
   font-family: var(--font-JetBrainsMono);
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   line-height: (76/64);
-  text-align: center;
   color: black;
-  max-width: 320px;
-  margin-left: auto;
-  margin-right: auto;
+  text-align: center;
 
   @include is-min-table {
-    font-size: 34px;
+    font-size: 36px;
     max-width: 1200px;
   }
 
   @include is-pc {
+    text-align: left;
     font-size: 44px;
   }
 
   strong {
-    color: #FA4E0E;
+    color: #fa4e0e;
   }
 }
 
 .desc {
   font-family: var(--font-SFProDisplay);
   line-height: 150%;
-  text-align: center;
   font-size: 16px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
   color: black;
-  padding-left: 16px;
-  padding-right: 16px;
   margin-top: 24px;
-  font-weight: 500;
+  font-weight: 600;
+  text-align: center;
 
   @include is-min-table {
     font-size: 18px;
   }
 
   @include is-pc {
+    text-align: left;
     font-size: 20px;
+    max-width: 520px;
   }
 }
 
 .groupBtn {
   display: flex;
-  flex-direction: column;
-  margin-top: 40px;
+  margin-top: 32px;
   margin-bottom: 16px;
-  padding: 0 12px;
-  width: 350px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  justify-content: center;
+
+  @include is-pc {
+    justify-content: flex-start;
+  }
 }
 
 .btn {
@@ -157,7 +162,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   height: 60px;
 
   @include is-min-table {
@@ -165,14 +169,17 @@
   }
 
   &__primary {
-    color: #FFFFFF;
-    background: #FA4E0E;
+    color: #ffffff;
+    background: #fa4e0e;
+    width: 180px;
   }
 
   &__secondary {
-    color: #FA4E0E;
-    background-color: transparent;
+    transform: translateY(.15em);
+    color: #fa4e0e;
     font-weight: normal;
+    width: fit-content;
+    padding: 0 20px;
   }
 }
 
@@ -189,7 +196,6 @@
   font-size: 16px;
   font-weight: 700;
   line-height: 22.4px;
-  text-align: center;
   align-items: center;
   text-transform: uppercase;
   display: flex;

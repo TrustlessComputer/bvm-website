@@ -9,6 +9,7 @@ import { SubmitFormParams } from '@/services/api/l2services/types';
 import { getError } from '@/utils/error';
 import toast from 'react-hot-toast';
 import { Select } from '@chakra-ui/react';
+import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 
 const SUBJECT_LIST = [
   `I'd like to build a ZK Rollup on Bitcoin`,
@@ -19,7 +20,8 @@ const SUBJECT_LIST = [
 ];
 
 const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
-  const [subject, setSubject] = useState(0);
+  const [subject, setSubject] = useState(3);
+  const { tracking } = useL2ServiceTracking();
 
   const [yourXAcc, setYourXAcc] = useState('');
   const [yourXAccErrMsg, setYourXAccErrMsg] = useState<string | undefined>(
@@ -67,6 +69,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
   };
 
   const submitHandler = async () => {
+    tracking('SUBMIT_CONTACT_US');
     try {
       let valid = true;
       if (!valideYourXAcc(yourXAcc)) {
@@ -118,7 +121,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
         icCloseUrl="/icons/ic-close-grey.svg"
       >
         <Flex direction={'column'} color={'black'} w={'100%'} gap={'20px'}>
-          <Text fontSize={['24px']} fontWeight={500} lineHeight={'34px'}>
+          <Text fontSize={['18px', '20px', '24px']} fontWeight={500}>
             How can we help you?
           </Text>
 
@@ -143,9 +146,8 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 gap={'8px'}
               >
                 <Text
-                  fontSize={'12px'}
+                  fontSize={['10px', '11px', '12px']}
                   fontWeight={500}
-                  lineHeight={'20px'}
                   alignSelf={'flex-start'}
                   textTransform={'uppercase'}
                   color={'#5B5B5B'}
@@ -162,6 +164,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                   _hover={{}}
                   height={'48px'}
                   p={'11px'}
+                  fontSize={['14px', '15px', '16px']}
                   value={yourXAcc}
                   onChange={(e: any) => {
                     setYourXAcc(e.target.value);
@@ -193,9 +196,8 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 gap={'8px'}
               >
                 <Text
-                  fontSize={'12px'}
+                  fontSize={['10px', '11px', '12px']}
                   fontWeight={500}
-                  lineHeight={'20px'}
                   alignSelf={'flex-start'}
                   textTransform={'uppercase'}
                   color={'#5B5B5B'}
@@ -212,6 +214,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                   _hover={{}}
                   height={'48px'}
                   p={'11px'}
+                  fontSize={['14px', '15px', '16px']}
                   value={yourTelegramAcc}
                   onChange={(e: any) => {
                     setYourTelegramAcc(e.target.value);
@@ -236,9 +239,8 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
               <Flex flex={1}>
                 {yourXAccErrMsg && (
                   <Text
-                    fontSize={'12px'}
+                    fontSize={['10px', '11px', '12px']}
                     fontWeight={500}
-                    lineHeight={'20px'}
                     alignSelf={'flex-start'}
                     color={'red'}
                   >
@@ -274,9 +276,8 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
               gap={'8px'}
             >
               <Text
-                fontSize={'12px'}
+                fontSize={['10px', '11px', '12px']}
                 fontWeight={500}
-                lineHeight={'20px'}
                 alignSelf={'flex-start'}
                 textTransform={'uppercase'}
                 color={'#5B5B5B'}
@@ -284,9 +285,10 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 Subject
               </Text>
               <Select
-                defaultValue={SUBJECT_LIST[subject]}
+                value={subject}
                 height={'50px'}
                 borderRadius={'8px'}
+                fontSize={['13px', '14px', '15px']}
                 border={'0.5px solid #c2c2c2'}
                 _hover={{}}
                 onChange={(e) => {
@@ -295,7 +297,11 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
               >
                 {SUBJECT_LIST.map((subject, index) => {
                   return (
-                    <option key={subject + index} value={index}>
+                    <option
+                      key={subject + index}
+                      value={index}
+                      defaultValue={SUBJECT_LIST[3]}
+                    >
                       {SUBJECT_LIST[index]}
                     </option>
                   );
@@ -314,9 +320,8 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
               gap={'8px'}
             >
               <Text
-                fontSize={'12px'}
+                fontSize={['10px', '11px', '12px']}
                 fontWeight={500}
-                lineHeight={'20px'}
                 alignSelf={'flex-start'}
                 textTransform={'uppercase'}
                 color={'#5B5B5B'}
@@ -332,6 +337,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
                 _hover={{}}
                 height={'48px'}
                 p={'11px'}
+                fontSize={['14px', '15px', '16px']}
                 value={yourPlan}
                 onChange={(e: any) => {
                   setYouPlan(e.target.value);
@@ -340,9 +346,8 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
               />
               {yourPlanErrMgs && (
                 <Text
-                  fontSize={'12px'}
+                  fontSize={['10px', '11px', '12px']}
                   fontWeight={500}
-                  lineHeight={'20px'}
                   alignSelf={'flex-start'}
                   color={'red'}
                 >

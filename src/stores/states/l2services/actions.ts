@@ -2,13 +2,21 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { PREFIX } from './constants';
 import { IOrderBuyReq, OrderItem } from './types';
 import l2ServicesAPI from '@/services/api/l2services';
+import { RootState } from '@/stores';
 
 const fetchAvailableList = createAsyncThunk(
   `${PREFIX}/fetchAvailableList`,
-  async () => {
+  async (_, { getState }) => {
     try {
-      const data = await l2ServicesAPI.fetchAvailableList();
-      return data;
+      const state = getState() as RootState;
+      const l2ServicesState = state.l2Services;
+      const { availableListFetched, availableList, availableListFetching } =
+        l2ServicesState;
+      if (!availableListFetched && !availableList) {
+        return await l2ServicesAPI.fetchAvailableList();
+      } else {
+        return availableList;
+      }
     } catch (error) {
       return undefined;
     }
@@ -44,6 +52,18 @@ const fetchAllOrders = createAsyncThunk(
   async (): Promise<OrderItem[]> => {
     try {
       const orders = await l2ServicesAPI.getAllOrders();
+      return orders;
+    } catch (error) {
+      return [];
+    }
+  },
+);
+
+const fetchAllOrdersV2 = createAsyncThunk(
+  `${PREFIX}/fetchAllOrdersV2`,
+  async (): Promise<OrderItem[]> => {
+    try {
+      const orders = await l2ServicesAPI.getAllOrdersV2();
       return orders;
     } catch (error) {
       return [];
@@ -101,4 +121,5 @@ export {
   fetchL2ServiceHistory,
   getQuickStart,
   fetchAvailableList,
+  fetchAllOrdersV2,
 };

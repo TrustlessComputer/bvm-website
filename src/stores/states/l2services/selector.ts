@@ -3,6 +3,11 @@ import { OrderItem, L2ServicesState } from './types';
 import BigNumber from 'bignumber.js';
 import { RootState } from '@/stores';
 import formatter from '@/modules/price/Pricing.helper';
+import {
+  NetworkEnum,
+  RollupEnum,
+} from '@/modules/blockchains/Buy/Buy.constanst';
+import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
@@ -36,20 +41,108 @@ const orderListSelector = createSelector(
 );
 
 const myOrderListSelector = createSelector(orderListSelector, (myOrderList) => {
-  return myOrderList
-    .filter((order) => order.isMainnet)
-    .sort((a, b) => b.index - a.index);
+  if (!myOrderList) return [];
+  return [...myOrderList].sort((a, b) => b.index - a.index);
 });
+
+const myOrderListWithNetworkSelector = createSelector(
+  orderListSelector,
+  (myOrderList) => {
+    let result = {
+      mainnetOrderList: [] as OrderItem[],
+      testnetOrderList: [] as OrderItem[],
+    };
+
+    myOrderList.map((item) => {
+      if (item.isMainnet) {
+        result.mainnetOrderList.push(item);
+      } else {
+        result.testnetOrderList.push(item);
+      }
+    });
+
+    return result;
+  },
+);
+
+const myOrderListFilteredByNetwork = createSelector(
+  [getL2ServicesStateSelector, myOrderListWithNetworkSelector],
+  (state, myOrderListByNetwork) => {
+    if (state.viewMode === 'Mainnet')
+      return myOrderListByNetwork.mainnetOrderList;
+    else return myOrderListByNetwork.testnetOrderList;
+  },
+);
 
 const orderSelectedSelector = createSelector(
   getL2ServicesStateSelector,
   (reducer) => reducer.orderSelected,
 );
 
+const viewModeSelector = createSelector(
+  getL2ServicesStateSelector,
+  (reducer) => {
+    const viewMode = reducer.viewMode;
+    const isMainnet = viewMode === 'Mainnet';
+    return isMainnet;
+  },
+);
+
 // All Orders
 const allOrdersSelector = createSelector(
   getL2ServicesStateSelector,
   (reducer) => reducer.allOrders || [],
+);
+
+const allOrdersV2Selector = createSelector(
+  getL2ServicesStateSelector,
+  (reducer) => reducer.allOrdersV2 || [],
+);
+
+const ZKOrdersSelector = createSelector(
+  [allOrdersV2Selector],
+  (allOderList) => {
+    let result = {
+      MainnetList: [] as OrderItem[],
+      TestnetList: [] as OrderItem[],
+    };
+    let orders =
+      allOderList.filter((item) => item.serviceType === RollupEnum.Rollup_ZK) ||
+      [];
+    orders.map((item) => {
+      if (!!item.isMainnet) {
+        result.MainnetList.push(item);
+      } else {
+        result.TestnetList.push(item);
+      }
+    });
+
+    return result;
+  },
+);
+
+const OPOrdersSelector = createSelector(
+  [allOrdersV2Selector],
+  (allOderList) => {
+    let result = {
+      MainnetList: [] as OrderItem[],
+      TestnetList: [] as OrderItem[],
+    };
+    let orders =
+      allOderList.filter(
+        (item) =>
+          item.serviceType === RollupEnum.Rollup_OpStack ||
+          item.serviceType === RollupEnum.Rollup_OpStack_OLD,
+      ) || [];
+    orders.map((item) => {
+      if (!!item.isMainnet) {
+        result.MainnetList.push(item);
+      } else {
+        result.TestnetList.push(item);
+      }
+    });
+    return result;
+  },
 );
 
 const withdrawableRewardSelector = createSelector(
@@ -88,19 +181,6 @@ const getOrderByIDSelector = createSelector(
   },
 );
 
-const isFetchingAllDataSelector = createSelector(
-  getL2ServicesStateSelector,
-  (state) => {
-    const { isFetching, isFetched, isFetchingAllOrders, isFetchedAllOrders } =
-      state;
-    return (
-      !!isFetching &&
-      !!isFetched &&
-      !!isFetchingAllOrders &&
-      !!isFetchedAllOrders
-    );
-  },
-);
 const historyInfoSelector = createSelector(
   getL2ServicesStateSelector,
   (state) => {
@@ -111,6 +191,24 @@ const historyInfoSelector = createSelector(
   },
 );
 
+const packageDataSelector = createSelector(
+  getL2ServicesStateSelector,
+  (state) => {
+    const availableList = state.availableList;
+    if (!availableList) return undefined;
+    const dataMainnet = availableList.package[NetworkEnum.Network_Mainnet];
+    return dataMainnet;
+  },
+);
+
+const packageDetailByPackageEnumSelector = createSelector(
+  packageDataSelector,
+  (data) => (packageEnum: PRICING_PACKGE) => {
+    if (!data) return undefined;
+    return data?.find((item) => item.value === Number(packageEnum));
+  },
+);
+
 export {
   getL2ServicesStateSelector,
   orderListSelector,
@@ -118,8 +216,15 @@ export {
   withdrawableRewardSelector,
   getOrderByIDSelector,
   allOrdersSelector,
-  isFetchingAllDataSelector,
   historyInfoSelector,
   myOrderListSelector,
   accountInforSelector,
+  packageDataSelector,
+  packageDetailByPackageEnumSelector,
+  myOrderListWithNetworkSelector,
+  myOrderListFilteredByNetwork,
+
+  //Monitor
+  ZKOrdersSelector,
+  OPOrdersSelector,
 };

@@ -1,5 +1,5 @@
 export const MIN_GAS_PRICE = 1; // 1 gweis
-export const GAS_LITMIT = 30000000; //
+export const GAS_LITMIT = 1000000000; //
 export const MIN_GAS_LIMIT = 10000000; //
 export const MAX_GAS_LIMIT = 30000000; //
 export const STEP_GAS_LIMIT = 1000000; //
@@ -76,6 +76,7 @@ export const DALayerEnumMap = {
 // ------------------------------------------------------------------------------------
 
 export enum RollupEnum {
+  Rollup_OpStack_OLD = 1,
   Rollup_OpStack = 20,
   Rollup_ZK = 21,
 }
@@ -91,6 +92,7 @@ export const BitcoinValidityEnumMap = {
 };
 
 export const RollupEnumMap = {
+  [RollupEnum.Rollup_OpStack_OLD]: 'Optimistic',
   [RollupEnum.Rollup_OpStack]: 'Optimistic',
   [RollupEnum.Rollup_ZK]: 'ZK',
 };
@@ -259,16 +261,6 @@ export enum ProverEnum {
 export const ProverEnumMap = {
   [ProverEnum.NO]: 'No',
   [ProverEnum.YES]: 'Yes',
-};
-
-export enum PricingPackageEnum {
-  Bootstrap = 0,
-  Growth = 1,
-}
-
-export const PricingPackageEnumMap = {
-  [PricingPackageEnum.Bootstrap]: 'Bootstrap',
-  [PricingPackageEnum.Growth]: 'Growth',
 };
 
 export const HardwareBootstrap = {

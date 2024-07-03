@@ -1,7 +1,6 @@
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ModalLoading from '@/components/ModalLoading';
-import useL2Service from '@/hooks/useL2Service';
 import {
   estimateTotalCostAPI_V2,
   orderBuyAPI,
@@ -44,7 +43,6 @@ const PriceModule = () => {
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
   const { loggedIn, setShowLoginModalCustomize, userInfo } = useWeb3Auth();
-  const { fetchAllData } = useL2Service();
   const [dataNoProver, setDataNoProver] = useState<
     IOrderBuyEstimateRespone_V2 | undefined
   >(undefined);
@@ -100,6 +98,7 @@ const PriceModule = () => {
         onOpenLoadingModal();
 
         const orderBuyReq = await orderRegisterBootstrapParams();
+
         const result = await orderBuyAPI(orderBuyReq);
 
         await sleep(1);
@@ -116,7 +115,7 @@ const PriceModule = () => {
           dispatch(setViewPage('ManageChains'));
           dispatch(setShowAllChains(false));
 
-          router.push('/blockchains');
+          router.push('/rollups');
         }
       } catch (error) {
         const { message } = getErrorMessage(error);
@@ -130,7 +129,7 @@ const PriceModule = () => {
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
-      router.push(`/blockchains/customize?package=${PRICING_PACKGE.Growth}`);
+      router.push(`/rollups/customize?package=${PRICING_PACKGE.Growth}`);
     }
   };
 
@@ -138,7 +137,7 @@ const PriceModule = () => {
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
-      router.push(`/blockchains/customize?package=${PRICING_PACKGE.Secure}`);
+      router.push(`/rollups/customize?package=${PRICING_PACKGE.Secure}`);
     }
   };
 
@@ -153,7 +152,7 @@ const PriceModule = () => {
       dispatch(setViewMode('Mainnet'));
       dispatch(setViewPage('ManageChains'));
       dispatch(setShowAllChains(false));
-      router.push('/blockchains');
+      router.push('/rollups');
     }
   };
 
@@ -217,7 +216,7 @@ const PriceModule = () => {
         blockChainInforsList={[
           'Data availability: Polygon',
           'Max block gas limit: 30,000,000',
-          'Zk Prover: No',
+          'ZK Prover: No',
           'Withdrawal period: 6 hours',
         ]}
         preInstallDAppList={[
