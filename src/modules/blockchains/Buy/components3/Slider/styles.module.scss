@@ -98,32 +98,7 @@
     left: 50%;
     transform: translateX(-50%);
   }
-
-  input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    cursor: pointer;
-    width: 100%;
-    accent-color: #ffff;
+  .slider {
     background: var(--backgroundSlider);
-
-  }
-
-  input[type="range"]::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
-    height: 2px;
-    border-radius: 5px;
-  }
-
-
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
-    appearance: none;
-    border-radius: 50px ;
-    cursor: ew-resize;
-    margin-top: -6px; /* Centers thumb on the track */
-    background-color: #ffffff;
-    height: 12px;
-    width:  12px;
   }
 }
