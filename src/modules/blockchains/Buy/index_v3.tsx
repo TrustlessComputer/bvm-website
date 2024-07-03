@@ -71,7 +71,6 @@ const BuyPage = () => {
   const boxOptionMapping = {
     [ORDER_FIELD.CHAIN_NAME]: {
       label: '1. Name',
-
       content: () => (
         <Lego
           background={'red'}
@@ -118,6 +117,15 @@ const BuyPage = () => {
     },
     [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
       label: '3. Data Availability',
+      descriptionDetail: {
+        title: 'Data Availability',
+        content: (
+          <p>
+            The data of your blockchain is written to a Data Availability layer
+            such as Polygon, Celestia, NearDA, Eigen, Filecoin or Avail.
+          </p>
+        ),
+      },
       content: (key) => (
         <Lego
           key={key}
@@ -217,7 +225,7 @@ const BuyPage = () => {
               {Object.keys(boxOptionMapping).map((key) => {
                 if (key === ORDER_FIELD.CHAIN_NAME) return;
 
-                const { label, content } = boxOptionMapping[key as Override];
+                const { label, content, descriptionDetail } = boxOptionMapping[key as Override];
                 const isDragged = field[key as Override].dragged;
 
                 return (
@@ -226,7 +234,7 @@ const BuyPage = () => {
                     label={label}
                     id={key}
                     active={isDragged}
-
+                    descriptionDetail={descriptionDetail}
                   >
                     {content(label)}
                   </BoxOption>
