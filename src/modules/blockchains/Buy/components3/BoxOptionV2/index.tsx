@@ -6,19 +6,17 @@ import { useFormOrderStore } from '@/modules/blockchains/Buy/stores';
 type TBoxOption = PropsWithChildren & {
   active?: boolean;
   label: string;
-  id: string;
+  Content: React.ElementType;
 };
 
 const BoxOption = ({
-  id,
   active,
   label,
-  children,
+  Content,
 }: TBoxOption): React.JSX.Element => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id,
+    id: 'draggable',
   });
-  const { form } = useFormOrderStore((state) => state);
   const style = transform
     ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
@@ -47,17 +45,7 @@ const BoxOption = ({
         <p className={s.boxItem_heading_text}>{label}</p>
       </div>
 
-      {!form.chainName ? (
-        <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-          {children}
-        </div>
-      ) : null}
-
-      {/*{*/}
-      {/*  !form.chainName ? <button ref={ref} style={style} className={s.shape} {...listeners} {...attributes}>*/}
-      {/*    drag me*/}
-      {/*  </button> : null*/}
-      {/*}*/}
+      <Content {...listeners} {...attributes} ref={setNodeRef} style={style} />
     </div>
   );
 };
