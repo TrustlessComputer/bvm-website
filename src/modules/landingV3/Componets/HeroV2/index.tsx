@@ -17,19 +17,15 @@ export default function HeroV2() {
     <div className={s.hero} ref={ref}>
       <div className={`${s.inner} containerV3`}>
         <div className={s.content}>
-          <div className={s.content_sub}>
-            <IcLogoText />
-            <h2 className={s.content_sub_title}>BitZK</h2>
-          </div>
           <h3 className={s.subTitle}>
-            ZK Rollups <span>on
-            Bitcoin</span> <span>for $99/mo.</span>
+            Create your blockchain <span>for $99/mo.</span>
           </h3>
           <div className={s.desc}>
             <p>
-              Spin one up on Bitcoin with a single click, deploy some Solidity
-              smart contracts like on Ethereum, and launch your app on <br />
-              Bitcoin — it's that easy.
+              Spin up a chain, issue a token, then install default apps and games for instant utilities — it’s 100% no-code.
+            </p>
+            <p>
+              You can even deploy your own apps. It’s a new way to build and monetize.
             </p>
           </div>
           <div className={s.groupBtn}>
