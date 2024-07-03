@@ -72,7 +72,6 @@ const BuyPage = () => {
   const boxOptionMapping = {
     [ORDER_FIELD.CHAIN_NAME]: {
       label: '1. Name',
-
       content: () => (
         <Lego
           background={'red'}
@@ -117,6 +116,15 @@ const BuyPage = () => {
     },
     [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
       label: '3. Data Availability',
+      descriptionDetail: {
+        title: 'Data Availability',
+        content: (
+          <p>
+            The data of your blockchain is written to a Data Availability layer
+            such as Polygon, Celestia, NearDA, Eigen, Filecoin or Avail.
+          </p>
+        ),
+      },
       content: () => (
         <Lego
           background={'violet'}
@@ -137,6 +145,15 @@ const BuyPage = () => {
     },
     [ORDER_FIELD.GAS_LIMIT]: {
       label: '4. Block gas limit',
+      descriptionDetail: {
+        title: 'Block Gas Limit',
+        content: (
+          <p>
+            The block gas limit defines the maximum amount of gas that all
+            transactions in a single block can consume.
+          </p>
+        ),
+      },
       content: () => (
         <Lego
           background={'green'}
@@ -157,6 +174,17 @@ const BuyPage = () => {
     },
     [ORDER_FIELD.BLOCK_TIME]: {
       label: '5. Withdrawal time',
+      descriptionDetail: {
+        title: 'Withdrawal Time',
+        content: (
+          <p>
+            The withdrawal period is the time frame during which your users can
+            withdraw their assets from your blockchain back to Supersonic. This
+            duration primarily depends on the time required for the prover to
+            submit a zk-proof to the verifier contracts deployed on Supersonic.
+          </p>
+        ),
+      },
       content: () => (
         <Lego
           background={'pink'}
@@ -199,7 +227,7 @@ const BuyPage = () => {
               {Object.keys(boxOptionMapping).map((key) => {
                 if (key === ORDER_FIELD.CHAIN_NAME) return;
 
-                const { label, content } = boxOptionMapping[key as Override];
+                const { label, content, descriptionDetail } = boxOptionMapping[key as Override];
                 const isDragged = field[key as Override].dragged;
 
                 return (
@@ -208,6 +236,7 @@ const BuyPage = () => {
                     label={label}
                     id={key}
                     active={isDragged}
+                    descriptionDetail={descriptionDetail}
                   >
                     {content()}
                   </BoxOption>
