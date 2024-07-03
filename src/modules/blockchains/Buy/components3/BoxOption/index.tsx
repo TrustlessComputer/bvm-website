@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import s from './styles.module.scss';
+import { useDraggable } from '@dnd-kit/core';
+import { useFormOrderStore } from '@/modules/blockchains/Buy/stores';
 
 
-type TBoxOption = {
+type TBoxOption = PropsWithChildren & {
   active?: boolean;
   label: string;
 }
 
-const BoxOption = ({active, label}: TBoxOption): React.JSX.Element => {
+const BoxOption = ({ active, label, children }: TBoxOption): React.JSX.Element => {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: 'draggable',
+  });
+  const { form } = useFormOrderStore(state => state);
+  const style = transform ? {
+    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+  } : undefined;
+
   return (
     <div className={`${s.boxItem} ${active && s.activeBox}`}>
       <div className={s.boxItem_heading}>
@@ -20,8 +30,26 @@ const BoxOption = ({active, label}: TBoxOption): React.JSX.Element => {
         </div>
         <p className={s.boxItem_heading_text}>{label}</p>
       </div>
-    </div>
-  )
-}
 
-export default BoxOption
+      {
+        !form.chainName ? (
+          <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
+            {
+              children
+            }
+          </div>
+        ) : null
+      }
+
+
+      {/*{*/}
+      {/*  !form.chainName ? <button ref={ref} style={style} className={s.shape} {...listeners} {...attributes}>*/}
+      {/*    drag me*/}
+      {/*  </button> : null*/}
+      {/*}*/}
+
+    </div>
+  );
+};
+
+export default BoxOption;
