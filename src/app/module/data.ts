@@ -28,7 +28,7 @@ export type IMODULE = {
 }
 
 export const MODULE_DATAS = {
-  bitzk: {
+  zk_rollup: {
 
     hero: {
       theme: 'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
@@ -68,7 +68,7 @@ export const MODULE_DATAS = {
       thumbnail: '/bvm/hiw-bitzk.png',
     },
   },
-  bitop: {
+  pptimistic_rollups: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(255, 174, 174, 0.8) -5.57%, rgba(255, 174, 174, 0) 98.47%)',
       title: 'Optimistic rollups',
@@ -107,7 +107,7 @@ export const MODULE_DATAS = {
       thumbnail: '/bvm/hiw-bitop-07.png',
     },
   },
-  bitcoin_celestia: {
+  bvm_celestia: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(253, 174, 255, 0.8) -5.57%, rgba(253, 174, 255, 0) 98.47%)',
       title: 'BVM Celestia',
@@ -146,7 +146,7 @@ export const MODULE_DATAS = {
       thumbnail: '/bvm/hiw-bitcoin-celestia.png',
     },
   },
-  bitcoin_avail: {
+  bvm_avail: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
       title: 'BVM Avail',
@@ -187,7 +187,7 @@ export const MODULE_DATAS = {
   },
 
 
-  bitcoin_polygon: {
+  bvm_polygon: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(190, 169, 255, 0.8) -5.57%, rgba(190, 169, 255, 0) 98.47%)',
       title: 'BVM Polygon',
@@ -227,7 +227,7 @@ export const MODULE_DATAS = {
     },
   },
 
-  bitcoin_eigen: {
+  bvm_eigen: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(214, 97, 255, 0.8) -5.57%, rgba(214, 97, 255, 0) 98.47%)',
       title: 'BVM Eigen',
@@ -267,7 +267,7 @@ export const MODULE_DATAS = {
     },
   },
 
-  bitcoin_near: {
+  bvm_near: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(219, 219, 219, 0.8) -5.57%, rgba(219, 219, 219, 0) 98.47%)',
       title: 'BVM Near',
@@ -307,7 +307,7 @@ export const MODULE_DATAS = {
     },
   },
 
-  bitcoin_filecoin: {
+  bvm_filecoin: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(143, 208, 255, 0.8) -5.57%, rgba(143, 208, 255, 0) 98.47%)',
       title: 'BVM FileCoin',

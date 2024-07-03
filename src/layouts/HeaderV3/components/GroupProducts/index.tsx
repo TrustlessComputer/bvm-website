@@ -12,7 +12,7 @@ export default function GroupProducts(): ReactElement {
           <h4 className={s.title}>Rollups</h4>
           <ul className={s.group_inner}>
             <li>
-              <Link href={'/module/bitzk'} className={s.group_item_icon}>
+              <Link href={'/module/zk-rollup'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinzeroknowledge.png"
                        alt="menu-icon-bvm" />
                 <div className={s.group_item_icon_text}>
@@ -25,7 +25,7 @@ export default function GroupProducts(): ReactElement {
               </Link>
             </li>
             <li>
-              <Link href={'/module/bitop'} className={s.group_item_icon}>
+              <Link href={'/module/pptimistic-rollups'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinoptimistic.png"
                        alt="menu-icon-op" />
                 <div className={s.group_item_icon_text}>
@@ -40,7 +40,7 @@ export default function GroupProducts(): ReactElement {
           <h4 className={s.title}>DaTA Availability</h4>
           <ul className={`${s.group_inner} ${s.isFlex}`}>
             <li>
-              <Link href={'/module/bitcoin-celestia'} className={s.group_item_icon}>
+              <Link href={'/module/bvm-celestia'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoincelestia.png"
                        alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
@@ -49,8 +49,8 @@ export default function GroupProducts(): ReactElement {
                 </div>
               </Link>
             </li>
-            <li className={s.isDisabled}>
-              <Link href={'/module-detail'} className={s.group_item_icon}>
+            <li>
+              <Link href={'/module/bvm-eigen'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoineigen.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
@@ -61,7 +61,7 @@ export default function GroupProducts(): ReactElement {
               </Link>
             </li>
             <li>
-              <Link href={'/module/bitcoin-avail'} className={s.group_item_icon}>
+              <Link href={'/module/bvm-avail'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinavail.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
@@ -70,8 +70,8 @@ export default function GroupProducts(): ReactElement {
                 </div>
               </Link>
             </li>
-            <li className={s.isDisabled}>
-              <Link href={'/module-detail'} className={s.group_item_icon}>
+            <li>
+              <Link href={'/module/bvm-near'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinnearda.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
@@ -81,7 +81,7 @@ export default function GroupProducts(): ReactElement {
               </Link>
             </li>
             <li>
-              <Link href={'/module/bitcoin-polygon'} className={s.group_item_icon}>
+              <Link href={'/module/bvm-polygon'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinpolygon.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
@@ -90,8 +90,8 @@ export default function GroupProducts(): ReactElement {
                 </div>
               </Link>
             </li>
-            <li className={s.isDisabled}>
-              <Link href={'/module-detail'} className={s.group_item_icon}>
+            <li>
+              <Link href={'/module/bvm-filecoin'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinfilecoin.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>

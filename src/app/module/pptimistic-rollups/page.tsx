@@ -13,7 +13,7 @@ const ModuleDetailPage = () => {
       }}
       hideFooter
     >
-      <ModuleDetail data={MODULE_DATAS.bitcoin_polygon} />
+      <ModuleDetail data={MODULE_DATAS.pptimistic_rollups} />
     </MainLayout>
   );
 };

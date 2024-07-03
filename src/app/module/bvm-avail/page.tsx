@@ -13,7 +13,7 @@ const ModuleDetailPage = () => {
       }}
       hideFooter
     >
-      <ModuleDetail data={MODULE_DATAS.bitzk} />
+      <ModuleDetail data={MODULE_DATAS.bvm_avail} />
     </MainLayout>
   );
 };

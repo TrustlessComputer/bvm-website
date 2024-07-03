@@ -13,7 +13,7 @@ const ModuleDetailPage = () => {
       }}
       hideFooter
     >
-      <ModuleDetail data={MODULE_DATAS.bitop} />
+      <ModuleDetail data={MODULE_DATAS.bvm_polygon} />
     </MainLayout>
   );
 };
