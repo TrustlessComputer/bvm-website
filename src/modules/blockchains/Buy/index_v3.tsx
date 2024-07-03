@@ -11,7 +11,10 @@ import {
 } from '@dnd-kit/core';
 import type { MouseEvent, TouchEvent } from 'react';
 import React from 'react';
-import { ORDER_FIELD, useFormOrderStore } from '@/modules/blockchains/Buy/stores';
+import {
+  ORDER_FIELD,
+  useFormOrderStore,
+} from '@/modules/blockchains/Buy/stores';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -27,17 +30,24 @@ const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
 };
 
 export class MouseSensor extends LibMouseSensor {
-  static activators = [{ eventName: 'onMouseDown', handler }] as typeof LibMouseSensor['activators'];
+  static activators = [
+    { eventName: 'onMouseDown', handler },
+  ] as (typeof LibMouseSensor)['activators'];
 }
 
 export class TouchSensor extends LibTouchSensor {
-  static activators = [{ eventName: 'onTouchStart', handler }] as typeof LibTouchSensor['activators'];
+  static activators = [
+    { eventName: 'onTouchStart', handler },
+  ] as (typeof LibTouchSensor)['activators'];
 }
+
+type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
 function Droppable(props) {
   const { isOver, setNodeRef } = useDroppable({
     id: 'droppable',
   });
+
   const style = {
     color: isOver ? 'green' : undefined,
   };
@@ -51,7 +61,7 @@ function Droppable(props) {
 
 const BuyPage = () => {
   const router = useRouter();
-  const { form, setFormField } = useFormOrderStore((state) => state);
+  const { field, setFormField } = useFormOrderStore((state) => state);
 
   const chainNameRef = React.useRef<HTMLInputElement | null>(null);
   const networkRef = React.useRef<HTMLInputElement | null>(null);
@@ -59,86 +69,108 @@ const BuyPage = () => {
   const gasLimitRef = React.useRef<HTMLInputElement | null>(null);
   const blockTimeRef = React.useRef<HTMLInputElement | null>(null);
 
+  console.log('[BuyPage] field ::', field);
+
   const boxOptionMapping = {
     [ORDER_FIELD.CHAIN_NAME]: {
       ref: chainNameRef,
       label: '1. Name',
       content: () => (
-        <div>
-          <input
-            type="text"
-            placeholder="Enter chain name"
-            ref={chainNameRef}
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Enter chain name"
+          ref={chainNameRef}
+          className={s.input}
+          value={field[ORDER_FIELD.CHAIN_NAME].value}
+          onChange={(e) => {
+            setFormField(ORDER_FIELD.CHAIN_NAME, e.target.value);
+          }}
+        />
       ),
     },
     [ORDER_FIELD.NETWORK]: {
       ref: networkRef,
       label: '2. Network',
       content: () => (
-        <input type="text" id="network" placeholder="Enter network" ref={networkRef} className={s.input}/>
+        <input
+          type="text"
+          id="network"
+          placeholder="Enter network"
+          ref={networkRef}
+          className={s.input}
+          value={field[ORDER_FIELD.NETWORK].value}
+          onChange={(e) => {
+            setFormField(ORDER_FIELD.NETWORK, e.target.value as any);
+          }}
+        />
       ),
     },
     [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
       ref: dataAvaibilityChainRef,
       label: '3. Data Availability',
       content: () => (
-        <div>
-          <input
-            type="text"
-            placeholder="Enter data availability chain"
-            ref={dataAvaibilityChainRef}
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Enter data availability chain"
+          ref={dataAvaibilityChainRef}
+          className={s.input}
+          value={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
+          onChange={(e) => {
+            setFormField(
+              ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
+              e.target.value as any,
+            );
+          }}
+        />
       ),
     },
     [ORDER_FIELD.GAS_LIMIT]: {
       ref: gasLimitRef,
       label: '4. Block gas limit',
       content: () => (
-        <div>
-          <input
-            type="text"
-            placeholder="Enter block gas limit"
-            ref={gasLimitRef}
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Enter block gas limit"
+          ref={gasLimitRef}
+          className={s.input}
+          value={field[ORDER_FIELD.GAS_LIMIT].value}
+          onChange={(e) => {
+            setFormField(ORDER_FIELD.GAS_LIMIT, e.target.value as any);
+          }}
+        />
       ),
     },
     [ORDER_FIELD.BLOCK_TIME]: {
       ref: blockTimeRef,
       label: '5. Withdrawal time',
       content: () => (
-        <div>
-          <input
-            type="text"
-            placeholder="Enter withdrawal time"
-            ref={blockTimeRef}
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Enter withdrawal time"
+          ref={blockTimeRef}
+          className={s.input}
+          value={field[ORDER_FIELD.BLOCK_TIME].value}
+          onChange={(e) => {
+            setFormField(ORDER_FIELD.BLOCK_TIME, e.target.value as any);
+          }}
+        />
       ),
     },
   };
 
   function handleDragEnd(event: any) {
-    console.log('[BuyPage] event :: ', event);
-
     if (event.over && event.over.id === 'droppable') {
-      const valueInput = boxOptionMapping[event.active.id].ref.current?.value;
+      const valueInput =
+        boxOptionMapping[
+          event.active.id as (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD]
+        ].ref.current?.value;
 
-      console.log("value", valueInput);
-
-      // setFormORDER_FIELD(event.active.id, valueInput || null); // TODO: REMOVE THE BELOW LINE AND UNCOMMENT THIS LINE
-      setFormField(event.active.id, 'OK');
+      setFormField(event.active.id, valueInput as any, true);
     }
   }
 
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
-    // useSensor(TouchSensor, {
-    //   coordinateGetter: sortableKeyboardCoordinates
-    // })
   );
 
   return (
@@ -148,16 +180,27 @@ const BuyPage = () => {
           <div className={s.left}>
             <p className={s.heading}>Customize your Blockchain</p>
             <div className={s.left_box}>
+              <BoxOption
+                label={boxOptionMapping[ORDER_FIELD.CHAIN_NAME].label}
+                id={ORDER_FIELD.CHAIN_NAME}
+                active={field[ORDER_FIELD.CHAIN_NAME].dragged}
+              >
+                {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content()}
+              </BoxOption>
+
               {Object.keys(boxOptionMapping).map((key) => {
-                if (key === ORDER_FIELD.CHAIN_NAME) return
+                if (key === ORDER_FIELD.CHAIN_NAME) return;
 
-                const { label, content } = boxOptionMapping[key];
-                const isDragged = form[key];
-
-                if (isDragged) return null;
+                const { label, content } = boxOptionMapping[key as Override];
+                const isDragged = field[key as Override].dragged;
 
                 return (
-                  <BoxOption key={key} label={label} id={key}>
+                  <BoxOption
+                    key={key}
+                    label={label}
+                    id={key}
+                    active={isDragged}
+                  >
                     {content()}
                   </BoxOption>
                 );
@@ -183,24 +226,17 @@ const BuyPage = () => {
             </div>
             <div className={s.right_box}>
               <Droppable>
-                <BoxOption label={boxOptionMapping[ORDER_FIELD.CHAIN_NAME].label} id={ORDER_FIELD.CHAIN_NAME+'_dropped'} >
-                  {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content()}
-                </BoxOption>
+                {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content()}
 
                 {Object.keys(boxOptionMapping).map((key) => {
-                    if (key === ORDER_FIELD.CHAIN_NAME) return
+                  if (key === ORDER_FIELD.CHAIN_NAME) return;
 
-                  const { label, content } = boxOptionMapping[key];
-                  const isDragged = form[key];
+                  const { content } = boxOptionMapping[key as Override];
+                  const isDragged = field[key as Override].dragged;
 
                   if (!isDragged) return null;
-                  console.log('[BuyPage] key, value :: ', key, form[key]);
 
-                  return (
-                    <BoxOption key={key} label={label} id={key+'_dropped'} >
-                      {content()}
-                    </BoxOption>
-                  );
+                  return content();
                 })}
               </Droppable>
             </div>

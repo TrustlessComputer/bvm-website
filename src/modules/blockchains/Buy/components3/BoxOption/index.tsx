@@ -47,17 +47,9 @@ const BoxOption = ({
         <p className={s.boxItem_heading_text}>{label}</p>
       </div>
 
-      {!form.chainName ? (
-        <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-          {children}
-        </div>
-      ) : null}
-
-      {/*{*/}
-      {/*  !form.chainName ? <button ref={ref} style={style} className={s.shape} {...listeners} {...attributes}>*/}
-      {/*    drag me*/}
-      {/*  </button> : null*/}
-      {/*}*/}
+      <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
+        {children}
+      </div>
     </div>
   );
 };

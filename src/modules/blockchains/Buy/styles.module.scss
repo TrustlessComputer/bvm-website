@@ -76,12 +76,9 @@
   }
 }
 
-
 .left_box {
   margin-top: 16px;
 }
-
-
 
 .right_box {
   margin-top: 16px;
@@ -92,20 +89,18 @@
   padding: 24px;
 }
 
-.shape {
-
-  background-color: red;
-}
-
 .innerRight {
   width: 100%;
   height: inherit;
-  background-color: red;
-
 }
 
 .input {
   background-color: transparent;
-  color: #0E0E0E;
+  color: #0e0e0e;
   border: 1px solid #000;
+  width: 100%;
+
+  &::placeholder {
+    color: #0e0e0e;
+  }
 }
