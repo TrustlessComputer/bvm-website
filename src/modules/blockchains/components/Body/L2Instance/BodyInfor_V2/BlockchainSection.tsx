@@ -5,10 +5,10 @@ import { OrderItem } from '@/stores/states/l2services/types';
 import { Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import ColumnInfor from './ColumnInfor';
 import s from '../styleFont.module.scss';
-import { convertSecondsToHours } from '@/modules/blockchains/Buy/Buy.helpers';
+import { convertSecondsToHours } from '@/modules/blockchains/feat/customize/Buy.helpers';
 import { formatCurrencyV2 } from '@/utils/format';
 import { useMemo } from 'react';
-import { RollupEnum } from '@/modules/blockchains/Buy/Buy.constanst';
+import { RollupEnum } from '@/modules/blockchains/feat/customize/Buy.constanst';
 
 type Props = {
   item: OrderItem;

@@ -16,7 +16,7 @@ import {
   dayDescribe,
   estimateDataFormater_V2,
   getRandonComputerName_VS2,
-} from '../Buy/Buy.helpers';
+} from '../feat/customize/Buy.helpers';
 import {
   BitcoinValidityEnum,
   BlockTimeEnum,
@@ -39,20 +39,20 @@ import {
   STANDARD_VALUES,
   WITHDRAWAL_PERIOD,
   WITHDRAWAL_PERIOD_BOOTSTRAP,
-} from '../Buy/Buy.constanst';
+} from '../feat/customize/Buy.constanst';
 import {
   convertDayToSeconds,
   estimateDataFormater,
   getChainIDRandom,
-} from '../Buy/Buy.helpers';
-import { IAvailableList } from '../Buy/Buy.types';
+} from '../feat/customize/Buy.helpers';
+import { IAvailableList } from '../feat/customize/Buy.types';
 import { BuyContextInit, IBuyContext } from './Buy.type';
 import {
   IOrderBuyEstimateRespone,
   IOrderBuyEstimateRespone_V2,
   SubmitFormParams,
 } from '@/services/api/l2services/types';
-import { ServiceTypeEnum } from '../Buy/Buy.constanst';
+import { ServiceTypeEnum } from '../feat/customize/Buy.constanst';
 import l2ServicesAPI, {
   estimateTotalCostAPI,
   estimateTotalCostAPI_V2,

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import useOrderMapper from '../../hooks/useOrderMapper';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { isEmpty } from 'lodash';
-import { RollupEnumMap } from '../../Buy/Buy.constanst';
+import { RollupEnumMap } from '../../feat/customize/Buy.constanst';
 import { useDashboard } from '../../providers/DashboardProvider';
 import { formatDateTime } from '@/utils/time';
 

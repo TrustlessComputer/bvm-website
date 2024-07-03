@@ -2,7 +2,7 @@
 
 import { Flex } from '@chakra-ui/react';
 import { BuyProvider } from '../providers/Buy.context';
-import { BuyPage } from '../Buy/index_v2';
+import { BuyPage } from '../feat/customize/index_v2';
 import s from './styles.module.scss';
 
 export default () => {

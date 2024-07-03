@@ -11,12 +11,12 @@ import {
   RollupEnum,
   ServiceTypeEnum,
   WITHDRAWAL_PERIOD_BOOTSTRAP,
-} from '../blockchains/Buy/Buy.constanst';
+} from '../blockchains/feat/customize/Buy.constanst';
 import {
   convertHoursToSeconds,
   getChainIDRandom,
   getRandonComputerName,
-} from '../blockchains/Buy/Buy.helpers';
+} from '../blockchains/feat/customize/Buy.helpers';
 import { PRICING_PACKGE, PRICING_PACKGE_DATA } from './constants';
 
 export const orderRegisterBootstrapParams = async () => {

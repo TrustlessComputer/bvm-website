@@ -5,7 +5,7 @@ import {
   IOrderBuyEstimateRespone_V2,
   SubmitFormParams,
 } from './types';
-import { IAvailableList } from '@/modules/blockchains/Buy/Buy.types';
+import { IAvailableList } from '@/modules/blockchains/feat/customize/Buy.types';
 import {
   AccountInfo,
   AccountInfoResp,
@@ -30,7 +30,7 @@ import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
 import {
   NativeTokenPayingGasEnum,
   NetworkEnum,
-} from '@/modules/blockchains/Buy/Buy.constanst';
+} from '@/modules/blockchains/feat/customize/Buy.constanst';
 import LocalStorage from '@/libs/localStorage';
 import { STORAGE_KEYS } from '@/constants/storage-key';
 

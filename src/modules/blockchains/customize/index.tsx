@@ -1,7 +1,7 @@
 'use client';
 
 import { BuyProvider } from '../providers/Buy.context';
-import { BuyPage } from '../Buy';
+import { BuyPage } from '../feat/customize';
 import { Flex } from '@chakra-ui/react';
 import BoxContent from '@/layouts/BoxContent';
 import { useEffect } from 'react';

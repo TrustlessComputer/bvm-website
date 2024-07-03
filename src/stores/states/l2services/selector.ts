@@ -6,7 +6,7 @@ import formatter from '@/modules/price/Pricing.helper';
 import {
   NetworkEnum,
   RollupEnum,
-} from '@/modules/blockchains/Buy/Buy.constanst';
+} from '@/modules/blockchains/feat/customize/Buy.constanst';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>

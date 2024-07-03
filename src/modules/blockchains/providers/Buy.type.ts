@@ -7,8 +7,8 @@ import {
   NetworkEnum,
   ProverEnum,
   RollupEnum,
-} from '../Buy/Buy.constanst';
-import { IAvailableList } from '../Buy/Buy.types';
+} from '../feat/customize/Buy.constanst';
+import { IAvailableList } from '../feat/customize/Buy.types';
 import {
   IOrderBuyEstimateRespone,
   IOrderBuyEstimateRespone_V2,

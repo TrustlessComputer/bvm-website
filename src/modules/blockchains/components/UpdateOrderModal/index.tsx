@@ -28,7 +28,7 @@ import { getErrorMessage } from '@/utils/errorV2';
 import sleep from '@/utils/sleep';
 import { isEmpty } from 'lodash';
 import toast from 'react-hot-toast';
-import ErrorMessage from '../../Buy/components/ErrorMessage';
+import ErrorMessage from '../../feat/customize/components2/ErrorMessage';
 import DropFile from './DropFile';
 import cs from 'classnames';
 

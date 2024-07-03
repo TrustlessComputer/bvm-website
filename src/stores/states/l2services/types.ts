@@ -2,8 +2,8 @@ import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import {
   DALayerEnum,
   RollupEnum,
-} from '@/modules/blockchains/Buy/Buy.constanst';
-import { IAvailableList } from '@/modules/blockchains/Buy/Buy.types';
+} from '@/modules/blockchains/feat/customize/Buy.constanst';
+import { IAvailableList } from '@/modules/blockchains/feat/customize/Buy.types';
 import {
   HistoryStatus,
   HistoryType,

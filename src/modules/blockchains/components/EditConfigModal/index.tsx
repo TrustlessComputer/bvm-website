@@ -6,7 +6,7 @@ import TextInput from '@/components/TextInput/TextInput';
 import l2ServicesAPI from '@/services/api/l2services';
 
 import { isEmpty } from 'lodash';
-import ErrorMessage from '../../Buy/components/ErrorMessage';
+import ErrorMessage from '../../feat/customize/components2/ErrorMessage';
 import {
   MetaConfig,
   OrderItem,

@@ -1,7 +1,7 @@
 import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import { formatUnixDateTime } from '@/utils/time';
 import React from 'react';
-import { DALayerEnumMap } from '../Buy/Buy.constanst';
+import { DALayerEnumMap } from '../feat/customize/Buy.constanst';
 import { CHAIN_ID } from '@/services/api/l2services/constants';
 
 const APP_NAME = '';

@@ -1,4 +1,4 @@
-import { RollupEnum } from '../blockchains/Buy/Buy.constanst';
+import { RollupEnum } from '../blockchains/feat/customize/Buy.constanst';
 
 export const ORDER_BUY_NO_PROVER = {
   domain: 'zk-powered-blockchain-99999999',

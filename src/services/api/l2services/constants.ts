@@ -2,7 +2,7 @@ import {
   DALayerEnum,
   RollupEnum,
   ServiceTypeEnum,
-} from '@/modules/blockchains/Buy/Buy.constanst';
+} from '@/modules/blockchains/feat/customize/Buy.constanst';
 import {
   IPlugin,
   IQuickStart,
