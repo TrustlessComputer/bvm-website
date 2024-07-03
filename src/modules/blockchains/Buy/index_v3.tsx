@@ -225,6 +225,7 @@ const BuyPage = () => {
                     label={label}
                     id={key}
                     active={isDragged}
+
                   >
                     {content(label)}
                   </BoxOption>
