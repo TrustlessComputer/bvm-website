@@ -19,10 +19,13 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
 .left {
-
+  .heading {
+    padding: 7px 24px;
+  }
 }
 
 .heading {
@@ -46,7 +49,7 @@
       padding: 7px 24px;
       display: flex;
       width: 100%;
-      max-width: 625px;
+      max-width: 620px;
       justify-content: space-between;
       align-items: center;
       p {
@@ -62,8 +65,12 @@
         color: rgba(65, 133, 236, 1);
         font-size: 18px;
         font-weight: 500;
+        cursor: pointer;
         font-family: 'Bahnschrift';
         line-height: calc(28 / 18);
+        &:hover {
+          color: rgb(26, 109, 232);
+        }
       }
     }
   }
@@ -71,12 +78,9 @@
 
 
 .left_box {
-  margin-top: 31px;
+  margin-top: 16px;
 }
 
-.boxItem {
-
-}
 
 
 .right_box {

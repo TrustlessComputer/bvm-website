@@ -1,0 +1,47 @@
+
+.boxItem {
+  width: 100%;
+  //height: 206px;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid rgba(217, 217, 217, 1);
+  position: relative;
+  padding: 53px 48px;
+  &.activeBox {
+    border-color: #74d579;
+    background-color: #ebffec;
+  }
+  &_heading {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    &_icon {
+
+    }
+    &_text {
+      font-family: 'Bahnschrift';
+      font-size: 24px;
+      font-weight: 500;
+      line-height: calc(34 / 24);
+    }
+  }
+  &:after {
+    position: absolute;
+    content: '';
+    background-color: #fff;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 128px;
+    height: 24px;
+    bottom: -25px;
+    border: 1px solid rgba(217, 217, 217, 1);
+    border-top: none;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    z-index: 2;
+  }
+  &.activeBox:after {
+    background-color: #ebffec;
+    border-color: #74d579;
+  }
+}
