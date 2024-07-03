@@ -18,6 +18,7 @@ type TLegoItem = {
   isFrist?: boolean;
   isLast?: boolean;
   isActive?: boolean;
+  zIndex: number;
 };
 export default function Lego({
   background,
@@ -26,9 +27,13 @@ export default function Lego({
   isFrist,
   isLast,
   isActive,
+  zIndex,
 }: TLegoItem) {
   return (
-    <div className={`${s.wrapper} ${s[`wrapper__${background}`]}`}>
+    <div
+      className={`${s.wrapper} ${s[`wrapper__${background}`]}`}
+      style={{ zIndex: zIndex }}
+    >
       <div className={s.inner}>
         <p className={s.label}>{label}</p>
         <div className={s.options}>
