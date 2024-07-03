@@ -80,7 +80,7 @@ const BoxOption = ({
 }: TBoxOption): React.JSX.Element => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
-    disabled: true
+    // disabled: true,
   });
   const { form } = useFormOrderStore((state) => state);
   const style = transform
