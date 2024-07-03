@@ -77,7 +77,7 @@ const BuyPage = () => {
         <Lego
           background={'red'}
           title="1. Name"
-          label="1. Name"
+          label="Name"
           zIndex={10}
           isFrist={true}
           // isActive
@@ -100,10 +100,11 @@ const BuyPage = () => {
       content: () => (
         <Lego
           background={'brown'}
-          label={DATA_PRICING.network.title}
+          label={DATA_PRICING.network.sub_title}
           zIndex={9}
           isFrist={false}
           isLast={false}
+          isActive={field[ORDER_FIELD.NETWORK].dragged}
           cb={setFormField}
           field={ORDER_FIELD.NETWORK}
         >
@@ -121,7 +122,7 @@ const BuyPage = () => {
       content: () => (
         <Lego
           background={'violet'}
-          label={DATA_PRICING.availability.title}
+          label={DATA_PRICING.availability.sub_title}
           isFrist={false}
           zIndex={8}
           // isActive

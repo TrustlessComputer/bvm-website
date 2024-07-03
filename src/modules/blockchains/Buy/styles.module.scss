@@ -95,11 +95,13 @@
 }
 
 .input {
-  background-color: transparent;
+  background-color: #fff;
   color: #0e0e0e;
-  border: 1px solid #000;
   width: 100%;
-
+  padding: 0 12px;
+  border-radius: 17px;
+  font-family: 'Bahnschrift';
+  font-size: 18px;
   &::placeholder {
     color: #0e0e0e;
   }

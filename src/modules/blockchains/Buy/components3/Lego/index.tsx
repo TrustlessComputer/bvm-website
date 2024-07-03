@@ -72,7 +72,7 @@ export default function Lego({
       )}
       {!isLast && (
         <span
-          className={`${s.wrapper_stud__bottom} ${s.wrapper_stud}  ${
+          className={`${s.wrapper_stud__bottom} ${s.wrapper_stud} ${isActive && s.scale}  ${
             isActive && s.wrapper_stud__active
           }
         `}
