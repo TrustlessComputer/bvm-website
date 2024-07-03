@@ -34,24 +34,25 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
       title: 'Customize your ZK rollup'
     }
   },
-  {
-    title: 'It\'s so easy to migrate from Ethereum to Bitcoin',
-    subTitle: 'BUILD ON BITCOIN',
-    children: <div>
-      <p>BVM is EVM equivalent, so you can write Solidity smart contracts and build dapps on Bitcoin without learning a new toolkit. All your code, tools, and infrastructure work out of the box.
-      </p>
-    </div>,
-    image: '/bvm/home-section-2.jpg',
-    button: {
-      target: '_blank',
-      link: 'https://docs.bvm.network/bvm',
-      title: 'Read developer docs',
-    },
-    direction: 'left',
-  },
+  // {
+  //   title: 'It\'s so easy to migrate from Ethereum to Bitcoin',
+  //   subTitle: 'BUILD ON BITCOIN',
+  //   children: <div>
+  //     <p>BVM is EVM equivalent, so you can write Solidity smart contracts and build dapps on Bitcoin without learning a new toolkit. All your code, tools, and infrastructure work out of the box.
+  //     </p>
+  //   </div>,
+  //   image: '/bvm/home-section-2.jpg',
+  //   button: {
+  //     target: '_blank',
+  //     link: 'https://docs.bvm.network/bvm',
+  //     title: 'Read developer docs',
+  //   },
+  //   direction: 'left',
+  // },
   {
     title: '$99/mo for a fully managed blockchain',
     subTitle: 'PRICING',
+    direction: 'left',
     children: <div>
       <p>Before BVM, you need an army of PhDs, cryptographers, and distributed system engineers to build and scale a blockchain.</p>
       <p>Today, you can launch a ZK rollup blockchain on Bitcoin with just a few clicks for $99 monthly.</p>
@@ -62,25 +63,25 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
       title: 'View pricing'
     }
   },
-  {
-    title: 'Built by developers, for developers',
-    subTitle: 'TEAM',
-    children: <div>
-      <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack of scalability and programmability has been its hallmark. </p>
-      <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
-      <p>Oh, and we really like building things.</p>
-    </div>,
-    image: '/bvm/home-team-v2.png',
-    direction: 'left',
-    button: {
-      link: '/research',
-      title: 'Read our research'
-    },
-    button2: {
-      link: '/team',
-      title: 'Meet the team'
-    }
-  },
+  // {
+  //   title: 'Built by developers, for developers',
+  //   subTitle: 'TEAM',
+  //   children: <div>
+  //     <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack of scalability and programmability has been its hallmark. </p>
+  //     <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
+  //     <p>Oh, and we really like building things.</p>
+  //   </div>,
+  //   image: '/bvm/home-team-v2.png',
+  //   direction: 'left',
+  //   button: {
+  //     link: '/research',
+  //     title: 'Read our research'
+  //   },
+  //   button2: {
+  //     link: '/team',
+  //     title: 'Meet the team'
+  //   }
+  // },
 ];
 
 export const DATA_BRAND = [
