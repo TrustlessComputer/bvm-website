@@ -13,29 +13,18 @@ export const NAV_ITEMS: Array<NavItem> = [
     groupType: 'production',
     GroupDropDown: GroupProducts,
   },
+  // {
+  //   label: 'Developers',
+  //   isNewWindow: false,
+  //   isHide: false,
+  //   groupType: 'developers',
+  //   GroupDropDown: GroupDeveloper,
+  // },
   {
-    label: 'Developers',
+    label: 'Pricing',
+    href: '/pricing',
     isNewWindow: false,
     isHide: false,
-    groupType: 'developers',
-    GroupDropDown: GroupDeveloper,
-    // subMenu: [
-    //   {
-    //     href: 'https://docs.bvm.network/bvm/quickstart/create-a-zk-powered-blockchain',
-    //     label: 'Launch a Bitcoin ZK rollup',
-    //     isNewWindow: true,
-    //   },
-    //   {
-    //     href: 'https://docs.bvm.network/bvm/quickstart/connect-to-zk-powered-blockchains',
-    //     label: 'Connect to a Bitcoin ZK rollup',
-    //     isNewWindow: true,
-    //   },
-    //   {
-    //     href: 'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps',
-    //     label: 'Build your first Bitcoin dapps',
-    //     isNewWindow: true,
-    //   },
-    // ],
   },
   {
     label: 'Research',
@@ -44,12 +33,12 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
 
-  {
-    label: 'Team',
-    href: '/team',
-    isNewWindow: false,
-    isHide: false,
-  },
+  // {
+  //   label: 'Team',
+  //   href: '/team',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
 
   // {
   //   href: '/whitepaper.pdf',
@@ -57,34 +46,12 @@ export const NAV_ITEMS: Array<NavItem> = [
   //   isNewWindow: true,
   // },
   {
-    label: 'BVM',
+    label: '$BVM',
     href: '/bvm',
     isNewWindow: false,
-    isHide: false,
-    // subMenu: [
-    //   {
-    //     href: '/roadmap',
-    //     label: 'Roadmap',
-    //     isNewWindow: false,
-    //   },
-    //   {
-    //     href: 'https://docs.bvm.network/bvm',
-    //     label: 'Developer Docs',
-    //     isNewWindow: true,
-    //   },
-    //   {
-    //     href: '/whitepaper.pdf',
-    //     label: 'WhitePaper',
-    //     isNewWindow: false,
-    //   },
-    // ],
+    isHide: false
   },
-  {
-    label: 'Pricing',
-    href: '/pricing',
-    isNewWindow: false,
-    isHide: false,
-  },
+
 ];
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
   {

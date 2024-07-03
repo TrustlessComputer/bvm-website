@@ -42,7 +42,7 @@
     top: 100%;
 
     @include is-pc {
-      padding-top: 6px;
+      padding-top: 12px;
     }
 
     &_inner {
@@ -58,16 +58,12 @@
       opacity: 1;
       visibility: visible;
       z-index: 2 !important;
-
-      @include is-pc {
-         left: -160px;
-      }
     }
   }
 
   &_list {
     opacity: 0;
-
+    transform: translateX(-50%);
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -76,7 +72,6 @@
     border-radius: 8px;
     position: fixed;
     top: 0;
-    left: 0;
     overflow-x: hidden;
     overflow-y: scroll;
     width: 100%;
@@ -88,8 +83,7 @@
       overflow: hidden;
       height: auto;
       right: 0;
-      left: unset;
-      // top: unset;
+      left: calc(50% + 160px);
     }
   }
 }
