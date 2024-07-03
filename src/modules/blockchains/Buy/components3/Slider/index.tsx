@@ -8,26 +8,30 @@ import {
   SliderThumb,
   SliderTrack,
 } from '@chakra-ui/react';
+import { FormOrder } from '../../stores';
 
-const Slider = () => {
+type TSlider = {
+  defaultValue: string;
+  field: keyof FormOrder;
+  cb: (feild: keyof FormOrder, value: string) => void;
+  max?: number;
+  min?: number;
+};
+
+const Slider = ({ cb, defaultValue, field, max = 100, min = 0 }: TSlider) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [value, setValue] = useState<number>(0);
   const ref = useRef<HTMLDivElement>(null);
+
   useOnClickOutside(ref, () => setIsOpen(false));
-  const getBackgroundSize = () => {
-    return { backgroundSize: `${(value * 100) / 100}% 100%` };
-  };
 
   const onChange = (value: number) => {
-    if (isNaN(value)) {
-      return;
-    }
-    setValue(value);
+    cb(field, value.toString());
   };
+  console.log('defaultValue', defaultValue);
   return (
     <div className={s.dropdown}>
       <div className={s.dropdown_inner} onClick={() => setIsOpen(!isOpen)}>
-        <p className={s.dropdown_text}>{value}</p>
+        <p className={s.dropdown_text}>{defaultValue}</p>
 
         <Image
           className={s.dropdown_icon}
@@ -42,16 +46,16 @@ const Slider = () => {
         className={`${s.dropdown_list} ${isOpen && s.dropdown_list__active}`}
       >
         <div className={s.dropdown_wrap} ref={ref}>
-          <p className={s.text}>{value}</p>
+          <p className={s.text}>{defaultValue}</p>
           {/*<input style={{accentColor: '#fff'}} type="range" value={value}  min="1" max="100" onInput={(e) => setValue(e.currentTarget.value)} />*/}
           <SliderReact
             // isDisabled={
             //   !!packageParam && Number(packageParam) === PRICING_PACKGE.Hacker
             // }
             onChange={onChange}
-            value={value}
-            min={1} // 2 hours
-            max={100} // 24 hours
+            value={Number(defaultValue)}
+            min={min} // 2 hours
+            max={max} // 24 hours
             step={1}
           >
             <SliderTrack className={s.slider}>

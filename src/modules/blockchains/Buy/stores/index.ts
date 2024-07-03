@@ -64,11 +64,11 @@ export const useFormOrderStore = create<UseFormOrderStore>((set) => ({
     },
     [ORDER_FIELD.GAS_LIMIT]: {
       dragged: false,
-      value: String(1_000_000_000),
+      value: String(0),
     },
     [ORDER_FIELD.BLOCK_TIME]: {
       dragged: false,
-      value: WITHDRAWAL_PERIOD_BOOTSTRAP,
+      value: 0,
     },
   },
   setFormField: (field, value, dragged) => {

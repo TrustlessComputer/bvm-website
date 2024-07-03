@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import Lego from './components3/Lego';
 import { DATA_PRICING } from '../data_pricing';
 import Dropdown from './components3/Dropdown';
+import Slider from './components3/Slider';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -117,9 +118,8 @@ const BuyPage = () => {
     },
     [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
       label: '3. Data Availability',
-      content: (key) => (
+      content: () => (
         <Lego
-          key={key}
           background={'violet'}
           label={DATA_PRICING.availability.title}
           isFrist={false}
@@ -136,63 +136,49 @@ const BuyPage = () => {
         </Lego>
       ),
     },
-    // [ORDER_FIELD.GAS_LIMIT]: {
-    //   ref: gasLimitRef,
-    //   label: '4. Block gas limit',
-    //   content: (key) => (
-    // <input
-    //   type="text"
-    //   placeholder="Enter block gas limit"
-    //   ref={gasLimitRef}
-    //   className={s.input}
-    //   value={field[ORDER_FIELD.GAS_LIMIT].value}
-    //   onChange={(e) => {
-    //     setFormField(ORDER_FIELD.GAS_LIMIT, e.target.value as any);
-    //   }}
-    // />
-    // <Lego
-    //   key={key}
-    //   background={'green'}
-    //   label={DATA_PRICING.gas.title}
-    //   isFrist={false}
-    //   type="slide"
-    //   cb={setFormField}
-    //   field={ORDER_FIELD.GAS_LIMIT}
-    //   // isActive
-    //   options={DATA_PRICING.gas.options}
-    //   zIndex={7}
-    //   isLast={false}
-    // />
-    //   ),
-    // },
-    // [ORDER_FIELD.BLOCK_TIME]: {
-    //   ref: blockTimeRef,
-    //   label: '5. Withdrawal time',
-    //   content: () => (
-    // <input
-    //   type="text"
-    //   placeholder="Enter withdrawal time"
-    //   ref={blockTimeRef}
-    //   className={s.input}
-    //   value={field[ORDER_FIELD.BLOCK_TIME].value}
-    //   onChange={(e) => {
-    //     setFormField(ORDER_FIELD.BLOCK_TIME, e.target.value as any);
-    //   }}
-    // />
-    // <Lego
-    //   background={'pink'}
-    //   label={DATA_PRICING.withdrawal.title}
-    //   isFrist={false}
-    //   zIndex={6}
-    //   type="slide"
-    //   cb={setFormField}
-    //   field={ORDER_FIELD.BLOCK_TIME}
-    //   // isActive
-    //   options={DATA_PRICING.withdrawal.options}
-    //   isLast={true}
-    // />
-    // ),
-    // },
+    [ORDER_FIELD.GAS_LIMIT]: {
+      label: '4. Block gas limit',
+      content: () => (
+        <Lego
+          background={'green'}
+          label={DATA_PRICING.gas.title}
+          isFrist={false}
+          // isActive
+          zIndex={7}
+          isLast={false}
+        >
+          <Slider
+            cb={setFormField}
+            field={ORDER_FIELD.GAS_LIMIT}
+            defaultValue={field[ORDER_FIELD.GAS_LIMIT].value}
+            max={DATA_PRICING.gas.max}
+          />
+        </Lego>
+      ),
+    },
+    [ORDER_FIELD.BLOCK_TIME]: {
+      label: '5. Withdrawal time',
+      content: () => (
+        <Lego
+          background={'pink'}
+          label={DATA_PRICING.withdrawal.title}
+          isFrist={false}
+          zIndex={6}
+          cb={setFormField}
+          field={ORDER_FIELD.BLOCK_TIME}
+          // isActive
+          options={DATA_PRICING.withdrawal.options}
+          isLast={true}
+        >
+          <Slider
+            cb={setFormField}
+            field={ORDER_FIELD.BLOCK_TIME}
+            defaultValue={field[ORDER_FIELD.BLOCK_TIME].value}
+            max={DATA_PRICING.withdrawal.max}
+          />
+        </Lego>
+      ),
+    },
   };
 
   function handleDragEnd(event: any) {
@@ -225,7 +211,6 @@ const BuyPage = () => {
                     label={label}
                     id={key}
                     active={isDragged}
-
                   >
                     {content(label)}
                   </BoxOption>

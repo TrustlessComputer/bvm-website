@@ -1,4 +1,6 @@
-import { DALayerEnum, NetworkEnum } from './Buy/Buy.constanst';
+import { DALayerEnum, GAS_LITMIT, NetworkEnum } from './Buy/Buy.constanst';
+import { ORDER_FIELD } from './Buy/stores';
+import { WITHDRAWAL_PERIOD_BOOTSTRAP } from '../all-l3-monitor/Buy/Buy.constanst';
 
 export const DATA_PRICING = {
     network: {
@@ -62,33 +64,11 @@ export const DATA_PRICING = {
     gas: {
         title: '4. Block gas limit',
         sub_title: 'Block gas limit',
-        options: [
-            {
-                label: '10000000000',
-                id: 1,
-                value: '100000',
-            },
-            {
-                label: '201000000000',
-                id: 1,
-                value: '100000',
-            },
-        ],
+        max: GAS_LITMIT,
     },
     withdrawal: {
         title: '4. Withdrawal time',
         sub_title: 'Block gas limit',
-        options: [
-            {
-                label: '100000',
-                id: 1,
-                value: '100000',
-            },
-            {
-                label: '10000000000',
-                id: 1,
-                value: '100000',
-            },
-        ],
+        max: WITHDRAWAL_PERIOD_BOOTSTRAP,
     },
 };
