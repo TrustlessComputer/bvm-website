@@ -19,6 +19,7 @@ type TLegoItem = {
   isFrist?: boolean;
   isLast?: boolean;
   isActive?: boolean;
+  isSlider?: boolean;
   zIndex: number;
 };
 export default function Lego({
@@ -29,6 +30,7 @@ export default function Lego({
   isLast,
   isActive,
   zIndex,
+  isSlider,
 }: TLegoItem) {
   return (
     <div
@@ -38,8 +40,12 @@ export default function Lego({
       <div className={s.inner}>
         <p className={s.label}>{label}</p>
         <div className={s.options}>
-          <Dropdown options={options} />
-          {/*<Slider />*/}
+          {
+            !isSlider ? (
+              <Dropdown options={options} />
+
+            ) : <Slider />
+          }
         </div>
       </div>
 

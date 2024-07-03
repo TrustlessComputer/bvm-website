@@ -171,6 +171,7 @@ const BuyPage = () => {
           background={'green'}
           label={DATA_PRICING.gas.title}
           isFrist={false}
+          isSlider={true}
           // isActive
           options={DATA_PRICING.gas.options}
           zIndex={7}
@@ -197,6 +198,7 @@ const BuyPage = () => {
           label={DATA_PRICING.withdrawal.title}
           isFrist={false}
           zIndex={6}
+          isSlider={true}
           // isActive
           options={DATA_PRICING.withdrawal.options}
           isLast={true}
