@@ -142,7 +142,7 @@ const BuyPage = () => {
       content: () => (
         <Lego
           background={'green'}
-          label={DATA_PRICING.gas.title}
+          label={DATA_PRICING.gas.sub_title}
           isFrist={false}
           // isActive
           zIndex={7}
@@ -162,7 +162,7 @@ const BuyPage = () => {
       content: () => (
         <Lego
           background={'pink'}
-          label={DATA_PRICING.withdrawal.title}
+          label={DATA_PRICING.withdrawal.sub_title}
           isFrist={false}
           zIndex={6}
           cb={setFormField}
@@ -238,7 +238,7 @@ const BuyPage = () => {
             </div>
             <div className={s.right_box}>
               <Droppable>
-                {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content(1)}
+                {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content()}
 
                 {Object.keys(boxOptionMapping).map((key) => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return;

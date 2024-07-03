@@ -32,7 +32,6 @@ const Slider = ({ cb, defaultValue, field, max = 100, min = 0 }: TSlider) => {
     <div className={s.dropdown}>
       <div className={s.dropdown_inner} onClick={() => setIsOpen(!isOpen)}>
         <p className={s.dropdown_text}>{defaultValue}</p>
-
         <Image
           className={s.dropdown_icon}
           src="/landingV3/svg/arrow-b.svg"

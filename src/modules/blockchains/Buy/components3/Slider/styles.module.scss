@@ -12,6 +12,16 @@
     width: 100%;
     position: relative;
     padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: space-between;
+
+    &_content {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
   }
   &_text {
     color: #fff;
@@ -20,12 +30,6 @@
     line-height: 28px; /* 155.556% */
     font-family: var(--font-JetBrainsMono);
     letter-spacing: -0.18px;
-  }
-  &_icon {
-    position: absolute;
-    top: 50%;
-    right: 8px;
-    transform: translateY(-50%);
   }
 
   &_list {

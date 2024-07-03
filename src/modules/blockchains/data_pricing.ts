@@ -4,7 +4,7 @@ import { WITHDRAWAL_PERIOD_BOOTSTRAP } from '../all-l3-monitor/Buy/Buy.constanst
 
 export const DATA_PRICING = {
     network: {
-        title: '2. Network',
+        title: '1. Network',
         sub_title: 'Network',
         options: [
             {
@@ -21,7 +21,7 @@ export const DATA_PRICING = {
     },
 
     availability: {
-        title: '3. Data Availability',
+        title: '2. Data Availability',
         sub_title: 'Data Availability',
         options: [
             {
@@ -32,38 +32,38 @@ export const DATA_PRICING = {
             },
             {
                 label: 'Celestia',
-                id: 1,
+                id: 2,
                 value: DALayerEnum.DALayer_Celestia,
                 icon: '/landingV3/images/pricing/2.png',
             },
             {
                 label: 'NearDA',
-                id: 1,
+                id: 3,
                 value: DALayerEnum.DALayer_NearDa,
                 icon: '/landingV3/images/pricing/3.png',
             },
             {
                 label: 'Eigen',
-                id: 1,
+                id: 4,
                 value: DALayerEnum.DALayer_Eigen,
                 icon: '/landingV3/images/pricing/4.png',
             },
             {
                 label: 'Filecoin',
-                id: 1,
+                id: 5,
                 value: DALayerEnum.DALayer_FILECOIN,
                 icon: '/landingV3/images/pricing/5.png',
             },
             {
                 label: 'Avail',
-                id: 1,
+                id: 6,
                 value: DALayerEnum.DALayer_AVAIL,
                 icon: '/landingV3/images/pricing/6.png',
             },
         ],
     },
     gas: {
-        title: '4. Block gas limit',
+        title: '3. Block gas limit',
         sub_title: 'Block gas limit',
         max: GAS_LITMIT,
     },

@@ -29,7 +29,8 @@
 }
 
 .heading {
-  font-family: 'Bahnschrift';
+  font-family: var(--font-JetBrainsMono);
+
   font-size: 20px;
   font-weight: 500;
   line-height: calc(30 / 20);
@@ -53,7 +54,8 @@
       justify-content: space-between;
       align-items: center;
       p {
-        font-family: 'Bahnschrift';
+        font-family: var(--font-JetBrainsMono);
+
         font-size: 20px;
         font-weight: 500;
         line-height: 30 / 20;
@@ -66,7 +68,8 @@
         font-size: 18px;
         font-weight: 500;
         cursor: pointer;
-        font-family: 'Bahnschrift';
+        font-family: var(--font-JetBrainsMono);
+
         line-height: calc(28 / 18);
         &:hover {
           color: rgb(26, 109, 232);
@@ -87,11 +90,13 @@
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
   border-radius: 12px;
   padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .innerRight {
-  width: 100%;
-  height: inherit;
+  transform: scale(1.2);
 }
 
 .input {
@@ -100,7 +105,7 @@
   width: 100%;
   padding: 0 12px;
   border-radius: 17px;
-  font-family: 'Bahnschrift';
+  font-family: var(--font-JetBrainsMono);
   font-size: 18px;
   &::placeholder {
     color: #0e0e0e;
