@@ -116,12 +116,14 @@ const BuyPage = () => {
         // />
         <Lego
           background={'brown'}
-          label={'Network'}
+          label={DATA_PRICING.network.title}
           zIndex={9}
           isFrist={true}
           // isActive
           options={DATA_PRICING.network.options}
           isLast={false}
+          cb={setFormField}
+          field={ORDER_FIELD.NETWORK}
         />
       ),
     },
@@ -149,6 +151,8 @@ const BuyPage = () => {
           zIndex={8}
           // isActive
           options={DATA_PRICING.availability.options}
+          field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+          cb={setFormField}
           isLast={false}
         />
       ),

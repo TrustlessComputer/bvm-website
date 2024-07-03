@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 import Dropdown from '../Dropdown';
 import { TColorLego } from '../BoxOption';
+import { FormOrder } from '../../stores';
 
 export type TOptions = {
   label: string;
@@ -10,7 +11,6 @@ export type TOptions = {
   value: string;
   icon?: string;
 }[];
-
 type TLegoItem = {
   label: string;
   background: TColorLego;
@@ -19,6 +19,12 @@ type TLegoItem = {
   isLast?: boolean;
   isActive?: boolean;
   zIndex: number;
+  field: keyof FormOrder;
+  cb: (
+    feild: keyof FormOrder,
+    value: string | number,
+    dragged?: boolean | undefined,
+  ) => void;
 };
 export default function Lego({
   background,
@@ -28,16 +34,20 @@ export default function Lego({
   isLast,
   isActive,
   zIndex,
-}: TLegoItem) {
+  field,
+  cb,
+  ...props
+}: TLegoItem & HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={`${s.wrapper} ${s[`wrapper__${background}`]}`}
       style={{ zIndex: zIndex }}
+      {...props}
     >
       <div className={s.inner}>
         <p className={s.label}>{label}</p>
         <div className={s.options}>
-          <Dropdown options={options} />
+          <Dropdown options={options} cb={cb} field={field} />
         </div>
       </div>
 

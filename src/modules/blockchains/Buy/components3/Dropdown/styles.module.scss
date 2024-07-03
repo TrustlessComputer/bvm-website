@@ -4,14 +4,24 @@
   width: max-content;
   font-size: 18px;
   color: #fff;
-  min-width: 120px;
+  min-width: 100px;
   height: 100%;
   border-radius: 20px;
+  cursor: pointer;
 
   &_inner {
     width: 100%;
     position: relative;
     padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    &_content {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
   }
   &_text {
     color: #fff;
@@ -22,10 +32,6 @@
     letter-spacing: -0.18px;
   }
   &_icon {
-    position: absolute;
-    top: 50%;
-    right: 8px;
-    transform: translateY(-50%);
   }
 
   &_list {
@@ -43,6 +49,7 @@
     &_inner {
       display: flex;
       flex-direction: column;
+      gap: 8px;
     }
 
     &__active {
@@ -58,6 +65,15 @@
     transition: background-color 0.3s var(--easeOutQuart);
     border-radius: 4px;
     padding: 8px 4px;
+    gap: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &_icon {
+      width: 24px;
+      height: 24px;
+    }
 
     &__active {
       background-color: var(--background);
