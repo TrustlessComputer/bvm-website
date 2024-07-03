@@ -91,7 +91,7 @@ const BuyPage = () => {
         <Lego
           background={'red'}
           label={'Name'}
-          zIndex={5}
+          zIndex={10}
           isFrist={true}
           // isActive
           options={DATA_PRICING.network.options}
@@ -117,7 +117,7 @@ const BuyPage = () => {
         <Lego
           background={'brown'}
           label={'Network'}
-          zIndex={4}
+          zIndex={9}
           isFrist={true}
           // isActive
           options={DATA_PRICING.network.options}
@@ -146,7 +146,7 @@ const BuyPage = () => {
           background={'violet'}
           label={DATA_PRICING.availability.title}
           isFrist={false}
-          zIndex={3}
+          zIndex={8}
           // isActive
           options={DATA_PRICING.availability.options}
           isLast={false}
@@ -173,7 +173,7 @@ const BuyPage = () => {
           isFrist={false}
           // isActive
           options={DATA_PRICING.gas.options}
-          zIndex={2}
+          zIndex={7}
           isLast={false}
         />
       ),
@@ -196,7 +196,7 @@ const BuyPage = () => {
           background={'pink'}
           label={DATA_PRICING.withdrawal.title}
           isFrist={false}
-          zIndex={1}
+          zIndex={6}
           // isActive
           options={DATA_PRICING.withdrawal.options}
           isLast={true}
