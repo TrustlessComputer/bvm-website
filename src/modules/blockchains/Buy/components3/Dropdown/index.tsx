@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import { FormOrder } from '../../stores';
@@ -11,25 +11,32 @@ type TDropdown = {
     value: string;
     icon?: string;
   }[];
+  defaultValue: string;
   cb: (feild: keyof FormOrder, value: string) => void;
 };
-export default function Dropdown({ options, cb, field }: TDropdown) {
+export default function Dropdown({
+  options,
+  cb,
+  field,
+  defaultValue,
+}: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [value, setValue] = useState<string>(options[0].label);
 
   const handleSelectField = (value: string) => {
-    console.log('value ', value);
+    console.log('value', value);
     cb(field, value);
     setIsOpen(false);
-    setValue(value);
   };
-  const icon = options.find((item) => item.label === value)?.icon;
+  console.log('defaultValue', defaultValue);
+  const icon = options.find((item) => item.value === defaultValue)?.icon;
   return (
     <div className={s.dropdown} onClick={() => setIsOpen(!isOpen)}>
       <div className={s.dropdown_inner}>
         <div className={s.dropdown_inner_content}>
           {icon && <Image src={icon} alt="icon" width={24} height={24} />}
-          <p className={s.dropdown_text}>{value}</p>
+          <p className={s.dropdown_text}>
+            {options.find((item) => item.value === defaultValue)?.label}
+          </p>
         </div>
 
         <Image
@@ -50,10 +57,10 @@ export default function Dropdown({ options, cb, field }: TDropdown) {
               <li
                 key={index}
                 className={`${s.dropdown_item} ${
-                  value === option.label && s.dropdown_item__active
+                  defaultValue === option.value && s.dropdown_item__active
                 }`}
                 onClick={() => {
-                  handleSelectField(option.label);
+                  handleSelectField(option.value);
                 }}
               >
                 {option.icon && (

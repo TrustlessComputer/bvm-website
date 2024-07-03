@@ -6,6 +6,7 @@
   border: 1px solid rgba(217, 217, 217, 1);
   position: relative;
   padding: 53px 48px;
+  user-select: none;
   &.activeBox {
     border-color: #74d579;
     background-color: #ebffec;

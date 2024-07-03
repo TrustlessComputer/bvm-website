@@ -1,3 +1,5 @@
+import { DALayerEnum, NetworkEnum } from './Buy/Buy.constanst';
+
 export const DATA_PRICING = {
     network: {
         title: '2. Network',
@@ -6,12 +8,12 @@ export const DATA_PRICING = {
             {
                 label: 'Mainnet',
                 id: 1,
-                value: '100000',
+                value: NetworkEnum.Network_Mainnet,
             },
             {
                 label: 'Testnet',
-                id: 1,
-                value: '100000',
+                id: 2,
+                value: NetworkEnum.Network_Testnet,
             },
         ],
     },
@@ -22,43 +24,43 @@ export const DATA_PRICING = {
             {
                 label: 'Polygon',
                 id: 1,
-                value: 'zzzz',
+                value: DALayerEnum.DALayer_PLG,
                 icon: '/landingV3/images/pricing/1.png',
             },
             {
                 label: 'Celestia',
                 id: 1,
-                value: 'zzzz',
+                value: DALayerEnum.DALayer_Celestia,
                 icon: '/landingV3/images/pricing/2.png',
             },
             {
                 label: 'NearDA',
                 id: 1,
-                value: 'zzzz',
+                value: DALayerEnum.DALayer_NearDa,
                 icon: '/landingV3/images/pricing/3.png',
             },
             {
                 label: 'Eigen',
                 id: 1,
-                value: 'zzzz',
+                value: DALayerEnum.DALayer_Eigen,
                 icon: '/landingV3/images/pricing/4.png',
             },
             {
                 label: 'Filecoin',
                 id: 1,
-                value: 'zzzz',
+                value: DALayerEnum.DALayer_FILECOIN,
                 icon: '/landingV3/images/pricing/5.png',
             },
             {
                 label: 'Avail',
                 id: 1,
-                value: 'zzzz',
+                value: DALayerEnum.DALayer_AVAIL,
                 icon: '/landingV3/images/pricing/6.png',
             },
         ],
     },
     gas: {
-        title: '3. Block gas limit',
+        title: '4. Block gas limit',
         sub_title: 'Block gas limit',
         options: [
             {

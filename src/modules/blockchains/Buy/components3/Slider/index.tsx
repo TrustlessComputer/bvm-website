@@ -1,12 +1,23 @@
 import s from './styles.module.scss';
 import Image from 'next/image';
 import React, { useState } from 'react';
+import { FormOrder } from '../../stores';
 
-
-const Slider = () => {
+const Slider = ({
+  cb,
+  field,
+}: {
+  cb: (field: keyof FormOrder, value: string) => void;
+  field: keyof FormOrder;
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [value, setValue] = useState<string>(0);
+  const [value, setValue] = useState<string>('0');
 
+  const hanldeChangeData = (value: string) => {
+    console.log('value', value);
+    cb(field, value);
+    setValue(value);
+  };
   return (
     <div className={s.dropdown} onClick={() => setIsOpen(!isOpen)}>
       <div className={s.dropdown_inner}>
@@ -26,7 +37,13 @@ const Slider = () => {
       >
         <div className={s.dropdown_wrap}>
           <p className={s.text}>{value}</p>
-          <input type="range" value={value} min="1" max="100" onChange={(e) => setValue(e.target.value)} />
+          <input
+            type="range"
+            value={value}
+            min="1"
+            max="100"
+            onChange={(e) => hanldeChangeData(e.target.value)}
+          />
         </div>
       </div>
     </div>

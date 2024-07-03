@@ -17,6 +17,7 @@ import {
 import { useRouter } from 'next/navigation';
 import Lego from './components3/Lego';
 import { DATA_PRICING } from '../data_pricing';
+import Dropdown from './components3/Dropdown';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -65,157 +66,138 @@ const BuyPage = () => {
   const router = useRouter();
   const { field, setFormField } = useFormOrderStore((state) => state);
 
-  const chainNameRef = React.useRef<HTMLInputElement | null>(null);
-  const networkRef = React.useRef<HTMLInputElement | null>(null);
-  const dataAvaibilityChainRef = React.useRef<HTMLInputElement | null>(null);
-  const gasLimitRef = React.useRef<HTMLInputElement | null>(null);
-  const blockTimeRef = React.useRef<HTMLInputElement | null>(null);
-
   console.log('[BuyPage] field ::', field);
 
   const boxOptionMapping = {
     [ORDER_FIELD.CHAIN_NAME]: {
-      ref: chainNameRef,
       label: '1. Name',
+
       content: () => (
-        // <input
-        //   type="text"
-        //   placeholder="Enter chain name"
-        //   ref={chainNameRef}
-        //   className={s.input}
-        //   value={field[ORDER_FIELD.CHAIN_NAME].value}
-        //   onChange={(e) => {
-        //     setFormField(ORDER_FIELD.CHAIN_NAME, e.target.value);
-        //   }}
-        // />
         <Lego
           background={'red'}
-          label={'Name'}
+          title="1. Name"
+          label="1. Name"
           zIndex={10}
           isFrist={true}
           // isActive
-          options={DATA_PRICING.network.options}
           isLast={false}
-        />
+        >
+          <input
+            type="text"
+            placeholder="Enter chain name"
+            className={s.input}
+            value={field[ORDER_FIELD.CHAIN_NAME].value}
+            onChange={(e) => {
+              setFormField(ORDER_FIELD.CHAIN_NAME, e.target.value as any);
+            }}
+          />
+        </Lego>
       ),
     },
     [ORDER_FIELD.NETWORK]: {
-      ref: networkRef,
       label: '2. Network',
       content: () => (
-        // <input
-        //   type="text"
-        //   id="network"
-        //   placeholder="Enter network"
-        //   ref={networkRef}
-        //   className={s.input}
-        //   value={field[ORDER_FIELD.NETWORK].value}
-        //   onChange={(e) => {
-        //     setFormField(ORDER_FIELD.NETWORK, e.target.value as any);
-        //   }}
-        // />
         <Lego
           background={'brown'}
           label={DATA_PRICING.network.title}
           zIndex={9}
-          isFrist={true}
-          // isActive
-          options={DATA_PRICING.network.options}
+          isFrist={false}
           isLast={false}
           cb={setFormField}
           field={ORDER_FIELD.NETWORK}
-        />
+        >
+          <Dropdown
+            cb={setFormField}
+            defaultValue={field[ORDER_FIELD.NETWORK].value}
+            field={ORDER_FIELD.NETWORK}
+            options={DATA_PRICING.network.options}
+          />
+        </Lego>
       ),
     },
     [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
-      ref: dataAvaibilityChainRef,
       label: '3. Data Availability',
-      content: () => (
-        // <input
-        //   type="text"
-        //   placeholder="Enter data availability chain"
-        //   ref={dataAvaibilityChainRef}
-        //   className={s.input}
-        //   value={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
-        //   onChange={(e) => {
-        //     setFormField(
-        //       ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
-        //       e.target.value as any,
-        //     );
-        //   }}
-        // />
+      content: (key) => (
         <Lego
+          key={key}
           background={'violet'}
           label={DATA_PRICING.availability.title}
           isFrist={false}
           zIndex={8}
           // isActive
-          options={DATA_PRICING.availability.options}
-          field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
-          cb={setFormField}
           isLast={false}
-        />
+        >
+          <Dropdown
+            cb={setFormField}
+            defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
+            field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+            options={DATA_PRICING.availability.options}
+          />
+        </Lego>
       ),
     },
-    [ORDER_FIELD.GAS_LIMIT]: {
-      ref: gasLimitRef,
-      label: '4. Block gas limit',
-      content: () => (
-        // <input
-        //   type="text"
-        //   placeholder="Enter block gas limit"
-        //   ref={gasLimitRef}
-        //   className={s.input}
-        //   value={field[ORDER_FIELD.GAS_LIMIT].value}
-        //   onChange={(e) => {
-        //     setFormField(ORDER_FIELD.GAS_LIMIT, e.target.value as any);
-        //   }}
-        // />
-        <Lego
-          background={'green'}
-          label={DATA_PRICING.gas.title}
-          isFrist={false}
-          // isActive
-          options={DATA_PRICING.gas.options}
-          zIndex={7}
-          isLast={false}
-        />
-      ),
-    },
-    [ORDER_FIELD.BLOCK_TIME]: {
-      ref: blockTimeRef,
-      label: '5. Withdrawal time',
-      content: () => (
-        // <input
-        //   type="text"
-        //   placeholder="Enter withdrawal time"
-        //   ref={blockTimeRef}
-        //   className={s.input}
-        //   value={field[ORDER_FIELD.BLOCK_TIME].value}
-        //   onChange={(e) => {
-        //     setFormField(ORDER_FIELD.BLOCK_TIME, e.target.value as any);
-        //   }}
-        // />
-        <Lego
-          background={'pink'}
-          label={DATA_PRICING.withdrawal.title}
-          isFrist={false}
-          zIndex={6}
-          // isActive
-          options={DATA_PRICING.withdrawal.options}
-          isLast={true}
-        />
-      ),
-    },
+    // [ORDER_FIELD.GAS_LIMIT]: {
+    //   ref: gasLimitRef,
+    //   label: '4. Block gas limit',
+    //   content: (key) => (
+    // <input
+    //   type="text"
+    //   placeholder="Enter block gas limit"
+    //   ref={gasLimitRef}
+    //   className={s.input}
+    //   value={field[ORDER_FIELD.GAS_LIMIT].value}
+    //   onChange={(e) => {
+    //     setFormField(ORDER_FIELD.GAS_LIMIT, e.target.value as any);
+    //   }}
+    // />
+    // <Lego
+    //   key={key}
+    //   background={'green'}
+    //   label={DATA_PRICING.gas.title}
+    //   isFrist={false}
+    //   type="slide"
+    //   cb={setFormField}
+    //   field={ORDER_FIELD.GAS_LIMIT}
+    //   // isActive
+    //   options={DATA_PRICING.gas.options}
+    //   zIndex={7}
+    //   isLast={false}
+    // />
+    //   ),
+    // },
+    // [ORDER_FIELD.BLOCK_TIME]: {
+    //   ref: blockTimeRef,
+    //   label: '5. Withdrawal time',
+    //   content: () => (
+    // <input
+    //   type="text"
+    //   placeholder="Enter withdrawal time"
+    //   ref={blockTimeRef}
+    //   className={s.input}
+    //   value={field[ORDER_FIELD.BLOCK_TIME].value}
+    //   onChange={(e) => {
+    //     setFormField(ORDER_FIELD.BLOCK_TIME, e.target.value as any);
+    //   }}
+    // />
+    // <Lego
+    //   background={'pink'}
+    //   label={DATA_PRICING.withdrawal.title}
+    //   isFrist={false}
+    //   zIndex={6}
+    //   type="slide"
+    //   cb={setFormField}
+    //   field={ORDER_FIELD.BLOCK_TIME}
+    //   // isActive
+    //   options={DATA_PRICING.withdrawal.options}
+    //   isLast={true}
+    // />
+    // ),
+    // },
   };
 
   function handleDragEnd(event: any) {
     if (event.over && event.over.id === 'droppable') {
-      const valueInput =
-        boxOptionMapping[
-          event.active.id as (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD]
-        ].ref.current?.value;
-
+      const valueInput = field[event.active.id as Override].value;
       setFormField(event.active.id, valueInput as any, true);
     }
   }
@@ -231,14 +213,6 @@ const BuyPage = () => {
           <div className={s.left}>
             <p className={s.heading}>Customize your Blockchain</p>
             <div className={s.left_box}>
-              <BoxOption
-                label={boxOptionMapping[ORDER_FIELD.CHAIN_NAME].label}
-                id={ORDER_FIELD.CHAIN_NAME}
-                active={field[ORDER_FIELD.CHAIN_NAME].dragged}
-              >
-                {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content()}
-              </BoxOption>
-
               {Object.keys(boxOptionMapping).map((key) => {
                 if (key === ORDER_FIELD.CHAIN_NAME) return;
 
@@ -252,7 +226,7 @@ const BuyPage = () => {
                     id={key}
                     active={isDragged}
                   >
-                    {content()}
+                    {content(label)}
                   </BoxOption>
                 );
               })}
@@ -277,11 +251,10 @@ const BuyPage = () => {
             </div>
             <div className={s.right_box}>
               <Droppable>
-                {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content()}
+                {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content(1)}
 
                 {Object.keys(boxOptionMapping).map((key) => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return;
-
                   const { content } = boxOptionMapping[key as Override];
                   const isDragged = field[key as Override].dragged;
 

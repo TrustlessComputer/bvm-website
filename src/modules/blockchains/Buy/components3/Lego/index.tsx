@@ -3,7 +3,7 @@ import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 import Dropdown from '../Dropdown';
 import { TColorLego } from '../BoxOption';
-import { FormOrder } from '../../stores';
+import { FormOrder, useFormOrderStore } from '../../stores';
 import Slider from '@/modules/blockchains/Buy/components3/Slider';
 
 export type TOptions = {
@@ -15,30 +15,33 @@ export type TOptions = {
 type TLegoItem = {
   label: string;
   background: TColorLego;
-  options: TOptions;
   isFrist?: boolean;
   isLast?: boolean;
   isActive?: boolean;
   zIndex: number;
-  field: keyof FormOrder;
-  cb: (
-    feild: keyof FormOrder,
-    value: string | number,
-    dragged?: boolean | undefined,
-  ) => void;
 };
 export default function Lego({
   background,
-  options,
   label,
   isFrist,
   isLast,
   isActive,
   zIndex,
-  field,
-  cb,
+  children,
   ...props
 }: TLegoItem & HTMLAttributes<HTMLDivElement>) {
+  // const { field } = useFormOrderStore();
+  // const renderOptions = () => {
+  //   switch (type) {
+  //     case 'dropdown':
+  //       return <Dropdown cb={cb} field={field} options={options} />;
+  //     case 'input':
+  //       return <input />;
+  //     case 'slide':
+  //       return <Slider cb={cb} field={field} />;
+  //   }
+  // };
+  // const valueLeg o =
   return (
     <div
       className={`${s.wrapper} ${s[`wrapper__${background}`]}`}
@@ -48,8 +51,13 @@ export default function Lego({
       <div className={s.inner}>
         <p className={s.label}>{label}</p>
         <div className={s.options}>
-          <Dropdown options={options} />
-          {/*<Slider />*/}
+          {children}
+          {/* {renderOptions()} */}
+          {/* {!type = ? (
+            <Dropdown cb={cb} field={field} options={options} />
+          ) : (
+            <Slider />
+          )} */}
         </div>
       </div>
 
