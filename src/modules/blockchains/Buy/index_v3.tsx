@@ -105,8 +105,6 @@ const BuyPage = () => {
           isFrist={false}
           isLast={false}
           isActive={field[ORDER_FIELD.NETWORK].dragged}
-          cb={setFormField}
-          field={ORDER_FIELD.NETWORK}
         >
           <Dropdown
             cb={setFormField}
@@ -165,10 +163,7 @@ const BuyPage = () => {
           label={DATA_PRICING.withdrawal.sub_title}
           isFrist={false}
           zIndex={6}
-          cb={setFormField}
-          field={ORDER_FIELD.BLOCK_TIME}
           // isActive
-          options={DATA_PRICING.withdrawal.options}
           isLast={true}
         >
           <Slider
@@ -176,6 +171,7 @@ const BuyPage = () => {
             field={ORDER_FIELD.BLOCK_TIME}
             defaultValue={field[ORDER_FIELD.BLOCK_TIME].value}
             max={DATA_PRICING.withdrawal.max}
+            subfix="hours"
           />
         </Lego>
       ),
@@ -213,7 +209,7 @@ const BuyPage = () => {
                     id={key}
                     active={isDragged}
                   >
-                    {content(label)}
+                    {content()}
                   </BoxOption>
                 );
               })}

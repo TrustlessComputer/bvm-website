@@ -96,7 +96,12 @@
 }
 
 .innerRight {
+  width: 50%;
+  height: 50%;
   transform: scale(1.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .input {

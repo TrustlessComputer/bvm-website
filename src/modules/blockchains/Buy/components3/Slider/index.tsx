@@ -1,24 +1,33 @@
-import s from './styles.module.scss';
-import Image from 'next/image';
-import React, { useRef, useState } from 'react';
-import { useOnClickOutside } from '@hooks/useOnClickOutside';
+import { formatCurrencyV2 } from '@/utils/format';
 import {
-  Slider as SliderReact,
   SliderFilledTrack,
+  Slider as SliderReact,
   SliderThumb,
   SliderTrack,
 } from '@chakra-ui/react';
+import { useOnClickOutside } from '@hooks/useOnClickOutside';
+import Image from 'next/image';
+import { useRef, useState } from 'react';
 import { FormOrder } from '../../stores';
+import s from './styles.module.scss';
 
 type TSlider = {
-  defaultValue: string;
+  defaultValue: string | number;
   field: keyof FormOrder;
   cb: (feild: keyof FormOrder, value: string) => void;
   max?: number;
   min?: number;
+  subfix?: string;
 };
 
-const Slider = ({ cb, defaultValue, field, max = 100, min = 0 }: TSlider) => {
+const Slider = ({
+  cb,
+  defaultValue,
+  field,
+  max = 100,
+  subfix,
+  min = 0,
+}: TSlider) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -31,7 +40,12 @@ const Slider = ({ cb, defaultValue, field, max = 100, min = 0 }: TSlider) => {
   return (
     <div className={s.dropdown}>
       <div className={s.dropdown_inner} onClick={() => setIsOpen(!isOpen)}>
-        <p className={s.dropdown_text}>{defaultValue}</p>
+        <p className={s.dropdown_text}>
+          {` ${formatCurrencyV2({
+            amount: defaultValue.toString(),
+            decimals: 0,
+          })} ${subfix ?? ''}`}{' '}
+        </p>
         <Image
           className={s.dropdown_icon}
           src="/landingV3/svg/arrow-b.svg"
@@ -45,7 +59,12 @@ const Slider = ({ cb, defaultValue, field, max = 100, min = 0 }: TSlider) => {
         className={`${s.dropdown_list} ${isOpen && s.dropdown_list__active}`}
       >
         <div className={s.dropdown_wrap} ref={ref}>
-          <p className={s.text}>{defaultValue}</p>
+          <p className={s.text}>
+            {`${formatCurrencyV2({
+              amount: defaultValue.toString(),
+              decimals: 0,
+            })} ${subfix ?? ''}`}{' '}
+          </p>
           {/*<input style={{accentColor: '#fff'}} type="range" value={value}  min="1" max="100" onInput={(e) => setValue(e.currentTarget.value)} />*/}
           <SliderReact
             // isDisabled={

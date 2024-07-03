@@ -3,17 +3,18 @@ import s from './styles.module.scss';
 import Image from 'next/image';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
 import { FormOrder } from '../../stores';
+import { DALayerEnum, NetworkEnum } from '../../Buy.constanst';
 
 type TDropdown = {
   field: keyof FormOrder;
   options: {
     label: string;
     id: number;
-    value: string;
+    value: DALayerEnum | NetworkEnum;
     icon?: string;
   }[];
-  defaultValue: string;
-  cb: (feild: keyof FormOrder, value: string) => void;
+  defaultValue: DALayerEnum | NetworkEnum;
+  cb: (feild: keyof FormOrder, value: DALayerEnum | NetworkEnum) => void;
 };
 export default function Dropdown({
   options,
@@ -25,7 +26,7 @@ export default function Dropdown({
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, () => setIsOpen(false));
 
-  const handleSelectField = (value: string) => {
+  const handleSelectField = (value: DALayerEnum | NetworkEnum) => {
     console.log('value', value);
     cb(field, value);
     setIsOpen(false);
