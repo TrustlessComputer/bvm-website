@@ -20,6 +20,7 @@ export const DATA_PRICING = {
 
     availability: {
         title: '3. Data Availability',
+        sub_title: 'Data Availability',
         options: [
             {
                 label: 'Polygon',
