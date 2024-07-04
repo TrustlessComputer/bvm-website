@@ -94,10 +94,8 @@ const LaunchButton = () => {
         console.log('[LaunchButton] CustomizeParams ->  :: ', params);
 
         const result = await registerOrderHandler(params);
-
         if (result) {
           isSuccess = true;
-          router.push('/rollups');
         }
       } catch (error) {
         console.log('ERROR: ', error);
