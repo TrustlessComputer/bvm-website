@@ -2,9 +2,13 @@
 
 import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import addChain from '@/utils/addChain';
-import { Flex, Image, Text, Button } from '@chakra-ui/react';
+import { Flex, Image, Text, Button, SimpleGrid } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import { EditIcon } from '@chakra-ui/icons';
+import DappInstalledItem from './DappInstalledItem';
+import { DAPP_INSTALLED_LIST } from './constant';
+import { IDappItem } from './type';
+import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
 
 type Props = {
   item: OrderItem;
@@ -15,7 +19,7 @@ type Props = {
   cancelOrderOnClick?: () => void;
 };
 
-const BottomInfor = (props: Props) => {
+const BottomView = (props: Props) => {
   const {
     item,
     isOwner,
@@ -24,6 +28,9 @@ const BottomInfor = (props: Props) => {
     bridgeOnClick,
     editConfigBridgeOnClick,
   } = props;
+
+  const { onOpenDappList } = useDashboard();
+
   const [adding, setAdding] = useState(false);
 
   const isAddToMetamask = useMemo(() => {
@@ -133,37 +140,42 @@ const BottomInfor = (props: Props) => {
     );
   };
 
+  const dAppOnClick = (item: IDappItem) => {
+    console.log('DAPP ITEM: ', item);
+    if (item.isInstallNewDapps) {
+      onOpenDappList && onOpenDappList();
+    }
+  };
+
   return (
-    <Flex flexDir={'column'} gap={'20px'}>
-      <Flex flexDir={'row'} gap={'10px'} justify="flex-end">
-        {/* {isOwner && item.status === OrderStatus.WaitingPayment && (
-          <Button
-            borderRadius={'15px'}
-            minH={'50px'}
-            minW={'120px'}
-            fontWeight={600}
-            // color={'#17066c'}
-            // bgColor={'#fff'}
-            borderWidth={'1px'}
-            // borderColor={'#17066c'}
-            bgColor={'#FA4E0E'}
-            color={'#fff'}
-            _hover={{
-              cursor: 'pointer',
-              opacity: 0.6,
-            }}
-            onClick={(event) => {
-              if (event.stopPropagation) event.stopPropagation();
-              cancelOrderOnClick && cancelOrderOnClick();
-            }}
-          >
-            Cancel
-          </Button>
-        )} */}
+    <Flex flexDir={'column'} gap={'20px'} mt="20px">
+      <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
+        <Text
+          fontSize={['14px', '15px', '16px']}
+          fontWeight={400}
+          opacity={0.7}
+          color={'#000'}
+        >
+          Installed Dapps
+        </Text>
         {renderAddToMetamask()}
       </Flex>
+
+      <SimpleGrid columns={[1, 3]} spacing={'16px'}>
+        {DAPP_INSTALLED_LIST.map((item, index) => {
+          return (
+            <DappInstalledItem
+              key={`${index}-${item.name}`}
+              item={item}
+              onClick={() => {
+                dAppOnClick(item);
+              }}
+            />
+          );
+        })}
+      </SimpleGrid>
     </Flex>
   );
 };
 
-export default BottomInfor;
+export default BottomView;

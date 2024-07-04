@@ -209,6 +209,15 @@ const packageDetailByPackageEnumSelector = createSelector(
   },
 );
 
+// Dapp Feature Selector
+
+const dappDetailSelectedSelector = createSelector(
+  getL2ServicesStateSelector,
+  (state) => {
+    return state.dappSelectedNeedInstall;
+  },
+);
+
 export {
   getL2ServicesStateSelector,
   orderListSelector,
@@ -227,4 +236,7 @@ export {
   //Monitor
   ZKOrdersSelector,
   OPOrdersSelector,
+
+  //Dapp
+  dappDetailSelectedSelector,
 };

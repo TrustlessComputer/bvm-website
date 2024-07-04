@@ -8,13 +8,16 @@ import enhanceTopupModal from './enhance.TopupModal';
 import enhanceOrderDetailModal from './enhance.OrderDetailModal';
 import enhanceCanceOrderModal from './enhance.CanceOrderModal';
 import enhanceUpdateOrderModal from './enhance.UpdateOrderModal';
-import WaittingSettingUpModal from './enhance.WaittingSettingUpModal';
+import enhanceWaittingSettingUpModal from './enhance.WaittingSettingUpModal';
+import enhanceDappListModal from './enhance.DappListModal';
+import enhanceInstallDappDetailModal from './enhance.InstallDappDetailModal';
+
 import { DashboardContext } from '../providers/DashboardProvider';
 
 const enhance =
   (WrappedComponent: DashboardWrappedComponent) => (props: DashboardProps) => {
     return (
-      <DashboardContext.Provider value={props}>
+      <DashboardContext.Provider value={{ ...props }}>
         <WrappedComponent {...props} />
       </DashboardContext.Provider>
     );
@@ -28,6 +31,8 @@ export default compose<DashboardWrappedComponent>(
   enhanceTopupModal,
   enhanceBillingModal,
   enhanceOrderDetailModal,
-  WaittingSettingUpModal,
+  enhanceWaittingSettingUpModal,
+  enhanceInstallDappDetailModal,
+  enhanceDappListModal,
   enhance,
 );

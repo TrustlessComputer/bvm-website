@@ -17,6 +17,7 @@ import {
   MonitorViewPage,
 } from './types';
 import uniqBy from 'lodash/uniqBy';
+import { IDappDetail } from '@/modules/blockchains/components/DappListModal/constants';
 
 export const initialState: L2ServicesState = {
   isMyOrderListFetched: false,
@@ -95,6 +96,9 @@ const slice = createSlice({
       state.orderSelected = undefined;
       state.accountInforL2Service = undefined;
       state.isL2ServiceLogged = false;
+    },
+    setDappNeedInstallSelected(state, action: PayloadAction<IDappDetail>) {
+      state.dappSelectedNeedInstall = action.payload;
     },
   },
 
@@ -195,5 +199,6 @@ export const {
   updateOrderByNewOrder,
   setL2ServiceLogout,
   setMonitorViewPage,
+  setDappNeedInstallSelected,
 } = slice.actions;
 export default slice.reducer;

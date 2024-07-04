@@ -9,7 +9,6 @@ import { useDisclosure } from '@chakra-ui/react';
 import toast from 'react-hot-toast';
 import { DashboardProps, DashboardWrappedComponent } from '../Dashboard.types';
 import CancelOrderModal from '../components/CancelOrderModal';
-import { routeros } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { useRouter } from 'next/navigation';
 
 const enhanceCancelOrderModal =
