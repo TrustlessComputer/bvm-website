@@ -58,7 +58,9 @@ export const PRICING_PACKGE_DATA = {
   [PRICING_PACKGE.Hacker]: {
     maxGasLimit: 1000000000,
     minGasLimit: 100000000,
+    defaultGasLimit: 1000000000,
     stepGasLimit: 10000000,
+    defaultWithdrawalPeriod: 6,
     minWithdrawalPeriod: 6,
     maxWithdrawalPeriod: 24,
     prover: 0,
