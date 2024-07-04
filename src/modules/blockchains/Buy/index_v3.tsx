@@ -219,74 +219,77 @@ const BuyPage = () => {
   );
 
   return (
-    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      <div className={s.wrapper}>
-        <div className={s.inner}>
-          <div className={s.left}>
-            <p className={s.heading}>Customize your Blockchain</p>
-            <div className={s.left_box}>
-              {Object.keys(boxOptionMapping).map((key) => {
-                if (key === ORDER_FIELD.CHAIN_NAME) return;
-
-                const { label, content, descriptionDetail } = boxOptionMapping[key as Override];
-                const isDragged = field[key as Override].dragged;
-
-                return (
-                  <BoxOption
-                    key={key}
-                    label={label}
-                    id={key}
-                    active={isDragged}
-                    descriptionDetail={descriptionDetail}
-                  >
-                    {content()}
-                  </BoxOption>
-                );
-              })}
-            </div>
-          </div>
-          <div className={s.right}>
-            <div className={s.right_top}>
-              <p className={s.heading}>Your tier</p>
-              <div className={s.right_top_box}>
-                <p>
-                  <span>Hacker</span> $99 per rollup/month
-                </p>
-                <div
-                  className={s.right_top_box_btn}
-                  onClick={() => {
-                    router.push('/pricing');
-                  }}
-                >
-                  <p>Switch</p>
-                </div>
-              </div>
-            </div>
-            <div className={s.right_box}>
-              <Droppable>
-                {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content()}
-
+    <div className={s.container}>
+      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <div className={s.wrapper}>
+          <div className={s.inner}>
+            <div className={s.left}>
+              <p className={s.heading}>Customize your Blockchain</p>
+              <div className={s.left_box}>
                 {Object.keys(boxOptionMapping).map((key) => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return;
-                  const { content } = boxOptionMapping[key as Override];
+
+                  const { label, content, descriptionDetail } = boxOptionMapping[key as Override];
                   const isDragged = field[key as Override].dragged;
 
-                  if (!isDragged) return null;
-
-                  return content();
+                  return (
+                    <BoxOption
+                      key={key}
+                      label={label}
+                      id={key}
+                      active={isDragged}
+                      descriptionDetail={descriptionDetail}
+                    >
+                      {content()}
+                    </BoxOption>
+                  );
                 })}
-              </Droppable>
-              <div className={`${s.launch} ${s.active}`}>
-                <p>Launch</p>
-                <div className={`${s.icon}`}>
-                  <ImagePlaceholder src={'/launch.png'} alt={'launch'} width={48} height={48}/>
+              </div>
+            </div>
+            <div className={s.right}>
+              <div className={s.right_top}>
+                <p className={s.heading}>Your tier</p>
+                <div className={s.right_top_box}>
+                  <p>
+                    <span>Hacker</span> $99 per rollup/month
+                  </p>
+                  <div
+                    className={s.right_top_box_btn}
+                    onClick={() => {
+                      router.push('/pricing');
+                    }}
+                  >
+                    <p>Switch</p>
+                  </div>
+                </div>
+              </div>
+              <div className={s.right_box}>
+                <Droppable>
+                  {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content()}
+
+                  {Object.keys(boxOptionMapping).map((key) => {
+                    if (key === ORDER_FIELD.CHAIN_NAME) return;
+                    const { content } = boxOptionMapping[key as Override];
+                    const isDragged = field[key as Override].dragged;
+
+                    if (!isDragged) return null;
+
+                    return content();
+                  })}
+                </Droppable>
+                <div className={`${s.launch} ${s.active}`}>
+                  <p>Launch</p>
+                  <div className={`${s.icon}`}>
+                    <ImagePlaceholder src={'/launch.png'} alt={'launch'} width={48} height={48}/>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </DndContext>
+      </DndContext>
+
+    </div>
   );
 };
 
