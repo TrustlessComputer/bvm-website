@@ -9,14 +9,14 @@ import { useFormOrderStore } from '@/modules/blockchains/Buy/stores';
 import DescriptionModal from '@/modules/blockchains/Buy/components/DescriptionModal/DescriptionModal';
 import SvgInset from '@/components/SvgInset';
 
-type TBoxOption = PropsWithChildren & {
+export type BoxOptionProps = PropsWithChildren & {
   active?: boolean;
   label: string;
   id: string;
   isLast?: boolean;
   descriptionDetail?: {
     title: string;
-    content: React.ReactNode | null;
+    content: React.ReactNode;
   };
 };
 
@@ -28,7 +28,7 @@ const BoxOption = ({
   descriptionDetail,
   isLast,
 }: TBoxOption): React.JSX.Element => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id,
     disabled: active,
   });
@@ -37,7 +37,8 @@ const BoxOption = ({
   const style = transform
     ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      }
+        opacity: isDragging ? 0.5 : 1,
+    }
     : undefined;
   return (
     <>

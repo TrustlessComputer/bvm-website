@@ -1,7 +1,7 @@
 .container {
   width: 100%;
   //font-family: var(--font-dmsans);
-  margin:  30px 0;
+  margin: 30px 0;
   .fontJetBrains {
     font-family: var(--font-JetBrainsMono) !important;
   }
@@ -96,15 +96,6 @@
   justify-content: space-between;
 }
 
-.innerRight {
-  width: 50%;
-  height: 50%;
-  transform: scale(1.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .input {
   background-color: #fff;
   color: #0e0e0e;
@@ -127,7 +118,7 @@
   gap: 18px;
   cursor: not-allowed;
   mix-blend-mode: luminosity;
-  background: linear-gradient(180deg, #FF9776 0%, #FF8139 32.81%, #E04300 100%);
+  background: linear-gradient(180deg, #ff9776 0%, #ff8139 32.81%, #e04300 100%);
   p {
     font-size: 24px;
     color: #fff;
@@ -140,7 +131,12 @@
     mix-blend-mode: normal;
     cursor: pointer;
     &:hover {
-      background: linear-gradient(180deg, #f3ae99 0%, #f5945e 32.81%, #f36627 100%);
+      background: linear-gradient(
+        180deg,
+        #f3ae99 0%,
+        #f5945e 32.81%,
+        #f36627 100%
+      );
     }
   }
 }

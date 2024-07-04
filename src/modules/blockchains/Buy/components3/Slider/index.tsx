@@ -17,7 +17,7 @@ type TSlider = {
   cb: (feild: keyof FormOrder, value: string) => void;
   max?: number;
   min?: number;
-  subfix?: string;
+  suffix?: string;
 };
 
 const Slider = ({
@@ -25,7 +25,7 @@ const Slider = ({
   defaultValue,
   field,
   max = 100,
-  subfix,
+  suffix,
   min = 0,
 }: TSlider) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -44,7 +44,7 @@ const Slider = ({
           {` ${formatCurrencyV2({
             amount: defaultValue.toString(),
             decimals: 0,
-          })} ${subfix ?? ''}`}{' '}
+          })} ${suffix ?? ''}`}{' '}
         </p>
         <Image
           className={s.dropdown_icon}
@@ -63,7 +63,7 @@ const Slider = ({
             {`${formatCurrencyV2({
               amount: defaultValue.toString(),
               decimals: 0,
-            })} ${subfix ?? ''}`}{' '}
+            })} ${suffix ?? ''}`}{' '}
           </p>
           {/*<input style={{accentColor: '#fff'}} type="range" value={value}  min="1" max="100" onInput={(e) => setValue(e.currentTarget.value)} />*/}
           <SliderReact
