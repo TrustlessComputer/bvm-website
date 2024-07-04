@@ -86,7 +86,7 @@ const BoxOption = ({
   children,
   descriptionDetail
 }: TBoxOption): React.JSX.Element => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id,
     disabled: active,
   });
@@ -96,7 +96,8 @@ const BoxOption = ({
   const style = transform
     ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      }
+        opacity: isDragging ? 0.5 : 1,
+    }
     : undefined;
   console.log('descriptionDetail', descriptionDetail);
   return (
