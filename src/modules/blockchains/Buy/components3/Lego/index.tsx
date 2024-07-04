@@ -64,7 +64,7 @@ export default function Lego({
       {!isFrist && (
         <span
           className={`${s.wrapper_stud__top} ${s.wrapper_stud} ${
-            isActive && s.wrapper_stud__active
+            isActive && s.wrapper_stud__top_active
           }`}
         >
           <SvgInset svgUrl="/landingV3/svg/stud.svg" />

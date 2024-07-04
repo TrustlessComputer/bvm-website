@@ -132,7 +132,7 @@ const BuyPage = () => {
           label={DATA_PRICING.availability.sub_title}
           isFrist={false}
           zIndex={8}
-          // isActive
+          isActive={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
           isLast={false}
         >
           <Dropdown
@@ -160,7 +160,7 @@ const BuyPage = () => {
           background={'green'}
           label={DATA_PRICING.gas.sub_title}
           isFrist={false}
-          // isActive
+          isActive={field[ORDER_FIELD.GAS_LIMIT].dragged}
           zIndex={7}
           isLast={false}
         >
@@ -192,7 +192,7 @@ const BuyPage = () => {
           label={DATA_PRICING.withdrawal.sub_title}
           isFrist={false}
           zIndex={6}
-          // isActive
+          isActive={field[ORDER_FIELD.BLOCK_TIME].dragged}
           isLast={true}
         >
           <Slider
@@ -228,7 +228,8 @@ const BuyPage = () => {
               {Object.keys(boxOptionMapping).map((key) => {
                 if (key === ORDER_FIELD.CHAIN_NAME) return;
 
-                const { label, content, descriptionDetail } = boxOptionMapping[key as Override];
+                const { label, content, descriptionDetail } =
+                  boxOptionMapping[key as Override];
                 const isDragged = field[key as Override].dragged;
 
                 return (
@@ -279,7 +280,12 @@ const BuyPage = () => {
               <div className={`${s.launch} ${s.active}`}>
                 <p>Launch</p>
                 <div className={`${s.icon}`}>
-                  <ImagePlaceholder src={'/launch.png'} alt={'launch'} width={48} height={48}/>
+                  <ImagePlaceholder
+                    src={'/launch.png'}
+                    alt={'launch'}
+                    width={48}
+                    height={48}
+                  />
                 </div>
               </div>
             </div>
