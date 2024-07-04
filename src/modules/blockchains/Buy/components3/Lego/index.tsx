@@ -36,7 +36,8 @@ function Lego({
     const parrentLego = legoRef.current?.parentElement as HTMLDivElement;
     if (!parrentLego) return;
 
-    parrentLego.classList.add(s.parentElement);
+    parrentLego.style.position = 'relative';
+    parrentLego.style.zIndex = `${zIndex * 2} `;
   }, [legoRef.current]);
 
   return (
