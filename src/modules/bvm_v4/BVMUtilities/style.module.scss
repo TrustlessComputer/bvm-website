@@ -33,16 +33,16 @@
   border-radius: 12px;
   &_title {
     color: #000;
-    font-size: 40px;
+    font-size: 32px;
     font-weight: 600;
-    line-height: calc(60 / 40);
+    line-height: calc(48 / 32);
   }
   &_desc {
     color: #000;
     opacity: 0.7;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 400;
     margin-top: 32px;
-    line-height: calc(45 / 30);
+    line-height: calc(36 / 24);
   }
 }
