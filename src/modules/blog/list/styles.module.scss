@@ -1,0 +1,6 @@
+.list {
+  grid-template-columns: repeat(12, 1fr);
+  display: grid;
+  column-gap: 60px;
+  row-gap: 60px;
+}
