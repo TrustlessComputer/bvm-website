@@ -26,7 +26,7 @@ export default function Hero({ data }: {data: IMODULE_HERO}): React.JSX.Element 
             </div>
           </Fade>
           <Fade delay={0.3} delayEnter={0.3} from={{ y: 20 }} to={{ y: 0 }}>
-            <Flex flexDirection={{ base: 'column', sm: 'row' }} alignItems={'center'} marginTop={'24px'} gap={{ base: '10px', sm: '20px' }}>
+            <Flex flexDirection={{ base: 'column', sm: 'row' }} alignItems={'flex-start'} marginTop={'24px'} gap={{ base: '10px', sm: '20px' }}>
               {
                 data.start && <Button
                   bgColor={'#FA4E0E'}
