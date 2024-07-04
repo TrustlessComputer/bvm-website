@@ -3,6 +3,7 @@ import BoxOption, {
 } from '@/modules/blockchains/Buy/components3/BoxOption';
 import { DndContext, useSensor, useSensors } from '@dnd-kit/core';
 import React from 'react';
+
 import {
   ORDER_FIELD,
   useFormOrderStore,
@@ -12,16 +13,24 @@ import Tier from '@/modules/blockchains/Buy/components3/Tier';
 import Lego from './components3/Lego';
 import Dropdown from './components3/Dropdown';
 import Slider from './components3/Slider';
-import ImagePlaceholder from '@components/ImagePlaceholder';
 import Droppable from './components3/Droppable';
-import { DATA_PRICING } from '../data_pricing';
-import { MouseSensor } from './utils';
-
-import s from './styles.module.scss';
 import ComputerNameInput from './components3/ComputerNameInput';
 import LaunchButton from './components3/LaunchButton';
+import { MouseSensor } from './utils';
+import { DATA_PRICING } from '../data_pricing';
 import { useBuy } from '../providers/Buy.hook';
-import { STEP_GAS_LIMIT } from './Buy.constanst';
+
+import s from './styles.module.scss';
+
+type PricingPackageValues = {
+  maxGasLimit: number;
+  minGasLimit: number;
+  defaultGasLimit?: number;
+  stepGasLimit: number;
+  defaultWithdrawalPeriod?: number;
+  minWithdrawalPeriod: number;
+  maxWithdrawalPeriod: number;
+};
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 type BoxOption = {
@@ -35,16 +44,26 @@ type BoxOption = {
 
 const BuyPage = () => {
   const { field, setFormField } = useFormOrderStore((state) => state);
-  const allFilled = Object.keys(field).every(
-    (key) => field[key as Override].dragged,
-  );
+  const { pricingPackageValues } = useBuy();
+
   const {
-    blockGasLimitSelected,
-    withdrawalPeriodSelected,
-    minGasPriceField,
-    pricingPackageValues,
-  } = useBuy();
-  console.log('pricingPackageValues', pricingPackageValues);
+    maxGasLimit,
+    minGasLimit,
+    defaultGasLimit,
+    stepGasLimit,
+    defaultWithdrawalPeriod,
+    minWithdrawalPeriod,
+    maxWithdrawalPeriod,
+  } = pricingPackageValues as PricingPackageValues;
+
+  React.useEffect(() => {
+    setFormField(ORDER_FIELD.GAS_LIMIT, defaultGasLimit || maxGasLimit);
+    setFormField(
+      ORDER_FIELD.WITHDRAW_PERIOD,
+      defaultWithdrawalPeriod || maxWithdrawalPeriod,
+    );
+  }, [pricingPackageValues]);
+
   const boxOptionMapping: Record<string, BoxOptionProps> = {
     [ORDER_FIELD.CHAIN_NAME]: {
       id: ORDER_FIELD.CHAIN_NAME,
@@ -139,11 +158,10 @@ const BuyPage = () => {
             cb={setFormField}
             field={ORDER_FIELD.GAS_LIMIT}
             defaultValue={field[ORDER_FIELD.GAS_LIMIT].value}
-            max={blockGasLimitSelected}
-            initValue={pricingPackageValues?.defaultGasLimit}
-            // min={Number(minGasPriceField.value) || 0}
-            // min={0}
-            step={STEP_GAS_LIMIT}
+            max={maxGasLimit}
+            initValue={defaultGasLimit}
+            min={minGasLimit}
+            step={stepGasLimit}
           />
         </Lego>
       ),
@@ -175,9 +193,10 @@ const BuyPage = () => {
             cb={setFormField}
             field={ORDER_FIELD.WITHDRAW_PERIOD}
             defaultValue={field[ORDER_FIELD.WITHDRAW_PERIOD].value}
-            max={withdrawalPeriodSelected}
+            max={maxWithdrawalPeriod}
             suffix="hours"
-            initValue={pricingPackageValues?.defaultWithdrawalPeriod}
+            initValue={defaultWithdrawalPeriod}
+            min={minWithdrawalPeriod}
           />
         </Lego>
       ),
