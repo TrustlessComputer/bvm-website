@@ -24,6 +24,7 @@ const ComputerNameInput = () => {
       let isValid = !isEmpty(text);
       let errorMessage = FormFieldsErrorMessage[FormFields.COMPUTER_NAME];
       let timer: NodeJS.Timeout | null = null;
+
       if (isValid) {
         try {
           isValid = await validateSubDomainAPI(text);
@@ -32,12 +33,14 @@ const ComputerNameInput = () => {
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => {
             setFormField(ORDER_FIELD.CHAIN_NAME, text);
-          });
+          }, 100);
         } catch (error: any) {
           errorMessage = error.toString() || 'Computer name is invalid';
           toast.error(errorMessage);
         } finally {
         }
+      } else {
+        toast.error(errorMessage);
       }
 
       setComputerNameField({
@@ -53,6 +56,8 @@ const ComputerNameInput = () => {
 
   React.useEffect(() => {
     const computerName = getRandonComputerName(isMainnet);
+
+    setFormField(ORDER_FIELD.CHAIN_NAME, computerName);
     setComputerNameField({
       ...computerNameField,
       value: computerName,
