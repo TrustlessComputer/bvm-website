@@ -1,6 +1,7 @@
 import { ReactElement, useState } from 'react';
 import s from './styles.module.scss';
 import useHeaderMobile, { IGroupType } from '@layouts/HeaderV3/useHeaderMobile';
+import useWindowSize from '@hooks/useWindowSize';
 
 type PropD = {
   title: string;
@@ -16,13 +17,13 @@ const GroupDownItem = ({
                          primaryColor,
                          color,
                          children,
-                         typeGroup
+                         typeGroup,
                        }: PropD): ReactElement => {
   const { groupType, show } = useHeaderMobile();
 
   return (
 
-    <div className={`${s.dropMenu} menu-item`} onClick={()=>show(typeGroup || null)}>
+    <div className={`${s.dropMenu} menu-item`} onClick={() => show(typeGroup || null)}>
       <span
         style={{
           color: color,
