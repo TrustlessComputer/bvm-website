@@ -899,6 +899,8 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     isStandardMode,
     proverSelected,
     setProverSelected,
+
+    pricingPackageValues,
   };
 
   // console.log('[DEBUG] Buy Provider ALL DATA: ', {

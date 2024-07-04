@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { formatCurrencyV2 } from '@/utils/format';
 import {
@@ -21,6 +21,7 @@ type TSlider = {
   min?: number;
   step?: number;
   suffix?: string;
+  initValue?: number;
 };
 
 const Slider = ({
@@ -31,6 +32,7 @@ const Slider = ({
   suffix,
   min = 0,
   step = 1,
+  initValue,
 }: TSlider) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -38,9 +40,15 @@ const Slider = ({
   useOnClickOutside(ref, () => setIsOpen(false));
 
   const onChange = (value: number) => {
+    if (initValue) return;
+
     cb(field, value.toString());
   };
-
+  useEffect(() => {
+    if (initValue) {
+      cb(field, initValue.toString());
+    }
+  }, [initValue]);
   return (
     <div className={s.dropdown}>
       <div className={s.dropdown_inner} onClick={() => setIsOpen(!isOpen)}>
@@ -74,7 +82,7 @@ const Slider = ({
             //   !!packageParam && Number(packageParam) === PRICING_PACKGE.Hacker
             // }
             onChange={onChange}
-            value={Number(defaultValue)}
+            value={initValue ? initValue : Number(defaultValue)}
             min={min}
             max={max}
             step={step}

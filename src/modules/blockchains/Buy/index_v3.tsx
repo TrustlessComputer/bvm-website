@@ -38,9 +38,13 @@ const BuyPage = () => {
   const allFilled = Object.keys(field).every(
     (key) => field[key as Override].dragged,
   );
-  const { blockGasLimitSelected, withdrawalPeriodSelected, minGasPriceField } =
-    useBuy();
-
+  const {
+    blockGasLimitSelected,
+    withdrawalPeriodSelected,
+    minGasPriceField,
+    pricingPackageValues,
+  } = useBuy();
+  console.log('pricingPackageValues', pricingPackageValues);
   const boxOptionMapping: Record<string, BoxOptionProps> = {
     [ORDER_FIELD.CHAIN_NAME]: {
       id: ORDER_FIELD.CHAIN_NAME,
@@ -136,6 +140,7 @@ const BuyPage = () => {
             field={ORDER_FIELD.GAS_LIMIT}
             defaultValue={field[ORDER_FIELD.GAS_LIMIT].value}
             max={blockGasLimitSelected}
+            initValue={pricingPackageValues?.defaultGasLimit}
             // min={Number(minGasPriceField.value) || 0}
             // min={0}
             step={STEP_GAS_LIMIT}
@@ -172,6 +177,7 @@ const BuyPage = () => {
             defaultValue={field[ORDER_FIELD.WITHDRAW_PERIOD].value}
             max={withdrawalPeriodSelected}
             suffix="hours"
+            initValue={pricingPackageValues?.defaultWithdrawalPeriod}
           />
         </Lego>
       ),
