@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  background-color: #00B3FF;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+
+  .avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+  .title {
+    font-size: 48px;
+    font-weight: 500;
+  }
+
+  .description {
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .status {
+
+  }
+}
