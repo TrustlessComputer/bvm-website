@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useEffect, useRef } from 'react';
 import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 import Dropdown from '../Dropdown';
@@ -30,9 +30,19 @@ function Lego({
   children,
   ...props
 }: TLegoItem & HTMLAttributes<HTMLDivElement>) {
+  const legoRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const parrentLego = legoRef.current?.parentElement as HTMLDivElement;
+    if (!parrentLego) return;
+
+    parrentLego.classList.add(s.parentElement);
+  }, [legoRef.current]);
+
   return (
     <div
       className={`${s.wrapper} ${s[`wrapper__${background}`]}`}
+      ref={legoRef}
       style={{ zIndex: zIndex, cursor: isActive ? 'not-allowed' : 'grabbing' }}
       {...props}
     >
