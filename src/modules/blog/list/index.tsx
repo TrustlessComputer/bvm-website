@@ -2,10 +2,12 @@ import React from 'react';
 import s from './styles.module.scss';
 import { DATA_BLOG } from '../data_blog';
 import Card from './Card';
+import Filter from './Filter';
 
 export default function ListBlog() {
   return (
     <div className={`${s.wrapper} containerV3`}>
+      <Filter />
       <div className={s.list}>
         {DATA_BLOG.map((item, index) => {
           return <Card key={item.slug} {...item} isFirst={index === 0} />;

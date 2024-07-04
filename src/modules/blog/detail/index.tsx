@@ -18,7 +18,7 @@ export default function BLogDetail(props: IBlog) {
         />
         <div className="auth"></div>
         <div className={s.meta}>
-          <Tags />
+          {/* <Tags />   */}
           <Socials {...props} />
         </div>
       </div>

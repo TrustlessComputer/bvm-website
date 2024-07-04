@@ -1,0 +1,23 @@
+.filter {
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: center;
+
+  &_item {
+    padding: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    color: #000;
+    font-family: var(--font-jetbrains);
+    font-size: 16px;
+    cursor: pointer;
+
+    &:first-child {
+      border-bottom: 1px solid #000;
+    }
+  }
+}
