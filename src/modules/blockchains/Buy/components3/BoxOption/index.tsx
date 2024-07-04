@@ -69,13 +69,13 @@ import { useDraggable } from '@dnd-kit/core';
 import { useFormOrderStore } from '@/modules/blockchains/Buy/stores';
 import DescriptionModal from '@/modules/blockchains/Buy/components/DescriptionModal/DescriptionModal';
 
-type TBoxOption = PropsWithChildren & {
+export type BoxOptionProps = PropsWithChildren & {
   active?: boolean;
   label: string;
   id: string;
   descriptionDetail?: {
     title: string;
-    content: React.ReactNode | null;
+    content: React.ReactNode;
   };
 };
 
@@ -92,7 +92,6 @@ const BoxOption = ({
   });
   const [isShowModal, setIsShowModal] = useState(false);
 
-  const { form } = useFormOrderStore((state) => state);
   const style = transform
     ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
@@ -122,27 +121,24 @@ const BoxOption = ({
           </div>
           <Flex align={'center'} gap={2}>
             <p className={s.boxItem_heading_text}>{label}</p>
-            {
-              descriptionDetail && (
-                <div className={s.info} onClick={() => setIsShowModal(true)}>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#2b35e4"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                  </svg>
-                </div>
-
-              )
-            }
+            {descriptionDetail && (
+              <div className={s.info} onClick={() => setIsShowModal(true)}>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#2b35e4"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+              </div>
+            )}
           </Flex>
         </div>
         <div ref={setNodeRef} style={style} {...listeners} {...attributes}>

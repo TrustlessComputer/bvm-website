@@ -1,79 +1,42 @@
-import BoxOption from '@/modules/blockchains/Buy/components3/BoxOption';
-import s from './styles.module.scss';
-import {
-  DndContext,
-  MouseSensor as LibMouseSensor,
-  TouchSensor as LibTouchSensor,
-  useDroppable,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
-import type { MouseEvent, TouchEvent } from 'react';
+import BoxOption, {
+  BoxOptionProps,
+} from '@/modules/blockchains/Buy/components3/BoxOption';
+import { DndContext, useSensor, useSensors } from '@dnd-kit/core';
 import React from 'react';
 import {
   ORDER_FIELD,
   useFormOrderStore,
 } from '@/modules/blockchains/Buy/stores';
-import { useRouter } from 'next/navigation';
+import Tier from '@/modules/blockchains/Buy/components3/Tier';
+
 import Lego from './components3/Lego';
-import { DATA_PRICING } from '../data_pricing';
 import Dropdown from './components3/Dropdown';
 import Slider from './components3/Slider';
 import ImagePlaceholder from '@components/ImagePlaceholder';
-import Tier from '@/modules/blockchains/Buy/components3/Tier';
+import Droppable from './components3/Droppable';
+import { DATA_PRICING } from '../data_pricing';
+import { MouseSensor } from './utils';
 
-const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
-  let cur = event.target as HTMLElement;
-
-  while (cur) {
-    if (cur.dataset && cur.dataset.noDnd) {
-      return false;
-    }
-    cur = cur.parentElement as HTMLElement;
-  }
-
-  return true;
-};
-
-export class MouseSensor extends LibMouseSensor {
-  static activators = [
-    { eventName: 'onMouseDown', handler },
-  ] as (typeof LibMouseSensor)['activators'];
-}
-
-export class TouchSensor extends LibTouchSensor {
-  static activators = [
-    { eventName: 'onTouchStart', handler },
-  ] as (typeof LibTouchSensor)['activators'];
-}
+import s from './styles.module.scss';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
-
-function Droppable(props) {
-  const { isOver, setNodeRef } = useDroppable({
-    id: 'droppable',
-  });
-
-  const style = {
-    color: isOver ? 'green' : undefined,
+type BoxOption = {
+  label: string;
+  descriptionDetail?: {
+    title: string;
+    content: () => React.ReactElement;
   };
-
-  return (
-    <div ref={setNodeRef} style={style} className={s.innerRight}>
-      {props.children}
-    </div>
-  );
-}
+  content: () => React.ReactElement;
+};
 
 const BuyPage = () => {
   const { field, setFormField } = useFormOrderStore((state) => state);
 
-  console.log('[BuyPage] field ::', field);
-
-  const boxOptionMapping = {
+  const boxOptionMapping: Record<string, BoxOptionProps> = {
     [ORDER_FIELD.CHAIN_NAME]: {
+      id: ORDER_FIELD.CHAIN_NAME,
       label: '1. Name',
-      content: () => (
+      children: (
         <Lego
           background={'red'}
           title="1. Name"
@@ -96,8 +59,9 @@ const BuyPage = () => {
       ),
     },
     [ORDER_FIELD.NETWORK]: {
+      id: ORDER_FIELD.NETWORK,
       label: '2. Network',
-      content: () => (
+      children: (
         <Lego
           background={'brown'}
           label={DATA_PRICING.network.sub_title}
@@ -116,6 +80,7 @@ const BuyPage = () => {
       ),
     },
     [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
+      id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
       label: '3. Data Availability',
       descriptionDetail: {
         title: 'Data Availability',
@@ -126,7 +91,7 @@ const BuyPage = () => {
           </p>
         ),
       },
-      content: () => (
+      children: (
         <Lego
           background={'violet'}
           label={DATA_PRICING.availability.sub_title}
@@ -145,6 +110,7 @@ const BuyPage = () => {
       ),
     },
     [ORDER_FIELD.GAS_LIMIT]: {
+      id: ORDER_FIELD.GAS_LIMIT,
       label: '4. Block gas limit',
       descriptionDetail: {
         title: 'Block Gas Limit',
@@ -155,7 +121,7 @@ const BuyPage = () => {
           </p>
         ),
       },
-      content: () => (
+      children: (
         <Lego
           background={'green'}
           label={DATA_PRICING.gas.sub_title}
@@ -174,6 +140,7 @@ const BuyPage = () => {
       ),
     },
     [ORDER_FIELD.BLOCK_TIME]: {
+      id: ORDER_FIELD.BLOCK_TIME,
       label: '5. Withdrawal time',
       descriptionDetail: {
         title: 'Withdrawal Time',
@@ -186,7 +153,7 @@ const BuyPage = () => {
           </p>
         ),
       },
-      content: () => (
+      children: (
         <Lego
           background={'pink'}
           label={DATA_PRICING.withdrawal.sub_title}
@@ -200,7 +167,7 @@ const BuyPage = () => {
             field={ORDER_FIELD.BLOCK_TIME}
             defaultValue={field[ORDER_FIELD.BLOCK_TIME].value}
             max={DATA_PRICING.withdrawal.max}
-            subfix="hours"
+            suffix="hours"
           />
         </Lego>
       ),
@@ -229,7 +196,7 @@ const BuyPage = () => {
                 {Object.keys(boxOptionMapping).map((key) => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return;
 
-                  const { label, content, descriptionDetail } =
+                  const { label, children, descriptionDetail } =
                     boxOptionMapping[key as Override];
                   const isDragged = field[key as Override].dragged;
 
@@ -241,7 +208,7 @@ const BuyPage = () => {
                       active={isDragged}
                       descriptionDetail={descriptionDetail}
                     >
-                      {content()}
+                      {children}
                     </BoxOption>
                   );
                 })}
@@ -251,16 +218,16 @@ const BuyPage = () => {
               <Tier />
               <div className={s.right_box}>
                 <Droppable>
-                  {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content()}
+                  {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].children}
 
                   {Object.keys(boxOptionMapping).map((key) => {
                     if (key === ORDER_FIELD.CHAIN_NAME) return;
-                    const { content } = boxOptionMapping[key as Override];
+                    const { children } = boxOptionMapping[key as Override];
                     const isDragged = field[key as Override].dragged;
 
                     if (!isDragged) return null;
 
-                    return content();
+                    return children;
                   })}
                 </Droppable>
                 <div className={`${s.launch} ${s.active}`}>
