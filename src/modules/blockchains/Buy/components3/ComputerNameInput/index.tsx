@@ -6,20 +6,24 @@ import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { getRandonComputerName } from '../../Buy.helpers';
 import { validateSubDomainAPI } from '@/services/api/l2services';
 import { FormFields, FormFieldsErrorMessage } from '../../Buy.constanst';
+import { ORDER_FIELD, useFormOrderStore } from '../../stores';
 
 const ComputerNameInput = () => {
-  const { computerNameField, setComputerNameField, isMainnet } = useBuy();
+  const { field } = useFormOrderStore((state) => state);
 
-  const { value, hasFocused, errorMessage, hasError } = computerNameField;
+  const { computerNameField, setComputerNameField, isMainnet } = useBuy();
+  const { value, errorMessage } = computerNameField;
 
   const onChangeHandler = React.useCallback(
     debounce(async (e: any) => {
       const text = e.target.value;
       let isValid = !isEmpty(text);
       let errorMessage = FormFieldsErrorMessage[FormFields.COMPUTER_NAME];
+
       if (isValid) {
         try {
           isValid = await validateSubDomainAPI(text);
+          field[ORDER_FIELD.CHAIN_NAME].value = text;
         } catch (error: any) {
           errorMessage = error.toString() || 'Computer name is invalid';
         } finally {
