@@ -4,6 +4,7 @@ import Image from 'next/image';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import DescriptionModal from '@/modules/blockchains/Buy/components/DescriptionModal/DescriptionModal';
 import ModalButton from '@/modules/bvm_v4/HeroV4/ModalButton';
+import Link from 'next/link';
 
 
 const DATA = [
@@ -63,6 +64,7 @@ const DATA = [
     red: true,
     buttons: [
       {
+        icon: undefined,
         btnTitle: 'Stake BVM',
         link: '/staking',
         blank: false,
@@ -104,7 +106,7 @@ const Heading = (): React.JSX.Element => {
                   {
                     item.buttons.map(itemBtn => {
                       return (
-                        <a href={itemBtn?.link} target={itemBtn.blank && '_blank'}>
+                        <Link href={itemBtn?.link} target={itemBtn.blank ? '_blank' : ''}>
                           <div className={`${s.item} ${item.red && s.red}`}>
                             {
                               itemBtn?.icon && (
@@ -117,7 +119,7 @@ const Heading = (): React.JSX.Element => {
 
                             <p className={`${s.item_title} ${item.red && s.red}`}>{itemBtn.btnTitle}</p>
                           </div>
-                        </a>
+                        </Link>
                       );
                     })
                   }

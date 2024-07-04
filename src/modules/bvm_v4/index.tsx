@@ -13,7 +13,6 @@ const BVMModule = () => {
     <div className={`${s.wrapper}  `}>
       <div className={`${s.inner} containerV3`}>
         <HeroV4 />
-        {/*<BuyBVMV2 />*/}
       </div>
       <About />
       <BVMUtilities />
