@@ -18,6 +18,7 @@ import { DATA_PRICING } from '../data_pricing';
 import { MouseSensor } from './utils';
 
 import s from './styles.module.scss';
+import ComputerNameInput from './components3/ComputerNameInput';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 type BoxOption = {
@@ -49,15 +50,7 @@ const BuyPage = () => {
           // isActive
           isLast={false}
         >
-          <input
-            type="text"
-            placeholder="Enter chain name"
-            className={s.input}
-            value={field[ORDER_FIELD.CHAIN_NAME].value}
-            onChange={(e) => {
-              setFormField(ORDER_FIELD.CHAIN_NAME, e.target.value as any);
-            }}
-          />
+          <ComputerNameInput />
         </Lego>
       ),
     },
