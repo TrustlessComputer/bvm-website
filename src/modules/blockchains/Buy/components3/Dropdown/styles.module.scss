@@ -78,7 +78,12 @@
     &__active {
       background-color: var(--background);
     }
-    &:hover {
+    &__disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      user-select: none;
+    }
+    &:hover:not(.dropdown_item__disabled) {
       transition: background-color 0.3s var(--easeOutQuart);
       background-color: var(--background);
     }

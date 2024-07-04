@@ -1,10 +1,6 @@
 import { create } from 'zustand';
 import { BuyBuilderSelectState } from '../Buy.types';
-import {
-  DALayerEnum,
-  NetworkEnum,
-  WITHDRAWAL_PERIOD_BOOTSTRAP,
-} from '../Buy.constanst';
+import { DALayerEnum, NetworkEnum } from '../Buy.constanst';
 
 export const ORDER_FIELD = {
   CHAIN_NAME: 'chainName',
