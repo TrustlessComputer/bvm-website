@@ -325,7 +325,7 @@ export const DATA_CHAINS = [
         icon: '/use-bitcoin/ic_web.svg',
         label: 'powd3r.io',
         link: 'https://powd3r.io/',
-      }
+      },
     ]
     // desc: [
     //   {
@@ -337,5 +337,96 @@ export const DATA_CHAINS = [
     //     value: 'Learn about modular blockchain architecture via a fun Lego game.'
     //   },
     // ]
+  },
+  {
+    heading: 'Iron Chain Bank',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '11.jpg',
+    desc: 'The First DeFi Protocol Utilizing BRC-20 On @Bitcoin Layer 2. Powered by @BVMnetwork\n' +
+      ' with Zk-Rollup tech stack. Iron Vault Node coming soon.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://x.com/ironchainbank',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'ironchainbank.io',
+        link: 'https://ironchainbank.io/',
+      },
+    ]
+  },
+  {
+    heading: 'Octopus Bridge',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '12.jpg',
+    desc: 'The first L3 on Bitcoin and next level bridge that connects Bitcoin to EVM.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://x.com/octopusbridge_',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'octopusbridge.xyz',
+        link: 'https://octopusbridge.xyz/',
+      },
+    ]
+  },
+  {
+    heading: 'Bittendo',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '13.jpg',
+    desc: 'The 1st fair launch in history of BTC L2 - taken over by @realFomorio.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://x.com/TheRealBittendo',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'bittendo.com',
+        link: 'https://bittendo.com/',
+      },
+    ]
+  },
+  {
+    heading: 'StratoVM | BTC Layer2',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '14.jpg',
+    desc: 'Modular Layer 2 on Bitcoin | Empowering the future of DeFi on Bitcoin.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://x.com/StratoVM_',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'stratovm.io',
+        link: 'https://stratovm.io/',
+      },
+    ]
+  },
+  {
+    heading: 'HyperAGI',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '15.jpg',
+    desc: '1st Fully Decentralized AI Application Platform.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://x.com/HyperDustIO',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'hyperagi.network',
+        link: 'https://www.hyperagi.network/',
+      },
+    ]
   },
 ]
