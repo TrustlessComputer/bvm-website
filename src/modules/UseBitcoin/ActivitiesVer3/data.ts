@@ -151,58 +151,24 @@ export const DATA_CHAINS = [
     //   }
     // ]
   },
-  {
-    heading: 'Bittendo Chain.',
-    noteHeading: 'The Bitcoin L2 for Gaming',
-    banner: '5.png',
-    desc: 'Bittendo is the first Bitcoin L2 for Gaming, leveraging the Bitcoin network to decentralize gaming development, distribution, and consumption. Bittendoput power in the hands of players while incentivizing developers to contribute openly.',
-    social: [
-      {
-        icon: '/use-bitcoin/ic_x.svg',
-        label: 'twitter',
-        link: 'https://twitter.com/TheRealBittendo',
-      },
-      {
-        icon: '/use-bitcoin/ic_web.svg',
-        label: 'bittendo.com',
-        link: 'https://www.bittendo.com/',
-      }
-    ]
-    // desc: [
-    //   {
-    //     label: 'Bitcoin L2: ',
-    //     value: 'Eternal AI'
-    //   },
-    //   {
-    //     label: 'Block time: ',
-    //     value: '2 seconds'
-    //   },
-    //   {
-    //     label: 'Network type: ',
-    //     value: 'Bitcoin Mainnet'
-    //   } ,
-    //   {
-    //     label: 'Deployer: ',
-    //     value: 'Eternal AI team'
-    //   }  ,
-    //   {
-    //     label: 'Rollups: ',
-    //     value: 'Optimistic'
-    //   },
-    //   {
-    //     label: 'Data Validity: ',
-    //     value: 'Bitcoin'
-    //   } ,
-    //   {
-    //     label: 'Data Availability:',
-    //     value: 'Avail'
-    //   },
-    //   {
-    //     label: 'Launch date:',
-    //     value: 'February 05, 2024'
-    //   }
-    // ]
-  },
+  // {
+  //   heading: 'Bittendo Chain.',
+  //   noteHeading: 'The Bitcoin L2 for Gaming',
+  //   banner: '5.png',
+  //   desc: 'Bittendo is the first Bitcoin L2 for Gaming, leveraging the Bitcoin network to decentralize gaming development, distribution, and consumption. Bittendoput power in the hands of players while incentivizing developers to contribute openly.',
+  //   social: [
+  //     {
+  //       icon: '/use-bitcoin/ic_x.svg',
+  //       label: 'twitter',
+  //       link: 'https://twitter.com/TheRealBittendo',
+  //     },
+  //     {
+  //       icon: '/use-bitcoin/ic_web.svg',
+  //       label: 'bittendo.com',
+  //       link: 'https://www.bittendo.com/',
+  //     }
+  //   ]
+  // },
   {
     heading: 'Xally.',
     noteHeading: 'The Bitcoin L2 for AI Agents',
@@ -231,7 +197,7 @@ export const DATA_CHAINS = [
     //   },
     // ]
   },
-  {
+ /* {
     heading: 'MetaDoge.',
     noteHeading: 'The Bitcoin L2 for All AAA Games and Unity Games',
     banner: '7.png',
@@ -243,17 +209,7 @@ export const DATA_CHAINS = [
         link: 'https://twitter.com/MetaDogeUnity',
       },
     ]
-    // desc: [
-    //   {
-    //     label: 'Bitcoin L2: ',
-    //     value: 'Modular'
-    //   },
-    //   {
-    //     label: 'Activities: ',
-    //     value: 'Learn about modular blockchain architecture via a fun Lego game.'
-    //   },
-    // ]
-  },
+  },*/
   {
     heading: 'Bloom.',
     noteHeading: 'The Bitcoin L2 for Yield and Restaking',
