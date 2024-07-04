@@ -39,7 +39,6 @@ const LaunchButton = () => {
 
   if (isFecthingData) return null;
 
-
   const allFilled = Object.keys(field).every(
     (key) => field[key as Override].dragged,
   );
@@ -74,7 +73,9 @@ const LaunchButton = () => {
           />
         </div>
       </div>
-      <p className={s.price}>{`${tierData?.price || '--'} (${tierData?.priceNote || '--'})`}</p>
+      <p className={s.price}>{`${tierData?.price || '--'} (${
+        tierData?.priceNote || '--'
+      })`}</p>
     </div>
   );
 };

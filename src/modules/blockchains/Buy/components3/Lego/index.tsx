@@ -33,7 +33,7 @@ function Lego({
   return (
     <div
       className={`${s.wrapper} ${s[`wrapper__${background}`]}`}
-      style={{ zIndex: zIndex }}
+      style={{ zIndex: zIndex, cursor: isActive ? 'not-allowed' : 'grabbing' }}
       {...props}
     >
       <div className={s.inner}>

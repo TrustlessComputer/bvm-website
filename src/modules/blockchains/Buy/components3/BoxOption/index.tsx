@@ -27,18 +27,19 @@ const BoxOption = ({
   children,
   descriptionDetail,
   isLast,
-}: TBoxOption): React.JSX.Element => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id,
-    disabled: active,
-  });
+}: BoxOptionProps): React.JSX.Element => {
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id,
+      disabled: active,
+    });
   const [isShowModal, setIsShowModal] = useState(false);
 
   const style = transform
     ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
         opacity: isDragging ? 0.5 : 1,
-    }
+      }
     : undefined;
   return (
     <>

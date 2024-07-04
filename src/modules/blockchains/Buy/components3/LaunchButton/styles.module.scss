@@ -1,17 +1,24 @@
 .launch {
   align-self: flex-end;
-  border-radius: 24px;
+  border-radius: 12px;
   padding: 7px 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   cursor: not-allowed;
-  mix-blend-mode: luminosity;
-  background: linear-gradient(180deg, #FF9776 0%, #FF8139 32.81%, #E04300 100%);
+  // mix-blend-mode: luminosity;
+  // background: linear-gradient(180deg, #ff9776 0%, #ff8139 32.81%, #e04300 100%);
+  background: #b6b6b6;
 
   &.active {
-    mix-blend-mode: normal;
+    background: linear-gradient(
+      180deg,
+      #ff9776 0%,
+      #ff8139 32.81%,
+      #e04300 100%
+    );
+
     cursor: pointer;
     &:hover {
       background: linear-gradient(
@@ -42,5 +49,5 @@
   font-weight: 500;
   color: #fff;
   font-size: 14px;
-  line-height: calc(22/ 14);
+  line-height: calc(22 / 14);
 }
