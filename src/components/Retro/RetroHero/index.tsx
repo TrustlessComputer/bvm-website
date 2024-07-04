@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import s from './styles.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
+import ImagePlaceholder from '@components/ImagePlaceholder';
 
 export interface IHeroBtn_1 {
   title: string,
@@ -27,7 +28,9 @@ function RetroHero({ label, subTitle, children, btn1, btn2, src, isVideo }: IRet
     <div className={s.wrapper}>
       {
         isVideo ? <video src={src} className={s.bg} autoPlay loop playsInline muted></video> :
-          <Image className={s.bg} src={src} width={1920} height={567} alt={'bg-hero'} />
+          <div  className={s.wrapperbg}>
+            <ImagePlaceholder className={s.bg} src={src} width={1920} height={567} alt={'bg-hero'} />
+          </div>
       }
       <div className={` ${s.container} containerV3`}>
         <div className={s.wrapperContent}>

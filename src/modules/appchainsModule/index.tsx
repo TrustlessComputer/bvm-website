@@ -18,7 +18,7 @@ const DEFI_LIST_INFO: RetroCardProps[] = [
     children:
       'Implement consensus mechanisms best suited for specific applications, rather than relying on generic solutions.',
     src: '/appChains/2.svg',
-    bgColor: '#FE6420',
+    bgColor: '#DD1E47',
   },
   {
     title: 'Specialized Smart Contracts',
