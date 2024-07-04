@@ -31,7 +31,9 @@ type BoxOption = {
 
 const BuyPage = () => {
   const { field, setFormField } = useFormOrderStore((state) => state);
-  const allFilled = Object.keys(field).every(key => field[key as Override].dragged)
+  const allFilled = Object.keys(field).every(
+    (key) => field[key as Override].dragged,
+  );
 
   const boxOptionMapping: Record<string, BoxOptionProps> = {
     [ORDER_FIELD.CHAIN_NAME]: {

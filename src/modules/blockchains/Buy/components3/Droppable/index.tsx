@@ -17,4 +17,4 @@ const Droppable = ({ children, ...props }: Props) => {
   );
 };
 
-export default Droppable;
+export default React.memo(Droppable);

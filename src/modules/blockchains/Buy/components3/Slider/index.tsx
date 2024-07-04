@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { formatCurrencyV2 } from '@/utils/format';
 import {
   SliderFilledTrack,
@@ -36,7 +38,7 @@ const Slider = ({
   const onChange = (value: number) => {
     cb(field, value.toString());
   };
-  console.log('defaultValue', defaultValue);
+
   return (
     <div className={s.dropdown}>
       <div className={s.dropdown_inner} onClick={() => setIsOpen(!isOpen)}>
@@ -65,15 +67,14 @@ const Slider = ({
               decimals: 0,
             })} ${suffix ?? ''}`}{' '}
           </p>
-          {/*<input style={{accentColor: '#fff'}} type="range" value={value}  min="1" max="100" onInput={(e) => setValue(e.currentTarget.value)} />*/}
           <SliderReact
             // isDisabled={
             //   !!packageParam && Number(packageParam) === PRICING_PACKGE.Hacker
             // }
             onChange={onChange}
             value={Number(defaultValue)}
-            min={min} // 2 hours
-            max={max} // 24 hours
+            min={min}
+            max={max}
             step={1}
           >
             <SliderTrack className={s.slider}>
@@ -87,4 +88,4 @@ const Slider = ({
   );
 };
 
-export default Slider;
+export default React.memo(Slider);

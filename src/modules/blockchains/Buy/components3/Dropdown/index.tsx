@@ -16,18 +16,12 @@ type TDropdown = {
   defaultValue: DALayerEnum | NetworkEnum;
   cb: (feild: keyof FormOrder, value: DALayerEnum | NetworkEnum) => void;
 };
-export default function Dropdown({
-  options,
-  cb,
-  field,
-  defaultValue,
-}: TDropdown) {
+function Dropdown({ options, cb, field, defaultValue }: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, () => setIsOpen(false));
 
   const handleSelectField = (value: DALayerEnum | NetworkEnum) => {
-    console.log('value', value);
     cb(field, value);
     setIsOpen(false);
   };
@@ -84,3 +78,5 @@ export default function Dropdown({
     </div>
   );
 }
+
+export default React.memo(Dropdown);

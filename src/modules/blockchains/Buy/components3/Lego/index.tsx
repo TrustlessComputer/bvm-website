@@ -20,7 +20,7 @@ type TLegoItem = {
   isActive?: boolean;
   zIndex: number;
 };
-export default function Lego({
+function Lego({
   background,
   label,
   isFrist,
@@ -30,18 +30,6 @@ export default function Lego({
   children,
   ...props
 }: TLegoItem & HTMLAttributes<HTMLDivElement>) {
-  // const { field } = useFormOrderStore();
-  // const renderOptions = () => {
-  //   switch (type) {
-  //     case 'dropdown':
-  //       return <Dropdown cb={cb} field={field} options={options} />;
-  //     case 'input':
-  //       return <input />;
-  //     case 'slide':
-  //       return <Slider cb={cb} field={field} />;
-  //   }
-  // };
-  // const valueLeg o =
   return (
     <div
       className={`${s.wrapper} ${s[`wrapper__${background}`]}`}
@@ -50,15 +38,7 @@ export default function Lego({
     >
       <div className={s.inner}>
         <p className={s.label}>{label}</p>
-        <div className={s.options}>
-          {children}
-          {/* {renderOptions()} */}
-          {/* {!type = ? (
-            <Dropdown cb={cb} field={field} options={options} />
-          ) : (
-            <Slider />
-          )} */}
-        </div>
+        <div className={s.options}>{children}</div>
       </div>
 
       {!isFrist && (
@@ -83,3 +63,5 @@ export default function Lego({
     </div>
   );
 }
+
+export default React.memo(Lego);
