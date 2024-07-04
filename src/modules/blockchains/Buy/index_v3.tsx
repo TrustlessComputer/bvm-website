@@ -194,13 +194,12 @@ const BuyPage = () => {
             <div className={s.left}>
               <p className={s.heading}>Customize your Blockchain</p>
               <div className={s.left_box}>
-                {Object.keys(boxOptionMapping).map((key) => {
+                {Object.keys(boxOptionMapping).map((key, index) => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return;
 
                   const { label, children, descriptionDetail } =
                     boxOptionMapping[key as Override];
                   const isDragged = field[key as Override].dragged;
-
                   return (
                     <BoxOption
                       key={key}
@@ -208,6 +207,9 @@ const BuyPage = () => {
                       id={key}
                       active={isDragged}
                       descriptionDetail={descriptionDetail}
+                      isLast={
+                        index === Object.keys(boxOptionMapping).length - 1
+                      }
                     >
                       {children}
                     </BoxOption>

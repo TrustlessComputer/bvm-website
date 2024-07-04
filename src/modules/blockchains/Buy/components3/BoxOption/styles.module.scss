@@ -1,15 +1,19 @@
 .boxItem {
+  --background-color: #fff;
+  --stroke-color: #d9d9d9;
+
   width: 100%;
-  //height: 206px;
-  background-color: #fff;
+  background-color: var(--background-color);
   border-radius: 10px;
-  border: 1px solid rgba(217, 217, 217, 1);
+  border: 1px solid var(--stroke-color);
+  border-top-width: 1px;
+  border-bottom-width: 0.5px;
   position: relative;
   padding: 53px 48px;
   user-select: none;
   &.activeBox {
-    border-color: #74d579;
-    background-color: #ebffec;
+    --stroke-color: #74d579;
+    --background-color: #ebffec;
   }
   &_heading {
     display: flex;
@@ -25,24 +29,23 @@
       line-height: calc(34 / 24);
     }
   }
-  &:not(:last-child):after {
+
+  &_stud {
     position: absolute;
-    content: '';
-    background-color: #fff;
+    top: calc(100% - 2px);
     left: 50%;
     transform: translateX(-50%);
-    width: 128px;
-    height: 24px;
-    bottom: -25px;
-    border: 1px solid rgba(217, 217, 217, 1);
-    border-top: none;
-    border-bottom-right-radius: 30px;
-    border-bottom-left-radius: 30px;
-    z-index: 2;
-  }
-  &.activeBox:after {
-    background-color: #ebffec;
-    border-color: #74d579;
+    z-index: 1;
+    svg path {
+      &:first-child {
+        fill: var(--background-color);
+        stroke: var(--stroke-color);
+        stroke-width: 2px;
+      }
+      &:last-child {
+        fill: var(--background-color);
+      }
+    }
   }
 }
 
