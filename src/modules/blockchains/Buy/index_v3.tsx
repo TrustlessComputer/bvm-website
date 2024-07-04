@@ -19,6 +19,7 @@ import { MouseSensor } from './utils';
 
 import s from './styles.module.scss';
 import ComputerNameInput from './components3/ComputerNameInput';
+import LaunchButton from './components3/LaunchButton';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 type BoxOption = {
@@ -135,8 +136,8 @@ const BuyPage = () => {
         </Lego>
       ),
     },
-    [ORDER_FIELD.BLOCK_TIME]: {
-      id: ORDER_FIELD.BLOCK_TIME,
+    [ORDER_FIELD.WITHDRAW_PERIOD]: {
+      id: ORDER_FIELD.WITHDRAW_PERIOD,
       label: '5. Withdrawal time',
       descriptionDetail: {
         title: 'Withdrawal Time',
@@ -155,13 +156,13 @@ const BuyPage = () => {
           label={DATA_PRICING.withdrawal.sub_title}
           isFrist={false}
           zIndex={6}
-          isActive={field[ORDER_FIELD.BLOCK_TIME].dragged}
+          isActive={field[ORDER_FIELD.WITHDRAW_PERIOD].dragged}
           isLast={true}
         >
           <Slider
             cb={setFormField}
-            field={ORDER_FIELD.BLOCK_TIME}
-            defaultValue={field[ORDER_FIELD.BLOCK_TIME].value}
+            field={ORDER_FIELD.WITHDRAW_PERIOD}
+            defaultValue={field[ORDER_FIELD.WITHDRAW_PERIOD].value}
             max={DATA_PRICING.withdrawal.max}
             suffix="hours"
           />
@@ -212,6 +213,7 @@ const BuyPage = () => {
                 })}
               </div>
             </div>
+
             <div className={s.right}>
               <Tier />
               <div className={s.right_box}>
@@ -228,17 +230,7 @@ const BuyPage = () => {
                     return children;
                   })}
                 </Droppable>
-                <div className={`${s.launch} ${allFilled && s.active}`}>
-                  <p>Launch</p>
-                  <div className={`${s.icon}`}>
-                    <ImagePlaceholder
-                      src={'/launch.png'}
-                      alt={'launch'}
-                      width={48}
-                      height={48}
-                    />
-                  </div>
-                </div>
+                <LaunchButton />
               </div>
             </div>
           </div>

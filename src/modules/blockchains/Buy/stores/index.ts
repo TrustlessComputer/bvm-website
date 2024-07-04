@@ -1,24 +1,26 @@
 import { create } from 'zustand';
 import { BuyBuilderSelectState } from '../Buy.types';
-import {
-  DALayerEnum,
-  NetworkEnum,
-  WITHDRAWAL_PERIOD_BOOTSTRAP,
-} from '../Buy.constanst';
+import { DALayerEnum, NetworkEnum } from '../Buy.constanst';
 
 export const ORDER_FIELD = {
   CHAIN_NAME: 'chainName',
   NETWORK: 'network',
   DATA_AVAILABILITY_CHAIN: 'dataAvaibilityChain',
   GAS_LIMIT: 'gasLimit',
-  BLOCK_TIME: 'blockTime',
+  WITHDRAW_PERIOD: 'withdrawPeriod',
 } as const;
+
 export type FormOrder = Pick<
   BuyBuilderSelectState,
-  'chainName' | 'network' | 'dataAvaibilityChain' | 'gasLimit' | 'blockTime'
+  | 'chainName'
+  | 'network'
+  | 'dataAvaibilityChain'
+  | 'gasLimit'
+  | 'withdrawPeriod'
 >;
 
 type UseFormOrderStore = {
+  form: FormOrder;
   field: {
     [ORDER_FIELD.CHAIN_NAME]: {
       dragged: boolean;
@@ -36,9 +38,9 @@ type UseFormOrderStore = {
       dragged: boolean;
       value: BuyBuilderSelectState['gasLimit'];
     };
-    [ORDER_FIELD.BLOCK_TIME]: {
+    [ORDER_FIELD.WITHDRAW_PERIOD]: {
       dragged: boolean;
-      value: BuyBuilderSelectState['blockTime'];
+      value: BuyBuilderSelectState['withdrawPeriod'];
     };
   };
   setFormField(
@@ -46,9 +48,19 @@ type UseFormOrderStore = {
     value: FormOrder[keyof FormOrder],
     dragged?: boolean,
   ): void;
+
+  setForm(form: FormOrder): void;
 };
 
 export const useFormOrderStore = create<UseFormOrderStore>((set) => ({
+  form: {
+    [ORDER_FIELD.CHAIN_NAME]: '',
+    [ORDER_FIELD.NETWORK]: NetworkEnum.Network_Testnet,
+    [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: DALayerEnum.DALayer_PLG,
+    [ORDER_FIELD.GAS_LIMIT]: String(0),
+    [ORDER_FIELD.WITHDRAW_PERIOD]: 0,
+  },
+
   field: {
     [ORDER_FIELD.CHAIN_NAME]: {
       dragged: true,
@@ -66,11 +78,12 @@ export const useFormOrderStore = create<UseFormOrderStore>((set) => ({
       dragged: false,
       value: String(0),
     },
-    [ORDER_FIELD.BLOCK_TIME]: {
+    [ORDER_FIELD.WITHDRAW_PERIOD]: {
       dragged: false,
       value: 0,
     },
   },
+
   setFormField: (field, value, dragged) => {
     set((state) => ({
       field: {
@@ -80,6 +93,12 @@ export const useFormOrderStore = create<UseFormOrderStore>((set) => ({
           value,
         },
       },
+    }));
+  },
+
+  setForm: (form) => {
+    set((state) => ({
+      form,
     }));
   },
 }));

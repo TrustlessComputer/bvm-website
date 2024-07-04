@@ -108,35 +108,3 @@
     color: #0e0e0e;
   }
 }
-
-.launch {
-  align-self: flex-end;
-  border-radius: 24px;
-  padding: 7px 24px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  cursor: not-allowed;
-  mix-blend-mode: luminosity;
-  background: linear-gradient(180deg, #ff9776 0%, #ff8139 32.81%, #e04300 100%);
-  p {
-    font-size: 24px;
-    color: #fff;
-    font-weight: 500;
-  }
-  .icon {
-    max-width: 24px;
-  }
-  &.active {
-    mix-blend-mode: normal;
-    cursor: pointer;
-    &:hover {
-      background: linear-gradient(
-        180deg,
-        #f3ae99 0%,
-        #f5945e 32.81%,
-        #f36627 100%
-      );
-    }
-  }
-}
