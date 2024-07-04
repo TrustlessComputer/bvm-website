@@ -3,6 +3,7 @@ import { NavItem } from '@layouts/Header/menuConfig';
 import GroupProducts from '@layouts/HeaderV3/components/GroupProducts';
 import GroupDeveloper from '@layouts/HeaderV3/components/GroupDeveloper';
 import ContactUs from "@layouts/HeaderV3/components/ContactUs";
+import GroupSolutions from './components/GroupSolutions';
 
 export const NAV_ITEMS: Array<NavItem> = [
   {
@@ -12,6 +13,14 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
     groupType: 'production',
     GroupDropDown: GroupProducts,
+  },
+  {
+    label: 'Solutions',
+    href: '#',
+    isNewWindow: false,
+    isHide: false,
+    groupType: 'solutions',
+    GroupDropDown: GroupSolutions,
   },
   // {
   //   label: 'Developers',

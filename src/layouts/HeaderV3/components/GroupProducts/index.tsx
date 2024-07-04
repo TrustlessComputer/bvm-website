@@ -184,39 +184,39 @@ export default function GroupProducts(): ReactElement {
         </div>
 
       </div>
-      <div className={s.right}>
-        <div className={s.simpleGroup}>
-          <h4 className={s.title}>Solutions</h4>
-          <ul className={s.simpleGroup_list}>
-            <li className={s.simpleGroup_link}>
-              <Link href={'/defi'}>Bitcoin rollups for DeFi</Link>
-            </li>
-            <li className={s.simpleGroup_link}>
-              <Link href={'/gamefi'}>Bitcoin rollups for Gaming</Link>
-            </li>
-            <li className={s.simpleGroup_link}>
-              <Link href={'/socialfi'}>Bitcoin rollups for SocialFi</Link>
-            </li>
-          </ul>
-        </div>
-        {/*<div className={s.simpleGroup}>*/}
-        {/*  <h4 className={s.title}>Developers</h4>*/}
-        {/*  <ul className={s.simpleGroup_list}>*/}
-        {/*    <li className={s.simpleGroup_link}>*/}
-        {/*      <Link href={'https://docs.bvm.network/bvm/quickstart/create-a-zk-powered-blockchain'} target={'_blank'}>Launch*/}
-        {/*        a Bitcoin ZK rollup</Link>*/}
-        {/*    </li>*/}
-        {/*    <li className={s.simpleGroup_link}>*/}
-        {/*      <Link href={'https://docs.bvm.network/bvm/quickstart/connect-to-zk-powered-blockchains'}*/}
-        {/*            target={'_blank'}>Connect to a Bitcoin ZK rollup</Link>*/}
-        {/*    </li>*/}
-        {/*    <li className={s.simpleGroup_link}>*/}
-        {/*      <Link href={'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps'} target={'_blank'}>Build*/}
-        {/*        your first Bitcoin dapps</Link>*/}
-        {/*    </li>*/}
-        {/*  </ul>*/}
-        {/*</div>*/}
-      </div>
+      {/*<div className={s.right}>*/}
+      {/*  <div className={s.simpleGroup}>*/}
+      {/*    <h4 className={s.title}>Solutions</h4>*/}
+      {/*    <ul className={s.simpleGroup_list}>*/}
+      {/*      <li className={s.simpleGroup_link}>*/}
+      {/*        <Link href={'/defi'}>Bitcoin rollups for DeFi</Link>*/}
+      {/*      </li>*/}
+      {/*      <li className={s.simpleGroup_link}>*/}
+      {/*        <Link href={'/gamefi'}>Bitcoin rollups for Gaming</Link>*/}
+      {/*      </li>*/}
+      {/*      <li className={s.simpleGroup_link}>*/}
+      {/*        <Link href={'/socialfi'}>Bitcoin rollups for SocialFi</Link>*/}
+      {/*      </li>*/}
+      {/*    </ul>*/}
+      {/*  </div>*/}
+      {/*  /!*<div className={s.simpleGroup}>*!/*/}
+      {/*  /!*  <h4 className={s.title}>Developers</h4>*!/*/}
+      {/*  /!*  <ul className={s.simpleGroup_list}>*!/*/}
+      {/*  /!*    <li className={s.simpleGroup_link}>*!/*/}
+      {/*  /!*      <Link href={'https://docs.bvm.network/bvm/quickstart/create-a-zk-powered-blockchain'} target={'_blank'}>Launch*!/*/}
+      {/*  /!*        a Bitcoin ZK rollup</Link>*!/*/}
+      {/*  /!*    </li>*!/*/}
+      {/*  /!*    <li className={s.simpleGroup_link}>*!/*/}
+      {/*  /!*      <Link href={'https://docs.bvm.network/bvm/quickstart/connect-to-zk-powered-blockchains'}*!/*/}
+      {/*  /!*            target={'_blank'}>Connect to a Bitcoin ZK rollup</Link>*!/*/}
+      {/*  /!*    </li>*!/*/}
+      {/*  /!*    <li className={s.simpleGroup_link}>*!/*/}
+      {/*  /!*      <Link href={'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps'} target={'_blank'}>Build*!/*/}
+      {/*  /!*        your first Bitcoin dapps</Link>*!/*/}
+      {/*  /!*    </li>*!/*/}
+      {/*  /!*  </ul>*!/*/}
+      {/*  /!*</div>*!/*/}
+      {/*</div>*/}
     </div>
   </div>;
 }
