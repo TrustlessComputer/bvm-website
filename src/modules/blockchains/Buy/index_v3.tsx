@@ -21,6 +21,7 @@ import s from './styles.module.scss';
 import ComputerNameInput from './components3/ComputerNameInput';
 import LaunchButton from './components3/LaunchButton';
 import { useBuy } from '../providers/Buy.hook';
+import { STEP_GAS_LIMIT } from './Buy.constanst';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 type BoxOption = {
@@ -135,8 +136,9 @@ const BuyPage = () => {
             field={ORDER_FIELD.GAS_LIMIT}
             defaultValue={field[ORDER_FIELD.GAS_LIMIT].value}
             max={blockGasLimitSelected}
-            min={Number(minGasPriceField.value) || 0}
-            step={Number(blockGasLimitSelected / 100)}
+            // min={Number(minGasPriceField.value) || 0}
+            // min={0}
+            step={STEP_GAS_LIMIT}
           />
         </Lego>
       ),
