@@ -6,6 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { DATA } from '@/modules/app-store/data';
 import { compareString } from '@utils/string';
+import InstallMode from '@/modules/app-store/detail/mode';
 
 const AppDetailModule = () => {
   const params = useParams();
@@ -34,6 +35,15 @@ const AppDetailModule = () => {
           <Text className={s.status}>{status}</Text>
           <Text className={s.title}>{data?.title}</Text>
           <Text className={s.description}>{data?.description}</Text>
+          <Flex gap={"12px"}>
+            {
+              data?.modes.map(m => {
+                return (
+                  <InstallMode data={m}/>
+                )
+              })
+            }
+          </Flex>
         </Box>
       </Box>
     </Box>
