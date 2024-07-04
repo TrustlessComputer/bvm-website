@@ -5,11 +5,14 @@
 
 .heading {
   color: #000;
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 500;
   font-family: var(--font-jetbrains);
-  line-height: calc(41 / 32);
+  line-height: calc(35 / 25);
   margin-bottom: 12px;
+  @include is-pc {
+    font-size: 32px;
+  }
 }
 
 .desc {

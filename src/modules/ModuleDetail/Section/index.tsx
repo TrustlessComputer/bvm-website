@@ -11,8 +11,12 @@ const Section = ({ title, children }: TSection) => {
     <div className={s.wrapper}>
       <div className="containerV3">
         <div className={s.inner}>
-          <div className={s.title}><Fade delay={0.2} from={{ y: 20 }} to={{ y: 0 }}>{title}</Fade></div>
-          <div className={s.right}>{children}</div>
+            <Fade delay={0.2} from={{ y: 20 }} to={{ y: 0 }}>
+              <div className={s.title}>
+                {title}
+              </div>
+            </Fade>
+            <div className={s.right}>{children}</div>
         </div>
       </div>
     </div>
