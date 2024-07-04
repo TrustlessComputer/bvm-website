@@ -100,58 +100,6 @@ export const DATA_CHAINS = [
     // ]
   },
   {
-    heading: 'Swamps Chain.',
-    noteHeading: 'The Bitcoin L2 for SRC-20 DeFi',
-    banner: '3.png',
-    desc: 'Swamps is the first Stamps-based Bitcoin L2 blockchain that power SRC-20 DEX where you can bridge and swap SRC-20 tokens with 2-second block time and near-zero gas fee.',
-    social: [
-      {
-        icon: '/use-bitcoin/ic_x.svg',
-        label: 'twitter',
-        link: 'https://twitter.com/Swamps_L2',
-      },
-      {
-        icon: '/use-bitcoin/ic_web.svg',
-        label: 'swamps.fi',
-        link: 'http://www.swamps.fi/',
-      }
-    ]
-    // desc: [
-    //   {
-    //     label: 'Bitcoin L2: ',
-    //     value: 'Alpha'
-    //   },
-    //   {
-    //     label: 'Block time: ',
-    //     value: '2 seconds'
-    //   },
-    //   {
-    //     label: 'Network type: ',
-    //     value: 'Bitcoin Mainnet'
-    //   } ,
-    //   {
-    //     label: 'Deployer: ',
-    //     value: 'NBC team'
-    //   }  ,
-    //   {
-    //     label: 'Rollups: ',
-    //     value: 'Optimistic'
-    //   },
-    //   {
-    //     label: 'Data Validity: ',
-    //     value: 'Bitcoin'
-    //   } ,
-    //   {
-    //     label: 'Data Availability:',
-    //     value: 'Polygon'
-    //   },
-    //   {
-    //     label: 'Launch date:',
-    //     value: 'June 27, 2023'
-    //   }
-    // ]
-  },
-  {
     heading: 'RuneChain.',
     noteHeading: 'The Bitcoin L2 for Runes',
     videoSrc: '/landing-v2/video/Runechain_Teaser.mp4',
