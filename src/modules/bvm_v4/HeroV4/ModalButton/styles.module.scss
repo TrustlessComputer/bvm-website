@@ -1,0 +1,54 @@
+.modalContent {
+  background-color: #fff !important;
+  max-width: max-content !important;
+  margin: 20px !important;
+}
+
+.wrapper {
+  padding: 24px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+  @include is-min-table {
+    grid-template-columns: 1fr 1fr;
+  }
+  @include is-pc {
+    grid-template-columns: 1fr 1fr 1fr;
+
+  }
+}
+
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000;
+  gap: 12px;
+  border-radius: 100px;
+  height: 50px;
+  width: 270px;
+  cursor: pointer;
+  &.red {
+    padding: 14px 0;
+    border: 1px solid rgba(250, 78, 14, 1)
+  }
+  &_title {
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: calc(16 / 14);
+    &.red {
+      color: #FA4E0E;
+    }
+  }
+  &_icon {
+    max-width: 52px;
+    height: 52px;
+    width: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
