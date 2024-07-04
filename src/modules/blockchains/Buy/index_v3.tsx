@@ -61,7 +61,7 @@ const BuyPage = () => {
     },
     [ORDER_FIELD.NETWORK]: {
       id: ORDER_FIELD.NETWORK,
-      label: '2. Network',
+      label: DATA_PRICING.network.title,
       children: (
         <Lego
           background={'brown'}
@@ -82,9 +82,9 @@ const BuyPage = () => {
     },
     [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
       id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
-      label: '3. Data Availability',
+      label: DATA_PRICING.availability.title,
       descriptionDetail: {
-        title: 'Data Availability',
+        title: DATA_PRICING.availability.sub_title,
         content: (
           <p>
             The data of your blockchain is written to a Data Availability layer
@@ -112,9 +112,9 @@ const BuyPage = () => {
     },
     [ORDER_FIELD.GAS_LIMIT]: {
       id: ORDER_FIELD.GAS_LIMIT,
-      label: '4. Block gas limit',
+      label: DATA_PRICING.gas.title,
       descriptionDetail: {
-        title: 'Block Gas Limit',
+        title: DATA_PRICING.gas.sub_title,
         content: (
           <p>
             The block gas limit defines the maximum amount of gas that all
@@ -145,9 +145,9 @@ const BuyPage = () => {
     },
     [ORDER_FIELD.WITHDRAW_PERIOD]: {
       id: ORDER_FIELD.WITHDRAW_PERIOD,
-      label: '5. Withdrawal time',
+      label: DATA_PRICING.withdrawal.title,
       descriptionDetail: {
-        title: 'Withdrawal Time',
+        title: DATA_PRICING.withdrawal.sub_title,
         content: (
           <p>
             The withdrawal period is the time frame during which your users can

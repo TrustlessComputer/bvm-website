@@ -3,7 +3,7 @@ import { WITHDRAWAL_PERIOD_BOOTSTRAP } from '../all-l3-monitor/Buy/Buy.constanst
 
 export const DATA_PRICING = {
   network: {
-    title: '1. Network',
+    title: 'Network',
     sub_title: 'Network',
     options: [
       {
@@ -20,7 +20,7 @@ export const DATA_PRICING = {
   },
 
   availability: {
-    title: '2. Data Availability',
+    title: 'Data Availability',
     sub_title: 'Data Availability',
     options: [
       {
@@ -68,13 +68,13 @@ export const DATA_PRICING = {
   },
 
   gas: {
-    title: '3. Block gas limit',
+    title: 'Block gas limit',
     sub_title: 'Block gas limit',
     max: GAS_LITMIT,
   },
 
   withdrawal: {
-    title: '4. Withdrawal time',
+    title: 'Withdrawal time',
     sub_title: 'Withdrawal time',
     max: WITHDRAWAL_PERIOD_BOOTSTRAP,
   },

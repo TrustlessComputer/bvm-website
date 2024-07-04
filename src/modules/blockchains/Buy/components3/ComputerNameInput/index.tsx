@@ -10,9 +10,10 @@ import { ORDER_FIELD, useFormOrderStore } from '../../stores';
 import { getRandonComputerName } from '../../Buy.helpers';
 
 import s from './styles.module.scss';
+import { useDebounce } from '@/hooks/useDebounce';
 
 const ComputerNameInput = () => {
-  const { field } = useFormOrderStore((state) => state);
+  const { field, setFormField } = useFormOrderStore((state) => state);
 
   const { computerNameField, setComputerNameField, isMainnet } = useBuy();
   const { value, errorMessage } = computerNameField;
@@ -22,11 +23,16 @@ const ComputerNameInput = () => {
       const text = e.target.value;
       let isValid = !isEmpty(text);
       let errorMessage = FormFieldsErrorMessage[FormFields.COMPUTER_NAME];
-
+      let timer: NodeJS.Timeout | null = null;
       if (isValid) {
         try {
           isValid = await validateSubDomainAPI(text);
           field[ORDER_FIELD.CHAIN_NAME].value = text;
+
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            setFormField(ORDER_FIELD.CHAIN_NAME, text);
+          });
         } catch (error: any) {
           errorMessage = error.toString() || 'Computer name is invalid';
           toast.error(errorMessage);
