@@ -182,8 +182,8 @@ export const getUrlAvatarTwitter = (
     finalUrl += `/${lastPartUrl
       ?.splice(0, lastPartUrl.length - 1)
       ?.join('_')}_${ETwitterImageProfileSize[size]}.${last(
-      last(lastPartUrl)?.split('.'),
-    )}`;
+        last(lastPartUrl)?.split('.'),
+      )}`;
 
     return finalUrl;
   }

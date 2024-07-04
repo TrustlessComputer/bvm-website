@@ -70,7 +70,7 @@ export const DATA_PRICING = {
 
   withdrawal: {
     title: '4. Withdrawal time',
-    sub_title: 'Block gas limit',
+    sub_title: 'Withdrawal time',
     max: WITHDRAWAL_PERIOD_BOOTSTRAP,
   },
 };
