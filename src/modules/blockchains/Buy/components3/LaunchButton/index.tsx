@@ -1,18 +1,44 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 
 import s from './styles.module.scss';
 import { FormOrder, ORDER_FIELD, useFormOrderStore } from '../../stores';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
+import { useSearchParams } from 'next/navigation';
+import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
 const LaunchButton = () => {
   const { computerNameField } = useBuy();
   const { hasError } = computerNameField;
-
   const { field, setForm } = useFormOrderStore((state) => state);
+  const searchParams = useSearchParams();
+  const packageParam = searchParams.get('package') || PRICING_PACKGE.Hacker;
+
+  const { availableListFetching, availableList } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
+  const isFecthingData = useMemo(() => {
+    return availableListFetching || !availableList;
+  }, [availableListFetching, availableList]);
+
+  const tierData = useMemo(() => {
+    const packageData = availableList?.package['2'];
+    const result = packageData?.filter((item, index) => {
+      if (item.value === Number(packageParam)) {
+        return true;
+      }
+      return false;
+    });
+    return result ? result[0] : undefined;
+  }, [isFecthingData, availableList, packageParam]);
+
+  if (isFecthingData) return null;
+
 
   const allFilled = Object.keys(field).every(
     (key) => field[key as Override].dragged,
@@ -37,15 +63,18 @@ const LaunchButton = () => {
       className={`${s.launch} ${allFilled && !hasError ? s.active : ''}`}
       onClick={handleOnClick}
     >
-      <p>Launch</p>
-      <div className={`${s.icon}`}>
-        <ImagePlaceholder
-          src={'/launch.png'}
-          alt={'launch'}
-          width={48}
-          height={48}
-        />
+      <div className={s.inner}>
+        <p>Launch</p>
+        <div className={`${s.icon}`}>
+          <ImagePlaceholder
+            src={'/launch.png'}
+            alt={'launch'}
+            width={48}
+            height={48}
+          />
+        </div>
       </div>
+      <p className={s.price}>{`${tierData?.price || '--'} (${tierData?.priceNote || '--'})`}</p>
     </div>
   );
 };
