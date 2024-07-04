@@ -39,10 +39,11 @@
     box-shadow: none;
     border: none;
     border-radius: 0;
-
+    top: 0;
 
     @include is-pc {
       padding-top: 6px;
+      top: 100%;
     }
 
     &_inner {
