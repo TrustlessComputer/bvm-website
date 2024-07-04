@@ -36,8 +36,8 @@ export default function GroupProducts(): ReactElement {
         <div className={s.group}>
           <h4 className={s.title}>By Business model</h4>
           <ul className={`${s.group_inner} ${s.isFlex}`}>
-            <li className={s.isDisabled}>
-              <Link href={'/module/bvm-celestia'} className={s.group_item_icon}>
+            <li>
+              <Link href={'/appchains'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/ic-app.png"
                        alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
@@ -46,8 +46,8 @@ export default function GroupProducts(): ReactElement {
                 </div>
               </Link>
             </li>
-            <li className={s.isDisabled}>
-              <Link href={'/module/bvm-eigen'} className={s.group_item_icon}>
+            <li>
+              <Link href={'/ecosystems'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/ic-eco.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
