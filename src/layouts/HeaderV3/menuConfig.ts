@@ -71,6 +71,14 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     GroupDropDown: GroupProducts,
   },
   {
+    label: 'Solutions',
+    href: '#',
+    isNewWindow: false,
+    isHide: false,
+    groupType: 'solutions',
+    GroupDropDown: GroupSolutions,
+  },
+  {
     label: 'Developers',
     href: '/developers',
     isNewWindow: false,
@@ -82,29 +90,6 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     href: '/pricing',
     isNewWindow: false,
     isHide: false,
-  },
-  {
-    label: '$BVM',
-    href: '/bvm',
-    isNewWindow: false,
-    isHide: false,
-    // subMenu: [
-    //   {
-    //     href: '/roadmap',
-    //     label: 'Roadmap',
-    //     isNewWindow: false,
-    //   },
-    //   {
-    //     href: 'https://docs.bvm.network/bvm',
-    //     label: 'Developer Docs',
-    //     isNewWindow: true,
-    //   },
-    //   {
-    //     href: '/whitepaper.pdf',
-    //     label: 'WhitePaper',
-    //     isNewWindow: false,
-    //   },
-    // ],
   },
   // {
   //   label: 'Docs',
@@ -131,6 +116,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
 ];
 
 export const NAV_ITEMS_RIGHT: Array<NavItem> = [
+  {
+    label: '$BVM',
+    href: '/bvm',
+    isNewWindow: false,
+    isHide: false,
+  },
   {
     label: 'Research',
     href: '/research',
