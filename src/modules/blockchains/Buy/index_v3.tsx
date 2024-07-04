@@ -20,6 +20,7 @@ import { DATA_PRICING } from '../data_pricing';
 import Dropdown from './components3/Dropdown';
 import Slider from './components3/Slider';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import Tier from '@/modules/blockchains/Buy/components3/Tier';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -65,7 +66,6 @@ function Droppable(props) {
 }
 
 const BuyPage = () => {
-  const router = useRouter();
   const { field, setFormField } = useFormOrderStore((state) => state);
 
   console.log('[BuyPage] field ::', field);
@@ -248,22 +248,7 @@ const BuyPage = () => {
               </div>
             </div>
             <div className={s.right}>
-              <div className={s.right_top}>
-                <p className={s.heading}>Your tier</p>
-                <div className={s.right_top_box}>
-                  <p>
-                    <span>Hacker</span> $99 per rollup/month
-                  </p>
-                  <div
-                    className={s.right_top_box_btn}
-                    onClick={() => {
-                      router.push('/pricing');
-                    }}
-                  >
-                    <p>Switch</p>
-                  </div>
-                </div>
-              </div>
+              <Tier />
               <div className={s.right_box}>
                 <Droppable>
                   {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content()}
