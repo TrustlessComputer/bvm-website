@@ -1,12 +1,15 @@
 import React from 'react';
 import { debounce, isEmpty } from 'lodash';
+import toast from 'react-hot-toast';
 
-import s from './styles.module.scss';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
-import { getRandonComputerName } from '../../Buy.helpers';
 import { validateSubDomainAPI } from '@/services/api/l2services';
+import { showError } from '@/components/toast';
 import { FormFields, FormFieldsErrorMessage } from '../../Buy.constanst';
 import { ORDER_FIELD, useFormOrderStore } from '../../stores';
+import { getRandonComputerName } from '../../Buy.helpers';
+
+import s from './styles.module.scss';
 
 const ComputerNameInput = () => {
   const { field } = useFormOrderStore((state) => state);
@@ -26,6 +29,7 @@ const ComputerNameInput = () => {
           field[ORDER_FIELD.CHAIN_NAME].value = text;
         } catch (error: any) {
           errorMessage = error.toString() || 'Computer name is invalid';
+          toast.error(errorMessage);
         } finally {
         }
       }
