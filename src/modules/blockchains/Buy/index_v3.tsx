@@ -7,7 +7,7 @@ import {
   ORDER_FIELD,
   useFormOrderStore,
 } from '@/modules/blockchains/Buy/stores';
-import { useRouter } from 'next/navigation';
+import Tier from '@/modules/blockchains/Buy/components3/Tier';
 
 import Lego from './components3/Lego';
 import Dropdown from './components3/Dropdown';
@@ -30,7 +30,6 @@ type BoxOption = {
 };
 
 const BuyPage = () => {
-  const router = useRouter();
   const { field, setFormField } = useFormOrderStore((state) => state);
 
   const boxOptionMapping: Record<string, BoxOptionProps> = {
@@ -216,22 +215,7 @@ const BuyPage = () => {
               </div>
             </div>
             <div className={s.right}>
-              <div className={s.right_top}>
-                <p className={s.heading}>Your tier</p>
-                <div className={s.right_top_box}>
-                  <p>
-                    <span>Hacker</span> $99 per rollup/month
-                  </p>
-                  <div
-                    className={s.right_top_box_btn}
-                    onClick={() => {
-                      router.push('/pricing');
-                    }}
-                  >
-                    <p>Switch</p>
-                  </div>
-                </div>
-              </div>
+              <Tier />
               <div className={s.right_box}>
                 <Droppable>
                   {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].children}
