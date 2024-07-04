@@ -187,23 +187,25 @@ export type IBuyContext = ComputerNameSection &
     submitFormParams: SubmitFormParams | undefined;
 
     isStandardMode: boolean;
+
+    pricingPackageValues: unknown;
   };
 
 export const BuyContextInit: IBuyContext = {
-  setNetworkSelected: () => {},
-  setRollupProtocolSelected: () => {},
-  setBitcoinValiditySelected: () => {},
-  setDataValiditySelected: () => {},
-  setBlockTimeSelected: () => {},
-  setWithdrawalPeriodSelected: () => {},
-  setBlockGasLimitSelected: () => {},
-  setNativeTokenPayingGasSelected: () => {},
-  setPreInstallDAppSelected: () => {},
-  setConfiguratinOptionSelected: () => {},
+  setNetworkSelected: () => { },
+  setRollupProtocolSelected: () => { },
+  setBitcoinValiditySelected: () => { },
+  setDataValiditySelected: () => { },
+  setBlockTimeSelected: () => { },
+  setWithdrawalPeriodSelected: () => { },
+  setBlockGasLimitSelected: () => { },
+  setNativeTokenPayingGasSelected: () => { },
+  setPreInstallDAppSelected: () => { },
+  setConfiguratinOptionSelected: () => { },
 
-  submitHandler: async () => {},
-  confirmSubmitHandler: async () => {},
-  orderBuyHandler: async () => {},
+  submitHandler: async () => { },
+  confirmSubmitHandler: async () => { },
+  orderBuyHandler: async () => { },
 
   isMainnet: false,
   withdrawalPeriodSelected: 7,
@@ -217,58 +219,60 @@ export const BuyContextInit: IBuyContext = {
   submitFormParams: undefined,
 
   showSubmitForm: false,
-  setShowSubmitForm: () => {},
+  setShowSubmitForm: () => { },
 
   isSubmiting: false,
-  setSubmiting: () => {},
+  setSubmiting: () => { },
 
   showSubmitFormResult: false,
-  setShowSubmitFormResult: () => {},
+  setShowSubmitFormResult: () => { },
 
   showTopupModal: false,
-  setShowTopupModal: () => {},
+  setShowTopupModal: () => { },
 
   showSendFormModal: false,
-  setShowSendFormModal: () => {},
+  setShowSendFormModal: () => { },
 
   // ------------------------------------------------------------
   computerNameField: {},
-  setComputerNameField: () => {},
+  setComputerNameField: () => { },
 
   computerDescriptionField: {},
-  setComputerDescriptionField: () => {},
+  setComputerDescriptionField: () => { },
 
   projectXField: {},
-  setProjectXField: () => {},
+  setProjectXField: () => { },
 
   projectWebSiteField: {},
-  setProjectWebSiteField: () => {},
+  setProjectWebSiteField: () => { },
 
   yourXField: {},
-  setYourXField: () => {},
+  setYourXField: () => { },
 
   yourTelegramField: {},
-  setYourTelegramField: () => {},
+  setYourTelegramField: () => { },
 
   minGasPriceField: {},
-  setMinGasPriceField: () => {},
+  setMinGasPriceField: () => { },
 
   blockGasLimitField: {},
-  setBlockGasLimitField: () => {},
+  setBlockGasLimitField: () => { },
 
   // ------------------------------------------------------------
 
   tickerField: {},
-  setTickerField: () => {},
+  setTickerField: () => { },
 
   totalSupplyField: {},
-  setTotalSupplyField: () => {},
+  setTotalSupplyField: () => { },
 
   receivingAddressField: {},
-  setReceivingAddressField: () => {},
+  setReceivingAddressField: () => { },
 
   configuratinOptionSelected: ConfigurationOptionEnum.Standard,
   isStandardMode: true,
 
-  setProverSelected: () => {},
+  setProverSelected: () => { },
+
+  pricingPackageValues: {},
 };

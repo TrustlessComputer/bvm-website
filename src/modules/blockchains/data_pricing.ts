@@ -1,0 +1,81 @@
+import { DALayerEnum, GAS_LITMIT, NetworkEnum } from './Buy/Buy.constanst';
+import { WITHDRAWAL_PERIOD_BOOTSTRAP } from '../all-l3-monitor/Buy/Buy.constanst';
+
+export const DATA_PRICING = {
+  network: {
+    title: 'Network',
+    sub_title: 'Network',
+    options: [
+      {
+        label: 'Mainnet',
+        id: 1,
+        value: NetworkEnum.Network_Mainnet,
+      },
+      {
+        label: 'Testnet',
+        id: 2,
+        value: NetworkEnum.Network_Testnet,
+      },
+    ],
+  },
+
+  availability: {
+    title: 'Data Availability',
+    sub_title: 'Data Availability',
+    options: [
+      {
+        label: 'Polygon',
+        id: 1,
+        value: DALayerEnum.DALayer_PLG,
+        icon: '/landingV3/images/pricing/1.png',
+      },
+      {
+        label: 'Celestia',
+        id: 2,
+        value: DALayerEnum.DALayer_Celestia,
+        isDisabled: true,
+        icon: '/landingV3/images/pricing/2.png',
+      },
+      {
+        label: 'NearDA',
+        id: 3,
+        value: DALayerEnum.DALayer_NearDa,
+        isDisabled: true,
+        icon: '/landingV3/images/pricing/3.png',
+      },
+      {
+        label: 'Eigen',
+        id: 4,
+        value: DALayerEnum.DALayer_Eigen,
+        isDisabled: true,
+        icon: '/landingV3/images/pricing/4.png',
+      },
+      {
+        label: 'Filecoin',
+        id: 5,
+        value: DALayerEnum.DALayer_FILECOIN,
+        isDisabled: true,
+        icon: '/landingV3/images/pricing/5.png',
+      },
+      {
+        label: 'Avail',
+        id: 6,
+        value: DALayerEnum.DALayer_AVAIL,
+        isDisabled: true,
+        icon: '/landingV3/images/pricing/6.png',
+      },
+    ],
+  },
+
+  gas: {
+    title: 'Block gas limit',
+    sub_title: 'Block gas limit',
+    max: GAS_LITMIT,
+  },
+
+  withdrawal: {
+    title: 'Withdrawal time',
+    sub_title: 'Withdrawal time',
+    max: WITHDRAWAL_PERIOD_BOOTSTRAP,
+  },
+};

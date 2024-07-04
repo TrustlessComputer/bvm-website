@@ -3,7 +3,8 @@
 import MainLayout from '@/layouts/MainLayout';
 
 // import Page from '@/modules/blockchains/customize';
-import Page from '@/modules/blockchains/customize/index_v2';
+// import Page from '@/modules/blockchains/customize/index_v2';
+import Page from '@/modules/blockchains/customize/index_v3';
 
 const CustomizePage = () => {
   return (
