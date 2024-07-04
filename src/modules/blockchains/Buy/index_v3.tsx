@@ -31,6 +31,7 @@ type BoxOption = {
 
 const BuyPage = () => {
   const { field, setFormField } = useFormOrderStore((state) => state);
+  const allFilled = Object.keys(field).every(key => field[key as Override].dragged)
 
   const boxOptionMapping: Record<string, BoxOptionProps> = {
     [ORDER_FIELD.CHAIN_NAME]: {
@@ -230,7 +231,7 @@ const BuyPage = () => {
                     return children;
                   })}
                 </Droppable>
-                <div className={`${s.launch} ${s.active}`}>
+                <div className={`${s.launch} ${allFilled && s.active}`}>
                   <p>Launch</p>
                   <div className={`${s.icon}`}>
                     <ImagePlaceholder
