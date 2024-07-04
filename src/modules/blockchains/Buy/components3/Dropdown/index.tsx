@@ -12,6 +12,7 @@ type TDropdown = {
     id: number;
     value: DALayerEnum | NetworkEnum;
     icon?: string;
+    isDisabled?: boolean;
   }[];
   defaultValue: DALayerEnum | NetworkEnum;
   cb: (feild: keyof FormOrder, value: DALayerEnum | NetworkEnum) => void;
@@ -26,6 +27,7 @@ function Dropdown({ options, cb, field, defaultValue }: TDropdown) {
     setIsOpen(false);
   };
   const icon = options.find((item) => item.value === defaultValue)?.icon;
+
   return (
     <div className={s.dropdown} onClick={() => setIsOpen(!isOpen)}>
       <div className={s.dropdown_inner}>
@@ -50,28 +52,32 @@ function Dropdown({ options, cb, field, defaultValue }: TDropdown) {
       >
         <div className={s.dropdown_wrap} ref={ref}>
           <ul className={`${s.dropdown_list_inner} `}>
-            {options.map((option, index) => (
-              <li
-                key={index}
-                className={`${s.dropdown_item} ${
-                  defaultValue === option.value && s.dropdown_item__active
-                }`}
-                onClick={() => {
-                  handleSelectField(option.value);
-                }}
-              >
-                {option.icon && (
-                  <Image
-                    src={option.icon}
-                    alt="icon"
-                    width={24}
-                    height={24}
-                    className={s.dropdown_item_icon}
-                  />
-                )}
-                <p>{option.label}</p>
-              </li>
-            ))}
+            {options.map((option, index) => {
+              const isDisabled = option.isDisabled;
+              return (
+                <li
+                  key={index}
+                  className={`${s.dropdown_item} ${
+                    defaultValue === option.value && s.dropdown_item__active
+                  } ${isDisabled && s.dropdown_item__disabled}`}
+                  onClick={() => {
+                    if (isDisabled) return;
+                    handleSelectField(option.value);
+                  }}
+                >
+                  {option.icon && (
+                    <Image
+                      src={option.icon}
+                      alt="icon"
+                      width={24}
+                      height={24}
+                      className={s.dropdown_item_icon}
+                    />
+                  )}
+                  <p>{option.label}</p>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
