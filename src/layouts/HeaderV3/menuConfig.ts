@@ -152,6 +152,12 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //     },
   //   ],
   // },
+  {
+    label: 'AppStore',
+    href: '/app-store',
+    isNewWindow: false,
+    isHide: false,
+  },
 ];
 
 export const NAV_ITEMS_RIGHT: Array<NavItem> = [
