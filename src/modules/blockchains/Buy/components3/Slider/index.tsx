@@ -19,6 +19,7 @@ type TSlider = {
   cb: (feild: keyof FormOrder, value: string) => void;
   max?: number;
   min?: number;
+  step?: number;
   suffix?: string;
 };
 
@@ -29,6 +30,7 @@ const Slider = ({
   max = 100,
   suffix,
   min = 0,
+  step = 1,
 }: TSlider) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -75,7 +77,7 @@ const Slider = ({
             value={Number(defaultValue)}
             min={min}
             max={max}
-            step={1}
+            step={step}
           >
             <SliderTrack className={s.slider}>
               <SliderFilledTrack bg={'#ffffff'} />

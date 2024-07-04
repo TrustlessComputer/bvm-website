@@ -19,6 +19,7 @@ import { MouseSensor } from './utils';
 
 import s from './styles.module.scss';
 import ComputerNameInput from './components3/ComputerNameInput';
+import { useBuy } from '../providers/Buy.hook';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 type BoxOption = {
@@ -35,7 +36,8 @@ const BuyPage = () => {
   const allFilled = Object.keys(field).every(
     (key) => field[key as Override].dragged,
   );
-
+  const { blockGasLimitSelected, withdrawalPeriodSelected, minGasPriceField } =
+    useBuy();
   const boxOptionMapping: Record<string, BoxOptionProps> = {
     [ORDER_FIELD.CHAIN_NAME]: {
       id: ORDER_FIELD.CHAIN_NAME,
@@ -130,7 +132,9 @@ const BuyPage = () => {
             cb={setFormField}
             field={ORDER_FIELD.GAS_LIMIT}
             defaultValue={field[ORDER_FIELD.GAS_LIMIT].value}
-            max={DATA_PRICING.gas.max}
+            max={blockGasLimitSelected}
+            min={Number(minGasPriceField.value) || 0}
+            step={Number(blockGasLimitSelected / 100)}
           />
         </Lego>
       ),
@@ -162,7 +166,7 @@ const BuyPage = () => {
             cb={setFormField}
             field={ORDER_FIELD.BLOCK_TIME}
             defaultValue={field[ORDER_FIELD.BLOCK_TIME].value}
-            max={DATA_PRICING.withdrawal.max}
+            max={withdrawalPeriodSelected}
             suffix="hours"
           />
         </Lego>
