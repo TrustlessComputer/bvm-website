@@ -756,6 +756,57 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
     }
   };
 
+  const orderBuyHandler_V2 = async (onSuccess?: any) => {
+    try {
+      tracking(
+        packageParam === PRICING_PACKGE.Growth
+          ? 'SUBMIT_TIER2'
+          : 'SUBMIT_TIER3',
+      );
+      setSubmiting(true);
+
+      let params: IOrderBuyReq = {
+        ...orderBuyReq,
+        ...PRICING_PACKGE_DATA[packageParam as PRICING_PACKGE].hardware,
+        rollupProtocol: RollupEnum.Rollup_ZK,
+        serviceType: RollupEnum.Rollup_ZK,
+      };
+      console.log('Register Instance Params: ', params);
+
+      const result = await orderBuyAPI(params);
+
+      await sleep(1);
+
+      if (result) {
+        // Show Toast Success
+        // toast.success('Your order has been submitted successfully.', {
+        //   duration: 1000,
+        // });
+
+        await sleep(1);
+
+        dispatch(setViewMode('Mainnet'));
+        dispatch(setViewPage('ManageChains'));
+        dispatch(setShowAllChains(false));
+
+        await sleep(1);
+
+        router.push('/rollups');
+      }
+    } catch (error) {
+      // const { message } = getErrorMessage(error);
+      // toast.error(message);
+
+      dispatch(setViewMode('Mainnet'));
+      dispatch(setViewPage('ManageChains'));
+      dispatch(setShowAllChains(false));
+      router.push('/rollups?hasOrderFailed=true');
+    } finally {
+      console.log('[orderBuyHandler] finally: ');
+      setSubmiting(false);
+    }
+  };
+
   const submitHandler = async (onSuccess?: any) => {
     try {
       if (!loggedIn) {
@@ -889,6 +940,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
     submitFormParams,
     orderBuyHandler,
+    orderBuyHandler_V2,
 
     showTopupModal,
     setShowTopupModal,

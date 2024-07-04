@@ -5,7 +5,6 @@ import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 
-
 const Tier = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -40,8 +39,8 @@ const Tier = () => {
         {/*  rollup/month*/}
         {/*</p>*/}
         <p>
-          <span>{`${tierData?.valueStr || '--'}`}</span> {`${tierData?.price || '--'}`} per
-          rollup/month
+          <span>{`${tierData?.valueStr || '--'}`}</span>{' '}
+          {`${tierData?.price || '--'}`} per rollup/month
         </p>
         <div
           className={s.right_top_box_btn}
@@ -53,7 +52,7 @@ const Tier = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Tier;
