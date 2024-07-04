@@ -1,5 +1,9 @@
-import { DALayerEnum, GAS_LITMIT, NetworkEnum } from './Buy/Buy.constanst';
-import { WITHDRAWAL_PERIOD_BOOTSTRAP } from '../all-l3-monitor/Buy/Buy.constanst';
+import {
+  DALayerEnum,
+  GAS_LITMIT,
+  NetworkEnum,
+  WITHDRAWAL_PERIOD_BOOTSTRAP,
+} from './Buy/Buy.constanst';
 
 export const DATA_PRICING = {
   network: {
