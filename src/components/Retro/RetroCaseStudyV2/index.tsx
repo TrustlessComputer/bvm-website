@@ -1,4 +1,4 @@
-import React, {PropsWithChildren} from 'react';
+import React, {PropsWithChildren, ReactElement} from 'react';
 import s from './styles.module.scss';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import Link from 'next/link';
@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 interface RetroCaseStudyProps extends PropsWithChildren {
   src: string,
-  heading: string,
+  heading: string | ReactElement,
   brand: string
   btn: {
     title: string,

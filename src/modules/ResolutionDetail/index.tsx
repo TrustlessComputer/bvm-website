@@ -22,14 +22,15 @@ const ResolutionDetail = ({data}: { data: IRESOLUTION }): React.JSX.Element => {
         subTitle={data.hero.subTitle}
         btn1={data.hero.btn1}
         btn2={data.hero?.btn2}
+        isHadContact={data.hero?.isHadContact}
         src={data.hero.src}
       >
         {data.hero.heading}
       </RetroHeroV2>
 
       {
-        data.why &&  <Section title={data.why.title}>
-          <Fade delay={0.1} from={{ y: 40 }} to={{ y: 0 }}>
+        data.why && <Section title={data.why.title}>
+          <Fade delay={0.1} from={{y: 40}} to={{y: 0}}>
             <p className={s.desc}>
               {
                 data.why.content
@@ -99,10 +100,8 @@ const ResolutionDetail = ({data}: { data: IRESOLUTION }): React.JSX.Element => {
               </div>
             </Fade>
           }
-
         </Section>
       }
-
     </div>
   );
 };

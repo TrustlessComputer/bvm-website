@@ -78,7 +78,7 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
           desc: 'Effortlessly transition existing games from EVM-compatible chains like Ethereum, BSC, or Fantom to your new Bitcoin L2 without the need for a new toolkit.',
         },
         {
-          title: 'Enhance Scalability and Security',
+          title: 'Enhance scalability and security',
           desc: 'Leverage optimistic rollup technology for massive scalability and Bitcoin-grade security.',
         },
       ],
@@ -99,25 +99,25 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
   defi: {
     hero: {
       src: '/defi/defi-hero.png',
-      label: 'Unlocking Bitcoin\'s $250B treasury chest',
-      subTitle: 'Bitcoin L2 for DeFi',
+      // label: 'Unlocking Bitcoin\'s $250B treasury chest',
+      subTitle: 'ZK ROLLUP for DeFi',
       heading: 'Making DeFi on Bitcoin possible and accessible to everyone',
       btn1: {
         title: 'Create your own DeFi L2',
         link: '/rollups/customize',
       },
-      btn2: {
-        title: 'Explore Nakachain now',
-        label: 'Need an example?',
-        link: 'https://nakachain.xyz',
-        target: '_blank',
-      }
+      // btn2: {
+      //   title: 'Explore Nakachain now',
+      //   label: 'Need an example?',
+      //   link: 'https://nakachain.xyz',
+      //   target: '_blank',
+      // }
     },
     list: {
       title: 'Learn what BVM products can do for you',
       contents: [
         {
-          title: 'Enhance DeFi Efficiency',
+          title: 'Enhance DeFi efficiency',
           desc:
             "With a 2-second block time and transaction costs of less than $0.001, it is substantially faster and cheaper than Bitcoin's mainnet, providing great efficiency.",
         },
@@ -127,9 +127,9 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
             'It enables developers to transfer dApps from Ethereum to Bitcoin with little or no change.',
         },
         {
-          title: 'Flexible Gas Fee Options:',
+          title: 'Flexible gas fee options',
           desc:
-            'Enjoy the flexibility of paying gas fees in either Bitcoin or your native tokens.',
+            'Enjoy the flexibility of paying gas fees in either Bitcoin or your native tokens',
         },
       ],
     },
@@ -149,27 +149,27 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
   socialfi: {
     hero: {
       src: '/socialfi/socialFiHero.png',
-      label: 'Optimized for content creators.',
-      subTitle: 'Bitcoin L2 for SocialFi',
-      heading: 'Connect, hang out, have fun, and earn.',
+      // label: 'Optimized for content creators.',
+      subTitle: 'ZK ROLLUP for SocialFi',
+      heading: 'Build your social app your way',
       btn1: {
         title: 'Create your own SocialFi L2',
         link: '/rollups/customize',
       },
-      btn2: {
-        title: 'Explore Alpha now! ',
-        label: 'Need an example?',
-        link: 'https://alpha.wtf/',
-        target: '_blank',
-      }
+      // btn2: {
+      //   title: 'Explore Alpha now! ',
+      //   label: 'Need an example?',
+      //   link: 'https://alpha.wtf/',
+      //   target: '_blank',
+      // }
     },
     list: {
       title: 'Learn what BVM products can do for you',
       contents: [
         {
-          title: 'Personalize your social experiences',
+          title: 'Customize your social app your way',
           desc:
-            'Connect with others through chats, posts, and community activities',
+            'Tailor your social app with features like chat, posts, image uploads, story uploads, and more.',
         },
         {
           title: 'Integrate games for fun',
@@ -177,9 +177,9 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
             'Easily integrate games or other kinds of engaging activities with 2-second block time and low transaction fees (less than $0.001 per transaction)',
         },
         {
-          title: 'Earn rewards along the way',
+          title: 'Enhance community activities',
           desc:
-            'Profit from referring more people to join, trading, and engaging in games and other activities.',
+            'Add engaging features like NFT raffles, Flywheels, or Lucky Money to attract more users and increase TVL.',
         },
       ],
     },
