@@ -1,8 +1,8 @@
 import MainLayout from '@layouts/MainLayout';
 import Loader from '@/modules/builder-landing/Loader';
-import DeFiModule from '@/modules/defi';
 import React from 'react';
-import AppChainsModule from '@/modules/appchainsModule';
+import ResolutionDetail from "@/modules/ResolutionDetail";
+import {RESOLUTION_DATAS} from "@constants/solution-data";
 
 
 const AppChains = () => {
@@ -15,7 +15,7 @@ const AppChains = () => {
     >
       <>
         <Loader />
-        <AppChainsModule />
+        <ResolutionDetail data={RESOLUTION_DATAS.appchains} />
       </>
     </MainLayout>
   );
