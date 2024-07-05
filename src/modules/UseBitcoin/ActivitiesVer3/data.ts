@@ -1,53 +1,5 @@
 export const DATA_CHAINS = [
   {
-    heading: 'Eternal AI.',
-    noteHeading: 'The Bitcoin L2 for Decentralized AI',
-    banner: '1.png',
-    desc: 'Eternal AI is the first Bitcoin L2 blockchain designed specifically for performing AI tasks and storing AI models fully on-chain, promoting a paradigm shift towards decentralized and truly open AI.',
-    social: [
-      {
-        icon: '/use-bitcoin/ic_x.svg',
-        label: 'twitter',
-        link: 'https://twitter.com/CryptoEternalAI',
-      },
-      {
-        icon: '/use-bitcoin/ic_web.svg',
-        label: 'eternal.org',
-        link: 'https://eternalai.org/',
-      }
-    ]
-    // desc: [
-    //   {
-    //     label: 'Bitcoin L2: ',
-    //     value: 'Bitcoin Arcade'
-    //   },
-    //   {
-    //     label: 'Block time: ',
-    //     value: '2 seconds'
-    //   },
-    //   {
-    //     label: 'Network type: ',
-    //     value: 'Bitcoin Testnet'
-    //   } ,
-    //   {
-    //     label: 'Deployer: ',
-    //     value: 'Arcade team'
-    //   }  ,
-    //   {
-    //     label: 'Rollups: ',
-    //     value: 'Optimistic'
-    //   },
-    //   {
-    //     label: 'Data Validity: ',
-    //     value: 'Bitcoin'
-    //   } ,
-    //   {
-    //     label: 'Data Availability:',
-    //     value: 'Polygon'
-    //   }
-    // ]
-  },
-  {
     heading: 'Naka Chain.',
     noteHeading: 'The Bitcoin L2 for DeFi',
     banner: '2.png',
@@ -64,40 +16,6 @@ export const DATA_CHAINS = [
         link: 'https://nakachain.xyz/',
       }
     ]
-    // desc: [
-    //   {
-    //     label: 'Bitcoin L2: ',
-    //     value: 'Naka'
-    //   },
-    //   {
-    //     label: 'Block time: ',
-    //     value: '2 seconds'
-    //   },
-    //   {
-    //     label: 'Network type: ',
-    //     value: 'Bitcoin Mainnet'
-    //   } ,
-    //   {
-    //     label: 'Deployer: ',
-    //     value: 'Naka team'
-    //   }  ,
-    //   {
-    //     label: 'Rollups: ',
-    //     value: 'Optimistic'
-    //   },
-    //   {
-    //     label: 'Data Validity: ',
-    //     value: 'Bitcoin'
-    //   } ,
-    //   {
-    //     label: 'Data Availability:',
-    //     value: 'Polygon'
-    //   },
-    //   {
-    //     label: 'Launch date:',
-    //     value: 'January 15, 2024'
-    //   }
-    // ]
   },
   {
     heading: 'RuneChain.',
@@ -150,6 +68,61 @@ export const DATA_CHAINS = [
     //     value: 'June 27, 2023'
     //   }
     // ]
+  },
+  {
+    heading: 'Iron Chain Bank',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '11.jpg',
+    desc: 'The First DeFi Protocol Utilizing BRC-20 On @Bitcoin Layer 2. Powered by @BVMnetwork\n' +
+      ' with Zk-Rollup tech stack. Iron Vault Node coming soon.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://x.com/ironchainbank',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'ironchainbank.io',
+        link: 'https://ironchainbank.io/',
+      },
+    ]
+  },
+  {
+    heading: 'StratoVM | BTC Layer2',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '14.jpg',
+    desc: 'Modular Layer 2 on Bitcoin | Empowering the future of DeFi on Bitcoin.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://x.com/StratoVM_',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'stratovm.io',
+        link: 'https://stratovm.io/',
+      },
+    ]
+  },
+  {
+    heading: 'Eternal AI.',
+    noteHeading: 'The Bitcoin L2 for Decentralized AI',
+    banner: '1.png',
+    desc: 'Eternal AI is the first Bitcoin L2 blockchain designed specifically for performing AI tasks and storing AI models fully on-chain, promoting a paradigm shift towards decentralized and truly open AI.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://twitter.com/CryptoEternalAI',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'eternal.org',
+        link: 'https://eternalai.org/',
+      }
+    ]
   },
   // {
   //   heading: 'Bittendo Chain.',
@@ -294,25 +267,7 @@ export const DATA_CHAINS = [
     //   },
     // ]
   },
-  {
-    heading: 'Iron Chain Bank',
-    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
-    banner: '11.jpg',
-    desc: 'The First DeFi Protocol Utilizing BRC-20 On @Bitcoin Layer 2. Powered by @BVMnetwork\n' +
-      ' with Zk-Rollup tech stack. Iron Vault Node coming soon.',
-    social: [
-      {
-        icon: '/use-bitcoin/ic_x.svg',
-        label: 'twitter',
-        link: 'https://x.com/ironchainbank',
-      },
-      {
-        icon: '/use-bitcoin/ic_web.svg',
-        label: 'ironchainbank.io',
-        link: 'https://ironchainbank.io/',
-      },
-    ]
-  },
+
   {
     heading: 'Octopus Bridge',
     noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
@@ -349,24 +304,7 @@ export const DATA_CHAINS = [
       },
     ]
   },
-  {
-    heading: 'StratoVM | BTC Layer2',
-    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
-    banner: '14.jpg',
-    desc: 'Modular Layer 2 on Bitcoin | Empowering the future of DeFi on Bitcoin.',
-    social: [
-      {
-        icon: '/use-bitcoin/ic_x.svg',
-        label: 'twitter',
-        link: 'https://x.com/StratoVM_',
-      },
-      {
-        icon: '/use-bitcoin/ic_web.svg',
-        label: 'stratovm.io',
-        link: 'https://stratovm.io/',
-      },
-    ]
-  },
+
   {
     heading: 'HyperAGI',
     noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
