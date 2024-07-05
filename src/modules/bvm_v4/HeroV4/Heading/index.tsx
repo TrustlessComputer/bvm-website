@@ -9,7 +9,7 @@ const DATA = [
     title: 'Buy',
     buttons: [
       {
-        btnTitle: 'Uniswap (Ethereum)',
+        btnTitle: 'Uniswap',
         link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
         blank: true,
         icon: '/bvm/uniswap.svg',
@@ -26,13 +26,13 @@ const DATA = [
         icon: '/bvm/mexc.svg',
         blank: true,
       },
-      {
-        btnTitle: 'Bitmart',
-        link: 'https://www.bitmart.com/trade/en-US?symbol=BVM_USDT',
-        icon: '/bvm/bitmart.svg',
-        blank: true,
-
-      },
+      // {
+      //   btnTitle: 'Bitmart',
+      //   link: 'https://www.bitmart.com/trade/en-US?symbol=BVM_USDT',
+      //   icon: '/bvm/bitmart.svg',
+      //   blank: true,
+      //
+      // },
       // {
       //   btnTitle: 'Naka',
       //   link: 'https://nakachain.xyz/swap',
@@ -109,7 +109,7 @@ const Heading = (): React.JSX.Element => {
                             {
                               itemBtn?.icon && (
                                 <div>
-                                  <ImagePlaceholder src={itemBtn?.icon} alt={itemBtn.btnTitle} width={52} height={52}
+                                  <Image src={itemBtn?.icon} alt={itemBtn.btnTitle} width={52} height={52}
                                                     className={s.item_icon} />
                                 </div>
                               )
@@ -121,16 +121,16 @@ const Heading = (): React.JSX.Element => {
                       );
                     })
                   }
-
+                  {
+                    item.red || (
+                      <div className={s.iconDot} onClick={() => setIsShowModal(true)}>
+                        <ImagePlaceholder src={'/icons/ic_dots.svg'} alt={'dots'} width={16} height={3} className={s.icon}
+                        />
+                      </div>
+                    )
+                  }
                 </div>
-                {
-                  item.red || (
-                    <div className={s.iconDot} onClick={() => setIsShowModal(true)}>
-                      <ImagePlaceholder src={'/icons/ic_dots.svg'} alt={'dots'} width={16} height={3} className={s.icon}
-                      />
-                    </div>
-                  )
-                }
+
               </div>
             );
           })
