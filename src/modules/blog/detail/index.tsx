@@ -19,7 +19,7 @@ export default function BLogDetail(props: IBlog) {
             <ImagePlaceholder src={'/images/banner.png'} alt={title} width={980} height={300} />
           </div>
           <div className={s.heading}>
-            <p className={s.heading_text}>Garden Shed Interior Design Ideas for Every Style and Need
+            <p className={s.heading_text}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             </p>
             <p className={s.heading_author}>3700 | Jul 3, 2024</p>
             <div className={s.divider}></div>
