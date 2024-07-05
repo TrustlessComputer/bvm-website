@@ -21,7 +21,7 @@ const ResolutionDetail = ({data}: { data: IRESOLUTION }): React.JSX.Element => {
         label={data.hero.label}
         subTitle={data.hero.subTitle}
         btn1={data.hero.btn1}
-        btn2={data.hero.btn2}
+        btn2={data.hero?.btn2}
         src={data.hero.src}
       >
         {data.hero.heading}
