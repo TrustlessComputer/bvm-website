@@ -20,15 +20,17 @@ export default function Tags({ tags }: IPprops) {
         ))
       }
       <li className={s.tag}>
-        <Link href={``}>
+        <Link href={`tag/test`}>
           #test
         </Link>
-      </li><li className={s.tag}>
-        <Link href={``}>
+      </li>
+      <li className={s.tag}>
+        <Link href={`tag/test`}>
           #test
         </Link>
-      </li><li className={s.tag}>
-        <Link href={``}>
+      </li>
+      <li className={s.tag}>
+        <Link href={`tag/test`}>
           #test
         </Link>
       </li>

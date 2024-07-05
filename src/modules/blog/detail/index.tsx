@@ -21,7 +21,10 @@ export default function BLogDetail(props: IBlog) {
           <div className={s.heading}>
             <p className={s.heading_text}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             </p>
-            <p className={s.heading_author}>3700 | Jul 3, 2024</p>
+            <div className={s.heading_meta}>
+              <p className={s.heading_author}>3700 | Jul 3, 2024</p>
+              <p className={s.heading_author}>930 views</p>
+            </div>
             <div className={s.divider}></div>
             <Socials {...props} />
           </div>

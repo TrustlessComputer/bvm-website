@@ -1,14 +1,15 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
+import TagBlogModule from '@/modules/tagBlogModule';
 
-export async function generateStaticParams() {
-  const posts = await fetch('https://.../posts').then((res) => res.json());
-
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+// export async function generateStaticParams() {
+//   const posts = await fetch('https://.../posts').then((res) => res.json());
+//
+//   return posts.map((post) => ({
+//     slug: post.slug,
+//   }));
+// }
 
 const TagPage = ({ params }) => {
   return (
@@ -19,7 +20,7 @@ const TagPage = ({ params }) => {
       }}
       hideFooter
     >
-      <h1>TAGs</h1>
+      <TagBlogModule />
     </MainLayout>
   );
 };
