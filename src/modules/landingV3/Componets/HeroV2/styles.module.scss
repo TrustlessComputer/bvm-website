@@ -118,7 +118,6 @@
     gap: 12px;
     align-items: center;
     margin-bottom: 23px;
-
     svg {
       width: 32px;
       transform: translateY(-.1em);
@@ -167,25 +166,25 @@
 
 .subTitle {
   font-family: var(--font-JetBrainsMono);
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 700;
   line-height: (38/32);
   text-align: center;
   margin-bottom: 18px;
   color: black;
 
-  span {
+  span{
     display: inline-block;
   }
 
   @include is-min-table {
-    font-size: 34px;
+    font-size: 24px;
     margin-bottom: 24px;
   }
 
   @include is-pc {
     text-align: left;
-    font-size: 40px;
+    font-size: 32px;
   }
 }
 
@@ -198,7 +197,7 @@
   line-height: 170%;
   max-width: 520px;
 
-  span {
+  span{
     display: inline-block;
   }
 
@@ -209,7 +208,7 @@
   @include is-pc {
     text-align: left;
     font-size: 20px;
-    max-width: 520px;
+    max-width: 640px;
   }
 
   p:not(:last-child) {
@@ -260,7 +259,7 @@
     padding: 0 20px;
     align-items: center;
 
-    svg, img {
+    svg, img{
       transform: translateY(.1em);
     }
   }
