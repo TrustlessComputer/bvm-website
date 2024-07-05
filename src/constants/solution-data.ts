@@ -224,7 +224,7 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
     hiw: {
       title: 'How it works',
       desc: 'Choose a plan that fits your team’s needs and development stage. Configure your blockchain by selecting data storage, prover usage, block gas limit, withdrawal period, and pre-installed dapps.',
-      action: 'https://x.com/punk3700/status/1796119677577605380'
+      action: 'https://docs.bvm.network/bvm/quickstart/create-a-zk-rollup-on-bitcoin'
     }
   },
   ecosystem: {
@@ -260,7 +260,7 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
     hiw: {
       title: 'How it works',
       desc: 'You can select common dApps like bridges, DEXs, NFT marketplaces, or DAOs to come pre-installed on your blockchain ecosystem. This ensures your users have a production-ready platform to start using immediately.',
-      action: 'https://x.com/punk3700/status/1796119677577605380'
+      action: 'https://docs.bvm.network/bvm/quickstart/create-a-zk-rollup-on-bitcoin'
     }
   },
 };
