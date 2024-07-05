@@ -7,7 +7,7 @@ import ImagePlaceholder from '@components/ImagePlaceholder';
 export interface IHeroBtn_1 {
   title: string,
   link: string,
-  target?: '_blank' | ''
+  target?: '_blank' | '_self'
 }
 
 export interface IHeroBtn_2 extends IHeroBtn_1 {
