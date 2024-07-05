@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import ImagePlaceholder from '@components/ImagePlaceholder';
-import DescriptionModal from '@/modules/blockchains/Buy/components/DescriptionModal/DescriptionModal';
 import ModalButton from '@/modules/bvm_v4/HeroV4/ModalButton';
-
 
 const DATA = [
   {
@@ -67,6 +65,7 @@ const DATA = [
         btnTitle: 'Stake BVM',
         link: '/staking',
         blank: false,
+        icon: undefined,
       },
     ],
   },
