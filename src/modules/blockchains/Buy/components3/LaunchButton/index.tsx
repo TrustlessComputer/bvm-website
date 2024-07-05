@@ -44,19 +44,15 @@ const LaunchButton = () => {
   );
 
   const isDisabledLaunchBtn = useMemo(() => {
-    if (!loggedIn) return false; // Need active to Sign In
-    if (allFilled && !hasError) return false;
-    return true;
+    return !loggedIn || !allFilled || hasError;
   }, [loggedIn, hasError, allFilled]);
 
   const tierData = useMemo(() => {
     const packageData = availableList?.package['2'];
     const result = packageData?.filter((item, index) => {
-      if (item.value === Number(packageParam)) {
-        return true;
-      }
-      return false;
+      return item.value === Number(packageParam);
     });
+
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
 
@@ -119,31 +115,31 @@ const LaunchButton = () => {
 
   return (
     <div
-      className={`${s.launch} ${!isDisabledLaunchBtn ? s.active : ''}`}
+      className={`${s.launch} ${allFilled ? s.active : ''}`}
       onClick={handleOnClick}
     >
       <div className={s.inner}>
         {isSubmiting ? (
           <Spinner color="#fff" />
         ) : (
-          <p>{`${!loggedIn ? 'Sign In' : 'Launch'}`}</p>
-        )}
-        {loggedIn && (
-          <div className={`${s.icon}`}>
-            <ImagePlaceholder
-              src={'/launch.png'}
-              alt={'launch'}
-              width={48}
-              height={48}
-            />
-          </div>
+          <React.Fragment>
+            <div className={s.top}>
+              <p>Launch</p>
+              <div className={`${s.icon}`}>
+                <ImagePlaceholder
+                  src={'/launch.png'}
+                  alt={'launch'}
+                  width={48}
+                  height={48}
+                />
+              </div>
+            </div>
+            <p className={s.price}>{`${tierData?.price || '--'} (${
+              tierData?.priceNote || '--'
+            })`}</p>
+          </React.Fragment>
         )}
       </div>
-      {loggedIn && (
-        <p className={s.price}>{`${tierData?.price || '--'} (${
-          tierData?.priceNote || '--'
-        })`}</p>
-      )}
     </div>
   );
 };

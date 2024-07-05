@@ -21,6 +21,8 @@ import { DATA_PRICING } from '../data_pricing';
 import { useBuy } from '../providers/Buy.hook';
 
 import s from './styles.module.scss';
+import { useRouter } from 'next/navigation';
+import SvgInset from '@/components/SvgInset';
 import { DALayerEnum, NetworkEnum } from './Buy.constanst';
 
 type PricingPackageValues = {
@@ -36,7 +38,7 @@ type PricingPackageValues = {
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 type BoxOption = {
   label: string;
-  descriptionDetail?: {
+  description?: {
     title: string;
     content: () => React.ReactElement;
   };
@@ -44,6 +46,7 @@ type BoxOption = {
 };
 
 const BuyPage = () => {
+  const router = useRouter();
   const { field, setFormField } = useFormOrderStore((state) => state);
   const { pricingPackageValues } = useBuy();
 
@@ -117,7 +120,7 @@ const BuyPage = () => {
     [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
       id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
       label: DATA_PRICING.availability.title,
-      descriptionDetail: {
+      description: {
         title: DATA_PRICING.availability.sub_title,
         content: (
           <p>
@@ -149,7 +152,7 @@ const BuyPage = () => {
     [ORDER_FIELD.GAS_LIMIT]: {
       id: ORDER_FIELD.GAS_LIMIT,
       label: DATA_PRICING.gas.title,
-      descriptionDetail: {
+      description: {
         title: DATA_PRICING.gas.sub_title,
         content: (
           <p>
@@ -175,6 +178,17 @@ const BuyPage = () => {
             initValue={defaultGasLimit}
             min={minGasLimit}
             step={stepGasLimit}
+            initNoti={
+              <div className={s.notiWraper}>
+                <span
+                  className={s.link}
+                  onClick={() => router.push('/pricing')}
+                >
+                  Switch tier for more option
+                </span>
+                <SvgInset svgUrl="/icons/arrow-right-up.svg" size={20} />
+              </div>
+            }
           />
         </Lego>
       ),
@@ -182,7 +196,7 @@ const BuyPage = () => {
     [ORDER_FIELD.WITHDRAW_PERIOD]: {
       id: ORDER_FIELD.WITHDRAW_PERIOD,
       label: DATA_PRICING.withdrawal.title,
-      descriptionDetail: {
+      description: {
         title: DATA_PRICING.withdrawal.sub_title,
         content: (
           <p>
@@ -210,6 +224,17 @@ const BuyPage = () => {
             suffix="hours"
             initValue={defaultWithdrawalPeriod}
             min={minWithdrawalPeriod}
+            initNoti={
+              <div className={s.notiWraper}>
+                <span
+                  className={s.link}
+                  onClick={() => router.push('/pricing')}
+                >
+                  Switch tier for more option
+                </span>
+                <SvgInset svgUrl="/icons/arrow-right-up.svg" />
+              </div>
+            }
           />
         </Lego>
       ),
@@ -238,7 +263,7 @@ const BuyPage = () => {
                 {Object.keys(boxOptionMapping).map((key, index) => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return;
 
-                  const { label, children, descriptionDetail } =
+                  const { label, children, description } =
                     boxOptionMapping[key as Override];
                   const isDragged = field[key as Override].dragged;
                   return (
@@ -247,7 +272,7 @@ const BuyPage = () => {
                       label={label}
                       id={key}
                       active={isDragged}
-                      descriptionDetail={descriptionDetail}
+                      description={description}
                       isLast={
                         index === Object.keys(boxOptionMapping).length - 1
                       }

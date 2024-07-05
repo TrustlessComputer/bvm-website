@@ -7,8 +7,6 @@
   justify-content: center;
   align-items: center;
   cursor: not-allowed;
-  // mix-blend-mode: luminosity;
-  // background: linear-gradient(180deg, #ff9776 0%, #ff8139 32.81%, #e04300 100%);
   background: #b6b6b6;
 
   &.active {
@@ -33,21 +31,28 @@
 
 .inner {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 18px;
+
+  .top {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
   p {
     font-size: 24px;
     color: #fff;
     font-weight: 500;
   }
+
   .icon {
     max-width: 24px;
   }
-}
 
-.price {
-  font-weight: 500;
-  color: #fff;
-  font-size: 14px;
-  line-height: calc(22 / 14);
+  .price {
+    font-weight: 500;
+    color: #fff;
+    font-size: 14px;
+  }
 }

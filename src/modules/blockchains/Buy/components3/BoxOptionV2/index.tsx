@@ -1,55 +1,42 @@
 import React from 'react';
 import { Flex } from '@chakra-ui/react';
-import { useDraggable } from '@dnd-kit/core';
 
 import DescriptionModal from '@/modules/blockchains/Buy/components/DescriptionModal/DescriptionModal';
 import SvgInset from '@/components/SvgInset';
 
 import s from './styles.module.scss';
+import DroppableV2 from '../DroppableV2';
 
 export type LegoColor = 'brown' | 'violet' | 'green' | 'pink' | 'red';
-export type BoxOptionProps = React.PropsWithChildren & {
+export type BoxOptionV2Props = React.PropsWithChildren & {
   active?: boolean;
   label: string;
   id: string;
-  isLast?: boolean;
+  last?: boolean;
   description?: {
     title: string;
     content: React.ReactNode;
   };
   options?: {
-    id: number;
+    id: string;
     label: React.ReactNode;
     value: string | number;
-    disabled?: boolean;
   }[];
 };
 
-const BoxOption = ({
+const BoxOptionV2 = ({
   id,
   active,
   label,
   children,
   description,
-  isLast,
-}: BoxOptionProps): React.JSX.Element => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({
-      id,
-      disabled: active,
-    });
+  last,
+}: BoxOptionV2Props): React.JSX.Element => {
   const [isShowModal, setIsShowModal] = React.useState(false);
 
-  const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-        opacity: isDragging ? 0.5 : 1,
-      }
-    : undefined;
-
   return (
-    <>
-      <div className={`${s.boxItem} ${active && s.activeBox}`}>
+    <React.Fragment>
+      <DroppableV2 id={id} className={`${s.boxItem} ${active && s.activeBox}`}>
         <div className={s.boxItem_heading}>
           <div className={s.boxItem_heading_icon}>
             <svg
@@ -89,16 +76,16 @@ const BoxOption = ({
             )}
           </Flex>
         </div>
-        <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-          {children}
-        </div>
 
-        {!isLast && (
+        <div className={s.options}>{children}</div>
+
+        {!last && (
           <div className={s.boxItem_stud}>
             <SvgInset svgUrl="/landingV3/svg/stud_main.svg" />
           </div>
         )}
-      </div>
+      </DroppableV2>
+
       {description?.title && (
         <DescriptionModal
           show={isShowModal}
@@ -107,8 +94,8 @@ const BoxOption = ({
           content={description.content}
         />
       )}
-    </>
+    </React.Fragment>
   );
 };
 
-export default BoxOption;
+export default BoxOptionV2;

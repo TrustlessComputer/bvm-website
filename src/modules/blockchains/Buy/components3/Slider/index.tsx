@@ -22,6 +22,7 @@ type TSlider = {
   step?: number;
   suffix?: string;
   initValue?: number;
+  initNoti?: React.ReactNode;
 };
 
 const Slider = ({
@@ -33,6 +34,7 @@ const Slider = ({
   min = 0,
   step = 1,
   initValue,
+  initNoti = 'This value can not be modified',
 }: TSlider) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -49,9 +51,15 @@ const Slider = ({
       cb(field, initValue.toString());
     }
   }, [initValue]);
+
   return (
     <div className={s.dropdown}>
-      <div className={s.dropdown_inner} onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={s.dropdown_inner}
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      >
         <p className={s.dropdown_text}>
           {` ${formatCurrencyV2({
             amount: defaultValue.toString(),
@@ -67,33 +75,41 @@ const Slider = ({
           height={16}
         />
       </div>
-      <div
-        className={`${s.dropdown_list} ${isOpen && s.dropdown_list__active}`}
-      >
-        <div className={s.dropdown_wrap} ref={ref}>
-          <p className={s.text}>
-            {`${formatCurrencyV2({
-              amount: defaultValue.toString(),
-              decimals: 0,
-            })} ${suffix ?? ''}`}{' '}
-          </p>
-          <SliderReact
-            // isDisabled={
-            //   !!packageParam && Number(packageParam) === PRICING_PACKGE.Hacker
-            // }
-            onChange={onChange}
-            value={initValue ? initValue : Number(defaultValue)}
-            min={min}
-            max={max}
-            step={step}
-          >
-            <SliderTrack className={s.slider}>
-              <SliderFilledTrack bg={'#ffffff'} />
-            </SliderTrack>
-            <SliderThumb boxSize={5}></SliderThumb>
-          </SliderReact>
+
+      {initValue?.toString() ? (
+        <div
+          className={`${s.dropdown_list} ${isOpen && s.dropdown_list__active}`}
+        >
+          <div className={` ${s.dropdown_wrap_init}`} ref={ref}>
+            {initNoti}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div
+          className={`${s.dropdown_list} ${isOpen && s.dropdown_list__active}`}
+        >
+          <div className={s.dropdown_wrap} ref={ref}>
+            <p className={s.text}>
+              {`${formatCurrencyV2({
+                amount: defaultValue.toString(),
+                decimals: 0,
+              })} ${suffix ?? ''}`}{' '}
+            </p>
+            <SliderReact
+              onChange={onChange}
+              value={Number(defaultValue)}
+              min={min}
+              max={max}
+              step={step}
+            >
+              <SliderTrack className={s.slider}>
+                <SliderFilledTrack bg={'#ffffff'} />
+              </SliderTrack>
+              <SliderThumb boxSize={5}></SliderThumb>
+            </SliderReact>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
