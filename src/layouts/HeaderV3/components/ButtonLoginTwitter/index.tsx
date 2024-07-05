@@ -14,12 +14,12 @@ type Props = {
 };
 const ButtonLoginTwitter = (props: Props) => {
   const router = useRouter();
-  const { loggedIn, setShowLoginModalCustomize, logout } = useWeb3Auth();
+  const { loggedIn, login, logout } = useWeb3Auth();
   const accInfor = useAppSelector(accountInforSelector);
   const handleConnect = async () => {
     try {
       // await login();
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+      login();
     } catch (err: unknown) {
       toast.error(
         (err as Error).message ||

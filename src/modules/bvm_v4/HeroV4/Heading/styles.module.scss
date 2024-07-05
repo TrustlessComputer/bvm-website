@@ -1,3 +1,4 @@
+
 .heading {
   width: 100%;
   max-width: 300px;
@@ -23,7 +24,7 @@
 .btnSection {
   display: flex;
   gap: 24px;
-  flex-direction: column;
+  justify-content: center;
 
   flex-wrap: wrap;
   @include is-pc {
@@ -50,6 +51,7 @@
   &_description {
     margin-top: 8px;
     opacity: 0.7;
+    max-width: 270px;
     color: #000;
     font-size: 18px;
     font-weight: 400;
@@ -67,17 +69,9 @@
 
 .btnContainer {
   margin-top: 24px;
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  @include is-pc {
-    grid-template-columns: 1fr 1fr;
-
-  }
-  &.fullWidth {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
 }
 
 .item {
@@ -89,9 +83,10 @@
   border-radius: 100px;
   padding: 12px 0;
   cursor: pointer;
+  width: 270px;
+
   &.red {
     padding: 14px 0;
-    width: 100%;
     border: 1px solid rgba(250, 78, 14, 1)
   }
   &_title {
@@ -117,10 +112,11 @@
 }
 
 .iconDot {
-  margin-top: 20px;
   border-radius: 100px;
   padding: 22px 0;
+  max-width: 270px;
   cursor: pointer;
+  width: 100%;
   border: 1px solid #000;
   .icon {
     width: 16px;
@@ -130,7 +126,5 @@
       height: auto;
     }
   }
+
 }
-
-
-

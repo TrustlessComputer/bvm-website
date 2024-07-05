@@ -4,6 +4,7 @@ import Image from 'next/image';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import DescriptionModal from '@/modules/blockchains/Buy/components/DescriptionModal/DescriptionModal';
 import ModalButton from '@/modules/bvm_v4/HeroV4/ModalButton';
+import Link from 'next/link';
 
 
 const DATA = [
@@ -14,21 +15,25 @@ const DATA = [
         btnTitle: 'Uniswap (Ethereum)',
         link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
         icon: '/bvm/uniswap.svg',
+        blank: true,
       },
       {
         btnTitle: 'Gate.io',
         link: 'https://www.gate.io/trade/BVM_USDT',
         icon: '/bvm/gateio.svg',
+        blank: true,
       },
       {
         btnTitle: 'MEXC',
         link: 'https://www.mexc.com/exchange/BVM_USDT',
         icon: '/bvm/mexc.svg',
+        blank: true,
       },
       {
         btnTitle: 'Bitmart',
         link: 'https://www.bitmart.com/trade/en-US?symbol=BVM_USDT',
         icon: '/bvm/bitmart.svg',
+        blank: true,
       },
       // {
       //   btnTitle: 'Naka',
@@ -54,13 +59,16 @@ const DATA = [
   },
   {
     title: 'Stake',
-    description: <p className={s.btnWrapper_description}>Earn up to <span>58% APR</span> on your BVM and receive airdrops from upcoming Bitcoin L2 projects.
+    description: <p>
+      Earn up to <span>58% APR</span> on your BVM and receive airdrops from upcoming projects powered by BVM technology.
     </p>,
     red: true,
     buttons: [
       {
+        icon: undefined,
         btnTitle: 'Stake BVM',
-        link: 'https://app.uniswap.org/swap?outputCurrency=0x069d89974f4edabde69450f9cf5cf7d8cbd2568d&chain=ethereum',
+        link: '/staking',
+        blank: false,
       },
     ],
   },
@@ -92,14 +100,14 @@ const Heading = (): React.JSX.Element => {
               <div className={`${s.btnWrapper} ${item.red && s.red}`}>
                 <p className={s.btnWrapper_heading}>{item.title}</p>
                 {
-                  item.description && item.description
+                  item.description && <p className={s.btnWrapper_description}>{item.description}</p>
                 }
 
-                <div className={`${s.btnContainer}  ${item.red && s.fullWidth}`}>
+                <div className={s.btnContainer}>
                   {
                     item.buttons.map(itemBtn => {
                       return (
-                        <a href={itemBtn?.link} target={'_blank'}>
+                        <Link href={itemBtn?.link} target={itemBtn.blank ? '_blank' : ''}>
                           <div className={`${s.item} ${item.red && s.red}`}>
                             {
                               itemBtn?.icon && (
@@ -112,20 +120,19 @@ const Heading = (): React.JSX.Element => {
 
                             <p className={`${s.item_title} ${item.red && s.red}`}>{itemBtn.btnTitle}</p>
                           </div>
-                        </a>
+                        </Link>
                       );
                     })
                   }
-
+                  {
+                    item.red || (
+                      <div className={s.iconDot} onClick={() => setIsShowModal(true)}>
+                        <ImagePlaceholder src={'/icons/ic_dots.svg'} alt={'dots'} width={16} height={3} className={s.icon}
+                        />
+                      </div>
+                    )
+                  }
                 </div>
-                {
-                  item.red || (
-                    <div className={s.iconDot} onClick={() => setIsShowModal(true)}>
-                      <ImagePlaceholder src={'/icons/ic_dots.svg'} alt={'dots'} width={16} height={3} className={s.icon}
-                      />
-                    </div>
-                  )
-                }
               </div>
             );
           })

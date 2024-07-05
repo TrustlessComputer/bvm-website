@@ -107,7 +107,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
 
   const accountInfo = true;
   const { availableList } = useAppSelector(getL2ServicesStateSelector);
-  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
+  const { loggedIn, login } = useWeb3Auth();
   const { tracking } = useL2ServiceTracking();
 
   const searchParams = useSearchParams();
@@ -810,7 +810,7 @@ export const BuyProvider: React.FC<PropsWithChildren> = ({
   const submitHandler = async (onSuccess?: any) => {
     try {
       if (!loggedIn) {
-        setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+        login();
         return;
       }
 
