@@ -93,12 +93,15 @@
       }
     }
 
+    @media (min-width: 1600px) {
+      left: vw(-80px, 1920px);
+    }
+
     @include is-pc {
       width: max-content;
       position: absolute;
       overflow: hidden;
       height: auto;
-      left: -120px;
     }
   }
 }
