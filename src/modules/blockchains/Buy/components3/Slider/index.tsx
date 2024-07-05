@@ -46,11 +46,11 @@ const Slider = ({
 
     cb(field, value.toString());
   };
-  useEffect(() => {
-    if (initValue) {
-      cb(field, initValue.toString());
-    }
-  }, [initValue]);
+  // useEffect(() => {
+  //   if (initValue) {
+  //     cb(field, initValue.toString());
+  //   }
+  // }, [initValue]);
 
   return (
     <div className={s.dropdown}>
