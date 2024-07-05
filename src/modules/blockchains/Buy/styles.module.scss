@@ -110,3 +110,13 @@
     color: #0e0e0e;
   }
 }
+
+.notiWraper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .link {
+    text-decoration: underline;
+  }
+}

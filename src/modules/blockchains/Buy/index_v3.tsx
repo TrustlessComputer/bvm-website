@@ -21,6 +21,8 @@ import { DATA_PRICING } from '../data_pricing';
 import { useBuy } from '../providers/Buy.hook';
 
 import s from './styles.module.scss';
+import { useRouter } from 'next/navigation';
+import SvgInset from '@/components/SvgInset';
 
 type PricingPackageValues = {
   maxGasLimit: number;
@@ -43,6 +45,7 @@ type BoxOption = {
 };
 
 const BuyPage = () => {
+  const router = useRouter();
   const { field, setFormField } = useFormOrderStore((state) => state);
   const { pricingPackageValues } = useBuy();
 
@@ -162,6 +165,17 @@ const BuyPage = () => {
             initValue={defaultGasLimit}
             min={minGasLimit}
             step={stepGasLimit}
+            initNoti={
+              <div className={s.notiWraper}>
+                <span
+                  className={s.link}
+                  onClick={() => router.push('/pricing')}
+                >
+                  Switch tier for more option
+                </span>
+                <SvgInset svgUrl="/icons/arrow-right-up.svg" size={20} />
+              </div>
+            }
           />
         </Lego>
       ),
@@ -197,6 +211,17 @@ const BuyPage = () => {
             suffix="hours"
             initValue={defaultWithdrawalPeriod}
             min={minWithdrawalPeriod}
+            initNoti={
+              <div className={s.notiWraper}>
+                <span
+                  className={s.link}
+                  onClick={() => router.push('/pricing')}
+                >
+                  Switch tier for more option
+                </span>
+                <SvgInset svgUrl="/icons/arrow-right-up.svg" />
+              </div>
+            }
           />
         </Lego>
       ),
