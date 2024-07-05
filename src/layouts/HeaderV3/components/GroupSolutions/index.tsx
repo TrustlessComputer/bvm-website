@@ -17,7 +17,7 @@ export default function GroupProducts(): ReactElement {
         {/*               alt="menu-icon-avail" />*/}
         {/*        <div className={s.group_item_icon_text}>*/}
         {/*          <span className={s.group_item_icon_text_title}>Bitcoin</span>*/}
-        {/*          <span className={s.group_item_icon_text_bottom}>Roll up to Bitcoin as Ordinal Inscriptions</span>*/}
+        {/*          <span className={s.group_item_icon_text_bottom}>Scale Bitcoin to support billions of users</span>*/}
         {/*        </div>*/}
         {/*      </Link>*/}
         {/*    </li>*/}
@@ -27,7 +27,7 @@ export default function GroupProducts(): ReactElement {
         {/*               alt="menu-icon-op" />*/}
         {/*        <div className={s.group_item_icon_text}>*/}
         {/*          <span className={s.group_item_icon_text_title}>Ethereum</span>*/}
-        {/*          <span className={s.group_item_icon_text_bottom}>Embed proofs in Taproot transactions</span>*/}
+        {/*          <span className={s.group_item_icon_text_bottom}>Coming soon</span>*/}
         {/*        </div>*/}
         {/*      </Link>*/}
         {/*    </li>*/}
@@ -42,7 +42,7 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Appchains</span>
-                  <span className={s.group_item_icon_text_bottom}>Roll up to Bitcoin as Ordinal Inscriptions</span>
+                  <span className={s.group_item_icon_text_bottom}>Build a customizable appchain aligned with your product roadmap</span>
                 </div>
               </Link>
             </li>
@@ -53,7 +53,7 @@ export default function GroupProducts(): ReactElement {
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Ecosystems</span>
                   <span
-                    className={s.group_item_icon_text_bottom}>Embed proofs in Taproot transactions</span>
+                    className={s.group_item_icon_text_bottom}>Deploy a fully functional blockchain ecosystem</span>
                 </div>
               </Link>
             </li>
@@ -69,7 +69,7 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>DeFi</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge BTC to your rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Make DeFi on Bitcoin possible and accessible to everyone</span>
                 </div>
               </Link>
             </li>
@@ -79,7 +79,7 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Gaming</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge ETH to you rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Shape the future of gaming on Bitcoin</span>
                 </div>
               </Link>
             </li>
@@ -89,7 +89,7 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>AI</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge BRC-20 tokens to your rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Road to fully on-chain AI</span>
                 </div>
               </Link>
             </li>
@@ -99,7 +99,7 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Social</span>
-                  <span className={s.group_item_icon_text_bottom}>Bridge Runes ro your rollup</span>
+                  <span className={s.group_item_icon_text_bottom}>Connect, hang out, have fun, and earn.</span>
                 </div>
               </Link>
             </li>
