@@ -1,4 +1,6 @@
+
 import BaseModal from '@/components/BaseModal';
+import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import s from './styles.module.scss';
 import ImagePlaceholder from '@components/ImagePlaceholder';

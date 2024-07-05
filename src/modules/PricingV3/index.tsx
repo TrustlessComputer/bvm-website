@@ -43,7 +43,7 @@ const PriceModule = () => {
   const { tracking } = useL2ServiceTracking();
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
-  const { loggedIn, setShowLoginModalCustomize, userInfo } = useWeb3Auth();
+  const { loggedIn, login } = useWeb3Auth();
   const {
     isOpen: isOpenLoadingModal,
     onOpen: onOpenLoadingModal,
@@ -72,7 +72,7 @@ const PriceModule = () => {
   const bootstrapLaunchOnClick = async () => {
     tracking('SUBMIT_TIER1');
     if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+      login();
     } else {
       try {
         onOpenLoadingModal();
@@ -113,7 +113,7 @@ const PriceModule = () => {
   const bootstrapLaunchOnClickV2 = async () => {
     tracking('SUBMIT_TIER1');
     if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+      login();
     } else {
       router.push(`/rollups/customize?package=${PRICING_PACKGE.Hacker}`);
     }
@@ -122,7 +122,7 @@ const PriceModule = () => {
   const growthLaunchOnClick = () => {
     tracking('CUSTOMIZE_TIER2');
     if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+      login();
     } else {
       router.push(`/rollups/customize?package=${PRICING_PACKGE.Growth}`);
     }
@@ -131,7 +131,7 @@ const PriceModule = () => {
   const bussinessLaunchOnClick = () => {
     tracking('CUSTOMIZE_TIER3');
     if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+      login();
     } else {
       router.push(`/rollups/customize?package=${PRICING_PACKGE.Secure}`);
     }
