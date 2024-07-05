@@ -9,14 +9,14 @@ import { openModal } from '@/stores/states/modal/reducer';
 import SettingView from '@/modules/app-store/detail/setting';
 
 const InstallMode = ({data}: {data: IModeInstall}) => {
-  const { loggedIn, setShowLoginModalCustomize, userInfo } = useWeb3Auth();
+  const { loggedIn, login, userInfo } = useWeb3Auth();
   const cAppStoreApi = new CAppStoreApi();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const handleInstall = () => {
     if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+      login();
     } else {
       try {
         // setLoading(true)
