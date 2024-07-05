@@ -4,19 +4,27 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import CAppStoreApi from '@/services/api/app-store';
 import { useState } from 'react';
 import SvgInset from '@components/SvgInset';
+import { useDispatch } from 'react-redux';
+import { openModal } from '@/stores/states/modal/reducer';
+import SettingView from '@/modules/app-store/detail/setting';
 
 const InstallMode = ({data}: {data: IModeInstall}) => {
   const { loggedIn, setShowLoginModalCustomize, userInfo } = useWeb3Auth();
   const cAppStoreApi = new CAppStoreApi();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleInstall = () => {
     if (!loggedIn) {
       setShowLoginModalCustomize && setShowLoginModalCustomize(true);
     } else {
       try {
-        setLoading(true)
-        cAppStoreApi.orderBuyAPI({} as any);
+        // setLoading(true)
+        // cAppStoreApi.orderBuyAPI({} as any);
+        dispatch(openModal({
+          id: 'SETTING_MODAL',
+          render: () => <SettingView />,
+        }));
       } catch (e) {
 
       } finally {
