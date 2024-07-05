@@ -77,13 +77,7 @@ const BoxOptionV2 = ({
           </Flex>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-          }}
-        >
-          {children}
-        </div>
+        <div className={s.options}>{children}</div>
 
         {!last && (
           <div className={s.boxItem_stud}>

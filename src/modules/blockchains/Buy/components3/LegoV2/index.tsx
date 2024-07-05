@@ -5,6 +5,7 @@ import SvgInset from '@/components/SvgInset';
 import { LegoColor } from '../BoxOption';
 
 import styles from './styles.module.scss';
+import Image from 'next/image';
 
 type LegoV2 = {
   background?: LegoColor;
@@ -12,6 +13,7 @@ type LegoV2 = {
   last?: boolean;
   active?: boolean;
   label?: React.ReactNode;
+  icon?: string;
   zIndex: number;
 } & HTMLAttributes<HTMLDivElement>;
 
@@ -21,6 +23,7 @@ function LegoV2({
   first = false,
   last = false,
   active = false,
+  icon,
   zIndex = 0,
   children,
   ...props
@@ -43,7 +46,10 @@ function LegoV2({
       {...props}
     >
       <div className={styles.inner}>
-        <p className={styles.label}>{label}</p>
+        <div className={styles.label}>
+          {icon && <Image src={icon} alt="icon" width={24} height={24} />}
+          <p>{label}</p>
+        </div>
         <div className={styles.options}>{children}</div>
       </div>
 

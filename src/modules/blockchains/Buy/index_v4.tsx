@@ -23,6 +23,7 @@ import { useRouter } from 'next/navigation';
 import SvgInset from '@/components/SvgInset';
 import { OrderFormOptions } from './Buy.data';
 import Draggable from './components3/Draggable';
+import { LegoColor } from './components3/BoxOption';
 
 type PricingPackageValues = {
   maxGasLimit: number;
@@ -40,6 +41,7 @@ type BoxOption = {
   label: string;
   id: string;
   last?: boolean;
+  background?: LegoColor;
   description?: {
     title: string;
     content: React.ReactNode;
@@ -47,6 +49,7 @@ type BoxOption = {
   options?: {
     id: string;
     label: React.ReactNode;
+    icon?: string;
     value: any;
   }[];
   content?: React.ReactNode;
@@ -193,7 +196,7 @@ const BuyPage = () => {
                 {Object.keys(boxOptionMapping).map((key, index) => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return;
 
-                  const { label, content, description, options } =
+                  const { label, content, description, options, background } =
                     boxOptionMapping[key as Override];
                   const isDragged = field[key as Override].dragged;
 
@@ -214,7 +217,6 @@ const BuyPage = () => {
                               option.value.toString()
                           )
                             return null;
-
                           return (
                             <Draggable
                               id={key + '-' + option.value.toString()}
@@ -222,8 +224,9 @@ const BuyPage = () => {
                             >
                               <LegoV2
                                 key={option.id}
-                                background="brown"
+                                background={background}
                                 label={option.label}
+                                icon={option.icon}
                                 zIndex={9}
                                 active={field[ORDER_FIELD.NETWORK].dragged}
                               />
@@ -247,7 +250,7 @@ const BuyPage = () => {
 
                   {Object.keys(boxOptionMapping).map((key) => {
                     if (key === ORDER_FIELD.CHAIN_NAME) return;
-                    const { content, options } =
+                    const { content, options, background } =
                       boxOptionMapping[key as Override];
                     const isDragged = field[key as Override].dragged;
 
@@ -268,7 +271,7 @@ const BuyPage = () => {
                           >
                             <LegoV2
                               key={option.id}
-                              background="brown"
+                              background={background}
                               label={option.label}
                               zIndex={9}
                               active={field[ORDER_FIELD.NETWORK].dragged}
