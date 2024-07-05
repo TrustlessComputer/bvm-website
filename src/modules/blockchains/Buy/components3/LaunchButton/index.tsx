@@ -22,7 +22,7 @@ import { Spinner } from '@chakra-ui/react';
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
 const LaunchButton = () => {
-  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
+  const { loggedIn, login } = useWeb3Auth();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
@@ -60,7 +60,7 @@ const LaunchButton = () => {
 
   const handleOnClick = async () => {
     if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+      login();
     } else {
       const form: FormOrder = {
         chainName: field[ORDER_FIELD.CHAIN_NAME].value,
