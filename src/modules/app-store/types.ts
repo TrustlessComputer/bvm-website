@@ -11,5 +11,13 @@ interface IAppInfo {
 interface IModeInstall {
   id: number;
   title: string;
-  price: string;
+  description: string;
+  price_usd: string;
+  price_bvm: string;
+  includes: IInclude[];
+}
+
+interface IInclude {
+  title: string;
+  is_include: boolean;
 }

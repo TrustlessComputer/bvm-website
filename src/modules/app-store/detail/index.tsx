@@ -17,10 +17,6 @@ const AppDetailModule = () => {
     return DATA.find(d => compareString(d.id, params?.id)) || {} as IAppInfo;
   }, [params?.id]);
 
-  const status = useMemo(() => {
-    return 'not_installed';
-  }, []);
-
   const handleBack = () => {
     return router.back();
   }

@@ -10,12 +10,34 @@ export const DATA: IAppInfo[] = [
       {
         id: 1,
         title: 'Basic',
-        price: '99'
+        description: 'For organizations who need customization and dedicated support',
+        price_usd: '99',
+        price_bvm: '200',
+        includes: [
+          {title: 'Customize-able', is_include: true},
+          {title: 'Unlimited Requests with Auto-scaling', is_include: true},
+          {title: 'Higher Throughput', is_include: true},
+          {title: 'Committed usage discounts', is_include: false},
+          {title: 'Custom on-demand discounts', is_include: false},
+          {title: 'VIP support channels', is_include: false},
+          {title: 'Engineering team access', is_include: false},
+        ]
       },
       {
         id: 2,
         title: 'Advance',
-        price: '499'
+        description: 'For organizations who need customization and dedicated support',
+        price_usd: '499',
+        price_bvm: '700',
+        includes: [
+          {title: 'Customize-able', is_include: true},
+          {title: 'Unlimited Requests with Auto-scaling', is_include: true},
+          {title: 'Higher Throughput', is_include: true},
+          {title: 'Committed usage discounts', is_include: true},
+          {title: 'Custom on-demand discounts', is_include: true},
+          {title: 'VIP support channels', is_include: true},
+          {title: 'Engineering team access', is_include: true},
+        ]
       },
     ],
   },
@@ -30,12 +52,34 @@ export const DATA: IAppInfo[] = [
       {
         id: 1,
         title: 'Basic',
-        price: '99'
+        description: 'For organizations who need customization and dedicated support',
+        price_usd: '99',
+        price_bvm: '200',
+        includes: [
+          {title: 'Customize-able', is_include: true},
+          {title: 'Unlimited Requests with Auto-scaling', is_include: true},
+          {title: 'Higher Throughput', is_include: true},
+          {title: 'Committed usage discounts', is_include: false},
+          {title: 'Custom on-demand discounts', is_include: false},
+          {title: 'VIP support channels', is_include: false},
+          {title: 'Engineering team access', is_include: false},
+        ]
       },
       {
         id: 2,
         title: 'Advance',
-        price: '499'
+        description: 'For organizations who need customization and dedicated support',
+        price_usd: '499',
+        price_bvm: '700',
+        includes: [
+          {title: 'Customize-able', is_include: true},
+          {title: 'Unlimited Requests with Auto-scaling', is_include: true},
+          {title: 'Higher Throughput', is_include: true},
+          {title: 'Committed usage discounts', is_include: true},
+          {title: 'Custom on-demand discounts', is_include: true},
+          {title: 'VIP support channels', is_include: true},
+          {title: 'Engineering team access', is_include: true},
+        ]
       },
     ],
   },
@@ -50,14 +94,36 @@ export const DATA: IAppInfo[] = [
       {
         id: 1,
         title: 'Basic',
-        price: '99'
+        description: 'For organizations who need customization and dedicated support',
+        price_usd: '99',
+        price_bvm: '200',
+        includes: [
+          {title: 'Customize-able', is_include: true},
+          {title: 'Unlimited Requests with Auto-scaling', is_include: true},
+          {title: 'Higher Throughput', is_include: true},
+          {title: 'Committed usage discounts', is_include: false},
+          {title: 'Custom on-demand discounts', is_include: false},
+          {title: 'VIP support channels', is_include: false},
+          {title: 'Engineering team access', is_include: false},
+        ]
       },
       {
         id: 2,
         title: 'Advance',
-        price: '499'
+        description: 'For organizations who need customization and dedicated support',
+        price_usd: '499',
+        price_bvm: '700',
+        includes: [
+          {title: 'Customize-able', is_include: true},
+          {title: 'Unlimited Requests with Auto-scaling', is_include: true},
+          {title: 'Higher Throughput', is_include: true},
+          {title: 'Committed usage discounts', is_include: true},
+          {title: 'Custom on-demand discounts', is_include: true},
+          {title: 'VIP support channels', is_include: true},
+          {title: 'Engineering team access', is_include: true},
+        ]
       },
-    ]
+    ],
   },
   {
     id: 1,
@@ -70,13 +136,35 @@ export const DATA: IAppInfo[] = [
       {
         id: 1,
         title: 'Basic',
-        price: '99'
+        description: 'For organizations who need customization and dedicated support',
+        price_usd: '99',
+        price_bvm: '200',
+        includes: [
+          {title: 'Customize-able', is_include: true},
+          {title: 'Unlimited Requests with Auto-scaling', is_include: true},
+          {title: 'Higher Throughput', is_include: true},
+          {title: 'Committed usage discounts', is_include: false},
+          {title: 'Custom on-demand discounts', is_include: false},
+          {title: 'VIP support channels', is_include: false},
+          {title: 'Engineering team access', is_include: false},
+        ]
       },
       {
         id: 2,
         title: 'Advance',
-        price: '499'
+        description: 'For organizations who need customization and dedicated support',
+        price_usd: '499',
+        price_bvm: '700',
+        includes: [
+          {title: 'Customize-able', is_include: true},
+          {title: 'Unlimited Requests with Auto-scaling', is_include: true},
+          {title: 'Higher Throughput', is_include: true},
+          {title: 'Committed usage discounts', is_include: true},
+          {title: 'Custom on-demand discounts', is_include: true},
+          {title: 'VIP support channels', is_include: true},
+          {title: 'Engineering team access', is_include: true},
+        ]
       },
-    ]
+    ],
   },
 ]

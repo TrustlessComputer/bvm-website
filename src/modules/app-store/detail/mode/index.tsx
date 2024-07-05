@@ -28,10 +28,10 @@ const InstallMode = ({data}: {data: IModeInstall}) => {
   return (
     <Flex className={s.container} direction={"column"}>
       <Text className={s.title}>{data?.title}</Text>
-      <Text className={s.description} mt={"8px"}>For organizations who need customization and dedicated support</Text>
+      <Text className={s.description} mt={"8px"}>{data?.description}</Text>
       <Flex alignItems={"center"} justifyContent={"center"} mt={"20px"} gap={"12px"}>
-        <Text className={s.priceUsd}>$99</Text>
-        <Text className={s.priceBvm}>200 BVM</Text>
+        <Text className={s.priceUsd}>${data?.price_usd}</Text>
+        <Text className={s.priceBvm}>{data?.price_bvm} BVM</Text>
       </Flex>
       <Button
         className={s.btnInstall}
@@ -43,14 +43,16 @@ const InstallMode = ({data}: {data: IModeInstall}) => {
       <Flex direction={"column"} gap={"16px"} mt={"40px"}>
         <Text className={s.includeTitle}>Includes:</Text>
         <Flex direction={"column"} gap={"16px"}>
-          <Flex gap={"8px"} alignItems={"center"}>
-            <SvgInset svgUrl={`/app-store/ic-include-check.svg`} />
-            <Text className={s.includeText}>Customize-able</Text>
-          </Flex>
-          <Flex gap={"8px"} alignItems={"center"}>
-            <SvgInset svgUrl={`/app-store/ic-include-check.svg`} />
-            <Text className={s.includeText}>Customize-able</Text>
-          </Flex>
+          {
+            data?.includes?.map(i => {
+              return (
+                <Flex gap={"8px"} alignItems={"center"}>
+                  <SvgInset svgUrl={i?.is_include ? `/app-store/ic-include-check.svg` : `/app-store/ic-include-x.svg`} />
+                  <Text className={s.includeText}>{i?.title}</Text>
+                </Flex>
+              )
+            })
+          }
         </Flex>
       </Flex>
     </Flex>
