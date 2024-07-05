@@ -57,7 +57,7 @@ type BoxOption = {
     value: any;
     disabled?: boolean;
   }[];
-  content: ({ isLeft }: { isLeft?: boolean }) => React.ReactNode;
+  content: (isLeft?: boolean) => React.ReactNode;
 };
 
 const BuyPage = () => {
@@ -164,7 +164,7 @@ const BuyPage = () => {
       ...OrderFormOptions[ORDER_FIELD.GAS_LIMIT],
       id: ORDER_FIELD.GAS_LIMIT,
       label: OrderFormOptions[ORDER_FIELD.GAS_LIMIT].title,
-      content: ({ isLeft }) => (
+      content: (isLeft) => (
         <LegoV2
           background={'green'}
           label={isLeft ? '' : OrderFormOptions[ORDER_FIELD.GAS_LIMIT].subTitle}
@@ -188,7 +188,7 @@ const BuyPage = () => {
       ...OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD],
       id: ORDER_FIELD.WITHDRAW_PERIOD,
       label: OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].title,
-      content: ({ isLeft }) => {
+      content: (isLeft) => {
         return (
           <LegoV2
             background={'pink'}
@@ -244,13 +244,8 @@ const BuyPage = () => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return;
                   const value = field[key as Override].value;
 
-                  const {
-                    label,
-                    content: Content,
-                    description,
-                    options,
-                    background,
-                  } = boxOptionMapping[key as Override];
+                  const { label, content, description, options, background } =
+                    boxOptionMapping[key as Override];
                   const isDragged = field[key as Override].dragged;
 
                   return (
@@ -290,7 +285,7 @@ const BuyPage = () => {
                         })
                       ) : (
                         <Draggable value={value} id={key} key={key}>
-                          <Content isLeft />
+                          {content(true)}
                         </Draggable>
                       )}
                     </BoxOptionV2>
@@ -315,12 +310,8 @@ const BuyPage = () => {
 
                   {Object.keys(boxOptionMapping).map((key, index) => {
                     if (key === ORDER_FIELD.CHAIN_NAME) return;
-                    const {
-                      content: Content,
-                      options,
-                      background,
-                      RightContent,
-                    } = boxOptionMapping[key as Override];
+                    const { content, options, background, RightContent } =
+                      boxOptionMapping[key as Override];
                     const isDragged = field[key as Override].dragged;
                     const value = field[key as Override].value;
 
@@ -350,7 +341,7 @@ const BuyPage = () => {
                         key={`${index}-drop`}
                         value={value}
                       >
-                        {<Content />}
+                        {content()}
                       </Draggable>
                     );
                   })}
