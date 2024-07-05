@@ -59,7 +59,8 @@ const DATA = [
   },
   {
     title: 'Stake',
-    description: <p>Earn up to <span>58% APR</span> on your BVM and receive airdrops from upcoming Bitcoin L2 projects.
+    description: <p>
+      Earn up to <span>58% APR</span> on your BVM and receive airdrops from upcoming projects powered by BVM technology.
     </p>,
     red: true,
     buttons: [
