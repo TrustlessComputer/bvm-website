@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 import { DATA } from '@/modules/app-store/data';
 import { compareString } from '@utils/string';
 import InstallMode from '@/modules/app-store/detail/mode';
+import SvgInset from '@components/SvgInset';
 
 const AppDetailModule = () => {
   const params = useParams();
@@ -27,15 +28,19 @@ const AppDetailModule = () => {
   return (
     <Box className={s.container}>
       <Box className={"containerV3"}>
-        <Flex className={s.back} onClick={handleBack}>
-          <Text>Back</Text>
+        <Flex className={s.back} onClick={handleBack} gap={"10px"} alignItems={"center"}>
+          <SvgInset svgUrl={`/app-store/ic-back.svg`} />
+          <Text>Dapps Store</Text>
         </Flex>
         <Box className={s.content}>
-          <Image className={s.avatar} src={data?.image}/>
-          <Text className={s.status}>{status}</Text>
-          <Text className={s.title}>{data?.title}</Text>
-          <Text className={s.description}>{data?.description}</Text>
-          <Flex gap={"12px"}>
+          <Flex gap={"24px"}>
+            <Image className={s.avatar} src={data?.image}/>
+            <Flex direction={"column"} gap={"8px"}>
+              <Text className={s.title}>{data?.title}</Text>
+              <Text className={s.description}>{data?.description}</Text>
+            </Flex>
+          </Flex>
+          <Flex gap={"12px"} mt={"80px"}>
             {
               data?.modes.map(m => {
                 return (

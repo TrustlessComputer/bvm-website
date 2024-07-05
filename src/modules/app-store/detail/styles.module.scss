@@ -1,30 +1,47 @@
 .container {
+  padding: 40px 0;
+  background: #FFF;
+
   .back {
     cursor: pointer;
+
+    p {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 150%;
+      letter-spacing: 0.03em;
+      color: #FA4E0E;
+    }
   }
 
   .content {
     display: flex;
     flex-direction: column;
     row-gap: 12px;
-    background-color: #00B3FF;
-    border-radius: 12px;
-    padding: 20px;
-    cursor: pointer;
+    margin-top: 60px;
 
     .avatar {
-      width: 120px;
-      height: 120px;
+      width: 90px;
+      height: 90px;
+      background: #FAFAFA;
+      border-radius: 18px;
     }
 
     .title {
-      font-size: 48px;
-      font-weight: 500;
+      color: #000;
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 140%;
+      letter-spacing: 0.01em;
     }
 
     .description {
-      font-size: 24px;
+      color: #000;
+      font-size: 20px;
       font-weight: 400;
+      line-height: 140%;
+      letter-spacing: 0.01em;
+      opacity: 0.7;
     }
 
     .status {
