@@ -51,7 +51,7 @@ const ModuleDetail = ({ data }: {data: IMODULE}): React.JSX.Element => {
             data.hiw.action && <Link className={s.link} href={data.hiw.action} target="_blank" rel="noopener noreferrer">
               <p>Learn more</p>
               <div className={s.link_icon}>
-                <ImagePlaceholder src={'/icons/ic_chevron_right.svg'} alt={'ic_chevron_right'} width={16} height={16} />
+                <img src={'/icons/ic_chevron_right.svg'} alt={'ic_chevron_right'} width={16} height={16}/>
               </div>
             </Link>
           }
