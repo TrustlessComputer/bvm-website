@@ -53,7 +53,7 @@ import {
   XIcon,
 } from 'react-share';
 
-export default function Socials({ title, slug, thumbnail }: IBlog) {
+export default function Socials({ title, slug }: IBlog) {
 
   const url = useMemo(() => {
     return DOMAIN_URL + `/blog/${slug}`;
@@ -61,20 +61,20 @@ export default function Socials({ title, slug, thumbnail }: IBlog) {
 
   return <div className={s.wrapper}>
     <FacebookShareButton
-      url={''}
+      url={slug}
       className="Demo__some-network__share-button"
     >
       <FacebookIcon size={32} round />
     </FacebookShareButton>
     <TwitterShareButton
-      url={''}
+      url={slug}
       title={title}
       className="Demo__some-network__share-button"
     >
       <XIcon size={32} round />
     </TwitterShareButton>
     <RedditShareButton
-      url={''}
+      url={slug}
       title={title}
       windowWidth={660}
       windowHeight={460}

@@ -14,26 +14,11 @@ export default function Tags({ tags }: IPprops) {
         tags?.map(tag => (
           <li className={s.tag}>
             <Link href={`tag/${tag.slug}`}>
-              #{tag.title}
+              {tag.name}
             </Link>
           </li>
         ))
       }
-      <li className={s.tag}>
-        <Link href={`tag/test`}>
-          #test
-        </Link>
-      </li>
-      <li className={s.tag}>
-        <Link href={`tag/test`}>
-          #test
-        </Link>
-      </li>
-      <li className={s.tag}>
-        <Link href={`tag/test`}>
-          #test
-        </Link>
-      </li>
     </ul>
   </div>;
 }

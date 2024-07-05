@@ -45,6 +45,7 @@
     line-height: calc(43 / 36);
   }
   &_author {
+    text-transform: uppercase;
     font-size: 18px;
     color: #555555;
     font-weight: 400;
@@ -74,6 +75,17 @@
     line-height: calc(25 / 18);
     color: #000;
     margin-bottom: 20px;
+  }
+  figure {
+    border-radius: 5px;
+    overflow: hidden;
+    width: fit-content;
+    margin: 0 auto;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
   }
 }
 
