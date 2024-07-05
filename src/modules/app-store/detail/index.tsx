@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Divider, Flex, Image, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { useParams, useRouter } from 'next/navigation';
 import { useMemo } from 'react';
@@ -40,7 +40,10 @@ const AppDetailModule = () => {
               <Text className={s.description}>{data?.description}</Text>
             </Flex>
           </Flex>
-          <Flex gap={"12px"} mt={"80px"}>
+
+          <Divider orientation={"horizontal"} bgColor={"#ECECEC"}/>
+
+          <Flex gap={"12px"}>
             {
               data?.modes.map(m => {
                 return (
