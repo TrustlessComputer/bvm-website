@@ -10,13 +10,13 @@ import HeroV3 from '@/modules/bvm_v4/HeroV3';
 import About from '@/modules/bvm_v4/About';
 import BuyBVMV2 from '@/modules/bvm_v4/BuyBVMV2';
 import BVMUtilities from '@/modules/bvm_v4/BVMUtilities';
+import HeroV4 from '@/modules/bvm_v4/HeroV4';
 
 const BVMModule = () => {
   return (
     <div className={`${s.wrapper}  `}>
       <div className={`${s.inner} containerV3`}>
-        <HeroV3 />
-        <BuyBVMV2 />
+        <HeroV4 />
       </div>
       <About />
       <BVMUtilities />
