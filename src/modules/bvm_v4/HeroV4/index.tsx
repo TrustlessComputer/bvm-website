@@ -15,6 +15,9 @@ const HeroV4 = (): React.JSX.Element => {
     <div className={s.wrapper}>
       <Loader />
       <div className={s.inner}>
+        <div className={s.right}>
+          <Heading />
+        </div>
         <div className={s.left}>
           <Fade delay={0.7} delayEnter={0.7} from={{ y: 40 }} to={{ y: 0 }}>
             <a
@@ -34,25 +37,23 @@ const HeroV4 = (): React.JSX.Element => {
             </a>
           </Fade>
 
-          <div className={s.social}>
-            <a href="https://x.com/BVMnetwork" className={s.social_icon} target={'_blank'}>
-              <ImagePlaceholder src={'/social/x.png'} alt={'x'} height={54} width={54} />
-            </a>
-            <a href="https://t.me/BVMofficialcommunity" className={s.social_icon} target={'_blank'}>
-              <ImagePlaceholder src={'/social/tele.png'} alt={'tele'} height={54} width={54} />
-            </a>
-            <a href="https://coinmarketcap.com/currencies/bvm/" className={s.social_icon} target={'_blank'}>
-              <ImagePlaceholder src={'/social/mex.png'} alt={'mex'} height={54} width={54} />
-            </a>
-            <a href="https://app.uniswap.org/explore/tokens/ethereum/0x069d89974f4edabde69450f9cf5cf7d8cbd2568d"
-               className={s.social_icon} target={'_blank'}>
-              <ImagePlaceholder src={'/social/uniswap.png'} alt={'uniswap'} height={54} width={54} />
-            </a>
-          </div>
+          {/*<div className={s.social}>*/}
+          {/*  <a href="https://x.com/BVMnetwork" className={s.social_icon} target={'_blank'}>*/}
+          {/*    <ImagePlaceholder src={'/social/x.png'} alt={'x'} height={54} width={54} />*/}
+          {/*  </a>*/}
+          {/*  <a href="https://t.me/BVMofficialcommunity" className={s.social_icon} target={'_blank'}>*/}
+          {/*    <ImagePlaceholder src={'/social/tele.png'} alt={'tele'} height={54} width={54} />*/}
+          {/*  </a>*/}
+          {/*  <a href="https://coinmarketcap.com/currencies/bvm/" className={s.social_icon} target={'_blank'}>*/}
+          {/*    <ImagePlaceholder src={'/social/mex.png'} alt={'mex'} height={54} width={54} />*/}
+          {/*  </a>*/}
+          {/*  <a href="https://app.uniswap.org/explore/tokens/ethereum/0x069d89974f4edabde69450f9cf5cf7d8cbd2568d"*/}
+          {/*     className={s.social_icon} target={'_blank'}>*/}
+          {/*    <ImagePlaceholder src={'/social/uniswap.png'} alt={'uniswap'} height={54} width={54} />*/}
+          {/*  </a>*/}
+          {/*</div>*/}
         </div>
-        <div className={s.right}>
-          <Heading />
-        </div>
+
       </div>
       <ModalVideo
         channel="custom"
