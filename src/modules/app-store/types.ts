@@ -5,6 +5,7 @@ interface IAppInfo {
   icon: string;
   image: string;
   modes: IModeInstall[];
+  num_installed: number;
 }
 
 interface IModeInstall {
