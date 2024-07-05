@@ -17,10 +17,10 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-bvm" />
                 <div className={s.group_item_icon_text}>
                   <div className={s.group_item_icon_text_wrap}>
-                    <span className={s.group_item_icon_text_title}>Zero Knowledge Rollups (BitZK)</span>
+                    <span className={s.group_item_icon_text_title}>BitZK</span>
                     <small>New</small>
                   </div>
-                  <span className={s.group_item_icon_text_bottom}>ZK rollups for virtually any decentralized applications.</span>
+                  <span className={s.group_item_icon_text_bottom}>ZK rollups on Bitcoin for virtually any decentralized applications.</span>
                 </div>
               </Link>
             </li>
@@ -29,8 +29,8 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinoptimistic.png"
                        alt="menu-icon-op" />
                 <div className={s.group_item_icon_text}>
-                  <span className={s.group_item_icon_text_title}>Optimistic Rollups (BitOP)</span>
-                  <span className={s.group_item_icon_text_bottom}>Increase computation and storage capacity without sacrificing security or decentralization.</span>
+                  <span className={s.group_item_icon_text_title}>BitOP</span>
+                  <span className={s.group_item_icon_text_bottom}>Optimistic rollups on Bitcoin for virtually any decentralized applications.</span>
                 </div>
               </Link>
             </li>
@@ -44,8 +44,8 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoincelestia.png"
                        alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
-                  <span className={s.group_item_icon_text_title}>BVM Celestia</span>
-                  <span className={s.group_item_icon_text_bottom}>A high-throughput DA verifiable with a light node.</span>
+                  <span className={s.group_item_icon_text_title}>Bitcoin Celestia</span>
+                  <span className={s.group_item_icon_text_bottom}>A high-throughput DA verifiable with a light node</span>
                 </div>
               </Link>
             </li>
@@ -54,9 +54,9 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoineigen.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
-                  <span className={s.group_item_icon_text_title}>BVM Eigen DA</span>
+                  <span className={s.group_item_icon_text_title}>Bitcoin Eigen DA</span>
                   <span
-                    className={s.group_item_icon_text_bottom}>A scalable DA solution specialized in serving Ethereum rollups that leverage EigenLayer.</span>
+                    className={s.group_item_icon_text_bottom}>A scalable DA solution specialized in serving Ethereum rollups that leverage EigenLayer</span>
                 </div>
               </Link>
             </li>
@@ -65,8 +65,8 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinavail.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
-                  <span className={s.group_item_icon_text_title}>BVM Avail</span>
-                  <span className={s.group_item_icon_text_bottom}> Low-cost and expandable blobspace.</span>
+                  <span className={s.group_item_icon_text_title}>Bitcoin Avail</span>
+                  <span className={s.group_item_icon_text_bottom}> Low-cost and expandable blobspace</span>
                 </div>
               </Link>
             </li>
@@ -75,8 +75,8 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinnearda.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
-                  <span className={s.group_item_icon_text_title}>BVM Near DA</span>
-                  <span className={s.group_item_icon_text_bottom}>An efficient and robust data availability layer.</span>
+                  <span className={s.group_item_icon_text_title}>Bitcoin Near DA</span>
+                  <span className={s.group_item_icon_text_bottom}>An efficient and robust data availability layer</span>
                 </div>
               </Link>
             </li>
@@ -85,8 +85,8 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinpolygon.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
-                  <span className={s.group_item_icon_text_title}>BVM Polygon</span>
-                  <span className={s.group_item_icon_text_bottom}>The most cost-effective storage solution.</span>
+                  <span className={s.group_item_icon_text_title}>Bitcoin Polygon</span>
+                  <span className={s.group_item_icon_text_bottom}>The most cost-effective storage solution</span>
                 </div>
               </Link>
             </li>
@@ -95,8 +95,8 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinfilecoin.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
-                  <span className={s.group_item_icon_text_title}>BVM Filecoin</span>
-                  <span className={s.group_item_icon_text_bottom}>The largest decentralized data storage marketplace, protocol, & cryptocurrency.</span>
+                  <span className={s.group_item_icon_text_title}>Bitcoin Filecoin</span>
+                  <span className={s.group_item_icon_text_bottom}>The largest decentralized data storage marketplace, protocol, & cryptocurrency</span>
                 </div>
               </Link>
             </li>
@@ -111,7 +111,7 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Ordinals</span>
-                  <span className={s.group_item_icon_text_bottom}> Roll up to Bitcoin as Ordinal Inscriptions</span>
+                  <span className={s.group_item_icon_text_bottom}>  Roll up to Bitcoin as Ordinal Inscriptions</span>
                 </div>
               </Link>
             </li>
