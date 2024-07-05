@@ -99,7 +99,7 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Social</span>
-                  <span className={s.group_item_icon_text_bottom}>Connect, hang out, have fun, and earn.</span>
+                  <span className={s.group_item_icon_text_bottom}>Build your social app your way</span>
                 </div>
               </Link>
             </li>

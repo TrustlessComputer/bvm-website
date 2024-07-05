@@ -1,8 +1,10 @@
+import {ReactElement} from "react";
+
 export type IRESOLUTION_HERO = {
   src: string,
   label?: string,
   subTitle: string,
-  heading: string,
+  heading: string | ReactElement,
   btn1: {
     title: string,
     link: string
@@ -12,7 +14,8 @@ export type IRESOLUTION_HERO = {
     label: string,
     link: string,
     target: '_blank' | '_self',
-  }
+  },
+  isHadContact?: boolean
 }
 
 export type IRESOLUTION = {
@@ -21,10 +24,14 @@ export type IRESOLUTION = {
     title: string,
     contents: { title: string, desc: string }[],
   },
+  why?: {
+    title: string,
+    content: string
+  },
   case?: {
     icon: string,
     thumbnail: string
-    heading: string,
+    heading: string | ReactElement,
     title: string,
     desc: string,
     btn: {
@@ -45,19 +52,19 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
   gamefi: {
     hero: {
       src: '/gamefi/gamefiHero.png',
-      label: 'Designed for Game builders',
-      subTitle: 'Bitcoin L2 for GameFi',
-      heading: 'ZK rollups for virtually any decentralized applications.',
+      // label: 'Designed for Game builders',
+      subTitle: 'ZK ROLLUP for GameFi',
+      heading: <>Shape the Future of <span>Gaming on Bitcoin</span></>,
       btn1: {
         title: 'Create your own GameFi L2',
         link: '/rollups/customize',
       },
-      btn2: {
-        title: 'Explore Bitcoin Arcade now',
-        label: 'Need an example?',
-        link: 'https://play.bitcoinarcade.xyz/',
-        target: '_blank',
-      }
+      // btn2: {
+      //   title: 'Explore Bitcoin Arcade now',
+      //   label: 'Need an example?',
+      //   link: 'https://play.bitcoinarcade.xyz/',
+      //   target: '_blank',
+      // }
     },
     list: {
       title: 'Learn what BVM products can do for you ',
@@ -71,7 +78,7 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
           desc: 'Effortlessly transition existing games from EVM-compatible chains like Ethereum, BSC, or Fantom to your new Bitcoin L2 without the need for a new toolkit.',
         },
         {
-          title: 'Enhance Scalability and Security',
+          title: 'Enhance scalability and security',
           desc: 'Leverage optimistic rollup technology for massive scalability and Bitcoin-grade security.',
         },
       ],
@@ -92,25 +99,25 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
   defi: {
     hero: {
       src: '/defi/defi-hero.png',
-      label: 'Unlocking Bitcoin\'s $250B treasury chest',
-      subTitle: 'Bitcoin L2 for DeFi',
+      // label: 'Unlocking Bitcoin\'s $250B treasury chest',
+      subTitle: 'ZK ROLLUP for DeFi',
       heading: 'Making DeFi on Bitcoin possible and accessible to everyone',
       btn1: {
         title: 'Create your own DeFi L2',
         link: '/rollups/customize',
       },
-      btn2: {
-        title: 'Explore Nakachain now',
-        label: 'Need an example?',
-        link: 'https://nakachain.xyz',
-        target: '_blank',
-      }
+      // btn2: {
+      //   title: 'Explore Nakachain now',
+      //   label: 'Need an example?',
+      //   link: 'https://nakachain.xyz',
+      //   target: '_blank',
+      // }
     },
     list: {
       title: 'Learn what BVM products can do for you',
       contents: [
         {
-          title: 'Enhance DeFi Efficiency',
+          title: 'Enhance DeFi efficiency',
           desc:
             "With a 2-second block time and transaction costs of less than $0.001, it is substantially faster and cheaper than Bitcoin's mainnet, providing great efficiency.",
         },
@@ -120,9 +127,9 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
             'It enables developers to transfer dApps from Ethereum to Bitcoin with little or no change.',
         },
         {
-          title: 'Flexible Gas Fee Options:',
+          title: 'Flexible gas fee options',
           desc:
-            'Enjoy the flexibility of paying gas fees in either Bitcoin or your native tokens.',
+            'Enjoy the flexibility of paying gas fees in either Bitcoin or your native tokens',
         },
       ],
     },
@@ -142,27 +149,27 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
   socialfi: {
     hero: {
       src: '/socialfi/socialFiHero.png',
-      label: 'Optimized for content creators.',
-      subTitle: 'Bitcoin L2 for SocialFi',
-      heading: 'Connect, hang out, have fun, and earn.',
+      // label: 'Optimized for content creators.',
+      subTitle: 'ZK ROLLUP for SocialFi',
+      heading: 'Build your social app your way',
       btn1: {
         title: 'Create your own SocialFi L2',
         link: '/rollups/customize',
       },
-      btn2: {
-        title: 'Explore Alpha now! ',
-        label: 'Need an example?',
-        link: 'https://alpha.wtf/',
-        target: '_blank',
-      }
+      // btn2: {
+      //   title: 'Explore Alpha now! ',
+      //   label: 'Need an example?',
+      //   link: 'https://alpha.wtf/',
+      //   target: '_blank',
+      // }
     },
     list: {
       title: 'Learn what BVM products can do for you',
       contents: [
         {
-          title: 'Personalize your social experiences',
+          title: 'Customize your social app your way',
           desc:
-            'Connect with others through chats, posts, and community activities',
+            'Tailor your social app with features like chat, posts, image uploads, story uploads, and more.',
         },
         {
           title: 'Integrate games for fun',
@@ -170,9 +177,9 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
             'Easily integrate games or other kinds of engaging activities with 2-second block time and low transaction fees (less than $0.001 per transaction)',
         },
         {
-          title: 'Earn rewards along the way',
+          title: 'Enhance community activities',
           desc:
-            'Profit from referring more people to join, trading, and engaging in games and other activities.',
+            'Add engaging features like NFT raffles, Flywheels, or Lucky Money to attract more users and increase TVL.',
         },
       ],
     },
@@ -192,75 +199,89 @@ export const RESOLUTION_DATAS: Record<string, IRESOLUTION> = {
   appchains: {
     hero: {
       src: '/appChains/hero.jpg',
-      subTitle: 'appchainS',
-      heading: 'Build a customizable appchain aligned with your product roadmap',
+      subTitle: 'SOLUTION',
+      heading: <>Specialized appchains <span>on Bitcoin</span></>,
+      label: 'Appchains anyone can set up with just a few clicks.',
       btn1: {
-        title: 'Create your own Appchain',
+        title: 'Get started',
         link: '/rollups/customize',
       },
+      isHadContact: true
+    },
+    why: {
+      title: 'Why appchains?',
+      content: 'Appchains let you create a blockchain precisely for your application\'s needs. These specialized blockchains allow customization in various aspects, such as data availability layer and block size. Moreover, they inherit the security of Bitcoin.'
     },
     list: {
-      title: 'Learn what BVM products can do for you',
+      title: 'Benefits of appchains',
       contents: [
         {
-          title: 'Independent Blockchain Network',
+          title: 'Super-scaling',
           desc:
-            "Each appchain runs on its own blockchain, ensuring faster transactions and a stable environment free from unrelated congestion.",
+            "When you have your own appchain, you can rest assured with the dedicated throughput for your app, ensuring its smooth operation.",
 
         },
         {
-          title: 'Customized Consensus Mechanisms',
+          title: 'Customization',
           desc:
-            'Implement consensus mechanisms best suited for specific applications, rather than relying on generic solutions.',
+            'With BVM, you are free to modify the configuration of your appchain, including block size, latency, data availability, and more.',
 
         },
         {
-          title: 'Specialized Smart Contracts',
+          title: 'Cost efficiency',
           desc:
-            'Design smart contracts to meet the specific needs of the application, enhancing functionality and efficiency.',
+            'Appchains offer substantial cost reductions compared to L1s and L2s, making it economically feasible for indie devs and small teams to launch one.',
         },
       ],
     },
     hiw: {
       title: 'How it works',
-      desc: 'Choose a plan that fits your team’s needs and development stage. Configure your blockchain by selecting data storage, prover usage, block gas limit, withdrawal period, and pre-installed dapps.',
-      action: 'https://docs.bvm.network/bvm/quickstart/create-a-zk-rollup-on-bitcoin'
+      desc: 'BVM lets you launch your own Appchain on Bitcoin with just a few clicks and deploy your decentralized applications immediately. Appchains are designed as L3s on Bitcoin.',
+      action: 'https://twitter.com/punk3700/status/1796119677577605380',
+      thumbnail: '/images/appchains-hiw.jpeg',
     }
   },
   ecosystem: {
     hero: {
       src: '/ecosystems/hero.jpg',
-      subTitle: 'ecosystemS',
-      heading: 'Deploy a fully functional blockchain ecosystem',
+      subTitle: 'SOLUTIONS',
+      heading: 'General-purpose Bitcoin L2s and ecosystems',
+      label: 'Bitcoin L2s anyone can set up with just a few clicks.',
+      isHadContact: true,
       btn1: {
         title: 'Create your own Ecosystem',
         link: '/rollups/customize',
       },
     },
+    why: {
+      title: 'Why Bitcoin L2s?',
+      content: 'Bitcoin L2s let you create a general-purpose blockchain backed by Bitcoin\'s security. These general-purpose blockchains allow customization in various aspects, such as the data availability layer, rollup method, and block size. Moreover, they inherit Bitcoin\'s security.',
+    },
     list: {
-      title: 'Learn what BVM products can do for you',
+      title: 'Benefits of Bitcoin L2s',
       contents: [
         {
-          title: 'Customizable Functions',
+          title: 'Super-scaling',
           desc:
-            "Tailor functions as needed, with all essential features installed right away, including token issuance, staking, bridges, and more.",
+            "When you have your own Bitcoin L2, you can rest assured of the dedicated throughput and lightning-fast transaction time for all the apps in your ecosystem, ensuring its smooth operation.",
         },
         {
-          title: 'Scalable Infrastructure',
+          title: 'Customization',
           desc:
-            'Achieve better resource management and scalability, accommodating growing user bases and increasing transaction volumes across a wide range of activities.',
+            'With BVM, you are free to modify the configuration of your Bitcoin L2, including block size, latency, data availability, and more.',
         },
         {
-          title: 'Optimized Performance',
+          title: 'Cost efficiency',
           desc:
-            'Fine-tune performance for specific use cases, enhancing efficiency and speeding up transaction processing.',
+            'Appchains offer substantial cost reductions compared to Bitcoin, making it economically feasible for you to launch one.',
         },
       ],
     },
     hiw: {
       title: 'How it works',
-      desc: 'You can select common dApps like bridges, DEXs, NFT marketplaces, or DAOs to come pre-installed on your blockchain ecosystem. This ensures your users have a production-ready platform to start using immediately.',
-      action: 'https://docs.bvm.network/bvm/quickstart/create-a-zk-rollup-on-bitcoin'
+      desc: 'BVM lets you customize and launch your own Bitcoin L2 with just a few clicks and start building your own ecosystem.',
+      action: 'https://twitter.com/punk3700/status/1703819001510682709',
+      thumbnail: '/images/ecosystem-hiw.png',
     }
   },
 };

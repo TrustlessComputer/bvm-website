@@ -29,10 +29,9 @@ export type IMODULE = {
 
 export const MODULE_DATAS = {
   zk_rollup: {
-
     hero: {
       theme: 'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
-      title: 'ZK rollups',
+      title: 'BitZK',
       subTitle: 'ROLLUP',
       desc: 'ZK rollups for virtually any decentralized applications.',
       start: {
@@ -42,10 +41,10 @@ export const MODULE_DATAS = {
     },
     why: {
       title: 'Why ZK rollups?',
-      desc: `BVM ZK is the first modular ZK rollup platform. It offers the broadest and deepest choices, with the latest data availability layers, hardware nodes, pre-installed apps, and pricing models to help you best match your app requirements.`,
+      desc: `BitZK is the first modular ZK rollup platform. It offers the broadest and deepest choices, with the latest data availability layers, hardware nodes, pre-installed apps, and pricing models to help you best match your app requirements.`,
     },
     benefit: {
-      title: 'Benefits of ZK rollups',
+      title: 'Benefits of BitZK',
       contents: [
         {
           title: '1-click deploy',
@@ -63,7 +62,7 @@ export const MODULE_DATAS = {
     },
     hiw: {
       title: 'How it works',
-      desc: 'BVM lets you deploy your own ZK rollup with a few clicks and start building decentralized applications.',
+      desc: 'BitZK lets you deploy your own ZK rollup with a few clicks and start building decentralized applications.',
       action: 'https://twitter.com/punk3700/status/1796119677577605380',
       thumbnail: '/bvm/hiw-bitzk.png',
     },
@@ -71,7 +70,7 @@ export const MODULE_DATAS = {
   pptimistic_rollups: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(255, 174, 174, 0.8) -5.57%, rgba(255, 174, 174, 0) 98.47%)',
-      title: 'Optimistic rollups',
+      title: 'BitOP',
       subTitle: 'ROLLUP',
       desc: 'Optimistic rollups for virtually any decentralized applications.',
       start: {
@@ -81,10 +80,10 @@ export const MODULE_DATAS = {
     },
     why: {
       title: 'Why Optimistic rollups?',
-      desc: `Optimistic rollups increase its computation and storage capacity without sacrificing security or decentralization.`,
+      desc: `BitOP rollups increase its computation and storage capacity without sacrificing security or decentralization.`,
     },
     benefit: {
-      title: 'Benefits of Optimistic rollups',
+      title: 'Benefits of BitOP',
       contents: [
         {
           title: 'Smart Contract Capability',
@@ -102,7 +101,7 @@ export const MODULE_DATAS = {
     },
     hiw: {
       title: 'How it works',
-      desc: 'BVM lets you deploy your own Optimistic rollup with a few clicks and start building decentralized applications.',
+      desc: 'BitOP lets you deploy your own Optimistic rollup with a few clicks and start building decentralized applications.',
       action: 'https://docs.bvm.network/bvm/more/optimistic-rollups-on-bitcoin',
       thumbnail: '/bvm/hiw-bitop-07.png',
     },
@@ -110,7 +109,7 @@ export const MODULE_DATAS = {
   bvm_celestia: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(253, 174, 255, 0.8) -5.57%, rgba(253, 174, 255, 0) 98.47%)',
-      title: 'BVM Celestia',
+      title: 'Bitcoin Celestia',
       subTitle: 'DaTA Availability',
       desc: 'Use Celestia as the DA layer for your layer-2 blockchain.',
       start: {
@@ -149,7 +148,7 @@ export const MODULE_DATAS = {
   bvm_avail: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
-      title: 'BVM Avail',
+      title: 'Bitcoin Avail',
       subTitle: 'DaTA Availability',
       desc: 'Use Avail as the DA layer for your  layer-2 blockchain.',
       start: {
@@ -185,12 +184,10 @@ export const MODULE_DATAS = {
       thumbnail: '/bvm/hiw-bitcoin-avail.png',
     },
   },
-
-
   bvm_polygon: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(190, 169, 255, 0.8) -5.57%, rgba(190, 169, 255, 0) 98.47%)',
-      title: 'BVM Polygon',
+      title: 'Bitcoin Polygon',
       subTitle: 'DaTA Availability',
       desc: 'Use Polygon as the DA layer for your layer-2 blockchain.',
       start: {
@@ -226,13 +223,12 @@ export const MODULE_DATAS = {
       thumbnail: '/bvm/hiw-bitcoin-polygon.png',
     },
   },
-
   bvm_eigen: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(214, 97, 255, 0.8) -5.57%, rgba(214, 97, 255, 0) 98.47%)',
-      title: 'BVM Eigen',
+      title: 'Bitcoin Eigen',
       subTitle: 'DaTA Availability',
-      desc: 'Use Eigen as the DA layer for your  layer-2 blockchain.',
+      desc: 'Use Eigen as the DA layer for your layer-2 blockchain.',
       start: {
         text: 'Get started',
         link: '/pricing',
@@ -266,11 +262,10 @@ export const MODULE_DATAS = {
       thumbnail: '',
     },
   },
-
   bvm_near: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(219, 219, 219, 0.8) -5.57%, rgba(219, 219, 219, 0) 98.47%)',
-      title: 'BVM Near',
+      title: 'Bitcoin Near',
       subTitle: 'DaTA Availability',
       desc: 'Use Near as the DA layer for your  layer-2 blockchain.',
       start: {
@@ -306,13 +301,12 @@ export const MODULE_DATAS = {
       thumbnail: '',
     },
   },
-
   bvm_filecoin: {
     hero: {
       theme: 'linear-gradient(180deg, rgba(143, 208, 255, 0.8) -5.57%, rgba(143, 208, 255, 0) 98.47%)',
-      title: 'BVM FileCoin',
+      title: 'Bitcoin FileCoin',
       subTitle: 'DaTA Availability',
-      desc: 'Use FileCoin as a storage layer for your  layer-2 blockchain via Lighthouse. ',
+      desc: 'Use FileCoin as a storage layer for your  layer-2 blockchain via Lighthouse.',
       start: {
         text: 'Get started',
         link: '/pricing',
@@ -320,7 +314,7 @@ export const MODULE_DATAS = {
     },
     why: {
       title: 'Why FileCoin?',
-      desc: `Filecoin is the largest decentralized data storage marketplace, protocol, & cryptocurrency.  `,
+      desc: `Filecoin is the largest decentralized data storage marketplace, protocol, & cryptocurrency.`,
     },
     benefit: {
       title: 'Benefits of FileCoin',
