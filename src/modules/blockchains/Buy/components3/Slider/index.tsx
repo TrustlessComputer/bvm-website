@@ -51,9 +51,15 @@ const Slider = ({
       cb(field, initValue.toString());
     }
   }, [initValue]);
+
   return (
     <div className={s.dropdown}>
-      <div className={s.dropdown_inner} onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={s.dropdown_inner}
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      >
         <p className={s.dropdown_text}>
           {` ${formatCurrencyV2({
             amount: defaultValue.toString(),

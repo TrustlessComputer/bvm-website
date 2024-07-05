@@ -61,6 +61,7 @@ export const OrderFormOptions = {
         label: <React.Fragment>Eigen</React.Fragment>,
         value: DALayerEnum.DALayer_Eigen,
         icon: '/landingV3/images/pricing/4.png',
+
         disabled: true,
       },
       {
@@ -68,6 +69,7 @@ export const OrderFormOptions = {
         label: <React.Fragment>Filecoin</React.Fragment>,
         value: DALayerEnum.DALayer_FILECOIN,
         icon: '/landingV3/images/pricing/5.png',
+
         disabled: true,
       },
       {

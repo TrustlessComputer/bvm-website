@@ -8,6 +8,7 @@
   height: 42px;
   position: relative;
   background-color: var(--fillBackground);
+  cursor: grabbing;
 
   &_stud {
     position: absolute;

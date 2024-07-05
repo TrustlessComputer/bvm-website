@@ -14,6 +14,7 @@ type LegoV2 = {
   active?: boolean;
   label?: React.ReactNode;
   icon?: string;
+  className?: string;
   zIndex: number;
 } & HTMLAttributes<HTMLDivElement>;
 
@@ -25,6 +26,7 @@ function LegoV2({
   active = false,
   icon,
   zIndex = 0,
+  className,
   children,
   ...props
 }: LegoV2) {
@@ -40,9 +42,14 @@ function LegoV2({
 
   return (
     <div
-      className={`${styles.wrapper} ${styles[`wrapper__${background}`]}`}
+      className={`${styles.wrapper} ${
+        styles[`wrapper__${background}`]
+      } ${className}`}
       ref={legoRef}
-      style={{ zIndex: zIndex, cursor: active ? 'not-allowed' : 'grabbing' }}
+      style={{
+        zIndex: zIndex,
+        // cursor: active ? 'not-allowed' : 'grabbing'
+      }}
       {...props}
     >
       <div className={styles.inner}>
