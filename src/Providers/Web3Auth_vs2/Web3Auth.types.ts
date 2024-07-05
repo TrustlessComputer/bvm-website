@@ -6,11 +6,10 @@ import { Dispatch, SetStateAction } from 'react';
 // ---------------------------------------------------
 export type IWeb3AuthActions = {
   init?: () => Promise<any>;
-  login?: () => Promise<any>;
-  logout?: () => Promise<any>;
+  login: () => Promise<any>;
+  logout: () => Promise<any>;
 
   getWeb3AuthUserInfor?: () => Promise<Partial<UserInfo>>;
-  setShowLoginModalCustomize?: Dispatch<SetStateAction<boolean>>;
 };
 
 // ---------------------------------------------------
@@ -19,7 +18,6 @@ export type IWeb3AuthActions = {
 export type IWeb3AuthProps = {
   userInfo?: Partial<UserInfo> | undefined;
   loggedIn?: boolean;
-  showLoginModalCustomize?: boolean;
   l2ServiceAccessToken?: string;
 };
 
