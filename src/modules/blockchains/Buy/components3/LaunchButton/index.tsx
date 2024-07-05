@@ -115,7 +115,7 @@ const LaunchButton = () => {
 
   return (
     <div
-      className={`${s.launch} ${!isDisabledLaunchBtn ? s.active : ''}`}
+      className={`${s.launch} ${allFilled ? s.active : ''}`}
       onClick={handleOnClick}
     >
       <div className={s.inner}>
