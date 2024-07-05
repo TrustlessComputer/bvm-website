@@ -51,7 +51,6 @@ const Slider = ({
       cb(field, initValue.toString());
     }
   }, [initValue]);
-
   return (
     <div className={s.dropdown}>
       <div className={s.dropdown_inner} onClick={() => setIsOpen(!isOpen)}>

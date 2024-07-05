@@ -46,10 +46,12 @@ function LegoV2({
       {...props}
     >
       <div className={styles.inner}>
-        <div className={styles.label}>
-          {icon && <Image src={icon} alt="icon" width={24} height={24} />}
-          <p>{label}</p>
-        </div>
+        {label && (
+          <div className={styles.label}>
+            {icon && <Image src={icon} alt="icon" width={24} height={24} />}
+            <p>{label}</p>
+          </div>
+        )}
         <div className={styles.options}>{children}</div>
       </div>
 

@@ -125,7 +125,7 @@ const BuyPage = () => {
       content: (
         <LegoV2
           background={'green'}
-          label={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].subTitle}
+          // label={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].subTitle}
           active={field[ORDER_FIELD.GAS_LIMIT].dragged}
           zIndex={7}
         >
@@ -149,7 +149,7 @@ const BuyPage = () => {
       content: (
         <LegoV2
           background={'pink'}
-          label={OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].subTitle}
+          // label={OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].subTitle}
           zIndex={6}
           active={field[ORDER_FIELD.WITHDRAW_PERIOD].dragged}
           last
@@ -175,9 +175,9 @@ const BuyPage = () => {
     const finalDroppable = over && over.id.includes('final');
 
     if (over && finalDroppable) {
-      setFormField(key, value, true);
+      setFormField(key, active.data.current.value, true);
     } else {
-      setFormField(key, value, false);
+      setFormField(key, active.data.current.value, false);
     }
   }
 
@@ -195,6 +195,7 @@ const BuyPage = () => {
               <div className={s.left_box}>
                 {Object.keys(boxOptionMapping).map((key, index) => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return;
+                  const value = field[key as Override].value;
 
                   const { label, content, description, options, background } =
                     boxOptionMapping[key as Override];
@@ -234,7 +235,9 @@ const BuyPage = () => {
                           );
                         })
                       ) : (
-                        <Draggable id={key}>{content}</Draggable>
+                        <Draggable value={value} id={key}>
+                          {content}
+                        </Draggable>
                       )}
                     </BoxOptionV2>
                   );
@@ -248,11 +251,12 @@ const BuyPage = () => {
                 <DroppableV2 id="final" className={s.finalResult}>
                   {boxOptionMapping[ORDER_FIELD.CHAIN_NAME].content}
 
-                  {Object.keys(boxOptionMapping).map((key) => {
+                  {Object.keys(boxOptionMapping).map((key, index) => {
                     if (key === ORDER_FIELD.CHAIN_NAME) return;
                     const { content, options, background } =
                       boxOptionMapping[key as Override];
                     const isDragged = field[key as Override].dragged;
+                    const value = field[key as Override].value;
 
                     if (!isDragged) return null;
 
@@ -274,14 +278,22 @@ const BuyPage = () => {
                               background={background}
                               label={option.label}
                               zIndex={9}
+                              icon={option.icon}
                               active={field[ORDER_FIELD.NETWORK].dragged}
                             />
                           </Draggable>
                         );
                       });
                     }
-
-                    return <Draggable id={key}>{content}</Draggable>;
+                    return (
+                      <Draggable
+                        id={`${key}-drop`}
+                        key={`${key}-drop`}
+                        value={value}
+                      >
+                        {content}
+                      </Draggable>
+                    );
                   })}
                 </DroppableV2>
                 <LaunchButton />
