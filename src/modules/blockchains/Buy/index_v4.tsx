@@ -155,6 +155,7 @@ const BuyPage = () => {
             field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
             networkSelected={field[ORDER_FIELD.NETWORK].value}
             options={DATA_PRICING.availability.options}
+            checkDisable={true}
           />
         </Lego>
       ),

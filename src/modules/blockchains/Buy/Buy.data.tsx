@@ -41,12 +41,17 @@ export const OrderFormOptions = {
         label: <React.Fragment>Polygon</React.Fragment>,
         value: DALayerEnum.DALayer_PLG,
         icon: '/landingV3/images/pricing/1.png',
+        avalaibleNetworks: [
+          NetworkEnum.Network_Mainnet,
+          NetworkEnum.Network_Testnet,
+        ],
       },
       {
         id: 2,
         label: <React.Fragment>Celestia</React.Fragment>,
         value: DALayerEnum.DALayer_Celestia,
         disabled: true,
+        avalaibleNetworks: [NetworkEnum.Network_Testnet],
         icon: '/landingV3/images/pricing/2.png',
       },
       {
@@ -54,6 +59,7 @@ export const OrderFormOptions = {
         label: <React.Fragment>NearDA</React.Fragment>,
         value: DALayerEnum.DALayer_NearDa,
         disabled: true,
+        avalaibleNetworks: [],
         icon: '/landingV3/images/pricing/3.png',
       },
       {
@@ -61,7 +67,7 @@ export const OrderFormOptions = {
         label: <React.Fragment>Eigen</React.Fragment>,
         value: DALayerEnum.DALayer_Eigen,
         icon: '/landingV3/images/pricing/4.png',
-
+        avalaibleNetworks: [],
         disabled: true,
       },
       {
@@ -69,6 +75,7 @@ export const OrderFormOptions = {
         label: <React.Fragment>Filecoin</React.Fragment>,
         value: DALayerEnum.DALayer_FILECOIN,
         icon: '/landingV3/images/pricing/5.png',
+        avalaibleNetworks: [],
 
         disabled: true,
       },
@@ -76,7 +83,7 @@ export const OrderFormOptions = {
         id: 6,
         label: <React.Fragment>Avail</React.Fragment>,
         value: DALayerEnum.DALayer_AVAIL,
-        disabled: true,
+        avalaibleNetworks: [],
         icon: '/landingV3/images/pricing/6.png',
       },
     ],
