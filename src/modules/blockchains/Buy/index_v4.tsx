@@ -129,6 +129,7 @@ const BuyPage = () => {
             cb={setFormField}
             defaultValue={field[ORDER_FIELD.NETWORK].value}
             field={ORDER_FIELD.NETWORK}
+            networkSelected={field[ORDER_FIELD.NETWORK].value}
             options={DATA_PRICING.network.options}
           />
         </Lego>
@@ -152,6 +153,7 @@ const BuyPage = () => {
             cb={setFormField}
             defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
             field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+            networkSelected={field[ORDER_FIELD.NETWORK].value}
             options={DATA_PRICING.availability.options}
           />
         </Lego>

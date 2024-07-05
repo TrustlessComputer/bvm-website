@@ -13,11 +13,21 @@ type TDropdown = {
     value: DALayerEnum | NetworkEnum;
     icon?: string;
     isDisabled?: boolean;
+    avalaibleNetworks?: NetworkEnum[];
   }[];
+  checkDisable?: boolean;
+  networkSelected: NetworkEnum;
   defaultValue: DALayerEnum | NetworkEnum;
   cb: (feild: keyof FormOrder, value: DALayerEnum | NetworkEnum) => void;
 };
-function Dropdown({ options, cb, field, defaultValue }: TDropdown) {
+function Dropdown({
+  options,
+  cb,
+  field,
+  defaultValue,
+  networkSelected,
+  checkDisable,
+}: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, () => setIsOpen(false));
@@ -53,7 +63,9 @@ function Dropdown({ options, cb, field, defaultValue }: TDropdown) {
         <div className={s.dropdown_wrap} ref={ref}>
           <ul className={`${s.dropdown_list_inner} `}>
             {options.map((option, index) => {
-              const isDisabled = option.isDisabled;
+              const isDisabled =
+                checkDisable &&
+                !option.avalaibleNetworks?.includes(networkSelected);
               return (
                 <li
                   key={index}

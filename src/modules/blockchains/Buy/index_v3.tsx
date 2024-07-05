@@ -23,6 +23,7 @@ import { useBuy } from '../providers/Buy.hook';
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import SvgInset from '@/components/SvgInset';
+import { DALayerEnum, NetworkEnum } from './Buy.constanst';
 
 type PricingPackageValues = {
   maxGasLimit: number;
@@ -98,10 +99,20 @@ const BuyPage = () => {
           isActive={field[ORDER_FIELD.NETWORK].dragged}
         >
           <Dropdown
-            cb={setFormField}
+            cb={(field, value) => {
+              if (value === NetworkEnum.Network_Mainnet) {
+                // Force DA selected by Polygon (only available on Mainnet)
+                setFormField(
+                  ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
+                  DALayerEnum.DALayer_PLG,
+                );
+              }
+              setFormField(field, value);
+            }}
             defaultValue={field[ORDER_FIELD.NETWORK].value}
             field={ORDER_FIELD.NETWORK}
             options={DATA_PRICING.network.options}
+            networkSelected={field[ORDER_FIELD.NETWORK].value}
           />
         </Lego>
       ),
@@ -132,6 +143,8 @@ const BuyPage = () => {
             defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
             field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
             options={DATA_PRICING.availability.options}
+            networkSelected={field[ORDER_FIELD.NETWORK].value}
+            checkDisable={true}
           />
         </Lego>
       ),

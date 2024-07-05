@@ -6,9 +6,12 @@ import { DATA } from '@/modules/app-store/data';
 const AppStoreModule = () => {
   return (
     <Box className={s.container}>
-      <Flex className={"containerV3"} direction={"column"} rowGap={"48px"}>
-        <Text className={s.title}>You can choose any app to install</Text>
-        <SimpleGrid columns={[1, 2, 3]} gap={"16px"}>
+      <Flex className={"containerV3"} direction={"column"} rowGap={"60px"}>
+        <Flex direction={"column"} gap={"12px"}>
+          <Text className={s.title}>Dapps Store</Text>
+          <Text className={s.description}>You can choose any app to install</Text>
+        </Flex>
+        <SimpleGrid columns={[1, 2]} gap={"60px"}>
           {DATA.map(d => {
             return <AppItem data={d} />;
           })}
