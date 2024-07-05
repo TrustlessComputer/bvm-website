@@ -48,7 +48,7 @@ export const BuyPage = React.memo((props: Props) => {
   const { accountInforL2Service, availableListFetching } = useAppSelector(
     getL2ServicesStateSelector,
   );
-  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
+  const { loggedIn, login } = useWeb3Auth();
 
   if (availableListFetching)
     return (
@@ -95,8 +95,7 @@ export const BuyPage = React.memo((props: Props) => {
                 onClick={() => {
                   // onLogin();
                   // onConnect && onConnect();
-                  setShowLoginModalCustomize &&
-                    setShowLoginModalCustomize(true);
+                  login();
                 }}
               >
                 {`Sign in`}

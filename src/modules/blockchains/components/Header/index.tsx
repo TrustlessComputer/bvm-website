@@ -20,7 +20,7 @@ const HeaderView = () => {
   const { viewMode, showOnlyMyOrder, showAllChain } = useAppSelector(
     getL2ServicesStateSelector,
   );
-  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
+  const { loggedIn, login } = useWeb3Auth();
 
   const isMainnnet = viewMode === 'Mainnet';
 
@@ -166,7 +166,7 @@ const HeaderView = () => {
                 opacity: 0.8,
               }}
               onClick={() => {
-                setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+                login();
               }}
             >
               {`Sign in`}
