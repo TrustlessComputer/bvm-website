@@ -39,11 +39,11 @@ const Page = (props: any) => {
 
   const { loopFetchAccountInfor, getMyOrderList } = useL2Service();
   const dispatch = useAppDispatch();
-  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
+  const { loggedIn, login } = useWeb3Auth();
 
   useEffect(() => {
+    loopFetchAccountInfor();
     if (loggedIn) {
-      loopFetchAccountInfor();
       getMyOrderList();
     }
   }, [loggedIn]);
@@ -118,7 +118,7 @@ const Page = (props: any) => {
                 opacity: 0.8,
               }}
               onClick={() => {
-                setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+                login();
               }}
             >
               Connect
