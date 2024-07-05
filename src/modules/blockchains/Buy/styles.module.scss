@@ -120,3 +120,13 @@
     text-decoration: underline;
   }
 }
+
+.finalResult {
+  width: 80%;
+  padding: 0 80px;
+  flex: 0.9;
+  transform: scale(1.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

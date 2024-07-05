@@ -2,7 +2,7 @@ import React, { HTMLAttributes, useEffect, useRef } from 'react';
 import s from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 import Dropdown from '../Dropdown';
-import { TColorLego } from '../BoxOption';
+import { LegoColor } from '../BoxOption';
 import { FormOrder, useFormOrderStore } from '../../stores';
 import Slider from '@/modules/blockchains/Buy/components3/Slider';
 
@@ -14,7 +14,7 @@ export type TOptions = {
 }[];
 type TLegoItem = {
   label: string;
-  background: TColorLego;
+  background: LegoColor;
   isFrist?: boolean;
   isLast?: boolean;
   isActive?: boolean;

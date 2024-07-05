@@ -37,7 +37,7 @@ type PricingPackageValues = {
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 type BoxOption = {
   label: string;
-  descriptionDetail?: {
+  description?: {
     title: string;
     content: () => React.ReactElement;
   };
@@ -109,7 +109,7 @@ const BuyPage = () => {
     [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
       id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
       label: DATA_PRICING.availability.title,
-      descriptionDetail: {
+      description: {
         title: DATA_PRICING.availability.sub_title,
         content: (
           <p>
@@ -139,7 +139,7 @@ const BuyPage = () => {
     [ORDER_FIELD.GAS_LIMIT]: {
       id: ORDER_FIELD.GAS_LIMIT,
       label: DATA_PRICING.gas.title,
-      descriptionDetail: {
+      description: {
         title: DATA_PRICING.gas.sub_title,
         content: (
           <p>
@@ -183,7 +183,7 @@ const BuyPage = () => {
     [ORDER_FIELD.WITHDRAW_PERIOD]: {
       id: ORDER_FIELD.WITHDRAW_PERIOD,
       label: DATA_PRICING.withdrawal.title,
-      descriptionDetail: {
+      description: {
         title: DATA_PRICING.withdrawal.sub_title,
         content: (
           <p>
@@ -250,7 +250,7 @@ const BuyPage = () => {
                 {Object.keys(boxOptionMapping).map((key, index) => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return;
 
-                  const { label, children, descriptionDetail } =
+                  const { label, children, description } =
                     boxOptionMapping[key as Override];
                   const isDragged = field[key as Override].dragged;
                   return (
@@ -259,7 +259,7 @@ const BuyPage = () => {
                       label={label}
                       id={key}
                       active={isDragged}
-                      descriptionDetail={descriptionDetail}
+                      description={description}
                       isLast={
                         index === Object.keys(boxOptionMapping).length - 1
                       }
