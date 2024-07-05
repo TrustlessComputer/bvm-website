@@ -2,18 +2,21 @@
 
 import MainLayout from '@/layouts/MainLayout';
 import AppStoreModule from '@/modules/app-store';
+import AppStoreProvider from '@/modules/app-store/providers';
 
 const AppStorePage = () => {
   return (
-    <MainLayout
-      // headerProps={{
-      //   position: 'absolute',
-      //   color: 'black',
-      // }}
-      hideFooter
-    >
-      <AppStoreModule />
-    </MainLayout>
+    <AppStoreProvider>
+      <MainLayout
+        // headerProps={{
+        //   position: 'absolute',
+        //   color: 'black',
+        // }}
+        hideFooter
+      >
+        <AppStoreModule />
+      </MainLayout>
+    </AppStoreProvider>
   );
 };
 
