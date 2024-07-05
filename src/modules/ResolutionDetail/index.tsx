@@ -27,6 +27,19 @@ const ResolutionDetail = ({data}: { data: IRESOLUTION }): React.JSX.Element => {
         {data.hero.heading}
       </RetroHeroV2>
 
+      {
+        data.why &&  <Section title={data.why.title}>
+          <Fade delay={0.1} from={{ y: 40 }} to={{ y: 0 }}>
+            <p className={s.desc}>
+              {
+                data.why.content
+              }
+            </p>
+          </Fade>
+        </Section>
+      }
+
+
       <Section title={data.list.title}>
         <ul>
           {
