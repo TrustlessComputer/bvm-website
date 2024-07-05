@@ -14,8 +14,8 @@ const AppChains = () => {
       hideFooter
     >
       <>
-        <Loader />
-        <ResolutionDetail data={RESOLUTION_DATAS.appchains} />
+        <Loader/>
+        <ResolutionDetail data={RESOLUTION_DATAS.appchains}/>
       </>
     </MainLayout>
   );
