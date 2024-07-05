@@ -262,7 +262,7 @@ export const MODULE_DATAS = {
     hiw: {
       title: 'How it works',
       desc: 'EigenDA addresses data availability by using the mainnet for coordination while its operators handle data storage, eliminating the need for independent consensus. This approach allows linear scalability by moving data availability off-chain, processing only metadata and accountability on-chain, thus increasing throughput without compromising security or decentralization.',
-      action: '#',
+      action: '',
       thumbnail: '',
     },
   },

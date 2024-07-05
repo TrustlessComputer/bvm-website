@@ -63,25 +63,24 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
       title: 'View pricing'
     }
   },
-  // {
-  //   title: 'Built by developers, for developers',
-  //   subTitle: 'TEAM',
-  //   children: <div>
-  //     <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack of scalability and programmability has been its hallmark. </p>
-  //     <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
-  //     <p>Oh, and we really like building things.</p>
-  //   </div>,
-  //   image: '/bvm/home-team-v2.png',
-  //   direction: 'left',
-  //   button: {
-  //     link: '/research',
-  //     title: 'Read our research'
-  //   },
-  //   button2: {
-  //     link: '/team',
-  //     title: 'Meet the team'
-  //   }
-  // },
+  {
+    title: 'Built by developers, for developers',
+    subTitle: 'TEAM',
+    children: <div>
+      <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack of scalability and programmability has been its hallmark. </p>
+      <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
+      <p>Oh, and we really like building things.</p>
+    </div>,
+    image: '/bvm/home-team-v2.png',
+    button: {
+      link: '/research',
+      title: 'Read our research'
+    },
+    button2: {
+      link: '/team',
+      title: 'Meet the team'
+    }
+  },
 ];
 
 export const DATA_BRAND = [

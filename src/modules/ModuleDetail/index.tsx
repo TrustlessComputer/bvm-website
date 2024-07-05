@@ -47,24 +47,29 @@ const ModuleDetail = ({ data }: {data: IMODULE}): React.JSX.Element => {
               data.hiw.desc
             }
           </p>
-          <Link className={s.link} href={data.hiw.action} target="_blank" rel="noopener noreferrer">
-            <p>Learn more</p>
-            <div className={s.link_icon}>
-              <ImagePlaceholder src={'/icons/ic_chevron_right.svg'} alt={'ic_chevron_right'} width={16} height={16} />
-            </div>
-          </Link>
+          {
+            data.hiw.action && <Link className={s.link} href={data.hiw.action} target="_blank" rel="noopener noreferrer">
+              <p>Learn more</p>
+              <div className={s.link_icon}>
+                <ImagePlaceholder src={'/icons/ic_chevron_right.svg'} alt={'ic_chevron_right'} width={16} height={16} />
+              </div>
+            </Link>
+          }
         </Fade>
 
-        <Fade delay={0.3} from={{ y: 40 }} to={{ y: 0 }}>
-          <div>
-            <ImagePlaceholder
-              src={data.hiw.thumbnail}
-              alt={'img'}
-              width={820}
-              height={440}
-            />
-          </div>
-        </Fade>
+        {
+          data.hiw.thumbnail && <Fade delay={0.3} from={{ y: 40 }} to={{ y: 0 }}>
+            <div>
+              <ImagePlaceholder
+                src={data.hiw.thumbnail}
+                alt={'img'}
+                width={820}
+                height={440}
+              />
+            </div>
+          </Fade>
+        }
+
       </Section>
     </div>
   );
