@@ -4,17 +4,19 @@ import React from 'react';
 import s from './styles.module.scss';
 import ListBlog from './list';
 import { transformObject } from '@utils/transformObjectGraphQL';
+import { TPagination } from '@/modules/blog/data_blog';
 
 
 type TBlogModule = {
   blogsData: []
+  pagination: TPagination;
 }
 
-export default function BlogModule({ blogsData }: TBlogModule) {
+export default function BlogModule({ blogsData, pagination }: TBlogModule) {
   const formattedKeyObj = transformObject(blogsData)
   return (
     <div className={s.blog}>
-      <ListBlog listBlog={formattedKeyObj} />
+      <ListBlog listBlog={formattedKeyObj} pagination={pagination} />
     </div>
   );
 }

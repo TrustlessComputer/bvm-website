@@ -1,6 +1,7 @@
 import MainLayout from '@/layouts/MainLayout';
 import BlogModule from '@/modules/blog';
 import { WP_URL } from '@/config';
+import { useSearchParams } from 'next/navigation';
 
 // export async function generateStaticParams() {
 //   const QUERY = {
@@ -38,9 +39,15 @@ import { WP_URL } from '@/config';
 //   // return posts;
 // }
 
-const QUERY = {
-  query: `{
-      posts {
+
+
+const BVMPage = async ({searchParams}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+} ) => {
+  console.log('searchParams', searchParams);
+  const QUERY = {
+    query: `{
+      posts( first: ${searchParams?.limit || 10}, after: null) {
         edges {
           node {
             title
@@ -68,9 +75,7 @@ const QUERY = {
         }
       }
     }`,
-}
-
-const BVMPage = async () => {
+  }
   const posts = await fetch(WP_URL, {
     method: 'POST',
     headers: {
@@ -78,7 +83,9 @@ const BVMPage = async () => {
     },
     cache: 'no-cache',
     body: JSON.stringify(QUERY),
-  }).then((res) => res.json())  ;
+  }).then((res) => res.json());
+
+  console.log('posts', posts);
 
   return (
     <MainLayout
@@ -88,7 +95,7 @@ const BVMPage = async () => {
       }}
       hideFooter
     >
-      <BlogModule blogsData={posts.data.posts}/>
+      <BlogModule blogsData={posts.data.posts} pagination={posts.data.pageInfo}/>
     </MainLayout>
   );
 };

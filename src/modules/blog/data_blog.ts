@@ -64,7 +64,14 @@ export const DATA_BLOG = [
     },
 ];
 
-export type TBlog = (typeof DATA_BLOG)[number];
+export type TBlog = TPagination & (typeof DATA_BLOG)[number];
+
+export type TPagination = {
+  pageInfo: {
+    hasNextPage: boolean;
+    endCursor: string;
+  }
+}
 
 export const DATA_BLOG_DETAIL = {
     title: 'How to Choose the Right Desk Extender for Your Needs',
