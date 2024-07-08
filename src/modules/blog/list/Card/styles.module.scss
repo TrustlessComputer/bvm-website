@@ -10,11 +10,16 @@
   }
 }
 .thumbnail {
+  background-color: #0d0a04;
   border-radius: 12px;
   overflow: hidden;
+  max-height: 200px;
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
+  }
+  &.highlight {
+    max-height: 600px;
   }
 }
 .content {

@@ -8,14 +8,13 @@ import { TPagination } from '@/modules/blog/data_blog';
 
 
 type TBlogModule = {
-  blogsData: []
-  pagination: TPagination;
+  blogsData: [];
 }
 
-export default function BlogModule({ blogsData, pagination }: TBlogModule) {
+export default function BlogModule({ blogsData }: TBlogModule) {
   return (
     <div className={s.blog}>
-      <ListBlog listBlog={formattedKeyObj} pagination={pagination} />
+      <ListBlog listBlog={blogsData} />
     </div>
   );
 }

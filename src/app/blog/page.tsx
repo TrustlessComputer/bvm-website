@@ -3,6 +3,7 @@ import BlogModule from '@/modules/blog';
 import { WP_URL } from '@/config';
 import { useSearchParams } from 'next/navigation';
 import { fetchAllPosts, ISearchParams } from '@/services/blog';
+import { Metadata } from 'next';
 
 // export async function generateStaticParams() {
 //   const QUERY = {
@@ -40,11 +41,16 @@ import { fetchAllPosts, ISearchParams } from '@/services/blog';
 //   // return posts;
 // }
 
+export const metadata: Metadata = {
+  title: 'Blogs',
+  description: 'BVM',
+}
+
 
 const BVMPage = async ({ searchParams }: {
   searchParams?: ISearchParams;
 }) => {
-  // console.log('searchParams', searchParams);
+  console.log('searchParams', searchParams);
   const posts = await fetchAllPosts(searchParams);
 
   console.log('____posts', posts);
@@ -57,7 +63,7 @@ const BVMPage = async ({ searchParams }: {
       }}
       hideFooter
     >
-      {/*<BlogModule blogsData={posts.data.posts} pagination={posts.data.pageInfo} />*/}
+      <BlogModule blogsData={posts} />
     </MainLayout>
   );
 };

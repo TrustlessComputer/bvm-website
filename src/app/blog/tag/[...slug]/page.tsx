@@ -2,19 +2,30 @@ import MainLayout from '@/layouts/MainLayout';
 import TagBlogModule from '@/modules/tagBlogModule';
 import { WP_URL } from '@/config';
 import { transformObject } from '@utils/transformObjectGraphQL';
+import { Metadata } from 'next';
 
 type TTagPage = {
   params: { slug: string }
 }
 
 
-// export async function generateStaticParams() {
-//   const posts = await fetch('https://.../posts').then((res) => res.json());
-//
-//   return posts.map((post) => ({
-//     slug: post.slug,
-//   }));
-// }
+export async function generateMetadata(
+  { params, searchParams }: TTagPage,
+): Promise<Metadata> {
+  // read route params
+  const slug = params.slug
+
+  // fetch data
+  // const product = await fetch(`https://.../${id}`).then((res) => res.json())
+
+  return {
+    // title: product.title,
+    openGraph: {
+      // images: ['/some-specific-page-image.jpg', ...previousImages],
+    },
+  }
+}
+
 
 
 async function fetchBlogByTag(slug: string) {

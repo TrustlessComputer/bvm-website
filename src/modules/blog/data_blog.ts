@@ -6,26 +6,36 @@ export type TPagination = {
 }
 
 export type TBlog = TPagination & {
+  id: number,
   title: string,
-  desc: string,
+  excerpt: string,
+  content: string,
+  view_count: number,
   slug: string,
-  category: string,
-  updateTime: string,
-  view: number,
-  thumbnail: string,
+  author: {
+    nickname: string,
+    display_name: string,
+    avatar: string
+  },
+
 };
 
 export type TBlogDetail = {
+  id: number,
   title: string,
-  category: string,
-  updateTime: string,
   content: string,
-  view: number,
+  view_count: number,
   excerpt: string,
-
-  thumbnail: string,
+  slug: string,
   author: {
-    name: string,
+    nickname: string,
+    display_name: string,
     avatar: string
   },
+
+  category: string,
+  updateTime: string,
+
+  thumbnail: string,
+
 };

@@ -8,17 +8,17 @@ import Filter from './Filter';
 
 type TListBlog = {
   listBlog: TBlog[];
-  pagination: TPagination;
 }
 
-export default function ListBlog({ listBlog, pagination }: TListBlog) {
-  console.log('pagination', pagination);
+export default function ListBlog({ listBlog }: TListBlog) {
   return (
     <div className={`${s.wrapper} containerV3`}>
       <Filter />
       <div className={s.list}>
         {listBlog?.map((item, index) => {
-          return <Card key={item.slug} {...item} isFirst={index === 0} />;
+          return (
+            <Card {...item} key={item.slug} isFirst={index === 0} />
+          );
         })}
       </div>
       <div className={s.btn}>
