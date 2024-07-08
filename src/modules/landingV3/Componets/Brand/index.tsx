@@ -7,6 +7,9 @@ export default function Brand() {
   return (
     <div className={s.wrapper}>
       <div className="containerV3">
+        <h2 className={s.heading}>
+          The complete blockchain-as-a-service platform powered by the best blockchain products
+        </h2>
         <div className={s.brand}>
           {DATA_BRAND.map((item) => {
             return (

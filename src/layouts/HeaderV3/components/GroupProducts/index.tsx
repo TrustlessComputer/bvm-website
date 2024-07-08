@@ -17,7 +17,7 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-bvm" />
                 <div className={s.group_item_icon_text}>
                   <div className={s.group_item_icon_text_wrap}>
-                    <span className={s.group_item_icon_text_title}>BitZK</span>
+                    <span className={s.group_item_icon_text_title}>Bitcoin Zero Knowledge (BitZK)</span>
                     <small>New</small>
                   </div>
                   <span className={s.group_item_icon_text_bottom}>ZK rollups on Bitcoin for virtually any decentralized applications.</span>
@@ -29,7 +29,7 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinoptimistic.png"
                        alt="menu-icon-op" />
                 <div className={s.group_item_icon_text}>
-                  <span className={s.group_item_icon_text_title}>BitOP</span>
+                  <span className={s.group_item_icon_text_title}>Bitcoin Optimistic (BitOP)</span>
                   <span className={s.group_item_icon_text_bottom}>Optimistic rollups on Bitcoin for virtually any decentralized applications.</span>
                 </div>
               </Link>
