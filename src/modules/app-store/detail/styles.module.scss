@@ -50,3 +50,13 @@
     }
   }
 }
+
+.modalContent {
+  background: #FFF !important;
+
+  :global {
+    .chakra-modal__close-btn {
+      background: #0d0a04;
+    }
+  }
+}

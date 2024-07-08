@@ -34,7 +34,11 @@ const AppDetailModule = () => {
       try {
         dispatch(openModal({
           id: 'SETTING_MODAL',
-          render: () => <SettingView />,
+          className: s.modalContent,
+          modalProps: {
+            size: 'xl',
+          },
+          render: () => <SettingView app={data} mode={mode}/>,
         }));
       } catch (e) {
 

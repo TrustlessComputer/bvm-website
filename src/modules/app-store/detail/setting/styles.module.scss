@@ -1,3 +1,19 @@
+.container {
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+  }
+
+  .title {
+    color: #000;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: 0.01em;
+  }
+}
+
 .loadingContainer {
   display: flex;
   justify-content: center;
@@ -20,5 +36,15 @@
       padding: 0;
       width: fit-content;
     }
+  }
+}
+
+.inputWrapper {
+  label {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    color: #000;
   }
 }

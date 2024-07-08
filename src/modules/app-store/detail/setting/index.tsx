@@ -1,14 +1,17 @@
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector, myOrderListFilteredByNetwork } from '@/stores/states/l2services/selector';
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Image, Menu, MenuButton, MenuList, Text } from '@chakra-ui/react';
 import useL2Service from '@hooks/useL2Service';
 import React, { useEffect, useState } from 'react';
 import Loading from '@components/Loading';
 import s from './styles.module.scss';
 import { PRICING, ROLLUPS } from '@constants/route-path';
 import { OrderItem } from '@/stores/states/l2services/types';
+import SvgInset from '@components/SvgInset';
+import ChainItem from '@/modules/app-store/detail/setting/chainItem';
+import InputWrapper from '@/components/Form/inputWrapper';
 
-const SettingView = () => {
+const SettingView = ({app, mode}: {app:  IAppInfo, mode: IModeInstall}) => {
   const { getMyOrderList } = useL2Service();
   const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
     getL2ServicesStateSelector,
@@ -22,11 +25,15 @@ const SettingView = () => {
 
   const myOrders = useAppSelector(myOrderListFilteredByNetwork);
 
-  useEffect(() => {
-    if(myOrders?.length > 0) {
-      setSelectedOrder(myOrders[0]);
-    }
-  }, [isMyOrderListFetched, myOrders]);
+  console.log('appapp', app);
+  console.log('mode', mode);
+  console.log('myOrders', myOrders);
+
+  // useEffect(() => {
+  //   if(myOrders?.length > 0) {
+  //     setSelectedOrder(myOrders[0]);
+  //   }
+  // }, [isMyOrderListFetched, myOrders]);
 
   useEffect(() => {
     if(myOrders?.length === 1 && selectedOrder && !selectedOrder.isNeedTopup) {
@@ -45,7 +52,29 @@ const SettingView = () => {
   }
 
   return (
-    <Box>
+    <Box className={s.container}>
+      <Flex gap={"12px"} justifyContent={'center'} alignItems={"center"}>
+        <Image className={s.avatar} src={app?.image}/>
+        <Text className={s.title}>{app?.title}</Text>
+      </Flex>
+      <InputWrapper label="Install for chain" className={s.inputWrapper}>
+        <Menu>
+          <MenuButton className={s.btnSelectToken}>
+            <ChainItem token={selectedOrder} />
+            <SvgInset svgUrl="/icons/ic-arrow-down.svg" />
+          </MenuButton>
+          <MenuList>
+            {myOrders.map((t) => (
+              <ChainItem
+                key={t.chainId}
+                chain={t}
+                onSelectChain={(_token: OrderItem) => setSelectedOrder(_token)}
+              />
+            ))}
+          </MenuList>
+        </Menu>
+      </InputWrapper>
+
       {
         isMyOrderListFetched ? (
           <>
