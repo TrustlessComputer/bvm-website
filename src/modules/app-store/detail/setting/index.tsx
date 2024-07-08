@@ -5,33 +5,43 @@ import useL2Service from '@hooks/useL2Service';
 import React, { useEffect, useMemo, useState } from 'react';
 import Loading from '@components/Loading';
 import s from './styles.module.scss';
-import { APP_STORE, PRICING, ROLLUPS } from '@constants/route-path';
+import { APP_STORE, PRICING } from '@constants/route-path';
 import { OrderItem } from '@/stores/states/l2services/types';
 import SvgInset from '@components/SvgInset';
 import ChainItem from '@/modules/app-store/detail/setting/chainItem';
 import InputWrapper from '@/components/Form/inputWrapper';
 import PackageItem from '@/modules/app-store/detail/setting/packageItem';
 import { useRouter } from 'next/navigation';
+import TopupModal from '@/modules/blockchains/components/TopupModal';
+import SubmitResultFormModal from '@/modules/blockchains/Buy/SubmitResultFormModal';
+import SendFormModal from '@/modules/blockchains/components/SendFormModal';
+import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage}) => {
   const router = useRouter();
 
-  const { getMyOrderList } = useL2Service();
+  const { loopFetchAccountInfor, getMyOrderList } = useL2Service();
+  const { loggedIn } = useWeb3Auth();
   const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
     getL2ServicesStateSelector,
   );
+
   const [selectedOrder, setSelectedOrder] = useState<OrderItem | undefined>(undefined);
   const [submitting, setSubmitting] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<IAppPackage | undefined>(undefined);
 
   useEffect(() => {
-    getMyOrderList();
-  }, []);
+    loopFetchAccountInfor();
+    if (loggedIn) {
+      getMyOrderList();
+    }
+  }, [loggedIn]);
 
   const myOrders = useAppSelector(myOrderListFilteredByNetwork);
 
   const isInstalled = useMemo(() => {
-    return true;
+    return false;
   }, [JSON.stringify(selectedOrder)]);
 
   useEffect(() => {
@@ -40,21 +50,19 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
     }
   }, [appPackage]);
 
+  const {
+    showSubmitFormResult,
+    setShowSubmitFormResult,
+    showTopupModal,
+    setShowTopupModal,
+    showSendFormModal,
+    setShowSendFormModal,
+  } = useBuy();
+
+  console.log('accountInforL2Service', accountInforL2Service);
   console.log('appapp', app);
   console.log('appPackage', appPackage);
   console.log('myOrders', myOrders);
-
-  // useEffect(() => {
-  //   if(myOrders?.length > 0) {
-  //     setSelectedOrder(myOrders[0]);
-  //   }
-  // }, [isMyOrderListFetched, myOrders]);
-
-  // useEffect(() => {
-  //   if(myOrders?.length === 1 && selectedOrder && !selectedOrder.isNeedTopup) {
-  //
-  //   }
-  // }, [selectedOrder]);
 
   const requestBuyApp = () => {
     try {
@@ -102,7 +110,7 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
     if (selectedOrder?.isNeedTopup) {
       return (
         <Button className={s.btnPrimary} onClick={() => {
-
+          setShowTopupModal(true);
         }}>Payment</Button>
       )
     }
@@ -192,6 +200,47 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
           </Flex>
         )
       }
+      {showSubmitFormResult && (
+        <SubmitResultFormModal
+          show={showSubmitFormResult}
+          onClose={() => {
+            setShowSubmitFormResult(false);
+          }}
+          onSuccess={async () => {}}
+        />
+      )}
+
+      {showTopupModal && (
+        <TopupModal
+          show={showTopupModal}
+          // warningMessage={
+          //   'Operating your Bitcoin L2 testnet requires 1 $BVM per day.'
+          // }
+          infor={{
+            paymentAddress: `${accountInforL2Service?.topUpWalletAddress}`,
+          }}
+          onClose={() => {
+            setShowTopupModal(false);
+          }}
+          onSuccess={async () => {}}
+          payWithNakaWalletCB={() => {
+            setShowSendFormModal(true);
+          }}
+          order={selectedOrder}
+        />
+      )}
+
+      {showSendFormModal && (
+        <SendFormModal
+          show={showSendFormModal}
+          onClose={() => {
+            setShowSendFormModal(false);
+          }}
+          onSuccess={async () => {
+            setShowSendFormModal(false);
+          }}
+        />
+      )}
     </Flex>
   );
 };

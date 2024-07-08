@@ -12,6 +12,7 @@ import { openModal } from '@/stores/states/modal/reducer';
 import SettingView from '@/modules/app-store/detail/setting';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { useDispatch } from 'react-redux';
+import { BuyProvider } from '@/modules/blockchains/providers/Buy.context';
 
 const AppDetailModule = () => {
   const params = useParams();
@@ -38,7 +39,11 @@ const AppDetailModule = () => {
           modalProps: {
             size: 'xl',
           },
-          render: () => <SettingView app={data} appPackage={appPackage}/>,
+          render: () =>
+            <BuyProvider>
+              <SettingView app={data} appPackage={appPackage}/>
+            </BuyProvider>
+          ,
         }));
       } catch (e) {
 
