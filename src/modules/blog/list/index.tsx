@@ -2,12 +2,11 @@
 
 import React from 'react';
 import s from './styles.module.scss';
-import { TBlog, TPagination } from '../data_blog';
 import Card from './Card';
 import Filter from './Filter';
 
 export default function ListBlog({ data, total }: Posts) {
-  
+
   return (
     <div className={`${s.wrapper} containerV3`}>
       <Filter />
