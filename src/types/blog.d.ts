@@ -27,3 +27,12 @@ interface Author {
 interface FetchError {
   error: string;
 }
+
+interface Params{
+  per_page?: number;
+  page?: number;
+  order?: string;
+  orderBy?: string,
+  tag?: string
+  author?: string
+}
