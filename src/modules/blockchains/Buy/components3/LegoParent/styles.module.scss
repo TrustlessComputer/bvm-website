@@ -1,0 +1,170 @@
+.wrapper {
+  --fillBackground: #ff0000;
+  --background: #fff;
+  --backgroundSlider: #c73e88;
+
+  width: max-content;
+  border-radius: 4px;
+  // height: 42px;
+  position: relative;
+  cursor: grabbing;
+
+  &_stud {
+    position: absolute;
+    left: 32px;
+
+    svg {
+      width: 26px;
+      height: auto;
+    }
+
+    &__top {
+      top: 0;
+
+      svg path {
+        fill: #fff;
+      }
+      &_active {
+        svg path {
+          fill: #ebffec;
+        }
+      }
+    }
+    &__horizonal {
+      height: 100px;
+      width: 16px;
+      background-color: var(--fillBackground);
+    }
+
+    &__vertical {
+      width: 200px;
+      height: 20px;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      border-top-right-radius: 6px;
+      background-color: var(--fillBackground);
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      &.stud__large {
+        height: 42px;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        border-top-right-radius: 6px;
+      }
+      &__top {
+        position: absolute;
+        z-index: 3;
+        left: 32px;
+        top: 0;
+
+        svg {
+          width: 26px;
+          height: auto;
+        }
+        svg path {
+          fill: #fff;
+        }
+      }
+      &__bottom {
+        position: absolute;
+        z-index: 2;
+        top: calc(100% - 1px);
+        left: 32px;
+
+        svg {
+          width: 26px;
+          height: auto;
+        }
+
+        svg path {
+          fill: var(--fillBackground);
+        }
+      }
+    }
+    &__bottom {
+      top: 100%;
+      svg path {
+        fill: var(--fillBackground);
+      }
+    }
+  }
+
+  &__red {
+    --background: #fff;
+    --fillBackground: #ff0000;
+  }
+  &__green {
+    --background: #109465 !important;
+    --fillBackground: #15c888 !important;
+    --backgroundSlider: #109465;
+  }
+  &__brown {
+    --background: #b2552e !important;
+    --fillBackground: #ff7a41 !important;
+  }
+  &__pink {
+    --fillBackground: #fb4fac;
+    --background: #c73e88;
+    --backgroundSlider: #c73e88;
+  }
+
+  &__violet {
+    --fillBackground: #a041ff;
+    --background: #8034cc;
+  }
+
+  .options {
+    background: var(--fillBackground);
+    height: 100%;
+    > div {
+      background-color: var(--background);
+    }
+  }
+}
+
+.inner {
+  padding: 7px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+
+  &_nested {
+    flex-direction: column;
+    align-items: unset;
+    gap: 8px;
+  }
+}
+
+.label {
+  padding-left: 8px;
+  p {
+    color: #fff;
+    font-family: var(--font-JetBrainsMono);
+
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+  }
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.title {
+  font-family: var(--font-JetBrainsMono);
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 155.556%;
+  letter-spacing: -0.18px;
+}
+
+.scale {
+  scale: 1.3;
+}

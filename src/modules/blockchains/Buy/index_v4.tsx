@@ -23,6 +23,7 @@ import WithdrawalTimeLego from './components3/Legos/WithdrawalTimeLego';
 import RightNetworkLego from './components3/Legos/RightNetworkLego';
 
 import s from './styles.module.scss';
+import LegoParent from './components3/LegoParent';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -40,53 +41,37 @@ const BuyPage = () => {
       content?: (isLeft?: boolean, children?: React.ReactNode) => JSX.Element;
     }
   > = {
-    [ORDER_FIELD.CHAIN_NAME]: {
-      ...OrderFormOptions[ORDER_FIELD.CHAIN_NAME],
-      id: ORDER_FIELD.CHAIN_NAME,
-      label: '1. Name',
-      content: (isLeft = false) => (
-        <LegoV2
-          background={'red'}
-          title="1. Name"
-          label="Name"
-          zIndex={23}
-          first={true}
-        >
-          <ComputerNameInput />
-        </LegoV2>
-      ),
-    },
-    [ORDER_FIELD.NETWORK]: {
-      ...OrderFormOptions[ORDER_FIELD.NETWORK],
-      id: ORDER_FIELD.NETWORK,
-      label: OrderFormOptions[ORDER_FIELD.NETWORK].title,
-      RightContent: () => <RightNetworkLego />,
-    },
-    // @ts-ignore
-    [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
-      ...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN],
-      id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
-      label: OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].title,
-      RightContent: () => (
-        <Lego
-          background={'violet'}
-          label={DATA_PRICING.availability.sub_title}
-          isFrist={false}
-          zIndex={8}
-          isActive={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
-          isLast={false}
-        >
-          <Dropdown
-            cb={setFormField}
-            defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
-            field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
-            networkSelected={field[ORDER_FIELD.NETWORK].value}
-            options={DATA_PRICING.availability.options}
-            checkDisable={true}
-          />
-        </Lego>
-      ),
-    },
+    // [ORDER_FIELD.NETWORK]: {
+    //   ...OrderFormOptions[ORDER_FIELD.NETWORK],
+    //   id: ORDER_FIELD.NETWORK,
+    //   label: OrderFormOptions[ORDER_FIELD.NETWORK].title,
+    //   RightContent: () => <RightNetworkLego />,
+    // },
+    // // @ts-ignore
+    // [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
+    //   ...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN],
+    //   id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
+    //   label: OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].title,
+    //   RightContent: () => (
+    //     <Lego
+    //       background={'violet'}
+    //       label={DATA_PRICING.availability.sub_title}
+    //       isFrist={false}
+    //       zIndex={8}
+    //       isActive={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
+    //       isLast={false}
+    //     >
+    //       <Dropdown
+    //         cb={setFormField}
+    //         defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
+    //         field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+    //         networkSelected={field[ORDER_FIELD.NETWORK].value}
+    //         options={DATA_PRICING.availability.options}
+    //         checkDisable={true}
+    //       />
+    //     </Lego>
+    //   ),
+    // },
     // [ORDER_FIELD.GAS_LIMIT]: {
     //   ...OrderFormOptions[ORDER_FIELD.GAS_LIMIT],
     //   id: ORDER_FIELD.GAS_LIMIT,
@@ -163,6 +148,22 @@ const BuyPage = () => {
         </LegoV2>
       ),
     },
+    // [ORDER_FIELD.CHAIN_NAME]: {
+    //   ...OrderFormOptions[ORDER_FIELD.CHAIN_NAME],
+    //   id: ORDER_FIELD.CHAIN_NAME,
+    //   label: '1. Name',
+    //   content: (isLeft = false) => (
+    //     <LegoV2
+    //       background={'red'}
+    //       title="1. Name"
+    //       label="Name"
+    //       zIndex={23}
+    //       first={true}
+    //     >
+    //       <ComputerNameInput />
+    //     </LegoV2>
+    //   ),
+    // },
   };
 
   function handleDragEnd(event: any) {
@@ -351,6 +352,7 @@ const BuyPage = () => {
                     </BoxOptionV2>
                   );
                 })}
+                <LegoParent zIndex={11} background="green" label="Nestest " />
               </div>
             </div>
 
