@@ -31,8 +31,8 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
   const myOrders = useAppSelector(myOrderListFilteredByNetwork);
 
   const isInstalled = useMemo(() => {
-    return false;
-  }, []);
+    return true;
+  }, [JSON.stringify(selectedOrder)]);
 
   useEffect(() => {
     if(appPackage) {
@@ -149,7 +149,12 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
                 {
                   app?.modes?.map(p => {
                     return (
-                      <PackageItem data={p} isSelected={p.id === selectedPackage?.id} onSelect={() => {setSelectedPackage(p)}}/>
+                      <PackageItem
+                        data={p}
+                        isSelected={p.id === selectedPackage?.id}
+                        isInstalled={isInstalled}
+                        onSelect={() => {setSelectedPackage(p)}}
+                      />
                     )
                   })
                 }

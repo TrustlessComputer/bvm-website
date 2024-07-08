@@ -20,8 +20,6 @@ const ChainItem: React.FC<any> = ({ data, onSelectChain, isButton}: {data: Order
     );
   }
 
-  console.log('chain', data);
-
   return (
     <MenuItem className={cx(s.container, s.item)} onClick={() => onSelectChain?.(data)}>
       <Flex justifyContent={"space-between"} alignItems={"center"} w={"100%"}>
