@@ -4,6 +4,10 @@
 
 .content {
   padding: 150px 0;
+  display: flex;
+  justify-content: space-between;
+  align-self: flex-start;
+  flex-wrap: wrap;
   @include is-pc {
     padding: 200px 0;
   }
@@ -21,11 +25,8 @@
 .desc {
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-weight: 400;
-  font-size: 30px;
-  line-height: calc(50 / 30);
+  font-size: 28px;
+  line-height: calc(42 / 28);
   color: #000;
-  @include is-pc {
-    font-size: 40px;
-    line-height: calc(60 / 40);
-  }
+  max-width: 970px;
 }

@@ -1,53 +1,5 @@
 export const DATA_CHAINS = [
   {
-    heading: 'Eternal AI.',
-    noteHeading: 'The Bitcoin L2 for Decentralized AI',
-    banner: '1.png',
-    desc: 'Eternal AI is the first Bitcoin L2 blockchain designed specifically for performing AI tasks and storing AI models fully on-chain, promoting a paradigm shift towards decentralized and truly open AI.',
-    social: [
-      {
-        icon: '/use-bitcoin/ic_x.svg',
-        label: 'twitter',
-        link: 'https://twitter.com/CryptoEternalAI',
-      },
-      {
-        icon: '/use-bitcoin/ic_web.svg',
-        label: 'eternal.org',
-        link: 'https://eternalai.org/',
-      }
-    ]
-    // desc: [
-    //   {
-    //     label: 'Bitcoin L2: ',
-    //     value: 'Bitcoin Arcade'
-    //   },
-    //   {
-    //     label: 'Block time: ',
-    //     value: '2 seconds'
-    //   },
-    //   {
-    //     label: 'Network type: ',
-    //     value: 'Bitcoin Testnet'
-    //   } ,
-    //   {
-    //     label: 'Deployer: ',
-    //     value: 'Arcade team'
-    //   }  ,
-    //   {
-    //     label: 'Rollups: ',
-    //     value: 'Optimistic'
-    //   },
-    //   {
-    //     label: 'Data Validity: ',
-    //     value: 'Bitcoin'
-    //   } ,
-    //   {
-    //     label: 'Data Availability:',
-    //     value: 'Polygon'
-    //   }
-    // ]
-  },
-  {
     heading: 'Naka Chain.',
     noteHeading: 'The Bitcoin L2 for DeFi',
     banner: '2.png',
@@ -64,92 +16,6 @@ export const DATA_CHAINS = [
         link: 'https://nakachain.xyz/',
       }
     ]
-    // desc: [
-    //   {
-    //     label: 'Bitcoin L2: ',
-    //     value: 'Naka'
-    //   },
-    //   {
-    //     label: 'Block time: ',
-    //     value: '2 seconds'
-    //   },
-    //   {
-    //     label: 'Network type: ',
-    //     value: 'Bitcoin Mainnet'
-    //   } ,
-    //   {
-    //     label: 'Deployer: ',
-    //     value: 'Naka team'
-    //   }  ,
-    //   {
-    //     label: 'Rollups: ',
-    //     value: 'Optimistic'
-    //   },
-    //   {
-    //     label: 'Data Validity: ',
-    //     value: 'Bitcoin'
-    //   } ,
-    //   {
-    //     label: 'Data Availability:',
-    //     value: 'Polygon'
-    //   },
-    //   {
-    //     label: 'Launch date:',
-    //     value: 'January 15, 2024'
-    //   }
-    // ]
-  },
-  {
-    heading: 'Swamps Chain.',
-    noteHeading: 'The Bitcoin L2 for SRC-20 DeFi',
-    banner: '3.png',
-    desc: 'Swamps is the first Stamps-based Bitcoin L2 blockchain that power SRC-20 DEX where you can bridge and swap SRC-20 tokens with 2-second block time and near-zero gas fee.',
-    social: [
-      {
-        icon: '/use-bitcoin/ic_x.svg',
-        label: 'twitter',
-        link: 'https://twitter.com/Swamps_L2',
-      },
-      {
-        icon: '/use-bitcoin/ic_web.svg',
-        label: 'swamps.fi',
-        link: 'http://www.swamps.fi/',
-      }
-    ]
-    // desc: [
-    //   {
-    //     label: 'Bitcoin L2: ',
-    //     value: 'Alpha'
-    //   },
-    //   {
-    //     label: 'Block time: ',
-    //     value: '2 seconds'
-    //   },
-    //   {
-    //     label: 'Network type: ',
-    //     value: 'Bitcoin Mainnet'
-    //   } ,
-    //   {
-    //     label: 'Deployer: ',
-    //     value: 'NBC team'
-    //   }  ,
-    //   {
-    //     label: 'Rollups: ',
-    //     value: 'Optimistic'
-    //   },
-    //   {
-    //     label: 'Data Validity: ',
-    //     value: 'Bitcoin'
-    //   } ,
-    //   {
-    //     label: 'Data Availability:',
-    //     value: 'Polygon'
-    //   },
-    //   {
-    //     label: 'Launch date:',
-    //     value: 'June 27, 2023'
-    //   }
-    // ]
   },
   {
     heading: 'RuneChain.',
@@ -204,57 +70,78 @@ export const DATA_CHAINS = [
     // ]
   },
   {
-    heading: 'Bittendo Chain.',
-    noteHeading: 'The Bitcoin L2 for Gaming',
-    banner: '5.png',
-    desc: 'Bittendo is the first Bitcoin L2 for Gaming, leveraging the Bitcoin network to decentralize gaming development, distribution, and consumption. Bittendoput power in the hands of players while incentivizing developers to contribute openly.',
+    heading: 'Iron Chain Bank',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '11.jpg',
+    desc: 'The First DeFi Protocol Utilizing BRC-20 On @Bitcoin Layer 2. Powered by @BVMnetwork\n' +
+      ' with Zk-Rollup tech stack. Iron Vault Node coming soon.',
     social: [
       {
         icon: '/use-bitcoin/ic_x.svg',
         label: 'twitter',
-        link: 'https://twitter.com/TheRealBittendo',
+        link: 'https://x.com/ironchainbank',
       },
       {
         icon: '/use-bitcoin/ic_web.svg',
-        label: 'bittendo.com',
-        link: 'https://www.bittendo.com/',
+        label: 'ironchainbank.io',
+        link: 'https://ironchainbank.io/',
+      },
+    ]
+  },
+  {
+    heading: 'StratoVM | BTC Layer2',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '14.jpg',
+    desc: 'Modular Layer 2 on Bitcoin | Empowering the future of DeFi on Bitcoin.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://x.com/StratoVM_',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'stratovm.io',
+        link: 'https://stratovm.io/',
+      },
+    ]
+  },
+  {
+    heading: 'Eternal AI.',
+    noteHeading: 'The Bitcoin L2 for Decentralized AI',
+    banner: '1.png',
+    desc: 'Eternal AI is the first Bitcoin L2 blockchain designed specifically for performing AI tasks and storing AI models fully on-chain, promoting a paradigm shift towards decentralized and truly open AI.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://twitter.com/CryptoEternalAI',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'eternal.org',
+        link: 'https://eternalai.org/',
       }
     ]
-    // desc: [
-    //   {
-    //     label: 'Bitcoin L2: ',
-    //     value: 'Eternal AI'
-    //   },
-    //   {
-    //     label: 'Block time: ',
-    //     value: '2 seconds'
-    //   },
-    //   {
-    //     label: 'Network type: ',
-    //     value: 'Bitcoin Mainnet'
-    //   } ,
-    //   {
-    //     label: 'Deployer: ',
-    //     value: 'Eternal AI team'
-    //   }  ,
-    //   {
-    //     label: 'Rollups: ',
-    //     value: 'Optimistic'
-    //   },
-    //   {
-    //     label: 'Data Validity: ',
-    //     value: 'Bitcoin'
-    //   } ,
-    //   {
-    //     label: 'Data Availability:',
-    //     value: 'Avail'
-    //   },
-    //   {
-    //     label: 'Launch date:',
-    //     value: 'February 05, 2024'
-    //   }
-    // ]
   },
+  // {
+  //   heading: 'Bittendo Chain.',
+  //   noteHeading: 'The Bitcoin L2 for Gaming',
+  //   banner: '5.png',
+  //   desc: 'Bittendo is the first Bitcoin L2 for Gaming, leveraging the Bitcoin network to decentralize gaming development, distribution, and consumption. Bittendoput power in the hands of players while incentivizing developers to contribute openly.',
+  //   social: [
+  //     {
+  //       icon: '/use-bitcoin/ic_x.svg',
+  //       label: 'twitter',
+  //       link: 'https://twitter.com/TheRealBittendo',
+  //     },
+  //     {
+  //       icon: '/use-bitcoin/ic_web.svg',
+  //       label: 'bittendo.com',
+  //       link: 'https://www.bittendo.com/',
+  //     }
+  //   ]
+  // },
   {
     heading: 'Xally.',
     noteHeading: 'The Bitcoin L2 for AI Agents',
@@ -283,7 +170,7 @@ export const DATA_CHAINS = [
     //   },
     // ]
   },
-  {
+ /* {
     heading: 'MetaDoge.',
     noteHeading: 'The Bitcoin L2 for All AAA Games and Unity Games',
     banner: '7.png',
@@ -295,17 +182,7 @@ export const DATA_CHAINS = [
         link: 'https://twitter.com/MetaDogeUnity',
       },
     ]
-    // desc: [
-    //   {
-    //     label: 'Bitcoin L2: ',
-    //     value: 'Modular'
-    //   },
-    //   {
-    //     label: 'Activities: ',
-    //     value: 'Learn about modular blockchain architecture via a fun Lego game.'
-    //   },
-    // ]
-  },
+  },*/
   {
     heading: 'Bloom.',
     noteHeading: 'The Bitcoin L2 for Yield and Restaking',
@@ -377,7 +254,7 @@ export const DATA_CHAINS = [
         icon: '/use-bitcoin/ic_web.svg',
         label: 'powd3r.io',
         link: 'https://powd3r.io/',
-      }
+      },
     ]
     // desc: [
     //   {
@@ -389,5 +266,61 @@ export const DATA_CHAINS = [
     //     value: 'Learn about modular blockchain architecture via a fun Lego game.'
     //   },
     // ]
+  },
+
+  {
+    heading: 'Octopus Bridge',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '12.jpg',
+    desc: 'The first L3 on Bitcoin and next level bridge that connects Bitcoin to EVM.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://x.com/octopusbridge_',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'octopusbridge.xyz',
+        link: 'https://octopusbridge.xyz/',
+      },
+    ]
+  },
+  {
+    heading: 'Bittendo',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '13.jpg',
+    desc: 'The 1st fair launch in history of BTC L2 - taken over by @realFomorio.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://x.com/TheRealBittendo',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'bittendo.com',
+        link: 'https://bittendo.com/',
+      },
+    ]
+  },
+
+  {
+    heading: 'HyperAGI',
+    noteHeading: 'The Bitcoin L2 for Bitcoin Mining',
+    banner: '15.jpg',
+    desc: '1st Fully Decentralized AI Application Platform.',
+    social: [
+      {
+        icon: '/use-bitcoin/ic_x.svg',
+        label: 'twitter',
+        link: 'https://x.com/HyperDustIO',
+      },
+      {
+        icon: '/use-bitcoin/ic_web.svg',
+        label: 'hyperagi.network',
+        link: 'https://www.hyperagi.network/',
+      },
+    ]
   },
 ]

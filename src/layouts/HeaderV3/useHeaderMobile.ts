@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type IGroupType = 'production' | 'developers' | null
+export type IGroupType = 'production' | 'developers' | 'solutions' | null
 
 interface IProp {
   groupType: IGroupType,

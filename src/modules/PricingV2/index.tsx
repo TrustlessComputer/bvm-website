@@ -42,7 +42,7 @@ const PriceModule = () => {
 
   const router = useRouter();
   const { showContactUsModal } = useContactUs();
-  const { loggedIn, setShowLoginModalCustomize, userInfo } = useWeb3Auth();
+  const { loggedIn, login, userInfo } = useWeb3Auth();
   const [dataNoProver, setDataNoProver] = useState<
     IOrderBuyEstimateRespone_V2 | undefined
   >(undefined);
@@ -92,7 +92,7 @@ const PriceModule = () => {
 
   const bootstrapLaunchOnClick = async () => {
     if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+      login();
     } else {
       try {
         onOpenLoadingModal();
@@ -127,7 +127,7 @@ const PriceModule = () => {
   };
   const growthLaunchOnClick = () => {
     if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+      login();
     } else {
       router.push(`/rollups/customize?package=${PRICING_PACKGE.Growth}`);
     }
@@ -135,7 +135,7 @@ const PriceModule = () => {
 
   const bussinessLaunchOnClick = () => {
     if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+      login();
     } else {
       router.push(`/rollups/customize?package=${PRICING_PACKGE.Secure}`);
     }
@@ -147,7 +147,7 @@ const PriceModule = () => {
 
   const manageYourChainsOnClick = () => {
     if (!loggedIn) {
-      setShowLoginModalCustomize && setShowLoginModalCustomize(true);
+      login();
     } else {
       dispatch(setViewMode('Mainnet'));
       dispatch(setViewPage('ManageChains'));

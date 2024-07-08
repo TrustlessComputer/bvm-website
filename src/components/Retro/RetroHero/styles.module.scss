@@ -4,11 +4,16 @@
   position: relative;
 }
 
-.bg {
-  object-fit: cover;
+.wrapperbg {
   width: 100%;
   height: 100%;
   position: absolute;
+}
+
+.bg {
+  width: 100%;
+  height: 100% !important;
+  object-fit: cover;
 }
 
 .container {
