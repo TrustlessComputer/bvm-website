@@ -15,7 +15,7 @@ import LaunchButton from './components3/LaunchButton';
 import Draggable from './components3/Draggable';
 import Lego from './components3/Lego';
 import Dropdown from './components3/Dropdown';
-import { MouseSensor } from './utils';
+import { getChildId, getParentId, MouseSensor } from './utils';
 import { OrderFormOption, OrderFormOptions } from './Buy.data';
 import { DATA_PRICING } from '../data_pricing';
 import BlockGasLimitLego from './components3/Legos/BlockGasLimitLego';
@@ -29,8 +29,6 @@ type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
 const BuyPage = () => {
   const { field, setFormField } = useFormOrderStore((state) => state);
-
-  console.log('🚀 -> file: index_v4.tsx:33 -> BuyPage -> field ::', field);
 
   const boxOptionMapping: Record<
     Override,
@@ -173,8 +171,6 @@ const BuyPage = () => {
 
     // Normal case
     if (typeof field[activeNestedKey as Override]?.value !== 'object') {
-      console.log('[BuyPageV4] normal case -> active, over', active, over);
-
       if (over && overIsFinalDroppable) {
         setFormField(activeKey, active.data.current.value, true);
       } else {
@@ -188,12 +184,6 @@ const BuyPage = () => {
 
     // Case when the parent of the nested lego is dragged to the final droppable
     if (activeIsParentOfNestedLego) {
-      console.log(
-        '[BuyPageV4] parent of nested lego is dragged to the final droppable -> active, over',
-        active,
-        over,
-      );
-
       if (over && overIsFinalDroppable) {
         setFormField(
           activeNestedKey,
@@ -213,30 +203,17 @@ const BuyPage = () => {
 
     // Case when the nested lego is dragged to the parent
     if (overIsParentOfNestedLego) {
-      console.log(
-        '[BuyPageV4] nested lego is dragged to the parent -> active, over',
-        active,
-        over,
-      );
-
       if (
         over &&
         overIsParentOfNestedLego &&
         overNestedKey === activeNestedKey
       ) {
-        console.log('[BuyPageV4] same key');
-
         setFormField(activeNestedKey, {
           ...field[activeNestedKey as Override].value,
           [activeKeyInNestedKey]: active.data.current.value,
         });
       }
     } else {
-      console.log(
-        '[BuyPageV4] case the nested lego is dragged back to the left',
-        active.id,
-      );
-
       setFormField(activeNestedKey, {
         ...field[activeNestedKey as Override].value,
         [activeKeyInNestedKey]: null,
@@ -260,7 +237,7 @@ const BuyPage = () => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return null;
 
                   let _content = null;
-                  const parentKey = 'parent-' + key;
+                  const parentKey = getParentId(key);
                   const fieldValue = field[key as Override].value;
                   const isDragged = field[key as Override].dragged;
                   const isNestedLego = typeof fieldValue === 'object';
@@ -268,58 +245,54 @@ const BuyPage = () => {
                   const { label, content, description, options, background } =
                     boxOptionMapping[key as Override];
 
-                  if (content) {
-                    if (isNestedLego) {
-                      const _children = options?.map((option, index) => {
-                        if (!option.keyInField) return null;
+                  if (isNestedLego) {
+                    const _children = options?.map((option, index) => {
+                      if (!option.keyInField) return null;
 
-                        if (
-                          // @ts-ignore
-                          field[key as Override].value[option.keyInField] !==
-                          option.value
-                        )
-                          return null;
+                      if (
+                        // @ts-ignore
+                        field[key as Override].value[option.keyInField] !==
+                        option.value
+                      )
+                        return null;
 
-                        const id =
-                          'child-' +
-                          key +
-                          '-' +
-                          option.keyInField +
-                          '-' +
-                          option.value.toString();
+                      const id = getChildId(
+                        key,
+                        option.keyInField,
+                        option.value,
+                      );
 
-                        return (
-                          <Draggable id={id} key={id} value={option.value}>
-                            <LegoV2
-                              background={background || 'brown'}
-                              label={option.label}
-                              icon={option.icon}
-                              zIndex={-index + 10}
-                            />
-                          </Draggable>
-                        );
-                      });
-
-                      _content = (
-                        <Draggable id={parentKey} key={parentKey}>
-                          <DroppableV2 id={parentKey}>
-                            <LegoParent
-                              zIndex={(options?.length as number) + 2 * 10}
-                              background="green"
-                              label="Nestest "
-                            >
-                              {_children}
-                            </LegoParent>
-                          </DroppableV2>
+                      return (
+                        <Draggable id={id} key={id} value={option.value}>
+                          <LegoV2
+                            background={background || 'brown'} // TODO
+                            label={option.label}
+                            icon={option.icon}
+                            zIndex={-index + 10}
+                          />
                         </Draggable>
                       );
-                    } else {
-                      _content = (
-                        <Draggable value={fieldValue} id={key} key={key}>
-                          {content(true)}
-                        </Draggable>
-                      );
-                    }
+                    });
+
+                    _content = (
+                      <Draggable id={parentKey} key={parentKey}>
+                        <DroppableV2 id={parentKey}>
+                          <LegoParent
+                            zIndex={(options?.length as number) + 2 * 10}
+                            background="green" // TODO
+                            label={label}
+                          >
+                            {_children}
+                          </LegoParent>
+                        </DroppableV2>
+                      </Draggable>
+                    );
+                  } else if (content) {
+                    _content = (
+                      <Draggable value={fieldValue} id={key} key={key}>
+                        {content(true)}
+                      </Draggable>
+                    );
                   }
 
                   return (
@@ -337,6 +310,7 @@ const BuyPage = () => {
 
                       {options &&
                         options.map((option) => {
+                          if (!option.keyInField) return null;
                           if (
                             isDragged &&
                             field[key as Override].value.toString() ===
@@ -344,16 +318,20 @@ const BuyPage = () => {
                           )
                             return null;
 
-                          // prettier-ignore
                           let id = key + '-' + option.value.toString();
                           if (isNestedLego) {
-                            id =
-                              'child-' +
-                              id.split('-')[0] +
-                              '-' +
-                              option.keyInField +
-                              '-' +
-                              option.value.toString();
+                            if (
+                              field[key as Override].value[
+                                option.keyInField
+                              ] === option.value
+                            )
+                              return null;
+
+                            id = getChildId(
+                              key,
+                              option.keyInField,
+                              option.value,
+                            );
                           }
 
                           return (
@@ -402,7 +380,7 @@ const BuyPage = () => {
                     if (key === ORDER_FIELD.CHAIN_NAME) return null;
 
                     let _content = null;
-                    const parentKey = 'parent-' + key + '-dropped';
+                    const parentKey = getParentId(key, 'dropped');
                     const {
                       content,
                       options,
@@ -416,69 +394,60 @@ const BuyPage = () => {
 
                     if (!isDragged) return null;
 
-                    if (content) {
-                      if (isNestedLego) {
-                        const _children = options?.map((option, index) => {
-                          if (!option.keyInField) return null;
+                    if (isNestedLego) {
+                      const _children = options?.map((option, index) => {
+                        if (!option.keyInField) return null;
 
-                          console.log(
-                            '🚀 -> file: index_v4.tsx:423 -> const_children=options?.map -> option.value.toString() ::',
-                            option.value.toString(),
-                          );
+                        if (
+                          // @ts-ignore
+                          field[key as Override].value[
+                            option.keyInField
+                          ]?.toString() !== option.value.toString()
+                        )
+                          return null;
 
-                          if (
-                            // @ts-ignore
-                            field[key as Override].value[
-                              option.keyInField
-                            ]?.toString() !== option.value.toString()
-                          )
-                            return null;
+                        const id = getChildId(
+                          key,
+                          option.keyInField,
+                          option.value,
+                          'dropped',
+                        );
 
-                          const id =
-                            'child-' +
-                            key +
-                            '-' +
-                            option.keyInField +
-                            '-' +
-                            option.value.toString() +
-                            '-dropped';
-
-                          return (
-                            <Draggable id={id} key={id} value={option.value}>
-                              <LegoV2
-                                background={background || 'brown'}
-                                label={option.label}
-                                icon={option.icon}
-                                zIndex={-index + 10}
-                              />
-                            </Draggable>
-                          );
-                        });
-
-                        _content = (
-                          <Draggable id={parentKey} key={parentKey}>
-                            <DroppableV2 id={parentKey}>
-                              <LegoParent
-                                background="green"
-                                label={label}
-                                zIndex={
-                                  -indexWrap +
-                                  (options?.length as number) +
-                                  2 * 10
-                                }
-                              >
-                                {_children}
-                              </LegoParent>
-                            </DroppableV2>
+                        return (
+                          <Draggable id={id} key={id} value={option.value}>
+                            <LegoV2
+                              background={background || 'brown'}
+                              label={option.label}
+                              icon={option.icon}
+                              zIndex={-index + 10}
+                            />
                           </Draggable>
                         );
-                      } else {
-                        _content = (
-                          <Draggable value={fieldValue} id={key} key={key}>
-                            {content()}
-                          </Draggable>
-                        );
-                      }
+                      });
+
+                      _content = (
+                        <Draggable id={parentKey} key={parentKey}>
+                          <DroppableV2 id={parentKey}>
+                            <LegoParent
+                              background="green" // TODO
+                              label={label}
+                              zIndex={
+                                -indexWrap +
+                                (options?.length as number) +
+                                2 * 10
+                              }
+                            >
+                              {_children}
+                            </LegoParent>
+                          </DroppableV2>
+                        </Draggable>
+                      );
+                    } else if (content) {
+                      _content = (
+                        <Draggable value={fieldValue} id={key} key={key}>
+                          {content()}
+                        </Draggable>
+                      );
                     }
 
                     if (options && !isNestedLego) {
