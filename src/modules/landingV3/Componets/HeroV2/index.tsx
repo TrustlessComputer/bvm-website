@@ -6,7 +6,7 @@ import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import IcLogoText from '../IcLogoText';
 import IcArrowRight from '../IcArrowRight';
-import {WHITEPAPER_DOC_URL} from "@/config";
+import { WHITEPAPER_DOC_URL } from '@/config';
 
 export default function HeroV2() {
   const router = useRouter();
@@ -19,17 +19,14 @@ export default function HeroV2() {
         <div className={s.content}>
           <div className={s.content_sub}>
             <IcLogoText />
-            <h2 className={s.content_sub_title}>BitZK</h2>
           </div>
           <h3 className={s.subTitle}>
-            ZK Rollups <span>on
-            Bitcoin</span> <span>for $99/mo.</span>
+            Blockchains anyone can set up <span>for $99/mo.</span>
           </h3>
           <div className={s.desc}>
             <p>
-              Spin one up on Bitcoin with a single click, deploy some Solidity
-              smart contracts like on Ethereum, and launch your app on <br />
-              Bitcoin — it's that easy.
+              Join the wave of developers building blockchains and decentralized applications. With its simple and
+              intuitive interface, our blockchain platform is the perfect starting point for your blockchain journey.
             </p>
           </div>
           <div className={s.groupBtn}>
@@ -43,7 +40,7 @@ export default function HeroV2() {
               Deploy now
             </div>
             <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
-              window.open('https://docs.bvm.network/bvm')
+              window.open('https://docs.bvm.network/bvm');
             }}>
               Developer docs
               <IcArrowRight />
