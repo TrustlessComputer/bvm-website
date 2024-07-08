@@ -154,15 +154,15 @@ const SettingView = ({app, mode}: {app:  IAppInfo, mode: IModeInstall}) => {
               <Box className={s.menuChainWrapper}>
                 <Menu>
                   <MenuButton className={s.btnSelectToken}>
-                    <ChainItem token={selectedOrder} />
+                    <ChainItem data={selectedOrder} isButton/>
                     <SvgInset svgUrl="/icons/ic-arrow-down.svg" />
                   </MenuButton>
                   <MenuList>
                     {myOrders.map((t) => (
                       <ChainItem
                         key={t.chainId}
-                        chain={t}
-                        onSelectChain={(_token: OrderItem) => setSelectedOrder(_token)}
+                        data={t}
+                        onSelectChain={(c: OrderItem) => setSelectedOrder(c)}
                       />
                     ))}
                   </MenuList>
