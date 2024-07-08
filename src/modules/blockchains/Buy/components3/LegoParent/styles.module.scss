@@ -31,9 +31,13 @@
       }
     }
     &__horizonal {
-      height: 100px;
-      width: 16px;
+      // height: 100px;
+      width: 20px;
       background-color: var(--fillBackground);
+
+      &_inner {
+        margin-left: 20px;
+      }
     }
 
     &__vertical {

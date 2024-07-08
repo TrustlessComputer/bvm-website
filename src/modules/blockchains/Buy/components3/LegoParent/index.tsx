@@ -59,21 +59,7 @@ function LegoParent({
         className={`${styles.inner} ${
           parentOfNested ? styles.inner_nested : ''
         }`}
-      >
-        {parentOfNested ? (
-          <div
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            {children}
-          </div>
-        ) : (
-          <div className={styles.options}>{children}</div>
-        )}
-      </div>
+      ></div>
 
       <span
         className={`${styles.wrapper_stud__top} ${styles.wrapper_stud} ${
@@ -97,7 +83,10 @@ function LegoParent({
         </div>
       </div>
 
-      <div className={styles.wrapper_stud__horizonal} />
+      <div className={styles.wrapper_stud__horizonal}>
+        <div className={styles.wrapper_stud__horizonal_inner}>{children}</div>
+      </div>
+
       <div className={styles.wrapper_stud__vertical}>
         <div className={styles.wrapper_stud__vertical__top}>
           <SvgInset svgUrl="/landingV3/svg/stud.svg" />

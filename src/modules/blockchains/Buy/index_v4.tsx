@@ -280,7 +280,13 @@ const BuyPage = () => {
                       _content = (
                         <Draggable id={parentKey} key={parentKey}>
                           <DroppableV2 id={parentKey}>
-                            {content(false, _children)}
+                            <LegoParent
+                              zIndex={11}
+                              background="green"
+                              label="Nestest "
+                            >
+                              {_children}
+                            </LegoParent>
                           </DroppableV2>
                         </Draggable>
                       );
@@ -352,7 +358,11 @@ const BuyPage = () => {
                     </BoxOptionV2>
                   );
                 })}
-                <LegoParent zIndex={11} background="green" label="Nestest " />
+                {/* <LegoParent zIndex={11} background="green" label="Nestest ">
+                  <Lego background="brown" label="Nestest 1" />
+                  <Lego background="brown" label="Nestest 2" />
+                  <Lego background="brown" label="Nestest 3" />
+                </LegoParent> */}
               </div>
             </div>
 
