@@ -250,6 +250,7 @@ type IDappItem = {
   iconUrl?: string;
   isHide?: boolean;
   canInstall?: boolean;
+  isInstallNewDapps?: boolean;
 };
 
 interface L2ServicesState {

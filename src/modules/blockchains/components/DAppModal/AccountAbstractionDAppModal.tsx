@@ -21,9 +21,8 @@ import { isAddress } from '@ethersproject/address';
 import { BigNumber } from 'bignumber.js';
 import { formatCurrencyV2 } from '@/utils/format';
 
-const DEFAULT_FEE_RATE = 1e18;
-const MIN_FEE_RATE = 1e18;
-const MAX_FEE_RATE = 1e18 * 1e3;
+const MIN_FEE_RATE = 1 * 1e-9;
+const MAX_FEE_RATE = 1 * 1e9;
 
 interface IProps {
   show: boolean;
@@ -45,12 +44,9 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
   const [tokenContractAddressErrorMsg, setTokenContractAddressErrorMsg] =
     useState<undefined | string>(undefined);
 
-  const [feeRate, setFeeRate] = useState<undefined | number>(DEFAULT_FEE_RATE);
+  const [feeRate, setFeeRate] = useState<undefined | string>(undefined);
   const [feeRateFormat, setFeeRateFormat] = useState<undefined | string>(
-    formatCurrencyV2({
-      amount: DEFAULT_FEE_RATE,
-      decimals: 0,
-    }),
+    undefined,
   );
 
   const [feeRateErrorMsg, setfeeRateErrorMsg] = useState<undefined | string>(
@@ -74,17 +70,17 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
 
   const checkFeeRate = (text: string | undefined) => {
     if (!text || text.length < 1) {
-      setfeeRateErrorMsg('Fee rate is required!');
+      setfeeRateErrorMsg('Number of Tokens per Gas is required!');
     } else if (new BigNumber(text).lt(MIN_FEE_RATE)) {
       setfeeRateErrorMsg(
-        `Fee rate is must be greater than or equal ${formatCurrencyV2({
+        `Value is must be greater than or equal ${formatCurrencyV2({
           amount: MIN_FEE_RATE,
-          decimals: 0,
+          decimals: 9,
         })}`,
       );
     } else if (new BigNumber(text).gt(MAX_FEE_RATE)) {
       setfeeRateErrorMsg(
-        `Fee rate is must be lesser than or equal ${formatCurrencyV2({
+        `Value is must be lesser than or equal ${formatCurrencyV2({
           amount: MAX_FEE_RATE,
           decimals: 0,
         })}`,
@@ -160,11 +156,19 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
         flexDir={'column'}
         align={'flex-start'}
         alignSelf={'stretch'}
-        gap={['12px']}
+        gap={['6px']}
         color={'#000'}
       >
         <Text fontSize={['16px', '18px', '20px']} fontWeight={600}>
           {'Token Contract Address'}
+        </Text>
+        <Text
+          fontSize={['13px', '14px', '16px']}
+          fontWeight={400}
+          color={'#334344'}
+          opacity={0.7}
+        >
+          {'The token that users can use to pay for gas fees.'}
         </Text>
         <Input
           value={tokenContractAddress}
@@ -201,14 +205,24 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
         flexDir={'column'}
         align={'flex-start'}
         alignSelf={'stretch'}
-        gap={['12px']}
+        gap={['6px']}
         color={'#000'}
       >
         <Text fontSize={['16px', '18px', '20px']} fontWeight={600}>
-          {'Fee Rate (Gas)'}
+          {'Number of Tokens per Gas'}
+        </Text>
+        <Text
+          fontSize={['13px', '14px', '16px']}
+          fontWeight={400}
+          color={'#334344'}
+          opacity={0.7}
+        >
+          {
+            'For example, if you input 0.05 tokens per gas, a regular transfer transaction (21,000 gas) would require 1.05 tokens.'
+          }
         </Text>
         <Input
-          value={feeRate}
+          value={'feeRate'}
           border="1px solid #CECECE"
           placeholder="Ex: 0.01"
           type="number"
@@ -222,12 +236,6 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
           onChange={(e: any) => {
             const text = e.target.value;
             setFeeRate(text);
-            setFeeRateFormat(
-              formatCurrencyV2({
-                amount: text,
-                decimals: 0,
-              }),
-            );
             checkFeeRate(text);
           }}
         />

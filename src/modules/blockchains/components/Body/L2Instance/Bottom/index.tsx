@@ -1,14 +1,18 @@
 'use client';
 
-import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
+import {
+  IDappItem,
+  OrderItem,
+  OrderStatus,
+} from '@/stores/states/l2services/types';
 import addChain from '@/utils/addChain';
 import { Flex, Image, Text, Button, SimpleGrid } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import { EditIcon } from '@chakra-ui/icons';
 import DappInstalledItem from './DappInstalledItem';
 import { DAPP_INSTALLED_LIST } from './constant';
-import { IDappItem } from './type';
 import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   item: OrderItem;
@@ -28,7 +32,7 @@ const BottomView = (props: Props) => {
     bridgeOnClick,
     editConfigBridgeOnClick,
   } = props;
-
+  const router = useRouter();
   const { onOpenDappList } = useDashboard();
 
   const [adding, setAdding] = useState(false);
@@ -141,9 +145,9 @@ const BottomView = (props: Props) => {
   };
 
   const dAppOnClick = (item: IDappItem) => {
-    console.log('DAPP ITEM: ', item);
     if (item.isInstallNewDapps) {
-      onOpenDappList && onOpenDappList();
+      // onOpenDappList && onOpenDappList();
+      router.push('/app-store');
     }
   };
 
