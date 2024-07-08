@@ -59,24 +59,23 @@ type TBlogDetailPage= {
 
 export async function generateMetadata({ params }: TBlogDetailPage) {
 
-  // const formattedKeyObj: any = await fetchBlog(params.slug[0])
-  // console.log('formattedKeyObj', formattedKeyObj);
-  // return {
-  //   title: formattedKeyObj?.title,
-  //   openGraph: {
-  //     title: `${formattedKeyObj?.title}`,
-  //     description: `${formattedKeyObj?.description}`,
-  //     type: 'website',
-  //     url: APP_NAME,
-  //     images: [
-  //       {
-  //         url: `${formattedKeyObj?.featuredImage?.node?.sourceUrl}`,
-  //         width: 1200,
-  //         height: 630,
-  //       },
-  //     ],
-  //   },
-  // }
+  const data = await fetchPostById(params?.slug)  // console.log('formattedKeyObj', formattedKeyObj);
+  return {
+    title: data?.title,
+    openGraph: {
+      title: `${data?.title}`,
+      description: `${data?.excerpt}`,
+      type: 'website',
+      url: APP_NAME,
+      images: [
+        {
+          url: `${formattedKeyObj?.featuredImage?.node?.sourceUrl}`,
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  }
 }
 
 const BlogDetailPage = async ({ params }: TBlogDetailPage) => {
