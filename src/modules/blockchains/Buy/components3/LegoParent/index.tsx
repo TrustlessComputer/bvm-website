@@ -38,7 +38,7 @@ function LegoParent({
     parentLego.style.zIndex = `${zIndex * 2} `;
     parentLego.parentElement.style.zIndex = `${zIndex * 2} `;
   }, [legoRef.current]);
-  console.log('zIndex', zIndex);
+
   return (
     <div
       className={`${styles.wrapper} ${
