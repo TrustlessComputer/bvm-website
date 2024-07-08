@@ -1,29 +1,23 @@
-import React from 'react';
-import BoxOptionV2 from '@/modules/blockchains/Buy/components3/BoxOptionV2';
 import { DndContext, useSensor, useSensors } from '@dnd-kit/core';
+import React from 'react';
 
+import Tier from '@/modules/blockchains/Buy/components3/Tier';
 import {
   ORDER_FIELD,
   useFormOrderStore,
 } from '@/modules/blockchains/Buy/stores';
-import Tier from '@/modules/blockchains/Buy/components3/Tier';
 
-import LegoV2 from './components3/LegoV2';
-import DroppableV2 from './components3/DroppableV2';
+import { OrderFormOption } from './Buy.data';
 import ComputerNameInput from './components3/ComputerNameInput';
-import LaunchButton from './components3/LaunchButton';
 import Draggable from './components3/Draggable';
-import Lego from './components3/Lego';
-import Dropdown from './components3/Dropdown';
+import DroppableV2 from './components3/DroppableV2';
+import LaunchButton from './components3/LaunchButton';
+import LegoV2 from './components3/LegoV2';
 import { getChildId, getParentId, MouseSensor } from './utils';
-import { OrderFormOption, OrderFormOptions } from './Buy.data';
-import { DATA_PRICING } from '../data_pricing';
-import BlockGasLimitLego from './components3/Legos/BlockGasLimitLego';
-import WithdrawalTimeLego from './components3/Legos/WithdrawalTimeLego';
-import RightNetworkLego from './components3/Legos/RightNetworkLego';
 
-import s from './styles_v5.module.scss';
+import BoxOptionV3 from './components3/BoxOptionV3';
 import LegoParent from './components3/LegoParent';
+import s from './styles_v5.module.scss';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -296,7 +290,7 @@ const BuyPage = () => {
                   }
 
                   return (
-                    <BoxOptionV2
+                    <BoxOptionV3
                       key={key}
                       label={label}
                       id={key}
@@ -355,7 +349,7 @@ const BuyPage = () => {
                             </Draggable>
                           );
                         })}
-                    </BoxOptionV2>
+                    </BoxOptionV3>
                   );
                 })}
               </div>
