@@ -69,7 +69,7 @@ export async function generateMetadata({ params }: TBlogDetailPage) {
       url: APP_NAME,
       images: [
         {
-          url: `${formattedKeyObj?.featuredImage?.node?.sourceUrl}`,
+          url: `${data?.thumbnail}`,
           width: 1200,
           height: 630,
         },
