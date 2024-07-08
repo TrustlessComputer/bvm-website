@@ -26,7 +26,7 @@
       @include is-pc {
         flex-wrap: wrap;
         flex-direction: row;
-        max-width: 660px;
+        max-width: 720px;
 
         li {
           flex: 0 0 calc(50% - 10px);

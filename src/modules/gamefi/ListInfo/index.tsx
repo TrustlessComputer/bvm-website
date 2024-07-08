@@ -35,7 +35,7 @@ export default function ListInfo( {heading, list_info}: IListInfo ) {
       <div className={s.list}>
         {
           list_info.map((item: RetroCardProps) => {
-            return <RetroCard src={item.src} title={item.title}>{item.children}</RetroCard>;
+            return <RetroCard src={item.src} title={item.title} bgColor={item.bgColor}>{item.children}</RetroCard>;
           })
         }
       </div>

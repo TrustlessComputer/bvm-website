@@ -13,7 +13,6 @@ function ActivitiesVer3(): React.JSX.Element {
           )
         })
       }
-
     </div>
   )
 }

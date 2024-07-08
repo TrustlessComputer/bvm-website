@@ -3,11 +3,21 @@
 }
 .inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 141px;
+  align-items: center;
+  gap: 80px;
   @include is-pc {
+    gap: 138px;
+    justify-content: space-between;
     flex-wrap: nowrap;
+  }
+}
+
+.right {
+  width: 100%;
+  @include is-pc {
+    max-width: 660px;
   }
 }
 
@@ -31,4 +41,22 @@
       height: 54px;
     }
   }
+}
+.left {
+  width: 100%;
+  height: 100%;
+  @include is-pc {
+    width: 638px;
+    height: 427px;
+  }
+  .video {
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+
 }

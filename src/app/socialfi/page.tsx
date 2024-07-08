@@ -5,6 +5,8 @@ import Loader from '@/modules/builder-landing/Loader';
 
 import { CDN_URL } from '@/config';
 import { APP_NAME } from '@/config/metadata';
+import ResolutionDetail from "@/modules/ResolutionDetail";
+import {RESOLUTION_DATAS} from "@constants/solution-data";
 
 export const metadata = {
   openGraph: {
@@ -39,7 +41,7 @@ const SocialFiPage = () => {
     >
       <>
         <Loader />
-        <SocialFiModule />
+        <ResolutionDetail data={RESOLUTION_DATAS.socialfi} />
       </>
     </MainLayout>
   );
