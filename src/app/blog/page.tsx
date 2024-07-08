@@ -21,7 +21,7 @@ const BVMPage = async ({ searchParams }: { searchParams: Params }) => {
       }}
       hideFooter
     >
-      <BlogModule blogsData={posts} />
+      <BlogModule {...posts} />
     </MainLayout>
   );
 };

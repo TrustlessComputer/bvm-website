@@ -38,3 +38,10 @@ interface Params{
   tag?: string
   author?: string
 }
+
+interface Posts {
+  data: Blog[],
+  total: number
+  className: string;
+  isHome: boolean;
+}
