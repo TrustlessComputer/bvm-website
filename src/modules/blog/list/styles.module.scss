@@ -1,9 +1,12 @@
 .list {
-  grid-template-columns: repeat(12, 1fr);
-  display: grid;
-  column-gap: 60px;
-  row-gap: 60px;
+  //grid-template-columns: repeat(12, 1fr);
+  //display: grid;
+  //column-gap: 60px;
+  //row-gap: 60px;
   margin: 30px 0 60px 0;
+  display: flex;
+  flex-wrap: wrap;
+  clear: both;
 }
 
 .card {

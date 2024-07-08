@@ -17,7 +17,10 @@ export default function ListBlog({ listBlog }: TListBlog) {
       <div className={s.list}>
         {listBlog?.map((item, index) => {
           return (
-            <Card {...item} key={item.slug} isFirst={index === 0} />
+            <div className={s.card}>
+              <Card {...item} key={item.slug} isFirst={index === 0} />
+
+            </div>
           );
         })}
       </div>
