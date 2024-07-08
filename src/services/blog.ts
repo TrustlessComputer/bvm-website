@@ -73,6 +73,6 @@ export async function fetchAllPosts(params: {
     return await response.json();
   } catch (error) {
     console.error('Error fetching posts:', error);
-    return [];
+    return { data: [], total: 0 };
   }
 }
