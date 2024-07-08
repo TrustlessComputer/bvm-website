@@ -43,7 +43,7 @@ export async function fetchAllPosts(params: {
   orderBy?: string,
   tag?: string
   author?: string
-}): Promise<{ data: Blog[], total: number }> {
+}): Promise<Posts> {
 
   const { per_page = 10, page = 1, order = 'desc', orderBy = 'date', tag, author } = params;
 
