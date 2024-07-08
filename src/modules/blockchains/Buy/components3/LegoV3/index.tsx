@@ -87,28 +87,6 @@ function LegoV3({
           <div className={styles.options}>{children}</div>
         )}
       </div>
-
-      {/* {!first && (
-        <span
-          className={`${styles.wrapper_stud__top} ${
-            styles.wrapper_stud
-          } stud__top ${active && styles.wrapper_stud__top_active}`}
-        >
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" />
-        </span>
-      )}
-
-      {!last && (
-        <span
-          className={`${styles.wrapper_stud__bottom} ${styles.wrapper_stud} ${
-            active && styles.scale
-          }  ${active && styles.wrapper_stud__active}
-          stud__bottom
-        `}
-        >
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" />
-        </span>
-      )} */}
     </div>
   );
 }

@@ -51,6 +51,10 @@ function LegoParent({
       }}
       {...props}
     >
+      <SvgInset
+        svgUrl="/landingV3/svg/stud_head.svg"
+        className={styles.wrapper_studHead}
+      />
       <span
         className={`${styles.wrapper_stud__top} ${styles.wrapper_stud} ${
           active && styles.wrapper_stud__top_active
@@ -65,9 +69,7 @@ function LegoParent({
             <p>{label}</p>
           </div>
         )}
-        <div className={styles.wrapper_stud__vertical__top}>
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" />
-        </div>{' '}
+
         <div
           className={styles.wrapper_stud__vertical__bottom}
           style={{ zIndex: zIndex }}
@@ -75,11 +77,9 @@ function LegoParent({
           <SvgInset svgUrl="/landingV3/svg/stud.svg" />
         </div>
       </div>
-
       <div className={styles.wrapper_stud__horizonal}>
         <div className={styles.wrapper_stud__horizonal_inner}>{children}</div>
       </div>
-
       <div className={styles.wrapper_stud__vertical}>
         <div className={styles.wrapper_stud__vertical__top}>
           <SvgInset svgUrl="/landingV3/svg/stud.svg" />
@@ -91,5 +91,5 @@ function LegoParent({
     </div>
   );
 }
-    
+
 export default React.memo(LegoParent);

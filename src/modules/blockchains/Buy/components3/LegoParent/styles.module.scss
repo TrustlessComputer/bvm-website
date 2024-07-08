@@ -9,6 +9,37 @@
   position: relative;
   cursor: grabbing;
 
+  &::after {
+    z-index: -2;
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--fillBackground);
+    width: calc(100% - 39px);
+    transform: translateX(39px);
+    border: 1px solid var(--background);
+    border-radius: 4px;
+    height: 41px;
+    margin-top: 0.5px;
+  }
+
+  &_studHead {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    width: 43px;
+    height: 41px;
+    z-index: -1;
+
+    svg {
+      height: 50px;
+      path {
+        fill: var(--fillBackground);
+        stroke: var(--background);
+        stroke-width: 1px;
+      }
+    }
+  }
   &_stud {
     position: absolute;
     left: 32px;
@@ -37,7 +68,7 @@
       background-color: var(--fillBackground);
 
       &_inner {
-        margin-left: 12px;
+        margin-left: 11px;
 
         :global {
           .stud__top {
@@ -108,7 +139,7 @@
   }
 
   &__red {
-    --background: #fff;
+    --background: #cc2e2e;
     --fillBackground: #ff0000;
   }
   &__green {
