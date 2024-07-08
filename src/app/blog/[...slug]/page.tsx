@@ -1,5 +1,4 @@
 import MainLayout from '@/layouts/MainLayout';
-import { DATA_BLOG, DATA_BLOG_DETAIL } from '@/modules/blog/data_blog';
 import BLogDetail from '@/modules/blog/detail';
 import { WP_URL } from '@/config';
 import { transformObject } from '@utils/transformObjectGraphQL';

@@ -6,7 +6,7 @@ import ImagePlaceholder from '@components/ImagePlaceholder';
 import dayjs from 'dayjs';
 import Tags from '@/modules/blog/detail/Tags';
 
-type TBLogDetail = {
+export type TBLogDetail = {
   blogData: any;
 }
 
