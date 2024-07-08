@@ -8,6 +8,7 @@ import Tags from '@/modules/blog/detail/Tags';
 import React, { useEffect, useState } from 'react';
 import Card from '@/modules/blog/list/Card';
 import { fetchRelatedPostsById } from '@/services/blog';
+import List from '@/modules/blog/detail/List';
 
 export type TBLogDetail = {
   blogData: Blog;
@@ -29,13 +30,14 @@ export default function BLogDetail({ blogData }: TBLogDetail) {
       <div className="main containerV3">
         <div className={s.top}>
           <div className={s.thumnail}>
+            <List title={blogData.title} />
             <ImagePlaceholder src={thumbnail} alt={title} width={980} height={300} />
           </div>
           <div className={s.heading}>
             <p className={s.heading_text}>{title}
             </p>
             <div className={s.heading_meta}>
-              <p className={s.heading_author}>{author.display_name} | {dayjs(date).format('MMM D, YYYY') }</p>
+              <p className={s.heading_author}>{author.display_name} | {dayjs(date).format('MMM D, YYYY')}</p>
               <p
                 className={s.heading_author}>{`${view_count ? view_count : 0} ${view_count > 1 ? 'views' : 'view'}`} </p>
             </div>

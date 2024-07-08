@@ -20,7 +20,7 @@ export default function Filter() {
     // you can add more keys to this
   });
 
-  const handleClick = (value) => {
+  const handleClick = (value: any) => {
     setValueFilter(value.value);
 
     const updatedQuery = { ...searchQuery,  orderBy: value.value };
@@ -30,7 +30,7 @@ export default function Filter() {
 
 
 
-  const updateSearchQuery = (updatedQuery) => {
+  const updateSearchQuery = (updatedQuery: any) => {
     const params = new URLSearchParams(searchParams);
     Object.keys(updatedQuery).forEach((key) => {
       if (updatedQuery[key]) {
