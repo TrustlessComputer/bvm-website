@@ -4,13 +4,10 @@
 
   width: 100%;
   background-color: var(--background-color);
-  border-radius: 10px;
-  border: 1px solid var(--stroke-color);
-  border-top-width: 1px;
-  border-bottom-width: 0.5px;
   position: relative;
-  padding: 36px 48px;
+  padding: 16px;
   user-select: none;
+  margin-top: 1px;
   &.activeBox {
     --stroke-color: #74d579;
     --background-color: #ebffec;
