@@ -135,7 +135,11 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
         isDisabled={!selectedPackage || !selectedOrder || submitting}
         isLoading={submitting}
         onClick={() => {
-          router.push(PRICING);
+          if(Number(accountInforL2Service?.balanceFormatted) < Number(appPackage?.price_bvm)) {
+            setShowTopupModal(true);
+          } else {
+            requestBuyApp();
+          }
         }
       }
       >Install</Button>
@@ -226,7 +230,7 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
           payWithNakaWalletCB={() => {
             setShowSendFormModal(true);
           }}
-          order={selectedOrder}
+          order={selectedOrder?.isNeedTopup ? selectedOrder : {needToTopupBalanceFormatted: appPackage?.price_bvm} as unknown as OrderItem}
         />
       )}
 
