@@ -1,9 +1,9 @@
 import { useDisclosure } from '@chakra-ui/react';
 import { DashboardProps, DashboardWrappedComponent } from '../Dashboard.types';
 import { DappListModal } from '../components/DappListModal';
-import { IDappDetail } from '../components/DappListModal/constants';
 import { useAppDispatch } from '@/stores/hooks';
-import { setDappNeedInstallSelected } from '@/stores/states/l2services/reducer';
+import { setDAppSelected } from '@/stores/states/l2services/reducer';
+import { IDappItem } from '@/stores/states/l2services/types';
 
 const enhanceDappListModal =
   (WrappedComponent: DashboardWrappedComponent) => (props: DashboardProps) => {
@@ -30,8 +30,8 @@ const enhanceDappListModal =
           <DappListModal
             show={isOpenDappList}
             onClose={onCloseDappList}
-            installDappDetailOnClick={(item: IDappDetail) => {
-              dispatch(setDappNeedInstallSelected(item));
+            installDappDetailOnClick={(item: IDappItem) => {
+              dispatch(setDAppSelected(item));
               onOpenInstallDappDetail && onOpenInstallDappDetail();
             }}
           />

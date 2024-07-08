@@ -10,17 +10,21 @@ import {
   Text,
 } from '@chakra-ui/react';
 import DappItem from './DappItem';
-import { DAPPS_LIST, IDappDetail } from './constants';
 import s from './styles.module.scss';
+import { useAppSelector } from '@/stores/hooks';
+import { getDAListSelector } from '@/stores/states/l2services/selector';
+import { IDappItem } from '@/stores/states/l2services/types';
 
 interface IProps {
   show: boolean;
   onClose?: (() => void) | any;
-  installDappDetailOnClick: (item: IDappDetail) => void;
+  installDappDetailOnClick: (item: IDappItem) => void;
 }
 
 export const DappListModal = (props: IProps) => {
   const { show, onClose, installDappDetailOnClick } = props;
+
+  const dappsList = useAppSelector(getDAListSelector);
 
   return (
     <Modal isOpen={show} onClose={onClose} isCentered={true}>
@@ -62,7 +66,7 @@ export const DappListModal = (props: IProps) => {
         <Flex bgColor={'#ECECEC'} h="1px" mx="20px"></Flex>
         <ModalBody>
           <SimpleGrid gap={'28px'} mb="28px">
-            {DAPPS_LIST.map((item, index) => {
+            {dappsList.map((item, index) => {
               return (
                 <DappItem
                   key={`${index}-${item.name}`}

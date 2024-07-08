@@ -37,7 +37,8 @@ const Page = (props: any) => {
     setChatTabIndex(index);
   };
 
-  const { loopFetchAccountInfor, getMyOrderList } = useL2Service();
+  const { loopFetchAccountInfor, getMyOrderList, getDappsList } =
+    useL2Service();
   const dispatch = useAppDispatch();
   const { loggedIn, login } = useWeb3Auth();
 
@@ -45,6 +46,7 @@ const Page = (props: any) => {
     loopFetchAccountInfor();
     if (loggedIn) {
       getMyOrderList();
+      getDappsList();
     }
   }, [loggedIn]);
 

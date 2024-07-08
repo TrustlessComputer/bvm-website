@@ -1,6 +1,6 @@
 import { useDisclosure } from '@chakra-ui/react';
 import { DashboardProps, DashboardWrappedComponent } from '../Dashboard.types';
-import { InstallDappDetailModal } from '../components/InstallDappDetailModal';
+import { AccountAbstractionDAppModal } from '../components/DAppModal';
 
 const enhanceInstallDappDetailModal =
   (WrappedComponent: DashboardWrappedComponent) => (props: DashboardProps) => {
@@ -21,7 +21,7 @@ const enhanceInstallDappDetailModal =
           onCloseInstallDappDetail={onCloseInstallDappDetail}
         />
         {isOpenInstallDappDetail && (
-          <InstallDappDetailModal
+          <AccountAbstractionDAppModal
             show={isOpenInstallDappDetail}
             onClose={onCloseInstallDappDetail}
           />

@@ -211,10 +211,24 @@ const packageDetailByPackageEnumSelector = createSelector(
 
 // Dapp Feature Selector
 
-const dappDetailSelectedSelector = createSelector(
+const getDAListSelector = createSelector(
   getL2ServicesStateSelector,
   (state) => {
-    return state.dappSelectedNeedInstall;
+    return state.daList || [];
+  },
+);
+
+const getDADetailByIDSelector = createSelector(
+  getDAListSelector,
+  (dappsList) => (dappID: string) => {
+    return dappsList.filter((dapp) => dapp.id === dappID);
+  },
+);
+
+const getDappSelectedSelector = createSelector(
+  getL2ServicesStateSelector,
+  (state) => {
+    return state.dAppSelected;
   },
 );
 
@@ -238,5 +252,7 @@ export {
   OPOrdersSelector,
 
   //Dapp
-  dappDetailSelectedSelector,
+  getDappSelectedSelector,
+  getDAListSelector,
+  getDADetailByIDSelector,
 };

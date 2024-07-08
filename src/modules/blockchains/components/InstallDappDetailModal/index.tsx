@@ -1,5 +1,5 @@
 import { useAppSelector } from '@/stores/hooks';
-import { dappDetailSelectedSelector } from '@/stores/states/l2services/selector';
+import { getDappSelectedSelector } from '@/stores/states/l2services/selector';
 import {
   Button,
   Flex,
@@ -21,7 +21,7 @@ interface IProps {
 export const InstallDappDetailModal = (props: IProps) => {
   const { show, onClose } = props;
 
-  const dappDetail = useAppSelector(dappDetailSelectedSelector);
+  const dappDetail = useAppSelector(getDappSelectedSelector);
 
   return (
     <Modal isOpen={show} onClose={onClose} isCentered={true}>
@@ -82,7 +82,7 @@ export const InstallDappDetailModal = (props: IProps) => {
               color={'#000'}
             >
               <Text fontSize={['16px', '18px', '20px']} fontWeight={600}>
-                {'Token Contract Address'}
+                {'Input 1'}
               </Text>
               <Input
                 border="1px solid #CECECE"
@@ -111,7 +111,7 @@ export const InstallDappDetailModal = (props: IProps) => {
               color={'#000'}
             >
               <Text fontSize={['16px', '18px', '20px']} fontWeight={600}>
-                {'Fee Rate Token/BVM'}
+                {'Input 2'}
               </Text>
               <Input
                 border="1px solid #CECECE"

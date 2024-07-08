@@ -23,6 +23,15 @@ const fetchAvailableList = createAsyncThunk(
   },
 );
 
+const fetchDAList = createAsyncThunk(`${PREFIX}/fetchDAList`, async () => {
+  try {
+    const data = await l2ServicesAPI.getDappsList();
+    return data;
+  } catch (error) {
+    return undefined;
+  }
+});
+
 const fetchAccountInfo = createAsyncThunk(
   `${PREFIX}/fetchAccountInfo`,
   async () => {
@@ -122,4 +131,7 @@ export {
   getQuickStart,
   fetchAvailableList,
   fetchAllOrdersV2,
+
+  //DA
+  fetchDAList,
 };

@@ -11,19 +11,19 @@ export const DAPP_INSTALLED_LIST: IDappItem[] = [
     name: 'Trustless Bridge',
     iconUrl: '/icons/dapp_trustless_bridge_ic.svg',
   },
-  {
-    isInstallNewDapps: false,
-    name: 'Trustless Bridge',
-    iconUrl: '/icons/dapp_trustless_bridge_ic.svg',
-  },
-  {
-    isInstallNewDapps: false,
-    name: 'Trustless Bridge',
-    iconUrl: '/icons/dapp_trustless_bridge_ic.svg',
-  },
-  {
-    isInstallNewDapps: false,
-    name: 'Trustless Bridge',
-    iconUrl: '/icons/dapp_trustless_bridge_ic.svg',
-  },
+  // {
+  //   isInstallNewDapps: false,
+  //   name: 'Trustless Bridge',
+  //   iconUrl: '/icons/dapp_trustless_bridge_ic.svg',
+  // },
+  // {
+  //   isInstallNewDapps: false,
+  //   name: 'Trustless Bridge',
+  //   iconUrl: '/icons/dapp_trustless_bridge_ic.svg',
+  // },
+  // {
+  //   isInstallNewDapps: false,
+  //   name: 'Trustless Bridge',
+  //   iconUrl: '/icons/dapp_trustless_bridge_ic.svg',
+  // },
 ];
