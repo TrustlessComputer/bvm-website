@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import { CDN_URL_ICONS } from '../config';
 
-export const APP_NAME = 'Bitcoin Virtual Machine';
-export const APP_DEFAULT_TITLE = 'Bitcoin Virtual Machine';
-export const APP_TITLE_TEMPLATE = 'Bitcoin Virtual Machine';
+export const APP_NAME = 'Blockchains anyone can set up for $99/mo.';
+export const APP_DEFAULT_TITLE = 'Blockchains anyone can set up for $99/mo.';
+export const APP_TITLE_TEMPLATE = 'Blockchains anyone can set up for $99/mo.';
 export const APP_DESCRIPTION =
-  'BVM is the first modular Bitcoin L2 metaprotocol on Bitcoin. With a few clicks, anyone can plug and play the best-of-breed blockchain modules to launch their own Bitcoin L2 blockchain.';
+  `Join the wave of developers building blockchains and decentralized applications. With its simple and intuitive interface, our blockchain platform is the perfect starting point for your blockchain journey.`;
 // const APP_THUMBNAIL = `${CDN_URL_ICONS}/metadata.jpg`;
 
 const metadataConfig: Metadata = {
