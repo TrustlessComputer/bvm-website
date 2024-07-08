@@ -43,7 +43,7 @@ export async function fetchAllPosts(params: {
   orderBy?: string,
   tag?: string
   author?: string
-}): Promise<Blog[]> {
+}): Promise<{ data: Blog[], total: number }> {
 
   const { per_page = 10, page = 1, order = 'desc', orderBy = 'date', tag, author } = params;
 
@@ -64,8 +64,6 @@ export async function fetchAllPosts(params: {
   }
 
   const url = `${BASE_URL}/posts?${queryParams.toString()}`;
-
-  console.log('____url', url);
   try {
 
     const response = await fetch(url, { method: 'GET', cache: 'force-cache' });
