@@ -7,7 +7,7 @@ import Card from './Card';
 import Filter from './Filter';
 
 type TListBlog = {
-  listBlog: TBlog[];
+  listBlog: Blog[];
 }
 
 export default function ListBlog({ listBlog }: TListBlog) {

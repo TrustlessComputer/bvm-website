@@ -13,9 +13,9 @@ export default function Card({
                                view_count,
                                className,
                                author,
-                                id,
+                               id,
                                isFirst,
-                             }: TBlog & {
+                             }: Blog & {
   className?: string;
   isFirst?: boolean
 }) {

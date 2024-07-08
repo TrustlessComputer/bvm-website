@@ -7,6 +7,7 @@ interface Blog {
   author: Author;
   list_thumbnail: string;
   thumbnail: string;
+  date: string;
   post_content?: string;
   tags?: Tag[];
 }
