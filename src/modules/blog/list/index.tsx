@@ -7,8 +7,7 @@ import Card from './Card';
 import Filter from './Filter';
 
 export default function ListBlog({ data, total }: Posts) {
-
-  //todo @max
+  
   return (
     <div className={`${s.wrapper} containerV3`}>
       <Filter />

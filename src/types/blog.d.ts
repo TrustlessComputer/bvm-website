@@ -30,7 +30,7 @@ interface FetchError {
   error: string;
 }
 
-interface Params{
+interface Params {
   per_page?: number;
   page?: number;
   order?: string;
@@ -41,5 +41,7 @@ interface Params{
 
 interface Posts {
   data: Blog[],
-  total: number
+  total: number,
+  page: number,
+  per_page: number
 }
