@@ -253,7 +253,7 @@ const BuyPage = () => {
 
                   if (content) {
                     if (isNestedLego) {
-                      const _children = options?.map((option) => {
+                      const _children = options?.map((option, index) => {
                         if (!option.keyInField) return null;
 
                         if (
@@ -271,7 +271,7 @@ const BuyPage = () => {
                               background={background || 'brown'}
                               label={option.label}
                               icon={option.icon}
-                              zIndex={23}
+                              zIndex={-index + 10}
                             />
                           </Draggable>
                         );
@@ -281,7 +281,7 @@ const BuyPage = () => {
                         <Draggable id={parentKey} key={parentKey}>
                           <DroppableV2 id={parentKey}>
                             <LegoParent
-                              zIndex={11}
+                              zIndex={(options?.length as number) + 2 * 10}
                               background="green"
                               label="Nestest "
                             >
@@ -358,11 +358,6 @@ const BuyPage = () => {
                     </BoxOptionV2>
                   );
                 })}
-                {/* <LegoParent zIndex={11} background="green" label="Nestest ">
-                  <Lego background="brown" label="Nestest 1" />
-                  <Lego background="brown" label="Nestest 2" />
-                  <Lego background="brown" label="Nestest 3" />
-                </LegoParent> */}
               </div>
             </div>
 

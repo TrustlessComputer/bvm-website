@@ -33,7 +33,6 @@ function LegoV2({
   ...props
 }: LegoV2) {
   const legoRef = React.useRef<HTMLDivElement | null>(null);
-
   React.useEffect(() => {
     let parentLego = legoRef.current?.parentElement;
     if (!parentLego) return;
@@ -52,7 +51,8 @@ function LegoV2({
     <div
       className={`${styles.wrapper} ${
         styles[`wrapper__${background}`]
-      } ${className}`}
+      } ${className} 
+        `}
       ref={legoRef}
       style={{
         zIndex: zIndex,
@@ -88,9 +88,9 @@ function LegoV2({
 
       {!first && (
         <span
-          className={`${styles.wrapper_stud__top} ${styles.wrapper_stud} ${
-            active && styles.wrapper_stud__top_active
-          }`}
+          className={`${styles.wrapper_stud__top} ${
+            styles.wrapper_stud
+          } stud__top ${active && styles.wrapper_stud__top_active}`}
         >
           <SvgInset svgUrl="/landingV3/svg/stud.svg" />
         </span>
@@ -100,7 +100,8 @@ function LegoV2({
         <span
           className={`${styles.wrapper_stud__bottom} ${styles.wrapper_stud} ${
             active && styles.scale
-          }  ${active && styles.wrapper_stud__active}
+          }  ${active && styles.wrapper_stud__active} 
+          stud__bottom
         `}
         >
           <SvgInset svgUrl="/landingV3/svg/stud.svg" />

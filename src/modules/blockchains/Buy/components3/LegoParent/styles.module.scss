@@ -38,6 +38,16 @@
 
       &_inner {
         margin-left: 12px;
+
+        :global {
+          .stud__top {
+            left: 12px;
+          }
+
+          .stud__bottom {
+            left: 12px;
+          }
+        }
       }
     }
 

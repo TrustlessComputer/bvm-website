@@ -42,7 +42,7 @@ function LegoParent({
     parentLego.style.position = 'relative';
     parentLego.style.zIndex = `${zIndex * 2} `;
   }, [legoRef.current]);
-
+  console.log('zIndex', zIndex);
   return (
     <div
       className={`${styles.wrapper} ${
@@ -72,7 +72,10 @@ function LegoParent({
         <div className={styles.wrapper_stud__vertical__top}>
           <SvgInset svgUrl="/landingV3/svg/stud.svg" />
         </div>{' '}
-        <div className={styles.wrapper_stud__vertical__bottom}>
+        <div
+          className={styles.wrapper_stud__vertical__bottom}
+          style={{ zIndex: zIndex }}
+        >
           <SvgInset svgUrl="/landingV3/svg/stud.svg" />
         </div>
       </div>
