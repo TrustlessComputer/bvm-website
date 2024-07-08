@@ -6,12 +6,19 @@ import { useParams, useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { DATA } from '@/modules/app-store/data';
 import { compareString } from '@utils/string';
-import InstallMode from '@/modules/app-store/detail/mode';
+import InstallMode from 'src/modules/app-store/detail/appPackage';
 import SvgInset from '@components/SvgInset';
+import { openModal } from '@/stores/states/modal/reducer';
+import SettingView from '@/modules/app-store/detail/setting';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { useDispatch } from 'react-redux';
+import { BuyProvider } from '@/modules/blockchains/providers/Buy.context';
 
 const AppDetailModule = () => {
   const params = useParams();
   const router = useRouter();
+  const { loggedIn, login, userInfo } = useWeb3Auth();
+  const dispatch = useDispatch();
 
   const data: IAppInfo = useMemo(() => {
     return DATA.find(d => compareString(d.id, params?.id)) || {} as IAppInfo;
@@ -19,6 +26,30 @@ const AppDetailModule = () => {
 
   const handleBack = () => {
     return router.back();
+  }
+
+  const handleInstall = (appPackage: IAppPackage) => {
+    if (!loggedIn) {
+      login();
+    } else {
+      try {
+        dispatch(openModal({
+          id: 'SETTING_MODAL',
+          className: s.modalContent,
+          modalProps: {
+            size: 'xl',
+          },
+          render: () =>
+            <BuyProvider>
+              <SettingView app={data} appPackage={appPackage}/>
+            </BuyProvider>
+          ,
+        }));
+      } catch (e) {
+
+      } finally {
+      }
+    }
   }
 
   return (
@@ -43,7 +74,7 @@ const AppDetailModule = () => {
             {
               data?.modes.map(m => {
                 return (
-                  <InstallMode data={m}/>
+                  <InstallMode data={m} onInstall={handleInstall}/>
                 )
               })
             }

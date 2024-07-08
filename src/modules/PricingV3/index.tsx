@@ -171,7 +171,7 @@ const PriceModule = () => {
             lineHeight={'52px'}
             fontWeight={400}
           >
-            {`Choose the ZK Rollup solutions you need.`}
+            {`Blockchain as a Service.`}
           </Text>
           <Text
             textAlign={'center'}
@@ -181,7 +181,7 @@ const PriceModule = () => {
             opacity={0.7}
             className={s.fontType2}
           >
-            {`It's a great time to build on Bitcoin.`}
+            {`Powerful solutions to build and scale your blockchain with ease.`}
           </Text>
         </Flex>
 
@@ -221,7 +221,7 @@ const PriceModule = () => {
                   <Th borderRightWidth={'1px'} borderRightColor={'#E7E7E7'}>
                     <MainCell
                       type="Hacker"
-                      description="The easiest way to launch your own ZK Rollup on Bitcoin"
+                      description="The easiest way to launch your own blockchain"
                       priceUSD={`${
                         getPackageDetailFunc(PRICING_PACKGE.Hacker)?.price ||
                         '--'
@@ -243,7 +243,7 @@ const PriceModule = () => {
                   <Th borderRightWidth={'1px'} borderRightColor={'#E7E7E7'}>
                     <MainCell
                       type="Growth"
-                      description="Scale your Bitcoin ZK rollup as you go"
+                      description="Scale your blockchain as you go"
                       priceUSD={`${
                         getPackageDetailFunc(PRICING_PACKGE.Growth)?.price ||
                         '--'
@@ -265,7 +265,7 @@ const PriceModule = () => {
                   <Th borderRightWidth={'1px'} borderRightColor={'#E7E7E7'}>
                     <MainCell
                       type="Secure"
-                      description="Fully secure your Bitcoin ZK rollup with a cryptographic prover"
+                      description="Fully secure your blockchain with a cryptographic prover"
                       priceUSD={`${
                         getPackageDetailFunc(PRICING_PACKGE.Secure)?.price ||
                         '--'

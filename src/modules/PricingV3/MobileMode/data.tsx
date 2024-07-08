@@ -29,7 +29,7 @@ export const HACKER_INFOR: PackageItemType = {
   value: PRICING_PACKGE.Hacker,
   isEnterprise: false,
   ctaBtnTitle: 'Launch now with 1-Click',
-  description: 'The easiest way to launch your own ZK Rollup on Bitcoin',
+  description: 'The easiest way to launch your own blockchain',
   Hardware: {
     Memory: '16 GB RAM',
     CPU: '8 cores',
@@ -61,7 +61,7 @@ export const GROWTH_INFOR: PackageItemType = {
   value: PRICING_PACKGE.Growth,
   isEnterprise: false,
   ctaBtnTitle: 'Customize',
-  description: 'Scale your Bitcoin ZK rollup as you go',
+  description: 'Scale your blockchain as you go',
   Hardware: {
     Memory: '32 GB RAM',
     CPU: '16 cores',
@@ -93,8 +93,7 @@ export const SECURE_INFOR: PackageItemType = {
   value: PRICING_PACKGE.Secure,
   isEnterprise: false,
   ctaBtnTitle: 'Customize',
-  description:
-    'Fully secure your Bitcoin ZK rollup with a cryptographic prover',
+  description: 'Fully secure your blockchain with a cryptographic prover',
   Hardware: {
     Memory: '64 GB RAM',
     CPU: '32 cores',
