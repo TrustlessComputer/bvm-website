@@ -32,7 +32,6 @@ export async function generateMetadata({ params }: TBlogDetailPage) {
 
 const BlogDetailPage = async ({ params }: TBlogDetailPage) => {
   const data = await fetchPostById(params?.slug);
-  const relativePost = await fetchRelatedPostsById(data.id);
 
   return (
     <MainLayout
@@ -42,7 +41,7 @@ const BlogDetailPage = async ({ params }: TBlogDetailPage) => {
       }}
       hideFooter
     >
-      {data && <BLogDetail blogData={data} relativePost={relativePost} />}
+      {data && <BLogDetail blogData={data} />}
     </MainLayout>
   );
 };

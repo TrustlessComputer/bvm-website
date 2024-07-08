@@ -5,16 +5,24 @@ import Socials from '@/modules/blog/detail/Socials';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import dayjs from 'dayjs';
 import Tags from '@/modules/blog/detail/Tags';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@/modules/blog/list/Card';
+import { fetchRelatedPostsById } from '@/services/blog';
 
 export type TBLogDetail = {
   blogData: Blog;
-  relativePost: Blog[]
 }
 
-export default function BLogDetail({ blogData, relativePost }: TBLogDetail) {
-  const { post_content, title, thumbnail, date, author,  tags, view_count } = blogData;
+export default function BLogDetail({ blogData }: TBLogDetail) {
+  const { post_content, title, thumbnail, id , date, author,  tags, view_count } = blogData;
+  const [relate, setRelatePost] =useState<Blog[]>([])
+
+  useEffect(() => {
+    (async () => {
+      const relativePost = await fetchRelatedPostsById(id);
+      setRelatePost(relativePost)
+    })()
+  }, []);
 
   return (
     <div className={`${s.logDetail}`}>
@@ -51,7 +59,7 @@ export default function BLogDetail({ blogData, relativePost }: TBLogDetail) {
         <div className={'containerV3'}>
           <p className={s.relative_heading}>Relative Post</p>
           <div className={`${s.inner} `}>
-            {relativePost?.map((item) => {
+            {relate?.map((item) => {
               return (
                 <Card {...item} key={item.slug} isFirst={false} />
               );
@@ -59,7 +67,6 @@ export default function BLogDetail({ blogData, relativePost }: TBLogDetail) {
           </div>
         </div>
       </div>
-
     </div>
   );
 }

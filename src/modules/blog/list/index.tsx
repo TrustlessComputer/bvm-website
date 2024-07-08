@@ -19,7 +19,6 @@ export default function ListBlog({ listBlog }: TListBlog) {
           return (
             <div className={s.card}>
               <Card {...item} key={item.slug} isFirst={index === 0} />
-
             </div>
           );
         })}

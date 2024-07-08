@@ -1,4 +1,3 @@
-import { ITag } from '@types/blog';
 import Link from 'next/link';
 import s from './styles.module.scss';
 
@@ -13,7 +12,7 @@ export default function Tags({ tags }: IPprops) {
       {
         tags?.map(tag => (
           <li className={s.tag} key={tag.slug}>
-            <Link href={`tag/${tag.slug}`}>
+            <Link href={`/blog?tag=${tag.slug}`}>
               {tag.name}
             </Link>
           </li>
