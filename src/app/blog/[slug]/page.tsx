@@ -7,7 +7,7 @@ import { fetchPostById, fetchRelatedPostsById } from '@/services/blog';
 
 
 type TBlogDetailPage= {
-  params: { slug: number |string }
+  params: { slug: string }
 }
 
 // export async function generateStaticParams() {

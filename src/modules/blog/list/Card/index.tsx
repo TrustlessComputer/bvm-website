@@ -12,7 +12,6 @@ export default function Card({
                                view_count,
                                className,
                                author,
-                               id,
                                isFirst,
                                date,
                              }: Blog & {
@@ -21,7 +20,7 @@ export default function Card({
 }) {
 
   return (
-    <Link href={`/blog/${id}`}
+    <Link href={`/blog/${slug}`}
           className={`${s.wrapper} ${className} ${isFirst && s.isFirst}`}
     >
       <div className={s.inner}>
