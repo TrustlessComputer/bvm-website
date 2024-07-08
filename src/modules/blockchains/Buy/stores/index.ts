@@ -88,11 +88,17 @@ export const useFormOrderStore = create<UseFormOrderStore>((set) => ({
     },
     nestedData: {
       dragged: false,
-      value: {},
+      value: {
+        nestedKey1: null,
+        nestedKey2: null,
+      },
     },
     nestedData2: {
       dragged: false,
-      value: {},
+      value: {
+        nestedKey1: null,
+        nestedKey2: null,
+      },
     },
   },
 

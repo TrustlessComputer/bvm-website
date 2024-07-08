@@ -38,7 +38,6 @@ function LegoV2({
     if (!parentLego) return;
 
     if (parentOfNested) {
-      console.log('[okokoko] okokoko ');
       parentLego = parentLego.parentElement as HTMLDivElement;
     }
 
@@ -51,12 +50,11 @@ function LegoV2({
     <div
       className={`${styles.wrapper} ${
         styles[`wrapper__${background}`]
-      } ${className} 
+      } ${className}
         `}
       ref={legoRef}
       style={{
         zIndex: zIndex,
-        // cursor: active ? 'not-allowed' : 'grabbing'
       }}
       {...props}
     >
@@ -100,7 +98,7 @@ function LegoV2({
         <span
           className={`${styles.wrapper_stud__bottom} ${styles.wrapper_stud} ${
             active && styles.scale
-          }  ${active && styles.wrapper_stud__active} 
+          }  ${active && styles.wrapper_stud__active}
           stud__bottom
         `}
         >

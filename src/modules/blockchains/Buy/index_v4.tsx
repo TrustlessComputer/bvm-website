@@ -30,7 +30,7 @@ type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 const BuyPage = () => {
   const { field, setFormField } = useFormOrderStore((state) => state);
 
-  console.log('🚀 ~~ file: index_v4.tsx:32 ~~ BuyPage ~~ field ::', field);
+  console.log('🚀 -> file: index_v4.tsx:33 -> BuyPage -> field ::', field);
 
   const boxOptionMapping: Record<
     Override,
@@ -41,6 +41,22 @@ const BuyPage = () => {
       content?: (isLeft?: boolean, children?: React.ReactNode) => JSX.Element;
     }
   > = {
+    // [ORDER_FIELD.CHAIN_NAME]: {
+    //   ...OrderFormOptions[ORDER_FIELD.CHAIN_NAME],
+    //   id: ORDER_FIELD.CHAIN_NAME,
+    //   label: '1. Name',
+    //   content: (isLeft = false) => (
+    //     <LegoV2
+    //       background={'red'}
+    //       title="1. Name"
+    //       label="Name"
+    //       zIndex={23}
+    //       first={true}
+    //     >
+    //       <ComputerNameInput />
+    //     </LegoV2>
+    //   ),
+    // },
     // [ORDER_FIELD.NETWORK]: {
     //   ...OrderFormOptions[ORDER_FIELD.NETWORK],
     //   id: ORDER_FIELD.NETWORK,
@@ -90,14 +106,12 @@ const BuyPage = () => {
           label: 'Value 1',
           keyInField: 'nestedKey1',
           value: 1,
-          disabled: false,
           id: 1,
         },
         {
           label: 'Value 2',
           keyInField: 'nestedKey2',
           value: 2,
-          disabled: false,
           id: 2,
         },
       ],
@@ -122,14 +136,12 @@ const BuyPage = () => {
           label: '2 - Value 1',
           value: 1,
           keyInField: 'nestedKey1',
-          disabled: false,
           id: 1,
         },
         {
           label: '2 - Value 2',
           value: 2,
           keyInField: 'nestedKey2',
-          disabled: false,
           id: 2,
         },
       ],
@@ -148,22 +160,6 @@ const BuyPage = () => {
         </LegoV2>
       ),
     },
-    // [ORDER_FIELD.CHAIN_NAME]: {
-    //   ...OrderFormOptions[ORDER_FIELD.CHAIN_NAME],
-    //   id: ORDER_FIELD.CHAIN_NAME,
-    //   label: '1. Name',
-    //   content: (isLeft = false) => (
-    //     <LegoV2
-    //       background={'red'}
-    //       title="1. Name"
-    //       label="Name"
-    //       zIndex={23}
-    //       first={true}
-    //     >
-    //       <ComputerNameInput />
-    //     </LegoV2>
-    //   ),
-    // },
   };
 
   function handleDragEnd(event: any) {
@@ -177,6 +173,8 @@ const BuyPage = () => {
 
     // Normal case
     if (typeof field[activeNestedKey as Override]?.value !== 'object') {
+      console.log('[BuyPageV4] normal case -> active, over', active, over);
+
       if (over && overIsFinalDroppable) {
         setFormField(activeKey, active.data.current.value, true);
       } else {
@@ -190,6 +188,12 @@ const BuyPage = () => {
 
     // Case when the parent of the nested lego is dragged to the final droppable
     if (activeIsParentOfNestedLego) {
+      console.log(
+        '[BuyPageV4] parent of nested lego is dragged to the final droppable -> active, over',
+        active,
+        over,
+      );
+
       if (over && overIsFinalDroppable) {
         setFormField(
           activeNestedKey,
@@ -209,21 +213,34 @@ const BuyPage = () => {
 
     // Case when the nested lego is dragged to the parent
     if (overIsParentOfNestedLego) {
+      console.log(
+        '[BuyPageV4] nested lego is dragged to the parent -> active, over',
+        active,
+        over,
+      );
+
       if (
         over &&
         overIsParentOfNestedLego &&
         overNestedKey === activeNestedKey
       ) {
+        console.log('[BuyPageV4] same key');
+
         setFormField(activeNestedKey, {
           ...field[activeNestedKey as Override].value,
           [activeKeyInNestedKey]: active.data.current.value,
         });
-      } else {
-        setFormField(activeNestedKey, {
-          ...field[activeNestedKey as Override].value,
-          [activeKeyInNestedKey]: null,
-        });
       }
+    } else {
+      console.log(
+        '[BuyPageV4] case the nested lego is dragged back to the left',
+        active.id,
+      );
+
+      setFormField(activeNestedKey, {
+        ...field[activeNestedKey as Override].value,
+        [activeKeyInNestedKey]: null,
+      });
     }
   }
 
@@ -263,7 +280,13 @@ const BuyPage = () => {
                         )
                           return null;
 
-                        const id = key + '-' + option.value.toString();
+                        const id =
+                          'child-' +
+                          key +
+                          '-' +
+                          option.keyInField +
+                          '-' +
+                          option.value.toString();
 
                         return (
                           <Draggable id={id} key={id} value={option.value}>
@@ -360,6 +383,7 @@ const BuyPage = () => {
               </div>
             </div>
 
+            {/* ------------- RIGHT ------------- */}
             <div className={s.right}>
               <Tier />
               <div className={s.right_box}>
@@ -397,16 +421,27 @@ const BuyPage = () => {
                         const _children = options?.map((option, index) => {
                           if (!option.keyInField) return null;
 
+                          console.log(
+                            '🚀 -> file: index_v4.tsx:423 -> const_children=options?.map -> option.value.toString() ::',
+                            option.value.toString(),
+                          );
+
                           if (
                             // @ts-ignore
                             field[key as Override].value[
                               option.keyInField
-                            ].toString() !== option.value.toString()
+                            ]?.toString() !== option.value.toString()
                           )
                             return null;
 
                           const id =
-                            key + '-' + option.value.toString() + '-dropped';
+                            'child-' +
+                            key +
+                            '-' +
+                            option.keyInField +
+                            '-' +
+                            option.value.toString() +
+                            '-dropped';
 
                           return (
                             <Draggable id={id} key={id} value={option.value}>
@@ -432,7 +467,6 @@ const BuyPage = () => {
                                   2 * 10
                                 }
                               >
-                                {/* {content(false, _children)} */}
                                 {_children}
                               </LegoParent>
                             </DroppableV2>
