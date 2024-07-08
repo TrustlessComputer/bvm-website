@@ -43,7 +43,7 @@ export async function fetchAllPosts(params: {
   orderBy?: string,
   tag?: string
   author?: string
-}): Promise<{ data: Blog[], total: number }> {
+}): Promise<Posts> {
 
   const { per_page = 10, page = 1, order = 'desc', orderBy = 'date', tag, author } = params;
 
@@ -66,13 +66,14 @@ export async function fetchAllPosts(params: {
   const url = `${BASE_URL}/posts?${queryParams.toString()}`;
   try {
 
-    const response = await fetch(url, { method: 'GET', cache: 'force-cache' });
+    const response = await fetch(url, { method: 'GET', cache: 'no-cache' });
+    console.log('response', response);
     if (!response.ok) {
       throw new Error('Failed to fetch posts');
     }
     return await response.json();
   } catch (error) {
     console.error('Error fetching posts:', error);
-    return { data: [], total: 0 };
+    return { data: [], total: 0, page, per_page };
   }
 }
