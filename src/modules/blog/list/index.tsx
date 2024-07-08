@@ -11,7 +11,6 @@ type TListBlog = Posts & {
 }
 
 export default function ListBlog({ data, total, per_page, page, className, isHome }: TListBlog) {
-  // const n =  Math.ceil(total/per_page);
 
   return (
     <div className={`${s.wrapper} containerV3`}>
@@ -47,13 +46,13 @@ export default function ListBlog({ data, total, per_page, page, className, isHom
           })}
         </div>
       </div>
-      {
-        page > 1 && (
-          <div className={s.btn}>
-            Load more
-          </div>
-        )
-      }
+      {/*{*/}
+      {/*  page > 1 && (*/}
+      {/*    <div className={s.btn}>*/}
+      {/*      Load more*/}
+      {/*    </div>*/}
+      {/*  )*/}
+      {/*}*/}
 
     </div>
   );

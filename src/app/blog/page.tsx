@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const BVMPage = async ({ searchParams }: { searchParams: Params }) => {
   const posts = await fetchAllPosts(searchParams);
-  console.log('posts', posts);
+
   return (
     <MainLayout
       headerProps={{
