@@ -40,6 +40,16 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
 
   const myOrders = useAppSelector(myOrderListFilteredByNetwork);
 
+  useEffect(() => {
+    if(myOrders?.length === 1) {
+      setSelectedOrder(myOrders[0]);
+    }
+  }, [myOrders]);
+
+  const isDisabledSelectChain = useMemo(() => {
+    return !(myOrders.length > 1);
+  }, [myOrders]);
+
   const isInstalled = useMemo(() => {
     return false;
   }, [JSON.stringify(selectedOrder)]);
@@ -176,7 +186,7 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
             <InputWrapper label="Install for chain" className={s.inputWrapper}>
               <Box className={s.menuChainWrapper}>
                 <Menu>
-                  <MenuButton className={s.btnSelectToken}>
+                  <MenuButton className={s.btnSelectToken} disabled={isDisabledSelectChain}>
                     <ChainItem data={selectedOrder} isButton/>
                     <SvgInset svgUrl="/icons/ic-arrow-down.svg" />
                   </MenuButton>
