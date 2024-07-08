@@ -1,0 +1,140 @@
+.container {
+  width: 100%;
+  //font-family: var(--font-dmsans);
+  margin: 30px 0;
+  .fontJetBrains {
+    font-family: var(--font-JetBrainsMono) !important;
+  }
+
+  .fontSFProDisplay {
+    font-family: var(--font-SFProDisplay) !important;
+  }
+}
+
+.wrapper {
+  width: 100%;
+}
+
+.inner {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 16px;
+}
+
+.left {
+  width: 50%;
+  .heading {
+    padding: 7px 24px;
+  }
+}
+
+.heading {
+  font-family: var(--font-JetBrainsMono);
+
+  font-size: 20px;
+  font-weight: 500;
+  line-height: calc(30 / 20);
+}
+
+.right {
+  width: 50%;
+
+  &_top {
+    display: flex;
+    align-items: center;
+    //justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+    &_box {
+      border-radius: 24px;
+      box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
+      background-color: #fff;
+      padding: 7px 24px;
+      display: flex;
+      width: 100%;
+      max-width: 580px;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        font-family: var(--font-JetBrainsMono);
+
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 30 / 20;
+        span {
+          color: rgba(0, 170, 108, 1);
+        }
+      }
+      &_btn {
+        color: rgba(65, 133, 236, 1);
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: var(--font-JetBrainsMono);
+
+        line-height: calc(28 / 18);
+        &:hover {
+          color: rgb(26, 109, 232);
+        }
+      }
+    }
+  }
+}
+
+.left_box {
+  margin-top: 16px;
+}
+
+.right_box {
+  margin-top: 16px;
+  // height: 830px;
+  height: 70vh;
+
+  background-color: #fff;
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input {
+  background-color: #fff;
+  color: #0e0e0e;
+  width: 100%;
+  padding: 0 12px;
+  border-radius: 17px;
+  font-family: var(--font-JetBrainsMono);
+  font-size: 18px;
+  &::placeholder {
+    color: #0e0e0e;
+  }
+}
+
+.notiWraper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .link {
+    text-decoration: underline;
+  }
+}
+
+.finalResult {
+  flex: 0.9;
+  width: max-content;
+  transform: scale(1.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.disabled {
+  opacity: 0.7;
+  cursor: not-allowed !important;
+}
