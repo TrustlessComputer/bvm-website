@@ -42,5 +42,4 @@ export type TBlogDetail = {
   updateTime: string,
 
 
-
 };
