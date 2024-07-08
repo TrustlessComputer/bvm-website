@@ -17,6 +17,7 @@ import SubmitResultFormModal from '@/modules/blockchains/Buy/SubmitResultFormMod
 import SendFormModal from '@/modules/blockchains/components/SendFormModal';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import Form from '@/modules/app-store/detail/setting/form';
 
 const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage}) => {
   const router = useRouter();
@@ -28,7 +29,6 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
   );
 
   const [selectedOrder, setSelectedOrder] = useState<OrderItem | undefined>(undefined);
-  const [submitting, setSubmitting] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<IAppPackage | undefined>(undefined);
 
   useEffect(() => {
@@ -73,16 +73,6 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
   console.log('appapp', app);
   console.log('appPackage', appPackage);
   console.log('myOrders', myOrders);
-
-  const requestBuyApp = () => {
-    try {
-      setSubmitting(true);
-    } catch (e) {
-
-    } finally {
-      setSubmitting(false);
-    }
-  }
 
   const renderActionNote = () => {
     if (myOrders?.length === 0) {
@@ -139,21 +129,37 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
       )
     }
 
-    return (
-      <Button
-        className={s.btnPrimary}
-        isDisabled={!selectedPackage || !selectedOrder || submitting}
-        isLoading={submitting}
-        onClick={() => {
-          if(Number(accountInforL2Service?.balanceFormatted) < Number(appPackage?.price_bvm)) {
+    if(Number(accountInforL2Service?.balanceFormatted) < Number(appPackage?.price_bvm)) {
+      return (
+        <Button
+          className={s.btnPrimary}
+          isDisabled={!selectedPackage || !selectedOrder}
+          onClick={() => {
             setShowTopupModal(true);
-          } else {
-            requestBuyApp();
-          }
-        }
-      }
-      >Install</Button>
+          }}
+        >Install</Button>
+      )
+    }
+
+    return (
+      <Form selectedPackage={selectedPackage} selectedOrder={selectedOrder}/>
     )
+
+    // return (
+    //   <Button
+    //     className={s.btnPrimary}
+    //     isDisabled={!selectedPackage || !selectedOrder || submitting}
+    //     isLoading={submitting}
+    //     onClick={() => {
+    //       if(Number(accountInforL2Service?.balanceFormatted) < Number(appPackage?.price_bvm)) {
+    //         setShowTopupModal(true);
+    //       } else {
+    //         requestBuyApp();
+    //       }
+    //     }
+    //   }
+    //   >Install</Button>
+    // )
   }
 
   return (
