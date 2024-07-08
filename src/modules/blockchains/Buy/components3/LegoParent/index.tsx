@@ -89,15 +89,6 @@ function LegoParent({
           <SvgInset svgUrl="/landingV3/svg/stud.svg" />
         </div>
       </div>
-
-      <span
-        className={`${styles.wrapper_stud__bottom} ${styles.wrapper_stud} ${
-          active && styles.scale
-        }  ${active && styles.wrapper_stud__active}
-        `}
-      >
-        <SvgInset svgUrl="/landingV3/svg/stud.svg" />
-      </span>
     </div>
   );
 }
