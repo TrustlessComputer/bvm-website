@@ -78,12 +78,6 @@ const BoxOptionV3 = ({
         </div>
 
         <div className={s.options}>{children}</div>
-
-        {!last && (
-          <div className={s.boxItem_stud}>
-            <SvgInset svgUrl="/landingV3/svg/stud_main.svg" />
-          </div>
-        )}
       </DroppableV2>
 
       {description?.title && (

@@ -2,7 +2,7 @@
 
 import MainLayout from '@/layouts/MainLayout';
 
-import Page from '@/modules/blockchains/customize/index_v3';
+import Page from '@/modules/blockchains/customize/index_v4';
 
 const CustomizePage = () => {
   return (

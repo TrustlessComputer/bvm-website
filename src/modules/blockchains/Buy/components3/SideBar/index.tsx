@@ -1,4 +1,6 @@
 import React from 'react';
+import s from './styles.module.scss';
+import Image from 'next/image';
 
 export const DATA_SIDEBAR = [
   {
@@ -86,6 +88,28 @@ export const DATA_SIDEBAR = [
   },
 ];
 
-export default function SideBar({ data }: { data: any }) {
-  return <div>SideBar</div>;
+export default function SideBar() {
+  return (
+    <div className={s.sidebar}>
+      <div className={s.inner}>
+        {DATA_SIDEBAR.map((item) => {
+          return (
+            <div className={s.item} key={item.title}>
+              <div className={s.item_inner}>
+                <Image
+                  src={item.icon}
+                  alt={item.title}
+                  width={24}
+                  height={24}
+                />
+                <div className={s.title}>
+                  <h4>{item.title}</h4>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }

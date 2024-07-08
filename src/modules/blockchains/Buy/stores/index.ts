@@ -8,6 +8,8 @@ export const ORDER_FIELD = {
   DATA_AVAILABILITY_CHAIN: 'dataAvaibilityChain',
   GAS_LIMIT: 'gasLimit',
   WITHDRAW_PERIOD: 'withdrawPeriod',
+
+
 } as const;
 
 export type FormOrder = Pick<

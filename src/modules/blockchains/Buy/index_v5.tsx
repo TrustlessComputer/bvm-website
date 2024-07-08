@@ -18,6 +18,7 @@ import { getChildId, getParentId, MouseSensor } from './utils';
 import BoxOptionV3 from './components3/BoxOptionV3';
 import LegoParent from './components3/LegoParent';
 import s from './styles_v5.module.scss';
+import SideBar from './components3/SideBar';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -227,131 +228,142 @@ const BuyPage = () => {
             <div className={s.left}>
               <p className={s.heading}>Customize your Blockchain</p>
               <div className={s.left_box}>
-                {Object.keys(boxOptionMapping).map((key, indexWrap) => {
-                  if (key === ORDER_FIELD.CHAIN_NAME) return null;
+                <div className={s.left_box_inner}>
+                  <SideBar />
+                  <div className={s.left_box_content}>
+                    {Object.keys(boxOptionMapping).map((key, indexWrap) => {
+                      if (key === ORDER_FIELD.CHAIN_NAME) return null;
 
-                  let _content = null;
-                  const parentKey = getParentId(key);
-                  const fieldValue = field[key as Override].value;
-                  const isDragged = field[key as Override].dragged;
-                  const isNestedLego = typeof fieldValue === 'object';
+                      let _content = null;
+                      const parentKey = getParentId(key);
+                      const fieldValue = field[key as Override].value;
+                      const isDragged = field[key as Override].dragged;
+                      const isNestedLego = typeof fieldValue === 'object';
 
-                  const { label, content, description, options, background } =
-                    boxOptionMapping[key as Override];
+                      const {
+                        label,
+                        content,
+                        description,
+                        options,
+                        background,
+                      } = boxOptionMapping[key as Override];
 
-                  if (isNestedLego) {
-                    const _children = options?.map((option, index) => {
-                      if (!option.keyInField) return null;
-
-                      if (
-                        // @ts-ignore
-                        field[key as Override].value[option.keyInField] !==
-                        option.value
-                      )
-                        return null;
-
-                      const id = getChildId(
-                        key,
-                        option.keyInField,
-                        option.value,
-                      );
-
-                      return (
-                        <Draggable id={id} key={id} value={option.value}>
-                          <LegoV2
-                            background={background || 'brown'} // TODO
-                            label={option.label}
-                            icon={option.icon}
-                            zIndex={-index + 10}
-                          />
-                        </Draggable>
-                      );
-                    });
-
-                    _content = (
-                      <Draggable id={parentKey} key={parentKey}>
-                        <DroppableV2 id={parentKey}>
-                          <LegoParent
-                            zIndex={(options?.length as number) + 2 * 10}
-                            background="green" // TODO
-                            label={label}
-                          >
-                            {_children}
-                          </LegoParent>
-                        </DroppableV2>
-                      </Draggable>
-                    );
-                  } else if (content) {
-                    _content = (
-                      <Draggable value={fieldValue} id={key} key={key}>
-                        {content(true)}
-                      </Draggable>
-                    );
-                  }
-
-                  return (
-                    <BoxOptionV3
-                      key={key}
-                      label={label}
-                      id={key}
-                      active={isDragged}
-                      description={description}
-                      last={
-                        indexWrap === Object.keys(boxOptionMapping).length - 1
-                      }
-                    >
-                      {!isDragged && _content}
-
-                      {options &&
-                        options.map((option) => {
+                      if (isNestedLego) {
+                        const _children = options?.map((option, index) => {
                           if (!option.keyInField) return null;
+
                           if (
-                            isDragged &&
-                            field[key as Override].value.toString() ===
-                              option.value.toString()
+                            // @ts-ignore
+                            field[key as Override].value[option.keyInField] !==
+                            option.value
                           )
                             return null;
 
-                          let id = key + '-' + option.value.toString();
-                          if (isNestedLego) {
-                            if (
-                              field[key as Override].value[
-                                option.keyInField
-                              ] === option.value
-                            )
-                              return null;
-
-                            id = getChildId(
-                              key,
-                              option.keyInField,
-                              option.value,
-                            );
-                          }
+                          const id = getChildId(
+                            key,
+                            option.keyInField,
+                            option.value,
+                          );
 
                           return (
-                            <Draggable
-                              id={id}
-                              key={id}
-                              value={option.value}
-                              disabled={option.disabled}
-                            >
+                            <Draggable id={id} key={id} value={option.value}>
                               <LegoV2
-                                key={option.id}
-                                background={background}
+                                background={background || 'brown'} // TODO
                                 label={option.label}
                                 icon={option.icon}
-                                zIndex={
-                                  (Object.keys(boxOptionMapping).length - 1) * 2
-                                }
-                                active={field[ORDER_FIELD.NETWORK].dragged}
-                                className={option.disabled ? s.disabled : ''}
+                                zIndex={-index + 10}
                               />
                             </Draggable>
                           );
-                        })}
-                    </BoxOptionV3>
-                  );
-                })}
+                        });
+
+                        _content = (
+                          <Draggable id={parentKey} key={parentKey}>
+                            <DroppableV2 id={parentKey}>
+                              <LegoParent
+                                zIndex={(options?.length as number) + 2 * 10}
+                                background="green" // TODO
+                                label={label}
+                              >
+                                {_children}
+                              </LegoParent>
+                            </DroppableV2>
+                          </Draggable>
+                        );
+                      } else if (content) {
+                        _content = (
+                          <Draggable value={fieldValue} id={key} key={key}>
+                            {content(true)}
+                          </Draggable>
+                        );
+                      }
+
+                      return (
+                        <BoxOptionV3
+                          key={key}
+                          label={label}
+                          id={key}
+                          active={isDragged}
+                          description={description}
+                        >
+                          {!isDragged && _content}
+
+                          {options &&
+                            options.map((option) => {
+                              if (!option.keyInField) return null;
+                              if (
+                                isDragged &&
+                                field[key as Override].value.toString() ===
+                                  option.value.toString()
+                              )
+                                return null;
+
+                              let id = key + '-' + option.value.toString();
+                              if (isNestedLego) {
+                                if (
+                                  field[key as Override].value[
+                                    option.keyInField
+                                  ] === option.value
+                                )
+                                  return null;
+
+                                id = getChildId(
+                                  key,
+                                  option.keyInField,
+                                  option.value,
+                                );
+                              }
+
+                              return (
+                                <Draggable
+                                  id={id}
+                                  key={id}
+                                  value={option.value}
+                                  disabled={option.disabled}
+                                >
+                                  <LegoV2
+                                    key={option.id}
+                                    background={background}
+                                    label={option.label}
+                                    icon={option.icon}
+                                    zIndex={
+                                      (Object.keys(boxOptionMapping).length -
+                                        1) *
+                                      2
+                                    }
+                                    active={field[ORDER_FIELD.NETWORK].dragged}
+                                    className={
+                                      option.disabled ? s.disabled : ''
+                                    }
+                                  />
+                                </Draggable>
+                              );
+                            })}
+                        </BoxOptionV3>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
 
