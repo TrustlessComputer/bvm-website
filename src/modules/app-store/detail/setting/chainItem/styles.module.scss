@@ -1,0 +1,53 @@
+.container {
+
+  &.item {
+    width: 100% !important;
+    background: #EFEFEF !important;
+    padding: 16px 12px;
+  }
+
+  .titleSelect {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    color: #1D1D1D;
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: 0.01em;
+    color: #000000;
+  }
+
+  .chain_package {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    color: #1D1D1D;
+  }
+
+  .price {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    color: #1D1D1D;
+  }
+
+  .package {
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 140%;
+    text-align: center;
+    color: #898989;
+
+    &.needTopup {
+      color: #FA4E0E;
+    }
+  }
+}

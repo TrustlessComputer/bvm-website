@@ -37,7 +37,7 @@ export default function HeroV2() {
                 router.push('/pricing');
               }}
             >
-              Deploy now
+              Get started
             </div>
             <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
               window.open('https://docs.bvm.network/bvm');
