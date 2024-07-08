@@ -14,7 +14,7 @@ interface RetroCaseStudyProps extends PropsWithChildren {
   btn: {
     title: string,
     link: string,
-    target?: '_blank' | ''
+    target?: '_blank' | '_self'
   }
 }
 

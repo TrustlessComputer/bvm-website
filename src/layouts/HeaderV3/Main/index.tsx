@@ -1,17 +1,15 @@
 import Link from 'next/link';
 import s from './style.module.scss';
-import {IconButton, useDisclosure} from '@chakra-ui/react';
+import { IconButton, useDisclosure } from '@chakra-ui/react';
 import useWindowSize from '@/hooks/useWindowSize';
 import DrawerMobileMenu from '@/layouts/HeaderV3/components/DrawerMenu';
-import {NAV_ITEMS, NAV_ITEMS_LEFT, NAV_ITEMS_RIGHT} from '../menuConfig';
-import {usePathname, useRouter} from 'next/navigation';
+import { NAV_ITEMS_LEFT, NAV_ITEMS_RIGHT } from '../menuConfig';
+import { usePathname, useRouter } from 'next/navigation';
 import IcMenuMobile from '../components/IcMenuMobile';
 import DropDown from '../components/Dropdown';
 import ButtonLoginTwitter from '../components/ButtonLoginTwitter';
 import GroupDownItem from '@layouts/HeaderV3/components/GroupDownItem';
-import {ReactElement} from 'react';
-import useHeaderMobile from '@layouts/HeaderV3/useHeaderMobile';
-import Image from 'next/image';
+import { ReactElement } from 'react';
 import IconLogo from '../components/IcLogo';
 
 export type TMainHeader = {
@@ -25,15 +23,15 @@ const Main = ({
                 colorLogo = 'black',
                 backgroundColor = 'white',
               }: TMainHeader): ReactElement => {
-  const {isOpen, onToggle} = useDisclosure();
-  const {isDesktop} = useWindowSize();
+  const { isOpen, onToggle } = useDisclosure();
+  const { isDesktop } = useWindowSize();
   const pathname = usePathname();
   const router = useRouter();
 
   return (
     <div
       className={`${s.wrapper} `}
-      style={{backgroundColor: backgroundColor}}
+      style={{ backgroundColor: backgroundColor }}
     >
       <div className={`${s.inner} containerV3`}>
         {isDesktop && (
@@ -70,7 +68,7 @@ const Main = ({
                     className={`${s.itemLabel} ${isActiveDark && s.activeDark} 
                     ${isActiveLight && s.activeLight}
                     `}
-                    style={{color: color}}
+                    style={{ color: color }}
                   >
                     {item.label}
                   </p>
@@ -79,21 +77,11 @@ const Main = ({
             })}
           </div>
         )}
-
         <div
           className={`${s.logo} ${colorLogo === 'black' && s.logo_black}`}
           onClick={() => router.push('/')}
         >
-          {/* <h6 className={s.logo_text} style={{ color: color }}>
-            Bitcoin Virtual Machine
-          </h6> */}
-          {/* <Image
-            src={'/landingV3/svg/logo_text.svg'}
-            width={27}
-            height={36}
-            alt="logo" 
-          /> */}
-          <IconLogo/>
+          <IconLogo />
         </div>
         {isDesktop ? (
           <div className={s.menu}>
@@ -101,7 +89,7 @@ const Main = ({
               const isActive = pathname === item.href;
               const isActiveDark = isActive && color === 'white';
               const isActiveLight = isActive && color === 'black';
-              const {MenuItemEl} = item;
+              const { MenuItemEl } = item;
 
               return item.subMenu ? (
                 <DropDown
@@ -120,7 +108,7 @@ const Main = ({
                 >
                   {item.GroupDropDown()}
                 </GroupDownItem>
-              ) : MenuItemEl ? <MenuItemEl color={color}/> : (
+              ) : MenuItemEl ? <MenuItemEl color={color} /> : (
                 <Link
                   key={item.label}
                   href={item.href ?? '#'}
@@ -131,21 +119,21 @@ const Main = ({
                     className={`${s.itemLabel} ${isActiveDark && s.activeDark} 
                     ${isActiveLight && s.activeLight}
                     `}
-                    style={{color: color}}
+                    style={{ color: color }}
                   >
                     {item.label}
                   </p>
                 </Link>
               );
             })}
-            <ButtonLoginTwitter color={color}/>
+            <ButtonLoginTwitter color={color} />
           </div>
         ) : (
           <>
             <IconButton
               onClick={onToggle}
               height={'24px'}
-              icon={<IcMenuMobile/>}
+              icon={<IcMenuMobile />}
               className={`${s.icon} ${
                 colorLogo === 'black' ? s.icon_black : s.icon_white
               }`}
@@ -155,7 +143,7 @@ const Main = ({
                 bgColor: 'transparent',
               }}
             />
-            <DrawerMobileMenu isOpen={isOpen} onToggle={onToggle}/>
+            <DrawerMobileMenu isOpen={isOpen} onToggle={onToggle} />
           </>
         )}
       </div>

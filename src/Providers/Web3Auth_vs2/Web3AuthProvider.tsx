@@ -20,7 +20,10 @@ import { useAppDispatch } from '@/stores/hooks';
 import { setL2ServiceLogout } from '@/stores/states/l2services/reducer';
 import { useLocalStorage } from 'usehooks-ts';
 
-export const Web3AuthContext = createContext<IWeb3AuthContext>({});
+export const Web3AuthContext = createContext<IWeb3AuthContext>({
+  login: async () => {},
+  logout: async () => {},
+});
 
 export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
   children,
@@ -99,6 +102,10 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
       console.log('[Web3AuthProvider][login]  error -- ', error);
       throw error;
     }
+  };
+
+  const login = async () => {
+    setShowLoginModalCustomize(true);
   };
 
   const logout = async () => {
@@ -204,26 +211,24 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
       init,
       loginTwitter,
       logout,
+      login,
       getWeb3AuthUserInfor,
       loggedIn,
       userInfo,
       wallet,
       web3AuthNoModal,
-      showLoginModalCustomize,
-      setShowLoginModalCustomize,
       l2ServiceAccessToken,
     }),
     [
       init,
       loginTwitter,
       logout,
+      login,
       getWeb3AuthUserInfor,
       web3AuthNoModal,
       userInfo,
       loggedIn,
       wallet,
-      showLoginModalCustomize,
-      setShowLoginModalCustomize,
       l2ServiceAccessToken,
     ],
   );

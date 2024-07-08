@@ -36,7 +36,7 @@ const SubmitFormModal = (props: IProps) => {
 
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
 
-  const { loggedIn, setShowLoginModalCustomize } = useWeb3Auth();
+  const { loggedIn, login } = useWeb3Auth();
 
   // const [countClick, setCountClick] = useState(0);
 
@@ -73,13 +73,7 @@ const SubmitFormModal = (props: IProps) => {
       title,
       exec,
     };
-  }, [
-    accountInforL2Service,
-    onSuccess,
-    isMainnet,
-    loggedIn,
-    setShowLoginModalCustomize,
-  ]);
+  }, [accountInforL2Service, onSuccess, isMainnet, loggedIn, login]);
 
   const renderRowInfor = (label = '', content = '') => {
     return (

@@ -23,23 +23,24 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     title: 'A fully integrated suite of blockchain products',
     subTitle: 'MODULAR SOLUTIONS',
     children: <div>
-      <p>Reduce costs, grow users, and run your app more efficiently on a fully integrated platform. You don't need to
-        set up a data availability layer, write rollup code, or operate a node. BVM handles everything.
-      </p>
+      <p> Reduce costs, grow users, and run your app more efficiently on a fully integrated platform. You don't need to
+        set up compute, storage, and hardware node. BVM handles everything.</p>
       <p> To make it all happen, we partner with some of the best crypto projects in the world.</p>
     </div>,
     image: '/bvm/home-top-thumbnail.jpg',
     button: {
       link: '/pricing',
-      title: 'Customize your ZK rollup'
-    }
+      title: 'Customize & launch your blockchain',
+    },
   },
   {
-    title: 'It\'s so easy to migrate from Ethereum to Bitcoin',
-    subTitle: 'BUILD ON BITCOIN',
+    title: 'Learn blockchain. Dream blockchain. Developer blockchain.',
+    subTitle: 'BUILD DECENTRALIZED APPS',
     children: <div>
-      <p>BVM is EVM equivalent, so you can write Solidity smart contracts and build dapps on Bitcoin without learning a new toolkit. All your code, tools, and infrastructure work out of the box.
+
+      <p>Decentralized applications are unlike anything before them. They run exactly as programmed without any possibility of downtime, fraud, or interference — entirely trustless. They are written in a new programming language called Solidity.
       </p>
+
     </div>,
     image: '/bvm/home-section-2.jpg',
     button: {
@@ -52,34 +53,37 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
   {
     title: '$99/mo for a fully managed blockchain',
     subTitle: 'PRICING',
+
     children: <div>
       <p>Before BVM, you need an army of PhDs, cryptographers, and distributed system engineers to build and scale a blockchain.</p>
-      <p>Today, you can launch a ZK rollup blockchain on Bitcoin with just a few clicks for $99 monthly.</p>
+      <p>Today, you can launch a blockchain backed by Bitcoin’s security with just a few clicks for $99 monthly.</p>
     </div>,
     image: '/bvm/bvm-home-pricing.png',
     button: {
       link: '/pricing',
-      title: 'View pricing'
-    }
+      title: 'View pricing',
+    },
   },
   {
     title: 'Built by developers, for developers',
     subTitle: 'TEAM',
     children: <div>
-      <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack of scalability and programmability has been its hallmark. </p>
-      <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
+      <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's
+        lack of scalability and programmability has been its hallmark. </p>
+      <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond
+        just a currency.</p>
       <p>Oh, and we really like building things.</p>
     </div>,
-    image: '/bvm/home-team-v2.png',
     direction: 'left',
+    image: '/bvm/home-team-v2.png',
     button: {
       link: '/research',
-      title: 'Read our research'
+      title: 'Read our research',
     },
     button2: {
       link: '/team',
-      title: 'Meet the team'
-    }
+      title: 'Meet the team',
+    },
   },
 ];
 

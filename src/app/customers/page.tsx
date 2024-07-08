@@ -30,7 +30,7 @@ export const metadata = {
 
 const UseBitcoin = () => {
   return (
-    <MainLayout headerProps={{ bgColor: '#FFFFFF', color: 'black' }}>
+    <MainLayout headerProps={{ bgColor: '#FFFFFF', color: 'black' }} hideFooter={true}>
       <div className={s.container}>
         <UseBitcoinModule />
       </div>
