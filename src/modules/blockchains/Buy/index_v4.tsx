@@ -424,7 +424,10 @@ const BuyPage = () => {
                         _content = (
                           <Draggable id={parentKey} key={parentKey}>
                             <DroppableV2 id={parentKey}>
-                              {content(false, _children)}
+                              <LegoParent zIndex={11} background="green">
+                                {/* {content(false, _children)} */}
+                                {_children}
+                              </LegoParent>
                             </DroppableV2>
                           </Draggable>
                         );

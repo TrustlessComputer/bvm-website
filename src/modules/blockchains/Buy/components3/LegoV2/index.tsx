@@ -45,6 +45,7 @@ function LegoV2({
 
     parentLego.style.position = 'relative';
     parentLego.style.zIndex = `${zIndex * 2} `;
+    parentLego.style.width = 'max-content';
   }, [legoRef.current]);
 
   return (

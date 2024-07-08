@@ -55,12 +55,6 @@ function LegoParent({
       }}
       {...props}
     >
-      <div
-        className={`${styles.inner} ${
-          parentOfNested ? styles.inner_nested : ''
-        }`}
-      ></div>
-
       <span
         className={`${styles.wrapper_stud__top} ${styles.wrapper_stud} ${
           active && styles.wrapper_stud__top_active
