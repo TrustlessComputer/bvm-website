@@ -9,6 +9,7 @@ interface Blog {
   thumbnail: string;
   date: string;
   post_content?: string;
+  keywords?: string;
   tags?: Tag[];
 }
 

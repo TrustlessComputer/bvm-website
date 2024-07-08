@@ -1,8 +1,7 @@
 import MainLayout from '@/layouts/MainLayout';
 import BLogDetail from '@/modules/blog/detail';
 import { APP_NAME } from '@/config/metadata';
-import { fetchPostById, fetchRelatedPostsById } from '@/services/blog';
-import { useRouter } from 'next/navigation';
+import { fetchPostById } from '@/services/blog';
 
 
 type TBlogDetailPage = {
@@ -12,10 +11,12 @@ type TBlogDetailPage = {
 export async function generateMetadata({ params }: TBlogDetailPage) {
 
   const data = await fetchPostById(params?.slug);
+  const title = `${data?.title} | ${APP_NAME}`;
   return {
-    title: data?.title,
+    title,
+    description: `${data?.excerpt}`,
     openGraph: {
-      title: `${data?.title}`,
+      title,
       description: `${data?.excerpt}`,
       type: 'website',
       url: APP_NAME,
@@ -24,6 +25,18 @@ export async function generateMetadata({ params }: TBlogDetailPage) {
           url: `${data?.thumbnail}`,
           width: 1200,
           height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: `${data?.excerpt}`,
+      images: [
+        {
+          url: `${data?.thumbnail}`,
+          alt: title,
         },
       ],
     },
