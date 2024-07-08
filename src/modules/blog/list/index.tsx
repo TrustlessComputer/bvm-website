@@ -6,16 +6,14 @@ import { TBlog, TPagination } from '../data_blog';
 import Card from './Card';
 import Filter from './Filter';
 
-type TListBlog = {
-  listBlog: Blog[];
-}
+export default function ListBlog({ data, total }: Posts) {
 
-export default function ListBlog({ listBlog }: TListBlog) {
+  //todo @max
   return (
     <div className={`${s.wrapper} containerV3`}>
       <Filter />
       <div className={s.list}>
-        {listBlog?.map((item, index) => {
+        {data?.map((item, index) => {
           return (
             <div className={s.card}>
               <Card {...item} key={item.slug} isFirst={index === 0} />

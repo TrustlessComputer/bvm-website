@@ -4,15 +4,10 @@ import React from 'react';
 import s from './styles.module.scss';
 import ListBlog from './list';
 
-
-type TBlogModule = {
-  blogsData: Blog[]
-}
-
-export default function BlogModule({ blogsData }: TBlogModule) {
+export default function BlogModule(props: Posts) {
   return (
     <div className={s.blog}>
-      <ListBlog listBlog={blogsData} />
+      <ListBlog {...props} />
     </div>
   );
 }
