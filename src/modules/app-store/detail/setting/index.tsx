@@ -34,8 +34,14 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
     return false;
   }, []);
 
+  useEffect(() => {
+    if(appPackage) {
+      setSelectedPackage(appPackage);
+    }
+  }, [appPackage]);
+
   console.log('appapp', app);
-  console.log('mode', appPackage);
+  console.log('appPackage', appPackage);
   console.log('myOrders', myOrders);
 
   // useEffect(() => {
