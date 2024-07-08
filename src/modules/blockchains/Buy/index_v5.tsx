@@ -156,6 +156,7 @@ const BuyPage = () => {
 
   function handleDragEnd(event: any) {
     const { over, active } = event;
+
     const [activeKey = '', activeNestedKey = '', activeKeyInNestedKey = ''] =
       active.id.split('-');
     const [overKey = '', overNestedKey = ''] = over?.id.split('-');
@@ -176,42 +177,37 @@ const BuyPage = () => {
 
     if (activeIsParentOfNestedLego && overIsParentOfNestedLego) return;
 
-    // Case when the parent of the nested lego is dragged to the final droppable
     if (activeIsParentOfNestedLego) {
-      if (over && overIsFinalDroppable) {
-        setFormField(
-          activeNestedKey,
-          field[activeNestedKey as Override].value,
-          true,
-        );
-      } else {
-        setFormField(
-          activeNestedKey,
-          field[activeNestedKey as Override].value,
-          false,
-        );
+      const newData: Record<string, any> = {};
+
+      for (const key in field[activeNestedKey as Override].value as Record<
+        string,
+        any
+      >) {
+        newData[key] = null;
+      }
+
+      if (over && !overIsFinalDroppable) {
+        setFormField(activeNestedKey, newData, false);
       }
 
       return;
     }
 
-    // Case when the nested lego is dragged to the parent
-    if (overIsParentOfNestedLego) {
-      if (
-        over &&
-        overIsParentOfNestedLego &&
-        overNestedKey === activeNestedKey
-      ) {
-        setFormField(activeNestedKey, {
-          ...field[activeNestedKey as Override].value,
-          [activeKeyInNestedKey]: active.data.current.value,
-        });
-      }
-    } else {
-      setFormField(activeNestedKey, {
-        ...field[activeNestedKey as Override].value,
-        [activeKeyInNestedKey]: null,
-      });
+    const draggedToEmpty = !(
+      over &&
+      (overIsFinalDroppable || overIsParentOfNestedLego)
+    );
+    const newData = {
+      ...field[activeNestedKey as Override].value,
+      [activeKeyInNestedKey]: draggedToEmpty ? null : active.data.current.value,
+    };
+    const someFieldsFilled = Object.values(newData).some(
+      (field) => field !== null,
+    );
+
+    if (!activeIsParentOfNestedLego) {
+      setFormField(activeNestedKey, newData, someFieldsFilled);
     }
   }
 
@@ -240,47 +236,7 @@ const BuyPage = () => {
                     boxOptionMapping[key as Override];
 
                   if (isNestedLego) {
-                    const _children = options?.map((option, index) => {
-                      if (!option.keyInField) return null;
-
-                      if (
-                        // @ts-ignore
-                        field[key as Override].value[option.keyInField] !==
-                        option.value
-                      )
-                        return null;
-
-                      const id = getChildId(
-                        key,
-                        option.keyInField,
-                        option.value,
-                      );
-
-                      return (
-                        <Draggable id={id} key={id} value={option.value}>
-                          <LegoV2
-                            background={background || 'brown'} // TODO
-                            label={option.label}
-                            icon={option.icon}
-                            zIndex={-index + 10}
-                          />
-                        </Draggable>
-                      );
-                    });
-
-                    _content = (
-                      <Draggable id={parentKey} key={parentKey}>
-                        <DroppableV2 id={parentKey}>
-                          <LegoParent
-                            zIndex={(options?.length as number) + 2 * 10}
-                            background="green" // TODO
-                            label={label}
-                          >
-                            {_children}
-                          </LegoParent>
-                        </DroppableV2>
-                      </Draggable>
-                    );
+                    //
                   } else if (content) {
                     _content = (
                       <Draggable value={fieldValue} id={key} key={key}>

@@ -46,6 +46,10 @@ type UseFormOrderStore = {
       dragged: boolean;
       value: Record<string, any>;
     };
+    nestedData2: {
+      dragged: boolean;
+      value: Record<string, any>;
+    };
   };
   setFormField(
     field: keyof FormOrder,
