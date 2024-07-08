@@ -35,12 +35,37 @@ export async function fetchPostById(postId: number): Promise<any> {
 }
 
 // Fetch all posts with pagination, sorting, and view count
-export async function fetchAllPosts(params: { per_page?: number; page?: number; order?: string; orderBy?: string }): Promise<any> {
-  const { per_page = 10, page = 1, order = 'desc', orderBy = 'date' } = params;
+export async function fetchAllPosts(params: {
+  per_page?: number;
+  page?: number;
+  order?: string;
+  orderBy?: string,
+  tag?: string
+  author?: string
+}): Promise<any> {
+
+  const { per_page = 10, page = 1, order = 'desc', orderBy = 'date', tag, author } = params;
+
+  // Construct query parameters dynamically
+  const queryParams = new URLSearchParams({
+    per_page: per_page.toString(),
+    page: page.toString(),
+    order,
+    orderBy,
+  });
+
+  if (tag) {
+    queryParams.append('tag', tag);
+  }
+
+  if (author) {
+    queryParams.append('author', author);
+  }
+
+  const url = `${BASE_URL}/posts?${queryParams.toString()}`;
   try {
-    const response = await fetch(`${BASE_URL}/posts?per_page=${per_page}&page=${page}&order=${order}&orderBy=${orderBy}`, {
-      method: 'GET',
-    });
+
+    const response = await fetch(url, { method: 'GET' });
     if (!response.ok) {
       throw new Error('Failed to fetch posts');
     }
