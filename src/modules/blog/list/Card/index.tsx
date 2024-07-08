@@ -8,7 +8,7 @@ import ImagePlaceholder from '@components/ImagePlaceholder';
 export default function Card({
                                excerpt,
                                slug,
-                               featuredImage,
+                               list_thumbnail,
                                title,
                                view_count,
                                className,
@@ -16,7 +16,6 @@ export default function Card({
 
                                isFirst,
                              }: TBlog & {
-  featuredImage: { node: { sourceUrl: string } };
   className?: string;
   isFirst?: boolean
 }) {
@@ -27,7 +26,7 @@ export default function Card({
     >
       <div className={s.inner}>
         <div className={`${s.thumbnail} ${isFirst && s.highlight}`}>
-          <ImagePlaceholder width={800} height={4000} src={featuredImage?.node?.sourceUrl} alt="thumbnail" />
+          <ImagePlaceholder width={800} height={4000} src={list_thumbnail} alt="thumbnail" />
         </div>
         <div className={s.content}>
           <h3 className={s.content_title}>

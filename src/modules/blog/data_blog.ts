@@ -5,13 +5,15 @@ export type TPagination = {
   }
 }
 
-export type TBlog = TPagination & {
+export type TBlog = {
   id: number,
   title: string,
   excerpt: string,
   content: string,
   view_count: number,
   slug: string,
+  thumbnail: string,
+  list_thumbnail: string,
   author: {
     nickname: string,
     display_name: string,
@@ -19,6 +21,7 @@ export type TBlog = TPagination & {
   },
 
 };
+
 
 export type TBlogDetail = {
   id: number,
@@ -32,10 +35,12 @@ export type TBlogDetail = {
     display_name: string,
     avatar: string
   },
+  thumbnail: string,
+  list_thumbnail: string,
 
   category: string,
   updateTime: string,
 
-  thumbnail: string,
+
 
 };

@@ -11,6 +11,7 @@ type TListBlog = {
 }
 
 export default function ListBlog({ listBlog }: TListBlog) {
+  console.log('listBlog', listBlog);
   return (
     <div className={`${s.wrapper} containerV3`}>
       <Filter />

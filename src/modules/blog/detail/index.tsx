@@ -11,7 +11,7 @@ export type TBLogDetail = {
 }
 
 export default function BLogDetail({ blogData }: TBLogDetail) {
-  const { content, title, featuredImage, author, date, tags } = blogData;
+  const { content, title, th, author, date, tags } = blogData;
   console.log('tags', tags);
   return (
     <div className={`${s.logDetail}`}>

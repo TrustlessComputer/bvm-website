@@ -40,6 +40,7 @@ export async function fetchAllPosts(params: { per_page?: number; page?: number; 
   try {
     const response = await fetch(`${BASE_URL}/posts?per_page=${per_page}&page=${page}&order=${order}&orderBy=${orderBy}`, {
       method: 'GET',
+      cache: 'no-cache'
     });
     if (!response.ok) {
       throw new Error('Failed to fetch posts');
