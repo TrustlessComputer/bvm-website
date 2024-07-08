@@ -23,3 +23,7 @@ interface Author {
   nickname: string;
   author_id: string;
 }
+
+interface FetchError {
+  error: string;
+}

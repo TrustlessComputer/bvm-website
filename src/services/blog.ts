@@ -3,7 +3,7 @@ import { WP_API_URL } from '@/config';
 const BASE_URL = `${WP_API_URL}/wp-json/blog/v1`;
 
 // Fetch related posts by post ID
-export async function fetchRelatedPostsById(postId: number): Promise<any> {
+export async function fetchRelatedPostsById(postId: number): Promise<Blog[] | FetchError> {
   try {
     const response = await fetch(`${BASE_URL}/related/${postId}`, {
       method: 'GET',
@@ -14,12 +14,12 @@ export async function fetchRelatedPostsById(postId: number): Promise<any> {
     return await response.json();
   } catch (error) {
     console.error('Error fetching related posts:', error);
-    return { error: error.message };
+    return { error: (error as any).message };
   }
 }
 
 // Fetch single post by ID with view counter update
-export async function fetchPostById(postId: number): Promise<any> {
+export async function fetchPostById(postId: number): Promise<Blog | FetchError> {
   try {
     const response = await fetch(`${BASE_URL}/get/${postId}`, {
       method: 'GET',
@@ -30,7 +30,7 @@ export async function fetchPostById(postId: number): Promise<any> {
     return await response.json();
   } catch (error) {
     console.error('Error fetching post:', error);
-    return { error: error.message };
+    return { error: (error as any).message as string };
   }
 }
 
@@ -42,7 +42,7 @@ export async function fetchAllPosts(params: {
   orderBy?: string,
   tag?: string
   author?: string
-}): Promise<any> {
+}): Promise<Blog[] | FetchError> {
 
   const { per_page = 10, page = 1, order = 'desc', orderBy = 'date', tag, author } = params;
 
@@ -72,6 +72,6 @@ export async function fetchAllPosts(params: {
     return await response.json();
   } catch (error) {
     console.error('Error fetching posts:', error);
-    return { error: error.message };
+    return { error: (error as any).message };
   }
 }
