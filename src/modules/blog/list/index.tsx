@@ -5,7 +5,7 @@ import s from './styles.module.scss';
 import Card from './Card';
 import Filter from './Filter';
 
-export default function ListBlog({ data, total }: Posts) {
+export default function ListBlog({ data, total, per_page, page }: Posts) {
 
   return (
     <div className={`${s.wrapper} containerV3`}>
