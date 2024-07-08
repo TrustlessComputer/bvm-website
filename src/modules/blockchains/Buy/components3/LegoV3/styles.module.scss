@@ -1,0 +1,113 @@
+.wrapper {
+  --fillBackground: #ff0000;
+  --background: #fff;
+  --backgroundSlider: #c73e88;
+
+  width: max-content;
+  border-radius: 4px;
+  position: relative;
+  // background-color: var(--fillBackground);
+  cursor: grabbing;
+
+  &::after {
+    z-index: -2;
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--fillBackground);
+    width: calc(100% - 39px);
+    transform: translateX(39px);
+    border: 1px solid var(--background);
+    border-radius: 4px;
+    height: 41px;
+    margin-top: 0.5px;
+  }
+
+  &_studHead {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 43px;
+    height: 41px;
+    z-index: -1;
+
+    svg {
+      height: 50px;
+      path {
+        fill: var(--fillBackground);
+        stroke: var(--background);
+        stroke-width: 1px;
+      }
+    }
+  }
+  &__red {
+    --background: #fff;
+    --fillBackground: #ff0000;
+  }
+  &__green {
+    --background: #109465 !important;
+    --fillBackground: #15c888 !important;
+    --backgroundSlider: #109465;
+  }
+  &__brown {
+    --background: #b2552e !important;
+    --fillBackground: #ff7a41 !important;
+  }
+  &__pink {
+    --fillBackground: #fb4fac;
+    --background: #c73e88;
+    --backgroundSlider: #c73e88;
+  }
+
+  &__violet {
+    --fillBackground: #a041ff;
+    --background: #8034cc;
+  }
+
+  .options {
+    background: var(--fillBackground);
+    height: 100%;
+    > div {
+      background-color: var(--background);
+    }
+  }
+}
+
+.inner {
+  padding: 7px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+
+  &_nested {
+    flex-direction: column;
+    align-items: unset;
+    gap: 8px;
+  }
+}
+
+.label {
+  p {
+    color: #fff;
+    font-family: var(--font-JetBrainsMono);
+
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+  }
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.title {
+  font-family: var(--font-JetBrainsMono);
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 155.556%;
+  letter-spacing: -0.18px;
+}

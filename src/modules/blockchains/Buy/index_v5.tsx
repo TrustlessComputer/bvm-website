@@ -12,13 +12,13 @@ import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
 import DroppableV2 from './components3/DroppableV2';
 import LaunchButton from './components3/LaunchButton';
-import LegoV2 from './components3/LegoV2';
 import { getChildId, getParentId, MouseSensor } from './utils';
 
 import BoxOptionV3 from './components3/BoxOptionV3';
 import LegoParent from './components3/LegoParent';
 import s from './styles_v5.module.scss';
 import SideBar from './components3/SideBar';
+import LegoV3 from './components3/LegoV3';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -111,7 +111,7 @@ const BuyPage = () => {
       id: 'nestedData',
       label: 'Nested',
       content: (isLeft = false, children = null) => (
-        <LegoV2
+        <LegoV3
           background={'brown'}
           title="1. Name"
           label="Nested Data"
@@ -120,7 +120,7 @@ const BuyPage = () => {
           parentOfNested
         >
           {children}
-        </LegoV2>
+        </LegoV3>
       ),
     },
     nestedData2: {
@@ -141,7 +141,7 @@ const BuyPage = () => {
       id: 'nestedData2',
       label: 'Nested z',
       content: (isLeft = false, children = null) => (
-        <LegoV2
+        <LegoV3
           parentOfNested
           background={'brown'}
           title="1. Name"
@@ -150,7 +150,7 @@ const BuyPage = () => {
           first={true}
         >
           {children}
-        </LegoV2>
+        </LegoV3>
       ),
     },
   };
@@ -297,7 +297,7 @@ const BuyPage = () => {
                                   value={option.value}
                                   disabled={option.disabled}
                                 >
-                                  <LegoV2
+                                  <LegoV3
                                     key={option.id}
                                     background={background}
                                     label={option.label}
@@ -328,7 +328,7 @@ const BuyPage = () => {
               <Tier />
               <div className={s.right_box}>
                 <DroppableV2 id="final" className={s.finalResult}>
-                  <LegoV2
+                  <LegoV3
                     background={'red'}
                     title="1. Name"
                     label="Name"
@@ -336,7 +336,7 @@ const BuyPage = () => {
                     first={true}
                   >
                     <ComputerNameInput />
-                  </LegoV2>
+                  </LegoV3>
 
                   {Object.keys(boxOptionMapping).map((key, indexWrap) => {
                     if (key === ORDER_FIELD.CHAIN_NAME) return null;
@@ -377,7 +377,7 @@ const BuyPage = () => {
 
                         return (
                           <Draggable id={id} key={id} value={option.value}>
-                            <LegoV2
+                            <LegoV3
                               background={background || 'brown'}
                               label={option.label}
                               icon={option.icon}
