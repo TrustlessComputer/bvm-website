@@ -1,38 +1,8 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import CAppStoreApi from '@/services/api/app-store';
-import { useState } from 'react';
 import SvgInset from '@components/SvgInset';
-import { useDispatch } from 'react-redux';
-import { openModal } from '@/stores/states/modal/reducer';
-import SettingView from '@/modules/app-store/detail/setting';
 
-const InstallMode = ({data}: {data: IModeInstall}) => {
-  const { loggedIn, login, userInfo } = useWeb3Auth();
-  const cAppStoreApi = new CAppStoreApi();
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-
-  const handleInstall = () => {
-    if (!loggedIn) {
-      login();
-    } else {
-      try {
-        // setLoading(true)
-        // cAppStoreApi.orderBuyAPI({} as any);
-        dispatch(openModal({
-          id: 'SETTING_MODAL',
-          render: () => <SettingView />,
-        }));
-      } catch (e) {
-
-      } finally {
-        setLoading(false);
-      }
-    }
-  }
-
+const InstallMode = ({data, onInstall}: {data: IModeInstall, onInstall: any}) => {
   return (
     <Flex className={s.container} direction={"column"}>
       <Text className={s.title}>{data?.title}</Text>
@@ -43,9 +13,7 @@ const InstallMode = ({data}: {data: IModeInstall}) => {
       </Flex>
       <Button
         className={s.btnInstall}
-        onClick={handleInstall}
-        isLoading={loading}
-        isDisabled={loading}
+        onClick={() => onInstall(data)}
         mt={"37px"}
       >Install</Button>
       <Flex direction={"column"} gap={"16px"} mt={"40px"}>

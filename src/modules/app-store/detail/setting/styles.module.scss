@@ -3,3 +3,22 @@
   justify-content: center;
   align-items: center;
 }
+
+.btnSelectToken {
+  background: #0d0a04 !important;
+  border-radius: 100px !important;
+  padding: 6px 12px 6px 6px !important;
+  height: 38px !important;
+  min-width: 250px !important;
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  :global {
+    .chakra-menu__menuitem {
+      padding: 0;
+      width: fit-content;
+    }
+  }
+}
