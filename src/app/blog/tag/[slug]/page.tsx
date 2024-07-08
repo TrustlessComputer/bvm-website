@@ -85,7 +85,7 @@ const TagPage = async ({ params, searchParams }: TTagPage) => {
       }}
       hideFooter
     >
-      <TagBlogModule blogData={posts} />
+      <TagBlogModule {...posts} />
     </MainLayout>
   );
 };

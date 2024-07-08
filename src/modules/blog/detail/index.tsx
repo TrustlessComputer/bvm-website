@@ -55,20 +55,23 @@ export default function BLogDetail({ blogData }: TBLogDetail) {
           <Tags tags={tags || []} />
           <Socials />
         </div>
-
       </div>
-      <div className={`${s.relative}`}>
-        <div className={'containerV3'}>
-          <p className={s.relative_heading}>Relative Post</p>
-          <div className={`${s.inner} `}>
-            {relate?.map((item) => {
-              return (
-                <Card {...item} key={item.slug} isFirst={false} />
-              );
-            })}
+      {
+        relate.length && (
+          <div className={`${s.relative}`}>
+            <div className={'containerV3'}>
+              <p className={s.relative_heading}>Relative Post</p>
+              <div className={`${s.inner} `}>
+                {relate?.map((item) => {
+                  return (
+                    <Card {...item} key={item.slug} isFirst={false} />
+                  );
+                })}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )
+      }
     </div>
   );
 }

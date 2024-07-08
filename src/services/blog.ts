@@ -66,7 +66,8 @@ export async function fetchAllPosts(params: {
   const url = `${BASE_URL}/posts?${queryParams.toString()}`;
   try {
 
-    const response = await fetch(url, { method: 'GET', cache: 'force-cache' });
+    const response = await fetch(url, { method: 'GET', cache: 'no-cache' });
+    console.log('response', response);
     if (!response.ok) {
       throw new Error('Failed to fetch posts');
     }

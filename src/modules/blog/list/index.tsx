@@ -5,7 +5,13 @@ import s from './styles.module.scss';
 import Card from './Card';
 import Filter from './Filter';
 
-export default function ListBlog({ data, total, per_page, page }: Posts) {
+type TListBlog = Posts & {
+  className: string;
+  isHome: boolean;
+}
+
+export default function ListBlog({ data, total, per_page, page, className, isHome }: TListBlog) {
+  // const n =  Math.ceil(total/per_page);
 
   return (
     <div className={`${s.wrapper} containerV3`}>
