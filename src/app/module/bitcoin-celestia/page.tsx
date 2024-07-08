@@ -13,7 +13,7 @@ const ModuleDetailPage = () => {
       }}
       hideFooter
     >
-      <ModuleDetail data={MODULE_DATAS.bitcoin_celestia} />
+      <ModuleDetail data={MODULE_DATAS.bvm_celestia} />
     </MainLayout>
   );
 };

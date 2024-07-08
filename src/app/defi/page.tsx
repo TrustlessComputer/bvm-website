@@ -5,6 +5,8 @@ import Loader from '@/modules/builder-landing/Loader';
 
 import { CDN_URL } from '@/config';
 import { APP_NAME } from '@/config/metadata';
+import {RESOLUTION_DATAS} from "@constants/solution-data";
+import ResolutionDetail from "@/modules/ResolutionDetail";
 
 export const metadata = {
   openGraph: {
@@ -39,7 +41,7 @@ const DeFiPage = () => {
     >
       <>
         <Loader />
-        <DeFiModule />
+        <ResolutionDetail data={RESOLUTION_DATAS.defi} />
       </>
     </MainLayout>
   );

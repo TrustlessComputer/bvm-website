@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 60px;
+  gap: 40px;
   @include is-pc {
     gap: 120px;
   }
@@ -21,10 +21,14 @@
   font-weight: 700;
   font-family: var(--font-jetbrains);
   color: #000;
-  font-size: 48px;
-  line-height: calc(62 / 48);
+  font-size: 40px;
+  line-height: calc(50 / 40);
   flex: 0 0 auto;
   max-width: 480px;
+  @include is-pc {
+    font-size: 48px;
+
+  }
 }
 
 .right {

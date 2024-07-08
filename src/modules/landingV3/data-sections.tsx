@@ -52,6 +52,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
   {
     title: '$99/mo for a fully managed blockchain',
     subTitle: 'PRICING',
+
     children: <div>
       <p>Before BVM, you need an army of PhDs, cryptographers, and distributed system engineers to build and scale a blockchain.</p>
       <p>Today, you can launch a ZK rollup blockchain on Bitcoin with just a few clicks for $99 monthly.</p>
@@ -70,8 +71,8 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
       <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
       <p>Oh, and we really like building things.</p>
     </div>,
-    image: '/bvm/home-team-v2.png',
     direction: 'left',
+    image: '/bvm/home-team-v2.png',
     button: {
       link: '/research',
       title: 'Read our research'

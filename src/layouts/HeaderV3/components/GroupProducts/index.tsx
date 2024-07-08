@@ -17,10 +17,10 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-bvm" />
                 <div className={s.group_item_icon_text}>
                   <div className={s.group_item_icon_text_wrap}>
-                    <span className={s.group_item_icon_text_title}>Bitcoin Zero Knowledge (BitZK)</span>
+                    <span className={s.group_item_icon_text_title}>BitZK</span>
                     <small>New</small>
                   </div>
-                  <span className={s.group_item_icon_text_bottom}>ZK rollups on Bitcoin</span>
+                  <span className={s.group_item_icon_text_bottom}>ZK rollups on Bitcoin for virtually any decentralized applications.</span>
                 </div>
               </Link>
             </li>
@@ -29,8 +29,8 @@ export default function GroupProducts(): ReactElement {
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinoptimistic.png"
                        alt="menu-icon-op" />
                 <div className={s.group_item_icon_text}>
-                  <span className={s.group_item_icon_text_title}>Bitcoin Optimistic (BitOP)</span>
-                  <span className={s.group_item_icon_text_bottom}>Optimistic rollups on Bitcoin</span>
+                  <span className={s.group_item_icon_text_title}>BitOP</span>
+                  <span className={s.group_item_icon_text_bottom}>Optimistic rollups on Bitcoin for virtually any decentralized applications.</span>
                 </div>
               </Link>
             </li>
@@ -45,18 +45,18 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Celestia</span>
-                  <span className={s.group_item_icon_text_bottom}>Use Celestia with Bitcoin rollups</span>
+                  <span className={s.group_item_icon_text_bottom}>A high-throughput DA verifiable with a light node</span>
                 </div>
               </Link>
             </li>
-            <li className={s.isDisabled}>
-              <Link href={'/module-detail'} className={s.group_item_icon}>
+            <li>
+              <Link href={'/module/bitcoin-eigen'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoineigen.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Eigen DA</span>
                   <span
-                    className={s.group_item_icon_text_bottom}>A data availability store made by the EigenLayer team</span>
+                    className={s.group_item_icon_text_bottom}>A scalable DA solution specialized in serving Ethereum rollups that leverage EigenLayer</span>
                 </div>
               </Link>
             </li>
@@ -66,17 +66,17 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Avail</span>
-                  <span className={s.group_item_icon_text_bottom}>Use Avail with Bitcoin rollups</span>
+                  <span className={s.group_item_icon_text_bottom}> Low-cost and expandable blobspace</span>
                 </div>
               </Link>
             </li>
-            <li className={s.isDisabled}>
-              <Link href={'/module-detail'} className={s.group_item_icon}>
+            <li>
+              <Link href={'/module/bitcoin-near'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinnearda.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Near DA</span>
-                  <span className={s.group_item_icon_text_bottom}>An efficient and robust data avalability layer made by the Near team</span>
+                  <span className={s.group_item_icon_text_bottom}>An efficient and robust data availability layer</span>
                 </div>
               </Link>
             </li>
@@ -86,17 +86,17 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Polygon</span>
-                  <span className={s.group_item_icon_text_bottom}>Use Polygon with Bitcoin rollups</span>
+                  <span className={s.group_item_icon_text_bottom}>The most cost-effective storage solution</span>
                 </div>
               </Link>
             </li>
-            <li className={s.isDisabled}>
-              <Link href={'/module-detail'} className={s.group_item_icon}>
+            <li>
+              <Link href={'/module/bitcoin-filecoin'} className={s.group_item_icon}>
                 <Image width={48} height={48} sizes="100vw" quality="100" src="/bvm/bitcoinfilecoin.png"
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Filecoin</span>
-                  <span className={s.group_item_icon_text_bottom}>Low-cost decentralized storage</span>
+                  <span className={s.group_item_icon_text_bottom}>The largest decentralized data storage marketplace, protocol, & cryptocurrency</span>
                 </div>
               </Link>
             </li>
@@ -111,7 +111,7 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-cel" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Ordinals</span>
-                  <span className={s.group_item_icon_text_bottom}>Inscribe proofs onto Bitcoin</span>
+                  <span className={s.group_item_icon_text_bottom}>  Roll up to Bitcoin as Ordinal Inscriptions</span>
                 </div>
               </Link>
             </li>
@@ -131,7 +131,7 @@ export default function GroupProducts(): ReactElement {
                        alt="menu-icon-avail" />
                 <div className={s.group_item_icon_text}>
                   <span className={s.group_item_icon_text_title}>Bitcoin Stamps</span>
-                  <span className={s.group_item_icon_text_bottom}>Stamp proofs in an <br /> unprunable way</span>
+                  <span className={s.group_item_icon_text_bottom}>Record data directly on Bitcoin's UTXO, ensuring data permanence and immutability</span>
                 </div>
               </Link>
             </li>
@@ -184,39 +184,39 @@ export default function GroupProducts(): ReactElement {
         </div>
 
       </div>
-      <div className={s.right}>
-        <div className={s.simpleGroup}>
-          <h4 className={s.title}>Solutions</h4>
-          <ul className={s.simpleGroup_list}>
-            <li className={s.simpleGroup_link}>
-              <Link href={'/defi'}>Bitcoin rollups for DeFi</Link>
-            </li>
-            <li className={s.simpleGroup_link}>
-              <Link href={'/gamefi'}>Bitcoin rollups for Gaming</Link>
-            </li>
-            <li className={s.simpleGroup_link}>
-              <Link href={'/socialfi'}>Bitcoin rollups for SocialFi</Link>
-            </li>
-          </ul>
-        </div>
-        {/*<div className={s.simpleGroup}>*/}
-        {/*  <h4 className={s.title}>Developers</h4>*/}
-        {/*  <ul className={s.simpleGroup_list}>*/}
-        {/*    <li className={s.simpleGroup_link}>*/}
-        {/*      <Link href={'https://docs.bvm.network/bvm/quickstart/create-a-zk-powered-blockchain'} target={'_blank'}>Launch*/}
-        {/*        a Bitcoin ZK rollup</Link>*/}
-        {/*    </li>*/}
-        {/*    <li className={s.simpleGroup_link}>*/}
-        {/*      <Link href={'https://docs.bvm.network/bvm/quickstart/connect-to-zk-powered-blockchains'}*/}
-        {/*            target={'_blank'}>Connect to a Bitcoin ZK rollup</Link>*/}
-        {/*    </li>*/}
-        {/*    <li className={s.simpleGroup_link}>*/}
-        {/*      <Link href={'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps'} target={'_blank'}>Build*/}
-        {/*        your first Bitcoin dapps</Link>*/}
-        {/*    </li>*/}
-        {/*  </ul>*/}
-        {/*</div>*/}
-      </div>
+      {/*<div className={s.right}>*/}
+      {/*  <div className={s.simpleGroup}>*/}
+      {/*    <h4 className={s.title}>Solutions</h4>*/}
+      {/*    <ul className={s.simpleGroup_list}>*/}
+      {/*      <li className={s.simpleGroup_link}>*/}
+      {/*        <Link href={'/defi'}>Bitcoin rollups for DeFi</Link>*/}
+      {/*      </li>*/}
+      {/*      <li className={s.simpleGroup_link}>*/}
+      {/*        <Link href={'/gamefi'}>Bitcoin rollups for Gaming</Link>*/}
+      {/*      </li>*/}
+      {/*      <li className={s.simpleGroup_link}>*/}
+      {/*        <Link href={'/socialfi'}>Bitcoin rollups for SocialFi</Link>*/}
+      {/*      </li>*/}
+      {/*    </ul>*/}
+      {/*  </div>*/}
+      {/*  /!*<div className={s.simpleGroup}>*!/*/}
+      {/*  /!*  <h4 className={s.title}>Developers</h4>*!/*/}
+      {/*  /!*  <ul className={s.simpleGroup_list}>*!/*/}
+      {/*  /!*    <li className={s.simpleGroup_link}>*!/*/}
+      {/*  /!*      <Link href={'https://docs.bvm.network/bvm/quickstart/create-a-zk-powered-blockchain'} target={'_blank'}>Launch*!/*/}
+      {/*  /!*        a Bitcoin ZK rollup</Link>*!/*/}
+      {/*  /!*    </li>*!/*/}
+      {/*  /!*    <li className={s.simpleGroup_link}>*!/*/}
+      {/*  /!*      <Link href={'https://docs.bvm.network/bvm/quickstart/connect-to-zk-powered-blockchains'}*!/*/}
+      {/*  /!*            target={'_blank'}>Connect to a Bitcoin ZK rollup</Link>*!/*/}
+      {/*  /!*    </li>*!/*/}
+      {/*  /!*    <li className={s.simpleGroup_link}>*!/*/}
+      {/*  /!*      <Link href={'https://docs.bvm.network/bvm/quickstart/build-your-first-bitcoin-dapps'} target={'_blank'}>Build*!/*/}
+      {/*  /!*        your first Bitcoin dapps</Link>*!/*/}
+      {/*  /!*    </li>*!/*/}
+      {/*  /!*  </ul>*!/*/}
+      {/*  /!*</div>*!/*/}
+      {/*</div>*/}
     </div>
   </div>;
 }

@@ -9,15 +9,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 88px 93px;
+    padding: 151px 150px;
     background-color: #f6f6f6;
     border-radius: rem(20px);
     border: 1px solid #ECECEC;
-
-    img {
-      aspect-ratio: 406/442;
-      object-fit: contain;
+    .image {
+      max-width: 200px;
+      margin: 0 auto;
+      img {
+        aspect-ratio: 1;
+        object-fit: contain;
+      }
     }
+
   }
 }
 

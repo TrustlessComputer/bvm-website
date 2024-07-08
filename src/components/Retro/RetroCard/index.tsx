@@ -4,14 +4,17 @@ import ImagePlaceholder from '@components/ImagePlaceholder';
 
 export interface RetroCardProps extends PropsWithChildren{
   src: string,
-  title: string
+  title: string,
+  bgColor?: string,
 }
 
-function Card({children, title, src}: RetroCardProps): React.JSX.Element {
+function Card({children, title, src, bgColor}: RetroCardProps): React.JSX.Element {
   return (
     <div className={s.wrapper}>
-      <div className={s.thumbnail}>
-        <ImagePlaceholder src={src} alt={'thumbnail'} width={1003} height={1002} />
+      <div className={s.thumbnail} style={{
+        backgroundColor: bgColor ? bgColor : ''
+      }}>
+        <ImagePlaceholder src={src} alt={'thumbnail'} width={200} height={200} className={s.image}/>
       </div>
       <div className={s.content}>
         <h2 className={s.title}>{title}</h2>
