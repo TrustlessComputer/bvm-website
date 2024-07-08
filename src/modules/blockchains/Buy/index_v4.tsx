@@ -102,7 +102,7 @@ const BuyPage = () => {
         },
       ],
       id: 'nestedData',
-      label: 'Nested Data',
+      label: 'Nested',
       content: (isLeft = false, children = null) => (
         <LegoV2
           background={'brown'}
@@ -134,7 +134,7 @@ const BuyPage = () => {
         },
       ],
       id: 'nestedData2',
-      label: 'Nested Data 2',
+      label: 'Nested z',
       content: (isLeft = false, children = null) => (
         <LegoV2
           parentOfNested
@@ -239,7 +239,7 @@ const BuyPage = () => {
             <div className={s.left}>
               <p className={s.heading}>Customize your Blockchain</p>
               <div className={s.left_box}>
-                {Object.keys(boxOptionMapping).map((key, index) => {
+                {Object.keys(boxOptionMapping).map((key, indexWrap) => {
                   if (key === ORDER_FIELD.CHAIN_NAME) return null;
 
                   let _content = null;
@@ -306,7 +306,9 @@ const BuyPage = () => {
                       id={key}
                       active={isDragged}
                       description={description}
-                      last={index === Object.keys(boxOptionMapping).length - 1}
+                      last={
+                        indexWrap === Object.keys(boxOptionMapping).length - 1
+                      }
                     >
                       {!isDragged && _content}
 
@@ -344,10 +346,7 @@ const BuyPage = () => {
                                 label={option.label}
                                 icon={option.icon}
                                 zIndex={
-                                  (Object.keys(boxOptionMapping).length -
-                                    index +
-                                    1) *
-                                  2
+                                  (Object.keys(boxOptionMapping).length - 1) * 2
                                 }
                                 active={field[ORDER_FIELD.NETWORK].dragged}
                                 className={option.disabled ? s.disabled : ''}
@@ -369,19 +368,24 @@ const BuyPage = () => {
                     background={'red'}
                     title="1. Name"
                     label="Name"
-                    zIndex={23}
+                    zIndex={45}
                     first={true}
                   >
                     <ComputerNameInput />
                   </LegoV2>
 
-                  {Object.keys(boxOptionMapping).map((key, index) => {
+                  {Object.keys(boxOptionMapping).map((key, indexWrap) => {
                     if (key === ORDER_FIELD.CHAIN_NAME) return null;
 
                     let _content = null;
                     const parentKey = 'parent-' + key + '-dropped';
-                    const { content, options, RightContent, background } =
-                      boxOptionMapping[key as Override];
+                    const {
+                      content,
+                      options,
+                      RightContent,
+                      background,
+                      label,
+                    } = boxOptionMapping[key as Override];
                     const isDragged = field[key as Override].dragged;
                     const fieldValue = field[key as Override].value;
                     const isNestedLego = typeof fieldValue === 'object';
@@ -390,7 +394,7 @@ const BuyPage = () => {
 
                     if (content) {
                       if (isNestedLego) {
-                        const _children = options?.map((option) => {
+                        const _children = options?.map((option, index) => {
                           if (!option.keyInField) return null;
 
                           if (
@@ -410,7 +414,7 @@ const BuyPage = () => {
                                 background={background || 'brown'}
                                 label={option.label}
                                 icon={option.icon}
-                                zIndex={23}
+                                zIndex={-index + 10}
                               />
                             </Draggable>
                           );
@@ -419,7 +423,15 @@ const BuyPage = () => {
                         _content = (
                           <Draggable id={parentKey} key={parentKey}>
                             <DroppableV2 id={parentKey}>
-                              <LegoParent zIndex={11} background="green">
+                              <LegoParent
+                                background="green"
+                                label={label}
+                                zIndex={
+                                  -indexWrap +
+                                  (options?.length as number) +
+                                  2 * 10
+                                }
+                              >
                                 {/* {content(false, _children)} */}
                                 {_children}
                               </LegoParent>

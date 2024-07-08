@@ -32,15 +32,11 @@ function LegoParent({
 
   React.useEffect(() => {
     let parentLego = legoRef.current?.parentElement;
-    if (!parentLego) return;
-
-    if (parentOfNested) {
-      console.log('[okokoko] okokoko ');
-      parentLego = parentLego.parentElement as HTMLDivElement;
-    }
+    if (!parentLego || !parentLego.parentElement) return;
 
     parentLego.style.position = 'relative';
     parentLego.style.zIndex = `${zIndex * 2} `;
+    parentLego.parentElement.style.zIndex = `${zIndex * 2} `;
   }, [legoRef.current]);
   console.log('zIndex', zIndex);
   return (
