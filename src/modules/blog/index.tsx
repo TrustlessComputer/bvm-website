@@ -6,7 +6,7 @@ import ListBlog from './list';
 
 
 type TBlogModule = {
-  blogsData: [];
+  blogsData: Blog[]
 }
 
 export default function BlogModule({ blogsData }: TBlogModule) {
