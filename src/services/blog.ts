@@ -7,7 +7,7 @@ export async function fetchRelatedPostsById(postId: number): Promise<Blog[]> {
   try {
     const response = await fetch(`${BASE_URL}/related/${postId}`, {
       method: 'GET',
-      cache: 'force-cache'
+      cache: 'force-cache',
     });
     if (!response.ok) {
       throw new Error('Failed to fetch related posts');
@@ -20,9 +20,9 @@ export async function fetchRelatedPostsById(postId: number): Promise<Blog[]> {
 }
 
 // Fetch single post by ID with view counter update
-export async function fetchPostById(postId: number): Promise<Blog | null> {
+export async function fetchPostById(slug: string): Promise<Blog | null> {
   try {
-    const response = await fetch(`${BASE_URL}/get/${postId}`, {
+    const response = await fetch(`${BASE_URL}/get/${slug}`, {
       method: 'GET',
     });
     if (!response.ok) {

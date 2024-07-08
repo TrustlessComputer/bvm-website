@@ -1,65 +1,17 @@
 import MainLayout from '@/layouts/MainLayout';
 import BLogDetail from '@/modules/blog/detail';
-import { WP_URL } from '@/config';
-import { transformObject } from '@utils/transformObjectGraphQL';
 import { APP_NAME } from '@/config/metadata';
 import { fetchPostById, fetchRelatedPostsById } from '@/services/blog';
+import { useRouter } from 'next/navigation';
 
 
-type TBlogDetailPage= {
+type TBlogDetailPage = {
   params: { slug: string }
 }
 
-// export async function generateStaticParams() {
-//   // const posts = await fetch('https://.../posts').then((res) => res.json());
-//   // return posts.map((post) => ({
-//   //   slug: post.slug,
-//   // }));
-// }
-//
-// async function fetchBlog(slug: string) {
-//   const QUERY = {
-//     query: `{
-//       post(id: "${slug}", idType: SLUG) {
-//         title
-//         content
-//         featuredImage {
-//           node {
-//             sourceUrl
-//           }
-//         }
-//         tags {
-//           edges {
-//             node {
-//               name
-//               slug
-//             }
-//           }
-//         }
-//         author {
-//           node {
-//             name
-//           }
-//         }
-//         date
-//       }
-//     }`,
-//   }
-//
-//   const postsDetail = await fetch(WP_URL, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     cache: 'no-cache',
-//     body: JSON.stringify(QUERY),
-//   }).then((res) => res.json());
-//   return transformObject(postsDetail.data.post)
-// }
-
 export async function generateMetadata({ params }: TBlogDetailPage) {
 
-  const data = await fetchPostById(params?.slug)  // console.log('formattedKeyObj', formattedKeyObj);
+  const data = await fetchPostById(params?.slug);
   return {
     title: data?.title,
     openGraph: {
@@ -75,12 +27,12 @@ export async function generateMetadata({ params }: TBlogDetailPage) {
         },
       ],
     },
-  }
+  };
 }
 
 const BlogDetailPage = async ({ params }: TBlogDetailPage) => {
-  const data = await fetchPostById(params?.slug)
-  const relativePost = await fetchRelatedPostsById(data?.id);
+  const data = await fetchPostById(params?.slug);
+  const relativePost = await fetchRelatedPostsById(data.id);
 
   return (
     <MainLayout
@@ -90,7 +42,7 @@ const BlogDetailPage = async ({ params }: TBlogDetailPage) => {
       }}
       hideFooter
     >
-      <BLogDetail blogData={data} relativePost={relativePost}/>
+      {data && <BLogDetail blogData={data} relativePost={relativePost} />}
     </MainLayout>
   );
 };
