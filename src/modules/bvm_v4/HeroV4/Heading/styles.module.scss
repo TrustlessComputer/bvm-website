@@ -21,14 +21,15 @@
 }
 
 .btnSection {
-  display: flex;
+  display: grid;
   gap: 24px;
-
-  flex-wrap: wrap;
+  width: 100%;
+  grid-template-columns: repeat(1, 1fr);
+  @include is-tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
   @include is-pc {
-    justify-content: space-between;
-
-    flex-wrap: nowrap;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -39,7 +40,8 @@
   background: rgba(0, 255, 192, 0.1);
   border: 1px solid rgba(0, 118, 89, 0.3);
   width: 100%;
-  @include is-tablet {
+
+  @include is-pc {
     max-width: 318px;
   }
   &_heading {
@@ -92,7 +94,7 @@
   border-radius: 100px;
   padding: 12px 0;
   cursor: pointer;
-  @include is-tablet {
+  @include is-pc {
     width: 123px;
   }
   &.red {

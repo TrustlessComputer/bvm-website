@@ -12,42 +12,50 @@ const DATA_LIST = [
     imageUrl: '/icons/customize/polygon_ic.svg',
     name: 'Polygon',
     isCommingSoon: false,
-    value: 1,
-  },
-  {
-    key: 'Celestia',
-    imageUrl: '/icons/customize/celestia_ic.svg',
-    name: 'Celestia',
-    isCommingSoon: true,
-    value: 2,
-  },
-  {
-    key: 'NearDA',
-    imageUrl: '/icons/customize/near_ic.svg',
-    name: 'NearDA',
-    isCommingSoon: true,
-    value: 3,
-  },
-  {
-    key: 'Eigen',
-    imageUrl: '/icons/customize/eigen_ic.svg',
-    name: 'Eigen',
-    isCommingSoon: true,
-    value: 4,
-  },
-  {
-    key: 'Filecoin',
-    imageUrl: '/icons/customize/filecoin_ic.svg',
-    name: 'Filecoin',
-    isCommingSoon: true,
-    value: 5,
+    availableNetworks: [
+      NetworkEnum.Network_Mainnet,
+      NetworkEnum.Network_Testnet,
+    ],
+    value: DALayerEnum.DALayer_PLG,
   },
   {
     key: 'Avail',
     imageUrl: '/icons/customize/avail_ic.svg',
     name: 'Avail',
     isCommingSoon: true,
-    value: 6,
+    availableNetworks: [NetworkEnum.Network_Testnet],
+    value: DALayerEnum.DALayer_AVAIL,
+  },
+  {
+    key: 'Celestia',
+    imageUrl: '/icons/customize/celestia_ic.svg',
+    name: 'Celestia',
+    isCommingSoon: true,
+    availableNetworks: [],
+    value: DALayerEnum.DALayer_Celestia,
+  },
+  {
+    key: 'NearDA',
+    imageUrl: '/icons/customize/near_ic.svg',
+    name: 'NearDA',
+    isCommingSoon: true,
+    availableNetworks: [],
+    value: DALayerEnum.DALayer_NearDa,
+  },
+  {
+    key: 'Eigen',
+    imageUrl: '/icons/customize/eigen_ic.svg',
+    name: 'Eigen',
+    isCommingSoon: true,
+    value: DALayerEnum.DALayer_Eigen,
+  },
+  {
+    key: 'Filecoin',
+    imageUrl: '/icons/customize/filecoin_ic.svg',
+    name: 'Filecoin',
+    isCommingSoon: true,
+    availableNetworks: [],
+    value: DALayerEnum.DALayer_FILECOIN,
   },
 ];
 
@@ -57,6 +65,7 @@ const DataAvailabilitySection = () => {
     isMainnet,
     dataValiditySelected,
     setDataValiditySelected,
+    networkSelected,
     isStandardMode,
   } = useBuy();
 
@@ -147,7 +156,10 @@ const DataAvailabilitySection = () => {
       <SimpleGrid columns={[2, 3]} spacing={'10px'}>
         {DATA_LIST.map((item, index) => {
           const { isCommingSoon, name, imageUrl, value } = item;
-          const isSelected = value === 1; //Polygon = 1 (HARD CODE)
+          const isSelected = dataValiditySelected === value;
+          const isAvailable = item.availableNetworks?.includes(
+            networkSelected!,
+          );
           return (
             <Flex
               key={`${name}-${index}`}
@@ -159,9 +171,14 @@ const DataAvailabilitySection = () => {
               p="12px"
               h={['45px', '55px', '65px']}
               gap={'8px'}
-              opacity={isCommingSoon ? 0.5 : 1}
+              opacity={!isAvailable ? 0.5 : 1}
+              onClick={() => {
+                if (isAvailable) {
+                  setDataValiditySelected(value);
+                }
+              }}
               _hover={
-                isCommingSoon
+                !isAvailable
                   ? {}
                   : {
                       cursor: 'pointer',
