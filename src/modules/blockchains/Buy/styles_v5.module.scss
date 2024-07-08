@@ -1,7 +1,6 @@
 .container {
   width: 100%;
   //font-family: var(--font-dmsans);
-  margin: 30px 0;
   .fontJetBrains {
     font-family: var(--font-JetBrainsMono) !important;
   }
@@ -92,7 +91,6 @@
     flex-direction: row;
 
     &_content {
-      padding-left: 16px;
       flex: 1;
     }
   }
