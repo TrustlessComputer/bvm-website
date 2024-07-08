@@ -1,25 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from './styles.module.scss';
-import { useParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-const DATA_FILTER = ['Newest', 'Most Viewed'];
+const DATA_FILTER = [{
+  title: 'Newest',
+  value: 'desc',
+}, {
+  title: 'Most Viewed',
+  value: 'mostview',
+}];
 
 export default function Filter() {
+  const [valueFilter, setValueFilter] = useState<string>(DATA_FILTER[0].value)
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const [searchQuery, setSearchQuery] = useState({
+    orderBy: "desc",
+    // you can add more keys to this
+  });
 
-  const params = useParams();
+  const handleClick = (value) => {
+    setValueFilter(value.value);
 
-  console.log('___params.filter', params.filter);
+    const updatedQuery = { ...searchQuery,  orderBy: value.value };
+    setSearchQuery(updatedQuery);
+    updateSearchQuery(updatedQuery);
+  };
+
+
+
+  const updateSearchQuery = (updatedQuery) => {
+    const params = new URLSearchParams(searchParams);
+    Object.keys(updatedQuery).forEach((key) => {
+      if (updatedQuery[key]) {
+        params.set(key, updatedQuery[key]);
+      } else {
+        params.delete(key);
+      }
+    });
+    const queryString = params.toString();
+    const updatedPath = queryString ? `${pathname}?${queryString}` : pathname;
+    router.push(updatedPath);
+  };
 
   return (
     <div className={s.filter}>
       <div className={`${s.inner} containerV3`}>
         <div className={s.list}>
-          {DATA_FILTER.map((item, idx) => {
+          {DATA_FILTER.map((item) => {
             return (
-              <div
-                className={`${s.list_item} ${params.filter === item || ((!params.filter && idx === 0)) ? s.active : ''}`}
-                key={item}>
-                <p className={s.list_item_text}> {item}</p>
+              <div className={`${s.list_item} ${item.value === valueFilter && s.active}`} key={item.value} onClick={() => handleClick(item)}>
+                <p className={s.list_item_text}> {item.title}</p>
               </div>
             );
           })}
