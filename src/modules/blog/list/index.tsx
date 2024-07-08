@@ -22,7 +22,7 @@ export default function ListBlog({ data, total, per_page, page, className, isHom
             {data.slice(0, 1)?.map((item, index) => {
               return (
                 <div className={s.card}>
-                  <Card {...item} key={item.slug} isFirst={index === 0} />
+                  <Card {...item} key={item.slug} isFirst={index === 0} showExcerpt/>
                 </div>
               );
             })}
@@ -47,9 +47,14 @@ export default function ListBlog({ data, total, per_page, page, className, isHom
           })}
         </div>
       </div>
-      <div className={s.btn}>
-        Load more
-      </div>
+      {
+        page > 1 && (
+          <div className={s.btn}>
+            Load more
+          </div>
+        )
+      }
+
     </div>
   );
 }

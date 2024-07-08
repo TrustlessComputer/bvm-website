@@ -14,9 +14,11 @@ export default function Card({
                                author,
                                isFirst,
                                date,
+                               showExcerpt
                              }: Blog & {
   className?: string;
   isFirst?: boolean
+  showExcerpt?: boolean;
 }) {
 
   return (
@@ -31,7 +33,12 @@ export default function Card({
           <h3 className={s.content_title}>
             {title}
           </h3>
-          <p className={s.content_decs}>{excerpt}</p>
+          {
+            showExcerpt && (
+              <p className={s.content_decs}>{excerpt}</p>
+
+            )
+          }
           <div className={s.content_sub}>
             <div className={s.content_sub__left}>
               <p>{`${author.display_name} | ${dayjs(date).format('MMM D, YYYY')}`}</p>
