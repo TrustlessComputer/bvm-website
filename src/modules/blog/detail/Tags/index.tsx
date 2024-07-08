@@ -3,7 +3,7 @@ import Link from 'next/link';
 import s from './styles.module.scss';
 
 interface IPprops {
-  tags: ITag[];
+  tags: Tag[];
 }
 
 export default function Tags({ tags }: IPprops) {
@@ -12,7 +12,7 @@ export default function Tags({ tags }: IPprops) {
     <ul className={s.list}>
       {
         tags?.map(tag => (
-          <li className={s.tag}>
+          <li className={s.tag} key={tag.slug}>
             <Link href={`tag/${tag.slug}`}>
               {tag.name}
             </Link>

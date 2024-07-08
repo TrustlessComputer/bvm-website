@@ -3,11 +3,11 @@ import BLogDetail from '@/modules/blog/detail';
 import { WP_URL } from '@/config';
 import { transformObject } from '@utils/transformObjectGraphQL';
 import { APP_NAME } from '@/config/metadata';
-import { fetchPostById } from '@/services/blog';
+import { fetchPostById, fetchRelatedPostsById } from '@/services/blog';
 
 
 type TBlogDetailPage= {
-  params: { slug: number }
+  params: { slug: number |string }
 }
 
 // export async function generateStaticParams() {
@@ -80,7 +80,8 @@ export async function generateMetadata({ params }: TBlogDetailPage) {
 }
 
 const BlogDetailPage = async ({ params }: TBlogDetailPage) => {
-  const data = await fetchPostById(params.slug[0])
+  const data = await fetchPostById(params?.slug)
+  const relativePost = await fetchRelatedPostsById(params?.slug);
 
   return (
     <MainLayout
@@ -90,7 +91,7 @@ const BlogDetailPage = async ({ params }: TBlogDetailPage) => {
       }}
       hideFooter
     >
-      <BLogDetail blogData={data} />
+      <BLogDetail blogData={data} relativePost={relativePost}/>
     </MainLayout>
   );
 };

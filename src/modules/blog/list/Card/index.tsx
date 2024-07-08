@@ -40,7 +40,7 @@ export default function Card({
               <p>{author.display_name} | </p>
             </div>
             <div className={s.content_sub__right}>
-              // <p>{`${view_count ? view_count : 0} ${view_count > 1 ? 'views' : 'view'}`} </p>
+              <p>{`${view_count ? view_count : 0} ${view_count > 1 ? 'views' : 'view'}`} </p>
             </div>
           </div>
         </div>

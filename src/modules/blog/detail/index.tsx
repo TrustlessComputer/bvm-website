@@ -5,14 +5,18 @@ import Socials from '@/modules/blog/detail/Socials';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import dayjs from 'dayjs';
 import Tags from '@/modules/blog/detail/Tags';
+import React from 'react';
 
 export type TBLogDetail = {
-  blogData: any;
+  blogData: Blog;
+  relativePost: Blog[]
 }
 
-export default function BLogDetail({ blogData }: TBLogDetail) {
-  const { content, title, thumbnail, author, date, tags } = blogData;
+export default function BLogDetail({ blogData, relativePost }: TBLogDetail) {
+  const { post_content, title, thumbnail, author,  tags, view_count } = blogData;
   console.log('tags', tags);
+  console.log('relativePost', relativePost);
+
   return (
     <div className={`${s.logDetail}`}>
       <div className="main containerV3">
@@ -24,8 +28,9 @@ export default function BLogDetail({ blogData }: TBLogDetail) {
             <p className={s.heading_text}>{title}
             </p>
             <div className={s.heading_meta}>
-              <p className={s.heading_author}>{author.node.name} | {dayjs(date).format('MMM D, YYYY') }</p>
-              <p className={s.heading_author}>0 views</p>
+              {/*<p className={s.heading_author}>{author.node.name} | {dayjs(date).format('MMM D, YYYY') }</p>*/}
+              <p className={s.heading_author}>{author.display_name} | </p>
+              <p className={s.heading_author}>{`${view_count ? view_count : 0} ${view_count > 1 ? 'views' : 'view'}`} </p>
             </div>
             <div className={s.divider}></div>
             <Socials />
@@ -34,14 +39,13 @@ export default function BLogDetail({ blogData }: TBLogDetail) {
 
         <div
           className={s.content}
-          dangerouslySetInnerHTML={{ __html: content }}
+          dangerouslySetInnerHTML={{ __html: post_content || '' }}
         />
         <div className="auth"></div>
         <div className={s.meta}>
-           <Tags tags={tags}/>
+           <Tags tags={tags || []}/>
           <Socials />
         </div>
-
       </div>
     </div>
   );
