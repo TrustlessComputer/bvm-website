@@ -37,7 +37,7 @@ export default function Card({
           <div className={s.content_sub}>
             <div className={s.content_sub__left}>
               {/*<p>{`${author.display_name} | ${dayjs(date).format('MMM D, YYYY')}`}</p>*/}
-              <p>{author.display_name} | </p>
+              <p>{author?.display_name} | </p>
             </div>
             <div className={s.content_sub__right}>
               <p>{`${view_count ? view_count : 0} ${view_count > 1 ? 'views' : 'view'}`} </p>

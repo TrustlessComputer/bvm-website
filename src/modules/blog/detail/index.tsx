@@ -6,6 +6,7 @@ import ImagePlaceholder from '@components/ImagePlaceholder';
 import dayjs from 'dayjs';
 import Tags from '@/modules/blog/detail/Tags';
 import React from 'react';
+import Card from '@/modules/blog/list/Card';
 
 export type TBLogDetail = {
   blogData: Blog;
@@ -29,8 +30,9 @@ export default function BLogDetail({ blogData, relativePost }: TBLogDetail) {
             </p>
             <div className={s.heading_meta}>
               {/*<p className={s.heading_author}>{author.node.name} | {dayjs(date).format('MMM D, YYYY') }</p>*/}
-              <p className={s.heading_author}>{author.display_name} | </p>
-              <p className={s.heading_author}>{`${view_count ? view_count : 0} ${view_count > 1 ? 'views' : 'view'}`} </p>
+              <p className={s.heading_author}>{author?.display_name} | </p>
+              <p
+                className={s.heading_author}>{`${view_count ? view_count : 0} ${view_count > 1 ? 'views' : 'view'}`} </p>
             </div>
             <div className={s.divider}></div>
             <Socials />
@@ -43,10 +45,24 @@ export default function BLogDetail({ blogData, relativePost }: TBLogDetail) {
         />
         <div className="auth"></div>
         <div className={s.meta}>
-           <Tags tags={tags || []}/>
+          <Tags tags={tags || []} />
           <Socials />
         </div>
+
       </div>
+      <div className={`${s.relative}`}>
+        <div className={'containerV3'}>
+          <p className={s.relative_heading}>Relative Post</p>
+          <div className={`${s.inner} `}>
+            {relativePost?.map((item) => {
+              return (
+                <Card {...item} key={item.slug} isFirst={false} />
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }

@@ -7,6 +7,7 @@ export async function fetchRelatedPostsById(postId: number): Promise<Blog[]> {
   try {
     const response = await fetch(`${BASE_URL}/related/${postId}`, {
       method: 'GET',
+      cache: 'force-cache'
     });
     if (!response.ok) {
       throw new Error('Failed to fetch related posts');
