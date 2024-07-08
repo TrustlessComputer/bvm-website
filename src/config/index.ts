@@ -9,6 +9,7 @@ export const DOMAIN_URL: string = process.env.NEXT_PUBLIC_DOMAIN_URL!;
 export const DEX_API = process.env.NEXT_PUBLIC_DEX_API!;
 export const CDN_URL: string = process.env.NEXT_PUBLIC_CDN_URL!;
 export const WP_URL: string = process.env.NEXT_PUBLIC_URL_WP!;
+export const WP_API_URL: string = process.env.NEXT_PUBLIC_URL_API_WP!;
 
 export const PERP_API_URL = process.env.NEXT_PUBLIC_PERP_API!;
 export const PERP_NAKA_API_URL = process.env.NEXT_PUBLIC_NAKA_PERP_API!;

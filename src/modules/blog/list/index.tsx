@@ -2,7 +2,7 @@
 
 import React from 'react';
 import s from './styles.module.scss';
-import { DATA_BLOG, TBlog, TPagination } from '../data_blog';
+import { TBlog, TPagination } from '../data_blog';
 import Card from './Card';
 import Filter from './Filter';
 

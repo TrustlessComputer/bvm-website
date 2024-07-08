@@ -1,30 +1,27 @@
-type Json =
-  | { [key: string]: Json }
-  | Json[]
-  | string
-  | number
-  | boolean
-  | null;
+type Json = string | number | boolean | null | JsonObject | JsonArray;
+type JsonObject = { [key: string]: Json };
+type JsonArray = Json[];
 
-type JsonObj = { [key: string]: Json };
+function isObject(value: any): value is JsonObject {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
 
-export function transformObject(obj: Json): Json {
+export function transformObject(obj: Json): any {
   if (isObject(obj)) {
-    if (obj.edges && Array.isArray(obj.edges)) {
+    if (obj.hasOwnProperty('edges') && Array.isArray(obj.edges)) {
       return obj.edges.map((edge) => {
-        if (edge && isObject(edge)) {
+        if (isObject(edge) && edge.hasOwnProperty('node')) {
           return transformObject(edge.node);
         }
-
         return edge;
       });
     }
 
-    return Object.keys(obj).reduce((result: JsonObj, key) => {
+    return Object.keys(obj).reduce((result: JsonObject, key) => {
       const value = obj[key];
-      result[key] = isObject(value) ? transformObject(value) : obj[key];
+      result[key] = isObject(value) ? transformObject(value) : value;
       return result;
-    }, {} as JsonObj);
+    }, {});
   }
 
   if (Array.isArray(obj)) {
@@ -32,8 +29,4 @@ export function transformObject(obj: Json): Json {
   }
 
   return obj;
-}
-
-function isObject(input: Json): input is JsonObj {
-  return typeof input === "object" && input !== null && !Array.isArray(input);
 }

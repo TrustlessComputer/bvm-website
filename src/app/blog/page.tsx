@@ -2,6 +2,7 @@ import MainLayout from '@/layouts/MainLayout';
 import BlogModule from '@/modules/blog';
 import { WP_URL } from '@/config';
 import { useSearchParams } from 'next/navigation';
+import { fetchAllPosts, ISearchParams } from '@/services/blog';
 
 // export async function generateStaticParams() {
 //   const QUERY = {
@@ -40,52 +41,13 @@ import { useSearchParams } from 'next/navigation';
 // }
 
 
+const BVMPage = async ({ searchParams }: {
+  searchParams?: ISearchParams;
+}) => {
+  // console.log('searchParams', searchParams);
+  const posts = await fetchAllPosts(searchParams);
 
-const BVMPage = async ({searchParams}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-} ) => {
-  console.log('searchParams', searchParams);
-  const QUERY = {
-    query: `{
-      posts( first: ${searchParams?.limit || 10}, after: null) {
-        edges {
-          node {
-            title
-            excerpt
-            date
-            slug
-            categories {
-              edges {
-                node {
-                  name
-                }
-              }
-            }
-            featuredImage {
-              node {
-               sourceUrl
-              }
-            }
-            author {
-              node {
-                name
-              }
-            }
-          }  
-        }
-      }
-    }`,
-  }
-  const posts = await fetch(WP_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    cache: 'no-cache',
-    body: JSON.stringify(QUERY),
-  }).then((res) => res.json());
-
-  console.log('posts', posts);
+  console.log('____posts', posts);
 
   return (
     <MainLayout
@@ -95,7 +57,7 @@ const BVMPage = async ({searchParams}: {
       }}
       hideFooter
     >
-      <BlogModule blogsData={posts.data.posts} pagination={posts.data.pageInfo}/>
+      {/*<BlogModule blogsData={posts.data.posts} pagination={posts.data.pageInfo} />*/}
     </MainLayout>
   );
 };

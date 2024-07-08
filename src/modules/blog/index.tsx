@@ -13,7 +13,6 @@ type TBlogModule = {
 }
 
 export default function BlogModule({ blogsData, pagination }: TBlogModule) {
-  const formattedKeyObj = transformObject(blogsData)
   return (
     <div className={s.blog}>
       <ListBlog listBlog={formattedKeyObj} pagination={pagination} />
