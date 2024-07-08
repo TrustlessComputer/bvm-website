@@ -13,7 +13,7 @@ export default function Card({
                                view_count,
                                className,
                                author,
-
+                                id,
                                isFirst,
                              }: TBlog & {
   className?: string;
@@ -21,7 +21,7 @@ export default function Card({
 }) {
 
   return (
-    <Link href={`/blog/${slug}`}
+    <Link href={`/blog/${id}`}
           className={`${s.wrapper} ${className} ${isFirst && s.isFirst}`}
     >
       <div className={s.inner}>
@@ -30,7 +30,7 @@ export default function Card({
         </div>
         <div className={s.content}>
           <h3 className={s.content_title}>
-            <Link href={`/blog/${slug}`}>{title}</Link>
+            {title}
           </h3>
           {/*<p className={s.content_decs} dangerouslySetInnerHTML={{ __html: excerpt }} />*/}
           <p className={s.content_decs}>{excerpt}</p>

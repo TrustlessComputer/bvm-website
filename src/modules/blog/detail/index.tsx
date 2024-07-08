@@ -11,14 +11,14 @@ export type TBLogDetail = {
 }
 
 export default function BLogDetail({ blogData }: TBLogDetail) {
-  const { content, title, th, author, date, tags } = blogData;
+  const { content, title, thumbnail, author, date, tags } = blogData;
   console.log('tags', tags);
   return (
     <div className={`${s.logDetail}`}>
       <div className="main containerV3">
         <div className={s.top}>
           <div className={s.thumnail}>
-            <ImagePlaceholder src={featuredImage.node.sourceUrl} alt={title} width={980} height={300} />
+            <ImagePlaceholder src={thumbnail} alt={title} width={980} height={300} />
           </div>
           <div className={s.heading}>
             <p className={s.heading_text}>{title}

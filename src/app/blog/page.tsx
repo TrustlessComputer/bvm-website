@@ -53,8 +53,6 @@ const BVMPage = async ({ searchParams }: {
   console.log('searchParams', searchParams);
   const posts = await fetchAllPosts(searchParams);
 
-  console.log('____posts', posts);
-
   return (
     <MainLayout
       headerProps={{
