@@ -24,7 +24,7 @@ export default function Card({
           className={`${s.wrapper} ${className} ${isFirst && s.isFirst}`}
     >
       <div className={s.inner}>
-        <div className={`${s.thumbnail} ${isFirst && s.highlight}`}>
+        <div className={`${s.thumbnail} thumbnail ${isFirst && s.highlight}`}>
           <ImagePlaceholder width={800} height={4000} src={list_thumbnail} alt="thumbnail" />
         </div>
         <div className={s.content}>
