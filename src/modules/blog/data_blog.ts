@@ -14,6 +14,7 @@ export type TBlog = {
   slug: string,
   thumbnail: string,
   list_thumbnail: string,
+  date: string,
   author: {
     nickname: string,
     display_name: string,

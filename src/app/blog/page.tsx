@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 
 
 const BVMPage = async ({ searchParams }: { searchParams: Params }) => {
-  console.log('searchParams', searchParams);
   const posts = await fetchAllPosts(searchParams);
 
   return (

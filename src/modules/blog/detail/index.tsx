@@ -14,9 +14,7 @@ export type TBLogDetail = {
 }
 
 export default function BLogDetail({ blogData, relativePost }: TBLogDetail) {
-  const { post_content, title, thumbnail, author,  tags, view_count } = blogData;
-  console.log('tags', tags);
-  console.log('relativePost', relativePost);
+  const { post_content, title, thumbnail, date, author,  tags, view_count } = blogData;
 
   return (
     <div className={`${s.logDetail}`}>
@@ -29,8 +27,7 @@ export default function BLogDetail({ blogData, relativePost }: TBLogDetail) {
             <p className={s.heading_text}>{title}
             </p>
             <div className={s.heading_meta}>
-              {/*<p className={s.heading_author}>{author.node.name} | {dayjs(date).format('MMM D, YYYY') }</p>*/}
-              <p className={s.heading_author}>{author?.display_name} | </p>
+              <p className={s.heading_author}>{author.display_name} | {dayjs(date).format('MMM D, YYYY') }</p>
               <p
                 className={s.heading_author}>{`${view_count ? view_count : 0} ${view_count > 1 ? 'views' : 'view'}`} </p>
             </div>
