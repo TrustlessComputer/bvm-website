@@ -8,6 +8,29 @@
   clear: both;
 }
 
+
+.listTop {
+  margin-bottom: 60px;
+
+  .card {
+    width: 100%;
+  }
+
+  .hl {
+    width: 66.66%;
+
+    :global {
+      .thumbnail {
+        height: 600px;
+      }
+    }
+  }
+
+  .sc {
+    width: 33.33%;
+  }
+}
+
 .card {
   margin-bottom: 60px;
   padding: 0 20px;
