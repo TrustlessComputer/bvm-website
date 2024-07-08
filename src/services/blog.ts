@@ -64,6 +64,8 @@ export async function fetchAllPosts(params: {
   }
 
   const url = `${BASE_URL}/posts?${queryParams.toString()}`;
+
+  console.log('____url', url);
   try {
 
     const response = await fetch(url, { method: 'GET', cache: 'force-cache' });
