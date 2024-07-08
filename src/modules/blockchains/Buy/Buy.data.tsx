@@ -1,8 +1,35 @@
 import React from 'react';
 import { DALayerEnum, NetworkEnum } from './Buy.constanst';
 import { ORDER_FIELD } from './stores';
+import { LegoColor } from './components3/BoxOptionV2';
 
-export const OrderFormOptions = {
+export type OrderFormOption = {
+  [key in (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD]]: {
+    title: string;
+    subTitle: string;
+    background: LegoColor;
+    description?: {
+      title: string;
+      content: JSX.Element;
+    };
+    options?: {
+      id: number;
+      label: string;
+      keyInField?: string;
+      value: NetworkEnum | DALayerEnum;
+      icon: string;
+      disabled?: boolean;
+      avalaibleNetworks?: NetworkEnum[];
+    }[];
+  };
+};
+
+export const OrderFormOptions: OrderFormOption = {
+  [ORDER_FIELD.CHAIN_NAME]: {
+    title: 'Chain Name',
+    subTitle: 'Chain Name',
+    background: 'brown',
+  },
   [ORDER_FIELD.NETWORK]: {
     title: '1. Network',
     subTitle: 'Network',
@@ -10,13 +37,13 @@ export const OrderFormOptions = {
     options: [
       {
         id: 1,
-        label: <React.Fragment>Mainnet</React.Fragment>,
+        label: 'Mainnet',
         value: NetworkEnum.Network_Mainnet,
         icon: '/landingV3/images/pricing/7.png',
       },
       {
         id: 2,
-        label: <React.Fragment>Testnet</React.Fragment>,
+        label: 'Testnet',
         value: NetworkEnum.Network_Testnet,
         icon: '/landingV3/images/pricing/8.png',
       },
@@ -38,7 +65,7 @@ export const OrderFormOptions = {
     options: [
       {
         id: 1,
-        label: <React.Fragment>Polygon</React.Fragment>,
+        label: 'Polygon',
         value: DALayerEnum.DALayer_PLG,
         icon: '/landingV3/images/pricing/1.png',
         avalaibleNetworks: [
@@ -48,7 +75,7 @@ export const OrderFormOptions = {
       },
       {
         id: 2,
-        label: <React.Fragment>Celestia</React.Fragment>,
+        label: 'Celestia',
         value: DALayerEnum.DALayer_Celestia,
         disabled: true,
         avalaibleNetworks: [NetworkEnum.Network_Testnet],
@@ -56,7 +83,7 @@ export const OrderFormOptions = {
       },
       {
         id: 3,
-        label: <React.Fragment>NearDA</React.Fragment>,
+        label: 'NearDA',
         value: DALayerEnum.DALayer_NearDa,
         disabled: true,
         avalaibleNetworks: [],
@@ -64,7 +91,7 @@ export const OrderFormOptions = {
       },
       {
         id: 4,
-        label: <React.Fragment>Eigen</React.Fragment>,
+        label: 'Eigen',
         value: DALayerEnum.DALayer_Eigen,
         icon: '/landingV3/images/pricing/4.png',
         avalaibleNetworks: [],
@@ -72,7 +99,7 @@ export const OrderFormOptions = {
       },
       {
         id: 5,
-        label: <React.Fragment>Filecoin</React.Fragment>,
+        label: 'Filecoin',
         value: DALayerEnum.DALayer_FILECOIN,
         icon: '/landingV3/images/pricing/5.png',
         avalaibleNetworks: [],
@@ -81,7 +108,7 @@ export const OrderFormOptions = {
       },
       {
         id: 6,
-        label: <React.Fragment>Avail</React.Fragment>,
+        label: 'Avail',
         value: DALayerEnum.DALayer_AVAIL,
         avalaibleNetworks: [],
         icon: '/landingV3/images/pricing/6.png',
@@ -91,6 +118,7 @@ export const OrderFormOptions = {
   [ORDER_FIELD.GAS_LIMIT]: {
     title: '3. Block Gas Limit',
     subTitle: 'Block Gas Limit',
+    background: 'green',
     description: {
       title: 'Block Gas Limit',
       content: (
@@ -104,6 +132,7 @@ export const OrderFormOptions = {
   [ORDER_FIELD.WITHDRAW_PERIOD]: {
     title: '4. Withdrawal Time',
     subTitle: 'Withdrawal Time',
+    background: 'pink',
     description: {
       title: 'Withdrawal Time',
       content: (

@@ -42,6 +42,10 @@ type UseFormOrderStore = {
       dragged: boolean;
       value: BuyBuilderSelectState['withdrawPeriod'];
     };
+    nestedData: {
+      dragged: boolean;
+      value: Record<string, any>;
+    };
   };
   setFormField(
     field: keyof FormOrder,
@@ -81,6 +85,14 @@ export const useFormOrderStore = create<UseFormOrderStore>((set) => ({
     [ORDER_FIELD.WITHDRAW_PERIOD]: {
       dragged: false,
       value: 0,
+    },
+    nestedData: {
+      dragged: false,
+      value: {},
+    },
+    nestedData2: {
+      dragged: false,
+      value: {},
     },
   },
 
