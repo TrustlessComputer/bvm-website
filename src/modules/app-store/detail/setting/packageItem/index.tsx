@@ -2,7 +2,7 @@ import { Circle, Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import cx from 'clsx';
 
-const PackageItem = ({data, isSelected, onSelect}: {data: IModeInstall, isSelected: boolean, onSelect: any}) => {
+const PackageItem = ({data, isSelected, onSelect}: {data: IAppPackage, isSelected: boolean, onSelect: any}) => {
   console.log('package', data);
   return (
     <Flex className={cx(s.container, isSelected ? s.isSelect: '')} onClick={onSelect}>

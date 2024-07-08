@@ -2,7 +2,7 @@ import { Button, Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import SvgInset from '@components/SvgInset';
 
-const InstallMode = ({data, onInstall}: {data: IModeInstall, onInstall: any}) => {
+const InstallMode = ({data, onInstall}: {data: IAppPackage, onInstall: any}) => {
   return (
     <Flex className={s.container} direction={"column"}>
       <Text className={s.title}>{data?.title}</Text>

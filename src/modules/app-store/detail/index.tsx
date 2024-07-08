@@ -6,7 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { DATA } from '@/modules/app-store/data';
 import { compareString } from '@utils/string';
-import InstallMode from '@/modules/app-store/detail/mode';
+import InstallMode from 'src/modules/app-store/detail/appPackage';
 import SvgInset from '@components/SvgInset';
 import { openModal } from '@/stores/states/modal/reducer';
 import SettingView from '@/modules/app-store/detail/setting';
@@ -27,7 +27,7 @@ const AppDetailModule = () => {
     return router.back();
   }
 
-  const handleInstall = (mode: IModeInstall) => {
+  const handleInstall = (appPackage: IAppPackage) => {
     if (!loggedIn) {
       login();
     } else {
@@ -38,7 +38,7 @@ const AppDetailModule = () => {
           modalProps: {
             size: 'xl',
           },
-          render: () => <SettingView app={data} mode={mode}/>,
+          render: () => <SettingView app={data} appPackage={appPackage}/>,
         }));
       } catch (e) {
 

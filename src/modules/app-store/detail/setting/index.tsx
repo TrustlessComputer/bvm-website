@@ -13,7 +13,7 @@ import InputWrapper from '@/components/Form/inputWrapper';
 import PackageItem from '@/modules/app-store/detail/setting/packageItem';
 import { useRouter } from 'next/navigation';
 
-const SettingView = ({app, mode}: {app:  IAppInfo, mode: IModeInstall}) => {
+const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage}) => {
   const router = useRouter();
 
   const { getMyOrderList } = useL2Service();
@@ -22,7 +22,7 @@ const SettingView = ({app, mode}: {app:  IAppInfo, mode: IModeInstall}) => {
   );
   const [selectedOrder, setSelectedOrder] = useState<OrderItem | undefined>(undefined);
   const [submitting, setSubmitting] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState<IModeInstall | undefined>(undefined);
+  const [selectedPackage, setSelectedPackage] = useState<IAppPackage | undefined>(undefined);
 
   useEffect(() => {
     getMyOrderList();
@@ -35,7 +35,7 @@ const SettingView = ({app, mode}: {app:  IAppInfo, mode: IModeInstall}) => {
   }, []);
 
   console.log('appapp', app);
-  console.log('mode', mode);
+  console.log('mode', appPackage);
   console.log('myOrders', myOrders);
 
   // useEffect(() => {

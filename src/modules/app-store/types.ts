@@ -4,11 +4,11 @@ interface IAppInfo {
   description: string;
   icon: string;
   image: string;
-  modes: IModeInstall[];
+  modes: IAppPackage[];
   num_installed: number;
 }
 
-interface IModeInstall {
+interface IAppPackage {
   id: number;
   title: string;
   description: string;
