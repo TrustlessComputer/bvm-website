@@ -15,9 +15,11 @@
     font-family: var(--font-jetbrains);
     font-size: 16px;
     cursor: pointer;
-
-    &:first-child {
-      border-bottom: 1px solid #000;
-    }
+    transition-duration: .2s;
   }
+}
+
+.active {
+  border-bottom: 1px solid #000;
+  transition-duration: .2s;
 }

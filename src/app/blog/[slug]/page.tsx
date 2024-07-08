@@ -80,7 +80,7 @@ export async function generateMetadata({ params }: TBlogDetailPage) {
 
 const BlogDetailPage = async ({ params }: TBlogDetailPage) => {
   const data = await fetchPostById(params?.slug)
-  const relativePost = await fetchRelatedPostsById(params?.slug);
+  const relativePost = await fetchRelatedPostsById(data?.id);
 
   return (
     <MainLayout
