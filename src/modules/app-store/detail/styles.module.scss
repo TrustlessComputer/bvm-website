@@ -53,6 +53,8 @@
 
 .modalContent {
   background: #FFF !important;
+  min-width: 1120px !important;
+  padding: 20px 0 !important;
 
   :global {
     .chakra-modal__close-btn {

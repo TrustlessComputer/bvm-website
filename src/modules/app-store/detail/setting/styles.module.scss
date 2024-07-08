@@ -12,6 +12,40 @@
     line-height: 140%;
     letter-spacing: 0.01em;
   }
+
+  .note {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: #1D1D1D;
+  }
+
+  .btnPrimary {
+    font-size: 20px;
+    font-weight: 600;
+    background: #FA4E0E;
+    border-radius: 100px;
+    color: #FFF;
+    width: 300px;
+    height: 52px;
+
+    &:hover {
+      background: #FA4E0E;
+    }
+  }
+
+  .btnSecondary {
+    font-size: 20px;
+    font-weight: 600;
+    border: 1px solid #FA4E0E;
+    background: #FFF;
+    border-radius: 100px;
+    color: #FA4E0E;
+    width: 300px;
+    height: 52px;
+  }
 }
 
 .loadingContainer {
@@ -20,12 +54,23 @@
   align-items: center;
 }
 
+.inputWrapper {
+  label {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    color: #000;
+  }
+}
+
 .btnSelectToken {
-  background: #0d0a04 !important;
-  border-radius: 100px !important;
-  padding: 6px 12px 6px 6px !important;
-  height: 38px !important;
-  min-width: 250px !important;
+  border-radius: 12px !important;
+  padding: 16px 12px !important;
+  height: 62px !important;
+  width: 100%;
+  border: 1px solid #E7E7E7;
+
   span {
     display: flex;
     align-items: center;
@@ -39,12 +84,8 @@
   }
 }
 
-.inputWrapper {
-  label {
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 140%;
-    letter-spacing: -0.01em;
-    color: #000;
+.menuChainWrapper {
+  > div:last-child {
+    width: 100%;
   }
 }
