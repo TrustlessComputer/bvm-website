@@ -16,6 +16,9 @@
   &:first-child {
     width: 66.66%;
   }
+  &.fullWidth {
+    width: 100% !important;
+  }
 }
 
 .btn {

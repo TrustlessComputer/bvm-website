@@ -6,7 +6,7 @@ import { TBLogDetail } from '@/modules/blog/detail';
 const TagBlogModule = ({ blogData }: TBLogDetail) => {
   return (
     <div className={s.wrapper}>
-      <ListBlog listBlog={blogData}/>
+      <ListBlog listBlog={blogData} className={s.list} isHome={false}/>
     </div>
   )
 }

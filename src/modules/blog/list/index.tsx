@@ -8,17 +8,19 @@ import Filter from './Filter';
 
 type TListBlog = {
   listBlog: Blog[];
+  className?: string;
+  isHome?: boolean;
 }
 
-export default function ListBlog({ listBlog }: TListBlog) {
+export default function ListBlog({ listBlog, className, isHome = true }: TListBlog) {
   return (
     <div className={`${s.wrapper} containerV3`}>
       <Filter />
-      <div className={s.list}>
+      <div className={`${s.list} ${className}`}>
         {listBlog?.map((item, index) => {
           return (
-            <div className={s.card}>
-              <Card {...item} key={item.slug} isFirst={index === 0} />
+            <div className={`${s.card} ${!isHome && s.fullWidth}`}>
+              <Card {...item} key={item.slug} isFirst={isHome && index === 0} />
             </div>
           );
         })}

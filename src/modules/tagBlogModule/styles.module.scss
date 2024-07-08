@@ -1,4 +1,10 @@
 .wrapper {
   background-color: #fff;
   min-height: 100vh;
+  padding-top: 120px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
