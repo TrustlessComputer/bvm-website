@@ -58,7 +58,14 @@
 
   :global {
     .chakra-modal__close-btn {
-      background: #0d0a04;
+      border: 1px solid #5B5B5B;
+      border-radius: 100%;
+
+      svg {
+        path {
+          fill: #5B5B5B;
+        }
+      }
     }
   }
 }
