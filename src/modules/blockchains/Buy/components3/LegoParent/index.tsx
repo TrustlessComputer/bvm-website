@@ -91,5 +91,5 @@ function LegoParent({
     </div>
   );
 }
-
+    
 export default React.memo(LegoParent);

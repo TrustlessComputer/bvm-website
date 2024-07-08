@@ -43,7 +43,6 @@ const WithdrawalTimeLego = ({ isLeft }: { isLeft: boolean }) => {
       }
       zIndex={6}
       active={field[ORDER_FIELD.WITHDRAW_PERIOD].dragged}
-      last
     >
       <Slider
         cb={setFormField}
