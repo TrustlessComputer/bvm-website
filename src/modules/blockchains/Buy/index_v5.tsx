@@ -24,6 +24,7 @@ import Dropdown from './components3/Dropdown';
 import { DATA_PRICING } from '../data_pricing';
 import BlockGasLimitLego from './components3/Legos/BlockGasLimitLego';
 import WithdrawalTimeLego from './components3/Legos/WithdrawalTimeLego';
+import RightNetworkLego from './components3/Legos/RightNetworkLego';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -55,12 +56,12 @@ const BuyPage = () => {
     //     </LegoV3>
     //   ),
     // },
-    // [ORDER_FIELD.NETWORK]: {
-    //   ...OrderFormOptions[ORDER_FIELD.NETWORK],
-    //   id: ORDER_FIELD.NETWORK,
-    //   label: OrderFormOptions[ORDER_FIELD.NETWORK].title,
-    //   RightContent: () => <RightNetworkLego />,
-    // },
+    [ORDER_FIELD.NETWORK]: {
+      ...OrderFormOptions[ORDER_FIELD.NETWORK],
+      id: ORDER_FIELD.NETWORK,
+      label: OrderFormOptions[ORDER_FIELD.NETWORK].title,
+      RightContent: () => <RightNetworkLego />,
+    },
     // // @ts-ignore
     [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
       ...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN],
@@ -70,10 +71,8 @@ const BuyPage = () => {
         <LegoV3
           background={'violet'}
           label={DATA_PRICING.availability.sub_title}
-          isFrist={false}
           zIndex={8}
-          isActive={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
-          isLast={false}
+          active={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
         >
           <Dropdown
             cb={setFormField}
@@ -112,6 +111,12 @@ const BuyPage = () => {
           value: 2,
           id: 2,
         },
+        {
+          label: 'Value 1.1',
+          keyInField: 'nestedKey1',
+          value: 3,
+          id: 3,
+        },
       ],
       id: 'nestedData',
       label: 'Nested',
@@ -141,6 +146,12 @@ const BuyPage = () => {
           value: 2,
           keyInField: 'nestedKey2',
           id: 2,
+        },
+        {
+          label: ' 2 -Value 1.2',
+          keyInField: 'nestedKey2',
+          value: 3,
+          id: 3,
         },
       ],
       id: 'nestedData2',
@@ -267,27 +278,26 @@ const BuyPage = () => {
                           active={isDragged}
                           description={description}
                         >
-                          {!isDragged && _content}
+                          {_content}
 
                           {options &&
                             options.map((option) => {
-                              if (!option.keyInField) return null;
-                              if (
-                                isDragged &&
-                                field[key as Override].value.toString() ===
-                                  option.value.toString()
-                              )
-                                return null;
+                              // if (!option.keyInField) return null;
+                              // if (
+                              //   isDragged &&
+                              //   field[key as Override].value.toString() ===
+                              //     option.value.toString()
+                              // )
+                              //   return null;
 
                               let id = key + '-' + option.value.toString();
-                              if (isNestedLego) {
-                                if (
-                                  field[key as Override].value[
-                                    option.keyInField
-                                  ] === option.value
-                                )
-                                  return null;
+                              // @ts-ignore
+                              // prettier-ignore
+                              if (isNestedLego && field[key as Override].value[option.keyInField]?.toString() === option.value.toString()) return null;
+                              // prettier-ignore
+                              if (!isNestedLego && isDragged && field[key as Override].value.toString() === option.value.toString()) return null;
 
+                              if (isNestedLego) {
                                 id = getChildId(
                                   key,
                                   option.keyInField,
@@ -312,7 +322,6 @@ const BuyPage = () => {
                                         1) *
                                       2
                                     }
-                                    active={field[ORDER_FIELD.NETWORK].dragged}
                                     className={
                                       option.disabled ? s.disabled : ''
                                     }
@@ -399,9 +408,10 @@ const BuyPage = () => {
                               background="green" // TODO
                               label={label}
                               zIndex={
-                                -indexWrap +
-                                (options?.length as number) +
-                                2 * 10
+                                1
+                                // -indexWrap +
+                                // (options?.length as number) +
+                                // 2 * 10
                               }
                             >
                               {_children}

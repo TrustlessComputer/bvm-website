@@ -16,11 +16,10 @@
     inset: 0;
     background: var(--fillBackground);
     width: calc(100% - 39px);
-    transform: translateX(39px);
+    transform: translateX(37px);
     border: 1px solid var(--background);
     border-radius: 4px;
     height: 41px;
-    margin-top: 0.5px;
   }
 
   &_studHead {
