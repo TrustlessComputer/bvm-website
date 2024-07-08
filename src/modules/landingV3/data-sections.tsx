@@ -34,15 +34,11 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     },
   },
   {
-    title: 'It\'s so easy to migrate from Ethereum to Bitcoin',
-    subTitle: 'BUILD ON BITCOIN',
+    title: 'Learn blockchain. Dream blockchain. Developer blockchain.',
+    subTitle: 'BUILD DECENTRALIZED APPS',
     children: <div>
 
-      <p> Learn blockchain. Dream blockchain. Developer blockchain.</p>
-      <p>
-        Decentralized applications are unlike anything before them. They run exactly as programmed without any
-        possibility of downtime, fraud, or interference — entirely trustless. They are written in a new programming
-        language called Solidity.
+      <p>Decentralized applications are unlike anything before them. They run exactly as programmed without any possibility of downtime, fraud, or interference — entirely trustless. They are written in a new programming language called Solidity.
       </p>
 
     </div>,
