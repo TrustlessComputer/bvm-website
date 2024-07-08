@@ -7,7 +7,7 @@ import {
   useFormOrderStore,
 } from '@/modules/blockchains/Buy/stores';
 
-import { OrderFormOption } from './Buy.data';
+import { OrderFormOption, OrderFormOptions } from './Buy.data';
 import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
 import DroppableV2 from './components3/DroppableV2';
@@ -19,6 +19,11 @@ import LegoParent from './components3/LegoParent';
 import s from './styles_v5.module.scss';
 import SideBar from './components3/SideBar';
 import LegoV3 from './components3/LegoV3';
+import Lego from './components3/Lego';
+import Dropdown from './components3/Dropdown';
+import { DATA_PRICING } from '../data_pricing';
+import BlockGasLimitLego from './components3/Legos/BlockGasLimitLego';
+import WithdrawalTimeLego from './components3/Legos/WithdrawalTimeLego';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -39,7 +44,7 @@ const BuyPage = () => {
     //   id: ORDER_FIELD.CHAIN_NAME,
     //   label: '1. Name',
     //   content: (isLeft = false) => (
-    //     <LegoV2
+    //     <LegoV3
     //       background={'red'}
     //       title="1. Name"
     //       label="Name"
@@ -47,7 +52,7 @@ const BuyPage = () => {
     //       first={true}
     //     >
     //       <ComputerNameInput />
-    //     </LegoV2>
+    //     </LegoV3>
     //   ),
     // },
     // [ORDER_FIELD.NETWORK]: {
@@ -57,42 +62,42 @@ const BuyPage = () => {
     //   RightContent: () => <RightNetworkLego />,
     // },
     // // @ts-ignore
-    // [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
-    //   ...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN],
-    //   id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
-    //   label: OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].title,
-    //   RightContent: () => (
-    //     <Lego
-    //       background={'violet'}
-    //       label={DATA_PRICING.availability.sub_title}
-    //       isFrist={false}
-    //       zIndex={8}
-    //       isActive={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
-    //       isLast={false}
-    //     >
-    //       <Dropdown
-    //         cb={setFormField}
-    //         defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
-    //         field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
-    //         networkSelected={field[ORDER_FIELD.NETWORK].value}
-    //         options={DATA_PRICING.availability.options}
-    //         checkDisable={true}
-    //       />
-    //     </Lego>
-    //   ),
-    // },
-    // [ORDER_FIELD.GAS_LIMIT]: {
-    //   ...OrderFormOptions[ORDER_FIELD.GAS_LIMIT],
-    //   id: ORDER_FIELD.GAS_LIMIT,
-    //   label: OrderFormOptions[ORDER_FIELD.GAS_LIMIT].title,
-    //   content: (isLeft = false) => <BlockGasLimitLego isLeft={isLeft} />,
-    // },
-    // [ORDER_FIELD.WITHDRAW_PERIOD]: {
-    //   ...OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD],
-    //   id: ORDER_FIELD.WITHDRAW_PERIOD,
-    //   label: OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].title,
-    //   content: (isLeft = false) => <WithdrawalTimeLego isLeft={isLeft} />,
-    // },
+    [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
+      ...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN],
+      id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
+      label: OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].title,
+      RightContent: () => (
+        <LegoV3
+          background={'violet'}
+          label={DATA_PRICING.availability.sub_title}
+          isFrist={false}
+          zIndex={8}
+          isActive={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
+          isLast={false}
+        >
+          <Dropdown
+            cb={setFormField}
+            defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
+            field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+            networkSelected={field[ORDER_FIELD.NETWORK].value}
+            options={DATA_PRICING.availability.options}
+            checkDisable={true}
+          />
+        </LegoV3>
+      ),
+    },
+    [ORDER_FIELD.GAS_LIMIT]: {
+      ...OrderFormOptions[ORDER_FIELD.GAS_LIMIT],
+      id: ORDER_FIELD.GAS_LIMIT,
+      label: OrderFormOptions[ORDER_FIELD.GAS_LIMIT].title,
+      content: (isLeft = false) => <BlockGasLimitLego isLeft={isLeft} />,
+    },
+    [ORDER_FIELD.WITHDRAW_PERIOD]: {
+      ...OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD],
+      id: ORDER_FIELD.WITHDRAW_PERIOD,
+      label: OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].title,
+      content: (isLeft = false) => <WithdrawalTimeLego isLeft={isLeft} />,
+    },
     nestedData: {
       options: [
         {

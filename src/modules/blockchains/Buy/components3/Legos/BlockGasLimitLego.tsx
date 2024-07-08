@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import {
   ORDER_FIELD,
   useFormOrderStore,
 } from '@/modules/blockchains/Buy/stores';
+import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 
 import { OrderFormOptions } from '../../Buy.data';
+import LegoV3 from '../LegoV3';
 import Slider from '../Slider';
-import LegoV2 from '../LegoV2';
 import CannotModifiedNoti from './CannotModifiedNoti';
 
 type PricingPackageValues = {
@@ -33,7 +33,7 @@ const BlockGasLimitLego = ({ isLeft }: { isLeft: boolean }) => {
   }, [pricingPackageValues]);
 
   return (
-    <LegoV2
+    <LegoV3
       background={'green'}
       label={isLeft ? '' : OrderFormOptions[ORDER_FIELD.GAS_LIMIT].subTitle}
       active={field[ORDER_FIELD.GAS_LIMIT].dragged}
@@ -49,7 +49,7 @@ const BlockGasLimitLego = ({ isLeft }: { isLeft: boolean }) => {
         step={stepGasLimit}
         initNoti={CannotModifiedNoti}
       />
-    </LegoV2>
+    </LegoV3>
   );
 };
 

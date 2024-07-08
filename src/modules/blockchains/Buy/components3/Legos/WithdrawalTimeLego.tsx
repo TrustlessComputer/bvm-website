@@ -10,6 +10,7 @@ import { OrderFormOptions } from '../../Buy.data';
 import Slider from '../Slider';
 import LegoV2 from '../LegoV2';
 import CannotModifiedNoti from './CannotModifiedNoti';
+import LegoV3 from '../LegoV3';
 
 type PricingPackageValues = {
   maxGasLimit: number;
@@ -36,7 +37,7 @@ const WithdrawalTimeLego = ({ isLeft }: { isLeft: boolean }) => {
   }, [pricingPackageValues]);
 
   return (
-    <LegoV2
+    <LegoV3
       background={'pink'}
       label={
         isLeft ? '' : OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].subTitle
@@ -54,7 +55,7 @@ const WithdrawalTimeLego = ({ isLeft }: { isLeft: boolean }) => {
         min={minWithdrawalPeriod}
         initNoti={CannotModifiedNoti}
       />
-    </LegoV2>
+    </LegoV3>
   );
 };
 
