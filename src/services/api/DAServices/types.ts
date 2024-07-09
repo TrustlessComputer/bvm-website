@@ -10,6 +10,7 @@ export interface IDApp {
     [key: string]: any;
   }[];
   user_package: string;
+  status: string;
 }
 
 export interface IDAppDetails {

@@ -3,7 +3,7 @@ import { IDApp } from './types';
 export const DA_DUMMY_LIST: IDApp[] = [
   {
     id: 1,
-    name: 'Token Create',
+    name: 'Token Issuing',
     code: '',
     description:
       'SHARD holders collectively make decisions and steer the direction of the BVM ecosystem. SHARD holders can propose and vote on various initiatives, including launching a marketing campaign, building a new product, or funding an ambitious Bitcoin L2 builder.',
@@ -18,42 +18,31 @@ export const DA_DUMMY_LIST: IDApp[] = [
           'For organizations who need customization and dedicated support\n\n',
         image_url: 'https://i.ibb.co/0fgnRZP/BTC.png',
         package: 'basic',
-        price_usd: '99',
-        price_bvm: '200',
+        price_usd: '0',
+        price_bvm: '0',
         includes: [
           {
-            name: 'Customize-able',
+            name: 'Token Generation',
             valid: '1',
           },
           {
-            name: 'Unlimited Requests with Auto-scaling',
+            name: 'Tokenomic',
             valid: '1',
           },
           {
-            name: 'Higher Throughput',
+            name: 'Vesting',
             valid: '1',
           },
           {
-            name: 'Committed usage discounts',
-            valid: '0',
-          },
-          {
-            name: 'Custom on-demand discounts',
-            valid: '0',
-          },
-          {
-            name: 'VIP support channels',
-            valid: '0',
-          },
-          {
-            name: 'Engineering team access',
-            valid: '0',
+            name: 'Token info page',
+            valid: '1',
           },
         ],
       },
     ],
     inputs: [],
-    user_package: "basic",
+    user_package: "",
+    status: "0"
   },
   {
     id: 2,
@@ -70,39 +59,39 @@ export const DA_DUMMY_LIST: IDApp[] = [
         network_id: 2,
         name: 'Basic',
         description:
-          'For organizations who need customization and dedicated support\n\n',
+          'For organizations who need customization and dedicated support',
         image_url: 'https://i.ibb.co/0fgnRZP/BTC.png',
         package: 'basic',
-        price_usd: '99',
-        price_bvm: '200',
+        price_usd: '0',
+        price_bvm: '0',
         includes: [
           {
-            name: 'Customize-able',
+            name: 'BVM staking',
             valid: '1',
           },
           {
-            name: 'Unlimited Requests with Auto-scaling',
+            name: 'BTC staking ',
+            valid: '0',
+          },
+          {
+            name: 'ETH staking',
+            valid: '0',
+          },
+          {
+            name: 'Chain token staking',
             valid: '1',
           },
           {
-            name: 'Higher Throughput',
+            name: 'BVM staking reward',
             valid: '1',
           },
           {
-            name: 'Committed usage discounts',
+            name: 'BTC staking reward',
             valid: '0',
           },
           {
-            name: 'Custom on-demand discounts',
-            valid: '0',
-          },
-          {
-            name: 'VIP support channels',
-            valid: '0',
-          },
-          {
-            name: 'Engineering team access',
-            valid: '0',
+            name: 'Chain token staking reward',
+            valid: '1',
           },
         ],
       },
@@ -114,42 +103,43 @@ export const DA_DUMMY_LIST: IDApp[] = [
           'For organizations who need customization and dedicated support\n\n',
         image_url: 'https://i.ibb.co/0fgnRZP/BTC.png',
         package: 'advance',
-        price_usd: '499',
-        price_bvm: '500',
+        price_usd: '99',
+        price_bvm: '200',
         includes: [
           {
-            name: 'Customize-able',
+            name: 'BVM staking',
             valid: '1',
           },
           {
-            name: 'Unlimited Requests with Auto-scaling',
+            name: 'BTC staking ',
             valid: '1',
           },
           {
-            name: 'Higher Throughput',
+            name: 'ETH staking',
             valid: '1',
           },
           {
-            name: 'Committed usage discounts',
+            name: 'Chain token staking',
             valid: '1',
           },
           {
-            name: 'Custom on-demand discounts',
+            name: 'BVM staking reward',
             valid: '1',
           },
           {
-            name: 'VIP support channels',
+            name: 'BTC staking reward',
             valid: '1',
           },
           {
-            name: 'Engineering team access',
+            name: 'Chain token staking reward',
             valid: '1',
           },
         ],
       },
     ],
     inputs: [],
-    user_package: "advance",
+    user_package: "",
+    status: "0"
   },
   {
     id: 3,
@@ -171,34 +161,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
         price_usd: '99',
         price_bvm: '200',
         includes: [
-          {
-            name: 'Customize-able',
-            valid: '1',
-          },
-          {
-            name: 'Unlimited Requests with Auto-scaling',
-            valid: '1',
-          },
-          {
-            name: 'Higher Throughput',
-            valid: '1',
-          },
-          {
-            name: 'Committed usage discounts',
-            valid: '0',
-          },
-          {
-            name: 'Custom on-demand discounts',
-            valid: '0',
-          },
-          {
-            name: 'VIP support channels',
-            valid: '0',
-          },
-          {
-            name: 'Engineering team access',
-            valid: '0',
-          },
+
         ],
       },
       {
@@ -212,38 +175,12 @@ export const DA_DUMMY_LIST: IDApp[] = [
         price_usd: '499',
         price_bvm: '500',
         includes: [
-          {
-            name: 'Customize-able',
-            valid: '1',
-          },
-          {
-            name: 'Unlimited Requests with Auto-scaling',
-            valid: '1',
-          },
-          {
-            name: 'Higher Throughput',
-            valid: '1',
-          },
-          {
-            name: 'Committed usage discounts',
-            valid: '1',
-          },
-          {
-            name: 'Custom on-demand discounts',
-            valid: '1',
-          },
-          {
-            name: 'VIP support channels',
-            valid: '1',
-          },
-          {
-            name: 'Engineering team access',
-            valid: '1',
-          },
+
         ],
       },
     ],
     inputs: [],
     user_package: "",
+    status: "0"
   },
 ];

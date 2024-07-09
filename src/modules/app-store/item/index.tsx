@@ -45,7 +45,9 @@ const AppItem = ({
         {data?.description}
       </Text>
       <Button className={s.btnInstall} mt={'24px'}>
-        Install
+        {
+          data?.status === '0' ? 'Comming Soon' : 'Install'
+        }
       </Button>
     </Flex>
   );
