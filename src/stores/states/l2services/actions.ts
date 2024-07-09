@@ -3,7 +3,6 @@ import { PREFIX } from './constants';
 import { IOrderBuyReq, OrderItem } from './types';
 import l2ServicesAPI from '@/services/api/l2services';
 import { RootState } from '@/stores';
-import { DAServiceAPI } from '@/services/api/clients';
 import dAppServicesAPI from '@/services/api/DAServices';
 
 const fetchAvailableList = createAsyncThunk(
