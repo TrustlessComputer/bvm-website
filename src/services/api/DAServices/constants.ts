@@ -90,6 +90,10 @@ export const DA_DUMMY_LIST: IDApp[] = [
             valid: '0',
           },
           {
+            name: 'ETH staking reward',
+            valid: '0',
+          },
+          {
             name: 'Chain token staking reward',
             valid: '1',
           },
@@ -128,6 +132,10 @@ export const DA_DUMMY_LIST: IDApp[] = [
           },
           {
             name: 'BTC staking reward',
+            valid: '1',
+          },
+          {
+            name: 'ETH staking reward',
             valid: '1',
           },
           {
