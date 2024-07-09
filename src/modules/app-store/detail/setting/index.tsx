@@ -181,7 +181,7 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
                         data={p}
                         isSelected={p.id === selectedPackage?.id}
                         isInstalled={isInstalled}
-                        onSelect={() => {setSelectedPackage(p)}}
+                        onSelect={() => {/*setSelectedPackage(p)*/}}
                       />
                     )
                   })
