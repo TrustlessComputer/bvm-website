@@ -36,7 +36,7 @@ const AppStoreModule = () => {
 
   const handleSelectAppCb = (item: IDApp) => {
     //Account Abstraction
-    if (item.id === 2) {
+    if (item.id === 3) {
       if (loggedIn) {
         onOpenModal();
       } else {
