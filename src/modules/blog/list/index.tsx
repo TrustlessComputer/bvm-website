@@ -4,13 +4,21 @@ import React from 'react';
 import s from './styles.module.scss';
 import Card from './Card';
 import Filter from './Filter';
+import { useRouter } from 'next/navigation';
 
 type TListBlog = Posts & {
   className?: string;
   isHome?: boolean;
+  listBlog: Blog[];
+  setPage: any;
 }
 
-export default function ListBlog({ data, total, per_page, page, className, isHome }: TListBlog) {
+export default function ListBlog({ data, total, per_page, page, className, isHome, listBlog, setPage }: TListBlog) {
+  const totalPage = Math.ceil(total/per_page);
+
+  function handleLoadMore() {
+    setPage(page+1)
+  }
 
   return (
     <div className={`${s.wrapper} containerV3`}>
@@ -18,7 +26,7 @@ export default function ListBlog({ data, total, per_page, page, className, isHom
       <div className={s.list}>
         <div className={`${s.listTop} ${s.listItem}`}>
           <div className={s.hl}>
-            {data.slice(0, 1)?.map((item, index) => {
+            {listBlog?.slice(0, 1)?.map((item, index) => {
               return (
                 <div className={s.card}>
                   <Card {...item} key={item.slug} isFirst={index === 0} showExcerpt/>
@@ -27,7 +35,7 @@ export default function ListBlog({ data, total, per_page, page, className, isHom
             })}
           </div>
           <div className={s.sc}>
-            {data.slice(1, 3)?.map((item, index) => {
+            {listBlog?.slice(1, 3)?.map((item, index) => {
               return (
                 <div className={s.card}>
                   <Card {...item} key={item.slug}  />
@@ -37,7 +45,7 @@ export default function ListBlog({ data, total, per_page, page, className, isHom
           </div>
         </div>
         <div className={`${s.listBottom} ${s.listItem}`}>
-          {data.slice(3, data.length)?.map((item, index) => {
+          {listBlog?.slice(3, listBlog.length)?.map((item, index) => {
             return (
               <div className={s.card}>
                 <Card {...item} key={item.slug} />
@@ -46,13 +54,13 @@ export default function ListBlog({ data, total, per_page, page, className, isHom
           })}
         </div>
       </div>
-      {/*{*/}
-      {/*  page > 1 && (*/}
-      {/*    <div className={s.btn}>*/}
-      {/*      Load more*/}
-      {/*    </div>*/}
-      {/*  )*/}
-      {/*}*/}
+      {
+        (totalPage > 1 && page < totalPage) && (
+          <div className={s.btn} onClick={()=> handleLoadMore()}>
+            Load more
+          </div>
+        )
+      }
 
     </div>
   );

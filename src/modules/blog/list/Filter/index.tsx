@@ -11,9 +11,9 @@ const DATA_FILTER = [{
 }];
 
 export default function Filter() {
-  const [valueFilter, setValueFilter] = useState<string>(DATA_FILTER[0].value)
-  const pathname = usePathname()
   const searchParams = useSearchParams()
+  const [valueFilter, setValueFilter] = useState<string>(searchParams.get('orderBy') || DATA_FILTER[0].value)
+  const pathname = usePathname()
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState({
     orderBy: "desc",
