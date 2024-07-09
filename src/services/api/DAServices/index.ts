@@ -35,10 +35,10 @@ const fetchDAList = async (): Promise<IDApp[]> => {
 const fetchDAppByID = async (dAppID: number): Promise<IDApp> => {
   let result: IDApp;
   try {
-    // result = (await httpClient.get(`/apps/detail/${dAppID}`)) as IDApp;
-    // return result;
-    result = DA_DUMMY_LIST.find((a) => a.id === dAppID) as IDApp;
+    result = (await httpClient.get(`/apps/detail/${dAppID}`)) as IDApp;
     return result;
+    // result = DA_DUMMY_LIST.find((a) => a.id === dAppID) as IDApp;
+    // return result;
   } catch (error) {
     throw error;
   }
