@@ -1,7 +1,6 @@
 import { Box, Flex, SimpleGrid, Text, useDisclosure } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import AppItem from '@/modules/app-store/item';
-import { DATA } from '@/modules/app-store/data';
 import { useEffect } from 'react';
 import useL2Service from '@/hooks/useL2Service';
 import { useAppSelector } from '@/stores/hooks';
@@ -10,11 +9,12 @@ import { useRouter } from 'next/navigation';
 import { APP_STORE } from '@/constants/route-path';
 import { AccountAbstractionDAppModal } from '../blockchains/components/DAppModal';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { IDApp } from '@/services/api/DAServices/types';
 
 const AppStoreModule = () => {
   const { getDappsList, getMyOrderList, getAccountInfor } = useL2Service();
   const { loggedIn, login } = useWeb3Auth();
-  // const DAppList = useAppSelector(getDAListSelector); // TO DO
+  const DAppList = useAppSelector(getDAListSelector); // TO DO
 
   const router = useRouter();
 
@@ -34,7 +34,7 @@ const AppStoreModule = () => {
     }
   }, [loggedIn]);
 
-  const handleSelectAppCb = (item: IAppInfo) => {
+  const handleSelectAppCb = (item: IDApp) => {
     //Account Abstraction
     if (item.id === 2) {
       if (loggedIn) {
@@ -57,7 +57,7 @@ const AppStoreModule = () => {
           </Text>
         </Flex>
         <SimpleGrid columns={[1, 2]} gap={'60px'}>
-          {DATA.map((d) => {
+          {DAppList?.map((d) => {
             return <AppItem data={d} handleSelectApp={handleSelectAppCb} />;
           })}
         </SimpleGrid>

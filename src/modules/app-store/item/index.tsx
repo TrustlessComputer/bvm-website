@@ -1,20 +1,14 @@
 import { Button, Flex, Image, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import { useRouter } from 'next/navigation';
-import { APP_STORE } from '@constants/route-path';
-import { useMemo } from 'react';
+import { IDApp } from '@/services/api/DAServices/types';
 
 const AppItem = ({
   data,
   handleSelectApp,
 }: {
-  data: IAppInfo;
-  handleSelectApp: (item: IAppInfo) => void;
+  data: IDApp;
+  handleSelectApp: (item: IDApp) => void;
 }) => {
-  const status = useMemo(() => {
-    return 'not_installed';
-  }, []);
-
   return (
     <Flex
       className={s.container}
@@ -27,13 +21,14 @@ const AppItem = ({
         alignItems={'center'}
         justifyContent={'center'}
         borderRadius={'12px'}
+        padding={"20px"}
       >
-        <Image className={s.avatar} src={data?.image} />
+        <Image className={s.avatar} src={data?.image_url} />
       </Flex>
       <Flex alignItems={'center'} mt={'24px'} gap={'24px'}>
-        <Text className={s.title}>{data?.title}</Text>
+        <Text className={s.title}>{data?.name}</Text>
         <Flex gap={'8px'} alignItems={'center'}>
-          <Text className={s.number}>{data?.num_installed}</Text>
+          <Text className={s.number}>{data?.installed}</Text>
           <Text className={s.status}>INSTALLED</Text>
         </Flex>
       </Flex>
