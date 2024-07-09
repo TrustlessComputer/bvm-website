@@ -1,7 +1,7 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
-import AppStoreModule from '@/modules/app-store/v2';
+import AppStoreModule from '@/modules/app-store';
 import AppStoreProvider from '@/modules/app-store/providers';
 
 const AppStorePage = () => {
