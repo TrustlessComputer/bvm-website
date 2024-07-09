@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { CDN_URL_ICONS } from '../config';
 
 export const APP_NAME = 'Blockchains anyone can set up for $99/mo.';
 export const APP_DEFAULT_TITLE = 'Blockchains anyone can set up for $99/mo.';
@@ -35,7 +34,7 @@ const metadataConfig: Metadata = {
     description: APP_DESCRIPTION,
     images: [
       {
-        url: 'https://cdn.newbitcoincity.com/nbc/icons/bvm-icons/metadata_5.png',
+        url: `https://storage.googleapis.com/bvm-network/image/Metadata_bvm_v100.png`,
         width: 1200,
         height: 630,
         alt: APP_NAME,
@@ -51,7 +50,7 @@ const metadataConfig: Metadata = {
     description: APP_DESCRIPTION,
     images: [
       {
-        url: 'https://cdn.newbitcoincity.com/nbc/icons/bvm-icons/metadata_5.png',
+        url: `https://storage.googleapis.com/bvm-network/image/Metadata_bvm_v100.png`,
         alt: APP_NAME,
       },
     ],
