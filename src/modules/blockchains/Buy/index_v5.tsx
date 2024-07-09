@@ -373,6 +373,7 @@ const BuyPage = () => {
                       if (key === ORDER_FIELD.CHAIN_NAME) return null;
 
                       let _content = null;
+                      let Content = null;
                       const parentKey = getParentId(key);
                       const fieldValue = field[key as Override].value;
                       const isDragged = field[key as Override].dragged;
@@ -386,9 +387,7 @@ const BuyPage = () => {
                         background,
                       } = boxOptionMapping[key as Override];
 
-                      if (isNestedLego) {
-                        //
-                      } else if (content) {
+                      if (content) {
                         _content = (
                           <Draggable
                             value={fieldValue}
@@ -399,6 +398,8 @@ const BuyPage = () => {
                             {content(true)}
                           </Draggable>
                         );
+                      } else {
+                        _content = null;
                       }
                       return (
                         <BoxOptionV3

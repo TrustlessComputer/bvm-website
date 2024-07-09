@@ -178,7 +178,7 @@ const BuyPage = () => {
             initValue={defaultGasLimit}
             min={minGasLimit}
             step={stepGasLimit}
-            initNoti={
+            InitNoti={() => (
               <div className={s.notiWraper}>
                 <span
                   className={s.link}
@@ -188,7 +188,7 @@ const BuyPage = () => {
                 </span>
                 <SvgInset svgUrl="/icons/arrow-right-up.svg" size={20} />
               </div>
-            }
+            )}
           />
         </Lego>
       ),
@@ -224,7 +224,7 @@ const BuyPage = () => {
             suffix="hours"
             initValue={defaultWithdrawalPeriod}
             min={minWithdrawalPeriod}
-            initNoti={
+            InitNoti={() => (
               <div className={s.notiWraper}>
                 <span
                   className={s.link}
@@ -234,7 +234,7 @@ const BuyPage = () => {
                 </span>
                 <SvgInset svgUrl="/icons/arrow-right-up.svg" />
               </div>
-            }
+            )}
           />
         </Lego>
       ),

@@ -45,7 +45,7 @@ const Tier = () => {
         <div
           className={s.right_top_box_btn}
           onClick={() => {
-            router.push('/pricing');
+            router.push('/pricingv2');
           }}
         >
           <p>Switch Tier</p>
