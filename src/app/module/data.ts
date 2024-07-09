@@ -33,15 +33,15 @@ export const MODULE_DATAS = {
       theme: 'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
       title: 'BitZK',
       subTitle: 'ROLLUP',
-      desc: 'ZK rollups for virtually any decentralized applications.',
+      desc: 'ZK rollups on Bitcoin for virtually any decentralized applications.',
       start: {
         text: 'Get started',
         link: '/pricing',
       },
     },
     why: {
-      title: 'Why ZK rollups?',
-      desc: `BitZK is the first modular ZK rollup platform. It offers the broadest and deepest choices, with the latest data availability layers, hardware nodes, pre-installed apps, and pricing models to help you best match your app requirements.`,
+      title: 'Why BitZK?',
+      desc: `Bitcoin Zero Knowledge (BitZK) is the first modular ZK rollup platform on Bitcoin. It offers the broadest and deepest choices, with the latest data availability layers, hardware nodes, pre-installed apps, and pricing models to help you best match your app requirements.`,
     },
     benefit: {
       title: 'Benefits of BitZK',
@@ -72,15 +72,15 @@ export const MODULE_DATAS = {
       theme: 'linear-gradient(180deg, rgba(255, 174, 174, 0.8) -5.57%, rgba(255, 174, 174, 0) 98.47%)',
       title: 'BitOP',
       subTitle: 'ROLLUP',
-      desc: 'Optimistic rollups for virtually any decentralized applications.',
+      desc: 'Optimistic rollups on Bitcoin for virtually any decentralized applications.',
       start: {
         text: 'Get started',
         link: '/pricing',
       },
     },
     why: {
-      title: 'Why Optimistic rollups?',
-      desc: `BitOP rollups increase its computation and storage capacity without sacrificing security or decentralization.`,
+      title: 'Why BitOP?',
+      desc: `Bitcoin Optimistic (BitOP) rollups increase its computation and storage capacity without sacrificing security or decentralization.`,
     },
     benefit: {
       title: 'Benefits of BitOP',

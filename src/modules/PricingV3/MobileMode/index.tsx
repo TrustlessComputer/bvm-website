@@ -405,7 +405,7 @@ const PricingMobileModule = () => {
         mb={'20px'}
       >
         <Text fontSize={'22px'} lineHeight={'26px'} fontWeight={400}>
-          {`Choose the ZK Rollup solutions you need.`}
+          {`Blockchain as a Service.`}
         </Text>
         <Text
           fontSize={'18px'}
@@ -414,7 +414,7 @@ const PricingMobileModule = () => {
           opacity={0.7}
           className={s.fontType2}
         >
-          {`It's a great time to build on Bitcoin.`}
+          {`Powerful solutions to build and scale your blockchain with ease.`}
         </Text>
       </Flex>
       <SimpleGrid column={1} row={DATA_LIST.length} spacing={'30px'}>

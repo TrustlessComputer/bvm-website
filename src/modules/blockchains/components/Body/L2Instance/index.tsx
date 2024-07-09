@@ -6,10 +6,11 @@ import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import { Box, Divider, Flex } from '@chakra-ui/react';
 // import BodyInfor from './BodyInfor';
 import BodyInfor from './BodyInfor_V2';
-import BottomInfor from './BottomInfor';
+import BottomView from './Bottom';
 import HeaderRow from './HeaderRow';
 import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
 import { getBridgeLink } from '@/services/api/l2services/constants';
+import BreakLine from './BreakLine';
 
 type Props = {
   item: OrderItem;
@@ -28,6 +29,7 @@ const L2Instance = (props: Props) => {
     onOpenCancelOrderModal,
     onOpenTopUpModal,
     onOpenUpdateOrderModal,
+    onOpenDappList,
   } = useDashboard();
 
   const isProccessing = item.status === OrderStatus.Processing;
@@ -63,10 +65,9 @@ const L2Instance = (props: Props) => {
           }}
         />
         <Divider my={'20px'} borderColor="gray.200" />
-        {/* <BodyInfor item={item} /> */}
         <BodyInfor item={item} />
-        {/* <Divider my={'20px'} borderColor="gray.200" /> */}
-        <BottomInfor
+        <BreakLine />
+        <BottomView
           item={item}
           isOwner={isOwner}
           viewBillingOnClick={() => {

@@ -3,22 +3,63 @@
 import { Box, Divider, Flex, Image, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { useParams, useRouter } from 'next/navigation';
-import { useMemo } from 'react';
-import { DATA } from '@/modules/app-store/data';
-import { compareString } from '@utils/string';
-import InstallMode from '@/modules/app-store/detail/mode';
+import { useEffect, useState } from 'react';
+import AppPackage from 'src/modules/app-store/detail/appPackage';
 import SvgInset from '@components/SvgInset';
+import { closeModal, openModal } from '@/stores/states/modal/reducer';
+import SettingView from '@/modules/app-store/detail/setting';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { useDispatch } from 'react-redux';
+import { BuyProvider } from '@/modules/blockchains/providers/Buy.context';
+import dAppServicesAPI from '@/services/api/DAServices';
+import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
 
 const AppDetailModule = () => {
   const params = useParams();
   const router = useRouter();
+  const { loggedIn, login, userInfo } = useWeb3Auth();
+  const dispatch = useDispatch();
+  const [data, setData] = useState<IDApp | undefined>(undefined);
 
-  const data: IAppInfo = useMemo(() => {
-    return DATA.find(d => compareString(d.id, params?.id)) || {} as IAppInfo;
+  useEffect(() => {
+    if(params?.id) {
+      getAppInfo(params?.id as string);
+    }
   }, [params?.id]);
+
+  const getAppInfo = async (id: string) => {
+    const res = await dAppServicesAPI.fetchDAppByID(Number(id));
+    setData(res);
+  }
 
   const handleBack = () => {
     return router.back();
+  }
+
+  const handleInstall = (appPackage: IDAppDetails) => {
+    if (!loggedIn) {
+      login();
+    } else {
+      const id = 'SETTING_MODAL';
+      const onClose = () => dispatch(closeModal({id: id}));
+      try {
+        dispatch(openModal({
+          id: id,
+          className: s.modalContent,
+          modalProps: {
+            size: 'xl',
+          },
+          render: () =>
+            <BuyProvider>
+              <SettingView app={data} appPackage={appPackage} onClose={onClose}/>
+            </BuyProvider>
+          ,
+        }));
+      } catch (e) {
+
+      } finally {
+      }
+    }
   }
 
   return (
@@ -30,9 +71,9 @@ const AppDetailModule = () => {
         </Flex>
         <Box className={s.content}>
           <Flex gap={"24px"}>
-            <Image className={s.avatar} src={data?.image}/>
+            <Image className={s.avatar} src={data?.image_url}/>
             <Flex direction={"column"} gap={"8px"}>
-              <Text className={s.title}>{data?.title}</Text>
+              <Text className={s.title}>{data?.name}</Text>
               <Text className={s.description}>{data?.description}</Text>
             </Flex>
           </Flex>
@@ -41,9 +82,9 @@ const AppDetailModule = () => {
 
           <Flex gap={"12px"}>
             {
-              data?.modes.map(m => {
+              data?.details.map(m => {
                 return (
-                  <InstallMode data={m}/>
+                  <AppPackage data={m} onInstall={handleInstall}/>
                 )
               })
             }

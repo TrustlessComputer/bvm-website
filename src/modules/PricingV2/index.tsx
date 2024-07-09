@@ -161,7 +161,7 @@ const PriceModule = () => {
     return (
       <CardInfor
         title="Hacker"
-        desc="The easiest way to launch your own ZK Rollup on Bitcoin"
+        desc="The easiest way to launch your own blockchain"
         price={
           <Flex direction={'column'}>
             <Flex
@@ -239,7 +239,7 @@ const PriceModule = () => {
     return (
       <CardInfor
         title="Growth"
-        desc="Scale your Bitcoin ZK rollup as you go"
+        desc="Scale your blockchain as you go"
         price={
           <Flex direction={'column'}>
             <Flex
@@ -325,7 +325,7 @@ const PriceModule = () => {
     return (
       <CardInfor
         title="Secure"
-        desc="Fully secure your Bitcoin ZK rollup with a cryptographic prover"
+        desc="Fully secure your blockchain with a cryptographic prover"
         price={
           <Flex direction={'column'}>
             <Flex
@@ -484,7 +484,7 @@ const PriceModule = () => {
               lineHeight={'52px'}
               fontWeight={400}
             >
-              {`Choose the ZK Rollup solutions you need.`}
+              {`Blockchain as a Service.`}
             </Text>
             <Text
               textAlign={'center'}
@@ -494,7 +494,7 @@ const PriceModule = () => {
               opacity={0.7}
               className={s.fontType2}
             >
-              {`It's a great time to build on Bitcoin.`}
+              {`Powerful solutions to build and scale your blockchain with ease.`}
             </Text>
 
             {/* Footer */}

@@ -7,6 +7,27 @@
   transform: translateY(-2px);
 }
 
+.heading {
+  font-family: var(--font-JetBrainsMono);
+  font-weight: 500;
+  line-height: 44.8px;
+  text-align: center;
+  font-size: 18px;
+  color: black;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 16px;
+
+  @include is-min-table {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+  @include is-pc {
+    font-size: 32px;
+  }
+}
+
 .brand {
   display: flex;
   flex-wrap: wrap;
