@@ -130,7 +130,7 @@ const SettingView = ({app, appPackage}: {app?: IDApp, appPackage: IAppPackage}) 
       )
     }
 
-    if(Number(accountInforL2Service?.balanceFormatted) < Number(appPackage?.price_bvm)) {
+    if (Number(accountInforL2Service?.balanceFormatted) < Number(appPackage?.price_bvm)) {
       return (
         <Button
           className={s.btnPrimary}
@@ -143,7 +143,7 @@ const SettingView = ({app, appPackage}: {app?: IDApp, appPackage: IAppPackage}) 
     }
 
     return (
-      <Form selectedPackage={selectedPackage} selectedOrder={selectedOrder}/>
+      <Form app={app} selectedPackage={selectedPackage} selectedOrder={selectedOrder}/>
     )
 
     // return (

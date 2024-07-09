@@ -3,26 +3,57 @@ import { Button, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { useState } from 'react';
+import { IDApp, InstallDAByParams } from '@/services/api/DAServices/types';
+import dAppServicesAPI from '@/services/api/DAServices';
+import toast from 'react-hot-toast';
+import { getErrorMessage } from '@utils/errorV2';
+import { useAppSelector } from '@/stores/hooks';
+import { accountInforSelector } from '@/stores/states/l2services/selector';
 
 interface IFormValues {
   hash: string;
 }
 
 interface IFormProps {
+  app?: IDApp;
   selectedPackage?: IAppPackage;
   selectedOrder?: OrderItem;
 }
 
 const Form = (props: IFormProps) => {
-  const { selectedPackage, selectedOrder} = props;
+  const { app, selectedPackage, selectedOrder} = props;
   const [submitting, setSubmitting] = useState(false);
+  const userInfor = useAppSelector(accountInforSelector);
+  console.log('userInfor', userInfor);
 
   const onSubmit = async (values: IFormValues) => {
     try {
-      alert('aaaa')
       setSubmitting(true);
-    } catch (e) {
 
+      const params: InstallDAByParams = {
+        address: userInfor?.tcAddress || '',
+        dAppID: app?.id as number,
+        inputs: [
+          // {
+          //   key: 'aaPaymasterTokenID',
+          //   value: tokenContractAddress,
+          // },
+          // {
+          //   key: 'aaTokenGas',
+          //   value: new BigNumber(feeRate || 1).multipliedBy(1e18).toFixed(),
+          // },
+        ],
+      };
+
+      console.log('onSubmit Params: ', params);
+
+      const result = await dAppServicesAPI.installDAByParams(params);
+      if (result) {
+        toast.success('Submit successfully!');
+      }
+    } catch (error) {
+      const { message } = getErrorMessage(error);
+      toast.error(message);
     } finally {
       setSubmitting(false);
     }
