@@ -1,10 +1,9 @@
 'use client';
 
 import { Flex, Image, Text } from '@chakra-ui/react';
-import { IDappItem } from './type';
 
 export type Props = {
-  item: IDappItem;
+  item: any;
   onClick: () => void;
 };
 

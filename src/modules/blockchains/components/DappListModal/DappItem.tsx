@@ -1,10 +1,9 @@
 'use client';
 
-import { IDappItem } from '@/stores/states/l2services/types';
 import { Flex, Image, Text, Button } from '@chakra-ui/react';
 
 export type Props = {
-  item: IDappItem;
+  item: any;
   onClick: () => void;
   instalOnClick: () => void;
 };

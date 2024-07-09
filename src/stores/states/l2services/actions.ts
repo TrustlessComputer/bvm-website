@@ -3,6 +3,8 @@ import { PREFIX } from './constants';
 import { IOrderBuyReq, OrderItem } from './types';
 import l2ServicesAPI from '@/services/api/l2services';
 import { RootState } from '@/stores';
+import { DAServiceAPI } from '@/services/api/clients';
+import dAppServicesAPI from '@/services/api/DAServices';
 
 const fetchAvailableList = createAsyncThunk(
   `${PREFIX}/fetchAvailableList`,
@@ -25,7 +27,7 @@ const fetchAvailableList = createAsyncThunk(
 
 const fetchDAList = createAsyncThunk(`${PREFIX}/fetchDAList`, async () => {
   try {
-    const data = await l2ServicesAPI.getDappsList();
+    const data = await dAppServicesAPI.fetchDAList();
     return data;
   } catch (error) {
     return undefined;

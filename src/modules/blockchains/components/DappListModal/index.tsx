@@ -13,12 +13,11 @@ import DappItem from './DappItem';
 import s from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
 import { getDAListSelector } from '@/stores/states/l2services/selector';
-import { IDappItem } from '@/stores/states/l2services/types';
 
 interface IProps {
   show: boolean;
   onClose?: (() => void) | any;
-  installDappDetailOnClick: (item: IDappItem) => void;
+  installDappDetailOnClick: (item: any) => void;
 }
 
 export const DappListModal = (props: IProps) => {
