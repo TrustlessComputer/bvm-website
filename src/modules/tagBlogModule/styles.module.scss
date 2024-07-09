@@ -12,5 +12,12 @@
   margin: 30px 0 60px 0;
   grid-gap: 50px;
   display: grid;
-  grid-template-columns: repeat(3 ,1fr);
+  grid-template-columns: repeat(1, 1fr);
+  @include is-tablet {
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+  @include is-pc {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

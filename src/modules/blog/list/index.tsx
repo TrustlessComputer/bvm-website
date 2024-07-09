@@ -30,7 +30,7 @@ export default function ListBlog({ data, total, per_page, page, className, isHom
             {data.slice(1, 3)?.map((item, index) => {
               return (
                 <div className={s.card}>
-                  <Card {...item} key={item.slug} isFirst={index === 0} />
+                  <Card {...item} key={item.slug}  />
                 </div>
               );
             })}

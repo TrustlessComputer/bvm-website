@@ -11,13 +11,18 @@
 
 .listTop {
   margin-bottom: 10px;
+  @include is-tablet {
+    flex-direction: column;
+  }
   .card {
     width: 100%;
   }
 
   .hl {
-    width: 66.66%;
-
+    width: 100%;
+    @include is-pc {
+      width: 66.66%;
+    }
     :global {
       .thumbnail {
         height: 600px;
@@ -26,14 +31,21 @@
   }
 
   .sc {
-    width: 33.33%;
+    width: 100%;
+    @include is-pc {
+      width: 33.33%;
+    }
   }
 }
 
 .card {
   margin-bottom: 60px;
   padding: 0 20px;
-  width: 33.33%;
+  width: 100%;
+  @include is-pc {
+    width: 33.33%;
+
+  }
 }
 
 .btn {
