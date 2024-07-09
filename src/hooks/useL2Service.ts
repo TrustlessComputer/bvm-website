@@ -4,6 +4,7 @@ import {
   fetchAccountInfo,
   fetchAllOrders,
   fetchAllOrdersV2,
+  fetchDAList,
   fetchOrderList,
 } from '@/stores/states/l2services/actions';
 import { useRef } from 'react';
@@ -37,6 +38,10 @@ const useL2Service = () => {
     dispatch(fetchAllOrdersV2());
   };
 
+  const getDappsList = () => {
+    dispatch(fetchDAList());
+  };
+
   const loopFetchAccountInfor = () => {
     clearIntervalTimer();
     if (loggedIn) {
@@ -57,6 +62,7 @@ const useL2Service = () => {
     getAccountInfor,
     getAllOrderList,
     getAllOrderListV2,
+    getDappsList,
   };
 };
 

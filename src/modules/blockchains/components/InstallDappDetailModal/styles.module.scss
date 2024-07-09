@@ -1,0 +1,11 @@
+.modalContent {
+  background-color: #fff !important;
+  min-height: 300px !important;
+  font-family: var(--font-SFProDisplay);
+  max-width: 800px !important;
+  margin: 20px !important;
+  border-radius: 12px !important;
+  :global(.chakra-modal__body) {
+    background-color: #fff !important;
+  }
+}

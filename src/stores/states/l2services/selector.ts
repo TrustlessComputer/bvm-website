@@ -209,6 +209,29 @@ const packageDetailByPackageEnumSelector = createSelector(
   },
 );
 
+// Dapp Feature Selector
+
+const getDAListSelector = createSelector(
+  getL2ServicesStateSelector,
+  (state) => {
+    return state.daList || [];
+  },
+);
+
+const getDADetailByIDSelector = createSelector(
+  getDAListSelector,
+  (dappsList) => (dappID: number) => {
+    return dappsList.filter((dapp) => dapp.id === dappID);
+  },
+);
+
+const getDappSelectedSelector = createSelector(
+  getL2ServicesStateSelector,
+  (state) => {
+    return state.dAppSelected;
+  },
+);
+
 export {
   getL2ServicesStateSelector,
   orderListSelector,
@@ -227,4 +250,9 @@ export {
   //Monitor
   ZKOrdersSelector,
   OPOrdersSelector,
+
+  //Dapp
+  getDappSelectedSelector,
+  getDAListSelector,
+  getDADetailByIDSelector,
 };

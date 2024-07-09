@@ -52,6 +52,18 @@ type WaittingSettingUpModalProps = {
   onCloseWaittingSetingUp?: () => void;
 };
 
+type DappListModalProps = {
+  isOpenDappList?: boolean;
+  onOpenDappList?: () => void;
+  onCloseDappList?: () => void;
+};
+
+type InstallDappDetailModalProps = {
+  isOpenInstallDappDetail?: boolean;
+  onOpenInstallDappDetail?: () => void;
+  onCloseInstallDappDetail?: () => void;
+};
+
 type IModalProps = TopUpModalProps &
   BillingModalProps &
   SendFormModalProps &
@@ -59,7 +71,9 @@ type IModalProps = TopUpModalProps &
   OrderDetailModalProps &
   CancelOrderModalProps &
   UpdateOrderModalProps &
-  WaittingSettingUpModalProps;
+  WaittingSettingUpModalProps &
+  DappListModalProps &
+  InstallDappDetailModalProps;
 
 export type DashboardProps = IActions & Props & IModalProps & {};
 
