@@ -230,7 +230,7 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
         color={'#000'}
       >
         <Text fontSize={['16px', '18px', '20px']} fontWeight={600}>
-          {'Token Contract Address'}
+          {'Token contract address'}
         </Text>
         <Text
           fontSize={['13px', '14px', '16px']}
@@ -243,7 +243,7 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
         <Input
           value={tokenContractAddress}
           border="1px solid #CECECE"
-          placeholder="Ex: 0xabc...xzy"
+          placeholder="Example: 0xabc...xzy"
           _placeholder={{
             color: 'grey',
           }}
@@ -294,7 +294,7 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
         <Input
           value={feeRate}
           border="1px solid #CECECE"
-          placeholder="Ex: 0.01"
+          placeholder="Example: 0.05"
           type="number"
           height={'48px'}
           p={'11px'}
