@@ -37,16 +37,17 @@ const AppStoreModule = () => {
   }, [loggedIn]);
 
   const handleSelectAppCb = (item: IDApp) => {
-    if (item.code === DA_CODES.account_abstraction) {
-      if (loggedIn) {
-        dispatch(setDAppSelected(item));
-        onOpenModal();
-      } else {
-        login();
-      }
-    } else {
-      router.push(`${APP_STORE}/${item?.id}`);
-    }
+    // if (item.code === DA_CODES.account_abstraction) {
+    //   if (loggedIn) {
+    //     dispatch(setDAppSelected(item));
+    //     onOpenModal();
+    //   } else {
+    //     login();
+    //   }
+    // } else {
+    //   router.push(`${APP_STORE}/${item?.id}`);
+    // }
+    router.push(`${APP_STORE}/${item?.id}`);
   };
 
   return (

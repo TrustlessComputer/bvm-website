@@ -2,7 +2,8 @@ export const DA_CODES = {
   create_token: 'create_token',
   staking: 'staking',
   account_abstraction: 'account_abstraction',
-  bridge: 'bridge',
+  btc_bridge: 'btc_bridge',
+  eth_bridge: 'eth_bridge',
 };
 
 export const DA_PACKAGES = {
