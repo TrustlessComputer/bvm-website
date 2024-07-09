@@ -24,7 +24,6 @@ type PricingPackageValues = {
 const BlockGasLimitLego = ({ isLeft }: { isLeft: boolean }) => {
   const { field, setFormField } = useFormOrderStore();
   const { pricingPackageValues } = useBuy();
-
   const { maxGasLimit, minGasLimit, defaultGasLimit, stepGasLimit } =
     pricingPackageValues as PricingPackageValues;
 
@@ -47,7 +46,7 @@ const BlockGasLimitLego = ({ isLeft }: { isLeft: boolean }) => {
         initValue={defaultGasLimit}
         min={minGasLimit}
         step={stepGasLimit}
-        initNoti={CannotModifiedNoti}
+        InitNoti={CannotModifiedNoti}
       />
     </LegoV3>
   );

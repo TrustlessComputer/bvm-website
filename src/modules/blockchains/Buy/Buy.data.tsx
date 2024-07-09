@@ -113,6 +113,7 @@ export const OrderFormOptions: OrderFormOption = {
       {
         id: 6,
         label: 'Avail',
+        isDisabled: true,
         value: DALayerEnum.DALayer_AVAIL,
         avalaibleNetworks: [],
         icon: '/landingV3/images/pricing/6.png',

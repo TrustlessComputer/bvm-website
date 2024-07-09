@@ -4,12 +4,12 @@ import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import SvgInset from '@/components/SvgInset';
 
-const CannotModifiedNoti = () => {
+const CannotModifiedNoti = (): JSX.Element => {
   const router = useRouter();
 
   return (
     <div className={s.notiWraper}>
-      <span className={s.link} onClick={() => router.push('/pricing')}>
+      <span className={s.link} onClick={() => router.push('/pricingv2')}>
         Switch tier for more option
       </span>
       <SvgInset svgUrl="/icons/arrow-right-up.svg" />
@@ -17,4 +17,4 @@ const CannotModifiedNoti = () => {
   );
 };
 
-export default React.memo(CannotModifiedNoti);
+export default CannotModifiedNoti;

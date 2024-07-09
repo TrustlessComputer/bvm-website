@@ -22,7 +22,7 @@ type TSlider = {
   step?: number;
   suffix?: string;
   initValue?: number;
-  initNoti?: any;
+  InitNoti?: () => JSX.Element;
 };
 
 const Slider = ({
@@ -34,7 +34,7 @@ const Slider = ({
   min = 0,
   step = 1,
   initValue,
-  initNoti = 'This value can not be modified',
+  InitNoti,
 }: TSlider) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -76,7 +76,7 @@ const Slider = ({
           className={`${s.dropdown_list} ${isOpen && s.dropdown_list__active}`}
         >
           <div className={` ${s.dropdown_wrap_init}`} ref={ref}>
-            {initNoti}
+            {InitNoti && <InitNoti />}
           </div>
         </div>
       ) : (
