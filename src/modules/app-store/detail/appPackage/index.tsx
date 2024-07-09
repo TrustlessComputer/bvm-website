@@ -9,8 +9,18 @@ const AppPackage = ({data, onInstall}: {data: IDAppDetails, onInstall: any}) => 
       <Text className={s.title}>{data?.name}</Text>
       <Text className={s.description} mt={"8px"}>{data?.description}</Text>
       <Flex alignItems={"center"} justifyContent={"center"} mt={"20px"} gap={"12px"}>
-        <Text className={s.priceUsd}>${data?.price_usd}</Text>
-        <Text className={s.priceBvm}>{data?.price_bvm} BVM</Text>
+        {
+          Number(data?.price_usd) > 0 ? (
+            <>
+              <Text className={s.priceUsd}>${data?.price_usd}</Text>
+              <Text className={s.priceBvm}>{data?.price_bvm} BVM</Text>
+            </>
+          ) : (
+            <><Text className={s.priceUsd}>Free</Text>
+            </>
+          )
+        }
+
       </Flex>
       <Button
         className={s.btnInstall}
