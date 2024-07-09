@@ -1,6 +1,14 @@
 import { Button, Flex, Image, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { IDApp } from '@/services/api/DAServices/types';
+import { useMemo } from 'react';
+
+const BG_COLOR = [
+  '#FAFAFA',
+  'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+  'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
+  '#B3FFBF'
+]
 
 const AppItem = ({
   data,
@@ -9,6 +17,10 @@ const AppItem = ({
   data: IDApp;
   handleSelectApp: (item: IDApp) => void;
 }) => {
+  const indexBg = useMemo(() => {
+    return (data?.id - 1) % BG_COLOR.length;
+  }, [data]);
+
   return (
     <Flex
       className={s.container}
@@ -17,7 +29,7 @@ const AppItem = ({
       }}
     >
       <Flex
-        bg={'#FAFAFA'}
+        bg={BG_COLOR[indexBg]}
         alignItems={'center'}
         justifyContent={'center'}
         borderRadius={'12px'}
