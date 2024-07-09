@@ -9,7 +9,6 @@ import { IAvailableList } from '@/modules/blockchains/Buy/Buy.types';
 import {
   AccountInfo,
   AccountInfoResp,
-  IDappItem,
   HistoryItemResp,
   IGetNonceReq,
   IGetNonceResp,
@@ -34,7 +33,6 @@ import {
 } from '@/modules/blockchains/Buy/Buy.constanst';
 import LocalStorage from '@/libs/localStorage';
 import { STORAGE_KEYS } from '@/constants/storage-key';
-import { DAPPS_LIST } from './mockup';
 
 // ------------------------------------------------------------------------
 // Access Token
@@ -269,26 +267,6 @@ export const accountGetInfo = async (): Promise<AccountInfo | undefined> => {
   }
 };
 
-export const getDappsList = async (): Promise<IDappItem[] | undefined> => {
-  const accessToken = getAPIAccessToken();
-
-  if (!accessToken) return undefined;
-  try {
-    // const daList = (await httpClient.get(`/abcd`, {
-    //   headers: {
-    //     Authorization: `${accessToken}`,
-    //   },
-    // })) as DAItem[];
-
-    //MOCKUP DATA
-    const daList = DAPPS_LIST;
-
-    return daList || [];
-  } catch (error) {
-    throw error;
-  }
-};
-
 export const getQuickStart = async (): Promise<
   Array<IQuickStart> | undefined
 > => {
@@ -508,9 +486,6 @@ const l2ServicesAPI = {
   L2ServiceTracking,
   uploadLogoFile,
   getAllOrdersV2,
-
-  //DA
-  getDappsList,
 };
 
 export default l2ServicesAPI;

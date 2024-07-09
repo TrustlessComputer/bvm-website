@@ -1,5 +1,6 @@
 import { useAppSelector } from '@/stores/hooks';
 import {
+  accountInforSelector,
   getDappSelectedSelector,
   myOrderListSelector,
 } from '@/stores/states/l2services/selector';
@@ -20,6 +21,12 @@ import { useMemo, useState } from 'react';
 import { isAddress } from '@ethersproject/address';
 import { BigNumber } from 'bignumber.js';
 import { formatCurrencyV2 } from '@/utils/format';
+import { InstallDAByParams } from '@/services/api/DAServices/types';
+import { access } from 'fs';
+import { DAServiceAPI } from '@/services/api/clients';
+import dAppServicesAPI from '@/services/api/DAServices';
+import toast from 'react-hot-toast';
+import { getErrorMessage } from '@/utils/errorV2';
 
 const MIN_FEE_RATE = 1 * 1e-9;
 const MAX_FEE_RATE = 1 * 1e9;
@@ -34,8 +41,12 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
 
   const dappDetail = useAppSelector(getDappSelectedSelector);
   const chainsList = useAppSelector(myOrderListSelector);
+  const userInfor = useAppSelector(accountInforSelector);
 
+  console.log('userInfor ', userInfor);
   // Local State
+
+  const [isSubmiting, setSubmiting] = useState<boolean>(false);
 
   const [chainIndexSelected, setChainIndexSelected] = useState<number>(0);
   const [tokenContractAddress, setTokenContractAddress] = useState<
@@ -45,10 +56,6 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
     useState<undefined | string>(undefined);
 
   const [feeRate, setFeeRate] = useState<undefined | string>(undefined);
-  const [feeRateFormat, setFeeRateFormat] = useState<undefined | string>(
-    undefined,
-  );
-
   const [feeRateErrorMsg, setfeeRateErrorMsg] = useState<undefined | string>(
     undefined,
   );
@@ -100,16 +107,45 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
       console.log('Lauch a chain TO DO');
     } else {
       //Install a DApp
-      console.log('Install a DAPP TO DO');
+      try {
+        setSubmiting(true);
+
+        const params: InstallDAByParams = {
+          address: userInfor?.tcAddress || '',
+          dAppID: 2, //Account Abstraction
+          inputs: [
+            {
+              key: 'aaPaymasterTokenID',
+              value: tokenContractAddress,
+            },
+            {
+              key: 'aaTokenGas',
+              value: new BigNumber(feeRate || 1).multipliedBy(1e18).toFixed(),
+            },
+          ],
+        };
+
+        console.log('Install Account Abstraction by Params: ', params);
+
+        const result = await dAppServicesAPI.installDAByParams(params);
+        if (result) {
+          toast.success('Submit successfully!');
+        }
+      } catch (error) {
+        const { message } = getErrorMessage(error);
+        toast.error(message);
+      } finally {
+        setSubmiting(false);
+      }
     }
   };
 
-  console.log('DATA ', {
-    chainsList,
-    chainIndexSelected,
-    isEmptyChain,
-    isDisableSubmitBtn,
-  });
+  // console.log('AccountAbstractionDAppModal -- ', {
+  //   chainsList,
+  //   chainIndexSelected,
+  //   isEmptyChain,
+  //   isDisableSubmitBtn,
+  // });
 
   const renderChainDropDown = () => {
     return (
@@ -222,7 +258,7 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
           }
         </Text>
         <Input
-          value={'feeRate'}
+          value={feeRate}
           border="1px solid #CECECE"
           placeholder="Ex: 0.01"
           type="number"
@@ -326,6 +362,7 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
 
             <Button
               isDisabled={isDisableSubmitBtn}
+              isLoading={isSubmiting}
               bgColor={'#FA4E0E'}
               color={'#fff'}
               borderRadius={'100px'}

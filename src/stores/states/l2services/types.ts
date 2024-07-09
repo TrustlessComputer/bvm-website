@@ -8,6 +8,7 @@ import {
   HistoryStatus,
   HistoryType,
 } from '@/modules/blockchains/components/BillingModal/History.types';
+import { IDApp } from '@/services/api/DAServices/types';
 
 interface IVerifySignatureReq {
   signature: string;
@@ -243,16 +244,6 @@ type ViewMode = 'Mainnet' | 'Testnet';
 type ViewPage = 'Biiling' | 'ManageChains';
 type MonitorViewPage = 'OP' | 'ZK';
 
-type IDappItem = {
-  id: number | string;
-  name: string;
-  desc: string;
-  iconUrl?: string;
-  isHide?: boolean;
-  canInstall?: boolean;
-  isInstallNewDapps?: boolean;
-};
-
 interface L2ServicesState {
   //My Order List
   isMyOrderListFetching: boolean;
@@ -288,12 +279,12 @@ interface L2ServicesState {
   availableList?: IAvailableList;
 
   // Install Dapps
-  dAppSelected?: IDappItem;
+  dAppSelected?: IDApp;
 
   // DA
   isDAListFetching: boolean;
   isDAListFetched: boolean;
-  daList?: IDappItem[];
+  daList?: IDApp[];
 }
 
 type MetaConfig = {
@@ -342,5 +333,4 @@ export type {
   WebsiteConfig,
   IOrderUpdate,
   MonitorViewPage,
-  IDappItem,
 };

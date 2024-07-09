@@ -16,9 +16,9 @@ import {
   ViewMode,
   ViewPage,
   MonitorViewPage,
-  IDappItem,
 } from './types';
 import uniqBy from 'lodash/uniqBy';
+import { IDApp } from '@/services/api/DAServices/types';
 
 export const initialState: L2ServicesState = {
   isMyOrderListFetched: false,
@@ -103,7 +103,7 @@ const slice = createSlice({
       state.accountInforL2Service = undefined;
       state.isL2ServiceLogged = false;
     },
-    setDAppSelected(state, action: PayloadAction<IDappItem>) {
+    setDAppSelected(state, action: PayloadAction<IDApp>) {
       state.dAppSelected = action.payload;
     },
   },

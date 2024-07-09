@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  IDappItem,
-  OrderItem,
-  OrderStatus,
-} from '@/stores/states/l2services/types';
+import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import addChain from '@/utils/addChain';
 import { Flex, Image, Text, Button, SimpleGrid } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
@@ -144,7 +140,7 @@ const BottomView = (props: Props) => {
     );
   };
 
-  const dAppOnClick = (item: IDappItem) => {
+  const dAppOnClick = (item: any) => {
     if (item.isInstallNewDapps) {
       // onOpenDappList && onOpenDappList();
       router.push('/app-store');

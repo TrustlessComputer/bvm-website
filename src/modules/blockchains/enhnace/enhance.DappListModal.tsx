@@ -3,7 +3,6 @@ import { DashboardProps, DashboardWrappedComponent } from '../Dashboard.types';
 import { DappListModal } from '../components/DappListModal';
 import { useAppDispatch } from '@/stores/hooks';
 import { setDAppSelected } from '@/stores/states/l2services/reducer';
-import { IDappItem } from '@/stores/states/l2services/types';
 
 const enhanceDappListModal =
   (WrappedComponent: DashboardWrappedComponent) => (props: DashboardProps) => {
@@ -30,7 +29,7 @@ const enhanceDappListModal =
           <DappListModal
             show={isOpenDappList}
             onClose={onCloseDappList}
-            installDappDetailOnClick={(item: IDappItem) => {
+            installDappDetailOnClick={(item: any) => {
               dispatch(setDAppSelected(item));
               onOpenInstallDappDetail && onOpenInstallDappDetail();
             }}

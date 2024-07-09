@@ -220,7 +220,7 @@ const getDAListSelector = createSelector(
 
 const getDADetailByIDSelector = createSelector(
   getDAListSelector,
-  (dappsList) => (dappID: string) => {
+  (dappsList) => (dappID: number) => {
     return dappsList.filter((dapp) => dapp.id === dappID);
   },
 );

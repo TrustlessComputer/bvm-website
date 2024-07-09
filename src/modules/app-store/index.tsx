@@ -1,24 +1,76 @@
-import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Flex, SimpleGrid, Text, useDisclosure } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import AppItem from '@/modules/app-store/item';
 import { DATA } from '@/modules/app-store/data';
+import { useEffect } from 'react';
+import useL2Service from '@/hooks/useL2Service';
+import { useAppSelector } from '@/stores/hooks';
+import { getDAListSelector } from '@/stores/states/l2services/selector';
+import { useRouter } from 'next/navigation';
+import { APP_STORE } from '@/constants/route-path';
+import { AccountAbstractionDAppModal } from '../blockchains/components/DAppModal';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 const AppStoreModule = () => {
+  const { getDappsList, getMyOrderList, getAccountInfor } = useL2Service();
+  const { loggedIn, login } = useWeb3Auth();
+  // const DAppList = useAppSelector(getDAListSelector); // TO DO
+
+  const router = useRouter();
+
+  const {
+    isOpen: isOpenModal,
+    onOpen: onOpenModal,
+    onClose: onCloseModal,
+  } = useDisclosure({
+    id: 'INSTALL_ACCOUNT_ABSTRACTION_MODAL',
+  });
+
+  useEffect(() => {
+    getDappsList();
+    if (loggedIn) {
+      getMyOrderList();
+      getAccountInfor();
+    }
+  }, [loggedIn]);
+
+  const handleSelectAppCb = (item: IAppInfo) => {
+    //Account Abstraction
+    if (item.id === 2) {
+      if (loggedIn) {
+        onOpenModal();
+      } else {
+        login();
+      }
+    } else {
+      router.push(`${APP_STORE}/${item?.id}`);
+    }
+  };
+
   return (
     <Box className={s.container}>
-      <Flex className={"containerV3"} direction={"column"} rowGap={"60px"}>
-        <Flex direction={"column"} gap={"12px"}>
+      <Flex className={'containerV3'} direction={'column'} rowGap={'60px'}>
+        <Flex direction={'column'} gap={'12px'}>
           <Text className={s.title}>Dapps Store</Text>
-          <Text className={s.description}>You can choose any app to install</Text>
+          <Text className={s.description}>
+            You can choose any app to install
+          </Text>
         </Flex>
-        <SimpleGrid columns={[1, 2]} gap={"60px"}>
-          {DATA.map(d => {
-            return <AppItem data={d} />;
+        <SimpleGrid columns={[1, 2]} gap={'60px'}>
+          {DATA.map((d) => {
+            return <AppItem data={d} handleSelectApp={handleSelectAppCb} />;
           })}
         </SimpleGrid>
       </Flex>
+
+      {isOpenModal && (
+        <AccountAbstractionDAppModal
+          show={isOpenModal}
+          onClose={onCloseModal}
+        />
+      )}
     </Box>
-  )
-}
+  );
+};
 
 export default AppStoreModule;

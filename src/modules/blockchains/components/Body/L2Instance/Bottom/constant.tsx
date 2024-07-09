@@ -1,6 +1,4 @@
-import { IDappItem } from '@/stores/states/l2services/types';
-
-export const DAPP_INSTALLED_LIST: IDappItem[] = [
+export const DAPP_INSTALLED_LIST = [
   {
     id: 'Install New Dapp',
     desc: '',
