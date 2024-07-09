@@ -66,8 +66,22 @@ export type BuyBuilderSelectState = {
   bitcoinValidity: number;
   projectWebsite?: string;
   // layer1: Layer1Enum;
-};
+} & BuyBuilderExtend;
 
+export type BuyBuilderExtend = {
+  computed?: number;
+  storage?: number;
+  settleMent?: number;
+  systemApps?: number;
+  wallet?: number;
+  bridge?: number;
+  defi?: Record<string, any>;
+  games?: number;
+  degenApps?: number;
+  brightApps?: number;
+
+  // layer1: Layer1Enum;
+};
 export type SectionProps = {
   title?: string;
   desc?: string;

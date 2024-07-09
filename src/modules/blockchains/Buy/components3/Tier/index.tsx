@@ -28,11 +28,11 @@ const Tier = () => {
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
 
-  if (isFecthingData) return null;
+  // if (isFecthingData) return null;
 
   return (
     <div className={s.right_top}>
-      <p className={s.heading}>Your tier</p>
+      {/* <p className={s.heading}>Your tier</p> */}
       <div className={s.right_top_box}>
         {/*<p>*/}
         {/*  <span>{`${tierData?.valueStr || '--'}`}</span> {`${tierData?.price || '--'} (${tierData?.priceNote || '--'})`} per*/}
@@ -48,7 +48,7 @@ const Tier = () => {
             router.push('/pricing');
           }}
         >
-          <p>Switch</p>
+          <p>Switch Tier</p>
         </div>
       </div>
     </div>

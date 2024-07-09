@@ -9,7 +9,7 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 
 const Droppable = ({ id, children, ...props }: Props) => {
   const { setNodeRef } = useDroppable({
-    id: 'droppable' + '-' + id,
+    id: id + '-' + 'droppable',
   });
 
   return (

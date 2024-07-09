@@ -7,10 +7,11 @@ import { DALayerEnum, NetworkEnum } from '../../Buy.constanst';
 
 type TDropdown = {
   field: keyof FormOrder;
-  options: {
-    label: string;
+  options?: {
     id: number;
-    value: DALayerEnum | NetworkEnum;
+    label: string;
+    keyInField?: string;
+    value: NetworkEnum | DALayerEnum | number | string;
     icon?: string;
     isDisabled?: boolean;
     avalaibleNetworks?: NetworkEnum[];
@@ -18,7 +19,10 @@ type TDropdown = {
   checkDisable?: boolean;
   networkSelected: NetworkEnum;
   defaultValue: DALayerEnum | NetworkEnum;
-  cb: (feild: keyof FormOrder, value: DALayerEnum | NetworkEnum) => void;
+  cb: (
+    feild: keyof FormOrder,
+    value: DALayerEnum | NetworkEnum | number | string,
+  ) => void;
 };
 function Dropdown({
   options,
@@ -32,11 +36,13 @@ function Dropdown({
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, () => setIsOpen(false));
 
-  const handleSelectField = (value: DALayerEnum | NetworkEnum) => {
+  const handleSelectField = (
+    value: DALayerEnum | NetworkEnum | number | string,
+  ) => {
     cb(field, value);
     setIsOpen(false);
   };
-  const icon = options.find((item) => item.value === defaultValue)?.icon;
+  const icon = options?.find((item) => item.value === defaultValue)?.icon;
 
   return (
     <div className={s.dropdown} onClick={() => setIsOpen(!isOpen)}>
@@ -44,7 +50,7 @@ function Dropdown({
         <div className={s.dropdown_inner_content}>
           {icon && <Image src={icon} alt="icon" width={24} height={24} />}
           <p className={s.dropdown_text}>
-            {options.find((item) => item.value === defaultValue)?.label}
+            {options?.find((item) => item.value === defaultValue)?.label}
           </p>
         </div>
 
@@ -62,7 +68,7 @@ function Dropdown({
       >
         <div className={s.dropdown_wrap} ref={ref}>
           <ul className={`${s.dropdown_list_inner} `}>
-            {options.map((option, index) => {
+            {options?.map((option, index) => {
               const isDisabled =
                 checkDisable &&
                 !option.avalaibleNetworks?.includes(networkSelected);

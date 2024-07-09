@@ -1,10 +1,10 @@
 import React, { HTMLAttributes, useEffect, useRef } from 'react';
-import s from './styles.module.scss';
+
 import SvgInset from '@/components/SvgInset';
-import Dropdown from '../Dropdown';
+
 import { LegoColor } from '../BoxOption';
-import { FormOrder, useFormOrderStore } from '../../stores';
-import Slider from '@/modules/blockchains/Buy/components3/Slider';
+
+import s from './styles.module.scss';
 
 export type TOptions = {
   label: string;

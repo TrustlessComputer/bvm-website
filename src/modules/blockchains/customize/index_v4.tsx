@@ -2,7 +2,7 @@
 
 import { Flex } from '@chakra-ui/react';
 import { BuyProvider } from '../providers/Buy.context';
-import BuyPage from '../Buy/index_v4';
+import BuyPage from '../Buy/index_v5';
 import s from './styles.module.scss';
 
 export default () => {
@@ -11,7 +11,7 @@ export default () => {
       flex={1}
       flexDir={'column'}
       align={'center'}
-      py={['10px', '20px', '30px', '50px']}
+      // py={['10px', '20px', '30px', '50px']}
       className={s.container}
     >
       <BuyProvider>

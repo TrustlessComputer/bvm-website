@@ -12,7 +12,7 @@
 
   &_stud {
     position: absolute;
-    left: 12px;
+    left: 24px;
 
     svg {
       width: 26px;
@@ -80,7 +80,14 @@
   flex-direction: row;
   align-items: center;
   gap: 16px;
+
+  &_nested {
+    flex-direction: column;
+    align-items: unset;
+    gap: 8px;
+  }
 }
+
 .label {
   p {
     color: #fff;

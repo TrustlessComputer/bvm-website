@@ -22,7 +22,7 @@ type TSlider = {
   step?: number;
   suffix?: string;
   initValue?: number;
-  initNoti?: React.ReactNode;
+  initNoti?: any;
 };
 
 const Slider = ({
@@ -46,11 +46,6 @@ const Slider = ({
 
     cb(field, value.toString());
   };
-  // useEffect(() => {
-  //   if (initValue) {
-  //     cb(field, initValue.toString());
-  //   }
-  // }, [initValue]);
 
   return (
     <div className={s.dropdown}>

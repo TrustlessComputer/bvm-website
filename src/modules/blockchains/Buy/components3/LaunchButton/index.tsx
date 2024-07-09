@@ -35,6 +35,7 @@ const LaunchButton = () => {
   const { availableListFetching, availableList } = useAppSelector(
     getL2ServicesStateSelector,
   );
+
   const isFecthingData = useMemo(() => {
     return availableListFetching || !availableList;
   }, [availableListFetching, availableList]);
@@ -42,10 +43,6 @@ const LaunchButton = () => {
   const allFilled = Object.keys(field).every(
     (key) => field[key as Override].dragged,
   );
-
-  const isDisabledLaunchBtn = useMemo(() => {
-    return !loggedIn || !allFilled || hasError;
-  }, [loggedIn, hasError, allFilled]);
 
   const tierData = useMemo(() => {
     const packageData = availableList?.package['2'];
@@ -56,60 +53,60 @@ const LaunchButton = () => {
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
 
-  if (isFecthingData) return null;
+  // if (isFecthingData) return null;
 
   const handleOnClick = async () => {
-    if (!loggedIn) {
-      login();
-    } else {
-      const form: FormOrder = {
-        chainName: field[ORDER_FIELD.CHAIN_NAME].value,
-        network: field[ORDER_FIELD.NETWORK].value,
-        dataAvaibilityChain: field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value,
-        gasLimit: field[ORDER_FIELD.GAS_LIMIT].value,
-        withdrawPeriod: field[ORDER_FIELD.WITHDRAW_PERIOD].value,
+    if (!loggedIn) return login();
+
+    if (isSubmiting || !allFilled || hasError) return;
+
+    const form: FormOrder = {
+      chainName: field[ORDER_FIELD.CHAIN_NAME].value,
+      network: field[ORDER_FIELD.NETWORK].value,
+      dataAvaibilityChain: field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value,
+      gasLimit: field[ORDER_FIELD.GAS_LIMIT].value,
+      withdrawPeriod: field[ORDER_FIELD.WITHDRAW_PERIOD].value,
+    };
+
+    console.log('[LaunchButton] handleOnClick -> form :: ', form);
+    setForm(form);
+    setSubmitting(true);
+
+    let isSuccess = false;
+
+    try {
+      const params: CustomizeParams = {
+        pricingPackage: Number(packageParam) as PRICING_PACKGE,
+        chainID: chainIdRandom,
+        chainName: form.chainName,
+        dataAvaibilityChain: form.dataAvaibilityChain,
+        gasLimit: form.gasLimit,
+        network: form.network,
+        withdrawPeriod: form.withdrawPeriod,
       };
 
-      console.log('[LaunchButton] handleOnClick -> form :: ', form);
-      setForm(form);
-      setSubmitting(true);
+      console.log('[LaunchButton] CustomizeParams ->  :: ', params);
 
-      let isSuccess = false;
-
-      try {
-        const params: CustomizeParams = {
-          pricingPackage: Number(packageParam) as PRICING_PACKGE,
-          chainID: chainIdRandom,
-          chainName: form.chainName,
-          dataAvaibilityChain: form.dataAvaibilityChain,
-          gasLimit: form.gasLimit,
-          network: form.network,
-          withdrawPeriod: form.withdrawPeriod,
-        };
-
-        console.log('[LaunchButton] CustomizeParams ->  :: ', params);
-
-        const result = await registerOrderHandler(params);
-        if (result) {
-          isSuccess = true;
-        }
-      } catch (error) {
-        console.log('ERROR: ', error);
-        isSuccess = false;
-      } finally {
-        dispatch(setViewMode('Mainnet'));
-        dispatch(setViewPage('ManageChains'));
-        dispatch(setShowAllChains(false));
-
-        await sleep(1);
-
-        if (isSuccess) {
-          router.push('/rollups');
-        } else {
-          router.push('/rollups?hasOrderFailed=true');
-        }
-        setSubmitting(false);
+      const result = await registerOrderHandler(params);
+      if (result) {
+        isSuccess = true;
       }
+    } catch (error) {
+      console.log('ERROR: ', error);
+      isSuccess = false;
+    } finally {
+      dispatch(setViewMode('Mainnet'));
+      dispatch(setViewPage('ManageChains'));
+      dispatch(setShowAllChains(false));
+
+      await sleep(1);
+
+      if (isSuccess) {
+        router.push('/rollups');
+      } else {
+        router.push('/rollups?hasOrderFailed=true');
+      }
+      setSubmitting(false);
     }
   };
 

@@ -7,7 +7,21 @@ import SvgInset from '@/components/SvgInset';
 import s from './styles.module.scss';
 import DroppableV2 from '../DroppableV2';
 
-export type LegoColor = 'brown' | 'violet' | 'green' | 'pink' | 'red';
+export type LegoColor =
+  | 'brown'
+  | 'violet'
+  | 'green'
+  | 'pink'
+  | 'red'
+  | 'yellow'
+  | 'darkPink'
+  | 'blue'
+  | 'skyBlue'
+  | 'darkRed'
+  | 'cowYellow'
+  | 'orange'
+  | 'lightViolet';
+
 export type BoxOptionV2Props = React.PropsWithChildren & {
   active?: boolean;
   label: string;
