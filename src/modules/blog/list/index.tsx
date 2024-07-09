@@ -11,9 +11,10 @@ type TListBlog = Posts & {
   isHome?: boolean;
   listBlog: Blog[];
   setPage: any;
+  setList: any;
 }
 
-export default function ListBlog({ data, total, per_page, page, className, isHome, listBlog, setPage }: TListBlog) {
+export default function ListBlog({ data, total, per_page, page, className, isHome, listBlog, setPage, setList }: TListBlog) {
   const totalPage = Math.ceil(total/per_page);
 
   function handleLoadMore() {
@@ -22,7 +23,7 @@ export default function ListBlog({ data, total, per_page, page, className, isHom
 
   return (
     <div className={`${s.wrapper} containerV3`}>
-      <Filter />
+      <Filter setList={setList}/>
       <div className={s.list}>
         <div className={`${s.listTop} ${s.listItem}`}>
           <div className={s.hl}>

@@ -23,7 +23,7 @@ export default function BlogModule({ ...props }) {
 
   return (
     <div className={s.blog}>
-      <ListBlog {...dataBlog} listBlog={list} isHome setPage={setPage}/>
+      <ListBlog {...dataBlog} listBlog={list} isHome setPage={setPage} setList={setList}/>
     </div>
   );
 }

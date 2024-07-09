@@ -14,7 +14,7 @@ const TagBlogModule = ({...props}) => {
 
   useEffect(() => {
     (async () => {
-      await fetchAllPosts({...props.searchParams, page}).then((res) => {
+      await fetchAllPosts({...props.searchParams, page, tag: props.tag}).then((res) => {
         setDataBlog(res)
         if(res.data.length > 0) {
           setList([...list , ...res.data])
@@ -29,7 +29,7 @@ const TagBlogModule = ({...props}) => {
 
   return (
     <div className={s.wrapper}>
-      <Filter />
+      <Filter setList={setList}/>
       <div className={'containerV3'}>
         <div className={s.inner}>
           {

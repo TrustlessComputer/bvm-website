@@ -21,7 +21,7 @@ export async function generateMetadata(
   // const product = await fetch(`https://.../${id}`).then((res) => res.json())
 
   return {
-    // title: product.title,
+    title: slug,
     openGraph: {
       // images: ['/some-specific-page-image.jpg', ...previousImages],
     },
@@ -84,7 +84,7 @@ const TagPage = async ({ params, searchParams }: TTagPage) => {
       }}
       hideFooter
     >
-      <TagBlogModule searchParams={searchParams} />
+      <TagBlogModule searchParams={searchParams} tag={params.slug}/>
     </MainLayout>
   );
 };
