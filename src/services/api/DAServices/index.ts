@@ -17,8 +17,8 @@ const getAPIAccessToken = () => {
 // ------------------------------------------------------------------------
 
 const fetchDAList = async (): Promise<IDApp[]> => {
-  const accessToken = getAPIAccessToken();
-  if (!accessToken) return [];
+  // const accessToken = getAPIAccessToken();
+  // if (!accessToken) return [];
   let result: IDApp[] = [];
   try {
     result = (await httpClient.get(`/apps/list`, {
