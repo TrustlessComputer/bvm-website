@@ -60,7 +60,7 @@ export default function BLogDetail({ blogData }: TBLogDetail) {
         relate.length && (
           <div className={`${s.relative}`}>
             <div className={'containerV3'}>
-              <p className={s.relative_heading}>Relative Post</p>
+              <p className={s.relative_heading}>Related Posts</p>
               <div className={`${s.inner} `}>
                 {relate?.map((item) => {
                   return (
