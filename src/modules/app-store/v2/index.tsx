@@ -15,6 +15,7 @@ import { AccountAbstractionDAppModal } from '@/modules/blockchains/components/DA
 import Section from '@/modules/app-store/v2/section';
 import AppItem2 from '@/modules/app-store/v2/item2';
 import AppItem3 from '@/modules/app-store/v2/item3';
+import Hero from '@/modules/app-store/v2/Hero';
 
 const AppStoreModule = () => {
   const dispatch = useAppDispatch();
@@ -62,6 +63,7 @@ const AppStoreModule = () => {
             You can choose any app to install
           </Text>
         </Flex>
+        <Hero />
         <Section title={"Bridge Apps"}>
           <SimpleGrid columns={[1, 2]} gap={'24px'}>
             {DAppList?.map((d) => {
