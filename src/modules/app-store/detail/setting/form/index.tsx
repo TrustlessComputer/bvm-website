@@ -3,7 +3,11 @@ import { Button, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { useState } from 'react';
-import { IDApp, IDAppDetails, InstallDAByParams } from '@/services/api/DAServices/types';
+import {
+  IDApp,
+  IDAppDetails,
+  InstallDAByParams,
+} from '@/services/api/DAServices/types';
 import dAppServicesAPI from '@/services/api/DAServices';
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@utils/errorV2';
@@ -21,7 +25,7 @@ interface IFormProps {
 }
 
 const Form = (props: IFormProps) => {
-  const { selectedPackage, selectedOrder} = props;
+  const { selectedPackage, selectedOrder } = props;
   const [submitting, setSubmitting] = useState(false);
   const userInfor = useAppSelector(accountInforSelector);
   // console.log('app', app);
@@ -35,7 +39,7 @@ const Form = (props: IFormProps) => {
 
       const params: InstallDAByParams = {
         address: userInfor?.tcAddress || '',
-        networkId: selectedOrder?.chainId,
+        network_id: selectedOrder?.chainId!,
         dAppID: selectedPackage?.id as number,
         inputs: [
           // {
@@ -74,14 +78,14 @@ const Form = (props: IFormProps) => {
   };
 
   const formik = useFormik({
-    initialValues: {hash: '' } as IFormValues,
+    initialValues: { hash: '' } as IFormValues,
     onSubmit,
     validate: onValidate,
   });
 
   return (
     <form className={s.container} onSubmit={formik.handleSubmit}>
-      <Flex direction={"column"} gap={"28px"}>
+      <Flex direction={'column'} gap={'28px'}>
         {/*<input
           id="hash"
           type="text"
@@ -96,12 +100,13 @@ const Form = (props: IFormProps) => {
           value={formik.values.hash}
           onChange={formik.handleChange}
         />*/}
-        <Flex justifyContent={"center"} alignItems={"center"} gap={"28px"}>
+        <Flex justifyContent={'center'} alignItems={'center'} gap={'28px'}>
           <Button
             className={s.btnPrimary}
             isDisabled={!selectedPackage || !selectedOrder || submitting}
             isLoading={submitting}
-            type="submit" >
+            type="submit"
+          >
             Install
           </Button>
         </Flex>

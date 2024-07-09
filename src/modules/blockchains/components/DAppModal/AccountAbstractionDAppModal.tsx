@@ -2,6 +2,7 @@ import { useAppSelector } from '@/stores/hooks';
 import {
   accountInforSelector,
   getDappSelectedSelector,
+  getL2ServicesStateSelector,
   myOrderListSelector,
 } from '@/stores/states/l2services/selector';
 import {
@@ -14,6 +15,7 @@ import {
   ModalContent,
   ModalOverlay,
   Select,
+  Skeleton,
   Text,
 } from '@chakra-ui/react';
 import s from './styles.module.scss';
@@ -22,8 +24,6 @@ import { isAddress } from '@ethersproject/address';
 import { BigNumber } from 'bignumber.js';
 import { formatCurrencyV2 } from '@/utils/format';
 import { InstallDAByParams } from '@/services/api/DAServices/types';
-import { access } from 'fs';
-import { DAServiceAPI } from '@/services/api/clients';
 import dAppServicesAPI from '@/services/api/DAServices';
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@/utils/errorV2';
@@ -42,8 +42,15 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
   const dappDetail = useAppSelector(getDappSelectedSelector);
   const chainsList = useAppSelector(myOrderListSelector);
   const userInfor = useAppSelector(accountInforSelector);
+  const { isAccountInforFetching, isMyOrderListFetching } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
 
-  console.log('userInfor ', userInfor);
+  const isFetching = useMemo(
+    () => isAccountInforFetching || isMyOrderListFetching,
+    [isAccountInforFetching, isMyOrderListFetching],
+  );
+
   // Local State
 
   const [isSubmiting, setSubmiting] = useState<boolean>(false);
@@ -98,8 +105,20 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
   };
 
   const isDisableSubmitBtn = useMemo(() => {
-    return !tokenContractAddress || !feeRate || !!isEmptyChain;
-  }, [tokenContractAddress, feeRate, isEmptyChain]);
+    return (
+      !tokenContractAddress ||
+      !feeRate ||
+      !!isEmptyChain ||
+      !!tokenContractAddressErrorMsg ||
+      !!feeRateErrorMsg
+    );
+  }, [
+    tokenContractAddress,
+    feeRate,
+    isEmptyChain,
+    tokenContractAddressErrorMsg,
+    feeRateErrorMsg,
+  ]);
 
   const submitHandler = async () => {
     if (isEmptyChain) {
@@ -111,6 +130,7 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
         setSubmiting(true);
 
         const params: InstallDAByParams = {
+          network_id: chainsList[chainIndexSelected].chainId,
           address: userInfor?.tcAddress || '',
           dAppID: 2, //Account Abstraction
           inputs: [
@@ -299,89 +319,109 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
     return null;
   };
 
+  const renderSkeleton = () => {
+    return (
+      <Flex flexDir={'column'} gap="20px" m="30px" h={['420px']}>
+        <Flex bgColor={'#ECECEC'} h="1px"></Flex>
+        {new Array(3).fill(0).map((_) => (
+          <Flex flexDir={'column'} gap="10px">
+            <Skeleton h="30px" w="100px"></Skeleton>
+            <Skeleton h="50px"></Skeleton>
+          </Flex>
+        ))}
+        <Flex bgColor={'#ECECEC'} h="1px"></Flex>
+        <Skeleton h="45px" w="200px" alignSelf={'center'}></Skeleton>
+      </Flex>
+    );
+  };
+
   return (
     <Modal isOpen={show} onClose={onClose} isCentered={true}>
       <ModalOverlay />
       <ModalContent className={s.modalContent}>
         <ModalBody>
-          <Flex flexDir={'column'} gap={'28px'} my="28px" mx="0px">
-            <Flex align="center" justify={'space-between'}>
-              <Flex
-                gap="10px"
-                align="center"
-                position={'absolute'}
+          {isFetching ? (
+            renderSkeleton()
+          ) : (
+            <Flex flexDir={'column'} gap={'28px'} my="28px" mx="0px">
+              <Flex align="center" justify={'space-between'}>
+                <Flex
+                  gap="10px"
+                  align="center"
+                  position={'absolute'}
+                  _hover={{
+                    cursor: 'pointer',
+                    opacity: 0.8,
+                  }}
+                  onClick={onClose}
+                >
+                  <Image src={'/icons/back_orange_ic.svg'}></Image>
+                  <Text
+                    color={'#FA4E0E'}
+                    fontSize={['14px', '15px', '16px']}
+                    fontWeight={400}
+                  >
+                    Back
+                  </Text>
+                </Flex>
+
+                <Flex
+                  flex={1}
+                  flexDir={'row'}
+                  justify={'center'}
+                  align={'center'}
+                  gap="12px"
+                >
+                  <Image
+                    src={'/icons/add_dapp_default.svg'}
+                    w={['35px', '40px', '48px']}
+                    h={'auto'}
+                    fit={'contain'}
+                  ></Image>
+                  <Text
+                    fontSize={['18px', '22px', '28px']}
+                    fontWeight={500}
+                    color={'#000'}
+                  >
+                    {`${'Account Abstraction' || '--'}`}
+                  </Text>
+                </Flex>
+              </Flex>
+              <Flex bgColor={'#ECECEC'} h="1px"></Flex>
+
+              {renderChainDropDown()}
+
+              {renderTokenContractAddress()}
+
+              {renderFeeRate()}
+
+              {renderDescriptionEmptyChain()}
+
+              <Flex bgColor={'#ECECEC'} h="1px"></Flex>
+
+              <Button
+                isDisabled={isDisableSubmitBtn}
+                isLoading={isSubmiting}
+                bgColor={'#FA4E0E'}
+                color={'#fff'}
+                borderRadius={'100px'}
+                h={'auto'}
+                minW={['80px', '120px', '160px', '200px']}
+                maxH={['35px', '40px', '45px']}
+                fontSize={['13px', '14px', '15px']}
+                p="20px"
+                fontWeight={600}
+                alignSelf={'center'}
+                onClick={submitHandler}
                 _hover={{
-                  cursor: 'pointer',
-                  opacity: 0.8,
+                  cursor: !isDisableSubmitBtn ? 'pointer' : '',
+                  opacity: !isDisableSubmitBtn ? 0.8 : '',
                 }}
-                onClick={onClose}
               >
-                <Image src={'/icons/back_orange_ic.svg'}></Image>
-                <Text
-                  color={'#FA4E0E'}
-                  fontSize={['14px', '15px', '16px']}
-                  fontWeight={400}
-                >
-                  Back
-                </Text>
-              </Flex>
-
-              <Flex
-                flex={1}
-                flexDir={'row'}
-                justify={'center'}
-                align={'center'}
-                gap="12px"
-              >
-                <Image
-                  src={'/icons/add_dapp_default.svg'}
-                  w={['35px', '40px', '48px']}
-                  h={'auto'}
-                  fit={'contain'}
-                ></Image>
-                <Text
-                  fontSize={['18px', '22px', '28px']}
-                  fontWeight={500}
-                  color={'#000'}
-                >
-                  {`${'Account Abstraction' || '--'}`}
-                </Text>
-              </Flex>
+                {`${isEmptyChain ? 'Lauch a chain' : 'Install'}`}
+              </Button>
             </Flex>
-            <Flex bgColor={'#ECECEC'} h="1px"></Flex>
-
-            {renderChainDropDown()}
-
-            {renderTokenContractAddress()}
-
-            {renderFeeRate()}
-
-            {renderDescriptionEmptyChain()}
-
-            <Flex bgColor={'#ECECEC'} h="1px"></Flex>
-
-            <Button
-              isDisabled={isDisableSubmitBtn}
-              isLoading={isSubmiting}
-              bgColor={'#FA4E0E'}
-              color={'#fff'}
-              borderRadius={'100px'}
-              h={'auto'}
-              minW={['80px', '120px', '160px', '200px']}
-              maxH={['35px', '40px', '45px']}
-              fontSize={['13px', '14px', '15px']}
-              p="20px"
-              fontWeight={600}
-              alignSelf={'center'}
-              onClick={submitHandler}
-              _hover={{
-                cursor: !isDisableSubmitBtn ? 'pointer' : '',
-                opacity: !isDisableSubmitBtn ? 0.8 : '',
-              }}
-            >
-              {`${isEmptyChain ? 'Lauch a chain' : 'Install'}`}
-            </Button>
-          </Flex>
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>

@@ -39,7 +39,7 @@ const fetchDAppByID = async (dAppID: number): Promise<IDApp> => {
   try {
     // result = (await httpClient.get(`/apps/detail/${dAppID}`)) as IDApp;
     // return result;
-    result = DA_DUMMY_LIST.find(a => a.id === dAppID) as IDApp;
+    result = DA_DUMMY_LIST.find((a) => a.id === dAppID) as IDApp;
     return result;
   } catch (error) {
     throw error;
@@ -58,7 +58,9 @@ const installDAByParams = async (params: InstallDAByParams): Promise<any> => {
   const { address, dAppID, inputs = [] } = params;
   try {
     result = (await httpClient.post(
-      `/apps/install?address=${address}${params?.networkId ? `&network_id=${params.networkId}` : ''}`,
+      `/apps/install?address=${address}${
+        params?.network_id ? `&network_id=${params.network_id}` : ''
+      }`,
       {
         app_store_detail_id: dAppID,
         inputs: inputs,
