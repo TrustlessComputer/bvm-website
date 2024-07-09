@@ -8,6 +8,9 @@
   position: relative;
   // background-color: var(--fillBackground);
   cursor: grabbing;
+  height: 44px;
+  display: flex;
+  align-items: center;
 
   &::after {
     z-index: -2;
@@ -19,7 +22,7 @@
     transform: translateX(37px);
     border: 1px solid var(--background);
     border-radius: 4px;
-    height: 41px;
+    height: 43px;
   }
 
   &_studHead {
@@ -27,7 +30,7 @@
     top: 0;
     left: 0;
     width: 43px;
-    height: 41px;
+    height: 43px;
     z-index: -1;
 
     svg {
@@ -39,41 +42,18 @@
       }
     }
   }
-  &__red {
-    --background: #cc2e2e;
-    --fillBackground: #ff0000;
-  }
-  &__green {
-    --background: #109465 !important;
-    --fillBackground: #15c888 !important;
-    --backgroundSlider: #109465;
-  }
-  &__brown {
-    --background: #b2552e !important;
-    --fillBackground: #ff7a41 !important;
-  }
-  &__pink {
-    --fillBackground: #fb4fac;
-    --background: #c73e88;
-    --backgroundSlider: #c73e88;
-  }
+}
 
-  &__violet {
-    --fillBackground: #a041ff;
-    --background: #8034cc;
-  }
-
-  .options {
-    background: var(--fillBackground);
-    height: 100%;
-    > div {
-      background-color: var(--background);
-    }
+.options {
+  background: var(--fillBackground);
+  height: 100%;
+  > div {
+    background-color: var(--background);
   }
 }
 
 .inner {
-  padding: 7px;
+  padding: 10px 8px;
   display: flex;
   width: 100%;
   height: 100%;
@@ -109,4 +89,64 @@
   font-weight: 500;
   line-height: 155.556%;
   letter-spacing: -0.18px;
+}
+
+//color
+
+.wrapper {
+  &__red {
+    --background: #cc2e2e;
+    --fillBackground: #ff0000;
+  }
+  &__green {
+    --background: #109465 !important;
+    --fillBackground: #15c888 !important;
+    --backgroundSlider: #109465;
+  }
+  &__brown {
+    --background: #b2552e !important;
+    --fillBackground: #ff7a41 !important;
+  }
+  &__pink {
+    --fillBackground: #fb4fac;
+    --background: #c73e88;
+    --backgroundSlider: #c73e88;
+  }
+
+  &__violet {
+    --fillBackground: #a041ff;
+    --background: #8034cc;
+  }
+  &__yellow {
+    --fillBackground: #f8b200;
+    --background: #dea000;
+  }
+  &__cowYellow {
+    --fillBackground: #fb9f00;
+    --background: #c77e00;
+  }
+  &__darkPink {
+    --fillBackground: #f200f2;
+    --background: #d900d9;
+  }
+  &__skyBlue {
+    --fillBackground: #00c1cd;
+    --background: #00a8b2;
+  }
+  &__blue {
+    --fillBackground: #6b39f9;
+    --background: #552ec7;
+  }
+  &__darkRed {
+    --fillBackground: #e6004d;
+    --background: #cc0044;
+  }
+  &__orange {
+    --fillBackground: #f76649;
+    --background: #de5c42;
+  }
+  &__lightViolet {
+    --fillBackground: #c000e6;
+    --background: #aa00cc;
+  }
 }

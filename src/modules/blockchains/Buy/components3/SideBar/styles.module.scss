@@ -2,11 +2,25 @@
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
   border: 1px solid #dadada;
-  overflow: hidden;
+  height: 100%;
+  overflow-y: scroll;
 
   &_inner {
     display: flex;
     flex-direction: column;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #e0e0e0;
   }
 }
 

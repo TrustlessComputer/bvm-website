@@ -11,6 +11,7 @@ const CustomizePage = () => {
         color: 'black',
         bgColor: '#F3F1E8',
       }}
+      hideHeader={true}
       hideFooter={true}
     >
       <Page />

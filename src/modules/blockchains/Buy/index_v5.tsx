@@ -1,4 +1,4 @@
-import { DndContext, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
 import React from 'react';
 
 import Tier from '@/modules/blockchains/Buy/components3/Tier';
@@ -25,6 +25,7 @@ import { DATA_PRICING } from '../data_pricing';
 import BlockGasLimitLego from './components3/Legos/BlockGasLimitLego';
 import WithdrawalTimeLego from './components3/Legos/WithdrawalTimeLego';
 import RightNetworkLego from './components3/Legos/RightNetworkLego';
+import ScrollMore from '../../../components/ScrollMore/index';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -32,59 +33,155 @@ const BuyPage = () => {
   const { field, setFormField } = useFormOrderStore((state) => state);
 
   const boxOptionMapping: Record<
-    Override | 'nestedData2' | 'nestedData',
+    Override,
     OrderFormOption[Override] & {
-      id: Override | 'nestedData2' | 'nestedData';
+      id: Override;
       label: string;
       RightContent?: () => JSX.Element;
       content?: (isLeft?: boolean, children?: React.ReactNode) => JSX.Element;
     }
   > = {
-    // [ORDER_FIELD.CHAIN_NAME]: {
-    //   ...OrderFormOptions[ORDER_FIELD.CHAIN_NAME],
-    //   id: ORDER_FIELD.CHAIN_NAME,
-    //   label: '1. Name',
-    //   content: (isLeft = false) => (
-    //     <LegoV3
-    //       background={'red'}
-    //       title="1. Name"
-    //       label="Name"
-    //       zIndex={23}
-    //       first={true}
-    //     >
-    //       <ComputerNameInput />
-    //     </LegoV3>
-    //   ),
-    // },
+    [ORDER_FIELD.CHAIN_NAME]: {
+      ...OrderFormOptions[ORDER_FIELD.CHAIN_NAME],
+      id: ORDER_FIELD.CHAIN_NAME,
+      label: '1. Name',
+      content: (isLeft = false) => (
+        <LegoV3
+          background={'red'}
+          title="1. Name"
+          label="Name"
+          zIndex={23}
+          first={true}
+        >
+          <ComputerNameInput />
+        </LegoV3>
+      ),
+    },
     [ORDER_FIELD.NETWORK]: {
       ...OrderFormOptions[ORDER_FIELD.NETWORK],
       id: ORDER_FIELD.NETWORK,
-      label: OrderFormOptions[ORDER_FIELD.NETWORK].title,
+      label: OrderFormOptions[ORDER_FIELD.NETWORK].subTitle,
       RightContent: () => <RightNetworkLego />,
     },
-    // // @ts-ignore
-    [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
-      ...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN],
-      id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
-      label: OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].title,
+    [ORDER_FIELD.COMPUTED]: {
+      ...OrderFormOptions[ORDER_FIELD.COMPUTED],
+      id: ORDER_FIELD.COMPUTED,
+      label: OrderFormOptions[ORDER_FIELD.COMPUTED].subTitle,
       RightContent: () => (
         <LegoV3
-          background={'violet'}
-          label={DATA_PRICING.availability.sub_title}
-          zIndex={8}
-          active={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
+          background={OrderFormOptions[ORDER_FIELD.COMPUTED].background}
+          label={OrderFormOptions[ORDER_FIELD.COMPUTED].subTitle}
+          zIndex={7}
+          active={field[ORDER_FIELD.COMPUTED].dragged}
         >
           <Dropdown
             cb={setFormField}
-            defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
-            field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+            defaultValue={field[ORDER_FIELD.COMPUTED].value}
+            field={ORDER_FIELD.COMPUTED}
             networkSelected={field[ORDER_FIELD.NETWORK].value}
-            options={DATA_PRICING.availability.options}
+            options={OrderFormOptions[ORDER_FIELD.COMPUTED].options}
             checkDisable={true}
           />
         </LegoV3>
       ),
     },
+    [ORDER_FIELD.STORAGE]: {
+      ...OrderFormOptions[ORDER_FIELD.STORAGE],
+      id: ORDER_FIELD.STORAGE,
+      label: OrderFormOptions[ORDER_FIELD.STORAGE].subTitle,
+      RightContent: () => (
+        <LegoV3
+          background={OrderFormOptions[ORDER_FIELD.STORAGE].background}
+          label={OrderFormOptions[ORDER_FIELD.STORAGE].subTitle}
+          zIndex={23}
+          active={field[ORDER_FIELD.STORAGE].dragged}
+        >
+          <Dropdown
+            cb={setFormField}
+            defaultValue={field[ORDER_FIELD.STORAGE].value}
+            field={ORDER_FIELD.STORAGE}
+            networkSelected={field[ORDER_FIELD.NETWORK].value}
+            options={OrderFormOptions[ORDER_FIELD.STORAGE].options}
+            checkDisable={true}
+          />
+        </LegoV3>
+      ),
+    },
+    [ORDER_FIELD.SETTLEMENT]: {
+      ...OrderFormOptions[ORDER_FIELD.SETTLEMENT],
+      id: ORDER_FIELD.SETTLEMENT,
+      label: OrderFormOptions[ORDER_FIELD.SETTLEMENT].subTitle,
+      RightContent: () => (
+        <LegoV3
+          background={OrderFormOptions[ORDER_FIELD.SETTLEMENT].background}
+          label={OrderFormOptions[ORDER_FIELD.SETTLEMENT].subTitle}
+          zIndex={23}
+          active={field[ORDER_FIELD.SETTLEMENT].dragged}
+        >
+          <Dropdown
+            cb={setFormField}
+            defaultValue={field[ORDER_FIELD.SETTLEMENT].value}
+            field={ORDER_FIELD.SETTLEMENT}
+            networkSelected={field[ORDER_FIELD.NETWORK].value}
+            options={OrderFormOptions[ORDER_FIELD.SETTLEMENT].options}
+            checkDisable={true}
+          />
+        </LegoV3>
+      ),
+    },
+    [ORDER_FIELD.SYSTEMAPPS]: {
+      ...OrderFormOptions[ORDER_FIELD.SYSTEMAPPS],
+      id: ORDER_FIELD.SYSTEMAPPS,
+      label: OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].subTitle,
+      content: (isLeft = false) => (
+        <LegoV3
+          background={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].background}
+          label={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].subTitle}
+          zIndex={23}
+          active={field[ORDER_FIELD.SYSTEMAPPS].dragged}
+        />
+      ),
+
+      // RightContent: (isLeft = false, children = null) => (
+      //   <LegoV3
+      //     background={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].background}
+      //     label={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].subTitle}
+      //     zIndex={8}
+      //     active={field[ORDER_FIELD.SYSTEMAPPS].dragged}
+      //   >
+      //     <Dropdown
+      //       cb={setFormField}
+      //       defaultValue={field[ORDER_FIELD.SYSTEMAPPS].value}
+      //       field={ORDER_FIELD.SYSTEMAPPS}
+      //       networkSelected={field[ORDER_FIELD.NETWORK].value}
+      //       options={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].options}
+      //       checkDisable={true}
+      //     />
+      //   </LegoV3>
+      // ),
+    },
+    // [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
+    //   ...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN],
+    //   id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
+    //   label: OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].title,
+    //   RightContent: () => (
+    //     <LegoV3
+    //       background={'violet'}
+    //       label={DATA_PRICING.availability.sub_title}
+    //       zIndex={8}
+    //       active={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
+    //     >
+    //       <Dropdown
+    //         cb={setFormField}
+    //         defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
+    //         field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+    //         networkSelected={field[ORDER_FIELD.NETWORK].value}
+    //         options={DATA_PRICING.availability.options}
+    //         checkDisable={true}
+    //       />
+    //     </LegoV3>
+    //   ),
+    // },
     [ORDER_FIELD.GAS_LIMIT]: {
       ...OrderFormOptions[ORDER_FIELD.GAS_LIMIT],
       id: ORDER_FIELD.GAS_LIMIT,
@@ -97,29 +194,13 @@ const BuyPage = () => {
       label: OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].title,
       content: (isLeft = false) => <WithdrawalTimeLego isLeft={isLeft} />,
     },
-    nestedData: {
-      options: [
-        {
-          label: 'Value 1',
-          keyInField: 'nestedKey1',
-          value: 1,
-          id: 1,
-        },
-        {
-          label: 'Value 2',
-          keyInField: 'nestedKey2',
-          value: 2,
-          id: 2,
-        },
-        {
-          label: 'Value 1.1',
-          keyInField: 'nestedKey1',
-          value: 3,
-          id: 3,
-        },
-      ],
-      id: 'nestedData',
-      label: 'Nested',
+
+    [ORDER_FIELD.DEFI]: {
+      ...OrderFormOptions[ORDER_FIELD.DEFI],
+      id: 'defi',
+      label: OrderFormOptions[ORDER_FIELD.DEFI].subTitle,
+      backgroundParent: OrderFormOptions[ORDER_FIELD.DEFI].backgroundParent,
+
       content: (isLeft = false, children = null) => (
         <LegoV3
           background={'brown'}
@@ -128,42 +209,6 @@ const BuyPage = () => {
           zIndex={5}
           first={true}
           parentOfNested
-        >
-          {children}
-        </LegoV3>
-      ),
-    },
-    nestedData2: {
-      options: [
-        {
-          label: '2 - Value 1',
-          value: 1,
-          keyInField: 'nestedKey1',
-          id: 1,
-        },
-        {
-          label: '2 - Value 2',
-          value: 2,
-          keyInField: 'nestedKey2',
-          id: 2,
-        },
-        {
-          label: ' 2 -Value 1.2',
-          keyInField: 'nestedKey2',
-          value: 3,
-          id: 3,
-        },
-      ],
-      id: 'nestedData2',
-      label: 'Nested z',
-      content: (isLeft = false, children = null) => (
-        <LegoV3
-          parentOfNested
-          background={'brown'}
-          title="1. Name"
-          label="2 - Nested Data"
-          zIndex={4}
-          first={true}
         >
           {children}
         </LegoV3>
@@ -300,7 +345,7 @@ const BuyPage = () => {
                               if (isNestedLego) {
                                 id = getChildId(
                                   key,
-                                  option.keyInField,
+                                  option.keyInField || '',
                                   option.value,
                                 );
                               }
@@ -310,7 +355,7 @@ const BuyPage = () => {
                                   id={id}
                                   key={id}
                                   value={option.value}
-                                  disabled={option.disabled}
+                                  disabled={option.isDisabled}
                                 >
                                   <LegoV3
                                     key={option.id}
@@ -323,7 +368,7 @@ const BuyPage = () => {
                                       2
                                     }
                                     className={
-                                      option.disabled ? s.disabled : ''
+                                      option.isDisabled ? s.disabled : ''
                                     }
                                   />
                                 </Draggable>
@@ -362,6 +407,7 @@ const BuyPage = () => {
                       options,
                       RightContent,
                       background,
+                      backgroundParent,
                       label,
                     } = boxOptionMapping[key as Override];
                     const isDragged = field[key as Override].dragged;
@@ -392,7 +438,7 @@ const BuyPage = () => {
                         return (
                           <Draggable id={id} key={id} value={option.value}>
                             <LegoV3
-                              background={background || 'brown'}
+                              background={background}
                               label={option.label}
                               icon={option.icon}
                               zIndex={-index + 10}
@@ -405,7 +451,7 @@ const BuyPage = () => {
                         <Draggable id={parentKey} key={parentKey}>
                           <DroppableV2 id={parentKey}>
                             <LegoParent
-                              background="green" // TODO
+                              background={backgroundParent || 'orange'} // TODO
                               label={label}
                               zIndex={
                                 1

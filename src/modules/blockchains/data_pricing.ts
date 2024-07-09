@@ -87,4 +87,41 @@ export const DATA_PRICING = {
     sub_title: 'Withdrawal time',
     max: WITHDRAWAL_PERIOD_BOOTSTRAP,
   },
+  computed: {
+    title: 'Compute',
+    options: [
+      {
+        label: 'ZK Rollups',
+        id: 1,
+        value: 1,
+        icon: '/landingV3/images/lego/12.png',
+        // avalaibleNetworks: [
+        //   NetworkEnum.Network_Mainnet,
+        //   NetworkEnum.Network_Testnet,
+        // ],
+      },
+      {
+        label: 'Optimistic Rollups',
+        id: 1,
+        value: 2,
+        icon: '/landingV3/images/lego/13.png',
+        // avalaibleNetworks: [
+        //   NetworkEnum.Network_Mainnet,
+        //   NetworkEnum.Network_Testnet,
+        // ],
+      },
+      {
+        label: 'GPU Rollups',
+        id: 1,
+        value: DALayerEnum.DALayer_PLG,
+        // avalaibleNetworks: [
+        //   NetworkEnum.Network_Mainnet,
+        //   NetworkEnum.Network_Testnet,
+        // ],
+      },
+    ],
+  },
+  storage: {
+    title: 'Storage',
+  },
 };

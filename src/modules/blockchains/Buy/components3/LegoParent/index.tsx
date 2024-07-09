@@ -3,9 +3,8 @@ import Image from 'next/image';
 
 import SvgInset from '@/components/SvgInset';
 
-import { LegoColor } from '../BoxOption';
-
 import styles from './styles.module.scss';
+import { LegoColor } from '../BoxOptionV2';
 
 type LegoParent = {
   background?: LegoColor;
