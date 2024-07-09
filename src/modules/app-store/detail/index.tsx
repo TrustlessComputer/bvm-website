@@ -6,13 +6,13 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import AppPackage from 'src/modules/app-store/detail/appPackage';
 import SvgInset from '@components/SvgInset';
-import { openModal } from '@/stores/states/modal/reducer';
+import { closeModal, openModal } from '@/stores/states/modal/reducer';
 import SettingView from '@/modules/app-store/detail/setting';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { useDispatch } from 'react-redux';
 import { BuyProvider } from '@/modules/blockchains/providers/Buy.context';
 import dAppServicesAPI from '@/services/api/DAServices';
-import { IDApp } from '@/services/api/DAServices/types';
+import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
 
 const AppDetailModule = () => {
   const params = useParams();
@@ -36,20 +36,22 @@ const AppDetailModule = () => {
     return router.back();
   }
 
-  const handleInstall = (appPackage: IAppPackage) => {
+  const handleInstall = (appPackage: IDAppDetails) => {
     if (!loggedIn) {
       login();
     } else {
+      const id = 'SETTING_MODAL';
+      const onClose = () => dispatch(closeModal({id: id}));
       try {
         dispatch(openModal({
-          id: 'SETTING_MODAL',
+          id: id,
           className: s.modalContent,
           modalProps: {
             size: 'xl',
           },
           render: () =>
             <BuyProvider>
-              <SettingView app={data} appPackage={appPackage}/>
+              <SettingView app={data} appPackage={appPackage} onClose={onClose}/>
             </BuyProvider>
           ,
         }));

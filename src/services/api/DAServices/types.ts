@@ -9,6 +9,7 @@ export interface IDApp {
   inputs: {
     [key: string]: any;
   }[];
+  user_package: string;
 }
 
 export interface IDAppDetails {

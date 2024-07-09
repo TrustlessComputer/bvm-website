@@ -34,9 +34,9 @@ const BodyGridView = () => {
     getL2ServicesStateSelector,
   );
 
-  console.log('myOrders', myOrders);
-  console.log('accountInforL2Service', accountInforL2Service);
-  console.log('=====')
+  // console.log('myOrders', myOrders);
+  // console.log('accountInforL2Service', accountInforL2Service);
+  // console.log('=====')
 
   const isEmptyData = useMemo(() => {
     if (myOrders.length < 1) return true;

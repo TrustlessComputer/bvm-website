@@ -3,7 +3,7 @@ import { Button, Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { useState } from 'react';
-import { IDApp, InstallDAByParams } from '@/services/api/DAServices/types';
+import { IDApp, IDAppDetails, InstallDAByParams } from '@/services/api/DAServices/types';
 import dAppServicesAPI from '@/services/api/DAServices';
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@utils/errorV2';
@@ -16,7 +16,7 @@ interface IFormValues {
 
 interface IFormProps {
   app?: IDApp;
-  selectedPackage?: IAppPackage;
+  selectedPackage?: IDAppDetails;
   selectedOrder?: OrderItem;
 }
 

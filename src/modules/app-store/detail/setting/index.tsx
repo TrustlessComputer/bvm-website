@@ -18,9 +18,9 @@ import SendFormModal from '@/modules/blockchains/components/SendFormModal';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import Form from '@/modules/app-store/detail/setting/form';
-import { IDApp } from '@/services/api/DAServices/types';
+import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
 
-const SettingView = ({app, appPackage}: {app?: IDApp, appPackage: IAppPackage}) => {
+const SettingView = ({app, appPackage, onClose}: {app?: IDApp, appPackage: IDAppDetails, onClose: any}) => {
   const router = useRouter();
 
   const { loopFetchAccountInfor, getMyOrderList } = useL2Service();
@@ -30,7 +30,7 @@ const SettingView = ({app, appPackage}: {app?: IDApp, appPackage: IAppPackage}) 
   );
 
   const [selectedOrder, setSelectedOrder] = useState<OrderItem | undefined>(undefined);
-  const [selectedPackage, setSelectedPackage] = useState<IAppPackage | undefined>(undefined);
+  const [selectedPackage, setSelectedPackage] = useState<IDAppDetails | undefined>(appPackage);
 
   useEffect(() => {
     loopFetchAccountInfor();
@@ -52,14 +52,15 @@ const SettingView = ({app, appPackage}: {app?: IDApp, appPackage: IAppPackage}) 
   }, [myOrders]);
 
   const isInstalled = useMemo(() => {
-    return false;
-  }, [JSON.stringify(selectedOrder)]);
+    return !!app?.user_package;
+  }, [app]);
 
   useEffect(() => {
-    if(appPackage) {
-      setSelectedPackage(appPackage);
+    if(isInstalled) {
+      const p = app?.details?.find(d => d.package === app?.user_package);
+      setSelectedPackage(p);
     }
-  }, [appPackage]);
+  }, [isInstalled]);
 
   const {
     showSubmitFormResult,
@@ -104,6 +105,7 @@ const SettingView = ({app, appPackage}: {app?: IDApp, appPackage: IAppPackage}) 
       return (
         <Button className={s.btnPrimary} onClick={() => {
           router.push(PRICING);
+          onClose();
         }}>Launch a chain</Button>
       );
     }
@@ -121,10 +123,12 @@ const SettingView = ({app, appPackage}: {app?: IDApp, appPackage: IAppPackage}) 
         <>
           <Button className={s.btnSecondary} onClick={() => {
             router.push(APP_STORE);
+            onClose();
           }}>Install other Dapp</Button>
 
           <Button className={s.btnPrimary} onClick={() => {
             router.push(PRICING);
+            onClose();
           }}>Launch new chain</Button>
         </>
       )
