@@ -33,13 +33,13 @@ const MAX_FEE_RATE = 1 * 1e9;
 
 interface IProps {
   show: boolean;
-  onClose?: (() => void) | any;
+  onClose: () => void;
 }
 
 export const AccountAbstractionDAppModal = (props: IProps) => {
   const { show, onClose } = props;
 
-  const dappDetail = useAppSelector(getDappSelectedSelector);
+  const dAppInfor = useAppSelector(getDappSelectedSelector);
   const chainsList = useAppSelector(myOrderListSelector);
   const userInfor = useAppSelector(accountInforSelector);
   const { isAccountInforFetching, isMyOrderListFetching } = useAppSelector(
@@ -125,14 +125,27 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
       //Lauch a Chain
       console.log('Lauch a chain TO DO');
     } else {
-      //Install a DApp
       try {
+        const network_id = chainsList[chainIndexSelected].chainId;
+        const address = userInfor?.tcAddress;
+        const dAppDetailID = dAppInfor?.details[0].id;
+
+        // console.log('SUBMIT --- ', {
+        //   network_id,
+        //   address,
+        //   dAppDetailID,
+        // });
+
+        if (!network_id || !address || dAppDetailID === undefined) {
+          throw Error('Invalid Params');
+        }
+
         setSubmiting(true);
 
         const params: InstallDAByParams = {
-          network_id: chainsList[chainIndexSelected].chainId,
-          address: userInfor?.tcAddress || '',
-          dAppID: 2, //Account Abstraction
+          network_id: network_id,
+          address: address,
+          dAppID: dAppDetailID, //Account Abstraction
           inputs: [
             {
               key: 'aaPaymasterTokenID',
@@ -165,6 +178,7 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
   //   chainIndexSelected,
   //   isEmptyChain,
   //   isDisableSubmitBtn,
+  //   dAppInfor,
   // });
 
   const renderChainDropDown = () => {
