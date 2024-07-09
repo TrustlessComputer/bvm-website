@@ -12,6 +12,7 @@ export type BoxOptionV2Props = React.PropsWithChildren & {
   active?: boolean;
   label: string;
   id: string;
+  first?: boolean;
   last?: boolean;
   description?: {
     title: string;
@@ -30,13 +31,16 @@ const BoxOptionV3 = ({
   label,
   children,
   description,
+  first,
   last,
 }: BoxOptionV2Props): React.JSX.Element => {
   const [isShowModal, setIsShowModal] = React.useState(false);
-
   return (
     <React.Fragment>
-      <DroppableV2 id={id} className={`${s.boxItem} ${active && s.activeBox}`}>
+      <DroppableV2
+        id={id}
+        className={`${s.boxItem} ${active && s.activeBox} ${first && s.first}`}
+      >
         <div className={s.boxItem_heading}>
           <div className={s.boxItem_heading_icon}>
             <svg

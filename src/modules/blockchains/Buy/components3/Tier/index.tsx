@@ -32,7 +32,7 @@ const Tier = () => {
 
   return (
     <div className={s.right_top}>
-      <p className={s.heading}>Your tier</p>
+      {/* <p className={s.heading}>Your tier</p> */}
       <div className={s.right_top_box}>
         {/*<p>*/}
         {/*  <span>{`${tierData?.valueStr || '--'}`}</span> {`${tierData?.price || '--'} (${tierData?.priceNote || '--'})`} per*/}

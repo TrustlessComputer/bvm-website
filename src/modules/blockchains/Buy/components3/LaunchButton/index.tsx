@@ -53,7 +53,7 @@ const LaunchButton = () => {
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
 
-  if (isFecthingData) return null;
+  // if (isFecthingData) return null;
 
   const handleOnClick = async () => {
     if (!loggedIn) return login();

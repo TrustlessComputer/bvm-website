@@ -44,12 +44,11 @@ function LegoV3({
     parentLego.style.zIndex = `${zIndex * 2} `;
     parentLego.style.width = 'max-content';
   }, [legoRef.current]);
-
   return (
     <div
-      className={`${styles.wrapper} ${
-        styles[`wrapper__${background}`]
-      } ${className}
+      className={`${styles.wrapper} ${styles[`wrapper__${background}`]}
+        ${first ? styles.first : ''}
+        ${className}
         `}
       ref={legoRef}
       style={{

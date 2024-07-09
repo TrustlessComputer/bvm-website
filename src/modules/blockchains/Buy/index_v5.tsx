@@ -400,7 +400,6 @@ const BuyPage = () => {
                           </Draggable>
                         );
                       }
-
                       return (
                         <BoxOptionV3
                           key={key}
@@ -408,6 +407,7 @@ const BuyPage = () => {
                           id={key}
                           active={isDragged}
                           description={description}
+                          first={indexWrap === 1}
                         >
                           {_content}
 

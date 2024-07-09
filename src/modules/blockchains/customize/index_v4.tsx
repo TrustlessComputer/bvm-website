@@ -11,7 +11,7 @@ export default () => {
       flex={1}
       flexDir={'column'}
       align={'center'}
-      py={['10px', '20px', '30px', '50px']}
+      // py={['10px', '20px', '30px', '50px']}
       className={s.container}
     >
       <BuyProvider>
