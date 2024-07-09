@@ -7,8 +7,8 @@ export const DA_DUMMY_LIST: IDApp[] = [
     code: '',
     description:
       'SHARD holders collectively make decisions and steer the direction of the BVM ecosystem. SHARD holders can propose and vote on various initiatives, including launching a marketing campaign, building a new product, or funding an ambitious Bitcoin L2 builder.',
-    image_url: 'https://i.ibb.co/0fgnRZP/BTC.png',
-    installed: 50,
+    image_url: '/app-store/ic-create-token.svg',
+    installed: 0,
     details: [
       {
         id: 3,
@@ -50,8 +50,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
     code: '',
     description:
       'SHARD holders collectively make decisions and steer the direction of the BVM ecosystem. SHARD holders can propose and vote on various initiatives, including launching a marketing campaign, building a new product, or funding an ambitious Bitcoin L2 builder.',
-    image_url:
-      'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg',
+    image_url: '/app-store/ic-staking.svg',
     installed: 0,
     details: [
       {

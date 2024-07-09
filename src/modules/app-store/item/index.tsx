@@ -3,7 +3,7 @@ import s from './styles.module.scss';
 import { IDApp } from '@/services/api/DAServices/types';
 import { useMemo } from 'react';
 
-const BG_COLOR = [
+export const BG_COLOR = [
   '#FAFAFA',
   'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
   'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
