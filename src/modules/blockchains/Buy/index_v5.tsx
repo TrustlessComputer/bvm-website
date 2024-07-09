@@ -63,125 +63,209 @@ const BuyPage = () => {
       label: OrderFormOptions[ORDER_FIELD.NETWORK].subTitle,
       RightContent: () => <RightNetworkLego />,
     },
-    [ORDER_FIELD.COMPUTED]: {
-      ...OrderFormOptions[ORDER_FIELD.COMPUTED],
-      id: ORDER_FIELD.COMPUTED,
-      label: OrderFormOptions[ORDER_FIELD.COMPUTED].subTitle,
-      RightContent: () => (
-        <LegoV3
-          background={OrderFormOptions[ORDER_FIELD.COMPUTED].background}
-          label={OrderFormOptions[ORDER_FIELD.COMPUTED].subTitle}
-          zIndex={7}
-          active={field[ORDER_FIELD.COMPUTED].dragged}
-        >
-          <Dropdown
-            cb={setFormField}
-            defaultValue={field[ORDER_FIELD.COMPUTED].value}
-            field={ORDER_FIELD.COMPUTED}
-            networkSelected={field[ORDER_FIELD.NETWORK].value}
-            options={OrderFormOptions[ORDER_FIELD.COMPUTED].options}
-            checkDisable={true}
-          />
-        </LegoV3>
-      ),
-    },
-    [ORDER_FIELD.STORAGE]: {
-      ...OrderFormOptions[ORDER_FIELD.STORAGE],
-      id: ORDER_FIELD.STORAGE,
-      label: OrderFormOptions[ORDER_FIELD.STORAGE].subTitle,
-      RightContent: () => (
-        <LegoV3
-          background={OrderFormOptions[ORDER_FIELD.STORAGE].background}
-          label={OrderFormOptions[ORDER_FIELD.STORAGE].subTitle}
-          zIndex={23}
-          active={field[ORDER_FIELD.STORAGE].dragged}
-        >
-          <Dropdown
-            cb={setFormField}
-            defaultValue={field[ORDER_FIELD.STORAGE].value}
-            field={ORDER_FIELD.STORAGE}
-            networkSelected={field[ORDER_FIELD.NETWORK].value}
-            options={OrderFormOptions[ORDER_FIELD.STORAGE].options}
-            checkDisable={true}
-          />
-        </LegoV3>
-      ),
-    },
-    [ORDER_FIELD.SETTLEMENT]: {
-      ...OrderFormOptions[ORDER_FIELD.SETTLEMENT],
-      id: ORDER_FIELD.SETTLEMENT,
-      label: OrderFormOptions[ORDER_FIELD.SETTLEMENT].subTitle,
-      RightContent: () => (
-        <LegoV3
-          background={OrderFormOptions[ORDER_FIELD.SETTLEMENT].background}
-          label={OrderFormOptions[ORDER_FIELD.SETTLEMENT].subTitle}
-          zIndex={23}
-          active={field[ORDER_FIELD.SETTLEMENT].dragged}
-        >
-          <Dropdown
-            cb={setFormField}
-            defaultValue={field[ORDER_FIELD.SETTLEMENT].value}
-            field={ORDER_FIELD.SETTLEMENT}
-            networkSelected={field[ORDER_FIELD.NETWORK].value}
-            options={OrderFormOptions[ORDER_FIELD.SETTLEMENT].options}
-            checkDisable={true}
-          />
-        </LegoV3>
-      ),
-    },
-    [ORDER_FIELD.SYSTEMAPPS]: {
-      ...OrderFormOptions[ORDER_FIELD.SYSTEMAPPS],
-      id: ORDER_FIELD.SYSTEMAPPS,
-      label: OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].subTitle,
-      content: (isLeft = false) => (
-        <LegoV3
-          background={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].background}
-          label={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].subTitle}
-          zIndex={23}
-          active={field[ORDER_FIELD.SYSTEMAPPS].dragged}
-        />
-      ),
-
-      // RightContent: (isLeft = false, children = null) => (
-      //   <LegoV3
-      //     background={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].background}
-      //     label={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].subTitle}
-      //     zIndex={8}
-      //     active={field[ORDER_FIELD.SYSTEMAPPS].dragged}
-      //   >
-      //     <Dropdown
-      //       cb={setFormField}
-      //       defaultValue={field[ORDER_FIELD.SYSTEMAPPS].value}
-      //       field={ORDER_FIELD.SYSTEMAPPS}
-      //       networkSelected={field[ORDER_FIELD.NETWORK].value}
-      //       options={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].options}
-      //       checkDisable={true}
-      //     />
-      //   </LegoV3>
-      // ),
-    },
-    // [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
-    //   ...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN],
-    //   id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
-    //   label: OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].title,
+    // [ORDER_FIELD.COMPUTED]: {
+    //   ...OrderFormOptions[ORDER_FIELD.COMPUTED],
+    //   id: ORDER_FIELD.COMPUTED,
+    //   label: OrderFormOptions[ORDER_FIELD.COMPUTED].subTitle,
     //   RightContent: () => (
     //     <LegoV3
-    //       background={'violet'}
-    //       label={DATA_PRICING.availability.sub_title}
-    //       zIndex={8}
-    //       active={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
+    //       background={OrderFormOptions[ORDER_FIELD.COMPUTED].background}
+    //       label={OrderFormOptions[ORDER_FIELD.COMPUTED].subTitle}
+    //       zIndex={7}
+    //       active={field[ORDER_FIELD.COMPUTED].dragged}
     //     >
     //       <Dropdown
     //         cb={setFormField}
-    //         defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
-    //         field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+    //         defaultValue={field[ORDER_FIELD.COMPUTED].value}
+    //         field={ORDER_FIELD.COMPUTED}
     //         networkSelected={field[ORDER_FIELD.NETWORK].value}
-    //         options={DATA_PRICING.availability.options}
+    //         options={OrderFormOptions[ORDER_FIELD.COMPUTED].options}
     //         checkDisable={true}
     //       />
     //     </LegoV3>
     //   ),
     // },
+    // [ORDER_FIELD.STORAGE]: {
+    //   ...OrderFormOptions[ORDER_FIELD.STORAGE],
+    //   id: ORDER_FIELD.STORAGE,
+    //   label: OrderFormOptions[ORDER_FIELD.STORAGE].subTitle,
+    //   RightContent: () => (
+    //     <LegoV3
+    //       background={OrderFormOptions[ORDER_FIELD.STORAGE].background}
+    //       label={OrderFormOptions[ORDER_FIELD.STORAGE].subTitle}
+    //       zIndex={23}
+    //       active={field[ORDER_FIELD.STORAGE].dragged}
+    //     >
+    //       <Dropdown
+    //         cb={setFormField}
+    //         defaultValue={field[ORDER_FIELD.STORAGE].value}
+    //         field={ORDER_FIELD.STORAGE}
+    //         networkSelected={field[ORDER_FIELD.STORAGE].value}
+    //         options={OrderFormOptions[ORDER_FIELD.STORAGE].options}
+    //         checkDisable={true}
+    //       />
+    //     </LegoV3>
+    //   ),
+    // },
+    // [ORDER_FIELD.SETTLEMENT]: {
+    //   ...OrderFormOptions[ORDER_FIELD.SETTLEMENT],
+    //   id: ORDER_FIELD.SETTLEMENT,
+    //   label: OrderFormOptions[ORDER_FIELD.SETTLEMENT].subTitle,
+    //   RightContent: () => (
+    //     <LegoV3
+    //       background={OrderFormOptions[ORDER_FIELD.SETTLEMENT].background}
+    //       label={OrderFormOptions[ORDER_FIELD.SETTLEMENT].subTitle}
+    //       zIndex={23}
+    //       active={field[ORDER_FIELD.SETTLEMENT].dragged}
+    //     >
+    //       <Dropdown
+    //         cb={setFormField}
+    //         defaultValue={field[ORDER_FIELD.SETTLEMENT].value}
+    //         field={ORDER_FIELD.SETTLEMENT}
+    //         networkSelected={field[ORDER_FIELD.SETTLEMENT].value}
+    //         options={OrderFormOptions[ORDER_FIELD.SETTLEMENT].options}
+    //         checkDisable={true}
+    //       />
+    //     </LegoV3>
+    //   ),
+    // },
+
+    // [ORDER_FIELD.SYSTEMAPPS]: {
+    //   ...OrderFormOptions[ORDER_FIELD.SYSTEMAPPS],
+    //   id: ORDER_FIELD.SYSTEMAPPS,
+    //   label: OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].subTitle,
+    //   content: (isLeft = false) => (
+    //     <LegoV3
+    //       background={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].background}
+    //       label={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].subTitle}
+    //       zIndex={23}
+    //       active={field[ORDER_FIELD.SYSTEMAPPS].dragged}
+    //     />
+    //   ),
+
+    // },
+    // [ORDER_FIELD.BRIDGEAPPS]: {
+    //   ...OrderFormOptions[ORDER_FIELD.BRIDGEAPPS],
+    //   id: ORDER_FIELD.BRIDGEAPPS,
+    //   label: OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].title,
+    //   content: (isLeft = false, children = null) => (
+    //     <LegoV3
+    //       background={'blue'}
+    //       title={OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].title}
+    //       label={OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].title}
+    //       zIndex={5}
+    //       first={true}
+    //     >
+    //       {children}
+    //     </LegoV3>
+    //   ),
+    //   RightContent: () => (
+    //     <LegoV3
+    //       background={OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].background}
+    //       label={OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].subTitle}
+    //       zIndex={23}
+    //       active={field[ORDER_FIELD.BRIDGEAPPS].dragged}
+    //     >
+    //       <Dropdown
+    //         cb={setFormField}
+    //         defaultValue={field[ORDER_FIELD.BRIDGEAPPS].value}
+    //         field={ORDER_FIELD.BRIDGEAPPS}
+    //         networkSelected={field[ORDER_FIELD.BRIDGEAPPS].value}
+    //         options={OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].options}
+    //         checkDisable={true}
+    //       />
+    //     </LegoV3>
+    //   ),
+    // },
+    // [ORDER_FIELD.WALLET]: {
+    //   ...OrderFormOptions[ORDER_FIELD.WALLET],
+    //   id: ORDER_FIELD.WALLET,
+    //   label: OrderFormOptions[ORDER_FIELD.WALLET].title,
+    //   // content: (isLeft = false, children = null) => (
+    //   //   <LegoV3
+    //   //     background={OrderFormOptions[ORDER_FIELD.WALLET].background}
+    //   //     title={OrderFormOptions[ORDER_FIELD.WALLET].title}
+    //   //     label={OrderFormOptions[ORDER_FIELD.WALLET].subTitle}
+    //   //     zIndex={23}
+    //   //   >
+    //   //     {children}
+    //   //   </LegoV3>
+    //   // ),
+
+    //   RightContent: () => (
+    //     <LegoV3
+    //       background={OrderFormOptions[ORDER_FIELD.WALLET].background}
+    //       label={OrderFormOptions[ORDER_FIELD.WALLET].subTitle}
+    //       zIndex={23}
+    //       active={field[ORDER_FIELD.WALLET].dragged}
+    //     >
+    //       <Dropdown
+    //         cb={setFormField}
+    //         defaultValue={field[ORDER_FIELD.WALLET].value}
+    //         field={ORDER_FIELD.WALLET}
+    //         networkSelected={field[ORDER_FIELD.NETWORK].value}
+    //         options={OrderFormOptions[ORDER_FIELD.WALLET].options}
+    //         checkDisable={true}
+    //       />
+    //     </LegoV3>
+    //   ),
+    // },
+    // [ORDER_FIELD.DEGENAPPS]: {
+    //   ...OrderFormOptions[ORDER_FIELD.DEGENAPPS],
+    //   id: ORDER_FIELD.DEGENAPPS,
+    //   label: OrderFormOptions[ORDER_FIELD.DEGENAPPS].title,
+    //   content: (isLeft = false, children = null) => (
+    //     <LegoV3
+    //       background={'blue'}
+    //       title={OrderFormOptions[ORDER_FIELD.DEGENAPPS].title}
+    //       label={OrderFormOptions[ORDER_FIELD.DEGENAPPS].title}
+    //       zIndex={5}
+    //       first={true}
+    //     >
+    //       {children}
+    //     </LegoV3>
+    //   ),
+    //   RightContent: () => (
+    //     <LegoV3
+    //       background={OrderFormOptions[ORDER_FIELD.DEGENAPPS].background}
+    //       label={OrderFormOptions[ORDER_FIELD.DEGENAPPS].subTitle}
+    //       zIndex={23}
+    //       active={field[ORDER_FIELD.DEGENAPPS].dragged}
+    //     >
+    //       <Dropdown
+    //         cb={setFormField}
+    //         defaultValue={field[ORDER_FIELD.DEGENAPPS].value}
+    //         field={ORDER_FIELD.DEGENAPPS}
+    //         networkSelected={field[ORDER_FIELD.NETWORK].value}
+    //         options={OrderFormOptions[ORDER_FIELD.DEGENAPPS].options}
+    //         checkDisable={true}
+    //       />
+    //     </LegoV3>
+    //   ),
+    // },
+    [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
+      ...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN],
+      id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
+      label: OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].title,
+      RightContent: () => (
+        <LegoV3
+          background={'violet'}
+          label={DATA_PRICING.availability.sub_title}
+          zIndex={8}
+          active={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
+        >
+          <Dropdown
+            cb={setFormField}
+            defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
+            field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+            networkSelected={field[ORDER_FIELD.NETWORK].value}
+            options={DATA_PRICING.availability.options}
+            checkDisable={true}
+          />
+        </LegoV3>
+      ),
+    },
+
     [ORDER_FIELD.GAS_LIMIT]: {
       ...OrderFormOptions[ORDER_FIELD.GAS_LIMIT],
       id: ORDER_FIELD.GAS_LIMIT,
@@ -195,25 +279,25 @@ const BuyPage = () => {
       content: (isLeft = false) => <WithdrawalTimeLego isLeft={isLeft} />,
     },
 
-    [ORDER_FIELD.DEFI]: {
-      ...OrderFormOptions[ORDER_FIELD.DEFI],
-      id: 'defi',
-      label: OrderFormOptions[ORDER_FIELD.DEFI].subTitle,
-      backgroundParent: OrderFormOptions[ORDER_FIELD.DEFI].backgroundParent,
+    // [ORDER_FIELD.DEFI]: {
+    //   ...OrderFormOptions[ORDER_FIELD.DEFI],
+    //   id: 'defi',
+    //   label: OrderFormOptions[ORDER_FIELD.DEFI].subTitle,
+    //   backgroundParent: OrderFormOptions[ORDER_FIELD.DEFI].backgroundParent,
 
-      content: (isLeft = false, children = null) => (
-        <LegoV3
-          background={'brown'}
-          title="1. Name"
-          label="Nested Data"
-          zIndex={5}
-          first={true}
-          parentOfNested
-        >
-          {children}
-        </LegoV3>
-      ),
-    },
+    //   content: (isLeft = false, children = null) => (
+    //     <LegoV3
+    //       background={'brown'}
+    //       title="1. Name"
+    //       label="Nested Data"
+    //       zIndex={5}
+    //       first={true}
+    //       parentOfNested
+    //     >
+    //       {children}
+    //     </LegoV3>
+    //   ),
+    // },
   };
 
   function handleDragEnd(event: any) {
@@ -242,15 +326,12 @@ const BuyPage = () => {
     if (activeIsParentOfNestedLego) {
       const newData: Record<string, any> = {};
 
-      for (const key in field[activeNestedKey as Override].value as Record<
-        string,
-        any
-      >) {
+      for (const key in field[activeNestedKey as Override].value as any) {
         newData[key] = null;
       }
 
       if (over && !overIsFinalDroppable) {
-        setFormField(activeNestedKey, newData, false);
+        setFormField(activeNestedKey, newData as any, false);
       }
 
       return;
@@ -261,7 +342,7 @@ const BuyPage = () => {
       (overIsFinalDroppable || overIsParentOfNestedLego)
     );
     const newData = {
-      ...field[activeNestedKey as Override].value,
+      ...(field[activeNestedKey as Override].value as any),
       [activeKeyInNestedKey]: draggedToEmpty ? null : active.data.current.value,
     };
     const someFieldsFilled = Object.values(newData).some(
@@ -309,7 +390,12 @@ const BuyPage = () => {
                         //
                       } else if (content) {
                         _content = (
-                          <Draggable value={fieldValue} id={key} key={key}>
+                          <Draggable
+                            value={fieldValue}
+                            id={key}
+                            key={key}
+                            index={indexWrap}
+                          >
                             {content(true)}
                           </Draggable>
                         );
@@ -385,6 +471,7 @@ const BuyPage = () => {
             {/* ------------- RIGHT ------------- */}
             <div className={s.right}>
               <Tier />
+
               <div className={s.right_box}>
                 <DroppableV2 id="final" className={s.finalResult}>
                   <LegoV3
