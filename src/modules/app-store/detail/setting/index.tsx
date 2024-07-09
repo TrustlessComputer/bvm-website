@@ -18,8 +18,9 @@ import SendFormModal from '@/modules/blockchains/components/SendFormModal';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import Form from '@/modules/app-store/detail/setting/form';
+import { IDApp } from '@/services/api/DAServices/types';
 
-const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage}) => {
+const SettingView = ({app, appPackage}: {app?: IDApp, appPackage: IAppPackage}) => {
   const router = useRouter();
 
   const { loopFetchAccountInfor, getMyOrderList } = useL2Service();
@@ -168,14 +169,14 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
         isMyOrderListFetched ? (
           <>
             <Flex gap={"12px"} justifyContent={'center'} alignItems={"center"}>
-              <Image className={s.avatar} src={app?.image}/>
-              <Text className={s.title}>{app?.title}</Text>
+              <Image className={s.avatar} src={app?.image_url}/>
+              <Text className={s.title}>{app?.name}</Text>
             </Flex>
             <Divider orientation={"horizontal"} bg={"#ECECEC"}/>
             <InputWrapper label={'Package'} className={s.inputWrapper}>
               <Flex gap={"24px"}>
                 {
-                  app?.modes?.map(p => {
+                  app?.details?.map(p => {
                     return (
                       <PackageItem
                         data={p}
