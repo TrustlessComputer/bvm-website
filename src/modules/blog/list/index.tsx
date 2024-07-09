@@ -6,8 +6,8 @@ import Card from './Card';
 import Filter from './Filter';
 
 type TListBlog = Posts & {
-  className: string;
-  isHome: boolean;
+  className?: string;
+  isHome?: boolean;
 }
 
 export default function ListBlog({ data, total, per_page, page, className, isHome }: TListBlog) {

@@ -1,8 +1,0 @@
-.heading {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-
-  &_thumbnail {
-    grid-column: span 8 / span 8;
-  }
-}

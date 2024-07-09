@@ -42,7 +42,7 @@ export default function BLogDetail({ blogData }: TBLogDetail) {
                 className={s.heading_author}>{`${view_count ? view_count : 0} ${view_count > 1 ? 'views' : 'view'}`} </p>
             </div>
             <div className={s.divider}></div>
-            <Socials />
+            <Socials {...blogData} />
           </div>
         </div>
 
@@ -53,7 +53,7 @@ export default function BLogDetail({ blogData }: TBLogDetail) {
         <div className="auth"></div>
         <div className={s.meta}>
           <Tags tags={tags || []} />
-          <Socials />
+          <Socials {...blogData} />
         </div>
       </div>
       {

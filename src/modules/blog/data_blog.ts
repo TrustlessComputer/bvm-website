@@ -38,9 +38,6 @@ export type TBlogDetail = {
   },
   thumbnail: string,
   list_thumbnail: string,
-
   category: string,
   updateTime: string,
-
-
 };
