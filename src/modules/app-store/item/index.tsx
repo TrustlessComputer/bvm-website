@@ -27,10 +27,7 @@ const AppItem = ({
       </Flex>
       <Flex alignItems={'center'} mt={'24px'} gap={'24px'}>
         <Text className={s.title}>{data?.name}</Text>
-        <Flex gap={'8px'} alignItems={'center'}>
-          <Text className={s.number}>{data?.installed}</Text>
-          <Text className={s.status}>INSTALLED</Text>
-        </Flex>
+        <Text className={s.status}><Text as={"span"} className={s.number}>{data?.installed}</Text> INSTALLED</Text>
       </Flex>
       <Text className={s.description} mt={'8px'}>
         {data?.description}
