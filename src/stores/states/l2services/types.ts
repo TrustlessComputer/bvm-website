@@ -8,6 +8,7 @@ import {
   HistoryStatus,
   HistoryType,
 } from '@/modules/blockchains/components/BillingModal/History.types';
+import { IDApp } from '@/services/api/DAServices/types';
 
 interface IVerifySignatureReq {
   signature: string;
@@ -276,6 +277,14 @@ interface L2ServicesState {
   availableListFetching: boolean;
   availableListFetched: boolean;
   availableList?: IAvailableList;
+
+  // Install Dapps
+  dAppSelected?: IDApp;
+
+  // DA
+  isDAListFetching: boolean;
+  isDAListFetched: boolean;
+  daList?: IDApp[];
 }
 
 type MetaConfig = {

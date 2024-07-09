@@ -1,0 +1,92 @@
+.container {
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+  }
+
+  .title {
+    color: #000;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: 0.01em;
+  }
+
+  .note {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: #1D1D1D;
+  }
+
+  .btnPrimary {
+    font-size: 20px;
+    font-weight: 600;
+    background: #FA4E0E;
+    border-radius: 100px;
+    color: #FFF;
+    width: 300px;
+    height: 52px;
+
+    &:hover {
+      background: #FA4E0E !important;
+    }
+  }
+
+  .btnSecondary {
+    font-size: 20px;
+    font-weight: 600;
+    border: 1px solid #FA4E0E;
+    background: #FFF;
+    border-radius: 100px;
+    color: #FA4E0E;
+    width: 300px;
+    height: 52px;
+  }
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputWrapper {
+  margin-bottom: 0 !important;
+  label {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    color: #000;
+  }
+}
+
+.btnSelectToken {
+  border-radius: 12px !important;
+  padding: 16px 12px !important;
+  height: 62px !important;
+  width: 100%;
+  border: 1px solid #E7E7E7;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  :global {
+    .chakra-menu__menuitem {
+      padding: 0;
+      width: 97%;
+    }
+  }
+}
+
+.menuChainWrapper {
+  > div:last-child {
+    width: 100%;
+  }
+}

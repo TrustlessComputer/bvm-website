@@ -1,0 +1,55 @@
+.modalContent {
+  background-color: #fff !important;
+  min-height: 300px !important;
+  font-family: var(--font-SFProDisplay);
+  max-width: 1064px !important;
+  margin: 20px !important;
+  :global(.chakra-modal__body) {
+    background-color: #fff !important;
+  }
+}
+
+.modalHeader {
+  border: none;
+  padding-top: 0;
+  padding-bottom: rem(24);
+  padding-left: rem(24);
+
+  &_title {
+    font-weight: 500;
+    color: black;
+    //margin-top: rem(18) !important;
+    line-height: 140%;
+
+    &_dark {
+      color: white;
+    }
+  }
+
+  &_description {
+    color: #5b5b5b;
+    font-size: rem(14);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    white-space: break-spaces;
+  }
+
+  &_closeBtn {
+    padding: 20px !important;
+    background-color: transparent !important;
+    position: absolute;
+    right: 0;
+    top: -2px;
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:hover {
+      .closeIcon {
+        transform: scale(1.2);
+        transition: all 0.3s;
+      }
+    }
+  }
+}

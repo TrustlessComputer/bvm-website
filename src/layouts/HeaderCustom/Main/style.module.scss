@@ -1,0 +1,107 @@
+.wrapper {
+  height: auto;
+}
+
+.inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 28px;
+  padding-bottom: 28px;
+  position: relative;
+  align-items: center;
+  max-width: 1600px !important;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+
+  @include is-pc {
+    position: unset;
+  }
+  &_text {
+    font-family: var(--font-jetbrains);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: (21 / 15);
+    color: #fff;
+  }
+  svg {
+    height: auto;
+    width: 27px;
+  }
+  &_black {
+    svg {
+      path {
+        fill: #000;
+      }
+    }
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+
+  :global {
+    .menu-item {
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+}
+
+.itemLabel {
+  color: #fff;
+  font-family: var(--font-jetbrains);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: (20 / 14);
+  text-align: center;
+}
+
+.activeDark {
+  opacity: 0.7;
+}
+
+.activeLight {
+  color: #86919e !important;
+}
+
+.icon {
+  &_black {
+    svg path {
+      stroke: #000;
+    }
+  }
+
+  &_white {
+    svg path {
+      stroke: #fff;
+    }
+  }
+}
+
+.menuCustom {
+  border-radius: 100px;
+  border: 0.762px solid #000;
+
+  p {
+    padding: 10px 16px;
+    color: #000;
+    text-align: center;
+    font-family: var(--font-jetbrains);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+  }
+}

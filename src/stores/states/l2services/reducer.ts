@@ -7,6 +7,7 @@ import {
   fetchL2ServiceHistory,
   fetchAvailableList,
   fetchAllOrdersV2,
+  fetchDAList,
 } from './actions';
 import { PREFIX } from './constants';
 import {
@@ -17,6 +18,7 @@ import {
   MonitorViewPage,
 } from './types';
 import uniqBy from 'lodash/uniqBy';
+import { IDApp } from '@/services/api/DAServices/types';
 
 export const initialState: L2ServicesState = {
   isMyOrderListFetched: false,
@@ -49,6 +51,11 @@ export const initialState: L2ServicesState = {
   allOrdersV2: [],
 
   monitorViewPage: 'OP',
+
+  //DA
+  isDAListFetching: false,
+  isDAListFetched: false,
+  daList: [],
 };
 
 const slice = createSlice({
@@ -95,6 +102,9 @@ const slice = createSlice({
       state.orderSelected = undefined;
       state.accountInforL2Service = undefined;
       state.isL2ServiceLogged = false;
+    },
+    setDAppSelected(state, action: PayloadAction<IDApp>) {
+      state.dAppSelected = action.payload;
     },
   },
 
@@ -180,6 +190,20 @@ const slice = createSlice({
         state.availableListFetching = false;
         state.availableListFetched = true;
         state.availableList = undefined;
+      })
+
+      .addCase(fetchDAList.pending, (state) => {
+        state.isDAListFetching = true;
+      })
+      .addCase(fetchDAList.fulfilled, (state, action) => {
+        state.isDAListFetching = false;
+        state.isDAListFetched = true;
+        state.daList = action.payload || [];
+      })
+      .addCase(fetchDAList.rejected, (state, _) => {
+        state.isDAListFetching = false;
+        state.isDAListFetched = true;
+        state.daList = [];
       });
   },
 });
@@ -195,5 +219,6 @@ export const {
   updateOrderByNewOrder,
   setL2ServiceLogout,
   setMonitorViewPage,
+  setDAppSelected,
 } = slice.actions;
 export default slice.reducer;

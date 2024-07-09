@@ -5,7 +5,7 @@ import { DashboardProps } from '../Dashboard.types';
 
 export const DashboardContext = createContext<DashboardProps>({});
 
-export const useDashboard = (): DashboardProps => {
+export const useDashboard = () => {
   const context = useContext(DashboardContext);
   if (!context) {
     throw new Error(
