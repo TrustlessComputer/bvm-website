@@ -53,6 +53,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
       },
     ],
     inputs: [],
+    user_package: "basic",
   },
   {
     id: 2,
@@ -148,6 +149,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
       },
     ],
     inputs: [],
+    user_package: "advance",
   },
   {
     id: 3,
@@ -242,5 +244,6 @@ export const DA_DUMMY_LIST: IDApp[] = [
       },
     ],
     inputs: [],
+    user_package: "",
   },
 ];

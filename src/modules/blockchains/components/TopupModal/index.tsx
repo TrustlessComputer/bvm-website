@@ -175,7 +175,7 @@ const TopupModal = (props: IProps) => {
         mt={'20px'}
         display={'flex'}
         flexDir={'column'}
-        w={['100%', '90%']}
+        w={['100%', '100%']}
         bgColor={'#ECECEC'}
         borderRadius={'10px'}
         p={'20px'}

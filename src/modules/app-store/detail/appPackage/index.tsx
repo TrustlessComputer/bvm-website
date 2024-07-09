@@ -1,11 +1,12 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import SvgInset from '@components/SvgInset';
+import { IDAppDetails } from '@/services/api/DAServices/types';
 
-const InstallMode = ({data, onInstall}: {data: IAppPackage, onInstall: any}) => {
+const AppPackage = ({data, onInstall}: {data: IDAppDetails, onInstall: any}) => {
   return (
     <Flex className={s.container} direction={"column"}>
-      <Text className={s.title}>{data?.title}</Text>
+      <Text className={s.title}>{data?.name}</Text>
       <Text className={s.description} mt={"8px"}>{data?.description}</Text>
       <Flex alignItems={"center"} justifyContent={"center"} mt={"20px"} gap={"12px"}>
         <Text className={s.priceUsd}>${data?.price_usd}</Text>
@@ -23,8 +24,8 @@ const InstallMode = ({data, onInstall}: {data: IAppPackage, onInstall: any}) => 
             data?.includes?.map(i => {
               return (
                 <Flex gap={"8px"} alignItems={"center"}>
-                  <SvgInset svgUrl={i?.is_include ? `/app-store/ic-include-check.svg` : `/app-store/ic-include-x.svg`} />
-                  <Text className={s.includeText}>{i?.title}</Text>
+                  <SvgInset svgUrl={i?.valid === '1' ? `/app-store/ic-include-check.svg` : `/app-store/ic-include-x.svg`} />
+                  <Text className={s.includeText}>{i?.name}</Text>
                 </Flex>
               )
             })
@@ -35,4 +36,4 @@ const InstallMode = ({data, onInstall}: {data: IAppPackage, onInstall: any}) => 
   )
 }
 
-export default InstallMode;
+export default AppPackage;

@@ -17,8 +17,10 @@ import SubmitResultFormModal from '@/modules/blockchains/Buy/SubmitResultFormMod
 import SendFormModal from '@/modules/blockchains/components/SendFormModal';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import Form from '@/modules/app-store/detail/setting/form';
+import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
 
-const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage}) => {
+const SettingView = ({app, appPackage, onClose}: {app?: IDApp, appPackage: IDAppDetails, onClose: any}) => {
   const router = useRouter();
 
   const { loopFetchAccountInfor, getMyOrderList } = useL2Service();
@@ -28,8 +30,7 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
   );
 
   const [selectedOrder, setSelectedOrder] = useState<OrderItem | undefined>(undefined);
-  const [submitting, setSubmitting] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState<IAppPackage | undefined>(undefined);
+  const [selectedPackage, setSelectedPackage] = useState<IDAppDetails | undefined>(appPackage);
 
   useEffect(() => {
     loopFetchAccountInfor();
@@ -51,14 +52,15 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
   }, [myOrders]);
 
   const isInstalled = useMemo(() => {
-    return false;
-  }, [JSON.stringify(selectedOrder)]);
+    return !!app?.user_package;
+  }, [app]);
 
   useEffect(() => {
-    if(appPackage) {
-      setSelectedPackage(appPackage);
+    if(isInstalled) {
+      const p = app?.details?.find(d => d.package === app?.user_package);
+      setSelectedPackage(p);
     }
-  }, [appPackage]);
+  }, [isInstalled]);
 
   const {
     showSubmitFormResult,
@@ -69,20 +71,10 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
     setShowSendFormModal,
   } = useBuy();
 
-  console.log('accountInforL2Service', accountInforL2Service);
-  console.log('appapp', app);
-  console.log('appPackage', appPackage);
-  console.log('myOrders', myOrders);
-
-  const requestBuyApp = () => {
-    try {
-      setSubmitting(true);
-    } catch (e) {
-
-    } finally {
-      setSubmitting(false);
-    }
-  }
+  // console.log('accountInforL2Service', accountInforL2Service);
+  // console.log('appapp', app);
+  // console.log('appPackage', appPackage);
+  // console.log('myOrders', myOrders);
 
   const renderActionNote = () => {
     if (myOrders?.length === 0) {
@@ -113,6 +105,7 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
       return (
         <Button className={s.btnPrimary} onClick={() => {
           router.push(PRICING);
+          onClose();
         }}>Launch a chain</Button>
       );
     }
@@ -130,30 +123,48 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
         <>
           <Button className={s.btnSecondary} onClick={() => {
             router.push(APP_STORE);
+            onClose();
           }}>Install other Dapp</Button>
 
           <Button className={s.btnPrimary} onClick={() => {
             router.push(PRICING);
+            onClose();
           }}>Launch new chain</Button>
         </>
       )
     }
 
-    return (
-      <Button
-        className={s.btnPrimary}
-        isDisabled={!selectedPackage || !selectedOrder || submitting}
-        isLoading={submitting}
-        onClick={() => {
-          if(Number(accountInforL2Service?.balanceFormatted) < Number(appPackage?.price_bvm)) {
+    if (Number(accountInforL2Service?.balanceFormatted) < Number(appPackage?.price_bvm)) {
+      return (
+        <Button
+          className={s.btnPrimary}
+          isDisabled={!selectedPackage || !selectedOrder}
+          onClick={() => {
             setShowTopupModal(true);
-          } else {
-            requestBuyApp();
-          }
-        }
-      }
-      >Install</Button>
+          }}
+        >Install</Button>
+      )
+    }
+
+    return (
+      <Form app={app} selectedPackage={selectedPackage} selectedOrder={selectedOrder}/>
     )
+
+    // return (
+    //   <Button
+    //     className={s.btnPrimary}
+    //     isDisabled={!selectedPackage || !selectedOrder || submitting}
+    //     isLoading={submitting}
+    //     onClick={() => {
+    //       if(Number(accountInforL2Service?.balanceFormatted) < Number(appPackage?.price_bvm)) {
+    //         setShowTopupModal(true);
+    //       } else {
+    //         requestBuyApp();
+    //       }
+    //     }
+    //   }
+    //   >Install</Button>
+    // )
   }
 
   return (
@@ -162,20 +173,20 @@ const SettingView = ({app, appPackage}: {app:  IAppInfo, appPackage: IAppPackage
         isMyOrderListFetched ? (
           <>
             <Flex gap={"12px"} justifyContent={'center'} alignItems={"center"}>
-              <Image className={s.avatar} src={app?.image}/>
-              <Text className={s.title}>{app?.title}</Text>
+              <Image className={s.avatar} src={app?.image_url}/>
+              <Text className={s.title}>{app?.name}</Text>
             </Flex>
             <Divider orientation={"horizontal"} bg={"#ECECEC"}/>
             <InputWrapper label={'Package'} className={s.inputWrapper}>
               <Flex gap={"24px"}>
                 {
-                  app?.modes?.map(p => {
+                  app?.details?.map(p => {
                     return (
                       <PackageItem
                         data={p}
                         isSelected={p.id === selectedPackage?.id}
                         isInstalled={isInstalled}
-                        onSelect={() => {setSelectedPackage(p)}}
+                        onSelect={() => {/*setSelectedPackage(p)*/}}
                       />
                     )
                   })
