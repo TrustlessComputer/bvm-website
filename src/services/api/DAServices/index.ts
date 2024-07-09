@@ -58,7 +58,7 @@ const installDAByParams = async (params: InstallDAByParams): Promise<any> => {
   const { address, dAppID, inputs = [] } = params;
   try {
     result = (await httpClient.post(
-      `/apps/install?address=${address}`,
+      `/apps/install?address=${address}${params?.networkId ? `&network_id=${params.networkId}` : ''}`,
       {
         app_store_detail_id: dAppID,
         inputs: inputs,

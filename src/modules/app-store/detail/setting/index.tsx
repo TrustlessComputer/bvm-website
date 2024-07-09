@@ -70,10 +70,10 @@ const SettingView = ({app, appPackage}: {app?: IDApp, appPackage: IAppPackage}) 
     setShowSendFormModal,
   } = useBuy();
 
-  console.log('accountInforL2Service', accountInforL2Service);
-  console.log('appapp', app);
-  console.log('appPackage', appPackage);
-  console.log('myOrders', myOrders);
+  // console.log('accountInforL2Service', accountInforL2Service);
+  // console.log('appapp', app);
+  // console.log('appPackage', appPackage);
+  // console.log('myOrders', myOrders);
 
   const renderActionNote = () => {
     if (myOrders?.length === 0) {

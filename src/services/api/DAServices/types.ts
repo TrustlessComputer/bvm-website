@@ -32,4 +32,5 @@ export interface InstallDAByParams {
   address: string;
   dAppID: number | string;
   inputs?: { [key: string]: any }[];
+  networkId?: string;
 }

@@ -21,10 +21,13 @@ interface IFormProps {
 }
 
 const Form = (props: IFormProps) => {
-  const { app, selectedPackage, selectedOrder} = props;
+  const { selectedPackage, selectedOrder} = props;
   const [submitting, setSubmitting] = useState(false);
   const userInfor = useAppSelector(accountInforSelector);
-  console.log('userInfor', userInfor);
+  // console.log('app', app);
+  // console.log('userInfor', userInfor);
+  // console.log('selectedPackage', selectedPackage);
+  // console.log('selectedOrder', selectedOrder);
 
   const onSubmit = async (values: IFormValues) => {
     try {
@@ -32,7 +35,8 @@ const Form = (props: IFormProps) => {
 
       const params: InstallDAByParams = {
         address: userInfor?.tcAddress || '',
-        dAppID: app?.id as number,
+        networkId: selectedOrder?.chainId,
+        dAppID: selectedPackage?.id as number,
         inputs: [
           // {
           //   key: 'aaPaymasterTokenID',
