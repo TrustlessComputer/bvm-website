@@ -96,7 +96,7 @@ const AppDetailModule = () => {
             {
               data?.details.map(m => {
                 return (
-                  <AppPackage data={m} onInstall={handleInstall}/>
+                  <AppPackage data={m} app={data} onInstall={handleInstall}/>
                 )
               })
             }
