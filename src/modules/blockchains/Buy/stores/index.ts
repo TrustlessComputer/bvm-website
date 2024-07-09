@@ -9,7 +9,6 @@ export const ORDER_FIELD = {
   GAS_LIMIT: 'gasLimit',
   WITHDRAW_PERIOD: 'withdrawPeriod',
 
-
 } as const;
 
 export type FormOrder = Pick<

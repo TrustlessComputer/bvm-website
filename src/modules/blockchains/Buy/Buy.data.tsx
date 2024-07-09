@@ -13,11 +13,12 @@ export type OrderFormOption = {
       content: JSX.Element;
     };
     options?: {
-      id: number;
+      id?: number;
       label: string;
       keyInField?: string;
-      value: NetworkEnum | DALayerEnum;
-      icon: string;
+      value?: NetworkEnum | DALayerEnum | number | string;
+      icon?: string;
+
       disabled?: boolean;
       avalaibleNetworks?: NetworkEnum[];
     }[];

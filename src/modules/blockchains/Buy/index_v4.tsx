@@ -31,7 +31,7 @@ const BuyPage = () => {
   const { field, setFormField } = useFormOrderStore((state) => state);
 
   const boxOptionMapping: Record<
-    Override,
+    Override | string,
     OrderFormOption[Override] & {
       id: Override;
       label: string;

@@ -32,9 +32,9 @@ const BuyPage = () => {
   const { field, setFormField } = useFormOrderStore((state) => state);
 
   const boxOptionMapping: Record<
-    Override,
+    Override | 'nestedData2' | 'nestedData',
     OrderFormOption[Override] & {
-      id: Override;
+      id: Override | 'nestedData2' | 'nestedData';
       label: string;
       RightContent?: () => JSX.Element;
       content?: (isLeft?: boolean, children?: React.ReactNode) => JSX.Element;
@@ -421,7 +421,11 @@ const BuyPage = () => {
                       );
                     } else if (content) {
                       _content = (
-                        <Draggable value={fieldValue} id={key} key={key}>
+                        <Draggable
+                          value={fieldValue}
+                          id={key + '-dropped'}
+                          key={key + '-dropped'}
+                        >
                           {content()}
                         </Draggable>
                       );

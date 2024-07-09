@@ -15,9 +15,7 @@ const RightNetworkLego = () => {
       background={'brown'}
       label={OrderFormOptions[ORDER_FIELD.NETWORK].subTitle}
       zIndex={9}
-      isFrist={false}
-      isLast={false}
-      isActive={field[ORDER_FIELD.NETWORK].dragged}
+      active={field[ORDER_FIELD.NETWORK].dragged}
     >
       <Dropdown
         cb={setFormField}
