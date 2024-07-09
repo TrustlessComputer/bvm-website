@@ -479,7 +479,6 @@ const BuyPage = () => {
                     title="1. Name"
                     label="Name"
                     zIndex={45}
-                    first={true}
                   >
                     <ComputerNameInput />
                   </LegoV3>
