@@ -3,15 +3,17 @@ import s from './styles.module.scss';
 import AppItem from '@/modules/app-store/item';
 import { useEffect } from 'react';
 import useL2Service from '@/hooks/useL2Service';
-import { useAppSelector } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { getDAListSelector } from '@/stores/states/l2services/selector';
 import { useRouter } from 'next/navigation';
 import { APP_STORE } from '@/constants/route-path';
 import { AccountAbstractionDAppModal } from '../blockchains/components/DAppModal';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { IDApp } from '@/services/api/DAServices/types';
+import { setDAppSelected } from '@/stores/states/l2services/reducer';
+import { DA_CODES, IDApp } from '@/services/api/DAServices/types';
 
 const AppStoreModule = () => {
+  const dispatch = useAppDispatch();
   const { getDappsList, getMyOrderList, getAccountInfor } = useL2Service();
   const { loggedIn, login } = useWeb3Auth();
   const DAppList = useAppSelector(getDAListSelector); // TO DO
@@ -35,9 +37,9 @@ const AppStoreModule = () => {
   }, [loggedIn]);
 
   const handleSelectAppCb = (item: IDApp) => {
-    //Account Abstraction
-    if (item.id === 3) {
+    if (item.code === DA_CODES.account_abstraction) {
       if (loggedIn) {
+        dispatch(setDAppSelected(item));
         onOpenModal();
       } else {
         login();

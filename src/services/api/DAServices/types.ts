@@ -1,7 +1,20 @@
+export const DA_CODES = {
+  create_token: 'create_token',
+  staking: 'staking',
+  account_abstraction: 'account_abstraction',
+  bridge: 'bridge',
+};
+
+export const DA_PACKAGES = {
+  free: 'free',
+  basic: 'basic',
+  advance: 'advance',
+};
+
 export interface IDApp {
   id: number;
   name: string;
-  code: string;
+  code: keyof typeof DA_CODES;
   description: string;
   image_url: string;
   installed: number;
@@ -18,7 +31,7 @@ export interface IDAppDetails {
   name: string;
   description: string;
   image_url: string;
-  package: string;
+  package: keyof typeof DA_PACKAGES;
   price_usd: string;
   price_bvm: string;
   includes: {
