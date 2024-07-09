@@ -29,7 +29,8 @@ export interface IDAppDetails {
 ///
 
 export interface InstallDAByParams {
-  address: string;
-  dAppID: number | string;
-  inputs?: { [key: string]: any }[];
+  address: string; // User Address (TC address)
+  network_id: string; //Install for Chain (Chain ID Ex: 12345)
+  dAppID: number | string; // dAPP detail ID
+  inputs?: { [key: string]: any }[]; // inputs optional
 }
