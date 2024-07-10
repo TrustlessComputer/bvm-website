@@ -1,6 +1,5 @@
 'use client';
 
-import { HeaderProps } from '@/layouts/Header';
 import useAnimationStore from '@/stores/useAnimationStore';
 import Footer from '@layouts/Footer';
 import { usePathname } from 'next/navigation';
@@ -17,12 +16,12 @@ type IMainProps = {
 };
 
 const MainLayout = ({
-  hideHeader = false,
-  hideFooter = false,
-  headerProps,
-  children,
-  isHeaderCustom,
-}: IMainProps) => {
+                      hideHeader = false,
+                      hideFooter = false,
+                      headerProps,
+                      children,
+                      isHeaderCustom,
+                    }: IMainProps) => {
   const pathName = usePathname();
   const { resetPlay } = useAnimationStore();
   useEffect(() => {
@@ -31,11 +30,10 @@ const MainLayout = ({
 
   return (
     <>
-      {/* {<Header {...headerProps} />} */}
       {isHeaderCustom && <HeaderCustom />}
       {!hideHeader && !isHeaderCustom && <HeaderV3 {...headerProps} />}
       {children}
-      {!hideFooter && <Footer />}
+      <Footer />
     </>
   );
 };
