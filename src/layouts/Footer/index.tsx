@@ -12,7 +12,7 @@ const Footer = () => {
 
   return (
     <div className={s.wrapper}>
-      <HomeContainer>
+      <div className={'containerV3'}>
         <div className={s.row}>
           <div className={s.logo}>
             <Link href={'/'}>
@@ -23,7 +23,7 @@ const Footer = () => {
           <Solutions />
           <Socials className={s.social} />
         </div>
-      </HomeContainer>
+      </div>
     </div>
   );
 };
