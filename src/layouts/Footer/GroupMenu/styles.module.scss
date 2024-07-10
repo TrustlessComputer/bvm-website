@@ -11,10 +11,9 @@
   text-align: left;
 }
 
-
 .content {
   display: flex;
-  gap: 24px;
+  gap: 48px;
 }
 
 .menu {
@@ -24,11 +23,15 @@
     font-weight: 500;
     line-height: 19.09px;
     text-align: left;
-
+    margin-bottom: 16px;
   }
 
   &_content {
-
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 }
 

@@ -1,11 +1,12 @@
 'use client';
 
 import s from './styles.module.scss';
-import React, { useState } from 'react';
+import React from 'react';
 import HomeContainer from '@/modules/ai-landing/components/HomeContainer';
-import { FOOTER_DATA } from '@layouts/Footer/footer-datas';
-import Index from '@layouts/Footer/GroupMenu';
-import GroupMenu from '@layouts/Footer/GroupMenu';
+import Productions from '@layouts/Footer/Productions';
+import Solutions from '@layouts/Footer/Solutions';
+import Socials from '@layouts/Footer/Socials';
+import Link from 'next/link';
 
 const Footer = () => {
 
@@ -13,9 +14,14 @@ const Footer = () => {
     <div className={s.wrapper}>
       <HomeContainer>
         <div className={s.row}>
-          <GroupMenu menu={FOOTER_DATA.products}>Productions</GroupMenu>
-          <GroupMenu menu={FOOTER_DATA.solutions}>Solutions</GroupMenu>
-          {/*<GroupMenu menu={FOOTER_DATA.social}>Socials</GroupMenu>*/}
+          <div className={s.logo}>
+            <Link href={'/'}>
+              <img src={'/icons/ic-bvm-footer.svg'} />
+            </Link>
+          </div>
+          <Productions />
+          <Solutions />
+          <Socials className={s.social} />
         </div>
       </HomeContainer>
     </div>

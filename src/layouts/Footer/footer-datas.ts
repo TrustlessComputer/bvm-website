@@ -9,7 +9,7 @@ export const FOOTER_DATA = {
         },
         {
           title: 'BitOP',
-          link: '/module/BitOP',
+          link: '/module/bitop',
         },
       ],
     },
@@ -18,27 +18,27 @@ export const FOOTER_DATA = {
       links: [
         {
           title: 'Bitcoin Celestia',
-          link: '/module/bitzk',
+          link: '/module/bitcoin-celestia',
         },
         {
           title: 'Bitcoin Eigen DA',
-          link: '/module/BitOP',
+          link: '/module/bitcoin-eigen',
         },
         {
           title: 'Bitcoin Avail',
-          link: '/module/BitOP',
+          link: '/module/bitcoin-avail',
         },
         {
           title: 'Bitcoin Polygon',
-          link: '/module/BitOP',
+          link: '/module/bitcoin-polygon',
         },
         {
           title: 'Bitcoin Near DA',
-          link: '/module/BitOP',
+          link: '/module/bitcoin-near',
         },
         {
           title: 'Bitcoin Filecoin',
-          link: '/module/BitOP',
+          link: '/module/bitcoin-filecoin',
         },
       ],
     },
@@ -47,15 +47,15 @@ export const FOOTER_DATA = {
       links: [
         {
           title: 'Bitcoin Ordinals',
-          link: '/module/bitzk',
+          link: '',
         },
         {
           title: 'Bitcoin Taproot',
-          link: '/module/BitOP',
+          link: '',
         },
         {
           title: 'Bitcoin Stamps',
-          link: '/module/BitOP',
+          link: '',
         },
       ],
     },
@@ -64,19 +64,19 @@ export const FOOTER_DATA = {
       links: [
         {
           title: 'Bitcoin Bridge',
-          link: '/module/bitzk',
+          link: '',
         },
         {
           title: 'Ethereum Bridge',
-          link: '/module/BitOP',
+          link: '',
         },
         {
           title: 'BRC-20 Bridge',
-          link: '/module/BitOP',
+          link: '',
         },
         {
           title: 'Runes Bridge',
-          link: '/module/BitOP',
+          link: '',
         },
       ],
     },
@@ -87,11 +87,11 @@ export const FOOTER_DATA = {
       links: [
         {
           title: 'Bitcoin',
-          link: '/module/bitzk',
+          link: '',
         },
         {
           title: 'Ethereum',
-          link: '/module/BitOP',
+          link: '',
         },
       ],
     },
@@ -100,11 +100,11 @@ export const FOOTER_DATA = {
       links: [
         {
           title: 'Appchains',
-          link: '/module/bitzk',
+          link: '/appchains',
         },
         {
           title: 'Ecosystems',
-          link: '/module/BitOP',
+          link: '/ecosystems',
         },
       ],
     },
@@ -113,34 +113,35 @@ export const FOOTER_DATA = {
       links: [
         {
           title: 'DeFi',
-          link: '/module/bitzk',
+          link: '/defi',
         },
         {
           title: 'Gaming',
-          link: '/module/BitOP',
+          link: '/mgamefi',
         },
         {
           title: 'AI',
-          link: '/module/BitOP',
+          link: 'https://eternalai.org/',
+          target: '_blank'
         },
         {
           title: 'Social',
-          link: '/module/BitOP',
+          link: 'socialfi',
         },
       ],
     },
   ],
   social: [
     {
-      icon: '/use-bitcoin/ic_x.svg',
+      icon: '/icons/ic-blog.svg',
       link: '#',
     },
     {
-      icon: '/use-bitcoin/ic_x.svg',
+      icon: '/icons/ic-x.svg',
       link: '#',
     },
     {
-      icon: '/use-bitcoin/ic_x.svg',
+      icon: '/icons/ic-tele.svg',
       link: '#',
     }
   ]

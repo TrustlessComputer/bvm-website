@@ -1,38 +1,20 @@
 import React, { PropsWithChildren } from 'react';
 import s from './styles.module.scss';
 import Link from 'next/link';
+import SubMenu from '@layouts/Footer/SubMenu';
 
 
 interface IGroup extends PropsWithChildren {
-  className?: string,
-  menu: any
+  title: string,
+  className?: string
 }
 
-export default function GroupMenu({ children, className, menu }: IGroup) {
-
-  console.log('___menu', menu);
+export default function GroupMenu({ title, children, className }: IGroup) {
 
   return <div className={`${s.wrap} ${className}`}>
-    <h4 className={s.heading}>{children}</h4>
+    <h4 className={s.heading}>{title}</h4>
     <div className={s.content}>
-      {
-        menu.map((item) => (
-          <div className={s.menu}>
-            <h5 className={s.menu_heading}>{item.title}</h5>
-            <ul className={s.menu_content}>
-              {
-                item.links.map((link) => (
-                  <li key={link.link} className={s.link}>
-                    <Link href={link.link}>
-                      {link.title}
-                    </Link>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        ))
-      }
+      {children}
     </div>
   </div>;
 }
