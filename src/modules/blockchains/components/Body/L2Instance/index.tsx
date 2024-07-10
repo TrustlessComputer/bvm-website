@@ -67,7 +67,7 @@ const L2Instance = (props: Props) => {
         <Divider my={'20px'} borderColor="gray.200" />
         <BodyInfor item={item} />
         <BreakLine />
-        <BottomView
+        {/* <BottomView
           item={item}
           isOwner={isOwner}
           viewBillingOnClick={() => {
@@ -88,7 +88,7 @@ const L2Instance = (props: Props) => {
             dispatch(setOrderSelected(item));
             onOpenCancelOrderModal && onOpenCancelOrderModal();
           }}
-        />
+        /> */}
       </Box>
     </Flex>
   );
