@@ -9,6 +9,7 @@ import DappInstalledItem from './DappInstalledItem';
 import { DAPP_INSTALLED_LIST } from './constant';
 import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
 import { useRouter } from 'next/navigation';
+import { AdapterDappInstalled } from './adapter';
 
 type Props = {
   item: OrderItem;
@@ -29,6 +30,7 @@ const BottomView = (props: Props) => {
     editConfigBridgeOnClick,
   } = props;
   const router = useRouter();
+  const { dApps } = item;
   const { onOpenDappList } = useDashboard();
 
   const [adding, setAdding] = useState(false);
@@ -147,6 +149,29 @@ const BottomView = (props: Props) => {
     }
   };
 
+  const dappList = useMemo(() => {
+    let list = [
+      {
+        id: -1,
+        desc: '',
+        isInstallNewDapps: true,
+        name: 'Install new apps',
+        iconUrl: '/icons/add_dapp_ic.svg',
+      },
+    ];
+
+    if (dApps && dApps.length > 0) {
+      dApps
+        .filter((item) => item.status === 'done')
+        .map((item) => {
+          const dAppConvert = AdapterDappInstalled(item);
+          list.push(dAppConvert);
+        });
+    }
+
+    return list;
+  }, [dApps]);
+
   return (
     <Flex flexDir={'column'} gap={'20px'} mt="20px">
       <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
@@ -162,7 +187,7 @@ const BottomView = (props: Props) => {
       </Flex>
 
       <SimpleGrid columns={[1, 3]} spacing={'16px'}>
-        {DAPP_INSTALLED_LIST.map((item, index) => {
+        {dappList.map((item, index) => {
           return (
             <DappInstalledItem
               key={`${index}-${item.name}`}

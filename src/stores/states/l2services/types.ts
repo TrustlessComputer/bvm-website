@@ -10,6 +10,13 @@ import {
 } from '@/modules/blockchains/components/BillingModal/History.types';
 import { IDApp } from '@/services/api/DAServices/types';
 
+export type DappInstalledStatus =
+  | 'new'
+  | 'done'
+  | 'processing'
+  | 'requested_cancel'
+  | 'removed';
+
 interface IVerifySignatureReq {
   signature: string;
   tcAddress: string;
@@ -61,6 +68,23 @@ interface IPlugin {
   link: string;
 }
 
+export interface IDappInstalled {
+  orderID: string;
+  userAddress: string;
+  appID: number;
+  appURL: string;
+  appCode: string;
+  appName: string;
+  appDescription: string;
+  appImageURL: string;
+  status: DappInstalledStatus;
+  priceUsd: number;
+  priceBvm: number;
+  aaPaymasterTokenID: string;
+  aaTokenGas: string;
+  aaPaymasterContract: string;
+}
+
 interface OrderItemResp {
   createAt: string;
   orderId: string;
@@ -110,6 +134,9 @@ interface OrderItemResp {
   packagePrice?: number;
   packagePriceUSD?: number;
   logoURL?: string;
+
+  //
+  dApps?: IDappInstalled[] | undefined;
 }
 
 interface HistoryItemResp {

@@ -22,10 +22,19 @@ interface IFormProps {
   app?: IDApp;
   selectedPackage?: IDAppDetails;
   selectedOrder?: OrderItem;
+  isInValid?: boolean;
+  inputs?: any[];
+  onSucessCb?: () => void;
 }
 
 const Form = (props: IFormProps) => {
-  const { selectedPackage, selectedOrder } = props;
+  const {
+    selectedPackage,
+    selectedOrder,
+    isInValid,
+    inputs = [],
+    onSucessCb,
+  } = props;
   const [submitting, setSubmitting] = useState(false);
   const userInfor = useAppSelector(accountInforSelector);
   // console.log('app', app);
@@ -35,22 +44,15 @@ const Form = (props: IFormProps) => {
 
   const onSubmit = async (values: IFormValues) => {
     try {
+      if (isInValid) return;
+
       setSubmitting(true);
 
       const params: InstallDAByParams = {
         address: userInfor?.tcAddress || '',
         network_id: selectedOrder?.chainId!,
         dAppID: selectedPackage?.id as number,
-        inputs: [
-          // {
-          //   key: 'aaPaymasterTokenID',
-          //   value: tokenContractAddress,
-          // },
-          // {
-          //   key: 'aaTokenGas',
-          //   value: new BigNumber(feeRate || 1).multipliedBy(1e18).toFixed(),
-          // },
-        ],
+        inputs: inputs,
       };
 
       console.log('onSubmit Params: ', params);
@@ -58,6 +60,8 @@ const Form = (props: IFormProps) => {
       const result = await dAppServicesAPI.installDAByParams(params);
       if (result) {
         toast.success('Submit successfully!');
+
+        onSucessCb && onSucessCb();
       }
     } catch (error) {
       const { message } = getErrorMessage(error);
@@ -103,7 +107,9 @@ const Form = (props: IFormProps) => {
         <Flex justifyContent={'center'} alignItems={'center'} gap={'28px'}>
           <Button
             className={s.btnPrimary}
-            isDisabled={!selectedPackage || !selectedOrder || submitting}
+            isDisabled={
+              isInValid || !selectedPackage || !selectedOrder || submitting
+            }
             isLoading={submitting}
             type="submit"
           >

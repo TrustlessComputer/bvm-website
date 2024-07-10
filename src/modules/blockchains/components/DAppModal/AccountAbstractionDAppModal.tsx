@@ -27,6 +27,7 @@ import { InstallDAByParams } from '@/services/api/DAServices/types';
 import dAppServicesAPI from '@/services/api/DAServices';
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@/utils/errorV2';
+import sleep from '@/utils/sleep';
 
 const MIN_FEE_RATE = 1 * 1e-9;
 const MAX_FEE_RATE = 1 * 1e9;
@@ -163,6 +164,10 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
         const result = await dAppServicesAPI.installDAByParams(params);
         if (result) {
           toast.success('Submit successfully!');
+
+          sleep(1);
+
+          onClose && onClose();
         }
       } catch (error) {
         const { message } = getErrorMessage(error);
