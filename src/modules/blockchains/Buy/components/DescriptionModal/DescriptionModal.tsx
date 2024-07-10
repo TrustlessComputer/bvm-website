@@ -12,7 +12,6 @@ interface IProps {
 
 const DescriptionModal = (props: IProps) => {
   const { title, show, onClose, content } = props;
-
   return (
     <BaseModal
       isShow={show}
@@ -34,6 +33,7 @@ const DescriptionModal = (props: IProps) => {
             {title}
           </Text>
         )}
+
         {content && <Text fontSize={['15px', '16px', '18px']}>{content}</Text>}
       </Flex>
     </BaseModal>

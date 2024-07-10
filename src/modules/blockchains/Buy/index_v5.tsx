@@ -394,7 +394,8 @@ const BuyPage = () => {
                       const fieldValue = field[key as Override].value;
                       const isDragged = field[key as Override].dragged;
                       const isNestedLego = typeof fieldValue === 'object';
-
+                      const isRequired =
+                        OrderFormOptions[key as Override].isRequired;
                       const {
                         label,
                         content,
@@ -425,6 +426,7 @@ const BuyPage = () => {
                           active={isDragged}
                           description={description}
                           first={indexWrap === 1}
+                          isRequired={isRequired}
                         >
                           {_content}
 
