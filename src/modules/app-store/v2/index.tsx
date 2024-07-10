@@ -35,7 +35,11 @@ const AppStoreModule = () => {
   }, [loggedIn]);
 
   const handleSelectAppCb = (item: IDApp) => {
-    router.push(`${APP_STORE}/${item?.id}`);
+    if (loggedIn) {
+      router.push(`${APP_STORE}/${item?.id}`);
+    } else {
+      login();
+    }
   };
 
   return (
@@ -48,21 +52,21 @@ const AppStoreModule = () => {
           </Text>
         </Flex>
         <Hero />
-        <Section title={"Bridge Apps"}>
+        <Section title={'Bridge Apps'}>
           <SimpleGrid columns={[1, 2]} gap={'24px'}>
             {DAppList?.map((d) => {
               return <AppItem3 data={d} handleSelectApp={handleSelectAppCb} />;
             })}
           </SimpleGrid>
         </Section>
-        <Section title={"DeFi Apps"}>
+        <Section title={'DeFi Apps'}>
           <SimpleGrid columns={[1, 2]} gap={'24px'}>
             {defiApps?.map((d) => {
               return <AppItem2 data={d} handleSelectApp={handleSelectAppCb} />;
             })}
           </SimpleGrid>
         </Section>
-        <Section title={"Gaming Apps"}>
+        <Section title={'Gaming Apps'}>
           <SimpleGrid columns={[1, 2]} gap={'60px'}>
             {DAppList?.map((d) => {
               return <AppItem data={d} handleSelectApp={handleSelectAppCb} />;
