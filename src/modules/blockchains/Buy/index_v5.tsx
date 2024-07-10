@@ -24,6 +24,7 @@ import RightDataAvailabilityLego from './components3/Legos/RightDataAvailability
 import s from './styles_v5.module.scss';
 import LeftNetworkLego from './components3/Legos/LeftNetworkLego';
 import LeftDataAvailabilityLego from './components3/Legos/LeftDataAvailabilityLego';
+import { NetworkEnum } from './Buy.constanst';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -75,15 +76,6 @@ const BuyPage = () => {
   function handleDragEnd(event: any) {
     const { over, active } = event;
 
-    console.log(
-      '🚀 -> file: index_v5.tsx:78 -> handleDragEnd -> over ::',
-      over,
-    );
-    console.log(
-      '🚀 -> file: index_v5.tsx:78 -> handleDragEnd -> active ::',
-      active,
-    );
-
     const [activeKey = ''] = active.id.split('-');
     const [overKey = ''] = over?.id.split('-');
     const overIsFinalDroppable = overKey === 'final';
@@ -92,6 +84,16 @@ const BuyPage = () => {
     if (over && overIsFinalDroppable) {
       fieldMapping[activeKey as Override].setValue(active.data.current.value);
       fieldMapping[activeKey as Override].setDragged(true);
+
+      if (activeKey === ORDER_FIELD.NETWORK) {
+        const data = handleFindData(network);
+
+        if (data && data.length > 0) {
+          fieldMapping[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].setValue(
+            data[0].value,
+          );
+        }
+      }
     } else {
       fieldMapping[activeKey as Override].setValue(active.data.current.value);
       fieldMapping[activeKey as Override].setDragged(false);
@@ -103,7 +105,14 @@ const BuyPage = () => {
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
-
+  const handleFindData = (networkSelected: NetworkEnum) => {
+    const optionsDataAvailable =
+      OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].options;
+    const values = optionsDataAvailable?.filter((item) => {
+      return item.avalaibleNetworks?.includes(networkSelected);
+    });
+    return values;
+  };
   return (
     <div className={s.container}>
       <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
@@ -120,6 +129,7 @@ const BuyPage = () => {
                       label={OrderFormOptions[ORDER_FIELD.NETWORK].title}
                       id={ORDER_FIELD.NETWORK}
                       first={true}
+                      active={isNetworkDragged}
                     >
                       <LeftNetworkLego />
                     </BoxOptionV3>
@@ -130,6 +140,7 @@ const BuyPage = () => {
                         OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN]
                           .title
                       }
+                      active={isDataAvailabilityChainDragged}
                       id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
                     >
                       <LeftDataAvailabilityLego />
@@ -139,6 +150,7 @@ const BuyPage = () => {
                       {...OrderFormOptions[ORDER_FIELD.GAS_LIMIT]}
                       label={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].title}
                       id={ORDER_FIELD.GAS_LIMIT}
+                      active={isGasLimitDragged}
                     >
                       <Draggable id={ORDER_FIELD.GAS_LIMIT} value={gasLimit}>
                         <BlockGasLimitLego isLeft />
@@ -151,6 +163,7 @@ const BuyPage = () => {
                         OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].title
                       }
                       id={ORDER_FIELD.WITHDRAW_PERIOD}
+                      active={isWithdrawPeriodDragged}
                     >
                       <Draggable
                         id={ORDER_FIELD.WITHDRAW_PERIOD}
@@ -196,6 +209,14 @@ const BuyPage = () => {
                       <RightDataAvailabilityLego />
                     </Draggable>
                   )}
+                  {isGasLimitDragged && (
+                    <Draggable
+                      id={ORDER_FIELD.GAS_LIMIT + '-dropped'}
+                      value={gasLimit}
+                    >
+                      <BlockGasLimitLego />
+                    </Draggable>
+                  )}
 
                   {isWithdrawPeriodDragged && (
                     <Draggable
@@ -203,15 +224,6 @@ const BuyPage = () => {
                       value={withdrawPeriod}
                     >
                       <WithdrawalTimeLego />
-                    </Draggable>
-                  )}
-
-                  {isGasLimitDragged && (
-                    <Draggable
-                      id={ORDER_FIELD.GAS_LIMIT + '-dropped'}
-                      value={gasLimit}
-                    >
-                      <BlockGasLimitLego />
                     </Draggable>
                   )}
                 </DroppableV2>

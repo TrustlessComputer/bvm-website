@@ -33,7 +33,7 @@ const LeftDataAvailabilityLego = () => {
           background={
             OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].background
           }
-          zIndex={11}
+          zIndex={24}
           active={network === option.value}
           label={option.label}
           icon={option.icon}

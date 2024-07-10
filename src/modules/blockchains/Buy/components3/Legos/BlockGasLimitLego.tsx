@@ -42,7 +42,7 @@ const BlockGasLimitLego = ({ isLeft = false }: { isLeft?: boolean }) => {
       background={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].background}
       label={isLeft ? '' : OrderFormOptions[ORDER_FIELD.GAS_LIMIT].subTitle}
       active={isGasLimitDragged}
-      zIndex={7}
+      zIndex={4}
     >
       <Slider
         cb={onSliderChange}

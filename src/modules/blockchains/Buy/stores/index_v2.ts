@@ -59,7 +59,7 @@ const chainNameSlice: StateCreator<ChainNameSlice> = (set) => ({
 });
 
 const networkSlice: StateCreator<NetworkSlice> = (set) => ({
-  network: NetworkEnum.Network_Mainnet,
+  network: NetworkEnum.Network_Testnet,
   setNetwork: (network) => set({ network }),
 
   isNetworkDragged: false,

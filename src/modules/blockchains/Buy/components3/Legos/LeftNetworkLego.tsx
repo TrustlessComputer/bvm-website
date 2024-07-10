@@ -24,7 +24,7 @@ const LeftNetworkLego = () => {
       >
         <LegoV3
           background={OrderFormOptions[ORDER_FIELD.NETWORK].background}
-          zIndex={12}
+          zIndex={22}
           active={network === option.value}
           label={option.label}
           icon={option.icon}
