@@ -34,6 +34,7 @@ import Form from '@/modules/app-store/detail/setting/form';
 import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
 import AccountAbstractionInputArea from './accountAbstractionInput';
 import { invalidateInstance } from '@react-three/fiber/dist/declarations/src/core/utils';
+import useDAppHelper from '@/hooks/useDAppHelper';
 
 const SettingView = ({
   app,
@@ -57,11 +58,15 @@ const SettingView = ({
   );
   const [selectedPackage, setSelectedPackage] = useState<
     IDAppDetails | undefined
-  >(appPackage);
+  >(app?.details?.[0] || undefined);
 
   const [inputs, setInputs] = useState<any[]>([]);
   const [isInValidFromInputArea, setInValidFromInputArea] =
     useState<boolean>(false);
+
+  const { hasIntalledByNetworkID } = useDAppHelper({
+    dApp: app,
+  });
 
   useEffect(() => {
     loopFetchAccountInfor();
@@ -83,15 +88,8 @@ const SettingView = ({
   }, [myOrders]);
 
   const isInstalled = useMemo(() => {
-    return !!app?.user_package;
-  }, [app]);
-
-  useEffect(() => {
-    if (isInstalled) {
-      const p = app?.details?.find((d) => d.package === app?.user_package);
-      setSelectedPackage(p);
-    }
-  }, [isInstalled]);
+    return hasIntalledByNetworkID(selectedOrder?.chainId);
+  }, [selectedOrder]);
 
   const {
     showSubmitFormResult,
@@ -271,7 +269,7 @@ const SettingView = ({
                     isSelected={p.id === selectedPackage?.id}
                     isInstalled={isInstalled}
                     onSelect={() => {
-                      /*setSelectedPackage(p)*/
+                      setSelectedPackage(p);
                     }}
                   />
                 );
