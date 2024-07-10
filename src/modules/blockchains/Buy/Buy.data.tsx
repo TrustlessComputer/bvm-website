@@ -12,6 +12,7 @@ export type OrderFormOption = {
     subTitle: string;
     background: LegoColor;
     backgroundParent?: LegoColor;
+    isRequired?: boolean;
     description?: {
       title: string;
       content: JSX.Element;
@@ -20,7 +21,7 @@ export type OrderFormOption = {
       id: number;
       label: string;
       keyInField?: string;
-      value: NetworkEnum | DALayerEnum | number | string;
+      value: NetworkEnum | DALayerEnum | number;
       icon?: string;
       isDisabled?: boolean;
       avalaibleNetworks?: NetworkEnum[];
@@ -35,9 +36,16 @@ export const OrderFormOptions: OrderFormOption = {
     background: 'brown',
   },
   [ORDER_FIELD.NETWORK]: {
-    title: '1. Network',
+    title: 'Network',
     subTitle: 'Network',
     background: 'brown',
+    isRequired: true,
+    description: {
+      title: 'Network',
+      content: (
+        <p>Select whether you want to create a testnet or deploy a mainnet.</p>
+      ),
+    },
     options: [
       {
         id: 1,
@@ -128,8 +136,8 @@ export const OrderFormOptions: OrderFormOption = {
       title: 'Block Gas Limit',
       content: (
         <p>
-          The data of your blockchain is written to a Data Availability layer
-          such as Polygon, Celestia, NearDA, Eigen, Filecoin or Avail.
+          The block gas limit defines the maximum amount of gas that all
+          transactions in a single block can consume.
         </p>
       ),
     },

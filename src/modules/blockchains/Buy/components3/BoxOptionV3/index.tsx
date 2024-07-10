@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 
 import DescriptionModal from '@/modules/blockchains/Buy/components/DescriptionModal/DescriptionModal';
 import SvgInset from '@/components/SvgInset';
@@ -13,16 +13,12 @@ export type BoxOptionV2Props = React.PropsWithChildren & {
   label: string;
   id: string;
   first?: boolean;
+  isRequired?: boolean;
   last?: boolean;
   description?: {
     title: string;
     content: React.ReactNode;
   };
-  options?: {
-    id: string;
-    label: React.ReactNode;
-    value: string | number;
-  }[];
 };
 
 const BoxOptionV3 = ({
@@ -33,6 +29,7 @@ const BoxOptionV3 = ({
   description,
   first,
   last,
+  isRequired,
 }: BoxOptionV2Props): React.JSX.Element => {
   const [isShowModal, setIsShowModal] = React.useState(false);
   return (
@@ -60,6 +57,16 @@ const BoxOptionV3 = ({
           </div>
           <Flex align={'center'} gap={2}>
             <p className={s.boxItem_heading_text}>{label}</p>
+            {isRequired && (
+              <Text
+                fontSize={['15px', '16px', '18px']}
+                fontWeight={700}
+                marginTop={-3}
+                color={'red'}
+              >
+                *
+              </Text>
+            )}
             {description && (
               <div className={s.info} onClick={() => setIsShowModal(true)}>
                 <svg

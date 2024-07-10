@@ -37,7 +37,6 @@ const GameFiPage = () => {
       headerProps={{
         color: 'black',
       }}
-      hideFooter
     >
       <>
         <Loader />

@@ -13,7 +13,6 @@ const Ecosystems = () => {
       headerProps={{
         color: 'black',
       }}
-      hideFooter
     >
       <>
         <Loader />
