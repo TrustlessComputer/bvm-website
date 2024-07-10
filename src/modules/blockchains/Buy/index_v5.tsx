@@ -18,10 +18,12 @@ import SideBar from './components3/SideBar';
 import LegoV3 from './components3/LegoV3';
 import BlockGasLimitLego from './components3/Legos/BlockGasLimitLego';
 import WithdrawalTimeLego from './components3/Legos/WithdrawalTimeLego';
+import RightNetworkLegoV2 from './components3/Legos/RightNetworkLegoV2';
+import RightDataAvailabilityLego from './components3/Legos/RightDataAvailabilityLego';
 
 import s from './styles_v5.module.scss';
-import NetworkLego from './components3/Legos/NetworkLego';
-import DataAvailabilityLego from './components3/Legos/DataAvailabilityLego';
+import LeftNetworkLego from './components3/Legos/LeftNetworkLego';
+import LeftDataAvailabilityLego from './components3/Legos/LeftDataAvailabilityLego';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -110,9 +112,7 @@ const BuyPage = () => {
                       id={ORDER_FIELD.NETWORK}
                       first={true}
                     >
-                      <Draggable id={ORDER_FIELD.NETWORK} value={network}>
-                        <NetworkLego isLeft />
-                      </Draggable>
+                      <LeftNetworkLego />
                     </BoxOptionV3>
 
                     <BoxOptionV3
@@ -123,12 +123,7 @@ const BuyPage = () => {
                       }
                       id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
                     >
-                      <Draggable
-                        id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
-                        value={dataAvaibilityChain}
-                      >
-                        <DataAvailabilityLego />
-                      </Draggable>
+                      <LeftDataAvailabilityLego />
                     </BoxOptionV3>
 
                     <BoxOptionV3
@@ -180,7 +175,7 @@ const BuyPage = () => {
                       id={ORDER_FIELD.NETWORK + '-dropped'}
                       value={network}
                     >
-                      <NetworkLego />
+                      <RightNetworkLegoV2 />
                     </Draggable>
                   )}
 
@@ -189,7 +184,7 @@ const BuyPage = () => {
                       id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN + '-dropped'}
                       value={dataAvaibilityChain}
                     >
-                      <DataAvailabilityLego />
+                      <RightDataAvailabilityLego />
                     </Draggable>
                   )}
 

@@ -35,12 +35,14 @@ const WithdrawalTimeLego = ({ isLeft = false }: { isLeft?: boolean }) => {
   };
 
   React.useEffect(() => {
+    if (withdrawPeriod !== defaultWithdrawalPeriod) return;
+
     setWithdrawPeriod(defaultWithdrawalPeriod || maxWithdrawalPeriod);
   }, [pricingPackageValues]);
 
   return (
     <LegoV3
-      background={'pink'}
+      background={OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].background}
       label={
         isLeft ? '' : OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].subTitle
       }

@@ -10,7 +10,11 @@ import LegoV3 from '../LegoV3';
 import { DALayerEnum } from '../../Buy.constanst';
 import DropdownV2 from '../DropdownV2';
 
-const DataAvailabilityLego = ({ isLeft = false }: { isLeft?: boolean }) => {
+const RightDataAvailabilityLego = ({
+  isLeft = false,
+}: {
+  isLeft?: boolean;
+}) => {
   const {
     dataAvaibilityChain,
     setDataAvaibilityChain,
@@ -23,7 +27,9 @@ const DataAvailabilityLego = ({ isLeft = false }: { isLeft?: boolean }) => {
 
   return (
     <LegoV3
-      background={'pink'}
+      background={
+        OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].background
+      }
       label={
         isLeft
           ? ''
@@ -43,4 +49,4 @@ const DataAvailabilityLego = ({ isLeft = false }: { isLeft?: boolean }) => {
   );
 };
 
-export default DataAvailabilityLego;
+export default RightDataAvailabilityLego;

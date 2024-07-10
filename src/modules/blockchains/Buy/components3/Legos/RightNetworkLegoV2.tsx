@@ -10,7 +10,7 @@ import LegoV3 from '../LegoV3';
 import { NetworkEnum } from '../../Buy.constanst';
 import DropdownV2 from '../DropdownV2';
 
-const NetworkLego = ({ isLeft = false }: { isLeft?: boolean }) => {
+const RightNetworkLegoV2 = () => {
   const { network, setNetwork, isNetworkDragged } = useOrderFormStore();
 
   const onDropdownChange = (value: NetworkEnum) => {
@@ -19,8 +19,8 @@ const NetworkLego = ({ isLeft = false }: { isLeft?: boolean }) => {
 
   return (
     <LegoV3
-      background={'pink'}
-      label={isLeft ? '' : OrderFormOptions[ORDER_FIELD.NETWORK].subTitle}
+      background={OrderFormOptions[ORDER_FIELD.NETWORK].background}
+      label={OrderFormOptions[ORDER_FIELD.NETWORK].subTitle}
       zIndex={6}
       active={isNetworkDragged}
     >
@@ -34,4 +34,4 @@ const NetworkLego = ({ isLeft = false }: { isLeft?: boolean }) => {
   );
 };
 
-export default NetworkLego;
+export default RightNetworkLegoV2;
