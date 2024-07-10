@@ -15,11 +15,11 @@ type IMainProps = {
 };
 
 const MainLayout = ({
-  hideHeader = false,
-  hideFooter = false,
-  headerProps,
-  children,
-}: IMainProps) => {
+                      hideHeader = false,
+                      hideFooter = false,
+                      headerProps,
+                      children,
+                    }: IMainProps) => {
   const pathName = usePathname();
   const { resetPlay } = useAnimationStore();
   useEffect(() => {
@@ -28,10 +28,9 @@ const MainLayout = ({
 
   return (
     <>
-      {/* {<Header {...headerProps} />} */}
       {!hideHeader && <HeaderV3 {...headerProps} />}
       {children}
-      {!hideFooter && <Footer />}
+      <Footer />
     </>
   );
 };
