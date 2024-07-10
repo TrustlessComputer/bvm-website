@@ -41,7 +41,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
       },
     ],
     inputs: [],
-    user_package: '',
+    user_package: [],
     status: "0"
   },
   {
@@ -145,7 +145,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
       },
     ],
     inputs: [],
-    user_package: '',
+    user_package: [],
     status: "0"
   },
   {
@@ -249,7 +249,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
       },
     ],
     inputs: [],
-    user_package: '',
+    user_package: [],
     status: "0"
   },
   {
@@ -353,7 +353,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
       },
     ],
     inputs: [],
-    user_package: '',
+    user_package: [],
     status: "0"
   },
   {
@@ -457,7 +457,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
       },
     ],
     inputs: [],
-    user_package: '',
+    user_package: [],
     status: "0"
   },
   // {
@@ -482,7 +482,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
   //     },
   //   ],
   //   inputs: [],
-  //   user_package: '',
+  //   user_package: [],
   //   status: "0"
   // },
 ];

@@ -15,6 +15,18 @@ export const DA_PACKAGES = {
   advance: 'advance',
 };
 
+export interface IUserPackage {
+  id: number;
+  network_id: number;
+  user_twitter_id: string;
+  user_address: string;
+  user_id: number;
+  app_store_detail_id: number;
+  app_store_detail: IDAppDetails;
+  package: string;
+  status: string;
+}
+
 export interface IDApp {
   id: number;
   name: string;
@@ -26,7 +38,7 @@ export interface IDApp {
   inputs: {
     [key: string]: any;
   }[];
-  user_package: string;
+  user_package: IUserPackage[];
   status: string;
 }
 

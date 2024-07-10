@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Divider, Flex, Image, Square, Text } from '@chakra-ui/react';
+import { Box, Divider, Flex, Image, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { BuyProvider } from '@/modules/blockchains/providers/Buy.context';
 import dAppServicesAPI from '@/services/api/DAServices';
 import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
-import { BG_COLOR } from '@/modules/app-store/item';
+import AppPhotoView from '@/modules/app-store/detail/appPhotoView';
 
 const AppDetailModule = () => {
   const params = useParams();
@@ -22,9 +22,16 @@ const AppDetailModule = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState<IDApp | undefined>(undefined);
 
-  // const indexBg = useMemo(() => {
-  //   return ((data?.id || 0) - 1) % BG_COLOR.length;
-  // }, [data]);
+  const photoUrl = useMemo(() => {
+    return [
+      'https://react-photo-view.vercel.app/_next/static/media/1.c788857d.jpg',
+      'https://react-photo-view.vercel.app/_next/static/media/2.b43f1ead.jpg',
+      'https://react-photo-view.vercel.app/_next/static/media/3.70695fb9.jpg',
+      'https://react-photo-view.vercel.app/_next/static/media/4.57ff8e86.jpg',
+      'https://react-photo-view.vercel.app/_next/static/media/5.7ace37c7.jpg',
+      'https://react-photo-view.vercel.app/_next/static/media/6.0271162c.jpg'
+    ];
+  }, []);
 
   useEffect(() => {
     if(params?.id) {
@@ -82,7 +89,7 @@ const AppDetailModule = () => {
               <Text className={s.description}>{data?.description}</Text>
             </Flex>
           </Flex>
-
+          <AppPhotoView photoUrl={photoUrl}/>
           <Divider orientation={"horizontal"} bgColor={"#ECECEC"}/>
 
           <Flex gap={"40px"} direction={"column"}>
