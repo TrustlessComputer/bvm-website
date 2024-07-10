@@ -1,0 +1,16 @@
+.container {
+
+  .content {
+    height: 300px;
+    gap: 50px;
+    overflow-x: auto;
+
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    -webkit-scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    transition: transform 0s linear;
+    scrollbar-color: #fa8e70 rgba(255, 255, 255, .2);
+    scrollbar-width: thin;
+  }
+}
