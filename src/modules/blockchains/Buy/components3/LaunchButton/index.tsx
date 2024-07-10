@@ -40,9 +40,11 @@ const LaunchButton = () => {
     return availableListFetching || !availableList;
   }, [availableListFetching, availableList]);
 
-  const allFilled = Object.keys(field).every(
-    (key) => field[key as Override].dragged,
-  );
+  const allFilled = Object.keys(field).every((key) => {
+    const { value } = field[key as Override];
+    const isString = typeof value === 'string';
+    return field[key as Override].dragged && (isString ? value.trim() : value);
+  });
 
   const tierData = useMemo(() => {
     const packageData = availableList?.package['2'];

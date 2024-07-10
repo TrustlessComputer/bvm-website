@@ -16,6 +16,7 @@ const ComputerNameInput = () => {
   const { field, setFormField } = useFormOrderStore((state) => state);
   const { computerNameField, setComputerNameField, isMainnet } = useBuy();
   const { value, errorMessage } = computerNameField;
+  const inputNameRef = useRef<HTMLInputElement>(null);
 
   const onChangeHandler = React.useCallback(
     debounce(async (e: any) => {
@@ -24,15 +25,14 @@ const ComputerNameInput = () => {
       let errorMessage = FormFieldsErrorMessage[FormFields.COMPUTER_NAME];
       let timer: NodeJS.Timeout | null = null;
 
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        setFormField(ORDER_FIELD.CHAIN_NAME, text);
+      }, 100);
+
       if (isValid) {
         try {
           isValid = await validateSubDomainAPI(text);
-          field[ORDER_FIELD.CHAIN_NAME].value = text;
-
-          if (timer) clearTimeout(timer);
-          timer = setTimeout(() => {
-            setFormField(ORDER_FIELD.CHAIN_NAME, text);
-          }, 100);
         } catch (error: any) {
           errorMessage = error.toString() || 'Computer name is invalid';
           toast.error(errorMessage);
