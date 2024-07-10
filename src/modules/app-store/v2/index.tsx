@@ -1,16 +1,21 @@
 import { Box, Flex, SimpleGrid, Text, useDisclosure } from '@chakra-ui/react';
 import s from './styles.module.scss';
-import AppItem from '@/modules/app-store/item';
+import AppItem from './item';
 import { useEffect } from 'react';
 import useL2Service from '@/hooks/useL2Service';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { getDAListSelector } from '@/stores/states/l2services/selector';
 import { useRouter } from 'next/navigation';
 import { APP_STORE } from '@/constants/route-path';
-import { AccountAbstractionDAppModal } from '../blockchains/components/DAppModal';
+// import { AccountAbstractionDAppModal } from '../blockchains/components/DAppModal';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { setDAppSelected } from '@/stores/states/l2services/reducer';
 import { DA_CODES, IDApp } from '@/services/api/DAServices/types';
+import { AccountAbstractionDAppModal } from '@/modules/blockchains/components/DAppModal';
+import Section from '@/modules/app-store/v2/section';
+import AppItem2 from '@/modules/app-store/v2/item2';
+import AppItem3 from '@/modules/app-store/v2/item3';
+import Hero from '@/modules/app-store/v2/Hero';
 
 const AppStoreModule = () => {
   const dispatch = useAppDispatch();
@@ -58,11 +63,33 @@ const AppStoreModule = () => {
             You can choose any app to install
           </Text>
         </Flex>
-        <SimpleGrid columns={[1, 2]} gap={'60px'}>
-          {DAppList?.map((d) => {
-            return <AppItem data={d} handleSelectApp={handleSelectAppCb} />;
-          })}
-        </SimpleGrid>
+        <Hero />
+        <Section title={"Bridge Apps"}>
+          <SimpleGrid columns={[1, 2]} gap={'24px'}>
+            {DAppList?.map((d) => {
+              return <AppItem3 data={d} handleSelectApp={handleSelectAppCb} />;
+            })}
+          </SimpleGrid>
+        </Section>
+        <Section title={"DeFi Apps"}>
+          <SimpleGrid columns={[1, 2]} gap={'24px'}>
+            {DAppList?.map((d) => {
+              return <AppItem2 data={d} handleSelectApp={handleSelectAppCb} />;
+            })}
+          </SimpleGrid>
+        </Section>
+        <Section title={"Gaming Apps"}>
+          <SimpleGrid columns={[1, 2]} gap={'60px'}>
+            {DAppList?.map((d) => {
+              return <AppItem data={d} handleSelectApp={handleSelectAppCb} />;
+            })}
+          </SimpleGrid>
+          <SimpleGrid columns={[1, 2]} gap={'24px'}>
+            {DAppList?.map((d) => {
+              return <AppItem2 data={d} handleSelectApp={handleSelectAppCb} />;
+            })}
+          </SimpleGrid>
+        </Section>
       </Flex>
 
       {isOpenModal && (

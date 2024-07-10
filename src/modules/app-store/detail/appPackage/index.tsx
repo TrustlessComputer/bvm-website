@@ -1,9 +1,14 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import SvgInset from '@components/SvgInset';
-import { IDAppDetails } from '@/services/api/DAServices/types';
+import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
+import { useMemo } from 'react';
 
-const AppPackage = ({data, onInstall}: {data: IDAppDetails, onInstall: any}) => {
+const AppPackage = ({data, app, onInstall}: {data: IDAppDetails, app: IDApp, onInstall: any}) => {
+  const isCommingSoon = useMemo(() => {
+    return app?.status === '0';
+  }, [app])
+
   return (
     <Flex className={s.container} direction={"column"}>
       <Text className={s.title}>{data?.name}</Text>
@@ -24,9 +29,14 @@ const AppPackage = ({data, onInstall}: {data: IDAppDetails, onInstall: any}) => 
       </Flex>
       <Button
         className={s.btnInstall}
-        onClick={() => onInstall(data)}
+        onClick={() => !isCommingSoon && onInstall(data)}
         mt={"37px"}
-      >Install</Button>
+        isDisabled={isCommingSoon}
+      >
+        {
+          isCommingSoon ? 'Comming Soon' : 'Install'
+        }
+      </Button>
       <Flex direction={"column"} gap={"16px"} mt={"40px"}>
         <Text className={s.includeTitle}>Includes:</Text>
         <Flex direction={"column"} gap={"16px"}>

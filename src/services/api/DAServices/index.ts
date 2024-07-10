@@ -17,18 +17,16 @@ const getAPIAccessToken = () => {
 // ------------------------------------------------------------------------
 
 const fetchDAList = async (): Promise<IDApp[]> => {
-  const accessToken = getAPIAccessToken();
-  if (!accessToken) return [];
+  // const accessToken = getAPIAccessToken();
+  // if (!accessToken) return [];
   let result: IDApp[] = [];
   try {
-    // result = (await httpClient.get(`/apps/list`, {
-    //   headers: {
-    //     Authorization: `${getAPIAccessToken()}`,
-    //   },
-    // })) as IDApp[];
-    // return result;
-
-    return DA_DUMMY_LIST;
+    result = (await httpClient.get(`/apps/list`, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    })) as IDApp[];
+    return result || [];
   } catch (error) {
     throw error;
   }
@@ -37,10 +35,10 @@ const fetchDAList = async (): Promise<IDApp[]> => {
 const fetchDAppByID = async (dAppID: number): Promise<IDApp> => {
   let result: IDApp;
   try {
-    // result = (await httpClient.get(`/apps/detail/${dAppID}`)) as IDApp;
-    // return result;
-    result = DA_DUMMY_LIST.find((a) => a.id === dAppID) as IDApp;
+    result = (await httpClient.get(`/apps/detail/${dAppID}`)) as IDApp;
     return result;
+    // result = DA_DUMMY_LIST.find((a) => a.id === dAppID) as IDApp;
+    // return result;
   } catch (error) {
     throw error;
   }
@@ -51,8 +49,8 @@ const fetchDAppByID = async (dAppID: number): Promise<IDApp> => {
 // ------------------------------------------------------------------------
 
 const installDAByParams = async (params: InstallDAByParams): Promise<any> => {
-  const accessToken = getAPIAccessToken();
-  if (!accessToken) return;
+  // const accessToken = getAPIAccessToken();
+  // if (!accessToken) return;
 
   let result;
   const { address, dAppID, inputs = [] } = params;

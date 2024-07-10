@@ -1,0 +1,42 @@
+import React from 'react';
+import SliderSlick from 'react-slick';
+import s from './styles.module.scss';
+import { Box } from '@chakra-ui/react';
+import { useAppSelector } from '@/stores/hooks';
+import { getDAListSelector } from '@/stores/states/l2services/selector';
+import HeroItem from '@/modules/app-store/v2/Hero/item';
+import { IDApp } from '@/services/api/DAServices/types';
+import { APP_STORE } from '@constants/route-path';
+import { useRouter } from 'next/navigation';
+
+const ContributionVideo = () => {
+  const DAppList = useAppSelector(getDAListSelector); // TO DO
+  const router = useRouter();
+
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    effect: 'fade',
+    autoplay: true,
+    dotsClass: 'slick-dots slick-thumb',
+  };
+
+  const handleSelectAppCb = (item: IDApp) => {
+    router.push(`${APP_STORE}/${item?.id}`);
+  };
+
+  return (
+    <Box className={s.container}>
+      <SliderSlick {...settings}>
+        {DAppList?.map((d) => {
+          return <HeroItem data={d} handleSelectApp={handleSelectAppCb} />;
+        })}
+      </SliderSlick>
+    </Box>
+  );
+};
+
+export default ContributionVideo;

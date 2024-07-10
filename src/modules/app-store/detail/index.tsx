@@ -1,9 +1,9 @@
 "use client";
 
-import { Box, Divider, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Divider, Flex, Image, Square, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import AppPackage from 'src/modules/app-store/detail/appPackage';
 import SvgInset from '@components/SvgInset';
 import { closeModal, openModal } from '@/stores/states/modal/reducer';
@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { BuyProvider } from '@/modules/blockchains/providers/Buy.context';
 import dAppServicesAPI from '@/services/api/DAServices';
 import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
+import { BG_COLOR } from '@/modules/app-store/item';
 
 const AppDetailModule = () => {
   const params = useParams();
@@ -20,6 +21,10 @@ const AppDetailModule = () => {
   const { loggedIn, login, userInfo } = useWeb3Auth();
   const dispatch = useDispatch();
   const [data, setData] = useState<IDApp | undefined>(undefined);
+
+  const indexBg = useMemo(() => {
+    return ((data?.id || 0) - 1) % BG_COLOR.length;
+  }, [data]);
 
   useEffect(() => {
     if(params?.id) {
@@ -71,7 +76,14 @@ const AppDetailModule = () => {
         </Flex>
         <Box className={s.content}>
           <Flex gap={"24px"}>
-            <Image className={s.avatar} src={data?.image_url}/>
+            <Square
+              bg={BG_COLOR[indexBg]}
+              size={"120px"}
+              borderRadius={'18px'}
+              padding={"15px"}
+            >
+              <Image className={s.avatar} src={data?.image_url}/>
+            </Square>
             <Flex direction={"column"} gap={"8px"}>
               <Text className={s.title}>{data?.name}</Text>
               <Text className={s.description}>{data?.description}</Text>
@@ -84,7 +96,7 @@ const AppDetailModule = () => {
             {
               data?.details.map(m => {
                 return (
-                  <AppPackage data={m} onInstall={handleInstall}/>
+                  <AppPackage data={m} app={data} onInstall={handleInstall}/>
                 )
               })
             }

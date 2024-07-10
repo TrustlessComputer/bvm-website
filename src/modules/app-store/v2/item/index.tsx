@@ -44,11 +44,11 @@ const AppItem = ({
       <Text className={s.description} mt={'8px'}>
         {data?.description}
       </Text>
-      <Button className={s.btnInstall} mt={'24px'}>
+      {/*<Button className={s.btnInstall} mt={'24px'}>
         {
           data?.status === '0' ? 'Comming Soon' : 'Install'
         }
-      </Button>
+      </Button>*/}
     </Flex>
   );
 };
