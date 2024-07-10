@@ -1,17 +1,10 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
-import { FormOrder, ORDER_FIELD, useFormOrderStore } from '../../stores';
+import { FormOrder } from '../../stores';
 import { DALayerEnum, NetworkEnum } from '../../Buy.constanst';
-import { OrderFormOptions } from '../../Buy.data';
-import { useDraggable } from '@dnd-kit/core';
+import { useOrderFormStore } from '../../stores/index_v2';
 
 type TDropdown = {
   field: keyof FormOrder;
@@ -25,47 +18,30 @@ type TDropdown = {
     avalaibleNetworks?: NetworkEnum[];
   }[];
   checkDisable?: boolean;
-  networkSelected: NetworkEnum;
   defaultValue: DALayerEnum | NetworkEnum;
-  // cb: (
-  //   feild: keyof FormOrder,
-  //   value: DALayerEnum | NetworkEnum | number | string,
-  // ) => void;
+  cb: (value: DALayerEnum | NetworkEnum | number | string) => void;
 };
-function Dropdown({
+
+function DropdownV2({
   options,
-  // cb,
-  field,
+  cb,
   defaultValue,
-  networkSelected,
-  checkDisable,
+  checkDisable = false,
 }: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
-  const { field: formField, setFormField } = useFormOrderStore();
+  const { network } = useOrderFormStore();
+
   useOnClickOutside(ref, () => setIsOpen(false));
+
   const handleSelectField = (
     value: DALayerEnum | NetworkEnum | number | string,
   ) => {
-    if (field === ORDER_FIELD.NETWORK) {
-      const value = handleFindData(formField[ORDER_FIELD.NETWORK].value);
-      if (value && value.length > 0) {
-        setFormField('dataAvaibilityChain', value[0].value);
-      }
-    }
-    setFormField(field, value);
+    cb(value);
     setIsOpen(false);
   };
   const icon = options?.find((item) => item.value === defaultValue)?.icon;
 
-  const handleFindData = (networkSelected: NetworkEnum) => {
-    const optionsDataAvailable =
-      OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].options;
-    const values = optionsDataAvailable?.filter((item) => {
-      return item.avalaibleNetworks?.includes(networkSelected);
-    });
-    return values;
-  };
   return (
     <div className={s.dropdown} onClick={() => setIsOpen(!isOpen)}>
       <div className={s.dropdown_inner}>
@@ -92,8 +68,8 @@ function Dropdown({
           <ul className={`${s.dropdown_list_inner} `}>
             {options?.map((option, index) => {
               const isDisabled =
-                checkDisable &&
-                !option.avalaibleNetworks?.includes(networkSelected);
+                checkDisable && !option.avalaibleNetworks?.includes(network);
+
               return (
                 <li
                   key={index}
@@ -125,4 +101,4 @@ function Dropdown({
   );
 }
 
-export default React.memo(Dropdown);
+export default React.memo(DropdownV2);

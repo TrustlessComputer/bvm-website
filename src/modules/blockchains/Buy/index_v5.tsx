@@ -20,14 +20,21 @@ import BlockGasLimitLego from './components3/Legos/BlockGasLimitLego';
 import WithdrawalTimeLego from './components3/Legos/WithdrawalTimeLego';
 
 import s from './styles_v5.module.scss';
+import NetworkLego from './components3/Legos/NetworkLego';
+import DataAvailabilityLego from './components3/Legos/DataAvailabilityLego';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
 const BuyPage = () => {
   const {
+    gasLimit,
+    withdrawPeriod,
+    network,
+    dataAvaibilityChain,
     isWithdrawPeriodDragged,
     isGasLimitDragged,
-    setChainName,
+    isDataAvailabilityChainDragged,
+    isNetworkDragged,
     setDataAvaibilityChain,
     setGasLimit,
     setDataAvailabilityChainDragged,
@@ -80,38 +87,6 @@ const BuyPage = () => {
     }
 
     return;
-
-    // if (activeIsParentOfNestedLego && overIsParentOfNestedLego) return;
-
-    // if (activeIsParentOfNestedLego) {
-    //   const newData: Record<string, any> = {};
-
-    //   for (const key in field[activeNestedKey as Override].value as any) {
-    //     newData[key] = null;
-    //   }
-
-    //   if (over && !overIsFinalDroppable) {
-    //     setFormField(activeNestedKey, newData as any, false);
-    //   }
-
-    //   return;
-    // }
-
-    // const draggedToEmpty = !(
-    //   over &&
-    //   (overIsFinalDroppable || overIsParentOfNestedLego)
-    // );
-    // const newData = {
-    //   ...(field[activeNestedKey as Override].value as any),
-    //   [activeKeyInNestedKey]: draggedToEmpty ? null : active.data.current.value,
-    // };
-    // const someFieldsFilled = Object.values(newData).some(
-    //   (field) => field !== null,
-    // );
-
-    // if (!activeIsParentOfNestedLego) {
-    //   setFormField(activeNestedKey, newData, someFieldsFilled);
-    // }
   }
 
   const sensors = useSensors(
@@ -134,7 +109,11 @@ const BuyPage = () => {
                       label={OrderFormOptions[ORDER_FIELD.NETWORK].title}
                       id={ORDER_FIELD.NETWORK}
                       first={true}
-                    ></BoxOptionV3>
+                    >
+                      <Draggable id={ORDER_FIELD.NETWORK} value={network}>
+                        <NetworkLego isLeft />
+                      </Draggable>
+                    </BoxOptionV3>
 
                     <BoxOptionV3
                       {...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN]}
@@ -143,14 +122,21 @@ const BuyPage = () => {
                           .title
                       }
                       id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
-                    ></BoxOptionV3>
+                    >
+                      <Draggable
+                        id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+                        value={dataAvaibilityChain}
+                      >
+                        <DataAvailabilityLego />
+                      </Draggable>
+                    </BoxOptionV3>
 
                     <BoxOptionV3
                       {...OrderFormOptions[ORDER_FIELD.GAS_LIMIT]}
                       label={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].title}
                       id={ORDER_FIELD.GAS_LIMIT}
                     >
-                      <Draggable id={ORDER_FIELD.GAS_LIMIT}>
+                      <Draggable id={ORDER_FIELD.GAS_LIMIT} value={gasLimit}>
                         <BlockGasLimitLego isLeft />
                       </Draggable>
                     </BoxOptionV3>
@@ -162,7 +148,10 @@ const BuyPage = () => {
                       }
                       id={ORDER_FIELD.WITHDRAW_PERIOD}
                     >
-                      <Draggable id={ORDER_FIELD.WITHDRAW_PERIOD}>
+                      <Draggable
+                        id={ORDER_FIELD.WITHDRAW_PERIOD}
+                        value={withdrawPeriod}
+                      >
                         <WithdrawalTimeLego isLeft />
                       </Draggable>
                     </BoxOptionV3>
@@ -186,14 +175,38 @@ const BuyPage = () => {
                     <ComputerNameInput />
                   </LegoV3>
 
+                  {isNetworkDragged && (
+                    <Draggable
+                      id={ORDER_FIELD.NETWORK + '-dropped'}
+                      value={network}
+                    >
+                      <NetworkLego />
+                    </Draggable>
+                  )}
+
+                  {isDataAvailabilityChainDragged && (
+                    <Draggable
+                      id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN + '-dropped'}
+                      value={dataAvaibilityChain}
+                    >
+                      <DataAvailabilityLego />
+                    </Draggable>
+                  )}
+
                   {isWithdrawPeriodDragged && (
-                    <Draggable id={ORDER_FIELD.WITHDRAW_PERIOD + '-dropped'}>
+                    <Draggable
+                      id={ORDER_FIELD.WITHDRAW_PERIOD + '-dropped'}
+                      value={withdrawPeriod}
+                    >
                       <WithdrawalTimeLego />
                     </Draggable>
                   )}
 
                   {isGasLimitDragged && (
-                    <Draggable id={ORDER_FIELD.GAS_LIMIT + '-dropped'}>
+                    <Draggable
+                      id={ORDER_FIELD.GAS_LIMIT + '-dropped'}
+                      value={gasLimit}
+                    >
                       <BlockGasLimitLego />
                     </Draggable>
                   )}
