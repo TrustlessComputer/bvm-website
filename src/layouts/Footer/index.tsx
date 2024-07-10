@@ -2,7 +2,6 @@
 
 import s from './styles.module.scss';
 import React from 'react';
-import HomeContainer from '@/modules/ai-landing/components/HomeContainer';
 import Productions from '@layouts/Footer/Productions';
 import Solutions from '@layouts/Footer/Solutions';
 import Socials from '@layouts/Footer/Socials';

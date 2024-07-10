@@ -14,7 +14,7 @@ export default function Socials({ className }: Props) {
     <ul className={s.menu}>
       {FOOTER_DATA.social.map(item => (
         <li>
-          <Link href={item.link} target={item.target || '_self'}>
+          <Link href={item.link} target={item?.target || '_self'}>
             <img src={item.icon} alt="icon" />
           </Link>
         </li>

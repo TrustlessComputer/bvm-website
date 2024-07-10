@@ -138,12 +138,12 @@ export const FOOTER_DATA = {
     },
     {
       icon: '/icons/ic-x.svg',
-      link: '#',
+      link: 'https://x.com/BVMnetwork',
       target: '_blank'
     },
     {
       icon: '/icons/ic-tele.svg',
-      link: '#',
+      link: 'https://t.me/BVMofficialcommunity',
       target: '_blank'
     }
   ]

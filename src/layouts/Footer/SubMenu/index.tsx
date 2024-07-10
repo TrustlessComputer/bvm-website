@@ -4,7 +4,7 @@ import React from 'react';
 
 interface Props {
   title: string,
-  links: { link: string, title: string }[]
+  links: { link: string, title: string, target?: string }[]
 }
 
 export default function SubMenu({ title, links }: Props) {
