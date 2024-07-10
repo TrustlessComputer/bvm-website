@@ -12,10 +12,10 @@ const Footer = () => {
   return (
     <div className={s.wrapper}>
       <HomeContainer>
-        <div className="row">
+        <div className={s.row}>
           <GroupMenu menu={FOOTER_DATA.products}>Productions</GroupMenu>
           <GroupMenu menu={FOOTER_DATA.solutions}>Solutions</GroupMenu>
-          <GroupMenu menu={FOOTER_DATA.social}>Socials</GroupMenu>
+          {/*<GroupMenu menu={FOOTER_DATA.social}>Socials</GroupMenu>*/}
         </div>
       </HomeContainer>
     </div>

@@ -1,6 +1,5 @@
-import React, { PropsWithChildren, ReactNode } from 'react';
-import { FOOTER_DATA } from '@layouts/Footer/footer-datas';
-import s from '@layouts/Footer/styles.module.scss';
+import React, { PropsWithChildren } from 'react';
+import s from './styles.module.scss';
 import Link from 'next/link';
 
 
@@ -10,6 +9,8 @@ interface IGroup extends PropsWithChildren {
 }
 
 export default function GroupMenu({ children, className, menu }: IGroup) {
+
+  console.log('___menu', menu);
 
   return <div className={`${s.wrap} ${className}`}>
     <h4 className={s.heading}>{children}</h4>

@@ -10,3 +10,33 @@
   margin-bottom: 24px;
   text-align: left;
 }
+
+
+.content {
+  display: flex;
+  gap: 24px;
+}
+
+.menu {
+  &_heading {
+    font-family: var(--font-SFProDisplay);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.09px;
+    text-align: left;
+
+  }
+
+  &_content {
+
+  }
+}
+
+.link a {
+  font-family: var(--font-SFProDisplay);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.8px;
+  text-align: left;
+  display: block;
+}

@@ -28,9 +28,10 @@ const MainLayout = ({
 
   return (
     <>
+      <Footer />
       {!hideHeader && <HeaderV3 {...headerProps} />}
       {children}
-      <Footer />
+
     </>
   );
 };
