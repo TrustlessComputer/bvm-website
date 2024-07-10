@@ -32,6 +32,7 @@ export interface IDApp {
   name: string;
   code: keyof typeof DA_CODES;
   description: string;
+  icon_url?: string;
   image_url: string;
   installed: number;
   details: IDAppDetails[];
