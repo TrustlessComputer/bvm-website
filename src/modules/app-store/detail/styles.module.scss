@@ -1,6 +1,6 @@
 .container {
   padding: 40px 0;
-  background: #FFF;
+  background: #fff;
 
   .back {
     cursor: pointer;
@@ -10,7 +10,7 @@
       font-weight: 400;
       line-height: 150%;
       letter-spacing: 0.03em;
-      color: #FA4E0E;
+      color: #fa4e0e;
     }
   }
 
@@ -22,8 +22,8 @@
     gap: 40px;
 
     .avatar {
-      width: 90px;
-      height: 90px;
+      width: 120px;
+      height: 120px;
       //background: #FAFAFA;
       border-radius: 18px;
     }
@@ -34,6 +34,7 @@
       font-weight: 600;
       line-height: 140%;
       letter-spacing: 0.01em;
+      font-family: SF Pro Display;
     }
 
     .description {
@@ -43,27 +44,28 @@
       line-height: 140%;
       letter-spacing: 0.01em;
       opacity: 0.7;
+      font-family: SF Pro Display;
     }
 
     .status {
-
     }
   }
 }
 
 .modalContent {
-  background: #FFF !important;
+  background: #fff !important;
   min-width: 1120px !important;
+  max-height: 900px !important;
   padding: 20px 0 !important;
 
   :global {
     .chakra-modal__close-btn {
-      border: 1px solid #5B5B5B;
+      border: 1px solid #5b5b5b;
       border-radius: 100%;
 
       svg {
         path {
-          fill: #5B5B5B;
+          fill: #5b5b5b;
         }
       }
     }

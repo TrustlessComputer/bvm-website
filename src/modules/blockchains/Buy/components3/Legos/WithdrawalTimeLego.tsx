@@ -53,7 +53,7 @@ const WithdrawalTimeLego = ({ isLeft }: { isLeft: boolean }) => {
         suffix="hours"
         initValue={defaultWithdrawalPeriod}
         min={minWithdrawalPeriod}
-        initNoti={CannotModifiedNoti}
+        InitNoti={CannotModifiedNoti}
       />
     </LegoV3>
   );

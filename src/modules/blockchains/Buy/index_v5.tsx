@@ -26,6 +26,7 @@ import BlockGasLimitLego from './components3/Legos/BlockGasLimitLego';
 import WithdrawalTimeLego from './components3/Legos/WithdrawalTimeLego';
 import RightNetworkLego from './components3/Legos/RightNetworkLego';
 import ScrollMore from '../../../components/ScrollMore/index';
+import { NetworkEnum } from './Buy.constanst';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -255,7 +256,7 @@ const BuyPage = () => {
           active={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
         >
           <Dropdown
-            cb={setFormField}
+            // cb={setFormField}
             defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
             field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
             networkSelected={field[ORDER_FIELD.NETWORK].value}
@@ -314,6 +315,14 @@ const BuyPage = () => {
     if (typeof field[activeNestedKey as Override]?.value !== 'object') {
       if (over && overIsFinalDroppable) {
         setFormField(activeKey, active.data.current.value, true);
+
+        if (activeKey === ORDER_FIELD.NETWORK) {
+          const data = handleFindData(field[ORDER_FIELD.NETWORK].value);
+
+          if (data && data.length > 0) {
+            setFormField(ORDER_FIELD.DATA_AVAILABILITY_CHAIN, data[0].value);
+          }
+        }
       } else {
         setFormField(activeKey, active.data.current.value, false);
       }
@@ -357,7 +366,14 @@ const BuyPage = () => {
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
-
+  const handleFindData = (networkSelected: NetworkEnum) => {
+    const optionsDataAvailable =
+      OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].options;
+    const values = optionsDataAvailable?.filter((item) => {
+      return item.avalaibleNetworks?.includes(networkSelected);
+    });
+    return values;
+  };
   return (
     <div className={s.container}>
       <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
@@ -373,6 +389,7 @@ const BuyPage = () => {
                       if (key === ORDER_FIELD.CHAIN_NAME) return null;
 
                       let _content = null;
+                      let Content = null;
                       const parentKey = getParentId(key);
                       const fieldValue = field[key as Override].value;
                       const isDragged = field[key as Override].dragged;
@@ -386,9 +403,7 @@ const BuyPage = () => {
                         background,
                       } = boxOptionMapping[key as Override];
 
-                      if (isNestedLego) {
-                        //
-                      } else if (content) {
+                      if (content) {
                         _content = (
                           <Draggable
                             value={fieldValue}
@@ -399,6 +414,8 @@ const BuyPage = () => {
                             {content(true)}
                           </Draggable>
                         );
+                      } else {
+                        _content = null;
                       }
                       return (
                         <BoxOptionV3
@@ -435,13 +452,17 @@ const BuyPage = () => {
                                   option.value,
                                 );
                               }
+                              const isDisabled =
+                                !option.avalaibleNetworks?.includes(
+                                  field[ORDER_FIELD.NETWORK].value,
+                                ) && key === 'dataAvaibilityChain'; // check just disabled in available network
 
                               return (
                                 <Draggable
                                   id={id}
                                   key={id}
                                   value={option.value}
-                                  disabled={option.isDisabled}
+                                  disabled={isDisabled}
                                 >
                                   <LegoV3
                                     key={option.id}
@@ -453,9 +474,7 @@ const BuyPage = () => {
                                         1) *
                                       2
                                     }
-                                    className={
-                                      option.isDisabled ? s.disabled : ''
-                                    }
+                                    className={isDisabled ? s.disabled : ''}
                                   />
                                 </Draggable>
                               );

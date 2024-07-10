@@ -78,11 +78,19 @@ export const OrderFormOptions: OrderFormOption = {
         ],
       },
       {
+        id: 6,
+        label: 'Avail',
+        isDisabled: true,
+        value: DALayerEnum.DALayer_AVAIL,
+        avalaibleNetworks: [NetworkEnum.Network_Testnet],
+        icon: '/landingV3/images/pricing/6.png',
+      },
+      {
         id: 2,
         label: 'Celestia',
         value: DALayerEnum.DALayer_Celestia,
         isDisabled: true,
-        avalaibleNetworks: [NetworkEnum.Network_Testnet],
+        avalaibleNetworks: [],
         icon: '/landingV3/images/pricing/2.png',
       },
       {
@@ -109,13 +117,6 @@ export const OrderFormOptions: OrderFormOption = {
         avalaibleNetworks: [],
 
         isDisabled: true,
-      },
-      {
-        id: 6,
-        label: 'Avail',
-        value: DALayerEnum.DALayer_AVAIL,
-        avalaibleNetworks: [],
-        icon: '/landingV3/images/pricing/6.png',
       },
     ],
   },
