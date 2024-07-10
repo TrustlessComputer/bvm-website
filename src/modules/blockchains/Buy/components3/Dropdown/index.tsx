@@ -27,7 +27,7 @@ type TDropdown = {
   checkDisable?: boolean;
   networkSelected: NetworkEnum;
   defaultValue: DALayerEnum | NetworkEnum;
-  cb: (
+  cb?: (
     feild: keyof FormOrder,
     value: DALayerEnum | NetworkEnum | number | string,
   ) => void;
