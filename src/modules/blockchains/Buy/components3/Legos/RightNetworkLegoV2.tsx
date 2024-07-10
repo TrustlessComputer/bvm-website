@@ -21,7 +21,7 @@ const RightNetworkLegoV2 = () => {
     <LegoV3
       background={OrderFormOptions[ORDER_FIELD.NETWORK].background}
       label={OrderFormOptions[ORDER_FIELD.NETWORK].subTitle}
-      zIndex={6}
+      zIndex={13}
       active={isNetworkDragged}
     >
       <DropdownV2

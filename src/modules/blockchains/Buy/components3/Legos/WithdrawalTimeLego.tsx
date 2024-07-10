@@ -46,7 +46,7 @@ const WithdrawalTimeLego = ({ isLeft = false }: { isLeft?: boolean }) => {
       label={
         isLeft ? '' : OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].subTitle
       }
-      zIndex={6}
+      zIndex={9}
       active={isWithdrawPeriodDragged}
     >
       <Slider

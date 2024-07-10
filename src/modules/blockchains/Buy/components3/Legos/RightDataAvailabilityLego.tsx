@@ -21,7 +21,7 @@ const RightDataAvailabilityLego = ({
     isDataAvailabilityChainDragged,
   } = useOrderFormStore();
 
-  const onDropdownChange = (value: DALayerEnum | string | number) => {
+  const onDropdownChange = (value: DALayerEnum | number) => {
     setDataAvaibilityChain(value);
   };
 
@@ -35,7 +35,7 @@ const RightDataAvailabilityLego = ({
           ? ''
           : OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].subTitle
       }
-      zIndex={6}
+      zIndex={10}
       active={isDataAvailabilityChainDragged}
     >
       <DropdownV2
