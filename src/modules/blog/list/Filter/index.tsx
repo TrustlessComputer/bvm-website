@@ -10,10 +10,10 @@ const DATA_FILTER = [{
   value: 'mostview',
 }];
 
-export default function Filter() {
-  const [valueFilter, setValueFilter] = useState<string>(DATA_FILTER[0].value)
-  const pathname = usePathname()
+export default function Filter({...props}) {
   const searchParams = useSearchParams()
+  const [valueFilter, setValueFilter] = useState<string>(searchParams.get('orderBy') || DATA_FILTER[0].value)
+  const pathname = usePathname()
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState({
     orderBy: "desc",
@@ -21,6 +21,7 @@ export default function Filter() {
   });
 
   const handleClick = (value: any) => {
+    props.setList([])
     setValueFilter(value.value);
 
     const updatedQuery = { ...searchQuery,  orderBy: value.value };
