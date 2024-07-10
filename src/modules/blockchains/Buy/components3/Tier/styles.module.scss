@@ -39,7 +39,9 @@
         font-weight: 500;
         cursor: pointer;
         font-family: var(--font-JetBrainsMono);
-
+        display: flex;
+        align-items: center;
+        gap: 8px;
         line-height: calc(28 / 18);
         &:hover {
           color: rgb(26, 109, 232);
