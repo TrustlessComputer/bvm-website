@@ -18,7 +18,6 @@ const RightNetworkLego = () => {
       active={field[ORDER_FIELD.NETWORK].dragged}
     >
       <Dropdown
-        cb={setFormField}
         defaultValue={field[ORDER_FIELD.NETWORK].value}
         field={ORDER_FIELD.NETWORK}
         networkSelected={field[ORDER_FIELD.NETWORK].value}
