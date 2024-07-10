@@ -23,14 +23,13 @@ const Draggable = ({
       disabled,
       data: { value },
     });
-  const yOffset = isDragging ? index! * 100 : 0;
+  // const yOffset = isDragging ? index! * 100 : 0;
 
-  console.log('transform', transform);
   const style = {
     transform: CSS.Translate.toString(transform),
     // position: isDragging ? 'fixed' : 'relative',
   };
-
+ 
   return (
     <div
       ref={setNodeRef}
