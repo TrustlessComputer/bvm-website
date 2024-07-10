@@ -29,12 +29,12 @@ const WithdrawalTimeLego = ({ isLeft }: { isLeft: boolean }) => {
   const { defaultWithdrawalPeriod, minWithdrawalPeriod, maxWithdrawalPeriod } =
     pricingPackageValues as PricingPackageValues;
 
-  // React.useEffect(() => {
-  //   setFormField(
-  //     ORDER_FIELD.WITHDRAW_PERIOD,
-  //     defaultWithdrawalPeriod || maxWithdrawalPeriod,
-  //   );
-  // }, [pricingPackageValues]);
+  React.useEffect(() => {
+    setFormField(
+      ORDER_FIELD.WITHDRAW_PERIOD,
+      defaultWithdrawalPeriod || maxWithdrawalPeriod,
+    );
+  }, [pricingPackageValues]);
 
   return (
     <LegoV3
