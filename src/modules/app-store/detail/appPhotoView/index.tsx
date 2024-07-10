@@ -12,9 +12,10 @@ import 'lightgallery/scss/lg-video.scss';
 // import lgThumbnail from 'lightgallery/plugins/thumbnail';
 // import lgZoom from 'lightgallery/plugins/zoom';
 import lgVideo from 'lightgallery/plugins/video';
+import { IImageInfo } from '@/services/api/DAServices/types';
 
 
-const AppPhotoView = ({photoUrl}: {photoUrl: string[]}) => {
+const AppPhotoView = ({photoUrl}: {photoUrl: IImageInfo[]}) => {
   return photoUrl?.length > 0 && (
     <Flex className={s.container} direction={"column"} gap={"40px"}>
       <Divider orientation={"horizontal"} bgColor={"#ECECEC"}/>
@@ -22,10 +23,10 @@ const AppPhotoView = ({photoUrl}: {photoUrl: string[]}) => {
       <PhotoProvider>
         <Flex className={s.content}>
           {
-            photoUrl?.map(url => {
+            photoUrl?.map(photo => {
               return (
-                <PhotoView src={url}>
-                  <img src={url} alt="" className={s.item}/>
+                <PhotoView src={photo.image_url}>
+                  <img src={photo.image_url} alt="" className={s.item}/>
                 </PhotoView>
               )
             })
@@ -39,16 +40,16 @@ const AppPhotoView = ({photoUrl}: {photoUrl: string[]}) => {
         // onInit={onInit}
       >
         {
-          photoUrl?.map(url => {
+          photoUrl?.map(photo => {
             return (
               <div
-                key={url}
+                key={photo?.image_url}
                 // data-lg-size={item.size}
                 // data-lg-size="1280-720"
                 className={s.item2}
-                data-src={"https://youtu.be/IUN664s7N-c"}
+                data-src={photo?.video_url || photo?.image_url}
               >
-                <img className="img-responsive" src={url} />
+                <img className="img-responsive" src={photo?.image_url} />
               </div>
             )
           })

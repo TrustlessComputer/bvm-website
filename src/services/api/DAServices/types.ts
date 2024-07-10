@@ -27,6 +27,12 @@ export interface IUserPackage {
   status: string;
 }
 
+export interface IImageInfo {
+  image_url: string;
+  thumbnail_url: string;
+  video_url: string;
+}
+
 export interface IDApp {
   id: number;
   name: string;
@@ -41,6 +47,7 @@ export interface IDApp {
   }[];
   user_package: IUserPackage[];
   status: string;
+  list_image_url: IImageInfo[];
 }
 
 export interface IDAppDetails {
