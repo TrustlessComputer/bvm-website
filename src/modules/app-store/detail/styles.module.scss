@@ -22,8 +22,8 @@
     gap: 40px;
 
     .avatar {
-      width: 90px;
-      height: 90px;
+      width: 120px;
+      height: 120px;
       //background: #FAFAFA;
       border-radius: 18px;
     }
@@ -34,6 +34,7 @@
       font-weight: 600;
       line-height: 140%;
       letter-spacing: 0.01em;
+      font-family: SF Pro Display;
     }
 
     .description {
@@ -43,6 +44,7 @@
       line-height: 140%;
       letter-spacing: 0.01em;
       opacity: 0.7;
+      font-family: SF Pro Display;
     }
 
     .status {

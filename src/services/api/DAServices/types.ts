@@ -4,6 +4,9 @@ export const DA_CODES = {
   account_abstraction: 'account_abstraction',
   btc_bridge: 'btc_bridge',
   eth_bridge: 'eth_bridge',
+  dex: 'dex',
+  order_book: 'order_book',
+  perpetual: 'perpetual',
 };
 
 export const DA_PACKAGES = {

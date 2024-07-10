@@ -15,19 +15,23 @@ const AppItem2 = ({
       gap={"24px"}
       justifyContent={"space-between"}
       onClick={() => {
+        if(data?.status === '0')  return;
         handleSelectApp(data);
       }}
+      cursor={data?.status === '0' ? 'initial' : 'pointer'}
     >
-      <Flex gap={"24px"}>
-        <Image className={s.avatar} src={data?.image_url} />
-        <Flex direction={"column"} gap={'8px'}>
+      <Flex gap={"24px"} h={"100%"}>
+        <Flex alignItems={"center"} h={"100%"}>
+          <Image className={s.avatar} src={data?.image_url} />
+        </Flex>
+        <Flex direction={"column"} gap={'8px'} h={"100%"}>
           <Text className={s.title}>{data?.name}</Text>
           <Text className={s.description}>
             {data?.description}
           </Text>
         </Flex>
       </Flex>
-      <Button className={s.btnInstall}>
+      <Button className={s.btnInstall} cursor={data?.status === '0' ? 'initial' : 'pointer'}>
         {
           data?.status === '0' ? 'Comming Soon' : 'Install'
         }
