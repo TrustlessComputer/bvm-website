@@ -134,15 +134,17 @@ export const FOOTER_DATA = {
   social: [
     {
       icon: '/icons/ic-blog.svg',
-      link: '#',
+      link: '/blog',
     },
     {
       icon: '/icons/ic-x.svg',
       link: '#',
+      target: '_blank'
     },
     {
       icon: '/icons/ic-tele.svg',
       link: '#',
+      target: '_blank'
     }
   ]
 };

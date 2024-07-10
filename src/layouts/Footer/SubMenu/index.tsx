@@ -16,7 +16,7 @@ export default function SubMenu({ title, links }: Props) {
         links.map((link) => (
           <li key={link.link} className={s.link}>
             {
-              link.link ? <Link href={link.link}>
+              link.link ? <Link href={link.link} target={link.target || '_self'}>
                 {link.title}
               </Link> : <>{link.title}</>
             }
