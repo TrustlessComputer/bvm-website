@@ -1,17 +1,14 @@
-import { Box, Flex, SimpleGrid, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import AppItem from './item';
 import { useEffect, useMemo } from 'react';
 import useL2Service from '@/hooks/useL2Service';
-import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { useAppSelector } from '@/stores/hooks';
 import { getDAListSelector } from '@/stores/states/l2services/selector';
 import { useRouter } from 'next/navigation';
 import { APP_STORE } from '@/constants/route-path';
-// import { AccountAbstractionDAppModal } from '../blockchains/components/DAppModal';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { setDAppSelected } from '@/stores/states/l2services/reducer';
-import { DA_CODES, IDApp } from '@/services/api/DAServices/types';
-import { AccountAbstractionDAppModal } from '@/modules/blockchains/components/DAppModal';
+import { IDApp } from '@/services/api/DAServices/types';
 import Section from '@/modules/app-store/v2/section';
 import AppItem2 from '@/modules/app-store/v2/item2';
 import AppItem3 from '@/modules/app-store/v2/item3';
@@ -19,7 +16,6 @@ import Hero from '@/modules/app-store/v2/Hero';
 import { DA_DUMMY_LIST } from '@/services/api/DAServices/constants';
 
 const AppStoreModule = () => {
-  const dispatch = useAppDispatch();
   const { getDappsList, getMyOrderList, getAccountInfor } = useL2Service();
   const { loggedIn, login } = useWeb3Auth();
   const DAppList = useAppSelector(getDAListSelector);
@@ -30,14 +26,6 @@ const AppStoreModule = () => {
 
   const router = useRouter();
 
-  const {
-    isOpen: isOpenModal,
-    onOpen: onOpenModal,
-    onClose: onCloseModal,
-  } = useDisclosure({
-    id: 'INSTALL_ACCOUNT_ABSTRACTION_MODAL',
-  });
-
   useEffect(() => {
     getDappsList();
     if (loggedIn) {
@@ -47,16 +35,7 @@ const AppStoreModule = () => {
   }, [loggedIn]);
 
   const handleSelectAppCb = (item: IDApp) => {
-    if (item.code === DA_CODES.account_abstraction) {
-      if (loggedIn) {
-        dispatch(setDAppSelected(item));
-        onOpenModal();
-      } else {
-        login();
-      }
-    } else {
-      router.push(`${APP_STORE}/${item?.id}`);
-    }
+    router.push(`${APP_STORE}/${item?.id}`);
   };
 
   return (
@@ -96,13 +75,6 @@ const AppStoreModule = () => {
           </SimpleGrid>
         </Section>
       </Flex>
-
-      {isOpenModal && (
-        <AccountAbstractionDAppModal
-          show={isOpenModal}
-          onClose={onCloseModal}
-        />
-      )}
     </Box>
   );
 };
