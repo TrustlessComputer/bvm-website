@@ -8,10 +8,12 @@ import HeroItem from '@/modules/app-store/v2/Hero/item';
 import { IDApp } from '@/services/api/DAServices/types';
 import { APP_STORE } from '@constants/route-path';
 import { useRouter } from 'next/navigation';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 const ContributionVideo = () => {
   const DAppList = useAppSelector(getDAListSelector); // TO DO
   const router = useRouter();
+  const { loggedIn, login } = useWeb3Auth();
 
   var settings = {
     dots: true,
@@ -25,7 +27,11 @@ const ContributionVideo = () => {
   };
 
   const handleSelectAppCb = (item: IDApp) => {
-    router.push(`${APP_STORE}/${item?.id}`);
+    if (loggedIn) {
+      router.push(`${APP_STORE}/${item?.id}`);
+    } else {
+      login();
+    }
   };
 
   return (
