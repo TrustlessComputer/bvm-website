@@ -85,6 +85,7 @@
 .left_box {
   margin-top: 16px;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
+
   &_inner {
     width: 100%;
     display: flex;
@@ -96,9 +97,8 @@
       flex: 1;
       height: 80vh;
       background: #fff;
+
       // border-bottom-right-radius: 12px;
-      // overflow-y: overlay;
-      // overflow-x: hidden;
       &::-webkit-scrollbar {
         width: 6px;
       }

@@ -1,4 +1,4 @@
-import { DndContext, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
 import React from 'react';
 
 import Tier from '@/modules/blockchains/Buy/components3/Tier';
@@ -25,6 +25,7 @@ import s from './styles_v5.module.scss';
 import LeftNetworkLego from './components3/Legos/LeftNetworkLego';
 import LeftDataAvailabilityLego from './components3/Legos/LeftDataAvailabilityLego';
 import { NetworkEnum } from './Buy.constanst';
+import useDragMask from './stores/useDragMask';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -47,6 +48,8 @@ const BuyPage = () => {
     setWithdrawPeriod,
     setWithdrawPeriodDragged,
   } = useOrderFormStore();
+
+  const { setIdDragging } = useDragMask();
 
   const fieldMapping: Record<
     string,
@@ -73,7 +76,18 @@ const BuyPage = () => {
     [],
   );
 
+  const maskMapping = {};
+
+  const handleDragStart = (event: any) => {
+    const { active } = event;
+    const [activeKey = ''] = active.id.split('-');
+
+    setIdDragging(activeKey);
+  };
+
   function handleDragEnd(event: any) {
+    setIdDragging('');
+
     const { over, active } = event;
 
     // Format ID of single field = <key>-<value>
@@ -107,6 +121,7 @@ const BuyPage = () => {
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
+
   const handleFindData = (networkSelected: NetworkEnum) => {
     const optionsDataAvailable =
       OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].options;
@@ -115,9 +130,14 @@ const BuyPage = () => {
     });
     return values;
   };
+
   return (
     <div className={s.container}>
-      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+      <DndContext
+        sensors={sensors}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
         <div className={s.wrapper}>
           <div className={s.inner}>
             <div className={s.left}>
@@ -126,59 +146,80 @@ const BuyPage = () => {
                 <div className={s.left_box_inner}>
                   <SideBar />
                   <div className={s.left_box_inner_content}>
-                    <BoxOptionV3
-                      {...OrderFormOptions[ORDER_FIELD.NETWORK]}
-                      label={OrderFormOptions[ORDER_FIELD.NETWORK].title}
-                      id={ORDER_FIELD.NETWORK}
-                      first={true}
-                      active={isNetworkDragged}
+                    <div
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        overflowY: 'auto',
+                        overflowX: 'hidden',
+                      }}
                     >
-                      <LeftNetworkLego />
-                    </BoxOptionV3>
+                      <BoxOptionV3
+                        {...OrderFormOptions[ORDER_FIELD.NETWORK]}
+                        label={OrderFormOptions[ORDER_FIELD.NETWORK].title}
+                        id={ORDER_FIELD.NETWORK}
+                        first={true}
+                        active={isNetworkDragged}
+                      >
+                        <LeftNetworkLego />
+                      </BoxOptionV3>
 
-                    <BoxOptionV3
-                      {...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN]}
-                      label={
-                        OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN]
-                          .title
-                      }
-                      active={isDataAvailabilityChainDragged}
-                      id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
-                    >
-                      <LeftDataAvailabilityLego />
-                    </BoxOptionV3>
+                      <BoxOptionV3
+                        {...OrderFormOptions[
+                          ORDER_FIELD.DATA_AVAILABILITY_CHAIN
+                        ]}
+                        label={
+                          OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN]
+                            .title
+                        }
+                        active={isDataAvailabilityChainDragged}
+                        id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+                      >
+                        <LeftDataAvailabilityLego />
+                      </BoxOptionV3>
 
-                    <BoxOptionV3
-                      {...OrderFormOptions[ORDER_FIELD.GAS_LIMIT]}
-                      label={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].title}
-                      id={ORDER_FIELD.GAS_LIMIT}
-                      active={isGasLimitDragged}
-                    >
-                      <Draggable
+                      <BoxOptionV3
+                        {...OrderFormOptions[ORDER_FIELD.GAS_LIMIT]}
+                        label={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].title}
                         id={ORDER_FIELD.GAS_LIMIT}
-                        value={gasLimit}
-                        disabled={isGasLimitDragged}
+                        active={isGasLimitDragged}
                       >
-                        <BlockGasLimitLego isLeft />
-                      </Draggable>
-                    </BoxOptionV3>
+                        <Draggable
+                          useMask
+                          id={ORDER_FIELD.GAS_LIMIT}
+                          value={gasLimit}
+                          disabled={isGasLimitDragged}
+                        >
+                          <BlockGasLimitLego isLeft />
+                        </Draggable>
+                      </BoxOptionV3>
 
-                    <BoxOptionV3
-                      {...OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD]}
-                      label={
-                        OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].title
-                      }
-                      id={ORDER_FIELD.WITHDRAW_PERIOD}
-                      active={isWithdrawPeriodDragged}
-                    >
-                      <Draggable
+                      <BoxOptionV3
+                        {...OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD]}
+                        label={
+                          OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].title
+                        }
                         id={ORDER_FIELD.WITHDRAW_PERIOD}
-                        value={withdrawPeriod}
-                        disabled={isWithdrawPeriodDragged}
+                        active={isWithdrawPeriodDragged}
                       >
-                        <WithdrawalTimeLego isLeft />
-                      </Draggable>
-                    </BoxOptionV3>
+                        <Draggable
+                          useMask
+                          id={ORDER_FIELD.WITHDRAW_PERIOD}
+                          value={withdrawPeriod}
+                          disabled={isWithdrawPeriodDragged}
+                        >
+                          <WithdrawalTimeLego isLeft />
+                        </Draggable>
+                      </BoxOptionV3>
+                    </div>
+
+                    {/* <DragOverlay>
+                      {idDragging && (
+                        <div>
+                          <WithdrawalTimeLego />
+                        </div>
+                      )}
+                    </DragOverlay> */}
                   </div>
                 </div>
               </div>
@@ -216,6 +257,7 @@ const BuyPage = () => {
                       <RightDataAvailabilityLego />
                     </Draggable>
                   )}
+
                   {isGasLimitDragged && (
                     <Draggable
                       id={ORDER_FIELD.GAS_LIMIT + '-dropped'}

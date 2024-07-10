@@ -64,4 +64,4 @@ const WithdrawalTimeLego = ({ isLeft = false }: { isLeft?: boolean }) => {
   );
 };
 
-export default WithdrawalTimeLego;
+export default React.memo(WithdrawalTimeLego);

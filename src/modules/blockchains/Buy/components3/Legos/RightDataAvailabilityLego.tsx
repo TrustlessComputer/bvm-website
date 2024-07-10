@@ -49,4 +49,4 @@ const RightDataAvailabilityLego = ({
   );
 };
 
-export default RightDataAvailabilityLego;
+export default React.memo(RightDataAvailabilityLego);
