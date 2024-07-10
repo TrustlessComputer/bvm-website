@@ -18,6 +18,7 @@ import {
 } from '@/stores/states/l2services/reducer';
 import sleep from '@/utils/sleep';
 import { Spinner } from '@chakra-ui/react';
+import { useOrderFormStore } from '../../stores/index_v2';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -28,7 +29,18 @@ const LaunchButton = () => {
   const { computerNameField, chainIdRandom } = useBuy();
   const [isSubmiting, setSubmitting] = useState(false);
   const { hasError } = computerNameField;
-  const { field, setForm } = useFormOrderStore((state) => state);
+  // const { field, setForm } = useFormOrderStore((state) => state);
+  const {
+    chainName,
+    dataAvaibilityChain,
+    gasLimit,
+    network,
+    withdrawPeriod,
+    isDataAvailabilityChainDragged,
+    isNetworkDragged,
+    isGasLimitDragged,
+    isWithdrawPeriodDragged,
+  } = useOrderFormStore();
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('package') || PRICING_PACKGE.Hacker;
 
@@ -40,12 +52,28 @@ const LaunchButton = () => {
     return availableListFetching || !availableList;
   }, [availableListFetching, availableList]);
 
-  const allFilled = Object.keys(field).every((key) => {
-    const { value } = field[key as Override];
-    const isString = typeof value === 'string';
-    return field[key as Override].dragged && (isString ? value.trim() : value);
-  });
+  // const allFilled = Object.keys(field).every((key) => {
+  // const { value } = field[key as Override];
+  // const isString = typeof value === 'string';
+  // return field[key as Override].dragged && (isString ? value.trim() : value);
+  // });
+  const allFilled = useMemo(() => {
+    return !!(
+      isDataAvailabilityChainDragged &&
+      isNetworkDragged &&
+      isGasLimitDragged &&
+      isWithdrawPeriodDragged &&
+      chainName.trim()
+    );
+  }, [
+    isDataAvailabilityChainDragged,
+    isNetworkDragged,
+    isGasLimitDragged,
+    isWithdrawPeriodDragged,
+    chainName,
+  ]);
 
+  console.log('allFilled', allFilled);
   const tierData = useMemo(() => {
     const packageData = availableList?.package['2'];
     const result = packageData?.filter((item, index) => {
@@ -63,15 +91,15 @@ const LaunchButton = () => {
     if (isSubmiting || !allFilled || hasError) return;
 
     const form: FormOrder = {
-      chainName: field[ORDER_FIELD.CHAIN_NAME].value,
-      network: field[ORDER_FIELD.NETWORK].value,
-      dataAvaibilityChain: field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value,
-      gasLimit: field[ORDER_FIELD.GAS_LIMIT].value,
-      withdrawPeriod: field[ORDER_FIELD.WITHDRAW_PERIOD].value,
+      chainName,
+      network,
+      dataAvaibilityChain,
+      gasLimit,
+      withdrawPeriod,
     };
 
     console.log('[LaunchButton] handleOnClick -> form :: ', form);
-    setForm(form);
+
     setSubmitting(true);
 
     let isSuccess = false;

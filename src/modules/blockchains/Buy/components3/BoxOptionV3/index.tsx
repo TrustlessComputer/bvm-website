@@ -19,11 +19,6 @@ export type BoxOptionV2Props = React.PropsWithChildren & {
     title: string;
     content: React.ReactNode;
   };
-  options?: {
-    id: string;
-    label: React.ReactNode;
-    value: string | number;
-  }[];
 };
 
 const BoxOptionV3 = ({
