@@ -22,9 +22,9 @@ const AppDetailModule = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState<IDApp | undefined>(undefined);
 
-  const indexBg = useMemo(() => {
-    return ((data?.id || 0) - 1) % BG_COLOR.length;
-  }, [data]);
+  // const indexBg = useMemo(() => {
+  //   return ((data?.id || 0) - 1) % BG_COLOR.length;
+  // }, [data]);
 
   useEffect(() => {
     if(params?.id) {
@@ -76,14 +76,7 @@ const AppDetailModule = () => {
         </Flex>
         <Box className={s.content}>
           <Flex gap={"24px"}>
-            <Square
-              bg={BG_COLOR[indexBg]}
-              size={"120px"}
-              borderRadius={'18px'}
-              padding={"15px"}
-            >
-              <Image className={s.avatar} src={data?.image_url}/>
-            </Square>
+            <Image className={s.avatar} src={data?.image_url}/>
             <Flex direction={"column"} gap={"8px"}>
               <Text className={s.title}>{data?.name}</Text>
               <Text className={s.description}>{data?.description}</Text>
@@ -92,7 +85,7 @@ const AppDetailModule = () => {
 
           <Divider orientation={"horizontal"} bgColor={"#ECECEC"}/>
 
-          <Flex gap={"12px"}>
+          <Flex gap={"40px"} direction={"column"}>
             {
               data?.details.map(m => {
                 return (
