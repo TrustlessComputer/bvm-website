@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { debounce, isEmpty } from 'lodash';
 import toast from 'react-hot-toast';
 
@@ -14,7 +14,6 @@ import { useDebounce } from '@/hooks/useDebounce';
 
 const ComputerNameInput = () => {
   const { field, setFormField } = useFormOrderStore((state) => state);
-
   const { computerNameField, setComputerNameField, isMainnet } = useBuy();
   const { value, errorMessage } = computerNameField;
 
