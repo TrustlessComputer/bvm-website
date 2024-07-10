@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
-import { FormOrder } from '../../stores';
+import { FormOrder, ORDER_FIELD } from '../../stores';
 import { DALayerEnum, NetworkEnum } from '../../Buy.constanst';
 import { useOrderFormStore } from '../../stores/index_v2';
+import { OrderFormOptions } from '../../Buy.data';
 
 type TDropdown = {
   field: keyof FormOrder;
@@ -23,6 +24,7 @@ type TDropdown = {
 };
 
 function DropdownV2({
+  field,
   options,
   cb,
   defaultValue,
@@ -30,15 +32,29 @@ function DropdownV2({
 }: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
-  const { network } = useOrderFormStore();
+  const { network, setDataAvaibilityChain } = useOrderFormStore();
 
   useOnClickOutside(ref, () => setIsOpen(false));
 
   const handleSelectField = (
     value: DALayerEnum | NetworkEnum | number | string,
   ) => {
+    if (field === ORDER_FIELD.NETWORK) {
+      const value = handleFindData(network);
+      if (value && value.length > 0) {
+        setDataAvaibilityChain(value[0].value);
+      }
+    }
     cb(value);
     setIsOpen(false);
+  };
+  const handleFindData = (networkSelected: NetworkEnum) => {
+    const optionsDataAvailable =
+      OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].options;
+    const values = optionsDataAvailable?.filter((item) => {
+      return item.avalaibleNetworks?.includes(networkSelected);
+    });
+    return values;
   };
   const icon = options?.find((item) => item.value === defaultValue)?.icon;
 

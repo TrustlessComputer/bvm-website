@@ -21,7 +21,7 @@ export type OrderFormOption = {
       id: number;
       label: string;
       keyInField?: string;
-      value: NetworkEnum | DALayerEnum | number | string;
+      value: NetworkEnum | DALayerEnum | number;
       icon?: string;
       isDisabled?: boolean;
       avalaibleNetworks?: NetworkEnum[];

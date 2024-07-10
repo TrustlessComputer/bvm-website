@@ -16,7 +16,7 @@ type ChainNameSlice = {
 };
 
 type NetworkSlice = {
-  network: BuyBuilderSelectState['network'];
+  network: BuyBuilderSelectState['network'] | NetworkEnum;
   setNetwork: (network: BuyBuilderSelectState['network']) => void;
 
   isNetworkDragged: boolean;
@@ -36,7 +36,7 @@ type DataAvailabilityChainSlice = {
 };
 
 type GasLimitSlice = {
-  gasLimit: BuyBuilderSelectState['gasLimit'];
+  gasLimit: BuyBuilderSelectState['gasLimit'] | string;
   setGasLimit: (gasLimit: BuyBuilderSelectState['gasLimit']) => void;
 
   isGasLimitDragged: boolean;

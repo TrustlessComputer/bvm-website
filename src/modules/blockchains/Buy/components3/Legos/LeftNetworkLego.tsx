@@ -13,21 +13,24 @@ import Draggable from '../Draggable';
 const LeftNetworkLego = () => {
   const { network } = useOrderFormStore();
 
-  return (OrderFormOptions[ORDER_FIELD.NETWORK].options || []).map((option) => (
-    <Draggable
-      key={option.value}
-      id={ORDER_FIELD.NETWORK + '-' + option.value.toString()}
-      value={option.value}
-    >
-      <LegoV3
-        background={OrderFormOptions[ORDER_FIELD.NETWORK].background}
-        zIndex={6}
-        active={network === option.value}
-        label={option.label}
-        icon={option.icon}
-      />
-    </Draggable>
-  ));
+  return (OrderFormOptions[ORDER_FIELD.NETWORK].options || []).map((option) => {
+    if (network === option.value) return null;
+    return (
+      <Draggable
+        key={option.value}
+        id={ORDER_FIELD.NETWORK + '-' + option.value.toString()}
+        value={option.value}
+      >
+        <LegoV3
+          background={OrderFormOptions[ORDER_FIELD.NETWORK].background}
+          zIndex={6}
+          active={network === option.value}
+          label={option.label}
+          icon={option.icon}
+        />
+      </Draggable>
+    );
+  });
 };
 
 export default LeftNetworkLego;
