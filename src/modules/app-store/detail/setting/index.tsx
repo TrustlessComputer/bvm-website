@@ -290,6 +290,8 @@ const SettingView = ({
                 <MenuList>
                   {myOrders.map((t) => (
                     <ChainItem
+                      packageSelected={selectedPackage}
+                      user_package={app?.user_package || []}
                       key={t.chainId}
                       data={t}
                       onSelectChain={(c: OrderItem) => setSelectedOrder(c)}
