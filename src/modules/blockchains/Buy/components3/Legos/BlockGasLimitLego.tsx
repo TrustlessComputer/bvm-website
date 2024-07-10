@@ -32,7 +32,7 @@ const BlockGasLimitLego = ({ isLeft = false }: { isLeft?: boolean }) => {
   };
 
   React.useEffect(() => {
-    if (gasLimit !== (defaultGasLimit || '0')) return;
+    if (gasLimit !== (defaultGasLimit || '0') && gasLimit !== '-1') return;
 
     setGasLimit((defaultGasLimit || maxGasLimit).toString());
   }, [pricingPackageValues]);

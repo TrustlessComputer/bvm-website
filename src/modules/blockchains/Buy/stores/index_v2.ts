@@ -78,7 +78,7 @@ const dataAvailabilityChainSlice: StateCreator<DataAvailabilityChainSlice> = (
 });
 
 const gasLimitSlice: StateCreator<GasLimitSlice> = (set) => ({
-  gasLimit: '0',
+  gasLimit: '-1',
   setGasLimit: (gasLimit) => set({ gasLimit }),
 
   isGasLimitDragged: false,
@@ -86,7 +86,7 @@ const gasLimitSlice: StateCreator<GasLimitSlice> = (set) => ({
 });
 
 const withdrawPeriodSlice: StateCreator<WithdrawPeriodSlice> = (set) => ({
-  withdrawPeriod: 1,
+  withdrawPeriod: -1,
   setWithdrawPeriod: (withdrawPeriod) => set({ withdrawPeriod }),
 
   isWithdrawPeriodDragged: false,
