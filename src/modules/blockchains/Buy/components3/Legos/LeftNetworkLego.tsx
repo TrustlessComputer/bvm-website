@@ -11,10 +11,11 @@ import { NetworkEnum } from '../../Buy.constanst';
 import Draggable from '../Draggable';
 
 const LeftNetworkLego = () => {
-  const { network } = useOrderFormStore();
+  const { network, isNetworkDragged } = useOrderFormStore();
 
   return (OrderFormOptions[ORDER_FIELD.NETWORK].options || []).map((option) => {
-    if (network === option.value) return null;
+    if (network === option.value && isNetworkDragged) return null;
+
     return (
       <Draggable
         key={option.value}

@@ -75,6 +75,15 @@ const BuyPage = () => {
   function handleDragEnd(event: any) {
     const { over, active } = event;
 
+    console.log(
+      '🚀 -> file: index_v5.tsx:78 -> handleDragEnd -> over ::',
+      over,
+    );
+    console.log(
+      '🚀 -> file: index_v5.tsx:78 -> handleDragEnd -> active ::',
+      active,
+    );
+
     const [activeKey = ''] = active.id.split('-');
     const [overKey = ''] = over?.id.split('-');
     const overIsFinalDroppable = overKey === 'final';
