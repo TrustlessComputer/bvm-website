@@ -8,8 +8,12 @@
   display: flex;
   gap: 80px;
   width: 100%;
+  flex-wrap: wrap ;
 }
 
 .social {
-  margin-left: auto;
+  //margin-left: auto;
+  @include is-pc {
+    margin-left: auto;
+  }
 }

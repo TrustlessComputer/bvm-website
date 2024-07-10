@@ -1,5 +1,7 @@
 .wrap {
-
+  @include is-mobile {
+    //width: 100%;
+  }
 }
 
 .heading {
@@ -13,6 +15,8 @@
 
 .content {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 48px;
 }
 
