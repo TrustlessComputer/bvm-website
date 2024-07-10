@@ -1,0 +1,19 @@
+.list {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 16px;
+  gap: 5px;
+
+  li {
+    color: #999;
+  }
+
+  a {
+    color: black;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

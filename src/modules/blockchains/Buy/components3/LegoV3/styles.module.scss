@@ -1,0 +1,156 @@
+.wrapper {
+  --fillBackground: #ff0000;
+  --background: #fff;
+  --backgroundSlider: #c73e88;
+
+  width: max-content;
+  border-radius: 4px;
+  position: relative;
+  // background-color: var(--fillBackground);
+  cursor: grabbing;
+  height: 44px;
+  display: flex;
+  align-items: center;
+
+  &::after {
+    z-index: -2;
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--fillBackground);
+    width: calc(100% - 39px);
+    transform: translateX(37px);
+    border: 1px solid var(--background);
+    border-radius: 4px;
+    height: 43px;
+  }
+
+  &_studHead {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 43px;
+    height: 43px;
+    z-index: -1;
+
+    svg {
+      height: 50px;
+      path {
+        fill: var(--fillBackground);
+        stroke: var(--background);
+        stroke-width: 1px;
+      }
+    }
+  }
+}
+
+.options {
+  background: var(--fillBackground);
+  height: 100%;
+  > div {
+    background-color: var(--background);
+  }
+}
+
+.inner {
+  padding: 10px 8px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+
+  &_nested {
+    flex-direction: column;
+    align-items: unset;
+    gap: 8px;
+  }
+}
+
+.label {
+  p {
+    color: #fff;
+    font-family: var(--font-JetBrainsMono);
+
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+  }
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.title {
+  font-family: var(--font-JetBrainsMono);
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 155.556%;
+  letter-spacing: -0.18px;
+}
+.first {
+  border-top-right-radius: 12px;
+  overflow: hidden;
+}
+
+//color
+
+.wrapper {
+  &__red {
+    --background: #cc2e2e;
+    --fillBackground: #ff0000;
+  }
+  &__green {
+    --background: #109465 !important;
+    --fillBackground: #15c888 !important;
+    --backgroundSlider: #109465;
+  }
+  &__brown {
+    --background: #b2552e !important;
+    --fillBackground: #ff7a41 !important;
+  }
+  &__pink {
+    --fillBackground: #fb4fac;
+    --background: #c73e88;
+    --backgroundSlider: #c73e88;
+  }
+
+  &__violet {
+    --fillBackground: #a041ff;
+    --background: #8034cc;
+  }
+  &__yellow {
+    --fillBackground: #f8b200;
+    --background: #dea000;
+  }
+  &__cowYellow {
+    --fillBackground: #fb9f00;
+    --background: #c77e00;
+  }
+  &__darkPink {
+    --fillBackground: #f200f2;
+    --background: #d900d9;
+  }
+  &__skyBlue {
+    --fillBackground: #00c1cd;
+    --background: #00a8b2;
+  }
+  &__blue {
+    --fillBackground: #6b39f9;
+    --background: #552ec7;
+  }
+  &__darkRed {
+    --fillBackground: #e6004d;
+    --background: #cc0044;
+  }
+  &__orange {
+    --fillBackground: #f76649;
+    --background: #de5c42;
+  }
+  &__lightViolet {
+    --fillBackground: #c000e6;
+    --background: #aa00cc;
+  }
+}
