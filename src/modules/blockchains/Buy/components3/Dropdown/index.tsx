@@ -27,14 +27,13 @@ type TDropdown = {
   checkDisable?: boolean;
   networkSelected: NetworkEnum;
   defaultValue: DALayerEnum | NetworkEnum;
-  // cb: (
-  //   feild: keyof FormOrder,
-  //   value: DALayerEnum | NetworkEnum | number | string,
-  // ) => void;
+  cb: (
+    feild: keyof FormOrder,
+    value: DALayerEnum | NetworkEnum | number | string,
+  ) => void;
 };
 function Dropdown({
   options,
-  // cb,
   field,
   defaultValue,
   networkSelected,
