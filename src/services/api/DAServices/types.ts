@@ -3,6 +3,9 @@ export const DA_CODES = {
   staking: 'staking',
   account_abstraction: 'account_abstraction',
   bridge: 'bridge',
+  dex: 'dex',
+  order_book: 'order_book',
+  perpetual: 'perpetual',
 };
 
 export const DA_PACKAGES = {

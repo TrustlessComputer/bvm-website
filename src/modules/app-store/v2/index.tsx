@@ -1,7 +1,7 @@
 import { Box, Flex, SimpleGrid, Text, useDisclosure } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import AppItem from './item';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import useL2Service from '@/hooks/useL2Service';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { getDAListSelector } from '@/stores/states/l2services/selector';
@@ -16,12 +16,17 @@ import Section from '@/modules/app-store/v2/section';
 import AppItem2 from '@/modules/app-store/v2/item2';
 import AppItem3 from '@/modules/app-store/v2/item3';
 import Hero from '@/modules/app-store/v2/Hero';
+import { DA_DUMMY_LIST } from '@/services/api/DAServices/constants';
 
 const AppStoreModule = () => {
   const dispatch = useAppDispatch();
   const { getDappsList, getMyOrderList, getAccountInfor } = useL2Service();
   const { loggedIn, login } = useWeb3Auth();
-  const DAppList = useAppSelector(getDAListSelector); // TO DO
+  const DAppList = useAppSelector(getDAListSelector);
+
+  const defiApps = useMemo(() => {
+    return DA_DUMMY_LIST;
+  }, []);
 
   const router = useRouter();
 
@@ -73,7 +78,7 @@ const AppStoreModule = () => {
         </Section>
         <Section title={"DeFi Apps"}>
           <SimpleGrid columns={[1, 2]} gap={'24px'}>
-            {DAppList?.map((d) => {
+            {defiApps?.map((d) => {
               return <AppItem2 data={d} handleSelectApp={handleSelectAppCb} />;
             })}
           </SimpleGrid>
