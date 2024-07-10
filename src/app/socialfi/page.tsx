@@ -37,7 +37,6 @@ const SocialFiPage = () => {
       headerProps={{
         color: 'black',
       }}
-      hideFooter
     >
       <>
         <Loader />

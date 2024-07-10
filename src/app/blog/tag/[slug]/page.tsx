@@ -82,7 +82,6 @@ const TagPage = async ({ params, searchParams }: TTagPage) => {
         position: 'absolute',
         color: 'black',
       }}
-      hideFooter
     >
       <TagBlogModule searchParams={searchParams} tag={params.slug}/>
     </MainLayout>
