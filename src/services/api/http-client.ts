@@ -63,7 +63,10 @@ const createAxiosInstance = ({ baseURL = '' }: { baseURL: string }) => {
       }
       const response = error?.response?.data || error;
       const errorMessage =
-        response?.error || error?.Message || JSON.stringify(error);
+        response?.error?.message ||
+        response?.error ||
+        error?.Message ||
+        JSON.stringify(error);
       return Promise.reject(errorMessage);
     },
   );
