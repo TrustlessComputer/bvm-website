@@ -35,7 +35,8 @@ const WithdrawalTimeLego = ({ isLeft = false }: { isLeft?: boolean }) => {
   };
 
   React.useEffect(() => {
-    if (withdrawPeriod !== defaultWithdrawalPeriod) return;
+    if (withdrawPeriod !== defaultWithdrawalPeriod && withdrawPeriod !== -1)
+      return;
 
     setWithdrawPeriod(defaultWithdrawalPeriod || maxWithdrawalPeriod);
   }, [pricingPackageValues]);

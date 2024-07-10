@@ -76,8 +76,10 @@ const BuyPage = () => {
   function handleDragEnd(event: any) {
     const { over, active } = event;
 
+    // Format ID of single field = <key>-<value>
+
     const [activeKey = ''] = active.id.split('-');
-    const [overKey = ''] = over?.id.split('-');
+    const [overKey = ''] = (over?.id || '').split('-');
     const overIsFinalDroppable = overKey === 'final';
 
     // Normal case
@@ -152,7 +154,11 @@ const BuyPage = () => {
                       id={ORDER_FIELD.GAS_LIMIT}
                       active={isGasLimitDragged}
                     >
-                      <Draggable id={ORDER_FIELD.GAS_LIMIT} value={gasLimit}>
+                      <Draggable
+                        id={ORDER_FIELD.GAS_LIMIT}
+                        value={gasLimit}
+                        disabled={isGasLimitDragged}
+                      >
                         <BlockGasLimitLego isLeft />
                       </Draggable>
                     </BoxOptionV3>
@@ -168,6 +174,7 @@ const BuyPage = () => {
                       <Draggable
                         id={ORDER_FIELD.WITHDRAW_PERIOD}
                         value={withdrawPeriod}
+                        disabled={isWithdrawPeriodDragged}
                       >
                         <WithdrawalTimeLego isLeft />
                       </Draggable>
