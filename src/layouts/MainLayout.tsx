@@ -33,7 +33,7 @@ const MainLayout = ({
       {isHeaderCustom && <HeaderCustom />}
       {!hideHeader && !isHeaderCustom && <HeaderV3 {...headerProps} />}
       {children}
-      <Footer />
+      {!hideFooter && <Footer />}
     </>
   );
 };
