@@ -2,7 +2,6 @@ import { STORAGE_KEYS } from '@/constants/storage-key';
 import LocalStorage from '@/libs/localStorage';
 import { DAServiceAPI as httpClient } from '@/services/api/clients';
 import { IDApp, InstallDAByParams } from './types';
-import { DA_DUMMY_LIST } from './constants';
 
 // ------------------------------------------------------------------------
 // Access Token
@@ -27,6 +26,28 @@ const fetchDAList = async (): Promise<IDApp[]> => {
       },
     })) as IDApp[];
     return result || [];
+  } catch (error) {
+    throw error;
+  }
+};
+
+const fetchDAInstalledByUserAddress = async (
+  dAppID: number,
+  userAddress: string,
+): Promise<IDApp> => {
+  // const accessToken = getAPIAccessToken();
+  // if (!accessToken) return [];
+  let result;
+  try {
+    result = (await httpClient.get(
+      `/apps/detail/${dAppID}?address=${userAddress}`,
+      {
+        headers: {
+          Authorization: `${getAPIAccessToken()}`,
+        },
+      },
+    )) as IDApp;
+    return result;
   } catch (error) {
     throw error;
   }
@@ -79,6 +100,7 @@ const dAppServicesAPI = {
   fetchDAList,
   fetchDAppByID,
   installDAByParams,
+  fetchDAInstalledByUserAddress,
 };
 
 export default dAppServicesAPI;
