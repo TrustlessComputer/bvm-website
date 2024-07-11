@@ -224,6 +224,8 @@ const BuyPage = () => {
     });
   }, []);
   // dropdowns - slide - module
+
+  console.log('____data', data);
   return (
     <div className={s.container}>
       <DndContext
@@ -243,6 +245,7 @@ const BuyPage = () => {
                     {data?.map((item, index) => {
                       return (
                         <BoxOptionV3
+                          disable={item.disable}
                           {...OrderFormOptions[ORDER_FIELD.NETWORK]}
                           label={item.title}
                           id={item.key}

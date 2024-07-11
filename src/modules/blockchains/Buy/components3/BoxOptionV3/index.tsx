@@ -15,6 +15,7 @@ export type BoxOptionV2Props = React.PropsWithChildren & {
   first?: boolean;
   isRequired?: boolean;
   last?: boolean;
+  disable?: boolean;
   description?: {
     title: string;
     content: React.ReactNode;
@@ -22,23 +23,24 @@ export type BoxOptionV2Props = React.PropsWithChildren & {
 };
 
 const BoxOptionV3 = ({
-  id,
-  active,
-  label,
-  children,
-  description,
-  first,
-  last,
-  isRequired,
-}: BoxOptionV2Props): React.JSX.Element => {
+                       id,
+                       active,
+                       label,
+                       children,
+                       description,
+                       first,
+                       last,
+                       isRequired,
+                       disable,
+                     }: BoxOptionV2Props): React.JSX.Element => {
   const [isShowModal, setIsShowModal] = React.useState(false);
   return (
     <React.Fragment>
       <DroppableV2
         id={id}
-        className={`${s.boxItem} ${active && s.activeBox} ${first && s.first}`}
+        className={`${s.boxItem} ${active && s.activeBox} ${first && s.first} ${disable && s.disable}`}
       >
-        <div className={s.boxItem_heading}>
+        <div className={s.boxItem_heading} id={id}>
           <div className={s.boxItem_heading_icon}>
             <svg
               width="24"
@@ -56,7 +58,7 @@ const BoxOptionV3 = ({
             </svg>
           </div>
           <Flex align={'center'} gap={2}>
-            <p className={s.boxItem_heading_text}>{label}</p>
+            <p className={s.boxItem_heading_text}>{label}{disable && '(Coming)'}</p>
             {isRequired && (
               <Text
                 fontSize={['15px', '16px', '18px']}
