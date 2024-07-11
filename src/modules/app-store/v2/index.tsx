@@ -52,14 +52,14 @@ const AppStoreModule = () => {
           </Text>
         </Flex>
         <Hero />
-        <Section title={'Bridge Apps'}>
+        <Section title={'Bridge'}>
           <SimpleGrid columns={[1, 2]} gap={'24px'}>
             {DAppList?.map((d) => {
               return <AppItem3 data={d} handleSelectApp={handleSelectAppCb} />;
             })}
           </SimpleGrid>
         </Section>
-        <Section title={'DeFi Apps'}>
+        <Section title={'DeFi'}>
           <SimpleGrid columns={[1, 2]} gap={'24px'}>
             {defiApps?.map((d) => {
               return <AppItem2 data={d} handleSelectApp={handleSelectAppCb} />;

@@ -1,4 +1,4 @@
-import { Button, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { IDApp } from '@/services/api/DAServices/types';
 import { useMemo } from 'react';
@@ -24,7 +24,8 @@ const HeroItem = ({
   return (
     <Flex
       className={s.container}
-      gap={"120px"}
+      gap={"180px"}
+      bgImage={data?.image_url}
     >
       <Flex direction={"column"} justifyContent={"center"}>
         <Flex alignItems={'center'} mt={'24px'} gap={'24px'}>
@@ -44,7 +45,8 @@ const HeroItem = ({
           }
         </Button>
       </Flex>
-      <Image className={s.avatar} src={data?.image_url} />
+      <Box className={s.avatar}/>
+      {/*<Image className={s.avatar} src={data?.image_url} />*/}
     </Flex>
   );
 };
