@@ -27,26 +27,21 @@ const RightDataAvailabilityLego = ({
 
   return (
     <LegoV3
-      background={
-        OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].background
-      }
-      label={
-        isLeft
-          ? ''
-          : OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].subTitle
-      }
+      background={OrderFormOptions.dataAvaibilityChain.background}
+      label={isLeft ? '' : OrderFormOptions.dataAvaibilityChain.subTitle}
       zIndex={10}
       active={isDataAvailabilityChainDragged}
     >
       <DropdownV2
+        title={OrderFormOptions.dataAvaibilityChain.subTitle}
         cb={onDropdownChange}
         defaultValue={dataAvaibilityChain}
         field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
-        options={OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].options}
+        options={OrderFormOptions.dataAvaibilityChain.options}
         checkDisable
       />
     </LegoV3>
   );
 };
 
-export default RightDataAvailabilityLego;
+export default React.memo(RightDataAvailabilityLego);

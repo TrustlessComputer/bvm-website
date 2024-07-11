@@ -35,17 +35,16 @@ const WithdrawalTimeLego = ({ isLeft = false }: { isLeft?: boolean }) => {
   };
 
   React.useEffect(() => {
-    if (withdrawPeriod !== defaultWithdrawalPeriod) return;
+    if (withdrawPeriod !== defaultWithdrawalPeriod && withdrawPeriod !== -1)
+      return;
 
     setWithdrawPeriod(defaultWithdrawalPeriod || maxWithdrawalPeriod);
   }, [pricingPackageValues]);
 
   return (
     <LegoV3
-      background={OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].background}
-      label={
-        isLeft ? '' : OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].subTitle
-      }
+      background={OrderFormOptions.withdrawPeriod.background}
+      label={isLeft ? '' : OrderFormOptions.withdrawPeriod.subTitle}
       zIndex={2}
       active={isWithdrawPeriodDragged}
     >
@@ -63,4 +62,4 @@ const WithdrawalTimeLego = ({ isLeft = false }: { isLeft?: boolean }) => {
   );
 };
 
-export default WithdrawalTimeLego;
+export default React.memo(WithdrawalTimeLego);

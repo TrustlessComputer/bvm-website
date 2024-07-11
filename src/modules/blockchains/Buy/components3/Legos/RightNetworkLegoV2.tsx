@@ -25,6 +25,7 @@ const RightNetworkLegoV2 = () => {
       active={isNetworkDragged}
     >
       <DropdownV2
+        title={OrderFormOptions[ORDER_FIELD.NETWORK].subTitle}
         cb={onDropdownChange}
         defaultValue={network}
         field={ORDER_FIELD.NETWORK}
@@ -34,4 +35,4 @@ const RightNetworkLegoV2 = () => {
   );
 };
 
-export default RightNetworkLegoV2;
+export default React.memo(RightNetworkLegoV2);

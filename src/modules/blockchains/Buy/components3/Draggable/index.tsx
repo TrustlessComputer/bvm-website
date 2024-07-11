@@ -6,16 +6,17 @@ import s from './styles.module.scss';
 export type DraggableProps = React.PropsWithChildren & {
   id: string;
   value?: string | number;
+  useMask?: boolean;
   disabled?: boolean;
   index?: number;
 };
 
 const Draggable = ({
   id,
+  useMask = false,
   children,
   value,
   disabled = false,
-  index,
 }: DraggableProps) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
@@ -23,13 +24,12 @@ const Draggable = ({
       disabled,
       data: { value },
     });
-  // const yOffset = isDragging ? index! * 100 : 0;
 
   const style = {
     transform: CSS.Translate.toString(transform),
-    // position: isDragging ? 'fixed' : 'relative',
+    opacity: useMask && isDragging ? 0 : 1,
   };
- 
+
   return (
     <div
       ref={setNodeRef}

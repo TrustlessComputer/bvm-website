@@ -32,15 +32,15 @@ const BlockGasLimitLego = ({ isLeft = false }: { isLeft?: boolean }) => {
   };
 
   React.useEffect(() => {
-    if (gasLimit !== (defaultGasLimit || '0')) return;
+    if (gasLimit !== (defaultGasLimit || '0') && gasLimit !== '-1') return;
 
     setGasLimit((defaultGasLimit || maxGasLimit).toString());
   }, [pricingPackageValues]);
 
   return (
     <LegoV3
-      background={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].background}
-      label={isLeft ? '' : OrderFormOptions[ORDER_FIELD.GAS_LIMIT].subTitle}
+      background={OrderFormOptions.gasLimit.background}
+      label={isLeft ? '' : OrderFormOptions.gasLimit.subTitle}
       active={isGasLimitDragged}
       zIndex={4}
     >
@@ -58,4 +58,4 @@ const BlockGasLimitLego = ({ isLeft = false }: { isLeft?: boolean }) => {
   );
 };
 
-export default BlockGasLimitLego;
+export default React.memo(BlockGasLimitLego);
