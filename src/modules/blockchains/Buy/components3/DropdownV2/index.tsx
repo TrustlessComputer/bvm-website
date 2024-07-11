@@ -9,7 +9,7 @@ import { OrderFormOptions } from '../../Buy.data';
 import useStoreDropDown from '@/modules/blockchains/Buy/stores/useStoreDropdown';
 
 type TDropdown = {
-  field: keyof FormOrder;
+  field: any;
   options?: {
     id: number;
     label: string;
@@ -26,13 +26,13 @@ type TDropdown = {
 };
 
 function DropdownV2({
-                      field,
-                      options,
-                      cb,
-                      title,
-                      defaultValue,
-                      checkDisable = false,
-                    }: TDropdown) {
+  field,
+  options,
+  cb,
+  title,
+  defaultValue,
+  checkDisable = false,
+}: TDropdown) {
   // const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const { network, setDataAvaibilityChain } = useOrderFormStore();
@@ -47,6 +47,8 @@ function DropdownV2({
         setDataAvaibilityChain(value[0].value);
       }
     }
+
+    console.log('value', value);
 
     cb(value);
     setIdDropdownCurrent('');
@@ -91,7 +93,9 @@ function DropdownV2({
         />
       </div>
       <div
-        className={`${s.dropdown_list} ${isOpenDropdown && s.dropdown_list__active}`}
+        className={`${s.dropdown_list} ${
+          isOpenDropdown && s.dropdown_list__active
+        }`}
       >
         <div className={s.dropdown_wrap} ref={ref}>
           <ul className={`${s.dropdown_list_inner} `}>

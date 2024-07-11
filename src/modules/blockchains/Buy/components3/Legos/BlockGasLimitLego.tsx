@@ -39,8 +39,8 @@ const BlockGasLimitLego = ({ isLeft = false }: { isLeft?: boolean }) => {
 
   return (
     <LegoV3
-      background={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].background}
-      label={isLeft ? '' : OrderFormOptions[ORDER_FIELD.GAS_LIMIT].subTitle}
+      background={OrderFormOptions.gasLimit.background}
+      label={isLeft ? '' : OrderFormOptions.gasLimit.subTitle}
       active={isGasLimitDragged}
       zIndex={4}
     >

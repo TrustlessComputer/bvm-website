@@ -15,6 +15,8 @@ export const ORDER_FIELD = {
   ZK_PROVER: 'zk_prover',
   DEGEN_APPS: 'degen_apps',
   GAMING_APPS: 'gaming_apps',
+  WALLET: 'wallet',
+  BRIDGE_APPS: 'bridge_apps',
 } as const;
 
 type ChainNameSlice = {
@@ -116,6 +118,22 @@ type GamingAppsSlice = {
   setGamingAppsDragged: (isGamingAppsDragged: boolean) => void;
 };
 
+type WalletSlice = {
+  wallet: any;
+  setWallet: (wallet: any) => void;
+
+  isWalletDragged: boolean;
+  setWalletDragged: (isWalletDragged: boolean) => void;
+};
+
+type BridgeAppsSlice = {
+  bridgeApps: any;
+  setBridgeApps: (bridgeApps: any) => void;
+
+  isBridgeAppsDragged: boolean;
+  setBridgeAppsDragged: (isBridgeAppsDragged: boolean) => void;
+};
+
 const chainNameSlice: StateCreator<ChainNameSlice> = (set) => ({
   chainName: '',
   setChainName: (chainName) => set({ chainName }),
@@ -158,7 +176,7 @@ const withdrawPeriodSlice: StateCreator<WithdrawPeriodSlice> = (set) => ({
 });
 
 const hardwareSlice: StateCreator<HardwareSlice> = (set) => ({
-  hardware: {},
+  hardware: '',
   setHardware: (hardware) => set({ hardware }),
 
   isHardwareDragged: false,
@@ -166,7 +184,7 @@ const hardwareSlice: StateCreator<HardwareSlice> = (set) => ({
 });
 
 const settlementSlice: StateCreator<SettlementSlice> = (set) => ({
-  settlement: {},
+  settlement: '',
   setSettlement: (settlement) => set({ settlement }),
 
   isSettlementDragged: false,
@@ -174,7 +192,7 @@ const settlementSlice: StateCreator<SettlementSlice> = (set) => ({
 });
 
 const computeSlice: StateCreator<ComputeSlice> = (set) => ({
-  compute: {},
+  compute: '',
   setCompute: (compute) => set({ compute }),
 
   isComputeDragged: false,
@@ -182,7 +200,7 @@ const computeSlice: StateCreator<ComputeSlice> = (set) => ({
 });
 
 const storageSlice: StateCreator<StorageSlice> = (set) => ({
-  storage: {},
+  storage: '',
   setStorage: (storage) => set({ storage }),
 
   isStorageDragged: false,
@@ -190,7 +208,7 @@ const storageSlice: StateCreator<StorageSlice> = (set) => ({
 });
 
 const zkProverSlice: StateCreator<ZkProverSlice> = (set) => ({
-  zkProver: {},
+  zkProver: '',
   setZkProver: (zkProver) => set({ zkProver }),
 
   isZkProverDragged: false,
@@ -198,7 +216,7 @@ const zkProverSlice: StateCreator<ZkProverSlice> = (set) => ({
 });
 
 const degenAppsSlice: StateCreator<DegenAppsSlice> = (set) => ({
-  degenApps: {},
+  degenApps: '',
   setDegenApps: (degenApps) => set({ degenApps }),
 
   isDegenAppsDragged: false,
@@ -206,11 +224,27 @@ const degenAppsSlice: StateCreator<DegenAppsSlice> = (set) => ({
 });
 
 const gamingAppsSlice: StateCreator<GamingAppsSlice> = (set) => ({
-  gamingApps: {},
+  gamingApps: '',
   setGamingApps: (gamingApps) => set({ gamingApps }),
 
   isGamingAppsDragged: false,
   setGamingAppsDragged: (isGamingAppsDragged) => set({ isGamingAppsDragged }),
+});
+
+const walletSlice: StateCreator<WalletSlice> = (set) => ({
+  wallet: '',
+  setWallet: (wallet) => set({ wallet }),
+
+  isWalletDragged: false,
+  setWalletDragged: (isWalletDragged) => set({ isWalletDragged }),
+});
+
+const bridgeAppsSlice: StateCreator<BridgeAppsSlice> = (set) => ({
+  bridgeApps: '',
+  setBridgeApps: (bridgeApps) => set({ bridgeApps }),
+
+  isBridgeAppsDragged: false,
+  setBridgeAppsDragged: (isBridgeAppsDragged) => set({ isBridgeAppsDragged }),
 });
 
 type FormOrder = ChainNameSlice &
@@ -224,7 +258,9 @@ type FormOrder = ChainNameSlice &
   StorageSlice &
   ZkProverSlice &
   DegenAppsSlice &
-  GamingAppsSlice;
+  GamingAppsSlice &
+  WalletSlice &
+  BridgeAppsSlice;
 
 export const useOrderFormStore = create<FormOrder>((...set) => ({
   ...chainNameSlice(...set),
@@ -239,4 +275,6 @@ export const useOrderFormStore = create<FormOrder>((...set) => ({
   ...zkProverSlice(...set),
   ...degenAppsSlice(...set),
   ...gamingAppsSlice(...set),
+  ...walletSlice(...set),
+  ...bridgeAppsSlice(...set),
 }));
