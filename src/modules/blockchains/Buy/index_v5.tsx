@@ -165,7 +165,10 @@ const BuyPage = () => {
                               key={
                                 item.key + field[item.key].dragged.toString()
                               }
+                              disabled={field[item.key].dragged}
                               value={field[item.key].value}
+                              tooltip={item.tooltip}
+                              isLabel={true}
                             >
                               <LegoV3
                                 background={item.color}
@@ -186,7 +189,7 @@ const BuyPage = () => {
                                   title={item.title}
                                   value={field[item.key].value}
                                 />
-                              </LegoV3>{' '}
+                              </LegoV3>
                             </Draggable>
                           ) : (
                             item.options.map((option, opIdx) => {
@@ -209,8 +212,10 @@ const BuyPage = () => {
                                   key={item.key + '-' + option.key}
                                   id={item.key + '-' + option.key}
                                   useMask
-                                  value={option.key}
                                   disabled={isDisabled}
+                                  isLabel={true}
+                                  value={option.key}
+                                  tooltip={item.tooltip}
                                 >
                                   <LegoV3
                                     background={item.color}
@@ -278,10 +283,10 @@ const BuyPage = () => {
                                 key={item.key + '-' + option.key}
                                 id={item.key + '-' + option.key}
                                 useMask
-                                tooltip={item.tooltip}
                                 value={option.key}
                               >
                                 <LegoV3
+                                  icon={option.icon}
                                   background={item.color}
                                   label={option.title}
                                   zIndex={item.options.length - opIdx}

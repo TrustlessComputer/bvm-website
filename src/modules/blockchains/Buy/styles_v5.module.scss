@@ -92,22 +92,25 @@
   margin-top: 16px;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
   background: #fff;
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+
   &_inner {
     width: 100%;
     display: flex;
     flex-direction: row;
     height: 80vh;
-    border-radius: 12px;
-    padding-right: 5px;
-    padding-top: 15px;
     overflow: hidden;
+
     &_content {
       flex: 1;
       height: 80vh;
+      background: #fff;
       overflow-y: auto;
+      overflow-x: hidden;
+
       &::-webkit-scrollbar {
         width: 6px;
-
       }
 
       &::-webkit-scrollbar-track {
@@ -117,7 +120,6 @@
       &::-webkit-scrollbar-thumb {
         border-radius: 10px;
         background: #e0e0e0;
-
       }
     }
   }
