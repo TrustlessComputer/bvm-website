@@ -8,10 +8,12 @@ const PackageItem = ({
   isSelected,
   onSelect,
   isInstalled,
+  isDisabled,
   status,
 }: {
   data: IDAppDetails;
   isSelected: boolean;
+  isDisabled: boolean;
   onSelect: any;
   isInstalled: boolean;
   status: string;
@@ -19,7 +21,13 @@ const PackageItem = ({
   return (
     <Flex
       className={cx(s.container, !isInstalled && isSelected ? s.isSelect : '')}
-      onClick={!isInstalled && onSelect}
+      onClick={() => {
+        if (isDisabled) {
+          return;
+        } else {
+          !isInstalled && onSelect();
+        }
+      }}
     >
       <Text className={s.title}>
         {data?.name} -{' '}

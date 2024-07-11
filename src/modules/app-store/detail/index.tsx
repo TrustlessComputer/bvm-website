@@ -49,16 +49,13 @@ const AppDetailModule = () => {
   }, [loggedIn]);
 
   useEffect(() => {
-    if (params?.id && accountInforL2Service?.tcAddress) {
+    if (params?.id) {
       getAppInfo(params?.id as string);
     }
   }, [params?.id, accountInforL2Service]);
 
   const getAppInfo = async (id: string) => {
-    const res = await dAppServicesAPI.fetchDAInstalledByUserAddress(
-      Number(id),
-      accountInforL2Service?.tcAddress!,
-    );
+    const res = await dAppServicesAPI.fetchDAppByID(Number(id));
     setData(res);
   };
 
@@ -83,7 +80,7 @@ const AppDetailModule = () => {
             render: () => (
               <BuyProvider>
                 <SettingView
-                  app={data}
+                  appID={data?.id}
                   appPackage={appPackage}
                   onClose={onClose}
                 />
