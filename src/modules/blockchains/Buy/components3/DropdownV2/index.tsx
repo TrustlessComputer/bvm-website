@@ -2,63 +2,34 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
-import { FormOrder, ORDER_FIELD } from '../../stores';
-import { DALayerEnum, NetworkEnum } from '../../Buy.constanst';
+import { ORDER_FIELD } from '../../stores';
+import { NetworkEnum } from '../../Buy.constanst';
 import { useOrderFormStore } from '../../stores/index_v2';
 import { OrderFormOptions } from '../../Buy.data';
-import useStoreDropDown from '@/modules/blockchains/Buy/stores/useStoreDropdown';
+import useOrderFormStoreV3 from '../../stores/index_v3';
 
 type TDropdown = {
-  field: any;
-  options?: {
-    id: number;
-    label: string;
-    keyInField?: string;
+  options?: (IModelOption & {
     value: string | number;
-    icon?: string;
-    isDisabled?: boolean;
-    avalaibleNetworks?: NetworkEnum[];
-  }[];
+    label: string;
+  })[];
   checkDisable?: boolean;
-  title: string;
   defaultValue: string | number;
   cb: (value: string | number) => void;
 };
 
-function DropdownV2({
-  field,
-  options,
-  cb,
-  title,
-  defaultValue,
-  checkDisable = false,
-}: TDropdown) {
+function DropdownV2({ options, cb, defaultValue }: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
-  const { network, setDataAvaibilityChain } = useOrderFormStore();
-  // const { setIdDropdownCurrent, idDropdownCurrent } = useStoreDropDown();
+  const { field } = useOrderFormStoreV3();
 
   useOnClickOutside(ref, () => setIsOpen(false));
 
   const handleSelectField = (value: string | number) => {
-    // if (field === ORDER_FIELD.NETWORK) {
-    //   const value = handleFindData(network);
-    //   if (value && value.length > 0) {
-    //     setDataAvaibilityChain(value[0].value);
-    //   }
-    // }
-
     cb(value);
     setIsOpen(false);
   };
-  const handleFindData = (networkSelected: NetworkEnum) => {
-    const optionsDataAvailable =
-      OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].options;
-    const values = optionsDataAvailable?.filter((item) => {
-      return item.avalaibleNetworks?.includes(networkSelected);
-    });
-    return values;
-  };
+
   const icon = options?.find((item) => item.value === defaultValue)?.icon;
 
   return (
@@ -87,7 +58,9 @@ function DropdownV2({
           <ul className={`${s.dropdown_list_inner} `}>
             {options?.map((option, index) => {
               const isDisabled =
-                checkDisable && !option.avalaibleNetworks?.includes(network);
+                option.supportNetwork &&
+                option.supportNetwork !== 'both' &&
+                option.supportNetwork !== field['network']?.value;
 
               return (
                 <li

@@ -88,6 +88,30 @@ const BuyPage = () => {
   };
 
   React.useEffect(() => {
+    data?.forEach((item) => {
+      const newDefaultValue = item.options.find(
+        (option) =>
+          option.supportNetwork === field['network']?.value ||
+          option.supportNetwork === 'both' ||
+          !option.supportNetwork,
+      );
+      const currentOption = item.options.find(
+        (option) => option.key === field[item.key].value,
+      );
+
+      if (!currentOption || !newDefaultValue) return;
+      if (
+        currentOption.supportNetwork === field['network']?.value ||
+        currentOption.supportNetwork === 'both' ||
+        !currentOption.supportNetwork
+      )
+        return;
+
+      setField(item.key, newDefaultValue.key, field[item.key].dragged);
+    });
+  }, [field['network']?.value]);
+
+  React.useEffect(() => {
     const convertData = (data: IModelCategory[]) => {
       const newData = data.map((item) => {
         return {
@@ -112,7 +136,6 @@ const BuyPage = () => {
       // set default value
       res.map((item) => {
         setField(item.key, item.options[0].key);
-        // fieldMapping[item.key].setValue(item.options[0].key);
       });
 
       // @ts-ignore
@@ -161,7 +184,11 @@ const BuyPage = () => {
                               >
                                 <DropdownV2
                                   cb={(value) => {
-                                    setField(item.key, value);
+                                    setField(
+                                      item.key,
+                                      value,
+                                      field[item.key].dragged,
+                                    );
                                   }}
                                   defaultValue={field[item.key].value || ''}
                                   // @ts-ignore
@@ -173,6 +200,14 @@ const BuyPage = () => {
                             </Draggable>
                           ) : (
                             item.options.map((option, opIdx) => {
+                              const isDisabled =
+                                option.supportNetwork &&
+                                option.supportNetwork !== 'both' &&
+                                option.supportNetwork !==
+                                  field['network']?.value;
+
+                              if (isDisabled) return null;
+
                               return (
                                 <Draggable
                                   key={item.key + '-' + option.key}
@@ -196,7 +231,11 @@ const BuyPage = () => {
                       );
                     })}
 
-                    <DragOverlay>
+                    <DragOverlay
+                      style={{
+                        transition: 'none',
+                      }}
+                    >
                       {idDragging &&
                         data?.map((item, index) => {
                           if (!idDragging.startsWith(item.key)) return null;
@@ -217,7 +256,11 @@ const BuyPage = () => {
                                 >
                                   <DropdownV2
                                     cb={(value) => {
-                                      setField(item.key, value);
+                                      setField(
+                                        item.key,
+                                        value,
+                                        field[item.key].dragged,
+                                      );
                                     }}
                                     defaultValue={field[item.key].value || ''}
                                     // @ts-ignore
@@ -295,8 +338,11 @@ const BuyPage = () => {
                         >
                           <DropdownV2
                             cb={(value) => {
-                              // fieldMapping[item.key].setValue(value);
-                              setField(item.key, value);
+                              setField(
+                                item.key,
+                                value,
+                                field[item.key].dragged,
+                              );
                             }}
                             defaultValue={field[item.key].value || ''}
                             // @ts-ignore

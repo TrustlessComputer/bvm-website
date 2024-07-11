@@ -10,6 +10,9 @@
   padding-top: 32px;
   user-select: none;
   margin-top: 1px;
+  &:first-child {
+    padding-top: 10px;
+  }
 
   &.disable {
     opacity: .4;
