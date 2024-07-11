@@ -5,9 +5,10 @@ import SvgInset from '@/components/SvgInset';
 
 import styles from './styles.module.scss';
 import { LegoColor } from '../BoxOptionV2';
+import { hexToHSB, hsbToHex } from '../../utils';
 
 type LegoV3 = {
-  background?: LegoColor;
+  background?: string;
   parentOfNested?: boolean;
   first?: boolean;
   last?: boolean;
@@ -19,7 +20,7 @@ type LegoV3 = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
-  background = 'brown',
+  background = '#A041FF',
   label = null,
   parentOfNested = false,
   first = false,
@@ -44,6 +45,7 @@ function LegoV3({
     parentLego.style.zIndex = `${zIndex * 2} `;
     parentLego.style.width = 'max-content';
   }, [legoRef.current]);
+
   return (
     <div
       className={`${styles.wrapper} ${styles[`wrapper__${background}`]}
@@ -53,6 +55,9 @@ function LegoV3({
       ref={legoRef}
       style={{
         zIndex: zIndex,
+        // @ts-ignore
+        '--fillBackground': background,
+        '--background': '#000',
       }}
       {...props}
     >

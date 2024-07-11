@@ -92,15 +92,14 @@
     flex-direction: row;
     height: 80vh;
     border-radius: 24px;
-    overflow-y: auto;
-    overflow-x: hidden;
 
     &_content {
       flex: 1;
       height: 80vh;
       background: #fff;
+      overflow-y: auto;
+      overflow-x: hidden;
 
-      // border-bottom-right-radius: 12px;
       &::-webkit-scrollbar {
         width: 6px;
       }
