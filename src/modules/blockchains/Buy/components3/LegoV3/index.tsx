@@ -112,7 +112,7 @@ function LegoV3({
                  zIndex: 9999,
                  backgroundColor: '#fff',
                  color: '#333333',
-                 boxShadow: '0px 0px 4px 2px rgba(0, 0, 0, 0.05)',
+                 boxShadow: '0px 0px 4px 2px rgba(0, 0, 0, 0.25)',
                }}
                classNameArrow={styles.tooltipArrow}
       />
