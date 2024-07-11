@@ -9,16 +9,19 @@ export const checkDAInstallHelper = (
   let disabeldInstallDA = false;
   let statusStr = '';
   let statusPackage = '';
+  let isInstalled = false;
 
   if (!order || order?.isNeedTopup) {
     disabeldInstallDA = true;
     statusStr = 'Waiting for payment';
     statusPackage = '';
+    isInstalled = false;
   } else {
     if (!dApp?.user_package || dApp?.user_package.length < 1) {
       disabeldInstallDA = false;
       statusStr = '';
       statusPackage = '';
+      isInstalled = false;
     } else {
       const lisDAInstalledWithChain = dApp.user_package;
 
@@ -37,6 +40,7 @@ export const checkDAInstallHelper = (
               disabeldInstallDA = true;
               statusStr = `Installing - ${installedWithChainFinded.package}`;
               statusPackage = 'Installing';
+              isInstalled = true;
             }
             break;
           case 'processing':
@@ -45,6 +49,7 @@ export const checkDAInstallHelper = (
               disabeldInstallDA = true;
               statusStr = `${installedWithChainFinded.status} - ${installedWithChainFinded.package}`;
               statusPackage = `${installedWithChainFinded.status}`;
+              isInstalled = true;
             }
             break;
 
@@ -55,16 +60,19 @@ export const checkDAInstallHelper = (
               disabeldInstallDA = false;
               statusStr = ``;
               statusPackage = '';
+              isInstalled = false;
             }
             break;
           default:
             disabeldInstallDA = false;
+            isInstalled = false;
             statusStr = ``;
             statusPackage = '';
             break;
         }
       } else {
         disabeldInstallDA = false;
+        isInstalled = false;
         statusStr = ``;
         statusPackage = '';
       }
@@ -75,5 +83,6 @@ export const checkDAInstallHelper = (
     disabeldInstallDA,
     statusStr,
     statusPackage,
+    isInstalled,
   };
 };
