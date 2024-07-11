@@ -9,30 +9,29 @@ export type DraggableProps = React.PropsWithChildren & {
   useMask?: boolean;
   disabled?: boolean;
   index?: number;
+  isDragging?: boolean;
   tooltip?: string;
 };
 
 const Draggable = ({
-                     id,
-                     useMask = false,
-                     children,
-                     value,
-                     disabled = false,
+  id,
+  useMask = false,
+  children,
+  value,
+  disabled = false,
+  isDragging = false,
                      tooltip,
-                   }: DraggableProps) => {
-  const [isHover, setIsHover] = React.useState(false);
+}: DraggableProps) => {
   const refTooltip = useRef<HTMLAnchorElement>(null);
-
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({
-      id,
-      disabled,
-      data: { value },
-    });
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id,
+    disabled,
+    data: { value },
+  });
 
   const style = {
     transform: CSS.Translate.toString(transform),
-    opacity: useMask && isDragging ? 0 : 1,
+    // opacity: useMask && isDragging ? 0 : 1,
   };
 
   useEffect(() => {
