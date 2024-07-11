@@ -362,7 +362,7 @@ const BuyPage = () => {
               <div className={s.right_box}>
                 <DroppableV2 id="final" className={s.finalResult}>
                   <LegoV3
-                    background={'red'}
+                    background={'#FF3A3A'}
                     title="1. Name"
                     label="Name"
                     zIndex={45}
@@ -383,6 +383,7 @@ const BuyPage = () => {
                           label={item.title}
                           background={item.color}
                           title={item.title}
+                          // @ts-ignore
                           label={item.title}
                           zIndex={data.length - index}
                         >

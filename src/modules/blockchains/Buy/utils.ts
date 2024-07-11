@@ -101,7 +101,7 @@ export function hsbToHex(h: number, s: number, b: number) {
   let _g = Math.round(f(3) * 255);
   let _b = Math.round(f(1) * 255);
 
-  return `#${((1 << 24) + (_r << 16) + (_g << 8) + b)
+  return `#${((1 << 24) + (_r << 16) + (_g << 8) + _b)
     .toString(16)
     .slice(1)
     .toUpperCase()}`;

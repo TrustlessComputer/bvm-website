@@ -52,6 +52,21 @@ function LegoV3({
     parentLego.style.width = 'max-content';
   }, [legoRef.current]);
 
+  const fillBackgroundAsHSB = hexToHSB(background);
+  const _background = hsbToHex(
+    fillBackgroundAsHSB?.h || 0,
+    fillBackgroundAsHSB?.s || 0,
+    (fillBackgroundAsHSB?.b || 100) - 10,
+  )?.split('.')[0];
+
+  if (background === '#F200F2')
+    console.log(
+      '🚀 -> file: index.tsx:57 -> background ::',
+      background,
+      fillBackgroundAsHSB,
+      _background,
+    );
+
   return (
     <React.Fragment>
       <div
@@ -64,12 +79,11 @@ function LegoV3({
           zIndex: zIndex,
           // @ts-ignore
           '--fillBackground': background,
-          '--background': '#000',
+          '--background': background ? _background : undefined,
         }}
         // @ts-ignore
         {...props}
       >
-
         <SvgInset
           svgUrl="/landingV3/svg/stud_head.svg"
           className={styles.wrapper_studHead}
