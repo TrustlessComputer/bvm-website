@@ -383,6 +383,7 @@ const BuyPage = () => {
                           label={item.title}
                           background={item.color}
                           title={item.title}
+                          label={item.title}
                           zIndex={data.length - index}
                         >
                           <DropdownV2
