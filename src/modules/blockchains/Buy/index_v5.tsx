@@ -34,12 +34,12 @@ type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 const BuyPage = () => {
   const [data, setData] = React.useState<
     | (IModelCategory & {
-        options: {
-          value: NetworkEnum;
-          label: string;
-          disabled: boolean;
-        }[];
-      })[]
+    options: {
+      value: NetworkEnum;
+      label: string;
+      disabled: boolean;
+    }[];
+  })[]
     | null
   >(null);
   const [form, setForm] = React.useState<Record<string, any>>({});
@@ -63,7 +63,7 @@ const BuyPage = () => {
         value: orderFormStore.dataAvaibilityChain,
         setValue: orderFormStore.setDataAvaibilityChain,
         isDataAvailabilityChainDragged:
-          orderFormStore.isDataAvailabilityChainDragged,
+        orderFormStore.isDataAvailabilityChainDragged,
         setDragged: orderFormStore.setDataAvailabilityChainDragged,
       },
       [ORDER_FIELD.GAS_LIMIT]: {
@@ -166,7 +166,8 @@ const BuyPage = () => {
     return;
   }
 
-  const handleValueChange = (key: string, value: any) => {};
+  const handleValueChange = (key: string, value: any) => {
+  };
 
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
@@ -267,6 +268,7 @@ const BuyPage = () => {
                                   defaultValue={form[item.key]}
                                   // @ts-ignore
                                   options={item.options}
+                                  title={item.title}
                                   value={form.value}
                                   onChange={handleValueChange}
                                 />
