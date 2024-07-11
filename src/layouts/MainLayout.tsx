@@ -22,7 +22,7 @@ const MainLayout = ({
                       headerProps,
                       children,
                       isHeaderCustom,
-                      bodyColor
+                      bodyColor,
                     }: IMainProps) => {
   const pathName = usePathname();
   const { resetPlay } = useAnimationStore();
@@ -31,11 +31,13 @@ const MainLayout = ({
   }, [pathName]);
 
   return (
-    <div style={{backgroundColor: bodyColor}}>
+    <div style={{ backgroundColor: bodyColor }}>
       {isHeaderCustom && <HeaderCustom />}
       {!hideHeader && !isHeaderCustom && <HeaderV3 {...headerProps} />}
       {children}
-      <Footer />
+      {
+        !hideFooter && <Footer />
+      }
     </div>
   );
 };
