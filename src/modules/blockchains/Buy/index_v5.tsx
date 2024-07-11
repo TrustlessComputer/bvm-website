@@ -251,6 +251,7 @@ const BuyPage = () => {
                           {...OrderFormOptions[ORDER_FIELD.NETWORK]}
                           label={item.title}
                           id={item.key}
+                          isRequired={item.required}
                         >
                           {item.type === 'dropdown' ? (
                             <Draggable
@@ -383,8 +384,6 @@ const BuyPage = () => {
                           label={item.title}
                           background={item.color}
                           title={item.title}
-                          // @ts-ignore
-                          label={item.title}
                           zIndex={data.length - index}
                         >
                           <DropdownV2
