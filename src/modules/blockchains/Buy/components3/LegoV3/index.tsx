@@ -15,6 +15,7 @@ type LegoV3 = {
   first?: boolean;
   last?: boolean;
   active?: boolean;
+  disabled?: boolean;
   label?: React.ReactNode;
   icon?: string;
   className?: string;
@@ -22,18 +23,19 @@ type LegoV3 = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
-                  background = '#A041FF',
-                  label = null,
-                  parentOfNested = false,
-                  first = false,
-                  last = false,
-                  active = false,
-                  icon,
-                  zIndex = 0,
-                  className,
-                  children,
-                  ...props
-                }: LegoV3) {
+  background = '#A041FF',
+  label = null,
+  parentOfNested = false,
+  first = false,
+  last = false,
+  active = false,
+  disabled = false,
+  icon,
+  zIndex = 0,
+  className,
+  children,
+  ...props
+}: LegoV3) {
   const legoRef = React.useRef<HTMLDivElement | null>(null);
   const { idDropdownCurrent, setIdDropdownCurrent } = useStoreDropDown();
 
@@ -63,6 +65,7 @@ function LegoV3({
       <div
         className={`${styles.wrapper} ${styles[`wrapper__${background}`]}
         ${first ? styles.first : ''}
+        ${disabled ? styles.disabled : ''}
         ${className}
         `}
         ref={legoRef}

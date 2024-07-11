@@ -3,7 +3,6 @@ import React from 'react';
 
 import Tier from '@/modules/blockchains/Buy/components3/Tier';
 
-import { OrderFormOptions } from './Buy.data';
 import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
 import DroppableV2 from './components3/DroppableV2';
@@ -12,7 +11,6 @@ import { MouseSensor } from './utils';
 import BoxOptionV3 from './components3/BoxOptionV3';
 import SideBar from './components3/SideBar';
 import LegoV3 from './components3/LegoV3';
-import { NetworkEnum } from './Buy.constanst';
 import useDragMask from './stores/useDragMask';
 import { getModelCategories } from '@/services/customize-model';
 import DropdownV2 from './components3/DropdownV2';
@@ -77,15 +75,6 @@ const BuyPage = () => {
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
-
-  const handleFindData = (networkSelected: NetworkEnum) => {
-    const optionsDataAvailable = OrderFormOptions.dataAvaibilityChain.options;
-    const values = optionsDataAvailable?.filter((item) => {
-      return item.avalaibleNetworks?.includes(networkSelected);
-    });
-
-    return values;
-  };
 
   React.useEffect(() => {
     data?.forEach((item) => {
@@ -173,6 +162,9 @@ const BuyPage = () => {
                             <Draggable
                               useMask
                               id={item.key}
+                              key={
+                                item.key + field[item.key].dragged.toString()
+                              }
                               value={field[item.key].value}
                             >
                               <LegoV3
@@ -198,13 +190,19 @@ const BuyPage = () => {
                             </Draggable>
                           ) : (
                             item.options.map((option, opIdx) => {
-                              const isDisabled =
-                                option.supportNetwork &&
-                                option.supportNetwork !== 'both' &&
-                                option.supportNetwork !==
-                                  field['network']?.value;
+                              if (
+                                option.key === field[item.key].value &&
+                                field[item.key].dragged
+                              )
+                                return null;
 
-                              if (isDisabled) return null;
+                              const isDisabled =
+                                !!(
+                                  option.supportNetwork &&
+                                  option.supportNetwork !== 'both' &&
+                                  option.supportNetwork !==
+                                    field['network']?.value
+                                ) || !option.selectable;
 
                               return (
                                 <Draggable
@@ -212,12 +210,14 @@ const BuyPage = () => {
                                   id={item.key + '-' + option.key}
                                   useMask
                                   value={option.key}
+                                  disabled={isDisabled}
                                 >
                                   <LegoV3
                                     background={item.color}
                                     label={option.title}
                                     icon={option?.icon}
                                     zIndex={item.options.length - opIdx}
+                                    disabled={isDisabled}
                                   />
                                 </Draggable>
                               );
@@ -243,7 +243,6 @@ const BuyPage = () => {
                                 id={item.key}
                                 value={field[item.key].value}
                                 key={item.key}
-                                isDragging={item.key === idDragging}
                                 tooltip={item.tooltip}
                               >
                                 <LegoV3
@@ -281,9 +280,6 @@ const BuyPage = () => {
                                 useMask
                                 tooltip={item.tooltip}
                                 value={option.key}
-                                isDragging={
-                                  item.key + '-' + option.key === idDragging
-                                }
                               >
                                 <LegoV3
                                   background={item.color}
@@ -319,37 +315,79 @@ const BuyPage = () => {
                   {data?.map((item, index) => {
                     if (!field[item.key].dragged) return null;
 
-                    return (
-                      <Draggable
-                        useMask
-                        key={item.key + '-dragged'}
-                        id={item.key + '-dragged'}
-                        tooltip={item.tooltip}
-                        value={field[item.key].value}
-                      >
-                        <LegoV3
-                          background={item.color}
-                          title={item.title}
-                          zIndex={data.length - index}
-                          label={item.title}
+                    if (item.type === 'dropdown') {
+                      return (
+                        <Draggable
+                          useMask
+                          // key={item.key + '-dragged'}
+                          // id={item.key + '-dragged'}
+                          key={item.key}
+                          id={item.key}
+                          tooltip={item.tooltip}
+                          value={field[item.key].value}
                         >
-                          <DropdownV2
-                            cb={(value) => {
-                              setField(
-                                item.key,
-                                value,
-                                field[item.key].dragged,
-                              );
-                            }}
-                            defaultValue={field[item.key].value || ''}
-                            // @ts-ignore
-                            options={item.options}
+                          <LegoV3
+                            background={item.color}
                             title={item.title}
-                            value={field[item.key].value}
-                          />
-                        </LegoV3>
-                      </Draggable>
-                    );
+                            zIndex={data.length - index}
+                            label={item.title}
+                          >
+                            <DropdownV2
+                              cb={(value) => {
+                                setField(
+                                  item.key,
+                                  value,
+                                  field[item.key].dragged,
+                                );
+                              }}
+                              defaultValue={field[item.key].value || ''}
+                              // @ts-ignore
+                              options={item.options}
+                              title={item.title}
+                              value={field[item.key].value}
+                            />
+                          </LegoV3>
+                        </Draggable>
+                      );
+                    }
+
+                    return item.options.map((option, opIdx) => {
+                      if (option.key !== field[item.key].value) return null;
+
+                      return (
+                        <Draggable
+                          key={item.key + '-' + option.key}
+                          id={item.key + '-' + option.key}
+                          useMask
+                          tooltip={item.tooltip}
+                          value={option.key}
+                        >
+                          <LegoV3
+                            background={item.color}
+                            label={item.title + ' ' + option.title}
+                            zIndex={item.options.length - opIdx}
+                          >
+                            <DropdownV2
+                              cb={(value) => {
+                                setField(
+                                  item.key,
+                                  value,
+                                  field[item.key].dragged,
+                                );
+                              }}
+                              defaultValue={field[item.key].value || ''}
+                              options={[
+                                // @ts-ignore
+                                item.options.find((o) => o.key === option.key),
+                              ]}
+                              // options={[item.options[0] as any]}
+                              // @ts-ignore
+                              value={field[item.key].value}
+                            />
+                          </LegoV3>
+                        </Draggable>
+                      );
+                    });
                   })}
                 </DroppableV2>
 

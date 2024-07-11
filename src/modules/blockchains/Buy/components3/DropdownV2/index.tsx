@@ -1,11 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
-import { ORDER_FIELD } from '../../stores';
-import { NetworkEnum } from '../../Buy.constanst';
-import { useOrderFormStore } from '../../stores/index_v2';
-import { OrderFormOptions } from '../../Buy.data';
 import useOrderFormStoreV3 from '../../stores/index_v3';
 
 type TDropdown = {
@@ -42,14 +38,16 @@ function DropdownV2({ options, cb, defaultValue }: TDropdown) {
           </p>
         </div>
 
-        <Image
-          className={s.dropdown_icon}
-          src="/landingV3/svg/arrow-b.svg"
-          alt="Arrow Icon"
-          aria-hidden="true"
-          width={16}
-          height={16}
-        />
+        {(options?.length || 0) > 1 && (
+          <Image
+            className={s.dropdown_icon}
+            src="/landingV3/svg/arrow-b.svg"
+            alt="Arrow Icon"
+            aria-hidden="true"
+            width={16}
+            height={16}
+          />
+        )}
       </div>
       <div
         className={`${s.dropdown_list} ${isOpen && s.dropdown_list__active}`}
@@ -58,9 +56,11 @@ function DropdownV2({ options, cb, defaultValue }: TDropdown) {
           <ul className={`${s.dropdown_list_inner} `}>
             {options?.map((option, index) => {
               const isDisabled =
-                option.supportNetwork &&
-                option.supportNetwork !== 'both' &&
-                option.supportNetwork !== field['network']?.value;
+                !!(
+                  option.supportNetwork &&
+                  option.supportNetwork !== 'both' &&
+                  option.supportNetwork !== field['network']?.value
+                ) || !option.selectable;
 
               return (
                 <li
