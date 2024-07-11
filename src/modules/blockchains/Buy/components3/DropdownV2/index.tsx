@@ -33,12 +33,12 @@ function DropdownV2({
   defaultValue,
   checkDisable = false,
 }: TDropdown) {
-  // const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const { network, setDataAvaibilityChain } = useOrderFormStore();
-  const { setIdDropdownCurrent, idDropdownCurrent } = useStoreDropDown();
+  // const { setIdDropdownCurrent, idDropdownCurrent } = useStoreDropDown();
 
-  useOnClickOutside(ref, () => setIdDropdownCurrent(''));
+  useOnClickOutside(ref, () => setIsOpen(false));
 
   const handleSelectField = (value: DALayerEnum | NetworkEnum | number) => {
     if (field === ORDER_FIELD.NETWORK) {
@@ -51,7 +51,7 @@ function DropdownV2({
     console.log('value', value);
 
     cb(value);
-    setIdDropdownCurrent('');
+    setIsOpen(!isOpen);
   };
   const handleFindData = (networkSelected: NetworkEnum) => {
     const optionsDataAvailable =
@@ -63,18 +63,18 @@ function DropdownV2({
   };
   const icon = options?.find((item) => item.value === defaultValue)?.icon;
 
-  const isOpenDropdown = useMemo(() => {
-    return title === idDropdownCurrent;
-  }, [idDropdownCurrent]);
-
-  function handleOpen() {
-    if (title === idDropdownCurrent) {
-      setIdDropdownCurrent('');
-    }
-  }
+  // const isOpenDropdown = useMemo(() => {
+  //   return title === idDropdownCurrent;
+  // }, [idDropdownCurrent]);
+  //
+  // function handleOpen() {
+  //   if (title === idDropdownCurrent) {
+  //     setIdDropdownCurrent('');
+  //   }
+  // }
 
   return (
-    <div className={s.dropdown} onClick={() => handleOpen()}>
+    <div className={s.dropdown} onClick={() => setIsOpen(true)}>
       <div className={s.dropdown_inner}>
         <div className={s.dropdown_inner_content}>
           {icon && <Image src={icon} alt="icon" width={24} height={24} />}
@@ -94,7 +94,7 @@ function DropdownV2({
       </div>
       <div
         className={`${s.dropdown_list} ${
-          isOpenDropdown && s.dropdown_list__active
+          isOpen && s.dropdown_list__active
         }`}
       >
         <div className={s.dropdown_wrap} ref={ref}>
