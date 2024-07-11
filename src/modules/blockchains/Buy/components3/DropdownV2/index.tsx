@@ -63,16 +63,6 @@ function DropdownV2({
   };
   const icon = options?.find((item) => item.value === defaultValue)?.icon;
 
-  // const isOpenDropdown = useMemo(() => {
-  //   return title === idDropdownCurrent;
-  // }, [idDropdownCurrent]);
-  //
-  // function handleOpen() {
-  //   if (title === idDropdownCurrent) {
-  //     setIdDropdownCurrent('');
-  //   }
-  // }
-
   return (
     <div className={s.dropdown} onClick={() => setIsOpen(true)}>
       <div className={s.dropdown_inner}>
