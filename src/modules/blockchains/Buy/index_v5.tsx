@@ -31,7 +31,7 @@ const BuyPage = () => {
   })[]
     | null
   >(null);
-  const { field, setField } = useOrderFormStoreV3();
+  const { field, setField, setPriceBVM, setPriceUSD } = useOrderFormStoreV3();
   const { idDragging, setIdDragging } = useDragMask();
   const refTime = useRef<NodeJS.Timeout>();
 
@@ -125,6 +125,33 @@ const BuyPage = () => {
       setData(convertData(res));
     });
   }, []);
+
+  React.useEffect(() => {
+    const priceUSD =
+      data
+        ?.map((item) => {
+          const currentOption = item.options.find(
+            (option) => option.key === field[item.key].value,
+          );
+
+          return currentOption?.priceUSD || 0;
+        })
+        .reduce((acc, cur) => acc + cur, 0) || 0;
+
+    const priceBVM =
+      data
+        ?.map((item) => {
+          const currentOption = item.options.find(
+            (option) => option.key === field[item.key].value,
+          );
+
+          return currentOption?.priceBVM || 0;
+        })
+        .reduce((acc, cur) => acc + cur, 0) || 0;
+
+    setPriceBVM(priceBVM);
+    setPriceUSD(priceUSD);
+  }, [field]);
 
   useEffect(() => {
 
