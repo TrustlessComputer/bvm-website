@@ -88,11 +88,34 @@ export const DATA_SIDEBAR = [
   },
 ];
 
-export default function SideBar() {
+type SidebarProps = {
+  items: IModelCategory[] | null;
+};
+
+export default function SideBar({ items }: SidebarProps) {
   return (
     <div className={s.sidebar}>
       <div className={s.inner}>
-        {DATA_SIDEBAR.map((item) => {
+        {items &&
+          items.map((item) => {
+            return (
+              <div className={s.item} key={item.key}>
+                <div className={s.item_inner}>
+                  <Image
+                    // src={item.icon}
+                    src="/landingV3/images/logos/lego_11.png"
+                    alt={item.title}
+                    width={24}
+                    height={24}
+                  />
+                  <div className={s.title}>
+                    <h4>{item.title}</h4>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        {/* {DATA_SIDEBAR.map((item) => {
           return (
             <div className={s.item} key={item.title}>
               <div className={s.item_inner}>
@@ -108,7 +131,7 @@ export default function SideBar() {
               </div>
             </div>
           );
-        })}
+        })} */}
       </div>
     </div>
   );

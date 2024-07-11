@@ -26,10 +26,27 @@ import LeftNetworkLego from './components3/Legos/LeftNetworkLego';
 import LeftDataAvailabilityLego from './components3/Legos/LeftDataAvailabilityLego';
 import { NetworkEnum } from './Buy.constanst';
 import useDragMask from './stores/useDragMask';
+import { getModelCategories } from '@/services/customize-model';
+import DropdownV2 from './components3/DropdownV2';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
 const BuyPage = () => {
+  const [data, setData] = React.useState<
+    | {
+        key: string;
+        title: string;
+        options: {
+          key: string;
+          title: string;
+          value: string;
+          disabled: boolean;
+        }[];
+      }[]
+    | null
+  >(null);
+  const [form, setForm] = React.useState<Record<string, any>>({});
+
   const {
     gasLimit,
     withdrawPeriod,
@@ -118,6 +135,8 @@ const BuyPage = () => {
     return;
   }
 
+  const handleValueChange = (key: string, value: any) => {};
+
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
@@ -130,6 +149,49 @@ const BuyPage = () => {
     });
     return values;
   };
+
+  React.useEffect(() => {
+    const convertData = (data: IModelCategory[]) => {
+      const newData = data.map((item) => {
+        return {
+          ...item,
+          options: item.options?.map((option) => {
+            return {
+              ...option,
+              value: option.key,
+              label: option.title,
+              disabled: option.selectable,
+            };
+          }),
+        };
+      });
+
+      console.log(
+        '🚀 -> file: index_v5.tsx:169 -> newData -> newData ::',
+        newData,
+      );
+
+      return newData;
+    };
+
+    getModelCategories().then((res) => {
+      console.log(
+        '🚀 -> file: index_v5.tsx:138 -> getModelCategories -> res ::',
+        res,
+      );
+      if (!res) return;
+
+      const form: Record<string, any> = {};
+
+      // set default value
+      res.map((item) => {
+        form[item.key] = item.options[0].key;
+      });
+
+      setData(convertData(res));
+      setForm(form);
+    });
+  }, []);
 
   return (
     <div className={s.container}>
@@ -144,74 +206,93 @@ const BuyPage = () => {
               <p className={s.heading}>Customize your Blockchain</p>
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
-                  <SideBar />
+                  <SideBar items={data} />
                   <div className={s.left_box_inner_content}>
-                    <div
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        overflowY: 'auto',
-                        overflowX: 'hidden',
-                      }}
+                    {data?.map((item, index) => {
+                      return (
+                        <BoxOptionV3
+                          {...OrderFormOptions[ORDER_FIELD.NETWORK]}
+                          label={item.title}
+                          id={item.key}
+                        >
+                          {item.options ? (
+                            <Draggable useMask id={item.key}>
+                              <LegoV3
+                                background={
+                                  OrderFormOptions[ORDER_FIELD.NETWORK]
+                                    .background
+                                }
+                                title={item.title}
+                                zIndex={data.length - index}
+                              >
+                                <DropdownV2
+                                  defaultValue={form[item.key]}
+                                  options={item.options}
+                                  value={form.value}
+                                  onChange={handleValueChange}
+                                />
+                              </LegoV3>
+                            </Draggable>
+                          ) : null}
+                        </BoxOptionV3>
+                      );
+                    })}
+
+                    {/* <BoxOptionV3
+                      {...OrderFormOptions[ORDER_FIELD.NETWORK]}
+                      label={OrderFormOptions[ORDER_FIELD.NETWORK].title}
+                      id={ORDER_FIELD.NETWORK}
+                      first={true}
+                      active={isNetworkDragged}
                     >
-                      <BoxOptionV3
-                        {...OrderFormOptions[ORDER_FIELD.NETWORK]}
-                        label={OrderFormOptions[ORDER_FIELD.NETWORK].title}
-                        id={ORDER_FIELD.NETWORK}
-                        first={true}
-                        active={isNetworkDragged}
-                      >
-                        <LeftNetworkLego />
-                      </BoxOptionV3>
+                      <LeftNetworkLego />
+                    </BoxOptionV3>
 
-                      <BoxOptionV3
-                        {...OrderFormOptions[
-                          ORDER_FIELD.DATA_AVAILABILITY_CHAIN
-                        ]}
-                        label={
-                          OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN]
-                            .title
-                        }
-                        active={isDataAvailabilityChainDragged}
-                        id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
-                      >
-                        <LeftDataAvailabilityLego />
-                      </BoxOptionV3>
+                    <BoxOptionV3
+                      {...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN]}
+                      label={
+                        OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN]
+                          .title
+                      }
+                      active={isDataAvailabilityChainDragged}
+                      id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
+                    >
+                      <LeftDataAvailabilityLego />
+                    </BoxOptionV3>
 
-                      <BoxOptionV3
-                        {...OrderFormOptions[ORDER_FIELD.GAS_LIMIT]}
-                        label={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].title}
+                    <BoxOptionV3
+                      {...OrderFormOptions[ORDER_FIELD.GAS_LIMIT]}
+                      label={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].title}
+                      id={ORDER_FIELD.GAS_LIMIT}
+                      active={isGasLimitDragged}
+                    >
+                      <Draggable
+                        useMask
                         id={ORDER_FIELD.GAS_LIMIT}
-                        active={isGasLimitDragged}
+                        value={gasLimit}
+                        disabled={isGasLimitDragged}
                       >
-                        <Draggable
-                          useMask
-                          id={ORDER_FIELD.GAS_LIMIT}
-                          value={gasLimit}
-                          disabled={isGasLimitDragged}
-                        >
-                          <BlockGasLimitLego isLeft />
-                        </Draggable>
-                      </BoxOptionV3>
+                        <BlockGasLimitLego isLeft />
+                      </Draggable>
+                    </BoxOptionV3>
 
-                      <BoxOptionV3
-                        {...OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD]}
-                        label={
-                          OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].title
-                        }
+                    <BoxOptionV3
+                      {...OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD]}
+                      label={
+                        OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].title
+                      }
+                      id={ORDER_FIELD.WITHDRAW_PERIOD}
+                      active={isWithdrawPeriodDragged}
+                    >
+                      <Draggable
+                        useMask
                         id={ORDER_FIELD.WITHDRAW_PERIOD}
-                        active={isWithdrawPeriodDragged}
+                        value={withdrawPeriod}
+                        disabled={isWithdrawPeriodDragged}
                       >
-                        <Draggable
-                          useMask
-                          id={ORDER_FIELD.WITHDRAW_PERIOD}
-                          value={withdrawPeriod}
-                          disabled={isWithdrawPeriodDragged}
-                        >
-                          <WithdrawalTimeLego isLeft />
-                        </Draggable>
-                      </BoxOptionV3>
-                    </div>
+                        <WithdrawalTimeLego isLeft />
+                      </Draggable>
+                    </BoxOptionV3> */}
 
                     {/* <DragOverlay>
                       {idDragging && (
