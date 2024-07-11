@@ -1,7 +1,8 @@
 interface IModelOption {
   title: string;
   selectable: boolean;
-  price: number;
+  priceUSD: number;
+  priceBVM: number;
   tooltip: string;
   key: string;
   icon?: string;

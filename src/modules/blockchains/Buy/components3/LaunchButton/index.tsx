@@ -34,7 +34,7 @@ const LaunchButton = ({
       })[]
     | null;
 }) => {
-  const { field } = useOrderFormStoreV3();
+  const { field, priceBVM, priceUSD } = useOrderFormStoreV3();
   const { loggedIn, login } = useWeb3Auth();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -149,9 +149,11 @@ const LaunchButton = ({
                 />
               </div>
             </div>
-            <p className={s.price}>{`${tierData?.price || '--'} (${
-              tierData?.priceNote || '--'
-            })`}</p>
+            <p className={s.price}>
+              ${priceUSD.toFixed(2)} {'('}
+              {priceBVM.toFixed(2)} BVM
+              {')'}
+            </p>
           </React.Fragment>
         )}
       </div>
