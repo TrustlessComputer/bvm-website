@@ -241,22 +241,6 @@ const SettingView = ({
         }}
       />
     );
-
-    // return (
-    //   <Button
-    //     className={s.btnPrimary}
-    //     isDisabled={!selectedPackage || !selectedOrder || submitting}
-    //     isLoading={submitting}
-    //     onClick={() => {
-    //       if(Number(accountInforL2Service?.balanceFormatted) < Number(appPackage?.price_bvm)) {
-    //         setShowTopupModal(true);
-    //       } else {
-    //         requestBuyApp();
-    //       }
-    //     }
-    //   }
-    //   >Install</Button>
-    // )
   };
 
   return (
