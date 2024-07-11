@@ -149,7 +149,7 @@ const BuyPage = () => {
                           isRequired={item.required}
                           active={field[item.key].dragged}
                         >
-                          {field[item.key].dragged &&
+                          {!field[item.key].dragged &&
                           item.type === 'dropdown' ? (
                             <Draggable
                               useMask
