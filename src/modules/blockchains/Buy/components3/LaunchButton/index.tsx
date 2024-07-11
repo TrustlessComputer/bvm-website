@@ -20,27 +20,30 @@ import sleep from '@/utils/sleep';
 import { Spinner } from '@chakra-ui/react';
 import { useOrderFormStore } from '../../stores/index_v2';
 
-type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
-
-const LaunchButton = () => {
+const LaunchButton = ({
+  fieldMapping,
+  data,
+}: {
+  fieldMapping: any;
+  data:
+    | (IModelCategory & {
+        options: {
+          value: any;
+          label: string;
+          disabled: boolean;
+        }[];
+      })[]
+    | null;
+}) => {
   const { loggedIn, login } = useWeb3Auth();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
   const [isSubmiting, setSubmitting] = useState(false);
   const { hasError } = computerNameField;
-  // const { field, setForm } = useFormOrderStore((state) => state);
-  const {
-    chainName,
-    dataAvaibilityChain,
-    gasLimit,
-    network,
-    withdrawPeriod,
-    isDataAvailabilityChainDragged,
-    isNetworkDragged,
-    isGasLimitDragged,
-    isWithdrawPeriodDragged,
-  } = useOrderFormStore();
+
+  const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
+    useOrderFormStore();
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('package') || PRICING_PACKGE.Hacker;
 
@@ -53,24 +56,17 @@ const LaunchButton = () => {
   }, [availableListFetching, availableList]);
 
   const allFilled = useMemo(() => {
-    return !!(
-      isDataAvailabilityChainDragged &&
-      isNetworkDragged &&
-      isGasLimitDragged &&
-      isWithdrawPeriodDragged &&
-      chainName.trim()
+    return (
+      !!chainName.trim() &&
+      data?.every((item) => {
+        return fieldMapping[item.key].isDragged || item.disable;
+      })
     );
-  }, [
-    isDataAvailabilityChainDragged,
-    isNetworkDragged,
-    isGasLimitDragged,
-    isWithdrawPeriodDragged,
-    chainName,
-  ]);
+  }, [chainName, fieldMapping]);
 
   const tierData = useMemo(() => {
     const packageData = availableList?.package['2'];
-    const result = packageData?.filter((item, index) => {
+    const result = packageData?.filter((item) => {
       return item.value === Number(packageParam);
     });
 

@@ -48,8 +48,6 @@ function DropdownV2({
       }
     }
 
-    console.log('value', value);
-
     cb(value);
     setIsOpen(false);
   };
@@ -64,7 +62,7 @@ function DropdownV2({
   const icon = options?.find((item) => item.value === defaultValue)?.icon;
 
   return (
-    <div className={s.dropdown} >
+    <div className={s.dropdown}>
       <div className={s.dropdown_inner} onClick={() => setIsOpen(true)}>
         <div className={s.dropdown_inner_content}>
           {icon && <Image src={icon} alt="icon" width={24} height={24} />}
@@ -83,9 +81,7 @@ function DropdownV2({
         />
       </div>
       <div
-        className={`${s.dropdown_list} ${
-          isOpen && s.dropdown_list__active
-        }`}
+        className={`${s.dropdown_list} ${isOpen && s.dropdown_list__active}`}
       >
         <div className={s.dropdown_wrap} ref={ref}>
           <ul className={`${s.dropdown_list_inner} `}>

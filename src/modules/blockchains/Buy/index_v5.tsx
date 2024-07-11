@@ -16,18 +16,12 @@ import { MouseSensor } from './utils';
 import BoxOptionV3 from './components3/BoxOptionV3';
 import SideBar from './components3/SideBar';
 import LegoV3 from './components3/LegoV3';
-import BlockGasLimitLego from './components3/Legos/BlockGasLimitLego';
-import WithdrawalTimeLego from './components3/Legos/WithdrawalTimeLego';
-import RightNetworkLegoV2 from './components3/Legos/RightNetworkLegoV2';
-import RightDataAvailabilityLego from './components3/Legos/RightDataAvailabilityLego';
-
-import s from './styles_v5.module.scss';
-import LeftNetworkLego from './components3/Legos/LeftNetworkLego';
-import LeftDataAvailabilityLego from './components3/Legos/LeftDataAvailabilityLego';
 import { NetworkEnum } from './Buy.constanst';
 import useDragMask from './stores/useDragMask';
 import { getModelCategories } from '@/services/customize-model';
 import DropdownV2 from './components3/DropdownV2';
+
+import s from './styles_v5.module.scss';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
@@ -35,7 +29,7 @@ const BuyPage = () => {
   const [data, setData] = React.useState<
     | (IModelCategory & {
         options: {
-          value: NetworkEnum;
+          value: any;
           label: string;
           disabled: boolean;
         }[];
@@ -44,11 +38,6 @@ const BuyPage = () => {
   >(null);
   const orderFormStore = useOrderFormStore();
   const { idDragging, setIdDragging } = useDragMask();
-
-  console.log(
-    '🚀 -> file: index_v5.tsx:48 -> BuyPage -> idDragging ::',
-    idDragging,
-  );
 
   const fieldMapping: Record<
     string,
@@ -185,12 +174,6 @@ const BuyPage = () => {
     const [overKey = ''] = (over?.id || '').split('-');
     const overIsFinalDroppable = overKey === 'final';
 
-    console.log(
-      '🚀 -> file: index_v5.tsx:155 -> handleDragEnd -> activeKey ::',
-      activeKey,
-      fieldMapping,
-    );
-
     // Normal case
     if (over && overIsFinalDroppable) {
       fieldMapping[activeKey as Override].setValue(active.data.current.value);
@@ -247,8 +230,6 @@ const BuyPage = () => {
 
     getModelCategories().then((res) => {
       if (!res) return;
-
-      const form: Record<string, any> = {};
 
       // set default value
       res.map((item) => {
@@ -445,41 +426,7 @@ const BuyPage = () => {
                   })}
                 </DroppableV2>
 
-                {/* <DragOverlay>
-                  {idDragging &&
-                    data?.map((item, index) => {
-                      if (!idDragging.startsWith(item.key)) return null;
-
-                      return (
-                        <Draggable
-                          useMask
-                          key={item.key + '-dragged'}
-                          id={item.key + '-dragged'}
-                          value={fieldMapping[item.key].value}
-                          isDragging={item.key + '-dragged' === idDragging}
-                        >
-                          <LegoV3
-                            background={item.color}
-                            title={item.title}
-                            zIndex={data.length - index}
-                          >
-                            <DropdownV2
-                              cb={(value) => {
-                                fieldMapping[item.key].setValue(value);
-                              }}
-                              defaultValue={fieldMapping[item.key].value}
-                              // @ts-ignore
-                              options={item.options}
-                              title={item.title}
-                              value={fieldMapping[item.key].value}
-                            />
-                          </LegoV3>{' '}
-                        </Draggable>
-                      );
-                    })}
-                </DragOverlay> */}
-
-                <LaunchButton />
+                <LaunchButton fieldMapping={fieldMapping} data={data} />
               </div>
             </div>
           </div>
