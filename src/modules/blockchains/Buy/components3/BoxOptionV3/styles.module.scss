@@ -1,6 +1,7 @@
 .boxItem {
   --background-color: #fff;
   --stroke-color: #d9d9d9;
+  scroll-behavior: smooth;
 
   width: 100%;
   background-color: var(--background-color);
