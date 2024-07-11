@@ -268,7 +268,6 @@ const BuyPage = () => {
                                 id={item.key}
                                 value={field[item.key].value}
                                 key={item.key}
-                                tooltip={item.tooltip}
                               >
                                 <LegoV3
                                   background={item.color}
