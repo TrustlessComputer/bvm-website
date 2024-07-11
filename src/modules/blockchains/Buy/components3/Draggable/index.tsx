@@ -10,18 +10,20 @@ export type DraggableProps = React.PropsWithChildren & {
   disabled?: boolean;
   index?: number;
   isDragging?: boolean;
+  isLabel?: boolean;
   tooltip?: string;
 };
 
 const Draggable = ({
-  id,
-  useMask = false,
-  children,
-  value,
-  disabled = false,
-  isDragging = false,
-  tooltip,
-}: DraggableProps) => {
+                     id,
+                     useMask = false,
+                     children,
+                     value,
+                     disabled = false,
+                     isDragging = false,
+                     tooltip,
+                     isLabel
+                   }: DraggableProps) => {
   const refTooltip = useRef<HTMLAnchorElement>(null);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
@@ -53,7 +55,7 @@ const Draggable = ({
 
   const onLeave = () => {
     if (refTooltip.current) {
-      refTooltip.current.classList.remove(s.isHover);
+      refTooltip.current.classList.remove(s.isBottom);
       refTooltip.current.classList.remove(s.isRight);
       refTooltip.current.classList.remove(s.isHover);
     }
@@ -63,7 +65,7 @@ const Draggable = ({
     <div
       ref={setNodeRef}
       style={style}
-      className={s.options}
+      className={`${s.options} ${isLabel && s.isLabel}`}
       {...listeners}
       {...attributes}
       onMouseEnter={onHover}

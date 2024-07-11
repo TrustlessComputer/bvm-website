@@ -23,12 +23,12 @@ import s from './styles_v5.module.scss';
 const BuyPage = () => {
   const [data, setData] = React.useState<
     | (IModelCategory & {
-        options: {
-          value: any;
-          label: string;
-          disabled: boolean;
-        }[];
-      })[]
+    options: {
+      value: any;
+      label: string;
+      disabled: boolean;
+    }[];
+  })[]
     | null
   >(null);
   const { field, setField } = useOrderFormStoreV3();
@@ -151,6 +151,8 @@ const BuyPage = () => {
                               useMask
                               id={item.key}
                               value={field[item.key].value}
+                              tooltip={item.tooltip}
+                              isLabel={true}
                             >
                               <LegoV3
                                 background={item.color}
@@ -167,7 +169,7 @@ const BuyPage = () => {
                                   title={item.title}
                                   value={field[item.key].value}
                                 />
-                              </LegoV3>{' '}
+                              </LegoV3>
                             </Draggable>
                           ) : (
                             item.options.map((option, opIdx) => {
@@ -176,7 +178,9 @@ const BuyPage = () => {
                                   key={item.key + '-' + option.key}
                                   id={item.key + '-' + option.key}
                                   useMask
+                                  isLabel={true}
                                   value={option.key}
+                                  tooltip={item.tooltip}
                                 >
                                   <LegoV3
                                     background={item.color}
@@ -205,7 +209,6 @@ const BuyPage = () => {
                                 value={field[item.key].value}
                                 key={item.key}
                                 isDragging={item.key === idDragging}
-                                tooltip={item.tooltip}
                               >
                                 <LegoV3
                                   background={item.color}
@@ -236,13 +239,13 @@ const BuyPage = () => {
                                 key={item.key + '-' + option.key}
                                 id={item.key + '-' + option.key}
                                 useMask
-                                tooltip={item.tooltip}
                                 value={option.key}
                                 isDragging={
                                   item.key + '-' + option.key === idDragging
                                 }
                               >
                                 <LegoV3
+                                  icon={option.icon}
                                   background={item.color}
                                   label={option.title}
                                   zIndex={item.options.length - opIdx}

@@ -2,11 +2,14 @@
   display: flex;
   gap: 18px;
   position: relative;
-}
 
-.options {
   &:hover {
     z-index: 9999 !important;
+  }
+
+  &.isLabel{
+    user-select: none !important;
+    -webkit-user-drag: none !important;
   }
 }
 
@@ -19,29 +22,41 @@
   position: absolute;
   min-width: 250px;
   padding: 10px;
-  bottom: calc(100% + 5px);
+  bottom: calc(100% - 5px);
   border-radius: 12px;
   opacity: 0;
 
   &.isRight {
     right: 0px;
     left: auto;
+
+    &:after {
+      left: unset;
+      right: 20px;
+    }
   }
 
   &.isBottom {
     bottom: auto;
-    top: calc(100% + 5px);
+    top: calc(100% - 5px);
+
+    &:after {
+      top: unset;
+      bottom: 100%;
+      border-bottom-color: #fff;
+      border-top-color: transparent;
+    }
   }
 
   &.isHover {
     opacity: 1;
   }
+
   &:after {
     content: "";
     position: absolute;
     top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 20px;
     width: 0;
     height: 0;
     border: 6px solid transparent;
