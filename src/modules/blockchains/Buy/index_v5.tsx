@@ -252,6 +252,7 @@ const BuyPage = () => {
                           });
                         })}
                     </DragOverlay>
+                    <div className={s.hTrigger}></div>
                   </div>
                 </div>
               </div>

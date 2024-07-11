@@ -40,7 +40,7 @@ const BoxOptionV3 = ({
         id={id}
         className={`${s.boxItem} ${active && s.activeBox} ${first && s.first} ${disable && s.disable}`}
       >
-        <div className={s.boxItem_heading} id={id}>
+        <div className={s.boxItem_heading}>
           <div className={s.boxItem_heading_icon}>
             <svg
               width="24"

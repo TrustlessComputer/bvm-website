@@ -24,6 +24,7 @@
 
 .left {
   width: 50%;
+
   .heading {
     padding: 7px 24px;
   }
@@ -46,6 +47,7 @@
     //justify-content: space-between;
     width: 100%;
     gap: 16px;
+
     &_box {
       border-radius: 24px;
       box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
@@ -56,16 +58,19 @@
       max-width: 580px;
       justify-content: space-between;
       align-items: center;
+
       p {
         font-family: var(--font-JetBrainsMono);
 
         font-size: 20px;
         font-weight: 500;
         line-height: 30 / 20;
+
         span {
           color: rgba(0, 170, 108, 1);
         }
       }
+
       &_btn {
         color: rgba(65, 133, 236, 1);
         font-size: 18px;
@@ -74,6 +79,7 @@
         font-family: var(--font-JetBrainsMono);
 
         line-height: calc(28 / 18);
+
         &:hover {
           color: rgb(26, 109, 232);
         }
@@ -138,6 +144,7 @@
   border-radius: 17px;
   font-family: var(--font-JetBrainsMono);
   font-size: 18px;
+
   &::placeholder {
     color: #0e0e0e;
   }
@@ -164,4 +171,10 @@
 .disabled {
   opacity: 0.7;
   cursor: not-allowed !important;
+}
+
+.hTrigger {
+  height: 70vh;
+  display: block;
+  width: 100%;
 }
