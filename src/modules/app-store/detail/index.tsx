@@ -109,7 +109,7 @@ const AppDetailModule = () => {
               <Text className={s.description}>{data?.description}</Text>
             </Flex>
           </Flex>
-          <AppPhotoView photoUrl={photoUrl} />
+          <AppPhotoView photoUrl={data?.list_image_url || []} />
           <Divider orientation={'horizontal'} bgColor={'#ECECEC'} />
           <Flex gap={'40px'} direction={'column'}>
             {data?.details.map((m) => {

@@ -4,7 +4,6 @@ import TeamModule from '@/modules/team';
 const TeamPage = () => {
   return (
     <MainLayout
-      hideFooter={true}
       headerProps={{
         bgColor: 'transparent',
         color: 'black',

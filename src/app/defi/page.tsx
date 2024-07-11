@@ -37,7 +37,6 @@ const DeFiPage = () => {
       headerProps={{
         color: 'black',
       }}
-      hideFooter
     >
       <>
         <Loader />
