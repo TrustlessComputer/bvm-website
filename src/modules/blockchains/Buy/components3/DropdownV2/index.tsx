@@ -8,7 +8,7 @@ import { useOrderFormStore } from '../../stores/index_v2';
 import { OrderFormOptions } from '../../Buy.data';
 
 type TDropdown = {
-  field: keyof FormOrder;
+  field: any;
   options?: {
     id: number;
     label: string;

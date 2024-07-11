@@ -15,11 +15,9 @@ import styles from '@/modules/blockchains/Buy/components3/LegoV3/styles.module.s
 const LeftDataAvailabilityLego = () => {
   const { network, dataAvaibilityChain, isDataAvailabilityChainDragged } =
     useOrderFormStore();
-  const tooltipRef = useRef<TooltipRefProps>(null)
+  const tooltipRef = useRef<TooltipRefProps>(null);
 
-  return (
-    OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].options || []
-  ).map((option) => {
+  return (OrderFormOptions.dataAvaibilityChain.options || []).map((option) => {
     const isDisabled = !option.avalaibleNetworks?.includes(network);
 
     if (dataAvaibilityChain === option.value && isDataAvailabilityChainDragged)
@@ -34,14 +32,16 @@ const LeftDataAvailabilityLego = () => {
         >
           <Draggable
             key={option.value}
-            id={ORDER_FIELD.DATA_AVAILABILITY_CHAIN + '-' + option.value.toString()}
+            id={
+              ORDER_FIELD.DATA_AVAILABILITY_CHAIN +
+              '-' +
+              option.value.toString()
+            }
             value={option.value}
             disabled={isDisabled}
           >
             <LegoV3
-              background={
-                OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].background
-              }
+              background={OrderFormOptions.dataAvaibilityChain.background}
               zIndex={24}
               active={network === option.value}
               label={option.label}
@@ -51,17 +51,20 @@ const LeftDataAvailabilityLego = () => {
           </Draggable>
         </a>
 
-        <Tooltip ref={tooltipRef} id="my-tooltip" place="bottom" className={styles.tooltip}
-                 style={{
-                   zIndex: 9999,
-                   backgroundColor: '#fff',
-                   color: '#333333',
-                   boxShadow: '0px 0px 4px 2px rgba(0, 0, 0, 0.05)',
-                 }}
-                 classNameArrow={styles.tooltipArrow}
+        <Tooltip
+          ref={tooltipRef}
+          id="my-tooltip"
+          place="bottom"
+          className={styles.tooltip}
+          style={{
+            zIndex: 9999,
+            backgroundColor: '#fff',
+            color: '#333333',
+            boxShadow: '0px 0px 4px 2px rgba(0, 0, 0, 0.05)',
+          }}
+          classNameArrow={styles.tooltipArrow}
         />
       </React.Fragment>
-
     );
   });
 };

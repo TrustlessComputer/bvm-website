@@ -50,78 +50,94 @@ const BuyPage = () => {
 
   const fieldMapping: Record<
     string,
-    { setValue: (value: any) => void; setDragged: (value: boolean) => void }
+    {
+      setValue: (value: any) => void;
+      setDragged: (value: boolean) => void;
+      isDragged: boolean;
+      value: any;
+    }
   > = React.useMemo(
     () => ({
       [ORDER_FIELD.NETWORK]: {
         value: orderFormStore.network,
         setValue: orderFormStore.setNetwork,
-        isNetworkDragged: orderFormStore.isNetworkDragged,
+        isDragged: orderFormStore.isNetworkDragged,
         setDragged: orderFormStore.setNetworkDragged,
       },
       [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
         value: orderFormStore.dataAvaibilityChain,
         setValue: orderFormStore.setDataAvaibilityChain,
-        isDataAvailabilityChainDragged:
-          orderFormStore.isDataAvailabilityChainDragged,
+        isDragged: orderFormStore.isDataAvailabilityChainDragged,
         setDragged: orderFormStore.setDataAvailabilityChainDragged,
       },
       [ORDER_FIELD.GAS_LIMIT]: {
         value: orderFormStore.gasLimit,
         setValue: orderFormStore.setGasLimit,
-        isGasLimitDragged: orderFormStore.isGasLimitDragged,
+        isDragged: orderFormStore.isGasLimitDragged,
         setDragged: orderFormStore.setGasLimitDragged,
       },
       [ORDER_FIELD.WITHDRAW_PERIOD]: {
         value: orderFormStore.withdrawPeriod,
         setValue: orderFormStore.setWithdrawPeriod,
-        isWithdrawPeriodDragged: orderFormStore.isWithdrawPeriodDragged,
+        isDragged: orderFormStore.isWithdrawPeriodDragged,
         setDragged: orderFormStore.setWithdrawPeriodDragged,
       },
       [ORDER_FIELD.HARDWARE]: {
         value: orderFormStore.hardware,
         setValue: orderFormStore.setHardware,
-        isHardwareDragged: orderFormStore.isHardwareDragged,
+        isDragged: orderFormStore.isHardwareDragged,
         setDragged: orderFormStore.setHardwareDragged,
       },
       [ORDER_FIELD.SETTLEMENT]: {
         value: orderFormStore.settlement,
         setValue: orderFormStore.setSettlement,
-        isSettlementDragged: orderFormStore.isSettlementDragged,
+        isDragged: orderFormStore.isSettlementDragged,
         setDragged: orderFormStore.setSettlementDragged,
       },
       [ORDER_FIELD.COMPUTE]: {
         value: orderFormStore.compute,
         setValue: orderFormStore.setCompute,
-        isComputeDragged: orderFormStore.isComputeDragged,
+        isDragged: orderFormStore.isComputeDragged,
         setDragged: orderFormStore.setComputeDragged,
       },
       [ORDER_FIELD.STORAGE]: {
         value: orderFormStore.storage,
         setValue: orderFormStore.setStorage,
-        isStorageDragged: orderFormStore.isStorageDragged,
+        isDragged: orderFormStore.isStorageDragged,
         setDragged: orderFormStore.setStorageDragged,
       },
       [ORDER_FIELD.ZK_PROVER]: {
         value: orderFormStore.zkProver,
         setValue: orderFormStore.setZkProver,
-        isZkProverDragged: orderFormStore.isZkProverDragged,
+        isDragged: orderFormStore.isZkProverDragged,
         setDragged: orderFormStore.setZkProverDragged,
       },
       [ORDER_FIELD.DEGEN_APPS]: {
         value: orderFormStore.degenApps,
         setValue: orderFormStore.setDegenApps,
-        isDegenAppsDragged: orderFormStore.isDegenAppsDragged,
+        isDragged: orderFormStore.isDegenAppsDragged,
         setDragged: orderFormStore.setDegenAppsDragged,
       },
       [ORDER_FIELD.GAMING_APPS]: {
         value: orderFormStore.gamingApps,
         setValue: orderFormStore.setGamingApps,
-        isGamingAppsDragged: orderFormStore.isGamingAppsDragged,
+        isDragged: orderFormStore.isGamingAppsDragged,
         setDragged: orderFormStore.setGamingAppsDragged,
       },
+      [ORDER_FIELD.WALLET]: {
+        value: orderFormStore.wallet,
+        setValue: orderFormStore.setWallet,
+        isDragged: orderFormStore.isWalletDragged,
+        setDragged: orderFormStore.setWalletDragged,
+      },
+      [ORDER_FIELD.BRIDGE_APPS]: {
+        value: orderFormStore.bridgeApps,
+        setValue: orderFormStore.setBridgeApps,
+        isDragged: orderFormStore.isBridgeAppsDragged,
+        setDragged: orderFormStore.setBridgeAppsDragged,
+      },
     }),
-    [],
+    [orderFormStore],
   );
 
   const maskMapping = {};
@@ -139,10 +155,15 @@ const BuyPage = () => {
     const { over, active } = event;
 
     // Format ID of single field = <key>-<value>
-
     const [activeKey = ''] = active.id.split('-');
+
     const [overKey = ''] = (over?.id || '').split('-');
     const overIsFinalDroppable = overKey === 'final';
+    console.log(
+      '🚀 -> file: index_v5.tsx:160 -> handleDragEnd -> activeKey ::',
+      activeKey,
+      overKey,
+    );
 
     // Normal case
     if (over && overIsFinalDroppable) {
@@ -177,6 +198,7 @@ const BuyPage = () => {
     const values = optionsDataAvailable?.filter((item) => {
       return item.avalaibleNetworks?.includes(networkSelected);
     });
+
     return values;
   };
 
@@ -196,19 +218,10 @@ const BuyPage = () => {
         };
       });
 
-      console.log(
-        '🚀 -> file: index_v5.tsx:169 -> newData -> newData ::',
-        newData,
-      );
-
       return newData;
     };
 
     getModelCategories().then((res) => {
-      console.log(
-        '🚀 -> file: index_v5.tsx:138 -> getModelCategories -> res ::',
-        res,
-      );
       if (!res) return;
 
       const form: Record<string, any> = {};
@@ -281,9 +294,7 @@ const BuyPage = () => {
                         return item.options ? (
                           <Draggable useMask id={item.key}>
                             <LegoV3
-                              background={
-                                OrderFormOptions[ORDER_FIELD.NETWORK].background
-                              }
+                              background={item.color}
                               title={item.title}
                               zIndex={data.length - index}
                             >
@@ -325,14 +336,16 @@ const BuyPage = () => {
                   </LegoV3>
 
                   {data?.map((item, index) => {
-                    //  if (fieldMapping[item.key].isDragged)
+                    if (!fieldMapping[item.key].isDragged) return null;
 
                     return (
                       <Draggable
                         id={item.key + '-dropped'}
                         value={form[item.key]}
+                        useMask
                       >
                         <LegoV3
+                          label={item.title}
                           background={item.color}
                           title={item.title}
                           zIndex={data.length - index}
@@ -348,7 +361,6 @@ const BuyPage = () => {
                                 [item.key]: value,
                               });
                             }}
-                            // onChange={handleValueChange}
                           />
                         </LegoV3>
                       </Draggable>
