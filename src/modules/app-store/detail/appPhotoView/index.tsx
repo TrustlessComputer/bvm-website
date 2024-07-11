@@ -3,15 +3,15 @@ import s from './styles.module.scss';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 
-import LightGallery from 'lightgallery/react';
+// import LightGallery from 'lightgallery/react';
 // If you want you can use SCSS instead of css
-import 'lightgallery/scss/lightgallery.scss';
+// import 'lightgallery/scss/lightgallery.scss';
 // import 'lightgallery/scss/lg-zoom.scss';
-import 'lightgallery/scss/lg-video.scss';
+// import 'lightgallery/scss/lg-video.scss';
 
 // import lgThumbnail from 'lightgallery/plugins/thumbnail';
 // import lgZoom from 'lightgallery/plugins/zoom';
-import lgVideo from 'lightgallery/plugins/video';
+// import lgVideo from 'lightgallery/plugins/video';
 import { IImageInfo } from '@/services/api/DAServices/types';
 
 
@@ -34,7 +34,7 @@ const AppPhotoView = ({photoUrl}: {photoUrl: IImageInfo[]}) => {
         </Flex>
       </PhotoProvider>
 
-      <LightGallery
+      {/*<LightGallery
         plugins={[lgVideo]}
         elementClassNames={s.content}
         // onInit={onInit}
@@ -54,7 +54,7 @@ const AppPhotoView = ({photoUrl}: {photoUrl: IImageInfo[]}) => {
             )
           })
         }
-      </LightGallery>
+      </LightGallery>*/}
     </Flex>
   )
 };

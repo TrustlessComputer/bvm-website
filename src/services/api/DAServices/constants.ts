@@ -42,7 +42,8 @@ export const DA_DUMMY_LIST: IDApp[] = [
     ],
     inputs: [],
     user_package: [],
-    status: "0"
+    status: "0",
+    list_image_url: []
   },
   {
     id: 2,
@@ -146,7 +147,8 @@ export const DA_DUMMY_LIST: IDApp[] = [
     ],
     inputs: [],
     user_package: [],
-    status: "0"
+    status: "0",
+    list_image_url: []
   },
   {
     id: 3,
@@ -250,7 +252,8 @@ export const DA_DUMMY_LIST: IDApp[] = [
     ],
     inputs: [],
     user_package: [],
-    status: "0"
+    status: "0",
+    list_image_url: []
   },
   {
     id: 4,
@@ -354,7 +357,8 @@ export const DA_DUMMY_LIST: IDApp[] = [
     ],
     inputs: [],
     user_package: [],
-    status: "0"
+    status: "0",
+    list_image_url: []
   },
   {
     id: 5,
@@ -458,7 +462,8 @@ export const DA_DUMMY_LIST: IDApp[] = [
     ],
     inputs: [],
     user_package: [],
-    status: "0"
+    status: "0",
+    list_image_url: []
   },
   // {
   //   id: 3,
