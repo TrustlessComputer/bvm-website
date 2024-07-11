@@ -42,8 +42,6 @@ const BuyPage = () => {
       })[]
     | null
   >(null);
-  const [form, setForm] = React.useState<Record<string, any>>({});
-
   const orderFormStore = useOrderFormStore();
 
   const { idDragging, setIdDragging } = useDragMask();
@@ -144,9 +142,8 @@ const BuyPage = () => {
 
   const handleDragStart = (event: any) => {
     const { active } = event;
-    const [activeKey = ''] = active.id.split('-');
 
-    setIdDragging(activeKey);
+    setIdDragging(active.id);
   };
 
   function handleDragEnd(event: any) {
@@ -156,17 +153,17 @@ const BuyPage = () => {
 
     // Format ID of single field = <key>-<value>
     const [activeKey = ''] = active.id.split('-');
-
     const [overKey = ''] = (over?.id || '').split('-');
     const overIsFinalDroppable = overKey === 'final';
 
     // Normal case
     if (over && overIsFinalDroppable) {
+      console.log(activeKey, active.data.current.value);
       fieldMapping[activeKey as Override].setValue(active.data.current.value);
       fieldMapping[activeKey as Override].setDragged(true);
 
       if (activeKey === ORDER_FIELD.NETWORK) {
-        const data = handleFindData(form.network);
+        const data = handleFindData(orderFormStore.network);
 
         if (data && data.length > 0) {
           fieldMapping[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].setValue(
@@ -221,12 +218,11 @@ const BuyPage = () => {
 
       // set default value
       res.map((item) => {
-        form[item.key] = item.options[0].key;
+        fieldMapping[item.key].setValue(item.options[0].key);
       });
 
       // @ts-ignore
       setData(convertData(res));
-      setForm(form);
     });
   }, []);
   // dropdowns - slide - module
@@ -256,79 +252,103 @@ const BuyPage = () => {
                           label={item.title}
                           id={item.key}
                         >
-                          {
-                            item.type === 'dropdown' ? <Draggable useMask
-                                                                  id={item.key}
-                                                                  value={form[item.key]}>
-                              <LegoV3
-                              background={item.color}
-                              title={item.title}
-                              zIndex={data.length - index}
+                          {item.type === 'dropdown' ? (
+                            <Draggable
+                              useMask
+                              id={item.key}
+                              value={fieldMapping[item.key].value}
                             >
-                              <DropdownV2
-                                cb={(value) => {
-                                  console.log('🚀 -> value', item.key, value);
-                                  setForm({
-                                    ...form,
-                                    [item.key]: value,
-                                  });
-                                }}
-                                defaultValue={form[item.key]}
-                                // @ts-ignore
-                                options={item.options}
+                              <LegoV3
+                                background={item.color}
                                 title={item.title}
-                                value={form.value}
-                              />
-                            </LegoV3> </Draggable> : (
-                              item.options.map((option, opIdx) => {
-                                return <Draggable id={option.key} useMask value={option.key}><LegoV3
-                                  background={item.color}
-                                  label={option.title}
-                                  zIndex={item.options.length - opIdx}
-                                /></Draggable>;
-                              })
-                            )
-                          }
+                                zIndex={data.length - index}
+                              >
+                                <DropdownV2
+                                  cb={(value) => {
+                                    fieldMapping[item.key].setValue(value);
+                                  }}
+                                  defaultValue={fieldMapping[item.key].value}
+                                  // @ts-ignore
+                                  options={item.options}
+                                  title={item.title}
+                                  value={fieldMapping.value}
+                                />
+                              </LegoV3>{' '}
+                            </Draggable>
+                          ) : (
+                            item.options.map((option, opIdx) => {
+                              return (
+                                <Draggable
+                                  id={item.key + '-' + option.key}
+                                  useMask
+                                  value={option.key}
+                                >
+                                  <LegoV3
+                                    background={item.color}
+                                    label={option.title}
+                                    zIndex={item.options.length - opIdx}
+                                  />
+                                </Draggable>
+                              );
+                            })
+                          )}
                         </BoxOptionV3>
                       );
                     })}
 
                     <DragOverlay>
-                      {data?.map((item, index) => {
-                        if (item.key !== idDragging) return null;
+                      {idDragging &&
+                        data?.map((item, index) => {
+                          console.log('🚀 -> idDragging', idDragging);
 
-                        return item.options ? (
-                          <Draggable
-                            useMask
-                            id={item.key}
-                            value={form[item.key]}
-                          >
-                            <LegoV3
-                              background={item.color}
-                              title={item.title}
-                              zIndex={data.length - index}
-                            >
-                              <DropdownV2
-                                defaultValue={form[item.key]}
-                                // @ts-ignore
-                                options={item.options}
-                                value={form.value}
-                                cb={(value) => {
-                                  setForm({
-                                    ...form,
-                                    [item.key]: value,
-                                  });
-                                }}
-                              />
-                            </LegoV3>
-                          </Draggable>
-                        ) : null;
-                      })}
-                      {/* {idDragging && (
-                        <div>
-                          <WithdrawalTimeLego />
-                        </div>
-                      )} */}
+                          if (!idDragging.startsWith(item.key)) return null;
+
+                          if (item.type === 'dropdown') {
+                            return (
+                              <Draggable
+                                useMask
+                                id={item.key}
+                                value={fieldMapping[item.key].value}
+                              >
+                                <LegoV3
+                                  background={item.color}
+                                  title={item.title}
+                                  zIndex={data.length - index}
+                                >
+                                  <DropdownV2
+                                    cb={(value) => {
+                                      fieldMapping[item.key].setValue(value);
+                                    }}
+                                    defaultValue={fieldMapping[item.key].value}
+                                    // @ts-ignore
+                                    options={item.options}
+                                    title={item.title}
+                                    value={fieldMapping[item.key].value}
+                                  />
+                                </LegoV3>{' '}
+                              </Draggable>
+                            );
+                          }
+
+                          return item.options.map((option, opIdx) => {
+                            if (idDragging !== item.key + '-' + option.key)
+                              return null;
+
+                            return (
+                              <Draggable
+                                id={item.key + '-' + option.key}
+                                useMask
+                                value={option.key}
+                              >
+                                <LegoV3
+                                  background={item.color}
+                                  label={option.title}
+                                  zIndex={item.options.length - opIdx}
+                                />
+                              </Draggable>
+                            );
+                          });
+                        })}
                     </DragOverlay>
                   </div>
                 </div>
@@ -356,7 +376,7 @@ const BuyPage = () => {
                     return (
                       <Draggable
                         id={item.key + '-dropped'}
-                        value={form[item.key]}
+                        value={fieldMapping[item.key].value}
                         useMask
                       >
                         <LegoV3
@@ -366,15 +386,12 @@ const BuyPage = () => {
                           zIndex={data.length - index}
                         >
                           <DropdownV2
-                            defaultValue={form[item.key]}
+                            defaultValue={fieldMapping[item.key].value}
                             // @ts-ignore
                             options={item.options}
-                            value={form.value}
+                            value={fieldMapping[item.key].value}
                             cb={(value) => {
-                              setForm({
-                                ...form,
-                                [item.key]: value,
-                              });
+                              fieldMapping[item.key].setValue(value);
                             }}
                           />
                         </LegoV3>
