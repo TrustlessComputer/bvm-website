@@ -3,11 +3,11 @@ import React from 'react';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import {
   ORDER_FIELD,
-  useFormOrderStore,
-} from '@/modules/blockchains/Buy/stores';
+  useOrderFormStore,
+} from '@/modules/blockchains/Buy/stores/index_v2';
 
 import { OrderFormOptions } from '../../Buy.data';
-import Slider from '../Slider';
+import Slider from '../Slider/index_v2';
 import LegoV2 from '../LegoV2';
 import CannotModifiedNoti from './CannotModifiedNoti';
 import LegoV3 from '../LegoV3';
@@ -22,33 +22,37 @@ type PricingPackageValues = {
   maxWithdrawalPeriod: number;
 };
 
-const WithdrawalTimeLego = ({ isLeft }: { isLeft: boolean }) => {
-  const { field, setFormField } = useFormOrderStore();
+const WithdrawalTimeLego = ({ isLeft = false }: { isLeft?: boolean }) => {
+  const { withdrawPeriod, setWithdrawPeriod, isWithdrawPeriodDragged } =
+    useOrderFormStore();
   const { pricingPackageValues } = useBuy();
 
   const { defaultWithdrawalPeriod, minWithdrawalPeriod, maxWithdrawalPeriod } =
     pricingPackageValues as PricingPackageValues;
 
+  const onSliderChange = (value: number) => {
+    setWithdrawPeriod(value);
+  };
+
   React.useEffect(() => {
-    setFormField(
-      ORDER_FIELD.WITHDRAW_PERIOD,
-      defaultWithdrawalPeriod || maxWithdrawalPeriod,
-    );
+    if (withdrawPeriod !== defaultWithdrawalPeriod) return;
+
+    setWithdrawPeriod(defaultWithdrawalPeriod || maxWithdrawalPeriod);
   }, [pricingPackageValues]);
 
   return (
     <LegoV3
-      background={'pink'}
+      background={OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].background}
       label={
         isLeft ? '' : OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].subTitle
       }
-      zIndex={6}
-      active={field[ORDER_FIELD.WITHDRAW_PERIOD].dragged}
+      zIndex={2}
+      active={isWithdrawPeriodDragged}
     >
       <Slider
-        cb={setFormField}
+        cb={onSliderChange}
         field={ORDER_FIELD.WITHDRAW_PERIOD}
-        defaultValue={field[ORDER_FIELD.WITHDRAW_PERIOD].value}
+        defaultValue={withdrawPeriod}
         max={maxWithdrawalPeriod}
         suffix="hours"
         initValue={defaultWithdrawalPeriod}

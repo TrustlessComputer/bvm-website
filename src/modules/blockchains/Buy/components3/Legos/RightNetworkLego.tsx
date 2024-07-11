@@ -14,11 +14,10 @@ const RightNetworkLego = () => {
     <LegoV3
       background={'brown'}
       label={OrderFormOptions[ORDER_FIELD.NETWORK].subTitle}
-      zIndex={9}
+      zIndex={11}
       active={field[ORDER_FIELD.NETWORK].dragged}
     >
       <Dropdown
-        cb={setFormField}
         defaultValue={field[ORDER_FIELD.NETWORK].value}
         field={ORDER_FIELD.NETWORK}
         networkSelected={field[ORDER_FIELD.NETWORK].value}

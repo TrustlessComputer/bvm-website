@@ -2,13 +2,13 @@ import React from 'react';
 
 import {
   ORDER_FIELD,
-  useFormOrderStore,
-} from '@/modules/blockchains/Buy/stores';
+  useOrderFormStore,
+} from '@/modules/blockchains/Buy/stores/index_v2';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 
 import { OrderFormOptions } from '../../Buy.data';
 import LegoV3 from '../LegoV3';
-import Slider from '../Slider';
+import Slider from '../Slider/index_v2';
 import CannotModifiedNoti from './CannotModifiedNoti';
 
 type PricingPackageValues = {
@@ -21,27 +21,33 @@ type PricingPackageValues = {
   maxWithdrawalPeriod: number;
 };
 
-const BlockGasLimitLego = ({ isLeft }: { isLeft: boolean }) => {
-  const { field, setFormField } = useFormOrderStore();
+const BlockGasLimitLego = ({ isLeft = false }: { isLeft?: boolean }) => {
+  const { gasLimit, setGasLimit, isGasLimitDragged } = useOrderFormStore();
   const { pricingPackageValues } = useBuy();
   const { maxGasLimit, minGasLimit, defaultGasLimit, stepGasLimit } =
     pricingPackageValues as PricingPackageValues;
 
+  const onSliderChange = (value: number) => {
+    setGasLimit(value.toString());
+  };
+
   React.useEffect(() => {
-    setFormField(ORDER_FIELD.GAS_LIMIT, defaultGasLimit || maxGasLimit);
+    if (gasLimit !== (defaultGasLimit || '0')) return;
+
+    setGasLimit((defaultGasLimit || maxGasLimit).toString());
   }, [pricingPackageValues]);
 
   return (
     <LegoV3
-      background={'green'}
+      background={OrderFormOptions[ORDER_FIELD.GAS_LIMIT].background}
       label={isLeft ? '' : OrderFormOptions[ORDER_FIELD.GAS_LIMIT].subTitle}
-      active={field[ORDER_FIELD.GAS_LIMIT].dragged}
-      zIndex={7}
+      active={isGasLimitDragged}
+      zIndex={4}
     >
       <Slider
-        cb={setFormField}
+        cb={onSliderChange}
         field={ORDER_FIELD.GAS_LIMIT}
-        defaultValue={field[ORDER_FIELD.GAS_LIMIT].value}
+        defaultValue={gasLimit}
         max={maxGasLimit}
         initValue={defaultGasLimit}
         min={minGasLimit}

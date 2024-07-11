@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { debounce, isEmpty } from 'lodash';
 import toast from 'react-hot-toast';
 
@@ -11,12 +11,13 @@ import { getRandonComputerName } from '../../Buy.helpers';
 
 import s from './styles.module.scss';
 import { useDebounce } from '@/hooks/useDebounce';
+import { useOrderFormStore } from '../../stores/index_v2';
 
 const ComputerNameInput = () => {
-  const { field, setFormField } = useFormOrderStore((state) => state);
-
+  const { setChainName, chainName } = useOrderFormStore();
   const { computerNameField, setComputerNameField, isMainnet } = useBuy();
   const { value, errorMessage } = computerNameField;
+  const inputNameRef = useRef<HTMLInputElement>(null);
 
   const onChangeHandler = React.useCallback(
     debounce(async (e: any) => {
@@ -28,11 +29,15 @@ const ComputerNameInput = () => {
       if (isValid) {
         try {
           isValid = await validateSubDomainAPI(text);
-          field[ORDER_FIELD.CHAIN_NAME].value = text;
 
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => {
-            setFormField(ORDER_FIELD.CHAIN_NAME, text);
+            setComputerNameField({
+              ...computerNameField,
+              value: text,
+              hasError: !isValid,
+              errorMessage: isValid ? undefined : errorMessage,
+            });
           }, 100);
         } catch (error: any) {
           errorMessage = error.toString() || 'Computer name is invalid';
@@ -43,6 +48,7 @@ const ComputerNameInput = () => {
         toast.error(errorMessage);
       }
 
+      setChainName(text);
       setComputerNameField({
         ...computerNameField,
         value: text,
@@ -57,7 +63,7 @@ const ComputerNameInput = () => {
   React.useEffect(() => {
     const computerName = getRandonComputerName(isMainnet);
 
-    setFormField(ORDER_FIELD.CHAIN_NAME, computerName);
+    setChainName(computerName);
     setComputerNameField({
       ...computerNameField,
       value: computerName,
