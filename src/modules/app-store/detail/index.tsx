@@ -17,11 +17,13 @@ import AppPhotoView from '@/modules/app-store/detail/appPhotoView';
 import { BG_COLOR } from '@/modules/app-store/item';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import useL2Service from '@/hooks/useL2Service';
 
 const AppDetailModule = () => {
   const params = useParams();
   const router = useRouter();
   const { loggedIn, login, userInfo } = useWeb3Auth();
+  const { getAccountInfor } = useL2Service();
   const dispatch = useDispatch();
   const [data, setData] = useState<IDApp | undefined>(undefined);
 
@@ -41,10 +43,16 @@ const AppDetailModule = () => {
   // }, [data]);
 
   useEffect(() => {
-    if (params?.id) {
+    if (loggedIn) {
+      getAccountInfor();
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    if (params?.id && accountInforL2Service?.tcAddress) {
       getAppInfo(params?.id as string);
     }
-  }, [params?.id]);
+  }, [params?.id, accountInforL2Service]);
 
   const getAppInfo = async (id: string) => {
     const res = await dAppServicesAPI.fetchDAInstalledByUserAddress(

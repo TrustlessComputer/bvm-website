@@ -15,6 +15,14 @@ export const DA_PACKAGES = {
   advance: 'advance',
 };
 
+export type IDappInstalledStatus =
+  | 'new'
+  | 'failed'
+  | 'done'
+  | 'processing'
+  | 'requested_cancel'
+  | 'removed';
+
 export interface IUserPackage {
   id: number;
   network_id: number;
@@ -24,7 +32,7 @@ export interface IUserPackage {
   app_store_detail_id: number;
   app_store_detail: IDAppDetails;
   package: string;
-  status: string;
+  status: IDappInstalledStatus;
 }
 
 export interface IImageInfo {
@@ -46,8 +54,9 @@ export interface IDApp {
     [key: string]: any;
   }[];
   user_package: IUserPackage[];
-  status: string;
+  status: "active" | "incoming";
   list_image_url: IImageInfo[];
+  category: "wallet_apps" | "bridge_apps" | "defi_apps" | "game_apps";
 }
 
 export interface IDAppDetails {
@@ -61,8 +70,9 @@ export interface IDAppDetails {
   price_bvm: string;
   includes: {
     name: string;
-    valid: string;
+    valid: "0" | "1";
   }[];
+  status: "active" | "incoming";
 }
 
 ///

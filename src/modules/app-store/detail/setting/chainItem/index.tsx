@@ -7,21 +7,29 @@ import {
   PRICING_PACKGE,
   PRICING_PACKGE_MAP,
 } from '@/modules/PricingV2/constants';
-import { IDAppDetails, IUserPackage } from '@/services/api/DAServices/types';
+import {
+  IDApp,
+  IDAppDetails,
+  IUserPackage,
+} from '@/services/api/DAServices/types';
+import { checkDAInstallHelper } from '../../helper';
 
 const ChainItem: React.FC<any> = ({
+  dApp,
   data,
   onSelectChain,
   isButton,
   packageSelected,
   user_package,
 }: {
+  dApp: IDApp;
   data: OrderItem;
   onSelectChain: any;
   isButton: boolean;
   packageSelected: IDAppDetails;
   user_package: IUserPackage[];
 }) => {
+  const { disabeldInstallDA, statusStr } = checkDAInstallHelper(data, dApp);
   if (!data) {
     return (
       <MenuItem className={s.container}>
@@ -63,7 +71,7 @@ const ChainItem: React.FC<any> = ({
             className={cx(s.package, data?.isNeedTopup ? s.needTopup : '')}
             textTransform={'capitalize'}
           >
-            {getStatusStr()}
+            {statusStr}
           </Text>
         </Flex>
       </MenuItem>
@@ -94,7 +102,7 @@ const ChainItem: React.FC<any> = ({
           className={cx(s.package, data?.isNeedTopup ? s.needTopup : '')}
           textTransform={'capitalize'}
         >
-          {getStatusStr()}
+          {statusStr}
         </Text>
       </Flex>
     </MenuItem>

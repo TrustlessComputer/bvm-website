@@ -39,12 +39,14 @@ export const DA_DUMMY_LIST: IDApp[] = [
             valid: '1',
           },
         ],
+        status: 'incoming',
       },
     ],
     inputs: [],
     user_package: [],
-    status: "0",
-    list_image_url: []
+    status: 'incoming',
+    list_image_url: [],
+    category: 'defi_apps',
   },
   {
     id: 2,
@@ -100,6 +102,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
             valid: '1',
           },
         ],
+        status: 'incoming',
       },
       {
         id: 2,
@@ -145,12 +148,14 @@ export const DA_DUMMY_LIST: IDApp[] = [
             valid: '1',
           },
         ],
+        status: 'incoming',
       },
     ],
     inputs: [],
     user_package: [],
-    status: "0",
-    list_image_url: []
+    status: 'incoming',
+    list_image_url: [],
+    category: 'defi_apps',
   },
   {
     id: 3,
@@ -206,6 +211,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
             valid: '1',
           },
         ],
+        status: 'incoming',
       },
       {
         id: 2,
@@ -251,12 +257,14 @@ export const DA_DUMMY_LIST: IDApp[] = [
             valid: '1',
           },
         ],
+        status: 'incoming',
       },
     ],
     inputs: [],
     user_package: [],
-    status: "0",
-    list_image_url: []
+    status: 'incoming',
+    list_image_url: [],
+    category: 'defi_apps',
   },
   {
     id: 4,
@@ -312,6 +320,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
             valid: '1',
           },
         ],
+        status: 'incoming',
       },
       {
         id: 2,
@@ -357,12 +366,14 @@ export const DA_DUMMY_LIST: IDApp[] = [
             valid: '1',
           },
         ],
+        status: 'incoming',
       },
     ],
     inputs: [],
     user_package: [],
-    status: "0",
-    list_image_url: []
+    status: 'incoming',
+    list_image_url: [],
+    category: 'defi_apps',
   },
   {
     id: 5,
@@ -418,6 +429,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
             valid: '1',
           },
         ],
+        status: 'incoming',
       },
       {
         id: 2,
@@ -463,12 +475,14 @@ export const DA_DUMMY_LIST: IDApp[] = [
             valid: '1',
           },
         ],
+        status: 'incoming',
       },
     ],
     inputs: [],
     user_package: [],
-    status: "0",
-    list_image_url: []
+    status: 'incoming',
+    list_image_url: [],
+    category: 'defi_apps',
   },
   // {
   //   id: 3,
