@@ -5,10 +5,10 @@ import SvgInset from '@/components/SvgInset';
 
 import styles from './styles.module.scss';
 import { LegoColor } from '../BoxOptionV2';
-import { Tooltip, TooltipRefProps } from 'react-tooltip';
+import { hexToHSB, hsbToHex } from '../../utils';
 
 type LegoV3 = {
-  background?: LegoColor;
+  background?: string;
   parentOfNested?: boolean;
   first?: boolean;
   last?: boolean;
@@ -20,18 +20,18 @@ type LegoV3 = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
-                  background = 'brown',
-                  label = null,
-                  parentOfNested = false,
-                  first = false,
-                  last = false,
-                  active = false,
-                  icon,
-                  zIndex = 0,
-                  className,
-                  children,
-                  ...props
-                }: LegoV3) {
+  background = '#A041FF',
+  label = null,
+  parentOfNested = false,
+  first = false,
+  last = false,
+  active = false,
+  icon,
+  zIndex = 0,
+  className,
+  children,
+  ...props
+}: LegoV3) {
   const legoRef = React.useRef<HTMLDivElement | null>(null);
   React.useEffect(() => {
     let parentLego = legoRef.current?.parentElement;
@@ -48,52 +48,51 @@ function LegoV3({
 
   return (
     <React.Fragment>
-
-        <div
-          className={`${styles.wrapper} ${styles[`wrapper__${background}`]}
+      <div
+        className={`${styles.wrapper} ${styles[`wrapper__${background}`]}
         ${first ? styles.first : ''}
         ${className}
         `}
-          ref={legoRef}
-          style={{
-            zIndex: zIndex,
-          }}
-          {...props}
+        ref={legoRef}
+        style={{
+          zIndex: zIndex,
+          // @ts-ignore
+          '--fillBackground': background,
+          '--background': '#000',
+        }}
+        {...props}
+      >
+        <SvgInset
+          svgUrl="/landingV3/svg/stud_head.svg"
+          className={styles.wrapper_studHead}
+        />
+        <div
+          className={`${styles.inner} ${
+            parentOfNested ? styles.inner_nested : ''
+          }`}
         >
-          <SvgInset
-            svgUrl="/landingV3/svg/stud_head.svg"
-            className={styles.wrapper_studHead}
-          />
-          <div
-            className={`${styles.inner} ${
-              parentOfNested ? styles.inner_nested : ''
-            }`}
-          >
-            {label && (
-              <div className={styles.label}>
-                {icon && <Image src={icon} alt="icon" width={24} height={24} />}
-                <p>{label}</p>
-              </div>
-            )}
-            {parentOfNested ? (
-              <div
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                {children}
-              </div>
-            ) : (
-              <div className={styles.options}>{children}</div>
-            )}
-          </div>
+          {label && (
+            <div className={styles.label}>
+              {icon && <Image src={icon} alt="icon" width={24} height={24} />}
+              <p>{label}</p>
+            </div>
+          )}
+          {parentOfNested ? (
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              {children}
+            </div>
+          ) : (
+            <div className={styles.options}>{children}</div>
+          )}
         </div>
-
-
+      </div>
     </React.Fragment>
-
   );
 }
 

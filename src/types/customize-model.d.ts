@@ -3,12 +3,14 @@ interface IModelOption {
   selectable: boolean;
   price: number;
   tooltip: string;
-  key: string,
+  key: string;
 }
 
 interface IModelCategory {
   title: string;
-  key: string,
+  color: string;
+  key: string;
+  type: '' | 'dropdown';
   required: boolean;
   options: [IModelOption];
 }
