@@ -33,8 +33,8 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import Form from '@/modules/app-store/detail/setting/form';
 import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
 import AccountAbstractionInputArea from './accountAbstractionInput';
-import { invalidateInstance } from '@react-three/fiber/dist/declarations/src/core/utils';
 import useDAppHelper from '@/hooks/useDAppHelper';
+import { checkDAInstallHelper } from '../helper';
 
 const SettingView = ({
   app,
@@ -87,9 +87,17 @@ const SettingView = ({
     return !(myOrders.length > 1);
   }, [myOrders]);
 
-  const isInstalled = useMemo(() => {
-    return hasIntalledByNetworkID(selectedOrder?.chainId);
-  }, [selectedOrder]);
+  const { isInstalled, statusPackage } = useMemo(() => {
+    // return hasIntalledByNetworkID(selectedOrder?.chainId);
+    const { disabeldInstallDA, statusPackage } = checkDAInstallHelper(
+      selectedOrder,
+      app!,
+    );
+    return {
+      isInstalled: disabeldInstallDA,
+      statusPackage,
+    };
+  }, [app, selectedOrder]);
 
   const {
     showSubmitFormResult,
@@ -262,14 +270,16 @@ const SettingView = ({
           <Divider orientation={'horizontal'} bg={'#ECECEC'} />
           <InputWrapper label={'Package'} className={s.inputWrapper}>
             <Flex gap={'24px'}>
-              {app?.details?.map((p) => {
+              {app?.details?.map((p, index) => {
                 return (
                   <PackageItem
+                    key={`${p.id}-${index}`}
                     data={p}
                     isSelected={p.id === selectedPackage?.id}
                     isInstalled={isInstalled}
+                    status={statusPackage}
                     onSelect={() => {
-                      setSelectedPackage(p);
+                      // setSelectedPackage(p);
                     }}
                   />
                 );
@@ -284,7 +294,7 @@ const SettingView = ({
                   className={s.btnSelectToken}
                   disabled={isDisabledSelectChain}
                 >
-                  <ChainItem data={selectedOrder} isButton />
+                  <ChainItem data={selectedOrder} isButton dApp={app} />
                   <SvgInset svgUrl="/icons/ic-arrow-down.svg" />
                 </MenuButton>
                 <MenuList>
@@ -294,6 +304,7 @@ const SettingView = ({
                       user_package={app?.user_package || []}
                       key={t.chainId}
                       data={t}
+                      dApp={app}
                       onSelectChain={(c: OrderItem) => setSelectedOrder(c)}
                     />
                   ))}
