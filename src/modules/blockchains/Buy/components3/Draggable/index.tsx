@@ -34,13 +34,6 @@ const Draggable = ({
     // opacity: useMask && isDragging ? 0 : 1,
   };
 
-  useEffect(() => {
-
-    if (isHover) {
-
-    }
-  }, []);
-
   const onHover = () => {
     const wrapData = document.getElementById('wrapper-data');
 
