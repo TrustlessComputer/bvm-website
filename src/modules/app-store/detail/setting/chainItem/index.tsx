@@ -29,7 +29,7 @@ const ChainItem: React.FC<any> = ({
   packageSelected: IDAppDetails;
   user_package: IUserPackage[];
 }) => {
-  const { disabeldInstallDA, statusStr } = checkDAInstallHelper(data, dApp);
+  const { statusStr } = checkDAInstallHelper(data, dApp, packageSelected);
   if (!data) {
     return (
       <MenuItem className={s.container}>
@@ -37,27 +37,6 @@ const ChainItem: React.FC<any> = ({
       </MenuItem>
     );
   }
-
-  const getStatusStr = () => {
-    if (data?.isNeedTopup) {
-      return 'Waiting for payment';
-    }
-
-    if (!user_package || user_package.length < 1) {
-      return 'Basic';
-    }
-
-    if (user_package) {
-      const userPackageFinded = user_package.find(
-        (item) =>
-          Number(item.app_store_detail_id) === Number(packageSelected?.id),
-      );
-      if (userPackageFinded) {
-        return `${userPackageFinded.status} - ${userPackageFinded.app_store_detail.package}`;
-        // return `${userPackageFinded.status} - Basic`;
-      }
-    }
-  };
 
   if (isButton) {
     return (

@@ -47,12 +47,12 @@ const SettingView = ({
 }) => {
   const router = useRouter();
 
-  const { loopFetchAccountInfor, getMyOrderList } = useL2Service();
+  const { getMyOrderList } = useL2Service();
   const { loggedIn } = useWeb3Auth();
   const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
     getL2ServicesStateSelector,
   );
-
+  const myOrders = useAppSelector(myOrderListFilteredByNetwork);
   const [selectedOrder, setSelectedOrder] = useState<OrderItem | undefined>(
     undefined,
   );
@@ -64,18 +64,11 @@ const SettingView = ({
   const [isInValidFromInputArea, setInValidFromInputArea] =
     useState<boolean>(false);
 
-  const { hasIntalledByNetworkID } = useDAppHelper({
-    dApp: app,
-  });
-
   useEffect(() => {
-    loopFetchAccountInfor();
     if (loggedIn) {
       getMyOrderList();
     }
   }, [loggedIn]);
-
-  const myOrders = useAppSelector(myOrderListFilteredByNetwork);
 
   useEffect(() => {
     if (myOrders?.length === 1) {
@@ -92,12 +85,13 @@ const SettingView = ({
     const { disabeldInstallDA, statusPackage } = checkDAInstallHelper(
       selectedOrder,
       app!,
+      selectedPackage,
     );
     return {
       isInstalled: disabeldInstallDA,
       statusPackage,
     };
-  }, [app, selectedOrder]);
+  }, [app, selectedOrder, selectedPackage]);
 
   const {
     showSubmitFormResult,
@@ -284,7 +278,7 @@ const SettingView = ({
                     isInstalled={isInstalled}
                     status={statusPackage}
                     onSelect={() => {
-                      // setSelectedPackage(p);
+                      setSelectedPackage(p);
                     }}
                   />
                 );
