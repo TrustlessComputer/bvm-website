@@ -13,6 +13,8 @@ import toast from 'react-hot-toast';
 import { getErrorMessage } from '@utils/errorV2';
 import { useAppSelector } from '@/stores/hooks';
 import { accountInforSelector } from '@/stores/states/l2services/selector';
+import { requestReload } from '@/stores/states/common/reducer';
+import { useDispatch } from 'react-redux';
 
 interface IFormValues {
   hash: string;
@@ -37,6 +39,7 @@ const Form = (props: IFormProps) => {
   } = props;
   const [submitting, setSubmitting] = useState(false);
   const userInfor = useAppSelector(accountInforSelector);
+  const dispatch = useDispatch();
   // console.log('app', app);
   // console.log('userInfor', userInfor);
   // console.log('selectedPackage', selectedPackage);
@@ -61,6 +64,7 @@ const Form = (props: IFormProps) => {
       if (result) {
         toast.success('Submit successfully!');
 
+        dispatch(requestReload());
         onSucessCb && onSucessCb();
       }
     } catch (error) {
@@ -111,6 +115,7 @@ const Form = (props: IFormProps) => {
               isInValid || !selectedPackage || !selectedOrder || submitting
             }
             isLoading={submitting}
+            loadingText={'Installing'}
             type="submit"
           >
             Install

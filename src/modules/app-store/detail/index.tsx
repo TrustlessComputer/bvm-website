@@ -3,7 +3,7 @@
 import { Box, Divider, Flex, Image, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AppPackage from 'src/modules/app-store/detail/appPackage';
 import SvgInset from '@components/SvgInset';
 import { closeModal, openModal } from '@/stores/states/modal/reducer';
@@ -14,10 +14,10 @@ import { BuyProvider } from '@/modules/blockchains/providers/Buy.context';
 import dAppServicesAPI from '@/services/api/DAServices';
 import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
 import AppPhotoView from '@/modules/app-store/detail/appPhotoView';
-import { BG_COLOR } from '@/modules/app-store/item';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import useL2Service from '@/hooks/useL2Service';
+import { commonSelector } from '@/stores/states/common/selector';
 
 const AppDetailModule = () => {
   const params = useParams();
@@ -27,20 +27,8 @@ const AppDetailModule = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState<IDApp | undefined>(undefined);
 
-  const photoUrl = useMemo(() => {
-    return [
-      'https://react-photo-view.vercel.app/_next/static/media/1.c788857d.jpg',
-      'https://react-photo-view.vercel.app/_next/static/media/2.b43f1ead.jpg',
-      'https://react-photo-view.vercel.app/_next/static/media/3.70695fb9.jpg',
-      'https://react-photo-view.vercel.app/_next/static/media/4.57ff8e86.jpg',
-      'https://react-photo-view.vercel.app/_next/static/media/5.7ace37c7.jpg',
-      'https://react-photo-view.vercel.app/_next/static/media/6.0271162c.jpg',
-    ];
-  }, []);
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
-  // const indexBg = useMemo(() => {
-  //   return ((data?.id || 0) - 1) % BG_COLOR.length;
-  // }, [data]);
+  const needReload = useAppSelector(commonSelector).needReload;
 
   useEffect(() => {
     if (loggedIn) {
@@ -52,7 +40,7 @@ const AppDetailModule = () => {
     if (params?.id && accountInforL2Service?.tcAddress) {
       getAppInfo(params?.id as string);
     }
-  }, [params?.id, accountInforL2Service]);
+  }, [params?.id, accountInforL2Service, needReload]);
 
   const getAppInfo = async (id: string) => {
     const res = await dAppServicesAPI.fetchDAInstalledByUserAddress(
