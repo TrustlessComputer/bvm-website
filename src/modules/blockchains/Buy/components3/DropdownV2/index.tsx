@@ -5,6 +5,7 @@ import { useOnClickOutside } from '@hooks/useOnClickOutside';
 import useOrderFormStoreV3 from '../../stores/index_v3';
 
 type TDropdown = {
+  disabled?: boolean;
   options?: (IModelOption & {
     value: string | number;
     label: string;
@@ -14,7 +15,12 @@ type TDropdown = {
   cb: (value: string | number) => void;
 };
 
-function DropdownV2({ options, cb, defaultValue }: TDropdown) {
+function DropdownV2({
+  options,
+  cb,
+  defaultValue,
+  disabled = false,
+}: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useOrderFormStoreV3();
@@ -30,7 +36,13 @@ function DropdownV2({ options, cb, defaultValue }: TDropdown) {
 
   return (
     <div className={s.dropdown}>
-      <div className={s.dropdown_inner} onClick={() => setIsOpen(true)}>
+      <div
+        className={s.dropdown_inner}
+        onClick={() => {
+          if (disabled) return;
+          setIsOpen(true);
+        }}
+      >
         <div className={s.dropdown_inner_content}>
           {icon && <Image src={icon} alt="icon" width={24} height={24} />}
           <p className={s.dropdown_text}>

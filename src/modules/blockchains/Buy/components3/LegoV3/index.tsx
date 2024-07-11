@@ -20,6 +20,7 @@ type LegoV3 = {
   icon?: string;
   className?: string;
   zIndex: number;
+  suffix?: string;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
@@ -30,6 +31,7 @@ function LegoV3({
   last = false,
   active = false,
   disabled = false,
+  suffix = '',
   icon,
   zIndex = 0,
   className,
@@ -101,10 +103,12 @@ function LegoV3({
                 flexDirection: 'column',
               }}
             >
-              {children}
+              {children} {suffix}
             </div>
           ) : (
-            <div className={styles.options}>{children}</div>
+            <div className={styles.options}>
+              {children} {suffix}
+            </div>
           )}
         </div>
       </div>

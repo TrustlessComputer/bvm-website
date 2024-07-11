@@ -150,7 +150,8 @@ const LaunchButton = ({
               </div>
             </div>
             <p className={s.price}>
-              ${priceUSD.toFixed(2)} {'('}
+              ${priceUSD.toFixed(2)}
+              {'/'}Month {'('}
               {priceBVM.toFixed(2)} BVM
               {')'}
             </p>

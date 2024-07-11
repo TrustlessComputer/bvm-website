@@ -11,6 +11,7 @@ export type DraggableProps = React.PropsWithChildren & {
   index?: number;
   isLabel?: boolean;
   tooltip?: string;
+  right?: boolean;
 };
 
 const Draggable = ({
@@ -21,6 +22,7 @@ const Draggable = ({
   disabled = false,
   tooltip,
   isLabel,
+  right = false,
 }: DraggableProps) => {
   const refTooltip = useRef<HTMLAnchorElement>(null);
   const { attributes, listeners, setNodeRef, transform, isDragging } =
@@ -36,6 +38,8 @@ const Draggable = ({
   };
 
   const onHover = () => {
+    if (right) return;
+
     const wrapData = document.getElementById('wrapper-data');
 
     if (refTooltip.current && wrapData) {

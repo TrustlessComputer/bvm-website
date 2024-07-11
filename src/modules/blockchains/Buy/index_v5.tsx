@@ -23,12 +23,12 @@ import gsap from 'gsap';
 const BuyPage = () => {
   const [data, setData] = React.useState<
     | (IModelCategory & {
-    options: {
-      value: any;
-      label: string;
-      disabled: boolean;
-    }[];
-  })[]
+        options: {
+          value: any;
+          label: string;
+          disabled: boolean;
+        }[];
+      })[]
     | null
   >(null);
   const { field, setField, setPriceBVM, setPriceUSD } = useOrderFormStoreV3();
@@ -97,6 +97,10 @@ const BuyPage = () => {
   React.useEffect(() => {
     const convertData = (data: IModelCategory[]) => {
       const newData = data.map((item) => {
+        if (item.key === 'zk_prover') {
+          console.log('item :::: ', item);
+        }
+
         return {
           ...item,
           options: item.options?.map((option) => {
@@ -104,7 +108,7 @@ const BuyPage = () => {
               ...option,
               value: option.key,
               label: option.title,
-              disabled: option.selectable,
+              disabled: !option.selectable,
             };
           }),
         };
@@ -134,6 +138,22 @@ const BuyPage = () => {
             (option) => option.key === field[item.key].value,
           );
 
+          if (!currentOption) return 0;
+
+          const isDisabled =
+            !!(
+              currentOption.supportNetwork &&
+              currentOption.supportNetwork !== 'both' &&
+              currentOption.supportNetwork !== field['network']?.value
+            ) ||
+            (!currentOption.selectable && !field[item.key].dragged);
+
+          if (isDisabled) return 0;
+
+          if (currentOption.key === 'explorer') {
+            console.log('currentOption :::::::: ', currentOption);
+          }
+
           return currentOption?.priceUSD || 0;
         })
         .reduce((acc, cur) => acc + cur, 0) || 0;
@@ -145,6 +165,18 @@ const BuyPage = () => {
             (option) => option.key === field[item.key].value,
           );
 
+          if (!currentOption) return 0;
+
+          const isDisabled =
+            !!(
+              currentOption.supportNetwork &&
+              currentOption.supportNetwork !== 'both' &&
+              currentOption.supportNetwork !== field['network']?.value
+            ) ||
+            (!currentOption.selectable && !field[item.key].dragged);
+
+          if (isDisabled) return 0;
+
           return currentOption?.priceBVM || 0;
         })
         .reduce((acc, cur) => acc + cur, 0) || 0;
@@ -154,7 +186,6 @@ const BuyPage = () => {
   }, [field]);
 
   useEffect(() => {
-
     const wrapper = document.getElementById('wrapper-data');
     const loop = () => {
       if (wrapper) wrapper.scrollLeft = 0;
@@ -173,7 +204,6 @@ const BuyPage = () => {
       gsap.ticker.remove(loop);
       wrapper?.removeEventListener('mouseenter', loop);
     };
-
   }, [idDragging]);
 
   return (
@@ -250,7 +280,7 @@ const BuyPage = () => {
                                   option.supportNetwork &&
                                   option.supportNetwork !== 'both' &&
                                   option.supportNetwork !==
-                                  field['network']?.value
+                                    field['network']?.value
                                 ) || !option.selectable;
 
                               return (
@@ -364,13 +394,17 @@ const BuyPage = () => {
 
                   {data?.map((item, index) => {
                     if (!field[item.key].dragged) return null;
+                    const price =
+                      item.options.find(
+                        (option) => option.key === field[item.key].value,
+                      )?.priceUSD || 0;
+                    const suffix = price ? `(+${price.toString()}$)` : '';
 
                     if (item.type === 'dropdown') {
                       return (
                         <Draggable
+                          right
                           useMask
-                          // key={item.key + '-dragged'}
-                          // id={item.key + '-dragged'}
                           key={item.key}
                           id={item.key}
                           tooltip={item.tooltip}
@@ -381,6 +415,7 @@ const BuyPage = () => {
                             title={item.title}
                             zIndex={data.length - index}
                             label={item.title}
+                            suffix={suffix}
                           >
                             <DropdownV2
                               cb={(value) => {
@@ -406,6 +441,7 @@ const BuyPage = () => {
 
                       return (
                         <Draggable
+                          right
                           key={item.key + '-' + option.key}
                           id={item.key + '-' + option.key}
                           useMask
@@ -414,10 +450,12 @@ const BuyPage = () => {
                         >
                           <LegoV3
                             background={item.color}
-                            label={item.title + ' ' + option.title}
+                            label={item.title}
                             zIndex={item.options.length - opIdx}
+                            suffix={suffix}
                           >
                             <DropdownV2
+                              disabled
                               cb={(value) => {
                                 setField(
                                   item.key,
@@ -430,7 +468,6 @@ const BuyPage = () => {
                                 // @ts-ignore
                                 item.options.find((o) => o.key === option.key),
                               ]}
-                              // options={[item.options[0] as any]}
                               // @ts-ignore
                               value={field[item.key].value}
                             />
