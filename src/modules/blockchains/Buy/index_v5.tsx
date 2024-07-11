@@ -321,7 +321,7 @@ const BuyPage = () => {
                                   <LegoV3
                                     background={item.color}
                                     label={option.title}
-                                    icon={item?.icon}
+                                    icon={option?.icon}
                                     zIndex={item.options.length - opIdx}
                                   />
                                 </Draggable>
