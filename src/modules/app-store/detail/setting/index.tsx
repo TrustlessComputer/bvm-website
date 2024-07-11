@@ -146,11 +146,16 @@ const SettingView = ({
       );
     }
 
+    if (!selectedOrder) {
+      return null;
+    }
+
     if (isInstalled) {
       return (
         <Text className={s.note}>
-          This Dapp basic have been installed in this chain, install other Dapp
-          or launch a new chain.
+          {`${app?.name || '--'} basic have been ${
+            statusPackage || '--'
+          } in this chain, install other Dapp or launch a new chain.`}
         </Text>
       );
     }
