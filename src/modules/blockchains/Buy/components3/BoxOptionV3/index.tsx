@@ -58,17 +58,7 @@ const BoxOptionV3 = ({
             </svg>
           </div>
           <Flex align={'center'} gap={2}>
-            <p className={s.boxItem_heading_text}>{label}{disable && '(Coming)'}</p>
-            {isRequired && (
-              <Text
-                fontSize={['15px', '16px', '18px']}
-                fontWeight={700}
-                marginTop={-3}
-                color={'red'}
-              >
-                *
-              </Text>
-            )}
+            <p className={s.boxItem_heading_text}>{label}{disable && '(Coming)'}{isRequired && <sup>*</sup>}</p>
             {description && (
               <div className={s.info} onClick={() => setIsShowModal(true)}>
                 <svg
