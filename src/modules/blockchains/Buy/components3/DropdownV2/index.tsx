@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
@@ -6,6 +6,7 @@ import { FormOrder, ORDER_FIELD } from '../../stores';
 import { DALayerEnum, NetworkEnum } from '../../Buy.constanst';
 import { useOrderFormStore } from '../../stores/index_v2';
 import { OrderFormOptions } from '../../Buy.data';
+import useStoreDropDown from '@/modules/blockchains/Buy/stores/useStoreDropdown';
 
 type TDropdown = {
   field: any;
@@ -19,6 +20,7 @@ type TDropdown = {
     avalaibleNetworks?: NetworkEnum[];
   }[];
   checkDisable?: boolean;
+  title: string;
   defaultValue: DALayerEnum | NetworkEnum;
   cb: (value: DALayerEnum | NetworkEnum | number) => void;
 };
@@ -27,14 +29,16 @@ function DropdownV2({
   field,
   options,
   cb,
+  title,
   defaultValue,
   checkDisable = false,
 }: TDropdown) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  // const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const { network, setDataAvaibilityChain } = useOrderFormStore();
+  const { setIdDropdownCurrent, idDropdownCurrent } = useStoreDropDown();
 
-  useOnClickOutside(ref, () => setIsOpen(false));
+  useOnClickOutside(ref, () => setIdDropdownCurrent(''));
 
   const handleSelectField = (value: DALayerEnum | NetworkEnum | number) => {
     if (field === ORDER_FIELD.NETWORK) {
@@ -44,8 +48,10 @@ function DropdownV2({
       }
     }
 
+    console.log('value', value);
+
     cb(value);
-    setIsOpen(false);
+    setIdDropdownCurrent('');
   };
   const handleFindData = (networkSelected: NetworkEnum) => {
     const optionsDataAvailable =
@@ -57,8 +63,18 @@ function DropdownV2({
   };
   const icon = options?.find((item) => item.value === defaultValue)?.icon;
 
+  const isOpenDropdown = useMemo(() => {
+    return title === idDropdownCurrent;
+  }, [idDropdownCurrent]);
+
+  function handleOpen() {
+    if (title === idDropdownCurrent) {
+      setIdDropdownCurrent('');
+    }
+  }
+
   return (
-    <div className={s.dropdown} onClick={() => setIsOpen(!isOpen)}>
+    <div className={s.dropdown} onClick={() => handleOpen()}>
       <div className={s.dropdown_inner}>
         <div className={s.dropdown_inner_content}>
           {icon && <Image src={icon} alt="icon" width={24} height={24} />}
@@ -77,7 +93,9 @@ function DropdownV2({
         />
       </div>
       <div
-        className={`${s.dropdown_list} ${isOpen && s.dropdown_list__active}`}
+        className={`${s.dropdown_list} ${
+          isOpenDropdown && s.dropdown_list__active
+        }`}
       >
         <div className={s.dropdown_wrap} ref={ref}>
           <ul className={`${s.dropdown_list_inner} `}>

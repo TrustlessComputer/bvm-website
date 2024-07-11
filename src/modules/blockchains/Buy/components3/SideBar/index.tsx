@@ -99,7 +99,7 @@ export default function SideBar({ items }: SidebarProps) {
         {items &&
           items.map((item) => {
             return (
-              <div className={s.item} key={item.key}>
+              <a href={`#${item.key}`} className={s.item} key={item.key}>
                 <div className={s.item_inner}>
                   <Image
                     // src={item.icon}
@@ -112,7 +112,7 @@ export default function SideBar({ items }: SidebarProps) {
                     <h4>{item.title}</h4>
                   </div>
                 </div>
-              </div>
+              </a>
             );
           })}
         {/* {DATA_SIDEBAR.map((item) => {

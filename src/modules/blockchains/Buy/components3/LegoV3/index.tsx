@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 import SvgInset from '@/components/SvgInset';
@@ -6,6 +6,8 @@ import SvgInset from '@/components/SvgInset';
 import styles from './styles.module.scss';
 import { LegoColor } from '../BoxOptionV2';
 import { hexToHSB, hsbToHex } from '../../utils';
+import { Tooltip } from 'react-tooltip';
+import useStoreDropDown from '@/modules/blockchains/Buy/stores/useStoreDropdown';
 
 type LegoV3 = {
   background?: string;
@@ -33,8 +35,12 @@ function LegoV3({
   ...props
 }: LegoV3) {
   const legoRef = React.useRef<HTMLDivElement | null>(null);
+  const [isOpenToolTip, setIsOpenToolTip] = useState<boolean>(false);
+  const { idDropdownCurrent, setIdDropdownCurrent } = useStoreDropDown();
+
   React.useEffect(() => {
     let parentLego = legoRef.current?.parentElement;
+
     if (!parentLego) return;
 
     if (parentOfNested) {
@@ -60,8 +66,17 @@ function LegoV3({
           '--fillBackground': background,
           '--background': '#000',
         }}
+        // @ts-ignore
+        onClick={() => setIdDropdownCurrent(props.title)}
+        onDrag={() => setIsOpenToolTip(false)}
+        onMouseEnter={() => setIsOpenToolTip(true)}
+        onMouseLeave={() => setIsOpenToolTip(false)}
         {...props}
       >
+        {/*<a*/}
+        {/*  data-tooltip-id="my-tooltip"*/}
+        {/*  data-tooltip-content="Tooltip for each block. "*/}
+        {/*>*/}
         <SvgInset
           svgUrl="/landingV3/svg/stud_head.svg"
           className={styles.wrapper_studHead}
@@ -91,7 +106,17 @@ function LegoV3({
             <div className={styles.options}>{children}</div>
           )}
         </div>
+        {/*</a>*/}
       </div>
+      {/*<Tooltip isOpen={isOpenToolTip && !idDropdownCurrent} id="my-tooltip" place="bottom" className={styles.tooltip}*/}
+      {/*         style={{*/}
+      {/*           zIndex: 9999,*/}
+      {/*           backgroundColor: '#fff',*/}
+      {/*           color: '#333333',*/}
+      {/*           boxShadow: '0px 0px 4px 2px rgba(0, 0, 0, 0.25)',*/}
+      {/*         }}*/}
+      {/*         classNameArrow={styles.tooltipArrow}*/}
+      {/*/>*/}
     </React.Fragment>
   );
 }

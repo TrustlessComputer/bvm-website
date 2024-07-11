@@ -159,11 +159,6 @@ const BuyPage = () => {
 
     const [overKey = ''] = (over?.id || '').split('-');
     const overIsFinalDroppable = overKey === 'final';
-    console.log(
-      '🚀 -> file: index_v5.tsx:160 -> handleDragEnd -> activeKey ::',
-      activeKey,
-      overKey,
-    );
 
     // Normal case
     if (over && overIsFinalDroppable) {
@@ -186,8 +181,6 @@ const BuyPage = () => {
 
     return;
   }
-
-  const handleValueChange = (key: string, value: any) => {};
 
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
@@ -237,6 +230,8 @@ const BuyPage = () => {
     });
   }, []);
   // dropdowns - slide - module
+
+  console.log('____data', data);
   return (
     <div className={s.container}>
       <DndContext
@@ -256,12 +251,17 @@ const BuyPage = () => {
                     {data?.map((item, index) => {
                       return (
                         <BoxOptionV3
+                          disable={item.disable}
                           {...OrderFormOptions[ORDER_FIELD.NETWORK]}
                           label={item.title}
                           id={item.key}
                         >
                           {item.options ? (
-                            <Draggable useMask id={item.key}>
+                            <Draggable
+                              useMask
+                              id={item.key}
+                              value={form[item.key]}
+                            >
                               <LegoV3
                                 background={item.color}
                                 title={item.title}
@@ -269,6 +269,7 @@ const BuyPage = () => {
                               >
                                 <DropdownV2
                                   cb={(value) => {
+                                    console.log('🚀 -> value', item.key, value);
                                     setForm({
                                       ...form,
                                       [item.key]: value,
@@ -277,8 +278,8 @@ const BuyPage = () => {
                                   defaultValue={form[item.key]}
                                   // @ts-ignore
                                   options={item.options}
+                                  title={item.title}
                                   value={form.value}
-                                  onChange={handleValueChange}
                                 />
                               </LegoV3>
                             </Draggable>
@@ -292,7 +293,11 @@ const BuyPage = () => {
                         if (item.key !== idDragging) return null;
 
                         return item.options ? (
-                          <Draggable useMask id={item.key}>
+                          <Draggable
+                            useMask
+                            id={item.key}
+                            value={form[item.key]}
+                          >
                             <LegoV3
                               background={item.color}
                               title={item.title}
@@ -303,7 +308,12 @@ const BuyPage = () => {
                                 // @ts-ignore
                                 options={item.options}
                                 value={form.value}
-                                onChange={handleValueChange}
+                                cb={(value) => {
+                                  setForm({
+                                    ...form,
+                                    [item.key]: value,
+                                  });
+                                }}
                               />
                             </LegoV3>
                           </Draggable>

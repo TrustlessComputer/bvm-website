@@ -27,6 +27,7 @@
 
 .item {
   background-color: #fff;
+  display: block;
   padding: 12px 14px 8px 14px;
 
   &__isActive {
@@ -40,10 +41,12 @@
     align-items: center;
     justify-content: center;
   }
+
   &_icon {
     width: 24px;
     height: 24px;
   }
+
   &_title {
     color: #333;
     font-family: var(--font-JetBrainsMono);

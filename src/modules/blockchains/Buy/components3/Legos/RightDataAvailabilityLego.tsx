@@ -33,6 +33,7 @@ const RightDataAvailabilityLego = ({
       active={isDataAvailabilityChainDragged}
     >
       <DropdownV2
+        title={OrderFormOptions.dataAvaibilityChain.subTitle}
         cb={onDropdownChange}
         defaultValue={dataAvaibilityChain}
         field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
