@@ -14,14 +14,14 @@ export type DraggableProps = React.PropsWithChildren & {
 };
 
 const Draggable = ({
-  id,
-  useMask = false,
-  children,
-  value,
-  disabled = false,
-  isDragging = false,
+                     id,
+                     useMask = false,
+                     children,
+                     value,
+                     disabled = false,
+                     isDragging = false,
                      tooltip,
-}: DraggableProps) => {
+                   }: DraggableProps) => {
   const refTooltip = useRef<HTMLAnchorElement>(null);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
@@ -71,9 +71,9 @@ const Draggable = ({
       onClick={onLeave}
     >
       {children}
-      <span ref={refTooltip} className={`${s.tooltip}`}>{
+      {tooltip && <span ref={refTooltip} className={`${s.tooltip}`}>{
         tooltip
-      }</span>
+      }</span>}
     </div>
   );
 };
