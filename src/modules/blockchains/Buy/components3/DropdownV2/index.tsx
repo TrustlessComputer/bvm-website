@@ -51,7 +51,7 @@ function DropdownV2({
     console.log('value', value);
 
     cb(value);
-    setIsOpen(!isOpen);
+    setIsOpen(false);
   };
   const handleFindData = (networkSelected: NetworkEnum) => {
     const optionsDataAvailable =
@@ -64,8 +64,8 @@ function DropdownV2({
   const icon = options?.find((item) => item.value === defaultValue)?.icon;
 
   return (
-    <div className={s.dropdown} onClick={() => setIsOpen(true)}>
-      <div className={s.dropdown_inner}>
+    <div className={s.dropdown} >
+      <div className={s.dropdown_inner} onClick={() => setIsOpen(true)}>
         <div className={s.dropdown_inner_content}>
           {icon && <Image src={icon} alt="icon" width={24} height={24} />}
           <p className={s.dropdown_text}>
