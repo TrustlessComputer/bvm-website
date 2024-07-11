@@ -5,6 +5,7 @@ interface IModelOption {
   tooltip: string;
   key: string;
   icon?: string;
+  supportNetwork: 'both' | '' | 'testnet' | 'main';
 }
 
 interface IModelCategory {
@@ -15,6 +16,5 @@ interface IModelCategory {
   required: boolean;
   options: [IModelOption];
   disable: boolean;
-  supportNetwork: 'both' | '' | 'testnet' | 'main';
   tooltip: string;
 }
