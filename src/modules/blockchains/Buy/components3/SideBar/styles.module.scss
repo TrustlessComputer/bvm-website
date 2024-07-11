@@ -4,6 +4,9 @@
   border-right: 1px solid #dadada;
   height: 100%;
   overflow-y: scroll;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   background: #fff;
 
   &_inner {
@@ -29,8 +32,9 @@
   background-color: #fff;
   display: block;
   padding: 12px 14px 8px 14px;
+  border-radius: 12px;
 
-  &__isActive {
+  &.isActive {
     background-color: #fff6f2 !important;
   }
 

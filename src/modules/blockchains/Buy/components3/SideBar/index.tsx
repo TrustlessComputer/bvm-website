@@ -93,13 +93,14 @@ type SidebarProps = {
 };
 
 export default function SideBar({ items }: SidebarProps) {
+  const [isActive, setIsActive] = React.useState<string>('');
   return (
     <div className={s.sidebar}>
       <div className={s.inner}>
         {items &&
           items.map((item) => {
             return (
-              <a href={`#${item.key}`} className={s.item} key={item.key}>
+              <a href={`#${item.key}`} className={`${s.item} ${isActive === item.key && s.isActive}`} key={item.key} onClick={()=>setIsActive(item.key)}>
                 <div className={s.item_inner}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <mask id="path-1-inside-1_40431_565" fill={item.color}>
