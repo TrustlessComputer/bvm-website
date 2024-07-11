@@ -3,6 +3,7 @@ import s from './styles.module.scss';
 import BaseModal from '@components/BaseModal';
 import Item from '@/modules/blockchains/Buy/TemplateModal/Item';
 import Link from 'next/link';
+import { FAKE_DATA_PACKAGE } from '@/modules/blockchains/Buy/TemplateModal/data';
 
 
 interface IProps {
@@ -23,12 +24,16 @@ const TemplateModal = (props: IProps) => {
     >
       <p className={s.title}>Choose a pre-built template</p>
       <div className={s.wrapperItem}>
-        <Item heading={'Hacker'} price={'$999'} content={'The easiest way to launch your blockchain'}
-              iconCheck={true} color={'GREEN'}/>
-        <Item heading={'Growth'} price={'$9,999'} content={'Scale your blockchain as you go'}
-              iconCheck={false} color={'BLUE'}/>
-        <Item heading={'Secure'} price={'$99,999'} content={'Fully secure your blockchain with a cryptographic prover'}
-              iconCheck={false} color={'ORANGE'}/>
+        {
+          FAKE_DATA_PACKAGE.map(item => {
+            return (
+              <div onClick={onClose}>
+                <Item heading={item.template} price={item.price} content={item.content}
+                      iconCheck={item.check} color={item.color} link={item.link} option={item.options} />
+              </div>
+            )
+          })
+        }
       </div>
       <Link href={'#'}>
         <p className={s.optionCustom}>Contact us for custom hardware options</p>

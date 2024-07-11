@@ -333,9 +333,7 @@ const BuyPage = () => {
                         value={form[item.key]}
                       >
                         <LegoV3
-                          background={
-                            OrderFormOptions[ORDER_FIELD.NETWORK].background
-                          }
+                          background={item.color}
                           title={item.title}
                           zIndex={data.length - index}
                         >

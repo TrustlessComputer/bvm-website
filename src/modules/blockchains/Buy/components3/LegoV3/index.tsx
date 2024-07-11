@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
 
 import SvgInset from '@/components/SvgInset';
@@ -47,50 +47,52 @@ function LegoV3({
   }, [legoRef.current]);
 
   return (
-    <div
-      className={`${styles.wrapper} ${styles[`wrapper__${background}`]}
+    <React.Fragment>
+      <div
+        className={`${styles.wrapper} ${styles[`wrapper__${background}`]}
         ${first ? styles.first : ''}
         ${className}
         `}
-      ref={legoRef}
-      style={{
-        zIndex: zIndex,
-        // @ts-ignore
-        '--fillBackground': background,
-        '--background': '#000',
-      }}
-      {...props}
-    >
-      <SvgInset
-        svgUrl="/landingV3/svg/stud_head.svg"
-        className={styles.wrapper_studHead}
-      />
-      <div
-        className={`${styles.inner} ${
-          parentOfNested ? styles.inner_nested : ''
-        }`}
+        ref={legoRef}
+        style={{
+          zIndex: zIndex,
+          // @ts-ignore
+          '--fillBackground': background,
+          '--background': '#000',
+        }}
+        {...props}
       >
-        {label && (
-          <div className={styles.label}>
-            {icon && <Image src={icon} alt="icon" width={24} height={24} />}
-            <p>{label}</p>
-          </div>
-        )}
-        {parentOfNested ? (
-          <div
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            {children}
-          </div>
-        ) : (
-          <div className={styles.options}>{children}</div>
-        )}
+        <SvgInset
+          svgUrl="/landingV3/svg/stud_head.svg"
+          className={styles.wrapper_studHead}
+        />
+        <div
+          className={`${styles.inner} ${
+            parentOfNested ? styles.inner_nested : ''
+          }`}
+        >
+          {label && (
+            <div className={styles.label}>
+              {icon && <Image src={icon} alt="icon" width={24} height={24} />}
+              <p>{label}</p>
+            </div>
+          )}
+          {parentOfNested ? (
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              {children}
+            </div>
+          ) : (
+            <div className={styles.options}>{children}</div>
+          )}
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 
