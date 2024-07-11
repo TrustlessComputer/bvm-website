@@ -25,8 +25,8 @@ const AppPhotoView = ({photoUrl}: {photoUrl: IImageInfo[]}) => {
           {
             photoUrl?.map(photo => {
               return (
-                <PhotoView src={photo.image_url}>
-                  <img src={photo.image_url} alt="" className={s.item}/>
+                <PhotoView src={photo.thumbnail_url}>
+                  <img src={photo.thumbnail_url} alt="" className={s.item}/>
                 </PhotoView>
               )
             })

@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 
 const AppPackage = ({data, app, onInstall}: {data: IDAppDetails, app: IDApp, onInstall: any}) => {
   const isCommingSoon = useMemo(() => {
-    return app?.status === '0';
+    return app?.status === 'incoming' || data.status === 'incoming';
   }, [app])
 
   return (

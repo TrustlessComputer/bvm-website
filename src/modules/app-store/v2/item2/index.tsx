@@ -15,10 +15,10 @@ const AppItem2 = ({
       gap={"24px"}
       justifyContent={"space-between"}
       onClick={() => {
-        if(data?.status === '0')  return;
+        if(data?.status === 'incoming')  return;
         handleSelectApp(data);
       }}
-      cursor={data?.status === '0' ? 'initial' : 'pointer'}
+      cursor={data?.status === 'incoming' ? 'initial' : 'pointer'}
     >
       <Flex gap={"24px"} h={"100%"}>
         <Flex alignItems={"center"} h={"100%"}>
@@ -31,9 +31,9 @@ const AppItem2 = ({
           </Text>
         </Flex>
       </Flex>
-      <Button className={s.btnInstall} cursor={data?.status === '0' ? 'initial' : 'pointer'}>
+      <Button className={s.btnInstall} cursor={data?.status === 'incoming' ? 'initial' : 'pointer'}>
         {
-          data?.status === '0' ? 'Comming Soon' : 'Install'
+          data?.status === 'incoming' ? 'Comming Soon' : 'Install'
         }
       </Button>
     </Flex>
