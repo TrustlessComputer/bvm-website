@@ -344,6 +344,7 @@ const BuyPage = () => {
                                 value={fieldMapping[item.key].value}
                                 key={item.key}
                                 isDragging={item.key === idDragging}
+                                tooltip={item.tooltip}
                               >
                                 <LegoV3
                                   background={item.color}
@@ -374,6 +375,7 @@ const BuyPage = () => {
                                 key={item.key + '-' + option.key}
                                 id={item.key + '-' + option.key}
                                 useMask
+                                tooltip={item.tooltip}
                                 value={option.key}
                                 isDragging={
                                   item.key + '-' + option.key === idDragging
@@ -417,6 +419,7 @@ const BuyPage = () => {
                         useMask
                         key={item.key + '-dragged'}
                         id={item.key + '-dragged'}
+                        tooltip={item.tooltip}
                         value={fieldMapping[item.key].value}
                       >
                         <LegoV3

@@ -13,5 +13,6 @@ interface IModelCategory {
   type: '' | 'dropdown' | 'slide' | 'module';
   required: boolean;
   options: [IModelOption];
-  disable: boolean
+  disable: boolean;
+  tooltip: string;
 }
