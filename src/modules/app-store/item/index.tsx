@@ -35,7 +35,7 @@ const AppItem = ({
         borderRadius={'12px'}
         padding={"20px"}
       >
-        <Image className={s.avatar} src={data?.image_url} />
+        <Image className={s.avatar} src={data?.icon_url} />
       </Flex>
       <Flex alignItems={'center'} mt={'24px'} gap={'24px'}>
         <Text className={s.title}>{data?.name}</Text>

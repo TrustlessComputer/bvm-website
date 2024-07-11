@@ -66,7 +66,7 @@ const AppStoreModule = () => {
             })}
           </SimpleGrid>
         </Section>
-        <Section title={'Gaming Apps'}>
+        <Section title={'Gaming'}>
           <SimpleGrid columns={[1, 2]} gap={'60px'}>
             {DAppList?.map((d) => {
               return <AppItem data={d} handleSelectApp={handleSelectAppCb} />;
