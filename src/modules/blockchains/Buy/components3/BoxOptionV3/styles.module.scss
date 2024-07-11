@@ -1,14 +1,18 @@
 .boxItem {
   --background-color: #fff;
   --stroke-color: #d9d9d9;
+  scroll-behavior: smooth;
 
   width: 100%;
   background-color: var(--background-color);
   position: relative;
   padding: 16px;
-  padding-bottom: 32px;
+  padding-top: 32px;
   user-select: none;
   margin-top: 1px;
+  &:first-child {
+    padding-top: 10px;
+  }
 
   &.disable {
     opacity: .4;
