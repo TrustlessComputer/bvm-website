@@ -20,6 +20,14 @@ const AppStoreModule = () => {
   const { loggedIn, login } = useWeb3Auth();
   const DAppList = useAppSelector(getDAListSelector);
 
+  const walletApps = useMemo(() => {
+    return DAppList.filter(da => da.category === 'wallet_apps');
+  }, [DAppList]);
+
+  const bridgeApps = useMemo(() => {
+    return DAppList.filter(da => da.category === 'bridge_apps');
+  }, [DAppList]);
+
   const defiApps = useMemo(() => {
     return DA_DUMMY_LIST;
   }, []);
@@ -52,9 +60,16 @@ const AppStoreModule = () => {
           </Text>
         </Flex>
         <Hero />
+        <Section title={'Wallet'}>
+          <SimpleGrid columns={[1, 2]} gap={'24px'}>
+            {walletApps?.map((d) => {
+              return <AppItem3 data={d} handleSelectApp={handleSelectAppCb} />;
+            })}
+          </SimpleGrid>
+        </Section>
         <Section title={'Bridge'}>
           <SimpleGrid columns={[1, 2]} gap={'24px'}>
-            {DAppList?.map((d) => {
+            {bridgeApps?.map((d) => {
               return <AppItem3 data={d} handleSelectApp={handleSelectAppCb} />;
             })}
           </SimpleGrid>

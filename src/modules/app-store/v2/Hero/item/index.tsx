@@ -41,7 +41,7 @@ const HeroItem = ({
           }}
         >
           {
-            data?.status === '0' ? 'Comming Soon' : 'Install'
+            data?.status === 'incoming' ? 'Comming Soon' : 'Install'
           }
         </Button>
       </Flex>

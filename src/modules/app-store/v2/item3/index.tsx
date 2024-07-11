@@ -28,7 +28,7 @@ const AppItem3 = ({
         <Text className={s.title}>{data?.name}</Text>
         <Text className={s.description}>{data?.description}</Text>
         <Button className={s.btnInstall} mt={'8px'}>
-          {data?.status === '0' ? 'Comming Soon' : 'Install'}
+          {data?.status === 'incoming' ? 'Comming Soon' : 'Install'}
         </Button>
       </Flex>
     </Flex>

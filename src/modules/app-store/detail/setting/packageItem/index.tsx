@@ -19,7 +19,7 @@ const PackageItem = ({
   return (
     <Flex
       className={cx(s.container, !isInstalled && isSelected ? s.isSelect : '')}
-      onClick={!isInstalled && onSelect}
+      onClick={() => !isInstalled && onSelect()}
     >
       <Text className={s.title}>
         {data?.name} -{' '}

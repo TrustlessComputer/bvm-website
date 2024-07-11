@@ -54,8 +54,9 @@ export interface IDApp {
     [key: string]: any;
   }[];
   user_package: IUserPackage[];
-  status: string;
+  status: "active" | "incoming";
   list_image_url: IImageInfo[];
+  category: "wallet_apps" | "bridge_apps" | "defi_apps" | "game_apps";
 }
 
 export interface IDAppDetails {
@@ -69,8 +70,9 @@ export interface IDAppDetails {
   price_bvm: string;
   includes: {
     name: string;
-    valid: string;
+    valid: "0" | "1";
   }[];
+  status: "active" | "incoming";
 }
 
 ///
