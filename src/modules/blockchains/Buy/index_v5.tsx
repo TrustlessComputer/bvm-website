@@ -43,8 +43,12 @@ const BuyPage = () => {
     | null
   >(null);
   const orderFormStore = useOrderFormStore();
-
   const { idDragging, setIdDragging } = useDragMask();
+
+  console.log(
+    '🚀 -> file: index_v5.tsx:48 -> BuyPage -> idDragging ::',
+    idDragging,
+  );
 
   const fieldMapping: Record<
     string,
@@ -135,10 +139,35 @@ const BuyPage = () => {
         setDragged: orderFormStore.setBridgeAppsDragged,
       },
     }),
-    [orderFormStore],
+    [
+      orderFormStore.network,
+      orderFormStore.dataAvaibilityChain,
+      orderFormStore.gasLimit,
+      orderFormStore.withdrawPeriod,
+      orderFormStore.hardware,
+      orderFormStore.settlement,
+      orderFormStore.compute,
+      orderFormStore.storage,
+      orderFormStore.zkProver,
+      orderFormStore.degenApps,
+      orderFormStore.gamingApps,
+      orderFormStore.wallet,
+      orderFormStore.bridgeApps,
+      orderFormStore.isNetworkDragged,
+      orderFormStore.isDataAvailabilityChainDragged,
+      orderFormStore.isGasLimitDragged,
+      orderFormStore.isWithdrawPeriodDragged,
+      orderFormStore.isHardwareDragged,
+      orderFormStore.isSettlementDragged,
+      orderFormStore.isComputeDragged,
+      orderFormStore.isStorageDragged,
+      orderFormStore.isZkProverDragged,
+      orderFormStore.isDegenAppsDragged,
+      orderFormStore.isGamingAppsDragged,
+      orderFormStore.isWalletDragged,
+      orderFormStore.isBridgeAppsDragged,
+    ],
   );
-
-  const maskMapping = {};
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -156,9 +185,14 @@ const BuyPage = () => {
     const [overKey = ''] = (over?.id || '').split('-');
     const overIsFinalDroppable = overKey === 'final';
 
+    console.log(
+      '🚀 -> file: index_v5.tsx:155 -> handleDragEnd -> activeKey ::',
+      activeKey,
+      fieldMapping,
+    );
+
     // Normal case
     if (over && overIsFinalDroppable) {
-      console.log(activeKey, active.data.current.value);
       fieldMapping[activeKey as Override].setValue(active.data.current.value);
       fieldMapping[activeKey as Override].setDragged(true);
 
@@ -225,9 +259,7 @@ const BuyPage = () => {
       setData(convertData(res));
     });
   }, []);
-  // dropdowns - slide - module
 
-  console.log('____data', data);
   return (
     <div className={s.container}>
       <DndContext
@@ -247,11 +279,12 @@ const BuyPage = () => {
                     {data?.map((item, index) => {
                       return (
                         <BoxOptionV3
+                          key={item.key}
                           disable={item.disable}
-                          {...OrderFormOptions[ORDER_FIELD.NETWORK]}
                           label={item.title}
                           id={item.key}
                           isRequired={item.required}
+                          active={fieldMapping[item.key].isDragged}
                         >
                           {item.type === 'dropdown' ? (
                             <Draggable
@@ -280,6 +313,7 @@ const BuyPage = () => {
                             item.options.map((option, opIdx) => {
                               return (
                                 <Draggable
+                                  key={item.key + '-' + option.key}
                                   id={item.key + '-' + option.key}
                                   useMask
                                   value={option.key}
@@ -300,8 +334,6 @@ const BuyPage = () => {
                     <DragOverlay>
                       {idDragging &&
                         data?.map((item, index) => {
-                          console.log('🚀 -> idDragging', idDragging);
-
                           if (!idDragging.startsWith(item.key)) return null;
 
                           if (item.type === 'dropdown') {
@@ -310,6 +342,8 @@ const BuyPage = () => {
                                 useMask
                                 id={item.key}
                                 value={fieldMapping[item.key].value}
+                                key={item.key}
+                                isDragging={item.key === idDragging}
                               >
                                 <LegoV3
                                   background={item.color}
@@ -337,9 +371,13 @@ const BuyPage = () => {
 
                             return (
                               <Draggable
+                                key={item.key + '-' + option.key}
                                 id={item.key + '-' + option.key}
                                 useMask
                                 value={option.key}
+                                isDragging={
+                                  item.key + '-' + option.key === idDragging
+                                }
                               >
                                 <LegoV3
                                   background={item.color}
@@ -376,30 +414,67 @@ const BuyPage = () => {
 
                     return (
                       <Draggable
-                        id={item.key + '-dropped'}
-                        value={fieldMapping[item.key].value}
                         useMask
+                        key={item.key + '-dragged'}
+                        id={item.key + '-dragged'}
+                        value={fieldMapping[item.key].value}
                       >
                         <LegoV3
-                          label={item.title}
                           background={item.color}
                           title={item.title}
                           zIndex={data.length - index}
+                          label={item.title}
                         >
                           <DropdownV2
-                            defaultValue={fieldMapping[item.key].value}
-                            // @ts-ignore
-                            options={item.options}
-                            value={fieldMapping[item.key].value}
                             cb={(value) => {
                               fieldMapping[item.key].setValue(value);
                             }}
+                            defaultValue={fieldMapping[item.key].value}
+                            // @ts-ignore
+                            options={item.options}
+                            title={item.title}
+                            value={fieldMapping[item.key].value}
                           />
-                        </LegoV3>
+                        </LegoV3>{' '}
                       </Draggable>
                     );
                   })}
                 </DroppableV2>
+
+                {/* <DragOverlay>
+                  {idDragging &&
+                    data?.map((item, index) => {
+                      if (!idDragging.startsWith(item.key)) return null;
+
+                      return (
+                        <Draggable
+                          useMask
+                          key={item.key + '-dragged'}
+                          id={item.key + '-dragged'}
+                          value={fieldMapping[item.key].value}
+                          isDragging={item.key + '-dragged' === idDragging}
+                        >
+                          <LegoV3
+                            background={item.color}
+                            title={item.title}
+                            zIndex={data.length - index}
+                          >
+                            <DropdownV2
+                              cb={(value) => {
+                                fieldMapping[item.key].setValue(value);
+                              }}
+                              defaultValue={fieldMapping[item.key].value}
+                              // @ts-ignore
+                              options={item.options}
+                              title={item.title}
+                              value={fieldMapping[item.key].value}
+                            />
+                          </LegoV3>{' '}
+                        </Draggable>
+                      );
+                    })}
+                </DragOverlay> */}
+
                 <LaunchButton />
               </div>
             </div>

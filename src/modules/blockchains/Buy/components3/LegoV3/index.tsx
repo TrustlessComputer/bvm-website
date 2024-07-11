@@ -59,14 +59,6 @@ function LegoV3({
     (fillBackgroundAsHSB?.b || 100) - 10,
   )?.split('.')[0];
 
-  if (background === '#F200F2')
-    console.log(
-      '🚀 -> file: index.tsx:57 -> background ::',
-      background,
-      fillBackgroundAsHSB,
-      _background,
-    );
-
   return (
     <React.Fragment>
       <div

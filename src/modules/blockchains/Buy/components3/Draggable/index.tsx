@@ -9,6 +9,7 @@ export type DraggableProps = React.PropsWithChildren & {
   useMask?: boolean;
   disabled?: boolean;
   index?: number;
+  isDragging?: boolean;
 };
 
 const Draggable = ({
@@ -17,17 +18,17 @@ const Draggable = ({
   children,
   value,
   disabled = false,
+  isDragging = false,
 }: DraggableProps) => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({
-      id,
-      disabled,
-      data: { value },
-    });
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id,
+    disabled,
+    data: { value },
+  });
 
   const style = {
     transform: CSS.Translate.toString(transform),
-    opacity: useMask && isDragging ? 0 : 1,
+    // opacity: useMask && isDragging ? 0 : 1,
   };
 
   return (

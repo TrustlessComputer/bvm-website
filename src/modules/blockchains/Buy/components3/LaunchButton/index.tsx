@@ -52,11 +52,6 @@ const LaunchButton = () => {
     return availableListFetching || !availableList;
   }, [availableListFetching, availableList]);
 
-  // const allFilled = Object.keys(field).every((key) => {
-  // const { value } = field[key as Override];
-  // const isString = typeof value === 'string';
-  // return field[key as Override].dragged && (isString ? value.trim() : value);
-  // });
   const allFilled = useMemo(() => {
     return !!(
       isDataAvailabilityChainDragged &&
@@ -73,7 +68,6 @@ const LaunchButton = () => {
     chainName,
   ]);
 
-  console.log('allFilled', allFilled);
   const tierData = useMemo(() => {
     const packageData = availableList?.package['2'];
     const result = packageData?.filter((item, index) => {
@@ -82,8 +76,6 @@ const LaunchButton = () => {
 
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
-
-  // if (isFecthingData) return null;
 
   const handleOnClick = async () => {
     if (!loggedIn) return login();
