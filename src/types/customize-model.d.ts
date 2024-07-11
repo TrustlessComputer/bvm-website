@@ -4,6 +4,7 @@ interface IModelOption {
   price: number;
   tooltip: string;
   key: string;
+  icon?:string;
 }
 
 interface IModelCategory {
