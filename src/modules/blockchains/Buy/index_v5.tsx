@@ -224,6 +224,10 @@ const BuyPage = () => {
                           id={item.key}
                           isRequired={item.required}
                           active={field[item.key].dragged}
+                          description={{
+                            title: item.title,
+                            content: item.tooltip
+                          }}
                         >
                           {!field[item.key].dragged &&
                           item.type === 'dropdown' ? (
@@ -284,7 +288,7 @@ const BuyPage = () => {
                                   disabled={isDisabled}
                                   isLabel={true}
                                   value={option.key}
-                                  tooltip={item.tooltip}
+                                  tooltip={option.tooltip}
                                 >
                                   <LegoV3
                                     background={item.color}
