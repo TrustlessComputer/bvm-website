@@ -7,6 +7,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
     code: 'create_token',
     description:
       'SHARD holders collectively make decisions and steer the direction of the BVM ecosystem. SHARD holders can propose and vote on various initiatives, including launching a marketing campaign, building a new product, or funding an ambitious Bitcoin L2 builder.',
+    icon_url: '/app-store/ic-app-create-token.svg',
     image_url: '/app-store/ic-app-create-token.svg',
     installed: 0,
     details: [
@@ -51,6 +52,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
     code: 'staking',
     description:
       'SHARD holders collectively make decisions and steer the direction of the BVM ecosystem. SHARD holders can propose and vote on various initiatives, including launching a marketing campaign, building a new product, or funding an ambitious Bitcoin L2 builder.',
+    icon_url: '/app-store/ic-app-staking.svg',
     image_url: '/app-store/ic-app-staking.svg',
     installed: 0,
     details: [
@@ -156,6 +158,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
     code: 'dex',
     description:
       'SHARD holders collectively make decisions and steer the direction of the BVM ecosystem. SHARD holders can propose and vote on various initiatives, including launching a marketing campaign, building a new product, or funding an ambitious Bitcoin L2 builder.',
+    icon_url: '/app-store/ic-app-dex.png',
     image_url: '/app-store/ic-app-dex.png',
     installed: 0,
     details: [
@@ -261,6 +264,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
     code: 'order_book',
     description:
       'SHARD holders collectively make decisions and steer the direction of the BVM ecosystem. SHARD holders can propose and vote on various initiatives, including launching a marketing campaign, building a new product, or funding an ambitious Bitcoin L2 builder.',
+    icon_url: '/app-store/ic-app-order-book.png',
     image_url: '/app-store/ic-app-order-book.png',
     installed: 0,
     details: [
@@ -366,6 +370,7 @@ export const DA_DUMMY_LIST: IDApp[] = [
     code: 'perpetual',
     description:
       'SHARD holders collectively make decisions and steer the direction of the BVM ecosystem. SHARD holders can propose and vote on various initiatives, including launching a marketing campaign, building a new product, or funding an ambitious Bitcoin L2 builder.',
+    icon_url: '/app-store/ic-app-perpetual.png',
     image_url: '/app-store/ic-app-perpetual.png',
     installed: 0,
     details: [

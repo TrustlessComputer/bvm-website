@@ -111,7 +111,7 @@ const AppDetailModule = () => {
         </Flex>
         <Box className={s.content}>
           <Flex gap={'24px'}>
-            <Image className={s.avatar} src={data?.image_url} />
+            <Image className={s.avatar} src={data?.icon_url} />
             <Flex direction={'column'} gap={'8px'}>
               <Text className={s.title}>{data?.name}</Text>
               <Text className={s.description}>{data?.description}</Text>

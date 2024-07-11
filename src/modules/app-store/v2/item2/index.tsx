@@ -22,7 +22,7 @@ const AppItem2 = ({
     >
       <Flex gap={"24px"} h={"100%"}>
         <Flex alignItems={"center"} h={"100%"}>
-          <Image className={s.avatar} src={data?.image_url} />
+          <Image className={s.avatar} src={data?.icon_url} />
         </Flex>
         <Flex direction={"column"} gap={'8px'} h={"100%"}>
           <Text className={s.title}>{data?.name}</Text>
