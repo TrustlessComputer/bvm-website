@@ -51,22 +51,8 @@ const BuyPage = () => {
     // Normal case
     if (over && overIsFinalDroppable) {
       setField(activeKey, active.data.current.value, true);
-      // fieldMapping[activeKey as Override].setValue(active.data.current.value);
-      // fieldMapping[activeKey as Override].setDragged(true);
-
-      // if (activeKey === ORDER_FIELD.NETWORK) {
-      //   const data = handleFindData(orderFormStore.network);
-
-      //   if (data && data.length > 0) {
-      //     fieldMapping[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].setValue(
-      //       data[0].value,
-      //     );
-      //   }
-      // }
     } else {
       setField(activeKey, active.data.current.value, false);
-      // fieldMapping[activeKey as Override].setValue(active.data.current.value);
-      // fieldMapping[activeKey as Override].setDragged(false);
     }
 
     return;
@@ -87,6 +73,11 @@ const BuyPage = () => {
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
       );
+
+      if (!newDefaultValue) {
+        setField(item.key, null, false);
+        return;
+      }
 
       if (!currentOption || !newDefaultValue) return;
       if (
@@ -158,7 +149,8 @@ const BuyPage = () => {
                           isRequired={item.required}
                           active={field[item.key].dragged}
                         >
-                          {item.type === 'dropdown' ? (
+                          {field[item.key].dragged &&
+                          item.type === 'dropdown' ? (
                             <Draggable
                               useMask
                               id={item.key}
@@ -194,8 +186,9 @@ const BuyPage = () => {
                           ) : (
                             item.options.map((option, opIdx) => {
                               if (
-                                option.key === field[item.key].value &&
-                                field[item.key].dragged
+                                (option.key === field[item.key].value &&
+                                  field[item.key].dragged) ||
+                                item.type === 'dropdown'
                               )
                                 return null;
 
