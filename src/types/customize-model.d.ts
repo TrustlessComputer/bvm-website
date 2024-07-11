@@ -10,7 +10,8 @@ interface IModelCategory {
   title: string;
   color: string;
   key: string;
-  type: '' | 'dropdown';
+  type: '' | 'dropdown' | 'slide' | 'module';
   required: boolean;
   options: [IModelOption];
+  disable: boolean
 }
