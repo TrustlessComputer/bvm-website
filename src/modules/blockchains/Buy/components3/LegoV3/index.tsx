@@ -22,20 +22,19 @@ type LegoV3 = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
-  background = '#A041FF',
-  label = null,
-  parentOfNested = false,
-  first = false,
-  last = false,
-  active = false,
-  icon,
-  zIndex = 0,
-  className,
-  children,
-  ...props
-}: LegoV3) {
+                  background = '#A041FF',
+                  label = null,
+                  parentOfNested = false,
+                  first = false,
+                  last = false,
+                  active = false,
+                  icon,
+                  zIndex = 0,
+                  className,
+                  children,
+                  ...props
+                }: LegoV3) {
   const legoRef = React.useRef<HTMLDivElement | null>(null);
-  const [isOpenToolTip, setIsOpenToolTip] = useState<boolean>(false);
   const { idDropdownCurrent, setIdDropdownCurrent } = useStoreDropDown();
 
   React.useEffect(() => {
@@ -66,6 +65,7 @@ function LegoV3({
       fillBackgroundAsHSB,
       _background,
     );
+
 
   return (
     <React.Fragment>

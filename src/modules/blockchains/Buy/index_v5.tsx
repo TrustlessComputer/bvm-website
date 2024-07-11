@@ -243,7 +243,7 @@ const BuyPage = () => {
                 <div className={s.left_box_inner}>
                   <SideBar items={data} />
 
-                  <div className={s.left_box_inner_content}>
+                  <div id={'wrapper-data'} className={s.left_box_inner_content}>
                     {data?.map((item, index) => {
                       return (
                         <BoxOptionV3

@@ -1,6 +1,6 @@
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import s from './styles.module.scss';
 
 export type DraggableProps = React.PropsWithChildren & {
@@ -9,15 +9,20 @@ export type DraggableProps = React.PropsWithChildren & {
   useMask?: boolean;
   disabled?: boolean;
   index?: number;
+  tooltip?: string;
 };
 
 const Draggable = ({
-  id,
-  useMask = false,
-  children,
-  value,
-  disabled = false,
-}: DraggableProps) => {
+                     id,
+                     useMask = false,
+                     children,
+                     value,
+                     disabled = false,
+                     tooltip,
+                   }: DraggableProps) => {
+  const [isHover, setIsHover] = React.useState(false);
+  const refTooltip = useRef<HTMLAnchorElement>(null);
+
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id,
@@ -30,6 +35,38 @@ const Draggable = ({
     opacity: useMask && isDragging ? 0 : 1,
   };
 
+  useEffect(() => {
+
+    if (isHover) {
+
+    }
+  }, []);
+
+  const onHover = () => {
+    const wrapData = document.getElementById('wrapper-data');
+
+    if (refTooltip.current && wrapData) {
+      const rectData = wrapData.getBoundingClientRect();
+      const rectTl = refTooltip.current.getBoundingClientRect();
+      if (rectTl.right >= rectData.right) {
+        refTooltip.current.classList.add(s.isRight);
+      }
+
+      if (rectTl.top <= rectData.top) {
+        refTooltip.current.classList.add(s.isBottom);
+      }
+      refTooltip.current.classList.add(s.isHover);
+    }
+  };
+
+  const onLeave = () => {
+    if (refTooltip.current) {
+      refTooltip.current.classList.remove(s.isHover);
+      refTooltip.current.classList.remove(s.isRight);
+      refTooltip.current.classList.remove(s.isHover);
+    }
+  };
+
   return (
     <div
       ref={setNodeRef}
@@ -37,8 +74,14 @@ const Draggable = ({
       className={s.options}
       {...listeners}
       {...attributes}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      onClick={onLeave}
     >
       {children}
+      <span ref={refTooltip} className={`${s.tooltip}`}>{
+        tooltip
+      }</span>
     </div>
   );
 };

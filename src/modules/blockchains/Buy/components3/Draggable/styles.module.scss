@@ -1,4 +1,39 @@
 .options {
   display: flex;
   gap: 18px;
+  position: relative;
+}
+
+.options {
+  &:hover {
+    z-index: 9999 !important;
+  }
+}
+
+.tooltip {
+  z-index: 9999999;
+  background-color: #fff;
+  color: #333333;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  position: absolute;
+  min-width: 250px;
+  padding: 10px;
+  bottom: calc(100% + 5px);
+  border-radius: 12px;
+  opacity: 0;
+
+  &.isRight {
+    right: 0px;
+    left: auto;
+  }
+
+  &.isBottom {
+    bottom: auto;
+    top: calc(100% + 5px);
+  }
+
+  &.isHover {
+    opacity: 1;
+  }
 }
