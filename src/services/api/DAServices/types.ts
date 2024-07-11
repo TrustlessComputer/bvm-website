@@ -15,6 +15,14 @@ export const DA_PACKAGES = {
   advance: 'advance',
 };
 
+export type IDappInstalledStatus =
+  | 'new'
+  | 'failed'
+  | 'done'
+  | 'processing'
+  | 'requested_cancel'
+  | 'removed';
+
 export interface IUserPackage {
   id: number;
   network_id: number;
@@ -24,7 +32,7 @@ export interface IUserPackage {
   app_store_detail_id: number;
   app_store_detail: IDAppDetails;
   package: string;
-  status: string;
+  status: IDappInstalledStatus;
 }
 
 export interface IImageInfo {
