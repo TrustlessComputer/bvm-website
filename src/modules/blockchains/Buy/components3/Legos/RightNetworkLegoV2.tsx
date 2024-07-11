@@ -34,4 +34,4 @@ const RightNetworkLegoV2 = () => {
   );
 };
 
-export default RightNetworkLegoV2;
+export default React.memo(RightNetworkLegoV2);

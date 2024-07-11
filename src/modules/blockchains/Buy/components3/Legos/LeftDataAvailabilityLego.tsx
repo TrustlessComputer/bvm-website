@@ -66,4 +66,4 @@ const LeftDataAvailabilityLego = () => {
   });
 };
 
-export default LeftDataAvailabilityLego;
+export default React.memo(LeftDataAvailabilityLego);

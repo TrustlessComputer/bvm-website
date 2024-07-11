@@ -58,4 +58,4 @@ const BlockGasLimitLego = ({ isLeft = false }: { isLeft?: boolean }) => {
   );
 };
 
-export default BlockGasLimitLego;
+export default React.memo(BlockGasLimitLego);

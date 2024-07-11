@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   ORDER_FIELD,
   useFormOrderStore,
@@ -27,4 +29,4 @@ const RightNetworkLego = () => {
   );
 };
 
-export default RightNetworkLego;
+export default React.memo(RightNetworkLego);

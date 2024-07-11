@@ -1,4 +1,4 @@
-import { DndContext, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
 import React from 'react';
 
 import Tier from '@/modules/blockchains/Buy/components3/Tier';
@@ -25,10 +25,28 @@ import s from './styles_v5.module.scss';
 import LeftNetworkLego from './components3/Legos/LeftNetworkLego';
 import LeftDataAvailabilityLego from './components3/Legos/LeftDataAvailabilityLego';
 import { NetworkEnum } from './Buy.constanst';
+import useDragMask from './stores/useDragMask';
+import { getModelCategories } from '@/services/customize-model';
+import DropdownV2 from './components3/DropdownV2';
 
 type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
 const BuyPage = () => {
+  const [data, setData] = React.useState<
+    | {
+        key: string;
+        title: string;
+        options: {
+          key: string;
+          title: string;
+          value: string;
+          disabled: boolean;
+        }[];
+      }[]
+    | null
+  >(null);
+  const [form, setForm] = React.useState<Record<string, any>>({});
+
   const {
     gasLimit,
     withdrawPeriod,
@@ -47,6 +65,8 @@ const BuyPage = () => {
     setWithdrawPeriod,
     setWithdrawPeriodDragged,
   } = useOrderFormStore();
+
+  const { setIdDragging } = useDragMask();
 
   const fieldMapping: Record<
     string,
@@ -73,7 +93,18 @@ const BuyPage = () => {
     [],
   );
 
+  const maskMapping = {};
+
+  const handleDragStart = (event: any) => {
+    const { active } = event;
+    const [activeKey = ''] = active.id.split('-');
+
+    setIdDragging(activeKey);
+  };
+
   function handleDragEnd(event: any) {
+    setIdDragging('');
+
     const { over, active } = event;
 
     // Format ID of single field = <key>-<value>
@@ -104,9 +135,12 @@ const BuyPage = () => {
     return;
   }
 
+  const handleValueChange = (key: string, value: any) => {};
+
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
+
   const handleFindData = (networkSelected: NetworkEnum) => {
     const optionsDataAvailable =
       OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].options;
@@ -115,18 +149,96 @@ const BuyPage = () => {
     });
     return values;
   };
+
+  React.useEffect(() => {
+    const convertData = (data: IModelCategory[]) => {
+      const newData = data.map((item) => {
+        return {
+          ...item,
+          options: item.options?.map((option) => {
+            return {
+              ...option,
+              value: option.key,
+              label: option.title,
+              disabled: option.selectable,
+            };
+          }),
+        };
+      });
+
+      console.log(
+        '🚀 -> file: index_v5.tsx:169 -> newData -> newData ::',
+        newData,
+      );
+
+      return newData;
+    };
+
+    getModelCategories().then((res) => {
+      console.log(
+        '🚀 -> file: index_v5.tsx:138 -> getModelCategories -> res ::',
+        res,
+      );
+      if (!res) return;
+
+      const form: Record<string, any> = {};
+
+      // set default value
+      res.map((item) => {
+        form[item.key] = item.options[0].key;
+      });
+
+      setData(convertData(res));
+      setForm(form);
+    });
+  }, []);
+
   return (
     <div className={s.container}>
-      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+      <DndContext
+        sensors={sensors}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
         <div className={s.wrapper}>
           <div className={s.inner}>
             <div className={s.left}>
               <p className={s.heading}>Customize your Blockchain</p>
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
-                  <SideBar />
+                  <SideBar items={data} />
                   <div className={s.left_box_inner_content}>
-                    <BoxOptionV3
+                    {data?.map((item, index) => {
+                      return (
+                        <BoxOptionV3
+                          {...OrderFormOptions[ORDER_FIELD.NETWORK]}
+                          label={item.title}
+                          id={item.key}
+                        >
+                          {item.options ? (
+                            <Draggable useMask id={item.key}>
+                              <LegoV3
+                                background={
+                                  OrderFormOptions[ORDER_FIELD.NETWORK]
+                                    .background
+                                }
+                                title={item.title}
+                                zIndex={data.length - index}
+                              >
+                                <DropdownV2
+                                  defaultValue={form[item.key]}
+                                  options={item.options}
+                                  value={form.value}
+                                  onChange={handleValueChange}
+                                />
+                              </LegoV3>
+                            </Draggable>
+                          ) : null}
+                        </BoxOptionV3>
+                      );
+                    })}
+
+                    {/* <BoxOptionV3
                       {...OrderFormOptions[ORDER_FIELD.NETWORK]}
                       label={OrderFormOptions[ORDER_FIELD.NETWORK].title}
                       id={ORDER_FIELD.NETWORK}
@@ -155,6 +267,7 @@ const BuyPage = () => {
                       active={isGasLimitDragged}
                     >
                       <Draggable
+                        useMask
                         id={ORDER_FIELD.GAS_LIMIT}
                         value={gasLimit}
                         disabled={isGasLimitDragged}
@@ -172,13 +285,22 @@ const BuyPage = () => {
                       active={isWithdrawPeriodDragged}
                     >
                       <Draggable
+                        useMask
                         id={ORDER_FIELD.WITHDRAW_PERIOD}
                         value={withdrawPeriod}
                         disabled={isWithdrawPeriodDragged}
                       >
                         <WithdrawalTimeLego isLeft />
                       </Draggable>
-                    </BoxOptionV3>
+                    </BoxOptionV3> */}
+
+                    {/* <DragOverlay>
+                      {idDragging && (
+                        <div>
+                          <WithdrawalTimeLego />
+                        </div>
+                      )}
+                    </DragOverlay> */}
                   </div>
                 </div>
               </div>
@@ -216,6 +338,7 @@ const BuyPage = () => {
                       <RightDataAvailabilityLego />
                     </Draggable>
                   )}
+
                   {isGasLimitDragged && (
                     <Draggable
                       id={ORDER_FIELD.GAS_LIMIT + '-dropped'}
