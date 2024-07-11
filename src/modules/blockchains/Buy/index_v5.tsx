@@ -1,5 +1,5 @@
 import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import Tier from '@/modules/blockchains/Buy/components3/Tier';
 
@@ -18,19 +18,22 @@ import useOrderFormStoreV3 from './stores/index_v3';
 
 import s from './styles_v5.module.scss';
 
+import gsap from 'gsap';
+
 const BuyPage = () => {
   const [data, setData] = React.useState<
     | (IModelCategory & {
-        options: {
-          value: any;
-          label: string;
-          disabled: boolean;
-        }[];
-      })[]
+    options: {
+      value: any;
+      label: string;
+      disabled: boolean;
+    }[];
+  })[]
     | null
   >(null);
   const { field, setField } = useOrderFormStoreV3();
   const { idDragging, setIdDragging } = useDragMask();
+  const refTime = useRef<NodeJS.Timeout>();
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -123,6 +126,29 @@ const BuyPage = () => {
     });
   }, []);
 
+  useEffect(() => {
+
+    const wrapper = document.getElementById('wrapper-data');
+    const loop = () => {
+      if (wrapper) wrapper.scrollLeft = 0;
+    };
+
+    if (idDragging) {
+      gsap.ticker.add(loop);
+    } else if (refTime.current) {
+      if (wrapper) wrapper.scrollLeft = 0;
+      gsap.ticker.remove(loop);
+    }
+
+    wrapper?.addEventListener('mouseenter', loop);
+    return () => {
+      if (wrapper) wrapper.scrollLeft = 0;
+      gsap.ticker.remove(loop);
+      wrapper?.removeEventListener('mouseenter', loop);
+    };
+
+  }, [idDragging]);
+
   return (
     <div className={s.container}>
       <DndContext
@@ -197,7 +223,7 @@ const BuyPage = () => {
                                   option.supportNetwork &&
                                   option.supportNetwork !== 'both' &&
                                   option.supportNetwork !==
-                                    field['network']?.value
+                                  field['network']?.value
                                 ) || !option.selectable;
 
                               return (
