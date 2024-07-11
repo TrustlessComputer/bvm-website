@@ -66,7 +66,7 @@ const BuyPage = () => {
     setWithdrawPeriodDragged,
   } = useOrderFormStore();
 
-  const { setIdDragging } = useDragMask();
+  const { setIdDragging, idDragging } = useDragMask();
 
   const fieldMapping: Record<
     string,
@@ -228,6 +228,7 @@ const BuyPage = () => {
                                 <DropdownV2
                                   defaultValue={form[item.key]}
                                   options={item.options}
+                                  title={item.title}
                                   value={form.value}
                                   onChange={handleValueChange}
                                 />
@@ -294,13 +295,13 @@ const BuyPage = () => {
                       </Draggable>
                     </BoxOptionV3> */}
 
-                    {/* <DragOverlay>
-                      {idDragging && (
-                        <div>
-                          <WithdrawalTimeLego />
-                        </div>
-                      )}
-                    </DragOverlay> */}
+                   {/*<DragOverlay>*/}
+                   {/*   {idDragging && (*/}
+                   {/*     <div>*/}
+                   {/*       <WithdrawalTimeLego />*/}
+                   {/*     </div>*/}
+                   {/*   )}*/}
+                   {/* </DragOverlay>*/}
                   </div>
                 </div>
               </div>
