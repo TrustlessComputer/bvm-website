@@ -19,12 +19,11 @@ import {
 import sleep from '@/utils/sleep';
 import { Spinner } from '@chakra-ui/react';
 import { useOrderFormStore } from '../../stores/index_v2';
+import useOrderFormStoreV3 from '../../stores/index_v3';
 
 const LaunchButton = ({
-  fieldMapping,
   data,
 }: {
-  fieldMapping: any;
   data:
     | (IModelCategory & {
         options: {
@@ -35,6 +34,7 @@ const LaunchButton = ({
       })[]
     | null;
 }) => {
+  const { field } = useOrderFormStoreV3();
   const { loggedIn, login } = useWeb3Auth();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -59,10 +59,10 @@ const LaunchButton = ({
     return (
       !!chainName.trim() &&
       data?.every((item) => {
-        return fieldMapping[item.key].isDragged || item.disable;
+        return field[item.key].dragged || item.disable;
       })
     );
-  }, [chainName, fieldMapping]);
+  }, [chainName, field]);
 
   const tierData = useMemo(() => {
     const packageData = availableList?.package['2'];

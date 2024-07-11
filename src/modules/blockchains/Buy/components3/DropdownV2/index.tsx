@@ -14,15 +14,15 @@ type TDropdown = {
     id: number;
     label: string;
     keyInField?: string;
-    value: NetworkEnum | DALayerEnum | number;
+    value: string | number;
     icon?: string;
     isDisabled?: boolean;
     avalaibleNetworks?: NetworkEnum[];
   }[];
   checkDisable?: boolean;
   title: string;
-  defaultValue: DALayerEnum | NetworkEnum;
-  cb: (value: DALayerEnum | NetworkEnum | number) => void;
+  defaultValue: string | number;
+  cb: (value: string | number) => void;
 };
 
 function DropdownV2({
@@ -40,13 +40,13 @@ function DropdownV2({
 
   useOnClickOutside(ref, () => setIsOpen(false));
 
-  const handleSelectField = (value: DALayerEnum | NetworkEnum | number) => {
-    if (field === ORDER_FIELD.NETWORK) {
-      const value = handleFindData(network);
-      if (value && value.length > 0) {
-        setDataAvaibilityChain(value[0].value);
-      }
-    }
+  const handleSelectField = (value: string | number) => {
+    // if (field === ORDER_FIELD.NETWORK) {
+    //   const value = handleFindData(network);
+    //   if (value && value.length > 0) {
+    //     setDataAvaibilityChain(value[0].value);
+    //   }
+    // }
 
     cb(value);
     setIsOpen(false);

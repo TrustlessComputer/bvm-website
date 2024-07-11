@@ -2,10 +2,6 @@ import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
 import React from 'react';
 
 import Tier from '@/modules/blockchains/Buy/components3/Tier';
-import {
-  ORDER_FIELD,
-  useOrderFormStore,
-} from '@/modules/blockchains/Buy/stores/index_v2';
 
 import { OrderFormOptions } from './Buy.data';
 import ComputerNameInput from './components3/ComputerNameInput';
@@ -20,10 +16,9 @@ import { NetworkEnum } from './Buy.constanst';
 import useDragMask from './stores/useDragMask';
 import { getModelCategories } from '@/services/customize-model';
 import DropdownV2 from './components3/DropdownV2';
+import useOrderFormStoreV3 from './stores/index_v3';
 
 import s from './styles_v5.module.scss';
-
-type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
 
 const BuyPage = () => {
   const [data, setData] = React.useState<
@@ -36,127 +31,8 @@ const BuyPage = () => {
       })[]
     | null
   >(null);
-  const orderFormStore = useOrderFormStore();
+  const { field, setField } = useOrderFormStoreV3();
   const { idDragging, setIdDragging } = useDragMask();
-
-  const fieldMapping: Record<
-    string,
-    {
-      setValue: (value: any) => void;
-      setDragged: (value: boolean) => void;
-      isDragged: boolean;
-      value: any;
-    }
-  > = React.useMemo(
-    () => ({
-      [ORDER_FIELD.NETWORK]: {
-        value: orderFormStore.network,
-        setValue: orderFormStore.setNetwork,
-        isDragged: orderFormStore.isNetworkDragged,
-        setDragged: orderFormStore.setNetworkDragged,
-      },
-      [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
-        value: orderFormStore.dataAvaibilityChain,
-        setValue: orderFormStore.setDataAvaibilityChain,
-        isDragged: orderFormStore.isDataAvailabilityChainDragged,
-        setDragged: orderFormStore.setDataAvailabilityChainDragged,
-      },
-      [ORDER_FIELD.GAS_LIMIT]: {
-        value: orderFormStore.gasLimit,
-        setValue: orderFormStore.setGasLimit,
-        isDragged: orderFormStore.isGasLimitDragged,
-        setDragged: orderFormStore.setGasLimitDragged,
-      },
-      [ORDER_FIELD.WITHDRAW_PERIOD]: {
-        value: orderFormStore.withdrawPeriod,
-        setValue: orderFormStore.setWithdrawPeriod,
-        isDragged: orderFormStore.isWithdrawPeriodDragged,
-        setDragged: orderFormStore.setWithdrawPeriodDragged,
-      },
-      [ORDER_FIELD.HARDWARE]: {
-        value: orderFormStore.hardware,
-        setValue: orderFormStore.setHardware,
-        isDragged: orderFormStore.isHardwareDragged,
-        setDragged: orderFormStore.setHardwareDragged,
-      },
-      [ORDER_FIELD.SETTLEMENT]: {
-        value: orderFormStore.settlement,
-        setValue: orderFormStore.setSettlement,
-        isDragged: orderFormStore.isSettlementDragged,
-        setDragged: orderFormStore.setSettlementDragged,
-      },
-      [ORDER_FIELD.COMPUTE]: {
-        value: orderFormStore.compute,
-        setValue: orderFormStore.setCompute,
-        isDragged: orderFormStore.isComputeDragged,
-        setDragged: orderFormStore.setComputeDragged,
-      },
-      [ORDER_FIELD.STORAGE]: {
-        value: orderFormStore.storage,
-        setValue: orderFormStore.setStorage,
-        isDragged: orderFormStore.isStorageDragged,
-        setDragged: orderFormStore.setStorageDragged,
-      },
-      [ORDER_FIELD.ZK_PROVER]: {
-        value: orderFormStore.zkProver,
-        setValue: orderFormStore.setZkProver,
-        isDragged: orderFormStore.isZkProverDragged,
-        setDragged: orderFormStore.setZkProverDragged,
-      },
-      [ORDER_FIELD.DEGEN_APPS]: {
-        value: orderFormStore.degenApps,
-        setValue: orderFormStore.setDegenApps,
-        isDragged: orderFormStore.isDegenAppsDragged,
-        setDragged: orderFormStore.setDegenAppsDragged,
-      },
-      [ORDER_FIELD.GAMING_APPS]: {
-        value: orderFormStore.gamingApps,
-        setValue: orderFormStore.setGamingApps,
-        isDragged: orderFormStore.isGamingAppsDragged,
-        setDragged: orderFormStore.setGamingAppsDragged,
-      },
-      [ORDER_FIELD.WALLET]: {
-        value: orderFormStore.wallet,
-        setValue: orderFormStore.setWallet,
-        isDragged: orderFormStore.isWalletDragged,
-        setDragged: orderFormStore.setWalletDragged,
-      },
-      [ORDER_FIELD.BRIDGE_APPS]: {
-        value: orderFormStore.bridgeApps,
-        setValue: orderFormStore.setBridgeApps,
-        isDragged: orderFormStore.isBridgeAppsDragged,
-        setDragged: orderFormStore.setBridgeAppsDragged,
-      },
-    }),
-    [
-      orderFormStore.network,
-      orderFormStore.dataAvaibilityChain,
-      orderFormStore.gasLimit,
-      orderFormStore.withdrawPeriod,
-      orderFormStore.hardware,
-      orderFormStore.settlement,
-      orderFormStore.compute,
-      orderFormStore.storage,
-      orderFormStore.zkProver,
-      orderFormStore.degenApps,
-      orderFormStore.gamingApps,
-      orderFormStore.wallet,
-      orderFormStore.bridgeApps,
-      orderFormStore.isNetworkDragged,
-      orderFormStore.isDataAvailabilityChainDragged,
-      orderFormStore.isGasLimitDragged,
-      orderFormStore.isWithdrawPeriodDragged,
-      orderFormStore.isHardwareDragged,
-      orderFormStore.isSettlementDragged,
-      orderFormStore.isComputeDragged,
-      orderFormStore.isStorageDragged,
-      orderFormStore.isZkProverDragged,
-      orderFormStore.isDegenAppsDragged,
-      orderFormStore.isGamingAppsDragged,
-      orderFormStore.isWalletDragged,
-      orderFormStore.isBridgeAppsDragged,
-    ],
-  );
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -176,21 +52,23 @@ const BuyPage = () => {
 
     // Normal case
     if (over && overIsFinalDroppable) {
-      fieldMapping[activeKey as Override].setValue(active.data.current.value);
-      fieldMapping[activeKey as Override].setDragged(true);
+      setField(activeKey, active.data.current.value, true);
+      // fieldMapping[activeKey as Override].setValue(active.data.current.value);
+      // fieldMapping[activeKey as Override].setDragged(true);
 
-      if (activeKey === ORDER_FIELD.NETWORK) {
-        const data = handleFindData(orderFormStore.network);
+      // if (activeKey === ORDER_FIELD.NETWORK) {
+      //   const data = handleFindData(orderFormStore.network);
 
-        if (data && data.length > 0) {
-          fieldMapping[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].setValue(
-            data[0].value,
-          );
-        }
-      }
+      //   if (data && data.length > 0) {
+      //     fieldMapping[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].setValue(
+      //       data[0].value,
+      //     );
+      //   }
+      // }
     } else {
-      fieldMapping[activeKey as Override].setValue(active.data.current.value);
-      fieldMapping[activeKey as Override].setDragged(false);
+      setField(activeKey, active.data.current.value, false);
+      // fieldMapping[activeKey as Override].setValue(active.data.current.value);
+      // fieldMapping[activeKey as Override].setDragged(false);
     }
 
     return;
@@ -233,7 +111,8 @@ const BuyPage = () => {
 
       // set default value
       res.map((item) => {
-        fieldMapping[item.key].setValue(item.options[0].key);
+        setField(item.key, item.options[0].key);
+        // fieldMapping[item.key].setValue(item.options[0].key);
       });
 
       // @ts-ignore
@@ -265,13 +144,13 @@ const BuyPage = () => {
                           label={item.title}
                           id={item.key}
                           isRequired={item.required}
-                          active={fieldMapping[item.key].isDragged}
+                          active={field[item.key].dragged}
                         >
                           {item.type === 'dropdown' ? (
                             <Draggable
                               useMask
                               id={item.key}
-                              value={fieldMapping[item.key].value}
+                              value={field[item.key].value}
                             >
                               <LegoV3
                                 background={item.color}
@@ -280,13 +159,13 @@ const BuyPage = () => {
                               >
                                 <DropdownV2
                                   cb={(value) => {
-                                    fieldMapping[item.key].setValue(value);
+                                    setField(item.key, value);
                                   }}
-                                  defaultValue={fieldMapping[item.key].value}
+                                  defaultValue={field[item.key].value || ''}
                                   // @ts-ignore
                                   options={item.options}
                                   title={item.title}
-                                  value={fieldMapping.value}
+                                  value={field[item.key].value}
                                 />
                               </LegoV3>{' '}
                             </Draggable>
@@ -323,7 +202,7 @@ const BuyPage = () => {
                               <Draggable
                                 useMask
                                 id={item.key}
-                                value={fieldMapping[item.key].value}
+                                value={field[item.key].value}
                                 key={item.key}
                                 isDragging={item.key === idDragging}
                                 tooltip={item.tooltip}
@@ -335,13 +214,13 @@ const BuyPage = () => {
                                 >
                                   <DropdownV2
                                     cb={(value) => {
-                                      fieldMapping[item.key].setValue(value);
+                                      setField(item.key, value);
                                     }}
-                                    defaultValue={fieldMapping[item.key].value}
+                                    defaultValue={field[item.key].value || ''}
                                     // @ts-ignore
                                     options={item.options}
                                     title={item.title}
-                                    value={fieldMapping[item.key].value}
+                                    value={field[item.key].value}
                                   />
                                 </LegoV3>{' '}
                               </Draggable>
@@ -394,7 +273,7 @@ const BuyPage = () => {
                   </LegoV3>
 
                   {data?.map((item, index) => {
-                    if (!fieldMapping[item.key].isDragged) return null;
+                    if (!field[item.key].dragged) return null;
 
                     return (
                       <Draggable
@@ -402,7 +281,7 @@ const BuyPage = () => {
                         key={item.key + '-dragged'}
                         id={item.key + '-dragged'}
                         tooltip={item.tooltip}
-                        value={fieldMapping[item.key].value}
+                        value={field[item.key].value}
                       >
                         <LegoV3
                           background={item.color}
@@ -412,21 +291,22 @@ const BuyPage = () => {
                         >
                           <DropdownV2
                             cb={(value) => {
-                              fieldMapping[item.key].setValue(value);
+                              // fieldMapping[item.key].setValue(value);
+                              setField(item.key, value);
                             }}
-                            defaultValue={fieldMapping[item.key].value}
+                            defaultValue={field[item.key].value || ''}
                             // @ts-ignore
                             options={item.options}
                             title={item.title}
-                            value={fieldMapping[item.key].value}
+                            value={field[item.key].value}
                           />
-                        </LegoV3>{' '}
+                        </LegoV3>
                       </Draggable>
                     );
                   })}
                 </DroppableV2>
 
-                <LaunchButton fieldMapping={fieldMapping} data={data} />
+                <LaunchButton data={data} />
               </div>
             </div>
           </div>

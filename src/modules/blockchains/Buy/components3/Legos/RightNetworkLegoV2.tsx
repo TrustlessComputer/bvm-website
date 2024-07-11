@@ -26,7 +26,7 @@ const RightNetworkLegoV2 = () => {
     >
       <DropdownV2
         title={OrderFormOptions[ORDER_FIELD.NETWORK].subTitle}
-        cb={onDropdownChange}
+        cb={onDropdownChange as any}
         defaultValue={network}
         field={ORDER_FIELD.NETWORK}
         options={OrderFormOptions[ORDER_FIELD.NETWORK].options}

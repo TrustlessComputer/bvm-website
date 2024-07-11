@@ -5,7 +5,7 @@ import s from './styles.module.scss';
 
 export type DraggableProps = React.PropsWithChildren & {
   id: string;
-  value?: string | number;
+  value?: string | number | null;
   useMask?: boolean;
   disabled?: boolean;
   index?: number;
@@ -14,14 +14,14 @@ export type DraggableProps = React.PropsWithChildren & {
 };
 
 const Draggable = ({
-                     id,
-                     useMask = false,
-                     children,
-                     value,
-                     disabled = false,
-                     isDragging = false,
-                     tooltip,
-                   }: DraggableProps) => {
+  id,
+  useMask = false,
+  children,
+  value,
+  disabled = false,
+  isDragging = false,
+  tooltip,
+}: DraggableProps) => {
   const refTooltip = useRef<HTMLAnchorElement>(null);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
@@ -71,9 +71,11 @@ const Draggable = ({
       onClick={onLeave}
     >
       {children}
-      {tooltip && <span ref={refTooltip} className={`${s.tooltip}`}>{
-        tooltip
-      }</span>}
+      {tooltip && (
+        <span ref={refTooltip} className={`${s.tooltip}`}>
+          {tooltip}
+        </span>
+      )}
     </div>
   );
 };
