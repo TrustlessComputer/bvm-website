@@ -256,34 +256,39 @@ const BuyPage = () => {
                           label={item.title}
                           id={item.key}
                         >
-                          {item.options ? (
-                            <Draggable
-                              useMask
-                              id={item.key}
-                              value={form[item.key]}
-                            >
+                          {
+                            item.type === 'dropdown' ? <Draggable useMask
+                                                                  id={item.key}
+                                                                  value={form[item.key]}>
                               <LegoV3
-                                background={item.color}
+                              background={item.color}
+                              title={item.title}
+                              zIndex={data.length - index}
+                            >
+                              <DropdownV2
+                                cb={(value) => {
+                                  console.log('🚀 -> value', item.key, value);
+                                  setForm({
+                                    ...form,
+                                    [item.key]: value,
+                                  });
+                                }}
+                                defaultValue={form[item.key]}
+                                // @ts-ignore
+                                options={item.options}
                                 title={item.title}
-                                zIndex={data.length - index}
-                              >
-                                <DropdownV2
-                                  cb={(value) => {
-                                    console.log('🚀 -> value', item.key, value);
-                                    setForm({
-                                      ...form,
-                                      [item.key]: value,
-                                    });
-                                  }}
-                                  defaultValue={form[item.key]}
-                                  // @ts-ignore
-                                  options={item.options}
-                                  title={item.title}
-                                  value={form.value}
-                                />
-                              </LegoV3>
-                            </Draggable>
-                          ) : null}
+                                value={form.value}
+                              />
+                            </LegoV3> </Draggable> : (
+                              item.options.map((option, opIdx) => {
+                                return <Draggable id={option.key} useMask value={option.key}><LegoV3
+                                  background={item.color}
+                                  label={option.title}
+                                  zIndex={item.options.length - opIdx}
+                                /></Draggable>;
+                              })
+                            )
+                          }
                         </BoxOptionV3>
                       );
                     })}
