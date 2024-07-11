@@ -154,3 +154,17 @@
     --background: #aa00cc;
   }
 }
+
+.tooltip {
+  z-index: 9999;
+  background-color: #fff;
+  color: #333333;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.tooltipArrow {
+  //box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15)
+  box-shadow:
+     0px 11px 8px -10px rgba(0, 0, 0, 0.15),
+     0px -11px 8px -10px rgba(0, 0, 0, 0.15);
+}
