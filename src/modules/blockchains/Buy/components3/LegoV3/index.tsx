@@ -103,13 +103,14 @@ function LegoV3({
                 flexDirection: 'column',
               }}
             >
-              {children} {suffix}
+              {children}
             </div>
           ) : (
-            <div className={styles.options}>
-              {children} {suffix}
-            </div>
+            <div className={styles.options}>{children}</div>
           )}
+          <div className={styles.label}>
+            <p>{suffix}</p>
+          </div>
         </div>
       </div>
     </React.Fragment>
