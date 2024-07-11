@@ -97,10 +97,6 @@ const BuyPage = () => {
   React.useEffect(() => {
     const convertData = (data: IModelCategory[]) => {
       const newData = data.map((item) => {
-        if (item.key === 'zk_prover') {
-          console.log('item :::: ', item);
-        }
-
         return {
           ...item,
           options: item.options?.map((option) => {
@@ -108,7 +104,8 @@ const BuyPage = () => {
               ...option,
               value: option.key,
               label: option.title,
-              disabled: !option.selectable,
+              disabled: !option.selectable || item.disable,
+              selectable: option.selectable && !item.disable,
             };
           }),
         };
@@ -149,10 +146,6 @@ const BuyPage = () => {
             (!currentOption.selectable && !field[item.key].dragged);
 
           if (isDisabled) return 0;
-
-          if (currentOption.key === 'explorer') {
-            console.log('currentOption :::::::: ', currentOption);
-          }
 
           return currentOption?.priceUSD || 0;
         })
