@@ -5,11 +5,12 @@ import SvgInset from '@/components/SvgInset';
 
 import styles from './styles.module.scss';
 import { LegoColor } from '../BoxOptionV2';
+import { hexToHSB, hsbToHex } from '../../utils';
 import { Tooltip } from 'react-tooltip';
 import useStoreDropDown from '@/modules/blockchains/Buy/stores/useStoreDropdown';
 
 type LegoV3 = {
-  background?: LegoColor;
+  background?: string;
   parentOfNested?: boolean;
   first?: boolean;
   last?: boolean;
@@ -21,7 +22,7 @@ type LegoV3 = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
-                  background = 'brown',
+                  background = '#A041FF',
                   label = null,
                   parentOfNested = false,
                   first = false,
@@ -34,8 +35,8 @@ function LegoV3({
                   ...props
                 }: LegoV3) {
   const legoRef = React.useRef<HTMLDivElement | null>(null);
-  const [isOpenToolTip, setIsOpenToolTip] = useState<boolean>(false)
-  const { idDropdownCurrent, setIdDropdownCurrent } = useStoreDropDown()
+  const [isOpenToolTip, setIsOpenToolTip] = useState<boolean>(false);
+  const { idDropdownCurrent, setIdDropdownCurrent } = useStoreDropDown();
 
   React.useEffect(() => {
     let parentLego = legoRef.current?.parentElement;
@@ -61,12 +62,15 @@ function LegoV3({
         ref={legoRef}
         style={{
           zIndex: zIndex,
+          // @ts-ignore
+          '--fillBackground': background,
+          '--background': '#000',
         }}
-        {...props}
         onClick={() => setIdDropdownCurrent(props.title)}
         onDrag={() => setIsOpenToolTip(false)}
         onMouseEnter={() => setIsOpenToolTip(true)}
         onMouseLeave={() => setIsOpenToolTip(false)}
+        {...props}
       >
         <a
           data-tooltip-id="my-tooltip"
@@ -98,9 +102,7 @@ function LegoV3({
                 {children}
               </div>
             ) : (
-              <div className={styles.options} onClick={() => {
-                console.log(props.title);
-              }}>{children}</div>
+              <div className={styles.options}>{children}</div>
             )}
           </div>
         </a>

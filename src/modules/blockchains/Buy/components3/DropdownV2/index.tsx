@@ -47,6 +47,7 @@ function DropdownV2({
         setDataAvaibilityChain(value[0].value);
       }
     }
+
     cb(value);
     setIdDropdownCurrent('');
   };
