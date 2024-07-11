@@ -264,7 +264,7 @@ const SettingView = ({
       {isMyOrderListFetched ? (
         <>
           <Flex gap={'12px'} justifyContent={'center'} alignItems={'center'}>
-            <Image className={s.avatar} src={app?.image_url} />
+            <Image className={s.avatar} src={app?.icon_url} />
             <Text className={s.title}>{app?.name}</Text>
           </Flex>
           <Divider orientation={'horizontal'} bg={'#ECECEC'} />

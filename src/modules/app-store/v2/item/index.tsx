@@ -28,15 +28,7 @@ const AppItem = ({
         handleSelectApp(data);
       }}
     >
-      <Flex
-        bg={BG_COLOR[indexBg]}
-        alignItems={'center'}
-        justifyContent={'center'}
-        borderRadius={'12px'}
-        padding={"20px"}
-      >
-        <Image className={s.avatar} src={data?.image_url} />
-      </Flex>
+      <Image className={s.avatar} src={data?.image_url} />
       <Flex alignItems={'center'} mt={'24px'} gap={'24px'}>
         <Text className={s.title}>{data?.name}</Text>
         <Text className={s.status}><Text as={"span"} className={s.number}>{data?.installed}</Text> INSTALLED</Text>
