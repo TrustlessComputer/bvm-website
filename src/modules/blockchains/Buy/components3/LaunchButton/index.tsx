@@ -100,17 +100,9 @@ const LaunchButton = ({
 
       const { options: _, ...rest } = _field;
 
-      if (!field[_field.key].dragged) {
-        dynamicForm[_field.key] = {
-          ...rest,
-          value: null,
-        };
-        continue;
-      }
-
       dynamicForm[_field.key] = {
         ...rest,
-        value,
+        value: !field[_field.key].dragged ? null : value,
       };
     }
 
