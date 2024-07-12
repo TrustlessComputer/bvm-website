@@ -35,7 +35,6 @@ export const checkDAInstallHelper = (
 
       if (installedWithChainFinded) {
         const status = installedWithChainFinded.status;
-        console.log('installedWithChainFinded', installedWithChainFinded);
 
         switch (status) {
           case 'new':

@@ -47,11 +47,7 @@ const AppStoreModule = () => {
   }, [loggedIn]);
 
   const handleSelectAppCb = (item: IDApp) => {
-    if (loggedIn) {
-      router.push(`${APP_STORE}/${item?.id}`);
-    } else {
-      login();
-    }
+    router.push(`${APP_STORE}/${item?.id}`);
   };
 
   return (

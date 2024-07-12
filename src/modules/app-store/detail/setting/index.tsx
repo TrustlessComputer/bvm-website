@@ -71,7 +71,7 @@ const SettingView = ({
   const [isInValidFromInputArea, setInValidFromInputArea] =
     useState<boolean>(false);
 
-  const getAppInforByCuurentUser = async () => {
+  const getAppInforByCurentUser = async () => {
     try {
       const result = await dAppServicesAPI.fetchAppInforByUserAddress(
         Number(appID),
@@ -92,7 +92,7 @@ const SettingView = ({
     if (loggedIn) {
       getMyOrderList();
       getAccountInfor();
-      getAppInforByCuurentUser();
+      getAppInforByCurentUser();
     }
   }, [loggedIn]);
 
