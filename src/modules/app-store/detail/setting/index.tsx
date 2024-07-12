@@ -304,6 +304,7 @@ const SettingView = ({
                 >
                   <ChainItem
                     data={selectedOrder}
+                    packageSelected={selectedPackage}
                     isButton
                     dApp={appInforByUser}
                   />
