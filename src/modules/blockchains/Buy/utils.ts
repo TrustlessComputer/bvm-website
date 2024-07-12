@@ -29,23 +29,6 @@ export class TouchSensor extends LibTouchSensor {
   ] as (typeof LibTouchSensor)['activators'];
 }
 
-export const getParentId = (key: string, suffix?: string) =>
-  'parent-' + key + (suffix ? `-${suffix}` : '');
-
-export const getChildId = (
-  parentKey: string,
-  key: string,
-  value: string | number,
-  suffix?: string,
-) =>
-  'child-' +
-  parentKey +
-  '-' +
-  key +
-  '-' +
-  value.toString() +
-  (suffix ? `-${suffix}` : '');
-
 export function hexToHSB(hex: string) {
   // Remove the hash at the start if it's there
   hex = hex.replace(/^#/, '');
