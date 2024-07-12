@@ -1,36 +1,50 @@
+import { title } from 'process';
+
 export type IMODULE_HERO = {
-  theme: string,
-  title: string,
-  subTitle: string,
-  desc: string,
-  start: {
-    text: string,
-    link: string
-  }
-}
+  theme: string;
+  title: string;
+  subTitle: string;
+  desc: string;
+  start?: {
+    text: string;
+    link: string;
+  };
+  icon?: string;
+};
 
 export type IMODULE = {
-  hero: IMODULE_HERO,
+  hero: IMODULE_HERO;
   why: {
-    title: string,
-    desc: string,
-  },
+    title: string;
+    desc: string;
+  };
   benefit: {
-    title: string,
-    contents: { title: string, desc: string }[],
-  },
+    title: string;
+    contents: { title: string; desc: string }[];
+  };
   hiw: {
-    title: string,
-    desc: string,
-    action: string,
-    thumbnail: string
-  }
-}
+    title: string;
+    desc: string;
+    action: string;
+    thumbnail: string;
+  };
+  footer?: {
+    title: string;
+    subTitle: string;
+    desc: string;
+    button: {
+      text: string;
+      link: string;
+    };
+    background: string;
+  };
+};
 
 export const MODULE_DATAS = {
   zk_rollup: {
     hero: {
-      theme: 'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
+      theme:
+        'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
       title: 'BitZK',
       subTitle: 'ROLLUP',
       desc: 'ZK rollups on Bitcoin for virtually any decentralized applications.',
@@ -69,7 +83,8 @@ export const MODULE_DATAS = {
   },
   pptimistic_rollups: {
     hero: {
-      theme: 'linear-gradient(180deg, rgba(255, 174, 174, 0.8) -5.57%, rgba(255, 174, 174, 0) 98.47%)',
+      theme:
+        'linear-gradient(180deg, rgba(255, 174, 174, 0.8) -5.57%, rgba(255, 174, 174, 0) 98.47%)',
       title: 'BitOP',
       subTitle: 'ROLLUP',
       desc: 'Optimistic rollups on Bitcoin for virtually any decentralized applications.',
@@ -108,7 +123,8 @@ export const MODULE_DATAS = {
   },
   bvm_celestia: {
     hero: {
-      theme: 'linear-gradient(180deg, rgba(253, 174, 255, 0.8) -5.57%, rgba(253, 174, 255, 0) 98.47%)',
+      theme:
+        'linear-gradient(180deg, rgba(253, 174, 255, 0.8) -5.57%, rgba(253, 174, 255, 0) 98.47%)',
       title: 'Bitcoin Celestia',
       subTitle: 'DaTA Availability',
       desc: 'Use Celestia as the DA layer for your layer-2 blockchain.',
@@ -147,7 +163,8 @@ export const MODULE_DATAS = {
   },
   bvm_avail: {
     hero: {
-      theme: 'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
+      theme:
+        'linear-gradient(180deg, rgba(174, 245, 255, 0.8) -5.57%, rgba(167, 255, 239, 0) 98.47%)',
       title: 'Bitcoin Avail',
       subTitle: 'DaTA Availability',
       desc: 'Use Avail as the DA layer for your  layer-2 blockchain.',
@@ -155,6 +172,7 @@ export const MODULE_DATAS = {
         text: 'Get started',
         link: '/pricing',
       },
+      icon: '/bvm/brands/avail-icon-lg.png',
     },
     why: {
       title: 'Why Avail?',
@@ -183,10 +201,21 @@ export const MODULE_DATAS = {
       action: 'https://x.com/BVMnetwork/status/1793607975380349309',
       thumbnail: '/bvm/hiw-bitcoin-avail.png',
     },
+    footer: {
+      title: 'Bitcoin Avail',
+      subTitle: 'DaTA Availability',
+      desc: 'Launch your blockchain with Avail DA for optimal performance and scalability.',
+      button: {
+        text: 'Customize & launch your blockchain',
+        link: '/pricing',
+      },
+      background: '/bvm/avail-footer-bg.png',
+    },
   },
   bvm_polygon: {
     hero: {
-      theme: 'linear-gradient(180deg, rgba(190, 169, 255, 0.8) -5.57%, rgba(190, 169, 255, 0) 98.47%)',
+      theme:
+        'linear-gradient(180deg, rgba(190, 169, 255, 0.8) -5.57%, rgba(190, 169, 255, 0) 98.47%)',
       title: 'Bitcoin Polygon',
       subTitle: 'DaTA Availability',
       desc: 'Use Polygon as the DA layer for your layer-2 blockchain.',
@@ -225,7 +254,8 @@ export const MODULE_DATAS = {
   },
   bvm_eigen: {
     hero: {
-      theme: 'linear-gradient(180deg, rgba(214, 97, 255, 0.8) -5.57%, rgba(214, 97, 255, 0) 98.47%)',
+      theme:
+        'linear-gradient(180deg, rgba(214, 97, 255, 0.8) -5.57%, rgba(214, 97, 255, 0) 98.47%)',
       title: 'Bitcoin Eigen',
       subTitle: 'DaTA Availability',
       desc: 'Use Eigen as the DA layer for your layer-2 blockchain.',
@@ -251,7 +281,7 @@ export const MODULE_DATAS = {
         },
         {
           title: 'Dencentralized',
-          desc: 'EigenDA avoids trust assumptions on another chain\'s light client, which can be compromised by dishonest validator sets.',
+          desc: "EigenDA avoids trust assumptions on another chain's light client, which can be compromised by dishonest validator sets.",
         },
       ],
     },
@@ -264,7 +294,8 @@ export const MODULE_DATAS = {
   },
   bvm_near: {
     hero: {
-      theme: 'linear-gradient(180deg, rgba(219, 219, 219, 0.8) -5.57%, rgba(219, 219, 219, 0) 98.47%)',
+      theme:
+        'linear-gradient(180deg, rgba(219, 219, 219, 0.8) -5.57%, rgba(219, 219, 219, 0) 98.47%)',
       title: 'Bitcoin Near',
       subTitle: 'DaTA Availability',
       desc: 'Use Near as the DA layer for your  layer-2 blockchain.',
@@ -282,7 +313,7 @@ export const MODULE_DATAS = {
       contents: [
         {
           title: 'Drastically reduce your costs',
-          desc: 'Near\'s DA allows developers to store the state root on the mainnet and the batch of transactions on Near, optimizing costs by 10,000x.',
+          desc: "Near's DA allows developers to store the state root on the mainnet and the batch of transactions on Near, optimizing costs by 10,000x.",
         },
         {
           title: 'Easily validate proofs',
@@ -296,14 +327,15 @@ export const MODULE_DATAS = {
     },
     hiw: {
       title: 'How it works',
-      desc: 'Near\'s DA facilitates the launch of L2s with high speed (2-sec block time) and near-zero transaction fees. Through Near\'s integration, dAppchains on BVM have the potential to optimize their operations with one of the most efficient DA layers, complemented by rollup fees subsidized by Near.',
+      desc: "Near's DA facilitates the launch of L2s with high speed (2-sec block time) and near-zero transaction fees. Through Near's integration, dAppchains on BVM have the potential to optimize their operations with one of the most efficient DA layers, complemented by rollup fees subsidized by Near.",
       action: 'https://x.com/BVMnetwork/status/1750841776427221255',
       thumbnail: '',
     },
   },
   bvm_filecoin: {
     hero: {
-      theme: 'linear-gradient(180deg, rgba(143, 208, 255, 0.8) -5.57%, rgba(143, 208, 255, 0) 98.47%)',
+      theme:
+        'linear-gradient(180deg, rgba(143, 208, 255, 0.8) -5.57%, rgba(143, 208, 255, 0) 98.47%)',
       title: 'Bitcoin FileCoin',
       subTitle: 'DaTA Availability',
       desc: 'Use FileCoin as a storage layer for your  layer-2 blockchain via Lighthouse.',
@@ -338,6 +370,86 @@ export const MODULE_DATAS = {
       desc: 'By leveraging Filecoin’s decentralized storage capabilities, BVM has the unique ability to store transaction archives after they fall out of a DA layer, making indexing easier for builders via the Lighthouse Node Aggregators.',
       action: 'https://x.com/BVMnetwork/status/1766043822486966576',
       thumbnail: '',
+    },
+  },
+  bvm_studio: {
+    hero: {
+      theme:
+        'linear-gradient(180deg, rgba(255, 132, 86, 0.80) -5.57%, rgba(255, 132, 86, 0.00) 98.47%)',
+      title: 'BVM Studio',
+      subTitle: 'TOOLS',
+      desc: 'A fun way to customize your blockchain to meet your needs.',
+      start: {
+        text: 'Get started',
+        link: '/pricing',
+      },
+    },
+    why: {
+      title: 'Why BVM Studio?',
+      desc: `No code required! BVM Studio makes it fun and accessible for anyone to create a blockchain tailored to their needs.`,
+    },
+    benefit: {
+      title: 'Benefits of BVM Studio',
+      contents: [
+        {
+          title: 'No code required',
+          desc: 'Create and deploy blockchains without writing any code, making it accessible for everyone.',
+        },
+        {
+          title: 'Drag-and-drop simplicity',
+          desc: 'Design your blockchain by easily dragging and dropping components, just like playing a game.',
+        },
+        {
+          title: 'Tailored to your needs',
+          desc: 'Customize your blockchain to meet specific requirements, ensuring it fits your unique use case perfectly.',
+        },
+      ],
+    },
+    hiw: {
+      title: 'How it works',
+      desc: 'Customize and deploy your blockchain easily by dragging and dropping components, just like playing a game.',
+      action: '',
+      thumbnail: '',
+    },
+  },
+  bitzk_lightnode: {
+    hero: {
+      theme:
+        'linear-gradient(180deg, rgba(143, 154, 255, 0.80) -5.57%, rgba(143, 154, 255, 0.00) 98.47%)',
+      title: 'BitZK Light Node',
+      subTitle: 'TOOLS',
+      desc: 'Validate that the state transitions of Bitcoin L2s, committed on the Bitcoin and DA layers, are accurate.',
+      // start: {
+      //   text: 'Get started',
+      //   link: '/pricing',
+      // },
+    },
+    why: {
+      title: 'Why BitZK Light Node?',
+      desc: `BitZK Light Nodes are especially useful for dapps like decentralized bridges that need to verify the validity of the states committed on Bitcoin before processing withdraw transactions.`,
+    },
+    benefit: {
+      title: 'Benefits of BitZK Light Node',
+      contents: [
+        {
+          title: 'Corruption prevention',
+          desc: 'Ensures that Bitcoin L2s cannot be corrupted.',
+        },
+        {
+          title: 'Transaction integrity',
+          desc: `Ensures that invalid Bitcoin L2 transactions don't exist.`,
+        },
+        {
+          title: 'Ease of use',
+          desc: 'Anyone can run one, even on an old laptop.',
+        },
+      ],
+    },
+    hiw: {
+      title: 'How it works',
+      desc: 'You can run your own light node by executing `docker-compose up` with a docker-compose.yaml file containing the following content.',
+      action: 'https://x.com/punk3700/status/1800132735807410681',
+      thumbnail: '/bvm/hiw-bitzk-lightnode-01.png',
     },
   },
 };
