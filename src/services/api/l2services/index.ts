@@ -152,6 +152,28 @@ export const orderBuyAPI = async (params: IOrderBuyReq): Promise<any> => {
   }
 };
 
+export const orderBuyAPI_V3 = async (
+  params: IModelCategory[],
+): Promise<any> => {
+  const bodyData = {
+    nodeConfigs: params,
+  };
+
+  console.log('bodyData ', bodyData);
+  console.log('stringify ', JSON.stringify(bodyData));
+
+  try {
+    const data = (await httpClient.post(`/order/register-v3`, bodyData, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    })) as any;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
 export const orderUpdateAPI = async (
   params: IOrderUpdate,
   orderId: string,
