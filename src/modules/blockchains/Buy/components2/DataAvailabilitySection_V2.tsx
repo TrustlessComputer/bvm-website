@@ -19,20 +19,23 @@ const DATA_LIST = [
     value: DALayerEnum.DALayer_PLG,
   },
   {
+    key: 'Celestia',
+    imageUrl: '/icons/customize/celestia_ic.svg',
+    name: 'Celestia',
+    isCommingSoon: true,
+    availableNetworks: [
+      NetworkEnum.Network_Mainnet,
+      NetworkEnum.Network_Testnet,
+    ],
+    value: DALayerEnum.DALayer_Celestia,
+  },
+  {
     key: 'Avail',
     imageUrl: '/icons/customize/avail_ic.svg',
     name: 'Avail',
     isCommingSoon: true,
     availableNetworks: [NetworkEnum.Network_Testnet],
     value: DALayerEnum.DALayer_AVAIL,
-  },
-  {
-    key: 'Celestia',
-    imageUrl: '/icons/customize/celestia_ic.svg',
-    name: 'Celestia',
-    isCommingSoon: true,
-    availableNetworks: [],
-    value: DALayerEnum.DALayer_Celestia,
   },
   {
     key: 'NearDA',
@@ -166,7 +169,7 @@ const DataAvailabilitySection = () => {
               flexDir={'row'}
               align={'center'}
               borderRadius={'8px'}
-              borderWidth={'1px'}
+              borderWidth={isSelected ? '2px' : '1px'}
               borderColor={isSelected ? '#2b35e4' : '#B6B6B6'}
               p="12px"
               h={['45px', '55px', '65px']}
