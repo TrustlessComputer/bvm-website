@@ -6,7 +6,7 @@ import throttle from 'lodash/throttle';
 import { commonSelector } from '@/stores/states/common/selector';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { User } from '@/stores/states/user/types';
-import { getReferralByURL, getReferralModularByURL } from '@/utils/helpers';
+import { getRefCodeByURL, getReferralByURL, getReferralModularByURL } from '@/utils/helpers';
 import userServices from '@/services/user';
 import ReferralStorage from '@/utils/storage/referral.storage';
 import { getCoinPrices, getConfigs } from '@/services/common';
@@ -79,6 +79,13 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     const code = getReferralModularByURL();
     if (code) {
       ReferralStorage.setReferralModular(code);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const code = getRefCodeByURL();
+    if (code) {
+      ReferralStorage.setRefCodeChain(code);
     }
   }, []);
 
