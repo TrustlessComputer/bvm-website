@@ -15,6 +15,8 @@ type LegoV3 = {
   active?: boolean;
   disabled?: boolean;
   label?: React.ReactNode;
+  labelInLeft?: boolean;
+  labelInRight?: boolean;
   icon?: string;
   className?: string;
   zIndex: number;
@@ -23,7 +25,9 @@ type LegoV3 = {
 
 function LegoV3({
   background = '#A041FF',
-  label = null,
+  label = '',
+  labelInLeft = false,
+  labelInRight = false,
   parentOfNested = false,
   first = false,
   last = false,
@@ -87,12 +91,12 @@ function LegoV3({
             parentOfNested ? styles.inner_nested : ''
           }`}
         >
-          {label && (
+          {label && labelInLeft ? (
             <div className={styles.label}>
               {icon && <Image src={icon} alt="icon" width={24} height={24} />}
-              <p>{label}</p>
+              <p>{label} </p>
             </div>
-          )}
+          ) : null}
           {parentOfNested ? (
             <div
               style={{
@@ -103,9 +107,15 @@ function LegoV3({
             >
               {children}
             </div>
-          ) : (
+          ) : children ? (
             <div className={styles.options}>{children}</div>
-          )}
+          ) : null}
+          {label && labelInRight ? (
+            <div className={styles.label}>
+              {icon && <Image src={icon} alt="icon" width={24} height={24} />}
+              <p>{label} </p>
+            </div>
+          ) : null}
           <div className={styles.label}>
             <p>{suffix}</p>
           </div>

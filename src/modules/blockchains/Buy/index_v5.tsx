@@ -21,6 +21,8 @@ import s from './styles_v5.module.scss';
 import gsap from 'gsap';
 import { useSearchParams } from 'next/navigation';
 import { FAKE_DATA_PACKAGE } from './TemplateModal/data';
+import SidebarV2 from './components3/SideBarV2';
+import TierV2 from './components3/TierV2';
 
 const BuyPage = () => {
   const [data, setData] = React.useState<
@@ -36,7 +38,8 @@ const BuyPage = () => {
   const [originalData, setOriginalData] = React.useState<
     IModelCategory[] | null
   >(null);
-  const { field, setField, setPriceBVM, setPriceUSD } = useOrderFormStoreV3();
+  const { field, setField, priceBVM, priceUSD, setPriceBVM, setPriceUSD } =
+    useOrderFormStoreV3();
   const { idDragging, setIdDragging } = useDragMask();
   const searchParams = useSearchParams();
   const refTime = useRef<NodeJS.Timeout>();
@@ -56,6 +59,12 @@ const BuyPage = () => {
     const [activeKey = ''] = active.id.split('-');
     const [overKey = ''] = (over?.id || '').split('-');
     const overIsFinalDroppable = overKey === 'final';
+
+    if (
+      active.data.current.value !== field[activeKey].value &&
+      (!over || (over && !overIsFinalDroppable))
+    )
+      return;
 
     // Normal case
     if (over && overIsFinalDroppable) {
@@ -247,7 +256,9 @@ const BuyPage = () => {
               <p className={s.heading}>Customize your Blockchain</p>
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
-                  <SideBar items={data} />
+                  <div className={s.left_box_inner_sidebar}>
+                    <SidebarV2 items={data} />
+                  </div>
 
                   <div id={'wrapper-data'} className={s.left_box_inner_content}>
                     {data?.map((item, index) => {
@@ -326,6 +337,7 @@ const BuyPage = () => {
                                   tooltip={option.tooltip}
                                 >
                                   <LegoV3
+                                    labelInLeft
                                     background={item.color}
                                     label={option.title}
                                     icon={option?.icon}
@@ -340,11 +352,7 @@ const BuyPage = () => {
                       );
                     })}
 
-                    <DragOverlay
-                      style={{
-                        transition: 'none',
-                      }}
-                    >
+                    <DragOverlay>
                       {idDragging &&
                         data?.map((item, index) => {
                           if (!idDragging.startsWith(item.key)) return null;
@@ -358,8 +366,8 @@ const BuyPage = () => {
                                 key={item.key}
                               >
                                 <LegoV3
+                                  label={item.title}
                                   background={item.color}
-                                  title={item.title}
                                   zIndex={data.length - index}
                                 >
                                   <DropdownV2
@@ -396,6 +404,7 @@ const BuyPage = () => {
                                   icon={option.icon}
                                   background={item.color}
                                   label={option.title}
+                                  labelInLeft
                                   zIndex={item.options.length - opIdx}
                                 />
                               </Draggable>
@@ -411,14 +420,14 @@ const BuyPage = () => {
 
             {/* ------------- RIGHT ------------- */}
             <div className={s.right}>
-              <Tier />
+              <TierV2 />
 
               <div className={s.right_box}>
                 <DroppableV2 id="final" className={s.finalResult}>
                   <LegoV3
                     background={'#FF3A3A'}
-                    title="1. Name"
                     label="Name"
+                    labelInLeft
                     zIndex={45}
                   >
                     <ComputerNameInput />
@@ -483,8 +492,9 @@ const BuyPage = () => {
                           <LegoV3
                             background={item.color}
                             label={item.title}
+                            // labelInRight
                             zIndex={item.options.length - opIdx}
-                            suffix={suffix}
+                            // suffix={suffix}
                           >
                             <DropdownV2
                               disabled
@@ -510,7 +520,21 @@ const BuyPage = () => {
                   })}
                 </DroppableV2>
 
-                <LaunchButton data={data} originalData={originalData} />
+                <div className={s.right_box_footer}>
+                  <div className={s.right_box_footer_left}>
+                    <h6 className={s.right_box_footer_left_title}>
+                      Total price
+                    </h6>
+                    <h4 className={s.right_box_footer_left_content}>
+                      ${priceUSD.toFixed(2)}
+                      {'/'}Month {'(~'}
+                      {priceBVM.toFixed(2)} BVM
+                      {')'}
+                    </h4>
+                  </div>
+
+                  <LaunchButton data={data} originalData={originalData} />
+                </div>
               </div>
             </div>
           </div>
