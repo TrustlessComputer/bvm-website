@@ -33,6 +33,9 @@ const BuyPage = () => {
       })[]
     | null
   >(null);
+  const [originalData, setOriginalData] = React.useState<
+    IModelCategory[] | null
+  >(null);
   const { field, setField, setPriceBVM, setPriceUSD } = useOrderFormStoreV3();
   const { idDragging, setIdDragging } = useDragMask();
   const searchParams = useSearchParams();
@@ -147,6 +150,7 @@ const BuyPage = () => {
 
       // @ts-ignore
       setData(convertData(res));
+      setOriginalData(res);
       setValueOfPackage(Number(_package));
     });
   }, []);
@@ -506,7 +510,7 @@ const BuyPage = () => {
                   })}
                 </DroppableV2>
 
-                <LaunchButton data={data} />
+                <LaunchButton data={data} originalData={originalData} />
               </div>
             </div>
           </div>
