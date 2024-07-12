@@ -78,8 +78,8 @@ const LaunchButton = ({
   }, [isFecthingData, availableList, packageParam]);
 
   const handleOnClick = async () => {
+    if (isSubmiting || !allFilled || hasError || !data) return;
     if (!loggedIn) return login();
-    if (isSubmiting || !allFilled || hasError) return;
 
     setSubmitting(true);
 
@@ -92,7 +92,29 @@ const LaunchButton = ({
       withdrawPeriod,
     };
 
-    console.log('[LaunchButton] handleOnClick -> form :: ', form);
+    const dynamicForm: Record<string, any> = {};
+    for (const _field of data) {
+      const value = _field.options.find(
+        (opt) => opt.key === field[_field.key].value,
+      );
+
+      const { options: _, ...rest } = _field;
+
+      if (!field[_field.key].dragged) {
+        dynamicForm[_field.key] = {
+          ...rest,
+          value: null,
+        };
+        continue;
+      }
+
+      dynamicForm[_field.key] = {
+        ...rest,
+        value,
+      };
+    }
+
+    console.log('[LaunchButton] handleOnClick -> dynamicForm :: ', dynamicForm);
 
     try {
       const params: CustomizeParams = {
@@ -104,8 +126,6 @@ const LaunchButton = ({
         network: form.network,
         withdrawPeriod: form.withdrawPeriod,
       };
-
-      console.log('[LaunchButton] CustomizeParams ->  :: ', params);
 
       const result = await registerOrderHandler(params);
       if (result) {
