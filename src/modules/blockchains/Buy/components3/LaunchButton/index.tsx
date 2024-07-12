@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 
@@ -17,10 +17,16 @@ import {
   setViewPage,
 } from '@/stores/states/l2services/reducer';
 import sleep from '@/utils/sleep';
-import { Spinner } from '@chakra-ui/react';
+import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
 import { formValuesAdapter } from './FormValuesAdapter';
+import { getChainIDRandom } from '../../Buy.helpers';
+import { orderBuyAPI_V3 } from '@/services/api/l2services';
+import { getErrorMessage } from '@/utils/errorV2';
+import toast from 'react-hot-toast';
+import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
+import useL2Service from '@/hooks/useL2Service';
 
 const LaunchButton = ({
   data,
@@ -39,20 +45,46 @@ const LaunchButton = ({
 }) => {
   const { field, priceBVM, priceUSD } = useOrderFormStoreV3();
   const { loggedIn, login } = useWeb3Auth();
-  const dispatch = useAppDispatch();
+  const { accountInforL2Service, availableListFetching, availableList } =
+    useAppSelector(getL2ServicesStateSelector);
+
+  const { getAccountInfor } = useL2Service();
+
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
   const [isSubmiting, setSubmitting] = useState(false);
   const { hasError } = computerNameField;
+
+  const [chainId, setChainId] = useState('');
+
+  const {
+    isOpen: isOpenTopUpModal,
+    onOpen: onOpenTopUpModal,
+    onClose: onCloseTopUpModal,
+  } = useDisclosure({
+    id: 'MODAL_TOPUP',
+  });
 
   const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
     useOrderFormStore();
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('package') || PRICING_PACKGE.Hacker;
 
-  const { availableListFetching, availableList } = useAppSelector(
-    getL2ServicesStateSelector,
-  );
+  useEffect(() => {
+    if (loggedIn) {
+      getAccountInfor();
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    const getChainIDRandomFunc = async () => {
+      try {
+        const chainIDRandom = await getChainIDRandom();
+        setChainId(String(chainIDRandom));
+      } catch (error) {}
+    };
+    getChainIDRandomFunc();
+  }, []);
 
   const isFecthingData = useMemo(() => {
     return availableListFetching || !availableList;
@@ -112,73 +144,91 @@ const LaunchButton = ({
       });
     }
 
-    console.log('[LaunchButton] handleOnClick -> dynamicForm :: ', dynamicForm);
+    console.log('[LaunchButton] handleOnClick -> dynamicForm :: ', {
+      dynamicForm,
+      computerNameField,
+    });
+
+    const params = formValuesAdapter({
+      computerName: computerNameField.value || '',
+      chainId: chainId,
+      dynamicFormValues: dynamicForm,
+    });
 
     try {
-      const params: CustomizeParams = {
-        pricingPackage: Number(packageParam) as PRICING_PACKGE,
-        chainID: chainIdRandom,
-        chainName: form.chainName,
-        dataAvaibilityChain: form.dataAvaibilityChain,
-        gasLimit: form.gasLimit,
-        network: form.network,
-        withdrawPeriod: form.withdrawPeriod,
-      };
-
-      const result = await registerOrderHandler(params);
+      const result = await orderBuyAPI_V3(params);
       if (result) {
         isSuccess = true;
       }
     } catch (error) {
       console.log('ERROR: ', error);
       isSuccess = false;
+      const { message } = getErrorMessage(error);
+      toast.error(message);
+      if (message && message.toLowerCase().includes('insufficient balance')) {
+        onOpenTopUpModal();
+      }
     } finally {
-      dispatch(setViewMode('Mainnet'));
-      dispatch(setViewPage('ManageChains'));
-      dispatch(setShowAllChains(false));
-
+      // dispatch(setViewMode('Mainnet'));
+      // dispatch(setViewPage('ManageChains'));
+      // dispatch(setShowAllChains(false));
       await sleep(1);
-
       if (isSuccess) {
         router.push('/rollups');
       } else {
-        router.push('/rollups?hasOrderFailed=true');
+        // router.push('/rollups?hasOrderFailed=true');
       }
       setSubmitting(false);
     }
   };
 
   return (
-    <div
-      className={`${s.launch} ${allFilled ? s.active : ''}`}
-      onClick={handleOnClick}
-    >
-      <div className={s.inner}>
-        {isSubmiting ? (
-          <Spinner color="#fff" />
-        ) : (
-          <React.Fragment>
-            <div className={s.top}>
-              <p>Launch</p>
-              <div className={`${s.icon}`}>
-                <ImagePlaceholder
-                  src={'/launch.png'}
-                  alt={'launch'}
-                  width={48}
-                  height={48}
-                />
+    <>
+      <div
+        className={`${s.launch} ${allFilled ? s.active : ''}`}
+        onClick={handleOnClick}
+      >
+        <div className={s.inner}>
+          {!loggedIn ? (
+            <Text className={s.connect}>Connect</Text>
+          ) : (
+            <React.Fragment>
+              <div className={s.top}>
+                {isSubmiting ? <Spinner color="#fff" /> : <p>Launch</p>}
+                <div className={`${s.icon}`}>
+                  <ImagePlaceholder
+                    src={'/launch.png'}
+                    alt={'launch'}
+                    width={48}
+                    height={48}
+                  />
+                </div>
               </div>
-            </div>
-            <p className={s.price}>
-              ${priceUSD.toFixed(2)}
-              {'/'}Month {'('}
-              {priceBVM.toFixed(2)} BVM
-              {')'}
-            </p>
-          </React.Fragment>
-        )}
+              <p className={s.price}>
+                ${priceUSD.toFixed(2)}
+                {'/'}Month {'('}
+                {priceBVM.toFixed(2)} BVM
+                {')'}
+              </p>
+            </React.Fragment>
+          )}
+        </div>
       </div>
-    </div>
+
+      {isOpenTopUpModal && (
+        <TopupModal
+          show={isOpenTopUpModal}
+          infor={{
+            paymentAddress: `${
+              accountInforL2Service?.topUpWalletAddress || '--'
+            }`,
+          }}
+          onClose={onCloseTopUpModal}
+          onSuccess={async () => {}}
+          balanceNeedTopup={`${tierData?.priceNote || '--'}`}
+        />
+      )}
+    </>
   );
 };
 

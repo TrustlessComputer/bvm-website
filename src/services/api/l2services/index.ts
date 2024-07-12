@@ -13,6 +13,7 @@ import {
   IGetNonceReq,
   IGetNonceResp,
   IOrderBuyReq,
+  IOrderBuyReq_V3,
   IOrderUpdate,
   IQuickStart,
   IVerifySignatureReq,
@@ -152,15 +153,10 @@ export const orderBuyAPI = async (params: IOrderBuyReq): Promise<any> => {
   }
 };
 
-export const orderBuyAPI_V3 = async (
-  params: IModelCategory[],
-): Promise<any> => {
-  const bodyData = {
-    nodeConfigs: params,
-  };
+export const orderBuyAPI_V3 = async (params: IOrderBuyReq_V3): Promise<any> => {
+  const bodyData = params;
 
-  console.log('bodyData ', bodyData);
-  console.log('stringify ', JSON.stringify(bodyData));
+  console.log('orderBuyAPI_V3 -- Body Params ', bodyData);
 
   try {
     const data = (await httpClient.post(`/order/register-v3`, bodyData, {
