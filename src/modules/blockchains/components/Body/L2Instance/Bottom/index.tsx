@@ -161,6 +161,7 @@ const BottomView = (props: Props) => {
           }}
         />
         {dappList.map((item, index) => {
+          console.log('item', item);
           return (
             <DappInstalledItem
               key={`${index}-${item.appName || item.appID}`}
