@@ -2,16 +2,13 @@ import React from 'react';
 import SliderSlick from 'react-slick';
 import s from './styles.module.scss';
 import { Box } from '@chakra-ui/react';
-import { useAppSelector } from '@/stores/hooks';
-import { getDAListSelector } from '@/stores/states/l2services/selector';
 import HeroItem from '@/modules/app-store/v2/Hero/item';
 import { IDApp } from '@/services/api/DAServices/types';
 import { APP_STORE } from '@constants/route-path';
 import { useRouter } from 'next/navigation';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
-const ContributionVideo = () => {
-  const DAppList = useAppSelector(getDAListSelector); // TO DO
+const ContributionVideo = ({data} : {data: IDApp[]}) => {
   const router = useRouter();
   const { loggedIn, login } = useWeb3Auth();
 
@@ -37,7 +34,7 @@ const ContributionVideo = () => {
   return (
     <Box className={s.container}>
       <SliderSlick {...settings}>
-        {DAppList?.map((d) => {
+        {data?.map((d) => {
           return <HeroItem data={d} handleSelectApp={handleSelectAppCb} />;
         })}
       </SliderSlick>
