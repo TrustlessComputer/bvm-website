@@ -43,13 +43,13 @@ const AppPhotoView = ({photoUrl}: {photoUrl: IImageInfo[]}) => {
           photoUrl?.map(photo => {
             return (
               <div
-                key={photo?.image_url}
+                key={photo?.thumbnail_url}
                 // data-lg-size={item.size}
                 // data-lg-size="1280-720"
                 className={s.item2}
                 data-src={photo?.video_url || photo?.image_url}
               >
-                <img className="img-responsive" src={photo?.image_url} />
+                <img className="img-responsive" src={photo?.thumbnail_url} />
               </div>
             )
           })
