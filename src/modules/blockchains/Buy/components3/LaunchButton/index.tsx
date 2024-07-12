@@ -219,7 +219,7 @@ const LaunchButton = ({
           onClose={onCloseTopUpModal}
           onSuccess={async () => {}}
           // balanceNeedTopup={`${tierData?.priceNote || '--'}`}
-          balanceNeedTopup={`${priceBVM.toFixed(2) || '--'} BVM`}
+          balanceNeedTopup={`${priceBVM.toFixed(2) || '--'} BVM `}
         />
       )}
     </>
