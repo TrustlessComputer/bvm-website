@@ -9,11 +9,7 @@ export default function GroupProducts(): ReactElement {
     <div className={s.groupProduction}>
       <div className={s.inner}>
         <div className={s.left}>
-          <Flex
-            alignItems={'center'}
-            flexWrap={'wrap'}
-            gap={{ base: '60px', xl: '0' }}
-          >
+          <Flex alignItems={'center'} flexWrap={'wrap'} gap={{ base: '60px' }}>
             <div className={s.group}>
               <h4 className={s.title}>TOOLS</h4>
               <ul className={s.group_inner}>

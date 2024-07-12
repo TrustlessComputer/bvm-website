@@ -182,16 +182,24 @@ export const MODULE_DATAS = {
       title: 'Benefits of Avail',
       contents: [
         {
-          title: 'Cost-Efficient',
-          desc: 'Securely transition data availability off-chain, significantly cutting costs, and boosting L2 scalability and efficiency.',
+          title: 'Don’t trust, verify!',
+          desc: 'Avail employs validity proofs (KZG commitments), allowing developers and users to independently verify data availability rather than relying on trust. These proofs are computationally efficient to generate and verify, providing robust data availability guarantees to various nodes in a scalable manner.',
         },
         {
-          title: 'Scalable',
-          desc: 'Designed to scale as user activity increases, allowing higher throughput without sacrificing performance or reliability.',
+          title: 'Erasure coding',
+          desc: 'Erasure coding protects data by duplicating and distributing it across multiple locations. This redundancy makes the data more resilient and tamper-proof, ensuring that malicious nodes cannot easily suppress any data within the Avail system.',
         },
         {
-          title: 'Efficient',
-          desc: 'Spin up blockchains the way you want in minutes. Avail’s robust DA API lets sovereign rollups iterate fast without compromise.',
+          title: 'Light clients',
+          desc: 'Avail’s light client is a lightweight software that allows users to interact with the Avail blockchain without needing a full node. These clients can operate almost anywhere, providing data availability guarantees to blockchain nodes and users, thus enhancing network decentralization and user verification.',
+        },
+        {
+          title: 'Data availability sampling (DAS)',
+          desc: 'Data Availability Sampling uses light clients, validity proofs, and erasure coding to randomly sample data from the Avail blockchain, generating a confidence score. This method enables light clients to quickly provide data availability guarantees nearing 100% with just 8-30 samples.',
+        },
+        {
+          title: 'Expandable blockspace ',
+          desc: 'As the number of light clients increases, so does the network’s capacity to sample blockchain data. This increased sampling capacity allows the network to handle larger blocks, as the collective sampling ability of the light client network can provide data availability guarantees for all the data within the current block size and beyond, supporting scalability.',
         },
       ],
     },
