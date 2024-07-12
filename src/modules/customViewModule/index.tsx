@@ -9,12 +9,10 @@ import DroppableV2 from '@/modules/blockchains/Buy/components3/DroppableV2';
 import React from 'react';
 import { FAKE_DATA_VALUE } from '@/modules/customViewModule/data';
 
-
 export default function CustomViewModule() {
   return (
     <div className={`${s.wrapper} container`}>
       <div className={s.inner}>
-
         <DroppableV2 id="final" className={s.finalResult}>
           <LegoV3
             background={'#FF3A3A'}
@@ -24,6 +22,7 @@ export default function CustomViewModule() {
           >
             <ComputerNameInput />
           </LegoV3>
+
           {FAKE_DATA_VALUE?.map((item, index) => {
             console.log('item', item);
             if (item.type === 'dropdown') {
@@ -35,7 +34,6 @@ export default function CustomViewModule() {
                   label={item.title}
                 >
                   <DropdownV2
-
                     // @ts-ignore
                     options={item.value}
                     title={item.title}
