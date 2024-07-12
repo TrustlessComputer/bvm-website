@@ -1,22 +1,8 @@
 import { useAppSelector } from '@/stores/hooks';
-import {
-  getL2ServicesStateSelector,
-  myOrderListFilteredByNetwork,
-} from '@/stores/states/l2services/selector';
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Image,
-  Menu,
-  MenuButton,
-  MenuList,
-  Text,
-} from '@chakra-ui/react';
+import { getL2ServicesStateSelector, myOrderListFilteredByNetwork } from '@/stores/states/l2services/selector';
+import { Box, Button, Divider, Flex, Image, Menu, MenuButton, MenuList, Text } from '@chakra-ui/react';
 import useL2Service from '@hooks/useL2Service';
 import React, { useEffect, useMemo, useState } from 'react';
-import Loading from '@components/Loading';
 import s from './styles.module.scss';
 import { APP_STORE, PRICING } from '@constants/route-path';
 import { OrderItem } from '@/stores/states/l2services/types';
@@ -26,17 +12,16 @@ import InputWrapper from '@/components/Form/inputWrapper';
 import PackageItem from '@/modules/app-store/detail/setting/packageItem';
 import { useRouter } from 'next/navigation';
 import TopupModal from '@/modules/blockchains/components/TopupModal';
-import SubmitResultFormModal from '@/modules/blockchains/Buy/SubmitResultFormModal';
 import SendFormModal from '@/modules/blockchains/components/SendFormModal';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import Form from '@/modules/app-store/detail/setting/form';
 import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
 import AccountAbstractionInputArea from './accountAbstractionInput';
-import useDAppHelper from '@/hooks/useDAppHelper';
 import { checkDAInstallHelper } from '../helper';
 import dAppServicesAPI from '@/services/api/DAServices';
 import SkeletonLoading from './SkeletonLoading';
+import { isProduction } from '@/config';
 
 const SettingView = ({
   appID,
@@ -236,8 +221,8 @@ const SettingView = ({
     }
 
     if (
-      Number(accountInforL2Service?.balanceFormatted) <
-      Number(appPackage?.price_bvm)
+      isProduction && (Number(accountInforL2Service?.balanceFormatted) <
+      Number(appPackage?.price_bvm))
     ) {
       return (
         <Button
