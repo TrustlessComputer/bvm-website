@@ -15,7 +15,7 @@ import s from './styles.module.scss';
 
 type TSlider = {
   defaultValue: string | number;
-  field: keyof FormOrder;
+  field: any;
   cb: (value: number) => void;
   max?: number;
   min?: number;
