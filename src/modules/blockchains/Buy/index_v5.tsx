@@ -19,6 +19,8 @@ import useOrderFormStoreV3 from './stores/index_v3';
 import s from './styles_v5.module.scss';
 
 import gsap from 'gsap';
+import { useSearchParams } from 'next/navigation';
+import { FAKE_DATA_PACKAGE } from './TemplateModal/data';
 
 const BuyPage = () => {
   const [data, setData] = React.useState<
@@ -33,6 +35,7 @@ const BuyPage = () => {
   >(null);
   const { field, setField, setPriceBVM, setPriceUSD } = useOrderFormStoreV3();
   const { idDragging, setIdDragging } = useDragMask();
+  const searchParams = useSearchParams();
   const refTime = useRef<NodeJS.Timeout>();
 
   const handleDragStart = (event: any) => {
@@ -94,6 +97,19 @@ const BuyPage = () => {
     });
   }, [field['network']?.value]);
 
+  // React.useEffect(() => {
+  //   const _package = searchParams.get('package');
+
+  //   if (!_package) return;
+
+  //   // set default value for package
+  //   const templateData = FAKE_DATA_PACKAGE[Number(_package)].data;
+
+  //   templateData.forEach((field) => {
+  //     setField(field.key, field.value?.key || null, field.value ? true : false);
+  //   });
+  // }, [searchParams]);
+
   React.useEffect(() => {
     const convertData = (data: IModelCategory[]) => {
       const newData = data.map((item) => {
@@ -118,7 +134,7 @@ const BuyPage = () => {
       if (!res) return;
 
       // set default value
-      res.map((item) => {
+      res.forEach((item) => {
         setField(item.key, item.options[0].key);
       });
 
@@ -228,7 +244,7 @@ const BuyPage = () => {
                           active={field[item.key].dragged}
                           description={{
                             title: item.title,
-                            content: item.tooltip
+                            content: item.tooltip,
                           }}
                         >
                           {!field[item.key].dragged &&

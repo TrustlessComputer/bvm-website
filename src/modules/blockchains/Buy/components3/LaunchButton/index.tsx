@@ -95,6 +95,8 @@ const LaunchButton = ({
     // TODO
     const dynamicForm: any[] = [];
     for (const _field of data) {
+      if (!field[_field.key].dragged) continue;
+
       const value = _field.options.find(
         (opt) => opt.key === field[_field.key].value,
       );
@@ -107,10 +109,7 @@ const LaunchButton = ({
       });
     }
 
-    console.log(
-      '[LaunchButton] handleOnClick -> dynamicForm :: ',
-      JSON.stringify(dynamicForm),
-    );
+    console.log('[LaunchButton] handleOnClick -> dynamicForm :: ', dynamicForm);
 
     try {
       const params: CustomizeParams = {
