@@ -167,14 +167,17 @@ const BuyPage = () => {
     getModelCategories().then((res) => {
       if (!res) return;
 
+      // re-order data
+      const _res = res.sort((a, b) => a.order - b.order);
+
       // set default value
-      res.forEach((item) => {
+      _res.forEach((item) => {
         setField(item.key, item.options[0].key);
       });
 
       // @ts-ignore
-      setData(convertData(res));
-      setOriginalData(res);
+      setData(convertData(_res));
+      setOriginalData(_res);
       setValueOfPackage(Number(_package));
     });
   }, []);
