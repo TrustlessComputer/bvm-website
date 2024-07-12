@@ -14,11 +14,8 @@ export const formValuesAdapter = (params: Params): IOrderBuyReq_V3 => {
       let itemWrapper;
       itemWrapper = {
         ...item,
-        options: [item.value],
+        options: item.options,
       };
-
-      delete itemWrapper['value'];
-
       return itemWrapper;
     }) || [];
 
