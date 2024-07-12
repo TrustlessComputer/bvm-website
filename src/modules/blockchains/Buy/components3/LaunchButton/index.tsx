@@ -164,7 +164,7 @@ const LaunchButton = ({
       console.log('ERROR: ', error);
       isSuccess = false;
       const { message } = getErrorMessage(error);
-      toast.error(message);
+      // toast.error(message);
       if (message && message.toLowerCase().includes('insufficient balance')) {
         onOpenTopUpModal();
       }
@@ -218,7 +218,8 @@ const LaunchButton = ({
           }}
           onClose={onCloseTopUpModal}
           onSuccess={async () => {}}
-          balanceNeedTopup={`${tierData?.priceNote || '--'}`}
+          // balanceNeedTopup={`${tierData?.priceNote || '--'}`}
+          balanceNeedTopup={`${priceBVM.toFixed(2) || '--'} BVM`}
         />
       )}
     </>
