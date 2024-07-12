@@ -28,16 +28,15 @@ export default function BLogDetail({ blogData }: TBLogDetail) {
   return (
     <div className={`${s.logDetail}`}>
       <div className="main containerV3">
+        <List title={blogData.title} />
         <div className={s.top}>
           <div className={s.thumnail}>
-            <List title={blogData.title} />
             <ImagePlaceholder src={thumbnail} alt={title} width={980} height={300} />
             <div className="wrapContent">
               <div
                 className={s.content}
                 dangerouslySetInnerHTML={{ __html: post_content || '' }}
               />
-
             </div>
           </div>
           <div className={s.heading}>
