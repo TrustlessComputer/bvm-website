@@ -5,8 +5,10 @@ interface IModelOption {
   priceBVM: number;
   tooltip: string;
   key: string;
-  icon?: string;
-  supportNetwork: 'both' | '' | 'testnet' | 'main';
+  icon: string;
+  supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
+  confuseWord: boolean;
+  order: number;
 }
 
 interface IModelCategory {
@@ -18,4 +20,5 @@ interface IModelCategory {
   options: [IModelOption];
   disable: boolean;
   tooltip: string;
+  order: number;
 }

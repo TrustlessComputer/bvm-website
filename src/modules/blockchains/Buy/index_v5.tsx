@@ -262,6 +262,12 @@ const BuyPage = () => {
 
                   <div id={'wrapper-data'} className={s.left_box_inner_content}>
                     {data?.map((item, index) => {
+                      const currentPrice =
+                        item.options.find(
+                          (option) => option.key === field[item.key].value,
+                        )?.priceUSD || 0;
+                      // const suffix = price ? `(+${price.toString()}$)` : '';
+
                       return (
                         <BoxOptionV3
                           key={item.key}
@@ -310,7 +316,14 @@ const BuyPage = () => {
                               </LegoV3>
                             </Draggable>
                           ) : (
-                            item.options.map((option, opIdx) => {
+                            item.options.map((option, optIdx) => {
+                              const _price = option.priceUSD - currentPrice;
+                              const operator = _price > 0 ? '+' : '-';
+
+                              const suffix = _price
+                                ? `(${operator}${Math.abs(_price).toString()}$)`
+                                : '';
+
                               if (
                                 (option.key === field[item.key].value &&
                                   field[item.key].dragged) ||
@@ -341,8 +354,9 @@ const BuyPage = () => {
                                     background={item.color}
                                     label={option.title}
                                     icon={option?.icon}
-                                    zIndex={item.options.length - opIdx}
+                                    zIndex={item.options.length - optIdx}
                                     disabled={isDisabled}
+                                    suffix={suffix}
                                   />
                                 </Draggable>
                               );
@@ -435,11 +449,6 @@ const BuyPage = () => {
 
                   {data?.map((item, index) => {
                     if (!field[item.key].dragged) return null;
-                    const price =
-                      item.options.find(
-                        (option) => option.key === field[item.key].value,
-                      )?.priceUSD || 0;
-                    const suffix = price ? `(+${price.toString()}$)` : '';
 
                     if (item.type === 'dropdown') {
                       return (
@@ -456,7 +465,6 @@ const BuyPage = () => {
                             title={item.title}
                             zIndex={data.length - index}
                             label={item.title}
-                            suffix={suffix}
                           >
                             <DropdownV2
                               cb={(value) => {
@@ -492,9 +500,7 @@ const BuyPage = () => {
                           <LegoV3
                             background={item.color}
                             label={item.title}
-                            // labelInRight
                             zIndex={item.options.length - opIdx}
-                            // suffix={suffix}
                           >
                             <DropdownV2
                               disabled
