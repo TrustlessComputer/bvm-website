@@ -13,6 +13,7 @@ import {
   IGetNonceReq,
   IGetNonceResp,
   IOrderBuyReq,
+  IOrderBuyReq_V3,
   IOrderUpdate,
   IQuickStart,
   IVerifySignatureReq,
@@ -142,6 +143,23 @@ export const validateSubDomainAPI = async (subdomain: string): Promise<any> => {
 export const orderBuyAPI = async (params: IOrderBuyReq): Promise<any> => {
   try {
     const data = (await httpClient.post(`/order/register`, params, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    })) as any;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const orderBuyAPI_V3 = async (params: IOrderBuyReq_V3): Promise<any> => {
+  const bodyData = params;
+
+  console.log('orderBuyAPI_V3 -- Body Params ', bodyData);
+
+  try {
+    const data = (await httpClient.post(`/order/register-v3`, bodyData, {
       headers: {
         Authorization: `${getAPIAccessToken()}`,
       },
