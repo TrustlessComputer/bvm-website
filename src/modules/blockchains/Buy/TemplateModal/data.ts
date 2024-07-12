@@ -1,4 +1,7 @@
-import { PRICING_PACKGE, PRICING_PACKGE_MAP } from '@/modules/PricingV2/constants';
+import {
+  PRICING_PACKGE,
+  PRICING_PACKGE_MAP,
+} from '@/modules/PricingV2/constants';
 
 export const FAKE_DATA_PACKAGE = [
   {
@@ -17,7 +20,7 @@ export const FAKE_DATA_PACKAGE = [
       '320 GB SSD',
       '320 GB SSD',
       '320 GB SSD',
-    ]
+    ],
   },
   {
     id: '1',
@@ -34,8 +37,7 @@ export const FAKE_DATA_PACKAGE = [
       '400 GB SSD',
       '400 GB SSD',
       '400 GB SSD',
-    ]
-
+    ],
   },
   {
     id: '2',
@@ -45,11 +47,6 @@ export const FAKE_DATA_PACKAGE = [
     content: 'Fully secure your blockchain with a cryptographic prover',
     check: false,
     price: '$1999',
-    options: [
-      '64 GB RAM',
-      '32 cores',
-      '650 GB SSD',
-      '650 GB SSD',
-    ]
+    options: ['64 GB RAM', '32 cores', '650 GB SSD', '650 GB SSD'],
   },
-]
+];
