@@ -23,6 +23,7 @@ import { useSearchParams } from 'next/navigation';
 import { FAKE_DATA_PACKAGE } from './TemplateModal/data';
 import SidebarV2 from './components3/SideBarV2';
 import TierV2 from './components3/TierV2';
+import toast from 'react-hot-toast';
 
 const BuyPage = () => {
   const [data, setData] = React.useState<
@@ -65,6 +66,14 @@ const BuyPage = () => {
       (!over || (over && !overIsFinalDroppable))
     )
       return;
+
+    if (
+      active.data.current.value !== field[activeKey].value &&
+      field[activeKey].dragged
+    ) {
+      toast.error('Please drag back to the left side to change the value');
+      return;
+    }
 
     // Normal case
     if (over && overIsFinalDroppable) {
@@ -163,11 +172,6 @@ const BuyPage = () => {
       setValueOfPackage(Number(_package));
     });
   }, []);
-
-  React.useEffect(() => {
-    const _package = searchParams.get('package');
-    setValueOfPackage(_package);
-  }, [searchParams]);
 
   React.useEffect(() => {
     const priceUSD =
@@ -317,12 +321,20 @@ const BuyPage = () => {
                             </Draggable>
                           ) : (
                             item.options.map((option, optIdx) => {
-                              const _price = option.priceUSD - currentPrice;
-                              const operator = _price > 0 ? '+' : '-';
+                              let _price = option.priceUSD;
+                              let operator = '+';
+                              let suffix =
+                                _price > 0 ? `(+${_price.toString()}$)` : '';
 
-                              const suffix = _price
-                                ? `(${operator}${Math.abs(_price).toString()}$)`
-                                : '';
+                              if (field[item.key].dragged) {
+                                _price = option.priceUSD - currentPrice;
+                                operator = _price > 0 ? '+' : '-';
+                                suffix = _price
+                                  ? `(${operator}${Math.abs(
+                                      _price,
+                                    ).toString()}$)`
+                                  : '';
+                              }
 
                               if (
                                 (option.key === field[item.key].value &&
@@ -426,6 +438,7 @@ const BuyPage = () => {
                           });
                         })}
                     </DragOverlay>
+
                     <div className={s.hTrigger}></div>
                   </div>
                 </div>

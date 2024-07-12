@@ -140,7 +140,7 @@ const LaunchButton = ({
 
       dynamicForm.push({
         ...rest,
-        value,
+        options: [value],
       });
     }
 

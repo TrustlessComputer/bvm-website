@@ -113,8 +113,6 @@
       background: #fff;
       overflow-y: auto;
       overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
 
       &::-webkit-scrollbar {
         width: 6px;
@@ -213,7 +211,7 @@
 }
 
 .hTrigger {
-  height: 70vh;
+  height: 65vh;
   display: block;
   width: 100%;
 }
