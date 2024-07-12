@@ -15,14 +15,14 @@ export type TBLogDetail = {
 }
 
 export default function BLogDetail({ blogData }: TBLogDetail) {
-  const { post_content, title, thumbnail, id , date, author,  tags, view_count } = blogData;
-  const [relate, setRelatePost] =useState<Blog[]>([])
+  const { post_content, title, thumbnail, id, date, author, tags, view_count } = blogData;
+  const [relate, setRelatePost] = useState<Blog[]>([]);
 
   useEffect(() => {
     (async () => {
       const relativePost = await fetchRelatedPostsById(id);
-      setRelatePost(relativePost)
-    })()
+      setRelatePost(relativePost);
+    })();
   }, []);
 
   return (
@@ -32,24 +32,28 @@ export default function BLogDetail({ blogData }: TBLogDetail) {
           <div className={s.thumnail}>
             <List title={blogData.title} />
             <ImagePlaceholder src={thumbnail} alt={title} width={980} height={300} />
+            <div className="wrapContent">
+              <div
+                className={s.content}
+                dangerouslySetInnerHTML={{ __html: post_content || '' }}
+              />
+
+            </div>
           </div>
           <div className={s.heading}>
-            <p className={s.heading_text}>{title}
-            </p>
-            <div className={s.heading_meta}>
-              <p className={s.heading_author}>{author.display_name} | {dayjs(date).format('MMM D, YYYY')}</p>
-              <p
-                className={s.heading_author}>{`${view_count ? view_count : 0} ${view_count > 1 ? 'views' : 'view'}`} </p>
+            <div className={s.heading_inner}>
+              <p className={s.heading_text}>{title}
+              </p>
+              <div className={s.heading_meta}>
+                <p className={s.heading_author}>{author.display_name} | {dayjs(date).format('MMM D, YYYY')}</p>
+                <p
+                  className={s.heading_author}>{`${view_count ? view_count : 0} ${view_count > 1 ? 'views' : 'view'}`} </p>
+              </div>
+              <div className={s.divider}></div>
+              <Socials {...blogData} />
             </div>
-            <div className={s.divider}></div>
-            <Socials {...blogData} />
           </div>
         </div>
-
-        <div
-          className={s.content}
-          dangerouslySetInnerHTML={{ __html: post_content || '' }}
-        />
         <div className="auth"></div>
         <div className={s.meta}>
           <Tags tags={tags || []} />

@@ -19,7 +19,7 @@ const BVMPage = async ({ searchParams }: { searchParams: Params }) => {
         position: 'absolute',
         color: 'black',
       }}
-      hideFooter
+      bodyColor={'#fff'}
     >
       <BlogModule searchParams={searchParams} />
     </MainLayout>
