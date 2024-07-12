@@ -20,6 +20,10 @@ const AppStoreModule = () => {
   const { loggedIn, login } = useWeb3Auth();
   const DAppList = useAppSelector(getDAListSelector);
 
+  const activeApps = useMemo(() => {
+    return DAppList.filter(da => da.status === 'active');
+  }, [DAppList]);
+
   const walletApps = useMemo(() => {
     return DAppList.filter(da => da.category === 'wallet_apps');
   }, [DAppList]);
@@ -29,8 +33,8 @@ const AppStoreModule = () => {
   }, [DAppList]);
 
   const defiApps = useMemo(() => {
-    return DA_DUMMY_LIST;
-  }, []);
+    return DA_DUMMY_LIST.filter(da => da.category === 'defi_apps');
+  }, [DAppList]);
 
   const router = useRouter();
 
@@ -43,11 +47,7 @@ const AppStoreModule = () => {
   }, [loggedIn]);
 
   const handleSelectAppCb = (item: IDApp) => {
-    if (loggedIn) {
-      router.push(`${APP_STORE}/${item?.id}`);
-    } else {
-      login();
-    }
+    router.push(`${APP_STORE}/${item?.id}`);
   };
 
   return (
@@ -59,7 +59,7 @@ const AppStoreModule = () => {
             You can choose any app to install
           </Text>
         </Flex>
-        <Hero />
+        <Hero data={activeApps}/>
         <Section title={'Wallet'}>
           <SimpleGrid columns={[1, 2]} gap={'24px'}>
             {walletApps?.map((d) => {

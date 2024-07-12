@@ -1,22 +1,8 @@
 import { useAppSelector } from '@/stores/hooks';
-import {
-  getL2ServicesStateSelector,
-  myOrderListFilteredByNetwork,
-} from '@/stores/states/l2services/selector';
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Image,
-  Menu,
-  MenuButton,
-  MenuList,
-  Text,
-} from '@chakra-ui/react';
+import { getL2ServicesStateSelector, myOrderListFilteredByNetwork } from '@/stores/states/l2services/selector';
+import { Box, Button, Divider, Flex, Image, Menu, MenuButton, MenuList, Text } from '@chakra-ui/react';
 import useL2Service from '@hooks/useL2Service';
 import React, { useEffect, useMemo, useState } from 'react';
-import Loading from '@components/Loading';
 import s from './styles.module.scss';
 import { APP_STORE, PRICING } from '@constants/route-path';
 import { OrderItem } from '@/stores/states/l2services/types';
@@ -26,17 +12,16 @@ import InputWrapper from '@/components/Form/inputWrapper';
 import PackageItem from '@/modules/app-store/detail/setting/packageItem';
 import { useRouter } from 'next/navigation';
 import TopupModal from '@/modules/blockchains/components/TopupModal';
-import SubmitResultFormModal from '@/modules/blockchains/Buy/SubmitResultFormModal';
 import SendFormModal from '@/modules/blockchains/components/SendFormModal';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import Form from '@/modules/app-store/detail/setting/form';
 import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
 import AccountAbstractionInputArea from './accountAbstractionInput';
-import useDAppHelper from '@/hooks/useDAppHelper';
 import { checkDAInstallHelper } from '../helper';
 import dAppServicesAPI from '@/services/api/DAServices';
 import SkeletonLoading from './SkeletonLoading';
+import { isProduction } from '@/config';
 
 const SettingView = ({
   appID,
@@ -54,8 +39,8 @@ const SettingView = ({
   const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
     getL2ServicesStateSelector,
   );
-  const myOrders = useAppSelector(myOrderListFilteredByNetwork);
-  const [selectedOrder, setSelectedOrder] = useState<OrderItem | undefined>(
+  const myChainOrders = useAppSelector(myOrderListFilteredByNetwork);
+  const [selectedChain, setSelectedChain] = useState<OrderItem | undefined>(
     undefined,
   );
   const [selectedPackage, setSelectedPackage] = useState<
@@ -71,7 +56,7 @@ const SettingView = ({
   const [isInValidFromInputArea, setInValidFromInputArea] =
     useState<boolean>(false);
 
-  const getAppInforByCuurentUser = async () => {
+  const getAppInforByCurentUser = async () => {
     try {
       const result = await dAppServicesAPI.fetchAppInforByUserAddress(
         Number(appID),
@@ -92,29 +77,29 @@ const SettingView = ({
     if (loggedIn) {
       getMyOrderList();
       getAccountInfor();
-      getAppInforByCuurentUser();
+      getAppInforByCurentUser();
     }
   }, [loggedIn]);
 
   useEffect(() => {
-    if (myOrders?.length === 1) {
-      setSelectedOrder(myOrders[0]);
+    if (myChainOrders?.length === 1) {
+      setSelectedChain(myChainOrders[0]);
     }
-  }, [myOrders]);
+  }, [myChainOrders]);
 
   const isDisabledSelectChain = useMemo(() => {
-    return !(myOrders.length > 1);
-  }, [myOrders]);
+    return !(myChainOrders.length > 1);
+  }, [myChainOrders]);
 
   const { disabeldInstallDA, statusPackage, isInstalled } = useMemo(() => {
     const { disabeldInstallDA, statusPackage, isInstalled } =
-      checkDAInstallHelper(selectedOrder, appInforByUser, selectedPackage);
+      checkDAInstallHelper(selectedChain, appInforByUser, selectedPackage);
     return {
       disabeldInstallDA,
       statusPackage,
       isInstalled,
     };
-  }, [appInforByUser, selectedOrder, selectedPackage]);
+  }, [appInforByUser, selectedChain, selectedPackage]);
 
   const {
     showTopupModal,
@@ -145,7 +130,7 @@ const SettingView = ({
   };
 
   const renderActionNote = () => {
-    if (myOrders?.length === 0) {
+    if (myChainOrders?.length === 0) {
       return (
         <Text className={s.note}>
           There is no chain, please launch a chain before install Dapp
@@ -153,7 +138,7 @@ const SettingView = ({
       );
     }
 
-    if (selectedOrder?.isNeedTopup) {
+    if (selectedChain?.isNeedTopup) {
       return (
         <Text className={s.note}>
           Please pay to launch a chain before install Dapp
@@ -161,7 +146,7 @@ const SettingView = ({
       );
     }
 
-    if (!selectedOrder) {
+    if (!selectedChain) {
       return null;
     }
 
@@ -172,7 +157,7 @@ const SettingView = ({
             appInforByUser?.name || '--'
           }`}</Text>
           {` have been ${
-            statusPackage || '--'
+            statusPackage?.toLowerCase() || '--'
           } in this chain, install other Dapp or launch a new chain.`}
         </Text>
       );
@@ -182,7 +167,7 @@ const SettingView = ({
   };
 
   const renderActionButtons = () => {
-    if (myOrders?.length === 0) {
+    if (myChainOrders?.length === 0) {
       return (
         <Button
           className={s.btnPrimary}
@@ -196,7 +181,7 @@ const SettingView = ({
       );
     }
 
-    if (selectedOrder?.isNeedTopup) {
+    if (selectedChain?.isNeedTopup) {
       return (
         <Button
           className={s.btnPrimary}
@@ -236,13 +221,13 @@ const SettingView = ({
     }
 
     if (
-      Number(accountInforL2Service?.balanceFormatted) <
-      Number(appPackage?.price_bvm)
+      isProduction && (Number(accountInforL2Service?.balanceFormatted) <
+      Number(appPackage?.price_bvm))
     ) {
       return (
         <Button
           className={s.btnPrimary}
-          isDisabled={!selectedPackage || !selectedOrder}
+          isDisabled={!selectedPackage || !selectedChain}
           onClick={() => {
             setShowTopupModal(true);
           }}
@@ -256,7 +241,7 @@ const SettingView = ({
       <Form
         app={appInforByUser}
         selectedPackage={selectedPackage}
-        selectedOrder={selectedOrder}
+        selectedOrder={selectedChain}
         isInValid={isInValidFromInputArea}
         inputs={inputs}
         onSucessCb={() => {
@@ -303,7 +288,7 @@ const SettingView = ({
                   disabled={isDisabledSelectChain}
                 >
                   <ChainItem
-                    data={selectedOrder}
+                    data={selectedChain}
                     packageSelected={selectedPackage}
                     isButton
                     dApp={appInforByUser}
@@ -311,14 +296,14 @@ const SettingView = ({
                   <SvgInset svgUrl="/icons/ic-arrow-down.svg" />
                 </MenuButton>
                 <MenuList>
-                  {myOrders.map((t, index) => (
+                  {myChainOrders.map((t, index) => (
                     <ChainItem
                       key={`${t.chainId}-${index}`}
                       packageSelected={selectedPackage}
                       user_package={appInforByUser?.user_package || []}
                       data={t}
                       dApp={appInforByUser}
-                      onSelectChain={(c: OrderItem) => setSelectedOrder(c)}
+                      onSelectChain={(c: OrderItem) => setSelectedChain(c)}
                     />
                   ))}
                 </MenuList>
@@ -350,8 +335,8 @@ const SettingView = ({
             setShowSendFormModal(true);
           }}
           order={
-            selectedOrder?.isNeedTopup
-              ? selectedOrder
+            selectedChain?.isNeedTopup
+              ? selectedChain
               : ({
                   needToTopupBalanceFormatted: appPackage?.price_bvm,
                 } as unknown as OrderItem)

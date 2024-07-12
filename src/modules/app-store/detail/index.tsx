@@ -22,12 +22,15 @@ import { commonSelector } from '@/stores/states/common/selector';
 const AppDetailModule = () => {
   const params = useParams();
   const router = useRouter();
-  const { loggedIn, login, userInfo } = useWeb3Auth();
-  const { getAccountInfor } = useL2Service();
   const dispatch = useDispatch();
   const [data, setData] = useState<IDApp | undefined>(undefined);
+  const [appInforByUser, setAppInforByUser] = useState<IDApp | undefined>(
+    undefined,
+  );
 
+  const { getAccountInfor } = useL2Service();
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const { loggedIn, login, userInfo } = useWeb3Auth();
   const needReload = useAppSelector(commonSelector).needReload;
 
   useEffect(() => {
@@ -40,11 +43,29 @@ const AppDetailModule = () => {
     if (params?.id) {
       getAppInfo(params?.id as string);
     }
-  }, [params?.id, accountInforL2Service, needReload]);
+  }, [params?.id, needReload]);
+
+  useEffect(() => {
+    if (loggedIn && params?.id) {
+      getAppInforByCurentUser(params?.id as string);
+    }
+  }, [loggedIn, accountInforL2Service, needReload]);
 
   const getAppInfo = async (id: string) => {
     const res = await dAppServicesAPI.fetchDAppByID(Number(id));
     setData(res);
+  };
+
+  const getAppInforByCurentUser = async (id: string) => {
+    try {
+      const res = await dAppServicesAPI.fetchAppInforByUserAddress(
+        Number(id),
+        accountInforL2Service?.tcAddress,
+      );
+      setAppInforByUser(res);
+    } catch (error) {
+    } finally {
+    }
   };
 
   const handleBack = () => {
@@ -107,7 +128,7 @@ const AppDetailModule = () => {
           <Flex gap={'40px'} direction={'column'}>
             {data?.details.map((m) => {
               return (
-                <AppPackage data={m} app={data} onInstall={handleInstall} />
+                <AppPackage data={m} app={appInforByUser || data} onInstall={handleInstall} />
               );
             })}
           </Flex>

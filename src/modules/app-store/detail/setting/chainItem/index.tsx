@@ -29,7 +29,7 @@ const ChainItem: React.FC<any> = ({
   packageSelected: IDAppDetails;
   user_package: IUserPackage[];
 }) => {
-  const { statusStr } = checkDAInstallHelper(data, dApp, packageSelected);
+  const { statusStr, statusColor } = checkDAInstallHelper(data, dApp, packageSelected);
   if (!data) {
     return (
       <MenuItem className={s.container}>
@@ -78,8 +78,9 @@ const ChainItem: React.FC<any> = ({
           </Flex>
         </Flex>
         <Text
-          className={cx(s.package, data?.isNeedTopup ? s.needTopup : '')}
+          className={cx(s.package)}
           textTransform={'capitalize'}
+          color={statusColor}
         >
           {statusStr}
         </Text>

@@ -9,6 +9,10 @@ const AppPackage = ({data, app, onInstall}: {data: IDAppDetails, app: IDApp, onI
     return app?.status === 'incoming' || data.status === 'incoming';
   }, [app])
 
+  const isInstalled = useMemo(() => {
+    return app?.user_package?.find(item => Number(item.app_store_detail_id) === Number(data?.id));
+  }, [app?.user_package]);
+
   return (
     <Flex className={s.container} gap={"40px"} justifyContent={"space-between"}>
       <Flex direction={"column"}>
@@ -48,7 +52,7 @@ const AppPackage = ({data, app, onInstall}: {data: IDAppDetails, app: IDApp, onI
           isDisabled={isCommingSoon}
         >
           {
-            isCommingSoon ? 'Comming Soon' : 'Install'
+            isCommingSoon ? 'Comming Soon' : isInstalled ? 'Installed' : 'Install'
           }
         </Button>
       </Flex>
