@@ -284,10 +284,10 @@ const SettingView = ({
                     data={p}
                     isSelected={p.id === selectedPackage?.id}
                     isDisabled={p.status === 'incoming'}
-                    isInstalled={false}
+                    isInstalled={isInstalled}
                     status={statusPackage}
                     onSelect={() => {
-                      setSelectedPackage(p);
+                      // setSelectedPackage(p);
                     }}
                   />
                 );
