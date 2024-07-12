@@ -54,8 +54,8 @@ const SettingView = ({
   const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
     getL2ServicesStateSelector,
   );
-  const myOrders = useAppSelector(myOrderListFilteredByNetwork);
-  const [selectedOrder, setSelectedOrder] = useState<OrderItem | undefined>(
+  const myChainOrders = useAppSelector(myOrderListFilteredByNetwork);
+  const [selectedChain, setSelectedChain] = useState<OrderItem | undefined>(
     undefined,
   );
   const [selectedPackage, setSelectedPackage] = useState<
@@ -97,24 +97,24 @@ const SettingView = ({
   }, [loggedIn]);
 
   useEffect(() => {
-    if (myOrders?.length === 1) {
-      setSelectedOrder(myOrders[0]);
+    if (myChainOrders?.length === 1) {
+      setSelectedChain(myChainOrders[0]);
     }
-  }, [myOrders]);
+  }, [myChainOrders]);
 
   const isDisabledSelectChain = useMemo(() => {
-    return !(myOrders.length > 1);
-  }, [myOrders]);
+    return !(myChainOrders.length > 1);
+  }, [myChainOrders]);
 
   const { disabeldInstallDA, statusPackage, isInstalled } = useMemo(() => {
     const { disabeldInstallDA, statusPackage, isInstalled } =
-      checkDAInstallHelper(selectedOrder, appInforByUser, selectedPackage);
+      checkDAInstallHelper(selectedChain, appInforByUser, selectedPackage);
     return {
       disabeldInstallDA,
       statusPackage,
       isInstalled,
     };
-  }, [appInforByUser, selectedOrder, selectedPackage]);
+  }, [appInforByUser, selectedChain, selectedPackage]);
 
   const {
     showTopupModal,
@@ -145,7 +145,7 @@ const SettingView = ({
   };
 
   const renderActionNote = () => {
-    if (myOrders?.length === 0) {
+    if (myChainOrders?.length === 0) {
       return (
         <Text className={s.note}>
           There is no chain, please launch a chain before install Dapp
@@ -153,7 +153,7 @@ const SettingView = ({
       );
     }
 
-    if (selectedOrder?.isNeedTopup) {
+    if (selectedChain?.isNeedTopup) {
       return (
         <Text className={s.note}>
           Please pay to launch a chain before install Dapp
@@ -161,7 +161,7 @@ const SettingView = ({
       );
     }
 
-    if (!selectedOrder) {
+    if (!selectedChain) {
       return null;
     }
 
@@ -182,7 +182,7 @@ const SettingView = ({
   };
 
   const renderActionButtons = () => {
-    if (myOrders?.length === 0) {
+    if (myChainOrders?.length === 0) {
       return (
         <Button
           className={s.btnPrimary}
@@ -196,7 +196,7 @@ const SettingView = ({
       );
     }
 
-    if (selectedOrder?.isNeedTopup) {
+    if (selectedChain?.isNeedTopup) {
       return (
         <Button
           className={s.btnPrimary}
@@ -242,7 +242,7 @@ const SettingView = ({
       return (
         <Button
           className={s.btnPrimary}
-          isDisabled={!selectedPackage || !selectedOrder}
+          isDisabled={!selectedPackage || !selectedChain}
           onClick={() => {
             setShowTopupModal(true);
           }}
@@ -256,7 +256,7 @@ const SettingView = ({
       <Form
         app={appInforByUser}
         selectedPackage={selectedPackage}
-        selectedOrder={selectedOrder}
+        selectedOrder={selectedChain}
         isInValid={isInValidFromInputArea}
         inputs={inputs}
         onSucessCb={() => {
@@ -303,7 +303,7 @@ const SettingView = ({
                   disabled={isDisabledSelectChain}
                 >
                   <ChainItem
-                    data={selectedOrder}
+                    data={selectedChain}
                     packageSelected={selectedPackage}
                     isButton
                     dApp={appInforByUser}
@@ -311,14 +311,14 @@ const SettingView = ({
                   <SvgInset svgUrl="/icons/ic-arrow-down.svg" />
                 </MenuButton>
                 <MenuList>
-                  {myOrders.map((t, index) => (
+                  {myChainOrders.map((t, index) => (
                     <ChainItem
                       key={`${t.chainId}-${index}`}
                       packageSelected={selectedPackage}
                       user_package={appInforByUser?.user_package || []}
                       data={t}
                       dApp={appInforByUser}
-                      onSelectChain={(c: OrderItem) => setSelectedOrder(c)}
+                      onSelectChain={(c: OrderItem) => setSelectedChain(c)}
                     />
                   ))}
                 </MenuList>
@@ -350,8 +350,8 @@ const SettingView = ({
             setShowSendFormModal(true);
           }}
           order={
-            selectedOrder?.isNeedTopup
-              ? selectedOrder
+            selectedChain?.isNeedTopup
+              ? selectedChain
               : ({
                   needToTopupBalanceFormatted: appPackage?.price_bvm,
                 } as unknown as OrderItem)
