@@ -2,7 +2,7 @@ import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
 import { OrderItem } from '@/stores/states/l2services/types';
 
 export const checkDAInstallHelper = (
-  order?: OrderItem,
+  chain?: OrderItem,
   dApp?: IDApp,
   packageSelected?: IDAppDetails,
 ) => {
@@ -10,12 +10,14 @@ export const checkDAInstallHelper = (
   let statusStr = '';
   let statusPackage = '';
   let isInstalled = false;
+  let statusColor = '#898989';
 
-  if (!order || order?.isNeedTopup) {
+  if (!chain || chain?.isNeedTopup) {
     disabeldInstallDA = true;
     statusStr = 'Waiting for payment';
     statusPackage = '';
     isInstalled = false;
+    statusColor = '#FA4E0E';
   } else {
     if (!dApp?.user_package || dApp?.user_package.length < 1) {
       disabeldInstallDA = false;
@@ -27,28 +29,30 @@ export const checkDAInstallHelper = (
 
       const installedWithChainFinded = lisDAInstalledWithChain.find(
         (item) =>
-          Number(item.network_id) === Number(order.chainId) &&
+          Number(item.network_id) === Number(chain.chainId) &&
           Number(item.app_store_detail_id) === Number(packageSelected?.id),
       );
 
       if (installedWithChainFinded) {
         const status = installedWithChainFinded.status;
+        console.log('installedWithChainFinded', installedWithChainFinded);
 
         switch (status) {
           case 'new':
+          case 'processing':
             {
               disabeldInstallDA = true;
               statusStr = `Installing - ${installedWithChainFinded.package}`;
               statusPackage = 'Installing';
               isInstalled = true;
+              statusColor = '#00AA6C';
             }
             break;
-          case 'processing':
           case 'done':
             {
               disabeldInstallDA = true;
-              statusStr = `${installedWithChainFinded.status} - ${installedWithChainFinded.package}`;
-              statusPackage = `${installedWithChainFinded.status}`;
+              statusStr = `Installed - ${installedWithChainFinded.package}`;
+              statusPackage = `Installed`;
               isInstalled = true;
             }
             break;
@@ -84,5 +88,6 @@ export const checkDAInstallHelper = (
     statusStr,
     statusPackage,
     isInstalled,
+    statusColor,
   };
 };

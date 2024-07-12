@@ -172,7 +172,7 @@ const SettingView = ({
             appInforByUser?.name || '--'
           }`}</Text>
           {` have been ${
-            statusPackage || '--'
+            statusPackage?.toLowerCase() || '--'
           } in this chain, install other Dapp or launch a new chain.`}
         </Text>
       );
