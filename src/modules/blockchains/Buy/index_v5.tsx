@@ -500,6 +500,7 @@ const BuyPage = () => {
                           <LegoV3
                             background={item.color}
                             label={item.title}
+                            labelInRight={option.confuseWord}
                             zIndex={item.options.length - opIdx}
                           >
                             <DropdownV2
@@ -514,7 +515,7 @@ const BuyPage = () => {
                               defaultValue={field[item.key].value || ''}
                               options={[
                                 // @ts-ignore
-                                item.options.find((o) => o.key === option.key),
+                                option,
                               ]}
                               // @ts-ignore
                               value={field[item.key].value}
