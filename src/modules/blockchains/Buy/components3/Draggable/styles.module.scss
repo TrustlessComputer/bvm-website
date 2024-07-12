@@ -3,13 +3,13 @@
   gap: 18px;
   position: relative;
 
-  &:hover {
-    z-index: 9999 !important;
-  }
-
-  &.isLabel{
+  &.isLabel {
     user-select: none !important;
     -webkit-user-drag: none !important;
+
+    &:hover {
+      z-index: 9999 !important;
+    }
   }
 }
 
@@ -53,7 +53,7 @@
   }
 
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     top: 100%;
     left: 20px;
