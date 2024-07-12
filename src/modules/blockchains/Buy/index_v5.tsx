@@ -71,7 +71,13 @@ const BuyPage = () => {
       active.data.current.value !== field[activeKey].value &&
       field[activeKey].dragged
     ) {
-      toast.error('Please drag back to the left side to change the value');
+      toast.error('Please drag back to the left side to change the value', {
+        icon: null,
+        style: {
+          borderColor: 'blue',
+          color: 'blue',
+        },
+      });
       return;
     }
 
