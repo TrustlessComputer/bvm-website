@@ -7,10 +7,9 @@ import Solutions from '@layouts/Footer/Solutions';
 import Socials from '@layouts/Footer/Socials';
 import Link from 'next/link';
 
-const Footer = () => {
-
+const Footer = ({ className }: { className?: string }) => {
   return (
-    <div className={s.wrapper}>
+    <div className={`${s.wrapper} ${className}`}>
       <div className={'containerV3'}>
         <div className={s.row}>
           <div className={s.logo}>
