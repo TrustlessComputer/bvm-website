@@ -68,14 +68,30 @@ const BuyPage = () => {
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
 
+  const setValueOfPackage = (packageId: number | string | null) => {
+    if (!packageId?.toString()) return;
+
+    // set default value for package
+    const templateData =
+      FAKE_DATA_PACKAGE.find((item) => item.id === packageId?.toString())
+        ?.data || [];
+
+    templateData.forEach((field) => {
+      setField(field.key, field.value?.key || null, field.value ? true : false);
+    });
+  };
+
   React.useEffect(() => {
     data?.forEach((item) => {
       const newDefaultValue = item.options.find(
         (option) =>
-          option.supportNetwork === field['network']?.value ||
-          option.supportNetwork === 'both' ||
-          !option.supportNetwork,
+          (option.supportNetwork === field['network']?.value ||
+            option.supportNetwork === 'both' ||
+            !option.supportNetwork) &&
+          option.selectable &&
+          !item.disable,
       );
+
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
       );
@@ -87,9 +103,11 @@ const BuyPage = () => {
 
       if (!currentOption || !newDefaultValue) return;
       if (
-        currentOption.supportNetwork === field['network']?.value ||
-        currentOption.supportNetwork === 'both' ||
-        !currentOption.supportNetwork
+        (currentOption.supportNetwork === field['network']?.value ||
+          currentOption.supportNetwork === 'both' ||
+          !currentOption.supportNetwork) &&
+        currentOption.selectable &&
+        !item.disable
       )
         return;
 
@@ -97,20 +115,9 @@ const BuyPage = () => {
     });
   }, [field['network']?.value]);
 
-  // React.useEffect(() => {
-  //   const _package = searchParams.get('package');
-
-  //   if (!_package) return;
-
-  //   // set default value for package
-  //   const templateData = FAKE_DATA_PACKAGE[Number(_package)].data;
-
-  //   templateData.forEach((field) => {
-  //     setField(field.key, field.value?.key || null, field.value ? true : false);
-  //   });
-  // }, [searchParams]);
-
   React.useEffect(() => {
+    const _package = searchParams.get('package');
+
     const convertData = (data: IModelCategory[]) => {
       const newData = data.map((item) => {
         return {
@@ -140,8 +147,14 @@ const BuyPage = () => {
 
       // @ts-ignore
       setData(convertData(res));
+      setValueOfPackage(Number(_package));
     });
   }, []);
+
+  React.useEffect(() => {
+    const _package = searchParams.get('package');
+    setValueOfPackage(_package);
+  }, [searchParams]);
 
   React.useEffect(() => {
     const priceUSD =
