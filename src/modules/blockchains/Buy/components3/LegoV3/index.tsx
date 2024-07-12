@@ -4,9 +4,7 @@ import Image from 'next/image';
 import SvgInset from '@/components/SvgInset';
 
 import styles from './styles.module.scss';
-import { LegoColor } from '../BoxOptionV2';
 import { hexToHSB, hsbToHex } from '../../utils';
-import { Tooltip } from 'react-tooltip';
 import useStoreDropDown from '@/modules/blockchains/Buy/stores/useStoreDropdown';
 
 type LegoV3 = {
@@ -59,7 +57,7 @@ function LegoV3({
   const _background = hsbToHex(
     fillBackgroundAsHSB?.h || 0,
     fillBackgroundAsHSB?.s || 0,
-    (fillBackgroundAsHSB?.b || 100) - 10,
+    (fillBackgroundAsHSB?.b || 100) - 20,
   )?.split('.')[0];
 
   return (

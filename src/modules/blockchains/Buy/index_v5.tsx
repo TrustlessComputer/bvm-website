@@ -138,12 +138,13 @@ const BuyPage = () => {
           if (!currentOption) return 0;
 
           const isDisabled =
-            !!(
-              currentOption.supportNetwork &&
-              currentOption.supportNetwork !== 'both' &&
-              currentOption.supportNetwork !== field['network']?.value
-            ) ||
-            (!currentOption.selectable && !field[item.key].dragged);
+            // prettier-ignore
+            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+          // prettier-ignore
+          (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+          (item.required && !field[item.key].dragged) ||
+          item.disable ||
+          !currentOption.selectable;
 
           if (isDisabled) return 0;
 
@@ -161,12 +162,13 @@ const BuyPage = () => {
           if (!currentOption) return 0;
 
           const isDisabled =
-            !!(
-              currentOption.supportNetwork &&
-              currentOption.supportNetwork !== 'both' &&
-              currentOption.supportNetwork !== field['network']?.value
-            ) ||
-            (!currentOption.selectable && !field[item.key].dragged);
+            // prettier-ignore
+            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+            // prettier-ignore
+            (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+            (item.required && !field[item.key].dragged) ||
+            item.disable ||
+            !currentOption.selectable;
 
           if (isDisabled) return 0;
 

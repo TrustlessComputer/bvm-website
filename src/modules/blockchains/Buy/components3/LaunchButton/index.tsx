@@ -59,7 +59,11 @@ const LaunchButton = ({
     return (
       !!chainName.trim() &&
       data?.every((item) => {
-        return field[item.key].dragged || item.disable;
+        return (
+          (field[item.key].dragged && item.required) ||
+          item.disable ||
+          !item.required
+        );
       })
     );
   }, [chainName, field]);
@@ -75,9 +79,11 @@ const LaunchButton = ({
 
   const handleOnClick = async () => {
     if (!loggedIn) return login();
-
     if (isSubmiting || !allFilled || hasError) return;
 
+    setSubmitting(true);
+
+    let isSuccess = false;
     const form: FormOrder = {
       chainName,
       network,
@@ -87,10 +93,6 @@ const LaunchButton = ({
     };
 
     console.log('[LaunchButton] handleOnClick -> form :: ', form);
-
-    setSubmitting(true);
-
-    let isSuccess = false;
 
     try {
       const params: CustomizeParams = {
