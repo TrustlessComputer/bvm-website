@@ -35,47 +35,66 @@ import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
 import AccountAbstractionInputArea from './accountAbstractionInput';
 import useDAppHelper from '@/hooks/useDAppHelper';
 import { checkDAInstallHelper } from '../helper';
+import dAppServicesAPI from '@/services/api/DAServices';
+import SkeletonLoading from './SkeletonLoading';
 
 const SettingView = ({
-  app,
+  appID,
   appPackage,
   onClose,
 }: {
-  app?: IDApp;
+  appID?: number;
   appPackage: IDAppDetails;
   onClose: any;
 }) => {
   const router = useRouter();
 
-  const { loopFetchAccountInfor, getMyOrderList } = useL2Service();
+  const { getMyOrderList, getAccountInfor } = useL2Service();
   const { loggedIn } = useWeb3Auth();
   const { accountInforL2Service, isMyOrderListFetched } = useAppSelector(
     getL2ServicesStateSelector,
   );
-
+  const myOrders = useAppSelector(myOrderListFilteredByNetwork);
   const [selectedOrder, setSelectedOrder] = useState<OrderItem | undefined>(
     undefined,
   );
   const [selectedPackage, setSelectedPackage] = useState<
     IDAppDetails | undefined
-  >(app?.details?.[0] || undefined);
+  >(appPackage);
+
+  const [isAppInforByUserFetched, setAppInforByUserFetched] = useState(false);
+  const [appInforByUser, setAppInforByUser] = useState<IDApp | undefined>(
+    undefined,
+  );
 
   const [inputs, setInputs] = useState<any[]>([]);
   const [isInValidFromInputArea, setInValidFromInputArea] =
     useState<boolean>(false);
 
-  const { hasIntalledByNetworkID } = useDAppHelper({
-    dApp: app,
-  });
+  const getAppInforByCuurentUser = async () => {
+    try {
+      const result = await dAppServicesAPI.fetchAppInforByUserAddress(
+        Number(appID),
+        accountInforL2Service?.tcAddress,
+      );
+      setAppInforByUser(result);
+    } catch (error) {
+    } finally {
+      setAppInforByUserFetched(true);
+    }
+  };
+
+  const isFetched = useMemo(() => {
+    return !!isMyOrderListFetched && !!isAppInforByUserFetched;
+  }, [isMyOrderListFetched, isAppInforByUserFetched]);
 
   useEffect(() => {
-    loopFetchAccountInfor();
     if (loggedIn) {
       getMyOrderList();
+      getAccountInfor();
+      getAppInforByCuurentUser();
     }
   }, [loggedIn]);
-
-  const myOrders = useAppSelector(myOrderListFilteredByNetwork);
 
   useEffect(() => {
     if (myOrders?.length === 1) {
@@ -87,21 +106,17 @@ const SettingView = ({
     return !(myOrders.length > 1);
   }, [myOrders]);
 
-  const { isInstalled, statusPackage } = useMemo(() => {
-    // return hasIntalledByNetworkID(selectedOrder?.chainId);
-    const { disabeldInstallDA, statusPackage } = checkDAInstallHelper(
-      selectedOrder,
-      app!,
-    );
+  const { disabeldInstallDA, statusPackage, isInstalled } = useMemo(() => {
+    const { disabeldInstallDA, statusPackage, isInstalled } =
+      checkDAInstallHelper(selectedOrder, appInforByUser, selectedPackage);
     return {
-      isInstalled: disabeldInstallDA,
+      disabeldInstallDA,
       statusPackage,
+      isInstalled,
     };
-  }, [app, selectedOrder]);
+  }, [appInforByUser, selectedOrder, selectedPackage]);
 
   const {
-    showSubmitFormResult,
-    setShowSubmitFormResult,
     showTopupModal,
     setShowTopupModal,
     showSendFormModal,
@@ -116,7 +131,7 @@ const SettingView = ({
   // console.log('isInValidFromInputArea', isInValidFromInputArea);
 
   const renderInputFactory = () => {
-    if (app?.code === 'account_abstraction' && !isInstalled) {
+    if (appInforByUser?.code === 'account_abstraction' && !isInstalled) {
       return (
         <AccountAbstractionInputArea
           resultCallback={({ isInValid, inputs }) => {
@@ -153,14 +168,17 @@ const SettingView = ({
     if (isInstalled) {
       return (
         <Text className={s.note}>
-          {`${app?.name || '--'} basic have been ${
+          <Text as="span" fontWeight={600}>{`${
+            appInforByUser?.name || '--'
+          }`}</Text>
+          {` have been ${
             statusPackage || '--'
           } in this chain, install other Dapp or launch a new chain.`}
         </Text>
       );
     }
 
-    return <></>;
+    return null;
   };
 
   const renderActionButtons = () => {
@@ -236,7 +254,7 @@ const SettingView = ({
 
     return (
       <Form
-        app={app}
+        app={appInforByUser}
         selectedPackage={selectedPackage}
         selectedOrder={selectedOrder}
         isInValid={isInValidFromInputArea}
@@ -250,21 +268,22 @@ const SettingView = ({
 
   return (
     <Flex className={s.container} direction={'column'} gap={'28px'}>
-      {isMyOrderListFetched ? (
+      {isFetched ? (
         <>
           <Flex gap={'12px'} justifyContent={'center'} alignItems={'center'}>
-            <Image className={s.avatar} src={app?.icon_url} />
-            <Text className={s.title}>{app?.name}</Text>
+            <Image className={s.avatar} src={appInforByUser?.icon_url} />
+            <Text className={s.title}>{appInforByUser?.name}</Text>
           </Flex>
           <Divider orientation={'horizontal'} bg={'#ECECEC'} />
           <InputWrapper label={'Package'} className={s.inputWrapper}>
             <Flex gap={'24px'}>
-              {app?.details?.map((p, index) => {
+              {appInforByUser?.details?.map((p, index) => {
                 return (
                   <PackageItem
                     key={`${p.id}-${index}`}
                     data={p}
                     isSelected={p.id === selectedPackage?.id}
+                    isDisabled={p.status === 'incoming'}
                     isInstalled={isInstalled}
                     status={statusPackage}
                     onSelect={() => {
@@ -283,17 +302,21 @@ const SettingView = ({
                   className={s.btnSelectToken}
                   disabled={isDisabledSelectChain}
                 >
-                  <ChainItem data={selectedOrder} isButton dApp={app} />
+                  <ChainItem
+                    data={selectedOrder}
+                    isButton
+                    dApp={appInforByUser}
+                  />
                   <SvgInset svgUrl="/icons/ic-arrow-down.svg" />
                 </MenuButton>
                 <MenuList>
-                  {myOrders.map((t) => (
+                  {myOrders.map((t, index) => (
                     <ChainItem
+                      key={`${t.chainId}-${index}`}
                       packageSelected={selectedPackage}
-                      user_package={app?.user_package || []}
-                      key={t.chainId}
+                      user_package={appInforByUser?.user_package || []}
                       data={t}
-                      dApp={app}
+                      dApp={appInforByUser}
                       onSelectChain={(c: OrderItem) => setSelectedOrder(c)}
                     />
                   ))}
@@ -309,26 +332,12 @@ const SettingView = ({
           </Flex>
         </>
       ) : (
-        <Flex className={s.loadingContainer}>
-          <Loading />
-        </Flex>
-      )}
-      {showSubmitFormResult && (
-        <SubmitResultFormModal
-          show={showSubmitFormResult}
-          onClose={() => {
-            setShowSubmitFormResult(false);
-          }}
-          onSuccess={async () => {}}
-        />
+        <SkeletonLoading />
       )}
 
       {showTopupModal && (
         <TopupModal
           show={showTopupModal}
-          // warningMessage={
-          //   'Operating your Bitcoin L2 testnet requires 1 $BVM per day.'
-          // }
           infor={{
             paymentAddress: `${accountInforL2Service?.topUpWalletAddress}`,
           }}

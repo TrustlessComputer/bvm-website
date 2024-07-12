@@ -31,9 +31,9 @@ const fetchDAList = async (): Promise<IDApp[]> => {
   }
 };
 
-const fetchDAInstalledByUserAddress = async (
+const fetchAppInforByUserAddress = async (
   dAppID: number,
-  userAddress: string,
+  userAddress?: string,
 ): Promise<IDApp> => {
   // const accessToken = getAPIAccessToken();
   // if (!accessToken) return [];
@@ -100,7 +100,7 @@ const dAppServicesAPI = {
   fetchDAList,
   fetchDAppByID,
   installDAByParams,
-  fetchDAInstalledByUserAddress,
+  fetchAppInforByUserAddress,
 };
 
 export default dAppServicesAPI;
