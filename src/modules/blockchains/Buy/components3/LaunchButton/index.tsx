@@ -24,6 +24,7 @@ import { formValuesAdapter } from './FormValuesAdapter';
 
 const LaunchButton = ({
   data,
+  originalData,
 }: {
   data:
     | (IModelCategory & {
@@ -34,6 +35,7 @@ const LaunchButton = ({
         }[];
       })[]
     | null;
+  originalData: IModelCategory[] | null;
 }) => {
   const { field, priceBVM, priceUSD } = useOrderFormStoreV3();
   const { loggedIn, login } = useWeb3Auth();
@@ -79,7 +81,7 @@ const LaunchButton = ({
   }, [isFecthingData, availableList, packageParam]);
 
   const handleOnClick = async () => {
-    if (isSubmiting || !allFilled || hasError || !data) return;
+    if (isSubmiting || !allFilled || hasError || !originalData) return;
     if (!loggedIn) return login();
 
     setSubmitting(true);
@@ -95,7 +97,7 @@ const LaunchButton = ({
 
     // TODO
     const dynamicForm: any[] = [];
-    for (const _field of data) {
+    for (const _field of originalData) {
       if (!field[_field.key].dragged) continue;
 
       const value = _field.options.find(
@@ -106,7 +108,7 @@ const LaunchButton = ({
 
       dynamicForm.push({
         ...rest,
-        value: !field[_field.key].dragged ? null : value,
+        value,
       });
     }
 
