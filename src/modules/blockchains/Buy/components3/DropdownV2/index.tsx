@@ -13,14 +13,16 @@ type TDropdown = {
   checkDisable?: boolean;
   defaultValue: string | number;
   cb: (value: string | number) => void;
+  isCustomView?: boolean;
 };
 
 function DropdownV2({
-  options,
-  cb,
-  defaultValue,
-  disabled = false,
-}: TDropdown) {
+                      options,
+                      cb,
+                      defaultValue,
+                      disabled = false,
+                      isCustomView,
+                    }: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useOrderFormStoreV3();
@@ -43,12 +45,23 @@ function DropdownV2({
           setIsOpen(true);
         }}
       >
-        <div className={s.dropdown_inner_content}>
-          {icon && <Image src={icon} alt="icon" width={24} height={24} />}
-          <p className={s.dropdown_text}>
-            {options?.find((item) => item.value === defaultValue)?.label}
-          </p>
-        </div>
+        {
+          isCustomView ? (
+            <div className={s.dropdown_inner_content}>
+              {!(options) || options[0].icon && <Image src={options[0].icon} alt="icon" width={24} height={24} />}
+              <p className={s.dropdown_text}>
+                {options ? options[0].title : ''}
+              </p>
+            </div>
+          ) : (
+            <div className={s.dropdown_inner_content}>
+              {icon && <Image src={icon} alt="icon" width={24} height={24} />}
+              <p className={s.dropdown_text}>
+                {options?.find((item) => item.value === defaultValue)?.label}
+              </p>
+            </div>
+          )
+        }
 
         {(options?.length || 0) > 1 && (
           <Image
@@ -68,7 +81,7 @@ function DropdownV2({
           <ul className={`${s.dropdown_list_inner} `}>
             {options?.map((option, index) => {
               const isDisabled =
-                !!(
+              !!(
                   option.supportNetwork &&
                   option.supportNetwork !== 'both' &&
                   option.supportNetwork !== field['network']?.value

@@ -2,6 +2,7 @@ import { PRICING_PACKGE, PRICING_PACKGE_MAP } from '@/modules/PricingV2/constant
 
 export const FAKE_DATA_PACKAGE = [
   {
+    id: '0',
     color: 'GREEN',
     template: PRICING_PACKGE_MAP[PRICING_PACKGE.Hacker],
     link: `/rollups/customizev2?package=${PRICING_PACKGE.Hacker}`,
@@ -19,6 +20,7 @@ export const FAKE_DATA_PACKAGE = [
     ]
   },
   {
+    id: '1',
     color: 'BLUE',
     template: PRICING_PACKGE_MAP[PRICING_PACKGE.Growth],
     link: `/rollups/customizev2?package=${PRICING_PACKGE.Growth}`,
@@ -36,6 +38,7 @@ export const FAKE_DATA_PACKAGE = [
 
   },
   {
+    id: '2',
     color: 'ORANGE',
     template: PRICING_PACKGE_MAP[PRICING_PACKGE.Secure],
     link: `/rollups/customizev2?package=${PRICING_PACKGE.Secure}`,
