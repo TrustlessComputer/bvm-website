@@ -10,7 +10,6 @@ import BoxOptionV3 from './components3/BoxOptionV3';
 import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
 import DropdownV2 from './components3/DropdownV2';
-import Droppable from './components3/Droppable';
 import DroppableV2 from './components3/DroppableV2';
 import LaunchButton from './components3/LaunchButton';
 import LegoParent from './components3/LegoParent';
@@ -21,6 +20,7 @@ import useOrderFormStoreV3 from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
+import { formatCurrencyV2 } from '@/utils/format';
 
 const BuyPage = () => {
   const [data, setData] = React.useState<
@@ -61,9 +61,13 @@ const BuyPage = () => {
     // Format ID of single field = <key>-<value>
     const [activeKey = '', activeSuffix = ''] = active.id.split('-');
     const [overKey = '', overSuffix = ''] = (over?.id || '').split('-');
-    const overIsParentDroppable =
+    const overIsParentOfActiveDroppable =
       overKey === activeKey && overSuffix === 'droppable';
     const overIsFinalDroppable = overKey === 'final';
+    const overIsParentDroppable =
+      !overIsFinalDroppable &&
+      overSuffix === 'droppable' &&
+      data?.find((item) => item.key === overKey)?.multiChoice;
     const activeIsParent =
       data?.find((item) => item.key === activeKey)?.multiChoice &&
       !activeSuffix;
@@ -83,8 +87,8 @@ const BuyPage = () => {
         active.data.current.value !== field[activeKey].value &&
         field[activeKey].dragged
       ) {
-      	setShowShadow(field[activeKey].value)
-        toast.error('Please drag back to the left side to change the value', {
+        setShowShadow(field[activeKey].value as string);
+        toast.error('Remove existing module first.', {
           icon: null,
           style: {
             borderColor: 'blue',
@@ -92,9 +96,9 @@ const BuyPage = () => {
           },
           duration: 3000,
         });
-		setTimeout(() => {
-        	setShowShadow('')
-      	}, 2000)
+        setTimeout(() => {
+          setShowShadow('');
+        }, 5000);
         return;
       }
 
@@ -102,6 +106,7 @@ const BuyPage = () => {
       if (over && overIsFinalDroppable) {
         setField(activeKey, active.data.current.value, true);
       } else {
+        if (over && overIsParentDroppable) return;
         setField(activeKey, active.data.current.value, false);
       }
 
@@ -115,8 +120,8 @@ const BuyPage = () => {
     }
 
     // Multi choice case
-    if (over && (overIsFinalDroppable || overIsParentDroppable)) {
-      const currentValues = field[activeKey].value as string[];
+    if (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) {
+      const currentValues = (field[activeKey].value || []) as string[];
       const newValue = [...currentValues, active.data.current.value];
 
       if (currentValues.includes(active.data.current.value)) return;
@@ -180,7 +185,7 @@ const BuyPage = () => {
       }
     });
     fieldsNotInTemplate?.forEach((field) => {
-      setField(field.key, field.options[0].key, false);
+      setField(field.key, null, false);
     });
   };
 
@@ -188,7 +193,7 @@ const BuyPage = () => {
     const modelCategories = (await getModelCategories()) || [];
     const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
     _modelCategories.forEach((item) => {
-      setField(item.key, item.options[0].key);
+      setField(item.key, null);
     });
     setData(convertData(_modelCategories));
     setOriginalData(_modelCategories);
@@ -199,6 +204,32 @@ const BuyPage = () => {
 
   React.useEffect(() => {
     data?.forEach((item) => {
+      if (item.multiChoice) {
+        const currentValues = (field[item.key].value || []) as string[];
+        const newValues = currentValues.filter((value) => {
+          const option = item.options.find((opt) => opt.key === value);
+
+          if (!option) return false;
+
+          const isDisabled =
+            !!(
+              option.supportNetwork &&
+              option.supportNetwork !== 'both' &&
+              option.supportNetwork !== field['network']?.value
+            ) || !option.selectable;
+
+          return !isDisabled;
+        });
+
+        if (newValues.length === 0) {
+          setField(item.key, null, false);
+          return;
+        }
+
+        setField(item.key, newValues, field[item.key].dragged);
+        return;
+      }
+
       const newDefaultValue = item.options.find(
         (option) =>
           (option.supportNetwork === field['network']?.value ||
@@ -207,16 +238,13 @@ const BuyPage = () => {
           option.selectable &&
           !item.disable,
       );
-
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
       );
-
       if (!newDefaultValue) {
         setField(item.key, null, false);
         return;
       }
-
       if (!currentOption || !newDefaultValue) return;
       if (
         (currentOption.supportNetwork === field['network']?.value ||
@@ -226,7 +254,6 @@ const BuyPage = () => {
         !item.disable
       )
         return;
-
       setField(item.key, newDefaultValue.key, field[item.key].dragged);
     });
   }, [field['network']?.value]);
@@ -594,7 +621,15 @@ const BuyPage = () => {
               />
 
               <div className={s.right_box}>
-                <DroppableV2 id="final" className={s.finalResult}>
+                <DroppableV2
+                  id="final"
+                  className={s.finalResult}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    paddingLeft: '10%',
+                  }}
+                >
                   <LegoV3
                     background={'#FF3A3A'}
                     label="Name"
@@ -689,7 +724,11 @@ const BuyPage = () => {
                             zIndex={data.length - index}
                             label={item.confuseTitle}
                             labelInRight={!!item.confuseTitle}
-                            className={showShadow === field[item.key].value ? s.activeBlur : ''}
+                            className={
+                              showShadow === field[item.key].value
+                                ? s.activeBlur
+                                : ''
+                            }
                           >
                             <DropdownV2
                               cb={(value) => {
@@ -729,7 +768,11 @@ const BuyPage = () => {
                             label={item.confuseTitle}
                             labelInRight={!!item.confuseTitle}
                             zIndex={item.options.length - opIdx}
-                            className={showShadow === field[item.key].value ? s.activeBlur : ''}
+                            className={
+                              showShadow === field[item.key].value
+                                ? s.activeBlur
+                                : ''
+                            }
                           >
                             <DropdownV2
                               disabled
@@ -763,9 +806,17 @@ const BuyPage = () => {
                       Total price
                     </h6>
                     <h4 className={s.right_box_footer_left_content}>
-                      ${priceUSD.toFixed(2)}
+                      $
+                      {formatCurrencyV2({
+                        amount: priceUSD,
+                        decimals: 2,
+                      })}
                       {'/'}Month {'(~'}
-                      {priceBVM.toFixed(2)} BVM
+                      {formatCurrencyV2({
+                        amount: priceBVM,
+                        decimals: 2,
+                      })}{' '}
+                      BVM
                       {')'}
                     </h4>
                   </div>

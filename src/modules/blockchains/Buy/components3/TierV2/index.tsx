@@ -3,10 +3,7 @@ import React from 'react';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import tierData from './data';
-import { useRouter, useSearchParams } from 'next/navigation';
-import BaseModal from '../Modal';
-import { Button, Flex } from '@chakra-ui/react';
-import useOrderFormStoreV3 from '../../stores/index_v3';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   templates: Array<IModelCategory[]> | null;
@@ -14,62 +11,8 @@ type Props = {
   setValueOfPackage: (packageId: number | string | null) => void;
 };
 
-const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
-  const { field } = useOrderFormStoreV3();
-
-  const searchParams = useSearchParams();
+const TierV2 = ({ setValueOfPackage }: Props) => {
   const router = useRouter();
-
-  const [isShowModal, setIsShowModal] = React.useState(false);
-  const [selectedTier, setSelectedTier] = React.useState<string | null>(null);
-
-  const isSomethingChanged = () => {
-    if (!originalData || !templates) return;
-    const currentPackageId = searchParams.get('package') || '-1';
-
-    let somethingChanged = false;
-    const currentTemplate = (templates?.[Number(currentPackageId)] ||
-      []) as IModelCategory[];
-    const fieldsNotInTemplate = originalData?.filter(
-      (item) => !currentTemplate.find((temp) => temp.key === item.key),
-    );
-
-    for (const _f of fieldsNotInTemplate) {
-      if (field[_f.key].dragged) {
-        somethingChanged = true;
-        break;
-      }
-    }
-
-    for (const _f of currentTemplate) {
-      if (_f.options.length === 0) continue;
-
-      const fieldTemplateValue = _f.options.find(
-        (o) => o.key === field[_f.key].value,
-      );
-
-      if (!field[_f.key].dragged || !fieldTemplateValue) {
-        somethingChanged = true;
-        break;
-      }
-    }
-
-    return somethingChanged;
-  };
-
-  const handleOk = () => {
-    setValueOfPackage(selectedTier);
-    setIsShowModal(false);
-    setSelectedTier(null);
-    if (searchParams.get('package') !== selectedTier) {
-      router.push('/rollups/customizev2?package=' + selectedTier);
-    }
-  };
-
-  const handleCancel = () => {
-    setIsShowModal(false);
-    setSelectedTier(null);
-  };
 
   return (
     <React.Fragment>
@@ -82,13 +25,8 @@ const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
               key={index}
               className={styles.tier_items_item}
               onClick={() => {
-                if (isSomethingChanged()) {
-                  setIsShowModal(true);
-                  setSelectedTier(tier.id);
-                } else {
-                  router.push('/rollups/customizev2?package=' + tier.id);
-                  setValueOfPackage(tier.id);
-                }
+                router.push('/rollups/customizev2?package=' + tier.id);
+                setValueOfPackage(tier.id);
               }}
             >
               <Image
@@ -102,31 +40,6 @@ const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
         </div>
       </div>
 
-      <BaseModal
-        isShow={isShowModal}
-        onHide={() => setIsShowModal(false)}
-        title="Would you like to change it ?"
-        size="small"
-        theme="light"
-      >
-        <Flex justifyContent={'center'} alignItems={'center'} gap={5}>
-          <Button
-            className={`${styles.btn} ${styles.btn__outline}`}
-            size="sm"
-            onClick={() => handleOk()}
-          >
-            Yes
-          </Button>
-          <Button
-            className={`${styles.btn} ${styles.btn__primary}`}
-            size="sm"
-            onClick={() => handleCancel()}
-          >
-            No
-          </Button>
-        </Flex>
-
-      </BaseModal>
     </React.Fragment>
   );
 };
