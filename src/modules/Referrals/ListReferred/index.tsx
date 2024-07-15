@@ -10,7 +10,10 @@ import s from './styles.module.scss';
 import { MIN_DECIMAL } from '@/constants/constants';
 import CReferralAPI from 'src/services/api/referrals';
 import { shortCryptoAddress } from '@/utils/address';
-import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import { useSelector } from 'react-redux';
+import { userReferralSelector } from '@/stores/states/referrals/selector';
 
 const getReferStatus = (key: string) => {
   switch (key) {
@@ -21,9 +24,12 @@ const getReferStatus = (key: string) => {
 }
 
 const ListReferred = () => {
-  const wallet = useAuthenticatedWallet();
-  const addressL2 = wallet?.address;
+  const { accountInforL2Service } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
+  const addressL2 = accountInforL2Service?.tcAddress;
   const userApi = useRef(new CReferralAPI()).current;
+  const userReferral = useSelector(userReferralSelector);
 
   const [data, setData] = useState<any[]>([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -38,12 +44,12 @@ const ListReferred = () => {
 
   useEffect(() => {
     fetchData();
-  }, [addressL2])
+  }, [addressL2, userReferral?.referral_code])
 
   const fetchData = async () => {
-    if (!addressL2) return;
+    if (!addressL2 || !userReferral?.referral_code) return;
     try {
-      const response = await userApi.getListReferred();
+      const response = await userApi.getListReferred(userReferral?.referral_code as string);
       setData(response?.rows);
     } catch (error) {
     } finally {

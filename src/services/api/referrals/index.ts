@@ -83,8 +83,8 @@ class CReferralAPI {
   //   return res;
   // };
 
-  public getListReferred = async (): Promise<any> => {
-    const res: any = await this.api.get(this.prefix(`referral/referee`));
+  public getListReferred = async (referral_code: string): Promise<any> => {
+    const res: any = await this.api.get(this.prefix(`referral/referee?referral_code=${referral_code}`));
     return res;
   };
 
