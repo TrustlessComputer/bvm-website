@@ -6,9 +6,7 @@ import CApiClient from '@/services/apiClient';
 class CReferralAPI {
   private api = new CApiClient().api;
 
-  private prefix = (url: string) => `${API_NAKA_URL}/api/users/${url}`;
-  private prefixRune = (url: string) => `/users/${url}`;
-  private prefixAuth = (url: string) => `/auth/${url}`;
+  private prefixRune = (url: string) => `https://general.appstore.dev.bvm.network/api/user/referral/${url}`;
 
   setReferralCode = async (params: {
     referral_code: string;
@@ -21,19 +19,6 @@ class CReferralAPI {
       return res;
     } catch (error) {
       //
-    }
-  };
-
-  public userSignerWallet = async (body: IUserSignerWallet): Promise<any> => {
-    try {
-      const response = await this.api.post(
-        this.prefixAuth(`sign-wallet`),
-        body
-      );
-
-      return response;
-    } catch (error) {
-      throw error;
     }
   };
 

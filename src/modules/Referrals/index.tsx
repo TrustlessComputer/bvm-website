@@ -50,7 +50,7 @@ const RefferalsScreen: React.FC = (): React.ReactElement => {
         modalProps: {
           size: 'lg',
         },
-        render: <ReferralModal />,
+        render: () => <ReferralModal />,
       }),
     );
   };

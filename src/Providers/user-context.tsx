@@ -1,5 +1,5 @@
 'use client';
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { PropsWithChildren, useMemo, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { setUser } from '@/stores/states/user/reducer';
 import throttle from 'lodash/throttle';
@@ -12,6 +12,8 @@ import ReferralStorage from '@/utils/storage/referral.storage';
 import { getCoinPrices, getConfigs } from '@/services/common';
 import { setCoinPrices, setConfigs } from '@/stores/states/common/reducer';
 import { useRouter } from 'next/navigation';
+import CReferralAPI from '@/services/api/referrals';
+import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
 
 export interface IUserContext {}
 
@@ -29,6 +31,9 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
   const token =
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
   const guestCode = AuthenStorage.getGuestSecretKey();
+  const userApi = useRef(new CReferralAPI()).current;
+  const wallet = useAuthenticatedWallet();
+  const addressL2 = wallet?.address;
 
   const fetchUserInfo = async () => {
     const userInfo = await userServices.getUser();
@@ -41,6 +46,16 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
 
   const throttleFetchUserInfo = React.useCallback(
     throttle(fetchUserInfo, 300),
+    [],
+  );
+
+  const fetchUserReferralInfo = async () => {
+    const data = await userApi.getUserReferralInfo({ address: addressL2 });
+    dispatch(setUser(data));
+  };
+
+  const throttleFetchUserReferralInfo = React.useCallback(
+    throttle(fetchUserReferralInfo, 300),
     [],
   );
 
@@ -64,6 +79,11 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     if (!token) return;
     throttleFetchUserInfo();
   }, [needReload, token]);
+
+  React.useEffect(() => {
+    if (!addressL2) return;
+    throttleFetchUserReferralInfo();
+  }, [addressL2, needReload]);
 
   // GET REFERRAL CODE
   React.useEffect(() => {
