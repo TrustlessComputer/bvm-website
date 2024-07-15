@@ -25,7 +25,7 @@ const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
 
   const isSomethingChanged = () => {
     if (!originalData || !templates) return;
-    const currentPackageId = searchParams.get('package') || '0';
+    const currentPackageId = searchParams.get('package') || '-1';
 
     let somethingChanged = false;
     const currentTemplate = (templates?.[Number(currentPackageId)] ||
@@ -107,7 +107,7 @@ const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
         size="small"
         theme="light"
       >
-        Are you sure you want to select this template?{' '}
+        Are you sure you want to clear your current configuration?
         <Button
           className={`${styles.btn} ${styles.btn__outline}`}
           size="sm"
