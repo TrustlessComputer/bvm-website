@@ -10,7 +10,6 @@ import BoxOptionV3 from './components3/BoxOptionV3';
 import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
 import DropdownV2 from './components3/DropdownV2';
-import Droppable from './components3/Droppable';
 import DroppableV2 from './components3/DroppableV2';
 import LaunchButton from './components3/LaunchButton';
 import LegoParent from './components3/LegoParent';

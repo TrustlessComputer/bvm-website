@@ -1,6 +1,6 @@
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import s from './styles.module.scss';
 
 export type DraggableProps = {
