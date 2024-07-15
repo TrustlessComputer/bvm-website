@@ -10,7 +10,6 @@ import BoxOptionV3 from './components3/BoxOptionV3';
 import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
 import DropdownV2 from './components3/DropdownV2';
-import Droppable from './components3/Droppable';
 import DroppableV2 from './components3/DroppableV2';
 import LaunchButton from './components3/LaunchButton';
 import LegoParent from './components3/LegoParent';
@@ -21,6 +20,7 @@ import useOrderFormStoreV3 from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
+import { formatCurrencyV2 } from '@/utils/format';
 
 const BuyPage = () => {
   const [data, setData] = React.useState<
@@ -61,9 +61,13 @@ const BuyPage = () => {
     // Format ID of single field = <key>-<value>
     const [activeKey = '', activeSuffix = ''] = active.id.split('-');
     const [overKey = '', overSuffix = ''] = (over?.id || '').split('-');
-    const overIsParentDroppable =
+    const overIsParentOfActiveDroppable =
       overKey === activeKey && overSuffix === 'droppable';
     const overIsFinalDroppable = overKey === 'final';
+    const overIsParentDroppable =
+      !overIsFinalDroppable &&
+      overSuffix === 'droppable' &&
+      data?.find((item) => item.key === overKey)?.multiChoice;
     const activeIsParent =
       data?.find((item) => item.key === activeKey)?.multiChoice &&
       !activeSuffix;
@@ -102,6 +106,7 @@ const BuyPage = () => {
       if (over && overIsFinalDroppable) {
         setField(activeKey, active.data.current.value, true);
       } else {
+        if (over && overIsParentDroppable) return;
         setField(activeKey, active.data.current.value, false);
       }
 
@@ -115,7 +120,7 @@ const BuyPage = () => {
     }
 
     // Multi choice case
-    if (over && (overIsFinalDroppable || overIsParentDroppable)) {
+    if (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) {
       const currentValues = (field[activeKey].value || []) as string[];
       const newValue = [...currentValues, active.data.current.value];
 
@@ -616,7 +621,15 @@ const BuyPage = () => {
               />
 
               <div className={s.right_box}>
-                <DroppableV2 id="final" className={s.finalResult}>
+                <DroppableV2
+                  id="final"
+                  className={s.finalResult}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    paddingLeft: '10%',
+                  }}
+                >
                   <LegoV3
                     background={'#FF3A3A'}
                     label="Name"
@@ -793,9 +806,17 @@ const BuyPage = () => {
                       Total price
                     </h6>
                     <h4 className={s.right_box_footer_left_content}>
-                      ${priceUSD.toFixed(2)}
+                      $
+                      {formatCurrencyV2({
+                        amount: priceUSD,
+                        decimals: 2,
+                      })}
                       {'/'}Month {'(~'}
-                      {priceBVM.toFixed(2)} BVM
+                      {formatCurrencyV2({
+                        amount: priceBVM,
+                        decimals: 2,
+                      })}{' '}
+                      BVM
                       {')'}
                     </h4>
                   </div>
