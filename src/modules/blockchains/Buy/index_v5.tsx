@@ -1,24 +1,26 @@
 import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
-import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import toast from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
+import React, { useEffect, useRef } from 'react';
+import toast from 'react-hot-toast';
 
+import { getModelCategories, getTemplates } from '@/services/customize-model';
+
+import BoxOptionV3 from './components3/BoxOptionV3';
 import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
+import DropdownV2 from './components3/DropdownV2';
+import Droppable from './components3/Droppable';
 import DroppableV2 from './components3/DroppableV2';
 import LaunchButton from './components3/LaunchButton';
-import { MouseSensor } from './utils';
-import BoxOptionV3 from './components3/BoxOptionV3';
+import LegoParent from './components3/LegoParent';
 import LegoV3 from './components3/LegoV3';
-import useDragMask from './stores/useDragMask';
-import { getModelCategories, getTemplates } from '@/services/customize-model';
-import DropdownV2 from './components3/DropdownV2';
-import useOrderFormStoreV3 from './stores/index_v3';
 import SidebarV2 from './components3/SideBarV2';
 import TierV2 from './components3/TierV2';
-
+import useOrderFormStoreV3 from './stores/index_v3';
+import useDragMask from './stores/useDragMask';
 import s from './styles_v5.module.scss';
+import { MouseSensor } from './utils';
 
 const BuyPage = () => {
   const [data, setData] = React.useState<
@@ -57,38 +59,62 @@ const BuyPage = () => {
 
     // Format ID of single field = <key>-<value>
     const [activeKey = ''] = active.id.split('-');
-    const [overKey = ''] = (over?.id || '').split('-');
+    const [overKey = '', suffix = ''] = (over?.id || '').split('-');
+    const overIsParentDroppable =
+      overKey === activeKey && suffix === 'droppable';
     const overIsFinalDroppable = overKey === 'final';
+    const isMultiChoice = data?.find(
+      (item) => item.key === activeKey,
+    )?.multiChoice;
 
-    if (
-      active.data.current.value !== field[activeKey].value &&
-      (!over || (over && !overIsFinalDroppable))
-    )
-      return;
+    if (!isMultiChoice) {
+      if (
+        active.data.current.value !== field[activeKey].value &&
+        (!over || (over && !overIsFinalDroppable))
+      ) {
+        return;
+      }
 
-    if (
-      active.data.current.value !== field[activeKey].value &&
-      field[activeKey].dragged
-    ) {
-      toast.error('Please drag back to the left side to change the value', {
-        icon: null,
-        style: {
-          borderColor: 'blue',
-          color: 'blue',
-        },
-        duration: 3000,
-      });
+      if (
+        active.data.current.value !== field[activeKey].value &&
+        field[activeKey].dragged
+      ) {
+        toast.error('Please drag back to the left side to change the value', {
+          icon: null,
+          style: {
+            borderColor: 'blue',
+            color: 'blue',
+          },
+          duration: 3000,
+        });
+
+        return;
+      }
+
+      // Normal case
+      if (over && overIsFinalDroppable) {
+        setField(activeKey, active.data.current.value, true);
+      } else {
+        setField(activeKey, active.data.current.value, false);
+      }
+
       return;
     }
 
-    // Normal case
-    if (over && overIsFinalDroppable) {
-      setField(activeKey, active.data.current.value, true);
+    // Multi choice case
+    if (over && (overIsFinalDroppable || overIsParentDroppable)) {
+      const currentValues = field[activeKey].value as string[];
+      const newValue = [...currentValues, active.data.current.value];
+
+      setField(activeKey, newValue, true);
     } else {
-      setField(activeKey, active.data.current.value, false);
-    }
+      const currentValues = field[activeKey].value as string[];
+      const newValue = currentValues.filter(
+        (value) => value !== active.data.current.value,
+      );
 
-    return;
+      setField(activeKey, newValue, newValue.length > 0);
+    }
   }
 
   const sensors = useSensors(
@@ -124,11 +150,19 @@ const BuyPage = () => {
     );
 
     templateData.forEach((field) => {
-      setField(
-        field.key,
-        field.options[0]?.key || null,
-        field.options[0] ? true : false,
-      );
+      if (field.multiChoice) {
+        setField(
+          field.key,
+          field.options.map((option) => option.key),
+          field.options[0] ? true : false,
+        );
+      } else {
+        setField(
+          field.key,
+          field.options[0].key || null,
+          field.options[0] ? true : false,
+        );
+      }
     });
     fieldsNotInTemplate?.forEach((field) => {
       setField(field.key, field.options[0].key, false);
@@ -193,35 +227,15 @@ const BuyPage = () => {
   }, [templates]);
 
   React.useEffect(() => {
-    const priceUSD =
-      data
-        ?.map((item) => {
+    const priceUSD = Object.keys(field).reduce((acc, key) => {
+      if (Array.isArray(field[key].value)) {
+        const currentOptions = field[key].value.map((value) => {
+          const item = data?.find((i) => i.key === key);
+
+          if (!item) return 0;
+
           const currentOption = item.options.find(
-            (option) => option.key === field[item.key].value,
-          );
-
-          if (!currentOption) return 0;
-
-          const isDisabled =
-            // prettier-ignore
-            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
-          // prettier-ignore
-          (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-          (item.required && !field[item.key].dragged) ||
-          item.disable ||
-          !currentOption.selectable;
-
-          if (isDisabled) return 0;
-
-          return currentOption?.priceUSD || 0;
-        })
-        .reduce((acc, cur) => acc + cur, 0) || 0;
-
-    const priceBVM =
-      data
-        ?.map((item) => {
-          const currentOption = item.options.find(
-            (option) => option.key === field[item.key].value,
+            (option) => option.key === value,
           );
 
           if (!currentOption) return 0;
@@ -237,9 +251,89 @@ const BuyPage = () => {
 
           if (isDisabled) return 0;
 
-          return currentOption?.priceBVM || 0;
-        })
-        .reduce((acc, cur) => acc + cur, 0) || 0;
+          return currentOption.priceUSD || 0;
+        });
+
+        return acc + currentOptions.reduce((a, b) => a + b, 0);
+      }
+
+      const item = data?.find((i) => i.key === key);
+
+      if (!item) return acc;
+
+      const currentOption = item.options.find(
+        (option) => option.key === field[item.key].value,
+      );
+
+      if (!currentOption) return acc;
+
+      const isDisabled =
+        // prettier-ignore
+        !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+        // prettier-ignore
+        (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+        (item.required && !field[item.key].dragged) ||
+        item.disable ||
+        !currentOption.selectable;
+
+      if (isDisabled) return acc;
+
+      return acc + (currentOption?.priceUSD || 0);
+    }, 0);
+
+    const priceBVM = Object.keys(field).reduce((acc, key) => {
+      if (Array.isArray(field[key].value)) {
+        const currentOptions = field[key].value.map((value) => {
+          const item = data?.find((i) => i.key === key);
+
+          if (!item) return 0;
+
+          const currentOption = item.options.find(
+            (option) => option.key === value,
+          );
+
+          if (!currentOption) return 0;
+
+          const isDisabled =
+            // prettier-ignore
+            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+            // prettier-ignore
+            (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+            (item.required && !field[item.key].dragged) ||
+            item.disable ||
+            !currentOption.selectable;
+
+          if (isDisabled) return 0;
+
+          return currentOption.priceBVM || 0;
+        });
+
+        return acc + currentOptions.reduce((a, b) => a + b, 0);
+      }
+
+      const item = data?.find((i) => i.key === key);
+
+      if (!item) return acc;
+
+      const currentOption = item.options.find(
+        (option) => option.key === field[item.key].value,
+      );
+
+      if (!currentOption) return acc;
+
+      const isDisabled =
+        // prettier-ignore
+        !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+        // prettier-ignore
+        (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+        (item.required && !field[item.key].dragged) ||
+        item.disable ||
+        !currentOption.selectable;
+
+      if (isDisabled) return acc;
+
+      return acc + (currentOption?.priceBVM || 0);
+    }, 0);
 
     setPriceBVM(priceBVM);
     setPriceUSD(priceUSD);
@@ -313,7 +407,7 @@ const BuyPage = () => {
                                 item.key + field[item.key].dragged.toString()
                               }
                               disabled={field[item.key].dragged}
-                              value={field[item.key].value}
+                              value={field[item.key].value as any}
                               tooltip={item.tooltip}
                               isLabel={true}
                             >
@@ -330,11 +424,13 @@ const BuyPage = () => {
                                       field[item.key].dragged,
                                     );
                                   }}
-                                  defaultValue={field[item.key].value || ''}
+                                  defaultValue={
+                                    (field[item.key].value as any) || ''
+                                  }
                                   // @ts-ignore
                                   options={item.options}
                                   title={item.title}
-                                  value={field[item.key].value}
+                                  value={field[item.key].value as any}
                                 />
                               </LegoV3>
                             </Draggable>
@@ -369,6 +465,15 @@ const BuyPage = () => {
                                   option.supportNetwork !==
                                     field['network']?.value
                                 ) || !option.selectable;
+
+                              if (item.multiChoice) {
+                                const currentValues = field[item.key]
+                                  .value as any[];
+
+                                if (currentValues.includes(option.key)) {
+                                  return null;
+                                }
+                              }
 
                               return (
                                 <Draggable
@@ -407,7 +512,7 @@ const BuyPage = () => {
                               <Draggable
                                 useMask
                                 id={item.key}
-                                value={field[item.key].value}
+                                value={field[item.key].value as any}
                                 key={item.key}
                               >
                                 <LegoV3
@@ -423,11 +528,13 @@ const BuyPage = () => {
                                         field[item.key].dragged,
                                       );
                                     }}
-                                    defaultValue={field[item.key].value || ''}
+                                    defaultValue={
+                                      (field[item.key].value as any) || ''
+                                    }
                                     // @ts-ignore
                                     options={item.options}
                                     title={item.title}
-                                    value={field[item.key].value}
+                                    value={field[item.key].value as any}
                                   />
                                 </LegoV3>{' '}
                               </Draggable>
@@ -486,7 +593,71 @@ const BuyPage = () => {
                   {data?.map((item, index) => {
                     if (!field[item.key].dragged) return null;
 
-                    if (item.multiChoice) {
+                    if (item.multiChoice && field[item.key].value) {
+                      if (!Array.isArray(field[item.key].value)) return;
+
+                      const childrenOptions = (field[item.key].value as
+                        | string[]
+                        | number[])!.map(
+                        (key: string | number, opIdx: number) => {
+                          const option = item.options.find(
+                            (opt) => opt.key === key,
+                          );
+
+                          if (!option) return null;
+
+                          return (
+                            <Draggable
+                              right
+                              key={item.key + '-' + option.key}
+                              id={item.key + '-' + option.key}
+                              useMask
+                              tooltip={item.tooltip}
+                              value={option.key}
+                            >
+                              <LegoV3
+                                background={item.color}
+                                label={item.confuseTitle}
+                                labelInRight={!!item.confuseTitle}
+                                zIndex={item.options.length - opIdx}
+                              >
+                                <DropdownV2
+                                  disabled
+                                  cb={(value) => {
+                                    setField(
+                                      item.key,
+                                      value,
+                                      field[item.key].dragged,
+                                    );
+                                  }}
+                                  defaultValue={option.value || ''}
+                                  options={[
+                                    // @ts-ignore
+                                    option,
+                                  ]}
+                                  // @ts-ignore
+                                  value={option.value}
+                                />
+                              </LegoV3>
+                            </Draggable>
+                          );
+                        },
+                      );
+
+                      return (
+                        <Draggable key={item.key} id={item.key}>
+                          <DroppableV2 id={item.key}>
+                            <LegoParent
+                              parentOfNested
+                              background={item.color}
+                              label={item.title}
+                              zIndex={data.length - index}
+                            >
+                              {childrenOptions}
+                            </LegoParent>
+                          </DroppableV2>
+                        </Draggable>
+                      );
                     }
 
                     if (item.type === 'dropdown') {
@@ -497,7 +668,7 @@ const BuyPage = () => {
                           key={item.key}
                           id={item.key}
                           tooltip={item.tooltip}
-                          value={field[item.key].value}
+                          value={field[item.key].value as any}
                         >
                           <LegoV3
                             background={item.color}
@@ -513,11 +684,13 @@ const BuyPage = () => {
                                   field[item.key].dragged,
                                 );
                               }}
-                              defaultValue={field[item.key].value || ''}
+                              defaultValue={
+                                (field[item.key].value as any) || ''
+                              }
                               // @ts-ignore
                               options={item.options}
                               title={item.title}
-                              value={field[item.key].value}
+                              value={field[item.key].value as any}
                             />
                           </LegoV3>
                         </Draggable>
@@ -551,13 +724,15 @@ const BuyPage = () => {
                                   field[item.key].dragged,
                                 );
                               }}
-                              defaultValue={field[item.key].value || ''}
+                              defaultValue={
+                                (field[item.key].value as any) || ''
+                              }
                               options={[
                                 // @ts-ignore
                                 option,
                               ]}
                               // @ts-ignore
-                              value={field[item.key].value}
+                              value={field[item.key].value as any}
                             />
                           </LegoV3>
                         </Draggable>
