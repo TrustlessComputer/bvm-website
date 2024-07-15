@@ -26,5 +26,6 @@ interface IModelCategory {
   tooltip: string;
   order: number;
   confuseWord: boolean;
+  confuseTitle: string;
   multiChoice: boolean;
 }

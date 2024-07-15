@@ -95,6 +95,24 @@ const BuyPage = () => {
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
 
+  const convertData = (data: IModelCategory[]) => {
+    const newData = data?.map((item) => {
+      return {
+        ...item,
+        options: item.options?.map((option) => {
+          return {
+            ...option,
+            value: option.key,
+            label: option.title,
+            disabled: !option.selectable || item.disable,
+          };
+        }),
+      };
+    });
+
+    return newData || [];
+  };
+
   const setValueOfPackage = (packageId: number | string | null) => {
     if (!packageId?.toString()) return;
 
@@ -115,6 +133,19 @@ const BuyPage = () => {
     fieldsNotInTemplate?.forEach((field) => {
       setField(field.key, field.options[0].key, false);
     });
+  };
+
+  const fetchData = async () => {
+    const modelCategories = (await getModelCategories()) || [];
+    const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
+    _modelCategories.forEach((item) => {
+      setField(item.key, item.options[0].key);
+    });
+    setData(convertData(_modelCategories));
+    setOriginalData(_modelCategories);
+
+    const templates = (await getTemplates()) || [];
+    setTemplates(templates);
   };
 
   React.useEffect(() => {
@@ -152,44 +183,7 @@ const BuyPage = () => {
   }, [field['network']?.value]);
 
   React.useEffect(() => {
-    const convertData = (data: IModelCategory[]) => {
-      const newData = data?.map((item) => {
-        return {
-          ...item,
-          options: item.options?.map((option) => {
-            return {
-              ...option,
-              value: option.key,
-              label: option.title,
-              disabled: !option.selectable || item.disable,
-            };
-          }),
-        };
-      });
-
-      return newData || [];
-    };
-
-    getModelCategories().then((res) => {
-      if (!res) return;
-
-      // re-order data
-      // TODOOOOOOOOOO
-      // const _res = modelCategories.sort((a, b) => a.order - b.order);
-      const _res = res.sort((a, b) => a.order - b.order);
-
-      // set default value
-      _res.forEach((item) => {
-        setField(item.key, item.options[0].key);
-      });
-
-      setData(convertData(_res));
-      setOriginalData(_res);
-    });
-
-    getTemplates().then((data) => {
-      setTemplates(data);
-    });
+    fetchData();
   }, []);
 
   React.useEffect(() => {
@@ -507,9 +501,9 @@ const BuyPage = () => {
                         >
                           <LegoV3
                             background={item.color}
-                            title={item.title}
                             zIndex={data.length - index}
-                            label={item.title}
+                            label={item.confuseTitle}
+                            labelInRight={!!item.confuseTitle}
                           >
                             <DropdownV2
                               cb={(value) => {
@@ -544,8 +538,8 @@ const BuyPage = () => {
                         >
                           <LegoV3
                             background={item.color}
-                            label={item.title}
-                            labelInRight={item.confuseWord}
+                            label={item.confuseTitle}
+                            labelInRight={!!item.confuseTitle}
                             zIndex={item.options.length - opIdx}
                           >
                             <DropdownV2

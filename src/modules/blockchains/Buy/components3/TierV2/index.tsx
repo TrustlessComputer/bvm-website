@@ -36,7 +36,6 @@ const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
 
     for (const _f of fieldsNotInTemplate) {
       if (field[_f.key].dragged) {
-        console.log('CASE 1');
         somethingChanged = true;
         break;
       }
@@ -48,7 +47,6 @@ const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
       );
 
       if (!field[_f.key].dragged || !fieldTemplateValue) {
-        console.log('CASE 2');
         somethingChanged = true;
         break;
       }
