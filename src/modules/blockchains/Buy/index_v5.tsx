@@ -19,8 +19,6 @@ import SidebarV2 from './components3/SideBarV2';
 import TierV2 from './components3/TierV2';
 
 import s from './styles_v5.module.scss';
-import Droppable from './components3/Droppable';
-import LegoParent from './components3/LegoParent';
 
 const BuyPage = () => {
   const [data, setData] = React.useState<
@@ -61,9 +59,6 @@ const BuyPage = () => {
     const [activeKey = ''] = active.id.split('-');
     const [overKey = ''] = (over?.id || '').split('-');
     const overIsFinalDroppable = overKey === 'final';
-    const isMultiChoice = data?.find(
-      (item) => item.key === activeKey,
-    )?.multiChoice;
 
     if (
       active.data.current.value !== field[activeKey].value &&
@@ -71,31 +66,29 @@ const BuyPage = () => {
     )
       return;
 
-    if (!isMultiChoice) {
-      if (
-        active.data.current.value !== field[activeKey].value &&
-        field[activeKey].dragged
-      ) {
-        toast.error('Please drag back to the left side to change the value', {
-          icon: null,
-          style: {
-            borderColor: 'blue',
-            color: 'blue',
-          },
-          duration: 3000,
-        });
-        return;
-      }
-
-      // Normal case
-      if (over && overIsFinalDroppable) {
-        setField(activeKey, active.data.current.value, true);
-      } else {
-        setField(activeKey, active.data.current.value, false);
-      }
-
+    if (
+      active.data.current.value !== field[activeKey].value &&
+      field[activeKey].dragged
+    ) {
+      toast.error('Please drag back to the left side to change the value', {
+        icon: null,
+        style: {
+          borderColor: 'blue',
+          color: 'blue',
+        },
+        duration: 3000,
+      });
       return;
     }
+
+    // Normal case
+    if (over && overIsFinalDroppable) {
+      setField(activeKey, active.data.current.value, true);
+    } else {
+      setField(activeKey, active.data.current.value, false);
+    }
+
+    return;
   }
 
   const sensors = useSensors(
@@ -130,22 +123,12 @@ const BuyPage = () => {
       (item) => !templateData.find((temp) => temp.key === item.key),
     );
 
-    console.log(templateData.find((temp) => temp.key === 'bridge_apps'));
-
     templateData.forEach((field) => {
-      if (field.multiChoice) {
-        setField(
-          field.key,
-          field.options.map((option) => option.key),
-          field.options[0] ? true : false,
-        );
-      } else {
-        setField(
-          field.key,
-          field.options[0].key || null,
-          field.options[0] ? true : false,
-        );
-      }
+      setField(
+        field.key,
+        field.options[0]?.key || null,
+        field.options[0] ? true : false,
+      );
     });
     fieldsNotInTemplate?.forEach((field) => {
       setField(field.key, field.options[0].key, false);
@@ -210,46 +193,56 @@ const BuyPage = () => {
   }, [templates]);
 
   React.useEffect(() => {
-    // const priceUSD =
-    //   data
-    //     ?.map((item) => {
-    //       const currentOption = item.options.find(
-    //         (option) => option.key === field[item.key].value,
-    //       );
-    //       if (!currentOption) return 0;
-    //       const isDisabled =
-    //         // prettier-ignore
-    //         !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
-    //       // prettier-ignore
-    //       (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-    //       (item.required && !field[item.key].dragged) ||
-    //       item.disable ||
-    //       !currentOption.selectable;
-    //       if (isDisabled) return 0;
-    //       return currentOption?.priceUSD || 0;
-    //     })
-    //     .reduce((acc, cur) => acc + cur, 0) || 0;
-    // const priceBVM =
-    //   data
-    //     ?.map((item) => {
-    //       const currentOption = item.options.find(
-    //         (option) => option.key === field[item.key].value,
-    //       );
-    //       if (!currentOption) return 0;
-    //       const isDisabled =
-    //         // prettier-ignore
-    //         !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
-    //         // prettier-ignore
-    //         (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-    //         (item.required && !field[item.key].dragged) ||
-    //         item.disable ||
-    //         !currentOption.selectable;
-    //       if (isDisabled) return 0;
-    //       return currentOption?.priceBVM || 0;
-    //     })
-    //     .reduce((acc, cur) => acc + cur, 0) || 0;
-    // setPriceBVM(priceBVM);
-    // setPriceUSD(priceUSD);
+    const priceUSD =
+      data
+        ?.map((item) => {
+          const currentOption = item.options.find(
+            (option) => option.key === field[item.key].value,
+          );
+
+          if (!currentOption) return 0;
+
+          const isDisabled =
+            // prettier-ignore
+            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+          // prettier-ignore
+          (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+          (item.required && !field[item.key].dragged) ||
+          item.disable ||
+          !currentOption.selectable;
+
+          if (isDisabled) return 0;
+
+          return currentOption?.priceUSD || 0;
+        })
+        .reduce((acc, cur) => acc + cur, 0) || 0;
+
+    const priceBVM =
+      data
+        ?.map((item) => {
+          const currentOption = item.options.find(
+            (option) => option.key === field[item.key].value,
+          );
+
+          if (!currentOption) return 0;
+
+          const isDisabled =
+            // prettier-ignore
+            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+            // prettier-ignore
+            (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+            (item.required && !field[item.key].dragged) ||
+            item.disable ||
+            !currentOption.selectable;
+
+          if (isDisabled) return 0;
+
+          return currentOption?.priceBVM || 0;
+        })
+        .reduce((acc, cur) => acc + cur, 0) || 0;
+
+    setPriceBVM(priceBVM);
+    setPriceUSD(priceUSD);
   }, [field]);
 
   useEffect(() => {
@@ -320,7 +313,7 @@ const BuyPage = () => {
                                 item.key + field[item.key].dragged.toString()
                               }
                               disabled={field[item.key].dragged}
-                              value={field[item.key].value as any}
+                              value={field[item.key].value}
                               tooltip={item.tooltip}
                               isLabel={true}
                             >
@@ -337,13 +330,11 @@ const BuyPage = () => {
                                       field[item.key].dragged,
                                     );
                                   }}
-                                  defaultValue={
-                                    (field[item.key].value as any) || ''
-                                  }
+                                  defaultValue={field[item.key].value || ''}
                                   // @ts-ignore
                                   options={item.options}
                                   title={item.title}
-                                  value={field[item.key].value as any}
+                                  value={field[item.key].value}
                                 />
                               </LegoV3>
                             </Draggable>
@@ -416,7 +407,7 @@ const BuyPage = () => {
                               <Draggable
                                 useMask
                                 id={item.key}
-                                value={field[item.key].value as any}
+                                value={field[item.key].value}
                                 key={item.key}
                               >
                                 <LegoV3
@@ -432,13 +423,11 @@ const BuyPage = () => {
                                         field[item.key].dragged,
                                       );
                                     }}
-                                    defaultValue={
-                                      (field[item.key].value as any) || ''
-                                    }
+                                    defaultValue={field[item.key].value || ''}
                                     // @ts-ignore
                                     options={item.options}
                                     title={item.title}
-                                    value={field[item.key].value as any}
+                                    value={field[item.key].value}
                                   />
                                 </LegoV3>{' '}
                               </Draggable>
@@ -497,76 +486,8 @@ const BuyPage = () => {
                   {data?.map((item, index) => {
                     if (!field[item.key].dragged) return null;
 
-                    if (item.multiChoice) return null;
-
-                    // if (item.multiChoice) {
-                    //   const childrenOptions = item.options.map(
-                    //     (option, opIdx) => {
-                    //       if (
-                    //         field[item.key].value &&
-                    //         Array.isArray(field[item.key].value)
-                    //       ) {
-                    //         if (
-                    //           (field[item.key].value as any).indexOf(
-                    //             option.key as any,
-                    //           ) === -1
-                    //         )
-                    //           return null;
-                    //       }
-
-                    //       return (
-                    //         <Draggable
-                    //           right
-                    //           key={item.key + '-' + option.key}
-                    //           id={item.key + '-' + option.key}
-                    //           useMask
-                    //           tooltip={item.tooltip}
-                    //           value={option.key}
-                    //         >
-                    //           <LegoV3
-                    //             background={item.color}
-                    //             label={item.confuseTitle}
-                    //             labelInRight={!!item.confuseTitle}
-                    //             zIndex={item.options.length - opIdx}
-                    //           >
-                    //             <DropdownV2
-                    //               disabled
-                    //               cb={(value) => {
-                    //                 setField(
-                    //                   item.key,
-                    //                   value,
-                    //                   field[item.key].dragged,
-                    //                 );
-                    //               }}
-                    //               defaultValue={field[item.key].value || ''}
-                    //               options={[
-                    //                 // @ts-ignore
-                    //                 option,
-                    //               ]}
-                    //               // @ts-ignore
-                    //               value={field[item.key].value}
-                    //             />
-                    //           </LegoV3>
-                    //         </Draggable>
-                    //       );
-                    //     },
-                    //   );
-
-                    //   return (
-                    //     <Draggable key={item.key} id={item.key}>
-                    //       <DroppableV2 id={item.key}>
-                    //         <LegoParent
-                    //           parentOfNested
-                    //           background={item.color}
-                    //           label={item.title}
-                    //           zIndex={data.length - index}
-                    //         >
-                    //           {childrenOptions}
-                    //         </LegoParent>
-                    //       </DroppableV2>
-                    //     </Draggable>
-                    //   );
-                    // }
+                    if (item.multiChoice) {
+                    }
 
                     if (item.type === 'dropdown') {
                       return (
@@ -576,7 +497,7 @@ const BuyPage = () => {
                           key={item.key}
                           id={item.key}
                           tooltip={item.tooltip}
-                          value={field[item.key].value as any}
+                          value={field[item.key].value}
                         >
                           <LegoV3
                             background={item.color}
@@ -592,13 +513,11 @@ const BuyPage = () => {
                                   field[item.key].dragged,
                                 );
                               }}
-                              defaultValue={
-                                (field[item.key].value as any) || ''
-                              }
+                              defaultValue={field[item.key].value || ''}
                               // @ts-ignore
                               options={item.options}
                               title={item.title}
-                              value={field[item.key].value as any}
+                              value={field[item.key].value}
                             />
                           </LegoV3>
                         </Draggable>
@@ -632,15 +551,13 @@ const BuyPage = () => {
                                   field[item.key].dragged,
                                 );
                               }}
-                              defaultValue={
-                                (field[item.key].value as any) || ''
-                              }
+                              defaultValue={field[item.key].value || ''}
                               options={[
                                 // @ts-ignore
                                 option,
                               ]}
                               // @ts-ignore
-                              value={field[item.key].value as any}
+                              value={field[item.key].value}
                             />
                           </LegoV3>
                         </Draggable>

@@ -42,6 +42,8 @@ const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
     }
 
     for (const _f of currentTemplate) {
+      if (_f.options.length === 0) continue;
+
       const fieldTemplateValue = _f.options.find(
         (o) => o.key === field[_f.key].value,
       );

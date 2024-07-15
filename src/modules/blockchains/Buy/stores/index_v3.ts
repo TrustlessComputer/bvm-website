@@ -6,14 +6,14 @@ type UseOrderFormStoreV3 = {
     string,
     {
       dragged: boolean;
-      value: string | number | string[] | number[] | null;
+      value: string | number | null;
     }
   >;
   priceUSD: number;
   priceBVM: number;
   setField: (
     field: string,
-    value: string | number | string[] | number[] | null,
+    value: string | number | null,
     dragged?: boolean,
   ) => void;
   setPriceUSD: (price: number) => void;
