@@ -1,5 +1,5 @@
 import { RootState } from '@/stores';
-import { UserReferral } from '@/stores/states/referrals/types';
+import { IUserReferralInfo } from '@/interfaces/referral';
 
-export const userSelector = (state: RootState) =>
-  state.referrals?.userReferral as UserReferral | undefined;
+export const userReferralSelector = (state: RootState) =>
+  state.referrals?.userReferral as IUserReferralInfo | undefined;

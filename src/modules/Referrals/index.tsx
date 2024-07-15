@@ -21,10 +21,10 @@ import copy from 'copy-to-clipboard';
 import ListReferred from './ListReferred';
 import ButtonConnected from '@/components/ButtonConnected/v2';
 import { isDesktop } from 'react-device-detect';
-import { userSelector } from '@/stores/states/user/selector';
+import { userReferralSelector } from '@/stores/states/referrals/selector';
 
 const RefferalsScreen: React.FC = (): React.ReactElement => {
-  const user = useSelector(userSelector);
+  const userReferral = useSelector(userReferralSelector);
   const dispatch = useDispatch();
   const { onOpen, onClose, isOpen } = useDisclosure();
   const timerRef = useRef<any>();
@@ -45,7 +45,7 @@ const RefferalsScreen: React.FC = (): React.ReactElement => {
     dispatch(
       openModal({
         id: ReferralModalID,
-        title: `${user?.referral_code ? 'Edit' : 'Create'} Referral Code`,
+        title: `${userReferral?.referral_code ? 'Edit' : 'Create'} Referral Code`,
         className: s.modalContent,
         modalProps: {
           size: 'lg',
@@ -56,17 +56,17 @@ const RefferalsScreen: React.FC = (): React.ReactElement => {
   };
 
   const onClickCopyReferralCode = () => {
-    if (!user) return;
+    if (!userReferral) return;
     const origin = window.location.origin;
-    const refUrl = origin + `?ref=${user.referral_code}`;
+    const refUrl = origin + `?ref=${userReferral.referral_code}`;
     copy(refUrl);
     closeModal();
   };
 
   const onClickShareReferralCode = () => {
-    if (!user) return;
+    if (!userReferral) return;
     const origin = window.location.origin;
-    const refUrl = origin + `?ref=${user.referral_code}`;
+    const refUrl = origin + `?ref=${userReferral.referral_code}`;
 
     const content = `Just discovered @RuneChain_L2 where you can:
 
@@ -108,9 +108,9 @@ Join now: ${refUrl}`;
                 >
                   {isDesktop && <div />}
                   <Flex alignItems={"center"} gap={"10px"}>
-                    <Text className={s.code}>YOUR REFERRAL CODE: <span>{user?.referral_code}</span></Text>
+                    <Text className={s.code}>YOUR REFERRAL CODE: <span>{userReferral?.referral_code}</span></Text>
                     {
-                      user?.referral_code && (
+                      userReferral?.referral_code && (
                         <Popover
                           isOpen={isOpen}
                           onOpen={onOpen}
@@ -149,7 +149,7 @@ Join now: ${refUrl}`;
               </ButtonConnected>
             </GridItem>
           </SimpleGrid>
-          <EnterRefferal userRefInfo={user} />
+          <EnterRefferal userRefInfo={userReferral} />
         </div>
 
         {/*<Flex direction="row" alignItems='center' gap="8px" mt="4px">
