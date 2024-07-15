@@ -1,7 +1,8 @@
 import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
 import React, { useEffect, useRef } from 'react';
-
-import Tier from '@/modules/blockchains/Buy/components3/Tier';
+import gsap from 'gsap';
+import toast from 'react-hot-toast';
+import { useSearchParams } from 'next/navigation';
 
 import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
@@ -9,30 +10,25 @@ import DroppableV2 from './components3/DroppableV2';
 import LaunchButton from './components3/LaunchButton';
 import { MouseSensor } from './utils';
 import BoxOptionV3 from './components3/BoxOptionV3';
-import SideBar from './components3/SideBar';
 import LegoV3 from './components3/LegoV3';
 import useDragMask from './stores/useDragMask';
 import { getModelCategories, getTemplates } from '@/services/customize-model';
 import DropdownV2 from './components3/DropdownV2';
 import useOrderFormStoreV3 from './stores/index_v3';
-
-import s from './styles_v5.module.scss';
-
-import gsap from 'gsap';
-import { useSearchParams } from 'next/navigation';
-import { FAKE_DATA_PACKAGE } from './TemplateModal/data';
 import SidebarV2 from './components3/SideBarV2';
 import TierV2 from './components3/TierV2';
-import toast from 'react-hot-toast';
+
+import s from './styles_v5.module.scss';
 
 const BuyPage = () => {
   const [data, setData] = React.useState<
     | (IModelCategory & {
-        options: {
-          value: any;
-          label: string;
-          disabled: boolean;
-        }[];
+        options: IModelCategory['options'] &
+          {
+            value: any;
+            label: string;
+            disabled: boolean;
+          }[];
       })[]
     | null
   >(null);
@@ -80,6 +76,7 @@ const BuyPage = () => {
           borderColor: 'blue',
           color: 'blue',
         },
+        duration: 3000,
       });
       return;
     }
@@ -150,7 +147,7 @@ const BuyPage = () => {
 
   React.useEffect(() => {
     const convertData = (data: IModelCategory[]) => {
-      const newData = data.map((item) => {
+      const newData = data?.map((item) => {
         return {
           ...item,
           options: item.options?.map((option) => {
@@ -159,19 +156,20 @@ const BuyPage = () => {
               value: option.key,
               label: option.title,
               disabled: !option.selectable || item.disable,
-              selectable: option.selectable && !item.disable,
             };
           }),
         };
       });
 
-      return newData;
+      return newData || [];
     };
 
     getModelCategories().then((res) => {
       if (!res) return;
 
       // re-order data
+      // TODOOOOOOOOOO
+      // const _res = modelCategories.sort((a, b) => a.order - b.order);
       const _res = res.sort((a, b) => a.order - b.order);
 
       // set default value
@@ -179,7 +177,6 @@ const BuyPage = () => {
         setField(item.key, item.options[0].key);
       });
 
-      // @ts-ignore
       setData(convertData(_res));
       setOriginalData(_res);
     });
@@ -485,6 +482,9 @@ const BuyPage = () => {
                   {data?.map((item, index) => {
                     if (!field[item.key].dragged) return null;
 
+                    if (item.multiChoice) {
+                    }
+
                     if (item.type === 'dropdown') {
                       return (
                         <Draggable
@@ -535,7 +535,7 @@ const BuyPage = () => {
                           <LegoV3
                             background={item.color}
                             label={item.title}
-                            labelInRight={option.confuseWord}
+                            labelInRight={item.confuseWord}
                             zIndex={item.options.length - opIdx}
                           >
                             <DropdownV2
