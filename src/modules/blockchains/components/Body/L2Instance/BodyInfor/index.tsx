@@ -7,8 +7,7 @@ import BlockchainSection from './BlockchainSection';
 import HardwareSection from './HardwareSection';
 // import WarningSection from './WarningSection';
 import WarningSection from './WarningSection_V2';
-// import PackageSection from './PackageSection';
-import PackageSection from './PackageSection_v2';
+import PackageSection from './PackageSection';
 
 import s from '../styleFont.module.scss';
 import { RollupEnum } from '@/modules/blockchains/Buy/Buy.constanst';

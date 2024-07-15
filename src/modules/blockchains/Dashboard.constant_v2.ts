@@ -1,6 +1,6 @@
 export enum TAB_ENUM {
-  MANAGE_CHAINS = 0,
-  BILLING = 1,
+  BILLING = 0,
+  MANAGE_CHAINS = 1,
 }
 
 export const TAB_ENUM_MAP = {

@@ -45,7 +45,7 @@ const ButtonLoginTwitter = (props: Props) => {
       <div className={s.inner}>
         <p className={s.text}>
           {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
-          {!loggedIn ? 'Connect' : `Your Chains`}
+          {!loggedIn ? 'Connect' : `Chains`}
         </p>
       </div>
       {/* {isHover && loggedIn && (
