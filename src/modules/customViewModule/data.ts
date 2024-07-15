@@ -7,7 +7,9 @@ export const FAKE_DATA_VALUE = [
     title: 'Network',
     required: true,
     tooltip: 'Select whether you want to create a testnet or deploy a mainnet.',
-    value: [
+    multiChoice: false,
+    confuseTitle: '',
+    options: [
       {
         key: 'testnet',
         title: 'Testnet',
@@ -32,7 +34,9 @@ export const FAKE_DATA_VALUE = [
     title: 'Hardware',
     required: false,
     tooltip: '',
-    value: [
+    multiChoice: false,
+    confuseTitle: '',
+    options: [
       {
         key: '16g',
         title: '16 GB RAM, 8 cores, 320 GB SSD',
@@ -57,7 +61,9 @@ export const FAKE_DATA_VALUE = [
     title: 'Settlement',
     required: false,
     tooltip: '',
-    value: [
+    multiChoice: false,
+    confuseTitle: '',
+    options: [
       {
         key: 'bitcoin',
         title: 'Bitcoin',
@@ -82,7 +88,21 @@ export const FAKE_DATA_VALUE = [
     title: 'Compute',
     required: false,
     tooltip: '',
-    value: [
+    multiChoice: true,
+    confuseTitle: '2323232 3223232',
+    options: [
+      {
+        key: 'gpu',
+        title: 'GPU Rollups',
+        value: 22,
+        selectable: false,
+        priceUSD: 0,
+        priceBVM: 0,
+        tooltip: '',
+        supportNetwork: 'both',
+        icon: '',
+      },
+
       {
         key: 'gpu',
         title: 'GPU Rollups',
