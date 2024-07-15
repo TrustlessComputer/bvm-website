@@ -114,7 +114,10 @@ const BuyPage = () => {
     }
 
     // Active is parent and drag to the left side
-    if (activeIsParent && (!over || (over && !overIsFinalDroppable))) {
+    if (
+      activeIsParent &&
+      (!over || (over && !overIsFinalDroppable && !overIsParentDroppable))
+    ) {
       setField(activeKey, [], false);
       return;
     }
@@ -625,9 +628,12 @@ const BuyPage = () => {
                   id="final"
                   className={s.finalResult}
                   style={{
-                    width: '100%',
+                    width: '100% !important',
                     height: '100%',
-                    paddingLeft: '10%',
+                    paddingLeft: '25%',
+                    paddingRight: '25%',
+                    paddingBottom: '7.5%',
+                    paddingTop: '7.5%',
                   }}
                 >
                   <LegoV3
