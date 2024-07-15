@@ -101,6 +101,9 @@ const BuyPage = () => {
     // set default value for package
     const templateData = (templates?.[Number(packageId)] ||
       []) as IModelCategory[];
+    const fieldsNotInTemplate = data?.filter(
+      (item) => !templateData.find((temp) => temp.key === item.key),
+    );
 
     templateData.forEach((field) => {
       setField(
@@ -108,6 +111,9 @@ const BuyPage = () => {
         field.options[0].key || null,
         field.options[0] ? true : false,
       );
+    });
+    fieldsNotInTemplate?.forEach((field) => {
+      setField(field.key, field.options[0].key, false);
     });
   };
 
