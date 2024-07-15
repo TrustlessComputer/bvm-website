@@ -20,6 +20,7 @@ import useOrderFormStoreV3 from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
+import { formatCurrencyV2 } from '@/utils/format';
 
 const BuyPage = () => {
   const [data, setData] = React.useState<
@@ -792,9 +793,17 @@ const BuyPage = () => {
                       Total price
                     </h6>
                     <h4 className={s.right_box_footer_left_content}>
-                      ${priceUSD.toFixed(2)}
+                      $
+                      {formatCurrencyV2({
+                        amount: priceUSD,
+                        decimals: 2,
+                      })}
                       {'/'}Month {'(~'}
-                      {priceBVM.toFixed(2)} BVM
+                      {formatCurrencyV2({
+                        amount: priceBVM,
+                        decimals: 2,
+                      })}{' '}
+                      BVM
                       {')'}
                     </h4>
                   </div>
