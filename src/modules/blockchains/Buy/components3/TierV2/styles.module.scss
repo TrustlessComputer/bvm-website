@@ -29,3 +29,27 @@
     }
   }
 }
+
+.modal {
+  --modal-bg: #e9e9e9 !important;
+}
+
+.btn {
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.01em;
+  width: 80px;
+  &__primary {
+    background-color: #2f80ed !important;
+    color: #fff !important;
+  }
+
+  &__outline {
+    background-color: #fff;
+    color: #2f80ed !important;
+    border: 1px solid #2f80ed;
+  }
+}

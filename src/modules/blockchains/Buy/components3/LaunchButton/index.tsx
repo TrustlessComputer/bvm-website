@@ -34,11 +34,12 @@ const LaunchButton = ({
 }: {
   data:
     | (IModelCategory & {
-        options: {
-          value: any;
-          label: string;
-          disabled: boolean;
-        }[];
+        options: IModelCategory['options'] &
+          {
+            value: any;
+            label: string;
+            disabled: boolean;
+          }[];
       })[]
     | null;
   originalData: IModelCategory[] | null;
@@ -131,6 +132,16 @@ const LaunchButton = ({
     const dynamicForm: any[] = [];
     for (const _field of originalData) {
       if (!field[_field.key].dragged) continue;
+
+      if (_field.multiChoice) {
+        dynamicForm.push({
+          ..._field,
+          options: _field.options.filter((opt) =>
+            (field[_field.key].value as string[])!.includes(opt.key),
+          ),
+        });
+        continue;
+      }
 
       const value = _field.options.find(
         (opt) => opt.key === field[_field.key].value,

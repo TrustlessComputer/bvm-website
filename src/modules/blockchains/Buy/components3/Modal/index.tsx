@@ -11,7 +11,7 @@ import cs from 'classnames';
 import React, { PropsWithChildren } from 'react';
 import s from './styles.module.scss';
 
-export interface IBaseModalProps {
+export interface Props {
   isShow: boolean;
   onHide: () => void;
   title?: string;
@@ -23,7 +23,7 @@ export interface IBaseModalProps {
   theme?: 'dark' | 'light';
 }
 
-const BaseModal = (props: PropsWithChildren<IBaseModalProps>): any => {
+const BaseModal = (props: PropsWithChildren<Props>): any => {
   const {
     isShow,
     onHide,
@@ -40,7 +40,13 @@ const BaseModal = (props: PropsWithChildren<IBaseModalProps>): any => {
   return (
     <Modal isOpen={isShow} onClose={onHide} isCentered={true}>
       <ModalOverlay />
-      <ModalContent className={cs(s.modalContent, s[size], className)}>
+      <ModalContent
+        className={cs(s.modalContent, s[size], className)}
+        style={{
+          backgroundColor: theme === 'dark' ? '#1A1A1A' : '#f4f4f4',
+          color: theme === 'dark' ? '#fff' : '#000',
+        }}
+      >
         <ModalHeader className={cs(s.modalHeader, headerClassName)}>
           <Flex justifyContent="space-between" alignItems="center">
             <button onClick={onHide} className={s.modalHeader_closeBtn}>

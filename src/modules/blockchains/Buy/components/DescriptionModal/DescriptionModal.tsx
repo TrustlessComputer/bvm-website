@@ -26,7 +26,6 @@ const DescriptionModal = (props: IProps) => {
         color={'black'}
         p={['7px', '10px']}
         gap={'10px'}
-        align={'center'}
       >
         {title && (
           <Text fontSize={['18px', '20px', '24px']} fontWeight={600}>

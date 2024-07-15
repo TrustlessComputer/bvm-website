@@ -12,6 +12,7 @@
 
 .wrapper {
   width: 100%;
+  transition-duration: 1s;
 }
 
 .inner {
@@ -211,7 +212,20 @@
 }
 
 .hTrigger {
-  height: 65vh;
+  height: 80vh;
   display: block;
   width: 100%;
+}
+
+
+.activeBlur {
+  transition-duration: 1s;
+  animation: blurOut 2s infinite;
+}
+
+@keyframes blurOut {
+  50% {
+    box-shadow: 5px 0 15px -6px rgba(51, 51, 51), -5px 0 15px -6px rgba(51, 51, 51);
+    filter: brightness(1.25);
+  }
 }
