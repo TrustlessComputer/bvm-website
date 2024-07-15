@@ -1,6 +1,6 @@
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import s from './styles.module.scss';
 
 export type DraggableProps = React.PropsWithChildren & {
@@ -15,15 +15,15 @@ export type DraggableProps = React.PropsWithChildren & {
 };
 
 const Draggable = ({
-  id,
-  useMask = false,
-  children,
-  value,
-  disabled = false,
-  tooltip,
-  isLabel,
-  right = false,
-}: DraggableProps) => {
+                     id,
+                     useMask = false,
+                     children,
+                     value,
+                     disabled = false,
+                     tooltip,
+                     isLabel,
+                     right = false,
+                   }: DraggableProps) => {
   const refTooltip = useRef<HTMLAnchorElement>(null);
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
