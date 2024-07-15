@@ -6,40 +6,56 @@ import tierData from './data';
 import { useRouter, useSearchParams } from 'next/navigation';
 import BaseModal from '../Modal';
 import { Button } from '@chakra-ui/react';
+import useOrderFormStoreV3 from '../../stores/index_v3';
 
 type Props = {
+  templates: Array<IModelCategory[]> | null;
+  originalData: IModelCategory[] | null;
   setValueOfPackage: (packageId: number | string | null) => void;
 };
 
-const TierV2 = ({ setValueOfPackage }: Props) => {
+const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
+  const { field } = useOrderFormStoreV3();
+
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const [isShowModal, setIsShowModal] = React.useState(false);
   const [selectedTier, setSelectedTier] = React.useState<string | null>(null);
 
+  const isSomethingChanged = () => {
+    if (!originalData || !templates) return;
+    const currentPackageId = searchParams.get('package') || '0';
+
+    let somethingChanged = false;
+    const currentTemplate = (templates?.[Number(currentPackageId)] ||
+      []) as IModelCategory[];
+    const fieldsNotInTemplate = originalData?.filter(
+      (item) => !currentTemplate.find((temp) => temp.key === item.key),
+    );
+
+    for (const _f of fieldsNotInTemplate) {
+      if (field[_f.key].dragged) {
+        somethingChanged = true;
+        break;
+      }
+    }
+
+    for (const _f of currentTemplate) {
+      const fieldTemplateValue = _f.options.find(
+        (o) => o.key === field[_f.key].value,
+      );
+
+      if (!field[_f.key].dragged || !fieldTemplateValue) {
+        somethingChanged = true;
+        break;
+      }
+    }
+
+    return somethingChanged;
+  };
+
   const handleOk = () => {
-    // if (!originalData || !templates) return;
-
-    // const currentPackageId = searchParams.get('package') || '0';
-    // const currentTemplate = templates[Number(currentPackageId)] || [];
-
-    // let somethingChanged = false;
-
-    // const keysNotInOriginalData = templates.filter(
-    //   (_f) => !originalData.find((item) => item.key === _f.key),
-    // );
-    // for (const key of keysNotInOriginalData) {
-    //   if (field[key].dragged) {
-    //     somethingChanged = true;
-    //     break;
-    //   }
-    // }
-
-    // for (const _f of currentTemplate.op)
-
-    // if (!somethingChanged) return;
-
     setValueOfPackage(selectedTier);
     setIsShowModal(false);
     setSelectedTier(null);
@@ -64,13 +80,13 @@ const TierV2 = ({ setValueOfPackage }: Props) => {
               key={index}
               className={styles.tier_items_item}
               onClick={() => {
-                if (searchParams.get('package') !== tier.id) {
+                if (isSomethingChanged()) {
+                  setIsShowModal(true);
+                  setSelectedTier(tier.id);
+                } else {
                   router.push('/rollups/customizev2?package=' + tier.id);
+                  setValueOfPackage(tier.id);
                 }
-
-                setValueOfPackage(tier.id);
-                // setIsShowModal(true);
-                // setSelectedTier(tier.id);
               }}
             >
               <Image
@@ -84,7 +100,7 @@ const TierV2 = ({ setValueOfPackage }: Props) => {
         </div>
       </div>
 
-      {/* <BaseModal
+      <BaseModal
         isShow={isShowModal}
         onHide={() => setIsShowModal(false)}
         title="Select a template"
@@ -106,7 +122,7 @@ const TierV2 = ({ setValueOfPackage }: Props) => {
         >
           No
         </Button>
-      </BaseModal> */}
+      </BaseModal>
     </React.Fragment>
   );
 };

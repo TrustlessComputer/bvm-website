@@ -7,7 +7,6 @@ interface IModelOption {
   key: string;
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
-
   order: number;
   value: string | number;
 }
@@ -26,5 +25,7 @@ interface IModelCategory {
   tooltip: string;
   order: number;
   confuseWord: boolean;
+  confuseTitle: string;
   multiChoice: boolean;
+  confuseTitle: string;
 }
