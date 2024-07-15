@@ -126,7 +126,7 @@ const BuyPage = () => {
     templateData.forEach((field) => {
       setField(
         field.key,
-        field.options[0].key || null,
+        field.options[0]?.key || null,
         field.options[0] ? true : false,
       );
     });
@@ -187,7 +187,7 @@ const BuyPage = () => {
   }, []);
 
   React.useEffect(() => {
-    const _package = searchParams.get('package');
+    const _package = searchParams.get('package') || '-1';
 
     setValueOfPackage(Number(_package));
   }, [templates]);

@@ -25,7 +25,7 @@ const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
 
   const isSomethingChanged = () => {
     if (!originalData || !templates) return;
-    const currentPackageId = searchParams.get('package') || '0';
+    const currentPackageId = searchParams.get('package') || '-1';
 
     let somethingChanged = false;
     const currentTemplate = (templates?.[Number(currentPackageId)] ||
@@ -42,6 +42,8 @@ const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
     }
 
     for (const _f of currentTemplate) {
+      if (_f.options.length === 0) continue;
+
       const fieldTemplateValue = _f.options.find(
         (o) => o.key === field[_f.key].value,
       );
@@ -107,7 +109,7 @@ const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
         size="small"
         theme="light"
       >
-        Are you sure you want to select this template?{' '}
+        Are you sure you want to clear your current configuration?
         <Button
           className={`${styles.btn} ${styles.btn__outline}`}
           size="sm"
