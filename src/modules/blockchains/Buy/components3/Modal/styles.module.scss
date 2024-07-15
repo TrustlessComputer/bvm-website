@@ -48,6 +48,12 @@
     position: absolute;
     right: 0;
     top: -2px;
+
+    :global(svg path) {
+      fill: black !important;
+      fill-opacity: 1;
+    }
+
     &:focus-visible {
       outline: none;
     }
@@ -57,10 +63,10 @@
         transform: scale(1.2);
         transition: all 0.3s;
 
-        //:global(svg path) {
-        //  fill: black;
-        //  fill-opacity: 1;
-        //}
+        :global(svg path) {
+          fill: black !important;
+          fill-opacity: 1;
+        }
       }
     }
   }

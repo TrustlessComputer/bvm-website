@@ -12,7 +12,7 @@ import BoxOptionV3 from './components3/BoxOptionV3';
 import SideBar from './components3/SideBar';
 import LegoV3 from './components3/LegoV3';
 import useDragMask from './stores/useDragMask';
-import { getModelCategories } from '@/services/customize-model';
+import { getModelCategories, getTemplates } from '@/services/customize-model';
 import DropdownV2 from './components3/DropdownV2';
 import useOrderFormStoreV3 from './stores/index_v3';
 
@@ -39,6 +39,9 @@ const BuyPage = () => {
   const [originalData, setOriginalData] = React.useState<
     IModelCategory[] | null
   >(null);
+  const [templates, setTemplates] = React.useState<IModelCategory[] | null>(
+    null,
+  );
   const { field, setField, priceBVM, priceUSD, setPriceBVM, setPriceUSD } =
     useOrderFormStoreV3();
   const { idDragging, setIdDragging } = useDragMask();
@@ -99,12 +102,15 @@ const BuyPage = () => {
     if (!packageId?.toString()) return;
 
     // set default value for package
-    const templateData =
-      FAKE_DATA_PACKAGE.find((item) => item.id === packageId?.toString())
-        ?.data || [];
+    const templateData = (templates?.[Number(packageId)] ||
+      []) as IModelCategory[];
 
     templateData.forEach((field) => {
-      setField(field.key, field.value?.key || null, field.value ? true : false);
+      setField(
+        field.key,
+        field.options[0].key || null,
+        field.options[0] ? true : false,
+      );
     });
   };
 
@@ -143,8 +149,6 @@ const BuyPage = () => {
   }, [field['network']?.value]);
 
   React.useEffect(() => {
-    const _package = searchParams.get('package');
-
     const convertData = (data: IModelCategory[]) => {
       const newData = data.map((item) => {
         return {
@@ -178,9 +182,18 @@ const BuyPage = () => {
       // @ts-ignore
       setData(convertData(_res));
       setOriginalData(_res);
-      setValueOfPackage(Number(_package));
+    });
+
+    getTemplates().then((data) => {
+      setTemplates(data);
     });
   }, []);
+
+  React.useEffect(() => {
+    const _package = searchParams.get('package');
+
+    setValueOfPackage(Number(_package));
+  }, [templates]);
 
   React.useEffect(() => {
     const priceUSD =
@@ -456,7 +469,7 @@ const BuyPage = () => {
 
             {/* ------------- RIGHT ------------- */}
             <div className={s.right}>
-              <TierV2 />
+              <TierV2 setValueOfPackage={setValueOfPackage} />
 
               <div className={s.right_box}>
                 <DroppableV2 id="final" className={s.finalResult}>

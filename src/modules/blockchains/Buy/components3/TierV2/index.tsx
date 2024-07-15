@@ -3,57 +3,85 @@ import React from 'react';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import tierData from './data';
-import Link from 'next/link';
-import { FAKE_DATA_PACKAGE } from '../../TemplateModal/data';
-import useOrderFormStoreV3 from '../../stores/index_v3';
 import { useRouter, useSearchParams } from 'next/navigation';
+import BaseModal from '../Modal';
+import { Button } from '@chakra-ui/react';
 
-const TierV2 = () => {
+type Props = {
+  setValueOfPackage: (packageId: number | string | null) => void;
+};
+
+const TierV2 = ({ setValueOfPackage }: Props) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { setField } = useOrderFormStoreV3();
 
-  const setValueOfPackage = (packageId: number | string | null) => {
-    if (!packageId?.toString()) return;
+  const [isShowModal, setIsShowModal] = React.useState(false);
+  const [selectedTier, setSelectedTier] = React.useState<string | null>(null);
 
-    // set default value for package
-    const templateData =
-      FAKE_DATA_PACKAGE.find((item) => item.id === packageId?.toString())
-        ?.data || [];
+  const handleOk = () => {
+    setValueOfPackage(selectedTier);
+    setIsShowModal(false);
+    setSelectedTier(null);
+    if (searchParams.get('package') !== selectedTier) {
+      router.push('/rollups/customizev2?package=' + selectedTier);
+    }
+  };
 
-    templateData.forEach((field) => {
-      setField(field.key, field.value?.key || null, true);
-    });
+  const handleCancel = () => {
+    setIsShowModal(false);
+    setSelectedTier(null);
   };
 
   return (
-    <div className={styles.tier}>
-      <h3 className={styles.tier_title}>Favorite architectures</h3>
+    <React.Fragment>
+      <div className={styles.tier}>
+        <h3 className={styles.tier_title}>Favorite architectures</h3>
 
-      <div className={styles.tier_items}>
-        {tierData.map((tier, index) => (
-          <div
-            key={index}
-            className={styles.tier_items_item}
-            // href={'/rollups/customizev2?package=' + tier.id}
-            onClick={() => {
-              if (searchParams.get('package') !== tier.id) {
-                router.push('/rollups/customizev2?package=' + tier.id);
-              }
-
-              setValueOfPackage(tier.id);
-            }}
-          >
-            <Image
-              src={tier.icon}
-              width={24}
-              height={24}
-              alt={'icon tier ' + index}
-            />
-          </div>
-        ))}
+        <div className={styles.tier_items}>
+          {tierData.map((tier, index) => (
+            <div
+              key={index}
+              className={styles.tier_items_item}
+              onClick={() => {
+                setIsShowModal(true);
+                setSelectedTier(tier.id);
+              }}
+            >
+              <Image
+                src={tier.icon}
+                width={24}
+                height={24}
+                alt={'icon tier ' + index}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+
+      <BaseModal
+        isShow={isShowModal}
+        onHide={() => setIsShowModal(false)}
+        title="Select a template"
+        size="small"
+        theme="light"
+      >
+        Are you sure you want to select this template?{' '}
+        <Button
+          className={`${styles.btn} ${styles.btn__outline}`}
+          size="sm"
+          onClick={() => handleOk()}
+        >
+          Yes
+        </Button>{' '}
+        <Button
+          className={`${styles.btn} ${styles.btn__primary}`}
+          size="sm"
+          onClick={() => handleCancel()}
+        >
+          No
+        </Button>
+      </BaseModal>
+    </React.Fragment>
   );
 };
 
