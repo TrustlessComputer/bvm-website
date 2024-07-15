@@ -627,7 +627,7 @@ const BuyPage = () => {
                   style={{
                     width: '100%',
                     height: '100%',
-                    paddingLeft: '30%',
+                    paddingLeft: '10%',
                   }}
                 >
                   <LegoV3
