@@ -58,14 +58,14 @@ const BuyPage = () => {
     const { over, active } = event;
 
     // Format ID of single field = <key>-<value>
-    const [activeKey = ''] = active.id.split('-');
-    const [overKey = '', suffix = ''] = (over?.id || '').split('-');
+    const [activeKey = '', activeSuffix = ''] = active.id.split('-');
+    const [overKey = '', overSuffix = ''] = (over?.id || '').split('-');
     const overIsParentDroppable =
-      overKey === activeKey && suffix === 'droppable';
+      overKey === activeKey && overSuffix === 'droppable';
     const overIsFinalDroppable = overKey === 'final';
     const activeIsParent =
       data?.find((item) => item.key === activeKey)?.multiChoice &&
-      suffix === 'droppable';
+      !activeSuffix;
     const isMultiChoice = data?.find(
       (item) => item.key === activeKey,
     )?.multiChoice;
@@ -106,7 +106,7 @@ const BuyPage = () => {
 
     // Active is parent and drag to the left side
     if (activeIsParent && (!over || (over && !overIsFinalDroppable))) {
-      setField(activeKey, field[activeKey].value, false);
+      setField(activeKey, [], false);
       return;
     }
 
@@ -394,7 +394,6 @@ const BuyPage = () => {
                         item.options.find(
                           (option) => option.key === field[item.key].value,
                         )?.priceUSD || 0;
-                      // const suffix = price ? `(+${price.toString()}$)` : '';
 
                       return (
                         <BoxOptionV3
@@ -477,7 +476,7 @@ const BuyPage = () => {
                                     field['network']?.value
                                 ) || !option.selectable;
 
-                              if (item.multiChoice) {
+                              if (item.multiChoice && field[item.key].dragged) {
                                 const currentValues = field[item.key]
                                   .value as any[];
 
