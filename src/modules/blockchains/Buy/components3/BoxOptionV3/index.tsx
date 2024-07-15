@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Flex, Text } from '@chakra-ui/react';
 
 import DescriptionModal from '@/modules/blockchains/Buy/components/DescriptionModal/DescriptionModal';
@@ -34,6 +34,9 @@ const BoxOptionV3 = ({
                        disable,
                      }: BoxOptionV2Props): React.JSX.Element => {
   const [isShowModal, setIsShowModal] = React.useState(false);
+  const isHasTooltip =  useMemo(()=>{
+    return description?.content !== '';
+  }, [description])
   return (
     <React.Fragment>
       <DroppableV2
@@ -59,7 +62,7 @@ const BoxOptionV3 = ({
           </div>
           <Flex align={'center'} gap={2}>
             <p className={s.boxItem_heading_text}>{label}{disable && '(Coming)'}{isRequired && <sup>*</sup>}</p>
-            {description && (
+            {isHasTooltip && (
               <div className={s.info} onClick={() => setIsShowModal(true)}>
                 <svg
                   width="20"

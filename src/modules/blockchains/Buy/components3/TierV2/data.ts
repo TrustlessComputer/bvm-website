@@ -1,27 +1,38 @@
-import {
-  PRICING_PACKGE,
-  PRICING_PACKGE_MAP,
-} from '@/modules/PricingV2/constants';
+type Tier = {
+  id: string;
+  title: string;
+  icon: string;
+  template: {
+    id: string;
+    created_at: string;
+    updated_at: string;
+    key: string;
+    title: string;
+    required: boolean;
+    tooltip: string;
+    disable: boolean;
+    color: string;
+    type: 'module' | 'dropdown';
+    value: {
+      key: string;
+      title: string;
+      value: string;
+      selectable: boolean;
+      tooltip: string;
+      priceUSD: number;
+      priceBVM: number;
+      supportNetwork: '' | 'mainnet' | 'testnet' | 'both';
+      icon: string;
+    };
+  }[];
+};
 
-export const FAKE_DATA_PACKAGE = [
+const tierData: Tier[] = [
   {
     id: '0',
-    color: 'GREEN',
-    template: PRICING_PACKGE_MAP[PRICING_PACKGE.Hacker],
-    link: `/rollups/customizev2?package=${PRICING_PACKGE.Hacker}`,
-    content: 'The easiest way to launch your blockchain',
-    price: '$99',
-    check: true,
-    options: [
-      '16 GB RAM',
-      '8 cores',
-      '320 GB SSD',
-      '320 GB SSD',
-      '320 GB SSD',
-      '320 GB SSD',
-      '320 GB SSD',
-    ],
-    data: [
+    title: 'Basic',
+    icon: '/images/lego_tier_1.png',
+    template: [
       {
         id: '668f8ebe88f822fe3ebd346e',
         created_at: '2024-07-11T07:50:22.365Z',
@@ -44,8 +55,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: '',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-mainnet.svg',
-          label: 'Mainnet',
-          disabled: false,
         },
       },
       {
@@ -69,8 +78,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: '',
-          label: '16 GB RAM, 8 cores, 320 GB SSD',
-          disabled: false,
         },
       },
       {
@@ -94,8 +101,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-zk.svg',
-          label: 'Zk Rollups',
-          disabled: false,
         },
       },
       {
@@ -120,8 +125,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-polygon.svg',
-          label: 'Polygon',
-          disabled: false,
         },
       },
       {
@@ -146,8 +149,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: '',
-          label: '1,000,000,000',
-          disabled: false,
         },
       },
       {
@@ -172,29 +173,15 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: '',
-          label: '24 hours',
-          disabled: false,
         },
       },
     ],
   },
   {
     id: '1',
-    color: 'BLUE',
-    template: PRICING_PACKGE_MAP[PRICING_PACKGE.Growth],
-    link: `/rollups/customizev2?package=${PRICING_PACKGE.Growth}`,
-    content: 'Scale your blockchain as you go',
-    price: '$699',
-    check: false,
-    options: [
-      '32 GB RAM',
-      '16 cores',
-      '400 GB SSD',
-      '400 GB SSD',
-      '400 GB SSD',
-      '400 GB SSD',
-    ],
-    data: [
+    title: 'Standard',
+    icon: '/images/lego_tier_2.png',
+    template: [
       {
         id: '668f8ebe88f822fe3ebd346e',
         created_at: '2024-07-11T07:50:22.365Z',
@@ -217,8 +204,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: '',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-mainnet.svg',
-          label: 'Mainnet',
-          disabled: false,
         },
       },
       {
@@ -242,8 +227,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: '',
-          label: '32 GB RAM, 16 cores, 400 GB SSD',
-          disabled: false,
         },
       },
       {
@@ -267,8 +250,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-zk.svg',
-          label: 'Zk Rollups',
-          disabled: false,
         },
       },
       {
@@ -293,8 +274,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-polygon.svg',
-          label: 'Polygon',
-          disabled: false,
         },
       },
       {
@@ -319,8 +298,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: '',
-          label: '2,000,000,000',
-          disabled: false,
         },
       },
       {
@@ -345,22 +322,15 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: '',
-          label: '6 hours',
-          disabled: false,
         },
       },
     ],
   },
   {
     id: '2',
-    color: 'ORANGE',
-    template: PRICING_PACKGE_MAP[PRICING_PACKGE.Secure],
-    link: `/rollups/customizev2?package=${PRICING_PACKGE.Secure}`,
-    content: 'Fully secure your blockchain with a cryptographic prover',
-    check: false,
-    price: '$1999',
-    options: ['64 GB RAM', '32 cores', '650 GB SSD', '650 GB SSD'],
-    data: [
+    title: 'Advanced',
+    icon: '/images/lego_tier_3.png',
+    template: [
       {
         id: '668f8ebe88f822fe3ebd346e',
         created_at: '2024-07-11T07:50:22.365Z',
@@ -383,8 +353,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: '',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-mainnet.svg',
-          label: 'Mainnet',
-          disabled: false,
         },
       },
       {
@@ -408,8 +376,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: '',
-          label: '64 GB RAM, 32 cores, 650 GB SSD',
-          disabled: false,
         },
       },
       {
@@ -433,8 +399,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-btc.svg',
-          label: 'Bitcoin',
-          disabled: false,
         },
       },
       {
@@ -458,8 +422,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-zk.svg',
-          label: 'Zk Rollups',
-          disabled: false,
         },
       },
       {
@@ -484,8 +446,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-ceslestia.svg',
-          label: 'Celestia',
-          disabled: false,
         },
       },
       {
@@ -509,8 +469,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: '',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-explorer.svg',
-          label: 'Explorer',
-          disabled: false,
         },
       },
       {
@@ -535,8 +493,6 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: '',
-          label: '4,000,000,000',
-          disabled: false,
         },
       },
       {
@@ -561,10 +517,10 @@ export const FAKE_DATA_PACKAGE = [
           tooltip: '',
           supportNetwork: 'both',
           icon: '',
-          label: '2 hours',
-          disabled: false,
         },
       },
     ],
   },
 ];
+
+export default tierData;
