@@ -34,11 +34,12 @@ const LaunchButton = ({
 }: {
   data:
     | (IModelCategory & {
-        options: {
-          value: any;
-          label: string;
-          disabled: boolean;
-        }[];
+        options: IModelCategory['options'] &
+          {
+            value: any;
+            label: string;
+            disabled: boolean;
+          }[];
       })[]
     | null;
   originalData: IModelCategory[] | null;

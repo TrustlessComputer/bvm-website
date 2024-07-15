@@ -73,7 +73,7 @@ const Main = ({
                   target={item.isNewWindow ? '_blank' : '_self'}
                 >
                   <p
-                    className={`${s.itemLabel} ${isActiveDark && s.activeDark} 
+                    className={`${s.itemLabel} ${isActiveDark && s.activeDark}
                     ${isActiveLight && s.activeLight}
                     `}
                     style={{ color: color }}
@@ -83,7 +83,7 @@ const Main = ({
                 </Link>
               );
             })} */}
-            <div
+            {/* <div
               className={s.menuCustom}
               onClick={() => {
                 router.push(
@@ -92,7 +92,7 @@ const Main = ({
               }}
             >
               <p>Customize with Basic mode</p>
-            </div>
+            </div> */}
             <ButtonLoginTwitter color={color} />
           </div>
         ) : (
