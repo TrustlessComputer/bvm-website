@@ -55,6 +55,7 @@ const L2Instance = (props: Props) => {
         />
         <Divider my={'20px'} borderColor="gray.200" />
         <LegoView item={item} />
+        <Divider my={'20px'} borderColor="gray.200" />
       </Box>
     </Flex>
   );

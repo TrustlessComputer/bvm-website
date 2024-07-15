@@ -17,7 +17,6 @@ const NetworkBar = () => {
   );
   const isMainnet = viewMode === 'Mainnet';
 
-  console.log('VIVVVVV ', viewPage);
   if (viewPage === 'Biiling') return null;
 
   if (!isMyOrderListFetched)

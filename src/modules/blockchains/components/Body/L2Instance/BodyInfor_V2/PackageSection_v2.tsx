@@ -35,7 +35,6 @@ const PackageSection = (props: Props) => {
     return totalCost;
   }, [item]);
 
-  console.log('CCCC ', totalCost);
   return (
     <Flex
       bgColor={'#F6F6F6'}

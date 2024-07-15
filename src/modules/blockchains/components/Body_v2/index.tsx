@@ -80,7 +80,8 @@ const BodyGridView = () => {
             onClick={() => {
               dispatch(setOrderSelected(item));
               // onOpenWaittingSetingUp && onOpenWaittingSetingUp();
-              router.push(`/rollups/${item.orderId}`);
+              // router.push(`/rollups/${item.orderId}`);
+              router.push(`/chains/${item.orderId}`);
             }}
           />
         ))}
