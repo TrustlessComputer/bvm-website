@@ -1,5 +1,5 @@
 'use client';
-import React, { PropsWithChildren, useMemo, useRef } from 'react';
+import React, { PropsWithChildren, useEffect, useMemo, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { setUser } from '@/stores/states/user/reducer';
 import throttle from 'lodash/throttle';
@@ -13,7 +13,10 @@ import { getCoinPrices, getConfigs } from '@/services/common';
 import { setCoinPrices, setConfigs } from '@/stores/states/common/reducer';
 import { useRouter } from 'next/navigation';
 import CReferralAPI from '@/services/api/referrals';
-import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
+import { setUserReferral } from '@/stores/states/referrals/reducer';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import useL2Service from '@hooks/useL2Service';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 export interface IUserContext {}
 
@@ -32,8 +35,17 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
   const guestCode = AuthenStorage.getGuestSecretKey();
   const userApi = useRef(new CReferralAPI()).current;
-  const wallet = useAuthenticatedWallet();
-  const addressL2 = wallet?.address;
+  const { accountInforL2Service } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
+  const addressL2 = accountInforL2Service?.tcAddress;
+
+  const { loopFetchAccountInfor } = useL2Service();
+  const { loggedIn } = useWeb3Auth();
+
+  useEffect(() => {
+    loopFetchAccountInfor();
+  }, [loggedIn]);
 
   const fetchUserInfo = async () => {
     const userInfo = await userServices.getUser();
@@ -49,14 +61,14 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     [],
   );
 
-  const fetchUserReferralInfo = async () => {
-    const data = await userApi.getUserReferralInfo({ address: addressL2 });
-    dispatch(setUser(data));
+  const fetchUserReferralInfo = async (address: string) => {
+    const data = await userApi.getUserReferralInfo({ address: address });
+    dispatch(setUserReferral(data));
   };
 
   const throttleFetchUserReferralInfo = React.useCallback(
-    throttle(fetchUserReferralInfo, 300),
-    [],
+    throttle(() => fetchUserReferralInfo(addressL2 as string), 300),
+    [addressL2],
   );
 
   const fetchCoinPrices = async () => {

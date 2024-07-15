@@ -7,21 +7,18 @@ export interface IReferralRewardInfo {
 }
 
 export interface IUserReferralInfo {
-  id?: number;
-  network?: string;
-  address?: string;
-  token_address?: string;
-  address_checked?: string;
-  twitter_id?: string;
-  twitter_username?: string;
-  twitter_description?: string;
-  twitter_name?: string;
-  twitter_avatar?: string;
-  twitter_verified?: boolean;
+  id: number
+  network_id: number
+  address: string
+  twitter_id: string
+  twitter_avatar: string
+  twitter_username: string
+  twitter_name: string
+  is_owner: boolean
+  referral_code: string
+  referrer_address: string
 
-  referral_code?: string;
   referrer_code?: string;
-  referrer_address?: string;
   trading_volume?: string;
   referral_rewarded?: number;
   referral_claimed?: number;
