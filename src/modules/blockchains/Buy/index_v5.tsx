@@ -83,7 +83,7 @@ const BuyPage = () => {
         active.data.current.value !== field[activeKey].value &&
         field[activeKey].dragged
       ) {
-      	setShowShadow(field[activeKey].value)
+        setShowShadow(field[activeKey].value as string);
         toast.error('Please drag back to the left side to change the value', {
           icon: null,
           style: {
@@ -92,9 +92,9 @@ const BuyPage = () => {
           },
           duration: 3000,
         });
-		setTimeout(() => {
-        	setShowShadow('')
-      	}, 2000)
+        setTimeout(() => {
+          setShowShadow('');
+        }, 2000);
         return;
       }
 
@@ -116,7 +116,7 @@ const BuyPage = () => {
 
     // Multi choice case
     if (over && (overIsFinalDroppable || overIsParentDroppable)) {
-      const currentValues = field[activeKey].value as string[];
+      const currentValues = (field[activeKey].value || []) as string[];
       const newValue = [...currentValues, active.data.current.value];
 
       if (currentValues.includes(active.data.current.value)) return;
@@ -180,7 +180,7 @@ const BuyPage = () => {
       }
     });
     fieldsNotInTemplate?.forEach((field) => {
-      setField(field.key, field.options[0].key, false);
+      setField(field.key, null, false);
     });
   };
 
@@ -188,7 +188,7 @@ const BuyPage = () => {
     const modelCategories = (await getModelCategories()) || [];
     const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
     _modelCategories.forEach((item) => {
-      setField(item.key, item.options[0].key);
+      setField(item.key, null);
     });
     setData(convertData(_modelCategories));
     setOriginalData(_modelCategories);
@@ -199,6 +199,32 @@ const BuyPage = () => {
 
   React.useEffect(() => {
     data?.forEach((item) => {
+      if (item.multiChoice) {
+        const currentValues = (field[item.key].value || []) as string[];
+        const newValues = currentValues.filter((value) => {
+          const option = item.options.find((opt) => opt.key === value);
+
+          if (!option) return false;
+
+          const isDisabled =
+            !!(
+              option.supportNetwork &&
+              option.supportNetwork !== 'both' &&
+              option.supportNetwork !== field['network']?.value
+            ) || !option.selectable;
+
+          return !isDisabled;
+        });
+
+        if (newValues.length === 0) {
+          setField(item.key, null, false);
+          return;
+        }
+
+        setField(item.key, newValues, field[item.key].dragged);
+        return;
+      }
+
       const newDefaultValue = item.options.find(
         (option) =>
           (option.supportNetwork === field['network']?.value ||
@@ -207,16 +233,13 @@ const BuyPage = () => {
           option.selectable &&
           !item.disable,
       );
-
       const currentOption = item.options.find(
         (option) => option.key === field[item.key].value,
       );
-
       if (!newDefaultValue) {
         setField(item.key, null, false);
         return;
       }
-
       if (!currentOption || !newDefaultValue) return;
       if (
         (currentOption.supportNetwork === field['network']?.value ||
@@ -226,7 +249,6 @@ const BuyPage = () => {
         !item.disable
       )
         return;
-
       setField(item.key, newDefaultValue.key, field[item.key].dragged);
     });
   }, [field['network']?.value]);
@@ -689,7 +711,11 @@ const BuyPage = () => {
                             zIndex={data.length - index}
                             label={item.confuseTitle}
                             labelInRight={!!item.confuseTitle}
-                            className={showShadow === field[item.key].value ? s.activeBlur : ''}
+                            className={
+                              showShadow === field[item.key].value
+                                ? s.activeBlur
+                                : ''
+                            }
                           >
                             <DropdownV2
                               cb={(value) => {
@@ -729,7 +755,11 @@ const BuyPage = () => {
                             label={item.confuseTitle}
                             labelInRight={!!item.confuseTitle}
                             zIndex={item.options.length - opIdx}
-                            className={showShadow === field[item.key].value ? s.activeBlur : ''}
+                            className={
+                              showShadow === field[item.key].value
+                                ? s.activeBlur
+                                : ''
+                            }
                           >
                             <DropdownV2
                               disabled

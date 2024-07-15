@@ -201,7 +201,7 @@ const LaunchButton = ({
       >
         <div className={s.inner}>
           {!loggedIn ? (
-            <Text className={s.connect}>Connect</Text>
+            <Text className={s.connect}>Launch</Text>
           ) : (
             <React.Fragment>
               <div className={s.top}>

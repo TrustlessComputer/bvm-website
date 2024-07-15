@@ -44,12 +44,12 @@ function LegoParent({
   const _fillBackground = hsbToHex(
     fillBackgroundAsHSB?.h || 0,
     fillBackgroundAsHSB?.s || 0,
-    (fillBackgroundAsHSB?.b || 100) + 2.5,
+    (fillBackgroundAsHSB?.b || 100) - 20,
   )?.split('.')[0];
   const _background = hsbToHex(
     fillBackgroundAsHSB?.h || 0,
     fillBackgroundAsHSB?.s || 0,
-    (fillBackgroundAsHSB?.b || 100) - 20,
+    (fillBackgroundAsHSB?.b || 100) - 40,
   )?.split('.')[0];
 
   return (
