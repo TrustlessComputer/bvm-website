@@ -8,7 +8,7 @@ import s from './styles.module.scss';
 import CReferralAPI from 'src/services/api/referrals';
 import { NakaConnectContext } from '@/Providers/NakaConnectProvider';
 import { Wallet } from 'ethers';
-import ButtonConnected from '@/components/ButtonConnected';
+import ButtonConnected from '@/components/ButtonConnected/v2';
 import cs from 'classnames';
 import { requestReload } from '@/stores/states/common/reducer';
 import { closeModal } from '@/stores/states/modal/reducer';

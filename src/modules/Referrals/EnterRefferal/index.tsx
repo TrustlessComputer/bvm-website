@@ -13,7 +13,7 @@ import { REFERRAL_REWARD_ADMIN_ADDRESS } from '@/contract/referrals/configs';
 import CReferral from 'src/contract/referrals';
 import CReferralAPI from 'src/services/api/referrals';
 import cs from 'classnames';
-import ButtonConnected from '@/components/ButtonConnected';
+import ButtonConnected from '@/components/ButtonConnected/v2';
 import InfoTooltip from '@/components/InfoTooltip';
 import HorizontalItem from '@/components/HorizontalItem';
 import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';

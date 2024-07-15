@@ -19,7 +19,7 @@ import s from './styles.module.scss';
 import ReferralModal, { ReferralModalID } from './ReferralModal';
 import copy from 'copy-to-clipboard';
 import ListReferred from './ListReferred';
-import ButtonConnected from '@/components/ButtonConnected';
+import ButtonConnected from '@/components/ButtonConnected/v2';
 import { isDesktop } from 'react-device-detect';
 import { userSelector } from '@/stores/states/user/selector';
 
