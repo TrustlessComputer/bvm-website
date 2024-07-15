@@ -8,16 +8,17 @@ type TBlogDetailPage = {
   params: { slug: string }
 }
 
-export async function generateMetadata({ params }: TBlogDetailPage) {
+export async function metadata({ params }: TBlogDetailPage) {
 
   const data = await fetchPostById(params?.slug);
-  const title = `${data?.title} | ${APP_NAME}`;
+  const title = `${data?.title}`;
+  const description = data?.excerpt ? data.excerpt : ''
   return {
     title,
     description: `${data?.excerpt}`,
     openGraph: {
       title,
-      description: `${data?.excerpt}`,
+      description,
       type: 'website',
       url: APP_NAME,
       images: [
