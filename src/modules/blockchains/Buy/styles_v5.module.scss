@@ -12,6 +12,7 @@
 
 .wrapper {
   width: 100%;
+  transition-duration: 1s;
 }
 
 .inner {
@@ -214,4 +215,14 @@
   height: 80vh;
   display: block;
   width: 100%;
+}
+
+
+.activeBlur {
+  transition-duration: 1s;
+  animation: blurOut 2s infinite;
+}
+
+@keyframes blurOut {
+  50% {box-shadow: 12px 0 15px -4px rgba(51, 51, 51, 0.6), -12px 0 15px -4px rgba(51, 51, 51, 0.6);}
 }

@@ -21,7 +21,6 @@ export interface Props {
   headerClassName?: string;
   icCloseUrl?: string;
   theme?: 'dark' | 'light';
-  headerCenter?: boolean;
 }
 
 const BaseModal = (props: PropsWithChildren<Props>): any => {
@@ -36,7 +35,6 @@ const BaseModal = (props: PropsWithChildren<Props>): any => {
     size = 'normal',
     icCloseUrl = '/icons/ic_close_modal.svg',
     theme,
-    headerCenter
   } = props;
 
   return (
