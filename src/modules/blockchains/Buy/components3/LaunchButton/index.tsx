@@ -205,7 +205,11 @@ const LaunchButton = ({
           ) : (
             <React.Fragment>
               <div className={s.top}>
-                {isSubmiting ? <Spinner color="#fff" /> : <p>Launch</p>}
+                {isSubmiting ? (
+                  <Spinner color="#fff" />
+                ) : (
+                  <p>{!loggedIn ? 'Connect to Launch' : 'Launch'}</p>
+                )}
                 <div className={`${s.icon}`}>
                   <ImagePlaceholder
                     src={'/launch.png'}
