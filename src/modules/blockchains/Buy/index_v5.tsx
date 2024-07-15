@@ -63,6 +63,9 @@ const BuyPage = () => {
     const overIsParentDroppable =
       overKey === activeKey && suffix === 'droppable';
     const overIsFinalDroppable = overKey === 'final';
+    const activeIsParent =
+      data?.find((item) => item.key === activeKey)?.multiChoice &&
+      suffix === 'droppable';
     const isMultiChoice = data?.find(
       (item) => item.key === activeKey,
     )?.multiChoice;
@@ -101,10 +104,18 @@ const BuyPage = () => {
       return;
     }
 
+    // Active is parent and drag to the left side
+    if (activeIsParent && (!over || (over && !overIsFinalDroppable))) {
+      setField(activeKey, field[activeKey].value, false);
+      return;
+    }
+
     // Multi choice case
     if (over && (overIsFinalDroppable || overIsParentDroppable)) {
       const currentValues = field[activeKey].value as string[];
       const newValue = [...currentValues, active.data.current.value];
+
+      if (currentValues.includes(active.data.current.value)) return;
 
       setField(activeKey, newValue, true);
     } else {
@@ -229,7 +240,7 @@ const BuyPage = () => {
   React.useEffect(() => {
     const priceUSD = Object.keys(field).reduce((acc, key) => {
       if (Array.isArray(field[key].value)) {
-        const currentOptions = field[key].value.map((value) => {
+        const currentOptions = (field[key].value as string[])!.map((value) => {
           const item = data?.find((i) => i.key === key);
 
           if (!item) return 0;
@@ -283,7 +294,7 @@ const BuyPage = () => {
 
     const priceBVM = Object.keys(field).reduce((acc, key) => {
       if (Array.isArray(field[key].value)) {
-        const currentOptions = field[key].value.map((value) => {
+        const currentOptions = (field[key].value as string[])!.map((value) => {
           const item = data?.find((i) => i.key === key);
 
           if (!item) return 0;
