@@ -23,7 +23,7 @@ const NavigatioBar = () => {
         fontSize={['14px', '15px', '16px']}
         fontWeight={400}
       >
-        Your Chains
+        Chains
       </Text>
     </Flex>
   );

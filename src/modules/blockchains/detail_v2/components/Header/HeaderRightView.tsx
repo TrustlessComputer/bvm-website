@@ -48,7 +48,7 @@ const HeaderRightView = (props: Props) => {
     } else {
       if (isOwner) {
         //Navigate to CustomizeV2 page
-        router.push('/rollup/customizev2');
+        router.push('/rollups/customizev2');
       } else {
         // TO DO
       }

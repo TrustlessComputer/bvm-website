@@ -20,7 +20,7 @@ import { enhance } from './Dashboard.enhance';
 import BillingPage from './components/BillingPage';
 // import BodyView from './components/Body';
 import BodyView from './components/Body_v2';
-import NetworkBar from './components/NetworkBar';
+import NetworkBar from './components/NetworkBar_V2';
 import s from './styles.module.scss';
 
 const Page = (props: any) => {

@@ -191,7 +191,6 @@ export const orderDetailByID = async (
 ): Promise<OrderItem | undefined> => {
   try {
     const data: any = await httpClient.get(`/order/detail/${orderId}`);
-    console.log('DATA ', data);
     if (data && data.orderId) {
       return data as OrderItem;
     }

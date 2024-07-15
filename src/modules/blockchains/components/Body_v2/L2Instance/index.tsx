@@ -2,16 +2,12 @@
 
 import { useAppDispatch } from '@/stores/hooks';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
-import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
+import { OrderItem } from '@/stores/states/l2services/types';
 import { Box, Divider, Flex } from '@chakra-ui/react';
 // import BodyInfor from './BodyInfor';
-import BodyInfor from './BodyInfor_V2';
-import BottomView from './Bottom';
-import HeaderRow from './HeaderRow_v2';
 import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
-import { getBridgeLink } from '@/services/api/l2services/constants';
-import BreakLine from './BreakLine';
-import LegonChain from './LegonChain';
+import HeaderRow from './HeaderRow_v2';
+import LegoView from './LegoView';
 
 type Props = {
   item: OrderItem;
@@ -24,16 +20,7 @@ const L2Instance = (props: Props) => {
 
   const { item, onClick: onClickCB, isOwner } = props;
 
-  const {
-    onOpenBillingModal,
-    onOpenEditConfigModal,
-    onOpenCancelOrderModal,
-    onOpenTopUpModal,
-    onOpenUpdateOrderModal,
-    onOpenDappList,
-  } = useDashboard();
-
-  const isProccessing = item.status === OrderStatus.Processing;
+  const { onOpenTopUpModal, onOpenUpdateOrderModal } = useDashboard();
 
   return (
     <Flex flexDir={'column'} gap={'15px'} p={'5px'} bgColor={'transparent'}>
@@ -67,7 +54,7 @@ const L2Instance = (props: Props) => {
           }}
         />
         <Divider my={'20px'} borderColor="gray.200" />
-        <LegonChain />
+        <LegoView item={item} />
       </Box>
     </Flex>
   );

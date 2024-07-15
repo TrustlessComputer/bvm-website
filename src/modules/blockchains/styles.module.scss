@@ -1,6 +1,7 @@
 .container {
   font-family: var(--font-dmsans);
   background-color: #f3f1e8;
+  min-height: 140dvh;
 
   .font2 {
     font-family: var(--font-JetBrainsMono) !important;
@@ -15,7 +16,7 @@
   .tabList {
     align-items: center;
     justify-content: center;
-    gap: 30px;
+    gap: 60px;
     margin-bottom: 20px;
     border-bottom: 3px solid #ffffff26;
 

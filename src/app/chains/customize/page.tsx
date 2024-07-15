@@ -1,10 +1,11 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
-import Page from '@/modules/blockchains';
-// import Page from '@/modules/blockchains/Dashboard.page_v2';
 
-const BlockChainPage = () => {
+// import Page from '@/modules/blockchains/customize';
+import Page from '@/modules/blockchains/customize/index_v2';
+
+const CustomizePage = () => {
   return (
     <MainLayout
       headerProps={{
@@ -18,4 +19,4 @@ const BlockChainPage = () => {
   );
 };
 
-export default BlockChainPage;
+export default CustomizePage;
