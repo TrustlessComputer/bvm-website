@@ -201,15 +201,11 @@ const LaunchButton = ({
       >
         <div className={s.inner}>
           {!loggedIn ? (
-            <Text className={s.connect}>Connect</Text>
+            <Text className={s.connect}>Launch</Text>
           ) : (
             <React.Fragment>
               <div className={s.top}>
-                {isSubmiting ? (
-                  <Spinner color="#fff" />
-                ) : (
-                  <p>{!loggedIn ? 'Connect to Launch' : 'Launch'}</p>
-                )}
+                {isSubmiting ? <Spinner color="#fff" /> : <p>Launch</p>}
                 <div className={`${s.icon}`}>
                   <ImagePlaceholder
                     src={'/launch.png'}
