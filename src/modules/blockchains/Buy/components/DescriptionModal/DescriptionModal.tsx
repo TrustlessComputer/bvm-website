@@ -12,7 +12,6 @@ interface IProps {
 
 const DescriptionModal = (props: IProps) => {
   const { title, show, onClose, content } = props;
-
   return (
     <BaseModal
       isShow={show}
@@ -27,13 +26,13 @@ const DescriptionModal = (props: IProps) => {
         color={'black'}
         p={['7px', '10px']}
         gap={'10px'}
-        align={'center'}
       >
         {title && (
           <Text fontSize={['18px', '20px', '24px']} fontWeight={600}>
             {title}
           </Text>
         )}
+
         {content && <Text fontSize={['15px', '16px', '18px']}>{content}</Text>}
       </Flex>
     </BaseModal>

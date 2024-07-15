@@ -1,9 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
-import { FormOrder } from '../../stores';
+import { FormOrder, ORDER_FIELD, useFormOrderStore } from '../../stores';
 import { DALayerEnum, NetworkEnum } from '../../Buy.constanst';
+import { OrderFormOptions } from '../../Buy.data';
+import { useDraggable } from '@dnd-kit/core';
 
 type TDropdown = {
   field: keyof FormOrder;
@@ -19,14 +27,13 @@ type TDropdown = {
   checkDisable?: boolean;
   networkSelected: NetworkEnum;
   defaultValue: DALayerEnum | NetworkEnum;
-  cb: (
+  cb?: (
     feild: keyof FormOrder,
     value: DALayerEnum | NetworkEnum | number | string,
   ) => void;
 };
 function Dropdown({
   options,
-  cb,
   field,
   defaultValue,
   networkSelected,
@@ -34,16 +41,30 @@ function Dropdown({
 }: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { field: formField, setFormField } = useFormOrderStore();
   useOnClickOutside(ref, () => setIsOpen(false));
-
   const handleSelectField = (
     value: DALayerEnum | NetworkEnum | number | string,
   ) => {
-    cb(field, value);
+    if (field === ORDER_FIELD.NETWORK) {
+      const value = handleFindData(formField[ORDER_FIELD.NETWORK].value);
+      if (value && value.length > 0) {
+        setFormField('dataAvaibilityChain', value[0].value);
+      }
+    }
+    setFormField(field, value);
     setIsOpen(false);
   };
   const icon = options?.find((item) => item.value === defaultValue)?.icon;
 
+  const handleFindData = (networkSelected: NetworkEnum) => {
+    const optionsDataAvailable =
+      OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].options;
+    const values = optionsDataAvailable?.filter((item) => {
+      return item.avalaibleNetworks?.includes(networkSelected);
+    });
+    return values;
+  };
   return (
     <div className={s.dropdown} onClick={() => setIsOpen(!isOpen)}>
       <div className={s.dropdown_inner}>

@@ -235,7 +235,7 @@ const PriceV2Module = () => {
                           className={s.ctaBtn}
                           onClick={bootstrapLaunchOnClickV2}
                         >
-                          {'Launch now with 1-Click 2'}
+                          {'Launch now with 1-Click'}
                         </button>
                       }
                     />

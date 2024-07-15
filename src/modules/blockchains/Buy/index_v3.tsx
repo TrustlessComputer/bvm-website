@@ -99,16 +99,16 @@ const BuyPage = () => {
           isActive={field[ORDER_FIELD.NETWORK].dragged}
         >
           <Dropdown
-            cb={(field, value) => {
-              if (value === NetworkEnum.Network_Mainnet) {
-                // Force DA selected by Polygon (only available on Mainnet)
-                setFormField(
-                  ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
-                  DALayerEnum.DALayer_PLG,
-                );
-              }
-              setFormField(field, value);
-            }}
+            // cb={(field, value) => {
+            //   if (value === NetworkEnum.Network_Mainnet) {
+            //     // Force DA selected by Polygon (only available on Mainnet)
+            //     setFormField(
+            //       ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
+            //       DALayerEnum.DALayer_PLG,
+            //     );
+            //   }
+            //   setFormField(field, value);
+            // }}
             defaultValue={field[ORDER_FIELD.NETWORK].value}
             field={ORDER_FIELD.NETWORK}
             options={DATA_PRICING.network.options}
@@ -139,7 +139,7 @@ const BuyPage = () => {
           isLast={false}
         >
           <Dropdown
-            cb={setFormField}
+            // cb={setFormField}
             defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
             field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
             options={DATA_PRICING.availability.options}
@@ -178,7 +178,7 @@ const BuyPage = () => {
             initValue={defaultGasLimit}
             min={minGasLimit}
             step={stepGasLimit}
-            initNoti={
+            InitNoti={() => (
               <div className={s.notiWraper}>
                 <span
                   className={s.link}
@@ -188,7 +188,7 @@ const BuyPage = () => {
                 </span>
                 <SvgInset svgUrl="/icons/arrow-right-up.svg" size={20} />
               </div>
-            }
+            )}
           />
         </Lego>
       ),
@@ -224,7 +224,7 @@ const BuyPage = () => {
             suffix="hours"
             initValue={defaultWithdrawalPeriod}
             min={minWithdrawalPeriod}
-            initNoti={
+            InitNoti={() => (
               <div className={s.notiWraper}>
                 <span
                   className={s.link}
@@ -234,7 +234,7 @@ const BuyPage = () => {
                 </span>
                 <SvgInset svgUrl="/icons/arrow-right-up.svg" />
               </div>
-            }
+            )}
           />
         </Lego>
       ),
@@ -300,7 +300,7 @@ const BuyPage = () => {
                     return children;
                   })}
                 </Droppable>
-                <LaunchButton />
+                {/* <LaunchButton /> */}
               </div>
             </div>
           </div>

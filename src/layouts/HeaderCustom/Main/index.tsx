@@ -4,7 +4,7 @@ import { IconButton, useDisclosure } from '@chakra-ui/react';
 import useWindowSize from '@/hooks/useWindowSize';
 import DrawerMobileMenu from '@/layouts/HeaderV3/components/DrawerMenu';
 import { NAV_ITEMS_LEFT, NAV_ITEMS_RIGHT } from '../menuConfig';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import IcMenuMobile from '../components/IcMenuMobile';
 import DropDown from '../components/Dropdown';
 import ButtonLoginTwitter from '../components/ButtonLoginTwitter';
@@ -27,6 +27,7 @@ const Main = ({
   const { isDesktop } = useWindowSize();
   const pathname = usePathname();
   const router = useRouter();
+  const params = useSearchParams();
 
   return (
     <div className={`${s.wrapper} `} style={{ backgroundColor: '#f3f1e8' }}>
@@ -72,7 +73,7 @@ const Main = ({
                   target={item.isNewWindow ? '_blank' : '_self'}
                 >
                   <p
-                    className={`${s.itemLabel} ${isActiveDark && s.activeDark} 
+                    className={`${s.itemLabel} ${isActiveDark && s.activeDark}
                     ${isActiveLight && s.activeLight}
                     `}
                     style={{ color: color }}
@@ -82,9 +83,16 @@ const Main = ({
                 </Link>
               );
             })} */}
-            <div className={s.menuCustom}>
-              <p>Customize with Legacy mode</p>
-            </div>
+            {/* <div
+              className={s.menuCustom}
+              onClick={() => {
+                router.push(
+                  `/rollups/customize?package=${params.get('package')}`,
+                );
+              }}
+            >
+              <p>Customize with Basic mode</p>
+            </div> */}
             <ButtonLoginTwitter color={color} />
           </div>
         ) : (

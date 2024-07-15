@@ -48,7 +48,9 @@ const BaseModal = (props: PropsWithChildren<IBaseModalProps>): any => {
             </button>
             <p
               className={`${s.modalHeader_title} ${
-                theme === 'dark' && s.modalHeader_title_dark
+                theme === 'dark'
+                  ? s.modalHeader_title_dark
+                  : s.modalHeader_title_light
               }`}
             >
               {title || ''}

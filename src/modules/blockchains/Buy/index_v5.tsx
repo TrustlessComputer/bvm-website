@@ -1,356 +1,139 @@
 import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { useSearchParams } from 'next/navigation';
+import toast from 'react-hot-toast';
 
-import Tier from '@/modules/blockchains/Buy/components3/Tier';
-import {
-  ORDER_FIELD,
-  useFormOrderStore,
-} from '@/modules/blockchains/Buy/stores';
-
-import { OrderFormOption, OrderFormOptions } from './Buy.data';
-import ComputerNameInput from './components3/ComputerNameInput';
-import Draggable from './components3/Draggable';
-import DroppableV2 from './components3/DroppableV2';
-import LaunchButton from './components3/LaunchButton';
-import { getChildId, getParentId, MouseSensor } from './utils';
+import { getModelCategories, getTemplates } from '@/services/customize-model';
 
 import BoxOptionV3 from './components3/BoxOptionV3';
+import ComputerNameInput from './components3/ComputerNameInput';
+import Draggable from './components3/Draggable';
+import DropdownV2 from './components3/DropdownV2';
+import DroppableV2 from './components3/DroppableV2';
+import LaunchButton from './components3/LaunchButton';
 import LegoParent from './components3/LegoParent';
-import s from './styles_v5.module.scss';
-import SideBar from './components3/SideBar';
 import LegoV3 from './components3/LegoV3';
-import Lego from './components3/Lego';
-import Dropdown from './components3/Dropdown';
-import { DATA_PRICING } from '../data_pricing';
-import BlockGasLimitLego from './components3/Legos/BlockGasLimitLego';
-import WithdrawalTimeLego from './components3/Legos/WithdrawalTimeLego';
-import RightNetworkLego from './components3/Legos/RightNetworkLego';
-import ScrollMore from '../../../components/ScrollMore/index';
-
-type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
+import SidebarV2 from './components3/SideBarV2';
+import TierV2 from './components3/TierV2';
+import useOrderFormStoreV3 from './stores/index_v3';
+import useDragMask from './stores/useDragMask';
+import s from './styles_v5.module.scss';
+import { MouseSensor } from './utils';
+import { formatCurrencyV2 } from '@/utils/format';
 
 const BuyPage = () => {
-  const { field, setFormField } = useFormOrderStore((state) => state);
+  const [data, setData] = React.useState<
+    | (IModelCategory & {
+        options: IModelCategory['options'] &
+          {
+            value: any;
+            label: string;
+            disabled: boolean;
+          }[];
+      })[]
+    | null
+  >(null);
+  const [originalData, setOriginalData] = React.useState<
+    IModelCategory[] | null
+  >(null);
+  const [templates, setTemplates] = React.useState<Array<
+    IModelCategory[]
+  > | null>(null);
+  const { field, setField, priceBVM, priceUSD, setPriceBVM, setPriceUSD } =
+    useOrderFormStoreV3();
+  const { idDragging, setIdDragging } = useDragMask();
+  const searchParams = useSearchParams();
+  const refTime = useRef<NodeJS.Timeout>();
+  const [showShadow, setShowShadow] = useState<string>('');
 
-  const boxOptionMapping: Record<
-    Override,
-    OrderFormOption[Override] & {
-      id: Override;
-      label: string;
-      RightContent?: () => JSX.Element;
-      content?: (isLeft?: boolean, children?: React.ReactNode) => JSX.Element;
-    }
-  > = {
-    [ORDER_FIELD.CHAIN_NAME]: {
-      ...OrderFormOptions[ORDER_FIELD.CHAIN_NAME],
-      id: ORDER_FIELD.CHAIN_NAME,
-      label: '1. Name',
-      content: (isLeft = false) => (
-        <LegoV3
-          background={'red'}
-          title="1. Name"
-          label="Name"
-          zIndex={23}
-          first={true}
-        >
-          <ComputerNameInput />
-        </LegoV3>
-      ),
-    },
-    [ORDER_FIELD.NETWORK]: {
-      ...OrderFormOptions[ORDER_FIELD.NETWORK],
-      id: ORDER_FIELD.NETWORK,
-      label: OrderFormOptions[ORDER_FIELD.NETWORK].subTitle,
-      RightContent: () => <RightNetworkLego />,
-    },
-    // [ORDER_FIELD.COMPUTED]: {
-    //   ...OrderFormOptions[ORDER_FIELD.COMPUTED],
-    //   id: ORDER_FIELD.COMPUTED,
-    //   label: OrderFormOptions[ORDER_FIELD.COMPUTED].subTitle,
-    //   RightContent: () => (
-    //     <LegoV3
-    //       background={OrderFormOptions[ORDER_FIELD.COMPUTED].background}
-    //       label={OrderFormOptions[ORDER_FIELD.COMPUTED].subTitle}
-    //       zIndex={7}
-    //       active={field[ORDER_FIELD.COMPUTED].dragged}
-    //     >
-    //       <Dropdown
-    //         cb={setFormField}
-    //         defaultValue={field[ORDER_FIELD.COMPUTED].value}
-    //         field={ORDER_FIELD.COMPUTED}
-    //         networkSelected={field[ORDER_FIELD.NETWORK].value}
-    //         options={OrderFormOptions[ORDER_FIELD.COMPUTED].options}
-    //         checkDisable={true}
-    //       />
-    //     </LegoV3>
-    //   ),
-    // },
-    // [ORDER_FIELD.STORAGE]: {
-    //   ...OrderFormOptions[ORDER_FIELD.STORAGE],
-    //   id: ORDER_FIELD.STORAGE,
-    //   label: OrderFormOptions[ORDER_FIELD.STORAGE].subTitle,
-    //   RightContent: () => (
-    //     <LegoV3
-    //       background={OrderFormOptions[ORDER_FIELD.STORAGE].background}
-    //       label={OrderFormOptions[ORDER_FIELD.STORAGE].subTitle}
-    //       zIndex={23}
-    //       active={field[ORDER_FIELD.STORAGE].dragged}
-    //     >
-    //       <Dropdown
-    //         cb={setFormField}
-    //         defaultValue={field[ORDER_FIELD.STORAGE].value}
-    //         field={ORDER_FIELD.STORAGE}
-    //         networkSelected={field[ORDER_FIELD.STORAGE].value}
-    //         options={OrderFormOptions[ORDER_FIELD.STORAGE].options}
-    //         checkDisable={true}
-    //       />
-    //     </LegoV3>
-    //   ),
-    // },
-    // [ORDER_FIELD.SETTLEMENT]: {
-    //   ...OrderFormOptions[ORDER_FIELD.SETTLEMENT],
-    //   id: ORDER_FIELD.SETTLEMENT,
-    //   label: OrderFormOptions[ORDER_FIELD.SETTLEMENT].subTitle,
-    //   RightContent: () => (
-    //     <LegoV3
-    //       background={OrderFormOptions[ORDER_FIELD.SETTLEMENT].background}
-    //       label={OrderFormOptions[ORDER_FIELD.SETTLEMENT].subTitle}
-    //       zIndex={23}
-    //       active={field[ORDER_FIELD.SETTLEMENT].dragged}
-    //     >
-    //       <Dropdown
-    //         cb={setFormField}
-    //         defaultValue={field[ORDER_FIELD.SETTLEMENT].value}
-    //         field={ORDER_FIELD.SETTLEMENT}
-    //         networkSelected={field[ORDER_FIELD.SETTLEMENT].value}
-    //         options={OrderFormOptions[ORDER_FIELD.SETTLEMENT].options}
-    //         checkDisable={true}
-    //       />
-    //     </LegoV3>
-    //   ),
-    // },
+  const handleDragStart = (event: any) => {
+    const { active } = event;
 
-    // [ORDER_FIELD.SYSTEMAPPS]: {
-    //   ...OrderFormOptions[ORDER_FIELD.SYSTEMAPPS],
-    //   id: ORDER_FIELD.SYSTEMAPPS,
-    //   label: OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].subTitle,
-    //   content: (isLeft = false) => (
-    //     <LegoV3
-    //       background={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].background}
-    //       label={OrderFormOptions[ORDER_FIELD.SYSTEMAPPS].subTitle}
-    //       zIndex={23}
-    //       active={field[ORDER_FIELD.SYSTEMAPPS].dragged}
-    //     />
-    //   ),
-
-    // },
-    // [ORDER_FIELD.BRIDGEAPPS]: {
-    //   ...OrderFormOptions[ORDER_FIELD.BRIDGEAPPS],
-    //   id: ORDER_FIELD.BRIDGEAPPS,
-    //   label: OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].title,
-    //   content: (isLeft = false, children = null) => (
-    //     <LegoV3
-    //       background={'blue'}
-    //       title={OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].title}
-    //       label={OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].title}
-    //       zIndex={5}
-    //       first={true}
-    //     >
-    //       {children}
-    //     </LegoV3>
-    //   ),
-    //   RightContent: () => (
-    //     <LegoV3
-    //       background={OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].background}
-    //       label={OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].subTitle}
-    //       zIndex={23}
-    //       active={field[ORDER_FIELD.BRIDGEAPPS].dragged}
-    //     >
-    //       <Dropdown
-    //         cb={setFormField}
-    //         defaultValue={field[ORDER_FIELD.BRIDGEAPPS].value}
-    //         field={ORDER_FIELD.BRIDGEAPPS}
-    //         networkSelected={field[ORDER_FIELD.BRIDGEAPPS].value}
-    //         options={OrderFormOptions[ORDER_FIELD.BRIDGEAPPS].options}
-    //         checkDisable={true}
-    //       />
-    //     </LegoV3>
-    //   ),
-    // },
-    // [ORDER_FIELD.WALLET]: {
-    //   ...OrderFormOptions[ORDER_FIELD.WALLET],
-    //   id: ORDER_FIELD.WALLET,
-    //   label: OrderFormOptions[ORDER_FIELD.WALLET].title,
-    //   // content: (isLeft = false, children = null) => (
-    //   //   <LegoV3
-    //   //     background={OrderFormOptions[ORDER_FIELD.WALLET].background}
-    //   //     title={OrderFormOptions[ORDER_FIELD.WALLET].title}
-    //   //     label={OrderFormOptions[ORDER_FIELD.WALLET].subTitle}
-    //   //     zIndex={23}
-    //   //   >
-    //   //     {children}
-    //   //   </LegoV3>
-    //   // ),
-
-    //   RightContent: () => (
-    //     <LegoV3
-    //       background={OrderFormOptions[ORDER_FIELD.WALLET].background}
-    //       label={OrderFormOptions[ORDER_FIELD.WALLET].subTitle}
-    //       zIndex={23}
-    //       active={field[ORDER_FIELD.WALLET].dragged}
-    //     >
-    //       <Dropdown
-    //         cb={setFormField}
-    //         defaultValue={field[ORDER_FIELD.WALLET].value}
-    //         field={ORDER_FIELD.WALLET}
-    //         networkSelected={field[ORDER_FIELD.NETWORK].value}
-    //         options={OrderFormOptions[ORDER_FIELD.WALLET].options}
-    //         checkDisable={true}
-    //       />
-    //     </LegoV3>
-    //   ),
-    // },
-    // [ORDER_FIELD.DEGENAPPS]: {
-    //   ...OrderFormOptions[ORDER_FIELD.DEGENAPPS],
-    //   id: ORDER_FIELD.DEGENAPPS,
-    //   label: OrderFormOptions[ORDER_FIELD.DEGENAPPS].title,
-    //   content: (isLeft = false, children = null) => (
-    //     <LegoV3
-    //       background={'blue'}
-    //       title={OrderFormOptions[ORDER_FIELD.DEGENAPPS].title}
-    //       label={OrderFormOptions[ORDER_FIELD.DEGENAPPS].title}
-    //       zIndex={5}
-    //       first={true}
-    //     >
-    //       {children}
-    //     </LegoV3>
-    //   ),
-    //   RightContent: () => (
-    //     <LegoV3
-    //       background={OrderFormOptions[ORDER_FIELD.DEGENAPPS].background}
-    //       label={OrderFormOptions[ORDER_FIELD.DEGENAPPS].subTitle}
-    //       zIndex={23}
-    //       active={field[ORDER_FIELD.DEGENAPPS].dragged}
-    //     >
-    //       <Dropdown
-    //         cb={setFormField}
-    //         defaultValue={field[ORDER_FIELD.DEGENAPPS].value}
-    //         field={ORDER_FIELD.DEGENAPPS}
-    //         networkSelected={field[ORDER_FIELD.NETWORK].value}
-    //         options={OrderFormOptions[ORDER_FIELD.DEGENAPPS].options}
-    //         checkDisable={true}
-    //       />
-    //     </LegoV3>
-    //   ),
-    // },
-    [ORDER_FIELD.DATA_AVAILABILITY_CHAIN]: {
-      ...OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN],
-      id: ORDER_FIELD.DATA_AVAILABILITY_CHAIN,
-      label: OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].title,
-      RightContent: () => (
-        <LegoV3
-          background={'violet'}
-          label={DATA_PRICING.availability.sub_title}
-          zIndex={8}
-          active={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].dragged}
-        >
-          <Dropdown
-            cb={setFormField}
-            defaultValue={field[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].value}
-            field={ORDER_FIELD.DATA_AVAILABILITY_CHAIN}
-            networkSelected={field[ORDER_FIELD.NETWORK].value}
-            options={DATA_PRICING.availability.options}
-            checkDisable={true}
-          />
-        </LegoV3>
-      ),
-    },
-
-    [ORDER_FIELD.GAS_LIMIT]: {
-      ...OrderFormOptions[ORDER_FIELD.GAS_LIMIT],
-      id: ORDER_FIELD.GAS_LIMIT,
-      label: OrderFormOptions[ORDER_FIELD.GAS_LIMIT].title,
-      content: (isLeft = false) => <BlockGasLimitLego isLeft={isLeft} />,
-    },
-    [ORDER_FIELD.WITHDRAW_PERIOD]: {
-      ...OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD],
-      id: ORDER_FIELD.WITHDRAW_PERIOD,
-      label: OrderFormOptions[ORDER_FIELD.WITHDRAW_PERIOD].title,
-      content: (isLeft = false) => <WithdrawalTimeLego isLeft={isLeft} />,
-    },
-
-    // [ORDER_FIELD.DEFI]: {
-    //   ...OrderFormOptions[ORDER_FIELD.DEFI],
-    //   id: 'defi',
-    //   label: OrderFormOptions[ORDER_FIELD.DEFI].subTitle,
-    //   backgroundParent: OrderFormOptions[ORDER_FIELD.DEFI].backgroundParent,
-
-    //   content: (isLeft = false, children = null) => (
-    //     <LegoV3
-    //       background={'brown'}
-    //       title="1. Name"
-    //       label="Nested Data"
-    //       zIndex={5}
-    //       first={true}
-    //       parentOfNested
-    //     >
-    //       {children}
-    //     </LegoV3>
-    //   ),
-    // },
+    setIdDragging(active.id);
   };
 
   function handleDragEnd(event: any) {
+    setIdDragging('');
+
     const { over, active } = event;
 
-    const [activeKey = '', activeNestedKey = '', activeKeyInNestedKey = ''] =
-      active.id.split('-');
-    const [overKey = '', overNestedKey = ''] = over?.id.split('-');
+    // Format ID of single field = <key>-<value>
+    const [activeKey = '', activeSuffix = ''] = active.id.split('-');
+    const [overKey = '', overSuffix = ''] = (over?.id || '').split('-');
+    const overIsParentOfActiveDroppable =
+      overKey === activeKey && overSuffix === 'droppable';
     const overIsFinalDroppable = overKey === 'final';
-    const overIsParentOfNestedLego = overKey === 'parent';
-    const activeIsParentOfNestedLego = activeKey === 'parent';
+    const overIsParentDroppable =
+      !overIsFinalDroppable &&
+      overSuffix === 'droppable' &&
+      data?.find((item) => item.key === overKey)?.multiChoice;
+    const activeIsParent =
+      data?.find((item) => item.key === activeKey)?.multiChoice &&
+      !activeSuffix;
+    const isMultiChoice = data?.find(
+      (item) => item.key === activeKey,
+    )?.multiChoice;
 
-    // Normal case
-    if (typeof field[activeNestedKey as Override]?.value !== 'object') {
+    if (!isMultiChoice) {
+      if (
+        active.data.current.value !== field[activeKey].value &&
+        (!over || (over && !overIsFinalDroppable))
+      ) {
+        return;
+      }
+
+      if (
+        active.data.current.value !== field[activeKey].value &&
+        field[activeKey].dragged
+      ) {
+        setShowShadow(field[activeKey].value as string);
+        toast.error('Remove existing module first.', {
+          icon: null,
+          style: {
+            borderColor: 'blue',
+            color: 'blue',
+          },
+          duration: 3000,
+        });
+        setTimeout(() => {
+          setShowShadow('');
+        }, 5000);
+        return;
+      }
+
+      // Normal case
       if (over && overIsFinalDroppable) {
-        setFormField(activeKey, active.data.current.value, true);
+        setField(activeKey, active.data.current.value, true);
       } else {
-        setFormField(activeKey, active.data.current.value, false);
+        if (over && overIsParentDroppable) return;
+        setField(activeKey, active.data.current.value, false);
       }
 
       return;
     }
 
-    if (activeIsParentOfNestedLego && overIsParentOfNestedLego) return;
-
-    if (activeIsParentOfNestedLego) {
-      const newData: Record<string, any> = {};
-
-      for (const key in field[activeNestedKey as Override].value as any) {
-        newData[key] = null;
-      }
-
-      if (over && !overIsFinalDroppable) {
-        setFormField(activeNestedKey, newData as any, false);
-      }
-
+    // Active is parent and drag to the left side
+    if (activeIsParent && (!over || (over && !overIsFinalDroppable))) {
+      setField(activeKey, [], false);
       return;
     }
 
-    const draggedToEmpty = !(
-      over &&
-      (overIsFinalDroppable || overIsParentOfNestedLego)
-    );
-    const newData = {
-      ...(field[activeNestedKey as Override].value as any),
-      [activeKeyInNestedKey]: draggedToEmpty ? null : active.data.current.value,
-    };
-    const someFieldsFilled = Object.values(newData).some(
-      (field) => field !== null,
-    );
+    // Multi choice case
+    if (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) {
+      const currentValues = (field[activeKey].value || []) as string[];
+      const newValue = [...currentValues, active.data.current.value];
 
-    if (!activeIsParentOfNestedLego) {
-      setFormField(activeNestedKey, newData, someFieldsFilled);
+      if (currentValues.includes(active.data.current.value)) return;
+
+      setField(activeKey, newValue, true);
+    } else {
+      const currentValues = field[activeKey].value as string[];
+      const newValue = currentValues.filter(
+        (value) => value !== active.data.current.value,
+      );
+
+      setField(activeKey, newValue, newValue.length > 0);
     }
   }
 
@@ -358,111 +141,472 @@ const BuyPage = () => {
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
 
+  const convertData = (data: IModelCategory[]) => {
+    const newData = data?.map((item) => {
+      return {
+        ...item,
+        options: item.options?.map((option) => {
+          return {
+            ...option,
+            value: option.key,
+            label: option.title,
+            disabled: !option.selectable || item.disable,
+          };
+        }),
+      };
+    });
+
+    return newData || [];
+  };
+
+  const setValueOfPackage = (packageId: number | string | null) => {
+    if (!packageId?.toString()) return;
+
+    // set default value for package
+    const templateData = (templates?.[Number(packageId)] ||
+      []) as IModelCategory[];
+    const fieldsNotInTemplate = data?.filter(
+      (item) => !templateData.find((temp) => temp.key === item.key),
+    );
+
+    templateData.forEach((field) => {
+      if (field.multiChoice) {
+        setField(
+          field.key,
+          field.options.map((option) => option.key),
+          field.options[0] ? true : false,
+        );
+      } else {
+        setField(
+          field.key,
+          field.options[0].key || null,
+          field.options[0] ? true : false,
+        );
+      }
+    });
+    fieldsNotInTemplate?.forEach((field) => {
+      setField(field.key, null, false);
+    });
+  };
+
+  const fetchData = async () => {
+    const modelCategories = (await getModelCategories()) || [];
+    const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
+    _modelCategories.forEach((item) => {
+      setField(item.key, null);
+    });
+    setData(convertData(_modelCategories));
+    setOriginalData(_modelCategories);
+
+    const templates = (await getTemplates()) || [];
+    setTemplates(templates);
+  };
+
+  React.useEffect(() => {
+    data?.forEach((item) => {
+      if (item.multiChoice) {
+        const currentValues = (field[item.key].value || []) as string[];
+        const newValues = currentValues.filter((value) => {
+          const option = item.options.find((opt) => opt.key === value);
+
+          if (!option) return false;
+
+          const isDisabled =
+            !!(
+              option.supportNetwork &&
+              option.supportNetwork !== 'both' &&
+              option.supportNetwork !== field['network']?.value
+            ) || !option.selectable;
+
+          return !isDisabled;
+        });
+
+        if (newValues.length === 0) {
+          setField(item.key, null, false);
+          return;
+        }
+
+        setField(item.key, newValues, field[item.key].dragged);
+        return;
+      }
+
+      const newDefaultValue = item.options.find(
+        (option) =>
+          (option.supportNetwork === field['network']?.value ||
+            option.supportNetwork === 'both' ||
+            !option.supportNetwork) &&
+          option.selectable &&
+          !item.disable,
+      );
+      const currentOption = item.options.find(
+        (option) => option.key === field[item.key].value,
+      );
+      if (!newDefaultValue) {
+        setField(item.key, null, false);
+        return;
+      }
+      if (!currentOption || !newDefaultValue) return;
+      if (
+        (currentOption.supportNetwork === field['network']?.value ||
+          currentOption.supportNetwork === 'both' ||
+          !currentOption.supportNetwork) &&
+        currentOption.selectable &&
+        !item.disable
+      )
+        return;
+      setField(item.key, newDefaultValue.key, field[item.key].dragged);
+    });
+  }, [field['network']?.value]);
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
+  React.useEffect(() => {
+    const _package = searchParams.get('package') || '-1';
+
+    setValueOfPackage(Number(_package));
+  }, [templates]);
+
+  React.useEffect(() => {
+    const priceUSD = Object.keys(field).reduce((acc, key) => {
+      if (Array.isArray(field[key].value)) {
+        const currentOptions = (field[key].value as string[])!.map((value) => {
+          const item = data?.find((i) => i.key === key);
+
+          if (!item) return 0;
+
+          const currentOption = item.options.find(
+            (option) => option.key === value,
+          );
+
+          if (!currentOption) return 0;
+
+          const isDisabled =
+            // prettier-ignore
+            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+            // prettier-ignore
+            (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+            (item.required && !field[item.key].dragged) ||
+            item.disable ||
+            !currentOption.selectable;
+
+          if (isDisabled) return 0;
+
+          return currentOption.priceUSD || 0;
+        });
+
+        return acc + currentOptions.reduce((a, b) => a + b, 0);
+      }
+
+      const item = data?.find((i) => i.key === key);
+
+      if (!item) return acc;
+
+      const currentOption = item.options.find(
+        (option) => option.key === field[item.key].value,
+      );
+
+      if (!currentOption) return acc;
+
+      const isDisabled =
+        // prettier-ignore
+        !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+        // prettier-ignore
+        (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+        (item.required && !field[item.key].dragged) ||
+        item.disable ||
+        !currentOption.selectable;
+
+      if (isDisabled) return acc;
+
+      return acc + (currentOption?.priceUSD || 0);
+    }, 0);
+
+    const priceBVM = Object.keys(field).reduce((acc, key) => {
+      if (Array.isArray(field[key].value)) {
+        const currentOptions = (field[key].value as string[])!.map((value) => {
+          const item = data?.find((i) => i.key === key);
+
+          if (!item) return 0;
+
+          const currentOption = item.options.find(
+            (option) => option.key === value,
+          );
+
+          if (!currentOption) return 0;
+
+          const isDisabled =
+            // prettier-ignore
+            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+            // prettier-ignore
+            (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+            (item.required && !field[item.key].dragged) ||
+            item.disable ||
+            !currentOption.selectable;
+
+          if (isDisabled) return 0;
+
+          return currentOption.priceBVM || 0;
+        });
+
+        return acc + currentOptions.reduce((a, b) => a + b, 0);
+      }
+
+      const item = data?.find((i) => i.key === key);
+
+      if (!item) return acc;
+
+      const currentOption = item.options.find(
+        (option) => option.key === field[item.key].value,
+      );
+
+      if (!currentOption) return acc;
+
+      const isDisabled =
+        // prettier-ignore
+        !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
+        // prettier-ignore
+        (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
+        (item.required && !field[item.key].dragged) ||
+        item.disable ||
+        !currentOption.selectable;
+
+      if (isDisabled) return acc;
+
+      return acc + (currentOption?.priceBVM || 0);
+    }, 0);
+
+    setPriceBVM(priceBVM);
+    setPriceUSD(priceUSD);
+  }, [field]);
+
+  useEffect(() => {
+    const wrapper = document.getElementById('wrapper-data');
+    const loop = () => {
+      if (wrapper) wrapper.scrollLeft = 0;
+    };
+
+    if (idDragging) {
+      gsap.ticker.add(loop);
+    } else if (refTime.current) {
+      if (wrapper) wrapper.scrollLeft = 0;
+      gsap.ticker.remove(loop);
+    }
+
+    wrapper?.addEventListener('mouseenter', loop);
+    return () => {
+      if (wrapper) wrapper.scrollLeft = 0;
+      gsap.ticker.remove(loop);
+      wrapper?.removeEventListener('mouseenter', loop);
+    };
+  }, [idDragging]);
+
   return (
     <div className={s.container}>
-      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+      <DndContext
+        sensors={sensors}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
         <div className={s.wrapper}>
           <div className={s.inner}>
             <div className={s.left}>
               <p className={s.heading}>Customize your Blockchain</p>
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
-                  <SideBar />
-                  <div className={s.left_box_inner_content}>
-                    {Object.keys(boxOptionMapping).map((key, indexWrap) => {
-                      if (key === ORDER_FIELD.CHAIN_NAME) return null;
+                  <div className={s.left_box_inner_sidebar}>
+                    <SidebarV2 items={data} />
+                  </div>
 
-                      let _content = null;
-                      const parentKey = getParentId(key);
-                      const fieldValue = field[key as Override].value;
-                      const isDragged = field[key as Override].dragged;
-                      const isNestedLego = typeof fieldValue === 'object';
+                  <div id={'wrapper-data'} className={s.left_box_inner_content}>
+                    {data?.map((item, index) => {
+                      const currentPrice =
+                        item.options.find(
+                          (option) => option.key === field[item.key].value,
+                        )?.priceUSD || 0;
 
-                      const {
-                        label,
-                        content,
-                        description,
-                        options,
-                        background,
-                      } = boxOptionMapping[key as Override];
-
-                      if (isNestedLego) {
-                        //
-                      } else if (content) {
-                        _content = (
-                          <Draggable
-                            value={fieldValue}
-                            id={key}
-                            key={key}
-                            index={indexWrap}
-                          >
-                            {content(true)}
-                          </Draggable>
-                        );
-                      }
                       return (
                         <BoxOptionV3
-                          key={key}
-                          label={label}
-                          id={key}
-                          active={isDragged}
-                          description={description}
-                          first={indexWrap === 1}
+                          key={item.key}
+                          disable={item.disable}
+                          label={item.title}
+                          id={item.key}
+                          isRequired={item.required}
+                          active={field[item.key].dragged}
+                          description={{
+                            title: item.title,
+                            content: item.tooltip,
+                          }}
                         >
-                          {_content}
+                          {!field[item.key].dragged &&
+                          item.type === 'dropdown' ? (
+                            <Draggable
+                              useMask
+                              id={item.key}
+                              key={
+                                item.key + field[item.key].dragged.toString()
+                              }
+                              disabled={field[item.key].dragged}
+                              value={field[item.key].value as any}
+                              tooltip={item.tooltip}
+                              isLabel={true}
+                            >
+                              <LegoV3
+                                background={item.color}
+                                title={item.title}
+                                zIndex={data.length - index}
+                              >
+                                <DropdownV2
+                                  cb={(value) => {
+                                    setField(
+                                      item.key,
+                                      value,
+                                      field[item.key].dragged,
+                                    );
+                                  }}
+                                  defaultValue={
+                                    (field[item.key].value as any) || ''
+                                  }
+                                  // @ts-ignore
+                                  options={item.options}
+                                  title={item.title}
+                                  value={field[item.key].value as any}
+                                />
+                              </LegoV3>
+                            </Draggable>
+                          ) : (
+                            item.options.map((option, optIdx) => {
+                              let _price = option.priceUSD;
+                              let operator = '+';
+                              let suffix =
+                                _price > 0 ? `(+${_price.toString()}$)` : '';
 
-                          {options &&
-                            options.map((option) => {
-                              // if (!option.keyInField) return null;
-                              // if (
-                              //   isDragged &&
-                              //   field[key as Override].value.toString() ===
-                              //     option.value.toString()
-                              // )
-                              //   return null;
+                              if (field[item.key].dragged) {
+                                _price = option.priceUSD - currentPrice;
+                                operator = _price > 0 ? '+' : '-';
+                                suffix = _price
+                                  ? `(${operator}${Math.abs(
+                                      _price,
+                                    ).toString()}$)`
+                                  : '';
+                              }
 
-                              let id = key + '-' + option.value.toString();
-                              // @ts-ignore
-                              // prettier-ignore
-                              if (isNestedLego && field[key as Override].value[option.keyInField]?.toString() === option.value.toString()) return null;
-                              // prettier-ignore
-                              if (!isNestedLego && isDragged && field[key as Override].value.toString() === option.value.toString()) return null;
+                              if (
+                                (option.key === field[item.key].value &&
+                                  field[item.key].dragged) ||
+                                item.type === 'dropdown'
+                              )
+                                return null;
 
-                              if (isNestedLego) {
-                                id = getChildId(
-                                  key,
-                                  option.keyInField || '',
-                                  option.value,
-                                );
+                              const isDisabled =
+                                !!(
+                                  option.supportNetwork &&
+                                  option.supportNetwork !== 'both' &&
+                                  option.supportNetwork !==
+                                    field['network']?.value
+                                ) || !option.selectable;
+
+                              if (item.multiChoice && field[item.key].dragged) {
+                                const currentValues = field[item.key]
+                                  .value as any[];
+
+                                if (currentValues.includes(option.key)) {
+                                  return null;
+                                }
                               }
 
                               return (
                                 <Draggable
-                                  id={id}
-                                  key={id}
-                                  value={option.value}
-                                  disabled={option.isDisabled}
+                                  key={item.key + '-' + option.key}
+                                  id={item.key + '-' + option.key}
+                                  useMask
+                                  disabled={isDisabled}
+                                  isLabel={true}
+                                  value={option.key}
+                                  tooltip={option.tooltip}
                                 >
                                   <LegoV3
-                                    key={option.id}
-                                    background={background}
-                                    label={option.label}
-                                    icon={option.icon}
-                                    zIndex={
-                                      (Object.keys(boxOptionMapping).length -
-                                        1) *
-                                      2
-                                    }
-                                    className={
-                                      option.isDisabled ? s.disabled : ''
-                                    }
+                                    labelInLeft
+                                    background={item.color}
+                                    label={option.title}
+                                    icon={option?.icon}
+                                    zIndex={item.options.length - optIdx}
+                                    disabled={isDisabled}
+                                    suffix={suffix}
                                   />
                                 </Draggable>
                               );
-                            })}
+                            })
+                          )}
                         </BoxOptionV3>
                       );
                     })}
+
+                    <DragOverlay>
+                      {idDragging &&
+                        data?.map((item, index) => {
+                          if (!idDragging.startsWith(item.key)) return null;
+
+                          if (item.type === 'dropdown') {
+                            return (
+                              <Draggable
+                                useMask
+                                id={item.key}
+                                value={field[item.key].value as any}
+                                key={item.key}
+                              >
+                                <LegoV3
+                                  label={item.title}
+                                  background={item.color}
+                                  zIndex={data.length - index}
+                                >
+                                  <DropdownV2
+                                    cb={(value) => {
+                                      setField(
+                                        item.key,
+                                        value,
+                                        field[item.key].dragged,
+                                      );
+                                    }}
+                                    defaultValue={
+                                      (field[item.key].value as any) || ''
+                                    }
+                                    // @ts-ignore
+                                    options={item.options}
+                                    title={item.title}
+                                    value={field[item.key].value as any}
+                                  />
+                                </LegoV3>{' '}
+                              </Draggable>
+                            );
+                          }
+
+                          return item.options.map((option, opIdx) => {
+                            if (idDragging !== item.key + '-' + option.key)
+                              return null;
+
+                            return (
+                              <Draggable
+                                key={item.key + '-' + option.key}
+                                id={item.key + '-' + option.key}
+                                useMask
+                                value={option.key}
+                              >
+                                <LegoV3
+                                  icon={option.icon}
+                                  background={item.color}
+                                  label={option.title}
+                                  labelInLeft
+                                  zIndex={item.options.length - opIdx}
+                                />
+                              </Draggable>
+                            );
+                          });
+                        })}
+                    </DragOverlay>
+
+                    <div className={s.hTrigger}></div>
                   </div>
                 </div>
               </div>
@@ -470,123 +614,215 @@ const BuyPage = () => {
 
             {/* ------------- RIGHT ------------- */}
             <div className={s.right}>
-              <Tier />
+              <TierV2
+                originalData={originalData}
+                templates={templates}
+                setValueOfPackage={setValueOfPackage}
+              />
 
               <div className={s.right_box}>
-                <DroppableV2 id="final" className={s.finalResult}>
+                <DroppableV2
+                  id="final"
+                  className={s.finalResult}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    paddingLeft: '10%',
+                  }}
+                >
                   <LegoV3
-                    background={'red'}
-                    title="1. Name"
+                    background={'#FF3A3A'}
                     label="Name"
+                    labelInLeft
                     zIndex={45}
                   >
                     <ComputerNameInput />
                   </LegoV3>
 
-                  {Object.keys(boxOptionMapping).map((key, indexWrap) => {
-                    if (key === ORDER_FIELD.CHAIN_NAME) return null;
+                  {data?.map((item, index) => {
+                    if (!field[item.key].dragged) return null;
 
-                    let _content = null;
-                    const parentKey = getParentId(key, 'dropped');
-                    const {
-                      content,
-                      options,
-                      RightContent,
-                      background,
-                      backgroundParent,
-                      label,
-                    } = boxOptionMapping[key as Override];
-                    const isDragged = field[key as Override].dragged;
-                    const fieldValue = field[key as Override].value;
-                    const isNestedLego = typeof fieldValue === 'object';
+                    if (item.multiChoice && field[item.key].value) {
+                      if (!Array.isArray(field[item.key].value)) return;
 
-                    if (!isDragged) return null;
+                      const childrenOptions = (field[item.key].value as
+                        | string[]
+                        | number[])!.map(
+                        (key: string | number, opIdx: number) => {
+                          const option = item.options.find(
+                            (opt) => opt.key === key,
+                          );
 
-                    if (isNestedLego) {
-                      const _children = options?.map((option, index) => {
-                        if (!option.keyInField) return null;
+                          if (!option) return null;
 
-                        if (
-                          // @ts-ignore
-                          field[key as Override].value[
-                            option.keyInField
-                          ]?.toString() !== option.value.toString()
-                        )
-                          return null;
-
-                        const id = getChildId(
-                          key,
-                          option.keyInField,
-                          option.value,
-                          'dropped',
-                        );
-
-                        return (
-                          <Draggable id={id} key={id} value={option.value}>
-                            <LegoV3
-                              background={background}
-                              label={option.label}
-                              icon={option.icon}
-                              zIndex={-index + 10}
-                            />
-                          </Draggable>
-                        );
-                      });
-
-                      _content = (
-                        <Draggable id={parentKey} key={parentKey}>
-                          <DroppableV2 id={parentKey}>
-                            <LegoParent
-                              background={backgroundParent || 'orange'} // TODO
-                              label={label}
-                              zIndex={
-                                1
-                                // -indexWrap +
-                                // (options?.length as number) +
-                                // 2 * 10
-                              }
+                          return (
+                            <Draggable
+                              right
+                              key={item.key + '-' + option.key}
+                              id={item.key + '-' + option.key}
+                              useMask
+                              tooltip={item.tooltip}
+                              value={option.key}
                             >
-                              {_children}
+                              <LegoV3
+                                background={item.color}
+                                label={item.confuseTitle}
+                                labelInRight={!!item.confuseTitle}
+                                zIndex={item.options.length - opIdx}
+                              >
+                                <DropdownV2
+                                  disabled
+                                  cb={(value) => {
+                                    setField(
+                                      item.key,
+                                      value,
+                                      field[item.key].dragged,
+                                    );
+                                  }}
+                                  defaultValue={option.value || ''}
+                                  options={[
+                                    // @ts-ignore
+                                    option,
+                                  ]}
+                                  // @ts-ignore
+                                  value={option.value}
+                                />
+                              </LegoV3>
+                            </Draggable>
+                          );
+                        },
+                      );
+
+                      return (
+                        <Draggable key={item.key} id={item.key}>
+                          <DroppableV2 id={item.key}>
+                            <LegoParent
+                              parentOfNested
+                              background={item.color}
+                              label={item.title}
+                              zIndex={data.length - index}
+                            >
+                              {childrenOptions}
                             </LegoParent>
                           </DroppableV2>
                         </Draggable>
                       );
-                    } else if (content) {
-                      _content = (
+                    }
+
+                    if (item.type === 'dropdown') {
+                      return (
                         <Draggable
-                          value={fieldValue}
-                          id={key + '-dropped'}
-                          key={key + '-dropped'}
+                          right
+                          useMask
+                          key={item.key}
+                          id={item.key}
+                          tooltip={item.tooltip}
+                          value={field[item.key].value as any}
                         >
-                          {content()}
+                          <LegoV3
+                            background={item.color}
+                            zIndex={data.length - index}
+                            label={item.confuseTitle}
+                            labelInRight={!!item.confuseTitle}
+                            className={
+                              showShadow === field[item.key].value
+                                ? s.activeBlur
+                                : ''
+                            }
+                          >
+                            <DropdownV2
+                              cb={(value) => {
+                                setField(
+                                  item.key,
+                                  value,
+                                  field[item.key].dragged,
+                                );
+                              }}
+                              defaultValue={
+                                (field[item.key].value as any) || ''
+                              }
+                              // @ts-ignore
+                              options={item.options}
+                              title={item.title}
+                              value={field[item.key].value as any}
+                            />
+                          </LegoV3>
                         </Draggable>
                       );
                     }
 
-                    if (options && !isNestedLego) {
-                      return options.map((option) => {
-                        if (
-                          field[key as Override].value.toString() !==
-                            option.value.toString() ||
-                          !RightContent
-                        )
-                          return null;
+                    return item.options.map((option, opIdx) => {
+                      if (option.key !== field[item.key].value) return null;
 
-                        const id =
-                          key + '-' + option.value.toString() + '-dropped';
-
-                        return (
-                          <Draggable id={id} key={id} value={option.value}>
-                            <RightContent />
-                          </Draggable>
-                        );
-                      });
-                    }
-
-                    return _content;
+                      return (
+                        <Draggable
+                          right
+                          key={item.key + '-' + option.key}
+                          id={item.key + '-' + option.key}
+                          useMask
+                          tooltip={item.tooltip}
+                          value={option.key}
+                        >
+                          <LegoV3
+                            background={item.color}
+                            label={item.confuseTitle}
+                            labelInRight={!!item.confuseTitle}
+                            zIndex={item.options.length - opIdx}
+                            className={
+                              showShadow === field[item.key].value
+                                ? s.activeBlur
+                                : ''
+                            }
+                          >
+                            <DropdownV2
+                              disabled
+                              cb={(value) => {
+                                setField(
+                                  item.key,
+                                  value,
+                                  field[item.key].dragged,
+                                );
+                              }}
+                              defaultValue={
+                                (field[item.key].value as any) || ''
+                              }
+                              options={[
+                                // @ts-ignore
+                                option,
+                              ]}
+                              // @ts-ignore
+                              value={field[item.key].value as any}
+                            />
+                          </LegoV3>
+                        </Draggable>
+                      );
+                    });
                   })}
                 </DroppableV2>
-                <LaunchButton />
+
+                <div className={s.right_box_footer}>
+                  <div className={s.right_box_footer_left}>
+                    <h6 className={s.right_box_footer_left_title}>
+                      Total price
+                    </h6>
+                    <h4 className={s.right_box_footer_left_content}>
+                      $
+                      {formatCurrencyV2({
+                        amount: priceUSD,
+                        decimals: 2,
+                      })}
+                      {'/'}Month {'(~'}
+                      {formatCurrencyV2({
+                        amount: priceBVM,
+                        decimals: 2,
+                      })}{' '}
+                      BVM
+                      {')'}
+                    </h4>
+                  </div>
+
+                  <LaunchButton data={data} originalData={originalData} />
+                </div>
               </div>
             </div>
           </div>

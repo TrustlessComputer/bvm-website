@@ -1,6 +1,5 @@
 'use client';
 
-import { HeaderProps } from '@/layouts/Header';
 import useAnimationStore from '@/stores/useAnimationStore';
 import Footer from '@layouts/Footer';
 import { usePathname } from 'next/navigation';
@@ -14,6 +13,8 @@ type IMainProps = {
   children?: React.ReactNode;
   isHeaderCustom?: boolean;
   headerProps?: HeaderV3Props;
+  bodyColor?: string;
+  footerClassName?: string;
 };
 
 const MainLayout = ({
@@ -22,6 +23,8 @@ const MainLayout = ({
   headerProps,
   children,
   isHeaderCustom,
+  bodyColor,
+  footerClassName,
 }: IMainProps) => {
   const pathName = usePathname();
   const { resetPlay } = useAnimationStore();
@@ -30,13 +33,12 @@ const MainLayout = ({
   }, [pathName]);
 
   return (
-    <>
-      {/* {<Header {...headerProps} />} */}
+    <div style={{ backgroundColor: bodyColor }}>
       {isHeaderCustom && <HeaderCustom />}
       {!hideHeader && !isHeaderCustom && <HeaderV3 {...headerProps} />}
       {children}
-      {!hideFooter && <Footer />}
-    </>
+      {!hideFooter && <Footer className={footerClassName} />}
+    </div>
   );
 };
 

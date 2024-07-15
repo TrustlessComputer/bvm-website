@@ -3,7 +3,8 @@
 import { Flex } from '@chakra-ui/react';
 import { BuyProvider } from '../providers/Buy.context';
 import BuyPage from '../Buy/index_v5';
-import s from './styles.module.scss';
+import s from './styles_v2.module.scss';
+
 
 export default () => {
   return (

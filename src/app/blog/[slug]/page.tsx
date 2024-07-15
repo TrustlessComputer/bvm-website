@@ -53,7 +53,7 @@ const BlogDetailPage = async ({ params }: TBlogDetailPage) => {
         position: 'absolute',
         color: 'black',
       }}
-      hideFooter
+      bodyColor={'#fff'}
     >
       {data && <BLogDetail blogData={data} />}
     </MainLayout>

@@ -13,7 +13,6 @@ export default function Home() {
         bgColor: 'transparent',
         position: 'absolute',
       }}
-      hideFooter={true}
     >
       <LandingV3 />
     </MainLayout>

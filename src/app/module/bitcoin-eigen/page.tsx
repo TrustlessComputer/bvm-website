@@ -11,7 +11,6 @@ const ModuleDetailPage = () => {
         color: 'black',
         bgColor: '#fff',
       }}
-      hideFooter
     >
       <ModuleDetail data={MODULE_DATAS.bvm_eigen} />
     </MainLayout>
