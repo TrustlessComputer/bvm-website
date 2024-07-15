@@ -6,9 +6,8 @@ import { Flex, Image, Text, Button, SimpleGrid } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import { EditIcon } from '@chakra-ui/icons';
 import DappInstalledItem from './DappInstalledItem';
-import { DAPP_INSTALLED_LIST } from './constant';
-import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';
 import { useRouter } from 'next/navigation';
+import InstallNewDAppItem from './InstallNewDAppItem';
 
 type Props = {
   item: OrderItem;
@@ -20,18 +19,13 @@ type Props = {
 };
 
 const BottomView = (props: Props) => {
-  const {
-    item,
-    isOwner,
-    viewBillingOnClick,
-    cancelOrderOnClick,
-    bridgeOnClick,
-    editConfigBridgeOnClick,
-  } = props;
+  const { item, isOwner, bridgeOnClick, editConfigBridgeOnClick } = props;
   const router = useRouter();
-  const { onOpenDappList } = useDashboard();
+  const { dApps } = item;
 
   const [adding, setAdding] = useState(false);
+
+  const isStatusDone = item.status === OrderStatus.Started;
 
   const isAddToMetamask = useMemo(() => {
     return (
@@ -140,12 +134,11 @@ const BottomView = (props: Props) => {
     );
   };
 
-  const dAppOnClick = (item: any) => {
-    if (item.isInstallNewDapps) {
-      // onOpenDappList && onOpenDappList();
-      router.push('/app-store');
-    }
-  };
+  const dappList = useMemo(() => {
+    return dApps?.filter((item) => item.status === 'done') || [];
+  }, [dApps]);
+
+  if (!isStatusDone) return null;
 
   return (
     <Flex flexDir={'column'} gap={'20px'} mt="20px">
@@ -161,14 +154,19 @@ const BottomView = (props: Props) => {
         {renderAddToMetamask()}
       </Flex>
 
-      <SimpleGrid columns={[1, 3]} spacing={'16px'}>
-        {DAPP_INSTALLED_LIST.map((item, index) => {
+      <SimpleGrid columns={[1, 1, 2]} spacing={'16px'}>
+        <InstallNewDAppItem
+          onClick={() => {
+            // router.push('/app-store');
+          }}
+        />
+        {dappList.map((item, index) => {
           return (
             <DappInstalledItem
-              key={`${index}-${item.name}`}
+              key={`${index}-${item.appName || item.appID}`}
               item={item}
               onClick={() => {
-                dAppOnClick(item);
+                window.open(`${item.appURL}`, '_blank');
               }}
             />
           );

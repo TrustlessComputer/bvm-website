@@ -389,4 +389,5 @@ export type {
   IOrderUpdate,
   MonitorViewPage,
   IOrderBuyReq_V3,
+  IDAppInstalled,
 };

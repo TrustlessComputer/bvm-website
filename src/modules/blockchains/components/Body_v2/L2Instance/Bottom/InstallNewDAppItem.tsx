@@ -1,17 +1,13 @@
 'use client';
 
-import { IDAppInstalled } from '@/stores/states/l2services/types';
 import { Flex, Image, Text } from '@chakra-ui/react';
 
 export type Props = {
-  item: IDAppInstalled;
   onClick: () => void;
 };
 
-const DappInstalledItem = (props: Props) => {
+const InstallNewDAppItem = (props: Props) => {
   const { onClick } = props;
-  const { appImageURL, appName } = props.item;
-
   return (
     <Flex
       flexDir={'row'}
@@ -20,7 +16,7 @@ const DappInstalledItem = (props: Props) => {
       borderRadius={'8px'}
       p={['10px', '12px', '15px']}
       minH={['50px', '65px', '70px']}
-      bgGradient={`linear(to-b, #F6F6F6, #F6F6F6)`}
+      bgGradient={`linear(to-b, #D8F3E0, #9EE0B1)`}
       _hover={{
         cursor: 'pointer',
         opacity: 0.8,
@@ -28,16 +24,20 @@ const DappInstalledItem = (props: Props) => {
       onClick={onClick}
     >
       <Image
-        src={appImageURL || '/icons/add_dapp_default.svg'}
+        src={`/icons/add_dapp_ic.svg`}
         w="60px"
         h={'auto'}
         fit={'contain'}
-      ></Image>
-      <Text fontSize={['14px', '15px', '16px']} fontWeight={500} color={'#000'}>
-        {appName || '--'}
+      />
+      <Text
+        fontSize={['14px', '15px', '16px']}
+        fontWeight={500}
+        color={'#5CC773'}
+      >
+        {'Install new apps'}
       </Text>
     </Flex>
   );
 };
 
-export default DappInstalledItem;
+export default InstallNewDAppItem;
