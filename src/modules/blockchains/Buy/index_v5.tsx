@@ -466,7 +466,11 @@ const BuyPage = () => {
 
             {/* ------------- RIGHT ------------- */}
             <div className={s.right}>
-              <TierV2 setValueOfPackage={setValueOfPackage} />
+              <TierV2
+                // originalData={originalData}
+                // templates={templates}
+                setValueOfPackage={setValueOfPackage}
+              />
 
               <div className={s.right_box}>
                 <DroppableV2 id="final" className={s.finalResult}>
