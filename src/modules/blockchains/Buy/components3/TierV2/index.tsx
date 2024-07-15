@@ -5,7 +5,7 @@ import Image from 'next/image';
 import tierData from './data';
 import { useRouter, useSearchParams } from 'next/navigation';
 import BaseModal from '../Modal';
-import { Button } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import useOrderFormStoreV3 from '../../stores/index_v3';
 
 type Props = {
@@ -105,25 +105,27 @@ const TierV2 = ({ templates, originalData, setValueOfPackage }: Props) => {
       <BaseModal
         isShow={isShowModal}
         onHide={() => setIsShowModal(false)}
-        title="Select a template"
+        title="Would you like to change it ?"
         size="small"
         theme="light"
       >
-        Are you sure you want to clear your current configuration?
-        <Button
-          className={`${styles.btn} ${styles.btn__outline}`}
-          size="sm"
-          onClick={() => handleOk()}
-        >
-          Yes
-        </Button>{' '}
-        <Button
-          className={`${styles.btn} ${styles.btn__primary}`}
-          size="sm"
-          onClick={() => handleCancel()}
-        >
-          No
-        </Button>
+        <Flex justifyContent={'center'} alignItems={'center'} gap={5}>
+          <Button
+            className={`${styles.btn} ${styles.btn__outline}`}
+            size="sm"
+            onClick={() => handleOk()}
+          >
+            Yes
+          </Button>
+          <Button
+            className={`${styles.btn} ${styles.btn__primary}`}
+            size="sm"
+            onClick={() => handleCancel()}
+          >
+            No
+          </Button>
+        </Flex>
+
       </BaseModal>
     </React.Fragment>
   );
