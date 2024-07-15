@@ -43,8 +43,13 @@ const TierV2 = ({ setValueOfPackage }: Props) => {
               key={index}
               className={styles.tier_items_item}
               onClick={() => {
-                setIsShowModal(true);
-                setSelectedTier(tier.id);
+                if (searchParams.get('package') !== selectedTier) {
+                  router.push('/rollups/customizev2?package=' + selectedTier);
+                }
+
+                setValueOfPackage(tier.id);
+                // setIsShowModal(true);
+                // setSelectedTier(tier.id);
               }}
             >
               <Image
@@ -58,7 +63,7 @@ const TierV2 = ({ setValueOfPackage }: Props) => {
         </div>
       </div>
 
-      <BaseModal
+      {/* <BaseModal
         isShow={isShowModal}
         onHide={() => setIsShowModal(false)}
         title="Select a template"
@@ -80,7 +85,7 @@ const TierV2 = ({ setValueOfPackage }: Props) => {
         >
           No
         </Button>
-      </BaseModal>
+      </BaseModal> */}
     </React.Fragment>
   );
 };
