@@ -41,7 +41,7 @@ export const initialState: L2ServicesState = {
   availableListFetched: false,
   availableList: undefined,
 
-  viewPage: 'ManageChains',
+  viewPage: 'Biiling',
   viewMode: 'Mainnet',
   showOnlyMyOrder: true,
   showAllChain: false,

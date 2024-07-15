@@ -186,12 +186,16 @@ export const orderUpdateAPI = async (
   }
 };
 
-export const orderDetailByID = async (orderId: string): Promise<OrderItem> => {
+export const orderDetailByID = async (
+  orderId: string,
+): Promise<OrderItem | undefined> => {
   try {
-    const data = (await httpClient.get(
-      `/order/detail/${orderId}`,
-    )) as OrderItem;
-    return data;
+    const data: any = await httpClient.get(`/order/detail/${orderId}`);
+    console.log('DATA ', data);
+    if (data && data.orderId) {
+      return data as OrderItem;
+    }
+    return undefined;
   } catch (error: any) {
     throw error;
   }

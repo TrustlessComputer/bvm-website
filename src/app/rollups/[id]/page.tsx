@@ -1,4 +1,5 @@
-import Page from '@/modules/blockchains/detail';
+// import Page from '@/modules/blockchains/detail';
+import Page from '@/modules/blockchains/detail_v2';
 import MainLayout from '@/layouts/MainLayout';
 
 const PageDetail = () => {
@@ -6,8 +7,9 @@ const PageDetail = () => {
     <MainLayout
       headerProps={{
         color: 'black',
-        bgColor: '#F3F1E8',
+        bgColor: '#fff',
       }}
+      hideFooter
     >
       <Page />
     </MainLayout>

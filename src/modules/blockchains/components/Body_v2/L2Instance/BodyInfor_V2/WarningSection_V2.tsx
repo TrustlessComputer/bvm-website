@@ -40,7 +40,6 @@ const WarningSection = (props: Props) => {
           fontWeight={300}
           className={s.fontSFProDisplay}
           color={'#F19100'}
-          textAlign={'center'}
         >
           You have a pending payment for an order. Please complete the payment
           or{' '}

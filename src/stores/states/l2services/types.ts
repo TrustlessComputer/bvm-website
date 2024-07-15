@@ -10,6 +10,24 @@ import {
 } from '@/modules/blockchains/components/BillingModal/History.types';
 import { IDApp } from '@/services/api/DAServices/types';
 
+interface IDAppInstalled {
+  orderID: string;
+  userAddress: string;
+  appID: number;
+  appURL: string;
+  appCode: string;
+  appName: string;
+  appDescription: string;
+  appImageURL: string;
+  status: string;
+  statusJob: number;
+  priceUsd: number;
+  priceBvm: number;
+  aaPaymasterTokenID: string;
+  aaTokenGas: string;
+  aaPaymasterContract: string;
+}
+
 interface IVerifySignatureReq {
   signature: string;
   tcAddress: string;
@@ -139,6 +157,9 @@ interface OrderItem extends OrderItemResp {
   rollupCostFormatted: string;
   isOwner: boolean;
   needToTopupBalanceUSD?: string;
+
+  dApps?: IDAppInstalled[];
+  selectedOptions?: IModelCategory[];
 }
 
 interface AccountInfoResp {
