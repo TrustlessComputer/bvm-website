@@ -1,7 +1,7 @@
 import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 
 import { getModelCategories, getTemplates } from '@/services/customize-model';
@@ -45,6 +45,7 @@ const BuyPage = () => {
   const { idDragging, setIdDragging } = useDragMask();
   const searchParams = useSearchParams();
   const refTime = useRef<NodeJS.Timeout>();
+  const [showShadow, setShowShadow] = useState<string>('');
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -82,6 +83,7 @@ const BuyPage = () => {
         active.data.current.value !== field[activeKey].value &&
         field[activeKey].dragged
       ) {
+      	setShowShadow(field[activeKey].value)
         toast.error('Please drag back to the left side to change the value', {
           icon: null,
           style: {
@@ -90,7 +92,9 @@ const BuyPage = () => {
           },
           duration: 3000,
         });
-
+		setTimeout(() => {
+        	setShowShadow('')
+      	}, 2000)
         return;
       }
 
@@ -685,6 +689,7 @@ const BuyPage = () => {
                             zIndex={data.length - index}
                             label={item.confuseTitle}
                             labelInRight={!!item.confuseTitle}
+                            className={showShadow === field[item.key].value ? s.activeBlur : ''}
                           >
                             <DropdownV2
                               cb={(value) => {
@@ -724,6 +729,7 @@ const BuyPage = () => {
                             label={item.confuseTitle}
                             labelInRight={!!item.confuseTitle}
                             zIndex={item.options.length - opIdx}
+                            className={showShadow === field[item.key].value ? s.activeBlur : ''}
                           >
                             <DropdownV2
                               disabled
