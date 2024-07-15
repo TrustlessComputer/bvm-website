@@ -35,9 +35,9 @@ const BuyPage = () => {
   const [originalData, setOriginalData] = React.useState<
     IModelCategory[] | null
   >(null);
-  const [templates, setTemplates] = React.useState<IModelCategory[] | null>(
-    null,
-  );
+  const [templates, setTemplates] = React.useState<Array<
+    IModelCategory[]
+  > | null>(null);
   const { field, setField, priceBVM, priceUSD, setPriceBVM, setPriceUSD } =
     useOrderFormStoreV3();
   const { idDragging, setIdDragging } = useDragMask();
@@ -473,8 +473,8 @@ const BuyPage = () => {
             {/* ------------- RIGHT ------------- */}
             <div className={s.right}>
               <TierV2
-                // originalData={originalData}
-                // templates={templates}
+                originalData={originalData}
+                templates={templates}
                 setValueOfPackage={setValueOfPackage}
               />
 
