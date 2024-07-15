@@ -3,7 +3,7 @@ import { CSS } from '@dnd-kit/utilities';
 import React, { useEffect, useRef } from 'react';
 import s from './styles.module.scss';
 
-export type DraggableProps = React.PropsWithChildren & {
+export type DraggableProps = {
   id: string;
   value?: string | number | null;
   useMask?: boolean;
@@ -12,7 +12,7 @@ export type DraggableProps = React.PropsWithChildren & {
   isLabel?: boolean;
   tooltip?: string;
   right?: boolean;
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
 const Draggable = ({
   id,
@@ -23,6 +23,7 @@ const Draggable = ({
   tooltip,
   isLabel,
   right = false,
+  ...props
 }: DraggableProps) => {
   const refTooltip = useRef<HTMLAnchorElement>(null);
   const { attributes, listeners, setNodeRef, transform, isDragging } =
@@ -33,6 +34,7 @@ const Draggable = ({
     });
 
   const style = {
+    ...props.style,
     transform: CSS.Translate.toString(transform),
     opacity: useMask && isDragging ? 0 : 1,
   };
