@@ -8,6 +8,7 @@ interface IModelOption {
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
   confuseWord: boolean;
+  multiChoice: boolean;
   order: number;
 }
 
