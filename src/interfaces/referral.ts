@@ -1,0 +1,29 @@
+export interface IReferralRewardInfo {
+  claimed: string;
+  claimed_usd: string;
+  symbol: string;
+  total: string;
+  total_usd: string;
+}
+
+export interface IUserReferralInfo {
+  id?: number;
+  network?: string;
+  address?: string;
+  token_address?: string;
+  address_checked?: string;
+  twitter_id?: string;
+  twitter_username?: string;
+  twitter_description?: string;
+  twitter_name?: string;
+  twitter_avatar?: string;
+  twitter_verified?: boolean;
+
+  referral_code?: string;
+  referrer_code?: string;
+  referrer_address?: string;
+  trading_volume?: string;
+  referral_rewarded?: number;
+  referral_claimed?: number;
+  rewards: IReferralRewardInfo[];
+}

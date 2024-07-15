@@ -3,14 +3,14 @@ import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   fetchAccountInfo,
   fetchAllOrders,
-  fetchOrderList,
   fetchAllOrdersV2,
+  fetchOrderList,
 } from '@/stores/states/l2services/actions';
 import { setL2ServiceAuth } from '@/stores/states/l2services/reducer';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { getErrorMessage } from '@/utils/errorV2';
 import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
-import { useEffect, useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import toast from 'react-hot-toast';
 import useNakaAuthen from './useRequestNakaAccount';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';

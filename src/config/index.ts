@@ -3,7 +3,7 @@ import { default as ViewportConfig } from './viewport';
 import process from 'process';
 
 export const APP_ENV: string = process.env.NEXT_PUBLIC_APP_ENV!;
-export const API_UR: string = process.env.NEXT_PUBLIC_API_URL!;
+export const API_URL: string = process.env.NEXT_PUBLIC_API_URL!;
 export const DOMAIN_URL: string = process.env.NEXT_PUBLIC_DOMAIN_URL!;
 
 export const DEX_API = process.env.NEXT_PUBLIC_DEX_API!;
@@ -61,5 +61,7 @@ export const NAKA_WEB: string = process.env.NEXT_PUBLIC_NAKA_WEB!;
 
 export const DA_SERVICE_URL: string = process.env
   .NEXT_PUBLIC_DA_SERVICE_URL! as string;
+
+export const API_NAKA_URL: string = process.env.NEXT_PUBLIC_DA_SERVICE_URL! as string;
 
 export { MetadataConfig, ViewportConfig };
