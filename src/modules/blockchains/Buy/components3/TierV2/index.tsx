@@ -19,6 +19,27 @@ const TierV2 = ({ setValueOfPackage }: Props) => {
   const [selectedTier, setSelectedTier] = React.useState<string | null>(null);
 
   const handleOk = () => {
+    // if (!originalData || !templates) return;
+
+    // const currentPackageId = searchParams.get('package') || '0';
+    // const currentTemplate = templates[Number(currentPackageId)] || [];
+
+    // let somethingChanged = false;
+
+    // const keysNotInOriginalData = templates.filter(
+    //   (_f) => !originalData.find((item) => item.key === _f.key),
+    // );
+    // for (const key of keysNotInOriginalData) {
+    //   if (field[key].dragged) {
+    //     somethingChanged = true;
+    //     break;
+    //   }
+    // }
+
+    // for (const _f of currentTemplate.op)
+
+    // if (!somethingChanged) return;
+
     setValueOfPackage(selectedTier);
     setIsShowModal(false);
     setSelectedTier(null);
@@ -43,8 +64,8 @@ const TierV2 = ({ setValueOfPackage }: Props) => {
               key={index}
               className={styles.tier_items_item}
               onClick={() => {
-                if (searchParams.get('package') !== selectedTier) {
-                  router.push('/rollups/customizev2?package=' + selectedTier);
+                if (searchParams.get('package') !== tier.id) {
+                  router.push('/rollups/customizev2?package=' + tier.id);
                 }
 
                 setValueOfPackage(tier.id);
