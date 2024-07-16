@@ -46,13 +46,34 @@ const HeaderLeftView = (props: Props) => {
         justifyItems={'center'}
         gap={'10px'}
       >
-        <Text
-          fontSize={['20px', '22px', '25px']}
-          fontWeight={500}
-          color={'#000'}
-        >
-          {`${item.chainName || '--'}`}
-        </Text>
+        <Flex flexDir={'row'} align={'center'} gap={'10px'}>
+          <Text
+            fontSize={['20px', '22px', '25px']}
+            fontWeight={500}
+            color={'#000'}
+          >
+            {`${item.chainName || '--'}`}
+          </Text>
+
+          {item.status === OrderStatus.Started && (
+            <Image
+              src={`/icons/pencil_edit_grey.svg`}
+              fit={'contain'}
+              maxW={'24px'}
+              maxH={'24px'}
+              _hover={{
+                cursor: 'pointer',
+                opacity: 0.8,
+              }}
+              onClick={(event: any) => {
+                if (event.stopPropagation) event.stopPropagation();
+                alert(1);
+                // editOnClick && editOnClick();
+              }}
+            />
+          )}
+        </Flex>
+
         <Flex flexDir={'row'} align={'center'} gap={'10px'}>
           <LivingStatus color={mapper.color || 'transparent'} />
           <Text
