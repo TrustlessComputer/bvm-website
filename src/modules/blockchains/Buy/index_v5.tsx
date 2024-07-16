@@ -20,8 +20,6 @@ import useDragMask from './stores/useDragMask';
 import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
-import TierOptions from '@/modules/blockchains/Buy/components3/TierOptions';
-import { Flex } from '@chakra-ui/react';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 
 const BuyPage = () => {
