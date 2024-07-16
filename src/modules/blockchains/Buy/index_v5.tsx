@@ -111,7 +111,7 @@ const BuyPage = () => {
         });
         setTimeout(() => {
           setShowShadow('');
-        }, 1500);
+        }, 500);
         return;
       }
 
