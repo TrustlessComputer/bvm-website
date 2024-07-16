@@ -6,13 +6,12 @@
   width: 100%;
   background-color: var(--background-color);
   position: relative;
-  padding: 16px;
-  padding-top: 32px;
+  padding: 15px;
+  padding-top: 34px;
   user-select: none;
-  margin-top: 1px;
 
   &.disable {
-    opacity: .4;
+    opacity: 0.4;
     pointer-events: none;
   }
 
@@ -70,7 +69,7 @@
 .options {
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: 8px 16px;
   align-items: center;
   flex-wrap: wrap;
 }

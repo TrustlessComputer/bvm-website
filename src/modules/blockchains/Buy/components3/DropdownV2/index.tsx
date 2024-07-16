@@ -57,7 +57,7 @@ function DropdownV2({
             <div className={s.dropdown_inner_content}>
               {icon && <Image src={icon} alt="icon" width={24} height={24} />}
               <p className={s.dropdown_text}>
-                {options?.find((item) => item.value === defaultValue)?.label}
+                {options?.find((item) => item.value === defaultValue)?.title || options?.find((item) => item.value === defaultValue)?.label}
               </p>
             </div>
           )
@@ -81,7 +81,7 @@ function DropdownV2({
           <ul className={`${s.dropdown_list_inner} `}>
             {options?.map((option, index) => {
               const isDisabled =
-              !!(
+                !!(
                   option.supportNetwork &&
                   option.supportNetwork !== 'both' &&
                   option.supportNetwork !== field['network']?.value

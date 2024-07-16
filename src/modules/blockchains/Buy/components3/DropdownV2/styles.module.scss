@@ -2,7 +2,6 @@
   position: relative;
   display: block;
   width: max-content;
-  font-size: 18px;
   color: #fff;
   min-width: 100px;
   height: 100%;
@@ -24,6 +23,7 @@
       gap: 4px;
     }
   }
+
   &_text {
     color: #fff;
     font-size: 18px;
@@ -32,6 +32,7 @@
     font-family: var(--font-JetBrainsMono);
     letter-spacing: -0.18px;
   }
+
   &_icon {
   }
 
@@ -91,7 +92,7 @@
 }
 
 .dropdown_wrap {
-  background: var(--fillBackground);
+  // background: var(--fillBackground);
   margin-top: 15px;
   position: relative;
   padding: 16px;

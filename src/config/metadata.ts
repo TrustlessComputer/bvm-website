@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export const APP_NAME = 'Blockchains anyone can set up for $99/mo.';
 export const APP_DEFAULT_TITLE = 'Blockchains anyone can set up for $99/mo.';
-export const APP_TITLE_TEMPLATE = 'Blockchains anyone can set up for $99/mo.';
+export const APP_TITLE_TEMPLATE = '%s | Blockchains anyone can set up for $99/mo.';
 export const APP_DESCRIPTION =
   `Join the wave of developers building blockchains and decentralized applications. With its simple and intuitive interface, our blockchain platform is the perfect starting point for your blockchain journey.`;
 // const APP_THUMBNAIL = `${CDN_URL_ICONS}/metadata.jpg`;
