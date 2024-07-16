@@ -581,7 +581,7 @@ const BuyPage = () => {
                               });
                               let suffix =
                                 Math.abs(option.priceBVM) > 0
-                                  ? `(+${_price}BVM)`
+                                  ? `(+${_price} BVM)`
                                   : '';
 
                               if (
@@ -784,7 +784,7 @@ const BuyPage = () => {
                       {formatCurrencyV2({
                         amount: priceBVM,
                         decimals: 2,
-                      })}
+                      }).replace('.00', '')}{' '}
                       BVM
                     </h4>
                     <h6 className={s.right_box_footer_left_title}>
@@ -792,7 +792,7 @@ const BuyPage = () => {
                       {formatCurrencyV2({
                         amount: priceUSD,
                         decimals: 2,
-                      })}
+                      }).replace('.00', '')}
                       {'/'}Month
                     </h6>
                   </div>
