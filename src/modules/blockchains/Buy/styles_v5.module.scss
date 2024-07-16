@@ -329,7 +329,7 @@
 
 .reset {
   background-color: #fee5db;
-  color: #FA4E0E;
+  color: #fa4e0e;
   padding: 8px 20px;
   position: absolute;
   bottom: 28px;
@@ -348,6 +348,14 @@
   right: 18px;
   max-width: 291px;
   z-index: 99;
+  border-radius: 8px;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+
+  &_img {
+    border-radius: inherit;
+  }
+
   &_close {
     position: absolute;
     z-index: 9999;

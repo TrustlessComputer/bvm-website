@@ -1011,6 +1011,7 @@ const BuyPage = () => {
                       alt={'video'}
                       width={291}
                       height={226}
+                      className={s.video_img}
                     />
                     <div
                       className={s.video_play}
