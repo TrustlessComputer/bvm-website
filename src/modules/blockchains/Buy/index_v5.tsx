@@ -1186,6 +1186,9 @@ const BuyPage = () => {
                   </div>
                   Reset
                 </button>
+                <div className={s.video}>
+                  video
+                </div>
               </div>
             </div>
           </div>
