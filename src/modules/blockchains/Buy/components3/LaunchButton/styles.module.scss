@@ -9,22 +9,12 @@
   background: #b6b6b6;
 
   &.active {
-    background: linear-gradient(
-        180deg,
-        #ff9776 0%,
-        #ff8139 32.81%,
-        #e04300 100%
-    );
+    background: rgba(250, 78, 14, 1);
 
     cursor: pointer;
 
     &:hover {
-      background: linear-gradient(
-          180deg,
-          #f3ae99 0%,
-          #f5945e 32.81%,
-          #f36627 100%
-      );
+      background: rgba(250, 78, 14, 0.8);
     }
   }
 }
