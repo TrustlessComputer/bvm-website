@@ -27,19 +27,20 @@ import { InstallDAByParams } from '@/services/api/DAServices/types';
 import dAppServicesAPI from '@/services/api/DAServices';
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@/utils/errorV2';
+import sleep from '@/utils/sleep';
 
 const MIN_FEE_RATE = 1 * 1e-9;
 const MAX_FEE_RATE = 1 * 1e9;
 
 interface IProps {
   show: boolean;
-  onClose?: (() => void) | any;
+  onClose: () => void;
 }
 
 export const AccountAbstractionDAppModal = (props: IProps) => {
   const { show, onClose } = props;
 
-  const dappDetail = useAppSelector(getDappSelectedSelector);
+  const dAppInfor = useAppSelector(getDappSelectedSelector);
   const chainsList = useAppSelector(myOrderListSelector);
   const userInfor = useAppSelector(accountInforSelector);
   const { isAccountInforFetching, isMyOrderListFetching } = useAppSelector(
@@ -125,14 +126,27 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
       //Lauch a Chain
       console.log('Lauch a chain TO DO');
     } else {
-      //Install a DApp
       try {
+        const network_id = chainsList[chainIndexSelected].chainId;
+        const address = userInfor?.tcAddress;
+        const dAppDetailID = dAppInfor?.details[0].id;
+
+        // console.log('SUBMIT --- ', {
+        //   network_id,
+        //   address,
+        //   dAppDetailID,
+        // });
+
+        if (!network_id || !address || dAppDetailID === undefined) {
+          throw Error('Invalid Params');
+        }
+
         setSubmiting(true);
 
         const params: InstallDAByParams = {
-          network_id: chainsList[chainIndexSelected].chainId,
-          address: userInfor?.tcAddress || '',
-          dAppID: 2, //Account Abstraction
+          network_id: network_id,
+          address: address,
+          dAppID: dAppDetailID, //Account Abstraction
           inputs: [
             {
               key: 'aaPaymasterTokenID',
@@ -150,6 +164,10 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
         const result = await dAppServicesAPI.installDAByParams(params);
         if (result) {
           toast.success('Submit successfully!');
+
+          sleep(1);
+
+          onClose && onClose();
         }
       } catch (error) {
         const { message } = getErrorMessage(error);
@@ -165,6 +183,7 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
   //   chainIndexSelected,
   //   isEmptyChain,
   //   isDisableSubmitBtn,
+  //   dAppInfor,
   // });
 
   const renderChainDropDown = () => {
@@ -216,7 +235,7 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
         color={'#000'}
       >
         <Text fontSize={['16px', '18px', '20px']} fontWeight={600}>
-          {'Token Contract Address'}
+          {'Token contract address'}
         </Text>
         <Text
           fontSize={['13px', '14px', '16px']}
@@ -229,7 +248,7 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
         <Input
           value={tokenContractAddress}
           border="1px solid #CECECE"
-          placeholder="Ex: 0xabc...xzy"
+          placeholder="Example: 0xabc...xzy"
           _placeholder={{
             color: 'grey',
           }}
@@ -280,7 +299,7 @@ export const AccountAbstractionDAppModal = (props: IProps) => {
         <Input
           value={feeRate}
           border="1px solid #CECECE"
-          placeholder="Ex: 0.01"
+          placeholder="Example: 0.05"
           type="number"
           height={'48px'}
           p={'11px'}

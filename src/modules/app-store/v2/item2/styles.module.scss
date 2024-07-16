@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  align-items: center;
+  //cursor: pointer;
+  background: #FAFAFA;
+  border-radius: 12px;
+  padding: 24px;
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-family: JetBrains Mono;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 130%;
+    color: #000;
+  }
+
+  .description {
+    font-family: SF Pro Display;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-align: left;
+    color: #000;
+    opacity: 0.7;
+  }
+
+  .number {
+    font-size: 14px;
+    font-weight: 700;
+    color: #000;
+  }
+
+  .status {
+    font-size: 14px;
+    font-weight: 400;
+    color: #5D6875;
+  }
+
+  .btnInstall {
+    background: #FA4E0E1A;
+    width: 150px;
+    min-width: 150px;
+    height: 45px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 100px;
+    color: #FA4E0E;
+    padding: 0 12px;
+
+    &:hover {
+      background: #FA4E0E1A;
+    }
+  }
+}

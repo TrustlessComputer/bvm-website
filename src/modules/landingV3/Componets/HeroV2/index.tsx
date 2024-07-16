@@ -26,7 +26,7 @@ export default function HeroV2() {
           <div className={s.desc}>
             <p>
               Join the wave of developers building blockchains and decentralized applications. With its simple and
-              intuitive interface, our blockchain platform is the perfect starting point for your blockchain journey.
+              intuitive interface, BVM is the perfect starting point for your blockchain journey.
             </p>
           </div>
           <div className={s.groupBtn}>
