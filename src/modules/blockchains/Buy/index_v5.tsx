@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
+import ModalVideo from 'react-modal-video';
 
 import { getModelCategories, getTemplates } from '@/services/customize-model';
 import BoxOptionV3 from './components3/BoxOptionV3';
@@ -54,7 +55,8 @@ const BuyPage = () => {
   const [currentPackage, setCurrentPackage] = React.useState<number | null>(
     null,
   );
-
+  const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true)
+  const [isOpenModalVideo , setIsOpenModalVideo] = useState<boolean>(false)
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -775,7 +777,6 @@ const BuyPage = () => {
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>
                     <h4 className={s.right_box_footer_left_content}>
-                      {'~'}
                       {formatCurrencyV2({
                         amount: priceBVM,
                         decimals: 2,
@@ -995,14 +996,36 @@ const BuyPage = () => {
                   </div>
                   Reset
                 </button>
-                <div className={s.video}>
-                  <ImagePlaceholder src={'/video.jpg'} alt={'video'} width={291} height={226} />
-                </div>
+                {
+                  isShowVideo && (
+                    <div className={s.video} >
+                      <ImagePlaceholder src={'/video.jpg'} alt={'video'} width={291} height={226} />
+                      <div className={s.video_play} onClick={() => setIsOpenModalVideo(true)}>
+                        <ImagePlaceholder src={'/play.svg'} alt={'video'} width={60} height={60} />
+                      </div>
+                      <div className={s.video_close} onClick={() => {
+                        setIsOpenModalVideo(false)
+                        setIsShowVideo(false)
+                      }}>
+                        <ImagePlaceholder src={'/close.svg'} alt={'close'} width={24} height={24} />
+                      </div>
+                    </div>
+                  )
+                }
+
               </div>
             </div>
           </div>
         </div>
       </DndContext>
+      <ModalVideo
+        channel="custom"
+        url={'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'}
+        isOpen={isOpenModalVideo}
+        onClose={() => {
+          setIsOpenModalVideo(false);
+        }}
+      />
     </div>
   );
 };
