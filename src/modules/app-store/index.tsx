@@ -1,4 +1,4 @@
-import { Box, Flex, SimpleGrid, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import AppItem from '@/modules/app-store/item';
 import { useEffect } from 'react';
@@ -7,7 +7,6 @@ import { useAppSelector } from '@/stores/hooks';
 import { getDAListSelector } from '@/stores/states/l2services/selector';
 import { useRouter } from 'next/navigation';
 import { APP_STORE } from '@/constants/route-path';
-import { AccountAbstractionDAppModal } from '../blockchains/components/DAppModal';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { IDApp } from '@/services/api/DAServices/types';
 
@@ -18,14 +17,6 @@ const AppStoreModule = () => {
 
   const router = useRouter();
 
-  const {
-    isOpen: isOpenModal,
-    onOpen: onOpenModal,
-    onClose: onCloseModal,
-  } = useDisclosure({
-    id: 'INSTALL_ACCOUNT_ABSTRACTION_MODAL',
-  });
-
   useEffect(() => {
     getDappsList();
     if (loggedIn) {
@@ -35,15 +26,10 @@ const AppStoreModule = () => {
   }, [loggedIn]);
 
   const handleSelectAppCb = (item: IDApp) => {
-    //Account Abstraction
-    if (item.id === 3) {
-      if (loggedIn) {
-        onOpenModal();
-      } else {
-        login();
-      }
-    } else {
+    if (loggedIn) {
       router.push(`${APP_STORE}/${item?.id}`);
+    } else {
+      login();
     }
   };
 
@@ -62,13 +48,6 @@ const AppStoreModule = () => {
           })}
         </SimpleGrid>
       </Flex>
-
-      {isOpenModal && (
-        <AccountAbstractionDAppModal
-          show={isOpenModal}
-          onClose={onCloseModal}
-        />
-      )}
     </Box>
   );
 };
