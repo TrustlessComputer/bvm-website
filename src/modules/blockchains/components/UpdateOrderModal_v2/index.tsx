@@ -29,7 +29,7 @@ import DropFile from './DropFile';
 import cs from 'classnames';
 
 const MAXIMUM_FILE_UPLOAD = 1; //1 MB
-const TITLE_ERROR_MESSAGE = 'Rollup name is required';
+const TITLE_ERROR_MESSAGE = 'Chain Name is required';
 const DESC_ERROR_MESSAGE = 'Description is required';
 
 interface IProps {
@@ -220,7 +220,7 @@ const UpdateOrderModal = (props: IProps) => {
             alignSelf={'flex-start'}
             color={'#6C6F93'}
           >
-            {`Rollup Name`}
+            {`Chain Name`}
           </Text>
         </Flex>
 
@@ -228,7 +228,7 @@ const UpdateOrderModal = (props: IProps) => {
           borderColor={'#bebebe'}
           minH={['40px', '45px', '50px']}
           fontSize={['12px', '13px', '14px']}
-          placeholder="Rollup Name"
+          placeholder="Chain Name"
           id={'TITLE'}
           isInvalid={!!chainNameFocused && !!chainNameError}
           value={`${chainName || ''}`}
@@ -446,7 +446,7 @@ const UpdateOrderModal = (props: IProps) => {
         }
 
         {renderChainNameField()}
-        {renderDescField()}
+        {/* {renderDescField()} */}
         {renderLogoField()}
         {renderPreviewLogo()}
         {renderSubmitButton()}
