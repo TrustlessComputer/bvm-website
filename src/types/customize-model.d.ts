@@ -26,6 +26,6 @@ interface IModelCategory {
   order: number;
   confuseWord: boolean;
   confuseTitle: string;
+  confuseIcon: string;
   multiChoice: boolean;
-  confuseTitle: string;
 }
