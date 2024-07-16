@@ -346,4 +346,32 @@
   position: absolute;
   top: 22px;
   right: 18px;
+  max-width: 291px;
+  z-index: 99;
+  &_close {
+    position: absolute;
+    z-index: 9999;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    max-width: 24px;
+    font-weight: 700;
+    color: #000;
+    background-color: transparent;
+    border: none;
+  }
+  &_play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 60px;
+    z-index: 9999;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.5s;
+  }
 }
