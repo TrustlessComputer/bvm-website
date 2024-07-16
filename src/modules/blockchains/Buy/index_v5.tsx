@@ -1187,7 +1187,7 @@ const BuyPage = () => {
                   Reset
                 </button>
                 <div className={s.video}>
-                  video
+                  <ImagePlaceholder src={'/video.jpg'} alt={'video'} width={291} height={226} />
                 </div>
               </div>
             </div>
