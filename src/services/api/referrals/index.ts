@@ -1,7 +1,7 @@
 import { IRefundFee } from './interface';
 import { DA_SERVICE_URL } from '@/config';
 import { IUserReferralInfo } from '@/interfaces/referral';
-import CApiClient from '@/services/apiClient';
+import CApiClient from '@/services/apiClientV2';
 
 class CReferralAPI {
   private api = new CApiClient().api;
@@ -38,7 +38,7 @@ class CReferralAPI {
     const res: IUserReferralInfo = await this.api.get(
       this.prefix(`profile`),
       {
-        params: { ...params, network: "rune" },
+        params: { ...params },
       }
     );
 
