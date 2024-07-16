@@ -21,6 +21,8 @@ import useDragMask from './stores/useDragMask';
 import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
+import BaseModal from './components3/Modal';
+import { Button } from '@chakra-ui/react';
 
 const BuyPage = () => {
   const [data, setData] = React.useState<
@@ -47,6 +49,7 @@ const BuyPage = () => {
   const searchParams = useSearchParams();
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
+  const [isShowModal, setIsShowModal] = React.useState(false);
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -215,6 +218,42 @@ const BuyPage = () => {
     setTemplates(templates);
   };
 
+  const onLoadOldForm = () => {
+    setIsShowModal(false);
+
+    const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
+    const form = JSON.parse(oldForm) as IModelCategory[];
+
+    const fieldsNotInForm = data?.filter(
+      (item) => !form.find((field) => field.key === item.key),
+    );
+
+    fieldsNotInForm?.forEach((item) => {
+      setField(item.key, null, false);
+    });
+
+    form.forEach((item) => {
+      if (item.multiChoice) {
+        setField(
+          item.key,
+          item.options.map((opt) => opt.key),
+          true,
+        );
+      } else {
+        setField(item.key, item.options[0].key, true);
+      }
+    });
+  };
+
+  const onIgnoreOldForm = () => {
+    setIsShowModal(false);
+    localStorage.removeItem('bvm.customize-form');
+
+    const packageId = searchParams.get('package') || '-1';
+
+    setValueOfPackage(Number(packageId));
+  };
+
   React.useEffect(() => {
     data?.forEach((item) => {
       if (item.multiChoice) {
@@ -277,34 +316,14 @@ const BuyPage = () => {
 
   React.useEffect(() => {
     const packageId = searchParams.get('package') || '-1';
-    const oldForm = localStorage.getItem('bvm.customize-form');
+    const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
+    const form = JSON.parse(oldForm) as IModelCategory[];
 
-    if (oldForm) {
-      const form = JSON.parse(oldForm) as IModelCategory[];
-      const fieldsNotInForm = data?.filter(
-        (item) => !form.find((field) => field.key === item.key),
-      );
-
-      fieldsNotInForm?.forEach((item) => {
-        setField(item.key, null, false);
-      });
-
-      form.forEach((item) => {
-        if (item.multiChoice) {
-          setField(
-            item.key,
-            item.options.map((opt) => opt.key),
-            true,
-          );
-        } else {
-          setField(item.key, item.options[0].key, true);
-        }
-      });
-
-      return;
+    if (form.length > 0) {
+      setIsShowModal(true);
+    } else {
+      setValueOfPackage(Number(packageId));
     }
-
-    setValueOfPackage(Number(packageId));
   }, [templates]);
 
   React.useEffect(() => {
@@ -418,6 +437,40 @@ const BuyPage = () => {
 
     setPriceBVM(priceBVM);
     setPriceUSD(priceUSD);
+
+    if (!originalData) return;
+
+    // save history of form
+    const dynamicForm: any[] = [];
+    for (const _field of originalData) {
+      if (!field[_field.key].dragged) continue;
+
+      if (_field.multiChoice) {
+        dynamicForm.push({
+          ..._field,
+          options: _field.options.filter((opt) =>
+            (field[_field.key].value as string[])!.includes(opt.key),
+          ),
+        });
+        continue;
+      }
+
+      const value = _field.options.find(
+        (opt) => opt.key === field[_field.key].value,
+      );
+
+      const { options: _, ...rest } = _field;
+
+      dynamicForm.push({
+        ...rest,
+        options: [value],
+      });
+    }
+
+    setTimeout(() => {
+      if (dynamicForm.length === 0) return;
+      localStorage.setItem('bvm.customize-form', JSON.stringify(dynamicForm));
+    }, 100);
   }, [field]);
 
   useEffect(() => {
@@ -936,6 +989,29 @@ const BuyPage = () => {
             </div>
           </div>
         </div>
+
+        <BaseModal
+          isShow={isShowModal}
+          onHide={() => setIsShowModal(false)}
+          title="You have a saved form. Do you want to load it?"
+          size="extra"
+          theme="light"
+        >
+          <div className={s.btns}>
+            <Button
+              className={`${s.btn} ${s.btn__outline}`}
+              onClick={() => onLoadOldForm()}
+            >
+              Yes
+            </Button>
+            <Button
+              className={`${s.btn} ${s.btn__primary}`}
+              onClick={() => onIgnoreOldForm()}
+            >
+              No
+            </Button>
+          </div>
+        </BaseModal>
       </DndContext>
     </div>
   );
