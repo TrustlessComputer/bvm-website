@@ -572,15 +572,15 @@ const BuyPage = () => {
                               let _price = option.priceUSD;
                               let operator = '+';
                               let suffix =
-                                _price > 0 ? `(+${_price.toString()}$)` : '';
+                                _price > 0 ? `(+$${_price.toString()})` : '';
 
                               if (field[item.key].dragged) {
                                 _price = option.priceUSD - currentPrice;
                                 operator = _price > 0 ? '+' : '-';
                                 suffix = _price
-                                  ? `(${operator}${Math.abs(
+                                  ? `(${operator}$${Math.abs(
                                       _price,
-                                    ).toString()}$)`
+                                    ).toString()})`
                                   : '';
                               }
 
