@@ -64,7 +64,7 @@ const RefferalsScreen: React.FC = (): React.ReactElement => {
   const onClickShareReferralCode = () => {
     if (!userReferral) return;
     const origin = window.location.origin;
-    const refUrl = origin + `?ref=${userReferral.referral_code}`;
+    const refUrl = origin + `?r=${userReferral.referral_code}`;
 
     const content = `Just discovered @RuneChain_L2 where you can:
 
