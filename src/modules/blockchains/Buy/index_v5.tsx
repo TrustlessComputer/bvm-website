@@ -126,6 +126,8 @@ const BuyPage = () => {
       // Normal case
       if (over && overIsFinalDroppable) {
         setField(activeKey, active.data.current.value, true);
+
+        if (field[activeKey].dragged) return;
         setFieldsDragged((prev) => [...prev, activeKey]);
       } else {
         if (over && overIsParentDroppable) return;
