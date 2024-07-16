@@ -56,7 +56,7 @@ const RefferalsScreen: React.FC = (): React.ReactElement => {
   const onClickCopyReferralCode = () => {
     if (!userReferral) return;
     const origin = window.location.origin;
-    const refUrl = origin + `?ref=${userReferral.referral_code}`;
+    const refUrl = origin + `?r=${userReferral.referral_code}`;
     copy(refUrl);
     closeModal();
   };
@@ -132,7 +132,8 @@ Join now: ${refUrl}`;
                       )
                     }
                   </Flex>
-                  <Text className={s.btnEdit} onClick={onClickEditRefCode}>Edit</Text>
+                  <Text></Text>
+                  {/*<Text className={s.btnEdit} onClick={onClickEditRefCode}>Edit</Text>*/}
                 </Flex>
               </Box>
             </GridItem>

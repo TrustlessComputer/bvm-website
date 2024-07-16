@@ -29,7 +29,7 @@ export const getLink = (referralCode?: string) => {
 
 const REFERRAL_TEXT = 'refer';
 const REFERRAL_TEXT_MODULAR = 'source';
-const REF_CODE_TEXT = 'ref';
+const REF_CODE_TEXT = 'r';
 
 export const shareReferralURL = (code: string) => {
   if (APP_ENV === 'production') {

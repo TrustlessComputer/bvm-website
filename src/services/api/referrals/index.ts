@@ -1,19 +1,19 @@
-import { IRefundFee, IUserSignerWallet } from './interface';
-import { API_NAKA_URL } from '@/config';
+import { IRefundFee } from './interface';
+import { DA_SERVICE_URL } from '@/config';
 import { IUserReferralInfo } from '@/interfaces/referral';
-import CApiClient from '@/services/apiClient';
+import CApiClient from '@/services/apiClientV2';
 
 class CReferralAPI {
   private api = new CApiClient().api;
 
-  private prefix = (url: string) => `https://general.appstore.dev.bvm.network/api/user/${url}`;
+  private prefix = (url: string) => `${DA_SERVICE_URL}/api/user/${url}`;
 
-  setReferralCode = async (params: {
+  setReferrerCode = async (params: {
     referral_code: string;
-    // signature: string;
+    address: string;
   }): Promise<any> => {
     try {
-      const res = await this.api.put(this.prefix("update-referrer"), {
+      const res = await this.api.post(this.prefix(`referral?address=${params.address}`), {
         ...params,
       });
       return res;
@@ -38,7 +38,7 @@ class CReferralAPI {
     const res: IUserReferralInfo = await this.api.get(
       this.prefix(`profile`),
       {
-        params: { ...params, network: "rune" },
+        params: { ...params },
       }
     );
 
@@ -66,7 +66,7 @@ class CReferralAPI {
     }
   ): Promise<any> => {
     const res: any = await this.api.put(
-      this.prefix(`update-referral-code?network=rune&address=${address}`),
+      this.prefix(`update-referral-code?address=${address}`),
       params
     );
     return res;
