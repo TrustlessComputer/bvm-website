@@ -918,7 +918,7 @@ const BuyPage = () => {
                       $
                       {formatCurrencyV2({
                         amount: priceUSD,
-                        decimals: 2,
+                        decimals: 0,
                       })}
                       {'/'}Month {'(~'}
                       {formatCurrencyV2({
