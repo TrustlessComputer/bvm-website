@@ -544,7 +544,7 @@ const BuyPage = () => {
                       const currentPrice =
                         item.options.find(
                           (option) => option.key === field[item.key].value,
-                        )?.priceUSD || 0;
+                        )?.priceBVM || 0;
 
                       return (
                         <BoxOptionV3
@@ -597,20 +597,14 @@ const BuyPage = () => {
                             </Draggable>
                           ) : (
                             item.options.map((option, optIdx) => {
-                              let _price = option.priceUSD;
-                              let operator = '+';
+                              let _price = formatCurrencyV2({
+                                amount: option.priceBVM || 0,
+                                decimals: 2,
+                              });
                               let suffix =
-                                _price > 0 ? `(+$${_price.toString()})` : '';
-
-                              if (field[item.key].dragged) {
-                                _price = option.priceUSD - currentPrice;
-                                operator = _price > 0 ? '+' : '-';
-                                suffix = _price
-                                  ? `(${operator}$${Math.abs(
-                                      _price,
-                                    ).toString()})`
+                                Math.abs(option.priceBVM) > 0
+                                  ? `(+${_price}BVM)`
                                   : '';
-                              }
 
                               if (
                                 (option.key === field[item.key].value &&
