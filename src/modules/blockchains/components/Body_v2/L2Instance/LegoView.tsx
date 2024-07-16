@@ -10,7 +10,12 @@ type Props = {
 
 const LegonChain = (props: Props) => {
   const { item } = props;
-  return <CustomViewModule selectedOptions={item.selectedOptions || []} />;
+  return (
+    <CustomViewModule
+      orderItem={item}
+      selectedOptions={item.selectedOptions || []}
+    />
+  );
 };
 
 export default LegonChain;

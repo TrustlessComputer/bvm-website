@@ -7,19 +7,22 @@ import LegoParent from '@/modules/blockchains/Buy/components3/LegoParent';
 import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import React from 'react';
 import s from './styles.module.scss';
+import { OrderItem } from '@/stores/states/l2services/types';
 
 type Props = {
+  orderItem: OrderItem;
   selectedOptions: IModelCategory[];
 };
 
 export default function CustomViewModule(props: Props) {
   const [data, _setDataRender] = React.useState(props.selectedOptions);
+
   return (
     <div className={`${s.wrapper} container`}>
       <div className={s.inner}>
         <DroppableV2 id="final" className={s.finalResult}>
           <LegoV3 background={'#FF3A3A'} label="Name" labelInLeft zIndex={45}>
-            Test demo #1
+            {`${props.orderItem?.chainName || ''}`}
           </LegoV3>
 
           {data?.map((item, index) => {
