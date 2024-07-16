@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 
 interface IButtonConnectedProps extends PropsWithChildren {
   className?: any;
-  title?: string;
+  title?: any;
 }
 
 const ButtonConnected: React.FC<IButtonConnectedProps> = ({

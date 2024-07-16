@@ -140,7 +140,7 @@ Join now: ${refUrl}`;
               </Box>
             </GridItem>
             <GridItem>
-              <ButtonConnected>
+              <ButtonConnected className={s.containerWallet} title={<p>CONNECT</p>}>
                 <div className={s.containerWallet} onClick={onClickShareReferralCode}>
                   <p>SHARE ON</p>
                   <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
