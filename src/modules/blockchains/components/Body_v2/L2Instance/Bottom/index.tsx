@@ -120,7 +120,6 @@ const BottomView = (props: Props) => {
     if (!isAddToMetamask) return null;
     return (
       <Text
-        mt={'15px'}
         fontSize={['14px', '15px', '16px']}
         fontWeight={500}
         className={s.fontSFProDisplay}
