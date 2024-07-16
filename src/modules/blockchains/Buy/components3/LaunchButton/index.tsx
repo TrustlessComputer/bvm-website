@@ -21,20 +21,21 @@ import { getErrorMessage } from '@/utils/errorV2';
 import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
 import useL2Service from '@/hooks/useL2Service';
 import BaseModal from '@components/BaseModal';
+import ErrorModal from '../ErrorModal';
 
 const LaunchButton = ({
-                        data,
-                        originalData,
-                      }: {
+  data,
+  originalData,
+}: {
   data:
     | (IModelCategory & {
-    options: IModelCategory['options'] &
-      {
-        value: any;
-        label: string;
-        disabled: boolean;
-      }[];
-  })[]
+        options: IModelCategory['options'] &
+          {
+            value: any;
+            label: string;
+            disabled: boolean;
+          }[];
+      })[]
     | null;
   originalData: IModelCategory[] | null;
 }) => {
@@ -77,8 +78,7 @@ const LaunchButton = ({
       try {
         const chainIDRandom = await getChainIDRandom();
         setChainId(String(chainIDRandom));
-      } catch (error) {
-      }
+      } catch (error) {}
     };
     getChainIDRandomFunc();
   }, []);
@@ -195,10 +195,7 @@ const LaunchButton = ({
 
   return (
     <>
-      <div
-        className={`${s.launch} ${s.active}`}
-        onClick={handleOnClick}
-      >
+      <div className={`${s.launch} ${s.active}`} onClick={handleOnClick}>
         <div className={s.inner}>
           {!loggedIn ? (
             <Text className={s.connect}>Launch</Text>
@@ -228,31 +225,32 @@ const LaunchButton = ({
             }`,
           }}
           onClose={onCloseTopUpModal}
-          onSuccess={async () => {
-          }}
+          onSuccess={async () => {}}
           // balanceNeedTopup={`${tierData?.priceNote || '--'}`}
           balanceNeedTopup={`${priceBVM.toFixed(2) || '--'} BVM `}
         />
       )}
-      {
-        isShowError && <BaseModal
-        className={s.modal_required}
-          isShow={isShowError}
-          onHide={() => setShowError(false)}
-          title="You have not chosen all the required module."
-          size="extra"
-          theme="light"
-        >
-          <div className={s.btns}>
-            <Button
-              className={`${s.btn} ${s.btn__outline}`}
-              onClick={() => setShowError(false)}
-            >
-              Close
-            </Button>
-          </div>
-        </BaseModal>
-      }
+      <ErrorModal
+        title="Missing Required Modules"
+        show={isShowError}
+        onHide={() => setShowError(false)}
+        closeText="Retry"
+      >
+        <p className={s.description}>
+          Your blockchain setup lacks the following necessary modules:
+        </p>
+        <ul className={s.fields}>
+          {data?.map((item) => {
+            if (!item.required || field[item.key].dragged) return null;
+
+            return (
+              <li key={item.key} className={s.fields__field}>
+                {item.title}
+              </li>
+            );
+          })}
+        </ul>
+      </ErrorModal>
     </>
   );
 };
