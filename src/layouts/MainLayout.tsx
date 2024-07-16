@@ -13,15 +13,19 @@ type IMainProps = {
   children?: React.ReactNode;
   isHeaderCustom?: boolean;
   headerProps?: HeaderV3Props;
+  bodyColor?: string;
+  footerClassName?: string;
 };
 
 const MainLayout = ({
-                      hideHeader = false,
-                      hideFooter = false,
-                      headerProps,
-                      children,
-                      isHeaderCustom,
-                    }: IMainProps) => {
+  hideHeader = false,
+  hideFooter = false,
+  headerProps,
+  children,
+  isHeaderCustom,
+  bodyColor,
+  footerClassName,
+}: IMainProps) => {
   const pathName = usePathname();
   const { resetPlay } = useAnimationStore();
   useEffect(() => {
@@ -29,12 +33,12 @@ const MainLayout = ({
   }, [pathName]);
 
   return (
-    <>
+    <div style={{ backgroundColor: bodyColor }}>
       {isHeaderCustom && <HeaderCustom />}
       {!hideHeader && !isHeaderCustom && <HeaderV3 {...headerProps} />}
       {children}
-      {!hideFooter && <Footer />}
-    </>
+      {!hideFooter && <Footer className={footerClassName} />}
+    </div>
   );
 };
 

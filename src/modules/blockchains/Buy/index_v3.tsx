@@ -300,7 +300,7 @@ const BuyPage = () => {
                     return children;
                   })}
                 </Droppable>
-                <LaunchButton />
+                {/* <LaunchButton /> */}
               </div>
             </div>
           </div>

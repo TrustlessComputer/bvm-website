@@ -1,79 +1,78 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
-import { FormOrder, ORDER_FIELD } from '../../stores';
-import { DALayerEnum, NetworkEnum } from '../../Buy.constanst';
-import { useOrderFormStore } from '../../stores/index_v2';
-import { OrderFormOptions } from '../../Buy.data';
+import useOrderFormStoreV3 from '../../stores/index_v3';
 
 type TDropdown = {
-  field: keyof FormOrder;
-  options?: {
-    id: number;
+  disabled?: boolean;
+  options?: (IModelOption & {
+    value: string | number;
     label: string;
-    keyInField?: string;
-    value: NetworkEnum | DALayerEnum | number;
-    icon?: string;
-    isDisabled?: boolean;
-    avalaibleNetworks?: NetworkEnum[];
-  }[];
+  })[];
   checkDisable?: boolean;
-  defaultValue: DALayerEnum | NetworkEnum;
-  cb: (value: DALayerEnum | NetworkEnum | number) => void;
+  defaultValue: string | number;
+  cb: (value: string | number) => void;
+  isCustomView?: boolean;
 };
 
 function DropdownV2({
-  field,
-  options,
-  cb,
-  defaultValue,
-  checkDisable = false,
-}: TDropdown) {
+                      options,
+                      cb,
+                      defaultValue,
+                      disabled = false,
+                      isCustomView,
+                    }: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
-  const { network, setDataAvaibilityChain } = useOrderFormStore();
+  const { field } = useOrderFormStoreV3();
 
   useOnClickOutside(ref, () => setIsOpen(false));
 
-  const handleSelectField = (value: DALayerEnum | NetworkEnum | number) => {
-    if (field === ORDER_FIELD.NETWORK) {
-      const value = handleFindData(network);
-      if (value && value.length > 0) {
-        setDataAvaibilityChain(value[0].value);
-      }
-    }
+  const handleSelectField = (value: string | number) => {
     cb(value);
     setIsOpen(false);
   };
-  const handleFindData = (networkSelected: NetworkEnum) => {
-    const optionsDataAvailable =
-      OrderFormOptions[ORDER_FIELD.DATA_AVAILABILITY_CHAIN].options;
-    const values = optionsDataAvailable?.filter((item) => {
-      return item.avalaibleNetworks?.includes(networkSelected);
-    });
-    return values;
-  };
+
   const icon = options?.find((item) => item.value === defaultValue)?.icon;
 
   return (
-    <div className={s.dropdown} onClick={() => setIsOpen(!isOpen)}>
-      <div className={s.dropdown_inner}>
-        <div className={s.dropdown_inner_content}>
-          {icon && <Image src={icon} alt="icon" width={24} height={24} />}
-          <p className={s.dropdown_text}>
-            {options?.find((item) => item.value === defaultValue)?.label}
-          </p>
-        </div>
+    <div className={s.dropdown}>
+      <div
+        className={s.dropdown_inner}
+        onClick={() => {
+          if (disabled) return;
+          setIsOpen(true);
+        }}
+      >
+        {
+          isCustomView ? (
+            <div className={s.dropdown_inner_content}>
+              {!(options) || options[0].icon && <Image src={options[0].icon} alt="icon" width={24} height={24} />}
+              <p className={s.dropdown_text}>
+                {options ? options[0].title : ''}
+              </p>
+            </div>
+          ) : (
+            <div className={s.dropdown_inner_content}>
+              {icon && <Image src={icon} alt="icon" width={24} height={24} />}
+              <p className={s.dropdown_text}>
+                {options?.find((item) => item.value === defaultValue)?.title || options?.find((item) => item.value === defaultValue)?.label}
+              </p>
+            </div>
+          )
+        }
 
-        <Image
-          className={s.dropdown_icon}
-          src="/landingV3/svg/arrow-b.svg"
-          alt="Arrow Icon"
-          aria-hidden="true"
-          width={16}
-          height={16}
-        />
+        {(options?.length || 0) > 1 && (
+          <Image
+            className={s.dropdown_icon}
+            src="/landingV3/svg/arrow-b.svg"
+            alt="Arrow Icon"
+            aria-hidden="true"
+            width={16}
+            height={16}
+          />
+        )}
       </div>
       <div
         className={`${s.dropdown_list} ${isOpen && s.dropdown_list__active}`}
@@ -82,7 +81,11 @@ function DropdownV2({
           <ul className={`${s.dropdown_list_inner} `}>
             {options?.map((option, index) => {
               const isDisabled =
-                checkDisable && !option.avalaibleNetworks?.includes(network);
+                !!(
+                  option.supportNetwork &&
+                  option.supportNetwork !== 'both' &&
+                  option.supportNetwork !== field['network']?.value
+                ) || !option.selectable;
 
               return (
                 <li

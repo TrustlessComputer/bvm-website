@@ -2,24 +2,27 @@ import MainLayout from '@/layouts/MainLayout';
 import BLogDetail from '@/modules/blog/detail';
 import { APP_NAME } from '@/config/metadata';
 import { fetchPostById } from '@/services/blog';
+import { Metadata } from 'next';
 
 
 type TBlogDetailPage = {
   params: { slug: string }
 }
 
+
 export async function generateMetadata({ params }: TBlogDetailPage) {
 
   const data = await fetchPostById(params?.slug);
-  const title = `${data?.title} | ${APP_NAME}`;
+  const title = `${data?.title}`;
+  const description = data?.excerpt ? data.excerpt : ''
   return {
     title,
-    description: `${data?.excerpt}`,
+    description,
     openGraph: {
       title,
-      description: `${data?.excerpt}`,
+      description,
       type: 'website',
-      url: APP_NAME,
+      siteName: APP_NAME,
       images: [
         {
           url: `${data?.thumbnail}`,
@@ -32,7 +35,7 @@ export async function generateMetadata({ params }: TBlogDetailPage) {
     twitter: {
       card: 'summary_large_image',
       title: title,
-      description: `${data?.excerpt}`,
+      description,
       images: [
         {
           url: `${data?.thumbnail}`,
@@ -52,6 +55,7 @@ const BlogDetailPage = async ({ params }: TBlogDetailPage) => {
         position: 'absolute',
         color: 'black',
       }}
+      bodyColor={'#fff'}
     >
       {data && <BLogDetail blogData={data} />}
     </MainLayout>

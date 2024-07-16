@@ -16,6 +16,23 @@ export type DappInstalledStatus =
   | 'processing'
   | 'requested_cancel'
   | 'removed';
+interface IDAppInstalled {
+  orderID: string;
+  userAddress: string;
+  appID: number;
+  appURL: string;
+  appCode: string;
+  appName: string;
+  appDescription: string;
+  appImageURL: string;
+  status: string;
+  statusJob: number;
+  priceUsd: number;
+  priceBvm: number;
+  aaPaymasterTokenID: string;
+  aaTokenGas: string;
+  aaPaymasterContract: string;
+}
 
 interface IVerifySignatureReq {
   signature: string;
@@ -166,6 +183,9 @@ interface OrderItem extends OrderItemResp {
   rollupCostFormatted: string;
   isOwner: boolean;
   needToTopupBalanceUSD?: string;
+
+  dApps?: IDAppInstalled[];
+  selectedOptions?: IModelCategory[];
 }
 
 interface AccountInfoResp {
@@ -209,6 +229,40 @@ interface IOrderBuyReq {
   gasLimit: number;
   twitter_id?: string | null;
   bitcoinValidity: number;
+  email?: string;
+  cpuCore?: number;
+  memory?: number;
+  storage?: number;
+  package?: PRICING_PACKGE;
+  rollupProtocol?: number;
+  prover?: number;
+  bridgeStatus?: number;
+}
+
+interface IOrderBuyReq_V3 {
+  //Required
+  domain: string;
+  chainId: string;
+  chainName: string;
+  nodeConfigs: IModelCategory[];
+
+  //Optionals
+  serviceType?: RollupEnum;
+  description?: string;
+  finalizationPeriod?: number;
+  blockTime?: number;
+  minGasPrice?: string;
+  dataAvaibilityChain?: number;
+  isMainnet?: boolean;
+  userName?: string;
+  pluginIds?: number[];
+  nativeTokenPayingGas?: number;
+  preMintAmount?: string;
+  preMintAddress?: string;
+  ticker?: string;
+  gasLimit?: number;
+  twitter_id?: string | null;
+  bitcoinValidity?: number;
   email?: string;
   cpuCore?: number;
   memory?: number;
@@ -360,4 +414,6 @@ export type {
   WebsiteConfig,
   IOrderUpdate,
   MonitorViewPage,
+  IOrderBuyReq_V3,
+  IDAppInstalled,
 };

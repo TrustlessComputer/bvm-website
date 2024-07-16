@@ -13,6 +13,7 @@ import {
   IGetNonceReq,
   IGetNonceResp,
   IOrderBuyReq,
+  IOrderBuyReq_V3,
   IOrderUpdate,
   IQuickStart,
   IVerifySignatureReq,
@@ -152,6 +153,23 @@ export const orderBuyAPI = async (params: IOrderBuyReq): Promise<any> => {
   }
 };
 
+export const orderBuyAPI_V3 = async (params: IOrderBuyReq_V3): Promise<any> => {
+  const bodyData = params;
+
+  console.log('orderBuyAPI_V3 -- Body Params ', bodyData);
+
+  try {
+    const data = (await httpClient.post(`/order/register-v3`, bodyData, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    })) as any;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
 export const orderUpdateAPI = async (
   params: IOrderUpdate,
   orderId: string,
@@ -168,12 +186,15 @@ export const orderUpdateAPI = async (
   }
 };
 
-export const orderDetailByID = async (orderId: string): Promise<OrderItem> => {
+export const orderDetailByID = async (
+  orderId: string,
+): Promise<OrderItem | undefined> => {
   try {
-    const data = (await httpClient.get(
-      `/order/detail/${orderId}`,
-    )) as OrderItem;
-    return data;
+    const data: any = await httpClient.get(`/order/detail/${orderId}`);
+    if (data && data.orderId) {
+      return data as OrderItem;
+    }
+    return undefined;
   } catch (error: any) {
     throw error;
   }

@@ -1,0 +1,72 @@
+.modalContent {
+  background: white;
+  padding-bottom: 16px;
+  &.small {
+    max-width: 500px;
+  }
+  &.normal {
+    max-width: 780px !important;
+  }
+  &.extra {
+    max-width: 800px;
+  }
+}
+
+.modalHeader {
+  border: none;
+  padding-top: 0;
+  padding-bottom: rem(24);
+  padding-left: rem(24);
+
+  &_title {
+    font-weight: 500;
+    color: black;
+    //margin-top: rem(18) !important;
+    line-height: 140%;
+    &_dark {
+      color: white;
+    }
+
+    &_light {
+      color: #202020;
+    }
+  }
+
+  &_description {
+    color: #5b5b5b;
+    font-size: rem(14);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    white-space: break-spaces;
+  }
+
+  &_closeBtn {
+    padding: 20px !important;
+    background-color: transparent !important;
+    position: absolute;
+    right: 0;
+    top: -2px;
+
+    :global(svg path) {
+      fill: black !important;
+      fill-opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:hover {
+      .closeIcon {
+        transform: scale(1.2);
+        transition: all 0.3s;
+
+        :global(svg path) {
+          fill: black !important;
+          fill-opacity: 1;
+        }
+      }
+    }
+  }
+}
