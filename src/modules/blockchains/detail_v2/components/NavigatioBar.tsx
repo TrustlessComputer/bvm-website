@@ -15,7 +15,7 @@ const NavigatioBar = () => {
         opacity: 0.8,
       }}
       w="100%"
-      onClick={() => router.back()}
+      onClick={() => router.push('/chains')}
     >
       <Image src={'/icons/back_orange_ic.svg'}></Image>
       <Text
