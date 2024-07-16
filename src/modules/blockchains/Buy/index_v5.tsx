@@ -1,7 +1,7 @@
 import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 import { getModelCategories, getTemplates } from '@/services/customize-model';
@@ -25,6 +25,7 @@ import BaseModal from './components3/Modal';
 import { Button } from '@chakra-ui/react';
 
 const BuyPage = () => {
+  const router = useRouter();
   const [data, setData] = React.useState<
     | (IModelCategory & {
         options: IModelCategory['options'] &
@@ -66,6 +67,8 @@ const BuyPage = () => {
   function handleDragEnd(event: any) {
     setIdDragging('');
     setRightDragging(false);
+
+    router.push('/rollups/customizev2');
 
     const { over, active } = event;
 
@@ -319,8 +322,30 @@ const BuyPage = () => {
     const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
     const form = JSON.parse(oldForm) as IModelCategory[];
 
-    if (form.length > 0) {
-      setIsShowModal(true);
+    if (form.length > 0 && packageId === '-1') {
+      const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
+      const form = JSON.parse(oldForm) as IModelCategory[];
+
+      const fieldsNotInForm = data?.filter(
+        (item) => !form.find((field) => field.key === item.key),
+      );
+
+      fieldsNotInForm?.forEach((item) => {
+        setField(item.key, null, false);
+      });
+
+      form.forEach((item) => {
+        if (item.multiChoice) {
+          setField(
+            item.key,
+            item.options.map((opt) => opt.key),
+            true,
+          );
+        } else {
+          setField(item.key, item.options[0].key, true);
+        }
+      });
+      // setIsShowModal(true);
     } else {
       setValueOfPackage(Number(packageId));
     }
@@ -990,7 +1015,7 @@ const BuyPage = () => {
           </div>
         </div>
 
-        <BaseModal
+        {/* <BaseModal
           isShow={isShowModal}
           onHide={() => setIsShowModal(false)}
           title="You have a saved form. Do you want to load it?"
@@ -1011,7 +1036,7 @@ const BuyPage = () => {
               No
             </Button>
           </div>
-        </BaseModal>
+        </BaseModal> */}
       </DndContext>
     </div>
   );
