@@ -1,25 +1,35 @@
 .boxItem {
   --background-color: #fff;
   --stroke-color: #d9d9d9;
+  scroll-behavior: smooth;
 
   width: 100%;
   background-color: var(--background-color);
   position: relative;
   padding: 16px;
-  padding-bottom: 32px;
+  padding-top: 32px;
   user-select: none;
   margin-top: 1px;
+
+  &.disable {
+    opacity: .4;
+    pointer-events: none;
+  }
+
   &.activeBox {
     --stroke-color: #74d579;
     --background-color: #ebffec;
   }
+
   &_heading {
     display: flex;
     align-items: center;
     gap: 20px;
     margin-bottom: 16px;
+
     &_icon {
     }
+
     &_text {
       font-family: var(--font-JetBrainsMono);
       font-size: 24px;
@@ -34,16 +44,22 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
+
     svg path {
       &:first-child {
         fill: var(--background-color);
         stroke: var(--stroke-color);
         stroke-width: 2px;
       }
+
       &:last-child {
         fill: var(--background-color);
       }
     }
+  }
+
+  sup {
+    color: red;
   }
 }
 

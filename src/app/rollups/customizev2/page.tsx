@@ -14,6 +14,7 @@ const CustomizePage = () => {
       hideHeader={true}
       isHeaderCustom
       hideFooter={true}
+      bodyColor={'#f3f1e8'}
     >
       <Page />
     </MainLayout>

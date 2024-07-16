@@ -52,6 +52,7 @@ const BlogDetailPage = async ({ params }: TBlogDetailPage) => {
         position: 'absolute',
         color: 'black',
       }}
+      bodyColor={'#fff'}
     >
       {data && <BLogDetail blogData={data} />}
     </MainLayout>

@@ -23,6 +23,7 @@ const persistConfig = getPersistConfig({
     'stakingV2.stakingPercent',
     'launchpad',
     'lpEAIPayment',
+    'referrals',
   ],
   rootReducer: reducers,
 });

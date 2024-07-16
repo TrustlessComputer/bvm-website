@@ -62,3 +62,11 @@
   }
 
 }
+
+.icon_right {
+  max-width: 282px;
+
+  @include max-sm {
+    display: none;
+  }
+}

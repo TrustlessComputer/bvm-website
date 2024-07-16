@@ -2,9 +2,6 @@ import React from 'react';
 import { DALayerEnum, NetworkEnum } from './Buy.constanst';
 import { ORDER_FIELD } from './stores';
 import { LegoColor } from './components3/BoxOptionV2';
-import LegoV3 from './components3/LegoV3';
-import ComputerNameInput from './components3/ComputerNameInput';
-import RightNetworkLego from './components3/Legos/RightNetworkLego';
 
 export type OrderFormOption = {
   [key in (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD]]: {

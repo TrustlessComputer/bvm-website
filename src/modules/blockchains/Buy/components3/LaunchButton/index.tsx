@@ -19,28 +19,31 @@ import {
 import sleep from '@/utils/sleep';
 import { Spinner } from '@chakra-ui/react';
 import { useOrderFormStore } from '../../stores/index_v2';
+import useOrderFormStoreV3 from '../../stores/index_v3';
 
-type Override = (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD];
-
-const LaunchButton = () => {
+const LaunchButton = ({
+  data,
+}: {
+  data:
+    | (IModelCategory & {
+        options: {
+          value: any;
+          label: string;
+          disabled: boolean;
+        }[];
+      })[]
+    | null;
+}) => {
+  const { field, priceBVM, priceUSD } = useOrderFormStoreV3();
   const { loggedIn, login } = useWeb3Auth();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
   const [isSubmiting, setSubmitting] = useState(false);
   const { hasError } = computerNameField;
-  // const { field, setForm } = useFormOrderStore((state) => state);
-  const {
-    chainName,
-    dataAvaibilityChain,
-    gasLimit,
-    network,
-    withdrawPeriod,
-    isDataAvailabilityChainDragged,
-    isNetworkDragged,
-    isGasLimitDragged,
-    isWithdrawPeriodDragged,
-  } = useOrderFormStore();
+
+  const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
+    useOrderFormStore();
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('package') || PRICING_PACKGE.Hacker;
 
@@ -52,44 +55,35 @@ const LaunchButton = () => {
     return availableListFetching || !availableList;
   }, [availableListFetching, availableList]);
 
-  // const allFilled = Object.keys(field).every((key) => {
-  // const { value } = field[key as Override];
-  // const isString = typeof value === 'string';
-  // return field[key as Override].dragged && (isString ? value.trim() : value);
-  // });
   const allFilled = useMemo(() => {
-    return !!(
-      isDataAvailabilityChainDragged &&
-      isNetworkDragged &&
-      isGasLimitDragged &&
-      isWithdrawPeriodDragged &&
-      chainName.trim()
+    return (
+      !!chainName.trim() &&
+      data?.every((item) => {
+        return (
+          (field[item.key].dragged && item.required) ||
+          item.disable ||
+          !item.required
+        );
+      })
     );
-  }, [
-    isDataAvailabilityChainDragged,
-    isNetworkDragged,
-    isGasLimitDragged,
-    isWithdrawPeriodDragged,
-    chainName,
-  ]);
+  }, [chainName, field]);
 
-  console.log('allFilled', allFilled);
   const tierData = useMemo(() => {
     const packageData = availableList?.package['2'];
-    const result = packageData?.filter((item, index) => {
+    const result = packageData?.filter((item) => {
       return item.value === Number(packageParam);
     });
 
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
 
-  // if (isFecthingData) return null;
-
   const handleOnClick = async () => {
+    if (isSubmiting || !allFilled || hasError || !data) return;
     if (!loggedIn) return login();
 
-    if (isSubmiting || !allFilled || hasError) return;
+    setSubmitting(true);
 
+    let isSuccess = false;
     const form: FormOrder = {
       chainName,
       network,
@@ -98,11 +92,21 @@ const LaunchButton = () => {
       withdrawPeriod,
     };
 
-    console.log('[LaunchButton] handleOnClick -> form :: ', form);
+    const dynamicForm: Record<string, any> = {};
+    for (const _field of data) {
+      const value = _field.options.find(
+        (opt) => opt.key === field[_field.key].value,
+      );
 
-    setSubmitting(true);
+      const { options: _, ...rest } = _field;
 
-    let isSuccess = false;
+      dynamicForm[_field.key] = {
+        ...rest,
+        value: !field[_field.key].dragged ? null : value,
+      };
+    }
+
+    console.log('[LaunchButton] handleOnClick -> dynamicForm :: ', dynamicForm);
 
     try {
       const params: CustomizeParams = {
@@ -114,8 +118,6 @@ const LaunchButton = () => {
         network: form.network,
         withdrawPeriod: form.withdrawPeriod,
       };
-
-      console.log('[LaunchButton] CustomizeParams ->  :: ', params);
 
       const result = await registerOrderHandler(params);
       if (result) {
@@ -161,9 +163,12 @@ const LaunchButton = () => {
                 />
               </div>
             </div>
-            <p className={s.price}>{`${tierData?.price || '--'} (${
-              tierData?.priceNote || '--'
-            })`}</p>
+            <p className={s.price}>
+              ${priceUSD.toFixed(2)}
+              {'/'}Month {'('}
+              {priceBVM.toFixed(2)} BVM
+              {')'}
+            </p>
           </React.Fragment>
         )}
       </div>

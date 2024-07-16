@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  //margin-top: 20px;
+  //margin-bottom: 20px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+
+    width: 100%;
+    //padding: 32px;
+    //background-color: #ffffff1a;
+
+    //@include w-max(768px) {
+    //  padding: 16px;
+    //}
+  
+  }
+
+  .titleInvite {
+    font-family: var(--norse);
+    //text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    //margin-bottom: 12px;
+  }
+  
+}
+
+
+
+table {
+  &.tableContainer {
+    :global {
+      .isActiveRow {
+        background-color: rgba(255, 255, 255, 1) !important;
+
+        tbody {
+          tr {
+            td {
+              max-width: 90vw;
+            }
+          }
+        }
+        p {
+          color: black !important;
+        }
+      }
+    }
+
+    thead {
+      tr {
+        th {
+          padding-bottom: 16px !important;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          max-width: 90vw;
+        }
+      }
+    }
+
+    .title {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 140%;
+
+      color: var(--naka-text);
+
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .subTitle {
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .desc {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 140%;
+      color: var(--chakra-colors-blue-600);
+    }
+
+  }
+}
+

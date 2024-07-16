@@ -1,0 +1,185 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 0 120px;
+  background: #000210;
+
+  @include w-max(768px) {
+    padding: 0 16px;
+  }
+
+  .content {
+    margin-top: 32px;
+    margin-bottom: 32px;
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 48px;
+
+    @include w-max(768px) {
+      margin-top: 20px;
+    }
+
+    .title {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      font-family: var(--norse);
+      @include w-max(768px) {
+        font-size: 28px;
+      }
+    }
+
+    .desc {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 400;
+
+      a {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      span {
+        background: linear-gradient(90deg, #FFE259 0%, #FFA751 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    .code {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+
+      span {
+        color: #ffffff !important;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+
+    .btnEdit {
+      font-size: 14px;
+      font-weight: 400;
+      background: linear-gradient(90deg, #FFE259 0%, #FFA751 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .btnCp {
+      height: 16px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .btnShareX {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 4px 8px;
+    margin-left: 2px;
+    cursor: pointer;
+    p {
+      color: #000;
+      font-size: 14px;
+      font-weight: 500 !important;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.modalContent {
+  border-radius: 0px !important;
+  min-width: unset !important;
+  :global {
+    .chakra-modal__body {
+      padding-left: rem(24) !important;
+      padding-right: rem(24) !important;
+      padding-bottom: rem(24) !important;
+    }
+  }
+}
+
+.boxInfo {
+  padding: 24px;
+  border: 1px solid #FFFFFF33;
+  background: #000000;
+  border-radius: 20px;
+
+  @include is-mobile {
+    padding: 16px;
+  }
+}
+
+.containerWallet {
+  background: #ffffff;
+  border-radius: 100px;
+  padding: 0px 16px;
+  display: flex;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  gap: 4px;
+
+  .balance {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    margin-left: 2px;
+  }
+
+  .iconWallet {
+    // width: 24px;
+    // height: 24px;
+  }
+
+  .iconBTCCurrency {
+    // width: 20px;
+    // height: 20px;
+  }
+
+  .singInText {
+    text-align: center;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    color: #000;
+  }
+
+  @include is-mobile {
+    height: 28px;
+    padding: 0px 12px;
+    .balance {
+      font-size: 13px !important;
+    }
+    .iconWallet {
+      width: 18px !important;
+      height: 18px !important;
+    }
+    .iconBTCCurrency {
+      width: 11px !important;
+      height: 14px !important;
+    }
+  }
+}
