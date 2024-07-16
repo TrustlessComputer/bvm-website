@@ -29,8 +29,6 @@ const RefferalsScreen: React.FC = (): React.ReactElement => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const timerRef = useRef<any>();
 
-  console.log('userRefInfo', user);
-
   const closeModal = () => {
     if(timerRef.current) {
       clearTimeout(timerRef.current);
