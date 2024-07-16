@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation';
 
 type Props = {
   color?: 'black' | 'white';
+  className?: string;
+  title?: string;
 };
 const ButtonLoginTwitter = (props: Props) => {
   const router = useRouter();
@@ -32,7 +34,7 @@ const ButtonLoginTwitter = (props: Props) => {
     <div
       className={`${s.buttonLogin} ${
         props.color === 'black' ? s.buttonLogin__light : s.buttonLogin__dark
-      }`}
+      } ${props?.className}`}
       onClick={() => {
         if (!loggedIn) {
           handleConnect();
@@ -45,7 +47,7 @@ const ButtonLoginTwitter = (props: Props) => {
       <div className={s.inner}>
         <p className={s.text}>
           {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
-          {!loggedIn ? 'Connect' : `Your Chains`}
+          {!loggedIn ? props?.title || 'Connect' : `Your Chains`}
         </p>
       </div>
       {/* {isHover && loggedIn && (

@@ -83,3 +83,12 @@ export interface InstallDAByParams {
   dAppID: number | string; // dAPP detail ID
   inputs?: { [key: string]: any }[]; // inputs optional
 }
+
+
+export interface DappDomain {
+  "network_id": string,
+  "user_domain": string,
+  "bvm_domain": string,
+  "bvm_app_store_domain": string,
+  "bvm_app_store_ip": string,
+}

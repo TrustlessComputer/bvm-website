@@ -26,8 +26,8 @@ const useL2Service = () => {
     dispatch(fetchOrderList());
   };
 
-  const getAccountInfor = () => {
-    dispatch(fetchAccountInfo());
+  const getAccountInfor = async () => {
+    return dispatch(fetchAccountInfo());
   };
 
   const getAllOrderList = () => {
