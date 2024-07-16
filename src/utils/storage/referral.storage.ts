@@ -21,7 +21,7 @@ class ReferralStorage {
   };
 
   public static getRefCodeChain = () =>
-    storage.get(this.STORAGE_KEY_CHAIN) || '';
+    (storage.get(this.STORAGE_KEY_CHAIN) || '') as string;
   public static setRefCodeChain = (code: string) => {
     const storageCode = ReferralStorage.getRefCodeChain();
     if (!!storageCode) return;

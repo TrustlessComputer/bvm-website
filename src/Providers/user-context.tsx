@@ -39,9 +39,29 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     getL2ServicesStateSelector,
   );
   const addressL2 = accountInforL2Service?.tcAddress;
+  const refCodeChain = ReferralStorage.getRefCodeChain();
 
   const { loopFetchAccountInfor } = useL2Service();
   const { loggedIn } = useWeb3Auth();
+
+  useEffect(() => {
+    const referral = refCodeChain;
+    if (loggedIn && addressL2 && referral) {
+      //TODO: submit referral
+      submitReferrerCode(addressL2, referral);
+    }
+  }, [loggedIn]);
+
+  const submitReferrerCode = async (address: string, referral: string) => {
+    try {
+      await userApi.setReferrerCode({
+        referral_code: referral,
+        address: address,
+      });
+    } catch (error) {
+      //
+    }
+  };
 
   useEffect(() => {
     loopFetchAccountInfor();

@@ -18,10 +18,3 @@ export const getReferralCodeByTwId = async (payload: {
     )) as any
   ).code;
 };
-
-export const postUserRefChain = async (address: string, ref: string) => {
-  return await apiClient.post(`${API_DGAMES}/user/referral?address=${address}`, {
-    address: address,
-    referral_code: ref
-  });
-}
