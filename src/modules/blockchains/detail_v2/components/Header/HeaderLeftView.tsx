@@ -8,9 +8,13 @@ import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import LivingStatus from '@/modules/blockchains/components/Body/L2Instance/LivingStatus';
 import { useRouter } from 'next/navigation';
 import MenuEdit, { MenuEditItemEnum, MenuEditItemType } from '../MenuEdit';
-import { useAppDispatch } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { closeModal, openModal } from '@/stores/states/modal/reducer';
 import UpdateOrderModal from '@/modules/blockchains/components/UpdateOrderModal_v2';
+import useL2Service from '@/hooks/useL2Service';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import { useEffect } from 'react';
 
 type Props = {
   orderItem: OrderItem;
@@ -18,6 +22,20 @@ type Props = {
 
 const HeaderLeftView = (props: Props) => {
   const { orderItem: item } = props;
+
+  const { getAccountInfor } = useL2Service();
+  const { loggedIn, login } = useWeb3Auth();
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+
+  useEffect(() => {
+    if (loggedIn) {
+      getAccountInfor();
+    }
+  }, [loggedIn]);
+
+  const isOwner =
+    item?.tcAddress?.toLowerCase() ===
+    accountInforL2Service?.tcAddress?.toLowerCase();
 
   const router = useRouter();
   const mapper = useOrderMapper(item);
@@ -97,7 +115,7 @@ const HeaderLeftView = (props: Props) => {
             {`${item.chainName || '--'}`}
           </Text>
 
-          {item.status === OrderStatus.Started && (
+          {isOwner && item.status === OrderStatus.Started && (
             <MenuEdit itemOnClick={menuEditItemOnClick} />
           )}
         </Flex>
