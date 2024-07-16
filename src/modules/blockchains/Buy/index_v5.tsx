@@ -222,8 +222,6 @@ const BuyPage = () => {
   };
 
   const onLoadOldForm = () => {
-    setIsShowModal(false);
-
     const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
     const form = JSON.parse(oldForm) as IModelCategory[];
 
@@ -249,7 +247,6 @@ const BuyPage = () => {
   };
 
   const onIgnoreOldForm = () => {
-    setIsShowModal(false);
     localStorage.removeItem('bvm.customize-form');
 
     const packageId = searchParams.get('package') || '-1';
@@ -323,35 +320,14 @@ const BuyPage = () => {
     const form = JSON.parse(oldForm) as IModelCategory[];
 
     if (form.length > 0 && packageId === '-1') {
-      const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
-      const form = JSON.parse(oldForm) as IModelCategory[];
-
-      const fieldsNotInForm = data?.filter(
-        (item) => !form.find((field) => field.key === item.key),
-      );
-
-      fieldsNotInForm?.forEach((item) => {
-        setField(item.key, null, false);
-      });
-
-      form.forEach((item) => {
-        if (item.multiChoice) {
-          setField(
-            item.key,
-            item.options.map((opt) => opt.key),
-            true,
-          );
-        } else {
-          setField(item.key, item.options[0].key, true);
-        }
-      });
-      // setIsShowModal(true);
     } else {
       setValueOfPackage(Number(packageId));
     }
   }, [templates]);
 
   React.useEffect(() => {
+    const packageId = searchParams.get('package') || '-1';
+
     const priceUSD = Object.keys(field).reduce((acc, key) => {
       if (Array.isArray(field[key].value)) {
         const currentOptions = (field[key].value as string[])!.map((value) => {
