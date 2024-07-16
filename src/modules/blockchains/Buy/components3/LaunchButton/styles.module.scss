@@ -10,19 +10,20 @@
 
   &.active {
     background: linear-gradient(
-      180deg,
-      #ff9776 0%,
-      #ff8139 32.81%,
-      #e04300 100%
+        180deg,
+        #ff9776 0%,
+        #ff8139 32.81%,
+        #e04300 100%
     );
 
     cursor: pointer;
+
     &:hover {
       background: linear-gradient(
-        180deg,
-        #f3ae99 0%,
-        #f5945e 32.81%,
-        #f36627 100%
+          180deg,
+          #f3ae99 0%,
+          #f5945e 32.81%,
+          #f36627 100%
       );
     }
   }
@@ -62,5 +63,23 @@
     font-weight: 500;
     color: #fff;
     font-size: 14px;
+  }
+}
+
+
+.modal_required {
+  background: white !important;
+
+  :global {
+    .chakra-button {
+      color: black;
+      border: 1px solid black;
+    }
+
+    .chakra-modal__header {
+      svg path {
+        fill: red;
+      }
+    }
   }
 }

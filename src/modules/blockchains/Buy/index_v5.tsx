@@ -15,26 +15,24 @@ import LaunchButton from './components3/LaunchButton';
 import LegoParent from './components3/LegoParent';
 import LegoV3 from './components3/LegoV3';
 import SidebarV2 from './components3/SideBarV2';
-import TierV2 from './components3/TierV2';
 import useOrderFormStoreV3 from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
-import BaseModal from './components3/Modal';
-import { Button } from '@chakra-ui/react';
+import TierOptions from '@/modules/blockchains/Buy/components3/TierOptions';
 
 const BuyPage = () => {
   const router = useRouter();
   const [data, setData] = React.useState<
     | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
+    options: IModelCategory['options'] &
+      {
+        value: any;
+        label: string;
+        disabled: boolean;
+      }[];
+  })[]
     | null
   >(null);
   const [originalData, setOriginalData] = React.useState<
@@ -249,7 +247,7 @@ const BuyPage = () => {
   const onIgnoreOldForm = () => {
     localStorage.removeItem('bvm.customize-form');
 
-    const packageId = searchParams.get('package') || '-1';
+    const packageId = searchParams.get('use-case') || '-1';
 
     setValueOfPackage(Number(packageId));
   };
@@ -315,7 +313,7 @@ const BuyPage = () => {
   }, []);
 
   React.useEffect(() => {
-    const packageId = searchParams.get('package') || '-1';
+    const packageId = searchParams.get('use-case') || '-1';
     const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
     const form = JSON.parse(oldForm) as IModelCategory[];
 
@@ -326,7 +324,7 @@ const BuyPage = () => {
   }, [templates]);
 
   React.useEffect(() => {
-    const packageId = searchParams.get('package') || '-1';
+    const packageId = searchParams.get('use-case') || '-1';
 
     const priceUSD = Object.keys(field).reduce((acc, key) => {
       if (Array.isArray(field[key].value)) {
@@ -580,8 +578,8 @@ const BuyPage = () => {
                                 operator = _price > 0 ? '+' : '-';
                                 suffix = _price
                                   ? `(${operator}$${Math.abs(
-                                      _price,
-                                    ).toString()})`
+                                    _price,
+                                  ).toString()})`
                                   : '';
                               }
 
@@ -597,7 +595,7 @@ const BuyPage = () => {
                                   option.supportNetwork &&
                                   option.supportNetwork !== 'both' &&
                                   option.supportNetwork !==
-                                    field['network']?.value
+                                  field['network']?.value
                                 ) || !option.selectable;
 
                               if (item.multiChoice && field[item.key].dragged) {
@@ -770,11 +768,37 @@ const BuyPage = () => {
 
             {/* ------------- RIGHT ------------- */}
             <div className={s.right}>
-              <TierV2
-                originalData={originalData}
-                templates={templates}
-                setValueOfPackage={setValueOfPackage}
-              />
+              {
+                templates && <TierOptions
+                  originalData={originalData}
+                  templates={templates}
+                  setValueOfPackage={setValueOfPackage}
+                />
+              }
+
+              <div className={s.right_box_footer}>
+                <div className={s.right_box_footer_left}>
+                  <h6 className={s.right_box_footer_left_title}>
+                    Total price
+                  </h6>
+                  <h4 className={s.right_box_footer_left_content}>
+                    $
+                    {formatCurrencyV2({
+                      amount: priceUSD,
+                      decimals: 2,
+                    })}
+                    {'/'}Month {'(~'}
+                    {formatCurrencyV2({
+                      amount: priceBVM,
+                      decimals: 2,
+                    })}{' '}
+                    BVM
+                    {')'}
+                  </h4>
+                </div>
+
+                <LaunchButton data={data} originalData={originalData} />
+              </div>
 
               <div className={s.right_box}>
                 <DroppableV2
@@ -962,57 +986,10 @@ const BuyPage = () => {
                     });
                   })}
                 </DroppableV2>
-
-                <div className={s.right_box_footer}>
-                  <div className={s.right_box_footer_left}>
-                    <h6 className={s.right_box_footer_left_title}>
-                      Total price
-                    </h6>
-                    <h4 className={s.right_box_footer_left_content}>
-                      $
-                      {formatCurrencyV2({
-                        amount: priceUSD,
-                        decimals: 2,
-                      })}
-                      {'/'}Month {'(~'}
-                      {formatCurrencyV2({
-                        amount: priceBVM,
-                        decimals: 2,
-                      })}{' '}
-                      BVM
-                      {')'}
-                    </h4>
-                  </div>
-
-                  <LaunchButton data={data} originalData={originalData} />
-                </div>
               </div>
             </div>
           </div>
         </div>
-
-        {/* <BaseModal
-          isShow={isShowModal}
-          onHide={() => setIsShowModal(false)}
-          title="You have a saved form. Do you want to load it?"
-          size="extra"
-          theme="light"
-        >
-          <div className={s.btns}>
-            <Button
-              className={`${s.btn} ${s.btn__outline}`}
-              onClick={() => onLoadOldForm()}
-            >
-              Yes
-            </Button>
-            <Button
-              className={`${s.btn} ${s.btn__primary}`}
-              onClick={() => onIgnoreOldForm()}
-            >
-              No
-            </Button>
-          </div>
-        </BaseModal> */}
       </DndContext>
     </div>
   );

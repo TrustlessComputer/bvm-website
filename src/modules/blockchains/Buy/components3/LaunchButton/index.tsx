@@ -3,44 +3,38 @@ import React, { useEffect, useMemo, useState } from 'react';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 
 import s from './styles.module.scss';
-import { FormOrder, ORDER_FIELD, useFormOrderStore } from '../../stores';
+import { FormOrder } from '../../stores';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
-import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { CustomizeParams, registerOrderHandler } from '../../Buy.services';
-import {
-  setShowAllChains,
-  setViewMode,
-  setViewPage,
-} from '@/stores/states/l2services/reducer';
 import sleep from '@/utils/sleep';
-import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import { Button, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
 import { formValuesAdapter } from './FormValuesAdapter';
 import { getChainIDRandom } from '../../Buy.helpers';
 import { orderBuyAPI_V3 } from '@/services/api/l2services';
 import { getErrorMessage } from '@/utils/errorV2';
-import toast from 'react-hot-toast';
 import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
 import useL2Service from '@/hooks/useL2Service';
+import BaseModal from '@components/BaseModal';
 
 const LaunchButton = ({
-  data,
-  originalData,
-}: {
+                        data,
+                        originalData,
+                      }: {
   data:
     | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
+    options: IModelCategory['options'] &
+      {
+        value: any;
+        label: string;
+        disabled: boolean;
+      }[];
+  })[]
     | null;
   originalData: IModelCategory[] | null;
 }) => {
@@ -48,6 +42,7 @@ const LaunchButton = ({
   const { loggedIn, login } = useWeb3Auth();
   const { accountInforL2Service, availableListFetching, availableList } =
     useAppSelector(getL2ServicesStateSelector);
+  const [isShowError, setShowError] = useState(false);
 
   const { getAccountInfor } = useL2Service();
 
@@ -69,7 +64,7 @@ const LaunchButton = ({
   const { chainName, dataAvaibilityChain, gasLimit, network, withdrawPeriod } =
     useOrderFormStore();
   const searchParams = useSearchParams();
-  const packageParam = searchParams.get('package') || PRICING_PACKGE.Hacker;
+  const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
 
   useEffect(() => {
     if (loggedIn) {
@@ -82,7 +77,8 @@ const LaunchButton = ({
       try {
         const chainIDRandom = await getChainIDRandom();
         setChainId(String(chainIDRandom));
-      } catch (error) {}
+      } catch (error) {
+      }
     };
     getChainIDRandomFunc();
   }, []);
@@ -114,7 +110,12 @@ const LaunchButton = ({
   }, [isFecthingData, availableList, packageParam]);
 
   const handleOnClick = async () => {
-    if (isSubmiting || !allFilled || hasError || !originalData) return;
+    if (!allFilled) {
+      setShowError(true);
+    }
+    if (isSubmiting || !allFilled || hasError || !originalData) {
+      return;
+    }
 
     const dynamicForm: any[] = [];
     for (const _field of originalData) {
@@ -159,8 +160,6 @@ const LaunchButton = ({
       withdrawPeriod,
     };
 
-    // TODO
-
     const params = formValuesAdapter({
       computerName: computerNameField.value || '',
       chainId: chainId,
@@ -197,7 +196,7 @@ const LaunchButton = ({
   return (
     <>
       <div
-        className={`${s.launch} ${allFilled ? s.active : ''}`}
+        className={`${s.launch} ${s.active}`}
         onClick={handleOnClick}
       >
         <div className={s.inner}>
@@ -229,11 +228,31 @@ const LaunchButton = ({
             }`,
           }}
           onClose={onCloseTopUpModal}
-          onSuccess={async () => {}}
+          onSuccess={async () => {
+          }}
           // balanceNeedTopup={`${tierData?.priceNote || '--'}`}
           balanceNeedTopup={`${priceBVM.toFixed(2) || '--'} BVM `}
         />
       )}
+      {
+        isShowError && <BaseModal
+        className={s.modal_required}
+          isShow={isShowError}
+          onHide={() => setShowError(false)}
+          title="You have not chosen all the required module."
+          size="extra"
+          theme="light"
+        >
+          <div className={s.btns}>
+            <Button
+              className={`${s.btn} ${s.btn__outline}`}
+              onClick={() => setShowError(false)}
+            >
+              Close
+            </Button>
+          </div>
+        </BaseModal>
+      }
     </>
   );
 };
