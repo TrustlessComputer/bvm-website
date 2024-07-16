@@ -22,9 +22,8 @@ type UseOrderFormStoreV3 = {
 
 const useOrderFormStoreV3 = create<UseOrderFormStoreV3>((set) => ({
   form: {},
+
   field: {},
-  priceUSD: 0,
-  priceBVM: 0,
   setField: (field, value, dragged = false) =>
     set((state) => ({
       form: {
@@ -39,10 +38,14 @@ const useOrderFormStoreV3 = create<UseOrderFormStoreV3>((set) => ({
         },
       },
     })),
+
+  priceUSD: 0,
   setPriceUSD: (price) =>
     set((state) => ({
       priceUSD: price,
     })),
+
+  priceBVM: 0,
   setPriceBVM: (price) =>
     set((state) => ({
       priceBVM: price,
