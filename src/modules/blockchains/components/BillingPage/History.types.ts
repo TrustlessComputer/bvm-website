@@ -16,7 +16,7 @@ export const HistoryTypeMap = {
   [HistoryType.HistoryType_Topup]: 'Top up',
   [HistoryType.HistoryType_BuyNode]: 'Buy Node',
   [HistoryType.HistoryType_WithdrawBalance]: 'Withdraw Balance',
-  [HistoryType.HistoryType_ChargeOperationFee]: 'Monthly Fee',
+  [HistoryType.HistoryType_ChargeOperationFee]: 'Daily Fee',
   [HistoryType.HistoryType_ChargeServiceFee]: 'Charge Service Fee',
   [HistoryType.HistoryType_RequestWithdrawReward]: 'Withdraw Reward',
   [HistoryType.HistoryType_ProveWithdrawReward]: 'Prove Reward',
