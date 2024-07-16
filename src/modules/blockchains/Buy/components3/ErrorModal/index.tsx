@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './styles.module.scss';
+import cn from 'classnames';
 import {
   Modal,
   ModalBody,
@@ -11,6 +12,7 @@ import {
 
 type Props = {
   title: string;
+  className?: string;
   children: React.ReactNode;
   closeText?: string;
   show: boolean;
@@ -21,6 +23,7 @@ const ErrorModal = ({
   title,
   show,
   onHide,
+  className = '',
   children,
   closeText = '',
 }: Props) => {
@@ -33,7 +36,9 @@ const ErrorModal = ({
           backgroundColor: '#f4f4f4',
         }}
       >
-        <ModalHeader className={styles.modal__title}>{title}</ModalHeader>
+        <ModalHeader className={cn(styles.modal__title, className)}>
+          {title}
+        </ModalHeader>
 
         <ModalBody className={styles.modal__body}>
           {children}
