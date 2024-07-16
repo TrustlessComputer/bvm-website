@@ -22,7 +22,7 @@ export default function CustomViewModule(props: Props) {
       <div className={s.inner}>
         <DroppableV2 id="final" className={s.finalResult}>
           <LegoV3 background={'#FF3A3A'} label="Name" labelInLeft zIndex={45}>
-            {`${props.orderItem?.chainName || ''}`}
+            <p className={s.name}>{`${props.orderItem?.chainName || ''}`}</p>
           </LegoV3>
 
           {data?.map((item, index) => {
