@@ -38,6 +38,7 @@ const Main = ({
         >
           <IconLogo />
         </div>
+        <p className={s.heading}>BVM Studio</p>
         {isDesktop ? (
           <div className={s.menu}>
             {/* {NAV_ITEMS_RIGHT.map((item) => {

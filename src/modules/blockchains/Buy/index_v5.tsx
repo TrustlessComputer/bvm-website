@@ -496,6 +496,7 @@ const BuyPage = () => {
 
   return (
     <div className={s.container}>
+      <p>Drag and drop modules to start new blockchains, new dapps, and new economies.</p>
       <DndContext
         sensors={sensors}
         onDragStart={handleDragStart}
@@ -784,13 +785,12 @@ const BuyPage = () => {
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>
                     <h4 className={s.right_box_footer_left_content}>
-                      {'(~'}
+                      {'~'}
                       {formatCurrencyV2({
                         amount: priceBVM,
                         decimals: 2,
-                      })}{' '}
+                      })}
                       BVM
-                      {')'}
                     </h4>
                     <h6 className={s.right_box_footer_left_title}>
                       $

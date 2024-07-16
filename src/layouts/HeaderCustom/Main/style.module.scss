@@ -2,6 +2,14 @@
   height: auto;
 }
 
+.heading {
+  font-family: var(--font-jetbrains);
+  font-size: 40px;
+  font-weight: 500;
+  line-height: calc(56 / 40);
+  color: #000;
+}
+
 .inner {
   display: flex;
   flex-direction: row;
