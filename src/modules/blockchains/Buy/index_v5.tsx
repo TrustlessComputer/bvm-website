@@ -21,6 +21,7 @@ import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import TierOptions from '@/modules/blockchains/Buy/components3/TierOptions';
+import { Flex } from '@chakra-ui/react';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -503,7 +504,10 @@ const BuyPage = () => {
         <div className={s.wrapper}>
           <div className={s.inner}>
             <div className={s.left}>
-              <p className={s.heading}>Customize your Blockchain</p>
+              <div  className={s.top_left}>
+                <p className={s.heading}>Build your Blockchain</p>
+                <p className={s.heading_note}><span>(<sup>*</sup>)</span>  Module required</p>
+              </div>
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
                   <div className={s.left_box_inner_sidebar}>
@@ -768,37 +772,39 @@ const BuyPage = () => {
 
             {/* ------------- RIGHT ------------- */}
             <div className={s.right}>
-              {
-                templates && <TierOptions
-                  originalData={originalData}
-                  templates={templates}
-                  setValueOfPackage={setValueOfPackage}
-                />
-              }
+              <div className={s.top_right}>
+                {/*{*/}
+                {/*  templates && <TierOptions*/}
+                {/*    originalData={originalData}*/}
+                {/*    templates={templates}*/}
+                {/*    setValueOfPackage={setValueOfPackage}*/}
+                {/*  />*/}
+                {/*}*/}
 
-              <div className={s.right_box_footer}>
-                <div className={s.right_box_footer_left}>
-                  <h6 className={s.right_box_footer_left_title}>
-                    Total price
-                  </h6>
-                  <h4 className={s.right_box_footer_left_content}>
-                    $
-                    {formatCurrencyV2({
-                      amount: priceUSD,
-                      decimals: 2,
-                    })}
-                    {'/'}Month {'(~'}
-                    {formatCurrencyV2({
-                      amount: priceBVM,
-                      decimals: 2,
-                    })}{' '}
-                    BVM
-                    {')'}
-                  </h4>
+                <div className={s.right_box_footer}>
+                  <div className={s.right_box_footer_left}>
+                    <h4 className={s.right_box_footer_left_content}>
+                      {'(~'}
+                      {formatCurrencyV2({
+                        amount: priceBVM,
+                        decimals: 2,
+                      })}{' '}
+                      BVM
+                      {')'}
+                    </h4>
+                    <h6 className={s.right_box_footer_left_title}>
+                      $
+                      {formatCurrencyV2({
+                        amount: priceUSD,
+                        decimals: 2,
+                      })}{'/'}Month
+                    </h6>
+                  </div>
+
+                  <LaunchButton data={data} originalData={originalData} />
                 </div>
-
-                <LaunchButton data={data} originalData={originalData} />
               </div>
+
 
               <div className={s.right_box}>
                 <DroppableV2
