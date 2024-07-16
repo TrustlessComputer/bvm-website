@@ -36,24 +36,16 @@ const EnterRefferal = (props: EnterRefferalProps) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const claimReward = useMemo(() => {
-    return userRefInfo?.rewards?.reduce((result, key) => {
-      return new BigNumber(result).plus(key.claimed_usd).toString();
-    }, "0");
-  }, [userRefInfo?.rewards]);
-
   const unClaimReward = useMemo(() => {
-    return userRefInfo?.rewards?.reduce((result, key) => {
-      return new BigNumber(result).plus(key.total_usd).minus(key.claimed_usd).toString();
-    }, "0");
-  }, [userRefInfo?.rewards]);
+    return Number(userRefInfo?.referral_reward_total || '0') - Number(userRefInfo?.referral_reward_claimed || '0');
+  }, [userRefInfo]);
 
   const onSubmitClaim = async () => {
     if (!addressL2) return;
     try {
       setIsSubmitting(true);
       const origin = window.location.origin;
-      const refUrl = origin + `?ref=${userRefInfo?.referral_code}`;
+      const refUrl = origin + `?r=${userRefInfo?.referral_code}`;
       const content = `I just received $${formatCurrency(unClaimReward, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)} after trading on @RuneChain_L2\n\nTrade Unlimited Bitcoin Permissionlessly Now\n\n${refUrl}`;
       window.open(
         `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
@@ -78,68 +70,28 @@ const EnterRefferal = (props: EnterRefferalProps) => {
     <div className={s.container}>
       <div className={s.content}>
         <div className={s.grid}>
-          <div className={s.item}>
+          {/*<div className={s.item}>
             <p className={s.item_title}>Your Trading Volume</p>
             <p className={s.item_desc}>
               {formatCurrency(userRefInfo?.trading_volume || '0', MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}
               {' '}
               USD
             </p>
-          </div>
+          </div>*/}
           <div className={s.item}>
-            <Box>
-              <InfoTooltip
-                placement={"top"}
-                showIcon
-                label={
-                  <Box w="200px">
-                    {
-                      userRefInfo?.rewards?.map(reward => {
-                        return <HorizontalItem
-                          color={"black"}
-                          label={reward.symbol}
-                          value={formatCurrency(reward.claimed, MIN_DECIMAL, MAX_DECIMAL, 'BTC', true)}
-                        />;
-                      })
-                    }
-                  </Box>
-                }
-              >
-                <p className={s.item_title}>Claimed Rebates</p>
-              </InfoTooltip>
-            </Box>
+            <p className={s.item_title}>Claimed Rebates</p>
             <p className={s.item_desc}>
-              {formatCurrency(claimReward || '0', MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}
+              {formatCurrency(userRefInfo?.referral_reward_claimed || '0', MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}
               {' '}
-              USD
+              BVM
             </p>
           </div>
           <div className={s.item}>
-            <Box>
-              <InfoTooltip
-                placement={"top"}
-                showIcon
-                label={
-                  <Box w="200px">
-                    {
-                      userRefInfo?.rewards?.map(reward => {
-                        return <HorizontalItem
-                          color={"black"}
-                          label={reward.symbol}
-                          value={formatCurrency(new BigNumber(reward.total).minus(reward.claimed).toString(), MIN_DECIMAL, MAX_DECIMAL, 'BTC', true)}
-                        />;
-                      })
-                    }
-                  </Box>
-                }
-              >
-                <p className={s.item_title}>Unclaimed Rebates</p>
-              </InfoTooltip>
-            </Box>
+            <p className={s.item_title}>Unclaimed Rebates</p>
             <p className={s.item_desc}>
               {formatCurrency(unClaimReward, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}
               {' '}
-              USD
+              BVM
             </p>
           </div>
         </div>
@@ -150,9 +102,10 @@ const EnterRefferal = (props: EnterRefferalProps) => {
               onClick={onSubmitClaim}
               isLoading={isSubmitting}
               loadingText={'Submitting...'}
+              className={cs(s.button)}
             >
               <p className={s.button_text}>
-                CLAIM REBATES
+                Claim
               </p>
             </Button>
           </ButtonConnected>

@@ -13,7 +13,7 @@ class CReferralAPI {
     address: string;
   }): Promise<any> => {
     try {
-      const res = await this.api.post(this.prefix(`referral?address=${params.address}`), {
+      const res = await this.api.post(this.prefix(`referral/?address=${params.address}`), {
         ...params,
       });
       return res;

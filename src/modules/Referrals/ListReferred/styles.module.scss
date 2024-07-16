@@ -12,27 +12,20 @@
     row-gap: 24px;
 
     width: 100%;
-    //padding: 32px;
-    //background-color: #ffffff1a;
-
-    //@include w-max(768px) {
-    //  padding: 16px;
-    //}
-  
   }
 
   .titleInvite {
-    font-family: var(--norse);
-    //text-align: center;
-    font-size: 40px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    //margin-bottom: 12px;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 120%;
+    color: #000;
+
+    @include w-max(768px) {
+      font-size: 28px;
+    }
   }
   
 }
-
-
 
 table {
   &.tableContainer {
@@ -57,6 +50,7 @@ table {
       tr {
         th {
           padding-bottom: 16px !important;
+          font-family: SF Pro Display;
         }
       }
     }
@@ -70,14 +64,13 @@ table {
     }
 
     .title {
-      font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
+      font-weight: 400;
+      font-size: 20px;
       line-height: 140%;
+      color: #000;
+      letter-spacing: 0.02em;
 
-      color: var(--naka-text);
-
-      max-width: 100px;
+      //max-width: 100px;
       overflow: hidden;
       text-overflow: ellipsis;
     }
@@ -85,15 +78,16 @@ table {
     .subTitle {
       font-size: 12px;
       opacity: 0.7;
+      color: #000;
     }
 
     .desc {
+      font-size: 20px;
       font-weight: 500;
-      font-size: 12px;
       line-height: 140%;
-      color: var(--chakra-colors-blue-600);
+      letter-spacing: -0.01em;
+      color: #000;
     }
-
   }
 }
 

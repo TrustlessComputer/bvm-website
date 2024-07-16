@@ -7,7 +7,7 @@ import Referrals from '@/modules/Referrals';
 
 const PageReferrals = () => {
   return (
-    <MainLayout hideFooter={isDesktop}>
+    <MainLayout hideFooter={isDesktop} bodyColor={'#fff'}>
       <Referrals />
     </MainLayout>
   );

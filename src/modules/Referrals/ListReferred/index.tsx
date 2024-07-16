@@ -50,7 +50,7 @@ const ListReferred = () => {
     if (!addressL2 || !userReferral?.referral_code) return;
     try {
       const response = await userApi.getListReferred(userReferral?.referral_code as string);
-      setData(response?.rows);
+      setData(response);
     } catch (error) {
     } finally {
       setIsFetching(false);
@@ -79,10 +79,9 @@ const ListReferred = () => {
   };
 
   const labelConfig = {
-    color: '#898989',
+    color: '#B6B6B6',
     fontSize: '14px',
-    letterSpacing: '-0.5px',
-    borderBottom: '1px solid #FFFFFF33',
+    borderBottom: '1px solid #EFEFEF',
   };
 
   const columns: ColumnProp[] = useMemo(() => {
@@ -107,7 +106,7 @@ const ListReferred = () => {
                   'normal'
                 )}
                 address={data?.address}
-                width={36}
+                width={28}
                 name={data?.twitter_username}
               />
               <Flex width={'100%'} gap={'0px'} direction={'column'}>
@@ -125,44 +124,6 @@ const ListReferred = () => {
                     {shortCryptoAddress(data?.address as string, 12)}
                   </Text>
                 )}
-              </Flex>
-            </Flex>
-          );
-        },
-      },
-      {
-        id: 'point',
-        label: (
-          <Flex
-            style={{
-              justifyContent: 'flex-end',
-              alignSelf: 'flex-end',
-              width: '100%',
-            }}
-          >
-            Trading Volume
-          </Flex>
-        ),
-        labelConfig,
-        config: {
-          borderBottom: 'none',
-          fontSize: '16px',
-          fontWeight: 500,
-          verticalAlign: 'middle',
-          letterSpacing: '-0.5px',
-        },
-        render(data: any) {
-          return (
-            <Flex
-              gap={3}
-              alignItems={'center'}
-              width={'100%'}
-              justifyContent={'flex-end'}
-            >
-              <Flex alignItems={'flex-end'} gap={2}>
-                <Text className={s.title}>
-                  {formatCurrency(data?.trading_volume, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)} USD
-                </Text>
               </Flex>
             </Flex>
           );
@@ -199,7 +160,7 @@ const ListReferred = () => {
             >
               <Flex alignItems={'flex-end'} gap={2}>
                 <Text className={s.title}>
-                  {getReferStatus(data.refer_status as string)}
+                  {getReferStatus(data.status as string)}
                 </Text>
               </Flex>
             </Flex>
@@ -214,7 +175,7 @@ const ListReferred = () => {
       <div className={s.content}>
         <p className={s.titleInvite}>Invited friends</p>
 
-        <Box w="100%" height="42dvh">
+        <Box w="100%" minH="35dvh">
           <ScrollWrapper
             onFetch={() => {
               refParams.current = {

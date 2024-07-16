@@ -22,6 +22,7 @@ import ListReferred from './ListReferred';
 import ButtonConnected from '@/components/ButtonConnected/v2';
 import { isDesktop } from 'react-device-detect';
 import { userReferralSelector } from '@/stores/states/referrals/selector';
+import cx from 'clsx';
 
 const RefferalsScreen: React.FC = (): React.ReactElement => {
   const userReferral = useSelector(userReferralSelector);
@@ -64,7 +65,7 @@ const RefferalsScreen: React.FC = (): React.ReactElement => {
   const onClickShareReferralCode = () => {
     if (!userReferral) return;
     const origin = window.location.origin;
-    const refUrl = origin + `?ref=${userReferral.referral_code}`;
+    const refUrl = origin + `?r=${userReferral.referral_code}`;
 
     const content = `Just discovered @RuneChain_L2 where you can:
 
@@ -83,10 +84,10 @@ Join now: ${refUrl}`;
   };
 
   return (
-    <div className={s.container}>
+    <div className={cx(s.container, "containerV3")}>
       <div className={s.content}>
         <div className={s.boxInfo}>
-          <p className={s.title}>REFERRALS</p>
+          <p className={s.title}>Referrals</p>
           <p className={s.desc}>
             Refer Friends. Trade Unlimited Bitcoin Permissionlessly. Earn Crypto Together.<br/>
             You and your friend each earn a <span>10% commission</span> on every trade on Runechain.
@@ -94,7 +95,7 @@ Join now: ${refUrl}`;
 
           <SimpleGrid gridTemplateColumns={["1fr", "repeat(3, 1fr)"]} rowGap={["8px", "0"]} columnGap={["0", "28px"]} mt={"24px"}>
             <GridItem colSpan={2}>
-              <Box p={"4px"} borderRadius={"8px"} bg={"#FFFFFF1A"}>
+              <Box p={"4px"} borderRadius={"8px"} bg={"#F4F4F4"}>
                 <Flex
                   direction="row"
                   justifyContent={"space-between"}
@@ -103,6 +104,7 @@ Join now: ${refUrl}`;
                   borderRadius={"4px"}
                   border={"1px solid #FFFFFF4D"}
                   p={"10px 16px"}
+                  bg={"#F4F4F4"}
                 >
                   {isDesktop && <div />}
                   <Flex alignItems={"center"} gap={"10px"}>
@@ -122,7 +124,7 @@ Join now: ${refUrl}`;
                               onClick={onClickCopyReferralCode}
                               // className={s.container}
                             >
-                              <img className={s.btnCp} src={`/icons/ic-copy.svg`} alt="ic-copy" onClick={onClickCopyReferralCode} />
+                              <img className={s.btnCp} src={`/icons/ic-copy-v2.svg`} alt="ic-copy" onClick={onClickCopyReferralCode} />
                             </div>
                           </PopoverTrigger>
                           <PopoverContent p={"8px 12px"} w={"fit-content"}>
@@ -142,7 +144,7 @@ Join now: ${refUrl}`;
                 <div className={s.containerWallet} onClick={onClickShareReferralCode}>
                   <p>SHARE ON</p>
                   <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.1007 0.768997H15.554L10.194 6.89566L16.5 15.231H11.5627L7.696 10.175L3.27067 15.231H0.816L6.54933 8.67766L0.5 0.769664H5.56267L9.058 5.391L13.1007 0.768997ZM12.24 13.763H13.5993L4.824 2.16033H3.36533L12.24 13.763Z" fill="black"/>
+                    <path d="M13.1007 0.768555H15.554L10.194 6.89522L16.5 15.2306H11.5627L7.696 10.1746L3.27067 15.2306H0.816L6.54933 8.67722L0.5 0.769221H5.56267L9.058 5.39056L13.1007 0.768555ZM12.24 13.7626H13.5993L4.824 2.15989H3.36533L12.24 13.7626Z" fill="#FA4E0E"/>
                   </svg>
                 </div>
               </ButtonConnected>
