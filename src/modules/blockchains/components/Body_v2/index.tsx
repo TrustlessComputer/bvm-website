@@ -71,7 +71,7 @@ const BodyGridView = () => {
 
   const renderDataList = () => {
     return (
-      <SimpleGrid columns={[1, 2]} w={'100%'} gap={'20px'}>
+      <SimpleGrid columns={[1, 1, 2]} w={'100%'} gap={'20px'}>
         {myOrders.map((item, index) => (
           <L2Instance
             key={`${item.domain}-${index}`}
