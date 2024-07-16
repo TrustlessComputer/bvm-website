@@ -8,6 +8,7 @@ import { EditIcon } from '@chakra-ui/icons';
 import DappInstalledItem from './DappInstalledItem';
 import { useRouter } from 'next/navigation';
 import InstallNewDAppItem from './InstallNewDAppItem';
+import s from './style.module.scss';
 
 type Props = {
   item: OrderItem;
@@ -111,15 +112,12 @@ const BottomView = (props: Props) => {
   const renderAddToMetamask = () => {
     if (!isAddToMetamask) return null;
     return (
-      <Button
+      <Text
         mt={'15px'}
-        borderRadius={'15px'}
-        minH={['40px', '45px', '50px']}
-        fontSize={['15px', '16px', '18px']}
-        color={'#17066c'}
-        bgColor={'#fff'}
-        borderWidth={'1px'}
-        borderColor={'#17066c'}
+        fontSize={['14px', '15px', '16px']}
+        fontWeight={500}
+        className={s.fontSFProDisplay}
+        color={'#FA4E0E'}
         _hover={{
           cursor: 'pointer',
           opacity: 0.8,
@@ -129,8 +127,8 @@ const BottomView = (props: Props) => {
           onAddChain();
         }}
       >
-        Add to Metamask
-      </Button>
+        Add to metamask
+      </Text>
     );
   };
 
@@ -143,7 +141,7 @@ const BottomView = (props: Props) => {
   if (!dappList || dappList.length < 1) return null;
 
   return (
-    <Flex flexDir={'column'} gap={'20px'} mt="20px">
+    <Flex flexDir={'column'} gap={'20px'} mt="20px" className={s.container}>
       <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
         <Text
           fontSize={['14px', '15px', '16px']}
