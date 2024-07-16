@@ -98,7 +98,7 @@ const BuyPage = () => {
         field[activeKey].dragged
       ) {
         setShowShadow(field[activeKey].value as string);
-        toast.error('Please drag back to the left side to change the value', {
+        toast.error('Remove existing module first.', {
           icon: null,
           style: {
             borderColor: 'blue',
@@ -108,7 +108,7 @@ const BuyPage = () => {
         });
         setTimeout(() => {
           setShowShadow('');
-        }, 2000);
+        }, 1500);
         return;
       }
 

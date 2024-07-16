@@ -5,5 +5,5 @@ export enum TAB_ENUM {
 
 export const TAB_ENUM_MAP = {
   [TAB_ENUM.BILLING]: 'Billing',
-  [TAB_ENUM.MANAGE_CHAINS]: 'Your Chains',
+  [TAB_ENUM.MANAGE_CHAINS]: 'Chains',
 };

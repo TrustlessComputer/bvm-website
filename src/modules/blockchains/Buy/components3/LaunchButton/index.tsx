@@ -186,7 +186,7 @@ const LaunchButton = ({
       // dispatch(setShowAllChains(false));
       await sleep(1);
       if (isSuccess) {
-        router.push('/rollups');
+        router.push('/chains');
       } else {
         // router.push('/rollups?hasOrderFailed=true');
       }
