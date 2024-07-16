@@ -1,12 +1,8 @@
 'use client';
 
-import {
-  IDappInstalled,
-  OrderItem,
-  OrderStatus,
-} from '@/stores/states/l2services/types';
+import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import addChain from '@/utils/addChain';
-import { Flex, Image, Text, Button, SimpleGrid } from '@chakra-ui/react';
+import { Button, Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import { EditIcon } from '@chakra-ui/icons';
 import DappInstalledItem from './DappInstalledItem';
