@@ -3,7 +3,12 @@
 import { Flex, Text, Image } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 
-const NavigatioBar = () => {
+interface IProps {
+  title?: string
+  url?: string
+}
+
+const NavigatioBar = ({ title, url }: IProps) => {
   const router = useRouter();
 
   return (
@@ -15,7 +20,12 @@ const NavigatioBar = () => {
         opacity: 0.8,
       }}
       w="100%"
-      onClick={() => router.back()}
+      onClick={() => {
+        if (!!url) {
+          return router.replace(url);
+        }
+        router.back()
+      }}
     >
       <Image src={'/icons/back_orange_ic.svg'}></Image>
       <Text
@@ -23,7 +33,7 @@ const NavigatioBar = () => {
         fontSize={['14px', '15px', '16px']}
         fontWeight={400}
       >
-        Chains
+        {title || 'Chains'}
       </Text>
     </Flex>
   );
