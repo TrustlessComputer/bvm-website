@@ -143,7 +143,19 @@ const DomainBox = (props: IDomainBoxProps) => {
                             />
                           </svg>
                         ) : (
-                          <PlusSquareIcon />
+                          <Flex alignItems="center" gap="8px">
+                            <svg xmlns='http://www.w3.org/2000/svg' width='25' height='24' viewBox='0 0 25 24'
+                                 fill='none'>
+                              <g opacity='0.9'>
+                                <path
+                                  d='M16.1004 11.9998H12.5004M12.5004 11.9998H8.90039M12.5004 11.9998V15.5998M12.5004 11.9998L12.5004 8.3998M22.1004 12.0004C22.1004 17.3023 17.8023 21.6004 12.5004 21.6004C7.19846 21.6004 2.90039 17.3023 2.90039 12.0004C2.90039 6.69846 7.19846 2.40039 12.5004 2.40039C17.8023 2.40039 22.1004 6.69846 22.1004 12.0004Z'
+                                  stroke='#FA4E0E' stroke-width='2' stroke-linecap='round' />
+                              </g>
+                            </svg>
+                            <Text color="#FB6026" fontSize="16px" fontWeight="400">
+                              Add Domain
+                            </Text>
+                          </Flex>
                         )}
                       </Box>
                     </Flex>
@@ -156,12 +168,12 @@ const DomainBox = (props: IDomainBoxProps) => {
         </Flex>
       </Flex>
       <BaseModal
-        icCloseUrl="/icons/ic-close-grey.svg"
+        icCloseUrl='/icons/ic-close-grey.svg'
         className={styles.modalContent}
         isShow={isOpen}
-        size="small"
+        size='small'
         onHide={onClose}
-        title="Add domain"
+        title='Add domain'
       >
         <form onSubmit={formik.handleSubmit}>
           <Flex flexDirection="column" gap="16px">
