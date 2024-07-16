@@ -55,8 +55,8 @@ const BuyPage = () => {
   const [currentPackage, setCurrentPackage] = React.useState<number | null>(
     null,
   );
-  const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true)
-  const [isOpenModalVideo , setIsOpenModalVideo] = useState<boolean>(false)
+  const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
+  const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -299,7 +299,11 @@ const BuyPage = () => {
   }, []);
 
   const initTemplate = (crPackage?: number) => {
-    const packageId = crPackage || searchParams.get('use-case') || '-1';
+    const packageId =
+      typeof crPackage !== 'undefined'
+        ? crPackage
+        : searchParams.get('use-case') || '-1';
+
     const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
     const form = JSON.parse(oldForm) as IModelCategory[];
 
@@ -313,7 +317,7 @@ const BuyPage = () => {
   };
 
   React.useEffect(() => {
-    initTemplate();
+    initTemplate(0);
   }, [templates]);
 
   React.useEffect(() => {
@@ -487,11 +491,11 @@ const BuyPage = () => {
   }, [idDragging]);
 
   const resetEdit = () => {
-    if (currentPackage)
-      router.push(`/rollups/customizev2?use-case=${currentPackage}`);
+    // if (currentPackage)
+    //   router.push(`/rollups/customizev2?use-case=${currentPackage}`);
 
     setFieldsDragged([]);
-    initTemplate(currentPackage || undefined);
+    initTemplate(0);
   };
 
   return (
@@ -996,23 +1000,41 @@ const BuyPage = () => {
                   </div>
                   Reset
                 </button>
-                {
-                  isShowVideo && (
-                    <div className={s.video} >
-                      <ImagePlaceholder src={'/video.jpg'} alt={'video'} width={291} height={226} />
-                      <div className={s.video_play} onClick={() => setIsOpenModalVideo(true)}>
-                        <ImagePlaceholder src={'/play.svg'} alt={'video'} width={60} height={60} />
-                      </div>
-                      <div className={s.video_close} onClick={() => {
-                        setIsOpenModalVideo(false)
-                        setIsShowVideo(false)
-                      }}>
-                        <ImagePlaceholder src={'/close.svg'} alt={'close'} width={24} height={24} />
-                      </div>
+                {isShowVideo && (
+                  <div className={s.video}>
+                    <ImagePlaceholder
+                      src={'/video.jpg'}
+                      alt={'video'}
+                      width={291}
+                      height={226}
+                    />
+                    <div
+                      className={s.video_play}
+                      onClick={() => setIsOpenModalVideo(true)}
+                    >
+                      <ImagePlaceholder
+                        src={'/play.svg'}
+                        alt={'video'}
+                        width={60}
+                        height={60}
+                      />
                     </div>
-                  )
-                }
-
+                    <div
+                      className={s.video_close}
+                      onClick={() => {
+                        setIsOpenModalVideo(false);
+                        setIsShowVideo(false);
+                      }}
+                    >
+                      <ImagePlaceholder
+                        src={'/close.svg'}
+                        alt={'close'}
+                        width={24}
+                        height={24}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -1020,7 +1042,9 @@ const BuyPage = () => {
       </DndContext>
       <ModalVideo
         channel="custom"
-        url={'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'}
+        url={
+          'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'
+        }
         isOpen={isOpenModalVideo}
         onClose={() => {
           setIsOpenModalVideo(false);
