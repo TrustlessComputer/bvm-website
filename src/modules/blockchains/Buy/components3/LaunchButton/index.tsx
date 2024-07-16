@@ -115,20 +115,7 @@ const LaunchButton = ({
 
   const handleOnClick = async () => {
     if (isSubmiting || !allFilled || hasError || !originalData) return;
-    if (!loggedIn) return login();
 
-    setSubmitting(true);
-
-    let isSuccess = false;
-    const form: FormOrder = {
-      chainName,
-      network,
-      dataAvaibilityChain,
-      gasLimit,
-      withdrawPeriod,
-    };
-
-    // TODO
     const dynamicForm: any[] = [];
     for (const _field of originalData) {
       if (!field[_field.key].dragged) continue;
@@ -155,10 +142,24 @@ const LaunchButton = ({
       });
     }
 
-    console.log('[LaunchButton] handleOnClick -> dynamicForm :: ', {
-      dynamicForm,
-      computerNameField,
-    });
+    if (!loggedIn) {
+      localStorage.setItem('bvm.customize-form', JSON.stringify(dynamicForm));
+
+      return login();
+    }
+
+    setSubmitting(true);
+
+    let isSuccess = false;
+    const form: FormOrder = {
+      chainName,
+      network,
+      dataAvaibilityChain,
+      gasLimit,
+      withdrawPeriod,
+    };
+
+    // TODO
 
     const params = formValuesAdapter({
       computerName: computerNameField.value || '',
