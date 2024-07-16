@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 import { getModelCategories, getTemplates } from '@/services/customize-model';
-
 import BoxOptionV3 from './components3/BoxOptionV3';
 import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
@@ -22,6 +21,7 @@ import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import TierOptions from '@/modules/blockchains/Buy/components3/TierOptions';
 import { Flex } from '@chakra-ui/react';
+import ImagePlaceholder from '@components/ImagePlaceholder';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -534,10 +534,10 @@ const BuyPage = () => {
         <div className={s.wrapper}>
           <div className={s.inner}>
             <div className={s.left}>
-              <div  className={s.top_left}>
-                <p className={s.heading}>Build your Blockchain</p>
-                <p className={s.heading_note}><span>(<sup>*</sup>)</span>  Module required</p>
-              </div>
+              {/*<div  className={s.top_left}>*/}
+              {/*  <p className={s.heading}>Build your Blockchain</p>*/}
+              {/*  <p className={s.heading_note}><span>(<sup>*</sup>)</span>  Module required</p>*/}
+              {/*</div>*/}
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
                   <div className={s.left_box_inner_sidebar}>
@@ -1187,6 +1187,9 @@ const BuyPage = () => {
                   })} */}
                 </DroppableV2>
                 <button className={s.reset} onClick={resetEdit}>
+                  <div>
+                    <ImagePlaceholder src={'/icons/undo.svg'} alt={'undo'} width={20} height={20} />
+                  </div>
                   Reset
                 </button>
               </div>
