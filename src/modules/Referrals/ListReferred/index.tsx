@@ -2,18 +2,19 @@ import AppLoading from '@/components/AppLoading';
 import Avatar from '@/components/Avatar';
 import ListTable, { ColumnProp } from '@/components/ListTable';
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper';
-import { formatCurrency, formatName } from '@/utils/format';
+import { formatName } from '@/utils/format';
 import { getUrlAvatarTwitter } from '@/utils/helpers';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
-import { MIN_DECIMAL } from '@/constants/constants';
 import CReferralAPI from 'src/services/api/referrals';
 import { shortCryptoAddress } from '@/utils/address';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { useSelector } from 'react-redux';
 import { userReferralSelector } from '@/stores/states/referrals/selector';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import ButtonConnected from '@components/ButtonConnected/v2';
 
 const getReferStatus = (key: string) => {
   switch (key) {
@@ -41,6 +42,7 @@ const ListReferred = () => {
     limit: 100,
   });
   const refInitial = useRef(false);
+  const { loggedIn } = useWeb3Auth();
 
   useEffect(() => {
     fetchData();
@@ -174,29 +176,43 @@ const ListReferred = () => {
     <div className={s.container}>
       <div className={s.content}>
         <p className={s.titleInvite}>Invited friends</p>
+        <Box w="100%" minH="28dvh">
+          {
+            loggedIn ? (
+              <ScrollWrapper
+                onFetch={() => {
+                  refParams.current = {
+                    ...refParams.current,
+                    page: refParams.current.page + 1,
+                  };
+                  hasIncrementedPageRef.current = true;
+                  // fetchData();
+                }}
+                isFetching={refreshing}
+                hasIncrementedPageRef={hasIncrementedPageRef}
+                onFetchNewData={onRefresh}
+                wrapClassName={s.wrapScroll}
+              >
+                <ListTable
+                  data={data}
+                  columns={columns}
+                  className={s.tableContainer}
+                  emptyLabel={"No friend invited"}
+                  emptyIcon={
+                    <img src={"/icons/refer_empty.png"} />
+                  }
+                  showEmpty
+                />
+                {isFetching && <AppLoading className={s.loading} />}
+              </ScrollWrapper>
+            ) : (
+              <Flex justifyContent={"center"} alignItems={"center"} mt={"100px"}>
+                <ButtonConnected className={s.containerWallet} title={<p>CONNECT</p>}>
 
-        <Box w="100%" minH="35dvh">
-          <ScrollWrapper
-            onFetch={() => {
-              refParams.current = {
-                ...refParams.current,
-                page: refParams.current.page + 1,
-              };
-              hasIncrementedPageRef.current = true;
-              // fetchData();
-            }}
-            isFetching={refreshing}
-            hasIncrementedPageRef={hasIncrementedPageRef}
-            onFetchNewData={onRefresh}
-            wrapClassName={s.wrapScroll}
-          >
-            <ListTable
-              data={data}
-              columns={columns}
-              className={s.tableContainer}
-            />
-            {isFetching && <AppLoading className={s.loading} />}
-          </ScrollWrapper>
+                </ButtonConnected>
+              </Flex>
+            )
+          }
         </Box>
       </div>
     </div>

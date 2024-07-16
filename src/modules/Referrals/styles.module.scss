@@ -130,17 +130,11 @@
 }
 
 .containerWallet {
-  background: #ffffff;
-  border-radius: 4px !important;
-  padding: 10px 20px;
   gap: 8px;
   display: flex;
-  height: 48px !important;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   cursor: pointer;
-  width: 236px;
-  border: 1px solid #FA4E0E;
 
   p {
     font-size: 14px;
