@@ -38,17 +38,15 @@ const HeaderLeftView = (props: Props) => {
                 size: 'xl',
               },
               render: () => (
-                <Flex w={'100%'} h="auto">
-                  <UpdateOrderModal
-                    show={true}
-                    item={item}
-                    onClose={() => {
-                      dispatch(closeModal({ id: id }));
-                    }}
-                    onSuccess={() => {}}
-                    cancelThisRollupOnClick={() => {}}
-                  />
-                </Flex>
+                <UpdateOrderModal
+                  show={true}
+                  item={item}
+                  onClose={() => {
+                    dispatch(closeModal({ id: id }));
+                  }}
+                  onSuccess={() => {}}
+                  cancelThisRollupOnClick={() => {}}
+                />
               ),
             }),
           );
