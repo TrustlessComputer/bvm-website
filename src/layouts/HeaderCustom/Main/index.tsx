@@ -11,6 +11,7 @@ import ButtonLoginTwitter from '../components/ButtonLoginTwitter';
 import GroupDownItem from '@layouts/HeaderV3/components/GroupDownItem';
 import { ReactElement } from 'react';
 import IconLogo from '../components/IcLogo';
+import ImagePlaceholder from '@components/ImagePlaceholder';
 
 export type TMainHeader = {
   color?: 'black' | 'white';
@@ -38,7 +39,11 @@ const Main = ({
         >
           <IconLogo />
         </div>
-        <p className={s.heading}>BVM Studio</p>
+        {/*<p className={s.heading}>BVM Studio</p>*/}
+        <div className={s.logoStudio}>
+          <ImagePlaceholder src={'/bvmstudio_logo.png'} alt={'bvmstudio_logo'} width={549} height={88} />
+
+        </div>
         {isDesktop ? (
           <div className={s.menu}>
             {/* {NAV_ITEMS_RIGHT.map((item) => {
