@@ -102,9 +102,10 @@ const EnterRefferal = (props: EnterRefferalProps) => {
               onClick={onSubmitClaim}
               isLoading={isSubmitting}
               loadingText={'Submitting...'}
+              className={cs(s.button)}
             >
               <p className={s.button_text}>
-                CLAIM REBATES
+                Claim
               </p>
             </Button>
           </ButtonConnected>

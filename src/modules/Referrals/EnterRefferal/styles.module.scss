@@ -15,27 +15,18 @@
   .button {
     width: 100% !important;
     color: #fff;
+    border-radius: 100px;
+    background: #FA4E0E;
 
-    &_svg {
-      //z-index: -1;
-      height: 100%;
-      width: 100%;
-      position: absolute;
-
-      svg {
-        width: 100%;
-      }
+    &:hover {
+      background: #FA4E0E;
     }
 
     &_text {
       z-index: 1;
-      color: #000;
-      font-family: var(--reem-kufi);
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 140%; /* 19.6px */
-      text-transform: uppercase;
+      color: #FFF;
+      font-weight: 600;
+      font-size: 16px;
     }
   }
 }

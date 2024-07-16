@@ -50,7 +50,7 @@ const ListReferred = () => {
     if (!addressL2 || !userReferral?.referral_code) return;
     try {
       const response = await userApi.getListReferred(userReferral?.referral_code as string);
-      setData(response?.rows);
+      setData(response);
     } catch (error) {
     } finally {
       setIsFetching(false);
@@ -106,7 +106,7 @@ const ListReferred = () => {
                   'normal'
                 )}
                 address={data?.address}
-                width={36}
+                width={28}
                 name={data?.twitter_username}
               />
               <Flex width={'100%'} gap={'0px'} direction={'column'}>
@@ -160,7 +160,7 @@ const ListReferred = () => {
             >
               <Flex alignItems={'flex-end'} gap={2}>
                 <Text className={s.title}>
-                  {getReferStatus(data.refer_status as string)}
+                  {getReferStatus(data.status as string)}
                 </Text>
               </Flex>
             </Flex>
@@ -175,7 +175,7 @@ const ListReferred = () => {
       <div className={s.content}>
         <p className={s.titleInvite}>Invited friends</p>
 
-        <Box w="100%" height="42dvh">
+        <Box w="100%" minH="35dvh">
           <ScrollWrapper
             onFetch={() => {
               refParams.current = {
