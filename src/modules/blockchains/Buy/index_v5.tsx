@@ -193,7 +193,9 @@ const BuyPage = () => {
 
   const setValueOfPackage = (packageId: number | string | null) => {
     if (!packageId?.toString()) return;
+    setFieldsDragged([]);
     setCurrentPackage(Number(packageId));
+
     // set default value for package
     const templateData = (templates?.[Number(packageId)] ||
       []) as IModelCategory[];
