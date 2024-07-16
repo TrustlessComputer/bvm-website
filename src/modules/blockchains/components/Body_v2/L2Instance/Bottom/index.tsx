@@ -140,6 +140,8 @@ const BottomView = (props: Props) => {
 
   if (!isStatusDone) return null;
 
+  if (!dappList || dappList.length < 1) return null;
+
   return (
     <Flex flexDir={'column'} gap={'20px'} mt="20px">
       <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
@@ -155,11 +157,11 @@ const BottomView = (props: Props) => {
       </Flex>
 
       <SimpleGrid columns={[1, 1, 2]} spacing={'16px'}>
-        <InstallNewDAppItem
+        {/* <InstallNewDAppItem
           onClick={() => {
             // router.push('/app-store');
           }}
-        />
+        /> */}
         {dappList.map((item, index) => {
           return (
             <DappInstalledItem
