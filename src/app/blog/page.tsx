@@ -6,8 +6,7 @@ import { APP_DESCRIPTION, APP_NAME } from '@/config/metadata';
 
 
 export const metadata: Metadata = {
-  title: `Blogs | ${APP_NAME}`,
-  description: APP_DESCRIPTION,
+
 };
 
 const BVMPage = async ({ searchParams }: { searchParams: Params }) => {

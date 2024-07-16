@@ -5,7 +5,7 @@ import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import { Box, Divider, Flex } from '@chakra-ui/react';
 // import BodyInfor from './BodyInfor';
-import BodyInfor from './BodyInfor_V2';
+import BodyInfor from './BodyInfor/index';
 import BottomView from './Bottom';
 import HeaderRow from './HeaderRow';
 import { useDashboard } from '@/modules/blockchains/providers/DashboardProvider';

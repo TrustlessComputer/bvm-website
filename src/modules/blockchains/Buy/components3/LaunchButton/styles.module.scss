@@ -1,6 +1,5 @@
 .launch {
-  align-self: flex-end;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 7px 24px;
   display: flex;
   flex-direction: column;
@@ -41,7 +40,16 @@
   }
 
   p {
+    font-family: var(--font-JetBrainsMono);
     font-size: 24px;
+    font-weight: 700;
+    line-height: 34px;
+    text-align: left;
+    color: #fff;
+  }
+
+  .connect {
+    font-size: 18px;
     color: #fff;
     font-weight: 500;
   }

@@ -19,6 +19,7 @@ const ModuleDetailPage = () => {
         color: 'black',
         bgColor: '#fff',
       }}
+      footerClassName="mt-0"
     >
       <ModuleDetail data={{ ...MODULE_DATAS.bvm_avail }} />
     </MainLayout>
