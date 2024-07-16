@@ -50,6 +50,9 @@ const BuyPage = () => {
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
   const [isShowModal, setIsShowModal] = React.useState(false);
+  const [currentPackage, setCurrentPackage] = React.useState<number | null>(
+    null,
+  );
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -187,7 +190,7 @@ const BuyPage = () => {
 
   const setValueOfPackage = (packageId: number | string | null) => {
     if (!packageId?.toString()) return;
-
+    setCurrentPackage(Number(packageId));
     // set default value for package
     const templateData = (templates?.[Number(packageId)] ||
       []) as IModelCategory[];
@@ -323,15 +326,22 @@ const BuyPage = () => {
     fetchData();
   }, []);
 
-  React.useEffect(() => {
-    const packageId = searchParams.get('use-case') || '-1';
+  const initTemplate = (crPackage?: number) => {
+    const packageId = crPackage || searchParams.get('use-case') || '-1';
     const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
     const form = JSON.parse(oldForm) as IModelCategory[];
 
-    if (form.length > 0 && packageId === '-1') {
-    } else {
+    if (form.length === 0 || packageId !== '-1') {
       setValueOfPackage(Number(packageId));
+    } else {
+      for (const key in field) {
+        setField(key, null, false);
+      }
     }
+  };
+
+  React.useEffect(() => {
+    initTemplate();
   }, [templates]);
 
   React.useEffect(() => {
@@ -503,6 +513,14 @@ const BuyPage = () => {
       wrapper?.removeEventListener('mouseenter', loop);
     };
   }, [idDragging]);
+
+  const resetEdit = () => {
+    if (currentPackage)
+      router.push(`/rollups/customizev2?use-case=${currentPackage}`);
+
+    setFieldsDragged([]);
+    initTemplate(currentPackage || undefined);
+  };
 
   return (
     <div className={s.container}>
@@ -1160,6 +1178,9 @@ const BuyPage = () => {
                     });
                   })} */}
                 </DroppableV2>
+                <button className={s.reset} onClick={resetEdit}>
+                  Reset
+                </button>
               </div>
             </div>
           </div>
