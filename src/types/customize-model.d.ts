@@ -27,5 +27,4 @@ interface IModelCategory {
   confuseWord: boolean;
   confuseTitle: string;
   multiChoice: boolean;
-  confuseTitle: string;
 }
