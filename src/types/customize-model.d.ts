@@ -29,3 +29,15 @@ interface IModelCategory {
   confuseIcon: string;
   multiChoice: boolean;
 }
+
+
+interface ITemplate {
+  chainInfos: ChainInfos;
+  template: IModelCategory[];
+}
+
+interface ChainInfos {
+  image: string;
+  name: string;
+  url: string;
+}

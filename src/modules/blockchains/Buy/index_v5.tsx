@@ -20,8 +20,6 @@ import useDragMask from './stores/useDragMask';
 import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
-import TierOptions from '@/modules/blockchains/Buy/components3/TierOptions';
-import { Flex } from '@chakra-ui/react';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 
 const BuyPage = () => {
@@ -126,6 +124,8 @@ const BuyPage = () => {
       // Normal case
       if (over && overIsFinalDroppable) {
         setField(activeKey, active.data.current.value, true);
+
+        if (field[activeKey].dragged) return;
         setFieldsDragged((prev) => [...prev, activeKey]);
       } else {
         if (over && overIsParentDroppable) return;
@@ -1009,6 +1009,7 @@ const BuyPage = () => {
                       alt={'video'}
                       width={291}
                       height={226}
+                      className={s.video_img}
                     />
                     <div
                       className={s.video_play}
