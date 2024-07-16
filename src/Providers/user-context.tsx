@@ -47,10 +47,9 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
   useEffect(() => {
     const referral = refCodeChain;
     if (loggedIn && addressL2 && referral) {
-      //TODO: submit referral
       submitReferrerCode(addressL2, referral);
     }
-  }, [loggedIn]);
+  }, [loggedIn, addressL2, refCodeChain]);
 
   const submitReferrerCode = async (address: string, referral: string) => {
     try {
