@@ -83,7 +83,7 @@ const DomainBox = (props: IDomainBoxProps) => {
       domainURL: ''
     } as IFormValues,
     onSubmit,
-    validate: onValidate
+    validate: onValidate,
   })
 
   return (
@@ -210,7 +210,7 @@ const DomainManager = (props: IProps) => {
       <DomainBox
         title='Domain Name'
         editable={true}
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat.'
+        description='Purchase your own domain and link it to the IP address of your network. This gives you complete control and flexibility over your domain settings and configurations.'
         domain={domain}
         onSetDomain={onSetDomain}
       />
@@ -218,7 +218,7 @@ const DomainManager = (props: IProps) => {
       <DomainBox
         editable={false}
         title='BVM Domain Name'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat.'
+        description={`BVM will provide you with a pre-configured domain and IP address. While you won't have the ability to edit the domain settings, this option simplifies the setup process and ensures quick deployment.`}
         domain={domain}
         onSetDomain={onSetDomain}
       />
