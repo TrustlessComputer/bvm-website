@@ -37,7 +37,7 @@ const EnterRefferal = (props: EnterRefferalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const unClaimReward = useMemo(() => {
-    return Number(userRefInfo?.referral_total || '0') - Number(userRefInfo?.referral_claimed || '0');
+    return Number(userRefInfo?.referral_reward_total || '0') - Number(userRefInfo?.referral_reward_claimed || '0');
   }, [userRefInfo]);
 
   const onSubmitClaim = async () => {
@@ -81,7 +81,7 @@ const EnterRefferal = (props: EnterRefferalProps) => {
           <div className={s.item}>
             <p className={s.item_title}>Claimed Rebates</p>
             <p className={s.item_desc}>
-              {formatCurrency(userRefInfo?.referral_claimed || '0', MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}
+              {formatCurrency(userRefInfo?.referral_reward_claimed || '0', MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}
               {' '}
               BVM
             </p>
@@ -89,7 +89,7 @@ const EnterRefferal = (props: EnterRefferalProps) => {
           <div className={s.item}>
             <p className={s.item_title}>Unclaimed Rebates</p>
             <p className={s.item_desc}>
-              {formatCurrency(Number(userRefInfo?.referral_total || '0') - Number(userRefInfo?.referral_claimed || '0'), MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}
+              {formatCurrency(unClaimReward, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}
               {' '}
               BVM
             </p>

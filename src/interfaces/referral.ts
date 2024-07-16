@@ -8,7 +8,9 @@ export interface IUserReferralInfo {
   twitter_name: string
   is_owner: boolean
   referral_code: string
-  referral_claimed?: number;
-  referral_total?: number;
-  referrer_code?: string;
+  referrer_code: string
+  referral_reward_total: string
+  referral_reward_claimed: string
+  referral_total: number
+  referral_completed: number
 }

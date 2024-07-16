@@ -63,8 +63,8 @@
     //align-items: center;
     width: 100%;
     padding: 20px;
-    background-color: #1B1B1B;
-    row-gap: 8px;
+    background: #F4F4F4;
+    row-gap: 12px;
     border-radius: 8px;
     // min-width: 320px;
     // width: fit-content;
@@ -74,12 +74,13 @@
     font-size: 12px;
     font-weight: 400;
     text-transform: uppercase;
-    color: rgb(255, 255, 255, 0.7);
+    color: rgb(0, 0, 0, 0.7);
   }
 
   .item_desc {
     font-size: 24px;
     font-weight: 400;
+    color: #000;
   }
 
   .btnEdit {
