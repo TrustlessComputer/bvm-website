@@ -11,9 +11,12 @@
 }
 
 .container_text {
-  font-family: var(--font-SFProDisplay);
+  font-family: var(--font-JetBrainsMono) !important;
   font-size: 20px;
+  margin: 40px 0;
+  text-align: center;
   font-weight: 600;
+  opacity: 0.7;
   line-height: calc(30 / 20);
 }
 
