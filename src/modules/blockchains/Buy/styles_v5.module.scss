@@ -334,9 +334,16 @@
   position: absolute;
   bottom: 28px;
   right: 35px;
+  z-index: 999;
   gap: 8px;
   border-radius: 1000px;
   align-items: center;
   display: flex;
   cursor: pointer;
+}
+
+.video {
+  position: absolute;
+  top: 22px;
+  right: 18px;
 }
