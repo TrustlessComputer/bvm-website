@@ -1,11 +1,16 @@
 'use client';
 
 import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
-import { Flex, SimpleGrid, Text, Image } from '@chakra-ui/react';
+import { Flex, Image, Text } from '@chakra-ui/react';
 import useOrderMapper from '../../../hooks/useOrderMapper';
-import HeaderRow from '@/modules/blockchains/components/Body/L2Instance/HeaderRow';
+// import HeaderRow from '@/modules/blockchains/components/Body/L2Instance/HeaderRow';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import LivingStatus from '@/modules/blockchains/components/Body/L2Instance/LivingStatus';
+import { useRouter } from 'next/navigation';
+import MenuEdit, { MenuEditItemEnum, MenuEditItemType } from '../MenuEdit';
+import { useAppDispatch } from '@/stores/hooks';
+import { closeModal, openModal } from '@/stores/states/modal/reducer';
+import UpdateOrderModal from '@/modules/blockchains/components/UpdateOrderModal_v2';
 
 type Props = {
   orderItem: OrderItem;
@@ -14,12 +19,51 @@ type Props = {
 const HeaderLeftView = (props: Props) => {
   const { orderItem: item } = props;
 
+  const router = useRouter();
   const mapper = useOrderMapper(item);
+  const dispatch = useAppDispatch();
   const { tracking } = useL2ServiceTracking();
 
-  const isWaittingOrSettingUp =
-    item.status === OrderStatus.WaitingPayment ||
-    item.status === OrderStatus.Processing;
+  const menuEditItemOnClick = (menuItem: MenuEditItemType) => {
+    switch (menuItem.value) {
+      case MenuEditItemEnum.UpdateYourChainInfor:
+        {
+          // TO DO
+          // Show Modal update your chain infor
+          const id = 'SETTING_MODAL';
+          dispatch(
+            openModal({
+              id: id,
+              modalProps: {
+                size: 'xl',
+              },
+              render: () => (
+                <Flex w={'100%'} h="auto">
+                  <UpdateOrderModal
+                    show={true}
+                    item={item}
+                    onClose={() => {
+                      dispatch(closeModal({ id: id }));
+                    }}
+                    onSuccess={() => {}}
+                    cancelThisRollupOnClick={() => {}}
+                  />
+                </Flex>
+              ),
+            }),
+          );
+        }
+        break;
+      case MenuEditItemEnum.ConfigYourDAppsDomain:
+        {
+          // TODO [@Sang sensei]
+          router.push(`/domain/${item.chainId}`);
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <Flex flexDir={'row'} align={'center'} justifyItems={'center'} gap={'30px'}>
@@ -56,21 +100,7 @@ const HeaderLeftView = (props: Props) => {
           </Text>
 
           {item.status === OrderStatus.Started && (
-            <Image
-              src={`/icons/pencil_edit_grey.svg`}
-              fit={'contain'}
-              maxW={'24px'}
-              maxH={'24px'}
-              _hover={{
-                cursor: 'pointer',
-                opacity: 0.8,
-              }}
-              onClick={(event: any) => {
-                if (event.stopPropagation) event.stopPropagation();
-                alert(1);
-                // editOnClick && editOnClick();
-              }}
-            />
+            <MenuEdit itemOnClick={menuEditItemOnClick} />
           )}
         </Flex>
 
