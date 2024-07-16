@@ -8,6 +8,8 @@
   .fontSFProDisplay {
     font-family: var(--font-SFProDisplay) !important;
   }
+
+  --height-studio: calc(100vh - 280px);
 }
 
 .container_text {
@@ -34,8 +36,7 @@
 }
 
 .left {
-  width: 40%;
-
+  width: 48%;
 }
 
 .heading {
@@ -44,11 +45,13 @@
   font-size: 20px;
   font-weight: 500;
   line-height: calc(30 / 20);
+
   &_note {
     //margin-top: 8px;
     font-size: 12px;
     font-weight: 500;
     line-height: calc(20 / 12);
+
     span {
       color: rgba(255, 0, 0, 1);
     }
@@ -56,7 +59,7 @@
 }
 
 .right {
-  width: 60%;
+  width: 52%;
 
   &_top {
     display: flex;
@@ -116,17 +119,17 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    height: 70vh;
+    height: var(--height-studio);
     overflow: hidden;
 
     &_sidebar {
       width: 15%;
-      height: 70vh;
+      height: var(--height-studio);
     }
 
     &_content {
       width: 85%;
-      height: 70vh;
+      height: var(--height-studio);
       background: #fff;
       overflow-y: auto;
       overflow-x: hidden;
@@ -155,7 +158,7 @@
 
 .right_box {
   margin-top: 16px;
-  height: 70vh;
+  height: var(--height-studio);
   position: relative;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -173,6 +176,7 @@
       display: flex;
       flex-direction: column;
       text-align: right;
+
       &_title {
         font-family: var(--font-JetBrainsMono);
         font-size: 12px;
