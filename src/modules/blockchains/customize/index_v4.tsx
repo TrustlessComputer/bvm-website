@@ -16,7 +16,7 @@ export default () => {
       className={s.container}
     >
       <BuyProvider>
-        <Flex maxWidth={'1600px'} w={'100%'} px={['16px', '18px', '20px']}>
+        <Flex w={'100%'} px={['16px', '18px', '20px']}>
           <BuyPage />
         </Flex>
       </BuyProvider>
