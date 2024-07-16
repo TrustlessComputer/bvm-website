@@ -1,10 +1,10 @@
 'use client';
 
-import { IDappInstalled } from '@/stores/states/l2services/types';
+import { IDAppInstalled } from '@/stores/states/l2services/types';
 import { Flex, Image, Text } from '@chakra-ui/react';
 
 export type Props = {
-  item: IDappInstalled;
+  item: IDAppInstalled;
   onClick: () => void;
 };
 

@@ -1,7 +1,7 @@
 'use client';
 
 import {
-  IDappInstalled,
+  IDAppInstalled,
   OrderItem,
   OrderStatus,
 } from '@/stores/states/l2services/types';
