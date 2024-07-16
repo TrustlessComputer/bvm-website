@@ -19,16 +19,17 @@ import s from './styles.module.scss';
 import ReferralModal, { ReferralModalID } from './ReferralModal';
 import copy from 'copy-to-clipboard';
 import ListReferred from './ListReferred';
-import ButtonConnected from '@/components/ButtonConnected/v2';
 import { isDesktop } from 'react-device-detect';
 import { userReferralSelector } from '@/stores/states/referrals/selector';
 import cx from 'clsx';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 const RefferalsScreen: React.FC = (): React.ReactElement => {
   const userReferral = useSelector(userReferralSelector);
   const dispatch = useDispatch();
   const { onOpen, onClose, isOpen } = useDisclosure();
   const timerRef = useRef<any>();
+  const { loggedIn } = useWeb3Auth();
 
   const closeModal = () => {
     if(timerRef.current) {
@@ -93,7 +94,7 @@ Join now: ${refUrl}`;
             You and your friend each earn a <span>10% commission</span> on every trade on Runechain.
           </p>
 
-          <SimpleGrid gridTemplateColumns={["1fr", "repeat(3, 1fr)"]} rowGap={["8px", "0"]} columnGap={["0", "28px"]} mt={"24px"}>
+          <SimpleGrid gridTemplateColumns={["1fr", "1fr"]} rowGap={["8px", "0"]} columnGap={["0", "28px"]} mt={"24px"}>
             <GridItem colSpan={2}>
               <Box p={"4px"} borderRadius={"8px"} bg={"#F4F4F4"}>
                 <Flex
@@ -134,20 +135,22 @@ Join now: ${refUrl}`;
                       )
                     }
                   </Flex>
-                  <Text></Text>
+                  {
+                    loggedIn ? (
+                      <div className={s.containerWallet} onClick={onClickShareReferralCode}>
+                        <p>SHARE ON</p>
+                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M13.1007 0.768555H15.554L10.194 6.89522L16.5 15.2306H11.5627L7.696 10.1746L3.27067 15.2306H0.816L6.54933 8.67722L0.5 0.769221H5.56267L9.058 5.39056L13.1007 0.768555ZM12.24 13.7626H13.5993L4.824 2.15989H3.36533L12.24 13.7626Z" fill="#FA4E0E"/>
+                        </svg>
+                      </div>
+                    ) : (
+                      <Text></Text>
+                    )
+                  }
+
                   {/*<Text className={s.btnEdit} onClick={onClickEditRefCode}>Edit</Text>*/}
                 </Flex>
               </Box>
-            </GridItem>
-            <GridItem>
-              <ButtonConnected className={s.containerWallet} title={<p>CONNECT</p>}>
-                <div className={s.containerWallet} onClick={onClickShareReferralCode}>
-                  <p>SHARE ON</p>
-                  <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.1007 0.768555H15.554L10.194 6.89522L16.5 15.2306H11.5627L7.696 10.1746L3.27067 15.2306H0.816L6.54933 8.67722L0.5 0.769221H5.56267L9.058 5.39056L13.1007 0.768555ZM12.24 13.7626H13.5993L4.824 2.15989H3.36533L12.24 13.7626Z" fill="#FA4E0E"/>
-                  </svg>
-                </div>
-              </ButtonConnected>
             </GridItem>
           </SimpleGrid>
           <EnterRefferal userRefInfo={userReferral} />

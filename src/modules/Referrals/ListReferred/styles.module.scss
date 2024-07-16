@@ -27,6 +27,26 @@
   
 }
 
+.containerWallet {
+  background: #ffffff;
+  border-radius: 4px !important;
+  padding: 10px 20px;
+  gap: 8px;
+  display: flex;
+  height: 40px !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid #FA4E0E;
+
+  p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #FA4E0E;
+  }
+}
+
+
 table {
   &.tableContainer {
     :global {
@@ -42,6 +62,15 @@ table {
         }
         p {
           color: black !important;
+        }
+      }
+
+      .empty-container {
+        > p {
+          font-size: 14px !important;
+          font-weight: 500 !important;
+          opacity: 1 !important;
+          color: rgba(0, 0, 0, 0.5) !important;
         }
       }
     }
