@@ -16,7 +16,8 @@ import cs from 'classnames';
 import ButtonConnected from '@/components/ButtonConnected/v2';
 import InfoTooltip from '@/components/InfoTooltip';
 import HorizontalItem from '@/components/HorizontalItem';
-import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 
 interface EnterRefferalProps {
   userRefInfo?: IUserReferralInfo;
@@ -26,8 +27,10 @@ const EnterRefferal = (props: EnterRefferalProps) => {
   const { userRefInfo } = props;
   const dispatch = useDispatch();
 
-  const wallet = useAuthenticatedWallet();
-  const addressL2 = wallet?.address;
+  const { accountInforL2Service } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
+  const addressL2 = accountInforL2Service?.tcAddress;
   const cRewardClaim = useRef(new CReferral()).current;
   const userApi = useRef(new CReferralAPI()).current;
 
@@ -49,14 +52,6 @@ const EnterRefferal = (props: EnterRefferalProps) => {
     if (!addressL2) return;
     try {
       setIsSubmitting(true);
-      // const claimInfo = await userApi.getInfoClaimReward(addressL2);
-      // if (claimInfo && claimInfo.token) {
-      //   await cRewardClaim.claimReferral({
-      //     ...claimInfo,
-      //     claim_address: REWARD_CLAIM_ADDRESS,
-      //   });
-      //   dispatch(requestReload());
-      // }
       const origin = window.location.origin;
       const refUrl = origin + `?ref=${userRefInfo?.referral_code}`;
       const content = `I just received $${formatCurrency(unClaimReward, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)} after trading on @RuneChain_L2\n\nTrade Unlimited Bitcoin Permissionlessly Now\n\n${refUrl}`;
@@ -149,7 +144,7 @@ const EnterRefferal = (props: EnterRefferalProps) => {
           </div>
         </div>
         {Number(unClaimReward) > 0 && (
-          <ButtonConnected className={cs(s.button)} title={"Connect Naka wallet"}>
+          <ButtonConnected className={cs(s.button)} title={"Connect account"}>
             <Button
               type="button"
               onClick={onSubmitClaim}
