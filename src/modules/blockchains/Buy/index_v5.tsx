@@ -3,9 +3,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
+import ModalVideo from 'react-modal-video';
 
 import { getModelCategories, getTemplates } from '@/services/customize-model';
-
 import BoxOptionV3 from './components3/BoxOptionV3';
 import ComputerNameInput from './components3/ComputerNameInput';
 import Draggable from './components3/Draggable';
@@ -15,14 +15,12 @@ import LaunchButton from './components3/LaunchButton';
 import LegoParent from './components3/LegoParent';
 import LegoV3 from './components3/LegoV3';
 import SidebarV2 from './components3/SideBarV2';
-import TierV2 from './components3/TierV2';
 import useOrderFormStoreV3 from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
-import BaseModal from './components3/Modal';
-import { Button } from '@chakra-ui/react';
+import ImagePlaceholder from '@components/ImagePlaceholder';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -47,11 +45,16 @@ const BuyPage = () => {
     useOrderFormStoreV3();
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();
+  const [fieldsDragged, setFieldsDragged] = React.useState<string[]>([]);
   const searchParams = useSearchParams();
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
   const [isShowModal, setIsShowModal] = React.useState(false);
-
+  const [currentPackage, setCurrentPackage] = React.useState<number | null>(
+    null,
+  );
+  const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
+  const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -121,9 +124,13 @@ const BuyPage = () => {
       // Normal case
       if (over && overIsFinalDroppable) {
         setField(activeKey, active.data.current.value, true);
+
+        if (field[activeKey].dragged) return;
+        setFieldsDragged((prev) => [...prev, activeKey]);
       } else {
         if (over && overIsParentDroppable) return;
         setField(activeKey, active.data.current.value, false);
+        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
       }
 
       return;
@@ -135,24 +142,30 @@ const BuyPage = () => {
       (!over || (over && !overIsFinalDroppable && !overIsParentDroppable))
     ) {
       setField(activeKey, [], false);
+      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
       return;
     }
 
     // Multi choice case
     if (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) {
       const currentValues = (field[activeKey].value || []) as string[];
+      const isCurrentEmpty = currentValues.length === 0;
       const newValue = [...currentValues, active.data.current.value];
 
       if (currentValues.includes(active.data.current.value)) return;
 
       setField(activeKey, newValue, true);
+      isCurrentEmpty && setFieldsDragged((prev) => [...prev, activeKey]);
     } else {
       const currentValues = field[activeKey].value as string[];
       const newValue = currentValues.filter(
         (value) => value !== active.data.current.value,
       );
+      const isEmpty = newValue.length === 0;
 
-      setField(activeKey, newValue, newValue.length > 0);
+      setField(activeKey, newValue, !isEmpty);
+      isEmpty &&
+        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
     }
   }
 
@@ -180,6 +193,8 @@ const BuyPage = () => {
 
   const setValueOfPackage = (packageId: number | string | null) => {
     if (!packageId?.toString()) return;
+    setFieldsDragged([]);
+    setCurrentPackage(Number(packageId));
 
     // set default value for package
     const templateData = (templates?.[Number(packageId)] ||
@@ -188,20 +203,22 @@ const BuyPage = () => {
       (item) => !templateData.find((temp) => temp.key === item.key),
     );
 
-    templateData.forEach((field) => {
-      if (field.multiChoice) {
+    templateData.forEach((_field) => {
+      if (_field.multiChoice) {
         setField(
-          field.key,
-          field.options.map((option) => option.key),
-          field.options[0] ? true : false,
+          _field.key,
+          _field.options.map((option) => option.key),
+          _field.options[0] ? true : false,
         );
       } else {
         setField(
-          field.key,
-          field.options[0].key || null,
-          field.options[0] ? true : false,
+          _field.key,
+          _field.options[0].key || null,
+          _field.options[0] ? true : false,
         );
       }
+
+      setFieldsDragged((prev) => [...prev, _field.key]);
     });
     fieldsNotInTemplate?.forEach((field) => {
       setField(field.key, null, false);
@@ -210,51 +227,17 @@ const BuyPage = () => {
 
   const fetchData = async () => {
     const modelCategories = (await getModelCategories()) || [];
+    // const modelCategories = mockupOptions;
+
     const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
-    _modelCategories.forEach((item) => {
-      setField(item.key, null);
+    _modelCategories.forEach((_field) => {
+      setField(_field.key, null);
     });
     setData(convertData(_modelCategories));
     setOriginalData(_modelCategories);
 
     const templates = (await getTemplates()) || [];
     setTemplates(templates);
-  };
-
-  const onLoadOldForm = () => {
-    setIsShowModal(false);
-
-    const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
-    const form = JSON.parse(oldForm) as IModelCategory[];
-
-    const fieldsNotInForm = data?.filter(
-      (item) => !form.find((field) => field.key === item.key),
-    );
-
-    fieldsNotInForm?.forEach((item) => {
-      setField(item.key, null, false);
-    });
-
-    form.forEach((item) => {
-      if (item.multiChoice) {
-        setField(
-          item.key,
-          item.options.map((opt) => opt.key),
-          true,
-        );
-      } else {
-        setField(item.key, item.options[0].key, true);
-      }
-    });
-  };
-
-  const onIgnoreOldForm = () => {
-    setIsShowModal(false);
-    localStorage.removeItem('bvm.customize-form');
-
-    const packageId = searchParams.get('package') || '-1';
-
-    setValueOfPackage(Number(packageId));
   };
 
   React.useEffect(() => {
@@ -317,41 +300,31 @@ const BuyPage = () => {
     fetchData();
   }, []);
 
-  React.useEffect(() => {
-    const packageId = searchParams.get('package') || '-1';
+  const initTemplate = (crPackage?: number) => {
+    const packageId =
+      typeof crPackage !== 'undefined'
+        ? crPackage
+        : searchParams.get('use-case') || '-1';
+
     const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
     const form = JSON.parse(oldForm) as IModelCategory[];
 
-    if (form.length > 0 && packageId === '-1') {
-      const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
-      const form = JSON.parse(oldForm) as IModelCategory[];
-
-      const fieldsNotInForm = data?.filter(
-        (item) => !form.find((field) => field.key === item.key),
-      );
-
-      fieldsNotInForm?.forEach((item) => {
-        setField(item.key, null, false);
-      });
-
-      form.forEach((item) => {
-        if (item.multiChoice) {
-          setField(
-            item.key,
-            item.options.map((opt) => opt.key),
-            true,
-          );
-        } else {
-          setField(item.key, item.options[0].key, true);
-        }
-      });
-      // setIsShowModal(true);
-    } else {
+    if (form.length === 0 || packageId !== '-1') {
       setValueOfPackage(Number(packageId));
+    } else {
+      for (const key in field) {
+        setField(key, null, false);
+      }
     }
+  };
+
+  React.useEffect(() => {
+    initTemplate(0);
   }, [templates]);
 
   React.useEffect(() => {
+    const packageId = searchParams.get('use-case') || '-1';
+
     const priceUSD = Object.keys(field).reduce((acc, key) => {
       if (Array.isArray(field[key].value)) {
         const currentOptions = (field[key].value as string[])!.map((value) => {
@@ -519,8 +492,20 @@ const BuyPage = () => {
     };
   }, [idDragging]);
 
+  const resetEdit = () => {
+    // if (currentPackage)
+    //   router.push(`/rollups/customizev2?use-case=${currentPackage}`);
+
+    setFieldsDragged([]);
+    initTemplate(0);
+  };
+
   return (
     <div className={s.container}>
+      <p className={s.container_text}>
+        Drag and drop modules to start new blockchains, new dapps, and new
+        economies.
+      </p>
       <DndContext
         sensors={sensors}
         onDragStart={handleDragStart}
@@ -529,7 +514,10 @@ const BuyPage = () => {
         <div className={s.wrapper}>
           <div className={s.inner}>
             <div className={s.left}>
-              <p className={s.heading}>Customize your Blockchain</p>
+              {/*<div  className={s.top_left}>*/}
+              {/*  <p className={s.heading}>Build your Blockchain</p>*/}
+              {/*  <p className={s.heading_note}><span>(<sup>*</sup>)</span>  Module required</p>*/}
+              {/*</div>*/}
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
                   <div className={s.left_box_inner_sidebar}>
@@ -538,11 +526,6 @@ const BuyPage = () => {
 
                   <div id={'wrapper-data'} className={s.left_box_inner_content}>
                     {data?.map((item, index) => {
-                      const currentPrice =
-                        item.options.find(
-                          (option) => option.key === field[item.key].value,
-                        )?.priceUSD || 0;
-
                       return (
                         <BoxOptionV3
                           key={item.key}
@@ -594,20 +577,14 @@ const BuyPage = () => {
                             </Draggable>
                           ) : (
                             item.options.map((option, optIdx) => {
-                              let _price = option.priceUSD;
-                              let operator = '+';
+                              let _price = formatCurrencyV2({
+                                amount: option.priceBVM || 0,
+                                decimals: 2,
+                              });
                               let suffix =
-                                _price > 0 ? `(+$${_price.toString()})` : '';
-
-                              if (field[item.key].dragged) {
-                                _price = option.priceUSD - currentPrice;
-                                operator = _price > 0 ? '+' : '-';
-                                suffix = _price
-                                  ? `(${operator}$${Math.abs(
-                                      _price,
-                                    ).toString()})`
+                                Math.abs(option.priceBVM) > 0
+                                  ? `(+${_price} BVM)`
                                   : '';
-                              }
 
                               if (
                                 (option.key === field[item.key].value &&
@@ -794,11 +771,37 @@ const BuyPage = () => {
 
             {/* ------------- RIGHT ------------- */}
             <div className={s.right}>
-              <TierV2
-                originalData={originalData}
-                templates={templates}
-                setValueOfPackage={setValueOfPackage}
-              />
+              <div className={s.top_right}>
+                {/*{*/}
+                {/*  templates && <TierOptions*/}
+                {/*    originalData={originalData}*/}
+                {/*    templates={templates}*/}
+                {/*    setValueOfPackage={setValueOfPackage}*/}
+                {/*  />*/}
+                {/*}*/}
+
+                <div className={s.right_box_footer}>
+                  <div className={s.right_box_footer_left}>
+                    <h4 className={s.right_box_footer_left_content}>
+                      {formatCurrencyV2({
+                        amount: priceBVM,
+                        decimals: 2,
+                      }).replace('.00', '')}{' '}
+                      BVM
+                    </h4>
+                    <h6 className={s.right_box_footer_left_title}>
+                      $
+                      {formatCurrencyV2({
+                        amount: priceUSD,
+                        decimals: 2,
+                      }).replace('.00', '')}
+                      {'/'}Month
+                    </h6>
+                  </div>
+
+                  <LaunchButton data={data} originalData={originalData} />
+                </div>
+              </div>
 
               <div className={s.right_box}>
                 <DroppableV2
@@ -822,10 +825,12 @@ const BuyPage = () => {
                     <ComputerNameInput />
                   </LegoV3>
 
-                  {data?.map((item, index) => {
-                    if (!field[item.key].dragged) return null;
+                  {fieldsDragged.map((key, index) => {
+                    const item = data?.find((i) => i.key === key);
 
-                    if (item.multiChoice && field[item.key].value) {
+                    if (!item || !data) return null;
+
+                    if (item.multiChoice) {
                       if (!Array.isArray(field[item.key].value)) return;
 
                       const childrenOptions = (field[item.key].value as
@@ -849,7 +854,7 @@ const BuyPage = () => {
                             >
                               <LegoV3
                                 background={item.color}
-                                label={item.confuseTitle}
+                                label={item.title}
                                 labelInRight={!!item.confuseTitle}
                                 zIndex={item.options.length - opIdx}
                               >
@@ -867,7 +872,6 @@ const BuyPage = () => {
                                     // @ts-ignore
                                     option,
                                   ]}
-                                  // @ts-ignore
                                   value={option.value}
                                 />
                               </LegoV3>
@@ -909,7 +913,7 @@ const BuyPage = () => {
                           <LegoV3
                             background={item.color}
                             zIndex={data.length - index}
-                            label={item.confuseTitle}
+                            label={item.title}
                             labelInRight={!!item.confuseTitle}
                             className={
                               showShadow === field[item.key].value
@@ -952,9 +956,10 @@ const BuyPage = () => {
                         >
                           <LegoV3
                             background={item.color}
-                            label={item.confuseTitle}
+                            label={item.title}
                             labelInRight={!!item.confuseTitle}
                             zIndex={item.options.length - opIdx}
+                            icon={item.confuseIcon}
                             className={
                               showShadow === field[item.key].value
                                 ? s.activeBlur
@@ -986,58 +991,68 @@ const BuyPage = () => {
                     });
                   })}
                 </DroppableV2>
-
-                <div className={s.right_box_footer}>
-                  <div className={s.right_box_footer_left}>
-                    <h6 className={s.right_box_footer_left_title}>
-                      Total price
-                    </h6>
-                    <h4 className={s.right_box_footer_left_content}>
-                      $
-                      {formatCurrencyV2({
-                        amount: priceUSD,
-                        decimals: 0,
-                      })}
-                      {'/'}Month {'(~'}
-                      {formatCurrencyV2({
-                        amount: priceBVM,
-                        decimals: 2,
-                      })}{' '}
-                      BVM
-                      {')'}
-                    </h4>
+                <button className={s.reset} onClick={resetEdit}>
+                  <div>
+                    <ImagePlaceholder
+                      src={'/icons/undo.svg'}
+                      alt={'undo'}
+                      width={20}
+                      height={20}
+                    />
                   </div>
-
-                  <LaunchButton data={data} originalData={originalData} />
-                </div>
+                  Reset
+                </button>
+                {isShowVideo && (
+                  <div className={s.video}>
+                    <ImagePlaceholder
+                      src={'/video.jpg'}
+                      alt={'video'}
+                      width={291}
+                      height={226}
+                      className={s.video_img}
+                    />
+                    <div
+                      className={s.video_play}
+                      onClick={() => setIsOpenModalVideo(true)}
+                    >
+                      <ImagePlaceholder
+                        src={'/play.svg'}
+                        alt={'video'}
+                        width={60}
+                        height={60}
+                      />
+                    </div>
+                    <div
+                      className={s.video_close}
+                      onClick={() => {
+                        setIsOpenModalVideo(false);
+                        setIsShowVideo(false);
+                      }}
+                    >
+                      <ImagePlaceholder
+                        src={'/close.svg'}
+                        alt={'close'}
+                        width={24}
+                        height={24}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
-
-        {/* <BaseModal
-          isShow={isShowModal}
-          onHide={() => setIsShowModal(false)}
-          title="You have a saved form. Do you want to load it?"
-          size="extra"
-          theme="light"
-        >
-          <div className={s.btns}>
-            <Button
-              className={`${s.btn} ${s.btn__outline}`}
-              onClick={() => onLoadOldForm()}
-            >
-              Yes
-            </Button>
-            <Button
-              className={`${s.btn} ${s.btn__primary}`}
-              onClick={() => onIgnoreOldForm()}
-            >
-              No
-            </Button>
-          </div>
-        </BaseModal> */}
       </DndContext>
+      <ModalVideo
+        channel="custom"
+        url={
+          'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'
+        }
+        isOpen={isOpenModalVideo}
+        onClose={() => {
+          setIsOpenModalVideo(false);
+        }}
+      />
     </div>
   );
 };

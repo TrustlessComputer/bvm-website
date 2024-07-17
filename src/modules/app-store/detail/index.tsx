@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { Box, Divider, Flex, Image, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
@@ -13,86 +13,129 @@ import { useDispatch } from 'react-redux';
 import { BuyProvider } from '@/modules/blockchains/providers/Buy.context';
 import dAppServicesAPI from '@/services/api/DAServices';
 import { IDApp, IDAppDetails } from '@/services/api/DAServices/types';
+import AppPhotoView from '@/modules/app-store/detail/appPhotoView';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import useL2Service from '@/hooks/useL2Service';
+import { commonSelector } from '@/stores/states/common/selector';
 
 const AppDetailModule = () => {
   const params = useParams();
   const router = useRouter();
-  const { loggedIn, login, userInfo } = useWeb3Auth();
   const dispatch = useDispatch();
   const [data, setData] = useState<IDApp | undefined>(undefined);
+  const [appInforByUser, setAppInforByUser] = useState<IDApp | undefined>(
+    undefined,
+  );
+
+  const { getAccountInfor } = useL2Service();
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const { loggedIn, login, userInfo } = useWeb3Auth();
+  const needReload = useAppSelector(commonSelector).needReload;
 
   useEffect(() => {
-    if(params?.id) {
+    if (loggedIn) {
+      getAccountInfor();
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    if (params?.id) {
       getAppInfo(params?.id as string);
     }
-  }, [params?.id]);
+  }, [params?.id, needReload]);
+
+  useEffect(() => {
+    if (loggedIn && params?.id) {
+      getAppInforByCurentUser(params?.id as string);
+    }
+  }, [loggedIn, accountInforL2Service, needReload]);
 
   const getAppInfo = async (id: string) => {
     const res = await dAppServicesAPI.fetchDAppByID(Number(id));
     setData(res);
-  }
+  };
+
+  const getAppInforByCurentUser = async (id: string) => {
+    try {
+      const res = await dAppServicesAPI.fetchAppInforByUserAddress(
+        Number(id),
+        accountInforL2Service?.tcAddress,
+      );
+      setAppInforByUser(res);
+    } catch (error) {
+    } finally {
+    }
+  };
 
   const handleBack = () => {
     return router.back();
-  }
+  };
 
   const handleInstall = (appPackage: IDAppDetails) => {
     if (!loggedIn) {
       login();
     } else {
       const id = 'SETTING_MODAL';
-      const onClose = () => dispatch(closeModal({id: id}));
+      const onClose = () => dispatch(closeModal({ id: id }));
       try {
-        dispatch(openModal({
-          id: id,
-          className: s.modalContent,
-          modalProps: {
-            size: 'xl',
-          },
-          render: () =>
-            <BuyProvider>
-              <SettingView app={data} appPackage={appPackage} onClose={onClose}/>
-            </BuyProvider>
-          ,
-        }));
+        dispatch(
+          openModal({
+            id: id,
+            className: s.modalContent,
+            modalProps: {
+              size: 'xl',
+            },
+            render: () => (
+              <BuyProvider>
+                <SettingView
+                  appID={data?.id}
+                  appPackage={appPackage}
+                  onClose={onClose}
+                />
+              </BuyProvider>
+            ),
+          }),
+        );
       } catch (e) {
-
       } finally {
       }
     }
-  }
+  };
 
   return (
     <Box className={s.container}>
-      <Box className={"containerV3"}>
-        <Flex className={s.back} onClick={handleBack} gap={"10px"} alignItems={"center"}>
+      <Box className={'containerV3'}>
+        <Flex
+          className={s.back}
+          onClick={handleBack}
+          gap={'10px'}
+          alignItems={'center'}
+        >
           <SvgInset svgUrl={`/app-store/ic-back.svg`} />
           <Text>Dapps Store</Text>
         </Flex>
         <Box className={s.content}>
-          <Flex gap={"24px"}>
-            <Image className={s.avatar} src={data?.image_url}/>
-            <Flex direction={"column"} gap={"8px"}>
+          <Flex gap={'24px'}>
+            <Image className={s.avatar} src={data?.icon_url} />
+            <Flex direction={'column'} gap={'8px'}>
               <Text className={s.title}>{data?.name}</Text>
               <Text className={s.description}>{data?.description}</Text>
             </Flex>
           </Flex>
-
-          <Divider orientation={"horizontal"} bgColor={"#ECECEC"}/>
-
-          <Flex gap={"12px"}>
-            {
-              data?.details.map(m => {
-                return (
-                  <AppPackage data={m} onInstall={handleInstall}/>
-                )
-              })
-            }
+          <AppPhotoView photoUrl={data?.list_image_url || []} />
+          <Divider orientation={'horizontal'} bgColor={'#ECECEC'} />
+          <Flex gap={'40px'} direction={'column'}>
+            {data?.details.map((m) => {
+              return (
+                <AppPackage data={m} app={appInforByUser || data} onInstall={handleInstall} />
+              );
+            })}
           </Flex>
         </Box>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
 export default AppDetailModule;

@@ -1,0 +1,29 @@
+.modal {
+  display: block;
+  width: 400px !important;
+  padding: 28px 32px !important;
+  border-radius: 20px !important;
+
+  &__title {
+    font-family: SF Pro Display;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 33.6px;
+    letter-spacing: 0.01em;
+    text-align: center;
+    color: #000000 !important;
+  }
+
+  &__body {
+  }
+
+  &__closeButton {
+    display: block;
+    margin: 28px auto 0;
+    width: 281px;
+    height: 45px;
+    padding: 13px 73px;
+    border-radius: 99999px;
+    background-color: #fa4e0e;
+  }
+}

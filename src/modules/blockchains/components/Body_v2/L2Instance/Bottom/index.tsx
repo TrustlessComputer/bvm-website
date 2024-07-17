@@ -2,12 +2,20 @@
 
 import { OrderItem, OrderStatus } from '@/stores/states/l2services/types';
 import addChain from '@/utils/addChain';
-import { Flex, Image, Text, Button, SimpleGrid } from '@chakra-ui/react';
+import {
+  Flex,
+  Image,
+  Text,
+  Button,
+  SimpleGrid,
+  Divider,
+} from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import { EditIcon } from '@chakra-ui/icons';
 import DappInstalledItem from './DappInstalledItem';
 import { useRouter } from 'next/navigation';
 import InstallNewDAppItem from './InstallNewDAppItem';
+import s from './style.module.scss';
 
 type Props = {
   item: OrderItem;
@@ -111,15 +119,11 @@ const BottomView = (props: Props) => {
   const renderAddToMetamask = () => {
     if (!isAddToMetamask) return null;
     return (
-      <Button
-        mt={'15px'}
-        borderRadius={'15px'}
-        minH={['40px', '45px', '50px']}
-        fontSize={['15px', '16px', '18px']}
-        color={'#17066c'}
-        bgColor={'#fff'}
-        borderWidth={'1px'}
-        borderColor={'#17066c'}
+      <Text
+        fontSize={['14px', '15px', '16px']}
+        fontWeight={500}
+        className={s.fontSFProDisplay}
+        color={'#FA4E0E'}
         _hover={{
           cursor: 'pointer',
           opacity: 0.8,
@@ -129,8 +133,8 @@ const BottomView = (props: Props) => {
           onAddChain();
         }}
       >
-        Add to Metamask
-      </Button>
+        Add to metamask
+      </Text>
     );
   };
 
@@ -143,38 +147,41 @@ const BottomView = (props: Props) => {
   if (!dappList || dappList.length < 1) return null;
 
   return (
-    <Flex flexDir={'column'} gap={'20px'} mt="20px">
-      <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
-        <Text
-          fontSize={['14px', '15px', '16px']}
-          fontWeight={400}
-          opacity={0.7}
-          color={'#000'}
-        >
-          Installed Dapps
-        </Text>
-        {renderAddToMetamask()}
-      </Flex>
+    <>
+      <Divider my={'20px'} borderColor="gray.200" />
+      <Flex flexDir={'column'} gap={'20px'} className={s.container}>
+        <Flex flexDir={'row'} align={'center'} justify={'space-between'}>
+          <Text
+            fontSize={['14px', '15px', '16px']}
+            fontWeight={400}
+            opacity={0.7}
+            color={'#000'}
+          >
+            Installed Dapps
+          </Text>
+          {renderAddToMetamask()}
+        </Flex>
 
-      <SimpleGrid columns={[1, 1, 2]} spacing={'16px'}>
-        {/* <InstallNewDAppItem
+        <SimpleGrid columns={[1, 1, 2]} spacing={'16px'}>
+          {/* <InstallNewDAppItem
           onClick={() => {
             // router.push('/app-store');
           }}
         /> */}
-        {dappList.map((item, index) => {
-          return (
-            <DappInstalledItem
-              key={`${index}-${item.appName || item.appID}`}
-              item={item}
-              onClick={() => {
-                window.open(`${item.appURL}`, '_blank');
-              }}
-            />
-          );
-        })}
-      </SimpleGrid>
-    </Flex>
+          {dappList.map((item, index) => {
+            return (
+              <DappInstalledItem
+                key={`${index}-${item.appName || item.appID}`}
+                item={item}
+                onClick={() => {
+                  window.open(`${item.appURL}`, '_blank');
+                }}
+              />
+            );
+          })}
+        </SimpleGrid>
+      </Flex>
+    </>
   );
 };
 

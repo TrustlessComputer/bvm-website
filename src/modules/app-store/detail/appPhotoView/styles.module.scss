@@ -1,0 +1,35 @@
+.container {
+
+  .content {
+    display: flex;
+    height: 300px;
+    gap: 50px;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    -webkit-scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    transition: transform 0s linear;
+    scrollbar-color: #fa8e70 rgba(255, 255, 255, .2);
+    scrollbar-width: thin;
+  }
+
+  .item {
+    object-fit: cover;
+    width: 30%;
+    border-radius: 12px;
+  }
+
+  .item2 {
+    min-width: 30%;
+
+    > img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+  }
+}

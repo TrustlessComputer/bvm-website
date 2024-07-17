@@ -3,7 +3,7 @@ import s from './styles.module.scss';
 import { IDApp } from '@/services/api/DAServices/types';
 import { useMemo } from 'react';
 
-const BG_COLOR = [
+export const BG_COLOR = [
   '#FAFAFA',
   'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
   'linear-gradient(0deg, #F15A24 0%, #F7931E 40%, #FBB03B 100%)',
@@ -35,7 +35,7 @@ const AppItem = ({
         borderRadius={'12px'}
         padding={"20px"}
       >
-        <Image className={s.avatar} src={data?.image_url} />
+        <Image className={s.avatar} src={data?.icon_url} />
       </Flex>
       <Flex alignItems={'center'} mt={'24px'} gap={'24px'}>
         <Text className={s.title}>{data?.name}</Text>
@@ -46,7 +46,7 @@ const AppItem = ({
       </Text>
       <Button className={s.btnInstall} mt={'24px'}>
         {
-          data?.status === '0' ? 'Comming Soon' : 'Install'
+          data?.status === 'incoming' ? 'Comming Soon' : 'Install'
         }
       </Button>
     </Flex>

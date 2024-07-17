@@ -1,0 +1,64 @@
+.container {
+  height: 570px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%);
+
+  :global {
+    .slick-list {
+      width: 100%;
+    }
+
+    .slick-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex !important;
+      gap: 24px;
+      z-index: 2;
+
+      button {
+        margin-left: -24px;
+        color: transparent;
+      }
+
+      li::marker {
+        width: 12px;
+        height: 12px;
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .slick-active::marker {
+        color: #FFF;
+      }
+    }
+
+    //.slick-active a {
+    //    border: 1px solid #fff;
+    //}
+
+    .slick-arrow {
+      display: none !important;
+    }
+  }
+
+  //:global(.slick-arrow) {
+  //  display: none !important;
+  //}
+  //
+  //:global(.slick-slide) {
+  //
+  //}
+  //
+  //:global(.slick-thumb) {
+  //
+  //  li {
+  //  }
+  //
+  //  :global(.slick-active) a {
+  //    border: 1px solid #fff;
+  //  }
+  //}
+}

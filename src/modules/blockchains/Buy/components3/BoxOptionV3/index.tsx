@@ -61,7 +61,7 @@ const BoxOptionV3 = ({
             </svg>
           </div>
           <Flex align={'center'} gap={2}>
-            <p className={s.boxItem_heading_text}>{label}{disable && '(Coming)'}{isRequired && <sup>*</sup>}</p>
+            <p className={s.boxItem_heading_text}>{label}{isRequired && <sup>*</sup>}</p>
             {isHasTooltip && (
               <div className={s.info} onClick={() => setIsShowModal(true)}>
                 <svg

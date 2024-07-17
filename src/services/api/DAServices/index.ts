@@ -2,7 +2,6 @@ import { STORAGE_KEYS } from '@/constants/storage-key';
 import LocalStorage from '@/libs/localStorage';
 import { DAServiceAPI as httpClient } from '@/services/api/clients';
 import { IDApp, InstallDAByParams } from './types';
-import { DA_DUMMY_LIST } from './constants';
 
 // ------------------------------------------------------------------------
 // Access Token
@@ -17,18 +16,38 @@ const getAPIAccessToken = () => {
 // ------------------------------------------------------------------------
 
 const fetchDAList = async (): Promise<IDApp[]> => {
-  const accessToken = getAPIAccessToken();
-  if (!accessToken) return [];
+  // const accessToken = getAPIAccessToken();
+  // if (!accessToken) return [];
   let result: IDApp[] = [];
   try {
-    // result = (await httpClient.get(`/apps/list`, {
-    //   headers: {
-    //     Authorization: `${getAPIAccessToken()}`,
-    //   },
-    // })) as IDApp[];
-    // return result;
+    result = (await httpClient.get(`/apps/list`, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    })) as IDApp[];
+    return result || [];
+  } catch (error) {
+    throw error;
+  }
+};
 
-    return DA_DUMMY_LIST;
+const fetchAppInforByUserAddress = async (
+  dAppID: number,
+  userAddress?: string,
+): Promise<IDApp> => {
+  // const accessToken = getAPIAccessToken();
+  // if (!accessToken) return [];
+  let result;
+  try {
+    result = (await httpClient.get(
+      `/apps/detail/${dAppID}?address=${userAddress}`,
+      {
+        headers: {
+          Authorization: `${getAPIAccessToken()}`,
+        },
+      },
+    )) as IDApp;
+    return result;
   } catch (error) {
     throw error;
   }
@@ -37,10 +56,10 @@ const fetchDAList = async (): Promise<IDApp[]> => {
 const fetchDAppByID = async (dAppID: number): Promise<IDApp> => {
   let result: IDApp;
   try {
-    // result = (await httpClient.get(`/apps/detail/${dAppID}`)) as IDApp;
-    // return result;
-    result = DA_DUMMY_LIST.find((a) => a.id === dAppID) as IDApp;
+    result = (await httpClient.get(`/apps/detail/${dAppID}`)) as IDApp;
     return result;
+    // result = DA_DUMMY_LIST.find((a) => a.id === dAppID) as IDApp;
+    // return result;
   } catch (error) {
     throw error;
   }
@@ -51,8 +70,8 @@ const fetchDAppByID = async (dAppID: number): Promise<IDApp> => {
 // ------------------------------------------------------------------------
 
 const installDAByParams = async (params: InstallDAByParams): Promise<any> => {
-  const accessToken = getAPIAccessToken();
-  if (!accessToken) return;
+  // const accessToken = getAPIAccessToken();
+  // if (!accessToken) return;
 
   let result;
   const { address, dAppID, inputs = [] } = params;
@@ -81,6 +100,7 @@ const dAppServicesAPI = {
   fetchDAList,
   fetchDAppByID,
   installDAByParams,
+  fetchAppInforByUserAddress,
 };
 
 export default dAppServicesAPI;

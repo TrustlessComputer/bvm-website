@@ -28,7 +28,7 @@ const ChainDetailHeader = (props: Props) => {
       justifyContent={'space-between'}
     >
       <HeaderLeftView orderItem={orderItem} />
-      <HeaderRightView orderItem={orderItem} />
+      {/* <HeaderRightView orderItem={orderItem} /> */}
     </Flex>
   );
 };

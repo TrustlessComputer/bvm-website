@@ -43,7 +43,7 @@ export const FOOTER_DATA = {
       ],
     },
     {
-      title: 'Data validity',
+      title: 'Data Validity',
       links: [
         {
           title: 'Bitcoin Ordinals',

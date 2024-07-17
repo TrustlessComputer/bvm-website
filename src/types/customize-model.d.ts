@@ -26,6 +26,18 @@ interface IModelCategory {
   order: number;
   confuseWord: boolean;
   confuseTitle: string;
+  confuseIcon: string;
   multiChoice: boolean;
-  confuseTitle: string;
+}
+
+
+interface ITemplate {
+  chainInfos: ChainInfos;
+  template: IModelCategory[];
+}
+
+interface ChainInfos {
+  image: string;
+  name: string;
+  url: string;
 }
