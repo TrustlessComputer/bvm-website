@@ -864,7 +864,7 @@ const BuyPage = () => {
                             >
                               <LegoV3
                                 background={item.color}
-                                label={item.title}
+                                label={item.confuseTitle}
                                 labelInRight={
                                   !!item.confuseTitle || !!item.confuseIcon
                                 }
@@ -926,10 +926,11 @@ const BuyPage = () => {
                           <LegoV3
                             background={item.color}
                             zIndex={fieldsDragged.length - index}
-                            label={item.title}
+                            label={item.confuseTitle}
                             labelInRight={
                               !!item.confuseTitle || !!item.confuseIcon
                             }
+                            icon={item.confuseIcon}
                             className={
                               showShadow === field[item.key].value
                                 ? s.activeBlur
@@ -971,7 +972,7 @@ const BuyPage = () => {
                         >
                           <LegoV3
                             background={item.color}
-                            label={item.title}
+                            label={item.confuseTitle}
                             labelInRight={
                               !!item.confuseTitle || !!item.confuseIcon
                             }
