@@ -30,13 +30,13 @@ const BuyPage = () => {
   const router = useRouter();
   const [data, setData] = React.useState<
     | (IModelCategory & {
-    options: IModelCategory['options'] &
-      {
-        value: any;
-        label: string;
-        disabled: boolean;
-      }[];
-  })[]
+        options: IModelCategory['options'] &
+          {
+            value: any;
+            label: string;
+            disabled: boolean;
+          }[];
+      })[]
     | null
   >(null);
   const [originalData, setOriginalData] = React.useState<
@@ -59,7 +59,7 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
-  const {isCapture} = useCaptureStore();
+  const { isCapture } = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
 
   const handleDragStart = (event: any) => {
@@ -180,7 +180,7 @@ const BuyPage = () => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
     }
   }
 
@@ -616,7 +616,7 @@ const BuyPage = () => {
                                   option.supportNetwork &&
                                   option.supportNetwork !== 'both' &&
                                   option.supportNetwork !==
-                                  field['network']?.value
+                                    field['network']?.value
                                 ) || !option.selectable;
 
                               if (item.multiChoice && field[item.key].dragged) {
@@ -823,7 +823,12 @@ const BuyPage = () => {
               </div>
 
               <div className={`${s.right_box}`}>
-                <div  className={`${s.right_box_main}`} id="imageCapture">
+                <div
+                  className={`${s.right_box_main} ${
+                    isCapture ? s.right_box_main_captured : ''
+                  }`}
+                  id="imageCapture"
+                >
                   <DroppableV2
                     id="final"
                     className={s.finalResult}
@@ -1022,9 +1027,13 @@ const BuyPage = () => {
                     })}
                   </DroppableV2>
                 </div>
+
                 {!isCapture && (
                   <div className={s.cta_wrapper}>
-                    <button className={`${s.reset} ${s.gray}`} onClick={() => setIsShowModal(true)}>
+                    <button
+                      className={`${s.reset} ${s.gray}`}
+                      onClick={() => setIsShowModal(true)}
+                    >
                       <div>
                         <ImagePlaceholder
                           src={'/icons/undo.svg'}

@@ -115,6 +115,11 @@
   height: 100%;
   justify-content: space-between;
   align-items: center;
+
+  &_captured {
+    width: 650px;
+    margin-left: -80px;
+  }
 }
 
 .left_box {
@@ -374,10 +379,9 @@
   cursor: pointer;
   p {
     text-transform: uppercase;
-
   }
   &.gray {
-    background: #0000000D;
+    background: #0000000d;
   }
   .icon {
     max-width: 20px;
@@ -386,8 +390,6 @@
     }
   }
 }
-
-
 
 .video {
   position: absolute;

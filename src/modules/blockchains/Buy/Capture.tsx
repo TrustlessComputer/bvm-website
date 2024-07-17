@@ -7,9 +7,8 @@ import Image from 'next/image';
 import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 
-
 const Capture = () => {
-  const { setIsCapture} = useCaptureStore();
+  const { setIsCapture } = useCaptureStore();
   const handleClickShareTwitter = (url: string) => {
     try {
       const imgEncode = encodeBase64(url);
@@ -67,19 +66,24 @@ Launch a blockchain with BVM:`;
 
       a.href = await exportBase64();
       setIsCapture(false);
-      a.download = `${new Date}.png`;
+      a.download = `${new Date()}.png`;
       a.click();
     }, 150);
   }
 
   return (
     <div className={s.wrapper_btn_top}>
-      {/*<div className={s.reset} onClick={() => download()}>*/}
-      {/*  <div>*/}
-      {/*    <Image src={'/icons/ic_image.svg'} alt={'icon'} width={20} height={20} />*/}
-      {/*  </div>*/}
-      {/*  <p>EXPORT</p>*/}
-      {/*</div>*/}
+      <div className={s.reset} onClick={() => download()}>
+        <div>
+          <Image
+            src={'/icons/ic_image.svg'}
+            alt={'icon'}
+            width={20}
+            height={20}
+          />
+        </div>
+        <p>EXPORT</p>
+      </div>
       <div className={s.reset} onClick={exportAsImage}>
         <p>Share on</p>
         <div>
