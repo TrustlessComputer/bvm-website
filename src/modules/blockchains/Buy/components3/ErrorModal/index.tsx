@@ -36,19 +36,19 @@ const ErrorModal = ({
           backgroundColor: '#f4f4f4',
         }}
       >
-        <ModalHeader className={cn(styles.modal__title)}>
-          {title}
-        </ModalHeader>
+        <ModalHeader className={cn(styles.modal__title)}>{title}</ModalHeader>
 
         <ModalBody className={styles.modal__body}>
           {children}
 
-          <button
-            onClick={() => onHide()}
-            className={styles.modal__closeButton}
-          >
-            {closeText || 'Close'}
-          </button>
+          {closeText && (
+            <button
+              onClick={() => onHide()}
+              className={styles.modal__closeButton}
+            >
+              {closeText}
+            </button>
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>
