@@ -6,13 +6,18 @@ import html2canvas from 'html2canvas';
 import Image from 'next/image';
 import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
 
-
 const Capture = ({ ...props }) => {
   const handleClickShareTwitter = (url: string) => {
     try {
       const imgEncode = encodeBase64(url);
 
-      const content = `Eternal AI`;
+      const content = `I am building my own blockchain with @BVMnetwork
+
+BVM Studio is a fun no-code tool that enables anyone to easily launch their own blockchain on Bitcoin for only $99/month.
+
+It's so simple, even your grandma can do it!
+
+Launch a blockchain with BVM:`;
 
       window.open(
         `https://twitter.com/intent/tweet?text=${encodeURIComponent(
@@ -34,9 +39,7 @@ const Capture = ({ ...props }) => {
     return canvas.toDataURL('image/png', 1.0);
   };
 
-
   const exportAsImage = async () => {
-
     setTimeout(async () => {
       const image = await exportBase64();
       console.log('image', image);
@@ -59,7 +62,7 @@ const Capture = ({ ...props }) => {
     setTimeout(async () => {
       a.href = await exportBase64();
       props.setIsCapture(false);
-      a.download = `${new Date}.png`;
+      a.download = `${new Date()}.png`;
       a.click();
     }, 150);
   }
