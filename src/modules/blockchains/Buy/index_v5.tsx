@@ -21,6 +21,9 @@ import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import ErrorModal from './components3/ErrorModal';
+import { mockupOptions } from './Buy.data';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -55,6 +58,7 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
+  const { l2ServiceUserAddress } = useWeb3Auth();
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -71,7 +75,7 @@ const BuyPage = () => {
     setIdDragging('');
     setRightDragging(false);
 
-    router.push('/rollups/customizev2');
+    // router.push('/rollups/customizev2');
 
     const { over, active } = event;
 
@@ -107,13 +111,21 @@ const BuyPage = () => {
         field[activeKey].dragged
       ) {
         setShowShadow(field[activeKey].value as string);
-        toast.error('Remove existing module first.', {
+
+        const currentField = data?.find((item) => item.key === activeKey);
+        const currentOption = currentField?.options.find(
+          (option) => option.key === field[activeKey].value,
+        );
+        const msg = `You have already chosen ${currentOption?.title} as your ${currentField?.title}. Please remove it before selecting again.`;
+
+        toast.error(msg, {
           icon: null,
           style: {
             borderColor: 'blue',
             color: 'blue',
           },
           duration: 3000,
+          position: 'bottom-center',
         });
         setTimeout(() => {
           setShowShadow('');
@@ -157,7 +169,7 @@ const BuyPage = () => {
       setField(activeKey, newValue, true);
       isCurrentEmpty && setFieldsDragged((prev) => [...prev, activeKey]);
     } else {
-      const currentValues = field[activeKey].value as string[];
+      const currentValues = (field[activeKey].value || []) as string[];
       const newValue = currentValues.filter(
         (value) => value !== active.data.current.value,
       );
@@ -226,7 +238,8 @@ const BuyPage = () => {
   };
 
   const fetchData = async () => {
-    const modelCategories = (await getModelCategories()) || [];
+    const modelCategories =
+      (await getModelCategories(l2ServiceUserAddress)) || [];
     // const modelCategories = mockupOptions;
 
     const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
@@ -497,6 +510,7 @@ const BuyPage = () => {
     //   router.push(`/rollups/customizev2?use-case=${currentPackage}`);
 
     setFieldsDragged([]);
+    setIsShowModal(false);
     initTemplate(0);
   };
 
@@ -506,6 +520,7 @@ const BuyPage = () => {
         Drag and drop modules to start new blockchains, new dapps, and new
         economies.
       </p>
+
       <DndContext
         sensors={sensors}
         onDragStart={handleDragStart}
@@ -843,6 +858,8 @@ const BuyPage = () => {
 
                           if (!option) return null;
 
+                          console.log(item, option);
+
                           return (
                             <Draggable
                               right
@@ -854,8 +871,11 @@ const BuyPage = () => {
                             >
                               <LegoV3
                                 background={item.color}
-                                label={item.title}
-                                labelInRight={!!item.confuseTitle}
+                                label={item.confuseTitle}
+                                labelInRight={
+                                  !!item.confuseTitle || !!item.confuseIcon
+                                }
+                                icon={item.confuseIcon}
                                 zIndex={item.options.length - opIdx}
                               >
                                 <DropdownV2
@@ -891,7 +911,7 @@ const BuyPage = () => {
                               parentOfNested
                               background={item.color}
                               label={item.title}
-                              zIndex={data.length - index}
+                              zIndex={fieldsDragged.length - index - 1}
                             >
                               {childrenOptions}
                             </LegoParent>
@@ -912,9 +932,12 @@ const BuyPage = () => {
                         >
                           <LegoV3
                             background={item.color}
-                            zIndex={data.length - index}
-                            label={item.title}
-                            labelInRight={!!item.confuseTitle}
+                            zIndex={fieldsDragged.length - index}
+                            label={item.confuseTitle}
+                            labelInRight={
+                              !!item.confuseTitle || !!item.confuseIcon
+                            }
+                            icon={item.confuseIcon}
                             className={
                               showShadow === field[item.key].value
                                 ? s.activeBlur
@@ -956,9 +979,11 @@ const BuyPage = () => {
                         >
                           <LegoV3
                             background={item.color}
-                            label={item.title}
-                            labelInRight={!!item.confuseTitle}
-                            zIndex={item.options.length - opIdx}
+                            label={item.confuseTitle}
+                            labelInRight={
+                              !!item.confuseTitle || !!item.confuseIcon
+                            }
+                            zIndex={fieldsDragged.length - index}
                             icon={item.confuseIcon}
                             className={
                               showShadow === field[item.key].value
@@ -991,7 +1016,10 @@ const BuyPage = () => {
                     });
                   })}
                 </DroppableV2>
-                <button className={s.reset} onClick={resetEdit}>
+                <button
+                  className={s.reset}
+                  onClick={() => setIsShowModal(true)}
+                >
                   <div>
                     <ImagePlaceholder
                       src={'/icons/undo.svg'}
@@ -1043,6 +1071,7 @@ const BuyPage = () => {
           </div>
         </div>
       </DndContext>
+
       <ModalVideo
         channel="custom"
         url={
@@ -1053,6 +1082,35 @@ const BuyPage = () => {
           setIsOpenModalVideo(false);
         }}
       />
+
+      <ErrorModal
+        title="Module Reset"
+        show={isShowModal}
+        onHide={() => {
+          setIsShowModal(false);
+        }}
+      >
+        <p className={s.resetDescription}>
+          Remove all selected modules and start again.
+        </p>
+
+        <div className={s.actions}>
+          <button
+            onClick={() => {
+              setIsShowModal(false);
+            }}
+            className={`${s.actions__button} ${s.actions__button__cancel}`}
+          >
+            Cancel
+          </button>
+          <button
+            onClick={resetEdit}
+            className={`${s.actions__button} ${s.actions__button__reset}`}
+          >
+            Reset
+          </button>
+        </div>
+      </ErrorModal>
     </div>
   );
 };
