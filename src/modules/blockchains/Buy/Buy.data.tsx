@@ -509,7 +509,8 @@ export const mockupOptions: IModelCategory[] = [
     key: 'network',
     title: 'Network',
     required: true,
-    tooltip: 'Select whether you want to create a testnet or deploy a mainnet.',
+    tooltip:
+      'Choose whether to test on the testnet for trials and development or deploy on the mainnet for production and live use.',
     options: [
       {
         key: 'mainnet',
@@ -522,6 +523,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: '',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-mainnet.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -535,6 +538,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: '',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-testnet.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -543,9 +548,9 @@ export const mockupOptions: IModelCategory[] = [
     disable: false,
     multiChoice: false,
     confuseWord: false,
-    confuseIcon:
-      'https://storage.googleapis.com/bvm-network/icons-tool/icon-testnet.svg',
-    confuseTitle: 'Confuse',
+    confuseIcon: '',
+    confuseTitle: '',
+    // whitelistAddress: null,
     order: 1,
   },
   {
@@ -555,7 +560,8 @@ export const mockupOptions: IModelCategory[] = [
     key: 'hardware',
     title: 'Hardware',
     required: true,
-    tooltip: '',
+    tooltip:
+      'Select your hardware configuration to match the specific needs of your blockchain. Consider factors such as RAM, CPU cores, and storage capacity to ensure optimal performance and scalability.',
     options: [
       {
         key: '16g',
@@ -564,10 +570,12 @@ export const mockupOptions: IModelCategory[] = [
         // valueStr: '1',
         selectable: true,
         priceUSD: 99,
-        priceBVM: 152.9771995389706,
+        priceBVM: 140.65230260494243,
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-hardware.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -577,10 +585,12 @@ export const mockupOptions: IModelCategory[] = [
         // valueStr: '2',
         selectable: true,
         priceUSD: 499,
-        priceBVM: 771.0668946459226,
+        priceBVM: 708.9444343420836,
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-hardware.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -590,10 +600,12 @@ export const mockupOptions: IModelCategory[] = [
         // valueStr: '3',
         selectable: true,
         priceUSD: 699,
-        priceBVM: 1080.1117421993986,
+        priceBVM: 993.0905002106541,
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-hardware.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -604,6 +616,7 @@ export const mockupOptions: IModelCategory[] = [
     confuseWord: false,
     confuseIcon: '',
     confuseTitle: '',
+    // whitelistAddress: null,
     order: 2,
   },
   {
@@ -613,7 +626,8 @@ export const mockupOptions: IModelCategory[] = [
     key: 'settlement',
     title: 'Base Layer',
     required: true,
-    tooltip: '',
+    tooltip:
+      'Select the base layer on which you want to build your blockchain. This will determine the base protocol and network characteristics, such as security, scalability, and consensus mechanisms.',
     options: [
       {
         key: 'bitcoin',
@@ -626,6 +640,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-btc.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -639,6 +655,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -649,6 +667,7 @@ export const mockupOptions: IModelCategory[] = [
     confuseWord: true,
     confuseIcon: '',
     confuseTitle: 'Base Layer',
+    // whitelistAddress: null,
     order: 0,
   },
   {
@@ -658,7 +677,8 @@ export const mockupOptions: IModelCategory[] = [
     key: 'compute',
     title: 'Compute',
     required: true,
-    tooltip: '',
+    tooltip:
+      'Choose the scaling solution tailored to your needs. Rollups enhance scalability and reduce transaction costs by processing transactions off-chain while posting transaction data on-chain.',
     options: [
       {
         key: 'zk',
@@ -671,6 +691,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-explorer.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -678,12 +700,14 @@ export const mockupOptions: IModelCategory[] = [
         title: 'Optimistic Rollups',
         value: 20,
         // valueStr: '',
-        selectable: false,
+        selectable: true,
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-op.svg',
+        // logo: '',
+        needContactUs: true,
         order: 0,
       },
       {
@@ -697,6 +721,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: '',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -707,6 +733,7 @@ export const mockupOptions: IModelCategory[] = [
     confuseWord: false,
     confuseIcon: '',
     confuseTitle: '',
+    // whitelistAddress: null,
     order: 3,
   },
   {
@@ -717,7 +744,7 @@ export const mockupOptions: IModelCategory[] = [
     title: 'Storage',
     required: true,
     tooltip:
-      'The data of your blockchain is written to a Data Availability layer such as Polygon, Celestia, NearDA, Eigen, Filecoin or Avail.',
+      'Ensure easy access to transaction details and smart contracts for all nodes on L1, L2, and even L3 networks. Using a separate DA layer reduces mainnet congestion, enhancing scalability, security, and transaction cost-efficiency.',
     options: [
       {
         key: 'bvm_da',
@@ -730,6 +757,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-bvm.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -743,6 +772,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-polygon.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -756,6 +787,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-ceslestia.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -765,10 +798,12 @@ export const mockupOptions: IModelCategory[] = [
         // valueStr: '',
         selectable: true,
         priceUSD: 10,
-        priceBVM: 15.452242377673798,
+        priceBVM: 14.207303293428529,
         tooltip: '',
         supportNetwork: 'testnet',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-avail.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -782,6 +817,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-filecoin.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -795,6 +832,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-near.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -805,6 +844,7 @@ export const mockupOptions: IModelCategory[] = [
     confuseWord: true,
     confuseIcon: '',
     confuseTitle: 'DA',
+    // whitelistAddress: null,
     order: 4,
   },
   {
@@ -814,7 +854,8 @@ export const mockupOptions: IModelCategory[] = [
     key: 'zk_prover',
     title: 'ZK Prover',
     required: false,
-    tooltip: '',
+    tooltip:
+      "Prover is a crucial component responsible for generating cryptographic proofs that verify the correctness of transactions processed off-chain by the blockchain's sequencer.",
     options: [
       {
         key: 'zk_prover',
@@ -823,10 +864,12 @@ export const mockupOptions: IModelCategory[] = [
         // valueStr: '',
         selectable: true,
         priceUSD: 1300,
-        priceBVM: 2008.791509097594,
+        priceBVM: 1846.9494281457087,
         tooltip: '',
         supportNetwork: '',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-explorer.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -837,6 +880,7 @@ export const mockupOptions: IModelCategory[] = [
     confuseWord: false,
     confuseIcon: '',
     confuseTitle: '',
+    // whitelistAddress: null,
     order: 7,
   },
   {
@@ -847,7 +891,7 @@ export const mockupOptions: IModelCategory[] = [
     title: 'Block Gas Limit',
     required: true,
     tooltip:
-      'The block gas limit defines the maximum amount of gas that all transactions in a single block can consume.',
+      'The block gas limit defines the maximum amount of gas that all transactions in a single block can consume. By default, it is set to 30,000,000, but you can adjust it according to your specific needs.',
     options: [
       {
         key: '1m',
@@ -860,6 +904,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-gas-min.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -869,10 +915,12 @@ export const mockupOptions: IModelCategory[] = [
         // valueStr: '',
         selectable: true,
         priceUSD: 5,
-        priceBVM: 7.726121188836899,
+        priceBVM: 7.1036516467142645,
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-gas-medium.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -882,10 +930,12 @@ export const mockupOptions: IModelCategory[] = [
         // valueStr: '',
         selectable: true,
         priceUSD: 10,
-        priceBVM: 15.452242377673798,
+        priceBVM: 14.207303293428529,
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-gas-max.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -896,6 +946,7 @@ export const mockupOptions: IModelCategory[] = [
     confuseWord: true,
     confuseIcon: '',
     confuseTitle: 'Block Gas Limit',
+    // whitelistAddress: null,
     order: 5,
   },
   {
@@ -906,7 +957,7 @@ export const mockupOptions: IModelCategory[] = [
     title: 'Withdrawal Time',
     required: true,
     tooltip:
-      'The withdrawal period is the time frame during which your users can withdraw their assets from your blockchain back to Supersonic. This duration primarily depends on the time required for the prover to submit a zk-proof to the verifier contracts deployed on Supersonic.',
+      'The withdrawal period is the time frame during which your users can withdraw their assets from your blockchain back to the L1.',
     options: [
       {
         key: '12h',
@@ -919,6 +970,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-time-slow.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -928,10 +981,12 @@ export const mockupOptions: IModelCategory[] = [
         // valueStr: '',
         selectable: true,
         priceUSD: 5,
-        priceBVM: 7.726121188836899,
+        priceBVM: 7.1036516467142645,
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-time-fast.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -941,10 +996,12 @@ export const mockupOptions: IModelCategory[] = [
         // valueStr: '',
         selectable: true,
         priceUSD: 10,
-        priceBVM: 15.452242377673798,
+        priceBVM: 14.207303293428529,
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-time-superfast.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -955,6 +1012,7 @@ export const mockupOptions: IModelCategory[] = [
     confuseWord: true,
     confuseIcon: '',
     confuseTitle: 'Withdrawal Time',
+    // whitelistAddress: null,
     order: 6,
   },
   {
@@ -964,7 +1022,8 @@ export const mockupOptions: IModelCategory[] = [
     key: 'wallet',
     title: 'Wallet',
     required: false,
-    tooltip: '',
+    tooltip:
+      'This module enhances user experience by allowing gas fees to be paid in different cryptocurrencies, eliminating the need to hold a specific one for transaction fees.',
     options: [
       {
         key: 'flex_pay',
@@ -977,6 +1036,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: '',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -987,6 +1048,7 @@ export const mockupOptions: IModelCategory[] = [
     confuseWord: true,
     confuseIcon: '',
     confuseTitle: 'Wallet',
+    // whitelistAddress: null,
     order: 8,
   },
   {
@@ -996,7 +1058,8 @@ export const mockupOptions: IModelCategory[] = [
     key: 'bridge_apps',
     title: 'Bridge Apps',
     required: false,
-    tooltip: '',
+    tooltip:
+      'Bring BTC, ETH, and other assets to your blockchain and transfer them back to Bitcoin and Ethereum networks.',
     options: [
       {
         key: 'btc_bridge',
@@ -1009,6 +1072,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'mainnet',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-btc.svg',
+        // logo: 'https://storage.googleapis.com/bvm-network/image/btc_bridge_ic.png',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1022,6 +1087,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        // logo: 'https://storage.googleapis.com/bvm-network/image/eth_bridge_ic.png',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1035,6 +1102,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'mainnet',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-solana.svg',
+        // logo: 'https://storage.googleapis.com/bvm-network/image/solana_bridge_ic.png',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1048,6 +1117,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'mainnet',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-runes.svg',
+        // logo: 'https://storage.googleapis.com/bvm-network/image/runs_bridge_ic.png',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1061,16 +1132,20 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'mainnet',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-ordinals.svg',
+        // logo: 'https://storage.googleapis.com/bvm-network/image/ordinals_bridge_ic.png',
+        needContactUs: false,
         order: 0,
       },
     ],
-    color: '#6B39F9',
+    color: '#855AFF',
     type: 'module',
     disable: false,
     multiChoice: true,
-    confuseWord: false,
-    confuseIcon: '',
-    confuseTitle: '',
+    confuseWord: true,
+    confuseIcon:
+      'https://storage.googleapis.com/bvm-network/icons-tool/icon-bridge-confused.svg',
+    confuseTitle: 'Your chain',
+    // whitelistAddress: null,
     order: 9,
   },
   {
@@ -1080,7 +1155,8 @@ export const mockupOptions: IModelCategory[] = [
     key: 'defi_apps',
     title: 'DeFi Apps',
     required: false,
-    tooltip: '',
+    tooltip:
+      'Pre-install DeFi dapps to your blockchain, including token issuance, DEX, staking, and more to boost liquidity and attract users with essential financial services from the start.',
     options: [
       {
         key: 'issue_token',
@@ -1093,6 +1169,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1106,6 +1184,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-vesting.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1119,6 +1199,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-staking.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1132,6 +1214,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-dex.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1145,6 +1229,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-orderbook.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1158,6 +1244,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-perceptual.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -1168,6 +1256,7 @@ export const mockupOptions: IModelCategory[] = [
     confuseWord: false,
     confuseIcon: '',
     confuseTitle: '',
+    // whitelistAddress: null,
     order: 10,
   },
   {
@@ -1177,7 +1266,8 @@ export const mockupOptions: IModelCategory[] = [
     key: 'degen_apps',
     title: 'Degen Apps',
     required: false,
-    tooltip: '',
+    tooltip:
+      'Pre-install degen dapps to your blockchain to attract attention and increase user engagement.',
     options: [
       {
         key: 'yolo',
@@ -1190,6 +1280,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-yolo.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1203,6 +1295,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-raffle.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1216,6 +1310,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-bull-bear.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -1226,6 +1322,7 @@ export const mockupOptions: IModelCategory[] = [
     confuseWord: false,
     confuseIcon: '',
     confuseTitle: '',
+    // whitelistAddress: null,
     order: 11,
   },
   {
@@ -1235,7 +1332,8 @@ export const mockupOptions: IModelCategory[] = [
     key: 'gaming_apps',
     title: 'Gaming Apps',
     required: false,
-    tooltip: '',
+    tooltip:
+      'Pre-install gaming dapps for a fun and immersive experience. Introduce users to new and exciting on-chain games.',
     options: [
       {
         key: 'pepe_fight',
@@ -1248,6 +1346,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-game.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1261,6 +1361,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-game.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1274,6 +1376,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-game.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
       {
@@ -1287,6 +1391,8 @@ export const mockupOptions: IModelCategory[] = [
         tooltip: '',
         supportNetwork: 'both',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-game.svg',
+        // logo: '',
+        needContactUs: false,
         order: 0,
       },
     ],
@@ -1297,6 +1403,10 @@ export const mockupOptions: IModelCategory[] = [
     confuseWord: false,
     confuseIcon: '',
     confuseTitle: '',
+    // whitelistAddress: [
+    //   '0x2d66881F48Fe18c63C0CB52b3559FBf520287b2F',
+    //   '0xb262df097f649cb962b6ee256b19eec51d77cfa8',
+    // ],
     order: 12,
   },
 ];

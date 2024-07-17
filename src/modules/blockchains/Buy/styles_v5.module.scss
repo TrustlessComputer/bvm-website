@@ -1,5 +1,6 @@
 .container {
   width: 100%;
+
   //font-family: var(--font-dmsans);
   .fontJetBrains {
     font-family: var(--font-JetBrainsMono) !important;
@@ -229,6 +230,7 @@
   flex-direction: column;
   justify-content: center;
   overflow-y: auto;
+
   // align-items: center;
   &::-webkit-scrollbar {
     width: 6px;
@@ -264,33 +266,43 @@
   0% {
     transform: translate(1px, 1px);
   }
+
   10% {
     transform: translate(-1px, -2px);
   }
+
   20% {
     transform: translate(-3px, 0px);
   }
+
   30% {
     transform: translate(3px, 2px);
   }
+
   40% {
     transform: translate(1px, -1px);
   }
+
   50% {
     transform: translate(-1px, 2px);
   }
+
   60% {
     transform: translate(-3px, 1px);
   }
+
   70% {
     transform: translate(3px, 1px);
   }
+
   80% {
     transform: translate(-1px, -1px);
   }
+
   90% {
     transform: translate(1px, 2px);
   }
+
   100% {
     transform: translate(1px, -2px);
   }
@@ -327,20 +339,40 @@
   }
 }
 
-.reset {
-  background-color: #fee5db;
-  color: #fa4e0e;
-  padding: 8px 20px;
+.cta_wrapper {
   position: absolute;
   bottom: 28px;
   right: 35px;
   z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+}
+
+.reset {
+  background-color: #fee5db;
+  color: #fa4e0e;
+  padding: 8px 20px;
   gap: 8px;
   border-radius: 1000px;
   align-items: center;
+  justify-content: center;
   display: flex;
   cursor: pointer;
+  text-transform: uppercase;
+  &.gray {
+    background: #0000000D;
+  }
+  .icon {
+    max-width: 20px;
+    img {
+      width: 100%;
+    }
+  }
 }
+
+
 
 .video {
   position: absolute;
@@ -368,6 +400,7 @@
     background-color: transparent;
     border: none;
   }
+
   &_play {
     position: absolute;
     top: 50%;
@@ -381,5 +414,48 @@
     align-items: center;
     cursor: pointer;
     transition: opacity 0.5s;
+  }
+}
+
+.resetDescription {
+  font-family: var(--font-SFProDisplay);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.4px;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+
+  &__button {
+    --color: #fa4e0e;
+    display: block;
+    width: 158px;
+    height: 45px;
+    padding: 13px;
+    border-radius: 99999px;
+    font-family: var(--font-SFProDisplay);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 17.9px;
+    text-align: center;
+
+    &__cancel {
+      background-color: var(--color);
+    }
+
+    &__reset {
+      border: 1px solid var(--color);
+      color: var(--color);
+    }
   }
 }

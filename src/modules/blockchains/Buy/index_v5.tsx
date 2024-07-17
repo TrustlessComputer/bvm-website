@@ -22,18 +22,21 @@ import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import ErrorModal from './components3/ErrorModal';
+import { mockupOptions } from './Buy.data';
+import Capture from '@/modules/blockchains/Buy/Capture';
 
 const BuyPage = () => {
   const router = useRouter();
   const [data, setData] = React.useState<
     | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
+    options: IModelCategory['options'] &
+      {
+        value: any;
+        label: string;
+        disabled: boolean;
+      }[];
+  })[]
     | null
   >(null);
   const [originalData, setOriginalData] = React.useState<
@@ -56,6 +59,7 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
+  const [isCapture, setIsCapture] = useState<boolean>(false);
   const { l2ServiceUserAddress } = useWeb3Auth();
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -167,7 +171,7 @@ const BuyPage = () => {
       setField(activeKey, newValue, true);
       isCurrentEmpty && setFieldsDragged((prev) => [...prev, activeKey]);
     } else {
-      const currentValues = field[activeKey].value as string[];
+      const currentValues = (field[activeKey].value || []) as string[];
       const newValue = currentValues.filter(
         (value) => value !== active.data.current.value,
       );
@@ -175,7 +179,7 @@ const BuyPage = () => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
     }
   }
 
@@ -508,6 +512,7 @@ const BuyPage = () => {
     //   router.push(`/rollups/customizev2?use-case=${currentPackage}`);
 
     setFieldsDragged([]);
+    setIsShowModal(false);
     initTemplate(0);
   };
 
@@ -517,6 +522,7 @@ const BuyPage = () => {
         Drag and drop modules to start new blockchains, new dapps, and new
         economies.
       </p>
+
       <DndContext
         sensors={sensors}
         onDragStart={handleDragStart}
@@ -609,7 +615,7 @@ const BuyPage = () => {
                                   option.supportNetwork &&
                                   option.supportNetwork !== 'both' &&
                                   option.supportNetwork !==
-                                    field['network']?.value
+                                  field['network']?.value
                                 ) || !option.selectable;
 
                               if (item.multiChoice && field[item.key].dragged) {
@@ -790,7 +796,6 @@ const BuyPage = () => {
                 {/*    setValueOfPackage={setValueOfPackage}*/}
                 {/*  />*/}
                 {/*}*/}
-
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>
                     <h4 className={s.right_box_footer_left_content}>
@@ -814,7 +819,7 @@ const BuyPage = () => {
                 </div>
               </div>
 
-              <div className={s.right_box}>
+              <div className={`${s.right_box}`} id="imageCapture">
                 <DroppableV2
                   id="final"
                   className={s.finalResult}
@@ -854,6 +859,8 @@ const BuyPage = () => {
 
                           if (!option) return null;
 
+                          console.log(item, option);
+
                           return (
                             <Draggable
                               right
@@ -865,8 +872,11 @@ const BuyPage = () => {
                             >
                               <LegoV3
                                 background={item.color}
-                                label={item.title}
-                                labelInRight={!!item.confuseTitle}
+                                label={item.confuseTitle}
+                                labelInRight={
+                                  !!item.confuseTitle || !!item.confuseIcon
+                                }
+                                icon={item.confuseIcon}
                                 zIndex={item.options.length - opIdx}
                               >
                                 <DropdownV2
@@ -924,8 +934,11 @@ const BuyPage = () => {
                           <LegoV3
                             background={item.color}
                             zIndex={fieldsDragged.length - index}
-                            label={item.title}
-                            labelInRight={!!item.confuseTitle}
+                            label={item.confuseTitle}
+                            labelInRight={
+                              !!item.confuseTitle || !!item.confuseIcon
+                            }
+                            icon={item.confuseIcon}
                             className={
                               showShadow === field[item.key].value
                                 ? s.activeBlur
@@ -967,8 +980,10 @@ const BuyPage = () => {
                         >
                           <LegoV3
                             background={item.color}
-                            label={item.title}
-                            labelInRight={!!item.confuseTitle}
+                            label={item.confuseTitle}
+                            labelInRight={
+                              !!item.confuseTitle || !!item.confuseIcon
+                            }
                             zIndex={fieldsDragged.length - index}
                             icon={item.confuseIcon}
                             className={
@@ -1002,18 +1017,23 @@ const BuyPage = () => {
                     });
                   })}
                 </DroppableV2>
-                <button className={s.reset} onClick={resetEdit}>
-                  <div>
-                    <ImagePlaceholder
-                      src={'/icons/undo.svg'}
-                      alt={'undo'}
-                      width={20}
-                      height={20}
-                    />
+                {!isCapture && (
+                  <div className={s.wrapperBtnBottom}>
+                    <button className={`${s.reset} ${s.gray}`} onClick={() => setIsShowModal(true)}>
+                      <div>
+                        <ImagePlaceholder
+                          src={'/icons/undo.svg'}
+                          alt={'undo'}
+                          width={20}
+                          height={20}
+                        />
+                      </div>
+                    </button>
+                    <Capture setIsCapture={setIsCapture} />
                   </div>
-                  Reset
-                </button>
-                {isShowVideo && (
+                )}
+
+                {!isCapture && isShowVideo && (
                   <div className={s.video}>
                     <ImagePlaceholder
                       src={'/video.jpg'}
@@ -1054,6 +1074,7 @@ const BuyPage = () => {
           </div>
         </div>
       </DndContext>
+
       <ModalVideo
         channel="custom"
         url={
@@ -1064,6 +1085,35 @@ const BuyPage = () => {
           setIsOpenModalVideo(false);
         }}
       />
+
+      <ErrorModal
+        title="Module Reset"
+        show={isShowModal}
+        onHide={() => {
+          setIsShowModal(false);
+        }}
+      >
+        <p className={s.resetDescription}>
+          Remove all selected modules and start again.
+        </p>
+
+        <div className={s.actions}>
+          <button
+            onClick={() => {
+              setIsShowModal(false);
+            }}
+            className={`${s.actions__button} ${s.actions__button__cancel}`}
+          >
+            Cancel
+          </button>
+          <button
+            onClick={resetEdit}
+            className={`${s.actions__button} ${s.actions__button__reset}`}
+          >
+            Reset
+          </button>
+        </div>
+      </ErrorModal>
     </div>
   );
 };

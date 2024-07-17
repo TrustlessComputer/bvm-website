@@ -110,9 +110,9 @@ function LegoV3({
           ) : children ? (
             <div className={styles.options}>{children}</div>
           ) : null}
-          {label && labelInRight ? (
+          {(label || icon) && labelInRight ? (
             <div className={styles.label}>
-              {icon && <Image src={icon} alt="icon" width={24} height={24} />}
+              {icon && <Image src={icon} alt="icon" width={16} height={16} />}
               <p>{label} </p>
             </div>
           ) : null}
