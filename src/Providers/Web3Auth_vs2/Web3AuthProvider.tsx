@@ -19,6 +19,7 @@ import l2ServicesAPI, { revokeAuthentication } from '@/services/api/l2services';
 import { useAppDispatch } from '@/stores/hooks';
 import { setL2ServiceLogout } from '@/stores/states/l2services/reducer';
 import { useLocalStorage } from 'usehooks-ts';
+import useL2Service from '@/hooks/useL2Service';
 
 export const Web3AuthContext = createContext<IWeb3AuthContext>({
   login: async () => {},
@@ -37,6 +38,13 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
     STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2,
     LocalStorage.getItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2) || undefined,
   );
+  const [l2ServiceUserAddress, setL2ServiceUserAddress] = useLocalStorage(
+    STORAGE_KEYS.L2_SERVICE_USER_ADDRESS,
+    LocalStorage.getItem(STORAGE_KEYS.L2_SERVICE_USER_ADDRESS) || undefined,
+  );
+
+  const { getAccountInfor } = useL2Service();
+
   const [userInfo, setUserInfo] = useState<Partial<UserInfo> | undefined>();
   const [loggedIn, setLoggedIn] = useState(false);
   const [web3AuthConencted, setWeb3AuthConencted] = useState(false);
@@ -47,6 +55,20 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
   useEffect(() => {
     setLoggedIn(!!l2ServiceAccessToken && !!web3AuthConencted);
   }, [setLoggedIn, l2ServiceAccessToken, web3AuthConencted]);
+
+  useEffect(() => {
+    if (loggedIn) {
+      fetchUserProfileL2Service();
+    }
+  }, [loggedIn]);
+
+  const fetchUserProfileL2Service = async () => {
+    const data = await getAccountInfor();
+    if (data && data.payload) {
+      const { tcAddress } = data.payload as { tcAddress: string | undefined };
+      setL2ServiceUserAddress(tcAddress);
+    }
+  };
 
   const init = async () => {
     try {
@@ -117,6 +139,7 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
       setProvider(null);
       setUserInfo(undefined);
       setL2ServiceAccessToken(undefined);
+      setL2ServiceUserAddress(undefined);
     } catch (error) {
       console.log('[Web3AuthProvider][logout] error -- ', error);
       setProvider(null);
@@ -218,6 +241,7 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
       wallet,
       web3AuthNoModal,
       l2ServiceAccessToken,
+      l2ServiceUserAddress,
     }),
     [
       init,
@@ -230,6 +254,7 @@ export const Web3AuthProvider: React.FC<PropsWithChildren> = ({
       loggedIn,
       wallet,
       l2ServiceAccessToken,
+      l2ServiceUserAddress,
     ],
   );
 
