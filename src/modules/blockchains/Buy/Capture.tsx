@@ -23,7 +23,7 @@ const Capture = ({ ...props }) => {
   };
 
   const exportBase64 = async () => {
-    const canvasDom = document.querySelector('#imageCapture');
+    const canvasDom = document.querySelector('#imageCapture') as HTMLElement;
     const canvas = await html2canvas(canvasDom).then((res) => {
       props.setIsCapture(false);
       return res;
@@ -34,21 +34,19 @@ const Capture = ({ ...props }) => {
 
   const exportAsImage = async () => {
     props.setIsCapture(true);
-    const canvasDom = document.querySelector('#imageCapture');
+    const canvasDom = document.querySelector('#imageCapture') as HTMLElement;
 
     setTimeout(async () => {
-      if (!canvasDom) return;
       const canvas = await html2canvas(canvasDom).then((res) => {
         props.setIsCapture(false);
         return res;
       });
-      const image = exportBase64();
+      const image = await exportBase64();
       console.log('image', image);
 
       if (!image) return;
 
       const file = convertBase64ToFile(image);
-
       const urlCDN = await l2ServicesAPI.uploadFile({ file });
 
       if (!urlCDN) return;
@@ -60,7 +58,7 @@ const Capture = ({ ...props }) => {
   async function download() {
     props.setIsCapture(true);
     const a = document.createElement('a');
-    const base64 = await exportAsImage().then((res) => {
+      await exportAsImage().then((res) => {
       a.href = res;
       a.download = 'Image.png';
       setTimeout(async () => {
@@ -85,14 +83,5 @@ const Capture = ({ ...props }) => {
     </div>
   );
 };
-return (
-  <div onClick={() => download()} className={s.reset}>
-    <div className={s.icon}>
-      <ImagePlaceholder src={'/icons/ic_image.svg'} alt={'icon'} width={20} height={20} />
-    </div>
-    <p>EXPORT</p>
-  </div>
-);
-}
 
 export default Capture;
