@@ -30,13 +30,13 @@ const BuyPage = () => {
   const router = useRouter();
   const [data, setData] = React.useState<
     | (IModelCategory & {
-    options: IModelCategory['options'] &
-      {
-        value: any;
-        label: string;
-        disabled: boolean;
-      }[];
-  })[]
+        options: IModelCategory['options'] &
+          {
+            value: any;
+            label: string;
+            disabled: boolean;
+          }[];
+      })[]
     | null
   >(null);
   const [originalData, setOriginalData] = React.useState<
@@ -59,7 +59,7 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
-  const {isCapture} = useCaptureStore();
+  const { isCapture } = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
 
   const handleDragStart = (event: any) => {
@@ -180,7 +180,7 @@ const BuyPage = () => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
     }
   }
 
@@ -532,10 +532,15 @@ const BuyPage = () => {
         <div className={s.wrapper}>
           <div className={s.inner}>
             <div className={s.left}>
-              {/*<div  className={s.top_left}>*/}
-              {/*  <p className={s.heading}>Build your Blockchain</p>*/}
-              {/*  <p className={s.heading_note}><span>(<sup>*</sup>)</span>  Module required</p>*/}
-              {/*</div>*/}
+              <div className={s.top_left}>
+                <div className={`${s.top_left_filter} ${s.active}`}>
+                  <p>Code</p>
+                </div>
+                <div className={s.top_left_filter}>
+                  <p>Explore</p>
+                </div>
+                <Capture />
+              </div>
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
                   <div className={s.left_box_inner_sidebar}>
@@ -598,10 +603,10 @@ const BuyPage = () => {
                               let _price = formatCurrencyV2({
                                 amount: option.priceBVM || 0,
                                 decimals: 2,
-                              });
+                              }).replace('.00', '');
                               let suffix =
                                 Math.abs(option.priceBVM) > 0
-                                  ? `(+${_price} BVM)`
+                                  ? `(${_price} BVM)`
                                   : '';
 
                               if (
@@ -616,7 +621,7 @@ const BuyPage = () => {
                                   option.supportNetwork &&
                                   option.supportNetwork !== 'both' &&
                                   option.supportNetwork !==
-                                  field['network']?.value
+                                    field['network']?.value
                                 ) || !option.selectable;
 
                               if (item.multiChoice && field[item.key].dragged) {
@@ -797,7 +802,7 @@ const BuyPage = () => {
                 {/*    setValueOfPackage={setValueOfPackage}*/}
                 {/*  />*/}
                 {/*}*/}
-                <Capture />
+
 
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>
@@ -806,7 +811,7 @@ const BuyPage = () => {
                         amount: priceBVM,
                         decimals: 2,
                       }).replace('.00', '')}{' '}
-                      BVM
+                      BVM{'/'}month
                     </h4>
                     <h6 className={s.right_box_footer_left_title}>
                       $
@@ -814,7 +819,7 @@ const BuyPage = () => {
                         amount: priceUSD,
                         decimals: 2,
                       }).replace('.00', '')}
-                      {'/'}Month
+                      {'/'}month
                     </h6>
                   </div>
 
@@ -823,7 +828,12 @@ const BuyPage = () => {
               </div>
 
               <div className={`${s.right_box}`}>
-                <div  className={`${s.right_box_main}`} id="imageCapture">
+                <div
+                  className={`${s.right_box_main} ${
+                    isCapture ? s.right_box_main_captured : ''
+                  }`}
+                  id="imageCapture"
+                >
                   <DroppableV2
                     id="final"
                     className={s.finalResult}
@@ -1022,9 +1032,13 @@ const BuyPage = () => {
                     })}
                   </DroppableV2>
                 </div>
+
                 {!isCapture && (
                   <div className={s.cta_wrapper}>
-                    <button className={`${s.reset} ${s.gray}`} onClick={() => setIsShowModal(true)}>
+                    <button
+                      className={`${s.reset} ${s.gray}`}
+                      onClick={() => setIsShowModal(true)}
+                    >
                       <div>
                         <ImagePlaceholder
                           src={'/icons/undo.svg'}

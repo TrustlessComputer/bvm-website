@@ -55,6 +55,7 @@ const LaunchButton = ({
   const { hasError } = computerNameField;
 
   const [chainId, setChainId] = useState('');
+  const [needContactUs, setNeedContactUs] = React.useState(false);
 
   const {
     isOpen: isOpenTopUpModal,
@@ -111,6 +112,38 @@ const LaunchButton = ({
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
 
+  React.useEffect(() => {
+    setNeedContactUs(isAnyOptionNeedContactUs());
+    console.log(isAnyOptionNeedContactUs());
+  }, [field]);
+
+  const isAnyOptionNeedContactUs = () => {
+    if (!originalData) return false;
+    for (const _field of originalData) {
+      if (!field[_field.key].dragged) continue;
+
+      if (_field.multiChoice) {
+        for (const value of field[_field.key].value as string[]) {
+          const option = _field.options.find((opt) => opt.key === value);
+
+          if (option?.needContactUs) {
+            return true;
+          }
+        }
+      }
+
+      const option = _field.options.find(
+        (opt) => opt.key === field[_field.key].value,
+      );
+
+      if (option?.needContactUs) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
   const handleOnClick = async () => {
     if (!allFilled) {
       setShowError(true);
@@ -146,28 +179,9 @@ const LaunchButton = ({
       });
     }
 
-    for (const _field of originalData) {
-      if (!field[_field.key].dragged) continue;
-
-      if (_field.multiChoice) {
-        for (const value of field[_field.key].value as string[]) {
-          const option = _field.options.find((opt) => opt.key === value);
-
-          if (option?.needContactUs) {
-            showContactUsModal(dynamicForm);
-            return;
-          }
-        }
-      }
-
-      const option = _field.options.find(
-        (opt) => opt.key === field[_field.key].value,
-      );
-
-      if (option?.needContactUs) {
-        showContactUsModal(dynamicForm);
-        return;
-      }
+    if (isAnyOptionNeedContactUs()) {
+      showContactUsModal(dynamicForm);
+      return;
     }
 
     if (!loggedIn) {
@@ -225,11 +239,17 @@ const LaunchButton = ({
       <div className={`${s.launch} ${s.active}`} onClick={handleOnClick}>
         <div className={s.inner}>
           {!loggedIn ? (
-            <Text className={s.connect}>Launch</Text>
+            <Text className={s.connect}>
+              {needContactUs ? 'Contact Us' : 'Launch'}
+            </Text>
           ) : (
             <React.Fragment>
               <div className={s.top}>
-                {isSubmiting ? <Spinner color="#fff" /> : <p>Launch</p>}
+                {isSubmiting ? (
+                  <Spinner color="#fff" />
+                ) : (
+                  <p>{needContactUs ? 'Contact Us' : 'Launch'}</p>
+                )}
                 <div className={`${s.icon}`}>
                   <ImagePlaceholder
                     src={'/launch.png'}
