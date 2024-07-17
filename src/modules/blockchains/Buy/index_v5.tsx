@@ -598,7 +598,7 @@ const BuyPage = () => {
                               let _price = formatCurrencyV2({
                                 amount: option.priceBVM || 0,
                                 decimals: 2,
-                              });
+                              }).replace('.00', '');
                               let suffix =
                                 Math.abs(option.priceBVM) > 0
                                   ? `(${_price} BVM)`
