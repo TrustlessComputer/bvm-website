@@ -237,3 +237,14 @@ export const getUrlToSwap = (params: ISearchURLSwap) => {
 export const openExtraLink = (url: string) => {
   return isMobile ? window.location.assign(url) : window.open(url, '_blank');
 };
+
+
+// Function to encode a string to Base64
+export function encodeBase64(input: string): string {
+  return btoa(input);
+}
+
+// Function to decode a Base64 string
+export function decodeBase64(encoded: string): string {
+  return atob(encoded);
+}

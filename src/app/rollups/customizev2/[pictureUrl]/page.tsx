@@ -1,16 +1,11 @@
 import MainLayout from '@/layouts/MainLayout';
 import Page from '@/modules/blockchains/customize/index_v4';
 import { APP_NAME } from '@/config/metadata';
+import { decodeBase64, encodeBase64 } from '@utils/helpers';
 
 
 export async function generateMetadata({ params }: any) {
-  const pictureUrl = params.pictureUrl;
-
-  console.log(
-    '🚀 -> file: page.tsx:32 -> generateMetadata -> pictureUrl ::',
-    pictureUrl,
-  );
-
+  const pictureUrl = decodeBase64(params.pictureUrl);
   return {
     openGraph: {
       type: 'website',
@@ -18,11 +13,8 @@ export async function generateMetadata({ params }: any) {
       images: [
         {
           url: pictureUrl,
-
           width: 1200,
-
           height: 630,
-
           alt: APP_NAME,
         },
       ],
@@ -41,6 +33,8 @@ export async function generateMetadata({ params }: any) {
 }
 
 const CustomizePage = () => {
+
+
   return (
     <MainLayout
       headerProps={{
