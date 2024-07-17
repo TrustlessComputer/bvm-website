@@ -4,6 +4,7 @@ import { encodeBase64 } from '@/utils/helpers';
 import { Button } from '@chakra-ui/react';
 import html2canvas from 'html2canvas';
 import Image from 'next/image';
+import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
 
 
 const Capture = ({ ...props }) => {
@@ -64,15 +65,18 @@ const Capture = ({ ...props }) => {
   }
 
   return (
-    <div>
-      <Button backgroundColor={'#f96e39'} onClick={exportAsImage}>
-        SHARE
-      </Button>
-      <div onClick={() => download()}>
+    <div className={s.wrapper_btn_top}>
+      <div className={s.reset} onClick={() => download()}>
         <div>
           <Image src={'/icons/ic_image.svg'} alt={'icon'} width={20} height={20} />
         </div>
         <p>EXPORT</p>
+      </div>
+      <div className={s.reset} onClick={exportAsImage}>
+        <p>Share on</p>
+        <div>
+          <Image src={'/icons/x.svg'} alt={'x'} width={20} height={20} />
+        </div>
       </div>
     </div>
   );

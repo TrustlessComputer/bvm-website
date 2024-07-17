@@ -151,9 +151,14 @@
   }
 }
 
+.wrapper_btn_top {
+  display: flex;
+  gap: 12px;
+}
+
 .top_right {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -347,7 +352,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-
 }
 
 .reset {
@@ -360,7 +364,10 @@
   justify-content: center;
   display: flex;
   cursor: pointer;
-  text-transform: uppercase;
+  p {
+    text-transform: uppercase;
+
+  }
   &.gray {
     background: #0000000D;
   }
