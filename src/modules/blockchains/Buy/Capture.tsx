@@ -74,12 +74,12 @@ Launch a blockchain with BVM:`;
 
   return (
     <div className={s.wrapper_btn_top}>
-      {/*<div className={s.reset} onClick={() => download()}>*/}
-      {/*  <div>*/}
-      {/*    <Image src={'/icons/ic_image.svg'} alt={'icon'} width={20} height={20} />*/}
-      {/*  </div>*/}
-      {/*  <p>EXPORT</p>*/}
-      {/*</div>*/}
+      <div className={s.reset} onClick={() => download()}>
+        <div>
+          <Image src={'/icons/ic_image.svg'} alt={'icon'} width={20} height={20} />
+        </div>
+        <p>EXPORT</p>
+      </div>
       <div className={s.reset} onClick={exportAsImage}>
         <p>Share on</p>
         <div>
