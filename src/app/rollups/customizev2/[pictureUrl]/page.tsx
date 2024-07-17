@@ -1,11 +1,12 @@
 import MainLayout from '@/layouts/MainLayout';
 import Page from '@/modules/blockchains/customize/index_v4';
 import { APP_NAME } from '@/config/metadata';
-import { decodeBase64, encodeBase64 } from '@utils/helpers';
+import { decodeBase64 } from '@utils/helpers';
 
 
 export async function generateMetadata({ params }: any) {
   const pictureUrl = decodeBase64(params.pictureUrl);
+
   return {
     openGraph: {
       type: 'website',

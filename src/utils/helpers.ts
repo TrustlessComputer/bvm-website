@@ -182,8 +182,8 @@ export const getUrlAvatarTwitter = (
     finalUrl += `/${lastPartUrl
       ?.splice(0, lastPartUrl.length - 1)
       ?.join('_')}_${ETwitterImageProfileSize[size]}.${last(
-        last(lastPartUrl)?.split('.'),
-      )}`;
+      last(lastPartUrl)?.split('.'),
+    )}`;
 
     return finalUrl;
   }
@@ -219,6 +219,7 @@ export const shareURLWithReferralCode = (params: {
 };
 
 export type SearchURLTokenType = 'coin' | 'pass' | 'key';
+
 export interface ISearchURLSwap {
   from_token?: string;
   from_token_type?: SearchURLTokenType;
@@ -241,10 +242,10 @@ export const openExtraLink = (url: string) => {
 
 // Function to encode a string to Base64
 export function encodeBase64(input: string): string {
-  return btoa(input);
+  return encodeURIComponent(btoa(input));
 }
 
 // Function to decode a Base64 string
 export function decodeBase64(encoded: string): string {
-  return atob(encoded);
+  return atob(decodeURIComponent(encoded));
 }
