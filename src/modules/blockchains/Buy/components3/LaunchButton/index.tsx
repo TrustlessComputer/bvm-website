@@ -235,10 +235,8 @@ const LaunchButton = ({
         show={isShowError}
         onHide={() => setShowError(false)}
         closeText="Retry"
+        className={s.modalError}
       >
-        <p className={s.description}>
-          Your blockchain setup lacks the following necessary modules:
-        </p>
         <ul className={s.fields}>
           {data?.map((item) => {
             if (!item.required || field[item.key].dragged) return null;

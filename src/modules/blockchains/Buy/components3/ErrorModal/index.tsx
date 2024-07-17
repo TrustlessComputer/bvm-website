@@ -31,12 +31,12 @@ const ErrorModal = ({
     <Modal isOpen={show} onClose={onHide} isCentered>
       <ModalOverlay />
       <ModalContent
-        className={styles.modal}
+        className={`${styles.modal} ${className}`}
         style={{
           backgroundColor: '#f4f4f4',
         }}
       >
-        <ModalHeader className={cn(styles.modal__title, className)}>
+        <ModalHeader className={cn(styles.modal__title)}>
           {title}
         </ModalHeader>
 
