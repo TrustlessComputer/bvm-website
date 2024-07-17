@@ -15,7 +15,9 @@ const Capture = () => {
 
       const content = `I'm launching my own blockchain with @BVMnetwork! 🚀
 
-BVM Studio is so user-friendly, even your grandma can launch a blockchain for $99/month. She’s already planning her next ICO: GrandmaCoin! 👵💸
+BVM Studio is so user-friendly, even your grandma can launch a blockchain for $99/month. 
+
+Seriously, she’s already planning her next ICO: GrandmaCoin! 👵💸
 
 Join the blockchain bonanza:`;
 
