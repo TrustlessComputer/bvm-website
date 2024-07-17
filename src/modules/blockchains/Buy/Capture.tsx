@@ -13,13 +13,11 @@ const Capture = () => {
     try {
       const imgEncode = encodeBase64(url);
 
-      const content = `I am building my own blockchain with @BVMnetwork
+      const content = `I'm launching my own blockchain with @BVMnetwork! 🚀
 
-BVM Studio is a fun no-code tool that enables anyone to easily launch their own blockchain on Bitcoin for only $99/month.
+BVM Studio is so user-friendly, even your grandma can launch a blockchain for $99/month. She’s already planning her next ICO: GrandmaCoin! 👵💸
 
-It's so simple, even your grandma can do it!
-
-Launch a blockchain with BVM:`;
+Join the blockchain bonanza:`;
 
       window.open(
         `https://twitter.com/intent/tweet?text=${encodeURIComponent(
