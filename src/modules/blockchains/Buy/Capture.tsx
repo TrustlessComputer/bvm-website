@@ -1,47 +1,24 @@
 import { Button } from '@chakra-ui/react';
 import html2canvas from "html2canvas";
-import { forwardRef } from 'react';
 
-//
-// function Capture() {
-//
-//   async function handleCapture() {
-//      await html2canvas(document.querySelector('.imageCapture'), {
-//       onrendered: function(canvas) {
-//         // document.body.appendChild(canvas);
-//         // const img = Canvas2Image.saveAsPNG(canvas)
-//         console.log('canvas', canvas)
-//         // console.log(img)
-//         // return img;
-//       }
-//     });
-//   }
-//
-//   return <Button backgroundColor={'#f96e39'} onClick={()=> handleCapture()}>capture</Button>
-// }
-
-const Capture = forwardRef((props, ref) => {
-  async function handleCapture() {
-    await html2canvas(document.querySelector('.imageCapture'), {
-      onrendered: function(canvas) {
-        // document.body.appendChild(canvas);
-        // const img = Canvas2Image.saveAsPNG(canvas)
-        console.log('canvas', canvas)
-        // console.log(img)
-        // return img;
-      }
-    });
-  }
+const Capture = ({...props}) => {
 
   const exportAsImage = async () => {
-    const canvas = await html2canvas(ref);
-    const image = canvas.toDataURL("image/png", 2.0);
-    console.log('image', image)
+    props.setIsCapture(true);
+    const canvasDom = document.querySelector('#imageCapture')
+    setTimeout( async () => {
+      const canvas = await html2canvas(canvasDom).then((res) => {
+        props.setIsCapture(false);
+        return res;
+      });
+      const image = canvas.toDataURL("image/png", 1.0);
+      console.log('image', image)
+      return image
+    },1500)
     // downloadImage(image, imageFileName);
-
   };
 
   return <Button backgroundColor={'#f96e39'} onClick={()=> exportAsImage()}>capture</Button>
-})
+}
 
 export default Capture
