@@ -601,7 +601,7 @@ const BuyPage = () => {
                               });
                               let suffix =
                                 Math.abs(option.priceBVM) > 0
-                                  ? `(+${_price} BVM)`
+                                  ? `(${_price} BVM)`
                                   : '';
 
                               if (

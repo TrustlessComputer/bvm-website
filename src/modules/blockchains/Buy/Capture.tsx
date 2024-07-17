@@ -73,7 +73,7 @@ Launch a blockchain with BVM:`;
 
   return (
     <div className={s.wrapper_btn_top}>
-      <div className={s.reset} onClick={() => download()}>
+      {/* <div className={s.reset} onClick={() => download()}>
         <div>
           <Image
             src={'/icons/ic_image.svg'}
@@ -83,7 +83,7 @@ Launch a blockchain with BVM:`;
           />
         </div>
         <p>EXPORT</p>
-      </div>
+      </div> */}
       <div className={s.reset} onClick={exportAsImage}>
         <p>Share on</p>
         <div>
