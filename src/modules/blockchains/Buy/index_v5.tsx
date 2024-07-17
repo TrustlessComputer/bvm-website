@@ -21,9 +21,13 @@ import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import Capture from '@/modules/blockchains/Buy/Capture';
+import html2canvas from 'html2canvas';
+import { Button } from '@chakra-ui/react';
 
 const BuyPage = () => {
   const router = useRouter();
+  const imageCapture = useRef<HTMLDivElement | null>(null)
   const [data, setData] = React.useState<
     | (IModelCategory & {
         options: IModelCategory['options'] &
@@ -787,7 +791,7 @@ const BuyPage = () => {
                 {/*    setValueOfPackage={setValueOfPackage}*/}
                 {/*  />*/}
                 {/*}*/}
-
+                <Capture ref={imageCapture.current}/>
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>
                     <h4 className={s.right_box_footer_left_content}>
@@ -811,7 +815,7 @@ const BuyPage = () => {
                 </div>
               </div>
 
-              <div className={s.right_box}>
+              <div className={`${s.right_box}`} ref={imageCapture}>
                 <DroppableV2
                   id="final"
                   className={s.finalResult}
