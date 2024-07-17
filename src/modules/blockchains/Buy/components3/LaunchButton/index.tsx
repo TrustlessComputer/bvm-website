@@ -120,30 +120,6 @@ const LaunchButton = ({
       return;
     }
 
-    for (const _field of originalData) {
-      if (!field[_field.key].dragged) continue;
-
-      if (_field.multiChoice) {
-        for (const value of field[_field.key].value as string[]) {
-          const option = _field.options.find((opt) => opt.key === value);
-
-          if (option?.needContactUs) {
-            showContactUsModal();
-            return;
-          }
-        }
-      }
-
-      const option = _field.options.find(
-        (opt) => opt.key === field[_field.key].value,
-      );
-
-      if (option?.needContactUs) {
-        showContactUsModal();
-        return;
-      }
-    }
-
     const dynamicForm: any[] = [];
     for (const _field of originalData) {
       if (!field[_field.key].dragged) continue;
@@ -168,6 +144,30 @@ const LaunchButton = ({
         ...rest,
         options: [value],
       });
+    }
+
+    for (const _field of originalData) {
+      if (!field[_field.key].dragged) continue;
+
+      if (_field.multiChoice) {
+        for (const value of field[_field.key].value as string[]) {
+          const option = _field.options.find((opt) => opt.key === value);
+
+          if (option?.needContactUs) {
+            showContactUsModal(dynamicForm);
+            return;
+          }
+        }
+      }
+
+      const option = _field.options.find(
+        (opt) => opt.key === field[_field.key].value,
+      );
+
+      if (option?.needContactUs) {
+        showContactUsModal(dynamicForm);
+        return;
+      }
     }
 
     if (!loggedIn) {
