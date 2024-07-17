@@ -327,20 +327,38 @@
   }
 }
 
+.wrapperBtnBottom {
+  position: absolute;
+  z-index: 999;
+  bottom: 28px;
+  right: 35px;
+  display: flex;
+  gap: 16px;
+}
+
 .reset {
   background-color: #fee5db;
   color: #fa4e0e;
   padding: 8px 20px;
-  position: absolute;
-  bottom: 28px;
-  right: 35px;
-  z-index: 999;
   gap: 8px;
   border-radius: 1000px;
   align-items: center;
+  justify-content: center;
   display: flex;
   cursor: pointer;
+  text-transform: uppercase;
+  &.gray {
+    background: #0000000D;
+  }
+  .icon {
+    max-width: 20px;
+    img {
+      width: 100%;
+    }
+  }
 }
+
+
 
 .video {
   position: absolute;

@@ -791,7 +791,7 @@ const BuyPage = () => {
                 {/*    setValueOfPackage={setValueOfPackage}*/}
                 {/*  />*/}
                 {/*}*/}
-                <Capture setIsCapture={setIsCapture}/>
+
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>
                     <h4 className={s.right_box_footer_left_content}>
@@ -1005,17 +1005,31 @@ const BuyPage = () => {
                 </DroppableV2>
                 {
                   !isCapture && (
-                    <button className={s.reset} onClick={resetEdit}>
-                      <div>
-                        <ImagePlaceholder
-                          src={'/icons/undo.svg'}
-                          alt={'undo'}
-                          width={20}
-                          height={20}
-                        />
-                      </div>
-                      Reset
-                    </button>
+                    <div className={s.wrapperBtnBottom}>
+                      <button className={`${s.reset} ${s.gray}`} onClick={resetEdit}>
+                        <div>
+                          <ImagePlaceholder
+                            src={'/icons/undo.svg'}
+                            alt={'undo'}
+                            width={20}
+                            height={20}
+                          />
+                        </div>
+                      </button>
+                      <Capture setIsCapture={setIsCapture} />
+                      <button className={`${s.reset}`}>
+                        Share on
+                        <div>
+                          <ImagePlaceholder
+                            src={'/icons/x.svg'}
+                            alt={'x'}
+                            width={20}
+                            height={20}
+                          />
+                        </div>
+                      </button>
+                    </div>
+
                   )
                 }
 
