@@ -241,9 +241,9 @@ const BuyPage = () => {
   };
 
   const fetchData = async () => {
-    const modelCategories =
-      (await getModelCategories(l2ServiceUserAddress)) || [];
-    // const modelCategories = mockupOptions;
+    // const modelCategories =
+    //   (await getModelCategories(l2ServiceUserAddress)) || [];
+    const modelCategories = mockupOptions;
 
     const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
     _modelCategories.forEach((_field) => {
@@ -544,6 +544,13 @@ const BuyPage = () => {
 
                   <div id={'wrapper-data'} className={s.left_box_inner_content}>
                     {data?.map((item, index) => {
+                      const currentPrice =
+                        item.options.find(
+                          (opt) =>
+                            opt.key === field[item.key].value &&
+                            field[item.key].dragged,
+                        )?.priceBVM ?? 0;
+
                       return (
                         <BoxOptionV3
                           key={item.key}
@@ -595,13 +602,24 @@ const BuyPage = () => {
                             </Draggable>
                           ) : (
                             item.options.map((option, optIdx) => {
-                              let _price = formatCurrencyV2({
-                                amount: option.priceBVM || 0,
-                                decimals: 2,
-                              });
+                              let _price = option.priceBVM;
+                              let operator = '+';
                               let suffix =
-                                Math.abs(option.priceBVM) > 0
-                                  ? `(${_price} BVM)`
+                                _price > 0
+                                  ? `(${formatCurrencyV2({
+                                      amount: _price,
+                                      decimals: 2,
+                                    })}) BVM`
+                                  : '';
+
+                              _price = option.priceBVM - currentPrice;
+                              operator = _price > 0 ? '+' : '-';
+                              suffix =
+                                Math.abs(_price) > 0
+                                  ? `(${operator}${formatCurrencyV2({
+                                      amount: Math.abs(_price),
+                                      decimals: 2,
+                                    })}) BVM`
                                   : '';
 
                               if (
