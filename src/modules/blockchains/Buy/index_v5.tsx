@@ -30,13 +30,13 @@ const BuyPage = () => {
   const router = useRouter();
   const [data, setData] = React.useState<
     | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
+    options: IModelCategory['options'] &
+      {
+        value: any;
+        label: string;
+        disabled: boolean;
+      }[];
+  })[]
     | null
   >(null);
   const [originalData, setOriginalData] = React.useState<
@@ -59,7 +59,7 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
-  const [isCapture , setIsCapture] = useState<boolean>(false)
+  const [isCapture, setIsCapture] = useState<boolean>(false);
   const { l2ServiceUserAddress } = useWeb3Auth();
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -179,7 +179,7 @@ const BuyPage = () => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
     }
   }
 
@@ -615,7 +615,7 @@ const BuyPage = () => {
                                   option.supportNetwork &&
                                   option.supportNetwork !== 'both' &&
                                   option.supportNetwork !==
-                                    field['network']?.value
+                                  field['network']?.value
                                 ) || !option.selectable;
 
                               if (item.multiChoice && field[item.key].dragged) {
@@ -796,7 +796,6 @@ const BuyPage = () => {
                 {/*    setValueOfPackage={setValueOfPackage}*/}
                 {/*  />*/}
                 {/*}*/}
-
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>
                     <h4 className={s.right_box_footer_left_content}>
@@ -820,7 +819,7 @@ const BuyPage = () => {
                 </div>
               </div>
 
-              <div className={`${s.right_box}`} id='imageCapture'>
+              <div className={`${s.right_box}`} id="imageCapture">
                 <DroppableV2
                   id="final"
                   className={s.finalResult}
@@ -1018,37 +1017,23 @@ const BuyPage = () => {
                     });
                   })}
                 </DroppableV2>
-                {
-                  !isCapture && (
-                    <div className={s.wrapperBtnBottom}>
-                      <button className={`${s.reset} ${s.gray}`} onClick={() => setIsShowModal(true)}>
-                        <div>
-                          <ImagePlaceholder
-                            src={'/icons/undo.svg'}
-                            alt={'undo'}
-                            width={20}
-                            height={20}
-                          />
-                        </div>
-                      </button>
-                      <Capture setIsCapture={setIsCapture} />
-                      <button className={`${s.reset}`}>
-                        Share on
-                        <div>
-                          <ImagePlaceholder
-                            src={'/icons/x.svg'}
-                            alt={'x'}
-                            width={20}
-                            height={20}
-                          />
-                        </div>
-                      </button>
-                    </div>
+                {!isCapture && (
+                  <div className={s.wrapperBtnBottom}>
+                    <button className={`${s.reset} ${s.gray}`} onClick={() => setIsShowModal(true)}>
+                      <div>
+                        <ImagePlaceholder
+                          src={'/icons/undo.svg'}
+                          alt={'undo'}
+                          width={20}
+                          height={20}
+                        />
+                      </div>
+                    </button>
+                    <Capture setIsCapture={setIsCapture} />
+                  </div>
+                )}
 
-                  )
-                }
-
-                {(!isCapture && isShowVideo) && (
+                {!isCapture && isShowVideo && (
                   <div className={s.video}>
                     <ImagePlaceholder
                       src={'/video.jpg'}
