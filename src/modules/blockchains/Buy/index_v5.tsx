@@ -822,7 +822,7 @@ const BuyPage = () => {
               </div>
 
               <div className={`${s.right_box}`}>
-                <div id="imageCapture">
+                <div  className={`${s.right_box_main}`} id="imageCapture">
                   <DroppableV2
                     id="final"
                     className={s.finalResult}
