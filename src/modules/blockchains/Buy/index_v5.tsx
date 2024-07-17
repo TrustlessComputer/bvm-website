@@ -532,10 +532,15 @@ const BuyPage = () => {
         <div className={s.wrapper}>
           <div className={s.inner}>
             <div className={s.left}>
-              {/*<div  className={s.top_left}>*/}
-              {/*  <p className={s.heading}>Build your Blockchain</p>*/}
-              {/*  <p className={s.heading_note}><span>(<sup>*</sup>)</span>  Module required</p>*/}
-              {/*</div>*/}
+              <div className={s.top_left}>
+                <div className={`${s.top_left_filter} ${s.active}`}>
+                  <p>Code</p>
+                </div>
+                <div className={s.top_left_filter}>
+                  <p>Explore</p>
+                </div>
+                <Capture />
+              </div>
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
                   <div className={s.left_box_inner_sidebar}>
@@ -797,7 +802,7 @@ const BuyPage = () => {
                 {/*    setValueOfPackage={setValueOfPackage}*/}
                 {/*  />*/}
                 {/*}*/}
-                <Capture />
+
 
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>
@@ -806,7 +811,7 @@ const BuyPage = () => {
                         amount: priceBVM,
                         decimals: 2,
                       }).replace('.00', '')}{' '}
-                      BVM
+                      BVM{'/'}month
                     </h4>
                     <h6 className={s.right_box_footer_left_title}>
                       $
@@ -814,7 +819,7 @@ const BuyPage = () => {
                         amount: priceUSD,
                         decimals: 2,
                       }).replace('.00', '')}
-                      {'/'}Month
+                      {'/'}month
                     </h6>
                   </div>
 

@@ -125,7 +125,7 @@
 }
 
 .left_box {
-  margin-top: 65px;
+  margin-top: 15px;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.07);
   background: #fff;
   border-top-left-radius: 24px;
@@ -196,7 +196,7 @@
     &_left {
       display: flex;
       flex-direction: column;
-      text-align: right;
+      text-align: left;
 
       &_title {
         font-family: var(--font-JetBrainsMono);
@@ -475,6 +475,32 @@
     &__reset {
       border: 1px solid var(--color);
       color: var(--color);
+    }
+  }
+}
+
+.top_left {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+  &_filter {
+    width: 150px;
+    cursor: pointer;
+    padding: 12px;
+    p {
+      font-family: var(--font-jetbrains);
+      font-size: 20px;
+      color: #000000;
+      opacity: .5;
+      line-height: calc(26 / 20);
+      text-align: center;
+    }
+    &.active {
+      border-bottom: 2px solid rgba(250, 78, 14, 1);
+      p {
+        opacity: 1;
+        color: #FA4E0E;
+      }
     }
   }
 }
