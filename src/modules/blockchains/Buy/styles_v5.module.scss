@@ -486,7 +486,6 @@
   width: max-content;
   &_filter {
     //width: 150px;
-    cursor: pointer;
     padding: 14px 32px;
     border-radius: 1000px;
     opacity: .5;
@@ -503,6 +502,8 @@
       //border-bottom: 2px solid rgba(250, 78, 14, 1);
       background-color: rgba(250, 78, 14, 1);
       opacity: 1;
+      cursor: pointer;
+
       border: 1px solid  rgba(250, 78, 14, 1);
       p {
         color: #fff;
