@@ -15,7 +15,7 @@ import LaunchButton from './components3/LaunchButton';
 import LegoParent from './components3/LegoParent';
 import LegoV3 from './components3/LegoV3';
 import SidebarV2 from './components3/SideBarV2';
-import useOrderFormStoreV3 from './stores/index_v3';
+import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
@@ -24,18 +24,19 @@ import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ErrorModal from './components3/ErrorModal';
 import { mockupOptions } from './Buy.data';
+import Capture from '@/modules/blockchains/Buy/Capture';
 
 const BuyPage = () => {
   const router = useRouter();
   const [data, setData] = React.useState<
     | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
+    options: IModelCategory['options'] &
+      {
+        value: any;
+        label: string;
+        disabled: boolean;
+      }[];
+  })[]
     | null
   >(null);
   const [originalData, setOriginalData] = React.useState<
@@ -58,7 +59,9 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
+  const {isCapture} = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
+
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -177,7 +180,7 @@ const BuyPage = () => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
     }
   }
 
@@ -613,7 +616,7 @@ const BuyPage = () => {
                                   option.supportNetwork &&
                                   option.supportNetwork !== 'both' &&
                                   option.supportNetwork !==
-                                    field['network']?.value
+                                  field['network']?.value
                                 ) || !option.selectable;
 
                               if (item.multiChoice && field[item.key].dragged) {
@@ -794,6 +797,7 @@ const BuyPage = () => {
                 {/*    setValueOfPackage={setValueOfPackage}*/}
                 {/*  />*/}
                 {/*}*/}
+                <Capture />
 
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>
@@ -818,219 +822,222 @@ const BuyPage = () => {
                 </div>
               </div>
 
-              <div className={s.right_box}>
-                <DroppableV2
-                  id="final"
-                  className={s.finalResult}
-                  style={{
-                    width: '100% !important',
-                    height: '100%',
-                    paddingLeft: '25%',
-                    paddingRight: '25%',
-                    paddingBottom: '7.5%',
-                    paddingTop: '7.5%',
-                  }}
-                >
-                  <LegoV3
-                    background={'#FF3A3A'}
-                    label="Name"
-                    labelInLeft
-                    zIndex={45}
+              <div className={`${s.right_box}`}>
+                <div  className={`${s.right_box_main}`} id="imageCapture">
+                  <DroppableV2
+                    id="final"
+                    className={s.finalResult}
+                    style={{
+                      width: '100% !important',
+                      height: '100%',
+                      paddingLeft: '25%',
+                      paddingRight: '25%',
+                      paddingBottom: '7.5%',
+                      paddingTop: '7.5%',
+                    }}
                   >
-                    <ComputerNameInput />
-                  </LegoV3>
+                    <LegoV3
+                      background={'#FF3A3A'}
+                      label="Name"
+                      labelInLeft
+                      zIndex={45}
+                    >
+                      <ComputerNameInput />
+                    </LegoV3>
 
-                  {fieldsDragged.map((key, index) => {
-                    const item = data?.find((i) => i.key === key);
+                    {fieldsDragged.map((key, index) => {
+                      const item = data?.find((i) => i.key === key);
 
-                    if (!item || !data) return null;
+                      if (!item || !data) return null;
 
-                    if (item.multiChoice) {
-                      if (!Array.isArray(field[item.key].value)) return;
+                      if (item.multiChoice) {
+                        if (!Array.isArray(field[item.key].value)) return;
 
-                      const childrenOptions = (field[item.key].value as
-                        | string[]
-                        | number[])!.map(
-                        (key: string | number, opIdx: number) => {
-                          const option = item.options.find(
-                            (opt) => opt.key === key,
-                          );
+                        const childrenOptions = (field[item.key].value as
+                          | string[]
+                          | number[])!.map(
+                          (key: string | number, opIdx: number) => {
+                            const option = item.options.find(
+                              (opt) => opt.key === key,
+                            );
 
-                          if (!option) return null;
+                            if (!option) return null;
 
-                          console.log(item, option);
+                            console.log(item, option);
 
-                          return (
-                            <Draggable
-                              right
-                              key={item.key + '-' + option.key}
-                              id={item.key + '-' + option.key}
-                              useMask
-                              tooltip={item.tooltip}
-                              value={option.key}
-                            >
-                              <LegoV3
-                                background={item.color}
-                                label={item.confuseTitle}
-                                labelInRight={
-                                  !!item.confuseTitle || !!item.confuseIcon
-                                }
-                                icon={item.confuseIcon}
-                                zIndex={item.options.length - opIdx}
+                            return (
+                              <Draggable
+                                right
+                                key={item.key + '-' + option.key}
+                                id={item.key + '-' + option.key}
+                                useMask
+                                tooltip={item.tooltip}
+                                value={option.key}
                               >
-                                <DropdownV2
-                                  disabled
-                                  cb={(value) => {
-                                    setField(
-                                      item.key,
-                                      value,
-                                      field[item.key].dragged,
-                                    );
-                                  }}
-                                  defaultValue={option.value || ''}
-                                  options={[
-                                    // @ts-ignore
-                                    option,
-                                  ]}
-                                  value={option.value}
-                                />
-                              </LegoV3>
-                            </Draggable>
-                          );
-                        },
-                      );
+                                <LegoV3
+                                  background={item.color}
+                                  label={item.confuseTitle}
+                                  labelInRight={
+                                    !!item.confuseTitle || !!item.confuseIcon
+                                  }
+                                  icon={item.confuseIcon}
+                                  zIndex={item.options.length - opIdx}
+                                >
+                                  <DropdownV2
+                                    disabled
+                                    cb={(value) => {
+                                      setField(
+                                        item.key,
+                                        value,
+                                        field[item.key].dragged,
+                                      );
+                                    }}
+                                    defaultValue={option.value || ''}
+                                    options={[
+                                      // @ts-ignore
+                                      option,
+                                    ]}
+                                    value={option.value}
+                                  />
+                                </LegoV3>
+                              </Draggable>
+                            );
+                          },
+                        );
 
-                      return (
-                        <Draggable
-                          key={item.key + '-parent' + '-right'}
-                          id={item.key + '-parent' + '-right'}
-                          useMask
-                        >
-                          <DroppableV2 id={item.key}>
-                            <LegoParent
-                              parentOfNested
+                        return (
+                          <Draggable
+                            key={item.key + '-parent' + '-right'}
+                            id={item.key + '-parent' + '-right'}
+                            useMask
+                          >
+                            <DroppableV2 id={item.key}>
+                              <LegoParent
+                                parentOfNested
+                                background={item.color}
+                                label={item.title}
+                                zIndex={fieldsDragged.length - index - 1}
+                              >
+                                {childrenOptions}
+                              </LegoParent>
+                            </DroppableV2>
+                          </Draggable>
+                        );
+                      }
+
+                      if (item.type === 'dropdown') {
+                        return (
+                          <Draggable
+                            right
+                            useMask
+                            key={item.key}
+                            id={item.key}
+                            tooltip={item.tooltip}
+                            value={field[item.key].value as any}
+                          >
+                            <LegoV3
                               background={item.color}
-                              label={item.title}
-                              zIndex={fieldsDragged.length - index - 1}
+                              zIndex={fieldsDragged.length - index}
+                              label={item.confuseTitle}
+                              labelInRight={
+                                !!item.confuseTitle || !!item.confuseIcon
+                              }
+                              icon={item.confuseIcon}
+                              className={
+                                showShadow === field[item.key].value
+                                  ? s.activeBlur
+                                  : ''
+                              }
                             >
-                              {childrenOptions}
-                            </LegoParent>
-                          </DroppableV2>
-                        </Draggable>
-                      );
-                    }
-
-                    if (item.type === 'dropdown') {
-                      return (
-                        <Draggable
-                          right
-                          useMask
-                          key={item.key}
-                          id={item.key}
-                          tooltip={item.tooltip}
-                          value={field[item.key].value as any}
-                        >
-                          <LegoV3
-                            background={item.color}
-                            zIndex={fieldsDragged.length - index}
-                            label={item.confuseTitle}
-                            labelInRight={
-                              !!item.confuseTitle || !!item.confuseIcon
-                            }
-                            icon={item.confuseIcon}
-                            className={
-                              showShadow === field[item.key].value
-                                ? s.activeBlur
-                                : ''
-                            }
-                          >
-                            <DropdownV2
-                              cb={(value) => {
-                                setField(
-                                  item.key,
-                                  value,
-                                  field[item.key].dragged,
-                                );
-                              }}
-                              defaultValue={
-                                (field[item.key].value as any) || ''
-                              }
-                              // @ts-ignore
-                              options={item.options}
-                              title={item.title}
-                              value={field[item.key].value as any}
-                            />
-                          </LegoV3>
-                        </Draggable>
-                      );
-                    }
-
-                    return item.options.map((option, opIdx) => {
-                      if (option.key !== field[item.key].value) return null;
-
-                      return (
-                        <Draggable
-                          right
-                          key={item.key + '-' + option.key}
-                          id={item.key + '-' + option.key}
-                          useMask
-                          tooltip={item.tooltip}
-                          value={option.key}
-                        >
-                          <LegoV3
-                            background={item.color}
-                            label={item.confuseTitle}
-                            labelInRight={
-                              !!item.confuseTitle || !!item.confuseIcon
-                            }
-                            zIndex={fieldsDragged.length - index}
-                            icon={item.confuseIcon}
-                            className={
-                              showShadow === field[item.key].value
-                                ? s.activeBlur
-                                : ''
-                            }
-                          >
-                            <DropdownV2
-                              disabled
-                              cb={(value) => {
-                                setField(
-                                  item.key,
-                                  value,
-                                  field[item.key].dragged,
-                                );
-                              }}
-                              defaultValue={
-                                (field[item.key].value as any) || ''
-                              }
-                              options={[
+                              <DropdownV2
+                                cb={(value) => {
+                                  setField(
+                                    item.key,
+                                    value,
+                                    field[item.key].dragged,
+                                  );
+                                }}
+                                defaultValue={
+                                  (field[item.key].value as any) || ''
+                                }
                                 // @ts-ignore
-                                option,
-                              ]}
-                              // @ts-ignore
-                              value={field[item.key].value as any}
-                            />
-                          </LegoV3>
-                        </Draggable>
-                      );
-                    });
-                  })}
-                </DroppableV2>
-                <button
-                  className={s.reset}
-                  onClick={() => setIsShowModal(true)}
-                >
-                  <div>
-                    <ImagePlaceholder
-                      src={'/icons/undo.svg'}
-                      alt={'undo'}
-                      width={20}
-                      height={20}
-                    />
+                                options={item.options}
+                                title={item.title}
+                                value={field[item.key].value as any}
+                              />
+                            </LegoV3>
+                          </Draggable>
+                        );
+                      }
+
+                      return item.options.map((option, opIdx) => {
+                        if (option.key !== field[item.key].value) return null;
+
+                        return (
+                          <Draggable
+                            right
+                            key={item.key + '-' + option.key}
+                            id={item.key + '-' + option.key}
+                            useMask
+                            tooltip={item.tooltip}
+                            value={option.key}
+                          >
+                            <LegoV3
+                              background={item.color}
+                              label={item.confuseTitle}
+                              labelInRight={
+                                !!item.confuseTitle || !!item.confuseIcon
+                              }
+                              zIndex={fieldsDragged.length - index}
+                              icon={item.confuseIcon}
+                              className={
+                                showShadow === field[item.key].value
+                                  ? s.activeBlur
+                                  : ''
+                              }
+                            >
+                              <DropdownV2
+                                disabled
+                                cb={(value) => {
+                                  setField(
+                                    item.key,
+                                    value,
+                                    field[item.key].dragged,
+                                  );
+                                }}
+                                defaultValue={
+                                  (field[item.key].value as any) || ''
+                                }
+                                options={[
+                                  // @ts-ignore
+                                  option,
+                                ]}
+                                // @ts-ignore
+                                value={field[item.key].value as any}
+                              />
+                            </LegoV3>
+                          </Draggable>
+                        );
+                      });
+                    })}
+                  </DroppableV2>
+                </div>
+                {!isCapture && (
+                  <div className={s.cta_wrapper}>
+                    <button className={`${s.reset} ${s.gray}`} onClick={() => setIsShowModal(true)}>
+                      <div>
+                        <ImagePlaceholder
+                          src={'/icons/undo.svg'}
+                          alt={'undo'}
+                          width={20}
+                          height={20}
+                        />
+                      </div>
+                    </button>
                   </div>
-                  Reset
-                </button>
-                {isShowVideo && (
+                )}
+
+                {!isCapture && isShowVideo && (
                   <div className={s.video}>
                     <ImagePlaceholder
                       src={'/video.jpg'}

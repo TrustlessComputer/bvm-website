@@ -142,6 +142,7 @@
     "encoding": "^0.1.13",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
+    "html2canvas": "^1.4.1",
     "husky": "^8.0.3",
     "typescript": "^5"
   }

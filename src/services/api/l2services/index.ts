@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { L2ServiceAPI as httpClient } from '@/services/api/clients';
+import { STORAGE_KEYS } from '@/constants/storage-key';
+import LocalStorage from '@/libs/localStorage';
 import {
-  IOrderBuyEstimateRespone,
-  IOrderBuyEstimateRespone_V2,
-  SubmitFormParams,
-} from './types';
+  NativeTokenPayingGasEnum,
+  NetworkEnum,
+} from '@/modules/blockchains/Buy/Buy.constanst';
 import { IAvailableList } from '@/modules/blockchains/Buy/Buy.types';
+import { L2ServiceAPI as httpClient } from '@/services/api/clients';
 import {
   AccountInfo,
   AccountInfoResp,
@@ -25,15 +26,15 @@ import {
   OrderStatus,
   WebsiteConfig,
 } from '@/stores/states/l2services/types';
-import { builderAccountInfo, builderOrderList } from './helper';
-import { COMPUTERS } from './constants';
+import { convertBase64ToFile } from '@/utils/file';
+import { camelCaseKeys } from '@/utils/normalize';
 import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
+import { builderAccountInfo, builderOrderList } from './helper';
 import {
-  NativeTokenPayingGasEnum,
-  NetworkEnum,
-} from '@/modules/blockchains/Buy/Buy.constanst';
-import LocalStorage from '@/libs/localStorage';
-import { STORAGE_KEYS } from '@/constants/storage-key';
+  IOrderBuyEstimateRespone,
+  IOrderBuyEstimateRespone_V2,
+  SubmitFormParams,
+} from './types';
 
 // ------------------------------------------------------------------------
 // Access Token
@@ -472,6 +473,39 @@ const removeAccesTokenHeader = () => {
   httpClient.defaults.headers.Authorization = ``;
 };
 
+const uploadImage = (image: string) => {
+  // API endpoint : /order/upload/file
+  // convert base64Image to file
+
+  const file = convertBase64ToFile(image);
+  console.log('🚀 ~ uploadImage ~ file:', file);
+  const formData = new FormData();
+  formData.append('upload', file, 'image.png');
+
+  console.log('🚀 ~ uploadImage ~ formData:', formData);
+  // include header content-type multipart/form-data
+
+  const res = httpClient.post(`/order/upload/file`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  console.log('🚀 ~ uploadImage ~ res:', res);
+  return res;
+};
+
+export const uploadFile = async (payload: { file: File }): Promise<any> => {
+  const formData = new FormData();
+  formData.append('file', payload.file);
+  const res = await httpClient.post(`/order/upload/file`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return camelCaseKeys(res);
+};
+
 const l2ServicesAPI = {
   fetchOrderListAPI,
   orderBuyAPI,
@@ -507,6 +541,9 @@ const l2ServicesAPI = {
   L2ServiceTracking,
   uploadLogoFile,
   getAllOrdersV2,
+
+  uploadImage,
+  uploadFile,
 };
 
 export default l2ServicesAPI;

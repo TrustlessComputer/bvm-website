@@ -6,6 +6,8 @@ import SvgInset from '@/components/SvgInset';
 import styles from './styles.module.scss';
 import { hexToHSB, hsbToHex } from '../../utils';
 import useStoreDropDown from '@/modules/blockchains/Buy/stores/useStoreDropdown';
+import { iconToolNames } from '../../Buy.data';
+import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 
 type LegoV3 = {
   background?: string;
@@ -42,7 +44,8 @@ function LegoV3({
 }: LegoV3) {
   const legoRef = React.useRef<HTMLDivElement | null>(null);
   const { idDropdownCurrent, setIdDropdownCurrent } = useStoreDropDown();
-
+  const [_icon, setIcon] = useState<string | null>(null);
+  const {isCapture} = useCaptureStore();
   React.useEffect(() => {
     let parentLego = legoRef.current?.parentElement;
 
@@ -63,6 +66,16 @@ function LegoV3({
     fillBackgroundAsHSB?.s || 0,
     (fillBackgroundAsHSB?.b || 100) - 20,
   )?.split('.')[0];
+
+  React.useEffect(() => {
+    setIcon(
+      iconToolNames.find(
+        (item) =>
+          icon?.replace('https://storage.googleapis.com/bvm-network', '') ===
+          item,
+      ) || null,
+    );
+  }, [icon]);
 
   return (
     <React.Fragment>
@@ -93,8 +106,10 @@ function LegoV3({
         >
           {label && labelInLeft ? (
             <div className={styles.label}>
-              {icon && <Image src={icon} alt="icon" width={24} height={24} />}
-              <p>{label} </p>
+              {icon && (
+                <Image src={_icon || icon} alt="icon" width={24} height={24} />
+              )}
+              <p className={isCapture ? styles.label_margin : ''}>{label} </p>
             </div>
           ) : null}
           {parentOfNested ? (
@@ -112,8 +127,10 @@ function LegoV3({
           ) : null}
           {(label || icon) && labelInRight ? (
             <div className={styles.label}>
-              {icon && <Image src={icon} alt="icon" width={16} height={16} />}
-              <p>{label} </p>
+              {icon && (
+                <Image src={_icon || icon} alt="icon" width={16} height={16} />
+              )}
+              <p className={isCapture ? styles.label_margin : ''}>{label} </p>
             </div>
           ) : null}
           <div className={styles.label}>
