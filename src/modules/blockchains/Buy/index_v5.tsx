@@ -241,9 +241,9 @@ const BuyPage = () => {
   };
 
   const fetchData = async () => {
-    // const modelCategories =
-    //   (await getModelCategories(l2ServiceUserAddress)) || [];
-    const modelCategories = mockupOptions;
+    const modelCategories =
+      (await getModelCategories(l2ServiceUserAddress)) || [];
+    // const modelCategories = mockupOptions;
 
     const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
     _modelCategories.forEach((_field) => {
