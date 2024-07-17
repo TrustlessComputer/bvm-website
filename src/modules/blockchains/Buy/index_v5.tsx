@@ -71,7 +71,7 @@ const BuyPage = () => {
     setIdDragging('');
     setRightDragging(false);
 
-    router.push('/rollups/customizev2');
+    // router.push('/rollups/customizev2');
 
     const { over, active } = event;
 
