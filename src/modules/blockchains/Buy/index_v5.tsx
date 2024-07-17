@@ -851,6 +851,8 @@ const BuyPage = () => {
 
                           if (!option) return null;
 
+                          console.log(item, option);
+
                           return (
                             <Draggable
                               right
@@ -863,7 +865,10 @@ const BuyPage = () => {
                               <LegoV3
                                 background={item.color}
                                 label={item.title}
-                                labelInRight={!!item.confuseTitle}
+                                labelInRight={
+                                  !!item.confuseTitle || !!item.confuseIcon
+                                }
+                                icon={item.confuseIcon}
                                 zIndex={item.options.length - opIdx}
                               >
                                 <DropdownV2
@@ -922,7 +927,9 @@ const BuyPage = () => {
                             background={item.color}
                             zIndex={fieldsDragged.length - index}
                             label={item.title}
-                            labelInRight={!!item.confuseTitle}
+                            labelInRight={
+                              !!item.confuseTitle || !!item.confuseIcon
+                            }
                             className={
                               showShadow === field[item.key].value
                                 ? s.activeBlur
@@ -965,7 +972,9 @@ const BuyPage = () => {
                           <LegoV3
                             background={item.color}
                             label={item.title}
-                            labelInRight={!!item.confuseTitle}
+                            labelInRight={
+                              !!item.confuseTitle || !!item.confuseIcon
+                            }
                             zIndex={fieldsDragged.length - index}
                             icon={item.confuseIcon}
                             className={
