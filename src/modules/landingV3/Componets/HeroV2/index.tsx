@@ -56,8 +56,8 @@ export default function HeroV2() {
         {/*  height="579"*/}
         {/*  alt={'hero'}*/}
         {/*/>*/}
-        <div className={s.img_video} onClick={() => setIsOpenModalVideo(true)}>
-          <ImagePlaceholder src={'/video_bvm.png'} width={582} height={452} alt={'video'} />
+        <div className={s.imageHero} onClick={() => setIsOpenModalVideo(true)}>
+          <ImagePlaceholder className={s.imageHero} src={'/video_bvm.png'} width={582} height={452} alt={'video'} />
         </div>
       </div>
       <Brand />

@@ -27,7 +27,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
         set up compute, storage, and hardware node. BVM handles everything.</p>
       <p> To make it all happen, we partner with some of the best crypto projects in the world.</p>
     </div>,
-    image: '/images/home-bvm-studio.jpg',
+    image: '/images/home-tools.jpg',
     button: {
       link: '/rollup/customizev2',
       title: 'Customize & launch your blockchain',
