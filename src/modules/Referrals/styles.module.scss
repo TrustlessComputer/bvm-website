@@ -135,6 +135,8 @@
   align-items: center;
   justify-content: flex-end;
   cursor: pointer;
+  height: unset !important;
+  padding: 0 !important;
 
   p {
     font-size: 14px;
