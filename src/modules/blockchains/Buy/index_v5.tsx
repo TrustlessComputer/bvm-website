@@ -537,7 +537,7 @@ const BuyPage = () => {
                   <p>Code</p>
                 </div>
                 <div className={s.top_left_filter}>
-                  <p>Explore (Coming soon)</p>
+                  <p>Explore</p>
                 </div>
                 <Capture />
               </div>
