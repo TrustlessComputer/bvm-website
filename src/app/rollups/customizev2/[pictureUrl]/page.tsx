@@ -1,68 +1,20 @@
 import MainLayout from '@/layouts/MainLayout';
-
 import Page from '@/modules/blockchains/customize/index_v4';
-
-import { Metadata } from 'next';
-
 import { APP_NAME } from '@/config/metadata';
 
-import { useSearchParams } from 'next/navigation';
-
-// export const metadata: Metadata = {
-
-//   openGraph: {
-
-//     images: [
-
-//       {
-
-//         url: `https://storage.googleapis.com/bvm-network/image/metadata%202.png`,
-
-//         width: 1200,
-
-//         height: 630,
-
-//         alt: APP_NAME,
-
-//       },
-
-//     ],
-
-//   },
-
-//   twitter: {
-
-//     images: [
-
-//       {
-
-//         url: `https://storage.googleapis.com/bvm-network/image/metadata%202.png`,
-
-//         alt: APP_NAME,
-
-//       },
-
-//     ],
-
-//   },
-
-// };
 
 export async function generateMetadata({ params }: any) {
   const pictureUrl = params.pictureUrl;
 
   console.log(
     '🚀 -> file: page.tsx:32 -> generateMetadata -> pictureUrl ::',
-
     pictureUrl,
   );
 
   return {
     openGraph: {
       type: 'website',
-
       siteName: APP_NAME,
-
       images: [
         {
           url: pictureUrl,
@@ -78,11 +30,9 @@ export async function generateMetadata({ params }: any) {
 
     twitter: {
       card: 'summary_large_image',
-
       images: [
         {
-          // url: pictureUrl,
-
+          url: pictureUrl,
           alt: APP_NAME,
         },
       ],
