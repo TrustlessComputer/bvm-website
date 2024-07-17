@@ -129,10 +129,9 @@ const LaunchButton = ({
 
           if (option?.needContact) {
             showContactUsModal();
+            return;
           }
         }
-
-        return;
       }
 
       const option = _field.options.find(
@@ -141,6 +140,7 @@ const LaunchButton = ({
 
       if (option?.needContact) {
         showContactUsModal();
+        return;
       }
     }
 
