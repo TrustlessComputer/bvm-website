@@ -3,19 +3,14 @@ import s from './styles.module.scss';
 import { IUserReferralInfo } from '@/interfaces/referral';
 import { requestReload } from '@/stores/states/common/reducer';
 import { formatCurrency } from '@/utils/format';
-import BigNumber from 'bignumber.js';
-import { Box, Button } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { getErrorMessage } from '@/utils/errorV2';
 import { useDispatch } from 'react-redux';
-import { MAX_DECIMAL, MIN_DECIMAL } from '@/constants/constants';
+import { MIN_DECIMAL } from '@/constants/constants';
 import { showError } from '@/components/toast';
-import { REFERRAL_REWARD_ADMIN_ADDRESS } from '@/contract/referrals/configs';
-import CReferral from 'src/contract/referrals';
 import CReferralAPI from 'src/services/api/referrals';
 import cs from 'classnames';
 import ButtonConnected from '@/components/ButtonConnected/v2';
-import InfoTooltip from '@/components/InfoTooltip';
-import HorizontalItem from '@/components/HorizontalItem';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 
@@ -31,7 +26,6 @@ const EnterRefferal = (props: EnterRefferalProps) => {
     getL2ServicesStateSelector,
   );
   const addressL2 = accountInforL2Service?.tcAddress;
-  const cRewardClaim = useRef(new CReferral()).current;
   const userApi = useRef(new CReferralAPI()).current;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,11 +46,7 @@ const EnterRefferal = (props: EnterRefferalProps) => {
         "_blank"
       );
 
-      const claimInfo = await userApi.getSignatureForClaim();
-      await cRewardClaim.claimReferralTradingReward({
-        signatures: claimInfo,
-        claim_address: REFERRAL_REWARD_ADMIN_ADDRESS,
-      });
+      await userApi.claimReferralReward(addressL2);
       dispatch(requestReload());
     } catch (error) {
       const { message } = getErrorMessage(error);
