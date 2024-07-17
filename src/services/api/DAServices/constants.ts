@@ -484,29 +484,4 @@ export const DA_DUMMY_LIST: IDApp[] = [
     list_image_url: [],
     category: 'defi_apps',
   },
-  // {
-  //   id: 3,
-  //   name: 'Account Abstraction',
-  //   code: 'account_abstraction',
-  //   description: 'Account Abstraction description',
-  //   image_url:
-  //     'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg',
-  //   installed: 0,
-  //   details: [
-  //     {
-  //       id: 0,
-  //       network_id: 1,
-  //       name: 'free',
-  //       description: 'Free',
-  //       image_url: 'https://i.ibb.co/0fgnRZP/BTC.png',
-  //       package: 'free',
-  //       price_usd: '0',
-  //       price_bvm: '0',
-  //       includes: [],
-  //     },
-  //   ],
-  //   inputs: [],
-  //   user_package: [],
-  //   status: "0"
-  // },
 ];
