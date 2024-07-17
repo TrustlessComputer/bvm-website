@@ -503,8 +503,8 @@
     padding: 0 32px;
     border-radius: 1000px;
     opacity: .5;
-    border: 1px solid #000;
-
+    border: 1px solid  #000;
+    cursor: not-allowed;
     p {
       font-family: var(--font-jetbrains);
       font-size: 20px;
