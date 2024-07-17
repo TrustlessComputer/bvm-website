@@ -59,7 +59,7 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
-  const {isCapture, setIsCapture} = useCaptureStore();
+  const {isCapture} = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
 
   const handleDragStart = (event: any) => {

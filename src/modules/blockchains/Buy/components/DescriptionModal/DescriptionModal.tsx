@@ -1,6 +1,6 @@
 import BaseModal from '@/components/BaseModal';
 import { Flex, Text } from '@chakra-ui/react';
-import React from 'react';
+import React, { forwardRef } from 'react';
 import s from './styles.module.scss';
 
 interface IProps {
@@ -10,7 +10,7 @@ interface IProps {
   content: React.ReactNode | null;
 }
 
-const DescriptionModal = (props: IProps) => {
+const DescriptionModal = forwardRef((props: IProps, ref: any) => {
   const { title, show, onClose, content } = props;
   return (
     <BaseModal
@@ -37,6 +37,6 @@ const DescriptionModal = (props: IProps) => {
       </Flex>
     </BaseModal>
   );
-};
+});
 
 export default DescriptionModal;

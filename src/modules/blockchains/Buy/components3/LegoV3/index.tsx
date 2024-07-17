@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 import { hexToHSB, hsbToHex } from '../../utils';
 import useStoreDropDown from '@/modules/blockchains/Buy/stores/useStoreDropdown';
 import { iconToolNames } from '../../Buy.data';
+import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 
 type LegoV3 = {
   background?: string;
@@ -44,7 +45,7 @@ function LegoV3({
   const legoRef = React.useRef<HTMLDivElement | null>(null);
   const { idDropdownCurrent, setIdDropdownCurrent } = useStoreDropDown();
   const [_icon, setIcon] = useState<string | null>(null);
-
+  const {isCapture} = useCaptureStore();
   React.useEffect(() => {
     let parentLego = legoRef.current?.parentElement;
 
@@ -108,7 +109,7 @@ function LegoV3({
               {icon && (
                 <Image src={_icon || icon} alt="icon" width={24} height={24} />
               )}
-              <p>{label} </p>
+              <p className={isCapture ? styles.label_margin : ''}>{label} </p>
             </div>
           ) : null}
           {parentOfNested ? (
@@ -129,7 +130,7 @@ function LegoV3({
               {icon && (
                 <Image src={_icon || icon} alt="icon" width={16} height={16} />
               )}
-              <p>{label} </p>
+              <p className={isCapture ? styles.label_margin : ''}>{label} </p>
             </div>
           ) : null}
           <div className={styles.label}>
