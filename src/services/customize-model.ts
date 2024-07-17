@@ -1,7 +1,11 @@
-export async function getModelCategories(): Promise<IModelCategory[] | null> {
+export async function getModelCategories(
+  tcAddress: string | undefined,
+): Promise<IModelCategory[] | null> {
   try {
     const data = await fetch(
-      'https://l2aas-api.newbitcoincity.com/api/order/available-list-v3',
+      `https://l2aas-api.newbitcoincity.com/api/order/available-list-v3?tcAddress=${
+        tcAddress || ''
+      }`,
     ).then((res) => res.json());
 
     return data.result;

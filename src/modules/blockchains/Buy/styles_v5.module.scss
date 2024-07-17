@@ -401,3 +401,46 @@
     transition: opacity 0.5s;
   }
 }
+
+.resetDescription {
+  font-family: var(--font-SFProDisplay);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.4px;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+
+  &__button {
+    --color: #fa4e0e;
+    display: block;
+    width: 158px;
+    height: 45px;
+    padding: 13px;
+    border-radius: 99999px;
+    font-family: var(--font-SFProDisplay);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 17.9px;
+    text-align: center;
+
+    &__cancel {
+      background-color: var(--color);
+    }
+
+    &__reset {
+      border: 1px solid var(--color);
+      color: var(--color);
+    }
+  }
+}
