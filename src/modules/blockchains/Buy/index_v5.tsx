@@ -62,7 +62,6 @@ const BuyPage = () => {
   const { isCapture } = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
 
-
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -804,7 +803,6 @@ const BuyPage = () => {
                 {/*  />*/}
                 {/*}*/}
 
-
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>
                     <h4 className={s.right_box_footer_left_content}>
@@ -853,7 +851,13 @@ const BuyPage = () => {
                       labelInLeft
                       zIndex={45}
                     >
-                      <ComputerNameInput />
+                      <div
+                        style={{
+                          marginLeft: '8px',
+                        }}
+                      >
+                        <ComputerNameInput />
+                      </div>
                     </LegoV3>
 
                     {fieldsDragged.map((key, index) => {
