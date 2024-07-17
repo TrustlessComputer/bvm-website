@@ -15,7 +15,7 @@ import LaunchButton from './components3/LaunchButton';
 import LegoParent from './components3/LegoParent';
 import LegoV3 from './components3/LegoV3';
 import SidebarV2 from './components3/SideBarV2';
-import useOrderFormStoreV3 from './stores/index_v3';
+import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
 import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
@@ -59,8 +59,9 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
-  const [isCapture, setIsCapture] = useState<boolean>(false);
+  const {isCapture, setIsCapture} = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
+
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -796,7 +797,7 @@ const BuyPage = () => {
                 {/*    setValueOfPackage={setValueOfPackage}*/}
                 {/*  />*/}
                 {/*}*/}
-                <Capture setIsCapture={setIsCapture} />
+                <Capture />
 
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>

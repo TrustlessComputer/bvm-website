@@ -5,9 +5,11 @@ import { Button } from '@chakra-ui/react';
 import html2canvas from 'html2canvas';
 import Image from 'next/image';
 import s from '@/modules/blockchains/Buy/styles_v5.module.scss';
+import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 
 
-const Capture = ({ ...props }) => {
+const Capture = () => {
+  const { setIsCapture} = useCaptureStore();
   const handleClickShareTwitter = (url: string) => {
     try {
       const imgEncode = encodeBase64(url);
@@ -26,7 +28,7 @@ const Capture = ({ ...props }) => {
   };
 
   const exportBase64 = async () => {
-    props.setIsCapture(true);
+    setIsCapture(true);
     const canvasDom = document.querySelector('#imageCapture') as HTMLElement;
     const canvas = await html2canvas(canvasDom).then((res) => {
       return res;
@@ -48,17 +50,19 @@ const Capture = ({ ...props }) => {
 
       if (!urlCDN) return;
 
-      props.setIsCapture(false);
+      setIsCapture(false);
       handleClickShareTwitter(urlCDN);
     }, 150);
   };
 
   async function download() {
-    props.setIsCapture(true);
+    setIsCapture(true);
     const a = document.createElement('a');
     setTimeout(async () => {
+      console.log('capture');
+
       a.href = await exportBase64();
-      props.setIsCapture(false);
+      setIsCapture(false);
       a.download = `${new Date}.png`;
       a.click();
     }, 150);
@@ -66,12 +70,12 @@ const Capture = ({ ...props }) => {
 
   return (
     <div className={s.wrapper_btn_top}>
-      {/*<div className={s.reset} onClick={() => download()}>*/}
-      {/*  <div>*/}
-      {/*    <Image src={'/icons/ic_image.svg'} alt={'icon'} width={20} height={20} />*/}
-      {/*  </div>*/}
-      {/*  <p>EXPORT</p>*/}
-      {/*</div>*/}
+      <div className={s.reset} onClick={() => download()}>
+        <div>
+          <Image src={'/icons/ic_image.svg'} alt={'icon'} width={20} height={20} />
+        </div>
+        <p>EXPORT</p>
+      </div>
       <div className={s.reset} onClick={exportAsImage}>
         <p>Share on</p>
         <div>
