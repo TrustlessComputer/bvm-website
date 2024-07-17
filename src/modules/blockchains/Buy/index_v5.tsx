@@ -62,6 +62,7 @@ const BuyPage = () => {
   const { isCapture } = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
 
+
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =

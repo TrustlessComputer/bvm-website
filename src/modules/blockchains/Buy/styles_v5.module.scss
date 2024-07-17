@@ -486,20 +486,25 @@
   &_filter {
     width: 150px;
     cursor: pointer;
-    padding: 12px;
+    padding: 14px 32px;
+    border-radius: 1000px;
+    opacity: .5;
+    border: 1px solid  #000;
     p {
       font-family: var(--font-jetbrains);
       font-size: 20px;
       color: #000000;
-      opacity: .5;
+      //text-transform: uppercase;
       line-height: calc(26 / 20);
       text-align: center;
     }
     &.active {
-      border-bottom: 2px solid rgba(250, 78, 14, 1);
+      //border-bottom: 2px solid rgba(250, 78, 14, 1);
+      background-color: rgba(250, 78, 14, 1);
+      opacity: 1;
+      border: 1px solid  rgba(250, 78, 14, 1);
       p {
-        opacity: 1;
-        color: #FA4E0E;
+        color: #fff;
       }
     }
   }
