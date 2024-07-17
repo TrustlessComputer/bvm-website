@@ -22,6 +22,7 @@ import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
 import useL2Service from '@/hooks/useL2Service';
 import BaseModal from '@components/BaseModal';
 import ErrorModal from '../ErrorModal';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 const LaunchButton = ({
   data,
@@ -46,6 +47,7 @@ const LaunchButton = ({
   const [isShowError, setShowError] = useState(false);
 
   const { getAccountInfor } = useL2Service();
+  const { showContactUsModal } = useContactUs();
 
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
@@ -113,8 +115,33 @@ const LaunchButton = ({
     if (!allFilled) {
       setShowError(true);
     }
+
     if (isSubmiting || !allFilled || hasError || !originalData) {
       return;
+    }
+
+    for (const _field of originalData) {
+      if (!field[_field.key].dragged) continue;
+
+      if (_field.multiChoice) {
+        for (const value of field[_field.key].value as string[]) {
+          const option = _field.options.find((opt) => opt.key === value);
+
+          if (option?.needContact) {
+            showContactUsModal();
+          }
+        }
+
+        return;
+      }
+
+      const option = _field.options.find(
+        (opt) => opt.key === field[_field.key].value,
+      );
+
+      if (option?.needContact) {
+        showContactUsModal();
+      }
     }
 
     const dynamicForm: any[] = [];

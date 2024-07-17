@@ -9,6 +9,7 @@ interface IModelOption {
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
   order: number;
   value: string | number;
+  needContact: boolean;
 }
 
 interface IModelCategory {
@@ -29,7 +30,6 @@ interface IModelCategory {
   confuseIcon: string;
   multiChoice: boolean;
 }
-
 
 interface ITemplate {
   chainInfos: ChainInfos;
