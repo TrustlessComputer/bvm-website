@@ -21,6 +21,7 @@ import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ErrorModal from './components3/ErrorModal';
 import { mockupOptions } from './Buy.data';
 
@@ -57,7 +58,7 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
-
+  const { l2ServiceUserAddress } = useWeb3Auth();
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -237,7 +238,8 @@ const BuyPage = () => {
   };
 
   const fetchData = async () => {
-    const modelCategories = (await getModelCategories()) || [];
+    const modelCategories =
+      (await getModelCategories(l2ServiceUserAddress)) || [];
     // const modelCategories = mockupOptions;
 
     const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);

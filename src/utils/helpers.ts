@@ -29,6 +29,7 @@ export const getLink = (referralCode?: string) => {
 
 const REFERRAL_TEXT = 'refer';
 const REFERRAL_TEXT_MODULAR = 'source';
+const REF_CODE_TEXT = 'r';
 
 export const shareReferralURL = (code: string) => {
   if (APP_ENV === 'production') {
@@ -45,6 +46,11 @@ export const getReferralByURL = () => {
 export const getReferralModularByURL = () => {
   const params = new URLSearchParams(window.location?.search || '');
   return params.get(REFERRAL_TEXT_MODULAR);
+};
+
+export const getRefCodeByURL = () => {
+  const params = new URLSearchParams(window.location?.search || '');
+  return params.get(REF_CODE_TEXT);
 };
 
 export const shareTwitterSignature = (params: {
