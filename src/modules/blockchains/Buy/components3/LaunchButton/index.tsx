@@ -153,11 +153,6 @@ const LaunchButton = ({
       return;
     }
 
-    if (isAnyOptionNeedContactUs()) {
-      showContactUsModal();
-      return;
-    }
-
     const dynamicForm: any[] = [];
     for (const _field of originalData) {
       if (!field[_field.key].dragged) continue;
@@ -182,6 +177,11 @@ const LaunchButton = ({
         ...rest,
         options: [value],
       });
+    }
+
+    if (isAnyOptionNeedContactUs()) {
+      showContactUsModal(dynamicForm);
+      return;
     }
 
     if (!loggedIn) {
