@@ -55,6 +55,7 @@ const LaunchButton = ({
   const { hasError } = computerNameField;
 
   const [chainId, setChainId] = useState('');
+  const [needContactUs, setNeedContactUs] = React.useState(false);
 
   const {
     isOpen: isOpenTopUpModal,
@@ -111,15 +112,13 @@ const LaunchButton = ({
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
 
-  const handleOnClick = async () => {
-    if (!allFilled) {
-      setShowError(true);
-    }
+  React.useEffect(() => {
+    setNeedContactUs(isAnyOptionNeedContactUs());
+    console.log(isAnyOptionNeedContactUs());
+  }, [field]);
 
-    if (isSubmiting || !allFilled || hasError || !originalData) {
-      return;
-    }
-
+  const isAnyOptionNeedContactUs = () => {
+    if (!originalData) return false;
     for (const _field of originalData) {
       if (!field[_field.key].dragged) continue;
 
@@ -128,8 +127,7 @@ const LaunchButton = ({
           const option = _field.options.find((opt) => opt.key === value);
 
           if (option?.needContactUs) {
-            showContactUsModal();
-            return;
+            return true;
           }
         }
       }
@@ -139,9 +137,24 @@ const LaunchButton = ({
       );
 
       if (option?.needContactUs) {
-        showContactUsModal();
-        return;
+        return true;
       }
+    }
+
+    return false;
+  };
+
+  const handleOnClick = async () => {
+    if (!allFilled) {
+      setShowError(true);
+    }
+
+    if (isSubmiting || !allFilled || hasError || !originalData) {
+      return;
+    }
+
+    if (isAnyOptionNeedContactUs()) {
+      showContactUsModal();
     }
 
     const dynamicForm: any[] = [];
@@ -225,11 +238,17 @@ const LaunchButton = ({
       <div className={`${s.launch} ${s.active}`} onClick={handleOnClick}>
         <div className={s.inner}>
           {!loggedIn ? (
-            <Text className={s.connect}>Launch</Text>
+            <Text className={s.connect}>
+              {needContactUs ? 'Contact Us' : 'Launch'}
+            </Text>
           ) : (
             <React.Fragment>
               <div className={s.top}>
-                {isSubmiting ? <Spinner color="#fff" /> : <p>Launch</p>}
+                {isSubmiting ? (
+                  <Spinner color="#fff" />
+                ) : (
+                  <p>{needContactUs ? 'Contact Us' : 'Launch'}</p>
+                )}
                 <div className={`${s.icon}`}>
                   <ImagePlaceholder
                     src={'/launch.png'}
