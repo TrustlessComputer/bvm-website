@@ -40,16 +40,22 @@
   max-width: 320px;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
+  cursor: pointer;
+
+  img {
+    width: 100% !important;
+    object-fit: contain;
+  }
 
   @include is-min-table {
-    max-width: 520px;
+    max-width: 720px;
   }
 
   @include is-pc {
-    max-width: unset;
-    max-height: 579px;
-    margin-left: 0;
-    transform: translateY(8%);
+    margin-top: 40px;
+    margin-left: unset;
+    margin-right: unset;
   }
 }
 
@@ -322,17 +328,17 @@
   }
 }
 
-.img_video {
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  width: 100%;
-  
-  @include is-pc {
-    width: fit-content;
-  }
-
-  img {
-    width: 500px;
-  }
-}
+//.img_video {
+//  display: flex;
+//  justify-content: center;
+//  cursor: pointer;
+//  width: 100%;
+//
+//  @include is-pc {
+//    width: fit-content;
+//  }
+//
+//  img {
+//    width: 500px;
+//  }
+//}
