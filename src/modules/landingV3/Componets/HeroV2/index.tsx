@@ -36,7 +36,7 @@ export default function HeroV2() {
               className={`${s.btn} ${s.btn__primary}`}
               onClick={() => {
                 tracking('GET_STARTED');
-                router.push('/pricing');
+                router.push('/rollups/customizev2');
               }}
             >
               Get started
@@ -57,7 +57,8 @@ export default function HeroV2() {
         {/*  alt={'hero'}*/}
         {/*/>*/}
         <div className={s.imageHero} onClick={() => setIsOpenModalVideo(true)}>
-          <ImagePlaceholder className={s.imageHero} src={'/video_bvm.png'} width={582} height={452} alt={'video'} />
+          <ImagePlaceholder className={s.imageHero} src={'/images/hero-thumbnailv-10-22.jpg'} width={724} height={470}
+                            alt={'video'} />
         </div>
       </div>
       <Brand />
