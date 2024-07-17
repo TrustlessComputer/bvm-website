@@ -10,6 +10,7 @@ import stakingV2 from '@/stores/states/stakingV2/reducer';
 import l2Services from '@/stores/states/l2services/reducer';
 import launchpad from '@/modules/Launchpad/store/reducer';
 import lpEAIPayment from '@/modules/Launchpad/store/lpEAIPayment/reducer';
+import referrals from '@/stores/states/referrals/reducer';
 
 export default {
   common,
@@ -23,4 +24,5 @@ export default {
   l2Services,
   launchpad,
   lpEAIPayment,
+  referrals,
 };
