@@ -25,18 +25,18 @@ import ErrorModal from '../ErrorModal';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 const LaunchButton = ({
-  data,
-  originalData,
-}: {
+                        data,
+                        originalData,
+                      }: {
   data:
     | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
+    options: IModelCategory['options'] &
+      {
+        value: any;
+        label: string;
+        disabled: boolean;
+      }[];
+  })[]
     | null;
   originalData: IModelCategory[] | null;
 }) => {
@@ -81,7 +81,8 @@ const LaunchButton = ({
       try {
         const chainIDRandom = await getChainIDRandom();
         setChainId(String(chainIDRandom));
-      } catch (error) {}
+      } catch (error) {
+      }
     };
     getChainIDRandomFunc();
   }, []);
@@ -180,7 +181,7 @@ const LaunchButton = ({
     }
 
     if (isAnyOptionNeedContactUs()) {
-      showContactUsModal(dynamicForm);
+      showContactUsModal(dynamicForm as any);
       return;
     }
 
@@ -241,6 +242,16 @@ const LaunchButton = ({
           {!loggedIn ? (
             <Text className={s.connect}>
               {needContactUs ? 'Contact Us' : 'Launch'}
+              {
+                !needContactUs && <div className={`${s.icon}`}>
+                  <ImagePlaceholder
+                    src={'/launch.png'}
+                    alt={'launch'}
+                    width={48}
+                    height={48}
+                  />
+                </div>
+              }
             </Text>
           ) : (
             <React.Fragment>
@@ -250,14 +261,17 @@ const LaunchButton = ({
                 ) : (
                   <p>{needContactUs ? 'Contact Us' : 'Launch'}</p>
                 )}
-                <div className={`${s.icon}`}>
-                  <ImagePlaceholder
-                    src={'/launch.png'}
-                    alt={'launch'}
-                    width={48}
-                    height={48}
-                  />
-                </div>
+
+                {
+                  !needContactUs && <div className={`${s.icon}`}>
+                    <ImagePlaceholder
+                      src={'/launch.png'}
+                      alt={'launch'}
+                      width={48}
+                      height={48}
+                    />
+                  </div>
+                }
               </div>
             </React.Fragment>
           )}
@@ -272,7 +286,8 @@ const LaunchButton = ({
             }`,
           }}
           onClose={onCloseTopUpModal}
-          onSuccess={async () => {}}
+          onSuccess={async () => {
+          }}
           // balanceNeedTopup={`${tierData?.priceNote || '--'}`}
           balanceNeedTopup={`${priceBVM.toFixed(2) || '--'} BVM `}
         />
