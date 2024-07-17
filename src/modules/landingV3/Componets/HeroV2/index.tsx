@@ -1,17 +1,19 @@
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
-import { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Brand from '../Brand';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import IcLogoText from '../IcLogoText';
 import IcArrowRight from '../IcArrowRight';
 import { WHITEPAPER_DOC_URL } from '@/config';
+import ModalVideo from 'react-modal-video';
 
 export default function HeroV2() {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const { tracking } = useL2ServiceTracking();
+  const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
 
   return (
     <div className={s.hero} ref={ref}>
@@ -54,8 +56,21 @@ export default function HeroV2() {
           height="579"
           alt={'hero'}
         />
+        {/*<div className={s.img_video} onClick={() => setIsOpenModalVideo(true)}>*/}
+        {/*  <ImagePlaceholder src={'/video_bvm.png'} width={582} height={452} alt={'video'} />*/}
+        {/*</div>*/}
       </div>
       <Brand />
+      {/*<ModalVideo*/}
+      {/*  channel="custom"*/}
+      {/*  url={*/}
+      {/*    'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'*/}
+      {/*  }*/}
+      {/*  isOpen={isOpenModalVideo}*/}
+      {/*  onClose={() => {*/}
+      {/*    setIsOpenModalVideo(false);*/}
+      {/*  }}*/}
+      {/*/>*/}
     </div>
   );
 }
