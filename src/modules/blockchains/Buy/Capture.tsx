@@ -18,7 +18,20 @@ const Capture = ({...props}) => {
     // downloadImage(image, imageFileName);
   };
 
-  return <Button backgroundColor={'#f96e39'} onClick={()=> exportAsImage()}>capture</Button>
+
+  async function download() {
+    const a = document.createElement('a');
+    const base64 = await exportAsImage().then((res) => {
+      a.href = res
+      a.download = "Image.png";
+      a.click();
+    } )
+  }
+
+  return <div>
+    <Button backgroundColor={'#f96e39'} onClick={()=> exportAsImage()}>capture</Button>
+    <Button backgroundColor={'#f96e39'} onClick={()=> download()}>Download</Button>
+  </div>
 }
 
 export default Capture
