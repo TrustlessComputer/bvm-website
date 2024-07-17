@@ -25,22 +25,22 @@ import ErrorModal from '../ErrorModal';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 const LaunchButton = ({
-                        data,
-                        originalData,
-                      }: {
+  data,
+  originalData,
+}: {
   data:
     | (IModelCategory & {
-    options: IModelCategory['options'] &
-      {
-        value: any;
-        label: string;
-        disabled: boolean;
-      }[];
-  })[]
+        options: IModelCategory['options'] &
+          {
+            value: any;
+            label: string;
+            disabled: boolean;
+          }[];
+      })[]
     | null;
   originalData: IModelCategory[] | null;
 }) => {
-  const { field, priceBVM, priceUSD } = useOrderFormStoreV3();
+  const { field, priceBVM, priceUSD, needContactUs } = useOrderFormStoreV3();
   const { loggedIn, login } = useWeb3Auth();
   const { accountInforL2Service, availableListFetching, availableList } =
     useAppSelector(getL2ServicesStateSelector);
@@ -55,7 +55,6 @@ const LaunchButton = ({
   const { hasError } = computerNameField;
 
   const [chainId, setChainId] = useState('');
-  const [needContactUs, setNeedContactUs] = React.useState(false);
 
   const {
     isOpen: isOpenTopUpModal,
@@ -81,8 +80,7 @@ const LaunchButton = ({
       try {
         const chainIDRandom = await getChainIDRandom();
         setChainId(String(chainIDRandom));
-      } catch (error) {
-      }
+      } catch (error) {}
     };
     getChainIDRandomFunc();
   }, []);
@@ -112,38 +110,6 @@ const LaunchButton = ({
 
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
-
-  React.useEffect(() => {
-    setNeedContactUs(isAnyOptionNeedContactUs());
-    console.log(isAnyOptionNeedContactUs());
-  }, [field]);
-
-  const isAnyOptionNeedContactUs = () => {
-    if (!originalData) return false;
-    for (const _field of originalData) {
-      if (!field[_field.key].dragged) continue;
-
-      if (_field.multiChoice) {
-        for (const value of field[_field.key].value as string[]) {
-          const option = _field.options.find((opt) => opt.key === value);
-
-          if (option?.needContactUs) {
-            return true;
-          }
-        }
-      }
-
-      const option = _field.options.find(
-        (opt) => opt.key === field[_field.key].value,
-      );
-
-      if (option?.needContactUs) {
-        return true;
-      }
-    }
-
-    return false;
-  };
 
   const handleOnClick = async () => {
     if (!allFilled) {
@@ -180,7 +146,7 @@ const LaunchButton = ({
       });
     }
 
-    if (isAnyOptionNeedContactUs()) {
+    if (needContactUs) {
       showContactUsModal(dynamicForm as any);
       return;
     }
@@ -242,8 +208,8 @@ const LaunchButton = ({
           {!loggedIn ? (
             <Text className={s.connect}>
               {needContactUs ? 'Contact Us' : 'Launch'}
-              {
-                !needContactUs && <div className={`${s.icon}`}>
+              {!needContactUs && (
+                <div className={`${s.icon}`}>
                   <ImagePlaceholder
                     src={'/launch.png'}
                     alt={'launch'}
@@ -251,7 +217,7 @@ const LaunchButton = ({
                     height={48}
                   />
                 </div>
-              }
+              )}
             </Text>
           ) : (
             <React.Fragment>
@@ -262,8 +228,8 @@ const LaunchButton = ({
                   <p>{needContactUs ? 'Contact Us' : 'Launch'}</p>
                 )}
 
-                {
-                  !needContactUs && <div className={`${s.icon}`}>
+                {!needContactUs && (
+                  <div className={`${s.icon}`}>
                     <ImagePlaceholder
                       src={'/launch.png'}
                       alt={'launch'}
@@ -271,7 +237,7 @@ const LaunchButton = ({
                       height={48}
                     />
                   </div>
-                }
+                )}
               </div>
             </React.Fragment>
           )}
@@ -286,8 +252,7 @@ const LaunchButton = ({
             }`,
           }}
           onClose={onCloseTopUpModal}
-          onSuccess={async () => {
-          }}
+          onSuccess={async () => {}}
           // balanceNeedTopup={`${tierData?.priceNote || '--'}`}
           balanceNeedTopup={`${priceBVM.toFixed(2) || '--'} BVM `}
         />

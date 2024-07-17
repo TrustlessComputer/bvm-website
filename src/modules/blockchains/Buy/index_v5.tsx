@@ -45,8 +45,16 @@ const BuyPage = () => {
   const [templates, setTemplates] = React.useState<Array<
     IModelCategory[]
   > | null>(null);
-  const { field, setField, priceBVM, priceUSD, setPriceBVM, setPriceUSD } =
-    useOrderFormStoreV3();
+  const {
+    field,
+    setField,
+    priceBVM,
+    priceUSD,
+    setPriceBVM,
+    setPriceUSD,
+    setNeedContactUs,
+    needContactUs,
+  } = useOrderFormStoreV3();
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();
   const [fieldsDragged, setFieldsDragged] = React.useState<string[]>([]);
@@ -256,6 +264,33 @@ const BuyPage = () => {
     setTemplates(templates);
   };
 
+  const isAnyOptionNeedContactUs = () => {
+    if (!originalData) return false;
+    for (const _field of originalData) {
+      if (!field[_field.key].dragged) continue;
+
+      if (_field.multiChoice) {
+        for (const value of field[_field.key].value as string[]) {
+          const option = _field.options.find((opt) => opt.key === value);
+
+          if (option?.needContactUs) {
+            return true;
+          }
+        }
+      }
+
+      const option = _field.options.find(
+        (opt) => opt.key === field[_field.key].value,
+      );
+
+      if (option?.needContactUs) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
   React.useEffect(() => {
     data?.forEach((item) => {
       if (item.multiChoice) {
@@ -451,6 +486,7 @@ const BuyPage = () => {
 
     setPriceBVM(priceBVM);
     setPriceUSD(priceUSD);
+    setNeedContactUs(isAnyOptionNeedContactUs());
 
     if (!originalData) return;
 
@@ -804,23 +840,25 @@ const BuyPage = () => {
                 {/*}*/}
 
                 <div className={s.right_box_footer}>
-                  <div className={s.right_box_footer_left}>
-                    <h4 className={s.right_box_footer_left_content}>
-                      {formatCurrencyV2({
-                        amount: priceBVM,
-                        decimals: 2,
-                      }).replace('.00', '')}{' '}
-                      BVM{'/'}month
-                    </h4>
-                    <h6 className={s.right_box_footer_left_title}>
-                      $
-                      {formatCurrencyV2({
-                        amount: priceUSD,
-                        decimals: 2,
-                      }).replace('.00', '')}
-                      {'/'}month
-                    </h6>
-                  </div>
+                  {!needContactUs && (
+                    <div className={s.right_box_footer_left}>
+                      <h4 className={s.right_box_footer_left_content}>
+                        {formatCurrencyV2({
+                          amount: priceBVM,
+                          decimals: 2,
+                        }).replace('.00', '')}{' '}
+                        BVM{'/'}month
+                      </h4>
+                      <h6 className={s.right_box_footer_left_title}>
+                        $
+                        {formatCurrencyV2({
+                          amount: priceUSD,
+                          decimals: 2,
+                        }).replace('.00', '')}
+                        {'/'}month
+                      </h6>
+                    </div>
+                  )}
 
                   <LaunchButton data={data} originalData={originalData} />
                 </div>
