@@ -107,13 +107,21 @@ const BuyPage = () => {
         field[activeKey].dragged
       ) {
         setShowShadow(field[activeKey].value as string);
-        toast.error('Remove existing module first.', {
+
+        const currentField = data?.find((item) => item.key === activeKey);
+        const currentOption = currentField?.options.find(
+          (option) => option.key === field[activeKey].value,
+        );
+        const msg = `You have already chosen ${currentOption?.title} as your ${currentField?.title}. Please remove it before selecting again.`;
+
+        toast.error(msg, {
           icon: null,
           style: {
             borderColor: 'blue',
             color: 'blue',
           },
           duration: 3000,
+          position: 'bottom-center',
         });
         setTimeout(() => {
           setShowShadow('');
