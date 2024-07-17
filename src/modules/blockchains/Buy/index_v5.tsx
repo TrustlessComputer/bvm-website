@@ -21,6 +21,10 @@ import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import useL2Service from '@/hooks/useL2Service';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -55,6 +59,9 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  const { loggedIn } = useWeb3Auth();
+  const { getAccountInfor } = useL2Service();
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -66,6 +73,10 @@ const BuyPage = () => {
 
     setIdDragging(active.id);
   };
+
+  const userAddress = React.useMemo(() => {
+    return accountInforL2Service?.tcAddress;
+  }, [loggedIn, accountInforL2Service]);
 
   function handleDragEnd(event: any) {
     setIdDragging('');
@@ -234,7 +245,7 @@ const BuyPage = () => {
   };
 
   const fetchData = async () => {
-    const modelCategories = (await getModelCategories()) || [];
+    const modelCategories = (await getModelCategories(userAddress)) || [];
     // const modelCategories = mockupOptions;
 
     const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
@@ -306,7 +317,13 @@ const BuyPage = () => {
 
   React.useEffect(() => {
     fetchData();
-  }, []);
+  }, [userAddress]);
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      getAccountInfor();
+    }
+  }, [loggedIn]);
 
   const initTemplate = (crPackage?: number) => {
     const packageId =
