@@ -26,12 +26,12 @@ const MenuEditItemList: MenuEditItemType[] = [
   {
     key: 'A',
     value: MenuEditItemEnum.UpdateYourChainInfor,
-    title: 'Update your chain information',
+    title: 'Update chain information',
   },
   {
     key: 'B',
     value: MenuEditItemEnum.ConfigYourDAppsDomain,
-    title: 'Config your dApps domain',
+    title: 'Config dApps domain',
   },
 ];
 
