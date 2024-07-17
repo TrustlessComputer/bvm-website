@@ -21,6 +21,9 @@ import s from './styles_v5.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import Capture from '@/modules/blockchains/Buy/Capture';
+import html2canvas from 'html2canvas';
+import { Button } from '@chakra-ui/react';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -55,6 +58,7 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
+  const [isCapture , setIsCapture] = useState<boolean>(false)
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -787,7 +791,7 @@ const BuyPage = () => {
                 {/*    setValueOfPackage={setValueOfPackage}*/}
                 {/*  />*/}
                 {/*}*/}
-
+                <Capture setIsCapture={setIsCapture}/>
                 <div className={s.right_box_footer}>
                   <div className={s.right_box_footer_left}>
                     <h4 className={s.right_box_footer_left_content}>
@@ -811,7 +815,7 @@ const BuyPage = () => {
                 </div>
               </div>
 
-              <div className={s.right_box}>
+              <div className={`${s.right_box}`} id='imageCapture'>
                 <DroppableV2
                   id="final"
                   className={s.finalResult}
@@ -1009,18 +1013,23 @@ const BuyPage = () => {
                     });
                   })}
                 </DroppableV2>
-                <button className={s.reset} onClick={resetEdit}>
-                  <div>
-                    <ImagePlaceholder
-                      src={'/icons/undo.svg'}
-                      alt={'undo'}
-                      width={20}
-                      height={20}
-                    />
-                  </div>
-                  Reset
-                </button>
-                {isShowVideo && (
+                {
+                  !isCapture && (
+                    <button className={s.reset} onClick={resetEdit}>
+                      <div>
+                        <ImagePlaceholder
+                          src={'/icons/undo.svg'}
+                          alt={'undo'}
+                          width={20}
+                          height={20}
+                        />
+                      </div>
+                      Reset
+                    </button>
+                  )
+                }
+
+                {(!isCapture && isShowVideo) && (
                   <div className={s.video}>
                     <ImagePlaceholder
                       src={'/video.jpg'}
