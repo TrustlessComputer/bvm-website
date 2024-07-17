@@ -36,7 +36,7 @@ export default function HeroV2() {
               className={`${s.btn} ${s.btn__primary}`}
               onClick={() => {
                 tracking('GET_STARTED');
-                router.push('/pricing');
+                router.push('/rollups/customizev2');
               }}
             >
               Get started
@@ -49,28 +49,29 @@ export default function HeroV2() {
             </div>
           </div>
         </div>
-        <ImagePlaceholder
-          className={s.imageHero}
-          src={'/bvm/hero-banner.png'}
-          width="694"
-          height="579"
-          alt={'hero'}
-        />
-        {/*<div className={s.img_video} onClick={() => setIsOpenModalVideo(true)}>*/}
-        {/*  <ImagePlaceholder src={'/video_bvm.png'} width={582} height={452} alt={'video'} />*/}
-        {/*</div>*/}
+        {/*<ImagePlaceholder*/}
+        {/*  className={s.imageHero}*/}
+        {/*  src={'/bvm/hero-banner.png'}*/}
+        {/*  width="694"*/}
+        {/*  height="579"*/}
+        {/*  alt={'hero'}*/}
+        {/*/>*/}
+        <div className={s.imageHero} onClick={() => setIsOpenModalVideo(true)}>
+          <ImagePlaceholder className={s.imageHero} src={'/images/hero-thumbnailv-10-22.jpg'} width={724} height={470}
+                            alt={'video'} />
+        </div>
       </div>
       <Brand />
-      {/*<ModalVideo*/}
-      {/*  channel="custom"*/}
-      {/*  url={*/}
-      {/*    'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'*/}
-      {/*  }*/}
-      {/*  isOpen={isOpenModalVideo}*/}
-      {/*  onClose={() => {*/}
-      {/*    setIsOpenModalVideo(false);*/}
-      {/*  }}*/}
-      {/*/>*/}
+      <ModalVideo
+        channel="custom"
+        url={
+          'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'
+        }
+        isOpen={isOpenModalVideo}
+        onClose={() => {
+          setIsOpenModalVideo(false);
+        }}
+      />
     </div>
   );
 }
