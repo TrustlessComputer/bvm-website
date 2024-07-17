@@ -373,21 +373,27 @@
 .reset {
   background-color: #fee5db;
   color: #fa4e0e;
-  padding: 14px 32px;
-  gap: 8px;
-  border-radius: 1000px;
+  height: 48px;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+  border-radius: 1000px;
+  padding-left: 32px;
+  padding-right: 32px;
   display: flex;
   cursor: pointer;
+
   p {
     text-transform: uppercase;
   }
+
   &.gray {
     background: #0000000d;
   }
+
   .icon {
     max-width: 20px;
+
     img {
       width: 100%;
     }
@@ -460,7 +466,7 @@
     --color: #fa4e0e;
     display: block;
     width: 158px;
-    height: 45px;
+    height: 48px;
     padding: 13px;
     border-radius: 99999px;
     font-family: var(--font-SFProDisplay);
@@ -468,6 +474,9 @@
     font-weight: 600;
     line-height: 17.9px;
     text-align: center;
+
+    align-items: center;
+    justify-content: center;
 
     &__cancel {
       background-color: var(--color);
@@ -484,9 +493,14 @@
   display: flex;
   gap: 10px;
   width: max-content;
+
   &_filter {
     //width: 150px;
-    padding: 14px 32px;
+    display: flex;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 32px;
     border-radius: 1000px;
     opacity: .5;
     border: 1px solid  #000;
@@ -499,13 +513,15 @@
       line-height: calc(26 / 20);
       text-align: center;
     }
+
     &.active {
       //border-bottom: 2px solid rgba(250, 78, 14, 1);
       background-color: rgba(250, 78, 14, 1);
       opacity: 1;
       cursor: pointer;
 
-      border: 1px solid  rgba(250, 78, 14, 1);
+      border: 1px solid rgba(250, 78, 14, 1);
+
       p {
         color: #fff;
       }
