@@ -118,6 +118,7 @@
     gap: 12px;
     align-items: center;
     margin-bottom: 23px;
+
     svg {
       width: 32px;
       transform: translateY(-.1em);
@@ -173,7 +174,7 @@
   margin-bottom: 18px;
   color: black;
 
-  span{
+  span {
     display: inline-block;
   }
 
@@ -197,7 +198,7 @@
   line-height: 170%;
   max-width: 520px;
 
-  span{
+  span {
     display: inline-block;
   }
 
@@ -259,7 +260,7 @@
     padding: 0 20px;
     align-items: center;
 
-    svg, img{
+    svg, img {
       transform: translateY(.1em);
     }
   }
@@ -322,6 +323,16 @@
 }
 
 .img_video {
-  //box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
   cursor: pointer;
+  width: 100%;
+  
+  @include is-pc {
+    width: fit-content;
+  }
+
+  img {
+    width: 500px;
+  }
 }
