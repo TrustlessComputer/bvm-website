@@ -2,8 +2,9 @@ import { DEVELOPERS_DOC_URL } from '@/config';
 import { NavItem } from '@layouts/Header/menuConfig';
 import GroupProducts from '@layouts/HeaderV3/components/GroupProducts';
 import GroupDeveloper from '@layouts/HeaderV3/components/GroupDeveloper';
-import ContactUs from "@layouts/HeaderV3/components/ContactUs";
+import ContactUs from '@layouts/HeaderV3/components/ContactUs';
 import GroupSolutions from './components/GroupSolutions';
+import { BVM_STUDIO } from '@constants/route-path';
 
 export const NAV_ITEMS: Array<NavItem> = [
   {
@@ -31,8 +32,8 @@ export const NAV_ITEMS: Array<NavItem> = [
     GroupDropDown: GroupDeveloper,
   },
   {
-    label: 'Pricing',
-    href: '/pricing',
+    label: 'BVM Studio',
+    href: BVM_STUDIO,
     isNewWindow: false,
     isHide: false,
   },
@@ -62,7 +63,7 @@ export const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'contact us',
-    MenuItemEl: ContactUs
+    MenuItemEl: ContactUs,
   },
 ];
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
@@ -91,8 +92,8 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     GroupDropDown: GroupDeveloper,
   },
   {
-    label: 'Pricing',
-    href: '/pricing',
+    label: 'BVM Studio',
+    href: BVM_STUDIO,
     isNewWindow: false,
     isHide: false,
   },
@@ -131,7 +132,7 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   },
   {
     label: 'contact us',
-    MenuItemEl: ContactUs
+    MenuItemEl: ContactUs,
   },
 ];
 export const NAV_ITEMS_MOBILE: Array<NavItem> = [
