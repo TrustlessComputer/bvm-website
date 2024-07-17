@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
+import { BVM_STUDIO } from '@constants/route-path';
 
 interface DataSections {
   title: string;
@@ -29,7 +30,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     </div>,
     image: '/images/home-tools.jpg',
     button: {
-      link: '/rollup/customizev2',
+      link: BVM_STUDIO,
       title: 'Customize & launch your blockchain',
     },
   },
