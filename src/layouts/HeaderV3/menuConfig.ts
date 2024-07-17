@@ -4,7 +4,6 @@ import GroupProducts from '@layouts/HeaderV3/components/GroupProducts';
 import GroupDeveloper from '@layouts/HeaderV3/components/GroupDeveloper';
 import ContactUs from '@layouts/HeaderV3/components/ContactUs';
 import GroupSolutions from './components/GroupSolutions';
-import { BVM_STUDIO } from '@constants/route-path';
 
 export const NAV_ITEMS: Array<NavItem> = [
   {
@@ -30,12 +29,6 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
     groupType: 'developers',
     GroupDropDown: GroupDeveloper,
-  },
-  {
-    label: 'BVM Studio',
-    href: BVM_STUDIO,
-    isNewWindow: false,
-    isHide: false,
   },
   {
     label: 'Customers',
@@ -90,12 +83,6 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
     groupType: 'developers',
     GroupDropDown: GroupDeveloper,
-  },
-  {
-    label: 'BVM Studio',
-    href: BVM_STUDIO,
-    isNewWindow: false,
-    isHide: false,
   },
   {
     label: 'Customers',
