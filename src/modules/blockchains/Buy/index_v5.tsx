@@ -22,6 +22,7 @@ import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import ErrorModal from './components3/ErrorModal';
+import { mockupOptions } from './Buy.data';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -56,6 +57,7 @@ const BuyPage = () => {
   );
   const [isShowVideo, setIsShowVideo] = React.useState<boolean>(true);
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
+
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =

@@ -127,7 +127,7 @@ const LaunchButton = ({
         for (const value of field[_field.key].value as string[]) {
           const option = _field.options.find((opt) => opt.key === value);
 
-          if (option?.needContact) {
+          if (option?.needContactUs) {
             showContactUsModal();
             return;
           }
@@ -138,7 +138,7 @@ const LaunchButton = ({
         (opt) => opt.key === field[_field.key].value,
       );
 
-      if (option?.needContact) {
+      if (option?.needContactUs) {
         showContactUsModal();
         return;
       }

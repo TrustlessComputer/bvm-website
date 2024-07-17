@@ -9,7 +9,7 @@ interface IModelOption {
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
   order: number;
   value: string | number;
-  needContact: boolean;
+  needContactUs: boolean;
 }
 
 interface IModelCategory {
