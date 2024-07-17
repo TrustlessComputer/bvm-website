@@ -15,7 +15,7 @@ const Capture = () => {
 
       const content = `I am building my own blockchain with @BVMnetwork
 
-BVM Studio is a fun no-code tool that enables anyone to easily launch their own blockchain on Bitcoin for only $99/month.
+BVM Studio is a fun no-code tool that enables anyone to easily launch their own blockchain for only $99/month.
 
 It's so simple, even your grandma can do it!
 
