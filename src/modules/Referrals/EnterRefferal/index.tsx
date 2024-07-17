@@ -1,18 +1,14 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import s from './styles.module.scss';
 import { IUserReferralInfo } from '@/interfaces/referral';
-import { requestReload } from '@/stores/states/common/reducer';
 import { formatCurrency } from '@/utils/format';
 import { Button } from '@chakra-ui/react';
-import { getErrorMessage } from '@/utils/errorV2';
 import { useDispatch } from 'react-redux';
 import { MIN_DECIMAL } from '@/constants/constants';
-import { showError } from '@/components/toast';
-import CReferralAPI from 'src/services/api/referrals';
 import cs from 'classnames';
 import ButtonConnected from '@/components/ButtonConnected/v2';
-import { useAppSelector } from '@/stores/hooks';
-import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import { closeModal, openModal } from '@/stores/states/modal/reducer';
+import ClaimModal, { ClaimModalID } from '@/modules/Referrals/ClaimModal';
 
 interface EnterRefferalProps {
   userRefInfo?: IUserReferralInfo;
@@ -22,38 +18,25 @@ const EnterRefferal = (props: EnterRefferalProps) => {
   const { userRefInfo } = props;
   const dispatch = useDispatch();
 
-  const { accountInforL2Service } = useAppSelector(
-    getL2ServicesStateSelector,
-  );
-  const addressL2 = accountInforL2Service?.tcAddress;
-  const userApi = useRef(new CReferralAPI()).current;
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const unClaimReward = useMemo(() => {
     return Number(userRefInfo?.referral_reward_total || '0') - Number(userRefInfo?.referral_reward_claimed || '0');
   }, [userRefInfo]);
 
-  const onSubmitClaim = async () => {
-    if (!addressL2) return;
-    try {
-      setIsSubmitting(true);
-      const origin = window.location.origin;
-      const refUrl = origin + `?r=${userRefInfo?.referral_code}`;
-      const content = `I just received $${formatCurrency(unClaimReward, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)} after trading on @RuneChain_L2\n\nTrade Unlimited Bitcoin Permissionlessly Now\n\n${refUrl}`;
-      window.open(
-        `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
-        "_blank"
-      );
-
-      await userApi.claimReferralReward(addressL2);
-      dispatch(requestReload());
-    } catch (error) {
-      const { message } = getErrorMessage(error);
-      showError({message: message});
-    } finally {
-      setIsSubmitting(false);
-    }
+  const showClaimModal = () => {
+    const onClose = () => dispatch(closeModal({ id: ClaimModalID }));
+    dispatch(
+      openModal({
+        id: ClaimModalID,
+        title: `Claim referral reward`,
+        className: s.modalContent,
+        modalProps: {
+          size: 'lg',
+        },
+        render: () => <ClaimModal userRefInfo={userRefInfo} onClose={onClose}/>,
+      }),
+    );
   };
 
   return (
@@ -89,7 +72,7 @@ const EnterRefferal = (props: EnterRefferalProps) => {
           <ButtonConnected className={cs(s.button)} title={"Connect account"}>
             <Button
               type="button"
-              onClick={onSubmitClaim}
+              onClick={showClaimModal}
               isLoading={isSubmitting}
               loadingText={'Submitting...'}
               className={cs(s.button)}
