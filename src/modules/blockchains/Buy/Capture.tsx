@@ -3,6 +3,8 @@ import { convertBase64ToFile } from '@/utils/file';
 import { encodeBase64 } from '@/utils/helpers';
 import { Button } from '@chakra-ui/react';
 import html2canvas from 'html2canvas';
+import Image from 'next/image';
+
 
 const Capture = ({ ...props }) => {
   const handleClickShareTwitter = (url: string) => {
@@ -23,9 +25,9 @@ const Capture = ({ ...props }) => {
   };
 
   const exportBase64 = async () => {
+    props.setIsCapture(true);
     const canvasDom = document.querySelector('#imageCapture') as HTMLElement;
     const canvas = await html2canvas(canvasDom).then((res) => {
-      props.setIsCapture(false);
       return res;
     });
     return canvas.toDataURL('image/png', 1.0);
@@ -33,14 +35,8 @@ const Capture = ({ ...props }) => {
 
 
   const exportAsImage = async () => {
-    props.setIsCapture(true);
-    const canvasDom = document.querySelector('#imageCapture') as HTMLElement;
 
     setTimeout(async () => {
-      const canvas = await html2canvas(canvasDom).then((res) => {
-        props.setIsCapture(false);
-        return res;
-      });
       const image = await exportBase64();
       console.log('image', image);
 
@@ -51,31 +47,29 @@ const Capture = ({ ...props }) => {
 
       if (!urlCDN) return;
 
+      props.setIsCapture(false);
       handleClickShareTwitter(urlCDN);
-    }, 1500);
+    }, 150);
   };
 
   async function download() {
     props.setIsCapture(true);
     const a = document.createElement('a');
-      await exportAsImage().then((res) => {
-      a.href = res;
-      a.download = 'Image.png';
-      setTimeout(async () => {
-        a.href = await exportBase64();
-        a.download = `${new Date}.png`;
-        a.click();
-      });
-    }, 1500);
+    setTimeout(async () => {
+      a.href = await exportBase64();
+      props.setIsCapture(false);
+      a.download = `${new Date}.png`;
+      a.click();
+    }, 150);
   }
 
   return (
     <div>
-      <Button backgroundColor={'#f96e39'} onClick={() => exportAsImage()}>
-        capture
+      <Button backgroundColor={'#f96e39'} onClick={exportAsImage}>
+        SHARE
       </Button>
-      <div onClick={() => download()} className={s.reset}>
-        <div className={s.icon}>
+      <div onClick={() => download()}>
+        <div>
           <Image src={'/icons/ic_image.svg'} alt={'icon'} width={20} height={20} />
         </div>
         <p>EXPORT</p>
