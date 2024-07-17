@@ -155,6 +155,7 @@ const LaunchButton = ({
 
     if (isAnyOptionNeedContactUs()) {
       showContactUsModal();
+      return;
     }
 
     const dynamicForm: any[] = [];
