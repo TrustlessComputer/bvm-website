@@ -24,6 +24,7 @@ import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ErrorModal from './components3/ErrorModal';
 import { mockupOptions } from './Buy.data';
+import Capture from '@/modules/blockchains/Buy/Capture';
 
 const BuyPage = () => {
   const router = useRouter();
