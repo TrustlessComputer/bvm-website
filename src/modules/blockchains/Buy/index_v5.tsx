@@ -71,7 +71,7 @@ const BuyPage = () => {
     setIdDragging('');
     setRightDragging(false);
 
-    router.push('/rollups/customizev2');
+    // router.push('/rollups/customizev2');
 
     const { over, active } = event;
 
@@ -107,13 +107,21 @@ const BuyPage = () => {
         field[activeKey].dragged
       ) {
         setShowShadow(field[activeKey].value as string);
-        toast.error('Remove existing module first.', {
+
+        const currentField = data?.find((item) => item.key === activeKey);
+        const currentOption = currentField?.options.find(
+          (option) => option.key === field[activeKey].value,
+        );
+        const msg = `You have already chosen ${currentOption?.title} as your ${currentField?.title}. Please remove it before selecting again.`;
+
+        toast.error(msg, {
           icon: null,
           style: {
             borderColor: 'blue',
             color: 'blue',
           },
           duration: 3000,
+          position: 'bottom-center',
         });
         setTimeout(() => {
           setShowShadow('');
@@ -891,7 +899,7 @@ const BuyPage = () => {
                               parentOfNested
                               background={item.color}
                               label={item.title}
-                              zIndex={data.length - index}
+                              zIndex={fieldsDragged.length - index - 1}
                             >
                               {childrenOptions}
                             </LegoParent>
@@ -912,7 +920,7 @@ const BuyPage = () => {
                         >
                           <LegoV3
                             background={item.color}
-                            zIndex={data.length - index}
+                            zIndex={fieldsDragged.length - index}
                             label={item.title}
                             labelInRight={!!item.confuseTitle}
                             className={
@@ -958,7 +966,7 @@ const BuyPage = () => {
                             background={item.color}
                             label={item.title}
                             labelInRight={!!item.confuseTitle}
-                            zIndex={item.options.length - opIdx}
+                            zIndex={fieldsDragged.length - index}
                             icon={item.confuseIcon}
                             className={
                               showShadow === field[item.key].value
