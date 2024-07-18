@@ -1,3 +1,8 @@
+interface IDappValue  {
+  key: string,
+  value: string | string[]
+}
+
 interface IModelOption {
   title: string;
   selectable: boolean;
@@ -10,12 +15,7 @@ interface IModelOption {
   order: number;
   value: string | number;
   needContactUs: boolean;
-  infoData: [
-    {
-      key: string,
-      value: string | string[]
-    }
-  ];
+  infoData?: IDappValue[];
 }
 
 interface IModelCategory {
