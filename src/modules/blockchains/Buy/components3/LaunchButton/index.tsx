@@ -23,6 +23,7 @@ import useL2Service from '@/hooks/useL2Service';
 import BaseModal from '@components/BaseModal';
 import ErrorModal from '../ErrorModal';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { formatCurrencyV2 } from '@/utils/format';
 
 const LaunchButton = ({
   data,
@@ -254,7 +255,10 @@ const LaunchButton = ({
           onClose={onCloseTopUpModal}
           onSuccess={async () => {}}
           // balanceNeedTopup={`${tierData?.priceNote || '--'}`}
-          balanceNeedTopup={`${priceBVM.toFixed(2) || '--'} BVM `}
+          balanceNeedTopup={`${formatCurrencyV2({
+            amount: priceBVM,
+            decimals: 0,
+          })} BVM `}
         />
       )}
       <ErrorModal
