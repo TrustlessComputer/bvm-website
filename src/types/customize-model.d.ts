@@ -51,12 +51,25 @@ interface ChainInfos {
 interface DappField {
   key: string;
   title: string;
-  type: 'input' | 'dropdown' | 'extends';
-  isRender: 'fixed' | 'dynamic';
-  fields: {
+  type: 'input' | 'dropdown' | 'extends' | 'dynamic';
+  options?: { key: string; value: string | number }[];
+  dynamic?: {
+    key: string;
+    title: string;
+    type: 'input' | 'dropdown' | 'extends';
+    options?: { key: string; value: string | number }[];
+    extends?: {
+      key: string;
+      title: string;
+      type: 'input' | 'dropdown';
+      options?: { key: string; value: string | number }[];
+    }[];
+  }[];
+  extends?: {
     key: string;
     title: string;
     type: 'input' | 'dropdown';
+    options?: { key: string; value: string | number }[];
   }[];
 }
 
@@ -64,4 +77,30 @@ interface DappCategory {
   title: string;
   key: string;
   fields: DappField[];
+}
+
+interface FieldModel {
+  key: string;
+  title: string;
+  type: 'input' | 'dropdown' | 'extends';
+  tooltip: string;
+  options?: FieldModel[];
+}
+
+interface DappModel {
+  id: string;
+  key: string;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  icon: string;
+  order: number;
+  color: string;
+  tooltip: string;
+  requiredFields: FieldModel[];
+  optionalFields: {
+    key: string;
+    title: string;
+    fields: FieldModel[];
+  };
 }
