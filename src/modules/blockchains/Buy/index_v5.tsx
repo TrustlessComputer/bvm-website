@@ -23,7 +23,7 @@ import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ErrorModal from './components3/ErrorModal';
-import { mockupOptions } from './Buy.data';
+// import { mockupOptions } from './Buy.data';
 import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
 import Image from 'next/image';
@@ -622,7 +622,7 @@ const BuyPage = () => {
                             {item.options.map((option, optIdx) => {
                               let _price = formatCurrencyV2({
                                 amount: option.priceBVM || 0,
-                                decimals: 2,
+                                decimals: 0,
                               }).replace('.00', '');
                               let suffix =
                                 Math.abs(option.priceBVM) > 0
@@ -794,16 +794,16 @@ const BuyPage = () => {
                       <h4 className={s.right_box_footer_left_content}>
                         {formatCurrencyV2({
                           amount: priceBVM,
-                          decimals: 2,
-                        }).replace('.00', '')}{' '}
+                          decimals: 0,
+                        })}{' '}
                         BVM{'/'}month
                       </h4>
                       <h6 className={s.right_box_footer_left_title}>
                         $
                         {formatCurrencyV2({
                           amount: priceUSD,
-                          decimals: 2,
-                        }).replace('.00', '')}
+                          decimals: 0,
+                        })}
                         {'/'}month
                       </h6>
                     </div>
