@@ -11,21 +11,23 @@ const Bottom = (props: Props) => {
   const { cloneOnClick } = props;
 
   return (
-    <Button
-      bgColor={'#FA4E0E'}
-      borderRadius={'24px'}
-      w={['200px']}
-      flexShrink={0}
-      fontSize={['15px']}
-      fontWeight={600}
-      _hover={{
-        cursor: 'pointer',
-        opacity: 0.7,
-      }}
-      onClick={cloneOnClick}
-    >
-      Clone
-    </Button>
+    <Flex flex={1} align={'center'} justify={'center'}>
+      <Button
+        bgColor={'#FA4E0E'}
+        borderRadius={'24px'}
+        w={['200px']}
+        flexShrink={0}
+        fontSize={['15px']}
+        fontWeight={600}
+        _hover={{
+          cursor: 'pointer',
+          opacity: 0.7,
+        }}
+        onClick={cloneOnClick}
+      >
+        Clone
+      </Button>
+    </Flex>
   );
 };
 

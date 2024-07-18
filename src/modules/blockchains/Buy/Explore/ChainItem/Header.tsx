@@ -15,7 +15,13 @@ const Header = (props: Props) => {
   }, [orderItem?.chainName]);
 
   return (
-    <Flex flexDir={'row'} gap={['20px']} align={'flex-start'} w={'100%'}>
+    <Flex
+      flexDir={'row'}
+      gap={['20px']}
+      align={'flex-start'}
+      w={'100%'}
+      minH={['100px']}
+    >
       <Image
         src={orderItem?.logoURL || '/blockchains/customize/ic-infa.svg'}
         w={['80px']}
