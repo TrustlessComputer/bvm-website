@@ -50,12 +50,25 @@ interface ChainInfos {
 interface DappField {
   key: string,
   title: string,
-  type: 'input' | 'dropdown' | 'extends',
-  isRender: 'fixed' | 'dynamic',
-  fields: {
+  type: 'input' | 'dropdown' | 'extends' | 'dynamic',
+  options?: { key: string, value: string | number }[],
+  dynamic?: {
     key: string,
     title: string,
-    type: 'input' | 'dropdown'
+    type: 'input' | 'dropdown' | 'extends',
+    options?: { key: string, value: string | number }[],
+    extends?: {
+      key: string,
+      title: string,
+      type: 'input' | 'dropdown',
+      options?: { key: string, value: string | number }[],
+    }[]
+  }[],
+  extends?: {
+    key: string,
+    title: string,
+    type: 'input' | 'dropdown',
+    options?: { key: string, value: string | number }[],
   }[]
 }
 
