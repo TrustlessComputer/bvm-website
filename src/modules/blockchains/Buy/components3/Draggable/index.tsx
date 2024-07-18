@@ -5,7 +5,7 @@ import s from './styles.module.scss';
 
 export type DraggableProps = {
   id: string;
-  value?: string | number | null;
+  value?: string | number | null | Record<string, any>;
   useMask?: boolean;
   disabled?: boolean;
   index?: number;
