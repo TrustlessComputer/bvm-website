@@ -10,6 +10,12 @@ interface IModelOption {
   order: number;
   value: string | number;
   needContactUs: boolean;
+  infoData: [
+    {
+      key: string,
+      value: string | string[]
+    }
+  ];
 }
 
 interface IModelCategory {
