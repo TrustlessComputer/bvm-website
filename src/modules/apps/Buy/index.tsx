@@ -6,26 +6,25 @@ import toast from 'react-hot-toast';
 import ModalVideo from 'react-modal-video';
 
 import { getModelCategories, getTemplates } from '@/services/customize-model';
-import BoxOptionV3 from './components3/BoxOptionV3';
-import ComputerNameInput from './components3/ComputerNameInput';
-import Draggable from './components3/Draggable';
-import DropdownV2 from './components3/DropdownV2';
-import DroppableV2 from './components3/DroppableV2';
-import LaunchButton from './components3/LaunchButton';
-import LegoParent from './components3/LegoParent';
-import LegoV3 from './components3/LegoV3';
-import SidebarV2 from './components3/SideBarV2';
-import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
-import useDragMask from './stores/useDragMask';
-import s from './styles_v5.module.scss';
-import { MouseSensor } from './utils';
-import { formatCurrencyV2 } from '@/utils/format';
+import BoxOptionV3 from '../../blockchains/Buy/components3/BoxOptionV3';
+import ComputerNameInput from '../../blockchains/Buy/components3/ComputerNameInput';
+import Draggable from '../../blockchains/Buy/components3/Draggable';
+import DroppableV2 from '../../blockchains/Buy/components3/DroppableV2';
+import LaunchButton from '../../blockchains/Buy/components3/LaunchButton';
+import LegoParent from '../../blockchains/Buy/components3/LegoParent';
+import LegoV3 from '../../blockchains/Buy/components3/LegoV3';
+import SidebarV2 from '../components/SideBarV2';
+import useOrderFormStoreV3, { useCaptureStore } from '../../blockchains/Buy/stores/index_v3';
+import useDragMask from '../../blockchains/Buy/stores/useDragMask';
+import s from '../../blockchains/Buy/styles_v5.module.scss';
+import { MouseSensor } from '../../blockchains/Buy/utils';
+import { formatCurrencyV2 } from '@utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import ErrorModal from './components3/ErrorModal';
-import { mockupOptions } from './Buy.data';
+import ErrorModal from '../../blockchains/Buy/components3/ErrorModal';
 import Capture from '@/modules/blockchains/Buy/Capture';
-import Label from './components3/Label';
+import Label from '../../blockchains/Buy/components3/Label';
+import { APPS } from '@/modules/apps/data';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -70,6 +69,7 @@ const BuyPage = () => {
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
   const { isCapture } = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
+  const [selectedApp, setSelectedApp] = useState<any>();
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -265,12 +265,13 @@ const BuyPage = () => {
     });
   };
 
-  const fetchData = async () => {
-    const modelCategories =
-      (await getModelCategories(l2ServiceUserAddress)) || [];
+  const fetchData = async (key: string) => {
+    const app = APPS.find(d => d.key === key);
+    const modelCategories = app?.settings || [];
+      // (await getModelCategories(l2ServiceUserAddress)) || [];
     // const modelCategories = mockupOptions;
 
-    const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
+    const _modelCategories = modelCategories.sort((a, b) => a.order - b.order) as IModelCategory[];
     _modelCategories.forEach((_field) => {
       setField(_field.key, null);
     });
@@ -364,9 +365,11 @@ const BuyPage = () => {
     });
   }, [field['network']?.value]);
 
-  React.useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(() => {
+    if(selectedApp?.key) {
+      fetchData(selectedApp?.key);
+    }
+  }, [selectedApp?.key]);
 
   const initTemplate = (crPackage?: number) => {
     const packageId =
@@ -592,7 +595,7 @@ const BuyPage = () => {
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
                   <div className={s.left_box_inner_sidebar}>
-                    <SidebarV2 items={data} />
+                    <SidebarV2 items={APPS as unknown as IModelCategory[]} setSelectedApp={setSelectedApp} selectedApp={selectedApp}/>
                   </div>
 
                   <div id={'wrapper-data'} className={s.left_box_inner_content}>
@@ -956,59 +959,11 @@ const BuyPage = () => {
                     </button>
                   </div>
                 )}
-
-                {!isCapture && isShowVideo && (
-                  <div className={s.video}>
-                    <ImagePlaceholder
-                      src={'/video.jpg'}
-                      alt={'video'}
-                      width={291}
-                      height={226}
-                      className={s.video_img}
-                    />
-                    <div
-                      className={s.video_play}
-                      onClick={() => setIsOpenModalVideo(true)}
-                    >
-                      <ImagePlaceholder
-                        src={'/play.svg'}
-                        alt={'video'}
-                        width={60}
-                        height={60}
-                      />
-                    </div>
-                    <div
-                      className={s.video_close}
-                      onClick={() => {
-                        setIsOpenModalVideo(false);
-                        setIsShowVideo(false);
-                      }}
-                    >
-                      <ImagePlaceholder
-                        src={'/close.svg'}
-                        alt={'close'}
-                        width={24}
-                        height={24}
-                      />
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>
         </div>
       </DndContext>
-
-      <ModalVideo
-        channel="custom"
-        url={
-          'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'
-        }
-        isOpen={isOpenModalVideo}
-        onClose={() => {
-          setIsOpenModalVideo(false);
-        }}
-      />
 
       <ErrorModal
         title="Module Reset"

@@ -15,11 +15,11 @@ import { useOrderFormStore } from '../../stores/index_v2';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 
 const ComputerNameInput = () => {
-  const { setChainName, chainName } = useOrderFormStore();
+  const { setChainName } = useOrderFormStore();
   const { computerNameField, setComputerNameField, isMainnet } = useBuy();
   const { value, errorMessage } = computerNameField;
-  const inputNameRef = useRef<HTMLInputElement>(null);
-  const {isCapture} = useCaptureStore();
+  const { isCapture } = useCaptureStore();
+
   const onChangeHandler = React.useCallback(
     debounce(async (e: any) => {
       const text = e.target.value;
@@ -62,7 +62,8 @@ const ComputerNameInput = () => {
   );
 
   React.useEffect(() => {
-    const computerName = getRandonComputerName(isMainnet);
+    const computerName =
+      'My Little Blockchain ' + getRandonComputerName(isMainnet);
 
     setChainName(computerName);
     setComputerNameField({
@@ -93,7 +94,6 @@ const ComputerNameInput = () => {
         }}
       />
     </div>
-
   );
 };
 
