@@ -93,4 +93,4 @@ const Draggable = ({
   );
 };
 
-export default Draggable;
+export default React.memo(Draggable);

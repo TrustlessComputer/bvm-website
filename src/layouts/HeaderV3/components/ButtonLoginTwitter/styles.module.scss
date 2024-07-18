@@ -72,10 +72,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 60px;
+  max-width: 100px;
   transform: translateY(1px);
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
+
 .dropdown {
   position: absolute;
   top: calc(100% + 10px);
@@ -118,7 +119,7 @@
         font-style: normal;
         font-weight: 500;
         line-height: 140%; /* 19.6px */
-        text-transform: uppercase;
+        text-transform: capitalize;
         color: #000;
       }
     }

@@ -13,7 +13,7 @@ type TDropdown = {
     label: string;
   })[];
   checkDisable?: boolean;
-  defaultValue: string | number;
+  value: string | number;
   cb: (value: string | number) => void;
   isCustomView?: boolean;
 };
@@ -21,7 +21,7 @@ type TDropdown = {
 function DropdownV2({
   options,
   cb,
-  defaultValue,
+  value,
   disabled = false,
   isCustomView,
 }: TDropdown) {
@@ -29,7 +29,7 @@ function DropdownV2({
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useOrderFormStoreV3();
   const [_icon, setIcon] = useState<string | null>(null);
-  const {isCapture} = useCaptureStore();
+  const { isCapture } = useCaptureStore();
   useOnClickOutside(ref, () => setIsOpen(false));
 
   const handleSelectField = (value: string | number) => {
@@ -37,7 +37,7 @@ function DropdownV2({
     setIsOpen(false);
   };
 
-  const icon = options?.find((item) => item.value === defaultValue)?.icon;
+  const icon = options?.find((item) => item.value === value)?.icon;
 
   React.useEffect(() => {
     setIcon(
@@ -69,16 +69,26 @@ function DropdownV2({
                   height={24}
                 />
               ))}
-            <p className={`${s.dropdown_text} ${isCapture ? styles.label_margin : ''}`}>{options ? options[0].title : ''}</p>
+            <p
+              className={`${s.dropdown_text} ${
+                isCapture ? styles.label_margin : ''
+              }`}
+            >
+              {options ? options[0].title : ''}
+            </p>
           </div>
         ) : (
           <div className={s.dropdown_inner_content}>
             {icon && (
               <Image src={_icon || icon} alt="icon" width={24} height={24} />
             )}
-            <p className={`${isCapture ? styles.label_margin : ''} ${s.dropdown_text}`}>
-              {options?.find((item) => item.value === defaultValue)?.title ||
-                options?.find((item) => item.value === defaultValue)?.label}
+            <p
+              className={`${isCapture ? styles.label_margin : ''} ${
+                s.dropdown_text
+              }`}
+            >
+              {options?.find((item) => item.value === value)?.title ||
+                options?.find((item) => item.value === value)?.label}
             </p>
           </div>
         )}
@@ -111,7 +121,7 @@ function DropdownV2({
                 <li
                   key={index}
                   className={`${s.dropdown_item} ${
-                    defaultValue === option.value && s.dropdown_item__active
+                    value === option.value && s.dropdown_item__active
                   } ${isDisabled && s.dropdown_item__disabled}`}
                   onClick={() => {
                     if (isDisabled) return;
