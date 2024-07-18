@@ -1,0 +1,36 @@
+import { OrderItem } from '@/stores/states/l2services/types';
+import { SimpleGrid } from '@chakra-ui/react';
+import ChainItem from './ChainItem';
+
+type Props = {
+  orderList: OrderItem[] | any[];
+  cloneItemCallback: (item: OrderItem) => void;
+};
+
+const ChainGrid = (props: Props) => {
+  const { orderList = [], cloneItemCallback } = props;
+
+  const cloneOnClickHandler = (item: OrderItem) => {
+    console.log('TO DO 1234');
+    cloneItemCallback(item);
+  };
+  return (
+    <SimpleGrid
+      columns={[1, 2, 3]}
+      w={'100%'}
+      maxH={'max-content'}
+      spacing={['24px']}
+      my={'25px'}
+    >
+      {orderList.map((item, index) => (
+        <ChainItem
+          key={`${item}-${index}`}
+          orderItem={item}
+          cloneOnClick={() => cloneOnClickHandler(item)}
+        />
+      ))}
+    </SimpleGrid>
+  );
+};
+
+export default ChainGrid;
