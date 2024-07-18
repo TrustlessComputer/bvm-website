@@ -827,14 +827,14 @@ const BuyPage = () => {
                       paddingTop: '7.5%',
                     }}
                   >
-                    <LegoV3
+                    {/*<LegoV3
                       background={'#FF3A3A'}
                       label="Chain Name"
                       labelInLeft
                       zIndex={45}
                     >
                       <ComputerNameInput />
-                    </LegoV3>
+                    </LegoV3>*/}
 
                     {fieldsDragged.map((key, index) => {
                       const item = data?.find((i) => i.key === key);
