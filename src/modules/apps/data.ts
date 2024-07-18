@@ -64,7 +64,7 @@ export const APPS = [
         "color": "#FF7A41",
         "type": "module",
         "disable": false,
-        "multiChoice": false,
+        "multiChoice": true,
         "confuseWord": false,
         "confuseIcon": "",
         "confuseTitle": "",
