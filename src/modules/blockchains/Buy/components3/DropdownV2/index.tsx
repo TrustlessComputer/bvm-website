@@ -2,7 +2,9 @@ import React, { useRef, useState } from 'react';
 import s from './styles.module.scss';
 import Image from 'next/image';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
-import useOrderFormStoreV3 from '../../stores/index_v3';
+import useOrderFormStoreV3, { useCaptureStore } from '../../stores/index_v3';
+import { iconToolNames } from '../../Buy.data';
+import styles from '@/modules/blockchains/Buy/components3/LegoV3/styles.module.scss';
 
 type TDropdown = {
   disabled?: boolean;
@@ -17,16 +19,17 @@ type TDropdown = {
 };
 
 function DropdownV2({
-                      options,
-                      cb,
-                      defaultValue,
-                      disabled = false,
-                      isCustomView,
-                    }: TDropdown) {
+  options,
+  cb,
+  defaultValue,
+  disabled = false,
+  isCustomView,
+}: TDropdown) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const { field } = useOrderFormStoreV3();
-
+  const [_icon, setIcon] = useState<string | null>(null);
+  const {isCapture} = useCaptureStore();
   useOnClickOutside(ref, () => setIsOpen(false));
 
   const handleSelectField = (value: string | number) => {
@@ -35,6 +38,16 @@ function DropdownV2({
   };
 
   const icon = options?.find((item) => item.value === defaultValue)?.icon;
+
+  React.useEffect(() => {
+    setIcon(
+      iconToolNames.find(
+        (item) =>
+          icon?.replace('https://storage.googleapis.com/bvm-network', '') ===
+          item,
+      ) || null,
+    );
+  }, [icon]);
 
   return (
     <div className={s.dropdown}>
@@ -45,23 +58,30 @@ function DropdownV2({
           setIsOpen(true);
         }}
       >
-        {
-          isCustomView ? (
-            <div className={s.dropdown_inner_content}>
-              {!(options) || options[0].icon && <Image src={options[0].icon} alt="icon" width={24} height={24} />}
-              <p className={s.dropdown_text}>
-                {options ? options[0].title : ''}
-              </p>
-            </div>
-          ) : (
-            <div className={s.dropdown_inner_content}>
-              {icon && <Image src={icon} alt="icon" width={24} height={24} />}
-              <p className={s.dropdown_text}>
-                {options?.find((item) => item.value === defaultValue)?.title || options?.find((item) => item.value === defaultValue)?.label}
-              </p>
-            </div>
-          )
-        }
+        {isCustomView ? (
+          <div className={s.dropdown_inner_content}>
+            {!options ||
+              (options[0].icon && (
+                <Image
+                  src={options[0].icon}
+                  alt="icon"
+                  width={24}
+                  height={24}
+                />
+              ))}
+            <p className={`${s.dropdown_text} ${isCapture ? styles.label_margin : ''}`}>{options ? options[0].title : ''}</p>
+          </div>
+        ) : (
+          <div className={s.dropdown_inner_content}>
+            {icon && (
+              <Image src={_icon || icon} alt="icon" width={24} height={24} />
+            )}
+            <p className={`${isCapture ? styles.label_margin : ''} ${s.dropdown_text}`}>
+              {options?.find((item) => item.value === defaultValue)?.title ||
+                options?.find((item) => item.value === defaultValue)?.label}
+            </p>
+          </div>
+        )}
 
         {(options?.length || 0) > 1 && (
           <Image

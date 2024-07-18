@@ -6,8 +6,6 @@ import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import IcLogoText from '../IcLogoText';
 import IcArrowRight from '../IcArrowRight';
-import { WHITEPAPER_DOC_URL } from '@/config';
-import ModalVideo from 'react-modal-video';
 
 export default function HeroV2() {
   const router = useRouter();
@@ -36,7 +34,7 @@ export default function HeroV2() {
               className={`${s.btn} ${s.btn__primary}`}
               onClick={() => {
                 tracking('GET_STARTED');
-                router.push('/pricing');
+                router.push('/rollups/customizev2');
               }}
             >
               Get started
@@ -49,28 +47,17 @@ export default function HeroV2() {
             </div>
           </div>
         </div>
-        {/*<ImagePlaceholder*/}
-        {/*  className={s.imageHero}*/}
-        {/*  src={'/bvm/hero-banner.png'}*/}
-        {/*  width="694"*/}
-        {/*  height="579"*/}
-        {/*  alt={'hero'}*/}
-        {/*/>*/}
         <div className={s.imageHero} onClick={() => setIsOpenModalVideo(true)}>
-          <ImagePlaceholder className={s.imageHero} src={'/video_bvm.png'} width={582} height={452} alt={'video'} />
+          {!isOpenModalVideo &&
+            <ImagePlaceholder className={s.imageHero_img} src={'/images/home-hero-poster.jpg'} width={160}
+                              height={90}
+                              alt={'video'} />}
+          <video src={'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'} width={160}
+                 height={90}
+                 preload="auto" playsInline controls />
         </div>
       </div>
       <Brand />
-      <ModalVideo
-        channel="custom"
-        url={
-          'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'
-        }
-        isOpen={isOpenModalVideo}
-        onClose={() => {
-          setIsOpenModalVideo(false);
-        }}
-      />
     </div>
   );
 }
