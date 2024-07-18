@@ -17,17 +17,18 @@ import LegoV3 from './components3/LegoV3';
 import SidebarV2 from './components3/SideBarV2';
 import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
-// import s from './styles_v5.module.scss';
 import s from './styles_v6.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import ErrorModal from './components3/ErrorModal';
-import { mockupOptions } from './Buy.data';
+// import { mockupOptions } from './Buy.data';
 import Capture from '@/modules/blockchains/Buy/Capture';
+import Label from './components3/Label';
 import { TABS, TABS_MAP } from './constants';
 import ExplorePage from './Explore';
+import { OrderItem } from '@/stores/states/l2services/types';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -75,6 +76,16 @@ const BuyPage = () => {
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
   const { isCapture } = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
+
+  const isTabCode = React.useMemo(() => {
+    return tabActive === TABS.CODE;
+  }, [tabActive]);
+
+  const cloneItemCallback = (item: OrderItem) => {
+    setTabActive(TABS.CODE);
+    resetEdit();
+    initTemplate(0, item.selectedOptions);
+  };
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -373,15 +384,22 @@ const BuyPage = () => {
     fetchData();
   }, []);
 
-  const initTemplate = (crPackage?: number) => {
+  const initTemplate = (
+    crPackage?: number,
+    defaultTemplate?: IModelCategory[],
+  ) => {
+    console.log('crPackage ', crPackage);
+    console.log('defaultTemplate ', defaultTemplate);
     const packageId =
       typeof crPackage !== 'undefined'
         ? crPackage
         : searchParams.get('use-case') || '-1';
 
     const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
-    const form = JSON.parse(oldForm) as IModelCategory[];
-
+    const form = defaultTemplate
+      ? defaultTemplate
+      : (JSON.parse(oldForm) as IModelCategory[]);
+    console.log('form ', form);
     if (form.length === 0 || packageId !== '-1') {
       setValueOfPackage(Number(packageId));
     } else {
@@ -396,8 +414,6 @@ const BuyPage = () => {
   }, [templates]);
 
   React.useEffect(() => {
-    const packageId = searchParams.get('use-case') || '-1';
-
     const priceUSD = Object.keys(field).reduce((acc, key) => {
       if (Array.isArray(field[key].value)) {
         const currentOptions = (field[key].value as string[])!.map((value) => {
@@ -567,16 +583,15 @@ const BuyPage = () => {
   }, [idDragging]);
 
   const resetEdit = () => {
-    // if (currentPackage)
-    //   router.push(`/rollups/customizev2?use-case=${currentPackage}`);
-
     setFieldsDragged([]);
     setIsShowModal(false);
     initTemplate(0);
   };
 
   return (
-    <div className={s.container}>
+    <div
+      className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
+    >
       <p className={s.container_text}>
         Drag and drop modules to start new blockchains, new dapps, and new
         economies.
@@ -592,24 +607,21 @@ const BuyPage = () => {
             <div className={s.left}>
               <div className={s.top_left}>
                 <div
-                  className={`${s.top_left_filter} ${
-                    tabActive === TABS.CODE && s.active
-                  }`}
+                  className={`${s.top_left_filter} ${isTabCode && s.active}`}
                   onClick={() => setTabActive(TABS.CODE)}
                 >
                   <p>Code</p>
                 </div>
                 <div
-                  className={`${s.top_left_filter} ${
-                    tabActive === TABS.EXPLORE && s.active
-                  }`}
+                  className={`${s.top_left_filter} ${!isTabCode && s.active}`}
                   onClick={() => setTabActive(TABS.EXPLORE)}
                 >
                   <p>Explore</p>
                 </div>
                 <Capture />
               </div>
-              {tabActive === TABS.CODE && (
+
+              {isTabCode && (
                 <div className={s.left_box}>
                   <div className={s.left_box_inner}>
                     <div className={s.left_box_inner_sidebar}>
@@ -635,104 +647,66 @@ const BuyPage = () => {
                                 content: item.tooltip,
                               }}
                             >
-                              {!field[item.key].dragged &&
-                              item.type === 'dropdown' ? (
-                                <Draggable
-                                  useMask
-                                  id={item.key}
-                                  key={
-                                    item.key +
-                                    field[item.key].dragged.toString()
-                                  }
-                                  disabled={field[item.key].dragged}
-                                  value={field[item.key].value as any}
-                                  tooltip={item.tooltip}
-                                  isLabel={true}
-                                >
-                                  <LegoV3
-                                    background={item.color}
-                                    title={item.title}
-                                    zIndex={data.length - index}
-                                  >
-                                    <DropdownV2
-                                      cb={(value) => {
-                                        setField(
-                                          item.key,
-                                          value,
-                                          field[item.key].dragged,
-                                        );
-                                      }}
-                                      defaultValue={
-                                        (field[item.key].value as any) || ''
-                                      }
-                                      // @ts-ignore
-                                      options={item.options}
-                                      title={item.title}
-                                      value={field[item.key].value as any}
-                                    />
-                                  </LegoV3>
-                                </Draggable>
-                              ) : (
-                                item.options.map((option, optIdx) => {
-                                  let _price = formatCurrencyV2({
-                                    amount: option.priceBVM || 0,
-                                    decimals: 2,
-                                  }).replace('.00', '');
-                                  let suffix =
-                                    Math.abs(option.priceBVM) > 0
-                                      ? `(${_price} BVM)`
-                                      : '';
+                              {item.options.map((option, optIdx) => {
+                                let _price = formatCurrencyV2({
+                                  amount: option.priceBVM || 0,
+                                  decimals: 0,
+                                }).replace('.00', '');
+                                let suffix =
+                                  Math.abs(option.priceBVM) > 0
+                                    ? ` (${_price} BVM)`
+                                    : '';
 
-                                  if (
-                                    (option.key === field[item.key].value &&
-                                      field[item.key].dragged) ||
-                                    item.type === 'dropdown'
-                                  )
+                                if (
+                                  (option.key === field[item.key].value &&
+                                    field[item.key].dragged) ||
+                                  item.type === 'dropdown'
+                                )
+                                  return null;
+
+                                const isDisabled =
+                                  !!(
+                                    option.supportNetwork &&
+                                    option.supportNetwork !== 'both' &&
+                                    option.supportNetwork !==
+                                      field['network']?.value
+                                  ) || !option.selectable;
+
+                                if (
+                                  item.multiChoice &&
+                                  field[item.key].dragged
+                                ) {
+                                  const currentValues = field[item.key]
+                                    .value as any[];
+
+                                  if (currentValues.includes(option.key)) {
                                     return null;
-
-                                  const isDisabled =
-                                    !!(
-                                      option.supportNetwork &&
-                                      option.supportNetwork !== 'both' &&
-                                      option.supportNetwork !==
-                                        field['network']?.value
-                                    ) || !option.selectable;
-
-                                  if (
-                                    item.multiChoice &&
-                                    field[item.key].dragged
-                                  ) {
-                                    const currentValues = field[item.key]
-                                      .value as any[];
-
-                                    if (currentValues.includes(option.key)) {
-                                      return null;
-                                    }
                                   }
+                                }
 
-                                  return (
-                                    <Draggable
-                                      key={item.key + '-' + option.key}
-                                      id={item.key + '-' + option.key}
-                                      useMask
+                                return (
+                                  <Draggable
+                                    key={item.key + '-' + option.key}
+                                    id={item.key + '-' + option.key}
+                                    useMask
+                                    disabled={isDisabled}
+                                    isLabel={true}
+                                    value={option.key}
+                                    tooltip={option.tooltip}
+                                  >
+                                    <LegoV3
+                                      background={item.color}
+                                      zIndex={item.options.length - optIdx}
                                       disabled={isDisabled}
-                                      isLabel={true}
-                                      value={option.key}
-                                      tooltip={option.tooltip}
                                     >
-                                      <LegoV3
-                                        labelInLeft
-                                        background={item.color}
-                                        label={option.title}
-                                        icon={option?.icon}
-                                        zIndex={item.options.length - optIdx}
-                                        disabled={isDisabled}
-                                        suffix={suffix}
+                                      <Label
+                                        icon={option.icon}
+                                        title={option.title + suffix}
                                       />
-                                    </Draggable>
-                                  );
-                                })
-                              )}
+                                    </LegoV3>
+                                  </Draggable>
+                                );
+                              })}
                             </BoxOptionV3>
                           );
                         })}
@@ -745,7 +719,7 @@ const BuyPage = () => {
               )}
             </div>
 
-            {tabActive === TABS.CODE ? (
+            {isTabCode && (
               <>
                 <DragOverlay>
                   {idDragging &&
@@ -773,22 +747,7 @@ const BuyPage = () => {
                                   label={item.title}
                                   labelInLeft
                                   zIndex={item.options.length - opIdx}
-                                >
-                                  <DropdownV2
-                                    disabled
-                                    cb={(value) => {
-                                      setField(
-                                        item.key,
-                                        value,
-                                        field[item.key].dragged,
-                                      );
-                                    }}
-                                    defaultValue={option.value || ''}
-                                    // @ts-ignore
-                                    options={[option]}
-                                    value={option.value}
-                                  />
-                                </LegoV3>
+                                ></LegoV3>
                               </Draggable>
                             );
                           },
@@ -818,40 +777,6 @@ const BuyPage = () => {
                                 {childrenOptions}
                               </LegoParent>
                             </DroppableV2>
-                          </Draggable>
-                        );
-                      }
-
-                      if (item.type === 'dropdown') {
-                        return (
-                          <Draggable
-                            useMask
-                            id={item.key}
-                            value={field[item.key].value as any}
-                            key={item.key}
-                          >
-                            <LegoV3
-                              label={item.title}
-                              background={item.color}
-                              zIndex={data.length - index}
-                            >
-                              <DropdownV2
-                                cb={(value) => {
-                                  setField(
-                                    item.key,
-                                    value,
-                                    field[item.key].dragged,
-                                  );
-                                }}
-                                defaultValue={
-                                  (field[item.key].value as any) || ''
-                                }
-                                // @ts-ignore
-                                options={item.options}
-                                title={item.title}
-                                value={field[item.key].value as any}
-                              />
-                            </LegoV3>{' '}
                           </Draggable>
                         );
                       }
@@ -907,16 +832,16 @@ const BuyPage = () => {
                           <h4 className={s.right_box_footer_left_content}>
                             {formatCurrencyV2({
                               amount: priceBVM,
-                              decimals: 2,
-                            }).replace('.00', '')}{' '}
+                              decimals: 0,
+                            })}{' '}
                             BVM{'/'}month
                           </h4>
                           <h6 className={s.right_box_footer_left_title}>
                             $
                             {formatCurrencyV2({
                               amount: priceUSD,
-                              decimals: 2,
-                            }).replace('.00', '')}
+                              decimals: 0,
+                            })}
                             {'/'}month
                           </h6>
                         </div>
@@ -947,17 +872,11 @@ const BuyPage = () => {
                       >
                         <LegoV3
                           background={'#FF3A3A'}
-                          label="Name"
+                          label="Chain Name"
                           labelInLeft
                           zIndex={45}
                         >
-                          <div
-                            style={{
-                              marginLeft: '8px',
-                            }}
-                          >
-                            <ComputerNameInput />
-                          </div>
+                          <ComputerNameInput />
                         </LegoV3>
 
                         {fieldsDragged.map((key, index) => {
@@ -997,21 +916,9 @@ const BuyPage = () => {
                                       icon={item.confuseIcon}
                                       zIndex={item.options.length - opIdx}
                                     >
-                                      <DropdownV2
-                                        disabled
-                                        cb={(value) => {
-                                          setField(
-                                            item.key,
-                                            value,
-                                            field[item.key].dragged,
-                                          );
-                                        }}
-                                        defaultValue={option.value || ''}
-                                        options={[
-                                          // @ts-ignore
-                                          option,
-                                        ]}
-                                        value={option.value}
+                                      <Label
+                                        icon={option.icon}
+                                        title={option.title}
                                       />
                                     </LegoV3>
                                   </Draggable>
@@ -1035,51 +942,6 @@ const BuyPage = () => {
                                     {childrenOptions}
                                   </LegoParent>
                                 </DroppableV2>
-                              </Draggable>
-                            );
-                          }
-
-                          if (item.type === 'dropdown') {
-                            return (
-                              <Draggable
-                                right
-                                useMask
-                                key={item.key}
-                                id={item.key}
-                                tooltip={item.tooltip}
-                                value={field[item.key].value as any}
-                              >
-                                <LegoV3
-                                  background={item.color}
-                                  zIndex={fieldsDragged.length - index}
-                                  label={item.confuseTitle}
-                                  labelInRight={
-                                    !!item.confuseTitle || !!item.confuseIcon
-                                  }
-                                  icon={item.confuseIcon}
-                                  className={
-                                    showShadow === field[item.key].value
-                                      ? s.activeBlur
-                                      : ''
-                                  }
-                                >
-                                  <DropdownV2
-                                    cb={(value) => {
-                                      setField(
-                                        item.key,
-                                        value,
-                                        field[item.key].dragged,
-                                      );
-                                    }}
-                                    defaultValue={
-                                      (field[item.key].value as any) || ''
-                                    }
-                                    // @ts-ignore
-                                    options={item.options}
-                                    title={item.title}
-                                    value={field[item.key].value as any}
-                                  />
-                                </LegoV3>
                               </Draggable>
                             );
                           }
@@ -1112,24 +974,9 @@ const BuyPage = () => {
                                         : ''
                                     }
                                   >
-                                    <DropdownV2
-                                      disabled
-                                      cb={(value) => {
-                                        setField(
-                                          item.key,
-                                          value,
-                                          field[item.key].dragged,
-                                        );
-                                      }}
-                                      defaultValue={
-                                        (field[item.key].value as any) || ''
-                                      }
-                                      options={[
-                                        // @ts-ignore
-                                        option,
-                                      ]}
-                                      // @ts-ignore
-                                      value={field[item.key].value as any}
+                                    <Label
+                                      icon={option.icon}
+                                      title={option.title}
                                     />
                                   </LegoV3>
                                 </DroppableV2>
@@ -1197,16 +1044,11 @@ const BuyPage = () => {
                   </div>
                 </div>
               </>
-            ) : null}
+            )}
           </div>
+
+          {!isTabCode && <ExplorePage cloneItemCallback={cloneItemCallback} />}
         </div>
-        {tabActive === TABS.EXPLORE && (
-          <ExplorePage
-            cloneItemCallback={(item) => {
-              console.log('CALLBACK item --- ', item?.chainId);
-            }}
-          />
-        )}
       </DndContext>
 
       <ModalVideo

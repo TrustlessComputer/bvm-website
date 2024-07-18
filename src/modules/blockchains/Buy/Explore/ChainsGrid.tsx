@@ -1,6 +1,7 @@
 import { OrderItem } from '@/stores/states/l2services/types';
 import { SimpleGrid } from '@chakra-ui/react';
 import ChainItem from './ChainItem';
+import s from './styles.module.scss';
 
 type Props = {
   orderList: OrderItem[] | any[];
@@ -15,13 +16,7 @@ const ChainGrid = (props: Props) => {
     cloneItemCallback(item);
   };
   return (
-    <SimpleGrid
-      columns={[1, 2, 3]}
-      w={'100%'}
-      maxH={'max-content'}
-      spacing={['24px']}
-      my={'25px'}
-    >
+    <SimpleGrid columns={[1, 2, 3]} w={'100%'} spacing={['24px']} my={'25px'}>
       {orderList.map((item, index) => (
         <ChainItem
           key={`${item}-${index}`}
