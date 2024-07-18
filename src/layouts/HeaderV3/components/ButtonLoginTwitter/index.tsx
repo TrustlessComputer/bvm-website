@@ -1,5 +1,5 @@
 // import { CDN_URL } from '@constants/config';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cs from 'classnames';
 import { toast } from 'react-hot-toast';
 import s from './styles.module.scss';
@@ -8,6 +8,7 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { useAppSelector } from '@/stores/hooks';
 import { accountInforSelector } from '@/stores/states/l2services/selector';
 import { useRouter } from 'next/navigation';
+import useL2Service from '@/hooks/useL2Service';
 
 type Props = {
   color?: 'black' | 'white';
@@ -17,7 +18,15 @@ type Props = {
 const ButtonLoginTwitter = (props: Props) => {
   const router = useRouter();
   const { loggedIn, login, logout } = useWeb3Auth();
+  const { getAccountInfor } = useL2Service();
   const accInfor = useAppSelector(accountInforSelector);
+
+  useEffect(() => {
+    if (loggedIn) {
+      getAccountInfor();
+    }
+  }, [loggedIn]);
+
   const handleConnect = async () => {
     try {
       // await login();
@@ -47,7 +56,13 @@ const ButtonLoginTwitter = (props: Props) => {
       <div className={s.inner}>
         <p className={s.text}>
           {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
-          {!loggedIn ? props?.title || 'Connect' : `Chains`}
+          {!loggedIn
+            ? props?.title || 'Connect'
+            : `${
+                accInfor?.twitterUsername ||
+                accInfor?.email ||
+                accInfor?.tcAddress
+              }`}
         </p>
       </div>
       {/* {isHover && loggedIn && (
