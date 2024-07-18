@@ -49,8 +49,8 @@ export default function HeroV2() {
         </div>
         <div className={s.imageHero} onClick={() => setIsOpenModalVideo(true)}>
           {!isOpenModalVideo &&
-            <ImagePlaceholder className={s.imageHero_img} src={'/images/home-hero-poster.jpg'} width={160}
-                              height={90}
+            <ImagePlaceholder className={s.imageHero_img} src={'/thumbnail_video.jpg'} width={1566}
+                              height={880}
                               alt={'video'} />}
           <video src={'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'} width={160}
                  height={90}

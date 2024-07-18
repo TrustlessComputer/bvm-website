@@ -17,13 +17,13 @@ export default function Brand() {
                 <Image
                   className={s.brand_item_img}
                   src={item.icon}
-                  width={289}
+                  width={180}
                   height={242}
                   alt="brand"
                 />
-                <span className={s.brand_item_text}>
-                  {item.title}
-                </span>
+                {/*<span className={s.brand_item_text}>*/}
+                {/*  {item.title}*/}
+                {/*</span>*/}
               </div>
             );
           })}

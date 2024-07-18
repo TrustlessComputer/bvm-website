@@ -21,7 +21,7 @@
 
   @include is-min-table {
     font-size: 24px;
-    margin-bottom: 24px;
+    margin-bottom: 80px;
   }
   @include is-pc {
     font-size: 32px;
@@ -56,8 +56,8 @@
     }
 
     &_img {
-      width: 60px;
-      height: 60px;
+      max-width: 180px;
+      height: auto;
     }
 
     &_text {
