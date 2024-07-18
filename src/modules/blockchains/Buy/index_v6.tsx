@@ -83,8 +83,9 @@ const BuyPage = () => {
 
   const cloneItemCallback = (item: OrderItem) => {
     setTabActive(TABS.CODE);
-    resetEdit();
-    initTemplate(0, item.selectedOptions);
+    setFieldsDragged([]);
+    setIsShowModal(false);
+    setTempalteDataClone(item.selectedOptions || []);
   };
 
   const handleDragStart = (event: any) => {
@@ -281,6 +282,35 @@ const BuyPage = () => {
     });
   };
 
+  const setTempalteDataClone = (data: IModelCategory[]) => {
+    // set default value for package
+    const templateData = data;
+    const fieldsNotInTemplate = data?.filter(
+      (item) => !templateData.find((temp) => temp.key === item.key),
+    );
+
+    templateData.forEach((_field) => {
+      if (_field.multiChoice) {
+        setField(
+          _field.key,
+          _field.options.map((option) => option.key),
+          _field.options[0] ? true : false,
+        );
+      } else {
+        setField(
+          _field.key,
+          _field.options[0].key || null,
+          _field.options[0] ? true : false,
+        );
+      }
+
+      setFieldsDragged((prev) => [...prev, _field.key]);
+    });
+    fieldsNotInTemplate?.forEach((field) => {
+      setField(field.key, null, false);
+    });
+  };
+
   const fetchData = async () => {
     const modelCategories =
       (await getModelCategories(l2ServiceUserAddress)) || [];
@@ -384,22 +414,15 @@ const BuyPage = () => {
     fetchData();
   }, []);
 
-  const initTemplate = (
-    crPackage?: number,
-    defaultTemplate?: IModelCategory[],
-  ) => {
-    console.log('crPackage ', crPackage);
-    console.log('defaultTemplate ', defaultTemplate);
+  const initTemplate = (crPackage?: number) => {
     const packageId =
       typeof crPackage !== 'undefined'
         ? crPackage
         : searchParams.get('use-case') || '-1';
 
     const oldForm = localStorage.getItem('bvm.customize-form') || `[]`;
-    const form = defaultTemplate
-      ? defaultTemplate
-      : (JSON.parse(oldForm) as IModelCategory[]);
-    console.log('form ', form);
+    const form = JSON.parse(oldForm) as IModelCategory[];
+
     if (form.length === 0 || packageId !== '-1') {
       setValueOfPackage(Number(packageId));
     } else {
