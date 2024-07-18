@@ -39,7 +39,7 @@ const ButtonLoginTwitter = (props: Props) => {
         if (!loggedIn) {
           handleConnect();
         } else {
-          router.push('/rollups');
+          router.push('/chains');
         }
       }}
       onMouseEnter={() => setIsHover(true)}
@@ -47,7 +47,7 @@ const ButtonLoginTwitter = (props: Props) => {
       <div className={s.inner}>
         <p className={s.text}>
           {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
-          {!loggedIn ? props?.title || 'Connect' : `Your Chains`}
+          {!loggedIn ? props?.title || 'Connect' : `Chains`}
         </p>
       </div>
       {/* {isHover && loggedIn && (

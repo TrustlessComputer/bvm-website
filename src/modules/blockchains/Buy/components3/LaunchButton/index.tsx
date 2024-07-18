@@ -40,7 +40,7 @@ const LaunchButton = ({
     | null;
   originalData: IModelCategory[] | null;
 }) => {
-  const { field, priceBVM, priceUSD } = useOrderFormStoreV3();
+  const { field, priceBVM, priceUSD, needContactUs } = useOrderFormStoreV3();
   const { loggedIn, login } = useWeb3Auth();
   const { accountInforL2Service, availableListFetching, availableList } =
     useAppSelector(getL2ServicesStateSelector);
@@ -120,30 +120,6 @@ const LaunchButton = ({
       return;
     }
 
-    for (const _field of originalData) {
-      if (!field[_field.key].dragged) continue;
-
-      if (_field.multiChoice) {
-        for (const value of field[_field.key].value as string[]) {
-          const option = _field.options.find((opt) => opt.key === value);
-
-          if (option?.needContactUs) {
-            showContactUsModal();
-            return;
-          }
-        }
-      }
-
-      const option = _field.options.find(
-        (opt) => opt.key === field[_field.key].value,
-      );
-
-      if (option?.needContactUs) {
-        showContactUsModal();
-        return;
-      }
-    }
-
     const dynamicForm: any[] = [];
     for (const _field of originalData) {
       if (!field[_field.key].dragged) continue;
@@ -168,6 +144,11 @@ const LaunchButton = ({
         ...rest,
         options: [value],
       });
+    }
+
+    if (needContactUs) {
+      showContactUsModal(dynamicForm as any);
+      return;
     }
 
     if (!loggedIn) {
@@ -225,11 +206,9 @@ const LaunchButton = ({
       <div className={`${s.launch} ${s.active}`} onClick={handleOnClick}>
         <div className={s.inner}>
           {!loggedIn ? (
-            <Text className={s.connect}>Launch</Text>
-          ) : (
-            <React.Fragment>
-              <div className={s.top}>
-                {isSubmiting ? <Spinner color="#fff" /> : <p>Launch</p>}
+            <Text className={s.connect}>
+              {needContactUs ? 'Contact Us' : 'Launch'}
+              {!needContactUs && (
                 <div className={`${s.icon}`}>
                   <ImagePlaceholder
                     src={'/launch.png'}
@@ -238,6 +217,27 @@ const LaunchButton = ({
                     height={48}
                   />
                 </div>
+              )}
+            </Text>
+          ) : (
+            <React.Fragment>
+              <div className={s.top}>
+                {isSubmiting ? (
+                  <Spinner color="#fff" />
+                ) : (
+                  <p>{needContactUs ? 'Contact Us' : 'Launch'}</p>
+                )}
+
+                {!needContactUs && (
+                  <div className={`${s.icon}`}>
+                    <ImagePlaceholder
+                      src={'/launch.png'}
+                      alt={'launch'}
+                      width={48}
+                      height={48}
+                    />
+                  </div>
+                )}
               </div>
             </React.Fragment>
           )}

@@ -17,3 +17,4 @@ export const ERC404 = `${NAKA_WEB}/brc-404`;
 export const APP_STORE = `/app-store`;
 export const PRICING = `/pricing`;
 export const ROLLUPS = `/rollups`;
+export const BVM_STUDIO = '/rollups/customizev2';

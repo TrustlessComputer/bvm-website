@@ -19,7 +19,7 @@ const SUBJECT_LIST = [
   `Others`,
 ];
 
-const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
+const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
   const [subject, setSubject] = useState(3);
   const { tracking } = useL2ServiceTracking();
 
@@ -84,7 +84,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
 
       console.log('valid ', valid);
       if (valid) {
-        const params: SubmitFormParams = {
+        const submitParams: SubmitFormParams = {
           bitcoinL2Name: '',
           bitcoinL2Description: yourPlan,
           network: '',
@@ -96,8 +96,9 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB }: any) => {
           telegram: yourTelegramAcc,
           isContractUs: true,
           subject: SUBJECT_LIST[subject],
+          nodeConfigs: params ? params : [],
         };
-        const result = await submitContact(params);
+        const result = await submitContact(submitParams);
         console.log('[submitHandler] result: ', result);
         if (result) {
           onSuccesCB && onSuccesCB();

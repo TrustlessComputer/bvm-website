@@ -35,21 +35,41 @@
 }
 
 .imageHero {
-  aspect-ratio: 694/579;
+  aspect-ratio: 16/9;
   object-fit: contain;
   max-width: 320px;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+
+  :global(.imagePreload) {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+  }
+
+  video {
+    width: 100% !important;
+    object-fit: contain;
+    border-radius: 24px;
+    overflow: hidden;
+  }
 
   @include is-min-table {
-    max-width: 520px;
+    max-width: 720px;
   }
 
   @include is-pc {
-    max-width: unset;
-    max-height: 579px;
-    margin-left: 0;
-    transform: translateY(8%);
+    margin-top: 40px;
+    margin-left: unset;
+    margin-right: unset;
   }
 }
 
@@ -322,17 +342,17 @@
   }
 }
 
-.img_video {
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  width: 100%;
-  
-  @include is-pc {
-    width: fit-content;
-  }
-
-  img {
-    width: 500px;
-  }
-}
+//.img_video {
+//  display: flex;
+//  justify-content: center;
+//  cursor: pointer;
+//  width: 100%;
+//
+//  @include is-pc {
+//    width: fit-content;
+//  }
+//
+//  img {
+//    width: 500px;
+//  }
+//}
