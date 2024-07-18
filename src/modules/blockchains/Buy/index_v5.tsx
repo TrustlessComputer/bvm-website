@@ -26,6 +26,8 @@ import ErrorModal from './components3/ErrorModal';
 import { mockupOptions } from './Buy.data';
 import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
+import Image from 'next/image';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -70,7 +72,7 @@ const BuyPage = () => {
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
   const { isCapture } = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
-
+  const { showContactUsModal } = useContactUs();
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -588,6 +590,12 @@ const BuyPage = () => {
                   <p>Explore</p>
                 </div>
                 <Capture />
+                <div className={s.reset} onClick={() => showContactUsModal()}>
+                  <p>Contact us</p>
+                  <div className={s.icon}>
+                    <Image src={'/icons/ic_arrow_orange.svg'} alt={'x'} width={16} height={16} />
+                  </div>
+                </div>
               </div>
               <div className={s.left_box}>
                 <div className={s.left_box_inner}>
