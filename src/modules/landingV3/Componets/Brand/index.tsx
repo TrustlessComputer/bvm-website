@@ -20,6 +20,8 @@ export default function Brand() {
                   width={180}
                   height={242}
                   alt="brand"
+                  sizes={'100vw'}
+                  quality={100}
                 />
                 {/*<span className={s.brand_item_text}>*/}
                 {/*  {item.title}*/}

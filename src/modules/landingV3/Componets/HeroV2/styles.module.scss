@@ -18,20 +18,18 @@
     justify-content: space-between;
   }
 
-  :global {
-    .imagePreload {
-      width: 100%;
-      margin-top: 80px;
-      @include is-min-table {
-        margin-top: 100px;
-      }
 
-      @include is-pc {
-        margin-top: 0;
-        width: auto;
-      }
-    }
-  }
+}
+
+.imagePreload {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  pointer-events: none;
 }
 
 .imageHero {
@@ -44,16 +42,7 @@
   cursor: pointer;
   position: relative;
 
-  :global(.imagePreload) {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    position: absolute;
-    z-index: 2;
-    left: 0;
-    top: 0;
-    pointer-events: none;
-  }
+
 
   video {
     width: 100% !important;
@@ -119,8 +108,8 @@
   }
 
   @include is-pc {
-    padding-bottom: 154px;
-    padding-top: 216px;
+    padding-bottom: 100px;
+    padding-top: 180px;
     align-items: flex-start;
     max-width: 571px;
   }
@@ -355,4 +344,9 @@
 //  img {
 //    width: 500px;
 //  }
+//}
+//
+//.imageHero_img {
+//  position: absolute;
+//  z-index: 9999;
 //}
