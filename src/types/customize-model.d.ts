@@ -1,6 +1,6 @@
 interface IDappValue {
-  key: string,
-  value: string | string[]
+  key: string;
+  value: string | number | { key: string; value: string | number }[];
 }
 
 interface IModelOption {
@@ -13,8 +13,9 @@ interface IModelOption {
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
   order: number;
-  value: string | number;
+  value: string | number | IDappValue[];
   needContactUs: boolean;
+  keyDapp?: string;
 }
 
 interface IModelCategory {
@@ -48,19 +49,19 @@ interface ChainInfos {
 }
 
 interface DappField {
-  key: string,
-  title: string,
-  type: 'input' | 'dropdown' | 'extends',
-  isRender: 'fixed' | 'dynamic',
+  key: string;
+  title: string;
+  type: 'input' | 'dropdown' | 'extends';
+  isRender: 'fixed' | 'dynamic';
   fields: {
-    key: string,
-    title: string,
-    type: 'input' | 'dropdown'
-  }[]
+    key: string;
+    title: string;
+    type: 'input' | 'dropdown';
+  }[];
 }
 
 interface DappCategory {
-  title: string,
-  key: string,
-  fields: DappField[]
+  title: string;
+  key: string;
+  fields: DappField[];
 }
