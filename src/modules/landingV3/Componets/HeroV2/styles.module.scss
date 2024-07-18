@@ -15,10 +15,9 @@
   @include is-pc {
     flex-direction: row;
     align-items: center;
+    padding-top: vh(32px, 1440px);
     justify-content: space-between;
   }
-
-
 }
 
 .imagePreload {
@@ -41,7 +40,6 @@
   width: 100%;
   cursor: pointer;
   position: relative;
-
 
 
   video {

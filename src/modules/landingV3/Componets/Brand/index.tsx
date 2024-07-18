@@ -1,6 +1,5 @@
 import React from 'react';
 import { DATA_BRAND } from '../../data-sections';
-import Image from 'next/image';
 import s from './styles.module.scss';
 
 export default function Brand() {
@@ -14,18 +13,13 @@ export default function Brand() {
           {DATA_BRAND.map((item) => {
             return (
               <div className={s.brand_item} key={item.title}>
-                <Image
+                <img
                   className={s.brand_item_img}
                   src={item.icon}
                   width={180}
-                  height={242}
+                  height={73}
                   alt="brand"
-                  sizes={'100vw'}
-                  quality={100}
                 />
-                {/*<span className={s.brand_item_text}>*/}
-                {/*  {item.title}*/}
-                {/*</span>*/}
               </div>
             );
           })}
