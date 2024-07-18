@@ -1,4 +1,4 @@
-interface IDappValue  {
+interface IDappValue {
   key: string,
   value: string | string[]
 }
@@ -15,7 +15,6 @@ interface IModelOption {
   order: number;
   value: string | number;
   needContactUs: boolean;
-  infoData?: IDappValue[];
 }
 
 interface IModelCategory {
@@ -46,4 +45,22 @@ interface ChainInfos {
   image: string;
   name: string;
   url: string;
+}
+
+interface DappField {
+  key: string,
+  title: string,
+  type: 'input' | 'dropdown' | 'extends',
+  isRender: 'fixed' | 'dynamic',
+  fields: {
+    key: string,
+    title: string,
+    type: 'input' | 'dropdown'
+  }[]
+}
+
+interface DappCategory {
+  title: string,
+  key: string,
+  fields: DappField[]
 }
