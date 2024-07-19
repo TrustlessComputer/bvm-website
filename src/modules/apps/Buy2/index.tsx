@@ -91,8 +91,6 @@ const ReactBlocklyComponent = () => {
     setJavascriptCode(code);
   }
 
-  console.log('javascriptCode', javascriptCode);
-
   return (
     <Box className={s.container}>
       <BlocklyWorkspace

@@ -126,6 +126,7 @@
     "uuid": "^9.0.1",
     "valtio": "^1.13.0",
     "web3": "^4.0.3",
+    "zksync-ethers": "^6.10.0",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
