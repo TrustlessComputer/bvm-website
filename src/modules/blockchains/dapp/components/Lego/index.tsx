@@ -95,7 +95,7 @@ function Lego({
           {title && titleInLeft ? (
             <div className={`${styles.label} ${styles.label__left}`}>
               {_icon && <Image src={_icon} alt="icon" width={24} height={24} />}
-              <p className={isCapture ? styles.label_margin : ''}>{title} </p>
+              <p className={isCapture ? styles.label_margin : ''}>{title}</p>
             </div>
           ) : null}
 

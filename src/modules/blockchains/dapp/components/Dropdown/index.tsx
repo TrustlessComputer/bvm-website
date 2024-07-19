@@ -7,29 +7,53 @@ import ImagePlaceholder from '@/components/ImagePlaceholder';
 import styles from './styles.module.scss';
 
 type Props = {
+  background?: string;
   disabled?: boolean;
-  options?: (IModelOption & {
-    value: string | number;
-  })[];
-  value: IModelOption & {
-    value: string | number;
-  };
-  handleOnClickOption: (value: string | number) => void;
+  options: FieldModel[];
+  value: FieldModel;
+  handleOnClickOption: (
+    name: string,
+    option: FieldModel,
+    required: boolean,
+    optionalIndex?: number,
+  ) => void;
+  optionalIndex?: number;
+  required?: boolean;
+  name: string;
 };
 
-const Dropdown = ({ disabled, options, value, handleOnClickOption }: Props) => {
+const Dropdown = ({
+  background = '#213423',
+  disabled,
+  options,
+  value,
+  handleOnClickOption,
+  optionalIndex,
+  required = false,
+  name,
+}: Props) => {
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [isOpenDropdown, setIsOpenDropdown] = React.useState<boolean>(false);
 
   useOnClickOutside(ref, () => setIsOpenDropdown(false));
 
   return (
-    <div className={styles.dropdown}>
+    <div
+      className={styles.dropdown}
+      ref={ref}
+      style={{
+        // @ts-ignore
+        '--background': background,
+      }}
+    >
       <div className={styles.dropdown__inner}>
-        <div className={styles.dropdown__inner__content}>
+        <div
+          className={styles.dropdown__inner__content}
+          onClick={() => setIsOpenDropdown(!isOpenDropdown)}
+        >
           {value.icon && (
             <ImagePlaceholder
-              src={value.icon}
+              src={value.icon || options[0].icon}
               alt={value.title + ' logo'}
               width={16}
               height={16}
@@ -57,11 +81,13 @@ const Dropdown = ({ disabled, options, value, handleOnClickOption }: Props) => {
       >
         {options?.map((item) => (
           <li
-            key={item.value}
-            className={styles.dropdown__list__item}
+            key={item.key}
+            className={cn(styles.dropdown__list__item, {
+              [styles.dropdown__list__item__active]: value.key === item.key,
+            })}
             onClick={() => {
               setIsOpenDropdown(false);
-              handleOnClickOption(item.value);
+              handleOnClickOption(name, item, required, optionalIndex);
             }}
           >
             {item.icon && (

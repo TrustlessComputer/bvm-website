@@ -1,19 +1,16 @@
-import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, useSensor, useSensors } from '@dnd-kit/core';
 import React from 'react';
 
-import { getModelCategories } from '@/services/customize-model';
-import { MouseSensor } from './utils';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import LegoParent from './components/LegoParent';
-import Lego from './components/Lego';
-import Input from './components/Input';
-import { mockupData } from './components/mockup';
+
+import { MouseSensor } from './utils';
 import BaseDappLego from './components/BaseDappLego';
+import useDappsStore from './stores/useDappStore';
+import { mockupData } from './mockup';
 
 const RollupsDappPage = () => {
   const { l2ServiceUserAddress } = useWeb3Auth();
-
-  const [data, setData] = React.useState<IModelCategory[]>([]);
+  const { dapps, setDapps, setFormDapps } = useDappsStore();
 
   const handleDragStart = (event: any) => {};
 
@@ -24,11 +21,19 @@ const RollupsDappPage = () => {
   );
 
   const fetchData = async () => {
-    const modelCategories =
-      (await getModelCategories(l2ServiceUserAddress)) || [];
+    const dapps = mockupData;
 
-    const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
-    setData(_modelCategories);
+    const _dapps = dapps.sort((a, b) => a.order - b.order);
+    const formDapps: Record<string, DappModel> = _dapps.reduce(
+      (acc, dapp) => ({
+        ...acc,
+        [dapp.key]: dapp,
+      }),
+      {},
+    );
+
+    setDapps(_dapps);
+    setFormDapps(formDapps);
   };
 
   React.useEffect(() => {
@@ -41,8 +46,8 @@ const RollupsDappPage = () => {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      {mockupData.map((data) => (
-        <BaseDappLego {...data} />
+      {dapps.map((data) => (
+        <BaseDappLego id={data.key} key={data.key} />
       ))}
     </DndContext>
   );
