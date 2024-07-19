@@ -8,6 +8,7 @@ import {
   fetchAvailableList,
   fetchAllOrdersV2,
   fetchDAList,
+  fetchTemplateV2,
 } from './actions';
 import { PREFIX } from './constants';
 import {
@@ -56,6 +57,11 @@ export const initialState: L2ServicesState = {
   isDAListFetching: false,
   isDAListFetched: false,
   daList: [],
+
+  //Template
+  isTempalteFetching: false,
+  isTempalteFetched: false,
+  templateList: [],
 };
 
 const slice = createSlice({
@@ -203,6 +209,20 @@ const slice = createSlice({
       .addCase(fetchDAList.rejected, (state, _) => {
         state.isDAListFetching = false;
         state.isDAListFetched = true;
+        state.daList = [];
+      })
+
+      .addCase(fetchTemplateV2.pending, (state) => {
+        state.isTempalteFetching = true;
+      })
+      .addCase(fetchTemplateV2.fulfilled, (state, action) => {
+        state.isTempalteFetching = false;
+        state.isTempalteFetched = true;
+        state.templateList = action.payload || [];
+      })
+      .addCase(fetchTemplateV2.rejected, (state, _) => {
+        state.isTempalteFetching = false;
+        state.isTempalteFetched = true;
         state.daList = [];
       });
   },

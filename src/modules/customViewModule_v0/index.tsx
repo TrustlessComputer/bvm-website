@@ -10,7 +10,8 @@ import s from './styles.module.scss';
 import { OrderItem } from '@/stores/states/l2services/types';
 
 type Props = {
-  orderItem: OrderItem;
+  orderItem?: OrderItem;
+  chainName?: string;
   selectedOptions: IModelCategory[];
 };
 
@@ -22,7 +23,9 @@ export default function CustomViewModule(props: Props) {
       <div className={s.inner}>
         <DroppableV2 id="final" className={s.finalResult}>
           <LegoV3 background={'#FF3A3A'} label="Name" labelInLeft zIndex={45}>
-            <p className={s.name}>{`${props.orderItem?.chainName || ''}`}</p>
+            <p className={s.name}>{`${
+              props.orderItem?.chainName || props.chainName || ''
+            }`}</p>
           </LegoV3>
 
           {data?.map((item, index) => {
