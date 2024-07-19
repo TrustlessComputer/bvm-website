@@ -35,12 +35,7 @@ const Header = (props: Props) => {
         borderRadius={'100%'}
       />
       <Flex flexDir={'column'} justify={'center'} align={'flex-start'} h="100%">
-        <Text
-          fontSize={['24px']}
-          fontWeight={500}
-          color={'#000'}
-          textTransform={'capitalize'}
-        >
+        <Text fontSize={['24px']} fontWeight={500} color={'#000'}>
           {`${chainNameFormated}`}
         </Text>
         {description && (
