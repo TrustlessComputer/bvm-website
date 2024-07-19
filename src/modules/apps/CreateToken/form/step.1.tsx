@@ -1,6 +1,6 @@
 import ButtonConnected from "@/components/ButtonConnected";
 import ButtonWrapper from "@/components/ButtonWrapper";
-import FieldAmount from "@/components/Form/fieldAmount";
+import FieldAmount from "@/components/Form/fieldAmount.Formik";
 import InputWrapper from "@/components/Form/inputWrapper";
 import { required } from "@/utils/form-validate";
 import { requiredAmount } from "@/utils/validate";
