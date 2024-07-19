@@ -5,25 +5,38 @@ type UseDappsSlice = {
   setDapps: (dapps: DappModel[]) => void;
 };
 
-type UseDappFormSlice = {
+type UseFormDappsSlice = {
   formDapps: Record<string, DappModel>;
   setFormDapps: (formDapps: Record<string, DappModel>) => void;
+  setFormDappsWithKey: (key: string, dapp: DappModel) => void;
 };
 
-type UseDappStore = UseDappsSlice & UseDappFormSlice;
+type UseDappStore = UseDappsSlice;
+type UseFormDappStore = UseFormDappsSlice;
 
 const useDappsSlice: StateCreator<UseDappsSlice> = (set) => ({
   dapps: [],
   setDapps: (dapps) => set({ dapps }),
 });
 
-const useDappFormSlice: StateCreator<UseDappFormSlice> = (set) => ({
+const useDappFormSlice: StateCreator<UseFormDappsSlice> = (set) => ({
   formDapps: {},
   setFormDapps: (formDapps) => set({ formDapps }),
+  setFormDappsWithKey: (key, dapp) =>
+    set((state) => ({
+      formDapps: {
+        ...state.formDapps,
+        [key]: dapp,
+      },
+    })),
 });
 
 const useDappsStore = create<UseDappStore>((...set) => ({
   ...useDappsSlice(...set),
+  // ...useDappFormSlice(...set),
+}));
+
+export const useFormDappsStore = create<UseFormDappStore>((...set) => ({
   ...useDappFormSlice(...set),
 }));
 

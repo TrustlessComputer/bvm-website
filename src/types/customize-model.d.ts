@@ -83,9 +83,8 @@ interface FieldModel {
   key: string;
   icon: string;
   title: string;
-  defaultValue: string | number;
   value: string | number;
-  type: 'input' | 'dropdown' | 'extends';
+  type: 'input' | 'dropdown' | 'extends' | '';
   tooltip: string;
   options?: FieldModel[];
 }
