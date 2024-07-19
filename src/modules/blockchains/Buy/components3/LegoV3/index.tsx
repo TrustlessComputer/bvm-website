@@ -30,7 +30,6 @@ function LegoV3({
   label = '',
   labelInLeft = false,
   labelInRight = false,
-  parentOfNested = false,
   first = false,
   last = false,
   active = false,
@@ -44,16 +43,21 @@ function LegoV3({
 }: LegoV3) {
   const legoRef = React.useRef<HTMLDivElement | null>(null);
   const { idDropdownCurrent, setIdDropdownCurrent } = useStoreDropDown();
-  const [_icon, setIcon] = useState<string | null>(null);
-  const {isCapture} = useCaptureStore();
+  const { isCapture } = useCaptureStore();
+
+  const _icon =
+    iconToolNames.find(
+      (item) =>
+        icon?.replace('https://storage.googleapis.com/bvm-network', '') ===
+        item,
+    ) ||
+    icon ||
+    null;
+
   React.useEffect(() => {
     let parentLego = legoRef.current?.parentElement;
 
     if (!parentLego) return;
-
-    if (parentOfNested) {
-      parentLego = parentLego.parentElement as HTMLDivElement;
-    }
 
     parentLego.style.position = 'relative';
     parentLego.style.zIndex = `${zIndex * 2} `;
@@ -66,16 +70,6 @@ function LegoV3({
     fillBackgroundAsHSB?.s || 0,
     (fillBackgroundAsHSB?.b || 100) - 20,
   )?.split('.')[0];
-
-  React.useEffect(() => {
-    setIcon(
-      iconToolNames.find(
-        (item) =>
-          icon?.replace('https://storage.googleapis.com/bvm-network', '') ===
-          item,
-      ) || null,
-    );
-  }, [icon]);
 
   return (
     <React.Fragment>
@@ -99,40 +93,23 @@ function LegoV3({
           svgUrl="/landingV3/svg/stud_head.svg"
           className={styles.wrapper_studHead}
         />
-        <div
-          className={`${styles.inner} ${
-            parentOfNested ? styles.inner_nested : ''
-          }`}
-        >
+        <div className={`${styles.inner}`}>
           {label && labelInLeft ? (
-            <div className={styles.label}>
-              {icon && (
-                <Image src={_icon || icon} alt="icon" width={24} height={24} />
-              )}
+            <div className={`${styles.label} ${styles.label__left}`}>
+              {_icon && <Image src={_icon} alt="icon" width={24} height={24} />}
               <p className={isCapture ? styles.label_margin : ''}>{label} </p>
             </div>
           ) : null}
-          {parentOfNested ? (
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              {children}
-            </div>
-          ) : children ? (
-            <div className={styles.options}>{children}</div>
-          ) : null}
+
+          {children && <div className={styles.options}>{children}</div>}
+
           {(label || icon) && labelInRight ? (
-            <div className={styles.label}>
-              {icon && (
-                <Image src={_icon || icon} alt="icon" width={16} height={16} />
-              )}
+            <div className={`${styles.label} ${styles.label__right}`}>
+              {_icon && <Image src={_icon} alt="icon" width={16} height={16} />}
               <p className={isCapture ? styles.label_margin : ''}>{label} </p>
             </div>
           ) : null}
+
           <div className={styles.label}>
             <p>{suffix}</p>
           </div>

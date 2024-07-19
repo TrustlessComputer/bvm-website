@@ -3,9 +3,10 @@ import { useRouter } from 'next/navigation';
 import React, { useRef, useState } from 'react';
 import Brand from '../Brand';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
-import ImagePlaceholder from '@components/ImagePlaceholder';
+import Image from 'next/image';
 import IcLogoText from '../IcLogoText';
 import IcArrowRight from '../IcArrowRight';
+import ImagePlaceholder from '@components/ImagePlaceholder';
 
 export default function HeroV2() {
   const router = useRouter();
@@ -49,9 +50,9 @@ export default function HeroV2() {
         </div>
         <div className={s.imageHero} onClick={() => setIsOpenModalVideo(true)}>
           {!isOpenModalVideo &&
-            <ImagePlaceholder className={s.imageHero_img} src={'/images/home-hero-poster.jpg'} width={160}
-                              height={90}
-                              alt={'video'} />}
+            <Image className={s.imagePreload} src={'/thumbnail_video.jpg'} width={1566}
+                              height={880}
+                              alt={'video'} sizes={'100vw'} quality={100} />}
           <video src={'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'} width={160}
                  height={90}
                  preload="auto" playsInline controls />

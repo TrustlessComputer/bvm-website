@@ -112,4 +112,4 @@ const BoxOptionV3 = ({
   );
 };
 
-export default BoxOptionV3;
+export default React.memo(BoxOptionV3);
