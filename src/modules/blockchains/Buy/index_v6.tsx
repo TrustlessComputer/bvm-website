@@ -17,7 +17,7 @@ import LegoV3 from './components3/LegoV3';
 import SidebarV2 from './components3/SideBarV2';
 import useOrderFormStoreV3, { useCaptureStore } from './stores/index_v3';
 import useDragMask from './stores/useDragMask';
-import s from './styles_v5.module.scss';
+import s from './styles_v6.module.scss';
 import { MouseSensor } from './utils';
 import { formatCurrencyV2 } from '@/utils/format';
 import ImagePlaceholder from '@components/ImagePlaceholder';
@@ -26,8 +26,9 @@ import ErrorModal from './components3/ErrorModal';
 // import { mockupOptions } from './Buy.data';
 import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
-import Image from 'next/image';
-import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { TABS, TABS_MAP } from './constants';
+import ExplorePage from './Explore';
+import { OrderItem } from '@/stores/states/l2services/types';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -58,6 +59,9 @@ const BuyPage = () => {
     setNeedContactUs,
     needContactUs,
   } = useOrderFormStoreV3();
+
+  const [tabActive, setTabActive] = React.useState<TABS>(TABS.CODE);
+
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();
   const [fieldsDragged, setFieldsDragged] = React.useState<string[]>([]);
@@ -72,7 +76,18 @@ const BuyPage = () => {
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
   const { isCapture } = useCaptureStore();
   const { l2ServiceUserAddress } = useWeb3Auth();
-  const { showContactUsModal } = useContactUs();
+
+  const isTabCode = React.useMemo(() => {
+    return tabActive === TABS.CODE;
+  }, [tabActive]);
+
+  const cloneItemCallback = (template: IModelCategory[]) => {
+    setTabActive(TABS.CODE);
+    setFieldsDragged([]);
+    setIsShowModal(false);
+    setTempalteDataClone(template || []);
+  };
+
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
@@ -241,6 +256,35 @@ const BuyPage = () => {
     // set default value for package
     const templateData = (templates?.[Number(packageId)] ||
       []) as IModelCategory[];
+    const fieldsNotInTemplate = data?.filter(
+      (item) => !templateData.find((temp) => temp.key === item.key),
+    );
+
+    templateData.forEach((_field) => {
+      if (_field.multiChoice) {
+        setField(
+          _field.key,
+          _field.options.map((option) => option.key),
+          _field.options[0] ? true : false,
+        );
+      } else {
+        setField(
+          _field.key,
+          _field.options[0].key || null,
+          _field.options[0] ? true : false,
+        );
+      }
+
+      setFieldsDragged((prev) => [...prev, _field.key]);
+    });
+    fieldsNotInTemplate?.forEach((field) => {
+      setField(field.key, null, false);
+    });
+  };
+
+  const setTempalteDataClone = (data: IModelCategory[]) => {
+    // set default value for package
+    const templateData = data;
     const fieldsNotInTemplate = data?.filter(
       (item) => !templateData.find((temp) => temp.key === item.key),
     );
@@ -568,7 +612,9 @@ const BuyPage = () => {
   };
 
   return (
-    <div className={s.container}>
+    <div
+      className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
+    >
       <p className={s.container_text}>
         Drag and drop modules to start new blockchains, new dapps, and new
         economies.
@@ -583,305 +629,148 @@ const BuyPage = () => {
           <div className={s.inner}>
             <div className={s.left}>
               <div className={s.top_left}>
-                <div className={`${s.top_left_filter} ${s.active}`}>
+                <div
+                  className={`${s.top_left_filter} ${isTabCode && s.active}`}
+                  onClick={() => setTabActive(TABS.CODE)}
+                >
                   <p>Code</p>
                 </div>
-                <div className={s.top_left_filter}>
+                <div
+                  className={`${s.top_left_filter} ${!isTabCode && s.active}`}
+                  onClick={() => setTabActive(TABS.EXPLORE)}
+                >
                   <p>Explore</p>
                 </div>
-                <Capture />
-                <div className={s.reset} onClick={() => showContactUsModal()}>
-                  <p>Contact us</p>
-                  <div className={s.icon}>
-                    <Image src={'/icons/ic_arrow_orange.svg'} alt={'x'} width={16} height={16} />
-                  </div>
-                </div>
+
               </div>
-              <div className={s.left_box}>
-                <div className={s.left_box_inner}>
-                  <div className={s.left_box_inner_sidebar}>
-                    <SidebarV2 items={data} />
-                  </div>
 
-                  <div id={'wrapper-data'} className={s.left_box_inner_content}>
-                    <DroppableV2 id="data">
-                      {data?.map((item, index) => {
-                        return (
-                          <BoxOptionV3
-                            key={item.key}
-                            disable={item.disable}
-                            label={item.title}
-                            id={item.key}
-                            isRequired={item.required}
-                            active={field[item.key].dragged}
-                            description={{
-                              title: item.title,
-                              content: item.tooltip,
-                            }}
-                          >
-                            {item.options.map((option, optIdx) => {
-                              let _price = formatCurrencyV2({
-                                amount: option.priceBVM || 0,
-                                decimals: 0,
-                              }).replace('.00', '');
-                              let suffix =
-                                Math.abs(option.priceBVM) > 0
-                                  ? ` (${_price} BVM)`
-                                  : '';
+              {isTabCode && (
+                <div className={s.left_box}>
+                  <div className={s.left_box_inner}>
+                    <div className={s.left_box_inner_sidebar}>
+                      <SidebarV2 items={data} />
+                    </div>
 
-                              if (
-                                (option.key === field[item.key].value &&
-                                  field[item.key].dragged) ||
-                                item.type === 'dropdown'
-                              )
-                                return null;
+                    <div
+                      id={'wrapper-data'}
+                      className={s.left_box_inner_content}
+                    >
+                      <DroppableV2 id="data">
+                        {data?.map((item, index) => {
+                          return (
+                            <BoxOptionV3
+                              key={item.key}
+                              disable={item.disable}
+                              label={item.title}
+                              id={item.key}
+                              isRequired={item.required}
+                              active={field[item.key].dragged}
+                              description={{
+                                title: item.title,
+                                content: item.tooltip,
+                              }}
+                            >
+                              {item.options.map((option, optIdx) => {
+                                let _price = formatCurrencyV2({
+                                  amount: option.priceBVM || 0,
+                                  decimals: 0,
+                                }).replace('.00', '');
+                                let suffix =
+                                  Math.abs(option.priceBVM) > 0
+                                    ? ` (${_price} BVM)`
+                                    : '';
 
-                              const isDisabled =
-                                !!(
-                                  option.supportNetwork &&
-                                  option.supportNetwork !== 'both' &&
-                                  option.supportNetwork !==
-                                    field['network']?.value
-                                ) || !option.selectable;
-
-                              if (item.multiChoice && field[item.key].dragged) {
-                                const currentValues = field[item.key]
-                                  .value as any[];
-
-                                if (currentValues.includes(option.key)) {
+                                if (
+                                  (option.key === field[item.key].value &&
+                                    field[item.key].dragged) ||
+                                  item.type === 'dropdown'
+                                )
                                   return null;
+
+                                const isDisabled =
+                                  !!(
+                                    option.supportNetwork &&
+                                    option.supportNetwork !== 'both' &&
+                                    option.supportNetwork !==
+                                      field['network']?.value
+                                  ) || !option.selectable;
+
+                                if (
+                                  item.multiChoice &&
+                                  field[item.key].dragged
+                                ) {
+                                  const currentValues = field[item.key]
+                                    .value as any[];
+
+                                  if (currentValues.includes(option.key)) {
+                                    return null;
+                                  }
                                 }
-                              }
 
-                              return (
-                                <Draggable
-                                  key={item.key + '-' + option.key}
-                                  id={item.key + '-' + option.key}
-                                  useMask
-                                  disabled={isDisabled}
-                                  isLabel={true}
-                                  value={option.key}
-                                  tooltip={option.tooltip}
-                                >
-                                  <LegoV3
-                                    background={item.color}
-                                    zIndex={item.options.length - optIdx}
+                                return (
+                                  <Draggable
+                                    key={item.key + '-' + option.key}
+                                    id={item.key + '-' + option.key}
+                                    useMask
                                     disabled={isDisabled}
+                                    isLabel={true}
+                                    value={option.key}
+                                    tooltip={option.tooltip}
                                   >
-                                    <Label
-                                      icon={option.icon}
-                                      title={option.title + suffix}
-                                    />
-                                  </LegoV3>
-                                </Draggable>
-                              );
-                            })}
-                          </BoxOptionV3>
-                        );
-                      })}
+                                    <LegoV3
+                                      background={item.color}
+                                      zIndex={item.options.length - optIdx}
+                                      disabled={isDisabled}
+                                    >
+                                      <Label
+                                        icon={option.icon}
+                                        title={option.title + suffix}
+                                      />
+                                    </LegoV3>
+                                  </Draggable>
+                                );
+                              })}
+                            </BoxOptionV3>
+                          );
+                        })}
 
-                      <div className={s.hTrigger}></div>
-                    </DroppableV2>
+                        <div className={s.hTrigger}></div>
+                      </DroppableV2>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
 
-            <DragOverlay>
-              {idDragging &&
-                data?.map((item, index) => {
-                  if (!idDragging.startsWith(item.key)) return null;
+            {isTabCode && (
+              <>
+                <DragOverlay>
+                  {idDragging &&
+                    data?.map((item, index) => {
+                      if (!idDragging.startsWith(item.key)) return null;
 
-                  if (item.multiChoice && rightDragging) {
-                    const childrenOptions = item.options.map(
-                      (option, opIdx) => {
-                        const optionInValues = (
-                          field[item.key].value as string[]
-                        ).includes(option.key);
+                      if (item.multiChoice && rightDragging) {
+                        const childrenOptions = item.options.map(
+                          (option, opIdx) => {
+                            const optionInValues = (
+                              field[item.key].value as string[]
+                            ).includes(option.key);
 
-                        if (!optionInValues) return null;
-
-                        return (
-                          <Draggable
-                            useMask
-                            key={item.key + '-' + option.key}
-                            id={item.key + '-' + option.key}
-                            value={option.key}
-                          >
-                            <LegoV3
-                              background={item.color}
-                              label={item.title}
-                              labelInLeft
-                              zIndex={item.options.length - opIdx}
-                            ></LegoV3>
-                          </Draggable>
-                        );
-                      },
-                    );
-
-                    return (
-                      <Draggable
-                        key={
-                          item.key + '-parent' + (rightDragging ? '-right' : '')
-                        }
-                        id={
-                          item.key + '-parent' + (rightDragging ? '-right' : '')
-                        }
-                        useMask
-                      >
-                        <DroppableV2 id={item.key}>
-                          <LegoParent
-                            parentOfNested
-                            background={item.color}
-                            label={item.title}
-                            zIndex={data.length - index}
-                          >
-                            {childrenOptions}
-                          </LegoParent>
-                        </DroppableV2>
-                      </Draggable>
-                    );
-                  }
-
-                  return item.options.map((option, opIdx) => {
-                    if (!idDragging.startsWith(item.key + '-' + option.key))
-                      return null;
-
-                    return (
-                      <Draggable
-                        key={
-                          item.key +
-                          '-' +
-                          option.key +
-                          (rightDragging ? '-right' : '')
-                        }
-                        id={
-                          item.key +
-                          '-' +
-                          option.key +
-                          (rightDragging ? '-right' : '')
-                        }
-                        useMask
-                        value={option.key}
-                      >
-                        <LegoV3
-                          icon={option.icon}
-                          background={item.color}
-                          label={option.title}
-                          labelInLeft
-                          zIndex={item.options.length - opIdx}
-                        />
-                      </Draggable>
-                    );
-                  });
-                })}
-            </DragOverlay>
-
-            {/* ------------- RIGHT ------------- */}
-            <div className={s.right}>
-              <div className={s.top_right}>
-                {/*{*/}
-                {/*  templates && <TierOptions*/}
-                {/*    originalData={originalData}*/}
-                {/*    templates={templates}*/}
-                {/*    setValueOfPackage={setValueOfPackage}*/}
-                {/*  />*/}
-                {/*}*/}
-
-                <div className={s.right_box_footer}>
-                  {!needContactUs && (
-                    <div className={s.right_box_footer_left}>
-                      <h4 className={s.right_box_footer_left_content}>
-                        {formatCurrencyV2({
-                          amount: priceBVM,
-                          decimals: 0,
-                        })}{' '}
-                        BVM{'/'}month
-                      </h4>
-                      <h6 className={s.right_box_footer_left_title}>
-                        $
-                        {formatCurrencyV2({
-                          amount: priceUSD,
-                          decimals: 0,
-                        })}
-                        {'/'}month
-                      </h6>
-                    </div>
-                  )}
-
-                  <LaunchButton data={data} originalData={originalData} />
-                </div>
-              </div>
-
-              <div className={`${s.right_box}`}>
-                <div
-                  className={`${s.right_box_main} ${
-                    isCapture ? s.right_box_main_captured : ''
-                  }`}
-                  id="imageCapture"
-                >
-                  <DroppableV2
-                    id="final"
-                    className={s.finalResult}
-                    style={{
-                      width: '100% !important',
-                      height: '100%',
-                      paddingLeft: '25%',
-                      paddingRight: '25%',
-                      paddingBottom: '7.5%',
-                      paddingTop: '7.5%',
-                    }}
-                  >
-                    <LegoV3
-                      background={'#FF3A3A'}
-                      label="Chain Name"
-                      labelInLeft
-                      zIndex={45}
-                    >
-                      <ComputerNameInput />
-                    </LegoV3>
-
-                    {fieldsDragged.map((key, index) => {
-                      const item = data?.find((i) => i.key === key);
-
-                      if (!item || !data) return null;
-
-                      if (item.multiChoice) {
-                        if (!Array.isArray(field[item.key].value)) return;
-
-                        const childrenOptions = (field[item.key].value as
-                          | string[]
-                          | number[])!.map(
-                          (key: string | number, opIdx: number) => {
-                            const option = item.options.find(
-                              (opt) => opt.key === key,
-                            );
-
-                            if (!option) return null;
+                            if (!optionInValues) return null;
 
                             return (
                               <Draggable
-                                right
+                                useMask
                                 key={item.key + '-' + option.key}
                                 id={item.key + '-' + option.key}
-                                useMask
-                                tooltip={item.tooltip}
                                 value={option.key}
                               >
                                 <LegoV3
                                   background={item.color}
-                                  label={item.confuseTitle}
-                                  labelInRight={
-                                    !!item.confuseTitle || !!item.confuseIcon
-                                  }
-                                  icon={item.confuseIcon}
+                                  label={item.title}
+                                  labelInLeft
                                   zIndex={item.options.length - opIdx}
-                                >
-                                  <Label
-                                    icon={option.icon}
-                                    title={option.title}
-                                  />
-                                </LegoV3>
+                                ></LegoV3>
                               </Draggable>
                             );
                           },
@@ -889,8 +778,16 @@ const BuyPage = () => {
 
                         return (
                           <Draggable
-                            key={item.key + '-parent' + '-right'}
-                            id={item.key + '-parent' + '-right'}
+                            key={
+                              item.key +
+                              '-parent' +
+                              (rightDragging ? '-right' : '')
+                            }
+                            id={
+                              item.key +
+                              '-parent' +
+                              (rightDragging ? '-right' : '')
+                            }
                             useMask
                           >
                             <DroppableV2 id={item.key}>
@@ -898,7 +795,7 @@ const BuyPage = () => {
                                 parentOfNested
                                 background={item.color}
                                 label={item.title}
-                                zIndex={fieldsDragged.length - index - 1}
+                                zIndex={data.length - index}
                               >
                                 {childrenOptions}
                               </LegoParent>
@@ -908,102 +805,265 @@ const BuyPage = () => {
                       }
 
                       return item.options.map((option, opIdx) => {
-                        if (option.key !== field[item.key].value) return null;
+                        if (!idDragging.startsWith(item.key + '-' + option.key))
+                          return null;
 
                         return (
                           <Draggable
-                            right
-                            key={item.key + '-' + option.key + '-right'}
-                            id={item.key + '-' + option.key + '-right'}
+                            key={
+                              item.key +
+                              '-' +
+                              option.key +
+                              (rightDragging ? '-right' : '')
+                            }
+                            id={
+                              item.key +
+                              '-' +
+                              option.key +
+                              (rightDragging ? '-right' : '')
+                            }
                             useMask
-                            tooltip={item.tooltip}
                             value={option.key}
                           >
-                            <DroppableV2 id={item.key + '-right'}>
-                              <LegoV3
-                                background={item.color}
-                                label={item.confuseTitle}
-                                labelInRight={
-                                  !!item.confuseTitle || !!item.confuseIcon
-                                }
-                                zIndex={fieldsDragged.length - index}
-                                icon={item.confuseIcon}
-                                className={
-                                  showShadow === field[item.key].value
-                                    ? s.activeBlur
-                                    : ''
-                                }
-                              >
-                                <Label
-                                  icon={option.icon}
-                                  title={option.title}
-                                />
-                              </LegoV3>
-                            </DroppableV2>
+                            <LegoV3
+                              icon={option.icon}
+                              background={item.color}
+                              label={option.title}
+                              labelInLeft
+                              zIndex={item.options.length - opIdx}
+                            />
                           </Draggable>
                         );
                       });
                     })}
-                  </DroppableV2>
-                </div>
+                </DragOverlay>
 
-                {!isCapture && (
-                  <div className={s.cta_wrapper}>
-                    <button
-                      className={`${s.reset} ${s.gray}`}
-                      onClick={() => setIsShowModal(true)}
+                {/* ------------- RIGHT ------------- */}
+                <div className={s.right}>
+                  <div className={s.top_right}>
+                    <div className={s.right_box_footer}>
+                      {!needContactUs && (
+                        <div className={s.right_box_footer_left}>
+                          <h4 className={s.right_box_footer_left_content}>
+                            {formatCurrencyV2({
+                              amount: priceBVM,
+                              decimals: 0,
+                            })}{' '}
+                            BVM{'/'}month
+                          </h4>
+                          <h6 className={s.right_box_footer_left_title}>
+                            $
+                            {formatCurrencyV2({
+                              amount: priceUSD,
+                              decimals: 0,
+                            })}
+                            {'/'}month
+                          </h6>
+                        </div>
+                      )}
+
+                      <LaunchButton data={data} originalData={originalData} />
+                    </div>
+                  </div>
+
+                  <div className={`${s.right_box}`}>
+                    <div
+                      className={`${s.right_box_main} ${
+                        isCapture ? s.right_box_main_captured : ''
+                      }`}
+                      id="imageCapture"
                     >
-                      <div>
-                        <ImagePlaceholder
-                          src={'/icons/undo.svg'}
-                          alt={'undo'}
-                          width={20}
-                          height={20}
-                        />
+                      <DroppableV2
+                        id="final"
+                        className={s.finalResult}
+                        style={{
+                          width: '100% !important',
+                          height: '100%',
+                          paddingLeft: '25%',
+                          paddingRight: '25%',
+                          paddingBottom: '7.5%',
+                          paddingTop: '7.5%',
+                        }}
+                      >
+                        <LegoV3
+                          background={'#FF3A3A'}
+                          label="Chain Name"
+                          labelInLeft
+                          zIndex={45}
+                        >
+                          <ComputerNameInput />
+                        </LegoV3>
+
+                        {fieldsDragged.map((key, index) => {
+                          const item = data?.find((i) => i.key === key);
+
+                          if (!item || !data) return null;
+
+                          if (item.multiChoice) {
+                            if (!Array.isArray(field[item.key].value)) return;
+
+                            const childrenOptions = (field[item.key].value as
+                              | string[]
+                              | number[])!.map(
+                              (key: string | number, opIdx: number) => {
+                                const option = item.options.find(
+                                  (opt) => opt.key === key,
+                                );
+
+                                if (!option) return null;
+
+                                return (
+                                  <Draggable
+                                    right
+                                    key={item.key + '-' + option.key}
+                                    id={item.key + '-' + option.key}
+                                    useMask
+                                    tooltip={item.tooltip}
+                                    value={option.key}
+                                  >
+                                    <LegoV3
+                                      background={item.color}
+                                      label={item.confuseTitle}
+                                      labelInRight={
+                                        !!item.confuseTitle ||
+                                        !!item.confuseIcon
+                                      }
+                                      icon={item.confuseIcon}
+                                      zIndex={item.options.length - opIdx}
+                                    >
+                                      <Label
+                                        icon={option.icon}
+                                        title={option.title}
+                                      />
+                                    </LegoV3>
+                                  </Draggable>
+                                );
+                              },
+                            );
+
+                            return (
+                              <Draggable
+                                key={item.key + '-parent' + '-right'}
+                                id={item.key + '-parent' + '-right'}
+                                useMask
+                              >
+                                <DroppableV2 id={item.key}>
+                                  <LegoParent
+                                    parentOfNested
+                                    background={item.color}
+                                    label={item.title}
+                                    zIndex={fieldsDragged.length - index - 1}
+                                  >
+                                    {childrenOptions}
+                                  </LegoParent>
+                                </DroppableV2>
+                              </Draggable>
+                            );
+                          }
+
+                          return item.options.map((option, opIdx) => {
+                            if (option.key !== field[item.key].value)
+                              return null;
+
+                            return (
+                              <Draggable
+                                right
+                                key={item.key + '-' + option.key + '-right'}
+                                id={item.key + '-' + option.key + '-right'}
+                                useMask
+                                tooltip={item.tooltip}
+                                value={option.key}
+                              >
+                                <DroppableV2 id={item.key + '-right'}>
+                                  <LegoV3
+                                    background={item.color}
+                                    label={item.confuseTitle}
+                                    labelInRight={
+                                      !!item.confuseTitle || !!item.confuseIcon
+                                    }
+                                    zIndex={fieldsDragged.length - index}
+                                    icon={item.confuseIcon}
+                                    className={
+                                      showShadow === field[item.key].value
+                                        ? s.activeBlur
+                                        : ''
+                                    }
+                                  >
+                                    <Label
+                                      icon={option.icon}
+                                      title={option.title}
+                                    />
+                                  </LegoV3>
+                                </DroppableV2>
+                              </Draggable>
+                            );
+                          });
+                        })}
+                      </DroppableV2>
+                    </div>
+
+                    {!isCapture && (
+                      <div className={s.cta_wrapper}>
+                        <button
+                          className={`${s.reset} ${s.gray}`}
+                          onClick={() => setIsShowModal(true)}
+                        >
+                          <div>
+                            <ImagePlaceholder
+                              src={'/icons/undo.svg'}
+                              alt={'undo'}
+                              width={20}
+                              height={20}
+                            />
+                          </div>
+                        </button>
+                        <Capture />
                       </div>
-                    </button>
-                  </div>
-                )}
+                    )}
 
-                {!isCapture && isShowVideo && (
-                  <div className={s.video}>
-                    <ImagePlaceholder
-                      src={'/video.jpg'}
-                      alt={'video'}
-                      width={291}
-                      height={226}
-                      className={s.video_img}
-                    />
-                    <div
-                      className={s.video_play}
-                      onClick={() => setIsOpenModalVideo(true)}
-                    >
-                      <ImagePlaceholder
-                        src={'/play.svg'}
-                        alt={'video'}
-                        width={60}
-                        height={60}
-                      />
-                    </div>
-                    <div
-                      className={s.video_close}
-                      onClick={() => {
-                        setIsOpenModalVideo(false);
-                        setIsShowVideo(false);
-                      }}
-                    >
-                      <ImagePlaceholder
-                        src={'/close.svg'}
-                        alt={'close'}
-                        width={24}
-                        height={24}
-                      />
-                    </div>
+                    {!isCapture && isShowVideo && (
+                      <div className={s.video}>
+                        <ImagePlaceholder
+                          src={'/video.jpg'}
+                          alt={'video'}
+                          width={291}
+                          height={226}
+                          className={s.video_img}
+                        />
+                        <div
+                          className={s.video_play}
+                          onClick={() => setIsOpenModalVideo(true)}
+                        >
+                          <ImagePlaceholder
+                            src={'/play.svg'}
+                            alt={'video'}
+                            width={60}
+                            height={60}
+                          />
+                        </div>
+                        <div
+                          className={s.video_close}
+                          onClick={() => {
+                            setIsOpenModalVideo(false);
+                            setIsShowVideo(false);
+                          }}
+                        >
+                          <ImagePlaceholder
+                            src={'/close.svg'}
+                            alt={'close'}
+                            width={24}
+                            height={24}
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            </div>
+                </div>
+              </>
+            )}
           </div>
+
+          {!isTabCode && <ExplorePage cloneItemCallback={cloneItemCallback} />}
         </div>
       </DndContext>
 

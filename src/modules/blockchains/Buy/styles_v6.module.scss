@@ -1,7 +1,7 @@
 .container {
   width: 100%;
+  height: calc(100dvh - 96px);
 
-  //font-family: var(--font-dmsans);
   .fontJetBrains {
     font-family: var(--font-JetBrainsMono) !important;
   }
@@ -10,7 +10,13 @@
     font-family: var(--font-SFProDisplay) !important;
   }
 
-  --height-studio: calc(100vh - 280px);
+  --height-studio: calc(100vh - 260px);
+}
+
+.explorePageContainer {
+  --height-studio: max-content;
+  height: max-content;
+  min-height: calc(100dvh - 96px);
 }
 
 .container_text {
@@ -506,6 +512,7 @@
     opacity: 0.5;
     border: 1px solid #000;
     cursor: pointer;
+
     p {
       font-family: var(--font-jetbrains);
       font-size: 20px;

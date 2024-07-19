@@ -53,6 +53,16 @@ const nextConfig = {
         destination: '/bvm',
         permanent: false,
       },
+      {
+        source: '/rollups',
+        destination: '/chains',
+        permanent: false,
+      },
+      {
+        source: '/rollups/customizev2',
+        destination: '/studio',
+        permanent: false,
+      },
       // {
       //   source: '/launchpad',
       //   destination: `/`,
