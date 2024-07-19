@@ -50,6 +50,9 @@
     }
 
     &__item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
       word-wrap: normal;
       text-wrap: nowrap;
       padding: 5px 10px;

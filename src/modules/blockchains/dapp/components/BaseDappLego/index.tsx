@@ -5,6 +5,7 @@ import Lego from '../Lego';
 import Input from '../Input';
 import Dropdown from '../Dropdown';
 import useDappsStore from '../../stores/useDappStore';
+import { adjustBrightness } from '../../utils';
 
 type Props = {
   id: string;
@@ -15,7 +16,7 @@ const yesNoOptions: FieldModel[] = [
     key: 'yes',
     title: 'Yes',
     type: 'input',
-    icon: '',
+    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
     value: 1,
     defaultValue: '',
     tooltip: '',
@@ -24,7 +25,7 @@ const yesNoOptions: FieldModel[] = [
     key: 'no',
     title: 'No',
     type: 'input',
-    icon: '',
+    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
     value: 0,
     defaultValue: '',
     tooltip: '',
@@ -142,6 +143,10 @@ const BaseDappLego = ({ id }: Props) => {
       required: boolean,
       optionalIndex?: number,
     ) => {
+      const newColor = required
+        ? adjustBrightness(thisDapp.color, -10)
+        : adjustBrightness(thisDapp.color, -20);
+
       if (field.type === 'input') {
         return (
           <Lego
@@ -149,6 +154,7 @@ const BaseDappLego = ({ id }: Props) => {
             key={field.key}
             titleInLeft
             zIndex={totalFields - zIndex - (optionalIndex ?? 0)}
+            background={newColor}
           >
             <Input
               required={required}
@@ -168,6 +174,7 @@ const BaseDappLego = ({ id }: Props) => {
             key={field.key}
             titleInLeft
             zIndex={totalFields - zIndex - (optionalIndex ?? 0)}
+            background={newColor}
           >
             <Dropdown
               required={required}
@@ -180,6 +187,7 @@ const BaseDappLego = ({ id }: Props) => {
               }
               handleOnClickOption={handleOnClickOnOption}
               name={field.key}
+              background={newColor}
             />
           </Lego>
         );
@@ -285,8 +293,30 @@ const BaseDappLego = ({ id }: Props) => {
     [handleInputChange, handleOnClickOnOption],
   );
 
+  const addNewAllocation = React.useCallback(() => {
+    const optionalFieldsClone = JSON.parse(
+      JSON.stringify(thisDapp.optionalFields[0]),
+    );
+    optionalFieldsClone.fields = optionalFieldsClone.fields.map(
+      (field: FieldModel) => {
+        return {
+          ...field,
+          value: field.defaultValue,
+        };
+      },
+    );
+
+    setFormDapps({
+      ...formDapps,
+      [id]: {
+        ...thisDapp,
+        optionalFields: [...thisDapp.optionalFields, optionalFieldsClone],
+      },
+    });
+  }, [formDapps, id, setFormDapps, thisDapp]);
+
   return (
-    <LegoParent title={thisDapp.title} key={id}>
+    <LegoParent title={thisDapp.title} key={id} background={thisDapp.color}>
       {thisDapp.requiredFields.map((field, index) => {
         if (field.type !== 'extends') {
           return getCommonLego(index, field, true);
@@ -297,7 +327,11 @@ const BaseDappLego = ({ id }: Props) => {
 
       {thisDapp.optionalFields.map((optionalField, optionalIndex) => {
         return (
-          <LegoParent title={optionalField.title} key={optionalField.key}>
+          <LegoParent
+            title={optionalField.title}
+            key={optionalField.key}
+            background={adjustBrightness(thisDapp.color, -10)}
+          >
             {optionalField.fields.map((field, index) => {
               if (field.type !== 'extends') {
                 return getCommonLego(index, field, false, optionalIndex);
@@ -309,7 +343,12 @@ const BaseDappLego = ({ id }: Props) => {
         );
       })}
 
-      <Lego title="Add New Allocation" titleInLeft></Lego>
+      <Lego
+        title="Add New Allocation"
+        titleInLeft
+        onClick={() => addNewAllocation()}
+        background={adjustBrightness(thisDapp.color, -20)}
+      />
     </LegoParent>
   );
 };

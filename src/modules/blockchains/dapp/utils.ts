@@ -89,3 +89,14 @@ export function hsbToHex(h: number, s: number, b: number) {
     .slice(1)
     .toUpperCase()}`;
 }
+
+export const adjustBrightness = (hex: string, percent: number) => {
+  const fillBackgroundAsHSB = hexToHSB(hex);
+  const _background = hsbToHex(
+    fillBackgroundAsHSB?.h || 0,
+    fillBackgroundAsHSB?.s || 0,
+    (fillBackgroundAsHSB?.b || 100) + percent,
+  )?.split('.')[0];
+
+  return _background;
+};
