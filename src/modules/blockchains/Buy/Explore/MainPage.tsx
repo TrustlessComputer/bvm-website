@@ -24,19 +24,19 @@ const MainPage = (props: Props) => {
     >
       <Section
         title="Template"
-        description=""
+        description="A handy structure that may be adapted to various needs, ensuring flexibility and adaptability."
         dataList={templateList}
         cloneItemCallback={cloneItemCallback}
       />
       <Section
         title="Mainnet"
-        description=""
+        description="Live network structures powered by BVM, fully operational and deployed."
         dataList={mainnetList}
         cloneItemCallback={cloneItemCallback}
       />
       <Section
         title="Testnet"
-        description=""
+        description="Networks are currently in the testing phase and will go live in the future."
         dataList={testnetList}
         cloneItemCallback={cloneItemCallback}
       />
