@@ -10,6 +10,7 @@ import styles from './style.module.scss';
 import CDappDomainAPI from '@/services/api/DAServices/dapp.domain';
 import { DappDomain } from '@/services/api/DAServices/types';
 import DomainManager from '@/modules/domain/components/DomainManager';
+import NavigationBar from '@/modules/blockchains/detail_v2/components/NavigatioBar';
 
 interface IProps {
   chainID: string;
@@ -121,7 +122,12 @@ const Domains = ({ chainID }: IProps) => {
   return (
     <Box padding="40px 0" minH="100vh" bg="white">
       <Flex className="containerV3">
-        {renderUI()}
+        <Flex flexDirection="column" flex={1} gap="24px">
+          {!!chainInfo && (
+            <NavigationBar title={`${chainInfo?.chainName || ''}`} url={!!chainInfo?.orderId ? `/chains/${chainInfo?.orderId}` : ''} />
+          )}
+          {renderUI()}
+        </Flex>
       </Flex>
     </Box>
   )

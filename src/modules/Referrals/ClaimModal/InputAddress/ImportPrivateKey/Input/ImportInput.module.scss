@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .label_wrapper {
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .error {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 140%;
+    color: red;
+    margin-top: 6px;
+  }
+
+  .input-title {
+    font-family: var(--chakra-fonts-titillium);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 12px;
+  }
+
+  .wrap-ic-ask {
+    width: fit-content;
+    margin-left: 6px;
+
+    .ic-ask {
+      width: fit-content;
+
+      svg path,
+      svg rect {
+        stroke: #5b5b5b;
+      }
+    }
+  }
+}
+
+.input_wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  height: 52px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 8px;
+  color: #5b5b5b;
+  border: 1px solid #cecece;
+
+  :hover {
+    outline: none !important;
+    opacity: 0.8;
+  }
+
+  .input-container-style {
+    flex: 1;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    color: #5b5b5b;
+    height: 100%;
+
+    :-webkit-autofill {
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: #5b5b5b !important;
+    }
+  }
+
+  .icon-container {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    :hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
+
+  input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: white;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}

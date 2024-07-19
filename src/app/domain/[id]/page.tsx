@@ -12,7 +12,13 @@ const DomainPage = () => {
   const chainID = React.useMemo(() => (params?.id), [params?.id]) as string;
 
   return (
-    <MainLayout>
+    <MainLayout
+      headerProps={{
+        color: 'black',
+        bgColor: '#fff',
+      }}
+      hideFooter
+    >
       <Domain chainID={chainID} />
     </MainLayout>
   )

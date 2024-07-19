@@ -1,14 +1,9 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  Input,
-  Textarea,
-} from "@chakra-ui/react";
-import FieldHeadInput from "./Field.Head.Input";
-import FieldWrapInput from "./Field.WrapInput";
-import s from "./styles.module.scss";
+import { FormControl, FormErrorMessage, Input, Textarea } from '@chakra-ui/react';
+import FieldHeadInput from './Field.Head.Input';
+import FieldWrapInput from './Field.WrapInput';
+import s from './styles.module.scss';
 import { compareString } from '@utils/string';
-import { useFormikContext } from "formik";
+import { useFormikContext } from 'formik';
 
 const FieldTextFormik = (props: any) => {
   const formik = useFormikContext();

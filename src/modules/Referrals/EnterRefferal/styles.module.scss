@@ -81,6 +81,29 @@
 }
 
 .modalContent {
-  border-radius: 0px !important;
+  background: #FFF !important;
+  border-radius: 20px !important;
   min-width: unset !important;
+
+  :global {
+    .chakra-modal__header {
+      text-transform: unset !important;
+      color: #000;
+    }
+
+    .chakra-modal__body {
+      padding: 0 28px 28px;
+    }
+
+    .chakra-modal__close-btn {
+      border: 1px solid #000;
+      border-radius: 100px;
+
+      svg {
+        path {
+          fill: #000;
+        }
+      }
+    }
+  }
 }
