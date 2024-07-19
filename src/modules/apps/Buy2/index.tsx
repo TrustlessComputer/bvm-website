@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import './customBlocks/custom_Blocks';
 import { BlocklyWorkspace } from 'react-blockly';
-// import './customBlocks/custom_Blocks';
-import Blockly from 'blockly';
 import { Box } from '@chakra-ui/react';
 import s from './styles.module.scss';
+import { javascriptGenerator } from 'blockly/javascript';
 
 const toolbox = {
   kind: 'categoryToolbox',
@@ -86,9 +86,12 @@ const ReactBlocklyComponent = () => {
   };
 
   function workspaceDidChange(workspace: any) {
+    const code = javascriptGenerator.workspaceToCode(workspace);
     // const code = Blockly.JavaScript.workspaceToCode(workspace);
-    // setJavascriptCode(code);
+    setJavascriptCode(code);
   }
+
+  console.log('javascriptCode', javascriptCode);
 
   return (
     <Box className={s.container}>
@@ -107,6 +110,12 @@ const ReactBlocklyComponent = () => {
         onWorkspaceChange={workspaceDidChange}
         onXmlChange={setXml}
       />
+      <textarea
+        id="code"
+        style={{ height: "200px", width: "400px", background: '#FFF', color: '#000' }}
+        value={javascriptCode}
+        readOnly
+      ></textarea>
     </Box>
 
   )
