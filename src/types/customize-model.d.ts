@@ -25,7 +25,7 @@ interface IModelCategory {
   title: string;
   color: string;
   key: string;
-  type: '' | 'dropdown' | 'slide' | 'module';
+  type: '' | 'dropdown' | 'slide' | 'module' | 'input';
   required: boolean;
   options: IModelOption[];
   disable: boolean;

@@ -10,15 +10,8 @@ import styles from './styles.module.scss';
 export default () => {
   return (
     <BuyProvider>
-      <Flex
-        flex={1}
-        flexDir={'column'}
-        align={'center'}
-        className={styles.container}
-      >
-        <Flex w={'100%'} px={['16px', '18px', '20px']}>
-          <RollupsDappPage />
-        </Flex>
+      <Flex flex={1} flexDir={'column'} align={'center'}>
+        <RollupsDappPage />
       </Flex>
     </BuyProvider>
   );
