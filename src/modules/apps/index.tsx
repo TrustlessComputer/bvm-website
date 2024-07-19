@@ -4,6 +4,7 @@ import { Flex } from '@chakra-ui/react';
 import s from './styles.module.scss';
 import { BuyProvider } from '@/modules/blockchains/providers/Buy.context';
 import BuyPage from './Buy';
+import ReactBlocklyComponent from '@/modules/apps/Buy2';
 
 
 export default () => {
@@ -16,8 +17,9 @@ export default () => {
       className={s.container}
     >
       <BuyProvider>
-        <Flex w={'100%'} px={['16px', '18px', '20px']}>
+        <Flex h={"100%"} w={'100%'} px={['16px', '18px', '20px']} direction={"column"}>
           <BuyPage />
+          <ReactBlocklyComponent />
         </Flex>
       </BuyProvider>
     </Flex>
