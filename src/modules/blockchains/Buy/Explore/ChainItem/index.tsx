@@ -4,9 +4,10 @@ import React from 'react';
 import Header from './Header';
 import Body from './Body';
 import Bottom from './Bottom';
+import { IExploreItem } from '@/services/api/l2services/types';
 
 type Props = {
-  orderItem: OrderItem;
+  orderItem: IExploreItem;
   cloneOnClick: () => void;
 };
 
@@ -26,7 +27,7 @@ const ChainItem = (props: Props) => {
     >
       <Header orderItem={orderItem} />
       <Divider bgColor={'#ECECEC'} />
-      <Body orderItem={orderItem} />
+      <Body item={orderItem} />
       <Divider bgColor={'#ECECEC'} mt={['20px']} />
       <Bottom orderItem={orderItem} cloneOnClick={cloneOnClick} />
     </Flex>

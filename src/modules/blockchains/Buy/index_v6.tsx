@@ -81,11 +81,11 @@ const BuyPage = () => {
     return tabActive === TABS.CODE;
   }, [tabActive]);
 
-  const cloneItemCallback = (item: OrderItem) => {
+  const cloneItemCallback = (template: IModelCategory[]) => {
     setTabActive(TABS.CODE);
     setFieldsDragged([]);
     setIsShowModal(false);
-    setTempalteDataClone(item.selectedOptions || []);
+    setTempalteDataClone(template || []);
   };
 
   const handleDragStart = (event: any) => {

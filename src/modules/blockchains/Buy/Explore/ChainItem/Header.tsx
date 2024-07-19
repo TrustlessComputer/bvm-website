@@ -1,18 +1,19 @@
+import { IExploreItem } from '@/services/api/l2services/types';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { Flex, Text, Image } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 
 type Props = {
-  orderItem?: OrderItem;
+  orderItem?: IExploreItem;
 };
 
 const Header = (props: Props) => {
   const { orderItem } = props;
 
   const chainNameFormated = useMemo(() => {
-    const chainName = orderItem?.chainName || '';
+    const chainName = orderItem?.chainInfo?.name || '';
     return chainName.toLowerCase()?.trim().replaceAll('-', ' ');
-  }, [orderItem?.chainName]);
+  }, [orderItem?.chainInfo]);
 
   return (
     <Flex
@@ -23,7 +24,9 @@ const Header = (props: Props) => {
       minH={['100px']}
     >
       <Image
-        src={orderItem?.logoURL || '/blockchains/customize/ic-infa.svg'}
+        src={
+          orderItem?.chainInfo?.image || '/blockchains/customize/ic-infa.svg'
+        }
         w={['80px']}
         h={['80px']}
         fit={'cover'}
@@ -49,7 +52,7 @@ const Header = (props: Props) => {
           w={'100%'}
           textOverflow={'ellipsis'}
         >
-          {`${orderItem?.description || ''}`}
+          {`${orderItem?.chainInfo?.description || ''}`}
         </Text>
       </Flex>
     </Flex>

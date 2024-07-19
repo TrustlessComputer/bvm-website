@@ -6,28 +6,32 @@ import { useAppSelector } from '@/stores/hooks';
 import {
   allOrdersSelector,
   getL2ServicesStateSelector,
+  templateV2Selector,
 } from '@/stores/states/l2services/selector';
-import { OrderItem } from '@/stores/states/l2services/types';
 
 type Props = {
-  cloneItemCallback: (item: OrderItem) => void;
+  cloneItemCallback: (template: IModelCategory[]) => void;
 };
 
 const ExplorePage = (props: Props) => {
   const { cloneItemCallback } = props;
-  const { getAllOrderList } = useL2Service();
-  const { isFetchedAllOrders } = useAppSelector(getL2ServicesStateSelector);
+  const { getAllOrderList, getTemplateV2 } = useL2Service();
+  const { isFetchedAllOrders, isTempalteFetched } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
 
-  const allOrders = useAppSelector(allOrdersSelector);
+  const dataList = useAppSelector(templateV2Selector);
 
   useEffect(() => {
-    getAllOrderList();
-  }, []);
+    if (!isTempalteFetched) {
+      getTemplateV2();
+    }
+  }, [isTempalteFetched]);
 
-  return !isFetchedAllOrders ? (
+  return !isTempalteFetched ? (
     <SkeletonLoading />
   ) : (
-    <ChainsGrid orderList={allOrders} cloneItemCallback={cloneItemCallback} />
+    <ChainsGrid orderList={dataList} cloneItemCallback={cloneItemCallback} />
   );
 };
 

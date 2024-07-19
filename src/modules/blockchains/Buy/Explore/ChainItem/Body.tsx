@@ -2,18 +2,19 @@ import { OrderItem } from '@/stores/states/l2services/types';
 import { Flex, Text, Image, SimpleGrid } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import CustomViewModule from '@/modules/customViewModule_v0';
+import { IExploreItem } from '@/services/api/l2services/types';
 
 type Props = {
-  orderItem: OrderItem;
+  item: IExploreItem;
 };
 
 const Body = (props: Props) => {
-  const { orderItem } = props;
+  const { item } = props;
 
   return (
     <CustomViewModule
-      orderItem={orderItem}
-      selectedOptions={orderItem?.selectedOptions || []}
+      chainName={item.chainInfo.name}
+      selectedOptions={item.template || []}
     />
   );
 };

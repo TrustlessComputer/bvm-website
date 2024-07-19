@@ -2,17 +2,18 @@ import { OrderItem } from '@/stores/states/l2services/types';
 import { SimpleGrid } from '@chakra-ui/react';
 import ChainItem from './ChainItem';
 import s from './styles.module.scss';
+import { IExploreItem } from '@/services/api/l2services/types';
 
 type Props = {
-  orderList: OrderItem[] | any[];
-  cloneItemCallback: (item: OrderItem) => void;
+  orderList: IExploreItem[] | any[];
+  cloneItemCallback: (template: IModelCategory[]) => void;
 };
 
 const ChainGrid = (props: Props) => {
   const { orderList = [], cloneItemCallback } = props;
 
-  const cloneOnClickHandler = (item: OrderItem) => {
-    cloneItemCallback(item);
+  const cloneOnClickHandler = (item: IExploreItem) => {
+    cloneItemCallback(item.template || []);
   };
 
   return (
