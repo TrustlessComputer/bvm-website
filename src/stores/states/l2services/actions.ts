@@ -81,6 +81,18 @@ const fetchAllOrdersV2 = createAsyncThunk(
   },
 );
 
+const fetchTemplateV2 = createAsyncThunk(
+  `${PREFIX}/fetchTemplateV2`,
+  async () => {
+    try {
+      const data = await l2ServicesAPI.getTemplateV2();
+      return data;
+    } catch (error) {
+      return undefined;
+    }
+  },
+);
+
 const orderBuy = createAsyncThunk(
   `${PREFIX}/orderBuy`,
   async (params: IOrderBuyReq): Promise<any> => {
@@ -135,4 +147,5 @@ export {
 
   //DA
   fetchDAList,
+  fetchTemplateV2,
 };

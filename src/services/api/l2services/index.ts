@@ -31,6 +31,7 @@ import { camelCaseKeys } from '@/utils/normalize';
 import L2ServiceAuthStorage from '@/utils/storage/authV3.storage';
 import { builderAccountInfo, builderOrderList } from './helper';
 import {
+  IExploreItem,
   IOrderBuyEstimateRespone,
   IOrderBuyEstimateRespone_V2,
   SubmitFormParams,
@@ -269,6 +270,14 @@ export const getAllOrders = async (): Promise<OrderItem[]> => {
 export const getAllOrdersV2 = async (): Promise<OrderItem[]> => {
   let orders = (await httpClient.get(`/order/all`)) as OrderItemResp[];
   return builderOrderList(orders, false);
+};
+
+export const getTemplateV2 = async (): Promise<IExploreItem[]> => {
+  let data = (await httpClient.get(
+    `/order/available-list-template-v2`,
+  )) as IExploreItem[];
+
+  return data;
 };
 
 export const accountGetInfo = async (): Promise<AccountInfo | undefined> => {
@@ -544,6 +553,8 @@ const l2ServicesAPI = {
 
   uploadImage,
   uploadFile,
+
+  getTemplateV2,
 };
 
 export default l2ServicesAPI;

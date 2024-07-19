@@ -25,10 +25,6 @@ export const ClaimModalID = 'ClaimModalID';
 
 const ClaimModal = ({userRefInfo, onClose}: {userRefInfo?: IUserReferralInfo; onClose?: any}) => {
   const dispatch = useDispatch();
-  const { accountInforL2Service } = useAppSelector(
-    getL2ServicesStateSelector,
-  );
-  const addressL2 = accountInforL2Service?.tcAddress;
   const userApi = useRef(new CReferralAPI()).current;
 
   const [submitting, setSubmitting] = useState(false);
@@ -63,13 +59,13 @@ const ClaimModal = ({userRefInfo, onClose}: {userRefInfo?: IUserReferralInfo; on
   return (
     <div className={s.container}>
       <div className={s.content}>
-        <Formik onSubmit={onSubmit} initialValues={{ address: addressL2 } as any}>
+        <Formik onSubmit={onSubmit} initialValues={{ address: '' } as any}>
           {({ handleSubmit, isSubmitting }) => (
             <Form className={s.form} onSubmit={handleSubmit}>
               <InputAddress
                 name={"address"}
-                label={"Receiver Address"}
-                placeholder={"Input Receiver address"}
+                label={"NAKA Receiver Address"}
+                placeholder={"Input Receiver Address"}
                 // fieldChanged={(e: any) => onChangeValue("address", e)}
                 validate={required}
                 className={s.inputContainer}

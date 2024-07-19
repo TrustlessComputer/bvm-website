@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-
+  height: calc(100dvh - 114px);
   //font-family: var(--font-dmsans);
   .fontJetBrains {
     font-family: var(--font-JetBrainsMono) !important;
@@ -11,6 +11,11 @@
   }
 
   --height-studio: calc(100vh - 280px);
+}
+
+.explorePageContainer {
+  --height-studio: max-content;
+  height: max-content;
 }
 
 .container_text {

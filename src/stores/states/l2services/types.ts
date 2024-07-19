@@ -9,6 +9,7 @@ import {
   HistoryType,
 } from '@/modules/blockchains/components/BillingModal/History.types';
 import { IDApp } from '@/services/api/DAServices/types';
+import { IExploreItem } from '@/services/api/l2services/types';
 
 interface IDAppInstalled {
   orderID: string;
@@ -172,6 +173,8 @@ interface AccountInfoResp {
   email: string;
   emailVerified: boolean;
   balanceUSD: string;
+  twitterUsername?: string;
+  twitterID?: string;
 }
 
 interface AccountInfo extends AccountInfoResp {
@@ -340,6 +343,11 @@ interface L2ServicesState {
   isDAListFetching: boolean;
   isDAListFetched: boolean;
   daList?: IDApp[];
+
+  //Template
+  isTempalteFetching: boolean;
+  isTempalteFetched: boolean;
+  templateList?: IExploreItem[];
 }
 
 type MetaConfig = {
