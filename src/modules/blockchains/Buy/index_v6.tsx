@@ -641,7 +641,7 @@ const BuyPage = () => {
                 >
                   <p>Explore</p>
                 </div>
-                <Capture />
+
               </div>
 
               {isTabCode && (
@@ -841,14 +841,6 @@ const BuyPage = () => {
                 {/* ------------- RIGHT ------------- */}
                 <div className={s.right}>
                   <div className={s.top_right}>
-                    {/*{*/}
-                    {/*  templates && <TierOptions*/}
-                    {/*    originalData={originalData}*/}
-                    {/*    templates={templates}*/}
-                    {/*    setValueOfPackage={setValueOfPackage}*/}
-                    {/*  />*/}
-                    {/*}*/}
-
                     <div className={s.right_box_footer}>
                       {!needContactUs && (
                         <div className={s.right_box_footer_left}>
@@ -1025,6 +1017,7 @@ const BuyPage = () => {
                             />
                           </div>
                         </button>
+                        <Capture />
                       </div>
                     )}
 

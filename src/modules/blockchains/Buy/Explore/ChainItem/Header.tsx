@@ -12,7 +12,7 @@ const Header = (props: Props) => {
 
   const chainNameFormated = useMemo(() => {
     const chainName = orderItem?.chainInfo?.name || '';
-    return chainName.toLowerCase()?.trim().replaceAll('-', ' ');
+    return chainName?.trim().replaceAll('-', ' ');
   }, [orderItem?.chainInfo]);
 
   const description = orderItem?.chainInfo?.description;
@@ -35,12 +35,7 @@ const Header = (props: Props) => {
         borderRadius={'100%'}
       />
       <Flex flexDir={'column'} justify={'center'} align={'flex-start'} h="100%">
-        <Text
-          fontSize={['24px']}
-          fontWeight={500}
-          color={'#000'}
-          textTransform={'capitalize'}
-        >
+        <Text fontSize={['24px']} fontWeight={500} color={'#000'}>
           {`${chainNameFormated}`}
         </Text>
         {description && (
@@ -51,7 +46,7 @@ const Header = (props: Props) => {
             opacity={0.7}
             overflow={'hidden'}
             whiteSpace={'wrap'}
-            maxH={'50px'}
+            maxH={'100px'}
             w={'100%'}
             textOverflow={'ellipsis'}
           >

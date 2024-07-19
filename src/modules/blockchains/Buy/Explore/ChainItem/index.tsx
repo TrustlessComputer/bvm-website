@@ -24,6 +24,7 @@ const ChainItem = (props: Props) => {
       boxShadow="0px 0px 24px 0px #00000014"
       flexDir={'column'}
       gap={['20px']}
+
     >
       <Header orderItem={orderItem} />
       <Divider bgColor={'#ECECEC'} />
