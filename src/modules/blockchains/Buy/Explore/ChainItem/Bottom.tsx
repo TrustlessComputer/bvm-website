@@ -11,7 +11,7 @@ const Bottom = (props: Props) => {
   const { cloneOnClick } = props;
 
   return (
-    <Flex flex={1} align={'center'} justify={'center'}>
+    <Flex flex={1} align={'flex-end'} justify={'center'}>
       <Button
         bgColor={'#FA4E0E'}
         borderRadius={'24px'}
