@@ -1,9 +1,10 @@
+import { IExploreItem } from '@/services/api/l2services/types';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { Flex, Text, Image, SimpleGrid, Button } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
 type Props = {
-  orderItem?: OrderItem;
+  orderItem?: IExploreItem;
   cloneOnClick: () => void;
 };
 

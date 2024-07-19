@@ -88,6 +88,15 @@ const viewModeSelector = createSelector(
   },
 );
 
+// Template
+const templateV2Selector = createSelector(
+  getL2ServicesStateSelector,
+  (reducer) => {
+    const dataList = reducer.templateList || [];
+    return dataList;
+  },
+);
+
 // All Orders
 const allOrdersSelector = createSelector(
   getL2ServicesStateSelector,
@@ -258,4 +267,7 @@ export {
   getDappSelectedSelector,
   getDAListSelector,
   getDADetailByIDSelector,
+
+  //Template
+  templateV2Selector,
 };

@@ -27,3 +27,13 @@ export type SubmitFormParams = {
   //NEW
   nodeConfigs?: any[];
 };
+
+export type IExploreItem = {
+  chainInfo: {
+    description: string;
+    image: string;
+    name: string;
+    url: string;
+  };
+  template: IModelCategory[];
+};
