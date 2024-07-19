@@ -15,11 +15,13 @@ const Header = (props: Props) => {
     return chainName.toLowerCase()?.trim().replaceAll('-', ' ');
   }, [orderItem?.chainInfo]);
 
+  const description = orderItem?.chainInfo?.description;
+
   return (
     <Flex
       flexDir={'row'}
       gap={['20px']}
-      align={'flex-start'}
+      align={'center'}
       w={'100%'}
       minH={['100px']}
     >
@@ -32,7 +34,7 @@ const Header = (props: Props) => {
         fit={'cover'}
         borderRadius={'100%'}
       />
-      <Flex flexDir={'column'} gap={['8px']}>
+      <Flex flexDir={'column'} justify={'center'} align={'flex-start'} h="100%">
         <Text
           fontSize={['24px']}
           fontWeight={500}
@@ -41,19 +43,21 @@ const Header = (props: Props) => {
         >
           {`${chainNameFormated}`}
         </Text>
-        <Text
-          fontSize={['16px']}
-          fontWeight={400}
-          color={'#000'}
-          opacity={0.7}
-          overflow={'hidden'}
-          whiteSpace={'wrap'}
-          maxH={'50px'}
-          w={'100%'}
-          textOverflow={'ellipsis'}
-        >
-          {`${orderItem?.chainInfo?.description || ''}`}
-        </Text>
+        {description && (
+          <Text
+            fontSize={['16px']}
+            fontWeight={400}
+            color={'#000'}
+            opacity={0.7}
+            overflow={'hidden'}
+            whiteSpace={'wrap'}
+            maxH={'50px'}
+            w={'100%'}
+            textOverflow={'ellipsis'}
+          >
+            {`${description || ''}`}
+          </Text>
+        )}
       </Flex>
     </Flex>
   );
