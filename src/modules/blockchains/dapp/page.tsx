@@ -5,12 +5,15 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 import { MouseSensor } from './utils';
 import BaseDappLego from './components/BaseDappLego';
-import useDappsStore from './stores/useDappStore';
+import useDappsStore, { useFormDappsStore } from './stores/useDappStore';
 import { mockupData } from './mockup';
 
 const RollupsDappPage = () => {
   const { l2ServiceUserAddress } = useWeb3Auth();
-  const { dapps, setDapps, setFormDapps } = useDappsStore();
+  const { dapps, setDapps } = useDappsStore();
+  const { setFormDapps } = useFormDappsStore();
+
+  console.log('__RollupsDappPage__');
 
   const handleDragStart = (event: any) => {};
 
@@ -47,7 +50,7 @@ const RollupsDappPage = () => {
       onDragEnd={handleDragEnd}
     >
       {dapps.map((data) => (
-        <BaseDappLego id={data.key} key={data.key} />
+        <BaseDappLego {...data} key={data.key} _key={data.key} />
       ))}
     </DndContext>
   );
