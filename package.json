@@ -22,6 +22,8 @@
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
+    "@canvasjs/charts": "^3.9.0",
+    "@canvasjs/react-charts": "^1.0.2",
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
     "@commitlint/cli": "^18.4.3",
@@ -59,6 +61,7 @@
     "bitcoin-address-validation": "^2.2.3",
     "bitcoinjs-message": "^2.2.0",
     "blo": "^1.0.1",
+    "blockly": "^11.1.1",
     "classnames": "^2.5.1",
     "clsx": "^2.1.0",
     "crypto-js": "4.0.0",
@@ -75,7 +78,9 @@
     "next": "14.0.4",
     "next-compose-plugins": "^2.2.1",
     "next-plugin-svgr": "^1.1.10",
+    "rc-input-number": "^9.2.0",
     "react": "^18",
+    "react-blockly": "^9.0.0",
     "react-countdown": "^2.3.5",
     "react-countup": "^6.5.0",
     "react-datepicker": "^6.9.0",
@@ -124,6 +129,7 @@
     "uuid": "^9.0.1",
     "valtio": "^1.13.0",
     "web3": "^4.0.3",
+    "zksync-ethers": "^6.10.0",
     "zustand": "^4.4.7"
   },
   "devDependencies": {

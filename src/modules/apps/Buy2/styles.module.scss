@@ -1,0 +1,8 @@
+.container {
+ :global {
+   .fill-height {
+     height: 100vh;
+     width: 100vw;
+   }
+ }
+}
