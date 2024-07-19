@@ -1,7 +1,5 @@
-import { OrderItem } from '@/stores/states/l2services/types';
 import { SimpleGrid } from '@chakra-ui/react';
 import ChainItem from './ChainItem';
-import s from './styles.module.scss';
 import { IExploreItem } from '@/services/api/l2services/types';
 
 type Props = {

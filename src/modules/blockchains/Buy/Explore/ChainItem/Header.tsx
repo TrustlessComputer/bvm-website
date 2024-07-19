@@ -12,7 +12,7 @@ const Header = (props: Props) => {
 
   const chainNameFormated = useMemo(() => {
     const chainName = orderItem?.chainInfo?.name || '';
-    return chainName.toLowerCase()?.trim().replaceAll('-', ' ');
+    return chainName?.trim().replaceAll('-', ' ');
   }, [orderItem?.chainInfo]);
 
   const description = orderItem?.chainInfo?.description;
