@@ -1,4 +1,4 @@
-import FieldTextFormik from "@/components/Form/Field.Text.Formik";
+import FieldTextFormik from "@components/Form/formik/Field.Text.Formik";
 import InputWrapper from "@/components/Form/inputWrapper";
 import { WalletProvider } from "@/modules/apps/CreateToken/providers/WalletProvider";
 import { closeModal, openModal } from "@/stores/states/modal/reducer";

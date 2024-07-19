@@ -1,8 +1,8 @@
 import { FormControl, FormErrorMessage } from "@chakra-ui/react";
 import React from "react";
-import s from "./styles.module.scss";
+import s from "../styles.module.scss";
 import { useFormikContext } from "formik";
-import FieldWrapInput from "./Field.WrapInput";
+import FieldWrapInput from "../Field.WrapInput";
 import InputNumber from "rc-input-number";
 import { ethers } from "ethers";
 import cs from "classnames";

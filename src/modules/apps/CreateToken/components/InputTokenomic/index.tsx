@@ -1,5 +1,5 @@
-import FieldTextFormik from "@/components/Form/Field.Text.Formik";
-import FieldAmount from "@/components/Form/fieldAmount.Formik";
+import FieldTextFormik from "@components/Form/formik/Field.Text.Formik";
+import FieldAmount from "@components/Form/formik/fieldAmount.Formik";
 import InputWrapper from "@/components/Form/inputWrapper";
 import { required } from "@/utils/form-validate";
 import { compareString } from "@/utils/string";

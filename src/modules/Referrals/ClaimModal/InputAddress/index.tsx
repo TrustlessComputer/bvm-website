@@ -7,7 +7,7 @@ import CreateOrImportWallet, {
   CREATE_OR_IMPORT_MODAL,
 } from '@/modules/Referrals/ClaimModal/InputAddress/CreateOrImportWallet';
 import InputWrapper from '@components/Form/inputWrapper';
-import FieldTextFormik from '@components/Form/Field.Text.Formik';
+import FieldTextFormik from '@components/Form/formik/Field.Text.Formik';
 import { WalletProvider } from '@/modules/Referrals/ClaimModal/InputAddress/providers/WalletProvider';
 
 interface IProps {

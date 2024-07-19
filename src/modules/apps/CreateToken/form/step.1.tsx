@@ -1,6 +1,6 @@
 import ButtonConnected from "@/components/ButtonConnected";
 import ButtonWrapper from "@/components/ButtonWrapper";
-import FieldAmount from "@/components/Form/fieldAmount.Formik";
+import FieldAmount from "@components/Form/formik/fieldAmount.Formik";
 import InputWrapper from "@/components/Form/inputWrapper";
 import { required } from "@/utils/form-validate";
 import { requiredAmount } from "@/utils/validate";
@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCreateFormValues, setCreateStep } from "../states/reducer";
 import { createTokenSelector } from "../states/selector";
 import s from "../styles.module.scss";
-import FieldTextFormik from '@components/Form/Field.Text.Formik';
+import FieldTextFormik from '@components/Form/formik/Field.Text.Formik';
 import React from 'react';
 
 interface IFormValues {
