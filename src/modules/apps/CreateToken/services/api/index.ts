@@ -1,4 +1,6 @@
-import CApiClient from "@/services/api/apiClient";
+// import CApiClient from "@/services/api/apiClient";
+
+import CApiClient from "@/services/apiClientV2";
 
 class CTokenomicsApi extends CApiClient {
   scanTx = async ({ tx_hash }: { tx_hash: string }) => {

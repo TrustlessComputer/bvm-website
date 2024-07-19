@@ -1,14 +1,12 @@
-import FieldTextFormik from "@/components/Form/form/Field.Text.Formik";
-import InputWrapper from "@/components/Form/form/inputWrapper";
-import CreateOrImportWallet, {
-  CREATE_OR_IMPORT_MODAL,
-} from "@/modules/CreateToken/components/InputAddress/CreateOrImportWallet";
-import { WalletProvider } from "@/modules/CreateToken/providers/WalletProvider";
-import { closeModal, openModal } from "@/store/states/modal/reducer";
+import FieldTextFormik from "@/components/Form/Field.Text.Formik";
+import InputWrapper from "@/components/Form/inputWrapper";
+import { WalletProvider } from "@/modules/apps/CreateToken/providers/WalletProvider";
+import { closeModal, openModal } from "@/stores/states/modal/reducer";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { Wallet } from "ethers";
 import { Field, useFormikContext } from "formik";
 import { useDispatch } from "react-redux";
+import CreateOrImportWallet, { CREATE_OR_IMPORT_MODAL } from '@/modules/apps/CreateToken/components/InputAddress/CreateOrImportWallet';
 
 interface IProps {
   name: string;

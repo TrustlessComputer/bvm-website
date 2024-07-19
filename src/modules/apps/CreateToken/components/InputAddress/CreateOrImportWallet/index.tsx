@@ -1,11 +1,11 @@
-import {useWallet} from "@/modules/CreateToken/providers/WalletProvider/hooks/useWallet";
+import {useWallet} from "@/modules/apps/CreateToken/providers/WalletProvider/hooks/useWallet";
 import cs from "classnames";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import s from "./styles.module.scss";
 
 import ImportPrivateKey from "../ImportPrivateKey";
-import {closeModal} from "@/store/states/modal/reducer";
+import {closeModal} from "@/stores/states/modal/reducer";
 import {Flex, Spinner, Text} from "@chakra-ui/react";
 
 export const CREATE_OR_IMPORT_MODAL = 'CREATE_OR_IMPORT_MODAL';

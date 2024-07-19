@@ -1,8 +1,8 @@
-import FieldTextFormik from "@/components/Form/form/Field.Text.Formik";
-import FieldAmount from "@/components/Form/form/fieldAmount";
-import InputWrapper from "@/components/Form/form/inputWrapper";
+import FieldTextFormik from "@/components/Form/Field.Text.Formik";
+import FieldAmount from "@/components/Form/fieldAmount";
+import InputWrapper from "@/components/Form/inputWrapper";
 import { required } from "@/utils/form-validate";
-import { compareString } from "@/utils/helpers";
+import { compareString } from "@/utils/string";
 import {
   Box,
   Button,

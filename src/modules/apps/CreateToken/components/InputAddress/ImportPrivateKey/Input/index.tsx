@@ -4,8 +4,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-//   import PasswordIcon from '@/components/PassWord';
-import { CDN_URL_IMAGES } from "@/configs";
+import { CDN_URL_IMAGES } from "@/config";
 import { Tooltip } from "@chakra-ui/react";
 import cs from "classnames";
 import s from "./ImportInput.module.scss";
