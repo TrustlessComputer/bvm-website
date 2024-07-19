@@ -51,7 +51,7 @@ const Header = (props: Props) => {
             opacity={0.7}
             overflow={'hidden'}
             whiteSpace={'wrap'}
-            maxH={'50px'}
+            maxH={'100px'}
             w={'100%'}
             textOverflow={'ellipsis'}
           >
