@@ -1,0 +1,14 @@
+.label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  &__text {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px; /* 155.556% */
+    font-family: var(--font-JetBrainsMono);
+    letter-spacing: -0.18px;
+  }
+}

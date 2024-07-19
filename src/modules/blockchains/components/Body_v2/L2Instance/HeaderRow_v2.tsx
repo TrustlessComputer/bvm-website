@@ -102,8 +102,8 @@ const HeaderRow = (props: Props) => {
   return (
     <Flex
       flexDir={['column', 'column', 'row']}
-      align={'center'}
-      justify={'space-between'}
+      align={['flex-start', 'flex-start', 'center']}
+      justify={['flex-start', 'flex-start', 'space-between']}
       gap={'10px'}
       w={'100%'}
     >

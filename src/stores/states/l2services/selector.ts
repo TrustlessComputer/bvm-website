@@ -91,7 +91,10 @@ const viewModeSelector = createSelector(
 // All Orders
 const allOrdersSelector = createSelector(
   getL2ServicesStateSelector,
-  (reducer) => reducer.allOrders || [],
+  (reducer) => {
+    const allOrders = reducer.allOrders || [];
+    return [...allOrders].sort((a, b) => a.index - b.index);
+  },
 );
 
 const allOrdersV2Selector = createSelector(

@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
+import { BVM_STUDIO } from '@constants/route-path';
 
 interface DataSections {
   title: string;
@@ -27,9 +28,9 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
         set up compute, storage, and hardware node. BVM handles everything.</p>
       <p> To make it all happen, we partner with some of the best crypto projects in the world.</p>
     </div>,
-    image: '/bvm/home-top-thumbnail.jpg',
+    image: '/images/home-v2-hero-sdutio.jpg',
     button: {
-      link: '/pricing',
+      link: BVM_STUDIO,
       title: 'Customize & launch your blockchain',
     },
   },
@@ -89,42 +90,42 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
 
 export const DATA_BRAND = [
   {
-    icon: '/bvm/brands/1.png',
+    icon: '/lego/lego_polygon.png',
     title: 'Polygon',
   },
   {
-    icon: '/bvm/brands/2.png',
+    icon: '/lego/lego_filecoin.png',
     title: 'Filecoin',
   }, {
-    icon: '/bvm/brands/3.png',
+    icon: '/lego/lego_bitcoin.png',
     title: 'Bitcoin',
   },
   {
-    icon: '/bvm/brands/4.png',
+    icon: '/lego/lego_zkStack.png',
     title: 'ZK Stack',
   },
   {
-    icon: '/bvm/bitcoin-stamp.png',
+    icon: '/lego/lego_avial.png',
     title: 'Avail DA',
   },
   {
-    icon: '/bvm/brands/6.png',
+    icon: '/lego/lego_nearDA.png',
     title: 'Near DA',
   },
   {
-    icon: '/bvm/brands/7.png',
+    icon: '/lego/lego_celestia.png',
     title: 'Celestia',
   },
   {
-    icon: '/bvm/brands/8.png',
+    icon: '/lego/lego_opstack.png',
     title: 'OP Stack',
   },
   {
-    icon: '/bvm/brands/9.png',
+    icon: '/lego/lego_eigenDA.png',
     title: 'Eigen DA',
   },
   {
-    icon: '/bvm/brands/10.png',
+    icon: '/lego/lego_ordinals.png',
     title: 'Ordinals',
   },
 ];

@@ -12,12 +12,13 @@ import { getRandonComputerName } from '../../Buy.helpers';
 import s from './styles.module.scss';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useOrderFormStore } from '../../stores/index_v2';
+import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 
 const ComputerNameInput = () => {
-  const { setChainName, chainName } = useOrderFormStore();
+  const { setChainName } = useOrderFormStore();
   const { computerNameField, setComputerNameField, isMainnet } = useBuy();
   const { value, errorMessage } = computerNameField;
-  const inputNameRef = useRef<HTMLInputElement>(null);
+  const { isCapture } = useCaptureStore();
 
   const onChangeHandler = React.useCallback(
     debounce(async (e: any) => {
@@ -61,7 +62,8 @@ const ComputerNameInput = () => {
   );
 
   React.useEffect(() => {
-    const computerName = getRandonComputerName(isMainnet);
+    const computerName =
+      'My Little Blockchain ' + getRandonComputerName(isMainnet);
 
     setChainName(computerName);
     setComputerNameField({
@@ -74,22 +76,24 @@ const ComputerNameInput = () => {
   }, [isMainnet]);
 
   return (
-    <input
-      type="text"
-      placeholder="Enter chain name"
-      className={s.input}
-      value={value}
-      onChange={(e) => {
-        const text = e.target.value;
+    <div className={`${isCapture ? s.setLine : ''} ${s.wrapper_input}`}>
+      <input
+        type="text"
+        placeholder="Enter chain name"
+        className={`${s.input} `}
+        value={value}
+        onChange={(e) => {
+          const text = e.target.value;
 
-        setComputerNameField({
-          ...computerNameField,
-          value: text,
-        });
+          setComputerNameField({
+            ...computerNameField,
+            value: text,
+          });
 
-        onChangeHandler(e);
-      }}
-    />
+          onChangeHandler(e);
+        }}
+      />
+    </div>
   );
 };
 

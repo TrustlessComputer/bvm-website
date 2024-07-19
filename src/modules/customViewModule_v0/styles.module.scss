@@ -14,12 +14,13 @@
 }
 
 .finalResult {
-
   .name {
+    margin-left: 7px;
     font-family: var(--font-JetBrainsMono);
     font-size: 18px;
     font-weight: 500;
     line-height: 28px; /* 155.556% */
     letter-spacing: -0.18px;
+    color: #fff;
   }
 }

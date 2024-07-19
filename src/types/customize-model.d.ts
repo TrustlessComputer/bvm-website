@@ -1,3 +1,8 @@
+interface IDappValue {
+  key: string;
+  value: string | number | { key: string; value: string | number }[];
+}
+
 interface IModelOption {
   title: string;
   selectable: boolean;
@@ -8,7 +13,9 @@ interface IModelOption {
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
   order: number;
-  value: string | number;
+  value: string | number | IDappValue[];
+  needContactUs: boolean;
+  keyDapp?: string;
 }
 
 interface IModelCategory {
@@ -28,4 +35,15 @@ interface IModelCategory {
   confuseTitle: string;
   confuseIcon: string;
   multiChoice: boolean;
+}
+
+interface ITemplate {
+  chainInfos: ChainInfos;
+  template: IModelCategory[];
+}
+
+interface ChainInfos {
+  image: string;
+  name: string;
+  url: string;
 }

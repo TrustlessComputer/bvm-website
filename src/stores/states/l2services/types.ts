@@ -181,6 +181,8 @@ interface AccountInfoResp {
   email: string;
   emailVerified: boolean;
   balanceUSD: string;
+  twitterUsername?: string;
+  twitterID?: string;
 }
 
 interface AccountInfo extends AccountInfoResp {

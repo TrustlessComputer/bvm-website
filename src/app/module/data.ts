@@ -1,4 +1,4 @@
-import { title } from 'process';
+import { BVM_STUDIO } from '@constants/route-path';
 
 export type IMODULE_HERO = {
   theme: string;
@@ -50,7 +50,7 @@ export const MODULE_DATAS = {
       desc: 'ZK rollups on Bitcoin for virtually any decentralized applications.',
       start: {
         text: 'Get started',
-        link: '/pricing',
+        link: BVM_STUDIO,
       },
     },
     why: {
@@ -90,7 +90,7 @@ export const MODULE_DATAS = {
       desc: 'Optimistic rollups on Bitcoin for virtually any decentralized applications.',
       start: {
         text: 'Get started',
-        link: '/pricing',
+        link: BVM_STUDIO,
       },
     },
     why: {
@@ -130,7 +130,7 @@ export const MODULE_DATAS = {
       desc: 'Use Celestia as the DA layer for your layer-2 blockchain.',
       start: {
         text: 'Get started',
-        link: '/pricing',
+        link: BVM_STUDIO,
       },
     },
     why: {
@@ -170,7 +170,7 @@ export const MODULE_DATAS = {
       desc: 'Use Avail as the DA layer for your  layer-2 blockchain.',
       start: {
         text: 'Get started',
-        link: '/pricing',
+        link: BVM_STUDIO,
       },
       icon: '/bvm/brands/avail-icon-lg.png',
     },
@@ -215,7 +215,7 @@ export const MODULE_DATAS = {
       desc: 'Launch your blockchain with Avail DA for optimal performance and scalability.',
       button: {
         text: 'Customize & launch your blockchain',
-        link: '/pricing',
+        link: BVM_STUDIO,
       },
       background: '/bvm/avail-footer-bg.png',
     },
@@ -229,7 +229,7 @@ export const MODULE_DATAS = {
       desc: 'Use Polygon as the DA layer for your layer-2 blockchain.',
       start: {
         text: 'Get started',
-        link: '/pricing',
+        link: BVM_STUDIO,
       },
     },
     why: {
@@ -269,7 +269,7 @@ export const MODULE_DATAS = {
       desc: 'Use Eigen as the DA layer for your layer-2 blockchain.',
       start: {
         text: 'Get started',
-        link: '/pricing',
+        link: BVM_STUDIO,
       },
     },
     why: {
@@ -309,7 +309,7 @@ export const MODULE_DATAS = {
       desc: 'Use Near as the DA layer for your  layer-2 blockchain.',
       start: {
         text: 'Get started',
-        link: '/pricing',
+        link: BVM_STUDIO,
       },
     },
     why: {
@@ -349,7 +349,7 @@ export const MODULE_DATAS = {
       desc: 'Use FileCoin as a storage layer for your  layer-2 blockchain via Lighthouse.',
       start: {
         text: 'Get started',
-        link: '/pricing',
+        link: BVM_STUDIO,
       },
     },
     why: {
@@ -389,7 +389,7 @@ export const MODULE_DATAS = {
       desc: 'A fun way to customize your blockchain to meet your needs.',
       start: {
         text: 'Get started',
-        link: '/pricing',
+        link: BVM_STUDIO,
       },
     },
     why: {
@@ -429,7 +429,7 @@ export const MODULE_DATAS = {
       desc: 'Validate that the state transitions of Bitcoin L2s, committed on the Bitcoin and DA layers, are accurate.',
       // start: {
       //   text: 'Get started',
-      //   link: '/pricing',
+      //   link: BVM_STUDIO,
       // },
     },
     why: {

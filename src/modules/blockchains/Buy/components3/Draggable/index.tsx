@@ -5,7 +5,7 @@ import s from './styles.module.scss';
 
 export type DraggableProps = {
   id: string;
-  value?: string | number | null;
+  value?: string | number | null | Record<string, any>;
   useMask?: boolean;
   disabled?: boolean;
   index?: number;
@@ -25,7 +25,7 @@ const Draggable = ({
   right = false,
   ...props
 }: DraggableProps) => {
-  const refTooltip = useRef<HTMLAnchorElement>(null);
+  const refTooltip = useRef<HTMLDivElement>(null);
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id,
@@ -66,6 +66,12 @@ const Draggable = ({
     }
   };
 
+  React.useEffect(() => {
+    if (tooltip && refTooltip.current) {
+      refTooltip.current.innerHTML = tooltip;
+    }
+  }, []);
+
   return (
     <div
       ref={setNodeRef}
@@ -79,12 +85,12 @@ const Draggable = ({
     >
       {children}
       {tooltip && (
-        <span ref={refTooltip} className={`${s.tooltip}`}>
-          {tooltip}
-        </span>
+        <div ref={refTooltip} className={`${s.tooltip}`}>
+          {/* {tooltip} */}
+        </div>
       )}
     </div>
   );
 };
 
-export default Draggable;
+export default React.memo(Draggable);

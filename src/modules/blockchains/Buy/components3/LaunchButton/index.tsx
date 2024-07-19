@@ -22,6 +22,8 @@ import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
 import useL2Service from '@/hooks/useL2Service';
 import BaseModal from '@components/BaseModal';
 import ErrorModal from '../ErrorModal';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { formatCurrencyV2 } from '@/utils/format';
 
 const LaunchButton = ({
   data,
@@ -39,13 +41,14 @@ const LaunchButton = ({
     | null;
   originalData: IModelCategory[] | null;
 }) => {
-  const { field, priceBVM, priceUSD } = useOrderFormStoreV3();
+  const { field, priceBVM, priceUSD, needContactUs } = useOrderFormStoreV3();
   const { loggedIn, login } = useWeb3Auth();
   const { accountInforL2Service, availableListFetching, availableList } =
     useAppSelector(getL2ServicesStateSelector);
   const [isShowError, setShowError] = useState(false);
 
   const { getAccountInfor } = useL2Service();
+  const { showContactUsModal } = useContactUs();
 
   const router = useRouter();
   const { computerNameField, chainIdRandom } = useBuy();
@@ -113,6 +116,7 @@ const LaunchButton = ({
     if (!allFilled) {
       setShowError(true);
     }
+
     if (isSubmiting || !allFilled || hasError || !originalData) {
       return;
     }
@@ -141,6 +145,11 @@ const LaunchButton = ({
         ...rest,
         options: [value],
       });
+    }
+
+    if (needContactUs) {
+      showContactUsModal(dynamicForm as any);
+      return;
     }
 
     if (!loggedIn) {
@@ -198,11 +207,9 @@ const LaunchButton = ({
       <div className={`${s.launch} ${s.active}`} onClick={handleOnClick}>
         <div className={s.inner}>
           {!loggedIn ? (
-            <Text className={s.connect}>Launch</Text>
-          ) : (
-            <React.Fragment>
-              <div className={s.top}>
-                {isSubmiting ? <Spinner color="#fff" /> : <p>Launch</p>}
+            <Text className={s.connect}>
+              {needContactUs ? 'Contact Us' : 'Launch'}
+              {!needContactUs && (
                 <div className={`${s.icon}`}>
                   <ImagePlaceholder
                     src={'/launch.png'}
@@ -211,6 +218,27 @@ const LaunchButton = ({
                     height={48}
                   />
                 </div>
+              )}
+            </Text>
+          ) : (
+            <React.Fragment>
+              <div className={s.top}>
+                {isSubmiting ? (
+                  <Spinner color="#fff" />
+                ) : (
+                  <p>{needContactUs ? 'Contact Us' : 'Launch'}</p>
+                )}
+
+                {!needContactUs && (
+                  <div className={`${s.icon}`}>
+                    <ImagePlaceholder
+                      src={'/launch.png'}
+                      alt={'launch'}
+                      width={48}
+                      height={48}
+                    />
+                  </div>
+                )}
               </div>
             </React.Fragment>
           )}
@@ -227,7 +255,10 @@ const LaunchButton = ({
           onClose={onCloseTopUpModal}
           onSuccess={async () => {}}
           // balanceNeedTopup={`${tierData?.priceNote || '--'}`}
-          balanceNeedTopup={`${priceBVM.toFixed(2) || '--'} BVM `}
+          balanceNeedTopup={`${formatCurrencyV2({
+            amount: priceBVM,
+            decimals: 0,
+          })} BVM `}
         />
       )}
       <ErrorModal
@@ -235,10 +266,8 @@ const LaunchButton = ({
         show={isShowError}
         onHide={() => setShowError(false)}
         closeText="Retry"
+        className={s.modalError}
       >
-        <p className={s.description}>
-          Your blockchain setup lacks the following necessary modules:
-        </p>
         <ul className={s.fields}>
           {data?.map((item) => {
             if (!item.required || field[item.key].dragged) return null;

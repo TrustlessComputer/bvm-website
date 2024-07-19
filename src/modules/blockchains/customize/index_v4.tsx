@@ -2,9 +2,10 @@
 
 import { Flex } from '@chakra-ui/react';
 import { BuyProvider } from '../providers/Buy.context';
-import BuyPage from '../Buy/index_v5';
-import s from './styles_v2.module.scss';
-
+// import BuyPage from '../Buy/index_v5';
+import BuyPage from '../Buy/index_v6';
+// import s from './styles_v2.module.scss';
+import s from './styles_v6.module.scss';
 
 export default () => {
   return (
@@ -16,7 +17,7 @@ export default () => {
       className={s.container}
     >
       <BuyProvider>
-        <Flex maxWidth={'1600px'} w={'100%'} px={['16px', '18px', '20px']}>
+        <Flex w={'100%'} px={['16px', '18px', '20px']}>
           <BuyPage />
         </Flex>
       </BuyProvider>

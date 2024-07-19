@@ -1,20 +1,22 @@
 .modal {
   display: block;
   width: 400px !important;
-  padding: 28px 32px !important;
+  padding: 28px !important;
   border-radius: 20px !important;
 
   &__title {
-    font-family: SF Pro Display;
+    font-family: var(--font-SFProDisplay) !important;
     font-size: 24px;
     font-weight: 600;
     line-height: 33.6px;
     letter-spacing: 0.01em;
     text-align: center;
+    padding: 0 0 20px 0 !important;
     color: #000000 !important;
   }
 
   &__body {
+    padding: 0 !important;
   }
 
   &__closeButton {
