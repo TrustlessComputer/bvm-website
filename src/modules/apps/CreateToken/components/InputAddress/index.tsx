@@ -32,7 +32,7 @@ const InputAddress = (props: IProps) => {
         id: CREATE_OR_IMPORT_MODAL,
         className: "signIn_modal",
         onClose: handleCloseSignInModal,
-        render: (
+        render: () => (
           <WalletProvider>
             <CreateOrImportWallet showTitle={true} onSuccess={handleSuccess} />
           </WalletProvider>
