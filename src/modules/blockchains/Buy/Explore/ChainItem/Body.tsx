@@ -12,10 +12,15 @@ const Body = (props: Props) => {
   const { item } = props;
 
   return (
-    <CustomViewModule
-      chainName={item.chainInfo.name}
-      selectedOptions={item.template || []}
-    />
+    <div style={{
+      pointerEvents: 'none',
+    }}>
+      <CustomViewModule
+        chainName={item.chainInfo.name}
+        selectedOptions={item.template || []}
+      />
+    </div>
+
   );
 };
 
