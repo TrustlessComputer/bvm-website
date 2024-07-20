@@ -79,19 +79,19 @@ const StepsAirdrop = (props: IProps) => {
     dispatch(setAirdropAlphaUsers(res));
   };
 
-  const handleShareTwToSignIn = async () => {
-    let code = '';
-    const res: any = await requestAuthenByShareCode();
-    setAuthenCode(res);
-    code = `\n\n#${res?.public_code}`;
-
-    const content = `The retro airdrop 1 is now up for grabs!\n\nPatience pays off – it's been a journey with @NewBitcoinCity since 2023, and now we're reaping the rewards.\n\nExcited for more airdrops from the @BVMnetwork ecosystem!\n\nWelcome to the future of Bitcoin!${code}\n\nbvm.network/public-sale`;
-
-    window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
-      '_blank',
-    );
-  };
+  // const handleShareTwToSignIn = async () => {
+  //   let code = '';
+  //   const res: any = await requestAuthenByShareCode();
+  //   setAuthenCode(res);
+  //   code = `\n\n#${res?.public_code}`;
+  //
+  //   const content = `The retro airdrop 1 is now up for grabs!\n\nPatience pays off – it's been a journey with @NewBitcoinCity since 2023, and now we're reaping the rewards.\n\nExcited for more airdrops from the @BVMnetwork ecosystem!\n\nWelcome to the future of Bitcoin!${code}\n\nbvm.network/public-sale`;
+  //
+  //   window.open(
+  //     `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}`,
+  //     '_blank',
+  //   );
+  // };
 
   const handleTweetToClaim = (airdropStep: AirdropStep) => {
     const content = `I've been a supporter of @newbitcoincity since their early days in 2023.\n\nThese builders are reinventing Bitcoin, and I share their vision.\n\nExcited to claim their first airdrop in 2024 and eager for what's to come.\n\nCheck out their latest project: bvm.network`;
@@ -249,30 +249,30 @@ const StepsAirdrop = (props: IProps) => {
         airdropType: AirdropType.RETROSPECTIVE,
         step: AirdropStep.gmHolders,
       },
-      {
-        title: 'Alpha users',
-        desc: `Proportionally based on Airdrop Points - min Airdrop Points: 50,000<br/>
-          Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
-       `,
-        actionText: !token ? 'Link account' : undefined,
-        image: '/airdrop/alpha.png',
-        actionHandle: handleShareTwToSignIn,
-        isActive: true,
-        isDisable: true,
-        right: {
-          title: '',
-          desc: '',
-        },
-        expiredTime: PUBLIC_SALE_START,
-        showExpireTime: false,
-        airdropType: AirdropType.RETROSPECTIVE,
-        // actionHandleSecondary: () => {
-        //   handleShareTwToSignIn();
-        // },
-        // actionTextSecondary: 'Switch account',
-        step: AirdropStep.alphaUsers,
-        handleShowManualPopup: handleShowManualPopup,
-      },
+      // {
+      //   title: 'Alpha users',
+      //   desc: `Proportionally based on Airdrop Points - min Airdrop Points: 50,000<br/>
+      //     Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
+      //  `,
+      //   actionText: !token ? 'Link account' : undefined,
+      //   image: '/airdrop/alpha.png',
+      //   actionHandle: handleShareTwToSignIn,
+      //   isActive: true,
+      //   isDisable: true,
+      //   right: {
+      //     title: '',
+      //     desc: '',
+      //   },
+      //   expiredTime: PUBLIC_SALE_START,
+      //   showExpireTime: false,
+      //   airdropType: AirdropType.RETROSPECTIVE,
+      //   // actionHandleSecondary: () => {
+      //   //   handleShareTwToSignIn();
+      //   // },
+      //   // actionTextSecondary: 'Switch account',
+      //   step: AirdropStep.alphaUsers,
+      //   handleShowManualPopup: handleShowManualPopup,
+      // },
     ];
   }, [token, needReload, raffleCode, loading, currentStep]);
 
