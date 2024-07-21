@@ -1,0 +1,17 @@
+.button {
+  padding: 7px 24px;
+  border-radius: 16px;
+  background-color: #cacaca;
+  color: #999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 34px;
+
+  &__disabled {
+    cursor: not-allowed;
+  }
+}

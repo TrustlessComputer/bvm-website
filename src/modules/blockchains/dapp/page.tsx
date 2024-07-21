@@ -9,13 +9,17 @@ import {
 
 import { MouseSensor } from './utils';
 import { dappMockupData } from './mockup';
+import { FieldKeyPrefix } from './contants';
 import LeftDroppable from './components/LeftDroppable';
 import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
+import LaunchButton from './components/LaunchButton';
+import Button from './components/Button';
 import useDappsStore from './stores/useDappStore';
+import { draggedIdsSignal } from './signals/useDragSignal';
 
 import styles from './styles.module.scss';
-import { draggedIdsSignal } from './signals/useDragSignal';
+import Image from 'next/image';
 
 const RollupsDappPage = () => {
   const { dapps, setDapps } = useDappsStore();
@@ -33,11 +37,12 @@ const RollupsDappPage = () => {
     const { over, active } = event;
 
     const draggedIds = (draggedIdsSignal.value || []) as string[];
-    const baseBlockNotInOutput = !draggedIds[0] || draggedIds[0] !== 'base';
+    const baseBlockNotInOutput =
+      !draggedIds[0] || draggedIds[0] !== FieldKeyPrefix.BASE;
     const onlyAllowOneBase = true; // Fake data
     const overIsInput = over?.id === 'input';
     const overIsOutput = over?.id === 'output';
-    const activeIsRequiredField = active.id === 'base';
+    const activeIsRequiredField = active.id === FieldKeyPrefix.BASE;
 
     // Case 1: Drag to the right
     if (overIsOutput) {
@@ -85,21 +90,81 @@ const RollupsDappPage = () => {
 
   return (
     <div className={styles.container}>
-      <DndContext
-        sensors={sensors}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-      >
-        <div className={styles.container__droppable} id="left-droppable">
-          <LeftDroppable />
+      <div className={styles.container__header}>
+        <div></div>
+        <div>
+          <LaunchButton />
         </div>
+      </div>
 
-        <DragMask />
+      <div className={styles.container__content}>
+        <DndContext
+          sensors={sensors}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+        >
+          <div
+            className={styles.container__content__droppable}
+            id="left-droppable"
+          >
+            <LeftDroppable />
+          </div>
 
-        <div className={styles.container__droppable}>
-          <RightDroppable />
-        </div>
-      </DndContext>
+          <DragMask />
+
+          <div className={styles.container__content__droppable}>
+            <RightDroppable />
+          </div>
+
+          <div className={styles.container__content__sidebar}>
+            <div className={styles.container__content__sidebar__header}>
+              {dapps.map((dapp) => {
+                return (
+                  <Button
+                    element="button"
+                    type="button"
+                    color="transparent"
+                    onClick={() => {}}
+                    className={styles.resetButton}
+                  >
+                    <div>
+                      {dapp.icon && (
+                        <Image
+                          src={dapp.icon}
+                          width={16}
+                          height={16}
+                          alt="icon"
+                        />
+                      )}{' '}
+                      {dapp.title}
+                    </div>
+                    <div />
+                  </Button>
+                );
+              })}
+            </div>
+
+            <div className={styles.container__content__sidebar__footer}>
+              <Button
+                element="button"
+                type="button"
+                onClick={() => {}}
+                className={styles.resetButton}
+              >
+                EXPORT
+              </Button>
+              <Button
+                element="button"
+                type="button"
+                onClick={() => {}}
+                className={styles.resetButton}
+              >
+                SHARE
+              </Button>
+            </div>
+          </div>
+        </DndContext>
+      </div>
     </div>
   );
 };

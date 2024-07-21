@@ -10,6 +10,7 @@ import Input from '../Input';
 import Dropdown from '../Dropdown';
 import Toggle from '../Toggle';
 import ExtendsInput from '../ExtendsInput';
+import Button from '../Button';
 import { FieldKeyPrefix } from '../../contants';
 import { FieldOption } from '../../types';
 import { adjustBrightness } from '../../utils';
@@ -32,6 +33,10 @@ const RightDroppable = () => {
     () => adjustBrightness(thisDapp?.color || '#F76649', -10),
     [thisDapp],
   );
+
+  const handleReset = () => {
+    draggedIdsSignal.value = [];
+  };
 
   const blockFieldMapping = React.useMemo(() => {
     const mapping: Record<string, DappModel['blockFields'][2]> = {};
@@ -167,6 +172,7 @@ const RightDroppable = () => {
     <Droppable
       id="output"
       style={{
+        position: 'relative',
         width: '100%',
         height: '100%',
         display: 'flex',
@@ -198,6 +204,15 @@ const RightDroppable = () => {
             })}
         </LegoParent>
       )}
+
+      <Button
+        element="button"
+        type="button"
+        onClick={() => handleReset()}
+        className={styles.resetButton}
+      >
+        RESET
+      </Button>
     </Droppable>
   );
 };
