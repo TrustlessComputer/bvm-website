@@ -1,98 +1,99 @@
 import React from 'react';
-import Image from 'next/image';
+import cn from 'classnames';
 
-import SvgInset from '@/components/SvgInset';
+import { adjustBrightness } from '../../utils';
 
 import styles from './styles.module.scss';
-import { hexToHSB, hsbToHex } from '../../utils';
+import SvgInset from '@/components/SvgInset';
+import Image from 'next/image';
 
-type LegoParent = {
+type Props = {
   background?: string;
   disabled?: boolean;
-  title?: string;
+  title?: React.ReactNode;
   icon?: string;
-  zIndex?: number;
-} & React.HTMLAttributes<HTMLDivElement>;
+  smallMarginHeaderTop?: boolean;
+  children?: React.ReactNode;
+};
 
-function LegoParent({
+const LegoParent = ({
   background = '#A041FF',
-  title = '',
   disabled = false,
+  title = '',
   icon,
-  zIndex = 0,
   children,
-  ...props
-}: LegoParent) {
-  const legoRef = React.useRef<HTMLDivElement | null>(null);
+  smallMarginHeaderTop = false,
+}: Props) => {
+  const headerRef = React.useRef<HTMLDivElement | null>(null);
+  const footerRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
-    let parentLego = legoRef.current?.parentElement;
-    if (!parentLego || !parentLego.parentElement) return;
+    if (!headerRef.current || !footerRef.current) return;
 
-    parentLego.style.position = 'relative';
-    parentLego.style.zIndex = `${zIndex * 2} `;
-    parentLego.parentElement.style.zIndex = `${zIndex * 2} `;
-  }, [legoRef.current]);
+    const headerWidth = headerRef.current.offsetWidth;
 
-  const fillBackgroundAsHSB = hexToHSB(background);
-  const _fillBackground = hsbToHex(
-    fillBackgroundAsHSB?.h || 0,
-    fillBackgroundAsHSB?.s || 0,
-    fillBackgroundAsHSB?.b || 100 - 10,
-  )?.split('.')[0];
-  const _background = hsbToHex(
-    fillBackgroundAsHSB?.h || 0,
-    fillBackgroundAsHSB?.s || 0,
-    (fillBackgroundAsHSB?.b || 100) - 30,
-  )?.split('.')[0];
+    footerRef.current.style.width = `${headerWidth}px`;
+  }, [title]);
 
   return (
     <div
-      className={`${styles.wrapper} ${styles[`wrapper__${background}`]}`}
-      ref={legoRef}
+      className={styles.lego}
       style={{
-        zIndex: zIndex,
         // @ts-ignore
-        '--fillBackground': _fillBackground,
-        '--background': _background,
+        '--background-color': background,
+        '--border-color': adjustBrightness(background, -20),
       }}
-      {...props}
     >
-      <SvgInset
-        svgUrl="/landingV3/svg/stud_head.svg"
-        className={styles.wrapper_studHead}
-      />
+      <div className={styles.lego__header} ref={headerRef}>
+        <div
+          className={cn(
+            styles.lego__header__piece,
+            styles.lego__header__piece__top,
+            {
+              [styles.lego__header__piece__top__smallMargin]:
+                smallMarginHeaderTop,
+            },
+          )}
+        >
+          <SvgInset svgUrl="/landingV3/svg/stud.svg" size={26} />
+        </div>
 
-      <div className={`${styles.wrapper_stud__vertical} ${styles.stud__large}`}>
-        {title && (
-          <div className={styles.label}>
-            {icon && <Image src={icon} alt="icon" width={24} height={24} />}
-            <p>{title}</p>
-          </div>
-        )}
+        <div className={styles.lego__header__title}>
+          {icon && <Image src={icon} width={20} height={20} alt="icon" />}
+          {title}
+        </div>
 
         <div
-          className={styles.wrapper_stud__vertical__bottom}
-          style={{ zIndex: zIndex }}
+          className={cn(
+            styles.lego__header__piece,
+            styles.lego__header__piece__bottom,
+          )}
         >
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" />
+          <SvgInset svgUrl="/landingV3/svg/stud.svg" size={26} />
         </div>
       </div>
 
-      <div className={styles.wrapper_stud__horizonal}>
-        <div className={styles.wrapper_stud__horizonal_inner}>{children}</div>
+      <div className={styles.lego__body}>
+        <div className={styles.lego__body__stick} />
+        <div className={styles.lego__body__content}>{children}</div>
       </div>
 
-      <div className={styles.wrapper_stud__vertical}>
-        <div className={styles.wrapper_stud__vertical__top}>
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" />
-        </div>{' '}
-        <div className={styles.wrapper_stud__vertical__bottom}>
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" />
+      <div className={styles.lego__footer} ref={footerRef}>
+        <div
+          className={cn(
+            styles.lego__footer__piece,
+            styles.lego__footer__piece__bottom,
+            {
+              [styles.lego__footer__piece__bottom__smallMargin]:
+                smallMarginHeaderTop,
+            },
+          )}
+        >
+          <SvgInset svgUrl="/landingV3/svg/stud.svg" size={26} />
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default React.memo(LegoParent);
+export default LegoParent;

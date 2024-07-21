@@ -1,7 +1,7 @@
 import { signal } from '@preact/signals-react';
 
-export const formDappsSignal = signal<Record<string, DappModel>>({});
+export const formDappInputSignal = signal({});
 
-export const useFormDappsSignal = (): Record<string, DappModel> => {
-  return formDappsSignal.value;
-};
+export const formDappDropdownSignal = signal({});
+
+export const formDappExtendsSignal = signal({});

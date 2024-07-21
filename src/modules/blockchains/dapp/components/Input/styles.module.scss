@@ -1,13 +1,13 @@
 .input {
   background-color: #ffffff;
-  width: 100%;
+  color: #000000;
+  width: 200px;
   padding: 0 12px;
   border-radius: 99999px;
-  font-family: var(--font-JetBrainsMono);
-  font-size: 18px;
   outline: none;
 
   &::placeholder {
-    font-family: var(--font-JetBrainsMono);
+    color: #000000;
+    opacity: 0.5;
   }
 }

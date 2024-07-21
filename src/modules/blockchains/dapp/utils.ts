@@ -3,6 +3,7 @@ import {
   TouchSensor as LibTouchSensor,
 } from '@dnd-kit/core';
 import type { MouseEvent, TouchEvent } from 'react';
+import { FieldOption } from './types';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -99,4 +100,21 @@ export const adjustBrightness = (hex: string, percent: number) => {
   )?.split('.')[0];
 
   return _background;
+};
+
+export const getKeyForm = (fieldOption: FieldOption, name: string) => {
+  const keyPrefix = fieldOption.inBaseField
+    ? 'base-'
+    : fieldOption.inBlockField
+    ? 'block-'
+    : fieldOption.inSingleField
+    ? 'single-'
+    : '';
+  const keySuffix = fieldOption.inBaseField
+    ? ''
+    : fieldOption.inBlockField
+    ? `-${fieldOption.index}`
+    : `-${fieldOption.index}`;
+
+  return keyPrefix + name + keySuffix;
 };

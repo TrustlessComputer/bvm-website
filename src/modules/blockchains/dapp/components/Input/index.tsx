@@ -1,73 +1,35 @@
 import React from 'react';
 
-import styles from './styles.module.scss';
+import { FieldOption } from '../../types';
+import { getKeyForm } from '../../utils';
+import { formDappInputSignal } from '../../signals/useFormDappsSignal';
 import useDappsStore, { useFormDappsStore } from '../../stores/useDappStore';
 
+import styles from './styles.module.scss';
+import { useSignalEffect } from '@preact/signals-react';
+
 type Props = {
-  required?: boolean;
-  optionalIndex?: number;
-  typeExtends?: {
-    isExtended: boolean;
-    level: number;
-  };
   name: string;
-  _key: string;
-};
+  dappKey: string;
+} & FieldOption;
 
-const Input = ({ required = false, optionalIndex, name, _key }: Props) => {
-  const { formDapps, setFormDappsWithKey } = useFormDappsStore();
-  const thisDapp = formDapps[_key];
+const Input = ({ name, dappKey, ...props }: Props) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formDappInput = formDappInputSignal.value;
+    const key = getKeyForm(props, name);
 
-  const handleInputChange = React.useCallback(
-    (value: string) => {
-      const newRequiredFields = JSON.parse(
-        JSON.stringify(thisDapp.requiredFields),
-      ) as FieldModel[];
-      const newOptionalFields = JSON.parse(
-        JSON.stringify(thisDapp.optionalFields),
-      ) as { key: string; title: string; fields: FieldModel[] }[];
+    formDappInputSignal.value = {
+      ...formDappInput,
+      [key]: e.target.value,
+    };
+  };
 
-      if (required) {
-        for (const requiredField of newRequiredFields) {
-          if (requiredField.key === name) {
-            requiredField.value = value;
-          }
-        }
-      } else if (typeof optionalIndex !== 'undefined') {
-        newOptionalFields[optionalIndex].fields = newOptionalFields[
-          optionalIndex
-        ].fields.map((field: FieldModel) => {
-          if (field.key === name) {
-            return {
-              ...field,
-              value,
-            };
-          }
-
-          return field;
-        });
-      }
-
-      setFormDappsWithKey(_key, {
-        ...thisDapp,
-        requiredFields: newRequiredFields,
-        optionalFields: newOptionalFields,
-      });
-    },
-    [thisDapp],
-  );
-
-  if (Object.keys(formDapps).length === 0 || !thisDapp) return null;
-
-  console.log('__Input__', name);
+  useSignalEffect(() => {
+    console.log(formDappInputSignal.value);
+  });
 
   return (
-    <input
-      type="text"
-      className={`${styles.input} `}
-      // value={value}
-      onChange={(e) => handleInputChange(e.target.value)}
-    />
+    <input type="text" className={styles.input} onChange={handleInputChange} />
   );
 };
 

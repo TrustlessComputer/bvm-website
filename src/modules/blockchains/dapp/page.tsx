@@ -7,52 +7,76 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 
-import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { getModelCategories } from '@/services/customize-model';
-
 import { MouseSensor } from './utils';
-import { dappMockupData, modelCategoriesMockupData } from './mockup';
+import { dappMockupData } from './mockup';
 import LeftDroppable from './components/LeftDroppable';
 import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
-import useFormOrderStore from './stores/useFormOrderStore';
-import useDappsStore, { useFormDappsStore } from './stores/useDappStore';
+import useDappsStore from './stores/useDappStore';
 
 import styles from './styles.module.scss';
+import { draggedIdsSignal } from './signals/useDragSignal';
 
 const RollupsDappPage = () => {
-  const { l2ServiceUserAddress } = useWeb3Auth();
-  const { setData } = useFormOrderStore();
   const { dapps, setDapps } = useDappsStore();
-  // const { setFormDapps } = useFormDappsStore();
 
-  const handleDragStart = (event: DragStartEvent) => {};
+  // Fake dapps[0] is selected
+  const thisDapp = React.useMemo(() => {
+    return dapps[0];
+  }, [dapps]);
 
-  const handleDragEnd = (event: DragEndEvent) => {};
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event;
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { over, active } = event;
+
+    const draggedIds = (draggedIdsSignal.value || []) as string[];
+    const baseBlockNotInOutput = !draggedIds[0] || draggedIds[0] !== 'base';
+    const onlyAllowOneBase = true; // Fake data
+    const overIsInput = over?.id === 'input';
+    const overIsOutput = over?.id === 'output';
+    const activeIsRequiredField = active.id === 'base';
+
+    // Case 1: Drag to the right
+    if (overIsOutput) {
+      // Case 1.1: Output does not have base block yet
+      if (baseBlockNotInOutput && !activeIsRequiredField) {
+        alert(`Please drag ${thisDapp.baseBlock.title} to the output first!`);
+        return;
+        // Case 1.2: Output already has base block and only allow 1
+      } else if (
+        !baseBlockNotInOutput &&
+        activeIsRequiredField &&
+        onlyAllowOneBase
+      ) {
+        alert(`Only 1 base block is allowed!`);
+        return;
+      }
+
+      draggedIdsSignal.value = [...draggedIds, active.id] as string[];
+
+      return;
+    }
+
+    // Case 2: Drag to the left
+    if (overIsInput) {
+      draggedIdsSignal.value = draggedIds.filter((id) => id !== active.id);
+
+      return;
+    }
+  };
 
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
 
   const fetchData = async () => {
-    // const modelCategories =
-    //   (await getModelCategories(l2ServiceUserAddress)) || [];
-    // const modelCategories = modelCategoriesMockupData;
-
-    // const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
-    // setData(_modelCategories);
-
     const dapps = dappMockupData;
-    const _dapps = dapps.sort((a, b) => a.order - b.order);
-    // const formDapps: Record<string, DappModel> = _dapps.reduce(
-    //   (acc, dapp) => ({
-    //     ...acc,
-    //     [dapp.key]: dapp,
-    //   }),
-    //   {},
-    // );
-    setDapps(_dapps);
-    // setFormDapps(formDapps);
+    const sortedDapps = dapps.sort((a, b) => a.order - b.order);
+
+    setDapps(sortedDapps);
   };
 
   React.useEffect(() => {
@@ -66,7 +90,7 @@ const RollupsDappPage = () => {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
-        <div className={styles.container__droppable}>
+        <div className={styles.container__droppable} id="left-droppable">
           <LeftDroppable />
         </div>
 
@@ -75,10 +99,6 @@ const RollupsDappPage = () => {
         <div className={styles.container__droppable}>
           <RightDroppable />
         </div>
-
-        {/* {dapps.map((data) => (
-        <BaseDappLego {...data} key={data.key} _key={data.key} />
-      ))} */}
       </DndContext>
     </div>
   );

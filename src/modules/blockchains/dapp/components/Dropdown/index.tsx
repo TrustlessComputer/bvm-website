@@ -1,115 +1,63 @@
 import React from 'react';
 import cn from 'classnames';
+import Image from 'next/image';
 
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 
-import styles from './styles.module.scss';
+import { FieldOption } from '../../types';
+import { adjustBrightness, getKeyForm } from '../../utils';
 import { useFormDappsStore } from '../../stores/useDappStore';
+import { formDappDropdownSignal } from '../../signals/useFormDappsSignal';
+
+import styles from './styles.module.scss';
+import { useSignalEffect } from '@preact/signals-react';
 
 type Props = {
   background?: string;
   disabled?: boolean;
   options: FieldModel[];
-  // value: FieldModel;
-  // handleOnClickOption: (
-  //   name: string,
-  //   option: FieldModel,
-  //   required: boolean,
-  //   optionalIndex?: number,
-  // ) => void;
-  optionalIndex?: number;
-  required?: boolean;
   name: string;
-  _key: string;
-};
+  keyDapp: string;
+} & FieldOption;
 
 const Dropdown = ({
-  background = '#213423',
+  background = '#A041FF',
   disabled,
   options,
-  optionalIndex,
-  required = false,
   name,
-  _key,
+  keyDapp,
+  ...props
 }: Props) => {
-  const { formDapps, setFormDappsWithKey } = useFormDappsStore();
-  const thisDapp = formDapps[_key];
-
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [isOpenDropdown, setIsOpenDropdown] = React.useState<boolean>(false);
+  const [currentValue, setCurrentValue] = React.useState<FieldModel | null>(
+    options[0],
+  );
 
   useOnClickOutside(ref, () => setIsOpenDropdown(false));
 
-  const handleOnClickOption = React.useCallback(
-    (
-      name: string,
-      option: FieldModel,
-      required: boolean,
-      optionalIndex?: number,
-    ) => {
-      const newRequiredFields = JSON.parse(
-        JSON.stringify(thisDapp.requiredFields),
-      );
-      const newOptionalFields = JSON.parse(
-        JSON.stringify(thisDapp.optionalFields),
-      );
+  const backgroundHover = adjustBrightness(background, -10);
+  const backgroundActive = adjustBrightness(background, -20);
 
-      if (required) {
-        for (const requiredField of newRequiredFields) {
-          if (requiredField.key === name) {
-            requiredField.value = option.value;
-          }
-        }
-      } else if (typeof optionalIndex !== 'undefined') {
-        newOptionalFields[optionalIndex].fields = newOptionalFields[
-          optionalIndex
-        ].fields.map((field: FieldModel) => {
-          if (field.key === name) {
-            return {
-              ...field,
-              value: option.value,
-            };
-          }
+  const handleOnClickOption = (item: FieldModel) => {
+    const formDappDropdown = formDappDropdownSignal.value;
+    const key = getKeyForm(props, name);
 
-          return field;
-        });
-      }
-
-      setFormDappsWithKey(_key, {
-        ...thisDapp,
-        requiredFields: newRequiredFields,
-        optionalFields: newOptionalFields,
-      });
-    },
-    [thisDapp],
-  );
-
-  if (Object.keys(formDapps).length === 0 || !thisDapp) return null;
-
-  const value = (required
-    ? thisDapp.requiredFields
-        .find((field) => field.key === name)
-        ?.options?.find(
-          (option) =>
-            option.value ===
-            thisDapp.requiredFields.find((field) => field.key === name)?.value,
-        )
-    : thisDapp.optionalFields[optionalIndex as number].fields.map((field) =>
-        (field.options || []).find((option) => option.key === field.value),
-      )?.[0]) ||
-    options[0] || {
-      key: '',
-      title: '',
-      value: '',
-      icon: '',
-      defaultValue: '',
-      tooltip: '',
-      type: '',
-      options: [],
+    formDappDropdownSignal.value = {
+      ...formDappDropdown,
+      [key]: item.value,
     };
 
-  console.log('__Dropdown__', name, value);
+    setCurrentValue(item);
+    setIsOpenDropdown(false);
+  };
+
+  useSignalEffect(() => {
+    console.log('formDappDropdownSignal', formDappDropdownSignal.value);
+  });
+
+  if (!currentValue) return null;
 
   return (
     <div
@@ -118,6 +66,8 @@ const Dropdown = ({
       style={{
         // @ts-ignore
         '--background': background,
+        '--background-hover': backgroundHover,
+        '--background-active': backgroundActive,
       }}
     >
       <div className={styles.dropdown__inner}>
@@ -125,24 +75,20 @@ const Dropdown = ({
           className={styles.dropdown__inner__content}
           onClick={() => setIsOpenDropdown(!isOpenDropdown)}
         >
-          {value.icon && (
-            <ImagePlaceholder
-              src={value.icon || options[0].icon}
-              alt={value.title + ' logo'}
-              width={16}
-              height={16}
-            />
+          {currentValue.icon && (
+            <Image src={currentValue.icon} width={16} height={16} alt="icon" />
           )}
 
-          <p className={styles.dropdown__inner__content__text}>{value.title}</p>
+          <p className={styles.dropdown__inner__content__text}>
+            {currentValue.title}
+          </p>
 
           {(options?.length || 0) > 1 && (
-            <ImagePlaceholder
+            <Image
               src="/landingV3/svg/arrow-b.svg"
-              alt="Arrow Icon"
-              aria-hidden="true"
               width={16}
               height={16}
+              alt="icon"
             />
           )}
         </div>
@@ -157,20 +103,13 @@ const Dropdown = ({
           <li
             key={item.key}
             className={cn(styles.dropdown__list__item, {
-              [styles.dropdown__list__item__active]: value.key === item.key,
+              [styles.dropdown__list__item__active]:
+                currentValue.key === item.key,
             })}
-            onClick={() => {
-              setIsOpenDropdown(false);
-              handleOnClickOption(name, item, required, optionalIndex);
-            }}
+            onClick={() => handleOnClickOption(item)}
           >
             {item.icon && (
-              <ImagePlaceholder
-                src={item.icon}
-                alt={item.title + ' logo'}
-                width={16}
-                height={16}
-              />
+              <Image src={item.icon} width={16} height={16} alt="icon" />
             )}
 
             <p className={styles.dropdown__list__item__text}>{item.title}</p>

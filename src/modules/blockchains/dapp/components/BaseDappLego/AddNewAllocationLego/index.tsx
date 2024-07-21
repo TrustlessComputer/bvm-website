@@ -15,12 +15,12 @@ const AddNewAllocationLego = ({ _key }: Props) => {
 
   const addNewAllocation = React.useCallback(() => {
     const optionalFieldsClone = JSON.parse(
-      JSON.stringify(thisDapp.optionalFields[0]),
+      JSON.stringify(thisDapp.optionalField[0]),
     );
 
     setFormDappsWithKey(_key, {
       ...thisDapp,
-      optionalFields: [...thisDapp.optionalFields, optionalFieldsClone],
+      optionalField: [...thisDapp.optionalField, optionalFieldsClone],
     });
   }, [_key, thisDapp]);
 

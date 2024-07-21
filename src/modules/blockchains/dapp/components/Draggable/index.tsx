@@ -1,12 +1,14 @@
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import React, { useRef } from 'react';
+
+import { idDraggingSignal } from '../../signals/useDragSignal';
+
 import s from './styles.module.scss';
 
-export type DraggableProps = {
+type Props = {
   id: string;
-  value?: string | number | null | Record<string, any>;
-  useMask?: boolean;
+  value?: any;
   disabled?: boolean;
   index?: number;
   isLabel?: boolean;
@@ -16,33 +18,35 @@ export type DraggableProps = {
 
 const Draggable = ({
   id,
-  useMask = false,
   children,
   value,
   disabled = false,
   tooltip,
-  isLabel,
   right = false,
   ...props
-}: DraggableProps) => {
+}: Props) => {
   const refTooltip = useRef<HTMLDivElement>(null);
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id,
       disabled,
-      data: { value },
+      data: value,
     });
+
+  if (isDragging) {
+    idDraggingSignal.value = id;
+  }
 
   const style = {
     ...props.style,
     transform: CSS.Translate.toString(transform),
-    opacity: useMask && isDragging ? 0 : 1,
+    opacity: isDragging ? 0 : 1,
   };
 
   const onHover = () => {
     if (right) return;
 
-    const wrapData = document.getElementById('wrapper-data');
+    const wrapData = document.getElementById('left-droppable');
 
     if (refTooltip.current && wrapData) {
       const rectData = wrapData.getBoundingClientRect();
@@ -76,7 +80,7 @@ const Draggable = ({
     <div
       ref={setNodeRef}
       style={style}
-      className={`${s.options} ${isLabel && s.isLabel}`}
+      className={`${s.options}`}
       {...listeners}
       {...attributes}
       onMouseEnter={onHover}
@@ -84,6 +88,7 @@ const Draggable = ({
       onClick={onLeave}
     >
       {children}
+
       {tooltip && (
         <div ref={refTooltip} className={`${s.tooltip}`}>
           {/* {tooltip} */}

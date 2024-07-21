@@ -86,7 +86,7 @@ interface FieldModel {
   value: string | number;
   type: 'input' | 'dropdown' | 'extends' | '';
   tooltip: string;
-  options?: FieldModel[];
+  options: FieldModel[];
 }
 
 interface DappModel {
@@ -99,8 +99,17 @@ interface DappModel {
   order: number;
   color: string;
   tooltip: string;
-  requiredFields: FieldModel[];
-  optionalFields: {
+  baseBlock: {
+    key: string;
+    title: string;
+    fields: FieldModel[];
+  };
+  blockFields: {
+    key: string;
+    title: string;
+    fields: FieldModel[];
+  }[];
+  singleFields: {
     key: string;
     title: string;
     fields: FieldModel[];
