@@ -12,6 +12,7 @@ export const dappMockupData: DappModel[] = [
     baseBlock: {
       key: 'class',
       title: 'Create a new Class',
+      icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
       fields: [
         {
           key: 'symbol',
@@ -56,6 +57,7 @@ export const dappMockupData: DappModel[] = [
       {
         key: 'student',
         title: 'Student',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         fields: [
           {
             key: 'name',
@@ -120,6 +122,34 @@ export const dappMockupData: DappModel[] = [
                 type: 'input',
                 options: [],
               },
+              {
+                key: 'marks',
+                title: 'Marks',
+                value: 0,
+                icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+                tooltip: '',
+                type: 'extends',
+                options: [
+                  {
+                    key: 'math',
+                    title: 'Math',
+                    value: '',
+                    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+                    tooltip: '',
+                    type: 'input',
+                    options: [],
+                  },
+                  {
+                    key: 'english',
+                    title: 'English',
+                    value: '',
+                    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+                    tooltip: '',
+                    type: 'input',
+                    options: [],
+                  },
+                ],
+              },
             ],
           },
         ],
@@ -129,6 +159,7 @@ export const dappMockupData: DappModel[] = [
       {
         key: 'color',
         title: 'Color',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         fields: [
           {
             key: 'color',

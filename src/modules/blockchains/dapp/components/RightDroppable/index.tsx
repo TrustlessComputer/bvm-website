@@ -66,7 +66,12 @@ const RightDroppable = () => {
             titleInLeft={true}
             titleInRight={false}
           >
-            <Input name={field.key} dappKey={thisDapp.key} {...fieldOpt} />
+            <Input
+              {...field}
+              {...fieldOpt}
+              name={field.key}
+              dappKey={thisDapp.key}
+            />
           </Lego>
         );
       } else if (field.type === 'dropdown') {
@@ -81,6 +86,7 @@ const RightDroppable = () => {
             titleInRight={false}
           >
             <Dropdown
+              {...field}
               {...fieldOpt}
               keyDapp={thisDapp.key}
               name={field.key}
@@ -105,15 +111,17 @@ const RightDroppable = () => {
   );
 
   const draggedIdsAsComponents = React.useMemo(() => {
+    let draggedBlockCount = 1;
+
     return draggedIds.map((id, index) => {
-      const _index = --index;
+      const _index = index - 1;
 
       if (id.startsWith(FieldKeyPrefix.BLOCK)) {
         return (
           <Draggable id={id + '-' + _index} key={id + '-' + _index}>
             <LegoParent
               {...blockFieldMapping[id]}
-              title={blockFieldMapping[id].title + ' #' + _index}
+              title={blockFieldMapping[id].title + ' #' + draggedBlockCount++}
               background={adjustBrightness(mainColor, -10)}
               smallMarginHeaderTop
             >
@@ -123,6 +131,7 @@ const RightDroppable = () => {
                   inBlockField: true,
                   inSingleField: false,
                   index: _index,
+                  level: 0,
                 });
               })}
             </LegoParent>
@@ -130,12 +139,13 @@ const RightDroppable = () => {
         );
       } else if (id.startsWith(FieldKeyPrefix.SINGLE)) {
         return (
-          <Draggable id={id + '-' + index} key={id + '-' + index}>
+          <Draggable id={id + '-' + _index} key={id + '-' + _index}>
             {getInput(singleFieldMapping[id].fields[0], {
               inBaseField: false,
               inBlockField: false,
               inSingleField: true,
-              index,
+              index: _index,
+              level: 0,
             })}
           </Draggable>
         );
@@ -176,6 +186,7 @@ const RightDroppable = () => {
               inBlockField: false,
               inSingleField: false,
               index: undefined,
+              level: 0,
             });
           })}
 

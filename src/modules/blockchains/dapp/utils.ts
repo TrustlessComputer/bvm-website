@@ -4,6 +4,7 @@ import {
 } from '@dnd-kit/core';
 import type { MouseEvent, TouchEvent } from 'react';
 import { FieldOption } from './types';
+import { FieldKeyPrefix } from './contants';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -102,19 +103,26 @@ export const adjustBrightness = (hex: string, percent: number) => {
   return _background;
 };
 
-export const getKeyForm = (fieldOption: FieldOption, name: string) => {
+export const getKeyForm = (
+  field: FieldModel,
+  fieldOption: FieldOption,
+  name: string,
+) => {
   const keyPrefix = fieldOption.inBaseField
-    ? 'base-'
+    ? `${FieldKeyPrefix.BASE}-`
     : fieldOption.inBlockField
-    ? 'block-'
+    ? `${FieldKeyPrefix.BLOCK}-`
     : fieldOption.inSingleField
-    ? 'single-'
+    ? `${FieldKeyPrefix.SINGLE}-`
     : '';
-  const keySuffix = fieldOption.inBaseField
+
+  const keySuffix1 = field.type === 'extends' ? '-0' : `-${fieldOption.level}`;
+
+  const keySuffix2 = fieldOption.inBaseField
     ? ''
     : fieldOption.inBlockField
     ? `-${fieldOption.index}`
     : `-${fieldOption.index}`;
 
-  return keyPrefix + name + keySuffix;
+  return keyPrefix + name + keySuffix1 + keySuffix2;
 };

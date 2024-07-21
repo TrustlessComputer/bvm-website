@@ -37,14 +37,13 @@ const BoxOption = ({ fieldKey }: Props) => {
         <div className={styles.container__body__item}>
           <Draggable id={FieldKeyPrefix.BASE}>
             <Lego
+              {...thisDapp.baseBlock}
               background={mainColor}
               first={false}
               last={false}
-              titleInLeft={false}
+              titleInLeft={true}
               titleInRight={false}
-            >
-              <Label title={thisDapp.baseBlock.title} />
-            </Lego>
+            />
           </Draggable>
         </div>
 
@@ -52,16 +51,18 @@ const BoxOption = ({ fieldKey }: Props) => {
           <h4>Block fields</h4>
 
           {thisDapp.blockFields.map((item) => (
-            <Draggable id={'block-' + item.key} key={'block-' + item.key}>
+            <Draggable
+              id={`${FieldKeyPrefix.BLOCK}-${item.key}`}
+              key={`${FieldKeyPrefix.BLOCK}-${item.key}`}
+            >
               <Lego
+                {...item}
                 background={mainColor}
                 first={false}
                 last={false}
-                titleInLeft={false}
+                titleInLeft={true}
                 titleInRight={false}
-              >
-                <Label title={item.title} />
-              </Lego>
+              />
             </Draggable>
           ))}
         </div>
@@ -71,16 +72,18 @@ const BoxOption = ({ fieldKey }: Props) => {
 
           <div className={styles.container__body__item__inner}>
             {thisDapp.singleFields.map((item) => (
-              <Draggable id={'single-' + item.key} key={'single-' + item.key}>
+              <Draggable
+                id={`${FieldKeyPrefix.SINGLE}-${item.key}`}
+                key={`${FieldKeyPrefix.SINGLE}-${item.key}`}
+              >
                 <Lego
+                  {...item}
                   background={mainColor}
                   first={false}
                   last={false}
-                  titleInLeft={false}
+                  titleInLeft={true}
                   titleInRight={false}
-                >
-                  <Label title={item.title} />
-                </Lego>
+                />
               </Draggable>
             ))}
           </div>

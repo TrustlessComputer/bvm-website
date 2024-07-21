@@ -102,16 +102,19 @@ interface DappModel {
   baseBlock: {
     key: string;
     title: string;
+    icon: string;
     fields: FieldModel[];
   };
   blockFields: {
     key: string;
     title: string;
+    icon: string;
     fields: FieldModel[];
   }[];
   singleFields: {
     key: string;
     title: string;
+    icon: string;
     fields: FieldModel[];
   }[];
 }

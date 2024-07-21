@@ -75,8 +75,11 @@ const DragMask = () => {
   }, [thisDapp]);
 
   // base
-  // block-<key>
-  // single-<key>
+  // block-<key>-<level>-<index>
+  // single-<key>-<level>-<index>
+  // level: 0 -> n
+  // index: 0 -> n
+  // If level greater than 0, it's in the 'extends' field
   useSignalEffect(() => {
     idDraggingSignal.subscribe((value) => {
       setIdDragging(value);

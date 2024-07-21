@@ -1,6 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 import Image from 'next/image';
+import { useSignalEffect } from '@preact/signals-react';
 
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
@@ -11,7 +12,6 @@ import { useFormDappsStore } from '../../stores/useDappStore';
 import { formDappDropdownSignal } from '../../signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
-import { useSignalEffect } from '@preact/signals-react';
 
 type Props = {
   background?: string;
@@ -19,12 +19,12 @@ type Props = {
   options: FieldModel[];
   name: string;
   keyDapp: string;
-} & FieldOption;
+} & FieldOption &
+  FieldModel;
 
 const Dropdown = ({
   background = '#A041FF',
   disabled,
-  options,
   name,
   keyDapp,
   ...props
@@ -32,7 +32,7 @@ const Dropdown = ({
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [isOpenDropdown, setIsOpenDropdown] = React.useState<boolean>(false);
   const [currentValue, setCurrentValue] = React.useState<FieldModel | null>(
-    options[0],
+    props.options[0],
   );
 
   useOnClickOutside(ref, () => setIsOpenDropdown(false));
@@ -42,7 +42,7 @@ const Dropdown = ({
 
   const handleOnClickOption = (item: FieldModel) => {
     const formDappDropdown = formDappDropdownSignal.value;
-    const key = getKeyForm(props, name);
+    const key = getKeyForm(props, props, name);
 
     formDappDropdownSignal.value = {
       ...formDappDropdown,
@@ -54,7 +54,7 @@ const Dropdown = ({
   };
 
   useSignalEffect(() => {
-    console.log('formDappDropdownSignal', formDappDropdownSignal.value);
+    console.log(formDappDropdownSignal.value);
   });
 
   if (!currentValue) return null;
@@ -83,7 +83,7 @@ const Dropdown = ({
             {currentValue.title}
           </p>
 
-          {(options?.length || 0) > 1 && (
+          {props.options.length > 1 && (
             <Image
               src="/landingV3/svg/arrow-b.svg"
               width={16}
@@ -99,7 +99,7 @@ const Dropdown = ({
           [styles.dropdown__list__open]: isOpenDropdown,
         })}
       >
-        {options?.map((item) => (
+        {props.options.map((item) => (
           <li
             key={item.key}
             className={cn(styles.dropdown__list__item, {

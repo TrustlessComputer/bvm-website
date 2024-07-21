@@ -28,6 +28,7 @@ const ExtendsInput = ({ ...props }: Props) => {
     inBlockField,
     inSingleField,
     index,
+    level,
   } = props;
 
   const { dapps } = useDappsStore();
@@ -61,6 +62,7 @@ const ExtendsInput = ({ ...props }: Props) => {
           inBlockField={inBlockField}
           inSingleField={inSingleField}
           index={index}
+          level={level}
         />
       </Lego>
     );
@@ -84,6 +86,7 @@ const ExtendsInput = ({ ...props }: Props) => {
           inBlockField={inBlockField}
           inSingleField={inSingleField}
           index={index}
+          level={level}
         />
       </Lego>
     );
@@ -118,6 +121,7 @@ const ExtendsInput = ({ ...props }: Props) => {
               inSingleField={inSingleField}
               index={index}
               {...option}
+              level={level + 1}
               key={option.key}
             />
           ))
