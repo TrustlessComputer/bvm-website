@@ -101,9 +101,9 @@ function LegoParent({
       </div>
 
       <div className={styles.wrapper_stud__vertical}>
-        <div className={styles.wrapper_stud__vertical__top}>
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" />
-        </div>{' '}
+        {/*<div className={styles.wrapper_stud__vertical__top}>*/}
+        {/*  <SvgInset svgUrl="/landingV3/svg/stud.svg" />*/}
+        {/*</div>{' '}*/}
         <div className={styles.wrapper_stud__vertical__bottom}>
           <SvgInset svgUrl="/landingV3/svg/stud.svg" />
         </div>

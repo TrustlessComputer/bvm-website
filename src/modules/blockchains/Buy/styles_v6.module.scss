@@ -10,7 +10,12 @@
     font-family: var(--font-SFProDisplay) !important;
   }
 
-  --height-studio: calc(100vh - 260px);
+  --height-studio: calc(100vh - 300px);
+}
+
+.logo {
+  max-width: 270px;
+  margin: 10px auto 0 auto;
 }
 
 .explorePageContainer {

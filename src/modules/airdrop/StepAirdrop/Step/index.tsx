@@ -39,7 +39,7 @@ export interface IItemCommunity {
   desc: string | React.ReactNode;
   actionText?: string;
   actionTextEnd?: string;
-  actionHandle: any;
+  actionHandle?: any;
   actionTextSecondary?: string;
   actionHandleSecondary?: any;
   isActive?: boolean;

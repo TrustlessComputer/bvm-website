@@ -43,7 +43,8 @@ export default function CustomViewModule(props: Props) {
                       <LegoV3
                         background={item.color}
                         label={item.confuseTitle}
-                        labelInRight={!!item.confuseTitle}
+                        labelInRight={!!item.confuseTitle || !!item.confuseIcon}
+                        icon={item.confuseIcon}
                         zIndex={item.options.length - opIdx}
                       >
                         <DropdownV2
@@ -91,7 +92,8 @@ export default function CustomViewModule(props: Props) {
                     background={item.color}
                     zIndex={data.length - index}
                     label={item.confuseTitle}
-                    labelInRight={!!item.confuseTitle}
+                    labelInRight={!!item.confuseTitle || !!item.confuseIcon}
+                    icon={item.confuseIcon}
                   >
                     {/*{item.options[0].title}*/}
 
@@ -118,7 +120,8 @@ export default function CustomViewModule(props: Props) {
                 <LegoV3
                   background={item.color}
                   label={item.confuseTitle}
-                  labelInRight={!!item.confuseTitle}
+                  labelInRight={!!item.confuseTitle || !!item.confuseIcon}
+                  icon={item.confuseIcon}
                   zIndex={item.options.length - index}
                 >
                   <DropdownV2
