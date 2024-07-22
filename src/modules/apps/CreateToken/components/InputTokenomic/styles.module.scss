@@ -1,0 +1,51 @@
+.container {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ffffff26;
+  position: relative;
+  margin-top: 24px;
+  background: #272241;
+
+  .btnSelect {
+    background-color: transparent;
+    border: 1px solid #5b5b5b;
+    flex: 0.5;
+    justify-content: space-between;
+    text-align: left;
+    span {
+      flex: 0;
+      color: #fff;
+      &:first-child {
+        font-size: 12px;
+        flex: 1;
+      }
+    }
+  }
+
+  .groupTime {
+    :global {
+      .wrap-input {
+        gap: 12px;
+        border: none;
+        .rc-input-number {
+          border: 1px solid #5b5b5b;
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+
+  .tagLabel {
+    background-color: black;
+    position: absolute;
+    top: -10px;
+    height: 20px;
+    padding: 0px 20px;
+  }
+  .btnRemove {
+    color: #ec3e44;
+    padding: 0px;
+    align-items: center;
+    gap: 2px;
+  }
+}
