@@ -18,6 +18,10 @@ import LaunchButton from './components/LaunchButton';
 import Button from './components/Button';
 import useDappsStore from './stores/useDappStore';
 import { draggedIdsSignal } from './signals/useDragSignal';
+import {
+  formDappDropdownSignal,
+  formDappInputSignal,
+} from './signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
 
@@ -37,25 +41,35 @@ const RollupsDappPage = () => {
   const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
 
+    console.log(
+      '🚀 -> file: page.tsx:44 -> handleDragEnd -> over, active ::',
+      over,
+      active,
+    );
+
     const draggedIds = (draggedIdsSignal.value || []) as string[];
     const baseBlockNotInOutput =
       !draggedIds[0] || draggedIds[0] !== FieldKeyPrefix.BASE;
     const onlyAllowOneBase = true; // Fake data
     const overIsInput = over?.id === 'input';
     const overIsOutput = over?.id === 'output';
-    const activeIsRequiredField = active.id === FieldKeyPrefix.BASE;
+    const activeIsABaseBlock = active.id === FieldKeyPrefix.BASE;
+    const activeIsABlock =
+      active.id.toString().split('-')[0] === FieldKeyPrefix.BLOCK;
+    const activeIsASingle =
+      active.id.toString().split('-')[0] === FieldKeyPrefix.SINGLE;
     const indexOfField = Number(active.id.toString().split('-')[2]);
 
     // Case 1: Drag to the right
     if (overIsOutput) {
       // Case 1.1: Output does not have base block yet
-      if (baseBlockNotInOutput && !activeIsRequiredField) {
+      if (baseBlockNotInOutput && !activeIsABaseBlock) {
         alert(`Please drag ${thisDapp.baseBlock.title} to the output first!`);
         return;
       }
 
       // Case 1.2: Output already has base block and only allow 1
-      if (!baseBlockNotInOutput && activeIsRequiredField && onlyAllowOneBase) {
+      if (!baseBlockNotInOutput && activeIsABaseBlock && onlyAllowOneBase) {
         alert(`Only 1 base block is allowed!`);
         return;
       }
@@ -72,6 +86,63 @@ const RollupsDappPage = () => {
 
     // Case 2: Drag to the left
     if (overIsInput) {
+      // Case 2.1
+      if (activeIsABaseBlock) {
+      }
+
+      // Case 2.2
+      if (activeIsABlock) {
+        const formDappInput = JSON.parse(
+          JSON.stringify(formDappInputSignal.value),
+        ) as Record<string, any>;
+        const formDappDropdown = JSON.parse(
+          JSON.stringify(formDappDropdownSignal.value),
+        ) as Record<string, any>;
+
+        Object.keys(formDappInput).forEach((key) => {
+          if (
+            FormDappUtil.isInBlock(key) &&
+            FormDappUtil.getIndex(key) === indexOfField
+          ) {
+            delete formDappInput[key];
+          } else if (FormDappUtil.getIndex(key) > indexOfField) {
+            const currentIndex = FormDappUtil.getIndex(key);
+            const newKey = key.replace(
+              `-${currentIndex}`,
+              `-${currentIndex - 1}`,
+            );
+
+            formDappInput[newKey] = formDappInput[key];
+            delete formDappInput[key];
+          }
+        });
+
+        Object.keys(formDappDropdown).forEach((key) => {
+          if (
+            FormDappUtil.isInBlock(key) &&
+            FormDappUtil.getIndex(key) === indexOfField
+          ) {
+            delete formDappDropdown[key];
+          } else if (FormDappUtil.getIndex(key) > indexOfField) {
+            const currentIndex = FormDappUtil.getIndex(key);
+            const newKey = key.replace(
+              `-${currentIndex}`,
+              `-${currentIndex - 1}`,
+            );
+
+            formDappDropdown[newKey] = formDappDropdown[key];
+            delete formDappDropdown[key];
+          }
+        });
+
+        formDappInputSignal.value = formDappInput;
+        formDappDropdownSignal.value = formDappDropdown;
+      }
+
+      // Case 2.3
+      if (activeIsASingle) {
+      }
+
       draggedIdsSignal.value = removeItemAtIndex(draggedIds, indexOfField + 1);
 
       return;

@@ -54,8 +54,26 @@ const Dropdown = ({
   };
 
   useSignalEffect(() => {
-    console.log(formDappDropdownSignal.value);
+    const thisValue =
+      formDappDropdownSignal.value[FormDappUtil.getKeyForm(props, props, name)];
+
+    if (thisValue && thisValue !== currentValue?.value) {
+      setCurrentValue(
+        props.options.find((item) => item.value === thisValue) ||
+          props.options[0],
+      );
+    }
   });
+
+  React.useEffect(() => {
+    const formDappDropdown = formDappDropdownSignal.value;
+    const key = FormDappUtil.getKeyForm(props, props, name);
+
+    setCurrentValue(
+      props.options.find((item) => item.value === formDappDropdown[key]) ||
+        props.options[0],
+    );
+  }, []);
 
   if (!currentValue) return null;
 

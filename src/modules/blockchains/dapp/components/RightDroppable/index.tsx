@@ -23,6 +23,9 @@ const RightDroppable = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
 
   const [draggedIds, setDraggedIds] = React.useState<string[]>([]);
+  const draggedIdIncludeBase = React.useMemo(() => {
+    return draggedIds.includes(FieldKeyPrefix.BASE);
+  }, [draggedIds]);
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
@@ -181,7 +184,7 @@ const RightDroppable = () => {
         alignItems: 'center',
       }}
     >
-      {draggedIds.includes(FieldKeyPrefix.BASE) && (
+      {draggedIdIncludeBase && (
         <LegoParent
           {...thisDapp.baseBlock}
           key={thisDapp.key}
