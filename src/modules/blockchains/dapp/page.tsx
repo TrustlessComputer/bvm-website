@@ -9,7 +9,7 @@ import {
 import Image from 'next/image';
 
 import { FormDappUtil, MouseSensor, removeItemAtIndex } from './utils';
-import { dappMockupData } from './mockup';
+import { dappMockupData } from './mockup_2';
 import { FieldKeyPrefix } from './contants';
 import LeftDroppable from './components/LeftDroppable';
 import RightDroppable from './components/RightDroppable';
