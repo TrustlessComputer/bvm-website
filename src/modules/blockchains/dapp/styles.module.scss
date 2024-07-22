@@ -5,7 +5,7 @@
   gap: 16px;
   padding: 27px 16px 16px;
   width: 100%;
-  --wrapHeight: calc(100dvh - 104px);
+  --wrapHeight: calc(100dvh - 340px);
   min-height: var(--wrapHeight); // 104px header and 28px padding
   display: flex;
 
@@ -90,4 +90,22 @@
       }
     }
   }
+}
+
+.content {
+  text-align: center;
+
+  &_text {
+    font-family: var(--font-JetBrainsMono);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    text-align: center;
+    margin-top: 16px;
+  }
+}
+
+.logo {
+  max-width: 270px;
+  margin: 10px auto 0 auto;
 }

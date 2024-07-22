@@ -24,6 +24,7 @@ import {
 } from './signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
+import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
 
 const RollupsDappPage = () => {
   const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
@@ -160,6 +161,16 @@ const RollupsDappPage = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.content}>
+        <div className={styles.logo}>
+          <Image src={'/bvmstudio_logo.png'} alt={'bvmstudio_logo'} width={549} height={88} />
+        </div>
+        <p className={styles.content_text}>
+          Drag and drop modules to start new blockchains, new dapps, and new
+          economies.
+        </p>
+      </div>
+
       <div className={styles.container__header}>
         <div></div>
         <div>
@@ -218,7 +229,8 @@ const RollupsDappPage = () => {
               <Button
                 element="button"
                 type="button"
-                onClick={() => {}}
+                onClick={() => {
+                }}
                 className={styles.resetButton}
               >
                 EXPORT
@@ -226,7 +238,8 @@ const RollupsDappPage = () => {
               <Button
                 element="button"
                 type="button"
-                onClick={() => {}}
+                onClick={() => {
+                }}
                 className={styles.resetButton}
               >
                 SHARE
