@@ -42,7 +42,15 @@ const RightDroppable = () => {
   };
 
   const blockFieldMapping = React.useMemo(() => {
-    const mapping: Record<string, DappModel['blockFields'][2]> = {};
+    const mapping: Record<
+      string,
+      {
+        key: string;
+        title: string;
+        icon: string;
+        fields: FieldModel[];
+      }
+    > = {};
 
     (thisDapp?.blockFields || []).forEach((item) => {
       mapping[`${FieldKeyPrefix.BLOCK}-${item.key}`] = item;
@@ -52,7 +60,15 @@ const RightDroppable = () => {
   }, [thisDapp]);
 
   const singleFieldMapping = React.useMemo(() => {
-    const mapping: Record<string, DappModel['singleFields'][2]> = {};
+    const mapping: Record<
+      string,
+      {
+        key: string;
+        title: string;
+        icon: string;
+        fields: FieldModel[];
+      }
+    > = {};
 
     (thisDapp?.singleFields || []).forEach((item) => {
       mapping[`${FieldKeyPrefix.SINGLE}-${item.key}`] = item;
