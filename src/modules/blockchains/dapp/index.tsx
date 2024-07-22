@@ -6,8 +6,10 @@ import { BuyProvider } from '../providers/Buy.context';
 import RollupsDappPage from './page';
 
 import styles from './styles.module.scss';
+import useFetchDapp from '@/modules/blockchains/dapp/hooks/useFetchDapp';
 
 export default () => {
+  useFetchDapp();
   return (
     <BuyProvider>
       <Flex flex={1} flexDir={'column'} align={'center'}>
