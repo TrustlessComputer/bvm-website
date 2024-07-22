@@ -10,12 +10,12 @@ import { idDraggingSignal } from '../../signals/useDragSignal';
 import useDappsStore from '../../stores/useDappStore';
 
 const DragMask = () => {
-  const { dapps } = useDappsStore();
+  const { dapps, currentIndexDapp } = useDappsStore();
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
-    return dapps[0];
-  }, [dapps]);
+    return dapps[currentIndexDapp];
+  }, [dapps, currentIndexDapp]);
 
   const [idDragging, setIdDragging] = React.useState('');
 

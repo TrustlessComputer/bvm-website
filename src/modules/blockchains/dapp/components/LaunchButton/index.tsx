@@ -14,12 +14,12 @@ import styles from './styles.module.scss';
 type Props = {};
 
 const LaunchButton = () => {
-  const { dapps } = useDappsStore();
+  const { dapps, currentIndexDapp } = useDappsStore();
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
-    return dapps[0];
-  }, [dapps]);
+    return dapps[currentIndexDapp];
+  }, [dapps, currentIndexDapp]);
 
   const blockFieldMapping = React.useMemo(() => {
     const mapping: Record<string, DappModel['blockFields'][2]> = {};

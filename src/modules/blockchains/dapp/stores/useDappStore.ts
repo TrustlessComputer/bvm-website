@@ -1,6 +1,8 @@
 import { create, StateCreator } from 'zustand';
 
 type UseDappsSlice = {
+  currentIndexDapp: number;
+  setCurrentIndexDapp: (index: number) => void;
   dapps: DappModel[];
   setDapps: (dapps: DappModel[]) => void;
 };
@@ -15,6 +17,8 @@ type UseDappStore = UseDappsSlice;
 type UseFormDappStore = UseFormDappsSlice;
 
 const useDappsSlice: StateCreator<UseDappsSlice> = (set) => ({
+  currentIndexDapp: 0,
+  setCurrentIndexDapp: (currentIndexDapp) => set({ currentIndexDapp }),
   dapps: [],
   setDapps: (dapps) => set({ dapps }),
 });
