@@ -22,12 +22,13 @@ import { draggedIdsSignal } from './signals/useDragSignal';
 import styles from './styles.module.scss';
 
 const RollupsDappPage = () => {
-  const { dapps, setDapps } = useDappsStore();
+  const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
+    useDappsStore();
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
-    return dapps[0];
-  }, [dapps]);
+    return dapps[currentIndexDapp];
+  }, [dapps, currentIndexDapp]);
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
@@ -122,13 +123,13 @@ const RollupsDappPage = () => {
 
           <div className={styles.container__content__sidebar}>
             <div className={styles.container__content__sidebar__header}>
-              {dapps.map((dapp) => {
+              {dapps.map((dapp, index) => {
                 return (
                   <Button
                     element="button"
                     type="button"
                     color="transparent"
-                    onClick={() => {}}
+                    onClick={() => setCurrentIndexDapp(index)}
                     className={styles.resetButton}
                   >
                     <div>

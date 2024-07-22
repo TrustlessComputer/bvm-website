@@ -31,14 +31,14 @@ const ExtendsInput = ({ ...props }: Props) => {
     level,
   } = props;
 
-  const { dapps } = useDappsStore();
+  const { dapps, currentIndexDapp } = useDappsStore();
 
   const [toggle, setToggle] = React.useState(false);
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
-    return dapps[0];
-  }, [dapps]);
+    return dapps[currentIndexDapp];
+  }, [dapps, currentIndexDapp]);
 
   const handleToggle = () => {
     setToggle(!toggle);
