@@ -93,8 +93,8 @@ export const dappMockupData: DappModel[] = [
                 type: 'group',
                 options: [
                   {
-                    key: 'timeCiff',
-                    title: 'Time Cliff',
+                    key: 'timeCliff',
+                    title: 'Time',
                     value: 'day',
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
                     tooltip: '',
@@ -130,7 +130,7 @@ export const dappMockupData: DappModel[] = [
                     ],
                   },
                   {
-                    key: 'amount',
+                    key: 'amountCliff',
                     title: 'Amount',
                     value: '',
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
@@ -149,8 +149,8 @@ export const dappMockupData: DappModel[] = [
                 type: 'group',
                 options: [
                   {
-                    key: 'timeCiff',
-                    title: 'Time Cliff',
+                    key: 'timeDuration',
+                    title: 'Time',
                     value: 'day',
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
                     tooltip: '',
@@ -186,7 +186,7 @@ export const dappMockupData: DappModel[] = [
                     ],
                   },
                   {
-                    key: 'amount',
+                    key: 'amountDuration',
                     title: 'Amount',
                     value: '',
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
