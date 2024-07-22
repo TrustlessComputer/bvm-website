@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDroppable } from '@dnd-kit/core';
+import s from './styles.module.scss';
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   id: string;
@@ -15,6 +16,7 @@ const Droppable = ({ id, children, value, ...props }: Props) => {
   return (
     <div
       id={id}
+      className={s.container}
       ref={setNodeRef}
       style={{
         width: '100%',

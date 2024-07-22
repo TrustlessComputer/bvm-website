@@ -1,26 +1,26 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSignalEffect } from '@preact/signals-react';
 
 import Droppable from '../Droppable';
 import Draggable from '../Draggable';
 import Lego from '../Lego';
-import Label from '../Label';
 import LegoParent from '../LegoParent';
 import Input from '../Input';
 import Dropdown from '../Dropdown';
-import Toggle from '../Toggle';
 import ExtendsInput from '../ExtendsInput';
 import Button from '../Button';
 import { FieldKeyPrefix } from '../../contants';
 import { FieldOption } from '../../types';
 import { adjustBrightness } from '../../utils';
-import useDappsStore from '../../stores/useDappStore';
+import useDappsStore, { subScribeDropEnd } from '../../stores/useDappStore';
 import { draggedIdsSignal } from '../../signals/useDragSignal';
 
 import styles from './styles.module.scss';
 
 const RightDroppable = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
+  const refContainer = useRef<HTMLDivElement>(null);
+  const refWrap = useRef<HTMLDivElement>(null);
 
   const [draggedIds, setDraggedIds] = React.useState<string[]>([]);
   const draggedIdIncludeBase = React.useMemo(() => {
@@ -151,6 +151,7 @@ const RightDroppable = () => {
   );
 
   const draggedIdsAsComponents = React.useMemo(() => {
+
     let draggedBlockCount = 1;
     return draggedIds.map((id, index) => {
       const _index = index - 1;
@@ -202,11 +203,23 @@ const RightDroppable = () => {
     });
   });
 
+  useSignalEffect(() => {
+    const isHad = subScribeDropEnd.value;
+
+    setTimeout(() => {
+      if (!refWrap.current || !refContainer.current) return;
+      if (isHad && refWrap.current.scrollHeight > refContainer.current.scrollHeight) {
+        const ouputEl = refWrap.current?.querySelector<HTMLElement>('#output');
+        if (ouputEl) ouputEl.style.alignItems = 'flex-start';
+      }
+    }, 150);
+  });
+
   if (!thisDapp) return null;
 
   return (
-    <div className={styles.wrapRight}>
-      <div className={styles.wrapRight_inner}>
+    <div className={styles.wrapRight} ref={refContainer}>
+      <div className={styles.wrapRight_inner} ref={refWrap}>
         <Droppable
           id="output"
           style={{

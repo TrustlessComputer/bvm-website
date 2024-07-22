@@ -16,7 +16,7 @@ import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
 import Button from './components/Button';
-import useDappsStore, { useFormDappsStore } from './stores/useDappStore';
+import useDappsStore, { subScribeDropEnd, useFormDappsStore } from './stores/useDappStore';
 import { draggedIdsSignal } from './signals/useDragSignal';
 import {
   formDappDropdownSignal,
@@ -37,11 +37,12 @@ const RollupsDappPage = () => {
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
+    subScribeDropEnd.value += 1;
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
-
+    subScribeDropEnd.value += 1;
     const draggedIds = (draggedIdsSignal.value || []) as string[];
     const baseBlockNotInOutput =
       !draggedIds[0] || draggedIds[0] !== FieldKeyPrefix.BASE;
