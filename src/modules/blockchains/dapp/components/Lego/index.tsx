@@ -67,16 +67,11 @@ const Lego = ({
         '--border-color': adjustBrightness(background, -20),
       }}
     >
-      <div className={styles.lego__inner}>
-        <div
-          className={cn(
-            styles.lego__inner__piece,
-            styles.lego__inner__piece__top,
-          )}
-        >
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
-        </div>
+      <div className={cn(styles.lego__piece, styles.lego__piece__top)}>
+        <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
+      </div>
 
+      <div className={styles.lego__inner}>
         {title && titleInLeft ? (
           <div
             className={cn(
@@ -102,15 +97,10 @@ const Lego = ({
             <p>{title}</p>
           </div>
         ) : null}
+      </div>
 
-        <div
-          className={cn(
-            styles.lego__inner__piece,
-            styles.lego__inner__piece__bottom,
-          )}
-        >
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
-        </div>
+      <div className={cn(styles.lego__piece, styles.lego__piece__bottom)}>
+        <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
       </div>
     </div>
   );

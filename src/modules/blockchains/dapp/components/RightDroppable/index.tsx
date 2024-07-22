@@ -117,7 +117,6 @@ const RightDroppable = () => {
 
   const draggedIdsAsComponents = React.useMemo(() => {
     let draggedBlockCount = 1;
-
     return draggedIds.map((id, index) => {
       const _index = index - 1;
 
