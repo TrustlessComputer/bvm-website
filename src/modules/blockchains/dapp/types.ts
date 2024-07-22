@@ -5,6 +5,7 @@ export type FieldOption =
       inSingleField: false;
       index: undefined;
       level: number;
+      blockKey: string;
     }
   | {
       inBaseField: false;
@@ -12,6 +13,7 @@ export type FieldOption =
       inSingleField: false;
       index: number;
       level: number;
+      blockKey: string;
     }
   | {
       inBaseField: false;
@@ -19,4 +21,5 @@ export type FieldOption =
       inSingleField: true;
       index: number;
       level: number;
+      blockKey: string;
     };

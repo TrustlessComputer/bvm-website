@@ -103,26 +103,43 @@ export const adjustBrightness = (hex: string, percent: number) => {
   return _background;
 };
 
-export const getKeyForm = (
-  field: FieldModel,
-  fieldOption: FieldOption,
-  name: string,
-) => {
-  const keyPrefix = fieldOption.inBaseField
-    ? `${FieldKeyPrefix.BASE}-`
-    : fieldOption.inBlockField
-    ? `${FieldKeyPrefix.BLOCK}-`
-    : fieldOption.inSingleField
-    ? `${FieldKeyPrefix.SINGLE}-`
-    : '';
+export const FormDappUtil = {
+  getOriginalKey(key: string) {
+    return key.split('-')[1];
+  },
 
-  const keySuffix1 = field.type === 'extends' ? '-0' : `-${fieldOption.level}`;
+  getBlockKey(key: string) {
+    return key.split('-')[4];
+  },
 
-  const keySuffix2 = fieldOption.inBaseField
-    ? ''
-    : fieldOption.inBlockField
-    ? `-${fieldOption.index}`
-    : `-${fieldOption.index}`;
+  getIndex(key: string) {
+    return Number(key.split('-')[3]);
+  },
 
-  return keyPrefix + name + keySuffix1 + keySuffix2;
+  isExtendsField(key: string) {
+    return Number(key.split('-')[2]) > 0;
+  },
+
+  isInBlock(key: string) {
+    return key.startsWith(FieldKeyPrefix.BLOCK);
+  },
+
+  isInSingle(key: string) {
+    return key.startsWith(FieldKeyPrefix.SINGLE);
+  },
+
+  // prettier-ignore
+  getKeyForm (
+    field: FieldModel,
+    fieldOption: FieldOption,
+    name: string,
+  )  {
+    if (fieldOption.inBaseField) {
+      return `${FieldKeyPrefix.BASE}-${name}-${fieldOption.level ?? 0}`;
+    } else if (fieldOption.inBlockField) {
+      return `${FieldKeyPrefix.BLOCK}-${name}-${fieldOption.level ?? 0}-${fieldOption.index}-${fieldOption.blockKey}`;
+    } else {
+      return `${FieldKeyPrefix.SINGLE}-${name}-${fieldOption.level ?? 0}-${fieldOption.index}`;
+    }
+  },
 };

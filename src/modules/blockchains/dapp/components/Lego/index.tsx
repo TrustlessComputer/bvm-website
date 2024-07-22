@@ -58,7 +58,9 @@ const Lego = ({
 }: Props) => {
   return (
     <div
-      className={styles.lego}
+      className={cn(styles.lego, {
+        [styles.lego__disabled]: disabled,
+      })}
       style={{
         // @ts-ignore
         '--background-color': background,

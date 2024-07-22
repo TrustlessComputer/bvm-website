@@ -74,8 +74,8 @@ const DragMask = () => {
     return mapping;
   }, [thisDapp]);
 
-  // base
-  // block-<key>-<level>-<index>
+  // base-<key>-<level>
+  // block-<key>-<level>-<index>-<blockKey>
   // single-<key>-<level>-<index>
   // level: 0 -> n
   // index: 0 -> n

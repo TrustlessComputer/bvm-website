@@ -40,6 +40,7 @@ const Draggable = ({
   const style = {
     ...props.style,
     transform: CSS.Translate.toString(transform),
+    cursor: disabled ? 'not-allowed' : 'grab',
     opacity: isDragging ? 0 : 1,
   };
 

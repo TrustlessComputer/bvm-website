@@ -6,6 +6,7 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
+import Image from 'next/image';
 
 import { MouseSensor } from './utils';
 import { dappMockupData } from './mockup';
@@ -19,7 +20,6 @@ import useDappsStore from './stores/useDappStore';
 import { draggedIdsSignal } from './signals/useDragSignal';
 
 import styles from './styles.module.scss';
-import Image from 'next/image';
 
 const RollupsDappPage = () => {
   const { dapps, setDapps } = useDappsStore();
@@ -35,6 +35,12 @@ const RollupsDappPage = () => {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
+
+    console.log(
+      '🚀 -> file: page.tsx:39 -> handleDragEnd -> over, active ::',
+      over,
+      active,
+    );
 
     const draggedIds = (draggedIdsSignal.value || []) as string[];
     const baseBlockNotInOutput =

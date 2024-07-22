@@ -1,11 +1,13 @@
 import React from 'react';
 import cn from 'classnames';
+import { useSignalEffect } from '@preact/signals-react';
 
 import Draggable from '../Draggable';
 import Lego from '../Lego';
 import Label from '../Label';
 import { FieldKeyPrefix } from '../../contants';
 import useDappsStore from '../../stores/useDappStore';
+import { draggedIdsSignal } from '../../signals/useDragSignal';
 
 import styles from './styles.module.scss';
 
@@ -15,6 +17,7 @@ type Props = {
 
 const BoxOption = ({ fieldKey }: Props) => {
   const { dapps } = useDappsStore();
+  const [haveBaseBlock, setHaveBaseBlock] = React.useState(false);
 
   const thisDapp = React.useMemo(() => {
     return dapps.find((item) => item.key === fieldKey);
@@ -24,6 +27,12 @@ const BoxOption = ({ fieldKey }: Props) => {
     () => thisDapp?.color || '#F76649',
     [thisDapp],
   );
+
+  useSignalEffect(() => {
+    const draggedIds = (draggedIdsSignal.value || []) as string[];
+
+    setHaveBaseBlock(draggedIds.includes(FieldKeyPrefix.BASE));
+  });
 
   if (!thisDapp) {
     return null;
@@ -35,7 +44,7 @@ const BoxOption = ({ fieldKey }: Props) => {
 
       <div className={styles.container__body}>
         <div className={styles.container__body__item}>
-          <Draggable id={FieldKeyPrefix.BASE}>
+          <Draggable id={FieldKeyPrefix.BASE} disabled={haveBaseBlock}>
             <Lego
               {...thisDapp.baseBlock}
               background={mainColor}
@@ -43,6 +52,7 @@ const BoxOption = ({ fieldKey }: Props) => {
               last={false}
               titleInLeft={true}
               titleInRight={false}
+              disabled={haveBaseBlock}
             />
           </Draggable>
         </div>

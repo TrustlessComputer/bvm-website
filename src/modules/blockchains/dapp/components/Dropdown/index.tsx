@@ -7,7 +7,7 @@ import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 
 import { FieldOption } from '../../types';
-import { adjustBrightness, getKeyForm } from '../../utils';
+import { adjustBrightness, FormDappUtil } from '../../utils';
 import { useFormDappsStore } from '../../stores/useDappStore';
 import { formDappDropdownSignal } from '../../signals/useFormDappsSignal';
 
@@ -42,7 +42,7 @@ const Dropdown = ({
 
   const handleOnClickOption = (item: FieldModel) => {
     const formDappDropdown = formDappDropdownSignal.value;
-    const key = getKeyForm(props, props, name);
+    const key = FormDappUtil.getKeyForm(props, props, name);
 
     formDappDropdownSignal.value = {
       ...formDappDropdown,

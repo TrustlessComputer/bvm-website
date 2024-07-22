@@ -137,6 +137,7 @@ const RightDroppable = () => {
                   inSingleField: false,
                   index: _index,
                   level: 0,
+                  blockKey: blockFieldMapping[id].key,
                 });
               })}
             </LegoParent>
@@ -151,6 +152,7 @@ const RightDroppable = () => {
               inSingleField: true,
               index: _index,
               level: 0,
+              blockKey: '',
             })}
           </Draggable>
         );
@@ -193,6 +195,7 @@ const RightDroppable = () => {
               inSingleField: false,
               index: undefined,
               level: 0,
+              blockKey: '',
             });
           })}
 
