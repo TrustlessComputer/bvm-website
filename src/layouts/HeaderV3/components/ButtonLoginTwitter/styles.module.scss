@@ -79,6 +79,23 @@
   text-transform: lowercase;
 }
 
+.lowercase {
+  color: var(--text-color);
+  text-align: center;
+  font-family: 'JetBrains Mono';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 133.333%;
+  // text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  transform: translateY(1px);
+  text-transform: uppercase;
+}
+
 .dropdown {
   position: absolute;
   top: calc(100% + 10px);
