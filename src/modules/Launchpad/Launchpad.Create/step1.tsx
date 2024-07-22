@@ -1,5 +1,5 @@
 import FieldText from '@/components/Form/Field.Text';
-import FieldAmount from '@components/Form/formik/fieldAmount.Formik';
+import FieldAmount from '@components/Form/fieldAmount';
 import InputWrapper from '@/components/Form/inputWrapper';
 import { composeValidators, required } from '@/utils/form-validate';
 import { formatCurrency } from '@/utils/format';
