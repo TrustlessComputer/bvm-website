@@ -205,43 +205,46 @@ const RightDroppable = () => {
   if (!thisDapp) return null;
 
   return (
-    <Droppable
-      id="output"
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      {draggedIdIncludeBase && (
-        <LegoParent
-          {...thisDapp.baseBlock}
-          key={thisDapp.key}
-          background={mainColor}
+    <div className={styles.wrapRight}>
+      <div className={styles.wrapRight_inner}>
+        <Droppable
+          id="output"
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
         >
-          {thisDapp.baseBlock.fields.map((field) => {
-            return getInput(field, {
-              inBaseField: true,
-              inBlockField: false,
-              inSingleField: false,
-              index: undefined,
-              level: 0,
-              blockKey: '',
-            });
-          })}
+          {draggedIdIncludeBase && (
+            <LegoParent
+              {...thisDapp.baseBlock}
+              key={thisDapp.key}
+              background={mainColor}
+            >
+              {thisDapp.baseBlock.fields.map((field) => {
+                return getInput(field, {
+                  inBaseField: true,
+                  inBlockField: false,
+                  inSingleField: false,
+                  index: undefined,
+                  level: 0,
+                  blockKey: '',
+                });
+              })}
 
-          {draggedIdsAsComponents
-            .map((component) => component)
-            .filter((component) => component !== null)
-            .map((component) => {
-              return component;
-            })}
-        </LegoParent>
-      )}
-
+              {draggedIdsAsComponents
+                .map((component) => component)
+                .filter((component) => component !== null)
+                .map((component) => {
+                  return component;
+                })}
+            </LegoParent>
+          )}
+        </Droppable>
+      </div>
       <Button
         element="button"
         type="button"
@@ -250,7 +253,7 @@ const RightDroppable = () => {
       >
         RESET
       </Button>
-    </Droppable>
+    </div>
   );
 };
 

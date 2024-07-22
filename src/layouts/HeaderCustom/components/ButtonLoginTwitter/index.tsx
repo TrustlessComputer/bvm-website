@@ -9,16 +9,18 @@ import { useAppSelector } from '@/stores/hooks';
 import { accountInforSelector } from '@/stores/states/l2services/selector';
 import { useRouter } from 'next/navigation';
 import useL2Service from '@/hooks/useL2Service';
+import { Image } from '@chakra-ui/react';
 
 type Props = {
   color?: 'black' | 'white';
 };
 const ButtonLoginTwitter = (props: Props) => {
   const router = useRouter();
-  const { loggedIn, login, logout } = useWeb3Auth();
+  const { loggedIn, login, logout, userInfo } = useWeb3Auth();
   const { getAccountInfor } = useL2Service();
   const accInfor = useAppSelector(accountInforSelector);
 
+  console.log('GGGG ', accInfor);
   useEffect(() => {
     if (loggedIn) {
       getAccountInfor();
@@ -52,8 +54,18 @@ const ButtonLoginTwitter = (props: Props) => {
       onMouseEnter={() => setIsHover(true)}
     >
       <div className={s.inner}>
+        {loggedIn && (
+          <Image
+            src={userInfo?.profileImage || '/icons/default-user-avatar.svg'}
+            w="28px"
+            h={'28px'}
+            borderRadius={'100%'}
+            fit={'cover'}
+          ></Image>
+        )}
         <p className={s.text}>
           {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
+
           {!loggedIn
             ? 'Connect'
             : `${

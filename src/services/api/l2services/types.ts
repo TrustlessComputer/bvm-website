@@ -34,6 +34,7 @@ export type IExploreItem = {
     image: string;
     name: string;
     url: string;
+    templateType: 'template' | 'mainnet' | 'testnet';
   };
   template: IModelCategory[];
 };

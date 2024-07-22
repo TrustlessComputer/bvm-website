@@ -260,4 +260,78 @@ export const dappMockupData: DappModel[] = [
       },
     ],
   },
+  {
+    id: 'staking',
+    key: 'staking',
+    title: 'Staking',
+    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    order: 2,
+    color: '#F76649',
+    created_at: '2021-09-14T09:00:00.000Z',
+    updated_at: '2021-09-14T09:00:00.000Z',
+    tooltip: '',
+    baseBlock: {
+      key: 'class',
+      title: 'Create a Staking Pool',
+      icon: '',
+      fields: [
+        {
+          key: 'staking_token',
+          title: 'Staking Token',
+          type: 'dropdown',
+          icon: '',
+          value: 'math',
+          tooltip: '',
+          options: [
+            {
+              key: 'eth',
+              title: 'ETH', // symbol
+              value: '0x1234', // contract_address
+              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+              tooltip: '',
+              type: '',
+              options: [],
+            },
+          ],
+        },
+        {
+          key: 'reward_token',
+          title: 'Reward Token',
+          type: 'dropdown',
+          icon: '',
+          value: 'math',
+          tooltip: '',
+          options: [
+            {
+              key: 'eth',
+              title: 'ETH', // symbol
+              value: '0x1234', // contract_address
+              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+              tooltip: '',
+              type: '',
+              options: [],
+            },
+          ],
+        },
+        {
+          key: 'rate',
+          title: 'Rate',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: '',
+          options: [],
+        },
+        {
+          key: 'apr',
+          title: 'APR',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: '',
+          options: [],
+        },
+      ],
+    },
+  },
 ];
