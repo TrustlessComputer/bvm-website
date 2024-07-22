@@ -103,18 +103,21 @@ interface DappModel {
     key: string;
     title: string;
     icon: string;
+    placableAmount: number;
     fields: FieldModel[];
   };
   blockFields?: {
     key: string;
     title: string;
     icon: string;
+    placableAmount: number;
     fields: FieldModel[];
   }[];
   singleFields?: {
     key: string;
     title: string;
     icon: string;
+    placableAmount: number;
     fields: FieldModel[];
   }[];
 }

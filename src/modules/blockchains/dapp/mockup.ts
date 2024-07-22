@@ -13,6 +13,7 @@ export const dappMockupData: DappModel[] = [
       key: 'class',
       title: 'Create a new Class',
       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+      placableAmount: 1,
       fields: [
         {
           key: 'symbol',
@@ -58,6 +59,7 @@ export const dappMockupData: DappModel[] = [
         key: 'student',
         title: 'Student',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        placableAmount: -1,
         fields: [
           {
             key: 'name',
@@ -160,6 +162,7 @@ export const dappMockupData: DappModel[] = [
         key: 'color',
         title: 'Color',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        placableAmount: -1,
         fields: [
           {
             key: 'color',
@@ -188,6 +191,7 @@ export const dappMockupData: DappModel[] = [
       key: 'class',
       title: 'Create a Staking Pool',
       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+      placableAmount: 1,
       fields: [
         {
           key: 'staking_token',

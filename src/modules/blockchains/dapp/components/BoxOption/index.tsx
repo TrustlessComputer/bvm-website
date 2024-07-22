@@ -17,7 +17,7 @@ type Props = {
 
 const BoxOption = ({ fieldKey }: Props) => {
   const { dapps } = useDappsStore();
-  const [haveBaseBlock, setHaveBaseBlock] = React.useState(false);
+  const [disableBaseBlock, setDisableBaseBlock] = React.useState(false);
 
   const thisDapp = React.useMemo(() => {
     return dapps.find((item) => item.key === fieldKey);
@@ -30,8 +30,12 @@ const BoxOption = ({ fieldKey }: Props) => {
 
   useSignalEffect(() => {
     const draggedIds = (draggedIdsSignal.value || []) as string[];
+    const canPlaceMoreBase =
+      (thisDapp?.baseBlock.placableAmount || 0) >
+        draggedIds.filter((id) => id === FieldKeyPrefix.BASE).length ||
+      thisDapp?.baseBlock.placableAmount === -1;
 
-    setHaveBaseBlock(draggedIds.includes(FieldKeyPrefix.BASE));
+    setDisableBaseBlock(!canPlaceMoreBase);
   });
 
   if (!thisDapp) {
@@ -44,7 +48,7 @@ const BoxOption = ({ fieldKey }: Props) => {
 
       <div className={styles.container__body}>
         <div className={styles.container__body__item}>
-          <Draggable id={FieldKeyPrefix.BASE} disabled={haveBaseBlock}>
+          <Draggable id={FieldKeyPrefix.BASE} disabled={disableBaseBlock}>
             <Lego
               {...thisDapp.baseBlock}
               background={mainColor}
@@ -52,7 +56,7 @@ const BoxOption = ({ fieldKey }: Props) => {
               last={false}
               titleInLeft={true}
               titleInRight={false}
-              disabled={haveBaseBlock}
+              disabled={disableBaseBlock}
             />
           </Draggable>
         </div>

@@ -44,7 +44,10 @@ const RollupsDappPage = () => {
     const draggedIds = (draggedIdsSignal.value || []) as string[];
     const baseBlockNotInOutput =
       !draggedIds[0] || draggedIds[0] !== FieldKeyPrefix.BASE;
-    const onlyAllowOneBase = true; // Fake data
+    const canPlaceMoreBase =
+      thisDapp.baseBlock.placableAmount >
+        draggedIds.filter((id) => id === FieldKeyPrefix.BASE).length ||
+      thisDapp.baseBlock.placableAmount === -1;
     const overIsInput = over?.id === 'input';
     const overIsOutput = over?.id === 'output';
     const activeIsABaseBlock = active.id === FieldKeyPrefix.BASE;
@@ -62,9 +65,9 @@ const RollupsDappPage = () => {
         return;
       }
 
-      // Case 1.2: Output already has base block and only allow 1
-      if (!baseBlockNotInOutput && activeIsABaseBlock && onlyAllowOneBase) {
-        alert(`Only 1 base block is allowed!`);
+      // Case 1.2: Output already has base block and has reached the limit
+      if (!baseBlockNotInOutput && activeIsABaseBlock && !canPlaceMoreBase) {
+        alert(`You can only place ${thisDapp.baseBlock.placableAmount} base!`);
         return;
       }
 
