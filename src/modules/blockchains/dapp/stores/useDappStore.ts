@@ -1,4 +1,5 @@
 import { create, StateCreator } from 'zustand';
+import { signal } from '@preact/signals-react';
 
 type UseDappsSlice = {
   currentIndexDapp: number;
@@ -43,5 +44,7 @@ const useDappsStore = create<UseDappStore>((...set) => ({
 export const useFormDappsStore = create<UseFormDappStore>((...set) => ({
   ...useDappFormSlice(...set),
 }));
+
+export const subScribeDropEnd = signal<number>(0);
 
 export default useDappsStore;
