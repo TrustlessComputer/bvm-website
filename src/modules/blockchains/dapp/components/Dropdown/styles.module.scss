@@ -39,6 +39,8 @@
     position: absolute;
     z-index: 999999;
     top: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
     width: max-content;
     height: 0;
     overflow: hidden;

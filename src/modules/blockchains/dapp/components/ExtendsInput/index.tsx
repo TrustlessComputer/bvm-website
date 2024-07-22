@@ -29,7 +29,17 @@ const ExtendsInput = ({ ...props }: Props) => {
     inSingleField,
     index,
     level,
+    blockKey,
   } = props;
+
+  const fieldOption: any = {
+    inBaseField,
+    inBlockField,
+    inSingleField,
+    index,
+    level,
+    blockKey,
+  };
 
   const { dapps, currentIndexDapp } = useDappsStore();
 
@@ -44,6 +54,42 @@ const ExtendsInput = ({ ...props }: Props) => {
     setToggle(!toggle);
   };
 
+  const getInput = React.useCallback(
+    (field: FieldModel, fieldOpt: FieldOption): React.ReactNode => {
+      if (field.type === 'input') {
+        return (
+          <Input
+            {...field}
+            {...fieldOpt}
+            name={field.key}
+            dappKey={thisDapp.key}
+          />
+        );
+      } else if (field.type === 'dropdown') {
+        return (
+          <Dropdown
+            {...field}
+            {...fieldOpt}
+            keyDapp={thisDapp.key}
+            name={field.key}
+            options={field.options}
+            background={adjustBrightness(background, -40)}
+          />
+        );
+      } else if (field.type === 'group') {
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            {field.options.map((option) => getInput(option, fieldOpt))}
+          </div>
+        );
+      }
+
+      return null;
+    },
+
+    [thisDapp],
+  );
+
   if (type === 'input') {
     return (
       <Lego
@@ -54,16 +100,7 @@ const ExtendsInput = ({ ...props }: Props) => {
         titleInLeft={true}
         titleInRight={false}
       >
-        {/* @ts-ignore */}
-        <Input
-          name={name}
-          dappKey={thisDapp.key}
-          inBaseField={inBaseField}
-          inBlockField={inBlockField}
-          inSingleField={inSingleField}
-          index={index}
-          level={level}
-        />
+        {getInput(props, fieldOption)}
       </Lego>
     );
   } else if (type === 'dropdown') {
@@ -76,18 +113,22 @@ const ExtendsInput = ({ ...props }: Props) => {
         titleInLeft={true}
         titleInRight={false}
       >
-        {/* @ts-ignore */}
-        <Dropdown
-          keyDapp={thisDapp.key}
-          name={name}
-          options={options}
-          background={adjustBrightness(background, -20)}
-          inBaseField={inBaseField}
-          inBlockField={inBlockField}
-          inSingleField={inSingleField}
-          index={index}
-          level={level}
-        />
+        {getInput(props, fieldOption)}
+      </Lego>
+    );
+  } else if (type === 'group') {
+    return (
+      <Lego
+        background={background}
+        first={false}
+        last={false}
+        title={title}
+        titleInLeft={true}
+        titleInRight={false}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          {options.map((option) => getInput(option, fieldOption))}
+        </div>
       </Lego>
     );
   }
@@ -119,6 +160,7 @@ const ExtendsInput = ({ ...props }: Props) => {
               inBaseField={inBaseField}
               inBlockField={inBlockField}
               inSingleField={inSingleField}
+              blockKey={blockKey}
               index={index}
               {...option}
               level={level + 1}

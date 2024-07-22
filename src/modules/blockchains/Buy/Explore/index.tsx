@@ -1,13 +1,9 @@
 import useL2Service from '@/hooks/useL2Service';
-import ChainsGrid from './ChainsGrid';
-import SkeletonLoading from './SkeletonLoading';
-import { useEffect } from 'react';
 import { useAppSelector } from '@/stores/hooks';
-import {
-  allOrdersSelector,
-  getL2ServicesStateSelector,
-  templateV2Selector,
-} from '@/stores/states/l2services/selector';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import { useEffect } from 'react';
+import MainPage from './MainPage';
+import SkeletonLoading from './SkeletonLoading';
 
 type Props = {
   cloneItemCallback: (template: IModelCategory[]) => void;
@@ -15,12 +11,8 @@ type Props = {
 
 const ExplorePage = (props: Props) => {
   const { cloneItemCallback } = props;
-  const { getAllOrderList, getTemplateV2 } = useL2Service();
-  const { isFetchedAllOrders, isTempalteFetched } = useAppSelector(
-    getL2ServicesStateSelector,
-  );
-
-  const dataList = useAppSelector(templateV2Selector);
+  const { getTemplateV2 } = useL2Service();
+  const { isTempalteFetched } = useAppSelector(getL2ServicesStateSelector);
 
   useEffect(() => {
     if (!isTempalteFetched) {
@@ -31,7 +23,11 @@ const ExplorePage = (props: Props) => {
   return !isTempalteFetched ? (
     <SkeletonLoading />
   ) : (
-    <ChainsGrid orderList={dataList} cloneItemCallback={cloneItemCallback} />
+    <MainPage
+      cloneItemCallback={(item) => {
+        cloneItemCallback && cloneItemCallback(item.template);
+      }}
+    />
   );
 };
 

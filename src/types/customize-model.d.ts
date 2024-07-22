@@ -84,7 +84,7 @@ interface FieldModel {
   icon: string;
   title: string;
   value: string | number;
-  type: 'input' | 'dropdown' | 'extends' | '';
+  type: 'input' | 'dropdown' | 'extends' | 'group' | '';
   tooltip: string;
   options: FieldModel[];
 }
@@ -103,18 +103,21 @@ interface DappModel {
     key: string;
     title: string;
     icon: string;
+    placableAmount: number;
     fields: FieldModel[];
   };
-  blockFields: {
+  blockFields?: {
     key: string;
     title: string;
     icon: string;
+    placableAmount: number;
     fields: FieldModel[];
   }[];
-  singleFields: {
+  singleFields?: {
     key: string;
     title: string;
     icon: string;
+    placableAmount: number;
     fields: FieldModel[];
   }[];
 }

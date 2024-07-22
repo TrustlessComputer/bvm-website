@@ -28,11 +28,20 @@ const Input = ({ name, dappKey, ...props }: Props) => {
   };
 
   useSignalEffect(() => {
-    const thisFormDapp =
+    const thisValue =
       formDappInputSignal.value[FormDappUtil.getKeyForm(props, props, name)];
 
-    setValue(thisFormDapp || '');
+    if (thisValue && thisValue !== value) {
+      setValue(thisValue || '');
+    }
   });
+
+  React.useEffect(() => {
+    const formDappInput = formDappInputSignal.value;
+    const key = FormDappUtil.getKeyForm(props, props, name);
+
+    setValue(formDappInput[key] || '');
+  }, []);
 
   return (
     <input

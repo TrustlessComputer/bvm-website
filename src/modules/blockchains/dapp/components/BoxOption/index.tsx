@@ -17,7 +17,7 @@ type Props = {
 
 const BoxOption = ({ fieldKey }: Props) => {
   const { dapps } = useDappsStore();
-  const [haveBaseBlock, setHaveBaseBlock] = React.useState(false);
+  const [disableBaseBlock, setDisableBaseBlock] = React.useState(false);
 
   const thisDapp = React.useMemo(() => {
     return dapps.find((item) => item.key === fieldKey);
@@ -30,8 +30,12 @@ const BoxOption = ({ fieldKey }: Props) => {
 
   useSignalEffect(() => {
     const draggedIds = (draggedIdsSignal.value || []) as string[];
+    const canPlaceMoreBase =
+      (thisDapp?.baseBlock.placableAmount || 0) >
+        draggedIds.filter((id) => id === FieldKeyPrefix.BASE).length ||
+      thisDapp?.baseBlock.placableAmount === -1;
 
-    setHaveBaseBlock(draggedIds.includes(FieldKeyPrefix.BASE));
+    setDisableBaseBlock(!canPlaceMoreBase);
   });
 
   if (!thisDapp) {
@@ -44,7 +48,7 @@ const BoxOption = ({ fieldKey }: Props) => {
 
       <div className={styles.container__body}>
         <div className={styles.container__body__item}>
-          <Draggable id={FieldKeyPrefix.BASE} disabled={haveBaseBlock}>
+          <Draggable id={FieldKeyPrefix.BASE} disabled={disableBaseBlock}>
             <Lego
               {...thisDapp.baseBlock}
               background={mainColor}
@@ -52,39 +56,19 @@ const BoxOption = ({ fieldKey }: Props) => {
               last={false}
               titleInLeft={true}
               titleInRight={false}
-              disabled={haveBaseBlock}
+              disabled={disableBaseBlock}
             />
           </Draggable>
         </div>
 
-        <div className={styles.container__body__item}>
-          <h4>Block fields</h4>
+        {thisDapp.blockFields && (
+          <div className={styles.container__body__item}>
+            <h4>Block fields</h4>
 
-          {thisDapp.blockFields.map((item) => (
-            <Draggable
-              id={`${FieldKeyPrefix.BLOCK}-${item.key}`}
-              key={`${FieldKeyPrefix.BLOCK}-${item.key}`}
-            >
-              <Lego
-                {...item}
-                background={mainColor}
-                first={false}
-                last={false}
-                titleInLeft={true}
-                titleInRight={false}
-              />
-            </Draggable>
-          ))}
-        </div>
-
-        <div className={styles.container__body__item}>
-          <h4>Single fields</h4>
-
-          <div className={styles.container__body__item__inner}>
-            {thisDapp.singleFields.map((item) => (
+            {thisDapp?.blockFields?.map((item) => (
               <Draggable
-                id={`${FieldKeyPrefix.SINGLE}-${item.key}`}
-                key={`${FieldKeyPrefix.SINGLE}-${item.key}`}
+                id={`${FieldKeyPrefix.BLOCK}-${item.key}`}
+                key={`${FieldKeyPrefix.BLOCK}-${item.key}`}
               >
                 <Lego
                   {...item}
@@ -97,7 +81,31 @@ const BoxOption = ({ fieldKey }: Props) => {
               </Draggable>
             ))}
           </div>
-        </div>
+        )}
+
+        {thisDapp.singleFields && (
+          <div className={styles.container__body__item}>
+            <h4>Single fields</h4>
+
+            <div className={styles.container__body__item__inner}>
+              {thisDapp.singleFields.map((item) => (
+                <Draggable
+                  id={`${FieldKeyPrefix.SINGLE}-${item.key}`}
+                  key={`${FieldKeyPrefix.SINGLE}-${item.key}`}
+                >
+                  <Lego
+                    {...item}
+                    background={mainColor}
+                    first={false}
+                    last={false}
+                    titleInLeft={true}
+                    titleInRight={false}
+                  />
+                </Draggable>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

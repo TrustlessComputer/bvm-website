@@ -12,6 +12,7 @@ import launchpad from '@/modules/Launchpad/store/reducer';
 import lpEAIPayment from '@/modules/Launchpad/store/lpEAIPayment/reducer';
 import referrals from '@/stores/states/referrals/reducer';
 import dapp from '@/stores/states/dapp/reducer';
+import createToken from '@/modules/apps/CreateToken/states/reducer';
 
 export default {
   common,
@@ -27,4 +28,5 @@ export default {
   lpEAIPayment,
   referrals,
   dapp
+  createToken
 };
