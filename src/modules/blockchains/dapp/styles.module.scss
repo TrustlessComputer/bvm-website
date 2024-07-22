@@ -5,7 +5,8 @@
   gap: 16px;
   padding: 27px 16px 16px;
   width: 100%;
-  min-height: calc(100dvh - 104px); // 104px header and 28px padding
+  --wrapHeight: calc(100dvh - 104px);
+  min-height: var(--wrapHeight); // 104px header and 28px padding
   display: flex;
 
   > * {
@@ -28,25 +29,10 @@
     gap: 8px;
 
     &__droppable {
-      height: 100%;
       background-color: #ffffff;
       border-radius: 12px;
       border: 1px solid #e0e0e0;
-      overflow-y: auto;
-      overflow-x: hidden;
 
-      &::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: #fff;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background: #e0e0e0;
-      }
     }
 
     &__sidebar {
