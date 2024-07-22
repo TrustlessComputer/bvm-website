@@ -10,13 +10,16 @@ import {
 } from '../../signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
+import useSubmitForm from '../../hooks/useSubmitForm';
+import { Button } from '@chakra-ui/react';
 
 type Props = {};
 
 const LaunchButton = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
 
-  // Fake dapps[0] is selected
+  const { onSubmit, isDisabled, isLoading } = useSubmitForm();
+
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp];
   }, [dapps, currentIndexDapp]);
@@ -133,9 +136,14 @@ const LaunchButton = () => {
   };
 
   return (
-    <button className={styles.button} onClick={() => handleLaunch()}>
+    <Button
+      disabled={isDisabled}
+      isLoading={isLoading}
+      className={styles.button}
+      onClick={onSubmit}
+    >
       Launch <Image src="/launch.png" alt="launch" width={24} height={24} />
-    </button>
+    </Button>
   );
 };
 
