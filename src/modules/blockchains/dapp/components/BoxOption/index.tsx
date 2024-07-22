@@ -60,7 +60,7 @@ const BoxOption = ({ fieldKey }: Props) => {
         <div className={styles.container__body__item}>
           <h4>Block fields</h4>
 
-          {thisDapp.blockFields.map((item) => (
+          {thisDapp?.blockFields?.map((item) => (
             <Draggable
               id={`${FieldKeyPrefix.BLOCK}-${item.key}`}
               key={`${FieldKeyPrefix.BLOCK}-${item.key}`}
@@ -81,7 +81,7 @@ const BoxOption = ({ fieldKey }: Props) => {
           <h4>Single fields</h4>
 
           <div className={styles.container__body__item__inner}>
-            {thisDapp.singleFields.map((item) => (
+            {thisDapp?.singleFields?.map((item) => (
               <Draggable
                 id={`${FieldKeyPrefix.SINGLE}-${item.key}`}
                 key={`${FieldKeyPrefix.SINGLE}-${item.key}`}

@@ -303,24 +303,24 @@ export const dappMockupData: DappModel[] = [
         ],
       },
     ],
-    singleFields: [
-      {
-        key: 'color',
-        title: 'Color',
-        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        fields: [
-          {
-            key: 'color',
-            title: 'Color',
-            type: 'input',
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-            value: '',
-            tooltip: '',
-            options: [],
-          },
-        ],
-      },
-    ],
+    // singleFields: [
+    //   {
+    //     key: 'color',
+    //     title: 'Color',
+    //     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //     fields: [
+    //       {
+    //         key: 'color',
+    //         title: 'Color',
+    //         type: 'input',
+    //         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //         value: '',
+    //         tooltip: '',
+    //         options: [],
+    //       },
+    //     ],
+    //   },
+    // ],
   },
 ];
 

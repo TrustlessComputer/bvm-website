@@ -1,4 +1,3 @@
-import { IRefundFee } from './interface';
 import { DA_SERVICE_URL } from '@/config';
 import { IUserReferralInfo } from '@/interfaces/referral';
 import CApiClient from '@/services/apiClientV2';
@@ -19,16 +18,6 @@ class CReferralAPI {
       return res;
     } catch (error) {
       //
-    }
-  };
-
-  public userFaucetBVM = async (): Promise<any> => {
-    try {
-      const response = await this.api.get(this.prefix(`faucet-bvm`));
-
-      return response;
-    } catch (error) {
-      throw error;
     }
   };
 
@@ -72,45 +61,15 @@ class CReferralAPI {
     return res;
   };
 
-  // export const setReferralCode = async (address: string, params: {
-  //   referral_code: string;
-  //   signature: string;
-  // }): Promise<any> => {
-  //   const res: any = await apiClient.put(
-  //     `/users/referrer?network=naka&address=${address}`,
-  //     params,
-  //   );
-  //   return res;
-  // };
-
   public getListReferred = async (referral_code: string): Promise<any> => {
     const res: any = await this.api.get(this.prefix(`referral/referee?referral_code=${referral_code}`));
     return res;
   };
 
-  public getSignatureForClaim = async (): Promise<any> => {
-    const res: any = await this.api.get(this.prefix(`referral/signature`));
-    return res;
-  };
-
-  public getRefundFee = async (): Promise<IRefundFee[]> => {
-    const res: any = await this.api.get(this.prefix(`get-refund-fee`), {
-      params: {
-        address: "",
-      },
-    });
-    return res;
-  };
-
-  public claimRefundFee = async (): Promise<IRefundFee[]> => {
+  public claimReferralReward = async (address: string): Promise<any> => {
     const res: any = await this.api.post(
-      this.prefix(`claim-refund-fee`),
-      {},
-      {
-        params: {
-          address: "",
-        },
-      }
+      this.prefix(`referral/claim`),
+      {receiver_address: address},
     );
     return res;
   };
