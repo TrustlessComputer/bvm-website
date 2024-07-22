@@ -23,25 +23,35 @@ export type BoxOptionV2Props = React.PropsWithChildren & {
 };
 
 const BoxOptionV3 = ({
-                       id,
-                       active,
-                       label,
-                       children,
-                       description,
-                       first,
-                       last,
-                       isRequired,
-                       disable,
-                     }: BoxOptionV2Props): React.JSX.Element => {
+  id,
+  active,
+  label,
+  children,
+  description,
+  first,
+  last,
+  isRequired,
+  disable,
+}: BoxOptionV2Props): React.JSX.Element => {
   const [isShowModal, setIsShowModal] = React.useState(false);
-  const isHasTooltip =  useMemo(()=>{
+  const isHasTooltip = useMemo(() => {
     return description?.content !== '';
-  }, [description])
+  }, [description]);
+  const descriptionRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (isHasTooltip && descriptionRef.current) {
+      descriptionRef.current.innerHTML = description?.content as string;
+    }
+  }, [isHasTooltip]);
+
   return (
     <React.Fragment>
       <DroppableV2
         id={id}
-        className={`${s.boxItem} ${active && s.activeBox} ${first && s.first} ${disable && s.disable}`}
+        className={`${s.boxItem} ${active && s.activeBox} ${first && s.first} ${
+          disable && s.disable
+        }`}
       >
         <div className={s.boxItem_heading}>
           <div className={s.boxItem_heading_icon}>
@@ -61,7 +71,10 @@ const BoxOptionV3 = ({
             </svg>
           </div>
           <Flex align={'center'} gap={2}>
-            <p className={s.boxItem_heading_text}>{label}{isRequired && <sup>*</sup>}</p>
+            <p className={s.boxItem_heading_text}>
+              {label}
+              {isRequired && <sup>*</sup>}
+            </p>
             {isHasTooltip && (
               <div className={s.info} onClick={() => setIsShowModal(true)}>
                 <svg
@@ -88,6 +101,7 @@ const BoxOptionV3 = ({
 
       {description?.title && (
         <DescriptionModal
+          ref={descriptionRef}
           show={isShowModal}
           onClose={() => setIsShowModal(false)}
           title={description.title}
@@ -98,4 +112,4 @@ const BoxOptionV3 = ({
   );
 };
 
-export default BoxOptionV3;
+export default React.memo(BoxOptionV3);

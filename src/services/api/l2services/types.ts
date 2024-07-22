@@ -23,4 +23,18 @@ export type SubmitFormParams = {
   telegram: string;
   isContractUs: boolean;
   subject: string;
+
+  //NEW
+  nodeConfigs?: any[];
+};
+
+export type IExploreItem = {
+  chainInfo: {
+    description: string;
+    image: string;
+    name: string;
+    url: string;
+    templateType: 'template' | 'mainnet' | 'testnet';
+  };
+  template: IModelCategory[];
 };

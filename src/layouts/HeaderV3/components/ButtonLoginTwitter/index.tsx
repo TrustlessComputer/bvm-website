@@ -1,5 +1,5 @@
 // import { CDN_URL } from '@constants/config';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cs from 'classnames';
 import { toast } from 'react-hot-toast';
 import s from './styles.module.scss';
@@ -8,6 +8,8 @@ import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { useAppSelector } from '@/stores/hooks';
 import { accountInforSelector } from '@/stores/states/l2services/selector';
 import { useRouter } from 'next/navigation';
+import useL2Service from '@/hooks/useL2Service';
+import { Image } from '@chakra-ui/react';
 
 type Props = {
   color?: 'black' | 'white';
@@ -16,8 +18,16 @@ type Props = {
 };
 const ButtonLoginTwitter = (props: Props) => {
   const router = useRouter();
-  const { loggedIn, login, logout } = useWeb3Auth();
+  const { loggedIn, login, logout, userInfo } = useWeb3Auth();
+  const { getAccountInfor } = useL2Service();
   const accInfor = useAppSelector(accountInforSelector);
+
+  useEffect(() => {
+    if (loggedIn) {
+      getAccountInfor();
+    }
+  }, [loggedIn]);
+
   const handleConnect = async () => {
     try {
       // await login();
@@ -39,15 +49,30 @@ const ButtonLoginTwitter = (props: Props) => {
         if (!loggedIn) {
           handleConnect();
         } else {
-          router.push('/rollups');
+          router.push('/chains');
         }
       }}
       onMouseEnter={() => setIsHover(true)}
     >
       <div className={s.inner}>
+        {loggedIn && (
+          <Image
+            src={userInfo?.profileImage || '/icons/default-user-avatar.svg'}
+            w="28px"
+            h={'28px'}
+            borderRadius={'100%'}
+            fit={'cover'}
+          ></Image>
+        )}
         <p className={s.text}>
           {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
-          {!loggedIn ? props?.title || 'Connect' : `Your Chains`}
+          {!loggedIn
+            ? props?.title || 'Connect'
+            : `${
+                accInfor?.twitterUsername ||
+                accInfor?.email ||
+                accInfor?.tcAddress
+              }`}
         </p>
       </div>
       {/* {isHover && loggedIn && (

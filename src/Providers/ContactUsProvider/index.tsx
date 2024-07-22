@@ -15,7 +15,10 @@ export const ContactUsProvider: React.FC<PropsWithChildren> = ({
   const [isShowContactUsModal, setShowContactUsModal] = useState(false);
   const [showSubmitSuccessModal, setShowSubmitSuccessModal] = useState(false);
 
-  const showContactUsModal = () => {
+  const [params, setParams] = useState<any>(undefined);
+
+  const showContactUsModal = (params?: any) => {
+    setParams(params);
     setShowContactUsModal(true);
   };
 
@@ -31,6 +34,7 @@ export const ContactUsProvider: React.FC<PropsWithChildren> = ({
       {children}
       {isShowContactUsModal && (
         <ContactUsModal
+          params={params}
           isShow={true}
           onHide={() => setShowContactUsModal(false)}
           onSuccesCB={() => {

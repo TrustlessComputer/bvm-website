@@ -9,6 +9,7 @@ type UseOrderFormStoreV3 = {
       value: string | number | string[] | number[] | null;
     }
   >;
+  needContactUs: boolean;
   priceUSD: number;
   priceBVM: number;
   setField: (
@@ -18,10 +19,19 @@ type UseOrderFormStoreV3 = {
   ) => void;
   setPriceUSD: (price: number) => void;
   setPriceBVM: (price: number) => void;
+  setNeedContactUs: (needContactUs: boolean) => void;
+};
+
+type CaptureStore = {
+  isCapture: boolean;
+  setIsCapture: (isCapture: boolean) => void;
 };
 
 const useOrderFormStoreV3 = create<UseOrderFormStoreV3>((set) => ({
   form: {},
+
+  needContactUs: false,
+  setNeedContactUs: (needContactUs) => set({ needContactUs }),
 
   field: {},
   setField: (field, value, dragged = false) =>
@@ -50,6 +60,11 @@ const useOrderFormStoreV3 = create<UseOrderFormStoreV3>((set) => ({
     set((state) => ({
       priceBVM: price,
     })),
+}));
+
+export const useCaptureStore = create<CaptureStore>((set) => ({
+  isCapture: false,
+  setIsCapture: (isCapture) => set({ isCapture }),
 }));
 
 export default useOrderFormStoreV3;

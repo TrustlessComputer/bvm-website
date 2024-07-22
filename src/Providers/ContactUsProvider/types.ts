@@ -2,7 +2,7 @@
 // Define Methods
 // ---------------------------------------------------
 export type IActions = {
-  showContactUsModal: () => void;
+  showContactUsModal: (params?: any) => void;
 };
 
 // ---------------------------------------------------
