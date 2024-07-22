@@ -13,6 +13,7 @@ export const dappMockupData: DappModel[] = [
       key: 'class',
       title: 'Token Generation',
       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+      placableAmount: -1,
       fields: [
         {
           key: 'name',
@@ -48,6 +49,7 @@ export const dappMockupData: DappModel[] = [
         key: 'tokenomics',
         title: 'Tokenomics',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        placableAmount: -1,
         fields: [
           {
             key: 'name',
@@ -243,6 +245,7 @@ export const dappMockupData: DappModel[] = [
         key: 'color',
         title: 'Color',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        placableAmount: -1,
         fields: [
           {
             key: 'color',
