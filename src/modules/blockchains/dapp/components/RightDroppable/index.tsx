@@ -113,6 +113,22 @@ const RightDroppable = () => {
             background={adjustBrightness(mainColor, -20)}
           />
         );
+      } else if (field.type === 'group') {
+        return (
+          <Lego
+            key={field.key}
+            background={adjustBrightness(mainColor, -20)}
+            first={false}
+            last={false}
+            title={field.title}
+            titleInLeft={true}
+            titleInRight={false}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              {field.options.map((option) => getInput(option, fieldOpt))}
+            </div>
+          </Lego>
+        );
       }
     },
     [thisDapp],

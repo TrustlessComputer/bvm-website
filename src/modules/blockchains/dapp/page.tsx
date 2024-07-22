@@ -9,7 +9,7 @@ import {
 import Image from 'next/image';
 
 import { FormDappUtil, MouseSensor, removeItemAtIndex } from './utils';
-import { dappMockupData } from './mockup_2';
+import { dappMockupData } from './mockup_3';
 import { FieldKeyPrefix } from './contants';
 import LeftDroppable from './components/LeftDroppable';
 import RightDroppable from './components/RightDroppable';
@@ -40,12 +40,6 @@ const RollupsDappPage = () => {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
-
-    console.log(
-      '🚀 -> file: page.tsx:44 -> handleDragEnd -> over, active ::',
-      over,
-      active,
-    );
 
     const draggedIds = (draggedIdsSignal.value || []) as string[];
     const baseBlockNotInOutput =
