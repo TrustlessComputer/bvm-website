@@ -16,7 +16,7 @@ import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
 import Button from './components/Button';
-import useDappsStore from './stores/useDappStore';
+import useDappsStore, { useFormDappsStore } from './stores/useDappStore';
 import { draggedIdsSignal } from './signals/useDragSignal';
 import {
   formDappDropdownSignal,

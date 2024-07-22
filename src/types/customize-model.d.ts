@@ -105,13 +105,13 @@ interface DappModel {
     icon: string;
     fields: FieldModel[];
   };
-  blockFields: {
+  blockFields?: {
     key: string;
     title: string;
     icon: string;
     fields: FieldModel[];
   }[];
-  singleFields: {
+  singleFields?: {
     key: string;
     title: string;
     icon: string;
