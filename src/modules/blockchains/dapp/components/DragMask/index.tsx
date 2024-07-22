@@ -6,16 +6,20 @@ import Draggable from '../Draggable';
 import Lego from '../Lego';
 import Label from '../Label';
 import { FieldKeyPrefix } from '../../contants';
-import { idDraggingSignal } from '../../signals/useDragSignal';
+import { FormDappUtil } from '../../utils';
+import {
+  draggedIdsSignal,
+  idDraggingSignal,
+} from '../../signals/useDragSignal';
 import useDappsStore from '../../stores/useDappStore';
 
 const DragMask = () => {
-  const { dapps } = useDappsStore();
+  const { dapps, currentIndexDapp } = useDappsStore();
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
-    return dapps[0];
-  }, [dapps]);
+    return dapps[currentIndexDapp];
+  }, [dapps, currentIndexDapp]);
 
   const [idDragging, setIdDragging] = React.useState('');
 
@@ -28,7 +32,7 @@ const DragMask = () => {
     const mapping: Record<string, React.ReactNode> = {};
 
     (thisDapp?.blockFields || []).forEach((item) => {
-      mapping[`${FieldKeyPrefix.BLOCK}-${item.key}`] = (
+      mapping[item.key] = (
         <Draggable
           id={`${FieldKeyPrefix.BLOCK}-${item.key}`}
           key={`${FieldKeyPrefix.BLOCK}-${item.key}`}
@@ -40,7 +44,7 @@ const DragMask = () => {
             titleInLeft={false}
             titleInRight={false}
           >
-            <Label title={item.title} />
+            <Label {...item} />
           </Lego>
         </Draggable>
       );
@@ -53,7 +57,7 @@ const DragMask = () => {
     const mapping: Record<string, React.ReactNode> = {};
 
     (thisDapp?.singleFields || []).forEach((item) => {
-      mapping[`${FieldKeyPrefix.SINGLE}-${item.key}`] = (
+      mapping[item.key] = (
         <Draggable
           id={`${FieldKeyPrefix.SINGLE}-${item.key}`}
           key={`${FieldKeyPrefix.SINGLE}-${item.key}`}
@@ -65,7 +69,7 @@ const DragMask = () => {
             titleInLeft={false}
             titleInRight={false}
           >
-            <Label title={item.title} />
+            <Label {...item} />
           </Lego>
         </Draggable>
       );
@@ -99,16 +103,16 @@ const DragMask = () => {
             titleInLeft={false}
             titleInRight={false}
           >
-            <Label title={thisDapp.baseBlock.title} />
+            <Label {...thisDapp.baseBlock} />
           </Lego>
         </Draggable>
       )}
 
       {idDragging.startsWith(FieldKeyPrefix.BLOCK) &&
-        blockFieldComponentMapping[idDragging]}
+        blockFieldComponentMapping[FormDappUtil.getOriginalKey(idDragging)]}
 
       {idDragging.startsWith(FieldKeyPrefix.SINGLE) &&
-        singleFieldComponentMapping[idDragging]}
+        singleFieldComponentMapping[FormDappUtil.getOriginalKey(idDragging)]}
     </DragOverlay>
   );
 };

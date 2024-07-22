@@ -20,14 +20,14 @@ import { draggedIdsSignal } from '../../signals/useDragSignal';
 import styles from './styles.module.scss';
 
 const RightDroppable = () => {
-  const { dapps } = useDappsStore();
+  const { dapps, currentIndexDapp } = useDappsStore();
 
   const [draggedIds, setDraggedIds] = React.useState<string[]>([]);
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
-    return dapps[0];
-  }, [dapps]);
+    return dapps[currentIndexDapp];
+  }, [dapps, currentIndexDapp]);
 
   const mainColor = React.useMemo(
     () => adjustBrightness(thisDapp?.color || '#F76649', -10),
@@ -117,7 +117,6 @@ const RightDroppable = () => {
 
   const draggedIdsAsComponents = React.useMemo(() => {
     let draggedBlockCount = 1;
-
     return draggedIds.map((id, index) => {
       const _index = index - 1;
 

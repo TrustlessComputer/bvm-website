@@ -15,6 +15,8 @@ type Props = {
   FieldModel;
 
 const Input = ({ name, dappKey, ...props }: Props) => {
+  const [value, setValue] = React.useState('');
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formDappInput = formDappInputSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
@@ -26,11 +28,19 @@ const Input = ({ name, dappKey, ...props }: Props) => {
   };
 
   useSignalEffect(() => {
-    console.log(formDappInputSignal.value);
+    const thisFormDapp =
+      formDappInputSignal.value[FormDappUtil.getKeyForm(props, props, name)];
+
+    setValue(thisFormDapp || '');
   });
 
   return (
-    <input type="text" className={styles.input} onChange={handleInputChange} />
+    <input
+      type="text"
+      className={styles.input}
+      onChange={handleInputChange}
+      value={value}
+    />
   );
 };
 

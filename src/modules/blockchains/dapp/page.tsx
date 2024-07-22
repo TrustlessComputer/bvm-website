@@ -8,7 +8,7 @@ import {
 } from '@dnd-kit/core';
 import Image from 'next/image';
 
-import { MouseSensor } from './utils';
+import { FormDappUtil, MouseSensor, removeItemAtIndex } from './utils';
 import { dappMockupData } from './mockup';
 import { FieldKeyPrefix } from './contants';
 import LeftDroppable from './components/LeftDroppable';
@@ -22,12 +22,13 @@ import { draggedIdsSignal } from './signals/useDragSignal';
 import styles from './styles.module.scss';
 
 const RollupsDappPage = () => {
-  const { dapps, setDapps } = useDappsStore();
+  const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
+    useDappsStore();
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
-    return dapps[0];
-  }, [dapps]);
+    return dapps[currentIndexDapp];
+  }, [dapps, currentIndexDapp]);
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
@@ -36,12 +37,6 @@ const RollupsDappPage = () => {
   const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
 
-    console.log(
-      '🚀 -> file: page.tsx:39 -> handleDragEnd -> over, active ::',
-      over,
-      active,
-    );
-
     const draggedIds = (draggedIdsSignal.value || []) as string[];
     const baseBlockNotInOutput =
       !draggedIds[0] || draggedIds[0] !== FieldKeyPrefix.BASE;
@@ -49,6 +44,7 @@ const RollupsDappPage = () => {
     const overIsInput = over?.id === 'input';
     const overIsOutput = over?.id === 'output';
     const activeIsRequiredField = active.id === FieldKeyPrefix.BASE;
+    const indexOfField = Number(active.id.toString().split('-')[2]);
 
     // Case 1: Drag to the right
     if (overIsOutput) {
@@ -56,13 +52,16 @@ const RollupsDappPage = () => {
       if (baseBlockNotInOutput && !activeIsRequiredField) {
         alert(`Please drag ${thisDapp.baseBlock.title} to the output first!`);
         return;
-        // Case 1.2: Output already has base block and only allow 1
-      } else if (
-        !baseBlockNotInOutput &&
-        activeIsRequiredField &&
-        onlyAllowOneBase
-      ) {
+      }
+
+      // Case 1.2: Output already has base block and only allow 1
+      if (!baseBlockNotInOutput && activeIsRequiredField && onlyAllowOneBase) {
         alert(`Only 1 base block is allowed!`);
+        return;
+      }
+
+      // Case 1.3: The lego just dragged is already in the output
+      if (!!indexOfField) {
         return;
       }
 
@@ -73,7 +72,7 @@ const RollupsDappPage = () => {
 
     // Case 2: Drag to the left
     if (overIsInput) {
-      draggedIdsSignal.value = draggedIds.filter((id) => id !== active.id);
+      draggedIdsSignal.value = removeItemAtIndex(draggedIds, indexOfField + 1);
 
       return;
     }
@@ -124,13 +123,13 @@ const RollupsDappPage = () => {
 
           <div className={styles.container__content__sidebar}>
             <div className={styles.container__content__sidebar__header}>
-              {dapps.map((dapp) => {
+              {dapps.map((dapp, index) => {
                 return (
                   <Button
                     element="button"
                     type="button"
                     color="transparent"
-                    onClick={() => {}}
+                    onClick={() => setCurrentIndexDapp(index)}
                     className={styles.resetButton}
                   >
                     <div>

@@ -31,6 +31,10 @@ export class TouchSensor extends LibTouchSensor {
   ] as (typeof LibTouchSensor)['activators'];
 }
 
+export const removeItemAtIndex = (arr: any[], index: number) => {
+  return [...arr.slice(0, index), ...arr.slice(index + 1)];
+};
+
 export function hexToHSB(hex: string) {
   // Remove the hash at the start if it's there
   hex = hex.replace(/^#/, '');

@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 
 import { idDraggingSignal } from '../../signals/useDragSignal';
 
-import s from './styles.module.scss';
+import styles from './styles.module.scss';
 
 type Props = {
   id: string;
@@ -53,21 +53,21 @@ const Draggable = ({
       const rectData = wrapData.getBoundingClientRect();
       const rectTl = refTooltip.current.getBoundingClientRect();
       if (rectTl.right >= rectData.right) {
-        refTooltip.current.classList.add(s.isRight);
+        refTooltip.current.classList.add(styles.isRight);
       }
 
       if (rectTl.top <= rectData.top) {
-        refTooltip.current.classList.add(s.isBottom);
+        refTooltip.current.classList.add(styles.isBottom);
       }
-      refTooltip.current.classList.add(s.isHover);
+      refTooltip.current.classList.add(styles.isHover);
     }
   };
 
   const onLeave = () => {
     if (refTooltip.current) {
-      refTooltip.current.classList.remove(s.isBottom);
-      refTooltip.current.classList.remove(s.isRight);
-      refTooltip.current.classList.remove(s.isHover);
+      refTooltip.current.classList.remove(styles.isBottom);
+      refTooltip.current.classList.remove(styles.isRight);
+      refTooltip.current.classList.remove(styles.isHover);
     }
   };
 
@@ -81,7 +81,7 @@ const Draggable = ({
     <div
       ref={setNodeRef}
       style={style}
-      className={`${s.options}`}
+      className={`${styles.options}`}
       {...listeners}
       {...attributes}
       onMouseEnter={onHover}
@@ -91,7 +91,7 @@ const Draggable = ({
       {children}
 
       {tooltip && (
-        <div ref={refTooltip} className={`${s.tooltip}`}>
+        <div ref={refTooltip} className={`${styles.tooltip}`}>
           {/* {tooltip} */}
         </div>
       )}

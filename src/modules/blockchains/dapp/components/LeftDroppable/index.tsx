@@ -5,12 +5,12 @@ import BoxOption from '../BoxOption';
 import useDappsStore from '../../stores/useDappStore';
 
 const LeftDroppable = () => {
-  const { dapps } = useDappsStore();
+  const { dapps, currentIndexDapp } = useDappsStore();
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
-    return dapps[0];
-  }, [dapps]);
+    return dapps[currentIndexDapp];
+  }, [dapps, currentIndexDapp]);
 
   return (
     <Droppable id="input">
