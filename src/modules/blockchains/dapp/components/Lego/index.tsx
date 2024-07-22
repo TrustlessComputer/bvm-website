@@ -56,6 +56,7 @@ const Lego = ({
   last = false,
   children,
 }: Props) => {
+  console.log('children', children);
   return (
     <div
       className={cn(styles.lego, {
