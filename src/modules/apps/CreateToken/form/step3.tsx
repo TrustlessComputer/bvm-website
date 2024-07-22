@@ -244,8 +244,8 @@ const FormStep3 = () => {
         <HorizontalItem
           label={"Network Info: "}
           value={
-            <Link target="_blank" href={configs.explorer_url}>
-              {configs.network_id}
+            <Link target="_blank" href={configs?.explorer_url}>
+              {configs?.network_id}
             </Link>
           }
         />
