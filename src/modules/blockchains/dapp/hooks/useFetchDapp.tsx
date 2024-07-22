@@ -20,10 +20,9 @@ const useFetchDapp = () => {
     fetchData();
   }, []);
 
-  console.log('SANG TEST: ', dappState);
-
   return {
     loading: dappState.loading,
+    configs: dappState.configs,
   }
 };
 
