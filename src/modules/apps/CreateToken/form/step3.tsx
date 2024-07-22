@@ -30,7 +30,8 @@ import {
   getVestingStartTime,
 } from '../utils';
 import { showError } from '@components/toast';
-import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
+import { useAppSelector } from '@/stores/hooks';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -41,7 +42,9 @@ const FormStep3 = () => {
   const { form_values } = useSelector(createTokenSelector);
   const configs = useSelector(commonSelector).configs;
   const [loading, setLoading] = useState(false);
-  const wallet = useAuthenticatedWallet();
+  const { accountInforL2Service } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
 
   const totalSupply = useMemo(() => form_values.supply, [form_values.supply]);
 
@@ -50,14 +53,14 @@ const FormStep3 = () => {
       return [
         {
           name: "Foundation",
-          address: wallet?.address,
+          address: accountInforL2Service?.tcAddress,
           total_amount: form_values.supply,
         },
       ];
     }
 
     return form_values.tokenomics;
-  }, [form_values, wallet]) as ITokenomics[];
+  }, [form_values, accountInforL2Service]) as ITokenomics[];
 
   const data = useMemo(() => {
     const _data: any[] = [];
