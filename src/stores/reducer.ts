@@ -27,6 +27,6 @@ export default {
   launchpad,
   lpEAIPayment,
   referrals,
-  dapp
+  dapp,
   createToken
 };
