@@ -13,10 +13,12 @@ const CommonSection = ({
 }: any) => {
   return (
     <Flex
-      gap={['120px']}
+      gap={['60px', '120px']}
       py={['80px']}
       minW="100%"
       justifyContent="space-between"
+      alignItems="center"
+      direction={['column', 'row']}
     >
       <Flex gap={['36px']} direction="column">
         <Flex gap={['12px']} direction="column">
@@ -37,7 +39,12 @@ const CommonSection = ({
         </Box>
       </Flex>
       <Box>
-        <Image maxW="700px" maxH="400px" src={image} alt={id} />
+        <Image
+          maxW={['100%', '700px']}
+          maxH={['100%', '400px']}
+          src={image}
+          alt={id}
+        />
       </Box>
     </Flex>
   );

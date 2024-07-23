@@ -10,6 +10,7 @@ const CaseStudy = () => {
       minW="100%"
       justifyContent="space-between"
       alignItems="center"
+      direction={['column', 'row']}
     >
       <Flex gap={['24px']} direction="column">
         <Text className={s.label}>Case Study</Text>
@@ -18,7 +19,7 @@ const CaseStudy = () => {
         </Box>
         <Flex gap="12px" direction="column">
           <Text className={s.title} as="h6">
-            BITCOIN MAGA
+            BITCOIN WAR
           </Text>
           <Text className={s.description}>
             The first fully on-chain game built on a ZK Rollup on the Bitcoin
@@ -40,8 +41,8 @@ const CaseStudy = () => {
       </Flex>
       <Box>
         <Image
-          maxW="700px"
-          maxH="400px"
+          maxW={['100%', '700px']}
+          maxH={['100%', '400px']}
           src="/maga/crypto-war.svg"
           alt="crypto war"
         />
