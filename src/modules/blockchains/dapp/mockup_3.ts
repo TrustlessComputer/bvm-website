@@ -274,6 +274,7 @@ export const dappMockupData: DappModel[] = [
       key: 'class',
       title: 'Create a Staking Pool',
       icon: '',
+      placableAmount: -1,
       fields: [
         {
           key: 'staking_token',

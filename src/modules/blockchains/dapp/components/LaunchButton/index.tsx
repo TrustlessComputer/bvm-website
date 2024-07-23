@@ -9,16 +9,18 @@ import {
   formDappInputSignal,
 } from '../../signals/useFormDappsSignal';
 
-import styles from './styles.module.scss';
+import s from './styles.module.scss';
 import useSubmitForm from '../../hooks/useSubmitForm';
 import { Button } from '@chakra-ui/react';
+import ErrorModal from '../ErrorModal';
 
 type Props = {};
 
 const LaunchButton = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
 
-  const { onSubmit, isDisabled, isLoading } = useSubmitForm();
+  const { onSubmit, isLoading, setIsShowError, isShowError, errorData } =
+    useSubmitForm();
 
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp];
@@ -194,14 +196,30 @@ const LaunchButton = () => {
   };
 
   return (
-    <Button
-      disabled={isDisabled}
-      isLoading={isLoading}
-      className={styles.button}
-      onClick={handleLaunch}
-    >
-      Launch <Image src="/launch.png" alt="launch" width={24} height={24} />
-    </Button>
+    <>
+      <Button isLoading={isLoading} className={s.button} onClick={onSubmit}>
+        Launch <Image src="/launch.png" alt="launch" width={24} height={24} />
+      </Button>
+      <ErrorModal
+        title="Missing Required"
+        show={isShowError}
+        onHide={() => setIsShowError(false)}
+        closeText="Retry"
+        className={s.modalError}
+      >
+        <ul className={s.fields}>
+          {errorData &&
+            errorData?.length > 0 &&
+            errorData?.map((item) => {
+              return (
+                <li key={item.key} className={s.fields__field}>
+                  {item.error}
+                </li>
+              );
+            })}
+        </ul>
+      </ErrorModal>
+    </>
   );
 };
 
