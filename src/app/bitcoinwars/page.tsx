@@ -5,9 +5,9 @@ import MainLayout from '@/layouts/MainLayout';
 import MagaModule from '@/modules/maga';
 
 export const metadata: Metadata = {
-  title: 'BITCOIN WAR',
+  title: 'Bitcoin Wars',
   description:
-    'The first fully on-chain game built on a ZK Rollup on the Bitcoin network. Powered by BVM.',
+    'Prepare your strategy and engage in the battle that will shape the future of Bitcoin. Starting at the Bitcoin 2024 Conference in Nashville.',
   openGraph: {
     images: ['/maga/crypto-war.svg'],
   },

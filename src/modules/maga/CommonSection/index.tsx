@@ -10,6 +10,7 @@ const CommonSection = ({
   image,
   link,
   isExternal,
+  specialImage,
 }: any) => {
   return (
     <Flex
@@ -40,6 +41,16 @@ const CommonSection = ({
       </Flex>
       <Box>
         <Image
+          style={
+            specialImage
+              ? {
+                  padding: '59px 38px 0 38px',
+                  borderRadius: '12px',
+                  background:
+                    'linear-gradient(90deg, rgba(151, 150, 240, 0.20) 0%, rgba(251, 199, 212, 0.20) 100%)',
+                }
+              : {}
+          }
           maxW={['100%', '700px']}
           maxH={['100%', '400px']}
           src={image}

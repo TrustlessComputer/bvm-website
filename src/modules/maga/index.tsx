@@ -9,8 +9,9 @@ const STEP_SECTION = [
     id: 1,
     subTile: 'Drag and drop customization with BVM Studio',
     subDescription:
-      'Drag and drop modules to tailor the setup for an optimized parallel gaming experience.',
-    image: '/maga/step-1.svg',
+      'Deploying and managing a ZK rollup is made simple and fun, allowing you to optimize performance and cost effectively while accessing reliable, scalable infrastructure on demand.',
+    image: '/maga/step-1.gif',
+    specialImage: true,
     link: '/studio',
     isExternal: false,
   },
@@ -22,15 +23,17 @@ const STEP_SECTION = [
     image: '/maga/step-2.svg',
     link: 'https://x.com/punk3700/status/1650524119136628736',
     isExternal: true,
+    specialImage: false,
   },
   {
     id: 3,
-    subTile: 'Add more dApps',
+    subTile: 'Expand the network capabilities',
     subDescription:
       'Issue tokens, in-game NFTs, and more to enable trading and create a dynamic and interactive gaming ecosystem.',
     image: '/maga/step-3.svg',
     link: '/studio',
     isExternal: false,
+    specialImage: false,
   },
 ];
 
