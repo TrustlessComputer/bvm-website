@@ -482,36 +482,39 @@ const removeAccesTokenHeader = () => {
   httpClient.defaults.headers.Authorization = ``;
 };
 
-const uploadImage = (image: string) => {
-  // API endpoint : /order/upload/file
-  // convert base64Image to file
+// const uploadImage = (image: string) => {
+//   // API endpoint : /order/upload/file
+//   // convert base64Image to file
 
-  const file = convertBase64ToFile(image);
-  console.log('🚀 ~ uploadImage ~ file:', file);
-  const formData = new FormData();
-  formData.append('upload', file, 'image.png');
+//   const file = convertBase64ToFile(image);
+//   const formData = new FormData();
+//   formData.append('upload', file, 'image.png');
 
-  console.log('🚀 ~ uploadImage ~ formData:', formData);
-  // include header content-type multipart/form-data
+//   // include header content-type multipart/form-data
 
-  const res = httpClient.post(`/order/upload/file`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+//   const res = httpClient.post(`/order/upload/file`, formData, {
+//     headers: {
+//       'Content-Type': 'multipart/form-data',
+//     },
+//   });
 
-  console.log('🚀 ~ uploadImage ~ res:', res);
-  return res;
-};
+//   return res;
+// };
 
 export const uploadFile = async (payload: { file: File }): Promise<any> => {
   const formData = new FormData();
   formData.append('file', payload.file);
-  const res = await httpClient.post(`/order/upload/file`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
+  const res = await httpClient.post(
+    `/order/upload/file?getKey=true`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     },
-  });
+  );
+  console.log('🚀 ~ uploadFile ~ res:', res);
+
   return camelCaseKeys(res);
 };
 
@@ -551,7 +554,7 @@ const l2ServicesAPI = {
   uploadLogoFile,
   getAllOrdersV2,
 
-  uploadImage,
+  // uploadImage,
   uploadFile,
 
   getTemplateV2,
