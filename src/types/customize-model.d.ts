@@ -103,7 +103,7 @@ interface DappModel {
     key: string;
     title: string;
     icon: string;
-    placableAmount: number;
+    placableAmount?: number;
     fields: FieldModel[];
   };
   blockFields?: {
