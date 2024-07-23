@@ -61,6 +61,8 @@ const ExtendsInput = ({ ...props }: Props) => {
   };
 
   React.useEffect(() => {
+    if (type !== 'extends') return;
+
     const formDappToggle = formDappToggleSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
