@@ -150,9 +150,9 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
                   gap={'8px'}
                 >
                   <Text
-                    fontSize={'16px'}
+                    fontSize={'14px'}
                     color={'#00000099'}
-                    fontWeight={500}
+                    fontWeight={400}
                     alignSelf={'flex-start'}
                     textTransform={'uppercase'}
                   >
@@ -161,7 +161,6 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
                   </Text>
                   <Input
                     border="1px solid #E7E7E7"
-                    placeholder="Choose the chain"
                     _placeholder={{
                       color: 'grey',
                     }}
@@ -179,7 +178,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
                 {yourXAccErrMsg && (
                   <Text
                     fontSize={'12px'}
-                    fontWeight={500}
+                    fontWeight={400}
                     lineHeight={'20px'}
                     alignSelf={'flex-start'}
                     color={'red'}
@@ -200,9 +199,9 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
                   gap={'8px'}
                 >
                   <Text
-                    fontSize={'16px'}
+                    fontSize={'14px'}
                     color={'#00000099'}
-                    fontWeight={500}
+                    fontWeight={400}
                     alignSelf={'flex-start'}
                     textTransform={'uppercase'}
                   >
@@ -211,7 +210,6 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
                   </Text>
                   <Input
                     border="1px solid #E7E7E7"
-                    placeholder="Choose the chain"
                     _placeholder={{
                       color: 'grey',
                     }}
@@ -228,7 +226,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
                   {/* {yourTelegramAccErrMgs && (
                   <Text
                     fontSize={'12px'}
-                    fontWeight={500}
+                    fontWeight={400}
                     lineHeight={'20px'}
                     alignSelf={'flex-start'}
                     color={'red'}
@@ -244,7 +242,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
                   {yourXAccErrMsg && (
                     <Text
                       fontSize={['10px', '11px', '12px']}
-                      fontWeight={500}
+                      fontWeight={400}
                       alignSelf={'flex-start'}
                       color={'red'}
                     >
@@ -258,7 +256,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
                   <Text
                     marginLeft={'15px'}
                     fontSize={'12px'}
-                    fontWeight={500}
+                    fontWeight={400}
                     lineHeight={'20px'}
                     alignSelf={'flex-end'}
                     color={'red'}
@@ -280,9 +278,9 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
                 gap={'8px'}
               >
                 <Text
-                  fontSize={'16px'}
+                  fontSize={'14px'}
                   color={'#00000099'}
-                  fontWeight={500}
+                  fontWeight={400}
                   alignSelf={'flex-start'}
                   textTransform={'uppercase'}
                 >
@@ -324,9 +322,9 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
                 gap={'8px'}
               >
                 <Text
-                  fontSize={'16px'}
+                  fontSize={'14px'}
                   color={'#00000099'}
-                  fontWeight={500}
+                  fontWeight={400}
                   alignSelf={'flex-start'}
                   textTransform={'uppercase'}
                 >
@@ -352,7 +350,7 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
                 {yourPlanErrMgs && (
                   <Text
                     fontSize={['10px', '11px', '12px']}
-                    fontWeight={500}
+                    fontWeight={400}
                     alignSelf={'flex-start'}
                     color={'red'}
                   >
