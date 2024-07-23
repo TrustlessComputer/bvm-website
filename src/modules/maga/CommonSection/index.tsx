@@ -3,7 +3,14 @@ import Link from 'next/link';
 
 import s from '../styles.module.scss';
 
-const CommonSection = ({ id, subTile, subDescription, image, link }: any) => {
+const CommonSection = ({
+  id,
+  subTile,
+  subDescription,
+  image,
+  link,
+  isExternal,
+}: any) => {
   return (
     <Flex
       gap={['120px']}
@@ -20,13 +27,17 @@ const CommonSection = ({ id, subTile, subDescription, image, link }: any) => {
           <Text className={s.subDescription}>{subDescription}</Text>
         </Flex>
         <Box>
-          <Link className={s.playNowBtn} href={link}>
+          <Link
+            className={s.playNowBtn}
+            href={link}
+            target={isExternal ? '_blank' : '_self'}
+          >
             Learn more
           </Link>
         </Box>
       </Flex>
       <Box>
-        <Image src={image} alt={id} />
+        <Image maxW="700px" maxH="400px" src={image} alt={id} />
       </Box>
     </Flex>
   );

@@ -9,6 +9,7 @@ const CaseStudy = () => {
       py={['80px']}
       minW="100%"
       justifyContent="space-between"
+      alignItems="center"
     >
       <Flex gap={['24px']} direction="column">
         <Text className={s.label}>Case Study</Text>
@@ -38,7 +39,12 @@ const CaseStudy = () => {
         </Box>
       </Flex>
       <Box>
-        <Image src="/maga/crypto-war.svg" alt="crypto war" />
+        <Image
+          maxW="700px"
+          maxH="400px"
+          src="/maga/crypto-war.svg"
+          alt="crypto war"
+        />
       </Box>
     </Flex>
   );
