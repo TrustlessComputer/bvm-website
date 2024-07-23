@@ -69,10 +69,17 @@ const Dropdown = ({
     const formDappDropdown = formDappDropdownSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
-    setCurrentValue(
-      props.options.find((item) => item.value === formDappDropdown[key]) ||
-        props.options[0],
-    );
+    if (!formDappDropdown[key]) {
+      formDappDropdownSignal.value = {
+        ...formDappDropdown,
+        [key]: props.options[0].value,
+      };
+    } else {
+      setCurrentValue(
+        props.options.find((item) => item.value === formDappDropdown[key]) ||
+          props.options[0],
+      );
+    }
   }, []);
 
   if (!currentValue) return null;

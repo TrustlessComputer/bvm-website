@@ -40,7 +40,14 @@ const Input = ({ name, dappKey, ...props }: Props) => {
     const formDappInput = formDappInputSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
-    setValue(formDappInput[key] || '');
+    if (!formDappInput[key]) {
+      formDappInputSignal.value = {
+        ...formDappInput,
+        [key]: '',
+      };
+    } else {
+      setValue(formDappInput[key]);
+    }
   }, []);
 
   return (
