@@ -7,7 +7,8 @@ import Input from '../Input';
 import Dropdown from '../Dropdown';
 import useDappsStore from '../../stores/useDappStore';
 import { FieldOption } from '../../types';
-import { adjustBrightness } from '../../utils';
+import { adjustBrightness, FormDappUtil } from '../../utils';
+import { formDappToggleSignal } from '../../signals/useFormDappsSignal';
 
 type Props = FieldModel &
   FieldOption & {
@@ -52,7 +53,26 @@ const ExtendsInput = ({ ...props }: Props) => {
 
   const handleToggle = () => {
     setToggle(!toggle);
+    const key = FormDappUtil.getKeyForm(props, props, name);
+    formDappToggleSignal.value = {
+      ...formDappToggleSignal.value,
+      [key]: !toggle,
+    };
   };
+
+  React.useEffect(() => {
+    const formDappToggle = formDappToggleSignal.value;
+    const key = FormDappUtil.getKeyForm(props, props, name);
+
+    if (formDappToggle[key] !== undefined) {
+      setToggle(formDappToggle[key]);
+    } else {
+      formDappToggleSignal.value = {
+        ...formDappToggle,
+        [key]: false,
+      };
+    }
+  }, []);
 
   const getInput = React.useCallback(
     (field: FieldModel, fieldOpt: FieldOption): React.ReactNode => {
