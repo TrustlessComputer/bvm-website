@@ -79,7 +79,7 @@ const LaunchButton = () => {
     const formDappDropdownInExtendsField = Object.keys(formDappDropdown).filter(FormDappUtil.isExtendsField);
 
     const formDappToogle = formDappToggleSignal.value;
-    const formDappToogleInBlock = Object.keys(formDappDropdown).filter(FormDappUtil.isInBlock);
+    const formDappToogleInBlock = Object.keys(formDappToogle).filter(FormDappUtil.isInBlock);
 
     // Separate block fields by <index>
     let blockMapping: Record<string, { key: string; value: string }[]> = {};
@@ -111,49 +111,33 @@ const LaunchButton = () => {
 
 
     async function extractedValue(keys: string[], data: Record<string, any>, result: Record<string, { key: string; value: string }[]>) {
-      let r = {...result};
-
       for (const key of keys) {
         const blockKey = FormDappUtil.getBlockKey(key);
         const getOriginalKey = FormDappUtil.getOriginalKey(key);
         const getIndex = FormDappUtil.getIndex(key);
         const value = data[key];
 
-        let block = r[blockKey];
+        let block = result[blockKey];
         if (!block) {
-          r[blockKey] = [];
+          result[blockKey] = [];
         }
 
-        const blockItem = r[blockKey][getIndex];
+        const blockItem = result[blockKey][getIndex];
         if (!blockItem) {
           const temp = {};
           // @ts-ignore
           temp[getOriginalKey] = value;
           // @ts-ignore
-          r[blockKey][getIndex] = { ...temp };
+          result[blockKey][getIndex] = { ...temp };
         } else {
           const temp = { ...blockItem };
           // @ts-ignore
           temp[getOriginalKey] = value;
-          console.log('temp', temp);
-          console.log('r', r);
-
-          let blockKeys = [...r[blockKey]];
-          blockKeys[getIndex] = { ...temp };
-          // blockKeys = r[bl]
-          r = {
-            ...r,
-            [blockKey]: [...blockKeys],
-          };
-
-          // r[blockKey][getIndex] = { ...temp };
-          console.log('r[blockKey][getIndex]', r[blockKey][getIndex]);
-          console.log('r', r);
+          result[blockKey][getIndex] = { ...temp };
         }
       }
 
-      console.log('result', r);
-      return {...r};
+      return result;
       // keys.forEach((key => {
       //   const blockKey = FormDappUtil.getBlockKey(key);
       //   const getOriginalKey = FormDappUtil.getOriginalKey(key);
@@ -223,6 +207,9 @@ const LaunchButton = () => {
     //
     //   extractedValue(blockKey, getIndex, getOriginalKey, value);
     // }));
+
+    console.log('formDappToogleInBlock', formDappToogleInBlock);
+    console.log('formDappToogle', formDappToogle);
 
     blockMapping = await extractedValue(formDappToogleInBlock, formDappToogle, blockMapping);
 
