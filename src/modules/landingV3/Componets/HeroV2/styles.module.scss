@@ -268,7 +268,10 @@
     align-items: center;
 
     svg, img {
-      transform: translateY(.1em);
+      transform: translateY(-.1em);
+      @include is-min-table{
+        transform: translateY(.1em);
+      }
     }
   }
 }
