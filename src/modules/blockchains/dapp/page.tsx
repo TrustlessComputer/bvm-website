@@ -297,6 +297,7 @@ const RollupsDappPage = () => {
         draggedIds2D[activeBaseIndex] = removeItemAtIndex(draggedIds2D[activeBaseIndex], Number(DragUtil.getChildIndex(activeId)));
         formDappInputSignal.value = { ...formDappInput };
         formDappDropdownSignal.value = { ...formDappDropdown };
+        formDappToggleSignal.value = { ...formDappToggle };
         draggedIds2DSignal.value = [...draggedIds2D];
         return;
       }
