@@ -1,26 +1,37 @@
+import CStakingAPI from '@/services/api/dapp/staking';
+import { useAppSelector } from '@/stores/hooks';
+import { dappSelector } from '@/stores/states/dapp/selector';
+import { getError } from '@/utils/error';
+import { formatCurrency } from '@/utils/format';
 import React, { useState } from 'react';
-import useDappsStore from '../stores/useDappStore';
+import toast from 'react-hot-toast';
+import { TopUpDappInfor } from '../components/TopupModal';
 import {
   formDappDropdownSignal,
   formDappInputSignal,
 } from '../signals/useFormDappsSignal';
+import useDappsStore from '../stores/useDappStore';
 import { FormDappUtil } from '../utils';
 
 const useSubmitForm = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
+  const dappState = useAppSelector(dappSelector);
 
   const [isShowError, setIsShowError] = useState(false);
+
   const [isLoading, setLoading] = useState(false);
   const [errorData, setErrorData] =
     useState<{ key: string; error: string }[]>();
+
+  const [isShowTopup, setIsShowTopup] = useState(false);
+  const [topupInfo, setTopupInfo] = useState<TopUpDappInfor>();
 
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp] || {};
   }, [dapps, currentIndexDapp]);
 
-  const onSubmitFormStaking = () => {
+  const onSubmitFormStaking = async () => {
     try {
-      setErrorData([]);
       const finalForm = JSON.parse(JSON.stringify(thisDapp)) as DappModel;
 
       const formDappInput = formDappInputSignal.value;
@@ -71,17 +82,19 @@ const useSubmitForm = () => {
         finalFormMapping[item.key] = item;
       });
 
-      console.log(
-        '🚀 -> file: index.tsx:122 -> handleLaunch -> finalForm ::',
-        finalFormMapping,
-      );
-
+      setErrorData([]);
       let errors: any[] = [];
       if (Number(finalFormMapping?.rate?.value) <= 0) {
         errors.push({ key: 'Rate', error: 'Rate is required!' });
       }
       if (Number(finalFormMapping?.apr?.value) <= 0) {
         errors.push({ key: 'APR', error: 'APR is required!' });
+      }
+      if (Number(finalFormMapping?.amount?.value) <= 0) {
+        errors.push({
+          key: 'Reward amount',
+          error: 'Reward amount is required!',
+        });
       }
 
       if (errors.length > 0) {
@@ -90,8 +103,29 @@ const useSubmitForm = () => {
         return;
       }
 
+      const cStakeAPI = new CStakingAPI();
       setLoading(true);
+
+      const data = await cStakeAPI.createNewStakingPool({
+        principle_token: finalFormMapping?.staking_token?.value,
+        reward_token: finalFormMapping?.reward_token?.value,
+        base_ratio: Number(finalFormMapping?.apr?.value) / 100,
+        token_price: 1 / Number(finalFormMapping?.rate?.value),
+      });
+
+      if (data && data.reward_pool_address) {
+        setTopupInfo({
+          amount: formatCurrency(Number(finalFormMapping?.amount?.value), 0, 0),
+          tokenSymbol: data.reward_token?.symbol,
+          tokenAddress: data.reward_token_address,
+          paymentAddress: data.reward_pool_address,
+          networkName: dappState.chain?.chainName || '',
+        });
+        setIsShowTopup(true);
+      }
     } catch (error) {
+      const { message } = getError(error);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -113,6 +147,9 @@ const useSubmitForm = () => {
     setIsShowError,
     errorData,
     isLoading,
+    isShowTopup,
+    setIsShowTopup,
+    topupInfo,
   };
 };
 

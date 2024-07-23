@@ -35,10 +35,13 @@ import {
 
 import styles from './styles.module.scss';
 import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
+import { useAppSelector } from '@/stores/hooks';
+import { dappSelector } from '@/stores/states/dapp/selector';
 
 const RollupsDappPage = () => {
   const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
     useDappsStore();
+  const dappState = useAppSelector(dappSelector)
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
@@ -307,6 +310,7 @@ const RollupsDappPage = () => {
   );
 
   const fetchData = async () => {
+    // const dapps = dappState.configs;
     const dapps = dappMockupData;
     const sortedDapps = dapps.sort((a, b) => a.order - b.order);
 
@@ -315,7 +319,7 @@ const RollupsDappPage = () => {
 
   React.useEffect(() => {
     fetchData();
-  }, []);
+  }, [dappState]);
 
   return (
     <div className={styles.container}>
