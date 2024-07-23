@@ -26,7 +26,7 @@ const LegoParent = ({
 }: Props) => {
   const headerRef = React.useRef<HTMLDivElement | null>(null);
   const footerRef = React.useRef<HTMLDivElement | null>(null);
-  console.log('LegoParent', children);
+  // console.log('LegoParent', children);
 
   React.useEffect(() => {
     if (!headerRef.current || !footerRef.current) return;
