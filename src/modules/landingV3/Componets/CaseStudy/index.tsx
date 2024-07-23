@@ -9,7 +9,7 @@ export default function CaseStudy() {
         <img src="/trump.png" alt="Case Study" />
       </div>
       <div className={s.caseStudy}>
-        <p className={s.caseStudy_title}>BITCOIN MAGA</p>
+        <p className={s.caseStudy_title}>BITCOIN WARS</p>
         <p  className={s.caseStudy_description}>The first fully on-chain game built on a ZK Rollup on the Bitcoin network.</p>
       </div>
       <div className={s.caseStudy_button}>

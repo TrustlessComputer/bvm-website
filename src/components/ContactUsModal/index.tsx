@@ -384,10 +384,10 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
           <Flex direction={'column'} padding={'28px'} justifyContent={'center'} alignItems={'center'} color={'black'}
                 backgroundColor={'#F4F4F4'} gap={'20px'}>
             <Text fontSize={['32px']} fontWeight={500}>
-              You’re in great company
+              Build with the Best
             </Text>
             <Text fontSize={['18px']} fontWeight={400} textAlign={'center'}>
-              8,500+ businesses use Front to delight customers and deliver exceptional service at scale
+              Build your blockchain with ease using modules from the biggest names in the industry.
             </Text>
             <div className={s.brand}>
               {DATA_BRAND.map((item) => {
