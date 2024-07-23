@@ -334,4 +334,198 @@ export const dappMockupData: DappModel[] = [
       ],
     },
   },
+  {
+    id: 'airdrop',
+    key: 'airdrop',
+    title: 'Airdrop',
+    icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    order: 2,
+    color: '#F76649',
+    created_at: '2021-09-14T09:00:00.000Z',
+    updated_at: '2021-09-14T09:00:00.000Z',
+    tooltip: '',
+    baseBlock: {
+      key: 'class',
+      title: 'Token for Airdrop',
+      icon: '',
+      placableAmount: -1,
+      fields: [
+        {
+          key: 'reward_token',
+          title: 'Reward Token',
+          type: 'dropdown',
+          icon: '',
+          value: 'math',
+          tooltip: '',
+          options: [
+            {
+              key: 'eth',
+              title: 'ETH', // symbol
+              value: '0x1234', // contract_address
+              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+              tooltip: '',
+              type: '',
+              options: [],
+            },
+          ],
+        },
+        {
+          key: 'airdrop_amount',
+          title: 'Amount',
+          type: 'input',
+          icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+          value: '',
+          tooltip: '',
+          options: [],
+        },
+      ],
+    },
+    blockFields: [
+      {
+        key: 'airdrop_staking',
+        title: 'For staking',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        placableAmount: -1,
+        fields: [
+          {
+            key: 'token',
+            title: 'Token',
+            type: 'dropdown',
+            icon: '',
+            value: 'token',
+            tooltip: '',
+            options: [
+              {
+                key: 'eth',
+                title: 'ETH', // symbol
+                value: '0x1234', // contract_address
+                icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+                tooltip: '',
+                type: '',
+                options: [],
+              },
+            ],
+          },
+          {
+            key: 'required_amount',
+            title: 'Require Amount',
+            type: 'input',
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            value: '',
+            tooltip: '',
+            options: [],
+          },
+          {
+            key: 'reward_amount',
+            title: 'Reward Amount',
+            type: 'input',
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            value: '',
+            tooltip: '',
+            options: [],
+          },
+        ],
+      },
+      {
+        key: 'airdrop_holding',
+        title: 'For holding',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        placableAmount: -1,
+        fields: [
+          {
+            key: 'token',
+            title: 'Token',
+            type: 'dropdown',
+            icon: '',
+            value: 'token',
+            tooltip: '',
+            options: [
+              {
+                key: 'eth',
+                title: 'ETH', // symbol
+                value: '0x1234', // contract_address
+                icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+                tooltip: '',
+                type: '',
+                options: [],
+              },
+            ],
+          },
+          {
+            key: 'required_amount',
+            title: 'Require Amount',
+            type: 'input',
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            value: '',
+            tooltip: '',
+            options: [],
+          },
+          {
+            key: 'reward_amount',
+            title: 'Reward Amount',
+            type: 'input',
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            value: '',
+            tooltip: '',
+            options: [],
+          },
+        ],
+      },
+      {
+        key: 'airdrop_tasks',
+        title: 'For tasks',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        placableAmount: -1,
+        fields: [
+          {
+            key: 'task',
+            title: 'Task',
+            type: 'dropdown',
+            icon: '',
+            value: 'task',
+            tooltip: '',
+            options: [
+              {
+                key: 'refer',
+                title: 'Refer a friend to join IDO', // symbol
+                value: 'refer', // contract_address
+                icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+                tooltip:
+                  'Spread the love to your friends, team, and communities.',
+                type: '',
+                options: [],
+              },
+              {
+                key: 'spread_on_x',
+                title: 'Publish a tweet mentioning', // symbol
+                value: 'spread_on_x', // contract_address
+                icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+                tooltip: 'Publish a tweet mentioning',
+                type: '',
+                options: [],
+              },
+              {
+                key: 'like_on_x',
+                title: `Like and retweet Twitter' pinned tweet`, // symbol
+                value: 'like_on_x', // contract_address
+                icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+                tooltip: `Like and retweet Twitter' pinned tweet`,
+                type: '',
+                options: [],
+              },
+            ],
+          },
+          {
+            key: 'reward_amount',
+            title: 'Reward Amount',
+            type: 'input',
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            value: '',
+            tooltip: '',
+            options: [],
+          },
+        ],
+      },
+    ],
+  },
 ];
