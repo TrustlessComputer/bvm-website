@@ -1,8 +1,8 @@
 export const dappMockupData: DappModel[] = [
   {
-    id: 'class',
-    key: 'class',
-    title: 'Class',
+    id: 'token_generation',
+    key: 'token_generation',
+    title: 'Token Generation',
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
     order: 1,
     color: '#F76649',
@@ -10,13 +10,13 @@ export const dappMockupData: DappModel[] = [
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
     baseBlock: {
-      key: 'class',
+      key: 'token_generation',
       title: 'Token Generation',
       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
       placableAmount: -1,
       fields: [
         {
-          key: 'name',
+          key: 'token_name',
           title: 'Token Name',
           type: 'input',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
@@ -25,7 +25,7 @@ export const dappMockupData: DappModel[] = [
           options: [],
         },
         {
-          key: 'symbol',
+          key: 'token_symbol',
           title: 'Symbol',
           type: 'input',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
@@ -34,7 +34,7 @@ export const dappMockupData: DappModel[] = [
           options: [],
         },
         {
-          key: 'total_supply',
+          key: 'token_supply',
           title: 'Total Supply',
           type: 'input',
           icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
@@ -70,7 +70,7 @@ export const dappMockupData: DappModel[] = [
             options: [],
           },
           {
-            key: 'receiver_address',
+            key: 'address',
             title: 'Receiver Address',
             type: 'input',
             icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
@@ -95,7 +95,7 @@ export const dappMockupData: DappModel[] = [
                 type: 'group',
                 options: [
                   {
-                    key: 'timeCliff',
+                    key: 'cliff_value',
                     title: 'Time',
                     value: 'day',
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
@@ -132,7 +132,7 @@ export const dappMockupData: DappModel[] = [
                     ],
                   },
                   {
-                    key: 'amountCliff',
+                    key: 'cliff_amount',
                     title: 'Amount',
                     value: '',
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',

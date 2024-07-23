@@ -93,6 +93,40 @@ const LaunchButton = () => {
         value: formDappInput[key],
       };
     });
+
+    formDappInputInBlock.forEach((key => {
+      const blockKey = FormDappUtil.getBlockKey(key);
+      const getOriginalKey = FormDappUtil.getOriginalKey(key);
+      const getIndex = FormDappUtil.getIndex(key);
+      const value = formDappInput[key];
+
+      let block = blockMapping[blockKey];
+      if(!block) {
+        blockMapping[blockKey] = [];
+      }
+
+      let blockItem = blockMapping[blockKey][getIndex];
+      if(!blockItem) {
+        blockItem = {};
+        blockItem[getOriginalKey] = value;
+        blockMapping[blockKey][getIndex] = blockItem;
+      } else {
+        blockItem[getOriginalKey] = value;
+      }
+
+
+      console.log('blockMapping', blockMapping);
+
+
+      // console.log('key', key);
+      // console.log('blockKey', blockKey);
+      // console.log('getOriginalKey', getOriginalKey);
+      // console.log('getIndex', getIndex);
+      // console.log('value', value);
+      // console.log('====')
+    }))
+
+
     const newDropdownInBlock = formDappDropdownInBlock.map((key) => {
       const block = blockFieldMapping[FormDappUtil.getBlockKey(key)];
       return {
@@ -139,19 +173,22 @@ const LaunchButton = () => {
 
     console.log('finalForm', finalForm);
     console.log('formDappInput', formDappInput);
-    console.log('formDappInputInBase', formDappInputInBase);
+    // console.log('formDappInputInBase', formDappInputInBase);
     console.log('formDappInputInBlock', formDappInputInBlock);
-    console.log('formDappInputInSingle', formDappInputInSingle);
+    // console.log('formDappInputInSingle', formDappInputInSingle);
     console.log('formDappInputInExtendsField', formDappInputInExtendsField);
 
     // console.log('formDappDropdown', formDappDropdown);
+    // console.log('formDappInputInExtendsField', formDappInputInExtendsField);
+    console.log('formDappDropdownInExtendsField', formDappDropdownInExtendsField);
     // console.log('formDappDropdownInBase', formDappDropdownInBase);
-    // console.log('formDappDropdownInBlock', formDappDropdownInBlock);
+    console.log('formDappDropdownInBlock', formDappDropdownInBlock);
     // console.log('formDappDropdownInSingle', formDappDropdownInSingle);
     // console.log('formDappDropdownInExtendsField', formDappDropdownInExtendsField);
 
+    // console.log('newInputInBlock', newInputInBlock);
     // console.log('newDropdownInBlock', newDropdownInBlock);
-    console.log('blockFieldMapping', blockFieldMapping);
+    // console.log('blockFieldMapping', blockFieldMapping);
 
     console.log("🚀 -> file: index.tsx:122 -> handleLaunch -> finalForm ::", finalForm)
   };
@@ -161,7 +198,7 @@ const LaunchButton = () => {
       disabled={isDisabled}
       isLoading={isLoading}
       className={styles.button}
-      onClick={onSubmit}
+      onClick={handleLaunch}
     >
       Launch <Image src="/launch.png" alt="launch" width={24} height={24} />
     </Button>
