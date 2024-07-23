@@ -4,9 +4,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   &_img {
     max-width: 120px;
     margin: 24px 0;
+
     img {
       width: 100%;
     }
@@ -27,6 +29,7 @@
 .caseStudy {
   margin-bottom: 24px;
   text-align: center;
+
   &_title {
     font-size: 32px;
     font-weight: 500;
@@ -36,6 +39,7 @@
     text-transform: uppercase;
     margin-bottom: 12px;
   }
+
   &_description {
     font-size: 20px;
     font-weight: 400;
@@ -43,15 +47,20 @@
     line-height: calc(24 / 18);
     color: #000000B2;
   }
+
   &_button {
     background-color: #FA4E0E;
-    height: 44px;
-    width: 153px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: #fff;
     border-radius: 1000px;
     font-size: 18px;
+
+    a {
+      line-height: 1;
+      height: 44px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 153px;
+    }
   }
 }
