@@ -45,10 +45,12 @@ const RightDroppable = () => {
   );
 
   const handleReset = () => {
-    draggedIds2DSignal.value = [];
-    formDappInputSignal.value = {};
-    formDappDropdownSignal.value = {};
-    formDappToggleSignal.value = {};
+    formDappInputSignal.value = JSON.parse(JSON.stringify({}));
+    formDappDropdownSignal.value = JSON.parse(JSON.stringify({}));
+    formDappToggleSignal.value = JSON.parse(JSON.stringify({}));
+    draggedIds2DSignal.value = draggedIds2DSignal.value
+      .map(() => null)
+      .filter((x) => x !== null);
   };
 
   const blockFieldMapping = React.useMemo(() => {
