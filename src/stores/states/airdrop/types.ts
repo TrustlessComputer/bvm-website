@@ -5,6 +5,9 @@ interface IAirdrop {
   type?: number;
   claimed?: boolean;
   claimeable_at?: Date;
+  vested_amount: string;
+  claimed_amount: string;
+  receiver_address: string;
 }
 
 export interface CommonState {
