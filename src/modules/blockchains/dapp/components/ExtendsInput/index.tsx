@@ -31,6 +31,7 @@ const ExtendsInput = ({ ...props }: Props) => {
     index,
     level,
     blockKey,
+    baseIndex,
   } = props;
 
   const fieldOption: any = {
@@ -40,6 +41,7 @@ const ExtendsInput = ({ ...props }: Props) => {
     index,
     level,
     blockKey,
+    baseIndex,
   };
 
   const { dapps, currentIndexDapp } = useDappsStore();
@@ -66,7 +68,7 @@ const ExtendsInput = ({ ...props }: Props) => {
     const formDappToggle = formDappToggleSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
-    if (formDappToggle[key] !== undefined) {
+    if (typeof formDappToggle[key] !== 'undefined') {
       setToggle(formDappToggle[key]);
     } else {
       formDappToggleSignal.value = {
@@ -185,6 +187,7 @@ const ExtendsInput = ({ ...props }: Props) => {
               blockKey={blockKey}
               index={index}
               {...option}
+              {...fieldOption}
               level={level + 1}
               key={option.key}
             />

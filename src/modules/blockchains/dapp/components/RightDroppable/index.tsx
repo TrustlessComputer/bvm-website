@@ -11,9 +11,12 @@ import ExtendsInput from '../ExtendsInput';
 import Button from '../Button';
 import { FieldKeyPrefix } from '../../contants';
 import { FieldOption } from '../../types';
-import { adjustBrightness } from '../../utils';
+import { adjustBrightness, DragUtil } from '../../utils';
 import useDappsStore, { subScribeDropEnd } from '../../stores/useDappStore';
-import { draggedIdsSignal } from '../../signals/useDragSignal';
+import {
+  draggedIds2DSignal,
+  draggedIdsSignal,
+} from '../../signals/useDragSignal';
 
 import styles from './styles.module.scss';
 
@@ -22,10 +25,9 @@ const RightDroppable = () => {
   const refContainer = useRef<HTMLDivElement>(null);
   const refWrap = useRef<HTMLDivElement>(null);
 
-  const [draggedIds, setDraggedIds] = React.useState<string[]>([]);
-  const draggedIdIncludeBase = React.useMemo(() => {
-    return draggedIds.includes(FieldKeyPrefix.BASE);
-  }, [draggedIds]);
+  const [draggedIds2D, setDraggedIds2D] = React.useState<
+    typeof draggedIds2DSignal.value
+  >(draggedIds2DSignal.value);
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
@@ -38,7 +40,7 @@ const RightDroppable = () => {
   );
 
   const handleReset = () => {
-    draggedIdsSignal.value = [];
+    draggedIds2DSignal.value = [];
   };
 
   const blockFieldMapping = React.useMemo(() => {
@@ -53,7 +55,7 @@ const RightDroppable = () => {
     > = {};
 
     (thisDapp?.blockFields || []).forEach((item) => {
-      mapping[`${FieldKeyPrefix.BLOCK}-${item.key}`] = item;
+      mapping[item.key] = item;
     });
 
     return mapping;
@@ -71,7 +73,7 @@ const RightDroppable = () => {
     > = {};
 
     (thisDapp?.singleFields || []).forEach((item) => {
-      mapping[`${FieldKeyPrefix.SINGLE}-${item.key}`] = item;
+      mapping[item.key] = item;
     });
 
     return mapping;
@@ -150,56 +152,19 @@ const RightDroppable = () => {
     [thisDapp],
   );
 
-  const draggedIdsAsComponents = React.useMemo(() => {
-
-    let draggedBlockCount = 1;
-    return draggedIds.map((id, index) => {
-      const _index = index - 1;
-
-      if (id.startsWith(FieldKeyPrefix.BLOCK)) {
-        return (
-          <Draggable id={id + '-' + _index} key={id + '-' + _index}>
-            <LegoParent
-              {...blockFieldMapping[id]}
-              title={blockFieldMapping[id].title + ' #' + draggedBlockCount++}
-              background={adjustBrightness(mainColor, -10)}
-              smallMarginHeaderTop
-            >
-              {blockFieldMapping[id].fields.map((field) => {
-                return getInput(field, {
-                  inBaseField: false,
-                  inBlockField: true,
-                  inSingleField: false,
-                  index: _index,
-                  level: 0,
-                  blockKey: blockFieldMapping[id].key,
-                });
-              })}
-            </LegoParent>
-          </Draggable>
-        );
-      } else if (id.startsWith(FieldKeyPrefix.SINGLE)) {
-        return (
-          <Draggable id={id + '-' + _index} key={id + '-' + _index}>
-            {getInput(singleFieldMapping[id].fields[0], {
-              inBaseField: false,
-              inBlockField: false,
-              inSingleField: true,
-              index: _index,
-              level: 0,
-              blockKey: '',
-            })}
-          </Draggable>
-        );
-      }
-
-      return null;
-    });
-  }, [draggedIds]);
-
   useSignalEffect(() => {
-    draggedIdsSignal.subscribe((value) => {
-      setDraggedIds(value);
+    draggedIds2DSignal.subscribe((value) => {
+      // check length of 2 dimension array to prevent re-render
+      if (value.length === draggedIds2D.length) {
+        for (let i = 0; i < value.length; i++) {
+          if (draggedIds2D[i] && value[i].length !== draggedIds2D[i].length) {
+            setDraggedIds2D(value);
+            return;
+          }
+        }
+      } else {
+        setDraggedIds2D(value);
+      }
     });
   });
 
@@ -208,7 +173,10 @@ const RightDroppable = () => {
 
     setTimeout(() => {
       if (!refWrap.current || !refContainer.current) return;
-      if (isHad && refWrap.current.scrollHeight > refContainer.current.scrollHeight) {
+      if (
+        isHad &&
+        refWrap.current.scrollHeight > refContainer.current.scrollHeight
+      ) {
         const ouputEl = refWrap.current?.querySelector<HTMLElement>('#output');
         if (ouputEl) ouputEl.style.alignItems = 'flex-start';
       }
@@ -226,36 +194,118 @@ const RightDroppable = () => {
             position: 'relative',
             width: '100%',
             height: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
           }}
         >
-          {draggedIdIncludeBase && (
-            <LegoParent
-              {...thisDapp.baseBlock}
-              key={thisDapp.key}
-              background={mainColor}
-            >
-              {thisDapp.baseBlock.fields.map((field) => {
-                return getInput(field, {
-                  inBaseField: true,
-                  inBlockField: false,
-                  inSingleField: false,
-                  index: undefined,
-                  level: 0,
-                  blockKey: '',
-                });
-              })}
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              transform: 'translateX(35%)',
+            }}
+          >
+            {draggedIds2D.map((ids, baseIndex) => {
+              let blockCount = 1;
 
-              {draggedIdsAsComponents
-                .map((component) => component)
-                .filter((component) => component !== null)
-                .map((component) => {
-                  return component;
-                })}
-            </LegoParent>
-          )}
+              return (
+                <Draggable
+                  id={`right-${FieldKeyPrefix.BASE}-${baseIndex}`}
+                  key={baseIndex}
+                >
+                  <Droppable
+                    id={`right-${FieldKeyPrefix.BASE}-${baseIndex}`}
+                    style={{
+                      width: 'max-content',
+                      height: 'max-content',
+                    }}
+                  >
+                    <LegoParent {...thisDapp.baseBlock} background={mainColor}>
+                      {thisDapp.baseBlock.fields.map((field) => {
+                        return getInput(field, {
+                          inBaseField: true,
+                          inBlockField: false,
+                          inSingleField: false,
+                          index: undefined,
+                          level: 0,
+                          blockKey: '',
+                          baseIndex,
+                        });
+                      })}
+
+                      {ids.map((item, blockIndex) => {
+                        if (DragUtil.idDraggingIsABlock(item.name)) {
+                          return (
+                            <Draggable
+                              id={`${item.name}-${blockIndex}-${baseIndex}`}
+                              key={`${item.name}-${blockIndex}-${baseIndex}`}
+                            >
+                              <LegoParent
+                                {...blockFieldMapping[
+                                  DragUtil.getOriginalKey(item.name)
+                                ]}
+                                title={
+                                  blockFieldMapping[
+                                    DragUtil.getOriginalKey(item.name)
+                                  ].title +
+                                  ' #' +
+                                  blockCount++
+                                }
+                                background={adjustBrightness(mainColor, -10)}
+                                smallMarginHeaderTop
+                              >
+                                {blockFieldMapping[
+                                  DragUtil.getOriginalKey(item.name)
+                                ].fields.map((field) => {
+                                  return getInput(field, {
+                                    inBaseField: false,
+                                    inBlockField: true,
+                                    inSingleField: false,
+                                    index: blockIndex,
+                                    level: 0,
+                                    blockKey:
+                                      blockFieldMapping[
+                                        DragUtil.getOriginalKey(item.name)
+                                      ].key,
+                                    baseIndex,
+                                  });
+                                })}
+                              </LegoParent>
+                            </Draggable>
+                          );
+                        } else if (DragUtil.idDraggingIsASingle(item.name)) {
+                          return (
+                            <Draggable
+                              id={`${item.name}-${blockIndex}-${baseIndex}`}
+                              key={`${item.name}-${blockIndex}-${baseIndex}`}
+                            >
+                              {getInput(
+                                singleFieldMapping[
+                                  DragUtil.getOriginalKey(item.name)
+                                ].fields[0],
+                                {
+                                  inBaseField: false,
+                                  inBlockField: false,
+                                  inSingleField: true,
+                                  index: blockIndex,
+                                  level: 0,
+                                  blockKey: '',
+                                  baseIndex,
+                                },
+                              )}
+                            </Draggable>
+                          );
+                        }
+
+                        return null;
+                      })}
+                    </LegoParent>
+                  </Droppable>
+                </Draggable>
+              );
+            })}
+          </div>
         </Droppable>
       </div>
       <Button

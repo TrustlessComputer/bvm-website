@@ -6,7 +6,7 @@ import Draggable from '../Draggable';
 import Lego from '../Lego';
 import Label from '../Label';
 import { FieldKeyPrefix } from '../../contants';
-import { FormDappUtil } from '../../utils';
+import { DragUtil, FormDappUtil } from '../../utils';
 import {
   draggedIdsSignal,
   idDraggingSignal,
@@ -28,51 +28,37 @@ const DragMask = () => {
     [thisDapp],
   );
 
-  const blockFieldComponentMapping = React.useMemo(() => {
-    const mapping: Record<string, React.ReactNode> = {};
+  const blockFieldMapping = React.useMemo(() => {
+    const mapping: Record<
+      string,
+      {
+        key: string;
+        title: string;
+        icon: string;
+        fields: FieldModel[];
+      }
+    > = {};
 
     (thisDapp?.blockFields || []).forEach((item) => {
-      mapping[item.key] = (
-        <Draggable
-          id={`${FieldKeyPrefix.BLOCK}-${item.key}`}
-          key={`${FieldKeyPrefix.BLOCK}-${item.key}`}
-        >
-          <Lego
-            background={mainColor}
-            first={false}
-            last={false}
-            titleInLeft={false}
-            titleInRight={false}
-          >
-            <Label {...item} />
-          </Lego>
-        </Draggable>
-      );
+      mapping[item.key] = item;
     });
 
     return mapping;
   }, [thisDapp]);
 
-  const singleFieldComponentMapping = React.useMemo(() => {
-    const mapping: Record<string, React.ReactNode> = {};
+  const singleFieldMapping = React.useMemo(() => {
+    const mapping: Record<
+      string,
+      {
+        key: string;
+        title: string;
+        icon: string;
+        fields: FieldModel[];
+      }
+    > = {};
 
     (thisDapp?.singleFields || []).forEach((item) => {
-      mapping[item.key] = (
-        <Draggable
-          id={`${FieldKeyPrefix.SINGLE}-${item.key}`}
-          key={`${FieldKeyPrefix.SINGLE}-${item.key}`}
-        >
-          <Lego
-            background={mainColor}
-            first={false}
-            last={false}
-            titleInLeft={false}
-            titleInRight={false}
-          >
-            <Label {...item} />
-          </Lego>
-        </Draggable>
-      );
+      mapping[item.key] = item;
     });
 
     return mapping;
@@ -94,7 +80,7 @@ const DragMask = () => {
 
   return (
     <DragOverlay>
-      {idDragging === FieldKeyPrefix.BASE && (
+      {DragUtil.idDraggingIsABase(idDragging) && (
         <Draggable id={FieldKeyPrefix.BASE}>
           <Lego
             background={mainColor}
@@ -108,11 +94,39 @@ const DragMask = () => {
         </Draggable>
       )}
 
-      {idDragging.startsWith(FieldKeyPrefix.BLOCK) &&
-        blockFieldComponentMapping[FormDappUtil.getOriginalKey(idDragging)]}
+      {DragUtil.idDraggingIsABlock(idDragging) &&
+        blockFieldMapping[DragUtil.getOriginalKey(idDragging)] && (
+          <Draggable id={idDragging}>
+            <Lego
+              background={mainColor}
+              first={false}
+              last={false}
+              titleInLeft={false}
+              titleInRight={false}
+            >
+              <Label
+                {...blockFieldMapping[DragUtil.getOriginalKey(idDragging)]}
+              />
+            </Lego>
+          </Draggable>
+        )}
 
-      {idDragging.startsWith(FieldKeyPrefix.SINGLE) &&
-        singleFieldComponentMapping[FormDappUtil.getOriginalKey(idDragging)]}
+      {DragUtil.idDraggingIsASingle(idDragging) &&
+        singleFieldMapping[DragUtil.getOriginalKey(idDragging)] && (
+          <Draggable id={idDragging}>
+            <Lego
+              background={mainColor}
+              first={false}
+              last={false}
+              titleInLeft={false}
+              titleInRight={false}
+            >
+              <Label
+                {...singleFieldMapping[DragUtil.getOriginalKey(idDragging)]}
+              />
+            </Lego>
+          </Draggable>
+        )}
     </DragOverlay>
   );
 };

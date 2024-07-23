@@ -7,6 +7,7 @@ import useDappsStore from '../../stores/useDappStore';
 import {
   formDappDropdownSignal,
   formDappInputSignal,
+  formDappToggleSignal,
 } from '../../signals/useFormDappsSignal';
 
 import s from './styles.module.scss';
@@ -27,7 +28,16 @@ const LaunchButton = () => {
   }, [dapps, currentIndexDapp]);
 
   const blockFieldMapping = React.useMemo(() => {
-    const mapping: Record<string, DappModel['blockFields'][2]> = {};
+    const mapping: Record<
+      string,
+      {
+        key: string;
+        title: string;
+        icon: string;
+        placableAmount: number;
+        fields: FieldModel[];
+      }
+    > = {};
 
     (thisDapp?.blockFields || []).forEach((item) => {
       mapping[item.key] = item;
@@ -37,7 +47,16 @@ const LaunchButton = () => {
   }, [thisDapp]);
 
   const singleFieldMapping = React.useMemo(() => {
-    const mapping: Record<string, DappModel['singleFields'][2]> = {};
+    const mapping: Record<
+      string,
+      {
+        key: string;
+        title: string;
+        icon: string;
+        placableAmount: number;
+        fields: FieldModel[];
+      }
+    > = {};
 
     (thisDapp?.singleFields || []).forEach((item) => {
       mapping[item.key] = item;
@@ -46,158 +65,159 @@ const LaunchButton = () => {
     return mapping;
   }, [thisDapp]);
 
-  // base-<key>-<level>
-  // block-<key>-<level>-<index>-<blockKey>
-  // single-<key>-<level>-<index>
+  // <baseIndex>-base-<key>-<level>
+  // <baseIndex>-block-<key>-<level>-<index>-<blockKey>
+  // <baseIndex>-single-<key>-<level>-<index>
   // level: 0 -> n
   // index: 0 -> n
   // If level greater than 0, it's in the 'extends' field
   // prettier-ignore
   const handleLaunch = () => {
     const finalForm = thisDapp;
+    console.log(formDappDropdownSignal.value, formDappInputSignal.value, formDappToggleSignal.value)
 
-    const formDappInput = formDappInputSignal.value;
-    const formDappInputInBase = Object.keys(formDappInput).filter((key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key) && !FormDappUtil.isExtendsField(key));
-    const formDappInputInBlock = Object.keys(formDappInput).filter(FormDappUtil.isInBlock);
-    const formDappInputInSingle = Object.keys(formDappInput).filter(FormDappUtil.isInSingle);
-    const formDappInputInExtendsField = Object.keys(formDappInput).filter(FormDappUtil.isExtendsField);
+    // const formDappInput = formDappInputSignal.value;
+    // const formDappInputInBase = Object.keys(formDappInput).filter((key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key) && !FormDappUtil.isExtendsField(key));
+    // const formDappInputInBlock = Object.keys(formDappInput).filter(FormDappUtil.isInBlock);
+    // const formDappInputInSingle = Object.keys(formDappInput).filter(FormDappUtil.isInSingle);
+    // const formDappInputInExtendsField = Object.keys(formDappInput).filter(FormDappUtil.isExtendsField);
 
-    const formDappDropdown = formDappDropdownSignal.value;
-    const formDappDropdownInBase = Object.keys(formDappDropdown).filter((key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key) && !FormDappUtil.isExtendsField(key));
-    const formDappDropdownInBlock = Object.keys(formDappDropdown).filter(FormDappUtil.isInBlock);
-    const formDappDropdownInSingle = Object.keys(formDappDropdown).filter(FormDappUtil.isInSingle);
-    const formDappDropdownInExtendsField = Object.keys(formDappDropdown).filter(FormDappUtil.isExtendsField);
+    // const formDappDropdown = formDappDropdownSignal.value;
+    // const formDappDropdownInBase = Object.keys(formDappDropdown).filter((key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key) && !FormDappUtil.isExtendsField(key));
+    // const formDappDropdownInBlock = Object.keys(formDappDropdown).filter(FormDappUtil.isInBlock);
+    // const formDappDropdownInSingle = Object.keys(formDappDropdown).filter(FormDappUtil.isInSingle);
+    // const formDappDropdownInExtendsField = Object.keys(formDappDropdown).filter(FormDappUtil.isExtendsField);
 
-    // Separate block fields by <index>
-    const blockMapping: Record<string, { key: string; value: string }[]> = {};
+    // // Separate block fields by <index>
+    // const blockMapping: Record<string, { key: string; value: string }[]> = {};
 
-    // ==================================================
-    const newInputInBase = formDappInputInBase.map((key) => {
-      return {
-        ...thisDapp.baseBlock.fields.find((item) => item.key === FormDappUtil.getOriginalKey(key)) as FieldModel,
-        value: formDappInput[key],
-      };
-    });
-    const newDropdownInBase = formDappDropdownInBase.map((key) => {
-      return {
-        ...thisDapp.baseBlock.fields.find((item) => item.key === FormDappUtil.getOriginalKey(key)) as FieldModel,
-        value: formDappDropdown[key],
-      };
-    });
-    const newInputInBlock = formDappInputInBlock.map((key) => {
-      const block = blockFieldMapping[FormDappUtil.getBlockKey(key)];
-      // console.log('block', block);
-      // console.log('formDappInputInBlock', formDappInputInBlock);
-      // console.log('formDappInput', formDappInput);
-      // console.log('key', key);
-      return {
-        ...block.fields.find((item) => item.key === FormDappUtil.getOriginalKey(key)) as FieldModel,
-        value: formDappInput[key],
-      };
-    });
-
-    formDappInputInBlock.forEach((key => {
-      const blockKey = FormDappUtil.getBlockKey(key);
-      const getOriginalKey = FormDappUtil.getOriginalKey(key);
-      const getIndex = FormDappUtil.getIndex(key);
-      const value = formDappInput[key];
-
-      let block = blockMapping[blockKey];
-      if(!block) {
-        blockMapping[blockKey] = [];
-      }
-
-      let blockItem = blockMapping[blockKey][getIndex];
-      if(!blockItem) {
-        blockItem = {};
-        blockItem[getOriginalKey] = value;
-        blockMapping[blockKey][getIndex] = blockItem;
-      } else {
-        blockItem[getOriginalKey] = value;
-      }
-
-
-      console.log('blockMapping', blockMapping);
-
-
-      // console.log('key', key);
-      // console.log('blockKey', blockKey);
-      // console.log('getOriginalKey', getOriginalKey);
-      // console.log('getIndex', getIndex);
-      // console.log('value', value);
-      // console.log('====')
-    }))
-
-
-    const newDropdownInBlock = formDappDropdownInBlock.map((key) => {
-      const block = blockFieldMapping[FormDappUtil.getBlockKey(key)];
-      return {
-        ...block.fields.find((item) => item.key === FormDappUtil.getOriginalKey(key)) as FieldModel,
-        value: formDappDropdown[key],
-      };
-    });
-    // const newInputInSingle = formDappInputInSingle.map((key) => {
+    // // ==================================================
+    // const newInputInBase = formDappInputInBase.map((key) => {
     //   return {
-    //     ...singleFieldMapping[FormDappUtil.getOriginalKey(key)],
+    //     ...thisDapp.baseBlock.fields.find((item) => item.key === FormDappUtil.getOriginalKey(key)) as FieldModel,
     //     value: formDappInput[key],
     //   };
     // });
-    // const newDropdownInSingle = formDappDropdownInSingle.map((key) => {
+    // const newDropdownInBase = formDappDropdownInBase.map((key) => {
     //   return {
-    //     ...singleFieldMapping[FormDappUtil.getOriginalKey(key)],
+    //     ...thisDapp.baseBlock.fields.find((item) => item.key === FormDappUtil.getOriginalKey(key)) as FieldModel,
     //     value: formDappDropdown[key],
     //   };
     // });
-    // ==================================================
+    // const newInputInBlock = formDappInputInBlock.map((key) => {
+    //   const block = blockFieldMapping[FormDappUtil.getBlockKey(key)];
+    //   // console.log('block', block);
+    //   // console.log('formDappInputInBlock', formDappInputInBlock);
+    //   // console.log('formDappInput', formDappInput);
+    //   // console.log('key', key);
+    //   return {
+    //     ...block.fields.find((item) => item.key === FormDappUtil.getOriginalKey(key)) as FieldModel,
+    //     value: formDappInput[key],
+    //   };
+    // });
 
-    finalForm.baseBlock.fields = [
-      ...thisDapp.baseBlock.fields.filter((item) => !newInputInBase.find((i) => i.key === item.key) && !newDropdownInBase.find((i) => i.key === item.key)),
-      ...newInputInBase,
-      ...newDropdownInBase,
-    ];
+    // formDappInputInBlock.forEach((key => {
+    //   const blockKey = FormDappUtil.getBlockKey(key);
+    //   const getOriginalKey = FormDappUtil.getOriginalKey(key);
+    //   const getIndex = FormDappUtil.getIndex(key);
+    //   const value = formDappInput[key];
 
-    finalForm.blockFields = [
-      ...thisDapp.blockFields.map((item) => {
-        return {
-          ...item,
-          fields: [
-            ...item.fields.filter((field) => !newInputInBlock.find((i) => i.key === field.key) && !newDropdownInBlock.find((i) => i.key === field.key)),
-            ...newInputInBlock,
-            ...newDropdownInBlock,
-          ],
-        } as DappModel['blockFields'][2];
-      }),
-    ];
-    // finalForm.singleFields = [
-    //   ...newInputInSingle,
-    //   ...newDropdownInSingle,
+    //   let block = blockMapping[blockKey];
+    //   if(!block) {
+    //     blockMapping[blockKey] = [];
+    //   }
+
+    //   let blockItem = blockMapping[blockKey][getIndex];
+    //   if(!blockItem) {
+    //     blockItem = {};
+    //     blockItem[getOriginalKey] = value;
+    //     blockMapping[blockKey][getIndex] = blockItem;
+    //   } else {
+    //     blockItem[getOriginalKey] = value;
+    //   }
+
+
+    //   console.log('blockMapping', blockMapping);
+
+
+    //   // console.log('key', key);
+    //   // console.log('blockKey', blockKey);
+    //   // console.log('getOriginalKey', getOriginalKey);
+    //   // console.log('getIndex', getIndex);
+    //   // console.log('value', value);
+    //   // console.log('====')
+    // }))
+
+
+    // const newDropdownInBlock = formDappDropdownInBlock.map((key) => {
+    //   const block = blockFieldMapping[FormDappUtil.getBlockKey(key)];
+    //   return {
+    //     ...block.fields.find((item) => item.key === FormDappUtil.getOriginalKey(key)) as FieldModel,
+    //     value: formDappDropdown[key],
+    //   };
+    // });
+    // // const newInputInSingle = formDappInputInSingle.map((key) => {
+    // //   return {
+    // //     ...singleFieldMapping[FormDappUtil.getOriginalKey(key)],
+    // //     value: formDappInput[key],
+    // //   };
+    // // });
+    // // const newDropdownInSingle = formDappDropdownInSingle.map((key) => {
+    // //   return {
+    // //     ...singleFieldMapping[FormDappUtil.getOriginalKey(key)],
+    // //     value: formDappDropdown[key],
+    // //   };
+    // // });
+    // // ==================================================
+
+    // finalForm.baseBlock.fields = [
+    //   ...thisDapp.baseBlock.fields.filter((item) => !newInputInBase.find((i) => i.key === item.key) && !newDropdownInBase.find((i) => i.key === item.key)),
+    //   ...newInputInBase,
+    //   ...newDropdownInBase,
     // ];
 
-    console.log('finalForm', finalForm);
-    console.log('formDappInput', formDappInput);
-    // console.log('formDappInputInBase', formDappInputInBase);
-    console.log('formDappInputInBlock', formDappInputInBlock);
-    // console.log('formDappInputInSingle', formDappInputInSingle);
-    console.log('formDappInputInExtendsField', formDappInputInExtendsField);
+    // finalForm.blockFields = [
+    //   ...thisDapp.blockFields.map((item) => {
+    //     return {
+    //       ...item,
+    //       fields: [
+    //         ...item.fields.filter((field) => !newInputInBlock.find((i) => i.key === field.key) && !newDropdownInBlock.find((i) => i.key === field.key)),
+    //         ...newInputInBlock,
+    //         ...newDropdownInBlock,
+    //       ],
+    //     } as DappModel['blockFields'][2];
+    //   }),
+    // ];
+    // // finalForm.singleFields = [
+    // //   ...newInputInSingle,
+    // //   ...newDropdownInSingle,
+    // // ];
 
-    // console.log('formDappDropdown', formDappDropdown);
+    // console.log('finalForm', finalForm);
+    // console.log('formDappInput', formDappInput);
+    // // console.log('formDappInputInBase', formDappInputInBase);
+    // console.log('formDappInputInBlock', formDappInputInBlock);
+    // // console.log('formDappInputInSingle', formDappInputInSingle);
     // console.log('formDappInputInExtendsField', formDappInputInExtendsField);
-    console.log('formDappDropdownInExtendsField', formDappDropdownInExtendsField);
-    // console.log('formDappDropdownInBase', formDappDropdownInBase);
-    console.log('formDappDropdownInBlock', formDappDropdownInBlock);
-    // console.log('formDappDropdownInSingle', formDappDropdownInSingle);
+
+    // // console.log('formDappDropdown', formDappDropdown);
+    // // console.log('formDappInputInExtendsField', formDappInputInExtendsField);
     // console.log('formDappDropdownInExtendsField', formDappDropdownInExtendsField);
+    // // console.log('formDappDropdownInBase', formDappDropdownInBase);
+    // console.log('formDappDropdownInBlock', formDappDropdownInBlock);
+    // // console.log('formDappDropdownInSingle', formDappDropdownInSingle);
+    // // console.log('formDappDropdownInExtendsField', formDappDropdownInExtendsField);
 
-    // console.log('newInputInBlock', newInputInBlock);
-    // console.log('newDropdownInBlock', newDropdownInBlock);
-    // console.log('blockFieldMapping', blockFieldMapping);
+    // // console.log('newInputInBlock', newInputInBlock);
+    // // console.log('newDropdownInBlock', newDropdownInBlock);
+    // // console.log('blockFieldMapping', blockFieldMapping);
 
-    console.log("🚀 -> file: index.tsx:122 -> handleLaunch -> finalForm ::", finalForm)
+    // console.log("🚀 -> file: index.tsx:122 -> handleLaunch -> finalForm ::", finalForm)
   };
 
   return (
     <>
-      <Button isLoading={isLoading} className={s.button} onClick={onSubmit}>
+      <Button isLoading={isLoading} className={s.button} onClick={handleLaunch}>
         Launch <Image src="/launch.png" alt="launch" width={24} height={24} />
       </Button>
       <ErrorModal
