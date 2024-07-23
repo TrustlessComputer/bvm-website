@@ -3,6 +3,8 @@ import Loader from '@/modules/builder-landing/Loader';
 
 import { CDN_URL } from '@/config';
 import { APP_NAME } from '@/config/metadata';
+import HackathonModule from '@/modules/hackathon';
+import { Box } from '@chakra-ui/react';
 
 // const metadataThumbnail = `${CDN_URL}/images/gamefi.png`; // TODO: Update new thumbnail
 
@@ -35,14 +37,16 @@ const HackathonPage = () => {
       headerProps={{
         color: 'white',
         colorLogo: 'white',
-        bgColor: 'black',
+        bgColor: 'transparent',
         position: 'absolute',
       }}
+      bodyColor={'#151515'}
       hideFooter={true}
     >
       <>
-        {/* <Loader /> */}
-        <p>Hello</p>
+        <Box height="92px" />
+        <Loader />
+        <HackathonModule />
       </>
     </MainLayout>
   );
