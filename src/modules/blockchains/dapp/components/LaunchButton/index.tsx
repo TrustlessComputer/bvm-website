@@ -6,7 +6,8 @@ import { FieldKeyPrefix } from '../../contants';
 import useDappsStore from '../../stores/useDappStore';
 import {
   formDappDropdownSignal,
-  formDappInputSignal, formDappToggleSignal,
+  formDappInputSignal,
+  formDappToggleSignal,
 } from '../../signals/useFormDappsSignal';
 
 import s from './styles.module.scss';
@@ -110,9 +111,9 @@ const LaunchButton = () => {
 
 
     async function extractedValue(keys: string[], data: Record<string, any>, result: Record<string, { key: string; value: string }[]>) {
-      const r = {...result};
+      let r = {...result};
 
-      for await (const key of keys) {
+      for (const key of keys) {
         const blockKey = FormDappUtil.getBlockKey(key);
         const getOriginalKey = FormDappUtil.getOriginalKey(key);
         const getIndex = FormDappUtil.getIndex(key);
@@ -135,7 +136,17 @@ const LaunchButton = () => {
           // @ts-ignore
           temp[getOriginalKey] = value;
           console.log('temp', temp);
-          r[blockKey][getIndex] = { ...temp };
+          console.log('r', r);
+
+          let blockKeys = [...r[blockKey]];
+          blockKeys[getIndex] = { ...temp };
+          // blockKeys = r[bl]
+          r = {
+            ...r,
+            [blockKey]: [...blockKeys],
+          };
+
+          // r[blockKey][getIndex] = { ...temp };
           console.log('r[blockKey][getIndex]', r[blockKey][getIndex]);
           console.log('r', r);
         }
@@ -289,7 +300,12 @@ const LaunchButton = () => {
 
   return (
     <>
-      <Button isLoading={isLoading} className={s.button} type={"submit"} onClick={handleLaunch}>
+      <Button
+        isLoading={isLoading}
+        className={s.button}
+        type={'submit'}
+        onClick={handleLaunch}
+      >
         Launch <Image src="/launch.png" alt="launch" width={24} height={24} />
       </Button>
       <ErrorModal
