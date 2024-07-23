@@ -20,7 +20,7 @@ const Input = ({ name, dappKey, ...props }: Props) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formDappInput = formDappInputSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
-    console.log(e.target.value);
+
     formDappInputSignal.value = {
       ...formDappInput,
       [key]: e.target.value,

@@ -41,7 +41,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 const RollupsDappPage = () => {
   const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
     useDappsStore();
-  const dappState = useAppSelector(dappSelector)
+  const dappState = useAppSelector(dappSelector);
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
@@ -317,6 +317,15 @@ const RollupsDappPage = () => {
     setDapps(sortedDapps);
   };
 
+  const changeDapp = (index: number) => {
+    setCurrentIndexDapp(index);
+    draggedIdsSignal.value = [];
+    draggedIds2DSignal.value = [];
+    formDappInputSignal.value = {};
+    formDappDropdownSignal.value = {};
+    formDappToggleSignal.value = {};
+  };
+
   React.useEffect(() => {
     fetchData();
   }, [dappState]);
@@ -372,7 +381,7 @@ const RollupsDappPage = () => {
                     element="button"
                     type="button"
                     color="transparent"
-                    onClick={() => setCurrentIndexDapp(index)}
+                    onClick={() => changeDapp(index)}
                     className={styles.resetButton}
                   >
                     <div>

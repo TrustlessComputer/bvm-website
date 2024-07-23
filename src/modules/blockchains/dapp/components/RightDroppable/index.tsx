@@ -17,6 +17,11 @@ import {
   draggedIds2DSignal,
   draggedIdsSignal,
 } from '../../signals/useDragSignal';
+import {
+  formDappDropdownSignal,
+  formDappInputSignal,
+  formDappToggleSignal,
+} from '../../signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
 
@@ -41,6 +46,9 @@ const RightDroppable = () => {
 
   const handleReset = () => {
     draggedIds2DSignal.value = [];
+    formDappInputSignal.value = {};
+    formDappDropdownSignal.value = {};
+    formDappToggleSignal.value = {};
   };
 
   const blockFieldMapping = React.useMemo(() => {
