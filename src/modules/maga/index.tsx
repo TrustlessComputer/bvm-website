@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 
 import CaseStudy from './CaseStudy';
 import CommonSection from './CommonSection';
@@ -12,6 +12,7 @@ const STEP_SECTION = [
       'Drag and drop modules to tailor the setup for an optimized parallel gaming experience.',
     image: '/maga/step-1.svg',
     link: '/studio',
+    isExternal: false,
   },
   {
     id: 2,
@@ -19,7 +20,8 @@ const STEP_SECTION = [
     subDescription:
       'Write and deploy smart contracts as on the Ethereum network to handle game logic on-chain, ensuring it runs exactly as programmed without the risk of fraud or interference.',
     image: '/maga/step-2.svg',
-    link: '/studio',
+    link: 'https://x.com/punk3700/status/1650524119136628736',
+    isExternal: true,
   },
   {
     id: 3,
@@ -28,20 +30,23 @@ const STEP_SECTION = [
       'Issue tokens, in-game NFTs, and more to enable trading and create a dynamic and interactive gaming ecosystem.',
     image: '/maga/step-3.svg',
     link: '/studio',
+    isExternal: false,
   },
 ];
 
 const MagaModule = () => {
   return (
     <Box className={s.container}>
-      <Flex className="containerV3" gap={['80px']} direction="column">
+      <Flex className="containerV3" direction="column">
         <CaseStudy />
-        <Text className={s.textHeadline}>
+        <Text className={s.textHeadline} pt={['80px']}>
           Developers? Check out how we built it!
         </Text>
-        {STEP_SECTION.map((step) => (
-          <CommonSection key={step.id} {...step} />
-        ))}
+        <Flex gap="80px" direction="column">
+          {STEP_SECTION.map((step) => (
+            <CommonSection key={step.id} {...step} />
+          ))}
+        </Flex>
       </Flex>
     </Box>
   );
