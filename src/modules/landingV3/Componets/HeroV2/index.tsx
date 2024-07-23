@@ -7,6 +7,7 @@ import Image from 'next/image';
 import IcLogoText from '../IcLogoText';
 import IcArrowRight from '../IcArrowRight';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import CaseStudy from '@/modules/landingV3/Componets/CaseStudy';
 
 export default function HeroV2() {
   const router = useRouter();
@@ -59,6 +60,8 @@ export default function HeroV2() {
         </div>
       </div>
       <Brand />
+      <CaseStudy />
+
     </div>
   );
 }
