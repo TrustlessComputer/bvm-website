@@ -20,7 +20,7 @@ const Input = ({ name, dappKey, ...props }: Props) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formDappInput = formDappInputSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
-
+    console.log(e.target.value);
     formDappInputSignal.value = {
       ...formDappInput,
       [key]: e.target.value,
@@ -31,7 +31,7 @@ const Input = ({ name, dappKey, ...props }: Props) => {
     const thisValue =
       formDappInputSignal.value[FormDappUtil.getKeyForm(props, props, name)];
 
-    if (thisValue && thisValue !== value) {
+    if (typeof thisValue !== 'undefined' && thisValue !== value) {
       setValue(thisValue || '');
     }
   });
@@ -40,7 +40,7 @@ const Input = ({ name, dappKey, ...props }: Props) => {
     const formDappInput = formDappInputSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
-    if (!formDappInput[key]) {
+    if (typeof formDappInput[key] === 'undefined') {
       formDappInputSignal.value = {
         ...formDappInput,
         [key]: '',
