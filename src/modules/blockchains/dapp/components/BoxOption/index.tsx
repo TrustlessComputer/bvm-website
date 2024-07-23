@@ -7,7 +7,10 @@ import Lego from '../Lego';
 import Label from '../Label';
 import { FieldKeyPrefix } from '../../contants';
 import useDappsStore from '../../stores/useDappStore';
-import { draggedIdsSignal } from '../../signals/useDragSignal';
+import {
+  draggedIds2DSignal,
+  draggedIdsSignal,
+} from '../../signals/useDragSignal';
 
 import styles from './styles.module.scss';
 
@@ -29,11 +32,12 @@ const BoxOption = ({ fieldKey }: Props) => {
   );
 
   useSignalEffect(() => {
-    const draggedIds = (draggedIdsSignal.value || []) as string[];
+    if (!thisDapp) return;
+
+    const draggedIds2D = draggedIds2DSignal.value;
     const canPlaceMoreBase =
-      (thisDapp?.baseBlock.placableAmount || 0) >
-        draggedIds.filter((id) => id === FieldKeyPrefix.BASE).length ||
-      thisDapp?.baseBlock.placableAmount === -1;
+      thisDapp.baseBlock.placableAmount > draggedIds2D.length ||
+      thisDapp.baseBlock.placableAmount === -1;
 
     setDisableBaseBlock(!canPlaceMoreBase);
   });
@@ -48,7 +52,10 @@ const BoxOption = ({ fieldKey }: Props) => {
 
       <div className={styles.container__body}>
         <div className={styles.container__body__item}>
-          <Draggable id={FieldKeyPrefix.BASE} disabled={disableBaseBlock}>
+          <Draggable
+            id={`left-${FieldKeyPrefix.BASE}`}
+            disabled={disableBaseBlock}
+          >
             <Lego
               {...thisDapp.baseBlock}
               background={mainColor}
@@ -67,8 +74,8 @@ const BoxOption = ({ fieldKey }: Props) => {
 
             {thisDapp?.blockFields?.map((item) => (
               <Draggable
-                id={`${FieldKeyPrefix.BLOCK}-${item.key}`}
-                key={`${FieldKeyPrefix.BLOCK}-${item.key}`}
+                id={`left-${FieldKeyPrefix.BLOCK}-${item.key}`}
+                key={`left-${FieldKeyPrefix.BLOCK}-${item.key}`}
               >
                 <Lego
                   {...item}
@@ -90,8 +97,8 @@ const BoxOption = ({ fieldKey }: Props) => {
             <div className={styles.container__body__item__inner}>
               {thisDapp.singleFields.map((item) => (
                 <Draggable
-                  id={`${FieldKeyPrefix.SINGLE}-${item.key}`}
-                  key={`${FieldKeyPrefix.SINGLE}-${item.key}`}
+                  id={`left-${FieldKeyPrefix.SINGLE}-${item.key}`}
+                  key={`left-${FieldKeyPrefix.SINGLE}-${item.key}`}
                 >
                   <Lego
                     {...item}

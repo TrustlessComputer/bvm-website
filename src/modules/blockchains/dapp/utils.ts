@@ -109,27 +109,31 @@ export const adjustBrightness = (hex: string, percent: number) => {
 
 export const FormDappUtil = {
   getOriginalKey(key: string) {
-    return key.split('-')[1];
+    return key.split('-')[2];
   },
 
   getBlockKey(key: string) {
-    return key.split('-')[4];
+    return key.split('-')[5];
+  },
+
+  getBaseIndex(key: string) {
+    return Number(key.split('-')[0]);
   },
 
   getIndex(key: string) {
-    return Number(key.split('-')[3]);
+    return Number(key.split('-')[4]);
   },
 
   isExtendsField(key: string) {
-    return Number(key.split('-')[2]) > 0;
+    return Number(key.split('-')[3]) > 0;
   },
 
   isInBlock(key: string) {
-    return key.startsWith(FieldKeyPrefix.BLOCK);
+    return key.split('-')[1] === FieldKeyPrefix.BLOCK;
   },
 
   isInSingle(key: string) {
-    return key.startsWith(FieldKeyPrefix.SINGLE);
+    return key.split('-')[1] === FieldKeyPrefix.SINGLE;
   },
 
   // prettier-ignore
@@ -139,11 +143,69 @@ export const FormDappUtil = {
     name: string,
   )  {
     if (fieldOption.inBaseField) {
-      return `${FieldKeyPrefix.BASE}-${name}-${fieldOption.level ?? 0}`;
+      return `${fieldOption.baseIndex}-${FieldKeyPrefix.BASE}-${name}-${fieldOption.level ?? 0}`;
     } else if (fieldOption.inBlockField) {
-      return `${FieldKeyPrefix.BLOCK}-${name}-${fieldOption.level ?? 0}-${fieldOption.index}-${fieldOption.blockKey}`;
+      return `${fieldOption.baseIndex}-${FieldKeyPrefix.BLOCK}-${name}-${fieldOption.level ?? 0}-${fieldOption.index}-${fieldOption.blockKey}`;
     } else {
-      return `${FieldKeyPrefix.SINGLE}-${name}-${fieldOption.level ?? 0}-${fieldOption.index}`;
+      return `${fieldOption.baseIndex}-${FieldKeyPrefix.SINGLE}-${name}-${fieldOption.level ?? 0}-${fieldOption.index}`;
     }
   },
+};
+
+export const DragUtil = {
+  idDraggingIsABlock(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.BLOCK;
+  },
+
+  idDraggingIsASingle(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.SINGLE;
+  },
+
+  idDraggingIsABase(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.BASE;
+  },
+
+  idDraggingIsAField(idDragging: string) {
+    return typeof idDragging.split('-')[3] !== 'undefined';
+  },
+
+  getBaseIndex(idDragging: string) {
+    if (this.idDraggingIsABase(idDragging)) return idDragging.split('-')[2];
+
+    return idDragging.split('-')[4];
+  },
+  // baseIndex-block-name
+  getChildIndex(idDragging: string) {
+    return idDragging.split('-')[3];
+  },
+
+  getOriginalKey(idDragging: string) {
+    return idDragging.split('-')[2];
+  },
+
+  isLeftSide(idDragging: string) {
+    return idDragging.split('-')[0] === 'left';
+  },
+
+  isRightSide(idDragging: string) {
+    return idDragging.split('-')[0] === 'right';
+  },
+};
+
+export const compareKeyInFormDappAndDrag = (
+  keyInFormDapp: string,
+  idDragging: string,
+) => {
+  const baseIndexKeyInFormDapp = FormDappUtil.getBaseIndex(keyInFormDapp);
+  const baseIndexKeyInActiveId = Number(DragUtil.getBaseIndex(idDragging));
+  const indexInFormDapp = FormDappUtil.getIndex(keyInFormDapp);
+  const indexInActiveId = Number(DragUtil.getChildIndex(idDragging));
+  const originalKeyInFormDapp = FormDappUtil.getOriginalKey(keyInFormDapp);
+  const originalKeyInActiveId = DragUtil.getOriginalKey(idDragging);
+
+  return (
+    baseIndexKeyInFormDapp === baseIndexKeyInActiveId &&
+    indexInFormDapp === indexInActiveId &&
+    originalKeyInFormDapp === originalKeyInActiveId
+  );
 };
