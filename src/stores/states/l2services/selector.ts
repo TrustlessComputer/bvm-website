@@ -8,6 +8,7 @@ import {
   RollupEnum,
 } from '@/modules/blockchains/Buy/Buy.constanst';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
+import { IExploreItem } from '@/services/api/l2services/types';
 
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
@@ -93,7 +94,32 @@ const templateV2Selector = createSelector(
   getL2ServicesStateSelector,
   (reducer) => {
     const dataList = reducer.templateList || [];
-    return dataList;
+
+    let templateList: IExploreItem[] = [];
+    let mainnetList: IExploreItem[] = [];
+    let testnetList: IExploreItem[] = [];
+
+    dataList.map((item) => {
+      switch (item.chainInfo.templateType) {
+        case 'template':
+          templateList.push(item);
+          break;
+        case 'mainnet':
+          mainnetList.push(item);
+          break;
+        case 'testnet':
+          testnetList.push(item);
+          break;
+        default:
+          break;
+      }
+    });
+
+    return {
+      templateList,
+      mainnetList,
+      testnetList,
+    };
   },
 );
 

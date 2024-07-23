@@ -19,13 +19,12 @@ export const formValuesAdapter = (params: Params): IOrderBuyReq_V3 => {
       return itemWrapper;
     }) || [];
 
-  const chainName = computerName?.toLowerCase()?.trim().replaceAll(' ', '-');
   const domain = computerName?.toLowerCase()?.trim().replaceAll(' ', '-');
 
   let result: IOrderBuyReq_V3 = {
     //Required
     domain: domain,
-    chainName: chainName,
+    chainName: computerName,
     chainId: chainId,
     nodeConfigs: listLegoWrapper,
 

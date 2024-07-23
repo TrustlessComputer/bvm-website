@@ -47,11 +47,13 @@
 
 .inner {
   display: flex;
+  flex-direction: row;
+  gap: 8px;
   align-items: center;
   justify-content: center;
   border-radius: 100px;
   // border: 1px solid var(--border-color);
-  padding: 6px 20px;
+  padding: 6px 12px;
   width: 100%;
   overflow: hidden;
 
@@ -75,6 +77,23 @@
   max-width: 100px;
   transform: translateY(1px);
   text-transform: lowercase;
+}
+
+.lowercase {
+  color: var(--text-color);
+  text-align: center;
+  font-family: 'JetBrains Mono';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 133.333%;
+  // text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  transform: translateY(1px);
+  text-transform: uppercase;
 }
 
 .dropdown {

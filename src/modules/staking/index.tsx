@@ -25,6 +25,7 @@ const StakingUser = () => {
     <MainLayout
       headerProps={{
         color: 'white',
+        colorLogo: 'white',
         bgColor: 'black'
       }}
     >

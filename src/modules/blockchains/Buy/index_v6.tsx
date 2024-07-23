@@ -28,6 +28,7 @@ import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
 import { TABS, TABS_MAP } from './constants';
 import ExplorePage from './Explore';
+import Image from 'next/image'
 import { OrderItem } from '@/stores/states/l2services/types';
 
 const BuyPage = () => {
@@ -615,6 +616,9 @@ const BuyPage = () => {
     <div
       className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
     >
+      <div className={s.logo}>
+        <Image src={'/bvmstudio_logo.png'} alt={'bvmstudio_logo'} width={549} height={88} />
+      </div>
       <p className={s.container_text}>
         Drag and drop modules to start new blockchains, new dapps, and new
         economies.
@@ -641,7 +645,7 @@ const BuyPage = () => {
                 >
                   <p>Explore</p>
                 </div>
-                <Capture />
+
               </div>
 
               {isTabCode && (
@@ -841,14 +845,6 @@ const BuyPage = () => {
                 {/* ------------- RIGHT ------------- */}
                 <div className={s.right}>
                   <div className={s.top_right}>
-                    {/*{*/}
-                    {/*  templates && <TierOptions*/}
-                    {/*    originalData={originalData}*/}
-                    {/*    templates={templates}*/}
-                    {/*    setValueOfPackage={setValueOfPackage}*/}
-                    {/*  />*/}
-                    {/*}*/}
-
                     <div className={s.right_box_footer}>
                       {!needContactUs && (
                         <div className={s.right_box_footer_left}>
@@ -1025,6 +1021,7 @@ const BuyPage = () => {
                             />
                           </div>
                         </button>
+                        <Capture />
                       </div>
                     )}
 

@@ -31,6 +31,7 @@
     "@dnd-kit/modifiers": "^7.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@dotlottie/react-player": "^1.6.12",
+    "@fontsource/advent-pro": "^5.0.22",
     "@fontsource/space-mono": "^5.0.19",
     "@fontsource/urbanist": "^5.0.19",
     "@gsap/react": "^2.1.0",
