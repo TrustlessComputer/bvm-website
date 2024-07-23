@@ -151,7 +151,7 @@ export const dappMockupData: DappModel[] = [
                 type: 'group',
                 options: [
                   {
-                    key: 'timeDuration',
+                    key: 'duration_value',
                     title: 'Time',
                     value: 'day',
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
@@ -188,7 +188,7 @@ export const dappMockupData: DappModel[] = [
                     ],
                   },
                   {
-                    key: 'amountDuration',
+                    key: 'duration_amount',
                     title: 'Amount',
                     value: '',
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
@@ -240,25 +240,25 @@ export const dappMockupData: DappModel[] = [
         ],
       },
     ],
-    singleFields: [
-      {
-        key: 'color',
-        title: 'Color',
-        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        placableAmount: -1,
-        fields: [
-          {
-            key: 'color',
-            title: 'Color',
-            type: 'input',
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-            value: '',
-            tooltip: '',
-            options: [],
-          },
-        ],
-      },
-    ],
+    // singleFields: [
+    //   {
+    //     key: 'color',
+    //     title: 'Color',
+    //     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //     placableAmount: -1,
+    //     fields: [
+    //       {
+    //         key: 'color',
+    //         title: 'Color',
+    //         type: 'input',
+    //         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //         value: '',
+    //         tooltip: '',
+    //         options: [],
+    //       },
+    //     ],
+    //   },
+    // ],
   },
   {
     id: 'staking',

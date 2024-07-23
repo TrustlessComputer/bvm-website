@@ -6,7 +6,7 @@ import { FieldKeyPrefix } from '../../contants';
 import useDappsStore from '../../stores/useDappStore';
 import {
   formDappDropdownSignal,
-  formDappInputSignal,
+  formDappInputSignal, formDappToggleSignal,
 } from '../../signals/useFormDappsSignal';
 
 import s from './styles.module.scss';
@@ -62,7 +62,7 @@ const LaunchButton = () => {
   // index: 0 -> n
   // If level greater than 0, it's in the 'extends' field
   // prettier-ignore
-  const handleLaunch = () => {
+  const handleLaunch = async () => {
     const finalForm = thisDapp;
 
     const formDappInput = formDappInputSignal.value;
@@ -77,8 +77,11 @@ const LaunchButton = () => {
     const formDappDropdownInSingle = Object.keys(formDappDropdown).filter(FormDappUtil.isInSingle);
     const formDappDropdownInExtendsField = Object.keys(formDappDropdown).filter(FormDappUtil.isExtendsField);
 
+    const formDappToogle = formDappToggleSignal.value;
+    const formDappToogleInBlock = Object.keys(formDappDropdown).filter(FormDappUtil.isInBlock);
+
     // Separate block fields by <index>
-    const blockMapping: Record<string, { key: string; value: string }[]> = {};
+    let blockMapping: Record<string, { key: string; value: string }[]> = {};
 
     // ==================================================
     const newInputInBase = formDappInputInBase.map((key) => {
@@ -105,37 +108,114 @@ const LaunchButton = () => {
       };
     });
 
-    formDappInputInBlock.forEach((key => {
-      const blockKey = FormDappUtil.getBlockKey(key);
-      const getOriginalKey = FormDappUtil.getOriginalKey(key);
-      const getIndex = FormDappUtil.getIndex(key);
-      const value = formDappInput[key];
 
-      let block = blockMapping[blockKey];
-      if(!block) {
-        blockMapping[blockKey] = [];
+    async function extractedValue(keys: string[], data: Record<string, any>, result: Record<string, { key: string; value: string }[]>) {
+      const r = {...result};
+
+      for await (const key of keys) {
+        const blockKey = FormDappUtil.getBlockKey(key);
+        const getOriginalKey = FormDappUtil.getOriginalKey(key);
+        const getIndex = FormDappUtil.getIndex(key);
+        const value = data[key];
+
+        let block = r[blockKey];
+        if (!block) {
+          r[blockKey] = [];
+        }
+
+        const blockItem = r[blockKey][getIndex];
+        if (!blockItem) {
+          const temp = {};
+          // @ts-ignore
+          temp[getOriginalKey] = value;
+          // @ts-ignore
+          r[blockKey][getIndex] = { ...temp };
+        } else {
+          const temp = { ...blockItem };
+          // @ts-ignore
+          temp[getOriginalKey] = value;
+          console.log('temp', temp);
+          r[blockKey][getIndex] = { ...temp };
+          console.log('r[blockKey][getIndex]', r[blockKey][getIndex]);
+          console.log('r', r);
+        }
       }
 
-      let blockItem = blockMapping[blockKey][getIndex];
-      if(!blockItem) {
-        blockItem = {};
-        blockItem[getOriginalKey] = value;
-        blockMapping[blockKey][getIndex] = blockItem;
-      } else {
-        blockItem[getOriginalKey] = value;
-      }
+      console.log('result', r);
+      return {...r};
+      // keys.forEach((key => {
+      //   const blockKey = FormDappUtil.getBlockKey(key);
+      //   const getOriginalKey = FormDappUtil.getOriginalKey(key);
+      //   const getIndex = FormDappUtil.getIndex(key);
+      //   const value = data[key];
+      //
+      //   let block = blockMapping[blockKey];
+      //   if (!block) {
+      //     blockMapping[blockKey] = [];
+      //   }
+      //
+      //   const blockItem = blockMapping[blockKey][getIndex];
+      //   if (!blockItem) {
+      //     const temp = {};
+      //     // @ts-ignore
+      //     temp[getOriginalKey] = value;
+      //     // @ts-ignore
+      //     blockMapping[blockKey][getIndex] = { ...temp };
+      //   } else {
+      //     const temp = { ...blockItem };
+      //     // @ts-ignore
+      //     temp[getOriginalKey] = value;
+      //     blockMapping[blockKey][getIndex] = { ...temp };
+      //   }
+      // }));
+    }
 
+    // formDappInputInBlock.forEach((key => {
+    //   const blockKey = FormDappUtil.getBlockKey(key);
+    //   const getOriginalKey = FormDappUtil.getOriginalKey(key);
+    //   const getIndex = FormDappUtil.getIndex(key);
+    //   const value = formDappInput[key];
+    //
+    //   extractedValue(blockKey, getIndex, getOriginalKey, value);
+    // }));
 
-      console.log('blockMapping', blockMapping);
+    blockMapping = await extractedValue(formDappInputInBlock, formDappInput, blockMapping);
 
+    console.log('blockMapping 1', blockMapping);
 
-      // console.log('key', key);
-      // console.log('blockKey', blockKey);
-      // console.log('getOriginalKey', getOriginalKey);
-      // console.log('getIndex', getIndex);
-      // console.log('value', value);
-      // console.log('====')
-    }))
+    // formDappDropdownInBlock.forEach((key => {
+    //   const blockKey = FormDappUtil.getBlockKey(key);
+    //   const getOriginalKey = FormDappUtil.getOriginalKey(key);
+    //   const getIndex = FormDappUtil.getIndex(key);
+    //   const value = formDappDropdown[key];
+    //
+    //   console.log('formDappDropdownInBlock', formDappDropdownInBlock);
+    //   console.log('blockKey', blockKey);
+    //   console.log('getOriginalKey', getOriginalKey);
+    //   console.log('getIndex', getIndex);
+    //   console.log('value', value);
+    //   console.log('----------')
+    //
+    //   extractedValue(blockKey, getIndex, getOriginalKey, value);
+    // }));
+
+    blockMapping = await extractedValue(formDappDropdownInBlock, formDappDropdown, blockMapping);
+
+    console.log('blockMapping 2', blockMapping);
+    console.log('====')
+
+    // formDappToogleInBlock.forEach((key => {
+    //   const blockKey = FormDappUtil.getBlockKey(key);
+    //   const getOriginalKey = FormDappUtil.getOriginalKey(key);
+    //   const getIndex = FormDappUtil.getIndex(key);
+    //   const value = formDappToogle[key];
+    //
+    //   extractedValue(blockKey, getIndex, getOriginalKey, value);
+    // }));
+
+    blockMapping = await extractedValue(formDappToogleInBlock, formDappToogle, blockMapping);
+
+    console.log('blockMapping 3', blockMapping);
 
 
     const newDropdownInBlock = formDappDropdownInBlock.map((key) => {
@@ -182,21 +262,24 @@ const LaunchButton = () => {
     //   ...newDropdownInSingle,
     // ];
 
-    console.log('finalForm', finalForm);
-    console.log('formDappInput', formDappInput);
+    // console.log('finalForm', finalForm);
+    // console.log('formDappInput', formDappInput);
     // console.log('formDappInputInBase', formDappInputInBase);
-    console.log('formDappInputInBlock', formDappInputInBlock);
+    // console.log('formDappInputInBlock', formDappInputInBlock);
     // console.log('formDappInputInSingle', formDappInputInSingle);
-    console.log('formDappInputInExtendsField', formDappInputInExtendsField);
+    // console.log('formDappInputInExtendsField', formDappInputInExtendsField);
 
     // console.log('formDappDropdown', formDappDropdown);
+    // console.log('formDappDropdownInBlock', formDappDropdownInBlock);
     // console.log('formDappInputInExtendsField', formDappInputInExtendsField);
-    console.log('formDappDropdownInExtendsField', formDappDropdownInExtendsField);
+    // console.log('formDappDropdownInExtendsField', formDappDropdownInExtendsField);
     // console.log('formDappDropdownInBase', formDappDropdownInBase);
-    console.log('formDappDropdownInBlock', formDappDropdownInBlock);
+    // console.log('formDappDropdownInBlock', formDappDropdownInBlock);
     // console.log('formDappDropdownInSingle', formDappDropdownInSingle);
     // console.log('formDappDropdownInExtendsField', formDappDropdownInExtendsField);
 
+    // console.log('formDappToogle', formDappToogle);
+    // console.log('blockMapping', blockMapping);
     // console.log('newInputInBlock', newInputInBlock);
     // console.log('newDropdownInBlock', newDropdownInBlock);
     // console.log('blockFieldMapping', blockFieldMapping);
@@ -206,7 +289,7 @@ const LaunchButton = () => {
 
   return (
     <>
-      <Button isLoading={isLoading} className={s.button} onClick={onSubmit}>
+      <Button isLoading={isLoading} className={s.button} type={"submit"} onClick={handleLaunch}>
         Launch <Image src="/launch.png" alt="launch" width={24} height={24} />
       </Button>
       <ErrorModal

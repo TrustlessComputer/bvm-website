@@ -56,6 +56,7 @@ const Input = ({ name, dappKey, ...props }: Props) => {
       className={styles.input}
       onChange={handleInputChange}
       value={value}
+      name={name}
     />
   );
 };
