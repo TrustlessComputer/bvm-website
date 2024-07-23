@@ -42,7 +42,7 @@ const MagaModule = () => {
         <Text className={s.textHeadline} pt={['80px']}>
           Developers? Check out how we built it!
         </Text>
-        <Flex gap="80px" direction="column">
+        <Flex gap={[0, '80px']} direction="column">
           {STEP_SECTION.map((step) => (
             <CommonSection key={step.id} {...step} />
           ))}
