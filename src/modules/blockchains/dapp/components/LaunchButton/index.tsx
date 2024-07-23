@@ -13,14 +13,23 @@ import s from './styles.module.scss';
 import useSubmitForm from '../../hooks/useSubmitForm';
 import { Button } from '@chakra-ui/react';
 import ErrorModal from '../ErrorModal';
+import TopupModal from '../TopupModal';
 
 type Props = {};
 
 const LaunchButton = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
 
-  const { onSubmit, isLoading, setIsShowError, isShowError, errorData } =
-    useSubmitForm();
+  const {
+    onSubmit,
+    isLoading,
+    errorData,
+    isShowError,
+    setIsShowError,
+    topupInfo,
+    isShowTopup,
+    setIsShowTopup,
+  } = useSubmitForm();
 
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp];
@@ -219,6 +228,13 @@ const LaunchButton = () => {
             })}
         </ul>
       </ErrorModal>
+      <TopupModal
+        show={isShowTopup}
+        infor={topupInfo}
+        onClose={() => {
+          setIsShowTopup(false);
+        }}
+      />
     </>
   );
 };
