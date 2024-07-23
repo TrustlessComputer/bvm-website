@@ -85,9 +85,9 @@ const LaunchButton = () => {
     const finalForm = thisDapp;
     console.log(formDappDropdownSignal.value, formDappInputSignal.value, formDappToggleSignal.value)
 
-    // const formDappInput = formDappInputSignal.value;
-    // const formDappInputInBase = Object.keys(formDappInput).filter((key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key) && !FormDappUtil.isExtendsField(key));
-    // const formDappInputInBlock = Object.keys(formDappInput).filter(FormDappUtil.isInBlock);
+    const formDappInput = formDappInputSignal.value;
+    const formDappInputInBase = Object.keys(formDappInput).filter((key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key) && !FormDappUtil.isExtendsField(key));
+    const formDappInputInBlock = Object.keys(formDappInput).filter(FormDappUtil.isInBlock);
     // const formDappInputInSingle = Object.keys(formDappInput).filter(FormDappUtil.isInSingle);
     // const formDappInputInExtendsField = Object.keys(formDappInput).filter(FormDappUtil.isExtendsField);
 
@@ -374,7 +374,7 @@ const LaunchButton = () => {
         isLoading={isLoading}
         className={s.button}
         type={'submit'}
-        onClick={handleLaunch}
+        onClick={onSubmit}
       >
         Launch <Image src="/launch.png" alt="launch" width={24} height={24} />
       </Button>
