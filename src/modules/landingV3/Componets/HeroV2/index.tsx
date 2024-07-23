@@ -7,11 +7,13 @@ import Image from 'next/image';
 import IcLogoText from '../IcLogoText';
 import IcArrowRight from '../IcArrowRight';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 export default function HeroV2() {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const { tracking } = useL2ServiceTracking();
+  const { showContactUsModal } = useContactUs();
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
 
   return (
@@ -40,10 +42,8 @@ export default function HeroV2() {
             >
               Get started
             </div>
-            <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
-              window.open('https://docs.bvm.network/bvm');
-            }}>
-              Developer docs
+            <div className={`${s.btn} ${s.btn__secondary}`} onClick={showContactUsModal}>
+              Contact us
               <IcArrowRight />
             </div>
           </div>
