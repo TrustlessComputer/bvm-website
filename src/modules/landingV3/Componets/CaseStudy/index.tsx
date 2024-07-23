@@ -13,7 +13,7 @@ export default function CaseStudy() {
         <p  className={s.caseStudy_description}>The first fully on-chain game built on a ZK Rollup on the Bitcoin network.</p>
       </div>
       <div className={s.caseStudy_button}>
-        <Link href="/maga">Play Now</Link>
+        <Link href="/bitcoinwars">Play Now</Link>
       </div>
     </div>
   </div>
