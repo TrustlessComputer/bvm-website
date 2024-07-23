@@ -249,30 +249,30 @@ const StepsAirdrop = (props: IProps) => {
         airdropType: AirdropType.RETROSPECTIVE,
         step: AirdropStep.gmHolders,
       },
-      // {
-      //   title: 'Alpha users',
-      //   desc: `Proportionally based on Airdrop Points - min Airdrop Points: 50,000<br/>
-      //     Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
-      //  `,
-      //   actionText: !token ? 'Link account' : undefined,
-      //   image: '/airdrop/alpha.png',
-      //   actionHandle: handleShareTwToSignIn,
-      //   isActive: true,
-      //   isDisable: true,
-      //   right: {
-      //     title: '',
-      //     desc: '',
-      //   },
-      //   expiredTime: PUBLIC_SALE_START,
-      //   showExpireTime: false,
-      //   airdropType: AirdropType.RETROSPECTIVE,
-      //   // actionHandleSecondary: () => {
-      //   //   handleShareTwToSignIn();
-      //   // },
-      //   // actionTextSecondary: 'Switch account',
-      //   step: AirdropStep.alphaUsers,
-      //   handleShowManualPopup: handleShowManualPopup,
-      // },
+      {
+        title: 'Alpha users',
+        desc: `Proportionally based on Airdrop Points - min Airdrop Points: 50,000<br/>
+          Snapshot on Jan 16, 2024. Claimable on Jan 30, 2024.
+       `,
+        actionText: !token ? 'Link account' : undefined,
+        image: '/airdrop/alpha.png',
+        // actionHandle: handleShareTwToSignIn,
+        isActive: true,
+        isDisable: true,
+        right: {
+          title: '',
+          desc: '',
+        },
+        expiredTime: PUBLIC_SALE_START,
+        showExpireTime: false,
+        airdropType: AirdropType.RETROSPECTIVE,
+        // actionHandleSecondary: () => {
+        //   handleShareTwToSignIn();
+        // },
+        // actionTextSecondary: 'Switch account',
+        step: AirdropStep.alphaUsers,
+        handleShowManualPopup: handleShowManualPopup,
+      },
     ];
   }, [token, needReload, raffleCode, loading, currentStep]);
 
