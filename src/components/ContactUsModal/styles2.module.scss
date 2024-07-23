@@ -72,7 +72,11 @@
   padding: 0 !important;
   &_inner {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    @include is-pc {
+      grid-template-columns: repeat(2, 1fr);
+
+    }
   }
 
   :global {
