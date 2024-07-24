@@ -1,10 +1,13 @@
 .inner {
-  padding: 80px 0;
+  margin-top: 80px;
   display: flex;
-  flex-direction: column;
+  border-radius: 20px;
+  background-color: #fff;
+  padding: 32px;
   justify-content: center;
   align-items: center;
-
+  gap: 60px;
+  flex-wrap: wrap;
   &_img {
     max-width: 120px;
     margin: 24px 0;
@@ -12,6 +15,20 @@
     img {
       width: 100%;
     }
+  }
+  &_right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.thumbnail {
+  max-width: 660px;
+  img {
+    width: 100%;
+    height: auto;
   }
 }
 

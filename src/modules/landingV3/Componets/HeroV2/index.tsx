@@ -22,15 +22,17 @@ export default function HeroV2() {
       <div className={`${s.inner} containerV3`}>
         <div className={s.content}>
           <div className={s.content_sub}>
-            <IcLogoText />
+            {/*<IcLogoText />*/}
+            <p>Bitcoin Studio</p>
           </div>
           <h3 className={s.subTitle}>
-            Blockchains anyone can set up <span>for $99/mo.</span>
+            Launch your own Bitcoin-backed blockchain for just <span>$99/month</span>
           </h3>
           <div className={s.desc}>
             <p>
-              Join the wave of developers building blockchains and decentralized applications. With its simple and intuitive interface, our blockchain platform is the perfect starting point for your blockchain journey.
+              Whether you're an indie developer or a large-scale project, BVM makes it easy and affordable to create your own blockchain — secured by Bitcoin.
             </p>
+            <p>With Bitcoin as the base layer, your blockchain will inherit the security guarantees of Bitcoin and you can tap into the $1 trillion Bitcoin economy.</p>
           </div>
           <div className={s.groupBtn}>
             <div
@@ -40,19 +42,27 @@ export default function HeroV2() {
                 router.push('/rollups/customizev2');
               }}
             >
-              Get started
+              Build on Bitcoin
             </div>
+            {/*<div className={`${s.btn} ${s.btn__secondary}`} onClick={showContactUsModal}>*/}
+            {/*  Contact us*/}
+            {/*  <IcArrowRight />*/}
+            {/*</div> */}
             <div className={`${s.btn} ${s.btn__secondary}`} onClick={showContactUsModal}>
-              Contact us
-              <IcArrowRight />
+              Request a demo
+              {/*<IcArrowRight />*/}
             </div>
           </div>
         </div>
         <div className={s.imageHero} onClick={() => setIsOpenModalVideo(true)}>
           {!isOpenModalVideo &&
-            <Image className={s.imagePreload} src={'/thumbnail_video.jpg'} width={1566}
+            <Image className={s.imagePreload} src={'https://storage.googleapis.com/bvm-network/image/Drag%20and%20Drop%20Banner%2002.gif'} width={1566}
                               height={880}
                               alt={'video'} sizes={'100vw'} quality={100} />}
+          <div className={s.imageHero_btn}>
+            <p>Take a tour</p>
+            <Image src={'/icons/ic_arrow-right.svg'} alt={'icons'} width={20} height={20}/>
+          </div>
           <video src={'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'} width={160}
                  height={90}
                  preload="auto" playsInline controls />
