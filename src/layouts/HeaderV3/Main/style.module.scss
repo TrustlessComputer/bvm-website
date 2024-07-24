@@ -37,7 +37,7 @@
       position: absolute;
       background-color: #FA4E0E;
       color: #fff;
-      width: 150px;
+
       cursor: pointer;
       height: 44px;
       top: 50%;
@@ -47,10 +47,15 @@
       justify-content: center;
       align-items: center;
       border-radius: 1000px;
+      width: 100px;
+
+      @include is-min-table{
+        width: 150px;
+      }
       @include is-pc {
-        top: 43%;
+        top: 50%;
         right: 36%;
-        transform: translate(43%, -36%);
+        transform: translate(43%, -50%);
       }
     }
   }
