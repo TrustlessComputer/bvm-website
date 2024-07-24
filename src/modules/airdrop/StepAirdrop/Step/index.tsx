@@ -7,14 +7,20 @@ import {
 import { formatCurrency } from '@/utils/format';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { compareString } from '@/utils/string';
-import { Button, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import cs from 'classnames';
 import cx from 'clsx';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import s from './styles.module.scss';
+import BigNumber from 'bignumber.js';
+import { claimBVMAirdrop } from '@/services/player-share';
+import { shortCryptoAddress } from '@/utils/address';
+import { showError, showSuccess } from '@/components/toast';
+import { requestReload } from '@/stores/states/common/reducer';
+import { getErrorMessage } from '@/utils/errorV2';
 
 dayjs.extend(utc);
 
@@ -74,6 +80,8 @@ export default function ItemCommunity({
   onClickTweetToClaim: (airdropType: AirdropStep) => void;
   loading?: boolean;
 }) {
+  const dispatch = useDispatch();
+  const [claiming, setClaiming] = useState(false);
   const [isEnd, setIsEnd] = React.useState(
     dayjs
       .utc(content?.expiredTime, 'YYYY-MM-DD HH:mm:ss')
@@ -96,11 +104,58 @@ export default function ItemCommunity({
   const [showManualCheck, setShowManualCheck] = useState(false);
   const token = AuthenStorage.getAuthenKey();
 
+  const availableBalanceClaim = useMemo(() => {
+    if (airdropAlphaUsers) {
+      if (!airdropAlphaUsers) {
+        return 0;
+      }
+      return new BigNumber(airdropAlphaUsers.vested_amount)
+        .minus(airdropAlphaUsers.claimed_amount)
+        .toNumber();
+    } else {
+      if (!airdropContent) {
+        return 0;
+      }
+      return new BigNumber(airdropContent.vested_amount)
+        .minus(airdropContent.claimed_amount)
+        .toNumber();
+    }
+  }, [airdropContent, airdropAlphaUsers]);
+
   useEffect(() => {
     if (!!token) {
       setShowManualCheck(false);
     }
   }, [token]);
+
+  const onClaim = async () => {
+    try {
+      setClaiming(true);
+      if (airdropAlphaUsers) {
+        await claimBVMAirdrop({
+          address: airdropAlphaUsers?.address,
+          type: airdropAlphaUsers?.type,
+        });
+        content.actionHandle(airdropAlphaUsers?.type);
+      } else {
+        await claimBVMAirdrop({
+          address: airdropContent?.address,
+          type: airdropContent?.type,
+        });
+        content.actionHandle(airdropContent?.type);
+      }
+      showSuccess({
+        message: `Claimed ${formatCurrency(
+          availableBalanceClaim,
+        )} $BVM successfully!`,
+      });
+      dispatch(requestReload());
+    } catch (error) {
+      showError(getErrorMessage(error));
+    } finally {
+      setClaiming(false);
+    }
+  };
 
   return (
     <>
@@ -257,13 +312,41 @@ export default function ItemCommunity({
             {content?.step === AirdropStep.alphaUsers && (
               <>
                 {airdropAlphaUsers ? (
-                  <Flex direction="column" gap="8px">
-                    <Text color={'#000000'}>
-                      {user?.twitter_name} - Airdrop:{' '}
-                      {formatCurrency(airdropAlphaUsers?.balance)} $BVM -
-                      Vesting at: Jul 24, 2024
-                    </Text>
-                  </Flex>
+                  availableBalanceClaim > 0 ? (
+                    <Flex gap="8px" mt="4px" alignItems={'center'}>
+                      <Box>
+                        <Text color={'#000000'}>
+                          Claimable: {formatCurrency(availableBalanceClaim)}{' '}
+                          $BVM
+                        </Text>
+                        <Text color={'#000000'}>
+                          Receiver address:{' '}
+                          {shortCryptoAddress(
+                            airdropAlphaUsers?.receiver_address,
+                          )}
+                        </Text>
+                      </Box>
+
+                      <Button
+                        isDisabled={claiming}
+                        isLoading={claiming}
+                        onClick={onClaim}
+                        bg={'#990aff'}
+                      >
+                        Claim now
+                      </Button>
+                    </Flex>
+                  ) : (
+                    <Flex direction="column" gap="8px">
+                      <Flex direction="column" gap="8px" mt="4px">
+                        <Text color={'#000000'}>
+                          Airdrop: {formatCurrency(airdropAlphaUsers?.balance)}{' '}
+                          $BVM - Vesting at:{' '}
+                          {dayjs(airdropAlphaUsers?.claimeable_at).format('LL')}
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  )
                 ) : (
                   user?.twitter_id && (
                     <Text color={'#000000'}>
@@ -278,12 +361,39 @@ export default function ItemCommunity({
                 {airdropContent && !loading ? (
                   <>
                     {airdropContent?.balance ? (
-                      <Flex direction="column" gap="8px" mt="4px">
-                        <Text color={'#000000'}>
-                          Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
-                          $BVM - Vesting at: Jul 24, 2024
-                        </Text>
-                      </Flex>
+                      availableBalanceClaim > 0 ? (
+                        <Flex gap="8px" mt="4px" alignItems={'center'}>
+                          <Box>
+                            <Text color={'#000000'}>
+                              Claimable: {formatCurrency(availableBalanceClaim)}{' '}
+                              $BVM
+                            </Text>
+                            <Text color={'#000000'}>
+                              Receiver address:{' '}
+                              {shortCryptoAddress(
+                                airdropContent?.receiver_address,
+                              )}
+                            </Text>
+                          </Box>
+
+                          <Button
+                            isDisabled={claiming}
+                            isLoading={claiming}
+                            onClick={onClaim}
+                            bg={'#990aff'}
+                          >
+                            Claim now
+                          </Button>
+                        </Flex>
+                      ) : (
+                        <Flex direction="column" gap="8px" mt="4px">
+                          <Text color={'#000000'}>
+                            Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
+                            $BVM - Vesting at:{' '}
+                            {dayjs(airdropContent.claimeable_at).format('LL')}
+                          </Text>
+                        </Flex>
+                      )
                     ) : (
                       <Text color={'#000000'}>
                         Your wallet do not have airdrop
@@ -300,12 +410,39 @@ export default function ItemCommunity({
                 {airdropContent && !loading ? (
                   <>
                     {airdropContent?.balance ? (
-                      <Flex direction="column" gap="8px" mt="4px">
-                        <Text color={'#000000'}>
-                          Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
-                          $BVM - Vesting at: Jul 24, 2024
-                        </Text>
-                      </Flex>
+                      availableBalanceClaim > 0 ? (
+                        <Flex gap="8px" mt="4px" alignItems={'center'}>
+                          <Box>
+                            <Text color={'#000000'}>
+                              Claimable: {formatCurrency(availableBalanceClaim)}{' '}
+                              $BVM
+                            </Text>
+                            <Text color={'#000000'}>
+                              Receiver address:{' '}
+                              {shortCryptoAddress(
+                                airdropContent?.receiver_address,
+                              )}
+                            </Text>
+                          </Box>
+
+                          <Button
+                            isDisabled={claiming}
+                            isLoading={claiming}
+                            onClick={onClaim}
+                            bg={'#990aff'}
+                          >
+                            Claim now
+                          </Button>
+                        </Flex>
+                      ) : (
+                        <Flex direction="column" gap="8px" mt="4px">
+                          <Text color={'#000000'}>
+                            Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
+                            $BVM - Vesting at:{' '}
+                            {dayjs(airdropContent.claimeable_at).format('LL')}
+                          </Text>
+                        </Flex>
+                      )
                     ) : (
                       <Text color={'#000000'}>
                         Your wallet do not have airdrop
@@ -322,12 +459,39 @@ export default function ItemCommunity({
                 {airdropContent && !loading ? (
                   <>
                     {airdropContent?.balance ? (
-                      <Flex direction="column" gap="8px" mt="4px">
-                        <Text color={'#000000'}>
-                          Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
-                          $BVM - Vesting at: Jul 24, 2024
-                        </Text>
-                      </Flex>
+                      availableBalanceClaim > 0 ? (
+                        <Flex gap="8px" mt="4px" alignItems={'center'}>
+                          <Box>
+                            <Text color={'#000000'}>
+                              Claimable: {formatCurrency(availableBalanceClaim)}{' '}
+                              $BVM
+                            </Text>
+                            <Text color={'#000000'}>
+                              Receiver address:{' '}
+                              {shortCryptoAddress(
+                                airdropContent?.receiver_address,
+                              )}
+                            </Text>
+                          </Box>
+
+                          <Button
+                            isDisabled={claiming}
+                            isLoading={claiming}
+                            onClick={onClaim}
+                            bg={'#990aff'}
+                          >
+                            Claim now
+                          </Button>
+                        </Flex>
+                      ) : (
+                        <Flex direction="column" gap="8px" mt="4px">
+                          <Text color={'#000000'}>
+                            Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
+                            $BVM - Vesting at:{' '}
+                            {dayjs(airdropContent.claimeable_at).format('LL')}
+                          </Text>
+                        </Flex>
+                      )
                     ) : (
                       <Text color={'#000000'}>
                         Your wallet do not have airdrop
