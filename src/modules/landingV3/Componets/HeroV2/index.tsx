@@ -44,11 +44,15 @@ export default function HeroV2() {
             >
               Build on Bitcoin
             </div>
-            {/*<div className={`${s.btn} ${s.btn__secondary}`} onClick={showContactUsModal}>*/}
+            {/*<div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
+              showContactUsModal({ subjectDefault: 0 });
+            }}>*/}
             {/*  Contact us*/}
             {/*  <IcArrowRight />*/}
             {/*</div> */}
-            <div className={`${s.btn} ${s.btn__secondary}`} onClick={showContactUsModal}>
+            <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
+              showContactUsModal({ subjectDefault: 0 });
+            }}>
               Request a demo
               {/*<IcArrowRight />*/}
             </div>

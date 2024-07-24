@@ -39,7 +39,7 @@ const Main = ({
         >
           <IconLogo />
         </div>
-        {/*<p className={s.heading}>BVM Studio</p>*/}
+        {/*<p className={s.heading}>Bitcoin Studio</p>*/}
         <div className={s.logoStudio}>
           <ImagePlaceholder src={'/bvmstudio_logo.png'} alt={'bvmstudio_logo'} width={549} height={88} />
 
