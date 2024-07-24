@@ -2760,6 +2760,11 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.2.tgz#d8bae93ac8b815b2bd7a98078cf91e2724ef11e5"
   integrity sha512-J4yDIIthosAsRZ5CPYP/jQvUAQtlZTTD/4suA08/FEnlxqW3sKS9iAhgsa9VYLZ6vDHn/ixJgIqRQPotoBjxIw==
 
+"@fontsource/advent-pro@^5.0.22":
+  version "5.0.22"
+  resolved "https://registry.yarnpkg.com/@fontsource/advent-pro/-/advent-pro-5.0.22.tgz#b0a204909cdc17fcbe1d52eb1449a6a42db9c236"
+  integrity sha512-9W4kAvcAeDwMKr/RMb2hZws6vGIiZeTHP8LHrQJZJsNBMGdTPatQfBrmKJEOehwbuCQu3iOCh4gYJv7wkrEROA==
+
 "@fontsource/space-mono@^5.0.19":
   version "5.0.20"
   resolved "https://registry.yarnpkg.com/@fontsource/space-mono/-/space-mono-5.0.20.tgz#d4110a8a7f336db14e7eb99eff9de82079dcaa0b"

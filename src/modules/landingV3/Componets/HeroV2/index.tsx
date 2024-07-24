@@ -7,11 +7,14 @@ import Image from 'next/image';
 import IcLogoText from '../IcLogoText';
 import IcArrowRight from '../IcArrowRight';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import CaseStudy from '@/modules/landingV3/Componets/CaseStudy';
 
 export default function HeroV2() {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const { tracking } = useL2ServiceTracking();
+  const { showContactUsModal } = useContactUs();
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
 
   return (
@@ -26,8 +29,7 @@ export default function HeroV2() {
           </h3>
           <div className={s.desc}>
             <p>
-              Join the wave of developers building blockchains and decentralized applications. With its simple and
-              intuitive interface, BVM is the perfect starting point for your blockchain journey.
+              Join the wave of developers building blockchains and decentralized applications. With its simple and intuitive interface, our blockchain platform is the perfect starting point for your blockchain journey.
             </p>
           </div>
           <div className={s.groupBtn}>
@@ -40,10 +42,8 @@ export default function HeroV2() {
             >
               Get started
             </div>
-            <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
-              window.open('https://docs.bvm.network/bvm');
-            }}>
-              Developer docs
+            <div className={`${s.btn} ${s.btn__secondary}`} onClick={showContactUsModal}>
+              Contact us
               <IcArrowRight />
             </div>
           </div>
@@ -59,6 +59,8 @@ export default function HeroV2() {
         </div>
       </div>
       <Brand />
+      <CaseStudy />
+
     </div>
   );
 }

@@ -11,7 +11,7 @@ const Capture = () => {
   const { setIsCapture } = useCaptureStore();
   const handleClickShareTwitter = (url: string) => {
     try {
-      const imgEncode = encodeBase64(url);
+      // const imgEncode = encodeBase64(url);
 
       const content = `I'm launching my own blockchain with @BVMnetwork! 🚀
 
@@ -24,7 +24,7 @@ Join the blockchain bonanza:`;
       window.open(
         `https://twitter.com/intent/tweet?text=${encodeURIComponent(
           content,
-        )}&url=https://bvm.network/rollups/customizev2/${imgEncode}`,
+        )}&url=https://bvm.network/rollups/customizev2/${url}`,
         '_blank',
       );
     } catch (error) {
@@ -49,12 +49,12 @@ Join the blockchain bonanza:`;
       if (!image) return;
 
       const file = convertBase64ToFile(image);
-      const urlCDN = await l2ServicesAPI.uploadFile({ file });
+      const res = await l2ServicesAPI.uploadFile({ file });
 
-      if (!urlCDN) return;
+      if (!res) return;
 
       setIsCapture(false);
-      handleClickShareTwitter(urlCDN);
+      handleClickShareTwitter(res);
     }, 150);
   };
 

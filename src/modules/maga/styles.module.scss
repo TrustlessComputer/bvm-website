@@ -1,0 +1,110 @@
+.container {
+  padding-top: 138px;
+  background-color: #000000;
+  color: #fff;
+  font-family: "Advent Pro";
+}
+
+.title {
+  color: #FFF;
+  font-family: "Advent Pro";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.70);
+  font-family: "Advent Pro";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.playNowBtn {
+  display: flex;
+  width: fit-content;
+  height: 44px;
+  padding: 16px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 1000px;
+  background: #FA4E0E;
+  color: #FFF;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.textHeadline {
+  color: #FFF;
+  text-align: center;
+  font-family: "Advent Pro";
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.label {
+  width: fit-content;
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.20);
+  color: #FFF;
+  font-family: "Advent Pro";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+  text-transform: uppercase;
+}
+
+.subTitle {
+  color: #FFF;
+  font-family: "Advent Pro";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+}
+
+.subDescription {
+  max-width: 567px;
+  color: rgba(255, 255, 255, 0.70);
+  font-family: "Advent Pro";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 150%;
+}
+
+.timeTitle {
+  color: #FFF;
+  font-family: "Advent Pro";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: -0.2px;
+  opacity: 0.7;
+}
+
+.time {
+  color: #FFF;
+  text-align: center;
+  font-family: "Advent Pro";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+}
