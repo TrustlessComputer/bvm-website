@@ -2,9 +2,6 @@
 
 .ourStory {
   background-color: #f2f2f2;
-  * {
-    --chakra-colors-chakra-body-bg: #f2f2f2 !important;
-  }
   &_members {
     display: grid;
     grid-template-columns: 1fr;
