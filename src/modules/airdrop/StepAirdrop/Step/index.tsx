@@ -21,6 +21,7 @@ import { shortCryptoAddress } from '@/utils/address';
 import { showError, showSuccess } from '@/components/toast';
 import { requestReload } from '@/stores/states/common/reducer';
 import { getErrorMessage } from '@/utils/errorV2';
+import { ClaimAirdropType } from '../../Section_2';
 
 dayjs.extend(utc);
 
@@ -105,7 +106,9 @@ export default function ItemCommunity({
   const token = AuthenStorage.getAuthenKey();
 
   const availableBalanceClaim = useMemo(() => {
-    if (airdropAlphaUsers) {
+    console.log('content', content);
+
+    if (content?.airdropType === 1) {
       if (!airdropAlphaUsers) {
         return 0;
       }
@@ -120,7 +123,7 @@ export default function ItemCommunity({
         .minus(airdropContent.claimed_amount)
         .toNumber();
     }
-  }, [airdropContent, airdropAlphaUsers]);
+  }, [airdropContent, airdropAlphaUsers, content]);
 
   useEffect(() => {
     if (!!token) {
@@ -131,18 +134,18 @@ export default function ItemCommunity({
   const onClaim = async () => {
     try {
       setClaiming(true);
-      if (airdropAlphaUsers) {
+      if (content?.airdropType === 1) {
         await claimBVMAirdrop({
           address: airdropAlphaUsers?.address,
           type: airdropAlphaUsers?.type,
         });
-        content.actionHandle(airdropAlphaUsers?.type);
+        content?.actionHandle?.(airdropAlphaUsers?.type);
       } else {
         await claimBVMAirdrop({
           address: airdropContent?.address,
           type: airdropContent?.type,
         });
-        content.actionHandle(airdropContent?.type);
+        content?.actionHandle?.(airdropContent?.type);
       }
       showSuccess({
         message: `Claimed ${formatCurrency(
@@ -337,12 +340,25 @@ export default function ItemCommunity({
                       </Button>
                     </Flex>
                   ) : (
-                    <Flex direction="column" gap="8px">
-                      <Flex direction="column" gap="8px" mt="4px">
+                    <Flex direction="column" gap="2px">
+                      <Flex direction="column" gap="8px">
                         <Text color={'#000000'}>
                           Airdrop: {formatCurrency(airdropAlphaUsers?.balance)}{' '}
                           $BVM - Vesting at:{' '}
                           {dayjs(airdropAlphaUsers?.claimeable_at).format('LL')}
+                        </Text>
+                        <Text color={'#000000'}>
+                          Vested:{' '}
+                          {formatCurrency(airdropAlphaUsers?.vested_amount)}{' '}
+                          $BVM - Claimed:{' '}
+                          {formatCurrency(airdropAlphaUsers?.claimed_amount)}{' '}
+                          $BVM
+                        </Text>
+                        <Text color={'#000000'}>
+                          Receiver address:{' '}
+                          {shortCryptoAddress(
+                            airdropAlphaUsers?.receiver_address,
+                          )}
                         </Text>
                       </Flex>
                     </Flex>
@@ -386,11 +402,24 @@ export default function ItemCommunity({
                           </Button>
                         </Flex>
                       ) : (
-                        <Flex direction="column" gap="8px" mt="4px">
+                        <Flex direction="column" gap="2px">
                           <Text color={'#000000'}>
                             Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
                             $BVM - Vesting at:{' '}
                             {dayjs(airdropContent.claimeable_at).format('LL')}
+                          </Text>
+                          <Text color={'#000000'}>
+                            Vested:{' '}
+                            {formatCurrency(airdropContent?.vested_amount)} $BVM
+                            - Claimed:{' '}
+                            {formatCurrency(airdropContent?.claimed_amount)}{' '}
+                            $BVM
+                          </Text>
+                          <Text color={'#000000'}>
+                            Receiver address:{' '}
+                            {shortCryptoAddress(
+                              airdropContent?.receiver_address,
+                            )}
                           </Text>
                         </Flex>
                       )
@@ -435,11 +464,24 @@ export default function ItemCommunity({
                           </Button>
                         </Flex>
                       ) : (
-                        <Flex direction="column" gap="8px" mt="4px">
+                        <Flex direction="column" gap="2px">
                           <Text color={'#000000'}>
                             Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
                             $BVM - Vesting at:{' '}
                             {dayjs(airdropContent.claimeable_at).format('LL')}
+                          </Text>
+                          <Text color={'#000000'}>
+                            Vested:{' '}
+                            {formatCurrency(airdropContent?.vested_amount)} $BVM
+                            - Claimed:{' '}
+                            {formatCurrency(airdropContent?.claimed_amount)}{' '}
+                            $BVM
+                          </Text>
+                          <Text color={'#000000'}>
+                            Receiver address:{' '}
+                            {shortCryptoAddress(
+                              airdropContent?.receiver_address,
+                            )}
                           </Text>
                         </Flex>
                       )
@@ -489,6 +531,19 @@ export default function ItemCommunity({
                             Airdrop: {formatCurrency(airdropContent?.balance)}{' '}
                             $BVM - Vesting at:{' '}
                             {dayjs(airdropContent.claimeable_at).format('LL')}
+                          </Text>
+                          <Text color={'#000000'}>
+                            Vested:{' '}
+                            {formatCurrency(airdropContent?.vested_amount)} $BVM
+                            - Claimed:{' '}
+                            {formatCurrency(airdropContent?.claimed_amount)}{' '}
+                            $BVM
+                          </Text>
+                          <Text color={'#000000'}>
+                            Receiver address:{' '}
+                            {shortCryptoAddress(
+                              airdropContent?.receiver_address,
+                            )}
                           </Text>
                         </Flex>
                       )

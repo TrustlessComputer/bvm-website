@@ -256,7 +256,7 @@ const StepsAirdrop = (props: IProps) => {
        `,
         actionText: !token ? 'Link account' : undefined,
         image: '/airdrop/alpha.png',
-        // actionHandle: handleShareTwToSignIn,
+        actionHandle: () => handleVerifyWallet(AirdropStep.alphaUsers),
         isActive: true,
         isDisable: true,
         right: {
