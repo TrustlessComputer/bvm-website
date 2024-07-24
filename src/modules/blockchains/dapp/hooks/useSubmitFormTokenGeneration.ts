@@ -19,7 +19,7 @@ import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
 
 interface IProps {
-  setErrorData: Dispatch<SetStateAction<{ key: string; error: string }[]>>,
+  setErrorData: Dispatch<SetStateAction<{ key: string; error: string }[] | undefined>>,
   setIsShowError: Dispatch<SetStateAction<boolean>>,
   setLoading: Dispatch<SetStateAction<boolean>>,
 }

@@ -28,7 +28,7 @@ const useSubmitForm = () => {
   const [isShowTopup, setIsShowTopup] = useState(false);
   const [topupInfo, setTopupInfo] = useState<TopUpDappInfor>();
 
-  const {onSubmit: onSubmitFormTokenGeneration} = useSubmitFormTokenGeneration({setLoading, setIsShowTopup, setErrorData})
+  const {onSubmit: onSubmitFormTokenGeneration} = useSubmitFormTokenGeneration({setErrorData, setLoading, setIsShowError})
 
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp] || {};
