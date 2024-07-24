@@ -15,10 +15,23 @@ import {
 import useDappsStore from '../stores/useDappStore';
 import { FormDappUtil } from '../utils';
 import { isEmpty } from 'lodash';
+import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
+import { IBodyCreateToken } from '@/modules/apps/CreateToken/contract/interface';
+import {
+  getTokenomics,
+  getTotalSupply,
+} from '@/modules/apps/CreateToken/utils';
+import { ITokenomics } from '@/modules/apps/CreateToken/states/types';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import TOKENABI from '@/modules/apps/CreateToken/contract/abis/Token.json';
+import { ethers } from 'ethers';
 
 const useSubmitForm = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
   const dappState = useAppSelector(dappSelector);
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  console.log('accountInforL2Service', accountInforL2Service);
+  console.log('dappState', dappState);
 
   const [isShowError, setIsShowError] = useState(false);
 
@@ -244,42 +257,39 @@ const useSubmitForm = () => {
         const blocks = blockMapping[key];
 
         for (const block of blocks) {
-          const blockTemp = block as any;
+          const blockTemp = block as unknown as ITokenomics;
           const index = blocks.indexOf(block) + 1;
 
           if (!blockTemp?.name || isEmpty(blockTemp?.name)) {
             errors.push({
               key: 'tokenomic_name',
-              error: `Tokenomic #${index} name is required!`,
+              error: `Allocation #${index} name is required!`,
             });
           }
-          if (!blockTemp?.amount || isEmpty(blockTemp?.amount)) {
+          if (!blockTemp?.total_amount || isEmpty(blockTemp?.total_amount)) {
             errors.push({
               key: 'tokenomic_amount',
-              error: `Tokenomic #${index} amount is required!`,
+              error: `Allocation #${index} amount is required!`,
             });
           }
           if (!blockTemp?.address || isEmpty(blockTemp?.address)) {
             errors.push({
               key: 'tokenomic_address',
-              error: `Tokenomic #${index} address is required!`,
+              error: `Allocation #${index} address is required!`,
             });
           }
 
-          if (blockTemp?.vesting) {
-            if (!blockTemp?.cliff_amount || isEmpty(blockTemp?.cliff_amount)) {
+          if (blockTemp?.is_vesting) {
+            if (!blockTemp?.cliff || isEmpty(blockTemp?.cliff)) {
               errors.push({
                 key: 'tokenomic_cliff_amount',
-                error: `Tokenomic #${index} cliff amount is required!`,
+                error: `Allocation #${index} cliff amount is required!`,
               });
             }
-            if (
-              !blockTemp?.duration_amount ||
-              isEmpty(blockTemp?.duration_amount)
-            ) {
+            if (!blockTemp?.duration || isEmpty(blockTemp?.duration)) {
               errors.push({
                 key: 'tokenomic_duration_amount',
-                error: `Tokenomic #${index} duration amount is required!`,
+                error: `Allocation #${index} duration amount is required!`,
               });
             }
           }
@@ -294,6 +304,74 @@ const useSubmitForm = () => {
         setIsShowError(true);
         return;
       }
+
+      setLoading(true);
+      const api = new CTokenGenerationAPI();
+
+      // @ts-ignore
+      const getTokenomicsDefault: ITokenomics[] = () => {
+        if (
+          getTotalSupply(
+            blockMapping?.allocation as unknown as ITokenomics[],
+          ) === 0
+        ) {
+          return [
+            {
+              name: 'Foundation',
+              address: accountInforL2Service?.tcAddress,
+              total_amount: baseMapping.token_supply as unknown as string,
+            } as unknown as ITokenomics,
+          ] as ITokenomics[];
+        }
+
+        return blockMapping.allocation as unknown as ITokenomics[];
+      };
+
+      // @ts-ignore
+      const defaultTokenomics = getTokenomicsDefault();
+
+      const body: IBodyCreateToken = {
+        name: baseMapping?.token_name as unknown as string,
+        symbol: baseMapping.token_symbol as unknown as string,
+        ...getTokenomics(defaultTokenomics),
+      };
+
+      const {
+        name,
+        symbol,
+        beneficiaries,
+        beneficiaryNames,
+        starts,
+        durations,
+        durationUnits,
+        amountTotals,
+        unvestAmounts,
+      } = body;
+
+      console.log('body', body);
+
+      let iface = new ethers.utils.Interface(TOKENABI.abi);
+
+      const calldata = iface.encodeDeploy([
+        name,
+        symbol,
+        beneficiaries,
+        beneficiaryNames,
+        starts,
+        durations,
+        durationUnits,
+        amountTotals,
+        unvestAmounts,
+      ]);
+
+      console.log('body', body);
+      console.log('calldata', calldata);
+
+      api.generateNewToken({
+        data_hex: calldata,
+        type: 'token',
+        network_id: Number(dappState?.chain?.chainId),
+      });
     } catch (error) {
       const { message } = getError(error);
       toast.error(message);
