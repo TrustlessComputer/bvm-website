@@ -15,11 +15,14 @@ import { IBodyCreateToken } from '@/modules/apps/CreateToken/contract/interface'
 import { getTokenomics, getTotalSupply } from '@/modules/apps/CreateToken/utils';
 import { ITokenomics } from '@/modules/apps/CreateToken/states/types';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import TOKENABI from '@/modules/apps/CreateToken/contract/abis/Token.json'
+import { ethers } from 'ethers';
 
 const useSubmitForm = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
   const dappState = useAppSelector(dappSelector);
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
+  console.log('accountInforL2Service', accountInforL2Service);
   console.log('dappState', dappState);
 
   const [isShowError, setIsShowError] = useState(false);
@@ -267,40 +270,48 @@ const useSubmitForm = () => {
       // @ts-ignore
       const defaultTokenomics = getTokenomicsDefault();
 
-      console.log('defaultTokenomics', defaultTokenomics);
-
       const body: IBodyCreateToken = {
         name: baseMapping?.token_name as unknown as string,
         symbol: baseMapping.token_symbol as unknown as string,
         ...getTokenomics(defaultTokenomics),
       };
 
+      const {
+        name,
+        symbol,
+        beneficiaries,
+        beneficiaryNames,
+        starts,
+        durations,
+        durationUnits,
+        amountTotals,
+        unvestAmounts,
+      } = body;
+
       console.log('body', body);
 
-      // const factory = new ContractFactory(
-      //   TOKENABI.abi,
-      //   TOKENABI.bytecode,
-      //   Wallet.createRandom()
-      // );
+      let iface = new ethers.utils.Interface(TOKENABI.abi);
 
-      // const rawTx = factory.getDeployTransaction(
-      //   name,
-      //   symbol,
-      //   beneficiaries,
-      //   beneficiaryNames,
-      //   starts,
-      //   durations,
-      //   durationUnits,
-      //   amountTotals,
-      //   unvestAmounts
-      // );
+      const calldata = iface.encodeDeploy([
+        name,
+        symbol,
+        beneficiaries,
+        beneficiaryNames,
+        starts,
+        durations,
+        durationUnits,
+        amountTotals,
+        unvestAmounts,
+      ]);
+
+      console.log('body', body);
+      console.log('calldata', calldata);
 
       api.generateNewToken({
-        data_hex: 'string',
+        data_hex: calldata,
         type: 'token',
         network_id: Number(dappState?.chain?.chainId)
       })
-
 
     } catch (error) {
       const { message } = getError(error);
