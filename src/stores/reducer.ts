@@ -11,6 +11,7 @@ import l2Services from '@/stores/states/l2services/reducer';
 import launchpad from '@/modules/Launchpad/store/reducer';
 import lpEAIPayment from '@/modules/Launchpad/store/lpEAIPayment/reducer';
 import referrals from '@/stores/states/referrals/reducer';
+import dapp from '@/stores/states/dapp/reducer';
 import createToken from '@/modules/apps/CreateToken/states/reducer';
 
 export default {
@@ -26,5 +27,6 @@ export default {
   launchpad,
   lpEAIPayment,
   referrals,
+  dapp,
   createToken
 };

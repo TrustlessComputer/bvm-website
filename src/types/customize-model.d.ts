@@ -25,7 +25,7 @@ interface IModelCategory {
   title: string;
   color: string;
   key: string;
-  type: '' | 'dropdown' | 'slide' | 'module';
+  type: '' | 'dropdown' | 'slide' | 'module' | 'input';
   required: boolean;
   options: IModelOption[];
   disable: boolean;
@@ -46,4 +46,78 @@ interface ChainInfos {
   image: string;
   name: string;
   url: string;
+}
+
+interface DappField {
+  key: string;
+  title: string;
+  type: 'input' | 'dropdown' | 'extends' | 'dynamic';
+  options?: { key: string; value: string | number }[];
+  dynamic?: {
+    key: string;
+    title: string;
+    type: 'input' | 'dropdown' | 'extends';
+    options?: { key: string; value: string | number }[];
+    extends?: {
+      key: string;
+      title: string;
+      type: 'input' | 'dropdown';
+      options?: { key: string; value: string | number }[];
+    }[];
+  }[];
+  extends?: {
+    key: string;
+    title: string;
+    type: 'input' | 'dropdown';
+    options?: { key: string; value: string | number }[];
+  }[];
+}
+
+interface DappCategory {
+  title: string;
+  key: string;
+  fields: DappField[];
+}
+
+interface FieldModel {
+  key: string;
+  icon: string;
+  title: string;
+  value: string | number;
+  type: 'input' | 'dropdown' | 'extends' | 'group' | '';
+  tooltip: string;
+  options: FieldModel[];
+}
+
+interface DappModel {
+  id: string;
+  key: string;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  icon: string;
+  order: number;
+  color: string;
+  tooltip: string;
+  baseBlock: {
+    key: string;
+    title: string;
+    icon: string;
+    placableAmount?: number;
+    fields: FieldModel[];
+  };
+  blockFields?: {
+    key: string;
+    title: string;
+    icon: string;
+    placableAmount: number;
+    fields: FieldModel[];
+  }[];
+  singleFields?: {
+    key: string;
+    title: string;
+    icon: string;
+    placableAmount: number;
+    fields: FieldModel[];
+  }[];
 }
