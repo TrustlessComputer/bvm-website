@@ -4,10 +4,34 @@
     position: relative;
     width: 100%;
     height: 80px;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background-color: #f85c01;
+      z-index: -1;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background-color: #0d87ff;
+      z-index: -1;
+    }
     img {
       width: 100%;
-      height: 100%;
+      height:  100%;
       object-fit: cover;
+      @include is-pc {
+        object-fit: contain;
+
+      }
     }
     &_btn {
       position: absolute;
@@ -24,9 +48,9 @@
       align-items: center;
       border-radius: 1000px;
       @include is-pc {
-        top: 45%;
+        top: 43%;
         right: 36%;
-        transform: translate(45%, -36%);
+        transform: translate(43%, -36%);
       }
     }
   }
