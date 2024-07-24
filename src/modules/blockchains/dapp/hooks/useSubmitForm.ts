@@ -348,8 +348,6 @@ const useSubmitForm = () => {
         unvestAmounts,
       } = body;
 
-      console.log('body', body);
-
       let iface = new ethers.utils.Interface(TOKENABI.abi);
 
       const calldata = iface.encodeDeploy([
