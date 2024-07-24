@@ -49,7 +49,7 @@ const RightDroppable = () => {
     formDappDropdownSignal.value = JSON.parse(JSON.stringify({}));
     formDappToggleSignal.value = JSON.parse(JSON.stringify({}));
     draggedIds2DSignal.value = draggedIds2DSignal.value
-      .map(() => null)
+      // .map(() => null)
       .filter((x) => x !== null);
   };
 

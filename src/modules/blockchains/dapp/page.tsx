@@ -103,7 +103,7 @@ const RollupsDappPage = () => {
 
     const draggedIds2D = draggedIds2DSignal.value;
     const noBaseBlockInOutput = draggedIds2D.length === 0;
-    const canPlaceMoreBase = thisDapp.baseBlock.placableAmount > draggedIds2D.length || thisDapp.baseBlock.placableAmount === -1;
+    const canPlaceMoreBase = Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length || thisDapp.baseBlock.placableAmount === -1;
 
     const overIsInput = over.id === 'input';
     const overIsOutput = over.id === 'output';
@@ -323,7 +323,7 @@ const RollupsDappPage = () => {
     formDappDropdownSignal.value = JSON.parse(JSON.stringify({}));
     formDappToggleSignal.value = JSON.parse(JSON.stringify({}));
     draggedIds2DSignal.value = draggedIds2DSignal.value
-      .map(() => null)
+      // .map(() => null)
       .filter((x) => x !== null);
     setCurrentIndexDapp(index);
   };

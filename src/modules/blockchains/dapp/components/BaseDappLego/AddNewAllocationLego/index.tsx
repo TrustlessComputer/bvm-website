@@ -13,25 +13,27 @@ const AddNewAllocationLego = ({ _key }: Props) => {
 
   if (Object.keys(thisDapp).length === 0 || !thisDapp) return null;
 
-  const addNewAllocation = React.useCallback(() => {
-    const optionalFieldsClone = JSON.parse(
-      JSON.stringify(thisDapp.optionalField[0]),
-    );
+  // const addNewAllocation = React.useCallback(() => {
+  //   const optionalFieldsClone = JSON.parse(
+  //     JSON.stringify(thisDapp?.optionalField[0]),
+  //   );
+  //
+  //   setFormDappsWithKey(_key, {
+  //     ...thisDapp,
+  //     optionalField: [...thisDapp?.optionalField, optionalFieldsClone],
+  //   });
+  // }, [_key, thisDapp]);
 
-    setFormDappsWithKey(_key, {
-      ...thisDapp,
-      optionalField: [...thisDapp.optionalField, optionalFieldsClone],
-    });
-  }, [_key, thisDapp]);
+  return null;
 
-  return (
-    <Lego
-      title="Add New Allocation"
-      titleInLeft
-      onClick={() => addNewAllocation()}
-      background={adjustBrightness(thisDapp.color, -20)}
-    />
-  );
+  // return (
+  //   <Lego
+  //     title="Add New Allocation"
+  //     titleInLeft
+  //     onClick={() => addNewAllocation()}
+  //     background={adjustBrightness(thisDapp.color, -20)}
+  //   />
+  // );
 };
 
 export default AddNewAllocationLego;

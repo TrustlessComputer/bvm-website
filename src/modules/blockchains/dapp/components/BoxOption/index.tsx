@@ -36,7 +36,7 @@ const BoxOption = ({ fieldKey }: Props) => {
 
     const draggedIds2D = draggedIds2DSignal.value;
     const canPlaceMoreBase =
-      thisDapp.baseBlock.placableAmount > draggedIds2D.length ||
+      Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
       thisDapp.baseBlock.placableAmount === -1;
 
     setDisableBaseBlock(!canPlaceMoreBase);
