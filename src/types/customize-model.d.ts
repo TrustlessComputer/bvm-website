@@ -35,6 +35,7 @@ interface IModelCategory {
   confuseTitle: string;
   confuseIcon: string;
   multiChoice: boolean;
+  hidden: boolean;
 }
 
 interface ITemplate {
