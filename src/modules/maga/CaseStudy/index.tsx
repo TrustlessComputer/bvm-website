@@ -46,7 +46,6 @@ const CaseStudy = () => {
       py={['80px']}
       minW="100%"
       justifyContent="space-between"
-      alignItems="center"
       direction={['column', 'row']}
     >
       <Flex gap={['24px']} direction="column">
@@ -58,12 +57,15 @@ const CaseStudy = () => {
           <Text className={s.title} as="h6">
             BITCOIN WARS
           </Text>
-          <Text className={s.description}>
-            Prepare your strategy and engage in the battle that will shape the
-            future of Bitcoin.
+          <Text className={s.description} maxW={['auto', '460px']}>
+            Gear up for an epic adventure and strategize your way to victory in
+            Bitcoin Wars, an incredibly fun onchain game on Bitcoin.
           </Text>
-          <Text className={s.description}>
-            Starting at the Bitcoin 2024 Conference in Nashville.
+          <Text className={s.description} maxW={['auto', '470px']}>
+            Launching at the Bitcoin 2024 Conference in Nashville.
+          </Text>
+          <Text className={s.description} maxW={['auto', '460px']}>
+            Be the first to join the action!
           </Text>
         </Flex>
         <Flex gap="24px">
