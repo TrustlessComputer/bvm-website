@@ -46,67 +46,68 @@ const useSubmitForm = () => {
     return dapps[currentIndexDapp] || {};
   }, [dapps, currentIndexDapp]);
 
+  async function extractedValue(
+    keys: string[],
+    data: Record<string, any>,
+    result: Record<string, { key: string; value: string }[]>,
+  ) {
+    for (const key of keys) {
+      const blockKey = FormDappUtil.getBlockKey(key);
+      const getOriginalKey = FormDappUtil.getOriginalKey(key);
+      const getIndex = FormDappUtil.getIndex(key);
+      const value = data[key];
+
+      if (blockKey) {
+        let block = result[blockKey];
+        if (!block) {
+          result[blockKey] = [];
+        }
+
+        const blockItem = result[blockKey][getIndex];
+        if (!blockItem) {
+          const temp = {};
+          // @ts-ignore
+          temp[getOriginalKey] = value;
+          // @ts-ignore
+          result[blockKey][getIndex] = { ...temp };
+        } else {
+          const temp = { ...blockItem };
+          // @ts-ignore
+          temp[getOriginalKey] = value;
+          result[blockKey][getIndex] = { ...temp };
+        }
+      } else {
+        result[getOriginalKey] = value;
+      }
+    }
+
+    return result;
+  }
+
   const onSubmitFormStaking = async () => {
     try {
-      const finalForm = JSON.parse(JSON.stringify(thisDapp)) as DappModel;
-
-      const formDappInput = formDappInputSignal.value;
-      const formDappInputInBase = Object.keys(formDappInput).filter(
-        (key) =>
-          !FormDappUtil.isInBlock(key) &&
-          !FormDappUtil.isInSingle(key) &&
-          !FormDappUtil.isExtendsField(key),
+      let finalFormMapping: Record<string, { key: string; value: string }[]> =
+        {};
+      const formDapp = formDappSignal.value;
+      const formDappInBase = Object.keys(formDapp).filter(
+        (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
       );
 
-      const formDappDropdown = formDappDropdownSignal.value;
-      const formDappDropdownInBase = Object.keys(formDappDropdown).filter(
-        (key) =>
-          !FormDappUtil.isInBlock(key) &&
-          !FormDappUtil.isInSingle(key) &&
-          !FormDappUtil.isExtendsField(key),
+      finalFormMapping = await extractedValue(
+        formDappInBase,
+        formDapp,
+        finalFormMapping,
       );
-
-      const newInputInBase = formDappInputInBase.map((key) => {
-        return {
-          ...(thisDapp.baseBlock.fields.find(
-            (item) => item.key === FormDappUtil.getOriginalKey(key),
-          ) as FieldModel),
-          value: formDappInput[key],
-        };
-      });
-      const newDropdownInBase = formDappDropdownInBase.map((key) => {
-        return {
-          ...(thisDapp.baseBlock.fields.find(
-            (item) => item.key === FormDappUtil.getOriginalKey(key),
-          ) as FieldModel),
-          value: formDappDropdown[key],
-        };
-      });
-
-      finalForm.baseBlock.fields = [
-        ...thisDapp.baseBlock.fields.filter(
-          (item) =>
-            !newInputInBase.find((i) => i.key === item.key) &&
-            !newDropdownInBase.find((i) => i.key === item.key),
-        ),
-        ...newInputInBase,
-        ...newDropdownInBase,
-      ];
-
-      const finalFormMapping: Record<string, FieldModel> = {};
-      (finalForm?.baseBlock?.fields || []).forEach((item) => {
-        finalFormMapping[item.key] = item;
-      });
 
       setErrorData([]);
       let errors: any[] = [];
-      if (Number(finalFormMapping?.rate?.value) <= 0) {
+      if (Number(finalFormMapping?.rate) <= 0) {
         errors.push({ key: 'Rate', error: 'Rate is required!' });
       }
-      if (Number(finalFormMapping?.apr?.value) <= 0) {
+      if (Number(finalFormMapping?.apr) <= 0) {
         errors.push({ key: 'APR', error: 'APR is required!' });
       }
-      if (Number(finalFormMapping?.amount?.value) <= 0) {
+      if (Number(finalFormMapping?.amount) <= 0) {
         errors.push({
           key: 'Reward amount',
           error: 'Reward amount is required!',
@@ -123,15 +124,15 @@ const useSubmitForm = () => {
       setLoading(true);
 
       const data = await cStakeAPI.createNewStakingPool({
-        principle_token: finalFormMapping?.staking_token?.value,
-        reward_token: finalFormMapping?.reward_token?.value,
-        base_ratio: Number(finalFormMapping?.apr?.value) / 100,
-        token_price: 1 / Number(finalFormMapping?.rate?.value),
+        principle_token: '0x6739fFe5Ac4fe27d25B42CC28E7a40DF7a512a09', // finalFormMapping?.staking_token?.value,
+        reward_token: '0x6739fFe5Ac4fe27d25B42CC28E7a40DF7a512a09', // finalFormMapping?.reward_token?.value,
+        base_ratio: Number(finalFormMapping?.apr) / 100,
+        token_price: 1 / Number(finalFormMapping?.rate),
       });
 
       if (data && data.reward_pool_address) {
         setTopupInfo({
-          amount: formatCurrency(Number(finalFormMapping?.amount?.value), 0, 0),
+          amount: formatCurrency(Number(finalFormMapping?.amount), 0, 0),
           tokenSymbol: data.reward_token?.symbol,
           tokenAddress: data.reward_token_address,
           paymentAddress: data.reward_pool_address,
@@ -148,44 +149,6 @@ const useSubmitForm = () => {
   };
 
   const onSubmitFormTokenGeneration = async () => {
-    async function extractedValue(
-      keys: string[],
-      data: Record<string, any>,
-      result: Record<string, { key: string; value: string }[]>,
-    ) {
-      for (const key of keys) {
-        const blockKey = FormDappUtil.getBlockKey(key);
-        const getOriginalKey = FormDappUtil.getOriginalKey(key);
-        const getIndex = FormDappUtil.getIndex(key);
-        const value = data[key];
-
-        if (blockKey) {
-          let block = result[blockKey];
-          if (!block) {
-            result[blockKey] = [];
-          }
-
-          const blockItem = result[blockKey][getIndex];
-          if (!blockItem) {
-            const temp = {};
-            // @ts-ignore
-            temp[getOriginalKey] = value;
-            // @ts-ignore
-            result[blockKey][getIndex] = { ...temp };
-          } else {
-            const temp = { ...blockItem };
-            // @ts-ignore
-            temp[getOriginalKey] = value;
-            result[blockKey][getIndex] = { ...temp };
-          }
-        } else {
-          result[getOriginalKey] = value;
-        }
-      }
-
-      return result;
-    }
-
     try {
       let baseMapping: Record<string, { key: string; value: string }[]> = {};
       let blockMapping: Record<string, { key: string; value: string }[]> = {};
