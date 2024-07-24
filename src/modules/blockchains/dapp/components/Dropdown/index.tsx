@@ -9,7 +9,10 @@ import ImagePlaceholder from '@/components/ImagePlaceholder';
 import { FieldOption } from '../../types';
 import { adjustBrightness, FormDappUtil } from '../../utils';
 import { useFormDappsStore } from '../../stores/useDappStore';
-import { formDappDropdownSignal } from '../../signals/useFormDappsSignal';
+import {
+  formDappDropdownSignal,
+  formDappSignal,
+} from '../../signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
 
@@ -41,10 +44,10 @@ const Dropdown = ({
   const backgroundActive = adjustBrightness(background, -20);
 
   const handleOnClickOption = (item: FieldModel) => {
-    const formDappDropdown = formDappDropdownSignal.value;
+    const formDappDropdown = formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
-    formDappDropdownSignal.value = {
+    formDappSignal.value = {
       ...formDappDropdown,
       [key]: item.value,
     };
@@ -55,7 +58,7 @@ const Dropdown = ({
 
   useSignalEffect(() => {
     const thisValue =
-      formDappDropdownSignal.value[FormDappUtil.getKeyForm(props, props, name)];
+      formDappSignal.value[FormDappUtil.getKeyForm(props, props, name)];
 
     if (thisValue && thisValue !== currentValue?.value) {
       setCurrentValue(
@@ -66,11 +69,11 @@ const Dropdown = ({
   });
 
   React.useEffect(() => {
-    const formDappDropdown = formDappDropdownSignal.value;
+    const formDappDropdown = formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
     if (!formDappDropdown[key]) {
-      formDappDropdownSignal.value = {
+      formDappSignal.value = {
         ...formDappDropdown,
         [key]: props.options[0].value,
       };

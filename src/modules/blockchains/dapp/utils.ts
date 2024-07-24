@@ -120,6 +120,10 @@ export const FormDappUtil = {
     return Number(key.split('-')[0]);
   },
 
+  getLevel(key: string) {
+    return Number(key.split('-')[3]);
+  },
+
   getIndex(key: string) {
     return Number(key.split('-')[4]);
   },

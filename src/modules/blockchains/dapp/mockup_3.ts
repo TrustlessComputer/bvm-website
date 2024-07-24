@@ -15,14 +15,14 @@ export const dappMockupData: DappModel[] = [
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         title: 'Information',
         tooltip: 'Token Generation information',
-        required: true
+        required: true,
       },
       {
         key: 'tokenomics',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         title: 'Tokenomics',
         tooltip: 'Token Generation tokenomics',
-        required: false
+        required: false,
       },
     ],
     baseBlock: {
@@ -294,7 +294,7 @@ export const dappMockupData: DappModel[] = [
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         title: 'Information',
         tooltip: '',
-        required: true
+        required: true,
       },
     ],
     baseBlock: {
@@ -391,14 +391,14 @@ export const dappMockupData: DappModel[] = [
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         title: 'Information',
         tooltip: '',
-        required: true
+        required: true,
       },
       {
         key: 'actions',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         title: 'Actions',
         tooltip: '',
-        required: false
+        required: false,
       },
     ],
     baseBlock: {
@@ -590,3 +590,27 @@ export const dappMockupData: DappModel[] = [
     ],
   },
 ];
+
+// <baseIndex>-<type>-<fieldKey>-<level>-<index>-<blockKey>
+export const dappTemplateFormMockupData = {
+  dappKey: 'token_generation',
+  fieldValue: {
+    '0-base-token_name-0': 'BVM',
+    '0-base-token_supply-0': '1000000000',
+    '0-base-token_symbol-0': 'BVM',
+    '0-block-vesting-0-0-allocation': true,
+    '0-block-address-0-0-allocation': '0x1234',
+    '0-block-amount-0-0-allocation': '1000000',
+    '0-block-cliff_value-1-0-allocation': 'day',
+    '0-block-cliff_amount-1-0-allocation': '30',
+    '0-block-duration_value-1-0-allocation': 'day',
+    '0-block-duration_amount-1-0-allocation': '90',
+
+    '1-base-token_name-0': 'Meta',
+    '1-base-token_supply-0': '1000000000',
+    '1-base-token_symbol-0': 'META',
+    '1-block-address-0-0-allocation': '0x1234',
+    '1-block-amount-0-0-allocation': '1000000',
+    '1-block-vesting-0-0-allocation': false,
+  },
+};

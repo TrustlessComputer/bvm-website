@@ -238,11 +238,6 @@ const RightDroppable = () => {
                       })}
 
                       {ids.map((item, blockIndex) => {
-                        console.log(
-                          blockFieldMapping,
-                          DragUtil.getOriginalKey(item.name),
-                        );
-
                         if (DragUtil.idDraggingIsABlock(item.name)) {
                           return (
                             <Draggable

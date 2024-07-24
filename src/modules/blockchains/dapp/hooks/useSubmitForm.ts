@@ -8,7 +8,9 @@ import toast from 'react-hot-toast';
 import { TopUpDappInfor } from '../components/TopupModal';
 import {
   formDappDropdownSignal,
-  formDappInputSignal, formDappToggleSignal,
+  formDappInputSignal,
+  formDappSignal,
+  formDappToggleSignal,
 } from '../signals/useFormDappsSignal';
 import useDappsStore from '../stores/useDappStore';
 import { FormDappUtil } from '../utils';
@@ -133,14 +135,18 @@ const useSubmitForm = () => {
   };
 
   const onSubmitFormTokenGeneration = async () => {
-    async function extractedValue(keys: string[], data: Record<string, any>, result: Record<string, { key: string; value: string }[]>) {
+    async function extractedValue(
+      keys: string[],
+      data: Record<string, any>,
+      result: Record<string, { key: string; value: string }[]>,
+    ) {
       for (const key of keys) {
         const blockKey = FormDappUtil.getBlockKey(key);
         const getOriginalKey = FormDappUtil.getOriginalKey(key);
         const getIndex = FormDappUtil.getIndex(key);
         const value = data[key];
 
-        if(blockKey) {
+        if (blockKey) {
           let block = result[blockKey];
           if (!block) {
             result[blockKey] = [];
@@ -171,21 +177,44 @@ const useSubmitForm = () => {
       let baseMapping: Record<string, { key: string; value: string }[]> = {};
       let blockMapping: Record<string, { key: string; value: string }[]> = {};
 
-      const formDappInput = formDappInputSignal.value;
-      const formDappInputInBase = Object.keys(formDappInput).filter((key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key) && !FormDappUtil.isExtendsField(key));
-      const formDappInputInBlock = Object.keys(formDappInput).filter(FormDappUtil.isInBlock);
+      const formDapp = formDappSignal.value;
+      const formDappInBase = Object.keys(formDapp).filter(
+        (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
+      );
+      const formDappInBlock = Object.keys(formDapp).filter(
+        FormDappUtil.isInBlock,
+      );
+      const formDappInSingle = Object.keys(formDapp).filter(
+        FormDappUtil.isInSingle,
+      );
 
-      const formDappDropdown = formDappDropdownSignal.value;
-      const formDappDropdownInBlock = Object.keys(formDappDropdown).filter(FormDappUtil.isInBlock);
+      baseMapping = await extractedValue(formDappInBase, formDapp, baseMapping);
+      blockMapping = await extractedValue(
+        formDappInBlock,
+        formDapp,
+        blockMapping,
+      );
+      blockMapping = await extractedValue(
+        formDappInSingle,
+        formDapp,
+        blockMapping,
+      );
 
-      const formDappToogle = formDappToggleSignal.value;
-      const formDappToogleInBlock = Object.keys(formDappToogle).filter(FormDappUtil.isInBlock);
+      // const formDappInput = formDappInputSignal.value;
+      // const formDappInputInBase = Object.keys(formDappInput).filter((key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key) && !FormDappUtil.isExtendsField(key));
+      // const formDappInputInBlock = Object.keys(formDappInput).filter(FormDappUtil.isInBlock);
 
-      baseMapping = await extractedValue(formDappInputInBase, formDappInput, baseMapping);
+      // const formDappDropdown = formDappDropdownSignal.value;
+      // const formDappDropdownInBlock = Object.keys(formDappDropdown).filter(FormDappUtil.isInBlock);
 
-      blockMapping = await extractedValue(formDappInputInBlock, formDappInput, blockMapping);
-      blockMapping = await extractedValue(formDappDropdownInBlock, formDappDropdown, blockMapping);
-      blockMapping = await extractedValue(formDappToogleInBlock, formDappToogle, blockMapping);
+      // const formDappToogle = formDappToggleSignal.value;
+      // const formDappToogleInBlock = Object.keys(formDappToogle).filter(FormDappUtil.isInBlock);
+
+      // baseMapping = await extractedValue(formDappInputInBase, formDappInput, baseMapping);
+
+      // blockMapping = await extractedValue(formDappInputInBlock, formDappInput, blockMapping);
+      // blockMapping = await extractedValue(formDappDropdownInBlock, formDappDropdown, blockMapping);
+      // blockMapping = await extractedValue(formDappToogleInBlock, formDappToogle, blockMapping);
 
       setErrorData([]);
       let errors: any[] = [];
@@ -193,10 +222,16 @@ const useSubmitForm = () => {
         errors.push({ key: 'token_name', error: 'Token name is required!' });
       }
       if (!baseMapping?.token_symbol || isEmpty(baseMapping?.token_symbol)) {
-        errors.push({ key: 'token_symbol', error: 'Token symbol is required!' });
+        errors.push({
+          key: 'token_symbol',
+          error: 'Token symbol is required!',
+        });
       }
       if (!baseMapping?.token_supply || isEmpty(baseMapping?.token_supply)) {
-        errors.push({ key: 'token_supply', error: 'Token supply is required!' });
+        errors.push({
+          key: 'token_supply',
+          error: 'Token supply is required!',
+        });
       } else if (isNaN(Number(baseMapping?.token_supply))) {
         errors.push({ key: 'token_supply', error: 'Token supply is number!' });
       } else if (Number(baseMapping?.token_supply) <= 0) {
@@ -213,21 +248,39 @@ const useSubmitForm = () => {
           const index = blocks.indexOf(block) + 1;
 
           if (!blockTemp?.name || isEmpty(blockTemp?.name)) {
-            errors.push({ key: 'tokenomic_name', error: `Tokenomic #${index} name is required!` });
+            errors.push({
+              key: 'tokenomic_name',
+              error: `Tokenomic #${index} name is required!`,
+            });
           }
           if (!blockTemp?.amount || isEmpty(blockTemp?.amount)) {
-            errors.push({ key: 'tokenomic_amount', error: `Tokenomic #${index} amount is required!` });
+            errors.push({
+              key: 'tokenomic_amount',
+              error: `Tokenomic #${index} amount is required!`,
+            });
           }
           if (!blockTemp?.address || isEmpty(blockTemp?.address)) {
-            errors.push({ key: 'tokenomic_address', error: `Tokenomic #${index} address is required!` });
+            errors.push({
+              key: 'tokenomic_address',
+              error: `Tokenomic #${index} address is required!`,
+            });
           }
 
-          if(blockTemp?.vesting) {
+          if (blockTemp?.vesting) {
             if (!blockTemp?.cliff_amount || isEmpty(blockTemp?.cliff_amount)) {
-              errors.push({ key: 'tokenomic_cliff_amount', error: `Tokenomic #${index} cliff amount is required!` });
+              errors.push({
+                key: 'tokenomic_cliff_amount',
+                error: `Tokenomic #${index} cliff amount is required!`,
+              });
             }
-            if (!blockTemp?.duration_amount || isEmpty(blockTemp?.duration_amount)) {
-              errors.push({ key: 'tokenomic_duration_amount', error: `Tokenomic #${index} duration amount is required!` });
+            if (
+              !blockTemp?.duration_amount ||
+              isEmpty(blockTemp?.duration_amount)
+            ) {
+              errors.push({
+                key: 'tokenomic_duration_amount',
+                error: `Tokenomic #${index} duration amount is required!`,
+              });
             }
           }
         }
@@ -241,15 +294,13 @@ const useSubmitForm = () => {
         setIsShowError(true);
         return;
       }
-
-
     } catch (error) {
       const { message } = getError(error);
       toast.error(message);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const onSubmitForm = () => {
     switch (thisDapp?.key) {

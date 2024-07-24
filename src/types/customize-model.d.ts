@@ -122,3 +122,8 @@ interface DappModel {
   singleFields?: BlockModel[];
   sections: SectionModel[];
 }
+
+interface TemplateForm {
+  dappKey: string;
+  fieldValue: Record<string, any>;
+}

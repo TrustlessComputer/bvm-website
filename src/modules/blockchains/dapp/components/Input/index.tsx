@@ -3,7 +3,10 @@ import { useSignalEffect } from '@preact/signals-react';
 
 import { FormDappUtil } from '../../utils';
 import { FieldOption } from '../../types';
-import { formDappInputSignal } from '../../signals/useFormDappsSignal';
+import {
+  formDappInputSignal,
+  formDappSignal,
+} from '../../signals/useFormDappsSignal';
 import useDappsStore, { useFormDappsStore } from '../../stores/useDappStore';
 
 import styles from './styles.module.scss';
@@ -18,10 +21,10 @@ const Input = ({ name, dappKey, placeholder, ...props }: Props) => {
   const [value, setValue] = React.useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formDappInput = formDappInputSignal.value;
+    const formDappInput = formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
-    formDappInputSignal.value = {
+    formDappSignal.value = {
       ...formDappInput,
       [key]: e.target.value,
     };
@@ -29,7 +32,7 @@ const Input = ({ name, dappKey, placeholder, ...props }: Props) => {
 
   useSignalEffect(() => {
     const thisValue =
-      formDappInputSignal.value[FormDappUtil.getKeyForm(props, props, name)];
+      formDappSignal.value[FormDappUtil.getKeyForm(props, props, name)];
 
     if (typeof thisValue !== 'undefined' && thisValue !== value) {
       setValue(thisValue || '');
@@ -37,11 +40,11 @@ const Input = ({ name, dappKey, placeholder, ...props }: Props) => {
   });
 
   React.useEffect(() => {
-    const formDappInput = formDappInputSignal.value;
+    const formDappInput = formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
     if (typeof formDappInput[key] === 'undefined') {
-      formDappInputSignal.value = {
+      formDappSignal.value = {
         ...formDappInput,
         [key]: '',
       };
