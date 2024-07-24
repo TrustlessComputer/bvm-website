@@ -1,6 +1,6 @@
 import { useParams } from 'next/navigation';
 import CDappAPI from '@/services/api/dapp';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 
@@ -19,6 +19,16 @@ const useFetchDapp = () => {
   React.useEffect(() => {
     fetchData();
   }, []);
+
+  const fetchTokenList = async () => {
+    await dappAPI.getListToken(dappState?.chain?.chainId as string);
+  }
+
+  useEffect(() => {
+    if(dappState?.chain?.chainId) {
+      fetchTokenList();
+    }
+  }, [dappState]);
 
   return {
     loading: dappState.loading,

@@ -1,43 +1,20 @@
 import React from 'react';
-import {
-  DndContext,
-  DragEndEvent,
-  DragStartEvent,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
+import { DndContext, DragEndEvent, DragStartEvent, useSensor, useSensors } from '@dnd-kit/core';
 import Image from 'next/image';
 
-import {
-  compareKeyInFormDappAndDrag,
-  DragUtil,
-  FormDappUtil,
-  MouseSensor,
-  removeItemAtIndex,
-} from './utils';
+import { DragUtil, FormDappUtil, MouseSensor, removeItemAtIndex } from './utils';
 import { dappMockupData, dappTemplateFormMockupData } from './mockup_3';
 import { FieldKeyPrefix } from './contants';
 import LeftDroppable from './components/LeftDroppable';
 import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
-import Button from './components/Button';
 import Sidebar from './components/Sidebar';
-import useDappsStore, {
-  subScribeDropEnd,
-  useFormDappsStore,
-  useTemplateFormStore,
-} from './stores/useDappStore';
-import { draggedIds2DSignal, draggedIdsSignal } from './signals/useDragSignal';
-import {
-  formDappDropdownSignal,
-  formDappInputSignal,
-  formDappSignal,
-  formDappToggleSignal,
-} from './signals/useFormDappsSignal';
+import useDappsStore, { subScribeDropEnd, useTemplateFormStore } from './stores/useDappStore';
+import { draggedIds2DSignal } from './signals/useDragSignal';
+import { formDappSignal } from './signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
-import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 
