@@ -8,6 +8,8 @@ import axios, {
 } from "axios";
 import { isProduction } from '@utils/common';
 import { store } from '@/stores';
+import LocalStorage from '@/libs/localStorage';
+import { STORAGE_KEYS } from '@constants/storage-key';
 
 export const IGNORE_ADDRESS_TEXT = '';
 
@@ -29,8 +31,9 @@ class CDappApiClient {
     this.api.interceptors.request.use(
       (config: any) => {
         const _config = config;
+        const accessToken: string = LocalStorage.getItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2);
 
-        // _config.headers.Authorization = `Bearer ${AuthenStorage.getWalletToken()}`;
+        _config.headers.Authorization = `${accessToken}`;
         let params = _config?.params;
         if (!params) {
           params = {};
