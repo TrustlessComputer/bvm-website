@@ -79,6 +79,14 @@ interface DappCategory {
   fields: DappField[];
 }
 
+interface SectionModel {
+  key: string;
+  icon: string;
+  title: string;
+  tooltip: string;
+  required: boolean;
+}
+
 interface FieldModel {
   key: string;
   icon: string;
@@ -87,6 +95,16 @@ interface FieldModel {
   type: 'input' | 'dropdown' | 'extends' | 'group' | '';
   tooltip: string;
   options: FieldModel[];
+  placeholder?: string;
+}
+
+interface BlockModel {
+  key: string;
+  title: string;
+  icon: string;
+  placableAmount?: number;
+  fields: FieldModel[];
+  section: string;
 }
 
 interface DappModel {
@@ -99,25 +117,13 @@ interface DappModel {
   order: number;
   color: string;
   tooltip: string;
-  baseBlock: {
-    key: string;
-    title: string;
-    icon: string;
-    placableAmount?: number;
-    fields: FieldModel[];
-  };
-  blockFields?: {
-    key: string;
-    title: string;
-    icon: string;
-    placableAmount: number;
-    fields: FieldModel[];
-  }[];
-  singleFields?: {
-    key: string;
-    title: string;
-    icon: string;
-    placableAmount: number;
-    fields: FieldModel[];
-  }[];
+  baseBlock: BlockModel;
+  blockFields?: BlockModel[];
+  singleFields?: BlockModel[];
+  sections: SectionModel[];
+}
+
+interface TemplateForm {
+  dappKey: string;
+  fieldValue: Record<string, any>;
 }

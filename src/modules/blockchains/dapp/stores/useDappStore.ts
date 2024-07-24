@@ -8,6 +8,11 @@ type UseDappsSlice = {
   setDapps: (dapps: DappModel[]) => void;
 };
 
+type UseTemplateFormSlice = {
+  templateForm: TemplateForm | null;
+  setTemplateForm: (templateForm: TemplateForm | null) => void;
+};
+
 type UseFormDappsSlice = {
   formDapps: Record<string, DappModel>;
   setFormDapps: (formDapps: Record<string, DappModel>) => void;
@@ -16,6 +21,7 @@ type UseFormDappsSlice = {
 
 type UseDappStore = UseDappsSlice;
 type UseFormDappStore = UseFormDappsSlice;
+type UseTemplateFormStore = UseTemplateFormSlice;
 
 const useDappsSlice: StateCreator<UseDappsSlice> = (set) => ({
   currentIndexDapp: 0,
@@ -36,6 +42,11 @@ const useDappFormSlice: StateCreator<UseFormDappsSlice> = (set) => ({
     })),
 });
 
+const useTemplateFormSlice: StateCreator<UseTemplateFormSlice> = (set) => ({
+  templateForm: null,
+  setTemplateForm: (templateForm) => set({ templateForm }),
+});
+
 const useDappsStore = create<UseDappStore>((...set) => ({
   ...useDappsSlice(...set),
   // ...useDappFormSlice(...set),
@@ -43,6 +54,10 @@ const useDappsStore = create<UseDappStore>((...set) => ({
 
 export const useFormDappsStore = create<UseFormDappStore>((...set) => ({
   ...useDappFormSlice(...set),
+}));
+
+export const useTemplateFormStore = create<UseTemplateFormStore>((...set) => ({
+  ...useTemplateFormSlice(...set),
 }));
 
 export const subScribeDropEnd = signal<number>(0);

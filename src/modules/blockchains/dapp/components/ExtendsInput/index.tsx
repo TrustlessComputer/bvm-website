@@ -8,7 +8,10 @@ import Dropdown from '../Dropdown';
 import useDappsStore from '../../stores/useDappStore';
 import { FieldOption } from '../../types';
 import { adjustBrightness, FormDappUtil } from '../../utils';
-import { formDappToggleSignal } from '../../signals/useFormDappsSignal';
+import {
+  formDappSignal,
+  formDappToggleSignal,
+} from '../../signals/useFormDappsSignal';
 
 type Props = FieldModel &
   FieldOption & {
@@ -56,8 +59,8 @@ const ExtendsInput = ({ ...props }: Props) => {
   const handleToggle = () => {
     setToggle(!toggle);
     const key = FormDappUtil.getKeyForm(props, props, name);
-    formDappToggleSignal.value = {
-      ...formDappToggleSignal.value,
+    formDappSignal.value = {
+      ...formDappSignal.value,
       [key]: !toggle,
     };
   };
@@ -65,13 +68,13 @@ const ExtendsInput = ({ ...props }: Props) => {
   React.useEffect(() => {
     if (type !== 'extends') return;
 
-    const formDappToggle = formDappToggleSignal.value;
+    const formDappToggle = formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
     if (typeof formDappToggle[key] !== 'undefined') {
       setToggle(formDappToggle[key]);
     } else {
-      formDappToggleSignal.value = {
+      formDappSignal.value = {
         ...formDappToggle,
         [key]: false,
       };
@@ -97,7 +100,7 @@ const ExtendsInput = ({ ...props }: Props) => {
             keyDapp={thisDapp.key}
             name={field.key}
             options={field.options}
-            background={adjustBrightness(background, -40)}
+            background={adjustBrightness(background, -20)}
           />
         );
       } else if (field.type === 'group') {
