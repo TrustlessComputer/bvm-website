@@ -16,7 +16,7 @@ import styles from './styles.module.scss';
 type Props = {};
 
 const Sidebar = ({}: Props) => {
-  const { dapps, setCurrentIndexDapp } = useDappsStore();
+  const { dapps, setCurrentIndexDapp, currentIndexDapp } = useDappsStore();
 
   const [isShowModal, setIsShowModal] = React.useState(false);
   const [selectedDappIndex, setSelectedDappIndex] = React.useState<
@@ -25,7 +25,10 @@ const Sidebar = ({}: Props) => {
 
   const handleSelectDapp = (index: number) => {
     setSelectedDappIndex(index);
-    setIsShowModal(true);
+
+    if(currentIndexDapp !== index) {
+      setIsShowModal(true);
+    }
   };
 
   const changeDapp = () => {
