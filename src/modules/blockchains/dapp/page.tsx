@@ -129,6 +129,9 @@ const RollupsDappPage = () => {
             parentNames: [],
           },
         ];
+
+        console.log(draggedIds2D);
+
         draggedIds2DSignal.value = [...draggedIds2D];
 
         return;
@@ -282,18 +285,19 @@ const RollupsDappPage = () => {
   //     const field = baseMapping[key] ?? blockMapping[key] ?? singleMapping[key];
 
   //     if (!draggedIds2D[baseIndex][index] && (isInBlock || isInSingle)) {
+  //       const _key = isInBlock ? blockKey : key;
   //       const prefix =
-  //         'right-' + isInBlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE;
+  //         'right-' + (isInBlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
+
   //       draggedIds2D[baseIndex] = [
   //         ...draggedIds2D[baseIndex],
   //         {
-  //           name: prefix + '-' + key,
+  //           name: prefix + '-' + _key,
   //           value: '',
   //           parentNames: [],
   //         },
   //       ];
   //     }
-  //     draggedIds2DSignal.value = [...draggedIds2D];
 
   //     formDapp = {
   //       ...formDapp,
@@ -301,8 +305,11 @@ const RollupsDappPage = () => {
   //     };
   //   });
 
+  //   console.log(draggedIds2D);
+
   //   draggedIds2DSignal.value = [...draggedIds2D];
   //   formDappSignal.value = { ...formDapp };
+
   //   setCurrentIndexDapp(dappIndex);
   // }, [templateForm]);
 
