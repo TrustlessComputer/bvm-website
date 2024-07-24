@@ -21,8 +21,8 @@ const SUBJECT_LIST = [
   `Others`,
 ];
 
-const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
-  const [subject, setSubject] = useState(3);
+const ContactUsModal = ({ isShow, onHide, onSuccesCB,  subjectDefault, params }: any) => {
+  const [subject, setSubject] = useState(subjectDefault);
   const { tracking } = useL2ServiceTracking();
 
   const [yourXAcc, setYourXAcc] = useState('');
@@ -125,9 +125,14 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
       >
         <div className={s.modalContent_inner}>
           <Flex direction={'column'} padding={'28px'} color={'black'} backgroundColor={'#fff'} gap={'20px'}>
-            <Text fontSize={['18px', '20px', '24px']} fontWeight={500}>
-              How can we help you?
-            </Text>
+            <div>
+              <Text fontSize={['18px', '20px', '24px']} fontWeight={500}>
+                Get a personalized demo
+              </Text>
+              <Text fontSize={['14', '16']} fontWeight={400}>
+                Help us tailor the demo experience to your needs.
+              </Text>
+            </div>
 
             <Flex
               direction={'column'}
@@ -381,12 +386,14 @@ const ContactUsModal = ({ isShow, onHide, onSuccesCB, params }: any) => {
           </Flex>
           <Flex direction={'column'} padding={'28px'} justifyContent={'center'} alignItems={'center'} color={'black'}
                 backgroundColor={'#F4F4F4'} gap={'20px'}>
-            <Text fontSize={['32px']} fontWeight={500}>
-              Build with the Best
-            </Text>
-            <Text fontSize={['18px']} fontWeight={400} textAlign={'center'}>
-              Build your blockchain with ease using modules from the biggest names in the industry.
-            </Text>
+            <div>
+              <Text fontSize={['24px', '32px']} fontWeight={500} textTransform={'uppercase'} textAlign={'center'}>
+                Build with the Best
+              </Text>
+              <Text fontSize={['18px']} fontWeight={400} textAlign={'center'}>
+                Build your blockchain with ease using modules from industry leaders.
+              </Text>
+            </div>
             <div className={s.brand}>
               {DATA_BRAND.map((item) => {
                 return (

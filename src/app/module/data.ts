@@ -384,7 +384,7 @@ export const MODULE_DATAS = {
     hero: {
       theme:
         'linear-gradient(180deg, rgba(255, 132, 86, 0.80) -5.57%, rgba(255, 132, 86, 0.00) 98.47%)',
-      title: 'BVM Studio',
+      title: 'Bitcoin Studio',
       subTitle: 'TOOLS',
       desc: 'A fun way to customize your blockchain to meet your needs.',
       start: {
@@ -393,11 +393,11 @@ export const MODULE_DATAS = {
       },
     },
     why: {
-      title: 'Why BVM Studio?',
-      desc: `No code required! BVM Studio makes it fun and accessible for anyone to create a blockchain tailored to their needs.`,
+      title: 'Why Bitcoin Studio?',
+      desc: `No code required! Bitcoin Studio makes it fun and accessible for anyone to create a blockchain tailored to their needs.`,
     },
     benefit: {
-      title: 'Benefits of BVM Studio',
+      title: 'Benefits of Bitcoin Studio',
       contents: [
         {
           title: 'No code required',

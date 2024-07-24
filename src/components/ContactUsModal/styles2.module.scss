@@ -418,13 +418,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  padding: 0 45px;
+  gap: 14px;
+  padding: 0 15px;
   &_item {
     align-items: center;
 
     &_img {
-      max-width: 90px;
+      max-width: 112px;
       object-fit: contain;
       height: auto;
     }

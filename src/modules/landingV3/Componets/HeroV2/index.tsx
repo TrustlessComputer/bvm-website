@@ -29,7 +29,8 @@ export default function HeroV2() {
           </h3>
           <div className={s.desc}>
             <p>
-              Join the wave of developers building blockchains and decentralized applications. With its simple and intuitive interface, our blockchain platform is the perfect starting point for your blockchain journey.
+              Join the wave of developers building blockchains and decentralized applications. With its simple and
+              intuitive interface, our blockchain platform is the perfect starting point for your blockchain journey.
             </p>
           </div>
           <div className={s.groupBtn}>
@@ -42,7 +43,9 @@ export default function HeroV2() {
             >
               Get started
             </div>
-            <div className={`${s.btn} ${s.btn__secondary}`} onClick={showContactUsModal}>
+            <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
+              showContactUsModal({ subjectDefault: 0 });
+            }}>
               Contact us
               <IcArrowRight />
             </div>
@@ -51,8 +54,8 @@ export default function HeroV2() {
         <div className={s.imageHero} onClick={() => setIsOpenModalVideo(true)}>
           {!isOpenModalVideo &&
             <Image className={s.imagePreload} src={'/thumbnail_video.jpg'} width={1566}
-                              height={880}
-                              alt={'video'} sizes={'100vw'} quality={100} />}
+                   height={880}
+                   alt={'video'} sizes={'100vw'} quality={100} />}
           <video src={'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'} width={160}
                  height={90}
                  preload="auto" playsInline controls />
