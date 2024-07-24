@@ -87,6 +87,7 @@ interface FieldModel {
   type: 'input' | 'dropdown' | 'extends' | 'group' | '';
   tooltip: string;
   options: FieldModel[];
+  placeholder?: string;
 }
 
 interface DappModel {

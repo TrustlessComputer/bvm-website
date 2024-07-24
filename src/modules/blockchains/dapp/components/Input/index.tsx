@@ -14,7 +14,7 @@ type Props = {
 } & FieldOption &
   FieldModel;
 
-const Input = ({ name, dappKey, ...props }: Props) => {
+const Input = ({ name, dappKey, placeholder, ...props }: Props) => {
   const [value, setValue] = React.useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,6 +57,7 @@ const Input = ({ name, dappKey, ...props }: Props) => {
       onChange={handleInputChange}
       value={value}
       name={name}
+      placeholder={placeholder}
     />
   );
 };

@@ -320,7 +320,8 @@ export const dappMockupData: DappModel[] = [
           type: 'input',
           icon: '',
           value: '',
-          tooltip: '',
+          tooltip: 'Exchange rate between staking token and reward token.',
+          placeholder: 'eg. 1',
           options: [],
         },
         {
@@ -330,6 +331,7 @@ export const dappMockupData: DappModel[] = [
           icon: '',
           value: '',
           tooltip: '',
+          placeholder: 'eg. 20%',
           options: [],
         },
         {
@@ -339,6 +341,7 @@ export const dappMockupData: DappModel[] = [
           icon: '',
           value: '',
           tooltip: '',
+          placeholder: 'eg. 100,000',
           options: [],
         },
       ],

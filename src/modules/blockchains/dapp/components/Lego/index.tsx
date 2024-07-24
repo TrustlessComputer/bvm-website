@@ -7,6 +7,7 @@ import SvgInset from '@/components/SvgInset';
 import { adjustBrightness } from '../../utils';
 
 import styles from './styles.module.scss';
+import { Tooltip } from '@chakra-ui/react';
 
 type Position =
   | {
@@ -40,6 +41,7 @@ type Props = {
   background?: string;
   title?: string;
   icon?: string;
+  tooltip?: string;
   disabled?: boolean;
   children?: React.ReactNode;
 } & Position &
@@ -49,6 +51,7 @@ const Lego = ({
   background = '#A041FF',
   icon,
   title,
+  tooltip,
   titleInLeft = false,
   titleInRight = false,
   disabled = false,
@@ -84,6 +87,17 @@ const Lego = ({
             <p>{title}</p>
           </div>
         ) : null}
+
+        {tooltip && (
+          <Tooltip label={tooltip}>
+            <Image
+              width={18}
+              height={18}
+              alt="tooltip"
+              src={'/icons/ic-tooltip.svg'}
+            />
+          </Tooltip>
+        )}
 
         {children && <div className={styles.children}>{children}</div>}
 
