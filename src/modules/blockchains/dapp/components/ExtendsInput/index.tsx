@@ -97,7 +97,7 @@ const ExtendsInput = ({ ...props }: Props) => {
             keyDapp={thisDapp.key}
             name={field.key}
             options={field.options}
-            background={adjustBrightness(background, -40)}
+            background={adjustBrightness(background, -20)}
           />
         );
       } else if (field.type === 'group') {
