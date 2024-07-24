@@ -22,6 +22,7 @@ import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
 import Button from './components/Button';
+import Sidebar from './components/Sidebar';
 import useDappsStore, {
   subScribeDropEnd,
   useFormDappsStore,
@@ -154,6 +155,7 @@ const RollupsDappPage = () => {
           parentNames: [],
         }];
         draggedIds2DSignal.value = [...draggedIds2D];
+
         return;
       }
 
@@ -318,16 +320,6 @@ const RollupsDappPage = () => {
     setDapps(sortedDapps);
   };
 
-  const changeDapp = (index: number) => {
-    formDappInputSignal.value = JSON.parse(JSON.stringify({}));
-    formDappDropdownSignal.value = JSON.parse(JSON.stringify({}));
-    formDappToggleSignal.value = JSON.parse(JSON.stringify({}));
-    draggedIds2DSignal.value = draggedIds2DSignal.value
-      // .map(() => null)
-      .filter((x) => x !== null);
-    setCurrentIndexDapp(index);
-  };
-
   React.useEffect(() => {
     fetchData();
   }, [dappState]);
@@ -376,51 +368,7 @@ const RollupsDappPage = () => {
           </div>
 
           <div className={styles.container__content__sidebar}>
-            <div className={styles.container__content__sidebar__header}>
-              {dapps.map((dapp, index) => {
-                return (
-                  <Button
-                    element="button"
-                    type="button"
-                    color="transparent"
-                    onClick={() => changeDapp(index)}
-                    className={styles.resetButton}
-                  >
-                    <div>
-                      {dapp.icon && (
-                        <Image
-                          src={dapp.icon}
-                          width={16}
-                          height={16}
-                          alt="icon"
-                        />
-                      )}{' '}
-                      {dapp.title}
-                    </div>
-                    <div />
-                  </Button>
-                );
-              })}
-            </div>
-
-            <div className={styles.container__content__sidebar__footer}>
-              <Button
-                element="button"
-                type="button"
-                onClick={() => {}}
-                className={styles.resetButton}
-              >
-                EXPORT
-              </Button>
-              <Button
-                element="button"
-                type="button"
-                onClick={() => {}}
-                className={styles.resetButton}
-              >
-                SHARE
-              </Button>
-            </div>
+            <Sidebar />
           </div>
         </DndContext>
       </div>

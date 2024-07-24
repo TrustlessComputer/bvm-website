@@ -13,18 +13,22 @@ import styles from './styles.module.scss';
 type Props = {
   title: string;
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   closeText?: string;
+  okText?: string;
   show: boolean;
   onHide: () => void;
+  onOk: () => void;
 };
 
 const MModal = ({
   title,
   show,
+  onOk,
   onHide,
   className = '',
   children,
+  okText = 'OK',
   closeText = '',
 }: Props) => {
   return (
@@ -41,40 +45,34 @@ const MModal = ({
         <ModalBody className={styles.modal__body}>
           {children}
 
-          {closeText && (
-            <button
-              onClick={() => onHide()}
-              className={styles.modal__closeButton}
-            >
-              {closeText}
-            </button>
-          )}
+          <div className={styles.modal__actions}>
+            {okText && (
+              <button
+                onClick={() => onOk()}
+                className={cn(
+                  styles.modal__actions__button,
+                  styles.modal__actions__button__ok,
+                )}
+              >
+                {okText}
+              </button>
+            )}
+
+            {closeText && (
+              <button
+                onClick={() => onHide()}
+                className={cn(
+                  styles.modal__actions__button,
+                  styles.modal__actions__button__close,
+                )}
+              >
+                {closeText}
+              </button>
+            )}
+          </div>
         </ModalBody>
       </ModalContent>
     </Modal>
-    // <div className={styles.modal}>
-    //   <div className={styles.modal__overlay} />
-
-    //   <h3 className={styles.modal__title}>
-    //   Missing Required Modules
-    //   </h3>
-
-    //   <p className={styles.modal__subTitle}>
-    //   Your blockchain setup lacks the following necessary modules:
-    //   </p>
-
-    //   <ul className={styles.modal__fields}>
-    //     {missingFields.map((field, index) => (
-    //       <li key={field} className={styles.modal__fields__field}>
-    //         {field}
-    //       </li>
-    //     ))}
-    //   </ul>
-
-    //   <button onClick={() => onHide()}>
-    //     Retry
-    //   </button>
-    // </div>
   );
 };
 

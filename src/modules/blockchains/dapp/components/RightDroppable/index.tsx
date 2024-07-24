@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useSignalEffect } from '@preact/signals-react';
 
 import Droppable from '../Droppable';
@@ -27,12 +27,12 @@ import styles from './styles.module.scss';
 
 const RightDroppable = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
-  const refContainer = useRef<HTMLDivElement>(null);
-  const refWrap = useRef<HTMLDivElement>(null);
+  const refContainer = React.useRef<HTMLDivElement>(null);
+  const refWrap = React.useRef<HTMLDivElement>(null);
 
   const [draggedIds2D, setDraggedIds2D] = React.useState<
     typeof draggedIds2DSignal.value
-  >(draggedIds2DSignal.value);
+  >([]);
 
   // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
@@ -45,12 +45,10 @@ const RightDroppable = () => {
   );
 
   const handleReset = () => {
-    formDappInputSignal.value = JSON.parse(JSON.stringify({}));
-    formDappDropdownSignal.value = JSON.parse(JSON.stringify({}));
-    formDappToggleSignal.value = JSON.parse(JSON.stringify({}));
-    draggedIds2DSignal.value = draggedIds2DSignal.value
-      // .map(() => null)
-      .filter((x) => x !== null);
+    formDappInputSignal.value = {};
+    formDappDropdownSignal.value = {};
+    formDappToggleSignal.value = {};
+    draggedIds2DSignal.value = [];
   };
 
   const blockFieldMapping = React.useMemo(() => {
@@ -94,13 +92,12 @@ const RightDroppable = () => {
       if (field.type === 'input') {
         return (
           <Lego
-            key={field.key}
             background={adjustBrightness(mainColor, -20)}
             first={false}
             last={false}
-            title={field.title}
             titleInLeft={true}
             titleInRight={false}
+            {...field}
           >
             <Input
               {...field}
@@ -163,19 +160,15 @@ const RightDroppable = () => {
   );
 
   useSignalEffect(() => {
-    draggedIds2DSignal.subscribe((value) => {
-      // check length of 2 dimension array to prevent re-render
-      if (value.length === draggedIds2D.length) {
-        for (let i = 0; i < value.length; i++) {
-          if (draggedIds2D[i] && value[i].length !== draggedIds2D[i].length) {
-            setDraggedIds2D(value);
-            return;
-          }
+    if (draggedIds2DSignal.value.length === draggedIds2D.length) {
+      for (let i = 0; i < draggedIds2DSignal.peek().length; i++) {
+        if (draggedIds2DSignal.peek()[i].length !== draggedIds2D[i].length) {
+          setDraggedIds2D([...draggedIds2DSignal.value]);
         }
-      } else {
-        setDraggedIds2D(value);
       }
-    });
+    } else if (draggedIds2DSignal.value.length !== draggedIds2D.length) {
+      setDraggedIds2D([...draggedIds2DSignal.value]);
+    }
   });
 
   useSignalEffect(() => {
@@ -245,6 +238,11 @@ const RightDroppable = () => {
                       })}
 
                       {ids.map((item, blockIndex) => {
+                        console.log(
+                          blockFieldMapping,
+                          DragUtil.getOriginalKey(item.name),
+                        );
+
                         if (DragUtil.idDraggingIsABlock(item.name)) {
                           return (
                             <Draggable
