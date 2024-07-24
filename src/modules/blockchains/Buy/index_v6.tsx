@@ -909,93 +909,33 @@ const BuyPage = () => {
                           <ComputerNameInput />
                         </LegoV3>
 
-                        {fieldsDragged
-                          .filter((key) => {
-                            const item = data?.find((i) => i.key === key);
+                        {fieldsDragged.map((key, index) => {
+                          const item = data?.find((i) => i.key === key);
 
-                            return !item?.hidden;
-                          })
-                          .map((key, index) => {
-                            const item = data?.find((i) => i.key === key);
+                          if (!item || !data) return null;
 
-                            if (!item || !data) return null;
+                          if (item.multiChoice) {
+                            if (!Array.isArray(field[item.key].value)) return;
 
-                            if (item.multiChoice) {
-                              if (!Array.isArray(field[item.key].value)) return;
+                            const childrenOptions = (field[item.key].value as
+                              | string[]
+                              | number[])!.map(
+                              (key: string | number, opIdx: number) => {
+                                const option = item.options.find(
+                                  (opt) => opt.key === key,
+                                );
 
-                              const childrenOptions = (field[item.key].value as
-                                | string[]
-                                | number[])!.map(
-                                (key: string | number, opIdx: number) => {
-                                  const option = item.options.find(
-                                    (opt) => opt.key === key,
-                                  );
+                                if (!option) return null;
 
-                                  if (!option) return null;
-
-                                  return (
-                                    <Draggable
-                                      right
-                                      key={item.key + '-' + option.key}
-                                      id={item.key + '-' + option.key}
-                                      useMask
-                                      tooltip={item.tooltip}
-                                      value={option.key}
-                                    >
-                                      <LegoV3
-                                        background={item.color}
-                                        label={item.confuseTitle}
-                                        labelInRight={
-                                          !!item.confuseTitle ||
-                                          !!item.confuseIcon
-                                        }
-                                        icon={item.confuseIcon}
-                                        zIndex={item.options.length - opIdx}
-                                      >
-                                        <Label
-                                          icon={option.icon}
-                                          title={option.title}
-                                        />
-                                      </LegoV3>
-                                    </Draggable>
-                                  );
-                                },
-                              );
-
-                              return (
-                                <Draggable
-                                  key={item.key + '-parent' + '-right'}
-                                  id={item.key + '-parent' + '-right'}
-                                  useMask
-                                >
-                                  <DroppableV2 id={item.key}>
-                                    <LegoParent
-                                      parentOfNested
-                                      background={item.color}
-                                      label={item.title}
-                                      zIndex={fieldsDragged.length - index - 1}
-                                    >
-                                      {childrenOptions}
-                                    </LegoParent>
-                                  </DroppableV2>
-                                </Draggable>
-                              );
-                            }
-
-                            return item.options.map((option, opIdx) => {
-                              if (option.key !== field[item.key].value)
-                                return null;
-
-                              return (
-                                <Draggable
-                                  right
-                                  key={item.key + '-' + option.key + '-right'}
-                                  id={item.key + '-' + option.key + '-right'}
-                                  useMask
-                                  tooltip={item.tooltip}
-                                  value={option.key}
-                                >
-                                  <DroppableV2 id={item.key + '-right'}>
+                                return (
+                                  <Draggable
+                                    right
+                                    key={item.key + '-' + option.key}
+                                    id={item.key + '-' + option.key}
+                                    useMask
+                                    tooltip={item.tooltip}
+                                    value={option.key}
+                                  >
                                     <LegoV3
                                       background={item.color}
                                       label={item.confuseTitle}
@@ -1003,140 +943,77 @@ const BuyPage = () => {
                                         !!item.confuseTitle ||
                                         !!item.confuseIcon
                                       }
-                                      zIndex={fieldsDragged.length - index}
                                       icon={item.confuseIcon}
-                                      className={
-                                        showShadow === field[item.key].value
-                                          ? s.activeBlur
-                                          : ''
-                                      }
+                                      zIndex={item.options.length - opIdx}
                                     >
                                       <Label
                                         icon={option.icon}
                                         title={option.title}
                                       />
                                     </LegoV3>
-                                  </DroppableV2>
-                                </Draggable>
-                              );
-                            });
-                          })}
+                                  </Draggable>
+                                );
+                              },
+                            );
 
-                        {fieldsDragged
-                          .filter((key) => {
-                            const item = data?.find((i) => i.key === key);
+                            return (
+                              <Draggable
+                                key={item.key + '-parent' + '-right'}
+                                id={item.key + '-parent' + '-right'}
+                                useMask
+                              >
+                                <DroppableV2 id={item.key}>
+                                  <LegoParent
+                                    parentOfNested
+                                    background={item.color}
+                                    label={item.title}
+                                    zIndex={fieldsDragged.length - index - 1}
+                                  >
+                                    {childrenOptions}
+                                  </LegoParent>
+                                </DroppableV2>
+                              </Draggable>
+                            );
+                          }
 
-                            return item?.hidden;
-                          })
-                          .map((key, index) => {
-                            const item = data?.find((i) => i.key === key);
+                          return item.options.map((option, opIdx) => {
+                            if (option.key !== field[item.key].value)
+                              return null;
 
-                            if (!item || !data) return null;
-
-                            if (item.multiChoice) {
-                              if (!Array.isArray(field[item.key].value)) return;
-
-                              const childrenOptions = (field[item.key].value as
-                                | string[]
-                                | number[])!.map(
-                                (key: string | number, opIdx: number) => {
-                                  const option = item.options.find(
-                                    (opt) => opt.key === key,
-                                  );
-
-                                  if (!option) return null;
-
-                                  return (
-                                    <Draggable
-                                      right
-                                      key={item.key + '-' + option.key}
-                                      id={item.key + '-' + option.key}
-                                      useMask
-                                      tooltip={item.tooltip}
-                                      value={option.key}
-                                      disabled
-                                    >
-                                      <LegoV3
-                                        background={item.color}
-                                        label={item.confuseTitle}
-                                        labelInRight={
-                                          !!item.confuseTitle ||
-                                          !!item.confuseIcon
-                                        }
-                                        icon={item.confuseIcon}
-                                        zIndex={item.options.length - opIdx}
-                                      >
-                                        <Label
-                                          icon={option.icon}
-                                          title={option.title}
-                                        />
-                                      </LegoV3>
-                                    </Draggable>
-                                  );
-                                },
-                              );
-
-                              return (
-                                <Draggable
-                                  key={item.key + '-parent' + '-right'}
-                                  id={item.key + '-parent' + '-right'}
-                                  useMask
-                                  disabled
-                                >
-                                  <DroppableV2 id={item.key}>
-                                    <LegoParent
-                                      parentOfNested
-                                      background={item.color}
-                                      label={item.title}
-                                      zIndex={fieldsDragged.length - index - 1}
-                                    >
-                                      {childrenOptions}
-                                    </LegoParent>
-                                  </DroppableV2>
-                                </Draggable>
-                              );
-                            }
-
-                            return item.options.map((option, opIdx) => {
-                              if (option.key !== field[item.key].value)
-                                return null;
-
-                              return (
-                                <Draggable
-                                  right
-                                  key={item.key + '-' + option.key + '-right'}
-                                  id={item.key + '-' + option.key + '-right'}
-                                  useMask
-                                  tooltip={item.tooltip}
-                                  value={option.key}
-                                  disabled
-                                >
-                                  <DroppableV2 id={item.key + '-right'}>
-                                    <LegoV3
-                                      background={item.color}
-                                      label={item.confuseTitle}
-                                      labelInRight={
-                                        !!item.confuseTitle ||
-                                        !!item.confuseIcon
-                                      }
-                                      zIndex={fieldsDragged.length - index}
-                                      icon={item.confuseIcon}
-                                      className={
-                                        showShadow === field[item.key].value
-                                          ? s.activeBlur
-                                          : ''
-                                      }
-                                    >
-                                      <Label
-                                        icon={option.icon}
-                                        title={option.title}
-                                      />
-                                    </LegoV3>
-                                  </DroppableV2>
-                                </Draggable>
-                              );
-                            });
-                          })}
+                            return (
+                              <Draggable
+                                right
+                                key={item.key + '-' + option.key + '-right'}
+                                id={item.key + '-' + option.key + '-right'}
+                                useMask
+                                tooltip={item.tooltip}
+                                value={option.key}
+                              >
+                                <DroppableV2 id={item.key + '-right'}>
+                                  <LegoV3
+                                    background={item.color}
+                                    label={item.confuseTitle}
+                                    labelInRight={
+                                      !!item.confuseTitle || !!item.confuseIcon
+                                    }
+                                    zIndex={fieldsDragged.length - index}
+                                    icon={item.confuseIcon}
+                                    className={
+                                      showShadow === field[item.key].value
+                                        ? s.activeBlur
+                                        : ''
+                                    }
+                                  >
+                                    <Label
+                                      icon={option.icon}
+                                      title={option.title}
+                                    />
+                                  </LegoV3>
+                                </DroppableV2>
+                              </Draggable>
+                            );
+                          });
+                        })}
                       </DroppableV2>
                     </div>
 
