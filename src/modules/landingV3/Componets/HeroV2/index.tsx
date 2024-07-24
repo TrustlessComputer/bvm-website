@@ -60,13 +60,23 @@ export default function HeroV2() {
         </div>
         <div className={s.imageHero} onClick={() => setIsOpenModalVideo(true)}>
           {!isOpenModalVideo &&
-            <Image className={s.imagePreload} src={'https://storage.googleapis.com/bvm-network/image/Drag%20and%20Drop%20Banner%2002.gif'} width={1566}
-                              height={880}
-                              alt={'video'} sizes={'100vw'} quality={100} />}
-          <div className={s.imageHero_btn}>
-            <p>Take a tour</p>
-            <Image src={'/icons/ic_arrow-right.svg'} alt={'icons'} width={20} height={20}/>
-          </div>
+            <div >
+              <Image className={s.imagePreload}
+                     src={'https://storage.googleapis.com/bvm-network/image/Drag%20and%20Drop%20Banner%2002.gif'}
+                     width={1566}
+                     height={880}
+                     alt={'video'} sizes={'100vw'} quality={100} />
+              <div className={s.imagePreloadOverlay}></div>
+              <div className={s.imageHero_btn}>
+                <p>Take a tour</p>
+                <div className={s.imageHero_btn_icon}>
+                  <Image src={'/icons/ic_arrow-right.svg'} alt={'icons'} width={20} height={20} />
+
+                </div>
+              </div>
+            </div>
+          }
+
           <video src={'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'} width={160}
                  height={90}
                  preload="auto" playsInline controls />
@@ -74,7 +84,6 @@ export default function HeroV2() {
       </div>
       <Brand />
       <CaseStudy />
-
     </div>
   );
 }

@@ -31,6 +31,19 @@
   left: 0;
   top: 0;
   pointer-events: none;
+
+}
+
+.imagePreloadOverlay {
+  content: "";
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #00000033;
+  z-index: 2;
 }
 
 .imageHero {
@@ -52,7 +65,7 @@
   }
 
   @include is-min-table {
-    max-width: 720px;
+    max-width: 782px;
   }
 
   @include is-pc {
@@ -371,5 +384,20 @@
 .imageHero_btn {
   position: absolute;
   z-index: 3;
+  top: 50%;
+  border-radius: 100px;
+  left: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 8px;
   background-color: #fff;
+  padding: 16px 48px;
+  p{
+    color: #000;
+
+  }
+  &_icon {
+    max-width: 20px;
+  }
 }

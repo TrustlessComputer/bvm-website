@@ -11,17 +11,20 @@ import ButtonLoginTwitter from '../components/ButtonLoginTwitter';
 import GroupDownItem from '@layouts/HeaderV3/components/GroupDownItem';
 import { ReactElement } from 'react';
 import IconLogo from '../components/IcLogo';
+import Image from 'next/image';
 
 export type TMainHeader = {
   color?: 'black' | 'white';
   colorLogo?: 'white' | 'black';
   backgroundColor?: string;
+  showBanner?: boolean;
 };
 
 const Main = ({
                 color = 'black',
                 colorLogo = 'black',
                 backgroundColor = 'white',
+                showBanner
               }: TMainHeader): ReactElement => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
@@ -33,6 +36,15 @@ const Main = ({
       className={`${s.wrapper} `}
       style={{ backgroundColor: backgroundColor }}
     >
+      {
+        showBanner && (
+          <div className={s.wrapper_banner} onClick={() => router.push('/bitcoinwars')}>
+            <Image src={'/banner.jpg'} alt={'banner'} width={1920} height={80} quality={100} />
+            <div className={s.wrapper_banner_btn}>Play now</div>
+          </div>
+        )
+      }
+
       <div className={`${s.inner} containerV3`}>
         {isDesktop && (
           <div className={s.menu}>
