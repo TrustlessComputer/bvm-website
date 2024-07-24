@@ -28,7 +28,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
         set up compute, storage, and hardware node. BVM handles everything.</p>
       <p> To make it all happen, we partner with some of the best crypto projects in the world.</p>
     </div>,
-    image: '/images/home-v2-hero-sdutio.jpg',
+    image: '/images/home-block-1-v100.jpg',
     button: {
       link: BVM_STUDIO,
       title: 'Customize & launch your blockchain',
@@ -59,7 +59,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
       <p>Before BVM, you need an army of PhDs, cryptographers, and distributed system engineers to build and scale a blockchain.</p>
       <p>Today, you can launch a blockchain backed by Bitcoin’s security with just a few clicks for $99 monthly.</p>
     </div>,
-    image: '/bvm/bvm-home-pricing.png',
+    image: '/images/home-block-pricing.jpg',
     button: {
       link: '/pricing',
       title: 'View pricing',
