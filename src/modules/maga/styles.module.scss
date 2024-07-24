@@ -3,6 +3,10 @@
   background-color: #000000;
   color: #fff;
   font-family: "Advent Pro";
+
+  @include is-mobile {
+    padding-top: 50px;
+  }
 }
 
 .title {

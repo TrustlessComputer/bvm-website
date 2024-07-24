@@ -11,6 +11,7 @@ const CommonSection = ({
   link,
   isExternal,
   specialImage,
+  buttonText,
 }: any) => {
   return (
     <Flex
@@ -35,7 +36,7 @@ const CommonSection = ({
             href={link}
             target={isExternal ? '_blank' : '_self'}
           >
-            Learn more
+            {buttonText}
           </Link>
         </Box>
       </Flex>
