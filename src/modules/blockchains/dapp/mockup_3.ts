@@ -9,11 +9,28 @@ export const dappMockupData: DappModel[] = [
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
+    sections: [
+      {
+        key: 'information',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'Information',
+        tooltip: 'Token Generation information',
+        required: true
+      },
+      {
+        key: 'tokenomics',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'Tokenomics',
+        tooltip: 'Token Generation tokenomics',
+        required: false
+      },
+    ],
     baseBlock: {
-      key: 'token_generation',
-      title: 'Token Generation',
+      key: 'token_info',
+      title: 'Token Information',
       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
       placableAmount: -1,
+      section: 'information',
       fields: [
         {
           key: 'token_name',
@@ -46,10 +63,11 @@ export const dappMockupData: DappModel[] = [
     },
     blockFields: [
       {
-        key: 'tokenomics',
-        title: 'Tokenomics',
+        key: 'allocation',
+        title: 'Allocation',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         placableAmount: -1,
+        section: 'tokenomics',
         fields: [
           {
             key: 'name',
@@ -270,11 +288,21 @@ export const dappMockupData: DappModel[] = [
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
+    sections: [
+      {
+        key: 'information',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'Information',
+        tooltip: '',
+        required: true
+      },
+    ],
     baseBlock: {
       key: 'class',
       title: 'Create a Staking Pool',
       icon: '',
       placableAmount: -1,
+      section: 'information',
       fields: [
         {
           key: 'staking_token',
@@ -354,11 +382,28 @@ export const dappMockupData: DappModel[] = [
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
+    sections: [
+      {
+        key: 'information',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'Information',
+        tooltip: '',
+        required: true
+      },
+      {
+        key: 'actions',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'Actions',
+        tooltip: '',
+        required: false
+      },
+    ],
     baseBlock: {
       key: 'class',
       title: 'Token for Airdrop',
       icon: '',
       placableAmount: -1,
+      section: 'information',
       fields: [
         {
           key: 'reward_token',
@@ -396,6 +441,7 @@ export const dappMockupData: DappModel[] = [
         title: 'For staking',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         placableAmount: -1,
+        section: 'actions',
         fields: [
           {
             key: 'token',
@@ -441,6 +487,7 @@ export const dappMockupData: DappModel[] = [
         title: 'For holding',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         placableAmount: -1,
+        section: 'actions',
         fields: [
           {
             key: 'token',
@@ -486,6 +533,7 @@ export const dappMockupData: DappModel[] = [
         title: 'For tasks',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         placableAmount: -1,
+        section: 'actions',
         fields: [
           {
             key: 'task',

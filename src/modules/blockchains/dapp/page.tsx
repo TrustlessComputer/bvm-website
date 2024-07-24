@@ -48,41 +48,41 @@ const RollupsDappPage = () => {
     return dapps[currentIndexDapp];
   }, [dapps, currentIndexDapp]);
 
-  const blockFieldMapping = React.useMemo(() => {
-    const mapping: Record<
-      string,
-      {
-        key: string;
-        title: string;
-        icon: string;
-        fields: FieldModel[];
-      }
-    > = {};
+  // const blockFieldMapping = React.useMemo(() => {
+  //   const mapping: Record<
+  //     string,
+  //     {
+  //       key: string;
+  //       title: string;
+  //       icon: string;
+  //       fields: FieldModel[];
+  //     }
+  //   > = {};
+  //
+  //   (thisDapp?.blockFields || []).forEach((item) => {
+  //     mapping[item.key] = item;
+  //   });
+  //
+  //   return mapping;
+  // }, [thisDapp]);
 
-    (thisDapp?.blockFields || []).forEach((item) => {
-      mapping[item.key] = item;
-    });
-
-    return mapping;
-  }, [thisDapp]);
-
-  const singleFieldMapping = React.useMemo(() => {
-    const mapping: Record<
-      string,
-      {
-        key: string;
-        title: string;
-        icon: string;
-        fields: FieldModel[];
-      }
-    > = {};
-
-    (thisDapp?.singleFields || []).forEach((item) => {
-      mapping[item.key] = item;
-    });
-
-    return mapping;
-  }, [thisDapp]);
+  // const singleFieldMapping = React.useMemo(() => {
+  //   const mapping: Record<
+  //     string,
+  //     {
+  //       key: string;
+  //       title: string;
+  //       icon: string;
+  //       fields: FieldModel[];
+  //     }
+  //   > = {};
+  //
+  //   (thisDapp?.singleFields || []).forEach((item) => {
+  //     mapping[item.key] = item;
+  //   });
+  //
+  //   return mapping;
+  // }, [thisDapp]);
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;

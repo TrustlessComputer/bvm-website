@@ -197,8 +197,10 @@ const useSubmitForm = () => {
       }
       if (!baseMapping?.token_supply || isEmpty(baseMapping?.token_supply)) {
         errors.push({ key: 'token_supply', error: 'Token supply is required!' });
+      } else if (isNaN(Number(baseMapping?.token_supply))) {
+        errors.push({ key: 'token_supply', error: 'Token supply is number!' });
       } else if (Number(baseMapping?.token_supply) <= 0) {
-        errors.push({ key: 'token_supply', error: 'Token supply is required!' });
+        errors.push({ key: 'token_supply', error: 'Token supply > 0!' });
       }
 
       const keys = Object.keys(blockMapping);
@@ -208,28 +210,28 @@ const useSubmitForm = () => {
 
         for (const block of blocks) {
           const blockTemp = block as any;
+          const index = blocks.indexOf(block) + 1;
 
           if (!blockTemp?.name || isEmpty(blockTemp?.name)) {
-            errors.push({ key: 'tokenomic_name', error: 'Tokenomic name is required!' });
+            errors.push({ key: 'tokenomic_name', error: `Tokenomic #${index} name is required!` });
           }
           if (!blockTemp?.amount || isEmpty(blockTemp?.amount)) {
-            errors.push({ key: 'tokenomic_amount', error: 'Tokenomic amount is required!' });
+            errors.push({ key: 'tokenomic_amount', error: `Tokenomic #${index} amount is required!` });
           }
           if (!blockTemp?.address || isEmpty(blockTemp?.address)) {
-            errors.push({ key: 'tokenomic_address', error: 'Tokenomic address is required!' });
+            errors.push({ key: 'tokenomic_address', error: `Tokenomic #${index} address is required!` });
           }
 
           if(blockTemp?.vesting) {
             if (!blockTemp?.cliff_amount || isEmpty(blockTemp?.cliff_amount)) {
-              errors.push({ key: 'tokenomic_cliff_amount', error: 'Tokenomic cliff amount is required!' });
+              errors.push({ key: 'tokenomic_cliff_amount', error: `Tokenomic #${index} cliff amount is required!` });
             }
             if (!blockTemp?.duration_amount || isEmpty(blockTemp?.duration_amount)) {
-              errors.push({ key: 'tokenomic_duration_amount', error: 'Tokenomic duration amount is required!' });
+              errors.push({ key: 'tokenomic_duration_amount', error: `Tokenomic #${index} duration amount is required!` });
             }
           }
         }
       }
-
 
       console.log('baseMapping', baseMapping);
       console.log('blockMapping', blockMapping);
