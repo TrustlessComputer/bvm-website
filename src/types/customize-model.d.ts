@@ -107,6 +107,7 @@ interface BlockModel {
   fields: FieldModel[];
   section: string;
   preview: boolean;
+
 }
 
 interface DappModel {
@@ -118,6 +119,7 @@ interface DappModel {
   icon: string;
   order: number;
   color: string;
+  color_rendered?:string;
   tooltip: string;
   baseBlock: BlockModel;
   blockFields?: BlockModel[];

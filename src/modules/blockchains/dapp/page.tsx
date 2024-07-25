@@ -408,6 +408,7 @@ const RollupsDappPage = () => {
     draggedIds2DSignal.value = [...draggedIds2D];
     formDappSignal.value = { ...formDapp };
 
+    console.log('____', formDappSignal.peek(), draggedIds2DSignal.peek());
     setCurrentIndexDapp(dappIndex);
   }, [templateForm]);
 
@@ -429,6 +430,8 @@ const RollupsDappPage = () => {
           key: 'staking',
           model: data,
         });
+
+        console.log('____model', model)
         setTemplateForm(model);
         break;
       }
