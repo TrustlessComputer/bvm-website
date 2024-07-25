@@ -66,7 +66,8 @@ const CaseStudy = () => {
             Launching at the Bitcoin 2024 Conference in Nashville.
           </Text>
           <Text className={s.description} maxW={['auto', '600px']}>
-            Score 300 in Bitcoin Wars to get free Starbucks coffee in Nashville!
+            Earn 300 XP and get a free Starbucks just a 2-minute walk from Music
+            City Center!
           </Text>
         </Flex>
         <Flex
