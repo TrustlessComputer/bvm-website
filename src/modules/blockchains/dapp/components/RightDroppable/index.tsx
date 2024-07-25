@@ -19,7 +19,10 @@ import {
   FormDappUtil,
   isTwoObjectEqual,
 } from '../../utils';
-import useDappsStore, { subScribeDropEnd } from '../../stores/useDappStore';
+import useDappsStore, {
+  subScribeDropEnd,
+  useTemplateFormStore,
+} from '../../stores/useDappStore';
 import {
   draggedIds2DSignal,
   draggedIdsSignal,
@@ -36,6 +39,8 @@ import styles from './styles.module.scss';
 
 const RightDroppable = () => {
   const thisDapp = useThisDapp();
+  const { templateDapps } = useTemplateFormStore();
+
   const refContainer = React.useRef<HTMLDivElement>(null);
   const refWrap = React.useRef<HTMLDivElement>(null);
 
@@ -531,19 +536,20 @@ const RightDroppable = () => {
                                 >
                                   {(item.value as string[]).map(
                                     (value, index) => {
-                                      const thisField = thisModule.fields.find(
+                                      const thisValue = thisModule.fields.find(
                                         (f) => f.value === value,
                                       );
 
-                                      if (!thisField) return null;
+                                      if (!thisValue) return null;
 
                                       return (
                                         <Draggable
                                           id={`${item.name}-${blockIndex}-${baseIndex}-${value}`}
                                           key={`${item.name}-${blockIndex}-${baseIndex}-${value}`}
                                           value={{
-                                            title: thisModule.title,
-                                            icon: thisModule.icon,
+                                            title: thisValue.title,
+                                            icon: thisValue.icon,
+                                            value: thisValue.value,
                                           }}
                                         >
                                           <Lego
@@ -557,7 +563,7 @@ const RightDroppable = () => {
                                             titleInLeft={true}
                                             titleInRight={false}
                                           >
-                                            <Label {...thisField} />
+                                            <Label {...thisValue} />
                                           </Lego>
                                         </Draggable>
                                       );
@@ -603,6 +609,7 @@ const RightDroppable = () => {
 
             {templateIds2D.map((ids, baseIndex) => {
               let blockCount = 0;
+              const thisDapp = templateDapps[baseIndex];
 
               return (
                 <LegoParent {...thisDapp.baseBlock} background={mainColor}>
