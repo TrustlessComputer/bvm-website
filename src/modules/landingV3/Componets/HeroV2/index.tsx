@@ -4,11 +4,9 @@ import React, { useRef, useState } from 'react';
 import Brand from '../Brand';
 import { useL2ServiceTracking } from '@/hooks/useL2ServiceTracking';
 import Image from 'next/image';
-import IcLogoText from '../IcLogoText';
-import IcArrowRight from '../IcArrowRight';
-import ImagePlaceholder from '@components/ImagePlaceholder';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import CaseStudy from '@/modules/landingV3/Componets/CaseStudy';
+import { VIDEO_BVM_STUDIO_HOW_IT_WORK } from '@constants/common';
 
 export default function HeroV2() {
   const router = useRouter();
@@ -73,7 +71,7 @@ export default function HeroV2() {
               </div>
             </div>}
 
-          <video src={'https://storage.googleapis.com/bvm-network/icons-tool/DragnDrop_03.mp4'} width={160}
+          <video src={VIDEO_BVM_STUDIO_HOW_IT_WORK} width={160}
                  height={90}
                  preload="auto" playsInline controls />
         </div>
