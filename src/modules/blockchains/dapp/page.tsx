@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   DndContext,
   DragEndEvent,
@@ -32,13 +32,35 @@ import { formDappSignal } from './signals/useFormDappsSignal';
 import styles from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
-import { parseDappModel } from '@/modules/blockchains/utils';
+import { IToken } from '@/services/api/dapp/token_generation/interface';
+import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-token';
 
 const RollupsDappPage = () => {
   const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
     useDappsStore();
   const { templateForm, setTemplateForm } = useTemplateFormStore();
   const dappState = useAppSelector(dappSelector);
+  const tokens = dappState.tokens;
+  const [parseTokens, setParseTokens] = useState<DappModel[]>();
+
+  useEffect(() => {
+    if(tokens && tokens?.length > 0) {
+      parseTokensData(tokens);
+    }
+  }, [tokens]);
+
+  const parseTokensData = (tokens: IToken[]) => {
+    const result: DappModel[] = [];
+    for(const token of tokens) {
+      const t = parseIssuedToken(token);
+      result.push(t);
+    }
+
+    console.log('parseTokensData', result);
+
+    setParseTokens(result);
+  }
+
 
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp];

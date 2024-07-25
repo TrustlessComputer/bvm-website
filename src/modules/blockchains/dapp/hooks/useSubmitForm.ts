@@ -11,8 +11,8 @@ const useSubmitForm = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
   const dappState = useAppSelector(dappSelector);
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
-  console.log('accountInforL2Service', accountInforL2Service);
-  console.log('dappState', dappState);
+  // console.log('accountInforL2Service', accountInforL2Service);
+  // console.log('dappState', dappState);
 
   const [isShowError, setIsShowError] = useState(false);
 
