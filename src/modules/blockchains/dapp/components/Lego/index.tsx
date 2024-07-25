@@ -65,12 +65,11 @@ const Lego = (props: Props) => {
     fields,
     ...rest
   } = props;
-  // console.log('DUNG: Lego', props);
-  // console.log('DUNG:=====')
   return (
     <div
       className={cn(styles.lego, {
         [styles.lego__disabled]: disabled,
+        [styles.lego__preview]: preview,
       })}
       style={{
         // @ts-ignore

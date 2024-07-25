@@ -80,4 +80,12 @@
     opacity: 0.5;
     pointer-events: none;
   }
+
+  &__preview {
+    .lego__inner {
+      .lego__inner__label {
+        font-size: 14px;
+      }
+    }
+  }
 }
