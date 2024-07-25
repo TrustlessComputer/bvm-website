@@ -24,13 +24,13 @@ export const dappMockupData: DappModel[] = [
         tooltip: 'Token Generation tokenomics',
         required: false,
       },
-      // {
-      //   key: 'modules',
-      //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-      //   title: 'Module',
-      //   tooltip: 'Token module',
-      //   required: false,
-      // },
+      {
+        key: 'modules',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'Module',
+        tooltip: 'Token module',
+        required: false,
+      },
     ],
     baseBlock: {
       key: 'token_info',
@@ -128,6 +128,7 @@ export const dappMockupData: DappModel[] = [
                     icon: '',
                     tooltip: '',
                     type: 'dropdown',
+                    level: 1,
                     options: [
                       {
                         key: 'day',
@@ -161,6 +162,7 @@ export const dappMockupData: DappModel[] = [
                   {
                     key: 'cliff',
                     title: 'Amount',
+                    level: 1,
                     value: '',
                     icon: '',
                     tooltip: '',
@@ -184,6 +186,7 @@ export const dappMockupData: DappModel[] = [
                     icon: '',
                     tooltip: '',
                     type: 'dropdown',
+                    level: 1,
                     options: [
                       {
                         key: 'day',
@@ -217,6 +220,7 @@ export const dappMockupData: DappModel[] = [
                   {
                     key: 'duration',
                     title: 'Amount',
+                    level: 1,
                     value: '',
                     icon: '',
                     tooltip: '',
@@ -231,42 +235,43 @@ export const dappMockupData: DappModel[] = [
       },
     ],
     singleFields: [
-      // {
-      //   key: 'number_module',
-      //   title: 'Number',
-      //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-      //   placableAmount: -1,
-      //   section: 'modules',
-      //   fields: [
-      //     {
-      //       key: '1',
-      //       title: 'Number 1',
-      //       type: 'module',
-      //       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-      //       value: '1',
-      //       tooltip: '',
-      //       options: [],
-      //     },
-      //     {
-      //       key: '2',
-      //       title: 'Number 2',
-      //       type: 'module',
-      //       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-      //       value: '2',
-      //       tooltip: '',
-      //       options: [],
-      //     },
-      //     {
-      //       key: '3',
-      //       title: 'Number 3',
-      //       type: 'module',
-      //       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-      //       value: '3',
-      //       tooltip: '',
-      //       options: [],
-      //     },
-      //   ],
-      // },
+      {
+        preview: false,
+        key: 'number_module',
+        title: 'Number',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        placableAmount: -1,
+        section: 'modules',
+        fields: [
+          {
+            key: '1',
+            title: 'Number 1',
+            type: 'module',
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            value: '1',
+            tooltip: '',
+            options: [],
+          },
+          {
+            key: '2',
+            title: 'Number 2',
+            type: 'module',
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            value: '2',
+            tooltip: '',
+            options: [],
+          },
+          {
+            key: '3',
+            title: 'Number 3',
+            type: 'module',
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            value: '3',
+            tooltip: '',
+            options: [],
+          },
+        ],
+      },
     ],
   },
   {

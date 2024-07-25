@@ -213,3 +213,11 @@ export const compareKeyInFormDappAndDrag = (
     originalKeyInFormDapp === originalKeyInActiveId
   );
 };
+
+export const cloneDeep = (obj: any) => {
+  return JSON.parse(JSON.stringify(obj));
+};
+
+export const isTwoObjectEqual = (obj1: any, obj2: any) => {
+  return JSON.stringify(obj1) === JSON.stringify(obj2);
+};

@@ -9,9 +9,15 @@ import Input from '../Input';
 import Dropdown from '../Dropdown';
 import ExtendsInput from '../ExtendsInput';
 import Button from '../Button';
+import Label from '../Label';
 import { FieldKeyPrefix } from '../../contants';
 import { FieldOption } from '../../types';
-import { adjustBrightness, DragUtil } from '../../utils';
+import {
+  adjustBrightness,
+  cloneDeep,
+  DragUtil,
+  isTwoObjectEqual,
+} from '../../utils';
 import useDappsStore, { subScribeDropEnd } from '../../stores/useDappStore';
 import {
   draggedIds2DSignal,
@@ -24,7 +30,6 @@ import {
 } from '../../signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
-import Label from '../Label';
 
 const RightDroppable = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
@@ -35,7 +40,6 @@ const RightDroppable = () => {
     typeof draggedIds2DSignal.value
   >([]);
 
-  // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp];
   }, [dapps, currentIndexDapp]);
@@ -53,15 +57,7 @@ const RightDroppable = () => {
   };
 
   const blockFieldMapping = React.useMemo(() => {
-    const mapping: Record<
-      string,
-      {
-        key: string;
-        title: string;
-        icon: string;
-        fields: FieldModel[];
-      }
-    > = {};
+    const mapping: Record<string, BlockModel> = {};
 
     (thisDapp?.blockFields || []).forEach((item) => {
       mapping[item.key] = item;
@@ -71,15 +67,7 @@ const RightDroppable = () => {
   }, [thisDapp]);
 
   const singleFieldMapping = React.useMemo(() => {
-    const mapping: Record<
-      string,
-      {
-        key: string;
-        title: string;
-        icon: string;
-        fields: FieldModel[];
-      }
-    > = {};
+    const mapping: Record<string, BlockModel> = {};
 
     (thisDapp?.singleFields || []).forEach((item) => {
       mapping[item.key] = item;
@@ -162,8 +150,7 @@ const RightDroppable = () => {
             background={adjustBrightness(mainColor, -20)}
             first={false}
             last={false}
-            // title={field.title}
-            titleInLeft={true}
+            titleInLeft={false}
             titleInRight={false}
           >
             <Label {...field} />
@@ -176,13 +163,26 @@ const RightDroppable = () => {
 
   useSignalEffect(() => {
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
-      for (let i = 0; i < draggedIds2DSignal.peek().length; i++) {
-        if (draggedIds2DSignal.peek()[i].length !== draggedIds2D[i].length) {
-          setDraggedIds2D([...draggedIds2DSignal.value]);
+      for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
+        if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
+          setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
+          break;
+        }
+
+        for (let j = 0; j < draggedIds2DSignal.value[i].length; j++) {
+          if (
+            !isTwoObjectEqual(
+              draggedIds2DSignal.value[i][j],
+              draggedIds2D[i][j],
+            )
+          ) {
+            setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
+            break;
+          }
         }
       }
-    } else if (draggedIds2DSignal.value.length !== draggedIds2D.length) {
-      setDraggedIds2D([...draggedIds2DSignal.value]);
+    } else {
+      setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
   });
 
@@ -306,34 +306,117 @@ const RightDroppable = () => {
                             </Draggable>
                           );
                         } else if (DragUtil.idDraggingIsASingle(item.name)) {
+                          const field =
+                            singleFieldMapping[
+                              DragUtil.getOriginalKey(item.name)
+                            ];
+                          const fieldIsModuleType = field.fields.every(
+                            (f) => f.type === 'module',
+                          );
+                          const canPlaceMoreField = field.placableAmount === -1; // Multi
+
+                          if (!fieldIsModuleType) {
+                            return (
+                              <Draggable
+                                id={`${item.name}-${blockIndex}-${baseIndex}`}
+                                key={`${item.name}-${blockIndex}-${baseIndex}`}
+                                value={{
+                                  title:
+                                    singleFieldMapping[
+                                      DragUtil.getOriginalKey(item.name)
+                                    ].title,
+                                  icon: singleFieldMapping[
+                                    DragUtil.getOriginalKey(item.name)
+                                  ].icon,
+                                }}
+                              >
+                                {getInput(
+                                  singleFieldMapping[
+                                    DragUtil.getOriginalKey(item.name)
+                                  ].fields[0],
+                                  {
+                                    inBaseField: false,
+                                    inBlockField: false,
+                                    inSingleField: true,
+                                    index: blockIndex,
+                                    level: 0,
+                                    blockKey: '',
+                                    baseIndex,
+                                  },
+                                )}
+                              </Draggable>
+                            );
+                          }
+
+                          if (canPlaceMoreField) {
+                            return (
+                              <Draggable
+                                id={`${item.name}-${blockIndex}-${baseIndex}`}
+                                key={`${item.name}-${blockIndex}-${baseIndex}`}
+                                value={{
+                                  title: field.title,
+                                  icon: field.icon,
+                                }}
+                              >
+                                <LegoParent
+                                  {...field}
+                                  smallMarginHeaderTop
+                                  background={adjustBrightness(mainColor, -20)}
+                                >
+                                  {(item.value as unknown as []).map(
+                                    (value) => {
+                                      const thisModule = field.fields.find(
+                                        (f) => f.value === value,
+                                      );
+
+                                      if (!thisModule) return null;
+
+                                      return (
+                                        <Lego
+                                          key={value}
+                                          background={adjustBrightness(
+                                            mainColor,
+                                            -40,
+                                          )}
+                                          first={false}
+                                          last={false}
+                                          titleInLeft={true}
+                                          titleInRight={false}
+                                        >
+                                          <Label {...thisModule} />
+                                        </Lego>
+                                      );
+                                    },
+                                  )}
+                                </LegoParent>
+                              </Draggable>
+                            );
+                          }
+
+                          const thisModule = field.fields.find(
+                            (f) => f.value === item.value,
+                          );
+
+                          if (!thisModule) return null;
+
                           return (
                             <Draggable
                               id={`${item.name}-${blockIndex}-${baseIndex}`}
                               key={`${item.name}-${blockIndex}-${baseIndex}`}
                               value={{
-                                title:
-                                  singleFieldMapping[
-                                    DragUtil.getOriginalKey(item.name)
-                                  ].title,
-                                icon: singleFieldMapping[
-                                  DragUtil.getOriginalKey(item.name)
-                                ].icon,
+                                title: thisModule.title,
+                                icon: thisModule.icon,
                               }}
                             >
-                              {getInput(
-                                singleFieldMapping[
-                                  DragUtil.getOriginalKey(item.name)
-                                ].fields[0],
-                                {
-                                  inBaseField: false,
-                                  inBlockField: false,
-                                  inSingleField: true,
-                                  index: blockIndex,
-                                  level: 0,
-                                  blockKey: '',
-                                  baseIndex,
-                                },
-                              )}
+                              <Lego
+                                background={adjustBrightness(mainColor, -20)}
+                                first={false}
+                                last={false}
+                                titleInLeft={true}
+                                titleInRight={false}
+                              >
+                                <Label {...thisModule} />
+                              </Lego>
                             </Draggable>
                           );
                         }

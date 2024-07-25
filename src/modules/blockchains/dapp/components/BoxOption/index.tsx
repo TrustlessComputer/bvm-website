@@ -123,6 +123,7 @@ const BoxOption = ({ fieldKey }: Props) => {
                             value={{
                               title: field.title,
                               icon: field.icon,
+                              value: field.value,
                             }}
                           >
                             <Lego

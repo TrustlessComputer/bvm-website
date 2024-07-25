@@ -91,7 +91,7 @@ const DragMask = () => {
             titleInLeft={false}
             titleInRight={false}
           >
-            <Label {...thisDapp.baseBlock} />
+            <Label {...blockDragging} />
           </Lego>
         </Draggable>
       )}
@@ -106,11 +106,7 @@ const DragMask = () => {
               titleInLeft={false}
               titleInRight={false}
             >
-              <Label
-                {...blockFieldMapping[
-                  DragUtil.getOriginalKey(blockDragging.id)
-                ]}
-              />
+              <Label {...blockDragging} />
             </Lego>
           </Draggable>
         )}
@@ -125,11 +121,7 @@ const DragMask = () => {
               titleInLeft={false}
               titleInRight={false}
             >
-              <Label
-                {...singleFieldMapping[
-                  DragUtil.getOriginalKey(blockDragging.id)
-                ]}
-              />
+              <Label {...blockDragging} />
             </Lego>
           </Draggable>
         )}
