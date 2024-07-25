@@ -25,6 +25,7 @@ export interface ITokenVesting {
   token?: null;
   contract_address?: string;
   beneficiary_id?: number;
+  beneficiary_name?: string;
   beneficiary?: string;
   start?: number;
   duration?: number;
