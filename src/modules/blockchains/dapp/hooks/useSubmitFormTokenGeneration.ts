@@ -31,8 +31,9 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
 
   const onSubmitForm = () => {
     try {
-      let baseMapping: Record<string, { key: string; value: string }[]> = {};
-      let blockMapping: Record<string, { key: string; value: string }[]> = {};
+      setLoading(true);
+
+      let dataMapping: Record<string, { key: string; value: string }[]>[] = [];
 
       const formDapp = formDappSignal.value;
       const formDappInBase = Object.keys(formDapp).filter(
@@ -45,44 +46,53 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
         FormDappUtil.isInSingle,
       );
 
-      baseMapping = extractedValue(formDappInBase, formDapp, baseMapping);
-      blockMapping = extractedValue(
+      console.log('formDapp', formDapp);
+      console.log('formDappInBase', formDappInBase);
+      console.log('formDappInBlock', formDappInBlock);
+      console.log('formDappInSingle', formDappInSingle);
+
+      dataMapping = extractedValue(formDappInBase, formDapp, dataMapping);
+      dataMapping = extractedValue(
         formDappInBlock,
         formDapp,
-        blockMapping,
+        dataMapping,
       );
-      blockMapping = extractedValue(
+      dataMapping = extractedValue(
         formDappInSingle,
         formDapp,
-        blockMapping,
+        dataMapping,
       );
+
+      console.log('dataMapping', dataMapping);
 
       setErrorData([]);
       let errors: any[] = [];
-      if (!baseMapping?.token_name || isEmpty(baseMapping?.token_name)) {
-        errors.push({ key: 'token_name', error: 'Token name is required!' });
-      }
-      if (!baseMapping?.token_symbol || isEmpty(baseMapping?.token_symbol)) {
-        errors.push({
-          key: 'token_symbol',
-          error: 'Token symbol is required!',
-        });
-      }
-      if (!baseMapping?.token_supply || isEmpty(baseMapping?.token_supply)) {
-        errors.push({
-          key: 'token_supply',
-          error: 'Token supply is required!',
-        });
-      } else if (isNaN(Number(baseMapping?.token_supply))) {
-        errors.push({ key: 'token_supply', error: 'Token supply is number!' });
-      } else if (Number(baseMapping?.token_supply) <= 0) {
-        errors.push({ key: 'token_supply', error: 'Token supply > 0!' });
-      }
 
-      const keys = Object.keys(blockMapping);
+      for (const data of dataMapping) {
+        if (!data?.token_name || isEmpty(data?.token_name)) {
+          errors.push({ key: 'token_name', error: 'Token name is required!' });
+        }
+        if (!data?.token_symbol || isEmpty(data?.token_symbol)) {
+          errors.push({
+            key: 'token_symbol',
+            error: 'Token symbol is required!',
+          });
+        }
+        if (!data?.token_supply || isEmpty(data?.token_supply)) {
+          errors.push({
+            key: 'token_supply',
+            error: 'Token supply is required!',
+          });
+        } else if (isNaN(Number(data?.token_supply))) {
+          errors.push({ key: 'token_supply', error: 'Token supply is number!' });
+        } else if (Number(data?.token_supply) <= 0) {
+          errors.push({ key: 'token_supply', error: 'Token supply > 0!' });
+        }
 
-      for (const key of keys) {
-        const blocks = blockMapping[key];
+        const blocks = data.allocation;
+
+        console.log('data', data);
+        console.log('blocks', blocks);
 
         for (const block of blocks) {
           const blockTemp = block as unknown as ITokenomics;
@@ -124,84 +134,82 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
         }
       }
 
-      console.log('baseMapping', baseMapping);
-      console.log('blockMapping', blockMapping);
-
       if (errors.length > 0) {
         setErrorData(errors);
         setIsShowError(true);
+        setLoading(false);
         return;
       }
 
-      setLoading(true);
-      const api = new CTokenGenerationAPI();
+      for (const data of dataMapping) {
+        // @ts-ignore
+        const getTokenomicsDefault: ITokenomics[] = () => {
+          if (
+            getTotalSupply(
+              data?.allocation as unknown as ITokenomics[],
+            ) === 0
+          ) {
+            return [
+              {
+                name: 'Foundation',
+                address: accountInforL2Service?.tcAddress,
+                total_amount: data.token_supply as unknown as string,
+              } as unknown as ITokenomics,
+            ] as ITokenomics[];
+          }
 
-      // @ts-ignore
-      const getTokenomicsDefault: ITokenomics[] = () => {
-        if (
-          getTotalSupply(
-            blockMapping?.allocation as unknown as ITokenomics[],
-          ) === 0
-        ) {
-          return [
-            {
-              name: 'Foundation',
-              address: accountInforL2Service?.tcAddress,
-              total_amount: baseMapping.token_supply as unknown as string,
-            } as unknown as ITokenomics,
-          ] as ITokenomics[];
-        }
+          return data.allocation as unknown as ITokenomics[];
+        };
 
-        return blockMapping.allocation as unknown as ITokenomics[];
-      };
+        // @ts-ignore
+        const defaultTokenomics = getTokenomicsDefault();
 
-      // @ts-ignore
-      const defaultTokenomics = getTokenomicsDefault();
+        const body: IBodyCreateToken = {
+          name: data?.token_name as unknown as string,
+          symbol: data.token_symbol as unknown as string,
+          ...getTokenomics(defaultTokenomics),
+        };
 
-      const body: IBodyCreateToken = {
-        name: baseMapping?.token_name as unknown as string,
-        symbol: baseMapping.token_symbol as unknown as string,
-        ...getTokenomics(defaultTokenomics),
-      };
+        const {
+          name,
+          symbol,
+          beneficiaries,
+          beneficiaryNames,
+          starts,
+          durations,
+          durationUnits,
+          amountTotals,
+          unvestAmounts,
+          cliffs,
+          cliffUnits,
+        } = body;
 
-      const {
-        name,
-        symbol,
-        beneficiaries,
-        beneficiaryNames,
-        starts,
-        durations,
-        durationUnits,
-        amountTotals,
-        unvestAmounts,
-        cliffs,
-        cliffUnits,
-      } = body;
+        let iface = new ethers.utils.Interface(TOKENABI.abi);
 
-      let iface = new ethers.utils.Interface(TOKENABI.abi);
+        const calldata = iface.encodeDeploy([
+          name,
+          symbol,
+          beneficiaries,
+          beneficiaryNames,
+          starts,
+          durations,
+          durationUnits,
+          amountTotals,
+          unvestAmounts,
+          cliffs,
+          cliffUnits,
+        ]);
 
-      const calldata = iface.encodeDeploy([
-        name,
-        symbol,
-        beneficiaries,
-        beneficiaryNames,
-        starts,
-        durations,
-        durationUnits,
-        amountTotals,
-        unvestAmounts,
-        cliffs,
-        cliffUnits,
-      ]);
+        console.log('body', body);
+        console.log('calldata', calldata);
 
-      console.log('body', body);
-      console.log('calldata', calldata);
-
-      api.generateNewToken({
-        data_hex: calldata,
-        type: 'token',
-        network_id: Number(dappState?.chain?.chainId),
-      });
+        const api = new CTokenGenerationAPI();
+        api.generateNewToken({
+          data_hex: calldata,
+          type: 'token',
+          network_id: Number(dappState?.chain?.chainId),
+        });
+      }
 
       showSuccess({message: 'Generate token successfully!'});
       dispatch(requestReload());
