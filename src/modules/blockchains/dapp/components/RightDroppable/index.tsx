@@ -9,9 +9,15 @@ import Input from '../Input';
 import Dropdown from '../Dropdown';
 import ExtendsInput from '../ExtendsInput';
 import Button from '../Button';
+import Label from '../Label';
 import { FieldKeyPrefix } from '../../contants';
 import { FieldOption } from '../../types';
-import { adjustBrightness, DragUtil } from '../../utils';
+import {
+  adjustBrightness,
+  cloneDeep,
+  DragUtil,
+  isTwoObjectEqual,
+} from '../../utils';
 import useDappsStore, { subScribeDropEnd } from '../../stores/useDappStore';
 import {
   draggedIds2DSignal,
@@ -24,7 +30,6 @@ import {
 } from '../../signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
-import Label from '../Label';
 
 const RightDroppable = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
@@ -35,7 +40,6 @@ const RightDroppable = () => {
     typeof draggedIds2DSignal.value
   >([]);
 
-  // Fake dapps[0] is selected
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp];
   }, [dapps, currentIndexDapp]);
@@ -146,8 +150,7 @@ const RightDroppable = () => {
             background={adjustBrightness(mainColor, -20)}
             first={false}
             last={false}
-            // title={field.title}
-            titleInLeft={true}
+            titleInLeft={false}
             titleInRight={false}
           >
             <Label {...field} />
@@ -161,28 +164,25 @@ const RightDroppable = () => {
   useSignalEffect(() => {
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
-        if (
-          JSON.stringify(draggedIds2DSignal.value[i]) !==
-          JSON.stringify(draggedIds2D[i])
-        ) {
-          setDraggedIds2D(JSON.parse(JSON.stringify(draggedIds2DSignal.value)));
+        if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
+          setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
           break;
         }
 
         for (let j = 0; j < draggedIds2DSignal.value[i].length; j++) {
           if (
-            JSON.stringify(draggedIds2DSignal.value[i][j]) !==
-            JSON.stringify(draggedIds2D[i][j])
+            !isTwoObjectEqual(
+              draggedIds2DSignal.value[i][j],
+              draggedIds2D[i][j],
+            )
           ) {
-            setDraggedIds2D(
-              JSON.parse(JSON.stringify(draggedIds2DSignal.value)),
-            );
+            setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
             break;
           }
         }
       }
     } else {
-      setDraggedIds2D(JSON.parse(JSON.stringify(draggedIds2DSignal.value)));
+      setDraggedIds2D(cloneDeep(draggedIds2DSignal.value));
     }
   });
 

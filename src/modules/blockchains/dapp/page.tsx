@@ -403,8 +403,6 @@ const RollupsDappPage = () => {
       };
     });
 
-    console.log(draggedIds2D);
-
     draggedIds2DSignal.value = [...draggedIds2D];
     formDappSignal.value = { ...formDapp };
 
