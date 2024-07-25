@@ -318,6 +318,15 @@ export const dappMockupData: DappModel[] = [
               type: '',
               options: [],
             },
+            {
+              key: 'bvm',
+              title: 'BVM', // symbol
+              value: '0x28390a0e33768da0e3803fb86dc632014be424f4', // contract_address
+              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+              tooltip: '',
+              type: '',
+              options: [],
+            },
           ],
         },
         {
@@ -332,6 +341,15 @@ export const dappMockupData: DappModel[] = [
               key: 'eth',
               title: 'ETH', // symbol
               value: '0x1234', // contract_address
+              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+              tooltip: '',
+              type: '',
+              options: [],
+            },
+            {
+              key: 'bvm',
+              title: 'BVM', // symbol
+              value: '0x28390a0e33768da0e3803fb86dc632014be424f4', // contract_address
               icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
               tooltip: '',
               type: '',
