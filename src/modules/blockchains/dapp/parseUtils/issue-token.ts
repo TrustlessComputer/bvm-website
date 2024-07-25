@@ -106,7 +106,7 @@ export const parseIssuedToken = (token: IToken) => {
                 {
                   key: 'cliff_unit',
                   title: 'Time',
-                  value: vesting.duration_units?.toString() || '0',
+                  value: vesting.cliff_units?.toString() || '0',
                   icon: '',
                   tooltip: '',
                   type: 'dropdown',
@@ -144,7 +144,7 @@ export const parseIssuedToken = (token: IToken) => {
                 {
                   key: 'cliff',
                   title: 'Amount',
-                  value: vesting.duration as number,
+                  value: vesting.cliff as number,
                   icon: '',
                   tooltip: '',
                   type: 'input',

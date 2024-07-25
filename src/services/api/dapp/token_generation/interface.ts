@@ -31,4 +31,6 @@ export interface ITokenVesting {
   duration_units?: number;
   amount_total?: string;
   unvest_amount?: string;
+  cliff?: number;
+  cliff_units?: number;
 }
