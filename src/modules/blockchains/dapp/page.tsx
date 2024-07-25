@@ -9,8 +9,10 @@ import {
 import Image from 'next/image';
 
 import {
+  cloneDeep,
   DragUtil,
   FormDappUtil,
+  hasValue,
   MouseSensor,
   removeItemAtIndex,
 } from './utils';
@@ -95,7 +97,7 @@ const RollupsDappPage = () => {
     const activeId = active.id.toString();
     const overId = over.id.toString();
 
-    const draggedIds2D = draggedIds2DSignal.value;
+    const draggedIds2D = cloneDeep(draggedIds2DSignal.value);
     const noBaseBlockInOutput = draggedIds2D.length === 0;
     const canPlaceMoreBase =
       Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
@@ -212,6 +214,17 @@ const RollupsDappPage = () => {
         } else {
           const formKey = `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${draggedIds2D[overBaseIndex].length}`;
 
+          for (const key in formDappSignal.value) {
+            if (
+              key.startsWith(
+                `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-`,
+              )
+            ) {
+              alert('You can only place one module!');
+              return;
+            }
+          }
+
           formDappSignal.value = {
             ...formDappSignal.value,
             [formKey]: active.data.current?.value,
@@ -299,13 +312,44 @@ const RollupsDappPage = () => {
         return;
       }
 
-      // // Case 2.3: Dragged lego is a single
+      // Case 2.3: Dragged lego is a single
       if (activeIsASingle) {
         const formDapp = formDappSignal.value;
 
         Object.keys(formDapp).forEach((key) => {
           if (
             FormDappUtil.isInSingle(key) &&
+            FormDappUtil.getIndex(key) === activeIndex
+          ) {
+            delete formDapp[key];
+          } else if (FormDappUtil.getIndex(key) > activeIndex) {
+            const currentIndex = FormDappUtil.getIndex(key);
+            const newKey = key.replace(
+              `-${currentIndex}`,
+              `-${currentIndex - 1}`,
+            );
+
+            formDapp[newKey] = formDapp[key];
+            delete formDapp[key];
+          }
+        });
+
+        formDappSignal.value = { ...formDapp };
+        draggedIds2D[activeBaseIndex] = removeItemAtIndex(
+          draggedIds2D[activeBaseIndex],
+          Number(DragUtil.getChildIndex(activeId)),
+        );
+        draggedIds2DSignal.value = [...draggedIds2D];
+
+        return;
+      }
+
+      if (activeIsAModule) {
+        const formDapp = formDappSignal.value;
+
+        Object.keys(formDapp).forEach((key) => {
+          if (
+            FormDappUtil.isInModule(key) &&
             FormDappUtil.getIndex(key) === activeIndex
           ) {
             delete formDapp[key];
@@ -408,7 +452,6 @@ const RollupsDappPage = () => {
     draggedIds2DSignal.value = [...draggedIds2D];
     formDappSignal.value = { ...formDapp };
 
-    console.log('____', formDappSignal.peek(), draggedIds2DSignal.peek());
     setCurrentIndexDapp(dappIndex);
   }, [templateForm]);
 
@@ -431,7 +474,7 @@ const RollupsDappPage = () => {
           model: data,
         });
 
-        console.log('____model', model)
+        console.log('____model', model);
         setTemplateForm(model);
         break;
       }
