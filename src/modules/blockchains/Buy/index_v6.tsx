@@ -36,13 +36,13 @@ const BuyPage = () => {
   const router = useRouter();
   const [data, setData] = React.useState<
     | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
+    options: IModelCategory['options'] &
+      {
+        value: any;
+        label: string;
+        disabled: boolean;
+      }[];
+  })[]
     | null
   >(null);
   const [originalData, setOriginalData] = React.useState<
@@ -231,7 +231,7 @@ const BuyPage = () => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
     }
   }
 
@@ -321,9 +321,13 @@ const BuyPage = () => {
   };
 
   const fetchData = async () => {
-    const modelCategories =
-      (await getModelCategories(l2ServiceUserAddress)) || [];
-    // const modelCategories = mockupOptions;
+
+    //TODO real data please remove comment
+    // const modelCategories =
+    //   (await getModelCategories(l2ServiceUserAddress)) || [];
+
+    //TODO this is mocokup data
+    const modelCategories = mockupOptions;
 
     const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
     _modelCategories.forEach((_field) => {
@@ -710,7 +714,7 @@ const BuyPage = () => {
                                     option.supportNetwork &&
                                     option.supportNetwork !== 'both' &&
                                     option.supportNetwork !==
-                                      field['network']?.value
+                                    field['network']?.value
                                   ) || !option.selectable;
 
                                 if (
@@ -723,6 +727,31 @@ const BuyPage = () => {
                                   if (currentValues.includes(option.key)) {
                                     return null;
                                   }
+                                }
+
+                                if (item.type === 'form') {
+                                  return (
+                                    <Draggable
+                                      key={item.key + '-' + option.key}
+                                      id={item.key + '-' + option.key}
+                                      useMask
+                                      isLabel={true}
+                                      value={option.key}
+                                      tooltip={option.tooltip}
+                                    >
+                                      <LegoV3
+                                        background={item.color}
+                                        zIndex={item.options.length - optIdx}
+                                        disabled={isDisabled}
+                                      >
+                                        <div className={s.wrapInput}>
+                                          <span className={s.labelInput}>{option.title}</span>
+                                          <input className={`${s.inputLabel}`}
+                                                 name={item.key + '-' + option.key} type={option.type} />
+                                        </div>
+                                      </LegoV3>
+                                    </Draggable>
+                                  );
                                 }
 
                                 return (
@@ -929,6 +958,30 @@ const BuyPage = () => {
                                 );
 
                                 if (!option) return null;
+
+                                if (item.type === 'form') {
+                                  return (
+                                    <Draggable
+                                      key={item.key + '-' + option.key}
+                                      id={item.key + '-' + option.key}
+                                      useMask
+                                      isLabel={true}
+                                      value={option.key}
+                                      tooltip={option.tooltip}
+                                    >
+                                      <LegoV3
+                                        background={item.color}
+                                        zIndex={item.options.length - opIdx}
+                                      >
+                                        <div className={s.wrapInput}>
+                                          <span className={s.labelInput}>{option.title}</span>
+                                          <input className={`${s.inputLabel}`}
+                                                 name={item.key + '-' + option.key} type={option.type} />
+                                        </div>
+                                      </LegoV3>
+                                    </Draggable>
+                                  );
+                                }
 
                                 return (
                                   <Draggable

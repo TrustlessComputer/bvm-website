@@ -541,3 +541,37 @@
     }
   }
 }
+
+.inputLabel {
+  background: white;
+  color: black;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 17px;
+
+
+  &::placeholder {
+    color: black;
+    opacity: 1; /* Firefox */
+  }
+
+  &::-ms-input-placeholder { /* Edge 12 -18 */
+    color: black;
+  }
+
+  &[readOnly] {
+    pointer-events: none;
+    opacity: .8;
+  }
+}
+
+.wrapInput {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .labelInput {
+    color: white;
+  }
+}
+

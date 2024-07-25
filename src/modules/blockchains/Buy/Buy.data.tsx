@@ -542,6 +542,86 @@ export const iconToolNames = [
 ];
 
 export const mockupOptions: IModelCategory[] = [
+
+  {
+    hidden: false,
+    id: '668f8ec088f822fe3ebd3477',
+    created_at: '2024-07-11T07:50:24.179Z',
+    updated_at: '0001-01-01T00:00:00Z',
+    key: 'input_apps',
+    title: 'Inputs',
+    required: false,
+    tooltip:
+      'Bring BTC, ETH, and other assets to your blockchain and transfer them back to Bitcoin and Ethereum networks.',
+    options: [
+      {
+        key: 'input_apps_btc_bridge',
+        title: 'Bitcoin',
+        value: '',
+        type: 'text',
+        // valueStr: '',
+        selectable: true,
+        priceUSD: 0,
+        priceBVM: 0,
+        tooltip: '',
+        supportNetwork: '',
+        icon: '',
+        // logo: 'https://storage.googleapis.com/bvm-network/image/btc_bridge_ic.png',
+        // setupLogo: '',
+        needContactUs: false,
+        // needConfig: false,
+        order: 0,
+      },
+      {
+        key: 'input_apps_eth_bridge',
+        title: 'Ethereum',
+        value: 1,
+        // valueStr: '',
+        type: 'number',
+        selectable: true,
+        priceUSD: 0,
+        priceBVM: 0,
+        tooltip: '',
+        supportNetwork: '',
+        icon: '',
+        // logo: 'https://storage.googleapis.com/bvm-network/image/eth_bridge_ic.png',
+        // setupLogo: '',
+        needContactUs: false,
+        // needConfig: false,
+        order: 0,
+      },
+      {
+        key: 'input_apps_eth_bridge_2',
+        title: 'Ethereum',
+        value: 1,
+        // valueStr: '',
+        type: 'number',
+        selectable: true,
+        priceUSD: 0,
+        priceBVM: 0,
+        tooltip: '',
+        supportNetwork: '',
+        icon: '',
+        // logo: 'https://storage.googleapis.com/bvm-network/image/eth_bridge_ic.png',
+        // setupLogo: '',
+        needContactUs: false,
+        // needConfig: false,
+        order: 0,
+      },
+    ],
+    color: '#855AFF',
+    type: 'form',
+    disable: false,
+    multiChoice: true,
+    confuseWord: false,
+    confuseIcon:
+      'https://storage.googleapis.com/bvm-network/icons-tool/icon-bridge-confused.svg',
+    confuseTitle: 'Your chain',
+    // updatable: true,
+    // whitelistAddress: null,
+    order: 9,
+  },
+  //test
   {
     hidden: false,
     id: '668f8ebe88f822fe3ebd346e',
@@ -599,6 +679,8 @@ export const mockupOptions: IModelCategory[] = [
     // whitelistAddress: null,
     order: 1,
   },
+
+
   {
     hidden: false,
     id: '668f8ebf88f822fe3ebd346f',
@@ -940,7 +1022,7 @@ export const mockupOptions: IModelCategory[] = [
     title: 'Prover',
     required: false,
     tooltip:
-      "Prover is a crucial component responsible for generating cryptographic proofs that verify the correctness of transactions processed off-chain by the blockchain's sequencer.",
+      'Prover is a crucial component responsible for generating cryptographic proofs that verify the correctness of transactions processed off-chain by the blockchain\'s sequencer.',
     options: [
       {
         key: 'zk_prover',
