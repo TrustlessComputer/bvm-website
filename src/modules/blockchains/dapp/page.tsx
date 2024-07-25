@@ -35,6 +35,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-token';
 import { parseDappModel } from '@/modules/blockchains/utils';
+import CStakingAPI from '@/services/api/dapp/staking';
 
 const RollupsDappPage = () => {
   const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
@@ -408,22 +409,29 @@ const RollupsDappPage = () => {
   }, [templateForm]);
 
   React.useEffect(() => {
-    if(parseTokens && parseTokens.length > 0) {
-      console.log('parseTokens', parseTokens);
-      const result = parseDappModel({
-        key: 'token_generation',
-        model: parseTokens as DappModel[],
-      });
-
-      console.log('parseDappModel', result);
-
-      setTemplateForm(result);
-    }
-  }, [parseTokens]);
+    getDataTemplateForm();
+  }, [thisDapp]);
 
   React.useEffect(() => {
     fetchData();
   }, [dappState]);
+
+  const getDataTemplateForm = async () => {
+    if (!thisDapp) return;
+    switch (thisDapp?.key) {
+      case 'staking':
+        const api = new CStakingAPI();
+        const data = await api.getStakingPools();
+        const model = parseDappModel({
+          key: 'staking',
+          model: data,
+        });
+        setTemplateForm(model);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div className={styles.container}>

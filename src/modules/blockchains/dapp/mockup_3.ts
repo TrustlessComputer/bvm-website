@@ -24,13 +24,13 @@ export const dappMockupData: DappModel[] = [
         tooltip: 'Token Generation tokenomics',
         required: false,
       },
-      {
-        key: 'modules',
-        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'Module',
-        tooltip: 'Token module',
-        required: false,
-      },
+      // {
+      //   key: 'modules',
+      //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+      //   title: 'Module',
+      //   tooltip: 'Token module',
+      //   required: false,
+      // },
     ],
     baseBlock: {
       key: 'token_info',
@@ -234,45 +234,45 @@ export const dappMockupData: DappModel[] = [
         ],
       },
     ],
-    singleFields: [
-      {
-        preview: false,
-        key: 'number_module',
-        title: 'Number',
-        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        placableAmount: -1,
-        section: 'modules',
-        fields: [
-          {
-            key: '1',
-            title: 'Number 1',
-            type: 'module',
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-            value: '1',
-            tooltip: '',
-            options: [],
-          },
-          {
-            key: '2',
-            title: 'Number 2',
-            type: 'module',
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-            value: '2',
-            tooltip: '',
-            options: [],
-          },
-          {
-            key: '3',
-            title: 'Number 3',
-            type: 'module',
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-            value: '3',
-            tooltip: '',
-            options: [],
-          },
-        ],
-      },
-    ],
+    // moduleFields: [
+    //   {
+    //     preview: false,
+    //     key: 'number_module',
+    //     title: 'Number',
+    //     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //     placableAmount: -1,
+    //     section: 'modules',
+    //     fields: [
+    //       {
+    //         key: '1',
+    //         title: 'Number 1',
+    //         type: '',
+    //         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //         value: '1',
+    //         tooltip: '',
+    //         options: [],
+    //       },
+    //       {
+    //         key: '2',
+    //         title: 'Number 2',
+    //         type: '',
+    //         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //         value: '2',
+    //         tooltip: '',
+    //         options: [],
+    //       },
+    //       {
+    //         key: '3',
+    //         title: 'Number 3',
+    //         type: '',
+    //         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //         value: '3',
+    //         tooltip: '',
+    //         options: [],
+    //       },
+    //     ],
+    //   },
+    // ],
   },
   {
     id: 'staking',
@@ -318,6 +318,15 @@ export const dappMockupData: DappModel[] = [
               type: '',
               options: [],
             },
+            {
+              key: 'bvm',
+              title: 'BVM', // symbol
+              value: '0x28390a0e33768da0e3803fb86dc632014be424f4', // contract_address
+              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+              tooltip: '',
+              type: '',
+              options: [],
+            },
           ],
         },
         {
@@ -332,6 +341,15 @@ export const dappMockupData: DappModel[] = [
               key: 'eth',
               title: 'ETH', // symbol
               value: '0x1234', // contract_address
+              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+              tooltip: '',
+              type: '',
+              options: [],
+            },
+            {
+              key: 'bvm',
+              title: 'BVM', // symbol
+              value: '0x28390a0e33768da0e3803fb86dc632014be424f4', // contract_address
               icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
               tooltip: '',
               type: '',
