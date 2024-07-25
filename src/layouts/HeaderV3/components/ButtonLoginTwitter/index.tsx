@@ -44,7 +44,7 @@ const ButtonLoginTwitter = (props: Props) => {
     <div
       className={`${s.buttonLogin} ${
         props.color === 'black' ? s.buttonLogin__light : s.buttonLogin__dark
-      } ${props?.className}`}
+      } ${props?.className} ${loggedIn && s.loggedIn}`}
       onClick={() => {
         if (!loggedIn) {
           handleConnect();
