@@ -57,8 +57,6 @@ const RollupsDappPage = () => {
       result.push(t);
     }
 
-    console.log('parseTokensData', result);
-
     setParseTokens(result);
   };
 
@@ -342,10 +340,10 @@ const RollupsDappPage = () => {
     const dapps = dappMockupData;
     const sortedDapps = dapps.sort((a, b) => a.order - b.order);
 
-    const templateForm = dappTemplateFormMockupData;
+    // const templateForm = dappTemplateFormMockupData;
 
     setDapps(sortedDapps);
-    setTemplateForm(templateForm);
+    // setTemplateForm(templateForm);
   };
 
   // TODO
@@ -410,11 +408,15 @@ const RollupsDappPage = () => {
   }, [templateForm]);
 
   React.useEffect(() => {
-    parseDappModel({
-      key: 'token_generation',
-      model: dappMockupData,
-    });
-  }, []);
+    if(parseTokens && parseTokens.length > 0) {
+      const result = parseDappModel({
+        key: 'token_generation',
+        model: parseTokens as DappModel[],
+      });
+
+      setTemplateForm(result);
+    }
+  }, [parseTokens]);
 
   React.useEffect(() => {
     fetchData();
