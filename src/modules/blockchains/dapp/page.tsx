@@ -243,6 +243,7 @@ const RollupsDappPage = () => {
     setTemplateForm(templateForm);
   };
 
+  // TODOTDO
   // React.useEffect(() => {
   //   const dappIndex = dapps.findIndex(
   //     (dapp) => dapp.key === (templateForm?.dappKey || ''),
