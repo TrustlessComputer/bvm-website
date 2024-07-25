@@ -423,7 +423,7 @@ export const dappMockupData: DappModel[] = [
           key: 'airdrop_amount',
           title: 'Amount',
           type: 'input',
-          icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+          icon: '',
           value: '',
           tooltip: '',
           options: [],
@@ -462,7 +462,7 @@ export const dappMockupData: DappModel[] = [
             key: 'required_amount',
             title: 'Require Amount',
             type: 'input',
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            icon: '',
             value: '',
             tooltip: '',
             options: [],
@@ -471,7 +471,7 @@ export const dappMockupData: DappModel[] = [
             key: 'reward_amount',
             title: 'Reward Amount',
             type: 'input',
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            icon: '',
             value: '',
             tooltip: '',
             options: [],
@@ -498,7 +498,7 @@ export const dappMockupData: DappModel[] = [
                 key: 'eth',
                 title: 'ETH', // symbol
                 value: '0x1234', // contract_address
-                icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+                icon: '', // image_url
                 tooltip: '',
                 type: '',
                 options: [],
@@ -509,7 +509,7 @@ export const dappMockupData: DappModel[] = [
             key: 'required_amount',
             title: 'Require Amount',
             type: 'input',
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            icon: '',
             value: '',
             tooltip: '',
             options: [],
@@ -518,7 +518,7 @@ export const dappMockupData: DappModel[] = [
             key: 'reward_amount',
             title: 'Reward Amount',
             type: 'input',
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            icon: '',
             value: '',
             tooltip: '',
             options: [],
@@ -545,7 +545,7 @@ export const dappMockupData: DappModel[] = [
                 key: 'refer',
                 title: 'Refer a friend to join IDO', // symbol
                 value: 'refer', // contract_address
-                icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+                icon: '', // image_url
                 tooltip:
                   'Spread the love to your friends, team, and communities.',
                 type: '',
@@ -555,7 +555,7 @@ export const dappMockupData: DappModel[] = [
                 key: 'spread_on_x',
                 title: 'Publish a tweet mentioning', // symbol
                 value: 'spread_on_x', // contract_address
-                icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+                icon: '', // image_url
                 tooltip: 'Publish a tweet mentioning',
                 type: '',
                 options: [],
@@ -564,7 +564,7 @@ export const dappMockupData: DappModel[] = [
                 key: 'like_on_x',
                 title: `Like and retweet Twitter' pinned tweet`, // symbol
                 value: 'like_on_x', // contract_address
-                icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+                icon: '', // image_url
                 tooltip: `Like and retweet Twitter' pinned tweet`,
                 type: '',
                 options: [],
@@ -575,7 +575,7 @@ export const dappMockupData: DappModel[] = [
             key: 'reward_amount',
             title: 'Reward Amount',
             type: 'input',
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+            icon: '',
             value: '',
             tooltip: '',
             options: [],
