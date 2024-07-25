@@ -10,7 +10,7 @@ const STEP_SECTION = [
     subTile: 'Craft the Bitcoin Wars blockchain with Bitcoin Studio',
     subDescription:
       'Bitcoin Studio makes blockchain building a breeze! We whipped up the Bitcoin Wars blockchain as a ZK rollup on Bitcoin using simple drag-and-drop tools. No sweat, just pure innovation.',
-    image: '/maga/step-1.gif',
+    image: '/maga/step-1.1.gif',
     specialImage: true,
     link: '/studio',
     isExternal: false,
