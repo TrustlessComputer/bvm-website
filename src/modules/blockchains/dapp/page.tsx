@@ -409,10 +409,13 @@ const RollupsDappPage = () => {
 
   React.useEffect(() => {
     if(parseTokens && parseTokens.length > 0) {
+      console.log('parseTokens', parseTokens);
       const result = parseDappModel({
         key: 'token_generation',
         model: parseTokens as DappModel[],
       });
+
+      console.log('parseDappModel', result);
 
       setTemplateForm(result);
     }
