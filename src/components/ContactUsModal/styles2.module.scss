@@ -57,8 +57,8 @@
 }
 
 .modalManualHeader {
-   padding-bottom: 0 !important;
-   padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
   p {
     color: white;
   }
@@ -68,20 +68,19 @@
   background-color: #fff !important;
   border-radius: 20px !important;
   overflow: hidden !important;
-  max-width: 1000px !important;
+  max-width: 1100px !important;
   padding: 0 !important;
   &_inner {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     @include is-pc {
       grid-template-columns: repeat(2, 1fr);
-
     }
   }
 
   :global {
     .chakra-modal__body {
-       padding: 0 !important;
+      padding: 0 !important;
     }
   }
 }
@@ -380,13 +379,12 @@
 }
 
 .submitBtn {
-  background: #FA4E0E;
+  background: #fa4e0e;
   border-radius: 1000px;
   height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-
 
   padding-left: 16px !important;
   padding-right: 16px !important;
@@ -412,7 +410,6 @@
   font-weight: 500;
   color: rgb(225, 58, 58);
 }
-
 
 .brand {
   display: flex;
