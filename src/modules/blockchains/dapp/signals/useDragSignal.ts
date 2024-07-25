@@ -8,6 +8,7 @@ type Field = {
 
 export const draggedIdsSignal = signal<string[]>([]);
 export const draggedIds2DSignal = signal<Field[][]>([]);
+export const templateIds2DSignal = signal<Field[][]>([]);
 export const blockDraggingSignal = signal<{
   id: string;
   title: string;

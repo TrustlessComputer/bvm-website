@@ -5,9 +5,6 @@ export const useThisDapp = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
 
   return React.useMemo(() => {
-
-    console.log('_____dsds', dapps[currentIndexDapp]);
     return dapps[currentIndexDapp];
   }, [dapps, currentIndexDapp]);
-
-}
+};

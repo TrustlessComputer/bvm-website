@@ -24,14 +24,10 @@ const LegoParent = ({
   icon,
   children,
   smallMarginHeaderTop = false,
-...reset
+  ...reset
 }: Props) => {
   const headerRef = React.useRef<HTMLDivElement | null>(null);
   const footerRef = React.useRef<HTMLDivElement | null>(null);
-  // console.log('LegoParent', children);
-
-const thisDapp = useThisDapp();
-  console.log('____thisDapp', thisDapp);
 
   React.useEffect(() => {
     if (!headerRef.current || !footerRef.current) return;

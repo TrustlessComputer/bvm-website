@@ -28,8 +28,14 @@ import useDappsStore, {
   useFormDappsStore,
   useTemplateFormStore,
 } from './stores/useDappStore';
-import { draggedIds2DSignal } from './signals/useDragSignal';
-import { formDappSignal } from './signals/useFormDappsSignal';
+import {
+  draggedIds2DSignal,
+  templateIds2DSignal,
+} from './signals/useDragSignal';
+import {
+  formDappSignal,
+  formTemplateDappSignal,
+} from './signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
@@ -413,9 +419,9 @@ const RollupsDappPage = () => {
         FormDappUtil.getBaseIndex(fieldKey),
       ),
     ).size;
-    const draggedIds2D: typeof draggedIds2DSignal.value = Array(totalBase).fill(
-      [],
-    );
+    const draggedIds2D: typeof templateIds2DSignal.value = Array(
+      totalBase,
+    ).fill([]);
 
     Object.keys(templateForm.fieldValue).forEach((fieldKey) => {
       const value = templateForm.fieldValue[fieldKey];
@@ -449,8 +455,8 @@ const RollupsDappPage = () => {
       };
     });
 
-    draggedIds2DSignal.value = [...draggedIds2D];
-    formDappSignal.value = { ...formDapp };
+    templateIds2DSignal.value = [...draggedIds2D];
+    formTemplateDappSignal.value = { ...formDapp };
 
     setCurrentIndexDapp(dappIndex);
   }, [templateForm]);
@@ -469,12 +475,12 @@ const RollupsDappPage = () => {
       case 'staking': {
         const api = new CStakingAPI();
         const data = await api.getStakingPools();
+        console.log('staking data ', data);
         const model = parseDappModel({
           key: 'staking',
           model: data,
         });
 
-        console.log('____model', model);
         setTemplateForm(model);
         break;
       }

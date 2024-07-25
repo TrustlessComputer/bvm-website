@@ -13,8 +13,14 @@
     fill: #ffffff;
   }
 
+  &__disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
   &__inner {
     position: relative;
+    padding-right: 10px;
 
     &__content {
       display: flex;

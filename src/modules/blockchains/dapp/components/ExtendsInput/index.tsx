@@ -11,6 +11,7 @@ import { adjustBrightness, FormDappUtil } from '../../utils';
 import {
   formDappSignal,
   formDappToggleSignal,
+  formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
 
 type Props = FieldModel &
@@ -18,9 +19,15 @@ type Props = FieldModel &
     name: string;
     keyDapp: string;
     background?: string;
+    onlyLabel?: boolean;
+    disabled?: boolean;
   };
 
-const ExtendsInput = ({ ...props }: Props) => {
+const ExtendsInput = ({
+  onlyLabel = false,
+  disabled = false,
+  ...props
+}: Props) => {
   const {
     background = '#A041FF',
     keyDapp,
@@ -57,6 +64,8 @@ const ExtendsInput = ({ ...props }: Props) => {
   }, [dapps, currentIndexDapp]);
 
   const handleToggle = () => {
+    if (disabled || onlyLabel) return;
+
     setToggle(!toggle);
     const key = FormDappUtil.getKeyForm(props, props, name);
     formDappSignal.value = {
@@ -68,7 +77,9 @@ const ExtendsInput = ({ ...props }: Props) => {
   React.useEffect(() => {
     if (type !== 'extends') return;
 
-    const formDappToggle = formDappSignal.value;
+    const formDappToggle = onlyLabel
+      ? formTemplateDappSignal.value
+      : formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
     if (typeof formDappToggle[key] !== 'undefined') {
@@ -88,6 +99,8 @@ const ExtendsInput = ({ ...props }: Props) => {
           <Input
             {...field}
             {...fieldOpt}
+            disabled={disabled}
+            onlyLabel={onlyLabel}
             name={field.key}
             dappKey={thisDapp.key}
           />
@@ -97,6 +110,8 @@ const ExtendsInput = ({ ...props }: Props) => {
           <Dropdown
             {...field}
             {...fieldOpt}
+            disabled={disabled}
+            onlyLabel={onlyLabel}
             keyDapp={thisDapp.key}
             name={field.key}
             options={field.options}
@@ -193,6 +208,8 @@ const ExtendsInput = ({ ...props }: Props) => {
               {...fieldOption}
               level={level + 1}
               key={option.key}
+              disabled={disabled}
+              onlyLabel={onlyLabel}
             />
           ))
         : null}

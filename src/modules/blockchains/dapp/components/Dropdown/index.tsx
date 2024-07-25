@@ -12,11 +12,13 @@ import { useFormDappsStore } from '../../stores/useDappStore';
 import {
   formDappDropdownSignal,
   formDappSignal,
+  formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
 
 type Props = {
+  onlyLabel?: boolean;
   background?: string;
   disabled?: boolean;
   options: FieldModel[];
@@ -30,6 +32,7 @@ const Dropdown = ({
   disabled,
   name,
   keyDapp,
+  onlyLabel = false,
   ...props
 }: Props) => {
   const ref = React.useRef<HTMLDivElement | null>(null);
@@ -44,6 +47,8 @@ const Dropdown = ({
   const backgroundActive = adjustBrightness(background, -20);
 
   const handleOnClickOption = (item: FieldModel) => {
+    if (disabled || onlyLabel) return;
+
     const formDappDropdown = formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
@@ -57,6 +62,8 @@ const Dropdown = ({
   };
 
   useSignalEffect(() => {
+    if (disabled || onlyLabel) return;
+
     const thisValue =
       formDappSignal.value[FormDappUtil.getKeyForm(props, props, name)];
 
@@ -69,7 +76,9 @@ const Dropdown = ({
   });
 
   React.useEffect(() => {
-    const formDappDropdown = formDappSignal.value;
+    const formDappDropdown = onlyLabel
+      ? formTemplateDappSignal.value
+      : formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
     if (!formDappDropdown[key]) {
@@ -89,7 +98,9 @@ const Dropdown = ({
 
   return (
     <div
-      className={styles.dropdown}
+      className={cn(styles.dropdown, {
+        [styles.dropdown__disabled]: disabled,
+      })}
       ref={ref}
       style={{
         // @ts-ignore
@@ -111,14 +122,14 @@ const Dropdown = ({
             {currentValue.title}
           </p>
 
-          {props.options.length > 1 && (
+          {props.options.length > 1 && !disabled ? (
             <Image
               src="/landingV3/svg/arrow-b.svg"
               width={16}
               height={16}
               alt="icon"
             />
-          )}
+          ) : null}
         </div>
       </div>
 
