@@ -1,7 +1,13 @@
 .buttonLogin {
-  --border-color: #FA4E0E26;
-  --text-color: #fff;
-  --background-color: #FA4E0E26;
+  --border-color: black;
+  --text-color: white;
+  --background-color: black;
+
+  &.loggedIn {
+    --text-color: black;
+    --border-color: #FA4E0E26;
+    --background-color: #FA4E0E26;
+  }
 
   display: flex;
   height: 36px;
@@ -23,25 +29,51 @@
     --text-color: black;
     --background-color: #FA4E0E26;
   }
+
   &__light {
     // --border-color: #ff4500;
     // --background-color: rgba(255, 69, 0, 0.2);
     // --text-color: #ff4500;
-    --text-color: black;
-    --background-color: #FA4E0E26;
+
+    --text-color: white;
+    --background-color: black;
+    --border-color: black;
+
+    &.loggedIn {
+      --text-color: black;
+      --border-color: #FA4E0E26;
+      --background-color: #FA4E0E26;
+    }
+
   }
+
   &__dark {
     // --border-color: rgba(255, 255, 255, 0.3);
     // --text-color: #fff;
     // --background-color: rgba(255, 255, 255, 0.3);
-    --text-color: white;
-    --background-color: #FFFFFF33;
+    --text-color: black;
+    --background-color: white;
+    --border-color: white;
+
+    &.loggedIn {
+      --text-color: white;
+      --background-color: #FFFFFF33;
+      --border-color: #FFFFFF33;
+    }
   }
+
   transition: opacity 0.2s ease-in-out;
 
   &:hover {
     opacity: 0.8;
     transition: opacity 0.2s ease-in-out;
+  }
+
+  &.loggedIn{
+    .inner{
+      padding: 6px;
+      padding-right: 12px;
+    }
   }
 }
 
@@ -53,8 +85,7 @@
   justify-content: center;
   border-radius: 100px;
   // border: 1px solid var(--border-color);
-  padding: 6px;
-  padding-right: 12px;
+  padding: 6px 12px;
   width: 100%;
   overflow: hidden;
 
@@ -105,7 +136,7 @@
   padding: 12px 0;
   background-color: #fff;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
-    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  rgba(17, 17, 26, 0.05) 0px 8px 32px;
   border-radius: 12px;
 
   @include is-mobile {
@@ -123,6 +154,7 @@
       flex-direction: row;
       cursor: pointer;
       gap: 20px;
+
       &:hover {
         p {
           color: #ff7f7f;
@@ -132,6 +164,7 @@
           stroke: #ff7f7f;
         }
       }
+
       p {
         text-align: center;
         font-family: 'JetBrains Mono';
