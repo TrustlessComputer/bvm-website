@@ -105,6 +105,7 @@ interface BlockModel {
   placableAmount?: number;
   fields: FieldModel[];
   section: string;
+  preview: boolean;
 }
 
 interface DappModel {
