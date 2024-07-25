@@ -210,7 +210,10 @@ const BuyPage = () => {
     }
 
     // Multi choice case
-    if (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) {
+    if (
+      (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) ||
+      (!overIsFinalDroppable && overSuffix1 === 'right')
+    ) {
       const currentValues = (field[activeKey].value || []) as string[];
       const isCurrentEmpty = currentValues.length === 0;
       const newValue = [...currentValues, active.data.current.value];
