@@ -65,7 +65,7 @@ export const parseIssuedToken = (token: IToken) => {
           title: 'Name',
           type: 'input',
           icon: '',
-          value: vesting.beneficiary as string,
+          value: vesting.beneficiary_name as string,
           tooltip: '',
           options: [],
         },
