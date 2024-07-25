@@ -74,7 +74,7 @@ export const parseIssuedToken = (token: IToken) => {
           title: 'Amount',
           type: 'input',
           icon: '',
-          value: vesting.amount_total as string,
+          value: (Number(vesting.amount_total) > 0 ? vesting.amount_total : vesting.unvest_amount) as string,
           tooltip: '',
           options: [],
         },
