@@ -41,6 +41,8 @@ const RightDroppable = () => {
   >([]);
 
   const thisDapp = React.useMemo(() => {
+
+    console.log('_____dsds', dapps[currentIndexDapp]);
     return dapps[currentIndexDapp];
   }, [dapps, currentIndexDapp]);
 
