@@ -12,11 +12,14 @@ import {
 import { draggedIds2DSignal } from '../../signals/useDragSignal';
 
 import styles from './styles.module.scss';
+import uniqBy from 'lodash/uniqBy';
 
 type Props = {};
 
 const Sidebar = ({}: Props) => {
-  const { dapps, setCurrentIndexDapp, currentIndexDapp } = useDappsStore();
+  const { dapps: _dapps, setCurrentIndexDapp, currentIndexDapp } = useDappsStore();
+
+  const dapps = React.useMemo(() => uniqBy(_dapps, item => item.id), [_dapps])
 
   const [isShowModal, setIsShowModal] = React.useState(false);
   const [selectedDappIndex, setSelectedDappIndex] = React.useState<
