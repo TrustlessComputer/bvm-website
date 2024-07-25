@@ -92,11 +92,11 @@ interface FieldModel {
   icon: string;
   title: string;
   value: string | number;
-  type: 'input' | 'dropdown' | 'extends' | 'group' | 'module' | '';
+  type: 'input' | 'dropdown' | 'extends' | 'group' | '';
   tooltip: string;
   options: FieldModel[];
   placeholder?: string;
-  level?: number
+  level?: number;
 }
 
 interface BlockModel {
@@ -122,6 +122,7 @@ interface DappModel {
   baseBlock: BlockModel;
   blockFields?: BlockModel[];
   singleFields?: BlockModel[];
+  moduleFields?: BlockModel[];
   sections: SectionModel[];
 }
 

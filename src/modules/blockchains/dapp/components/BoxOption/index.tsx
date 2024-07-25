@@ -61,6 +61,7 @@ const BoxOption = ({ fieldKey }: Props) => {
                   )}
                 </div>
               )}
+
               {section.key === thisDapp.baseBlock.section && (
                 <div className={styles.container__body__item}>
                   <Draggable
@@ -83,6 +84,7 @@ const BoxOption = ({ fieldKey }: Props) => {
                   </Draggable>
                 </div>
               )}
+
               <div className={styles.container__body__item}>
                 <div className={styles.container__body__item__inner}>
                   {thisDapp?.blockFields
@@ -108,22 +110,51 @@ const BoxOption = ({ fieldKey }: Props) => {
                     ))}
                 </div>
               </div>
+
+              <div className={styles.container__body__item}>
+                <div className={styles.container__body__item__inner}>
+                  {thisDapp?.moduleFields
+                    ?.filter((f) => f.section === section.key)
+                    ?.map((item) => {
+                      return item.fields.map((field) => {
+                        return (
+                          <Draggable
+                            id={`left-${FieldKeyPrefix.SINGLE}-${item.key}-${field.key}`}
+                            key={`left-${FieldKeyPrefix.SINGLE}-${item.key}-${field.key}`}
+                            value={{
+                              title: field.title,
+                              icon: field.icon,
+                              value: field.value,
+                            }}
+                          >
+                            <Lego
+                              {...field}
+                              background={mainColor}
+                              first={false}
+                              last={false}
+                              titleInLeft={true}
+                              titleInRight={false}
+                            />
+                          </Draggable>
+                        );
+                      });
+                    })}
+                </div>
+              </div>
+
               <div className={styles.container__body__item}>
                 <div className={styles.container__body__item__inner}>
                   {thisDapp?.singleFields
                     ?.filter((f) => f.section === section.key)
                     ?.map((item) => {
                       return item.fields.map((field) => {
-                        const suffix =
-                          field.type === 'module' ? `-${field.key}` : '';
                         return (
                           <Draggable
-                            id={`left-${FieldKeyPrefix.SINGLE}-${item.key}${suffix}`}
-                            key={`left-${FieldKeyPrefix.SINGLE}-${item.key}${suffix}`}
+                            id={`left-${FieldKeyPrefix.SINGLE}-${item.key}`}
+                            key={`left-${FieldKeyPrefix.SINGLE}-${item.key}`}
                             value={{
                               title: field.title,
                               icon: field.icon,
-                              value: field.value,
                             }}
                           >
                             <Lego

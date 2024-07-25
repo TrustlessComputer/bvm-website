@@ -38,6 +38,8 @@ const Draggable = ({
       ...value,
       id,
     };
+
+    console.log('blockDraggingSignal.value', blockDraggingSignal.value);
   }
 
   const style = {
