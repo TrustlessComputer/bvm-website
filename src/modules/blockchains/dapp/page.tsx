@@ -1,8 +1,19 @@
 import React from 'react';
-import { DndContext, DragEndEvent, DragStartEvent, useSensor, useSensors } from '@dnd-kit/core';
+import {
+  DndContext,
+  DragEndEvent,
+  DragStartEvent,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import Image from 'next/image';
 
-import { DragUtil, FormDappUtil, MouseSensor, removeItemAtIndex } from './utils';
+import {
+  DragUtil,
+  FormDappUtil,
+  MouseSensor,
+  removeItemAtIndex,
+} from './utils';
 import { dappMockupData, dappTemplateFormMockupData } from './mockup_3';
 import { FieldKeyPrefix } from './contants';
 import LeftDroppable from './components/LeftDroppable';
@@ -10,7 +21,10 @@ import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
 import Sidebar from './components/Sidebar';
-import useDappsStore, { subScribeDropEnd, useTemplateFormStore } from './stores/useDappStore';
+import useDappsStore, {
+  subScribeDropEnd,
+  useTemplateFormStore,
+} from './stores/useDappStore';
 import { draggedIds2DSignal } from './signals/useDragSignal';
 import { formDappSignal } from './signals/useFormDappsSignal';
 
@@ -50,9 +64,10 @@ const RollupsDappPage = () => {
 
     const draggedIds2D = draggedIds2DSignal.value;
     const noBaseBlockInOutput = draggedIds2D.length === 0;
-    const canPlaceMoreBase =
-      Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
-      thisDapp.baseBlock.placableAmount === -1;
+    // const canPlaceMoreBase =
+    //   Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
+    //   thisDapp.baseBlock.placableAmount === -1;
+    const canPlaceMoreBase = draggedIds2D.length === 0;
 
     const overIsInput = over.id === 'input';
     const overIsOutput = over.id === 'output';
