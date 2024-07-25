@@ -34,7 +34,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-token';
-import { parseDappModel } from '../utils';
+import { parseDappModel } from '@/modules/blockchains/utils';
 
 const RollupsDappPage = () => {
   const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
