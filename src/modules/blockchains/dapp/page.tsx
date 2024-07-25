@@ -34,6 +34,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-token';
+import { parseDappModel } from '../utils';
 
 const RollupsDappPage = () => {
   const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
@@ -44,14 +45,14 @@ const RollupsDappPage = () => {
   const [parseTokens, setParseTokens] = useState<DappModel[]>();
 
   useEffect(() => {
-    if(tokens && tokens?.length > 0) {
+    if (tokens && tokens?.length > 0) {
       parseTokensData(tokens);
     }
   }, [tokens]);
 
   const parseTokensData = (tokens: IToken[]) => {
     const result: DappModel[] = [];
-    for(const token of tokens) {
+    for (const token of tokens) {
       const t = parseIssuedToken(token);
       result.push(t);
     }
@@ -59,8 +60,7 @@ const RollupsDappPage = () => {
     console.log('parseTokensData', result);
 
     setParseTokens(result);
-  }
-
+  };
 
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp];
@@ -411,13 +411,12 @@ const RollupsDappPage = () => {
     setCurrentIndexDapp(dappIndex);
   }, [templateForm]);
 
-
   React.useEffect(() => {
     parseDappModel({
       key: 'token_generation',
-      model: dappMockupData
-    })
-  }, [])
+      model: dappMockupData,
+    });
+  }, []);
 
   React.useEffect(() => {
     fetchData();
