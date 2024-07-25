@@ -31,10 +31,10 @@ const BoxOption = ({ fieldKey }: Props) => {
     if (!thisDapp) return;
 
     const draggedIds2D = draggedIds2DSignal.value;
-    // const canPlaceMoreBase =
-    //   Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
-    //   thisDapp.baseBlock.placableAmount === -1;
-    const canPlaceMoreBase = draggedIds2D.length === 0;
+    const canPlaceMoreBase =
+      Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
+      thisDapp.baseBlock.placableAmount === -1;
+    // const canPlaceMoreBase = draggedIds2D.length === 0;
 
     setDisableBaseBlock(!canPlaceMoreBase);
   });
