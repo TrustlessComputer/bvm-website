@@ -3,8 +3,6 @@ import { IToken, ITokenVesting } from '@/services/api/dapp/token_generation/inte
 export const parseIssuedToken = (token: IToken) => {
   const result = {} as DappModel;
 
-  console.log('parseIssueToken', token)
-
   result.id = 'token_generation';
   result.key = 'token_generation';
   result.title = 'Token Generation';
