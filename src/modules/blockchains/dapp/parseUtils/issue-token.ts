@@ -108,10 +108,11 @@ export const parseIssuedToken = (token: IToken) => {
                 {
                   key: 'cliff_unit',
                   title: 'Time',
-                  value: vesting.duration_units as number,
+                  value: vesting.duration_units?.toString() || '0',
                   icon: '',
                   tooltip: '',
                   type: 'dropdown',
+                  level: 1,
                   options: [
                     {
                       key: 'day',
@@ -150,6 +151,7 @@ export const parseIssuedToken = (token: IToken) => {
                   tooltip: '',
                   type: 'input',
                   options: [],
+                  level: 1,
                 },
               ],
             },
@@ -164,10 +166,11 @@ export const parseIssuedToken = (token: IToken) => {
                 {
                   key: 'duration_unit',
                   title: 'Time',
-                  value: vesting.duration_units as number,
+                  value: vesting.duration_units?.toString() || '0',
                   icon: '',
                   tooltip: '',
                   type: 'dropdown',
+                  level: 1,
                   options: [
                     {
                       key: 'day',
@@ -206,6 +209,7 @@ export const parseIssuedToken = (token: IToken) => {
                   tooltip: '',
                   type: 'input',
                   options: [],
+                  level: 1,
                 },
               ],
             },
