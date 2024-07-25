@@ -236,6 +236,7 @@ export const dappMockupData: DappModel[] = [
     ],
     singleFields: [
       // {
+      //   preview: false,
       //   key: 'number_module',
       //   title: 'Number',
       //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',

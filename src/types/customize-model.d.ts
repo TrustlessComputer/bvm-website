@@ -103,7 +103,7 @@ interface BlockModel {
   key: string;
   title: string;
   icon: string;
-  placableAmount?: number;
+  placableAmount: number;
   fields: FieldModel[];
   section: string;
   preview: boolean;

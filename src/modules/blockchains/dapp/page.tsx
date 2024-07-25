@@ -45,14 +45,14 @@ const RollupsDappPage = () => {
   const [parseTokens, setParseTokens] = useState<DappModel[]>();
 
   useEffect(() => {
-    if(tokens && tokens?.length > 0) {
+    if (tokens && tokens?.length > 0) {
       parseTokensData(tokens);
     }
   }, [tokens]);
 
   const parseTokensData = (tokens: IToken[]) => {
     const result: DappModel[] = [];
-    for(const token of tokens) {
+    for (const token of tokens) {
       const t = parseIssuedToken(token);
       result.push(t);
     }
@@ -60,12 +60,31 @@ const RollupsDappPage = () => {
     console.log('parseTokensData', result);
 
     setParseTokens(result);
-  }
-
+  };
 
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp];
   }, [dapps, currentIndexDapp]);
+
+  const blockFieldMapping = React.useMemo(() => {
+    const mapping: Record<string, BlockModel> = {};
+
+    (thisDapp?.blockFields || []).forEach((item) => {
+      mapping[item.key] = item;
+    });
+
+    return mapping;
+  }, [thisDapp]);
+
+  const singleFieldMapping = React.useMemo(() => {
+    const mapping: Record<string, BlockModel> = {};
+
+    (thisDapp?.singleFields || []).forEach((item) => {
+      mapping[item.key] = item;
+    });
+
+    return mapping;
+  }, [thisDapp]);
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
@@ -100,6 +119,7 @@ const RollupsDappPage = () => {
     const overBaseIndex = Number(DragUtil.getBaseIndex(overId));
 
     const activeFromRightSide = DragUtil.isRightSide(activeId);
+    const activeFromLeftSide = DragUtil.isLeftSide(activeId);
     const activeIsAChild = DragUtil.idDraggingIsAField(activeId);
     const activeIsABase = DragUtil.idDraggingIsABase(activeId);
     const activeBaseIndex = Number(DragUtil.getBaseIndex(activeId));
@@ -137,15 +157,73 @@ const RollupsDappPage = () => {
         const prefix =
           'right-' +
           (activeIsABlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
-        console.log(prefix);
-        draggedIds2D[overBaseIndex] = [
-          ...draggedIds2D[overBaseIndex],
-          {
-            name: prefix + '-' + DragUtil.getOriginalKey(activeId),
-            value: '',
-            parentNames: [],
-          },
-        ];
+        const itemKey = prefix + '-' + DragUtil.getOriginalKey(activeId);
+        const field = singleFieldMapping[DragUtil.getOriginalKey(activeId)];
+        const fieldIsModuleType = field?.fields.every(
+          (f) => f.type === 'module',
+        );
+        const canPlaceMoreField = field?.placableAmount === -1;
+
+        if (!canPlaceMoreField && fieldIsModuleType) {
+          alert(`You can only place ${field?.placableAmount} ${field?.title}!`);
+          return;
+        }
+
+        if (fieldIsModuleType) {
+          const formKey =
+            overBaseIndex +
+            '-' +
+            FieldKeyPrefix.SINGLE +
+            '-' +
+            DragUtil.getOriginalKey(activeId) +
+            '-0-' +
+            draggedIds2DSignal.value[overBaseIndex].length;
+
+          formDappSignal.value = {
+            ...formDappSignal.value,
+            [formKey]: active.data.current?.value,
+          };
+
+          const currentItem = draggedIds2D[overBaseIndex].find(
+            (item) => item.name === itemKey,
+          );
+
+          if (!currentItem) {
+            draggedIds2D[overBaseIndex] = [
+              ...draggedIds2D[overBaseIndex],
+              {
+                name: itemKey,
+                value: [active.data.current?.value],
+                parentNames: [],
+              },
+            ];
+          } else {
+            if (
+              (currentItem.value as unknown as (string | any)[]).includes(
+                active.data.current?.value,
+              )
+            ) {
+              alert('You can only place one module!');
+              return;
+            }
+
+            draggedIds2D[overBaseIndex].forEach((item) => {
+              if (item.name === itemKey) {
+                // @ts-ignore
+                item.value = [...item.value, active.data.current?.value];
+              }
+            });
+          }
+        } else {
+          draggedIds2D[overBaseIndex] = [
+            ...draggedIds2D[overBaseIndex],
+            {
+              name: itemKey,
+              value: active.data.current?.value,
+              parentNames: [],
+            },
+          ];
+        }
 
         draggedIds2DSignal.value = [...draggedIds2D];
 
@@ -157,6 +235,10 @@ const RollupsDappPage = () => {
 
     // Case 2: Drag to the left
     if (overIsInput) {
+      if (activeFromLeftSide) {
+        return;
+      }
+
       // Case 2.1: Dragged lego is a base block
       if (activeIsABase) {
         const formDapp = formDappSignal.value;
@@ -329,13 +411,12 @@ const RollupsDappPage = () => {
     setCurrentIndexDapp(dappIndex);
   }, [templateForm]);
 
-
   React.useEffect(() => {
     parseDappModel({
       key: 'token_generation',
-      model: dappMockupData
-    })
-  }, [])
+      model: dappMockupData,
+    });
+  }, []);
 
   React.useEffect(() => {
     fetchData();
