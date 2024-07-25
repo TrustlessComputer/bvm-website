@@ -1,5 +1,5 @@
 export enum TABS {
-  CODE = 1,
+  CODE = 0,
   EXPLORE,
 }
 

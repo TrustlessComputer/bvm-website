@@ -17,9 +17,10 @@ const MainPage = (props: Props) => {
 
   return (
     <Flex
+      className={s.container}
       flexDir="column"
       alignItems={'flex-start'}
-      mt={['40px']}
+      mt={['20px']}
       gap={['40px']}
     >
       <Section

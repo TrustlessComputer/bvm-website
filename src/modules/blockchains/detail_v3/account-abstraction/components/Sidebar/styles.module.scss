@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+
+    div {
+      &:first-child {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      &:last-child {
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        background: #00aa6c;
+      }
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  button {
+    width: 100%;
+  }
+}

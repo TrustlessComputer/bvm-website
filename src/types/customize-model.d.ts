@@ -16,6 +16,11 @@ interface IModelOption {
   value: string | number | IDappValue[];
   needContactUs: boolean;
   keyDapp?: string;
+  needConfig?: boolean;
+  logo?: string;
+  setupLogo?: string;
+
+  valueStr?: string;
 }
 
 interface IModelCategory {
@@ -35,6 +40,10 @@ interface IModelCategory {
   confuseTitle: string;
   confuseIcon: string;
   multiChoice: boolean;
+
+  hidden?: boolean;
+  updatable?: boolean;
+  whitelistAddress?: any;
 }
 
 interface ITemplate {

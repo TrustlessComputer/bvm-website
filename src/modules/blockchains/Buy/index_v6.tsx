@@ -28,7 +28,7 @@ import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
 import { TABS, TABS_MAP } from './constants';
 import ExplorePage from './Explore';
-import Image from 'next/image'
+import Image from 'next/image';
 import { OrderItem } from '@/stores/states/l2services/types';
 
 const BuyPage = () => {
@@ -44,12 +44,14 @@ const BuyPage = () => {
       })[]
     | null
   >(null);
+
   const [originalData, setOriginalData] = React.useState<
     IModelCategory[] | null
   >(null);
   const [templates, setTemplates] = React.useState<Array<
     IModelCategory[]
   > | null>(null);
+
   const {
     field,
     setField,
@@ -617,7 +619,12 @@ const BuyPage = () => {
       className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
     >
       <div className={s.logo}>
-        <Image src={'/bvmstudio_logo.png'} alt={'bvmstudio_logo'} width={549} height={88} />
+        <Image
+          src={'/bvmstudio_logo.png'}
+          alt={'bvmstudio_logo'}
+          width={549}
+          height={88}
+        />
       </div>
       <p className={s.container_text}>
         Drag and drop modules to start new blockchains, new dapps, and new
@@ -645,7 +652,6 @@ const BuyPage = () => {
                 >
                   <p>Explore</p>
                 </div>
-
               </div>
 
               {isTabCode && (

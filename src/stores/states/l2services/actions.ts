@@ -10,9 +10,8 @@ const fetchAvailableList = createAsyncThunk(
   async (_, { getState }) => {
     try {
       const state = getState() as RootState;
-      const l2ServicesState = state.l2Services;
       const { availableListFetched, availableList, availableListFetching } =
-        l2ServicesState;
+        state.l2Services;
       if (!availableListFetched && !availableList) {
         return await l2ServicesAPI.fetchAvailableList();
       } else {
@@ -39,6 +38,24 @@ const fetchAccountInfo = createAsyncThunk(
     try {
       const data = await l2ServicesAPI.accountGetInfo();
       return data;
+    } catch (error) {
+      return undefined;
+    }
+  },
+);
+
+const fetchOrderDetailByID = createAsyncThunk(
+  `${PREFIX}/fetchOrderDetailByID`,
+  async (orderId: string, { getState }) => {
+    try {
+      const state = getState() as RootState;
+      const { orderDetail, isOrderDetailFetched } = state.l2Services;
+      if (!isOrderDetailFetched && !orderDetail) {
+        const data = await l2ServicesAPI.orderDetailByID(orderId);
+        return data;
+      } else {
+        return orderDetail;
+      }
     } catch (error) {
       return undefined;
     }
@@ -77,6 +94,43 @@ const fetchAllOrdersV2 = createAsyncThunk(
       return orders;
     } catch (error) {
       return [];
+    }
+  },
+);
+
+const fetchModelCategories = createAsyncThunk(
+  `${PREFIX}/fetchModelCategories`,
+  async (tcAddres: string, { getState }) => {
+    try {
+      const state = getState() as RootState;
+      const { modelCategories, isModelCategoriesFetched } = state.l2Services;
+      if (!isModelCategoriesFetched && !modelCategories) {
+        const data = await l2ServicesAPI.getModalCategories(tcAddres);
+        return data;
+      } else {
+        return modelCategories;
+      }
+    } catch (error) {
+      return undefined;
+    }
+  },
+);
+
+const fetchAvailableListTemplate = createAsyncThunk(
+  `${PREFIX}/fetchAvailableListTemplate`,
+  async (_, { getState }) => {
+    try {
+      const state = getState() as RootState;
+      const { isAvailableListTemplateFetched, availableListTemplate } =
+        state.l2Services;
+      if (!isAvailableListTemplateFetched && !availableListTemplate) {
+        const data = await l2ServicesAPI.getAvailableListTemplate();
+        return data;
+      } else {
+        return availableListTemplate;
+      }
+    } catch (error) {
+      return undefined;
     }
   },
 );
@@ -144,8 +198,11 @@ export {
   getQuickStart,
   fetchAvailableList,
   fetchAllOrdersV2,
+  fetchOrderDetailByID,
 
   //DA
   fetchDAList,
   fetchTemplateV2,
+  fetchAvailableListTemplate,
+  fetchModelCategories,
 };

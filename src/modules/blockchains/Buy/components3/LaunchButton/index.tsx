@@ -11,7 +11,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import sleep from '@/utils/sleep';
-import { Button, Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
 import { formValuesAdapter } from './FormValuesAdapter';

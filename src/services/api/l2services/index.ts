@@ -272,6 +272,26 @@ export const getAllOrdersV2 = async (): Promise<OrderItem[]> => {
   return builderOrderList(orders, false);
 };
 
+export const getModalCategories = async (
+  tcAddress?: string,
+): Promise<IModelCategory[]> => {
+  let data = (await httpClient.get(
+    `/order/available-list-v3?tcAddress=${tcAddress || ''}`,
+  )) as IModelCategory[];
+
+  return data;
+};
+
+export const getAvailableListTemplate = async (): Promise<
+  [IModelCategory[]]
+> => {
+  let data = (await httpClient.get(`/order/available-list-template`)) as [
+    IModelCategory[],
+  ];
+
+  return data;
+};
+
 export const getTemplateV2 = async (): Promise<IExploreItem[]> => {
   let data = (await httpClient.get(
     `/order/available-list-template-v2`,
@@ -557,7 +577,9 @@ const l2ServicesAPI = {
   // uploadImage,
   uploadFile,
 
+  getModalCategories,
   getTemplateV2,
+  getAvailableListTemplate,
 };
 
 export default l2ServicesAPI;

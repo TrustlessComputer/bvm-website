@@ -9,8 +9,11 @@ import {
   fetchAllOrdersV2,
   fetchDAList,
   fetchTemplateV2,
+  fetchOrderDetailByID,
+  fetchAvailableListTemplate,
+  fetchModelCategories,
 } from './actions';
-import { PREFIX } from './constants';
+import { APP_BLOCKCHAIN, PREFIX } from './constants';
 import {
   L2ServicesState,
   OrderItem,
@@ -62,6 +65,24 @@ export const initialState: L2ServicesState = {
   isTempalteFetching: false,
   isTempalteFetched: false,
   templateList: [],
+
+  //Order Detail
+  isOrderDetailFetching: false,
+  isOrderDetailFetched: false,
+  orderDetail: undefined,
+
+  //dApp Config Selected
+  dAppConfigSelected: APP_BLOCKCHAIN,
+
+  //
+  isAvailableListTemplateFetching: false,
+  isAvailableListTemplateFetched: false,
+  availableListTemplate: undefined,
+
+  //
+  isModelCategoriesFetching: false,
+  isModelCategoriesFetched: false,
+  modelCategories: undefined,
 };
 
 const slice = createSlice({
@@ -111,6 +132,9 @@ const slice = createSlice({
     },
     setDAppSelected(state, action: PayloadAction<IDApp>) {
       state.dAppSelected = action.payload;
+    },
+    setDAppConfigSelected(state, action: PayloadAction<IModelOption>) {
+      state.dAppConfigSelected = action.payload;
     },
   },
 
@@ -224,6 +248,48 @@ const slice = createSlice({
         state.isTempalteFetching = false;
         state.isTempalteFetched = true;
         state.daList = [];
+      })
+
+      .addCase(fetchOrderDetailByID.pending, (state) => {
+        state.isOrderDetailFetching = true;
+      })
+      .addCase(fetchOrderDetailByID.fulfilled, (state, action) => {
+        state.isOrderDetailFetching = false;
+        state.isOrderDetailFetched = true;
+        state.orderDetail = action.payload;
+      })
+      .addCase(fetchOrderDetailByID.rejected, (state, _) => {
+        state.isOrderDetailFetching = false;
+        state.isOrderDetailFetched = true;
+        state.orderDetail = undefined;
+      })
+
+      .addCase(fetchAvailableListTemplate.pending, (state) => {
+        state.isAvailableListTemplateFetching = true;
+      })
+      .addCase(fetchAvailableListTemplate.fulfilled, (state, action) => {
+        state.isAvailableListTemplateFetching = false;
+        state.isAvailableListTemplateFetched = true;
+        state.availableListTemplate = action.payload;
+      })
+      .addCase(fetchAvailableListTemplate.rejected, (state, _) => {
+        state.isAvailableListTemplateFetching = false;
+        state.isAvailableListTemplateFetched = true;
+        state.availableListTemplate = [[]];
+      })
+
+      .addCase(fetchModelCategories.pending, (state) => {
+        state.isModelCategoriesFetching = true;
+      })
+      .addCase(fetchModelCategories.fulfilled, (state, action) => {
+        state.isModelCategoriesFetching = false;
+        state.isModelCategoriesFetched = true;
+        state.modelCategories = action.payload;
+      })
+      .addCase(fetchModelCategories.rejected, (state, _) => {
+        state.isModelCategoriesFetching = false;
+        state.isModelCategoriesFetched = true;
+        state.modelCategories = [];
       });
   },
 });
@@ -240,5 +306,6 @@ export const {
   setL2ServiceLogout,
   setMonitorViewPage,
   setDAppSelected,
+  setDAppConfigSelected,
 } = slice.actions;
 export default slice.reducer;
