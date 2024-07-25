@@ -59,7 +59,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
       <p>Before BVM, you need an army of PhDs, cryptographers, and distributed system engineers to build and scale a blockchain.</p>
       <p>Today, you can launch a blockchain backed by Bitcoin’s security with just a few clicks for $99 monthly.</p>
     </div>,
-    image: '/images/home-block-pricing.jpg',
+    image: '/images/home-pricing-v10.jpg',
     button: {
       link: '/pricing',
       title: 'View pricing',

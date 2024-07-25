@@ -13,6 +13,10 @@ export default function SidebarV2({ items }: SidebarV2Props) {
       <div className={s.inner}>
         {items &&
           items.map((item) => {
+            if (item.hidden) {
+              return null;
+            }
+
             return (
               <a
                 href={`#${item.key}`}
