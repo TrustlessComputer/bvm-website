@@ -393,6 +393,7 @@ export const dappMockupData: DappModel[] = [
       },
     ],
     baseBlock: {
+      preview: true,
       key: 'class',
       title: 'Token for Airdrop',
       icon: '',
@@ -436,6 +437,7 @@ export const dappMockupData: DappModel[] = [
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         placableAmount: -1,
         section: 'actions',
+        preview: true,
         fields: [
           {
             key: 'token',
@@ -482,6 +484,7 @@ export const dappMockupData: DappModel[] = [
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         placableAmount: -1,
         section: 'actions',
+        preview: true,
         fields: [
           {
             key: 'token',
@@ -528,6 +531,7 @@ export const dappMockupData: DappModel[] = [
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         placableAmount: -1,
         section: 'actions',
+        preview: true,
         fields: [
           {
             key: 'task',
