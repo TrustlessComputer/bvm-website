@@ -128,6 +128,7 @@ export const dappMockupData: DappModel[] = [
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
                     tooltip: '',
                     type: 'dropdown',
+                    level: 1,
                     options: [
                       {
                         key: 'day',
@@ -161,6 +162,7 @@ export const dappMockupData: DappModel[] = [
                   {
                     key: 'cliff',
                     title: 'Amount',
+                    level: 1,
                     value: '',
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
                     tooltip: '',
@@ -184,6 +186,7 @@ export const dappMockupData: DappModel[] = [
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
                     tooltip: '',
                     type: 'dropdown',
+                    level: 1,
                     options: [
                       {
                         key: 'day',
@@ -217,6 +220,7 @@ export const dappMockupData: DappModel[] = [
                   {
                     key: 'duration',
                     title: 'Amount',
+                    level: 1,
                     value: '',
                     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
                     tooltip: '',
