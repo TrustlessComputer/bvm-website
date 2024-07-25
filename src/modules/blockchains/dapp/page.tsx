@@ -58,8 +58,6 @@ const RollupsDappPage = () => {
       result.push(t);
     }
 
-    console.log('parseTokensData', result);
-
     setParseTokens(result);
   };
 
