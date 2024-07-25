@@ -1,4 +1,5 @@
 import { BVM_STUDIO } from '@constants/route-path';
+import { VIDEO_BVM_STUDIO_HOW_IT_WORK } from '@constants/common';
 
 export type IMODULE_HERO = {
   theme: string;
@@ -27,6 +28,7 @@ export type IMODULE = {
     desc: string;
     action: string;
     thumbnail: string;
+    video?: string;
   };
   footer?: {
     title: string;
@@ -418,6 +420,7 @@ export const MODULE_DATAS = {
       desc: 'Customize and deploy your blockchain easily by dragging and dropping components, just like playing a game.',
       action: '',
       thumbnail: '',
+      video: VIDEO_BVM_STUDIO_HOW_IT_WORK,
     },
   },
   bitzk_lightnode: {
