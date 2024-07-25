@@ -8,7 +8,7 @@ export default function Brand() {
     <div className={s.wrapper}>
       <div className="containerV3">
         <h2 className={s.heading}>
-          Build your Bitcoin-backed blockchain with the best blockchain technologies
+          Mix and match the best tech to build your unique Bitcoin-based blockchain.
         </h2>
         <div className={s.brand}>
           {DATA_BRAND.map((item) => {
