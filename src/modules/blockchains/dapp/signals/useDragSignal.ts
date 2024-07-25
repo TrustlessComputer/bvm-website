@@ -2,7 +2,7 @@ import { signal } from '@preact/signals-react';
 
 type Field = {
   name: string;
-  value: string | number | Field[];
+  value: string | number | string[] | number[];
   parentNames: string[];
 };
 

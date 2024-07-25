@@ -65,20 +65,10 @@ const RollupsDappPage = () => {
     return dapps[currentIndexDapp];
   }, [dapps, currentIndexDapp]);
 
-  const blockFieldMapping = React.useMemo(() => {
+  const moduleFieldMapping = React.useMemo(() => {
     const mapping: Record<string, BlockModel> = {};
 
-    (thisDapp?.blockFields || []).forEach((item) => {
-      mapping[item.key] = item;
-    });
-
-    return mapping;
-  }, [thisDapp]);
-
-  const singleFieldMapping = React.useMemo(() => {
-    const mapping: Record<string, BlockModel> = {};
-
-    (thisDapp?.singleFields || []).forEach((item) => {
+    (thisDapp?.moduleFields || []).forEach((item) => {
       mapping[item.key] = item;
     });
 
@@ -126,6 +116,7 @@ const RollupsDappPage = () => {
     const activeIsABlock = DragUtil.idDraggingIsABlock(activeId);
     const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
     const activeIndex = Number(DragUtil.getChildIndex(activeId));
+    const activeOriginalKey = DragUtil.getOriginalKey(activeId);
 
     // Case 1: Drag to the right
     if (overIsOutput || overIsABase) {
@@ -157,75 +148,16 @@ const RollupsDappPage = () => {
         const prefix =
           'right-' +
           (activeIsABlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
-        const itemKey = prefix + '-' + DragUtil.getOriginalKey(activeId);
+        const composedFieldKey = prefix + '-' + activeOriginalKey;
 
         draggedIds2D[overBaseIndex] = [
           ...draggedIds2D[overBaseIndex],
           {
-            name: itemKey,
+            name: composedFieldKey,
             value: active.data.current?.value,
             parentNames: [],
           },
         ];
-
-        // const field = singleFieldMapping[DragUtil.getOriginalKey(activeId)];
-        // const fieldIsModuleType = field?.fields.every(
-        //   (f) => f.type === 'module',
-        // );
-        // const canPlaceMoreField = field?.placableAmount === -1;
-
-        // if (!canPlaceMoreField && fieldIsModuleType) {
-        //   alert(`You can only place ${field?.placableAmount} ${field?.title}!`);
-        //   return;
-        // }
-
-        // if (fieldIsModuleType) {
-        // const formKey =
-        //   overBaseIndex +
-        //   '-' +
-        //   FieldKeyPrefix.SINGLE +
-        //   '-' +
-        //   DragUtil.getOriginalKey(activeId) +
-        //   '-0-' +
-        //   draggedIds2DSignal.value[overBaseIndex].length;
-
-        // formDappSignal.value = {
-        //   ...formDappSignal.value,
-        //   [formKey]: active.data.current?.value,
-        // };
-
-        // const currentItem = draggedIds2D[overBaseIndex].find(
-        //   (item) => item.name === itemKey,
-        // );
-
-        // if (!currentItem) {
-        //   draggedIds2D[overBaseIndex] = [
-        //     ...draggedIds2D[overBaseIndex],
-        //     {
-        //       name: itemKey,
-        //       value: [active.data.current?.value],
-        //       parentNames: [],
-        //     },
-        //   ];
-        // } else {
-        //   if (
-        //     (currentItem.value as unknown as (string | any)[]).includes(
-        //       active.data.current?.value,
-        //     )
-        //   ) {
-        //     alert('You can only place one module!');
-        //     return;
-        //   }
-
-        //   draggedIds2D[overBaseIndex].forEach((item) => {
-        //     if (item.name === itemKey) {
-        //       // @ts-ignore
-        //       item.value = [...item.value, active.data.current?.value];
-        //     }
-        //   });
-        // }
-        // } else {
-        // }
 
         draggedIds2DSignal.value = [...draggedIds2D];
 
@@ -233,6 +165,71 @@ const RollupsDappPage = () => {
       }
 
       if (activeIsAModule && overIsABase) {
+        const composedFieldKey =
+          'right-' + FieldKeyPrefix.MODULE + '-' + activeOriginalKey;
+        const thisField = moduleFieldMapping[activeOriginalKey];
+        const isMultiple = thisField?.placableAmount === -1;
+
+        if (isMultiple) {
+          const draggedFieldIndex = draggedIds2D[overBaseIndex].findIndex(
+            (item) => item.name === composedFieldKey,
+          );
+          const draggedField = draggedIds2D[overBaseIndex].find(
+            (item) => item.name === composedFieldKey,
+          );
+
+          if (!draggedField) {
+            const formKey = `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${draggedIds2D[overBaseIndex].length}`;
+            const value = [active.data.current?.value];
+
+            formDappSignal.value = {
+              ...formDappSignal.value,
+              [formKey]: value,
+            };
+
+            draggedIds2D[overBaseIndex] = [
+              ...draggedIds2D[overBaseIndex],
+              {
+                name: composedFieldKey,
+                value,
+                parentNames: [],
+              },
+            ];
+          } else {
+            const formKey = `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${draggedFieldIndex}`;
+            const value = [
+              ...(draggedField.value as string[]),
+              active.data.current?.value,
+            ];
+
+            formDappSignal.value = {
+              ...formDappSignal.value,
+              [formKey]: value,
+            };
+
+            draggedField.value = value;
+          }
+        } else {
+          const formKey = `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${draggedIds2D[overBaseIndex].length}`;
+
+          formDappSignal.value = {
+            ...formDappSignal.value,
+            [formKey]: active.data.current?.value,
+          };
+
+          draggedIds2D[overBaseIndex] = [
+            ...draggedIds2D[overBaseIndex],
+            {
+              name: composedFieldKey,
+              value: active.data.current?.value,
+              parentNames: [],
+            },
+          ];
+        }
+
+        draggedIds2DSignal.value = [...draggedIds2D];
+
+        return;
       }
 
       return;
