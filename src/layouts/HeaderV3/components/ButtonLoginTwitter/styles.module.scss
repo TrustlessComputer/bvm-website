@@ -1,7 +1,7 @@
 .buttonLogin {
-  --border-color: rgba(255, 255, 255, 0.3);
+  --border-color: #FA4E0E26;
   --text-color: #fff;
-  --background-color: rgba(255, 255, 255, 0.3);
+  --background-color: #FA4E0E26;
 
   display: flex;
   height: 36px;
@@ -20,22 +20,22 @@
     // --border-color: #ff4500 !important;
     // --background-color: rgba(255, 69, 0, 0.2) !important;
     // --text-color: #ff4500 !important;
-    --text-color: #fff;
-    --background-color: #000;
+    --text-color: black;
+    --background-color: #FA4E0E26;
   }
   &__light {
     // --border-color: #ff4500;
     // --background-color: rgba(255, 69, 0, 0.2);
     // --text-color: #ff4500;
-    --text-color: #fff;
-    --background-color: #000;
+    --text-color: black;
+    --background-color: #FA4E0E26;
   }
   &__dark {
     // --border-color: rgba(255, 255, 255, 0.3);
     // --text-color: #fff;
     // --background-color: rgba(255, 255, 255, 0.3);
-    --text-color: #000;
-    --background-color: #fff;
+    --text-color: white;
+    --background-color: #FFFFFF33;
   }
   transition: opacity 0.2s ease-in-out;
 
@@ -53,7 +53,8 @@
   justify-content: center;
   border-radius: 100px;
   // border: 1px solid var(--border-color);
-  padding: 6px 12px;
+  padding: 6px;
+  padding-right: 12px;
   width: 100%;
   overflow: hidden;
 
