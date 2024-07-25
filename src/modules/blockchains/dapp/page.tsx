@@ -120,6 +120,7 @@ const RollupsDappPage = () => {
     const activeFromLeftSide = DragUtil.isLeftSide(activeId);
     const activeIsAChild = DragUtil.idDraggingIsAField(activeId);
     const activeIsABase = DragUtil.idDraggingIsABase(activeId);
+    const activeIsAModule = DragUtil.idDraggingIsAModule(activeId);
     const activeBaseIndex = Number(DragUtil.getBaseIndex(activeId));
     const activeIsABlock = DragUtil.idDraggingIsABlock(activeId);
     const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
@@ -156,76 +157,81 @@ const RollupsDappPage = () => {
           'right-' +
           (activeIsABlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
         const itemKey = prefix + '-' + DragUtil.getOriginalKey(activeId);
-        const field = singleFieldMapping[DragUtil.getOriginalKey(activeId)];
-        const fieldIsModuleType = field?.fields.every(
-          (f) => f.type === 'module',
-        );
-        const canPlaceMoreField = field?.placableAmount === -1;
 
-        if (!canPlaceMoreField && fieldIsModuleType) {
-          alert(`You can only place ${field?.placableAmount} ${field?.title}!`);
-          return;
-        }
+        draggedIds2D[overBaseIndex] = [
+          ...draggedIds2D[overBaseIndex],
+          {
+            name: itemKey,
+            value: active.data.current?.value,
+            parentNames: [],
+          },
+        ];
 
-        if (fieldIsModuleType) {
-          const formKey =
-            overBaseIndex +
-            '-' +
-            FieldKeyPrefix.SINGLE +
-            '-' +
-            DragUtil.getOriginalKey(activeId) +
-            '-0-' +
-            draggedIds2DSignal.value[overBaseIndex].length;
+        // const field = singleFieldMapping[DragUtil.getOriginalKey(activeId)];
+        // const fieldIsModuleType = field?.fields.every(
+        //   (f) => f.type === 'module',
+        // );
+        // const canPlaceMoreField = field?.placableAmount === -1;
 
-          formDappSignal.value = {
-            ...formDappSignal.value,
-            [formKey]: active.data.current?.value,
-          };
+        // if (!canPlaceMoreField && fieldIsModuleType) {
+        //   alert(`You can only place ${field?.placableAmount} ${field?.title}!`);
+        //   return;
+        // }
 
-          const currentItem = draggedIds2D[overBaseIndex].find(
-            (item) => item.name === itemKey,
-          );
+        // if (fieldIsModuleType) {
+        // const formKey =
+        //   overBaseIndex +
+        //   '-' +
+        //   FieldKeyPrefix.SINGLE +
+        //   '-' +
+        //   DragUtil.getOriginalKey(activeId) +
+        //   '-0-' +
+        //   draggedIds2DSignal.value[overBaseIndex].length;
 
-          if (!currentItem) {
-            draggedIds2D[overBaseIndex] = [
-              ...draggedIds2D[overBaseIndex],
-              {
-                name: itemKey,
-                value: [active.data.current?.value],
-                parentNames: [],
-              },
-            ];
-          } else {
-            if (
-              (currentItem.value as unknown as (string | any)[]).includes(
-                active.data.current?.value,
-              )
-            ) {
-              alert('You can only place one module!');
-              return;
-            }
+        // formDappSignal.value = {
+        //   ...formDappSignal.value,
+        //   [formKey]: active.data.current?.value,
+        // };
 
-            draggedIds2D[overBaseIndex].forEach((item) => {
-              if (item.name === itemKey) {
-                // @ts-ignore
-                item.value = [...item.value, active.data.current?.value];
-              }
-            });
-          }
-        } else {
-          draggedIds2D[overBaseIndex] = [
-            ...draggedIds2D[overBaseIndex],
-            {
-              name: itemKey,
-              value: active.data.current?.value,
-              parentNames: [],
-            },
-          ];
-        }
+        // const currentItem = draggedIds2D[overBaseIndex].find(
+        //   (item) => item.name === itemKey,
+        // );
+
+        // if (!currentItem) {
+        //   draggedIds2D[overBaseIndex] = [
+        //     ...draggedIds2D[overBaseIndex],
+        //     {
+        //       name: itemKey,
+        //       value: [active.data.current?.value],
+        //       parentNames: [],
+        //     },
+        //   ];
+        // } else {
+        //   if (
+        //     (currentItem.value as unknown as (string | any)[]).includes(
+        //       active.data.current?.value,
+        //     )
+        //   ) {
+        //     alert('You can only place one module!');
+        //     return;
+        //   }
+
+        //   draggedIds2D[overBaseIndex].forEach((item) => {
+        //     if (item.name === itemKey) {
+        //       // @ts-ignore
+        //       item.value = [...item.value, active.data.current?.value];
+        //     }
+        //   });
+        // }
+        // } else {
+        // }
 
         draggedIds2DSignal.value = [...draggedIds2D];
 
         return;
+      }
+
+      if (activeIsAModule && overIsABase) {
       }
 
       return;
@@ -408,7 +414,7 @@ const RollupsDappPage = () => {
   }, [templateForm]);
 
   React.useEffect(() => {
-    if(parseTokens && parseTokens.length > 0) {
+    if (parseTokens && parseTokens.length > 0) {
       console.log('parseTokens', parseTokens);
       const result = parseDappModel({
         key: 'token_generation',
