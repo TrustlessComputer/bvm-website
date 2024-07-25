@@ -61,11 +61,12 @@ export default function HeroV2() {
         <div className={s.imageHero} onClick={() => setIsOpenModalVideo(true)}>
           {!isOpenModalVideo &&
             <div className={s.imageHero_bg}>
-              <Image className={s.imagePreload}
-                     src={'https://storage.googleapis.com/bvm-network/image/Drag%20and%20Drop%20Banner%2002.gif'}
-                     width={1566}
-                     height={880}
-                     alt={'video'} sizes={'100vw'} quality={100} />
+              <video src={'https://storage.googleapis.com/bvm-network/image/output_v5.mp4'} loop preload="auto" playsInline muted autoPlay width={16} height={9} />
+              {/*<Image className={s.imagePreload}*/}
+              {/*       src={'https://storage.googleapis.com/bvm-network/image/Drag%20and%20Drop%20Banner%2002.gif'}*/}
+              {/*       width={1566}*/}
+              {/*       height={880}*/}
+              {/*       alt={'video'} sizes={'100vw'} quality={100} />*/}
               <div className={s.imageHero_btn}>
                 <p>Take a tour</p>
                 <Image src={'/icons/ic_arrow-right.svg'} alt={'icons'} width={20} height={20} />
