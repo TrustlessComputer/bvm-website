@@ -15,14 +15,16 @@ const Capture = () => {
 
       const content = `I'm launching my own ZK Rollup on Bitcoin with @BVMnetwork! 🚀
 
-Bitcoin Studio makes blockchain building a breeze with simple drag-and-drop tools. No sweat, just pure innovation for $99/mo.
+Bitcoin Studio makes blockchain building a breeze with simple drag-and-drop tools. No sweat, just pure innovation. Starting from $99/mo.
 
-Join the Bitcoin bonanza:`;
+Let's upgrade #Bitcoin beyond a currency together!
+
+👉https://bvm.network/studio/${url}`;
 
       window.open(
         `https://twitter.com/intent/tweet?text=${encodeURIComponent(
           content,
-        )}&url=https://bvm.network/studio/${url}`,
+        )}`,
         '_blank',
       );
     } catch (error) {
