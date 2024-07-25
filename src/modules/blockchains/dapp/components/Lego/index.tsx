@@ -65,8 +65,8 @@ const Lego = (props: Props) => {
     fields,
     ...rest
   } = props;
-  console.log('DUNG: Lego', props);
-  console.log('DUNG:=====')
+  // console.log('DUNG: Lego', props);
+  // console.log('DUNG:=====')
   return (
     <div
       className={cn(styles.lego, {
