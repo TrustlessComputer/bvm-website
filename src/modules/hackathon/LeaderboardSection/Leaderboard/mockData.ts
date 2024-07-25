@@ -1,4 +1,4 @@
-const MOCK_DATA = [
+export const MOCK_DATA = [
   {
     rank: 1,
     name: 'John Doe',

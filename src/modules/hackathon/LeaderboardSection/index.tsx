@@ -9,13 +9,15 @@ type Props = {};
 const LeaderboardSection = (props: Props) => {
   return (
     <Box bgColor={'#000'}>
-      <div className={cn(s.wrapper, 'containerV3')}>
-        <div className={s.left}>
-          <h4>Examp Topic</h4>
-        </div>
-        <div className={s.right}>
-          <h4>Leaderboard</h4>
-          <Leaderboard />
+      <div className="containerV3">
+        <div className={cn(s.wrapper)}>
+          <div className={s.left}>
+            <h4>Examp Topic</h4>
+          </div>
+          <div className={s.right}>
+            <h4>Leaderboard</h4>
+            <Leaderboard />
+          </div>
         </div>
       </div>
     </Box>
