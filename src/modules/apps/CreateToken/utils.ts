@@ -58,8 +58,8 @@ export const getTokenomics = (tokenomics: ITokenomics[]) => {
       unvestAmounts.push(0);
       durations.push(t.duration as any);
       durationUnits.push(t.duration_unit as any);
-      cliffs.push(t.duration as any);
-      cliffUnits.push(t.duration_unit as any);
+      cliffs.push(t.cliff as any);
+      cliffUnits.push(t.cliff_unit as any);
       starts.push(dayjs(getVestingStartTime(t)).unix() as unknown as string);
     } else {
       amountTotals.push(0);
