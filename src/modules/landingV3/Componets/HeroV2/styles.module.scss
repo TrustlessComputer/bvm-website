@@ -165,17 +165,19 @@
     //flex-direction: row;
     //gap: 12px;
     //align-items: center;
-    background: linear-gradient(90deg, rgba(255, 167, 81, 0.15) 0%, rgba(250, 78, 14, 0.15) 100%);
+    background: linear-gradient(90deg, rgba(0, 245, 160, 0.4) 0%, rgba(0, 217, 245, 0.4) 100%);
+
     border-radius: 100px;
     padding: 6px 16px;
     margin-bottom: 12px;
 
     p {
       font-weight: 500;
-      background: linear-gradient(180deg, #FF9776 0%, #FF8139 32.81%, #E04300 100%);
+    color: black;
+      //background: linear-gradient(180deg, #FF9776 0%, #FF8139 32.81%, #E04300 100%);
       font-size: 18px;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      //-webkit-background-clip: text;
+      //-webkit-text-fill-color: transparent;
     }
 
     svg {
