@@ -11,7 +11,8 @@ import {
 } from '../../signals/useFormDappsSignal';
 import { draggedIds2DSignal } from '../../signals/useDragSignal';
 
-import styles from './styles.module.scss';
+import s from './styles.module.scss';
+import cx from 'clsx';
 
 type Props = {};
 
@@ -44,7 +45,7 @@ const Sidebar = ({}: Props) => {
 
   return (
     <React.Fragment>
-      <div className={styles.header}>
+      <div className={s.header}>
         {dapps.map((dapp, index) => {
           return (
             <Button
@@ -52,7 +53,7 @@ const Sidebar = ({}: Props) => {
               type="button"
               color="transparent"
               onClick={() => handleSelectDapp(index)}
-              className={styles.resetButton}
+              className={cx(currentIndexDapp === index ? s.isSelected : '')}
             >
               <div>
                 {dapp.icon && (
@@ -66,7 +67,7 @@ const Sidebar = ({}: Props) => {
         })}
       </div>
 
-      <div className={styles.footer}>
+      <div className={s.footer}>
         <Button element="button" type="button" onClick={() => {}}>
           EXPORT
         </Button>
