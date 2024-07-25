@@ -66,8 +66,10 @@ const CaseStudy = () => {
             Launching at the Bitcoin 2024 Conference in Nashville.
           </Text>
           <Text className={s.description} maxW={['auto', '600px']}>
-            Earn 300 XP and get a free Starbucks just a 2-minute walk from Music
-            City Center!
+            Earn 300 XP and get a{' '}
+            <Text color="#fff" as="span">
+              free Starbucks just a 2-minute walk from Music City Center!
+            </Text>
           </Text>
         </Flex>
         <Flex
@@ -86,7 +88,7 @@ const CaseStudy = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {ended ? 'Play Now' : 'Follow BVM on'}
+              {ended ? 'Play for free' : 'Follow BVM on'}
               {ended === false && (
                 <Image src="/maga/follow-x.svg" alt="x.com" />
               )}
