@@ -97,6 +97,7 @@ interface FieldModel {
   options: FieldModel[];
   placeholder?: string;
   level?: number;
+  selectable?: boolean;
 }
 
 interface BlockModel {
