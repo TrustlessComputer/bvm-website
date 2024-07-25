@@ -408,7 +408,9 @@ export interface Token extends BaseContract {
 
     delegates(account: string, overrides?: CallOverrides): Promise<[string]>;
 
-    eip712Domain(overrides?: CallOverrides): Promise<
+    eip712Domain(
+      overrides?: CallOverrides
+    ): Promise<
       [string, string, string, BigNumber, string, string, BigNumber[]] & {
         fields: string;
         name: string;
@@ -530,7 +532,9 @@ export interface Token extends BaseContract {
 
   delegates(account: string, overrides?: CallOverrides): Promise<string>;
 
-  eip712Domain(overrides?: CallOverrides): Promise<
+  eip712Domain(
+    overrides?: CallOverrides
+  ): Promise<
     [string, string, string, BigNumber, string, string, BigNumber[]] & {
       fields: string;
       name: string;
@@ -646,7 +650,9 @@ export interface Token extends BaseContract {
 
     delegates(account: string, overrides?: CallOverrides): Promise<string>;
 
-    eip712Domain(overrides?: CallOverrides): Promise<
+    eip712Domain(
+      overrides?: CallOverrides
+    ): Promise<
       [string, string, string, BigNumber, string, string, BigNumber[]] & {
         fields: string;
         name: string;

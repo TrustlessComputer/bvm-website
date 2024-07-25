@@ -623,7 +623,7 @@ export const dappTemplateFormMockupData = {
     '0-block-is_vesting-0-0-allocation': true,
     '0-block-cliff_unit-1-0-allocation': '0',
     '0-block-cliff-1-0-allocation': '10',
-    '0-block-duration_unit-1-0-allocation': '0',
+    '0-block-duration_unit-1-0-allocation': '1',
     '0-block-duration-1-0-allocation': '10',
 
     '1-base-token_name-0': 'Meme',

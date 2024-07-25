@@ -413,7 +413,7 @@ const RollupsDappPage = () => {
 
   React.useEffect(() => {
     getDataTemplateForm();
-  }, [thisDapp]);
+  }, [thisDapp, parseTokens]);
 
   React.useEffect(() => {
     fetchData();
@@ -422,7 +422,7 @@ const RollupsDappPage = () => {
   const getDataTemplateForm = async () => {
     if (!thisDapp) return;
     switch (thisDapp?.key) {
-      case 'staking':
+      case 'staking': {
         const api = new CStakingAPI();
         const data = await api.getStakingPools();
         const model = parseDappModel({
@@ -431,6 +431,15 @@ const RollupsDappPage = () => {
         });
         setTemplateForm(model);
         break;
+      }
+      case 'token_generation': {
+        const model = parseDappModel({
+          key: 'token_generation',
+          model: parseTokens as DappModel[],
+        });
+        setTemplateForm(model);
+        break;
+      }
       default:
         break;
     }
