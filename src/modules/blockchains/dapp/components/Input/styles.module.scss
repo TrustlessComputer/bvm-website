@@ -10,4 +10,9 @@
     color: #000000;
     opacity: 0.5;
   }
+
+  &__disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
 }

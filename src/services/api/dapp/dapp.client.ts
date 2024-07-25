@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
 import axios, {
   Axios,
   AxiosError,
   AxiosRequestConfig,
   AxiosResponse,
-} from "axios";
+} from 'axios';
 import { isProduction } from '@utils/common';
 import { store } from '@/stores';
 import LocalStorage from '@/libs/localStorage';
@@ -15,10 +15,12 @@ export const IGNORE_ADDRESS_TEXT = '';
 
 class CDappApiClient {
   protected requestConfig: AxiosRequestConfig = {
-    baseURL: `https://generral.appstore${isProduction() ? '' : '.dev'}.bvm.network/api`,
+    baseURL: `https://generral.appstore${
+      isProduction() ? '' : '.dev'
+    }.bvm.network/api`,
     timeout: 5 * 60000,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -31,12 +33,15 @@ class CDappApiClient {
     this.api.interceptors.request.use(
       (config: any) => {
         const _config = config;
-        const accessToken: string = LocalStorage.getItem(STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2);
+        const accessToken: string = LocalStorage.getItem(
+          STORAGE_KEYS.L2_SERVICE_ACCESS_TOKEN_V2,
+        );
 
         _config.headers.Authorization = `${accessToken}`;
         let params = _config?.params;
         if (!params) {
           params = {};
+          params.network_id = '23478'; // chain.chainId;
         }
         if (!params?.network_id && !!chain) {
           params.network_id = chain.chainId;
@@ -48,7 +53,7 @@ class CDappApiClient {
       },
       (error: AxiosError) => {
         Promise.reject(error);
-      }
+      },
     );
 
     this.api.interceptors.response.use(
@@ -75,7 +80,7 @@ class CDappApiClient {
             response?.error || error?.Message || JSON.stringify(error);
           return Promise.reject(errorMessage);
         }
-      }
+      },
     );
   }
 }

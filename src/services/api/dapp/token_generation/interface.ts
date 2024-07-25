@@ -25,10 +25,13 @@ export interface ITokenVesting {
   token?: null;
   contract_address?: string;
   beneficiary_id?: number;
+  beneficiary_name?: string;
   beneficiary?: string;
   start?: number;
   duration?: number;
   duration_units?: number;
   amount_total?: string;
   unvest_amount?: string;
+  cliff?: number;
+  cliff_units?: number;
 }

@@ -174,6 +174,8 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
         durationUnits,
         amountTotals,
         unvestAmounts,
+        cliffs,
+        cliffUnits,
       } = body;
 
       let iface = new ethers.utils.Interface(TOKENABI.abi);
@@ -188,6 +190,8 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
         durationUnits,
         amountTotals,
         unvestAmounts,
+        cliffs,
+        cliffUnits,
       ]);
 
       console.log('body', body);

@@ -44,26 +44,32 @@ type Props = {
   tooltip?: string;
   disabled?: boolean;
   children?: React.ReactNode;
+  preview?: boolean;
+  fields?: FieldModel[];
 } & Position &
   TitlePosition;
 
-const Lego = ({
-  background = '#A041FF',
-  icon,
-  title,
-  tooltip,
-  titleInLeft = false,
-  titleInRight = false,
-  disabled = false,
-  first = false,
-  last = false,
-  children,
-}: Props) => {
-  // console.log('Lego', children);
+const Lego = (props: Props) => {
+  const {
+    background = '#A041FF',
+    icon,
+    title,
+    tooltip,
+    titleInLeft = false,
+    titleInRight = false,
+    disabled = false,
+    first = false,
+    last = false,
+    children,
+    preview,
+    fields,
+    ...rest
+  } = props;
   return (
     <div
       className={cn(styles.lego, {
         [styles.lego__disabled]: disabled,
+        [styles.lego__preview]: preview,
       })}
       style={{
         // @ts-ignore
@@ -75,44 +81,74 @@ const Lego = ({
         <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
       </div>
 
-      <div className={styles.lego__inner}>
-        {title && titleInLeft ? (
-          <div
-            className={cn(
-              styles.lego__inner__label,
-              styles.lego__inner__label__left,
-            )}
-          >
-            {icon && <Image src={icon} width={20} height={20} alt="icon" />}
-            <p>{title}</p>
+      {
+        preview ? (
+          <div className={styles.lego__inner}>
+            {
+              fields?.map(field => {
+                return (
+                  <>
+                    <div
+                      className={cn(
+                        styles.lego__inner__label,
+                        styles.lego__inner__label__left,
+                      )}
+                    >
+                      {field?.icon && <Image src={field?.icon} width={20} height={20} alt="icon" />}
+                      <p>{field?.title}</p>
+                    </div>
+                    {
+                      field.type === 'input' ? <img src={'/icons-tool/issue-a-token/icon-input.svg'}/> :
+                      field.type === 'extends' && typeof field.value === 'number' ? <img src={'/icons-tool/issue-a-token/icon-switch.svg'}/> :
+                      field.type === 'dropdown' ? <img src={'/icons-tool/issue-a-token/icon-dropdown.svg'}/> :
+                        <></>
+                    }
+                  </>
+                )
+              })
+            }
           </div>
-        ) : null}
+        ) : (
+          <div className={styles.lego__inner}>
+            {title && titleInLeft ? (
+              <div
+                className={cn(
+                  styles.lego__inner__label,
+                  styles.lego__inner__label__left,
+                )}
+              >
+                {icon && <Image src={icon} width={20} height={20} alt="icon" />}
+                <p>{title}</p>
+              </div>
+            ) : null}
 
-        {tooltip && (
-          <Tooltip label={tooltip}>
-            <Image
-              width={18}
-              height={18}
-              alt="tooltip"
-              src={'/icons/ic-tooltip.svg'}
-            />
-          </Tooltip>
-        )}
-
-        {children && <div className={styles.children}>{children}</div>}
-
-        {title && titleInRight ? (
-          <div
-            className={cn(
-              styles.lego__inner__label,
-              styles.lego__inner__label__right,
+            {tooltip && (
+              <Tooltip label={tooltip}>
+                <Image
+                  width={18}
+                  height={18}
+                  alt="tooltip"
+                  src={'/icons/ic-tooltip.svg'}
+                />
+              </Tooltip>
             )}
-          >
-            {icon && <Image src={icon} width={20} height={20} alt="icon" />}
-            <p>{title}</p>
+
+            {children && <div className={styles.children}>{children}</div>}
+
+            {title && titleInRight ? (
+              <div
+                className={cn(
+                  styles.lego__inner__label,
+                  styles.lego__inner__label__right,
+                )}
+              >
+                {icon && <Image src={icon} width={20} height={20} alt="icon" />}
+                <p>{title}</p>
+              </div>
+            ) : null}
           </div>
-        ) : null}
-      </div>
+        )
+      }
 
       <div className={cn(styles.lego__piece, styles.lego__piece__bottom)}>
         <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />

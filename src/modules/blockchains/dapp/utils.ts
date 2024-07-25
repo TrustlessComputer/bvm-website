@@ -140,6 +140,10 @@ export const FormDappUtil = {
     return key.split('-')[1] === FieldKeyPrefix.SINGLE;
   },
 
+  isInModule(key: string) {
+    return key.split('-')[1] === FieldKeyPrefix.MODULE;
+  },
+
   // prettier-ignore
   getKeyForm (
     field: FieldModel,
@@ -167,6 +171,10 @@ export const DragUtil = {
 
   idDraggingIsABase(idDragging: string) {
     return idDragging.split('-')[1] === FieldKeyPrefix.BASE;
+  },
+
+  idDraggingIsAModule(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.MODULE;
   },
 
   idDraggingIsAField(idDragging: string) {
@@ -212,4 +220,16 @@ export const compareKeyInFormDappAndDrag = (
     indexInFormDapp === indexInActiveId &&
     originalKeyInFormDapp === originalKeyInActiveId
   );
+};
+
+export const cloneDeep = <T>(obj: T) => {
+  return JSON.parse(JSON.stringify(obj)) as T;
+};
+
+export const isTwoObjectEqual = (obj1: any, obj2: any) => {
+  return JSON.stringify(obj1) === JSON.stringify(obj2);
+};
+
+export const hasValue = (value: any) => {
+  return value !== null && value !== undefined;
 };

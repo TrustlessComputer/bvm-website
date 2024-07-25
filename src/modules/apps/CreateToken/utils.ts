@@ -45,6 +45,8 @@ export const getTokenomics = (tokenomics: ITokenomics[]) => {
   const starts: string[] = [];
   const durations: string[] = [];
   const durationUnits: string[] = [];
+  const cliffs: string[] = [];
+  const cliffUnits: string[] = [];
   const amountTotals: any[] = [];
   const unvestAmounts: any[] = [];
   tokenomics.forEach((t) => {
@@ -56,12 +58,16 @@ export const getTokenomics = (tokenomics: ITokenomics[]) => {
       unvestAmounts.push(0);
       durations.push(t.duration as any);
       durationUnits.push(t.duration_unit as any);
+      cliffs.push(t.cliff as any);
+      cliffUnits.push(t.cliff_unit as any);
       starts.push(dayjs(getVestingStartTime(t)).unix() as unknown as string);
     } else {
       amountTotals.push(0);
       unvestAmounts.push(parseEther(t.total_amount.toString() as any) as any);
       durations.push(0 as any);
       durationUnits.push(0 as any);
+      cliffs.push(0 as any);
+      cliffUnits.push(0 as any);
       starts.push(0 as unknown as string);
     }
   });
@@ -73,5 +79,7 @@ export const getTokenomics = (tokenomics: ITokenomics[]) => {
     durationUnits,
     amountTotals,
     unvestAmounts,
+    cliffs,
+    cliffUnits,
   };
 };

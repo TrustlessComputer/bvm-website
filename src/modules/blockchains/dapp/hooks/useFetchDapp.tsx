@@ -23,7 +23,7 @@ const useFetchDapp = () => {
   }, []);
 
   const fetchTokenList = async () => {
-    await dappAPI.getListToken(dappState?.chain?.chainId as string);
+    await dappAPI.getListToken('91227');
   }
 
   useEffect(() => {
