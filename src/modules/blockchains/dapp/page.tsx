@@ -473,19 +473,19 @@ const RollupsDappPage = () => {
           key: 'staking',
           model: data,
         });
+        console.log('staking data 111', { model, data });
 
         setTemplateDapps(data);
         setTemplateForm(model);
         break;
       }
       case 'token_generation': {
-        const model = parseDappModel({
-          key: 'token_generation',
-          model: parseTokens as DappModel[],
-        });
-
-        setTemplateForm(model);
-        setTemplateDapps(parseTokens as DappModel[]);
+        // const model = parseDappModel({
+        //   key: 'token_generation',
+        //   model: parseTokens as DappModel[],
+        // });
+        // setTemplateForm(model);
+        // setTemplateDapps(parseTokens as DappModel[]);
         break;
       }
       default:

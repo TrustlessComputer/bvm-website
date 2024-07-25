@@ -4,21 +4,19 @@ import Image from 'next/image';
 import Button from '../Button';
 import MModal from '../Modal';
 import useDappsStore from '../../stores/useDappStore';
-import {
-  formDappSignal,
-  formTemplateDappSignal,
-} from '../../signals/useFormDappsSignal';
-import {
-  draggedIds2DSignal,
-  templateIds2DSignal,
-} from '../../signals/useDragSignal';
+import { formDappSignal, formTemplateDappSignal } from '../../signals/useFormDappsSignal';
+import { draggedIds2DSignal, templateIds2DSignal } from '../../signals/useDragSignal';
 
-import styles from './styles.module.scss';
+import s from './styles.module.scss';
+import uniqBy from 'lodash/uniqBy';
+import cx from 'clsx';
 
 type Props = {};
 
 const Sidebar = ({}: Props) => {
-  const { dapps, setCurrentIndexDapp, currentIndexDapp } = useDappsStore();
+  const { dapps: _dapps, setCurrentIndexDapp, currentIndexDapp } = useDappsStore();
+
+  const dapps = React.useMemo(() => uniqBy(_dapps, item => item.id), [_dapps])
 
   const [isShowModal, setIsShowModal] = React.useState(false);
   const [selectedDappIndex, setSelectedDappIndex] = React.useState<
@@ -48,7 +46,7 @@ const Sidebar = ({}: Props) => {
 
   return (
     <React.Fragment>
-      <div className={styles.header}>
+      <div className={s.header}>
         {dapps.map((dapp, index) => {
           return (
             <Button
@@ -56,7 +54,7 @@ const Sidebar = ({}: Props) => {
               type="button"
               color="transparent"
               onClick={() => handleSelectDapp(index)}
-              className={styles.resetButton}
+              className={cx(currentIndexDapp === index ? s.isSelected : '')}
             >
               <div>
                 {dapp.icon && (
@@ -70,7 +68,7 @@ const Sidebar = ({}: Props) => {
         })}
       </div>
 
-      <div className={styles.footer}>
+      <div className={s.footer}>
         <Button element="button" type="button" onClick={() => {}}>
           EXPORT
         </Button>
