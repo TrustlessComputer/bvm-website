@@ -50,21 +50,21 @@ const CaseStudy = () => {
     >
       <Flex gap={['24px']} direction="column">
         <Text className={s.label}>Case Study</Text>
-        <Box>
-          <Image src="/maga/trump.svg" alt="trump" />
-        </Box>
+        {/* <Box> */}
+          {/* <Image src="/maga/trump.svg" alt="trump" /> */}
+        {/* </Box> */}
         <Flex gap="12px" direction="column">
           <Text className={s.title} as="h6">
             BITCOIN WARS
           </Text>
-          <Text className={s.description} maxW={['auto', '460px']}>
+          <Text className={s.description} maxW={['auto', '600px']}>
             Gear up for an epic adventure and strategize your way to victory in
             Bitcoin Wars, an incredibly fun onchain game on Bitcoin.
           </Text>
-          <Text className={s.description} maxW={['auto', '470px']}>
+          <Text className={s.description} maxW={['auto', '600px']}>
             Launching at the Bitcoin 2024 Conference in Nashville.
           </Text>
-          <Text className={s.description} maxW={['auto', '460px']}>
+          <Text className={s.description} maxW={['auto', '600px']}>
             Be the first to join the action!
           </Text>
         </Flex>
