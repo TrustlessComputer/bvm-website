@@ -6,6 +6,7 @@ import { adjustBrightness } from '../../utils';
 import styles from './styles.module.scss';
 import SvgInset from '@/components/SvgInset';
 import Image from 'next/image';
+import { useThisDapp } from '@/modules/blockchains/dapp/hooks/useThisDapp';
 
 type Props = {
   background?: string;
@@ -23,10 +24,14 @@ const LegoParent = ({
   icon,
   children,
   smallMarginHeaderTop = false,
+...reset
 }: Props) => {
   const headerRef = React.useRef<HTMLDivElement | null>(null);
   const footerRef = React.useRef<HTMLDivElement | null>(null);
   // console.log('LegoParent', children);
+
+const thisDapp = useThisDapp();
+  console.log('____thisDapp', thisDapp);
 
   React.useEffect(() => {
     if (!headerRef.current || !footerRef.current) return;

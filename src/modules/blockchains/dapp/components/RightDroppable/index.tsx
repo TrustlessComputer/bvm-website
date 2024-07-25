@@ -41,6 +41,8 @@ const RightDroppable = () => {
   >([]);
 
   const thisDapp = React.useMemo(() => {
+
+    console.log('_____dsds', dapps[currentIndexDapp]);
     return dapps[currentIndexDapp];
   }, [dapps, currentIndexDapp]);
 
@@ -70,6 +72,16 @@ const RightDroppable = () => {
     const mapping: Record<string, BlockModel> = {};
 
     (thisDapp?.singleFields || []).forEach((item) => {
+      mapping[item.key] = item;
+    });
+
+    return mapping;
+  }, [thisDapp]);
+
+  const moduleFieldMapping = React.useMemo(() => {
+    const mapping: Record<string, BlockModel> = {};
+
+    (thisDapp?.moduleFields || []).forEach((item) => {
       mapping[item.key] = item;
     });
 
@@ -149,6 +161,11 @@ const RightDroppable = () => {
   );
 
   useSignalEffect(() => {
+    console.log(
+      '🚀 -> file: index.tsx:155 -> useSignalEffect -> draggedIds2DSignal.value ::',
+      draggedIds2DSignal.value,
+    );
+
     if (draggedIds2DSignal.value.length === draggedIds2D.length) {
       for (let i = 0; i < draggedIds2DSignal.value.length; i++) {
         if (!isTwoObjectEqual(draggedIds2DSignal.value[i], draggedIds2D[i])) {
@@ -395,6 +412,81 @@ const RightDroppable = () => {
                               </Lego>
                             </Draggable>
                           );
+                        } else if (DragUtil.idDraggingIsAModule(item.name)) {
+                          const thisModule =
+                            moduleFieldMapping[
+                              DragUtil.getOriginalKey(item.name)
+                            ];
+                          const isMultiple = thisModule.placableAmount === -1;
+
+                          if (isMultiple) {
+                            return (
+                              <Draggable
+                                id={`${item.name}-${blockIndex}-${baseIndex}`}
+                                key={`${item.name}-${blockIndex}-${baseIndex}`}
+                                value={{
+                                  title: thisModule.title,
+                                  icon: thisModule.icon,
+                                }}
+                              >
+                                <LegoParent
+                                  {...thisModule}
+                                  background={adjustBrightness(mainColor, -20)}
+                                  smallMarginHeaderTop
+                                >
+                                  {(item.value as string[]).map(
+                                    (value, index) => {
+                                      const thisField = thisModule.fields.find(
+                                        (f) => f.value === value,
+                                      );
+
+                                      if (!thisField) return null;
+
+                                      return (
+                                        <Lego
+                                          key={value}
+                                          background={adjustBrightness(
+                                            mainColor,
+                                            -40,
+                                          )}
+                                          first={false}
+                                          last={false}
+                                          titleInLeft={true}
+                                          titleInRight={false}
+                                        >
+                                          <Label {...thisField} />
+                                        </Lego>
+                                      );
+                                    },
+                                  )}
+                                </LegoParent>
+                              </Draggable>
+                            );
+                          } else {
+                            const thisField = thisModule.fields.find(
+                              (f) => f.value === item.value,
+                            );
+
+                            return (
+                              <Draggable
+                                id={`${item.name}-${blockIndex}-${baseIndex}`}
+                                key={`${item.name}-${blockIndex}-${baseIndex}`}
+                                value={{
+                                  title: thisModule.title,
+                                  icon: thisModule.icon,
+                                }}
+                              >
+                                <Lego
+                                  {...thisField}
+                                  background={adjustBrightness(mainColor, -20)}
+                                  first={false}
+                                  last={false}
+                                  titleInLeft={true}
+                                  titleInRight={false}
+                                />
+                              </Draggable>
+                            );
+                          }
                         }
 
                         return null;

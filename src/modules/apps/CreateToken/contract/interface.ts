@@ -8,4 +8,6 @@ export interface IBodyCreateToken {
   durationUnits: string[];
   amountTotals: string[];
   unvestAmounts: string[];
+  cliffs: string[];
+  cliffUnits: string[];
 }

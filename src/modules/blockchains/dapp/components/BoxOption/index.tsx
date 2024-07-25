@@ -119,8 +119,8 @@ const BoxOption = ({ fieldKey }: Props) => {
                       return item.fields.map((field) => {
                         return (
                           <Draggable
-                            id={`left-${FieldKeyPrefix.SINGLE}-${item.key}-${field.key}`}
-                            key={`left-${FieldKeyPrefix.SINGLE}-${item.key}-${field.key}`}
+                            id={`left-${FieldKeyPrefix.MODULE}-${item.key}-${field.value}`}
+                            key={`left-${FieldKeyPrefix.MODULE}-${item.key}-${field.value}`}
                             value={{
                               title: field.title,
                               icon: field.icon,

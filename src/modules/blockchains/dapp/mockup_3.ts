@@ -6,6 +6,7 @@ export const dappMockupData: DappModel[] = [
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
     order: 1,
     color: '#F76649',
+    color_rendered: '#F76649',
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
@@ -240,7 +241,7 @@ export const dappMockupData: DappModel[] = [
     //     key: 'number_module',
     //     title: 'Number',
     //     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-    //     placableAmount: -1,
+    //     placableAmount: 1,
     //     section: 'modules',
     //     fields: [
     //       {
@@ -281,6 +282,7 @@ export const dappMockupData: DappModel[] = [
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
     order: 2,
     color: '#F76649',
+    color_rendered: '#F76649',
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
