@@ -9,7 +9,7 @@ import { FieldKeyPrefix } from '../../contants';
 import { DragUtil, FormDappUtil } from '../../utils';
 import {
   draggedIdsSignal,
-  idDraggingSignal,
+  blockDraggingSignal,
 } from '../../signals/useDragSignal';
 import useDappsStore from '../../stores/useDappStore';
 
@@ -21,7 +21,9 @@ const DragMask = () => {
     return dapps[currentIndexDapp];
   }, [dapps, currentIndexDapp]);
 
-  const [idDragging, setIdDragging] = React.useState('');
+  const [blockDragging, setBlockDragging] = React.useState<
+    typeof blockDraggingSignal.value
+  >(blockDraggingSignal.value);
 
   const mainColor = React.useMemo(
     () => thisDapp?.color || '#F76649',
@@ -71,8 +73,8 @@ const DragMask = () => {
   // index: 0 -> n
   // If level greater than 0, it's in the 'extends' field
   useSignalEffect(() => {
-    idDraggingSignal.subscribe((value) => {
-      setIdDragging(value);
+    blockDraggingSignal.subscribe((value) => {
+      setBlockDragging(value);
     });
   });
 
@@ -80,7 +82,7 @@ const DragMask = () => {
 
   return (
     <DragOverlay>
-      {DragUtil.idDraggingIsABase(idDragging) && (
+      {DragUtil.idDraggingIsABase(blockDragging.id) && (
         <Draggable id={FieldKeyPrefix.BASE}>
           <Lego
             background={mainColor}
@@ -94,9 +96,9 @@ const DragMask = () => {
         </Draggable>
       )}
 
-      {DragUtil.idDraggingIsABlock(idDragging) &&
-        blockFieldMapping[DragUtil.getOriginalKey(idDragging)] && (
-          <Draggable id={idDragging}>
+      {DragUtil.idDraggingIsABlock(blockDragging.id) &&
+        blockFieldMapping[DragUtil.getOriginalKey(blockDragging.id)] && (
+          <Draggable id={blockDragging.id}>
             <Lego
               background={mainColor}
               first={false}
@@ -105,15 +107,17 @@ const DragMask = () => {
               titleInRight={false}
             >
               <Label
-                {...blockFieldMapping[DragUtil.getOriginalKey(idDragging)]}
+                {...blockFieldMapping[
+                  DragUtil.getOriginalKey(blockDragging.id)
+                ]}
               />
             </Lego>
           </Draggable>
         )}
 
-      {DragUtil.idDraggingIsASingle(idDragging) &&
-        singleFieldMapping[DragUtil.getOriginalKey(idDragging)] && (
-          <Draggable id={idDragging}>
+      {DragUtil.idDraggingIsASingle(blockDragging.id) &&
+        singleFieldMapping[DragUtil.getOriginalKey(blockDragging.id)] && (
+          <Draggable id={blockDragging.id}>
             <Lego
               background={mainColor}
               first={false}
@@ -122,7 +126,9 @@ const DragMask = () => {
               titleInRight={false}
             >
               <Label
-                {...singleFieldMapping[DragUtil.getOriginalKey(idDragging)]}
+                {...singleFieldMapping[
+                  DragUtil.getOriginalKey(blockDragging.id)
+                ]}
               />
             </Lego>
           </Draggable>

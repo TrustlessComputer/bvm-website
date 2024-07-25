@@ -23,6 +23,7 @@ import LaunchButton from './components/LaunchButton';
 import Sidebar from './components/Sidebar';
 import useDappsStore, {
   subScribeDropEnd,
+  useFormDappsStore,
   useTemplateFormStore,
 } from './stores/useDappStore';
 import { draggedIds2DSignal } from './signals/useDragSignal';
@@ -64,10 +65,10 @@ const RollupsDappPage = () => {
 
     const draggedIds2D = draggedIds2DSignal.value;
     const noBaseBlockInOutput = draggedIds2D.length === 0;
-    // const canPlaceMoreBase =
-    //   Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
-    //   thisDapp.baseBlock.placableAmount === -1;
-    const canPlaceMoreBase = draggedIds2D.length === 0;
+    const canPlaceMoreBase =
+      Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
+      thisDapp.baseBlock.placableAmount === -1;
+    // const canPlaceMoreBase = draggedIds2D.length === 0;
 
     const overIsInput = over.id === 'input';
     const overIsOutput = over.id === 'output';
@@ -112,7 +113,7 @@ const RollupsDappPage = () => {
         const prefix =
           'right-' +
           (activeIsABlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
-
+        console.log(prefix);
         draggedIds2D[overBaseIndex] = [
           ...draggedIds2D[overBaseIndex],
           {
@@ -121,8 +122,6 @@ const RollupsDappPage = () => {
             parentNames: [],
           },
         ];
-
-        console.log(draggedIds2D);
 
         draggedIds2DSignal.value = [...draggedIds2D];
 
@@ -243,6 +242,7 @@ const RollupsDappPage = () => {
     setTemplateForm(templateForm);
   };
 
+  // TODOTDO
   // React.useEffect(() => {
   //   const dappIndex = dapps.findIndex(
   //     (dapp) => dapp.key === (templateForm?.dappKey || ''),
