@@ -5,11 +5,13 @@ import Button from '../Button';
 import MModal from '../Modal';
 import useDappsStore from '../../stores/useDappStore';
 import {
-  formDappDropdownSignal,
-  formDappInputSignal,
-  formDappToggleSignal,
+  formDappSignal,
+  formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
-import { draggedIds2DSignal } from '../../signals/useDragSignal';
+import {
+  draggedIds2DSignal,
+  templateIds2DSignal,
+} from '../../signals/useDragSignal';
 
 import styles from './styles.module.scss';
 import uniqBy from 'lodash/uniqBy';
@@ -29,16 +31,18 @@ const Sidebar = ({}: Props) => {
   const handleSelectDapp = (index: number) => {
     setSelectedDappIndex(index);
 
-    if(currentIndexDapp !== index) {
+    if (currentIndexDapp !== index) {
       setIsShowModal(true);
     }
   };
 
   const changeDapp = () => {
-    formDappInputSignal.value = {};
-    formDappDropdownSignal.value = {};
-    formDappToggleSignal.value = {};
+    formDappSignal.value = {};
     draggedIds2DSignal.value = [];
+
+    formTemplateDappSignal.value = {};
+    templateIds2DSignal.value = [];
+
     setIsShowModal(false);
 
     if (selectedDappIndex == null) return;
