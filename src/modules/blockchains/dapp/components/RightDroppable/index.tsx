@@ -791,6 +791,18 @@ const RightDroppable = () => {
 
                     return null;
                   })}
+
+                  <Lego>
+                    <Button
+                      element="button"
+                      type="button"
+                      onClick={() => {
+                        alert('Action');
+                      }}
+                    >
+                      Action
+                    </Button>
+                  </Lego>
                 </LegoParent>
               );
             })}
