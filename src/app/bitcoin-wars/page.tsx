@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import '@fontsource/advent-pro';
+import '@fontsource/dosis';
 
 import MainLayout from '@/layouts/MainLayout';
 import MagaModule from '@/modules/maga';
