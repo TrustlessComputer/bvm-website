@@ -165,7 +165,10 @@ const RightDroppable = () => {
     [thisDapp],
   );
   const getLabel = React.useCallback(
-    (field: FieldModel, fieldOpt: FieldOption) => {
+    (field: FieldModel, fieldOpt: FieldOption, baseIndex: number) => {
+      const thisDapp = templateDapps[baseIndex];
+      const mainColor = adjustBrightness(thisDapp.color, +10);
+
       if (field.type === 'input') {
         return (
           <Lego
@@ -239,7 +242,7 @@ const RightDroppable = () => {
         );
       }
     },
-    [thisDapp],
+    [templateDapps],
   );
 
   useSignalEffect(() => {
@@ -610,19 +613,24 @@ const RightDroppable = () => {
             {templateIds2D.map((ids, baseIndex) => {
               let blockCount = 0;
               const thisDapp = templateDapps[baseIndex];
+              const mainColor = thisDapp.color;
 
               return (
                 <LegoParent {...thisDapp.baseBlock} background={mainColor}>
                   {thisDapp.baseBlock.fields.map((field) => {
-                    return getLabel(field, {
-                      inBaseField: true,
-                      inBlockField: false,
-                      inSingleField: false,
-                      index: undefined,
-                      level: 0,
-                      blockKey: '',
+                    return getLabel(
+                      field,
+                      {
+                        inBaseField: true,
+                        inBlockField: false,
+                        inSingleField: false,
+                        index: undefined,
+                        level: 0,
+                        blockKey: '',
+                        baseIndex,
+                      },
                       baseIndex,
-                    });
+                    );
                   })}
 
                   {ids.map((item, blockIndex) => {
@@ -648,15 +656,19 @@ const RightDroppable = () => {
                             smallMarginHeaderTop
                           >
                             {thisBlock.fields.map((field) => {
-                              return getLabel(field, {
-                                inBaseField: false,
-                                inBlockField: true,
-                                inSingleField: false,
-                                index: blockIndex,
-                                level: 0,
-                                blockKey: thisBlock.key,
+                              return getLabel(
+                                field,
+                                {
+                                  inBaseField: false,
+                                  inBlockField: true,
+                                  inSingleField: false,
+                                  index: blockIndex,
+                                  level: 0,
+                                  blockKey: thisBlock.key,
+                                  baseIndex,
+                                },
                                 baseIndex,
-                              });
+                              );
                             })}
                           </LegoParent>
                         </Draggable>
@@ -680,15 +692,19 @@ const RightDroppable = () => {
                             icon: thisModule.icon,
                           }}
                         >
-                          {getLabel(thisModule, {
-                            inBaseField: false,
-                            inBlockField: false,
-                            inSingleField: true,
-                            index: blockIndex,
-                            level: 0,
-                            blockKey: '',
+                          {getLabel(
+                            thisModule,
+                            {
+                              inBaseField: false,
+                              inBlockField: false,
+                              inSingleField: true,
+                              index: blockIndex,
+                              level: 0,
+                              blockKey: '',
+                              baseIndex,
+                            },
                             baseIndex,
-                          })}
+                          )}
                         </Draggable>
                       );
                     } else if (DragUtil.idDraggingIsAModule(item.name)) {
