@@ -1,5 +1,6 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import Link from 'next/link';
+import { isMobile } from 'react-device-detect';
 
 import s from '../styles.module.scss';
 
@@ -45,7 +46,7 @@ const CommonSection = ({
           style={
             specialImage
               ? {
-                  padding: '59px 38px 0 38px',
+                  padding: isMobile ? '30px 19px 0 19px' : '59px 38px 0 38px',
                   borderRadius: '12px',
                   background:
                     'linear-gradient(90deg, rgba(151, 150, 240, 0.20) 0%, rgba(251, 199, 212, 0.20) 100%)',

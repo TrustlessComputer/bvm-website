@@ -51,7 +51,7 @@ const CaseStudy = () => {
       <Flex gap={['24px']} direction="column">
         <Text className={s.label}>Case Study</Text>
         {/* <Box> */}
-          {/* <Image src="/maga/trump.svg" alt="trump" /> */}
+        {/* <Image src="/maga/trump.svg" alt="trump" /> */}
         {/* </Box> */}
         <Flex gap="12px" direction="column">
           <Text className={s.title} as="h6">
@@ -68,7 +68,7 @@ const CaseStudy = () => {
             Be the first to join the action!
           </Text>
         </Flex>
-        <Flex gap="24px">
+        <Flex gap="24px" direction={['column', 'row']}>
           <a
             className={s.playNowBtn}
             href="https://x.com/BVMnetwork"
