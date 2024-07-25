@@ -22,10 +22,10 @@ const STEP_SECTION = [
     subDescription:
       'Dive into the heart of the action! Our Bitcoin Wars blockchain isn’t just any blockchain; it’s a ZK rollup on Bitcoin and EVM compatible. We crafted every game state and logic as smart contracts in Solidity, deploying them effortlessly with Hardhat. Game on!',
     image: '/maga/step-2.svg',
-    link: 'https://x.com/punk3700/status/1650524119136628736',
+    link: 'https://docs.bvm.network/bvm',
     isExternal: true,
     specialImage: false,
-    buttonText: 'Learn more',
+    buttonText: 'Developer docs',
   },
   {
     id: 3,
