@@ -4,20 +4,19 @@ import Image from 'next/image';
 import Button from '../Button';
 import MModal from '../Modal';
 import useDappsStore from '../../stores/useDappStore';
-import {
-  formDappDropdownSignal,
-  formDappInputSignal,
-  formDappToggleSignal,
-} from '../../signals/useFormDappsSignal';
-import { draggedIds2DSignal } from '../../signals/useDragSignal';
+import { formDappSignal, formTemplateDappSignal } from '../../signals/useFormDappsSignal';
+import { draggedIds2DSignal, templateIds2DSignal } from '../../signals/useDragSignal';
 
 import s from './styles.module.scss';
+import uniqBy from 'lodash/uniqBy';
 import cx from 'clsx';
 
 type Props = {};
 
 const Sidebar = ({}: Props) => {
-  const { dapps, setCurrentIndexDapp, currentIndexDapp } = useDappsStore();
+  const { dapps: _dapps, setCurrentIndexDapp, currentIndexDapp } = useDappsStore();
+
+  const dapps = React.useMemo(() => uniqBy(_dapps, item => item.id), [_dapps])
 
   const [isShowModal, setIsShowModal] = React.useState(false);
   const [selectedDappIndex, setSelectedDappIndex] = React.useState<
@@ -27,16 +26,18 @@ const Sidebar = ({}: Props) => {
   const handleSelectDapp = (index: number) => {
     setSelectedDappIndex(index);
 
-    if(currentIndexDapp !== index) {
+    if (currentIndexDapp !== index) {
       setIsShowModal(true);
     }
   };
 
   const changeDapp = () => {
-    formDappInputSignal.value = {};
-    formDappDropdownSignal.value = {};
-    formDappToggleSignal.value = {};
+    formDappSignal.value = {};
     draggedIds2DSignal.value = [];
+
+    formTemplateDappSignal.value = {};
+    templateIds2DSignal.value = [];
+
     setIsShowModal(false);
 
     if (selectedDappIndex == null) return;

@@ -475,21 +475,21 @@ const RollupsDappPage = () => {
       case 'staking': {
         const api = new CStakingAPI();
         const data = await api.getStakingPools();
-        console.log('staking data ', data);
         const model = parseDappModel({
           key: 'staking',
           model: data,
         });
+        console.log('staking data 111', { model, data });
 
         setTemplateForm(model);
         break;
       }
       case 'token_generation': {
-        const model = parseDappModel({
-          key: 'token_generation',
-          model: parseTokens as DappModel[],
-        });
-        setTemplateForm(model);
+        // const model = parseDappModel({
+        //   key: 'token_generation',
+        //   model: parseTokens as DappModel[],
+        // });
+        // setTemplateForm(model);
         break;
       }
       default:
