@@ -24,6 +24,7 @@ import {
 } from '../../signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
+import Label from '../Label';
 
 const RightDroppable = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
@@ -154,6 +155,20 @@ const RightDroppable = () => {
             </div>
           </Lego>
         );
+      } else if (field.type === 'module') {
+        return (
+          <Lego
+            key={field.key}
+            background={adjustBrightness(mainColor, -20)}
+            first={false}
+            last={false}
+            // title={field.title}
+            titleInLeft={true}
+            titleInRight={false}
+          >
+            <Label {...field} />
+          </Lego>
+        );
       }
     },
     [thisDapp],
@@ -216,6 +231,10 @@ const RightDroppable = () => {
                 <Draggable
                   id={`right-${FieldKeyPrefix.BASE}-${baseIndex}`}
                   key={baseIndex}
+                  value={{
+                    title: thisDapp.baseBlock.title,
+                    icon: thisDapp.baseBlock.icon,
+                  }}
                 >
                   <Droppable
                     id={`right-${FieldKeyPrefix.BASE}-${baseIndex}`}
@@ -243,6 +262,15 @@ const RightDroppable = () => {
                             <Draggable
                               id={`${item.name}-${blockIndex}-${baseIndex}`}
                               key={`${item.name}-${blockIndex}-${baseIndex}`}
+                              value={{
+                                title:
+                                  blockFieldMapping[
+                                    DragUtil.getOriginalKey(item.name)
+                                  ].title,
+                                icon: blockFieldMapping[
+                                  DragUtil.getOriginalKey(item.name)
+                                ].icon,
+                              }}
                             >
                               <LegoParent
                                 {...blockFieldMapping[
@@ -282,6 +310,15 @@ const RightDroppable = () => {
                             <Draggable
                               id={`${item.name}-${blockIndex}-${baseIndex}`}
                               key={`${item.name}-${blockIndex}-${baseIndex}`}
+                              value={{
+                                title:
+                                  singleFieldMapping[
+                                    DragUtil.getOriginalKey(item.name)
+                                  ].title,
+                                icon: singleFieldMapping[
+                                  DragUtil.getOriginalKey(item.name)
+                                ].icon,
+                              }}
                             >
                               {getInput(
                                 singleFieldMapping[

@@ -23,6 +23,7 @@ import LaunchButton from './components/LaunchButton';
 import Sidebar from './components/Sidebar';
 import useDappsStore, {
   subScribeDropEnd,
+  useFormDappsStore,
   useTemplateFormStore,
 } from './stores/useDappStore';
 import { draggedIds2DSignal } from './signals/useDragSignal';
@@ -112,7 +113,7 @@ const RollupsDappPage = () => {
         const prefix =
           'right-' +
           (activeIsABlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
-
+        console.log(prefix);
         draggedIds2D[overBaseIndex] = [
           ...draggedIds2D[overBaseIndex],
           {
@@ -121,8 +122,6 @@ const RollupsDappPage = () => {
             parentNames: [],
           },
         ];
-
-        console.log(draggedIds2D);
 
         draggedIds2DSignal.value = [...draggedIds2D];
 

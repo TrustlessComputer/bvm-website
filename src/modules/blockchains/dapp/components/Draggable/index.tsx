@@ -2,7 +2,7 @@ import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import React, { useRef } from 'react';
 
-import { idDraggingSignal } from '../../signals/useDragSignal';
+import { blockDraggingSignal } from '../../signals/useDragSignal';
 
 import styles from './styles.module.scss';
 
@@ -34,7 +34,10 @@ const Draggable = ({
     });
 
   if (isDragging) {
-    idDraggingSignal.value = id;
+    blockDraggingSignal.value = {
+      ...value,
+      id,
+    };
   }
 
   const style = {

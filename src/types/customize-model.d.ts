@@ -92,7 +92,7 @@ interface FieldModel {
   icon: string;
   title: string;
   value: string | number;
-  type: 'input' | 'dropdown' | 'extends' | 'group' | '';
+  type: 'input' | 'dropdown' | 'extends' | 'group' | 'module' | '';
   tooltip: string;
   options: FieldModel[];
   placeholder?: string;
