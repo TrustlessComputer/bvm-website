@@ -21,10 +21,12 @@ const useCountdown = (utcTime: string) => {
   const [ended, setEnded] = useState(false);
   const [countingEnded, setCountingEnded] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     if (!utcTime) {
       setEnded(true);
+      setIsReady(true);
       return;
     }
 
@@ -41,6 +43,7 @@ const useCountdown = (utcTime: string) => {
         setEnded(true);
         setCountingEnded(true);
         setProgress(0);
+        setIsReady(true);
         return;
       }
       setEnded(false);
@@ -52,6 +55,7 @@ const useCountdown = (utcTime: string) => {
       const current = diff.asSeconds();
       const progress = (current / THIRTY_MINUTES_IN_SECS) * 100;
       setProgress(100 - progress);
+      setIsReady(true);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -66,6 +70,7 @@ const useCountdown = (utcTime: string) => {
     ended,
     countingEnded,
     progress,
+    isReady,
   };
 };
 
