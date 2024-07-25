@@ -63,6 +63,11 @@ const nextConfig = {
         destination: '/studio',
         permanent: false,
       },
+      {
+        source: '/module/bvm-studio',
+        destination: '/module/bitcoin-studio',
+        permanent: false,
+      },
       // {
       //   source: '/launchpad',
       //   destination: `/`,
