@@ -37,6 +37,7 @@ import { useThisDapp } from '../../hooks/useThisDapp';
 
 import styles from './styles.module.scss';
 import Image from 'next/image';
+import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
 
 const RightDroppable = () => {
   const thisDapp = useThisDapp();
@@ -103,11 +104,6 @@ const RightDroppable = () => {
 
     return mapping;
   }, [thisDapp]);
-
-  const onActionClick = (params: { dapp: DappModel }) => {
-    console.log(params.dapp?.action);
-    alert("CLICK ME")
-  }
 
   const getInput = React.useCallback(
     (field: FieldModel, fieldOpt: FieldOption) => {
@@ -853,23 +849,7 @@ const RightDroppable = () => {
                   })}
 
                   {thisDapp.action && (
-                    <Lego
-                      background={adjustBrightness(mainColor, -20)}
-                      first={false}
-                      last={false}
-                      titleInLeft={true}
-                      titleInRight={false}
-                    >
-                      <Button
-                        element="button"
-                        type="button"
-                        onClick={() => {
-                          onActionClick({ dapp: thisDapp })
-                        }}
-                      >
-                        {thisDapp.action?.title || ''}
-                      </Button>
-                    </Lego>
+                    <BottomButton dapp={thisDapp} color={mainColor}/>
                   )}
                 </LegoParent>
               );
