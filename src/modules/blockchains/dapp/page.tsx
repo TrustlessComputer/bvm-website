@@ -512,7 +512,7 @@ const RollupsDappPage = () => {
         console.log('staking data 111', { model, data });
         // console.log('staking data ', JSON.stringify(data));
 
-        // setTemplateDapps(data);
+        setTemplateDapps(data);
         setTemplateForm(model);
         break;
       }
