@@ -1,46 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import {
-  DndContext,
-  DragEndEvent,
-  DragStartEvent,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
+import React from 'react';
+import { DndContext, DragEndEvent, DragStartEvent, useSensor, useSensors } from '@dnd-kit/core';
 import Image from 'next/image';
 import cn from 'classnames';
 
-import {
-  cloneDeep,
-  DragUtil,
-  FormDappUtil,
-  hasValue,
-  MouseSensor,
-  removeItemAtIndex,
-} from './utils';
-import {
-  dappMockupData,
-  dappTemplateFormMockupData,
-  stakingTemplateFormMockupData,
-} from './mockup_3';
+import { cloneDeep, DragUtil, FormDappUtil, hasValue, MouseSensor, removeItemAtIndex } from './utils';
+import { dappMockupData } from './mockup_3';
 import { FieldKeyPrefix } from './contants';
 import LeftDroppable from './components/LeftDroppable';
 import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
 import Sidebar from './components/Sidebar';
-import useDappsStore, {
-  subScribeDropEnd,
-  useFormDappsStore,
-  useTemplateFormStore,
-} from './stores/useDappStore';
-import {
-  draggedIds2DSignal,
-  templateIds2DSignal,
-} from './signals/useDragSignal';
-import {
-  formDappSignal,
-  formTemplateDappSignal,
-} from './signals/useFormDappsSignal';
+import useDappsStore, { subScribeDropEnd, useTemplateFormStore } from './stores/useDappStore';
+import { draggedIds2DSignal, templateIds2DSignal } from './signals/useDragSignal';
+import { formDappSignal, formTemplateDappSignal } from './signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
@@ -48,7 +21,6 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-token';
 import { parseDappModel } from '@/modules/blockchains/utils';
-import CStakingAPI from '@/services/api/dapp/staking';
 import { useThisDapp } from './hooks/useThisDapp';
 import { parseStakingPools } from './parseUtils/staking';
 
@@ -61,14 +33,7 @@ const RollupsDappPage = () => {
   const tokens = dappState.tokens;
   const stakingPools = dappState.stakingPools;
 
-  const [parseTokens, setParseTokens] = useState<DappModel[]>();
   const thisDapp = useThisDapp();
-
-  useEffect(() => {
-    if (tokens && tokens?.length > 0) {
-      parseTokensData(tokens);
-    }
-  }, [tokens]);
 
   const parseTokensData = (tokens: IToken[]) => {
     const result: DappModel[] = [];
@@ -77,7 +42,7 @@ const RollupsDappPage = () => {
       result.push(t);
     }
 
-    setParseTokens(result);
+    return result;
   };
 
   const moduleFieldMapping = React.useMemo(() => {
@@ -565,7 +530,7 @@ const RollupsDappPage = () => {
 
   React.useEffect(() => {
     getDataTemplateForm();
-  }, [thisDapp, parseTokens, stakingPools]);
+  }, [thisDapp, tokens, stakingPools]);
 
   React.useEffect(() => {
     fetchData();
@@ -585,12 +550,13 @@ const RollupsDappPage = () => {
         break;
       }
       case 'token_generation': {
+        const data = parseTokensData(tokens);
         const model = parseDappModel({
           key: 'token_generation',
-          model: parseTokens as DappModel[],
+          model: data,
         });
+        setTemplateDapps(data);
         setTemplateForm(model);
-        setTemplateDapps(parseTokens as DappModel[]);
         break;
       }
       default:
