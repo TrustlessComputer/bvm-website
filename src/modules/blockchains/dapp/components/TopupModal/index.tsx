@@ -66,7 +66,7 @@ const TopupModal = (props: IProps) => {
         borderRadius={'10px'}
         p={'20px'}
       >
-        {infors.length > 0 && (
+        {infors.length > 1 && (
           <Tabs className={s.tabContainer}>
             <TabList className={s.tabList}>
               {infors.map((info, index) => (

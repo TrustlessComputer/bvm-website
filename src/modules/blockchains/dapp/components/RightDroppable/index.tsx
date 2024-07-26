@@ -37,6 +37,7 @@ import { useThisDapp } from '../../hooks/useThisDapp';
 
 import styles from './styles.module.scss';
 import Image from 'next/image';
+import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
 
 const RightDroppable = () => {
   const {
@@ -323,6 +324,7 @@ const RightDroppable = () => {
                   value={{
                     title: thisDapp.baseBlock.title,
                     icon: thisDapp.baseBlock.icon,
+                    fieldKey: thisDapp.baseBlock.key,
                   }}
                 >
                   <Droppable
@@ -345,7 +347,7 @@ const RightDroppable = () => {
                           const thisBaseModule =
                             baseModuleFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                            ];
+                              ];
                           const thisModule = thisBaseModule.fields.find(
                             (f) => f.value === item.value,
                           );
@@ -385,7 +387,7 @@ const RightDroppable = () => {
                           const thisBlock =
                             blockFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                            ];
+                              ];
 
                           blockCount++;
 
@@ -396,6 +398,7 @@ const RightDroppable = () => {
                               value={{
                                 title: thisBlock.title + ' #' + blockCount,
                                 icon: thisBlock.icon,
+                                fieldKey: thisBlock.key,
                               }}
                             >
                               <LegoParent
@@ -422,7 +425,7 @@ const RightDroppable = () => {
                           const field =
                             singleFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                            ];
+                              ];
                           // const fieldIsModuleType = field.fields.every(
                           //   (f) => f.type === 'module',
                           // );
@@ -519,6 +522,7 @@ const RightDroppable = () => {
                               value={{
                                 title: thisModule.title,
                                 icon: thisModule.icon,
+                                fieldKey: thisModule.key,
                               }}
                             >
                               <Lego
@@ -536,7 +540,7 @@ const RightDroppable = () => {
                           const thisModule =
                             moduleFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                            ];
+                              ];
                           const isMultiple = thisModule.placableAmount === -1;
 
                           if (isMultiple) {
@@ -547,6 +551,7 @@ const RightDroppable = () => {
                                 value={{
                                   title: thisModule.title,
                                   icon: thisModule.icon,
+                                  fieldKey: thisModule.key,
                                 }}
                               >
                                 <LegoParent
@@ -606,6 +611,7 @@ const RightDroppable = () => {
                                 value={{
                                   title: thisModule.title,
                                   icon: thisModule.icon,
+                                  fieldKey: thisModule.key,
                                 }}
                               >
                                 <Lego
@@ -650,7 +656,7 @@ const RightDroppable = () => {
                       const thisBaseModule =
                         baseModuleFieldMapping[
                           DragUtil.getOriginalKey(item.name)
-                        ];
+                          ];
                       const thisField = thisBaseModule.fields.find(
                         (f) => f.value === item.value,
                       );
@@ -852,23 +858,10 @@ const RightDroppable = () => {
                   })}
 
                   {thisDapp.action && (
-                    <Lego
-                      background={adjustBrightness(mainColor, -20)}
-                      first={false}
-                      last={false}
-                      titleInLeft={true}
-                      titleInRight={false}
-                    >
-                      <Button
-                        element="button"
-                        type="button"
-                        onClick={() => {
-                          onActionClick({ dapp: thisDapp });
-                        }}
-                      >
-                        {thisDapp.action?.title || ''}
-                      </Button>
-                    </Lego>
+                    <BottomButton
+                      color={adjustBrightness(mainColor, -20)}
+                      dapp={thisDapp}
+                    />
                   )}
                 </LegoParent>
               );
