@@ -1,10 +1,11 @@
 import { IToken, ITokenVesting } from '@/services/api/dapp/token_generation/interface';
+import { DappType } from '@/modules/blockchains/dapp/types';
 
 export const parseIssuedToken = (token: IToken) => {
   const result = {} as DappModel;
 
-  result.id = 'token_generation';
-  result.key = 'token_generation';
+  result.id = DappType.token_generation;
+  result.key = DappType.token_generation;
   result.title = 'Token Generation';
   result.icon = 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
   result.order = 1;
