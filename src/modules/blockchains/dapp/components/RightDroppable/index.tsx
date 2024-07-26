@@ -104,6 +104,11 @@ const RightDroppable = () => {
     return mapping;
   }, [thisDapp]);
 
+  const onActionClick = (params: { dapp: DappModel }) => {
+    console.log(params.dapp?.action);
+    alert("CLICK ME")
+  }
+
   const getInput = React.useCallback(
     (field: FieldModel, fieldOpt: FieldOption) => {
       if (field.type === 'input') {
@@ -847,17 +852,25 @@ const RightDroppable = () => {
                     return null;
                   })}
 
-                  {/*<Lego>
-                    <Button
-                      element="button"
-                      type="button"
-                      onClick={() => {
-                        alert('Action');
-                      }}
+                  {thisDapp.action && (
+                    <Lego
+                      background={adjustBrightness(mainColor, -20)}
+                      first={false}
+                      last={false}
+                      titleInLeft={true}
+                      titleInRight={false}
                     >
-                      Action
-                    </Button>
-                  </Lego>*/}
+                      <Button
+                        element="button"
+                        type="button"
+                        onClick={() => {
+                          onActionClick({ dapp: thisDapp })
+                        }}
+                      >
+                        {thisDapp.action?.title || ''}
+                      </Button>
+                    </Lego>
+                  )}
                 </LegoParent>
               );
             })}

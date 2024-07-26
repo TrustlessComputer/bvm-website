@@ -134,6 +134,10 @@ interface DappModel {
   moduleFields?: BlockModel[];
   baseModuleFields?: BlockModel[];
   sections: SectionModel[];
+  action?: {
+    title: string;
+    actionMapperID: string;
+  }
 }
 
 interface TemplateForm {
