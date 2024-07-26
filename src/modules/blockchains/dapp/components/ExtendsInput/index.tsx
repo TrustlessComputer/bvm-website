@@ -13,6 +13,7 @@ import {
   formDappToggleSignal,
   formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
+import { useThisDapp } from '../../hooks/useThisDapp';
 
 type Props = FieldModel &
   FieldOption & {
@@ -54,14 +55,9 @@ const ExtendsInput = ({
     baseIndex,
   };
 
-  const { dapps, currentIndexDapp } = useDappsStore();
+  const { thisDapp } = useThisDapp();
 
   const [toggle, setToggle] = React.useState(false);
-
-  // Fake dapps[0] is selected
-  const thisDapp = React.useMemo(() => {
-    return dapps[currentIndexDapp];
-  }, [dapps, currentIndexDapp]);
 
   const handleToggle = () => {
     if (disabled || onlyLabel) return;

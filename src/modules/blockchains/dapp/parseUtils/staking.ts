@@ -1,12 +1,18 @@
 import { ISTToken } from '@/services/api/dapp/staking/interface';
 import BigNumberJS from 'bignumber.js';
+import { DappType } from '../types';
 
 export const parseStakingPools = (pools: ISTToken[]): DappModel[] => {
   const result: DappModel[] = [];
   for (const item of pools) {
+    const isRunout = Number(item.balance) <= 1;
     result.push({
-      id: 'staking',
-      key: 'staking',
+      id: DappType.staking,
+      key: DappType.staking,
+      action: {
+        title: 'Top up',
+        actionMapperID: `${item.id}`,
+      },
       title: 'Staking',
       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-staking.svg',
       order: 2,
@@ -14,6 +20,19 @@ export const parseStakingPools = (pools: ISTToken[]): DappModel[] => {
       created_at: '2021-09-14T09:00:00.000Z',
       updated_at: '2021-09-14T09:00:00.000Z',
       tooltip: '',
+      label: isRunout
+        ? {
+            title: 'Run out',
+            color: '#000',
+            background: '#FF4747',
+            status: '',
+          }
+        : {
+            title: 'Deployed',
+            color: '#000',
+            background: '#00AA6C',
+            status: '',
+          },
       sections: [
         {
           key: 'information',
@@ -27,9 +46,9 @@ export const parseStakingPools = (pools: ISTToken[]): DappModel[] => {
         key: 'token_info',
         title:
           'Pool ' +
-          (item.principle_token?.symbol || '') +
+          (item.principle_token?.symbol || '-') +
           '/' +
-          (item.reward_token?.symbol || ''),
+          (item.reward_token?.symbol || '-'),
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-staking.svg',
         placableAmount: -1,
         section: 'information',

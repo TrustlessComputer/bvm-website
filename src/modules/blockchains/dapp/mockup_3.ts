@@ -14,7 +14,7 @@ export const dappMockupData: DappModel[] = [
       title: 'New',
       color: '#000',
       background: '#00AA6C',
-      status: 'new'
+      status: 'new',
     },
     sections: [
       {
@@ -75,6 +75,15 @@ export const dappMockupData: DappModel[] = [
         {
           key: 'token_supply',
           title: 'Total Supply',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: '',
+          options: [],
+        },
+        {
+          key: 'receiver_address',
+          title: 'Receiver Address',
           type: 'input',
           icon: '',
           value: '',
@@ -338,110 +347,145 @@ export const dappMockupData: DappModel[] = [
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
+    label: {
+      title: 'New',
+      color: '#000',
+      background: '#00AA6C',
+      status: '',
+    },
     sections: [
       {
-        key: 'information',
+        key: 'staking_token',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'Staking Token',
+        tooltip: '',
+        required: true,
+      },
+      {
+        key: 'reward_token',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        title: 'Reward Token',
+        tooltip: '',
+        required: true,
+      },
+      {
+        key: 'infor',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         title: 'Information',
         tooltip: '',
         required: true,
       },
     ],
+    baseModuleFields: [
+      {
+        key: 'class',
+        title: 'Staking Token',
+        icon: '',
+        placableAmount: -1,
+        section: 'staking_token',
+        preview: true,
+        fields: [
+          {
+            key: 'eth',
+            title: 'ETH', // symbol
+            value: '0x1234', // contract_address
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+          },
+          {
+            key: 'bvm',
+            title: 'BVM', // symbol
+            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+          },
+        ],
+      },
+    ],
+    moduleFields: [
+      {
+        key: 'reward_token',
+        title: 'Reward Token',
+        icon: '',
+        preview: true,
+        placableAmount: 1,
+        section: 'reward_token',
+        fields: [
+          {
+            key: 'eth',
+            title: 'ETH', // symbol
+            value: '0x1234', // contract_address
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+          },
+          {
+            key: 'bvm',
+            title: 'BVM', // symbol
+            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+          },
+        ],
+      },
+    ],
+    blockFields: [
+      {
+        key: 'class',
+        title: 'Information',
+        icon: '',
+        placableAmount: -1,
+        section: 'infor',
+        preview: true,
+        fields: [
+          {
+            key: 'rate',
+            title: 'Rate',
+            type: 'input',
+            icon: '',
+            value: '',
+            tooltip: 'Exchange rate between staking token and reward token.',
+            placeholder: 'eg. 1',
+            options: [],
+          },
+          {
+            key: 'apr',
+            title: 'APR',
+            type: 'input',
+            icon: '',
+            value: '',
+            tooltip: '',
+            placeholder: 'eg. 20%',
+            options: [],
+          },
+          {
+            key: 'amount',
+            title: 'Reward amount',
+            type: 'input',
+            icon: '',
+            value: '',
+            tooltip: '',
+            placeholder: 'eg. 100,000',
+            options: [],
+          },
+        ],
+      },
+    ],
     baseBlock: {
-      key: 'class',
+      key: '',
       title: 'Create a Staking Pool',
       icon: '',
       placableAmount: -1,
-      section: 'information',
+      section: '',
       preview: true,
-      fields: [
-        {
-          key: 'staking_token',
-          title: 'Staking Token',
-          type: 'dropdown',
-          icon: '',
-          value: 'math',
-          tooltip: '',
-          options: [
-            {
-              key: 'eth',
-              title: 'ETH', // symbol
-              value: '0x1234', // contract_address
-              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-              tooltip: '',
-              type: '',
-              options: [],
-            },
-            {
-              key: 'bvm',
-              title: 'BVM', // symbol
-              value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
-              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-              tooltip: '',
-              type: '',
-              options: [],
-            },
-          ],
-        },
-        {
-          key: 'reward_token',
-          title: 'Reward Token',
-          type: 'dropdown',
-          icon: '',
-          value: 'math',
-          tooltip: '',
-          options: [
-            {
-              key: 'eth',
-              title: 'ETH', // symbol
-              value: '0x1234', // contract_address
-              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-              tooltip: '',
-              type: '',
-              options: [],
-            },
-            {
-              key: 'bvm',
-              title: 'BVM', // symbol
-              value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
-              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-              tooltip: '',
-              type: '',
-              options: [],
-            },
-          ],
-        },
-        {
-          key: 'rate',
-          title: 'Rate',
-          type: 'input',
-          icon: '',
-          value: '',
-          tooltip: 'Exchange rate between staking token and reward token.',
-          placeholder: 'eg. 1',
-          options: [],
-        },
-        {
-          key: 'apr',
-          title: 'APR',
-          type: 'input',
-          icon: '',
-          value: '',
-          tooltip: '',
-          placeholder: 'eg. 20%',
-          options: [],
-        },
-        {
-          key: 'amount',
-          title: 'Reward amount',
-          type: 'input',
-          icon: '',
-          value: '',
-          tooltip: '',
-          placeholder: 'eg. 100,000',
-          options: [],
-        },
-      ],
+      fields: [],
     },
   },
   {

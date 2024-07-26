@@ -3,11 +3,13 @@ import cn from 'classnames';
 import Image from 'next/image';
 
 import SvgInset from '@/components/SvgInset';
-import { useThisDapp } from '@/modules/blockchains/dapp/hooks/useThisDapp';
 
 import { adjustBrightness } from '../../utils';
 
 import styles from './styles.module.scss';
+import { useAppSelector } from '@/stores/hooks';
+import { dappSelector } from '@/stores/states/dapp/selector';
+import { DappType } from '@/modules/blockchains/dapp/types';
 
 type Props = {
   background?: string;
@@ -17,6 +19,7 @@ type Props = {
   smallMarginHeaderTop?: boolean;
   children?: React.ReactNode;
   label?: DappModel['label'];
+  dapp?: DappModel
 };
 
 const LegoParent = ({
@@ -27,12 +30,26 @@ const LegoParent = ({
   children,
   smallMarginHeaderTop = false,
   label,
+  dapp,
+  ...rest
 }: Props) => {
   const headerRef = React.useRef<HTMLDivElement | null>(null);
   const footerRef = React.useRef<HTMLDivElement | null>(null);
 
+  const dappState = useAppSelector(dappSelector);
+
+
   const handleLabelClick = () => {
-    //
+
+    switch (dapp?.key) {
+      case DappType.token_generation: {
+        if (!label?.actionID) return;
+        // https://bloom.appstore.dev.bvm.network/apps/token/0x517db2dd81aaa829bb9856539b83751dd3779f13
+        window.open(`${dappState?.chain?.dappURL || ''}/apps/token/${label.actionID}`)
+        return;
+      }
+    }
+
   };
 
   React.useEffect(() => {

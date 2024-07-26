@@ -39,7 +39,13 @@ import styles from './styles.module.scss';
 import Image from 'next/image';
 
 const RightDroppable = () => {
-  const thisDapp = useThisDapp();
+  const {
+    thisDapp,
+    blockFieldMapping,
+    baseModuleFieldMapping,
+    moduleFieldMapping,
+    singleFieldMapping,
+  } = useThisDapp();
   const { templateDapps } = useTemplateFormStore();
 
   const refContainer = React.useRef<HTMLDivElement>(null);
@@ -64,45 +70,10 @@ const RightDroppable = () => {
     draggedIds2DSignal.value = [];
   };
 
-  const blockFieldMapping = React.useMemo(() => {
-    const mapping: Record<string, BlockModel> = {};
-
-    (thisDapp?.blockFields || []).forEach((item) => {
-      mapping[item.key] = item;
-    });
-
-    return mapping;
-  }, [thisDapp]);
-
-  const singleFieldMapping = React.useMemo(() => {
-    const mapping: Record<string, BlockModel> = {};
-
-    (thisDapp?.singleFields || []).forEach((item) => {
-      mapping[item.key] = item;
-    });
-
-    return mapping;
-  }, [thisDapp]);
-
-  const moduleFieldMapping = React.useMemo(() => {
-    const mapping: Record<string, BlockModel> = {};
-
-    (thisDapp?.moduleFields || []).forEach((item) => {
-      mapping[item.key] = item;
-    });
-
-    return mapping;
-  }, [thisDapp]);
-
-  const baseModuleFieldMapping = React.useMemo(() => {
-    const mapping: Record<string, BlockModel> = {};
-
-    (thisDapp?.baseModuleFields || []).forEach((item) => {
-      mapping[item.key] = item;
-    });
-
-    return mapping;
-  }, [thisDapp]);
+  const onActionClick = (params: { dapp: DappModel }) => {
+    console.log(params.dapp?.action);
+    alert('CLICK ME');
+  };
 
   const getInput = React.useCallback(
     (field: FieldModel, fieldOpt: FieldOption) => {
@@ -344,7 +315,6 @@ const RightDroppable = () => {
           >
             {draggedIds2D.map((ids, baseIndex) => {
               let blockCount = 0;
-              let prevBlockKey = '';
 
               return (
                 <Draggable
@@ -376,22 +346,24 @@ const RightDroppable = () => {
                             baseModuleFieldMapping[
                               DragUtil.getOriginalKey(item.name)
                             ];
-                          const thisField = thisBaseModule.fields.find(
+                          const thisModule = thisBaseModule.fields.find(
                             (f) => f.value === item.value,
                           );
 
-                          if (!thisField) return null;
+                          if (!thisModule) return null;
 
                           return (
                             <Lego
+                              {...thisBaseModule}
+                              preview={false}
                               key={item.name}
                               background={adjustBrightness(mainColor, -20)}
                               first={false}
                               last={false}
-                              titleInLeft={true}
-                              titleInRight={false}
+                              titleInLeft={false}
+                              titleInRight={true}
                             >
-                              <Label {...thisField} />
+                              <Label {...thisModule} />
                             </Lego>
                           );
                         })}
@@ -414,11 +386,6 @@ const RightDroppable = () => {
                             blockFieldMapping[
                               DragUtil.getOriginalKey(item.name)
                             ];
-
-                          if (prevBlockKey !== thisBlock.key) {
-                            prevBlockKey = thisBlock.key;
-                            blockCount = 0;
-                          }
 
                           blockCount++;
 
@@ -630,6 +597,8 @@ const RightDroppable = () => {
                               (f) => f.value === item.value,
                             );
 
+                            if (!thisField) return null;
+
                             return (
                               <Draggable
                                 id={`${item.name}-${blockIndex}-${baseIndex}`}
@@ -640,13 +609,16 @@ const RightDroppable = () => {
                                 }}
                               >
                                 <Lego
-                                  {...thisField}
+                                  {...thisModule}
+                                  preview={false}
                                   background={adjustBrightness(mainColor, -20)}
                                   first={false}
                                   last={false}
-                                  titleInLeft={true}
-                                  titleInRight={false}
-                                />
+                                  titleInLeft={false}
+                                  titleInRight={true}
+                                >
+                                  <Label {...thisField} />
+                                </Lego>
                               </Draggable>
                             );
                           }
@@ -670,7 +642,35 @@ const RightDroppable = () => {
                   {...thisDapp.baseBlock}
                   background={mainColor}
                   label={thisDapp.label}
+                  dapp={thisDapp}
                 >
+                  {ids
+                    .filter((id) => DragUtil.idDraggingIsABaseModule(id.name))
+                    .map((item) => {
+                      const thisBaseModule =
+                        baseModuleFieldMapping[
+                          DragUtil.getOriginalKey(item.name)
+                        ];
+                      const thisField = thisBaseModule.fields.find(
+                        (f) => f.value === item.value,
+                      );
+
+                      if (!thisField) return null;
+
+                      return (
+                        <Lego
+                          key={item.name}
+                          background={adjustBrightness(mainColor, -20)}
+                          first={false}
+                          last={false}
+                          titleInLeft={true}
+                          titleInRight={false}
+                        >
+                          <Label {...thisField} />
+                        </Lego>
+                      );
+                    })}
+
                   {thisDapp.baseBlock.fields.map((field) => {
                     return getLabel(
                       field,
@@ -821,6 +821,8 @@ const RightDroppable = () => {
                           (f) => f.value === item.value,
                         );
 
+                        if (!thisField) return null;
+
                         return (
                           <Draggable
                             id={`${item.name}-${blockIndex}-${baseIndex}`}
@@ -831,13 +833,16 @@ const RightDroppable = () => {
                             }}
                           >
                             <Lego
-                              {...thisField}
+                              {...thisModule}
+                              preview={false}
                               background={adjustBrightness(mainColor, -20)}
                               first={false}
                               last={false}
-                              titleInLeft={true}
-                              titleInRight={false}
-                            />
+                              titleInLeft={false}
+                              titleInRight={true}
+                            >
+                              <Label {...thisField} />
+                            </Lego>
                           </Draggable>
                         );
                       }
@@ -846,17 +851,25 @@ const RightDroppable = () => {
                     return null;
                   })}
 
-                  {/*<Lego>
-                    <Button
-                      element="button"
-                      type="button"
-                      onClick={() => {
-                        alert('Action');
-                      }}
+                  {thisDapp.action && (
+                    <Lego
+                      background={adjustBrightness(mainColor, -20)}
+                      first={false}
+                      last={false}
+                      titleInLeft={true}
+                      titleInRight={false}
                     >
-                      Action
-                    </Button>
-                  </Lego>*/}
+                      <Button
+                        element="button"
+                        type="button"
+                        onClick={() => {
+                          onActionClick({ dapp: thisDapp });
+                        }}
+                      >
+                        {thisDapp.action?.title || ''}
+                      </Button>
+                    </Lego>
+                  )}
                 </LegoParent>
               );
             })}

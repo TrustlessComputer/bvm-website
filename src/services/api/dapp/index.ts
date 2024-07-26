@@ -20,6 +20,17 @@ class CDappAPI {
     return chain;
   };
 
+  getDappURL = (chain: OrderItem) => {
+    try {
+      const dapp = chain.dApps?.find(item => item?.appURL || '')?.appURL || ''
+      const url =  new URL(dapp?.includes('https://') ? dapp : `https://${dapp}`)?.origin;
+      return url
+    } catch (error) {
+      console.log(error);
+      return '';
+    }
+  }
+
   getDappConfig = async (params: { appName: string }) => {
     try {
       const app = await this.http.get(`/apps/detail-by-code/${params.appName}`) as any;
@@ -34,6 +45,8 @@ class CDappAPI {
 
     try {
       const chain = await this.getChainByOrderID({ orderID: params.orderID });
+      chain.dappURL = this.getDappURL(chain);
+
       this.dispatch(setChain(chain));
       const tasks = (chain?.dApps?.map(app => this.getDappConfig({ appName: app.appCode })) || []) as any[]
       const configs = (await Promise.all(tasks))?.map(item => {

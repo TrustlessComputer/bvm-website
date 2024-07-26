@@ -84,6 +84,8 @@
 
   &__preview {
     .lego__inner {
+      flex-direction: column;
+      align-items: flex-start;
       .lego__inner__label {
         font-size: 14px;
       }

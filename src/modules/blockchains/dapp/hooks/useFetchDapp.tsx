@@ -25,7 +25,7 @@ const useFetchDapp = () => {
   }, []);
 
   const fetchTokenList = async () => {
-    await dappAPI.getListToken('91227');
+    await dappAPI.getListToken(dappState?.chain?.chainId || '');
   };
 
   const fetchStakingPoolsList = async () => {

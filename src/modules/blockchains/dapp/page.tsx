@@ -1,9 +1,22 @@
 import React from 'react';
-import { DndContext, DragEndEvent, DragStartEvent, useSensor, useSensors } from '@dnd-kit/core';
+import {
+  DndContext,
+  DragEndEvent,
+  DragStartEvent,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import Image from 'next/image';
 import cn from 'classnames';
 
-import { cloneDeep, DragUtil, FormDappUtil, hasValue, MouseSensor, removeItemAtIndex } from './utils';
+import {
+  cloneDeep,
+  DragUtil,
+  FormDappUtil,
+  hasValue,
+  MouseSensor,
+  removeItemAtIndex,
+} from './utils';
 import { dappMockupData } from './mockup_3';
 import { FieldKeyPrefix } from './contants';
 import LeftDroppable from './components/LeftDroppable';
@@ -11,9 +24,18 @@ import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
 import Sidebar from './components/Sidebar';
-import useDappsStore, { subScribeDropEnd, useTemplateFormStore } from './stores/useDappStore';
-import { draggedIds2DSignal, templateIds2DSignal } from './signals/useDragSignal';
-import { formDappSignal, formTemplateDappSignal } from './signals/useFormDappsSignal';
+import useDappsStore, {
+  subScribeDropEnd,
+  useTemplateFormStore,
+} from './stores/useDappStore';
+import {
+  draggedIds2DSignal,
+  templateIds2DSignal,
+} from './signals/useDragSignal';
+import {
+  formDappSignal,
+  formTemplateDappSignal,
+} from './signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
@@ -23,17 +45,26 @@ import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-to
 import { parseDappModel } from '@/modules/blockchains/utils';
 import { useThisDapp } from './hooks/useThisDapp';
 import { parseStakingPools } from './parseUtils/staking';
+import { DappType } from './types';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
+
   const { templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
   const dappState = useAppSelector(dappSelector);
+  const configs = dappState?.configs;
 
   const tokens = dappState.tokens;
   const stakingPools = dappState.stakingPools;
 
-  const thisDapp = useThisDapp();
+  const {
+    thisDapp,
+    baseModuleFieldMapping,
+    blockFieldMapping,
+    moduleFieldMapping,
+    singleFieldMapping,
+  } = useThisDapp();
 
   const parseTokensData = (tokens: IToken[]) => {
     const result: DappModel[] = [];
@@ -45,16 +76,6 @@ const RollupsDappPage = () => {
     return result;
   };
 
-  const moduleFieldMapping = React.useMemo(() => {
-    const mapping: Record<string, BlockModel> = {};
-
-    (thisDapp?.moduleFields || []).forEach((item) => {
-      mapping[item.key] = item;
-    });
-
-    return mapping;
-  }, [thisDapp]);
-
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
     subScribeDropEnd.value += 1;
@@ -64,11 +85,11 @@ const RollupsDappPage = () => {
     const { over, active } = event;
     subScribeDropEnd.value += 1;
 
-    console.log(
-      '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
-      over,
-      active,
-    );
+    // console.log(
+    //   '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
+    //   over,
+    //   active,
+    // );
 
     if (!over) return;
 
@@ -129,8 +150,20 @@ const RollupsDappPage = () => {
       }
 
       if (activeIsABaseModule) {
+        const totalPlaced = draggedIds2D.length;
+        const canPlaceMoreBaseModule =
+          baseModuleFieldMapping[activeOriginalKey].placableAmount === -1 ||
+          totalPlaced <
+            baseModuleFieldMapping[activeOriginalKey].placableAmount;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.BASE_MODULE + '-' + activeOriginalKey;
+
+        if (!canPlaceMoreBaseModule) {
+          alert(
+            `You can only place one ${baseModuleFieldMapping[activeOriginalKey].title}!`,
+          );
+          return;
+        }
 
         draggedIds2D = [
           ...draggedIds2D,
@@ -159,10 +192,36 @@ const RollupsDappPage = () => {
 
       // Case 1.5: The lego just dragged is a block/single
       if ((activeIsABlock || activeIsASingle) && overIsABase) {
+        const totalPlaced = activeIsABlock
+          ? draggedIds2D[overBaseIndex].filter((item) =>
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
+              ),
+            ).length
+          : draggedIds2D[overBaseIndex].filter((item) =>
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
+              ),
+            ).length;
+        const canPlaceMore =
+          (activeIsABlock
+            ? blockFieldMapping[activeOriginalKey].placableAmount === -1
+            : singleFieldMapping[activeOriginalKey].placableAmount === -1) ||
+          totalPlaced <
+            (activeIsABlock
+              ? blockFieldMapping[activeOriginalKey].placableAmount
+              : singleFieldMapping[activeOriginalKey].placableAmount);
         const prefix =
           'right-' +
           (activeIsABlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
         const composedFieldKey = prefix + '-' + activeOriginalKey;
+
+        if (!canPlaceMore) {
+          alert(
+            `You can only place one ${blockFieldMapping[activeOriginalKey].title}!`,
+          );
+          return;
+        }
 
         draggedIds2D[overBaseIndex] = [
           ...draggedIds2D[overBaseIndex],
@@ -179,10 +238,25 @@ const RollupsDappPage = () => {
       }
 
       if (activeIsAModule && overIsABase) {
+        const totalPlaced = draggedIds2D[overBaseIndex].filter((item) =>
+          item.name.startsWith(
+            `right-${FieldKeyPrefix.MODULE}-${activeOriginalKey}`,
+          ),
+        ).length;
+        const canPlaceMore =
+          totalPlaced < moduleFieldMapping[activeOriginalKey].placableAmount ||
+          moduleFieldMapping[activeOriginalKey].placableAmount === -1;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.MODULE + '-' + activeOriginalKey;
         const thisField = moduleFieldMapping[activeOriginalKey];
         const isMultiple = thisField?.placableAmount === -1;
+
+        if (!canPlaceMore) {
+          alert(
+            `You can only place one ${moduleFieldMapping[activeOriginalKey].title}!`,
+          );
+          return;
+        }
 
         if (isMultiple) {
           const draggedFieldIndex = draggedIds2D[overBaseIndex].findIndex(
@@ -475,6 +549,7 @@ const RollupsDappPage = () => {
   );
 
   const fetchData = async () => {
+    // const dapps = configs;
     const dapps = dappMockupData;
     const sortedDapps = dapps.sort((a, b) => a.order - b.order);
 
@@ -539,20 +614,20 @@ const RollupsDappPage = () => {
   const getDataTemplateForm = async () => {
     if (!thisDapp) return;
     switch (thisDapp?.key) {
-      case 'staking': {
+      case DappType.staking: {
         const data = parseStakingPools(stakingPools);
         const model = parseDappModel({
-          key: 'staking',
+          key: DappType.staking,
           model: data,
         });
         setTemplateDapps(data);
         setTemplateForm(model);
         break;
       }
-      case 'token_generation': {
+      case DappType.token_generation: {
         const data = parseTokensData(tokens);
         const model = parseDappModel({
-          key: 'token_generation',
+          key: DappType.token_generation,
           model: data,
         });
         setTemplateDapps(data);
