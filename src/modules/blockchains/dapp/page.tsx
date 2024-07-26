@@ -16,7 +16,11 @@ import {
   MouseSensor,
   removeItemAtIndex,
 } from './utils';
-import { dappMockupData, dappTemplateFormMockupData } from './mockup_3';
+import {
+  dappMockupData,
+  dappTemplateFormMockupData,
+  stakingTemplateFormMockupData,
+} from './mockup_3';
 import { FieldKeyPrefix } from './contants';
 import LeftDroppable from './components/LeftDroppable';
 import RightDroppable from './components/RightDroppable';
@@ -500,13 +504,15 @@ const RollupsDappPage = () => {
       case 'staking': {
         const api = new CStakingAPI();
         const data = await api.getStakingPools();
+        // const data = stakingTemplateFormMockupData;
         const model = parseDappModel({
           key: 'staking',
           model: data,
         });
         console.log('staking data 111', { model, data });
+        // console.log('staking data ', JSON.stringify(data));
 
-        setTemplateDapps(data);
+        // setTemplateDapps(data);
         setTemplateForm(model);
         break;
       }
