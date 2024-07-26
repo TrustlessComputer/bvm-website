@@ -56,7 +56,13 @@ const RollupsDappPage = () => {
   const tokens = dappState.tokens;
   const stakingPools = dappState.stakingPools;
 
-  const thisDapp = useThisDapp();
+  const {
+    thisDapp,
+    baseModuleFieldMapping,
+    blockFieldMapping,
+    moduleFieldMapping,
+    singleFieldMapping,
+  } = useThisDapp();
 
   const parseTokensData = (tokens: IToken[]) => {
     const result: DappModel[] = [];
@@ -68,16 +74,6 @@ const RollupsDappPage = () => {
     return result;
   };
 
-  const moduleFieldMapping = React.useMemo(() => {
-    const mapping: Record<string, BlockModel> = {};
-
-    (thisDapp?.moduleFields || []).forEach((item) => {
-      mapping[item.key] = item;
-    });
-
-    return mapping;
-  }, [thisDapp]);
-
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
     subScribeDropEnd.value += 1;
@@ -87,11 +83,11 @@ const RollupsDappPage = () => {
     const { over, active } = event;
     subScribeDropEnd.value += 1;
 
-    console.log(
-      '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
-      over,
-      active,
-    );
+    // console.log(
+    //   '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
+    //   over,
+    //   active,
+    // );
 
     if (!over) return;
 
@@ -152,8 +148,20 @@ const RollupsDappPage = () => {
       }
 
       if (activeIsABaseModule) {
+        const totalPlaced = draggedIds2D.length;
+        const canPlaceMoreBaseModule =
+          baseModuleFieldMapping[activeOriginalKey].placableAmount === -1 ||
+          totalPlaced <
+            baseModuleFieldMapping[activeOriginalKey].placableAmount;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.BASE_MODULE + '-' + activeOriginalKey;
+
+        if (!canPlaceMoreBaseModule) {
+          alert(
+            `You can only place one ${baseModuleFieldMapping[activeOriginalKey].title}!`,
+          );
+          return;
+        }
 
         draggedIds2D = [
           ...draggedIds2D,
@@ -182,10 +190,36 @@ const RollupsDappPage = () => {
 
       // Case 1.5: The lego just dragged is a block/single
       if ((activeIsABlock || activeIsASingle) && overIsABase) {
+        const totalPlaced = activeIsABlock
+          ? draggedIds2D[overBaseIndex].filter((item) =>
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`,
+              ),
+            ).length
+          : draggedIds2D[overBaseIndex].filter((item) =>
+              item.name.startsWith(
+                `right-${FieldKeyPrefix.SINGLE}-${activeOriginalKey}`,
+              ),
+            ).length;
+        const canPlaceMore =
+          (activeIsABlock
+            ? blockFieldMapping[activeOriginalKey].placableAmount === -1
+            : singleFieldMapping[activeOriginalKey].placableAmount === -1) ||
+          totalPlaced <
+            (activeIsABlock
+              ? blockFieldMapping[activeOriginalKey].placableAmount
+              : singleFieldMapping[activeOriginalKey].placableAmount);
         const prefix =
           'right-' +
           (activeIsABlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
         const composedFieldKey = prefix + '-' + activeOriginalKey;
+
+        if (!canPlaceMore) {
+          alert(
+            `You can only place one ${blockFieldMapping[activeOriginalKey].title}!`,
+          );
+          return;
+        }
 
         draggedIds2D[overBaseIndex] = [
           ...draggedIds2D[overBaseIndex],
@@ -202,10 +236,25 @@ const RollupsDappPage = () => {
       }
 
       if (activeIsAModule && overIsABase) {
+        const totalPlaced = draggedIds2D[overBaseIndex].filter((item) =>
+          item.name.startsWith(
+            `right-${FieldKeyPrefix.MODULE}-${activeOriginalKey}`,
+          ),
+        ).length;
+        const canPlaceMore =
+          totalPlaced < moduleFieldMapping[activeOriginalKey].placableAmount ||
+          moduleFieldMapping[activeOriginalKey].placableAmount === -1;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.MODULE + '-' + activeOriginalKey;
         const thisField = moduleFieldMapping[activeOriginalKey];
         const isMultiple = thisField?.placableAmount === -1;
+
+        if (!canPlaceMore) {
+          alert(
+            `You can only place one ${moduleFieldMapping[activeOriginalKey].title}!`,
+          );
+          return;
+        }
 
         if (isMultiple) {
           const draggedFieldIndex = draggedIds2D[overBaseIndex].findIndex(
