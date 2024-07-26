@@ -18,6 +18,10 @@
         display: flex;
         align-items: center;
         gap: 8px;
+
+        img {
+          filter: invert(37%) sepia(0%) saturate(1091%) hue-rotate(239deg) brightness(83%) contrast(89%);
+        }
       }
 
       &:last-child {
@@ -25,6 +29,14 @@
         width: 8px;
         border-radius: 50%;
         background: #00aa6c;
+      }
+    }
+
+    &.isSelected {
+      div {
+        &:first-child {
+          color: #FA4E0E;
+        }
       }
     }
   }

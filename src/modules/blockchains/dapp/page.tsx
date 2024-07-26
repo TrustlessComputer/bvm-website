@@ -48,7 +48,8 @@ import CStakingAPI from '@/services/api/dapp/staking';
 const RollupsDappPage = () => {
   const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
     useDappsStore();
-  const { templateForm, setTemplateForm } = useTemplateFormStore();
+  const { templateForm, setTemplateForm, setTemplateDapps } =
+    useTemplateFormStore();
   const dappState = useAppSelector(dappSelector);
   const tokens = dappState.tokens;
   const [parseTokens, setParseTokens] = useState<DappModel[]>();
@@ -402,13 +403,8 @@ const RollupsDappPage = () => {
 
   // TODO
   React.useEffect(() => {
-    const dappIndex = dapps.findIndex(
-      (dapp) => dapp.key === (templateForm?.dappKey || ''),
-    );
+    if (!templateForm) return;
 
-    if (dappIndex === -1 || !templateForm) return;
-
-    const thisDapp = dapps[dappIndex];
     let formDapp: Record<string, any> = {};
     const baseMapping: Record<string, any> = {};
     const blockMapping: Record<string, BlockModel> = {};
@@ -457,8 +453,6 @@ const RollupsDappPage = () => {
 
     templateIds2DSignal.value = [...draggedIds2D];
     formTemplateDappSignal.value = { ...formDapp };
-
-    setCurrentIndexDapp(dappIndex);
   }, [templateForm]);
 
   React.useEffect(() => {
@@ -475,12 +469,13 @@ const RollupsDappPage = () => {
       case 'staking': {
         const api = new CStakingAPI();
         const data = await api.getStakingPools();
-        console.log('staking data ', data);
         const model = parseDappModel({
           key: 'staking',
           model: data,
         });
+        console.log('staking data 111', { model, data });
 
+        setTemplateDapps(data);
         setTemplateForm(model);
         break;
       }
@@ -490,6 +485,7 @@ const RollupsDappPage = () => {
           model: parseTokens as DappModel[],
         });
         setTemplateForm(model);
+        setTemplateDapps(parseTokens as DappModel[]);
         break;
       }
       default:

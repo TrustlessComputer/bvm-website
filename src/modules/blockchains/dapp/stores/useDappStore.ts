@@ -9,6 +9,8 @@ type UseDappsSlice = {
 };
 
 type UseTemplateFormSlice = {
+  templateDapps: DappModel[];
+  setTemplateDapps: (templateDapps: DappModel[]) => void;
   templateForm: TemplateForm | null;
   setTemplateForm: (templateForm: TemplateForm | null) => void;
 };
@@ -43,6 +45,9 @@ const useDappFormSlice: StateCreator<UseFormDappsSlice> = (set) => ({
 });
 
 const useTemplateFormSlice: StateCreator<UseTemplateFormSlice> = (set) => ({
+  templateDapps: [],
+  setTemplateDapps: (templateDapps) => set({ templateDapps }),
+
   templateForm: null,
   setTemplateForm: (templateForm) => set({ templateForm }),
 });
