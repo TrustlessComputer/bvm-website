@@ -9,6 +9,7 @@ import { adjustBrightness } from '../../utils';
 import styles from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
+import { DappType } from '@/modules/blockchains/dapp/types';
 
 type Props = {
   background?: string;
@@ -41,7 +42,7 @@ const LegoParent = ({
   const handleLabelClick = () => {
 
     switch (dapp?.key) {
-      case 'token_generation': {
+      case DappType.token_generation: {
         if (!label?.actionID) return;
         // https://bloom.appstore.dev.bvm.network/apps/token/0x517db2dd81aaa829bb9856539b83751dd3779f13
         window.open(`${dappState?.chain?.dappURL || ''}/apps/token/${label.actionID}`)

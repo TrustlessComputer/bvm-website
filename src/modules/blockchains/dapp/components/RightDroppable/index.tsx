@@ -867,7 +867,7 @@ const RightDroppable = () => {
                           onActionClick({ dapp: thisDapp })
                         }}
                       >
-                        Action
+                        {thisDapp.action?.title || ''}
                       </Button>
                     </Lego>
                   )}
