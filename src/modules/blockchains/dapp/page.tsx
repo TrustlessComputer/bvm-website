@@ -500,7 +500,8 @@ const RollupsDappPage = () => {
   );
 
   const fetchData = async () => {
-    const dapps = configs;
+    // const dapps = configs;
+    const dapps = dappMockupData;
     const sortedDapps = dapps.sort((a, b) => a.order - b.order);
 
     setDapps(sortedDapps);
