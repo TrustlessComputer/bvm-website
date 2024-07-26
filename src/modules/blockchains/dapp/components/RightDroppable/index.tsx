@@ -96,7 +96,7 @@ const RightDroppable = () => {
   const baseModuleFieldMapping = React.useMemo(() => {
     const mapping: Record<string, BlockModel> = {};
 
-    (thisDapp?.moduleFields || []).forEach((item) => {
+    (thisDapp?.baseModuleFields || []).forEach((item) => {
       mapping[item.key] = item;
     });
 
@@ -360,7 +360,11 @@ const RightDroppable = () => {
                       height: 'max-content',
                     }}
                   >
-                    <LegoParent {...thisDapp.baseBlock} background={mainColor}>
+                    <LegoParent
+                      {...thisDapp.baseBlock}
+                      background={mainColor}
+                      label={thisDapp.label}
+                    >
                       {ids
                         .filter((id) =>
                           DragUtil.idDraggingIsABaseModule(id.name),
@@ -649,7 +653,11 @@ const RightDroppable = () => {
               const mainColor = thisDapp.color;
 
               return (
-                <LegoParent {...thisDapp.baseBlock} background={mainColor}>
+                <LegoParent
+                  {...thisDapp.baseBlock}
+                  background={mainColor}
+                  label={thisDapp.label}
+                >
                   {thisDapp.baseBlock.fields.map((field) => {
                     return getLabel(
                       field,
