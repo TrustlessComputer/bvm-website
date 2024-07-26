@@ -8,7 +8,7 @@ export const parseIssuedToken = (token: IToken) => {
   result.title = 'Token Generation';
   result.icon = 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
   result.order = 1;
-  result.color = '#F76649';
+  result.color = '#24704D';
   result.label = {
     title: 'Deployed',
     color: '#000',
