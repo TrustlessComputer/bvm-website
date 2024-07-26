@@ -1,9 +1,22 @@
 import React from 'react';
-import { DndContext, DragEndEvent, DragStartEvent, useSensor, useSensors } from '@dnd-kit/core';
+import {
+  DndContext,
+  DragEndEvent,
+  DragStartEvent,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import Image from 'next/image';
 import cn from 'classnames';
 
-import { cloneDeep, DragUtil, FormDappUtil, hasValue, MouseSensor, removeItemAtIndex } from './utils';
+import {
+  cloneDeep,
+  DragUtil,
+  FormDappUtil,
+  hasValue,
+  MouseSensor,
+  removeItemAtIndex,
+} from './utils';
 import { dappMockupData } from './mockup_3';
 import { FieldKeyPrefix } from './contants';
 import LeftDroppable from './components/LeftDroppable';
@@ -11,9 +24,18 @@ import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
 import Sidebar from './components/Sidebar';
-import useDappsStore, { subScribeDropEnd, useTemplateFormStore } from './stores/useDappStore';
-import { draggedIds2DSignal, templateIds2DSignal } from './signals/useDragSignal';
-import { formDappSignal, formTemplateDappSignal } from './signals/useFormDappsSignal';
+import useDappsStore, {
+  subScribeDropEnd,
+  useTemplateFormStore,
+} from './stores/useDappStore';
+import {
+  draggedIds2DSignal,
+  templateIds2DSignal,
+} from './signals/useDragSignal';
+import {
+  formDappSignal,
+  formTemplateDappSignal,
+} from './signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
@@ -23,6 +45,7 @@ import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-to
 import { parseDappModel } from '@/modules/blockchains/utils';
 import { useThisDapp } from './hooks/useThisDapp';
 import { parseStakingPools } from './parseUtils/staking';
+import { DappType } from './types';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
@@ -539,20 +562,20 @@ const RollupsDappPage = () => {
   const getDataTemplateForm = async () => {
     if (!thisDapp) return;
     switch (thisDapp?.key) {
-      case 'staking': {
+      case DappType.staking: {
         const data = parseStakingPools(stakingPools);
         const model = parseDappModel({
-          key: 'staking',
+          key: DappType.staking,
           model: data,
         });
         setTemplateDapps(data);
         setTemplateForm(model);
         break;
       }
-      case 'token_generation': {
+      case DappType.token_generation: {
         const data = parseTokensData(tokens);
         const model = parseDappModel({
-          key: 'token_generation',
+          key: DappType.token_generation,
           model: data,
         });
         setTemplateDapps(data);

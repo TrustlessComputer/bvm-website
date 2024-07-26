@@ -5,6 +5,7 @@ import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector'
 import React, { useState } from 'react';
 import { TopUpDappInfor } from '../components/TopupModal';
 import useDappsStore from '../stores/useDappStore';
+import { DappType } from '../types';
 import useSubmitFormStaking from './useSubmitFormStaking';
 
 const useSubmitForm = () => {
@@ -40,10 +41,10 @@ const useSubmitForm = () => {
 
   const onSubmitForm = () => {
     switch (thisDapp?.key) {
-      case 'staking':
+      case DappType.staking:
         onSubmitFormStaking();
         return;
-      case 'token_generation':
+      case DappType.token_generation:
         onSubmitFormTokenGeneration();
         return;
       default:
