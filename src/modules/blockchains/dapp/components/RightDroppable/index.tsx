@@ -36,6 +36,7 @@ import {
 import { useThisDapp } from '../../hooks/useThisDapp';
 
 import styles from './styles.module.scss';
+import Image from 'next/image';
 
 const RightDroppable = () => {
   const thisDapp = useThisDapp();
@@ -868,7 +869,7 @@ const RightDroppable = () => {
         onClick={() => handleReset()}
         className={styles.resetButton}
       >
-        RESET
+        RESET <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
       </Button>
     </div>
   );
