@@ -74,7 +74,7 @@ const CaseStudy = () => {
             Launching at the Bitcoin 2024 Conference in Nashville.
           </Text>
           <Text className={s.description} maxW={['auto', '600px']}>
-            Earn 300 XP and get a{' '}
+            Earn 100 XP and get a{' '}
             <Text color="#fff" as="span">
               free Starbucks just a 2-minute walk from Music City Center!
             </Text>
