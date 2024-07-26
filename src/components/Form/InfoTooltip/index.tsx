@@ -2,6 +2,7 @@
 import {
   Box,
   Flex,
+  Image,
   PlacementWithLogical,
   Popover,
   PopoverArrow,
@@ -11,8 +12,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { ReactNode, useEffect, useRef } from 'react';
-import IcHelp from './IcHelp';
+import React, { ReactNode, useEffect, useRef } from 'react';
 import { isDesktop } from 'react-device-detect';
 
 interface InfoTooltipProps {
@@ -36,6 +36,7 @@ const InfoTooltip = (props: InfoTooltipProps) => {
     setIsOpen,
     isStyleConfig = true,
     placement,
+    iconName = '/icons/ic-tooltip-dark.svg',
   } = props;
   const { isOpen, onToggle, onClose, onOpen } = useDisclosure();
 
@@ -50,14 +51,14 @@ const InfoTooltip = (props: InfoTooltipProps) => {
       return (
         <Flex gap={1} alignItems={'center'}>
           {children}
-          <IcHelp />
+          <Image w="16px" src={iconName} />
         </Flex>
       );
     }
     if (children) {
       return children;
     }
-    return <IcHelp />;
+    return <Image w="16px" src={iconName} />;
   };
 
   return (

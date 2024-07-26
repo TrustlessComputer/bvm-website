@@ -70,6 +70,7 @@ const BoxOption = ({ fieldKey }: Props) => {
                       iconSize="sm"
                       placement="top-start"
                       label={section.tooltip}
+                      iconName={'/icons/ic-tooltip-blue.svg'}
                     />
                   )}
                 </div>
