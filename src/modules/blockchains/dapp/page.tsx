@@ -49,9 +49,11 @@ import { DappType } from './types';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
+
   const { templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
   const dappState = useAppSelector(dappSelector);
+  const configs = dappState?.configs;
 
   const tokens = dappState.tokens;
   const stakingPools = dappState.stakingPools;
@@ -547,6 +549,7 @@ const RollupsDappPage = () => {
   );
 
   const fetchData = async () => {
+    // const dapps = configs;
     const dapps = dappMockupData;
     const sortedDapps = dapps.sort((a, b) => a.order - b.order);
 

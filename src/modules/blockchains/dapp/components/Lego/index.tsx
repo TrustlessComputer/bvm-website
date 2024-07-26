@@ -87,7 +87,7 @@ const Lego = (props: Props) => {
             {
               fields?.map(field => {
                 return (
-                  <>
+                  <div style={{display: 'flex', gap: '4px'}}>
                     <div
                       className={cn(
                         styles.lego__inner__label,
@@ -103,7 +103,7 @@ const Lego = (props: Props) => {
                       field.type === 'dropdown' ? <img src={'/icons-tool/issue-a-token/icon-dropdown.svg'}/> :
                         <></>
                     }
-                  </>
+                  </div>
                 )
               })
             }
