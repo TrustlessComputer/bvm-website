@@ -124,6 +124,7 @@ interface DappModel {
     background: string;
     color: string;
     status: string;
+    actionID?: string;
   };
   color_rendered?: string;
   tooltip: string;

@@ -670,6 +670,7 @@ const RightDroppable = () => {
                   {...thisDapp.baseBlock}
                   background={mainColor}
                   label={thisDapp.label}
+                  dapp={thisDapp}
                 >
                   {thisDapp.baseBlock.fields.map((field) => {
                     return getLabel(

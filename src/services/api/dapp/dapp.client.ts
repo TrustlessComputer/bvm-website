@@ -43,7 +43,9 @@ class CDappApiClient {
           params = {};
         }
         if (!params?.network_id && !!chain) {
-          params.network_id = chain.chainId;
+          // params.network_id = chain.chainId; // TODO: REMOVE
+
+          params.network_id = '91227';
         }
         return {
           ..._config,
