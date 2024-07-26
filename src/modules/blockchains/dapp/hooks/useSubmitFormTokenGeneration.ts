@@ -3,7 +3,12 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { getError } from '@/utils/error';
 import { Dispatch, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
-import { formDappSignal } from '../signals/useFormDappsSignal';
+import {
+  formDappDropdownSignal,
+  formDappInputSignal,
+  formDappSignal,
+  formDappToggleSignal,
+} from '../signals/useFormDappsSignal';
 import { FormDappUtil } from '../utils';
 import { isEmpty } from 'lodash';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
@@ -19,6 +24,7 @@ import { requestReload } from '@/stores/states/common/reducer';
 import { useDispatch } from 'react-redux';
 import BigNumber from 'bignumber.js';
 import { formatCurrency } from '@utils/format';
+import { draggedIds2DSignal } from '@/modules/blockchains/dapp/signals/useDragSignal';
 
 interface IProps {
   setErrorData: Dispatch<SetStateAction<{ key: string; error: string }[] | undefined>>,
@@ -30,6 +36,13 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
   const dappState = useAppSelector(dappSelector);
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
   const dispatch = useDispatch();
+
+  const handleReset = () => {
+    formDappInputSignal.value = {};
+    formDappDropdownSignal.value = {};
+    formDappToggleSignal.value = {};
+    draggedIds2DSignal.value = [];
+  };
 
   function validate(dataMapping: Record<string, { key: string; value: string }[]>[]) {
     let errors: any[] = [];
@@ -229,6 +242,7 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
 
       showSuccess({ message: 'Generate token successfully!' });
       dispatch(requestReload());
+      handleReset();
     } catch (error) {
       const { message } = getError(error);
       toast.error(message);
