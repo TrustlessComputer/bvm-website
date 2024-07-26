@@ -323,7 +323,6 @@ const BuyPage = () => {
   const fetchData = async () => {
     const modelCategories =
       (await getModelCategories(l2ServiceUserAddress)) || [];
-    // const modelCategories = mockupOptions;
 
     const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
     _modelCategories.forEach((_field) => {
@@ -624,13 +623,18 @@ const BuyPage = () => {
     <div
       className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
     >
-      {/*<div className={s.logo}>*/}
-      {/*  <Image src={'/bvmstudio_logo.png'} alt={'bvmstudio_logo'} width={549} height={88} />*/}
-      {/*</div>*/}
-      {/*<p className={s.container_text}>*/}
-      {/*  Drag and drop modules to start new blockchains, new dapps, and new*/}
-      {/*  economies.*/}
-      {/*</p>*/}
+      <div className={s.logo}>
+        <Image
+          src={'/bvmstudio_logo.png'}
+          alt={'bvmstudio_logo'}
+          width={549}
+          height={88}
+        />
+      </div>
+      <p className={s.container_text}>
+        Drag and drop modules to start new blockchains, new dapps, and new
+        economies.
+      </p>
 
       <DndContext
         sensors={sensors}
@@ -645,7 +649,7 @@ const BuyPage = () => {
                   className={`${s.top_left_filter} ${isTabCode && s.active}`}
                   onClick={() => setTabActive(TABS.CODE)}
                 >
-                  <p>Studio</p>
+                  <p>Code</p>
                 </div>
                 <div
                   className={`${s.top_left_filter} ${!isTabCode && s.active}`}
@@ -670,6 +674,13 @@ const BuyPage = () => {
                         {data?.map((item, index) => {
                           if (item.hidden) return null;
 
+                          const currentPrice =
+                            item.options.find(
+                              (opt) =>
+                                opt.key === field[item.key].value &&
+                                field[item.key].dragged,
+                            )?.priceBVM ?? 0;
+
                           return (
                             <BoxOptionV3
                               key={item.key}
@@ -684,13 +695,34 @@ const BuyPage = () => {
                               }}
                             >
                               {item.options.map((option, optIdx) => {
-                                let _price = formatCurrencyV2({
-                                  amount: option.priceBVM || 0,
-                                  decimals: 0,
-                                }).replace('.00', '');
+                                // let _price = formatCurrencyV2({
+                                //   amount: option.priceBVM || 0,
+                                //   decimals: 0,
+                                // }).replace('.00', '');
+                                // let suffix =
+                                //   Math.abs(option.priceBVM) > 0
+                                //     ? ` (${_price} BVM)`
+                                //     : '';
+
+                                let _price = option.priceBVM;
+                                let operator = '+';
                                 let suffix =
-                                  Math.abs(option.priceBVM) > 0
-                                    ? ` (${_price} BVM)`
+                                  Math.abs(_price) > 0
+                                    ? `(${formatCurrencyV2({
+                                        amount: _price,
+                                        decimals: 2,
+                                      })}) BVM`
+                                    : '';
+
+                                _price = option.priceBVM - currentPrice;
+                                operator = _price > 0 ? '+' : '-';
+                                if (item.multiChoice) operator = '';
+                                suffix =
+                                  Math.abs(_price) > 0
+                                    ? `(${operator}${formatCurrencyV2({
+                                        amount: Math.abs(_price),
+                                        decimals: 2,
+                                      })}) BVM`
                                     : '';
 
                                 if (
@@ -924,6 +956,35 @@ const BuyPage = () => {
                                 );
 
                                 if (!option) return null;
+
+                                if (item.type === 'form') {
+                                  return (
+                                    <Draggable
+                                      key={item.key + '-' + option.key}
+                                      id={item.key + '-' + option.key}
+                                      useMask
+                                      isLabel={true}
+                                      value={option.key}
+                                      tooltip={option.tooltip}
+                                    >
+                                      <LegoV3
+                                        background={item.color}
+                                        zIndex={item.options.length - opIdx}
+                                      >
+                                        <div className={s.wrapInput}>
+                                          <span className={s.labelInput}>
+                                            {option.title}
+                                          </span>
+                                          <input
+                                            className={`${s.inputLabel}`}
+                                            name={item.key + '-' + option.key}
+                                            type={option.type}
+                                          />
+                                        </div>
+                                      </LegoV3>
+                                    </Draggable>
+                                  );
+                                }
 
                                 return (
                                   <Draggable
