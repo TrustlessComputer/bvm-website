@@ -39,7 +39,7 @@ const Main = ({
       {
         showBanner && (
           <div className={s.wrapper_banner} onClick={() => router.push('/bitcoinwars')}>
-            <Image src={'/banner.jpg'} alt={'banner'} width={1920} height={80} quality={100} />
+            <Image src={'/bannerV2.jpg'} alt={'banner'} width={1920} height={80} quality={100} />
           </div>
         )
       }

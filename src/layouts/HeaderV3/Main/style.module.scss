@@ -3,8 +3,11 @@
   &_banner {
     position: relative;
     width: 100%;
-    height: 80px;
+    height: 40px;
     cursor: pointer;
+    @include is-pc {
+      height: auto;
+    }
     &:before {
       content: "";
       position: absolute;
