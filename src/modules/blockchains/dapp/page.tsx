@@ -480,12 +480,12 @@ const RollupsDappPage = () => {
         break;
       }
       case 'token_generation': {
-        // const model = parseDappModel({
-        //   key: 'token_generation',
-        //   model: parseTokens as DappModel[],
-        // });
-        // setTemplateForm(model);
-        // setTemplateDapps(parseTokens as DappModel[]);
+        const model = parseDappModel({
+          key: 'token_generation',
+          model: parseTokens as DappModel[],
+        });
+        setTemplateForm(model);
+        setTemplateDapps(parseTokens as DappModel[]);
         break;
       }
       default:
