@@ -68,6 +68,13 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
         errors.push({ key: 'token_supply', error: 'Token supply > 0!' });
       }
 
+      if (!data?.receiver_address || isEmpty(data?.receiver_address)) {
+        errors.push({
+          key: 'receiver_address',
+          error: 'Receiver Address is required!',
+        });
+      }
+
       const blocks = data.allocation || [];
       let totalAmount = new BigNumber(0);
 
@@ -181,7 +188,7 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
             return [
               {
                 name: 'Foundation',
-                address: accountInforL2Service?.tcAddress,
+                address: data?.receiver_address,
                 total_amount: data.token_supply as unknown as string,
               } as unknown as ITokenomics,
             ] as ITokenomics[];

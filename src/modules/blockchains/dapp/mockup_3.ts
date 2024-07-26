@@ -81,6 +81,15 @@ export const dappMockupData: DappModel[] = [
           tooltip: '',
           options: [],
         },
+        {
+          key: 'receiver_address',
+          title: 'Receiver Address',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: '',
+          options: [],
+        },
       ],
     },
     blockFields: [
