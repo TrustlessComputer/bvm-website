@@ -1,12 +1,19 @@
 'use client';
 
 import dayjs from 'dayjs';
-import { Box, Flex, Image, Text, Skeleton } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Image as ChakraImage,
+  Text,
+  Skeleton,
+} from '@chakra-ui/react';
+import Image from 'next/image';
 
 import useCountdown from '@/hooks/useCountdown';
 
 import s from '../styles.module.scss';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 const TIME_START = '2024-07-25 14:00:00';
 
@@ -20,6 +27,7 @@ const CaseStudy = () => {
     ended,
     isReady,
   } = useCountdown(expiredTime);
+  const [isShowVideo, setIsShowVideo] = useState<boolean>(false);
 
   const renderCountDown = useMemo(() => {
     if (expiredTime) {
@@ -90,7 +98,7 @@ const CaseStudy = () => {
             >
               {ended ? 'Play for free' : 'Follow BVM on'}
               {ended === false && (
-                <Image src="/maga/follow-x.svg" alt="x.com" />
+                <ChakraImage src="/maga/follow-x.svg" alt="x.com" />
               )}
             </a>
           </Skeleton>
@@ -106,15 +114,31 @@ const CaseStudy = () => {
           </Skeleton>
         </Flex>
       </Flex>
-      <Box position="relative">
-        <Image
-          position={['initial', 'absolute']}
-          top={['auto', '-109px']}
-          right={['auto', '-34px']}
-          minW={['100%', '654.78px']}
-          minH={['100%', '400px']}
-          src="/maga/crypto-war.svg"
-          alt="crypto war"
+
+      <Box className={s.thumbnail} onClick={() => setIsShowVideo(true)}>
+        {isShowVideo === false && (
+          <Box className={s.thumbnail_bg}>
+            <Image
+              className={s.imagePreload}
+              src={'/vs.jpg'}
+              width={1566}
+              height={880}
+              alt={'video'}
+              sizes={'100vw'}
+              quality={100}
+            />
+            <Box className={s.thumbnail_btn}>
+              <Image src={'/play.svg'} alt={'icons'} width={20} height={20} />
+            </Box>
+          </Box>
+        )}
+        <video
+          src="https://cdn.bvm.network/image/Bitcoin%20Wars%20Intro.mp4"
+          width={160}
+          height={90}
+          preload="auto"
+          playsInline
+          controls
         />
       </Box>
     </Flex>
