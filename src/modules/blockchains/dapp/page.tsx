@@ -7,6 +7,7 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import Image from 'next/image';
+import cn from 'classnames';
 
 import {
   cloneDeep,
@@ -568,7 +569,12 @@ const RollupsDappPage = () => {
 
           <DragMask />
 
-          <div className={styles.container__content__droppable}>
+          <div
+            className={cn(
+              styles.container__content__droppable,
+              styles.container__content__droppable__right,
+            )}
+          >
             <RightDroppable />
           </div>
 
