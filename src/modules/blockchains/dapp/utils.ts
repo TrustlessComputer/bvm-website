@@ -112,6 +112,10 @@ export const FormDappUtil = {
     return key.split('-')[2];
   },
 
+  getBlockType(key: string) {
+    return key.split('-')[1];
+  },
+
   getBlockKey(key: string) {
     return key.split('-')[5];
   },
@@ -142,6 +146,14 @@ export const FormDappUtil = {
 
   isInModule(key: string) {
     return key.split('-')[1] === FieldKeyPrefix.MODULE;
+  },
+
+  isInBase(key: string) {
+    return key.split('-')[1] === FieldKeyPrefix.BASE;
+  },
+
+  isInBaseModule(key: string) {
+    return key.split('-')[1] === FieldKeyPrefix.BASE_MODULE;
   },
 
   // prettier-ignore

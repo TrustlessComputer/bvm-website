@@ -246,6 +246,16 @@ const RollupsDappPage = () => {
             ];
           } else {
             const formKey = `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${draggedFieldIndex}`;
+            const alreadyExist = (draggedField.value as string[]).find(
+              (value) => value === active.data.current?.value,
+            );
+
+            if (alreadyExist) {
+              alert('You can only place one module!');
+
+              return;
+            }
+
             const value = [
               ...(draggedField.value as string[]),
               active.data.current?.value,
@@ -392,31 +402,100 @@ const RollupsDappPage = () => {
       }
 
       if (activeIsAModule) {
+        const composedFieldKey = `right-${FieldKeyPrefix.MODULE}-${activeOriginalKey}`;
         const formDapp = formDappSignal.value;
+        const isMultiple =
+          moduleFieldMapping[activeOriginalKey]?.placableAmount === -1;
+        const item = draggedIds2D[activeBaseIndex].find(
+          (item) => item.name === composedFieldKey,
+        );
+        const legoDraggingIsParent = !hasValue(active.data.current?.value);
 
-        Object.keys(formDapp).forEach((key) => {
-          if (
-            FormDappUtil.isInModule(key) &&
-            FormDappUtil.getIndex(key) === activeIndex
-          ) {
-            delete formDapp[key];
-          } else if (FormDappUtil.getIndex(key) > activeIndex) {
-            const currentIndex = FormDappUtil.getIndex(key);
-            const newKey = key.replace(
-              `-${currentIndex}`,
-              `-${currentIndex - 1}`,
+        if (!item) return;
+
+        if (legoDraggingIsParent) {
+          Object.keys(formDapp).forEach((key) => {
+            if (
+              FormDappUtil.isInModule(key) &&
+              FormDappUtil.getIndex(key) === activeIndex
+            ) {
+              delete formDapp[key];
+            } else if (FormDappUtil.getIndex(key) > activeIndex) {
+              const currentIndex = FormDappUtil.getIndex(key);
+              const newKey = key.replace(
+                `-${currentIndex}`,
+                `-${currentIndex - 1}`,
+              );
+
+              formDapp[newKey] = formDapp[key];
+              delete formDapp[key];
+            }
+          });
+
+          draggedIds2D[activeBaseIndex] = removeItemAtIndex(
+            draggedIds2D[activeBaseIndex],
+            Number(DragUtil.getChildIndex(activeId)),
+          );
+        } else if (!isMultiple) {
+          Object.keys(formDapp).forEach((key) => {
+            if (
+              FormDappUtil.isInModule(key) &&
+              FormDappUtil.getIndex(key) === activeIndex
+            ) {
+              delete formDapp[key];
+            } else if (FormDappUtil.getIndex(key) > activeIndex) {
+              const currentIndex = FormDappUtil.getIndex(key);
+              const newKey = key.replace(
+                `-${currentIndex}`,
+                `-${currentIndex - 1}`,
+              );
+
+              formDapp[newKey] = formDapp[key];
+              delete formDapp[key];
+            }
+          });
+
+          draggedIds2D[activeBaseIndex] = removeItemAtIndex(
+            draggedIds2D[activeBaseIndex],
+            Number(DragUtil.getChildIndex(activeId)),
+          );
+        } else {
+          const newValue = (item.value as string[]).filter(
+            (value) => value !== active.data.current?.value,
+          );
+
+          if (newValue.length === 0) {
+            Object.keys(formDapp).forEach((key) => {
+              if (
+                FormDappUtil.isInModule(key) &&
+                FormDappUtil.getIndex(key) === activeIndex
+              ) {
+                delete formDapp[key];
+              } else if (FormDappUtil.getIndex(key) > activeIndex) {
+                const currentIndex = FormDappUtil.getIndex(key);
+                const newKey = key.replace(
+                  `-${currentIndex}`,
+                  `-${currentIndex - 1}`,
+                );
+
+                formDapp[newKey] = formDapp[key];
+                delete formDapp[key];
+              }
+            });
+
+            draggedIds2D[activeBaseIndex] = removeItemAtIndex(
+              draggedIds2D[activeBaseIndex],
+              Number(DragUtil.getChildIndex(activeId)),
             );
-
-            formDapp[newKey] = formDapp[key];
-            delete formDapp[key];
+          } else {
+            item.value = newValue;
+            formDapp[
+              `${activeBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${activeIndex}`
+            ] = newValue;
           }
-        });
+        }
 
         formDappSignal.value = { ...formDapp };
-        draggedIds2D[activeBaseIndex] = removeItemAtIndex(
-          draggedIds2D[activeBaseIndex],
-          Number(DragUtil.getChildIndex(activeId)),
-        );
         draggedIds2DSignal.value = [...draggedIds2D];
 
         return;
@@ -431,24 +510,16 @@ const RollupsDappPage = () => {
   );
 
   const fetchData = async () => {
-    // const dapps = dappState.configs;
     const dapps = dappMockupData;
     const sortedDapps = dapps.sort((a, b) => a.order - b.order);
 
-    // const templateForm = dappTemplateFormMockupData;
-
     setDapps(sortedDapps);
-    // setTemplateForm(templateForm);
   };
 
-  // TODO
   React.useEffect(() => {
     if (!templateForm) return;
 
     let formDapp: Record<string, any> = {};
-    const baseMapping: Record<string, any> = {};
-    const blockMapping: Record<string, BlockModel> = {};
-    const singleMapping: Record<string, BlockModel> = {};
 
     const totalBase = new Set(
       Object.keys(templateForm.fieldValue).map((fieldKey) =>
@@ -463,17 +534,14 @@ const RollupsDappPage = () => {
       const value = templateForm.fieldValue[fieldKey];
       const baseIndex = FormDappUtil.getBaseIndex(fieldKey);
       const key = FormDappUtil.getOriginalKey(fieldKey);
-      const level = FormDappUtil.getLevel(fieldKey);
       const index = FormDappUtil.getIndex(fieldKey);
       const blockKey = FormDappUtil.getBlockKey(fieldKey);
+      const isInBase = FormDappUtil.isInBase(fieldKey);
       const isInBlock = FormDappUtil.isInBlock(fieldKey);
-      const isInSingle = FormDappUtil.isInSingle(fieldKey);
-      const field = baseMapping[key] ?? blockMapping[key] ?? singleMapping[key];
 
-      if (!draggedIds2D[baseIndex][index] && (isInBlock || isInSingle)) {
+      if (!draggedIds2D[baseIndex][index] && !isInBase) {
         const _key = isInBlock ? blockKey : key;
-        const prefix =
-          'right-' + (isInBlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
+        const prefix = 'right-' + FormDappUtil.getBlockType(fieldKey);
 
         draggedIds2D[baseIndex] = [
           ...draggedIds2D[baseIndex],
