@@ -792,7 +792,7 @@ const RightDroppable = () => {
                     return null;
                   })}
 
-                  <Lego>
+                  {/*<Lego>
                     <Button
                       element="button"
                       type="button"
@@ -802,7 +802,7 @@ const RightDroppable = () => {
                     >
                       Action
                     </Button>
-                  </Lego>
+                  </Lego>*/}
                 </LegoParent>
               );
             })}
