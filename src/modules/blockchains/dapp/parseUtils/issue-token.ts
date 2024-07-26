@@ -18,7 +18,7 @@ export const parseIssuedToken = (token: IToken) => {
 
   const baseBlock: BlockModel = {} as BlockModel;
   baseBlock.key = 'token_info';
-  baseBlock.title = 'Token Information';
+  baseBlock.title = `Token ${token.symbol}`;
   baseBlock.icon = 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
   baseBlock.placableAmount = -1;
   baseBlock.section = 'information';
