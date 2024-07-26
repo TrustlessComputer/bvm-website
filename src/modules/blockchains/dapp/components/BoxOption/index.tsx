@@ -85,123 +85,131 @@ const BoxOption = ({ fieldKey }: Props) => {
                 </div>
               )}
 
-              <div className={styles.container__body__item}>
-                <div className={styles.container__body__item__inner}>
-                  {thisDapp?.blockFields
-                    ?.filter((f) => f.section === section.key)
-                    ?.map((item) => (
-                      <Draggable
-                        id={`left-${FieldKeyPrefix.BLOCK}-${item.key}`}
-                        key={`left-${FieldKeyPrefix.BLOCK}-${item.key}`}
-                        value={{
-                          title: item.title,
-                          icon: item.icon,
-                        }}
-                      >
-                        <Lego
-                          {...item}
-                          background={mainColor}
-                          first={false}
-                          last={false}
-                          titleInLeft={true}
-                          titleInRight={false}
-                        />
-                      </Draggable>
-                    ))}
+              {thisDapp.blockFields && (
+                <div className={styles.container__body__item}>
+                  <div className={styles.container__body__item__inner}>
+                    {thisDapp.blockFields
+                      .filter((f) => f.section === section.key)
+                      ?.map((item) => (
+                        <Draggable
+                          id={`left-${FieldKeyPrefix.BLOCK}-${item.key}`}
+                          key={`left-${FieldKeyPrefix.BLOCK}-${item.key}`}
+                          value={{
+                            title: item.title,
+                            icon: item.icon,
+                          }}
+                        >
+                          <Lego
+                            {...item}
+                            background={mainColor}
+                            first={false}
+                            last={false}
+                            titleInLeft={true}
+                            titleInRight={false}
+                          />
+                        </Draggable>
+                      ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div className={styles.container__body__item}>
-                <div className={styles.container__body__item__inner}>
-                  {thisDapp?.moduleFields
-                    ?.filter((f) => f.section === section.key)
-                    ?.map((item) => {
-                      return item.fields.map((field) => {
-                        return (
-                          <Draggable
-                            id={`left-${FieldKeyPrefix.MODULE}-${item.key}-${field.value}`}
-                            key={`left-${FieldKeyPrefix.MODULE}-${item.key}-${field.value}`}
-                            value={{
-                              title: field.title,
-                              icon: field.icon,
-                              value: field.value,
-                            }}
-                          >
-                            <Lego
-                              {...field}
-                              background={mainColor}
-                              first={false}
-                              last={false}
-                              titleInLeft={true}
-                              titleInRight={false}
-                            />
-                          </Draggable>
-                        );
-                      });
-                    })}
+              {thisDapp.moduleFields && (
+                <div className={styles.container__body__item}>
+                  <div className={styles.container__body__item__inner}>
+                    {thisDapp.moduleFields
+                      .filter((f) => f.section === section.key)
+                      ?.map((item) => {
+                        return item.fields.map((field) => {
+                          return (
+                            <Draggable
+                              id={`left-${FieldKeyPrefix.MODULE}-${item.key}-${field.value}`}
+                              key={`left-${FieldKeyPrefix.MODULE}-${item.key}-${field.value}`}
+                              value={{
+                                title: field.title,
+                                icon: field.icon,
+                                value: field.value,
+                              }}
+                            >
+                              <Lego
+                                {...field}
+                                background={mainColor}
+                                first={false}
+                                last={false}
+                                titleInLeft={true}
+                                titleInRight={false}
+                              />
+                            </Draggable>
+                          );
+                        });
+                      })}
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div className={styles.container__body__item}>
-                <div className={styles.container__body__item__inner}>
-                  {thisDapp?.baseModuleFields
-                    ?.filter((f) => f.section === section.key)
-                    ?.map((item) => {
-                      return item.fields.map((field) => {
-                        return (
-                          <Draggable
-                            id={`left-${FieldKeyPrefix.BASE_MODULE}-${item.key}-${field.value}`}
-                            key={`left-${FieldKeyPrefix.BASE_MODULE}-${item.key}-${field.value}`}
-                            value={{
-                              title: field.title,
-                              icon: field.icon,
-                              value: field.value,
-                            }}
-                          >
-                            <Lego
-                              {...field}
-                              background={mainColor}
-                              first={false}
-                              last={false}
-                              titleInLeft={true}
-                              titleInRight={false}
-                            />
-                          </Draggable>
-                        );
-                      });
-                    })}
+              {thisDapp.baseModuleFields && (
+                <div className={styles.container__body__item}>
+                  <div className={styles.container__body__item__inner}>
+                    {thisDapp.baseModuleFields
+                      .filter((f) => f.section === section.key)
+                      ?.map((item) => {
+                        return item.fields.map((field) => {
+                          return (
+                            <Draggable
+                              id={`left-${FieldKeyPrefix.BASE_MODULE}-${item.key}-${field.value}`}
+                              key={`left-${FieldKeyPrefix.BASE_MODULE}-${item.key}-${field.value}`}
+                              value={{
+                                title: field.title,
+                                icon: field.icon,
+                                value: field.value,
+                              }}
+                            >
+                              <Lego
+                                {...field}
+                                background={mainColor}
+                                first={false}
+                                last={false}
+                                titleInLeft={true}
+                                titleInRight={false}
+                              />
+                            </Draggable>
+                          );
+                        });
+                      })}
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div className={styles.container__body__item}>
-                <div className={styles.container__body__item__inner}>
-                  {thisDapp?.singleFields
-                    ?.filter((f) => f.section === section.key)
-                    ?.map((item) => {
-                      return item.fields.map((field) => {
-                        return (
-                          <Draggable
-                            id={`left-${FieldKeyPrefix.SINGLE}-${item.key}`}
-                            key={`left-${FieldKeyPrefix.SINGLE}-${item.key}`}
-                            value={{
-                              title: field.title,
-                              icon: field.icon,
-                            }}
-                          >
-                            <Lego
-                              {...field}
-                              background={mainColor}
-                              first={false}
-                              last={false}
-                              titleInLeft={true}
-                              titleInRight={false}
-                            />
-                          </Draggable>
-                        );
-                      });
-                    })}
+              {thisDapp.singleFields && (
+                <div className={styles.container__body__item}>
+                  <div className={styles.container__body__item__inner}>
+                    {thisDapp.singleFields
+                      .filter((f) => f.section === section.key)
+                      ?.map((item) => {
+                        return item.fields.map((field) => {
+                          return (
+                            <Draggable
+                              id={`left-${FieldKeyPrefix.SINGLE}-${item.key}`}
+                              key={`left-${FieldKeyPrefix.SINGLE}-${item.key}`}
+                              value={{
+                                title: field.title,
+                                icon: field.icon,
+                              }}
+                            >
+                              <Lego
+                                {...field}
+                                background={mainColor}
+                                first={false}
+                                last={false}
+                                titleInLeft={true}
+                                titleInRight={false}
+                              />
+                            </Draggable>
+                          );
+                        });
+                      })}
+                  </div>
                 </div>
-              </div>
+              )}
             </>
           );
         })}
