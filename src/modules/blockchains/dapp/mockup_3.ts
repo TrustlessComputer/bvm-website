@@ -26,12 +26,19 @@ export const dappMockupData: DappModel[] = [
         required: false,
       },
       {
-        key: 'modules',
+        key: 'base_modules',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'Module',
+        title: 'Base Modules',
         tooltip: 'Token module',
         required: false,
       },
+      // {
+      //   key: 'modules',
+      //   icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+      //   title: 'Modules',
+      //   tooltip: 'Token module',
+      //   required: false,
+      // },
     ],
     baseBlock: {
       key: 'token_info',
@@ -235,14 +242,53 @@ export const dappMockupData: DappModel[] = [
         ],
       },
     ],
-    moduleFields: [
+    // moduleFields: [
+    //   {
+    //     preview: false,
+    //     key: 'number_module',
+    //     title: 'Number',
+    //     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //     placableAmount: -1,
+    //     section: 'modules',
+    //     fields: [
+    //       {
+    //         key: '1',
+    //         title: 'Number 1',
+    //         type: '',
+    //         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //         value: '1',
+    //         tooltip: '',
+    //         options: [],
+    //       },
+    //       {
+    //         key: '2',
+    //         title: 'Number 2',
+    //         type: '',
+    //         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //         value: '2',
+    //         tooltip: '',
+    //         options: [],
+    //       },
+    //       {
+    //         key: '3',
+    //         title: 'Number 3',
+    //         type: '',
+    //         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+    //         value: '3',
+    //         tooltip: '',
+    //         options: [],
+    //       },
+    //     ],
+    //   },
+    // ],
+    baseModuleFields: [
       {
         preview: false,
         key: 'number_module',
         title: 'Number',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         placableAmount: -1,
-        section: 'modules',
+        section: 'base_modules',
         fields: [
           {
             key: '1',

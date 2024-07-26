@@ -93,6 +93,16 @@ const RightDroppable = () => {
     return mapping;
   }, [thisDapp]);
 
+  const baseModuleFieldMapping = React.useMemo(() => {
+    const mapping: Record<string, BlockModel> = {};
+
+    (thisDapp?.moduleFields || []).forEach((item) => {
+      mapping[item.key] = item;
+    });
+
+    return mapping;
+  }, [thisDapp]);
+
   const getInput = React.useCallback(
     (field: FieldModel, fieldOpt: FieldOption) => {
       if (field.type === 'input') {
@@ -351,6 +361,29 @@ const RightDroppable = () => {
                     }}
                   >
                     <LegoParent {...thisDapp.baseBlock} background={mainColor}>
+                      {ids
+                        .filter((id) =>
+                          DragUtil.idDraggingIsABaseModule(id.name),
+                        )
+                        .map((item, blockIndex) => {
+                          return (
+                            <Lego
+                              key={item.name}
+                              background={adjustBrightness(mainColor, -20)}
+                              first={false}
+                              last={false}
+                              titleInLeft={true}
+                              titleInRight={false}
+                            >
+                              <Label
+                                {...baseModuleFieldMapping[
+                                  DragUtil.getOriginalKey(item.name)
+                                ]}
+                              />
+                            </Lego>
+                          );
+                        })}
+
                       {thisDapp.baseBlock.fields.map((field) => {
                         return getInput(field, {
                           inBaseField: true,

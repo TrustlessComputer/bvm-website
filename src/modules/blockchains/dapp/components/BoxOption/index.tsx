@@ -144,6 +144,37 @@ const BoxOption = ({ fieldKey }: Props) => {
 
               <div className={styles.container__body__item}>
                 <div className={styles.container__body__item__inner}>
+                  {thisDapp?.baseModuleFields
+                    ?.filter((f) => f.section === section.key)
+                    ?.map((item) => {
+                      return item.fields.map((field) => {
+                        return (
+                          <Draggable
+                            id={`left-${FieldKeyPrefix.BASE_MODULE}-${item.key}-${field.value}`}
+                            key={`left-${FieldKeyPrefix.BASE_MODULE}-${item.key}-${field.value}`}
+                            value={{
+                              title: field.title,
+                              icon: field.icon,
+                              value: field.value,
+                            }}
+                          >
+                            <Lego
+                              {...field}
+                              background={mainColor}
+                              first={false}
+                              last={false}
+                              titleInLeft={true}
+                              titleInRight={false}
+                            />
+                          </Draggable>
+                        );
+                      });
+                    })}
+                </div>
+              </div>
+
+              <div className={styles.container__body__item}>
+                <div className={styles.container__body__item__inner}>
                   {thisDapp?.singleFields
                     ?.filter((f) => f.section === section.key)
                     ?.map((item) => {

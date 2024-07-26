@@ -44,15 +44,16 @@ import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-token';
 import { parseDappModel } from '@/modules/blockchains/utils';
 import CStakingAPI from '@/services/api/dapp/staking';
+import { useThisDapp } from './hooks/useThisDapp';
 
 const RollupsDappPage = () => {
-  const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
-    useDappsStore();
+  const { setDapps } = useDappsStore();
   const { templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
   const dappState = useAppSelector(dappSelector);
   const tokens = dappState.tokens;
   const [parseTokens, setParseTokens] = useState<DappModel[]>();
+  const thisDapp = useThisDapp();
 
   useEffect(() => {
     if (tokens && tokens?.length > 0) {
@@ -69,10 +70,6 @@ const RollupsDappPage = () => {
 
     setParseTokens(result);
   };
-
-  const thisDapp = React.useMemo(() => {
-    return dapps[currentIndexDapp];
-  }, [dapps, currentIndexDapp]);
 
   const moduleFieldMapping = React.useMemo(() => {
     const mapping: Record<string, BlockModel> = {};
@@ -104,7 +101,7 @@ const RollupsDappPage = () => {
     const activeId = active.id.toString();
     const overId = over.id.toString();
 
-    const draggedIds2D = cloneDeep(draggedIds2DSignal.value);
+    let draggedIds2D = cloneDeep(draggedIds2DSignal.value);
     const noBaseBlockInOutput = draggedIds2D.length === 0;
     const canPlaceMoreBase =
       Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
@@ -124,19 +121,24 @@ const RollupsDappPage = () => {
     const activeBaseIndex = Number(DragUtil.getBaseIndex(activeId));
     const activeIsABlock = DragUtil.idDraggingIsABlock(activeId);
     const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
+    const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
     const activeIndex = Number(DragUtil.getChildIndex(activeId));
     const activeOriginalKey = DragUtil.getOriginalKey(activeId);
 
     // Case 1: Drag to the right
     if (overIsOutput || overIsABase) {
       // Case 1.1: Output does not have base block yet
-      if (noBaseBlockInOutput && !activeIsABase) {
+      if (noBaseBlockInOutput && !(activeIsABase || activeIsABaseModule)) {
         alert(`Please drag ${thisDapp.baseBlock.title} to the output first!`);
         return;
       }
 
       // Case 1.2: Output already has base block and has reached the limit
-      if (!noBaseBlockInOutput && activeIsABase && !canPlaceMoreBase) {
+      if (
+        !noBaseBlockInOutput &&
+        (activeIsABase || activeIsABaseModule) &&
+        !canPlaceMoreBase
+      ) {
         alert(`You can only place ${thisDapp.baseBlock.placableAmount} base!`);
         return;
       }
@@ -149,6 +151,35 @@ const RollupsDappPage = () => {
       // Case 1.4: The lego just dragged is a base block
       if (activeIsABase) {
         draggedIds2DSignal.value = [...draggedIds2D, []];
+        return;
+      }
+
+      if (activeIsABaseModule) {
+        const composedFieldKey =
+          'right-' + FieldKeyPrefix.BASE_MODULE + '-' + activeOriginalKey;
+
+        draggedIds2D = [
+          ...draggedIds2D,
+          [
+            {
+              name: composedFieldKey,
+              value: active.data.current?.value,
+              parentNames: [],
+            },
+          ],
+        ];
+
+        const formKey = `${draggedIds2D.length - 1}-${
+          FieldKeyPrefix.BASE_MODULE
+        }-${activeOriginalKey}-0-0}`;
+
+        formDappSignal.value = {
+          ...formDappSignal.value,
+          [formKey]: active.data.current?.value,
+        };
+
+        draggedIds2DSignal.value = [...draggedIds2D];
+
         return;
       }
 
