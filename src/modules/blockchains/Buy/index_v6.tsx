@@ -708,10 +708,10 @@ const BuyPage = () => {
                                 let operator = '+';
                                 let suffix =
                                   Math.abs(_price) > 0
-                                    ? `(${formatCurrencyV2({
+                                    ? ` (${formatCurrencyV2({
                                         amount: _price,
                                         decimals: 2,
-                                      })}) BVM`
+                                      })})BVM`
                                     : '';
 
                                 _price = option.priceBVM - currentPrice;
@@ -719,10 +719,10 @@ const BuyPage = () => {
                                 if (item.multiChoice) operator = '';
                                 suffix =
                                   Math.abs(_price) > 0
-                                    ? `(${operator}${formatCurrencyV2({
+                                    ? ` (${operator}${formatCurrencyV2({
                                         amount: Math.abs(_price),
                                         decimals: 2,
-                                      })}) BVM`
+                                      })})BVM`
                                     : '';
 
                                 if (
