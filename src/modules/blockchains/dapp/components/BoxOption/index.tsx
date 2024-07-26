@@ -47,6 +47,19 @@ const BoxOption = ({ fieldKey }: Props) => {
     <div className={styles.container}>
       <div className={styles.container__body}>
         {thisDapp?.sections?.map((section) => {
+          const totalBlocks = (thisDapp.blockFields || []).filter(
+            (f) => f.section === section.key,
+          ).length;
+          const totalModules = (thisDapp.moduleFields || [])
+            .filter((f) => f.section === section.key)
+            .reduce((acc, item) => acc + item.fields.length, 0);
+          const totalBaseModules = (thisDapp.baseModuleFields || [])
+            .filter((f) => f.section === section.key)
+            .reduce((acc, item) => acc + item.fields.length, 0);
+          const totalSingle = (thisDapp.singleFields || [])
+            .filter((f) => f.section === section.key)
+            .reduce((acc, item) => acc + item.fields.length, 0);
+
           return (
             <>
               {section?.title && (
@@ -85,11 +98,11 @@ const BoxOption = ({ fieldKey }: Props) => {
                 </div>
               )}
 
-              {thisDapp.blockFields && (
+              {totalBlocks > 0 && (
                 <div className={styles.container__body__item}>
                   <div className={styles.container__body__item__inner}>
                     {thisDapp.blockFields
-                      .filter((f) => f.section === section.key)
+                      ?.filter((f) => f.section === section.key)
                       ?.map((item) => (
                         <Draggable
                           id={`left-${FieldKeyPrefix.BLOCK}-${item.key}`}
@@ -113,11 +126,11 @@ const BoxOption = ({ fieldKey }: Props) => {
                 </div>
               )}
 
-              {thisDapp.moduleFields && (
+              {totalModules > 0 && (
                 <div className={styles.container__body__item}>
                   <div className={styles.container__body__item__inner}>
                     {thisDapp.moduleFields
-                      .filter((f) => f.section === section.key)
+                      ?.filter((f) => f.section === section.key)
                       ?.map((item) => {
                         return item.fields.map((field) => {
                           return (
@@ -146,11 +159,11 @@ const BoxOption = ({ fieldKey }: Props) => {
                 </div>
               )}
 
-              {thisDapp.baseModuleFields && (
+              {totalBaseModules > 0 && (
                 <div className={styles.container__body__item}>
                   <div className={styles.container__body__item__inner}>
                     {thisDapp.baseModuleFields
-                      .filter((f) => f.section === section.key)
+                      ?.filter((f) => f.section === section.key)
                       ?.map((item) => {
                         return item.fields.map((field) => {
                           return (
@@ -179,11 +192,11 @@ const BoxOption = ({ fieldKey }: Props) => {
                 </div>
               )}
 
-              {thisDapp.singleFields && (
+              {totalSingle > 0 && (
                 <div className={styles.container__body__item}>
                   <div className={styles.container__body__item__inner}>
                     {thisDapp.singleFields
-                      .filter((f) => f.section === section.key)
+                      ?.filter((f) => f.section === section.key)
                       ?.map((item) => {
                         return item.fields.map((field) => {
                           return (
