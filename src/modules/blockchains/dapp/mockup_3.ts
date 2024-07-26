@@ -81,6 +81,15 @@ export const dappMockupData: DappModel[] = [
           tooltip: '',
           options: [],
         },
+        {
+          key: 'receiver_address',
+          title: 'Receiver Address',
+          type: 'input',
+          icon: '',
+          value: '',
+          tooltip: '',
+          options: [],
+        },
       ],
     },
     blockFields: [
@@ -403,7 +412,7 @@ export const dappMockupData: DappModel[] = [
         title: 'Reward Token',
         icon: '',
         preview: true,
-        placableAmount: -1,
+        placableAmount: 1,
         section: 'reward_token',
         fields: [
           {
@@ -432,7 +441,7 @@ export const dappMockupData: DappModel[] = [
         key: 'class',
         title: 'Information',
         icon: '',
-        placableAmount: -2,
+        placableAmount: -1,
         section: 'infor',
         preview: true,
         fields: [

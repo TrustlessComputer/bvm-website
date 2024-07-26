@@ -1,26 +1,21 @@
 import React from 'react';
 import { useSignalEffect } from '@preact/signals-react';
 
+import InfoTooltip from '@components/Form/InfoTooltip';
+
 import Draggable from '../Draggable';
 import Lego from '../Lego';
 import { FieldKeyPrefix } from '../../contants';
-import useDappsStore from '../../stores/useDappStore';
 import { draggedIds2DSignal } from '../../signals/useDragSignal';
+import { useThisDapp } from '../../hooks/useThisDapp';
 
 import styles from './styles.module.scss';
-import InfoTooltip from '@components/Form/InfoTooltip';
 
-type Props = {
-  fieldKey: DappModel['key'];
-};
+type Props = {};
 
-const BoxOption = ({ fieldKey }: Props) => {
-  const { dapps } = useDappsStore();
+const BoxOption = ({}: Props) => {
+  const { thisDapp } = useThisDapp();
   const [disableBaseBlock, setDisableBaseBlock] = React.useState(false);
-
-  const thisDapp = React.useMemo(() => {
-    return dapps.find((item) => item.key === fieldKey);
-  }, [dapps, fieldKey]);
 
   const mainColor = React.useMemo(
     () => thisDapp?.color || '#F76649',
@@ -70,6 +65,7 @@ const BoxOption = ({ fieldKey }: Props) => {
                       iconSize="sm"
                       placement="top-start"
                       label={section.tooltip}
+                      iconName={'/icons/ic-tooltip-blue.svg'}
                     />
                   )}
                 </div>
