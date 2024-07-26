@@ -13,6 +13,7 @@ export const parseIssuedToken = (token: IToken) => {
     title: 'Deployed',
     color: '#000',
     background: '#00AA6C',
+    status: 'deployed'
   };
 
   const baseBlock: BlockModel = {} as BlockModel;

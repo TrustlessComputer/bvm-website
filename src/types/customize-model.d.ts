@@ -123,6 +123,7 @@ interface DappModel {
     title: string;
     background: string;
     color: string;
+    status: string;
   };
   color_rendered?: string;
   tooltip: string;

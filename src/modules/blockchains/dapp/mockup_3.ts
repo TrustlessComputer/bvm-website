@@ -14,6 +14,7 @@ export const dappMockupData: DappModel[] = [
       title: 'New',
       color: '#000',
       background: '#00AA6C',
+      status: 'new'
     },
     sections: [
       {
