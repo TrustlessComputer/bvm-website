@@ -110,7 +110,6 @@ interface BlockModel {
   preview: boolean;
 }
 
-type DappStatus = 'deployed' | 'stopped' | 'processing';
 interface DappModel {
   id: string;
   key: string;
@@ -124,7 +123,6 @@ interface DappModel {
     title: string;
     background: string;
     color: string;
-    status: DappStatus;
   };
   color_rendered?: string;
   tooltip: string;

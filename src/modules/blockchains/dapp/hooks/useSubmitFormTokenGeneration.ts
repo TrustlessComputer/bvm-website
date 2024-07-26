@@ -136,7 +136,7 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
         const getTokenomicsDefault: ITokenomics[] = () => {
           if (
             getTotalSupply(
-              data?.allocation as unknown as ITokenomics[],
+              (data?.allocation || []) as unknown as ITokenomics[],
             ) === 0
           ) {
             return [
@@ -148,7 +148,7 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
             ] as ITokenomics[];
           }
 
-          return data.allocation as unknown as ITokenomics[];
+          return (data?.allocation || []) as unknown as ITokenomics[];
         };
 
         // @ts-ignore

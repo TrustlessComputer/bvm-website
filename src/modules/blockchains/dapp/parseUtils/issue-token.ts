@@ -9,6 +9,11 @@ export const parseIssuedToken = (token: IToken) => {
   result.icon = 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
   result.order = 1;
   result.color = '#F76649';
+  result.label = {
+    title: 'Deployed',
+    color: '#000',
+    background: '#00AA6C',
+  };
 
   const baseBlock: BlockModel = {} as BlockModel;
   baseBlock.key = 'token_info';
