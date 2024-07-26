@@ -1,12 +1,13 @@
 import React from 'react';
 import cn from 'classnames';
+import Image from 'next/image';
+
+import SvgInset from '@/components/SvgInset';
+import { useThisDapp } from '@/modules/blockchains/dapp/hooks/useThisDapp';
 
 import { adjustBrightness } from '../../utils';
 
 import styles from './styles.module.scss';
-import SvgInset from '@/components/SvgInset';
-import Image from 'next/image';
-import { useThisDapp } from '@/modules/blockchains/dapp/hooks/useThisDapp';
 
 type Props = {
   background?: string;
@@ -15,6 +16,7 @@ type Props = {
   icon?: string;
   smallMarginHeaderTop?: boolean;
   children?: React.ReactNode;
+  label?: DappModel['label'];
 };
 
 const LegoParent = ({
@@ -24,10 +26,14 @@ const LegoParent = ({
   icon,
   children,
   smallMarginHeaderTop = false,
-  ...reset
+  label,
 }: Props) => {
   const headerRef = React.useRef<HTMLDivElement | null>(null);
   const footerRef = React.useRef<HTMLDivElement | null>(null);
+
+  const handleLabelClick = () => {
+    //
+  };
 
   React.useEffect(() => {
     if (!headerRef.current || !footerRef.current) return;
@@ -73,6 +79,24 @@ const LegoParent = ({
         >
           <SvgInset svgUrl="/landingV3/svg/stud.svg" size={26} />
         </div>
+
+        {label && (
+          <div
+            className={cn(
+              styles.lego__header__label,
+              styles[`lego__header__label__${label.status}`],
+            )}
+            style={{
+              // @ts-ignore
+              // prettier-ignore
+              '--label-background': label.background ? label.background : undefined,
+              '--label-color': label.color ? label.color : undefined,
+            }}
+            onClick={() => handleLabelClick()}
+          >
+            {label.title}
+          </div>
+        )}
       </div>
 
       <div className={styles.lego__body}>

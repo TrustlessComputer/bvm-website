@@ -181,6 +181,10 @@ export const DragUtil = {
     return typeof idDragging.split('-')[3] !== 'undefined';
   },
 
+  idDraggingIsABaseModule(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.BASE_MODULE;
+  },
+
   getBaseIndex(idDragging: string) {
     if (this.idDraggingIsABase(idDragging)) return idDragging.split('-')[2];
 

@@ -108,9 +108,9 @@ interface BlockModel {
   fields: FieldModel[];
   section: string;
   preview: boolean;
-
 }
 
+type DappStatus = 'deployed' | 'stopped' | 'processing';
 interface DappModel {
   id: string;
   key: string;
@@ -120,12 +120,19 @@ interface DappModel {
   icon: string;
   order: number;
   color: string;
-  color_rendered?:string;
+  label?: {
+    title: string;
+    background: string;
+    color: string;
+    status: DappStatus;
+  };
+  color_rendered?: string;
   tooltip: string;
   baseBlock: BlockModel;
   blockFields?: BlockModel[];
   singleFields?: BlockModel[];
   moduleFields?: BlockModel[];
+  baseModuleFields?: BlockModel[];
   sections: SectionModel[];
 }
 

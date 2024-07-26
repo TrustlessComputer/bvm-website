@@ -93,6 +93,16 @@ const RightDroppable = () => {
     return mapping;
   }, [thisDapp]);
 
+  const baseModuleFieldMapping = React.useMemo(() => {
+    const mapping: Record<string, BlockModel> = {};
+
+    (thisDapp?.baseModuleFields || []).forEach((item) => {
+      mapping[item.key] = item;
+    });
+
+    return mapping;
+  }, [thisDapp]);
+
   const getInput = React.useCallback(
     (field: FieldModel, fieldOpt: FieldOption) => {
       if (field.type === 'input') {
@@ -350,7 +360,34 @@ const RightDroppable = () => {
                       height: 'max-content',
                     }}
                   >
-                    <LegoParent {...thisDapp.baseBlock} background={mainColor}>
+                    <LegoParent
+                      {...thisDapp.baseBlock}
+                      background={mainColor}
+                      label={thisDapp.label}
+                    >
+                      {ids
+                        .filter((id) =>
+                          DragUtil.idDraggingIsABaseModule(id.name),
+                        )
+                        .map((item, blockIndex) => {
+                          return (
+                            <Lego
+                              key={item.name}
+                              background={adjustBrightness(mainColor, -20)}
+                              first={false}
+                              last={false}
+                              titleInLeft={true}
+                              titleInRight={false}
+                            >
+                              <Label
+                                {...baseModuleFieldMapping[
+                                  DragUtil.getOriginalKey(item.name)
+                                ]}
+                              />
+                            </Lego>
+                          );
+                        })}
+
                       {thisDapp.baseBlock.fields.map((field) => {
                         return getInput(field, {
                           inBaseField: true,
@@ -616,7 +653,11 @@ const RightDroppable = () => {
               const mainColor = thisDapp.color;
 
               return (
-                <LegoParent {...thisDapp.baseBlock} background={mainColor}>
+                <LegoParent
+                  {...thisDapp.baseBlock}
+                  background={mainColor}
+                  label={thisDapp.label}
+                >
                   {thisDapp.baseBlock.fields.map((field) => {
                     return getLabel(
                       field,
