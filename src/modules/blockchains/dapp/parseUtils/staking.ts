@@ -8,7 +8,7 @@ export const parseStakingPools = (pools: ISTToken[]): DappModel[] => {
       id: 'staking',
       key: 'staking',
       title: 'Staking',
-      icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+      icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-staking.svg',
       order: 2,
       color: '#24704D',
       created_at: '2021-09-14T09:00:00.000Z',
@@ -17,7 +17,7 @@ export const parseStakingPools = (pools: ISTToken[]): DappModel[] => {
       sections: [
         {
           key: 'information',
-          icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+          icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-staking.svg',
           title: 'Staking Pool',
           tooltip: '',
           required: true,
@@ -30,7 +30,7 @@ export const parseStakingPools = (pools: ISTToken[]): DappModel[] => {
           (item.principle_token?.symbol || '') +
           '/' +
           (item.reward_token?.symbol || ''),
-        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-staking.svg',
         placableAmount: -1,
         section: 'information',
         preview: true,
