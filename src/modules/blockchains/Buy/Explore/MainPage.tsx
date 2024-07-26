@@ -23,12 +23,12 @@ const MainPage = (props: Props) => {
       mt={['20px']}
       gap={['40px']}
     >
-      <Section
+      {/* <Section
         title="Template"
         description="A handy structure that may be adapted to various needs, ensuring flexibility and adaptability."
         dataList={templateList}
         cloneItemCallback={cloneItemCallback}
-      />
+      /> */}
       <Section
         title="Mainnet"
         description="Live network structures powered by BVM, fully operational and deployed."

@@ -21,6 +21,7 @@ interface IModelOption {
   setupLogo?: string;
 
   valueStr?: string;
+  type?: 'text' | 'number';
 }
 
 interface IModelCategory {
@@ -30,7 +31,7 @@ interface IModelCategory {
   title: string;
   color: string;
   key: string;
-  type: '' | 'dropdown' | 'slide' | 'module' | 'input';
+  type: '' | 'dropdown' | 'slide' | 'module' | 'input' | 'form';
   required: boolean;
   options: IModelOption[];
   disable: boolean;
