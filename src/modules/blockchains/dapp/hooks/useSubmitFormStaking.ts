@@ -55,9 +55,25 @@ const useSubmitFormStaking = ({
       const formDappInBase = Object.keys(formDapp).filter(
         (key) => !FormDappUtil.isInBlock(key) && !FormDappUtil.isInSingle(key),
       );
+      const formDappInModule = Object.keys(formDapp).filter(
+        (key) => !FormDappUtil.isInModule(key),
+      );
+      const formDappInSingle = Object.keys(formDapp).filter(
+        FormDappUtil.isInSingle,
+      );
 
       finalFormMappings = extractedValue(
         formDappInBase,
+        formDapp,
+        finalFormMappings,
+      );
+      finalFormMappings = extractedValue(
+        formDappInModule,
+        formDapp,
+        finalFormMappings,
+      );
+      finalFormMappings = extractedValue(
+        formDappInSingle,
         formDapp,
         finalFormMappings,
       );
@@ -66,35 +82,39 @@ const useSubmitFormStaking = ({
       let errors: any[] = [];
 
       for (const form of finalFormMappings) {
-        if (Number(form?.rate) <= 0) {
+        const info: any = form.info.find((item) => !!item);
+
+        if (Number(info?.rate) <= 0) {
           errors.push({ key: 'Rate', error: 'Rate is required!' });
         }
-        if (Number(form?.apr) <= 0) {
+        if (Number(info?.apr) <= 0) {
           errors.push({ key: 'APR', error: 'APR is required!' });
         }
-        if (Number(form?.amount) <= 0) {
+        if (Number(info?.amount) <= 0) {
           errors.push({
             key: 'Reward amount',
             error: 'Reward amount is required!',
           });
         }
+      }
 
-        if (errors.length > 0) {
-          setErrorData(errors);
-          setIsShowError(true);
-          return;
-        }
+      if (errors.length > 0) {
+        setErrorData(errors);
+        setIsShowError(true);
+        return;
       }
 
       setLoading(true);
       let pools: TopUpDappInfor[] = [];
 
       for (const form of finalFormMappings) {
+        const info: any = form.info.find((item) => !!item);
+
         const data = await cStakeAPI.createNewStakingPool({
           principle_token: form?.staking_token,
           reward_token: form?.reward_token,
-          base_ratio: Number(form?.apr) / 100,
-          token_price: 1 / Number(form?.rate),
+          base_ratio: Number(info?.apr) / 100,
+          token_price: 1 / Number(info?.rate),
         });
 
         if (data && data.reward_pool_address) {
@@ -102,7 +122,7 @@ const useSubmitFormStaking = ({
             ...pools,
             {
               title: `Pool ${data.principle_token?.symbol}/${data.reward_token?.symbol}`,
-              amount: formatCurrency(Number(form?.amount), 0, 0),
+              amount: formatCurrency(Number(info?.amount), 0, 0),
               tokenSymbol: data.reward_token?.symbol,
               tokenAddress: data.reward_token_address,
               paymentAddress: data.reward_pool_address,
