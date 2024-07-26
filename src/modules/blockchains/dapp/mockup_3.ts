@@ -369,7 +369,7 @@ export const dappMockupData: DappModel[] = [
         required: true,
       },
       {
-        key: 'infor',
+        key: 'info',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
         title: 'Information',
         tooltip: '',
@@ -378,7 +378,7 @@ export const dappMockupData: DappModel[] = [
     ],
     baseModuleFields: [
       {
-        key: 'class',
+        key: 'staking_token',
         title: 'Staking Token',
         icon: '',
         placableAmount: -1,
@@ -438,11 +438,11 @@ export const dappMockupData: DappModel[] = [
     ],
     blockFields: [
       {
-        key: 'class',
+        key: 'info',
         title: 'Information',
         icon: '',
-        placableAmount: -1,
-        section: 'infor',
+        placableAmount: 1,
+        section: 'info',
         preview: true,
         fields: [
           {
