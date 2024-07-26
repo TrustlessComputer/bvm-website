@@ -6,7 +6,7 @@
     height: 40px;
     cursor: pointer;
     @include is-pc {
-      height: auto;
+      height: 80px;
     }
     &:before {
       content: "";
@@ -29,13 +29,11 @@
       z-index: -1;
     }
     img {
-      width: 100%;
+      width: auto;
       height:  100%;
       object-fit: cover;
-      @include is-pc {
-        object-fit: contain;
-
-      }
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }
