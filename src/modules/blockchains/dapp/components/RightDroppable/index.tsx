@@ -343,6 +343,7 @@ const RightDroppable = () => {
           >
             {draggedIds2D.map((ids, baseIndex) => {
               let blockCount = 0;
+              let prevBlockKey = '';
 
               return (
                 <Draggable
@@ -412,6 +413,11 @@ const RightDroppable = () => {
                             blockFieldMapping[
                               DragUtil.getOriginalKey(item.name)
                             ];
+
+                          if (prevBlockKey !== thisBlock.key) {
+                            prevBlockKey = thisBlock.key;
+                            blockCount = 0;
+                          }
 
                           blockCount++;
 
