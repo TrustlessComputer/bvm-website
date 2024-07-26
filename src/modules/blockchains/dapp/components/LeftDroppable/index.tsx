@@ -3,17 +3,14 @@ import React from 'react';
 import Droppable from '../Droppable';
 import BoxOption from '../BoxOption';
 import useDappsStore from '../../stores/useDappStore';
+import { useThisDapp } from '../../hooks/useThisDapp';
 
 const LeftDroppable = () => {
-  const { dapps, currentIndexDapp } = useDappsStore();
-
-  const thisDapp = React.useMemo(() => {
-    return dapps[currentIndexDapp];
-  }, [dapps, currentIndexDapp]);
+  const { thisDapp } = useThisDapp();
 
   return (
     <Droppable id="input">
-      {thisDapp && <BoxOption key={thisDapp.key} fieldKey={thisDapp.key} />}
+      {thisDapp && <BoxOption key={thisDapp.key} />}
     </Droppable>
   );
 };
