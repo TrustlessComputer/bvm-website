@@ -18,3 +18,4 @@ export const blockDraggingSignal = signal<{
   title: '',
   icon: '',
 });
+export const idBlockErrorSignal = signal<string>('');

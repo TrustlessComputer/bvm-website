@@ -30,6 +30,7 @@ import useDappsStore, {
 } from './stores/useDappStore';
 import {
   draggedIds2DSignal,
+  idBlockErrorSignal,
   templateIds2DSignal,
 } from './signals/useDragSignal';
 import {
@@ -135,6 +136,7 @@ const RollupsDappPage = () => {
         !canPlaceMoreBase
       ) {
         alert(`You can only place ${thisDapp.baseBlock.placableAmount} base!`);
+        idBlockErrorSignal.value = activeOriginalKey;
         return;
       }
 
@@ -162,6 +164,8 @@ const RollupsDappPage = () => {
           alert(
             `You can only place one ${baseModuleFieldMapping[activeOriginalKey].title}!`,
           );
+          idBlockErrorSignal.value = activeOriginalKey;
+
           return;
         }
 
@@ -220,6 +224,8 @@ const RollupsDappPage = () => {
           alert(
             `You can only place one ${blockFieldMapping[activeOriginalKey].title}!`,
           );
+          idBlockErrorSignal.value = activeOriginalKey;
+
           return;
         }
 
@@ -255,6 +261,8 @@ const RollupsDappPage = () => {
           alert(
             `You can only place one ${moduleFieldMapping[activeOriginalKey].title}!`,
           );
+          idBlockErrorSignal.value = activeOriginalKey;
+
           return;
         }
 
@@ -291,6 +299,7 @@ const RollupsDappPage = () => {
 
             if (alreadyExist) {
               alert('You can only place one module!');
+              idBlockErrorSignal.value = activeOriginalKey;
 
               return;
             }
@@ -317,6 +326,8 @@ const RollupsDappPage = () => {
               )
             ) {
               alert('You can only place one module!');
+              idBlockErrorSignal.value = activeOriginalKey;
+
               return;
             }
           }

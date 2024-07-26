@@ -323,6 +323,7 @@ const RightDroppable = () => {
                   value={{
                     title: thisDapp.baseBlock.title,
                     icon: thisDapp.baseBlock.icon,
+                    fieldKey: thisDapp.baseBlock.key,
                   }}
                 >
                   <Droppable
@@ -397,6 +398,7 @@ const RightDroppable = () => {
                               value={{
                                 title: thisBlock.title + ' #' + blockCount,
                                 icon: thisBlock.icon,
+                                fieldKey: thisBlock.key,
                               }}
                             >
                               <LegoParent
@@ -441,6 +443,7 @@ const RightDroppable = () => {
                               value={{
                                 title: thisModule.title,
                                 icon: thisModule.icon,
+                                fieldKey: thisModule.key,
                               }}
                             >
                               <Lego
@@ -469,6 +472,7 @@ const RightDroppable = () => {
                                 value={{
                                   title: thisModule.title,
                                   icon: thisModule.icon,
+                                  fieldKey: thisModule.key,
                                 }}
                               >
                                 <LegoParent
@@ -528,6 +532,7 @@ const RightDroppable = () => {
                                 value={{
                                   title: thisModule.title,
                                   icon: thisModule.icon,
+                                  fieldKey: thisModule.key,
                                 }}
                               >
                                 <Lego

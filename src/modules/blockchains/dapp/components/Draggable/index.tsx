@@ -1,10 +1,15 @@
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import React, { useRef } from 'react';
+import cn from 'classnames';
 
-import { blockDraggingSignal } from '../../signals/useDragSignal';
+import {
+  blockDraggingSignal,
+  idBlockErrorSignal,
+} from '../../signals/useDragSignal';
 
 import styles from './styles.module.scss';
+import { useSignalEffect } from '@preact/signals-react';
 
 type Props = {
   id: string;
@@ -26,6 +31,7 @@ const Draggable = ({
   ...props
 }: Props) => {
   const refTooltip = useRef<HTMLDivElement>(null);
+  const [isError, setIsError] = React.useState(false);
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id,
@@ -39,6 +45,17 @@ const Draggable = ({
       id,
     };
   }
+
+  useSignalEffect(() => {
+    if (value?.fieldKey && idBlockErrorSignal.value === value.fieldKey) {
+      setIsError(true);
+
+      setTimeout(() => {
+        idBlockErrorSignal.value = '';
+        setIsError(false);
+      }, 2000);
+    }
+  });
 
   const style = {
     ...props.style,
@@ -84,7 +101,9 @@ const Draggable = ({
     <div
       ref={setNodeRef}
       style={style}
-      className={`${styles.options}`}
+      className={cn(styles.options, {
+        [styles.shake]: isError,
+      })}
       {...listeners}
       {...attributes}
       onMouseEnter={onHover}
