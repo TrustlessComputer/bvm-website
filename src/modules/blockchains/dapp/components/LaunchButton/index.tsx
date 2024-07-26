@@ -41,8 +41,8 @@ const LaunchButton = () => {
         isLoading={isLoading}
         className={s.button}
         type={'submit'}
-        // onClick={onSubmit}
-        onClick={handleLaunch}
+        onClick={onSubmit}
+        // onClick={handleLaunch}
       >
         Launch <Image src="/launch.png" alt="launch" width={24} height={24} />
       </Button>
