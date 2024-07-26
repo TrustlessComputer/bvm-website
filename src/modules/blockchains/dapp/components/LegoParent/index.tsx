@@ -44,7 +44,7 @@ const LegoParent = ({
       case 'token_generation': {
         if (!label?.actionID) return;
         // https://bloom.appstore.dev.bvm.network/apps/token/0x517db2dd81aaa829bb9856539b83751dd3779f13
-        window.open(`${dappState?.chain?.dappURL || ''}/apps/token/${label.actionID}}`)
+        window.open(`${dappState?.chain?.dappURL || ''}/apps/token/${label.actionID}`)
         return;
       }
     }
