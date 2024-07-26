@@ -148,7 +148,8 @@ const LaunchButton = ({
     }
 
     if (needContactUs) {
-      showContactUsModal(dynamicForm as any);
+      // showContactUsModal(dynamicForm as any);
+      showContactUsModal({ subjectDefault: 0, disableSelect: true, changeText: true });
       return;
     }
 
