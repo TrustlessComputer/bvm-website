@@ -49,13 +49,17 @@ import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-to
 import { parseDappModel } from '@/modules/blockchains/utils';
 import CStakingAPI from '@/services/api/dapp/staking';
 import { useThisDapp } from './hooks/useThisDapp';
+import { parseStakingPools } from './parseUtils/staking';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
   const { templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
   const dappState = useAppSelector(dappSelector);
+
   const tokens = dappState.tokens;
+  const stakingPools = dappState.stakingPools;
+
   const [parseTokens, setParseTokens] = useState<DappModel[]>();
   const thisDapp = useThisDapp();
 
@@ -492,7 +496,7 @@ const RollupsDappPage = () => {
 
   React.useEffect(() => {
     getDataTemplateForm();
-  }, [thisDapp, parseTokens]);
+  }, [thisDapp, parseTokens, stakingPools]);
 
   React.useEffect(() => {
     fetchData();
@@ -502,16 +506,11 @@ const RollupsDappPage = () => {
     if (!thisDapp) return;
     switch (thisDapp?.key) {
       case 'staking': {
-        const api = new CStakingAPI();
-        const data = await api.getStakingPools();
-        // const data = stakingTemplateFormMockupData;
+        const data = parseStakingPools(stakingPools);
         const model = parseDappModel({
           key: 'staking',
           model: data,
         });
-        console.log('staking data 111', { model, data });
-        // console.log('staking data ', JSON.stringify(data));
-
         setTemplateDapps(data);
         setTemplateForm(model);
         break;

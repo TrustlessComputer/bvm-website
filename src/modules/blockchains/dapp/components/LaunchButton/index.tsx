@@ -67,7 +67,7 @@ const LaunchButton = () => {
       </ErrorModal>
       <TopupModal
         show={isShowTopup}
-        infor={topupInfo}
+        infors={topupInfo}
         onClose={() => {
           setIsShowTopup(false);
         }}
