@@ -9,6 +9,10 @@ export const parseStakingPools = (pools: ISTToken[]): DappModel[] => {
     result.push({
       id: DappType.staking,
       key: DappType.staking,
+      action: {
+        title: 'Top up',
+        actionMapperID: `${item.id}`,
+      },
       title: 'Staking',
       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-staking.svg',
       order: 2,
