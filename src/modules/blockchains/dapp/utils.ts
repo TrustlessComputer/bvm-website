@@ -112,6 +112,10 @@ export const FormDappUtil = {
     return key.split('-')[2];
   },
 
+  getBlockType(key: string) {
+    return key.split('-')[1];
+  },
+
   getBlockKey(key: string) {
     return key.split('-')[5];
   },
@@ -142,6 +146,14 @@ export const FormDappUtil = {
 
   isInModule(key: string) {
     return key.split('-')[1] === FieldKeyPrefix.MODULE;
+  },
+
+  isInBase(key: string) {
+    return key.split('-')[1] === FieldKeyPrefix.BASE;
+  },
+
+  isInBaseModule(key: string) {
+    return key.split('-')[1] === FieldKeyPrefix.BASE_MODULE;
   },
 
   // prettier-ignore
@@ -179,6 +191,10 @@ export const DragUtil = {
 
   idDraggingIsAField(idDragging: string) {
     return typeof idDragging.split('-')[3] !== 'undefined';
+  },
+
+  idDraggingIsABaseModule(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.BASE_MODULE;
   },
 
   getBaseIndex(idDragging: string) {

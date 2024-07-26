@@ -21,7 +21,7 @@ const useSubmitForm = () => {
     useState<{ key: string; error: string }[]>();
 
   const [isShowTopup, setIsShowTopup] = useState(false);
-  const [topupInfo, setTopupInfo] = useState<TopUpDappInfor>();
+  const [topupInfo, setTopupInfo] = useState<TopUpDappInfor[]>();
 
   const { onSubmit: onSubmitFormTokenGeneration } =
     useSubmitFormTokenGeneration({ setErrorData, setLoading, setIsShowError });

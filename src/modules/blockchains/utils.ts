@@ -18,7 +18,7 @@ const getValue = (item: FieldModel) => {
 
 const parseDappModel = (params: { model: DappModel[], key: string }): ParseResult => {
   const { model, key } = params;
-  const data = model.filter(item => compareString(item.key, key) || compareString(item.id, key));
+  const data = (model || []).filter(item => compareString(item.key, key) || compareString(item.id, key));
 
   const result = data.reduce((prev, curr, index) => {
     // console.log('SANG TEST: prev, curr', {

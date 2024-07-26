@@ -1,41 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import {
-  DndContext,
-  DragEndEvent,
-  DragStartEvent,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
+import React from 'react';
+import { DndContext, DragEndEvent, DragStartEvent, useSensor, useSensors } from '@dnd-kit/core';
 import Image from 'next/image';
+import cn from 'classnames';
 
-import {
-  cloneDeep,
-  DragUtil,
-  FormDappUtil,
-  hasValue,
-  MouseSensor,
-  removeItemAtIndex,
-} from './utils';
-import { dappMockupData, dappTemplateFormMockupData } from './mockup_3';
+import { cloneDeep, DragUtil, FormDappUtil, hasValue, MouseSensor, removeItemAtIndex } from './utils';
+import { dappMockupData } from './mockup_3';
 import { FieldKeyPrefix } from './contants';
 import LeftDroppable from './components/LeftDroppable';
 import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
 import Sidebar from './components/Sidebar';
-import useDappsStore, {
-  subScribeDropEnd,
-  useFormDappsStore,
-  useTemplateFormStore,
-} from './stores/useDappStore';
-import {
-  draggedIds2DSignal,
-  templateIds2DSignal,
-} from './signals/useDragSignal';
-import {
-  formDappSignal,
-  formTemplateDappSignal,
-} from './signals/useFormDappsSignal';
+import useDappsStore, { subScribeDropEnd, useTemplateFormStore } from './stores/useDappStore';
+import { draggedIds2DSignal, templateIds2DSignal } from './signals/useDragSignal';
+import { formDappSignal, formTemplateDappSignal } from './signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
@@ -43,22 +21,19 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { IToken } from '@/services/api/dapp/token_generation/interface';
 import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-token';
 import { parseDappModel } from '@/modules/blockchains/utils';
-import CStakingAPI from '@/services/api/dapp/staking';
+import { useThisDapp } from './hooks/useThisDapp';
+import { parseStakingPools } from './parseUtils/staking';
 
 const RollupsDappPage = () => {
-  const { dapps, setDapps, currentIndexDapp, setCurrentIndexDapp } =
-    useDappsStore();
+  const { setDapps } = useDappsStore();
   const { templateForm, setTemplateForm, setTemplateDapps } =
     useTemplateFormStore();
   const dappState = useAppSelector(dappSelector);
-  const tokens = dappState.tokens;
-  const [parseTokens, setParseTokens] = useState<DappModel[]>();
 
-  useEffect(() => {
-    if (tokens && tokens?.length > 0) {
-      parseTokensData(tokens);
-    }
-  }, [tokens]);
+  const tokens = dappState.tokens;
+  const stakingPools = dappState.stakingPools;
+
+  const thisDapp = useThisDapp();
 
   const parseTokensData = (tokens: IToken[]) => {
     const result: DappModel[] = [];
@@ -67,12 +42,8 @@ const RollupsDappPage = () => {
       result.push(t);
     }
 
-    setParseTokens(result);
+    return result;
   };
-
-  const thisDapp = React.useMemo(() => {
-    return dapps[currentIndexDapp];
-  }, [dapps, currentIndexDapp]);
 
   const moduleFieldMapping = React.useMemo(() => {
     const mapping: Record<string, BlockModel> = {};
@@ -104,7 +75,7 @@ const RollupsDappPage = () => {
     const activeId = active.id.toString();
     const overId = over.id.toString();
 
-    const draggedIds2D = cloneDeep(draggedIds2DSignal.value);
+    let draggedIds2D = cloneDeep(draggedIds2DSignal.value);
     const noBaseBlockInOutput = draggedIds2D.length === 0;
     const canPlaceMoreBase =
       Number(thisDapp.baseBlock.placableAmount) > draggedIds2D.length ||
@@ -124,19 +95,24 @@ const RollupsDappPage = () => {
     const activeBaseIndex = Number(DragUtil.getBaseIndex(activeId));
     const activeIsABlock = DragUtil.idDraggingIsABlock(activeId);
     const activeIsASingle = DragUtil.idDraggingIsASingle(activeId);
+    const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
     const activeIndex = Number(DragUtil.getChildIndex(activeId));
     const activeOriginalKey = DragUtil.getOriginalKey(activeId);
 
     // Case 1: Drag to the right
     if (overIsOutput || overIsABase) {
       // Case 1.1: Output does not have base block yet
-      if (noBaseBlockInOutput && !activeIsABase) {
+      if (noBaseBlockInOutput && !(activeIsABase || activeIsABaseModule)) {
         alert(`Please drag ${thisDapp.baseBlock.title} to the output first!`);
         return;
       }
 
       // Case 1.2: Output already has base block and has reached the limit
-      if (!noBaseBlockInOutput && activeIsABase && !canPlaceMoreBase) {
+      if (
+        !noBaseBlockInOutput &&
+        (activeIsABase || activeIsABaseModule) &&
+        !canPlaceMoreBase
+      ) {
         alert(`You can only place ${thisDapp.baseBlock.placableAmount} base!`);
         return;
       }
@@ -149,6 +125,35 @@ const RollupsDappPage = () => {
       // Case 1.4: The lego just dragged is a base block
       if (activeIsABase) {
         draggedIds2DSignal.value = [...draggedIds2D, []];
+        return;
+      }
+
+      if (activeIsABaseModule) {
+        const composedFieldKey =
+          'right-' + FieldKeyPrefix.BASE_MODULE + '-' + activeOriginalKey;
+
+        draggedIds2D = [
+          ...draggedIds2D,
+          [
+            {
+              name: composedFieldKey,
+              value: active.data.current?.value,
+              parentNames: [],
+            },
+          ],
+        ];
+
+        const formKey = `${draggedIds2D.length - 1}-${
+          FieldKeyPrefix.BASE_MODULE
+        }-${activeOriginalKey}-0-0`;
+
+        formDappSignal.value = {
+          ...formDappSignal.value,
+          [formKey]: active.data.current?.value,
+        };
+
+        draggedIds2DSignal.value = [...draggedIds2D];
+
         return;
       }
 
@@ -206,6 +211,16 @@ const RollupsDappPage = () => {
             ];
           } else {
             const formKey = `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${draggedFieldIndex}`;
+            const alreadyExist = (draggedField.value as string[]).find(
+              (value) => value === active.data.current?.value,
+            );
+
+            if (alreadyExist) {
+              alert('You can only place one module!');
+
+              return;
+            }
+
             const value = [
               ...(draggedField.value as string[]),
               active.data.current?.value,
@@ -352,31 +367,100 @@ const RollupsDappPage = () => {
       }
 
       if (activeIsAModule) {
+        const composedFieldKey = `right-${FieldKeyPrefix.MODULE}-${activeOriginalKey}`;
         const formDapp = formDappSignal.value;
+        const isMultiple =
+          moduleFieldMapping[activeOriginalKey]?.placableAmount === -1;
+        const item = draggedIds2D[activeBaseIndex].find(
+          (item) => item.name === composedFieldKey,
+        );
+        const legoDraggingIsParent = !hasValue(active.data.current?.value);
 
-        Object.keys(formDapp).forEach((key) => {
-          if (
-            FormDappUtil.isInModule(key) &&
-            FormDappUtil.getIndex(key) === activeIndex
-          ) {
-            delete formDapp[key];
-          } else if (FormDappUtil.getIndex(key) > activeIndex) {
-            const currentIndex = FormDappUtil.getIndex(key);
-            const newKey = key.replace(
-              `-${currentIndex}`,
-              `-${currentIndex - 1}`,
+        if (!item) return;
+
+        if (legoDraggingIsParent) {
+          Object.keys(formDapp).forEach((key) => {
+            if (
+              FormDappUtil.isInModule(key) &&
+              FormDappUtil.getIndex(key) === activeIndex
+            ) {
+              delete formDapp[key];
+            } else if (FormDappUtil.getIndex(key) > activeIndex) {
+              const currentIndex = FormDappUtil.getIndex(key);
+              const newKey = key.replace(
+                `-${currentIndex}`,
+                `-${currentIndex - 1}`,
+              );
+
+              formDapp[newKey] = formDapp[key];
+              delete formDapp[key];
+            }
+          });
+
+          draggedIds2D[activeBaseIndex] = removeItemAtIndex(
+            draggedIds2D[activeBaseIndex],
+            Number(DragUtil.getChildIndex(activeId)),
+          );
+        } else if (!isMultiple) {
+          Object.keys(formDapp).forEach((key) => {
+            if (
+              FormDappUtil.isInModule(key) &&
+              FormDappUtil.getIndex(key) === activeIndex
+            ) {
+              delete formDapp[key];
+            } else if (FormDappUtil.getIndex(key) > activeIndex) {
+              const currentIndex = FormDappUtil.getIndex(key);
+              const newKey = key.replace(
+                `-${currentIndex}`,
+                `-${currentIndex - 1}`,
+              );
+
+              formDapp[newKey] = formDapp[key];
+              delete formDapp[key];
+            }
+          });
+
+          draggedIds2D[activeBaseIndex] = removeItemAtIndex(
+            draggedIds2D[activeBaseIndex],
+            Number(DragUtil.getChildIndex(activeId)),
+          );
+        } else {
+          const newValue = (item.value as string[]).filter(
+            (value) => value !== active.data.current?.value,
+          );
+
+          if (newValue.length === 0) {
+            Object.keys(formDapp).forEach((key) => {
+              if (
+                FormDappUtil.isInModule(key) &&
+                FormDappUtil.getIndex(key) === activeIndex
+              ) {
+                delete formDapp[key];
+              } else if (FormDappUtil.getIndex(key) > activeIndex) {
+                const currentIndex = FormDappUtil.getIndex(key);
+                const newKey = key.replace(
+                  `-${currentIndex}`,
+                  `-${currentIndex - 1}`,
+                );
+
+                formDapp[newKey] = formDapp[key];
+                delete formDapp[key];
+              }
+            });
+
+            draggedIds2D[activeBaseIndex] = removeItemAtIndex(
+              draggedIds2D[activeBaseIndex],
+              Number(DragUtil.getChildIndex(activeId)),
             );
-
-            formDapp[newKey] = formDapp[key];
-            delete formDapp[key];
+          } else {
+            item.value = newValue;
+            formDapp[
+              `${activeBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-${activeIndex}`
+            ] = newValue;
           }
-        });
+        }
 
         formDappSignal.value = { ...formDapp };
-        draggedIds2D[activeBaseIndex] = removeItemAtIndex(
-          draggedIds2D[activeBaseIndex],
-          Number(DragUtil.getChildIndex(activeId)),
-        );
         draggedIds2DSignal.value = [...draggedIds2D];
 
         return;
@@ -391,24 +475,16 @@ const RollupsDappPage = () => {
   );
 
   const fetchData = async () => {
-    // const dapps = dappState.configs;
     const dapps = dappMockupData;
     const sortedDapps = dapps.sort((a, b) => a.order - b.order);
 
-    // const templateForm = dappTemplateFormMockupData;
-
     setDapps(sortedDapps);
-    // setTemplateForm(templateForm);
   };
 
-  // TODO
   React.useEffect(() => {
     if (!templateForm) return;
 
     let formDapp: Record<string, any> = {};
-    const baseMapping: Record<string, any> = {};
-    const blockMapping: Record<string, BlockModel> = {};
-    const singleMapping: Record<string, BlockModel> = {};
 
     const totalBase = new Set(
       Object.keys(templateForm.fieldValue).map((fieldKey) =>
@@ -423,17 +499,14 @@ const RollupsDappPage = () => {
       const value = templateForm.fieldValue[fieldKey];
       const baseIndex = FormDappUtil.getBaseIndex(fieldKey);
       const key = FormDappUtil.getOriginalKey(fieldKey);
-      const level = FormDappUtil.getLevel(fieldKey);
       const index = FormDappUtil.getIndex(fieldKey);
       const blockKey = FormDappUtil.getBlockKey(fieldKey);
+      const isInBase = FormDappUtil.isInBase(fieldKey);
       const isInBlock = FormDappUtil.isInBlock(fieldKey);
-      const isInSingle = FormDappUtil.isInSingle(fieldKey);
-      const field = baseMapping[key] ?? blockMapping[key] ?? singleMapping[key];
 
-      if (!draggedIds2D[baseIndex][index] && (isInBlock || isInSingle)) {
+      if (!draggedIds2D[baseIndex][index] && !isInBase) {
         const _key = isInBlock ? blockKey : key;
-        const prefix =
-          'right-' + (isInBlock ? FieldKeyPrefix.BLOCK : FieldKeyPrefix.SINGLE);
+        const prefix = 'right-' + FormDappUtil.getBlockType(fieldKey);
 
         draggedIds2D[baseIndex] = [
           ...draggedIds2D[baseIndex],
@@ -457,7 +530,7 @@ const RollupsDappPage = () => {
 
   React.useEffect(() => {
     getDataTemplateForm();
-  }, [thisDapp, parseTokens]);
+  }, [thisDapp, tokens, stakingPools]);
 
   React.useEffect(() => {
     fetchData();
@@ -467,25 +540,23 @@ const RollupsDappPage = () => {
     if (!thisDapp) return;
     switch (thisDapp?.key) {
       case 'staking': {
-        const api = new CStakingAPI();
-        const data = await api.getStakingPools();
+        const data = parseStakingPools(stakingPools);
         const model = parseDappModel({
           key: 'staking',
           model: data,
         });
-        console.log('staking data 111', { model, data });
-
         setTemplateDapps(data);
         setTemplateForm(model);
         break;
       }
       case 'token_generation': {
+        const data = parseTokensData(tokens);
         const model = parseDappModel({
           key: 'token_generation',
-          model: parseTokens as DappModel[],
+          model: data,
         });
+        setTemplateDapps(data);
         setTemplateForm(model);
-        setTemplateDapps(parseTokens as DappModel[]);
         break;
       }
       default:
@@ -532,7 +603,12 @@ const RollupsDappPage = () => {
 
           <DragMask />
 
-          <div className={styles.container__content__droppable}>
+          <div
+            className={cn(
+              styles.container__content__droppable,
+              styles.container__content__droppable__right,
+            )}
+          >
             <RightDroppable />
           </div>
 

@@ -4,8 +4,14 @@ import Image from 'next/image';
 import Button from '../Button';
 import MModal from '../Modal';
 import useDappsStore from '../../stores/useDappStore';
-import { formDappSignal, formTemplateDappSignal } from '../../signals/useFormDappsSignal';
-import { draggedIds2DSignal, templateIds2DSignal } from '../../signals/useDragSignal';
+import {
+  formDappSignal,
+  formTemplateDappSignal,
+} from '../../signals/useFormDappsSignal';
+import {
+  draggedIds2DSignal,
+  templateIds2DSignal,
+} from '../../signals/useDragSignal';
 
 import s from './styles.module.scss';
 import uniqBy from 'lodash/uniqBy';
@@ -14,9 +20,16 @@ import cx from 'clsx';
 type Props = {};
 
 const Sidebar = ({}: Props) => {
-  const { dapps: _dapps, setCurrentIndexDapp, currentIndexDapp } = useDappsStore();
+  const {
+    dapps: _dapps,
+    setCurrentIndexDapp,
+    currentIndexDapp,
+  } = useDappsStore();
 
-  const dapps = React.useMemo(() => uniqBy(_dapps, item => item.id), [_dapps])
+  const dapps = React.useMemo(
+    () => uniqBy(_dapps, (item) => item.id),
+    [_dapps],
+  );
 
   const [isShowModal, setIsShowModal] = React.useState(false);
   const [selectedDappIndex, setSelectedDappIndex] = React.useState<
@@ -62,7 +75,6 @@ const Sidebar = ({}: Props) => {
                 )}{' '}
                 {dapp.title}
               </div>
-              <div />
             </Button>
           );
         })}
@@ -70,10 +82,17 @@ const Sidebar = ({}: Props) => {
 
       <div className={s.footer}>
         <Button element="button" type="button" onClick={() => {}}>
-          EXPORT
+          EXPORT{' '}
+          <Image src="/icons/image.svg" alt="image" width={20} height={20} />
         </Button>
         <Button element="button" type="button" onClick={() => {}}>
-          SHARE
+          SHARE{' '}
+          <Image
+            src="/icons/twitter.svg"
+            alt="twitter"
+            width={20}
+            height={20}
+          />
         </Button>
       </div>
 

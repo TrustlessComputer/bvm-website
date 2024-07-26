@@ -29,7 +29,7 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
   const dispatch = useDispatch();
 
-  const onSubmitForm = () => {
+  const onSubmitForm = async () => {
     try {
       setLoading(true);
 
@@ -46,11 +46,6 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
         FormDappUtil.isInSingle,
       );
 
-      console.log('formDapp', formDapp);
-      console.log('formDappInBase', formDappInBase);
-      console.log('formDappInBlock', formDappInBlock);
-      console.log('formDappInSingle', formDappInSingle);
-
       dataMapping = extractedValue(formDappInBase, formDapp, dataMapping);
       dataMapping = extractedValue(
         formDappInBlock,
@@ -62,8 +57,6 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
         formDapp,
         dataMapping,
       );
-
-      console.log('dataMapping', dataMapping);
 
       setErrorData([]);
       let errors: any[] = [];
@@ -89,10 +82,7 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
           errors.push({ key: 'token_supply', error: 'Token supply > 0!' });
         }
 
-        const blocks = data.allocation;
-
-        console.log('data', data);
-        console.log('blocks', blocks);
+        const blocks = data.allocation || [];
 
         for (const block of blocks) {
           const blockTemp = block as unknown as ITokenomics;
@@ -146,7 +136,7 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
         const getTokenomicsDefault: ITokenomics[] = () => {
           if (
             getTotalSupply(
-              data?.allocation as unknown as ITokenomics[],
+              (data?.allocation || []) as unknown as ITokenomics[],
             ) === 0
           ) {
             return [
@@ -158,7 +148,7 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
             ] as ITokenomics[];
           }
 
-          return data.allocation as unknown as ITokenomics[];
+          return (data?.allocation || []) as unknown as ITokenomics[];
         };
 
         // @ts-ignore
@@ -204,14 +194,14 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
         console.log('calldata', calldata);
 
         const api = new CTokenGenerationAPI();
-        api.generateNewToken({
+        await api.generateNewToken({
           data_hex: calldata,
           type: 'token',
           network_id: Number(dappState?.chain?.chainId),
         });
       }
 
-      showSuccess({message: 'Generate token successfully!'});
+      showSuccess({ message: 'Generate token successfully!' });
       dispatch(requestReload());
     } catch (error) {
       const { message } = getError(error);

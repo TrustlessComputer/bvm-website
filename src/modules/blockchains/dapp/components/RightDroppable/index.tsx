@@ -36,6 +36,7 @@ import {
 import { useThisDapp } from '../../hooks/useThisDapp';
 
 import styles from './styles.module.scss';
+import Image from 'next/image';
 
 const RightDroppable = () => {
   const thisDapp = useThisDapp();
@@ -87,6 +88,16 @@ const RightDroppable = () => {
     const mapping: Record<string, BlockModel> = {};
 
     (thisDapp?.moduleFields || []).forEach((item) => {
+      mapping[item.key] = item;
+    });
+
+    return mapping;
+  }, [thisDapp]);
+
+  const baseModuleFieldMapping = React.useMemo(() => {
+    const mapping: Record<string, BlockModel> = {};
+
+    (thisDapp?.baseModuleFields || []).forEach((item) => {
       mapping[item.key] = item;
     });
 
@@ -333,6 +344,7 @@ const RightDroppable = () => {
           >
             {draggedIds2D.map((ids, baseIndex) => {
               let blockCount = 0;
+              let prevBlockKey = '';
 
               return (
                 <Draggable
@@ -350,7 +362,40 @@ const RightDroppable = () => {
                       height: 'max-content',
                     }}
                   >
-                    <LegoParent {...thisDapp.baseBlock} background={mainColor}>
+                    <LegoParent
+                      {...thisDapp.baseBlock}
+                      background={mainColor}
+                      label={thisDapp.label}
+                    >
+                      {ids
+                        .filter((id) =>
+                          DragUtil.idDraggingIsABaseModule(id.name),
+                        )
+                        .map((item) => {
+                          const thisBaseModule =
+                            baseModuleFieldMapping[
+                              DragUtil.getOriginalKey(item.name)
+                            ];
+                          const thisField = thisBaseModule.fields.find(
+                            (f) => f.value === item.value,
+                          );
+
+                          if (!thisField) return null;
+
+                          return (
+                            <Lego
+                              key={item.name}
+                              background={adjustBrightness(mainColor, -20)}
+                              first={false}
+                              last={false}
+                              titleInLeft={true}
+                              titleInRight={false}
+                            >
+                              <Label {...thisField} />
+                            </Lego>
+                          );
+                        })}
+
                       {thisDapp.baseBlock.fields.map((field) => {
                         return getInput(field, {
                           inBaseField: true,
@@ -369,6 +414,11 @@ const RightDroppable = () => {
                             blockFieldMapping[
                               DragUtil.getOriginalKey(item.name)
                             ];
+
+                          if (prevBlockKey !== thisBlock.key) {
+                            prevBlockKey = thisBlock.key;
+                            blockCount = 0;
+                          }
 
                           blockCount++;
 
@@ -616,7 +666,11 @@ const RightDroppable = () => {
               const mainColor = thisDapp.color;
 
               return (
-                <LegoParent {...thisDapp.baseBlock} background={mainColor}>
+                <LegoParent
+                  {...thisDapp.baseBlock}
+                  background={mainColor}
+                  label={thisDapp.label}
+                >
                   {thisDapp.baseBlock.fields.map((field) => {
                     return getLabel(
                       field,
@@ -815,7 +869,7 @@ const RightDroppable = () => {
         onClick={() => handleReset()}
         className={styles.resetButton}
       >
-        RESET
+        RESET <Image src="/icons/undo.svg" alt="undo" width={20} height={20} />
       </Button>
     </div>
   );

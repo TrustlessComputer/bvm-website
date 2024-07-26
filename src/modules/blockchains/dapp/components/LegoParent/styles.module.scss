@@ -71,6 +71,36 @@
       align-items: center;
       gap: 4px;
     }
+
+    &__label {
+      &__deployed {
+        --label-color: #000;
+        --label-background: #00aa6c;
+      }
+
+      &__processing {
+        --label-color: #000;
+        --label-background: #f9d03f;
+      }
+
+      &__stopped {
+        --label-color: #000;
+        --label-background: #ff4747;
+      }
+
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%) translateX(calc(100% + 10px));
+      background-color: var(--label-background);
+      color: var(--label-color);
+      border-radius: 4px;
+      padding: 0 12px;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 28px;
+    }
   }
 
   &__body {

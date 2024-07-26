@@ -41,7 +41,6 @@ class CDappApiClient {
         let params = _config?.params;
         if (!params) {
           params = {};
-          params.network_id = '23478'; // chain.chainId;
         }
         if (!params?.network_id && !!chain) {
           params.network_id = chain.chainId;
