@@ -377,7 +377,7 @@ export const dappMockupData: DappModel[] = [
             {
               key: 'bvm',
               title: 'BVM', // symbol
-              value: '0x28390a0e33768da0e3803fb86dc632014be424f4', // contract_address
+              value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
               icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
               tooltip: '',
               type: '',
@@ -405,7 +405,7 @@ export const dappMockupData: DappModel[] = [
             {
               key: 'bvm',
               title: 'BVM', // symbol
-              value: '0x28390a0e33768da0e3803fb86dc632014be424f4', // contract_address
+              value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
               icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
               tooltip: '',
               type: '',

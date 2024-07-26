@@ -1,6 +1,7 @@
 import BaseModal from '@/components/BaseModal';
-import { Flex, Image, Text, Button } from '@chakra-ui/react';
+import { Flex, Image, Text, Tabs, TabList, Tab } from '@chakra-ui/react';
 import copy from 'copy-to-clipboard';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
 import s from './styles.module.scss';
@@ -10,6 +11,7 @@ export interface TopUpDappInfor {
   networkName: string;
   tokenSymbol: string;
   tokenAddress: string;
+  title: string;
   amount?: string;
   warningMessage?: string;
 }
@@ -17,15 +19,17 @@ export interface TopUpDappInfor {
 interface IProps {
   show: boolean;
   onClose?: (() => void) | any;
-  infor?: TopUpDappInfor;
+  infors?: TopUpDappInfor[];
 }
 
 const TopupModal = (props: IProps) => {
-  const { show, onClose, infor } = props;
-  if (!infor) return <></>;
+  const { show, onClose, infors } = props;
+  if (!infors) return <></>;
+
+  const [currentIndexInfo, setCurrentIndexInfo] = useState(0);
 
   const { paymentAddress, amount, tokenSymbol, warningMessage, networkName } =
-    infor;
+    infors[currentIndexInfo];
 
   const renderMessage = () => {
     return (
@@ -52,9 +56,9 @@ const TopupModal = (props: IProps) => {
       className={s.modalContent}
       size="custom"
       icCloseUrl="/icons/ic-close-grey.svg"
+      title={'Top up'}
     >
       <Flex
-        mt={'20px'}
         display={'flex'}
         flexDir={'column'}
         w={['100%', '100%']}
@@ -62,6 +66,18 @@ const TopupModal = (props: IProps) => {
         borderRadius={'10px'}
         p={'20px'}
       >
+        {infors.length > 0 && (
+          <Tabs className={s.tabContainer}>
+            <TabList className={s.tabList}>
+              {infors.map((info, index) => (
+                <Tab onClick={() => setCurrentIndexInfo(index)}>
+                  {info.title}
+                </Tab>
+              ))}
+            </TabList>
+          </Tabs>
+        )}
+
         {warningMessage && (
           <Text
             fontSize={['13px', '14px', '15px']}

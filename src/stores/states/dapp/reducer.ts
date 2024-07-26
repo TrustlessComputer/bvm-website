@@ -6,6 +6,7 @@ const initialState: DappState = {
   loading: false,
   configs: [],
   tokens: [],
+  stakingPools: [],
 };
 
 const slice = createSlice({
@@ -24,14 +25,13 @@ const slice = createSlice({
     setTokens: (state, actions) => {
       state.tokens = actions.payload;
     },
+    setStakingPools: (state, actions) => {
+      state.stakingPools = actions.payload;
+    },
   },
 });
 
-export const {
-  setChain,
-  setLoading,
-  setConfigs,
-  setTokens,
-} = slice.actions;
+export const { setChain, setLoading, setConfigs, setTokens, setStakingPools } =
+  slice.actions;
 
 export default slice.reducer;
