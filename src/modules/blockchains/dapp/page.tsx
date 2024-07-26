@@ -175,7 +175,7 @@ const RollupsDappPage = () => {
 
         const formKey = `${draggedIds2D.length - 1}-${
           FieldKeyPrefix.BASE_MODULE
-        }-${activeOriginalKey}-0-0}`;
+        }-${activeOriginalKey}-0-0`;
 
         formDappSignal.value = {
           ...formDappSignal.value,

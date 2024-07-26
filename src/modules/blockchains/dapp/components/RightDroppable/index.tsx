@@ -369,7 +369,17 @@ const RightDroppable = () => {
                         .filter((id) =>
                           DragUtil.idDraggingIsABaseModule(id.name),
                         )
-                        .map((item, blockIndex) => {
+                        .map((item) => {
+                          const thisBaseModule =
+                            baseModuleFieldMapping[
+                              DragUtil.getOriginalKey(item.name)
+                            ];
+                          const thisField = thisBaseModule.fields.find(
+                            (f) => f.value === item.value,
+                          );
+
+                          if (!thisField) return null;
+
                           return (
                             <Lego
                               key={item.name}
@@ -379,11 +389,7 @@ const RightDroppable = () => {
                               titleInLeft={true}
                               titleInRight={false}
                             >
-                              <Label
-                                {...baseModuleFieldMapping[
-                                  DragUtil.getOriginalKey(item.name)
-                                ]}
-                              />
+                              <Label {...thisField} />
                             </Lego>
                           );
                         })}
