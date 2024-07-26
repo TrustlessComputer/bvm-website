@@ -4,14 +4,12 @@ import React, { useEffect } from 'react';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { commonSelector } from '@/stores/states/common/selector';
-import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 
 const useFetchDapp = () => {
   const params = useParams();
   const id = params?.id;
 
   const dappAPI = new CDappAPI();
-  const tokenAPI = new CTokenGenerationAPI();
 
   const dappState = useAppSelector(dappSelector)
   const needReload = useAppSelector(commonSelector).needReload;
@@ -25,7 +23,7 @@ const useFetchDapp = () => {
   }, []);
 
   const fetchTokenList = async () => {
-    await tokenAPI.getListToken('91227');
+    await dappAPI.getListToken('91227');
   }
 
   useEffect(() => {
