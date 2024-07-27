@@ -623,7 +623,7 @@ const BuyPage = () => {
     <div
       className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
     >
-      <div className={s.logo}>
+     {/* <div className={s.logo}>
         <Image
           src={'/bvmstudio_logo.png'}
           alt={'bvmstudio_logo'}
@@ -634,7 +634,7 @@ const BuyPage = () => {
       <p className={s.container_text}>
         Drag and drop modules to start new blockchains, new dapps, and new
         economies.
-      </p>
+      </p>*/}
 
       <DndContext
         sensors={sensors}
@@ -710,7 +710,7 @@ const BuyPage = () => {
                                   Math.abs(_price) > 0
                                     ? ` (${formatCurrencyV2({
                                         amount: _price,
-                                        decimals: 2,
+                                        decimals: 0,
                                       })})BVM`
                                     : '';
 
@@ -721,7 +721,7 @@ const BuyPage = () => {
                                   Math.abs(_price) > 0
                                     ? ` (${operator}${formatCurrencyV2({
                                         amount: Math.abs(_price),
-                                        decimals: 2,
+                                        decimals: 0,
                                       })})BVM`
                                     : '';
 
