@@ -9,14 +9,14 @@ export const metadata: Metadata = {
   description:
     'Gear up for an epic adventure and strategize your way to victory in Bitcoin Wars, an incredibly fun onchain game on Bitcoin.',
   openGraph: {
-    images: ['/maga/crypto-war.svg'],
+    images: ['/maga/crypto-war-seo.png'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Bitcoin Wars',
     description:
       'Gear up for an epic adventure and strategize your way to victory in Bitcoin Wars, an incredibly fun onchain game on Bitcoin.',
-    images: '/maga/crypto-war.svg',
+    images: '/maga/crypto-war-seo.png',
   },
 };
 
