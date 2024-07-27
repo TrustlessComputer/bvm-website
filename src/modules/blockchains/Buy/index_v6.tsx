@@ -711,7 +711,7 @@ const BuyPage = () => {
                                     ? ` (${formatCurrencyV2({
                                         amount: _price,
                                         decimals: 0,
-                                      })})BVM`
+                                      })} BVM)`
                                     : '';
 
                                 _price = option.priceBVM - currentPrice;
@@ -722,7 +722,7 @@ const BuyPage = () => {
                                     ? ` (${operator}${formatCurrencyV2({
                                         amount: Math.abs(_price),
                                         decimals: 0,
-                                      })})BVM`
+                                      })} BVM)`
                                     : '';
 
                                 if (
