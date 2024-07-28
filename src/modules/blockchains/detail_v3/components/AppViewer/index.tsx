@@ -9,12 +9,12 @@ import { useRouter } from 'next/navigation';
 
 type Props = {
   itemOnClick: (item: IModelOption) => void;
-  onExportClick: () => void;
-  onShareClick: () => void;
+  onExport?: () => void;
+  onShare?: () => void;
 };
 
 const AppViewer = (props: Props) => {
-  const { itemOnClick, onExportClick, onShareClick } = props;
+  const { itemOnClick, onExport, onShare } = props;
   const router = useRouter();
 
   const itemOnClickProxy = (item: IModelOption) => {
@@ -42,6 +42,15 @@ const AppViewer = (props: Props) => {
     }
     itemOnClick(item);
   };
+
+  const onExportHandler = () => {
+    onExport && onExport();
+  };
+
+  const onShareHandler = () => {
+    onShare && onShare();
+  };
+
   return (
     <Flex
       position={'relative'}
@@ -59,7 +68,10 @@ const AppViewer = (props: Props) => {
       <HeaderView />
       <Divider backgroundColor={'#E0E0E0'} />
       <AppList itemOnClick={itemOnClickProxy} />
-      <BottomView onExportClick={onExportClick} onShareClick={onShareClick} />
+      <BottomView
+        onExportClick={onExportHandler}
+        onShareClick={onShareHandler}
+      />
     </Flex>
   );
 };

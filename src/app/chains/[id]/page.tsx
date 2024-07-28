@@ -1,7 +1,7 @@
 'use client';
 
 // import UpdateChain from '@/modules/blockchains/Buy/UpdateChain';
-import ChainDetailPage from '@/modules/blockchains/detail_v3';
+import Page from '@/modules/blockchains/detail_v3';
 import MainLayout from '@/layouts/MainLayout';
 
 const PageDetail = () => {
@@ -16,7 +16,7 @@ const PageDetail = () => {
       hideFooter={true}
       bodyColor={'#f3f1e8'}
     >
-      <ChainDetailPage />
+      <Page />
     </MainLayout>
   );
 };

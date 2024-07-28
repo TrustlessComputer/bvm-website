@@ -1,7 +1,7 @@
 import { compose } from '@reduxjs/toolkit';
 
 //
-import enhanceInitData from '../../enhance/enhance.InitData';
+import enhanceInitData from '../../enhance/enhance.prepareData';
 import enhanceValidateOrderData from '../../enhance/enhance.validateOrderData';
 
 //

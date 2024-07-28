@@ -33,7 +33,7 @@ const withSkeleton =
 
     return (
       <Flex w={'100%'} h="100dvh" flexDir={'column'} gap={'20px'} p={'30px'}>
-        <Skeleton w={'50%'} h={'30px'} alignSelf={'center'} />
+        {/* <Skeleton w={'50%'} h={'30px'} alignSelf={'center'} /> */}
 
         <Flex justify={'space-between'} align={'center'}>
           <Flex flexDir={'row'} align={'center'} gap={'20px'}>

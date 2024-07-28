@@ -2,7 +2,7 @@ import { compose } from '@reduxjs/toolkit';
 import { ChainDetailComponent, ChainDetailComponentProps } from '../types';
 
 //
-import enhanceInitData from './enhance.InitData';
+import enhancePrepareData from './enhance.prepareData';
 import enhanceUpdateHandler from './enhance.updateHandler';
 import enhanceValidateOrderData from './enhance.validateOrderData';
 import enhanceValidateOrderID from './enhance.validateOrderID';
@@ -11,6 +11,7 @@ import enhanceValidateOrderID from './enhance.validateOrderID';
 import withAuth from './enhance.withAuth';
 import withLoading from './enhance.withLoading';
 import withSkeleton from './enhance.withSkeleton';
+import withResetModal from './enhance.withResetModal';
 
 const enhance =
   (WrappedComponent: ChainDetailComponent) =>
@@ -22,11 +23,11 @@ export default compose<ChainDetailComponent>(
   enhanceValidateOrderID,
 
   // Data (Fetch Data from API, Storage ...)
-  enhanceInitData,
+  enhancePrepareData,
 
-  enhanceUpdateHandler, // TO DO
-
+  // ---------------------------------
   // Extends UI
+  // ---------------------------------
   // withLoading,
   withSkeleton,
 
@@ -34,6 +35,11 @@ export default compose<ChainDetailComponent>(
   enhanceValidateOrderData,
 
   withAuth, // TO DO
+
+  // ---------------------------------
+  // Top Level UI
+  // ---------------------------------
+  withResetModal,
 
   // Main Page
   enhance,

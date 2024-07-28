@@ -1,5 +1,7 @@
+.superContainer {
+}
+
 .container {
-  font-family: var(--font-SFProDisplay);
   height: calc(100dvh - 100px);
   --height-studio: calc(100vh - 300px);
   transition-duration: 1s;
@@ -590,5 +592,43 @@
     width: 650px;
     // margin-left: -100px;
     transform: translateX(-100px);
+  }
+}
+
+.wrapInput {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  gap: 10px;
+
+  .labelInput {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.inputLabel {
+  background: white;
+  color: black;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 17px;
+  min-width: 200px;
+  height: 40px;
+
+  &::placeholder {
+    color: black;
+    opacity: 1; /* Firefox */
+  }
+
+  &::-ms-input-placeholder {
+    /* Edge 12 -18 */
+    color: black;
+  }
+
+  &[readOnly] {
+    pointer-events: none;
+    opacity: 0.8;
   }
 }

@@ -10,6 +10,12 @@ type Props = {
   chainDetailData?: OrderItem;
 };
 
-export type ChainDetailComponentProps = IActions & Props;
+type IResetModalTypes = {
+  isShowModal?: boolean;
+  setIsShowModal?: (flag: boolean) => void;
+  resetEditHandler?: () => void;
+};
+
+export type ChainDetailComponentProps = IActions & Props & IResetModalTypes;
 
 export type ChainDetailComponent = FC<ChainDetailComponentProps>;

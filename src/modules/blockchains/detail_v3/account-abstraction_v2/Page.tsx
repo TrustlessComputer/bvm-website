@@ -8,7 +8,7 @@ import ModalVideo from 'react-modal-video';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { getModelCategories, getTemplates } from '@/services/customize-model';
 import { formatCurrencyV2 } from '@/utils/format';
-import { Flex, Spacer } from '@chakra-ui/react';
+import { Flex, Spacer, Text, useDisclosure } from '@chakra-ui/react';
 import ExplorePage from '../../Buy/Explore';
 import BoxOptionV3 from '../../Buy/components3/BoxOptionV3';
 import ComputerNameInput from '../../Buy/components3/ComputerNameInput';
@@ -18,7 +18,7 @@ import ErrorModal from '../../Buy/components3/ErrorModal';
 import Label from '../../Buy/components3/Label';
 import LegoParent from '../../Buy/components3/LegoParent';
 import LegoV3 from '../../Buy/components3/LegoV3';
-import LegoV3 from '../../Buy/components3/LegoInput';
+import LegoInput from '../../Buy/components3/LegoInput';
 import SidebarV2 from '../../Buy/components3/SideBarV2';
 import { TABS } from '../../Buy/constants';
 import useOrderFormStoreV3, {
@@ -28,7 +28,7 @@ import useDragMask from '../../Buy/stores/useDragMask';
 import { MouseSensor } from '../../Buy/utils';
 import AppViewer from '../components/AppViewer';
 import Header from '../components/Header';
-import ToolBar from '../components/ToolBar';
+import ToolBar from '../components/ToolBar_v2';
 import s from './styles.module.scss';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import Capture from '../../Buy/Capture';
@@ -41,8 +41,11 @@ import {
 import { useOrderFormStore } from '../../Buy/stores/index_v2';
 import { useBuy } from '../../providers/Buy.hook';
 import { ACCOUNT_ABSTRACTION_MOCKUP_DATA } from './mockupData';
+import CostView from '../components/CostView';
+import LaunchButton from '../../Buy/components3/LaunchButton';
+import { ResetModal } from '../components/ResetModal';
 
-const MainPage = (props: any) => {
+const Page = (props: any) => {
   console.log('PHAT BuyPage PROPS -- ', props);
   const { chainDetailData } = props;
   // const modelCategories = useAppSelector(getModelCategoriesSelector);
@@ -70,8 +73,7 @@ const MainPage = (props: any) => {
     IModelCategory[]
   > | null>(null);
 
-  const { setChainName } = useOrderFormStore();
-  const { computerNameField, setComputerNameField, isMainnet } = useBuy();
+  // const { setChainName } = useOrderFormStore();
 
   const {
     field,
@@ -84,6 +86,14 @@ const MainPage = (props: any) => {
     needContactUs,
   } = useOrderFormStoreV3();
 
+  const {
+    isOpen: isOpenResetModal,
+    onOpen: onOpenResetModal,
+    onClose: onCloseResetModal,
+  } = useDisclosure({
+    id: 'RESET_MODAL_ID',
+  });
+
   const [tabActive, setTabActive] = React.useState<TABS>(TABS.CODE);
 
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
@@ -94,16 +104,7 @@ const MainPage = (props: any) => {
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
   const [isShowModal, setIsShowModal] = React.useState(false);
-  const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
   const { isCapture } = useCaptureStore();
-  const { l2ServiceUserAddress } = useWeb3Auth();
-
-  const cloneItemCallback = (template: IModelCategory[]) => {
-    setTabActive(TABS.CODE);
-    setFieldsDragged([]);
-    setIsShowModal(false);
-    setTempalteDataClone(template || []);
-  };
 
   const initDataByChainData = () => {
     setTabActive(TABS.CODE);
@@ -406,12 +407,6 @@ const MainPage = (props: any) => {
   }, [templates, chainDetailData]);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setChainName('HEELO');
-    }, 3000);
-  }, [templates, chainDetailData]);
-
-  React.useEffect(() => {
     const priceUSD = Object.keys(field).reduce((acc, key) => {
       if (Array.isArray(field[key].value)) {
         const currentOptions = (field[key].value as string[])!.map((value) => {
@@ -581,122 +576,105 @@ const MainPage = (props: any) => {
   }, [idDragging]);
 
   const resetEdit = () => {
-    // setFieldsDragged([]);
-    // setIsShowModal(false);
-    // initDataByChainData();
+    setFieldsDragged([]);
+    setTempalteDataClone([]);
   };
 
   return (
-    <Flex flexDir={'column'} px={['16px', '18px', '20px']}>
+    <Flex
+      flexDir={'column'}
+      px={['16px', '18px', '20px']}
+      className={s.superContainer}
+    >
       <div className={s.container}>
         <DndContext
           sensors={sensors}
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
         >
-          {/* <Header />
-        <Spacer h={'30px'} /> */}
-          {/* <ToolBar
-            tabSelected={tabActive}
-            hideRightView={!isTabCode}
-            onTabSelected={(tabIndex: number) => {
-              setTabActive(tabIndex);
-            }}
-            priceBVM={formatCurrencyV2({
-              amount: priceBVM || 0,
-              decimals: 0,
-            })}
-            priceBVMtoUSD={formatCurrencyV2({
-              amount: priceUSD || 0,
-              decimals: 0,
-            })}
-          /> */}
+          <Spacer h={'30px'} />
+          <ToolBar
+            rightView={<LaunchButton data={data} originalData={originalData} />}
+          />
 
           <Flex flexDir={'row'} mt={'20px'} gap={'10px'} w={'100%'}>
-            {/* <Flex className={s.thumbLegosContainer}>
-                <SidebarV2 items={data} />
-              </Flex> */}
-
             <Flex className={s.showroomLegosContainer}>
-              <Flex className={s.container}>
-                <DroppableV2 id="data">
-                  {data?.map((item, index) => {
-                    return (
-                      <BoxOptionV3
-                        key={item.key}
-                        disable={item.disable}
-                        label={item.title}
-                        id={item.key}
-                        isRequired={item.required}
-                        active={field[item.key].dragged}
-                        description={{
-                          title: item.title,
-                          content: item.tooltip,
-                        }}
-                      >
-                        {item.options.map((option, optIdx) => {
-                          let _price = formatCurrencyV2({
-                            amount: option.priceBVM || 0,
-                            decimals: 0,
-                          }).replace('.00', '');
-                          let suffix =
-                            Math.abs(option.priceBVM) > 0
-                              ? ` (${_price} BVM)`
-                              : '';
+              <DroppableV2 id="data">
+                {data?.map((item, index) => {
+                  return (
+                    <BoxOptionV3
+                      key={item.key}
+                      disable={item.disable}
+                      label={item.title}
+                      id={item.key}
+                      isRequired={item.required}
+                      active={field[item.key].dragged}
+                      description={{
+                        title: item.title,
+                        content: item.tooltip,
+                      }}
+                    >
+                      {item.options.map((option, optIdx) => {
+                        let _price = formatCurrencyV2({
+                          amount: option.priceBVM || 0,
+                          decimals: 0,
+                        }).replace('.00', '');
+                        let suffix =
+                          Math.abs(option.priceBVM) > 0
+                            ? ` (${_price} BVM)`
+                            : '';
 
-                          if (
-                            (option.key === field[item.key].value &&
-                              field[item.key].dragged) ||
-                            item.type === 'dropdown'
-                          )
+                        if (
+                          (option.key === field[item.key].value &&
+                            field[item.key].dragged) ||
+                          item.type === 'dropdown'
+                        )
+                          return null;
+
+                        const isDisabled =
+                          !!(
+                            option.supportNetwork &&
+                            option.supportNetwork !== 'both' &&
+                            option.supportNetwork !== field['network']?.value
+                          ) || !option.selectable;
+
+                        if (item.multiChoice && field[item.key].dragged) {
+                          const currentValues = field[item.key].value as any[];
+
+                          if (currentValues.includes(option.key)) {
                             return null;
-
-                          const isDisabled =
-                            !!(
-                              option.supportNetwork &&
-                              option.supportNetwork !== 'both' &&
-                              option.supportNetwork !== field['network']?.value
-                            ) || !option.selectable;
-
-                          if (item.multiChoice && field[item.key].dragged) {
-                            const currentValues = field[item.key]
-                              .value as any[];
-
-                            if (currentValues.includes(option.key)) {
-                              return null;
-                            }
                           }
+                        }
 
-                          return (
-                            <Draggable
-                              key={item.key + '-' + option.key}
-                              id={item.key + '-' + option.key}
-                              useMask
+                        return (
+                          <Draggable
+                            key={item.key + '-' + option.key}
+                            id={item.key + '-' + option.key}
+                            useMask
+                            disabled={isDisabled}
+                            isLabel={true}
+                            value={option.key}
+                            tooltip={option.tooltip}
+                          >
+                            <LegoV3
+                              background={item.color}
+                              zIndex={item.options.length - optIdx}
                               disabled={isDisabled}
-                              isLabel={true}
-                              value={option.key}
-                              tooltip={option.tooltip}
                             >
-                              <LegoV3
-                                background={item.color}
-                                zIndex={item.options.length - optIdx}
-                                disabled={isDisabled}
-                              >
-                                <Label
-                                  icon={option.icon}
-                                  title={option.title + suffix}
-                                />
-                              </LegoV3>
-                            </Draggable>
-                          );
-                        })}
-                      </BoxOptionV3>
-                    );
-                  })}
+                              <Label
+                                icon={option.icon}
+                                title={option.title + suffix}
+                              />
+                            </LegoV3>
+                          </Draggable>
+                        );
+                      })}
+                    </BoxOptionV3>
+                  );
+                })}
 
-                  <div className={s.hTrigger}></div>
-                </DroppableV2>
-              </Flex>
+                <div className={s.hTrigger}></div>
+              </DroppableV2>
             </Flex>
 
             <Flex flex={1} className={s.middleViewContainer}>
@@ -730,28 +708,34 @@ const MainPage = (props: any) => {
 
                         if (!option) return null;
 
-                        return (
-                          <Draggable
-                            right
-                            key={item.key + '-' + option.key}
-                            id={item.key + '-' + option.key}
-                            useMask
-                            tooltip={item.tooltip}
-                            value={option.key}
-                          >
-                            <LegoV3
-                              background={item.color}
-                              label={item.confuseTitle}
-                              labelInRight={
-                                !!item.confuseTitle || !!item.confuseIcon
-                              }
-                              icon={item.confuseIcon}
-                              zIndex={item.options.length - opIdx}
+                        if (item.type === 'form') {
+                          return (
+                            <Draggable
+                              key={item.key + '-' + option.key}
+                              id={item.key + '-' + option.key}
+                              useMask
+                              isLabel={true}
+                              value={option.key}
+                              tooltip={option.tooltip}
                             >
-                              {/* <ComputerNameInput /> */}
-                            </LegoV3>
-                          </Draggable>
-                        );
+                              <LegoV3
+                                background={item.color}
+                                zIndex={item.options.length - opIdx}
+                              >
+                                <div className={s.wrapInput}>
+                                  <span className={s.labelInput}>
+                                    {option.title}
+                                  </span>
+                                  <input
+                                    className={`${s.inputLabel}`}
+                                    name={item.key + '-' + option.key}
+                                    type={option.type}
+                                  />
+                                </div>
+                              </LegoV3>
+                            </Draggable>
+                          );
+                        }
                       },
                     );
 
@@ -780,7 +764,9 @@ const MainPage = (props: any) => {
                 <div className={s.cta_wrapper}>
                   <button
                     className={`${s.reset} ${s.gray}`}
-                    onClick={() => setIsShowModal(true)}
+                    onClick={() => {
+                      onOpenResetModal();
+                    }}
                   >
                     <div>
                       <ImagePlaceholder
@@ -836,12 +822,32 @@ const MainPage = (props: any) => {
                             id={item.key + '-' + option.key}
                             value={option.key}
                           >
-                            <LegoV3
+                            <LegoInput
                               background={item.color}
-                              label={item.title}
-                              labelInLeft
+                              label={item.confuseTitle}
+                              labelInRight={
+                                !!item.confuseTitle || !!item.confuseIcon
+                              }
+                              icon={item.confuseIcon}
                               zIndex={item.options.length - opIdx}
-                            ></LegoV3>
+                              labelInLeft
+                            >
+                              <Flex
+                                flexDir={'row'}
+                                align={'center'}
+                                gap={'10px'}
+                                width={'100%'}
+                              >
+                                <Text
+                                  fontSize={['18px']}
+                                  fontWeight={500}
+                                  minW={'max-content'}
+                                >
+                                  {option.title}
+                                </Text>
+                                <ComputerNameInput />
+                              </Flex>
+                            </LegoInput>
                           </Draggable>
                         );
                       },
@@ -907,37 +913,19 @@ const MainPage = (props: any) => {
           </Flex>
         </DndContext>
 
-        {/* <ErrorModal
-          title="Module Reset"
-          show={isShowModal}
-          onHide={() => {
-            setIsShowModal(false);
-          }}
-        >
-          <p className={s.resetDescription}>
-            Remove all selected modules and start again.
-          </p>
-
-          <div className={s.actions}>
-            <button
-              onClick={() => {
-                setIsShowModal(false);
-              }}
-              className={`${s.actions__button} ${s.actions__button__cancel}`}
-            >
-              Cancel
-            </button>
-            <button
-              onClick={resetEdit}
-              className={`${s.actions__button} ${s.actions__button__reset}`}
-            >
-              Reset
-            </button>
-          </div>
-        </ErrorModal> */}
+        {isOpenResetModal && (
+          <ResetModal
+            onClose={onCloseResetModal}
+            isOpen={isOpenResetModal}
+            onResetClick={() => {
+              onCloseResetModal();
+              resetEdit();
+            }}
+          />
+        )}
       </div>
     </Flex>
   );
 };
 
-export default MainPage;
+export default Page;

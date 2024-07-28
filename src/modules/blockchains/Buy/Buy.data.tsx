@@ -539,10 +539,10 @@ export const iconToolNames = [
   '/icons-tool/icon-wallet.svg',
   '/icons-tool/icon-yolo.svg',
   '/icons-tool/icon-zk.svg',
+  '/icons-tool/icon-gas.svg',
 ];
 
 export const mockupOptions: IModelCategory[] = [
-
   {
     hidden: false,
     id: '668f8ec088f822fe3ebd3477',
@@ -679,7 +679,6 @@ export const mockupOptions: IModelCategory[] = [
     // whitelistAddress: null,
     order: 1,
   },
-
 
   {
     hidden: false,
@@ -1022,7 +1021,7 @@ export const mockupOptions: IModelCategory[] = [
     title: 'Prover',
     required: false,
     tooltip:
-      'Prover is a crucial component responsible for generating cryptographic proofs that verify the correctness of transactions processed off-chain by the blockchain\'s sequencer.',
+      "Prover is a crucial component responsible for generating cryptographic proofs that verify the correctness of transactions processed off-chain by the blockchain's sequencer.",
     options: [
       {
         key: 'zk_prover',
