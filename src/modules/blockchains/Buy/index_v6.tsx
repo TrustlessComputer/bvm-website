@@ -328,7 +328,10 @@ const BuyPage = () => {
     //   (await getModelCategories(l2ServiceUserAddress)) || [];
 
     //TODO this is mocokup data
-    const modelCategories = mockupOptions;
+    // const modelCategories = mockupOptions;
+
+    const modelCategories =
+      (await getModelCategories(l2ServiceUserAddress)) || [];
 
     const _modelCategories = modelCategories.sort((a, b) => a.order - b.order);
     _modelCategories.forEach((_field) => {
@@ -629,7 +632,7 @@ const BuyPage = () => {
     <div
       className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
     >
-      <div className={s.logo}>
+      {/* <div className={s.logo}>
         <Image
           src={'/bvmstudio_logo.png'}
           alt={'bvmstudio_logo'}
@@ -640,7 +643,7 @@ const BuyPage = () => {
       <p className={s.container_text}>
         Drag and drop modules to start new blockchains, new dapps, and new
         economies.
-      </p>
+      </p>*/}
 
       <DndContext
         sensors={sensors}
@@ -680,6 +683,13 @@ const BuyPage = () => {
                         {data?.map((item, index) => {
                           if (item.hidden) return null;
 
+                          const currentPrice =
+                            item.options.find(
+                              (opt) =>
+                                opt.key === field[item.key].value &&
+                                field[item.key].dragged,
+                            )?.priceBVM ?? 0;
+
                           return (
                             <BoxOptionV3
                               key={item.key}
@@ -694,13 +704,34 @@ const BuyPage = () => {
                               }}
                             >
                               {item.options.map((option, optIdx) => {
-                                let _price = formatCurrencyV2({
-                                  amount: option.priceBVM || 0,
-                                  decimals: 0,
-                                }).replace('.00', '');
+                                // let _price = formatCurrencyV2({
+                                //   amount: option.priceBVM || 0,
+                                //   decimals: 0,
+                                // }).replace('.00', '');
+                                // let suffix =
+                                //   Math.abs(option.priceBVM) > 0
+                                //     ? ` (${_price} BVM)`
+                                //     : '';
+
+                                let _price = option.priceBVM;
+                                let operator = '+';
                                 let suffix =
-                                  Math.abs(option.priceBVM) > 0
-                                    ? ` (${_price} BVM)`
+                                  Math.abs(_price) > 0
+                                    ? ` (${formatCurrencyV2({
+                                        amount: _price,
+                                        decimals: 0,
+                                      })} BVM)`
+                                    : '';
+
+                                _price = option.priceBVM - currentPrice;
+                                operator = _price > 0 ? '+' : '-';
+                                if (item.multiChoice) operator = '';
+                                suffix =
+                                  Math.abs(_price) > 0
+                                    ? ` (${operator}${formatCurrencyV2({
+                                        amount: Math.abs(_price),
+                                        decimals: 0,
+                                      })} BVM)`
                                     : '';
 
                                 if (

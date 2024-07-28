@@ -29,7 +29,7 @@ export default function GroupProducts(): ReactElement {
                     <div className={s.group_item_icon_text}>
                       <div className={s.group_item_icon_text_wrap}>
                         <span className={s.group_item_icon_text_title}>
-                          BVM Studio
+                          Bitcoin Studio
                         </span>
                         {/* <small>New</small> */}
                       </div>

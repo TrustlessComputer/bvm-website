@@ -1,7 +1,7 @@
 export const FOOTER_DATA = {
   products: [
     {
-      title: 'Roll up',
+      title: 'Rollup',
       links: [
         {
           title: 'BitZK',
@@ -132,10 +132,10 @@ export const FOOTER_DATA = {
     },
   ],
   social: [
-    {
-      icon: '/icons/ic-blog.svg',
-      link: '/blog',
-    },
+    // {
+    //   icon: '/icons/ic-blog.svg',
+    //   link: '/blog',
+    // },
     {
       icon: '/icons/ic-x.svg',
       link: 'https://x.com/BVMnetwork',

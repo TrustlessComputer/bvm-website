@@ -1,33 +1,28 @@
 .wrapper {
-  background-color: #f9f9f9;
+  //background-color: #f9fF4F4F49f9;
   position: relative;
   z-index: 2;
-  //padding-top: 8px;
+  padding-top: 75px;
   padding-bottom: 75px;
   transform: translateY(-2px);
+  @include is-pc {
+    padding-top: 20px;
+  }
 }
 
 .heading {
   font-family: var(--font-JetBrainsMono);
   font-weight: 500;
-  line-height: calc(44/32);
+  line-height: calc(28/20);
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
   color: black;
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   margin-top: 16px;
 
-  @include is-min-table {
-    font-size: 24px;
-
-    margin-top: vh(32px, 1440px);
-  }
-  @include is-pc {
-    font-size: 32px;
-  }
 }
 
 .brand {
@@ -37,7 +32,7 @@
   gap: 24px;
 
   @include is-min-table {
-    gap: 40px;
+    gap: 32px;
   }
 
   &_item {
@@ -45,7 +40,7 @@
     align-items: center;
 
     &_img {
-      max-width: 90px;
+      max-width: 112px;
       object-fit: contain;
       height: auto;
     }
