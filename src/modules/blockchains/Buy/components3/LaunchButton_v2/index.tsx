@@ -24,6 +24,7 @@ import BaseModal from '@components/BaseModal';
 import ErrorModal from '../ErrorModal';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { formatCurrencyV2 } from '@/utils/format';
+import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/account-abstraction_v2/store/useAccountAbstractionStore';
 
 const LaunchButton = ({
   data,
@@ -41,6 +42,13 @@ const LaunchButton = ({
     | null;
   originalData: IModelCategory[] | null;
 }) => {
+  const {
+    feeRateErrMsg,
+    feeRate,
+    tokenContractAddress,
+    tokenContractAddressErrMsg,
+  } = useAccountAbstractionStore();
+
   const { field, priceBVM, priceUSD, needContactUs } = useOrderFormStoreV3();
   const { loggedIn, login } = useWeb3Auth();
   const { accountInforL2Service, availableListFetching, availableList } =
@@ -102,15 +110,6 @@ const LaunchButton = ({
       })
     );
   }, [chainName, field]);
-
-  const tierData = useMemo(() => {
-    const packageData = availableList?.package['2'];
-    const result = packageData?.filter((item) => {
-      return item.value === Number(packageParam);
-    });
-
-    return result ? result[0] : undefined;
-  }, [isFecthingData, availableList, packageParam]);
 
   const handleOnClick = async () => {
     if (!allFilled) {
@@ -226,7 +225,7 @@ const LaunchButton = ({
                 {isSubmiting ? (
                   <Spinner color="#fff" />
                 ) : (
-                  <p>{needContactUs ? 'Contact Us' : 'Launch'}</p>
+                  <p>{needContactUs ? 'Contact Us' : 'Install'}</p>
                 )}
 
                 {!needContactUs && (

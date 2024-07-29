@@ -36,7 +36,6 @@ Let's upgrade #Bitcoin beyond a currency together!
   };
 
   const exportAsImage = async () => {
-    console.log('1234');
     setTimeout(async () => {
       const image = await exportBase64();
       console.log('image', image);
@@ -51,7 +50,6 @@ Let's upgrade #Bitcoin beyond a currency together!
       setIsCapture(false);
       handleClickShareTwitter(res);
     }, 150);
-    console.log('666');
   };
 
   async function download() {

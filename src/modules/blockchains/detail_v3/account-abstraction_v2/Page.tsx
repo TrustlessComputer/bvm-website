@@ -26,9 +26,12 @@ import Capture from '../../Buy/Capture';
 import { useAppSelector } from '@/stores/hooks';
 import { getAvailableListTemplateSelector } from '@/stores/states/l2services/selector';
 import { ACCOUNT_ABSTRACTION_MOCKUP_DATA } from './mockupData';
-import LaunchButton from '../../Buy/components3/LaunchButton';
+// import LaunchButton from '../../Buy/components3/LaunchButton';
+import LaunchButton from '../../Buy/components3/LaunchButton_v2';
 import { ResetModal } from '../components/ResetModal';
 import useCaptureHelper from '../hook/useCaptureHelper';
+import AddressInput from './components/AddressInput';
+import FeeRateInput from './components/FeeRateInput';
 
 const Page = (props: any) => {
   // const modelCategories = useAppSelector(getModelCategoriesSelector);
@@ -399,6 +402,11 @@ const Page = (props: any) => {
 
                         if (!option) return null;
 
+                        const isAddressField =
+                          option.key === 'input_apps_address';
+
+                        console.log('OPTION::: ', option);
+
                         if (item.type === 'form') {
                           return (
                             <Draggable
@@ -413,16 +421,11 @@ const Page = (props: any) => {
                                 background={item.color}
                                 zIndex={item.options.length - opIdx}
                               >
-                                <div className={s.wrapInput}>
-                                  <span className={s.labelInput}>
-                                    {option.title}
-                                  </span>
-                                  <input
-                                    className={`${s.inputLabel}`}
-                                    name={item.key + '-' + option.key}
-                                    type={option.type}
-                                  />
-                                </div>
+                                {isAddressField ? (
+                                  <AddressInput option={option} />
+                                ) : (
+                                  <FeeRateInput option={option} />
+                                )}
                               </LegoV3>
                             </Draggable>
                           );
@@ -483,10 +486,10 @@ const Page = (props: any) => {
                   console.log('TO DO --- ', item);
                 }}
                 onExport={() => {
-                  console.log('onExportClick TODO');
+                  download();
                 }}
                 onShare={() => {
-                  console.log('onShareClick TODO');
+                  exportAsImage();
                 }}
               />
             </Flex>

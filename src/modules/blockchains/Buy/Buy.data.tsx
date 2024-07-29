@@ -540,6 +540,7 @@ export const iconToolNames = [
   '/icons-tool/icon-yolo.svg',
   '/icons-tool/icon-zk.svg',
   '/icons-tool/icon-gas.svg',
+  '/icons-tool/icon-address.svg',
 ];
 
 export const mockupOptions: IModelCategory[] = [

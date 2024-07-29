@@ -549,19 +549,19 @@
   padding-right: 5px;
   border-radius: 17px;
 
-
   &::placeholder {
     color: black;
     opacity: 1; /* Firefox */
   }
 
-  &::-ms-input-placeholder { /* Edge 12 -18 */
+  &::-ms-input-placeholder {
+    /* Edge 12 -18 */
     color: black;
   }
 
   &[readOnly] {
     pointer-events: none;
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 
@@ -574,4 +574,3 @@
     color: white;
   }
 }
-
