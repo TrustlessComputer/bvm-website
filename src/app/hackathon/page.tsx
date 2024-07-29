@@ -5,6 +5,7 @@ import { CDN_URL } from '@/config';
 import { APP_NAME } from '@/config/metadata';
 import HackathonModule from '@/modules/hackathon';
 import { Box } from '@chakra-ui/react';
+import { redirect } from 'next/navigation';
 
 // const metadataThumbnail = `${CDN_URL}/images/gamefi.png`; // TODO: Update new thumbnail
 
@@ -32,24 +33,26 @@ import { Box } from '@chakra-ui/react';
 // };
 
 const HackathonPage = () => {
-  return (
-    <MainLayout
-      headerProps={{
-        color: 'white',
-        colorLogo: 'white',
-        bgColor: 'transparent',
-        position: 'absolute',
-      }}
-      bodyColor={'#151515'}
-      hideFooter={true}
-    >
-      <>
-        <Box height="92px" />
-        <Loader />
-        <HackathonModule />
-      </>
-    </MainLayout>
-  );
+  return redirect('/');
+
+  // return (
+  //   <MainLayout
+  //     headerProps={{
+  //       color: 'white',
+  //       colorLogo: 'white',
+  //       bgColor: 'transparent',
+  //       position: 'absolute',
+  //     }}
+  //     bodyColor={'#151515'}
+  //     hideFooter={true}
+  //   >
+  //     <>
+  //       <Box height="92px" />
+  //       <Loader />
+  //       <HackathonModule />
+  //     </>
+  //   </MainLayout>
+  // );
 };
 
 export default HackathonPage;

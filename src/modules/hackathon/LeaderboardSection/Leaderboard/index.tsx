@@ -9,7 +9,7 @@ import { IGetParams } from '@/modules/Vote/Proposals/ListProposal';
 import cn from 'classnames';
 import Avatar from '@/components/Avatar';
 import useNakaAuthen from '@/hooks/useRequestNakaAccount';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import IcCheck from '@/public/hackathon/ic-check.svg';
 import IcClose from '@/public/hackathon/ic-close-red.svg';
 import moment from 'moment';
@@ -97,7 +97,11 @@ const Leaderboard = (props: Props) => {
         className={isPassed ? s.passed : s.failed}
       >
         {formattedTime}
-        {isPassed ? <IcCheck /> : <IcClose />}
+        {isPassed ? (
+          <Image src="/hackathon/ic-check.svg" />
+        ) : (
+          <Image src="/hackathon/ic-close-red.svg" />
+        )}
       </Flex>
     );
   };
