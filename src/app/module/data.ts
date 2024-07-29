@@ -395,11 +395,11 @@ export const MODULE_DATAS = {
       },
     },
     why: {
-      title: 'Why Bitcoin Studio?',
-      desc: `No code required! Bitcoin Studio makes it fun and accessible for anyone to create a blockchain tailored to their needs.`,
+      title: 'Why Bitcoin RaaS Studio?',
+      desc: `No code required! Bitcoin RaaS Studio makes it fun and accessible for anyone to create a blockchain tailored to their needs.`,
     },
     benefit: {
-      title: 'Benefits of Bitcoin Studio',
+      title: 'Benefits of Bitcoin RaaS Studio',
       contents: [
         {
           title: 'No code required',

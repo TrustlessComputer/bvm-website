@@ -1,0 +1,116 @@
+.heroVideo {
+  background: #FFFFFF;
+  padding-top: 80px;
+
+  &_inner {
+    position: relative;
+    height: calc(100vh - 120px);
+    width: 100%;
+    overflow: hidden;
+
+    &:after{
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      background: rgba(#000, .2);
+    }
+
+    &:before{
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 57.6%, rgba(0, 0, 0, 0.8) 100%);
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+    }
+  }
+
+  &_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    video{
+      height: 100%;
+      transform: scale(1.018);
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1321px;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  position: relative;
+  padding-top: 28px;
+  align-items: center;
+
+  @include is-min-table {
+    padding-bottom: 40px;
+    padding-top: 40px;
+  }
+
+  @include is-pc {
+    padding-bottom: 100px;
+    padding-top: 64px;
+    align-items: flex-start;
+    max-width: 571px;
+  }
+
+  &_heading {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  &_sub {
+    background: linear-gradient(90deg, rgba(0, 245, 160, 0.4) 0%, rgba(0, 217, 245, 0.4) 100%);
+    border-radius: 100px;
+    padding: 6px 16px;
+    margin-bottom: 12px;
+
+    p {
+      font-weight: 500;
+      color: black;
+      font-size: 18px;
+    }
+
+    svg {
+      width: 32px;
+      transform: translateY(-.1em);
+      height: auto;
+    }
+
+    &_title {
+      color: #fa4e0e;
+      font-family: var(--font-JetBrainsMono);
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 100%;
+
+      @include is-min-table {
+        font-size: 52px;
+      }
+    }
+  }
+}
