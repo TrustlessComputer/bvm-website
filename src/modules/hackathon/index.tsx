@@ -1,11 +1,9 @@
 import React from 'react';
 import s from './HackathonModue.module.scss';
 import cn from 'classnames';
-import { Box, Text } from '@chakra-ui/react';
-// import Image from 'next/image';
-import { CDN_URL } from '@/config';
+import { Box, Image as ChakraImage, Text } from '@chakra-ui/react';
 import Image from 'next/image';
-import IcReward from '@/public/hackathon/ic-reward.svg';
+import { CDN_URL } from '@/config';
 import Fade from '@/interactive/Fade';
 import LeaderboardSection from './LeaderboardSection';
 
@@ -19,7 +17,7 @@ const HackathonModule = (props: Props) => {
           {/* <Fade from={{ y: 40 }} to={{ y: 0 }}> */}
           <div className={s.left}>
             <div className={s.reward}>
-              <IcReward />
+              <ChakraImage src="/hackathon/ic-reward.svg" />
               <div>
                 <Text
                   fontFamily={'SF Pro Display'}
