@@ -359,7 +359,10 @@ const RightDroppable = () => {
                               {...thisBaseModule}
                               preview={false}
                               key={item.name}
-                              background={adjustBrightness(mainColor, -20)}
+                              background={adjustBrightness(
+                                thisBaseModule.background || mainColor,
+                                -20,
+                              )}
                               first={false}
                               last={false}
                               titleInLeft={false}
@@ -407,7 +410,10 @@ const RightDroppable = () => {
                                   thisBlock.title +
                                   (needSuffix ? ' #' + blockCount : '')
                                 }
-                                background={adjustBrightness(mainColor, -10)}
+                                background={adjustBrightness(
+                                  thisBlock.background || mainColor,
+                                  -10,
+                                )}
                                 smallMarginHeaderTop
                               >
                                 {thisBlock.fields.map((field) => {
@@ -583,7 +589,8 @@ const RightDroppable = () => {
                                           <Lego
                                             key={value}
                                             background={adjustBrightness(
-                                              mainColor,
+                                              thisModule.background ||
+                                                mainColor,
                                               -40,
                                             )}
                                             first={false}
@@ -620,7 +627,10 @@ const RightDroppable = () => {
                                 <Lego
                                   {...thisModule}
                                   preview={false}
-                                  background={adjustBrightness(mainColor, -20)}
+                                  background={adjustBrightness(
+                                    thisModule.background || mainColor,
+                                    -20,
+                                  )}
                                   first={false}
                                   last={false}
                                   titleInLeft={false}
@@ -669,7 +679,10 @@ const RightDroppable = () => {
                       return (
                         <Lego
                           key={item.name}
-                          background={adjustBrightness(mainColor, -20)}
+                          background={adjustBrightness(
+                            thisBaseModule.background || mainColor,
+                            -20,
+                          )}
                           first={false}
                           last={false}
                           titleInLeft={true}
@@ -809,7 +822,7 @@ const RightDroppable = () => {
                                     <Lego
                                       key={value}
                                       background={adjustBrightness(
-                                        mainColor,
+                                        thisModule.background || mainColor,
                                         -40,
                                       )}
                                       first={false}
@@ -844,7 +857,10 @@ const RightDroppable = () => {
                             <Lego
                               {...thisModule}
                               preview={false}
-                              background={adjustBrightness(mainColor, -20)}
+                              background={adjustBrightness(
+                                thisModule.background || mainColor,
+                                -20,
+                              )}
                               first={false}
                               last={false}
                               titleInLeft={false}

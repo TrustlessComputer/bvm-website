@@ -384,6 +384,7 @@ export const dappMockupData: DappModel[] = [
         placableAmount: -1,
         section: 'staking_token',
         preview: true,
+        background: '#A041FF',
         fields: [
           {
             key: 'eth',
@@ -414,6 +415,7 @@ export const dappMockupData: DappModel[] = [
         preview: true,
         placableAmount: 1,
         section: 'reward_token',
+        background: '#15C888',
         fields: [
           {
             key: 'eth',

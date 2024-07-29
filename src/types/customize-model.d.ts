@@ -108,6 +108,7 @@ interface BlockModel {
   fields: FieldModel[];
   section: string;
   preview: boolean;
+  background?: string;
 }
 
 interface DappModel {
@@ -137,7 +138,7 @@ interface DappModel {
   action?: {
     title: string;
     actionMapperID: string;
-  }
+  };
 }
 
 interface TemplateForm {

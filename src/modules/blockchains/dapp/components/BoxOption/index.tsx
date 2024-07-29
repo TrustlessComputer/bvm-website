@@ -141,7 +141,7 @@ const BoxOption = ({}: Props) => {
                             >
                               <Lego
                                 {...field}
-                                background={mainColor}
+                                background={item.background || mainColor}
                                 first={false}
                                 last={false}
                                 titleInLeft={true}
@@ -174,7 +174,7 @@ const BoxOption = ({}: Props) => {
                             >
                               <Lego
                                 {...field}
-                                background={mainColor}
+                                background={item.background || mainColor}
                                 first={false}
                                 last={false}
                                 titleInLeft={true}
