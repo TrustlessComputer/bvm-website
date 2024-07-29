@@ -23,6 +23,7 @@ export type SubmitFormParams = {
   telegram: string;
   isContractUs: boolean;
   subject: string;
+  email?: string;
 
   //NEW
   nodeConfigs?: any[];

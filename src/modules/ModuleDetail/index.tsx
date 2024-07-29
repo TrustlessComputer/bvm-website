@@ -71,6 +71,21 @@ const ModuleDetail = ({ data }: { data: IMODULE }): React.JSX.Element => {
             </div>
           </Fade>
         )}
+
+        {data.hiw?.video && (
+          <Fade delay={0.3} from={{ y: 40 }} to={{ y: 0 }}>
+            <div>
+              <video
+                className={s.hiwVideo}
+                src={data.hiw?.video}
+                width={160}
+                height={90}
+                controls
+                playsInline
+              />
+            </div>
+          </Fade>
+        )}
       </Section>
       {!!data?.footer && (
         <div className={s.footer}>

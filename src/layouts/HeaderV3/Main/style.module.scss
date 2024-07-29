@@ -1,5 +1,41 @@
 .wrapper {
   height: auto;
+  &_banner {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    cursor: pointer;
+    @include is-pc {
+      height: 80px;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background-color: #f85c01;
+      z-index: -1;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background-color: #0d87ff;
+      z-index: -1;
+    }
+    img {
+      width: auto;
+      height:  100%;
+      object-fit: cover;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 }
 
 .inner {

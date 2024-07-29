@@ -16,6 +16,7 @@ interface IModelOption {
   value: string | number | IDappValue[];
   needContactUs: boolean;
   keyDapp?: string;
+  type?: 'text' | 'number';
 }
 
 interface IModelCategory {
@@ -25,7 +26,7 @@ interface IModelCategory {
   title: string;
   color: string;
   key: string;
-  type: '' | 'dropdown' | 'slide' | 'module';
+  type: '' | 'dropdown' | 'slide' | 'module' | 'form';
   required: boolean;
   options: IModelOption[];
   disable: boolean;
@@ -35,6 +36,7 @@ interface IModelCategory {
   confuseTitle: string;
   confuseIcon: string;
   multiChoice: boolean;
+  hidden: boolean;
 }
 
 interface ITemplate {
