@@ -1,0 +1,62 @@
+.itemArticle {
+  display: flex;
+  flex-direction: column;
+
+  &_wrapImg {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+
+    &_img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &_content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 20px;
+
+    @include is-mobile {
+      gap: 20px;
+    }
+    &_title {
+      font-weight: 400;
+      color: #000;
+      font-family: var(--font-dmsans);
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 130%;
+      @include is-mobile {
+        font-size: 16px;
+      }
+      @include is-tablet {
+        min-height: 46px;
+      }
+    }
+    &_description {
+      color: #515478;
+      font-family: var(--font-dmsans);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+
+      @include is-mobile {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.cardLogo {
+  padding-bottom: 16px;
+
+  img {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+  }
+}
