@@ -30,13 +30,13 @@ const MainPage = (props: Props) => {
       /> */}
       <Section
         title="Mainnet"
-        description="Live network structures powered by BVM, fully operational and deployed."
+        // description="Live network structures powered by BVM, fully operational and deployed."
         dataList={mainnetList}
         cloneItemCallback={cloneItemCallback}
       />
       <Section
         title="Testnet"
-        description="Networks are currently in the testing phase and will go live in the future."
+        // description="Networks are currently in the testing phase and will go live in the future."
         dataList={testnetList}
         cloneItemCallback={cloneItemCallback}
       />
