@@ -98,6 +98,7 @@ interface FieldModel {
   placeholder?: string;
   level?: number;
   selectable?: boolean;
+  background?: string;
 }
 
 interface BlockModel {
@@ -108,6 +109,7 @@ interface BlockModel {
   fields: FieldModel[];
   section: string;
   preview: boolean;
+  background?: string;
 }
 
 interface DappModel {
@@ -119,6 +121,7 @@ interface DappModel {
   icon: string;
   order: number;
   color: string;
+  color_border?: string;
   label?: {
     title: string;
     background: string;
@@ -137,7 +140,8 @@ interface DappModel {
   action?: {
     title: string;
     actionMapperID: string;
-  }
+    color?: string;
+  };
 }
 
 interface TemplateForm {

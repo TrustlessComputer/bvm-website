@@ -78,14 +78,16 @@
   }
 
   &__disabled {
-    opacity: 0.5;
-    pointer-events: none;
+    opacity: 0.4;
+    pointer-events: none !important;
+    cursor: not-allowed !important;
   }
 
   &__preview {
     .lego__inner {
-      flex-direction: column;
-      align-items: flex-start;
+      //flex-direction: column;
+      //align-items: flex-start;
+      flex-direction: row;
       .lego__inner__label {
         font-size: 14px;
       }

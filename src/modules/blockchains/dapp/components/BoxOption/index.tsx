@@ -83,7 +83,7 @@ const BoxOption = ({}: Props) => {
                   >
                     <Lego
                       {...thisDapp.baseBlock}
-                      background={mainColor}
+                      background={thisDapp?.baseBlock?.background || mainColor}
                       first={false}
                       last={false}
                       titleInLeft={true}
@@ -110,7 +110,7 @@ const BoxOption = ({}: Props) => {
                         >
                           <Lego
                             {...item}
-                            background={mainColor}
+                            background={item?.background || mainColor}
                             first={false}
                             last={false}
                             titleInLeft={true}
@@ -137,11 +137,14 @@ const BoxOption = ({}: Props) => {
                                 title: field.title,
                                 icon: field.icon,
                                 value: field.value,
+                                background: item.background || mainColor,
                               }}
+                              disabled={!field.selectable}
                             >
                               <Lego
                                 {...field}
-                                background={mainColor}
+                                background={item.background || mainColor}
+                                disabled={!field.selectable}
                                 first={false}
                                 last={false}
                                 titleInLeft={true}
@@ -170,11 +173,14 @@ const BoxOption = ({}: Props) => {
                                 title: field.title,
                                 icon: field.icon,
                                 value: field.value,
+                                background: item.background || mainColor,
                               }}
+                              disabled={!field.selectable}
                             >
                               <Lego
                                 {...field}
-                                background={mainColor}
+                                background={item.background || mainColor}
+                                disabled={!field.selectable}
                                 first={false}
                                 last={false}
                                 titleInLeft={true}

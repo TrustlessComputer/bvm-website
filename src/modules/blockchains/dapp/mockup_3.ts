@@ -6,7 +6,7 @@ export const dappMockupData: DappModel[] = [
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
     order: 1,
     color: '#F76649',
-    color_rendered: '#F76649',
+    color_border: '#A041FF',
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
@@ -53,8 +53,10 @@ export const dappMockupData: DappModel[] = [
       placableAmount: -1,
       section: 'information',
       preview: true,
+      background: '#00AA6C',
       fields: [
         {
+          background: '#00AA6C',
           key: 'token_name',
           title: 'Token Name',
           type: 'input',
@@ -64,6 +66,7 @@ export const dappMockupData: DappModel[] = [
           options: [],
         },
         {
+          background: '#00AA6C',
           key: 'token_symbol',
           title: 'Symbol',
           type: 'input',
@@ -73,6 +76,7 @@ export const dappMockupData: DappModel[] = [
           options: [],
         },
         {
+          background: '#00AA6C',
           key: 'token_supply',
           title: 'Total Supply',
           type: 'input',
@@ -82,6 +86,7 @@ export const dappMockupData: DappModel[] = [
           options: [],
         },
         {
+          background: '#00AA6C',
           key: 'receiver_address',
           title: 'Receiver Address',
           type: 'input',
@@ -100,8 +105,10 @@ export const dappMockupData: DappModel[] = [
         placableAmount: -1,
         section: 'tokenomics',
         preview: true,
+        background: '#F8B200',
         fields: [
           {
+            background: '#F8B200',
             key: 'name',
             title: 'Name',
             type: 'input',
@@ -111,6 +118,7 @@ export const dappMockupData: DappModel[] = [
             options: [],
           },
           {
+            background: '#F8B200',
             key: 'total_amount',
             title: 'Amount',
             type: 'input',
@@ -120,6 +128,7 @@ export const dappMockupData: DappModel[] = [
             options: [],
           },
           {
+            background: '#F8B200',
             key: 'address',
             title: 'Receiver Address',
             type: 'input',
@@ -343,7 +352,6 @@ export const dappMockupData: DappModel[] = [
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-staking.svg',
     order: 2,
     color: '#F76649',
-    color_rendered: '#F76649',
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
@@ -384,7 +392,18 @@ export const dappMockupData: DappModel[] = [
         placableAmount: -1,
         section: 'staking_token',
         preview: true,
+        background: '#A041FF',
         fields: [
+          {
+            key: 'bvm',
+            title: 'BVM', // symbol
+            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+            selectable: true,
+          },
           {
             key: 'eth',
             title: 'ETH', // symbol
@@ -393,15 +412,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             type: '',
             options: [],
-          },
-          {
-            key: 'bvm',
-            title: 'BVM', // symbol
-            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-            tooltip: '',
-            type: '',
-            options: [],
+            selectable: false,
           },
         ],
       },
@@ -414,7 +425,18 @@ export const dappMockupData: DappModel[] = [
         preview: true,
         placableAmount: 1,
         section: 'reward_token',
+        background: '#15C888',
         fields: [
+          {
+            key: 'bvm',
+            title: 'BVM', // symbol
+            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+            selectable: true,
+          },
           {
             key: 'eth',
             title: 'ETH', // symbol
@@ -423,15 +445,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             type: '',
             options: [],
-          },
-          {
-            key: 'bvm',
-            title: 'BVM', // symbol
-            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-            tooltip: '',
-            type: '',
-            options: [],
+            selectable: false,
           },
         ],
       },
@@ -444,6 +458,7 @@ export const dappMockupData: DappModel[] = [
         placableAmount: 1,
         section: 'info',
         preview: true,
+        background: '#F8B200',
         fields: [
           {
             key: 'rate',
@@ -454,6 +469,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: 'Exchange rate between staking token and reward token.',
             placeholder: 'eg. 1',
             options: [],
+            background: '#F8B200',
           },
           {
             key: 'apr',
@@ -464,6 +480,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             placeholder: 'eg. 20%',
             options: [],
+            background: '#F8B200',
           },
           {
             key: 'amount',
@@ -474,6 +491,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             placeholder: 'eg. 100,000',
             options: [],
+            background: '#F8B200',
           },
         ],
       },
