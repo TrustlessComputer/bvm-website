@@ -1,0 +1,80 @@
+.wrapper {
+    background: #151515;
+    // height: calc(100vh - 92px);
+    margin-top: 100px;
+    padding-bottom: 113px;
+    display: flex;
+    align-items: center;
+    gap: 77px;
+
+    .left {
+        flex: 0.4;
+
+        .reward {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-radius: 12px;
+            border: 2px solid #FF8008;
+            background: linear-gradient(90deg, rgba(255, 128, 8, 0.10) 0%, rgba(255, 200, 55, 0.10) 100%);
+            width: fit-content;
+            margin-bottom: 40px;
+            padding: 12px 32px 12px 12px;
+
+            .reward_amount {
+                font-family: "JetBrains Mono";
+                font-size: 28px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 120%;
+                /* 33.6px */
+                letter-spacing: 0.84px;
+                background: linear-gradient(0deg, #FF8008 -17.65%, #FFC837 100%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+
+        .title {
+            color: #FFF;
+            font-family: "JetBrains Mono";
+            font-size: 60px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            margin-bottom: 28px;
+        }
+
+        .desc {
+            color: rgba(255, 255, 255, 0.60);
+            font-family: "SF Pro Display";
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 170%;
+            margin-bottom: 28px;
+            /* 34px */
+        }
+
+        .reward_btn {
+            color: #FFF;
+            text-align: center;
+            font-family: "SF Pro Display";
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 510;
+            line-height: 20px;
+            /* 111.111% */
+            height: 54px;
+            padding: 0px 32px;
+            border-radius: 100px;
+            background: #FA4E0E;
+        }
+
+    }
+
+    .right {
+        flex: 0.6;
+    }
+}

@@ -36,6 +36,7 @@ const ContactUsModal = ({
   subjectDefault,
   disableSelect = false,
   changeText = false,
+  nodeConfigs = [],
   params,
 }: any) => {
   const [subject, setSubject] = useState(subjectDefault);
@@ -125,7 +126,7 @@ const ContactUsModal = ({
       // console.log('methodContact ', methodContact);
 
       if (valid) {
-        const submitParams: SubmitFormParams = {
+        let submitParams: SubmitFormParams = {
           bitcoinL2Name: '',
           bitcoinL2Description: yourPlan,
           network: '',
@@ -133,18 +134,33 @@ const ContactUsModal = ({
           blockTime: '',
           rollupProtocol: '',
           withdrawPeriod: '',
-          email:
-            methodContact === METHODS_CONTACT_ENUM.Email ? methodInput : '',
-          twName:
-            methodContact === METHODS_CONTACT_ENUM.Twitter ? methodInput : '',
-          telegram:
-            methodContact === METHODS_CONTACT_ENUM.Telegram ? methodInput : '',
           isContractUs: true,
           subject: SUBJECT_LIST[subject],
-          nodeConfigs: params ? params : [],
+          nodeConfigs: nodeConfigs,
         };
 
-        console.log('[submitHandler] Params: ', submitParams);
+        if (methodContact === METHODS_CONTACT_ENUM.Email) {
+          submitParams = {
+            ...submitParams,
+            email: methodInput,
+          };
+        }
+
+        if (methodContact === METHODS_CONTACT_ENUM.Telegram) {
+          submitParams = {
+            ...submitParams,
+            telegram: methodInput,
+          };
+        }
+
+        if (methodContact === METHODS_CONTACT_ENUM.Twitter) {
+          submitParams = {
+            ...submitParams,
+            twName: methodInput,
+          };
+        }
+
+        console.log('[submitHandler] SubmitFormParams: ', submitParams);
         const result = await submitContact(submitParams);
         console.log('[submitHandler] result: ', result);
         if (result) {
@@ -369,15 +385,14 @@ const ContactUsModal = ({
           >
             <div>
               <Text fontSize={['18px', '20px', '24px']} fontWeight={500}>
-                {
-                  params.changeText ? 'Finish your setup' : 'Get a personalized demo'
-                }
+                {params.changeText
+                  ? 'Finish your setup'
+                  : 'Get a personalized demo'}
               </Text>
               <Text fontSize={['14', '16']} fontWeight={400}>
-
-                {
-                  params.changeText ? 'You\'ve chosen Optimistic Rollup for your blockchain and it can\'t be done automatically yet. We will reach out to you shortly to help complete your setup.' : 'Help us tailor the demo experience to your needs.'
-                }
+                {params.changeText
+                  ? "You've chosen Optimistic Rollup for your blockchain and it can't be done automatically yet. We will reach out to you shortly to help complete your setup."
+                  : 'Help us tailor the demo experience to your needs.'}
               </Text>
             </div>
 

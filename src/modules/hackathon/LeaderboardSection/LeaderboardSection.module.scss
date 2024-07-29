@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    gap: 28px;
+    height: 100vh;
+    padding: 120px 0;
+
+    h4 {
+        color: #FFF;
+        font-family: "JetBrains Mono";
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+        /* 28.8px */
+        letter-spacing: 0.72px;
+    }
+
+
+    .left {
+        flex: 0.6;
+    }
+
+    .right {
+        flex: 0.4;
+    }
+
+}
