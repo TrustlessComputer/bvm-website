@@ -386,9 +386,9 @@ export const MODULE_DATAS = {
     hero: {
       theme:
         'linear-gradient(180deg, rgba(255, 132, 86, 0.80) -5.57%, rgba(255, 132, 86, 0.00) 98.47%)',
-      title: 'Bitcoin Studio',
+      title: 'Bitcoin RaaS Studio',
       subTitle: 'TOOLS',
-      desc: 'A fun way to customize your blockchain to meet your needs.',
+      desc: 'A fast, simple, and fun way to build your own ZK rollup on Bitcoin.',
       start: {
         text: 'Get started',
         link: BVM_STUDIO,

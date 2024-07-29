@@ -623,18 +623,6 @@ const BuyPage = () => {
     <div
       className={`${s.container} ${isTabCode ? '' : s.explorePageContainer}`}
     >
-     {/* <div className={s.logo}>
-        <Image
-          src={'/bvmstudio_logo.png'}
-          alt={'bvmstudio_logo'}
-          width={549}
-          height={88}
-        />
-      </div>
-      <p className={s.container_text}>
-        Drag and drop modules to start new blockchains, new dapps, and new
-        economies.
-      </p>*/}
 
       <DndContext
         sensors={sensors}
@@ -649,13 +637,13 @@ const BuyPage = () => {
                   className={`${s.top_left_filter} ${isTabCode && s.active}`}
                   onClick={() => setTabActive(TABS.CODE)}
                 >
-                  <p>Code</p>
+                  <p>Studio</p>
                 </div>
                 <div
                   className={`${s.top_left_filter} ${!isTabCode && s.active}`}
                   onClick={() => setTabActive(TABS.EXPLORE)}
                 >
-                  <p>Explore</p>
+                  <p>Rollups</p>
                 </div>
               </div>
 
