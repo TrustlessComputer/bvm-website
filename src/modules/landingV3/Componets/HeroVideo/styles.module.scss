@@ -1,10 +1,11 @@
 .heroVideo {
   background: #FFFFFF;
-  padding-top: 80px;
+  --header-size: 97px;
+  padding-top: var(--header-size);
 
   &_inner {
     position: relative;
-    height: calc(100vh - 120px);
+    height: calc(100vh - var(--header-size));
     width: 100%;
     overflow: hidden;
 
