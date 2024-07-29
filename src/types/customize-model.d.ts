@@ -138,6 +138,7 @@ interface DappModel {
   action?: {
     title: string;
     actionMapperID: string;
+    color?: string;
   };
 }
 

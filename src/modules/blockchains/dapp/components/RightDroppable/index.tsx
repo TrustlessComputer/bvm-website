@@ -878,7 +878,7 @@ const RightDroppable = () => {
 
                   {thisDapp.action && (
                     <BottomButton
-                      color={adjustBrightness(mainColor, -20)}
+                      color={thisDapp.action.color || mainColor}
                       dapp={thisDapp}
                     />
                   )}

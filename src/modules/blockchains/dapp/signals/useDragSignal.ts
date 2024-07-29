@@ -13,6 +13,7 @@ export const blockDraggingSignal = signal<{
   id: string;
   title: string;
   icon: string;
+  background?: string;
 }>({
   id: '',
   title: '',
