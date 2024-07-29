@@ -44,8 +44,6 @@ import { ResetModal } from './components/ResetModal';
 import useCaptureHelper from './hook/useCaptureHelper';
 
 const MainPage = (props: ChainDetailComponentProps) => {
-  console.log('PHAT BuyPage PROPS -- ', props);
-
   const { chainDetailData } = props;
   const modelCategories = useAppSelector(getModelCategoriesSelector);
   const availableListTemplate = useAppSelector(
@@ -75,7 +73,8 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
   const { chainName } = useOrderFormStore();
 
-  console.log('chainName ', chainName);
+  // console.log('chainName ', chainName);
+
   const {
     field,
     setField,
@@ -249,7 +248,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
       isCurrentEmpty && setFieldsDragged((prev) => [...prev, activeKey]);
     } else {
       const currentValues = (field[activeKey].value || []) as string[];
-      const newValue = currentValues.filter(
+      const newValue = currentValues?.filter(
         (value) => value !== active.data.current.value,
       );
       const isEmpty = newValue.length === 0;
@@ -384,22 +383,26 @@ const MainPage = (props: ChainDetailComponentProps) => {
     data?.forEach((item) => {
       if (item.multiChoice) {
         const currentValues = (field[item.key].value || []) as string[];
-        const newValues = currentValues.filter((value) => {
-          const option = item.options.find((opt) => opt.key === value);
 
-          if (!option) return false;
+        let newValues: any[] = [];
 
-          const isDisabled =
-            !!(
-              option.supportNetwork &&
-              option.supportNetwork !== 'both' &&
-              option.supportNetwork !== field['network']?.value
-            ) ||
-            !option.selectable ||
-            !option.updatable;
+        if (Array.isArray(currentValues))
+          newValues = currentValues?.filter((value) => {
+            const option = item.options.find((opt) => opt.key === value);
 
-          return !isDisabled;
-        });
+            if (!option) return false;
+
+            const isDisabled =
+              !!(
+                option.supportNetwork &&
+                option.supportNetwork !== 'both' &&
+                option.supportNetwork !== field['network']?.value
+              ) ||
+              !option.selectable ||
+              !option.updatable;
+
+            return !isDisabled;
+          });
 
         if (newValues.length === 0) {
           setField(item.key, null, false);

@@ -1,15 +1,8 @@
 import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
 import gsap from 'gsap';
-import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import ModalVideo from 'react-modal-video';
-
-import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { getModelCategories, getTemplates } from '@/services/customize-model';
-import { formatCurrencyV2 } from '@/utils/format';
 import { Flex, Spacer, Text, useDisclosure } from '@chakra-ui/react';
-import ExplorePage from '../../Buy/Explore';
 import BoxOptionV3 from '../../Buy/components3/BoxOptionV3';
 import ComputerNameInput from '../../Buy/components3/ComputerNameInput';
 import Draggable from '../../Buy/components3/Draggable';
@@ -19,8 +12,6 @@ import Label from '../../Buy/components3/Label';
 import LegoParent from '../../Buy/components3/LegoParent';
 import LegoV3 from '../../Buy/components3/LegoV3';
 import LegoInput from '../../Buy/components3/LegoInput';
-import SidebarV2 from '../../Buy/components3/SideBarV2';
-import { TABS } from '../../Buy/constants';
 import useOrderFormStoreV3, {
   useCaptureStore,
 } from '../../Buy/stores/index_v3';
@@ -33,26 +24,20 @@ import s from './styles.module.scss';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import Capture from '../../Buy/Capture';
 import { useAppSelector } from '@/stores/hooks';
-import {
-  getAvailableListTemplateSelector,
-  getL2ServicesStateSelector,
-  getModelCategoriesSelector,
-} from '@/stores/states/l2services/selector';
-import { useOrderFormStore } from '../../Buy/stores/index_v2';
-import { useBuy } from '../../providers/Buy.hook';
+import { getAvailableListTemplateSelector } from '@/stores/states/l2services/selector';
 import { ACCOUNT_ABSTRACTION_MOCKUP_DATA } from './mockupData';
-import CostView from '../components/CostView';
 import LaunchButton from '../../Buy/components3/LaunchButton';
 import { ResetModal } from '../components/ResetModal';
+import useCaptureHelper from '../hook/useCaptureHelper';
 
 const Page = (props: any) => {
-  console.log('PHAT BuyPage PROPS -- ', props);
-  const { chainDetailData } = props;
   // const modelCategories = useAppSelector(getModelCategoriesSelector);
   const modelCategories = ACCOUNT_ABSTRACTION_MOCKUP_DATA;
   const availableListTemplate = useAppSelector(
     getAvailableListTemplateSelector,
   );
+
+  const { exportAsImage, download } = useCaptureHelper();
 
   const [data, setData] = React.useState<
     | (IModelCategory & {
@@ -94,24 +79,13 @@ const Page = (props: any) => {
     id: 'RESET_MODAL_ID',
   });
 
-  const [tabActive, setTabActive] = React.useState<TABS>(TABS.CODE);
-
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();
 
   const [fieldsDragged, setFieldsDragged] = React.useState<string[]>([]);
-  const searchParams = useSearchParams();
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
-  const [isShowModal, setIsShowModal] = React.useState(false);
   const { isCapture } = useCaptureStore();
-
-  const initDataByChainData = () => {
-    setTabActive(TABS.CODE);
-    setFieldsDragged([]);
-    setIsShowModal(false);
-    setTempalteDataClone(chainDetailData?.selectedOptions || []);
-  };
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -127,8 +101,6 @@ const Page = (props: any) => {
   function handleDragEnd(event: any) {
     setIdDragging('');
     setRightDragging(false);
-
-    // router.push('/rollups/customizev2');
 
     const { over, active } = event;
 
@@ -269,40 +241,7 @@ const Page = (props: any) => {
       };
     });
 
-    console.log('TTTT ', {
-      TRUOC: data,
-      SAU: newData,
-    });
     return newData || [];
-  };
-
-  const setTempalteDataClone = (data: IModelCategory[]) => {
-    // set default value for package
-    const templateData = data;
-    const fieldsNotInTemplate = data?.filter(
-      (item) => !templateData.find((temp) => temp.key === item.key),
-    );
-
-    templateData.forEach((_field) => {
-      if (_field.multiChoice) {
-        setField(
-          _field.key,
-          _field.options.map((option) => option.key),
-          _field.options[0] ? true : false,
-        );
-      } else {
-        setField(
-          _field.key,
-          _field.options[0].key || null,
-          _field.options[0] ? true : false,
-        );
-      }
-
-      setFieldsDragged((prev) => [...prev, _field.key]);
-    });
-    fieldsNotInTemplate?.forEach((field) => {
-      setField(field.key, null, false);
-    });
   };
 
   const fetchData = async () => {
@@ -315,244 +254,9 @@ const Page = (props: any) => {
     setTemplates(availableListTemplate);
   };
 
-  const isAnyOptionNeedContactUs = () => {
-    if (!originalData) return false;
-    for (const _field of originalData) {
-      if (!field[_field.key].dragged) continue;
-
-      if (_field.multiChoice) {
-        for (const value of field[_field.key].value as string[]) {
-          const option = _field.options.find((opt) => opt.key === value);
-
-          if (option?.needContactUs) {
-            return true;
-          }
-        }
-      }
-
-      const option = _field.options.find(
-        (opt) => opt.key === field[_field.key].value,
-      );
-
-      if (option?.needContactUs) {
-        return true;
-      }
-    }
-
-    return false;
-  };
-
-  React.useEffect(() => {
-    data?.forEach((item) => {
-      if (item.multiChoice) {
-        const currentValues = (field[item.key].value || []) as string[];
-        const newValues = currentValues.filter((value) => {
-          const option = item.options.find((opt) => opt.key === value);
-
-          if (!option) return false;
-
-          const isDisabled =
-            !!(
-              option.supportNetwork &&
-              option.supportNetwork !== 'both' &&
-              option.supportNetwork !== field['network']?.value
-            ) || !option.selectable;
-
-          return !isDisabled;
-        });
-
-        if (newValues.length === 0) {
-          setField(item.key, null, false);
-          return;
-        }
-
-        setField(item.key, newValues, field[item.key].dragged);
-        return;
-      }
-
-      const newDefaultValue = item.options.find(
-        (option) =>
-          (option.supportNetwork === field['network']?.value ||
-            option.supportNetwork === 'both' ||
-            !option.supportNetwork) &&
-          option.selectable &&
-          !item.disable,
-      );
-      const currentOption = item.options.find(
-        (option) => option.key === field[item.key].value,
-      );
-      if (!newDefaultValue) {
-        setField(item.key, null, false);
-        return;
-      }
-      if (!currentOption || !newDefaultValue) return;
-      if (
-        (currentOption.supportNetwork === field['network']?.value ||
-          currentOption.supportNetwork === 'both' ||
-          !currentOption.supportNetwork) &&
-        currentOption.selectable &&
-        !item.disable
-      )
-        return;
-      setField(item.key, newDefaultValue.key, field[item.key].dragged);
-    });
-  }, [field['network']?.value]);
-
   React.useEffect(() => {
     fetchData();
   }, []);
-
-  React.useEffect(() => {
-    initDataByChainData();
-  }, [templates, chainDetailData]);
-
-  React.useEffect(() => {
-    const priceUSD = Object.keys(field).reduce((acc, key) => {
-      if (Array.isArray(field[key].value)) {
-        const currentOptions = (field[key].value as string[])!.map((value) => {
-          const item = data?.find((i) => i.key === key);
-
-          if (!item) return 0;
-
-          const currentOption = item.options.find(
-            (option) => option.key === value,
-          );
-
-          if (!currentOption) return 0;
-
-          const isDisabled =
-            // prettier-ignore
-            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
-            // prettier-ignore
-            (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-            (item.required && !field[item.key].dragged) ||
-            item.disable ||
-            !currentOption.selectable;
-
-          if (isDisabled) return 0;
-
-          return currentOption.priceUSD || 0;
-        });
-
-        return acc + currentOptions.reduce((a, b) => a + b, 0);
-      }
-
-      const item = data?.find((i) => i.key === key);
-
-      if (!item) return acc;
-
-      const currentOption = item.options.find(
-        (option) => option.key === field[item.key].value,
-      );
-
-      if (!currentOption) return acc;
-
-      const isDisabled =
-        // prettier-ignore
-        !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
-        // prettier-ignore
-        (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-        (item.required && !field[item.key].dragged) ||
-        item.disable ||
-        !currentOption.selectable;
-
-      if (isDisabled) return acc;
-
-      return acc + (currentOption?.priceUSD || 0);
-    }, 0);
-
-    const priceBVM = Object.keys(field).reduce((acc, key) => {
-      if (Array.isArray(field[key].value)) {
-        const currentOptions = (field[key].value as string[])!.map((value) => {
-          const item = data?.find((i) => i.key === key);
-
-          if (!item) return 0;
-
-          const currentOption = item.options.find(
-            (option) => option.key === value,
-          );
-
-          if (!currentOption) return 0;
-
-          const isDisabled =
-            // prettier-ignore
-            !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
-            // prettier-ignore
-            (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-            (item.required && !field[item.key].dragged) ||
-            item.disable ||
-            !currentOption.selectable;
-
-          if (isDisabled) return 0;
-
-          return currentOption.priceBVM || 0;
-        });
-
-        return acc + currentOptions.reduce((a, b) => a + b, 0);
-      }
-
-      const item = data?.find((i) => i.key === key);
-
-      if (!item) return acc;
-
-      const currentOption = item.options.find(
-        (option) => option.key === field[item.key].value,
-      );
-
-      if (!currentOption) return acc;
-
-      const isDisabled =
-        // prettier-ignore
-        !!(currentOption.supportNetwork && currentOption.supportNetwork !== 'both' && currentOption.supportNetwork !== field['network']?.value) ||
-        // prettier-ignore
-        (!item.disable && currentOption.selectable && !field[item.key].dragged) ||
-        (item.required && !field[item.key].dragged) ||
-        item.disable ||
-        !currentOption.selectable;
-
-      if (isDisabled) return acc;
-
-      return acc + (currentOption?.priceBVM || 0);
-    }, 0);
-
-    setPriceBVM(priceBVM);
-    setPriceUSD(priceUSD);
-    setNeedContactUs(isAnyOptionNeedContactUs());
-
-    if (!originalData) return;
-
-    // save history of form
-    const dynamicForm: any[] = [];
-    for (const _field of originalData) {
-      if (!field[_field.key].dragged) continue;
-
-      if (_field.multiChoice) {
-        dynamicForm.push({
-          ..._field,
-          options: _field.options.filter((opt) =>
-            (field[_field.key].value as string[])!.includes(opt.key),
-          ),
-        });
-        continue;
-      }
-
-      const value = _field.options.find(
-        (opt) => opt.key === field[_field.key].value,
-      );
-
-      const { options: _, ...rest } = _field;
-
-      dynamicForm.push({
-        ...rest,
-        options: [value],
-      });
-    }
-
-    setTimeout(() => {
-      if (dynamicForm.length === 0) return;
-      localStorage.setItem('bvm.customize-form', JSON.stringify(dynamicForm));
-    }, 100);
-  }, [field]);
 
   useEffect(() => {
     const wrapper = document.getElementById('wrapper-data');
@@ -575,9 +279,15 @@ const Page = (props: any) => {
     };
   }, [idDragging]);
 
+  const resetLeftView = () => {
+    for (const key in field) {
+      setField(key, null, false);
+    }
+  };
+
   const resetEdit = () => {
     setFieldsDragged([]);
-    setTempalteDataClone([]);
+    resetLeftView();
   };
 
   return (
@@ -615,22 +325,6 @@ const Page = (props: any) => {
                       }}
                     >
                       {item.options.map((option, optIdx) => {
-                        let _price = formatCurrencyV2({
-                          amount: option.priceBVM || 0,
-                          decimals: 0,
-                        }).replace('.00', '');
-                        let suffix =
-                          Math.abs(option.priceBVM) > 0
-                            ? ` (${_price} BVM)`
-                            : '';
-
-                        if (
-                          (option.key === field[item.key].value &&
-                            field[item.key].dragged) ||
-                          item.type === 'dropdown'
-                        )
-                          return null;
-
                         const isDisabled =
                           !!(
                             option.supportNetwork &&
@@ -661,10 +355,7 @@ const Page = (props: any) => {
                               zIndex={item.options.length - optIdx}
                               disabled={isDisabled}
                             >
-                              <Label
-                                icon={option.icon}
-                                title={option.title + suffix}
-                              />
+                              <Label icon={option.icon} title={option.title} />
                             </LegoV3>
                           </Draggable>
                         );
@@ -791,10 +482,10 @@ const Page = (props: any) => {
                 itemOnClick={(item) => {
                   console.log('TO DO --- ', item);
                 }}
-                onExportClick={() => {
+                onExport={() => {
                   console.log('onExportClick TODO');
                 }}
-                onShareClick={() => {
+                onShare={() => {
                   console.log('onShareClick TODO');
                 }}
               />

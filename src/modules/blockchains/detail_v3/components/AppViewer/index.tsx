@@ -19,6 +19,9 @@ const AppViewer = (props: Props) => {
 
   const itemOnClickProxy = (item: IModelOption) => {
     console.log('item ', item);
+    const currentPath = window.location.pathname;
+    console.log('currentPath ', currentPath);
+
     switch (item.key) {
       case 'my_blockchain':
         router.back();
@@ -26,8 +29,9 @@ const AppViewer = (props: Props) => {
 
       //Account Abstraction
       case 'flex_pay':
-        const currentPath = window.location.pathname;
-        router.push(currentPath + '/account-abstraction');
+        if (!currentPath?.includes('account-abstraction')) {
+          router.push(currentPath + '/account-abstraction');
+        }
         break;
 
       //Staking (TO DO)
