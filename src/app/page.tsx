@@ -12,7 +12,7 @@ export default function Home() {
         colorLogo: 'black',
         bgColor: 'transparent',
         position: 'absolute',
-        showBanner: true,
+        // showBanner: true,
       }}
     >
       <LandingV3 />
