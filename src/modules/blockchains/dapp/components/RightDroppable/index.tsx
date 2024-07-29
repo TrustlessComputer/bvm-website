@@ -347,7 +347,7 @@ const RightDroppable = () => {
                           const thisBaseModule =
                             baseModuleFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                              ];
+                            ];
                           const thisModule = thisBaseModule.fields.find(
                             (f) => f.value === item.value,
                           );
@@ -387,10 +387,10 @@ const RightDroppable = () => {
                           const thisBlock =
                             blockFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                              ];
+                            ];
 
                           blockCount++;
-
+                          const needSuffix = thisBlock.placableAmount === -1;
                           return (
                             <Draggable
                               id={`${item.name}-${blockIndex}-${baseIndex}`}
@@ -403,7 +403,10 @@ const RightDroppable = () => {
                             >
                               <LegoParent
                                 {...thisBlock}
-                                title={thisBlock.title + ' #' + blockCount}
+                                title={
+                                  thisBlock.title +
+                                  (needSuffix ? ' #' + blockCount : '')
+                                }
                                 background={adjustBrightness(mainColor, -10)}
                                 smallMarginHeaderTop
                               >
@@ -425,7 +428,7 @@ const RightDroppable = () => {
                           const field =
                             singleFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                              ];
+                            ];
                           // const fieldIsModuleType = field.fields.every(
                           //   (f) => f.type === 'module',
                           // );
@@ -540,7 +543,7 @@ const RightDroppable = () => {
                           const thisModule =
                             moduleFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                              ];
+                            ];
                           const isMultiple = thisModule.placableAmount === -1;
 
                           if (isMultiple) {
@@ -656,7 +659,7 @@ const RightDroppable = () => {
                       const thisBaseModule =
                         baseModuleFieldMapping[
                           DragUtil.getOriginalKey(item.name)
-                          ];
+                        ];
                       const thisField = thisBaseModule.fields.find(
                         (f) => f.value === item.value,
                       );

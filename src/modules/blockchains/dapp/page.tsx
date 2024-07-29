@@ -47,6 +47,7 @@ import { parseDappModel } from '@/modules/blockchains/utils';
 import { useThisDapp } from './hooks/useThisDapp';
 import { parseStakingPools } from './parseUtils/staking';
 import { DappType } from './types';
+import { showValidateError } from '@/components/toast';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
@@ -125,7 +126,9 @@ const RollupsDappPage = () => {
     if (overIsOutput || overIsABase) {
       // Case 1.1: Output does not have base block yet
       if (noBaseBlockInOutput && !(activeIsABase || activeIsABaseModule)) {
-        alert(`Please drag ${thisDapp.baseBlock.title} to the output first!`);
+        showValidateError(
+          `Please drag ${thisDapp.baseBlock.title} to the output first!`,
+        );
         return;
       }
 
@@ -135,7 +138,9 @@ const RollupsDappPage = () => {
         (activeIsABase || activeIsABaseModule) &&
         !canPlaceMoreBase
       ) {
-        alert(`You can only place ${thisDapp.baseBlock.placableAmount} base!`);
+        showValidateError(
+          `You can only place ${thisDapp.baseBlock.placableAmount} base!`,
+        );
         idBlockErrorSignal.value = activeOriginalKey;
         return;
       }
@@ -161,7 +166,7 @@ const RollupsDappPage = () => {
           'right-' + FieldKeyPrefix.BASE_MODULE + '-' + activeOriginalKey;
 
         if (!canPlaceMoreBaseModule) {
-          alert(
+          showValidateError(
             `You can only place one ${baseModuleFieldMapping[activeOriginalKey].title}!`,
           );
           idBlockErrorSignal.value = activeOriginalKey;
@@ -221,7 +226,7 @@ const RollupsDappPage = () => {
         const composedFieldKey = prefix + '-' + activeOriginalKey;
 
         if (!canPlaceMore) {
-          alert(
+          showValidateError(
             `You can only place one ${blockFieldMapping[activeOriginalKey].title}!`,
           );
           idBlockErrorSignal.value = activeOriginalKey;
@@ -258,7 +263,7 @@ const RollupsDappPage = () => {
         const isMultiple = thisField?.placableAmount === -1;
 
         if (!canPlaceMore) {
-          alert(
+          showValidateError(
             `You can only place one ${moduleFieldMapping[activeOriginalKey].title}!`,
           );
           idBlockErrorSignal.value = activeOriginalKey;
@@ -298,7 +303,7 @@ const RollupsDappPage = () => {
             );
 
             if (alreadyExist) {
-              alert('You can only place one module!');
+              showValidateError('You can only place one module!');
               idBlockErrorSignal.value = activeOriginalKey;
 
               return;
@@ -325,7 +330,7 @@ const RollupsDappPage = () => {
                 `${overBaseIndex}-${FieldKeyPrefix.MODULE}-${activeOriginalKey}-0-`,
               )
             ) {
-              alert('You can only place one module!');
+              showValidateError('You can only place one module!');
               idBlockErrorSignal.value = activeOriginalKey;
 
               return;
