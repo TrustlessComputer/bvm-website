@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import s from './styles.module.scss';
 import useWhiteBackground from '@/hooks/useWhiteBackground';
 import { HOME_DATA_SECTIONS } from '@/modules/landingV3/data-sections';
@@ -44,6 +44,10 @@ export default function LandingV3() {
         {HOME_DATA_SECTIONS.map((data) => {
           return <SectionContent {...data} />;
         })}
+      </div>
+      <div className={s.caseStudy}>
+        <CaseStudy />
+
       </div>
     </div>
   );

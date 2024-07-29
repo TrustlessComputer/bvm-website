@@ -104,7 +104,6 @@ export default function HeroV2() {
         </div>
       </div>
       <Brand />
-      <CaseStudy />
     </div>
   );
 }
