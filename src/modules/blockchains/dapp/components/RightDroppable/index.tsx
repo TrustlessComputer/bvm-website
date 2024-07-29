@@ -347,7 +347,7 @@ const RightDroppable = () => {
                           const thisBaseModule =
                             baseModuleFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                              ];
+                            ];
                           const thisModule = thisBaseModule.fields.find(
                             (f) => f.value === item.value,
                           );
@@ -359,7 +359,10 @@ const RightDroppable = () => {
                               {...thisBaseModule}
                               preview={false}
                               key={item.name}
-                              background={adjustBrightness(mainColor, -20)}
+                              background={adjustBrightness(
+                                thisBaseModule.background || mainColor,
+                                -20,
+                              )}
                               first={false}
                               last={false}
                               titleInLeft={false}
@@ -387,10 +390,10 @@ const RightDroppable = () => {
                           const thisBlock =
                             blockFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                              ];
+                            ];
 
                           blockCount++;
-
+                          const needSuffix = thisBlock.placableAmount === -1;
                           return (
                             <Draggable
                               id={`${item.name}-${blockIndex}-${baseIndex}`}
@@ -403,8 +406,14 @@ const RightDroppable = () => {
                             >
                               <LegoParent
                                 {...thisBlock}
-                                title={thisBlock.title + ' #' + blockCount}
-                                background={adjustBrightness(mainColor, -10)}
+                                title={
+                                  thisBlock.title +
+                                  (needSuffix ? ' #' + blockCount : '')
+                                }
+                                background={adjustBrightness(
+                                  thisBlock.background || mainColor,
+                                  -10,
+                                )}
                                 smallMarginHeaderTop
                               >
                                 {thisBlock.fields.map((field) => {
@@ -425,7 +434,7 @@ const RightDroppable = () => {
                           const field =
                             singleFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                              ];
+                            ];
                           // const fieldIsModuleType = field.fields.every(
                           //   (f) => f.type === 'module',
                           // );
@@ -540,7 +549,7 @@ const RightDroppable = () => {
                           const thisModule =
                             moduleFieldMapping[
                               DragUtil.getOriginalKey(item.name)
-                              ];
+                            ];
                           const isMultiple = thisModule.placableAmount === -1;
 
                           if (isMultiple) {
@@ -580,7 +589,8 @@ const RightDroppable = () => {
                                           <Lego
                                             key={value}
                                             background={adjustBrightness(
-                                              mainColor,
+                                              thisModule.background ||
+                                                mainColor,
                                               -40,
                                             )}
                                             first={false}
@@ -617,7 +627,10 @@ const RightDroppable = () => {
                                 <Lego
                                   {...thisModule}
                                   preview={false}
-                                  background={adjustBrightness(mainColor, -20)}
+                                  background={adjustBrightness(
+                                    thisModule.background || mainColor,
+                                    -20,
+                                  )}
                                   first={false}
                                   last={false}
                                   titleInLeft={false}
@@ -656,7 +669,7 @@ const RightDroppable = () => {
                       const thisBaseModule =
                         baseModuleFieldMapping[
                           DragUtil.getOriginalKey(item.name)
-                          ];
+                        ];
                       const thisField = thisBaseModule.fields.find(
                         (f) => f.value === item.value,
                       );
@@ -666,7 +679,10 @@ const RightDroppable = () => {
                       return (
                         <Lego
                           key={item.name}
-                          background={adjustBrightness(mainColor, -20)}
+                          background={adjustBrightness(
+                            thisBaseModule.background || mainColor,
+                            -20,
+                          )}
                           first={false}
                           last={false}
                           titleInLeft={true}
@@ -806,7 +822,7 @@ const RightDroppable = () => {
                                     <Lego
                                       key={value}
                                       background={adjustBrightness(
-                                        mainColor,
+                                        thisModule.background || mainColor,
                                         -40,
                                       )}
                                       first={false}
@@ -841,7 +857,10 @@ const RightDroppable = () => {
                             <Lego
                               {...thisModule}
                               preview={false}
-                              background={adjustBrightness(mainColor, -20)}
+                              background={adjustBrightness(
+                                thisModule.background || mainColor,
+                                -20,
+                              )}
                               first={false}
                               last={false}
                               titleInLeft={false}
@@ -859,7 +878,7 @@ const RightDroppable = () => {
 
                   {thisDapp.action && (
                     <BottomButton
-                      color={adjustBrightness(mainColor, -20)}
+                      color={thisDapp.action.color || mainColor}
                       dapp={thisDapp}
                     />
                   )}

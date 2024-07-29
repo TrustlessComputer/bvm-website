@@ -78,8 +78,9 @@
   }
 
   &__disabled {
-    opacity: 0.5;
-    pointer-events: none;
+    opacity: 0.4;
+    pointer-events: none !important;
+    cursor: not-allowed !important;
   }
 
   &__preview {

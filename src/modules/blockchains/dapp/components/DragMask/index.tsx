@@ -37,7 +37,7 @@ const DragMask = () => {
       {blockDragging.id && (
         <Draggable id={blockDragging.id}>
           <Lego
-            background={mainColor}
+            background={blockDragging.background || mainColor}
             first={false}
             last={false}
             titleInLeft={false}

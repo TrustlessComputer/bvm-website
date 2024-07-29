@@ -384,7 +384,18 @@ export const dappMockupData: DappModel[] = [
         placableAmount: -1,
         section: 'staking_token',
         preview: true,
+        background: '#A041FF',
         fields: [
+          {
+            key: 'bvm',
+            title: 'BVM', // symbol
+            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+            selectable: true,
+          },
           {
             key: 'eth',
             title: 'ETH', // symbol
@@ -393,15 +404,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             type: '',
             options: [],
-          },
-          {
-            key: 'bvm',
-            title: 'BVM', // symbol
-            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-            tooltip: '',
-            type: '',
-            options: [],
+            selectable: false,
           },
         ],
       },
@@ -414,7 +417,18 @@ export const dappMockupData: DappModel[] = [
         preview: true,
         placableAmount: 1,
         section: 'reward_token',
+        background: '#15C888',
         fields: [
+          {
+            key: 'bvm',
+            title: 'BVM', // symbol
+            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
+            icon: 'https://cdn.bvm.network/internal/8c50c936-cb41-40d0-8d93-8cdf7f88bd37.svg', // image_url
+            tooltip: '',
+            type: '',
+            options: [],
+            selectable: true,
+          },
           {
             key: 'eth',
             title: 'ETH', // symbol
@@ -423,15 +437,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             type: '',
             options: [],
-          },
-          {
-            key: 'bvm',
-            title: 'BVM', // symbol
-            value: '0x08b4e0434c42d9bfeeba468324ee5e2a23cd4222', // contract_address
-            icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-            tooltip: '',
-            type: '',
-            options: [],
+            selectable: false,
           },
         ],
       },
