@@ -6,6 +6,7 @@ interface IDappValue {
 interface IModelOption {
   title: string;
   selectable: boolean;
+  updatable?: boolean;
   priceUSD: number;
   priceBVM: number;
   tooltip: string;
@@ -22,6 +23,7 @@ interface IModelOption {
 
   valueStr?: string;
   type?: 'text' | 'number';
+  disabled?: boolean;
 }
 
 interface IModelCategory {

@@ -41,6 +41,7 @@ import LaunchButton from '../Buy/components3/LaunchButton';
 import enhance from './enhance';
 import ButtonV1 from './components/Button';
 import { ResetModal } from './components/ResetModal';
+import useCaptureHelper from './hook/useCaptureHelper';
 
 const MainPage = (props: ChainDetailComponentProps) => {
   console.log('PHAT BuyPage PROPS -- ', props);
@@ -50,6 +51,8 @@ const MainPage = (props: ChainDetailComponentProps) => {
   const availableListTemplate = useAppSelector(
     getAvailableListTemplateSelector,
   );
+
+  const { exportAsImage, download } = useCaptureHelper();
 
   const [data, setData] = React.useState<
     | (IModelCategory & {
@@ -197,6 +200,10 @@ const MainPage = (props: ChainDetailComponentProps) => {
         }, 500);
         return;
       }
+
+      const isHidden = data?.find((item) => item.key === activeKey)?.hidden;
+      if (isHidden) return;
+
       // Normal case
       if (
         over &&
@@ -228,7 +235,10 @@ const MainPage = (props: ChainDetailComponentProps) => {
     }
 
     // Multi choice case
-    if (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) {
+    if (
+      (over && (overIsFinalDroppable || overIsParentOfActiveDroppable)) ||
+      (!overIsFinalDroppable && overSuffix1 === 'right')
+    ) {
       const currentValues = (field[activeKey].value || []) as string[];
       const isCurrentEmpty = currentValues.length === 0;
       const newValue = [...currentValues, active.data.current.value];
@@ -263,7 +273,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
             ...option,
             value: option.key,
             label: option.title,
-            disabled: !option.selectable || item.disable,
+            disabled: !option.selectable || item.disable || !item.updatable,
           };
         }),
       };
@@ -384,7 +394,9 @@ const MainPage = (props: ChainDetailComponentProps) => {
               option.supportNetwork &&
               option.supportNetwork !== 'both' &&
               option.supportNetwork !== field['network']?.value
-            ) || !option.selectable;
+            ) ||
+            !option.selectable ||
+            !option.updatable;
 
           return !isDisabled;
         });
@@ -670,6 +682,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                 <Flex className={s.container}>
                   <DroppableV2 id="data">
                     {data?.map((item, index) => {
+                      if (item.hidden) return null;
                       return (
                         <BoxOptionV3
                           key={item.key}
@@ -750,7 +763,11 @@ const MainPage = (props: ChainDetailComponentProps) => {
               </Flex>
 
               {/* MiddleView */}
-              <Flex flex={1} className={s.middleViewContainer}>
+              <Flex
+                flex={1}
+                className={s.middleViewContainer}
+                id="imageCapture"
+              >
                 <DroppableV2
                   id="final"
                   className={s.finalResult}
@@ -844,6 +861,26 @@ const MainPage = (props: ChainDetailComponentProps) => {
                     return item.options.map((option, opIdx) => {
                       if (option.key !== field[item.key].value) return null;
 
+                      if (item.updatable && option.disabled) {
+                        return (
+                          <LegoV3
+                            background={item.color}
+                            label={item.confuseTitle}
+                            labelInRight={
+                              !!item.confuseTitle || !!item.confuseIcon
+                            }
+                            zIndex={fieldsDragged.length - index}
+                            icon={item.confuseIcon}
+                            className={
+                              showShadow === field[item.key].value
+                                ? s.activeBlur
+                                : s.disabled
+                            }
+                          >
+                            <Label icon={option.icon} title={option.title} />
+                          </LegoV3>
+                        );
+                      }
                       return (
                         <Draggable
                           right
@@ -897,6 +934,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                   </div>
                 )}
               </Flex>
+
               {/* RightView */}
               <Flex
                 className={s.rightViewContainer}
@@ -908,10 +946,10 @@ const MainPage = (props: ChainDetailComponentProps) => {
                     console.log('TO DO --- ', item);
                   }}
                   onExport={() => {
-                    console.log('onExport TODO');
+                    download();
                   }}
                   onShare={() => {
-                    console.log('onShare TODO');
+                    exportAsImage();
                   }}
                 />
               </Flex>
