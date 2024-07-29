@@ -3,6 +3,7 @@ import s from './LeaderboardSection.module.scss';
 import { Box } from '@chakra-ui/react';
 import cn from 'classnames';
 import Leaderboard from './Leaderboard';
+import SubmitProblem from '../SubmitProblem';
 
 type Props = {};
 
@@ -13,6 +14,7 @@ const LeaderboardSection = (props: Props) => {
         <div className={cn(s.wrapper)}>
           <div className={s.left}>
             <h4>Examp Topic</h4>
+            <SubmitProblem code="1" />
           </div>
           <div className={s.right}>
             <h4>Leaderboard</h4>
