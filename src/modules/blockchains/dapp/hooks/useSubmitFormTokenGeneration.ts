@@ -13,7 +13,10 @@ import { FormDappUtil } from '../utils';
 import { isEmpty } from 'lodash';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import { IBodyCreateToken } from '@/modules/apps/CreateToken/contract/interface';
-import { getTokenomics, getTotalSupply } from '@/modules/apps/CreateToken/utils';
+import {
+  getTokenomics,
+  getTotalSupply,
+} from '@/modules/apps/CreateToken/utils';
 import { ITokenomics } from '@/modules/apps/CreateToken/states/types';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import TOKENABI from '@/modules/apps/CreateToken/contract/abis/Token.json';
@@ -27,12 +30,18 @@ import { formatCurrency } from '@utils/format';
 import { draggedIds2DSignal } from '@/modules/blockchains/dapp/signals/useDragSignal';
 
 interface IProps {
-  setErrorData: Dispatch<SetStateAction<{ key: string; error: string }[] | undefined>>,
-  setIsShowError: Dispatch<SetStateAction<boolean>>,
-  setLoading: Dispatch<SetStateAction<boolean>>,
+  setErrorData: Dispatch<
+    SetStateAction<{ key: string; error: string }[] | undefined>
+  >;
+  setIsShowError: Dispatch<SetStateAction<boolean>>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}: IProps) => {
+const useSubmitFormTokenGeneration = ({
+  setErrorData,
+  setIsShowError,
+  setLoading,
+}: IProps) => {
   const dappState = useAppSelector(dappSelector);
   const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
   const dispatch = useDispatch();
@@ -44,7 +53,9 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
     draggedIds2DSignal.value = [];
   };
 
-  function validate(dataMapping: Record<string, { key: string; value: string }[]>[]) {
+  function validate(
+    dataMapping: Record<string, { key: string; value: string }[]>[],
+  ) {
     let errors: any[] = [];
 
     for (const data of dataMapping) {
@@ -119,19 +130,37 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
         }
       }
 
-      if(Number(data?.token_supply) > 0 && Number(data?.token_supply) > totalAmount.toNumber() && blocks?.length > 0) {
-        const remainingSupply = new BigNumber(data?.token_supply as unknown as string).minus(totalAmount).toNumber();
+      if (
+        Number(data?.token_supply) > 0 &&
+        Number(data?.token_supply) > totalAmount.toNumber() &&
+        blocks?.length > 0
+      ) {
+        const remainingSupply = new BigNumber(
+          data?.token_supply as unknown as string,
+        )
+          .minus(totalAmount)
+          .toNumber();
 
         errors.push({
           key: 'amount_remaining',
-          error: `Remaining ${formatCurrency(remainingSupply, 0)} ${data?.token_symbol}`,
+          error: `Remaining ${formatCurrency(remainingSupply, 0)} ${
+            data?.token_symbol
+          }`,
         });
-      } else if (totalAmount.toNumber() > 0 && totalAmount.toNumber() > Number(data?.token_supply)) {
-        const remainingSupply = new BigNumber(totalAmount).minus(data?.token_supply as unknown as string).toNumber();
+      } else if (
+        totalAmount.toNumber() > 0 &&
+        totalAmount.toNumber() > Number(data?.token_supply)
+      ) {
+        const remainingSupply = new BigNumber(totalAmount)
+          .minus(data?.token_supply as unknown as string)
+          .toNumber();
 
         errors.push({
           key: 'amount_remaining',
-          error: `Sum Allocation Amount larger than Total Supply ${formatCurrency(remainingSupply, 0)} ${data?.token_symbol}`,
+          error: `Sum Allocation Amount larger than Total Supply ${formatCurrency(
+            remainingSupply,
+            0,
+          )} ${data?.token_symbol}`,
         });
       }
     }
@@ -156,16 +185,8 @@ const useSubmitFormTokenGeneration = ({setErrorData, setIsShowError, setLoading}
       );
 
       dataMapping = extractedValue(formDappInBase, formDapp, dataMapping);
-      dataMapping = extractedValue(
-        formDappInBlock,
-        formDapp,
-        dataMapping,
-      );
-      dataMapping = extractedValue(
-        formDappInSingle,
-        formDapp,
-        dataMapping,
-      );
+      dataMapping = extractedValue(formDappInBlock, formDapp, dataMapping);
+      dataMapping = extractedValue(formDappInSingle, formDapp, dataMapping);
 
       setErrorData([]);
       let errors = validate(dataMapping);
