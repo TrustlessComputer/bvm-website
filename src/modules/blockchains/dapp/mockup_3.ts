@@ -458,6 +458,7 @@ export const dappMockupData: DappModel[] = [
         placableAmount: 1,
         section: 'info',
         preview: true,
+        background: '#F8B200',
         fields: [
           {
             key: 'rate',
