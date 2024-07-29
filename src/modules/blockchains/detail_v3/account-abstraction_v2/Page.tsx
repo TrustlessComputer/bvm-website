@@ -367,7 +367,7 @@ const Page = (props: any) => {
               </DroppableV2>
             </Flex>
 
-            <Flex flex={1} className={s.middleViewContainer}>
+            <Flex flex={1} className={s.middleViewContainer} id="imageCapture">
               <DroppableV2
                 id="final"
                 className={s.finalResult}

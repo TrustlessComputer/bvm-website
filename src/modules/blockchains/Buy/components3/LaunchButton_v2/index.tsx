@@ -111,10 +111,10 @@ const LaunchButton = () => {
       <Button
         borderRadius={'16px'}
         px={'20px'}
-        py={'10px'}
+        py={'22px'}
         bgColor={'#FA4E0E'}
         color={'#fff'}
-        fontSize={['22px']}
+        fontSize={['26px']}
         fontWeight={500}
         onClick={handleOnClick}
         isLoading={isSubmiting}
