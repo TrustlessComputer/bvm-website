@@ -1,0 +1,197 @@
+.wrapper {
+  background-color: #fff;
+  padding-top: 160px;
+  padding-bottom: 80px;
+
+  @include is-mobile {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  @include is-tablet {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  &_title {
+    color: #000;
+    font-family: var(--font-JetBrainsMono);
+
+    span{
+      color: #FA4E0E;
+    }
+  }
+}
+.sliderContainer {
+  max-width: 1600px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* the parent */
+  :global {
+    .slick-list {
+      overflow: hidden;
+    }
+    .slick-slide {
+      padding-left: 16px;
+      padding-right: 16px;
+
+      @include is-mobile {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+    .slick-slider {
+      margin-left: -16px;
+      margin-right: -16px;
+
+      @include is-mobile {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    .slick-arrow {
+      border-radius: 0;
+      transition: opacity 0.4s ease-out;
+      top: 117px;
+      position: absolute;
+      z-index: 11111;
+      box-shadow: 0px 0px 24px -6px rgba(0, 0, 0, 0.12);
+      border-radius: 1000px;
+      &:hover {
+        opacity: 0.8;
+      }
+      margin-left: 16px;
+      margin-right: 16px;
+
+      @include is-mobile {
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+      &.slick-next {
+        right: 0;
+        transform: translateX(50%);
+      }
+      &.slick-prev {
+        left: 0;
+        transform: translateX(-50%);
+      }
+    }
+
+    .slick-arrow .slick-next,
+    .slick-arrow .slick-prev {
+      z-index: 100;
+      width: fit-content !important;
+      height: fit-content !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+  }
+
+  .slick-next:before {
+    content: none;
+  }
+
+  .slick-prev:before {
+    content: none;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
+
+  .slick-slider .slick-initialized {
+    display: flex !important;
+  }
+
+  .slick-next {
+    right: 0;
+  }
+
+  .slick-prev {
+    left: 0;
+  }
+
+  .slick-active .slick-current {
+    margin-right: 20px !important;
+    margin-left: 20 !important;
+  }
+
+  .slick-active {
+    margin-left: 10px !important;
+  }
+
+  .slick-slide .slick-active .slick-current {
+    margin-right: 20px !important;
+    display: flex !important;
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000;
+  gap: 20px;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.heading {
+  span {
+    color: #fa4e0e;
+  }
+}
+
+.slide {
+  padding-top: 48px;
+  padding-bottom: 48px;
+
+  @include is-tablet {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  @include is-pc {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+}
+
+.cardLogo {
+  img {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+  }
+  &_title {
+    color: #000;
+    font-family: var(--font-dmsans);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+  }
+  &_decs {
+    color: #515478;
+    font-family: var(--font-dmsans);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+  &_img {
+    height: 186px;
+    margin-top: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+}
+.btn {
+  position: absolute;
+}

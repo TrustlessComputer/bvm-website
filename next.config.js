@@ -70,7 +70,12 @@ const nextConfig = {
       },
       {
         source: '/module/bvm-studio',
-        destination: '/module/bitcoin-studio',
+        destination: '/module/bitcoin-raas-studio',
+        permanent: false,
+      },
+      {
+        source: '/module/bitcoin-studio',
+        destination: '/module/bitcoin-raas-studio',
         permanent: false,
       },
       // {
