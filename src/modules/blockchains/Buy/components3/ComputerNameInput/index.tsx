@@ -71,7 +71,6 @@ const ComputerNameInput = (props: Props) => {
       chainNameDefault ??
       'My Little Blockchain ' + getRandonComputerName(isMainnet);
 
-    console.log('PHAT chainName: ', computerName);
     setChainName(computerName);
     setComputerNameField({
       ...computerNameField,

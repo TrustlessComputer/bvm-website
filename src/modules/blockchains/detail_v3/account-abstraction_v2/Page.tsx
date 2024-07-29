@@ -1,37 +1,35 @@
+import ImagePlaceholder from '@/components/ImagePlaceholder';
+import { useAppSelector } from '@/stores/hooks';
+import { getAvailableListTemplateSelector } from '@/stores/states/l2services/selector';
+import { Flex, Spacer, Text, useDisclosure } from '@chakra-ui/react';
 import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
 import gsap from 'gsap';
 import React, { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Flex, Spacer, Text, useDisclosure } from '@chakra-ui/react';
 import BoxOptionV3 from '../../Buy/components3/BoxOptionV3';
 import ComputerNameInput from '../../Buy/components3/ComputerNameInput';
 import Draggable from '../../Buy/components3/Draggable';
 import DroppableV2 from '../../Buy/components3/DroppableV2';
-import ErrorModal from '../../Buy/components3/ErrorModal';
 import Label from '../../Buy/components3/Label';
+import LegoInput from '../../Buy/components3/LegoInput';
 import LegoParent from '../../Buy/components3/LegoParent';
 import LegoV3 from '../../Buy/components3/LegoV3';
-import LegoInput from '../../Buy/components3/LegoInput';
 import useOrderFormStoreV3, {
   useCaptureStore,
 } from '../../Buy/stores/index_v3';
 import useDragMask from '../../Buy/stores/useDragMask';
 import { MouseSensor } from '../../Buy/utils';
 import AppViewer from '../components/AppViewer';
-import Header from '../components/Header';
 import ToolBar from '../components/ToolBar_v2';
-import s from './styles.module.scss';
-import ImagePlaceholder from '@/components/ImagePlaceholder';
-import Capture from '../../Buy/Capture';
-import { useAppSelector } from '@/stores/hooks';
-import { getAvailableListTemplateSelector } from '@/stores/states/l2services/selector';
 import { ACCOUNT_ABSTRACTION_MOCKUP_DATA } from './mockupData';
+import s from './styles.module.scss';
 // import LaunchButton from '../../Buy/components3/LaunchButton';
 import LaunchButton from '../../Buy/components3/LaunchButton_v2';
 import { ResetModal } from '../components/ResetModal';
 import useCaptureHelper from '../hook/useCaptureHelper';
 import AddressInput from './components/AddressInput';
 import FeeRateInput from './components/FeeRateInput';
+import { useAccountAbstractionStore } from './store/hook';
 
 const Page = (props: any) => {
   // const modelCategories = useAppSelector(getModelCategoriesSelector);
@@ -63,16 +61,9 @@ const Page = (props: any) => {
 
   // const { setChainName } = useOrderFormStore();
 
-  const {
-    field,
-    setField,
-    priceBVM,
-    priceUSD,
-    setPriceBVM,
-    setPriceUSD,
-    setNeedContactUs,
-    needContactUs,
-  } = useOrderFormStoreV3();
+  const { field, setField } = useOrderFormStoreV3();
+
+  const { resetAAStore } = useAccountAbstractionStore();
 
   const {
     isOpen: isOpenResetModal,
@@ -89,6 +80,12 @@ const Page = (props: any) => {
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
   const { isCapture } = useCaptureStore();
+
+  useEffect(() => {
+    return () => {
+      resetAAStore();
+    };
+  }, []);
 
   const handleDragStart = (event: any) => {
     const { active } = event;
@@ -291,6 +288,7 @@ const Page = (props: any) => {
   const resetEdit = () => {
     setFieldsDragged([]);
     resetLeftView();
+    resetAAStore();
   };
 
   return (
@@ -306,9 +304,7 @@ const Page = (props: any) => {
           onDragEnd={handleDragEnd}
         >
           <Spacer h={'30px'} />
-          <ToolBar
-            rightView={<LaunchButton data={data} originalData={originalData} />}
-          />
+          <ToolBar rightView={<LaunchButton />} />
 
           <Flex flexDir={'row'} mt={'20px'} gap={'10px'} w={'100%'}>
             <Flex className={s.showroomLegosContainer}>
@@ -404,8 +400,6 @@ const Page = (props: any) => {
 
                         const isAddressField =
                           option.key === 'input_apps_address';
-
-                        console.log('OPTION::: ', option);
 
                         if (item.type === 'form') {
                           return (

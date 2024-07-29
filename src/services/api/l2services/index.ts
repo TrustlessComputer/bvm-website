@@ -494,6 +494,28 @@ export const L2ServiceTracking = async (
   }
 };
 
+export interface IInstallAccountAbstractionByData {
+  orderID: string;
+  appName: string;
+  [key: string]: string;
+}
+
+export const installDAppAAByData = async (
+  data: IInstallAccountAbstractionByData,
+): Promise<any> => {
+  try {
+    const res = await httpClient.post(`/order/dapp/install`, data, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.log('installDAppByData error', error);
+    throw error;
+  }
+};
+
 const setAccesTokenHeader = (accessToken: string) => {
   // httpClient.defaults.headers.Authorization = `${accessToken}`;
 };
@@ -580,6 +602,9 @@ const l2ServicesAPI = {
   getModalCategories,
   getTemplateV2,
   getAvailableListTemplate,
+
+  //
+  installDAppAAByData,
 };
 
 export default l2ServicesAPI;

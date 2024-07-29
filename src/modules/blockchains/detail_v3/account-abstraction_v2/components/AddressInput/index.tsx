@@ -1,9 +1,8 @@
 import { useMemo, useState } from 'react';
-import { useAccountAbstractionStore } from '../../store/useAccountAbstractionStore';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
-import s from './styles.module.scss';
-import { Flex, Input, Text } from '@chakra-ui/react';
+import { Flex, Input, Text, Image, Tooltip } from '@chakra-ui/react';
 import { isAddress } from 'ethers/lib/utils';
+import { useAccountAbstractionStore } from '../../store/hook';
 
 type Props = {
   option: IModelOption;
@@ -18,7 +17,6 @@ const AddressInput = (props: Props) => {
   const {
     setTokenContractAddress,
     tokenContractAddress,
-    feeRate,
     isTokenContractAddressFocused,
     tokenContractAddressErrMsg,
     setTokenContractFocused,
@@ -58,6 +56,16 @@ const AddressInput = (props: Props) => {
         {option?.title}
       </Text>
 
+      <Tooltip
+        hasArrow
+        label={`${option.tooltip || ''}`}
+        bg={'#fff'}
+        color={'#000'}
+        p="5px"
+      >
+        <Image src={'/icons/white_tooltip_ic.svg'} w="20px" h="20px" />
+      </Tooltip>
+
       <Input
         fontWeight={500}
         fontSize={['18px']}
@@ -65,7 +73,7 @@ const AddressInput = (props: Props) => {
         bgColor={'#fff'}
         color={'#000'}
         _placeholder={{
-          color: 'grey',
+          color: '#ababab',
         }}
         type="text"
         placeholder="Example: 0xabc...xzy"

@@ -34,6 +34,7 @@ import {
   getAvailableListTemplateSelector,
   getL2ServicesStateSelector,
   getModelCategoriesSelector,
+  getOrderDetailSelected,
 } from '@/stores/states/l2services/selector';
 import { useOrderFormStore } from '../Buy/stores/index_v2';
 import CostView from './components/CostView';
@@ -94,6 +95,8 @@ const MainPage = (props: ChainDetailComponentProps) => {
   });
 
   const [tabActive, setTabActive] = React.useState<TABS>(TABS.CODE);
+
+  const { orderDetail } = useAppSelector(getOrderDetailSelected);
 
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();

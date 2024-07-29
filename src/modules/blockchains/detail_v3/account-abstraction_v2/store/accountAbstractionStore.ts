@@ -17,7 +17,7 @@ type AccountAbstractionStore = {
   setFeeRateFocused: (flag: boolean) => void;
 };
 
-export const useAccountAbstractionStore = create<AccountAbstractionStore>(
+export const accountAbstractionStore = create<AccountAbstractionStore>(
   (set) => ({
     tokenContractAddress: '',
     setTokenContractAddress: (tokenContractAddress) =>
