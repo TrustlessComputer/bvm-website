@@ -5,11 +5,13 @@ import { HOME_DATA_SECTIONS } from '@/modules/landingV3/data-sections';
 import SectionContent from '@/modules/landingV3/Componets/SectionContent';
 import HeroV2 from '@/modules/landingV3/Componets/HeroV2';
 import CaseStudy from '@/modules/landingV3/Componets/CaseStudy';
-import { Button } from '@chakra-ui/react';
 import { useL2ServiceTracking } from '@hooks/useL2ServiceTracking';
 import { useRouter } from 'next/navigation';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import HeroVideo from '@/modules/landingV3/Componets/HeroVideo';
+import Section_7 from '@/modules/landingV2/Componets/Section_7';
+import BlogHomePage from '@/modules/landingV3/Componets/BlogHomePage';
+
 export default function LandingV3() {
   useWhiteBackground();
   const { tracking } = useL2ServiceTracking();
@@ -48,6 +50,7 @@ export default function LandingV3() {
       <div className={s.caseStudy}>
         <CaseStudy />
       </div>
+      <Section_7 />
     </div>
   );
 }

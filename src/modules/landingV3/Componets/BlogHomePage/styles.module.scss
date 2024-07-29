@@ -1,0 +1,43 @@
+.wrapper_title {
+  font-size: 48px;
+  font-family: var(--font-jetbrains);
+  font-weight: 500;
+  line-height: calc(52.8 / 48);
+  color: #000;
+  margin-bottom: 60px;
+  span {
+    color: #FA4E0E;
+  }
+}
+
+
+.cardLogo {
+  display: flex;
+  img {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+  }
+  &_title {
+    color: #000;
+    font-family: var(--font-dmsans);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+  }
+  &_decs {
+    color: #515478;
+    font-family: var(--font-dmsans);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+  &_img {
+    //height: 186px;
+    //margin-top: 20px;
+    //border-radius: 16px;
+    //overflow: hidden;
+  }
+}
