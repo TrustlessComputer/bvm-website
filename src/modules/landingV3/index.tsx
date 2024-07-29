@@ -8,6 +8,7 @@ import CaseStudy from '@/modules/landingV3/Componets/CaseStudy';
 import { useL2ServiceTracking } from '@hooks/useL2ServiceTracking';
 import { useRouter } from 'next/navigation';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import HeroVideo from '@/modules/landingV3/Componets/HeroVideo';
 import Section_7 from '@/modules/landingV2/Componets/Section_7';
 import BlogHomePage from '@/modules/landingV3/Componets/BlogHomePage';
 
@@ -22,7 +23,7 @@ export default function LandingV3() {
 
   return (
     <div className={s.landing}>
-      <HeroV2 />
+      <HeroVideo />
       <div className={s.bottom}>
         <div className={`${s.bottom_top} containerV3`}>
           <p className={s.bottom_top_heading}>Why builders choose BVM</p>
