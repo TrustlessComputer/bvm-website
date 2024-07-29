@@ -6,7 +6,7 @@ export const dappMockupData: DappModel[] = [
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
     order: 1,
     color: '#F76649',
-    color_rendered: '#F76649',
+    color_border: '#A041FF',
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',
@@ -53,8 +53,10 @@ export const dappMockupData: DappModel[] = [
       placableAmount: -1,
       section: 'information',
       preview: true,
+      background: '#00AA6C',
       fields: [
         {
+          background: '#00AA6C',
           key: 'token_name',
           title: 'Token Name',
           type: 'input',
@@ -64,6 +66,7 @@ export const dappMockupData: DappModel[] = [
           options: [],
         },
         {
+          background: '#00AA6C',
           key: 'token_symbol',
           title: 'Symbol',
           type: 'input',
@@ -73,6 +76,7 @@ export const dappMockupData: DappModel[] = [
           options: [],
         },
         {
+          background: '#00AA6C',
           key: 'token_supply',
           title: 'Total Supply',
           type: 'input',
@@ -82,6 +86,7 @@ export const dappMockupData: DappModel[] = [
           options: [],
         },
         {
+          background: '#00AA6C',
           key: 'receiver_address',
           title: 'Receiver Address',
           type: 'input',
@@ -100,8 +105,10 @@ export const dappMockupData: DappModel[] = [
         placableAmount: -1,
         section: 'tokenomics',
         preview: true,
+        background: '#F8B200',
         fields: [
           {
+            background: '#F8B200',
             key: 'name',
             title: 'Name',
             type: 'input',
@@ -111,6 +118,7 @@ export const dappMockupData: DappModel[] = [
             options: [],
           },
           {
+            background: '#F8B200',
             key: 'total_amount',
             title: 'Amount',
             type: 'input',
@@ -120,6 +128,7 @@ export const dappMockupData: DappModel[] = [
             options: [],
           },
           {
+            background: '#F8B200',
             key: 'address',
             title: 'Receiver Address',
             type: 'input',
@@ -343,7 +352,6 @@ export const dappMockupData: DappModel[] = [
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-staking.svg',
     order: 2,
     color: '#F76649',
-    color_rendered: '#F76649',
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
     tooltip: '',

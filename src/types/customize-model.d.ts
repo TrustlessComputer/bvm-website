@@ -98,6 +98,7 @@ interface FieldModel {
   placeholder?: string;
   level?: number;
   selectable?: boolean;
+  background?: string;
 }
 
 interface BlockModel {
@@ -120,6 +121,7 @@ interface DappModel {
   icon: string;
   order: number;
   color: string;
+  color_border?: string;
   label?: {
     title: string;
     background: string;

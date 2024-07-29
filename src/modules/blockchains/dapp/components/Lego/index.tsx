@@ -1,13 +1,12 @@
 import React from 'react';
 import cn from 'classnames';
-import Image from 'next/image';
 
 import SvgInset from '@/components/SvgInset';
 
 import { adjustBrightness } from '../../utils';
 
 import styles from './styles.module.scss';
-import { Tooltip } from '@chakra-ui/react';
+import { Box, Image, Tooltip } from '@chakra-ui/react';
 
 type Position =
   | {
@@ -79,7 +78,7 @@ const Lego = (props: Props) => {
       }}
     >
       <div className={cn(styles.lego__piece, styles.lego__piece__top)}>
-        <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
+          <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
       </div>
 
       {preview ? (
@@ -93,23 +92,34 @@ const Lego = (props: Props) => {
                     styles.lego__inner__label__left,
                   )}
                 >
-                  {field?.icon && (
-                    <Image
-                      src={field?.icon}
-                      width={20}
-                      height={20}
-                      alt="icon"
-                    />
-                  )}
+                  {/*{field?.icon && (*/}
+                  {/*  <Image*/}
+                  {/*    src={field?.icon}*/}
+                  {/*    width="20px"*/}
+                  {/*    height="20px"*/}
+                  {/*    alt="icon"*/}
+                  {/*  />*/}
+                  {/*)}*/}
                   <p>{field?.title}</p>
                 </div>
                 {field.type === 'input' ? (
-                  <img src={'/icons-tool/issue-a-token/icon-input.svg'} />
+                  <Image
+                    width="32px"
+                    height="auto"
+                    src={'/icons-tool/issue-a-token/icon-input.svg'}
+                  />
                 ) : field.type === 'extends' &&
                   typeof field.value === 'number' ? (
-                  <img src={'/icons-tool/issue-a-token/icon-switch.svg'} />
+                  <Image
+                    width="32px"
+                    height="auto"
+                    src={'/icons-tool/issue-a-token/icon-switch.svg'} />
                 ) : field.type === 'dropdown' ? (
-                  <img src={'/icons-tool/issue-a-token/icon-dropdown.svg'} />
+                  <Image
+                    width="32px"
+                    height="auto"
+                    src={'/icons-tool/issue-a-token/icon-dropdown.svg'}
+                  />
                 ) : (
                   <></>
                 )}
@@ -126,7 +136,7 @@ const Lego = (props: Props) => {
                 styles.lego__inner__label__left,
               )}
             >
-              {icon && <Image src={icon} width={20} height={20} alt="icon" />}
+              {icon && <Image src={icon} width="20px" height="20px" alt="icon" />}
               <p>{title}</p>
             </div>
           ) : null}
@@ -134,8 +144,8 @@ const Lego = (props: Props) => {
           {tooltip && (
             <Tooltip label={tooltip}>
               <Image
-                width={18}
-                height={18}
+                width="18px"
+                height="18px"
                 alt="tooltip"
                 src={'/icons/ic-tooltip.svg'}
               />

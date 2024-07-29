@@ -336,7 +336,7 @@ const RightDroppable = () => {
                   >
                     <LegoParent
                       {...thisDapp.baseBlock}
-                      background={mainColor}
+                      background={thisDapp?.color_border || mainColor}
                       label={thisDapp.label}
                     >
                       {ids
