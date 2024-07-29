@@ -1,0 +1,26 @@
+.submitProblem {
+  padding: 16px;
+  border-top: 1px solid #232323;
+  background: #000515;
+  box-shadow: 0px 0px 24px -6px rgba(0, 0, 0, 0.12);
+
+  input {
+    color: #FFF;
+    font-family: "SF Pro";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  button {
+    display: flex;
+    height: 36px;
+    padding: 16px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 100px;
+    background: #FA4E0E;
+  }
+}
