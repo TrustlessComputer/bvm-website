@@ -9,10 +9,10 @@
 
 .bottom {
   //margin-top: 80px;
-  @include is-min-table {
-     padding-top: 80px;
-     padding-bottom: 80px;
-  }
+  //@include is-min-table {
+  //   padding-top: 80px;
+  //   padding-bottom: 80px;
+  //}
   &_top {
     text-align: center;
     &_heading {
@@ -32,30 +32,4 @@
   }
 }
 
-.wrapperBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  .btn {
-    width: 240px;
-    height: 60px;
-    font-size: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100px;
-    cursor: pointer;
-  }
-}
 
-.btn__primary {
-  background-color: #FA4E0E;
-  color: #fff;
-
-}
-
-.btn__secondary {
-  border: 1px solid #000000;
-  color: #000;
-}

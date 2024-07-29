@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import HeroVideo from '@/modules/landingV3/Componets/HeroVideo';
 import Section_7 from '@/modules/landingV2/Componets/Section_7';
-import BlogHomePage from '@/modules/landingV3/Componets/BlogHomePage';
+import HeadingSection from '@/modules/landingV3/Componets/HeadingSection';
 
 export default function LandingV3() {
   useWhiteBackground();
@@ -24,25 +24,28 @@ export default function LandingV3() {
   return (
     <div className={s.landing}>
       <HeroVideo />
+      <HeadingSection title={'Built for builders'} isVideo bgColor={'#f4f4f4'}>With Bitcoin as the base layer, your ZK rollup inherits Bitcoin’s security and you can tap into the $1 trillion Bitcoin economy..</HeadingSection>
+      <HeadingSection title={'Why builders choose BVM'}  >Whether you're an indie developer or a large-scale project, BVM makes it easy
+        and affordable to create your own ZK rollup — secured by Bitcoin.</HeadingSection>
       <div className={s.bottom}>
-        <div className={`${s.bottom_top} containerV3`}>
-          <p className={s.bottom_top_heading}>Why builders choose BVM</p>
-          <p className={s.bottom_top_desc}>Whether you're an indie developer or a large-scale project, BVM makes it easy
-            and affordable to create your own ZK rollup — secured by Bitcoin.</p>
-          <div className={s.wrapperBtn}>
-            <div className={`${s.btn} ${s.btn__primary}`} onClick={() => {
-              tracking('GET_STARTED');
-              router.push('/rollups/customizev2');
-            }}>
-              <p>Build now</p>
-            </div>
-            <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
-              showContactUsModal({ subjectDefault: 0 });
-            }}>
-              <p>Request a demo</p>
-            </div>
-          </div>
-        </div>
+        {/*<div className={`${s.bottom_top} containerV3`}>*/}
+        {/*  <p className={s.bottom_top_heading}>Why builders choose BVM</p>*/}
+        {/*  <p className={s.bottom_top_desc}>Whether you're an indie developer or a large-scale project, BVM makes it easy*/}
+        {/*    and affordable to create your own ZK rollup — secured by Bitcoin.</p>*/}
+        {/*  <div className={s.wrapperBtn}>*/}
+        {/*    <div className={`${s.btn} ${s.btn__primary}`} onClick={() => {*/}
+        {/*      tracking('GET_STARTED');*/}
+        {/*      router.push('/rollups/customizev2');*/}
+        {/*    }}>*/}
+        {/*      <p>Build now</p>*/}
+        {/*    </div>*/}
+        {/*    <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {*/}
+        {/*      showContactUsModal({ subjectDefault: 0 });*/}
+        {/*    }}>*/}
+        {/*      <p>Request a demo</p>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
         {HOME_DATA_SECTIONS.map((data) => {
           return <SectionContent {...data} />;
         })}
