@@ -70,7 +70,7 @@ const CaseStudy = () => {
             Gear up for an epic adventure and strategize your way to victory in
             Bitcoin Wars, an incredibly fun onchain game on Bitcoin.
           </Text>
-          <Text className={s.description} maxW={['auto', '600px']}>
+          {/* <Text className={s.description} maxW={['auto', '600px']}>
             Launching at the Bitcoin 2024 Conference in Nashville.
           </Text>
           <Text className={s.description} maxW={['auto', '600px']}>
@@ -78,7 +78,7 @@ const CaseStudy = () => {
             <Text color="#fff" as="span">
               free Starbucks just a 2-minute walk from Music City Center!
             </Text>
-          </Text>
+          </Text> */}
         </Flex>
         <Flex
           gap="24px"
