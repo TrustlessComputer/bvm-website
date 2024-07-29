@@ -26,24 +26,6 @@ export default function LandingV3() {
       <HeadingSection title={'Why builders choose BVM'}  >Whether you're an indie developer or a large-scale project, BVM makes it easy
         and affordable to create your own ZK rollup — secured by Bitcoin.</HeadingSection>
       <div className={s.bottom}>
-        {/*<div className={`${s.bottom_top} containerV3`}>*/}
-        {/*  <p className={s.bottom_top_heading}>Why builders choose BVM</p>*/}
-        {/*  <p className={s.bottom_top_desc}>Whether you're an indie developer or a large-scale project, BVM makes it easy*/}
-        {/*    and affordable to create your own ZK rollup — secured by Bitcoin.</p>*/}
-        {/*  <div className={s.wrapperBtn}>*/}
-        {/*    <div className={`${s.btn} ${s.btn__primary}`} onClick={() => {*/}
-        {/*      tracking('GET_STARTED');*/}
-        {/*      router.push('/rollups/customizev2');*/}
-        {/*    }}>*/}
-        {/*      <p>Build now</p>*/}
-        {/*    </div>*/}
-        {/*    <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {*/}
-        {/*      showContactUsModal({ subjectDefault: 0 });*/}
-        {/*    }}>*/}
-        {/*      <p>Request a demo</p>*/}
-        {/*    </div>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
         {HOME_DATA_SECTIONS.map((data) => {
           return <SectionContent {...data} />;
         })}

@@ -1,8 +1,5 @@
 .headingSection {
-  @include is-min-table {
-    padding-top: 80px;
-    //padding-bottom: 80px;
-  }
+  padding-top: 80px;
 }
 
 .wrapperImage {
@@ -60,7 +57,7 @@
 .imageHero {
   aspect-ratio: 16/9;
   object-fit: contain;
-  max-width: 320px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -68,8 +65,8 @@
   position: relative;
   border-radius: 24px;
   overflow: hidden;
-  //padding-top: 30px;
-  //padding-bottom: 120px;
+  margin-top: 50px;
+
 
   &_bg {
     background: #000000;
@@ -103,9 +100,7 @@
     max-width: 782px;
   }
 
-  @include is-pc {
-    margin-top: 50px;
-  }
+
 }
 
 .overlay {
