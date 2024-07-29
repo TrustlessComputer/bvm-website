@@ -9,10 +9,13 @@ import CaseStudy from '@/modules/landingV3/Componets/CaseStudy';
 import { VIDEO_BVM_STUDIO_HOW_IT_WORK } from '@constants/common';
 
 export default function HeroV2() {
-  const router = useRouter();
+
   const ref = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
   const { tracking } = useL2ServiceTracking();
   const { showContactUsModal } = useContactUs();
+
   const [isOpenModalVideo, setIsOpenModalVideo] = useState<boolean>(false);
 
   return (
@@ -21,7 +24,7 @@ export default function HeroV2() {
         <div className={s.content}>
           <div className={s.content_sub}>
             {/*<IcLogoText />*/}
-            <p>Bitcoin Studio</p>
+            <p>Bitcoin RaaS Studio</p>
           </div>
           <h3 className={s.subTitle}>
             Launch your own Bitcoin-backed blockchain for just{' '}
@@ -104,7 +107,6 @@ export default function HeroV2() {
         </div>
       </div>
       <Brand />
-      <CaseStudy />
     </div>
   );
 }

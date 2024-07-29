@@ -30,12 +30,12 @@ export const NAV_ITEMS: Array<NavItem> = [
     groupType: 'developers',
     GroupDropDown: GroupDeveloper,
   },
-  {
-    label: 'Customers',
-    href: '/customers',
-    isNewWindow: false,
-    isHide: false,
-  },
+  // {
+  //   label: 'Customers',
+  //   href: '/customers',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
   {
     label: '$BVM',
     href: '/bvm',
@@ -85,11 +85,17 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     GroupDropDown: GroupDeveloper,
   },
   {
-    label: 'Customers',
-    href: '/customers',
+    label: 'Research',
+    href: '/research',
     isNewWindow: false,
     isHide: false,
   },
+  // {
+  //   label: 'Customers',
+  //   href: '/customers',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
   // {
   //   label: 'AppStore',
   //   href: '/app-store',
@@ -105,12 +111,12 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
     isNewWindow: false,
     isHide: false,
   },
-  {
-    label: 'Research',
-    href: '/research',
-    isNewWindow: false,
-    isHide: false,
-  },
+  // {
+  //   label: 'Research',
+  //   href: '/research',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
   {
     label: 'Team',
     href: '/team',

@@ -2,9 +2,34 @@
   background-color: #fff;
 }
 
+.caseStudy {
+  padding: 80px 0;
+  background-color: #f4f4f4;
+}
+
 .bottom {
-  @include is-min-table {
-    // padding-top: 80px;
-    // padding-bottom: 80px;
+  //margin-top: 80px;
+  //@include is-min-table {
+  //   padding-top: 80px;
+  //   padding-bottom: 80px;
+  //}
+  &_top {
+    text-align: center;
+    &_heading {
+      font-size: 40px;
+      font-weight: 500;
+      line-height: calc(52 / 40);
+      font-family: var(--font-jetbrains);
+      color: #000;
+    }
+    &_desc {
+      font-size: 18px;
+      line-height: calc(27 / 18);
+      color: #5D6875;
+      max-width: 800px;
+      margin: 12px auto 32px auto;
+    }
   }
 }
+
+
