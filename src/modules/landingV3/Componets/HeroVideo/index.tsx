@@ -13,7 +13,7 @@ export default function HeroVideo() {
   return <div className={s.heroVideo}>
     <div className={s.heroVideo_inner}>
       <div className={s.heroVideo_bg}>
-        <video src={'https://storage.googleapis.com/bvm-network/image/dragn_video_hero.mp4'} loop muted playsInline
+        <video src={'https://storage.googleapis.com/bvm-network/image/bvm_hero_video_v3_comp.mp4'} loop muted playsInline
                autoPlay preload={'auto'} />
       </div>
       <div className={s.heroVideo_content}>
