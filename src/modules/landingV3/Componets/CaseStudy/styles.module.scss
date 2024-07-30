@@ -7,9 +7,10 @@
   //padding: 32px;
   justify-content: center;
   align-items: center;
-  gap: 120px;
+  gap: 60px;
   flex-wrap: wrap;
   @include is-pc {
+    gap: 120px;
     flex-wrap: nowrap;
   }
   &_img {
