@@ -8,7 +8,7 @@
 
   &_inner {
     position: relative;
-    height: calc(100vh - var(--header-size));
+    height: calc(100vh - (var(--header-size) * 4));
     width: 100%;
     overflow: hidden;
 
@@ -21,7 +21,7 @@
       top: 0;
       left: 0;
       z-index: 2;
-      background: rgba(#000, .2);
+      background: rgba(#000, .4);
     }
 
     &:before {
@@ -61,7 +61,7 @@
     left: 0;
     z-index: 5;
     width: 100%;
-    padding-bottom: 64px;
+    padding-bottom: 40px;
   }
 }
 
@@ -77,14 +77,14 @@
     line-height: calc(24/20);
     letter-spacing: 0.02em;
     text-align: left;
-    padding: 6px 12px;
+    padding: 6px 24px;
     margin-bottom: 12px;
     margin-left: auto;
     margin-right: auto;
-    font-size: 16px;
+    font-size: 14px;
 
     @include is-min-table{
-      font-size: 20px;
+      font-size: 16px;
       margin-left: unset;
       margin-right: unset;
       margin-bottom: 24px;
@@ -102,13 +102,13 @@
     font-weight: 600;
     line-height: calc(62 / 48);
     color: white;
-    max-width: 920px;
-    font-size: 34px;
+    max-width: 720px;
+    font-size: 24px;
     margin-bottom: 16px;
     text-align: center;
 
     @include is-min-table{
-      font-size: 48px;
+      font-size: 34px;
       text-align: left;
       margin-bottom: 32px;
     }
@@ -137,20 +137,24 @@
   border-radius: 1000px;
   cursor: pointer;
   font-family: var(--font-SFPro);
-  font-size: 16px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
+  height: 54px;
+
+  --maskCenter: .15em;
+
 
   @include is-min-table {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   &__primary {
     color: #ffffff;
     background: #fa4e0e;
     width: 213px;
+    padding-top: var(--maskCenter);
   }
 
   &__secondary {
@@ -161,6 +165,7 @@
     //width: fit-content;
     padding: 0 20px;
     align-items: center;
+    padding-top: var(--maskCenter);
 
     svg, img {
       transform: translateY(-.1em);
