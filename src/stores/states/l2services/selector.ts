@@ -287,11 +287,22 @@ const getOrderDetailSelected = createSelector(
     }) || [];
 
     dAppConfigList = [APP_BLOCKCHAIN, ...dAppConfigList];
+
     return {
       orderDetail: state.orderDetail,
       dAppConfigList,
       dAppConfigSelected,
     };
+  },
+);
+
+const getDAppConfigByKeySelector = createSelector(
+  getOrderDetailSelected,
+  (data) => (key: string) => {
+    const { dAppConfigList } = data;
+    return dAppConfigList.find(
+      (item) => String(item.key).toLowerCase() === String(key).toLowerCase(),
+    );
   },
 );
 
@@ -352,4 +363,7 @@ export {
   //
   getAvailableListTemplateSelector,
   getModelCategoriesSelector,
+
+  //
+  getDAppConfigByKeySelector,
 };

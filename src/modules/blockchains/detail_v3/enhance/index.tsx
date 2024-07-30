@@ -2,10 +2,11 @@ import { compose } from '@reduxjs/toolkit';
 import { ChainDetailComponent, ChainDetailComponentProps } from '../types';
 
 //
+import enhanceExtractOrderID from './enhance.extractOrderID';
+import enhanceValidateOrderID from './enhance.validateOrderID';
 import enhancePrepareData from './enhance.prepareData';
 import enhanceUpdateHandler from './enhance.updateHandler';
 import enhanceValidateOrderData from './enhance.validateOrderData';
-import enhanceValidateOrderID from './enhance.validateOrderID';
 
 //
 import withAuth from './enhance.withAuth';
@@ -19,6 +20,8 @@ const enhance =
     <WrappedComponent {...props} />;
 
 export default compose<ChainDetailComponent>(
+  enhanceExtractOrderID,
+
   // Validate Original Data
   enhanceValidateOrderID,
 

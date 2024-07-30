@@ -28,7 +28,7 @@ const AppViewer = (props: Props) => {
         break;
 
       //Account Abstraction
-      case 'flex_pay':
+      case 'account_abstraction':
         if (!currentPath?.includes('account-abstraction')) {
           router.push(currentPath + '/account-abstraction');
         }

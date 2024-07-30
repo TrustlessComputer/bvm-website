@@ -1,10 +1,13 @@
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import { useAppSelector } from '@/stores/hooks';
-import { getAvailableListTemplateSelector } from '@/stores/states/l2services/selector';
+import {
+  getAvailableListTemplateSelector,
+  getOrderDetailSelected,
+} from '@/stores/states/l2services/selector';
 import { Flex, Spacer, Text, useDisclosure } from '@chakra-ui/react';
 import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
 import gsap from 'gsap';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import BoxOptionV3 from '../../Buy/components3/BoxOptionV3';
 import ComputerNameInput from '../../Buy/components3/ComputerNameInput';
@@ -30,6 +33,9 @@ import useCaptureHelper from '../hook/useCaptureHelper';
 import AddressInput from './components/AddressInput';
 import FeeRateInput from './components/FeeRateInput';
 import { useAccountAbstractionStore } from './store/hook';
+import enhance from './enhance';
+import { useAADetailHelper } from './useAADetailHelper';
+import WaitiingInstallView from './components/WaitiingInstallView';
 
 const Page = (props: any) => {
   // const modelCategories = useAppSelector(getModelCategoriesSelector);
@@ -39,6 +45,8 @@ const Page = (props: any) => {
   );
 
   const { exportAsImage, download } = useCaptureHelper();
+
+  const { isCanEdit, isProcessing, isOnlyView } = useAADetailHelper();
 
   const [data, setData] = React.useState<
     | (IModelCategory & {
@@ -235,7 +243,8 @@ const Page = (props: any) => {
             ...option,
             value: option.key,
             label: option.title,
-            disabled: !option.selectable || item.disable,
+            disabled:
+              !option.selectable || item.disable || isOnlyView || isProcessing,
           };
         }),
       };
@@ -313,7 +322,7 @@ const Page = (props: any) => {
                   return (
                     <BoxOptionV3
                       key={item.key}
-                      disable={item.disable}
+                      disable={item.disable || isOnlyView || isProcessing}
                       label={item.title}
                       id={item.key}
                       isRequired={item.required}
@@ -352,7 +361,9 @@ const Page = (props: any) => {
                             <LegoV3
                               background={item.color}
                               zIndex={item.options.length - optIdx}
-                              disabled={isDisabled}
+                              disabled={
+                                isDisabled || isOnlyView || isProcessing
+                              }
                             >
                               <Label icon={option.icon} title={option.title} />
                             </LegoV3>
@@ -368,86 +379,92 @@ const Page = (props: any) => {
             </Flex>
 
             <Flex flex={1} className={s.middleViewContainer} id="imageCapture">
-              <DroppableV2
-                id="final"
-                className={s.finalResult}
-                style={{
-                  width: '100% !important',
-                  height: '100%',
-                  paddingLeft: '25%',
-                  paddingRight: '25%',
-                  paddingBottom: '7.5%',
-                  paddingTop: '7.5%',
-                }}
-              >
-                {fieldsDragged.map((key, index) => {
-                  const item = data?.find((i) => i.key === key);
+              {isProcessing ? (
+                <WaitiingInstallView />
+              ) : (
+                <DroppableV2
+                  id="final"
+                  className={s.finalResult}
+                  style={{
+                    width: '100% !important',
+                    height: '100%',
+                    paddingLeft: '25%',
+                    paddingRight: '25%',
+                    paddingBottom: '7.5%',
+                    paddingTop: '7.5%',
+                  }}
+                >
+                  {fieldsDragged.map((key, index) => {
+                    const item = data?.find((i) => i.key === key);
 
-                  if (!item || !data) return null;
+                    if (!item || !data) return null;
 
-                  if (item.multiChoice) {
-                    if (!Array.isArray(field[item.key].value)) return;
+                    if (item.multiChoice) {
+                      if (!Array.isArray(field[item.key].value)) return;
 
-                    const childrenOptions = (field[item.key].value as
-                      | string[]
-                      | number[])!.map(
-                      (key: string | number, opIdx: number) => {
-                        const option = item.options.find(
-                          (opt) => opt.key === key,
-                        );
-
-                        if (!option) return null;
-
-                        const isAddressField =
-                          option.key === 'input_apps_address';
-
-                        if (item.type === 'form') {
-                          return (
-                            <Draggable
-                              key={item.key + '-' + option.key}
-                              id={item.key + '-' + option.key}
-                              useMask
-                              isLabel={true}
-                              value={option.key}
-                              tooltip={option.tooltip}
-                            >
-                              <LegoV3
-                                background={item.color}
-                                zIndex={item.options.length - opIdx}
-                              >
-                                {isAddressField ? (
-                                  <AddressInput option={option} />
-                                ) : (
-                                  <FeeRateInput option={option} />
-                                )}
-                              </LegoV3>
-                            </Draggable>
+                      const childrenOptions = (field[item.key].value as
+                        | string[]
+                        | number[])!.map(
+                        (key: string | number, opIdx: number) => {
+                          const option = item.options.find(
+                            (opt) => opt.key === key,
                           );
-                        }
-                      },
-                    );
 
-                    return (
-                      <Draggable
-                        key={item.key + '-parent' + '-right'}
-                        id={item.key + '-parent' + '-right'}
-                        useMask
-                      >
-                        <DroppableV2 id={item.key}>
-                          <LegoParent
-                            parentOfNested
-                            background={item.color}
-                            label={item.title}
-                            zIndex={fieldsDragged.length - index - 1}
-                          >
-                            {childrenOptions}
-                          </LegoParent>
-                        </DroppableV2>
-                      </Draggable>
-                    );
-                  }
-                })}
-              </DroppableV2>
+                          if (!option) return null;
+
+                          const isAddressField =
+                            option.key === 'input_apps_address';
+
+                          if (item.type === 'form') {
+                            return (
+                              <Draggable
+                                key={item.key + '-' + option.key}
+                                id={item.key + '-' + option.key}
+                                useMask
+                                isLabel={true}
+                                value={option.key}
+                                tooltip={option.tooltip}
+                                disabled={isOnlyView}
+                              >
+                                <LegoV3
+                                  background={item.color}
+                                  zIndex={item.options.length - opIdx}
+                                  disabled={isOnlyView || isProcessing}
+                                >
+                                  {isAddressField ? (
+                                    <AddressInput option={option} />
+                                  ) : (
+                                    <FeeRateInput option={option} />
+                                  )}
+                                </LegoV3>
+                              </Draggable>
+                            );
+                          }
+                        },
+                      );
+
+                      return (
+                        <Draggable
+                          key={item.key + '-parent' + '-right'}
+                          id={item.key + '-parent' + '-right'}
+                          useMask
+                        >
+                          <DroppableV2 id={item.key}>
+                            <LegoParent
+                              parentOfNested
+                              background={item.color}
+                              label={item.title}
+                              zIndex={fieldsDragged.length - index - 1}
+                            >
+                              {childrenOptions}
+                            </LegoParent>
+                          </DroppableV2>
+                        </Draggable>
+                      );
+                    }
+                  })}
+                </DroppableV2>
+              )}
               {!isCapture && (
                 <div className={s.cta_wrapper}>
                   <button
@@ -480,10 +497,14 @@ const Page = (props: any) => {
                   console.log('TO DO --- ', item);
                 }}
                 onExport={() => {
-                  download();
+                  if (isCanEdit) {
+                    download();
+                  }
                 }}
                 onShare={() => {
-                  exportAsImage();
+                  if (isCanEdit) {
+                    exportAsImage();
+                  }
                 }}
               />
             </Flex>
@@ -616,4 +637,4 @@ const Page = (props: any) => {
   );
 };
 
-export default Page;
+export default enhance(Page);
