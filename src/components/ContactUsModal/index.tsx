@@ -14,10 +14,9 @@ import { DATA_BRAND } from '@/modules/landingV3/data-sections';
 import Image from 'next/image';
 
 const SUBJECT_LIST = [
-  `I'd like to build a blockchain on Bitcoin`,
+  `I'd like to build a Rollup on Bitcoin`,
   `I'd like to make a partnership proposal`,
   `I have an issue with the payment process`,
-  `I'd like to setup an Enterprise account with BVM`,
   `Others`,
 ];
 
