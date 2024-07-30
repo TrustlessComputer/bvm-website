@@ -7,13 +7,13 @@ import HackathonModule from '@/modules/hackathon';
 import { Box } from '@chakra-ui/react';
 import Image from 'next/image';
 
-// const metadataThumbnail = `${CDN_URL}/images/gamefi.png`; // TODO: Update new thumbnail
-const metadataThumbnail = IMAGE_SHARING; // TODO: Update new thumbnail
+const metadataThumbnail = `/images/poc/metadata-2x.jpg`; // TODO: Update new thumbnail
+// const metadataThumbnail = IMAGE_SHARING; // TODO: Update new thumbnail
 
 const metadataDesc = `
-Proof Of Code by BVM: The Weekly Crypto Coding Competition.
+Proof Of Code by BVM: The Weekly Crypto Coding Competition
 
-Compete for a chance to win a share of the $500 weekly prize pool, starting with Solidity problems.
+Compete for a chance to win a share of the $500 weekly prize pool, starting with Solidity problems
 
 Register now to sharpen your coding abilities, connect with a community of like-minded developers, and prove that you are the best!
 `;
@@ -65,7 +65,7 @@ const HackathonPage = () => {
           <Image
             layout="fill"
             alt="hero thumbnail"
-            src={`${CDN_URL}/images/hackathon-hero-bg.png`}
+            src={`/images/poc/hackathon-bg.png`}
             // `}
           />
         </Box>
