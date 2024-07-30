@@ -72,9 +72,19 @@
             background: #FA4E0E;
         }
 
+        .meta_info {
+            text-align: center;
+            font-family: "SF Pro Display";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
     }
 
     .right {
         flex: 0.6;
+        position: relative;
     }
 }
