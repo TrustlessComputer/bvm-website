@@ -19,7 +19,7 @@ export type IUserContest = {
   user_address: string;
   total_point: number;
   total_duration: number;
-  contest_problems: IContestProblem[];
+  contest_problems?: IContestProblem[];
   user: {
     profile_image: string;
     name: string;

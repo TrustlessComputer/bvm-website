@@ -65,7 +65,7 @@ const Leaderboard = (props: Props) => {
   const renderLoading = () => <AppLoading />;
 
   const renderItem = (data: IUserContest, index: number) => {
-    const map = data.contest_problems.reduce(
+    const map = data.contest_problems?.reduce(
       (prev, item) => ({
         ...prev,
         [item.code]: item,
@@ -86,9 +86,9 @@ const Leaderboard = (props: Props) => {
           {data.total_point}
         </div>
         <div className={s.place_center}>{getTimeText(data.total_duration)}</div>
-        <div className={s.place_center}>{renderTimeStatus(map['1'])}</div>
-        <div className={s.place_center}> {renderTimeStatus(map['2'])}</div>
-        <div className={s.place_center}> {renderTimeStatus(map['3'])}</div>
+        <div className={s.place_center}>{renderTimeStatus(map?.['1'])}</div>
+        <div className={s.place_center}> {renderTimeStatus(map?.['2'])}</div>
+        <div className={s.place_center}> {renderTimeStatus(map?.['3'])}</div>
       </div>
     );
   };
