@@ -21,59 +21,54 @@ interface DataSections {
 
 export const HOME_DATA_SECTIONS: DataSections[] = [
   {
-    title: 'A fully integrated suite of crypto and rollup products',
-    subTitle: 'MODULAR SOLUTIONS',
+    title: 'Pick your favorite building blocks',
+    subTitle: 'STEP 1',
     children: <div>
-      <p> Leverage the BVM infrastructure to address all your rollup needs and invent new use cases on Bitcoin. Lower costs, expand your community, and optimize your rollup operations on a fully integrated rollup infrastructure.</p>
-      <p>To make it all happen, we partner with some of the best crypto projects in the world.</p>
+      <p>BVM partners with the best crypto projects to create a fully integrated suite of rollup products. Need compute? Choose ZK. Need storage? Choose Avail DA. Need hardware? Choose an instance with 32 cores and 64 GB RAM.</p>
     </div>,
     image: '/images/legoModule.jpg',
-    button: {
-      link: BVM_STUDIO,
-      title: 'BUILD YOUR ZK ROLLUP',
-    },
+    // button: {
+    //   link: BVM_STUDIO,
+    //   title: 'BUILD YOUR ZK ROLLUP',
+    // },
   },
   {
-    title: 'Launch, manage, and scale your rollup with ease',
-    subTitle: 'ROLLUPS',
+    title: 'Assemble building blocks into a rollup',
+    subTitle: 'STEP 2',
     children: <div>
-      <p>No need to set up compute, storage, or hardware nodes—BVM handles it all. Start small at $99/month for a basic rollup and easily scale as your needs grow.</p>
+      <p>Once you've selected the best building blocks for your rollup, assemble them into your unique rollup with simple drag-and-drop functionality.</p>
     </div>,
     image: '/images/rollups.jpg',
-    button: {
-      link: BVM_STUDIO,
-      title: 'BUILD YOUR ZK ROLLUP ',
-    },
+    // button: {
+    //   link: BVM_STUDIO,
+    //   title: 'BUILD YOUR ZK ROLLUP ',
+    // },
   },
   {
-    title: '$99/month for a ZK rollup on Bitcoin',
-    subTitle: 'NO CODE',
+    title: 'Deploy your rollup with just a click',
+    subTitle: 'STEP 3',
     children: <div>
-      <p>Before BVM, building and scaling a blockchain required an army of PhDs, cryptographers, and distributed system
-        engineers.
-      </p>
-      <p>Now, you can launch a ZK rollup blockchain, secured by Bitcoin, without writing a single line of code—all for just $99 monthly.
-      </p>
+      <p>Before BVM, building and scaling a blockchain required an army of PhDs, cryptographers, and distributed system engineers. Now, you can deploy one with just a click — no coding needed.</p>
     </div>,
-    image: '/images/batches.jpg',
-    button: {
-      target: '_blank',
-      link: BVM_STUDIO,
-      title: 'BUILD YOUR ZK ROLLUP',
-    },
+    image: '/images/home-section-3-v3.png',
+    // button: {
+    //   target: '_blank',
+    //   link: BVM_STUDIO,
+    //   title: 'BUILD YOUR ZK ROLLUP',
+    // },
   },
   {
-    title: 'If you’ve deployed on Ethereum, you can easily deploy on Bitcoin.',
-    subTitle: 'BUILD ON BITCOIN',
+    title: 'Extend your rollup with more dapps',
+    subTitle: 'STEP 4',
 
     children: <div>
-      <p>Your ZK rollup on Bitcoin is EVM equivalent, enabling you to write Solidity smart contracts and build dapps on Bitcoin without learning a new toolkit. All your existing code and tools work seamlessly out of the box.</p>
+      <p>If you’ve built dapps on Ethereum, you can easily build on Bitcoin. Your ZK rollup on Bitcoin is EVM-equivalent, allowing you to write Solidity smart contracts on Bitcoin without learning a new toolkit. All your existing code and tools work seamlessly out of the box.</p>
     </div>,
     image: '/images/code.jpg',
-    button: {
-      link: 'https://docs.bvm.network/bvm',
-      title: 'READ DEVELOPER DOCS',
-    },
+    // button: {
+    //   link: 'https://docs.bvm.network/bvm',
+    //   title: 'READ DEVELOPER DOCS',
+    // },
   },
 
 ];
