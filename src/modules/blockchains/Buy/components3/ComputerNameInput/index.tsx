@@ -63,7 +63,7 @@ const ComputerNameInput = () => {
 
   React.useEffect(() => {
     const computerName =
-      'My Little Blockchain ' + getRandonComputerName(isMainnet);
+      'My Bitcoin ZK Rollup ' + getRandonComputerName(isMainnet);
 
     setChainName(computerName);
     setComputerNameField({
