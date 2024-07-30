@@ -144,16 +144,16 @@ const HackathonModule = (props: Props) => {
               <Image
                 layout="fill"
                 alt="hero thumbnail"
-                src={`${CDN_URL}/images/hero-thumbnail-1.png`}
+                src={`${CDN_URL}/images/hero-thumbnail-2.png`}
                 // `}
               />
             </Box>
           </div>
         </div>
       </div>
-      <Box zIndex={1} pos={'relative'}>
+      {/* <Box zIndex={1} pos={'relative'}>
         <LeaderboardSection />
-      </Box>
+      </Box> */}
     </>
   );
 };
