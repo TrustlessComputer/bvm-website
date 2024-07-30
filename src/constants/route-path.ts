@@ -18,4 +18,4 @@ export const APP_STORE = `/app-store`;
 export const PRICING = `/pricing`;
 export const ROLLUPS = `/rollups`;
 export const BVM_STUDIO = '/rollups/customizev2';
-export const BVM_CODE_BATTLE = '/bvm-code-battle';
+export const BVM_CODE_BATTLE = '/PoC';
