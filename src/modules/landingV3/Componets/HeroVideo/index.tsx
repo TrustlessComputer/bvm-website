@@ -3,6 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useL2ServiceTracking } from '@hooks/useL2ServiceTracking';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import Banner from '@/modules/landingV3/Componets/Banner';
 
 export default function HeroVideo() {
   const router = useRouter();
@@ -12,8 +13,10 @@ export default function HeroVideo() {
 
   return <div className={s.heroVideo}>
     <div className={s.heroVideo_inner}>
+      <Banner />
       <div className={s.heroVideo_bg}>
-        <video src={'https://storage.googleapis.com/bvm-network/image/bvm_hero_video_v3_comp.mp4'} loop muted playsInline
+        <video src={'https://storage.googleapis.com/bvm-network/image/bvm_hero_video_v3_comp.mp4'} loop muted
+               playsInline
                autoPlay preload={'auto'} />
       </div>
       <div className={s.heroVideo_content}>

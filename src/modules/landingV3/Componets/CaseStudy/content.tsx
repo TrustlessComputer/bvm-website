@@ -1,11 +1,12 @@
 import s from '@/modules/landingV3/Componets/CaseStudy/styles.module.scss';
 import Link from 'next/link';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useScrollingSectionStore } from '@/modules/landingV3/Componets/ScrollingSection/useScrollingSectionStore';
-import { useIsInViewport } from '@hooks/useIsInViewport';
+
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import gsap from 'gsap';
+
 export default function CaseStudyContent({ idx }: { idx?: number }) {
 
   const refContent = useRef<HTMLDivElement>(null);
@@ -15,12 +16,12 @@ export default function CaseStudyContent({ idx }: { idx?: number }) {
     gsap.registerPlugin(ScrollTrigger);
 
     if (idx === undefined) return;
-    gsap.set(refContent.current, {opacity: 0});
+    gsap.set(refContent.current, { opacity: 0 });
     ScrollTrigger.create({
       trigger: refContent.current,
       start: 'center bottom-=10%',
       end: 'center top+=10%',
-      markers: true,
+      // markers: true,
       onToggle: (self) => {
         if (self.isActive) {
           setSectionActive(idx);

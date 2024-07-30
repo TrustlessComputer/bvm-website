@@ -23,7 +23,7 @@ export default function ContentSection({ idx, subTitle, title, children, button,
       trigger: refContent.current,
       start: 'center bottom-=10%',
       end: 'center top+=10%',
-      markers: true,
+      // markers: true,
       onToggle: (self) => {
         if (self.isActive) {
           setSectionActive(idx);
