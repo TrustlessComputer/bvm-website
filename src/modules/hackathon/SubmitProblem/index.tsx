@@ -7,7 +7,7 @@ import s from './styles.module.scss';
 
 type Props = {
   className?: string;
-  code: string;
+  code: string | number;
 };
 
 const SubmitProblem = ({ className, code }: Props) => {
