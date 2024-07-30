@@ -20,7 +20,7 @@ export default function HeroVideo() {
         <div className={`containerV3 ${s.heroVideo_content_container}`}>
           <div className={s.content}>
             <div className={s.content_sub}>
-              <p>Bitcoin RaaS Studio</p>
+              <p>Bitcoin Rollup as a Service</p>
             </div>
             <h3 className={s.content_heading}>
               Launch your own ZK Rollup on Bitcoin with drags and drops for just $99/month.
@@ -33,7 +33,7 @@ export default function HeroVideo() {
                   router.push('/rollups/customizev2');
                 }}
               >
-                Build on Bitcoin
+                Build now
               </div>
               <div
                 className={`${s.btn} ${s.btn__secondary}`}
