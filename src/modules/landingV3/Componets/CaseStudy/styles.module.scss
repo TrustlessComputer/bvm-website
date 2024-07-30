@@ -1,25 +1,28 @@
 .inner {
-  //margin-top: 40px;
   display: flex;
-  padding: 120px 0;
   border-radius: 20px;
   background: white;
-  //padding: 32px;
   justify-content: center;
   align-items: center;
-  gap: 120px;
+  gap: 60px;
   flex-wrap: wrap;
   @include is-pc {
     flex-wrap: nowrap;
   }
+
   &_img {
     max-width: 120px;
-    margin: 24px 0;
+    margin: 24px auto;
+
+    @include is-min-table{
+      margin: 24px 0;
+    }
 
     img {
       width: 100%;
     }
   }
+
   &_right {
     display: flex;
     flex-direction: column;
@@ -39,6 +42,18 @@
   cursor: pointer;
   border-radius: 24px;
   overflow: hidden;
+
+  &.isScrolling {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .4s ease-out;
+
+    &.active {
+      pointer-events: auto;
+      opacity: 1 !important;
+    }
+  }
+
   &_btn {
     position: absolute;
     top: 50%;
@@ -48,10 +63,12 @@
     height: 80px;
     pointer-events: none;
     z-index: 2;
+
     img {
       width: 100%;
     }
   }
+
   &_bg {
     background: #000000;
     width: 100%;
@@ -61,8 +78,8 @@
     top: 0;
     left: 0;
     cursor: pointer;
-
     z-index: 2;
+
     > img, video {
       opacity: .8;
       height: 100% !important;
@@ -73,6 +90,7 @@
       cursor: pointer;
     }
   }
+
   video {
     width: 100% !important;
     object-fit: contain;
@@ -101,6 +119,14 @@
   font-weight: 600;
   text-transform: uppercase;
   line-height: calc(21.6 / 18);
+
+  margin-left: auto;
+  margin-right: auto;
+
+  @include is-min-table{
+    margin-left: unset;
+    margin-right: unset;
+  }
 }
 
 .caseStudy {
@@ -116,6 +142,11 @@
     font-family: var(--font-jetbrains);
     text-transform: uppercase;
     margin-bottom: 12px;
+    text-align: center;
+
+    @include is-min-table{
+      text-align: left;
+    }
   }
 
   &_description {
@@ -123,6 +154,15 @@
     font-weight: 400;
     line-height: calc(24 / 18);
     color: #000000B2;
+    text-align: center;
+
+    span{
+      display: inline-block;
+    }
+
+    @include is-min-table{
+      text-align: left;
+    }
   }
 
   &_button {
@@ -130,7 +170,13 @@
     color: #fff;
     border-radius: 1000px;
     font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
 
+    @include is-min-table{
+      margin-left: unset;
+      margin-right: unset;
+    }
     a {
       line-height: 1;
       height: 44px;

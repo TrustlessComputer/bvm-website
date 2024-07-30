@@ -75,25 +75,27 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
       title: 'READ DEVELOPER DOCS',
     },
   },
-  {
-    title: 'Built by builders, for builders',
-    subTitle: 'TEAM',
-    children: <div>
-      <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack of scalability and programmability has been its hallmark.</p>
-      <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
-      <p>Oh, and we really like building things.</p>
-    </div>,
-    image: '/images/team2.png',
-    button: {
-      link: '/research',
-      title: 'Read our research',
-    },
-    button2: {
-      link: '/team',
-      title: 'Meet the team',
-    },
-  },
+
 ];
+
+export const TEAM = {
+  title: 'Built by builders, for builders',
+  subTitle: 'TEAM',
+  children: <div>
+    <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack of scalability and programmability has been its hallmark.</p>
+    <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
+    <p>Oh, and we really like building things.</p>
+  </div>,
+  image: '/images/team2.png',
+  button: {
+    link: '/research',
+    title: 'Read our research',
+  },
+  button2: {
+    link: '/team',
+    title: 'Meet the team',
+  },
+};
 
 export const DATA_BRAND = [
   {

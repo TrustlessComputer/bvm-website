@@ -3,7 +3,7 @@
   padding-top: var(--header-size);
   --header-size: 60px;
   @include min-tablet {
-    --header-size: 72px;
+    --header-size: 76px;
   }
 
   &_inner {
