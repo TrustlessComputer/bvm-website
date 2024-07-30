@@ -99,6 +99,7 @@ interface FieldModel {
   level?: number;
   selectable?: boolean;
   background?: string;
+  previewTitle?: string
 }
 
 interface BlockModel {

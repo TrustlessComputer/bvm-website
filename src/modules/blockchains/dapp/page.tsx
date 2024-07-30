@@ -705,14 +705,14 @@ const RollupsDappPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <div className={styles.logo}>
-          <Image
-            src={'/bvmstudio_logo.png'}
-            alt={'bvmstudio_logo'}
-            width={549}
-            height={88}
-          />
-        </div>
+        {/*<div className={styles.logo}>*/}
+        {/*  <Image*/}
+        {/*    src={'/bvmstudio_logo.png'}*/}
+        {/*    alt={'bvmstudio_logo'}*/}
+        {/*    width={549}*/}
+        {/*    height={88}*/}
+        {/*  />*/}
+        {/*</div>*/}
         <p className={styles.content_text}>
           Drag and drop modules to start new blockchains, new dapps, and new
           economies.
