@@ -17,7 +17,6 @@ import useCountdown from '@/hooks/useCountdown';
 import Countdown from '@/components/Countdown';
 import dayjs from 'dayjs';
 import Link from 'next/link';
-import IcLinkOrange from '@/public/hackathon/ic-link-orange.svg';
 import ButtonConnected from '@/components/ButtonConnected/v2';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { useDispatch } from 'react-redux';
@@ -196,7 +195,12 @@ const HackathonModule = (props: Props) => {
                 <br />
                 <Link href="/" className={s.link}>
                   Learn more about BVM here
-                  <IcLinkOrange />
+                  <Image
+                    src="/hackathon/ic-link-orange.svg"
+                    alt="link"
+                    width={16}
+                    height={16}
+                  ></Image>
                 </Link>
               </p>
             </div>
