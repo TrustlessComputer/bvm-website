@@ -1,9 +1,11 @@
 'use client';
-import { Box } from '@chakra-ui/react';
+import { Box, Spinner } from '@chakra-ui/react';
 import cn from 'classnames';
 import { Formik } from 'formik';
+import { isAddress } from '@ethersproject/address';
 
 import { submitProblem } from '@/services/api/EternalServices';
+import { showError, showSuccess } from '@/components/toast';
 
 import s from './styles.module.scss';
 
@@ -22,20 +24,36 @@ const SubmitProblem = ({ className, code }: Props) => {
 
     if (!values.contractAddress) {
       errors.contractAddress = 'Contract address is required.';
+    } else if (!isAddress(values.contractAddress)) {
+      errors.contractAddress = 'Contract address is invalid.';
     }
+
     return errors;
   };
 
-  const handleSubmit = async (values: FormValues) => {
+  const handleSubmit = async (
+    values: FormValues,
+    {
+      resetForm,
+      setSubmitting,
+    }: { resetForm: () => void; setSubmitting: (arg: boolean) => void },
+  ) => {
+    setSubmitting(true);
     const result = await submitProblem({
       contractAddress: values.contractAddress,
       problemCode: `${code}`,
     });
     if (result) {
-      // success
+      showSuccess({
+        message: 'Your submission has been sent.',
+      });
+      resetForm();
     } else {
-      // fail
+      showError({
+        message: 'Submission failed.',
+      });
     }
+    setSubmitting(false);
   };
 
   return (
@@ -50,6 +68,7 @@ const SubmitProblem = ({ className, code }: Props) => {
         values,
         errors,
         touched,
+        isSubmitting,
         handleChange,
         handleBlur,
         handleSubmit,
@@ -67,7 +86,9 @@ const SubmitProblem = ({ className, code }: Props) => {
               onBlur={handleBlur}
               value={values.contractAddress}
             />
-            <button type="submit">Submit</button>
+            <button disabled={isSubmitting} type="submit">
+              {isSubmitting ? <Spinner /> : 'Submit'}
+            </button>
           </Box>
           <Box className={s.submitProblem_error}>
             {errors.contractAddress &&
