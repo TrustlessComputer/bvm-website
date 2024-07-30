@@ -48,6 +48,7 @@ import { useThisDapp } from './hooks/useThisDapp';
 import { parseStakingPools } from './parseUtils/staking';
 import { DappType } from './types';
 import { showValidateError } from '@/components/toast';
+import { compareString } from '@/utils/string';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
@@ -566,8 +567,39 @@ const RollupsDappPage = () => {
 
   const fetchData = async () => {
     // const dapps = configs;
+    console.log('fetchData tokens', tokens);
+
     const dapps = dappMockupData;
+
     const sortedDapps = dapps.sort((a, b) => a.order - b.order);
+
+    if (tokens.length > 0) {
+      const _airdropIndex = sortedDapps.findIndex((v) =>
+        compareString(v.key, DappType.airdrop),
+      );
+
+      if (_airdropIndex > -1) {
+        const fieldRewardToken = sortedDapps[
+          _airdropIndex
+        ].baseBlock.fields.findIndex((v) =>
+          compareString(v.key, 'reward_token'),
+        );
+        if (fieldRewardToken > -1) {
+          // @ts-ignore
+          sortedDapps[_airdropIndex].baseBlock.fields[
+            fieldRewardToken
+          ].options = tokens.map((t) => ({
+            key: t.id,
+            title: t.name,
+            value: t.contract_address,
+            icon: t.image_url,
+            tooltip: '',
+            type: '',
+            options: [],
+          }));
+        }
+      }
+    }
 
     setDapps(sortedDapps);
   };
@@ -629,6 +661,7 @@ const RollupsDappPage = () => {
 
   const getDataTemplateForm = async () => {
     if (!thisDapp) return;
+
     switch (thisDapp?.key) {
       case DappType.staking: {
         const data = parseStakingPools(stakingPools);
@@ -650,6 +683,20 @@ const RollupsDappPage = () => {
         setTemplateForm(model);
         break;
       }
+      case DappType.airdrop: {
+        const data = parseTokensData(tokens);
+        console.log('data', data);
+
+        const model = parseDappModel({
+          key: DappType.airdrop,
+          model: data,
+        });
+        console.log('model', model);
+
+        // setTemplateDapps(data);
+        // setTemplateForm(model);
+        break;
+      }
       default:
         break;
     }
@@ -658,14 +705,14 @@ const RollupsDappPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <div className={styles.logo}>
-          <Image
-            src={'/bvmstudio_logo.png'}
-            alt={'bvmstudio_logo'}
-            width={549}
-            height={88}
-          />
-        </div>
+        {/*<div className={styles.logo}>*/}
+        {/*  <Image*/}
+        {/*    src={'/bvmstudio_logo.png'}*/}
+        {/*    alt={'bvmstudio_logo'}*/}
+        {/*    width={549}*/}
+        {/*    height={88}*/}
+        {/*  />*/}
+        {/*</div>*/}
         <p className={styles.content_text}>
           Drag and drop modules to start new blockchains, new dapps, and new
           economies.

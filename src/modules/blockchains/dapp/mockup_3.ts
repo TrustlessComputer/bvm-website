@@ -59,6 +59,7 @@ export const dappMockupData: DappModel[] = [
           background: '#00AA6C',
           key: 'token_name',
           title: 'Token Name',
+          previewTitle: 'Name',
           type: 'input',
           icon: '',
           value: '',
@@ -79,6 +80,7 @@ export const dappMockupData: DappModel[] = [
           background: '#00AA6C',
           key: 'token_supply',
           title: 'Total Supply',
+          previewTitle: 'Supply',
           type: 'input',
           icon: '',
           value: '',
@@ -89,6 +91,7 @@ export const dappMockupData: DappModel[] = [
           background: '#00AA6C',
           key: 'receiver_address',
           title: 'Receiver Address',
+          previewTitle: 'Address',
           type: 'input',
           icon: '',
           value: '',
@@ -131,6 +134,7 @@ export const dappMockupData: DappModel[] = [
             background: '#F8B200',
             key: 'address',
             title: 'Receiver Address',
+            previewTitle: 'Address',
             type: 'input',
             icon: '',
             value: '',
@@ -379,7 +383,7 @@ export const dappMockupData: DappModel[] = [
       {
         key: 'info',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'Information',
+        title: 'Reward Rate',
         tooltip: '',
         required: true,
       },
@@ -406,7 +410,7 @@ export const dappMockupData: DappModel[] = [
           },
           {
             key: 'eth',
-            title: 'ETH', // symbol
+            title: 'ETH (Upgrade plan 99$)', // symbol
             value: '0x1234', // contract_address
             icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
             tooltip: '',
@@ -439,7 +443,7 @@ export const dappMockupData: DappModel[] = [
           },
           {
             key: 'eth',
-            title: 'ETH', // symbol
+            title: 'ETH (Upgrade plan 99$)', // symbol
             value: '0x1234', // contract_address
             icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
             tooltip: '',
@@ -453,7 +457,7 @@ export const dappMockupData: DappModel[] = [
     blockFields: [
       {
         key: 'info',
-        title: 'Information',
+        title: 'Reward rate',
         icon: '',
         placableAmount: 1,
         section: 'info',
@@ -485,6 +489,7 @@ export const dappMockupData: DappModel[] = [
           {
             key: 'amount',
             title: 'Reward amount',
+            previewTitle: 'Reward',
             type: 'input',
             icon: '',
             value: '',
@@ -511,7 +516,7 @@ export const dappMockupData: DappModel[] = [
     key: 'airdrop',
     title: 'Airdrop',
     icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-orderbook.svg',
-    order: 2,
+    order: 3,
     color: '#F76649',
     created_at: '2021-09-14T09:00:00.000Z',
     updated_at: '2021-09-14T09:00:00.000Z',
@@ -545,19 +550,9 @@ export const dappMockupData: DappModel[] = [
           title: 'Reward Token',
           type: 'dropdown',
           icon: '',
-          value: 'math',
+          value: '',
           tooltip: '',
-          options: [
-            {
-              key: 'eth',
-              title: 'ETH', // symbol
-              value: '0x1234', // contract_address
-              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-              tooltip: '',
-              type: '',
-              options: [],
-            },
-          ],
+          options: [],
         },
         {
           key: 'airdrop_amount',
@@ -571,100 +566,6 @@ export const dappMockupData: DappModel[] = [
       ],
     },
     blockFields: [
-      {
-        key: 'airdrop_staking',
-        title: 'For staking',
-        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        placableAmount: -1,
-        section: 'actions',
-        preview: true,
-        fields: [
-          {
-            key: 'token',
-            title: 'Token',
-            type: 'dropdown',
-            icon: '',
-            value: 'token',
-            tooltip: '',
-            options: [
-              {
-                key: 'eth',
-                title: 'ETH', // symbol
-                value: '0x1234', // contract_address
-                icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
-                tooltip: '',
-                type: '',
-                options: [],
-              },
-            ],
-          },
-          {
-            key: 'required_amount',
-            title: 'Require Amount',
-            type: 'input',
-            icon: '',
-            value: '',
-            tooltip: '',
-            options: [],
-          },
-          {
-            key: 'reward_amount',
-            title: 'Reward Amount',
-            type: 'input',
-            icon: '',
-            value: '',
-            tooltip: '',
-            options: [],
-          },
-        ],
-      },
-      {
-        key: 'airdrop_holding',
-        title: 'For holding',
-        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        placableAmount: -1,
-        section: 'actions',
-        preview: true,
-        fields: [
-          {
-            key: 'token',
-            title: 'Token',
-            type: 'dropdown',
-            icon: '',
-            value: 'token',
-            tooltip: '',
-            options: [
-              {
-                key: 'eth',
-                title: 'ETH', // symbol
-                value: '0x1234', // contract_address
-                icon: '', // image_url
-                tooltip: '',
-                type: '',
-                options: [],
-              },
-            ],
-          },
-          {
-            key: 'required_amount',
-            title: 'Require Amount',
-            type: 'input',
-            icon: '',
-            value: '',
-            tooltip: '',
-            options: [],
-          },
-          {
-            key: 'reward_amount',
-            title: 'Reward Amount',
-            type: 'input',
-            icon: '',
-            value: '',
-            tooltip: '',
-            options: [],
-          },
-        ],
-      },
       {
         key: 'airdrop_tasks',
         title: 'For tasks',
@@ -680,36 +581,7 @@ export const dappMockupData: DappModel[] = [
             icon: '',
             value: 'task',
             tooltip: '',
-            options: [
-              {
-                key: 'refer',
-                title: 'Refer a friend to join IDO', // symbol
-                value: 'refer', // contract_address
-                icon: '', // image_url
-                tooltip:
-                  'Spread the love to your friends, team, and communities.',
-                type: '',
-                options: [],
-              },
-              {
-                key: 'spread_on_x',
-                title: 'Publish a tweet mentioning', // symbol
-                value: 'spread_on_x', // contract_address
-                icon: '', // image_url
-                tooltip: 'Publish a tweet mentioning',
-                type: '',
-                options: [],
-              },
-              {
-                key: 'like_on_x',
-                title: `Like and retweet Twitter' pinned tweet`, // symbol
-                value: 'like_on_x', // contract_address
-                icon: '', // image_url
-                tooltip: `Like and retweet Twitter' pinned tweet`,
-                type: '',
-                options: [],
-              },
-            ],
+            options: [],
           },
           {
             key: 'reward_amount',

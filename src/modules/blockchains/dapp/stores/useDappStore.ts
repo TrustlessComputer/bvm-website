@@ -26,7 +26,7 @@ type UseFormDappStore = UseFormDappsSlice;
 type UseTemplateFormStore = UseTemplateFormSlice;
 
 const useDappsSlice: StateCreator<UseDappsSlice> = (set) => ({
-  currentIndexDapp: 0,
+  currentIndexDapp: 2,
   setCurrentIndexDapp: (currentIndexDapp) => set({ currentIndexDapp }),
   dapps: [],
   setDapps: (dapps) => set({ dapps }),

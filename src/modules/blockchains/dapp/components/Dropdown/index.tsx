@@ -6,9 +6,9 @@ import { useSignalEffect } from '@preact/signals-react';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 
-import { FieldOption } from '../../types';
+import { DappType, FieldOption } from '../../types';
 import { adjustBrightness, FormDappUtil } from '../../utils';
-import { useFormDappsStore } from '../../stores/useDappStore';
+import useDappsStore, { useFormDappsStore } from '../../stores/useDappStore';
 import {
   formDappDropdownSignal,
   formDappSignal,
@@ -16,6 +16,7 @@ import {
 } from '../../signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
+import { compareString } from '@/utils/string';
 
 type Props = {
   onlyLabel?: boolean;
@@ -35,6 +36,7 @@ const Dropdown = ({
   onlyLabel = false,
   ...props
 }: Props) => {
+  const { setCurrentIndexDapp } = useDappsStore();
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [isOpenDropdown, setIsOpenDropdown] = React.useState<boolean>(false);
   const [currentValue, setCurrentValue] = React.useState<FieldModel | null>(
@@ -81,20 +83,63 @@ const Dropdown = ({
       : formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
-    if (!formDappDropdown[key]) {
-      formDappSignal.value = {
-        ...formDappDropdown,
-        [key]: props.options[0].value,
-      };
-    } else {
-      setCurrentValue(
-        props.options.find((item) => item.value === formDappDropdown[key]) ||
-          props.options[0],
-      );
+    if (props.options.length > 0) {
+      if (!formDappDropdown[key]) {
+        formDappSignal.value = {
+          ...formDappDropdown,
+          [key]: props.options[0].value,
+        };
+      } else {
+        setCurrentValue(
+          props.options.find((item) => item.value === formDappDropdown[key]) ||
+            props.options[0],
+        );
+      }
     }
   }, []);
 
-  if (!currentValue) return null;
+  if (!currentValue) {
+    if (compareString(keyDapp, DappType.airdrop)) {
+      return (
+        <div
+          className={cn(styles.dropdown, {
+            [styles.dropdown__disabled]: disabled,
+          })}
+          ref={ref}
+          style={{
+            // @ts-ignore
+            '--background': background,
+            '--background-hover': backgroundHover,
+            '--background-active': backgroundActive,
+          }}
+          onClick={() => {
+            setCurrentIndexDapp(0);
+          }}
+        >
+          <div className={styles.dropdown__inner}>
+            <div
+              className={styles.dropdown__inner__content}
+              onClick={() => setIsOpenDropdown(!isOpenDropdown)}
+            >
+              <p className={styles.dropdown__inner__content__text}>
+                Create A Token
+              </p>
+
+              {props.options.length > 1 && !disabled ? (
+                <Image
+                  src="/landingV3/svg/arrow-b.svg"
+                  width={16}
+                  height={16}
+                  alt="icon"
+                />
+              ) : null}
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }
 
   return (
     <div
