@@ -3,6 +3,8 @@ import { Box } from '@chakra-ui/react';
 import cn from 'classnames';
 import { Formik } from 'formik';
 
+import { submitProblem } from '@/services/api/EternalServices';
+
 import s from './styles.module.scss';
 
 type Props = {
@@ -10,17 +12,31 @@ type Props = {
   code: string | number;
 };
 
+type FormValues = {
+  contractAddress: string;
+};
+
 const SubmitProblem = ({ className, code }: Props) => {
-  const validateForm = (values: any) => {
+  const validateForm = (values: FormValues) => {
     const errors: Record<string, string> = {};
 
-    if (!values.amount) {
+    if (!values.contractAddress) {
       errors.contractAddress = 'Contract address is required.';
     }
     return errors;
   };
 
-  const handleSubmit = async (values: unknown) => {};
+  const handleSubmit = async (values: FormValues) => {
+    const result = await submitProblem({
+      contractAddress: values.contractAddress,
+      problemCode: `${code}`,
+    });
+    if (result) {
+      // success
+    } else {
+      // fail
+    }
+  };
 
   return (
     <Formik

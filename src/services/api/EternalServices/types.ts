@@ -29,3 +29,7 @@ export type IGetListLeaderboardResponse = {
   total_records: number;
   user_contests: IUserContest[];
 };
+
+export type ISubmitProblemResponse = {
+  id: string;
+};

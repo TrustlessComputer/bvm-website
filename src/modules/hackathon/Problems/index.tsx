@@ -34,8 +34,6 @@ const Problems = () => {
         </Tabs>
       </div>
       <div className={s.footer}>
-        <p>Submit Form here</p>
-        {/* TODO: Submit form here */}
         <SubmitProblem code={tabIndex} />
       </div>
     </div>

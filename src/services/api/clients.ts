@@ -1,6 +1,8 @@
 import { API_BASE_URL, API_ETERNAL_AI, DA_SERVICE_URL } from '@/config';
 import createAxiosInstance from './http-client';
 
+import createAxiosInstance2 from './http-client2';
+
 export const apiClient = createAxiosInstance({
   baseURL: '/',
 });
@@ -13,7 +15,7 @@ export const DAServiceAPI = createAxiosInstance({
   baseURL: DA_SERVICE_URL + '/api',
 });
 
-export const apiEternalAIClient = createAxiosInstance({
+export const apiEternalAIClient = createAxiosInstance2({
   baseURL: API_ETERNAL_AI + '/api',
 });
 
