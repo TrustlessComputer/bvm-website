@@ -3,15 +3,9 @@ import s from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import ImagePlaceholder from '@components/ImagePlaceholder';
+import { ISectionContentProps } from '@/modules/landingV3/Componets/SectionContent/section-content';
 
-interface ISectionContentProps extends PropsWithChildren {
-  title: string,
-  subTitle: string,
-  image: string,
-  button?: { link: string, title: string, target?: '_blank' | '_self' | '_top' },
-  button2?: { link: string, title: string, target?: '_blank' | '_self' | '_top' },
-  direction?: 'left' | 'right'
-}
+
 
 export default function SectionContent({ title, subTitle, image, children, button, button2, direction = 'right' }: ISectionContentProps) {
   return <div className={s.section}>
