@@ -10,6 +10,7 @@ import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import HeroVideo from '@/modules/landingV3/Componets/HeroVideo';
 import Section_7 from '@/modules/landingV3/Componets/Section_7';
 import HeadingSection from '@/modules/landingV3/Componets/HeadingSection';
+import VideoSection from '@/modules/landingV3/Componets/VideoSection';
 export default function LandingV3() {
   useWhiteBackground();
   const { tracking } = useL2ServiceTracking();
@@ -22,8 +23,9 @@ export default function LandingV3() {
   return (
     <div className={s.landing}>
       <HeroVideo />
-      <HeadingSection title={'Built for builders'} isVideo bgColor={'#f4f4f4'}>With Bitcoin as the base layer, your ZK rollup inherits Bitcoin’s security and you can tap into the <span>$1 trillion Bitcoin economy</span>.</HeadingSection>
-      <HeadingSection title={'Why builders choose BVM'}  showBtn>Whether you're an indie developer or a large-scale project, BVM makes it easy
+      <VideoSection />
+      <HeadingSection title={'Why builders choose BVM'} showBtn>Whether you're an indie developer or a large-scale
+        project, BVM makes it easy
         and affordable to create your own ZK rollup — secured by Bitcoin.</HeadingSection>
       <div className={s.bottom}>
         {HOME_DATA_SECTIONS.map((data) => {
@@ -33,6 +35,10 @@ export default function LandingV3() {
       <div className={s.caseStudy}>
         <CaseStudy />
       </div>
+      <div className={s.teamSection}>
+        <SectionContent {...HOME_DATA_SECTIONS[HOME_DATA_SECTIONS.length - 1]} />
+      </div>
+
       <Section_7 />
     </div>
   );

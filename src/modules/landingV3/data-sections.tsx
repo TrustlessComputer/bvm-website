@@ -83,7 +83,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
       <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
       <p>Oh, and we really like building things.</p>
     </div>,
-    image: '/images/team.jpg',
+    image: '/images/team2.png',
     button: {
       link: '/research',
       title: 'Read our research',
