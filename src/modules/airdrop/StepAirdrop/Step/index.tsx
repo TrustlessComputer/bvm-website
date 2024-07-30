@@ -133,7 +133,7 @@ export default function ItemCommunity({
   const onClaim = async () => {
     try {
       setClaiming(true);
-      if (content?.airdropType === 1) {
+      if (content?.step === 1) {
         await claimBVMAirdrop({
           address: airdropAlphaUsers?.address,
           type: airdropAlphaUsers?.type,
