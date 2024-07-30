@@ -98,6 +98,12 @@
             padding: 0px 32px;
             border-radius: 100px;
             background: #FA4E0E;
+
+            &.registered {
+                background: #2D2D2D;
+                color: rgba($color: #FFF, $alpha: 0.7);
+            }
+
         }
 
         .meta_info {
@@ -128,5 +134,29 @@
             display: none;
         }
 
+    }
+}
+
+.modalContent {
+    background: #fff !important;
+
+    h4 {
+        color: #000;
+        font-family: "JetBrains Mono";
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+        /* 28.8px */
+        letter-spacing: 0.72px;
+        margin-bottom: 24px;
+    }
+
+    :global {
+        .chakra-modal__close-btn {
+            filter: invert(1);
+            top: 24px;
+            right: 24px;
+        }
     }
 }

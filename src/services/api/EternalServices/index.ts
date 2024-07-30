@@ -4,6 +4,7 @@ import {
   IGetListLeaderboardResponse,
   IUserContest,
   ISubmitProblemResponse,
+  IContestStats,
 } from './types';
 
 export const getListLeaderboard = async (
@@ -38,4 +39,21 @@ export const submitProblem = async ({
     console.log(error);
     return null;
   }
+};
+
+export const registerCodeBattle = async (payload: any) => {
+  const res = await apiEternalAIClient.post(`/contest/register`, payload);
+  return res;
+};
+
+export const checkRegistered = async () => {
+  const res: IUserContest = await apiEternalAIClient.get(
+    `/contest/user-contest-info`,
+  );
+  return res;
+};
+
+export const getContestStats = async () => {
+  const res: IContestStats = await apiEternalAIClient.get(`/contest/statistic`);
+  return res;
 };

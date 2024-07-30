@@ -1,9 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './HackathonModue.module.scss';
-import cn from 'classnames';
-import { Box, Image as ChakraImage, Flex, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Image as ChakraImage,
+  Flex,
+  Skeleton,
+  Text,
+} from '@chakra-ui/react';
 import Image from 'next/image';
 import { CDN_URL } from '@/config';
 import Fade from '@/interactive/Fade';
@@ -13,15 +18,31 @@ import Countdown from '@/components/Countdown';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import IcLinkOrange from '@/public/hackathon/ic-link-orange.svg';
+import ButtonConnected from '@/components/ButtonConnected/v2';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { useDispatch } from 'react-redux';
+import { openModal } from '@/stores/states/modal/reducer';
+import RegisterModal, { REGISTER_MODAL } from './Register/Modal';
+import {
+  checkRegistered,
+  getContestStats,
+} from '@/services/api/EternalServices';
+import cn from 'classnames';
+import { formatCurrencyV2, humanReadable } from '@/utils/format';
 
 type Props = {};
 
-const START_TIME = '2024-08-02T08:00:00Z';
+const START_TIME = '2024-08-01T10:00:00Z';
 
-const END_TIME = '2024-08-02T010:00:00Z';
+const END_TIME = '2024-08-06T010:00:00Z';
 
 const HackathonModule = (props: Props) => {
+  const { loggedIn, login, logout, userInfo } = useWeb3Auth();
+  const dispatch = useDispatch();
+
   const [peopleSubmitted, setPeopleSubmitted] = useState<number | null>(null);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isChecking, setIsChecking] = useState(true);
 
   const startTime = useCountdown(START_TIME);
 
@@ -29,10 +50,9 @@ const HackathonModule = (props: Props) => {
 
   const fetchPeopleSubmitted = async () => {
     try {
-      const res = await fetch('https://api.example.com/people-submitted');
+      const res = await getContestStats();
       if (res) {
-        const data = await res.json();
-        setPeopleSubmitted(data?.count);
+        setPeopleSubmitted(res?.total_register);
       }
     } catch (error) {
       console.error('Error fetching people submitted', error);
@@ -44,7 +64,7 @@ const HackathonModule = (props: Props) => {
       return (
         <Flex alignItems={'center'} gap="4px">
           <Text whiteSpace={'nowrap'} opacity={0.6}>
-            Start in
+            Practice battle starts in
           </Text>
           <Countdown
             className={s.countDown_time}
@@ -64,7 +84,7 @@ const HackathonModule = (props: Props) => {
       return (
         <Flex alignItems={'center'} gap="4px">
           <Text whiteSpace={'nowrap'} opacity={0.6}>
-            End in
+            Practice battle ends in
           </Text>
           <Countdown
             className={s.countDown_time}
@@ -80,6 +100,57 @@ const HackathonModule = (props: Props) => {
 
     return <Text>Ended</Text>;
   };
+
+  const handleOpenRegisterModal = () => {
+    if (!loggedIn) {
+      login();
+    }
+
+    dispatch(
+      openModal({
+        id: REGISTER_MODAL,
+        className: s.modalContent,
+        modalProps: {
+          size: 'xl',
+        },
+        theme: 'light',
+        render: () => (
+          <RegisterModal
+            userInfo={userInfo}
+            setIsRegistered={setIsRegistered}
+          />
+        ),
+      }),
+    );
+  };
+
+  const checkUserRegistered = async () => {
+    try {
+      const res = await checkRegistered();
+      if (res) {
+        setIsRegistered(res?.register || false);
+      }
+    } catch (error) {
+    } finally {
+      setIsChecking(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!userInfo) return;
+    fetchPeopleSubmitted();
+    checkUserRegistered();
+  }, [userInfo]);
+
+  useEffect(() => {
+    // refetch every 5 seconds
+
+    const interval = setInterval(() => {
+      fetchPeopleSubmitted();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -126,12 +197,33 @@ const HackathonModule = (props: Props) => {
               </p>
             </div>
             <Flex alignItems={'center'} gap="24px">
-              <button className={s.reward_btn}>Register</button>
+              <Skeleton
+                minW={'147px'}
+                borderRadius={'100px'}
+                isLoaded={!isChecking}
+              >
+                <ButtonConnected title="Register" className={s.reward_btn}>
+                  <button
+                    className={cn(s.reward_btn, {
+                      [s.registered]: isRegistered,
+                    })}
+                    onClick={handleOpenRegisterModal}
+                    disabled={isRegistered}
+                  >
+                    {isRegistered ? 'Registered' : 'Register'}
+                  </button>
+                </ButtonConnected>
+              </Skeleton>
               <div className={s.meta_info}>
                 {!!peopleSubmitted && (
                   <Flex alignItems={'center'} gap="4px" mb="12px">
-                    <b>1000</b>
-                    <Text opacity={0.6}>people submitted</Text>
+                    <b>
+                      {formatCurrencyV2({
+                        amount: peopleSubmitted,
+                        decimals: 0,
+                      })}
+                    </b>
+                    <Text opacity={0.6}>people registered</Text>
                   </Flex>
                 )}
                 {renderCountdown()}
