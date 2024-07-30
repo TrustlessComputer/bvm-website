@@ -230,67 +230,67 @@ export const Modules: ILabItemContent[] = [
 
 export const Research: ILabItemContent[] = [
   {
-    image: `/bvm/whitepagper.jpg`,
-    title: 'BVM Whitepaper v1',
-    content: 'Hyperscale Bitcoin indefinitely',
-    link: 'https://bvm.network/whitepaper.pdf',
-    date: 'Jan 15, 2024'
+    image: `/bvm/zk-bvm.jpg`,
+    title: 'zkBVM Light Nodes',
+    content: 'Validate that the state transitions of Bitcoin L2s, committed on the Bitcoin and DA layers, are accurate.',
+    link: 'https://x.com/punk3700/status/1800132735807410681',
+    date: 'Jun 10, 2024' //10/6/2024
   },
   {
     image: `/bvm/btc-l3.jpg`,
     title: 'ZK Bitcoin L3s',
     content: 'Decentralized virtual machines for any dapp',
     link: 'https://x.com/punk3700/status/1796119677577605380',
-    date: 'May 30, 2024'
-  },
-  {
-    image: `/bvm/zk-bvm.jpg`,
-    title: 'zkBVM Light Nodes',
-    content: 'Validate that the state transitions of Bitcoin L2s, committed on the Bitcoin and DA layers, are accurate.',
-    link: 'https://x.com/punk3700/status/1800132735807410681',
-    date: 'Jun 10, 2024'
+    date: 'May 30, 2024' //30/5/2024
   },
   {
     image: `/bvm/trbtc.jpg`,
     title: 'Trustless Bitcoin Bridge',
     content: 'Bridge BTC to Bitcoin L2s trustlessly',
     link: 'https://twitter.com/punk3700/status/1787868153181081794',
-    date: 'May 7, 2024'
+    date: 'May 7, 2024' //7/5/2024
+  },
+  {
+    image: `/bvm/whitepagper.jpg`,
+    title: 'Bitcoin Optimistic (BitOP)',
+    content: 'Optimistic rollups on Bitcoin',
+    link: 'https://bvm.network/whitepaper.pdf',
+    date: 'Jan 15, 2024' //15/1/2024
   },
   {
     image: `${CDN_URL_IMAGES_NBC}/apps/bitcoin-virtual-machine.jpeg`,
     title: 'Recursive Rollups on Bitcoin',
     content: 'Scale Bitcoin indefinitely',
     link: 'https://twitter.com/punk3700/status/1703819001510682709',
-    date: 'Sep 19, 2023'
-  },
-  {
-    image: `${CDN_URL_IMAGES_NBC}/apps/metamask-for-bitcoin.jpeg`,
-    title: 'MetaMask for Bitcoin',
-    content: 'Use MetaMask to manage Ordinal Inscriptions',
-    link: 'https://twitter.com/punk3700/status/1628424255171096577',
-    date: 'Feb 22, 2023'
-  },
-  {
-    image: `${CDN_URL_IMAGES_NBC}/apps/psbt.jpeg`,
-    title: 'Smart Contracts for Bitcoin',
-    content: 'Build unstoppable applications on Bitcoin',
-    link: 'https://twitter.com/punk3700/status/1650524119136628736',
-    date: 'Apr 24, 2023'
-  },
-  {
-    image: `${CDN_URL_IMAGES_NBC}/apps/smart-contracts.jpeg`,
-    title: 'Bitcoin File System',
-    content: 'Decentralized onchain storage system',
-    link: 'https://twitter.com/punk3700/status/1669014135206731776',
-    date: 'Jun 14, 2023'
+    date: 'Sep 19, 2023' //19/9/2023
   },
   {
     image: `${CDN_URL_IMAGES_NBC}/apps/bitcoin-arcade.jpeg`,
     title: 'Fully Onchain Games',
     content: 'Unstoppable games',
     link: 'https://twitter.com/punk3700/status/1672259824191512576',
-    date: 'Jun 23, 2023'
+    date: 'Jun 23, 2023' //23/6/2023
+  },
+  {
+    image: `${CDN_URL_IMAGES_NBC}/apps/smart-contracts.jpeg`,
+    title: 'Bitcoin File System',
+    content: 'Decentralized onchain storage system',
+    link: 'https://twitter.com/punk3700/status/1669014135206731776',
+    date: 'Jun 14, 2023' //14/6/2023
+  },
+  {
+    image: `${CDN_URL_IMAGES_NBC}/apps/psbt.jpeg`,
+    title: 'Smart Contracts for Bitcoin',
+    content: 'Build unstoppable applications on Bitcoin',
+    link: 'https://twitter.com/punk3700/status/1650524119136628736',
+    date: 'Apr 24, 2023' //24/4/2023
+  },
+  {
+    image: `${CDN_URL_IMAGES_NBC}/apps/metamask-for-bitcoin.jpeg`,
+    title: 'MetaMask for Bitcoin',
+    content: 'Use MetaMask to manage Ordinal Inscriptions',
+    link: 'https://twitter.com/punk3700/status/1628424255171096577',
+    date: 'Feb 22, 2023' //22/2/2023
   },
 ];
 export const OpenSource: ILabItemContent[] = [

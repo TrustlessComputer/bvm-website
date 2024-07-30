@@ -12,7 +12,7 @@ interface IGroup extends PropsWithChildren {
 
 export default function Productions() {
 
-  return <GroupMenu title={'Productions'}>
+  return <GroupMenu title={'Products'}>
     {
       FOOTER_DATA.products.map((subMenu) => {
         return <SubMenu {...subMenu} />;

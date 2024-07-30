@@ -13,18 +13,17 @@ const Capture = () => {
     try {
       // const imgEncode = encodeBase64(url);
 
-      const content = `I'm launching my own blockchain with @BVMnetwork! 🚀
+      const content = `I'm launching my own ZK Rollup on Bitcoin with @BVMnetwork! 🚀
 
-BVM Studio is so user-friendly, even your grandma can launch a blockchain for $99/month. 
+Bitcoin RaaS Studio makes blockchain building a breeze with simple drag-and-drop tools. No sweat, just pure innovation. Starting from $99/mo.
 
-Seriously, she’s already planning her next ICO: GrandmaCoin! 👵💸
-
-Join the blockchain bonanza:`;
+Let's transform #Bitcoin beyond money together!
+https://bvm.network/studio/${url}`;
 
       window.open(
         `https://twitter.com/intent/tweet?text=${encodeURIComponent(
           content,
-        )}&url=https://bvm.network/rollups/customizev2/${url}`,
+        )}`,
         '_blank',
       );
     } catch (error) {

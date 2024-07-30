@@ -1,8 +1,14 @@
 .wrapper {
     display: flex;
     gap: 28px;
-    height: 100vh;
+    // height: 100vh;
     padding: 120px 0;
+
+    @include is-mobile {
+        flex-direction: column;
+        // padding: 60px 0;
+        gap: 100px;
+    }
 
     h4 {
         color: #FFF;
@@ -17,11 +23,11 @@
 
 
     .left {
-        flex: 0.6;
+        flex: 0.5;
     }
 
     .right {
-        flex: 0.4;
+        flex: 0.5;
     }
 
 }

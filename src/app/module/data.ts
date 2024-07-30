@@ -1,4 +1,5 @@
 import { BVM_STUDIO } from '@constants/route-path';
+import { VIDEO_BVM_STUDIO_HOW_IT_WORK } from '@constants/common';
 
 export type IMODULE_HERO = {
   theme: string;
@@ -27,6 +28,7 @@ export type IMODULE = {
     desc: string;
     action: string;
     thumbnail: string;
+    video?: string;
   };
   footer?: {
     title: string;
@@ -384,20 +386,20 @@ export const MODULE_DATAS = {
     hero: {
       theme:
         'linear-gradient(180deg, rgba(255, 132, 86, 0.80) -5.57%, rgba(255, 132, 86, 0.00) 98.47%)',
-      title: 'BVM Studio',
+      title: 'Bitcoin RaaS Studio',
       subTitle: 'TOOLS',
-      desc: 'A fun way to customize your blockchain to meet your needs.',
+      desc: 'A fast, simple, and fun way to build your own ZK rollup on Bitcoin.',
       start: {
         text: 'Get started',
         link: BVM_STUDIO,
       },
     },
     why: {
-      title: 'Why BVM Studio?',
-      desc: `No code required! BVM Studio makes it fun and accessible for anyone to create a blockchain tailored to their needs.`,
+      title: 'Why Bitcoin RaaS Studio?',
+      desc: `No code required! Bitcoin RaaS Studio makes it fun and accessible for anyone to create a blockchain tailored to their needs.`,
     },
     benefit: {
-      title: 'Benefits of BVM Studio',
+      title: 'Benefits of Bitcoin RaaS Studio',
       contents: [
         {
           title: 'No code required',
@@ -418,6 +420,7 @@ export const MODULE_DATAS = {
       desc: 'Customize and deploy your blockchain easily by dragging and dropping components, just like playing a game.',
       action: '',
       thumbnail: '',
+      video: VIDEO_BVM_STUDIO_HOW_IT_WORK,
     },
   },
   bitzk_lightnode: {

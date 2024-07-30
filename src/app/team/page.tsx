@@ -9,6 +9,7 @@ const TeamPage = () => {
         color: 'black',
         position: 'absolute',
       }}
+      bodyColor={'#f2f2f2'}
     >
       <TeamModule />
     </MainLayout>
