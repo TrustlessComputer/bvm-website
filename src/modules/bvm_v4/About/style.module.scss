@@ -1,0 +1,32 @@
+.wrapper {
+  background-color: #ffd73b;
+}
+
+.content {
+  padding: 150px 0;
+  display: flex;
+  justify-content: space-between;
+  align-self: flex-start;
+  flex-wrap: wrap;
+  @include is-pc {
+    padding: 200px 0;
+  }
+}
+
+.title {
+  color: #000;
+  font-size: 60px;
+  font-weight: 500;
+  font-family: var(--font-jetbrains);
+  line-height: calc(84 / 60);
+  margin-bottom: 32px;
+}
+
+.desc {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: calc(42 / 28);
+  color: #000;
+  max-width: 970px;
+}

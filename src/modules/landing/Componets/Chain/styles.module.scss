@@ -1,19 +1,28 @@
 .listChains {
-  display: flex;
-  flex-direction: row;
+  display: grid;
   gap: 36px;
-  flex-wrap: wrap;
   overflow: hidden;
+  justify-content: center;
 
   @include is-mobile {
     width: 100%;
     padding: 0 20px;
     gap: 8px;
+    grid-template-columns: repeat(1, 1fr);
   }
 
   @include is-tablet {
     gap: 0;
-    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include is-pc {
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include is-pc-wide{
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
@@ -24,7 +33,7 @@
   &_case {
     color: #000;
     text-align: center;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 500;
     line-height: normal;
     text-transform: uppercase;
@@ -50,7 +59,8 @@
 
   &_inner {
     background: #f6f6f6;
-    padding: 100px 0;
+    padding-top: 100px;
+    padding-bottom: 82px;
 
     @include is-mobile {
       position: relative;

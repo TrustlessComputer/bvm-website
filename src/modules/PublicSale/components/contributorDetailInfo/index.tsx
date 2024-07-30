@@ -12,9 +12,9 @@ export interface IContributionCoin {
   balance: string;
   usdt_value: string;
   network: string;
-};
+}
 
-const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
+const ContributorDetailInfo = ({ data }: { data?: ILeaderBoardPoint }) => {
   console.log('ContributorDetailInfo', data);
 
   const labelConfig = {
@@ -29,7 +29,7 @@ const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
     return [
       {
         id: 'rank',
-        label: <Text pl={"8px"}>TOKEN</Text>,
+        label: <Text pl={'8px'}>TOKEN</Text>,
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -47,7 +47,11 @@ const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
               width={'100%'}
               paddingLeft={'8px'}
             >
-              <Avatar width={'24px'} height={'24px'} src={tokenIcons[row.symbol.toLowerCase()]} />
+              <Avatar
+                width={'24px'}
+                height={'24px'}
+                src={tokenIcons[row.symbol.toLowerCase()]}
+              />
               <Text>{row?.symbol}</Text>
             </Flex>
           );
@@ -72,14 +76,22 @@ const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
               width={'100%'}
               justifyContent={'flex-end'}
             >
-              <Text>{formatCurrency(row?.balance, MIN_DECIMAL, MAX_DECIMAL, 'BTC', true)}</Text>
+              <Text>
+                {formatCurrency(
+                  row?.balance,
+                  MIN_DECIMAL,
+                  MAX_DECIMAL,
+                  'BTC',
+                  true,
+                )}
+              </Text>
             </Flex>
           );
         },
       },
       {
         id: 'rank',
-        label: <Box pr={"8px"}>USD</Box>,
+        label: <Box pr={'8px'}>USD</Box>,
         labelConfig,
         config: {
           borderBottom: 'none',
@@ -95,9 +107,17 @@ const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
               alignItems={'center'}
               width={'100%'}
               justifyContent={'flex-end'}
-              pr={"8px"}
+              pr={'8px'}
             >
-              <Text>{formatCurrency(row?.usdt_value, MIN_DECIMAL, MIN_DECIMAL, 'BTC', true)}</Text>
+              <Text>
+                {formatCurrency(
+                  row?.usdt_value,
+                  MIN_DECIMAL,
+                  MIN_DECIMAL,
+                  'BTC',
+                  true,
+                )}
+              </Text>
             </Flex>
           );
         },
@@ -107,17 +127,19 @@ const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
 
   return (
     <Box className={s.container}>
-      <Flex p={"8px 16px"} bg={"#F6F6F6"} w={"100%"} justifyContent={"space-between"} alignItems={"center"}>
-        <Text
-          fontSize={"14px"}
-          fontWeight={400}
-          color={"#1C1C1C"}
-        >Total contribution</Text>
-        <Text
-          fontSize={"16px"}
-          fontWeight={500}
-          color={"#1C1C1C"}
-        >${formatCurrency(data?.usdt_value, 0, 2, 'BTC', true)}</Text>
+      <Flex
+        p={'8px 16px'}
+        bg={'#F6F6F6'}
+        w={'100%'}
+        justifyContent={'space-between'}
+        alignItems={'center'}
+      >
+        <Text fontSize={'14px'} fontWeight={400} color={'#1C1C1C'}>
+          Total contribution
+        </Text>
+        <Text fontSize={'16px'} fontWeight={500} color={'#1C1C1C'}>
+          ${formatCurrency(data?.usdt_value, 0, 2, 'BTC', true)}
+        </Text>
       </Flex>
       <ListTable
         data={data?.coin_balances}
@@ -125,7 +147,7 @@ const ContributorDetailInfo = ({data}: {data?: ILeaderBoardPoint}) => {
         className={s.tableContainer}
       />
     </Box>
-  )
+  );
 };
 
 export default ContributorDetailInfo;

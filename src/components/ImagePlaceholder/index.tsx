@@ -9,14 +9,15 @@ const ImagePlaceholder = forwardRef<HTMLImageElement, ImageProps>((props, ref) =
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div ref={ref} className={`${s.imagePreload} ${isLoaded && s.isLoaded}`}>
+    <div ref={ref} className={`${s.imagePreload} ${isLoaded && s.isLoaded} imagePreload`}>
       <Image
         className={`${props.className} ${s.imagePreload_origin}`}
         onLoad={(): void => {
           setIsLoaded(true);
         }}
-        sizes="100vw"
+        sizes='100vw'
         {...props}
+        quality={100}
         alt={props.alt}
       />
       <Image
@@ -24,8 +25,8 @@ const ImagePlaceholder = forwardRef<HTMLImageElement, ImageProps>((props, ref) =
         src={props.src}
         width={50}
         height={50}
-        loading="eager"
-        alt="eager"
+        loading='eager'
+        alt='eager'
       />
     </div>
   );

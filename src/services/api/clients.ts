@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '@/config';
+import { API_BASE_URL, DA_SERVICE_URL } from '@/config';
 import createAxiosInstance from './http-client';
 
 export const apiClient = createAxiosInstance({
@@ -6,7 +6,11 @@ export const apiClient = createAxiosInstance({
 });
 
 export const L2ServiceAPI = createAxiosInstance({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE_URL + '/api',
+});
+
+export const DAServiceAPI = createAxiosInstance({
+  baseURL: DA_SERVICE_URL + '/api',
 });
 
 // export const bridgeClient = createAxiosInstance({

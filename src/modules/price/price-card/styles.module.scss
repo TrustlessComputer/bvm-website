@@ -47,8 +47,8 @@
 
   > div {
     padding: 8px 15px;
-    border-top: 1px solid #CECECE;
-    border-right: 1px solid #CECECE;
+    border-top: 1px solid #cecece;
+    border-right: 1px solid #cecece;
     color: rgb(28, 28, 28);
     text-align: unset;
     max-width: none;
@@ -58,13 +58,13 @@
     font-size: 1rem;
 
     &:last-child {
-      border-bottom: 1px solid #CECECE;
+      border-bottom: 1px solid #cecece;
     }
   }
 
   &:first-child {
     > div {
-      border-left: 1px solid #CECECE;
+      border-left: 1px solid #cecece;
     }
   }
 
@@ -111,20 +111,31 @@
   }
 
   &.isEss {
-    background: linear-gradient(89.5deg, rgb(0, 79, 197) 0.3%, rgb(149, 191, 255) 92.13%);
+    background: linear-gradient(
+      89.5deg,
+      rgb(0, 79, 197) 0.3%,
+      rgb(149, 191, 255) 92.13%
+    );
   }
 
   &.isPro {
-    background: linear-gradient(90deg, rgb(255, 126, 33) 0%, rgb(255, 195, 151) 100%);
+    background: linear-gradient(
+      90deg,
+      rgb(255, 126, 33) 0%,
+      rgb(255, 195, 151) 100%
+    );
   }
 
   &.isCustom {
-    background: linear-gradient(90deg, rgb(79, 67, 226) 0%, rgb(168, 161, 254) 100%);
+    background: linear-gradient(
+      90deg,
+      rgb(79, 67, 226) 0%,
+      rgb(168, 161, 254) 100%
+    );
   }
 }
 
 .title {
-
   text-align: unset;
   max-width: none;
   padding-top: 60px !important;
@@ -147,7 +158,6 @@
       margin-left: 0.25rem;
     }
   }
-
 }
 
 .subTitle {
@@ -186,9 +196,8 @@
     line-height: 19px;
     letter-spacing: 0.01em;
     text-align: center;
-    background: #FA4E0E;
+    background: #fa4e0e;
     color: white;
     font-weight: 500;
   }
 }
-

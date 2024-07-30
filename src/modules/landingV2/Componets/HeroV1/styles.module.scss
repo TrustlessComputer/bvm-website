@@ -1,0 +1,114 @@
+.hero {
+  width: 100%;
+  position: relative;
+  --h: calc(100svh - 128px);
+
+  @include is-pc {
+    overflow: hidden;
+    height: var(--h);
+  }
+
+  &_wrap {
+    height: var(--h);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @include is-mobile {
+    width: auto;
+  }
+
+  @include is-tablet {
+    width: 100%;
+  }
+
+  &_inner {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    display: none;
+
+    @include is-pc {
+      bottom: 240px;
+      display: block;
+    }
+  }
+}
+
+.hero_wrap__mobile {
+  background: white;
+
+  @include is-pc {
+    display: none;
+  }
+}
+
+.banner_container {
+  position: absolute;
+  left: 0;
+  //bottom: 0;
+  top: 80px;
+  width: 100%;
+
+  @include is-pc {
+    top: 88px;
+    //bottom: auto;
+  }
+
+}
+
+.banner_wrapper {
+
+  background: linear-gradient(90deg, #7F00FF 0%, #E100FF 100%);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  line-height: (20 / 16);
+  font-size: 12px;
+  padding: 8px 16px;
+
+  text-align: center;
+
+  .text {
+    transform: translateY(.15em);
+  }
+
+
+  @include is-min-table {
+    font-size: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 16px 24px;
+
+  }
+
+
+  @include is-pc {
+
+    text-align: left;
+    font-size: 16px;
+  }
+
+  .banner_link {
+    text-decoration: underline;
+    font-weight: 500;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+
+    @include is-min-table {
+      margin-left: 8px;
+    }
+    @include is-pc {
+      justify-content: flex-start;
+    }
+
+  }
+
+}
+

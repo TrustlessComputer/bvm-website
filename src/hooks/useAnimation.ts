@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useRef } from 'react';
 import { MathMap } from '@/utils/mathUtils';
 import useAnimationStore from '@/stores/useAnimationStore';
 import { useGSAP } from '@gsap/react';
@@ -9,9 +9,11 @@ interface IProps {
   customerStart?: string;
   isObserver?: boolean;
   start?: string;
+  delay?: number,
+  delayEnter?: number,
   horizontal?: boolean;
   initAnimation: () => void;
-  playAnimation: () => void;
+  playAnimation: (d?: number) => (() => void) | void;
 }
 
 export default function useAnimation({
@@ -19,22 +21,26 @@ export default function useAnimation({
                                        initAnimation,
                                        playAnimation,
                                        threshold,
+                                       delay = 0,
+                                       delayEnter = undefined,
                                      }: IProps): void {
 
   const { play, fontReady } = useAnimationStore();
   const refObserver = useRef<IntersectionObserver | null>(null);
+  const tl = useRef<null | (() => void)>(null);
+
+  useGSAP((context, contextSafe) => {
+    trigger.current && initAnimation();
+  }, { scope: trigger, dependencies: [fontReady] });
 
   useGSAP(() => {
-    initAnimation();
-  }, { dependencies: [fontReady] });
 
-  useGSAP(() => {
-
-    if(!play) return ;
+    if (!play || !trigger.current) return;
     let calcTheshold = threshold || 0;
 
-    if (calcTheshold === undefined && trigger.current) {
-      const { height, top } = trigger.current.getBoundingClientRect();
+    const { height, top } = trigger.current.getBoundingClientRect();
+    if (calcTheshold === undefined) {
+
       if (top >= window.innerHeight) {
         calcTheshold = MathMap(height / window.innerHeight, 0, 100, 30, 0);
         calcTheshold = Math.max(Math.min(calcTheshold, 30), 0);
@@ -44,7 +50,11 @@ export default function useAnimation({
     refObserver.current = new IntersectionObserver(
       (entries) => {
         if ((entries[0] as any).isIntersecting && play) {
-          playAnimation();
+
+          const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+          const dl = scrollTop === 0 && top < window.innerHeight ? (delayEnter !== undefined ? delayEnter : delay) : delay;
+
+          trigger.current && playAnimation(dl);
           trigger.current && refObserver.current?.unobserve(trigger.current);
           refObserver.current?.disconnect();
         }
@@ -55,8 +65,9 @@ export default function useAnimation({
     refObserver.current?.observe(trigger.current);
 
     return () => {
+      trigger.current && refObserver.current?.unobserve(trigger.current);
       refObserver.current?.disconnect();
     };
-  }, { dependencies: [play, fontReady] });
+  }, { scope: trigger, dependencies: [play, fontReady] });
 
 }

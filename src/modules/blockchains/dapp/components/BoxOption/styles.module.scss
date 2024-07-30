@@ -1,0 +1,35 @@
+.container {
+  padding: 20px;
+
+  sup {
+    font-size: 12px;
+    color: #ff0000;
+    margin-top: 16px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__body {
+    width: 100%;
+
+    &__item {
+      width: 100%;
+
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+      &__inner {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+    }
+  }
+}

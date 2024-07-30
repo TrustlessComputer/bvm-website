@@ -6,6 +6,13 @@ import activities from '@/stores/states/activities/reducer';
 import airdrop from '@/stores/states/airdrop/reducer';
 import luckyMoney from '@/stores/states/luckyMoney/reducer';
 import auth from '@/stores/states/auth/reducer';
+import stakingV2 from '@/stores/states/stakingV2/reducer';
+import l2Services from '@/stores/states/l2services/reducer';
+import launchpad from '@/modules/Launchpad/store/reducer';
+import lpEAIPayment from '@/modules/Launchpad/store/lpEAIPayment/reducer';
+import referrals from '@/stores/states/referrals/reducer';
+import dapp from '@/stores/states/dapp/reducer';
+import createToken from '@/modules/apps/CreateToken/states/reducer';
 
 export default {
   common,
@@ -15,4 +22,11 @@ export default {
   airdrop,
   luckyMoney,
   auth,
+  stakingV2,
+  l2Services,
+  launchpad,
+  lpEAIPayment,
+  referrals,
+  dapp,
+  createToken
 };

@@ -1,0 +1,115 @@
+.options {
+  display: flex;
+  gap: 18px;
+  position: relative;
+
+  &.isLabel {
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+
+    &:hover {
+      z-index: 9999 !important;
+    }
+  }
+}
+
+.tooltip {
+  z-index: 9999999;
+  background-color: #fff;
+  color: #333333;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  position: absolute;
+  min-width: 250px;
+  padding: 10px;
+  bottom: calc(100% - 5px);
+  border-radius: 12px;
+  opacity: 0;
+
+  &.isRight {
+    right: 0px;
+    left: auto;
+
+    &:after {
+      left: unset;
+      right: 20px;
+    }
+  }
+
+  &.isBottom {
+    bottom: auto;
+    top: calc(100% - 5px);
+
+    &:after {
+      top: unset;
+      bottom: 100%;
+      border-bottom-color: #fff;
+      border-top-color: transparent;
+    }
+  }
+
+  &.isHover {
+    opacity: 1;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-top-color: #fff;
+  }
+}
+
+.shake {
+  animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px);
+  }
+
+  10% {
+    transform: translate(-1px, -2px);
+  }
+
+  20% {
+    transform: translate(-3px, 0px);
+  }
+
+  30% {
+    transform: translate(3px, 2px);
+  }
+
+  40% {
+    transform: translate(1px, -1px);
+  }
+
+  50% {
+    transform: translate(-1px, 2px);
+  }
+
+  60% {
+    transform: translate(-3px, 1px);
+  }
+
+  70% {
+    transform: translate(3px, 1px);
+  }
+
+  80% {
+    transform: translate(-1px, -1px);
+  }
+
+  90% {
+    transform: translate(1px, 2px);
+  }
+
+  100% {
+    transform: translate(1px, -2px);
+  }
+}

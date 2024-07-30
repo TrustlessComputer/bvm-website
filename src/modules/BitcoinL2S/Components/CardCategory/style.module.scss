@@ -1,6 +1,6 @@
 .wrapperCard {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
   gap: 40px;
   padding-bottom: 80px;
@@ -28,26 +28,26 @@
     }
   }
   .cardContent {
-    text-align: start;
+    text-align: left;
     color: #000;
     max-width: 750px;
     width: 100%;
     .heading {
       font-size: 32px;
       margin-bottom: 16px;
-      text-align: start;
+      text-align: left;
     }
     .cardContentItem {
       margin-bottom: 32px;
       .cardContentItemHeading {
         font-size: 24px;
-        text-align: start;
+        text-align: left;
         font-weight: 500;
       }
       .cardContentMarkdown {
         p {
           font-size: 20px;
-          text-align: start;
+          text-align: left;
           font-weight: 400;
           margin-bottom: 15px;
         }

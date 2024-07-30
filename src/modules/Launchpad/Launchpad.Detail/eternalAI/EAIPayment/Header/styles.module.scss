@@ -1,0 +1,114 @@
+.container {
+  background-color: white;
+  margin-top: 16px;
+  width: 100%;
+
+  .launchpadAvatar {
+    width: rem(80) !important;
+    height: rem(80) !important;
+    object-fit: cover;
+    border-radius: 8px;
+    image-rendering: pixelated;
+  }
+
+  .boxProposalId {
+    padding: 4px 16px;
+    background: #e7e7e7;
+    border-radius: 100px;
+    width: fit-content;
+    font-size: 14px;
+    font-weight: 500;
+    color: #898989;
+  }
+
+  p {
+    color: #000000;
+  }
+
+  .boxTime {
+    padding: 0px 0px 0;
+    width: fit-content;
+
+    @include w-max(767px) {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    > div {
+      flex: 1;
+      min-width: 200px;
+
+      @include w-max(768px) {
+        min-width: unset;
+      }
+    }
+  }
+
+  .countdownTime {
+    justify-content: flex-start;
+    p {
+      font-size: 22px;
+      font-weight: 600 !important;
+      line-height: var(--chakra-lineHeights-base);
+    }
+
+    &.highLight {
+      -webkit-animation: flash linear 1s infinite;
+      animation: flash linear 1s infinite;
+      p {
+        color: #FF7E21;
+        white-space: nowrap;
+      }
+    }
+
+    @include w-max(767px) {
+      justify-content: center;
+    }
+  }
+
+  .boxCountdown {
+    padding: 4px 16px;
+    background: #e7e7e7;
+    border-radius: 100px;
+    width: fit-content;
+    font-size: 14px;
+    font-weight: 500;
+    color: #898989;
+  }
+
+  .boxParticipants {
+    width: fit-content;
+    background: #6633ce1a;
+    border: 1px solid #6633ce;
+    color: #6633ce46;
+    border-radius: 8px;
+    text-align: center;
+
+    @include w-max(767px) {
+      width: 100%;
+    }
+  }
+}
+
+@-webkit-keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}

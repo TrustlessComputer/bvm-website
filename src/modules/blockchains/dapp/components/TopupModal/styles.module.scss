@@ -1,0 +1,48 @@
+.modalContent {
+  background-color: #fff !important;
+  font-family: var(--font-dmsans);
+  max-width: 600px !important;
+  margin: 20px !important;
+}
+
+.tabContainer {
+  width: 100% !important;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.tabList {
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #ffffff26;
+
+  > button {
+    background: none;
+    border: none;
+    color: #000;
+    opacity: 50%;
+    font-weight: 400;
+
+    flex: unset;
+    position: relative;
+    // text-align: center;
+
+    &[aria-selected='true'] {
+      opacity: 1;
+      font-weight: 600;
+      color: #fa4e0e !important;
+
+      &::after {
+        content: '';
+        display: block;
+        height: 1px;
+        width: 160px;
+        background-color: #fa4e0e !important;
+        position: absolute;
+        bottom: 0;
+      }
+    }
+  }
+}

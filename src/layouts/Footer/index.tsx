@@ -1,23 +1,28 @@
 'use client';
 
-import { Box, Container, Stack, Text } from '@chakra-ui/react';
+import s from './styles.module.scss';
+import React from 'react';
+import Productions from '@layouts/Footer/Productions';
+import Solutions from '@layouts/Footer/Solutions';
+import Socials from '@layouts/Footer/Socials';
+import Link from 'next/link';
 
-const Footer = () => {
+const Footer = ({ className }: { className?: string }) => {
   return (
-    <Box bgColor={'black'} id="footer">
-      <Container
-        as={Stack}
-        maxW={'2xl'}
-        py={4}
-        direction={{ base: 'column', md: 'row' }}
-        spacing={4}
-        justify={{ base: 'center', md: 'center' }}
-        align={{ base: 'center', md: 'center' }}
-      >
-        {/* <Text>OPEN-SOURCE SOFTWARE. MADE WITH ❤️ ON BITCOIN.</Text> */}
-        {/* <Stack direction={'row'} spacing={6}></Stack> */}
-      </Container>
-    </Box>
+    <div className={`${s.wrapper} ${className}`}>
+      <div className={'containerV3'}>
+        <div className={s.row}>
+          <div className={s.logo}>
+            <Link href={'/'}>
+              <img src={'/icons/ic-bvm-footer.svg'} />
+            </Link>
+          </div>
+          <Productions />
+          <Solutions />
+          <Socials className={s.social} />
+        </div>
+      </div>
+    </div>
   );
 };
 

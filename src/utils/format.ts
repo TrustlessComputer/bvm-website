@@ -9,6 +9,7 @@ import {
   getAddressInfo,
   AddressType,
 } from 'bitcoin-address-validation';
+import moment from 'moment';
 
 export const isInValidAmount = (amount?: string | number) => {
   if (!amount) return true;
@@ -39,6 +40,7 @@ export const formatCurrency = (
   maximumFractionDigits = 2,
   symbol = 'TC',
   hideAbbr = false,
+  numNeedAbbr = 100000,
 ): string => {
   if (isNaN(Number(value))) return '0';
 
@@ -54,7 +56,12 @@ export const formatCurrency = (
         minimumFractionDigits: 0,
       };
     } else {
-      if (Number(value) < 0.001) {
+      if (Number(value) < 0.00000001) {
+        config = {
+          maximumFractionDigits: 13,
+          minimumFractionDigits: 0,
+        };
+      } else if (Number(value) < 0.01) {
         config = {
           maximumFractionDigits: 7,
           minimumFractionDigits: 0,
@@ -71,7 +78,7 @@ export const formatCurrency = (
       maximumFractionDigits: maximumFractionDigits,
       minimumFractionDigits: minimumFractionDigits,
     };
-  } else if (Number(value) >= 10000 && !hideAbbr) {
+  } else if (Number(value) >= numNeedAbbr && !hideAbbr) {
     return abbreviateNumber(value);
   } else if (Number(value) >= 1000) {
     config = {
@@ -81,7 +88,7 @@ export const formatCurrency = (
   }
 
   const result = new Intl.NumberFormat('en-US', config);
-  return result.format(value);
+  return result.format(parseFloat(value));
 };
 
 export const formatName = (name: string, length = 12): string => {
@@ -138,6 +145,11 @@ export const formatAmount = (params: IFormat) => {
   ).toString();
 };
 
+export const formatAmountV3 = (amount: string) => {
+  if (!amount) return '--';
+  return new BigNumber(amount).dividedBy(1e18).decimalPlaces(2).toFixed();
+};
+
 interface IFormatToHuman extends IFormat {
   decimals?: number;
 }
@@ -151,8 +163,12 @@ export const formatToHumanAmount = (params: IFormatToHuman) => {
 };
 
 export const formatAmountToClient = (amount: any, _decimals = 18) => {
-  if (amount) {
-    return ethers.utils.formatEther(amount);
+  try {
+    if (amount) {
+      return ethers.utils.formatEther(amount);
+    }
+  } catch (e) {
+    // TODO
   }
   return '0';
 };
@@ -232,4 +248,27 @@ export const validateBTCAddressTaproot = (_address: string): boolean => {
     return addressInfo.type === AddressType.p2tr;
   }
   return false;
+};
+
+export const formatDate = (date: string, format = 'D MMM, HH:mm:ss') => {
+  try {
+    return moment.utc(date).local().format(format);
+  } catch (error) {
+    return new Date(date).toLocaleDateString('utc', {
+      month: 'short',
+      year: 'numeric',
+      day: 'numeric',
+    });
+  }
+};
+
+export const formatAddressOrName = (name: string, length = 12): string => {
+  if (!name) return '';
+  if (ethers.utils.isAddress(name)) {
+    return name.substring(0, 6);
+  } else if (name.startsWith('bc1p')) {
+    return name.substring(0, 8);
+  } else {
+    return name?.length > length ? name.substring(0, length) + '...' : name;
+  }
 };

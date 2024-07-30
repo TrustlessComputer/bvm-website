@@ -18,7 +18,7 @@ export const getChallenge = async (address: string): Promise<string> => {
   const query = qs.stringify({
     address,
   });
-  const res = await apiClient.get(`/api/auth/challenge?${query}`);
+  const res = await apiClient.get(`/auth/challenge?${query}`);
   console.log('getChallenge', res);
   return res as any;
 };
@@ -33,13 +33,18 @@ export const verifyChallenge = async (
       : signature,
     address,
   });
-  const res = await apiClient.get(`/api/auth/verify?${query}`);
+  const res = await apiClient.get(`/auth/verify?${query}`);
   console.log('verifyChallenge', res);
   return res as any;
 };
 
 export const revokeAuthentication = async (): Promise<void> => {
-  const res = await apiClient.post(`/api/auth/revoke`);
+  const res = await apiClient.post(`/auth/revoke`, {
+    headers: {
+      ...getHeaderDefault(),
+      // Authorization: `${idToken}`,
+    },
+  });
   console.log('revokeAuthentication', res);
 };
 
@@ -54,7 +59,7 @@ export const getAPIAcessToken = () => {
 export const register = async (idToken: string): Promise<any> => {
   console.log('[API][register] idToken', idToken);
   try {
-    const res = await apiClient.get(`/api/account/register`, {
+    const res = await apiClient.get(`/account/register`, {
       headers: {
         ...getHeaderDefault(),
         Authorization: `${idToken}`,
@@ -68,22 +73,21 @@ export const register = async (idToken: string): Promise<any> => {
   }
 };
 
-export const getProfile = async (): Promise<UserProfile> => {
-  console.log('[API][getProfile] --- ');
-  try {
-    const res = await apiClient.get(`/api/account/profile`, {
-      headers: {
-        ...getHeaderDefault(),
-        Authorization: getAPIAcessToken(),
-      },
-    });
-
-    console.log('[API][getProfile] res --- ', res);
-    return res as any;
-  } catch (error) {
-    console.log('[API][register] ERROR', error);
-    throw error;
-  }
+export const getProfile = async (): Promise<UserProfile | any> => {
+  // console.log('[API][getProfile] --- ');
+  // try {
+  //   const res = await apiClient.get(`/account/profile`, {
+  //     headers: {
+  //       ...getHeaderDefault(),
+  //       Authorization: getAPIAcessToken(),
+  //     },
+  //   });
+  //   console.log('[API][getProfile] res --- ', res);
+  //   return res as any;
+  // } catch (error) {
+  //   console.log('[API][register] ERROR', error);
+  //   throw error;
+  // }
 };
 
 export const L2Service = {

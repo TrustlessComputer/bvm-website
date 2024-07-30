@@ -1,0 +1,91 @@
+.container {
+  border-radius: 16px;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: #000000;
+  box-shadow: 0px 0px 24px 0px #00000014;
+  margin-top: 16px;
+}
+
+.content {
+  display: flex;
+  border-radius: 16px;
+  flex: 1;
+  margin-left: 16px;
+  margin-right: 16px;
+
+  @include is-mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+    button {
+      width: 100% !important;
+    }
+  }
+}
+
+.box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex: 1;
+  width: 100%;
+  gap: 4px;
+  flex-wrap: wrap;
+
+  @include is-mobile {
+    // flex-direction: column;
+    gap: 8px;
+    width: fit-content;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    background: #FFFFFF26;
+    border: 1px solid #FFFFFF26;
+    padding: 4px 8px;
+    border-radius: 100px;
+
+    @include is-mobile {
+      gap: 4px;
+      width: fit-content;
+    }
+  }
+
+  &_amount {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    color: #FFF;
+    width: max-content;
+
+    span {
+      color: #FFF;
+      text-transform: uppercase;
+    }
+
+    @include is-mobile {
+      font-size: 18px;
+    }
+  }
+
+  &_desc {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+    opacity: 0.8;
+  }
+}
+
+.sBtn {
+  background: transparent !important;
+  padding: 0px !important;
+  margin-top: 2px;
+}

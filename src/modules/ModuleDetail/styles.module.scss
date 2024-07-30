@@ -1,0 +1,143 @@
+.wrapper {
+  background-color: #fff;
+}
+
+
+.heading {
+  color: #000;
+  font-size: 25px;
+  font-weight: 500;
+  font-family: var(--font-jetbrains);
+  line-height: calc(35 / 25);
+  margin-bottom: 12px;
+
+  @include is-pc {
+    font-size: 32px;
+  }
+}
+
+.desc {
+  color: #5D6875;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: calc(27 / 18);
+}
+
+.item:not(:first-child) {
+  margin-top: 40px;
+}
+
+.link {
+  display: flex;
+  margin-top: 12px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  gap: 4px;
+
+  p {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--font-jetbrains);
+    color: #FA4E0E;
+    text-transform: uppercase;
+    line-height: calc(19 / 14);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &_icon {
+    max-width: 16px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.footer {
+  .footer_content {
+    z-index: 5;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    transform: translateY(35%);
+    height: 100%;
+
+    .footer_subTitle {
+      font-family: 'SF Pro Display';
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 150%;
+      /* 21px */
+      text-transform: uppercase;
+    }
+
+    .footer_title {
+      font-family: 'JetBrains Mono';
+      font-size: 60px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 110%;
+      /* 66px */
+    }
+
+    .footer_desc {
+      font-family: 'SF Pro Display';
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      /* 30px */
+    }
+
+    .footer_link {
+      font-family: 'JetBrains Mono';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%;
+      /* 19.6px */
+      text-transform: uppercase;
+      padding: 16px 24px;
+      border-radius: 1000px;
+      background: #FA4E0E;
+    }
+  }
+
+  @include max-xl {
+    .footer_content {
+      scale: 0.65;
+    }
+  }
+
+  @include max-md {
+    .footer_content {
+      transform: translateY(10%);
+    }
+
+  }
+
+  @include max-sm {
+    margin-bottom: 100px;
+
+    .footer_bg {
+      height: 200% !important;
+    }
+
+    .footer_content {
+      transform: translateY(40%);
+      scale: 0.6;
+
+
+      .footer_title {
+        // min-width: fit-content;
+        white-space: nowrap;
+      }
+    }
+  }
+}

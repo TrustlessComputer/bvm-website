@@ -162,7 +162,7 @@ const Section_2 = () => {
           </Text>
 
           <Button
-            bgColor={'#EF601B'}
+            bgColor={'#FA4E0E'}
             color={'#fff'}
             borderRadius={100}
             display={'flex'}
@@ -175,7 +175,7 @@ const Section_2 = () => {
             fontWeight={400}
             fontSize={'20px'}
             onClick={() => {
-              router.push('/blockchains/customize');
+              router.push('/rollups/customize');
             }}
             _hover={{
               opacity: 0.8,

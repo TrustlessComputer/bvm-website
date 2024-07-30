@@ -35,10 +35,28 @@ input[type='number'] {
   }
 }
 
+.containerV3 {
+  max-width: calc(1440px + 40px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+
+
+  @include is-tablet {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @include is-mobile {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
 .anim-scale {
   width: 100%;
 }
-
 
 @keyframes flip {
 
@@ -138,4 +156,16 @@ input[type='number'] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.reverse {
+  transform: rotate(180deg);
+}
+
+.white-body {
+  background-color: #fff;
+}
+
+.mt-0 {
+  margin-top: 0 !important;
 }

@@ -18,7 +18,7 @@ dayjs.extend(relativeTime);
 
 settingMomentFromNow();
 
-const LuckyMoneyWinner = () => {
+const LuckyMoneyWinnerView = () => {
   const currentLuckyMoney = useAppSelector(commonSelector).currentLuckyMoney;
   const [winner, setWinner] = useState<LuckyMoneyWinner>();
   const refTimeout = useRef<ReturnType<typeof setTimeout>>();
@@ -87,4 +87,4 @@ const LuckyMoneyWinner = () => {
   );
 };
 
-export default LuckyMoneyWinner;
+export default LuckyMoneyWinnerView;

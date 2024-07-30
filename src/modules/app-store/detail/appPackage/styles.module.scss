@@ -1,0 +1,73 @@
+.container {
+  padding: 32px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px 0px #00000026;
+  //width: 400px;
+
+  .title {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 130%;
+    color: #000000;
+    opacity: 0.7;
+    font-family: 'JetBrains Mono';
+  }
+
+  .description {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 140%;
+    color: #000000;
+    font-family: SF Pro Display;
+  }
+
+  .priceUsd {
+    font-family: JetBrains Mono;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 130%;
+    color: #000;
+  }
+
+  .priceBvm {
+    font-family: SF Pro Display;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 130%;
+    color: #000;
+    opacity: 0.5;
+  }
+
+  .btnInstall {
+    width: 200px;
+    padding: 16px 32px;
+    gap: 8px;
+    border-radius: 100px;
+    background: #FA4E0E;
+    font-size: 18px;
+    font-weight: 500;
+    color: #FFFFFF;
+    height: 54px;
+    font-family: SF Pro Display;
+
+    &:hover {
+      background: #FA4E0E !important;
+    }
+  }
+
+  .includeTitle {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 140%;
+    color: #000;
+  }
+
+  .includeText {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 100%;
+    color: #000;
+    font-family: SF Pro Display;
+  }
+}

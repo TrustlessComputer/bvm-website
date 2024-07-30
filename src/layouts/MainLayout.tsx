@@ -1,34 +1,45 @@
 'use client';
 
-import Header, { HeaderProps } from '@/layouts/Header';
-import React, { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import useAnimationStore from '@/stores/useAnimationStore';
+import Footer from '@layouts/Footer';
+import { usePathname } from 'next/navigation';
+import React, { useEffect } from 'react';
+import HeaderV3, { HeaderV3Props } from './HeaderV3';
+import HeaderCustom from './HeaderCustom';
 
 type IMainProps = {
   hideHeader?: boolean;
   hideFooter?: boolean;
   children?: React.ReactNode;
-  headerProps?: HeaderProps;
+  isHeaderCustom?: boolean;
+  headerProps?: HeaderV3Props;
+  bodyColor?: string;
+  footerClassName?: string;
 };
 
 const MainLayout = ({
-                      hideHeader = false,
-                      hideFooter = false,
-                      headerProps,
-                      children,
-                    }: IMainProps) => {
-
+  hideHeader = false,
+  hideFooter = false,
+  headerProps,
+  children,
+  isHeaderCustom,
+  bodyColor,
+  footerClassName,
+}: IMainProps) => {
   const pathName = usePathname();
   const { resetPlay } = useAnimationStore();
   useEffect(() => {
     resetPlay();
   }, [pathName]);
 
-  return <>
-    {!hideHeader && <Header {...headerProps} />}
-    {children}
-  </>;
+  return (
+    <div style={{ backgroundColor: bodyColor }}>
+      {isHeaderCustom && <HeaderCustom />}
+      {!hideHeader && !isHeaderCustom && <HeaderV3 {...headerProps} />}
+      {children}
+      {!hideFooter && <Footer className={footerClassName} />}
+    </div>
+  );
 };
 
 export default MainLayout;

@@ -1,27 +1,34 @@
-import s from './style.module.scss'
+import s from './style.module.scss';
 import HeadingSection from '@/modules/landing/Componets/HeadingSection';
 import React from 'react';
 import { Button } from '@chakra-ui/react';
 import Fade from '@/interactive/Fade';
 import Chars from '@/interactive/Chars';
+import { useRouter } from 'next/navigation';
 
 const Hero = () => {
-  return <div className={`${s.wrapper}`}>
-    <div className={'container'} style={{height: '100%'}}>
-      <div className={`${s.wrapperHero}`} style={{backgroundImage: 'url(/bitcoin-l2s/bghero.png)'}}>
+  const router = useRouter();
+  return (
+    <div className={`${s.wrapper}`}>
+      <div className={'container'} style={{ height: '100%' }}>
+        <div
+          className={`${s.wrapperHero}`}
+          style={{ backgroundImage: 'url(/bitcoin-l2s/bghero.png)' }}
+        >
           <div className={`${s.wrapperHeroContent}`}>
             <HeadingSection className={s.heading}>
-              <Chars delay={0.2}>
-                  Bitcoin L2 blockchains
-              </Chars>
+              <Chars delay={0.2}>Bitcoin L2 blockchains</Chars>
             </HeadingSection>
             <Fade delay={1.0}>
-              <p className={s.description}>The main goal of Bitcoin L2 blockchains is to turbocharge Bitcoin
-                transactions (reduce transaction latency) without sacrificing decentralization or security.</p>
+              <p className={s.description}>
+                The main goal of Bitcoin L2 blockchains is to turbocharge
+                Bitcoin transactions (reduce transaction latency) without
+                sacrificing decentralization or security.
+              </p>
             </Fade>
             <Fade delay={1.2}>
               <Button
-                bgColor={'#EF601B'}
+                bgColor={'#FA4E0E'}
                 color={'#fff'}
                 borderRadius={0}
                 display={'flex'}
@@ -39,7 +46,7 @@ const Hero = () => {
                   bgColor: '#e5601b',
                 }}
                 onClick={() => {
-                  window.open('https://docs.bvm.network', '_blank');
+                  router.push('/rollups/customize');
                 }}
               >
                 Build your Bitcoin L2
@@ -51,9 +58,10 @@ const Hero = () => {
               </div>
             </Fade>
           </div>
+        </div>
       </div>
     </div>
-  </div>
-}
+  );
+};
 
-export default Hero
+export default Hero;

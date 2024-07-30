@@ -16,7 +16,7 @@ export default function Lego() {
         <div className={s.lego_content}>
           <HeadingSection className={s.lego_content_title}>
             <Chars>
-              Customize your Bitcoin L2 blockchain with{' '}
+              Customize your ZK-powered Blockchain with{' '}
               <b>the best-of-breed building blocks.</b>
             </Chars>
           </HeadingSection>
@@ -33,7 +33,7 @@ export default function Lego() {
           <Fade delay={0.4}>
             <Flex justify={'center'}>
               <Button
-                bgColor={'#EF601B'}
+                bgColor={'#FA4E0E'}
                 color={'#fff'}
                 borderRadius={0}
                 display={'flex'}
@@ -46,7 +46,7 @@ export default function Lego() {
                 fontWeight={400}
                 fontSize={'16px'}
                 onClick={() => {
-                  router.push('/blockchains/customize');
+                  router.push('/rollups/customize');
                 }}
                 _hover={{
                   bgColor: '#000',

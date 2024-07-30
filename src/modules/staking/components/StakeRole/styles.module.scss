@@ -1,0 +1,70 @@
+.container {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: #1D1D1D;
+}
+
+.boxTitle {
+  margin-bottom: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: 0.48px;
+
+  font-size: 24px;
+  color: rgba(#FFF, .7);
+
+  b {
+    color: white;
+    font-weight: 400;
+  }
+}
+
+
+.title {
+  color: #FFF;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 19.6px */
+  letter-spacing: 0.28px;
+  white-space: nowrap;
+}
+
+.codeInput {
+  > div:not(.error) {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+  input {
+    box-shadow: 0 0 12px -6px rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: transparent;
+    width: 40px !important;
+    height: 40px !important;
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 140%;
+    color: #fff;
+
+  }
+
+  .error p {
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 4px;
+    color: #ff0000 !important;
+  }
+}
+
+.iconCopy {
+  cursor: pointer;
+}

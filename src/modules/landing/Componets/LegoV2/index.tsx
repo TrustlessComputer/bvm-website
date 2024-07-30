@@ -57,7 +57,8 @@ export default function LegoV2() {
         <div className={s.lego_heading}>
           <HeadingSection className={s.lego_heading_title}>
             <Chars>
-              Customize and launch your modular Bitcoin L2 blockchain with the best-of-breed modules <b> with a few clicks.</b>
+              Customize and launch your modular Bitcoin L2 blockchain with the
+              best-of-breed modules <b> with a few clicks.</b>
             </Chars>
           </HeadingSection>
 
@@ -70,9 +71,9 @@ export default function LegoV2() {
             </Lines>
           </ContentSection>
           <Fade delay={0.4}>
-            <Flex justify={'start'}>
+            <Flex justify={'center'}>
               <Button
-                bgColor={'#EF601B'}
+                bgColor={'#FA4E0E'}
                 color={'#fff'}
                 borderRadius={0}
                 display={'flex'}
@@ -85,7 +86,7 @@ export default function LegoV2() {
                 fontWeight={400}
                 fontSize={'16px'}
                 onClick={() => {
-                  router.push('/blockchains/customize');
+                  router.push('/rollups/customize');
                 }}
                 _hover={{
                   bgColor: '#000',

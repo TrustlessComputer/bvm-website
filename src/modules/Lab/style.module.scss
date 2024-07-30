@@ -1,0 +1,119 @@
+.lab {
+  position: relative;
+  min-height: 100vh;
+
+  --delay: 0.5s;
+  --black-color: #000;
+  --grey-color: #cecece;
+  --gray-color: #5d6875;
+  --active-color: #86919e;
+
+  .container {
+    padding-top: 138px;
+    padding-bottom: rem(105px);
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    .labHeadline {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 90px;
+      flex-wrap: wrap;
+
+      &_title {
+        font-size: 48px;
+        line-height: rem(52px);
+        letter-spacing: 2px;
+        font-family: var(--font-jetbrains);
+        color: var(--black-color);
+        margin-bottom: rem(16px);
+        height: rem(50px);
+        @include is-tablet {
+          font-size: 56px;
+        }
+        @include is-pc {
+          font-size: 72px;
+          margin-top: -.1em;
+        }
+
+        //width: 100%;
+
+        &:not(.isHome) {
+          opacity: 0;
+          transform: translateY(40px);
+          animation: fadeIn 0.6s var(--delay) $easeOutCubic forwards;
+        }
+
+        @include min-pc {
+          margin-bottom: 0;
+          //width: 58%;
+        }
+      }
+
+      &_content {
+        font-size: 16px;
+        font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+        line-height: 1.5;
+        color: var(--gray-color);
+        max-width: unset;
+        opacity: 0;
+        transform: translateY(40px);
+
+        &.isIN {
+          animation: fadeIn 0.6s calc(var(--delay) + 0.1s) $easeOutCubic forwards;
+        }
+
+        //@include min-tablet{
+        //  max-width: 60%;
+        //}
+
+        @include min-pc {
+          max-width: 500px;
+          font-size: 18px;
+        }
+      }
+    }
+
+    .labArtList {
+      display: grid;
+      flex-wrap: wrap;
+      row-gap: 48px;
+      column-gap: 12px;
+
+      grid-template-columns: 1fr;
+      @include min-tablet {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @include min-pc {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  &.darkTheme {
+    --black-color: #fff;
+    --grey-color: #fff;
+    --gray-color: #{rgba(#fff, 0.7)};
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.paddingX {
+  padding-left: rem(98px);
+  padding-right: rem(98px);
+}

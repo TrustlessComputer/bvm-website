@@ -1,0 +1,26 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  background-color: white;
+  height: max-content;
+  &_bg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    pointer-events: none;
+    object-fit: cover;
+  }
+}
+
+.inner {
+  width: 100%;
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 80px;
+
+  @include is-pc {
+    min-width: 1159px;
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+}

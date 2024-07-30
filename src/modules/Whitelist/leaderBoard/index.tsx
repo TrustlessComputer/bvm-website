@@ -16,7 +16,10 @@ import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
 import BigNumber from 'bignumber.js';
 import SvgInset from '@/components/SvgInset';
-import { leaderBoardSelector, userSelector } from '@/stores/states/user/selector';
+import {
+  leaderBoardSelector,
+  userSelector,
+} from '@/stores/states/user/selector';
 import { setLeaderBoard } from '@/stores/states/user/reducer';
 import copy from 'copy-to-clipboard';
 import { shareReferralURL } from '@/utils/helpers';
@@ -36,7 +39,7 @@ const valueToImage: any = {
 export const LEADER_BOARD_ID = 'LEADER_BOARD_ID';
 
 interface IProps {
-  setIndex: (_: number) => void
+  setIndex: (_: number) => void;
 }
 
 const LeaderBoard = (props: IProps) => {
@@ -136,9 +139,9 @@ const LeaderBoard = (props: IProps) => {
       element.textContent = 'COPIED';
       setTimeout(() => {
         element.textContent = 'GET';
-      }, 2000)
+      }, 2000);
     }
-  }
+  };
 
   const labelConfig = {
     color: 'rgba(1, 1, 0, 0.7)',
@@ -146,13 +149,13 @@ const LeaderBoard = (props: IProps) => {
     letterSpacing: '-0.5px',
     borderBottom: '1px solid #FFFFFF33',
     textTransform: 'uppercase',
-    fontWeight: 500
+    fontWeight: 500,
   };
 
   const _formatPoint = (point: string | number) => {
-    const _point = formatCurrency(point, 0, 0)
-    return (!!_point && _point !== '0') ? _point : '-';
-  }
+    const _point = formatCurrency(point, 0, 0);
+    return !!_point && _point !== '0' ? _point : '-';
+  };
 
   const columns: ColumnProp[] = useMemo(() => {
     return [
@@ -259,7 +262,7 @@ const LeaderBoard = (props: IProps) => {
                 <img
                   style={{ width: 20 }}
                   src={`${CDN_URL_ICONS}/${
-                    valueToImage?.[data?.boost] || 'flash_normal.svg'
+                    valueToImage?.[data?.boost as any] || 'flash_normal.svg'
                   }`}
                 />
                 <Text
@@ -309,9 +312,7 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {_formatPoint(
-                    new BigNumber(data?.point || '0').toNumber(),
-                  )}
+                  {_formatPoint(new BigNumber(data?.point || '0').toNumber())}
                 </Text>
               </Flex>
             </Flex>
@@ -343,7 +344,10 @@ const LeaderBoard = (props: IProps) => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    The more <strong>TIA</strong>, <strong>MATIC</strong>, and <strong>MANTA</strong> you hold, or the more <strong>ETH</strong> you stake on <strong>Eigen</strong>, the more Modular points you'll get.
+                    The more <strong>TIA</strong>, <strong>MATIC</strong>, and{' '}
+                    <strong>MANTA</strong> you hold, or the more{' '}
+                    <strong>ETH</strong> you stake on <strong>Eigen</strong>,
+                    the more Modular points you'll get.
                   </p>
                 </Flex>
               }
@@ -377,12 +381,14 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {_formatPoint(new BigNumber(data?.celestia_point || 0)
-                    .plus(data?.eigenlayer_point || 0)
-                    .plus(data?.polygon_point || 0)
-                    .toNumber())}
+                  {_formatPoint(
+                    new BigNumber(data?.celestia_point || 0)
+                      .plus(data?.eigenlayer_point || 0)
+                      .plus(data?.polygon_point || 0)
+                      .toNumber(),
+                  )}
                 </Text>
-                {(data.need_active && !!point) ? (
+                {data.need_active && !!point ? (
                   <Tooltip
                     minW="160px"
                     bg="white"
@@ -391,9 +397,16 @@ const LeaderBoard = (props: IProps) => {
                     padding="8px"
                     label={
                       <Flex direction="column" color="black" opacity={0.7}>
-                        <p>Eigenlayer: {_formatPoint(data.eigenlayer_point || '0')}</p>
-                        <p>Celestia: {_formatPoint(data.celestia_point || '0')}</p>
-                        <p>Polygon: {_formatPoint(data.polygon_point || '0')}</p>
+                        <p>
+                          Eigenlayer:{' '}
+                          {_formatPoint(data.eigenlayer_point || '0')}
+                        </p>
+                        <p>
+                          Celestia: {_formatPoint(data.celestia_point || '0')}
+                        </p>
+                        <p>
+                          Polygon: {_formatPoint(data.polygon_point || '0')}
+                        </p>
                         <p>Manta: {_formatPoint(data.manta_point || '0')}</p>
                       </Flex>
                     }
@@ -499,7 +512,9 @@ const LeaderBoard = (props: IProps) => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    ETH you stake on <strong>Blast</strong> or the more <strong>Optimism (OP)</strong>, <strong>Base (ETH)</strong>, <strong>Arbitrum (ARB)</strong> tokens you hold.
+                    ETH you stake on <strong>Blast</strong> or the more{' '}
+                    <strong>Optimism (OP)</strong>, <strong>Base (ETH)</strong>,{' '}
+                    <strong>Arbitrum (ARB)</strong> tokens you hold.
                   </p>
                 </Flex>
               }
@@ -535,9 +550,7 @@ const LeaderBoard = (props: IProps) => {
                 gap: '4px',
               }}
             >
-              <Text className={styles.title}>
-                {_formatPoint(point)}
-              </Text>
+              <Text className={styles.title}>{_formatPoint(point)}</Text>
               {data.need_active && !!point ? (
                 <Tooltip
                   minW="160px"
@@ -547,7 +560,9 @@ const LeaderBoard = (props: IProps) => {
                   padding="8px"
                   label={
                     <Flex direction="column" color="black" opacity={0.7}>
-                      <p>Optimism: {_formatPoint(data.optimism_point || '0')}</p>
+                      <p>
+                        Optimism: {_formatPoint(data.optimism_point || '0')}
+                      </p>
                       <p>Blast: {_formatPoint(data.blast_point || '0')}</p>
                       <p>Base: {_formatPoint(data.base_point || '0')}</p>
                       <p>Arbitrum: {_formatPoint(data.arb_point || '0')}</p>
@@ -579,7 +594,7 @@ const LeaderBoard = (props: IProps) => {
               alignSelf: 'center',
               width: '100%',
               gap: '4px',
-              color: "#FA4E0E"
+              color: '#FA4E0E',
             }}
           >
             <Flex alignItems="center" flexDirection="column">
@@ -608,10 +623,19 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {data.need_active ? point ? _formatPoint(point) : '' : _formatPoint(point)}
+                  {data.need_active
+                    ? point
+                      ? _formatPoint(point)
+                      : ''
+                    : _formatPoint(point)}
                 </Text>
                 {data.need_active && !point && (
-                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
+                  <button
+                    onClick={() => props.setIndex(1)}
+                    className={styles.button}
+                  >
+                    GET
+                  </button>
                 )}
               </Flex>
             </Flex>
@@ -662,7 +686,7 @@ const LeaderBoard = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: ILeaderBoardPoint) {
-          const point = new BigNumber(data?.refer_point || 0).toNumber()
+          const point = new BigNumber(data?.refer_point || 0).toNumber();
           return (
             <Flex
               gap={3}
@@ -672,10 +696,20 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={2}>
                 <Text className={styles.title}>
-                  {data.need_active ? point ? _formatPoint(point) : '' : _formatPoint(point)}
+                  {data.need_active
+                    ? point
+                      ? _formatPoint(point)
+                      : ''
+                    : _formatPoint(point)}
                 </Text>
                 {data.need_active && !point && (
-                  <button id="copy-button" onClick={handleShareRefferal} className={styles.button}>GET</button>
+                  <button
+                    id="copy-button"
+                    onClick={handleShareRefferal}
+                    className={styles.button}
+                  >
+                    GET
+                  </button>
                 )}
               </Flex>
             </Flex>
@@ -704,7 +738,8 @@ const LeaderBoard = (props: IProps) => {
               label={
                 <Flex direction="column" color="black" opacity={0.7}>
                   <p>
-                    The Eco points are calculated based on all the tasks you have completed in the Experience BVM section.
+                    The Eco points are calculated based on all the tasks you
+                    have completed in the Experience BVM section.
                   </p>
                 </Flex>
               }
@@ -725,7 +760,10 @@ const LeaderBoard = (props: IProps) => {
           letterSpacing: '-0.5px',
         },
         render(data: ILeaderBoardPoint) {
-          const point = new BigNumber(data?.alpha_point || 0).plus(data?.bvm_point || 0).plus(data?.naka_point || 0).toNumber()
+          const point = new BigNumber(data?.alpha_point || 0)
+            .plus(data?.bvm_point || 0)
+            .plus(data?.naka_point || 0)
+            .toNumber();
           return (
             <Flex
               gap={'4px'}
@@ -735,10 +773,19 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {data.need_active ? point ? _formatPoint(point) : '' : _formatPoint(point)}
+                  {data.need_active
+                    ? point
+                      ? _formatPoint(point)
+                      : ''
+                    : _formatPoint(point)}
                 </Text>
                 {data.need_active && !point && (
-                  <button onClick={() => props.setIndex(1)} className={styles.button}>GET</button>
+                  <button
+                    onClick={() => props.setIndex(1)}
+                    className={styles.button}
+                  >
+                    GET
+                  </button>
                 )}
                 {data.need_active && !!point && (
                   <Tooltip
@@ -824,7 +871,7 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex alignItems={'center'} gap={'4px'}>
                 <Text className={styles.title}>
-                  {_formatPoint(data?.content_point)}
+                  {_formatPoint(data?.content_point as any)}
                 </Text>
                 {data.need_active ? (
                   <Tooltip
@@ -941,20 +988,20 @@ const LeaderBoard = (props: IProps) => {
       {/*  className={styles.wrapScroll}*/}
       {/*  loader={<h4>Loading more...</h4>}*/}
       {/*>*/}
-        <ListTable
-          data={list}
-          columns={columns}
-          className={styles.tableContainer}
-          hasIncrementedPageRef={hasIncrementedPageRef}
-          onFetch={() => {
-            refParams.current = {
-              ...refParams.current,
-              page: refParams.current.page + 1,
-            };
-            hasIncrementedPageRef.current = true;
-            fetchData();
-          }}
-        />
+      <ListTable
+        data={list}
+        columns={columns}
+        className={styles.tableContainer}
+        hasIncrementedPageRef={hasIncrementedPageRef}
+        onFetch={() => {
+          refParams.current = {
+            ...refParams.current,
+            page: refParams.current.page + 1,
+          };
+          hasIncrementedPageRef.current = true;
+          fetchData();
+        }}
+      />
       {/*</InfiniteScroll>*/}
     </Box>
   );

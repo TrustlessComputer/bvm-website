@@ -40,13 +40,14 @@ import {
 import { CHAIN_CONFIG } from './chainConfig';
 import { authenticatedInContext } from './constants';
 import { generateRandomString } from './helpers';
+import useAnimationStore from '@/stores/useAnimationStore';
 
 export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
   children,
 }: PropsWithChildren): React.ReactElement => {
   const dispatch = useAppDispatch();
   const provider = useRPCProvider();
-
+  const { setPlayed, played } = useAnimationStore();
   const [web3Auth, setWeb3Auth] = useState<Web3Auth | null>(null);
   // const { sendEvent } = useGa();
 
@@ -125,6 +126,9 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
       const user = await web3auth.getUserInfo();
       try {
         if (user.idToken) {
+          //Turn off animation when begin of throught the website
+          setPlayed && setPlayed();
+
           const apiAccessToken = await L2Service.register(user.idToken);
           LocalStorage.setItem(STORAGE_KEYS.API_ACCESS_TOKEN, apiAccessToken);
           console.log('[getUserInfo] apiAccessToken ---- ', apiAccessToken);
@@ -185,7 +189,7 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
       try {
         console.log('AuthenticatedProvider', 'init', 'start');
         const web3AuthInstance = new Web3Auth({
-          chainConfig: CHAIN_CONFIG.nos,
+          chainConfig: CHAIN_CONFIG.nos as any,
 
           // please uncomment here for dev when node dead
 
@@ -196,7 +200,7 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
           clientId: WEB3_AUTH_CLIENT_ID,
           uiConfig: {
             loginMethodsOrder: ['twitter'],
-            appName: 'BVM website',
+            appName: 'website',
             logoLight:
               'https://storage.googleapis.com/tc-cdn-prod/nbc/icons/bvm-icons/logo.png',
             logoDark:
@@ -217,7 +221,7 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
           },
         });
 
-        web3AuthInstance.configureAdapter(adapter);
+        web3AuthInstance.configureAdapter(adapter as any);
         subscribeAuthEvents(web3AuthInstance);
         setWeb3Auth(web3AuthInstance);
 
@@ -429,6 +433,7 @@ export const AuthenticatedProvider: React.FC<PropsWithChildren> = ({
       login,
       logout,
       getPlayerInfo,
+      web3Auth,
     }),
     [login, logout, getPlayerInfo, window],
   );

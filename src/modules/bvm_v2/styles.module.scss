@@ -1,7 +1,15 @@
 .container {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f3f1e8;
+  background: #FFFFFF;
+  &_section_tow {
+    background: #F3F1E8;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.topHero {
+  //background: #F6F6F6;
 }

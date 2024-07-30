@@ -1,0 +1,48 @@
+.wrapper {
+  padding: 200px 0;
+  background-color: #F4F4F4;
+}
+
+
+
+.title {
+  color: #000;
+  font-size: 60px;
+  font-weight: 500;
+  font-family: var(--font-jetbrains);
+  line-height: calc(84 / 60);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 40px;
+  margin-top: 60px;
+  @include min-tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
+  }
+  @include is-pc {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  &_title {
+    color: #000;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: calc(48 / 32);
+  }
+  &_desc {
+    color: #000;
+    opacity: 0.7;
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 32px;
+    line-height: calc(36 / 24);
+  }
+}

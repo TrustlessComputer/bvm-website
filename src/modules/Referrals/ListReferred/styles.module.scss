@@ -1,0 +1,122 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  //margin-top: 20px;
+  //margin-bottom: 20px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+
+    width: 100%;
+  }
+
+  .titleInvite {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 120%;
+    color: #000;
+
+    @include w-max(768px) {
+      font-size: 28px;
+    }
+  }
+  
+}
+
+.containerWallet {
+  background: #ffffff;
+  border-radius: 4px !important;
+  padding: 10px 20px;
+  gap: 8px;
+  display: flex;
+  height: 40px !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid #FA4E0E;
+
+  p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #FA4E0E;
+  }
+}
+
+
+table {
+  &.tableContainer {
+    :global {
+      .isActiveRow {
+        background-color: rgba(255, 255, 255, 1) !important;
+
+        tbody {
+          tr {
+            td {
+              max-width: 90vw;
+            }
+          }
+        }
+        p {
+          color: black !important;
+        }
+      }
+
+      .empty-container {
+        > p {
+          font-size: 14px !important;
+          font-weight: 500 !important;
+          opacity: 1 !important;
+          color: rgba(0, 0, 0, 0.5) !important;
+        }
+      }
+    }
+
+    thead {
+      tr {
+        th {
+          padding-bottom: 16px !important;
+          font-family: SF Pro Display;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          max-width: 90vw;
+        }
+      }
+    }
+
+    .title {
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 140%;
+      color: #000;
+      letter-spacing: 0.02em;
+
+      //max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .subTitle {
+      font-size: 12px;
+      opacity: 0.7;
+      color: #000;
+    }
+
+    .desc {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 140%;
+      letter-spacing: -0.01em;
+      color: #000;
+    }
+  }
+}
+

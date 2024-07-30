@@ -1,0 +1,17 @@
+.heading {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 120%;
+  color: #000000;
+  margin-bottom: 68px;
+  text-align: center;
+  max-width: 549px;
+  width: 100%;
+  @include is-min-table {
+    text-align: start;
+  }
+  &.white {
+    color: white;
+  }
+}

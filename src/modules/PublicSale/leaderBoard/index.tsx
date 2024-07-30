@@ -5,7 +5,13 @@ import { ILeaderBoardPoint } from '@/interfaces/leader-board-point';
 import { formatCurrency } from '@/utils/format';
 import orderBy from 'lodash/orderBy';
 import uniqBy from 'lodash/uniqBy';
-import { Avatar as AvatarImg, AvatarGroup, Box, Flex, Text } from '@chakra-ui/react';
+import {
+  Avatar as AvatarImg,
+  AvatarGroup,
+  Box,
+  Flex,
+  Text,
+} from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import s from './styles.module.scss';
 import clsx from 'classnames';
@@ -14,9 +20,19 @@ import { getUrlAvatarTwitter } from '@/utils/twitter';
 import cs from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { commonSelector } from '@/stores/states/common/selector';
-import { publicSaleLeaderBoardSelector, userSelector } from '@/stores/states/user/selector';
-import { clearPublicSaleLeaderBoard, setPublicSaleLeaderBoard } from '@/stores/states/user/reducer';
-import { getPublicSaleDailyReward, getPublicSaleLeaderBoards, IPublicSaleDailyReward } from '@/services/public-sale';
+import {
+  publicSaleLeaderBoardSelector,
+  userSelector,
+} from '@/stores/states/user/selector';
+import {
+  clearPublicSaleLeaderBoard,
+  setPublicSaleLeaderBoard,
+} from '@/stores/states/user/reducer';
+import {
+  getPublicSaleDailyReward,
+  getPublicSaleLeaderBoards,
+  IPublicSaleDailyReward,
+} from '@/services/public-sale';
 import { MIN_DECIMAL } from '@/constants/constants';
 import { tokenIcons } from '@/modules/PublicSale/depositModal/constants';
 import { compareString } from '@/utils/string';
@@ -51,8 +67,8 @@ const LeaderBoard = (props: IProps) => {
   const [refreshing, setRefreshing] = useState(false);
   const needReload = useAppSelector(commonSelector).needReload;
   const dispatch = useAppDispatch();
-  const [dailyReward
-    , setDailyReward] = useState<IPublicSaleDailyReward | null>();
+  const [dailyReward, setDailyReward] =
+    useState<IPublicSaleDailyReward | null>();
 
   const hasIncrementedPageRef = useRef(false);
   const refParams = useRef({
@@ -221,25 +237,28 @@ const LeaderBoard = (props: IProps) => {
               }}
             >
               <Flex flex={1} gap={2} alignItems={'center'}>
-                {isAddress(data?.twitter_name || data?.twitter_username || "")
-                  ? (
-                    <Flex>
-                      <Jazzicon
-                        diameter={40}
-                        seed={jsNumberForAddress(data?.twitter_name || data?.twitter_username || "")}
-                      />
-                    </Flex>
-                  ) : (
-                    <Avatar
-                      url={getUrlAvatarTwitter(
-                        data?.twitter_avatar as string,
-                        'normal',
+                {isAddress(
+                  data?.twitter_name || data?.twitter_username || '',
+                ) ? (
+                  <Flex>
+                    <Jazzicon
+                      diameter={40}
+                      seed={jsNumberForAddress(
+                        data?.twitter_name || data?.twitter_username || '',
                       )}
-                      address={''}
-                      width={40}
-                      name={data?.twitter_name || data?.twitter_username || ''}
                     />
-                  )}
+                  </Flex>
+                ) : (
+                  <Avatar
+                    url={getUrlAvatarTwitter(
+                      data?.twitter_avatar as string,
+                      'normal',
+                    )}
+                    address={''}
+                    width={40}
+                    name={data?.twitter_name || data?.twitter_username || ''}
+                  />
+                )}
 
                 <Flex width={'100%'} gap={'4px'} direction={'column'}>
                   <p className={s.title}>{data?.twitter_name || ''}</p>
@@ -282,8 +301,7 @@ const LeaderBoard = (props: IProps) => {
             >
               <Flex gap={2} alignItems={'center'}>
                 <Text className={s.title}>
-                  $
-                  {formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
+                  ${formatCurrency(data?.usdt_value, MIN_DECIMAL, MIN_DECIMAL)}
                 </Text>
                 <svg
                   width="1"
@@ -300,8 +318,8 @@ const LeaderBoard = (props: IProps) => {
                     stroke="#ECECEC"
                   />
                 </svg>
-                <AvatarGroup spacing={'-5px'} >
-                  {(data?.coin_balances || []).map((t) => (
+                <AvatarGroup spacing={'-5px'}>
+                  {(data?.coin_balances || []).map((t: any) => (
                     <AvatarImg
                       key={`${data.id}-${t.symbol}`}
                       src={tokenIcons[t.symbol.toLowerCase()]}
@@ -374,7 +392,7 @@ const LeaderBoard = (props: IProps) => {
         },
         render(data: ILeaderBoardPoint) {
           return (
-            <Flex direction={"column"} justifyContent={"flex-end"}>
+            <Flex direction={'column'} justifyContent={'flex-end'}>
               <Flex
                 gap={3}
                 alignItems={'center'}
@@ -426,7 +444,11 @@ const LeaderBoard = (props: IProps) => {
                     )}
 
                   <Text className={s.bvm_amount}>
-                    {formatCurrency(data?.bvm_balance, MIN_DECIMAL, MIN_DECIMAL)}{' '}
+                    {formatCurrency(
+                      data?.bvm_balance,
+                      MIN_DECIMAL,
+                      MIN_DECIMAL,
+                    )}{' '}
                     BVM
                   </Text>
                   <Text className={s.bvm_percent}>

@@ -1,17 +1,22 @@
 'use client';
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { PropsWithChildren, useEffect, useMemo, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { setUser } from '@/stores/states/user/reducer';
 import throttle from 'lodash/throttle';
 import { commonSelector } from '@/stores/states/common/selector';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { User } from '@/stores/states/user/types';
-import { getReferralByURL, getReferralModularByURL } from '@/utils/helpers';
+import { getRefCodeByURL, getReferralByURL, getReferralModularByURL } from '@/utils/helpers';
 import userServices from '@/services/user';
 import ReferralStorage from '@/utils/storage/referral.storage';
 import { getCoinPrices, getConfigs } from '@/services/common';
 import { setCoinPrices, setConfigs } from '@/stores/states/common/reducer';
 import { useRouter } from 'next/navigation';
+import CReferralAPI from '@/services/api/referrals';
+import { setUserReferral } from '@/stores/states/referrals/reducer';
+import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import useL2Service from '@hooks/useL2Service';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 
 export interface IUserContext {}
 
@@ -29,6 +34,37 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
   const token =
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
   const guestCode = AuthenStorage.getGuestSecretKey();
+  const userApi = useRef(new CReferralAPI()).current;
+  const { accountInforL2Service } = useAppSelector(
+    getL2ServicesStateSelector,
+  );
+  const addressL2 = accountInforL2Service?.tcAddress;
+  const refCodeChain = ReferralStorage.getRefCodeChain();
+
+  const { loopFetchAccountInfor } = useL2Service();
+  const { loggedIn } = useWeb3Auth();
+
+  useEffect(() => {
+    const referral = refCodeChain;
+    if (loggedIn && addressL2 && referral) {
+      submitReferrerCode(addressL2, referral);
+    }
+  }, [loggedIn, addressL2, refCodeChain]);
+
+  const submitReferrerCode = async (address: string, referral: string) => {
+    try {
+      await userApi.setReferrerCode({
+        referral_code: referral,
+        address: address,
+      });
+    } catch (error) {
+      //
+    }
+  };
+
+  useEffect(() => {
+    loopFetchAccountInfor();
+  }, [loggedIn]);
 
   const fetchUserInfo = async () => {
     const userInfo = await userServices.getUser();
@@ -42,6 +78,16 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
   const throttleFetchUserInfo = React.useCallback(
     throttle(fetchUserInfo, 300),
     [],
+  );
+
+  const fetchUserReferralInfo = async (address: string) => {
+    const data = await userApi.getUserReferralInfo({ address: address });
+    dispatch(setUserReferral(data));
+  };
+
+  const throttleFetchUserReferralInfo = React.useCallback(
+    throttle(() => fetchUserReferralInfo(addressL2 as string), 300),
+    [addressL2],
   );
 
   const fetchCoinPrices = async () => {
@@ -65,6 +111,11 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     throttleFetchUserInfo();
   }, [needReload, token]);
 
+  React.useEffect(() => {
+    if (!addressL2) return;
+    throttleFetchUserReferralInfo();
+  }, [addressL2, needReload]);
+
   // GET REFERRAL CODE
   React.useEffect(() => {
     const code = getReferralByURL();
@@ -79,6 +130,13 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     const code = getReferralModularByURL();
     if (code) {
       ReferralStorage.setReferralModular(code);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const code = getRefCodeByURL();
+    if (code) {
+      ReferralStorage.setRefCodeChain(code);
     }
   }, []);
 

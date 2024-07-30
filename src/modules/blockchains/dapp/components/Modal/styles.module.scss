@@ -1,0 +1,46 @@
+.modal {
+  display: block;
+  width: 400px !important;
+  padding: 28px !important;
+  border-radius: 20px !important;
+
+  &__title {
+    font-family: var(--font-SFProDisplay) !important;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 33.6px;
+    letter-spacing: 0.01em;
+    text-align: center;
+    padding: 0 0 20px 0 !important;
+    color: #000000 !important;
+  }
+
+  &__body {
+    padding: 0 !important;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    padding: 0 !important;
+
+    &__button {
+      display: block;
+      margin: 28px auto 0;
+      width: 281px;
+      height: 45px;
+      padding: 13px 73px;
+      border-radius: 99999px;
+
+      &__close {
+        background-color: #fa4e0e;
+      }
+
+      &__ok {
+        border: 1px solid #fa4e0e;
+        color: #fa4e0e;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.wrapper {
+  background-color: #fff;
+}
+.inner {
+
+  padding-top: 120px;
+
+  @include min-tablet{
+    padding-top: 156px;
+  }
+
+}
+
+.container {
+  //background: #ffffff;
+  //box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.08);
+  //border-radius: 12px;
+  overflow: hidden;
+  //margin-bottom: 100px;
+  &_section_tow {
+    background: #fff;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.topHero {
+  //background: #F6F6F6;
+}

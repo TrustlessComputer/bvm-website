@@ -1,0 +1,48 @@
+import { isProduction } from '@/config';
+import { compareString } from '@utils/string';
+
+const NATIVE_ETH_ADDRESS = '0x0000000000000000000000000000000000000000';
+const NATIVE_TOKEN_ADDRESS = NATIVE_ETH_ADDRESS;
+
+const WRAP_NATIVE_TOKEN_ADDRESS = isProduction
+  ? '0xDe4c4768ee70D97C044062fEC971eAE91B6aFAB7'
+  : '0x86419Faa35b296eF5e7ce2AAc949E0Be63a4bD42';
+
+const NATIVE_TOKEN_LIST = [
+  NATIVE_ETH_ADDRESS, // ETH on Ethereum
+  NATIVE_TOKEN_ADDRESS,
+  WRAP_NATIVE_TOKEN_ADDRESS,
+];
+
+const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
+export const TOKEN_ICON_DEFAULT =
+  'https://cdn.trustless.computer/upload/1683530065704444020-1683530065-default-coin.svg';
+
+const BTC_ADDRESS_L2 = isProduction
+  ? '0xDe4c4768ee70D97C044062fEC971eAE91B6aFAB7'
+  : '0x86419faa35b296ef5e7ce2aac949e0be63a4bd42';
+
+const ETH_ADDRESS_L2 = isProduction
+  ? '0x4F90055b8670B21d64146577152aE52975075900'
+  : '0x0B1aaA8403Cd3D543D31BDDa25827B7d8AFeA573';
+
+const BVM_TOKEN_ADDRESS = process.env.NEXT_PUBLIC_BVM_TOKEN_ADDRESS!;
+
+const TOKEN_ADDRESS = {
+  NATIVE_ETH_ADDRESS,
+  NATIVE_TOKEN_ADDRESS,
+  WRAP_NATIVE_TOKEN_ADDRESS,
+  ADDRESS_ZERO,
+  NATIVE_TOKEN_LIST,
+  BTC_ADDRESS_L2,
+  ETH_ADDRESS_L2,
+  BVM_TOKEN_ADDRESS,
+};
+
+export default TOKEN_ADDRESS;
+
+export const isNativeToken = (tokenAddress: string) => {
+  return NATIVE_TOKEN_LIST.some((address) =>
+    compareString(address, tokenAddress),
+  );
+};

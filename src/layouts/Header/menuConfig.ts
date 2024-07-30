@@ -3,7 +3,8 @@ import {
   DEVELOPERS_GRANTS_URL,
   WHITEPAPER_DOC_URL,
 } from '@/config';
-import { checkIsPublicSale } from '@/modules/Whitelist/utils';
+import {ReactElement} from 'react';
+import {IGroupType} from '@layouts/HeaderV3/useHeaderMobile';
 
 export interface NavItem {
   label: string;
@@ -15,6 +16,11 @@ export interface NavItem {
   isTwitter?: boolean;
   isStrong?: boolean;
   subMenu?: any;
+  isGroup?: boolean;
+  groupType?: IGroupType;
+  GroupDropDown?: () => ReactElement;
+  icon?: () => ReactElement;
+  MenuItemEl?: (p: any) => ReactElement;
 }
 
 export const MenuBuild = {
@@ -24,7 +30,7 @@ export const MenuBuild = {
   isHide: false,
   subMenu: [
     {
-      href: '/blockchains',
+      href: '/rollups',
       label: 'Bitcoin L2s',
       isNewWindow: false,
     },
@@ -62,6 +68,11 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
     isHide: false,
     subMenu: [
       {
+        href: '/ai-on-bitcoin',
+        label: 'AI on Bitcoin',
+        isNewWindow: false,
+      },
+      {
         href: '/smart-contracts-on-bitcoin',
         label: 'Smart contracts on Bitcoin',
         isNewWindow: false,
@@ -80,11 +91,21 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   },
 
   {
-    label: 'Solution',
+    label: 'Solutions',
     // href: DEVELOPERS_DOC_URL,
     isNewWindow: false,
     isHide: false,
     subMenu: [
+      {
+        href: '/use-bitcoin',
+        label: 'Success Stories',
+        isNewWindow: false,
+      },
+      {
+        href: '/ai',
+        label: 'Bitcoin L2 for AI',
+        isNewWindow: false,
+      },
       {
         href: '/gamefi',
         label: 'Bitcoin L2 for GameFi',
@@ -96,11 +117,6 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
         isNewWindow: false,
       },
       {
-        href: '/ai',
-        label: 'Bitcoin L2 for AI',
-        isNewWindow: false,
-      },
-      {
         href: '/socialfi',
         label: 'Bitcoin L2 for SocialFi',
         isNewWindow: false,
@@ -109,15 +125,21 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   },
 
   {
-    label: 'Pricing',
-    href: '/pricing',
+    label: 'Buy BVM',
+    href: '/bvm',
+    isNewWindow: false,
+    isHide: false,
+    isStrong: true,
+  },
+  {
+    label: 'Mine SHARD',
+    href: '/shard',
     isNewWindow: false,
     isHide: false,
   },
-
   {
-    label: '$BVM',
-    href: '/bvm',
+    label: 'Stake',
+    href: '/staking',
     isNewWindow: false,
     isHide: false,
   },
@@ -129,7 +151,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   //   isHide: false,
   //   subMenu: [
   //     {
-  //       href: '/blockchains',
+  //       href: '/rollups',
   //       label: 'Bitcoin L2s',
   //       isNewWindow: false,
   //     },
@@ -175,7 +197,7 @@ export const NAV_ITEMS_LEFT: Array<NavItem> = [
   // },
   // {
   //   label: 'Bitcoin L2s',
-  //   href: '/blockchains',
+  //   href: '/rollups',
   //   isNewWindow: false,
   //   isHide: false,
   // },
@@ -202,24 +224,30 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
   //   isStrong: false,
   //   isHide: false,
   // },
-  // {
-  //   label: 'Roadmap',
-  //   href: '/roadmap',
-  //   isNewWindow: false,
-  //   isHide: false,
-  // },
   {
-    label: 'Explore Bitcoin L2s',
-    href: '/use-bitcoin',
+    label: 'BUIDL Airdrop',
+    href: '/build-on-bitcoin',
     isNewWindow: false,
     isHide: false,
   },
   {
-    label: 'Join the community',
-    href: 'https://discord.gg/U8WHhx3WH3',
-    isNewWindow: true,
+    label: 'Roadmap',
+    href: '/roadmap',
+    isNewWindow: false,
     isHide: false,
   },
+  // {
+  //   label: 'Explore Bitcoin L2s',
+  //   href: '/use-bitcoin',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
+  // {
+  //   label: 'Community',
+  //   href: 'https://t.me/+rT0cmRXjs01kMzY1',
+  //   isNewWindow: true,
+  //   isHide: false,
+  // },
   // {
   //   label: 'Learn',
   //   href: DEVELOPERS_DOC_URL,
@@ -265,11 +293,11 @@ export const NAV_ITEMS: Array<NavItem> = [
   //   isNewWindow: true,
   //   isHide: false,
   // },
-  {
-    label: 'Try BVM',
-    isTwitter: true,
-    href: '/blockchains/customize',
-    isNewWindow: false,
-    isHide: false,
-  },
+  // {
+  //   label: 'Try BVM',
+  //   isTwitter: true,
+  //   href: '/rollups/customize',
+  //   isNewWindow: false,
+  //   isHide: false,
+  // },
 ].filter((item) => !item.isHide);

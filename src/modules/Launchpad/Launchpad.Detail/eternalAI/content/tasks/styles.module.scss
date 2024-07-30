@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: rem(720);
+  gap: 12px;
+  //padding: 24px;
+  //background: #F7F8F8;
+  //border-radius: 16px;
+
+  p {
+    color: var(--naka-text);
+  }
+
+  @include w-max(768px) {
+    //padding: 16px;
+  }
+}

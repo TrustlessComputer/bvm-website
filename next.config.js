@@ -44,25 +44,35 @@ const nextConfig = {
   async redirects() {
     const redirects = [
       {
-        source: '/trustless-computers',
-        destination: '/blockchains/computers',
+        source: '/blockchains',
+        destination: '/rollups',
         permanent: false,
       },
       {
-        source: '/bvm-website-sats',
-        destination: '/blockchains',
+        source: '/tge',
+        destination: '/bvm',
         permanent: false,
       },
       {
-        source: '/blockchains/computers',
-        destination: '/blockchains',
+        source: '/rollups',
+        destination: '/chains',
         permanent: false,
       },
       {
-        source: '/blockchains/buy',
-        destination: '/blockchains/customize',
+        source: '/rollups/customizev2',
+        destination: '/studio',
         permanent: false,
       },
+      // {
+      //   source: '/launchpad',
+      //   destination: `/`,
+      //   permanent: true,
+      // },
+      // {
+      //   source: '/launchpad/detail/:slug',
+      //   destination: `/`,
+      //   permanent: true,
+      // },
     ];
     //
     // if (isPublicSale) {
@@ -73,15 +83,6 @@ const nextConfig = {
     //   })
     // }
     return redirects;
-  },
-
-  async rewrites() {
-    return [
-      {
-        source: '/tc',
-        destination: '/blockchains',
-      },
-    ];
   },
 
   webpack: (config, { isServer, dev }) => {

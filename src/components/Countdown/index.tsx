@@ -1,14 +1,15 @@
-import React, { useEffect, useRef } from 'react';
-import s from './styles.module.scss';
 import useCountdown from '@/hooks/useCountdown';
-import { Flex, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import clsx from 'classnames';
+import React, { useEffect, useMemo, useRef } from 'react';
+import s from './styles.module.scss';
 
 interface IProps {
   expiredTime: string;
   hideIcon?: boolean;
   className?: string;
   onRefreshEnd?: () => void;
+  showDay?: boolean;
 }
 
 const Countdown: React.FC<IProps> = ({
@@ -16,6 +17,7 @@ const Countdown: React.FC<IProps> = ({
   hideIcon,
   className,
   onRefreshEnd,
+  showDay = false,
 }: IProps): React.ReactElement => {
   const refCallEnd = useRef(false);
   const {
@@ -32,6 +34,31 @@ const Countdown: React.FC<IProps> = ({
       onRefreshEnd?.();
     }
   }, [ended, expiredTime, onRefreshEnd]);
+
+  const renderContent = useMemo(() => {
+    if (expiredTime) {
+      if (ended) {
+        return <Text className={s.text}>Ended</Text>;
+      }
+
+      const arrTime = [`${seconds}s`, `${minutes}m`];
+
+      if (days !== null && days !== 0) {
+        if (showDay) {
+          arrTime.push(`${hours}h`);
+          arrTime.push(`${days}d`);
+        } else {
+          arrTime.push(`${days * 24 + Number(hours)}h`);
+        }
+      } else if (hours !== '00') {
+        arrTime.push(`${hours}h`);
+      }
+
+      return <Text className={s.text}>{arrTime.reverse().join(' : ')}</Text>;
+    }
+
+    return <Text className={s.text}>{showDay && `-- :`} -- : -- : --</Text>;
+  }, [expiredTime, ended, days, hours, minutes, seconds]);
 
   return (
     <div className={clsx(s.countdown, className)}>
@@ -50,24 +77,7 @@ const Countdown: React.FC<IProps> = ({
           />
         </svg>
       )}
-
-      {ended && <Text className={s.text}>Ended</Text>}
-      {!ended && (
-        <Flex gap={"60px"}>
-          <Flex direction={"column"} alignItems={"center"}>
-            <Text className={s.timeValue}>{hours}</Text>
-            <Text className={s.timeTitle}>HOURS</Text>
-          </Flex>
-          <Flex direction={"column"} alignItems={"center"}>
-            <Text className={s.timeValue}>{minutes}</Text>
-            <Text className={s.timeTitle}>MINUTES</Text>
-          </Flex>
-          <Flex direction={"column"} alignItems={"center"}>
-            <Text className={s.timeValue}>{seconds}</Text>
-            <Text className={s.timeTitle}>SECONDS</Text>
-          </Flex>
-        </Flex>
-      )}
+      {renderContent}
     </div>
   );
 };

@@ -1,0 +1,59 @@
+.cardFiContainer {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  align-items: center;
+
+  .cardFiImage {
+    padding: 20px 70px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    @include min-md {
+      padding: 20px 120px;
+    }
+
+    @include min-xl {
+      img {
+        width: 260px;
+      }
+    }
+  }
+
+  .cardFiContent {
+    flex: 1;
+
+    &_inner {
+      //max-width: 640px;
+    }
+
+    .cardFiContent_title {
+      font-size: 28px;
+      line-height: 32px;
+      margin-bottom: 12px;
+
+      @include min-xl {
+        font-size: 32px;
+        line-height: 38px;
+        margin-bottom: 16px;
+      }
+    }
+
+    .cardFiContent_desc {
+      a {
+        margin-top: 14px;
+        color: #fa4e0e;
+        display: inline-flex;
+        align-items: center;
+      }
+    }
+  }
+
+  @include min-xl {
+    flex-direction: row;
+    gap: 120px;
+  }
+}

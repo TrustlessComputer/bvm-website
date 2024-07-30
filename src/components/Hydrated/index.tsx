@@ -1,10 +1,10 @@
 'use client';
 
-import configs from '@/constants/l2ass.constant';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useWeb3Authenticated } from '@/Providers/AuthenticatedProvider/hooks';
 import toast from 'react-hot-toast';
+import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 
 export enum IframeEventName {
   topup = 'topup',
@@ -23,6 +23,9 @@ export interface IFrameEvent {
 const Hydrated = ({ children }: { children?: any }) => {
   const [hydration, setHydration] = useState(false);
   const router = useRouter();
+
+  const { showContactUsModal } = useContactUs();
+
   const { login } = useWeb3Authenticated();
 
   useEffect(() => {
@@ -55,24 +58,26 @@ const Hydrated = ({ children }: { children?: any }) => {
             case IframeEventName.trustless_computer_change_route: {
               const subUrl = (eventData.url || '').split('/');
               const message = eventData.message;
-              if (message === 'REQUIRED_LOGIN') {
+              if (message === 'REQUEST_CONTACT_US') {
+                showContactUsModal();
+              } else if (message === 'REQUIRED_LOGIN') {
                 loginWeb3AuthHandler();
               } else if (subUrl.length > 0) {
                 let lastSubUrl: string = subUrl[subUrl.length - 1];
 
                 // lastSubUrl = lastSubUrl.replaceAll('buy', 'customize');
                 // if (lastSubUrl.includes('trustless-computers-iframe')) {
-                //   window.history.replaceState({}, '', '/blockchains');
+                //   window.history.replaceState({}, '', '/rollups');
                 // } else {
                 //   window.history.replaceState(
                 //     {},
                 //     '',
-                //     '/blockchains/' + lastSubUrl,
+                //     '/rollups/' + lastSubUrl,
                 //   );
                 // }
 
                 if (lastSubUrl === 'buy') {
-                  router.replace('/blockchains/customize');
+                  router.replace('/rollups/customize');
                 } else {
                 }
               }

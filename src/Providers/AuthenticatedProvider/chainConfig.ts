@@ -2,6 +2,12 @@ import type { CustomChainConfig } from '@web3auth/base';
 import { CHAIN_NAMESPACES } from '@web3auth/base';
 
 import { isProduction } from '@/utils/common';
+import {
+  EAI_EXPLORER,
+  RUNE_EXPLORER,
+  TC_EXPLORER,
+  TC_LAYER2_EXPLORER,
+} from '@/config';
 
 export const NOS_CHAIN_ID = isProduction() ? 42213 : 42070;
 
@@ -96,3 +102,12 @@ export const CHAIN_CONFIG = {
 } as const;
 
 export type CHAIN_CONFIG_TYPE = keyof typeof CHAIN_CONFIG;
+
+export const NETWORK_TO_EXPLORER: any = {
+  eth: isProduction() ? 'https://etherscan.io' : 'https://goerli.etherscan.io',
+  tc: TC_EXPLORER,
+  nos: TC_LAYER2_EXPLORER,
+  naka: TC_LAYER2_EXPLORER,
+  rune: RUNE_EXPLORER,
+  eai: EAI_EXPLORER,
+};

@@ -1,12 +1,20 @@
 'use client';
 
 import MainLayout from '@/layouts/MainLayout';
-import Landing from '@/modules/landing';
+import LandingV3 from '@/modules/landingV3';
 
 export default function Home() {
+  
   return (
-    <MainLayout>
-      <Landing />
+    <MainLayout
+      headerProps={{
+        color: 'black',
+        colorLogo: 'black',
+        bgColor: 'transparent',
+        position: 'absolute',
+      }}
+    >
+      <LandingV3 />
     </MainLayout>
   );
 }

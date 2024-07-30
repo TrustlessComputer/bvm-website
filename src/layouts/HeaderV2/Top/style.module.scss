@@ -1,0 +1,82 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #000000;
+  padding: 16px 0;
+  font-family: var(--font-dmsans);
+  @include is-pc {
+    border-bottom: 1px solid #ececec;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+
+    &_btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+}
+
+.treasury {
+  background-color: #f2f2f2;
+  border: 1px solid #ececec;
+  padding: 8px 16px;
+  border-radius: 1000px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-dmsans);
+  line-height: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+  color: #000000b2;
+
+  &_cost {
+    padding-left: 2px;
+  }
+  p {
+    font-weight: 500;
+  }
+  @include is-mobile {
+    font-size: 10px;
+    padding: 7px 12px;
+  }
+  span {
+    color: #000;
+  }
+}
+
+.leftToken {
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  @include is-mobile {
+    display: none;
+  }
+  @include is-tablet {
+    display: none;
+  }
+}
+
+.token {
+  color: #000;
+  text-align: center;
+  font-family: var(--font-dmsans);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

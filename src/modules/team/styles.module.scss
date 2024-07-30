@@ -1,0 +1,30 @@
+.ourStory {
+  background-color: #f2f2f2;
+
+  &_members {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 60px;
+    margin-bottom: 100px;
+    row-gap: 32px;
+    @include is-tablet {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 24px;
+      column-gap: 32px;
+    }
+    @include is-pc {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 48px;
+    }
+  }
+}
+
+.inner {
+  padding-top: 173px;
+  padding-bottom: 173px;
+
+  @include is-pc {
+    max-width: 984px;
+    margin: 0 auto;
+  }
+}

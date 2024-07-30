@@ -1,0 +1,67 @@
+.list {
+  margin: 30px 0 60px 0;
+}
+
+.listItem {
+  display: flex;
+  flex-wrap: wrap;
+  clear: both;
+}
+
+
+.listTop {
+  margin-bottom: 10px;
+  @include is-tablet {
+    flex-direction: column;
+  }
+  .card {
+    width: 100%;
+  }
+
+  .hl {
+    width: 100%;
+    @include is-pc {
+      width: 66.66%;
+    }
+    :global {
+      .thumbnail {
+        height: 600px;
+      }
+    }
+  }
+
+  .sc {
+    width: 100%;
+    @include is-pc {
+      width: 33.33%;
+    }
+  }
+}
+
+.card {
+  margin-bottom: 60px;
+  padding: 0 20px;
+  width: 100%;
+  @include is-pc {
+    width: 33.33%;
+
+  }
+}
+
+.btn {
+  background-color: #ff813b;
+  border-radius: 50px;
+  font-size: 18px;
+  width: fit-content;
+  line-height: calc(28 / 18);
+  padding: 8px 20px;
+  margin: 0 auto 50px auto;
+  cursor: pointer;
+  font-family: var(--font-jetbrains);
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #f38145;
+    transition: all 0.3s ease-in-out;
+  }
+}

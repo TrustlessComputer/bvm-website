@@ -3,14 +3,18 @@
   overflow: hidden;
   background: #ffffff;
 
+
   @include is-mobile {
     padding-top: 32px;
     padding-bottom: 44px;
   }
 
   &_heading {
-    max-width: 989px;
+    max-width: 1400px;
     padding-bottom: 68px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 
     @include is-mobile {
       padding-bottom: 32px;
@@ -18,13 +22,16 @@
 
     &_title {
       color: #000;
-      text-align: left !important;
+      //text-align: left !important;
     }
 
     &_description {
-      max-width: 850px;
       color: #000;
-      text-align: unset !important;
+      text-align: center;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      //text-align: unset !important;
 
       @include is-mobile {
         margin-bottom: 12px;
@@ -36,7 +43,7 @@
     display: flex;
     flex-direction: row;
     height: 100%;
-    justify-content: space-between;
+    justify-content: center;
     gap: 16px;
 
     @include is-tablet {

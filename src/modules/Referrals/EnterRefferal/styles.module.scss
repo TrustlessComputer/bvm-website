@@ -1,0 +1,109 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    row-gap: 24px;
+  }
+
+  .button {
+    width: 100% !important;
+    color: #fff;
+    border-radius: 100px;
+    background: #FA4E0E;
+
+    &:hover {
+      background: #FA4E0E;
+    }
+
+    &_text {
+      z-index: 1;
+      color: #FFF;
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+}
+
+.grid {
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  width: 100%;
+
+  @include w-max(768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include w-max(468px) {
+    grid-template-columns: 1fr;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    //align-items: center;
+    width: 100%;
+    padding: 20px;
+    background: #F4F4F4;
+    row-gap: 12px;
+    border-radius: 8px;
+    // min-width: 320px;
+    // width: fit-content;
+  }
+
+  .item_title {
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: rgb(0, 0, 0, 0.7);
+  }
+
+  .item_desc {
+    font-size: 24px;
+    font-weight: 400;
+    color: #000;
+  }
+
+  .btnEdit {
+    height: 24px;
+    cursor: pointer;
+  }
+}
+
+.modalContent {
+  background: #FFF !important;
+  border-radius: 20px !important;
+  min-width: unset !important;
+
+  :global {
+    .chakra-modal__header {
+      text-transform: unset !important;
+      color: #000;
+    }
+
+    .chakra-modal__body {
+      padding: 0 28px 28px;
+    }
+
+    .chakra-modal__close-btn {
+      border: 1px solid #000;
+      border-radius: 100px;
+
+      svg {
+        path {
+          fill: #000;
+        }
+      }
+    }
+  }
+}

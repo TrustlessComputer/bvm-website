@@ -1,0 +1,53 @@
+.tab {
+  padding: 4px;
+  margin-bottom: 24px;
+  border-radius: 100px;
+  border: 1px solid #e7e7e7;
+  width: max-content;
+
+  @include max-md {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+}
+
+.inner {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  @include max-md {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+}
+
+.item {
+  padding: 5px 8px;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.6s var(--easeOutQuart);
+  border-radius: 100px;
+  user-select: none;
+
+  p {
+    color: #5b5b5b;
+    text-align: center;
+    font-family: 'JetBrains Mono';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    text-transform: uppercase;
+    min-width: 80px;
+  }
+
+  &__isActive {
+    border-radius: 100px;
+    background-color: #ff4500;
+    transition: background-color 0.6s var(--easeOutQuart);
+    p {
+      color: #fff;
+    }
+  }
+}

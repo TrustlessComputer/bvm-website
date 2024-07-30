@@ -4,13 +4,28 @@ import reducer from './reducer';
 import { persistCombineReducers, persistStore } from 'redux-persist';
 import { getPersistConfig } from 'redux-deep-persist';
 import persistLocalStorage from 'redux-persist/lib/storage';
+// import logger from 'redux-logger';
 
 const reducers = combineReducers(reducer);
 
 const persistConfig = getPersistConfig({
   key: 'root',
   storage: persistLocalStorage,
-  whitelist: ['common.poolTabIndex', 'common.coinPrices', 'airdrop', 'user', "activities.numberReport", 'common.publicSaleSummary'],
+  whitelist: [
+    'common.poolTabIndex',
+    'common.coinPrices',
+    'airdrop',
+    'user',
+    'activities.numberReport',
+    'common.publicSaleSummary',
+    'stakingV2.stakeUser',
+    'stakingV2.memberCount',
+    'stakingV2.stakingPercent',
+    'launchpad',
+    'lpEAIPayment',
+    'referrals',
+    'createToken',
+  ],
   rootReducer: reducers,
 });
 

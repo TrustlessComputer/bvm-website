@@ -11,7 +11,7 @@ const heroGameFiData = [
     subBtnTitle: 'Need an example? Explore Alpha now!',
     subBtnIcon: '/icons/arrow-right.svg',
     heroThumbnail: '/socialfi/compress/socialfi_hero.png',
-    btnHref: '/blockchains/customize',
+    btnHref: '/rollups/customize',
     subBtnIconHref: 'https://alpha.wtf/',
   },
 ];

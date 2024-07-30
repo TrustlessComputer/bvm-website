@@ -1,0 +1,80 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  .title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #14161b;
+  }
+}
+
+.modalHeader {
+  padding-bottom: 0px !important;
+  margin: 0px !important;
+  height: 0px !important;
+}
+
+.modalBox {
+  background-color: white !important;
+  padding: 20px !important;
+
+  @include is-mobile {
+    padding: 0px !important;
+  }
+}
+
+.inputWrapper {
+  width: 100%;
+  color: #000 !important;
+
+  * label {
+    font-size: 16px !important;
+    color: #000 !important;
+  }
+
+  * input {
+    color: #000 !important;
+    font-size: 16px !important;
+    min-height: 52px !important;
+    &::placeholder {
+      color: #000 !important;
+      opacity: 0.4; /* Firefox */
+    }
+
+    &::-ms-input-placeholder {
+      /* Edge 12 -18 */
+      color: #000 !important;
+      opacity: 0.4; /* Firefox */
+    }
+  }
+
+  * textarea {
+    padding: 8px !important;
+    min-height: 128px !important;
+    border: none !important;
+  }
+
+  :global .chakra-form-control {
+    > div:first-child {
+      border-radius: 0px !important;
+      border: 1px solid #ccc !important;
+    }
+  }
+}
+
+.quill {
+  :global .ql-container {
+    overflow: auto;
+    min-height: 120px;
+    max-height: 320px;
+    font-size: 16px !important;
+
+    .ql-tooltip {
+      left: 0px !important;
+
+      * input {
+        background: transparent !important;
+      }
+    }
+  }
+}

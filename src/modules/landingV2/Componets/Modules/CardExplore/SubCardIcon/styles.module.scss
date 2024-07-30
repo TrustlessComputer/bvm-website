@@ -1,0 +1,143 @@
+.botSection {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  &_left {
+    display: flex;
+    flex-shrink: 0;
+    border-radius: 20px;
+    position: relative;
+    height: 48px;
+    width: auto;
+    aspect-ratio: 1;
+    align-items: center;
+    justify-content: flex-start;
+
+    &_icon {
+      // width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @include is-mobile {
+      // display: none;
+    }
+  }
+
+  &_right {
+    @include is-mobile {
+      width: 100%;
+    }
+    &_inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      &_content {
+        &__7E7CFF {
+          background-color: #7e7cff;
+        }
+
+        &__FE6420 {
+          background-color: #fe6420;
+        }
+
+        &__66BCFF {
+          background-color: #66bcff;
+        }
+
+        &__7EBD4E {
+          background-color: #7ebd4e;
+        }
+
+        &__7E7CFF {
+          background-color: #7e7cff;
+        }
+
+        &__FF0420 {
+          background-color: #ff0420;
+        }
+
+        &__FF7E21 {
+          background-color: #ff7e21;
+        }
+      }
+      &_title {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        &_icon {
+          display: none;
+
+          @include is-mobile {
+            display: block;
+            height: auto;
+            width: 24px;
+            object-fit: contain;
+          }
+        }
+        &_text {
+          flex-shrink: 0;
+          color: #fff;
+          font-family: var(--font-dmsans);
+          font-size: 22px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 150%;
+          @include is-mobile {
+            font-size: 16px;
+          }
+        }
+      }
+      &_tags {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 20px;
+      }
+      &_decs {
+        padding-top: 8px;
+        color: #fff;
+        font-family: var(--font-dmsans);
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%;
+        letter-spacing: -0.46px;
+
+        @include is-mobile {
+          font-size: 14px;
+          padding-top: 9.5px;
+        }
+      }
+    }
+  }
+  &_button {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    align-items: center;
+
+    p {
+      font-family: var(--font-dmsans);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 150%;
+    }
+    svg {
+      fill-opacity: 0.7;
+    }
+    svg path {
+      fill: #fff;
+    }
+  }
+}
+.tags {
+  display: flex;
+  gap: 8px;
+}

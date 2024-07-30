@@ -1,0 +1,55 @@
+.container {
+  border-radius: 100px !important;
+  position: relative;
+  padding: 6px 12px 6px 24px !important;
+  font-size: 12px;
+  font-weight: 500;
+  width: fit-content;
+  height: fit-content;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    top: 40%;
+    left: 12px;
+    border-radius: 50%;
+  }
+
+  &.prelaunch {
+    color: #ACF8C6;//#ff7e21;
+    background-color: #acf8c633;//rgba(255, 126, 33, 0.2);
+
+    &::before {
+      background: #ACF8C6;//#ff7e21;
+    }
+  }
+
+  &.ido {
+    color: rgba(51, 133, 255, 1);
+    background-color: rgba(51, 133, 255, 0.2);
+
+    &::before {
+      background: rgba(51, 133, 255, 1);
+    }
+  }
+
+  &.upcoming, &.redemption {
+    color: rgba(4, 197, 127, 1);
+    background-color: rgba(4, 197, 127, 0.2);
+
+    &::before {
+      background: rgba(4, 197, 127, 1);
+    }
+  }
+
+  &.ended {
+    color: rgba(255, 71, 71, 1);
+    background-color: rgba(255, 71, 71, 0.2);
+
+    &::before {
+      background: rgba(255, 71, 71, 1);
+    }
+  }
+}

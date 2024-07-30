@@ -9,11 +9,10 @@ import useAnimationStore from '@/stores/useAnimationStore';
 export default function Loader() {
 
   const refContent = useRef<HTMLDivElement>(null);
-  const { setPlay, setPlayed } = useAnimationStore();
-
+  const { setPlay, setPlayed, fontReady } = useAnimationStore();
 
   useGSAP(() => {
-    gsap.fromTo(
+    fontReady &&  gsap.fromTo(
       refContent.current,
       { pointerEvents: 'none' },
       {
@@ -27,8 +26,8 @@ export default function Loader() {
         },
       },
     );
-    setTimeout(setPlay, 300);
-  }, { scope: refContent });
+    fontReady && setTimeout(setPlay, 300);
+  }, { scope: refContent, dependencies:[fontReady] });
 
 
   return (

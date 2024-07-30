@@ -1,0 +1,238 @@
+@font-face {
+  font-family: 'Urbanist';
+  src: url('/fonts/Urbanist/Urbanist-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  src: url('/fonts/Urbanist/Urbanist-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  src: url('/fonts/Urbanist/Urbanist-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  src: url('/fonts/Urbanist/Urbanist-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Urbanist';
+  src: url('/fonts/Urbanist/Urbanist-Light.ttf') format('truetype');
+  font-weight: 300;
+}
+
+.container {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background-color: #ffffff;
+  background-image: url('/images/launchpad/detail_bg.webp');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
+  --naka-text: #000;
+
+  height: calc(100dvh - 124px);
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  -webkit-scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  @include w-max(767px) {
+    background-size: 100% 100%;
+  }
+
+  &.bgGrey {
+    font-family: 'Urbanist';
+    background: #f6f7fa !important;
+  }
+
+  // position: fixed;
+  // top: env(safe-area-inset-top);
+  // left: 0;
+  //padding: 0 120px;
+
+  &.loadingContainer {
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  .content {
+    padding: 0 100px;
+    //padding-top: 16px;
+    width: 100%;
+    max-width: 1664px;
+    padding-left: 32px;
+    padding-right: 32px;
+    margin: 0 auto;
+
+    // @include is-mobile {
+    //   max-width: calc(100vw - 32px);
+    // }
+
+    @include w-min(1920px) {
+      padding: 0 120px;
+    }
+
+    @include w-max(768px) {
+      padding: 0 16px;
+      //height: 50px;
+      //min-height: 50px;
+    }
+  }
+}
+
+.tabWrapper {
+  p {
+    color: var(--naka-text);
+  }
+  @media screen and (max-width: 768px) {
+    & > div {
+      padding: 0px;
+    }
+  }
+  .tabContainer {
+    :global {
+      .chakra-tabs__tablist {
+        border-bottom-color: #cecece;
+        height: 40px;
+      }
+      .chakra-tabs__tab {
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 400;
+        font-size: rem(14);
+        padding: rem(20);
+        &[aria-selected='true'],
+        &:focus-visible,
+        &:active {
+          color: #ffffff;
+          box-shadow: none;
+          background: rgba(255, 255, 255, 0.4);
+          font-weight: 600;
+
+          &::after {
+            border-bottom: 2px solid #000000;
+          }
+        }
+      }
+
+      .chakra-tabs__tab-panel {
+        padding: 0;
+      }
+    }
+  }
+}
+
+.phaseWrapper {
+  width: 100%;
+  position: relative;
+  > div {
+    padding: 16px 100px;
+    //padding-top: 16px;
+    max-width: 1664px;
+    padding-left: 32px;
+    padding-right: 32px;
+    margin: 0 auto;
+    position: relative;
+
+    @include w-max(767px) {
+      padding: 16px;
+    }
+  }
+
+  .countdownTimeWrapper {
+    position: absolute;
+    left: 120px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    @include w-max(767px) {
+      position: relative;
+      left: unset;
+      top: unset;
+      transform: unset;
+      margin-bottom: 8px;
+    }
+  }
+
+  .viewAllProjects {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1;
+
+    @include w-max(767px) {
+      position: relative;
+      right: unset;
+      top: unset;
+      transform: unset;
+      padding-bottom: 0;
+    }
+  }
+
+  .countdownTime {
+    justify-content: flex-start;
+    p {
+      font-size: 18px;
+      font-weight: 600 !important;
+      line-height: 140%;
+    }
+
+    &.highLight {
+      -webkit-animation: flash linear 1s infinite;
+      animation: flash linear 1s infinite;
+      p {
+        color: #ff7e21;
+        white-space: nowrap;
+      }
+    }
+
+    @include w-max(767px) {
+      justify-content: center;
+    }
+  }
+}
+
+@-webkit-keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}

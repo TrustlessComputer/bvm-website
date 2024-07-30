@@ -1,7 +1,22 @@
-.footerBar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.wrapper {
+  background: #FAFAFA;
+  padding: 48px 0;
+  color: black;
+  position: relative;
+  z-index: 3;
+  margin-top: 48px;
+}
+
+.row {
+  display: flex;
+  gap: 80px;
   width: 100%;
+  flex-wrap: wrap;
+}
+
+.social {
+  //margin-left: auto;
+  @include is-pc {
+    margin-left: auto;
+  }
 }

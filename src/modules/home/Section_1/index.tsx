@@ -80,13 +80,13 @@ const Section_1 = () => {
               fontWeight={400}
               fontSize={'20px'}
               onClick={() => {
-                router.push('/blockchains/customize');
+                router.push('/rollups/customize');
               }}
             >
               {`Build your Bitcoin L2`}
             </Button>
             <Button
-              // bgColor={'#EF601B'}
+              // bgColor={'#FA4E0E'}
               bgColor={'transparent'}
               color={'#fff'}
               borderRadius={100}

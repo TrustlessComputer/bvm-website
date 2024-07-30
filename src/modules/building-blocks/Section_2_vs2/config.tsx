@@ -15,6 +15,39 @@ export type BlockItemType = {
 
 export const BlockDataList: BlockItemType[] = [
   {
+    key: 'AI',
+    label: 'AI',
+    networkList: [
+      {
+        logoUrl: '/images/lego_tensors.svg',
+        name: 'Tensors',
+      },
+      {
+        logoUrl: '/images/lego_cnn.svg',
+        name: 'CNN',
+      },
+      {
+        logoUrl: '/images/lego_dense.svg',
+        name: 'DENSE',
+      },
+      {
+        logoUrl: '/images/lego_lstm.svg',
+        name: 'LSTM',
+      },
+      {
+        logoUrl: '/images/lego_transformer.svg',
+        name: 'Transformer',
+        isComingSoon: true,
+      },
+    ],
+    // bgColor: '#29892A',
+    bgColor: 'transparent',
+    bgCircle: '#54A155',
+    zIndex: 3,
+    isLastItem: true,
+    isHide: false,
+  },
+  {
     key: 'Data Availability',
     label: 'Data Availability',
     networkList: [
@@ -47,6 +80,22 @@ export const BlockDataList: BlockItemType[] = [
     bgColor: 'transparent',
     bgCircle: '#8D87E3',
     zIndex: 10,
+    isLastItem: false,
+    isHide: false,
+  },
+  {
+    key: 'Settlement',
+    label: 'Settlement',
+    networkList: [
+      {
+        logoUrl: '/images/lego_bitcoin.svg',
+        name: 'Bitcoin',
+      },
+    ],
+    // bgColor: '#29892A',
+    bgColor: 'transparent',
+    bgCircle: '#54A155',
+    zIndex: 4,
     isLastItem: false,
     isHide: false,
   },
@@ -157,22 +206,6 @@ export const BlockDataList: BlockItemType[] = [
     bgCircle: '#FF7D7D',
     zIndex: 5,
     isLastItem: false,
-    isHide: false,
-  },
-  {
-    key: 'Settlement',
-    label: 'Settlement',
-    networkList: [
-      {
-        logoUrl: '/images/lego_bitcoin.svg',
-        name: 'Bitcoin',
-      },
-    ],
-    // bgColor: '#29892A',
-    bgColor: 'transparent',
-    bgCircle: '#54A155',
-    zIndex: 4,
-    isLastItem: true,
     isHide: false,
   },
 ].filter((item) => !item.isHide);

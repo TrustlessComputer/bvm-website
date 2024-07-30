@@ -1,9 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 import { UUID } from '@/constants/storage-key';
-import { APP_ENV } from '@/config';
+import { APP_ENV, NAKA_WEB } from '@/config';
 import { formatCurrency } from '@/utils/format';
 import BigNumber from 'bignumber.js';
 import dayjs from 'dayjs';
+import last from 'lodash/last';
+import { NETWORK_TO_EXPLORER } from '@/Providers/AuthenticatedProvider/chainConfig';
+import { User } from '@/stores/states/user/types';
+import { isMobile } from 'react-device-detect';
 
 export const getUuid = (): string => {
   let uuidText = window.localStorage.getItem(UUID) as string;
@@ -25,6 +29,7 @@ export const getLink = (referralCode?: string) => {
 
 const REFERRAL_TEXT = 'refer';
 const REFERRAL_TEXT_MODULAR = 'source';
+const REF_CODE_TEXT = 'r';
 
 export const shareReferralURL = (code: string) => {
   if (APP_ENV === 'production') {
@@ -41,6 +46,11 @@ export const getReferralByURL = () => {
 export const getReferralModularByURL = () => {
   const params = new URLSearchParams(window.location?.search || '');
   return params.get(REFERRAL_TEXT_MODULAR);
+};
+
+export const getRefCodeByURL = () => {
+  const params = new URLSearchParams(window.location?.search || '');
+  return params.get(REF_CODE_TEXT);
 };
 
 export const shareTwitterSignature = (params: {
@@ -143,3 +153,105 @@ export const settingMomentFromNow = () => {
     },
   });
 };
+
+export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
+enum ETwitterImageProfileSize {
+  normal = 'normal',
+  medium = '200x200',
+  high = '400x400',
+}
+
+export const getUrlAvatarTwitter = (
+  url: string,
+  size: 'normal' | 'medium' | 'high' = 'normal',
+) => {
+  if (url) {
+    if (!url.includes('pbs.twimg.com') && !url.includes('abs.twimg.com')) {
+      return url;
+    }
+
+    if (url?.includes('default_profile_normal.png')) {
+      return undefined;
+    }
+
+    const urls = url?.split('/');
+
+    let finalUrl = urls.splice(0, urls.length - 1).join('/');
+
+    const lastPartUrl = last(urls)?.split('_');
+
+    if (lastPartUrl?.[0] === 'default') {
+      return url;
+    }
+
+    finalUrl += `/${lastPartUrl
+      ?.splice(0, lastPartUrl.length - 1)
+      ?.join('_')}_${ETwitterImageProfileSize[size]}.${last(
+      last(lastPartUrl)?.split('.'),
+    )}`;
+
+    return finalUrl;
+  }
+  return undefined;
+};
+
+export const getExplorer = (
+  hash?: any,
+  network: 'eth' | 'tc' | 'rune' | 'eai' | 'naka' = 'naka',
+  type: 'tx' | 'address' = 'tx',
+) => {
+  return `${NETWORK_TO_EXPLORER[network]}/${type}/${hash}`;
+};
+
+export const shareURLWithReferralCode = (params: {
+  subDomain: string;
+  user: User | undefined;
+}) => {
+  const domain = 'nakachain.xyz';
+  const user = params?.user;
+
+  let shareCode = '';
+
+  if (user && user?.referral_code) {
+    shareCode = `?${REFERRAL_TEXT}=${user.referral_code}`;
+  }
+
+  const _subDomain = params.subDomain.startsWith('/')
+    ? params.subDomain
+    : `/${params.subDomain}`;
+
+  return `${domain}${_subDomain}${shareCode}`;
+};
+
+export type SearchURLTokenType = 'coin' | 'pass' | 'key';
+
+export interface ISearchURLSwap {
+  from_token?: string;
+  from_token_type?: SearchURLTokenType;
+  to_token?: string;
+  to_token_type?: SearchURLTokenType;
+}
+
+export const getUrlToSwap = (params: ISearchURLSwap) => {
+  const options = new URLSearchParams({
+    from_token: params.from_token || '',
+    to_token: params.to_token || '',
+  });
+  return `${NAKA_WEB}/swap?${options.toString()}`;
+};
+
+export const openExtraLink = (url: string) => {
+  return isMobile ? window.location.assign(url) : window.open(url, '_blank');
+};
+
+
+// Function to encode a string to Base64
+export function encodeBase64(input: string): string {
+  return encodeURIComponent(btoa(input));
+}
+
+// Function to decode a Base64 string
+export function decodeBase64(encoded: string): string {
+  return atob(decodeURIComponent(encoded));
+}
