@@ -106,7 +106,7 @@ export default function ItemCommunity({
   const token = AuthenStorage.getAuthenKey();
 
   const availableBalanceClaim = useMemo(() => {
-    if (content?.step === 1) {
+    if (content?.step === AirdropStep.alphaUsers) {
       if (!airdropAlphaUsers) {
         return 0;
       }
@@ -133,7 +133,7 @@ export default function ItemCommunity({
   const onClaim = async () => {
     try {
       setClaiming(true);
-      if (content?.airdropType === 1) {
+      if (content?.step === AirdropStep.alphaUsers) {
         await claimBVMAirdrop({
           address: airdropAlphaUsers?.address,
           type: airdropAlphaUsers?.type,
