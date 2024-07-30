@@ -97,7 +97,7 @@
 .text {
   color: var(--text-color);
   text-align: center;
-  font-family: 'JetBrains Mono';
+  font-family: var(--font-JetBrainsMono);
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -114,7 +114,7 @@
 .lowercase {
   color: var(--text-color);
   text-align: center;
-  font-family: 'JetBrains Mono';
+  font-family: var(--font-JetBrainsMono);
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -125,7 +125,6 @@
   text-overflow: ellipsis;
   max-width: 100px;
   transform: translateY(1px);
-  text-transform: uppercase;
 }
 
 .dropdown {

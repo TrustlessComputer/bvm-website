@@ -55,7 +55,7 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'contact us',
+    label: 'Contact us',
     MenuItemEl: ContactUs,
   },
 ];
@@ -124,7 +124,7 @@ export const NAV_ITEMS_RIGHT: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'contact us',
+    label: 'Contact us',
     MenuItemEl: ContactUs,
   },
 ];
