@@ -62,7 +62,11 @@ const HackathonModule = (props: Props) => {
   const renderCountdown = () => {
     if (!startTime.ended) {
       return (
-        <Flex alignItems={'center'} gap="4px">
+        <Flex
+          alignItems={'center'}
+          gap="4px"
+          flexDir={{ base: 'column', xl: 'row' }}
+        >
           <Text whiteSpace={'nowrap'} opacity={0.6}>
             Practice battle starts in
           </Text>
