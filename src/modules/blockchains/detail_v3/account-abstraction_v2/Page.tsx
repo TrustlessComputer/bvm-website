@@ -35,7 +35,7 @@ import FeeRateInput from './components/FeeRateInput';
 import { useAccountAbstractionStore } from './store/hook';
 import enhance from './enhance';
 import { useAADetailHelper } from './useAADetailHelper';
-import WaitiingInstallView from './components/WaitiingInstallView';
+import WaitingInstallView from './components/WaitingInstallView';
 
 const Page = (props: any) => {
   // const modelCategories = useAppSelector(getModelCategoriesSelector);
@@ -46,7 +46,7 @@ const Page = (props: any) => {
 
   const { exportAsImage, download } = useCaptureHelper();
 
-  const { isCanEdit, isProcessing, isOnlyView } = useAADetailHelper();
+  const { isCanEdit, isProcessing, isOnlyView, isOwner } = useAADetailHelper();
 
   const [data, setData] = React.useState<
     | (IModelCategory & {
@@ -313,7 +313,7 @@ const Page = (props: any) => {
           onDragEnd={handleDragEnd}
         >
           <Spacer h={'30px'} />
-          <ToolBar rightView={<LaunchButton />} />
+          {isOwner && <ToolBar rightView={<LaunchButton />} />}
 
           <Flex flexDir={'row'} mt={'20px'} gap={'10px'} w={'100%'}>
             <Flex className={s.showroomLegosContainer}>
@@ -380,7 +380,7 @@ const Page = (props: any) => {
 
             <Flex flex={1} className={s.middleViewContainer} id="imageCapture">
               {isProcessing ? (
-                <WaitiingInstallView />
+                <WaitingInstallView />
               ) : (
                 <DroppableV2
                   id="final"

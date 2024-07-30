@@ -1,14 +1,19 @@
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { useAppSelector } from '@/stores/hooks';
 import { getOrderDetailSelected } from '@/stores/states/l2services/selector';
 import { useMemo } from 'react';
 
 export const useAADetailHelper = () => {
   const { orderDetail } = useAppSelector(getOrderDetailSelected);
+  const { l2ServiceUserAddress } = useWeb3Auth();
 
   const result = useMemo(() => {
     let isCanEdit = true;
     let isOnlyView = false;
     let isProcessing = false;
+    let isOwner =
+      l2ServiceUserAddress?.toLowerCase() ===
+      orderDetail?.tcAddress?.toLowerCase();
 
     if (!orderDetail || !orderDetail.dApps || orderDetail.dApps.length < 1) {
     } else {
@@ -31,11 +36,12 @@ export const useAADetailHelper = () => {
 
     return {
       orderDetail,
-      isCanEdit,
+      isCanEdit: true,
       isOnlyView,
-      isProcessing,
+      isProcessing: false,
+      isOwner,
     };
-  }, [orderDetail]);
+  }, [orderDetail, l2ServiceUserAddress]);
 
   return result;
 };

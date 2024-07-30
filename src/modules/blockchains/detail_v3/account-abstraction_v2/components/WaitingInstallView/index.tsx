@@ -25,7 +25,8 @@ const WaitiingInstallView = () => {
         </div>
       </Flex>
       <Text fontSize={['18px']} fontWeight={500}>
-        Your Account Abstraction is installing. Please wait a few minutes
+        The Account Abstraction module is currently being installed. Please
+        wait...
       </Text>
     </Flex>
   );
