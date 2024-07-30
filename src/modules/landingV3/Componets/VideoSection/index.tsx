@@ -5,27 +5,27 @@ import React, { useState } from 'react';
 
 const FakeData = [
   {
-    icon: '/icons/ic_bell.svg',
+    icon: '/icons/ic_1.svg',
     title: 'Easily deploy',
     desc: 'Launch your ZK rollups without writing a single line of code.'
   },
   {
-    icon: '/icons/ic_bell.svg',
+    icon: '/icons/ic_2.svg',
     title: 'Affordable pricing',
     desc: 'Get started with ZK rollups on Bitcoin from just $99/month.'
   },
   {
-    icon: '/icons/ic_bell.svg',
+    icon: '/icons/ic_3.svg',
     title: 'Scalable solutions',
     desc: 'Scale your ZK rollup or resize it as your demand shifts.'
   },
   {
-    icon: '/icons/ic_bell.svg',
+    icon: '/icons/ic_4.svg',
     title: 'Bitcoin security',
     desc: 'Inherit Bitcoin’s robust security with your ZK rollup.'
   },
   {
-    icon: '/icons/ic_bell.svg',
+    icon: '/icons/ic_5.svg',
     title: 'Economic opportunity',
     desc: 'Be the first to tap into the $1 trillion Bitcoin economy.'
   }
