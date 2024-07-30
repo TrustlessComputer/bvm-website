@@ -11,6 +11,7 @@ type THeadingSection = PropsWithChildren & {
   video?: string;
   bgColor?: string;
   isVideo?: boolean;
+  showBtn?: boolean;
 }
 
 
@@ -26,19 +27,23 @@ const HeadingSection = ({...props}: THeadingSection) => {
       <div className={`${s.top} containerV3`}>
         <p className={s.top_heading}>{title}</p>
         <p className={s.top_desc}>{props.children}</p>
-        <div className={s.wrapperBtn}>
-          <div className={`${s.btn} ${s.btn__primary}`} onClick={() => {
-            tracking('GET_STARTED');
-            router.push('/rollups/customizev2');
-          }}>
-            <p>Build now</p>
-          </div>
-          <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
-            showContactUsModal({ subjectDefault: 0 });
-          }}>
-            <p>Request a demo</p>
-          </div>
-        </div>
+        {
+          props.showBtn && (
+            <div className={s.wrapperBtn}>
+              <div className={`${s.btn} ${s.btn__primary}`} onClick={() => {
+                tracking('GET_STARTED');
+                router.push('/rollups/customizev2');
+              }}>
+                <p>Build now</p>
+              </div>
+              <div className={`${s.btn} ${s.btn__secondary}`} onClick={() => {
+                showContactUsModal({ subjectDefault: 0 });
+              }}>
+                <p>Request a demo</p>
+              </div>
+            </div>
+          )
+        }
         {
           props.isVideo && (
             <div className={s.wrapperImage}>
@@ -48,8 +53,11 @@ const HeadingSection = ({...props}: THeadingSection) => {
                     {/*<video src={'https://storage.googleapis.com/bvm-network/image/output_v5.mp4'} loop preload="auto" playsInline muted autoPlay width={16} height={9} />*/}
                     <Image
                       className={s.imagePreload}
+                      // src={
+                      //   'https://storage.googleapis.com/bvm-network/image/Drag%20and%20Drop%20Banner%2003.gif'
+                      // }
                       src={
-                        'https://storage.googleapis.com/bvm-network/image/Drag%20and%20Drop%20Banner%2003.gif'
+                        '/video.jpg'
                       }
                       width={1566}
                       height={880}
@@ -58,8 +66,9 @@ const HeadingSection = ({...props}: THeadingSection) => {
                       quality={100}
                     />
                     <div className={s.imageHero_btn}>
+                      <p>Take a tour</p>
                       <Image
-                        src={'/play.svg'}
+                        src={'/icons/ic_arrow-right.svg'}
                         alt={'icons'}
                         width={20}
                         height={20}
