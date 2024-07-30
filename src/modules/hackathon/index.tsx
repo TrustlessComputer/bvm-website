@@ -174,25 +174,30 @@ const HackathonModule = (props: Props) => {
                   opacity={0.6}
                   mb="9px"
                 >
-                  Reward
+                  Weekly Prize Pool
                 </Text>
-                <p className={s.reward_amount}>$10,000</p>
+                <p className={s.reward_amount}>$500</p>
               </div>
             </div>
             <div>
               <h2 className={s.title}>
-                <p>BVM</p> <p>Code Battle</p>
+                <p>Proof Of Code</p>
               </h2>
               <p className={s.desc}>
-                Starting on August 8th 2024, BVM is launching a weekly Solidity
-                coding competition with the total prize pool of $10,000 for 20
-                weeks.
+                Introducing Proof Of Code: the weekly crypto coding competition
+                with weekly prize pools of $500, starting with Solidity
+                problems.
               </p>
               <p className={s.desc}>
-                BVM is the leading Rollup-As-A-Service on Bitcoin, in which
-                anyone can launch their own blockchain on Bitcoin for only
-                $99/month.
-                <br />
+                Proof Of Code is hosted by BVM - the leading Rollup-As-A-Service
+                on Bitcoin, where anyone can easily launch their own blockchain
+                on Bitcoin for only $99/month.
+              </p>
+              <p className={s.desc}>
+                Register now to sharpen your coding abilities, connect with a
+                community of like-minded developers, and prove that you are the
+                best.
+                {/* <br />
                 <Link href="/" className={s.link}>
                   Learn more about BVM here
                   <Image
@@ -201,7 +206,7 @@ const HackathonModule = (props: Props) => {
                     width={16}
                     height={16}
                   ></Image>
-                </Link>
+                </Link> */}
               </p>
             </div>
             <Flex alignItems={'center'} gap="24px">
@@ -238,7 +243,11 @@ const HackathonModule = (props: Props) => {
               <Image
                 layout="fill"
                 alt="hero thumbnail"
-                src={`${CDN_URL}/images/hero-thumbnail-2.png`}
+                src={`/images/poc/candidate-with-result-3x.png`}
+                // srcSet={`
+                //   /images/candidate-with-result-1x.png 1x,
+                //   /images/candidate-with-result-2x.png 2x,
+                //   /images/candidate-with-result-3x.png 3x,
                 // `}
               />
             </Box>
