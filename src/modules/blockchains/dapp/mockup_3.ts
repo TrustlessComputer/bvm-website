@@ -379,7 +379,7 @@ export const dappMockupData: DappModel[] = [
       {
         key: 'info',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'Information',
+        title: 'Reward Rate',
         tooltip: '',
         required: true,
       },
@@ -406,7 +406,7 @@ export const dappMockupData: DappModel[] = [
           },
           {
             key: 'eth',
-            title: 'ETH', // symbol
+            title: 'ETH (Upgrade plan 99$)', // symbol
             value: '0x1234', // contract_address
             icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
             tooltip: '',
@@ -439,7 +439,7 @@ export const dappMockupData: DappModel[] = [
           },
           {
             key: 'eth',
-            title: 'ETH', // symbol
+            title: 'ETH (Upgrade plan 99$)', // symbol
             value: '0x1234', // contract_address
             icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
             tooltip: '',
@@ -453,7 +453,7 @@ export const dappMockupData: DappModel[] = [
     blockFields: [
       {
         key: 'info',
-        title: 'Information',
+        title: 'Reward rate',
         icon: '',
         placableAmount: 1,
         section: 'info',

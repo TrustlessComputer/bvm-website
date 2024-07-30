@@ -10,7 +10,7 @@ export const parseStakingPools = (pools: ISTToken[]): DappModel[] => {
       id: DappType.staking,
       key: DappType.staking,
       action: {
-        title: 'Top up',
+        title: 'Top up reward',
         actionMapperID: `${item.id}`,
       },
       title: 'Staking',
