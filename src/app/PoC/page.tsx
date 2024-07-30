@@ -65,7 +65,7 @@ const HackathonPage = () => {
           <Image
             layout="fill"
             alt="hero thumbnail"
-            src={`/images/poc/hackathon-bg.png`}
+            src={`/images/poc/hackathon-bg-1x.png`}
             // `}
           />
         </Box>
