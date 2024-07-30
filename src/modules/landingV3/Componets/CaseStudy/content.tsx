@@ -16,20 +16,19 @@ export default function CaseStudyContent({ idx }: { idx?: number }) {
     gsap.registerPlugin(ScrollTrigger);
 
     if (idx === undefined) return;
-    gsap.set(refContent.current, { opacity: 0 });
-    ScrollTrigger.create({
-      trigger: refContent.current,
-      start: 'center bottom-=10%',
-      end: 'center top+=10%',
-      // markers: true,
-      onToggle: (self) => {
-        if (self.isActive) {
-          setSectionActive(idx);
-          gsap.to(refContent.current, { opacity: 1, ease: 'power3.inOut', duration: .4 });
-        } else {
-          gsap.to(refContent.current, { opacity: 0, ease: 'power3.inOut', duration: .4 });
-        }
-      },
+    gsap.fromTo(refContent.current, { opacity: 0 }, {
+      scrollTrigger: {
+        trigger: refContent.current,
+        start: 'top bottom-=10%',
+        end: 'bottom bottom-=10%',
+        // markers: true,
+        scrub: true,
+        onToggle: (self) => {
+          if (self.isActive) {
+            setSectionActive(idx);
+          }
+        },
+      }, opacity: 1, ease: 'power3.inOut', duration: .4,
     });
   });
 

@@ -18,21 +18,33 @@ export default function ContentSection({ idx, subTitle, title, children, button,
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
-    gsap.set(refContent.current, {opacity: 0});
-    ScrollTrigger.create({
-      trigger: refContent.current,
-      start: 'center bottom-=10%',
-      end: 'center top+=10%',
-      // markers: true,
-      onToggle: (self) => {
-        if (self.isActive) {
-          setSectionActive(idx);
-          gsap.to(refContent.current, { opacity: 1, ease: 'power3.inOut', duration: .4 });
-        } else {
-          gsap.to(refContent.current, { opacity: 0, ease: 'power3.inOut', duration: .4 });
-        }
-      },
+    gsap.set(refContent.current, { opacity: 0 });
+
+    gsap.fromTo(refContent.current, {opacity: 1},{
+      scrollTrigger: {
+        trigger: refContent.current,
+        start: 'top top+=25%',
+        end: 'bottom top+=25%',
+        scrub: true,
+        // markers: true,
+      }, opacity: 0, ease: 'power3.inOut', duration: .4,
     });
+
+    gsap.fromTo(refContent.current, { opacity: 0 }, {
+      scrollTrigger: {
+        trigger: refContent.current,
+        start: 'top bottom-=10%',
+        end: 'bottom bottom-=10%',
+        // markers: true,
+        scrub: true,
+        onToggle: (self) => {
+          if (self.isActive) {
+            setSectionActive(idx);
+          }
+        },
+      }, opacity: 1, ease: 'power3.inOut', duration: .4,
+    });
+
   });
 
   return <div className={s.content} ref={refContent}>
