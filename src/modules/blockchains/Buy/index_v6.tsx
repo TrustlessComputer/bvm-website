@@ -958,7 +958,7 @@ const BuyPage = () => {
                       >
                         <LegoV3
                           background={'#FF3A3A'}
-                          label="Chain Name"
+                          label="Rollup Name"
                           labelInLeft
                           zIndex={45}
                         >

@@ -13,14 +13,14 @@ export default function HeroVideo() {
   return <div className={s.heroVideo}>
     <div className={s.heroVideo_inner}>
       <div className={s.heroVideo_bg}>
-        <video src={'https://storage.googleapis.com/bvm-network/image/dragn_video_hero.mp4'} loop muted playsInline
+        <video src={'https://storage.googleapis.com/bvm-network/image/bvm_hero_video_v3_comp.mp4'} loop muted playsInline
                autoPlay preload={'auto'} />
       </div>
       <div className={s.heroVideo_content}>
         <div className={`containerV3 ${s.heroVideo_content_container}`}>
           <div className={s.content}>
             <div className={s.content_sub}>
-              <p>Bitcoin RaaS Studio</p>
+              <p>Bitcoin Rollup as a Service</p>
             </div>
             <h3 className={s.content_heading}>
               Launch your own ZK Rollup on Bitcoin with drags and drops for just $99/month.
@@ -33,7 +33,7 @@ export default function HeroVideo() {
                   router.push('/rollups/customizev2');
                 }}
               >
-                Build on Bitcoin
+                Build now
               </div>
               <div
                 className={`${s.btn} ${s.btn__secondary}`}

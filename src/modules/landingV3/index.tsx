@@ -22,8 +22,8 @@ export default function LandingV3() {
   return (
     <div className={s.landing}>
       <HeroVideo />
-      <HeadingSection title={'Built for builders'} isVideo bgColor={'#f4f4f4'}>With Bitcoin as the base layer, your ZK rollup inherits Bitcoin’s security and you can tap into the $1 trillion Bitcoin economy..</HeadingSection>
-      <HeadingSection title={'Why builders choose BVM'}  >Whether you're an indie developer or a large-scale project, BVM makes it easy
+      <HeadingSection title={'Built for builders'} isVideo bgColor={'#f4f4f4'}>With Bitcoin as the base layer, your ZK rollup inherits Bitcoin’s security and you can tap into the <span>$1 trillion Bitcoin economy</span>.</HeadingSection>
+      <HeadingSection title={'Why builders choose BVM'}  showBtn>Whether you're an indie developer or a large-scale project, BVM makes it easy
         and affordable to create your own ZK rollup — secured by Bitcoin.</HeadingSection>
       <div className={s.bottom}>
         {HOME_DATA_SECTIONS.map((data) => {

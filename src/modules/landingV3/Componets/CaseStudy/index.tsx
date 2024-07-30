@@ -41,7 +41,7 @@ export default function CaseStudy() {
             network.</p>
         </div>
         <div className={s.caseStudy_button}>
-          <Link href="/bitcoinwars">Play Now</Link>
+          <Link href="/bitcoinwars">Learn more</Link>
         </div>
       </div>
 
