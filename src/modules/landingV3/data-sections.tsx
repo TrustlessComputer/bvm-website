@@ -21,11 +21,11 @@ interface DataSections {
 
 export const HOME_DATA_SECTIONS: DataSections[] = [
   {
-    title: 'A fully integrated suite of blockchain products',
+    title: 'A fully integrated suite of crypto and rollup products',
     subTitle: 'MODULAR SOLUTIONS',
     children: <div>
       <p> Leverage the BVM infrastructure to address all your rollup needs and invent new use cases on Bitcoin. Lower costs, expand your community, and optimize your rollup operations on a fully integrated rollup infrastructure.</p>
-      <p> To make it all happen, we partner with some of the best crypto projects in the world.</p>
+      <p>To make it all happen, we partner with some of the best crypto projects in the world.</p>
     </div>,
     image: '/images/legoModule.jpg',
     button: {
@@ -76,10 +76,10 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     },
   },
   {
-    title: 'Built by developers, for developers',
+    title: 'Built by builders, for builders',
     subTitle: 'TEAM',
     children: <div>
-      <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack of scalability and programmability has been its hallmark. </p>
+      <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack of scalability and programmability has been its hallmark.</p>
       <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
       <p>Oh, and we really like building things.</p>
     </div>,
