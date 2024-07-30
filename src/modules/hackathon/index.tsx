@@ -205,23 +205,17 @@ const HackathonModule = (props: Props) => {
               </p>
             </div>
             <Flex alignItems={'center'} gap="24px">
-              <Skeleton
-                minW={'147px'}
-                borderRadius={'100px'}
-                isLoaded={!isChecking}
-              >
-                <ButtonConnected title="Register" className={s.reward_btn}>
-                  <button
-                    className={cn(s.reward_btn, {
-                      [s.registered]: isRegistered,
-                    })}
-                    onClick={handleOpenRegisterModal}
-                    disabled={isRegistered}
-                  >
-                    {isRegistered ? 'Registered' : 'Register'}
-                  </button>
-                </ButtonConnected>
-              </Skeleton>
+              <ButtonConnected title="Register" className={s.reward_btn}>
+                <button
+                  className={cn(s.reward_btn, {
+                    [s.registered]: isRegistered,
+                  })}
+                  onClick={handleOpenRegisterModal}
+                  disabled={isRegistered}
+                >
+                  {isRegistered ? 'Registered' : 'Register'}
+                </button>
+              </ButtonConnected>
               <div className={s.meta_info}>
                 {!!peopleSubmitted && (
                   <Flex alignItems={'center'} gap="4px" mb="12px">
