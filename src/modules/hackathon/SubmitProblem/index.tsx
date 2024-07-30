@@ -1,6 +1,5 @@
 'use client';
-import React from 'react';
-import { Flex, Box } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import cn from 'classnames';
 import { Formik } from 'formik';
 
@@ -16,7 +15,7 @@ const SubmitProblem = ({ className, code }: Props) => {
     const errors: Record<string, string> = {};
 
     if (!values.amount) {
-      errors.contractAddress = 'Amount is required.';
+      errors.contractAddress = 'Contract address is required.';
     }
     return errors;
   };
@@ -43,7 +42,7 @@ const SubmitProblem = ({ className, code }: Props) => {
           onSubmit={handleSubmit}
           className={cn(s.submitProblem, className)}
         >
-          <Flex justifyContent="space-between">
+          <Box position="relative">
             <input
               type="text"
               name="contractAddress"
@@ -53,8 +52,8 @@ const SubmitProblem = ({ className, code }: Props) => {
               value={values.contractAddress}
             />
             <button type="submit">Submit</button>
-          </Flex>
-          <Box>
+          </Box>
+          <Box className={s.submitProblem_error}>
             {errors.contractAddress &&
               touched.contractAddress &&
               errors.contractAddress}
