@@ -1,9 +1,9 @@
 .heroVideo {
   background: #FFFFFF;
   padding-top: var(--header-size);
-  --header-size: 68px;
+  --header-size: 60px;
   @include min-tablet {
-    --header-size: 97px;
+    --header-size: 72px;
   }
 
   &_inner {

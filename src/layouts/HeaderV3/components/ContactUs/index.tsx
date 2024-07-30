@@ -26,7 +26,7 @@ const ContactUs = (props: Props): ReactElement => {
           cursor: 'pointer',
         }}
       >
-        Contact Us
+        Contact us
       </Flex>
     </>
   );
