@@ -66,8 +66,9 @@ const HeadingSection = ({...props}: THeadingSection) => {
                       quality={100}
                     />
                     <div className={s.imageHero_btn}>
+                      <p>Take a tour</p>
                       <Image
-                        src={'/play.svg'}
+                        src={'/icons/ic_arrow-right.svg'}
                         alt={'icons'}
                         width={20}
                         height={20}
