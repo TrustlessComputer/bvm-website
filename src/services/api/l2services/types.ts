@@ -19,8 +19,8 @@ export type SubmitFormParams = {
   blockTime: string;
   rollupProtocol: string;
   withdrawPeriod: string;
-  twName: string;
-  telegram: string;
+  twName?: string;
+  telegram?: string;
   isContractUs: boolean;
   subject: string;
   email?: string;

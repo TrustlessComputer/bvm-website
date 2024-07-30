@@ -106,12 +106,11 @@ export default function ItemCommunity({
   const token = AuthenStorage.getAuthenKey();
 
   const availableBalanceClaim = useMemo(() => {
-    console.log('content', content);
-
-    if (content?.airdropType === 1) {
+    if (content?.step === AirdropStep.alphaUsers) {
       if (!airdropAlphaUsers) {
         return 0;
       }
+
       return new BigNumber(airdropAlphaUsers.vested_amount)
         .minus(airdropAlphaUsers.claimed_amount)
         .toNumber();
@@ -134,7 +133,7 @@ export default function ItemCommunity({
   const onClaim = async () => {
     try {
       setClaiming(true);
-      if (content?.airdropType === 1) {
+      if (content?.step === AirdropStep.alphaUsers) {
         await claimBVMAirdrop({
           address: airdropAlphaUsers?.address,
           type: airdropAlphaUsers?.type,

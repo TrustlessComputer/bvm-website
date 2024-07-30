@@ -149,7 +149,12 @@ const LaunchButton = ({
 
     if (needContactUs) {
       // showContactUsModal(dynamicForm as any);
-      showContactUsModal({ subjectDefault: 0, disableSelect: true, changeText: true });
+      showContactUsModal({
+        subjectDefault: 0,
+        disableSelect: true,
+        changeText: true,
+        nodeConfigs: dynamicForm || [],
+      });
       return;
     }
 
@@ -210,11 +215,14 @@ const LaunchButton = ({
           {!loggedIn ? (
             <Text className={s.connect}>
               {needContactUs ? 'Contact Us' : 'Launch'}
-              {
-                needContactUs && (
-                  <img src={'/icons/info-circle.svg'} alt="icon" width={24} height={24} />
-                )
-              }
+              {needContactUs && (
+                <img
+                  src={'/icons/info-circle.svg'}
+                  alt="icon"
+                  width={24}
+                  height={24}
+                />
+              )}
               {!needContactUs && (
                 <div className={`${s.icon}`}>
                   <ImagePlaceholder
@@ -235,11 +243,14 @@ const LaunchButton = ({
                   <p>{needContactUs ? 'Contact Us' : 'Launch'}</p>
                 )}
 
-                {
-                  needContactUs && (
-                    <img src={'/icons/info-circle.svg'} alt="icon" width={24} height={24} />
-                  )
-                }
+                {needContactUs && (
+                  <img
+                    src={'/icons/info-circle.svg'}
+                    alt="icon"
+                    width={24}
+                    height={24}
+                  />
+                )}
 
                 {!needContactUs && (
                   <div className={`${s.icon}`}>
@@ -254,11 +265,13 @@ const LaunchButton = ({
               </div>
             </React.Fragment>
           )}
-          {
-            needContactUs && <div className={s.tooltip}>
-              You've chosen Optimistic Rollup for your blockchain. The price of this module can vary. Please contact us to discuss further and get it set up.
+          {needContactUs && (
+            <div className={s.tooltip}>
+              You've chosen Optimistic Rollup for your blockchain. The price of
+              this module can vary. Please contact us to discuss further and get
+              it set up.
             </div>
-          }
+          )}
         </div>
       </div>
       {isOpenTopUpModal && (

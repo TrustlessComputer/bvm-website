@@ -17,14 +17,14 @@ export type TMainHeader = {
   color?: 'black' | 'white';
   colorLogo?: 'white' | 'black';
   backgroundColor?: string;
-  showBanner?: boolean;
+  // showBanner?: boolean;
 };
 
 const Main = ({
                 color = 'black',
                 colorLogo = 'black',
                 backgroundColor = 'white',
-                showBanner
+                // showBanner
               }: TMainHeader): ReactElement => {
   const { isOpen, onToggle } = useDisclosure();
   const { isDesktop } = useWindowSize();
@@ -36,13 +36,13 @@ const Main = ({
       className={`${s.wrapper} `}
       style={{ backgroundColor: backgroundColor }}
     >
-      {
-        showBanner && (
-          <div className={s.wrapper_banner} onClick={() => router.push('/bitcoinwars')}>
-            <Image src={'/bannerV2.jpg'} alt={'banner'} width={1920} height={80} quality={100} />
-          </div>
-        )
-      }
+      {/*{*/}
+      {/*  showBanner && (*/}
+      {/*    <div className={s.wrapper_banner} onClick={() => router.push('/bitcoinwars')}>*/}
+      {/*      <Image src={'/bannerV2.jpg'} alt={'banner'} width={1920} height={80} quality={100} />*/}
+      {/*    </div>*/}
+      {/*  )*/}
+      {/*}*/}
 
       <div className={`${s.inner} containerV3`}>
         {isDesktop && (

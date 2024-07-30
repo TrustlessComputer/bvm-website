@@ -15,11 +15,10 @@ const Capture = () => {
 
       const content = `I'm launching my own ZK Rollup on Bitcoin with @BVMnetwork! 🚀
 
-Bitcoin Studio makes blockchain building a breeze with simple drag-and-drop tools. No sweat, just pure innovation. Starting from $99/mo.
+Bitcoin RaaS Studio makes blockchain building a breeze with simple drag-and-drop tools. No sweat, just pure innovation. Starting from $99/mo.
 
-Let's upgrade #Bitcoin beyond a currency together!
-
-👉https://bvm.network/studio/${url}`;
+Let's transform #Bitcoin beyond money together!
+https://bvm.network/studio/${url}`;
 
       window.open(
         `https://twitter.com/intent/tweet?text=${encodeURIComponent(
