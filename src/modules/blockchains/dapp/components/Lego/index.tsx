@@ -100,7 +100,7 @@ const Lego = (props: Props) => {
                   {/*    alt="icon"*/}
                   {/*  />*/}
                   {/*)}*/}
-                  <p>{field?.title}</p>
+                  <p>{field?.previewTitle || field?.title}</p>
                 </div>
                 {field.type === 'input' ? (
                   <Image

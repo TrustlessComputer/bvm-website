@@ -59,6 +59,7 @@ export const dappMockupData: DappModel[] = [
           background: '#00AA6C',
           key: 'token_name',
           title: 'Token Name',
+          previewTitle: 'Name',
           type: 'input',
           icon: '',
           value: '',
@@ -79,6 +80,7 @@ export const dappMockupData: DappModel[] = [
           background: '#00AA6C',
           key: 'token_supply',
           title: 'Total Supply',
+          previewTitle: 'Supply',
           type: 'input',
           icon: '',
           value: '',
@@ -89,6 +91,7 @@ export const dappMockupData: DappModel[] = [
           background: '#00AA6C',
           key: 'receiver_address',
           title: 'Receiver Address',
+          previewTitle: 'Address',
           type: 'input',
           icon: '',
           value: '',
@@ -131,6 +134,7 @@ export const dappMockupData: DappModel[] = [
             background: '#F8B200',
             key: 'address',
             title: 'Receiver Address',
+            previewTitle: 'Address',
             type: 'input',
             icon: '',
             value: '',
@@ -379,7 +383,7 @@ export const dappMockupData: DappModel[] = [
       {
         key: 'info',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'Information',
+        title: 'Reward Rate',
         tooltip: '',
         required: true,
       },
@@ -406,7 +410,7 @@ export const dappMockupData: DappModel[] = [
           },
           {
             key: 'eth',
-            title: 'ETH', // symbol
+            title: 'ETH (Upgrade plan 99$)', // symbol
             value: '0x1234', // contract_address
             icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
             tooltip: '',
@@ -439,7 +443,7 @@ export const dappMockupData: DappModel[] = [
           },
           {
             key: 'eth',
-            title: 'ETH', // symbol
+            title: 'ETH (Upgrade plan 99$)', // symbol
             value: '0x1234', // contract_address
             icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg', // image_url
             tooltip: '',
@@ -453,7 +457,7 @@ export const dappMockupData: DappModel[] = [
     blockFields: [
       {
         key: 'info',
-        title: 'Information',
+        title: 'Reward rate',
         icon: '',
         placableAmount: 1,
         section: 'info',
@@ -485,6 +489,7 @@ export const dappMockupData: DappModel[] = [
           {
             key: 'amount',
             title: 'Reward amount',
+            previewTitle: 'Reward',
             type: 'input',
             icon: '',
             value: '',
