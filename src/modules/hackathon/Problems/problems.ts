@@ -1,5 +1,1 @@
-const PROBLEM = [
-    'topic_1': {
-
-    },
-]
+const PROBLEMS = [{}];

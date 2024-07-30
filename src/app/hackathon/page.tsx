@@ -5,6 +5,7 @@ import { CDN_URL } from '@/config';
 import { APP_NAME } from '@/config/metadata';
 import HackathonModule from '@/modules/hackathon';
 import { Box } from '@chakra-ui/react';
+import Image from 'next/image';
 
 // const metadataThumbnail = `${CDN_URL}/images/gamefi.png`; // TODO: Update new thumbnail
 
@@ -44,6 +45,19 @@ const HackathonPage = () => {
       hideFooter={true}
     >
       <>
+        <Box
+          position={'absolute'}
+          w="100%"
+          h={{ base: 'calc(100vh +  184px)', md: '100vh' }}
+        >
+          <Image
+            layout="fill"
+            alt="hero thumbnail"
+            src={`${CDN_URL}/images/hackathon-hero-bg.png`}
+            // `}
+          />
+        </Box>
+
         <Box height="92px" />
         <Loader />
         <HackathonModule />
