@@ -6,6 +6,8 @@ import BottomView from './BottomView';
 import HeaderView from './HeaderView';
 import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
+import { useAppSelector } from '@/stores/hooks';
+import { getOrderDetailSelected } from '@/stores/states/l2services/selector';
 
 type Props = {
   itemOnClick: (item: IModelOption) => void;
@@ -16,11 +18,18 @@ type Props = {
 const AppViewer = (props: Props) => {
   const { itemOnClick, onExport, onShare } = props;
   const router = useRouter();
+  const { dAppConfigSelected } = useAppSelector(getOrderDetailSelected);
 
   const itemOnClickProxy = (item: IModelOption) => {
-    console.log('item ', item);
+    // console.log('item ', item);
+
     const currentPath = window.location.pathname;
-    console.log('currentPath ', currentPath);
+
+    // console.log('currentPath ', currentPath);
+
+    if (dAppConfigSelected?.key?.toLowerCase() === item.key?.toLowerCase()) {
+      return;
+    }
 
     switch (item.key) {
       case 'my_blockchain':

@@ -1,6 +1,5 @@
 import { DndContext, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
 import gsap from 'gsap';
-import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -8,7 +7,6 @@ import { formatCurrencyV2 } from '@/utils/format';
 import { Flex, Spacer, useDisclosure } from '@chakra-ui/react';
 import ExplorePage from '../Buy/Explore';
 import BoxOptionV3 from '../Buy/components3/BoxOptionV3';
-// import ComputerNameInput from '../Buy/components3/ComputerNameInput';
 import ComputerNameInput from '../Buy/components3/ComputerNameInput_v2';
 import Draggable from '../Buy/components3/Draggable';
 import DroppableV2 from '../Buy/components3/DroppableV2';
@@ -22,19 +20,14 @@ import useOrderFormStoreV3, { useCaptureStore } from '../Buy/stores/index_v3';
 import useDragMask from '../Buy/stores/useDragMask';
 import { MouseSensor } from '../Buy/utils';
 import AppViewer from './components/AppViewer';
-import Header from './components/Header';
-// import ToolBar from './components/ToolBar';
 import ToolBar from './components/ToolBar_v2';
 import s from './styles.module.scss';
 import { ChainDetailComponentProps } from './types';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
-import Capture from '../Buy/Capture';
 import { useAppSelector } from '@/stores/hooks';
 import {
   getAvailableListTemplateSelector,
-  getL2ServicesStateSelector,
   getModelCategoriesSelector,
-  getOrderDetailSelected,
 } from '@/stores/states/l2services/selector';
 import { useOrderFormStore } from '../Buy/stores/index_v2';
 import CostView from './components/CostView';
@@ -72,10 +65,6 @@ const MainPage = (props: ChainDetailComponentProps) => {
     IModelCategory[]
   > | null>(null);
 
-  const { chainName } = useOrderFormStore();
-
-  // console.log('chainName ', chainName);
-
   const {
     field,
     setField,
@@ -96,13 +85,10 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
   const [tabActive, setTabActive] = React.useState<TABS>(TABS.CODE);
 
-  const { orderDetail } = useAppSelector(getOrderDetailSelected);
-
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();
 
   const [fieldsDragged, setFieldsDragged] = React.useState<string[]>([]);
-  const searchParams = useSearchParams();
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
   const { isCapture } = useCaptureStore();
@@ -120,6 +106,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
   const handleDragStart = (event: any) => {
     const { active } = event;
+
     const [activeSuffix2] = active.id.split('-');
 
     if (activeSuffix2 === 'right') {
@@ -251,7 +238,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
       isCurrentEmpty && setFieldsDragged((prev) => [...prev, activeKey]);
     } else {
       const currentValues = (field[activeKey].value || []) as string[];
-      const newValue = currentValues?.filter(
+      const newValue = currentValues.filter(
         (value) => value !== active.data.current.value,
       );
       const isEmpty = newValue.length === 0;
@@ -275,7 +262,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
             ...option,
             value: option.key,
             label: option.title,
-            disabled: !option.selectable || item.disable || !item.updatable,
+            disabled: !option.selectable || !!item.disable || !item.updatable,
           };
         }),
       };
@@ -671,7 +658,11 @@ const MainPage = (props: ChainDetailComponentProps) => {
                     decimals: 0,
                   })}
                 />
-                <LaunchButton data={data} originalData={originalData} />
+                <LaunchButton
+                  data={data}
+                  originalData={originalData}
+                  isUpdate={true}
+                />
               </>
             }
           />
@@ -788,9 +779,10 @@ const MainPage = (props: ChainDetailComponentProps) => {
                 >
                   <LegoV3
                     background={'#FF3A3A'}
-                    label="Chain Name"
+                    label="Rollup Name"
                     labelInLeft
                     zIndex={45}
+                    disabled={true}
                   >
                     <ComputerNameInput
                       chainNameDefault={chainDetailData?.chainName}
@@ -867,7 +859,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                     return item.options.map((option, opIdx) => {
                       if (option.key !== field[item.key].value) return null;
 
-                      if (item.updatable && option.disabled) {
+                      if (!item.updatable) {
                         return (
                           <LegoV3
                             background={item.color}
@@ -887,6 +879,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                           </LegoV3>
                         );
                       }
+
                       return (
                         <Draggable
                           right

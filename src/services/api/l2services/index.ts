@@ -172,6 +172,33 @@ export const orderBuyAPI_V3 = async (params: IOrderBuyReq_V3): Promise<any> => {
   }
 };
 
+export const orderUpdateV2 = async (
+  params: IOrderBuyReq_V3,
+  orderId: string,
+): Promise<any> => {
+  const bodyData = params;
+
+  console.log('orderUpdateV2 -- Params ', {
+    params,
+    orderId,
+  });
+
+  try {
+    const data = (await httpClient.post(
+      `/order/update-v2/${orderId}`,
+      bodyData,
+      {
+        headers: {
+          Authorization: `${getAPIAccessToken()}`,
+        },
+      },
+    )) as any;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
 export const orderUpdateAPI = async (
   params: IOrderUpdate,
   orderId: string,
