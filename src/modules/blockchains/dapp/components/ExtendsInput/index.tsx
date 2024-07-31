@@ -23,11 +23,13 @@ type Props = FieldModel &
     background?: string;
     onlyLabel?: boolean;
     disabled?: boolean;
+    zIndex?: number;
   };
 
 const ExtendsInput = ({
   onlyLabel = false,
   disabled = false,
+  zIndex = 0,
   ...props
 }: Props) => {
   const {
@@ -150,6 +152,7 @@ const ExtendsInput = ({
           title={title}
           titleInLeft={true}
           titleInRight={false}
+          zIndex={zIndex}
         >
           {getInput(props, fieldOption)}
         </Lego>
@@ -165,6 +168,7 @@ const ExtendsInput = ({
           title={title}
           titleInLeft={true}
           titleInRight={false}
+          zIndex={zIndex}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             {options.map((option) => getInput(option, fieldOption))}
@@ -226,6 +230,7 @@ const ExtendsInput = ({
         title={title}
         titleInLeft={true}
         titleInRight={false}
+        zIndex={zIndex}
       >
         <Toggle
           background={adjustBrightness(background, -20)}
@@ -235,8 +240,7 @@ const ExtendsInput = ({
       </Lego>
 
       {toggle
-        ? options.map((option) => (
-            // @ts-ignore
+        ? options.map((option, optIndex) => (
             <ExtendsInput
               name={option.key}
               keyDapp={keyDapp}
@@ -252,6 +256,7 @@ const ExtendsInput = ({
               key={option.key}
               disabled={disabled}
               onlyLabel={onlyLabel}
+              zIndex={zIndex - optIndex - 1}
             />
           ))
         : null}

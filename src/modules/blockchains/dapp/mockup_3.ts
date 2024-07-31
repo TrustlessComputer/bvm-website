@@ -21,14 +21,14 @@ export const dappMockupData: DappModel[] = [
         key: 'information',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
         title: 'Information',
-        tooltip: 'Token Generation information',
+        tooltip: '',
         required: true,
       },
       {
         key: 'tokenomics',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
         title: 'Tokenomics',
-        tooltip: 'Token Generation tokenomics',
+        tooltip: '',
         required: false,
       },
       // {
@@ -602,6 +602,7 @@ export const dappMockupData: DappModel[] = [
         {
           key: 'start_date',
           title: 'Start date',
+          previewTitle: 'Start',
           type: 'datetime',
           icon: '',
           value: '',
@@ -611,6 +612,7 @@ export const dappMockupData: DappModel[] = [
         {
           key: 'end_date',
           title: 'End date',
+          previewTitle: 'End',
           type: 'datetime',
           icon: '',
           value: '',

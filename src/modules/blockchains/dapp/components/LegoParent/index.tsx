@@ -12,6 +12,7 @@ import { dappSelector } from '@/stores/states/dapp/selector';
 import { DappType } from '@/modules/blockchains/dapp/types';
 
 type Props = {
+  zIndex?: number;
   background?: string;
   disabled?: boolean;
   title?: React.ReactNode;
@@ -19,10 +20,11 @@ type Props = {
   smallMarginHeaderTop?: boolean;
   children?: React.ReactNode;
   label?: DappModel['label'];
-  dapp?: DappModel
+  dapp?: DappModel;
 };
 
 const LegoParent = ({
+  zIndex = 0,
   background = '#A041FF',
   disabled = false,
   title = '',
@@ -33,24 +35,32 @@ const LegoParent = ({
   dapp,
   ...rest
 }: Props) => {
+  const legoRef = React.useRef<HTMLDivElement | null>(null);
   const headerRef = React.useRef<HTMLDivElement | null>(null);
   const footerRef = React.useRef<HTMLDivElement | null>(null);
 
   const dappState = useAppSelector(dappSelector);
 
-
   const handleLabelClick = () => {
-
     switch (dapp?.key) {
       case DappType.token_generation: {
         if (!label?.actionID) return;
         // https://bloom.appstore.dev.bvm.network/apps/token/0x517db2dd81aaa829bb9856539b83751dd3779f13
-        window.open(`${dappState?.chain?.dappURL || ''}/apps/token/${label.actionID}`)
+        window.open(
+          `${dappState?.chain?.dappURL || ''}/apps/token/${label.actionID}`,
+        );
         return;
       }
     }
-
   };
+
+  React.useEffect(() => {
+    let parentDOM = legoRef.current?.parentElement;
+    if (!parentDOM) return;
+
+    // parentDOM.style.position = 'relative';
+    parentDOM.style.zIndex = `${zIndex} `;
+  }, [legoRef.current]);
 
   React.useEffect(() => {
     if (!headerRef.current || !footerRef.current) return;
@@ -68,6 +78,7 @@ const LegoParent = ({
         '--background-color': background,
         '--border-color': adjustBrightness(background, -20),
       }}
+      ref={legoRef}
     >
       <div className={styles.lego__header} ref={headerRef}>
         <div
