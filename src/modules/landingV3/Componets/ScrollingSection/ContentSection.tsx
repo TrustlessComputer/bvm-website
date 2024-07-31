@@ -10,49 +10,14 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import gsap from 'gsap';
 
-interface IProps extends ISectionContentProps {
-  idx: number;
-}
+interface IProps extends ISectionContentProps {}
 
-export default function ContentSection({ idx, subTitle, title, children, button, button2, fameIns, fameOuts }: IProps) {
+export default function ContentSection({ subTitle, title, children, button, button2, fameIns, fameOuts }: IProps) {
 
   const refContent = useRef<HTMLDivElement>(null);
-  // const { setSectionActive } = useScrollingSectionStore();
-
   useAnimationOnFame({
     refContent, fameIns, fameOuts
   })
-
-  // useGSAP(() => {
-  //   gsap.registerPlugin(ScrollTrigger);
-  //   gsap.set(refContent.current, { opacity: 0 });
-  //
-  //   gsap.fromTo(refContent.current, {opacity: 1},{
-  //     scrollTrigger: {
-  //       trigger: refContent.current,
-  //       start: 'top top+=25%',
-  //       end: 'bottom top+=25%',
-  //       scrub: true,
-  //       // markers: true,
-  //     }, opacity: 0, ease: 'power3.inOut', duration: .4,
-  //   });
-  //
-  //   gsap.fromTo(refContent.current, { opacity: 0 }, {
-  //     scrollTrigger: {
-  //       trigger: refContent.current,
-  //       start: 'top bottom-=10%',
-  //       end: 'bottom bottom-=10%',
-  //       // markers: true,
-  //       scrub: true,
-  //       onToggle: (self) => {
-  //         if (self.isActive) {
-  //           setSectionActive(idx);
-  //         }
-  //       },
-  //     }, opacity: 1, ease: 'power3.inOut', duration: .4,
-  //   });
-  //
-  // });
 
   return <div className={s.content} ref={refContent}>
     <p className={s.subTitle}>{subTitle}</p>

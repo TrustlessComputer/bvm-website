@@ -13,7 +13,6 @@ interface IProps {
   urlFrame: string;
   totalFrames: number;
   willLoad?: number;
-  children: ReactNode;
   height?: number;
   width?: number;
   comp: React.RefObject<HTMLDivElement>;
@@ -36,7 +35,6 @@ export const Frames = ({
                          className = '',
                          urlFrame = '',
                          totalFrames = 0,
-                         children,
                          height = 1080,
                          width = 1920,
                          willLoad = 25,
