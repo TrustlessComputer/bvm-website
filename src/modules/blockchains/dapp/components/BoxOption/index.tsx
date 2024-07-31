@@ -19,7 +19,7 @@ const BoxOption = ({}: Props) => {
 
   const mainColor = React.useMemo(
     () => thisDapp?.color || '#F76649',
-    [thisDapp],
+    [thisDapp?.color],
   );
 
   useSignalEffect(() => {
