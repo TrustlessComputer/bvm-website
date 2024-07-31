@@ -11,7 +11,6 @@ const AppChains = () => {
       headerProps={{
         color: 'black',
       }}
-      hideFooter
     >
       <>
         <Loader/>

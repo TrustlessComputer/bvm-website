@@ -63,6 +63,21 @@ const nextConfig = {
         destination: '/studio',
         permanent: false,
       },
+      {
+        source: '/rollups/customize',
+        destination: '/studio',
+        permanent: false,
+      },
+      {
+        source: '/module/bvm-studio',
+        destination: '/module/bitcoin-raas-studio',
+        permanent: false,
+      },
+      {
+        source: '/module/bitcoin-studio',
+        destination: '/module/bitcoin-raas-studio',
+        permanent: false,
+      },
       // {
       //   source: '/launchpad',
       //   destination: `/`,

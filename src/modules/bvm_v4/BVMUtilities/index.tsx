@@ -14,7 +14,7 @@ function BVMUtilities() {
           </div>
           <div className={s.card}>
             <p className={s.card_title}>Governance</p>
-            <p className={s.card_desc}>The community treasure consists of 50% of the BVM supply. This treasury will governed by BVM stakers once the network has become sufficiently decentralized.</p>
+            <p className={s.card_desc}>The community treasury consists of 50% of the BVM supply. This treasury will governed by BVM stakers once the network has become sufficiently decentralized.</p>
           </div>
           <div className={s.card}>
             <p className={s.card_title}>Payments</p>

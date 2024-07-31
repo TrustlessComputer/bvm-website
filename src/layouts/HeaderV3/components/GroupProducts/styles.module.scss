@@ -1,10 +1,24 @@
 .groupProduction {
   background: white;
   border-radius: 8px;
-  height: calc(100vh - 120px);
+  max-height: calc(100vh - 240px);
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f6f9fb;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #e0e0e0;
+  }
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0;
+
+
 }
 
 .inner {
