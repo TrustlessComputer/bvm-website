@@ -166,7 +166,6 @@ export const Frames = ({
     ScrollTrigger.create({
       trigger: comp.current,
       start: 'center center',
-      markers: true,
       pin: true,
       end: () => `+=${MathMap(totalFrames, 0, 30, 0, window.innerHeight)}px center`,
       onUpdate: (self: ScrollTrigger) => {
