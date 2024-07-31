@@ -44,19 +44,25 @@ const AppViewer = (props: Props) => {
 
       case 'staking':
         if (!currentPath?.includes('dapp=staking')) {
-          router.push(`/chains/${orderDetail?.orderId}?dapp=staking`);
+          router.push(
+            `/rollups/rollups-dapp/${orderDetail?.orderId}?dapp=staking`,
+          );
         }
         break;
 
       case 'token_generation':
         if (!currentPath?.includes('dapp=token_generation')) {
-          router.push(`/chains/${orderDetail?.orderId}?dapp=token_generation`);
+          router.push(
+            `/rollups/rollups-dapp/${orderDetail?.orderId}?dapp=token_generation`,
+          );
         }
         break;
 
       case 'airdrop':
         if (!currentPath?.includes('dapp=airdrop')) {
-          router.push(`/chains/${orderDetail?.orderId}?dapp=token_generation`);
+          router.push(
+            `/rollups/rollups-dapp/${orderDetail?.orderId}?dapp=token_generation`,
+          );
         }
         break;
 
