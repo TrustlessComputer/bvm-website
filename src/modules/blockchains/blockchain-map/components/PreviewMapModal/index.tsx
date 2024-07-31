@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import s from './styles.module.scss';
 import BaseModal from '@components/BaseModal';
-import { applyEdgeChanges, applyNodeChanges, ReactFlow } from '@xyflow/react';
+import { addEdge, applyEdgeChanges, applyNodeChanges, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import CustomEdge from './CustomEdge';
 
 const initialNodes = [
   {
@@ -33,9 +34,13 @@ const initialNodes = [
 ];
 
 const initialEdges = [
-  { id: 'e1-3', source: '1', target: '3' },
-  { id: 'e2-2', source: '1', target: '2', animated: true },
+  { id: 'e1-3', source: '1', target: '3', label: 'Output 1', labelShowBg: false },
+  { id: 'e2-2', source: '1', target: '2', label: 'Output 2', labelShowBg: false, },
 ];
+
+const edgeTypes = {
+  'custom-edge': CustomEdge,
+};
 
 
 export default function PreviewMapModal({...props}): React.JSX.Element {
@@ -52,6 +57,14 @@ export default function PreviewMapModal({...props}): React.JSX.Element {
     [setEdges],
   );
 
+  const onConnect = useCallback(
+    (connection) => {
+      const edge = { ...connection, type: 'custom-edge' };
+      setEdges((eds) => addEdge(edge, eds));
+    },
+    [setEdges],
+  );
+
   return (
     <BaseModal
       isShow={show}
@@ -64,6 +77,8 @@ export default function PreviewMapModal({...props}): React.JSX.Element {
       <ReactFlow
         nodes={nodes}
         edges={edges}
+        edgeTypes={edgeTypes}
+        onConnect={onConnect}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
       />
