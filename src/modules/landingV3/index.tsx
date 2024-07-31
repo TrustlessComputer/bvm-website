@@ -29,7 +29,7 @@ export default function LandingV3() {
     <div className={s.landing}>
       <HeroVideo />
       <VideoSection />
-      <HeadingSection title={'Why builders choose BVM'} showBtn>Whether you're an indie developer or a large-scale
+      <HeadingSection title={'How it works'} showBtn>Whether you're an indie developer or a large-scale
         project, BVM makes it easy
         and affordable to create your own ZK rollup — secured by Bitcoin.</HeadingSection>
 
@@ -40,14 +40,16 @@ export default function LandingV3() {
               return <SectionContent {...data} />;
             })}
           </div>
-          <div className={s.caseStudy}>
-            <CaseStudy />
-          </div>
+
         </> : <div className={s.bottom}>
           <ScrollingSection />
         </div>
       }
+
       <div className={s.teamSection}>
+        <div className={s.caseStudy}>
+          <CaseStudy />
+        </div>
         <SectionContent {...TEAM} />
       </div>
 

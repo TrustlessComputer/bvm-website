@@ -2,7 +2,7 @@
   position: relative;
   width: max-content;
   border-radius: 4px;
-  padding: 8px;
+  padding: 12px;
   display: flex;
   align-items: center;
   background-color: var(--background-color);
@@ -89,7 +89,10 @@
       //align-items: flex-start;
       flex-direction: row;
       .lego__inner__label {
-        font-size: 14px;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 28px;
+        font-family: var(--font-JetBrainsMono);
       }
     }
   }

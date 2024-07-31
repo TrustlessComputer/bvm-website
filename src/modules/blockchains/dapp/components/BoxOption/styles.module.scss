@@ -11,6 +11,11 @@
     display: flex;
     align-items: center;
     gap: 4px;
+    font-family: var(--font-JetBrainsMono);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.4166666667;
+    margin-bottom: 16px;
   }
 
   &__body {
