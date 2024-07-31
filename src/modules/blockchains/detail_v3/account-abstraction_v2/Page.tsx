@@ -288,8 +288,17 @@ const Page = (props: any) => {
   };
 
   const fetchData = async () => {
+    // console.log(
+    //   'account-abstraction_v2/Page.tsx fetchData().modelCategories',
+    //   modelCategories,
+    // );
     modelCategories.forEach((_field) => {
-      setField(_field.key, null);
+      const fieldKeys = _field.multiChoice
+        ? _field.options.map((option) => option.key)
+        : _field.options[0].key;
+
+      setField(_field.key, fieldKeys, true);
+      setFieldsDragged((prev) => [...prev, _field.key]);
     });
     setData(convertData(modelCategories));
     setOriginalData(modelCategories);
