@@ -1,10 +1,57 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import s from './styles.module.scss';
 import BaseModal from '@components/BaseModal';
+import { applyEdgeChanges, applyNodeChanges, ReactFlow } from '@xyflow/react';
+import '@xyflow/react/dist/style.css';
+
+const initialNodes = [
+  {
+    id: '1',
+    type: 'input',
+    data: { label: 'Blockchain' },
+    position: { x: 100, y: 25 },
+  },
+
+  {
+    id: '2',
+    // you can also pass a React component as a label
+    data: { label: <div>Staking apps</div> },
+    position: { x: 350, y: 25 },
+  },
+  {
+    id: '3',
+    type: 'output',
+    data: { label: 'Degen apps' },
+    position: { x: 250, y: 250 },
+  },
+  {
+    id: '4',
+    type: 'output',
+    data: { label: 'Gaming apps' },
+    position: { x: 450, y: 250 },
+  },
+];
+
+const initialEdges = [
+  { id: 'e1-3', source: '1', target: '3' },
+  { id: 'e2-2', source: '1', target: '2', animated: true },
+];
 
 
 export default function PreviewMapModal({...props}): React.JSX.Element {
   const { show, onClose } = props;
+  const [nodes, setNodes] = useState(initialNodes);
+  const [edges, setEdges] = useState(initialEdges);
+
+  const onNodesChange = useCallback(
+    (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
+    [setNodes],
+  );
+  const onEdgesChange = useCallback(
+    (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
+    [setEdges],
+  );
+
   return (
     <BaseModal
       isShow={show}
@@ -14,7 +61,12 @@ export default function PreviewMapModal({...props}): React.JSX.Element {
       title={'Blockchain preview map'}
       icCloseUrl="/icons/ic-close-grey.svg"
     >
-      helllo
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+      />
     </BaseModal>
   );
 }
