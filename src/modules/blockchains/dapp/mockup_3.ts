@@ -643,7 +643,7 @@ export const dappMockupData: DappModel[] = [
           {
             key: 'start_date',
             title: 'Start date',
-            type: 'input',
+            type: 'datetime',
             icon: '',
             value: '',
             tooltip: '',
@@ -652,7 +652,7 @@ export const dappMockupData: DappModel[] = [
           {
             key: 'end_date',
             title: 'End date',
-            type: 'input',
+            type: 'datetime',
             icon: '',
             value: '',
             tooltip: '',
