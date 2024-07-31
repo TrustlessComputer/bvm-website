@@ -29,7 +29,7 @@ export default function LandingV3() {
     <div className={s.landing}>
       <HeroVideo />
       <VideoSection />
-      <HeadingSection title={'Why builders choose BVM'} showBtn>Whether you're an indie developer or a large-scale
+      <HeadingSection title={'How it works'} showBtn>Whether you're an indie developer or a large-scale
         project, BVM makes it easy
         and affordable to create your own ZK rollup — secured by Bitcoin.</HeadingSection>
 
