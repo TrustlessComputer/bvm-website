@@ -14,6 +14,7 @@ import {
   formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
 import { useThisDapp } from '../../hooks/useThisDapp';
+import DateTimeInput from '../DateTimeInput';
 
 type Props = FieldModel &
   FieldOption & {
@@ -120,6 +121,17 @@ const ExtendsInput = ({
             {field.options.map((option) => getInput(option, fieldOpt))}
           </div>
         );
+      } else if (field.type === 'datetime') {
+        return (
+          <DateTimeInput
+            {...field}
+            {...fieldOpt}
+            disabled={disabled}
+            onlyLabel={onlyLabel}
+            name={field.key}
+            dappKey={thisDapp.key}
+          />
+        );
       }
 
       return null;
@@ -128,48 +140,82 @@ const ExtendsInput = ({
     [thisDapp],
   );
 
-  if (type === 'input') {
+  if (type !== 'group' && type !== 'extends') {
     return (
-      <Lego
-        background={background}
-        first={false}
-        last={false}
-        title={title}
-        titleInLeft={true}
-        titleInRight={false}
-      >
-        {getInput(props, fieldOption)}
-      </Lego>
+      <React.Fragment>
+        <Lego
+          background={background}
+          first={false}
+          last={false}
+          title={title}
+          titleInLeft={true}
+          titleInRight={false}
+        >
+          {getInput(props, fieldOption)}
+        </Lego>
+      </React.Fragment>
     );
-  } else if (type === 'dropdown') {
+  } else if (type !== 'extends') {
     return (
-      <Lego
-        background={background}
-        first={false}
-        last={false}
-        title={title}
-        titleInLeft={true}
-        titleInRight={false}
-      >
-        {getInput(props, fieldOption)}
-      </Lego>
-    );
-  } else if (type === 'group') {
-    return (
-      <Lego
-        background={background}
-        first={false}
-        last={false}
-        title={title}
-        titleInLeft={true}
-        titleInRight={false}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-          {options.map((option) => getInput(option, fieldOption))}
-        </div>
-      </Lego>
+      <React.Fragment>
+        <Lego
+          background={background}
+          first={false}
+          last={false}
+          title={title}
+          titleInLeft={true}
+          titleInRight={false}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            {options.map((option) => getInput(option, fieldOption))}
+          </div>
+        </Lego>
+      </React.Fragment>
     );
   }
+
+  // if (type === 'input') {
+  //   return (
+  //     <Lego
+  //       background={background}
+  //       first={false}
+  //       last={false}
+  //       title={title}
+  //       titleInLeft={true}
+  //       titleInRight={false}
+  //     >
+  //       {getInput(props, fieldOption)}
+  //     </Lego>
+  //   );
+  // } else if (type === 'dropdown') {
+  //   return (
+  //     <Lego
+  //       background={background}
+  //       first={false}
+  //       last={false}
+  //       title={title}
+  //       titleInLeft={true}
+  //       titleInRight={false}
+  //     >
+  //       {getInput(props, fieldOption)}
+  //     </Lego>
+  //   );
+  // } else if (type === 'group') {
+  //   return (
+  //     <Lego
+  //       background={background}
+  //       first={false}
+  //       last={false}
+  //       title={title}
+  //       titleInLeft={true}
+  //       titleInRight={false}
+  //     >
+  //       <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+  //         {options.map((option) => getInput(option, fieldOption))}
+  //       </div>
+  //     </Lego>
+  //   );
+  // }
 
   return (
     <React.Fragment>

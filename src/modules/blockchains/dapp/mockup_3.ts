@@ -98,6 +98,17 @@ export const dappMockupData: DappModel[] = [
           tooltip: '',
           options: [],
         },
+        {
+          background: '#00AA6C',
+          key: 'publish_date',
+          title: 'Publish Date',
+          previewTitle: 'Publish Date',
+          type: 'datetime',
+          icon: '',
+          value: '',
+          tooltip: '',
+          options: [],
+        },
       ],
     },
     blockFields: [
