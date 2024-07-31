@@ -28,6 +28,8 @@ import {
 } from '@/services/api/EternalServices';
 import cn from 'classnames';
 import { formatCurrencyV2, humanReadable } from '@/utils/format';
+import FAQs from '@/components/faq';
+import { FAQ_POC } from './faqs';
 
 type Props = {};
 
@@ -257,6 +259,49 @@ const HackathonModule = (props: Props) => {
       {/* <Box zIndex={1} pos={'relative'}>
         <LeaderboardSection />
       </Box> */}
+      <Box
+        zIndex={10}
+        bg="#000"
+        pos={'relative'}
+        mt={{
+          base: '0px',
+          md: '100px',
+        }}
+        pb={{
+          base: '60px',
+          md: '160px',
+        }}
+        className={s.faq}
+        overflow={'hidden'}
+      >
+        <Box
+          pt={{
+            base: '60px',
+            md: '160px',
+          }}
+          maxW={'846px'}
+          mx="auto"
+          zIndex={2}
+          pos={'relative'}
+        >
+          <Text as="h3" className={s.faq_title}>
+            FAQs
+          </Text>
+          <FAQs data={FAQ_POC} viewAll />
+        </Box>
+        <ChakraImage
+          pos={'absolute'}
+          maxW={'1107px'}
+          maxH={'1096px'}
+          left={'45%'}
+          transform={'translate(-50%, 50%)'}
+          bottom="0"
+          alt="hero thumbnail"
+          zIndex={1}
+          src={`${CDN_URL}/images/hero-gradient-bg.png`}
+          // `}
+        />
+      </Box>
     </>
   );
 };

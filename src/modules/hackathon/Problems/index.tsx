@@ -4,6 +4,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react';
 import SubmitProblem from '../SubmitProblem';
 import IcThreeDots from '@/public/hackathon/ic-three-dots.svg';
 import ProblemTemplate from './Template';
+import ConnectedWallets from '../ConnectedWallets';
 
 const Problems = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
@@ -32,6 +33,7 @@ const Problems = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
+        <ConnectedWallets />
       </div>
       <div className={s.footer}>
         <SubmitProblem code={tabIndex} />
