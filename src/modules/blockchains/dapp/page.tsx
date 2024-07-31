@@ -613,10 +613,10 @@ const RollupsDappPage = () => {
                 ].options = airdropTasks.map((t) => ({
                   key: t.id,
                   title: t.title,
-                  value: t.type,
+                  value: t.id,
                   icon: '',
                   tooltip: t.description,
-                  type: '',
+                  type: t.type,
                   options: [],
                 }));
               }
