@@ -11,12 +11,6 @@ import {
 import { IDApp } from '@/services/api/DAServices/types';
 import { IExploreItem } from '@/services/api/l2services/types';
 
-export type DappInstalledStatus =
-  | 'new'
-  | 'done'
-  | 'processing'
-  | 'requested_cancel'
-  | 'removed';
 interface IDAppInstalled {
   orderID: string;
   userAddress: string;
@@ -137,9 +131,6 @@ interface OrderItemResp {
   packagePrice?: number;
   packagePriceUSD?: number;
   logoURL?: string;
-
-  //
-  dApps?: IDAppInstalled[] | undefined;
 }
 
 interface HistoryItemResp {

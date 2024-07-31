@@ -6,6 +6,7 @@ interface IProp {
   timeSpan?: number; // seconds
   format?: (v: number) => string | number;
   minStep?: number;
+  color?: string;
 }
 
 const IncreaseNumber = React.memo((props: IProp) => {
@@ -15,6 +16,7 @@ const IncreaseNumber = React.memo((props: IProp) => {
     timeSpan = 60, // seconds
     format,
     minStep = 1,
+    color = '',
   } = props;
 
   const ref = useRef<HTMLSpanElement>(null);
@@ -153,9 +155,19 @@ const IncreaseNumber = React.memo((props: IProp) => {
     };
   }, [prev, next, timeSpan, formatValue, minStep]);
 
-  return <span ref={ref} style={{ fontSize: 12, fontWeight: "500", lineHeight: "140%" }} />;
-})
+  return (
+    <span
+      ref={ref}
+      style={{
+        fontSize: 12,
+        fontWeight: '500',
+        lineHeight: '140%',
+        color: color,
+      }}
+    />
+  );
+});
 
-IncreaseNumber.displayName = "IncreaseNumber";
+IncreaseNumber.displayName = 'IncreaseNumber';
 
 export default IncreaseNumber;

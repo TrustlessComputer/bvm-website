@@ -1,0 +1,43 @@
+.submitProblem {
+  input {
+    width: 100%;
+    padding: 16px;
+    padding-right: 115px;
+    color: #FFF;
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: 1px solid #232323;
+    background: #000515;
+    border-radius: 8px;
+  }
+
+  button {
+    position: absolute;
+    width: 94px;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    display: flex;
+    height: 36px;
+    padding: 16px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 100px;
+    background: #FA4E0E;
+    z-index: 1;
+  }
+
+  &_error {
+    margin-top: 10px;
+    color: #FA4E0E;
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 510;
+    line-height: 20px;
+  }
+}

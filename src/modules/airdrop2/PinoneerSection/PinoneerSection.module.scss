@@ -1,0 +1,128 @@
+.wrapper {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: calc(100vw - 15px);
+
+
+    @media screen and (max-width: 767.98px) {
+        width: 100vw;
+    }
+
+
+    .footerContent {
+        padding: 48px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footerSocial {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 24px 0;
+        text-align: center;
+
+        &_title {
+
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 19px;
+            text-align: center;
+            margin-bottom: 15px;
+
+            @include is-min-table {
+                font-size: 16px;
+            }
+
+        }
+
+        &_inner {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        @include is-min-table {
+            gap: 32px;
+        }
+
+        a {
+            flex: 0 0 100%;
+
+            @include is-min-table {
+                flex: 0 0 auto;
+                text-align: left;
+                display: block;
+            }
+
+            :global {
+                .fade {
+                    display: flex;
+                    justify-content: center;
+                    text-align: center;
+
+                    @include is-min-table {
+                        text-align: left;
+                        display: block;
+                    }
+                }
+            }
+
+
+            &:nth-child(1) {
+                .footerSocialItem {
+                    background-color: #FFFFFF !important;
+                    color: black !important;
+                }
+            }
+
+            &:nth-child(2) {
+                .footerSocialItem {
+                    background-color: #2AABEE !important;
+                    color: white !important;
+                }
+            }
+        }
+
+        .footerSocialItem {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 36px;
+            padding-left: 16px;
+            padding-right: 16px;
+
+            & p {
+                font-weight: 400;
+                line-height: (16/14);
+                font-size: 14px;
+                transform: translateY(.15em);
+            }
+        }
+    }
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+}
+
+
+.heading {
+
+    font-weight: 400;
+    line-height: (52/40);
+    text-align: center;
+    font-size: 24px;
+
+    @include is-min-table {
+        font-size: 34px;
+    }
+
+    @include is-pc {
+        font-size: 40px;
+    }
+}
