@@ -1,3 +1,4 @@
+import { showSuccess } from '@/components/toast';
 import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
 import CTokenAirdropAPI from '@/services/api/dapp/airdrop';
 import { IBodySetupTask, ITask } from '@/services/api/dapp/airdrop/interface';
@@ -84,11 +85,11 @@ const useSubmitFormAirdrop = ({
         if (!form?.reward_token) {
           errors.push({ key: 'reward_token', error: 'Token is required!' });
         }
-        if (!form?.airdrop_tasks) {
+        if (!form?.airdrop_tasks || form?.airdrop_tasks?.length === 0) {
           errors.push({ key: 'airdrop_tasks', error: 'Tasks is required!' });
         }
 
-        const tasks: any = form.airdrop_tasks.find((item) => !!item);
+        const tasks: any = form?.airdrop_tasks?.find?.((item) => !!item);
 
         if (!(Number(tasks?.reward_amount) > 0)) {
           errors.push({
@@ -111,6 +112,9 @@ const useSubmitFormAirdrop = ({
       let pools: TopUpDappInfor[] = [];
 
       for (const form of finalFormMappings) {
+        console.log('form', form);
+
+        // @ts-ignore
         const tasks: ITask[] = form.airdrop_tasks.map((v) => ({
           id: v.task,
           amount: v.reward_amount,
@@ -118,35 +122,22 @@ const useSubmitFormAirdrop = ({
         }));
 
         const body: IBodySetupTask = {
-          title: form.airdrop_title,
-          token_address: form.reward_token,
-          amount: form.airdrop_amount,
+          title: form?.airdrop_title as unknown as string,
+          token_address: form.reward_token as unknown as string,
+          amount: form.airdrop_amount as unknown as string,
           is_bvm_shard: false,
           tasks,
-          start_time: dayjs().format(),
+          start_time: dayjs(form.start_date as unknown as string).unix(),
+          end_time: dayjs(form.end_time as unknown as string).unix(),
         };
 
+        console.log('body', body);
+
         const data = await cAirdropAPI.setupTask(body);
-
-        // if (data && data.reward_pool_address) {
-        //   pools = [
-        //     ...pools,
-        //     {
-        //       title: `Pool ${data.principle_token?.symbol}/${data.reward_token?.symbol}`,
-        //       amount: formatCurrency(Number(info?.amount), 0, 0),
-        //       tokenSymbol: data.reward_token?.symbol,
-        //       tokenAddress: data.reward_token_address,
-        //       paymentAddress: data.reward_pool_address,
-        //       networkName: dappState.chain?.chainName || '',
-        //     },
-        //   ];
-        // }
       }
-
-      if (pools.length > 0) {
-        dispatch(requestReload());
-        handleReset();
-      }
+      showSuccess({ message: 'Airdrop created successfully!.' });
+      dispatch(requestReload());
+      handleReset();
     } catch (error) {
       const { message } = getError(error);
       toast.error(message);
