@@ -1,16 +1,22 @@
 import { Flex, Text } from '@chakra-ui/react';
 import s from './styles.module.scss';
 
-const WaitiingInstallView = () => {
+const WaitingInstallView = () => {
   return (
     <Flex
       className={s.container}
+      position={'absolute'}
+      top={0}
+      right={0}
+      left={0}
+      bottom={0}
       flex={1}
       flexDir={'column'}
       align={'center'}
       justify={'center'}
       bgColor={'grey'}
       gap={'10px'}
+      backgroundColor={'#3d3d3daf'}
     >
       <Flex>
         <div className={s.ldsroller}>
@@ -32,4 +38,4 @@ const WaitiingInstallView = () => {
   );
 };
 
-export default WaitiingInstallView;
+export default WaitingInstallView;

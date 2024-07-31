@@ -46,7 +46,8 @@ const Page = (props: any) => {
 
   const { exportAsImage, download } = useCaptureHelper();
 
-  const { isCanEdit, isProcessing, isOnlyView, isOwner } = useAADetailHelper();
+  const { isCanEdit, isProcessing, isOnlyView, isOwner, orderDetail, aaData } =
+    useAADetailHelper();
 
   const [data, setData] = React.useState<
     | (IModelCategory & {
@@ -71,7 +72,8 @@ const Page = (props: any) => {
 
   const { field, setField } = useOrderFormStoreV3();
 
-  const { resetAAStore } = useAccountAbstractionStore();
+  const { resetAAStore, setFeeRate, setTokenContractAddress } =
+    useAccountAbstractionStore();
 
   const {
     isOpen: isOpenResetModal,
@@ -95,6 +97,24 @@ const Page = (props: any) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isProcessing || isOnlyView) {
+      // setField('input_apps_address', aaData?.aaPaymasterContract || '', false);
+      // setField('input_apps_fee_rate', aaData?.aaTokenGas || '', false);
+      // setFieldsDragged((prev) => [...prev, 'input_apps']);
+      // setFieldsDragged((prev) => [...prev, 'input_apps']);
+    }
+
+    // setField('input_apps_address', aaData?.aaPaymasterContract || '', false);
+    // setField('input_apps_fee_rate', aaData?.aaTokenGas || '', false);
+
+    // setField('input_apps_address', 'A', false);
+    // setField('input_apps_fee_rate', '222', false);
+
+    // setFeeRate('123');
+    // setTokenContractAddress('ABCD');
+  }, [isProcessing, isOnlyView, orderDetail, aaData]);
+
   const handleDragStart = (event: any) => {
     const { active } = event;
     const [activeSuffix2] = active.id.split('-');
@@ -116,6 +136,9 @@ const Page = (props: any) => {
     // Format ID of parent option = <key>-parent-<suffix>
     const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
       active.id.split('-');
+
+    console.log('AAABB activeKey ', activeKey);
+
     const [overKey = '', overSuffix1 = '', overSuffix2 = ''] = (
       over?.id || ''
     ).split('-');
@@ -144,6 +167,8 @@ const Page = (props: any) => {
       const temp = _fieldsDragged[activeIndex];
       _fieldsDragged[activeIndex] = _fieldsDragged[overIndex];
       _fieldsDragged[overIndex] = temp;
+
+      console.log('AAA 111 ', _fieldsDragged);
 
       setFieldsDragged(_fieldsDragged);
 
@@ -186,11 +211,20 @@ const Page = (props: any) => {
         setField(activeKey, active.data.current.value, true);
 
         if (field[activeKey].dragged) return;
+
+        console.log('AAA 222 ', [activeKey]);
+
         setFieldsDragged((prev) => [...prev, activeKey]);
       } else {
         if (over && overIsParentDroppable) return;
 
         setField(activeKey, active.data.current.value, false);
+
+        console.log(
+          'AAA 333 ',
+          fieldsDragged.filter((field) => field !== activeKey),
+        );
+
         setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
       }
 
@@ -379,9 +413,7 @@ const Page = (props: any) => {
             </Flex>
 
             <Flex flex={1} className={s.middleViewContainer} id="imageCapture">
-              {isProcessing ? (
-                <WaitingInstallView />
-              ) : (
+              {
                 <DroppableV2
                   id="final"
                   className={s.finalResult}
@@ -464,7 +496,8 @@ const Page = (props: any) => {
                     }
                   })}
                 </DroppableV2>
-              )}
+              }
+              {isProcessing && <WaitingInstallView />}
               {!isCapture && (
                 <div className={s.cta_wrapper}>
                   <button

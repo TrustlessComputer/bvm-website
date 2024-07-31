@@ -15,11 +15,15 @@ export const useAADetailHelper = () => {
       l2ServiceUserAddress?.toLowerCase() ===
       orderDetail?.tcAddress?.toLowerCase();
 
+    let aaData;
+
     if (!orderDetail || !orderDetail.dApps || orderDetail.dApps.length < 1) {
     } else {
       const findedAA = orderDetail.dApps.find(
         (item) => item.appCode === 'account_abstraction',
       );
+
+      aaData = findedAA;
 
       if (findedAA) {
         if (findedAA.status === 'new' || findedAA.status === 'processing') {
@@ -36,10 +40,11 @@ export const useAADetailHelper = () => {
 
     return {
       orderDetail,
-      isCanEdit: true,
+      isCanEdit,
       isOnlyView,
-      isProcessing: false,
+      isProcessing,
       isOwner,
+      aaData,
     };
   }, [orderDetail, l2ServiceUserAddress]);
 

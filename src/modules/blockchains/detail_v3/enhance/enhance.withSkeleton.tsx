@@ -1,4 +1,4 @@
-import { Flex, Skeleton, Spinner } from '@chakra-ui/react';
+import { Flex, Skeleton, Spacer, Spinner } from '@chakra-ui/react';
 import { ChainDetailComponent, ChainDetailComponentProps } from '../types';
 import { useAppSelector } from '@/stores/hooks';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
@@ -82,7 +82,6 @@ const withSkeleton =
             flex={1}
             flexDir={'column'}
             h={'100%'}
-            justify={'center'}
             align={'center'}
             bgColor={'#fff'}
             gap={'8px'}
@@ -90,8 +89,9 @@ const withSkeleton =
             borderWidth={'1px'}
             borderColor={'#ededed'}
           >
+            <Flex h="100px"></Flex>
             {new Array(5).fill(0).map((item) => (
-              <Skeleton h={'40px'} w="400px" />
+              <Skeleton h={'40px'} w="400px" borderRadius={'12px'} />
             ))}
           </Flex>
           <Flex

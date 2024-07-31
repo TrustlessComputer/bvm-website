@@ -51,6 +51,7 @@ const LaunchButton = ({
   const { loggedIn, login } = useWeb3Auth();
   const { accountInforL2Service, availableListFetching, availableList } =
     useAppSelector(getL2ServicesStateSelector);
+  const { getOrderDetailByID } = useL2Service();
 
   const [isShowError, setShowError] = useState(false);
 
@@ -237,6 +238,8 @@ const LaunchButton = ({
         toast.error(message);
       }
     } finally {
+      getOrderDetailByID(orderDetail.orderId);
+
       await sleep(1);
       if (isSuccess) {
         toast.success('Update Successful');
