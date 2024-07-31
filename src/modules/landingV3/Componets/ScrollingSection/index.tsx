@@ -9,7 +9,7 @@ import { Frames } from '@interactive/ScrollFrame';
 
 export default function ScrollingSection() {
   const refContent = useRef<HTMLDivElement>(null);
-  return <div className={s.scrollingSection} ref={refContent}>
+  return <div id={'scrollingSection'} className={s.scrollingSection} ref={refContent}>
     <div className={`${s.container} containerV3`}>
       <div className={s.inner}>
         <div className={s.left}>
