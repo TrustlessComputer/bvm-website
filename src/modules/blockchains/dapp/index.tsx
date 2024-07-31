@@ -11,7 +11,7 @@ export default () => {
   return <RollupsDappPage />;
   const { loading, configs } = useFetchDapp();
 
-  if (loading || !configs?.length) {
+  if (loading || !!configs?.length) {
     return (
       <Flex h="90vh">
         <AppLoading />
