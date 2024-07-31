@@ -36,27 +36,27 @@ import enhance from './enhance';
 import ButtonV1 from './components/Button';
 import { ResetModal } from './components/ResetModal';
 import useCaptureHelper from './hook/useCaptureHelper';
+import { mockupOptions } from '../Buy/Buy.data';
 
 const MainPage = (props: ChainDetailComponentProps) => {
   const { chainDetailData } = props;
   const modelCategories = useAppSelector(getModelCategoriesSelector);
+  // const modelCategories = mockupOptions; // mockup for testing
   const availableListTemplate = useAppSelector(
     getAvailableListTemplateSelector,
   );
-
-  console.log('____modelCategories', modelCategories);
 
   const { exportAsImage, download } = useCaptureHelper();
 
   const [data, setData] = React.useState<
     | (IModelCategory & {
-    options: IModelCategory['options'] &
-      {
-        value: any;
-        label: string;
-        disabled: boolean;
-      }[];
-  })[]
+        options: IModelCategory['options'] &
+          {
+            value: any;
+            label: string;
+            disabled: boolean;
+          }[];
+      })[]
     | null
   >(null);
 
@@ -249,7 +249,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
     }
   }
 
@@ -266,7 +266,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
             ...option,
             value: option.key,
             label: option.title,
-            disabled: !option.selectable || !!item.disable || !item.updatable,
+            disabled: !option.selectable || !!item.disable,
           };
         }),
       };
@@ -342,6 +342,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
       setField(_field.key, null);
     });
     setData(convertData(modelCategories));
+    console.log('modelCategories', modelCategories);
     setOriginalData(modelCategories);
     setTemplates(availableListTemplate);
   };
@@ -391,9 +392,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                 option.supportNetwork &&
                 option.supportNetwork !== 'both' &&
                 option.supportNetwork !== field['network']?.value
-              ) ||
-              !option.selectable ||
-              !option.updatable;
+              ) || !option.selectable;
 
             return !isDisabled;
           });
@@ -440,6 +439,10 @@ const MainPage = (props: ChainDetailComponentProps) => {
   }, []);
 
   React.useEffect(() => {
+    console.log(
+      'chainDetailData?.selectedOptions',
+      chainDetailData?.selectedOptions,
+    );
     resetByTemplate(chainDetailData?.selectedOptions || []);
   }, [templates, chainDetailData]);
 
@@ -589,8 +592,6 @@ const MainPage = (props: ChainDetailComponentProps) => {
       if (dynamicForm.length === 0) return;
       localStorage.setItem('bvm.customize-form', JSON.stringify(dynamicForm));
     }, 100);
-
-    console.log('dynamicForm ', dynamicForm);
   }, [field]);
 
   useEffect(() => {
@@ -617,8 +618,6 @@ const MainPage = (props: ChainDetailComponentProps) => {
   const resetEdit = () => {
     resetByTemplate(chainDetailData?.selectedOptions || []);
   };
-
-  console.log('___datga', data);
 
   return (
     <Flex
@@ -721,7 +720,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                                 option.supportNetwork &&
                                 option.supportNetwork !== 'both' &&
                                 option.supportNetwork !==
-                                field['network']?.value
+                                  field['network']?.value
                               ) || !option.selectable;
 
                             if (item.multiChoice && field[item.key].dragged) {
@@ -819,6 +818,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                               useMask
                               tooltip={item.tooltip}
                               value={option.key}
+                              disabled={!item.updatable}
                             >
                               <LegoV3
                                 background={item.color}
@@ -828,6 +828,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                                 }
                                 icon={item.confuseIcon}
                                 zIndex={item.options.length - opIdx}
+                                disabled={!item.updatable}
                               >
                                 <Label
                                   icon={option.icon}
@@ -844,6 +845,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                           key={item.key + '-parent' + '-right'}
                           id={item.key + '-parent' + '-right'}
                           useMask
+                          disabled={!item.updatable}
                         >
                           <DroppableV2 id={item.key}>
                             <LegoParent
@@ -851,6 +853,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                               background={item.color}
                               label={item.title}
                               zIndex={fieldsDragged.length - index - 1}
+                              disabled={!item.updatable}
                             >
                               {childrenOptions}
                             </LegoParent>
@@ -862,26 +865,13 @@ const MainPage = (props: ChainDetailComponentProps) => {
                     return item.options.map((option, opIdx) => {
                       if (option.key !== field[item.key].value) return null;
 
-                      if (!item.updatable) {
-                        return (
-                          <LegoV3
-                            background={item.color}
-                            label={item.confuseTitle}
-                            labelInRight={
-                              !!item.confuseTitle || !!item.confuseIcon
-                            }
-                            zIndex={fieldsDragged.length - index}
-                            icon={item.confuseIcon}
-                            className={
-                              showShadow === field[item.key].value
-                                ? s.activeBlur
-                                : s.disabled
-                            }
-                          >
-                            <Label icon={option.icon} title={option.title} />
-                          </LegoV3>
-                        );
-                      }
+                      // console.log('rightContent ', item.key, {
+                      //   itemKey: item.key,
+                      //   item: item,
+                      //   optionKey: option.key,
+                      //   option: option,
+                      //   disabled: !item.updatable,
+                      // });
 
                       return (
                         <Draggable
@@ -891,6 +881,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                           useMask
                           tooltip={item.tooltip}
                           value={option.key}
+                          disabled={!item.updatable}
                         >
                           <DroppableV2 id={item.key + '-right'}>
                             <LegoV3
@@ -906,6 +897,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                                   ? s.activeBlur
                                   : ''
                               }
+                              disabled={!item.updatable}
                             >
                               <Label icon={option.icon} title={option.title} />
                             </LegoV3>
@@ -960,10 +952,8 @@ const MainPage = (props: ChainDetailComponentProps) => {
               <DragOverlay>
                 {idDragging &&
                   data?.map((item, index) => {
-
-
                     if (!idDragging.startsWith(item.key)) return null;
-                    console.log('______222', rightDragging, item.key);
+
                     if (item.multiChoice && rightDragging) {
                       const childrenOptions = item.options.map(
                         (option, opIdx) => {
