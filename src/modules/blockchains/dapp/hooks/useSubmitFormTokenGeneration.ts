@@ -14,7 +14,7 @@ import { isEmpty } from 'lodash';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import { IBodyCreateToken } from '@/modules/apps/CreateToken/contract/interface';
 import { getTokenomics, getTotalSupply } from '@/modules/apps/CreateToken/utils';
-import { ITokenomics } from '@/modules/apps/CreateToken/states/types';
+import { ITokenomics } from '@/modules/apps/CreateToken/types';
 import TOKENABI from '@/modules/apps/CreateToken/contract/abis/Token.json';
 import { ethers } from 'ethers';
 import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';

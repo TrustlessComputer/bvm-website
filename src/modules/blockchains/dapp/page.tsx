@@ -689,7 +689,7 @@ const RollupsDappPage = () => {
 
   React.useEffect(() => {
     getDataTemplateForm();
-  }, [thisDapp, tokens, stakingPools]);
+  }, [thisDapp, tokens?.length, stakingPools]);
 
   React.useEffect(() => {
     fetchData();

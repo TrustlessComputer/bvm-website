@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { EDurationUnit, ITokenomics } from "./states/types";
+import { EDurationUnit, ITokenomics } from "./types";
 import dayjs from "dayjs";
 import { parseEther } from "ethers/lib/utils";
 
