@@ -1,7 +1,7 @@
 'use client';
 
 // import UpdateChain from '@/modules/blockchains/Buy/UpdateChain';
-import Page from '@/modules/blockchains/detail_v2';
+import Page from '@/modules/blockchains/detail_v3';
 import MainLayout from '@/layouts/MainLayout';
 
 const PageDetail = () => {

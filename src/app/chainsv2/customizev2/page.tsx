@@ -1,18 +1,18 @@
 'use client';
 
-// import UpdateChain from '@/modules/blockchains/Buy/UpdateChain';
-import Page from '@/modules/blockchains/detail_v2';
 import MainLayout from '@/layouts/MainLayout';
 
-const PageDetail = () => {
+import Page from '@/modules/blockchains/customize/index_v4';
+
+const CustomizePage = () => {
   return (
     <MainLayout
       headerProps={{
         color: 'black',
         bgColor: '#F3F1E8',
       }}
-      // hideHeader={true}
-      // isHeaderCustom
+      hideHeader={true}
+      isHeaderCustom
       hideFooter={true}
       bodyColor={'#f3f1e8'}
     >
@@ -21,4 +21,4 @@ const PageDetail = () => {
   );
 };
 
-export default PageDetail;
+export default CustomizePage;

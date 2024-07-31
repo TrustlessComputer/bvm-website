@@ -31,14 +31,14 @@ const AppViewer = (props: Props) => {
 
     switch (item.key) {
       case 'my_blockchain':
-        router.push(`/chains/${orderDetail?.orderId}`);
+        router.push(`/chainsv2/${orderDetail?.orderId}`);
         break;
 
       //Account Abstraction
       case 'flex_pay':
       case 'account_abstraction':
         if (!currentPath?.includes('account-abstraction')) {
-          router.push(`/chains/${orderDetail?.orderId}/account-abstraction`);
+          router.push(`/chainsv2/${orderDetail?.orderId}/account-abstraction`);
         }
         break;
 
