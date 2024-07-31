@@ -16,7 +16,12 @@ const initialNodes = [
   {
     id: '2',
     // you can also pass a React component as a label
-    data: { label: <div>Staking apps</div> },
+    data: { label: <>
+        <div>Staking apps</div>
+        <div>Staking apps</div>
+        <div>Staking apps</div>
+      </>
+    },
     position: { x: 350, y: 25 },
   },
   {
@@ -36,6 +41,7 @@ const initialNodes = [
 const initialEdges = [
   { id: 'e1-3', source: '1', target: '3', label: 'Output 1', labelShowBg: false },
   { id: 'e2-2', source: '1', target: '2', label: 'Output 2', labelShowBg: false, },
+  { id: 'e1-4', source: '1', target: '4', label: 'Output 2', labelShowBg: false, },
 ];
 
 const edgeTypes = {
