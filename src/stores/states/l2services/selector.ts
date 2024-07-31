@@ -9,6 +9,12 @@ import {
 } from '@/modules/blockchains/Buy/Buy.constanst';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { IExploreItem } from '@/services/api/l2services/types';
+import {
+  APP_AIRDROP,
+  APP_BLOCKCHAIN,
+  APP_STAKING,
+  APP_TOKEN_GERNERATION,
+} from './constants';
 
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
@@ -270,6 +276,71 @@ const getDappSelectedSelector = createSelector(
   },
 );
 
+const getOrderDetailSelected = createSelector(
+  getL2ServicesStateSelector,
+  (state) => {
+    const orderDetail = state.orderDetail;
+    const dAppConfigSelected = state.dAppConfigSelected;
+    let dAppConfigList: IModelOption[] = [];
+
+    orderDetail?.selectedOptions?.filter((item) => {
+      item.options.map((dApp) => {
+        if (dApp.needConfig) {
+          dAppConfigList.push(dApp);
+        }
+      });
+    }) || [];
+
+    dAppConfigList = [
+      APP_BLOCKCHAIN,
+      APP_STAKING,
+      APP_AIRDROP,
+      APP_TOKEN_GERNERATION,
+      ...dAppConfigList,
+    ];
+
+    return {
+      orderDetail: state.orderDetail,
+      dAppConfigList,
+      dAppConfigSelected,
+    };
+  },
+);
+
+const getDAppConfigByKeySelector = createSelector(
+  getOrderDetailSelected,
+  (data) => (key: string) => {
+    const { dAppConfigList } = data;
+    return dAppConfigList.find(
+      (item) => String(item.key).toLowerCase() === String(key).toLowerCase(),
+    );
+  },
+);
+
+const getAvailableListTemplateSelector = createSelector(
+  getL2ServicesStateSelector,
+  (state) => {
+    const availableListTemplate = state.availableListTemplate || [];
+
+    //Sort
+    const result = availableListTemplate;
+
+    return result;
+  },
+);
+
+const getModelCategoriesSelector = createSelector(
+  getL2ServicesStateSelector,
+  (state) => {
+    const modelCategories = state.modelCategories || [];
+
+    //Sort
+    const result = [...modelCategories].sort((a, b) => a.order - b.order);
+
+    return result;
+  },
+);
+
 export {
   getL2ServicesStateSelector,
   orderListSelector,
@@ -296,4 +367,14 @@ export {
 
   //Template
   templateV2Selector,
+
+  //Detail
+  getOrderDetailSelected,
+
+  //
+  getAvailableListTemplateSelector,
+  getModelCategoriesSelector,
+
+  //
+  getDAppConfigByKeySelector,
 };

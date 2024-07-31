@@ -1,0 +1,15 @@
+.container {
+  font-family: var(--font-SFProDisplay);
+
+  border-radius: 8px;
+  border-width: 1px;
+  border-color: #fa4e0e;
+  background-color: #fcf7f2 !important;
+  color: #fa4e0e !important;
+
+  &.isSelected {
+    border-color: #fa4e0e !important;
+    background-color: #fa4e0e !important;
+    color: #fff !important;
+  }
+}

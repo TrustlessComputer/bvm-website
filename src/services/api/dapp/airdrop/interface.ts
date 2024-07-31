@@ -22,8 +22,8 @@ export interface ITask {
 export interface IBodySetupTask {
   title: string;
   description?: string;
-  start_time?: string;
-  end_time?: string;
+  start_time: number;
+  end_time: number;
   token_address: string;
   amount: string;
   tasks?: ITask[];
