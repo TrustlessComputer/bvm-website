@@ -16,6 +16,8 @@ import {
 import s from './styles.module.scss';
 import uniqBy from 'lodash/uniqBy';
 import cx from 'clsx';
+import { compareString } from '@utils/string';
+import { useSearchParams } from 'next/navigation';
 
 type Props = {};
 
@@ -25,6 +27,10 @@ const Sidebar = ({}: Props) => {
     setCurrentIndexDapp,
     currentIndexDapp,
   } = useDappsStore();
+
+  const refInited = React.useRef(false)
+
+  const params = useSearchParams()
 
   const dapps = React.useMemo(
     () => uniqBy(_dapps, (item) => item.id),
@@ -44,7 +50,7 @@ const Sidebar = ({}: Props) => {
     }
   };
 
-  const changeDapp = () => {
+  const changeDapp = (newIndex?: number) => {
     formDappSignal.value = {};
     draggedIds2DSignal.value = [];
 
@@ -52,10 +58,30 @@ const Sidebar = ({}: Props) => {
     templateIds2DSignal.value = [];
 
     setIsShowModal(false);
+    if (newIndex) {
+      setCurrentIndexDapp(newIndex);
+      return;
+    }
 
     if (selectedDappIndex == null) return;
     setCurrentIndexDapp(selectedDappIndex);
   };
+
+
+  React.useEffect(() => {
+    const newIndex = dapps?.findIndex(item => compareString(item.id, params?.get('dapp'))) || 0;
+
+
+    if (newIndex >= 0 && !refInited.current) {
+      changeDapp(newIndex);
+      refInited.current = true;
+    }
+
+  }, [dapps])
+
+  if (!dapps?.length) {
+    return <></>;
+  }
 
   return (
     <React.Fragment>

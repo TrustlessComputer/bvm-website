@@ -7,8 +7,9 @@ import React from 'react';
 import { Flex } from '@chakra-ui/react';
 
 export default () => {
-  const { loading } = useFetchDapp();
-  if (loading) {
+  const { loading, configs } = useFetchDapp();
+
+  if (loading || !configs?.length) {
     return (
       <Flex h="90vh">
         <AppLoading />
