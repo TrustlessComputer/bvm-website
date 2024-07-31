@@ -104,19 +104,25 @@ interface FieldModel {
   icon: string;
   title: string;
   value: string | number;
-  type: 'input' | 'dropdown' | 'extends' | 'group' | '';
+  type: 'input' | 'dropdown' | 'extends' | 'group' | 'datetime' | '';
   tooltip: string;
   options: FieldModel[];
   placeholder?: string;
+  level?: number;
+  selectable?: boolean;
+  background?: string;
+  previewTitle?: string;
 }
 
 interface BlockModel {
   key: string;
   title: string;
   icon: string;
-  placableAmount?: number;
+  placableAmount: number;
   fields: FieldModel[];
   section: string;
+  preview: boolean;
+  background?: string;
 }
 
 interface DappModel {
@@ -128,11 +134,27 @@ interface DappModel {
   icon: string;
   order: number;
   color: string;
+  color_border?: string;
+  label?: {
+    title: string;
+    background: string;
+    color: string;
+    status: string;
+    actionID?: string;
+  };
+  color_rendered?: string;
   tooltip: string;
   baseBlock: BlockModel;
   blockFields?: BlockModel[];
   singleFields?: BlockModel[];
+  moduleFields?: BlockModel[];
+  baseModuleFields?: BlockModel[];
   sections: SectionModel[];
+  action?: {
+    title: string;
+    actionMapperID: string;
+    color?: string;
+  };
 }
 
 interface TemplateForm {

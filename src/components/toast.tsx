@@ -88,3 +88,15 @@ export const showSuccess = ({
 export const removeToast = () => {
   toast.remove();
 };
+
+export const showValidateError = (msg: string) => {
+  toast.error(msg, {
+    icon: null,
+    style: {
+      borderColor: 'blue',
+      color: 'blue',
+    },
+    duration: 3000,
+    position: 'bottom-center',
+  });
+};

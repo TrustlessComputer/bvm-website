@@ -1,13 +1,12 @@
 import React from 'react';
 import cn from 'classnames';
-import Image from 'next/image';
 
 import SvgInset from '@/components/SvgInset';
 
 import { adjustBrightness } from '../../utils';
 
 import styles from './styles.module.scss';
-import { Tooltip } from '@chakra-ui/react';
+import { Box, Image, Tooltip } from '@chakra-ui/react';
 
 type Position =
   | {
@@ -38,81 +37,166 @@ type TitlePosition =
     };
 
 type Props = {
+  zIndex?: number;
   background?: string;
   title?: string;
   icon?: string;
   tooltip?: string;
   disabled?: boolean;
   children?: React.ReactNode;
+  preview?: boolean;
+  fields?: FieldModel[];
 } & Position &
   TitlePosition;
 
-const Lego = ({
-  background = '#A041FF',
-  icon,
-  title,
-  tooltip,
-  titleInLeft = false,
-  titleInRight = false,
-  disabled = false,
-  first = false,
-  last = false,
-  children,
-}: Props) => {
-  // console.log('Lego', children);
+const Lego = (props: Props) => {
+  const {
+    zIndex = 0,
+    background = '#A041FF',
+    icon,
+    title,
+    tooltip,
+    titleInLeft = false,
+    titleInRight = false,
+    disabled = false,
+    first = false,
+    last = false,
+    children,
+    preview,
+    fields,
+    ...rest
+  } = props;
+
+  const legoRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useEffect(() => {
+    const parentDOM = legoRef.current?.parentElement;
+
+    if (!parentDOM) return;
+
+    const parentDOMIsDraggable =
+      parentDOM.getAttribute('aria-roledescription') === 'draggable';
+
+    if (parentDOMIsDraggable) {
+      parentDOM.style.zIndex = `${zIndex}`;
+    } else if (legoRef.current) {
+      legoRef.current.style.zIndex = `${zIndex}`;
+      legoRef.current.style.position = 'relative';
+    }
+  }, [legoRef.current]);
+
   return (
     <div
       className={cn(styles.lego, {
         [styles.lego__disabled]: disabled,
+        [styles.lego__preview]: preview,
       })}
       style={{
         // @ts-ignore
         '--background-color': background,
         '--border-color': adjustBrightness(background, -20),
       }}
+      ref={legoRef}
     >
       <div className={cn(styles.lego__piece, styles.lego__piece__top)}>
         <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
       </div>
 
-      <div className={styles.lego__inner}>
-        {title && titleInLeft ? (
-          <div
-            className={cn(
-              styles.lego__inner__label,
-              styles.lego__inner__label__left,
-            )}
-          >
-            {icon && <Image src={icon} width={20} height={20} alt="icon" />}
-            <p>{title}</p>
-          </div>
-        ) : null}
+      {preview ? (
+        <div className={styles.lego__inner}>
+          {fields?.map((field) => {
+            return (
+              <div style={{ display: 'flex', gap: '4px' }}>
+                <div
+                  className={cn(
+                    styles.lego__inner__label,
+                    styles.lego__inner__label__left,
+                  )}
+                >
+                  {/*{field?.icon && (*/}
+                  {/*  <Image*/}
+                  {/*    src={field?.icon}*/}
+                  {/*    width="20px"*/}
+                  {/*    height="20px"*/}
+                  {/*    alt="icon"*/}
+                  {/*  />*/}
+                  {/*)}*/}
+                  <p>{field?.previewTitle || field?.title}</p>
+                </div>
+                {field.type === 'input' ? (
+                  <Image
+                    width="32px"
+                    height="auto"
+                    src={'/icons-tool/issue-a-token/icon-input.svg'}
+                  />
+                ) : field.type === 'extends' &&
+                  typeof field.value === 'number' ? (
+                  <Image
+                    width="32px"
+                    height="auto"
+                    src={'/icons-tool/issue-a-token/icon-switch.svg'}
+                  />
+                ) : field.type === 'dropdown' ? (
+                  <Image
+                    width="32px"
+                    height="auto"
+                    src={'/icons-tool/issue-a-token/icon-dropdown.svg'}
+                  />
+                ) : field.type === 'datetime' ? (
+                  <Image
+                    width="32px"
+                    height="auto"
+                    src={'/icons-tool/issue-a-token/icon-datetime.svg'}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className={styles.lego__inner}>
+          {title && titleInLeft ? (
+            <div
+              className={cn(
+                styles.lego__inner__label,
+                styles.lego__inner__label__left,
+              )}
+            >
+              {icon && (
+                <Image src={icon} width="20px" height="20px" alt="icon" />
+              )}
+              <p>{title}</p>
+            </div>
+          ) : null}
 
-        {tooltip && (
-          <Tooltip label={tooltip}>
-            <Image
-              width={18}
-              height={18}
-              alt="tooltip"
-              src={'/icons/ic-tooltip.svg'}
-            />
-          </Tooltip>
-        )}
+          {tooltip && (
+            <Tooltip label={tooltip}>
+              <Image
+                width="18px"
+                height="18px"
+                alt="tooltip"
+                src={'/icons/ic-tooltip.svg'}
+              />
+            </Tooltip>
+          )}
 
-        {children && <div className={styles.children}>{children}</div>}
+          {children && <div className={styles.children}>{children}</div>}
 
-        {title && titleInRight ? (
-          <div
-            className={cn(
-              styles.lego__inner__label,
-              styles.lego__inner__label__right,
-            )}
-          >
-            {icon && <Image src={icon} width={20} height={20} alt="icon" />}
-            <p>{title}</p>
-          </div>
-        ) : null}
-      </div>
+          {title && titleInRight ? (
+            <div
+              className={cn(
+                styles.lego__inner__label,
+                styles.lego__inner__label__right,
+              )}
+            >
+              {icon && <Image src={icon} width={20} height={20} alt="icon" />}
+              <p>{title}</p>
+            </div>
+          ) : null}
+        </div>
+      )}
 
       <div className={cn(styles.lego__piece, styles.lego__piece__bottom)}>
         <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
@@ -122,124 +206,3 @@ const Lego = ({
 };
 
 export default Lego;
-
-// import React, { useState } from 'react';
-// import Image from 'next/image';
-
-// import SvgInset from '@/components/SvgInset';
-
-// import styles from './styles.module.scss';
-// import { hexToHSB, hsbToHex } from '../../utils';
-// import useStoreDropDown from '@/modules/blockchains/Buy/stores/useStoreDropdown';
-// import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
-// import { iconToolNames } from '../../data';
-
-// type Props = {
-//   background?: string;
-//   parentOfNested?: boolean;
-//   first?: boolean;
-//   last?: boolean;
-//   active?: boolean;
-//   disabled?: boolean;
-//   title?: string;
-//   titleInLeft?: boolean;
-//   titleInRight?: boolean;
-//   icon?: string;
-//   className?: string;
-//   zIndex?: number;
-//   suffix?: string;
-// } & React.HTMLAttributes<HTMLDivElement>;
-
-// function Lego({
-//   background = '#A041FF',
-//   title = '',
-//   titleInLeft = false,
-//   titleInRight = false,
-//   first = false,
-//   last = false,
-//   active = false,
-//   disabled = false,
-//   suffix = '',
-//   icon,
-//   zIndex = 0,
-//   className,
-//   children,
-//   ...props
-// }: Props) {
-//   const legoRef = React.useRef<HTMLDivElement | null>(null);
-//   const { isCapture } = useCaptureStore();
-
-//   const _icon =
-//     iconToolNames.find(
-//       (item) =>
-//         icon?.replace('https://storage.googleapis.com/bvm-network', '') ===
-//         item,
-//     ) ||
-//     icon ||
-//     null;
-
-//   React.useEffect(() => {
-//     let parentLego = legoRef.current?.parentElement;
-
-//     if (!parentLego) return;
-
-//     parentLego.style.position = 'relative';
-//     parentLego.style.zIndex = `${zIndex * 2} `;
-//     parentLego.style.width = 'max-content';
-//   }, [legoRef.current]);
-
-//   const fillBackgroundAsHSB = hexToHSB(background);
-//   const _background = hsbToHex(
-//     fillBackgroundAsHSB?.h || 0,
-//     fillBackgroundAsHSB?.s || 0,
-//     (fillBackgroundAsHSB?.b || 100) - 20,
-//   )?.split('.')[0];
-
-//   return (
-//     <React.Fragment>
-//       <div
-//         className={`${styles.wrapper} ${first ? styles.first : ''} ${
-//           disabled ? styles.disabled : ''
-//         } ${className}
-//         `}
-//         ref={legoRef}
-//         style={{
-//           zIndex: zIndex,
-//           // @ts-ignore
-//           '--fillBackground': background,
-//           '--background': background ? _background : undefined,
-//         }}
-//         // @ts-ignore
-//         {...props}
-//       >
-//         <SvgInset
-//           svgUrl="/landingV3/svg/stud_head.svg"
-//           className={styles.wrapper_studHead}
-//         />
-//         <div className={`${styles.inner}`}>
-//           {title && titleInLeft ? (
-//             <div className={`${styles.label} ${styles.label__left}`}>
-//               {_icon && <Image src={_icon} alt="icon" width={24} height={24} />}
-//               <p className={isCapture ? styles.label_margin : ''}>{title}</p>
-//             </div>
-//           ) : null}
-
-//           {children && <div className={styles.options}>{children}</div>}
-
-//           {(title || icon) && titleInRight ? (
-//             <div className={`${styles.label} ${styles.label__right}`}>
-//               {_icon && <Image src={_icon} alt="icon" width={16} height={16} />}
-//               <p className={isCapture ? styles.label_margin : ''}>{title} </p>
-//             </div>
-//           ) : null}
-
-//           <div className={styles.label}>
-//             <p>{suffix}</p>
-//           </div>
-//         </div>
-//       </div>
-//     </React.Fragment>
-//   );
-// }
-
-// export default React.memo(Lego);

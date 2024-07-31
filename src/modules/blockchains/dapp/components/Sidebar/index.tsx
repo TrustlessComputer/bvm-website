@@ -5,18 +5,37 @@ import Button from '../Button';
 import MModal from '../Modal';
 import useDappsStore from '../../stores/useDappStore';
 import {
-  formDappDropdownSignal,
-  formDappInputSignal,
-  formDappToggleSignal,
+  formDappSignal,
+  formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
-import { draggedIds2DSignal } from '../../signals/useDragSignal';
+import {
+  draggedIds2DSignal,
+  templateIds2DSignal,
+} from '../../signals/useDragSignal';
 
-import styles from './styles.module.scss';
+import s from './styles.module.scss';
+import uniqBy from 'lodash/uniqBy';
+import cx from 'clsx';
+import { compareString } from '@utils/string';
+import { useSearchParams } from 'next/navigation';
 
 type Props = {};
 
 const Sidebar = ({}: Props) => {
-  const { dapps, setCurrentIndexDapp, currentIndexDapp } = useDappsStore();
+  const {
+    dapps: _dapps,
+    setCurrentIndexDapp,
+    currentIndexDapp,
+  } = useDappsStore();
+
+  const refInited = React.useRef(false)
+
+  const params = useSearchParams()
+
+  const dapps = React.useMemo(
+    () => uniqBy(_dapps, (item) => item.id),
+    [_dapps],
+  );
 
   const [isShowModal, setIsShowModal] = React.useState(false);
   const [selectedDappIndex, setSelectedDappIndex] = React.useState<
@@ -26,25 +45,47 @@ const Sidebar = ({}: Props) => {
   const handleSelectDapp = (index: number) => {
     setSelectedDappIndex(index);
 
-    if(currentIndexDapp !== index) {
+    if (currentIndexDapp !== index) {
       setIsShowModal(true);
     }
   };
 
-  const changeDapp = () => {
-    formDappInputSignal.value = {};
-    formDappDropdownSignal.value = {};
-    formDappToggleSignal.value = {};
+  const changeDapp = (newIndex?: number) => {
+    formDappSignal.value = {};
     draggedIds2DSignal.value = [];
+
+    formTemplateDappSignal.value = {};
+    templateIds2DSignal.value = [];
+
     setIsShowModal(false);
+    if (newIndex) {
+      setCurrentIndexDapp(newIndex);
+      return;
+    }
 
     if (selectedDappIndex == null) return;
     setCurrentIndexDapp(selectedDappIndex);
   };
 
+
+  React.useEffect(() => {
+    const newIndex = dapps?.findIndex(item => compareString(item.id, params?.get('dapp'))) || 0;
+
+
+    if (newIndex >= 0 && !refInited.current) {
+      changeDapp(newIndex);
+      refInited.current = true;
+    }
+
+  }, [dapps])
+
+  if (!dapps?.length) {
+    return <></>;
+  }
+
   return (
     <React.Fragment>
-      <div className={styles.header}>
+      <div className={s.header}>
         {dapps.map((dapp, index) => {
           return (
             <Button
@@ -52,7 +93,7 @@ const Sidebar = ({}: Props) => {
               type="button"
               color="transparent"
               onClick={() => handleSelectDapp(index)}
-              className={styles.resetButton}
+              className={cx(currentIndexDapp === index ? s.isSelected : '')}
             >
               <div>
                 {dapp.icon && (
@@ -60,18 +101,24 @@ const Sidebar = ({}: Props) => {
                 )}{' '}
                 {dapp.title}
               </div>
-              <div />
             </Button>
           );
         })}
       </div>
 
-      <div className={styles.footer}>
+      <div className={s.footer}>
         <Button element="button" type="button" onClick={() => {}}>
-          EXPORT
+          EXPORT{' '}
+          <Image src="/icons/image.svg" alt="image" width={20} height={20} />
         </Button>
         <Button element="button" type="button" onClick={() => {}}>
-          SHARE
+          SHARE{' '}
+          <Image
+            src="/icons/twitter.svg"
+            alt="twitter"
+            width={20}
+            height={20}
+          />
         </Button>
       </div>
 

@@ -32,7 +32,7 @@ const LaunchButton = () => {
   } = useSubmitForm();
 
   const handleLaunch = () => {
-    console.log('formDappSignal', JSON.stringify(formDappSignal.value));
+    console.log('formDappSignal', formDappSignal.value);
   };
 
   return (
@@ -44,7 +44,7 @@ const LaunchButton = () => {
         onClick={onSubmit}
         // onClick={handleLaunch}
       >
-        Launch <Image src="/launch.png" alt="launch" width={24} height={24} />
+        Launch <Image src="/launch.png" alt="launch" width={20} height={20} />
       </Button>
       <ErrorModal
         title="Missing Required"
@@ -67,7 +67,7 @@ const LaunchButton = () => {
       </ErrorModal>
       <TopupModal
         show={isShowTopup}
-        infor={topupInfo}
+        infors={topupInfo}
         onClose={() => {
           setIsShowTopup(false);
         }}

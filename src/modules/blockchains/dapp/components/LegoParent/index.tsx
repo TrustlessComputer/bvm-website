@@ -1,32 +1,66 @@
 import React from 'react';
 import cn from 'classnames';
+import Image from 'next/image';
+
+import SvgInset from '@/components/SvgInset';
 
 import { adjustBrightness } from '../../utils';
 
 import styles from './styles.module.scss';
-import SvgInset from '@/components/SvgInset';
-import Image from 'next/image';
+import { useAppSelector } from '@/stores/hooks';
+import { dappSelector } from '@/stores/states/dapp/selector';
+import { DappType } from '@/modules/blockchains/dapp/types';
 
 type Props = {
+  zIndex?: number;
   background?: string;
   disabled?: boolean;
   title?: React.ReactNode;
   icon?: string;
   smallMarginHeaderTop?: boolean;
   children?: React.ReactNode;
+  label?: DappModel['label'];
+  dapp?: DappModel;
 };
 
 const LegoParent = ({
+  zIndex = 0,
   background = '#A041FF',
   disabled = false,
   title = '',
   icon,
   children,
   smallMarginHeaderTop = false,
+  label,
+  dapp,
+  ...rest
 }: Props) => {
+  const legoRef = React.useRef<HTMLDivElement | null>(null);
   const headerRef = React.useRef<HTMLDivElement | null>(null);
   const footerRef = React.useRef<HTMLDivElement | null>(null);
-  // console.log('LegoParent', children);
+
+  const dappState = useAppSelector(dappSelector);
+
+  const handleLabelClick = () => {
+    switch (dapp?.key) {
+      case DappType.token_generation: {
+        if (!label?.actionID) return;
+        // https://bloom.appstore.dev.bvm.network/apps/token/0x517db2dd81aaa829bb9856539b83751dd3779f13
+        window.open(
+          `${dappState?.chain?.dappURL || ''}/apps/token/${label.actionID}`,
+        );
+        return;
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    let parentDOM = legoRef.current?.parentElement;
+    if (!parentDOM) return;
+
+    // parentDOM.style.position = 'relative';
+    parentDOM.style.zIndex = `${zIndex} `;
+  }, [legoRef.current]);
 
   React.useEffect(() => {
     if (!headerRef.current || !footerRef.current) return;
@@ -44,6 +78,7 @@ const LegoParent = ({
         '--background-color': background,
         '--border-color': adjustBrightness(background, -20),
       }}
+      ref={legoRef}
     >
       <div className={styles.lego__header} ref={headerRef}>
         <div
@@ -72,6 +107,24 @@ const LegoParent = ({
         >
           <SvgInset svgUrl="/landingV3/svg/stud.svg" size={26} />
         </div>
+
+        {label && (
+          <div
+            className={cn(
+              styles.lego__header__label,
+              styles[`lego__header__label__${label.status}`],
+            )}
+            style={{
+              // @ts-ignore
+              // prettier-ignore
+              '--label-background': label.background ? label.background : undefined,
+              '--label-color': label.color ? label.color : undefined,
+            }}
+            onClick={() => handleLabelClick()}
+          >
+            {label.title}
+          </div>
+        )}
       </div>
 
       <div className={styles.lego__body}>
