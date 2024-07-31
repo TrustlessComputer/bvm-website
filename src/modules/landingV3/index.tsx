@@ -40,14 +40,16 @@ export default function LandingV3() {
               return <SectionContent {...data} />;
             })}
           </div>
-          <div className={s.caseStudy}>
-            <CaseStudy />
-          </div>
+
         </> : <div className={s.bottom}>
           <ScrollingSection />
         </div>
       }
+
       <div className={s.teamSection}>
+        <div className={s.caseStudy}>
+          <CaseStudy />
+        </div>
         <SectionContent {...TEAM} />
       </div>
 

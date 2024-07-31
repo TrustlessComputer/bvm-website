@@ -2,39 +2,35 @@ import { HOME_DATA_SECTIONS } from '@/modules/landingV3/data-sections';
 import s from './styles.module.scss';
 import ContentSection from '@/modules/landingV3/Componets/ScrollingSection/ContentSection';
 import ImageSection from '@/modules/landingV3/Componets/ScrollingSection/ImageSection';
-import React from 'react';
+import React, { useRef } from 'react';
 import CaseStudyThumbnail from '@/modules/landingV3/Componets/CaseStudy/thumbnail';
 import CaseStudyContent from '@/modules/landingV3/Componets/CaseStudy/content';
+import { Frames } from '@interactive/ScrollFrame';
 
 export default function ScrollingSection() {
-
-  return <div className={s.scrollingSection}>
-    <div className="containerV3">
+  const refContent = useRef<HTMLDivElement>(null);
+  return <div className={s.scrollingSection} ref={refContent}>
+    <div className={`${s.container} containerV3`}>
       <div className={s.inner}>
         <div className={s.left}>
-          <div className={s.left_inner}>
-            <div className={s.left_inner_content}>
-              {
-                HOME_DATA_SECTIONS.map((ob, idx) => {
-                  return <div className={s.left_inner_item}><ImageSection idx={idx} {...ob} /></div>;
-                })
-              }
-              <div className={s.left_inner_item}>
-                <CaseStudyThumbnail idx={HOME_DATA_SECTIONS.length} />
-              </div>
-            </div>
-          </div>
+          <Frames
+            comp={refContent}
+            width={1920}
+            height={1080}
+            totalFrames={260}
+            willLoad={260}
+            urlFrame={'https://storage.googleapis.com/bvm-network/bvm-home-fames/%d.jpg'}
+          />
         </div>
         <div className={`${s.right}`}>
-          {
-            HOME_DATA_SECTIONS.map((ob, idx) => {
-              return <div  className={s.right_content}>
-                <ContentSection idx={idx} {...ob} />
-              </div>;
-            })
-          }
-          <div className={s.right_content}>
-            <CaseStudyContent idx={HOME_DATA_SECTIONS.length} />
+          <div className={s.right_inner}>
+            {
+              HOME_DATA_SECTIONS.map((ob, idx) => {
+                return <div className={s.right_content}>
+                  <ContentSection {...ob} />
+                </div>;
+              })
+            }
           </div>
         </div>
       </div>
