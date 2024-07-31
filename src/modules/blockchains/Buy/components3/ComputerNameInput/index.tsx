@@ -14,7 +14,12 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useOrderFormStore } from '../../stores/index_v2';
 import { useCaptureStore } from '@/modules/blockchains/Buy/stores/index_v3';
 
-const ComputerNameInput = () => {
+type Props = {
+  chainNameDefault?: string;
+};
+
+const ComputerNameInput = (props: Props) => {
+  const { chainNameDefault } = props;
   const { setChainName } = useOrderFormStore();
   const { computerNameField, setComputerNameField, isMainnet } = useBuy();
   const { value, errorMessage } = computerNameField;
@@ -73,7 +78,7 @@ const ComputerNameInput = () => {
       hasError: false,
       errorMessage: undefined,
     });
-  }, [isMainnet]);
+  }, [chainNameDefault, isMainnet]);
 
   return (
     <div className={`${isCapture ? s.setLine : ''} ${s.wrapper_input}`}>

@@ -1,4 +1,6 @@
-// import Page from '@/modules/blockchains/detail';
+'use client';
+
+// import UpdateChain from '@/modules/blockchains/Buy/UpdateChain';
 import Page from '@/modules/blockchains/detail_v2';
 import MainLayout from '@/layouts/MainLayout';
 
@@ -7,9 +9,12 @@ const PageDetail = () => {
     <MainLayout
       headerProps={{
         color: 'black',
-        bgColor: '#fff',
+        bgColor: '#F3F1E8',
       }}
-      hideFooter
+      // hideHeader={true}
+      // isHeaderCustom
+      hideFooter={true}
+      bodyColor={'#f3f1e8'}
     >
       <Page />
     </MainLayout>
