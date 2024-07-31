@@ -99,7 +99,7 @@ const Dropdown = ({
   }, []);
 
   if (!currentValue) {
-    if (compareString(keyDapp, DappType.airdrop)) {
+    if (compareString(keyDapp, DappType.airdrop) && props.inBaseField) {
       return (
         <div
           className={cn(styles.dropdown, {

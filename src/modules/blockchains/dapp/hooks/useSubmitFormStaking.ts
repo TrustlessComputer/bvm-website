@@ -113,7 +113,7 @@ const useSubmitFormStaking = ({
         const data = await cStakeAPI.createNewStakingPool({
           principle_token: form?.staking_token,
           reward_token: form?.reward_token,
-          base_ratio: Number(info?.apr) / 100,
+          base_ratio: Number(info?.apr?.replaceAll('%', '')) / 100,
           token_price: 1 / Number(info?.rate),
         });
 

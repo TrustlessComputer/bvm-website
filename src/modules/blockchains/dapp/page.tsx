@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   DndContext,
   DragEndEvent,
@@ -6,28 +5,17 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import Image from 'next/image';
 import cn from 'classnames';
+import Image from 'next/image';
+import React from 'react';
 
-import {
-  cloneDeep,
-  DragUtil,
-  FormDappUtil,
-  hasValue,
-  MouseSensor,
-  removeItemAtIndex,
-} from './utils';
-import { dappMockupData } from './mockup_3';
-import { FieldKeyPrefix } from './contants';
-import LeftDroppable from './components/LeftDroppable';
-import RightDroppable from './components/RightDroppable';
 import DragMask from './components/DragMask';
 import LaunchButton from './components/LaunchButton';
+import LeftDroppable from './components/LeftDroppable';
+import RightDroppable from './components/RightDroppable';
 import Sidebar from './components/Sidebar';
-import useDappsStore, {
-  subScribeDropEnd,
-  useTemplateFormStore,
-} from './stores/useDappStore';
+import { FieldKeyPrefix } from './contants';
+import { dappMockupData } from './mockup_3';
 import {
   draggedIds2DSignal,
   idBlockErrorSignal,
@@ -37,18 +25,30 @@ import {
   formDappSignal,
   formTemplateDappSignal,
 } from './signals/useFormDappsSignal';
+import useDappsStore, {
+  subScribeDropEnd,
+  useTemplateFormStore,
+} from './stores/useDappStore';
+import {
+  cloneDeep,
+  DragUtil,
+  FormDappUtil,
+  hasValue,
+  MouseSensor,
+  removeItemAtIndex,
+} from './utils';
 
-import styles from './styles.module.scss';
-import { useAppSelector } from '@/stores/hooks';
-import { dappSelector } from '@/stores/states/dapp/selector';
-import { IToken } from '@/services/api/dapp/token_generation/interface';
+import { showValidateError } from '@/components/toast';
 import { parseIssuedToken } from '@/modules/blockchains/dapp/parseUtils/issue-token';
 import { parseDappModel } from '@/modules/blockchains/utils';
+import { IToken } from '@/services/api/dapp/token_generation/interface';
+import { useAppSelector } from '@/stores/hooks';
+import { dappSelector } from '@/stores/states/dapp/selector';
+import { compareString } from '@/utils/string';
 import { useThisDapp } from './hooks/useThisDapp';
 import { parseStakingPools } from './parseUtils/staking';
+import styles from './styles.module.scss';
 import { DappType } from './types';
-import { showValidateError } from '@/components/toast';
-import { compareString } from '@/utils/string';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
@@ -59,6 +59,7 @@ const RollupsDappPage = () => {
   const configs = dappState?.configs;
 
   const tokens = dappState.tokens;
+  const airdropTasks = dappState.airdropTasks;
   const stakingPools = dappState.stakingPools;
 
   const {
@@ -565,28 +566,22 @@ const RollupsDappPage = () => {
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
 
-  const fetchData = async () => {
-    // const dapps = configs;
-    console.log('fetchData tokens', tokens);
-
-    const dapps = dappMockupData;
-
-    const sortedDapps = dapps.sort((a, b) => a.order - b.order);
-
+  const preDataAirdropTask = (sortedDapps: DappModel[] = []) => {
+    const _sortedDapps = sortedDapps;
     if (tokens.length > 0) {
-      const _airdropIndex = sortedDapps.findIndex((v) =>
+      const _airdropIndex = _sortedDapps.findIndex((v) =>
         compareString(v.key, DappType.airdrop),
       );
 
       if (_airdropIndex > -1) {
-        const fieldRewardToken = sortedDapps[
+        const fieldRewardToken = _sortedDapps[
           _airdropIndex
         ].baseBlock.fields.findIndex((v) =>
           compareString(v.key, 'reward_token'),
         );
         if (fieldRewardToken > -1) {
           // @ts-ignore
-          sortedDapps[_airdropIndex].baseBlock.fields[
+          _sortedDapps[_airdropIndex].baseBlock.fields[
             fieldRewardToken
           ].options = tokens.map((t) => ({
             key: t.id,
@@ -597,11 +592,52 @@ const RollupsDappPage = () => {
             type: '',
             options: [],
           }));
+          if (airdropTasks.length > 0) {
+            // @ts-ignore
+            const blockFieldTasks = _sortedDapps[
+              _airdropIndex
+            ].blockFields.findIndex((v) =>
+              compareString(v.key, 'airdrop_tasks'),
+            );
+
+            if (blockFieldTasks > -1) {
+              // @ts-ignore
+              const airdropTaskIndex = _sortedDapps[_airdropIndex].blockFields[
+                blockFieldTasks
+              ].fields.findIndex((v) => compareString(v.key, 'task'));
+
+              if (airdropTaskIndex > -1) {
+                // @ts-ignore
+                _sortedDapps[_airdropIndex].blockFields[blockFieldTasks].fields[
+                  airdropTaskIndex
+                ].options = airdropTasks.map((t) => ({
+                  key: t.id,
+                  title: t.title,
+                  value: t.type,
+                  icon: '',
+                  tooltip: t.description,
+                  type: '',
+                  options: [],
+                }));
+              }
+            }
+          }
         }
       }
     }
+    return _sortedDapps;
+  };
 
-    setDapps(sortedDapps);
+  const fetchData = async () => {
+    // const dapps = configs;
+
+    const dapps = dappMockupData;
+
+    const sortedDapps = dapps.sort((a, b) => a.order - b.order);
+
+    const _sortedDapps = preDataAirdropTask(sortedDapps);
+
+    setDapps(_sortedDapps);
   };
 
   React.useEffect(() => {
