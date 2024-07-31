@@ -98,6 +98,17 @@ export const dappMockupData: DappModel[] = [
           tooltip: '',
           options: [],
         },
+        {
+          background: '#00AA6C',
+          key: 'publish_date',
+          title: 'Publish Date',
+          previewTitle: 'Publish Date',
+          type: 'datetime',
+          icon: '',
+          value: '',
+          tooltip: '',
+          options: [],
+        },
       ],
     },
     blockFields: [
@@ -525,7 +536,7 @@ export const dappMockupData: DappModel[] = [
       {
         key: 'information',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'Information',
+        title: 'Airdrop Token',
         tooltip: '',
         required: true,
       },
@@ -546,7 +557,7 @@ export const dappMockupData: DappModel[] = [
     ],
     baseBlock: {
       preview: true,
-      key: 'class',
+      key: 'information',
       title: 'Token for Airdrop',
       icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-orderbook.svg',
       placableAmount: -1,

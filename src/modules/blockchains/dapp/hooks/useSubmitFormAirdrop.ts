@@ -1,25 +1,23 @@
 import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
-import CStakingAPI from '@/services/api/dapp/staking';
+import CTokenAirdropAPI from '@/services/api/dapp/airdrop';
+import { IBodySetupTask, ITask } from '@/services/api/dapp/airdrop/interface';
 import { useAppSelector } from '@/stores/hooks';
+import { requestReload } from '@/stores/states/common/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { getError } from '@/utils/error';
-import { formatCurrency } from '@/utils/format';
+import dayjs from 'dayjs';
 import { Dispatch, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { requestReload } from '@/stores/states/common/reducer';
 import { TopUpDappInfor } from '../components/TopupModal';
-import { formDappSignal } from '../signals/useFormDappsSignal';
-import { FormDappUtil } from '../utils';
 import { draggedIds2DSignal } from '../signals/useDragSignal';
 import {
   formDappDropdownSignal,
   formDappInputSignal,
+  formDappSignal,
   formDappToggleSignal,
 } from '../signals/useFormDappsSignal';
-import CTokenAirdropAPI from '@/services/api/dapp/airdrop';
-import { IBodySetupTask, ITask } from '@/services/api/dapp/airdrop/interface';
-import dayjs from 'dayjs';
+import { FormDappUtil } from '../utils';
 interface IProps {
   setErrorData: Dispatch<
     SetStateAction<{ key: string; error: string }[] | undefined>

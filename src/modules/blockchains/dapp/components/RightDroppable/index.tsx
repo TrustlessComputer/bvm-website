@@ -38,6 +38,7 @@ import { useThisDapp } from '../../hooks/useThisDapp';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
+import DateTimeInput from '../DateTimeInput';
 
 const RightDroppable = () => {
   const {
@@ -143,10 +144,31 @@ const RightDroppable = () => {
             </div>
           </Lego>
         );
+      } else if (field.type === 'datetime') {
+        return (
+          <Lego
+            key={field.key}
+            background={adjustBrightness(mainColor, -20)}
+            first={false}
+            last={false}
+            title={field.title}
+            titleInLeft={true}
+            titleInRight={false}
+          >
+            <DateTimeInput
+              {...field}
+              {...fieldOpt}
+              name={field.key}
+              dappKey={thisDapp.key}
+              placeholder={field.placeholder}
+            />
+          </Lego>
+        );
       }
     },
     [thisDapp],
   );
+
   const getLabel = React.useCallback(
     (field: FieldModel, fieldOpt: FieldOption, baseIndex: number) => {
       const thisDapp = templateDapps[baseIndex];
@@ -221,6 +243,28 @@ const RightDroppable = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               {field.options.map((option) => getInput(option, fieldOpt))}
             </div>
+          </Lego>
+        );
+      } else if (field.type === 'datetime') {
+        return (
+          <Lego
+            key={field.key}
+            background={adjustBrightness(mainColor, -20)}
+            first={false}
+            last={false}
+            title={field.title}
+            titleInLeft={true}
+            titleInRight={false}
+          >
+            <DateTimeInput
+              {...field}
+              {...fieldOpt}
+              name={field.key}
+              dappKey={thisDapp.key}
+              placeholder={field.placeholder}
+              disabled
+              onlyLabel
+            />
           </Lego>
         );
       }
