@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { TopUpDappInfor } from '../components/TopupModal';
 import useDappsStore from '../stores/useDappStore';
 import { DappType } from '../types';
+import useSubmitFormAirdrop from './useSubmitFormAirdrop';
 import useSubmitFormStaking from './useSubmitFormStaking';
 
 const useSubmitForm = () => {
@@ -27,6 +28,12 @@ const useSubmitForm = () => {
   const { onSubmit: onSubmitFormTokenGeneration } =
     useSubmitFormTokenGeneration({ setErrorData, setLoading, setIsShowError });
 
+  const { onSubmit: onSubmitFormAirdrop } = useSubmitFormAirdrop({
+    setErrorData,
+    setLoading,
+    setIsShowError,
+  });
+
   const { onSubmit: onSubmitFormStaking } = useSubmitFormStaking({
     setErrorData,
     setLoading,
@@ -46,6 +53,9 @@ const useSubmitForm = () => {
         return;
       case DappType.token_generation:
         onSubmitFormTokenGeneration();
+        return;
+      case DappType.airdrop:
+        onSubmitFormAirdrop();
         return;
       default:
         return;

@@ -13,12 +13,8 @@ import { FormDappUtil } from '../utils';
 import { isEmpty } from 'lodash';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
 import { IBodyCreateToken } from '@/modules/apps/CreateToken/contract/interface';
-import {
-  getTokenomics,
-  getTotalSupply,
-} from '@/modules/apps/CreateToken/utils';
+import { getTokenomics, getTotalSupply } from '@/modules/apps/CreateToken/utils';
 import { ITokenomics } from '@/modules/apps/CreateToken/states/types';
-import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import TOKENABI from '@/modules/apps/CreateToken/contract/abis/Token.json';
 import { ethers } from 'ethers';
 import { extractedValue } from '@/modules/blockchains/dapp/hooks/utils';
@@ -43,7 +39,6 @@ const useSubmitFormTokenGeneration = ({
   setLoading,
 }: IProps) => {
   const dappState = useAppSelector(dappSelector);
-  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
   const dispatch = useDispatch();
 
   const handleReset = () => {

@@ -613,10 +613,10 @@ const RollupsDappPage = () => {
                 ].options = airdropTasks.map((t) => ({
                   key: t.id,
                   title: t.title,
-                  value: t.type,
+                  value: t.id,
                   icon: '',
                   tooltip: t.description,
-                  type: '',
+                  type: t.type,
                   options: [],
                 }));
               }
@@ -629,11 +629,11 @@ const RollupsDappPage = () => {
   };
 
   const fetchData = async () => {
-    // const dapps = configs;
+    const dapps = configs;
 
-    const dapps = dappMockupData;
+    // const dapps = dappMockupData;
 
-    const sortedDapps = dapps.sort((a, b) => a.order - b.order);
+    const sortedDapps = [...dapps].sort((a, b) => a?.order - b?.order);
 
     const _sortedDapps = preDataAirdropTask(sortedDapps);
 

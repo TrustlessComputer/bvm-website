@@ -41,10 +41,14 @@ class CDappAPI {
     }
   };
 
-  getDappConfig = async (params: { appName: string }) => {
+  getDappConfig = async (params: {
+    appName: string;
+    network_id: string;
+    address: string;
+  }) => {
     try {
       const app = (await this.http.get(
-        `/apps/detail-by-code/${params.appName}`,
+        `/apps/detail-by-code/${params.appName}?network_id=${params.network_id}&address=${params.address}`,
       )) as any;
       return app?.fe_component;
     } catch (error) {
@@ -61,7 +65,11 @@ class CDappAPI {
 
       this.dispatch(setChain({ ...chain }));
       const tasks = (chain?.dApps?.map((app) =>
-        this.getDappConfig({ appName: app.appCode }),
+        this.getDappConfig({
+          appName: app.appCode,
+          network_id: chain.chainId,
+          address: chain.tcAddress,
+        }),
       ) || []) as any[];
       const configs = (await Promise.all(tasks))
         ?.map((item) => {
