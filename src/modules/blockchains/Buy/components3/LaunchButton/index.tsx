@@ -26,6 +26,7 @@ import useL2Service from '@/hooks/useL2Service';
 import ErrorModal from '../ErrorModal';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { formatCurrencyV2 } from '@/utils/format';
+import toast from 'react-hot-toast';
 
 const LaunchButton = ({
   data,
@@ -77,15 +78,17 @@ const LaunchButton = ({
   const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
 
   const titleButton = useMemo(() => {
+    if (!loggedIn) {
+      return 'Connect';
+    }
     if (needContactUs) {
       return 'Contact Us';
     }
     if (isUpdate) {
       return 'Update';
     }
-
     return 'Launch';
-  }, [isUpdate, needContactUs]);
+  }, [loggedIn, isUpdate, needContactUs]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -156,7 +159,6 @@ const LaunchButton = ({
 
     const dynamicForm: any[] = [];
     for (const _field of originalData) {
-
       // console.log('___data filed', _field.key, field[_field.key]);
       if (!field[_field.key].dragged) continue;
 
@@ -203,7 +205,7 @@ const LaunchButton = ({
     //   return login();
     // }
 
-    console.log('____dynamicForm', dynamicForm)
+    console.log('____dynamicForm', dynamicForm);
 
     setSubmitting(true);
 
@@ -218,12 +220,12 @@ const LaunchButton = ({
     console.log('orderUpdateV2 params: ', params);
 
     try {
-      // //
-      // const result = await orderUpdateV2(params, orderDetail.orderId);
-      // console.log('orderUpdateV2 result: ', result);
-      // if (result) {
-      //   isSuccess = true;
-      // }
+      //
+      const result = await orderUpdateV2(params, orderDetail.orderId);
+      console.log('orderUpdateV2 result: ', result);
+      if (result) {
+        isSuccess = true;
+      }
     } catch (error) {
       console.log('ERROR: ', error);
       isSuccess = false;
@@ -231,13 +233,13 @@ const LaunchButton = ({
       // toast.error(message);
       if (message && message.toLowerCase().includes('insufficient balance')) {
         onOpenTopUpModal();
+      } else {
+        toast.error(message);
       }
     } finally {
       await sleep(1);
       if (isSuccess) {
-        // router.push('/chains');
-      } else {
-        // router.push('/rollups?hasOrderFailed=true');
+        toast.success('Update Successful');
       }
       setSubmitting(false);
     }
@@ -344,6 +346,10 @@ const LaunchButton = ({
       <div
         className={`${s.launch} ${s.active}`}
         onClick={() => {
+          if (!loggedIn) {
+            login();
+            return;
+          }
           if (isUpdate) {
             onUpdateHandler();
           } else {

@@ -37,10 +37,12 @@ import ButtonV1 from './components/Button';
 import { ResetModal } from './components/ResetModal';
 import useCaptureHelper from './hook/useCaptureHelper';
 import { mockupOptions } from '../Buy/Buy.data';
+import { useOrderOwnerHelper } from '@/services/api/l2services/hook';
 
 const MainPage = (props: ChainDetailComponentProps) => {
   const { chainDetailData } = props;
   const modelCategories = useAppSelector(getModelCategoriesSelector);
+  const { isOwner } = useOrderOwnerHelper(chainDetailData);
   // const modelCategories = mockupOptions; // mockup for testing
   const availableListTemplate = useAppSelector(
     getAvailableListTemplateSelector,
@@ -635,40 +637,44 @@ const MainPage = (props: ChainDetailComponentProps) => {
           <ToolBar
             leftView={
               <>
-                <ButtonV1
+                {/* <ButtonV1
                   title="Code"
                   isSelected={tabActive === TABS.CODE}
                   onClick={() => {
                     setTabActive(TABS.CODE);
                   }}
-                />
-                <ButtonV1
+                /> */}
+                {/* <ButtonV1
                   title="Explore"
                   isSelected={tabActive === TABS.EXPLORE}
                   onClick={() => {
                     setTabActive(TABS.EXPLORE);
                   }}
-                />
+                /> */}
               </>
             }
             rightView={
-              <>
-                <CostView
-                  priceBVM={formatCurrencyV2({
-                    amount: priceBVM || 0,
-                    decimals: 0,
-                  })}
-                  priceBVM2USD={formatCurrencyV2({
-                    amount: priceUSD || 0,
-                    decimals: 0,
-                  })}
-                />
-                <LaunchButton
-                  data={data}
-                  originalData={originalData}
-                  isUpdate={true}
-                />
-              </>
+              isOwner && (
+                <>
+                  <CostView
+                    priceBVM={formatCurrencyV2({
+                      amount: priceBVM || 0,
+                      decimals: 0,
+                    })}
+                    priceBVM2USD={formatCurrencyV2({
+                      amount: priceUSD || 0,
+                      decimals: 0,
+                    })}
+                  />
+                  {
+                    <LaunchButton
+                      data={data}
+                      originalData={originalData}
+                      isUpdate={true}
+                    />
+                  }
+                </>
+              )
             }
           />
 
@@ -721,7 +727,9 @@ const MainPage = (props: ChainDetailComponentProps) => {
                                 option.supportNetwork !== 'both' &&
                                 option.supportNetwork !==
                                   field['network']?.value
-                              ) || !option.selectable;
+                              ) ||
+                              !option.selectable ||
+                              !item.updatable;
 
                             if (item.multiChoice && field[item.key].dragged) {
                               const currentValues = field[item.key]
@@ -818,7 +826,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                               useMask
                               tooltip={item.tooltip}
                               value={option.key}
-                              disabled={!item.updatable}
+                              disabled={!item.updatable || option.needConfig}
                             >
                               <LegoV3
                                 background={item.color}
@@ -828,7 +836,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                                 }
                                 icon={item.confuseIcon}
                                 zIndex={item.options.length - opIdx}
-                                disabled={!item.updatable}
+                                disabled={!item.updatable || option.needConfig}
                               >
                                 <Label
                                   icon={option.icon}
@@ -881,7 +889,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                           useMask
                           tooltip={item.tooltip}
                           value={option.key}
-                          disabled={!item.updatable}
+                          disabled={!item.updatable || option.needConfig}
                         >
                           <DroppableV2 id={item.key + '-right'}>
                             <LegoV3
@@ -897,7 +905,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                                   ? s.activeBlur
                                   : ''
                               }
-                              disabled={!item.updatable}
+                              disabled={!item.updatable || option.needConfig}
                             >
                               <Label icon={option.icon} title={option.title} />
                             </LegoV3>

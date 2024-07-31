@@ -7,6 +7,7 @@ import enhanceValidateOrderID from './enhance.validateOrderID';
 import enhancePrepareData from './enhance.prepareData';
 import enhanceUpdateHandler from './enhance.updateHandler';
 import enhanceValidateOrderData from './enhance.validateOrderData';
+import enhanceCheckRedirect from './enhance.checkRedirect';
 
 //
 import withAuth from './enhance.withAuth';
@@ -36,6 +37,8 @@ export default compose<ChainDetailComponent>(
 
   // Validate OrderID
   enhanceValidateOrderData,
+
+  enhanceCheckRedirect,
 
   withAuth, // TO DO
 

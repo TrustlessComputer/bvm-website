@@ -6,6 +6,7 @@ const enhanceValidateOrderData = (WrappedComponent: any) => (props: any) => {
   const { orderDetail } = useAppSelector(getL2ServicesStateSelector);
 
   if (!orderDetail || orderDetail.orderId?.length < 1) {
+    // OrderDetail is null or OrderDetail invalid data
     return (
       <Flex
         flexDir={'column'}
@@ -17,8 +18,9 @@ const enhanceValidateOrderData = (WrappedComponent: any) => (props: any) => {
         <Text color={'#000'} fontSize={['20px']} fontWeight={600}>
           Page Not Found
         </Text>
+
         <Text color={'#000'} fontSize={['20px']} fontWeight={600}>
-          Code: [1001]
+          {`Code: [1001]`}
         </Text>
       </Flex>
     );
