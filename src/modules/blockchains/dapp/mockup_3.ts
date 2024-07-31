@@ -602,6 +602,7 @@ export const dappMockupData: DappModel[] = [
         {
           key: 'start_date',
           title: 'Start date',
+          previewTitle: 'Start',
           type: 'datetime',
           icon: '',
           value: '',
@@ -611,6 +612,7 @@ export const dappMockupData: DappModel[] = [
         {
           key: 'end_date',
           title: 'End date',
+          previewTitle: 'End',
           type: 'datetime',
           icon: '',
           value: '',
