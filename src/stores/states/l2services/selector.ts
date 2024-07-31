@@ -9,7 +9,12 @@ import {
 } from '@/modules/blockchains/Buy/Buy.constanst';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
 import { IExploreItem } from '@/services/api/l2services/types';
-import { APP_BLOCKCHAIN } from './constants';
+import {
+  APP_AIRDROP,
+  APP_BLOCKCHAIN,
+  APP_STAKING,
+  APP_TOKEN_GERNERATION,
+} from './constants';
 
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
@@ -286,7 +291,13 @@ const getOrderDetailSelected = createSelector(
       });
     }) || [];
 
-    dAppConfigList = [APP_BLOCKCHAIN, ...dAppConfigList];
+    dAppConfigList = [
+      APP_BLOCKCHAIN,
+      APP_STAKING,
+      APP_AIRDROP,
+      APP_TOKEN_GERNERATION,
+      ...dAppConfigList,
+    ];
 
     return {
       orderDetail: state.orderDetail,
