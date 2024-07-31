@@ -1,5 +1,5 @@
 .wrapper {
-    height: calc(100vh - 92px);
+    // height: calc(100vh - 92px);
     position: relative;
     // margin-top: 94px;
     // padding-bottom: 113px;
@@ -126,6 +126,8 @@
         position: relative;
     }
 
+
+
     @include is-mobile {
         height: calc(100vh + 92px);
 
@@ -161,6 +163,73 @@
             filter: invert(1);
             top: 24px;
             right: 24px;
+        }
+    }
+}
+
+.faq {
+
+    .faq_title {
+        color: #FFF;
+        text-align: center;
+        font-family: "JetBrains Mono";
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 110%;
+        /* 44px */
+    }
+
+    :global {
+        .chakra-accordion__button {
+            padding-top: 32px;
+
+            &:focus-visible {
+                box-shadow: none;
+            }
+        }
+
+        .chakra-accordion__panel {
+            padding-bottom: 32px;
+        }
+
+        .chakra-accordion__item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+
+            &:hover {
+                border-color: #FFF;
+            }
+        }
+
+        .faq-question {
+            color: #FFF;
+            font-family: "SF Pro Display";
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 110%;
+            /* 22px */
+            letter-spacing: 0.6px;
+        }
+
+        .faq-answer {
+            color: #FFF;
+            font-family: "SF Pro Display";
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 160%;
+            /* 25.6px */
+            letter-spacing: 0.48px;
+        }
+
+        .faq-icon {
+
+            div::before,
+            div::after {
+                background-color: #fff;
+            }
         }
     }
 }

@@ -35,7 +35,9 @@ const Item = ({ data }: { data: any }) => {
             >
               {data?.q}
             </Text>
-            <IconPlusToMinus open={open} size={'16px'} color="#000000" />
+            <div className="faq-icon">
+              <IconPlusToMinus open={open} size={'16px'} color="#000000" />
+            </div>
           </Flex>
         </AccordionButton>
         <AccordionPanel px={0} pb={6} style={{ paddingTop: '0' }}>

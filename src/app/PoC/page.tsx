@@ -60,7 +60,12 @@ const HackathonPage = () => {
         <Box
           position={'absolute'}
           w="100%"
-          h={{ base: 'calc(100vh +  184px)', md: '100vh' }}
+          h={{
+            base: 'calc(100vh +  15%)',
+            md: 'calc(100vh +  17%)',
+            lg: 'calc(100vh +  12%)',
+            xl: '100vh',
+          }}
         >
           <Image
             layout="fill"

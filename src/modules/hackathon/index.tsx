@@ -28,6 +28,8 @@ import {
 } from '@/services/api/EternalServices';
 import cn from 'classnames';
 import { formatCurrencyV2, humanReadable } from '@/utils/format';
+import FAQs from '@/components/faq';
+import { FAQ_POC } from './faqs';
 
 type Props = {};
 
@@ -257,6 +259,31 @@ const HackathonModule = (props: Props) => {
       {/* <Box zIndex={1} pos={'relative'}>
         <LeaderboardSection />
       </Box> */}
+      <Box
+        zIndex={10}
+        bg="#000"
+        pos={'relative'}
+        mt={{
+          base: '0px',
+          md: '100px',
+        }}
+        pb="60px"
+        className={s.faq}
+      >
+        <Box
+          pt={{
+            base: '60px',
+            md: '160px',
+          }}
+          maxW={'846px'}
+          mx="auto"
+        >
+          <Text as="h3" className={s.faq_title}>
+            FAQs
+          </Text>
+          <FAQs data={FAQ_POC} />
+        </Box>
+      </Box>
     </>
   );
 };
