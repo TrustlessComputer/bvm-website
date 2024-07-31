@@ -7,6 +7,7 @@ import { TopUpDappInfor } from '../components/TopupModal';
 import useDappsStore from '../stores/useDappStore';
 import { DappType } from '../types';
 import useSubmitFormStaking from './useSubmitFormStaking';
+import useSubmitFormAirdrop from '@/modules/blockchains/dapp/hooks/useSubmitFormAirdrop';
 
 const useSubmitForm = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
@@ -35,6 +36,14 @@ const useSubmitForm = () => {
     setIsShowTopup,
   });
 
+  const { onSubmit: onSubmitFormAirdrop } = useSubmitFormAirdrop({
+    setErrorData,
+    setLoading,
+    setIsShowError,
+    setTopupInfo,
+    setIsShowTopup,
+  });
+
   const thisDapp = React.useMemo(() => {
     return dapps[currentIndexDapp] || {};
   }, [dapps, currentIndexDapp]);
@@ -46,6 +55,9 @@ const useSubmitForm = () => {
         return;
       case DappType.token_generation:
         onSubmitFormTokenGeneration();
+        return;
+      case DappType.airdrop:
+        onSubmitFormAirdrop();
         return;
       default:
         return;
