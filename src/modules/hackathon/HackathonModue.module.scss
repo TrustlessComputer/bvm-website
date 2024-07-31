@@ -183,6 +183,7 @@
     :global {
         .chakra-accordion__button {
             padding-top: 32px;
+            padding-bottom: 32px;
 
             &:focus-visible {
                 box-shadow: none;
@@ -222,6 +223,10 @@
             line-height: 160%;
             /* 25.6px */
             letter-spacing: 0.48px;
+
+            a {
+                text-decoration: underline;
+            }
         }
 
         .faq-icon {
