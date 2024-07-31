@@ -1,0 +1,47 @@
+.container {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+
+  padding: 4px;
+  background: linear-gradient(90deg, #0bdae0 0%, #6689ff 100%);
+  border-radius: 4px;
+  color: #fff !important;
+  text-align: center;
+
+  &:hover {
+    opacity: 0.7;
+  }
+  button {
+    width: inherit;
+    p {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.containerNegative {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+
+  padding: 4px;
+  background: transparent;
+  border: 1px solid #4fb0f1;
+  border-radius: 4px;
+  color: #fff !important;
+  text-align: center;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  button {
+    width: inherit;
+    p {
+      text-transform: uppercase;
+    }
+  }
+}

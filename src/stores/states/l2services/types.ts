@@ -170,6 +170,7 @@ interface OrderItem extends OrderItemResp {
 
   dApps?: IDAppInstalled[];
   selectedOptions?: IModelCategory[];
+  dappURL?: string;
 }
 
 interface AccountInfoResp {
