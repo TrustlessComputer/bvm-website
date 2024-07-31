@@ -117,7 +117,10 @@ const Page = (props: any) => {
 
   const handleDragStart = (event: any) => {
     const { active } = event;
-    const [activeSuffix2] = active.id.split('-');
+
+    // Don't remove unused variables
+    const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
+      active.id.split('-');
 
     if (activeSuffix2 === 'right') {
       setRightDragging(true);
@@ -573,32 +576,13 @@ const Page = (props: any) => {
                             id={item.key + '-' + option.key}
                             value={option.key}
                           >
-                            <LegoInput
+                            <LegoV3
+                              icon={option.icon}
                               background={item.color}
-                              label={item.confuseTitle}
-                              labelInRight={
-                                !!item.confuseTitle || !!item.confuseIcon
-                              }
-                              icon={item.confuseIcon}
-                              zIndex={item.options.length - opIdx}
+                              label={option.title}
                               labelInLeft
-                            >
-                              <Flex
-                                flexDir={'row'}
-                                align={'center'}
-                                gap={'10px'}
-                                width={'100%'}
-                              >
-                                <Text
-                                  fontSize={['18px']}
-                                  fontWeight={500}
-                                  minW={'max-content'}
-                                >
-                                  {option.title}
-                                </Text>
-                                <ComputerNameInput />
-                              </Flex>
-                            </LegoInput>
+                              zIndex={item.options.length - opIdx}
+                            />
                           </Draggable>
                         );
                       },
