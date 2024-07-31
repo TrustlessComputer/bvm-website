@@ -111,16 +111,18 @@ const useSubmitFormAirdrop = ({
       let pools: TopUpDappInfor[] = [];
 
       for (const form of finalFormMappings) {
+        // @ts-ignore
         const tasks: ITask[] = form.airdrop_tasks.map((v) => ({
           id: v.task,
           amount: v.reward_amount,
           follow_twitter_username: v.content,
         }));
 
+        // @ts-ignore
         const body: IBodySetupTask = {
-          title: form.airdrop_title,
-          token_address: form.reward_token,
-          amount: form.airdrop_amount,
+          title: form.airdrop_title as unknown as string,
+          token_address: form.reward_token as unknown as string,
+          amount: form.airdrop_amount as unknown as string,
           is_bvm_shard: false,
           tasks,
           start_time: dayjs().format(),
