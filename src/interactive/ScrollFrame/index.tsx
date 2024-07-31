@@ -40,7 +40,6 @@ export const Frames = ({
                          willLoad = 25,
                          comp,
                        }: IProps): ReactElement => {
-  const refInner = useRef<HTMLDivElement>(null);
   const refCanavs = useRef<HTMLCanvasElement>(null);
   const refDom = useRef<IRefDomFrames>({
     currentFrame: 0,
@@ -55,8 +54,6 @@ export const Frames = ({
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
-
-
 
     const registerImgDom = (frame: number, step = false): void => {
       if (frame > totalFrames) return;
@@ -129,8 +126,6 @@ export const Frames = ({
       const frame = refDom.current.lastFrame;
       poFame.value = frame;
 
-      console.log('_____frame', frame);
-
       if (frame !== refDom.current.currentFrame) {
         refDom.current.currentFrame = frame;
         if (!refDom.current.images[frame]) {
@@ -161,10 +156,9 @@ export const Frames = ({
       refDom.current.runFrame = runFrame;
       loadFirstFrame();
     }
-
-    // console.log('_____com', comp.current);
+    const taget = comp.current || document.getElementById('scrollingSection');
     ScrollTrigger.create({
-      trigger: comp.current,
+      trigger: taget,
       start: 'center center',
       pin: true,
       end: () => `+=${MathMap(totalFrames, 0, 30, 0, window.innerHeight)}px center`,
