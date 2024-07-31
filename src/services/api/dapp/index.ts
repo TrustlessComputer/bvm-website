@@ -59,7 +59,7 @@ class CDappAPI {
       const chain = await this.getChainByOrderID({ orderID: params.orderID });
       chain.dappURL = this.getDappURL(chain);
 
-      this.dispatch(setChain({ ...chain, chainId: '91227' }));
+      this.dispatch(setChain({ ...chain }));
       const tasks = (chain?.dApps?.map((app) =>
         this.getDappConfig({ appName: app.appCode }),
       ) || []) as any[];
