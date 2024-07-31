@@ -21,14 +21,14 @@ export const dappMockupData: DappModel[] = [
         key: 'information',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
         title: 'Information',
-        tooltip: 'Token Generation information',
+        tooltip: '',
         required: true,
       },
       {
         key: 'tokenomics',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
         title: 'Tokenomics',
-        tooltip: 'Token Generation tokenomics',
+        tooltip: '',
         required: false,
       },
       // {
