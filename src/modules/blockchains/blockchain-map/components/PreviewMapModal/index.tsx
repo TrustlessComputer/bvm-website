@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import s from './styles.module.scss';
 import BaseModal from '@components/BaseModal';
-import { addEdge, applyEdgeChanges, applyNodeChanges, ReactFlow } from '@xyflow/react';
+import { addEdge, applyEdgeChanges, applyNodeChanges, MarkerType, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import CustomEdge from './CustomEdge';
 
@@ -15,7 +15,6 @@ const initialNodes = [
 
   {
     id: '2',
-    // you can also pass a React component as a label
     data: { label: <>
         <div>Staking apps</div>
         <div>Staking apps</div>
@@ -39,9 +38,15 @@ const initialNodes = [
 ];
 
 const initialEdges = [
-  { id: 'e1-3', source: '1', target: '3', label: 'Output 1', labelShowBg: false },
-  { id: 'e2-2', source: '1', target: '2', label: 'Output 2', labelShowBg: false, },
-  { id: 'e1-4', source: '1', target: '4', label: 'Output 2', labelShowBg: false, },
+  { id: 'e1-3', source: '1', target: '3', className: `${s.line}` , label: 'Output 1', labelShowBg: false,   markerEnd: {
+      type: MarkerType.Arrow,
+    }, },
+  { id: 'e2-2', source: '1', target: '2', label: 'Output 2', labelShowBg: false,    markerEnd: {
+      type: MarkerType.Arrow,
+    }, },
+  { id: 'e1-4', source: '1', target: '4', label: 'Output 2', labelShowBg: false,    markerEnd: {
+      type: MarkerType.Arrow,
+    }, },
 ];
 
 const edgeTypes = {
@@ -87,6 +92,7 @@ export default function PreviewMapModal({...props}): React.JSX.Element {
         onConnect={onConnect}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        fitView
       />
     </BaseModal>
   );
