@@ -44,6 +44,7 @@ class CDappApiClient {
         }
         if (!params?.network_id && !!chain) {
           params.network_id = chain.chainId;
+          params.address = chain.tcAddress;
         }
         return {
           ..._config,
