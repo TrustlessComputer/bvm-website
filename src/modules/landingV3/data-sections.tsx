@@ -21,72 +21,76 @@ interface DataSections {
 
 export const HOME_DATA_SECTIONS: DataSections[] = [
   {
-    title: 'A fully integrated suite of blockchain products',
-    subTitle: 'MODULAR SOLUTIONS',
+    title: 'Pick your favorite building blocks',
+    subTitle: 'STEP 1',
     children: <div>
-      <p> Reduce costs, grow users, and run your app more efficiently on a fully integrated platform. You don't need to
-        set up compute, storage, and hardware node. BVM handles everything.</p>
-      <p> To make it all happen, we partner with some of the best crypto projects in the world.</p>
+      <p>BVM partners with the best crypto projects to create a fully integrated suite of rollup products. Need compute? Choose ZK. Need storage? Choose Avail DA. Need hardware? Choose an instance with 32 cores and 64 GB RAM.</p>
     </div>,
-    image: '/images/home-v2-hero-sdutio.jpg',
-    button: {
-      link: BVM_STUDIO,
-      title: 'Customize & launch your blockchain',
-    },
+    image: '/images/legoModule.jpg',
+    // button: {
+    //   link: BVM_STUDIO,
+    //   title: 'BUILD YOUR ZK ROLLUP',
+    // },
   },
   {
-    title: 'Learn blockchain. Dream blockchain. Developer blockchain.',
-    subTitle: 'BUILD DECENTRALIZED APPS',
+    title: 'Assemble building blocks into a rollup',
+    subTitle: 'STEP 2',
     children: <div>
-
-      <p>Decentralized applications are unlike anything before them. They run exactly as programmed without any possibility of downtime, fraud, or interference — entirely trustless. They are written in a new programming language called Solidity.
-      </p>
-
+      <p>Once you've selected the best building blocks for your rollup, assemble them into your unique rollup with simple drag-and-drop functionality.</p>
     </div>,
-    image: '/bvm/home-section-2.jpg',
-    button: {
-      target: '_blank',
-      link: 'https://docs.bvm.network/bvm',
-      title: 'Read developer docs',
-    },
-    direction: 'left',
+    image: '/images/rollups.jpg',
+    // button: {
+    //   link: BVM_STUDIO,
+    //   title: 'BUILD YOUR ZK ROLLUP ',
+    // },
   },
   {
-    title: '$99/mo for a fully managed blockchain',
-    subTitle: 'PRICING',
-
+    title: 'Deploy your rollup with just a click',
+    subTitle: 'STEP 3',
     children: <div>
-      <p>Before BVM, you need an army of PhDs, cryptographers, and distributed system engineers to build and scale a blockchain.</p>
-      <p>Today, you can launch a blockchain backed by Bitcoin’s security with just a few clicks for $99 monthly.</p>
+      <p>Before BVM, building and scaling a blockchain required an army of PhDs, cryptographers, and distributed system engineers. Now, you can deploy one with just a click — no coding needed.</p>
     </div>,
-    image: '/bvm/bvm-home-pricing.png',
-    button: {
-      link: '/pricing',
-      title: 'View pricing',
-    },
+    image: '/images/home-section-3-v3.png',
+    // button: {
+    //   target: '_blank',
+    //   link: BVM_STUDIO,
+    //   title: 'BUILD YOUR ZK ROLLUP',
+    // },
   },
   {
-    title: 'Built by developers, for developers',
-    subTitle: 'TEAM',
+    title: 'Extend your rollup with more dapps',
+    subTitle: 'STEP 4',
+
     children: <div>
-      <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's
-        lack of scalability and programmability has been its hallmark. </p>
-      <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond
-        just a currency.</p>
-      <p>Oh, and we really like building things.</p>
+      <p>If you’ve built dapps on Ethereum, you can easily build on Bitcoin. Your ZK rollup on Bitcoin is EVM-equivalent, allowing you to write Solidity smart contracts on Bitcoin without learning a new toolkit. All your existing code and tools work seamlessly out of the box.</p>
     </div>,
-    direction: 'left',
-    image: '/bvm/home-team-v2.png',
-    button: {
-      link: '/research',
-      title: 'Read our research',
-    },
-    button2: {
-      link: '/team',
-      title: 'Meet the team',
-    },
+    image: '/images/code.jpg',
+    // button: {
+    //   link: 'https://docs.bvm.network/bvm',
+    //   title: 'READ DEVELOPER DOCS',
+    // },
   },
+
 ];
+
+export const TEAM = {
+  title: 'Built by builders, for builders',
+  subTitle: 'TEAM',
+  children: <div>
+    <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack of scalability and programmability has been its hallmark.</p>
+    <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
+    <p>Oh, and we really like building things.</p>
+  </div>,
+  image: '/images/team2.png',
+  button: {
+    link: '/research',
+    title: 'Read our research',
+  },
+  button2: {
+    link: '/team',
+    title: 'Meet the team',
+  },
+};
 
 export const DATA_BRAND = [
   {

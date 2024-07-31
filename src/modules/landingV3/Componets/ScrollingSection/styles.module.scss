@@ -1,0 +1,163 @@
+.inner {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+  //align-items: center;
+
+  @include is-min-table {
+    gap: 48px;
+  }
+
+  @include is-pc {
+    gap: 120px;
+    flex-direction: row;
+    max-width: 1440px;
+  }
+
+  &__left {
+    @include is-pc {
+      flex-direction: row-reverse;
+    }
+  }
+}
+
+.left {
+  width: 100%;
+
+
+  img {
+    max-width: 100%;
+  }
+
+  @include is-pc {
+    flex: 0 0 753px;
+    max-width: 753px;
+  }
+}
+
+.left_image {
+  opacity: 0;
+  transition: opacity .4s ease-out;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.section {
+  padding-top: 64px;
+  padding-bottom: 64px;
+
+  @include is-min-table {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  @include is-pc {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+}
+
+.content {
+
+  .subTitle {
+    font-family: var(--font-SFProDisplay);
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    text-align: left;
+    color: black;
+    text-transform: uppercase;
+  }
+
+  &_title {
+    font-family: var(--font-JetBrainsMono);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 41.6px;
+    text-align: left;
+    color: black;
+    margin-bottom: 24px;
+  }
+
+  &_desc {
+    font-family: var(--font-SFProDisplay);
+    color: #5d6875;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 27px;
+    letter-spacing: 0.05em;
+    text-align: left;
+    max-width: 600px;
+    margin-bottom: 24px;
+
+    p:not(:last-child ) {
+      margin-bottom: 24px;
+    }
+  }
+
+  .button {
+    font-family: var(--font-JetBrainsMono);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 19.6px;
+    text-align: center;
+    color: #fa4e0e;
+    text-transform: uppercase;
+
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    &__2 {
+      margin-top: 24px;
+    }
+
+    svg {
+      transform: translateY(-.07em);
+    }
+  }
+}
+
+//#
+
+.scrollingSection {
+  margin-top: -20vh;
+}
+
+.left_inner {
+  top: 0;
+  height: 100vh;
+  position: sticky;
+  display: flex;
+  align-items: center;
+
+  &_content {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+  }
+
+  &_item {
+    &:not(:first-child) {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
+.right {
+  @include is-min-table {
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+  }
+}
+
+.right_content {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+}
