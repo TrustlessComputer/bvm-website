@@ -44,17 +44,19 @@ const MainPage = (props: ChainDetailComponentProps) => {
     getAvailableListTemplateSelector,
   );
 
+  console.log('____modelCategories', modelCategories);
+
   const { exportAsImage, download } = useCaptureHelper();
 
   const [data, setData] = React.useState<
     | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
+    options: IModelCategory['options'] &
+      {
+        value: any;
+        label: string;
+        disabled: boolean;
+      }[];
+  })[]
     | null
   >(null);
 
@@ -107,8 +109,10 @@ const MainPage = (props: ChainDetailComponentProps) => {
   const handleDragStart = (event: any) => {
     const { active } = event;
 
-    const [activeSuffix2] = active.id.split('-');
-
+    //dont remove it, unuse variaables, if you have OCD with it's
+    const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
+      active.id.split('-');
+    //dont remove it, unuse variaables, if you have OCD with it's
     if (activeSuffix2 === 'right') {
       setRightDragging(true);
     }
@@ -245,7 +249,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
     }
   }
 
@@ -614,6 +618,8 @@ const MainPage = (props: ChainDetailComponentProps) => {
     resetByTemplate(chainDetailData?.selectedOptions || []);
   };
 
+  console.log('___datga', data);
+
   return (
     <Flex
       flexDir={'column'}
@@ -715,7 +721,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                                 option.supportNetwork &&
                                 option.supportNetwork !== 'both' &&
                                 option.supportNetwork !==
-                                  field['network']?.value
+                                field['network']?.value
                               ) || !option.selectable;
 
                             if (item.multiChoice && field[item.key].dragged) {
@@ -753,13 +759,10 @@ const MainPage = (props: ChainDetailComponentProps) => {
                         </BoxOptionV3>
                       );
                     })}
-
                     <div className={s.hTrigger}></div>
                   </DroppableV2>
                 </Flex>
               </Flex>
-
-              {/* MiddleView */}
               <Flex
                 flex={1}
                 className={s.middleViewContainer}
@@ -957,15 +960,16 @@ const MainPage = (props: ChainDetailComponentProps) => {
               <DragOverlay>
                 {idDragging &&
                   data?.map((item, index) => {
-                    if (!idDragging.startsWith(item.key)) return null;
 
+
+                    if (!idDragging.startsWith(item.key)) return null;
+                    console.log('______222', rightDragging, item.key);
                     if (item.multiChoice && rightDragging) {
                       const childrenOptions = item.options.map(
                         (option, opIdx) => {
                           const optionInValues = (
                             field[item.key].value as string[]
                           ).includes(option.key);
-
                           if (!optionInValues) return null;
 
                           return (

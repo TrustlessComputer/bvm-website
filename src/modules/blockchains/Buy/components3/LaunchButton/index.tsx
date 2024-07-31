@@ -130,7 +130,7 @@ const LaunchButton = ({
   }, [isFecthingData, availableList, packageParam]);
 
   const onUpdateHandler = async () => {
-    console.log('A11 ', allFilled);
+    console.log('___data_A11 ', allFilled);
 
     if (!allFilled) {
       setShowError(true);
@@ -156,6 +156,8 @@ const LaunchButton = ({
 
     const dynamicForm: any[] = [];
     for (const _field of originalData) {
+
+      // console.log('___data filed', _field.key, field[_field.key]);
       if (!field[_field.key].dragged) continue;
 
       if (_field.multiChoice) {
@@ -178,6 +180,11 @@ const LaunchButton = ({
         ...rest,
         options: [value],
       });
+
+      // console.log('___pushing', {...{
+      //     ...rest,
+      //     options: [value],
+      //   }});
     }
 
     if (needContactUs) {
@@ -191,9 +198,12 @@ const LaunchButton = ({
       return;
     }
 
-    if (!loggedIn) {
-      return login();
-    }
+    //test comment.
+    // if (!loggedIn) {
+    //   return login();
+    // }
+
+    console.log('____dynamicForm', dynamicForm)
 
     setSubmitting(true);
 
