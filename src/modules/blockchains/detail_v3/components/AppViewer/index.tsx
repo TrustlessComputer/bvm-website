@@ -18,14 +18,12 @@ type Props = {
 const AppViewer = (props: Props) => {
   const { itemOnClick, onExport, onShare } = props;
   const router = useRouter();
-  const { dAppConfigSelected } = useAppSelector(getOrderDetailSelected);
+  const { dAppConfigSelected, orderDetail } = useAppSelector(
+    getOrderDetailSelected,
+  );
 
   const itemOnClickProxy = (item: IModelOption) => {
-    // console.log('item ', item);
-
     const currentPath = window.location.pathname;
-
-    // console.log('currentPath ', currentPath);
 
     if (dAppConfigSelected?.key?.toLowerCase() === item.key?.toLowerCase()) {
       return;
@@ -33,24 +31,35 @@ const AppViewer = (props: Props) => {
 
     switch (item.key) {
       case 'my_blockchain':
-        router.back();
+        router.push(`/chains/${orderDetail?.orderId}`);
         break;
 
       //Account Abstraction
       case 'flex_pay':
       case 'account_abstraction':
         if (!currentPath?.includes('account-abstraction')) {
-          router.push(currentPath + '/account-abstraction');
+          router.push(`/chains/${orderDetail?.orderId}/account-abstraction`);
         }
         break;
 
-      //Staking (TO DO)
       case 'staking':
+        if (!currentPath?.includes('dapp=staking')) {
+          router.push(`/chains/${orderDetail?.orderId}?dapp=staking`);
+        }
         break;
 
-      //Issues Token (TO DO)
-      case 'issue_token':
+      case 'token_generation':
+        if (!currentPath?.includes('dapp=token_generation')) {
+          router.push(`/chains/${orderDetail?.orderId}?dapp=token_generation`);
+        }
         break;
+
+      case 'airdrop':
+        if (!currentPath?.includes('dapp=airdrop')) {
+          router.push(`/chains/${orderDetail?.orderId}?dapp=token_generation`);
+        }
+        break;
+
       default:
         break;
     }

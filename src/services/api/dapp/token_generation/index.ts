@@ -21,6 +21,7 @@ class CTokenGenerationAPI {
       const rs: ITokenVesting[] = await this.api.get(`/tokens/vesting`, {
         params: {
           token_address,
+          network_id
         },
       });
       return rs;

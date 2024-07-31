@@ -6,6 +6,8 @@ const initialState: DappState = {
   loading: false,
   configs: [],
   tokens: [],
+  stakingPools: [],
+  airdropTasks: [],
 };
 
 const slice = createSlice({
@@ -24,6 +26,12 @@ const slice = createSlice({
     setTokens: (state, actions) => {
       state.tokens = actions.payload;
     },
+    setStakingPools: (state, actions) => {
+      state.stakingPools = actions.payload;
+    },
+    setAirdropTasks: (state, actions) => {
+      state.airdropTasks = actions.payload;
+    },
   },
 });
 
@@ -32,6 +40,8 @@ export const {
   setLoading,
   setConfigs,
   setTokens,
+  setStakingPools,
+  setAirdropTasks,
 } = slice.actions;
 
 export default slice.reducer;

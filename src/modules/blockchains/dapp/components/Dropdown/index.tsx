@@ -6,17 +6,24 @@ import { useSignalEffect } from '@preact/signals-react';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 
-import { FieldOption } from '../../types';
+import { DappType, FieldOption } from '../../types';
 import { adjustBrightness, FormDappUtil } from '../../utils';
-import { useFormDappsStore } from '../../stores/useDappStore';
+import useDappsStore, { useFormDappsStore } from '../../stores/useDappStore';
 import {
   formDappDropdownSignal,
   formDappSignal,
+  formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
 
 import styles from './styles.module.scss';
+import { compareString } from '@/utils/string';
+import {
+  draggedIds2DSignal,
+  templateIds2DSignal,
+} from '../../signals/useDragSignal';
 
 type Props = {
+  onlyLabel?: boolean;
   background?: string;
   disabled?: boolean;
   options: FieldModel[];
@@ -30,8 +37,10 @@ const Dropdown = ({
   disabled,
   name,
   keyDapp,
+  onlyLabel = false,
   ...props
 }: Props) => {
+  const { setCurrentIndexDapp } = useDappsStore();
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [isOpenDropdown, setIsOpenDropdown] = React.useState<boolean>(false);
   const [currentValue, setCurrentValue] = React.useState<FieldModel | null>(
@@ -44,6 +53,8 @@ const Dropdown = ({
   const backgroundActive = adjustBrightness(background, -20);
 
   const handleOnClickOption = (item: FieldModel) => {
+    if (disabled || onlyLabel) return;
+
     const formDappDropdown = formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
@@ -56,7 +67,19 @@ const Dropdown = ({
     setIsOpenDropdown(false);
   };
 
+  const handleOnClickCreateToken = () => {
+    formDappSignal.value = {};
+    draggedIds2DSignal.value = [];
+
+    formTemplateDappSignal.value = {};
+    templateIds2DSignal.value = [];
+
+    setCurrentIndexDapp(0);
+  };
+
   useSignalEffect(() => {
+    if (disabled || onlyLabel) return;
+
     const thisValue =
       formDappSignal.value[FormDappUtil.getKeyForm(props, props, name)];
 
@@ -69,27 +92,72 @@ const Dropdown = ({
   });
 
   React.useEffect(() => {
-    const formDappDropdown = formDappSignal.value;
+    const formDappDropdown = onlyLabel
+      ? formTemplateDappSignal.value
+      : formDappSignal.value;
     const key = FormDappUtil.getKeyForm(props, props, name);
 
-    if (!formDappDropdown[key]) {
-      formDappSignal.value = {
-        ...formDappDropdown,
-        [key]: props.options[0].value,
-      };
-    } else {
-      setCurrentValue(
-        props.options.find((item) => item.value === formDappDropdown[key]) ||
-          props.options[0],
-      );
+    if (props.options.length > 0) {
+      if (!formDappDropdown[key]) {
+        formDappSignal.value = {
+          ...formDappDropdown,
+          [key]: props.options[0].value,
+        };
+      } else {
+        setCurrentValue(
+          props.options.find((item) => item.value === formDappDropdown[key]) ||
+            props.options[0],
+        );
+      }
     }
   }, []);
 
-  if (!currentValue) return null;
+  if (!currentValue) {
+    if (compareString(keyDapp, DappType.airdrop) && props.inBaseField) {
+      return (
+        <div
+          className={cn(styles.dropdown, {
+            [styles.dropdown__disabled]: disabled,
+          })}
+          ref={ref}
+          style={{
+            // @ts-ignore
+            '--background': background,
+            '--background-hover': backgroundHover,
+            '--background-active': backgroundActive,
+          }}
+          onClick={() => handleOnClickCreateToken()}
+        >
+          <div className={styles.dropdown__inner}>
+            <div
+              className={styles.dropdown__inner__content}
+              onClick={() => setIsOpenDropdown(!isOpenDropdown)}
+            >
+              <p className={styles.dropdown__inner__content__text}>
+                Create A Token
+              </p>
+
+              {props.options.length > 1 && !disabled ? (
+                <Image
+                  src="/landingV3/svg/arrow-b.svg"
+                  width={16}
+                  height={16}
+                  alt="icon"
+                />
+              ) : null}
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }
 
   return (
     <div
-      className={styles.dropdown}
+      className={cn(styles.dropdown, {
+        [styles.dropdown__disabled]: disabled,
+      })}
       ref={ref}
       style={{
         // @ts-ignore
@@ -111,14 +179,14 @@ const Dropdown = ({
             {currentValue.title}
           </p>
 
-          {props.options.length > 1 && (
+          {props.options.length > 1 && !disabled ? (
             <Image
               src="/landingV3/svg/arrow-b.svg"
               width={16}
               height={16}
               alt="icon"
             />
-          )}
+          ) : null}
         </div>
       </div>
 

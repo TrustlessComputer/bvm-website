@@ -112,6 +112,10 @@ export const FormDappUtil = {
     return key.split('-')[2];
   },
 
+  getBlockType(key: string) {
+    return key.split('-')[1];
+  },
+
   getBlockKey(key: string) {
     return key.split('-')[5];
   },
@@ -138,6 +142,18 @@ export const FormDappUtil = {
 
   isInSingle(key: string) {
     return key.split('-')[1] === FieldKeyPrefix.SINGLE;
+  },
+
+  isInModule(key: string) {
+    return key.split('-')[1] === FieldKeyPrefix.MODULE;
+  },
+
+  isInBase(key: string) {
+    return key.split('-')[1] === FieldKeyPrefix.BASE;
+  },
+
+  isInBaseModule(key: string) {
+    return key.split('-')[1] === FieldKeyPrefix.BASE_MODULE;
   },
 
   // prettier-ignore
@@ -169,8 +185,16 @@ export const DragUtil = {
     return idDragging.split('-')[1] === FieldKeyPrefix.BASE;
   },
 
+  idDraggingIsAModule(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.MODULE;
+  },
+
   idDraggingIsAField(idDragging: string) {
     return typeof idDragging.split('-')[3] !== 'undefined';
+  },
+
+  idDraggingIsABaseModule(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.BASE_MODULE;
   },
 
   getBaseIndex(idDragging: string) {
@@ -212,4 +236,16 @@ export const compareKeyInFormDappAndDrag = (
     indexInFormDapp === indexInActiveId &&
     originalKeyInFormDapp === originalKeyInActiveId
   );
+};
+
+export const cloneDeep = <T>(obj: T) => {
+  return JSON.parse(JSON.stringify(obj)) as T;
+};
+
+export const isTwoObjectEqual = (obj1: any, obj2: any) => {
+  return JSON.stringify(obj1) === JSON.stringify(obj2);
+};
+
+export const hasValue = (value: any) => {
+  return value !== null && value !== undefined;
 };
