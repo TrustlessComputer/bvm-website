@@ -9,14 +9,12 @@ import { Flex } from '@chakra-ui/react';
 export default () => {
   const { loading, configs } = useFetchDapp();
 
-  if (loading || !configs?.length) {
+  if (loading || !!configs?.length) {
     return (
       <Flex h="90vh">
         <AppLoading />
       </Flex>
-    )
+    );
   }
-  return (
-    <RollupsDappPage />
-  );
+  return <RollupsDappPage />;
 };
