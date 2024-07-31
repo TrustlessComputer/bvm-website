@@ -120,6 +120,12 @@ const Lego = (props: Props) => {
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-dropdown.svg'}
                   />
+                ) : field.type === 'datetime' ? (
+                  <Image
+                    width="32px"
+                    height="auto"
+                    src={'/icons-tool/issue-a-token/icon-datetime.svg'}
+                  />
                 ) : (
                   <></>
                 )}
