@@ -30,3 +30,27 @@ export interface IBodySetupTask {
   receivers?: ITaskReceiver[];
   is_bvm_shard: boolean;
 }
+
+export interface IAirdrop {
+  id: number;
+  network_id: number;
+  owner_address: string;
+  admin_address: string;
+  contract_address: string;
+  title: string;
+  description: string;
+  status: EAirdropStatus;
+  token_address: string;
+  amount: string;
+  start_time: string;
+  end_time: string;
+  expired_time: string;
+  tasks: IAirdropTask[];
+}
+
+export enum EAirdropStatus {
+  new = 'new',
+  deposited = 'deposited',
+  processing = 'processing',
+  ended = 'ended',
+}

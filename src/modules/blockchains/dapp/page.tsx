@@ -49,6 +49,8 @@ import { useThisDapp } from './hooks/useThisDapp';
 import { parseStakingPools } from './parseUtils/staking';
 import styles from './styles.module.scss';
 import { DappType } from './types';
+import { IAirdrop } from '@/services/api/dapp/airdrop/interface';
+import { parseAirdrop } from './parseUtils/airdrop';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
@@ -60,6 +62,7 @@ const RollupsDappPage = () => {
 
   const tokens = dappState.tokens;
   const airdropTasks = dappState.airdropTasks;
+  const airdrops = dappState.airdrops;
   const stakingPools = dappState.stakingPools;
 
   const {
@@ -74,6 +77,16 @@ const RollupsDappPage = () => {
     const result: DappModel[] = [];
     for (const token of tokens) {
       const t = parseIssuedToken(token);
+      result.push(t);
+    }
+
+    return result;
+  };
+
+  const parseAirdropsData = (_airdrops: IAirdrop[]) => {
+    const result: DappModel[] = [];
+    for (const airdrop of _airdrops) {
+      const t = parseAirdrop(airdrop);
       result.push(t);
     }
 
@@ -689,7 +702,7 @@ const RollupsDappPage = () => {
 
   React.useEffect(() => {
     getDataTemplateForm();
-  }, [thisDapp, tokens, stakingPools]);
+  }, [thisDapp, tokens, stakingPools, airdrops]);
 
   React.useEffect(() => {
     fetchData();
@@ -720,14 +733,14 @@ const RollupsDappPage = () => {
         break;
       }
       case DappType.airdrop: {
-        const data = parseTokensData(tokens);
+        const data = parseAirdropsData(airdrops);
         console.log('data', data);
 
-        const model = parseDappModel({
-          key: DappType.airdrop,
-          model: data,
-        });
-        console.log('model', model);
+        // const model = parseDappModel({
+        //   key: DappType.airdrop,
+        //   model: data,
+        // });
+        // console.log('model', model);
 
         // setTemplateDapps(data);
         // setTemplateForm(model);
