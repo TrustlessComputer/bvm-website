@@ -31,18 +31,19 @@ import ExplorePage from './Explore';
 import Image from 'next/image';
 import { OrderItem } from '@/stores/states/l2services/types';
 import { mockupOptions } from './Buy.data';
+import PreviewMapModal from 'src/modules/blockchains/blockchain-map/components/PreviewMapModal';
 
 const BuyPage = () => {
   const router = useRouter();
   const [data, setData] = React.useState<
     | (IModelCategory & {
-        options: IModelCategory['options'] &
-          {
-            value: any;
-            label: string;
-            disabled: boolean;
-          }[];
-      })[]
+    options: IModelCategory['options'] &
+      {
+        value: any;
+        label: string;
+        disabled: boolean;
+      }[];
+  })[]
     | null
   >(null);
   const [originalData, setOriginalData] = React.useState<
@@ -231,7 +232,7 @@ const BuyPage = () => {
 
       setField(activeKey, newValue, !isEmpty);
       isEmpty &&
-        setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
+      setFieldsDragged(fieldsDragged.filter((field) => field !== activeKey));
     }
   }
 
@@ -696,9 +697,9 @@ const BuyPage = () => {
                                 let suffix =
                                   Math.abs(_price) > 0
                                     ? ` (${formatCurrencyV2({
-                                        amount: _price,
-                                        decimals: 0,
-                                      })} BVM)`
+                                      amount: _price,
+                                      decimals: 0,
+                                    })} BVM)`
                                     : '';
 
                                 _price = option.priceBVM - currentPrice;
@@ -707,9 +708,9 @@ const BuyPage = () => {
                                 suffix =
                                   Math.abs(_price) > 0
                                     ? ` (${operator}${formatCurrencyV2({
-                                        amount: Math.abs(_price),
-                                        decimals: 0,
-                                      })} BVM)`
+                                      amount: Math.abs(_price),
+                                      decimals: 0,
+                                    })} BVM)`
                                     : '';
 
                                 if (
@@ -724,7 +725,7 @@ const BuyPage = () => {
                                     option.supportNetwork &&
                                     option.supportNetwork !== 'both' &&
                                     option.supportNetwork !==
-                                      field['network']?.value
+                                    field['network']?.value
                                   ) || !option.selectable;
 
                                 if (
@@ -1167,6 +1168,7 @@ const BuyPage = () => {
           </button>
         </div>
       </ErrorModal>
+
     </div>
   );
 };
