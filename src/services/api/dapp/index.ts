@@ -1,5 +1,5 @@
 import { OrderItem } from '@/stores/states/l2services/types';
-import { API_BASE_URL } from '@/config';
+import { API_BASE_URL, isLocal } from '@/config';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   setChain,
@@ -11,6 +11,7 @@ import { IReqDapp } from '@/services/api/dapp/types';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import CDappApiClient from '@/services/api/dapp/dapp.client';
 import CTokenGenerationAPI from '@/services/api/dapp/token_generation';
+import { isLocalhost } from '@/utils/helpers';
 
 class CDappAPI {
   private dappState = useAppSelector(dappSelector);
@@ -63,7 +64,13 @@ class CDappAPI {
       const chain = await this.getChainByOrderID({ orderID: params.orderID });
       chain.dappURL = this.getDappURL(chain);
 
-      this.dispatch(setChain({ ...chain }));
+      const _chain = chain;
+
+      if (isLocalhost()) {
+        _chain.chainId = '91227';
+      }
+
+      this.dispatch(setChain({ ..._chain }));
       const tasks = (chain?.dApps?.map((app) =>
         this.getDappConfig({
           appName: app.appCode,
