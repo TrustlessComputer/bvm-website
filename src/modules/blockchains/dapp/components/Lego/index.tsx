@@ -125,26 +125,26 @@ const Lego = (props: Props) => {
                 </div>
                 {field.type === 'input' ? (
                   <Image
-                    width="32px"
+                    width="36px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-input.svg'}
                   />
                 ) : field.type === 'extends' &&
                   typeof field.value === 'number' ? (
                   <Image
-                    width="32px"
+                    width="40px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-switch.svg'}
                   />
                 ) : field.type === 'dropdown' ? (
                   <Image
-                    width="32px"
+                    width="36px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-dropdown.svg'}
                   />
                 ) : field.type === 'datetime' ? (
                   <Image
-                    width="32px"
+                    width="36px"
                     height="auto"
                     src={'/icons-tool/issue-a-token/icon-datetime.svg'}
                   />
