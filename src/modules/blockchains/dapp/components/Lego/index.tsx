@@ -37,6 +37,7 @@ type TitlePosition =
     };
 
 type Props = {
+  zIndex?: number;
   background?: string;
   title?: string;
   icon?: string;
@@ -50,6 +51,7 @@ type Props = {
 
 const Lego = (props: Props) => {
   const {
+    zIndex = 0,
     background = '#A041FF',
     icon,
     title,
@@ -65,6 +67,24 @@ const Lego = (props: Props) => {
     ...rest
   } = props;
 
+  const legoRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useEffect(() => {
+    const parentDOM = legoRef.current?.parentElement;
+
+    if (!parentDOM) return;
+
+    const parentDOMIsDraggable =
+      parentDOM.getAttribute('aria-roledescription') === 'draggable';
+
+    if (parentDOMIsDraggable) {
+      parentDOM.style.zIndex = `${zIndex}`;
+    } else if (legoRef.current) {
+      legoRef.current.style.zIndex = `${zIndex}`;
+      legoRef.current.style.position = 'relative';
+    }
+  }, [legoRef.current]);
+
   return (
     <div
       className={cn(styles.lego, {
@@ -76,9 +96,10 @@ const Lego = (props: Props) => {
         '--background-color': background,
         '--border-color': adjustBrightness(background, -20),
       }}
+      ref={legoRef}
     >
       <div className={cn(styles.lego__piece, styles.lego__piece__top)}>
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
+        <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
       </div>
 
       {preview ? (
@@ -113,7 +134,8 @@ const Lego = (props: Props) => {
                   <Image
                     width="32px"
                     height="auto"
-                    src={'/icons-tool/issue-a-token/icon-switch.svg'} />
+                    src={'/icons-tool/issue-a-token/icon-switch.svg'}
+                  />
                 ) : field.type === 'dropdown' ? (
                   <Image
                     width="32px"
@@ -136,7 +158,9 @@ const Lego = (props: Props) => {
                 styles.lego__inner__label__left,
               )}
             >
-              {icon && <Image src={icon} width="20px" height="20px" alt="icon" />}
+              {icon && (
+                <Image src={icon} width="20px" height="20px" alt="icon" />
+              )}
               <p>{title}</p>
             </div>
           ) : null}

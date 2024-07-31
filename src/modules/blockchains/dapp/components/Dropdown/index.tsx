@@ -17,6 +17,10 @@ import {
 
 import styles from './styles.module.scss';
 import { compareString } from '@/utils/string';
+import {
+  draggedIds2DSignal,
+  templateIds2DSignal,
+} from '../../signals/useDragSignal';
 
 type Props = {
   onlyLabel?: boolean;
@@ -61,6 +65,16 @@ const Dropdown = ({
 
     setCurrentValue(item);
     setIsOpenDropdown(false);
+  };
+
+  const handleOnClickCreateToken = () => {
+    formDappSignal.value = {};
+    draggedIds2DSignal.value = [];
+
+    formTemplateDappSignal.value = {};
+    templateIds2DSignal.value = [];
+
+    setCurrentIndexDapp(0);
   };
 
   useSignalEffect(() => {
@@ -112,9 +126,7 @@ const Dropdown = ({
             '--background-hover': backgroundHover,
             '--background-active': backgroundActive,
           }}
-          onClick={() => {
-            setCurrentIndexDapp(0);
-          }}
+          onClick={() => handleOnClickCreateToken()}
         >
           <div className={styles.dropdown__inner}>
             <div
