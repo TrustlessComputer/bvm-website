@@ -1,5 +1,5 @@
-import s from './styles.module.scss'
-import { Handle, NodeProps, Position, Node, HandleType } from '@xyflow/react';
+import s from './styles.module.scss';
+import { Handle, HandleType, Node, NodeProps, Position } from '@xyflow/react';
 import LegoV3 from '@/modules/blockchains/Buy/components3/LegoV3';
 import Label from '@/modules/blockchains/Buy/components3/Label';
 import React from 'react';
@@ -8,7 +8,6 @@ import Image from 'next/image';
 export type DataNode = Node<
   {
     label: string;
-    handleType: HandleType;
     positionDot: Position;
     legoList: {
       background?: string;
@@ -35,15 +34,23 @@ export default function CustomNode({ data, isConnectable }: NodeProps<DataNode>)
         <div className={s.wrapperBox_top_left} onClick={handleOnClick}>
           <p>Edit</p>
           <div className={s.wrapperBox_top_left_icon}>
-            <Image src={'/icons/ic_edit.svg'} alt={'ic_edit'} width={16} height={16}/>
+            <Image src={'/icons/ic_edit.svg'} alt={'ic_edit'} width={16} height={16} />
           </div>
         </div>
       </div>
 
       <div className={s.inner}>
-      <Handle
-          type={data.handleType}
+
+        <Handle
+          type={'source'}
           position={data.positionDot}
+          isConnectable={isConnectable}
+          isConnectableEnd={true}
+          className={s.handleDot}
+        />
+        <Handle
+          type={'target'}
+          position={Position.Bottom}
           isConnectable={isConnectable}
           className={s.handleDot}
         />
@@ -59,10 +66,10 @@ export default function CustomNode({ data, isConnectable }: NodeProps<DataNode>)
                 title={lego.title}
               />
             </LegoV3>
-          )
+          );
         })}
       </div>
 
     </div>
-  )
+  );
 }

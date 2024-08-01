@@ -46,6 +46,7 @@ export const FAKE_DATA_MAPPING = [
         id: 'c1-4',
         target: '4',
         label: 'Output 3',
+
       },
     ]
   },
@@ -111,7 +112,7 @@ export const FAKE_DATA_MAPPING = [
       handleType: 'target',
     },
     position: { x: 350, y: 250 },
-  }
+  },
 ]
 
 
