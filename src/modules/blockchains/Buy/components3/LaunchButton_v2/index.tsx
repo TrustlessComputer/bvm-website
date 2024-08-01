@@ -20,6 +20,7 @@ import { useAccountAbstractionStore } from '@/modules/blockchains/detail_v3/acco
 import toast from 'react-hot-toast';
 import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import { useAADetailHelper } from '@/modules/blockchains/detail_v3/account-abstraction_v2/useAADetailHelper';
+import useL2Service from '@/hooks/useL2Service';
 
 const LaunchButton = () => {
   const {
@@ -29,7 +30,7 @@ const LaunchButton = () => {
     tokenContractAddressErrMsg,
   } = useAccountAbstractionStore();
   const dispatch = useAppDispatch();
-
+  const { getOrderDetailByID } = useL2Service();
   const { isCanEdit, isProcessing, isOnlyView } = useAADetailHelper();
 
   const { loggedIn, login } = useWeb3Auth();
@@ -38,11 +39,11 @@ const LaunchButton = () => {
 
   const [isSubmiting, setSubmitting] = useState(false);
   const [priceTopupBVM, setPriceTopupBVM] = useState(9999);
+
   const isDsiabledBtn = useMemo(() => {
     return (
       isProcessing ||
       isOnlyView ||
-      isEmpty(feeRate) ||
       isEmpty(tokenContractAddress) ||
       !isEmpty(feeRateErrMsg) ||
       !isEmpty(tokenContractAddressErrMsg)
@@ -67,7 +68,7 @@ const LaunchButton = () => {
       return login();
     }
 
-    if (!orderDetail || !tokenContractAddress || !feeRate) {
+    if (!orderDetail || !tokenContractAddress) {
       return;
     }
 
@@ -80,7 +81,9 @@ const LaunchButton = () => {
         orderID: orderDetail.orderId,
         appName: 'account_abstraction',
         aaPaymasterTokenID: tokenContractAddress,
-        aaTokenGas: new BigNumber(feeRate || 1).multipliedBy(1e18).toFixed(),
+        aaTokenGas: feeRate
+          ? new BigNumber(feeRate || 1).multipliedBy(1e18).toFixed()
+          : '0',
       };
 
       console.log(' installDAppAAByData --- params  --- ', params);
@@ -93,6 +96,7 @@ const LaunchButton = () => {
         isSuccess = true;
         toast.success('Submit successfully!');
         dispatch(setOrderSelected(result));
+        getOrderDetailByID(orderDetail.orderId);
       }
     } catch (error) {
       console.log('ERROR: ', error);
