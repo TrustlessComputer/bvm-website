@@ -35,7 +35,7 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     //   title: 'BUILD YOUR ZK ROLLUP',
     // },
     fameIns: [
-      20, 20,
+      0, 15,
     ],
     fameOuts: [
       25, 32,
