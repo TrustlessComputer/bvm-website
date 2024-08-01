@@ -3,3 +3,13 @@
     padding: 0 !important;
   }
 }
+
+.export_btn {
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    border-color: white;
+    cursor: pointer;
+  }
+}

@@ -31,22 +31,25 @@ const Problems = () => {
               <Tab>Problem 2</Tab>
               <Tab>Problem 3</Tab>
             </TabList>
-            <Flex
-              onClick={() => {
-                window.open(
-                  'https://github.com/TrustlessComputer/poc-practice',
-                );
-              }}
-              alignItems={'center'}
-              gap="4px"
-              mr="10px"
-              px="13px"
-              py="7px"
-              className={s.github}
-            >
-              <Image src="/hackathon/ic-github.svg" />
-              <p>Github</p>
-              <Image src="/hackathon/ic-link-gray.svg" />
+            <Flex alignItems={'center'} gap="20px">
+              <ConnectedWallets />
+              <Flex
+                onClick={() => {
+                  window.open(
+                    'https://github.com/TrustlessComputer/poc-practice',
+                  );
+                }}
+                alignItems={'center'}
+                gap="4px"
+                mr="10px"
+                px="13px"
+                py="7px"
+                className={s.github}
+              >
+                <Image src="/hackathon/ic-github.svg" />
+                <p>Github</p>
+                <Image src="/hackathon/ic-link-gray.svg" />
+              </Flex>
             </Flex>
           </Flex>
           <TabPanels p="10px 16px">
@@ -61,7 +64,7 @@ const Problems = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
-        <ConnectedWallets />
+        {/* <ConnectedWallets /> */}
       </div>
       <div className={s.footer}>
         <SubmitProblem code={tabIndex + 1} />
