@@ -8,6 +8,7 @@ import {
   TabPanel,
   Box,
   Image,
+  Flex,
 } from '@chakra-ui/react';
 import SubmitProblem from '../SubmitProblem';
 import IcThreeDots from '@/public/hackathon/ic-three-dots.svg';
@@ -24,11 +25,30 @@ const Problems = () => {
       </div>
       <div className={s.body}>
         <Tabs variant="soft-rounded" onChange={(index) => setTabIndex(index)}>
-          <TabList p="10px" mb="8px" gap="3px">
-            <Tab>Topic 1</Tab>
-            <Tab>Topic 2</Tab>
-            <Tab>Topic 3</Tab>
-          </TabList>
+          <Flex alignItems={'center'} justifyContent={'space-between'}>
+            <TabList p="10px" mb="8px" gap="3px">
+              <Tab>Problem 1</Tab>
+              <Tab>Problem 2</Tab>
+              <Tab>Problem 3</Tab>
+            </TabList>
+            <Flex
+              onClick={() => {
+                window.open(
+                  'https://github.com/TrustlessComputer/poc-practice',
+                );
+              }}
+              alignItems={'center'}
+              gap="4px"
+              mr="10px"
+              px="13px"
+              py="7px"
+              className={s.github}
+            >
+              <Image src="/hackathon/ic-github.svg" />
+              <p>Github</p>
+              <Image src="/hackathon/ic-link-gray.svg" />
+            </Flex>
+          </Flex>
           <TabPanels p="10px 16px">
             <TabPanel>
               <ProblemTemplate topic="1" />

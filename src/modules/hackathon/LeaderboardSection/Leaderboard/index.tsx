@@ -172,9 +172,9 @@ const Leaderboard = (props: Props) => {
         <div className={s.second_col}>Name</div>
         <div className={cn(s.third_col, s.place_center)}>Points</div>
         <div className={s.place_center}>Total Time</div>
-        <div className={s.place_center}>Topic 1</div>
-        <div className={s.place_center}>Topic 2</div>
-        <div className={s.place_center}>Topic 3</div>
+        <div className={s.place_center}>Problem 1</div>
+        <div className={s.place_center}>Problem 2</div>
+        <div className={s.place_center}>Problem 3</div>
       </div>
 
       {dataSource && dataSource.length > 0 && (
