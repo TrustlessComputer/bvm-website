@@ -48,6 +48,28 @@ const useSubmitFormTokenGeneration = ({
     draggedIds2DSignal.value = [];
   };
 
+  function checkData(
+    dataMapping: Record<string, { key: string; value: string }[]>[],
+  ) {
+    const result = [];
+    for (const data of dataMapping) {
+      const d = {...data};
+
+      const _allocation = [];
+      for (const block of data?.allocation) {
+        if(!!block) {
+          _allocation.push(block);
+        }
+      }
+
+      d.allocation = _allocation
+
+      result.push(d);
+    }
+
+    return result;
+  }
+
   function validate(
     dataMapping: Record<string, { key: string; value: string }[]>[],
   ) {
@@ -87,7 +109,6 @@ const useSubmitFormTokenGeneration = ({
       for (const block of blocks) {
         const blockTemp = block as unknown as ITokenomics;
         const index = blocks.indexOf(block) + 1;
-        console.log('blockTemp', blockTemp);
         totalAmount = totalAmount.plus(blockTemp?.total_amount || 0);
 
         if (!blockTemp?.name || isEmpty(blockTemp?.name)) {
@@ -102,12 +123,12 @@ const useSubmitFormTokenGeneration = ({
             error: `Allocation #${index} amount is required!`,
           });
         }
-        if (!blockTemp?.address || isEmpty(blockTemp?.address)) {
-          errors.push({
-            key: 'tokenomic_address',
-            error: `Allocation #${index} Receiver Address is required!`,
-          });
-        }
+        // if (!blockTemp?.address || isEmpty(blockTemp?.address)) {
+        //   errors.push({
+        //     key: 'tokenomic_address',
+        //     error: `Allocation #${index} Receiver Address is required!`,
+        //   });
+        // }
 
         if (blockTemp?.is_vesting) {
           if (!blockTemp?.cliff || isEmpty(blockTemp?.cliff)) {
@@ -183,6 +204,8 @@ const useSubmitFormTokenGeneration = ({
       dataMapping = extractedValue(formDappInBlock, formDapp, dataMapping);
       dataMapping = extractedValue(formDappInSingle, formDapp, dataMapping);
 
+      dataMapping = checkData(dataMapping);
+
       setErrorData([]);
       let errors = validate(dataMapping);
 
@@ -209,6 +232,13 @@ const useSubmitFormTokenGeneration = ({
               } as unknown as ITokenomics,
             ] as ITokenomics[];
           }
+
+          return data?.allocation?.map(all => {
+            return {
+              ...all,
+              address: (all as ITokenomics).address || data?.receiver_address
+            }
+          })
 
           return (data?.allocation || []) as unknown as ITokenomics[];
         };

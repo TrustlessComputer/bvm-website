@@ -46,6 +46,7 @@ export interface IAirdrop {
   end_time: string;
   expired_time: string;
   tasks: IAirdropTask[];
+  is_bvm_shard: boolean;
 }
 
 export enum EAirdropStatus {

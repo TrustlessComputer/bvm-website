@@ -6,11 +6,11 @@ import { useAppSelector } from '@/stores/hooks';
 import { requestReload } from '@/stores/states/common/reducer';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { getError } from '@/utils/error';
+import { compareString } from '@/utils/string';
 import dayjs from 'dayjs';
 import { Dispatch, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { TopUpDappInfor } from '../components/TopupModal';
 import { draggedIds2DSignal } from '../signals/useDragSignal';
 import {
   formDappDropdownSignal,
@@ -18,7 +18,7 @@ import {
   formDappSignal,
   formDappToggleSignal,
 } from '../signals/useFormDappsSignal';
-import { FormDappUtil } from '../utils';
+import { FormDappUtil, getAirdropTaskKey } from '../utils';
 interface IProps {
   setErrorData: Dispatch<
     SetStateAction<{ key: string; error: string }[] | undefined>
@@ -33,6 +33,7 @@ const useSubmitFormAirdrop = ({
   setLoading,
 }: IProps) => {
   const dappState = useAppSelector(dappSelector);
+  const airdropTask = dappState.airdropTasks;
   const dispatch = useDispatch();
   const cAirdropAPI = new CTokenAirdropAPI();
 
@@ -77,28 +78,58 @@ const useSubmitFormAirdrop = ({
       setErrorData([]);
       let errors: any[] = [];
 
+      console.log('airdropTask', airdropTask);
+
+      const _tasks: any[] = [];
+
       for (const form of finalFormMappings) {
         console.log('form', form);
         if (!(Number(form?.airdrop_amount) > 0)) {
           errors.push({ key: 'airdrop_amount', error: 'Reward is required!' });
         }
-        if (!form?.reward_token) {
-          errors.push({ key: 'reward_token', error: 'Token is required!' });
-        }
-        if (!form?.airdrop_tasks || form?.airdrop_tasks?.length === 0) {
-          errors.push({ key: 'airdrop_tasks', error: 'Tasks is required!' });
+        if (!form?.end_date) {
+          errors.push({ key: 'end_date', error: 'End date is required!' });
         }
 
-        const tasks: any = form?.airdrop_tasks?.find?.((item) => !!item);
+        for (const _airdropTask of airdropTask) {
+          const findTask = form?.[getAirdropTaskKey(_airdropTask)];
+          if (findTask) {
+            if (findTask) {
+              const __task = findTask.find((item) => item);
 
-        if (!(Number(tasks?.reward_amount) > 0)) {
-          errors.push({
-            key: 'reward_amount',
-            error: 'Task Reward is required!',
-          });
+              _tasks.push({
+                ...__task,
+                type: _airdropTask.type,
+                id: _airdropTask.id,
+              });
+            }
+          }
         }
-        if (!tasks?.content) {
-          errors.push({ key: 'content', error: 'Content is required!' });
+      }
+
+      if (_tasks.length === 0) {
+        errors.push({
+          key: 'tasks',
+          error: 'Task Reward is required!',
+        });
+      } else if (_tasks.length > 0) {
+        console.log('task', _tasks);
+
+        for (const task of _tasks) {
+          if (compareString(task.type, 'follow')) {
+            if (!task?.follow_twitter_username) {
+              errors.push({
+                key: 'follow_twitter_username',
+                error: 'Follow X Username is required!',
+              });
+            }
+            if (!(Number(task.reward_amount) > 0)) {
+              errors.push({
+                key: 'reward_amount',
+                error: 'Task Reward is required!',
+              });
+            }
+          }
         }
       }
 
@@ -109,15 +140,12 @@ const useSubmitFormAirdrop = ({
       }
 
       setLoading(true);
-      let pools: TopUpDappInfor[] = [];
 
       for (const form of finalFormMappings) {
         // @ts-ignore
-        const tasks: ITask[] = form.airdrop_tasks.map((v) => ({
-          id: v.task,
+        const tasks: ITask[] = _tasks.map((v) => ({
+          ...v,
           amount: v.reward_amount,
-          [v.id === 1 ? 'follow_twitter_username' : 'share_post_link']:
-            v.content,
         }));
 
         // @ts-ignore
@@ -125,13 +153,13 @@ const useSubmitFormAirdrop = ({
           title: form.airdrop_title as unknown as string,
           token_address: form.reward_token as unknown as string,
           amount: form.airdrop_amount as unknown as string,
-          is_bvm_shard: false,
+          is_bvm_shard: Boolean(form.is_bvm_shard),
           tasks,
-          start_time: dayjs(form.start_date as unknown as string).unix(),
-          end_time: dayjs(form.end_time as unknown as string).unix(),
+          start_time: form.start_date
+            ? dayjs(form.start_date as unknown as string).unix()
+            : dayjs().unix(),
+          end_time: dayjs(form.end_date as unknown as string).unix(),
         };
-
-        console.log('body', body);
 
         const data = await cAirdropAPI.setupTask(body);
       }
