@@ -7,6 +7,13 @@ import s from './ProblemTemplate.module.scss';
 import { PROBLEM_2_MARKDOWN } from './problem_2';
 import { PROBLEM_3_MARKDOWN } from './problem_3';
 
+// // @ts-ignore
+// import GCD from 'raw-loader!./1_GCD.md';
+// // @ts-ignore
+// import ArraySort from 'raw-loader!./2_ArraySort.md';
+// // @ts-ignore
+// import Library from 'raw-loader!./3_Library.md';
+
 type Props = {
   topic: '1' | '2' | '3';
 };
