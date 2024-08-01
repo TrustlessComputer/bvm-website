@@ -13,10 +13,10 @@ const LeaderboardSection = (props: Props) => {
       <div className="containerV3">
         <div className={cn(s.container)}>
           <div className={s.header}>
-            <p className={s.title}>Practice problem</p>
+            <p className={s.title}>Practice Session</p>
             <p className={s.desc}>
-              Introducing Proof Of Code: the weekly crypto coding competition
-              with weekly prize pools of $500, starting with Solidity problems.
+              To improve your chances of winning the competitions, practice
+              regularly to be the best
             </p>
           </div>
           <div className={cn(s.wrapper)}>

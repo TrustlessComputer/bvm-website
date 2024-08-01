@@ -96,7 +96,7 @@ export default function ConnectedWallets() {
       </button>
 
       {/* Add network */}
-      <button
+      {/* <button
         style={{
           border: '1px solid #FFFFFF26',
           background: '#FFFFFF12',
@@ -136,7 +136,7 @@ export default function ConnectedWallets() {
             svgUrl="/images/poc/wallets/logos--metamask-icon.svg"
           />
         </span>
-      </button>
+      </button> */}
     </div>
   );
 }
