@@ -66,9 +66,9 @@ class CDappAPI {
 
       const _chain = chain;
 
-      // if (isLocalhost()) {
-      //   _chain.chainId = '91227';
-      // }
+      if (isLocalhost()) {
+        _chain.chainId = '91227';
+      }
 
       this.dispatch(setChain({ ..._chain }));
       const tasks = (chain?.dApps?.map((app) =>

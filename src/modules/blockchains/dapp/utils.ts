@@ -281,32 +281,89 @@ export const preDataAirdropTask = (
             options: [],
           }));
         if (airdropTasks.length > 0) {
-          // @ts-ignore
-          const blockFieldTasks = _sortedDapps[
-            _airdropIndex
-          ].blockFields.findIndex((v) => compareString(v.key, 'airdrop_tasks'));
+          const blockFields: BlockModel[] = [];
 
-          if (blockFieldTasks > -1) {
-            // @ts-ignore
-            const airdropTaskIndex = _sortedDapps[_airdropIndex].blockFields[
-              blockFieldTasks
-            ].fields.findIndex((v) => compareString(v.key, 'task'));
-
-            if (airdropTaskIndex > -1) {
-              // @ts-ignore
-              _sortedDapps[_airdropIndex].blockFields[blockFieldTasks].fields[
-                airdropTaskIndex
-              ].options = airdropTasks.map((t) => ({
-                key: t.id,
-                title: t.title,
-                value: t.id,
+          for (const airdropTask of airdropTasks) {
+            const fields: FieldModel[] = [
+              {
+                key: 'task',
+                title: airdropTask.title,
+                type: 'input',
                 icon: '',
-                tooltip: t.description,
-                type: t.type,
+                value: '',
+                tooltip: '',
                 options: [],
-              }));
+              },
+              {
+                key: 'reward_amount',
+                title: 'Reward',
+                type: 'input',
+                icon: '',
+                value: '',
+                tooltip: '',
+                options: [],
+              },
+            ];
+
+            if (compareString(airdropTask.type, 'follow')) {
+              fields.push({
+                key: getAirdropTaskKey(airdropTask),
+                title: 'X Username',
+                type: 'input',
+                icon: '',
+                value: '',
+                tooltip: '',
+                options: [],
+              });
+            } else if (compareString(airdropTask.type, 'share')) {
+              fields.push({
+                key: getAirdropTaskKey(airdropTask),
+                title: 'Link Share X',
+                type: 'input',
+                icon: '',
+                value: '',
+                tooltip: '',
+                options: [],
+              });
             }
+
+            blockFields.push({
+              key: getAirdropTaskKey(airdropTask),
+              title: 'For tasks',
+              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+              placableAmount: -1,
+              section: 'tasks',
+              preview: false,
+              fields,
+            });
           }
+
+          _sortedDapps[_airdropIndex].blockFields = blockFields;
+
+          // @ts-ignore
+          // const blockFieldTasks = _sortedDapps[
+          //   _airdropIndex
+          // ].blockFields.findIndex((v) => compareString(v.key, 'airdrop_tasks'));
+          // if (blockFieldTasks > -1) {
+          //   // @ts-ignore
+          //   const airdropTaskIndex = _sortedDapps[_airdropIndex].blockFields[
+          //     blockFieldTasks
+          //   ].fields.findIndex((v) => compareString(v.key, 'task'));
+          //   if (airdropTaskIndex > -1) {
+          //     // @ts-ignore
+          //     _sortedDapps[_airdropIndex].blockFields[blockFieldTasks].fields[
+          //       airdropTaskIndex
+          //     ].options = airdropTasks.map((t) => ({
+          //       key: t.id,
+          //       title: t.title,
+          //       value: t.id,
+          //       icon: '',
+          //       tooltip: t.description,
+          //       type: t.type,
+          //       options: [],
+          //     }));
+          //   }
+          // }
         }
       }
     }
@@ -315,12 +372,12 @@ export const preDataAirdropTask = (
 };
 
 export const getAirdropTaskKey = (task: IAirdropTask) => {
-  if (task.type === 'follow') {
+  if (compareString(task.type, 'follow') || compareString(task.id, '1')) {
     return 'follow_twitter_username';
   }
-  if (task.type === 'share') {
+  if (compareString(task.type, 'share') || compareString(task.id, '2')) {
     return 'share_post_link';
   }
 
-  return '';
+  return 'whitelist';
 };
