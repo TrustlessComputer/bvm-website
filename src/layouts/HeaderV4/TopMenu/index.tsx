@@ -9,20 +9,23 @@ const TopMenu = (): ReactElement => {
   return (
     <div
       className={`${s.wrapper} `}
-      style={{ backgroundColor: backgroundColor }}
     >
-      <div className="left">
-        <Link href={'/poc'}>
-          <img src="/icons/noto_trophy.svg" alt="noto_trophy.svg" width={24} height={24} />
-          Proof Of Code
-        </Link>
-      </div>
-      <div className="right">
-        <div className={s.right_item}>
-          <ContactUs />
-        </div>
-        <div className={s.right_item}>
-          <ButtonLoginTwitter color={color} />
+      <div className="containerV3">
+        <div className={s.inner}>
+          <div className={s.left}>
+            <Link href={'/poc'} className={s.left_btn}>
+              <img src="/icons/noto_trophy.svg" alt="noto_trophy.svg" width={24} height={24} />
+              Proof Of Code
+            </Link>
+          </div>
+          <div className={s.right}>
+            <div className={s.right_item}>
+              <ContactUs />
+            </div>
+            <div className={s.right_item}>
+              <ButtonLoginTwitter color={'black'} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

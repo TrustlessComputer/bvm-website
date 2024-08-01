@@ -67,7 +67,7 @@ const ButtonLoginTwitter = (props: Props) => {
         <p className={`${loggedIn ? s.text : s.lowercase}`}>
           {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
           {!loggedIn
-            ? props?.title || 'Connect'
+            ? props?.title || 'Sign in'
             : `${
                 accInfor?.twitterUsername ||
                 accInfor?.email ||

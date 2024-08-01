@@ -22,8 +22,10 @@ const ContactUs = (props: Props): ReactElement => {
         align={'center'}
         className={s.btn}
         color={props?.color || 'white'}
+        transition={'opacity .4s ease'}
         _hover={{
           cursor: 'pointer',
+          opacity: .8,
         }}
       >
         Contact us
