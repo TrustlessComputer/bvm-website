@@ -1,4 +1,7 @@
-export const PROBLEM_2_MARKDOWN = `
+export const PROBLEM_2_MARKDOWN = `## Practice
+
+&nbsp;  
+
 Given an array $a$ of $n$ non-negative integers, sort the array in non-descending order.
 
 &nbsp;  

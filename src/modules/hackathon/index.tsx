@@ -211,7 +211,23 @@ const HackathonModule = (props: Props) => {
                 </Link> */}
               </p>
             </div>
-            <Flex alignItems={'center'} gap="24px">
+            <Flex
+              alignItems={'center'}
+              gap="16px"
+              flexWrap={'wrap'}
+              rowGap={'24px'}
+            >
+              <div className={s.connect_btn}>
+                <a
+                  href="https://t.me/+jTMgmUXx1T4yMGZl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s.tele_link}
+                >
+                  Connect fellow developers
+                </a>
+              </div>
+
               <ButtonConnected title="Register" className={s.reward_btn}>
                 {!!wallet?.privateKey ? (
                   <button
