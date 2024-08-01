@@ -15,10 +15,10 @@ export const FAQ_POC = [
     q: 'What are the prizes?',
     a: `<p>Each week, the top performers will share a prize pool of $500. The prize distribution details will be announced at the start of each competition.</p>`,
   },
-  {
-    q: 'When does the competition start?',
-    a: `<p>The competition begins every week, with practice battles starting in 1 day, 7 hours, and 7 minutes from now. Make sure to register before the practice battles begin to ensure your spot.</p>`,
-  },
+  // {
+  //   q: 'When does the competition start?',
+  //   a: `<p>The competition begins every week, with practice battles starting in 1 day, 7 hours, and 7 minutes from now. Make sure to register before the practice battles begin to ensure your spot.</p>`,
+  // },
   {
     q: 'What is BVM?',
     a: `<p>BVM is the leading Rollup-As-A-Service on Bitcoin. It allows users to easily launch their own blockchain on Bitcoin for only $99/month. Proof Of Code is hosted by BVM, leveraging its robust and secure infrastructure.</p>`,
