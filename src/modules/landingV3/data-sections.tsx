@@ -17,6 +17,8 @@ interface DataSections {
     title: string;
     target?: '_blank' | '_self' | '_top';
   };
+  fameIns: number[];
+  fameOuts: number[];
 }
 
 export const HOME_DATA_SECTIONS: DataSections[] = [
@@ -24,31 +26,46 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     title: 'Pick your favorite building blocks',
     subTitle: 'STEP 1',
     children: <div>
-      <p>BVM partners with the best crypto projects to create a fully integrated suite of rollup products. Need compute? Choose ZK. Need storage? Choose Avail DA. Need hardware? Choose an instance with 32 cores and 64 GB RAM.</p>
+      <p>BVM partners with the best crypto projects to create a fully integrated suite of rollup products. Need compute?
+        Choose ZK. Need storage? Choose Avail DA. Need hardware? Choose an instance with 32 cores and 64 GB RAM.</p>
     </div>,
     image: '/images/legoModule.jpg',
     // button: {
     //   link: BVM_STUDIO,
     //   title: 'BUILD YOUR ZK ROLLUP',
     // },
+    fameIns: [
+      0, 0,
+    ],
+    fameOuts: [
+      50, 80,
+    ],
   },
   {
     title: 'Assemble building blocks into a rollup',
     subTitle: 'STEP 2',
     children: <div>
-      <p>Once you've selected the best building blocks for your rollup, assemble them into your unique rollup with simple drag-and-drop functionality.</p>
+      <p>Once you've selected the best building blocks for your rollup, assemble them into your unique rollup with
+        simple drag-and-drop functionality.</p>
     </div>,
     image: '/images/rollups.jpg',
     // button: {
     //   link: BVM_STUDIO,
     //   title: 'BUILD YOUR ZK ROLLUP ',
     // },
+    fameIns: [
+      60, 90,
+    ],
+    fameOuts: [
+      120, 150,
+    ],
   },
   {
     title: 'Deploy your rollup with just a click',
     subTitle: 'STEP 3',
     children: <div>
-      <p>Before BVM, building and scaling a blockchain required an army of PhDs, cryptographers, and distributed system engineers. Now, you can deploy one with just a click — no coding needed.</p>
+      <p>Before BVM, building and scaling a blockchain required an army of PhDs, cryptographers, and distributed system
+        engineers. Now, you can deploy one with just a click — no coding needed.</p>
     </div>,
     image: '/images/home-section-3-v3.png',
     // button: {
@@ -56,20 +73,35 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     //   link: BVM_STUDIO,
     //   title: 'BUILD YOUR ZK ROLLUP',
     // },
+    fameIns: [
+      130, 160,
+    ],
+    fameOuts: [
+      200, 220,
+    ],
   },
   {
     title: 'Extend your rollup with more dapps',
     subTitle: 'STEP 4',
 
     children: <div>
-      <p>If you’ve built dapps on Ethereum, you can easily build on Bitcoin. Your ZK rollup on Bitcoin is EVM-equivalent, allowing you to write Solidity smart contracts on Bitcoin without learning a new toolkit. All your existing code and tools work seamlessly out of the box.</p>
+      <p>If you’ve built dapps on Ethereum, you can easily build on Bitcoin. Your ZK rollup on Bitcoin is
+        EVM-equivalent, allowing you to write Solidity smart contracts on Bitcoin without learning a new toolkit. All
+        your existing code and tools work seamlessly out of the box.</p>
     </div>,
     image: '/images/code.jpg',
     // button: {
     //   link: 'https://docs.bvm.network/bvm',
     //   title: 'READ DEVELOPER DOCS',
     // },
+    fameIns: [
+      210, 230,
+    ],
+    fameOuts: [
+      260, 260,
+    ],
   },
+
 
 ];
 
@@ -77,8 +109,10 @@ export const TEAM = {
   title: 'Built by builders, for builders',
   subTitle: 'TEAM',
   children: <div>
-    <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack of scalability and programmability has been its hallmark.</p>
-    <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond just a currency.</p>
+    <p>Our team is full of developers who have been there and seen Bitcoin's scaling problems firsthand. Bitcoin's lack
+      of scalability and programmability has been its hallmark.</p>
+    <p>We want to fix that and help more developers build on Bitcoin. We believe Bitcoin could be generalized beyond
+      just a currency.</p>
     <p>Oh, and we really like building things.</p>
   </div>,
   image: '/images/team2.png',

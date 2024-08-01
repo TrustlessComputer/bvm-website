@@ -391,7 +391,7 @@ const RightDroppable = () => {
                       {...thisDapp.baseBlock}
                       background={thisDapp?.color_border || mainColor}
                       label={thisDapp.label}
-                      zIndex={draggedIds2D.length - baseIndex}
+                      zIndex={draggedIds2D.length + templateIds2D?.length - baseIndex}
                     >
                       {ids
                         .filter((id) =>
@@ -491,7 +491,7 @@ const RightDroppable = () => {
                                       blockKey: thisBlock.key,
                                       baseIndex,
                                     },
-                                    thisBlock.fields.length - fieldIndex,
+                                    thisBlock.fields.length + 1 - fieldIndex,
                                   );
                                 })}
                               </LegoParent>

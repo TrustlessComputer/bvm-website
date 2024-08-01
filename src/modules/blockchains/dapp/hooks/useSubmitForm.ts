@@ -8,6 +8,9 @@ import useDappsStore from '../stores/useDappStore';
 import { DappType } from '../types';
 import useSubmitFormAirdrop from './useSubmitFormAirdrop';
 import useSubmitFormStaking from './useSubmitFormStaking';
+import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
+import { toast } from 'react-hot-toast';
+import { formDappSignal } from '@/modules/blockchains/dapp/signals/useFormDappsSignal';
 
 const useSubmitForm = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
@@ -24,6 +27,8 @@ const useSubmitForm = () => {
 
   const [isShowTopup, setIsShowTopup] = useState(false);
   const [topupInfo, setTopupInfo] = useState<TopUpDappInfor[]>();
+
+  const { loggedIn, login } = useWeb3Auth();
 
   const { onSubmit: onSubmitFormTokenGeneration } =
     useSubmitFormTokenGeneration({ setErrorData, setLoading, setIsShowError });
@@ -46,7 +51,27 @@ const useSubmitForm = () => {
     return dapps[currentIndexDapp] || {};
   }, [dapps, currentIndexDapp]);
 
+  const handleConnect = async () => {
+    try {
+      login();
+    } catch (err: unknown) {
+      toast.error(
+        (err as Error).message ||
+        'Something went wrong. Please try again later.',
+      );
+    }
+  };
+
   const onSubmitForm = () => {
+    if(!loggedIn) {
+      handleConnect();
+      return;
+    }
+    const formDapp = formDappSignal?.value;
+    if (!formDapp || !Object.keys(formDapp)?.length) {
+      return;
+    }
+
     switch (thisDapp?.key) {
       case DappType.staking:
         onSubmitFormStaking();

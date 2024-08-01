@@ -6,7 +6,11 @@ import throttle from 'lodash/throttle';
 import { commonSelector } from '@/stores/states/common/selector';
 import AuthenStorage from '@/utils/storage/authen.storage';
 import { User } from '@/stores/states/user/types';
-import { getRefCodeByURL, getReferralByURL, getReferralModularByURL } from '@/utils/helpers';
+import {
+  getRefCodeByURL,
+  getReferralByURL,
+  getReferralModularByURL,
+} from '@/utils/helpers';
 import userServices from '@/services/user';
 import ReferralStorage from '@/utils/storage/referral.storage';
 import { getCoinPrices, getConfigs } from '@/services/common';
@@ -35,13 +39,11 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
     AuthenStorage.getAuthenKey() || AuthenStorage.getGuestAuthenKey();
   const guestCode = AuthenStorage.getGuestSecretKey();
   const userApi = useRef(new CReferralAPI()).current;
-  const { accountInforL2Service } = useAppSelector(
-    getL2ServicesStateSelector,
-  );
+  const { accountInforL2Service } = useAppSelector(getL2ServicesStateSelector);
   const addressL2 = accountInforL2Service?.tcAddress;
   const refCodeChain = ReferralStorage.getRefCodeChain();
 
-  const { loopFetchAccountInfor } = useL2Service();
+  const { getAccountInfor } = useL2Service();
   const { loggedIn } = useWeb3Auth();
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export const UserProvider: React.FC<PropsWithChildren> = ({
   };
 
   useEffect(() => {
-    loopFetchAccountInfor();
+    getAccountInfor();
   }, [loggedIn]);
 
   const fetchUserInfo = async () => {
