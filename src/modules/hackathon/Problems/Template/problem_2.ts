@@ -10,7 +10,7 @@ Given an array $a$ of $n$ non-negative integers, sort the array in non-descendin
 &nbsp;  
 
 Your smart contract needs to implement the following function(s):
-\`\`\`
+\`\`\`solidity
 function solve(uint256[] memory a) external pure returns (uint256[] memory);
 \`\`\`
 
@@ -39,7 +39,7 @@ Consider the following function call:
 
 &nbsp;  
 
-\`\`\`
+\`\`\`solidity
 solve([4, 1, 3, 2, 1])
 \`\`\`
 
@@ -57,7 +57,7 @@ Consider the following function call:
 
 &nbsp;  
 
-\`\`\`
+\`\`\`solidity
 solve([100, 100, 100])
 \`\`\`
 
