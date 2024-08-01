@@ -37,6 +37,8 @@ import enhance from './enhance';
 import { useAADetailHelper } from './useAADetailHelper';
 import WaitingInstallView from './components/WaitingInstallView';
 import BigNumber from 'bignumber.js';
+import NavigatioBar from '../components/NavigationBar';
+import ChainInforView from '../components/ChanInforView';
 
 const Page = (props: any) => {
   // const modelCategories = useAppSelector(getModelCategoriesSelector);
@@ -347,8 +349,12 @@ const Page = (props: any) => {
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
         >
+          <NavigatioBar />
           <Spacer h={'30px'} />
-          {isOwner && <ToolBar rightView={<LaunchButton />} />}
+          <ToolBar
+            leftView={<ChainInforView orderItem={orderDetail!} />}
+            rightView={isOwner && <LaunchButton />}
+          />
 
           <Flex flexDir={'row'} mt={'20px'} gap={'10px'} w={'100%'}>
             <Flex className={s.showroomLegosContainer}>
