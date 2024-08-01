@@ -90,9 +90,12 @@ const RollupsDappPage = () => {
       const _token = tokens.find((v) =>
         compareString(v.contract_address, airdrop.token_address),
       );
+
       const t = parseAirdrop(airdrop, _token as IToken);
       result.push(t);
     }
+
+    console.log('result', result);
 
     return result;
   };
@@ -650,7 +653,7 @@ const RollupsDappPage = () => {
 
   React.useEffect(() => {
     fetchData();
-  }, [dappState]);
+  }, [dappState, tokens, airdropTasks]);
 
   const getDataTemplateForm = async () => {
     if (!thisDapp) return;
@@ -677,13 +680,18 @@ const RollupsDappPage = () => {
         break;
       }
       case DappType.airdrop: {
-        const data = parseAirdropsData(airdrops, tokens);
-        const _data = preDataAirdropTask(data, tokens, airdropTasks);
+        const _data = parseAirdropsData(airdrops, tokens);
+        // const _data = preDataAirdropTask(data, tokens, airdropTasks);
+
+        console.log('_data', _data);
 
         const model = parseDappModel({
           key: DappType.airdrop,
           model: _data,
         });
+
+        console.log('model', model);
+        
 
         setTemplateDapps(_data);
         setTemplateForm(model);

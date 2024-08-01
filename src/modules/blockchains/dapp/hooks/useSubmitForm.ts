@@ -10,6 +10,7 @@ import useSubmitFormAirdrop from './useSubmitFormAirdrop';
 import useSubmitFormStaking from './useSubmitFormStaking';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { toast } from 'react-hot-toast';
+import { formDappSignal } from '@/modules/blockchains/dapp/signals/useFormDappsSignal';
 
 const useSubmitForm = () => {
   const { dapps, currentIndexDapp } = useDappsStore();
@@ -64,6 +65,10 @@ const useSubmitForm = () => {
   const onSubmitForm = () => {
     if(!loggedIn) {
       handleConnect();
+      return;
+    }
+    const formDapp = formDappSignal?.value;
+    if (!formDapp || !Object.keys(formDapp)?.length) {
       return;
     }
 
