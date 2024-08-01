@@ -18,6 +18,8 @@ export const iconToolNames = [
   '/icons-tool/icon-gas-min.svg',
   '/icons-tool/icon-hardware.svg',
   '/icons-tool/icon-issue-a-token.svg',
+  '/icons-tool/icon-l2.svg',
+  '/icons-tool/icon-l3.svg',
   '/icons-tool/icon-mainnet.svg',
   '/icons-tool/icon-near.svg',
   '/icons-tool/icon-op.svg',
