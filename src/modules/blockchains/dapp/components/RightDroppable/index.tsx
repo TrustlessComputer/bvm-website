@@ -181,9 +181,9 @@ const RightDroppable = () => {
   );
 
   const getLabel = React.useCallback(
-    (field: FieldModel, fieldOpt: FieldOption, baseIndex: number) => {
+    (field: FieldModel, fieldOpt: FieldOption, baseIndex: number, background?: string) => {
       const thisDapp = templateDapps[baseIndex];
-      const mainColor = adjustBrightness(thisDapp.color, +10);
+      const mainColor = adjustBrightness(background || thisDapp.color, +10);
 
       if (field.type === 'input') {
         return (
@@ -762,6 +762,7 @@ const RightDroppable = () => {
                         baseIndex,
                       },
                       baseIndex,
+                      field?.background,
                     );
                   })}
 
