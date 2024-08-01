@@ -19,6 +19,11 @@ import {
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;
 
+const orderSelectedSelector = createSelector(
+  getL2ServicesStateSelector,
+  (reducer) => reducer.orderSelected,
+);
+
 const accountInforSelector = createSelector(
   getL2ServicesStateSelector,
   (reducer) => {
@@ -79,11 +84,6 @@ const myOrderListFilteredByNetwork = createSelector(
       return myOrderListByNetwork.mainnetOrderList;
     else return myOrderListByNetwork.testnetOrderList;
   },
-);
-
-const orderSelectedSelector = createSelector(
-  getL2ServicesStateSelector,
-  (reducer) => reducer.orderSelected,
 );
 
 const viewModeSelector = createSelector(
@@ -277,9 +277,8 @@ const getDappSelectedSelector = createSelector(
 );
 
 const getOrderDetailSelected = createSelector(
-  getL2ServicesStateSelector,
-  (state) => {
-    const orderDetail = state.orderDetail;
+  [getL2ServicesStateSelector, orderSelectedSelector],
+  (state, orderDetail) => {
     const dAppConfigSelected = state.dAppConfigSelected;
     let dAppConfigList: IModelOption[] = [];
 
@@ -306,14 +305,9 @@ const getDappByAppNameIDSelector = createSelector(
   (state) => (appName: string) => {
     const orderDetail = state.orderDetail;
 
-    console.log('PPPP 111 --- orderDetail ', orderDetail);
-    console.log('PPPP 222 --- appName ', appName);
-
-    const dAppFinded = orderDetail?.dApps?.find((item) => {
-      item.appCode?.toLowerCase() === appName?.toLowerCase();
-    });
-
-    console.log('PPPP 333 --- dAppFinded ', dAppFinded);
+    const dAppFinded = orderDetail?.dApps?.find(
+      (item) => item.appCode?.toLowerCase() === appName?.toLowerCase(),
+    );
 
     return dAppFinded;
   },

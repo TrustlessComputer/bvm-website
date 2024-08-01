@@ -8,6 +8,12 @@ const enhanceValidateOrderData = (WrappedComponent: any) => (props: any) => {
   const dispatch = useAppDispatch();
   const { orderDetail } = useAppSelector(getL2ServicesStateSelector);
 
+  useEffect(() => {
+    if (orderDetail) {
+      dispatch(setOrderSelected(orderDetail));
+    }
+  }, [orderDetail]);
+
   if (!orderDetail || orderDetail.orderId?.length < 1) {
     // OrderDetail is null or OrderDetail invalid data
     return (
@@ -28,10 +34,6 @@ const enhanceValidateOrderData = (WrappedComponent: any) => (props: any) => {
       </Flex>
     );
   }
-
-  useEffect(() => {
-    dispatch(setOrderSelected(orderDetail));
-  }, [orderDetail]);
 
   return <WrappedComponent {...props} chainDetailData={orderDetail} />;
 };

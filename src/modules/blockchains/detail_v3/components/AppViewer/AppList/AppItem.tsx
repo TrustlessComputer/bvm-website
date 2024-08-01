@@ -25,26 +25,42 @@ const AppItem = (props: Props) => {
 
     const dAppItem = getDappByAppNameIDFunc(key);
 
-    console.log('AAAA ', {
-      dAppItem,
-      key,
-    });
-
+    if (key === 'my_blockchain') {
+      return {
+        statusStr,
+        statusColor,
+      };
+    }
     if (dAppItem) {
       switch (dAppItem.status) {
         case 'new':
-        case 'processing':
           statusStr = 'Setting up';
           statusColor = '#F9D03F';
           break;
+        case 'processing':
+          statusStr = 'Processing';
+          statusColor = '#F9D03F';
+          break;
+
         case 'done':
-          statusStr = 'Running';
+          statusStr = 'Done';
           statusColor = '#00AA6C';
           break;
         default:
           break;
       }
+    } else {
+      statusStr = 'Need config';
+      statusColor = '#FF4747';
     }
+
+    console.log('statusMapper -- ', {
+      item,
+      dAppItem,
+      key,
+      statusStr,
+      statusColor,
+    });
 
     return {
       statusStr,
@@ -57,6 +73,7 @@ const AppItem = (props: Props) => {
       className={s.container}
       flexDir={'row'}
       w={'100%'}
+      minH={'45px'}
       align={'flex-start'}
       justify={'space-between'}
       gap={['10px']}
@@ -84,9 +101,8 @@ const AppItem = (props: Props) => {
           {title || ''}
         </Text>
         <Text
-          fontSize={['13px']}
-          fontWeight={400}
-          fontStyle={'italic'}
+          fontSize={['14px']}
+          fontWeight={500}
           color={statusMapper.statusColor}
         >
           {statusMapper.statusStr}

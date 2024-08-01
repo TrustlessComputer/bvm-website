@@ -5,7 +5,7 @@ import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
 import { useAccountAbstractionStore } from '../../store/hook';
 
-const MIN_FEE_RATE = 1 * 1e-9;
+const MIN_FEE_RATE = 0;
 const MAX_FEE_RATE = 1 * 1e9;
 
 type Props = {
@@ -103,7 +103,7 @@ const FeeRateInput = (props: Props) => {
           color: '#ababab',
         }}
         type="number"
-        placeholder="Example: 0.05"
+        placeholder="0 gas less"
         value={feeRate}
         onChange={(e) => {
           const text = e.target.value;

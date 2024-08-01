@@ -27,7 +27,7 @@ export const accountAbstractionStore = create<AccountAbstractionStore>(
     setTokenContractFocused: (isTokenContractAddressFocused) =>
       set({ isTokenContractAddressFocused }),
 
-    feeRate: '',
+    feeRate: '0',
     setFeeRate: (feeRate) => set({ feeRate }),
     setFeeRateErrMsg: (feeRateErrMsg) => set({ feeRateErrMsg }),
     setFeeRateFocused: (isFeeRateFocused) => set({ isFeeRateFocused }),
