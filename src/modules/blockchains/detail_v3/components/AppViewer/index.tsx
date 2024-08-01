@@ -8,6 +8,8 @@ import s from './styles.module.scss';
 import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/stores/hooks';
 import { getOrderDetailSelected } from '@/stores/states/l2services/selector';
+import PreviewMapModal from '@/modules/blockchains/blockchain-map/components/PreviewMapModal';
+import React, { useState } from 'react';
 
 type Props = {
   itemOnClick: (item: IModelOption) => void;
@@ -21,6 +23,7 @@ const AppViewer = (props: Props) => {
   const { dAppConfigSelected, orderDetail } = useAppSelector(
     getOrderDetailSelected,
   );
+  const [isShowModalPreview, setIsShowModalPreview] = useState<boolean>(false);
 
   const itemOnClickProxy = (item: IModelOption) => {
     const currentPath = window.location.pathname;
@@ -94,12 +97,16 @@ const AppViewer = (props: Props) => {
       borderColor={'#e0e0e0'}
       boxShadow="0px 0px 16px 0px #00000012"
     >
-      <HeaderView />
+      <HeaderView setIsShowModalPreview={setIsShowModalPreview}/>
       <Divider backgroundColor={'#E0E0E0'} />
       <AppList itemOnClick={itemOnClickProxy} />
       <BottomView
         onExportClick={onExportHandler}
         onShareClick={onShareHandler}
+      />
+      <PreviewMapModal
+        show={isShowModalPreview}
+        onClose={() => setIsShowModalPreview(false)}
       />
     </Flex>
   );
