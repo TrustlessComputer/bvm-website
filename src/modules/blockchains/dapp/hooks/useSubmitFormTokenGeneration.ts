@@ -77,18 +77,18 @@ const useSubmitFormTokenGeneration = ({
 
     for (const data of dataMapping) {
       if (!data?.token_name || isEmpty(data?.token_name)) {
-        errors.push({ key: 'token_name', error: 'Token Name is required!' });
+        errors.push({ key: 'token_name', error: 'Token Name' });
       }
       if (!data?.token_symbol || isEmpty(data?.token_symbol)) {
         errors.push({
           key: 'token_symbol',
-          error: 'Symbol is required!',
+          error: 'Symbol',
         });
       }
       if (!data?.token_supply || isEmpty(data?.token_supply)) {
         errors.push({
           key: 'token_supply',
-          error: 'Total Supply is required!',
+          error: 'Total Supply',
         });
       } else if (isNaN(Number(data?.token_supply))) {
         errors.push({ key: 'token_supply', error: 'Token supply is number!' });
@@ -99,7 +99,7 @@ const useSubmitFormTokenGeneration = ({
       if (!data?.receiver_address || isEmpty(data?.receiver_address)) {
         errors.push({
           key: 'receiver_address',
-          error: 'Receiver Address is required!',
+          error: 'Receiver Address',
         });
       }
 
@@ -114,19 +114,19 @@ const useSubmitFormTokenGeneration = ({
         if (!blockTemp?.name || isEmpty(blockTemp?.name)) {
           errors.push({
             key: 'tokenomic_name',
-            error: `Allocation #${index} name is required!`,
+            error: `Allocation #${index} Name`,
           });
         }
         if (!blockTemp?.total_amount || isEmpty(blockTemp?.total_amount)) {
           errors.push({
             key: 'tokenomic_amount',
-            error: `Allocation #${index} amount is required!`,
+            error: `Allocation #${index} Amount`,
           });
         }
         // if (!blockTemp?.address || isEmpty(blockTemp?.address)) {
         //   errors.push({
         //     key: 'tokenomic_address',
-        //     error: `Allocation #${index} Receiver Address is required!`,
+        //     error: `Allocation #${index} Receiver Address`,
         //   });
         // }
 
@@ -134,13 +134,13 @@ const useSubmitFormTokenGeneration = ({
           if (!blockTemp?.cliff || isEmpty(blockTemp?.cliff)) {
             errors.push({
               key: 'tokenomic_cliff',
-              error: `Allocation #${index} Cliff is required!`,
+              error: `Allocation #${index} Cliff`,
             });
           }
           if (!blockTemp?.duration || isEmpty(blockTemp?.duration)) {
             errors.push({
               key: 'tokenomic_duration',
-              error: `Allocation #${index} Duration is required!`,
+              error: `Allocation #${index} Duration`,
             });
           }
         }
