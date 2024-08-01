@@ -10,6 +10,7 @@ export type IContestProblem = {
   status: 'pending' | 'marked';
   point: null;
   error_msg: string;
+  gas_used: number;
 };
 export type IUserContest = {
   id: string;
@@ -19,6 +20,7 @@ export type IUserContest = {
   user_address: string;
   total_point: number;
   total_duration: number;
+  total_gas_used: number;
   register?: boolean;
   email?: string;
   team?: string;

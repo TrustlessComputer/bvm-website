@@ -13,7 +13,7 @@ Given two positive integers $a$ and $b$, find the greatest common divisor (GCD) 
 Your smart contract needs to implement the following function(s):
 
 &nbsp;  
-\`\`\`
+\`\`\`solidity
 function solve(uint256 a, uint256 b) external pure returns (uint256);
 \`\`\`
 
@@ -44,7 +44,7 @@ Consider the following function call:
 
 &nbsp;  
 
-\`\`\`
+\`\`\`solidity
 solve(24, 30)
 \`\`\`
 
@@ -62,7 +62,7 @@ Consider the following function call:
 
 &nbsp;  
 
-\`\`\`
+\`\`\`solidity
 solve(1, 100)
 \`\`\`
 
