@@ -66,7 +66,7 @@ const Leaderboard = (props: Props) => {
       <div className={cn(s.item, s.table_group)}>
         <Box className={s.first_col}>{index + 1}</Box>
         <div className={cn(s.second_col, s.name)}>
-          <Flex alignItems={'center'} gap="8px" style={{overflow: 'hidden'}}>
+          <Flex alignItems={'center'} gap="8px" style={{ overflow: 'hidden' }}>
             <Avatar
               url={data.user.profile_image}
               width={20}

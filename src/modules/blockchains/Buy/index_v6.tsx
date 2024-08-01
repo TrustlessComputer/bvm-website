@@ -45,12 +45,14 @@ const BuyPage = () => {
       })[]
     | null
   >(null);
+
   const [originalData, setOriginalData] = React.useState<
     IModelCategory[] | null
   >(null);
   const [templates, setTemplates] = React.useState<Array<
     IModelCategory[]
   > | null>(null);
+
   const {
     field,
     setField,
@@ -321,6 +323,13 @@ const BuyPage = () => {
   };
 
   const fetchData = async () => {
+    //TODO real data please remove comment
+    // const modelCategories =
+    //   (await getModelCategories(l2ServiceUserAddress)) || [];
+
+    //TODO this is mocokup data
+    // const modelCategories = mockupOptions;
+
     const modelCategories =
       (await getModelCategories(l2ServiceUserAddress)) || [];
 
@@ -737,6 +746,36 @@ const BuyPage = () => {
                                   if (currentValues.includes(option.key)) {
                                     return null;
                                   }
+                                }
+
+                                if (item.type === 'form') {
+                                  return (
+                                    <Draggable
+                                      key={item.key + '-' + option.key}
+                                      id={item.key + '-' + option.key}
+                                      useMask
+                                      isLabel={true}
+                                      value={option.key}
+                                      tooltip={option.tooltip}
+                                    >
+                                      <LegoV3
+                                        background={item.color}
+                                        zIndex={item.options.length - optIdx}
+                                        disabled={isDisabled}
+                                      >
+                                        <div className={s.wrapInput}>
+                                          <span className={s.labelInput}>
+                                            {option.title}
+                                          </span>
+                                          <input
+                                            className={`${s.inputLabel}`}
+                                            name={item.key + '-' + option.key}
+                                            type={option.type}
+                                          />
+                                        </div>
+                                      </LegoV3>
+                                    </Draggable>
+                                  );
                                 }
 
                                 return (

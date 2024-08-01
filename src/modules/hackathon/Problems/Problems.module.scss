@@ -44,5 +44,23 @@
                 }
             }
         }
+
+        .github {
+            color: #FFF;
+            font-family: "Space Mono";
+            font-size: 11.569px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            transition: all 0.2s ease-in-out;
+
+
+            &:hover {
+                border-color: white;
+                cursor: pointer;
+            }
+        }
     }
 }

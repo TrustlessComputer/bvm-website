@@ -49,22 +49,20 @@ export default function ConnectedWallets() {
       style={{
         display: 'flex',
         justifyContent: 'flex-end',
-        padding: '16px',
         gap: '12px',
       }}
     >
       {/* Export private key */}
       <button
         style={{
-          border: '1px solid #FFFFFF26',
-          background: '#FFFFFF12',
-          padding: '8px 16px',
-          borderRadius: '100px',
-          paddingLeft: '8px',
+          borderRadius: '8px',
           display: 'flex',
           alignItems: 'center',
+          padding: '7px 13px',
           gap: '8px',
+          height: '33px',
         }}
+        className={s.export_btn}
         onClick={exportPrivateKeyHandler}
       >
         <span
@@ -86,9 +84,10 @@ export default function ConnectedWallets() {
         <span
           style={{
             fontSize: '12px',
-            fontWeight: '400',
+            fontWeight: '700',
             lineHeight: '0px',
             color: '#fff',
+            fontFamily: 'Space Mono',
           }}
         >
           Export private key
@@ -96,7 +95,7 @@ export default function ConnectedWallets() {
       </button>
 
       {/* Add network */}
-      <button
+      {/* <button
         style={{
           border: '1px solid #FFFFFF26',
           background: '#FFFFFF12',
@@ -136,7 +135,7 @@ export default function ConnectedWallets() {
             svgUrl="/images/poc/wallets/logos--metamask-icon.svg"
           />
         </span>
-      </button>
+      </button> */}
     </div>
   );
 }

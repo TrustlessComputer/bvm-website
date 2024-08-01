@@ -10,37 +10,61 @@ export interface IBlog {
   imageUrl: string;
   link: string;
   linkTarget: string;
+  logoUrl?: string;
 }
 
 export const LOGOS = [
   {
     id: 'cryptobriefing',
-    img: 'landing/images/cryptobriefing.png'
+    img: 'landing/images/cryptobriefing.png',
   },
   {
     id: 'blockworks',
-    img: 'landing/images/blockworks.png'
+    img: 'landing/images/blockworks.png',
   },
   {
     id: 'cointelegraph_brazil',
-    img: 'landing/images/cointelegraph_brazil.png'
+    img: 'landing/images/cointelegraph_brazil.png',
   },
   {
     id: 'coindesk',
-    img: 'landing/images/coindesk.png'
-  }
-]
+    img: 'landing/images/coindesk.png',
+  },
+];
 
 const BLOGS = [
+
   {
-    id: '16',
-    title: `Bitcoin developer sees ‘Bitcoin’s L2 era’ as key to mass adoption`,
-    desc: `Punk 3700, one of the developers behind Bitcoin Virtual Machine, assesses the potential of layer-two blockchains on top of Bitcoin as an important narrative in crypto's landscape for 2024.`,
-    logo: 'cryptobriefing',
-    imageUrl: `${CDN_URL_BLOGS}/Bitcoin-constructions-1024x585.webp`,
-    link: 'https://cryptobriefing.com/exploring-future-developers-insight-bitcoins-l2-era/',
+    id: '6',
+    title: `New tool enables ‘No Code’ blockchain deployment`,
+    desc: `BVM Studio introduces a no-code solution for blockchain deployment, promising accessible and quick blockchain creation with a drag-and-drop interface.`,
+    logo: 'cointelegraph_brazil',
+    imageUrl: `https://storage.googleapis.com/bvm-network/image/6d466707-a037-4bc3-9cf3-e1ed472bda55%20(1).jpg`,
+    link: 'https://cointelegraph.com/news/no-code-blockchain-deployment-bvm-studio',
     linkTarget: '_blank',
   },
+
+  {
+    id: '16',
+    title: `Bitcoin Virtual Machine team rolls out ZK rollups service to scale Bitcoin`,
+    desc: `The team behind the Bitcoin Virtual Machine (BVM) last week launched BitZK, a zero-knowledge proofs service that enhances Bitcoin's scalability by allowing users to create rollups and migrate applications from Ethereum to Bitcoin.`,
+    logo: 'theblock_brazil',
+    logoUrl: 'https://storage.googleapis.com/bvm-network/image/logo-url-v2.svg',
+    imageUrl: `https://storage.googleapis.com/bvm-network/image/20240509_Bitcoin_News_5-1200x675.jpg`,
+    link: 'https://www.theblock.co/post/302137/bitcoin-virtual-machine-team-rolls-out-zk-rollups-service-to-scale-bitcoin',
+    linkTarget: '_blank',
+  },
+
+  // {
+  //   id: '16',
+  //   title: `Bitcoin developer sees ‘Bitcoin’s L2 era’ as key to mass adoption`,
+  //   desc: `Punk 3700, one of the developers behind Bitcoin Virtual Machine, assesses the potential of layer-two blockchains on top of Bitcoin as an important narrative in crypto's landscape for 2024.`,
+  //   logo: 'cryptobriefing',
+  //   imageUrl: `${CDN_URL_BLOGS}/Bitcoin-constructions-1024x585.webp`,
+  //   link: 'https://cryptobriefing.com/exploring-future-developers-insight-bitcoins-l2-era/',
+  //   linkTarget: '_blank',
+  // },
+
   {
     id: '7',
     title: `DeFi on Bitcoin? Bitcoin Virtual Machine Says Yes`,
@@ -51,15 +75,16 @@ const BLOGS = [
     linkTarget: '_blank',
   },
 
-  {
-    id: '6',
-    title: `Bitcoin faster? Project uses Optimism to generate blocks every 2 seconds`,
-    desc: `Blockchain NOS aims to give scalability to the decentralized ecosystem created on Bitcoin, says Punk 3700, one of the developers behind the project`,
-    logo: 'cointelegraph_brazil',
-    imageUrl: `${CDN_URL_BLOGS}/CoinTelegraph_Brazil_02.jpeg`,
-    link: 'https://br.cointelegraph.com/news/bitcoin-becoming-faster-project-uses-optimism-to-generate-blocks-with-2-second-time',
-    linkTarget: '_blank',
-  },
+  // {
+  //   id: '6',
+  //   title: `Bitcoin faster? Project uses Optimism to generate blocks every 2 seconds`,
+  //   desc: `Blockchain NOS aims to give scalability to the decentralized ecosystem created on Bitcoin, says Punk 3700, one of the developers behind the project`,
+  //   logo: 'cointelegraph_brazil',
+  //   imageUrl: `${CDN_URL_BLOGS}/CoinTelegraph_Brazil_02.jpeg`,
+  //   link: 'https://br.cointelegraph.com/news/bitcoin-becoming-faster-project-uses-optimism-to-generate-blocks-with-2-second-time',
+  //   linkTarget: '_blank',
+  // },
+
   {
     id: '2',
     title:

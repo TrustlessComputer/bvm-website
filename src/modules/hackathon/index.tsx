@@ -43,6 +43,53 @@ const END_TIME = '2024-08-06T10:00:00Z';
 // if not exist, then call login
 // else show private key for user to copy
 
+const TimeCounter = () => {
+  const startTime = useCountdown(START_TIME);
+
+  const endTime = useCountdown(END_TIME);
+  if (!startTime.ended) {
+    return (
+      <Flex
+        alignItems={'center'}
+        gap="4px"
+        flexDir={{ base: 'column', xl: 'row' }}
+      >
+        <Text whiteSpace={'nowrap'} opacity={0.6}>
+          Practice battle starts in
+        </Text>
+        <Countdown
+          className={s.countDown_time}
+          expiredTime={dayjs.utc(START_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
+          hideIcon={true}
+          showDay
+          // type="column"
+          // hideZeroHour={true}
+        />
+      </Flex>
+    );
+  }
+
+  if (!endTime.ended) {
+    return (
+      <Flex alignItems={'center'} gap="4px">
+        <Text whiteSpace={'nowrap'} opacity={0.6}>
+          Practice battle ends in
+        </Text>
+        <Countdown
+          className={s.countDown_time}
+          expiredTime={dayjs.utc(END_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
+          hideIcon={true}
+          showDay
+          // type="column"
+          // hideZeroHour={true}
+        />
+      </Flex>
+    );
+  }
+
+  return <Text>Ended</Text>;
+};
+
 const HackathonModule = (props: Props) => {
   const { loggedIn, login, logout, userInfo, wallet } = useWeb3Auth();
   const dispatch = useDispatch();
@@ -50,10 +97,6 @@ const HackathonModule = (props: Props) => {
   const [peopleSubmitted, setPeopleSubmitted] = useState<number | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
-
-  const startTime = useCountdown(START_TIME);
-
-  const endTime = useCountdown(END_TIME);
 
   const fetchPeopleSubmitted = async () => {
     try {
@@ -67,50 +110,7 @@ const HackathonModule = (props: Props) => {
   };
 
   const renderCountdown = () => {
-    if (!startTime.ended) {
-      return (
-        <Flex
-          alignItems={'center'}
-          gap="4px"
-          flexDir={{ base: 'column', xl: 'row' }}
-        >
-          <Text whiteSpace={'nowrap'} opacity={0.6}>
-            Practice battle starts in
-          </Text>
-          <Countdown
-            className={s.countDown_time}
-            expiredTime={dayjs
-              .utc(START_TIME, 'YYYY-MM-DD HH:mm:ss')
-              .toString()}
-            hideIcon={true}
-            showDay
-            // type="column"
-            // hideZeroHour={true}
-          />
-        </Flex>
-      );
-    }
-
-    console.log('🚀 ~ renderCountdown ~ endTime.ended:', endTime.ended);
-    if (!endTime.ended) {
-      return (
-        <Flex alignItems={'center'} gap="4px">
-          <Text whiteSpace={'nowrap'} opacity={0.6}>
-            Practice battle ends in
-          </Text>
-          <Countdown
-            className={s.countDown_time}
-            expiredTime={dayjs.utc(END_TIME, 'YYYY-MM-DD HH:mm:ss').toString()}
-            hideIcon={true}
-            showDay
-            // type="column"
-            // hideZeroHour={true}
-          />
-        </Flex>
-      );
-    }
-
-    return <Text>Ended</Text>;
+    return <TimeCounter />;
   };
 
   const handleOpenRegisterModal = () => {
@@ -193,29 +193,16 @@ const HackathonModule = (props: Props) => {
                 <p>Proof of Code</p>
               </h2>
               <p className={s.desc}>
-                Introducing Proof of Code: the weekly crypto coding competition
-                with weekly prize pools of $500, starting with Solidity
-                problems.
+                Welcome to Proof of Code, where your crypto coding skills are
+                put to the ultimate test. Solve challenging crypto problems, and
+                engage in competitions that push the limits of what's possible
+                in the crypto world.
               </p>
               <p className={s.desc}>
-                Proof of Code is hosted by BVM - the leading Rollup as a Service
-                on Bitcoin, where anyone can easily launch their own blockchain
-                on Bitcoin for only $99/month.
-              </p>
-              <p className={s.desc}>
-                Register now to sharpen your coding abilities, connect with a
-                community of like-minded developers, and prove that you are the
-                best.
-                {/* <br />
-                <Link href="/" className={s.link}>
-                  Learn more about BVM here
-                  <Image
-                    src="/hackathon/ic-link-orange.svg"
-                    alt="link"
-                    width={16}
-                    height={16}
-                  ></Image>
-                </Link> */}
+                Rise through the ranks to earn an on-chain rating that showcases
+                your crypto coding prowess and potential. Achieve victory, gain
+                recognition, and unlock monetary rewards as you compete for
+                glory.
               </p>
             </div>
             <Flex
@@ -235,7 +222,7 @@ const HackathonModule = (props: Props) => {
                 </a>
               </div>
 
-              <ButtonConnected title="Register" className={s.reward_btn}>
+              <ButtonConnected title="Let's Code" className={s.reward_btn}>
                 <button
                   className={cn(s.reward_btn, {
                     [s.registered]: isRegistered,
@@ -243,7 +230,7 @@ const HackathonModule = (props: Props) => {
                   onClick={handleOpenRegisterModal}
                   disabled={isRegistered}
                 >
-                  {isRegistered ? 'Registered' : 'Register'}
+                  {isRegistered ? 'Registered' : "Let's Code"}
                 </button>
               </ButtonConnected>
               <div className={s.meta_info}>
@@ -268,7 +255,7 @@ const HackathonModule = (props: Props) => {
               <Image
                 layout="fill"
                 alt="hero thumbnail"
-                src={`/images/poc/candidate-with-result-3x.png`}
+                src={`${CDN_URL}/images/candidate-with-result.png`}
                 // srcSet={`
                 //   /images/candidate-with-result-1x.png 1x,
                 //   /images/candidate-with-result-2x.png 2x,

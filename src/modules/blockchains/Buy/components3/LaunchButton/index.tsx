@@ -7,27 +7,32 @@ import { FormOrder } from '../../stores';
 import { useBuy } from '@/modules/blockchains/providers/Buy.hook';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { PRICING_PACKGE } from '@/modules/PricingV2/constants';
-import { useAppSelector } from '@/stores/hooks';
-import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import {
+  getL2ServicesStateSelector,
+  getOrderDetailSelected,
+} from '@/stores/states/l2services/selector';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import sleep from '@/utils/sleep';
-import { Button, Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import { Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useOrderFormStore } from '../../stores/index_v2';
 import useOrderFormStoreV3 from '../../stores/index_v3';
 import { formValuesAdapter } from './FormValuesAdapter';
 import { getChainIDRandom } from '../../Buy.helpers';
-import { orderBuyAPI_V3 } from '@/services/api/l2services';
+import { orderBuyAPI_V3, orderUpdateV2 } from '@/services/api/l2services';
 import { getErrorMessage } from '@/utils/errorV2';
 import TopupModal from '@/modules/blockchains/components/TopupModa_V2';
 import useL2Service from '@/hooks/useL2Service';
-import BaseModal from '@components/BaseModal';
 import ErrorModal from '../ErrorModal';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
 import { formatCurrencyV2 } from '@/utils/format';
+import toast from 'react-hot-toast';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 
 const LaunchButton = ({
   data,
   originalData,
+  isUpdate,
 }: {
   data:
     | (IModelCategory & {
@@ -40,11 +45,16 @@ const LaunchButton = ({
       })[]
     | null;
   originalData: IModelCategory[] | null;
+  isUpdate?: boolean;
 }) => {
   const { field, priceBVM, priceUSD, needContactUs } = useOrderFormStoreV3();
+  const { orderDetail } = useAppSelector(getOrderDetailSelected);
   const { loggedIn, login } = useWeb3Auth();
   const { accountInforL2Service, availableListFetching, availableList } =
     useAppSelector(getL2ServicesStateSelector);
+  const { getOrderDetailByID } = useL2Service();
+  const dispatch = useAppDispatch();
+
   const [isShowError, setShowError] = useState(false);
 
   const { getAccountInfor } = useL2Service();
@@ -69,6 +79,19 @@ const LaunchButton = ({
     useOrderFormStore();
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('use-case') || PRICING_PACKGE.Hacker;
+
+  const titleButton = useMemo(() => {
+    if (!loggedIn) {
+      return 'Connect';
+    }
+    if (needContactUs) {
+      return 'Contact Us';
+    }
+    if (isUpdate) {
+      return 'Update';
+    }
+    return 'Launch';
+  }, [loggedIn, isUpdate, needContactUs]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -111,6 +134,122 @@ const LaunchButton = ({
 
     return result ? result[0] : undefined;
   }, [isFecthingData, availableList, packageParam]);
+
+  const onUpdateHandler = async () => {
+    console.log('___data_A11 ', allFilled);
+
+    if (!allFilled) {
+      setShowError(true);
+    }
+
+    console.log('A11 ', {
+      isSubmiting,
+      allFilled,
+      hasError,
+      originalData,
+      orderDetail,
+    });
+
+    if (
+      isSubmiting ||
+      !allFilled ||
+      hasError ||
+      !originalData ||
+      !orderDetail
+    ) {
+      return;
+    }
+
+    const dynamicForm: any[] = [];
+    for (const _field of originalData) {
+      // console.log('___data filed', _field.key, field[_field.key]);
+      if (!field[_field.key].dragged) continue;
+
+      if (_field.multiChoice) {
+        dynamicForm.push({
+          ..._field,
+          options: _field.options.filter((opt) =>
+            (field[_field.key].value as string[])!.includes(opt.key),
+          ),
+        });
+        continue;
+      }
+
+      const value = _field.options.find(
+        (opt) => opt.key === field[_field.key].value,
+      );
+
+      const { options: _, ...rest } = _field;
+
+      dynamicForm.push({
+        ...rest,
+        options: [value],
+      });
+
+      // console.log('___pushing', {...{
+      //     ...rest,
+      //     options: [value],
+      //   }});
+    }
+
+    if (needContactUs) {
+      // showContactUsModal(dynamicForm as any);
+      showContactUsModal({
+        subjectDefault: 0,
+        disableSelect: true,
+        changeText: true,
+        nodeConfigs: dynamicForm || [],
+      });
+      return;
+    }
+
+    //test comment.
+    // if (!loggedIn) {
+    //   return login();
+    // }
+
+    console.log('____dynamicForm', dynamicForm);
+
+    setSubmitting(true);
+
+    let isSuccess = false;
+
+    const params = formValuesAdapter({
+      computerName: orderDetail.chainName,
+      chainId: orderDetail.chainId,
+      dynamicFormValues: dynamicForm,
+    });
+
+    console.log('orderUpdateV2 params: ', params);
+
+    try {
+      //
+      const result = await orderUpdateV2(params, orderDetail.orderId);
+      console.log('orderUpdateV2 result: ', result);
+      if (result) {
+        isSuccess = true;
+        dispatch(setOrderSelected(result));
+      }
+    } catch (error) {
+      console.log('ERROR: ', error);
+      isSuccess = false;
+      const { message } = getErrorMessage(error);
+      // toast.error(message);
+      if (message && message.toLowerCase().includes('insufficient balance')) {
+        onOpenTopUpModal();
+      } else {
+        toast.error(message);
+      }
+    } finally {
+      getOrderDetailByID(orderDetail.orderId);
+
+      await sleep(1);
+      if (isSuccess) {
+        toast.success('Update Successful');
+      }
+      setSubmitting(false);
+    }
+  };
 
   const handleOnClick = async () => {
     if (!allFilled) {
@@ -210,11 +349,24 @@ const LaunchButton = ({
 
   return (
     <>
-      <div className={`${s.launch} ${s.active}`} onClick={handleOnClick}>
+      <div
+        className={`${s.launch} ${s.active}`}
+        onClick={() => {
+          if (!loggedIn) {
+            login();
+            return;
+          }
+          if (isUpdate) {
+            onUpdateHandler();
+          } else {
+            handleOnClick();
+          }
+        }}
+      >
         <div className={s.inner}>
           {!loggedIn ? (
             <Text className={s.connect}>
-              {needContactUs ? 'Contact Us' : 'Launch'}
+              {titleButton}
               {needContactUs && (
                 <img
                   src={'/icons/info-circle.svg'}
@@ -237,11 +389,7 @@ const LaunchButton = ({
           ) : (
             <React.Fragment>
               <div className={s.top}>
-                {isSubmiting ? (
-                  <Spinner color="#fff" />
-                ) : (
-                  <p>{needContactUs ? 'Contact Us' : 'Launch'}</p>
-                )}
+                {isSubmiting ? <Spinner color="#fff" /> : <p>{titleButton}</p>}
 
                 {needContactUs && (
                   <img
