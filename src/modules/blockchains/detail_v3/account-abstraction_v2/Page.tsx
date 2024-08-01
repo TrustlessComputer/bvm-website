@@ -86,6 +86,11 @@ const Page = (props: any) => {
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();
 
+  console.log('isProcessing, isOnlyView ::::', {
+    isProcessing,
+    isOnlyView,
+  });
+
   const [fieldsDragged, setFieldsDragged] = React.useState<string[]>([]);
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
@@ -117,7 +122,10 @@ const Page = (props: any) => {
 
   const handleDragStart = (event: any) => {
     const { active } = event;
-    const [activeSuffix2] = active.id.split('-');
+
+    // Don't remove unused variables
+    const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
+      active.id.split('-');
 
     if (activeSuffix2 === 'right') {
       setRightDragging(true);
@@ -489,12 +497,14 @@ const Page = (props: any) => {
                           key={item.key + '-parent' + '-right'}
                           id={item.key + '-parent' + '-right'}
                           useMask
+                          disabled={isOnlyView || isProcessing}
                         >
                           <DroppableV2 id={item.key}>
                             <LegoParent
                               parentOfNested
                               background={item.color}
                               label={item.title}
+                              disabled={isOnlyView || isProcessing}
                               zIndex={fieldsDragged.length - index - 1}
                             >
                               {childrenOptions}
@@ -572,33 +582,16 @@ const Page = (props: any) => {
                             key={item.key + '-' + option.key}
                             id={item.key + '-' + option.key}
                             value={option.key}
+                            disabled={isOnlyView || isProcessing}
                           >
-                            <LegoInput
+                            <LegoV3
+                              disabled={isOnlyView || isProcessing}
+                              icon={option.icon}
                               background={item.color}
-                              label={item.confuseTitle}
-                              labelInRight={
-                                !!item.confuseTitle || !!item.confuseIcon
-                              }
-                              icon={item.confuseIcon}
-                              zIndex={item.options.length - opIdx}
+                              label={option.title}
                               labelInLeft
-                            >
-                              <Flex
-                                flexDir={'row'}
-                                align={'center'}
-                                gap={'10px'}
-                                width={'100%'}
-                              >
-                                <Text
-                                  fontSize={['18px']}
-                                  fontWeight={500}
-                                  minW={'max-content'}
-                                >
-                                  {option.title}
-                                </Text>
-                                <ComputerNameInput />
-                              </Flex>
-                            </LegoInput>
+                              zIndex={item.options.length - opIdx}
+                            />
                           </Draggable>
                         );
                       },
@@ -613,6 +606,7 @@ const Page = (props: any) => {
                           item.key + '-parent' + (rightDragging ? '-right' : '')
                         }
                         useMask
+                        disabled={isOnlyView || isProcessing}
                       >
                         <DroppableV2 id={item.key}>
                           <LegoParent
@@ -620,6 +614,7 @@ const Page = (props: any) => {
                             background={item.color}
                             label={item.title}
                             zIndex={data.length - index}
+                            disabled={isOnlyView || isProcessing}
                           >
                             {childrenOptions}
                           </LegoParent>
@@ -648,6 +643,7 @@ const Page = (props: any) => {
                         }
                         useMask
                         value={option.key}
+                        disabled={isOnlyView || isProcessing}
                       >
                         <LegoV3
                           icon={option.icon}
@@ -655,6 +651,7 @@ const Page = (props: any) => {
                           label={option.title}
                           labelInLeft
                           zIndex={item.options.length - opIdx}
+                          disabled={isOnlyView || isProcessing}
                         />
                       </Draggable>
                     );
