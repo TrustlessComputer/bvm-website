@@ -69,14 +69,12 @@ const Sidebar = ({}: Props) => {
 
 
   React.useEffect(() => {
+    if (!dapps?.length) return
     const newIndex = dapps?.findIndex(item => compareString(item.id, params?.get('dapp'))) || 0;
-
-
     if (newIndex >= 0 && !refInited.current) {
       changeDapp(newIndex);
-      refInited.current = true;
     }
-
+    refInited.current = true;
   }, [dapps])
 
   if (!dapps?.length) {
@@ -107,19 +105,19 @@ const Sidebar = ({}: Props) => {
       </div>
 
       <div className={s.footer}>
-        <Button element="button" type="button" onClick={() => {}}>
-          EXPORT{' '}
-          <Image src="/icons/image.svg" alt="image" width={20} height={20} />
-        </Button>
-        <Button element="button" type="button" onClick={() => {}}>
-          SHARE{' '}
-          <Image
-            src="/icons/twitter.svg"
-            alt="twitter"
-            width={20}
-            height={20}
-          />
-        </Button>
+        {/*<Button element="button" type="button" onClick={() => {}}>*/}
+        {/*  EXPORT{' '}*/}
+        {/*  <Image src="/icons/image.svg" alt="image" width={20} height={20} />*/}
+        {/*</Button>*/}
+        {/*<Button element="button" type="button" onClick={() => {}}>*/}
+        {/*  SHARE{' '}*/}
+        {/*  <Image*/}
+        {/*    src="/icons/twitter.svg"*/}
+        {/*    alt="twitter"*/}
+        {/*    width={20}*/}
+        {/*    height={20}*/}
+        {/*  />*/}
+        {/*</Button>*/}
       </div>
 
       <MModal
