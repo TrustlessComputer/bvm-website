@@ -57,7 +57,7 @@ export const parseIssuedToken = (token: IToken) => {
 
   result.baseBlock = baseBlock;
 
-  const isFoundation = token.vestings?.length === 1 && token.vestings.findIndex(v => v.beneficiary_name === 'Foundation');
+  const isFoundation = token.vestings?.length === 1 && token.vestings.findIndex(v => v.beneficiary_name === 'Foundation') >= 0;
 
   if(isFoundation) {
     baseBlock.fields.push({

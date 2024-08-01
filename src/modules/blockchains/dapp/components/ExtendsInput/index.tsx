@@ -58,7 +58,9 @@ const ExtendsInput = ({
     baseIndex,
   };
 
-  const _zIndex = React.useMemo(() => zIndex + 1, [zIndex]);
+  console.log(zIndex);
+
+  const _zIndex = React.useMemo(() => zIndex, []);
 
   const { thisDapp } = useThisDapp();
 
@@ -232,7 +234,7 @@ const ExtendsInput = ({
         title={title}
         titleInLeft={true}
         titleInRight={false}
-        zIndex={_zIndex}
+        zIndex={_zIndex + 1}
       >
         <Toggle
           background={adjustBrightness(background, -20)}
@@ -258,7 +260,7 @@ const ExtendsInput = ({
               key={option.key}
               disabled={disabled}
               onlyLabel={onlyLabel}
-              zIndex={_zIndex - optIndex - 1}
+              zIndex={_zIndex + 1 - optIndex - 1}
             />
           ))
         : null}

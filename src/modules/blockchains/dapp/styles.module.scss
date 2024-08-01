@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 27px 16px 16px;
+  //padding: 27px 16px 16px;
   width: 100%;
   --wrapHeight: calc(100dvh - 340px);
   min-height: var(--wrapHeight); // 104px header and 28px padding
@@ -24,7 +24,7 @@
   &__content {
     flex: 1;
     display: grid;
-    grid-template-columns: 0.9fr 1fr 210px;
+    grid-template-columns: 200px 0.9fr 1fr;
     gap: 8px;
 
     &__droppable {
@@ -110,4 +110,45 @@
 .logo {
   max-width: 270px;
   margin: 10px auto 0 auto;
+}
+
+.top_left {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+
+  &_filter {
+    //width: 150px;
+    display: flex;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 32px;
+    border-radius: 1000px;
+    opacity: 0.5;
+    border: 1px solid #000;
+    cursor: pointer;
+
+    p {
+      font-family: var(--font-jetbrains);
+      font-size: 20px;
+      color: #000000;
+      //text-transform: uppercase;
+      line-height: calc(26 / 20);
+      text-align: center;
+    }
+
+    &.active {
+      //border-bottom: 2px solid rgba(250, 78, 14, 1);
+      background-color: rgba(250, 78, 14, 1);
+      opacity: 1;
+      cursor: pointer;
+
+      border: 1px solid rgba(250, 78, 14, 1);
+
+      p {
+        color: #fff;
+      }
+    }
+  }
 }
