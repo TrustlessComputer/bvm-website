@@ -59,6 +59,10 @@ const ExtendsInput = ({
     baseIndex,
   };
 
+  console.log(zIndex);
+
+  const _zIndex = React.useMemo(() => zIndex, []);
+
   const { thisDapp } = useThisDapp();
 
   const [toggle, setToggle] = React.useState(Boolean(value));
@@ -153,7 +157,7 @@ const ExtendsInput = ({
           title={title}
           titleInLeft={true}
           titleInRight={false}
-          zIndex={zIndex}
+          zIndex={_zIndex}
         >
           {getInput(props, fieldOption)}
         </Lego>
@@ -169,7 +173,7 @@ const ExtendsInput = ({
           title={title}
           titleInLeft={true}
           titleInRight={false}
-          zIndex={zIndex}
+          zIndex={_zIndex}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             {options.map((option) => getInput(option, fieldOption))}
@@ -231,7 +235,7 @@ const ExtendsInput = ({
         title={title}
         titleInLeft={true}
         titleInRight={false}
-        zIndex={zIndex}
+        zIndex={_zIndex + 1}
       >
         <Toggle
           background={adjustBrightness(background, -20)}
@@ -257,7 +261,7 @@ const ExtendsInput = ({
               key={option.key}
               disabled={disabled}
               onlyLabel={onlyLabel}
-              zIndex={zIndex - optIndex - 1}
+              zIndex={_zIndex + 1 - optIndex - 1}
             />
           ))
         : null}

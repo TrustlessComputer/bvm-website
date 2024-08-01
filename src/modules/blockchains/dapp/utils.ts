@@ -192,6 +192,10 @@ export const DragUtil = {
     return idDragging.split('-')[1] === FieldKeyPrefix.MODULE;
   },
 
+  idDraggingIsAChildOfABlock(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.CHILDREN_OF_BLOCK;
+  },
+
   idDraggingIsAField(idDragging: string) {
     return typeof idDragging.split('-')[3] !== 'undefined';
   },
@@ -205,7 +209,7 @@ export const DragUtil = {
 
     return idDragging.split('-')[4];
   },
-  // baseIndex-block-name
+
   getChildIndex(idDragging: string) {
     return idDragging.split('-')[3];
   },
