@@ -40,7 +40,14 @@ const nextConfig = {
                   @import "@/styles/_mixins.scss";
                   `,
   },
-
+  async rewrites() {
+    return [
+      {
+        source: '/poc',
+        destination: '/PoC',
+      },
+    ];
+  },
   async redirects() {
     const redirects = [
       {

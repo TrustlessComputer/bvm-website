@@ -93,7 +93,7 @@ export default function SupportedWallets() {
   return (
     <div className={s.supportedWallets}>
       <div className={s.container}>
-        <div className={s.title}>Connect Wallet</div>
+        <div className={s.title}>Add Network</div>
         <div className={s.wallets}>
           {providers.length > 0 &&
           providers.find((p) => p.info.name === 'MetaMask') ? (
@@ -112,7 +112,7 @@ export default function SupportedWallets() {
 
                   <div className={s.wallet__install}>
                     {chainInstalled[provider.info.uuid] ? (
-                      <span>Installed</span>
+                      <span>{HACKATHON_NETWORK.chainName}</span>
                     ) : (
                       <span>Add</span>
                     )}
