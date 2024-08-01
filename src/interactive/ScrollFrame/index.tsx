@@ -40,6 +40,7 @@ export const Frames = ({
                          willLoad = 25,
                          comp,
                        }: IProps): ReactElement => {
+  // @ts-ignore
   const refCanavs = useRef<HTMLCanvasElement>(null);
   const refDom = useRef<IRefDomFrames>({
     currentFrame: 0,
@@ -82,6 +83,7 @@ export const Frames = ({
           refDom.current.canvas?.width || window.innerWidth,
           refDom.current.canvas?.height || window.innerHeight,
         );
+        // @ts-ignore
         refDom.current.ctx?.drawImage(image, 0, 0, 1920, 1080);
       }
     };
@@ -94,6 +96,7 @@ export const Frames = ({
 
       if (frame > totalFrames || refDom.current.images[frame]) return;
       registerImgDom(frame, true);
+      // @ts-ignore
       refDom.current.images[frame].image.onload = (): void => {
         if (!onLoaded) {
           if (refDom.current.currentFrame === refDom.current.images[frame].frame) {
@@ -163,6 +166,7 @@ export const Frames = ({
       pin: true,
       end: () => `+=${MathMap(totalFrames, 0, 30, 0, window.innerHeight)}px center`,
       onUpdate: (self: ScrollTrigger) => {
+        // @ts-ignore
         refDom.current.progress = self.progress;
         refDom.current?.runFrame && refDom.current.runFrame();
       },
