@@ -37,6 +37,11 @@ const START_TIME = '2024-08-01T10:00:00Z';
 
 const END_TIME = '2024-08-06T010:00:00Z';
 
+// export private key
+// should check wallet.privateKey first,
+// if not exist, then call login
+// else show private key for user to copy
+
 const HackathonModule = (props: Props) => {
   const { loggedIn, login, logout, userInfo, wallet } = useWeb3Auth();
   const dispatch = useDispatch();
@@ -229,26 +234,15 @@ const HackathonModule = (props: Props) => {
               </div>
 
               <ButtonConnected title="Register" className={s.reward_btn}>
-                {!!wallet?.privateKey ? (
-                  <button
-                    className={cn(s.reward_btn, {
-                      [s.registered]: isRegistered,
-                    })}
-                    onClick={handleOpenRegisterModal}
-                    disabled={isRegistered}
-                  >
-                    {isRegistered ? 'Registered' : 'Register'}
-                  </button>
-                ) : (
-                  <button
-                    className={cn(s.reward_btn)}
-                    onClick={() => {
-                      login();
-                    }}
-                  >
-                    Register
-                  </button>
-                )}
+                <button
+                  className={cn(s.reward_btn, {
+                    [s.registered]: isRegistered,
+                  })}
+                  onClick={handleOpenRegisterModal}
+                  disabled={isRegistered}
+                >
+                  {isRegistered ? 'Registered' : 'Register'}
+                </button>
               </ButtonConnected>
               <div className={s.meta_info}>
                 {!!peopleSubmitted && (
