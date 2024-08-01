@@ -476,7 +476,6 @@ export const dappMockupData: DappModel[] = [
             options: [],
             placeholder: 'e.g 0x0000000000000000000000000000000000000000',
             background: '#00AA6C',
-            inputType: "number",
           },
         ],
         placableAmount: 1,
