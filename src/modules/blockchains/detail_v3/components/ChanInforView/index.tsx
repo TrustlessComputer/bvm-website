@@ -21,15 +21,16 @@ const ChainInforView = (props: Props) => {
       {item.logoURL ? (
         <Image
           src={`${item.logoURL}`}
-          w={['60px', '80px', '120px']}
-          borderRadius={'4px'}
+          w={['30px', '40px', '50px']}
+          borderRadius={'100%'}
           h={'auto'}
           objectFit={'contain'}
         />
       ) : (
         <Image
           src={'/blockchains/customize/ic-infa.svg'}
-          w={['30px', '35px', '40px']}
+          w={['30px', '40px', '50px']}
+          borderRadius={'100%'}
           h={'auto'}
           objectFit={'contain'}
         />
@@ -38,7 +39,7 @@ const ChainInforView = (props: Props) => {
         {`${item.chainName || '--'}`}
       </Text>
 
-      <LivingStatus color={mapper.color || '#0ec00e'} />
+      {/* <LivingStatus color={mapper.color || '#0ec00e'} /> */}
     </Flex>
   );
 };
