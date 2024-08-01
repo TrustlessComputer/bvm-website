@@ -14,11 +14,11 @@ type Props = {
 const ChainInforView = (props: Props) => {
   const { orderItem: item } = props;
 
-  const mapper = useOrderMapper(item);
+  // const mapper = useOrderMapper(item);
 
   return (
     <Flex flexDir={'row'} align={'center'} justifyItems={'center'} gap={'20px'}>
-      {item.logoURL ? (
+      {item?.logoURL ? (
         <Image
           src={`${item.logoURL}`}
           w={['30px', '40px', '50px']}
@@ -36,7 +36,7 @@ const ChainInforView = (props: Props) => {
         />
       )}
       <Text fontSize={['28px', '30px', '32px']} fontWeight={600} color={'#000'}>
-        {`${item.chainName || '--'}`}
+        {`${item?.chainName || '--'}`}
       </Text>
 
       {/* <LivingStatus color={mapper.color || '#0ec00e'} /> */}
