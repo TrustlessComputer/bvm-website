@@ -1,16 +1,18 @@
 .button {
-  width: 152px !important;
-  height: 44px !important;
+  //width: 152px !important;
+  height: 46px !important;
   border-radius: 16px !important;
+  padding: 7px 24px !important;
   background-color: #fa4e0e !important;
   color: #ffffff !important;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 16px !important;
-  font-size: 20px !important;
-  font-weight: 500 !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
   line-height: 34px !important;
+  font-family: var(--font-JetBrainsMono);
 
   &:disabled {
     cursor: not-allowed;

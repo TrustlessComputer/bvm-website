@@ -27,7 +27,7 @@ export const dappMockupData: DappModel[] = [
       {
         key: 'tokenomics',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg',
-        title: 'Tokenomics',
+        title: 'Allocation',
         tooltip: '',
         required: false,
       },
