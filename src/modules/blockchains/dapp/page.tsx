@@ -411,7 +411,6 @@ const RollupsDappPage = () => {
           activeBaseIndex,
         );
         formDappSignal.value = { ...formDapp };
-        draggedIds2DSignal.value = [...draggedIds2D];
 
         return;
       }
@@ -589,9 +588,9 @@ const RollupsDappPage = () => {
   );
 
   const fetchData = async () => {
-    const dapps = configs;
+    // const dapps = configs;
 
-    // const dapps = dappMockupData;
+    const dapps = dappMockupData;
 
     const sortedDapps = [...dapps].sort((a, b) => a?.order - b?.order);
 
@@ -691,7 +690,6 @@ const RollupsDappPage = () => {
         });
 
         console.log('model', model);
-        
 
         setTemplateDapps(_data);
         setTemplateForm(model);
