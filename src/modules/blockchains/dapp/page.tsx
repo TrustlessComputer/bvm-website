@@ -35,6 +35,7 @@ import {
   FormDappUtil,
   hasValue,
   MouseSensor,
+  preDataAirdropTask,
   removeItemAtIndex,
 } from './utils';
 
@@ -83,10 +84,13 @@ const RollupsDappPage = () => {
     return result;
   };
 
-  const parseAirdropsData = (_airdrops: IAirdrop[]) => {
+  const parseAirdropsData = (_airdrops: IAirdrop[], _tokens: IToken[]) => {
     const result: DappModel[] = [];
     for (const airdrop of _airdrops) {
-      const t = parseAirdrop(airdrop);
+      const _token = tokens.find((v) =>
+        compareString(v.contract_address, airdrop.token_address),
+      );
+      const t = parseAirdrop(airdrop, _token as IToken);
       result.push(t);
     }
 
@@ -579,68 +583,6 @@ const RollupsDappPage = () => {
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   );
 
-  const preDataAirdropTask = (sortedDapps: DappModel[] = []) => {
-    const _sortedDapps = sortedDapps;
-    if (tokens.length > 0) {
-      const _airdropIndex = _sortedDapps.findIndex((v) =>
-        compareString(v.key, DappType.airdrop),
-      );
-
-      if (_airdropIndex > -1) {
-        const fieldRewardToken = _sortedDapps[
-          _airdropIndex
-        ].baseBlock.fields.findIndex((v) =>
-          compareString(v.key, 'reward_token'),
-        );
-        if (fieldRewardToken > -1) {
-          // @ts-ignore
-          _sortedDapps[_airdropIndex].baseBlock.fields[
-            fieldRewardToken
-          ].options = tokens.map((t) => ({
-            key: t.id,
-            title: t.name,
-            value: t.contract_address,
-            icon: t.image_url,
-            tooltip: '',
-            type: '',
-            options: [],
-          }));
-          if (airdropTasks.length > 0) {
-            // @ts-ignore
-            const blockFieldTasks = _sortedDapps[
-              _airdropIndex
-            ].blockFields.findIndex((v) =>
-              compareString(v.key, 'airdrop_tasks'),
-            );
-
-            if (blockFieldTasks > -1) {
-              // @ts-ignore
-              const airdropTaskIndex = _sortedDapps[_airdropIndex].blockFields[
-                blockFieldTasks
-              ].fields.findIndex((v) => compareString(v.key, 'task'));
-
-              if (airdropTaskIndex > -1) {
-                // @ts-ignore
-                _sortedDapps[_airdropIndex].blockFields[blockFieldTasks].fields[
-                  airdropTaskIndex
-                ].options = airdropTasks.map((t) => ({
-                  key: t.id,
-                  title: t.title,
-                  value: t.id,
-                  icon: '',
-                  tooltip: t.description,
-                  type: t.type,
-                  options: [],
-                }));
-              }
-            }
-          }
-        }
-      }
-    }
-    return _sortedDapps;
-  };
-
   const fetchData = async () => {
     // const dapps = configs;
 
@@ -648,7 +590,7 @@ const RollupsDappPage = () => {
 
     const sortedDapps = [...dapps].sort((a, b) => a?.order - b?.order);
 
-    const _sortedDapps = preDataAirdropTask(sortedDapps);
+    const _sortedDapps = preDataAirdropTask(sortedDapps, tokens, airdropTasks);
 
     setDapps(_sortedDapps);
   };
@@ -733,17 +675,16 @@ const RollupsDappPage = () => {
         break;
       }
       case DappType.airdrop: {
-        const data = parseAirdropsData(airdrops);
-        console.log('data', data);
+        const data = parseAirdropsData(airdrops, tokens);
+        const _data = preDataAirdropTask(data, tokens, airdropTasks);
 
-        // const model = parseDappModel({
-        //   key: DappType.airdrop,
-        //   model: data,
-        // });
-        // console.log('model', model);
+        const model = parseDappModel({
+          key: DappType.airdrop,
+          model: _data,
+        });
 
-        // setTemplateDapps(data);
-        // setTemplateForm(model);
+        setTemplateDapps(_data);
+        setTemplateForm(model);
         break;
       }
       default:
