@@ -172,6 +172,33 @@ export const orderBuyAPI_V3 = async (params: IOrderBuyReq_V3): Promise<any> => {
   }
 };
 
+export const orderUpdateV2 = async (
+  params: IOrderBuyReq_V3,
+  orderId: string,
+): Promise<any> => {
+  const bodyData = params;
+
+  console.log('orderUpdateV2 -- Params ', {
+    params,
+    orderId,
+  });
+
+  try {
+    const data = (await httpClient.post(
+      `/order/update-v2/${orderId}`,
+      bodyData,
+      {
+        headers: {
+          Authorization: `${getAPIAccessToken()}`,
+        },
+      },
+    )) as any;
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
 export const orderUpdateAPI = async (
   params: IOrderUpdate,
   orderId: string,
@@ -270,6 +297,26 @@ export const getAllOrders = async (): Promise<OrderItem[]> => {
 export const getAllOrdersV2 = async (): Promise<OrderItem[]> => {
   let orders = (await httpClient.get(`/order/all`)) as OrderItemResp[];
   return builderOrderList(orders, false);
+};
+
+export const getModalCategories = async (
+  tcAddress?: string,
+): Promise<IModelCategory[]> => {
+  let data = (await httpClient.get(
+    `/order/available-list-v3?tcAddress=${tcAddress || ''}`,
+  )) as IModelCategory[];
+
+  return data;
+};
+
+export const getAvailableListTemplate = async (): Promise<
+  [IModelCategory[]]
+> => {
+  let data = (await httpClient.get(`/order/available-list-template`)) as [
+    IModelCategory[],
+  ];
+
+  return data;
 };
 
 export const getTemplateV2 = async (): Promise<IExploreItem[]> => {
@@ -474,6 +521,28 @@ export const L2ServiceTracking = async (
   }
 };
 
+export interface IInstallAccountAbstractionByData {
+  orderID: string;
+  appName: string;
+  [key: string]: string;
+}
+
+export const installDAppAAByData = async (
+  data: IInstallAccountAbstractionByData,
+): Promise<any> => {
+  try {
+    const res = await httpClient.post(`/order/dapp/install`, data, {
+      headers: {
+        Authorization: `${getAPIAccessToken()}`,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.log('installDAppByData error', error);
+    throw error;
+  }
+};
+
 const setAccesTokenHeader = (accessToken: string) => {
   // httpClient.defaults.headers.Authorization = `${accessToken}`;
 };
@@ -557,7 +626,12 @@ const l2ServicesAPI = {
   // uploadImage,
   uploadFile,
 
+  getModalCategories,
   getTemplateV2,
+  getAvailableListTemplate,
+
+  //
+  installDAppAAByData,
 };
 
 export default l2ServicesAPI;

@@ -9,6 +9,12 @@
   position: relative;
   cursor: grabbing;
 
+  &__disabled {
+    pointer-events: none;
+    cursor: not-allowed !important;
+    opacity: 0.5;
+  }
+
   &::after {
     z-index: -2;
     content: '';

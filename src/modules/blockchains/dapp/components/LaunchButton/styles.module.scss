@@ -1,0 +1,52 @@
+.button {
+  //width: 152px !important;
+  height: 46px !important;
+  border-radius: 16px !important;
+  padding: 7px 24px !important;
+  background-color: #fa4e0e !important;
+  color: #ffffff !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  line-height: 34px !important;
+  font-family: var(--font-JetBrainsMono);
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #fa4e0e !important;
+    color: #ffffff !important;
+  }
+}
+
+.modalError {
+  padding: 28px !important;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.4px;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style-type: none;
+
+  &__field {
+    font-family: var(--font-SFProDisplay);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: calc(20 / 16);
+    text-align: center;
+    color: #333333;
+  }
+}

@@ -20,7 +20,6 @@ const ButtonLoginTwitter = (props: Props) => {
   const { getAccountInfor } = useL2Service();
   const accInfor = useAppSelector(accountInforSelector);
 
-  console.log('GGGG ', accInfor);
   useEffect(() => {
     if (loggedIn) {
       getAccountInfor();
