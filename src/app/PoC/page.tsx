@@ -11,7 +11,7 @@ const metadataThumbnail = `/images/poc/metadata-2x.jpg`; // TODO: Update new thu
 // const metadataThumbnail = IMAGE_SHARING; // TODO: Update new thumbnail
 
 const metadataDesc = `
-Proof Of Code by BVM: The Weekly Crypto Coding Competition
+Proof of Code by BVM: The Weekly Crypto Coding Competition
 
 Compete for a chance to win a share of the $500 weekly prize pool, starting with Solidity problems
 

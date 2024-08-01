@@ -189,15 +189,15 @@ const HackathonModule = (props: Props) => {
             </div>
             <div>
               <h2 className={s.title}>
-                <p>Proof Of Code</p>
+                <p>Proof of Code</p>
               </h2>
               <p className={s.desc}>
-                Introducing Proof Of Code: the weekly crypto coding competition
+                Introducing Proof of Code: the weekly crypto coding competition
                 with weekly prize pools of $500, starting with Solidity
                 problems.
               </p>
               <p className={s.desc}>
-                Proof Of Code is hosted by BVM - the leading Rollup-As-A-Service
+                Proof of Code is hosted by BVM - the leading Rollup as a Service
                 on Bitcoin, where anyone can easily launch their own blockchain
                 on Bitcoin for only $99/month.
               </p>
