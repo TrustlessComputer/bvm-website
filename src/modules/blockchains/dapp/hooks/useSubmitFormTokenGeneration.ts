@@ -236,7 +236,7 @@ const useSubmitFormTokenGeneration = ({
           return data?.allocation?.map(all => {
             return {
               ...all,
-              address: (all as ITokenomics).address || data?.receiver_address
+              address: (all as unknown as ITokenomics).address || data?.receiver_address
             }
           })
 
