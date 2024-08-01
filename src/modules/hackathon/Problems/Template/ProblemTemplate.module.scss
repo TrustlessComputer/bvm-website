@@ -1,5 +1,7 @@
 .wrapper {
     // max-width: 50%;
+    height: 503px;
+    overflow-y: scroll;
 
     li {
         list-style-position: inside
@@ -7,5 +9,9 @@
 
     * {
         white-space: inherit;
+    }
+
+    p {
+        padding-right: 10px;
     }
 }
