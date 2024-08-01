@@ -1,4 +1,9 @@
-export const PROBLEM_1_MARKDOWN = `Given two positive integers $a$ and $b$, find the greatest common divisor (GCD) of $a$ and $b$, which is defined as the largest integer $c$ such that $c$ divide both $a$ and $b$.
+export const PROBLEM_1_MARKDOWN = `
+#Practice
+
+&nbsp;  
+
+Given two positive integers $a$ and $b$, find the greatest common divisor (GCD) of $a$ and $b$, which is defined as the largest integer $c$ such that $c$ divide both $a$ and $b$.
 
 &nbsp;  
      

@@ -1,4 +1,9 @@
-export const PROBLEM_3_MARKDOWN = `The BVM Land has $n$ cities connected by $m$ bidirectional roads. The cities are numbered from $0$ to $n-1$, and the roads are numbered from $0$ to $m-1$. The $i$-th road connects two cities $u_i$ and $v_i$. 
+export const PROBLEM_3_MARKDOWN = `
+#Practice
+
+&nbsp;  
+
+The BVM Land has $n$ cities connected by $m$ bidirectional roads. The cities are numbered from $0$ to $n-1$, and the roads are numbered from $0$ to $m-1$. The $i$-th road connects two cities $u_i$ and $v_i$. 
 
 &nbsp;  
 

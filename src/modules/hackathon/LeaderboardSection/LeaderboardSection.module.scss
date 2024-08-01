@@ -2,8 +2,8 @@
     display: flex;
     gap: 28px;
     // height: 100vh;
-    padding: 120px 0;
-    margin-top: 120px;
+    padding: 100px 0;
+    margin-top: 80px;
 
     @include is-mobile {
         flex-direction: column;

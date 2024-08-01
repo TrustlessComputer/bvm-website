@@ -277,7 +277,6 @@ const HackathonModule = (props: Props) => {
         <Box
           pt={{
             base: '60px',
-            md: '160px',
           }}
           maxW={'846px'}
           mx="auto"
