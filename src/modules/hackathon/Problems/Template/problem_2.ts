@@ -22,8 +22,8 @@ function solve(uint256[] memory a) external pure returns (uint256[] memory);
 &nbsp;  
 
 ## Constraints:
-- $1 \le n \le 500$
-- $1 \le a_i \le 10^{9}$
+- $1$ &le; $n$ &le; $500$
+- $1$ &le; $a_i$ &le; $10^{9}$
 
 &nbsp;  
 

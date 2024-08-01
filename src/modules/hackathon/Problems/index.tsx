@@ -44,7 +44,7 @@ const Problems = () => {
         <ConnectedWallets />
       </div>
       <div className={s.footer}>
-        <SubmitProblem code={tabIndex} />
+        <SubmitProblem code={tabIndex + 1} />
       </div>
     </div>
   );

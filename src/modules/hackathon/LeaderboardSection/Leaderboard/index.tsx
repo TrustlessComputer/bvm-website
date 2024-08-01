@@ -79,7 +79,9 @@ const Leaderboard = (props: Props) => {
         <div className={cn(s.second_col, s.name)}>
           <Flex alignItems={'center'} gap="8px">
             <Avatar url={data.user.profile_image} width={20} circle />
-            <p title={data.user.name}>{formatName(data.user.name, 4)}</p>
+            <p title={data.user.name}>
+              {formatName(data.user.name || data.user.twitter_username, 4)}
+            </p>
           </Flex>
         </div>
         <div className={cn(s.place_center, s.third_col)}>

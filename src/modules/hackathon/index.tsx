@@ -38,7 +38,7 @@ const START_TIME = '2024-08-01T10:00:00Z';
 const END_TIME = '2024-08-06T010:00:00Z';
 
 const HackathonModule = (props: Props) => {
-  const { loggedIn, login, logout, userInfo } = useWeb3Auth();
+  const { loggedIn, login, logout, userInfo, wallet } = useWeb3Auth();
   const dispatch = useDispatch();
 
   const [peopleSubmitted, setPeopleSubmitted] = useState<number | null>(null);
@@ -213,15 +213,26 @@ const HackathonModule = (props: Props) => {
             </div>
             <Flex alignItems={'center'} gap="24px">
               <ButtonConnected title="Register" className={s.reward_btn}>
-                <button
-                  className={cn(s.reward_btn, {
-                    [s.registered]: isRegistered,
-                  })}
-                  onClick={handleOpenRegisterModal}
-                  disabled={isRegistered}
-                >
-                  {isRegistered ? 'Registered' : 'Register'}
-                </button>
+                {!!wallet?.privateKey ? (
+                  <button
+                    className={cn(s.reward_btn, {
+                      [s.registered]: isRegistered,
+                    })}
+                    onClick={handleOpenRegisterModal}
+                    disabled={isRegistered}
+                  >
+                    {isRegistered ? 'Registered' : 'Register'}
+                  </button>
+                ) : (
+                  <button
+                    className={cn(s.reward_btn)}
+                    onClick={() => {
+                      login();
+                    }}
+                  >
+                    Register
+                  </button>
+                )}
               </ButtonConnected>
               <div className={s.meta_info}>
                 {!!peopleSubmitted && (

@@ -23,8 +23,8 @@ function solve(uint256[] memory a, uint256[] memory u, uint256[] memory v) exter
 \`\`\`
 
 &nbsp;  
-- $a$: Array of length $n$. For $0 \le i < n$, $a_i$ is the cost of bulding a library in city $i$.
-- $u$, $v$: Two arrays of length $m$. For $0 \le i < m$, $u_i$ and $v_i$  - describing the $i$-th road. It is guaranteed that no two roads connect the same pair of cities, and no road connects a city to itself.
+- $a$: Array of length $n$. For $0$ &le; $i < n$, $a_i$ is the cost of building a library in city $i$.
+- $u$, $v$: Two arrays of length $m$. For $0$ &le; $i < m$, $u_i$ and $v_i$  - describing the $i$-th road. It is guaranteed that no two roads connect the same pair of cities, and no road connects a city to itself.
 - This function need to return a single integer, which is the minimum total cost of building libraries.
 - For each test case, this function will be called exactly once with gas limit of $100\,000\,000$.
 
@@ -33,10 +33,10 @@ function solve(uint256[] memory a, uint256[] memory u, uint256[] memory v) exter
 ## Constraints:
 
 &nbsp;  
-- $1 \le n \le 5\,000$
-- $0 \le m \le 5\,000$
-- $0 \le u_i, v_i < n$, $u_i \ne v_i$
-- $1 \le a_i \le 10^{9}$
+- $1$ &le; $n$ &le; $5\,000$
+- $0$ &le; $m$ &le; 5\,000$
+- $0$ &le; $u_i, v_i < n$, $u_i$ &ne; $v_i$
+- $1$ &le; $a_i$ &le; $10^{9}$
 - No two roads connect the same pair of cities.
 
 &nbsp;  

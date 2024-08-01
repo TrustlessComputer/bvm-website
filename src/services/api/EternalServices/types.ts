@@ -27,6 +27,7 @@ export type IUserContest = {
   user: {
     profile_image: string;
     name: string;
+    twitter_username: string;
   };
 };
 export type IGetListLeaderboardResponse = {
@@ -35,7 +36,8 @@ export type IGetListLeaderboardResponse = {
 };
 
 export type ISubmitProblemResponse = {
-  id: string;
+  id?: string;
+  message?: string;
 };
 
 export type IContestStats = {
