@@ -523,11 +523,6 @@ const RightDroppable = () => {
 
                                     if (!thisChildField) return null;
 
-                                    console.log(
-                                      `${child.name}-${childIndex}-${itemIndex}-${baseIndex}`,
-                                      item.children.length - childIndex,
-                                    );
-
                                     return (
                                       <Draggable
                                         id={`${child.name}-${childIndex}-${itemIndex}-${baseIndex}`}

@@ -91,8 +91,8 @@ const Sidebar = ({}: Props) => {
   }, [dapps]);
 
   const randomColors = React.useMemo(() => {
-    return dapps?.map(() => getRandomColor());
-  }, [dapps?.length]);
+    return Array.from({ length: 30 })?.map(() => getRandomColor());
+  }, []);
 
   if (!dapps?.length) {
     return <></>;
