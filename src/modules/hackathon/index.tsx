@@ -256,16 +256,16 @@ const HackathonModule = (props: Props) => {
           </div>
         </div>
       </div>
-      {/* <Box zIndex={1} pos={'relative'}>
+      <Box zIndex={1} pos={'relative'}>
         <LeaderboardSection />
-      </Box> */}
+      </Box>
       <Box
         zIndex={10}
         bg="#000"
         pos={'relative'}
         mt={{
           base: '0px',
-          md: '100px',
+          // md: '100px',
         }}
         pb={{
           base: '60px',

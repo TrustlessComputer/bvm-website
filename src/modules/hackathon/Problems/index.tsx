@@ -1,6 +1,14 @@
 import React, { PropsWithChildren, useState } from 'react';
 import s from './Problems.module.scss';
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react';
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Box,
+  Image,
+} from '@chakra-ui/react';
 import SubmitProblem from '../SubmitProblem';
 import IcThreeDots from '@/public/hackathon/ic-three-dots.svg';
 import ProblemTemplate from './Template';
@@ -12,7 +20,7 @@ const Problems = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
-        <IcThreeDots />
+        <Image src={'/hackathon/ic-three-dots.svg'}></Image>
       </div>
       <div className={s.body}>
         <Tabs variant="soft-rounded" onChange={(index) => setTabIndex(index)}>
