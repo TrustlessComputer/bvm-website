@@ -1,8 +1,11 @@
-import { useAppSelector } from '@/stores/hooks';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { setOrderSelected } from '@/stores/states/l2services/reducer';
 import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector';
 import { Flex, Text } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 const enhanceValidateOrderData = (WrappedComponent: any) => (props: any) => {
+  const dispatch = useAppDispatch();
   const { orderDetail } = useAppSelector(getL2ServicesStateSelector);
 
   if (!orderDetail || orderDetail.orderId?.length < 1) {
@@ -25,6 +28,11 @@ const enhanceValidateOrderData = (WrappedComponent: any) => (props: any) => {
       </Flex>
     );
   }
+
+  useEffect(() => {
+    dispatch(setOrderSelected(orderDetail));
+  }, [orderDetail]);
+
   return <WrappedComponent {...props} chainDetailData={orderDetail} />;
 };
 

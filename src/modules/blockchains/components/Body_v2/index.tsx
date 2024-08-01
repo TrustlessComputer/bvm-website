@@ -81,7 +81,7 @@ const BodyGridView = () => {
               dispatch(setOrderSelected(item));
               // onOpenWaittingSetingUp && onOpenWaittingSetingUp();
               // router.push(`/rollups/${item.orderId}`);
-              router.push(`/chains/${item.orderId}`);
+              router.push(`/chainsv2/${item.orderId}`);
             }}
           />
         ))}

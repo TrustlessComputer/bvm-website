@@ -541,7 +541,7 @@ const Page = (props: any) => {
             {/* RightView */}
             <Flex
               className={s.rightViewContainer}
-              minW={'200px'}
+              minW={'250px'}
               w={'max-content'}
             >
               <AppViewer

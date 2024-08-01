@@ -291,19 +291,31 @@ const getOrderDetailSelected = createSelector(
       });
     }) || [];
 
-    dAppConfigList = [
-      APP_BLOCKCHAIN,
-      APP_STAKING,
-      APP_AIRDROP,
-      APP_TOKEN_GERNERATION,
-      ...dAppConfigList,
-    ];
+    dAppConfigList = [APP_BLOCKCHAIN, ...dAppConfigList];
 
     return {
       orderDetail: state.orderDetail,
       dAppConfigList,
       dAppConfigSelected,
     };
+  },
+);
+
+const getDappByAppNameIDSelector = createSelector(
+  getL2ServicesStateSelector,
+  (state) => (appName: string) => {
+    const orderDetail = state.orderDetail;
+
+    console.log('PPPP 111 --- orderDetail ', orderDetail);
+    console.log('PPPP 222 --- appName ', appName);
+
+    const dAppFinded = orderDetail?.dApps?.find((item) => {
+      item.appCode?.toLowerCase() === appName?.toLowerCase();
+    });
+
+    console.log('PPPP 333 --- dAppFinded ', dAppFinded);
+
+    return dAppFinded;
   },
 );
 
@@ -377,4 +389,5 @@ export {
 
   //
   getDAppConfigByKeySelector,
+  getDappByAppNameIDSelector,
 };
