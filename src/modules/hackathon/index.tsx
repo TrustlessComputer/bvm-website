@@ -30,6 +30,7 @@ import cn from 'classnames';
 import { formatCurrencyV2, humanReadable } from '@/utils/format';
 import FAQs from '@/components/faq';
 import { FAQ_POC } from './faqs';
+import { LINKS } from '@/constants/external-links';
 
 type Props = {};
 
@@ -224,7 +225,7 @@ const HackathonModule = (props: Props) => {
             >
               <div className={s.connect_btn}>
                 <a
-                  href="https://t.me/+jTMgmUXx1T4yMGZl"
+                  href={LINKS.POC_TELEGRAM_GROUP}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={s.tele_link}

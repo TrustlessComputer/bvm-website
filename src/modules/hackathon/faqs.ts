@@ -1,3 +1,5 @@
+import { LINKS } from '@/constants/external-links';
+
 export const FAQ_POC = [
   {
     q: 'What is Proof Of Code?',
@@ -15,10 +17,10 @@ export const FAQ_POC = [
     q: 'What are the prizes?',
     a: `<p>Each week, the top 3 performers with the highest scores will share a prize pool of $500. The prize distribution details will be announced at the start of each competition.</p>`,
   },
-  // {
-  //   q: 'When does the competition start?',
-  //   a: `<p>The competition begins every week, with practice battles starting in 1 day, 7 hours, and 7 minutes from now. Make sure to register before the practice battles begin to ensure your spot.</p>`,
-  // },
+  {
+    q: 'When does the competition start?',
+    a: `<p>The competition is held every week on Thursday, each competition lasts 2 hours. Make sure to register before joining the competitions.</p><br/><p>There is also practice mode where you can practice anytime.</p>`,
+  },
   {
     q: 'What is BVM?',
     a: `<p>BVM is the leading Rollup-As-A-Service platform on Bitcoin. It is a no-code tool that allows anyone to easily launch their own blockchain on Bitcoin for only $99/month.</p><br/><p>Proof Of Code itself is running on its own blockchain powered by BVM. Learn more about creating a Bitcoin L2/L3 with BVM <a href="https://bvm.network/studio" target="_blank" rel="noopener noreferrer">here</a>.</p>`,
@@ -33,7 +35,7 @@ export const FAQ_POC = [
   },
   {
     q: 'How can I connect with other participants?',
-    a: `<p>Join the community on Telegram to share knowledge and connect with other developers/participants. </p><a href="https://t.me/+jTMgmUXx1T4yMGZl" target="_blank" rel="noopener noreferrer">https://t.me/+jTMgmUXx1T4yMGZl</a>`,
+    a: `<p>Join the community on Telegram to share knowledge and connect with other developers/participants. </p><a href="${LINKS.POC_TELEGRAM_GROUP}" target="_blank" rel="noopener noreferrer">https://t.me/+jTMgmUXx1T4yMGZl</a>`,
   },
   {
     q: 'What if I have more questions?',
