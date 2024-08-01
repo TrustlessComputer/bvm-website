@@ -57,177 +57,191 @@ export const parseIssuedToken = (token: IToken) => {
 
   result.baseBlock = baseBlock;
 
-  const blockFields: BlockModel[] = [];
+  const isFoundation = token.vestings?.length === 1 && token.vestings.findIndex(v => v.beneficiary_name === 'Founation');
 
-  for (const vesting of token.vestings as ITokenVesting[]) {
-    const allocation: BlockModel = {
-      key: 'allocation',
-      title: 'Allocation',
-      icon: '/icons-tool/issue-a-token/icon-allocation.svg',
-      placableAmount: -1,
-      section: 'tokenomics',
-      preview: true,
-      fields: [
-        {
-          key: 'name',
-          title: 'Name',
-          type: 'input',
-          icon: '',
-          value: vesting.beneficiary_name as string,
-          tooltip: '',
-          options: [],
-        },
-        {
-          key: 'total_amount',
-          title: 'Amount',
-          type: 'input',
-          icon: '',
-          value: (Number(vesting.amount_total) > 0 ? vesting.amount_total : vesting.unvest_amount) as string,
-          tooltip: '',
-          options: [],
-        },
-        {
-          key: 'address',
-          title: 'Receiver Address',
-          type: 'input',
-          icon: '',
-          value: vesting.beneficiary as string,
-          tooltip: '',
-          options: [],
-        },
-        {
-          key: 'is_vesting',
-          title: 'Vesting?',
-          type: 'extends',
-          icon: '',
-          value: Number(vesting.unvest_amount) > 0 ? 0 : 1,
-          tooltip: '',
-          options: [
-            {
-              key: 'cliff',
-              title: 'Cliff',
-              value: '',
-              icon: '',
-              tooltip: '',
-              type: 'group',
-              options: [
-                {
-                  key: 'cliff_unit',
-                  title: 'Time',
-                  value: vesting.cliff_units?.toString() || '0',
-                  icon: '',
-                  tooltip: '',
-                  type: 'dropdown',
-                  level: 1,
-                  options: [
-                    {
-                      key: 'day',
-                      title: 'Day',
-                      value: '0',
-                      icon: '',
-                      tooltip: '',
-                      type: '',
-                      options: [],
-                    },
-                    {
-                      key: 'week',
-                      title: 'Week',
-                      value: '1',
-                      icon: '',
-                      tooltip: '',
-                      type: '',
-                      options: [],
-                    },
-                    {
-                      key: 'month',
-                      title: 'Month',
-                      value: '2',
-                      icon: '',
-                      tooltip: '',
-                      type: '',
-                      options: [],
-                    },
-                  ],
-                },
-                {
-                  key: 'cliff',
-                  title: 'Amount',
-                  value: vesting.cliff as number,
-                  icon: '',
-                  tooltip: '',
-                  type: 'input',
-                  options: [],
-                  level: 1,
-                },
-              ],
-            },
-            {
-              key: 'duration',
-              title: 'Duration',
-              value: '',
-              icon: '',
-              tooltip: '',
-              type: 'group',
-              options: [
-                {
-                  key: 'duration_unit',
-                  title: 'Time',
-                  value: vesting.duration_units?.toString() || '0',
-                  icon: '',
-                  tooltip: '',
-                  type: 'dropdown',
-                  level: 1,
-                  options: [
-                    {
-                      key: 'day',
-                      title: 'Day',
-                      value: '0',
-                      icon: '',
-                      tooltip: '',
-                      type: '',
-                      options: [],
-                    },
-                    {
-                      key: 'week',
-                      title: 'Week',
-                      value: '1',
-                      icon: '',
-                      tooltip: '',
-                      type: '',
-                      options: [],
-                    },
-                    {
-                      key: 'month',
-                      title: 'Month',
-                      value: '2',
-                      icon: '',
-                      tooltip: '',
-                      type: '',
-                      options: [],
-                    },
-                  ],
-                },
-                {
-                  key: 'duration',
-                  title: 'Amount',
-                  value: vesting.duration as number,
-                  icon: '',
-                  tooltip: '',
-                  type: 'input',
-                  options: [],
-                  level: 1,
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    };
+  if(isFoundation) {
+    baseBlock.fields.push({
+      key: 'receiver_address',
+      title: 'Receiver Address',
+      type: 'input',
+      icon: '',
+      value: (token?.vestings?.[0] as any).beneficiary as string,
+      tooltip: '',
+      options: [],
+    },)
+  } else {
+    const blockFields: BlockModel[] = [];
 
-    blockFields.push(allocation);
+    for (const vesting of token.vestings as ITokenVesting[]) {
+      const allocation: BlockModel = {
+        key: 'allocation',
+        title: 'Allocation',
+        icon: '/icons-tool/issue-a-token/icon-allocation.svg',
+        placableAmount: -1,
+        section: 'tokenomics',
+        preview: true,
+        fields: [
+          {
+            key: 'name',
+            title: 'Name',
+            type: 'input',
+            icon: '',
+            value: vesting.beneficiary_name as string,
+            tooltip: '',
+            options: [],
+          },
+          {
+            key: 'total_amount',
+            title: 'Amount',
+            type: 'input',
+            icon: '',
+            value: (Number(vesting.amount_total) > 0 ? vesting.amount_total : vesting.unvest_amount) as string,
+            tooltip: '',
+            options: [],
+          },
+          {
+            key: 'address',
+            title: 'Receiver Address',
+            type: 'input',
+            icon: '',
+            value: vesting.beneficiary as string,
+            tooltip: '',
+            options: [],
+          },
+          {
+            key: 'is_vesting',
+            title: 'Vesting?',
+            type: 'extends',
+            icon: '',
+            value: Number(vesting.unvest_amount) > 0 ? 0 : 1,
+            tooltip: '',
+            options: [
+              {
+                key: 'cliff',
+                title: 'Cliff',
+                value: '',
+                icon: '',
+                tooltip: '',
+                type: 'group',
+                options: [
+                  {
+                    key: 'cliff_unit',
+                    title: 'Time',
+                    value: vesting.cliff_units?.toString() || '0',
+                    icon: '',
+                    tooltip: '',
+                    type: 'dropdown',
+                    level: 1,
+                    options: [
+                      {
+                        key: 'day',
+                        title: 'Day',
+                        value: '0',
+                        icon: '',
+                        tooltip: '',
+                        type: '',
+                        options: [],
+                      },
+                      {
+                        key: 'week',
+                        title: 'Week',
+                        value: '1',
+                        icon: '',
+                        tooltip: '',
+                        type: '',
+                        options: [],
+                      },
+                      {
+                        key: 'month',
+                        title: 'Month',
+                        value: '2',
+                        icon: '',
+                        tooltip: '',
+                        type: '',
+                        options: [],
+                      },
+                    ],
+                  },
+                  {
+                    key: 'cliff',
+                    title: 'Amount',
+                    value: vesting.cliff as number,
+                    icon: '',
+                    tooltip: '',
+                    type: 'input',
+                    options: [],
+                    level: 1,
+                  },
+                ],
+              },
+              {
+                key: 'duration',
+                title: 'Duration',
+                value: '',
+                icon: '',
+                tooltip: '',
+                type: 'group',
+                options: [
+                  {
+                    key: 'duration_unit',
+                    title: 'Time',
+                    value: vesting.duration_units?.toString() || '0',
+                    icon: '',
+                    tooltip: '',
+                    type: 'dropdown',
+                    level: 1,
+                    options: [
+                      {
+                        key: 'day',
+                        title: 'Day',
+                        value: '0',
+                        icon: '',
+                        tooltip: '',
+                        type: '',
+                        options: [],
+                      },
+                      {
+                        key: 'week',
+                        title: 'Week',
+                        value: '1',
+                        icon: '',
+                        tooltip: '',
+                        type: '',
+                        options: [],
+                      },
+                      {
+                        key: 'month',
+                        title: 'Month',
+                        value: '2',
+                        icon: '',
+                        tooltip: '',
+                        type: '',
+                        options: [],
+                      },
+                    ],
+                  },
+                  {
+                    key: 'duration',
+                    title: 'Amount',
+                    value: vesting.duration as number,
+                    icon: '',
+                    tooltip: '',
+                    type: 'input',
+                    options: [],
+                    level: 1,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      blockFields.push(allocation);
+    }
+
+    result.blockFields = blockFields;
   }
-
-  result.blockFields = blockFields;
 
   return result;
 }
