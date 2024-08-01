@@ -36,6 +36,7 @@ import { useAccountAbstractionStore } from './store/hook';
 import enhance from './enhance';
 import { useAADetailHelper } from './useAADetailHelper';
 import WaitingInstallView from './components/WaitingInstallView';
+import BigNumber from 'bignumber.js';
 
 const Page = (props: any) => {
   // const modelCategories = useAppSelector(getModelCategoriesSelector);
@@ -49,6 +50,7 @@ const Page = (props: any) => {
   const { isCanEdit, isProcessing, isOnlyView, isOwner, orderDetail, aaData } =
     useAADetailHelper();
 
+  console.log('aaData ', aaData);
   const [data, setData] = React.useState<
     | (IModelCategory & {
         options: IModelCategory['options'] &
@@ -97,27 +99,12 @@ const Page = (props: any) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (isProcessing || isOnlyView) {
-      // setField('input_apps_address', aaData?.aaPaymasterContract || '', false);
-      // setField('input_apps_fee_rate', aaData?.aaTokenGas || '', false);
-      // setFieldsDragged((prev) => [...prev, 'input_apps']);
-      // setFieldsDragged((prev) => [...prev, 'input_apps']);
-    }
-
-    // setField('input_apps_address', aaData?.aaPaymasterContract || '', false);
-    // setField('input_apps_fee_rate', aaData?.aaTokenGas || '', false);
-
-    // setField('input_apps_address', 'A', false);
-    // setField('input_apps_fee_rate', '222', false);
-
-    // setFeeRate('123');
-    // setTokenContractAddress('ABCD');
-  }, [isProcessing, isOnlyView, orderDetail, aaData]);
-
   const handleDragStart = (event: any) => {
     const { active } = event;
-    const [activeSuffix2] = active.id.split('-');
+
+    // Don't remove unused variables
+    const [activeKey = '', activeSuffix1 = '', activeSuffix2] =
+      active.id.split('-');
 
     if (activeSuffix2 === 'right') {
       setRightDragging(true);
@@ -304,6 +291,11 @@ const Page = (props: any) => {
     setOriginalData(modelCategories);
 
     setTemplates(availableListTemplate);
+
+    setFeeRate(
+      new BigNumber(aaData?.aaTokenGas || '0').dividedBy(1e18).toString() || '',
+    );
+    setTokenContractAddress(aaData?.aaPaymasterTokenID || '');
   };
 
   React.useEffect(() => {
@@ -489,12 +481,14 @@ const Page = (props: any) => {
                           key={item.key + '-parent' + '-right'}
                           id={item.key + '-parent' + '-right'}
                           useMask
+                          disabled={isOnlyView || isProcessing}
                         >
                           <DroppableV2 id={item.key}>
                             <LegoParent
                               parentOfNested
                               background={item.color}
                               label={item.title}
+                              disabled={isOnlyView || isProcessing}
                               zIndex={fieldsDragged.length - index - 1}
                             >
                               {childrenOptions}
@@ -531,7 +525,7 @@ const Page = (props: any) => {
             {/* RightView */}
             <Flex
               className={s.rightViewContainer}
-              minW={'200px'}
+              minW={'250px'}
               w={'max-content'}
             >
               <AppViewer
@@ -572,33 +566,16 @@ const Page = (props: any) => {
                             key={item.key + '-' + option.key}
                             id={item.key + '-' + option.key}
                             value={option.key}
+                            disabled={isOnlyView || isProcessing}
                           >
-                            <LegoInput
+                            <LegoV3
+                              disabled={isOnlyView || isProcessing}
+                              icon={option.icon}
                               background={item.color}
-                              label={item.confuseTitle}
-                              labelInRight={
-                                !!item.confuseTitle || !!item.confuseIcon
-                              }
-                              icon={item.confuseIcon}
-                              zIndex={item.options.length - opIdx}
+                              label={option.title}
                               labelInLeft
-                            >
-                              <Flex
-                                flexDir={'row'}
-                                align={'center'}
-                                gap={'10px'}
-                                width={'100%'}
-                              >
-                                <Text
-                                  fontSize={['18px']}
-                                  fontWeight={500}
-                                  minW={'max-content'}
-                                >
-                                  {option.title}
-                                </Text>
-                                <ComputerNameInput />
-                              </Flex>
-                            </LegoInput>
+                              zIndex={item.options.length - opIdx}
+                            />
                           </Draggable>
                         );
                       },
@@ -613,6 +590,7 @@ const Page = (props: any) => {
                           item.key + '-parent' + (rightDragging ? '-right' : '')
                         }
                         useMask
+                        disabled={isOnlyView || isProcessing}
                       >
                         <DroppableV2 id={item.key}>
                           <LegoParent
@@ -620,6 +598,7 @@ const Page = (props: any) => {
                             background={item.color}
                             label={item.title}
                             zIndex={data.length - index}
+                            disabled={isOnlyView || isProcessing}
                           >
                             {childrenOptions}
                           </LegoParent>
@@ -648,6 +627,7 @@ const Page = (props: any) => {
                         }
                         useMask
                         value={option.key}
+                        disabled={isOnlyView || isProcessing}
                       >
                         <LegoV3
                           icon={option.icon}
@@ -655,6 +635,7 @@ const Page = (props: any) => {
                           label={option.title}
                           labelInLeft
                           zIndex={item.options.length - opIdx}
+                          disabled={isOnlyView || isProcessing}
                         />
                       </Draggable>
                     );
