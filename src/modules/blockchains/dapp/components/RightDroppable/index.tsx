@@ -503,9 +503,7 @@ const RightDroppable = () => {
                               DragUtil.getOriginalKey(item.name)
                             ];
 
-                          const thisModule = field.fields.find(
-                            (f) => f.value === item.value,
-                          );
+                          const thisModule = field.fields[0];
 
                           if (!thisModule) return null;
 
@@ -519,16 +517,19 @@ const RightDroppable = () => {
                                 fieldKey: thisModule.key,
                               }}
                             >
-                              <Lego
-                                background={adjustBrightness(mainColor, -20)}
-                                first={false}
-                                last={false}
-                                titleInLeft={true}
-                                titleInRight={false}
-                                zIndex={ids.length - itemIndex}
-                              >
-                                <Label {...thisModule} />
-                              </Lego>
+                              {getInput(
+                                thisModule,
+                                {
+                                  inBaseField: false,
+                                  inBlockField: false,
+                                  inSingleField: true,
+                                  index: itemIndex,
+                                  level: 0,
+                                  blockKey: '',
+                                  baseIndex,
+                                },
+                                ids.length - itemIndex,
+                              )}
                             </Draggable>
                           );
                         } else if (DragUtil.idDraggingIsAModule(item.name)) {
@@ -741,9 +742,7 @@ const RightDroppable = () => {
                       const field =
                         singleFieldMapping[DragUtil.getOriginalKey(item.name)];
 
-                      const thisModule = field.fields.find(
-                        (f) => f.value === item.value,
-                      );
+                      const thisModule = field.fields[0];
 
                       if (!thisModule) return null;
 
