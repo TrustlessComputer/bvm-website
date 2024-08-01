@@ -21,8 +21,10 @@ function solve(uint256 a, uint256 b) external pure returns (uint256);
 &nbsp;  
 
 ## Constraints:
-&nbsp;  
-- $1 \le a, b \le 10^{18}$
+&nbsp;
+
+- $1$ &le; $a, b$ &le; $10^{18}$
+
 
 &nbsp;  
 

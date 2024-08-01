@@ -64,7 +64,7 @@ const HackathonPage = () => {
             base: 'calc(100vh +  15%)',
             md: 'calc(100vh +  17%)',
             lg: 'calc(100vh +  12%)',
-            xl: 'calc(100vh +  12%)',
+            // xl: 'calc(100vh +  12%)',
           }}
         >
           <Image
