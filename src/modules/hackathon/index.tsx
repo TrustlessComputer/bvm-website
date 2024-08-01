@@ -30,6 +30,7 @@ import cn from 'classnames';
 import { formatCurrencyV2, humanReadable } from '@/utils/format';
 import FAQs from '@/components/faq';
 import { FAQ_POC } from './faqs';
+import { LINKS } from '@/constants/external-links';
 
 type Props = {};
 
@@ -216,7 +217,23 @@ const HackathonModule = (props: Props) => {
                 </Link> */}
               </p>
             </div>
-            <Flex alignItems={'center'} gap="24px">
+            <Flex
+              alignItems={'center'}
+              gap="16px"
+              flexWrap={'wrap'}
+              rowGap={'24px'}
+            >
+              <div className={s.connect_btn}>
+                <a
+                  href={LINKS.POC_TELEGRAM_GROUP}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s.tele_link}
+                >
+                  Join dev community
+                </a>
+              </div>
+
               <ButtonConnected title="Register" className={s.reward_btn}>
                 <button
                   className={cn(s.reward_btn, {

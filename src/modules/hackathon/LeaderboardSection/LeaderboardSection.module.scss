@@ -5,7 +5,7 @@
     padding: 100px 0;
     margin-top: 80px;
 
-    @include is-mobile {
+    @include w-max(768px) {
         flex-direction: column;
         // padding: 60px 0;
         gap: 100px;

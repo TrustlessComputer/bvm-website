@@ -1,5 +1,5 @@
 export const PROBLEM_1_MARKDOWN = `
-#Practice
+## Practice
 
 &nbsp;  
 

@@ -1,7 +1,9 @@
+import { LINKS } from '@/constants/external-links';
+
 export const FAQ_POC = [
   {
     q: 'What is Proof Of Code?',
-    a: `<p>Proof Of Code is a weekly crypto coding competition with a prize pool of $500. The competition focuses on Solidity problems, offering a platform for developers to sharpen their coding skills, connect with like-minded individuals, and prove their expertise.</p>`,
+    a: `<p>Proof Of Code is a weekly crypto coding competition with a prize pool of $500 each week. The competition focuses on programming languages for smart contracts that run on blockchain platforms, starting with Solidity.</p><br/><p>Proof of Code is a great opportunity for developers to sharpen their coding skills and connect with other developers who share the same passion</p>`,
   },
   {
     q: 'Who can participate in Proof Of Code?',
@@ -9,19 +11,19 @@ export const FAQ_POC = [
   },
   {
     q: 'How do I register for the competition?',
-    a: `<p>To register, simply click on the “Register” button on our website, fill out the necessary information, and you’re all set to join the competition.</p>`,
+    a: `<p>To register, simply click on the “Register” button above on top of this page, put in your username & email, and you’re all set to join the competition.</p>`,
   },
   {
     q: 'What are the prizes?',
-    a: `<p>Each week, the top performers will share a prize pool of $500. The prize distribution details will be announced at the start of each competition.</p>`,
+    a: `<p>Each week, the top 3 performers with the highest scores will share a prize pool of $500. The prize distribution details will be announced at the start of each competition.</p>`,
   },
-  // {
-  //   q: 'When does the competition start?',
-  //   a: `<p>The competition begins every week, with practice battles starting in 1 day, 7 hours, and 7 minutes from now. Make sure to register before the practice battles begin to ensure your spot.</p>`,
-  // },
+  {
+    q: 'When does the competition start?',
+    a: `<p>The competition is held every week on Thursday, each competition lasts 2 hours. Make sure to register before joining the competitions.</p><br/><p>There is also practice mode where you can practice anytime.</p>`,
+  },
   {
     q: 'What is BVM?',
-    a: `<p>BVM is the leading Rollup-As-A-Service on Bitcoin. It allows users to easily launch their own blockchain on Bitcoin for only $99/month. Proof Of Code is hosted by BVM, leveraging its robust and secure infrastructure.</p>`,
+    a: `<p>BVM is the leading Rollup-As-A-Service platform on Bitcoin. It is a no-code tool that allows anyone to easily launch their own blockchain on Bitcoin for only $99/month.</p><br/><p>Proof Of Code itself is running on its own blockchain powered by BVM. Learn more about creating a Bitcoin L2/L3 with BVM <a href="https://bvm.network/studio" target="_blank" rel="noopener noreferrer">here</a>.</p>`,
   },
   {
     q: 'How can I improve my chances of winning?',
@@ -33,10 +35,10 @@ export const FAQ_POC = [
   },
   {
     q: 'How can I connect with other participants?',
-    a: `<p>You can connect with other participants through our online community forums, social media channels, and during the practice battles. Engaging with the community is a great way to share knowledge, seek help, and make new connections.</p>`,
+    a: `<p>Join the community on Telegram to share knowledge and connect with other developers/participants. </p><a href="${LINKS.POC_TELEGRAM_GROUP}" target="_blank" rel="noopener noreferrer">https://t.me/+jTMgmUXx1T4yMGZl</a>`,
   },
   {
     q: 'What if I have more questions?',
-    a: `<p>f you have any additional questions, feel free to contact us via the “Contact Us” section on our website. Our support team is always ready to assist you.</p>`,
+    a: `<p>If you have any additional questions, feel free to contact us via the “Contact Us” section on our website. Our support team is always ready to assist you.</p>`,
   },
 ];

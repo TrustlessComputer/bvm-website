@@ -89,6 +89,26 @@
             }
         }
 
+        .connect_btn {
+            .tele_link {
+                display: flex;
+                align-items: center;
+                height: 54px;
+                padding: 0px 20px;
+                border-radius: 100px;
+                background: #FFF;
+                color: #000;
+                text-align: center;
+                font-family: "SF Pro Display";
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 20px;
+                /* 111.111% */
+            }
+
+        }
+
         .reward_btn {
             color: #FFF;
             text-align: center;
@@ -128,9 +148,8 @@
 
 
 
-    @include is-mobile {
-        height: calc(100vh + 92px);
-
+    @include w-max(768px) {
+        height: 60vh;
 
         .left {
             flex: 1;
@@ -139,6 +158,12 @@
         .right {
             display: none;
         }
+
+    }
+
+    @include w-max(480px) {
+        height: calc(100vh + 20%);
+
 
     }
 }
