@@ -236,7 +236,7 @@ const useSubmitFormTokenGeneration = ({
           return data?.allocation?.map(all => {
             return {
               ...all,
-              address: (all as ITokenomics).address || data?.receiver_address
+              address: (all as unknown as ITokenomics).address || data?.receiver_address
             }
           })
 
@@ -248,7 +248,7 @@ const useSubmitFormTokenGeneration = ({
 
         const body: IBodyCreateToken = {
           name: data?.token_name as unknown as string,
-          symbol: data.token_symbol as unknown as string,
+          symbol: (data.token_symbol as unknown as string).toUpperCase(),
           ...getTokenomics(defaultTokenomics),
         };
 
