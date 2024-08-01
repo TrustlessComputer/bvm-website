@@ -16,6 +16,7 @@ type LegoParent = {
   icon?: string;
   className?: string;
   zIndex: number;
+  disabled?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoParent({
@@ -27,6 +28,7 @@ function LegoParent({
   zIndex = 0,
   className,
   children,
+  disabled = false,
   ...props
 }: LegoParent) {
   const legoRef = React.useRef<HTMLDivElement | null>(null);
@@ -54,8 +56,8 @@ function LegoParent({
 
   return (
     <div
-      className={`${styles.wrapper} ${
-        styles[`wrapper__${background}`]
+      className={`${styles.wrapper} ${styles[`wrapper__${background}`]} ${
+        disabled ? styles.wrapper__disabled : ''
       } ${className}`}
       ref={legoRef}
       style={{

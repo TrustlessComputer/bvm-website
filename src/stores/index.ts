@@ -24,6 +24,7 @@ const persistConfig = getPersistConfig({
     'launchpad',
     'lpEAIPayment',
     'referrals',
+    'createToken',
   ],
   rootReducer: reducers,
 });

@@ -72,6 +72,8 @@ export enum OrderStatus {
   Rejected, // 6: admin rejected
   Canceled, // 7: user request cancel (if the status = WaitingPayment)
   Timeout, // 8: user timeout (if the status = WaitingPayment)
+  Queued, // 9: Queued (BE use)
+  Updating, // 10 Updating Chain (using for update chain - drag drop lego)
 }
 
 export enum EnvironmentsEnum {
@@ -170,6 +172,7 @@ interface OrderItem extends OrderItemResp {
 
   dApps?: IDAppInstalled[];
   selectedOptions?: IModelCategory[];
+  dappURL?: string;
 }
 
 interface AccountInfoResp {
@@ -357,6 +360,23 @@ interface L2ServicesState {
   isTempalteFetching: boolean;
   isTempalteFetched: boolean;
   templateList?: IExploreItem[];
+
+  // OrderDetail
+  isAvailableListTemplateFetching: boolean;
+  isAvailableListTemplateFetched: boolean;
+  availableListTemplate?: [IModelCategory[]];
+
+  isModelCategoriesFetching: boolean;
+  isModelCategoriesFetched: boolean;
+  modelCategories?: IModelCategory[];
+
+  // OrderDetail
+  isOrderDetailFetching: boolean;
+  isOrderDetailFetched: boolean;
+  orderDetail?: OrderItem;
+
+  //App Config Selected
+  dAppConfigSelected?: IModelOption;
 }
 
 type MetaConfig = {

@@ -38,7 +38,13 @@ const Section_7 = () => {
       >
         <Card bgColor={'#fff'} boxShadow={'none'}>
           <CardBody p={[0]}>
-            {getLogo ? (
+            {item.logoUrl ? <Image
+              src={item.logoUrl}
+              alt="thumb image"
+              width={'auto'}
+              height={'28px'}
+              objectFit={'contain'}
+            />: (getLogo ? (
               <div className={s.cardLogo}>
                 <Image
                   src={getLogo}
@@ -50,7 +56,7 @@ const Section_7 = () => {
               </div>
             ) : (
               <Box height={'28px'} />
-            )}
+            ))}
             <Image
               src={item.imageUrl}
               className={s.cardLogo_img}
