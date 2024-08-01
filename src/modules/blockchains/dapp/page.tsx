@@ -102,8 +102,6 @@ const RollupsDappPage = () => {
       result.push(t);
     }
 
-    console.log('result', result);
-
     return result;
   };
 
