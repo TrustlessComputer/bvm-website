@@ -36,7 +36,7 @@ type Props = {};
 
 const START_TIME = '2024-08-01T10:00:00Z';
 
-const END_TIME = '2024-08-06T010:00:00Z';
+const END_TIME = '2024-08-06T10:00:00Z';
 
 // export private key
 // should check wallet.privateKey first,
@@ -91,6 +91,7 @@ const HackathonModule = (props: Props) => {
       );
     }
 
+    console.log('🚀 ~ renderCountdown ~ endTime.ended:', endTime.ended);
     if (!endTime.ended) {
       return (
         <Flex alignItems={'center'} gap="4px">

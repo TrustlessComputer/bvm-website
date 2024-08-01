@@ -11,14 +11,23 @@ const LeaderboardSection = (props: Props) => {
   return (
     <Box bgColor={'#000'}>
       <div className="containerV3">
-        <div className={cn(s.wrapper)}>
-          <div className={s.left}>
-            <h4>Problems</h4>
-            <Problems />
+        <div className={cn(s.container)}>
+          <div className={s.header}>
+            <p className={s.title}>Practice problem</p>
+            <p className={s.desc}>
+              Introducing Proof Of Code: the weekly crypto coding competition
+              with weekly prize pools of $500, starting with Solidity problems.
+            </p>
           </div>
-          <div className={s.right}>
-            <h4>Leaderboard</h4>
-            <Leaderboard />
+          <div className={cn(s.wrapper)}>
+            <div className={s.left}>
+              <h4>Problems</h4>
+              <Problems />
+            </div>
+            <div className={s.right}>
+              <h4>Leaderboard</h4>
+              <Leaderboard />
+            </div>
           </div>
         </div>
       </div>
