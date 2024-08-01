@@ -211,7 +211,7 @@ const BoxOption = ({}: Props) => {
                               }}
                             >
                               <Lego
-                                {...field}
+                                {...item}
                                 background={item.background || mainColor}
                                 first={false}
                                 last={false}
