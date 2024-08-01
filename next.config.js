@@ -19,7 +19,8 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    ignoreBuildErrors: !!isDevEnv,
+    // ignoreBuildErrors: !!isDevEnv,
+    ignoreBuildErrors: false,
   },
   poweredByHeader: false,
   reactStrictMode: false,
