@@ -23,7 +23,7 @@ const NBC = (): React.JSX.Element => {
               <br />
               <p className={s.content_text}>
                 <span className={s.content_text_bold}>Governance.</span> The
-                community treasure consists of 50% of the BVM supply. This
+                community treasury consists of 50% of the BVM supply. This
                 treasury will governed by BVM stakers once the network has
                 become sufficiently decentralized.
               </p>

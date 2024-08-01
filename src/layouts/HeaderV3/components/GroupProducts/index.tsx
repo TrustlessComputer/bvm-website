@@ -29,13 +29,12 @@ export default function GroupProducts(): ReactElement {
                     <div className={s.group_item_icon_text}>
                       <div className={s.group_item_icon_text_wrap}>
                         <span className={s.group_item_icon_text_title}>
-                          BVM Studio
+                          Bitcoin RaaS Studio
                         </span>
                         {/* <small>New</small> */}
                       </div>
                       <span className={s.group_item_icon_text_bottom}>
-                        A fun way to customize your blockchain to meet your
-                        needs.
+                        A fast, simple, and fun way to build your own ZK rollup on Bitcoin.
                       </span>
                     </div>
                   </Link>
@@ -58,8 +57,7 @@ export default function GroupProducts(): ReactElement {
                         BitZK Light Node
                       </span>
                       <span className={s.group_item_icon_text_bottom}>
-                        Validate that the state transitions of Bitcoin L2s,
-                        committed on the Bitcoin and DA layers, are accurate.
+                        A simple way for anyone to validate rollup state transitions with light nodes.
                       </span>
                     </div>
                   </Link>

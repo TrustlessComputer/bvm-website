@@ -14,12 +14,16 @@ export const ContactUsProvider: React.FC<PropsWithChildren> = ({
 }: PropsWithChildren) => {
   const [isShowContactUsModal, setShowContactUsModal] = useState(false);
   const [showSubmitSuccessModal, setShowSubmitSuccessModal] = useState(false);
+  const [subjectDefault, setSubjectDefault] = useState<number>(3);
 
   const [params, setParams] = useState<any>(undefined);
 
   const showContactUsModal = (params?: any) => {
     setParams(params);
     setShowContactUsModal(true);
+    setSubjectDefault(
+      params.subjectDefault !== undefined ? params.subjectDefault : 3,
+    );
   };
 
   const value = useMemo(
@@ -35,6 +39,8 @@ export const ContactUsProvider: React.FC<PropsWithChildren> = ({
       {isShowContactUsModal && (
         <ContactUsModal
           params={params}
+          subjectDefault={subjectDefault}
+          nodeConfigs={params?.nodeConfigs || []}
           isShow={true}
           onHide={() => setShowContactUsModal(false)}
           onSuccesCB={() => {

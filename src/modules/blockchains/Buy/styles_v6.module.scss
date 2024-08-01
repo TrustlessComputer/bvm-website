@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  height: calc(100dvh - 96px);
+  height: calc(100dvh - 92px);
 
   .fontJetBrains {
     font-family: var(--font-JetBrainsMono) !important;
@@ -10,7 +10,7 @@
     font-family: var(--font-SFProDisplay) !important;
   }
 
-  --height-studio: calc(100vh - 300px);
+  --height-studio: calc(100vh - 180px);
 }
 
 .logo {

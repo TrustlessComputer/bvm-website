@@ -106,11 +106,11 @@ const RollupsDappPage = () => {
     const { over, active } = event;
     subScribeDropEnd.value += 1;
 
-    // console.log(
-    //   '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
-    //   over,
-    //   active,
-    // );
+    console.log(
+      '🚀 -> file: page.tsx:46 -> handleDragEnd -> over, active ::',
+      over,
+      active,
+    );
 
     if (!over) return;
 
@@ -245,9 +245,11 @@ const RollupsDappPage = () => {
         const composedFieldKey = prefix + '-' + activeOriginalKey;
 
         if (!canPlaceMore) {
-          showValidateError(
-            `You can only place one ${blockFieldMapping[activeOriginalKey].title}!`,
-          );
+          const title = activeIsABlock
+            ? blockFieldMapping[activeOriginalKey].title
+            : singleFieldMapping[activeOriginalKey].title;
+
+          showValidateError(`You can only place one ${title}!`);
           idBlockErrorSignal.value = activeOriginalKey;
 
           return;
