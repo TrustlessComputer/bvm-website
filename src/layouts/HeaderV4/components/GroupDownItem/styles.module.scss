@@ -1,0 +1,109 @@
+.dropMenu {
+  position: relative;
+  color: white;
+
+  &_label {
+    display: flex;
+    gap: 5px;
+    color: #fff;
+
+    line-height: (20 / 14);
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    padding: var(--chakra-space-2);
+
+    @include is-pc {
+      padding: 0;
+      font-size: 14px;
+      font-family: var(--font-jetbrains);
+      font-weight: 500;
+    }
+
+    &.black {
+      color: black;
+
+      svg path {
+        stroke: black !important;
+      }
+    }
+
+    img,
+    svg {
+      transform: translateY(0.05em);
+    }
+  }
+
+  .dropMenu_list {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    top: 0;
+
+    @include is-pc {
+      padding-top: 6px;
+      top: 100%;
+    }
+
+    &_inner {
+      display: block;
+      min-height: 100svh;
+      background: white;
+      border: 1px solid #dcdcdc;
+      border-radius: 8px;
+      @include is-pc {
+        min-height: auto;
+      }
+    }
+  }
+
+  @media (any-hover: hover) {
+    & {
+      .dropMenu_list {
+        display: none;
+      }
+    }
+    &:hover {
+      .dropMenu_list {
+        opacity: 1;
+        display: block;
+        visibility: visible;
+        z-index: 2 !important;
+      }
+    }
+  }
+
+  &_list {
+    opacity: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    visibility: hidden;
+    border-radius: 8px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100svh;
+
+    @media (any-hover: none) {
+      &.isOpen {
+        opacity: 1;
+        visibility: visible;
+        z-index: 2 !important;
+      }
+    }
+
+    @media (min-width: 1600px) {
+      left: vw(-80px, 1920px);
+    }
+
+    @include is-pc {
+      width: max-content;
+      position: absolute;
+      height: auto;
+    }
+  }
+}
