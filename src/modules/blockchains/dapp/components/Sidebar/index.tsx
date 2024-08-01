@@ -69,14 +69,12 @@ const Sidebar = ({}: Props) => {
 
 
   React.useEffect(() => {
+    if (!dapps?.length) return
     const newIndex = dapps?.findIndex(item => compareString(item.id, params?.get('dapp'))) || 0;
-
-
     if (newIndex >= 0 && !refInited.current) {
       changeDapp(newIndex);
-      refInited.current = true;
     }
-
+    refInited.current = true;
   }, [dapps])
 
   if (!dapps?.length) {
