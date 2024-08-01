@@ -39,11 +39,11 @@ type EIP6963AnnounceProviderEvent = {
 
 import { useSyncExternalStore } from 'react';
 
-declare global {
-  interface WindowEventMap {
-    'eip6963:announceProvider': CustomEvent;
-  }
-}
+// declare global {
+//   interface WindowEventMap {
+//     'eip6963:announceProvider': CustomEvent;
+//   }
+// }
 
 let providers: EIP6963ProviderDetail[] = [];
 export const store = {
@@ -55,11 +55,17 @@ export const store = {
       providers = [...providers, event.detail];
       callback();
     }
-    window.addEventListener('eip6963:announceProvider', onAnnouncement);
+    (window as any).addEventListener(
+      'eip6963:announceProvider',
+      onAnnouncement,
+    );
     window.dispatchEvent(new Event('eip6963:requestProvider'));
 
     return () =>
-      window.removeEventListener('eip6963:announceProvider', onAnnouncement);
+      (window as any).removeEventListener(
+        'eip6963:announceProvider',
+        onAnnouncement,
+      );
   },
 };
 
