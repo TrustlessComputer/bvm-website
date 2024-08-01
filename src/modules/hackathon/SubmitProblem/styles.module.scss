@@ -1,4 +1,6 @@
 .submitProblem {
+  position: relative;
+
   input {
     width: 100%;
     padding: 16px;
@@ -9,9 +11,14 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    border: 1px solid #232323;
+    border-top: 1px solid #232323;
     background: #000515;
-    border-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    &:focus-visible {
+      outline: none;
+    }
   }
 
   button {
@@ -32,7 +39,9 @@
   }
 
   &_error {
-    margin-top: 10px;
+    position: absolute;
+    bottom: -30px;
+    left: 17px;
     color: #FA4E0E;
     font-family: "SF Pro Display";
     font-size: 14px;
