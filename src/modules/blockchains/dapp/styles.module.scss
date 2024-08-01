@@ -5,7 +5,7 @@
   gap: 16px;
   //padding: 27px 16px 16px;
   width: 100%;
-  --wrapHeight: calc(100dvh - 340px);
+  --wrapHeight: calc(100dvh - 240px);
   min-height: var(--wrapHeight); // 104px header and 28px padding
 
   > * {
@@ -24,7 +24,7 @@
   &__content {
     flex: 1;
     display: grid;
-    grid-template-columns: 200px 0.9fr 1fr;
+    grid-template-columns: 160px 0.9fr 1fr;
     gap: 8px;
 
     &__droppable {

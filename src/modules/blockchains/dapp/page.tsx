@@ -707,7 +707,7 @@ const RollupsDappPage = () => {
   };
 
   return (
-    <Flex className={styles.container}  w={'100%'} px={['16px', '18px', '20px']}>
+    <Flex className={styles.container} w={'100%'} px={['16px', '18px', '20px']}>
       <div className={styles.content}>
         {/*<div className={styles.logo}>*/}
         {/*  <Image*/}
