@@ -7,7 +7,6 @@ import styles from './styles.module.scss';
 import PreviewMapModal from '@/modules/blockchains/blockchain-map/components/PreviewMapModal';
 
 const BlockchainMapPage = () => {
-  const [isShowModalPreview, setIsShowModalPreview] = useState<boolean>(false);
 
 
   return (
@@ -37,19 +36,8 @@ const BlockchainMapPage = () => {
           )}
         ></div>
 
-        <div className={styles.container__content__sidebar}>
-          <div
-            className={`${styles.button} `}
-            onClick={() => setIsShowModalPreview(true)}
-          >
-            <p>Preview Map</p>
-          </div>
-        </div>
+
       </div>
-      <PreviewMapModal
-        show={isShowModalPreview}
-        onClose={() => setIsShowModalPreview(false)}
-      />
     </div>
   );
 };
