@@ -56,6 +56,7 @@ import { Button, Flex } from '@chakra-ui/react';
 import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
 import { TABS } from '@/modules/blockchains/Buy/constants';
 import { useRouter } from 'next/navigation';
+import { isProduction } from '@/config';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
@@ -647,7 +648,7 @@ const RollupsDappPage = () => {
   const fetchData = async () => {
     // const dapps = configs;
 
-    const dapps = dappMockupData;
+    const dapps = isProduction ? configs : dappMockupData;
 
     const sortedDapps = [...dapps].sort((a, b) => a?.order - b?.order);
 
