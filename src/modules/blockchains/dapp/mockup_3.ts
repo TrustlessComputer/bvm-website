@@ -646,7 +646,7 @@ export const dappMockupData: DappModel[] = [
     singleFields: [
       {
         title: 'Start Date',
-        key: 'start',
+        key: 'start_date',
         icon: '',
         fields: [
           {
@@ -658,6 +658,7 @@ export const dappMockupData: DappModel[] = [
             value: '',
             tooltip: '',
             options: [],
+            selectable: true,
           },
         ],
         placableAmount: 1,
@@ -678,6 +679,26 @@ export const dappMockupData: DappModel[] = [
             value: '',
             tooltip: '',
             options: [],
+          },
+        ],
+        placableAmount: 1,
+        preview: false,
+        section: 'information',
+      },
+      {
+        title: 'Shared Holder',
+        key: 'is_bvm_shard',
+        icon: '',
+        fields: [
+          {
+            key: 'is_bvm_shard',
+            title: 'Shared Holder',
+            type: 'extends',
+            icon: '',
+            value: 1,
+            tooltip: '',
+            options: [],
+            disabled: true,
           },
         ],
         placableAmount: 1,
