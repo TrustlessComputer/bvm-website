@@ -36,7 +36,8 @@ export type IGetListLeaderboardResponse = {
 };
 
 export type ISubmitProblemResponse = {
-  id: string;
+  id?: string;
+  message?: string;
 };
 
 export type IContestStats = {

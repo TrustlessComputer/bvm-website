@@ -37,7 +37,7 @@ export const submitProblem = async ({
     return res;
   } catch (error) {
     console.log(error);
-    return null;
+    return { message: error as string };
   }
 };
 

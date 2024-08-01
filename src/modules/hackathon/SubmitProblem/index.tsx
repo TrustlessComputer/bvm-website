@@ -43,14 +43,16 @@ const SubmitProblem = ({ className, code }: Props) => {
       contractAddress: values.contractAddress,
       problemCode: `${code}`,
     });
-    if (result) {
+
+    if (result?.id) {
       showSuccess({
         message: 'Your submission has been sent.',
       });
       resetForm();
     } else {
+      // failed
       showError({
-        message: 'Submission failed.',
+        message: result?.message || 'Submission failed.',
       });
     }
     setSubmitting(false);
