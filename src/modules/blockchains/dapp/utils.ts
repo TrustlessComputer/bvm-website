@@ -258,7 +258,8 @@ export const preDataAirdropTask = (
   tokens: IToken[],
   airdropTasks: IAirdropTask[],
 ) => {
-  const _sortedDapps = sortedDapps;
+  const _sortedDapps = cloneDeep(sortedDapps);
+
   if (tokens.length > 0) {
     const _airdropIndex = _sortedDapps.findIndex((v) =>
       compareString(v.key, DappType.airdrop),
@@ -268,18 +269,23 @@ export const preDataAirdropTask = (
       const fieldRewardToken = _sortedDapps[
         _airdropIndex
       ].baseBlock.fields.findIndex((v) => compareString(v.key, 'reward_token'));
+
       if (fieldRewardToken > -1) {
+        // // @ts-ignore
+        const options: any = tokens.map((t) => ({
+          key: t.id,
+          title: t.name,
+          value: t.contract_address,
+          icon: t.image_url,
+          tooltip: '',
+          type: '',
+          options: [],
+        }));
+
         // @ts-ignore
         _sortedDapps[_airdropIndex].baseBlock.fields[fieldRewardToken].options =
-          tokens.map((t) => ({
-            key: t.id,
-            title: t.name,
-            value: t.contract_address,
-            icon: t.image_url,
-            tooltip: '',
-            type: '',
-            options: [],
-          }));
+          options;
+
         if (airdropTasks.length > 0) {
           const blockFields: BlockModel[] = [];
 
@@ -329,8 +335,8 @@ export const preDataAirdropTask = (
 
             blockFields.push({
               key: getAirdropTaskKey(airdropTask),
-              title: 'For tasks',
-              icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+              title: airdropTask.title,
+              icon: '',
               placableAmount: -1,
               section: 'tasks',
               preview: false,
