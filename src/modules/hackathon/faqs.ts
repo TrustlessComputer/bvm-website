@@ -2,12 +2,12 @@ import { LINKS } from '@/constants/external-links';
 
 export const FAQ_POC = [
   {
-    q: 'What is Proof Of Code?',
-    a: `<p>Proof Of Code is a weekly crypto coding competition with a prize pool of $500 each week. The competition focuses on programming languages for smart contracts that run on blockchain platforms, starting with Solidity.</p><br/><p>Proof of Code is a great opportunity for developers to sharpen their coding skills and connect with other developers who share the same passion</p>`,
+    q: 'What is Proof of Code?',
+    a: `<p>Proof of Code is a weekly crypto coding competition with a prize pool of $500 each week. The competition focuses on programming languages for smart contracts that run on blockchain platforms, starting with Solidity.</p><br/><p>Proof of Code is a great opportunity for developers to sharpen their coding skills and connect with other developers who share the same passion</p>`,
   },
   {
-    q: 'Who can participate in Proof Of Code?',
-    a: `<p>Anyone with a passion for coding and an understanding of Solidity can participate in Proof Of Code. Whether you’re a beginner or an experienced developer, our competition is open to all skill levels.</p>`,
+    q: 'Who can participate in Proof of Code?',
+    a: `<p>Anyone with a passion for coding and an understanding of Solidity can participate in Proof of Code. Whether you’re a beginner or an experienced developer, our competition is open to all skill levels.</p>`,
   },
   {
     q: 'How do I register for the competition?',
@@ -23,7 +23,7 @@ export const FAQ_POC = [
   },
   {
     q: 'What is BVM?',
-    a: `<p>BVM is the leading Rollup-As-A-Service platform on Bitcoin. It is a no-code tool that allows anyone to easily launch their own blockchain on Bitcoin for only $99/month.</p><br/><p>Proof Of Code itself is running on its own blockchain powered by BVM. Learn more about creating a Bitcoin L2/L3 with BVM <a href="https://bvm.network/studio" target="_blank" rel="noopener noreferrer">here</a>.</p>`,
+    a: `<p>BVM is the leading Rollup as a Service platform on Bitcoin. It is a no-code tool that allows anyone to easily launch their own blockchain on Bitcoin for only $99/month.</p><br/><p>Proof of Code itself is running on its own blockchain powered by BVM. Learn more about creating a Bitcoin L2/L3 with BVM <a href="https://bvm.network/studio" target="_blank" rel="noopener noreferrer">here</a>.</p>`,
   },
   {
     q: 'How can I improve my chances of winning?',
