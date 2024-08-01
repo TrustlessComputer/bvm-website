@@ -116,7 +116,8 @@ const useSubmitFormAirdrop = ({
         const tasks: ITask[] = form.airdrop_tasks.map((v) => ({
           id: v.task,
           amount: v.reward_amount,
-          follow_twitter_username: v.content,
+          [v.id === 1 ? 'follow_twitter_username' : 'share_post_link']:
+            v.content,
         }));
 
         // @ts-ignore
