@@ -21,17 +21,13 @@ const AppItem = (props: Props) => {
   const statusMapper = useMemo(() => {
     let statusStr = '';
     let statusColor = 'transparent';
-    // let statusColor = '#00AA6C';
 
     const dAppItem = getDappByAppNameIDFunc(key);
 
     if (key === 'my_blockchain') {
-      return {
-        statusStr,
-        statusColor,
-      };
-    }
-    if (dAppItem) {
+      statusStr = 'Running';
+      statusColor = '#00AA6C';
+    } else if (dAppItem) {
       switch (dAppItem.status) {
         case 'new':
           statusStr = 'Setting up';
