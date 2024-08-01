@@ -23,6 +23,7 @@ type LegoV3 = {
   className?: string;
   zIndex: number;
   suffix?: string;
+  updatable?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
@@ -38,9 +39,11 @@ function LegoV3({
   icon,
   zIndex = 0,
   className,
+  updatable = false,
   children,
   ...props
 }: LegoV3) {
+  const refTooltip = React.useRef<HTMLDivElement>(null);
   const legoRef = React.useRef<HTMLDivElement | null>(null);
   const { idDropdownCurrent, setIdDropdownCurrent } = useStoreDropDown();
   const { isCapture } = useCaptureStore();
@@ -53,6 +56,13 @@ function LegoV3({
     ) ||
     icon ||
     null;
+
+  const onHover = () => {
+    if (!refTooltip.current) return;
+
+    refTooltip.current.classList.add(styles.isBottom);
+    refTooltip.current?.classList.add(styles.isHover);
+  };
 
   React.useEffect(() => {
     let parentLego = legoRef.current?.parentElement;
@@ -89,6 +99,26 @@ function LegoV3({
         // @ts-ignore
         {...props}
       >
+        {updatable && (
+          <div
+            className={styles.updatableIcon}
+            onMouseEnter={onHover}
+            onMouseLeave={() => {
+              refTooltip.current?.classList.remove(styles.isBottom);
+              refTooltip.current?.classList.remove(styles.isHover);
+            }}
+          >
+            <SvgInset
+              svgUrl="/landingV3/svg/up-right-bottom-left.svg"
+              size={24}
+            />
+
+            <div ref={refTooltip} className={`${styles.tooltip}`}>
+              This block is changeable.
+            </div>
+          </div>
+        )}
+
         <SvgInset
           svgUrl="/landingV3/svg/stud_head.svg"
           className={styles.wrapper_studHead}
