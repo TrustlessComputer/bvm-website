@@ -112,6 +112,8 @@ interface FieldModel {
   selectable?: boolean;
   background?: string;
   previewTitle?: string;
+  inputType?: 'text' | 'number' | 'file',
+  inputAccept?: 'image/*'
 }
 
 interface BlockModel {

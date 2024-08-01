@@ -27,6 +27,7 @@ const Input = ({
   placeholder,
   onlyLabel = false,
   disabled = false,
+  inputType = 'text',
   ...props
 }: Props) => {
   const [value, setValue] = React.useState('');
@@ -72,7 +73,7 @@ const Input = ({
 
   return (
     <input
-      type="text"
+      type={inputType}
       className={cn(styles.input, {
         [styles.input__disabled]: disabled,
       })}

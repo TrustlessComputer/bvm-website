@@ -533,6 +533,7 @@ export const dappMockupData: DappModel[] = [
           {
             key: 'rate',
             title: 'Rate',
+            inputType: "number",
             type: 'input',
             icon: '',
             value: '',
@@ -545,6 +546,7 @@ export const dappMockupData: DappModel[] = [
             key: 'apr',
             title: 'APR',
             type: 'input',
+            inputType: "number",
             icon: '',
             value: '',
             tooltip: '',
@@ -556,6 +558,7 @@ export const dappMockupData: DappModel[] = [
             key: 'amount',
             title: 'Reward amount',
             previewTitle: 'Reward',
+            inputType: "number",
             type: 'input',
             icon: '',
             value: '',
