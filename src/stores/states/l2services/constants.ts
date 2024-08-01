@@ -1,1 +1,69 @@
 export const PREFIX = 'l2Services';
+
+export const APP_BLOCKCHAIN: IModelOption = {
+  title: 'Blockchain',
+  selectable: false,
+  priceUSD: 0,
+  priceBVM: 0,
+  tooltip: '',
+  key: 'my_blockchain',
+  icon: '',
+  setupLogo:
+    'https://storage.googleapis.com/bvm-network/image/app_blockchain_ic.png',
+  supportNetwork: '',
+  order: 0,
+  value: '',
+  needContactUs: false,
+  needConfig: true,
+};
+
+export const APP_STAKING: IModelOption = {
+  title: 'Staking',
+  selectable: false,
+  priceUSD: 0,
+  priceBVM: 0,
+  tooltip: '',
+  key: 'staking',
+  icon: '',
+  setupLogo:
+    'https://storage.googleapis.com/bvm-network/image/app_blockchain_ic.png',
+  supportNetwork: '',
+  order: 0,
+  value: '',
+  needContactUs: false,
+  needConfig: true,
+};
+
+export const APP_TOKEN_GERNERATION: IModelOption = {
+  title: 'Token Generation',
+  selectable: false,
+  priceUSD: 0,
+  priceBVM: 0,
+  tooltip: '',
+  key: 'token_generation',
+  icon: '',
+  setupLogo:
+    'https://storage.googleapis.com/bvm-network/image/app_blockchain_ic.png',
+  supportNetwork: '',
+  order: 0,
+  value: '',
+  needContactUs: false,
+  needConfig: true,
+};
+
+export const APP_AIRDROP: IModelOption = {
+  title: 'Airdrop',
+  selectable: false,
+  priceUSD: 0,
+  priceBVM: 0,
+  tooltip: '',
+  key: 'airdrop',
+  icon: '',
+  setupLogo:
+    'https://storage.googleapis.com/bvm-network/image/app_blockchain_ic.png',
+  supportNetwork: '',
+  order: 0,
+  value: '',
+  needContactUs: false,
+  needConfig: true,
+};

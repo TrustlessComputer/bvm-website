@@ -3,8 +3,11 @@ import {
   TouchSensor as LibTouchSensor,
 } from '@dnd-kit/core';
 import type { MouseEvent, TouchEvent } from 'react';
-import { FieldOption } from './types';
+import { DappType, FieldOption } from './types';
 import { FieldKeyPrefix } from './contants';
+import { compareString } from '@/utils/string';
+import { IToken } from '@/services/api/dapp/token_generation/interface';
+import { IAirdropTask } from '@/services/api/dapp/airdrop/interface';
 
 const handler = ({ nativeEvent: event }: MouseEvent | TouchEvent) => {
   let cur = event.target as HTMLElement;
@@ -248,4 +251,76 @@ export const isTwoObjectEqual = (obj1: any, obj2: any) => {
 
 export const hasValue = (value: any) => {
   return value !== null && value !== undefined;
+};
+
+export const preDataAirdropTask = (
+  sortedDapps: DappModel[] = [],
+  tokens: IToken[],
+  airdropTasks: IAirdropTask[],
+) => {
+  const _sortedDapps = sortedDapps;
+  if (tokens.length > 0) {
+    const _airdropIndex = _sortedDapps.findIndex((v) =>
+      compareString(v.key, DappType.airdrop),
+    );
+
+    if (_airdropIndex > -1) {
+      const fieldRewardToken = _sortedDapps[
+        _airdropIndex
+      ].baseBlock.fields.findIndex((v) => compareString(v.key, 'reward_token'));
+      if (fieldRewardToken > -1) {
+        // @ts-ignore
+        _sortedDapps[_airdropIndex].baseBlock.fields[fieldRewardToken].options =
+          tokens.map((t) => ({
+            key: t.id,
+            title: t.name,
+            value: t.contract_address,
+            icon: t.image_url,
+            tooltip: '',
+            type: '',
+            options: [],
+          }));
+        if (airdropTasks.length > 0) {
+          // @ts-ignore
+          const blockFieldTasks = _sortedDapps[
+            _airdropIndex
+          ].blockFields.findIndex((v) => compareString(v.key, 'airdrop_tasks'));
+
+          if (blockFieldTasks > -1) {
+            // @ts-ignore
+            const airdropTaskIndex = _sortedDapps[_airdropIndex].blockFields[
+              blockFieldTasks
+            ].fields.findIndex((v) => compareString(v.key, 'task'));
+
+            if (airdropTaskIndex > -1) {
+              // @ts-ignore
+              _sortedDapps[_airdropIndex].blockFields[blockFieldTasks].fields[
+                airdropTaskIndex
+              ].options = airdropTasks.map((t) => ({
+                key: t.id,
+                title: t.title,
+                value: t.id,
+                icon: '',
+                tooltip: t.description,
+                type: t.type,
+                options: [],
+              }));
+            }
+          }
+        }
+      }
+    }
+  }
+  return _sortedDapps;
+};
+
+export const getAirdropTaskKey = (task: IAirdropTask) => {
+  if (task.type === 'follow') {
+    return 'follow_twitter_username';
+  }
+  if (task.type === 'share') {
+    return 'share_post_link';
+  }
+
+  return '';
 };

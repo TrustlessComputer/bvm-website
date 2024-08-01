@@ -60,7 +60,7 @@ const LegoParent = ({
 
     // parentDOM.style.position = 'relative';
     parentDOM.style.zIndex = `${zIndex} `;
-  }, [legoRef.current]);
+  }, [legoRef.current, zIndex]);
 
   React.useEffect(() => {
     if (!headerRef.current || !footerRef.current) return;

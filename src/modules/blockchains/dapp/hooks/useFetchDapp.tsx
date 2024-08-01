@@ -1,13 +1,13 @@
-import { useParams } from 'next/navigation';
 import CDappAPI from '@/services/api/dapp';
-import React, { useEffect } from 'react';
-import { useAppSelector } from '@/stores/hooks';
-import { dappSelector } from '@/stores/states/dapp/selector';
-import { commonSelector } from '@/stores/states/common/selector';
-import CStakingAPI from '@/services/api/dapp/staking';
 import CTokenAirdropAPI from '@/services/api/dapp/airdrop';
+import CStakingAPI from '@/services/api/dapp/staking';
+import { useAppSelector } from '@/stores/hooks';
+import { commonSelector } from '@/stores/states/common/selector';
+import { setAirdrops, setAirdropTasks } from '@/stores/states/dapp/reducer';
+import { dappSelector } from '@/stores/states/dapp/selector';
+import { useParams } from 'next/navigation';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setAirdropTasks } from '@/stores/states/dapp/reducer';
 
 const useFetchDapp = () => {
   const params = useParams();
@@ -39,6 +39,15 @@ const useFetchDapp = () => {
     }
   };
 
+  const getListAirdrop = async () => {
+    try {
+      const rs = await tokenAirdropAPI.getListAirdrop();
+      dispatch(setAirdrops(rs));
+    } catch (error) {
+      dispatch(setAirdrops([]));
+    }
+  };
+
   const fetchTokenList = async () => {
     await dappAPI.getListToken(dappState?.chain?.chainId || '');
   };
@@ -52,6 +61,7 @@ const useFetchDapp = () => {
       fetchTokenList();
       fetchStakingPoolsList();
       getListTask();
+      getListAirdrop();
     }
   }, [dappState?.chain?.chainId, needReload]);
 

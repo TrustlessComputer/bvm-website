@@ -5,8 +5,11 @@ import {
   fetchAllOrders,
   fetchAllOrdersV2,
   fetchDAList,
+  fetchOrderDetailByID,
   fetchOrderList,
   fetchTemplateV2,
+  fetchModelCategories,
+  fetchAvailableListTemplate,
 } from '@/stores/states/l2services/actions';
 import { useRef } from 'react';
 
@@ -43,8 +46,20 @@ const useL2Service = () => {
     dispatch(fetchDAList());
   };
 
+  const getModelCategories = (tcAddress?: string) => {
+    dispatch(fetchModelCategories(tcAddress || ''));
+  };
+
+  const getAvailableListTemplate = () => {
+    dispatch(fetchAvailableListTemplate());
+  };
+
   const getTemplateV2 = () => {
     dispatch(fetchTemplateV2());
+  };
+
+  const getOrderDetailByID = (orderId: string) => {
+    dispatch(fetchOrderDetailByID(orderId));
   };
 
   const loopFetchAccountInfor = () => {
@@ -69,6 +84,9 @@ const useL2Service = () => {
     getAllOrderListV2,
     getDappsList,
     getTemplateV2,
+    getOrderDetailByID,
+    getAvailableListTemplate,
+    getModelCategories,
   };
 };
 
