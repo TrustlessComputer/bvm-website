@@ -7,9 +7,7 @@ import React from 'react';
 import { Flex } from '@chakra-ui/react';
 
 export default () => {
-  useFetchDapp();
-  return <RollupsDappPage />;
-  const { loading, configs } = useFetchDapp();
+  const { loading } = useFetchDapp();
 
   if (loading) {
     return (
