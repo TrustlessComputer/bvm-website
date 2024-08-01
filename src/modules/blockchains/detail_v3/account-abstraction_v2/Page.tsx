@@ -37,8 +37,6 @@ import enhance from './enhance';
 import { useAADetailHelper } from './useAADetailHelper';
 import WaitingInstallView from './components/WaitingInstallView';
 import BigNumber from 'bignumber.js';
-import NavigatioBar from '../components/NavigationBar';
-import ChainInforView from '../components/ChanInforView';
 
 const Page = (props: any) => {
   // const modelCategories = useAppSelector(getModelCategoriesSelector);
@@ -295,7 +293,9 @@ const Page = (props: any) => {
     setTemplates(availableListTemplate);
 
     setFeeRate(
-      new BigNumber(aaData?.aaTokenGas || '0').dividedBy(1e18).toString() || '',
+      aaData?.aaTokenGas
+        ? new BigNumber(aaData?.aaTokenGas).dividedBy(1e18).toString()
+        : '',
     );
     setTokenContractAddress(aaData?.aaPaymasterTokenID || '');
   };
@@ -349,12 +349,8 @@ const Page = (props: any) => {
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
         >
-          <NavigatioBar />
           <Spacer h={'30px'} />
-          <ToolBar
-            leftView={<ChainInforView orderItem={orderDetail!} />}
-            rightView={isOwner && <LaunchButton />}
-          />
+          {isOwner && <ToolBar rightView={<LaunchButton />} />}
 
           <Flex flexDir={'row'} mt={'20px'} gap={'10px'} w={'100%'}>
             <Flex className={s.showroomLegosContainer}>

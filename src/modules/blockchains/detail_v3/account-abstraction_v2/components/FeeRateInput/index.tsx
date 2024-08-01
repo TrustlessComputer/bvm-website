@@ -37,25 +37,30 @@ const FeeRateInput = (props: Props) => {
   const checkFeeRate = (text: string | undefined) => {
     let errorMsg = undefined;
 
-    if (!text || text.length < 1) {
-      errorMsg = 'Field is required!';
-      setErrorCode(0);
-    } else if (new BigNumber(text).lt(MIN_FEE_RATE)) {
-      errorMsg = `Value is must be greater than or equal ${formatCurrencyV2({
-        amount: MIN_FEE_RATE,
-        decimals: 9,
-      })}`;
-      setErrorCode(1);
-    } else if (new BigNumber(text).gt(MAX_FEE_RATE)) {
-      errorMsg = `Value is must be lesser than or equal ${formatCurrencyV2({
-        amount: MAX_FEE_RATE,
-        decimals: 0,
-      })}`;
-      setErrorCode(1);
-    } else {
-      setErrorCode(0);
-      errorMsg = undefined;
+    // if (!text || text.length < 1) {
+    //   errorMsg = 'Field is required!';
+    //   setErrorCode(0);
+    // } else
+
+    if (text) {
+      if (new BigNumber(text).lt(MIN_FEE_RATE)) {
+        errorMsg = `Value is must be greater than or equal ${formatCurrencyV2({
+          amount: MIN_FEE_RATE,
+          decimals: 9,
+        })}`;
+        setErrorCode(1);
+      } else if (new BigNumber(text).gt(MAX_FEE_RATE)) {
+        errorMsg = `Value is must be lesser than or equal ${formatCurrencyV2({
+          amount: MAX_FEE_RATE,
+          decimals: 0,
+        })}`;
+        setErrorCode(1);
+      } else {
+        setErrorCode(0);
+        errorMsg = undefined;
+      }
     }
+
     setFeeRateErrMsg(errorMsg);
   };
 
@@ -103,7 +108,7 @@ const FeeRateInput = (props: Props) => {
           color: '#ababab',
         }}
         type="number"
-        placeholder="0 gas less"
+        placeholder="0 (gasless)"
         value={feeRate}
         onChange={(e) => {
           const text = e.target.value;

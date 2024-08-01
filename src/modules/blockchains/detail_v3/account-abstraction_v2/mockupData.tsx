@@ -6,7 +6,7 @@ export const ACCOUNT_ABSTRACTION_MOCKUP_DATA: IModelCategory[] = [
     key: 'input_apps',
     title: 'Account Abstraction',
     required: true,
-    tooltip: 'Account Abstraction Tooltip.',
+    tooltip: '',
     options: [
       {
         key: 'input_apps_address',
