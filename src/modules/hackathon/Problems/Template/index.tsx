@@ -1,20 +1,44 @@
-import React from 'react';
+import 'katex/dist/katex.min.css';
+import Markdown from 'react-markdown';
+import rehypeKatex from 'rehype-katex';
+import remarkMath from 'remark-math';
+import { PROBLEM_1_MARKDOWN } from './problem_1';
 import s from './ProblemTemplate.module.scss';
+import { PROBLEM_2_MARKDOWN } from './problem_2';
+import { PROBLEM_3_MARKDOWN } from './problem_3';
 
 type Props = {
   topic: '1' | '2' | '3';
 };
 
 const Problem_01 = () => {
-  return <div>Problem 01</div>;
+  return (
+    <div>
+      <Markdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+        {PROBLEM_1_MARKDOWN}
+      </Markdown>
+    </div>
+  );
 };
 
 const Problem_02 = () => {
-  return <div>Problem 02</div>;
+  return (
+    <div>
+      <Markdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+        {PROBLEM_2_MARKDOWN}
+      </Markdown>
+    </div>
+  );
 };
 
 const Problem_03 = () => {
-  return <div>Problem 03</div>;
+  return (
+    <div>
+      <Markdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+        {PROBLEM_3_MARKDOWN}
+      </Markdown>
+    </div>
+  );
 };
 
 const ProblemTemplate = ({ topic }: Props) => {
