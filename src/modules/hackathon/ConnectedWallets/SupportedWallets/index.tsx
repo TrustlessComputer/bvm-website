@@ -39,9 +39,9 @@ export default function SupportedWallets() {
       return;
     }
     try {
-      await providerWithInfo.provider.request({
-        method: 'eth_requestAccounts',
-      });
+      // await providerWithInfo.provider.request({
+      //   method: 'eth_requestAccounts',
+      // });
 
       try {
         await providerWithInfo.provider.request({
