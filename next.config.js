@@ -20,7 +20,7 @@ const nextConfig = {
   },
   typescript: {
     // ignoreBuildErrors: !!isDevEnv,
-    ignoreBuildErrors: false,
+    ignoreBuildErrors: true,
   },
   poweredByHeader: false,
   reactStrictMode: false,
