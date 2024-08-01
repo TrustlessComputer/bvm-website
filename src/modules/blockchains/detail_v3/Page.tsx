@@ -443,10 +443,6 @@ const MainPage = (props: ChainDetailComponentProps) => {
   }, []);
 
   React.useEffect(() => {
-    console.log(
-      'chainDetailData?.selectedOptions',
-      chainDetailData?.selectedOptions,
-    );
     resetByTemplate(chainDetailData?.selectedOptions || []);
   }, [templates, chainDetailData]);
 

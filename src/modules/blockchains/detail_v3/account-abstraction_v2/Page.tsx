@@ -88,11 +88,6 @@ const Page = (props: any) => {
   const { idDragging, setIdDragging, rightDragging, setRightDragging } =
     useDragMask();
 
-  console.log('isProcessing, isOnlyView ::::', {
-    isProcessing,
-    isOnlyView,
-  });
-
   const [fieldsDragged, setFieldsDragged] = React.useState<string[]>([]);
   const refTime = useRef<NodeJS.Timeout>();
   const [showShadow, setShowShadow] = useState<string>('');
@@ -298,10 +293,7 @@ const Page = (props: any) => {
     setTemplates(availableListTemplate);
 
     setFeeRate(
-      new BigNumber(aaData?.aaTokenGas || '0')
-        .dividedBy(1e18)
-        .decimalPlaces(0)
-        .toString() || '',
+      new BigNumber(aaData?.aaTokenGas || '0').dividedBy(1e18).toString() || '',
     );
     setTokenContractAddress(aaData?.aaPaymasterTokenID || '');
   };

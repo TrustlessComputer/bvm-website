@@ -54,13 +54,13 @@ const AppItem = (props: Props) => {
       statusColor = '#FF4747';
     }
 
-    console.log('statusMapper -- ', {
-      item,
-      dAppItem,
-      key,
-      statusStr,
-      statusColor,
-    });
+    // console.log('statusMapper -- ', {
+    //   item,
+    //   dAppItem,
+    //   key,
+    //   statusStr,
+    //   statusColor,
+    // });
 
     return {
       statusStr,

@@ -301,10 +301,8 @@ const getOrderDetailSelected = createSelector(
 );
 
 const getDappByAppNameIDSelector = createSelector(
-  getL2ServicesStateSelector,
-  (state) => (appName: string) => {
-    const orderDetail = state.orderDetail;
-
+  orderSelectedSelector,
+  (orderDetail) => (appName: string) => {
     const dAppFinded = orderDetail?.dApps?.find(
       (item) => item.appCode?.toLowerCase() === appName?.toLowerCase(),
     );
