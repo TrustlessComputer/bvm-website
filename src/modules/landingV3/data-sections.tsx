@@ -35,10 +35,10 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     //   title: 'BUILD YOUR ZK ROLLUP',
     // },
     fameIns: [
-      0, 0,
+      0, 15,
     ],
     fameOuts: [
-      50, 80,
+      25, 32,
     ],
   },
   {
@@ -54,10 +54,10 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     //   title: 'BUILD YOUR ZK ROLLUP ',
     // },
     fameIns: [
-      60, 90,
+      32, 40,
     ],
     fameOuts: [
-      120, 150,
+      48, 62,
     ],
   },
   {
@@ -74,10 +74,10 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     //   title: 'BUILD YOUR ZK ROLLUP',
     // },
     fameIns: [
-      130, 160,
+      62, 70,
     ],
     fameOuts: [
-      200, 220,
+      78, 92,
     ],
   },
   {
@@ -95,10 +95,10 @@ export const HOME_DATA_SECTIONS: DataSections[] = [
     //   title: 'READ DEVELOPER DOCS',
     // },
     fameIns: [
-      210, 230,
+      85, 95,
     ],
     fameOuts: [
-      260, 260,
+      100, 100,
     ],
   },
 
