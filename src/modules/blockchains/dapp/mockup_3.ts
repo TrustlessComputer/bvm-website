@@ -643,7 +643,7 @@ export const dappMockupData: DappModel[] = [
     singleFields: [
       {
         title: 'Start Date',
-        key: 'start',
+        key: 'start_date',
         icon: '',
         fields: [
           {
@@ -655,6 +655,7 @@ export const dappMockupData: DappModel[] = [
             value: '',
             tooltip: '',
             options: [],
+            selectable: true,
           },
         ],
         placableAmount: 1,
