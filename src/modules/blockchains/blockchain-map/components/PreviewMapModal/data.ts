@@ -1,4 +1,13 @@
 import { Position } from '@xyflow/react';
+import { type Node } from '@xyflow/react';
+
+export type ElkNodeData = {
+  label: string;
+  sourceHandles: { id: string, label: string }[];
+  targetHandles: { id: string, label: string }[];
+};
+
+export type ElkNode = Node<ElkNodeData, 'elk'>;
 
 export const FAKE_DATA_MAPPING = [
   {
@@ -6,30 +15,46 @@ export const FAKE_DATA_MAPPING = [
     data: {
       label: 'Blockchain',
       positionDot: Position.Right,
+      handleType: 'source',
+      isRunning: true,
       legoList: [
         {
-          background: '#000',
-          icon: 'http://localhost:9001/icons-tool/icon-gas-medium.svg',
+          background: '#FF3A3A',
+          icon: '/icons-tool/icon-gas-medium.svg',
+          title: 'Name: Blockchain name',
+        },
+        {
+          background: '#DEA000',
+          icon: '/icons-tool/icon-btc.svg',
+          title: 'Bitcoin Settlement'
+        },
+        {
+          background: '#FF7A41',
+          icon: '/icons-tool/icon-mainnet.svg',
+          title: 'Mainnet'
+        },
+        {
+          background: '#A041FF',
+          icon: '/icons-tool/icon-op.svg',
+          title: 'Optimistic Rollups'
+        },
+        {
+          background: '#12DAC2',
+          icon: '/icons-tool/icon-hardware.svg',
           title: '16 GB RAM, 8 cores, 320 GB SSD'
         },
         {
-          background: '#12dac2',
-          icon: 'http://localhost:9001/icons-tool/icon-filecoin.svg',
-          title: 'ZK Rollup'
+          background: '#15C888',
+          icon: '/icons-tool/icon-gas-min.svg',
+          title: '2,000,000,000 block gas limit'
         },
         {
-          background: '#000',
-          icon: 'http://localhost:9001/icons-tool/icon-gas-medium.svg',
-          title: '16 GB RAM, 8 cores, 320 GB SSD'
-        },
-        {
-          background: '#12dac2',
-          icon: 'http://localhost:9001/icons-tool/icon-filecoin.svg',
-          title: 'ZK Rollup'
+          background: '#FB4FAC',
+          icon: '/icons-tool/icon-time-medium.svg',
+          title: '4 hours withdrawal time'
         }
       ]
     },
-    handleType: 'source',
     position: { x: 50, y: 25 },
     connection: [
       {
@@ -38,80 +63,131 @@ export const FAKE_DATA_MAPPING = [
         label: 'Output 1',
       },
       {
-        id: 'c1-2',
+        id: 'c2-2',
         target: '2',
         label: 'Output 2',
       },
       {
         id: 'c1-4',
         target: '4',
-        label: 'Output 3',
+        label: 'Output 2',
 
       },
-    ]
+    ],
+    type: 'elk',
   },
   {
     id: '2',
     data: {
       label: 'Staking apps',
-      positionDot: Position.Right,
+      positionDot: Position.Left,
+      handleType: 'target',
+      isRunning: true,
+      legoParent: {
+        background: '#C000E6',
+      },
       legoList: [
         {
-          background: '#000',
-          icon: 'http://localhost:9001/icons-tool/icon-gas-medium.svg',
-          title: '16 GB RAM, 8 cores, 320 GB SSD'
+          background: '#AA00CC',
+          icon: '/icons-tool/icon_staking.svg',
+          title: 'Pool 1'
         },
         {
-          background: '#12dac2',
-          icon: 'http://localhost:9001/icons-tool/icon-filecoin.svg',
-          title: 'ZK Rollup'
-        }
+          background: '#AA00CC',
+          icon: '/icons-tool/icon_staking.svg',
+          title: 'Pool 2'
+        },
+        {
+          background: '#AA00CC',
+          icon: '/icons-tool/icon_staking.svg',
+          title: 'Pool 3'
+        },
       ],
-      handleType: 'target',
     },
     position: { x: 350, y: 25 },
+    type: 'elk',
   },
   {
     id: '3',
     data: {
-      label: 'Degen apps',
+      label: 'DeFi Apps',
+      isRunning: false,
       positionDot: Position.Left,
+      handleType: 'target',
+      legoParent: {
+        background: '#F76649',
+      },
       legoList: [
         {
-          background: '#000',
-          icon: 'http://localhost:9001/icons-tool/icon-gas-medium.svg',
-          title: '16 GB RAM, 8 cores, 320 GB SSD'
+          background: '#DE5C42',
+          icon: '/icons-tool/icon_staking.svg',
+          title: 'Issue a token'
         },
         {
-          background: '#12dac2',
-          icon: 'http://localhost:9001/icons-tool/icon-filecoin.svg',
-          title: 'ZK Rollup'
-        }
+          background: '#DE5C42',
+          icon: '/icons-tool/icon-vesting.svg',
+          title: 'Vesting'
+        },
+        {
+          background: '#DE5C42',
+          icon: '/icons-tool/icon-gas-medium.svg',
+          title: 'Staking'
+        },
+        {
+          background: '#DE5C42',
+          icon: '/icons-tool/icon-dex.svg',
+          title: 'DEX'
+        },
+        {
+          background: '#DE5C42',
+          icon: '/icons-tool/icon-orderbook.svg',
+          title: 'Orderbook'
+        },
+        {
+          background: '#DE5C42',
+          icon: '/icons-tool/icon-perceptual.svg',
+          title: 'Perpetual'
+        },
       ],
-      handleType: 'target',
     },
     position: { x: 350, y: 25 },
+    type: 'elk',
   },
   {
     id: '4',
     data: {
       label: 'Gaming apps',
       positionDot: Position.Left,
+      handleType: 'target',
+      isRunning: true,
+      legoParent: {
+        background: '#E6004D',
+      },
       legoList: [
         {
-          background: '#000',
-          icon: 'http://localhost:9001/icons-tool/icon-gas-medium.svg',
-          title: '16 GB RAM, 8 cores, 320 GB SSD'
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Pepe Fight'
         },
         {
-          background: '#12dac2',
-          icon: 'http://localhost:9001/icons-tool/icon-filecoin.svg',
-          title: 'ZK Rollup'
-        }
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Merge'
+        },
+        {
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Blast'
+        },
+        {
+          background: '#CC0044',
+          icon: '/icons-tool/icon-game.svg',
+          title: 'Connect'
+        },
       ],
-      handleType: 'target',
     },
     position: { x: 350, y: 250 },
+    type: 'elk',
   },
 ]
 

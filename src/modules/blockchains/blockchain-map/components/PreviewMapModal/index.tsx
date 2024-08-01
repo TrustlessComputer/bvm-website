@@ -16,7 +16,6 @@ import CustomNode from '@/modules/blockchains/blockchain-map/components/PreviewM
 import { FAKE_DATA_MAPPING } from '@/modules/blockchains/blockchain-map/components/PreviewMapModal/data';
 import { EdgeBase, NodeBase } from '@xyflow/system';
 
-
 const initialEdges = FAKE_DATA_MAPPING.filter(box => box.connection).map(box => {
   if(!box.connection) return;
 

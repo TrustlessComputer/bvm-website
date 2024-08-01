@@ -1,4 +1,5 @@
 .wrapperBox {
+  min-width: 366px;
  .inner {
    position: relative;
    background: white;
@@ -20,6 +21,7 @@
     &_left {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 4px;
       cursor: pointer;
 
@@ -52,4 +54,41 @@
   position: absolute;
   border: 1px solid #555555;
   z-index: 4;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  &_dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00AA6C;
+  }
+  p {
+    font-size: 12px;
+    font-style: italic;
+    line-height: calc(20 / 12);
+    color: #00AA6C;
+    margin-right: 4px;
+  }
+}
+
+.tagv2 {
+  display: flex;
+  align-items: center;
+  &_dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FA4E0E;
+  }
+  p {
+    font-size: 12px;
+    font-style: italic;
+    text-decoration: underline;
+    line-height: calc(20 / 12);
+    color: #FA4E0E;
+    margin-right: 4px;
+  }
 }
