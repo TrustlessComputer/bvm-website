@@ -107,19 +107,19 @@ const Sidebar = ({}: Props) => {
       </div>
 
       <div className={s.footer}>
-        <Button element="button" type="button" onClick={() => {}}>
-          EXPORT{' '}
-          <Image src="/icons/image.svg" alt="image" width={20} height={20} />
-        </Button>
-        <Button element="button" type="button" onClick={() => {}}>
-          SHARE{' '}
-          <Image
-            src="/icons/twitter.svg"
-            alt="twitter"
-            width={20}
-            height={20}
-          />
-        </Button>
+        {/*<Button element="button" type="button" onClick={() => {}}>*/}
+        {/*  EXPORT{' '}*/}
+        {/*  <Image src="/icons/image.svg" alt="image" width={20} height={20} />*/}
+        {/*</Button>*/}
+        {/*<Button element="button" type="button" onClick={() => {}}>*/}
+        {/*  SHARE{' '}*/}
+        {/*  <Image*/}
+        {/*    src="/icons/twitter.svg"*/}
+        {/*    alt="twitter"*/}
+        {/*    width={20}*/}
+        {/*    height={20}*/}
+        {/*  />*/}
+        {/*</Button>*/}
       </div>
 
       <MModal
