@@ -120,6 +120,7 @@ interface BlockModel {
   icon: string;
   placableAmount: number;
   fields: FieldModel[];
+  childrenFields?: FieldModel[];
   section: string;
   preview: boolean;
   background?: string;

@@ -28,9 +28,9 @@ const Sidebar = ({}: Props) => {
     currentIndexDapp,
   } = useDappsStore();
 
-  const refInited = React.useRef(false)
+  const refInited = React.useRef(false);
 
-  const params = useSearchParams()
+  const params = useSearchParams();
 
   const dapps = React.useMemo(
     () => uniqBy(_dapps, (item) => item.id),
@@ -67,15 +67,19 @@ const Sidebar = ({}: Props) => {
     setCurrentIndexDapp(selectedDappIndex);
   };
 
-
   React.useEffect(() => {
-    if (!dapps?.length) return
-    const newIndex = dapps?.findIndex(item => compareString(item.id, params?.get('dapp'))) || 0;
+    if (!!dapps?.length) return;
+
+    const newIndex =
+      dapps?.findIndex((item) => compareString(item.id, params?.get('dapp'))) ||
+      0;
+
     if (newIndex >= 0 && !refInited.current) {
       changeDapp(newIndex);
     }
+
     refInited.current = true;
-  }, [dapps])
+  }, [dapps]);
 
   if (!dapps?.length) {
     return <></>;
@@ -87,6 +91,7 @@ const Sidebar = ({}: Props) => {
         {dapps.map((dapp, index) => {
           return (
             <Button
+              key={dapp.key}
               element="button"
               type="button"
               color="transparent"

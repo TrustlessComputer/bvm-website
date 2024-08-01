@@ -147,6 +147,8 @@ export const dappMockupData: DappModel[] = [
             options: [],
             placeholder: 'e.g 100,000,000',
           },
+        ],
+        childrenFields: [
           {
             background: '#F8B200',
             key: 'address',
@@ -161,11 +163,12 @@ export const dappMockupData: DappModel[] = [
           },
           {
             key: 'is_vesting',
-            title: 'Vesting?',
+            title: 'Vesting',
             type: 'extends',
             icon: '',
             value: 0,
             tooltip: '',
+            background: '#F8B200',
             options: [
               {
                 key: 'cliff',
