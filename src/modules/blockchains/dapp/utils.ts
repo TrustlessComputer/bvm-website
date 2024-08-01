@@ -328,7 +328,7 @@ export const preDataAirdropTask = (
               key: getAirdropTaskKey(airdropTask),
               title: airdropTask.title,
               icon: '',
-              placableAmount: -1,
+              placableAmount: 1,
               section: 'tasks',
               preview: false,
               fields,

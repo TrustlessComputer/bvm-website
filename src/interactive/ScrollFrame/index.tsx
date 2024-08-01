@@ -96,6 +96,7 @@ export const Frames = ({
 
       if (frame > totalFrames || refDom.current.images[frame]) return;
       registerImgDom(frame, true);
+      // @ts-ignore
       refDom.current.images[frame].image.onload = (): void => {
         if (!onLoaded) {
           if (refDom.current.currentFrame === refDom.current.images[frame].frame) {
