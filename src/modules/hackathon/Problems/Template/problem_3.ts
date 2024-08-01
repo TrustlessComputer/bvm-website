@@ -18,7 +18,7 @@ The government of BVM Land wishes to build libraries in some cities so that from
 Your smart contract needs to implement the following function(s):
 
 &nbsp;  
-\`\`\`
+\`\`\`solidity
 function solve(uint256[] memory a, uint256[] memory u, uint256[] memory v) external pure returns (uint256);
 \`\`\`
 
@@ -53,7 +53,7 @@ Consider the following function call:
 
 &nbsp;  
 
-\`\`\`
+\`\`\`solidity
 solve([5, 7, 3, 2, 8], [0, 1, 2, 3], [4, 2, 3, 1])
 \`\`\`
 
@@ -80,7 +80,7 @@ Consider the following function call:
 
 &nbsp;  
 
-\`\`\`
+\`\`\`solidity
 solve([6, 2, 4, 5, 9], [], [])
 \`\`\`
 
