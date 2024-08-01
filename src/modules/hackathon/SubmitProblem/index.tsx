@@ -90,11 +90,15 @@ const SubmitProblem = ({ className, code }: Props) => {
               {isSubmitting ? <Spinner /> : 'Submit'}
             </button>
           </Box>
-          <Box className={s.submitProblem_error}>
-            {errors.contractAddress &&
-              touched.contractAddress &&
-              errors.contractAddress}
-          </Box>
+          {errors.contractAddress &&
+            touched.contractAddress &&
+            errors.contractAddress && (
+              <Box className={s.submitProblem_error}>
+                {errors.contractAddress &&
+                  touched.contractAddress &&
+                  errors.contractAddress}
+              </Box>
+            )}
         </form>
       )}
     </Formik>
