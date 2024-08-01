@@ -1,9 +1,37 @@
+.header {
+    margin-bottom: 68px;
+
+    .title {
+        color: #FFF;
+        font-family: "JetBrains Mono";
+        font-size: 60px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-bottom: 16px;
+    }
+
+    .desc {
+        color: #FFF;
+        font-family: "SF Pro Display";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 170%;
+        /* 34px */
+    }
+}
+
+.container {
+    padding: 100px 0;
+    margin-top: 80px;
+}
+
 .wrapper {
     display: flex;
     gap: 28px;
     // height: 100vh;
-    padding: 100px 0;
-    margin-top: 80px;
+
 
     @include w-max(768px) {
         flex-direction: column;
