@@ -102,8 +102,6 @@ const RollupsDappPage = () => {
       result.push(t);
     }
 
-    console.log('result', result);
-
     return result;
   };
 
@@ -138,10 +136,15 @@ const RollupsDappPage = () => {
     const overIsOutput = over.id === 'output';
     const overIsABase = DragUtil.idDraggingIsABase(overId);
     const overBaseIndex = Number(DragUtil.getBaseIndex(overId));
+    const overIsABlock = DragUtil.idDraggingIsABlock(overId);
+    const overIndex = Number(DragUtil.getChildIndex(overId));
+    const overOriginalKey = DragUtil.getOriginalKey(overId);
 
     const activeFromRightSide = DragUtil.isRightSide(activeId);
     const activeFromLeftSide = DragUtil.isLeftSide(activeId);
-    const activeIsAChild = DragUtil.idDraggingIsAField(activeId);
+    const activeIsAChildOfABlock =
+      DragUtil.idDraggingIsAChildOfABlock(activeId);
+    const activeIsRightSide = DragUtil.isRightSide(activeId);
     const activeIsABase = DragUtil.idDraggingIsABase(activeId);
     const activeIsAModule = DragUtil.idDraggingIsAModule(activeId);
     const activeBaseIndex = Number(DragUtil.getBaseIndex(activeId));
@@ -150,6 +153,47 @@ const RollupsDappPage = () => {
     const activeIsABaseModule = DragUtil.idDraggingIsABaseModule(activeId);
     const activeIndex = Number(DragUtil.getChildIndex(activeId));
     const activeOriginalKey = DragUtil.getOriginalKey(activeId);
+    const activeFieldKey = active.data.current?.fieldKey;
+
+    // Case 0: Drag to the block parent
+    if (activeFromLeftSide && activeIsAChildOfABlock && overIsABlock) {
+      if (activeOriginalKey !== overOriginalKey) {
+        showValidateError('Please drag to the same block!');
+        return;
+      }
+
+      const parentComposedFieldKey = `right-${FieldKeyPrefix.BLOCK}-${activeOriginalKey}`;
+      const composedFieldKey = `right-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${overIndex}-${overBaseIndex}`;
+      const formKey = `${overBaseIndex}-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${activeFieldKey}-${overIndex}`;
+
+      if (
+        draggedIds2D[overBaseIndex][overIndex].children.some(
+          (item) => item.name === composedFieldKey,
+        )
+      ) {
+        showValidateError('This field already exists in the block!');
+        return;
+      }
+
+      draggedIds2D[overBaseIndex][overIndex] = {
+        ...draggedIds2D[overBaseIndex][overIndex],
+        children: [
+          ...draggedIds2D[overBaseIndex][overIndex].children,
+          {
+            name: composedFieldKey,
+            value: active.data.current?.value,
+            parentNames: [],
+            children: [],
+          },
+        ],
+      };
+
+      console.log(draggedIds2D[overBaseIndex][overIndex]);
+      draggedIds2DSignal.value = [...draggedIds2D];
+    }
+
+    if (activeIsRightSide && overIsInput) {
+    }
 
     // Case 1: Drag to the right
     if (overIsOutput || overIsABase) {
@@ -185,12 +229,12 @@ const RollupsDappPage = () => {
         return;
       }
 
+      // Case 1.5: The lego just dragged is a base module
       if (activeIsABaseModule) {
         const totalPlaced = draggedIds2D.length;
-        const canPlaceMoreBaseModule =
-          baseModuleFieldMapping[activeOriginalKey].placableAmount === -1 ||
-          totalPlaced <
-            baseModuleFieldMapping[activeOriginalKey].placableAmount;
+        // prettier-ignore
+        const canPlaceMoreBaseModule = baseModuleFieldMapping[activeOriginalKey].placableAmount === -1 ||
+                                      totalPlaced < baseModuleFieldMapping[activeOriginalKey].placableAmount;
         const composedFieldKey =
           'right-' + FieldKeyPrefix.BASE_MODULE + '-' + activeOriginalKey;
 
@@ -210,6 +254,7 @@ const RollupsDappPage = () => {
               name: composedFieldKey,
               value: active.data.current?.value,
               parentNames: [],
+              children: [],
             },
           ],
         ];
@@ -228,7 +273,7 @@ const RollupsDappPage = () => {
         return;
       }
 
-      // Case 1.5: The lego just dragged is a block/single
+      // Case 1.6: The lego just dragged is a block/single
       if ((activeIsABlock || activeIsASingle) && overIsABase) {
         const totalPlaced = activeIsABlock
           ? draggedIds2D[overBaseIndex].filter((item) =>
@@ -271,6 +316,7 @@ const RollupsDappPage = () => {
             name: composedFieldKey,
             value: active.data.current?.value,
             parentNames: [],
+            children: [],
           },
         ];
 
@@ -279,6 +325,7 @@ const RollupsDappPage = () => {
         return;
       }
 
+      // Case 1.7: The lego just dragged is a module
       if (activeIsAModule && overIsABase) {
         const totalPlaced = draggedIds2D[overBaseIndex].filter((item) =>
           item.name.startsWith(
@@ -325,6 +372,7 @@ const RollupsDappPage = () => {
                 name: composedFieldKey,
                 value,
                 parentNames: [],
+                children: [],
               },
             ];
           } else {
@@ -379,6 +427,7 @@ const RollupsDappPage = () => {
               name: composedFieldKey,
               value: active.data.current?.value,
               parentNames: [],
+              children: [],
             },
           ];
         }
@@ -639,6 +688,7 @@ const RollupsDappPage = () => {
             name: prefix + '-' + _key,
             value: '',
             parentNames: [],
+            children: [],
           },
         ];
       }
