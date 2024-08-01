@@ -21,17 +21,6 @@ type Props = {};
 
 const LIMIT_PAGE = 50;
 
-const getTimeText = (time: number) => {
-  let duration = moment.duration(time, 'seconds');
-  let minutes = duration.minutes();
-  let secondsLeft = duration.seconds();
-
-  if (minutes === 0 && secondsLeft === 0) {
-    return `0`;
-  }
-  return `${minutes}:${String(secondsLeft).padStart(2, '0')}`;
-};
-
 const Leaderboard = (props: Props) => {
   const infiniteScrollRef = useRef<any>(null);
 
@@ -77,17 +66,28 @@ const Leaderboard = (props: Props) => {
       <div className={cn(s.item, s.table_group)}>
         <Box className={s.first_col}>{index + 1}</Box>
         <div className={cn(s.second_col, s.name)}>
-          <Flex alignItems={'center'} gap="8px">
-            <Avatar url={data.user.profile_image} width={20} circle />
-            <p title={data.user.name}>
-              {formatName(data.user.name || data.user.twitter_username, 4)}
+          <Flex alignItems={'center'} gap="8px" style={{overflow: 'hidden'}}>
+            <Avatar
+              url={data.user.profile_image}
+              width={20}
+              circle
+              className={s.avatar}
+            />
+            <p
+              title={data.user.name}
+              style={{
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {data.user.name || data.user.twitter_username}
             </p>
           </Flex>
         </div>
         <div className={cn(s.place_center, s.third_col)}>
           {data.total_point}
         </div>
-        <div className={s.place_center}>{getTimeText(data.total_duration)}</div>
+        <div className={s.place_center}>{data.total_gas_used}</div>
         <div className={s.place_center}>{renderTimeStatus(map?.['1'])}</div>
         <div className={s.place_center}> {renderTimeStatus(map?.['2'])}</div>
         <div className={s.place_center}> {renderTimeStatus(map?.['3'])}</div>
@@ -99,7 +99,7 @@ const Leaderboard = (props: Props) => {
     if (!contestProblem) {
       return null;
     }
-    const formattedTime = getTimeText(contestProblem.duration);
+    // const formattedTime = getTimeText(contestProblem.duration);
     const isPassed = contestProblem.status === 'pending';
 
     if (isPassed) {
@@ -112,7 +112,7 @@ const Leaderboard = (props: Props) => {
           justifyContent={'center'}
           className={s.passed}
         >
-          {formattedTime}
+          {contestProblem.gas_used}
           <Image src="/hackathon/ic-check.svg" />
         </Flex>
       );
@@ -129,24 +129,6 @@ const Leaderboard = (props: Props) => {
         position={'relative'}
       >
         <Image src="/hackathon/ic-close-red.svg" />
-        {!!contestProblem.error_msg && contestProblem.point === 0 && (
-          <Text
-            fontSize="10px"
-            fontWeight={500}
-            color="rgba(255, 255, 255, 0.70)"
-            fontFamily="Helvetica Neue"
-            style={{
-              position: 'absolute',
-              transform: 'translateY(18px)',
-              maxWidth: '96px',
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            {contestProblem.error_msg}
-          </Text>
-        )}
       </Flex>
     );
   };
@@ -171,7 +153,7 @@ const Leaderboard = (props: Props) => {
         <div className={s.first_col}>Rank</div>
         <div className={s.second_col}>Name</div>
         <div className={cn(s.third_col, s.place_center)}>Points</div>
-        <div className={s.place_center}>Total Time</div>
+        <div className={s.place_center}>Total Gas</div>
         <div className={s.place_center}>Topic 1</div>
         <div className={s.place_center}>Topic 2</div>
         <div className={s.place_center}>Topic 3</div>
