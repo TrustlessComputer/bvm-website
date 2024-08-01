@@ -104,6 +104,8 @@ const AppItem = (props: Props) => {
           fontSize={['14px']}
           fontWeight={500}
           color={statusMapper.statusColor}
+          textDecoration={''}
+          as={`${statusMapper.statusStr === 'Need config' ? 'u' : 'samp'}`}
         >
           {statusMapper.statusStr}
         </Text>
