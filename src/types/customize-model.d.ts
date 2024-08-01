@@ -112,6 +112,7 @@ interface FieldModel {
   selectable?: boolean;
   background?: string;
   previewTitle?: string;
+  disabled?: boolean
 }
 
 interface BlockModel {

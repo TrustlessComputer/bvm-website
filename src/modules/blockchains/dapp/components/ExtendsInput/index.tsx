@@ -46,6 +46,7 @@ const ExtendsInput = ({
     level,
     blockKey,
     baseIndex,
+    value,
   } = props;
 
   const fieldOption: any = {
@@ -60,7 +61,7 @@ const ExtendsInput = ({
 
   const { thisDapp } = useThisDapp();
 
-  const [toggle, setToggle] = React.useState(false);
+  const [toggle, setToggle] = React.useState(Boolean(value));
 
   const handleToggle = () => {
     if (disabled || onlyLabel) return;
@@ -86,10 +87,10 @@ const ExtendsInput = ({
     } else {
       formDappSignal.value = {
         ...formDappToggle,
-        [key]: false,
+        [key]: Boolean(value),
       };
     }
-  }, []);
+  }, [value]);
 
   const getInput = React.useCallback(
     (field: FieldModel, fieldOpt: FieldOption): React.ReactNode => {

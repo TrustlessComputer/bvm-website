@@ -681,6 +681,26 @@ export const dappMockupData: DappModel[] = [
         preview: false,
         section: 'information',
       },
+      {
+        title: 'Shared Holder',
+        key: 'is_bvm_shard',
+        icon: '',
+        fields: [
+          {
+            key: 'is_bvm_shard',
+            title: 'Shared Holder',
+            type: 'extends',
+            icon: '',
+            value: 1,
+            tooltip: '',
+            options: [],
+            disabled: true,
+          },
+        ],
+        placableAmount: 1,
+        preview: false,
+        section: 'information',
+      },
     ],
   },
 ];
