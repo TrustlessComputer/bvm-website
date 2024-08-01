@@ -188,13 +188,13 @@ const RightDroppable = () => {
       if (field.type === 'input') {
         return (
           <Lego
-            background={adjustBrightness(mainColor, -20)}
             first={false}
             last={false}
             titleInLeft={true}
             titleInRight={false}
             {...field}
             key={field.key}
+            background={adjustBrightness(mainColor, -20)}
           >
             <Input
               {...field}

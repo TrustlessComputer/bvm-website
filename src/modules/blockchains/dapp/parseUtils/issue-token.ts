@@ -80,6 +80,7 @@ export const parseIssuedToken = (token: IToken) => {
         placableAmount: -1,
         section: 'tokenomics',
         preview: true,
+        background: '#00AA6C',
         fields: [
           {
             key: 'name',
@@ -89,6 +90,7 @@ export const parseIssuedToken = (token: IToken) => {
             value: vesting.beneficiary_name as string,
             tooltip: '',
             options: [],
+            background: '#00AA6C',
           },
           {
             key: 'total_amount',
@@ -98,6 +100,7 @@ export const parseIssuedToken = (token: IToken) => {
             value: (Number(vesting.amount_total) > 0 ? vesting.amount_total : vesting.unvest_amount) as string,
             tooltip: '',
             options: [],
+            background: '#00AA6C',
           },
           {
             key: 'address',
@@ -107,6 +110,7 @@ export const parseIssuedToken = (token: IToken) => {
             value: vesting.beneficiary as string,
             tooltip: '',
             options: [],
+            background: '#00AA6C',
           },
           {
             key: 'is_vesting',
