@@ -6,6 +6,7 @@ interface IDappValue {
 interface IModelOption {
   title: string;
   selectable: boolean;
+  updatable?: boolean;
   priceUSD: number;
   priceBVM: number;
   tooltip: string;
@@ -16,7 +17,13 @@ interface IModelOption {
   value: string | number | IDappValue[];
   needContactUs: boolean;
   keyDapp?: string;
+  needConfig?: boolean;
+  logo?: string;
+  setupLogo?: string;
+
+  valueStr?: string;
   type?: 'text' | 'number';
+  disabled?: boolean;
 }
 
 interface IModelCategory {
@@ -26,7 +33,7 @@ interface IModelCategory {
   title: string;
   color: string;
   key: string;
-  type: '' | 'dropdown' | 'slide' | 'module' | 'form' | 'input';
+  type: '' | 'dropdown' | 'slide' | 'module' | 'input' | 'form';
   required: boolean;
   options: IModelOption[];
   disable: boolean;
@@ -36,7 +43,10 @@ interface IModelCategory {
   confuseTitle: string;
   confuseIcon: string;
   multiChoice: boolean;
-  hidden: boolean;
+
+  hidden?: boolean;
+  updatable?: boolean;
+  whitelistAddress?: any;
 }
 
 interface ITemplate {

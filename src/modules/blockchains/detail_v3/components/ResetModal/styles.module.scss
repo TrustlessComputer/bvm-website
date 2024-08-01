@@ -1,0 +1,17 @@
+.modalContent {
+  background-color: #fff !important;
+  font-family: var(--font-SFProDisplay);
+
+  display: block;
+  width: 400px !important;
+  padding: 28px !important;
+  border-radius: 20px !important;
+
+  .modalHeader {
+    padding: 0 !important;
+  }
+
+  .modalBody {
+    padding: 0px !important;
+  }
+}
