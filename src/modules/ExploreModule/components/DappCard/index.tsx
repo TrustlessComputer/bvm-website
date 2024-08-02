@@ -3,8 +3,17 @@ import s from './styles.module.scss';
 import Image from 'next/image';
 import Fade from '@interactive/Fade';
 
+export type TDappCardProps = {
+  idx?: number;
+  title: string;
+  description: string;
+  image: string;
+  bgColor: string;
+  tags: string[];
+}
 
-export default function DappCard({ idx, ...props }): React.JSX.Element {
+
+export default function DappCard({ idx, ...props }: TDappCardProps): React.JSX.Element {
   console.log('props.bgColor', props.bgColor);
   return (
     <Fade delayEnter={(.5 + idx / 10)}>

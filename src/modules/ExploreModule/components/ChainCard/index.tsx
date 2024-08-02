@@ -3,8 +3,17 @@ import Image from 'next/image';
 import s from "./styles.module.scss"
 import Fade from '@interactive/Fade';
 
+export type TChainCard = {
+  idx?: number;
+  title: string;
+  description: string;
+  image: string;
+  social: Array<{ link: string, icon: string }>;
+  tags: Array<string>;
+}
 
-export default function ChainCard({idx,...props}) {
+
+export default function ChainCard({idx,...props}: TChainCard) {
   return (
     <Fade delay={idx / 10}>
       <div className={s.wrapperChainCard}>
