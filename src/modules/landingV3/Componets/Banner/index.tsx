@@ -1,11 +1,12 @@
 import s from './styles.module.scss';
 import React from 'react';
 import Link from 'next/link';
+import { BVM_CODE_BATTLE } from '@constants/route-path';
 
 export default function Banner() {
   return (
     <div className={s.banner}>
-      <Link href={'/'}>
+      <Link href={BVM_CODE_BATTLE}>
         Proof of Code: The Crypto Coding Competition with weekly prize pools.{' '}
         <strong>
           Register now{' '}
