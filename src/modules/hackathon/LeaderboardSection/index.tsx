@@ -26,7 +26,7 @@ const LeaderboardSection = (props: Props) => {
 
   const { width } = useWindowSize();
 
-  const { login, wallet } = useWeb3Auth();
+  const { loggedIn, login, wallet } = useWeb3Auth();
   const dispatch = useDispatch();
 
   const exportPrivateKeyHandler = () => {
@@ -42,6 +42,20 @@ const LeaderboardSection = (props: Props) => {
         }),
       );
     } else {
+      login();
+    }
+  };
+
+  const handleClickPractice = () => {
+    // scroll to #practice-section
+    const practiceSection = document.getElementById('practice-section');
+    if (practiceSection) {
+      practiceSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleOpenRegisterModal = () => {
+    if (!loggedIn) {
       login();
     }
   };
@@ -81,11 +95,26 @@ const LeaderboardSection = (props: Props) => {
               </Text>
             </Flex>
             <Flex gap="20px" direction="column">
-              <Flex gap="8px" className={s.warning_prepare}>
+              <Flex
+                gap="8px"
+                alignItems="center"
+                className={s.warning_prepare}
+                onClick={
+                  loggedIn ? handleClickPractice : handleOpenRegisterModal
+                }
+              >
                 <span>1.</span> Create an account
+                <Image src="/hackathon/ic-add.svg" alt="add" />
               </Flex>
               <Flex gap="8px" className={s.warning_prepare}>
-                <span>2.</span> Set up your development environment
+                <a
+                  href="https://github.com/TrustlessComputer/poc-practice"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>2.</span> Set up your development environment
+                  <Image src="/hackathon/ic-arrow-up.svg" alt="add" />
+                </a>
               </Flex>
               <Flex
                 gap="8px"
@@ -93,6 +122,7 @@ const LeaderboardSection = (props: Props) => {
                 onClick={exportPrivateKeyHandler}
               >
                 <span>3.</span> Back up your private key
+                <Image src="/hackathon/ic-restore.svg" alt="add" />
               </Flex>
             </Flex>
           </div>

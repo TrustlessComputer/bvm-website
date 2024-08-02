@@ -47,8 +47,18 @@
     font-weight: 400;
     line-height: normal;
 
+    &:hover {
+      cursor: pointer;
+    }
+
     span {
       opacity: 0.6;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
   }
 }
