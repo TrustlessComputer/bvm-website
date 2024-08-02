@@ -69,7 +69,6 @@ export const CHAIN_DATA = [
       }
     ],
     tags: [
-      'Web',
       'L3',
       'ZK Rollup',
     ]
@@ -93,9 +92,8 @@ export const CHAIN_DATA = [
       }
     ],
     tags: [
-      'Web',
       'L2',
-      'OP Rollup',
+      'Optimistic Rollup',
     ]
   },
   {
@@ -117,7 +115,6 @@ export const CHAIN_DATA = [
       }
     ],
     tags: [
-      'Web',
       'L1',
       'ZK Rollup',
     ]
@@ -141,8 +138,7 @@ export const CHAIN_DATA = [
       }
     ],
     tags: [
-      'Web',
-      'L1',
+      'L2',
       'ZK Rollup',
     ]
   },
@@ -165,8 +161,7 @@ export const CHAIN_DATA = [
       }
     ],
     tags: [
-      'Web',
-      'L1',
+      'L2',
       'ZK Rollup',
     ]
   },
@@ -189,8 +184,7 @@ export const CHAIN_DATA = [
       }
     ],
     tags: [
-      'Web',
-      'L1',
+      'L2',
       'ZK Rollup',
     ]
   },
@@ -213,8 +207,7 @@ export const CHAIN_DATA = [
       }
     ],
     tags: [
-      'Web',
-      'L1',
+      'L2',
       'ZK Rollup',
     ]
   }
