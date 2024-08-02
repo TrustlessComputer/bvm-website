@@ -174,7 +174,7 @@ const HackathonModule = (props: Props) => {
           {/* <Fade from={{ y: 40 }} to={{ y: 0 }}> */}
 
           <div className={s.left}>
-            <div className={s.reward}>
+            {/* <div className={s.reward}>
               <ChakraImage src="/hackathon/ic-reward.svg" />
               <div>
                 <Text
@@ -190,7 +190,7 @@ const HackathonModule = (props: Props) => {
                 </Text>
                 <p className={s.reward_amount}>$500</p>
               </div>
-            </div>
+            </div> */}
             <div>
               <h2 className={s.title}>
                 <p>Proof of Code</p>
@@ -214,18 +214,7 @@ const HackathonModule = (props: Props) => {
               flexWrap={'wrap'}
               rowGap={'24px'}
             >
-              <div className={s.connect_btn}>
-                <a
-                  href={LINKS.POC_TELEGRAM_GROUP}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={s.tele_link}
-                >
-                  Join dev community
-                </a>
-              </div>
-
-              <ButtonConnected title="Let's Code" className={s.reward_btn}>
+              <ButtonConnected title="Let's code" className={s.reward_btn}>
                 <button
                   className={cn(s.reward_btn, {
                     [s.registered]: isRegistered,
@@ -233,10 +222,22 @@ const HackathonModule = (props: Props) => {
                   onClick={handleOpenRegisterModal}
                   disabled={isRegistered}
                 >
-                  {isRegistered ? 'Registered' : "Let's Code"}
+                  {isRegistered ? 'Registered' : "Let's code"}
                 </button>
               </ButtonConnected>
-              <div className={s.meta_info}>
+
+              <div className={s.connect_btn}>
+                <a
+                  href={LINKS.POC_TELEGRAM_GROUP}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s.tele_link}
+                >
+                  Join PoC community
+                </a>
+              </div>
+
+              {/* <div className={s.meta_info}>
                 {!!peopleSubmitted && (
                   <Flex alignItems={'center'} gap="4px" mb="12px">
                     <b>
@@ -249,7 +250,7 @@ const HackathonModule = (props: Props) => {
                   </Flex>
                 )}
                 {renderCountdown()}
-              </div>
+              </div> */}
             </Flex>
           </div>
           {/* </Fade> */}
