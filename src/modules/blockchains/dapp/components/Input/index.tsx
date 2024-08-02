@@ -1,15 +1,13 @@
-import React from 'react';
 import { useSignalEffect } from '@preact/signals-react';
 import cn from 'classnames';
+import React from 'react';
 
-import { FormDappUtil } from '../../utils';
-import { FieldOption } from '../../types';
 import {
-  formDappInputSignal,
   formDappSignal,
   formTemplateDappSignal,
 } from '../../signals/useFormDappsSignal';
-import useDappsStore, { useFormDappsStore } from '../../stores/useDappStore';
+import { FieldOption } from '../../types';
+import { FormDappUtil } from '../../utils';
 
 import styles from './styles.module.scss';
 
@@ -43,8 +41,8 @@ const Input = ({
       formDappSignal.value = {
         ...formDappInput,
         [key]: e.target.value,
-        [keyFile]: e.target?.files?.[0]
-      }
+        [keyFile]: e.target?.files?.[0],
+      };
     } else {
       formDappSignal.value = {
         ...formDappInput,
@@ -82,7 +80,7 @@ const Input = ({
 
   return (
     <input
-      type={disabled ? "text" : inputType}
+      type={disabled ? 'text' : inputType}
       className={cn(styles.input, {
         [styles.input__disabled]: disabled,
         [styles.input__file]: inputType === 'file',

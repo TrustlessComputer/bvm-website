@@ -368,6 +368,10 @@ export const preDataAirdropTask = (
               preview: false,
               fields,
               background: '#43766C',
+              linkDownloadFile:
+                getAirdropTaskKey(airdropTask) === 'whitelist'
+                  ? 'https://cdn.bvm.network/users/template_aidrop_3f48a00b-4571-4675-bfa7-f1c1e184c354.csv'
+                  : undefined,
             });
           }
 

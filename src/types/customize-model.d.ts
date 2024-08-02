@@ -114,7 +114,7 @@ interface FieldModel {
   previewTitle?: string;
   inputType?: 'text' | 'number' | 'file',
   inputAccept?: 'image/*' | '.csv'
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 interface BlockModel {
@@ -127,6 +127,7 @@ interface BlockModel {
   section: string;
   preview: boolean;
   background?: string;
+  linkDownloadFile?: string;
 }
 
 interface DappModel {
