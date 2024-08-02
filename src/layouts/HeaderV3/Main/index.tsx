@@ -36,16 +36,15 @@ const Main = ({
       className={`${s.wrapper} `}
       style={{ backgroundColor: backgroundColor }}
     >
+      {/*{*/}
+      {/*  showBanner && (*/}
+      {/*    <div className={s.wrapper_banner} onClick={() => router.push('/bitcoinwars')}>*/}
+      {/*      <Image src={'/bannerV2.jpg'} alt={'banner'} width={1920} height={80} quality={100} />*/}
+      {/*    </div>*/}
+      {/*  )*/}
+      {/*}*/}
 
       <div className={`${s.inner} containerV3`}>
-
-        <div
-          className={`${s.logo} ${colorLogo === 'black' && s.logo_black}`}
-          onClick={() => router.push('/')}
-        >
-          <IconLogo />
-        </div>
-
         {isDesktop && (
           <div className={s.menu}>
             {NAV_ITEMS_LEFT.map((item) => {
@@ -89,12 +88,56 @@ const Main = ({
             })}
           </div>
         )}
-
+        <div
+          className={`${s.logo} ${colorLogo === 'black' && s.logo_black}`}
+          onClick={() => router.push('/')}
+        >
+          <IconLogo />
+        </div>
         {isDesktop ? (
-          <div>
-            <Link href={'/bvm'} className={s.getBVM}>
-              Get BVM
-            </Link>
+          <div className={s.menu}>
+            {NAV_ITEMS_RIGHT.map((item) => {
+              const isActive = pathname === item.href;
+              const isActiveDark = isActive && color === 'white';
+              const isActiveLight = isActive && color === 'black';
+              const { MenuItemEl } = item;
+
+              return item.subMenu ? (
+                <DropDown
+                  key={item.label}
+                  title={item.label}
+                  lists={item.subMenu}
+                  color={color}
+                  Icon={item.icon}
+                />
+              ) : item.GroupDropDown ? (
+                <GroupDownItem
+                  key={item.label}
+                  title={item.label}
+                  color={color}
+                  typeGroup={item.groupType}
+                >
+                  {item.GroupDropDown()}
+                </GroupDownItem>
+              ) : MenuItemEl ? <MenuItemEl color={color} /> : (
+                <Link
+                  key={item.label}
+                  href={item.href ?? '#'}
+                  className={'menu-item'}
+                  target={item.isNewWindow ? '_blank' : '_self'}
+                >
+                  <p
+                    className={`${s.itemLabel} ${isActiveDark && s.activeDark} 
+                    ${isActiveLight && s.activeLight}
+                    `}
+                    style={{ color: color }}
+                  >
+                    {item.label}
+                  </p>
+                </Link>
+              );
+            })}
+            <ButtonLoginTwitter color={color} />
           </div>
         ) : (
           <>
@@ -120,3 +163,4 @@ const Main = ({
 };
 
 export default Main;
+

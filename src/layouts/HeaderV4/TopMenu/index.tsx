@@ -13,12 +13,17 @@ const TopMenu = (): ReactElement => {
       <div className="containerV3">
         <div className={s.inner}>
           <div className={s.left}>
-            <Link href={'/poc'} className={s.left_btn}>
+            <Link href={'/poC'} className={s.left_btn}>
               <img src="/icons/noto_trophy.svg" alt="noto_trophy.svg" width={24} height={24} />
               Proof Of Code
             </Link>
           </div>
           <div className={s.right}>
+            <div className={s.right_item}>
+              <Link href={'/team'}>
+                About BVM
+              </Link>
+            </div>
             <div className={s.right_item}>
               <ContactUs />
             </div>

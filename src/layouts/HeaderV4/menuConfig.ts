@@ -50,7 +50,7 @@ export const NAV_ITEMS: Array<NavItem> = [
     isHide: false,
   },
   {
-    label: 'Team',
+    label: 'About BVM',
     href: '/team',
     isNewWindow: false,
     isHide: false,

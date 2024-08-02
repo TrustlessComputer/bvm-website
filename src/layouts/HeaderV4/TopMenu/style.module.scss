@@ -30,6 +30,24 @@
       padding-left: 24px;
       padding-right: 24px;
 
+      a {
+        text-align: center;
+        font-family: var(--font-JetBrainsMono);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.3;
+        height: 36px;
+        color: white;
+        display: flex;
+        align-items: center;
+        transition: opacity .4s ease;
+
+        &:hover {
+          opacity: .8;
+        }
+      }
+
       &:before {
         content: '';
         display: block;

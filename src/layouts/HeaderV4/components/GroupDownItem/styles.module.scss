@@ -97,7 +97,8 @@
     }
 
     @media (min-width: 1600px) {
-      left: vw(-80px, 1920px);
+      left: calc(50% + 160px);
+      transform: translateX(-50%);
     }
 
     @include is-pc {

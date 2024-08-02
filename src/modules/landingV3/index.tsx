@@ -45,11 +45,11 @@ export default function LandingV3() {
           <ScrollingSection />
         </div>
       }
-
+      <div className={s.caseStudy}>
+        <CaseStudy />
+      </div>
       <div className={s.teamSection}>
-        <div className={s.caseStudy}>
-          <CaseStudy />
-        </div>
+
         <SectionContent {...TEAM} />
       </div>
 

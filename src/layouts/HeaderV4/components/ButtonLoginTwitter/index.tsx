@@ -64,7 +64,7 @@ const ButtonLoginTwitter = (props: Props) => {
             fit={'cover'}
           ></Image>
         )}
-        <p className={`${loggedIn ? s.text : s.lowercase}`}>
+        <p className={`${loggedIn ? s.text : s.lowercase} text`}>
           {/* {!loggedIn ? 'Connect' : `${accInfor?.addressFormatted || '--'}`}{' '} */}
           {!loggedIn
             ? props?.title || 'Sign in'

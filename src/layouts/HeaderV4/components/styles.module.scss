@@ -43,3 +43,12 @@
   position: relative;
   z-index: 9;
 }
+
+
+.menuButton{
+  :global{
+    .text{
+      color: black !important;
+    }
+  }
+}

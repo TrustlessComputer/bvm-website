@@ -1,5 +1,8 @@
+
 .wrapper {
   height: auto;
+  background: white !important;
+
   &_banner {
     position: relative;
     width: 100%;
@@ -8,6 +11,7 @@
     @include is-pc {
       height: 80px;
     }
+
     &:before {
       content: "";
       position: absolute;
@@ -18,6 +22,7 @@
       background-color: #f85c01;
       z-index: -1;
     }
+
     &:after {
       content: "";
       position: absolute;
@@ -28,9 +33,10 @@
       background-color: #0d87ff;
       z-index: -1;
     }
+
     img {
       width: auto;
-      height:  100%;
+      height: 100%;
       object-fit: cover;
       margin-left: auto;
       margin-right: auto;
@@ -47,10 +53,6 @@
   position: relative;
   align-items: center;
 
-  @include min-tablet{
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
 }
 
 .logo {
@@ -60,12 +62,6 @@
   gap: 12px;
   cursor: pointer;
 
-  @include is-pc {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
   &_text {
     font-family: var(--font-jetbrains);
     font-size: 15px;
@@ -73,10 +69,12 @@
     line-height: (21 / 15);
     color: #fff;
   }
+
   svg {
     height: auto;
     width: 27px;
   }
+
   &_black {
     svg {
       path {
@@ -131,4 +129,22 @@
       stroke: #fff;
     }
   }
+}
+
+
+.getBVM {
+  background: black;
+  border-radius: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  font-family: var(--font-JetBrainsMono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
