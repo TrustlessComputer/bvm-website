@@ -8,7 +8,7 @@ export type IContestProblem = {
   contract_block_time: string;
   duration: number;
   status: 'pending' | 'marked';
-  point: null;
+  point: number;
   error_msg: string;
   gas_used: number;
 };

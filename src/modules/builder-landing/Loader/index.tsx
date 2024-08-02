@@ -6,32 +6,37 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import useAnimationStore from '@/stores/useAnimationStore';
 
-export default function Loader({bgColor = 'black'}:{bgColor: string}) {
-
+export default function Loader({ bgColor = 'black' }: { bgColor?: string }) {
   const refContent = useRef<HTMLDivElement>(null);
   const { setPlay, setPlayed, fontReady } = useAnimationStore();
 
-  useGSAP(() => {
-    fontReady &&  gsap.fromTo(
-      refContent.current,
-      { pointerEvents: 'none' },
-      {
-        opacity: 0,
-        delay: .4,
-        ease: 'power3.inOut',
-        onComplete: () => {
-          document.body.style.overflow = 'auto';
-          setPlayed();
-          if (refContent.current) refContent.current.style.display = 'none';
-        },
-      },
-    );
-    fontReady && setTimeout(setPlay, 300);
-  }, { scope: refContent, dependencies:[fontReady] });
-
+  useGSAP(
+    () => {
+      fontReady &&
+        gsap.fromTo(
+          refContent.current,
+          { pointerEvents: 'none' },
+          {
+            opacity: 0,
+            delay: 0.4,
+            ease: 'power3.inOut',
+            onComplete: () => {
+              document.body.style.overflow = 'auto';
+              setPlayed();
+              if (refContent.current) refContent.current.style.display = 'none';
+            },
+          },
+        );
+      fontReady && setTimeout(setPlay, 300);
+    },
+    { scope: refContent, dependencies: [fontReady] },
+  );
 
   return (
-    <div ref={refContent} style={{backgroundColor: bgColor}} className={s.loader}>
-    </div>
+    <div
+      ref={refContent}
+      style={{ backgroundColor: bgColor }}
+      className={s.loader}
+    ></div>
   );
 }

@@ -61,7 +61,9 @@ const Leaderboard = (props: Props) => {
 
   const renderItem = (data: IUserContest, index: number) => {
     // No need to render current user in the loop
-    if (index >= 0 && data.user_address === currentUserContest?.user_address) {
+    const isCurrentUser =
+      data.user_address === currentUserContest?.user_address;
+    if (index >= 0 && isCurrentUser) {
       return null;
     }
 
@@ -74,7 +76,9 @@ const Leaderboard = (props: Props) => {
     );
 
     return (
-      <div className={cn(s.item, s.table_group)}>
+      <div
+        className={cn(s.item, s.table_group, { [s.highlight]: isCurrentUser })}
+      >
         <Box className={s.first_col}>{data.rank}</Box>
         <div className={cn(s.second_col, s.name)}>
           <Flex alignItems={'center'} gap="8px" style={{ overflow: 'hidden' }}>
@@ -89,13 +93,12 @@ const Leaderboard = (props: Props) => {
               style={{
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
-                color:
-                  data.user_address === currentUserContest?.user_address
-                    ? '#8643FB'
-                    : 'inherit',
+                color: isCurrentUser ? '#8643FB' : 'inherit',
               }}
             >
-              {data.user.name || data.user.twitter_username || data.user.email}
+              {data.user.name ||
+                data.user.twitter_username ||
+                data.user.email?.split('@')?.[0]}
             </p>
           </Flex>
         </div>
@@ -117,7 +120,8 @@ const Leaderboard = (props: Props) => {
       return null;
     }
     // const formattedTime = getTimeText(contestProblem.duration);
-    const isPassed = contestProblem.status === 'marked';
+    const isPassed =
+      contestProblem.status === 'marked' && contestProblem.point > 0;
 
     if (isPassed) {
       return (
@@ -157,25 +161,43 @@ const Leaderboard = (props: Props) => {
     );
   }, [dataInfinite]);
 
+  const renderHeader = () => {
+    return (
+      <div className={cn(s.header, s.table_group)}>
+        <div className={s.first_col}>
+          <span>Rank</span>
+        </div>
+        <div className={s.second_col}>
+          <span>Name</span>
+        </div>
+        <div className={cn(s.third_col, s.place_center)}>
+          <span>Points</span>
+        </div>
+        <div className={s.place_center}>
+          <span>Total Gas</span>
+        </div>
+        <div className={s.place_center}>
+          <span>Problem 1</span>
+        </div>
+        <div className={s.place_center}>
+          <span> Problem 2</span>
+        </div>
+        <div className={s.place_center}>
+          <span> Problem 3</span>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div
       className={s.wrapper}
       id="scrollableDiv"
       style={{
-        height: 750,
-        overflow: 'auto',
+        height: 620,
       }}
     >
-      <div className={cn(s.header, s.table_group)}>
-        <div className={s.first_col}>Rank</div>
-        <div className={s.second_col}>Name</div>
-        <div className={cn(s.third_col, s.place_center)}>Points</div>
-        <div className={s.place_center}>Total Gas</div>
-        <div className={s.place_center}>Problem 1</div>
-        <div className={s.place_center}>Problem 2</div>
-        <div className={s.place_center}>Problem 3</div>
-      </div>
-
+      {!dataSource?.length && renderHeader()}
       {dataSource && dataSource.length > 0 && (
         <InfiniteScroll
           ref={infiniteScrollRef}
@@ -189,6 +211,7 @@ const Leaderboard = (props: Props) => {
           scrollableTarget="scrollableDiv"
           next={loadMore}
         >
+          {renderHeader()}
           {isRefreshing && renderLoading()}
           {!!currentUserContest && renderItem(currentUserContest, -1)}
           {(dataSource || []).map(renderItem)}

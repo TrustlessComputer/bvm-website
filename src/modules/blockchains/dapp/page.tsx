@@ -737,16 +737,11 @@ const RollupsDappPage = () => {
       }
       case DappType.airdrop: {
         const _data = parseAirdropsData(airdrops, tokens);
-        // const _data = preDataAirdropTask(data, tokens, airdropTasks);
-
-        console.log('_data', _data);
 
         const model = parseDappModel({
           key: DappType.airdrop,
           model: _data,
         });
-
-        console.log('model', model);
 
         setTemplateDapps(_data);
         setTemplateForm(model);
@@ -775,7 +770,7 @@ const RollupsDappPage = () => {
       </div>
 
       <div className={styles.container__header}>
-        <Flex alignItems='center' gap="12px">
+        <Flex alignItems="center" gap="12px">
           <div
             className={`${styles.top_left_filter} ${styles.active}`}
             // onClick={() => {
@@ -787,7 +782,7 @@ const RollupsDappPage = () => {
           <div
             className={`${styles.top_left_filter}`}
             onClick={() => {
-              router.push('/studio')
+              router.push('/studio');
             }}
           >
             <p>Chain Studio</p>

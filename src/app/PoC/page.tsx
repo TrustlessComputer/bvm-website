@@ -22,6 +22,10 @@ export const metadata = {
   title: 'PoC',
   description: metadataDesc,
 
+  icons: {
+    icon: `/hackathon/ic-cup.svg`,
+  },
+
   openGraph: {
     type: 'website',
     images: [
