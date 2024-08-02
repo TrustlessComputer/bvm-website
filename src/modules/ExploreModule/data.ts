@@ -55,18 +55,18 @@ export const CHAIN_DATA = [
     title: 'Octopus Finance',
     description: 'The first L3 on Bitcoin and next level bridge that connects Bitcoin to EVM.',
     social: [
-      // {
-      //   icon: '/explore/x.svg',
-      //   link: 'https://twitter.com/octopusfinance',
-      // },
-      // {
-      //   icon: '/explore/tele.svg',
-      //   link: 'https://twitter.com/octopusfinance',
-      // },
-      // {
-      //   icon: '/explore/web.svg',
-      //   link: 'https://twitter.com/octopusfinance',
-      // }
+      {
+        icon: '/explore/x.svg',
+        link: 'https://x.com/octopusbridge_',
+      },
+      {
+        icon: '/explore/tele.svg',
+        link: 'https://t.me/octopusbridge',
+      },
+      {
+        icon: '/explore/web.svg',
+        link: 'https://octopusbridge.xyz/',
+      }
     ],
     tags: [
       'L3',
@@ -103,7 +103,7 @@ export const CHAIN_DATA = [
     social: [
       {
         icon: '/explore/x.svg',
-        link: 'https://x.com/satschain_',
+        link: 'https://x.com/satzlabs',
       },
       // {
       //   icon: '/explore/tele.svg',
@@ -116,29 +116,6 @@ export const CHAIN_DATA = [
     ],
     tags: [
       'L1',
-      'ZK Rollup',
-    ]
-  },
-  {
-    image: '/explore/bloom.jpg',
-    title: 'Bloom',
-    description: 'A Bitcoin economic infrastructure designed to unlock your BTC with yield farming and restaking economy.',
-    social: [
-      {
-        icon: '/explore/x.svg',
-        link: 'https://x.com/bloom_btc',
-      },
-      // {
-      //   icon: '/explore/tele.svg',
-      //   link: 'https://twitter.com/octopusfinance',
-      // },
-      {
-        icon: '/explore/web.svg',
-        link: 'https://www.bloom.foundation/',
-      }
-    ],
-    tags: [
-      'L2',
       'ZK Rollup',
     ]
   },
@@ -158,6 +135,29 @@ export const CHAIN_DATA = [
       {
         icon: '/explore/web.svg',
         link: 'https://ironchainbank.io/',
+      }
+    ],
+    tags: [
+      'L2',
+      'ZK Rollup',
+    ]
+  },
+  {
+    image: '/explore/bloom.jpg',
+    title: 'Bloom',
+    description: 'A Bitcoin economic infrastructure designed to unlock your BTC with yield farming and restaking economy.',
+    social: [
+      {
+        icon: '/explore/x.svg',
+        link: 'https://x.com/bloom_btc',
+      },
+      // {
+      //   icon: '/explore/tele.svg',
+      //   link: 'https://twitter.com/octopusfinance',
+      // },
+      {
+        icon: '/explore/web.svg',
+        link: 'https://www.bloom.foundation/',
       }
     ],
     tags: [
