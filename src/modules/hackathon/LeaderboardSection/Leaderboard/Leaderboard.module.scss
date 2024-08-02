@@ -12,6 +12,7 @@
     // grid-template-columns: 8fr 20fr 11fr repeat(4, minmax(90px, 14fr));
     grid-template-columns: 56px 1fr 62px repeat(4, 90px);
     font-family: 'JetBrains Mono';
+    background-color: rgba(134, 67, 251, 0.07);;
 
     .place_center {
       display: grid;
@@ -24,13 +25,17 @@
       font-weight: 400;
       line-height: normal;
       text-transform: uppercase;
-      opacity: 0.6;
+      // opacity: 0.6;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      border: 1px solid #232323;
       border-bottom: 1px solid rgba(255, 255, 255, 0.07);
       background: rgba(255, 255, 255, 0.05);
 
       > div {
         padding-top: 12px;
         padding-bottom: 12px;
+        opacity: 0.6;
       }
     }
 
