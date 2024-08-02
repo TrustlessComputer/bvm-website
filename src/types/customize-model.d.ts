@@ -16,6 +16,7 @@ interface IModelOption {
   key: string;
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
+  requiredFor: string[];
   order: number;
   value: string | number | IDappValue[];
   needContactUs: boolean;
@@ -115,9 +116,9 @@ interface FieldModel {
   selectable?: boolean;
   background?: string;
   previewTitle?: string;
-  inputType?: 'text' | 'number' | 'file',
-  inputAccept?: 'image/*'
-  disabled?: boolean
+  inputType?: 'text' | 'number' | 'file';
+  inputAccept?: 'image/*';
+  disabled?: boolean;
 }
 
 interface BlockModel {

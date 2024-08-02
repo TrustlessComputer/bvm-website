@@ -2,6 +2,7 @@ import React from 'react';
 import { DALayerEnum, NetworkEnum } from './Buy.constanst';
 import { ORDER_FIELD } from './stores';
 import { LegoColor } from './components3/BoxOptionV2';
+import { IModelCategory } from '@/types/customize-model';
 
 export type OrderFormOption = {
   [key in (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD]]: {
@@ -564,6 +565,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 0,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -581,6 +583,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 0,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -606,6 +609,65 @@ export const mockupOptions: IModelCategory[] = [
     order: 0,
   },
   {
+    id: '668f8ebf88f822fe3ebd3470',
+    created_at: '2024-07-11T07:50:23.589Z',
+    updated_at: '0001-01-01T00:00:00Z',
+    key: 'layer2',
+    title: 'Layer 2',
+    required: false,
+    tooltip:
+      'Select the base layer on which you want to build your blockchain. This will determine the base protocol and network characteristics, such as security, scalability, and consensus mechanisms.',
+    options: [
+      {
+        key: 'optimistic',
+        title: 'Optimistic',
+        value: 'optimistic',
+        valueStr: '',
+        selectable: true,
+        priceUSD: 0,
+        priceBVM: 0,
+        tooltip: '',
+        supportNetwork: 'both',
+        requiredFor: ['64g', '2m'], // Option key not ModelCategory key
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-btc.svg',
+        logo: '',
+        setupLogo: '',
+        needContactUs: false,
+        needConfig: false,
+        order: 0,
+      },
+      {
+        key: 'matic',
+        title: 'Matic',
+        value: 'matic',
+        valueStr: '',
+        selectable: true,
+        priceUSD: 0,
+        priceBVM: 0,
+        tooltip: '',
+        supportNetwork: 'both',
+        requiredFor: ['32g', '4m'], // Option key not ModelCategory key
+        icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
+        logo: '',
+        setupLogo: '',
+        needContactUs: false,
+        needConfig: false,
+        order: 0,
+      },
+    ],
+    color: '#F8B200',
+    type: 'module',
+    disable: false,
+    hidden: false,
+    multiChoice: false,
+    confuseWord: true,
+    confuseIcon: '',
+    confuseTitle: 'Base Layer',
+    updatable: false,
+    whitelistAddress: null,
+    order: 0,
+  },
+  {
     id: '668f8ebe88f822fe3ebd346e',
     created_at: '2024-07-11T07:50:22.365Z',
     updated_at: '0001-01-01T00:00:00Z',
@@ -621,6 +683,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 1,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -638,6 +701,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 0,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -678,6 +742,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 16785728,
         valueStr: '1',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 99,
         priceBVM: 145,
         tooltip: '',
@@ -695,6 +760,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 33571216,
         valueStr: '2',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 499,
         priceBVM: 715,
         tooltip: '',
@@ -712,6 +778,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 67142282,
         valueStr: '3',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 699,
         priceBVM: 995,
         tooltip: '',
@@ -752,6 +819,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 21,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip:
@@ -770,6 +838,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 20,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip:
@@ -788,6 +857,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 22,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -828,6 +898,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 21,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -845,6 +916,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 10,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -862,6 +934,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 13,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -879,6 +952,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 18,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 10,
         priceBVM: 15,
         tooltip: '',
@@ -896,6 +970,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 21,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 10,
         priceBVM: 15,
         tooltip: '',
@@ -913,6 +988,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 15,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -953,6 +1029,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 1000000000,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -970,6 +1047,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 2000000000,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 5,
         priceBVM: 10,
         tooltip: '',
@@ -987,6 +1065,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 4000000000,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 10,
         priceBVM: 15,
         tooltip: '',
@@ -1027,6 +1106,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 86400,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1044,6 +1124,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 43200,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 5,
         priceBVM: 10,
         tooltip: '',
@@ -1061,6 +1142,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 21600,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 10,
         priceBVM: 15,
         tooltip: '',
@@ -1101,6 +1183,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 1,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 1300,
         priceBVM: 1850,
         tooltip: '',
@@ -1141,6 +1224,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 0,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1182,6 +1266,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 0,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1199,6 +1284,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 1,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1216,6 +1302,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 2,
         valueStr: '',
         selectable: true,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1233,6 +1320,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 3,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1250,6 +1338,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 4,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1291,6 +1380,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 0,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1309,6 +1399,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 1,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1326,6 +1417,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 2,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1344,6 +1436,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 3,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1361,6 +1454,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 4,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1378,6 +1472,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 5,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1418,6 +1513,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 0,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1435,6 +1531,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 1,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1452,6 +1549,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 2,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1492,6 +1590,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 0,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1509,6 +1608,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 1,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1526,6 +1626,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 2,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',
@@ -1543,6 +1644,7 @@ export const mockupOptions: IModelCategory[] = [
         value: 3,
         valueStr: '',
         selectable: false,
+        requiredFor: [], // Option key not ModelCategory key
         priceUSD: 0,
         priceBVM: 0,
         tooltip: '',

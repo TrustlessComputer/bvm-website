@@ -24,6 +24,7 @@ type LegoV3 = {
   zIndex: number;
   suffix?: string;
   updatable?: boolean;
+  allowShuffle?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function LegoV3({
@@ -40,6 +41,7 @@ function LegoV3({
   zIndex = 0,
   className,
   updatable = false,
+  allowShuffle = false,
   children,
   ...props
 }: LegoV3) {
@@ -81,6 +83,23 @@ function LegoV3({
     (fillBackgroundAsHSB?.b || 100) - 20,
   )?.split('.')[0];
 
+  const haveNoti = React.useMemo(
+    () => updatable || allowShuffle,
+    [updatable, allowShuffle],
+  );
+  const notiMapping = React.useMemo(() => {
+    return {
+      updatable: {
+        icon: '/landingV3/svg/up-right-bottom-left.svg',
+        tooltip: 'This block is changeable.',
+      },
+      allowShuffle: {
+        icon: '/landingV3/svg/replaceable.svg',
+        tooltip: 'This block is shufflable.',
+      },
+    };
+  }, []);
+
   return (
     <React.Fragment>
       <div
@@ -99,7 +118,7 @@ function LegoV3({
         // @ts-ignore
         {...props}
       >
-        {updatable && (
+        {haveNoti && (
           <div
             className={styles.updatableIcon}
             onMouseEnter={onHover}
@@ -109,12 +128,18 @@ function LegoV3({
             }}
           >
             <SvgInset
-              svgUrl="/landingV3/svg/up-right-bottom-left.svg"
+              svgUrl={
+                updatable
+                  ? notiMapping.updatable.icon
+                  : notiMapping.allowShuffle.icon
+              }
               size={24}
             />
 
             <div ref={refTooltip} className={`${styles.tooltip}`}>
-              This block is changeable.
+              {updatable
+                ? notiMapping.updatable.tooltip
+                : notiMapping.allowShuffle.tooltip}
             </div>
           </div>
         )}
