@@ -7,15 +7,12 @@ import AppLoading from '@/components/AppLoading';
 import { IGetParams } from '@/modules/Vote/Proposals/ListProposal';
 import cn from 'classnames';
 import Avatar from '@/components/Avatar';
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import { getListLeaderboard } from '@/services/api/EternalServices';
 import {
   IContestProblem,
   IUserContest,
 } from '@/services/api/EternalServices/types';
-import { useAuthenticatedWallet } from '@/Providers/AuthenticatedProvider/hooks';
-import { useAppSelector } from '@/stores/hooks';
-import { accountInforSelector } from '@/stores/states/l2services/selector';
 import s from './Leaderboard.module.scss';
 
 type Props = {
@@ -26,7 +23,6 @@ const LIMIT_PAGE = 50;
 
 const Leaderboard = (props: Props) => {
   const { currentUserContest } = props;
-  const accInfor = useAppSelector(accountInforSelector);
 
   const infiniteScrollRef = useRef<any>(null);
 
