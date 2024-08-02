@@ -9,6 +9,7 @@ import {
   Box,
   Image,
   Flex,
+  Text,
 } from '@chakra-ui/react';
 import SubmitProblem from '../SubmitProblem';
 import IcThreeDots from '@/public/hackathon/ic-three-dots.svg';
@@ -19,11 +20,23 @@ import SvgInset from '@/components/SvgInset';
 const Problems = ({
   isProblemPanelMaximized,
   setIsProblemPanelMaximized,
+  setShowLeaderboard,
 }: {
   isProblemPanelMaximized: boolean;
   setIsProblemPanelMaximized: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowLeaderboard: (showLeaderboard: boolean) => void;
 }) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
+
+  const handleExpandProblem = () => {
+    if (isProblemPanelMaximized) {
+      setIsProblemPanelMaximized(false);
+      return;
+    }
+
+    setIsProblemPanelMaximized(true);
+    setShowLeaderboard(false);
+  };
 
   return (
     <div className={s.wrapper}>
@@ -34,6 +47,7 @@ const Problems = ({
           className={s.boxControl}
           onClick={() => {
             setIsProblemPanelMaximized((prev) => !prev);
+            handleExpandProblem();
           }}
         >
           {isProblemPanelMaximized ? (
@@ -50,7 +64,11 @@ const Problems = ({
         }}
       >
         <Tabs variant="soft-rounded" onChange={(index) => setTabIndex(index)}>
-          <Flex alignItems={'center'} justifyContent={'space-between'}>
+          <Flex
+            alignItems={'center'}
+            justifyContent={'space-between'}
+            flexWrap={'wrap'}
+          >
             <TabList p="10px" mb="8px" gap="3px">
               <Tab>Problem 1</Tab>
               <Tab>Problem 2</Tab>

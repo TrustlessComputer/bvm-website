@@ -1,42 +1,34 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import s from './HackathonModue.module.scss';
-import {
-  Box,
-  Image as ChakraImage,
-  Flex,
-  Skeleton,
-  Text,
-} from '@chakra-ui/react';
-import Image from 'next/image';
-import { CDN_URL } from '@/config';
-import Fade from '@/interactive/Fade';
-import LeaderboardSection from './LeaderboardSection';
-import useCountdown from '@/hooks/useCountdown';
-import Countdown from '@/components/Countdown';
-import dayjs from 'dayjs';
-import Link from 'next/link';
 import ButtonConnected from '@/components/ButtonConnected/v2';
+import Countdown from '@/components/Countdown';
+import FAQs from '@/components/faq';
+import { CDN_URL } from '@/config';
+import { LINKS } from '@/constants/external-links';
+import useCountdown from '@/hooks/useCountdown';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { useDispatch } from 'react-redux';
-import { openModal } from '@/stores/states/modal/reducer';
-import RegisterModal, { REGISTER_MODAL } from './Register/Modal';
 import {
   checkRegistered,
   getContestStats,
 } from '@/services/api/EternalServices';
+import { IUserContest } from '@/services/api/EternalServices/types';
+import { openModal } from '@/stores/states/modal/reducer';
+import { Box, Image as ChakraImage, Flex, Text } from '@chakra-ui/react';
 import cn from 'classnames';
-import { formatCurrencyV2, humanReadable } from '@/utils/format';
-import FAQs from '@/components/faq';
+import dayjs from 'dayjs';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { FAQ_POC } from './faqs';
-import { LINKS } from '@/constants/external-links';
+import s from './HackathonModue.module.scss';
+import LeaderboardSection from './LeaderboardSection';
+import RegisterModal, { REGISTER_MODAL } from './Register/Modal';
 
 type Props = {};
 
-const START_TIME = '2024-08-01T10:00:00Z';
+const START_TIME = '2024-08-08T10:00:00Z';
 
-const END_TIME = '2024-08-06T10:00:00Z';
+const END_TIME = '2024-08-15T10:00:00Z';
 
 // export private key
 // should check wallet.privateKey first,
@@ -55,7 +47,7 @@ const TimeCounter = () => {
         flexDir={{ base: 'column', xl: 'row' }}
       >
         <Text whiteSpace={'nowrap'} opacity={0.6}>
-          Practice battle starts in
+          Competition starts in
         </Text>
         <Countdown
           className={s.countDown_time}
@@ -73,7 +65,7 @@ const TimeCounter = () => {
     return (
       <Flex alignItems={'center'} gap="4px">
         <Text whiteSpace={'nowrap'} opacity={0.6}>
-          Practice battle ends in
+          Competition ends in
         </Text>
         <Countdown
           className={s.countDown_time}
@@ -97,6 +89,7 @@ const HackathonModule = (props: Props) => {
   const [peopleSubmitted, setPeopleSubmitted] = useState<number | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
+  const [currentUserContest, setCurrentUserContest] = useState<IUserContest>();
 
   const fetchPeopleSubmitted = async () => {
     try {
@@ -107,10 +100,6 @@ const HackathonModule = (props: Props) => {
     } catch (error) {
       console.error('Error fetching people submitted', error);
     }
-  };
-
-  const renderCountdown = () => {
-    return <TimeCounter />;
   };
 
   const handleOpenRegisterModal = () => {
@@ -141,6 +130,7 @@ const HackathonModule = (props: Props) => {
       const res = await checkRegistered();
       if (res) {
         setIsRegistered(res?.register || false);
+        setCurrentUserContest(res);
       }
     } catch (error) {
     } finally {
@@ -171,7 +161,7 @@ const HackathonModule = (props: Props) => {
           {/* <Fade from={{ y: 40 }} to={{ y: 0 }}> */}
 
           <div className={s.left}>
-            <div className={s.reward}>
+            {/* <div className={s.reward}>
               <ChakraImage src="/hackathon/ic-reward.svg" />
               <div>
                 <Text
@@ -187,7 +177,7 @@ const HackathonModule = (props: Props) => {
                 </Text>
                 <p className={s.reward_amount}>$500</p>
               </div>
-            </div>
+            </div> */}
             <div>
               <h2 className={s.title}>
                 <p>Proof of Code</p>
@@ -207,22 +197,11 @@ const HackathonModule = (props: Props) => {
             </div>
             <Flex
               alignItems={'center'}
+              justifyContent={{ base: 'center', sm: 'flex-start' }}
               gap="16px"
               flexWrap={'wrap'}
-              rowGap={'24px'}
             >
-              <div className={s.connect_btn}>
-                <a
-                  href={LINKS.POC_TELEGRAM_GROUP}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={s.tele_link}
-                >
-                  Join dev community
-                </a>
-              </div>
-
-              <ButtonConnected title="Let's Code" className={s.reward_btn}>
+              <ButtonConnected title="Let's code" className={s.reward_btn}>
                 <button
                   className={cn(s.reward_btn, {
                     [s.registered]: isRegistered,
@@ -230,10 +209,22 @@ const HackathonModule = (props: Props) => {
                   onClick={handleOpenRegisterModal}
                   disabled={isRegistered}
                 >
-                  {isRegistered ? 'Registered' : "Let's Code"}
+                  {isRegistered ? 'Registered' : "Let's code"}
                 </button>
               </ButtonConnected>
-              <div className={s.meta_info}>
+
+              <div className={s.connect_btn}>
+                <a
+                  href={LINKS.POC_TELEGRAM_GROUP}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s.tele_link}
+                >
+                  Join PoC community
+                </a>
+              </div>
+
+              {/* <div className={s.meta_info}>
                 {!!peopleSubmitted && (
                   <Flex alignItems={'center'} gap="4px" mb="12px">
                     <b>
@@ -246,7 +237,7 @@ const HackathonModule = (props: Props) => {
                   </Flex>
                 )}
                 {renderCountdown()}
-              </div>
+              </div> */}
             </Flex>
           </div>
           {/* </Fade> */}
@@ -267,7 +258,7 @@ const HackathonModule = (props: Props) => {
         </div>
       </div>
       <Box zIndex={1} pos={'relative'}>
-        <LeaderboardSection />
+        <LeaderboardSection currentUserContest={currentUserContest} />
       </Box>
       <Box
         zIndex={10}

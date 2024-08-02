@@ -7,21 +7,24 @@ import AppLoading from '@/components/AppLoading';
 import { IGetParams } from '@/modules/Vote/Proposals/ListProposal';
 import cn from 'classnames';
 import Avatar from '@/components/Avatar';
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
-import moment from 'moment';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import { getListLeaderboard } from '@/services/api/EternalServices';
 import {
   IContestProblem,
   IUserContest,
 } from '@/services/api/EternalServices/types';
-import { formatName } from '@/utils/format';
 import s from './Leaderboard.module.scss';
+import { formatCurrency } from '@/utils/format';
 
-type Props = {};
+type Props = {
+  currentUserContest?: IUserContest;
+};
 
 const LIMIT_PAGE = 50;
 
 const Leaderboard = (props: Props) => {
+  const { currentUserContest } = props;
+
   const infiniteScrollRef = useRef<any>(null);
 
   const refParams = useRef<IGetParams>({
@@ -47,13 +50,23 @@ const Leaderboard = (props: Props) => {
     isRefreshing,
   } = useApiInfiniteVer1(
     fetchLeaderboardData,
-    { limit: LIMIT_PAGE, page: refParams.current.page },
+    {
+      limit: LIMIT_PAGE,
+      page: refParams.current.page,
+    },
     { revalidateOnFocus: true, refreshInterval: 10000 },
   );
 
   const renderLoading = () => <AppLoading />;
 
   const renderItem = (data: IUserContest, index: number) => {
+    // No need to render current user in the loop
+    const isCurrentUser =
+      data.user_address === currentUserContest?.user_address;
+    if (index >= 0 && isCurrentUser) {
+      return null;
+    }
+
     const map = data.contest_problems?.reduce(
       (prev, item) => ({
         ...prev,
@@ -63,8 +76,13 @@ const Leaderboard = (props: Props) => {
     );
 
     return (
-      <div className={cn(s.item, s.table_group)}>
-        <Box className={s.first_col}>{index + 1}</Box>
+      <div
+        className={cn(s.item, s.table_group)}
+        style={{
+          border: isCurrentUser ? '1px solid rgba(134, 67, 251, 0.80)' : 'inherit',
+        }}
+      >
+        <Box className={s.first_col}>{data.rank}</Box>
         <div className={cn(s.second_col, s.name)}>
           <Flex alignItems={'center'} gap="8px" style={{ overflow: 'hidden' }}>
             <Avatar
@@ -78,16 +96,19 @@ const Leaderboard = (props: Props) => {
               style={{
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
+                color: isCurrentUser ? '#8643FB' : 'inherit',
               }}
             >
-              {data.user.name || data.user.twitter_username}
+              {data.user.name || data.user.twitter_username || data.user.email}
             </p>
           </Flex>
         </div>
         <div className={cn(s.place_center, s.third_col)}>
           {data.total_point}
         </div>
-        <div className={s.place_center}>{data.total_gas_used}</div>
+        <div className={s.place_center}>
+          {formatCurrency(data.total_gas_used)}
+        </div>
         <div className={s.place_center}>{renderTimeStatus(map?.['1'])}</div>
         <div className={s.place_center}> {renderTimeStatus(map?.['2'])}</div>
         <div className={s.place_center}> {renderTimeStatus(map?.['3'])}</div>
@@ -100,7 +121,8 @@ const Leaderboard = (props: Props) => {
       return null;
     }
     // const formattedTime = getTimeText(contestProblem.duration);
-    const isPassed = contestProblem.status === 'pending';
+    const isPassed =
+      contestProblem.status === 'marked' && contestProblem.point > 0;
 
     if (isPassed) {
       return (
@@ -112,7 +134,7 @@ const Leaderboard = (props: Props) => {
           justifyContent={'center'}
           className={s.passed}
         >
-          {contestProblem.gas_used}
+          {formatCurrency(contestProblem.gas_used)}
           <Image src="/hackathon/ic-check.svg" />
         </Flex>
       );
@@ -173,6 +195,7 @@ const Leaderboard = (props: Props) => {
           next={loadMore}
         >
           {isRefreshing && renderLoading()}
+          {!!currentUserContest && renderItem(currentUserContest, -1)}
           {(dataSource || []).map(renderItem)}
         </InfiniteScroll>
       )}

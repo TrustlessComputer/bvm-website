@@ -8,7 +8,7 @@ export type IContestProblem = {
   contract_block_time: string;
   duration: number;
   status: 'pending' | 'marked';
-  point: null;
+  point: number;
   error_msg: string;
   gas_used: number;
 };
@@ -30,7 +30,9 @@ export type IUserContest = {
     profile_image: string;
     name: string;
     twitter_username: string;
+    email: string;
   };
+  rank: number;
 };
 export type IGetListLeaderboardResponse = {
   total_records: number;
