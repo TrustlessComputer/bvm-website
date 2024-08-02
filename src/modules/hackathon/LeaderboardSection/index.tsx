@@ -6,6 +6,7 @@ import Leaderboard from './Leaderboard';
 import Problems from '../Problems';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IUserContest } from '@/services/api/EternalServices/types';
+import { useWindowSize } from 'usehooks-ts';
 
 type Props = {
   currentUserContest?: IUserContest;
@@ -14,6 +15,8 @@ type Props = {
 const LeaderboardSection = (props: Props) => {
   const [isProblemPanelMaximized, setIsProblemPanelMaximized] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(true);
+
+  const { width } = useWindowSize();
 
   return (
     <Box bgColor={'#000'}>
@@ -47,7 +50,12 @@ const LeaderboardSection = (props: Props) => {
               className={s.left}
               initial={false}
               animate={{
-                width: isProblemPanelMaximized ? '100%' : '50%',
+                width:
+                  width <= 768
+                    ? '100%'
+                    : isProblemPanelMaximized
+                    ? '100%'
+                    : '50%',
                 height: 'auto',
                 transition: {
                   type: 'keyframes',
@@ -72,7 +80,7 @@ const LeaderboardSection = (props: Props) => {
               />
             </Box>
             <AnimatePresence>
-              {showLeaderboard && (
+              {(showLeaderboard || width <= 768) && (
                 <motion.div
                   key="leaderboard"
                   className={s.right}

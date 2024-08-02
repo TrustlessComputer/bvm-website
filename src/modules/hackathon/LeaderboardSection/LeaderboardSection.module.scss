@@ -28,8 +28,7 @@
 
     &.maximized {
         :global(.problem-panel) {
-            height: 800px;
-
+            height: auto;
         }
     }
 
@@ -45,6 +44,7 @@
 .wrapper {
     // display: flex;
     gap: 28px;
+    flex-wrap: wrap;
     // height: 100vh;
     // display: grid;
     // grid-template-columns: 1fr 1fr;
