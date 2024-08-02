@@ -36,7 +36,7 @@ const Section_7 = () => {
           window.open(item.link, '_blank');
         }}
       >
-        <Card bgColor={'#fff'} boxShadow={'none'}>
+        <Card bgColor={'#FFF6F3'} boxShadow={'none'}>
           <CardBody p={[0]}>
             {item.logoUrl ? <Image
               src={item.logoUrl}

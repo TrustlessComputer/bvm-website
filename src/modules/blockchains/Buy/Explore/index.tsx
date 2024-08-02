@@ -4,6 +4,7 @@ import { getL2ServicesStateSelector } from '@/stores/states/l2services/selector'
 import { useEffect } from 'react';
 import MainPage from './MainPage';
 import SkeletonLoading from './SkeletonLoading';
+import { IModelCategory } from '@/types/customize-model';
 
 type Props = {
   cloneItemCallback: (template: IModelCategory[]) => void;

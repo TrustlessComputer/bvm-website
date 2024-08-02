@@ -116,7 +116,7 @@ interface FieldModel {
   background?: string;
   previewTitle?: string;
   inputType?: 'text' | 'number' | 'file',
-  inputAccept?: 'image/*'
+  inputAccept?: 'image/*' | '.csv'
   disabled?: boolean
 }
 

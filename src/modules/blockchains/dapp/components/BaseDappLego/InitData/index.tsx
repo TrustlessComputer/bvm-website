@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormDappsStore } from '../../../stores/useDappStore';
+import { DappModel } from '@/types/customize-model';
 
 type Props = DappModel & {
   _key: string;

@@ -8,6 +8,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { compareString } from '@/utils/string';
 import { formatCurrency } from '@/utils/format';
+import { DappModel } from '@/types/customize-model';
 
 interface IProps {
   color: string;

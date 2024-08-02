@@ -28,6 +28,7 @@ import Capture from '@/modules/blockchains/Buy/Capture';
 import Label from './components3/Label';
 import Image from 'next/image';
 import { useContactUs } from '@/Providers/ContactUsProvider/hook';
+import { IModelCategory } from '@/types/customize-model';
 
 const BuyPage = () => {
   const router = useRouter();
@@ -593,7 +594,12 @@ const BuyPage = () => {
                 <div className={s.reset} onClick={() => showContactUsModal()}>
                   <p>Contact us</p>
                   <div className={s.icon}>
-                    <Image src={'/icons/ic_arrow_orange.svg'} alt={'x'} width={16} height={16} />
+                    <Image
+                      src={'/icons/ic_arrow_orange.svg'}
+                      alt={'x'}
+                      width={16}
+                      height={16}
+                    />
                   </div>
                 </div>
               </div>

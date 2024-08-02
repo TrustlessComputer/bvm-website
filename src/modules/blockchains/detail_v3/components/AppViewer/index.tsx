@@ -10,6 +10,7 @@ import { useAppSelector } from '@/stores/hooks';
 import { getOrderDetailSelected } from '@/stores/states/l2services/selector';
 import PreviewMapModal from '@/modules/blockchains/blockchain-map/components/PreviewMapModal';
 import React, { useState } from 'react';
+import { IModelOption } from '@/types/customize-model';
 
 type Props = {
   itemOnClick: (item: IModelOption) => void;
@@ -97,7 +98,7 @@ const AppViewer = (props: Props) => {
       borderColor={'#e0e0e0'}
       boxShadow="0px 0px 16px 0px #00000012"
     >
-      <HeaderView setIsShowModalPreview={setIsShowModalPreview}/>
+      <HeaderView setIsShowModalPreview={setIsShowModalPreview} />
       <Divider backgroundColor={'#E0E0E0'} />
       <AppList itemOnClick={itemOnClickProxy} />
       <BottomView

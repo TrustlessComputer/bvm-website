@@ -4,6 +4,7 @@ import { Flex, Input, Text, Image, Tooltip } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
 import { useAccountAbstractionStore } from '../../store/hook';
+import { IModelOption } from '@/types/customize-model';
 
 const MIN_FEE_RATE = 0;
 const MAX_FEE_RATE = 1 * 1e9;

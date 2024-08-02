@@ -6,6 +6,7 @@ import stc from 'string-to-color';
 import { DappType } from '../types';
 import { getAirdropTaskKey } from '../utils';
 import { compareString } from '@/utils/string';
+import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 
 export const parseAirdrop = (airdrop: IAirdrop, _token: IToken) => {
   const dappState = store.getState().dapp;
@@ -95,7 +96,7 @@ export const parseAirdrop = (airdrop: IAirdrop, _token: IToken) => {
   if (airdrop.is_bvm_shard) {
     baseBlock.fields.push({
       key: 'is_bvm_shard',
-      title: 'Whitelisted',
+      title: 'Shared Holder',
       type: 'extends',
       icon: '',
       value: 1,

@@ -19,6 +19,9 @@ import {
   formDappToggleSignal,
 } from '../signals/useFormDappsSignal';
 import { FormDappUtil, getAirdropTaskKey } from '../utils';
+// @ts-ignore
+import Papa from 'papaparse';
+
 interface IProps {
   setErrorData: Dispatch<
     SetStateAction<{ key: string; error: string }[] | undefined>
@@ -113,20 +116,38 @@ const useSubmitFormAirdrop = ({
           error: 'Task Reward is required!',
         });
       } else if (_tasks.length > 0) {
-        console.log('task', _tasks);
-
         for (const task of _tasks) {
           if (compareString(task.type, 'follow')) {
             if (!task?.follow_twitter_username) {
               errors.push({
                 key: 'follow_twitter_username',
-                error: 'Follow X Username is required!',
+                error: 'Your X URL is required!',
               });
             }
             if (!(Number(task.reward_amount) > 0)) {
               errors.push({
                 key: 'reward_amount',
                 error: 'Task Reward is required!',
+              });
+            }
+          } else if (compareString(task.type, 'share')) {
+            if (!task?.share_post_link) {
+              errors.push({
+                key: 'share_post_link',
+                error: 'Link Share X is required!',
+              });
+            }
+            if (!(Number(task.reward_amount) > 0)) {
+              errors.push({
+                key: 'reward_amount',
+                error: 'Task Reward is required!',
+              });
+            }
+          } else if (compareString(task.type, 'whitelist')) {
+            if (!task?.whitelist) {
+              errors.push({
+                key: 'whitelist',
+                error: 'Receivers is required!',
               });
             }
           }
@@ -143,34 +164,57 @@ const useSubmitFormAirdrop = ({
 
       for (const form of finalFormMappings) {
         // @ts-ignore
-        const tasks: ITask[] = _tasks.map((v) => ({
-          ...v,
-          amount: v.reward_amount,
-        }));
+        const tasks: ITask[] = _tasks
+          .filter((v) => !compareString(v.type, 'whitelist'))
+          .map((v) => ({
+            ...v,
+            amount: v.reward_amount,
+          }));
 
-        // @ts-ignore
         const body: IBodySetupTask = {
           title: form.airdrop_title as unknown as string,
           token_address: form.reward_token as unknown as string,
           amount: form.airdrop_amount as unknown as string,
           is_bvm_shard: Boolean(form.is_bvm_shard),
-          tasks,
           start_time: form.start_date
             ? dayjs(form.start_date as unknown as string).unix()
             : dayjs().unix(),
           end_time: dayjs(form.end_date as unknown as string).unix(),
         };
 
-        const data = await cAirdropAPI.setupTask(body);
+        if (tasks.length > 0) {
+          body.tasks = tasks;
+          await cAirdropAPI.setupTask(body);
+          showSuccess({ message: 'Airdrop created successfully!.' });
+          dispatch(requestReload());
+          handleReset();
+          setLoading(false);
+        } else {
+          const files = (document?.getElementById?.('whitelist') as any)?.files;
+          if (files?.length > 0) {
+            const file = files[0];
+
+            Papa.parse(file, {
+              complete: async (result: any) => {
+                body.receivers = result.data;
+                await cAirdropAPI.setupTask(body);
+                showSuccess({ message: 'Airdrop created successfully!.' });
+                dispatch(requestReload());
+                handleReset();
+                setLoading(false);
+              },
+              header: true,
+              dynamicTyping: true,
+              skipEmptyLines: true,
+            });
+          }
+        }
       }
-      showSuccess({ message: 'Airdrop created successfully!.' });
-      dispatch(requestReload());
-      handleReset();
     } catch (error) {
       const { message } = getError(error);
       toast.error(message);
-    } finally {
       setLoading(false);
+    } finally {
     }
   };
 

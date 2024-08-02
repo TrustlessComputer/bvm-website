@@ -1,5 +1,9 @@
-import { IToken, ITokenVesting } from '@/services/api/dapp/token_generation/interface';
+import {
+  IToken,
+  ITokenVesting,
+} from '@/services/api/dapp/token_generation/interface';
 import { DappType } from '@/modules/blockchains/dapp/types';
+import { BlockModel, DappModel } from '@/types/customize-model';
 
 export const parseIssuedToken = (token: IToken) => {
   const result = {} as DappModel;
@@ -7,7 +11,8 @@ export const parseIssuedToken = (token: IToken) => {
   result.id = DappType.token_generation;
   result.key = DappType.token_generation;
   result.title = 'Token Generation';
-  result.icon = 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
+  result.icon =
+    'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
   result.order = 1;
   result.color = '#24704D';
   result.label = {
@@ -15,13 +20,14 @@ export const parseIssuedToken = (token: IToken) => {
     color: '#000',
     background: '#00AA6C',
     status: 'deployed',
-    actionID: token?.contract_address
+    actionID: token?.contract_address,
   };
 
   const baseBlock: BlockModel = {} as BlockModel;
   baseBlock.key = 'token_info';
   baseBlock.title = `Token ${token.symbol}`;
-  baseBlock.icon = 'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
+  baseBlock.icon =
+    'https://storage.googleapis.com/bvm-network/icons-tool/icon-issue-a-token.svg';
   baseBlock.placableAmount = -1;
   baseBlock.section = 'information';
   baseBlock.preview = true;
@@ -82,7 +88,9 @@ export const parseIssuedToken = (token: IToken) => {
           title: 'Amount',
           type: 'input',
           icon: '',
-          value: (Number(vesting.amount_total) > 0 ? vesting.amount_total : vesting.unvest_amount) as string,
+          value: (Number(vesting.amount_total) > 0
+            ? vesting.amount_total
+            : vesting.unvest_amount) as string,
           tooltip: '',
           options: [],
         },
@@ -230,4 +238,4 @@ export const parseIssuedToken = (token: IToken) => {
   result.blockFields = blockFields;
 
   return result;
-}
+};

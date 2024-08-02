@@ -40,6 +40,7 @@ import { mockupOptions } from '../Buy/Buy.data';
 import { useOrderOwnerHelper } from '@/services/api/l2services/hook';
 import NavigatioBar from './components/NavigationBar';
 import ChainInforView from './components/ChanInforView';
+import { IModelCategory } from '@/types/customize-model';
 
 const MainPage = (props: ChainDetailComponentProps) => {
   const { chainDetailData } = props;

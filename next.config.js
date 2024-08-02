@@ -40,7 +40,14 @@ const nextConfig = {
                   @import "@/styles/_mixins.scss";
                   `,
   },
-
+  async rewrites() {
+    return [
+      {
+        source: '/poc',
+        destination: '/PoC',
+      },
+    ];
+  },
   async redirects() {
     const redirects = [
       {
@@ -118,6 +125,11 @@ const nextConfig = {
       test: /\.(glsl|vs|fs|vert|frag)$/,
       exclude: /node_modules/,
       use: ['raw-loader', 'glslify-loader'],
+    });
+
+    config.module.rules.push({
+      test: /\.md$/,
+      use: 'raw-loader',
     });
 
     config.module.rules.push({

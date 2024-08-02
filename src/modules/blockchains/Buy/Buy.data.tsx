@@ -2,6 +2,7 @@ import React from 'react';
 import { DALayerEnum, NetworkEnum } from './Buy.constanst';
 import { ORDER_FIELD } from './stores';
 import { LegoColor } from './components3/BoxOptionV2';
+import { IModelCategory } from '@/types/customize-model';
 
 export type OrderFormOption = {
   [key in (typeof ORDER_FIELD)[keyof typeof ORDER_FIELD]]: {

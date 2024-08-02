@@ -738,16 +738,11 @@ const RollupsDappPage = () => {
       }
       case DappType.airdrop: {
         const _data = parseAirdropsData(airdrops, tokens);
-        // const _data = preDataAirdropTask(data, tokens, airdropTasks);
-
-        console.log('_data', _data);
 
         const model = parseDappModel({
           key: DappType.airdrop,
           model: _data,
         });
-
-        console.log('model', model);
 
         setTemplateDapps(_data);
         setTemplateForm(model);

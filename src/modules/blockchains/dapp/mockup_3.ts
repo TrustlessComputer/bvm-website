@@ -1,3 +1,5 @@
+import { DappModel } from '@/types/customize-model';
+
 export const dappMockupData: DappModel[] = [
   {
     id: 'token_generation',
@@ -146,7 +148,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             options: [],
             placeholder: 'e.g 100,000,000',
-            inputType: "number",
+            inputType: 'number',
           },
           {
             background: '#F8B200',
@@ -225,7 +227,7 @@ export const dappMockupData: DappModel[] = [
                     type: 'input',
                     options: [],
                     placeholder: 'e.g 36',
-                    inputType: "number",
+                    inputType: 'number',
                   },
                 ],
               },
@@ -285,7 +287,7 @@ export const dappMockupData: DappModel[] = [
                     type: 'input',
                     options: [],
                     placeholder: 'e.g 36',
-                    inputType: "number",
+                    inputType: 'number',
                   },
                 ],
               },
@@ -453,7 +455,7 @@ export const dappMockupData: DappModel[] = [
             options: [],
             placeholder: 'e.g 1,000,000,000',
             background: '#00AA6C',
-            inputType: "number",
+            inputType: 'number',
           },
         ],
         placableAmount: 1,
@@ -681,7 +683,7 @@ export const dappMockupData: DappModel[] = [
           {
             key: 'rate',
             title: 'Rate',
-            inputType: "number",
+            inputType: 'number',
             type: 'input',
             icon: '',
             value: '',
@@ -694,7 +696,7 @@ export const dappMockupData: DappModel[] = [
             key: 'apr',
             title: 'APR',
             type: 'input',
-            inputType: "number",
+            inputType: 'number',
             icon: '',
             value: '',
             tooltip: '',
@@ -706,7 +708,7 @@ export const dappMockupData: DappModel[] = [
             key: 'amount',
             title: 'Reward amount',
             previewTitle: 'Reward',
-            inputType: "number",
+            inputType: 'number',
             type: 'input',
             icon: '',
             value: '',
@@ -749,7 +751,7 @@ export const dappMockupData: DappModel[] = [
       {
         key: 'tasks',
         icon: 'https://storage.googleapis.com/bvm-network/icons-tool/icon-eth.svg',
-        title: 'Tasks',
+        title: 'Whitelisted',
         tooltip: '',
         required: true,
       },
@@ -796,6 +798,7 @@ export const dappMockupData: DappModel[] = [
         title: 'Start Date',
         key: 'start_date',
         icon: '',
+        background: '#A041FF',
         fields: [
           {
             key: 'start_date',
@@ -807,6 +810,7 @@ export const dappMockupData: DappModel[] = [
             tooltip: '',
             options: [],
             selectable: true,
+            background: '#A041FF',
           },
         ],
         placableAmount: 1,
@@ -817,6 +821,7 @@ export const dappMockupData: DappModel[] = [
         title: 'End Date',
         key: 'end_date',
         icon: '',
+        background: '#A041FF',
         fields: [
           {
             key: 'end_date',
@@ -827,6 +832,7 @@ export const dappMockupData: DappModel[] = [
             value: '',
             tooltip: '',
             options: [],
+            background: '#A041FF',
           },
         ],
         placableAmount: 1,
@@ -834,24 +840,26 @@ export const dappMockupData: DappModel[] = [
         section: 'information',
       },
       {
-        title: 'Whitelisted',
+        title: 'Shared holder',
         key: 'is_bvm_shard',
         icon: '',
+        background: '#A041FF',
         fields: [
           {
             key: 'is_bvm_shard',
-            title: 'Whitelisted',
+            title: 'Shared holder',
             type: 'extends',
             icon: '',
             value: 1,
             tooltip: '',
             options: [],
             disabled: true,
+            background: '#A041FF',
           },
         ],
         placableAmount: 1,
         preview: false,
-        section: 'tasks',
+        section: 'information',
       },
     ],
   },

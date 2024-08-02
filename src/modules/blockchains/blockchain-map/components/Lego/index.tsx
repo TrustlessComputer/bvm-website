@@ -7,6 +7,7 @@ import { adjustBrightness } from '../../utils';
 
 import styles from './styles.module.scss';
 import { Box, Image, Tooltip } from '@chakra-ui/react';
+import { FieldModel } from '@/types/customize-model';
 
 type Position =
   | {
@@ -78,7 +79,7 @@ const Lego = (props: Props) => {
       }}
     >
       <div className={cn(styles.lego__piece, styles.lego__piece__top)}>
-          <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
+        <SvgInset svgUrl="/landingV3/svg/stud.svg" size={28} />
       </div>
 
       {preview ? (
@@ -113,7 +114,8 @@ const Lego = (props: Props) => {
                   <Image
                     width="32px"
                     height="auto"
-                    src={'/icons-tool/issue-a-token/icon-switch.svg'} />
+                    src={'/icons-tool/issue-a-token/icon-switch.svg'}
+                  />
                 ) : field.type === 'dropdown' ? (
                   <Image
                     width="32px"
@@ -136,7 +138,9 @@ const Lego = (props: Props) => {
                 styles.lego__inner__label__left,
               )}
             >
-              {icon && <Image src={icon} width="20px" height="20px" alt="icon" />}
+              {icon && (
+                <Image src={icon} width="20px" height="20px" alt="icon" />
+              )}
               <p>{title}</p>
             </div>
           ) : null}
