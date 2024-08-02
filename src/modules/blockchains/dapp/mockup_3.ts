@@ -834,13 +834,13 @@ export const dappMockupData: DappModel[] = [
         section: 'information',
       },
       {
-        title: 'Shared Holder',
+        title: 'Whitelisted',
         key: 'is_bvm_shard',
         icon: '',
         fields: [
           {
             key: 'is_bvm_shard',
-            title: 'Shared Holder',
+            title: 'Whitelisted',
             type: 'extends',
             icon: '',
             value: 1,
@@ -851,7 +851,7 @@ export const dappMockupData: DappModel[] = [
         ],
         placableAmount: 1,
         preview: false,
-        section: 'information',
+        section: 'tasks',
       },
     ],
   },
