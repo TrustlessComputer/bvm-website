@@ -92,6 +92,19 @@ export const parseAirdrop = (airdrop: IAirdrop, _token: IToken) => {
     },
   ];
 
+  if (airdrop.is_bvm_shard) {
+    baseBlock.fields.push({
+      key: 'is_bvm_shard',
+      title: 'Whitelisted',
+      type: 'extends',
+      icon: '',
+      value: 1,
+      tooltip: '',
+      options: [],
+      disabled: true,
+    });
+  }
+
   result.baseBlock = baseBlock;
   const blockFields: BlockModel[] = [];
   for (const task of airdrop.tasks as IAirdropTask[]) {

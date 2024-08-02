@@ -55,8 +55,10 @@ const BoxOption = ({}: Props) => {
             .filter((f) => f.section === section.key)
             .reduce((acc, item) => acc + item.fields.length, 0);
 
+          const { key: baseBlockKey, ...baseBlock } = thisDapp.baseBlock;
+
           return (
-            <>
+            <React.Fragment key={section.key}>
               {section?.title && (
                 <div className={styles.container__header}>
                   {section?.title} {section?.required && <sup>*</sup>}
@@ -79,10 +81,11 @@ const BoxOption = ({}: Props) => {
                     value={{
                       title: thisDapp.baseBlock.title,
                       icon: thisDapp.baseBlock.icon,
+                      background: thisDapp.baseBlock.background || mainColor,
                     }}
                   >
                     <Lego
-                      {...thisDapp.baseBlock}
+                      {...baseBlock}
                       background={thisDapp?.baseBlock?.background || mainColor}
                       first={false}
                       last={false}
@@ -99,25 +102,63 @@ const BoxOption = ({}: Props) => {
                   <div className={styles.container__body__item__inner}>
                     {thisDapp.blockFields
                       ?.filter((f) => f.section === section.key)
-                      ?.map((item) => (
-                        <Draggable
-                          id={`left-${FieldKeyPrefix.BLOCK}-${item.key}`}
-                          key={`left-${FieldKeyPrefix.BLOCK}-${item.key}`}
-                          value={{
-                            title: item.title,
-                            icon: item.icon,
-                          }}
-                        >
-                          <Lego
-                            {...item}
-                            background={item?.background || mainColor}
-                            first={false}
-                            last={false}
-                            titleInLeft={true}
-                            titleInRight={false}
-                          />
-                        </Draggable>
-                      ))}
+                      ?.map(({ key: blockKey, ...block }) => {
+                        return (
+                          <React.Fragment
+                            key={section.key + blockKey + block.title}
+                          >
+                            <Draggable
+                              id={`left-${FieldKeyPrefix.BLOCK}-${blockKey}`}
+                              value={{
+                                title: block.title,
+                                icon: block.icon,
+                                background: block.background || mainColor,
+                              }}
+                            >
+                              <Lego
+                                {...block}
+                                background={block?.background || mainColor}
+                                first={false}
+                                last={false}
+                                titleInLeft={true}
+                                titleInRight={false}
+                              />
+                            </Draggable>
+
+                            {block.childrenFields?.map(
+                              ({ key: childKey, ...child }) => {
+                                return (
+                                  <Draggable
+                                    id={`left-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${blockKey}-${childKey}`}
+                                    key={`left-${FieldKeyPrefix.CHILDREN_OF_BLOCK}-${blockKey}-${childKey}`}
+                                    value={{
+                                      title: child.title,
+                                      icon: child.icon,
+                                      background:
+                                        child.background ||
+                                        block.background ||
+                                        mainColor,
+                                      children: true,
+                                      fieldKey: childKey,
+                                    }}
+                                  >
+                                    <Lego
+                                      {...child}
+                                      background={
+                                        child?.background || mainColor
+                                      }
+                                      first={false}
+                                      last={false}
+                                      titleInLeft={true}
+                                      titleInRight={false}
+                                    />
+                                  </Draggable>
+                                );
+                              },
+                            )}
+                          </React.Fragment>
+                        );
+                      })}
                   </div>
                 </div>
               )}
@@ -137,7 +178,10 @@ const BoxOption = ({}: Props) => {
                                 title: field.title,
                                 icon: field.icon,
                                 value: field.value,
-                                background: item.background || mainColor,
+                                background:
+                                  field.background ||
+                                  item.background ||
+                                  mainColor,
                               }}
                               disabled={!field.selectable}
                             >
@@ -173,7 +217,10 @@ const BoxOption = ({}: Props) => {
                                 title: field.title,
                                 icon: field.icon,
                                 value: field.value,
-                                background: item.background || mainColor,
+                                background:
+                                  field.background ||
+                                  item.background ||
+                                  mainColor,
                               }}
                               disabled={!field.selectable}
                             >
@@ -199,15 +246,19 @@ const BoxOption = ({}: Props) => {
                   <div className={styles.container__body__item__inner}>
                     {thisDapp.singleFields
                       ?.filter((f) => f.section === section.key)
-                      ?.map((item) => {
+                      ?.map(({ key: itemKey, ...item }) => {
                         return item.fields.map((field) => {
                           return (
                             <Draggable
-                              id={`left-${FieldKeyPrefix.SINGLE}-${item.key}`}
-                              key={`left-${FieldKeyPrefix.SINGLE}-${item.key}`}
+                              id={`left-${FieldKeyPrefix.SINGLE}-${field.key}`}
+                              key={`left-${FieldKeyPrefix.SINGLE}-${field.key}`}
                               value={{
                                 title: field.title,
                                 icon: field.icon,
+                                background:
+                                  field.background ||
+                                  item.background ||
+                                  mainColor,
                               }}
                             >
                               <Lego
@@ -225,7 +276,7 @@ const BoxOption = ({}: Props) => {
                   </div>
                 </div>
               )}
-            </>
+            </React.Fragment>
           );
         })}
       </div>

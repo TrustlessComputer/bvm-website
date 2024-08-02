@@ -192,6 +192,10 @@ export const DragUtil = {
     return idDragging.split('-')[1] === FieldKeyPrefix.MODULE;
   },
 
+  idDraggingIsAChildOfABlock(idDragging: string) {
+    return idDragging.split('-')[1] === FieldKeyPrefix.CHILDREN_OF_BLOCK;
+  },
+
   idDraggingIsAField(idDragging: string) {
     return typeof idDragging.split('-')[3] !== 'undefined';
   },
@@ -205,7 +209,7 @@ export const DragUtil = {
 
     return idDragging.split('-')[4];
   },
-  // baseIndex-block-name
+
   getChildIndex(idDragging: string) {
     return idDragging.split('-')[3];
   },
@@ -292,15 +296,6 @@ export const preDataAirdropTask = (
           for (const airdropTask of airdropTasks) {
             const fields: FieldModel[] = [
               {
-                key: 'task',
-                title: airdropTask.title,
-                type: 'input',
-                icon: '',
-                value: '',
-                tooltip: '',
-                options: [],
-              },
-              {
                 key: 'reward_amount',
                 title: 'Reward',
                 type: 'input',
@@ -312,7 +307,7 @@ export const preDataAirdropTask = (
             ];
 
             if (compareString(airdropTask.type, 'follow')) {
-              fields.push({
+              fields.unshift({
                 key: getAirdropTaskKey(airdropTask),
                 title: 'X Username',
                 type: 'input',
@@ -322,7 +317,7 @@ export const preDataAirdropTask = (
                 options: [],
               });
             } else if (compareString(airdropTask.type, 'share')) {
-              fields.push({
+              fields.unshift({
                 key: getAirdropTaskKey(airdropTask),
                 title: 'Link Share X',
                 type: 'input',
@@ -337,7 +332,7 @@ export const preDataAirdropTask = (
               key: getAirdropTaskKey(airdropTask),
               title: airdropTask.title,
               icon: '',
-              placableAmount: -1,
+              placableAmount: 1,
               section: 'tasks',
               preview: false,
               fields,
@@ -345,31 +340,6 @@ export const preDataAirdropTask = (
           }
 
           _sortedDapps[_airdropIndex].blockFields = blockFields;
-
-          // @ts-ignore
-          // const blockFieldTasks = _sortedDapps[
-          //   _airdropIndex
-          // ].blockFields.findIndex((v) => compareString(v.key, 'airdrop_tasks'));
-          // if (blockFieldTasks > -1) {
-          //   // @ts-ignore
-          //   const airdropTaskIndex = _sortedDapps[_airdropIndex].blockFields[
-          //     blockFieldTasks
-          //   ].fields.findIndex((v) => compareString(v.key, 'task'));
-          //   if (airdropTaskIndex > -1) {
-          //     // @ts-ignore
-          //     _sortedDapps[_airdropIndex].blockFields[blockFieldTasks].fields[
-          //       airdropTaskIndex
-          //     ].options = airdropTasks.map((t) => ({
-          //       key: t.id,
-          //       title: t.title,
-          //       value: t.id,
-          //       icon: '',
-          //       tooltip: t.description,
-          //       type: t.type,
-          //       options: [],
-          //     }));
-          //   }
-          // }
         }
       }
     }
