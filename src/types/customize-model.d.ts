@@ -16,7 +16,7 @@ interface IModelOption {
   key: string;
   icon: string;
   supportNetwork: 'both' | '' | 'testnet' | 'mainnet';
-  requiredFor: string[];
+  requiredFor: string[] | null;
   order: number;
   value: string | number | IDappValue[];
   needContactUs: boolean;
