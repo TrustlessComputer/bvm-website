@@ -59,10 +59,10 @@ export const CHAIN_DATA = [
         icon: '/explore/x.svg',
         link: 'https://x.com/octopusbridge_',
       },
-      {
-        icon: '/explore/tele.svg',
-        link: 'https://t.me/octopusbridge',
-      },
+      // {
+      //   icon: '/explore/tele.svg',
+      //   link: 'https://t.me/octopusbridge',
+      // },
       {
         icon: '/explore/web.svg',
         link: 'https://octopusbridge.xyz/',
@@ -82,10 +82,10 @@ export const CHAIN_DATA = [
         icon: '/explore/x.svg',
         link: 'https://x.com/StratoVM_',
       },
-      {
-        icon: '/explore/tele.svg',
-        link: 'https://x.com/StratoVM_',
-      },
+      // {
+      //   icon: '/explore/tele.svg',
+      //   link: 'https://x.com/StratoVM_',
+      // },
       {
         icon: '/explore/web.svg',
         link: 'https://stratovm.io/',
@@ -128,10 +128,10 @@ export const CHAIN_DATA = [
         icon: '/explore/x.svg',
         link: 'https://x.com/ironchainbank',
       },
-      {
-        icon: '/explore/tele.svg',
-        link: 'https://t.me/ironchainbank_chat',
-      },
+      // {
+      //   icon: '/explore/tele.svg',
+      //   link: 'https://t.me/ironchainbank_chat',
+      // },
       {
         icon: '/explore/web.svg',
         link: 'https://ironchainbank.io/',
@@ -174,10 +174,10 @@ export const CHAIN_DATA = [
         icon: '/explore/x.svg',
         link: 'https://x.com/xallyai',
       },
-      {
-        icon: '/explore/tele.svg',
-        link: 'https://t.me/xallyai_chat',
-      },
+      // {
+      //   icon: '/explore/tele.svg',
+      //   link: 'https://t.me/xallyai_chat',
+      // },
       {
         icon: '/explore/web.svg',
         link: 'https://xally.ai/',
