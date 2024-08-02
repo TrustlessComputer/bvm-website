@@ -31,6 +31,7 @@ import { formatCurrencyV2, humanReadable } from '@/utils/format';
 import FAQs from '@/components/faq';
 import { FAQ_POC } from './faqs';
 import { LINKS } from '@/constants/external-links';
+import { IUserContest } from '@/services/api/EternalServices/types';
 
 type Props = {};
 
@@ -97,6 +98,7 @@ const HackathonModule = (props: Props) => {
   const [peopleSubmitted, setPeopleSubmitted] = useState<number | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
+  const [currentUserContest, setCurrentUserContest] = useState<IUserContest>();
 
   const fetchPeopleSubmitted = async () => {
     try {
@@ -141,6 +143,7 @@ const HackathonModule = (props: Props) => {
       const res = await checkRegistered();
       if (res) {
         setIsRegistered(res?.register || false);
+        setCurrentUserContest(res);
       }
     } catch (error) {
     } finally {
@@ -267,7 +270,7 @@ const HackathonModule = (props: Props) => {
         </div>
       </div>
       <Box zIndex={1} pos={'relative'}>
-        <LeaderboardSection />
+        <LeaderboardSection currentUserContest={currentUserContest} />
       </Box>
       <Box
         zIndex={10}

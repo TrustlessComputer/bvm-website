@@ -4,8 +4,11 @@ import { Box } from '@chakra-ui/react';
 import cn from 'classnames';
 import Leaderboard from './Leaderboard';
 import Problems from '../Problems';
+import { IUserContest } from '@/services/api/EternalServices/types';
 
-type Props = {};
+type Props = {
+  currentUserContest?: IUserContest
+};
 
 const LeaderboardSection = (props: Props) => {
   return (
@@ -26,7 +29,7 @@ const LeaderboardSection = (props: Props) => {
             </div>
             <div className={s.right}>
               <h4>Leaderboard</h4>
-              <Leaderboard />
+              <Leaderboard currentUserContest={props.currentUserContest} />
             </div>
           </div>
         </div>
