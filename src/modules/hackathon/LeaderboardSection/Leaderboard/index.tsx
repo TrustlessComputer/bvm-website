@@ -117,7 +117,8 @@ const Leaderboard = (props: Props) => {
       return null;
     }
     // const formattedTime = getTimeText(contestProblem.duration);
-    const isPassed = contestProblem.status === 'marked';
+    const isPassed =
+      contestProblem.status === 'marked' && contestProblem.point > 0;
 
     if (isPassed) {
       return (
