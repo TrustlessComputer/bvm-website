@@ -38,6 +38,8 @@ import { ResetModal } from './components/ResetModal';
 import useCaptureHelper from './hook/useCaptureHelper';
 import { mockupOptions } from '../Buy/Buy.data';
 import { useOrderOwnerHelper } from '@/services/api/l2services/hook';
+import NavigatioBar from './components/NavigationBar';
+import ChainInforView from './components/ChanInforView';
 
 const MainPage = (props: ChainDetailComponentProps) => {
   const { chainDetailData } = props;
@@ -441,10 +443,6 @@ const MainPage = (props: ChainDetailComponentProps) => {
   }, []);
 
   React.useEffect(() => {
-    console.log(
-      'chainDetailData?.selectedOptions',
-      chainDetailData?.selectedOptions,
-    );
     resetByTemplate(chainDetailData?.selectedOptions || []);
   }, [templates, chainDetailData]);
 
@@ -633,6 +631,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
         >
+          <NavigatioBar />
           <Spacer h={'30px'} />
           <ToolBar
             leftView={
@@ -651,6 +650,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                     setTabActive(TABS.EXPLORE);
                   }}
                 /> */}
+                <ChainInforView orderItem={chainDetailData!} />
               </>
             }
             rightView={
@@ -940,7 +940,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
               {/* RightView */}
               <Flex
                 className={s.rightViewContainer}
-                minW={'200px'}
+                minW={'250px'}
                 w={'max-content'}
               >
                 <AppViewer

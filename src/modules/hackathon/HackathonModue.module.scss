@@ -1,14 +1,18 @@
 .wrapper {
-    background: #151515;
     // height: calc(100vh - 92px);
-    margin-top: 100px;
-    padding-bottom: 113px;
+    position: relative;
+    // margin-top: 94px;
+    padding-top: 5%;
     display: flex;
     align-items: center;
     gap: 77px;
 
     .left {
-        flex: 0.4;
+        flex: 0.45;
+
+        .countDown_time {
+            justify-content: flex-start;
+        }
 
         .reward {
             display: flex;
@@ -47,34 +51,217 @@
         }
 
         .desc {
-            color: rgba(255, 255, 255, 0.60);
+            color: #FFF;
             font-family: "SF Pro Display";
             font-size: 20px;
             font-style: normal;
             font-weight: 400;
             line-height: 170%;
+            /* 34px */
             margin-bottom: 28px;
             /* 34px */
         }
 
+        .link {
+            color: #FA4E0E;
+            text-align: center;
+            font-family: "SF Pro Display";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            /* 142.857% */
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+
+            svg {
+                transition: all 0.3s ease;
+            }
+
+            &:hover {
+                text-decoration: underline;
+
+                svg {
+                    transform: rotate(45deg);
+                }
+            }
+        }
+
+        .connect_btn {
+
+            .tele_link {
+                display: flex;
+                align-items: center;
+                height: 54px;
+                padding: 0px 20px;
+                border-radius: 100px;
+                background: #FFF;
+                color: #000;
+                text-align: center;
+                font-family: "SF Pro Display";
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 20px;
+                /* 111.111% */
+            }
+
+        }
+
         .reward_btn {
+            width: 200px;
             color: #FFF;
             text-align: center;
             font-family: "SF Pro Display";
             font-size: 18px;
             font-style: normal;
-            font-weight: 510;
+            font-weight: 500;
             line-height: 20px;
             /* 111.111% */
             height: 54px;
             padding: 0px 32px;
             border-radius: 100px;
             background: #FA4E0E;
+
+            &.registered {
+                background: #2D2D2D;
+                color: rgba($color: #FFF, $alpha: 0.7);
+            }
+
+        }
+
+        .meta_info {
+            text-align: center;
+            font-family: "SF Pro Display";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
         }
 
     }
 
     .right {
-        flex: 0.6;
+        flex: 0.55;
+        position: relative;
+    }
+
+
+
+    @include w-max(768px) {
+        height: 60vh;
+
+        .left {
+            flex: 1;
+        }
+
+        .right {
+            display: none;
+        }
+
+    }
+
+    @include w-max(480px) {
+        height: calc(100vh + 20%);
+
+
+    }
+}
+
+.modalContent {
+    background: #fff !important;
+
+    h4 {
+        color: #000;
+        font-family: "JetBrains Mono";
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+        /* 28.8px */
+        letter-spacing: 0.72px;
+        margin-bottom: 24px;
+    }
+
+    :global {
+        .chakra-modal__close-btn {
+            filter: invert(1);
+            top: 24px;
+            right: 24px;
+        }
+    }
+}
+
+.faq {
+
+    .faq_title {
+        color: #FFF;
+        text-align: center;
+        font-family: "JetBrains Mono";
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 110%;
+        /* 44px */
+    }
+
+    :global {
+        .chakra-accordion__button {
+            padding-top: 32px;
+            padding-bottom: 32px;
+
+            &:focus-visible {
+                box-shadow: none;
+            }
+        }
+
+        .chakra-accordion__panel {
+            padding-bottom: 32px;
+        }
+
+        .chakra-accordion__item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+
+            &:hover {
+                border-color: #FFF;
+            }
+        }
+
+        .faq-question {
+            color: #FFF;
+            font-family: "SF Pro Display";
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 110%;
+            /* 22px */
+            letter-spacing: 0.6px;
+        }
+
+        .faq-answer {
+            color: #FFF;
+            font-family: "SF Pro Display";
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 160%;
+            /* 25.6px */
+            letter-spacing: 0.48px;
+
+            a {
+                text-decoration: underline;
+            }
+        }
+
+        .faq-icon {
+
+            div::before,
+            div::after {
+                background-color: #fff;
+            }
+        }
     }
 }

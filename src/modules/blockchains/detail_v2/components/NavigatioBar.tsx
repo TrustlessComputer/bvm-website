@@ -4,8 +4,8 @@ import { Flex, Text, Image } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 
 interface IProps {
-  title?: string
-  url?: string
+  title?: string;
+  url?: string;
 }
 
 const NavigatioBar = ({ title, url }: IProps) => {
@@ -24,7 +24,7 @@ const NavigatioBar = ({ title, url }: IProps) => {
         if (!!url) {
           return router.replace(url);
         }
-        router.back()
+        router.back();
       }}
     >
       <Image src={'/icons/back_orange_ic.svg'}></Image>

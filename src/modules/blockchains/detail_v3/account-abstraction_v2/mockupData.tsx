@@ -6,7 +6,7 @@ export const ACCOUNT_ABSTRACTION_MOCKUP_DATA: IModelCategory[] = [
     key: 'input_apps',
     title: 'Account Abstraction',
     required: true,
-    tooltip: 'Account Abstraction Tooltip.',
+    tooltip: '',
     options: [
       {
         key: 'input_apps_address',
@@ -27,7 +27,7 @@ export const ACCOUNT_ABSTRACTION_MOCKUP_DATA: IModelCategory[] = [
       },
       {
         key: 'input_apps_fee_rate',
-        title: 'Number of Tokens per Gas',
+        title: 'Number of tokens per gas',
         value: 1,
         valueStr: '',
         selectable: true,

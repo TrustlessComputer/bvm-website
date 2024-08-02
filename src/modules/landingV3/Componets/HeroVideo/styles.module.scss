@@ -1,7 +1,6 @@
 
 .heroVideo {
   background: #FFFFFF;
-  padding-top: var(--header-size);
   --header-size: 60px;
   position: relative;
   @include min-tablet {

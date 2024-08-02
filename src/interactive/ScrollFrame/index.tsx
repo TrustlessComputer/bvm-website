@@ -15,6 +15,7 @@ interface IProps {
   willLoad?: number;
   height?: number;
   width?: number;
+  from?: number;
   comp: React.RefObject<HTMLDivElement>;
 }
 
@@ -25,6 +26,7 @@ interface IRefDomFrames {
   progress: number;
   framesFirstLoad: number;
   currentUrlFrame?: string;
+
   ctx: CanvasRenderingContext2D | null;
   canvas?: HTMLCanvasElement;
   isLoaded: boolean;
@@ -37,6 +39,7 @@ export const Frames = ({
                          totalFrames = 0,
                          height = 1080,
                          width = 1920,
+                         from = 0,
                          willLoad = 25,
                          comp,
                        }: IProps): ReactElement => {
@@ -44,7 +47,7 @@ export const Frames = ({
   const refDom = useRef<IRefDomFrames>({
     currentFrame: 0,
     images: [],
-    lastFrame: 1,
+    lastFrame: from,
     progress: 0,
     framesFirstLoad: willLoad - 1,
     ctx: null,
@@ -82,14 +85,13 @@ export const Frames = ({
           refDom.current.canvas?.width || window.innerWidth,
           refDom.current.canvas?.height || window.innerHeight,
         );
-        refDom.current.ctx?.drawImage(image, 0, 0, 1920, 1080);
+        refDom.current.ctx?.drawImage(image, 0, 0, width, height);
       }
     };
 
     const loadFrame = async (frame: number, onLoaded?: () => void | null): Promise<void> => {
       if (!refDom.current.currentUrlFrame) {
         refDom.current.currentUrlFrame = urlFrame;
-        // (await webpSupported()) && webmFrame !== '' ? webmFrame : ;
       }
 
       if (frame > totalFrames || refDom.current.images[frame]) return;
@@ -107,12 +109,12 @@ export const Frames = ({
     };
 
     const loadFirstFrame = (): void => {
-      const checkLoaded: Record<string, number> = { value: 0 };
-      for (let i = 1; i <= refDom.current.framesFirstLoad; i++) {
+      const checkLoaded: Record<string, number> = { value: (from - 1) };
+      for (let i = from; i <= refDom.current.framesFirstLoad; i++) {
         loadFrame(i, (): void => {
           checkLoaded.value++;
           if (checkLoaded.value >= refDom.current.framesFirstLoad) {
-            drawFrame(refDom.current.images[1].image);
+            drawFrame(refDom.current.images[from].image);
             runCanvas();
           }
         });
@@ -122,9 +124,9 @@ export const Frames = ({
     const runFrame = (): void => {
       const progress = refDom.current.progress || 0;
 
-      const frameTmp: number = MathMap(progress, 0, 1, 1, totalFrames);
+      const frameTmp: number = MathMap(progress, 0, 1, from, totalFrames);
       refDom.current.lastFrame = Math.floor(MathLerp(refDom.current.lastFrame, frameTmp, 0.1));
-      const frame = refDom.current.lastFrame;
+      const frame = Math.floor(frameTmp);//refDom.current.lastFrame;
       poFame.value = frame;
 
       if (frame !== refDom.current.currentFrame) {
@@ -158,11 +160,13 @@ export const Frames = ({
       loadFirstFrame();
     }
     const taget = comp.current || document.getElementById('scrollingSection');
+    const pin = document.getElementById('scrollingSection-inner');
     ScrollTrigger.create({
-      trigger: taget,
+      trigger: pin,
       start: 'center center',
       pin: true,
-      end: () => `+=${MathMap(totalFrames, 0, 30, 0, window.innerHeight)}px center`,
+      // markers: true,
+      end: () => `${window.innerHeight * 3}px center`,
       onUpdate: (self: ScrollTrigger) => {
         refDom.current.progress = self.progress;
         refDom.current?.runFrame && refDom.current.runFrame();
@@ -171,7 +175,7 @@ export const Frames = ({
 
     ScrollTrigger.refresh();
 
-  }, {dependencies: [comp.current]});
+  }, { dependencies: [comp.current] });
 
   return (
     <div className={classNames(className, s.frames)}>
