@@ -12,7 +12,7 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 44px;
-  @include is-tablet {
+  @include is_min-table {
     grid-template-columns: repeat(2, 1fr);
   }
   @include is-pc {
@@ -24,10 +24,7 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 24px;
-  @include is-tablet {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include is-pc {
+  @include is-min-table {
     grid-template-columns: repeat(2, 1fr);
   }
 }
