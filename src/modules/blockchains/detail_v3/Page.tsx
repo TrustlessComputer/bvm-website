@@ -70,6 +70,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
   >(null);
   const [templates, setTemplates] =
     React.useState<Array<IModelCategory> | null>(null);
+  const [notUpdatableKeys, setNotUpdatableKeys] = React.useState<string[]>([]);
 
   const {
     field,
@@ -166,6 +167,20 @@ const MainPage = (props: ChainDetailComponentProps) => {
       _fieldsDragged[overIndex] = temp;
 
       setFieldsDragged(_fieldsDragged);
+
+      return;
+    }
+
+    if (notUpdatableKeys.includes(activeKey)) {
+      toast.error('This field is not updatable', {
+        icon: null,
+        style: {
+          borderColor: 'blue',
+          color: 'blue',
+        },
+        duration: 3000,
+        position: 'bottom-center',
+      });
 
       return;
     }
@@ -349,6 +364,11 @@ const MainPage = (props: ChainDetailComponentProps) => {
     console.log('modelCategories', modelCategories);
     setOriginalData(modelCategories);
     setTemplates(chainDetailData?.selectedOptions || []);
+
+    const notUpdatableKeys = (chainDetailData?.selectedOptions || [])
+      .filter((item) => !item.updatable)
+      .map((item) => item.key);
+    setNotUpdatableKeys(notUpdatableKeys);
     // setTemplates(availableListTemplate);
   };
 
@@ -833,7 +853,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                               useMask
                               tooltip={item.tooltip}
                               value={option.key}
-                              disabled={!updatable || option.needConfig}
+                              disabled={option.needConfig}
                             >
                               <LegoV3
                                 background={item.color}
@@ -843,7 +863,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                                 }
                                 icon={item.confuseIcon}
                                 zIndex={item.options.length - opIdx}
-                                disabled={!updatable || option.needConfig}
+                                disabled={option.needConfig}
                               >
                                 <Label
                                   icon={option.icon}
@@ -869,6 +889,8 @@ const MainPage = (props: ChainDetailComponentProps) => {
                               label={item.title}
                               zIndex={fieldsDragged.length - index - 1}
                               disabled={!updatable}
+                              allowShuffle
+                              updatable={updatable}
                             >
                               {childrenOptions}
                             </LegoParent>
@@ -888,10 +910,11 @@ const MainPage = (props: ChainDetailComponentProps) => {
                           useMask
                           tooltip={item.tooltip}
                           value={option.key}
-                          disabled={!updatable || option.needConfig}
+                          disabled={option.needConfig}
                         >
                           <DroppableV2 id={item.key + '-right'}>
                             <LegoV3
+                              allowShuffle
                               updatable={updatable}
                               background={item.color}
                               label={item.confuseTitle}
@@ -905,7 +928,7 @@ const MainPage = (props: ChainDetailComponentProps) => {
                                   ? s.activeBlur
                                   : ''
                               }
-                              disabled={!updatable || option.needConfig}
+                              disabled={option.needConfig}
                             >
                               <Label icon={option.icon} title={option.title} />
                             </LegoV3>

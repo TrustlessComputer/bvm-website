@@ -90,11 +90,16 @@ function LegoV3({
   const notiMapping = React.useMemo(() => {
     return {
       updatable: {
-        icon: '/landingV3/svg/up-right-bottom-left.svg',
+        Icon: (
+          <SvgInset
+            svgUrl="/landingV3/svg/up-right-bottom-left.svg"
+            size={24}
+          />
+        ),
         tooltip: 'This block is changeable.',
       },
       allowShuffle: {
-        icon: '/landingV3/svg/replaceable.svg',
+        Icon: <SvgInset svgUrl="/landingV3/svg/replacable.svg" size={16} />,
         tooltip: 'This block is shufflable.',
       },
     };
@@ -127,15 +132,9 @@ function LegoV3({
               refTooltip.current?.classList.remove(styles.isHover);
             }}
           >
-            <SvgInset
-              svgUrl={
-                updatable
-                  ? notiMapping.updatable.icon
-                  : notiMapping.allowShuffle.icon
-              }
-              size={24}
-            />
-
+            {updatable
+              ? notiMapping.updatable.Icon
+              : notiMapping.allowShuffle.Icon}
             <div ref={refTooltip} className={`${styles.tooltip}`}>
               {updatable
                 ? notiMapping.updatable.tooltip

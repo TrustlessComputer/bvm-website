@@ -220,3 +220,76 @@
 .scale {
   scale: 1.3;
 }
+
+.updatableIcon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateX(calc((100% + 8px) * -1)) translateY(-50%);
+  z-index: 99999999999;
+
+  svg {
+    fill: var(--fillBackground);
+    stroke: var(--fillBackground);
+
+    path {
+      fill: var(--fillBackground);
+      stroke: var(--fillBackground);
+    }
+  }
+}
+
+.tooltip {
+  z-index: 9999999;
+  background-color: #fff;
+  color: #333333;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  position: absolute;
+  width: max-content;
+  padding: 10px;
+  bottom: calc(100% - 5px);
+  border-radius: 12px;
+  opacity: 0;
+
+  &.isRight {
+    right: 0px;
+    left: auto;
+
+    &:after {
+      left: unset;
+      right: 20px;
+    }
+  }
+
+  &.isBottom {
+    bottom: auto;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+
+    &:after {
+      top: unset;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-bottom-color: #fff;
+      border-top-color: transparent;
+    }
+  }
+
+  &.isHover {
+    opacity: 1;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-top-color: #fff;
+  }
+}
