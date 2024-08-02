@@ -232,7 +232,7 @@ const HackathonModule = (props: Props) => {
                   rel="noopener noreferrer"
                   className={s.tele_link}
                 >
-                  Join PoC community
+                  Join the PoC community
                 </a>
               </div>
 
