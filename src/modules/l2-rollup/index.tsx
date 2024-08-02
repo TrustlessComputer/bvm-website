@@ -434,7 +434,9 @@ const L2Rollup = () => {
           return (
             <Flex alignItems={'center'} width={'100%'}>
               <Text className={s.title}>
-                {isUnderReview ? 'Under review' : `${data.tvl_btc} BTC`}
+                {isUnderReview
+                  ? 'Under review'
+                  : `${formatCurrency(data.tvl_btc, 0, 3)} BTC`}
               </Text>
             </Flex>
           );
