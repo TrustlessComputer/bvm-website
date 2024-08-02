@@ -3,10 +3,10 @@ import { TChainCard } from '@/modules/ExploreModule/components/ChainCard';
 
 export const DAPPS_DATA: Omit<TDappCardProps, 'idx'>[] = [
   {
-    image: '/explore/dapp1.png',
+    image: '/explore/dapp01.png',
     title: 'Imagine',
     description: 'Turn your thoughts into visuals directly on your phone in various styles!',
-    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 40%, #61FFF7 100%)',
+    bgColor: 'linear-gradient(0deg, #0071BC 0%, #1797D5 36%, #61FFF7 100%)',
     tags: [
       'EternalAI Chain',
       'Mobile',
