@@ -57,6 +57,7 @@ import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
 import { TABS } from '@/modules/blockchains/Buy/constants';
 import { useRouter } from 'next/navigation';
 import { isProduction } from '@/config';
+import { DappModel } from '@/types/customize-model';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();
@@ -775,7 +776,7 @@ const RollupsDappPage = () => {
       </div>
 
       <div className={styles.container__header}>
-        <Flex alignItems='center' gap="12px">
+        <Flex alignItems="center" gap="12px">
           <div
             className={`${styles.top_left_filter} ${styles.active}`}
             // onClick={() => {
@@ -787,7 +788,7 @@ const RollupsDappPage = () => {
           <div
             className={`${styles.top_left_filter}`}
             onClick={() => {
-              router.push('/studio')
+              router.push('/studio');
             }}
           >
             <p>Chain Studio</p>
