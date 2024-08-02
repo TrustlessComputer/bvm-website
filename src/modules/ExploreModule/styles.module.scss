@@ -8,6 +8,7 @@
   color: #000;
   padding-top: 188px;
 }
+
 .wrapperCardDapps {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -24,10 +25,8 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 24px;
-  @include is-tablet {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include is-pc {
+  @include is-min-table {
+    margin-bottom: 140px !important;
     grid-template-columns: repeat(2, 1fr);
   }
 }

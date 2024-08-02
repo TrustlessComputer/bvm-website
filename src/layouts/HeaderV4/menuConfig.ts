@@ -5,8 +5,13 @@ import GroupDeveloper from '@layouts/HeaderV3/components/GroupDeveloper';
 import ContactUs from '@layouts/HeaderV3/components/ContactUs';
 import GroupSolutions from './components/GroupSolutions';
 
-
 export const NAV_ITEMS: Array<NavItem> = [
+  {
+    label: 'Explore',
+    href: '/explore',
+    isNewWindow: false,
+    isHide: false,
+  },
   {
     label: 'Products',
     href: '#',
@@ -58,6 +63,12 @@ export const NAV_ITEMS: Array<NavItem> = [
 
 ];
 export const NAV_ITEMS_LEFT: Array<NavItem> = [
+  {
+    label: 'Explore',
+    href: '/explore',
+    isNewWindow: false,
+    isHide: false,
+  },
   {
     label: 'Products',
     href: '#',
