@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import cs from 'classnames';
 import { toast } from 'react-hot-toast';
 import s from './styles.module.scss';
-import SvgInset from '@/components/SvgInset';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import { useAppSelector } from '@/stores/hooks';
 import { accountInforSelector } from '@/stores/states/l2services/selector';
@@ -58,8 +57,8 @@ const ButtonLoginTwitter = (props: Props) => {
         {loggedIn && (
           <Image
             src={userInfo?.profileImage || '/icons/default-user-avatar.svg'}
-            w="28px"
-            h={'28px'}
+            w="22px"
+            h={'22px'}
             borderRadius={'100%'}
             fit={'cover'}
           ></Image>

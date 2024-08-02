@@ -23,6 +23,7 @@ import { FAQ_POC } from './faqs';
 import s from './HackathonModue.module.scss';
 import LeaderboardSection from './LeaderboardSection';
 import RegisterModal, { REGISTER_MODAL } from './Register/Modal';
+import CompetitionTimer from './CompetitionTimer';
 
 type Props = {};
 
@@ -107,22 +108,22 @@ const HackathonModule = (props: Props) => {
       login();
     }
 
-    dispatch(
-      openModal({
-        id: REGISTER_MODAL,
-        className: s.modalContent,
-        modalProps: {
-          size: 'xl',
-        },
-        theme: 'light',
-        render: () => (
-          <RegisterModal
-            userInfo={userInfo}
-            setIsRegistered={setIsRegistered}
-          />
-        ),
-      }),
-    );
+    // dispatch(
+    //   openModal({
+    //     id: REGISTER_MODAL,
+    //     className: s.modalContent,
+    //     modalProps: {
+    //       size: 'xl',
+    //     },
+    //     theme: 'light',
+    //     render: () => (
+    //       <RegisterModal
+    //         userInfo={userInfo}
+    //         setIsRegistered={setIsRegistered}
+    //       />
+    //     ),
+    //   }),
+    // );
   };
 
   const checkUserRegistered = async () => {
@@ -135,6 +136,15 @@ const HackathonModule = (props: Props) => {
     } catch (error) {
     } finally {
       setIsChecking(false);
+    }
+  };
+
+  const handleClickPractice = () => {
+    console.log('handleClickPractice');
+    // scroll to #practice-section
+    const practiceSection = document.getElementById('practice-section');
+    if (practiceSection) {
+      practiceSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -200,18 +210,20 @@ const HackathonModule = (props: Props) => {
               justifyContent={{ base: 'center', sm: 'flex-start' }}
               gap="16px"
               flexWrap={'wrap'}
+              mb="24px"
             >
-              <ButtonConnected title="Let's code" className={s.reward_btn}>
-                <button
-                  className={cn(s.reward_btn, {
-                    [s.registered]: isRegistered,
-                  })}
-                  onClick={handleOpenRegisterModal}
-                  disabled={isRegistered}
-                >
-                  {isRegistered ? 'Registered' : "Let's code"}
-                </button>
-              </ButtonConnected>
+              {/* <ButtonConnected title="Let's practice" className={s.reward_btn}> */}
+              <button
+                className={cn(s.reward_btn)}
+                onClick={
+                  loggedIn ? handleClickPractice : handleOpenRegisterModal
+                }
+                // onClick={handleClickPractice}
+                // disabled={isRegistered}
+              >
+                Let's practice
+              </button>
+              {/* </ButtonConnected> */}
 
               <div className={s.connect_btn}>
                 <a
@@ -220,7 +232,7 @@ const HackathonModule = (props: Props) => {
                   rel="noopener noreferrer"
                   className={s.tele_link}
                 >
-                  Join PoC community
+                  Join the PoC community
                 </a>
               </div>
 
@@ -239,6 +251,7 @@ const HackathonModule = (props: Props) => {
                 {renderCountdown()}
               </div> */}
             </Flex>
+            <CompetitionTimer />
           </div>
           {/* </Fade> */}
           <div className={s.right}>
@@ -257,7 +270,7 @@ const HackathonModule = (props: Props) => {
           </div>
         </div>
       </div>
-      <Box zIndex={1} pos={'relative'}>
+      <Box zIndex={1} pos={'relative'} id={'practice-section'}>
         <LeaderboardSection currentUserContest={currentUserContest} />
       </Box>
       <Box

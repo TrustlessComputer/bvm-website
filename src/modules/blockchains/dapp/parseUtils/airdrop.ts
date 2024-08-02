@@ -6,6 +6,7 @@ import stc from 'string-to-color';
 import { DappType } from '../types';
 import { getAirdropTaskKey } from '../utils';
 import { compareString } from '@/utils/string';
+import { BlockModel, DappModel, FieldModel } from '@/types/customize-model';
 
 export const parseAirdrop = (airdrop: IAirdrop, _token: IToken) => {
   const dappState = store.getState().dapp;

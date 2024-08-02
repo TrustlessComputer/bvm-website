@@ -6,6 +6,7 @@ import AppItem from './AppItem';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { getOrderDetailSelected } from '@/stores/states/l2services/selector';
 import { setDAppConfigSelected } from '@/stores/states/l2services/reducer';
+import { IModelOption } from '@/types/customize-model';
 
 type Props = {
   itemOnClick: (item: IModelOption) => void;

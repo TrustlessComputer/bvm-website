@@ -21,6 +21,7 @@ import {
   draggedIds2DSignal,
   templateIds2DSignal,
 } from '../../signals/useDragSignal';
+import { FieldModel } from '@/types/customize-model';
 
 type Props = {
   onlyLabel?: boolean;

@@ -10,6 +10,7 @@ import styles from './styles.module.scss';
 import { useAppSelector } from '@/stores/hooks';
 import { dappSelector } from '@/stores/states/dapp/selector';
 import { DappType } from '@/modules/blockchains/dapp/types';
+import { DappModel } from '@/types/customize-model';
 import { Text } from '@chakra-ui/react';
 
 type Props = {

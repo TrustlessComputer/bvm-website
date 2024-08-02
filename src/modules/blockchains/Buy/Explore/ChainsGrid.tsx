@@ -1,6 +1,7 @@
 import { SimpleGrid } from '@chakra-ui/react';
 import ChainItem from './ChainItem';
 import { IExploreItem } from '@/services/api/l2services/types';
+import { IModelCategory } from '@/types/customize-model';
 
 type Props = {
   orderList: IExploreItem[] | any[];

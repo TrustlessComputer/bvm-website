@@ -15,6 +15,7 @@ import {
   APP_STAKING,
   APP_TOKEN_GERNERATION,
 } from './constants';
+import { IModelOption } from '@/types/customize-model';
 
 const getL2ServicesStateSelector = (state: RootState): L2ServicesState =>
   state.l2Services;

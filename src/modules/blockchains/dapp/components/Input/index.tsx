@@ -10,6 +10,7 @@ import { FieldOption } from '../../types';
 import { FormDappUtil } from '../../utils';
 
 import styles from './styles.module.scss';
+import { FieldModel } from '@/types/customize-model';
 
 type Props = {
   name: string;

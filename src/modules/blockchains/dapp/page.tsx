@@ -57,6 +57,7 @@ import s from '@/modules/blockchains/Buy/styles_v6.module.scss';
 import { TABS } from '@/modules/blockchains/Buy/constants';
 import { useRouter } from 'next/navigation';
 import { isProduction } from '@/config';
+import { DappModel, FieldModel } from '@/types/customize-model';
 
 const RollupsDappPage = () => {
   const { setDapps } = useDappsStore();

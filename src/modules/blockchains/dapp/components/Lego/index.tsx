@@ -7,6 +7,7 @@ import { adjustBrightness } from '../../utils';
 
 import styles from './styles.module.scss';
 import { Box, Image, Tooltip } from '@chakra-ui/react';
+import { FieldModel } from '@/types/customize-model';
 
 type Position =
   | {

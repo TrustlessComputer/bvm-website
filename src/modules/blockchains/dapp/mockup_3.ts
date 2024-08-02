@@ -1,3 +1,5 @@
+import { DappModel } from '@/types/customize-model';
+
 export const dappMockupData: DappModel[] = [
   {
     id: 'token_generation',
