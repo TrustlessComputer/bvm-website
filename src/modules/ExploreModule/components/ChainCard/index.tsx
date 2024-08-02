@@ -1,7 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import s from "./styles.module.scss"
+import s from './styles.module.scss';
 import Fade from '@interactive/Fade';
+import ImagePlaceholder from '@components/ImagePlaceholder';
 
 export type TChainCard = {
   idx: number;
@@ -18,7 +19,7 @@ export default function ChainCard({idx,...props}: TChainCard) {
     <Fade delay={idx / 10}>
       <div className={s.wrapperChainCard}>
         <div className={s.left}>
-          <Image src={props.image} alt={'icons'} width={80} height={80} />
+          <ImagePlaceholder src={props.image} alt={'icons'} width={80} height={80} />
         </div>
         <div className={s.right}>
           <div className={s.right_top}>
