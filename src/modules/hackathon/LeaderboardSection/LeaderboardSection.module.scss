@@ -22,6 +22,31 @@
     }
 }
 
+.warning {
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: linear-gradient(90deg, rgba(255, 128, 8, 0.05) 0%, rgba(255, 200, 55, 0.05) 100%);
+    padding: 24px;
+
+    .warning_heading {
+        color: #FFF;
+        font-family: "SF Pro Display";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        margin-bottom: 24px;
+    }
+
+    li {
+        list-style-position: inside;
+
+        &::marker {
+            opacity: 0.6;
+        }
+    }
+}
+
 .container {
     padding: 100px 0;
     margin-top: 80px;

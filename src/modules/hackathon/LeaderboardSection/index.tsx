@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import s from './LeaderboardSection.module.scss';
-import { Box, Flex, Grid, Text } from '@chakra-ui/react';
+import { Box, Flex, Grid, Image, Text } from '@chakra-ui/react';
 import cn from 'classnames';
 import Leaderboard from './Leaderboard';
 import Problems from '../Problems';
@@ -47,6 +47,26 @@ const LeaderboardSection = (props: Props) => {
               coding skills and tackle practice problems to boost your chances
               of winning.
             </p>
+          </div>
+          <div className={s.warning}>
+            <div className={s.btn_close}></div>
+            <Flex alignItems={'center'} gap="12px" mb="24px">
+              <Image src={'/hackathon/ic-trophy.svg'} />
+              <Text className={s.warning_heading}>
+                Before you start competing
+              </Text>
+            </Flex>
+            <div className={s.warning_list}>
+              <p>
+                <span>1.</span> Create an account
+              </p>
+              <p>
+                <span>2.</span> Set up your development environment
+              </p>
+              <p>
+                <span>3.</span> Back up your private key
+              </p>
+            </div>
           </div>
           <Flex className={cn(s.wrapper)} as={motion.div}>
             <Box
