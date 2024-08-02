@@ -129,7 +129,7 @@ const Leaderboard = (props: Props) => {
           justifyContent={'center'}
           className={s.passed}
         >
-          {contestProblem.gas_used}
+          {formatCurrency(contestProblem.gas_used)}
           <Image src="/hackathon/ic-check.svg" />
         </Flex>
       );
