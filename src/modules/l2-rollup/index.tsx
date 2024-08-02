@@ -284,7 +284,6 @@ const L2Rollup = () => {
             style={{
               alignSelf: 'center',
               width: '100%',
-              textTransform: 'uppercase',
             }}
           >
             KB/s
@@ -315,7 +314,6 @@ const L2Rollup = () => {
             style={{
               alignSelf: 'center',
               width: '100%',
-              textTransform: 'uppercase',
             }}
           >
             Stack
@@ -344,7 +342,6 @@ const L2Rollup = () => {
             style={{
               alignSelf: 'center',
               width: '100%',
-              textTransform: 'uppercase',
             }}
           >
             DA
@@ -373,7 +370,6 @@ const L2Rollup = () => {
             style={{
               alignSelf: 'center',
               width: '100%',
-              textTransform: 'uppercase',
             }}
           >
             Settlement
