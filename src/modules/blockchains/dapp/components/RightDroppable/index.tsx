@@ -39,6 +39,7 @@ import styles from './styles.module.scss';
 import Image from 'next/image';
 import BottomButton from '@/modules/blockchains/dapp/components/BottomButton';
 import DateTimeInput from '../DateTimeInput';
+import { DappModel, FieldModel } from '@/types/customize-model';
 
 const RightDroppable = () => {
   const {
@@ -181,7 +182,12 @@ const RightDroppable = () => {
   );
 
   const getLabel = React.useCallback(
-    (field: FieldModel, fieldOpt: FieldOption, baseIndex: number, background?: string) => {
+    (
+      field: FieldModel,
+      fieldOpt: FieldOption,
+      baseIndex: number,
+      background?: string,
+    ) => {
       const thisDapp = templateDapps[baseIndex];
       const mainColor = adjustBrightness(background || thisDapp.color, +10);
 
@@ -414,7 +420,7 @@ const RightDroppable = () => {
                               DragUtil.getOriginalKey(item.name)
                             ];
                           const thisModule = thisBaseModule.fields.find(
-                            (f) => f.value === item.value,
+                            (f: FieldModel) => f.value === item.value,
                           );
 
                           if (!thisModule) return null;
@@ -439,23 +445,25 @@ const RightDroppable = () => {
                           );
                         })}
 
-                      {thisDapp.baseBlock.fields.map((field, fieldIndex) => {
-                        return getInput(
-                          field,
-                          {
-                            inBaseField: true,
-                            inBlockField: false,
-                            inSingleField: false,
-                            index: undefined,
-                            level: 0,
-                            blockKey: '',
-                            baseIndex,
-                          },
-                          thisDapp.baseBlock.fields.length +
-                            ids.length * 2 -
-                            fieldIndex,
-                        );
-                      })}
+                      {thisDapp.baseBlock.fields.map(
+                        (field: FieldModel, fieldIndex: number) => {
+                          return getInput(
+                            field,
+                            {
+                              inBaseField: true,
+                              inBlockField: false,
+                              inSingleField: false,
+                              index: undefined,
+                              level: 0,
+                              blockKey: '',
+                              baseIndex,
+                            },
+                            thisDapp.baseBlock.fields.length +
+                              ids.length * 2 -
+                              fieldIndex,
+                          );
+                        },
+                      )}
 
                       {ids.map((item, itemIndex) => {
                         if (DragUtil.idDraggingIsABlock(item.name)) {
@@ -494,29 +502,31 @@ const RightDroppable = () => {
                                   smallMarginHeaderTop
                                   zIndex={ids.length - itemIndex}
                                 >
-                                  {thisBlock.fields.map((field, fieldIndex) => {
-                                    return getInput(
-                                      field,
-                                      {
-                                        inBaseField: false,
-                                        inBlockField: true,
-                                        inSingleField: false,
-                                        index: itemIndex,
-                                        level: 0,
-                                        blockKey: thisBlockKey,
-                                        baseIndex,
-                                      },
-                                      thisBlock.fields.length +
-                                        item.children.length +
-                                        1 -
-                                        fieldIndex,
-                                    );
-                                  })}
+                                  {thisBlock.fields.map(
+                                    (field: FieldModel, fieldIndex: number) => {
+                                      return getInput(
+                                        field,
+                                        {
+                                          inBaseField: false,
+                                          inBlockField: true,
+                                          inSingleField: false,
+                                          index: itemIndex,
+                                          level: 0,
+                                          blockKey: thisBlockKey,
+                                          baseIndex,
+                                        },
+                                        thisBlock.fields.length +
+                                          item.children.length +
+                                          1 -
+                                          fieldIndex,
+                                      );
+                                    },
+                                  )}
 
                                   {item.children.map((child, childIndex) => {
                                     const thisChildField =
                                       thisBlock.childrenFields?.find(
-                                        (f) =>
+                                        (f: FieldModel) =>
                                           f.key ===
                                           DragUtil.getOriginalKey(child.name),
                                       );
@@ -625,7 +635,7 @@ const RightDroppable = () => {
                                   {(item.value as string[]).map(
                                     (value, index) => {
                                       const thisValue = thisModule.fields.find(
-                                        (f) => f.value === value,
+                                        (f: FieldModel) => f.value === value,
                                       );
 
                                       if (!thisValue) return null;
@@ -663,7 +673,7 @@ const RightDroppable = () => {
                             );
                           } else {
                             const thisField = thisModule.fields.find(
-                              (f) => f.value === item.value,
+                              (f: FieldModel) => f.value === item.value,
                             );
 
                             if (!thisField) return null;
@@ -727,7 +737,7 @@ const RightDroppable = () => {
                           DragUtil.getOriginalKey(item.name)
                         ];
                       const thisField = thisBaseModule.fields.find(
-                        (f) => f.value === item.value,
+                        (f: FieldModel) => f.value === item.value,
                       );
 
                       if (!thisField) return null;
@@ -749,7 +759,7 @@ const RightDroppable = () => {
                       );
                     })}
 
-                  {thisDapp.baseBlock.fields.map((field) => {
+                  {thisDapp.baseBlock.fields.map((field: FieldModel) => {
                     return getLabel(
                       field,
                       {
@@ -788,7 +798,7 @@ const RightDroppable = () => {
                             background={adjustBrightness(mainColor, -10)}
                             smallMarginHeaderTop
                           >
-                            {thisBlock.fields.map((field) => {
+                            {thisBlock.fields.map((field: FieldModel) => {
                               return getLabel(
                                 field,
                                 {
@@ -860,7 +870,7 @@ const RightDroppable = () => {
                             >
                               {(item.value as string[]).map((value, index) => {
                                 const thisField = thisModule.fields.find(
-                                  (f) => f.value === value,
+                                  (f: FieldModel) => f.value === value,
                                 );
 
                                 if (!thisField) return null;
@@ -895,7 +905,7 @@ const RightDroppable = () => {
                         );
                       } else {
                         const thisField = thisModule.fields.find(
-                          (f) => f.value === item.value,
+                          (f: FieldModel) => f.value === item.value,
                         );
 
                         if (!thisField) return null;

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import s from './styles.module.scss';
+import { IModelCategory } from '@/types/customize-model';
 
 type SidebarV2Props = {
   items: IModelCategory[] | null;

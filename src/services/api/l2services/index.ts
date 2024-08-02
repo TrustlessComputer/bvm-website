@@ -36,6 +36,7 @@ import {
   IOrderBuyEstimateRespone_V2,
   SubmitFormParams,
 } from './types';
+import { IModelCategory } from '@/types/customize-model';
 
 // ------------------------------------------------------------------------
 // Access Token

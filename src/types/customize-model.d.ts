@@ -1,3 +1,6 @@
+import { Position } from '@xyflow/react';
+import { StringKeyframeTrack } from 'three';
+
 interface IDappValue {
   key: string;
   value: string | number | { key: string; value: string | number }[];
@@ -164,4 +167,29 @@ interface DappModel {
 interface TemplateForm {
   dappKey: string;
   fieldValue: Record<string, any>;
+}
+
+interface Connection {
+  id: string;
+  sourceHandle: string;
+  targetHandle: string;
+  target: string;
+  label: string;
+}
+
+interface Dot {
+  id: string;
+  type: 'source' | 'target';
+  position: Position;
+}
+
+interface BlockDiagram {
+  id: string;
+  dots: Dot[];
+  connections: Connection[];
+}
+
+interface BlockchainMap {
+  blockchain: OrderItem | null;
+  dapps: DappModel[];
 }

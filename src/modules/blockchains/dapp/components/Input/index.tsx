@@ -12,6 +12,7 @@ import {
 import useDappsStore, { useFormDappsStore } from '../../stores/useDappStore';
 
 import styles from './styles.module.scss';
+import { FieldModel } from '@/types/customize-model';
 
 type Props = {
   name: string;

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import tierData from './data';
 import { useRouter } from 'next/navigation';
 import useOrderFormStoreV3 from '../../stores/index_v3';
+import { IModelCategory } from '@/types/customize-model';
 
 type Props = {
   templates: Array<IModelCategory[]> | null;

@@ -1,0 +1,27 @@
+.toggle {
+  cursor: pointer;
+  width: 44px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  background-color: var(--background);
+  border-radius: 9999px;
+
+  &__active {
+    background-color: #29cc6a;
+  }
+
+  &__circle {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: transform 0.3s;
+
+    &__active {
+      transform: translateX(100%);
+    }
+  }
+}
