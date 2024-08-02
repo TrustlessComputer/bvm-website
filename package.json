@@ -128,6 +128,7 @@
     "sharp": "^0.33.1",
     "slick-carousel": "^1.8.1",
     "split-type": "^0.3.4",
+    "string-to-color": "^2.2.2",
     "styled-components": "^5.3.9",
     "svg-react-loader": "^0.4.6",
     "swr": "^2.2.4",
