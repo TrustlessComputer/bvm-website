@@ -11,6 +11,9 @@ type Props = {
 };
 
 const LeaderboardSection = (props: Props) => {
+  const [isProblemPanelMaximized, setIsProblemPanelMaximized] =
+    React.useState(false);
+
   return (
     <Box bgColor={'#000'}>
       <div className="containerV3">
@@ -22,10 +25,17 @@ const LeaderboardSection = (props: Props) => {
               regularly to be the best
             </p>
           </div>
-          <div className={cn(s.wrapper)}>
+          <div
+            className={cn(s.wrapper, {
+              [s.wrapper__column]: isProblemPanelMaximized,
+            })}
+          >
             <div className={s.left}>
               <h4>Problems</h4>
-              <Problems />
+              <Problems
+                isProblemPanelMaximized={isProblemPanelMaximized}
+                setIsProblemPanelMaximized={setIsProblemPanelMaximized}
+              />
             </div>
             <div className={s.right}>
               <h4>Leaderboard</h4>
