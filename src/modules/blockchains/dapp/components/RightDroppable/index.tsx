@@ -766,7 +766,7 @@ const RightDroppable = () => {
                     );
                   })}
 
-                  {ids.map((item, blockIndex) => {
+                  {ids.map((item, itemIndex) => {
                     if (DragUtil.idDraggingIsABlock(item.name)) {
                       const { key: thisBlockKey, ...thisBlock } =
                         blockFieldMapping[DragUtil.getOriginalKey(item.name)];
@@ -775,8 +775,8 @@ const RightDroppable = () => {
 
                       return (
                         <Draggable
-                          id={`${item.name}-${blockIndex}-${baseIndex}`}
-                          key={`${item.name}-${blockIndex}-${baseIndex}`}
+                          id={`${item.name}-${itemIndex}-${baseIndex}`}
+                          key={`${item.name}-${itemIndex}-${baseIndex}`}
                           value={{
                             title: thisBlock.title + ' #' + blockCount,
                             icon: thisBlock.icon,
@@ -795,7 +795,7 @@ const RightDroppable = () => {
                                   inBaseField: false,
                                   inBlockField: true,
                                   inSingleField: false,
-                                  index: blockIndex,
+                                  index: itemIndex,
                                   level: 0,
                                   blockKey: thisBlockKey,
                                   baseIndex,
@@ -803,6 +803,54 @@ const RightDroppable = () => {
                                 baseIndex,
                               );
                             })}
+
+                            {/*{item.children.map((child, childIndex) => {
+                              const thisChildField =
+                                thisBlock.childrenFields?.find(
+                                  (f) =>
+                                    f.key ===
+                                    DragUtil.getOriginalKey(child.name),
+                                );
+
+                              if (!thisChildField) return null;
+
+                              return (
+                                <Draggable
+                                  id={`${child.name}`}
+                                  key={`${child.name}`}
+                                  value={{
+                                    title: thisChildField.title,
+                                    icon: thisChildField.icon,
+                                    fieldKey: thisChildField.key,
+                                    background:
+                                      thisChildField.background ||
+                                      mainColor,
+                                    blockKey: thisBlockKey,
+                                  }}
+                                  style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '0px',
+                                    zIndex:
+                                      item.children.length - childIndex,
+                                  }}
+                                >
+                                  {getLabel(
+                                    thisChildField,
+                                    {
+                                      inBaseField: false,
+                                      inBlockField: true,
+                                      inSingleField: false,
+                                      index: itemIndex,
+                                      level: 0,
+                                      blockKey: thisBlockKey,
+                                      baseIndex,
+                                    },
+                                    item.children.length - childIndex,
+                                  )}
+                                </Draggable>
+                              );
+                            })}*/}
                           </LegoParent>
                         </Draggable>
                       );
@@ -816,8 +864,8 @@ const RightDroppable = () => {
 
                       return (
                         <Draggable
-                          id={`${item.name}-${blockIndex}-${baseIndex}`}
-                          key={`${item.name}-${blockIndex}-${baseIndex}`}
+                          id={`${item.name}-${itemIndex}-${baseIndex}`}
+                          key={`${item.name}-${itemIndex}-${baseIndex}`}
                           value={{
                             title: thisModule.title,
                             icon: thisModule.icon,
@@ -829,7 +877,7 @@ const RightDroppable = () => {
                               inBaseField: false,
                               inBlockField: false,
                               inSingleField: true,
-                              index: blockIndex,
+                              index: itemIndex,
                               level: 0,
                               blockKey: '',
                               baseIndex,
@@ -846,8 +894,8 @@ const RightDroppable = () => {
                       if (isMultiple) {
                         return (
                           <Draggable
-                            id={`${item.name}-${blockIndex}-${baseIndex}`}
-                            key={`${item.name}-${blockIndex}-${baseIndex}`}
+                            id={`${item.name}-${itemIndex}-${baseIndex}`}
+                            key={`${item.name}-${itemIndex}-${baseIndex}`}
                             value={{
                               title: thisModule.title,
                               icon: thisModule.icon,
@@ -867,8 +915,8 @@ const RightDroppable = () => {
 
                                 return (
                                   <Draggable
-                                    id={`${item.name}-${blockIndex}-${baseIndex}-${value}`}
-                                    key={`${item.name}-${blockIndex}-${baseIndex}-${value}`}
+                                    id={`${item.name}-${itemIndex}-${baseIndex}-${value}`}
+                                    key={`${item.name}-${itemIndex}-${baseIndex}-${value}`}
                                     value={{
                                       title: thisModule.title,
                                       icon: thisModule.icon,
@@ -902,8 +950,8 @@ const RightDroppable = () => {
 
                         return (
                           <Draggable
-                            id={`${item.name}-${blockIndex}-${baseIndex}`}
-                            key={`${item.name}-${blockIndex}-${baseIndex}`}
+                            id={`${item.name}-${itemIndex}-${baseIndex}`}
+                            key={`${item.name}-${itemIndex}-${baseIndex}`}
                             value={{
                               title: thisModule.title,
                               icon: thisModule.icon,
