@@ -61,7 +61,9 @@ const Leaderboard = (props: Props) => {
 
   const renderItem = (data: IUserContest, index: number) => {
     // No need to render current user in the loop
-    if (index >= 0 && data.user_address === currentUserContest?.user_address) {
+    const isCurrentUser =
+      data.user_address === currentUserContest?.user_address;
+    if (index >= 0 && isCurrentUser) {
       return null;
     }
 
@@ -74,7 +76,12 @@ const Leaderboard = (props: Props) => {
     );
 
     return (
-      <div className={cn(s.item, s.table_group)}>
+      <div
+        className={cn(s.item, s.table_group)}
+        style={{
+          border: isCurrentUser ? '1px solid rgba(134, 67, 251, 0.80)' : 'inherit',
+        }}
+      >
         <Box className={s.first_col}>{data.rank}</Box>
         <div className={cn(s.second_col, s.name)}>
           <Flex alignItems={'center'} gap="8px" style={{ overflow: 'hidden' }}>
@@ -89,10 +96,7 @@ const Leaderboard = (props: Props) => {
               style={{
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
-                color:
-                  data.user_address === currentUserContest?.user_address
-                    ? '#8643FB'
-                    : 'inherit',
+                color: isCurrentUser ? '#8643FB' : 'inherit',
               }}
             >
               {data.user.name || data.user.twitter_username || data.user.email}

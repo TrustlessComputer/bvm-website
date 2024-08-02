@@ -105,7 +105,7 @@ const LeaderboardSection = (props: Props) => {
                     <h4>Leaderboard</h4>
                     <CompetitionTimer />
                   </Flex>
-                  <Leaderboard />
+                  <Leaderboard currentUserContest={props.currentUserContest} />
                 </motion.div>
               )}
             </AnimatePresence>
