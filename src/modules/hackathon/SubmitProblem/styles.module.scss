@@ -5,7 +5,7 @@
   input {
     width: 100%;
     padding: 16px;
-    padding-left: 130px;
+    padding-left: 140px;
     padding-right: 115px;
     color: #FFF;
     font-family: "SF Pro Display";
@@ -25,13 +25,13 @@
 
   &_submitBtn {
     position: absolute;
-    width: 94px;
+    // width: 94px;
     top: 50%;
     right: 16px;
     transform: translateY(-50%);
     display: flex;
     height: 36px;
-    padding: 16px 20px;
+    padding: 0px 20px;
     justify-content: center;
     align-items: center;
     gap: 8px;
