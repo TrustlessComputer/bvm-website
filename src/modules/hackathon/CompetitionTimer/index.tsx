@@ -19,7 +19,7 @@ const CompetitionTimer = (props: Props) => {
     return (
       <Flex
         alignItems={'center'}
-        gap="4px"
+        gap="5px"
         flexDir={{ base: 'column', xl: 'row' }}
       >
         <Text whiteSpace={'nowrap'} opacity={0.6}>

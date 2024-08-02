@@ -42,8 +42,10 @@ const LeaderboardSection = (props: Props) => {
           <div className={s.header}>
             <p className={s.title}>Practice Session</p>
             <p className={s.desc}>
-              To improve your chances of winning the competitions, practice
-              regularly to be the best
+              Gear up for the first official Proof-of-Code programming
+              tournament starting on August 8th! <br /> Sharpen your Solidity
+              coding skills and tackle practice problems to boost your chances
+              of winning.
             </p>
           </div>
           <Flex className={cn(s.wrapper)} as={motion.div}>
@@ -114,7 +116,7 @@ const LeaderboardSection = (props: Props) => {
                 >
                   <Flex alignItems={'center'} justifyContent={'space-between'}>
                     <h4>Leaderboard</h4>
-                    <CompetitionTimer />
+                    {/* <CompetitionTimer /> */}
                   </Flex>
                   <Leaderboard currentUserContest={props.currentUserContest} />
                 </motion.div>
