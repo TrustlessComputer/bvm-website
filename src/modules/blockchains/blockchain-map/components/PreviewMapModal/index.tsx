@@ -15,30 +15,17 @@ import CustomEdge from './CustomEdge';
 import CustomNode from '@/modules/blockchains/blockchain-map/components/PreviewMapModal/CustomNode';
 import { FAKE_DATA_MAPPING } from '@/modules/blockchains/blockchain-map/components/PreviewMapModal/data';
 import { EdgeBase, NodeBase } from '@xyflow/system';
+import  {edges as initialEdges} from './edges'
 
-const initialEdges = FAKE_DATA_MAPPING.filter(box => box.connection).map(box => {
-  if(!box.connection) return;
-
-  return box.connection.map(line => {
-    return {
-      type: 'custom-edge',
-      source: box.id,
-      markerEnd: {
-        type: MarkerType.ArrowClosed,
-      },
-      ...line,
-    }
-  })
-}).flat() as EdgeBase[]
-
+let position = 0
 const initialNodes: NodeBase[] = FAKE_DATA_MAPPING.map(box => {
+  position += 100;
   return {
     ...box,
     type: 'customBox',
+    position: { x: position, y: position },
   }
 })
-
-
 
 export default function PreviewMapModal({ ...props }): React.JSX.Element {
   const { show, onClose } = props;
@@ -49,6 +36,7 @@ export default function PreviewMapModal({ ...props }): React.JSX.Element {
     (changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
     [setNodes],
   );
+
   const onEdgesChange = useCallback(
     (changes: EdgeChange[]) => setEdges((eds) => applyEdgeChanges(changes, eds)),
     [setEdges],
@@ -66,8 +54,6 @@ export default function PreviewMapModal({ ...props }): React.JSX.Element {
       <ReactFlow
         nodes={nodes}
         edges={edges}
-        // nodesDraggable={false}
-        // elementsSelectable={false}
         edgeTypes={{
           'custom-edge': CustomEdge,
         }}

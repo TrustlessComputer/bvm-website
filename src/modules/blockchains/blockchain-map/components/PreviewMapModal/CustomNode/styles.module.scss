@@ -51,9 +51,14 @@
   height: 12px;
   border-radius: 50%;
   background: #fff;
-  position: absolute;
+  //position: absolute;
   border: 1px solid #555555;
   z-index: 4;
+  :global {
+    .react-flow__handle {
+      position: relative !important;
+    }
+  }
 }
 
 .tag {
@@ -91,4 +96,29 @@
     color: #FA4E0E;
     margin-right: 4px;
   }
+}
+
+.handles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  //width: 10px;
+  height: 100%;
+  position: absolute;
+  :global {
+    .react-flow__handle-right {
+      //margin-bottom: 10px;
+      //position: absolute !important;
+    }
+  }
+}
+
+.handles.sources {
+  right: 0;
+  top: 0;
+}
+
+.handles.target {
+  left: 0;
+  top: 0;
 }

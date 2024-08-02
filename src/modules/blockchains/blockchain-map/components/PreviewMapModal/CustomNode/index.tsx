@@ -12,6 +12,8 @@ export type DataNode = Node<
     positionDot: Position;
     handleType: HandleType;
     isRunning: boolean;
+    sourceHandles: [],
+    targetHandles: [],
     legoParent: {
       background?: string;
     },
@@ -30,6 +32,8 @@ export default function CustomNode({ data, isConnectable }: NodeProps<DataNode>)
     e.stopPropagation();
     alert('Edit');
   }
+
+  console.log('data.targetHandles', data.targetHandles);
 
   return (
     <div className={s.wrapperBox}>
@@ -59,25 +63,32 @@ export default function CustomNode({ data, isConnectable }: NodeProps<DataNode>)
             <Image src={'/icons/ic_edit.svg'} alt={'ic_edit'} width={16} height={16} />
           </div>
         </div>
-        <Handle
-          type={data.handleType}
-          position={data.positionDot}
-          isConnectable={isConnectable}
-          className={s.handleDot}
-        />
-        {/*<Handle*/}
-        {/*  type="source"*/}
-        {/*  position="right"*/}
-        {/*  id="a"*/}
-        {/*  style={{ top: 50 }}*/}
-        {/*  className={s.handleDot}*/}
-        {/*/>*/}
+
+        {/*{*/}
+        {/*  data.positionDot ===Position.Right &&*/}
+        {/*}*/}
+
+        <div className={`${s.handles} ${s.target}`}>
+          {/*<Handle*/}
+          {/*  type={'target'}*/}
+          {/*  position={data.positionDot}*/}
+          {/*  isConnectable={isConnectable}*/}
+          {/*  className={s.handleDot}*/}
+          {/*/>*/}
+          {data.targetHandles.map((handle) => (
+            <Handle
+              key={handle.id}
+              id={handle.id}
+              type="target"
+              position={Position.Left}
+              className={s.handleDot}
+            />
+          ))}
+        </div>
 
         {
           data.label === 'Blockchain' ? data.legoList.map((lego, index: number) => {
             return (
-
-
               <Lego
                 last={false}
                 titleInLeft={true}
@@ -123,6 +134,18 @@ export default function CustomNode({ data, isConnectable }: NodeProps<DataNode>)
         }
 
 
+        <div className={`${s.handles} ${s.sources}`}>
+          {data.sourceHandles.map((handle, index) => (
+            <Handle
+              key={handle.id}
+              id={handle.id}
+              type="source"
+              position={Position.Right}
+              className={s.handleDot}
+              // style={{ top: 50 * (index+1)}}
+            />
+          ))}
+        </div>
       </div>
 
     </div>

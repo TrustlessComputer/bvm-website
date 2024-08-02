@@ -1,15 +1,20 @@
-import { Position } from '@xyflow/react';
+import { HandleType, Position } from '@xyflow/react';
 import { type Node } from '@xyflow/react';
 
 export type ElkNodeData = {
   label: string;
-  sourceHandles: { id: string, label: string }[];
-  targetHandles: { id: string, label: string }[];
+  positionDot: Position;
+  handleType: HandleType;
+  isRunning: boolean;
+  legoList: [];
+  sourceHandles: { id: string }[];
+  targetHandles: { id: string }[];
 };
 
 export type ElkNode = Node<ElkNodeData, 'elk'>;
 
-export const FAKE_DATA_MAPPING = [
+
+export const FAKE_DATA_MAPPING: ElkNode[] = [
   {
     id: '1',
     data: {
@@ -53,67 +58,36 @@ export const FAKE_DATA_MAPPING = [
           icon: '/icons-tool/icon-time-medium.svg',
           title: '4 hours withdrawal time'
         }
-      ]
+      ],
+      sourceHandles: [
+        {
+          id: '1-s-2',
+        },
+        {
+          id: '1-s-3',
+        },
+        // {
+        //   id: '1-s-4',
+        // },
+      ],
+      targetHandles: []
     },
-    position: { x: 50, y: 25 },
-    connection: [
-      {
-        id: 'c1-3',
-        target: '3',
-        label: 'Output 1',
-      },
-      {
-        id: 'c2-2',
-        target: '2',
-        label: 'Output 2',
-      },
-      {
-        id: 'c1-4',
-        target: '4',
-        label: 'Output 2',
-
-      },
-    ],
     type: 'elk',
+    position: { x: 0, y: 0 },
   },
   {
     id: '2',
-    data: {
-      label: 'Staking apps',
-      positionDot: Position.Left,
-      handleType: 'target',
-      isRunning: true,
-      legoParent: {
-        background: '#C000E6',
-      },
-      legoList: [
-        {
-          background: '#AA00CC',
-          icon: '/icons-tool/icon_staking.svg',
-          title: 'Pool 1'
-        },
-        {
-          background: '#AA00CC',
-          icon: '/icons-tool/icon_staking.svg',
-          title: 'Pool 2'
-        },
-        {
-          background: '#AA00CC',
-          icon: '/icons-tool/icon_staking.svg',
-          title: 'Pool 3'
-        },
-      ],
-    },
-    position: { x: 350, y: 25 },
-    type: 'elk',
-  },
-  {
-    id: '3',
     data: {
       label: 'DeFi Apps',
       isRunning: false,
       positionDot: Position.Left,
       handleType: 'target',
+      sourceHandles: [],
+      targetHandles: [
+        {
+          id: '2-t-1',
+        },
+      ],
       legoParent: {
         background: '#F76649',
       },
@@ -149,10 +123,48 @@ export const FAKE_DATA_MAPPING = [
           title: 'Perpetual'
         },
       ],
+      type: 'elk',
+      position: { x: 0, y: 0 },
     },
-    position: { x: 350, y: 25 },
-    type: 'elk',
   },
+  {
+    id: '3',
+    data: {
+      label: 'Staking apps',
+      positionDot: Position.Left,
+      handleType: 'target',
+      isRunning: true,
+      legoParent: {
+        background: '#C000E6',
+      },
+      sourceHandles: [],
+      targetHandles: [
+        {
+          id: '3-t-1',
+        },
+      ],
+      legoList: [
+        {
+          background: '#AA00CC',
+          icon: '/icons-tool/icon_staking.svg',
+          title: 'Pool 1'
+        },
+        {
+          background: '#AA00CC',
+          icon: '/icons-tool/icon_staking.svg',
+          title: 'Pool 2'
+        },
+        {
+          background: '#AA00CC',
+          icon: '/icons-tool/icon_staking.svg',
+          title: 'Pool 3'
+        },
+      ],
+      type: 'elk',
+      position: { x: 0, y: 0 },
+    },
+  },
+
   {
     id: '4',
     data: {
@@ -160,6 +172,12 @@ export const FAKE_DATA_MAPPING = [
       positionDot: Position.Left,
       handleType: 'target',
       isRunning: true,
+      sourceHandles: [],
+      targetHandles: [
+        {
+          id: '4-t-1',
+        }
+      ],
       legoParent: {
         background: '#E6004D',
       },
@@ -185,9 +203,9 @@ export const FAKE_DATA_MAPPING = [
           title: 'Connect'
         },
       ],
+      type: 'elk',
+      position: { x: 0, y: 0 },
     },
-    position: { x: 350, y: 250 },
-    type: 'elk',
   },
 ]
 
