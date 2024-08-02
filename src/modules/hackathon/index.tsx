@@ -1,37 +1,28 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import s from './HackathonModue.module.scss';
-import {
-  Box,
-  Image as ChakraImage,
-  Flex,
-  Skeleton,
-  Text,
-} from '@chakra-ui/react';
-import Image from 'next/image';
-import { CDN_URL } from '@/config';
-import Fade from '@/interactive/Fade';
-import LeaderboardSection from './LeaderboardSection';
-import useCountdown from '@/hooks/useCountdown';
-import Countdown from '@/components/Countdown';
-import dayjs from 'dayjs';
-import Link from 'next/link';
 import ButtonConnected from '@/components/ButtonConnected/v2';
+import Countdown from '@/components/Countdown';
+import FAQs from '@/components/faq';
+import { CDN_URL } from '@/config';
+import { LINKS } from '@/constants/external-links';
+import useCountdown from '@/hooks/useCountdown';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
-import { useDispatch } from 'react-redux';
-import { openModal } from '@/stores/states/modal/reducer';
-import RegisterModal, { REGISTER_MODAL } from './Register/Modal';
 import {
   checkRegistered,
   getContestStats,
 } from '@/services/api/EternalServices';
-import cn from 'classnames';
-import { formatCurrencyV2, humanReadable } from '@/utils/format';
-import FAQs from '@/components/faq';
-import { FAQ_POC } from './faqs';
-import { LINKS } from '@/constants/external-links';
 import { IUserContest } from '@/services/api/EternalServices/types';
+import { openModal } from '@/stores/states/modal/reducer';
+import { Box, Image as ChakraImage, Flex, Text } from '@chakra-ui/react';
+import cn from 'classnames';
+import dayjs from 'dayjs';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { FAQ_POC } from './faqs';
+import s from './HackathonModue.module.scss';
+import LeaderboardSection from './LeaderboardSection';
+import RegisterModal, { REGISTER_MODAL } from './Register/Modal';
 
 type Props = {};
 
@@ -109,10 +100,6 @@ const HackathonModule = (props: Props) => {
     } catch (error) {
       console.error('Error fetching people submitted', error);
     }
-  };
-
-  const renderCountdown = () => {
-    return <TimeCounter />;
   };
 
   const handleOpenRegisterModal = () => {
@@ -210,9 +197,9 @@ const HackathonModule = (props: Props) => {
             </div>
             <Flex
               alignItems={'center'}
+              justifyContent={{ base: 'center', sm: 'flex-start' }}
               gap="16px"
               flexWrap={'wrap'}
-              rowGap={'24px'}
             >
               <ButtonConnected title="Let's code" className={s.reward_btn}>
                 <button
