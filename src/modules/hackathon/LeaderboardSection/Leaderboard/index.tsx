@@ -7,21 +7,23 @@ import AppLoading from '@/components/AppLoading';
 import { IGetParams } from '@/modules/Vote/Proposals/ListProposal';
 import cn from 'classnames';
 import Avatar from '@/components/Avatar';
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
-import moment from 'moment';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import { getListLeaderboard } from '@/services/api/EternalServices';
 import {
   IContestProblem,
   IUserContest,
 } from '@/services/api/EternalServices/types';
-import { formatName } from '@/utils/format';
 import s from './Leaderboard.module.scss';
 
-type Props = {};
+type Props = {
+  currentUserContest?: IUserContest;
+};
 
 const LIMIT_PAGE = 50;
 
 const Leaderboard = (props: Props) => {
+  const { currentUserContest } = props;
+
   const infiniteScrollRef = useRef<any>(null);
 
   const refParams = useRef<IGetParams>({
@@ -47,13 +49,21 @@ const Leaderboard = (props: Props) => {
     isRefreshing,
   } = useApiInfiniteVer1(
     fetchLeaderboardData,
-    { limit: LIMIT_PAGE, page: refParams.current.page },
+    {
+      limit: LIMIT_PAGE,
+      page: refParams.current.page,
+    },
     { revalidateOnFocus: true, refreshInterval: 10000 },
   );
 
   const renderLoading = () => <AppLoading />;
 
   const renderItem = (data: IUserContest, index: number) => {
+    // No need to render current user in the loop
+    if (index >= 0 && data.user_address === currentUserContest?.user_address) {
+      return null;
+    }
+
     const map = data.contest_problems?.reduce(
       (prev, item) => ({
         ...prev,
@@ -64,7 +74,7 @@ const Leaderboard = (props: Props) => {
 
     return (
       <div className={cn(s.item, s.table_group)}>
-        <Box className={s.first_col}>{index + 1}</Box>
+        <Box className={s.first_col}>{data.rank}</Box>
         <div className={cn(s.second_col, s.name)}>
           <Flex alignItems={'center'} gap="8px" style={{ overflow: 'hidden' }}>
             <Avatar
@@ -78,6 +88,10 @@ const Leaderboard = (props: Props) => {
               style={{
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
+                color:
+                  data.user_address === currentUserContest?.user_address
+                    ? '#8643FB'
+                    : 'inherit',
               }}
             >
               {data.user.name || data.user.twitter_username}
@@ -173,6 +187,7 @@ const Leaderboard = (props: Props) => {
           next={loadMore}
         >
           {isRefreshing && renderLoading()}
+          {!!currentUserContest && renderItem(currentUserContest, -1)}
           {(dataSource || []).map(renderItem)}
         </InfiniteScroll>
       )}

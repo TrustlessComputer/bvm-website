@@ -2,16 +2,24 @@
     margin-top: 20px;
     border-radius: 8px;
     border: 1px solid #232323;
-    background: rgba(13, 13, 19, 0.70);
-
+    background: rgba(13, 13, 19, 0.7);
 
     .header {
         border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         background: rgba(255, 255, 255, 0.05);
         padding: 14px 12px;
+
         display: flex;
-        align-items: center;
         justify-content: space-between;
+
+        .boxControl {
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 0.75;
+                cursor: pointer;
+            }
+        }
     }
 
     .body {
@@ -25,8 +33,8 @@
             }
 
             .chakra-tabs__tab {
-                color: #BDC3D1;
-                font-family: "Space Mono";
+                color: #bdc3d1;
+                font-family: 'Space Mono';
                 font-size: 11.569px;
                 font-style: normal;
                 font-weight: 700;
@@ -37,20 +45,17 @@
                 gap: 6px;
                 border-radius: 6.611px;
 
-
-
                 &[aria-selected='true'] {
-                    color: #FFF;
-                    border: 1px solid rgba(68, 68, 85, 0.60);
+                    color: #fff;
+                    border: 1px solid rgba(68, 68, 85, 0.6);
                     background: rgba(255, 255, 255, 0.05);
-
                 }
             }
         }
 
         .github {
-            color: #FFF;
-            font-family: "Space Mono";
+            color: #fff;
+            font-family: 'Space Mono';
             font-size: 11.569px;
             font-style: normal;
             font-weight: 700;
@@ -58,7 +63,6 @@
             border: 1px solid transparent;
             border-radius: 8px;
             transition: all 0.2s ease-in-out;
-
 
             &:hover {
                 border-color: white;

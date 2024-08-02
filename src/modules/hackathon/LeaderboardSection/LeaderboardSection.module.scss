@@ -2,8 +2,8 @@
     margin-bottom: 68px;
 
     .title {
-        color: #FFF;
-        font-family: "JetBrains Mono";
+        color: #fff;
+        font-family: 'JetBrains Mono';
         font-size: 60px;
         font-style: normal;
         font-weight: 500;
@@ -12,8 +12,8 @@
     }
 
     .desc {
-        color: #FFF;
-        font-family: "SF Pro Display";
+        color: #fff;
+        font-family: 'SF Pro Display';
         font-size: 20px;
         font-style: normal;
         font-weight: 400;
@@ -34,6 +34,9 @@
     // display: grid;
     // grid-template-columns: 1fr 1fr;
 
+    &.wrapper__column {
+        flex-direction: column;
+    }
 
     @include w-max(768px) {
         flex-direction: column;
@@ -42,8 +45,8 @@
     }
 
     h4 {
-        color: #FFF;
-        font-family: "JetBrains Mono";
+        color: #fff;
+        font-family: 'JetBrains Mono';
         font-size: 24px;
         font-style: normal;
         font-weight: 700;
@@ -52,6 +55,9 @@
         letter-spacing: 0.72px;
     }
 
+    //   .left {
+    //     flex: 0.5;
+    //   }
 
     .left {
         // flex: 0.5;

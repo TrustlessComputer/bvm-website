@@ -31,6 +31,7 @@ export type IUserContest = {
     name: string;
     twitter_username: string;
   };
+  rank: number;
 };
 export type IGetListLeaderboardResponse = {
   total_records: number;

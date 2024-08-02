@@ -5,11 +5,14 @@ import cn from 'classnames';
 import Leaderboard from './Leaderboard';
 import Problems from '../Problems';
 import { AnimatePresence, motion } from 'framer-motion';
+import { IUserContest } from '@/services/api/EternalServices/types';
 
-type Props = {};
+type Props = {
+  currentUserContest?: IUserContest;
+};
 
 const LeaderboardSection = (props: Props) => {
-  const [isProblemExpand, setIsProblemExpand] = useState(false);
+  const [isProblemPanelMaximized, setIsProblemPanelMaximized] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(true);
 
   return (
@@ -29,15 +32,15 @@ const LeaderboardSection = (props: Props) => {
               className={s.left}
               initial={false}
               animate={{
-                width: isProblemExpand ? '100%' : '50%',
+                width: isProblemPanelMaximized ? '100%' : '50%',
                 transition: {
                   type: 'keyframes',
-                  delay: isProblemExpand ? 0.4 : 0,
+                  delay: isProblemPanelMaximized ? 0.4 : 0,
                   duration: 0.5,
                 },
               }}
               onAnimationComplete={() => {
-                if (!isProblemExpand) {
+                if (!isProblemPanelMaximized) {
                   setShowLeaderboard(true);
                 }
               }}
@@ -47,8 +50,8 @@ const LeaderboardSection = (props: Props) => {
             >
               <h4>Problems</h4>
               <Problems
-                isProblemExpand={isProblemExpand}
-                setIsProblemExpand={setIsProblemExpand}
+                isProblemPanelMaximized={isProblemPanelMaximized}
+                setIsProblemPanelMaximized={setIsProblemPanelMaximized}
                 setShowLeaderboard={setShowLeaderboard}
               />
             </Box>
