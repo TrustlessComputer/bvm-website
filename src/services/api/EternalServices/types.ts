@@ -30,6 +30,7 @@ export type IUserContest = {
     profile_image: string;
     name: string;
     twitter_username: string;
+    email: string;
   };
   rank: number;
 };
