@@ -294,7 +294,6 @@ export const dappMockupData: DappModel[] = [
             background: '#F8B200',
             key: 'address',
             title: 'Receiver Address',
-            previewTitle: 'Address',
             type: 'input',
             icon: '',
             value: '',
