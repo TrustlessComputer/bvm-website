@@ -108,22 +108,22 @@ const HackathonModule = (props: Props) => {
       login();
     }
 
-    dispatch(
-      openModal({
-        id: REGISTER_MODAL,
-        className: s.modalContent,
-        modalProps: {
-          size: 'xl',
-        },
-        theme: 'light',
-        render: () => (
-          <RegisterModal
-            userInfo={userInfo}
-            setIsRegistered={setIsRegistered}
-          />
-        ),
-      }),
-    );
+    // dispatch(
+    //   openModal({
+    //     id: REGISTER_MODAL,
+    //     className: s.modalContent,
+    //     modalProps: {
+    //       size: 'xl',
+    //     },
+    //     theme: 'light',
+    //     render: () => (
+    //       <RegisterModal
+    //         userInfo={userInfo}
+    //         setIsRegistered={setIsRegistered}
+    //       />
+    //     ),
+    //   }),
+    // );
   };
 
   const checkUserRegistered = async () => {
@@ -140,6 +140,7 @@ const HackathonModule = (props: Props) => {
   };
 
   const handleClickPractice = () => {
+    console.log('handleClickPractice');
     // scroll to #practice-section
     const practiceSection = document.getElementById('practice-section');
     if (practiceSection) {
@@ -213,14 +214,14 @@ const HackathonModule = (props: Props) => {
             >
               {/* <ButtonConnected title="Let's practice" className={s.reward_btn}> */}
               <button
-                className={cn(s.reward_btn, {
-                  [s.registered]: isRegistered,
-                })}
-                // onClick={handleOpenRegisterModal}
-                onClick={handleClickPractice}
-                disabled={isRegistered}
+                className={cn(s.reward_btn)}
+                onClick={
+                  loggedIn ? handleClickPractice : handleOpenRegisterModal
+                }
+                // onClick={handleClickPractice}
+                // disabled={isRegistered}
               >
-                {isRegistered ? 'Registered' : "Let's practice"}
+                Let's practice
               </button>
               {/* </ButtonConnected> */}
 
