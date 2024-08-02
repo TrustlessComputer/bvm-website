@@ -82,6 +82,7 @@ const Input = ({
       onChange={handleInputChange}
       value={value}
       name={name}
+      id={name}
       placeholder={placeholder}
     />
   );

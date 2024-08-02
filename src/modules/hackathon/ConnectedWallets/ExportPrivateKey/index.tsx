@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useWeb3Auth } from '@/Providers/Web3Auth_vs2/Web3Auth.hook';
 import copy from 'copy-to-clipboard';
 import sleep from '@/utils/sleep';
+import { HACKATHON_NETWORK } from '../constants';
 export const EXPORT_PRIVATE_KEY_MODAL_ID = 'EXPORT_PRIVATE_KEY_MODAL_ID';
 
 export default function ExportPrivateKey() {
@@ -18,8 +19,31 @@ export default function ExportPrivateKey() {
         <div className={s.title}>Wallet</div>
         <div className={s.wallets}>
           <div className={s.box}>
-            <div className={s.box__label}>Address</div>
-            <div className={s.box__value}>{wallet?.address}</div>
+            <div className={s.box__label}>
+              Address
+              <span
+                className={s.copyIcon}
+                onClick={async () => {
+                  window.open(
+                    `${HACKATHON_NETWORK.blockExplorerUrls[0]}/address/${wallet?.address}`,
+                    '_blank',
+                  );
+                }}
+              >
+                <SvgInset size={16} svgUrl="/hackathon/ic-link-gray.svg" />
+              </span>
+            </div>
+            <div
+              className={s.box__value}
+              onClick={() => {
+                window.open(
+                  `${HACKATHON_NETWORK.blockExplorerUrls[0]}/address/${wallet?.address}`,
+                  '_blank',
+                );
+              }}
+            >
+              {wallet?.address}
+            </div>
           </div>
 
           <div className={s.box}>
